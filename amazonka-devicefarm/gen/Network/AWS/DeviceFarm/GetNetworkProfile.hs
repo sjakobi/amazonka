@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,130 +24,136 @@
 -- Returns information about a network profile.
 module Network.AWS.DeviceFarm.GetNetworkProfile
   ( -- * Creating a Request
-    getNetworkProfile,
-    GetNetworkProfile,
+    GetNetworkProfile (..),
+    newGetNetworkProfile,
 
     -- * Request Lenses
-    gnpArn,
+    getNetworkProfile_arn,
 
     -- * Destructuring the Response
-    getNetworkProfileResponse,
-    GetNetworkProfileResponse,
+    GetNetworkProfileResponse (..),
+    newGetNetworkProfileResponse,
 
     -- * Response Lenses
-    gnprrsNetworkProfile,
-    gnprrsResponseStatus,
+    getNetworkProfileResponse_networkProfile,
+    getNetworkProfileResponse_httpStatus,
   )
 where
 
 import Network.AWS.DeviceFarm.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DeviceFarm.Types.NetworkProfile
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getNetworkProfile' smart constructor.
-newtype GetNetworkProfile = GetNetworkProfile'
-  { _gnpArn ::
-      Text
+-- | /See:/ 'newGetNetworkProfile' smart constructor.
+data GetNetworkProfile = GetNetworkProfile'
+  { -- | The ARN of the network profile to return information about.
+    arn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetNetworkProfile' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetNetworkProfile' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gnpArn' - The ARN of the network profile to return information about.
-getNetworkProfile ::
-  -- | 'gnpArn'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'arn', 'getNetworkProfile_arn' - The ARN of the network profile to return information about.
+newGetNetworkProfile ::
+  -- | 'arn'
+  Prelude.Text ->
   GetNetworkProfile
-getNetworkProfile pArn_ =
-  GetNetworkProfile' {_gnpArn = pArn_}
+newGetNetworkProfile pArn_ =
+  GetNetworkProfile' {arn = pArn_}
 
 -- | The ARN of the network profile to return information about.
-gnpArn :: Lens' GetNetworkProfile Text
-gnpArn = lens _gnpArn (\s a -> s {_gnpArn = a})
+getNetworkProfile_arn :: Lens.Lens' GetNetworkProfile Prelude.Text
+getNetworkProfile_arn = Lens.lens (\GetNetworkProfile' {arn} -> arn) (\s@GetNetworkProfile' {} a -> s {arn = a} :: GetNetworkProfile)
 
-instance AWSRequest GetNetworkProfile where
+instance Prelude.AWSRequest GetNetworkProfile where
   type Rs GetNetworkProfile = GetNetworkProfileResponse
-  request = postJSON deviceFarm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetNetworkProfileResponse'
-            <$> (x .?> "networkProfile") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "networkProfile")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetNetworkProfile
+instance Prelude.Hashable GetNetworkProfile
 
-instance NFData GetNetworkProfile
+instance Prelude.NFData GetNetworkProfile
 
-instance ToHeaders GetNetworkProfile where
+instance Prelude.ToHeaders GetNetworkProfile where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "DeviceFarm_20150623.GetNetworkProfile" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "DeviceFarm_20150623.GetNetworkProfile" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetNetworkProfile where
+instance Prelude.ToJSON GetNetworkProfile where
   toJSON GetNetworkProfile' {..} =
-    object (catMaybes [Just ("arn" .= _gnpArn)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("arn" Prelude..= arn)]
+      )
 
-instance ToPath GetNetworkProfile where
-  toPath = const "/"
+instance Prelude.ToPath GetNetworkProfile where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetNetworkProfile where
-  toQuery = const mempty
+instance Prelude.ToQuery GetNetworkProfile where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getNetworkProfileResponse' smart constructor.
+-- | /See:/ 'newGetNetworkProfileResponse' smart constructor.
 data GetNetworkProfileResponse = GetNetworkProfileResponse'
-  { _gnprrsNetworkProfile ::
-      !( Maybe
-           NetworkProfile
-       ),
-    _gnprrsResponseStatus ::
-      !Int
+  { -- | The network profile.
+    networkProfile :: Prelude.Maybe NetworkProfile,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetNetworkProfileResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetNetworkProfileResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gnprrsNetworkProfile' - The network profile.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gnprrsResponseStatus' - -- | The response status code.
-getNetworkProfileResponse ::
-  -- | 'gnprrsResponseStatus'
-  Int ->
+-- 'networkProfile', 'getNetworkProfileResponse_networkProfile' - The network profile.
+--
+-- 'httpStatus', 'getNetworkProfileResponse_httpStatus' - The response's http status code.
+newGetNetworkProfileResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetNetworkProfileResponse
-getNetworkProfileResponse pResponseStatus_ =
+newGetNetworkProfileResponse pHttpStatus_ =
   GetNetworkProfileResponse'
-    { _gnprrsNetworkProfile =
-        Nothing,
-      _gnprrsResponseStatus = pResponseStatus_
+    { networkProfile =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The network profile.
-gnprrsNetworkProfile :: Lens' GetNetworkProfileResponse (Maybe NetworkProfile)
-gnprrsNetworkProfile = lens _gnprrsNetworkProfile (\s a -> s {_gnprrsNetworkProfile = a})
+getNetworkProfileResponse_networkProfile :: Lens.Lens' GetNetworkProfileResponse (Prelude.Maybe NetworkProfile)
+getNetworkProfileResponse_networkProfile = Lens.lens (\GetNetworkProfileResponse' {networkProfile} -> networkProfile) (\s@GetNetworkProfileResponse' {} a -> s {networkProfile = a} :: GetNetworkProfileResponse)
 
--- | -- | The response status code.
-gnprrsResponseStatus :: Lens' GetNetworkProfileResponse Int
-gnprrsResponseStatus = lens _gnprrsResponseStatus (\s a -> s {_gnprrsResponseStatus = a})
+-- | The response's http status code.
+getNetworkProfileResponse_httpStatus :: Lens.Lens' GetNetworkProfileResponse Prelude.Int
+getNetworkProfileResponse_httpStatus = Lens.lens (\GetNetworkProfileResponse' {httpStatus} -> httpStatus) (\s@GetNetworkProfileResponse' {} a -> s {httpStatus = a} :: GetNetworkProfileResponse)
 
-instance NFData GetNetworkProfileResponse
+instance Prelude.NFData GetNetworkProfileResponse

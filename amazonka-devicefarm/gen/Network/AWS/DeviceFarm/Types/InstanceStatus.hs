@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,63 +19,65 @@
 module Network.AWS.DeviceFarm.Types.InstanceStatus
   ( InstanceStatus
       ( ..,
-        ISAvailable,
-        ISInUse,
-        ISNotAvailable,
-        ISPreparing
+        InstanceStatusAVAILABLE,
+        InstanceStatusINUSE,
+        InstanceStatusNOTAVAILABLE,
+        InstanceStatusPREPARING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data InstanceStatus = InstanceStatus' (CI Text)
+newtype InstanceStatus = InstanceStatus'
+  { fromInstanceStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ISAvailable :: InstanceStatus
-pattern ISAvailable = InstanceStatus' "AVAILABLE"
+pattern InstanceStatusAVAILABLE :: InstanceStatus
+pattern InstanceStatusAVAILABLE = InstanceStatus' "AVAILABLE"
 
-pattern ISInUse :: InstanceStatus
-pattern ISInUse = InstanceStatus' "IN_USE"
+pattern InstanceStatusINUSE :: InstanceStatus
+pattern InstanceStatusINUSE = InstanceStatus' "IN_USE"
 
-pattern ISNotAvailable :: InstanceStatus
-pattern ISNotAvailable = InstanceStatus' "NOT_AVAILABLE"
+pattern InstanceStatusNOTAVAILABLE :: InstanceStatus
+pattern InstanceStatusNOTAVAILABLE = InstanceStatus' "NOT_AVAILABLE"
 
-pattern ISPreparing :: InstanceStatus
-pattern ISPreparing = InstanceStatus' "PREPARING"
+pattern InstanceStatusPREPARING :: InstanceStatus
+pattern InstanceStatusPREPARING = InstanceStatus' "PREPARING"
 
 {-# COMPLETE
-  ISAvailable,
-  ISInUse,
-  ISNotAvailable,
-  ISPreparing,
+  InstanceStatusAVAILABLE,
+  InstanceStatusINUSE,
+  InstanceStatusNOTAVAILABLE,
+  InstanceStatusPREPARING,
   InstanceStatus'
   #-}
 
-instance FromText InstanceStatus where
-  parser = (InstanceStatus' . mk) <$> takeText
+instance Prelude.FromText InstanceStatus where
+  parser = InstanceStatus' Prelude.<$> Prelude.takeText
 
-instance ToText InstanceStatus where
-  toText (InstanceStatus' ci) = original ci
+instance Prelude.ToText InstanceStatus where
+  toText (InstanceStatus' x) = x
 
-instance Hashable InstanceStatus
+instance Prelude.Hashable InstanceStatus
 
-instance NFData InstanceStatus
+instance Prelude.NFData InstanceStatus
 
-instance ToByteString InstanceStatus
+instance Prelude.ToByteString InstanceStatus
 
-instance ToQuery InstanceStatus
+instance Prelude.ToQuery InstanceStatus
 
-instance ToHeader InstanceStatus
+instance Prelude.ToHeader InstanceStatus
 
-instance FromJSON InstanceStatus where
-  parseJSON = parseJSONText "InstanceStatus"
+instance Prelude.FromJSON InstanceStatus where
+  parseJSON = Prelude.parseJSONText "InstanceStatus"

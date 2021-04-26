@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,128 +21,135 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a device pool given the pool ARN. Does not allow deletion of curated pools owned by the system.
+-- Deletes a device pool given the pool ARN. Does not allow deletion of
+-- curated pools owned by the system.
 module Network.AWS.DeviceFarm.DeleteDevicePool
   ( -- * Creating a Request
-    deleteDevicePool,
-    DeleteDevicePool,
+    DeleteDevicePool (..),
+    newDeleteDevicePool,
 
     -- * Request Lenses
-    ddpArn,
+    deleteDevicePool_arn,
 
     -- * Destructuring the Response
-    deleteDevicePoolResponse,
-    DeleteDevicePoolResponse,
+    DeleteDevicePoolResponse (..),
+    newDeleteDevicePoolResponse,
 
     -- * Response Lenses
-    ddprrsResponseStatus,
+    deleteDevicePoolResponse_httpStatus,
   )
 where
 
 import Network.AWS.DeviceFarm.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents a request to the delete device pool operation.
 --
---
---
--- /See:/ 'deleteDevicePool' smart constructor.
-newtype DeleteDevicePool = DeleteDevicePool'
-  { _ddpArn ::
-      Text
+-- /See:/ 'newDeleteDevicePool' smart constructor.
+data DeleteDevicePool = DeleteDevicePool'
+  { -- | Represents the Amazon Resource Name (ARN) of the Device Farm device pool
+    -- to delete.
+    arn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteDevicePool' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteDevicePool' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddpArn' - Represents the Amazon Resource Name (ARN) of the Device Farm device pool to delete.
-deleteDevicePool ::
-  -- | 'ddpArn'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'arn', 'deleteDevicePool_arn' - Represents the Amazon Resource Name (ARN) of the Device Farm device pool
+-- to delete.
+newDeleteDevicePool ::
+  -- | 'arn'
+  Prelude.Text ->
   DeleteDevicePool
-deleteDevicePool pArn_ =
-  DeleteDevicePool' {_ddpArn = pArn_}
+newDeleteDevicePool pArn_ =
+  DeleteDevicePool' {arn = pArn_}
 
--- | Represents the Amazon Resource Name (ARN) of the Device Farm device pool to delete.
-ddpArn :: Lens' DeleteDevicePool Text
-ddpArn = lens _ddpArn (\s a -> s {_ddpArn = a})
+-- | Represents the Amazon Resource Name (ARN) of the Device Farm device pool
+-- to delete.
+deleteDevicePool_arn :: Lens.Lens' DeleteDevicePool Prelude.Text
+deleteDevicePool_arn = Lens.lens (\DeleteDevicePool' {arn} -> arn) (\s@DeleteDevicePool' {} a -> s {arn = a} :: DeleteDevicePool)
 
-instance AWSRequest DeleteDevicePool where
+instance Prelude.AWSRequest DeleteDevicePool where
   type Rs DeleteDevicePool = DeleteDevicePoolResponse
-  request = postJSON deviceFarm
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          DeleteDevicePoolResponse' <$> (pure (fromEnum s))
+          DeleteDevicePoolResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteDevicePool
+instance Prelude.Hashable DeleteDevicePool
 
-instance NFData DeleteDevicePool
+instance Prelude.NFData DeleteDevicePool
 
-instance ToHeaders DeleteDevicePool where
+instance Prelude.ToHeaders DeleteDevicePool where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "DeviceFarm_20150623.DeleteDevicePool" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "DeviceFarm_20150623.DeleteDevicePool" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteDevicePool where
+instance Prelude.ToJSON DeleteDevicePool where
   toJSON DeleteDevicePool' {..} =
-    object (catMaybes [Just ("arn" .= _ddpArn)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("arn" Prelude..= arn)]
+      )
 
-instance ToPath DeleteDevicePool where
-  toPath = const "/"
+instance Prelude.ToPath DeleteDevicePool where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteDevicePool where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteDevicePool where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the result of a delete device pool request.
 --
---
---
--- /See:/ 'deleteDevicePoolResponse' smart constructor.
-newtype DeleteDevicePoolResponse = DeleteDevicePoolResponse'
-  { _ddprrsResponseStatus ::
-      Int
+-- /See:/ 'newDeleteDevicePoolResponse' smart constructor.
+data DeleteDevicePoolResponse = DeleteDevicePoolResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteDevicePoolResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteDevicePoolResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddprrsResponseStatus' - -- | The response status code.
-deleteDevicePoolResponse ::
-  -- | 'ddprrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteDevicePoolResponse_httpStatus' - The response's http status code.
+newDeleteDevicePoolResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteDevicePoolResponse
-deleteDevicePoolResponse pResponseStatus_ =
+newDeleteDevicePoolResponse pHttpStatus_ =
   DeleteDevicePoolResponse'
-    { _ddprrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-ddprrsResponseStatus :: Lens' DeleteDevicePoolResponse Int
-ddprrsResponseStatus = lens _ddprrsResponseStatus (\s a -> s {_ddprrsResponseStatus = a})
+-- | The response's http status code.
+deleteDevicePoolResponse_httpStatus :: Lens.Lens' DeleteDevicePoolResponse Prelude.Int
+deleteDevicePoolResponse_httpStatus = Lens.lens (\DeleteDevicePoolResponse' {httpStatus} -> httpStatus) (\s@DeleteDevicePoolResponse' {} a -> s {httpStatus = a} :: DeleteDevicePoolResponse)
 
-instance NFData DeleteDevicePoolResponse
+instance Prelude.NFData DeleteDevicePoolResponse

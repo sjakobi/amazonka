@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,126 +23,130 @@
 --
 -- Deletes an AWS Device Farm project, given the project ARN.
 --
---
 -- Deleting this resource does not stop an in-progress run.
 module Network.AWS.DeviceFarm.DeleteProject
   ( -- * Creating a Request
-    deleteProject,
-    DeleteProject,
+    DeleteProject (..),
+    newDeleteProject,
 
     -- * Request Lenses
-    delArn,
+    deleteProject_arn,
 
     -- * Destructuring the Response
-    deleteProjectResponse,
-    DeleteProjectResponse,
+    DeleteProjectResponse (..),
+    newDeleteProjectResponse,
 
     -- * Response Lenses
-    dprrsResponseStatus,
+    deleteProjectResponse_httpStatus,
   )
 where
 
 import Network.AWS.DeviceFarm.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents a request to the delete project operation.
 --
---
---
--- /See:/ 'deleteProject' smart constructor.
-newtype DeleteProject = DeleteProject'
-  { _delArn ::
-      Text
+-- /See:/ 'newDeleteProject' smart constructor.
+data DeleteProject = DeleteProject'
+  { -- | Represents the Amazon Resource Name (ARN) of the Device Farm project to
+    -- delete.
+    arn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteProject' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteProject' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'delArn' - Represents the Amazon Resource Name (ARN) of the Device Farm project to delete.
-deleteProject ::
-  -- | 'delArn'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'arn', 'deleteProject_arn' - Represents the Amazon Resource Name (ARN) of the Device Farm project to
+-- delete.
+newDeleteProject ::
+  -- | 'arn'
+  Prelude.Text ->
   DeleteProject
-deleteProject pArn_ = DeleteProject' {_delArn = pArn_}
+newDeleteProject pArn_ = DeleteProject' {arn = pArn_}
 
--- | Represents the Amazon Resource Name (ARN) of the Device Farm project to delete.
-delArn :: Lens' DeleteProject Text
-delArn = lens _delArn (\s a -> s {_delArn = a})
+-- | Represents the Amazon Resource Name (ARN) of the Device Farm project to
+-- delete.
+deleteProject_arn :: Lens.Lens' DeleteProject Prelude.Text
+deleteProject_arn = Lens.lens (\DeleteProject' {arn} -> arn) (\s@DeleteProject' {} a -> s {arn = a} :: DeleteProject)
 
-instance AWSRequest DeleteProject where
+instance Prelude.AWSRequest DeleteProject where
   type Rs DeleteProject = DeleteProjectResponse
-  request = postJSON deviceFarm
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          DeleteProjectResponse' <$> (pure (fromEnum s))
+          DeleteProjectResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteProject
+instance Prelude.Hashable DeleteProject
 
-instance NFData DeleteProject
+instance Prelude.NFData DeleteProject
 
-instance ToHeaders DeleteProject where
+instance Prelude.ToHeaders DeleteProject where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("DeviceFarm_20150623.DeleteProject" :: ByteString),
+              Prelude.=# ( "DeviceFarm_20150623.DeleteProject" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteProject where
+instance Prelude.ToJSON DeleteProject where
   toJSON DeleteProject' {..} =
-    object (catMaybes [Just ("arn" .= _delArn)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("arn" Prelude..= arn)]
+      )
 
-instance ToPath DeleteProject where
-  toPath = const "/"
+instance Prelude.ToPath DeleteProject where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteProject where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteProject where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the result of a delete project request.
 --
---
---
--- /See:/ 'deleteProjectResponse' smart constructor.
-newtype DeleteProjectResponse = DeleteProjectResponse'
-  { _dprrsResponseStatus ::
-      Int
+-- /See:/ 'newDeleteProjectResponse' smart constructor.
+data DeleteProjectResponse = DeleteProjectResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteProjectResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteProjectResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dprrsResponseStatus' - -- | The response status code.
-deleteProjectResponse ::
-  -- | 'dprrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteProjectResponse_httpStatus' - The response's http status code.
+newDeleteProjectResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteProjectResponse
-deleteProjectResponse pResponseStatus_ =
-  DeleteProjectResponse'
-    { _dprrsResponseStatus =
-        pResponseStatus_
-    }
+newDeleteProjectResponse pHttpStatus_ =
+  DeleteProjectResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-dprrsResponseStatus :: Lens' DeleteProjectResponse Int
-dprrsResponseStatus = lens _dprrsResponseStatus (\s a -> s {_dprrsResponseStatus = a})
+-- | The response's http status code.
+deleteProjectResponse_httpStatus :: Lens.Lens' DeleteProjectResponse Prelude.Int
+deleteProjectResponse_httpStatus = Lens.lens (\DeleteProjectResponse' {httpStatus} -> httpStatus) (\s@DeleteProjectResponse' {} a -> s {httpStatus = a} :: DeleteProjectResponse)
 
-instance NFData DeleteProjectResponse
+instance Prelude.NFData DeleteProjectResponse

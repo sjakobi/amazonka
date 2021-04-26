@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,72 +20,73 @@
 module Network.AWS.DeviceFarm.Types.DeviceSelectionResult where
 
 import Network.AWS.DeviceFarm.Types.DeviceFilter
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains the run results requested by the device selection configuration and how many devices were returned. For an example of the JSON response syntax, see 'ScheduleRun' .
+-- | Contains the run results requested by the device selection configuration
+-- and how many devices were returned. For an example of the JSON response
+-- syntax, see ScheduleRun.
 --
---
---
--- /See:/ 'deviceSelectionResult' smart constructor.
+-- /See:/ 'newDeviceSelectionResult' smart constructor.
 data DeviceSelectionResult = DeviceSelectionResult'
-  { _dsrMaxDevices ::
-      !(Maybe Int),
-    _dsrFilters ::
-      !(Maybe [DeviceFilter]),
-    _dsrMatchedDevicesCount ::
-      !(Maybe Int)
+  { -- | The maximum number of devices to be selected by a device filter and
+    -- included in a test run.
+    maxDevices :: Prelude.Maybe Prelude.Int,
+    -- | The filters in a device selection result.
+    filters :: Prelude.Maybe [DeviceFilter],
+    -- | The number of devices that matched the device filter selection criteria.
+    matchedDevicesCount :: Prelude.Maybe Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeviceSelectionResult' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeviceSelectionResult' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsrMaxDevices' - The maximum number of devices to be selected by a device filter and included in a test run.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsrFilters' - The filters in a device selection result.
+-- 'maxDevices', 'deviceSelectionResult_maxDevices' - The maximum number of devices to be selected by a device filter and
+-- included in a test run.
 --
--- * 'dsrMatchedDevicesCount' - The number of devices that matched the device filter selection criteria.
-deviceSelectionResult ::
+-- 'filters', 'deviceSelectionResult_filters' - The filters in a device selection result.
+--
+-- 'matchedDevicesCount', 'deviceSelectionResult_matchedDevicesCount' - The number of devices that matched the device filter selection criteria.
+newDeviceSelectionResult ::
   DeviceSelectionResult
-deviceSelectionResult =
+newDeviceSelectionResult =
   DeviceSelectionResult'
-    { _dsrMaxDevices = Nothing,
-      _dsrFilters = Nothing,
-      _dsrMatchedDevicesCount = Nothing
+    { maxDevices =
+        Prelude.Nothing,
+      filters = Prelude.Nothing,
+      matchedDevicesCount = Prelude.Nothing
     }
 
--- | The maximum number of devices to be selected by a device filter and included in a test run.
-dsrMaxDevices :: Lens' DeviceSelectionResult (Maybe Int)
-dsrMaxDevices = lens _dsrMaxDevices (\s a -> s {_dsrMaxDevices = a})
+-- | The maximum number of devices to be selected by a device filter and
+-- included in a test run.
+deviceSelectionResult_maxDevices :: Lens.Lens' DeviceSelectionResult (Prelude.Maybe Prelude.Int)
+deviceSelectionResult_maxDevices = Lens.lens (\DeviceSelectionResult' {maxDevices} -> maxDevices) (\s@DeviceSelectionResult' {} a -> s {maxDevices = a} :: DeviceSelectionResult)
 
 -- | The filters in a device selection result.
-dsrFilters :: Lens' DeviceSelectionResult [DeviceFilter]
-dsrFilters = lens _dsrFilters (\s a -> s {_dsrFilters = a}) . _Default . _Coerce
+deviceSelectionResult_filters :: Lens.Lens' DeviceSelectionResult (Prelude.Maybe [DeviceFilter])
+deviceSelectionResult_filters = Lens.lens (\DeviceSelectionResult' {filters} -> filters) (\s@DeviceSelectionResult' {} a -> s {filters = a} :: DeviceSelectionResult) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The number of devices that matched the device filter selection criteria.
-dsrMatchedDevicesCount :: Lens' DeviceSelectionResult (Maybe Int)
-dsrMatchedDevicesCount = lens _dsrMatchedDevicesCount (\s a -> s {_dsrMatchedDevicesCount = a})
+deviceSelectionResult_matchedDevicesCount :: Lens.Lens' DeviceSelectionResult (Prelude.Maybe Prelude.Int)
+deviceSelectionResult_matchedDevicesCount = Lens.lens (\DeviceSelectionResult' {matchedDevicesCount} -> matchedDevicesCount) (\s@DeviceSelectionResult' {} a -> s {matchedDevicesCount = a} :: DeviceSelectionResult)
 
-instance FromJSON DeviceSelectionResult where
+instance Prelude.FromJSON DeviceSelectionResult where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DeviceSelectionResult"
       ( \x ->
           DeviceSelectionResult'
-            <$> (x .:? "maxDevices")
-            <*> (x .:? "filters" .!= mempty)
-            <*> (x .:? "matchedDevicesCount")
+            Prelude.<$> (x Prelude..:? "maxDevices")
+            Prelude.<*> (x Prelude..:? "filters" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "matchedDevicesCount")
       )
 
-instance Hashable DeviceSelectionResult
+instance Prelude.Hashable DeviceSelectionResult
 
-instance NFData DeviceSelectionResult
+instance Prelude.NFData DeviceSelectionResult

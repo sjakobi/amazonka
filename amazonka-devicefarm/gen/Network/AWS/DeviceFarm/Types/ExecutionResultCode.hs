@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.DeviceFarm.Types.ExecutionResultCode
   ( ExecutionResultCode
       ( ..,
-        ParsingFailed,
-        VPCEndpointSetupFailed
+        ExecutionResultCodePARSINGFAILED,
+        ExecutionResultCodeVPCENDPOINTSETUPFAILED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ExecutionResultCode
-  = ExecutionResultCode'
-      ( CI
-          Text
-      )
+newtype ExecutionResultCode = ExecutionResultCode'
+  { fromExecutionResultCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ParsingFailed :: ExecutionResultCode
-pattern ParsingFailed = ExecutionResultCode' "PARSING_FAILED"
+pattern ExecutionResultCodePARSINGFAILED :: ExecutionResultCode
+pattern ExecutionResultCodePARSINGFAILED = ExecutionResultCode' "PARSING_FAILED"
 
-pattern VPCEndpointSetupFailed :: ExecutionResultCode
-pattern VPCEndpointSetupFailed = ExecutionResultCode' "VPC_ENDPOINT_SETUP_FAILED"
+pattern ExecutionResultCodeVPCENDPOINTSETUPFAILED :: ExecutionResultCode
+pattern ExecutionResultCodeVPCENDPOINTSETUPFAILED = ExecutionResultCode' "VPC_ENDPOINT_SETUP_FAILED"
 
 {-# COMPLETE
-  ParsingFailed,
-  VPCEndpointSetupFailed,
+  ExecutionResultCodePARSINGFAILED,
+  ExecutionResultCodeVPCENDPOINTSETUPFAILED,
   ExecutionResultCode'
   #-}
 
-instance FromText ExecutionResultCode where
-  parser = (ExecutionResultCode' . mk) <$> takeText
+instance Prelude.FromText ExecutionResultCode where
+  parser = ExecutionResultCode' Prelude.<$> Prelude.takeText
 
-instance ToText ExecutionResultCode where
-  toText (ExecutionResultCode' ci) = original ci
+instance Prelude.ToText ExecutionResultCode where
+  toText (ExecutionResultCode' x) = x
 
-instance Hashable ExecutionResultCode
+instance Prelude.Hashable ExecutionResultCode
 
-instance NFData ExecutionResultCode
+instance Prelude.NFData ExecutionResultCode
 
-instance ToByteString ExecutionResultCode
+instance Prelude.ToByteString ExecutionResultCode
 
-instance ToQuery ExecutionResultCode
+instance Prelude.ToQuery ExecutionResultCode
 
-instance ToHeader ExecutionResultCode
+instance Prelude.ToHeader ExecutionResultCode
 
-instance FromJSON ExecutionResultCode where
-  parseJSON = parseJSONText "ExecutionResultCode"
+instance Prelude.FromJSON ExecutionResultCode where
+  parseJSON = Prelude.parseJSONText "ExecutionResultCode"

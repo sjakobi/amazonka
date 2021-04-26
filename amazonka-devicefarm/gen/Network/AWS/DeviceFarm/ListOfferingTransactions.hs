@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,175 +21,206 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns a list of all historical purchases, renewals, and system renewal transactions for an AWS account. The list is paginated and ordered by a descending timestamp (most recent transactions are first). The API returns a @NotEligible@ error if the user is not permitted to invoke the operation. If you must be able to invoke this operation, contact <mailto:aws-devicefarm-support@amazon.com aws-devicefarm-support@amazon.com> .
---
---
+-- Returns a list of all historical purchases, renewals, and system renewal
+-- transactions for an AWS account. The list is paginated and ordered by a
+-- descending timestamp (most recent transactions are first). The API
+-- returns a @NotEligible@ error if the user is not permitted to invoke the
+-- operation. If you must be able to invoke this operation, contact
+-- <mailto:aws-devicefarm-support@amazon.com aws-devicefarm-support\@amazon.com>.
 --
 -- This operation returns paginated results.
 module Network.AWS.DeviceFarm.ListOfferingTransactions
   ( -- * Creating a Request
-    listOfferingTransactions,
-    ListOfferingTransactions,
+    ListOfferingTransactions (..),
+    newListOfferingTransactions,
 
     -- * Request Lenses
-    lotNextToken,
+    listOfferingTransactions_nextToken,
 
     -- * Destructuring the Response
-    listOfferingTransactionsResponse,
-    ListOfferingTransactionsResponse,
+    ListOfferingTransactionsResponse (..),
+    newListOfferingTransactionsResponse,
 
     -- * Response Lenses
-    lotrrsOfferingTransactions,
-    lotrrsNextToken,
-    lotrrsResponseStatus,
+    listOfferingTransactionsResponse_offeringTransactions,
+    listOfferingTransactionsResponse_nextToken,
+    listOfferingTransactionsResponse_httpStatus,
   )
 where
 
 import Network.AWS.DeviceFarm.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DeviceFarm.Types.OfferingTransaction
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the request to list the offering transaction history.
 --
---
---
--- /See:/ 'listOfferingTransactions' smart constructor.
-newtype ListOfferingTransactions = ListOfferingTransactions'
-  { _lotNextToken ::
-      Maybe Text
+-- /See:/ 'newListOfferingTransactions' smart constructor.
+data ListOfferingTransactions = ListOfferingTransactions'
+  { -- | An identifier that was returned from the previous call to this
+    -- operation, which can be used to return the next set of items in the
+    -- list.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListOfferingTransactions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListOfferingTransactions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lotNextToken' - An identifier that was returned from the previous call to this operation, which can be used to return the next set of items in the list.
-listOfferingTransactions ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'nextToken', 'listOfferingTransactions_nextToken' - An identifier that was returned from the previous call to this
+-- operation, which can be used to return the next set of items in the
+-- list.
+newListOfferingTransactions ::
   ListOfferingTransactions
-listOfferingTransactions =
-  ListOfferingTransactions' {_lotNextToken = Nothing}
+newListOfferingTransactions =
+  ListOfferingTransactions'
+    { nextToken =
+        Prelude.Nothing
+    }
 
--- | An identifier that was returned from the previous call to this operation, which can be used to return the next set of items in the list.
-lotNextToken :: Lens' ListOfferingTransactions (Maybe Text)
-lotNextToken = lens _lotNextToken (\s a -> s {_lotNextToken = a})
+-- | An identifier that was returned from the previous call to this
+-- operation, which can be used to return the next set of items in the
+-- list.
+listOfferingTransactions_nextToken :: Lens.Lens' ListOfferingTransactions (Prelude.Maybe Prelude.Text)
+listOfferingTransactions_nextToken = Lens.lens (\ListOfferingTransactions' {nextToken} -> nextToken) (\s@ListOfferingTransactions' {} a -> s {nextToken = a} :: ListOfferingTransactions)
 
-instance AWSPager ListOfferingTransactions where
+instance Pager.AWSPager ListOfferingTransactions where
   page rq rs
-    | stop (rs ^. lotrrsNextToken) = Nothing
-    | stop (rs ^. lotrrsOfferingTransactions) = Nothing
-    | otherwise =
-      Just $ rq & lotNextToken .~ rs ^. lotrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listOfferingTransactionsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listOfferingTransactionsResponse_offeringTransactions
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listOfferingTransactions_nextToken
+          Lens..~ rs
+          Lens.^? listOfferingTransactionsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListOfferingTransactions where
+instance Prelude.AWSRequest ListOfferingTransactions where
   type
     Rs ListOfferingTransactions =
       ListOfferingTransactionsResponse
-  request = postJSON deviceFarm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListOfferingTransactionsResponse'
-            <$> (x .?> "offeringTransactions" .!@ mempty)
-            <*> (x .?> "nextToken")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "offeringTransactions"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "nextToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListOfferingTransactions
+instance Prelude.Hashable ListOfferingTransactions
 
-instance NFData ListOfferingTransactions
+instance Prelude.NFData ListOfferingTransactions
 
-instance ToHeaders ListOfferingTransactions where
+instance Prelude.ToHeaders ListOfferingTransactions where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "DeviceFarm_20150623.ListOfferingTransactions" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "DeviceFarm_20150623.ListOfferingTransactions" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListOfferingTransactions where
+instance Prelude.ToJSON ListOfferingTransactions where
   toJSON ListOfferingTransactions' {..} =
-    object
-      (catMaybes [("nextToken" .=) <$> _lotNextToken])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("nextToken" Prelude..=) Prelude.<$> nextToken]
+      )
 
-instance ToPath ListOfferingTransactions where
-  toPath = const "/"
+instance Prelude.ToPath ListOfferingTransactions where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListOfferingTransactions where
-  toQuery = const mempty
+instance Prelude.ToQuery ListOfferingTransactions where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Returns the transaction log of the specified offerings.
 --
---
---
--- /See:/ 'listOfferingTransactionsResponse' smart constructor.
+-- /See:/ 'newListOfferingTransactionsResponse' smart constructor.
 data ListOfferingTransactionsResponse = ListOfferingTransactionsResponse'
-  { _lotrrsOfferingTransactions ::
-      !( Maybe
-           [OfferingTransaction]
-       ),
-    _lotrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _lotrrsResponseStatus ::
-      !Int
+  { -- | The audit log of subscriptions you have purchased and modified through
+    -- AWS Device Farm.
+    offeringTransactions :: Prelude.Maybe [OfferingTransaction],
+    -- | An identifier that was returned from the previous call to this
+    -- operation, which can be used to return the next set of items in the
+    -- list.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListOfferingTransactionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListOfferingTransactionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lotrrsOfferingTransactions' - The audit log of subscriptions you have purchased and modified through AWS Device Farm.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lotrrsNextToken' - An identifier that was returned from the previous call to this operation, which can be used to return the next set of items in the list.
+-- 'offeringTransactions', 'listOfferingTransactionsResponse_offeringTransactions' - The audit log of subscriptions you have purchased and modified through
+-- AWS Device Farm.
 --
--- * 'lotrrsResponseStatus' - -- | The response status code.
-listOfferingTransactionsResponse ::
-  -- | 'lotrrsResponseStatus'
-  Int ->
+-- 'nextToken', 'listOfferingTransactionsResponse_nextToken' - An identifier that was returned from the previous call to this
+-- operation, which can be used to return the next set of items in the
+-- list.
+--
+-- 'httpStatus', 'listOfferingTransactionsResponse_httpStatus' - The response's http status code.
+newListOfferingTransactionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListOfferingTransactionsResponse
-listOfferingTransactionsResponse pResponseStatus_ =
+newListOfferingTransactionsResponse pHttpStatus_ =
   ListOfferingTransactionsResponse'
-    { _lotrrsOfferingTransactions =
-        Nothing,
-      _lotrrsNextToken = Nothing,
-      _lotrrsResponseStatus = pResponseStatus_
+    { offeringTransactions =
+        Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The audit log of subscriptions you have purchased and modified through AWS Device Farm.
-lotrrsOfferingTransactions :: Lens' ListOfferingTransactionsResponse [OfferingTransaction]
-lotrrsOfferingTransactions = lens _lotrrsOfferingTransactions (\s a -> s {_lotrrsOfferingTransactions = a}) . _Default . _Coerce
+-- | The audit log of subscriptions you have purchased and modified through
+-- AWS Device Farm.
+listOfferingTransactionsResponse_offeringTransactions :: Lens.Lens' ListOfferingTransactionsResponse (Prelude.Maybe [OfferingTransaction])
+listOfferingTransactionsResponse_offeringTransactions = Lens.lens (\ListOfferingTransactionsResponse' {offeringTransactions} -> offeringTransactions) (\s@ListOfferingTransactionsResponse' {} a -> s {offeringTransactions = a} :: ListOfferingTransactionsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | An identifier that was returned from the previous call to this operation, which can be used to return the next set of items in the list.
-lotrrsNextToken :: Lens' ListOfferingTransactionsResponse (Maybe Text)
-lotrrsNextToken = lens _lotrrsNextToken (\s a -> s {_lotrrsNextToken = a})
+-- | An identifier that was returned from the previous call to this
+-- operation, which can be used to return the next set of items in the
+-- list.
+listOfferingTransactionsResponse_nextToken :: Lens.Lens' ListOfferingTransactionsResponse (Prelude.Maybe Prelude.Text)
+listOfferingTransactionsResponse_nextToken = Lens.lens (\ListOfferingTransactionsResponse' {nextToken} -> nextToken) (\s@ListOfferingTransactionsResponse' {} a -> s {nextToken = a} :: ListOfferingTransactionsResponse)
 
--- | -- | The response status code.
-lotrrsResponseStatus :: Lens' ListOfferingTransactionsResponse Int
-lotrrsResponseStatus = lens _lotrrsResponseStatus (\s a -> s {_lotrrsResponseStatus = a})
+-- | The response's http status code.
+listOfferingTransactionsResponse_httpStatus :: Lens.Lens' ListOfferingTransactionsResponse Prelude.Int
+listOfferingTransactionsResponse_httpStatus = Lens.lens (\ListOfferingTransactionsResponse' {httpStatus} -> httpStatus) (\s@ListOfferingTransactionsResponse' {} a -> s {httpStatus = a} :: ListOfferingTransactionsResponse)
 
-instance NFData ListOfferingTransactionsResponse
+instance
+  Prelude.NFData
+    ListOfferingTransactionsResponse

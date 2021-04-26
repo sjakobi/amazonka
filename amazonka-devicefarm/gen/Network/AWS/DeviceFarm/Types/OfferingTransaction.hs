@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,84 +21,88 @@ module Network.AWS.DeviceFarm.Types.OfferingTransaction where
 
 import Network.AWS.DeviceFarm.Types.MonetaryAmount
 import Network.AWS.DeviceFarm.Types.OfferingStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents the metadata of an offering transaction.
 --
---
---
--- /See:/ 'offeringTransaction' smart constructor.
+-- /See:/ 'newOfferingTransaction' smart constructor.
 data OfferingTransaction = OfferingTransaction'
-  { _otOfferingStatus ::
-      !(Maybe OfferingStatus),
-    _otCreatedOn :: !(Maybe POSIX),
-    _otCost ::
-      !(Maybe MonetaryAmount),
-    _otTransactionId ::
-      !(Maybe Text),
-    _otOfferingPromotionId ::
-      !(Maybe Text)
+  { -- | The status of an offering transaction.
+    offeringStatus :: Prelude.Maybe OfferingStatus,
+    -- | The date on which an offering transaction was created.
+    createdOn :: Prelude.Maybe Prelude.POSIX,
+    -- | The cost of an offering transaction.
+    cost :: Prelude.Maybe MonetaryAmount,
+    -- | The transaction ID of the offering transaction.
+    transactionId :: Prelude.Maybe Prelude.Text,
+    -- | The ID that corresponds to a device offering promotion.
+    offeringPromotionId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OfferingTransaction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OfferingTransaction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'otOfferingStatus' - The status of an offering transaction.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'otCreatedOn' - The date on which an offering transaction was created.
+-- 'offeringStatus', 'offeringTransaction_offeringStatus' - The status of an offering transaction.
 --
--- * 'otCost' - The cost of an offering transaction.
+-- 'createdOn', 'offeringTransaction_createdOn' - The date on which an offering transaction was created.
 --
--- * 'otTransactionId' - The transaction ID of the offering transaction.
+-- 'cost', 'offeringTransaction_cost' - The cost of an offering transaction.
 --
--- * 'otOfferingPromotionId' - The ID that corresponds to a device offering promotion.
-offeringTransaction ::
+-- 'transactionId', 'offeringTransaction_transactionId' - The transaction ID of the offering transaction.
+--
+-- 'offeringPromotionId', 'offeringTransaction_offeringPromotionId' - The ID that corresponds to a device offering promotion.
+newOfferingTransaction ::
   OfferingTransaction
-offeringTransaction =
+newOfferingTransaction =
   OfferingTransaction'
-    { _otOfferingStatus = Nothing,
-      _otCreatedOn = Nothing,
-      _otCost = Nothing,
-      _otTransactionId = Nothing,
-      _otOfferingPromotionId = Nothing
+    { offeringStatus =
+        Prelude.Nothing,
+      createdOn = Prelude.Nothing,
+      cost = Prelude.Nothing,
+      transactionId = Prelude.Nothing,
+      offeringPromotionId = Prelude.Nothing
     }
 
 -- | The status of an offering transaction.
-otOfferingStatus :: Lens' OfferingTransaction (Maybe OfferingStatus)
-otOfferingStatus = lens _otOfferingStatus (\s a -> s {_otOfferingStatus = a})
+offeringTransaction_offeringStatus :: Lens.Lens' OfferingTransaction (Prelude.Maybe OfferingStatus)
+offeringTransaction_offeringStatus = Lens.lens (\OfferingTransaction' {offeringStatus} -> offeringStatus) (\s@OfferingTransaction' {} a -> s {offeringStatus = a} :: OfferingTransaction)
 
 -- | The date on which an offering transaction was created.
-otCreatedOn :: Lens' OfferingTransaction (Maybe UTCTime)
-otCreatedOn = lens _otCreatedOn (\s a -> s {_otCreatedOn = a}) . mapping _Time
+offeringTransaction_createdOn :: Lens.Lens' OfferingTransaction (Prelude.Maybe Prelude.UTCTime)
+offeringTransaction_createdOn = Lens.lens (\OfferingTransaction' {createdOn} -> createdOn) (\s@OfferingTransaction' {} a -> s {createdOn = a} :: OfferingTransaction) Prelude.. Lens.mapping Prelude._Time
 
 -- | The cost of an offering transaction.
-otCost :: Lens' OfferingTransaction (Maybe MonetaryAmount)
-otCost = lens _otCost (\s a -> s {_otCost = a})
+offeringTransaction_cost :: Lens.Lens' OfferingTransaction (Prelude.Maybe MonetaryAmount)
+offeringTransaction_cost = Lens.lens (\OfferingTransaction' {cost} -> cost) (\s@OfferingTransaction' {} a -> s {cost = a} :: OfferingTransaction)
 
 -- | The transaction ID of the offering transaction.
-otTransactionId :: Lens' OfferingTransaction (Maybe Text)
-otTransactionId = lens _otTransactionId (\s a -> s {_otTransactionId = a})
+offeringTransaction_transactionId :: Lens.Lens' OfferingTransaction (Prelude.Maybe Prelude.Text)
+offeringTransaction_transactionId = Lens.lens (\OfferingTransaction' {transactionId} -> transactionId) (\s@OfferingTransaction' {} a -> s {transactionId = a} :: OfferingTransaction)
 
 -- | The ID that corresponds to a device offering promotion.
-otOfferingPromotionId :: Lens' OfferingTransaction (Maybe Text)
-otOfferingPromotionId = lens _otOfferingPromotionId (\s a -> s {_otOfferingPromotionId = a})
+offeringTransaction_offeringPromotionId :: Lens.Lens' OfferingTransaction (Prelude.Maybe Prelude.Text)
+offeringTransaction_offeringPromotionId = Lens.lens (\OfferingTransaction' {offeringPromotionId} -> offeringPromotionId) (\s@OfferingTransaction' {} a -> s {offeringPromotionId = a} :: OfferingTransaction)
 
-instance FromJSON OfferingTransaction where
+instance Prelude.FromJSON OfferingTransaction where
   parseJSON =
-    withObject
+    Prelude.withObject
       "OfferingTransaction"
       ( \x ->
           OfferingTransaction'
-            <$> (x .:? "offeringStatus")
-            <*> (x .:? "createdOn")
-            <*> (x .:? "cost")
-            <*> (x .:? "transactionId")
-            <*> (x .:? "offeringPromotionId")
+            Prelude.<$> (x Prelude..:? "offeringStatus")
+            Prelude.<*> (x Prelude..:? "createdOn")
+            Prelude.<*> (x Prelude..:? "cost")
+            Prelude.<*> (x Prelude..:? "transactionId")
+            Prelude.<*> (x Prelude..:? "offeringPromotionId")
       )
 
-instance Hashable OfferingTransaction
+instance Prelude.Hashable OfferingTransaction
 
-instance NFData OfferingTransaction
+instance Prelude.NFData OfferingTransaction

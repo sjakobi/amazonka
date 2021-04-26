@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -19,138 +23,157 @@ import Network.AWS.DeviceFarm.Types.BillingMethod
 import Network.AWS.DeviceFarm.Types.CustomerArtifactPaths
 import Network.AWS.DeviceFarm.Types.Location
 import Network.AWS.DeviceFarm.Types.Radios
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents the settings for a run. Includes things like location, radio states, auxiliary apps, and network profiles.
+-- | Represents the settings for a run. Includes things like location, radio
+-- states, auxiliary apps, and network profiles.
 --
---
---
--- /See:/ 'scheduleRunConfiguration' smart constructor.
+-- /See:/ 'newScheduleRunConfiguration' smart constructor.
 data ScheduleRunConfiguration = ScheduleRunConfiguration'
-  { _srcLocale ::
-      !(Maybe Text),
-    _srcAuxiliaryApps ::
-      !(Maybe [Text]),
-    _srcRadios ::
-      !(Maybe Radios),
-    _srcBillingMethod ::
-      !( Maybe
-           BillingMethod
-       ),
-    _srcCustomerArtifactPaths ::
-      !( Maybe
-           CustomerArtifactPaths
-       ),
-    _srcVpceConfigurationARNs ::
-      !(Maybe [Text]),
-    _srcNetworkProfileARN ::
-      !(Maybe Text),
-    _srcLocation ::
-      !(Maybe Location),
-    _srcExtraDataPackageARN ::
-      !(Maybe Text)
+  { -- | Information about the locale that is used for the run.
+    locale :: Prelude.Maybe Prelude.Text,
+    -- | A list of upload ARNs for app packages to be installed with your app.
+    auxiliaryApps :: Prelude.Maybe [Prelude.Text],
+    -- | Information about the radio states for the run.
+    radios :: Prelude.Maybe Radios,
+    -- | Specifies the billing method for a test run: @metered@ or @unmetered@.
+    -- If the parameter is not specified, the default value is @metered@.
+    --
+    -- If you have purchased unmetered device slots, you must set this
+    -- parameter to @unmetered@ to make use of them. Otherwise, your run counts
+    -- against your metered time.
+    billingMethod :: Prelude.Maybe BillingMethod,
+    -- | Input @CustomerArtifactPaths@ object for the scheduled run
+    -- configuration.
+    customerArtifactPaths :: Prelude.Maybe CustomerArtifactPaths,
+    -- | An array of ARNs for your VPC endpoint configurations.
+    vpceConfigurationArns :: Prelude.Maybe [Prelude.Text],
+    -- | Reserved for internal use.
+    networkProfileArn :: Prelude.Maybe Prelude.Text,
+    -- | Information about the location that is used for the run.
+    location :: Prelude.Maybe Location,
+    -- | The ARN of the extra data for the run. The extra data is a .zip file
+    -- that AWS Device Farm extracts to external data for Android or the app\'s
+    -- sandbox for iOS.
+    extraDataPackageArn :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ScheduleRunConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ScheduleRunConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'srcLocale' - Information about the locale that is used for the run.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'srcAuxiliaryApps' - A list of upload ARNs for app packages to be installed with your app.
+-- 'locale', 'scheduleRunConfiguration_locale' - Information about the locale that is used for the run.
 --
--- * 'srcRadios' - Information about the radio states for the run.
+-- 'auxiliaryApps', 'scheduleRunConfiguration_auxiliaryApps' - A list of upload ARNs for app packages to be installed with your app.
 --
--- * 'srcBillingMethod' - Specifies the billing method for a test run: @metered@ or @unmetered@ . If the parameter is not specified, the default value is @metered@ .
+-- 'radios', 'scheduleRunConfiguration_radios' - Information about the radio states for the run.
 --
--- * 'srcCustomerArtifactPaths' - Input @CustomerArtifactPaths@ object for the scheduled run configuration.
+-- 'billingMethod', 'scheduleRunConfiguration_billingMethod' - Specifies the billing method for a test run: @metered@ or @unmetered@.
+-- If the parameter is not specified, the default value is @metered@.
 --
--- * 'srcVpceConfigurationARNs' - An array of ARNs for your VPC endpoint configurations.
+-- If you have purchased unmetered device slots, you must set this
+-- parameter to @unmetered@ to make use of them. Otherwise, your run counts
+-- against your metered time.
 --
--- * 'srcNetworkProfileARN' - Reserved for internal use.
+-- 'customerArtifactPaths', 'scheduleRunConfiguration_customerArtifactPaths' - Input @CustomerArtifactPaths@ object for the scheduled run
+-- configuration.
 --
--- * 'srcLocation' - Information about the location that is used for the run.
+-- 'vpceConfigurationArns', 'scheduleRunConfiguration_vpceConfigurationArns' - An array of ARNs for your VPC endpoint configurations.
 --
--- * 'srcExtraDataPackageARN' - The ARN of the extra data for the run. The extra data is a .zip file that AWS Device Farm extracts to external data for Android or the app's sandbox for iOS.
-scheduleRunConfiguration ::
+-- 'networkProfileArn', 'scheduleRunConfiguration_networkProfileArn' - Reserved for internal use.
+--
+-- 'location', 'scheduleRunConfiguration_location' - Information about the location that is used for the run.
+--
+-- 'extraDataPackageArn', 'scheduleRunConfiguration_extraDataPackageArn' - The ARN of the extra data for the run. The extra data is a .zip file
+-- that AWS Device Farm extracts to external data for Android or the app\'s
+-- sandbox for iOS.
+newScheduleRunConfiguration ::
   ScheduleRunConfiguration
-scheduleRunConfiguration =
+newScheduleRunConfiguration =
   ScheduleRunConfiguration'
-    { _srcLocale = Nothing,
-      _srcAuxiliaryApps = Nothing,
-      _srcRadios = Nothing,
-      _srcBillingMethod = Nothing,
-      _srcCustomerArtifactPaths = Nothing,
-      _srcVpceConfigurationARNs = Nothing,
-      _srcNetworkProfileARN = Nothing,
-      _srcLocation = Nothing,
-      _srcExtraDataPackageARN = Nothing
+    { locale = Prelude.Nothing,
+      auxiliaryApps = Prelude.Nothing,
+      radios = Prelude.Nothing,
+      billingMethod = Prelude.Nothing,
+      customerArtifactPaths = Prelude.Nothing,
+      vpceConfigurationArns = Prelude.Nothing,
+      networkProfileArn = Prelude.Nothing,
+      location = Prelude.Nothing,
+      extraDataPackageArn = Prelude.Nothing
     }
 
 -- | Information about the locale that is used for the run.
-srcLocale :: Lens' ScheduleRunConfiguration (Maybe Text)
-srcLocale = lens _srcLocale (\s a -> s {_srcLocale = a})
+scheduleRunConfiguration_locale :: Lens.Lens' ScheduleRunConfiguration (Prelude.Maybe Prelude.Text)
+scheduleRunConfiguration_locale = Lens.lens (\ScheduleRunConfiguration' {locale} -> locale) (\s@ScheduleRunConfiguration' {} a -> s {locale = a} :: ScheduleRunConfiguration)
 
 -- | A list of upload ARNs for app packages to be installed with your app.
-srcAuxiliaryApps :: Lens' ScheduleRunConfiguration [Text]
-srcAuxiliaryApps = lens _srcAuxiliaryApps (\s a -> s {_srcAuxiliaryApps = a}) . _Default . _Coerce
+scheduleRunConfiguration_auxiliaryApps :: Lens.Lens' ScheduleRunConfiguration (Prelude.Maybe [Prelude.Text])
+scheduleRunConfiguration_auxiliaryApps = Lens.lens (\ScheduleRunConfiguration' {auxiliaryApps} -> auxiliaryApps) (\s@ScheduleRunConfiguration' {} a -> s {auxiliaryApps = a} :: ScheduleRunConfiguration) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Information about the radio states for the run.
-srcRadios :: Lens' ScheduleRunConfiguration (Maybe Radios)
-srcRadios = lens _srcRadios (\s a -> s {_srcRadios = a})
+scheduleRunConfiguration_radios :: Lens.Lens' ScheduleRunConfiguration (Prelude.Maybe Radios)
+scheduleRunConfiguration_radios = Lens.lens (\ScheduleRunConfiguration' {radios} -> radios) (\s@ScheduleRunConfiguration' {} a -> s {radios = a} :: ScheduleRunConfiguration)
 
--- | Specifies the billing method for a test run: @metered@ or @unmetered@ . If the parameter is not specified, the default value is @metered@ .
-srcBillingMethod :: Lens' ScheduleRunConfiguration (Maybe BillingMethod)
-srcBillingMethod = lens _srcBillingMethod (\s a -> s {_srcBillingMethod = a})
+-- | Specifies the billing method for a test run: @metered@ or @unmetered@.
+-- If the parameter is not specified, the default value is @metered@.
+--
+-- If you have purchased unmetered device slots, you must set this
+-- parameter to @unmetered@ to make use of them. Otherwise, your run counts
+-- against your metered time.
+scheduleRunConfiguration_billingMethod :: Lens.Lens' ScheduleRunConfiguration (Prelude.Maybe BillingMethod)
+scheduleRunConfiguration_billingMethod = Lens.lens (\ScheduleRunConfiguration' {billingMethod} -> billingMethod) (\s@ScheduleRunConfiguration' {} a -> s {billingMethod = a} :: ScheduleRunConfiguration)
 
--- | Input @CustomerArtifactPaths@ object for the scheduled run configuration.
-srcCustomerArtifactPaths :: Lens' ScheduleRunConfiguration (Maybe CustomerArtifactPaths)
-srcCustomerArtifactPaths = lens _srcCustomerArtifactPaths (\s a -> s {_srcCustomerArtifactPaths = a})
+-- | Input @CustomerArtifactPaths@ object for the scheduled run
+-- configuration.
+scheduleRunConfiguration_customerArtifactPaths :: Lens.Lens' ScheduleRunConfiguration (Prelude.Maybe CustomerArtifactPaths)
+scheduleRunConfiguration_customerArtifactPaths = Lens.lens (\ScheduleRunConfiguration' {customerArtifactPaths} -> customerArtifactPaths) (\s@ScheduleRunConfiguration' {} a -> s {customerArtifactPaths = a} :: ScheduleRunConfiguration)
 
 -- | An array of ARNs for your VPC endpoint configurations.
-srcVpceConfigurationARNs :: Lens' ScheduleRunConfiguration [Text]
-srcVpceConfigurationARNs = lens _srcVpceConfigurationARNs (\s a -> s {_srcVpceConfigurationARNs = a}) . _Default . _Coerce
+scheduleRunConfiguration_vpceConfigurationArns :: Lens.Lens' ScheduleRunConfiguration (Prelude.Maybe [Prelude.Text])
+scheduleRunConfiguration_vpceConfigurationArns = Lens.lens (\ScheduleRunConfiguration' {vpceConfigurationArns} -> vpceConfigurationArns) (\s@ScheduleRunConfiguration' {} a -> s {vpceConfigurationArns = a} :: ScheduleRunConfiguration) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Reserved for internal use.
-srcNetworkProfileARN :: Lens' ScheduleRunConfiguration (Maybe Text)
-srcNetworkProfileARN = lens _srcNetworkProfileARN (\s a -> s {_srcNetworkProfileARN = a})
+scheduleRunConfiguration_networkProfileArn :: Lens.Lens' ScheduleRunConfiguration (Prelude.Maybe Prelude.Text)
+scheduleRunConfiguration_networkProfileArn = Lens.lens (\ScheduleRunConfiguration' {networkProfileArn} -> networkProfileArn) (\s@ScheduleRunConfiguration' {} a -> s {networkProfileArn = a} :: ScheduleRunConfiguration)
 
 -- | Information about the location that is used for the run.
-srcLocation :: Lens' ScheduleRunConfiguration (Maybe Location)
-srcLocation = lens _srcLocation (\s a -> s {_srcLocation = a})
+scheduleRunConfiguration_location :: Lens.Lens' ScheduleRunConfiguration (Prelude.Maybe Location)
+scheduleRunConfiguration_location = Lens.lens (\ScheduleRunConfiguration' {location} -> location) (\s@ScheduleRunConfiguration' {} a -> s {location = a} :: ScheduleRunConfiguration)
 
--- | The ARN of the extra data for the run. The extra data is a .zip file that AWS Device Farm extracts to external data for Android or the app's sandbox for iOS.
-srcExtraDataPackageARN :: Lens' ScheduleRunConfiguration (Maybe Text)
-srcExtraDataPackageARN = lens _srcExtraDataPackageARN (\s a -> s {_srcExtraDataPackageARN = a})
+-- | The ARN of the extra data for the run. The extra data is a .zip file
+-- that AWS Device Farm extracts to external data for Android or the app\'s
+-- sandbox for iOS.
+scheduleRunConfiguration_extraDataPackageArn :: Lens.Lens' ScheduleRunConfiguration (Prelude.Maybe Prelude.Text)
+scheduleRunConfiguration_extraDataPackageArn = Lens.lens (\ScheduleRunConfiguration' {extraDataPackageArn} -> extraDataPackageArn) (\s@ScheduleRunConfiguration' {} a -> s {extraDataPackageArn = a} :: ScheduleRunConfiguration)
 
-instance Hashable ScheduleRunConfiguration
+instance Prelude.Hashable ScheduleRunConfiguration
 
-instance NFData ScheduleRunConfiguration
+instance Prelude.NFData ScheduleRunConfiguration
 
-instance ToJSON ScheduleRunConfiguration where
+instance Prelude.ToJSON ScheduleRunConfiguration where
   toJSON ScheduleRunConfiguration' {..} =
-    object
-      ( catMaybes
-          [ ("locale" .=) <$> _srcLocale,
-            ("auxiliaryApps" .=) <$> _srcAuxiliaryApps,
-            ("radios" .=) <$> _srcRadios,
-            ("billingMethod" .=) <$> _srcBillingMethod,
-            ("customerArtifactPaths" .=)
-              <$> _srcCustomerArtifactPaths,
-            ("vpceConfigurationArns" .=)
-              <$> _srcVpceConfigurationARNs,
-            ("networkProfileArn" .=) <$> _srcNetworkProfileARN,
-            ("location" .=) <$> _srcLocation,
-            ("extraDataPackageArn" .=)
-              <$> _srcExtraDataPackageARN
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("locale" Prelude..=) Prelude.<$> locale,
+            ("auxiliaryApps" Prelude..=)
+              Prelude.<$> auxiliaryApps,
+            ("radios" Prelude..=) Prelude.<$> radios,
+            ("billingMethod" Prelude..=)
+              Prelude.<$> billingMethod,
+            ("customerArtifactPaths" Prelude..=)
+              Prelude.<$> customerArtifactPaths,
+            ("vpceConfigurationArns" Prelude..=)
+              Prelude.<$> vpceConfigurationArns,
+            ("networkProfileArn" Prelude..=)
+              Prelude.<$> networkProfileArn,
+            ("location" Prelude..=) Prelude.<$> location,
+            ("extraDataPackageArn" Prelude..=)
+              Prelude.<$> extraDataPackageArn
           ]
       )

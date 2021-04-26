@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,63 +19,65 @@
 module Network.AWS.DeviceFarm.Types.UploadStatus
   ( UploadStatus
       ( ..,
-        USFailed,
-        USInitialized,
-        USProcessing,
-        USSucceeded
+        UploadStatusFAILED,
+        UploadStatusINITIALIZED,
+        UploadStatusPROCESSING,
+        UploadStatusSUCCEEDED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data UploadStatus = UploadStatus' (CI Text)
+newtype UploadStatus = UploadStatus'
+  { fromUploadStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern USFailed :: UploadStatus
-pattern USFailed = UploadStatus' "FAILED"
+pattern UploadStatusFAILED :: UploadStatus
+pattern UploadStatusFAILED = UploadStatus' "FAILED"
 
-pattern USInitialized :: UploadStatus
-pattern USInitialized = UploadStatus' "INITIALIZED"
+pattern UploadStatusINITIALIZED :: UploadStatus
+pattern UploadStatusINITIALIZED = UploadStatus' "INITIALIZED"
 
-pattern USProcessing :: UploadStatus
-pattern USProcessing = UploadStatus' "PROCESSING"
+pattern UploadStatusPROCESSING :: UploadStatus
+pattern UploadStatusPROCESSING = UploadStatus' "PROCESSING"
 
-pattern USSucceeded :: UploadStatus
-pattern USSucceeded = UploadStatus' "SUCCEEDED"
+pattern UploadStatusSUCCEEDED :: UploadStatus
+pattern UploadStatusSUCCEEDED = UploadStatus' "SUCCEEDED"
 
 {-# COMPLETE
-  USFailed,
-  USInitialized,
-  USProcessing,
-  USSucceeded,
+  UploadStatusFAILED,
+  UploadStatusINITIALIZED,
+  UploadStatusPROCESSING,
+  UploadStatusSUCCEEDED,
   UploadStatus'
   #-}
 
-instance FromText UploadStatus where
-  parser = (UploadStatus' . mk) <$> takeText
+instance Prelude.FromText UploadStatus where
+  parser = UploadStatus' Prelude.<$> Prelude.takeText
 
-instance ToText UploadStatus where
-  toText (UploadStatus' ci) = original ci
+instance Prelude.ToText UploadStatus where
+  toText (UploadStatus' x) = x
 
-instance Hashable UploadStatus
+instance Prelude.Hashable UploadStatus
 
-instance NFData UploadStatus
+instance Prelude.NFData UploadStatus
 
-instance ToByteString UploadStatus
+instance Prelude.ToByteString UploadStatus
 
-instance ToQuery UploadStatus
+instance Prelude.ToQuery UploadStatus
 
-instance ToHeader UploadStatus
+instance Prelude.ToHeader UploadStatus
 
-instance FromJSON UploadStatus where
-  parseJSON = parseJSONText "UploadStatus"
+instance Prelude.FromJSON UploadStatus where
+  parseJSON = Prelude.parseJSONText "UploadStatus"

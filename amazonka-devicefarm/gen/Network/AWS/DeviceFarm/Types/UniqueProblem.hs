@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,53 +20,59 @@
 module Network.AWS.DeviceFarm.Types.UniqueProblem where
 
 import Network.AWS.DeviceFarm.Types.Problem
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A collection of one or more problems, grouped by their result.
 --
---
---
--- /See:/ 'uniqueProblem' smart constructor.
+-- /See:/ 'newUniqueProblem' smart constructor.
 data UniqueProblem = UniqueProblem'
-  { _upMessage ::
-      !(Maybe Text),
-    _upProblems :: !(Maybe [Problem])
+  { -- | A message about the unique problems\' result.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | Information about the problems.
+    problems :: Prelude.Maybe [Problem]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UniqueProblem' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UniqueProblem' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'upMessage' - A message about the unique problems' result.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'upProblems' - Information about the problems.
-uniqueProblem ::
+-- 'message', 'uniqueProblem_message' - A message about the unique problems\' result.
+--
+-- 'problems', 'uniqueProblem_problems' - Information about the problems.
+newUniqueProblem ::
   UniqueProblem
-uniqueProblem =
+newUniqueProblem =
   UniqueProblem'
-    { _upMessage = Nothing,
-      _upProblems = Nothing
+    { message = Prelude.Nothing,
+      problems = Prelude.Nothing
     }
 
--- | A message about the unique problems' result.
-upMessage :: Lens' UniqueProblem (Maybe Text)
-upMessage = lens _upMessage (\s a -> s {_upMessage = a})
+-- | A message about the unique problems\' result.
+uniqueProblem_message :: Lens.Lens' UniqueProblem (Prelude.Maybe Prelude.Text)
+uniqueProblem_message = Lens.lens (\UniqueProblem' {message} -> message) (\s@UniqueProblem' {} a -> s {message = a} :: UniqueProblem)
 
 -- | Information about the problems.
-upProblems :: Lens' UniqueProblem [Problem]
-upProblems = lens _upProblems (\s a -> s {_upProblems = a}) . _Default . _Coerce
+uniqueProblem_problems :: Lens.Lens' UniqueProblem (Prelude.Maybe [Problem])
+uniqueProblem_problems = Lens.lens (\UniqueProblem' {problems} -> problems) (\s@UniqueProblem' {} a -> s {problems = a} :: UniqueProblem) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON UniqueProblem where
+instance Prelude.FromJSON UniqueProblem where
   parseJSON =
-    withObject
+    Prelude.withObject
       "UniqueProblem"
       ( \x ->
           UniqueProblem'
-            <$> (x .:? "message") <*> (x .:? "problems" .!= mempty)
+            Prelude.<$> (x Prelude..:? "message")
+            Prelude.<*> ( x Prelude..:? "problems"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable UniqueProblem
+instance Prelude.Hashable UniqueProblem
 
-instance NFData UniqueProblem
+instance Prelude.NFData UniqueProblem

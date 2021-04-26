@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.DeviceFarm.Types.DevicePlatform
   ( DevicePlatform
       ( ..,
-        Android,
-        Ios
+        DevicePlatformANDROID,
+        DevicePlatformIOS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DevicePlatform = DevicePlatform' (CI Text)
+newtype DevicePlatform = DevicePlatform'
+  { fromDevicePlatform ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Android :: DevicePlatform
-pattern Android = DevicePlatform' "ANDROID"
+pattern DevicePlatformANDROID :: DevicePlatform
+pattern DevicePlatformANDROID = DevicePlatform' "ANDROID"
 
-pattern Ios :: DevicePlatform
-pattern Ios = DevicePlatform' "IOS"
+pattern DevicePlatformIOS :: DevicePlatform
+pattern DevicePlatformIOS = DevicePlatform' "IOS"
 
 {-# COMPLETE
-  Android,
-  Ios,
+  DevicePlatformANDROID,
+  DevicePlatformIOS,
   DevicePlatform'
   #-}
 
-instance FromText DevicePlatform where
-  parser = (DevicePlatform' . mk) <$> takeText
+instance Prelude.FromText DevicePlatform where
+  parser = DevicePlatform' Prelude.<$> Prelude.takeText
 
-instance ToText DevicePlatform where
-  toText (DevicePlatform' ci) = original ci
+instance Prelude.ToText DevicePlatform where
+  toText (DevicePlatform' x) = x
 
-instance Hashable DevicePlatform
+instance Prelude.Hashable DevicePlatform
 
-instance NFData DevicePlatform
+instance Prelude.NFData DevicePlatform
 
-instance ToByteString DevicePlatform
+instance Prelude.ToByteString DevicePlatform
 
-instance ToQuery DevicePlatform
+instance Prelude.ToQuery DevicePlatform
 
-instance ToHeader DevicePlatform
+instance Prelude.ToHeader DevicePlatform
 
-instance FromJSON DevicePlatform where
-  parseJSON = parseJSONText "DevicePlatform"
+instance Prelude.FromJSON DevicePlatform where
+  parseJSON = Prelude.parseJSONText "DevicePlatform"

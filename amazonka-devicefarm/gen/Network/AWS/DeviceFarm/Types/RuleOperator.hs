@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,86 +19,88 @@
 module Network.AWS.DeviceFarm.Types.RuleOperator
   ( RuleOperator
       ( ..,
-        Contains,
-        Equals,
-        GreaterThan,
-        GreaterThanOrEquals,
-        IN,
-        LessThan,
-        LessThanOrEquals,
-        NotIn
+        RuleOperatorCONTAINS,
+        RuleOperatorEQUALS,
+        RuleOperatorGREATERTHAN,
+        RuleOperatorGREATERTHANOREQUALS,
+        RuleOperatorIN,
+        RuleOperatorLESSTHAN,
+        RuleOperatorLESSTHANOREQUALS,
+        RuleOperatorNOTIN
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RuleOperator = RuleOperator' (CI Text)
+newtype RuleOperator = RuleOperator'
+  { fromRuleOperator ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Contains :: RuleOperator
-pattern Contains = RuleOperator' "CONTAINS"
+pattern RuleOperatorCONTAINS :: RuleOperator
+pattern RuleOperatorCONTAINS = RuleOperator' "CONTAINS"
 
-pattern Equals :: RuleOperator
-pattern Equals = RuleOperator' "EQUALS"
+pattern RuleOperatorEQUALS :: RuleOperator
+pattern RuleOperatorEQUALS = RuleOperator' "EQUALS"
 
-pattern GreaterThan :: RuleOperator
-pattern GreaterThan = RuleOperator' "GREATER_THAN"
+pattern RuleOperatorGREATERTHAN :: RuleOperator
+pattern RuleOperatorGREATERTHAN = RuleOperator' "GREATER_THAN"
 
-pattern GreaterThanOrEquals :: RuleOperator
-pattern GreaterThanOrEquals = RuleOperator' "GREATER_THAN_OR_EQUALS"
+pattern RuleOperatorGREATERTHANOREQUALS :: RuleOperator
+pattern RuleOperatorGREATERTHANOREQUALS = RuleOperator' "GREATER_THAN_OR_EQUALS"
 
-pattern IN :: RuleOperator
-pattern IN = RuleOperator' "IN"
+pattern RuleOperatorIN :: RuleOperator
+pattern RuleOperatorIN = RuleOperator' "IN"
 
-pattern LessThan :: RuleOperator
-pattern LessThan = RuleOperator' "LESS_THAN"
+pattern RuleOperatorLESSTHAN :: RuleOperator
+pattern RuleOperatorLESSTHAN = RuleOperator' "LESS_THAN"
 
-pattern LessThanOrEquals :: RuleOperator
-pattern LessThanOrEquals = RuleOperator' "LESS_THAN_OR_EQUALS"
+pattern RuleOperatorLESSTHANOREQUALS :: RuleOperator
+pattern RuleOperatorLESSTHANOREQUALS = RuleOperator' "LESS_THAN_OR_EQUALS"
 
-pattern NotIn :: RuleOperator
-pattern NotIn = RuleOperator' "NOT_IN"
+pattern RuleOperatorNOTIN :: RuleOperator
+pattern RuleOperatorNOTIN = RuleOperator' "NOT_IN"
 
 {-# COMPLETE
-  Contains,
-  Equals,
-  GreaterThan,
-  GreaterThanOrEquals,
-  IN,
-  LessThan,
-  LessThanOrEquals,
-  NotIn,
+  RuleOperatorCONTAINS,
+  RuleOperatorEQUALS,
+  RuleOperatorGREATERTHAN,
+  RuleOperatorGREATERTHANOREQUALS,
+  RuleOperatorIN,
+  RuleOperatorLESSTHAN,
+  RuleOperatorLESSTHANOREQUALS,
+  RuleOperatorNOTIN,
   RuleOperator'
   #-}
 
-instance FromText RuleOperator where
-  parser = (RuleOperator' . mk) <$> takeText
+instance Prelude.FromText RuleOperator where
+  parser = RuleOperator' Prelude.<$> Prelude.takeText
 
-instance ToText RuleOperator where
-  toText (RuleOperator' ci) = original ci
+instance Prelude.ToText RuleOperator where
+  toText (RuleOperator' x) = x
 
-instance Hashable RuleOperator
+instance Prelude.Hashable RuleOperator
 
-instance NFData RuleOperator
+instance Prelude.NFData RuleOperator
 
-instance ToByteString RuleOperator
+instance Prelude.ToByteString RuleOperator
 
-instance ToQuery RuleOperator
+instance Prelude.ToQuery RuleOperator
 
-instance ToHeader RuleOperator
+instance Prelude.ToHeader RuleOperator
 
-instance ToJSON RuleOperator where
-  toJSON = toJSONText
+instance Prelude.ToJSON RuleOperator where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON RuleOperator where
-  parseJSON = parseJSONText "RuleOperator"
+instance Prelude.FromJSON RuleOperator where
+  parseJSON = Prelude.parseJSONText "RuleOperator"

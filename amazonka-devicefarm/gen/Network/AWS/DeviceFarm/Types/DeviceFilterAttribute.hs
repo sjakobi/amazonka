@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,110 +19,108 @@
 module Network.AWS.DeviceFarm.Types.DeviceFilterAttribute
   ( DeviceFilterAttribute
       ( ..,
-        DFAARN,
-        DFAAvailability,
-        DFAFleetType,
-        DFAFormFactor,
-        DFAInstanceARN,
-        DFAInstanceLabels,
-        DFAManufacturer,
-        DFAModel,
-        DFAOSVersion,
-        DFAPlatform,
-        DFARemoteAccessEnabled,
-        DFARemoteDebugEnabled
+        DeviceFilterAttributeARN,
+        DeviceFilterAttributeAVAILABILITY,
+        DeviceFilterAttributeFLEETTYPE,
+        DeviceFilterAttributeFORMFACTOR,
+        DeviceFilterAttributeINSTANCEARN,
+        DeviceFilterAttributeINSTANCELABELS,
+        DeviceFilterAttributeMANUFACTURER,
+        DeviceFilterAttributeMODEL,
+        DeviceFilterAttributeOSVERSION,
+        DeviceFilterAttributePLATFORM,
+        DeviceFilterAttributeREMOTEACCESSENABLED,
+        DeviceFilterAttributeREMOTEDEBUGENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DeviceFilterAttribute
-  = DeviceFilterAttribute'
-      ( CI
-          Text
-      )
+newtype DeviceFilterAttribute = DeviceFilterAttribute'
+  { fromDeviceFilterAttribute ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DFAARN :: DeviceFilterAttribute
-pattern DFAARN = DeviceFilterAttribute' "ARN"
+pattern DeviceFilterAttributeARN :: DeviceFilterAttribute
+pattern DeviceFilterAttributeARN = DeviceFilterAttribute' "ARN"
 
-pattern DFAAvailability :: DeviceFilterAttribute
-pattern DFAAvailability = DeviceFilterAttribute' "AVAILABILITY"
+pattern DeviceFilterAttributeAVAILABILITY :: DeviceFilterAttribute
+pattern DeviceFilterAttributeAVAILABILITY = DeviceFilterAttribute' "AVAILABILITY"
 
-pattern DFAFleetType :: DeviceFilterAttribute
-pattern DFAFleetType = DeviceFilterAttribute' "FLEET_TYPE"
+pattern DeviceFilterAttributeFLEETTYPE :: DeviceFilterAttribute
+pattern DeviceFilterAttributeFLEETTYPE = DeviceFilterAttribute' "FLEET_TYPE"
 
-pattern DFAFormFactor :: DeviceFilterAttribute
-pattern DFAFormFactor = DeviceFilterAttribute' "FORM_FACTOR"
+pattern DeviceFilterAttributeFORMFACTOR :: DeviceFilterAttribute
+pattern DeviceFilterAttributeFORMFACTOR = DeviceFilterAttribute' "FORM_FACTOR"
 
-pattern DFAInstanceARN :: DeviceFilterAttribute
-pattern DFAInstanceARN = DeviceFilterAttribute' "INSTANCE_ARN"
+pattern DeviceFilterAttributeINSTANCEARN :: DeviceFilterAttribute
+pattern DeviceFilterAttributeINSTANCEARN = DeviceFilterAttribute' "INSTANCE_ARN"
 
-pattern DFAInstanceLabels :: DeviceFilterAttribute
-pattern DFAInstanceLabels = DeviceFilterAttribute' "INSTANCE_LABELS"
+pattern DeviceFilterAttributeINSTANCELABELS :: DeviceFilterAttribute
+pattern DeviceFilterAttributeINSTANCELABELS = DeviceFilterAttribute' "INSTANCE_LABELS"
 
-pattern DFAManufacturer :: DeviceFilterAttribute
-pattern DFAManufacturer = DeviceFilterAttribute' "MANUFACTURER"
+pattern DeviceFilterAttributeMANUFACTURER :: DeviceFilterAttribute
+pattern DeviceFilterAttributeMANUFACTURER = DeviceFilterAttribute' "MANUFACTURER"
 
-pattern DFAModel :: DeviceFilterAttribute
-pattern DFAModel = DeviceFilterAttribute' "MODEL"
+pattern DeviceFilterAttributeMODEL :: DeviceFilterAttribute
+pattern DeviceFilterAttributeMODEL = DeviceFilterAttribute' "MODEL"
 
-pattern DFAOSVersion :: DeviceFilterAttribute
-pattern DFAOSVersion = DeviceFilterAttribute' "OS_VERSION"
+pattern DeviceFilterAttributeOSVERSION :: DeviceFilterAttribute
+pattern DeviceFilterAttributeOSVERSION = DeviceFilterAttribute' "OS_VERSION"
 
-pattern DFAPlatform :: DeviceFilterAttribute
-pattern DFAPlatform = DeviceFilterAttribute' "PLATFORM"
+pattern DeviceFilterAttributePLATFORM :: DeviceFilterAttribute
+pattern DeviceFilterAttributePLATFORM = DeviceFilterAttribute' "PLATFORM"
 
-pattern DFARemoteAccessEnabled :: DeviceFilterAttribute
-pattern DFARemoteAccessEnabled = DeviceFilterAttribute' "REMOTE_ACCESS_ENABLED"
+pattern DeviceFilterAttributeREMOTEACCESSENABLED :: DeviceFilterAttribute
+pattern DeviceFilterAttributeREMOTEACCESSENABLED = DeviceFilterAttribute' "REMOTE_ACCESS_ENABLED"
 
-pattern DFARemoteDebugEnabled :: DeviceFilterAttribute
-pattern DFARemoteDebugEnabled = DeviceFilterAttribute' "REMOTE_DEBUG_ENABLED"
+pattern DeviceFilterAttributeREMOTEDEBUGENABLED :: DeviceFilterAttribute
+pattern DeviceFilterAttributeREMOTEDEBUGENABLED = DeviceFilterAttribute' "REMOTE_DEBUG_ENABLED"
 
 {-# COMPLETE
-  DFAARN,
-  DFAAvailability,
-  DFAFleetType,
-  DFAFormFactor,
-  DFAInstanceARN,
-  DFAInstanceLabels,
-  DFAManufacturer,
-  DFAModel,
-  DFAOSVersion,
-  DFAPlatform,
-  DFARemoteAccessEnabled,
-  DFARemoteDebugEnabled,
+  DeviceFilterAttributeARN,
+  DeviceFilterAttributeAVAILABILITY,
+  DeviceFilterAttributeFLEETTYPE,
+  DeviceFilterAttributeFORMFACTOR,
+  DeviceFilterAttributeINSTANCEARN,
+  DeviceFilterAttributeINSTANCELABELS,
+  DeviceFilterAttributeMANUFACTURER,
+  DeviceFilterAttributeMODEL,
+  DeviceFilterAttributeOSVERSION,
+  DeviceFilterAttributePLATFORM,
+  DeviceFilterAttributeREMOTEACCESSENABLED,
+  DeviceFilterAttributeREMOTEDEBUGENABLED,
   DeviceFilterAttribute'
   #-}
 
-instance FromText DeviceFilterAttribute where
-  parser = (DeviceFilterAttribute' . mk) <$> takeText
+instance Prelude.FromText DeviceFilterAttribute where
+  parser = DeviceFilterAttribute' Prelude.<$> Prelude.takeText
 
-instance ToText DeviceFilterAttribute where
-  toText (DeviceFilterAttribute' ci) = original ci
+instance Prelude.ToText DeviceFilterAttribute where
+  toText (DeviceFilterAttribute' x) = x
 
-instance Hashable DeviceFilterAttribute
+instance Prelude.Hashable DeviceFilterAttribute
 
-instance NFData DeviceFilterAttribute
+instance Prelude.NFData DeviceFilterAttribute
 
-instance ToByteString DeviceFilterAttribute
+instance Prelude.ToByteString DeviceFilterAttribute
 
-instance ToQuery DeviceFilterAttribute
+instance Prelude.ToQuery DeviceFilterAttribute
 
-instance ToHeader DeviceFilterAttribute
+instance Prelude.ToHeader DeviceFilterAttribute
 
-instance ToJSON DeviceFilterAttribute where
-  toJSON = toJSONText
+instance Prelude.ToJSON DeviceFilterAttribute where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DeviceFilterAttribute where
-  parseJSON = parseJSONText "DeviceFilterAttribute"
+instance Prelude.FromJSON DeviceFilterAttribute where
+  parseJSON = Prelude.parseJSONText "DeviceFilterAttribute"

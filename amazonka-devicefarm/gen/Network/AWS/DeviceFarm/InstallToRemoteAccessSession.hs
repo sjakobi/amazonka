@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,176 +21,185 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Installs an application to the device in a remote access session. For Android applications, the file must be in .apk format. For iOS applications, the file must be in .ipa format.
+-- Installs an application to the device in a remote access session. For
+-- Android applications, the file must be in .apk format. For iOS
+-- applications, the file must be in .ipa format.
 module Network.AWS.DeviceFarm.InstallToRemoteAccessSession
   ( -- * Creating a Request
-    installToRemoteAccessSession,
-    InstallToRemoteAccessSession,
+    InstallToRemoteAccessSession (..),
+    newInstallToRemoteAccessSession,
 
     -- * Request Lenses
-    itrasRemoteAccessSessionARN,
-    itrasAppARN,
+    installToRemoteAccessSession_remoteAccessSessionArn,
+    installToRemoteAccessSession_appArn,
 
     -- * Destructuring the Response
-    installToRemoteAccessSessionResponse,
-    InstallToRemoteAccessSessionResponse,
+    InstallToRemoteAccessSessionResponse (..),
+    newInstallToRemoteAccessSessionResponse,
 
     -- * Response Lenses
-    itrasrrsAppUpload,
-    itrasrrsResponseStatus,
+    installToRemoteAccessSessionResponse_appUpload,
+    installToRemoteAccessSessionResponse_httpStatus,
   )
 where
 
 import Network.AWS.DeviceFarm.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DeviceFarm.Types.Upload
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Represents the request to install an Android application (in .apk format) or an iOS application (in .ipa format) as part of a remote access session.
+-- | Represents the request to install an Android application (in .apk
+-- format) or an iOS application (in .ipa format) as part of a remote
+-- access session.
 --
---
---
--- /See:/ 'installToRemoteAccessSession' smart constructor.
+-- /See:/ 'newInstallToRemoteAccessSession' smart constructor.
 data InstallToRemoteAccessSession = InstallToRemoteAccessSession'
-  { _itrasRemoteAccessSessionARN ::
-      !Text,
-    _itrasAppARN ::
-      !Text
+  { -- | The Amazon Resource Name (ARN) of the remote access session about which
+    -- you are requesting information.
+    remoteAccessSessionArn :: Prelude.Text,
+    -- | The ARN of the app about which you are requesting information.
+    appArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InstallToRemoteAccessSession' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InstallToRemoteAccessSession' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'itrasRemoteAccessSessionARN' - The Amazon Resource Name (ARN) of the remote access session about which you are requesting information.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'itrasAppARN' - The ARN of the app about which you are requesting information.
-installToRemoteAccessSession ::
-  -- | 'itrasRemoteAccessSessionARN'
-  Text ->
-  -- | 'itrasAppARN'
-  Text ->
+-- 'remoteAccessSessionArn', 'installToRemoteAccessSession_remoteAccessSessionArn' - The Amazon Resource Name (ARN) of the remote access session about which
+-- you are requesting information.
+--
+-- 'appArn', 'installToRemoteAccessSession_appArn' - The ARN of the app about which you are requesting information.
+newInstallToRemoteAccessSession ::
+  -- | 'remoteAccessSessionArn'
+  Prelude.Text ->
+  -- | 'appArn'
+  Prelude.Text ->
   InstallToRemoteAccessSession
-installToRemoteAccessSession
-  pRemoteAccessSessionARN_
-  pAppARN_ =
+newInstallToRemoteAccessSession
+  pRemoteAccessSessionArn_
+  pAppArn_ =
     InstallToRemoteAccessSession'
-      { _itrasRemoteAccessSessionARN =
-          pRemoteAccessSessionARN_,
-        _itrasAppARN = pAppARN_
+      { remoteAccessSessionArn =
+          pRemoteAccessSessionArn_,
+        appArn = pAppArn_
       }
 
--- | The Amazon Resource Name (ARN) of the remote access session about which you are requesting information.
-itrasRemoteAccessSessionARN :: Lens' InstallToRemoteAccessSession Text
-itrasRemoteAccessSessionARN = lens _itrasRemoteAccessSessionARN (\s a -> s {_itrasRemoteAccessSessionARN = a})
+-- | The Amazon Resource Name (ARN) of the remote access session about which
+-- you are requesting information.
+installToRemoteAccessSession_remoteAccessSessionArn :: Lens.Lens' InstallToRemoteAccessSession Prelude.Text
+installToRemoteAccessSession_remoteAccessSessionArn = Lens.lens (\InstallToRemoteAccessSession' {remoteAccessSessionArn} -> remoteAccessSessionArn) (\s@InstallToRemoteAccessSession' {} a -> s {remoteAccessSessionArn = a} :: InstallToRemoteAccessSession)
 
 -- | The ARN of the app about which you are requesting information.
-itrasAppARN :: Lens' InstallToRemoteAccessSession Text
-itrasAppARN = lens _itrasAppARN (\s a -> s {_itrasAppARN = a})
+installToRemoteAccessSession_appArn :: Lens.Lens' InstallToRemoteAccessSession Prelude.Text
+installToRemoteAccessSession_appArn = Lens.lens (\InstallToRemoteAccessSession' {appArn} -> appArn) (\s@InstallToRemoteAccessSession' {} a -> s {appArn = a} :: InstallToRemoteAccessSession)
 
-instance AWSRequest InstallToRemoteAccessSession where
+instance
+  Prelude.AWSRequest
+    InstallToRemoteAccessSession
+  where
   type
     Rs InstallToRemoteAccessSession =
       InstallToRemoteAccessSessionResponse
-  request = postJSON deviceFarm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           InstallToRemoteAccessSessionResponse'
-            <$> (x .?> "appUpload") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "appUpload")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable InstallToRemoteAccessSession
+instance
+  Prelude.Hashable
+    InstallToRemoteAccessSession
 
-instance NFData InstallToRemoteAccessSession
+instance Prelude.NFData InstallToRemoteAccessSession
 
-instance ToHeaders InstallToRemoteAccessSession where
+instance
+  Prelude.ToHeaders
+    InstallToRemoteAccessSession
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "DeviceFarm_20150623.InstallToRemoteAccessSession" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "DeviceFarm_20150623.InstallToRemoteAccessSession" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON InstallToRemoteAccessSession where
+instance Prelude.ToJSON InstallToRemoteAccessSession where
   toJSON InstallToRemoteAccessSession' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "remoteAccessSessionArn"
-                  .= _itrasRemoteAccessSessionARN
+                  Prelude..= remoteAccessSessionArn
               ),
-            Just ("appArn" .= _itrasAppARN)
+            Prelude.Just ("appArn" Prelude..= appArn)
           ]
       )
 
-instance ToPath InstallToRemoteAccessSession where
-  toPath = const "/"
+instance Prelude.ToPath InstallToRemoteAccessSession where
+  toPath = Prelude.const "/"
 
-instance ToQuery InstallToRemoteAccessSession where
-  toQuery = const mempty
+instance Prelude.ToQuery InstallToRemoteAccessSession where
+  toQuery = Prelude.const Prelude.mempty
 
--- | Represents the response from the server after AWS Device Farm makes a request to install to a remote access session.
+-- | Represents the response from the server after AWS Device Farm makes a
+-- request to install to a remote access session.
 --
---
---
--- /See:/ 'installToRemoteAccessSessionResponse' smart constructor.
+-- /See:/ 'newInstallToRemoteAccessSessionResponse' smart constructor.
 data InstallToRemoteAccessSessionResponse = InstallToRemoteAccessSessionResponse'
-  { _itrasrrsAppUpload ::
-      !( Maybe
-           Upload
-       ),
-    _itrasrrsResponseStatus ::
-      !Int
+  { -- | An app to upload or that has been uploaded.
+    appUpload :: Prelude.Maybe Upload,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InstallToRemoteAccessSessionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InstallToRemoteAccessSessionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'itrasrrsAppUpload' - An app to upload or that has been uploaded.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'itrasrrsResponseStatus' - -- | The response status code.
-installToRemoteAccessSessionResponse ::
-  -- | 'itrasrrsResponseStatus'
-  Int ->
+-- 'appUpload', 'installToRemoteAccessSessionResponse_appUpload' - An app to upload or that has been uploaded.
+--
+-- 'httpStatus', 'installToRemoteAccessSessionResponse_httpStatus' - The response's http status code.
+newInstallToRemoteAccessSessionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   InstallToRemoteAccessSessionResponse
-installToRemoteAccessSessionResponse pResponseStatus_ =
+newInstallToRemoteAccessSessionResponse pHttpStatus_ =
   InstallToRemoteAccessSessionResponse'
-    { _itrasrrsAppUpload =
-        Nothing,
-      _itrasrrsResponseStatus =
-        pResponseStatus_
+    { appUpload =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | An app to upload or that has been uploaded.
-itrasrrsAppUpload :: Lens' InstallToRemoteAccessSessionResponse (Maybe Upload)
-itrasrrsAppUpload = lens _itrasrrsAppUpload (\s a -> s {_itrasrrsAppUpload = a})
+installToRemoteAccessSessionResponse_appUpload :: Lens.Lens' InstallToRemoteAccessSessionResponse (Prelude.Maybe Upload)
+installToRemoteAccessSessionResponse_appUpload = Lens.lens (\InstallToRemoteAccessSessionResponse' {appUpload} -> appUpload) (\s@InstallToRemoteAccessSessionResponse' {} a -> s {appUpload = a} :: InstallToRemoteAccessSessionResponse)
 
--- | -- | The response status code.
-itrasrrsResponseStatus :: Lens' InstallToRemoteAccessSessionResponse Int
-itrasrrsResponseStatus = lens _itrasrrsResponseStatus (\s a -> s {_itrasrrsResponseStatus = a})
+-- | The response's http status code.
+installToRemoteAccessSessionResponse_httpStatus :: Lens.Lens' InstallToRemoteAccessSessionResponse Prelude.Int
+installToRemoteAccessSessionResponse_httpStatus = Lens.lens (\InstallToRemoteAccessSessionResponse' {httpStatus} -> httpStatus) (\s@InstallToRemoteAccessSessionResponse' {} a -> s {httpStatus = a} :: InstallToRemoteAccessSessionResponse)
 
-instance NFData InstallToRemoteAccessSessionResponse
+instance
+  Prelude.NFData
+    InstallToRemoteAccessSessionResponse

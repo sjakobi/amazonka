@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.DeviceFarm.Types.TestGridSessionStatus
   ( TestGridSessionStatus
       ( ..,
-        TGSSActive,
-        TGSSClosed,
-        TGSSErrored
+        TestGridSessionStatusACTIVE,
+        TestGridSessionStatusCLOSED,
+        TestGridSessionStatusERRORED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TestGridSessionStatus
-  = TestGridSessionStatus'
-      ( CI
-          Text
-      )
+newtype TestGridSessionStatus = TestGridSessionStatus'
+  { fromTestGridSessionStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TGSSActive :: TestGridSessionStatus
-pattern TGSSActive = TestGridSessionStatus' "ACTIVE"
+pattern TestGridSessionStatusACTIVE :: TestGridSessionStatus
+pattern TestGridSessionStatusACTIVE = TestGridSessionStatus' "ACTIVE"
 
-pattern TGSSClosed :: TestGridSessionStatus
-pattern TGSSClosed = TestGridSessionStatus' "CLOSED"
+pattern TestGridSessionStatusCLOSED :: TestGridSessionStatus
+pattern TestGridSessionStatusCLOSED = TestGridSessionStatus' "CLOSED"
 
-pattern TGSSErrored :: TestGridSessionStatus
-pattern TGSSErrored = TestGridSessionStatus' "ERRORED"
+pattern TestGridSessionStatusERRORED :: TestGridSessionStatus
+pattern TestGridSessionStatusERRORED = TestGridSessionStatus' "ERRORED"
 
 {-# COMPLETE
-  TGSSActive,
-  TGSSClosed,
-  TGSSErrored,
+  TestGridSessionStatusACTIVE,
+  TestGridSessionStatusCLOSED,
+  TestGridSessionStatusERRORED,
   TestGridSessionStatus'
   #-}
 
-instance FromText TestGridSessionStatus where
-  parser = (TestGridSessionStatus' . mk) <$> takeText
+instance Prelude.FromText TestGridSessionStatus where
+  parser = TestGridSessionStatus' Prelude.<$> Prelude.takeText
 
-instance ToText TestGridSessionStatus where
-  toText (TestGridSessionStatus' ci) = original ci
+instance Prelude.ToText TestGridSessionStatus where
+  toText (TestGridSessionStatus' x) = x
 
-instance Hashable TestGridSessionStatus
+instance Prelude.Hashable TestGridSessionStatus
 
-instance NFData TestGridSessionStatus
+instance Prelude.NFData TestGridSessionStatus
 
-instance ToByteString TestGridSessionStatus
+instance Prelude.ToByteString TestGridSessionStatus
 
-instance ToQuery TestGridSessionStatus
+instance Prelude.ToQuery TestGridSessionStatus
 
-instance ToHeader TestGridSessionStatus
+instance Prelude.ToHeader TestGridSessionStatus
 
-instance ToJSON TestGridSessionStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON TestGridSessionStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON TestGridSessionStatus where
-  parseJSON = parseJSONText "TestGridSessionStatus"
+instance Prelude.FromJSON TestGridSessionStatus where
+  parseJSON = Prelude.parseJSONText "TestGridSessionStatus"

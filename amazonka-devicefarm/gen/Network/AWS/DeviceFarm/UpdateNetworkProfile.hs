@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,260 +24,307 @@
 -- Updates the network profile.
 module Network.AWS.DeviceFarm.UpdateNetworkProfile
   ( -- * Creating a Request
-    updateNetworkProfile,
-    UpdateNetworkProfile,
+    UpdateNetworkProfile (..),
+    newUpdateNetworkProfile,
 
     -- * Request Lenses
-    unpUplinkJitterMs,
-    unpDownlinkDelayMs,
-    unpDownlinkBandwidthBits,
-    unpDownlinkJitterMs,
-    unpUplinkLossPercent,
-    unpDownlinkLossPercent,
-    unpName,
-    unpDescription,
-    unpUplinkDelayMs,
-    unpUplinkBandwidthBits,
-    unpType,
-    unpArn,
+    updateNetworkProfile_uplinkJitterMs,
+    updateNetworkProfile_downlinkDelayMs,
+    updateNetworkProfile_downlinkBandwidthBits,
+    updateNetworkProfile_downlinkJitterMs,
+    updateNetworkProfile_uplinkLossPercent,
+    updateNetworkProfile_downlinkLossPercent,
+    updateNetworkProfile_name,
+    updateNetworkProfile_description,
+    updateNetworkProfile_uplinkDelayMs,
+    updateNetworkProfile_uplinkBandwidthBits,
+    updateNetworkProfile_type,
+    updateNetworkProfile_arn,
 
     -- * Destructuring the Response
-    updateNetworkProfileResponse,
-    UpdateNetworkProfileResponse,
+    UpdateNetworkProfileResponse (..),
+    newUpdateNetworkProfileResponse,
 
     -- * Response Lenses
-    unprrsNetworkProfile,
-    unprrsResponseStatus,
+    updateNetworkProfileResponse_networkProfile,
+    updateNetworkProfileResponse_httpStatus,
   )
 where
 
 import Network.AWS.DeviceFarm.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DeviceFarm.Types.NetworkProfile
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateNetworkProfile' smart constructor.
+-- | /See:/ 'newUpdateNetworkProfile' smart constructor.
 data UpdateNetworkProfile = UpdateNetworkProfile'
-  { _unpUplinkJitterMs ::
-      !(Maybe Integer),
-    _unpDownlinkDelayMs ::
-      !(Maybe Integer),
-    _unpDownlinkBandwidthBits ::
-      !(Maybe Integer),
-    _unpDownlinkJitterMs ::
-      !(Maybe Integer),
-    _unpUplinkLossPercent ::
-      !(Maybe Nat),
-    _unpDownlinkLossPercent ::
-      !(Maybe Nat),
-    _unpName :: !(Maybe Text),
-    _unpDescription ::
-      !(Maybe Text),
-    _unpUplinkDelayMs ::
-      !(Maybe Integer),
-    _unpUplinkBandwidthBits ::
-      !(Maybe Integer),
-    _unpType ::
-      !(Maybe NetworkProfileType),
-    _unpArn :: !Text
+  { -- | Time variation in the delay of received packets in milliseconds as an
+    -- integer from 0 to 2000.
+    uplinkJitterMs :: Prelude.Maybe Prelude.Integer,
+    -- | Delay time for all packets to destination in milliseconds as an integer
+    -- from 0 to 2000.
+    downlinkDelayMs :: Prelude.Maybe Prelude.Integer,
+    -- | The data throughput rate in bits per second, as an integer from 0 to
+    -- 104857600.
+    downlinkBandwidthBits :: Prelude.Maybe Prelude.Integer,
+    -- | Time variation in the delay of received packets in milliseconds as an
+    -- integer from 0 to 2000.
+    downlinkJitterMs :: Prelude.Maybe Prelude.Integer,
+    -- | Proportion of transmitted packets that fail to arrive from 0 to 100
+    -- percent.
+    uplinkLossPercent :: Prelude.Maybe Prelude.Nat,
+    -- | Proportion of received packets that fail to arrive from 0 to 100
+    -- percent.
+    downlinkLossPercent :: Prelude.Maybe Prelude.Nat,
+    -- | The name of the network profile about which you are returning
+    -- information.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The description of the network profile about which you are returning
+    -- information.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | Delay time for all packets to destination in milliseconds as an integer
+    -- from 0 to 2000.
+    uplinkDelayMs :: Prelude.Maybe Prelude.Integer,
+    -- | The data throughput rate in bits per second, as an integer from 0 to
+    -- 104857600.
+    uplinkBandwidthBits :: Prelude.Maybe Prelude.Integer,
+    -- | The type of network profile to return information about. Valid values
+    -- are listed here.
+    type' :: Prelude.Maybe NetworkProfileType,
+    -- | The Amazon Resource Name (ARN) of the project for which you want to
+    -- update network profile settings.
+    arn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateNetworkProfile' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateNetworkProfile' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'unpUplinkJitterMs' - Time variation in the delay of received packets in milliseconds as an integer from 0 to 2000.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'unpDownlinkDelayMs' - Delay time for all packets to destination in milliseconds as an integer from 0 to 2000.
+-- 'uplinkJitterMs', 'updateNetworkProfile_uplinkJitterMs' - Time variation in the delay of received packets in milliseconds as an
+-- integer from 0 to 2000.
 --
--- * 'unpDownlinkBandwidthBits' - The data throughput rate in bits per second, as an integer from 0 to 104857600.
+-- 'downlinkDelayMs', 'updateNetworkProfile_downlinkDelayMs' - Delay time for all packets to destination in milliseconds as an integer
+-- from 0 to 2000.
 --
--- * 'unpDownlinkJitterMs' - Time variation in the delay of received packets in milliseconds as an integer from 0 to 2000.
+-- 'downlinkBandwidthBits', 'updateNetworkProfile_downlinkBandwidthBits' - The data throughput rate in bits per second, as an integer from 0 to
+-- 104857600.
 --
--- * 'unpUplinkLossPercent' - Proportion of transmitted packets that fail to arrive from 0 to 100 percent.
+-- 'downlinkJitterMs', 'updateNetworkProfile_downlinkJitterMs' - Time variation in the delay of received packets in milliseconds as an
+-- integer from 0 to 2000.
 --
--- * 'unpDownlinkLossPercent' - Proportion of received packets that fail to arrive from 0 to 100 percent.
+-- 'uplinkLossPercent', 'updateNetworkProfile_uplinkLossPercent' - Proportion of transmitted packets that fail to arrive from 0 to 100
+-- percent.
 --
--- * 'unpName' - The name of the network profile about which you are returning information.
+-- 'downlinkLossPercent', 'updateNetworkProfile_downlinkLossPercent' - Proportion of received packets that fail to arrive from 0 to 100
+-- percent.
 --
--- * 'unpDescription' - The description of the network profile about which you are returning information.
+-- 'name', 'updateNetworkProfile_name' - The name of the network profile about which you are returning
+-- information.
 --
--- * 'unpUplinkDelayMs' - Delay time for all packets to destination in milliseconds as an integer from 0 to 2000.
+-- 'description', 'updateNetworkProfile_description' - The description of the network profile about which you are returning
+-- information.
 --
--- * 'unpUplinkBandwidthBits' - The data throughput rate in bits per second, as an integer from 0 to 104857600.
+-- 'uplinkDelayMs', 'updateNetworkProfile_uplinkDelayMs' - Delay time for all packets to destination in milliseconds as an integer
+-- from 0 to 2000.
 --
--- * 'unpType' - The type of network profile to return information about. Valid values are listed here.
+-- 'uplinkBandwidthBits', 'updateNetworkProfile_uplinkBandwidthBits' - The data throughput rate in bits per second, as an integer from 0 to
+-- 104857600.
 --
--- * 'unpArn' - The Amazon Resource Name (ARN) of the project for which you want to update network profile settings.
-updateNetworkProfile ::
-  -- | 'unpArn'
-  Text ->
+-- 'type'', 'updateNetworkProfile_type' - The type of network profile to return information about. Valid values
+-- are listed here.
+--
+-- 'arn', 'updateNetworkProfile_arn' - The Amazon Resource Name (ARN) of the project for which you want to
+-- update network profile settings.
+newUpdateNetworkProfile ::
+  -- | 'arn'
+  Prelude.Text ->
   UpdateNetworkProfile
-updateNetworkProfile pArn_ =
+newUpdateNetworkProfile pArn_ =
   UpdateNetworkProfile'
-    { _unpUplinkJitterMs = Nothing,
-      _unpDownlinkDelayMs = Nothing,
-      _unpDownlinkBandwidthBits = Nothing,
-      _unpDownlinkJitterMs = Nothing,
-      _unpUplinkLossPercent = Nothing,
-      _unpDownlinkLossPercent = Nothing,
-      _unpName = Nothing,
-      _unpDescription = Nothing,
-      _unpUplinkDelayMs = Nothing,
-      _unpUplinkBandwidthBits = Nothing,
-      _unpType = Nothing,
-      _unpArn = pArn_
+    { uplinkJitterMs =
+        Prelude.Nothing,
+      downlinkDelayMs = Prelude.Nothing,
+      downlinkBandwidthBits = Prelude.Nothing,
+      downlinkJitterMs = Prelude.Nothing,
+      uplinkLossPercent = Prelude.Nothing,
+      downlinkLossPercent = Prelude.Nothing,
+      name = Prelude.Nothing,
+      description = Prelude.Nothing,
+      uplinkDelayMs = Prelude.Nothing,
+      uplinkBandwidthBits = Prelude.Nothing,
+      type' = Prelude.Nothing,
+      arn = pArn_
     }
 
--- | Time variation in the delay of received packets in milliseconds as an integer from 0 to 2000.
-unpUplinkJitterMs :: Lens' UpdateNetworkProfile (Maybe Integer)
-unpUplinkJitterMs = lens _unpUplinkJitterMs (\s a -> s {_unpUplinkJitterMs = a})
+-- | Time variation in the delay of received packets in milliseconds as an
+-- integer from 0 to 2000.
+updateNetworkProfile_uplinkJitterMs :: Lens.Lens' UpdateNetworkProfile (Prelude.Maybe Prelude.Integer)
+updateNetworkProfile_uplinkJitterMs = Lens.lens (\UpdateNetworkProfile' {uplinkJitterMs} -> uplinkJitterMs) (\s@UpdateNetworkProfile' {} a -> s {uplinkJitterMs = a} :: UpdateNetworkProfile)
 
--- | Delay time for all packets to destination in milliseconds as an integer from 0 to 2000.
-unpDownlinkDelayMs :: Lens' UpdateNetworkProfile (Maybe Integer)
-unpDownlinkDelayMs = lens _unpDownlinkDelayMs (\s a -> s {_unpDownlinkDelayMs = a})
+-- | Delay time for all packets to destination in milliseconds as an integer
+-- from 0 to 2000.
+updateNetworkProfile_downlinkDelayMs :: Lens.Lens' UpdateNetworkProfile (Prelude.Maybe Prelude.Integer)
+updateNetworkProfile_downlinkDelayMs = Lens.lens (\UpdateNetworkProfile' {downlinkDelayMs} -> downlinkDelayMs) (\s@UpdateNetworkProfile' {} a -> s {downlinkDelayMs = a} :: UpdateNetworkProfile)
 
--- | The data throughput rate in bits per second, as an integer from 0 to 104857600.
-unpDownlinkBandwidthBits :: Lens' UpdateNetworkProfile (Maybe Integer)
-unpDownlinkBandwidthBits = lens _unpDownlinkBandwidthBits (\s a -> s {_unpDownlinkBandwidthBits = a})
+-- | The data throughput rate in bits per second, as an integer from 0 to
+-- 104857600.
+updateNetworkProfile_downlinkBandwidthBits :: Lens.Lens' UpdateNetworkProfile (Prelude.Maybe Prelude.Integer)
+updateNetworkProfile_downlinkBandwidthBits = Lens.lens (\UpdateNetworkProfile' {downlinkBandwidthBits} -> downlinkBandwidthBits) (\s@UpdateNetworkProfile' {} a -> s {downlinkBandwidthBits = a} :: UpdateNetworkProfile)
 
--- | Time variation in the delay of received packets in milliseconds as an integer from 0 to 2000.
-unpDownlinkJitterMs :: Lens' UpdateNetworkProfile (Maybe Integer)
-unpDownlinkJitterMs = lens _unpDownlinkJitterMs (\s a -> s {_unpDownlinkJitterMs = a})
+-- | Time variation in the delay of received packets in milliseconds as an
+-- integer from 0 to 2000.
+updateNetworkProfile_downlinkJitterMs :: Lens.Lens' UpdateNetworkProfile (Prelude.Maybe Prelude.Integer)
+updateNetworkProfile_downlinkJitterMs = Lens.lens (\UpdateNetworkProfile' {downlinkJitterMs} -> downlinkJitterMs) (\s@UpdateNetworkProfile' {} a -> s {downlinkJitterMs = a} :: UpdateNetworkProfile)
 
--- | Proportion of transmitted packets that fail to arrive from 0 to 100 percent.
-unpUplinkLossPercent :: Lens' UpdateNetworkProfile (Maybe Natural)
-unpUplinkLossPercent = lens _unpUplinkLossPercent (\s a -> s {_unpUplinkLossPercent = a}) . mapping _Nat
+-- | Proportion of transmitted packets that fail to arrive from 0 to 100
+-- percent.
+updateNetworkProfile_uplinkLossPercent :: Lens.Lens' UpdateNetworkProfile (Prelude.Maybe Prelude.Natural)
+updateNetworkProfile_uplinkLossPercent = Lens.lens (\UpdateNetworkProfile' {uplinkLossPercent} -> uplinkLossPercent) (\s@UpdateNetworkProfile' {} a -> s {uplinkLossPercent = a} :: UpdateNetworkProfile) Prelude.. Lens.mapping Prelude._Nat
 
--- | Proportion of received packets that fail to arrive from 0 to 100 percent.
-unpDownlinkLossPercent :: Lens' UpdateNetworkProfile (Maybe Natural)
-unpDownlinkLossPercent = lens _unpDownlinkLossPercent (\s a -> s {_unpDownlinkLossPercent = a}) . mapping _Nat
+-- | Proportion of received packets that fail to arrive from 0 to 100
+-- percent.
+updateNetworkProfile_downlinkLossPercent :: Lens.Lens' UpdateNetworkProfile (Prelude.Maybe Prelude.Natural)
+updateNetworkProfile_downlinkLossPercent = Lens.lens (\UpdateNetworkProfile' {downlinkLossPercent} -> downlinkLossPercent) (\s@UpdateNetworkProfile' {} a -> s {downlinkLossPercent = a} :: UpdateNetworkProfile) Prelude.. Lens.mapping Prelude._Nat
 
--- | The name of the network profile about which you are returning information.
-unpName :: Lens' UpdateNetworkProfile (Maybe Text)
-unpName = lens _unpName (\s a -> s {_unpName = a})
+-- | The name of the network profile about which you are returning
+-- information.
+updateNetworkProfile_name :: Lens.Lens' UpdateNetworkProfile (Prelude.Maybe Prelude.Text)
+updateNetworkProfile_name = Lens.lens (\UpdateNetworkProfile' {name} -> name) (\s@UpdateNetworkProfile' {} a -> s {name = a} :: UpdateNetworkProfile)
 
--- | The description of the network profile about which you are returning information.
-unpDescription :: Lens' UpdateNetworkProfile (Maybe Text)
-unpDescription = lens _unpDescription (\s a -> s {_unpDescription = a})
+-- | The description of the network profile about which you are returning
+-- information.
+updateNetworkProfile_description :: Lens.Lens' UpdateNetworkProfile (Prelude.Maybe Prelude.Text)
+updateNetworkProfile_description = Lens.lens (\UpdateNetworkProfile' {description} -> description) (\s@UpdateNetworkProfile' {} a -> s {description = a} :: UpdateNetworkProfile)
 
--- | Delay time for all packets to destination in milliseconds as an integer from 0 to 2000.
-unpUplinkDelayMs :: Lens' UpdateNetworkProfile (Maybe Integer)
-unpUplinkDelayMs = lens _unpUplinkDelayMs (\s a -> s {_unpUplinkDelayMs = a})
+-- | Delay time for all packets to destination in milliseconds as an integer
+-- from 0 to 2000.
+updateNetworkProfile_uplinkDelayMs :: Lens.Lens' UpdateNetworkProfile (Prelude.Maybe Prelude.Integer)
+updateNetworkProfile_uplinkDelayMs = Lens.lens (\UpdateNetworkProfile' {uplinkDelayMs} -> uplinkDelayMs) (\s@UpdateNetworkProfile' {} a -> s {uplinkDelayMs = a} :: UpdateNetworkProfile)
 
--- | The data throughput rate in bits per second, as an integer from 0 to 104857600.
-unpUplinkBandwidthBits :: Lens' UpdateNetworkProfile (Maybe Integer)
-unpUplinkBandwidthBits = lens _unpUplinkBandwidthBits (\s a -> s {_unpUplinkBandwidthBits = a})
+-- | The data throughput rate in bits per second, as an integer from 0 to
+-- 104857600.
+updateNetworkProfile_uplinkBandwidthBits :: Lens.Lens' UpdateNetworkProfile (Prelude.Maybe Prelude.Integer)
+updateNetworkProfile_uplinkBandwidthBits = Lens.lens (\UpdateNetworkProfile' {uplinkBandwidthBits} -> uplinkBandwidthBits) (\s@UpdateNetworkProfile' {} a -> s {uplinkBandwidthBits = a} :: UpdateNetworkProfile)
 
--- | The type of network profile to return information about. Valid values are listed here.
-unpType :: Lens' UpdateNetworkProfile (Maybe NetworkProfileType)
-unpType = lens _unpType (\s a -> s {_unpType = a})
+-- | The type of network profile to return information about. Valid values
+-- are listed here.
+updateNetworkProfile_type :: Lens.Lens' UpdateNetworkProfile (Prelude.Maybe NetworkProfileType)
+updateNetworkProfile_type = Lens.lens (\UpdateNetworkProfile' {type'} -> type') (\s@UpdateNetworkProfile' {} a -> s {type' = a} :: UpdateNetworkProfile)
 
--- | The Amazon Resource Name (ARN) of the project for which you want to update network profile settings.
-unpArn :: Lens' UpdateNetworkProfile Text
-unpArn = lens _unpArn (\s a -> s {_unpArn = a})
+-- | The Amazon Resource Name (ARN) of the project for which you want to
+-- update network profile settings.
+updateNetworkProfile_arn :: Lens.Lens' UpdateNetworkProfile Prelude.Text
+updateNetworkProfile_arn = Lens.lens (\UpdateNetworkProfile' {arn} -> arn) (\s@UpdateNetworkProfile' {} a -> s {arn = a} :: UpdateNetworkProfile)
 
-instance AWSRequest UpdateNetworkProfile where
+instance Prelude.AWSRequest UpdateNetworkProfile where
   type
     Rs UpdateNetworkProfile =
       UpdateNetworkProfileResponse
-  request = postJSON deviceFarm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateNetworkProfileResponse'
-            <$> (x .?> "networkProfile") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "networkProfile")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateNetworkProfile
+instance Prelude.Hashable UpdateNetworkProfile
 
-instance NFData UpdateNetworkProfile
+instance Prelude.NFData UpdateNetworkProfile
 
-instance ToHeaders UpdateNetworkProfile where
+instance Prelude.ToHeaders UpdateNetworkProfile where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "DeviceFarm_20150623.UpdateNetworkProfile" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "DeviceFarm_20150623.UpdateNetworkProfile" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateNetworkProfile where
+instance Prelude.ToJSON UpdateNetworkProfile where
   toJSON UpdateNetworkProfile' {..} =
-    object
-      ( catMaybes
-          [ ("uplinkJitterMs" .=) <$> _unpUplinkJitterMs,
-            ("downlinkDelayMs" .=) <$> _unpDownlinkDelayMs,
-            ("downlinkBandwidthBits" .=)
-              <$> _unpDownlinkBandwidthBits,
-            ("downlinkJitterMs" .=) <$> _unpDownlinkJitterMs,
-            ("uplinkLossPercent" .=) <$> _unpUplinkLossPercent,
-            ("downlinkLossPercent" .=)
-              <$> _unpDownlinkLossPercent,
-            ("name" .=) <$> _unpName,
-            ("description" .=) <$> _unpDescription,
-            ("uplinkDelayMs" .=) <$> _unpUplinkDelayMs,
-            ("uplinkBandwidthBits" .=)
-              <$> _unpUplinkBandwidthBits,
-            ("type" .=) <$> _unpType,
-            Just ("arn" .= _unpArn)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("uplinkJitterMs" Prelude..=)
+              Prelude.<$> uplinkJitterMs,
+            ("downlinkDelayMs" Prelude..=)
+              Prelude.<$> downlinkDelayMs,
+            ("downlinkBandwidthBits" Prelude..=)
+              Prelude.<$> downlinkBandwidthBits,
+            ("downlinkJitterMs" Prelude..=)
+              Prelude.<$> downlinkJitterMs,
+            ("uplinkLossPercent" Prelude..=)
+              Prelude.<$> uplinkLossPercent,
+            ("downlinkLossPercent" Prelude..=)
+              Prelude.<$> downlinkLossPercent,
+            ("name" Prelude..=) Prelude.<$> name,
+            ("description" Prelude..=) Prelude.<$> description,
+            ("uplinkDelayMs" Prelude..=)
+              Prelude.<$> uplinkDelayMs,
+            ("uplinkBandwidthBits" Prelude..=)
+              Prelude.<$> uplinkBandwidthBits,
+            ("type" Prelude..=) Prelude.<$> type',
+            Prelude.Just ("arn" Prelude..= arn)
           ]
       )
 
-instance ToPath UpdateNetworkProfile where
-  toPath = const "/"
+instance Prelude.ToPath UpdateNetworkProfile where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateNetworkProfile where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateNetworkProfile where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateNetworkProfileResponse' smart constructor.
+-- | /See:/ 'newUpdateNetworkProfileResponse' smart constructor.
 data UpdateNetworkProfileResponse = UpdateNetworkProfileResponse'
-  { _unprrsNetworkProfile ::
-      !( Maybe
-           NetworkProfile
-       ),
-    _unprrsResponseStatus ::
-      !Int
+  { -- | A list of the available network profiles.
+    networkProfile :: Prelude.Maybe NetworkProfile,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateNetworkProfileResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateNetworkProfileResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'unprrsNetworkProfile' - A list of the available network profiles.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'unprrsResponseStatus' - -- | The response status code.
-updateNetworkProfileResponse ::
-  -- | 'unprrsResponseStatus'
-  Int ->
+-- 'networkProfile', 'updateNetworkProfileResponse_networkProfile' - A list of the available network profiles.
+--
+-- 'httpStatus', 'updateNetworkProfileResponse_httpStatus' - The response's http status code.
+newUpdateNetworkProfileResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateNetworkProfileResponse
-updateNetworkProfileResponse pResponseStatus_ =
+newUpdateNetworkProfileResponse pHttpStatus_ =
   UpdateNetworkProfileResponse'
-    { _unprrsNetworkProfile =
-        Nothing,
-      _unprrsResponseStatus = pResponseStatus_
+    { networkProfile =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A list of the available network profiles.
-unprrsNetworkProfile :: Lens' UpdateNetworkProfileResponse (Maybe NetworkProfile)
-unprrsNetworkProfile = lens _unprrsNetworkProfile (\s a -> s {_unprrsNetworkProfile = a})
+updateNetworkProfileResponse_networkProfile :: Lens.Lens' UpdateNetworkProfileResponse (Prelude.Maybe NetworkProfile)
+updateNetworkProfileResponse_networkProfile = Lens.lens (\UpdateNetworkProfileResponse' {networkProfile} -> networkProfile) (\s@UpdateNetworkProfileResponse' {} a -> s {networkProfile = a} :: UpdateNetworkProfileResponse)
 
--- | -- | The response status code.
-unprrsResponseStatus :: Lens' UpdateNetworkProfileResponse Int
-unprrsResponseStatus = lens _unprrsResponseStatus (\s a -> s {_unprrsResponseStatus = a})
+-- | The response's http status code.
+updateNetworkProfileResponse_httpStatus :: Lens.Lens' UpdateNetworkProfileResponse Prelude.Int
+updateNetworkProfileResponse_httpStatus = Lens.lens (\UpdateNetworkProfileResponse' {httpStatus} -> httpStatus) (\s@UpdateNetworkProfileResponse' {} a -> s {httpStatus = a} :: UpdateNetworkProfileResponse)
 
-instance NFData UpdateNetworkProfileResponse
+instance Prelude.NFData UpdateNetworkProfileResponse

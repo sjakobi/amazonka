@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,121 +24,138 @@
 -- Gets information about a test.
 module Network.AWS.DeviceFarm.GetTest
   ( -- * Creating a Request
-    getTest,
-    GetTest,
+    GetTest (..),
+    newGetTest,
 
     -- * Request Lenses
-    gtArn,
+    getTest_arn,
 
     -- * Destructuring the Response
-    getTestResponse,
-    GetTestResponse,
+    GetTestResponse (..),
+    newGetTestResponse,
 
     -- * Response Lenses
-    gtrrsTest,
-    gtrrsResponseStatus,
+    getTestResponse_test,
+    getTestResponse_httpStatus,
   )
 where
 
 import Network.AWS.DeviceFarm.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DeviceFarm.Types.Test
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents a request to the get test operation.
 --
---
---
--- /See:/ 'getTest' smart constructor.
-newtype GetTest = GetTest' {_gtArn :: Text}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- /See:/ 'newGetTest' smart constructor.
+data GetTest = GetTest'
+  { -- | The test\'s ARN.
+    arn :: Prelude.Text
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetTest' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetTest' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gtArn' - The test's ARN.
-getTest ::
-  -- | 'gtArn'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'arn', 'getTest_arn' - The test\'s ARN.
+newGetTest ::
+  -- | 'arn'
+  Prelude.Text ->
   GetTest
-getTest pArn_ = GetTest' {_gtArn = pArn_}
+newGetTest pArn_ = GetTest' {arn = pArn_}
 
--- | The test's ARN.
-gtArn :: Lens' GetTest Text
-gtArn = lens _gtArn (\s a -> s {_gtArn = a})
+-- | The test\'s ARN.
+getTest_arn :: Lens.Lens' GetTest Prelude.Text
+getTest_arn = Lens.lens (\GetTest' {arn} -> arn) (\s@GetTest' {} a -> s {arn = a} :: GetTest)
 
-instance AWSRequest GetTest where
+instance Prelude.AWSRequest GetTest where
   type Rs GetTest = GetTestResponse
-  request = postJSON deviceFarm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetTestResponse'
-            <$> (x .?> "test") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "test")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetTest
+instance Prelude.Hashable GetTest
 
-instance NFData GetTest
+instance Prelude.NFData GetTest
 
-instance ToHeaders GetTest where
+instance Prelude.ToHeaders GetTest where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("DeviceFarm_20150623.GetTest" :: ByteString),
+              Prelude.=# ( "DeviceFarm_20150623.GetTest" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetTest where
+instance Prelude.ToJSON GetTest where
   toJSON GetTest' {..} =
-    object (catMaybes [Just ("arn" .= _gtArn)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("arn" Prelude..= arn)]
+      )
 
-instance ToPath GetTest where
-  toPath = const "/"
+instance Prelude.ToPath GetTest where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetTest where
-  toQuery = const mempty
+instance Prelude.ToQuery GetTest where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the result of a get test request.
 --
---
---
--- /See:/ 'getTestResponse' smart constructor.
+-- /See:/ 'newGetTestResponse' smart constructor.
 data GetTestResponse = GetTestResponse'
-  { _gtrrsTest ::
-      !(Maybe Test),
-    _gtrrsResponseStatus :: !Int
+  { -- | A test condition that is evaluated.
+    test :: Prelude.Maybe Test,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetTestResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetTestResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gtrrsTest' - A test condition that is evaluated.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gtrrsResponseStatus' - -- | The response status code.
-getTestResponse ::
-  -- | 'gtrrsResponseStatus'
-  Int ->
+-- 'test', 'getTestResponse_test' - A test condition that is evaluated.
+--
+-- 'httpStatus', 'getTestResponse_httpStatus' - The response's http status code.
+newGetTestResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetTestResponse
-getTestResponse pResponseStatus_ =
+newGetTestResponse pHttpStatus_ =
   GetTestResponse'
-    { _gtrrsTest = Nothing,
-      _gtrrsResponseStatus = pResponseStatus_
+    { test = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A test condition that is evaluated.
-gtrrsTest :: Lens' GetTestResponse (Maybe Test)
-gtrrsTest = lens _gtrrsTest (\s a -> s {_gtrrsTest = a})
+getTestResponse_test :: Lens.Lens' GetTestResponse (Prelude.Maybe Test)
+getTestResponse_test = Lens.lens (\GetTestResponse' {test} -> test) (\s@GetTestResponse' {} a -> s {test = a} :: GetTestResponse)
 
--- | -- | The response status code.
-gtrrsResponseStatus :: Lens' GetTestResponse Int
-gtrrsResponseStatus = lens _gtrrsResponseStatus (\s a -> s {_gtrrsResponseStatus = a})
+-- | The response's http status code.
+getTestResponse_httpStatus :: Lens.Lens' GetTestResponse Prelude.Int
+getTestResponse_httpStatus = Lens.lens (\GetTestResponse' {httpStatus} -> httpStatus) (\s@GetTestResponse' {} a -> s {httpStatus = a} :: GetTestResponse)
 
-instance NFData GetTestResponse
+instance Prelude.NFData GetTestResponse

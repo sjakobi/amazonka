@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,49 +19,57 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.DeviceFarm.Types.ProblemDetail where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about a problem detail.
 --
---
---
--- /See:/ 'problemDetail' smart constructor.
+-- /See:/ 'newProblemDetail' smart constructor.
 data ProblemDetail = ProblemDetail'
-  { _pdArn ::
-      !(Maybe Text),
-    _pdName :: !(Maybe Text)
+  { -- | The problem detail\'s ARN.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The problem detail\'s name.
+    name :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ProblemDetail' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ProblemDetail' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pdArn' - The problem detail's ARN.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pdName' - The problem detail's name.
-problemDetail ::
+-- 'arn', 'problemDetail_arn' - The problem detail\'s ARN.
+--
+-- 'name', 'problemDetail_name' - The problem detail\'s name.
+newProblemDetail ::
   ProblemDetail
-problemDetail =
-  ProblemDetail' {_pdArn = Nothing, _pdName = Nothing}
+newProblemDetail =
+  ProblemDetail'
+    { arn = Prelude.Nothing,
+      name = Prelude.Nothing
+    }
 
--- | The problem detail's ARN.
-pdArn :: Lens' ProblemDetail (Maybe Text)
-pdArn = lens _pdArn (\s a -> s {_pdArn = a})
+-- | The problem detail\'s ARN.
+problemDetail_arn :: Lens.Lens' ProblemDetail (Prelude.Maybe Prelude.Text)
+problemDetail_arn = Lens.lens (\ProblemDetail' {arn} -> arn) (\s@ProblemDetail' {} a -> s {arn = a} :: ProblemDetail)
 
--- | The problem detail's name.
-pdName :: Lens' ProblemDetail (Maybe Text)
-pdName = lens _pdName (\s a -> s {_pdName = a})
+-- | The problem detail\'s name.
+problemDetail_name :: Lens.Lens' ProblemDetail (Prelude.Maybe Prelude.Text)
+problemDetail_name = Lens.lens (\ProblemDetail' {name} -> name) (\s@ProblemDetail' {} a -> s {name = a} :: ProblemDetail)
 
-instance FromJSON ProblemDetail where
+instance Prelude.FromJSON ProblemDetail where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ProblemDetail"
       ( \x ->
-          ProblemDetail' <$> (x .:? "arn") <*> (x .:? "name")
+          ProblemDetail'
+            Prelude.<$> (x Prelude..:? "arn")
+            Prelude.<*> (x Prelude..:? "name")
       )
 
-instance Hashable ProblemDetail
+instance Prelude.Hashable ProblemDetail
 
-instance NFData ProblemDetail
+instance Prelude.NFData ProblemDetail

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,99 +22,155 @@ module Network.AWS.DeviceFarm.Types.Problem where
 import Network.AWS.DeviceFarm.Types.Device
 import Network.AWS.DeviceFarm.Types.ExecutionResult
 import Network.AWS.DeviceFarm.Types.ProblemDetail
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents a specific warning or failure.
 --
---
---
--- /See:/ 'problem' smart constructor.
+-- /See:/ 'newProblem' smart constructor.
 data Problem = Problem'
-  { _pJob ::
-      !(Maybe ProblemDetail),
-    _pResult :: !(Maybe ExecutionResult),
-    _pMessage :: !(Maybe Text),
-    _pDevice :: !(Maybe Device),
-    _pRun :: !(Maybe ProblemDetail),
-    _pTest :: !(Maybe ProblemDetail),
-    _pSuite :: !(Maybe ProblemDetail)
+  { -- | Information about the associated job.
+    job :: Prelude.Maybe ProblemDetail,
+    -- | The problem\'s result.
+    --
+    -- Allowed values include:
+    --
+    -- -   PENDING
+    --
+    -- -   PASSED
+    --
+    -- -   WARNED
+    --
+    -- -   FAILED
+    --
+    -- -   SKIPPED
+    --
+    -- -   ERRORED
+    --
+    -- -   STOPPED
+    result :: Prelude.Maybe ExecutionResult,
+    -- | A message about the problem\'s result.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | Information about the associated device.
+    device :: Prelude.Maybe Device,
+    -- | Information about the associated run.
+    run :: Prelude.Maybe ProblemDetail,
+    -- | Information about the associated test.
+    test :: Prelude.Maybe ProblemDetail,
+    -- | Information about the associated suite.
+    suite :: Prelude.Maybe ProblemDetail
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Problem' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Problem' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pJob' - Information about the associated job.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pResult' - The problem's result. Allowed values include:     * PENDING     * PASSED     * WARNED     * FAILED     * SKIPPED     * ERRORED     * STOPPED
+-- 'job', 'problem_job' - Information about the associated job.
 --
--- * 'pMessage' - A message about the problem's result.
+-- 'result', 'problem_result' - The problem\'s result.
 --
--- * 'pDevice' - Information about the associated device.
+-- Allowed values include:
 --
--- * 'pRun' - Information about the associated run.
+-- -   PENDING
 --
--- * 'pTest' - Information about the associated test.
+-- -   PASSED
 --
--- * 'pSuite' - Information about the associated suite.
-problem ::
+-- -   WARNED
+--
+-- -   FAILED
+--
+-- -   SKIPPED
+--
+-- -   ERRORED
+--
+-- -   STOPPED
+--
+-- 'message', 'problem_message' - A message about the problem\'s result.
+--
+-- 'device', 'problem_device' - Information about the associated device.
+--
+-- 'run', 'problem_run' - Information about the associated run.
+--
+-- 'test', 'problem_test' - Information about the associated test.
+--
+-- 'suite', 'problem_suite' - Information about the associated suite.
+newProblem ::
   Problem
-problem =
+newProblem =
   Problem'
-    { _pJob = Nothing,
-      _pResult = Nothing,
-      _pMessage = Nothing,
-      _pDevice = Nothing,
-      _pRun = Nothing,
-      _pTest = Nothing,
-      _pSuite = Nothing
+    { job = Prelude.Nothing,
+      result = Prelude.Nothing,
+      message = Prelude.Nothing,
+      device = Prelude.Nothing,
+      run = Prelude.Nothing,
+      test = Prelude.Nothing,
+      suite = Prelude.Nothing
     }
 
 -- | Information about the associated job.
-pJob :: Lens' Problem (Maybe ProblemDetail)
-pJob = lens _pJob (\s a -> s {_pJob = a})
+problem_job :: Lens.Lens' Problem (Prelude.Maybe ProblemDetail)
+problem_job = Lens.lens (\Problem' {job} -> job) (\s@Problem' {} a -> s {job = a} :: Problem)
 
--- | The problem's result. Allowed values include:     * PENDING     * PASSED     * WARNED     * FAILED     * SKIPPED     * ERRORED     * STOPPED
-pResult :: Lens' Problem (Maybe ExecutionResult)
-pResult = lens _pResult (\s a -> s {_pResult = a})
+-- | The problem\'s result.
+--
+-- Allowed values include:
+--
+-- -   PENDING
+--
+-- -   PASSED
+--
+-- -   WARNED
+--
+-- -   FAILED
+--
+-- -   SKIPPED
+--
+-- -   ERRORED
+--
+-- -   STOPPED
+problem_result :: Lens.Lens' Problem (Prelude.Maybe ExecutionResult)
+problem_result = Lens.lens (\Problem' {result} -> result) (\s@Problem' {} a -> s {result = a} :: Problem)
 
--- | A message about the problem's result.
-pMessage :: Lens' Problem (Maybe Text)
-pMessage = lens _pMessage (\s a -> s {_pMessage = a})
+-- | A message about the problem\'s result.
+problem_message :: Lens.Lens' Problem (Prelude.Maybe Prelude.Text)
+problem_message = Lens.lens (\Problem' {message} -> message) (\s@Problem' {} a -> s {message = a} :: Problem)
 
 -- | Information about the associated device.
-pDevice :: Lens' Problem (Maybe Device)
-pDevice = lens _pDevice (\s a -> s {_pDevice = a})
+problem_device :: Lens.Lens' Problem (Prelude.Maybe Device)
+problem_device = Lens.lens (\Problem' {device} -> device) (\s@Problem' {} a -> s {device = a} :: Problem)
 
 -- | Information about the associated run.
-pRun :: Lens' Problem (Maybe ProblemDetail)
-pRun = lens _pRun (\s a -> s {_pRun = a})
+problem_run :: Lens.Lens' Problem (Prelude.Maybe ProblemDetail)
+problem_run = Lens.lens (\Problem' {run} -> run) (\s@Problem' {} a -> s {run = a} :: Problem)
 
 -- | Information about the associated test.
-pTest :: Lens' Problem (Maybe ProblemDetail)
-pTest = lens _pTest (\s a -> s {_pTest = a})
+problem_test :: Lens.Lens' Problem (Prelude.Maybe ProblemDetail)
+problem_test = Lens.lens (\Problem' {test} -> test) (\s@Problem' {} a -> s {test = a} :: Problem)
 
 -- | Information about the associated suite.
-pSuite :: Lens' Problem (Maybe ProblemDetail)
-pSuite = lens _pSuite (\s a -> s {_pSuite = a})
+problem_suite :: Lens.Lens' Problem (Prelude.Maybe ProblemDetail)
+problem_suite = Lens.lens (\Problem' {suite} -> suite) (\s@Problem' {} a -> s {suite = a} :: Problem)
 
-instance FromJSON Problem where
+instance Prelude.FromJSON Problem where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Problem"
       ( \x ->
           Problem'
-            <$> (x .:? "job")
-            <*> (x .:? "result")
-            <*> (x .:? "message")
-            <*> (x .:? "device")
-            <*> (x .:? "run")
-            <*> (x .:? "test")
-            <*> (x .:? "suite")
+            Prelude.<$> (x Prelude..:? "job")
+            Prelude.<*> (x Prelude..:? "result")
+            Prelude.<*> (x Prelude..:? "message")
+            Prelude.<*> (x Prelude..:? "device")
+            Prelude.<*> (x Prelude..:? "run")
+            Prelude.<*> (x Prelude..:? "test")
+            Prelude.<*> (x Prelude..:? "suite")
       )
 
-instance Hashable Problem
+instance Prelude.Hashable Problem
 
-instance NFData Problem
+instance Prelude.NFData Problem

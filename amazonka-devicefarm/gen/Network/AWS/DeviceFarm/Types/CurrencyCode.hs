@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,48 +19,50 @@
 module Network.AWS.DeviceFarm.Types.CurrencyCode
   ( CurrencyCode
       ( ..,
-        Usd
+        CurrencyCodeUSD
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CurrencyCode = CurrencyCode' (CI Text)
+newtype CurrencyCode = CurrencyCode'
+  { fromCurrencyCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Usd :: CurrencyCode
-pattern Usd = CurrencyCode' "USD"
+pattern CurrencyCodeUSD :: CurrencyCode
+pattern CurrencyCodeUSD = CurrencyCode' "USD"
 
 {-# COMPLETE
-  Usd,
+  CurrencyCodeUSD,
   CurrencyCode'
   #-}
 
-instance FromText CurrencyCode where
-  parser = (CurrencyCode' . mk) <$> takeText
+instance Prelude.FromText CurrencyCode where
+  parser = CurrencyCode' Prelude.<$> Prelude.takeText
 
-instance ToText CurrencyCode where
-  toText (CurrencyCode' ci) = original ci
+instance Prelude.ToText CurrencyCode where
+  toText (CurrencyCode' x) = x
 
-instance Hashable CurrencyCode
+instance Prelude.Hashable CurrencyCode
 
-instance NFData CurrencyCode
+instance Prelude.NFData CurrencyCode
 
-instance ToByteString CurrencyCode
+instance Prelude.ToByteString CurrencyCode
 
-instance ToQuery CurrencyCode
+instance Prelude.ToQuery CurrencyCode
 
-instance ToHeader CurrencyCode
+instance Prelude.ToHeader CurrencyCode
 
-instance FromJSON CurrencyCode where
-  parseJSON = parseJSONText "CurrencyCode"
+instance Prelude.FromJSON CurrencyCode where
+  parseJSON = Prelude.parseJSONText "CurrencyCode"

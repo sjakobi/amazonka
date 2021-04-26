@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,124 +21,149 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Initiates a stop request for the current test run. AWS Device Farm immediately stops the run on devices where tests have not started. You are not billed for these devices. On devices where tests have started executing, setup suite and teardown suite tests run to completion on those devices. You are billed for setup, teardown, and any tests that were in progress or already completed.
+-- Initiates a stop request for the current test run. AWS Device Farm
+-- immediately stops the run on devices where tests have not started. You
+-- are not billed for these devices. On devices where tests have started
+-- executing, setup suite and teardown suite tests run to completion on
+-- those devices. You are billed for setup, teardown, and any tests that
+-- were in progress or already completed.
 module Network.AWS.DeviceFarm.StopRun
   ( -- * Creating a Request
-    stopRun,
-    StopRun,
+    StopRun (..),
+    newStopRun,
 
     -- * Request Lenses
-    srArn,
+    stopRun_arn,
 
     -- * Destructuring the Response
-    stopRunResponse,
-    StopRunResponse,
+    StopRunResponse (..),
+    newStopRunResponse,
 
     -- * Response Lenses
-    srsRun,
-    srsResponseStatus,
+    stopRunResponse_run,
+    stopRunResponse_httpStatus,
   )
 where
 
 import Network.AWS.DeviceFarm.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DeviceFarm.Types.Run
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the request to stop a specific run.
 --
---
---
--- /See:/ 'stopRun' smart constructor.
-newtype StopRun = StopRun' {_srArn :: Text}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- /See:/ 'newStopRun' smart constructor.
+data StopRun = StopRun'
+  { -- | Represents the Amazon Resource Name (ARN) of the Device Farm run to
+    -- stop.
+    arn :: Prelude.Text
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopRun' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopRun' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'srArn' - Represents the Amazon Resource Name (ARN) of the Device Farm run to stop.
-stopRun ::
-  -- | 'srArn'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'arn', 'stopRun_arn' - Represents the Amazon Resource Name (ARN) of the Device Farm run to
+-- stop.
+newStopRun ::
+  -- | 'arn'
+  Prelude.Text ->
   StopRun
-stopRun pArn_ = StopRun' {_srArn = pArn_}
+newStopRun pArn_ = StopRun' {arn = pArn_}
 
--- | Represents the Amazon Resource Name (ARN) of the Device Farm run to stop.
-srArn :: Lens' StopRun Text
-srArn = lens _srArn (\s a -> s {_srArn = a})
+-- | Represents the Amazon Resource Name (ARN) of the Device Farm run to
+-- stop.
+stopRun_arn :: Lens.Lens' StopRun Prelude.Text
+stopRun_arn = Lens.lens (\StopRun' {arn} -> arn) (\s@StopRun' {} a -> s {arn = a} :: StopRun)
 
-instance AWSRequest StopRun where
+instance Prelude.AWSRequest StopRun where
   type Rs StopRun = StopRunResponse
-  request = postJSON deviceFarm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           StopRunResponse'
-            <$> (x .?> "run") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "run")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StopRun
+instance Prelude.Hashable StopRun
 
-instance NFData StopRun
+instance Prelude.NFData StopRun
 
-instance ToHeaders StopRun where
+instance Prelude.ToHeaders StopRun where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("DeviceFarm_20150623.StopRun" :: ByteString),
+              Prelude.=# ( "DeviceFarm_20150623.StopRun" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StopRun where
+instance Prelude.ToJSON StopRun where
   toJSON StopRun' {..} =
-    object (catMaybes [Just ("arn" .= _srArn)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("arn" Prelude..= arn)]
+      )
 
-instance ToPath StopRun where
-  toPath = const "/"
+instance Prelude.ToPath StopRun where
+  toPath = Prelude.const "/"
 
-instance ToQuery StopRun where
-  toQuery = const mempty
+instance Prelude.ToQuery StopRun where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the results of your stop run attempt.
 --
---
---
--- /See:/ 'stopRunResponse' smart constructor.
+-- /See:/ 'newStopRunResponse' smart constructor.
 data StopRunResponse = StopRunResponse'
-  { _srsRun ::
-      !(Maybe Run),
-    _srsResponseStatus :: !Int
+  { -- | The run that was stopped.
+    run :: Prelude.Maybe Run,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopRunResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopRunResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'srsRun' - The run that was stopped.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'srsResponseStatus' - -- | The response status code.
-stopRunResponse ::
-  -- | 'srsResponseStatus'
-  Int ->
+-- 'run', 'stopRunResponse_run' - The run that was stopped.
+--
+-- 'httpStatus', 'stopRunResponse_httpStatus' - The response's http status code.
+newStopRunResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StopRunResponse
-stopRunResponse pResponseStatus_ =
+newStopRunResponse pHttpStatus_ =
   StopRunResponse'
-    { _srsRun = Nothing,
-      _srsResponseStatus = pResponseStatus_
+    { run = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The run that was stopped.
-srsRun :: Lens' StopRunResponse (Maybe Run)
-srsRun = lens _srsRun (\s a -> s {_srsRun = a})
+stopRunResponse_run :: Lens.Lens' StopRunResponse (Prelude.Maybe Run)
+stopRunResponse_run = Lens.lens (\StopRunResponse' {run} -> run) (\s@StopRunResponse' {} a -> s {run = a} :: StopRunResponse)
 
--- | -- | The response status code.
-srsResponseStatus :: Lens' StopRunResponse Int
-srsResponseStatus = lens _srsResponseStatus (\s a -> s {_srsResponseStatus = a})
+-- | The response's http status code.
+stopRunResponse_httpStatus :: Lens.Lens' StopRunResponse Prelude.Int
+stopRunResponse_httpStatus = Lens.lens (\StopRunResponse' {httpStatus} -> httpStatus) (\s@StopRunResponse' {} a -> s {httpStatus = a} :: StopRunResponse)
 
-instance NFData StopRunResponse
+instance Prelude.NFData StopRunResponse

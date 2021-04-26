@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,73 +21,77 @@ module Network.AWS.DeviceFarm.Types.OfferingStatus where
 
 import Network.AWS.DeviceFarm.Types.Offering
 import Network.AWS.DeviceFarm.Types.OfferingTransactionType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The status of the offering.
 --
---
---
--- /See:/ 'offeringStatus' smart constructor.
+-- /See:/ 'newOfferingStatus' smart constructor.
 data OfferingStatus = OfferingStatus'
-  { _osQuantity ::
-      !(Maybe Int),
-    _osOffering :: !(Maybe Offering),
-    _osEffectiveOn :: !(Maybe POSIX),
-    _osType ::
-      !(Maybe OfferingTransactionType)
+  { -- | The number of available devices in the offering.
+    quantity :: Prelude.Maybe Prelude.Int,
+    -- | Represents the metadata of an offering status.
+    offering :: Prelude.Maybe Offering,
+    -- | The date on which the offering is effective.
+    effectiveOn :: Prelude.Maybe Prelude.POSIX,
+    -- | The type specified for the offering status.
+    type' :: Prelude.Maybe OfferingTransactionType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OfferingStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OfferingStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'osQuantity' - The number of available devices in the offering.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'osOffering' - Represents the metadata of an offering status.
+-- 'quantity', 'offeringStatus_quantity' - The number of available devices in the offering.
 --
--- * 'osEffectiveOn' - The date on which the offering is effective.
+-- 'offering', 'offeringStatus_offering' - Represents the metadata of an offering status.
 --
--- * 'osType' - The type specified for the offering status.
-offeringStatus ::
+-- 'effectiveOn', 'offeringStatus_effectiveOn' - The date on which the offering is effective.
+--
+-- 'type'', 'offeringStatus_type' - The type specified for the offering status.
+newOfferingStatus ::
   OfferingStatus
-offeringStatus =
+newOfferingStatus =
   OfferingStatus'
-    { _osQuantity = Nothing,
-      _osOffering = Nothing,
-      _osEffectiveOn = Nothing,
-      _osType = Nothing
+    { quantity = Prelude.Nothing,
+      offering = Prelude.Nothing,
+      effectiveOn = Prelude.Nothing,
+      type' = Prelude.Nothing
     }
 
 -- | The number of available devices in the offering.
-osQuantity :: Lens' OfferingStatus (Maybe Int)
-osQuantity = lens _osQuantity (\s a -> s {_osQuantity = a})
+offeringStatus_quantity :: Lens.Lens' OfferingStatus (Prelude.Maybe Prelude.Int)
+offeringStatus_quantity = Lens.lens (\OfferingStatus' {quantity} -> quantity) (\s@OfferingStatus' {} a -> s {quantity = a} :: OfferingStatus)
 
 -- | Represents the metadata of an offering status.
-osOffering :: Lens' OfferingStatus (Maybe Offering)
-osOffering = lens _osOffering (\s a -> s {_osOffering = a})
+offeringStatus_offering :: Lens.Lens' OfferingStatus (Prelude.Maybe Offering)
+offeringStatus_offering = Lens.lens (\OfferingStatus' {offering} -> offering) (\s@OfferingStatus' {} a -> s {offering = a} :: OfferingStatus)
 
 -- | The date on which the offering is effective.
-osEffectiveOn :: Lens' OfferingStatus (Maybe UTCTime)
-osEffectiveOn = lens _osEffectiveOn (\s a -> s {_osEffectiveOn = a}) . mapping _Time
+offeringStatus_effectiveOn :: Lens.Lens' OfferingStatus (Prelude.Maybe Prelude.UTCTime)
+offeringStatus_effectiveOn = Lens.lens (\OfferingStatus' {effectiveOn} -> effectiveOn) (\s@OfferingStatus' {} a -> s {effectiveOn = a} :: OfferingStatus) Prelude.. Lens.mapping Prelude._Time
 
 -- | The type specified for the offering status.
-osType :: Lens' OfferingStatus (Maybe OfferingTransactionType)
-osType = lens _osType (\s a -> s {_osType = a})
+offeringStatus_type :: Lens.Lens' OfferingStatus (Prelude.Maybe OfferingTransactionType)
+offeringStatus_type = Lens.lens (\OfferingStatus' {type'} -> type') (\s@OfferingStatus' {} a -> s {type' = a} :: OfferingStatus)
 
-instance FromJSON OfferingStatus where
+instance Prelude.FromJSON OfferingStatus where
   parseJSON =
-    withObject
+    Prelude.withObject
       "OfferingStatus"
       ( \x ->
           OfferingStatus'
-            <$> (x .:? "quantity")
-            <*> (x .:? "offering")
-            <*> (x .:? "effectiveOn")
-            <*> (x .:? "type")
+            Prelude.<$> (x Prelude..:? "quantity")
+            Prelude.<*> (x Prelude..:? "offering")
+            Prelude.<*> (x Prelude..:? "effectiveOn")
+            Prelude.<*> (x Prelude..:? "type")
       )
 
-instance Hashable OfferingStatus
+instance Prelude.Hashable OfferingStatus
 
-instance NFData OfferingStatus
+instance Prelude.NFData OfferingStatus

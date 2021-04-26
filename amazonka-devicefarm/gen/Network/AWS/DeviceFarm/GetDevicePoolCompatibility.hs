@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,217 +24,332 @@
 -- Gets information about compatibility with a device pool.
 module Network.AWS.DeviceFarm.GetDevicePoolCompatibility
   ( -- * Creating a Request
-    getDevicePoolCompatibility,
-    GetDevicePoolCompatibility,
+    GetDevicePoolCompatibility (..),
+    newGetDevicePoolCompatibility,
 
     -- * Request Lenses
-    gdpcTestType,
-    gdpcConfiguration,
-    gdpcAppARN,
-    gdpcTest,
-    gdpcDevicePoolARN,
+    getDevicePoolCompatibility_testType,
+    getDevicePoolCompatibility_configuration,
+    getDevicePoolCompatibility_appArn,
+    getDevicePoolCompatibility_test,
+    getDevicePoolCompatibility_devicePoolArn,
 
     -- * Destructuring the Response
-    getDevicePoolCompatibilityResponse,
-    GetDevicePoolCompatibilityResponse,
+    GetDevicePoolCompatibilityResponse (..),
+    newGetDevicePoolCompatibilityResponse,
 
     -- * Response Lenses
-    gdpcrrsIncompatibleDevices,
-    gdpcrrsCompatibleDevices,
-    gdpcrrsResponseStatus,
+    getDevicePoolCompatibilityResponse_incompatibleDevices,
+    getDevicePoolCompatibilityResponse_compatibleDevices,
+    getDevicePoolCompatibilityResponse_httpStatus,
   )
 where
 
 import Network.AWS.DeviceFarm.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DeviceFarm.Types.DevicePoolCompatibilityResult
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents a request to the get device pool compatibility operation.
 --
---
---
--- /See:/ 'getDevicePoolCompatibility' smart constructor.
+-- /See:/ 'newGetDevicePoolCompatibility' smart constructor.
 data GetDevicePoolCompatibility = GetDevicePoolCompatibility'
-  { _gdpcTestType ::
-      !(Maybe TestType),
-    _gdpcConfiguration ::
-      !( Maybe
-           ScheduleRunConfiguration
-       ),
-    _gdpcAppARN ::
-      !(Maybe Text),
-    _gdpcTest ::
-      !( Maybe
-           ScheduleRunTest
-       ),
-    _gdpcDevicePoolARN ::
-      !Text
+  { -- | The test type for the specified device pool.
+    --
+    -- Allowed values include the following:
+    --
+    -- -   BUILTIN_FUZZ.
+    --
+    -- -   BUILTIN_EXPLORER. For Android, an app explorer that traverses an
+    --     Android app, interacting with it and capturing screenshots at the
+    --     same time.
+    --
+    -- -   APPIUM_JAVA_JUNIT.
+    --
+    -- -   APPIUM_JAVA_TESTNG.
+    --
+    -- -   APPIUM_PYTHON.
+    --
+    -- -   APPIUM_NODE.
+    --
+    -- -   APPIUM_RUBY.
+    --
+    -- -   APPIUM_WEB_JAVA_JUNIT.
+    --
+    -- -   APPIUM_WEB_JAVA_TESTNG.
+    --
+    -- -   APPIUM_WEB_PYTHON.
+    --
+    -- -   APPIUM_WEB_NODE.
+    --
+    -- -   APPIUM_WEB_RUBY.
+    --
+    -- -   CALABASH.
+    --
+    -- -   INSTRUMENTATION.
+    --
+    -- -   UIAUTOMATION.
+    --
+    -- -   UIAUTOMATOR.
+    --
+    -- -   XCTEST.
+    --
+    -- -   XCTEST_UI.
+    testType :: Prelude.Maybe TestType,
+    -- | An object that contains information about the settings for a run.
+    configuration :: Prelude.Maybe ScheduleRunConfiguration,
+    -- | The ARN of the app that is associated with the specified device pool.
+    appArn :: Prelude.Maybe Prelude.Text,
+    -- | Information about the uploaded test to be run against the device pool.
+    test :: Prelude.Maybe ScheduleRunTest,
+    -- | The device pool\'s ARN.
+    devicePoolArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDevicePoolCompatibility' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDevicePoolCompatibility' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdpcTestType' - The test type for the specified device pool. Allowed values include the following:     * BUILTIN_FUZZ.     * BUILTIN_EXPLORER. For Android, an app explorer that traverses an Android app, interacting with it and capturing screenshots at the same time.     * APPIUM_JAVA_JUNIT.     * APPIUM_JAVA_TESTNG.     * APPIUM_PYTHON.     * APPIUM_NODE.     * APPIUM_RUBY.     * APPIUM_WEB_JAVA_JUNIT.     * APPIUM_WEB_JAVA_TESTNG.     * APPIUM_WEB_PYTHON.     * APPIUM_WEB_NODE.     * APPIUM_WEB_RUBY.     * CALABASH.     * INSTRUMENTATION.     * UIAUTOMATION.     * UIAUTOMATOR.     * XCTEST.     * XCTEST_UI.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gdpcConfiguration' - An object that contains information about the settings for a run.
+-- 'testType', 'getDevicePoolCompatibility_testType' - The test type for the specified device pool.
 --
--- * 'gdpcAppARN' - The ARN of the app that is associated with the specified device pool.
+-- Allowed values include the following:
 --
--- * 'gdpcTest' - Information about the uploaded test to be run against the device pool.
+-- -   BUILTIN_FUZZ.
 --
--- * 'gdpcDevicePoolARN' - The device pool's ARN.
-getDevicePoolCompatibility ::
-  -- | 'gdpcDevicePoolARN'
-  Text ->
+-- -   BUILTIN_EXPLORER. For Android, an app explorer that traverses an
+--     Android app, interacting with it and capturing screenshots at the
+--     same time.
+--
+-- -   APPIUM_JAVA_JUNIT.
+--
+-- -   APPIUM_JAVA_TESTNG.
+--
+-- -   APPIUM_PYTHON.
+--
+-- -   APPIUM_NODE.
+--
+-- -   APPIUM_RUBY.
+--
+-- -   APPIUM_WEB_JAVA_JUNIT.
+--
+-- -   APPIUM_WEB_JAVA_TESTNG.
+--
+-- -   APPIUM_WEB_PYTHON.
+--
+-- -   APPIUM_WEB_NODE.
+--
+-- -   APPIUM_WEB_RUBY.
+--
+-- -   CALABASH.
+--
+-- -   INSTRUMENTATION.
+--
+-- -   UIAUTOMATION.
+--
+-- -   UIAUTOMATOR.
+--
+-- -   XCTEST.
+--
+-- -   XCTEST_UI.
+--
+-- 'configuration', 'getDevicePoolCompatibility_configuration' - An object that contains information about the settings for a run.
+--
+-- 'appArn', 'getDevicePoolCompatibility_appArn' - The ARN of the app that is associated with the specified device pool.
+--
+-- 'test', 'getDevicePoolCompatibility_test' - Information about the uploaded test to be run against the device pool.
+--
+-- 'devicePoolArn', 'getDevicePoolCompatibility_devicePoolArn' - The device pool\'s ARN.
+newGetDevicePoolCompatibility ::
+  -- | 'devicePoolArn'
+  Prelude.Text ->
   GetDevicePoolCompatibility
-getDevicePoolCompatibility pDevicePoolARN_ =
+newGetDevicePoolCompatibility pDevicePoolArn_ =
   GetDevicePoolCompatibility'
-    { _gdpcTestType =
-        Nothing,
-      _gdpcConfiguration = Nothing,
-      _gdpcAppARN = Nothing,
-      _gdpcTest = Nothing,
-      _gdpcDevicePoolARN = pDevicePoolARN_
+    { testType =
+        Prelude.Nothing,
+      configuration = Prelude.Nothing,
+      appArn = Prelude.Nothing,
+      test = Prelude.Nothing,
+      devicePoolArn = pDevicePoolArn_
     }
 
--- | The test type for the specified device pool. Allowed values include the following:     * BUILTIN_FUZZ.     * BUILTIN_EXPLORER. For Android, an app explorer that traverses an Android app, interacting with it and capturing screenshots at the same time.     * APPIUM_JAVA_JUNIT.     * APPIUM_JAVA_TESTNG.     * APPIUM_PYTHON.     * APPIUM_NODE.     * APPIUM_RUBY.     * APPIUM_WEB_JAVA_JUNIT.     * APPIUM_WEB_JAVA_TESTNG.     * APPIUM_WEB_PYTHON.     * APPIUM_WEB_NODE.     * APPIUM_WEB_RUBY.     * CALABASH.     * INSTRUMENTATION.     * UIAUTOMATION.     * UIAUTOMATOR.     * XCTEST.     * XCTEST_UI.
-gdpcTestType :: Lens' GetDevicePoolCompatibility (Maybe TestType)
-gdpcTestType = lens _gdpcTestType (\s a -> s {_gdpcTestType = a})
+-- | The test type for the specified device pool.
+--
+-- Allowed values include the following:
+--
+-- -   BUILTIN_FUZZ.
+--
+-- -   BUILTIN_EXPLORER. For Android, an app explorer that traverses an
+--     Android app, interacting with it and capturing screenshots at the
+--     same time.
+--
+-- -   APPIUM_JAVA_JUNIT.
+--
+-- -   APPIUM_JAVA_TESTNG.
+--
+-- -   APPIUM_PYTHON.
+--
+-- -   APPIUM_NODE.
+--
+-- -   APPIUM_RUBY.
+--
+-- -   APPIUM_WEB_JAVA_JUNIT.
+--
+-- -   APPIUM_WEB_JAVA_TESTNG.
+--
+-- -   APPIUM_WEB_PYTHON.
+--
+-- -   APPIUM_WEB_NODE.
+--
+-- -   APPIUM_WEB_RUBY.
+--
+-- -   CALABASH.
+--
+-- -   INSTRUMENTATION.
+--
+-- -   UIAUTOMATION.
+--
+-- -   UIAUTOMATOR.
+--
+-- -   XCTEST.
+--
+-- -   XCTEST_UI.
+getDevicePoolCompatibility_testType :: Lens.Lens' GetDevicePoolCompatibility (Prelude.Maybe TestType)
+getDevicePoolCompatibility_testType = Lens.lens (\GetDevicePoolCompatibility' {testType} -> testType) (\s@GetDevicePoolCompatibility' {} a -> s {testType = a} :: GetDevicePoolCompatibility)
 
 -- | An object that contains information about the settings for a run.
-gdpcConfiguration :: Lens' GetDevicePoolCompatibility (Maybe ScheduleRunConfiguration)
-gdpcConfiguration = lens _gdpcConfiguration (\s a -> s {_gdpcConfiguration = a})
+getDevicePoolCompatibility_configuration :: Lens.Lens' GetDevicePoolCompatibility (Prelude.Maybe ScheduleRunConfiguration)
+getDevicePoolCompatibility_configuration = Lens.lens (\GetDevicePoolCompatibility' {configuration} -> configuration) (\s@GetDevicePoolCompatibility' {} a -> s {configuration = a} :: GetDevicePoolCompatibility)
 
 -- | The ARN of the app that is associated with the specified device pool.
-gdpcAppARN :: Lens' GetDevicePoolCompatibility (Maybe Text)
-gdpcAppARN = lens _gdpcAppARN (\s a -> s {_gdpcAppARN = a})
+getDevicePoolCompatibility_appArn :: Lens.Lens' GetDevicePoolCompatibility (Prelude.Maybe Prelude.Text)
+getDevicePoolCompatibility_appArn = Lens.lens (\GetDevicePoolCompatibility' {appArn} -> appArn) (\s@GetDevicePoolCompatibility' {} a -> s {appArn = a} :: GetDevicePoolCompatibility)
 
 -- | Information about the uploaded test to be run against the device pool.
-gdpcTest :: Lens' GetDevicePoolCompatibility (Maybe ScheduleRunTest)
-gdpcTest = lens _gdpcTest (\s a -> s {_gdpcTest = a})
+getDevicePoolCompatibility_test :: Lens.Lens' GetDevicePoolCompatibility (Prelude.Maybe ScheduleRunTest)
+getDevicePoolCompatibility_test = Lens.lens (\GetDevicePoolCompatibility' {test} -> test) (\s@GetDevicePoolCompatibility' {} a -> s {test = a} :: GetDevicePoolCompatibility)
 
--- | The device pool's ARN.
-gdpcDevicePoolARN :: Lens' GetDevicePoolCompatibility Text
-gdpcDevicePoolARN = lens _gdpcDevicePoolARN (\s a -> s {_gdpcDevicePoolARN = a})
+-- | The device pool\'s ARN.
+getDevicePoolCompatibility_devicePoolArn :: Lens.Lens' GetDevicePoolCompatibility Prelude.Text
+getDevicePoolCompatibility_devicePoolArn = Lens.lens (\GetDevicePoolCompatibility' {devicePoolArn} -> devicePoolArn) (\s@GetDevicePoolCompatibility' {} a -> s {devicePoolArn = a} :: GetDevicePoolCompatibility)
 
-instance AWSRequest GetDevicePoolCompatibility where
+instance
+  Prelude.AWSRequest
+    GetDevicePoolCompatibility
+  where
   type
     Rs GetDevicePoolCompatibility =
       GetDevicePoolCompatibilityResponse
-  request = postJSON deviceFarm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetDevicePoolCompatibilityResponse'
-            <$> (x .?> "incompatibleDevices" .!@ mempty)
-            <*> (x .?> "compatibleDevices" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "incompatibleDevices"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..?> "compatibleDevices"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetDevicePoolCompatibility
+instance Prelude.Hashable GetDevicePoolCompatibility
 
-instance NFData GetDevicePoolCompatibility
+instance Prelude.NFData GetDevicePoolCompatibility
 
-instance ToHeaders GetDevicePoolCompatibility where
+instance Prelude.ToHeaders GetDevicePoolCompatibility where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "DeviceFarm_20150623.GetDevicePoolCompatibility" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "DeviceFarm_20150623.GetDevicePoolCompatibility" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetDevicePoolCompatibility where
+instance Prelude.ToJSON GetDevicePoolCompatibility where
   toJSON GetDevicePoolCompatibility' {..} =
-    object
-      ( catMaybes
-          [ ("testType" .=) <$> _gdpcTestType,
-            ("configuration" .=) <$> _gdpcConfiguration,
-            ("appArn" .=) <$> _gdpcAppARN,
-            ("test" .=) <$> _gdpcTest,
-            Just ("devicePoolArn" .= _gdpcDevicePoolARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("testType" Prelude..=) Prelude.<$> testType,
+            ("configuration" Prelude..=)
+              Prelude.<$> configuration,
+            ("appArn" Prelude..=) Prelude.<$> appArn,
+            ("test" Prelude..=) Prelude.<$> test,
+            Prelude.Just
+              ("devicePoolArn" Prelude..= devicePoolArn)
           ]
       )
 
-instance ToPath GetDevicePoolCompatibility where
-  toPath = const "/"
+instance Prelude.ToPath GetDevicePoolCompatibility where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetDevicePoolCompatibility where
-  toQuery = const mempty
+instance Prelude.ToQuery GetDevicePoolCompatibility where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the result of describe device pool compatibility request.
 --
---
---
--- /See:/ 'getDevicePoolCompatibilityResponse' smart constructor.
+-- /See:/ 'newGetDevicePoolCompatibilityResponse' smart constructor.
 data GetDevicePoolCompatibilityResponse = GetDevicePoolCompatibilityResponse'
-  { _gdpcrrsIncompatibleDevices ::
-      !( Maybe
-           [DevicePoolCompatibilityResult]
-       ),
-    _gdpcrrsCompatibleDevices ::
-      !( Maybe
-           [DevicePoolCompatibilityResult]
-       ),
-    _gdpcrrsResponseStatus ::
-      !Int
+  { -- | Information about incompatible devices.
+    incompatibleDevices :: Prelude.Maybe [DevicePoolCompatibilityResult],
+    -- | Information about compatible devices.
+    compatibleDevices :: Prelude.Maybe [DevicePoolCompatibilityResult],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDevicePoolCompatibilityResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDevicePoolCompatibilityResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdpcrrsIncompatibleDevices' - Information about incompatible devices.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gdpcrrsCompatibleDevices' - Information about compatible devices.
+-- 'incompatibleDevices', 'getDevicePoolCompatibilityResponse_incompatibleDevices' - Information about incompatible devices.
 --
--- * 'gdpcrrsResponseStatus' - -- | The response status code.
-getDevicePoolCompatibilityResponse ::
-  -- | 'gdpcrrsResponseStatus'
-  Int ->
+-- 'compatibleDevices', 'getDevicePoolCompatibilityResponse_compatibleDevices' - Information about compatible devices.
+--
+-- 'httpStatus', 'getDevicePoolCompatibilityResponse_httpStatus' - The response's http status code.
+newGetDevicePoolCompatibilityResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetDevicePoolCompatibilityResponse
-getDevicePoolCompatibilityResponse pResponseStatus_ =
+newGetDevicePoolCompatibilityResponse pHttpStatus_ =
   GetDevicePoolCompatibilityResponse'
-    { _gdpcrrsIncompatibleDevices =
-        Nothing,
-      _gdpcrrsCompatibleDevices = Nothing,
-      _gdpcrrsResponseStatus =
-        pResponseStatus_
+    { incompatibleDevices =
+        Prelude.Nothing,
+      compatibleDevices = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about incompatible devices.
-gdpcrrsIncompatibleDevices :: Lens' GetDevicePoolCompatibilityResponse [DevicePoolCompatibilityResult]
-gdpcrrsIncompatibleDevices = lens _gdpcrrsIncompatibleDevices (\s a -> s {_gdpcrrsIncompatibleDevices = a}) . _Default . _Coerce
+getDevicePoolCompatibilityResponse_incompatibleDevices :: Lens.Lens' GetDevicePoolCompatibilityResponse (Prelude.Maybe [DevicePoolCompatibilityResult])
+getDevicePoolCompatibilityResponse_incompatibleDevices = Lens.lens (\GetDevicePoolCompatibilityResponse' {incompatibleDevices} -> incompatibleDevices) (\s@GetDevicePoolCompatibilityResponse' {} a -> s {incompatibleDevices = a} :: GetDevicePoolCompatibilityResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Information about compatible devices.
-gdpcrrsCompatibleDevices :: Lens' GetDevicePoolCompatibilityResponse [DevicePoolCompatibilityResult]
-gdpcrrsCompatibleDevices = lens _gdpcrrsCompatibleDevices (\s a -> s {_gdpcrrsCompatibleDevices = a}) . _Default . _Coerce
+getDevicePoolCompatibilityResponse_compatibleDevices :: Lens.Lens' GetDevicePoolCompatibilityResponse (Prelude.Maybe [DevicePoolCompatibilityResult])
+getDevicePoolCompatibilityResponse_compatibleDevices = Lens.lens (\GetDevicePoolCompatibilityResponse' {compatibleDevices} -> compatibleDevices) (\s@GetDevicePoolCompatibilityResponse' {} a -> s {compatibleDevices = a} :: GetDevicePoolCompatibilityResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-gdpcrrsResponseStatus :: Lens' GetDevicePoolCompatibilityResponse Int
-gdpcrrsResponseStatus = lens _gdpcrrsResponseStatus (\s a -> s {_gdpcrrsResponseStatus = a})
+-- | The response's http status code.
+getDevicePoolCompatibilityResponse_httpStatus :: Lens.Lens' GetDevicePoolCompatibilityResponse Prelude.Int
+getDevicePoolCompatibilityResponse_httpStatus = Lens.lens (\GetDevicePoolCompatibilityResponse' {httpStatus} -> httpStatus) (\s@GetDevicePoolCompatibilityResponse' {} a -> s {httpStatus = a} :: GetDevicePoolCompatibilityResponse)
 
-instance NFData GetDevicePoolCompatibilityResponse
+instance
+  Prelude.NFData
+    GetDevicePoolCompatibilityResponse

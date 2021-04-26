@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,186 +21,183 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns a list of the actions taken in a 'TestGridSession' .
+-- Returns a list of the actions taken in a TestGridSession.
 module Network.AWS.DeviceFarm.ListTestGridSessionActions
   ( -- * Creating a Request
-    listTestGridSessionActions,
-    ListTestGridSessionActions,
+    ListTestGridSessionActions (..),
+    newListTestGridSessionActions,
 
     -- * Request Lenses
-    ltgsaNextToken,
-    ltgsaMaxResult,
-    ltgsaSessionARN,
+    listTestGridSessionActions_nextToken,
+    listTestGridSessionActions_maxResult,
+    listTestGridSessionActions_sessionArn,
 
     -- * Destructuring the Response
-    listTestGridSessionActionsResponse,
-    ListTestGridSessionActionsResponse,
+    ListTestGridSessionActionsResponse (..),
+    newListTestGridSessionActionsResponse,
 
     -- * Response Lenses
-    ltgsarrsNextToken,
-    ltgsarrsActions,
-    ltgsarrsResponseStatus,
+    listTestGridSessionActionsResponse_nextToken,
+    listTestGridSessionActionsResponse_actions,
+    listTestGridSessionActionsResponse_httpStatus,
   )
 where
 
 import Network.AWS.DeviceFarm.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DeviceFarm.Types.TestGridSessionAction
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listTestGridSessionActions' smart constructor.
+-- | /See:/ 'newListTestGridSessionActions' smart constructor.
 data ListTestGridSessionActions = ListTestGridSessionActions'
-  { _ltgsaNextToken ::
-      !(Maybe Text),
-    _ltgsaMaxResult ::
-      !(Maybe Nat),
-    _ltgsaSessionARN ::
-      !Text
+  { -- | Pagination token.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of sessions to return per response.
+    maxResult :: Prelude.Maybe Prelude.Nat,
+    -- | The ARN of the session to retrieve.
+    sessionArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListTestGridSessionActions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListTestGridSessionActions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltgsaNextToken' - Pagination token.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltgsaMaxResult' - The maximum number of sessions to return per response.
+-- 'nextToken', 'listTestGridSessionActions_nextToken' - Pagination token.
 --
--- * 'ltgsaSessionARN' - The ARN of the session to retrieve.
-listTestGridSessionActions ::
-  -- | 'ltgsaSessionARN'
-  Text ->
+-- 'maxResult', 'listTestGridSessionActions_maxResult' - The maximum number of sessions to return per response.
+--
+-- 'sessionArn', 'listTestGridSessionActions_sessionArn' - The ARN of the session to retrieve.
+newListTestGridSessionActions ::
+  -- | 'sessionArn'
+  Prelude.Text ->
   ListTestGridSessionActions
-listTestGridSessionActions pSessionARN_ =
+newListTestGridSessionActions pSessionArn_ =
   ListTestGridSessionActions'
-    { _ltgsaNextToken =
-        Nothing,
-      _ltgsaMaxResult = Nothing,
-      _ltgsaSessionARN = pSessionARN_
+    { nextToken =
+        Prelude.Nothing,
+      maxResult = Prelude.Nothing,
+      sessionArn = pSessionArn_
     }
 
 -- | Pagination token.
-ltgsaNextToken :: Lens' ListTestGridSessionActions (Maybe Text)
-ltgsaNextToken = lens _ltgsaNextToken (\s a -> s {_ltgsaNextToken = a})
+listTestGridSessionActions_nextToken :: Lens.Lens' ListTestGridSessionActions (Prelude.Maybe Prelude.Text)
+listTestGridSessionActions_nextToken = Lens.lens (\ListTestGridSessionActions' {nextToken} -> nextToken) (\s@ListTestGridSessionActions' {} a -> s {nextToken = a} :: ListTestGridSessionActions)
 
 -- | The maximum number of sessions to return per response.
-ltgsaMaxResult :: Lens' ListTestGridSessionActions (Maybe Natural)
-ltgsaMaxResult = lens _ltgsaMaxResult (\s a -> s {_ltgsaMaxResult = a}) . mapping _Nat
+listTestGridSessionActions_maxResult :: Lens.Lens' ListTestGridSessionActions (Prelude.Maybe Prelude.Natural)
+listTestGridSessionActions_maxResult = Lens.lens (\ListTestGridSessionActions' {maxResult} -> maxResult) (\s@ListTestGridSessionActions' {} a -> s {maxResult = a} :: ListTestGridSessionActions) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The ARN of the session to retrieve.
-ltgsaSessionARN :: Lens' ListTestGridSessionActions Text
-ltgsaSessionARN = lens _ltgsaSessionARN (\s a -> s {_ltgsaSessionARN = a})
+listTestGridSessionActions_sessionArn :: Lens.Lens' ListTestGridSessionActions Prelude.Text
+listTestGridSessionActions_sessionArn = Lens.lens (\ListTestGridSessionActions' {sessionArn} -> sessionArn) (\s@ListTestGridSessionActions' {} a -> s {sessionArn = a} :: ListTestGridSessionActions)
 
-instance AWSRequest ListTestGridSessionActions where
+instance
+  Prelude.AWSRequest
+    ListTestGridSessionActions
+  where
   type
     Rs ListTestGridSessionActions =
       ListTestGridSessionActionsResponse
-  request = postJSON deviceFarm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListTestGridSessionActionsResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "actions" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> (x Prelude..?> "actions" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListTestGridSessionActions
+instance Prelude.Hashable ListTestGridSessionActions
 
-instance NFData ListTestGridSessionActions
+instance Prelude.NFData ListTestGridSessionActions
 
-instance ToHeaders ListTestGridSessionActions where
+instance Prelude.ToHeaders ListTestGridSessionActions where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "DeviceFarm_20150623.ListTestGridSessionActions" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "DeviceFarm_20150623.ListTestGridSessionActions" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListTestGridSessionActions where
+instance Prelude.ToJSON ListTestGridSessionActions where
   toJSON ListTestGridSessionActions' {..} =
-    object
-      ( catMaybes
-          [ ("nextToken" .=) <$> _ltgsaNextToken,
-            ("maxResult" .=) <$> _ltgsaMaxResult,
-            Just ("sessionArn" .= _ltgsaSessionARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("nextToken" Prelude..=) Prelude.<$> nextToken,
+            ("maxResult" Prelude..=) Prelude.<$> maxResult,
+            Prelude.Just ("sessionArn" Prelude..= sessionArn)
           ]
       )
 
-instance ToPath ListTestGridSessionActions where
-  toPath = const "/"
+instance Prelude.ToPath ListTestGridSessionActions where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListTestGridSessionActions where
-  toQuery = const mempty
+instance Prelude.ToQuery ListTestGridSessionActions where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listTestGridSessionActionsResponse' smart constructor.
+-- | /See:/ 'newListTestGridSessionActionsResponse' smart constructor.
 data ListTestGridSessionActionsResponse = ListTestGridSessionActionsResponse'
-  { _ltgsarrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _ltgsarrsActions ::
-      !( Maybe
-           [TestGridSessionAction]
-       ),
-    _ltgsarrsResponseStatus ::
-      !Int
+  { -- | Pagination token.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The action taken by the session.
+    actions :: Prelude.Maybe [TestGridSessionAction],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListTestGridSessionActionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListTestGridSessionActionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltgsarrsNextToken' - Pagination token.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltgsarrsActions' - The action taken by the session.
+-- 'nextToken', 'listTestGridSessionActionsResponse_nextToken' - Pagination token.
 --
--- * 'ltgsarrsResponseStatus' - -- | The response status code.
-listTestGridSessionActionsResponse ::
-  -- | 'ltgsarrsResponseStatus'
-  Int ->
+-- 'actions', 'listTestGridSessionActionsResponse_actions' - The action taken by the session.
+--
+-- 'httpStatus', 'listTestGridSessionActionsResponse_httpStatus' - The response's http status code.
+newListTestGridSessionActionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListTestGridSessionActionsResponse
-listTestGridSessionActionsResponse pResponseStatus_ =
+newListTestGridSessionActionsResponse pHttpStatus_ =
   ListTestGridSessionActionsResponse'
-    { _ltgsarrsNextToken =
-        Nothing,
-      _ltgsarrsActions = Nothing,
-      _ltgsarrsResponseStatus =
-        pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      actions = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Pagination token.
-ltgsarrsNextToken :: Lens' ListTestGridSessionActionsResponse (Maybe Text)
-ltgsarrsNextToken = lens _ltgsarrsNextToken (\s a -> s {_ltgsarrsNextToken = a})
+listTestGridSessionActionsResponse_nextToken :: Lens.Lens' ListTestGridSessionActionsResponse (Prelude.Maybe Prelude.Text)
+listTestGridSessionActionsResponse_nextToken = Lens.lens (\ListTestGridSessionActionsResponse' {nextToken} -> nextToken) (\s@ListTestGridSessionActionsResponse' {} a -> s {nextToken = a} :: ListTestGridSessionActionsResponse)
 
 -- | The action taken by the session.
-ltgsarrsActions :: Lens' ListTestGridSessionActionsResponse [TestGridSessionAction]
-ltgsarrsActions = lens _ltgsarrsActions (\s a -> s {_ltgsarrsActions = a}) . _Default . _Coerce
+listTestGridSessionActionsResponse_actions :: Lens.Lens' ListTestGridSessionActionsResponse (Prelude.Maybe [TestGridSessionAction])
+listTestGridSessionActionsResponse_actions = Lens.lens (\ListTestGridSessionActionsResponse' {actions} -> actions) (\s@ListTestGridSessionActionsResponse' {} a -> s {actions = a} :: ListTestGridSessionActionsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-ltgsarrsResponseStatus :: Lens' ListTestGridSessionActionsResponse Int
-ltgsarrsResponseStatus = lens _ltgsarrsResponseStatus (\s a -> s {_ltgsarrsResponseStatus = a})
+-- | The response's http status code.
+listTestGridSessionActionsResponse_httpStatus :: Lens.Lens' ListTestGridSessionActionsResponse Prelude.Int
+listTestGridSessionActionsResponse_httpStatus = Lens.lens (\ListTestGridSessionActionsResponse' {httpStatus} -> httpStatus) (\s@ListTestGridSessionActionsResponse' {} a -> s {httpStatus = a} :: ListTestGridSessionActionsResponse)
 
-instance NFData ListTestGridSessionActionsResponse
+instance
+  Prelude.NFData
+    ListTestGridSessionActionsResponse

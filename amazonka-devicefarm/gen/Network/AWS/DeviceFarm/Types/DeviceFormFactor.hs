@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.DeviceFarm.Types.DeviceFormFactor
   ( DeviceFormFactor
       ( ..,
-        Phone,
-        Tablet
+        DeviceFormFactorPHONE,
+        DeviceFormFactorTABLET
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DeviceFormFactor = DeviceFormFactor' (CI Text)
+newtype DeviceFormFactor = DeviceFormFactor'
+  { fromDeviceFormFactor ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Phone :: DeviceFormFactor
-pattern Phone = DeviceFormFactor' "PHONE"
+pattern DeviceFormFactorPHONE :: DeviceFormFactor
+pattern DeviceFormFactorPHONE = DeviceFormFactor' "PHONE"
 
-pattern Tablet :: DeviceFormFactor
-pattern Tablet = DeviceFormFactor' "TABLET"
+pattern DeviceFormFactorTABLET :: DeviceFormFactor
+pattern DeviceFormFactorTABLET = DeviceFormFactor' "TABLET"
 
 {-# COMPLETE
-  Phone,
-  Tablet,
+  DeviceFormFactorPHONE,
+  DeviceFormFactorTABLET,
   DeviceFormFactor'
   #-}
 
-instance FromText DeviceFormFactor where
-  parser = (DeviceFormFactor' . mk) <$> takeText
+instance Prelude.FromText DeviceFormFactor where
+  parser = DeviceFormFactor' Prelude.<$> Prelude.takeText
 
-instance ToText DeviceFormFactor where
-  toText (DeviceFormFactor' ci) = original ci
+instance Prelude.ToText DeviceFormFactor where
+  toText (DeviceFormFactor' x) = x
 
-instance Hashable DeviceFormFactor
+instance Prelude.Hashable DeviceFormFactor
 
-instance NFData DeviceFormFactor
+instance Prelude.NFData DeviceFormFactor
 
-instance ToByteString DeviceFormFactor
+instance Prelude.ToByteString DeviceFormFactor
 
-instance ToQuery DeviceFormFactor
+instance Prelude.ToQuery DeviceFormFactor
 
-instance ToHeader DeviceFormFactor
+instance Prelude.ToHeader DeviceFormFactor
 
-instance FromJSON DeviceFormFactor where
-  parseJSON = parseJSONText "DeviceFormFactor"
+instance Prelude.FromJSON DeviceFormFactor where
+  parseJSON = Prelude.parseJSONText "DeviceFormFactor"

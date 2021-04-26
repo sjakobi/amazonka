@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,111 +19,113 @@
 module Network.AWS.DeviceFarm.Types.DeviceAttribute
   ( DeviceAttribute
       ( ..,
-        ARN,
-        AppiumVersion,
-        Availability,
-        FleetType,
-        FormFactor,
-        InstanceARN,
-        InstanceLabels,
-        Manufacturer,
-        Model,
-        OSVersion,
-        Platform,
-        RemoteAccessEnabled,
-        RemoteDebugEnabled
+        DeviceAttributeAPPIUMVERSION,
+        DeviceAttributeARN,
+        DeviceAttributeAVAILABILITY,
+        DeviceAttributeFLEETTYPE,
+        DeviceAttributeFORMFACTOR,
+        DeviceAttributeINSTANCEARN,
+        DeviceAttributeINSTANCELABELS,
+        DeviceAttributeMANUFACTURER,
+        DeviceAttributeMODEL,
+        DeviceAttributeOSVERSION,
+        DeviceAttributePLATFORM,
+        DeviceAttributeREMOTEACCESSENABLED,
+        DeviceAttributeREMOTEDEBUGENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DeviceAttribute = DeviceAttribute' (CI Text)
+newtype DeviceAttribute = DeviceAttribute'
+  { fromDeviceAttribute ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ARN :: DeviceAttribute
-pattern ARN = DeviceAttribute' "ARN"
+pattern DeviceAttributeAPPIUMVERSION :: DeviceAttribute
+pattern DeviceAttributeAPPIUMVERSION = DeviceAttribute' "APPIUM_VERSION"
 
-pattern AppiumVersion :: DeviceAttribute
-pattern AppiumVersion = DeviceAttribute' "APPIUM_VERSION"
+pattern DeviceAttributeARN :: DeviceAttribute
+pattern DeviceAttributeARN = DeviceAttribute' "ARN"
 
-pattern Availability :: DeviceAttribute
-pattern Availability = DeviceAttribute' "AVAILABILITY"
+pattern DeviceAttributeAVAILABILITY :: DeviceAttribute
+pattern DeviceAttributeAVAILABILITY = DeviceAttribute' "AVAILABILITY"
 
-pattern FleetType :: DeviceAttribute
-pattern FleetType = DeviceAttribute' "FLEET_TYPE"
+pattern DeviceAttributeFLEETTYPE :: DeviceAttribute
+pattern DeviceAttributeFLEETTYPE = DeviceAttribute' "FLEET_TYPE"
 
-pattern FormFactor :: DeviceAttribute
-pattern FormFactor = DeviceAttribute' "FORM_FACTOR"
+pattern DeviceAttributeFORMFACTOR :: DeviceAttribute
+pattern DeviceAttributeFORMFACTOR = DeviceAttribute' "FORM_FACTOR"
 
-pattern InstanceARN :: DeviceAttribute
-pattern InstanceARN = DeviceAttribute' "INSTANCE_ARN"
+pattern DeviceAttributeINSTANCEARN :: DeviceAttribute
+pattern DeviceAttributeINSTANCEARN = DeviceAttribute' "INSTANCE_ARN"
 
-pattern InstanceLabels :: DeviceAttribute
-pattern InstanceLabels = DeviceAttribute' "INSTANCE_LABELS"
+pattern DeviceAttributeINSTANCELABELS :: DeviceAttribute
+pattern DeviceAttributeINSTANCELABELS = DeviceAttribute' "INSTANCE_LABELS"
 
-pattern Manufacturer :: DeviceAttribute
-pattern Manufacturer = DeviceAttribute' "MANUFACTURER"
+pattern DeviceAttributeMANUFACTURER :: DeviceAttribute
+pattern DeviceAttributeMANUFACTURER = DeviceAttribute' "MANUFACTURER"
 
-pattern Model :: DeviceAttribute
-pattern Model = DeviceAttribute' "MODEL"
+pattern DeviceAttributeMODEL :: DeviceAttribute
+pattern DeviceAttributeMODEL = DeviceAttribute' "MODEL"
 
-pattern OSVersion :: DeviceAttribute
-pattern OSVersion = DeviceAttribute' "OS_VERSION"
+pattern DeviceAttributeOSVERSION :: DeviceAttribute
+pattern DeviceAttributeOSVERSION = DeviceAttribute' "OS_VERSION"
 
-pattern Platform :: DeviceAttribute
-pattern Platform = DeviceAttribute' "PLATFORM"
+pattern DeviceAttributePLATFORM :: DeviceAttribute
+pattern DeviceAttributePLATFORM = DeviceAttribute' "PLATFORM"
 
-pattern RemoteAccessEnabled :: DeviceAttribute
-pattern RemoteAccessEnabled = DeviceAttribute' "REMOTE_ACCESS_ENABLED"
+pattern DeviceAttributeREMOTEACCESSENABLED :: DeviceAttribute
+pattern DeviceAttributeREMOTEACCESSENABLED = DeviceAttribute' "REMOTE_ACCESS_ENABLED"
 
-pattern RemoteDebugEnabled :: DeviceAttribute
-pattern RemoteDebugEnabled = DeviceAttribute' "REMOTE_DEBUG_ENABLED"
+pattern DeviceAttributeREMOTEDEBUGENABLED :: DeviceAttribute
+pattern DeviceAttributeREMOTEDEBUGENABLED = DeviceAttribute' "REMOTE_DEBUG_ENABLED"
 
 {-# COMPLETE
-  ARN,
-  AppiumVersion,
-  Availability,
-  FleetType,
-  FormFactor,
-  InstanceARN,
-  InstanceLabels,
-  Manufacturer,
-  Model,
-  OSVersion,
-  Platform,
-  RemoteAccessEnabled,
-  RemoteDebugEnabled,
+  DeviceAttributeAPPIUMVERSION,
+  DeviceAttributeARN,
+  DeviceAttributeAVAILABILITY,
+  DeviceAttributeFLEETTYPE,
+  DeviceAttributeFORMFACTOR,
+  DeviceAttributeINSTANCEARN,
+  DeviceAttributeINSTANCELABELS,
+  DeviceAttributeMANUFACTURER,
+  DeviceAttributeMODEL,
+  DeviceAttributeOSVERSION,
+  DeviceAttributePLATFORM,
+  DeviceAttributeREMOTEACCESSENABLED,
+  DeviceAttributeREMOTEDEBUGENABLED,
   DeviceAttribute'
   #-}
 
-instance FromText DeviceAttribute where
-  parser = (DeviceAttribute' . mk) <$> takeText
+instance Prelude.FromText DeviceAttribute where
+  parser = DeviceAttribute' Prelude.<$> Prelude.takeText
 
-instance ToText DeviceAttribute where
-  toText (DeviceAttribute' ci) = original ci
+instance Prelude.ToText DeviceAttribute where
+  toText (DeviceAttribute' x) = x
 
-instance Hashable DeviceAttribute
+instance Prelude.Hashable DeviceAttribute
 
-instance NFData DeviceAttribute
+instance Prelude.NFData DeviceAttribute
 
-instance ToByteString DeviceAttribute
+instance Prelude.ToByteString DeviceAttribute
 
-instance ToQuery DeviceAttribute
+instance Prelude.ToQuery DeviceAttribute
 
-instance ToHeader DeviceAttribute
+instance Prelude.ToHeader DeviceAttribute
 
-instance ToJSON DeviceAttribute where
-  toJSON = toJSONText
+instance Prelude.ToJSON DeviceAttribute where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DeviceAttribute where
-  parseJSON = parseJSONText "DeviceAttribute"
+instance Prelude.FromJSON DeviceAttribute where
+  parseJSON = Prelude.parseJSONText "DeviceAttribute"

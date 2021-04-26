@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,184 +21,215 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets the current status and future status of all offerings purchased by an AWS account. The response indicates how many offerings are currently available and the offerings that will be available in the next period. The API returns a @NotEligible@ error if the user is not permitted to invoke the operation. If you must be able to invoke this operation, contact <mailto:aws-devicefarm-support@amazon.com aws-devicefarm-support@amazon.com> .
---
---
+-- Gets the current status and future status of all offerings purchased by
+-- an AWS account. The response indicates how many offerings are currently
+-- available and the offerings that will be available in the next period.
+-- The API returns a @NotEligible@ error if the user is not permitted to
+-- invoke the operation. If you must be able to invoke this operation,
+-- contact
+-- <mailto:aws-devicefarm-support@amazon.com aws-devicefarm-support\@amazon.com>.
 --
 -- This operation returns paginated results.
 module Network.AWS.DeviceFarm.GetOfferingStatus
   ( -- * Creating a Request
-    getOfferingStatus,
-    GetOfferingStatus,
+    GetOfferingStatus (..),
+    newGetOfferingStatus,
 
     -- * Request Lenses
-    gosNextToken,
+    getOfferingStatus_nextToken,
 
     -- * Destructuring the Response
-    getOfferingStatusResponse,
-    GetOfferingStatusResponse,
+    GetOfferingStatusResponse (..),
+    newGetOfferingStatusResponse,
 
     -- * Response Lenses
-    gosrrsNextToken,
-    gosrrsNextPeriod,
-    gosrrsCurrent,
-    gosrrsResponseStatus,
+    getOfferingStatusResponse_nextToken,
+    getOfferingStatusResponse_nextPeriod,
+    getOfferingStatusResponse_current,
+    getOfferingStatusResponse_httpStatus,
   )
 where
 
 import Network.AWS.DeviceFarm.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DeviceFarm.Types.OfferingStatus
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Represents the request to retrieve the offering status for the specified customer or account.
+-- | Represents the request to retrieve the offering status for the specified
+-- customer or account.
 --
---
---
--- /See:/ 'getOfferingStatus' smart constructor.
-newtype GetOfferingStatus = GetOfferingStatus'
-  { _gosNextToken ::
-      Maybe Text
+-- /See:/ 'newGetOfferingStatus' smart constructor.
+data GetOfferingStatus = GetOfferingStatus'
+  { -- | An identifier that was returned from the previous call to this
+    -- operation, which can be used to return the next set of items in the
+    -- list.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetOfferingStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetOfferingStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gosNextToken' - An identifier that was returned from the previous call to this operation, which can be used to return the next set of items in the list.
-getOfferingStatus ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'nextToken', 'getOfferingStatus_nextToken' - An identifier that was returned from the previous call to this
+-- operation, which can be used to return the next set of items in the
+-- list.
+newGetOfferingStatus ::
   GetOfferingStatus
-getOfferingStatus =
-  GetOfferingStatus' {_gosNextToken = Nothing}
+newGetOfferingStatus =
+  GetOfferingStatus' {nextToken = Prelude.Nothing}
 
--- | An identifier that was returned from the previous call to this operation, which can be used to return the next set of items in the list.
-gosNextToken :: Lens' GetOfferingStatus (Maybe Text)
-gosNextToken = lens _gosNextToken (\s a -> s {_gosNextToken = a})
+-- | An identifier that was returned from the previous call to this
+-- operation, which can be used to return the next set of items in the
+-- list.
+getOfferingStatus_nextToken :: Lens.Lens' GetOfferingStatus (Prelude.Maybe Prelude.Text)
+getOfferingStatus_nextToken = Lens.lens (\GetOfferingStatus' {nextToken} -> nextToken) (\s@GetOfferingStatus' {} a -> s {nextToken = a} :: GetOfferingStatus)
 
-instance AWSPager GetOfferingStatus where
+instance Pager.AWSPager GetOfferingStatus where
   page rq rs
-    | stop (rs ^. gosrrsNextToken) = Nothing
-    | stop (rs ^. gosrrsCurrent) = Nothing
-    | stop (rs ^. gosrrsNextPeriod) = Nothing
-    | otherwise =
-      Just $ rq & gosNextToken .~ rs ^. gosrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? getOfferingStatusResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? getOfferingStatusResponse_current
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? getOfferingStatusResponse_nextPeriod
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& getOfferingStatus_nextToken
+          Lens..~ rs
+          Lens.^? getOfferingStatusResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest GetOfferingStatus where
+instance Prelude.AWSRequest GetOfferingStatus where
   type Rs GetOfferingStatus = GetOfferingStatusResponse
-  request = postJSON deviceFarm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetOfferingStatusResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "nextPeriod" .!@ mempty)
-            <*> (x .?> "current" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> ( x Prelude..?> "nextPeriod"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "current" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetOfferingStatus
+instance Prelude.Hashable GetOfferingStatus
 
-instance NFData GetOfferingStatus
+instance Prelude.NFData GetOfferingStatus
 
-instance ToHeaders GetOfferingStatus where
+instance Prelude.ToHeaders GetOfferingStatus where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "DeviceFarm_20150623.GetOfferingStatus" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "DeviceFarm_20150623.GetOfferingStatus" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetOfferingStatus where
+instance Prelude.ToJSON GetOfferingStatus where
   toJSON GetOfferingStatus' {..} =
-    object
-      (catMaybes [("nextToken" .=) <$> _gosNextToken])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("nextToken" Prelude..=) Prelude.<$> nextToken]
+      )
 
-instance ToPath GetOfferingStatus where
-  toPath = const "/"
+instance Prelude.ToPath GetOfferingStatus where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetOfferingStatus where
-  toQuery = const mempty
+instance Prelude.ToQuery GetOfferingStatus where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Returns the status result for a device offering.
 --
---
---
--- /See:/ 'getOfferingStatusResponse' smart constructor.
+-- /See:/ 'newGetOfferingStatusResponse' smart constructor.
 data GetOfferingStatusResponse = GetOfferingStatusResponse'
-  { _gosrrsNextToken ::
-      !(Maybe Text),
-    _gosrrsNextPeriod ::
-      !( Maybe
-           ( Map
-               Text
-               OfferingStatus
-           )
-       ),
-    _gosrrsCurrent ::
-      !( Maybe
-           ( Map
-               Text
-               OfferingStatus
-           )
-       ),
-    _gosrrsResponseStatus ::
-      !Int
+  { -- | An identifier that was returned from the previous call to this
+    -- operation, which can be used to return the next set of items in the
+    -- list.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | When specified, gets the offering status for the next period.
+    nextPeriod :: Prelude.Maybe (Prelude.Map Prelude.Text OfferingStatus),
+    -- | When specified, gets the offering status for the current period.
+    current :: Prelude.Maybe (Prelude.Map Prelude.Text OfferingStatus),
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetOfferingStatusResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetOfferingStatusResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gosrrsNextToken' - An identifier that was returned from the previous call to this operation, which can be used to return the next set of items in the list.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gosrrsNextPeriod' - When specified, gets the offering status for the next period.
+-- 'nextToken', 'getOfferingStatusResponse_nextToken' - An identifier that was returned from the previous call to this
+-- operation, which can be used to return the next set of items in the
+-- list.
 --
--- * 'gosrrsCurrent' - When specified, gets the offering status for the current period.
+-- 'nextPeriod', 'getOfferingStatusResponse_nextPeriod' - When specified, gets the offering status for the next period.
 --
--- * 'gosrrsResponseStatus' - -- | The response status code.
-getOfferingStatusResponse ::
-  -- | 'gosrrsResponseStatus'
-  Int ->
+-- 'current', 'getOfferingStatusResponse_current' - When specified, gets the offering status for the current period.
+--
+-- 'httpStatus', 'getOfferingStatusResponse_httpStatus' - The response's http status code.
+newGetOfferingStatusResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetOfferingStatusResponse
-getOfferingStatusResponse pResponseStatus_ =
+newGetOfferingStatusResponse pHttpStatus_ =
   GetOfferingStatusResponse'
-    { _gosrrsNextToken =
-        Nothing,
-      _gosrrsNextPeriod = Nothing,
-      _gosrrsCurrent = Nothing,
-      _gosrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      nextPeriod = Prelude.Nothing,
+      current = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An identifier that was returned from the previous call to this operation, which can be used to return the next set of items in the list.
-gosrrsNextToken :: Lens' GetOfferingStatusResponse (Maybe Text)
-gosrrsNextToken = lens _gosrrsNextToken (\s a -> s {_gosrrsNextToken = a})
+-- | An identifier that was returned from the previous call to this
+-- operation, which can be used to return the next set of items in the
+-- list.
+getOfferingStatusResponse_nextToken :: Lens.Lens' GetOfferingStatusResponse (Prelude.Maybe Prelude.Text)
+getOfferingStatusResponse_nextToken = Lens.lens (\GetOfferingStatusResponse' {nextToken} -> nextToken) (\s@GetOfferingStatusResponse' {} a -> s {nextToken = a} :: GetOfferingStatusResponse)
 
 -- | When specified, gets the offering status for the next period.
-gosrrsNextPeriod :: Lens' GetOfferingStatusResponse (HashMap Text OfferingStatus)
-gosrrsNextPeriod = lens _gosrrsNextPeriod (\s a -> s {_gosrrsNextPeriod = a}) . _Default . _Map
+getOfferingStatusResponse_nextPeriod :: Lens.Lens' GetOfferingStatusResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text OfferingStatus))
+getOfferingStatusResponse_nextPeriod = Lens.lens (\GetOfferingStatusResponse' {nextPeriod} -> nextPeriod) (\s@GetOfferingStatusResponse' {} a -> s {nextPeriod = a} :: GetOfferingStatusResponse) Prelude.. Lens.mapping Prelude._Map
 
 -- | When specified, gets the offering status for the current period.
-gosrrsCurrent :: Lens' GetOfferingStatusResponse (HashMap Text OfferingStatus)
-gosrrsCurrent = lens _gosrrsCurrent (\s a -> s {_gosrrsCurrent = a}) . _Default . _Map
+getOfferingStatusResponse_current :: Lens.Lens' GetOfferingStatusResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text OfferingStatus))
+getOfferingStatusResponse_current = Lens.lens (\GetOfferingStatusResponse' {current} -> current) (\s@GetOfferingStatusResponse' {} a -> s {current = a} :: GetOfferingStatusResponse) Prelude.. Lens.mapping Prelude._Map
 
--- | -- | The response status code.
-gosrrsResponseStatus :: Lens' GetOfferingStatusResponse Int
-gosrrsResponseStatus = lens _gosrrsResponseStatus (\s a -> s {_gosrrsResponseStatus = a})
+-- | The response's http status code.
+getOfferingStatusResponse_httpStatus :: Lens.Lens' GetOfferingStatusResponse Prelude.Int
+getOfferingStatusResponse_httpStatus = Lens.lens (\GetOfferingStatusResponse' {httpStatus} -> httpStatus) (\s@GetOfferingStatusResponse' {} a -> s {httpStatus = a} :: GetOfferingStatusResponse)
 
-instance NFData GetOfferingStatusResponse
+instance Prelude.NFData GetOfferingStatusResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.DeviceFarm.Types.OfferingTransactionType
   ( OfferingTransactionType
       ( ..,
-        Purchase,
-        Renew,
-        System
+        OfferingTransactionTypePURCHASE,
+        OfferingTransactionTypeRENEW,
+        OfferingTransactionTypeSYSTEM
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data OfferingTransactionType
-  = OfferingTransactionType'
-      ( CI
-          Text
-      )
+newtype OfferingTransactionType = OfferingTransactionType'
+  { fromOfferingTransactionType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Purchase :: OfferingTransactionType
-pattern Purchase = OfferingTransactionType' "PURCHASE"
+pattern OfferingTransactionTypePURCHASE :: OfferingTransactionType
+pattern OfferingTransactionTypePURCHASE = OfferingTransactionType' "PURCHASE"
 
-pattern Renew :: OfferingTransactionType
-pattern Renew = OfferingTransactionType' "RENEW"
+pattern OfferingTransactionTypeRENEW :: OfferingTransactionType
+pattern OfferingTransactionTypeRENEW = OfferingTransactionType' "RENEW"
 
-pattern System :: OfferingTransactionType
-pattern System = OfferingTransactionType' "SYSTEM"
+pattern OfferingTransactionTypeSYSTEM :: OfferingTransactionType
+pattern OfferingTransactionTypeSYSTEM = OfferingTransactionType' "SYSTEM"
 
 {-# COMPLETE
-  Purchase,
-  Renew,
-  System,
+  OfferingTransactionTypePURCHASE,
+  OfferingTransactionTypeRENEW,
+  OfferingTransactionTypeSYSTEM,
   OfferingTransactionType'
   #-}
 
-instance FromText OfferingTransactionType where
-  parser = (OfferingTransactionType' . mk) <$> takeText
+instance Prelude.FromText OfferingTransactionType where
+  parser = OfferingTransactionType' Prelude.<$> Prelude.takeText
 
-instance ToText OfferingTransactionType where
-  toText (OfferingTransactionType' ci) = original ci
+instance Prelude.ToText OfferingTransactionType where
+  toText (OfferingTransactionType' x) = x
 
-instance Hashable OfferingTransactionType
+instance Prelude.Hashable OfferingTransactionType
 
-instance NFData OfferingTransactionType
+instance Prelude.NFData OfferingTransactionType
 
-instance ToByteString OfferingTransactionType
+instance Prelude.ToByteString OfferingTransactionType
 
-instance ToQuery OfferingTransactionType
+instance Prelude.ToQuery OfferingTransactionType
 
-instance ToHeader OfferingTransactionType
+instance Prelude.ToHeader OfferingTransactionType
 
-instance FromJSON OfferingTransactionType where
-  parseJSON = parseJSONText "OfferingTransactionType"
+instance Prelude.FromJSON OfferingTransactionType where
+  parseJSON = Prelude.parseJSONText "OfferingTransactionType"

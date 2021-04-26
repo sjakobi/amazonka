@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,166 +24,163 @@
 -- Change details of a project.
 module Network.AWS.DeviceFarm.UpdateTestGridProject
   ( -- * Creating a Request
-    updateTestGridProject,
-    UpdateTestGridProject,
+    UpdateTestGridProject (..),
+    newUpdateTestGridProject,
 
     -- * Request Lenses
-    utgpName,
-    utgpDescription,
-    utgpProjectARN,
+    updateTestGridProject_name,
+    updateTestGridProject_description,
+    updateTestGridProject_projectArn,
 
     -- * Destructuring the Response
-    updateTestGridProjectResponse,
-    UpdateTestGridProjectResponse,
+    UpdateTestGridProjectResponse (..),
+    newUpdateTestGridProjectResponse,
 
     -- * Response Lenses
-    utgprrsTestGridProject,
-    utgprrsResponseStatus,
+    updateTestGridProjectResponse_testGridProject,
+    updateTestGridProjectResponse_httpStatus,
   )
 where
 
 import Network.AWS.DeviceFarm.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DeviceFarm.Types.TestGridProject
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateTestGridProject' smart constructor.
+-- | /See:/ 'newUpdateTestGridProject' smart constructor.
 data UpdateTestGridProject = UpdateTestGridProject'
-  { _utgpName ::
-      !(Maybe Text),
-    _utgpDescription ::
-      !(Maybe Text),
-    _utgpProjectARN :: !Text
+  { -- | Human-readable name for the project.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | Human-readable description for the project.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | ARN of the project to update.
+    projectArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateTestGridProject' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateTestGridProject' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'utgpName' - Human-readable name for the project.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'utgpDescription' - Human-readable description for the project.
+-- 'name', 'updateTestGridProject_name' - Human-readable name for the project.
 --
--- * 'utgpProjectARN' - ARN of the project to update.
-updateTestGridProject ::
-  -- | 'utgpProjectARN'
-  Text ->
+-- 'description', 'updateTestGridProject_description' - Human-readable description for the project.
+--
+-- 'projectArn', 'updateTestGridProject_projectArn' - ARN of the project to update.
+newUpdateTestGridProject ::
+  -- | 'projectArn'
+  Prelude.Text ->
   UpdateTestGridProject
-updateTestGridProject pProjectARN_ =
+newUpdateTestGridProject pProjectArn_ =
   UpdateTestGridProject'
-    { _utgpName = Nothing,
-      _utgpDescription = Nothing,
-      _utgpProjectARN = pProjectARN_
+    { name = Prelude.Nothing,
+      description = Prelude.Nothing,
+      projectArn = pProjectArn_
     }
 
 -- | Human-readable name for the project.
-utgpName :: Lens' UpdateTestGridProject (Maybe Text)
-utgpName = lens _utgpName (\s a -> s {_utgpName = a})
+updateTestGridProject_name :: Lens.Lens' UpdateTestGridProject (Prelude.Maybe Prelude.Text)
+updateTestGridProject_name = Lens.lens (\UpdateTestGridProject' {name} -> name) (\s@UpdateTestGridProject' {} a -> s {name = a} :: UpdateTestGridProject)
 
 -- | Human-readable description for the project.
-utgpDescription :: Lens' UpdateTestGridProject (Maybe Text)
-utgpDescription = lens _utgpDescription (\s a -> s {_utgpDescription = a})
+updateTestGridProject_description :: Lens.Lens' UpdateTestGridProject (Prelude.Maybe Prelude.Text)
+updateTestGridProject_description = Lens.lens (\UpdateTestGridProject' {description} -> description) (\s@UpdateTestGridProject' {} a -> s {description = a} :: UpdateTestGridProject)
 
 -- | ARN of the project to update.
-utgpProjectARN :: Lens' UpdateTestGridProject Text
-utgpProjectARN = lens _utgpProjectARN (\s a -> s {_utgpProjectARN = a})
+updateTestGridProject_projectArn :: Lens.Lens' UpdateTestGridProject Prelude.Text
+updateTestGridProject_projectArn = Lens.lens (\UpdateTestGridProject' {projectArn} -> projectArn) (\s@UpdateTestGridProject' {} a -> s {projectArn = a} :: UpdateTestGridProject)
 
-instance AWSRequest UpdateTestGridProject where
+instance Prelude.AWSRequest UpdateTestGridProject where
   type
     Rs UpdateTestGridProject =
       UpdateTestGridProjectResponse
-  request = postJSON deviceFarm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateTestGridProjectResponse'
-            <$> (x .?> "testGridProject") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "testGridProject")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateTestGridProject
+instance Prelude.Hashable UpdateTestGridProject
 
-instance NFData UpdateTestGridProject
+instance Prelude.NFData UpdateTestGridProject
 
-instance ToHeaders UpdateTestGridProject where
+instance Prelude.ToHeaders UpdateTestGridProject where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "DeviceFarm_20150623.UpdateTestGridProject" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "DeviceFarm_20150623.UpdateTestGridProject" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateTestGridProject where
+instance Prelude.ToJSON UpdateTestGridProject where
   toJSON UpdateTestGridProject' {..} =
-    object
-      ( catMaybes
-          [ ("name" .=) <$> _utgpName,
-            ("description" .=) <$> _utgpDescription,
-            Just ("projectArn" .= _utgpProjectARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("name" Prelude..=) Prelude.<$> name,
+            ("description" Prelude..=) Prelude.<$> description,
+            Prelude.Just ("projectArn" Prelude..= projectArn)
           ]
       )
 
-instance ToPath UpdateTestGridProject where
-  toPath = const "/"
+instance Prelude.ToPath UpdateTestGridProject where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateTestGridProject where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateTestGridProject where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateTestGridProjectResponse' smart constructor.
+-- | /See:/ 'newUpdateTestGridProjectResponse' smart constructor.
 data UpdateTestGridProjectResponse = UpdateTestGridProjectResponse'
-  { _utgprrsTestGridProject ::
-      !( Maybe
-           TestGridProject
-       ),
-    _utgprrsResponseStatus ::
-      !Int
+  { -- | The project, including updated information.
+    testGridProject :: Prelude.Maybe TestGridProject,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateTestGridProjectResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateTestGridProjectResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'utgprrsTestGridProject' - The project, including updated information.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'utgprrsResponseStatus' - -- | The response status code.
-updateTestGridProjectResponse ::
-  -- | 'utgprrsResponseStatus'
-  Int ->
+-- 'testGridProject', 'updateTestGridProjectResponse_testGridProject' - The project, including updated information.
+--
+-- 'httpStatus', 'updateTestGridProjectResponse_httpStatus' - The response's http status code.
+newUpdateTestGridProjectResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateTestGridProjectResponse
-updateTestGridProjectResponse pResponseStatus_ =
+newUpdateTestGridProjectResponse pHttpStatus_ =
   UpdateTestGridProjectResponse'
-    { _utgprrsTestGridProject =
-        Nothing,
-      _utgprrsResponseStatus = pResponseStatus_
+    { testGridProject =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The project, including updated information.
-utgprrsTestGridProject :: Lens' UpdateTestGridProjectResponse (Maybe TestGridProject)
-utgprrsTestGridProject = lens _utgprrsTestGridProject (\s a -> s {_utgprrsTestGridProject = a})
+updateTestGridProjectResponse_testGridProject :: Lens.Lens' UpdateTestGridProjectResponse (Prelude.Maybe TestGridProject)
+updateTestGridProjectResponse_testGridProject = Lens.lens (\UpdateTestGridProjectResponse' {testGridProject} -> testGridProject) (\s@UpdateTestGridProjectResponse' {} a -> s {testGridProject = a} :: UpdateTestGridProjectResponse)
 
--- | -- | The response status code.
-utgprrsResponseStatus :: Lens' UpdateTestGridProjectResponse Int
-utgprrsResponseStatus = lens _utgprrsResponseStatus (\s a -> s {_utgprrsResponseStatus = a})
+-- | The response's http status code.
+updateTestGridProjectResponse_httpStatus :: Lens.Lens' UpdateTestGridProjectResponse Prelude.Int
+updateTestGridProjectResponse_httpStatus = Lens.lens (\UpdateTestGridProjectResponse' {httpStatus} -> httpStatus) (\s@UpdateTestGridProjectResponse' {} a -> s {httpStatus = a} :: UpdateTestGridProjectResponse)
 
-instance NFData UpdateTestGridProjectResponse
+instance Prelude.NFData UpdateTestGridProjectResponse

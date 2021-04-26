@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.DeviceFarm.Types.TestGridSessionArtifactType
   ( TestGridSessionArtifactType
       ( ..,
-        TGSATSeleniumLog,
-        TGSATUnknown,
-        TGSATVideo
+        TestGridSessionArtifactTypeSELENIUMLOG,
+        TestGridSessionArtifactTypeUNKNOWN,
+        TestGridSessionArtifactTypeVIDEO
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TestGridSessionArtifactType
-  = TestGridSessionArtifactType'
-      ( CI
-          Text
-      )
+newtype TestGridSessionArtifactType = TestGridSessionArtifactType'
+  { fromTestGridSessionArtifactType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TGSATSeleniumLog :: TestGridSessionArtifactType
-pattern TGSATSeleniumLog = TestGridSessionArtifactType' "SELENIUM_LOG"
+pattern TestGridSessionArtifactTypeSELENIUMLOG :: TestGridSessionArtifactType
+pattern TestGridSessionArtifactTypeSELENIUMLOG = TestGridSessionArtifactType' "SELENIUM_LOG"
 
-pattern TGSATUnknown :: TestGridSessionArtifactType
-pattern TGSATUnknown = TestGridSessionArtifactType' "UNKNOWN"
+pattern TestGridSessionArtifactTypeUNKNOWN :: TestGridSessionArtifactType
+pattern TestGridSessionArtifactTypeUNKNOWN = TestGridSessionArtifactType' "UNKNOWN"
 
-pattern TGSATVideo :: TestGridSessionArtifactType
-pattern TGSATVideo = TestGridSessionArtifactType' "VIDEO"
+pattern TestGridSessionArtifactTypeVIDEO :: TestGridSessionArtifactType
+pattern TestGridSessionArtifactTypeVIDEO = TestGridSessionArtifactType' "VIDEO"
 
 {-# COMPLETE
-  TGSATSeleniumLog,
-  TGSATUnknown,
-  TGSATVideo,
+  TestGridSessionArtifactTypeSELENIUMLOG,
+  TestGridSessionArtifactTypeUNKNOWN,
+  TestGridSessionArtifactTypeVIDEO,
   TestGridSessionArtifactType'
   #-}
 
-instance FromText TestGridSessionArtifactType where
-  parser = (TestGridSessionArtifactType' . mk) <$> takeText
+instance Prelude.FromText TestGridSessionArtifactType where
+  parser = TestGridSessionArtifactType' Prelude.<$> Prelude.takeText
 
-instance ToText TestGridSessionArtifactType where
-  toText (TestGridSessionArtifactType' ci) = original ci
+instance Prelude.ToText TestGridSessionArtifactType where
+  toText (TestGridSessionArtifactType' x) = x
 
-instance Hashable TestGridSessionArtifactType
+instance Prelude.Hashable TestGridSessionArtifactType
 
-instance NFData TestGridSessionArtifactType
+instance Prelude.NFData TestGridSessionArtifactType
 
-instance ToByteString TestGridSessionArtifactType
+instance Prelude.ToByteString TestGridSessionArtifactType
 
-instance ToQuery TestGridSessionArtifactType
+instance Prelude.ToQuery TestGridSessionArtifactType
 
-instance ToHeader TestGridSessionArtifactType
+instance Prelude.ToHeader TestGridSessionArtifactType
 
-instance FromJSON TestGridSessionArtifactType where
-  parseJSON = parseJSONText "TestGridSessionArtifactType"
+instance Prelude.FromJSON TestGridSessionArtifactType where
+  parseJSON = Prelude.parseJSONText "TestGridSessionArtifactType"

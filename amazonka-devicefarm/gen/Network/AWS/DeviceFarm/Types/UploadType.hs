@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,206 +19,208 @@
 module Network.AWS.DeviceFarm.Types.UploadType
   ( UploadType
       ( ..,
-        AndroidApp,
-        AppiumJavaJunitTestPackage,
-        AppiumJavaJunitTestSpec,
-        AppiumJavaTestngTestPackage,
-        AppiumJavaTestngTestSpec,
-        AppiumNodeTestPackage,
-        AppiumNodeTestSpec,
-        AppiumPythonTestPackage,
-        AppiumPythonTestSpec,
-        AppiumRubyTestPackage,
-        AppiumRubyTestSpec,
-        AppiumWebJavaJunitTestPackage,
-        AppiumWebJavaJunitTestSpec,
-        AppiumWebJavaTestngTestPackage,
-        AppiumWebJavaTestngTestSpec,
-        AppiumWebNodeTestPackage,
-        AppiumWebNodeTestSpec,
-        AppiumWebPythonTestPackage,
-        AppiumWebPythonTestSpec,
-        AppiumWebRubyTestPackage,
-        AppiumWebRubyTestSpec,
-        CalabashTestPackage,
-        ExternalData,
-        InstrumentationTestPackage,
-        InstrumentationTestSpec,
-        IosApp,
-        UiautomationTestPackage,
-        UiautomatorTestPackage,
-        WebApp,
-        XctestTestPackage,
-        XctestUiTestPackage,
-        XctestUiTestSpec
+        UploadTypeANDROIDAPP,
+        UploadTypeAPPIUMJAVAJUNITTESTPACKAGE,
+        UploadTypeAPPIUMJAVAJUNITTESTSPEC,
+        UploadTypeAPPIUMJAVATESTNGTESTPACKAGE,
+        UploadTypeAPPIUMJAVATESTNGTESTSPEC,
+        UploadTypeAPPIUMNODETESTPACKAGE,
+        UploadTypeAPPIUMNODETESTSPEC,
+        UploadTypeAPPIUMPYTHONTESTPACKAGE,
+        UploadTypeAPPIUMPYTHONTESTSPEC,
+        UploadTypeAPPIUMRUBYTESTPACKAGE,
+        UploadTypeAPPIUMRUBYTESTSPEC,
+        UploadTypeAPPIUMWEBJAVAJUNITTESTPACKAGE,
+        UploadTypeAPPIUMWEBJAVAJUNITTESTSPEC,
+        UploadTypeAPPIUMWEBJAVATESTNGTESTPACKAGE,
+        UploadTypeAPPIUMWEBJAVATESTNGTESTSPEC,
+        UploadTypeAPPIUMWEBNODETESTPACKAGE,
+        UploadTypeAPPIUMWEBNODETESTSPEC,
+        UploadTypeAPPIUMWEBPYTHONTESTPACKAGE,
+        UploadTypeAPPIUMWEBPYTHONTESTSPEC,
+        UploadTypeAPPIUMWEBRUBYTESTPACKAGE,
+        UploadTypeAPPIUMWEBRUBYTESTSPEC,
+        UploadTypeCALABASHTESTPACKAGE,
+        UploadTypeEXTERNALDATA,
+        UploadTypeINSTRUMENTATIONTESTPACKAGE,
+        UploadTypeINSTRUMENTATIONTESTSPEC,
+        UploadTypeIOSAPP,
+        UploadTypeUIAUTOMATIONTESTPACKAGE,
+        UploadTypeUIAUTOMATORTESTPACKAGE,
+        UploadTypeWEBAPP,
+        UploadTypeXCTESTTESTPACKAGE,
+        UploadTypeXCTESTUITESTPACKAGE,
+        UploadTypeXCTESTUITESTSPEC
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data UploadType = UploadType' (CI Text)
+newtype UploadType = UploadType'
+  { fromUploadType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AndroidApp :: UploadType
-pattern AndroidApp = UploadType' "ANDROID_APP"
+pattern UploadTypeANDROIDAPP :: UploadType
+pattern UploadTypeANDROIDAPP = UploadType' "ANDROID_APP"
 
-pattern AppiumJavaJunitTestPackage :: UploadType
-pattern AppiumJavaJunitTestPackage = UploadType' "APPIUM_JAVA_JUNIT_TEST_PACKAGE"
+pattern UploadTypeAPPIUMJAVAJUNITTESTPACKAGE :: UploadType
+pattern UploadTypeAPPIUMJAVAJUNITTESTPACKAGE = UploadType' "APPIUM_JAVA_JUNIT_TEST_PACKAGE"
 
-pattern AppiumJavaJunitTestSpec :: UploadType
-pattern AppiumJavaJunitTestSpec = UploadType' "APPIUM_JAVA_JUNIT_TEST_SPEC"
+pattern UploadTypeAPPIUMJAVAJUNITTESTSPEC :: UploadType
+pattern UploadTypeAPPIUMJAVAJUNITTESTSPEC = UploadType' "APPIUM_JAVA_JUNIT_TEST_SPEC"
 
-pattern AppiumJavaTestngTestPackage :: UploadType
-pattern AppiumJavaTestngTestPackage = UploadType' "APPIUM_JAVA_TESTNG_TEST_PACKAGE"
+pattern UploadTypeAPPIUMJAVATESTNGTESTPACKAGE :: UploadType
+pattern UploadTypeAPPIUMJAVATESTNGTESTPACKAGE = UploadType' "APPIUM_JAVA_TESTNG_TEST_PACKAGE"
 
-pattern AppiumJavaTestngTestSpec :: UploadType
-pattern AppiumJavaTestngTestSpec = UploadType' "APPIUM_JAVA_TESTNG_TEST_SPEC"
+pattern UploadTypeAPPIUMJAVATESTNGTESTSPEC :: UploadType
+pattern UploadTypeAPPIUMJAVATESTNGTESTSPEC = UploadType' "APPIUM_JAVA_TESTNG_TEST_SPEC"
 
-pattern AppiumNodeTestPackage :: UploadType
-pattern AppiumNodeTestPackage = UploadType' "APPIUM_NODE_TEST_PACKAGE"
+pattern UploadTypeAPPIUMNODETESTPACKAGE :: UploadType
+pattern UploadTypeAPPIUMNODETESTPACKAGE = UploadType' "APPIUM_NODE_TEST_PACKAGE"
 
-pattern AppiumNodeTestSpec :: UploadType
-pattern AppiumNodeTestSpec = UploadType' "APPIUM_NODE_TEST_SPEC"
+pattern UploadTypeAPPIUMNODETESTSPEC :: UploadType
+pattern UploadTypeAPPIUMNODETESTSPEC = UploadType' "APPIUM_NODE_TEST_SPEC"
 
-pattern AppiumPythonTestPackage :: UploadType
-pattern AppiumPythonTestPackage = UploadType' "APPIUM_PYTHON_TEST_PACKAGE"
+pattern UploadTypeAPPIUMPYTHONTESTPACKAGE :: UploadType
+pattern UploadTypeAPPIUMPYTHONTESTPACKAGE = UploadType' "APPIUM_PYTHON_TEST_PACKAGE"
 
-pattern AppiumPythonTestSpec :: UploadType
-pattern AppiumPythonTestSpec = UploadType' "APPIUM_PYTHON_TEST_SPEC"
+pattern UploadTypeAPPIUMPYTHONTESTSPEC :: UploadType
+pattern UploadTypeAPPIUMPYTHONTESTSPEC = UploadType' "APPIUM_PYTHON_TEST_SPEC"
 
-pattern AppiumRubyTestPackage :: UploadType
-pattern AppiumRubyTestPackage = UploadType' "APPIUM_RUBY_TEST_PACKAGE"
+pattern UploadTypeAPPIUMRUBYTESTPACKAGE :: UploadType
+pattern UploadTypeAPPIUMRUBYTESTPACKAGE = UploadType' "APPIUM_RUBY_TEST_PACKAGE"
 
-pattern AppiumRubyTestSpec :: UploadType
-pattern AppiumRubyTestSpec = UploadType' "APPIUM_RUBY_TEST_SPEC"
+pattern UploadTypeAPPIUMRUBYTESTSPEC :: UploadType
+pattern UploadTypeAPPIUMRUBYTESTSPEC = UploadType' "APPIUM_RUBY_TEST_SPEC"
 
-pattern AppiumWebJavaJunitTestPackage :: UploadType
-pattern AppiumWebJavaJunitTestPackage = UploadType' "APPIUM_WEB_JAVA_JUNIT_TEST_PACKAGE"
+pattern UploadTypeAPPIUMWEBJAVAJUNITTESTPACKAGE :: UploadType
+pattern UploadTypeAPPIUMWEBJAVAJUNITTESTPACKAGE = UploadType' "APPIUM_WEB_JAVA_JUNIT_TEST_PACKAGE"
 
-pattern AppiumWebJavaJunitTestSpec :: UploadType
-pattern AppiumWebJavaJunitTestSpec = UploadType' "APPIUM_WEB_JAVA_JUNIT_TEST_SPEC"
+pattern UploadTypeAPPIUMWEBJAVAJUNITTESTSPEC :: UploadType
+pattern UploadTypeAPPIUMWEBJAVAJUNITTESTSPEC = UploadType' "APPIUM_WEB_JAVA_JUNIT_TEST_SPEC"
 
-pattern AppiumWebJavaTestngTestPackage :: UploadType
-pattern AppiumWebJavaTestngTestPackage = UploadType' "APPIUM_WEB_JAVA_TESTNG_TEST_PACKAGE"
+pattern UploadTypeAPPIUMWEBJAVATESTNGTESTPACKAGE :: UploadType
+pattern UploadTypeAPPIUMWEBJAVATESTNGTESTPACKAGE = UploadType' "APPIUM_WEB_JAVA_TESTNG_TEST_PACKAGE"
 
-pattern AppiumWebJavaTestngTestSpec :: UploadType
-pattern AppiumWebJavaTestngTestSpec = UploadType' "APPIUM_WEB_JAVA_TESTNG_TEST_SPEC"
+pattern UploadTypeAPPIUMWEBJAVATESTNGTESTSPEC :: UploadType
+pattern UploadTypeAPPIUMWEBJAVATESTNGTESTSPEC = UploadType' "APPIUM_WEB_JAVA_TESTNG_TEST_SPEC"
 
-pattern AppiumWebNodeTestPackage :: UploadType
-pattern AppiumWebNodeTestPackage = UploadType' "APPIUM_WEB_NODE_TEST_PACKAGE"
+pattern UploadTypeAPPIUMWEBNODETESTPACKAGE :: UploadType
+pattern UploadTypeAPPIUMWEBNODETESTPACKAGE = UploadType' "APPIUM_WEB_NODE_TEST_PACKAGE"
 
-pattern AppiumWebNodeTestSpec :: UploadType
-pattern AppiumWebNodeTestSpec = UploadType' "APPIUM_WEB_NODE_TEST_SPEC"
+pattern UploadTypeAPPIUMWEBNODETESTSPEC :: UploadType
+pattern UploadTypeAPPIUMWEBNODETESTSPEC = UploadType' "APPIUM_WEB_NODE_TEST_SPEC"
 
-pattern AppiumWebPythonTestPackage :: UploadType
-pattern AppiumWebPythonTestPackage = UploadType' "APPIUM_WEB_PYTHON_TEST_PACKAGE"
+pattern UploadTypeAPPIUMWEBPYTHONTESTPACKAGE :: UploadType
+pattern UploadTypeAPPIUMWEBPYTHONTESTPACKAGE = UploadType' "APPIUM_WEB_PYTHON_TEST_PACKAGE"
 
-pattern AppiumWebPythonTestSpec :: UploadType
-pattern AppiumWebPythonTestSpec = UploadType' "APPIUM_WEB_PYTHON_TEST_SPEC"
+pattern UploadTypeAPPIUMWEBPYTHONTESTSPEC :: UploadType
+pattern UploadTypeAPPIUMWEBPYTHONTESTSPEC = UploadType' "APPIUM_WEB_PYTHON_TEST_SPEC"
 
-pattern AppiumWebRubyTestPackage :: UploadType
-pattern AppiumWebRubyTestPackage = UploadType' "APPIUM_WEB_RUBY_TEST_PACKAGE"
+pattern UploadTypeAPPIUMWEBRUBYTESTPACKAGE :: UploadType
+pattern UploadTypeAPPIUMWEBRUBYTESTPACKAGE = UploadType' "APPIUM_WEB_RUBY_TEST_PACKAGE"
 
-pattern AppiumWebRubyTestSpec :: UploadType
-pattern AppiumWebRubyTestSpec = UploadType' "APPIUM_WEB_RUBY_TEST_SPEC"
+pattern UploadTypeAPPIUMWEBRUBYTESTSPEC :: UploadType
+pattern UploadTypeAPPIUMWEBRUBYTESTSPEC = UploadType' "APPIUM_WEB_RUBY_TEST_SPEC"
 
-pattern CalabashTestPackage :: UploadType
-pattern CalabashTestPackage = UploadType' "CALABASH_TEST_PACKAGE"
+pattern UploadTypeCALABASHTESTPACKAGE :: UploadType
+pattern UploadTypeCALABASHTESTPACKAGE = UploadType' "CALABASH_TEST_PACKAGE"
 
-pattern ExternalData :: UploadType
-pattern ExternalData = UploadType' "EXTERNAL_DATA"
+pattern UploadTypeEXTERNALDATA :: UploadType
+pattern UploadTypeEXTERNALDATA = UploadType' "EXTERNAL_DATA"
 
-pattern InstrumentationTestPackage :: UploadType
-pattern InstrumentationTestPackage = UploadType' "INSTRUMENTATION_TEST_PACKAGE"
+pattern UploadTypeINSTRUMENTATIONTESTPACKAGE :: UploadType
+pattern UploadTypeINSTRUMENTATIONTESTPACKAGE = UploadType' "INSTRUMENTATION_TEST_PACKAGE"
 
-pattern InstrumentationTestSpec :: UploadType
-pattern InstrumentationTestSpec = UploadType' "INSTRUMENTATION_TEST_SPEC"
+pattern UploadTypeINSTRUMENTATIONTESTSPEC :: UploadType
+pattern UploadTypeINSTRUMENTATIONTESTSPEC = UploadType' "INSTRUMENTATION_TEST_SPEC"
 
-pattern IosApp :: UploadType
-pattern IosApp = UploadType' "IOS_APP"
+pattern UploadTypeIOSAPP :: UploadType
+pattern UploadTypeIOSAPP = UploadType' "IOS_APP"
 
-pattern UiautomationTestPackage :: UploadType
-pattern UiautomationTestPackage = UploadType' "UIAUTOMATION_TEST_PACKAGE"
+pattern UploadTypeUIAUTOMATIONTESTPACKAGE :: UploadType
+pattern UploadTypeUIAUTOMATIONTESTPACKAGE = UploadType' "UIAUTOMATION_TEST_PACKAGE"
 
-pattern UiautomatorTestPackage :: UploadType
-pattern UiautomatorTestPackage = UploadType' "UIAUTOMATOR_TEST_PACKAGE"
+pattern UploadTypeUIAUTOMATORTESTPACKAGE :: UploadType
+pattern UploadTypeUIAUTOMATORTESTPACKAGE = UploadType' "UIAUTOMATOR_TEST_PACKAGE"
 
-pattern WebApp :: UploadType
-pattern WebApp = UploadType' "WEB_APP"
+pattern UploadTypeWEBAPP :: UploadType
+pattern UploadTypeWEBAPP = UploadType' "WEB_APP"
 
-pattern XctestTestPackage :: UploadType
-pattern XctestTestPackage = UploadType' "XCTEST_TEST_PACKAGE"
+pattern UploadTypeXCTESTTESTPACKAGE :: UploadType
+pattern UploadTypeXCTESTTESTPACKAGE = UploadType' "XCTEST_TEST_PACKAGE"
 
-pattern XctestUiTestPackage :: UploadType
-pattern XctestUiTestPackage = UploadType' "XCTEST_UI_TEST_PACKAGE"
+pattern UploadTypeXCTESTUITESTPACKAGE :: UploadType
+pattern UploadTypeXCTESTUITESTPACKAGE = UploadType' "XCTEST_UI_TEST_PACKAGE"
 
-pattern XctestUiTestSpec :: UploadType
-pattern XctestUiTestSpec = UploadType' "XCTEST_UI_TEST_SPEC"
+pattern UploadTypeXCTESTUITESTSPEC :: UploadType
+pattern UploadTypeXCTESTUITESTSPEC = UploadType' "XCTEST_UI_TEST_SPEC"
 
 {-# COMPLETE
-  AndroidApp,
-  AppiumJavaJunitTestPackage,
-  AppiumJavaJunitTestSpec,
-  AppiumJavaTestngTestPackage,
-  AppiumJavaTestngTestSpec,
-  AppiumNodeTestPackage,
-  AppiumNodeTestSpec,
-  AppiumPythonTestPackage,
-  AppiumPythonTestSpec,
-  AppiumRubyTestPackage,
-  AppiumRubyTestSpec,
-  AppiumWebJavaJunitTestPackage,
-  AppiumWebJavaJunitTestSpec,
-  AppiumWebJavaTestngTestPackage,
-  AppiumWebJavaTestngTestSpec,
-  AppiumWebNodeTestPackage,
-  AppiumWebNodeTestSpec,
-  AppiumWebPythonTestPackage,
-  AppiumWebPythonTestSpec,
-  AppiumWebRubyTestPackage,
-  AppiumWebRubyTestSpec,
-  CalabashTestPackage,
-  ExternalData,
-  InstrumentationTestPackage,
-  InstrumentationTestSpec,
-  IosApp,
-  UiautomationTestPackage,
-  UiautomatorTestPackage,
-  WebApp,
-  XctestTestPackage,
-  XctestUiTestPackage,
-  XctestUiTestSpec,
+  UploadTypeANDROIDAPP,
+  UploadTypeAPPIUMJAVAJUNITTESTPACKAGE,
+  UploadTypeAPPIUMJAVAJUNITTESTSPEC,
+  UploadTypeAPPIUMJAVATESTNGTESTPACKAGE,
+  UploadTypeAPPIUMJAVATESTNGTESTSPEC,
+  UploadTypeAPPIUMNODETESTPACKAGE,
+  UploadTypeAPPIUMNODETESTSPEC,
+  UploadTypeAPPIUMPYTHONTESTPACKAGE,
+  UploadTypeAPPIUMPYTHONTESTSPEC,
+  UploadTypeAPPIUMRUBYTESTPACKAGE,
+  UploadTypeAPPIUMRUBYTESTSPEC,
+  UploadTypeAPPIUMWEBJAVAJUNITTESTPACKAGE,
+  UploadTypeAPPIUMWEBJAVAJUNITTESTSPEC,
+  UploadTypeAPPIUMWEBJAVATESTNGTESTPACKAGE,
+  UploadTypeAPPIUMWEBJAVATESTNGTESTSPEC,
+  UploadTypeAPPIUMWEBNODETESTPACKAGE,
+  UploadTypeAPPIUMWEBNODETESTSPEC,
+  UploadTypeAPPIUMWEBPYTHONTESTPACKAGE,
+  UploadTypeAPPIUMWEBPYTHONTESTSPEC,
+  UploadTypeAPPIUMWEBRUBYTESTPACKAGE,
+  UploadTypeAPPIUMWEBRUBYTESTSPEC,
+  UploadTypeCALABASHTESTPACKAGE,
+  UploadTypeEXTERNALDATA,
+  UploadTypeINSTRUMENTATIONTESTPACKAGE,
+  UploadTypeINSTRUMENTATIONTESTSPEC,
+  UploadTypeIOSAPP,
+  UploadTypeUIAUTOMATIONTESTPACKAGE,
+  UploadTypeUIAUTOMATORTESTPACKAGE,
+  UploadTypeWEBAPP,
+  UploadTypeXCTESTTESTPACKAGE,
+  UploadTypeXCTESTUITESTPACKAGE,
+  UploadTypeXCTESTUITESTSPEC,
   UploadType'
   #-}
 
-instance FromText UploadType where
-  parser = (UploadType' . mk) <$> takeText
+instance Prelude.FromText UploadType where
+  parser = UploadType' Prelude.<$> Prelude.takeText
 
-instance ToText UploadType where
-  toText (UploadType' ci) = original ci
+instance Prelude.ToText UploadType where
+  toText (UploadType' x) = x
 
-instance Hashable UploadType
+instance Prelude.Hashable UploadType
 
-instance NFData UploadType
+instance Prelude.NFData UploadType
 
-instance ToByteString UploadType
+instance Prelude.ToByteString UploadType
 
-instance ToQuery UploadType
+instance Prelude.ToQuery UploadType
 
-instance ToHeader UploadType
+instance Prelude.ToHeader UploadType
 
-instance ToJSON UploadType where
-  toJSON = toJSONText
+instance Prelude.ToJSON UploadType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON UploadType where
-  parseJSON = parseJSONText "UploadType"
+instance Prelude.FromJSON UploadType where
+  parseJSON = Prelude.parseJSONText "UploadType"

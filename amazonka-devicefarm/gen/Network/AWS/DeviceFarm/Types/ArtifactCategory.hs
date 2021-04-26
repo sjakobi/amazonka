@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.DeviceFarm.Types.ArtifactCategory
   ( ArtifactCategory
       ( ..,
-        ACFile,
-        ACLog,
-        ACScreenshot
+        ArtifactCategoryFILE,
+        ArtifactCategoryLOG,
+        ArtifactCategorySCREENSHOT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ArtifactCategory = ArtifactCategory' (CI Text)
+newtype ArtifactCategory = ArtifactCategory'
+  { fromArtifactCategory ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ACFile :: ArtifactCategory
-pattern ACFile = ArtifactCategory' "FILE"
+pattern ArtifactCategoryFILE :: ArtifactCategory
+pattern ArtifactCategoryFILE = ArtifactCategory' "FILE"
 
-pattern ACLog :: ArtifactCategory
-pattern ACLog = ArtifactCategory' "LOG"
+pattern ArtifactCategoryLOG :: ArtifactCategory
+pattern ArtifactCategoryLOG = ArtifactCategory' "LOG"
 
-pattern ACScreenshot :: ArtifactCategory
-pattern ACScreenshot = ArtifactCategory' "SCREENSHOT"
+pattern ArtifactCategorySCREENSHOT :: ArtifactCategory
+pattern ArtifactCategorySCREENSHOT = ArtifactCategory' "SCREENSHOT"
 
 {-# COMPLETE
-  ACFile,
-  ACLog,
-  ACScreenshot,
+  ArtifactCategoryFILE,
+  ArtifactCategoryLOG,
+  ArtifactCategorySCREENSHOT,
   ArtifactCategory'
   #-}
 
-instance FromText ArtifactCategory where
-  parser = (ArtifactCategory' . mk) <$> takeText
+instance Prelude.FromText ArtifactCategory where
+  parser = ArtifactCategory' Prelude.<$> Prelude.takeText
 
-instance ToText ArtifactCategory where
-  toText (ArtifactCategory' ci) = original ci
+instance Prelude.ToText ArtifactCategory where
+  toText (ArtifactCategory' x) = x
 
-instance Hashable ArtifactCategory
+instance Prelude.Hashable ArtifactCategory
 
-instance NFData ArtifactCategory
+instance Prelude.NFData ArtifactCategory
 
-instance ToByteString ArtifactCategory
+instance Prelude.ToByteString ArtifactCategory
 
-instance ToQuery ArtifactCategory
+instance Prelude.ToQuery ArtifactCategory
 
-instance ToHeader ArtifactCategory
+instance Prelude.ToHeader ArtifactCategory
 
-instance ToJSON ArtifactCategory where
-  toJSON = toJSONText
+instance Prelude.ToJSON ArtifactCategory where
+  toJSON = Prelude.toJSONText

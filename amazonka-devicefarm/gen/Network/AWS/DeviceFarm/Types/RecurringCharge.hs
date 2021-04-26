@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,54 +21,57 @@ module Network.AWS.DeviceFarm.Types.RecurringCharge where
 
 import Network.AWS.DeviceFarm.Types.MonetaryAmount
 import Network.AWS.DeviceFarm.Types.RecurringChargeFrequency
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Specifies whether charges for devices are recurring.
 --
---
---
--- /See:/ 'recurringCharge' smart constructor.
+-- /See:/ 'newRecurringCharge' smart constructor.
 data RecurringCharge = RecurringCharge'
-  { _rcCost ::
-      !(Maybe MonetaryAmount),
-    _rcFrequency ::
-      !(Maybe RecurringChargeFrequency)
+  { -- | The cost of the recurring charge.
+    cost :: Prelude.Maybe MonetaryAmount,
+    -- | The frequency in which charges recur.
+    frequency :: Prelude.Maybe RecurringChargeFrequency
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RecurringCharge' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RecurringCharge' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rcCost' - The cost of the recurring charge.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rcFrequency' - The frequency in which charges recur.
-recurringCharge ::
+-- 'cost', 'recurringCharge_cost' - The cost of the recurring charge.
+--
+-- 'frequency', 'recurringCharge_frequency' - The frequency in which charges recur.
+newRecurringCharge ::
   RecurringCharge
-recurringCharge =
+newRecurringCharge =
   RecurringCharge'
-    { _rcCost = Nothing,
-      _rcFrequency = Nothing
+    { cost = Prelude.Nothing,
+      frequency = Prelude.Nothing
     }
 
 -- | The cost of the recurring charge.
-rcCost :: Lens' RecurringCharge (Maybe MonetaryAmount)
-rcCost = lens _rcCost (\s a -> s {_rcCost = a})
+recurringCharge_cost :: Lens.Lens' RecurringCharge (Prelude.Maybe MonetaryAmount)
+recurringCharge_cost = Lens.lens (\RecurringCharge' {cost} -> cost) (\s@RecurringCharge' {} a -> s {cost = a} :: RecurringCharge)
 
 -- | The frequency in which charges recur.
-rcFrequency :: Lens' RecurringCharge (Maybe RecurringChargeFrequency)
-rcFrequency = lens _rcFrequency (\s a -> s {_rcFrequency = a})
+recurringCharge_frequency :: Lens.Lens' RecurringCharge (Prelude.Maybe RecurringChargeFrequency)
+recurringCharge_frequency = Lens.lens (\RecurringCharge' {frequency} -> frequency) (\s@RecurringCharge' {} a -> s {frequency = a} :: RecurringCharge)
 
-instance FromJSON RecurringCharge where
+instance Prelude.FromJSON RecurringCharge where
   parseJSON =
-    withObject
+    Prelude.withObject
       "RecurringCharge"
       ( \x ->
           RecurringCharge'
-            <$> (x .:? "cost") <*> (x .:? "frequency")
+            Prelude.<$> (x Prelude..:? "cost")
+            Prelude.<*> (x Prelude..:? "frequency")
       )
 
-instance Hashable RecurringCharge
+instance Prelude.Hashable RecurringCharge
 
-instance NFData RecurringCharge
+instance Prelude.NFData RecurringCharge

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,92 +19,90 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.DeviceFarm.Types.TestGridSessionAction where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | An action taken by a 'TestGridSession' browser instance.
+-- | An action taken by a TestGridSession browser instance.
 --
---
---
--- /See:/ 'testGridSessionAction' smart constructor.
+-- /See:/ 'newTestGridSessionAction' smart constructor.
 data TestGridSessionAction = TestGridSessionAction'
-  { _tgsaStarted ::
-      !(Maybe POSIX),
-    _tgsaDuration ::
-      !(Maybe Integer),
-    _tgsaStatusCode ::
-      !(Maybe Text),
-    _tgsaAction ::
-      !(Maybe Text),
-    _tgsaRequestMethod ::
-      !(Maybe Text)
+  { -- | The time that the session invoked the action.
+    started :: Prelude.Maybe Prelude.POSIX,
+    -- | The time, in milliseconds, that the action took to complete in the
+    -- browser.
+    duration :: Prelude.Maybe Prelude.Integer,
+    -- | HTTP status code returned to the browser when the action was taken.
+    statusCode :: Prelude.Maybe Prelude.Text,
+    -- | The action taken by the session.
+    action :: Prelude.Maybe Prelude.Text,
+    -- | HTTP method that the browser used to make the request.
+    requestMethod :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TestGridSessionAction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TestGridSessionAction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tgsaStarted' - The time that the session invoked the action.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tgsaDuration' - The time, in milliseconds, that the action took to complete in the browser.
+-- 'started', 'testGridSessionAction_started' - The time that the session invoked the action.
 --
--- * 'tgsaStatusCode' - HTTP status code returned to the browser when the action was taken.
+-- 'duration', 'testGridSessionAction_duration' - The time, in milliseconds, that the action took to complete in the
+-- browser.
 --
--- * 'tgsaAction' - The action taken by the session.
+-- 'statusCode', 'testGridSessionAction_statusCode' - HTTP status code returned to the browser when the action was taken.
 --
--- * 'tgsaRequestMethod' - HTTP method that the browser used to make the request.
-testGridSessionAction ::
+-- 'action', 'testGridSessionAction_action' - The action taken by the session.
+--
+-- 'requestMethod', 'testGridSessionAction_requestMethod' - HTTP method that the browser used to make the request.
+newTestGridSessionAction ::
   TestGridSessionAction
-testGridSessionAction =
+newTestGridSessionAction =
   TestGridSessionAction'
-    { _tgsaStarted = Nothing,
-      _tgsaDuration = Nothing,
-      _tgsaStatusCode = Nothing,
-      _tgsaAction = Nothing,
-      _tgsaRequestMethod = Nothing
+    { started = Prelude.Nothing,
+      duration = Prelude.Nothing,
+      statusCode = Prelude.Nothing,
+      action = Prelude.Nothing,
+      requestMethod = Prelude.Nothing
     }
 
 -- | The time that the session invoked the action.
-tgsaStarted :: Lens' TestGridSessionAction (Maybe UTCTime)
-tgsaStarted = lens _tgsaStarted (\s a -> s {_tgsaStarted = a}) . mapping _Time
+testGridSessionAction_started :: Lens.Lens' TestGridSessionAction (Prelude.Maybe Prelude.UTCTime)
+testGridSessionAction_started = Lens.lens (\TestGridSessionAction' {started} -> started) (\s@TestGridSessionAction' {} a -> s {started = a} :: TestGridSessionAction) Prelude.. Lens.mapping Prelude._Time
 
--- | The time, in milliseconds, that the action took to complete in the browser.
-tgsaDuration :: Lens' TestGridSessionAction (Maybe Integer)
-tgsaDuration = lens _tgsaDuration (\s a -> s {_tgsaDuration = a})
+-- | The time, in milliseconds, that the action took to complete in the
+-- browser.
+testGridSessionAction_duration :: Lens.Lens' TestGridSessionAction (Prelude.Maybe Prelude.Integer)
+testGridSessionAction_duration = Lens.lens (\TestGridSessionAction' {duration} -> duration) (\s@TestGridSessionAction' {} a -> s {duration = a} :: TestGridSessionAction)
 
 -- | HTTP status code returned to the browser when the action was taken.
-tgsaStatusCode :: Lens' TestGridSessionAction (Maybe Text)
-tgsaStatusCode = lens _tgsaStatusCode (\s a -> s {_tgsaStatusCode = a})
+testGridSessionAction_statusCode :: Lens.Lens' TestGridSessionAction (Prelude.Maybe Prelude.Text)
+testGridSessionAction_statusCode = Lens.lens (\TestGridSessionAction' {statusCode} -> statusCode) (\s@TestGridSessionAction' {} a -> s {statusCode = a} :: TestGridSessionAction)
 
 -- | The action taken by the session.
-tgsaAction :: Lens' TestGridSessionAction (Maybe Text)
-tgsaAction = lens _tgsaAction (\s a -> s {_tgsaAction = a})
+testGridSessionAction_action :: Lens.Lens' TestGridSessionAction (Prelude.Maybe Prelude.Text)
+testGridSessionAction_action = Lens.lens (\TestGridSessionAction' {action} -> action) (\s@TestGridSessionAction' {} a -> s {action = a} :: TestGridSessionAction)
 
 -- | HTTP method that the browser used to make the request.
-tgsaRequestMethod :: Lens' TestGridSessionAction (Maybe Text)
-tgsaRequestMethod = lens _tgsaRequestMethod (\s a -> s {_tgsaRequestMethod = a})
+testGridSessionAction_requestMethod :: Lens.Lens' TestGridSessionAction (Prelude.Maybe Prelude.Text)
+testGridSessionAction_requestMethod = Lens.lens (\TestGridSessionAction' {requestMethod} -> requestMethod) (\s@TestGridSessionAction' {} a -> s {requestMethod = a} :: TestGridSessionAction)
 
-instance FromJSON TestGridSessionAction where
+instance Prelude.FromJSON TestGridSessionAction where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TestGridSessionAction"
       ( \x ->
           TestGridSessionAction'
-            <$> (x .:? "started")
-            <*> (x .:? "duration")
-            <*> (x .:? "statusCode")
-            <*> (x .:? "action")
-            <*> (x .:? "requestMethod")
+            Prelude.<$> (x Prelude..:? "started")
+            Prelude.<*> (x Prelude..:? "duration")
+            Prelude.<*> (x Prelude..:? "statusCode")
+            Prelude.<*> (x Prelude..:? "action")
+            Prelude.<*> (x Prelude..:? "requestMethod")
       )
 
-instance Hashable TestGridSessionAction
+instance Prelude.Hashable TestGridSessionAction
 
-instance NFData TestGridSessionAction
+instance Prelude.NFData TestGridSessionAction

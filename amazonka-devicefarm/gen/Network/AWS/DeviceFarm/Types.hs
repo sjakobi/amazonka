@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.DeviceFarm.Types
   ( -- * Service Configuration
-    deviceFarm,
+    defaultService,
 
     -- * Errors
     _NotEligibleException,
@@ -113,484 +116,195 @@ module Network.AWS.DeviceFarm.Types
 
     -- * AccountSettings
     AccountSettings (..),
-    accountSettings,
-    asAwsAccountNumber,
-    asMaxSlots,
-    asTrialMinutes,
-    asSkipAppResign,
-    asMaxJobTimeoutMinutes,
-    asDefaultJobTimeoutMinutes,
-    asUnmeteredDevices,
-    asUnmeteredRemoteAccessDevices,
+    newAccountSettings,
 
     -- * Artifact
     Artifact (..),
-    artifact,
-    aArn,
-    aName,
-    aExtension,
-    aUrl,
-    aType,
+    newArtifact,
 
     -- * CPU
     CPU (..),
-    cpu,
-    cpuArchitecture,
-    cpuFrequency,
-    cpuClock,
+    newCPU,
 
     -- * Counters
     Counters (..),
-    counters,
-    cErrored,
-    cWarned,
-    cPassed,
-    cTotal,
-    cStopped,
-    cFailed,
-    cSkipped,
+    newCounters,
 
     -- * CreateRemoteAccessSessionConfiguration
     CreateRemoteAccessSessionConfiguration (..),
-    createRemoteAccessSessionConfiguration,
-    crascBillingMethod,
-    crascVpceConfigurationARNs,
+    newCreateRemoteAccessSessionConfiguration,
 
     -- * CustomerArtifactPaths
     CustomerArtifactPaths (..),
-    customerArtifactPaths,
-    capDeviceHostPaths,
-    capIosPaths,
-    capAndroidPaths,
+    newCustomerArtifactPaths,
 
     -- * Device
     Device (..),
-    device,
-    dManufacturer,
-    dPlatform,
-    dModel,
-    dFleetName,
-    dMemory,
-    dAvailability,
-    dFleetType,
-    dFormFactor,
-    dRemoteAccessEnabled,
-    dArn,
-    dInstances,
-    dName,
-    dImage,
-    dCarrier,
-    dOs,
-    dHeapSize,
-    dRadio,
-    dResolution,
-    dCpu,
-    dRemoteDebugEnabled,
-    dModelId,
+    newDevice,
 
     -- * DeviceFilter
     DeviceFilter (..),
-    deviceFilter,
-    dfOperator,
-    dfValues,
-    dfAttribute,
+    newDeviceFilter,
 
     -- * DeviceInstance
     DeviceInstance (..),
-    deviceInstance,
-    diUdid,
-    diStatus,
-    diDeviceARN,
-    diArn,
-    diLabels,
-    diInstanceProfile,
+    newDeviceInstance,
 
     -- * DeviceMinutes
     DeviceMinutes (..),
-    deviceMinutes,
-    dmUnmetered,
-    dmMetered,
-    dmTotal,
+    newDeviceMinutes,
 
     -- * DevicePool
     DevicePool (..),
-    devicePool,
-    dpRules,
-    dpArn,
-    dpName,
-    dpMaxDevices,
-    dpDescription,
-    dpType,
+    newDevicePool,
 
     -- * DevicePoolCompatibilityResult
     DevicePoolCompatibilityResult (..),
-    devicePoolCompatibilityResult,
-    dpcrIncompatibilityMessages,
-    dpcrCompatible,
-    dpcrDevice,
+    newDevicePoolCompatibilityResult,
 
     -- * DeviceSelectionConfiguration
     DeviceSelectionConfiguration (..),
-    deviceSelectionConfiguration,
-    dscFilters,
-    dscMaxDevices,
+    newDeviceSelectionConfiguration,
 
     -- * DeviceSelectionResult
     DeviceSelectionResult (..),
-    deviceSelectionResult,
-    dsrMaxDevices,
-    dsrFilters,
-    dsrMatchedDevicesCount,
+    newDeviceSelectionResult,
 
     -- * ExecutionConfiguration
     ExecutionConfiguration (..),
-    executionConfiguration,
-    ecAppPackagesCleanup,
-    ecVideoCapture,
-    ecSkipAppResign,
-    ecJobTimeoutMinutes,
-    ecAccountsCleanup,
+    newExecutionConfiguration,
 
     -- * IncompatibilityMessage
     IncompatibilityMessage (..),
-    incompatibilityMessage,
-    imMessage,
-    imType,
+    newIncompatibilityMessage,
 
     -- * InstanceProfile
     InstanceProfile (..),
-    instanceProfile,
-    ipExcludeAppPackagesFromCleanup,
-    ipArn,
-    ipName,
-    ipDescription,
-    ipRebootAfterUse,
-    ipPackageCleanup,
+    newInstanceProfile,
 
     -- * Job
     Job (..),
-    job,
-    jobCounters,
-    jobStatus,
-    jobResult,
-    jobStarted,
-    jobMessage,
-    jobDevice,
-    jobVideoCapture,
-    jobArn,
-    jobVideoEndpoint,
-    jobName,
-    jobInstanceARN,
-    jobStopped,
-    jobCreated,
-    jobType,
-    jobDeviceMinutes,
+    newJob,
 
     -- * Location
     Location (..),
-    location,
-    lLatitude,
-    lLongitude,
+    newLocation,
 
     -- * MonetaryAmount
     MonetaryAmount (..),
-    monetaryAmount,
-    maAmount,
-    maCurrencyCode,
+    newMonetaryAmount,
 
     -- * NetworkProfile
     NetworkProfile (..),
-    networkProfile,
-    npUplinkJitterMs,
-    npDownlinkDelayMs,
-    npDownlinkBandwidthBits,
-    npDownlinkJitterMs,
-    npUplinkLossPercent,
-    npArn,
-    npDownlinkLossPercent,
-    npName,
-    npDescription,
-    npUplinkDelayMs,
-    npUplinkBandwidthBits,
-    npType,
+    newNetworkProfile,
 
     -- * Offering
     Offering (..),
-    offering,
-    oPlatform,
-    oId,
-    oDescription,
-    oRecurringCharges,
-    oType,
+    newOffering,
 
     -- * OfferingPromotion
     OfferingPromotion (..),
-    offeringPromotion,
-    opId,
-    opDescription,
+    newOfferingPromotion,
 
     -- * OfferingStatus
     OfferingStatus (..),
-    offeringStatus,
-    osQuantity,
-    osOffering,
-    osEffectiveOn,
-    osType,
+    newOfferingStatus,
 
     -- * OfferingTransaction
     OfferingTransaction (..),
-    offeringTransaction,
-    otOfferingStatus,
-    otCreatedOn,
-    otCost,
-    otTransactionId,
-    otOfferingPromotionId,
+    newOfferingTransaction,
 
     -- * Problem
     Problem (..),
-    problem,
-    pJob,
-    pResult,
-    pMessage,
-    pDevice,
-    pRun,
-    pTest,
-    pSuite,
+    newProblem,
 
     -- * ProblemDetail
     ProblemDetail (..),
-    problemDetail,
-    pdArn,
-    pdName,
+    newProblemDetail,
 
     -- * Project
     Project (..),
-    project,
-    pArn,
-    pName,
-    pCreated,
-    pDefaultJobTimeoutMinutes,
+    newProject,
 
     -- * Radios
     Radios (..),
-    radios,
-    rGps,
-    rWifi,
-    rBluetooth,
-    rNfc,
+    newRadios,
 
     -- * RecurringCharge
     RecurringCharge (..),
-    recurringCharge,
-    rcCost,
-    rcFrequency,
+    newRecurringCharge,
 
     -- * RemoteAccessSession
     RemoteAccessSession (..),
-    remoteAccessSession,
-    rasDeviceUdid,
-    rasClientId,
-    rasStatus,
-    rasResult,
-    rasInteractionMode,
-    rasStarted,
-    rasMessage,
-    rasDevice,
-    rasArn,
-    rasName,
-    rasInstanceARN,
-    rasBillingMethod,
-    rasRemoteRecordEnabled,
-    rasSkipAppResign,
-    rasStopped,
-    rasHostAddress,
-    rasEndpoint,
-    rasCreated,
-    rasRemoteDebugEnabled,
-    rasRemoteRecordAppARN,
-    rasDeviceMinutes,
+    newRemoteAccessSession,
 
     -- * Resolution
     Resolution (..),
-    resolution,
-    rHeight,
-    rWidth,
+    newResolution,
 
     -- * Rule
     Rule (..),
-    rule,
-    rOperator,
-    rAttribute,
-    rValue,
+    newRule,
 
     -- * Run
     Run (..),
-    run,
-    runSeed,
-    runEventCount,
-    runCounters,
-    runPlatform,
-    runStatus,
-    runResult,
-    runDevicePoolARN,
-    runDeviceSelectionResult,
-    runStarted,
-    runTestSpecARN,
-    runMessage,
-    runLocale,
-    runArn,
-    runNetworkProfile,
-    runAppUpload,
-    runRadios,
-    runName,
-    runBillingMethod,
-    runCustomerArtifactPaths,
-    runResultCode,
-    runSkipAppResign,
-    runCompletedJobs,
-    runStopped,
-    runJobTimeoutMinutes,
-    runTotalJobs,
-    runWebURL,
-    runCreated,
-    runType,
-    runDeviceMinutes,
-    runLocation,
-    runParsingResultURL,
+    newRun,
 
     -- * Sample
     Sample (..),
-    sample,
-    sArn,
-    sUrl,
-    sType,
+    newSample,
 
     -- * ScheduleRunConfiguration
     ScheduleRunConfiguration (..),
-    scheduleRunConfiguration,
-    srcLocale,
-    srcAuxiliaryApps,
-    srcRadios,
-    srcBillingMethod,
-    srcCustomerArtifactPaths,
-    srcVpceConfigurationARNs,
-    srcNetworkProfileARN,
-    srcLocation,
-    srcExtraDataPackageARN,
+    newScheduleRunConfiguration,
 
     -- * ScheduleRunTest
     ScheduleRunTest (..),
-    scheduleRunTest,
-    srtTestPackageARN,
-    srtTestSpecARN,
-    srtFilter,
-    srtParameters,
-    srtType,
+    newScheduleRunTest,
 
     -- * Suite
     Suite (..),
-    suite,
-    suiCounters,
-    suiStatus,
-    suiResult,
-    suiStarted,
-    suiMessage,
-    suiArn,
-    suiName,
-    suiStopped,
-    suiCreated,
-    suiType,
-    suiDeviceMinutes,
+    newSuite,
 
     -- * Tag
     Tag (..),
-    tag,
-    tagKey,
-    tagValue,
+    newTag,
 
     -- * Test
     Test (..),
-    test,
-    tCounters,
-    tStatus,
-    tResult,
-    tStarted,
-    tMessage,
-    tArn,
-    tName,
-    tStopped,
-    tCreated,
-    tType,
-    tDeviceMinutes,
+    newTest,
 
     -- * TestGridProject
     TestGridProject (..),
-    testGridProject,
-    tgpArn,
-    tgpName,
-    tgpDescription,
-    tgpCreated,
+    newTestGridProject,
 
     -- * TestGridSession
     TestGridSession (..),
-    testGridSession,
-    tgsStatus,
-    tgsArn,
-    tgsSeleniumProperties,
-    tgsBillingMinutes,
-    tgsEnded,
-    tgsCreated,
+    newTestGridSession,
 
     -- * TestGridSessionAction
     TestGridSessionAction (..),
-    testGridSessionAction,
-    tgsaStarted,
-    tgsaDuration,
-    tgsaStatusCode,
-    tgsaAction,
-    tgsaRequestMethod,
+    newTestGridSessionAction,
 
     -- * TestGridSessionArtifact
     TestGridSessionArtifact (..),
-    testGridSessionArtifact,
-    tgsaFilename,
-    tgsaUrl,
-    tgsaType,
+    newTestGridSessionArtifact,
 
     -- * TrialMinutes
     TrialMinutes (..),
-    trialMinutes,
-    tmTotal,
-    tmRemaining,
+    newTrialMinutes,
 
     -- * UniqueProblem
     UniqueProblem (..),
-    uniqueProblem,
-    upMessage,
-    upProblems,
+    newUniqueProblem,
 
     -- * Upload
     Upload (..),
-    upload,
-    uStatus,
-    uContentType,
-    uMessage,
-    uCategory,
-    uMetadata,
-    uArn,
-    uName,
-    uUrl,
-    uCreated,
-    uType,
+    newUpload,
 
     -- * VPCEConfiguration
     VPCEConfiguration (..),
-    vpcEConfiguration,
-    vecVpceConfigurationName,
-    vecVpceConfigurationDescription,
-    vecArn,
-    vecServiceDNSName,
-    vecVpceServiceName,
+    newVPCEConfiguration,
   )
 where
 
@@ -670,135 +384,166 @@ import Network.AWS.DeviceFarm.Types.UploadCategory
 import Network.AWS.DeviceFarm.Types.UploadStatus
 import Network.AWS.DeviceFarm.Types.UploadType
 import Network.AWS.DeviceFarm.Types.VPCEConfiguration
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Sign.V4
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Sign.V4 as Sign
 
 -- | API version @2015-06-23@ of the Amazon Device Farm SDK configuration.
-deviceFarm :: Service
-deviceFarm =
-  Service
-    { _svcAbbrev = "DeviceFarm",
-      _svcSigner = v4,
-      _svcPrefix = "devicefarm",
-      _svcVersion = "2015-06-23",
-      _svcEndpoint = defaultEndpoint deviceFarm,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseJSONError "DeviceFarm",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev = "DeviceFarm",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "devicefarm",
+      Prelude._svcVersion = "2015-06-23",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError =
+        Prelude.parseJSONError "DeviceFarm",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
--- | Exception gets thrown when a user is not eligible to perform the specified transaction.
-_NotEligibleException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Exception gets thrown when a user is not eligible to perform the
+-- specified transaction.
+_NotEligibleException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _NotEligibleException =
-  _MatchServiceError
-    deviceFarm
+  Prelude._MatchServiceError
+    defaultService
     "NotEligibleException"
 
 -- | An invalid argument was specified.
-_ArgumentException :: AsError a => Getting (First ServiceError) a ServiceError
+_ArgumentException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ArgumentException =
-  _MatchServiceError deviceFarm "ArgumentException"
+  Prelude._MatchServiceError
+    defaultService
+    "ArgumentException"
 
 -- | The specified entity was not found.
-_NotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+_NotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _NotFoundException =
-  _MatchServiceError deviceFarm "NotFoundException"
+  Prelude._MatchServiceError
+    defaultService
+    "NotFoundException"
 
--- | The list of tags on the repository is over the limit. The maximum number of tags that can be applied to a repository is 50.
-_TooManyTagsException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The list of tags on the repository is over the limit. The maximum number
+-- of tags that can be applied to a repository is 50.
+_TooManyTagsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TooManyTagsException =
-  _MatchServiceError
-    deviceFarm
+  Prelude._MatchServiceError
+    defaultService
     "TooManyTagsException"
 
--- | There was an error with the update request, or you do not have sufficient permissions to update this VPC endpoint configuration.
-_InvalidOperationException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | There was an error with the update request, or you do not have
+-- sufficient permissions to update this VPC endpoint configuration.
+_InvalidOperationException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidOperationException =
-  _MatchServiceError
-    deviceFarm
+  Prelude._MatchServiceError
+    defaultService
     "InvalidOperationException"
 
 -- | There was a problem with the service account.
-_ServiceAccountException :: AsError a => Getting (First ServiceError) a ServiceError
+_ServiceAccountException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ServiceAccountException =
-  _MatchServiceError
-    deviceFarm
+  Prelude._MatchServiceError
+    defaultService
     "ServiceAccountException"
 
 -- | The operation was not successful. Try again.
-_TagOperationException :: AsError a => Getting (First ServiceError) a ServiceError
+_TagOperationException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TagOperationException =
-  _MatchServiceError
-    deviceFarm
+  Prelude._MatchServiceError
+    defaultService
     "TagOperationException"
 
 -- | An entity with the same name already exists.
-_IdempotencyException :: AsError a => Getting (First ServiceError) a ServiceError
+_IdempotencyException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _IdempotencyException =
-  _MatchServiceError
-    deviceFarm
+  Prelude._MatchServiceError
+    defaultService
     "IdempotencyException"
 
--- | An internal exception was raised in the service. Contact <mailto:aws-devicefarm-support@amazon.com aws-devicefarm-support@amazon.com> if you see this error.
-_InternalServiceException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | An internal exception was raised in the service. Contact
+-- <mailto:aws-devicefarm-support@amazon.com aws-devicefarm-support\@amazon.com>
+-- if you see this error.
+_InternalServiceException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InternalServiceException =
-  _MatchServiceError
-    deviceFarm
+  Prelude._MatchServiceError
+    defaultService
     "InternalServiceException"
 
--- | The request doesn't comply with the AWS Identity and Access Management (IAM) tag policy. Correct your request and then retry it.
-_TagPolicyException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The request doesn\'t comply with the AWS Identity and Access Management
+-- (IAM) tag policy. Correct your request and then retry it.
+_TagPolicyException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TagPolicyException =
-  _MatchServiceError deviceFarm "TagPolicyException"
+  Prelude._MatchServiceError
+    defaultService
+    "TagPolicyException"
 
 -- | The requested object could not be deleted.
-_CannotDeleteException :: AsError a => Getting (First ServiceError) a ServiceError
+_CannotDeleteException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _CannotDeleteException =
-  _MatchServiceError
-    deviceFarm
+  Prelude._MatchServiceError
+    defaultService
     "CannotDeleteException"
 
 -- | A limit was exceeded.
-_LimitExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+_LimitExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _LimitExceededException =
-  _MatchServiceError
-    deviceFarm
+  Prelude._MatchServiceError
+    defaultService
     "LimitExceededException"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,128 +19,130 @@
 module Network.AWS.DeviceFarm.Types.SampleType
   ( SampleType
       ( ..,
-        CPU,
-        Memory,
-        NativeAvgDrawtime,
-        NativeFps,
-        NativeFrames,
-        NativeMaxDrawtime,
-        NativeMinDrawtime,
-        OpenglAvgDrawtime,
-        OpenglFps,
-        OpenglFrames,
-        OpenglMaxDrawtime,
-        OpenglMinDrawtime,
-        RX,
-        RxRate,
-        TX,
-        Threads,
-        TxRate
+        SampleTypeCPU,
+        SampleTypeMEMORY,
+        SampleTypeNATIVEAVGDRAWTIME,
+        SampleTypeNATIVEFPS,
+        SampleTypeNATIVEFRAMES,
+        SampleTypeNATIVEMAXDRAWTIME,
+        SampleTypeNATIVEMINDRAWTIME,
+        SampleTypeOPENGLAVGDRAWTIME,
+        SampleTypeOPENGLFPS,
+        SampleTypeOPENGLFRAMES,
+        SampleTypeOPENGLMAXDRAWTIME,
+        SampleTypeOPENGLMINDRAWTIME,
+        SampleTypeRX,
+        SampleTypeRXRATE,
+        SampleTypeTHREADS,
+        SampleTypeTX,
+        SampleTypeTXRATE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SampleType = SampleType' (CI Text)
+newtype SampleType = SampleType'
+  { fromSampleType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CPU :: SampleType
-pattern CPU = SampleType' "CPU"
+pattern SampleTypeCPU :: SampleType
+pattern SampleTypeCPU = SampleType' "CPU"
 
-pattern Memory :: SampleType
-pattern Memory = SampleType' "MEMORY"
+pattern SampleTypeMEMORY :: SampleType
+pattern SampleTypeMEMORY = SampleType' "MEMORY"
 
-pattern NativeAvgDrawtime :: SampleType
-pattern NativeAvgDrawtime = SampleType' "NATIVE_AVG_DRAWTIME"
+pattern SampleTypeNATIVEAVGDRAWTIME :: SampleType
+pattern SampleTypeNATIVEAVGDRAWTIME = SampleType' "NATIVE_AVG_DRAWTIME"
 
-pattern NativeFps :: SampleType
-pattern NativeFps = SampleType' "NATIVE_FPS"
+pattern SampleTypeNATIVEFPS :: SampleType
+pattern SampleTypeNATIVEFPS = SampleType' "NATIVE_FPS"
 
-pattern NativeFrames :: SampleType
-pattern NativeFrames = SampleType' "NATIVE_FRAMES"
+pattern SampleTypeNATIVEFRAMES :: SampleType
+pattern SampleTypeNATIVEFRAMES = SampleType' "NATIVE_FRAMES"
 
-pattern NativeMaxDrawtime :: SampleType
-pattern NativeMaxDrawtime = SampleType' "NATIVE_MAX_DRAWTIME"
+pattern SampleTypeNATIVEMAXDRAWTIME :: SampleType
+pattern SampleTypeNATIVEMAXDRAWTIME = SampleType' "NATIVE_MAX_DRAWTIME"
 
-pattern NativeMinDrawtime :: SampleType
-pattern NativeMinDrawtime = SampleType' "NATIVE_MIN_DRAWTIME"
+pattern SampleTypeNATIVEMINDRAWTIME :: SampleType
+pattern SampleTypeNATIVEMINDRAWTIME = SampleType' "NATIVE_MIN_DRAWTIME"
 
-pattern OpenglAvgDrawtime :: SampleType
-pattern OpenglAvgDrawtime = SampleType' "OPENGL_AVG_DRAWTIME"
+pattern SampleTypeOPENGLAVGDRAWTIME :: SampleType
+pattern SampleTypeOPENGLAVGDRAWTIME = SampleType' "OPENGL_AVG_DRAWTIME"
 
-pattern OpenglFps :: SampleType
-pattern OpenglFps = SampleType' "OPENGL_FPS"
+pattern SampleTypeOPENGLFPS :: SampleType
+pattern SampleTypeOPENGLFPS = SampleType' "OPENGL_FPS"
 
-pattern OpenglFrames :: SampleType
-pattern OpenglFrames = SampleType' "OPENGL_FRAMES"
+pattern SampleTypeOPENGLFRAMES :: SampleType
+pattern SampleTypeOPENGLFRAMES = SampleType' "OPENGL_FRAMES"
 
-pattern OpenglMaxDrawtime :: SampleType
-pattern OpenglMaxDrawtime = SampleType' "OPENGL_MAX_DRAWTIME"
+pattern SampleTypeOPENGLMAXDRAWTIME :: SampleType
+pattern SampleTypeOPENGLMAXDRAWTIME = SampleType' "OPENGL_MAX_DRAWTIME"
 
-pattern OpenglMinDrawtime :: SampleType
-pattern OpenglMinDrawtime = SampleType' "OPENGL_MIN_DRAWTIME"
+pattern SampleTypeOPENGLMINDRAWTIME :: SampleType
+pattern SampleTypeOPENGLMINDRAWTIME = SampleType' "OPENGL_MIN_DRAWTIME"
 
-pattern RX :: SampleType
-pattern RX = SampleType' "RX"
+pattern SampleTypeRX :: SampleType
+pattern SampleTypeRX = SampleType' "RX"
 
-pattern RxRate :: SampleType
-pattern RxRate = SampleType' "RX_RATE"
+pattern SampleTypeRXRATE :: SampleType
+pattern SampleTypeRXRATE = SampleType' "RX_RATE"
 
-pattern TX :: SampleType
-pattern TX = SampleType' "TX"
+pattern SampleTypeTHREADS :: SampleType
+pattern SampleTypeTHREADS = SampleType' "THREADS"
 
-pattern Threads :: SampleType
-pattern Threads = SampleType' "THREADS"
+pattern SampleTypeTX :: SampleType
+pattern SampleTypeTX = SampleType' "TX"
 
-pattern TxRate :: SampleType
-pattern TxRate = SampleType' "TX_RATE"
+pattern SampleTypeTXRATE :: SampleType
+pattern SampleTypeTXRATE = SampleType' "TX_RATE"
 
 {-# COMPLETE
-  CPU,
-  Memory,
-  NativeAvgDrawtime,
-  NativeFps,
-  NativeFrames,
-  NativeMaxDrawtime,
-  NativeMinDrawtime,
-  OpenglAvgDrawtime,
-  OpenglFps,
-  OpenglFrames,
-  OpenglMaxDrawtime,
-  OpenglMinDrawtime,
-  RX,
-  RxRate,
-  TX,
-  Threads,
-  TxRate,
+  SampleTypeCPU,
+  SampleTypeMEMORY,
+  SampleTypeNATIVEAVGDRAWTIME,
+  SampleTypeNATIVEFPS,
+  SampleTypeNATIVEFRAMES,
+  SampleTypeNATIVEMAXDRAWTIME,
+  SampleTypeNATIVEMINDRAWTIME,
+  SampleTypeOPENGLAVGDRAWTIME,
+  SampleTypeOPENGLFPS,
+  SampleTypeOPENGLFRAMES,
+  SampleTypeOPENGLMAXDRAWTIME,
+  SampleTypeOPENGLMINDRAWTIME,
+  SampleTypeRX,
+  SampleTypeRXRATE,
+  SampleTypeTHREADS,
+  SampleTypeTX,
+  SampleTypeTXRATE,
   SampleType'
   #-}
 
-instance FromText SampleType where
-  parser = (SampleType' . mk) <$> takeText
+instance Prelude.FromText SampleType where
+  parser = SampleType' Prelude.<$> Prelude.takeText
 
-instance ToText SampleType where
-  toText (SampleType' ci) = original ci
+instance Prelude.ToText SampleType where
+  toText (SampleType' x) = x
 
-instance Hashable SampleType
+instance Prelude.Hashable SampleType
 
-instance NFData SampleType
+instance Prelude.NFData SampleType
 
-instance ToByteString SampleType
+instance Prelude.ToByteString SampleType
 
-instance ToQuery SampleType
+instance Prelude.ToQuery SampleType
 
-instance ToHeader SampleType
+instance Prelude.ToHeader SampleType
 
-instance FromJSON SampleType where
-  parseJSON = parseJSONText "SampleType"
+instance Prelude.FromJSON SampleType where
+  parseJSON = Prelude.parseJSONText "SampleType"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,49 +19,58 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.DeviceFarm.Types.Resolution where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents the screen resolution of a device in height and width, expressed in pixels.
+-- | Represents the screen resolution of a device in height and width,
+-- expressed in pixels.
 --
---
---
--- /See:/ 'resolution' smart constructor.
+-- /See:/ 'newResolution' smart constructor.
 data Resolution = Resolution'
-  { _rHeight ::
-      !(Maybe Int),
-    _rWidth :: !(Maybe Int)
+  { -- | The screen resolution\'s height, expressed in pixels.
+    height :: Prelude.Maybe Prelude.Int,
+    -- | The screen resolution\'s width, expressed in pixels.
+    width :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Resolution' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Resolution' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rHeight' - The screen resolution's height, expressed in pixels.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rWidth' - The screen resolution's width, expressed in pixels.
-resolution ::
+-- 'height', 'resolution_height' - The screen resolution\'s height, expressed in pixels.
+--
+-- 'width', 'resolution_width' - The screen resolution\'s width, expressed in pixels.
+newResolution ::
   Resolution
-resolution =
-  Resolution' {_rHeight = Nothing, _rWidth = Nothing}
+newResolution =
+  Resolution'
+    { height = Prelude.Nothing,
+      width = Prelude.Nothing
+    }
 
--- | The screen resolution's height, expressed in pixels.
-rHeight :: Lens' Resolution (Maybe Int)
-rHeight = lens _rHeight (\s a -> s {_rHeight = a})
+-- | The screen resolution\'s height, expressed in pixels.
+resolution_height :: Lens.Lens' Resolution (Prelude.Maybe Prelude.Int)
+resolution_height = Lens.lens (\Resolution' {height} -> height) (\s@Resolution' {} a -> s {height = a} :: Resolution)
 
--- | The screen resolution's width, expressed in pixels.
-rWidth :: Lens' Resolution (Maybe Int)
-rWidth = lens _rWidth (\s a -> s {_rWidth = a})
+-- | The screen resolution\'s width, expressed in pixels.
+resolution_width :: Lens.Lens' Resolution (Prelude.Maybe Prelude.Int)
+resolution_width = Lens.lens (\Resolution' {width} -> width) (\s@Resolution' {} a -> s {width = a} :: Resolution)
 
-instance FromJSON Resolution where
+instance Prelude.FromJSON Resolution where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Resolution"
       ( \x ->
-          Resolution' <$> (x .:? "height") <*> (x .:? "width")
+          Resolution'
+            Prelude.<$> (x Prelude..:? "height")
+            Prelude.<*> (x Prelude..:? "width")
       )
 
-instance Hashable Resolution
+instance Prelude.Hashable Resolution
 
-instance NFData Resolution
+instance Prelude.NFData Resolution

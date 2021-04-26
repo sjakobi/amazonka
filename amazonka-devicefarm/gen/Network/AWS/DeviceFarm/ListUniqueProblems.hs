@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,186 +23,263 @@
 --
 -- Gets information about unique problems, such as exceptions or crashes.
 --
---
--- Unique problems are defined as a single instance of an error across a run, job, or suite. For example, if a call in your application consistently raises an exception (@OutOfBoundsException in MyActivity.java:386@ ), @ListUniqueProblems@ returns a single entry instead of many individual entries for that exception.
---
+-- Unique problems are defined as a single instance of an error across a
+-- run, job, or suite. For example, if a call in your application
+-- consistently raises an exception
+-- (@OutOfBoundsException in MyActivity.java:386@), @ListUniqueProblems@
+-- returns a single entry instead of many individual entries for that
+-- exception.
 --
 -- This operation returns paginated results.
 module Network.AWS.DeviceFarm.ListUniqueProblems
   ( -- * Creating a Request
-    listUniqueProblems,
-    ListUniqueProblems,
+    ListUniqueProblems (..),
+    newListUniqueProblems,
 
     -- * Request Lenses
-    lupNextToken,
-    lupArn,
+    listUniqueProblems_nextToken,
+    listUniqueProblems_arn,
 
     -- * Destructuring the Response
-    listUniqueProblemsResponse,
-    ListUniqueProblemsResponse,
+    ListUniqueProblemsResponse (..),
+    newListUniqueProblemsResponse,
 
     -- * Response Lenses
-    luprrsNextToken,
-    luprrsUniqueProblems,
-    luprrsResponseStatus,
+    listUniqueProblemsResponse_nextToken,
+    listUniqueProblemsResponse_uniqueProblems,
+    listUniqueProblemsResponse_httpStatus,
   )
 where
 
 import Network.AWS.DeviceFarm.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DeviceFarm.Types.ExecutionResult
+import Network.AWS.DeviceFarm.Types.UniqueProblem
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents a request to the list unique problems operation.
 --
---
---
--- /See:/ 'listUniqueProblems' smart constructor.
+-- /See:/ 'newListUniqueProblems' smart constructor.
 data ListUniqueProblems = ListUniqueProblems'
-  { _lupNextToken ::
-      !(Maybe Text),
-    _lupArn :: !Text
+  { -- | An identifier that was returned from the previous call to this
+    -- operation, which can be used to return the next set of items in the
+    -- list.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The unique problems\' ARNs.
+    arn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListUniqueProblems' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListUniqueProblems' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lupNextToken' - An identifier that was returned from the previous call to this operation, which can be used to return the next set of items in the list.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lupArn' - The unique problems' ARNs.
-listUniqueProblems ::
-  -- | 'lupArn'
-  Text ->
+-- 'nextToken', 'listUniqueProblems_nextToken' - An identifier that was returned from the previous call to this
+-- operation, which can be used to return the next set of items in the
+-- list.
+--
+-- 'arn', 'listUniqueProblems_arn' - The unique problems\' ARNs.
+newListUniqueProblems ::
+  -- | 'arn'
+  Prelude.Text ->
   ListUniqueProblems
-listUniqueProblems pArn_ =
+newListUniqueProblems pArn_ =
   ListUniqueProblems'
-    { _lupNextToken = Nothing,
-      _lupArn = pArn_
+    { nextToken = Prelude.Nothing,
+      arn = pArn_
     }
 
--- | An identifier that was returned from the previous call to this operation, which can be used to return the next set of items in the list.
-lupNextToken :: Lens' ListUniqueProblems (Maybe Text)
-lupNextToken = lens _lupNextToken (\s a -> s {_lupNextToken = a})
+-- | An identifier that was returned from the previous call to this
+-- operation, which can be used to return the next set of items in the
+-- list.
+listUniqueProblems_nextToken :: Lens.Lens' ListUniqueProblems (Prelude.Maybe Prelude.Text)
+listUniqueProblems_nextToken = Lens.lens (\ListUniqueProblems' {nextToken} -> nextToken) (\s@ListUniqueProblems' {} a -> s {nextToken = a} :: ListUniqueProblems)
 
--- | The unique problems' ARNs.
-lupArn :: Lens' ListUniqueProblems Text
-lupArn = lens _lupArn (\s a -> s {_lupArn = a})
+-- | The unique problems\' ARNs.
+listUniqueProblems_arn :: Lens.Lens' ListUniqueProblems Prelude.Text
+listUniqueProblems_arn = Lens.lens (\ListUniqueProblems' {arn} -> arn) (\s@ListUniqueProblems' {} a -> s {arn = a} :: ListUniqueProblems)
 
-instance AWSPager ListUniqueProblems where
+instance Pager.AWSPager ListUniqueProblems where
   page rq rs
-    | stop (rs ^. luprrsNextToken) = Nothing
-    | stop (rs ^. luprrsUniqueProblems) = Nothing
-    | otherwise =
-      Just $ rq & lupNextToken .~ rs ^. luprrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listUniqueProblemsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listUniqueProblemsResponse_uniqueProblems
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listUniqueProblems_nextToken
+          Lens..~ rs
+          Lens.^? listUniqueProblemsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListUniqueProblems where
+instance Prelude.AWSRequest ListUniqueProblems where
   type
     Rs ListUniqueProblems =
       ListUniqueProblemsResponse
-  request = postJSON deviceFarm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListUniqueProblemsResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "uniqueProblems" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> ( x Prelude..?> "uniqueProblems"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListUniqueProblems
+instance Prelude.Hashable ListUniqueProblems
 
-instance NFData ListUniqueProblems
+instance Prelude.NFData ListUniqueProblems
 
-instance ToHeaders ListUniqueProblems where
+instance Prelude.ToHeaders ListUniqueProblems where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "DeviceFarm_20150623.ListUniqueProblems" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "DeviceFarm_20150623.ListUniqueProblems" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListUniqueProblems where
+instance Prelude.ToJSON ListUniqueProblems where
   toJSON ListUniqueProblems' {..} =
-    object
-      ( catMaybes
-          [ ("nextToken" .=) <$> _lupNextToken,
-            Just ("arn" .= _lupArn)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("nextToken" Prelude..=) Prelude.<$> nextToken,
+            Prelude.Just ("arn" Prelude..= arn)
           ]
       )
 
-instance ToPath ListUniqueProblems where
-  toPath = const "/"
+instance Prelude.ToPath ListUniqueProblems where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListUniqueProblems where
-  toQuery = const mempty
+instance Prelude.ToQuery ListUniqueProblems where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the result of a list unique problems request.
 --
---
---
--- /See:/ 'listUniqueProblemsResponse' smart constructor.
+-- /See:/ 'newListUniqueProblemsResponse' smart constructor.
 data ListUniqueProblemsResponse = ListUniqueProblemsResponse'
-  { _luprrsNextToken ::
-      !(Maybe Text),
-    _luprrsUniqueProblems ::
-      !( Maybe
-           ( Map
-               ExecutionResult
-               [UniqueProblem]
-           )
-       ),
-    _luprrsResponseStatus ::
-      !Int
+  { -- | If the number of items that are returned is significantly large, this is
+    -- an identifier that is also returned. It can be used in a subsequent call
+    -- to this operation to return the next set of items in the list.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about the unique problems.
+    --
+    -- Allowed values include:
+    --
+    -- -   PENDING
+    --
+    -- -   PASSED
+    --
+    -- -   WARNED
+    --
+    -- -   FAILED
+    --
+    -- -   SKIPPED
+    --
+    -- -   ERRORED
+    --
+    -- -   STOPPED
+    uniqueProblems :: Prelude.Maybe (Prelude.Map ExecutionResult [UniqueProblem]),
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListUniqueProblemsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListUniqueProblemsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'luprrsNextToken' - If the number of items that are returned is significantly large, this is an identifier that is also returned. It can be used in a subsequent call to this operation to return the next set of items in the list.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'luprrsUniqueProblems' - Information about the unique problems. Allowed values include:     * PENDING     * PASSED     * WARNED     * FAILED     * SKIPPED     * ERRORED     * STOPPED
+-- 'nextToken', 'listUniqueProblemsResponse_nextToken' - If the number of items that are returned is significantly large, this is
+-- an identifier that is also returned. It can be used in a subsequent call
+-- to this operation to return the next set of items in the list.
 --
--- * 'luprrsResponseStatus' - -- | The response status code.
-listUniqueProblemsResponse ::
-  -- | 'luprrsResponseStatus'
-  Int ->
+-- 'uniqueProblems', 'listUniqueProblemsResponse_uniqueProblems' - Information about the unique problems.
+--
+-- Allowed values include:
+--
+-- -   PENDING
+--
+-- -   PASSED
+--
+-- -   WARNED
+--
+-- -   FAILED
+--
+-- -   SKIPPED
+--
+-- -   ERRORED
+--
+-- -   STOPPED
+--
+-- 'httpStatus', 'listUniqueProblemsResponse_httpStatus' - The response's http status code.
+newListUniqueProblemsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListUniqueProblemsResponse
-listUniqueProblemsResponse pResponseStatus_ =
+newListUniqueProblemsResponse pHttpStatus_ =
   ListUniqueProblemsResponse'
-    { _luprrsNextToken =
-        Nothing,
-      _luprrsUniqueProblems = Nothing,
-      _luprrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      uniqueProblems = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | If the number of items that are returned is significantly large, this is an identifier that is also returned. It can be used in a subsequent call to this operation to return the next set of items in the list.
-luprrsNextToken :: Lens' ListUniqueProblemsResponse (Maybe Text)
-luprrsNextToken = lens _luprrsNextToken (\s a -> s {_luprrsNextToken = a})
+-- | If the number of items that are returned is significantly large, this is
+-- an identifier that is also returned. It can be used in a subsequent call
+-- to this operation to return the next set of items in the list.
+listUniqueProblemsResponse_nextToken :: Lens.Lens' ListUniqueProblemsResponse (Prelude.Maybe Prelude.Text)
+listUniqueProblemsResponse_nextToken = Lens.lens (\ListUniqueProblemsResponse' {nextToken} -> nextToken) (\s@ListUniqueProblemsResponse' {} a -> s {nextToken = a} :: ListUniqueProblemsResponse)
 
--- | Information about the unique problems. Allowed values include:     * PENDING     * PASSED     * WARNED     * FAILED     * SKIPPED     * ERRORED     * STOPPED
-luprrsUniqueProblems :: Lens' ListUniqueProblemsResponse (HashMap ExecutionResult [UniqueProblem])
-luprrsUniqueProblems = lens _luprrsUniqueProblems (\s a -> s {_luprrsUniqueProblems = a}) . _Default . _Map
+-- | Information about the unique problems.
+--
+-- Allowed values include:
+--
+-- -   PENDING
+--
+-- -   PASSED
+--
+-- -   WARNED
+--
+-- -   FAILED
+--
+-- -   SKIPPED
+--
+-- -   ERRORED
+--
+-- -   STOPPED
+listUniqueProblemsResponse_uniqueProblems :: Lens.Lens' ListUniqueProblemsResponse (Prelude.Maybe (Prelude.HashMap ExecutionResult [UniqueProblem]))
+listUniqueProblemsResponse_uniqueProblems = Lens.lens (\ListUniqueProblemsResponse' {uniqueProblems} -> uniqueProblems) (\s@ListUniqueProblemsResponse' {} a -> s {uniqueProblems = a} :: ListUniqueProblemsResponse) Prelude.. Lens.mapping Prelude._Map
 
--- | -- | The response status code.
-luprrsResponseStatus :: Lens' ListUniqueProblemsResponse Int
-luprrsResponseStatus = lens _luprrsResponseStatus (\s a -> s {_luprrsResponseStatus = a})
+-- | The response's http status code.
+listUniqueProblemsResponse_httpStatus :: Lens.Lens' ListUniqueProblemsResponse Prelude.Int
+listUniqueProblemsResponse_httpStatus = Lens.lens (\ListUniqueProblemsResponse' {httpStatus} -> httpStatus) (\s@ListUniqueProblemsResponse' {} a -> s {httpStatus = a} :: ListUniqueProblemsResponse)
 
-instance NFData ListUniqueProblemsResponse
+instance Prelude.NFData ListUniqueProblemsResponse

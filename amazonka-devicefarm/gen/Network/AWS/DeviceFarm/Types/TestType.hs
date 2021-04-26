@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,151 +19,153 @@
 module Network.AWS.DeviceFarm.Types.TestType
   ( TestType
       ( ..,
-        AppiumJavaJunit,
-        AppiumJavaTestng,
-        AppiumNode,
-        AppiumPython,
-        AppiumRuby,
-        AppiumWebJavaJunit,
-        AppiumWebJavaTestng,
-        AppiumWebNode,
-        AppiumWebPython,
-        AppiumWebRuby,
-        BuiltinExplorer,
-        BuiltinFuzz,
-        Calabash,
-        Instrumentation,
-        RemoteAccessRecord,
-        RemoteAccessReplay,
-        Uiautomation,
-        Uiautomator,
-        WebPerformanceProfile,
-        Xctest,
-        XctestUi
+        TestTypeAPPIUMJAVAJUNIT,
+        TestTypeAPPIUMJAVATESTNG,
+        TestTypeAPPIUMNODE,
+        TestTypeAPPIUMPYTHON,
+        TestTypeAPPIUMRUBY,
+        TestTypeAPPIUMWEBJAVAJUNIT,
+        TestTypeAPPIUMWEBJAVATESTNG,
+        TestTypeAPPIUMWEBNODE,
+        TestTypeAPPIUMWEBPYTHON,
+        TestTypeAPPIUMWEBRUBY,
+        TestTypeBUILTINEXPLORER,
+        TestTypeBUILTINFUZZ,
+        TestTypeCALABASH,
+        TestTypeINSTRUMENTATION,
+        TestTypeREMOTEACCESSRECORD,
+        TestTypeREMOTEACCESSREPLAY,
+        TestTypeUIAUTOMATION,
+        TestTypeUIAUTOMATOR,
+        TestTypeWEBPERFORMANCEPROFILE,
+        TestTypeXCTEST,
+        TestTypeXCTESTUI
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TestType = TestType' (CI Text)
+newtype TestType = TestType'
+  { fromTestType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AppiumJavaJunit :: TestType
-pattern AppiumJavaJunit = TestType' "APPIUM_JAVA_JUNIT"
+pattern TestTypeAPPIUMJAVAJUNIT :: TestType
+pattern TestTypeAPPIUMJAVAJUNIT = TestType' "APPIUM_JAVA_JUNIT"
 
-pattern AppiumJavaTestng :: TestType
-pattern AppiumJavaTestng = TestType' "APPIUM_JAVA_TESTNG"
+pattern TestTypeAPPIUMJAVATESTNG :: TestType
+pattern TestTypeAPPIUMJAVATESTNG = TestType' "APPIUM_JAVA_TESTNG"
 
-pattern AppiumNode :: TestType
-pattern AppiumNode = TestType' "APPIUM_NODE"
+pattern TestTypeAPPIUMNODE :: TestType
+pattern TestTypeAPPIUMNODE = TestType' "APPIUM_NODE"
 
-pattern AppiumPython :: TestType
-pattern AppiumPython = TestType' "APPIUM_PYTHON"
+pattern TestTypeAPPIUMPYTHON :: TestType
+pattern TestTypeAPPIUMPYTHON = TestType' "APPIUM_PYTHON"
 
-pattern AppiumRuby :: TestType
-pattern AppiumRuby = TestType' "APPIUM_RUBY"
+pattern TestTypeAPPIUMRUBY :: TestType
+pattern TestTypeAPPIUMRUBY = TestType' "APPIUM_RUBY"
 
-pattern AppiumWebJavaJunit :: TestType
-pattern AppiumWebJavaJunit = TestType' "APPIUM_WEB_JAVA_JUNIT"
+pattern TestTypeAPPIUMWEBJAVAJUNIT :: TestType
+pattern TestTypeAPPIUMWEBJAVAJUNIT = TestType' "APPIUM_WEB_JAVA_JUNIT"
 
-pattern AppiumWebJavaTestng :: TestType
-pattern AppiumWebJavaTestng = TestType' "APPIUM_WEB_JAVA_TESTNG"
+pattern TestTypeAPPIUMWEBJAVATESTNG :: TestType
+pattern TestTypeAPPIUMWEBJAVATESTNG = TestType' "APPIUM_WEB_JAVA_TESTNG"
 
-pattern AppiumWebNode :: TestType
-pattern AppiumWebNode = TestType' "APPIUM_WEB_NODE"
+pattern TestTypeAPPIUMWEBNODE :: TestType
+pattern TestTypeAPPIUMWEBNODE = TestType' "APPIUM_WEB_NODE"
 
-pattern AppiumWebPython :: TestType
-pattern AppiumWebPython = TestType' "APPIUM_WEB_PYTHON"
+pattern TestTypeAPPIUMWEBPYTHON :: TestType
+pattern TestTypeAPPIUMWEBPYTHON = TestType' "APPIUM_WEB_PYTHON"
 
-pattern AppiumWebRuby :: TestType
-pattern AppiumWebRuby = TestType' "APPIUM_WEB_RUBY"
+pattern TestTypeAPPIUMWEBRUBY :: TestType
+pattern TestTypeAPPIUMWEBRUBY = TestType' "APPIUM_WEB_RUBY"
 
-pattern BuiltinExplorer :: TestType
-pattern BuiltinExplorer = TestType' "BUILTIN_EXPLORER"
+pattern TestTypeBUILTINEXPLORER :: TestType
+pattern TestTypeBUILTINEXPLORER = TestType' "BUILTIN_EXPLORER"
 
-pattern BuiltinFuzz :: TestType
-pattern BuiltinFuzz = TestType' "BUILTIN_FUZZ"
+pattern TestTypeBUILTINFUZZ :: TestType
+pattern TestTypeBUILTINFUZZ = TestType' "BUILTIN_FUZZ"
 
-pattern Calabash :: TestType
-pattern Calabash = TestType' "CALABASH"
+pattern TestTypeCALABASH :: TestType
+pattern TestTypeCALABASH = TestType' "CALABASH"
 
-pattern Instrumentation :: TestType
-pattern Instrumentation = TestType' "INSTRUMENTATION"
+pattern TestTypeINSTRUMENTATION :: TestType
+pattern TestTypeINSTRUMENTATION = TestType' "INSTRUMENTATION"
 
-pattern RemoteAccessRecord :: TestType
-pattern RemoteAccessRecord = TestType' "REMOTE_ACCESS_RECORD"
+pattern TestTypeREMOTEACCESSRECORD :: TestType
+pattern TestTypeREMOTEACCESSRECORD = TestType' "REMOTE_ACCESS_RECORD"
 
-pattern RemoteAccessReplay :: TestType
-pattern RemoteAccessReplay = TestType' "REMOTE_ACCESS_REPLAY"
+pattern TestTypeREMOTEACCESSREPLAY :: TestType
+pattern TestTypeREMOTEACCESSREPLAY = TestType' "REMOTE_ACCESS_REPLAY"
 
-pattern Uiautomation :: TestType
-pattern Uiautomation = TestType' "UIAUTOMATION"
+pattern TestTypeUIAUTOMATION :: TestType
+pattern TestTypeUIAUTOMATION = TestType' "UIAUTOMATION"
 
-pattern Uiautomator :: TestType
-pattern Uiautomator = TestType' "UIAUTOMATOR"
+pattern TestTypeUIAUTOMATOR :: TestType
+pattern TestTypeUIAUTOMATOR = TestType' "UIAUTOMATOR"
 
-pattern WebPerformanceProfile :: TestType
-pattern WebPerformanceProfile = TestType' "WEB_PERFORMANCE_PROFILE"
+pattern TestTypeWEBPERFORMANCEPROFILE :: TestType
+pattern TestTypeWEBPERFORMANCEPROFILE = TestType' "WEB_PERFORMANCE_PROFILE"
 
-pattern Xctest :: TestType
-pattern Xctest = TestType' "XCTEST"
+pattern TestTypeXCTEST :: TestType
+pattern TestTypeXCTEST = TestType' "XCTEST"
 
-pattern XctestUi :: TestType
-pattern XctestUi = TestType' "XCTEST_UI"
+pattern TestTypeXCTESTUI :: TestType
+pattern TestTypeXCTESTUI = TestType' "XCTEST_UI"
 
 {-# COMPLETE
-  AppiumJavaJunit,
-  AppiumJavaTestng,
-  AppiumNode,
-  AppiumPython,
-  AppiumRuby,
-  AppiumWebJavaJunit,
-  AppiumWebJavaTestng,
-  AppiumWebNode,
-  AppiumWebPython,
-  AppiumWebRuby,
-  BuiltinExplorer,
-  BuiltinFuzz,
-  Calabash,
-  Instrumentation,
-  RemoteAccessRecord,
-  RemoteAccessReplay,
-  Uiautomation,
-  Uiautomator,
-  WebPerformanceProfile,
-  Xctest,
-  XctestUi,
+  TestTypeAPPIUMJAVAJUNIT,
+  TestTypeAPPIUMJAVATESTNG,
+  TestTypeAPPIUMNODE,
+  TestTypeAPPIUMPYTHON,
+  TestTypeAPPIUMRUBY,
+  TestTypeAPPIUMWEBJAVAJUNIT,
+  TestTypeAPPIUMWEBJAVATESTNG,
+  TestTypeAPPIUMWEBNODE,
+  TestTypeAPPIUMWEBPYTHON,
+  TestTypeAPPIUMWEBRUBY,
+  TestTypeBUILTINEXPLORER,
+  TestTypeBUILTINFUZZ,
+  TestTypeCALABASH,
+  TestTypeINSTRUMENTATION,
+  TestTypeREMOTEACCESSRECORD,
+  TestTypeREMOTEACCESSREPLAY,
+  TestTypeUIAUTOMATION,
+  TestTypeUIAUTOMATOR,
+  TestTypeWEBPERFORMANCEPROFILE,
+  TestTypeXCTEST,
+  TestTypeXCTESTUI,
   TestType'
   #-}
 
-instance FromText TestType where
-  parser = (TestType' . mk) <$> takeText
+instance Prelude.FromText TestType where
+  parser = TestType' Prelude.<$> Prelude.takeText
 
-instance ToText TestType where
-  toText (TestType' ci) = original ci
+instance Prelude.ToText TestType where
+  toText (TestType' x) = x
 
-instance Hashable TestType
+instance Prelude.Hashable TestType
 
-instance NFData TestType
+instance Prelude.NFData TestType
 
-instance ToByteString TestType
+instance Prelude.ToByteString TestType
 
-instance ToQuery TestType
+instance Prelude.ToQuery TestType
 
-instance ToHeader TestType
+instance Prelude.ToHeader TestType
 
-instance ToJSON TestType where
-  toJSON = toJSONText
+instance Prelude.ToJSON TestType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON TestType where
-  parseJSON = parseJSONText "TestType"
+instance Prelude.FromJSON TestType where
+  parseJSON = Prelude.parseJSONText "TestType"

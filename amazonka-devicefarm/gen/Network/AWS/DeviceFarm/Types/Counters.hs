@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,98 +19,107 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.DeviceFarm.Types.Counters where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents entity counters.
 --
---
---
--- /See:/ 'counters' smart constructor.
+-- /See:/ 'newCounters' smart constructor.
 data Counters = Counters'
-  { _cErrored :: !(Maybe Int),
-    _cWarned :: !(Maybe Int),
-    _cPassed :: !(Maybe Int),
-    _cTotal :: !(Maybe Int),
-    _cStopped :: !(Maybe Int),
-    _cFailed :: !(Maybe Int),
-    _cSkipped :: !(Maybe Int)
+  { -- | The number of errored entities.
+    errored :: Prelude.Maybe Prelude.Int,
+    -- | The number of warned entities.
+    warned :: Prelude.Maybe Prelude.Int,
+    -- | The number of passed entities.
+    passed :: Prelude.Maybe Prelude.Int,
+    -- | The total number of entities.
+    total :: Prelude.Maybe Prelude.Int,
+    -- | The number of stopped entities.
+    stopped :: Prelude.Maybe Prelude.Int,
+    -- | The number of failed entities.
+    failed :: Prelude.Maybe Prelude.Int,
+    -- | The number of skipped entities.
+    skipped :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Counters' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Counters' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cErrored' - The number of errored entities.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cWarned' - The number of warned entities.
+-- 'errored', 'counters_errored' - The number of errored entities.
 --
--- * 'cPassed' - The number of passed entities.
+-- 'warned', 'counters_warned' - The number of warned entities.
 --
--- * 'cTotal' - The total number of entities.
+-- 'passed', 'counters_passed' - The number of passed entities.
 --
--- * 'cStopped' - The number of stopped entities.
+-- 'total', 'counters_total' - The total number of entities.
 --
--- * 'cFailed' - The number of failed entities.
+-- 'stopped', 'counters_stopped' - The number of stopped entities.
 --
--- * 'cSkipped' - The number of skipped entities.
-counters ::
+-- 'failed', 'counters_failed' - The number of failed entities.
+--
+-- 'skipped', 'counters_skipped' - The number of skipped entities.
+newCounters ::
   Counters
-counters =
+newCounters =
   Counters'
-    { _cErrored = Nothing,
-      _cWarned = Nothing,
-      _cPassed = Nothing,
-      _cTotal = Nothing,
-      _cStopped = Nothing,
-      _cFailed = Nothing,
-      _cSkipped = Nothing
+    { errored = Prelude.Nothing,
+      warned = Prelude.Nothing,
+      passed = Prelude.Nothing,
+      total = Prelude.Nothing,
+      stopped = Prelude.Nothing,
+      failed = Prelude.Nothing,
+      skipped = Prelude.Nothing
     }
 
 -- | The number of errored entities.
-cErrored :: Lens' Counters (Maybe Int)
-cErrored = lens _cErrored (\s a -> s {_cErrored = a})
+counters_errored :: Lens.Lens' Counters (Prelude.Maybe Prelude.Int)
+counters_errored = Lens.lens (\Counters' {errored} -> errored) (\s@Counters' {} a -> s {errored = a} :: Counters)
 
 -- | The number of warned entities.
-cWarned :: Lens' Counters (Maybe Int)
-cWarned = lens _cWarned (\s a -> s {_cWarned = a})
+counters_warned :: Lens.Lens' Counters (Prelude.Maybe Prelude.Int)
+counters_warned = Lens.lens (\Counters' {warned} -> warned) (\s@Counters' {} a -> s {warned = a} :: Counters)
 
 -- | The number of passed entities.
-cPassed :: Lens' Counters (Maybe Int)
-cPassed = lens _cPassed (\s a -> s {_cPassed = a})
+counters_passed :: Lens.Lens' Counters (Prelude.Maybe Prelude.Int)
+counters_passed = Lens.lens (\Counters' {passed} -> passed) (\s@Counters' {} a -> s {passed = a} :: Counters)
 
 -- | The total number of entities.
-cTotal :: Lens' Counters (Maybe Int)
-cTotal = lens _cTotal (\s a -> s {_cTotal = a})
+counters_total :: Lens.Lens' Counters (Prelude.Maybe Prelude.Int)
+counters_total = Lens.lens (\Counters' {total} -> total) (\s@Counters' {} a -> s {total = a} :: Counters)
 
 -- | The number of stopped entities.
-cStopped :: Lens' Counters (Maybe Int)
-cStopped = lens _cStopped (\s a -> s {_cStopped = a})
+counters_stopped :: Lens.Lens' Counters (Prelude.Maybe Prelude.Int)
+counters_stopped = Lens.lens (\Counters' {stopped} -> stopped) (\s@Counters' {} a -> s {stopped = a} :: Counters)
 
 -- | The number of failed entities.
-cFailed :: Lens' Counters (Maybe Int)
-cFailed = lens _cFailed (\s a -> s {_cFailed = a})
+counters_failed :: Lens.Lens' Counters (Prelude.Maybe Prelude.Int)
+counters_failed = Lens.lens (\Counters' {failed} -> failed) (\s@Counters' {} a -> s {failed = a} :: Counters)
 
 -- | The number of skipped entities.
-cSkipped :: Lens' Counters (Maybe Int)
-cSkipped = lens _cSkipped (\s a -> s {_cSkipped = a})
+counters_skipped :: Lens.Lens' Counters (Prelude.Maybe Prelude.Int)
+counters_skipped = Lens.lens (\Counters' {skipped} -> skipped) (\s@Counters' {} a -> s {skipped = a} :: Counters)
 
-instance FromJSON Counters where
+instance Prelude.FromJSON Counters where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Counters"
       ( \x ->
           Counters'
-            <$> (x .:? "errored")
-            <*> (x .:? "warned")
-            <*> (x .:? "passed")
-            <*> (x .:? "total")
-            <*> (x .:? "stopped")
-            <*> (x .:? "failed")
-            <*> (x .:? "skipped")
+            Prelude.<$> (x Prelude..:? "errored")
+            Prelude.<*> (x Prelude..:? "warned")
+            Prelude.<*> (x Prelude..:? "passed")
+            Prelude.<*> (x Prelude..:? "total")
+            Prelude.<*> (x Prelude..:? "stopped")
+            Prelude.<*> (x Prelude..:? "failed")
+            Prelude.<*> (x Prelude..:? "skipped")
       )
 
-instance Hashable Counters
+instance Prelude.Hashable Counters
 
-instance NFData Counters
+instance Prelude.NFData Counters

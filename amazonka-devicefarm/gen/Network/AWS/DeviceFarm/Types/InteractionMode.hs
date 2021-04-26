@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.DeviceFarm.Types.InteractionMode
   ( InteractionMode
       ( ..,
-        Interactive,
-        NoVideo,
-        VideoOnly
+        InteractionModeINTERACTIVE,
+        InteractionModeNOVIDEO,
+        InteractionModeVIDEOONLY
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data InteractionMode = InteractionMode' (CI Text)
+newtype InteractionMode = InteractionMode'
+  { fromInteractionMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Interactive :: InteractionMode
-pattern Interactive = InteractionMode' "INTERACTIVE"
+pattern InteractionModeINTERACTIVE :: InteractionMode
+pattern InteractionModeINTERACTIVE = InteractionMode' "INTERACTIVE"
 
-pattern NoVideo :: InteractionMode
-pattern NoVideo = InteractionMode' "NO_VIDEO"
+pattern InteractionModeNOVIDEO :: InteractionMode
+pattern InteractionModeNOVIDEO = InteractionMode' "NO_VIDEO"
 
-pattern VideoOnly :: InteractionMode
-pattern VideoOnly = InteractionMode' "VIDEO_ONLY"
+pattern InteractionModeVIDEOONLY :: InteractionMode
+pattern InteractionModeVIDEOONLY = InteractionMode' "VIDEO_ONLY"
 
 {-# COMPLETE
-  Interactive,
-  NoVideo,
-  VideoOnly,
+  InteractionModeINTERACTIVE,
+  InteractionModeNOVIDEO,
+  InteractionModeVIDEOONLY,
   InteractionMode'
   #-}
 
-instance FromText InteractionMode where
-  parser = (InteractionMode' . mk) <$> takeText
+instance Prelude.FromText InteractionMode where
+  parser = InteractionMode' Prelude.<$> Prelude.takeText
 
-instance ToText InteractionMode where
-  toText (InteractionMode' ci) = original ci
+instance Prelude.ToText InteractionMode where
+  toText (InteractionMode' x) = x
 
-instance Hashable InteractionMode
+instance Prelude.Hashable InteractionMode
 
-instance NFData InteractionMode
+instance Prelude.NFData InteractionMode
 
-instance ToByteString InteractionMode
+instance Prelude.ToByteString InteractionMode
 
-instance ToQuery InteractionMode
+instance Prelude.ToQuery InteractionMode
 
-instance ToHeader InteractionMode
+instance Prelude.ToHeader InteractionMode
 
-instance ToJSON InteractionMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON InteractionMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON InteractionMode where
-  parseJSON = parseJSONText "InteractionMode"
+instance Prelude.FromJSON InteractionMode where
+  parseJSON = Prelude.parseJSONText "InteractionMode"

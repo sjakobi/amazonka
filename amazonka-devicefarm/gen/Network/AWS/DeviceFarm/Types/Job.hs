@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -21,170 +25,418 @@ import Network.AWS.DeviceFarm.Types.DeviceMinutes
 import Network.AWS.DeviceFarm.Types.ExecutionResult
 import Network.AWS.DeviceFarm.Types.ExecutionStatus
 import Network.AWS.DeviceFarm.Types.TestType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents a device.
 --
---
---
--- /See:/ 'job' smart constructor.
+-- /See:/ 'newJob' smart constructor.
 data Job = Job'
-  { _jobCounters :: !(Maybe Counters),
-    _jobStatus :: !(Maybe ExecutionStatus),
-    _jobResult :: !(Maybe ExecutionResult),
-    _jobStarted :: !(Maybe POSIX),
-    _jobMessage :: !(Maybe Text),
-    _jobDevice :: !(Maybe Device),
-    _jobVideoCapture :: !(Maybe Bool),
-    _jobArn :: !(Maybe Text),
-    _jobVideoEndpoint :: !(Maybe Text),
-    _jobName :: !(Maybe Text),
-    _jobInstanceARN :: !(Maybe Text),
-    _jobStopped :: !(Maybe POSIX),
-    _jobCreated :: !(Maybe POSIX),
-    _jobType :: !(Maybe TestType),
-    _jobDeviceMinutes :: !(Maybe DeviceMinutes)
+  { -- | The job\'s result counters.
+    counters :: Prelude.Maybe Counters,
+    -- | The job\'s status.
+    --
+    -- Allowed values include:
+    --
+    -- -   PENDING
+    --
+    -- -   PENDING_CONCURRENCY
+    --
+    -- -   PENDING_DEVICE
+    --
+    -- -   PROCESSING
+    --
+    -- -   SCHEDULING
+    --
+    -- -   PREPARING
+    --
+    -- -   RUNNING
+    --
+    -- -   COMPLETED
+    --
+    -- -   STOPPING
+    status :: Prelude.Maybe ExecutionStatus,
+    -- | The job\'s result.
+    --
+    -- Allowed values include:
+    --
+    -- -   PENDING
+    --
+    -- -   PASSED
+    --
+    -- -   WARNED
+    --
+    -- -   FAILED
+    --
+    -- -   SKIPPED
+    --
+    -- -   ERRORED
+    --
+    -- -   STOPPED
+    result :: Prelude.Maybe ExecutionResult,
+    -- | The job\'s start time.
+    started :: Prelude.Maybe Prelude.POSIX,
+    -- | A message about the job\'s result.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The device (phone or tablet).
+    device :: Prelude.Maybe Device,
+    -- | This value is set to true if video capture is enabled. Otherwise, it is
+    -- set to false.
+    videoCapture :: Prelude.Maybe Prelude.Bool,
+    -- | The job\'s ARN.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The endpoint for streaming device video.
+    videoEndpoint :: Prelude.Maybe Prelude.Text,
+    -- | The job\'s name.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the instance.
+    instanceArn :: Prelude.Maybe Prelude.Text,
+    -- | The job\'s stop time.
+    stopped :: Prelude.Maybe Prelude.POSIX,
+    -- | When the job was created.
+    created :: Prelude.Maybe Prelude.POSIX,
+    -- | The job\'s type.
+    --
+    -- Allowed values include the following:
+    --
+    -- -   BUILTIN_FUZZ
+    --
+    -- -   BUILTIN_EXPLORER. For Android, an app explorer that traverses an
+    --     Android app, interacting with it and capturing screenshots at the
+    --     same time.
+    --
+    -- -   APPIUM_JAVA_JUNIT
+    --
+    -- -   APPIUM_JAVA_TESTNG
+    --
+    -- -   APPIUM_PYTHON
+    --
+    -- -   APPIUM_NODE
+    --
+    -- -   APPIUM_RUBY
+    --
+    -- -   APPIUM_WEB_JAVA_JUNIT
+    --
+    -- -   APPIUM_WEB_JAVA_TESTNG
+    --
+    -- -   APPIUM_WEB_PYTHON
+    --
+    -- -   APPIUM_WEB_NODE
+    --
+    -- -   APPIUM_WEB_RUBY
+    --
+    -- -   CALABASH
+    --
+    -- -   INSTRUMENTATION
+    --
+    -- -   UIAUTOMATION
+    --
+    -- -   UIAUTOMATOR
+    --
+    -- -   XCTEST
+    --
+    -- -   XCTEST_UI
+    type' :: Prelude.Maybe TestType,
+    -- | Represents the total (metered or unmetered) minutes used by the job.
+    deviceMinutes :: Prelude.Maybe DeviceMinutes
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Job' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Job' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'jobCounters' - The job's result counters.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'jobStatus' - The job's status. Allowed values include:     * PENDING     * PENDING_CONCURRENCY     * PENDING_DEVICE     * PROCESSING     * SCHEDULING     * PREPARING     * RUNNING     * COMPLETED     * STOPPING
+-- 'counters', 'job_counters' - The job\'s result counters.
 --
--- * 'jobResult' - The job's result. Allowed values include:     * PENDING     * PASSED     * WARNED     * FAILED     * SKIPPED     * ERRORED     * STOPPED
+-- 'status', 'job_status' - The job\'s status.
 --
--- * 'jobStarted' - The job's start time.
+-- Allowed values include:
 --
--- * 'jobMessage' - A message about the job's result.
+-- -   PENDING
 --
--- * 'jobDevice' - The device (phone or tablet).
+-- -   PENDING_CONCURRENCY
 --
--- * 'jobVideoCapture' - This value is set to true if video capture is enabled. Otherwise, it is set to false.
+-- -   PENDING_DEVICE
 --
--- * 'jobArn' - The job's ARN.
+-- -   PROCESSING
 --
--- * 'jobVideoEndpoint' - The endpoint for streaming device video.
+-- -   SCHEDULING
 --
--- * 'jobName' - The job's name.
+-- -   PREPARING
 --
--- * 'jobInstanceARN' - The ARN of the instance.
+-- -   RUNNING
 --
--- * 'jobStopped' - The job's stop time.
+-- -   COMPLETED
 --
--- * 'jobCreated' - When the job was created.
+-- -   STOPPING
 --
--- * 'jobType' - The job's type. Allowed values include the following:     * BUILTIN_FUZZ     * BUILTIN_EXPLORER. For Android, an app explorer that traverses an Android app, interacting with it and capturing screenshots at the same time.     * APPIUM_JAVA_JUNIT     * APPIUM_JAVA_TESTNG     * APPIUM_PYTHON     * APPIUM_NODE     * APPIUM_RUBY     * APPIUM_WEB_JAVA_JUNIT     * APPIUM_WEB_JAVA_TESTNG     * APPIUM_WEB_PYTHON     * APPIUM_WEB_NODE     * APPIUM_WEB_RUBY     * CALABASH     * INSTRUMENTATION     * UIAUTOMATION     * UIAUTOMATOR     * XCTEST     * XCTEST_UI
+-- 'result', 'job_result' - The job\'s result.
 --
--- * 'jobDeviceMinutes' - Represents the total (metered or unmetered) minutes used by the job.
-job ::
+-- Allowed values include:
+--
+-- -   PENDING
+--
+-- -   PASSED
+--
+-- -   WARNED
+--
+-- -   FAILED
+--
+-- -   SKIPPED
+--
+-- -   ERRORED
+--
+-- -   STOPPED
+--
+-- 'started', 'job_started' - The job\'s start time.
+--
+-- 'message', 'job_message' - A message about the job\'s result.
+--
+-- 'device', 'job_device' - The device (phone or tablet).
+--
+-- 'videoCapture', 'job_videoCapture' - This value is set to true if video capture is enabled. Otherwise, it is
+-- set to false.
+--
+-- 'arn', 'job_arn' - The job\'s ARN.
+--
+-- 'videoEndpoint', 'job_videoEndpoint' - The endpoint for streaming device video.
+--
+-- 'name', 'job_name' - The job\'s name.
+--
+-- 'instanceArn', 'job_instanceArn' - The ARN of the instance.
+--
+-- 'stopped', 'job_stopped' - The job\'s stop time.
+--
+-- 'created', 'job_created' - When the job was created.
+--
+-- 'type'', 'job_type' - The job\'s type.
+--
+-- Allowed values include the following:
+--
+-- -   BUILTIN_FUZZ
+--
+-- -   BUILTIN_EXPLORER. For Android, an app explorer that traverses an
+--     Android app, interacting with it and capturing screenshots at the
+--     same time.
+--
+-- -   APPIUM_JAVA_JUNIT
+--
+-- -   APPIUM_JAVA_TESTNG
+--
+-- -   APPIUM_PYTHON
+--
+-- -   APPIUM_NODE
+--
+-- -   APPIUM_RUBY
+--
+-- -   APPIUM_WEB_JAVA_JUNIT
+--
+-- -   APPIUM_WEB_JAVA_TESTNG
+--
+-- -   APPIUM_WEB_PYTHON
+--
+-- -   APPIUM_WEB_NODE
+--
+-- -   APPIUM_WEB_RUBY
+--
+-- -   CALABASH
+--
+-- -   INSTRUMENTATION
+--
+-- -   UIAUTOMATION
+--
+-- -   UIAUTOMATOR
+--
+-- -   XCTEST
+--
+-- -   XCTEST_UI
+--
+-- 'deviceMinutes', 'job_deviceMinutes' - Represents the total (metered or unmetered) minutes used by the job.
+newJob ::
   Job
-job =
+newJob =
   Job'
-    { _jobCounters = Nothing,
-      _jobStatus = Nothing,
-      _jobResult = Nothing,
-      _jobStarted = Nothing,
-      _jobMessage = Nothing,
-      _jobDevice = Nothing,
-      _jobVideoCapture = Nothing,
-      _jobArn = Nothing,
-      _jobVideoEndpoint = Nothing,
-      _jobName = Nothing,
-      _jobInstanceARN = Nothing,
-      _jobStopped = Nothing,
-      _jobCreated = Nothing,
-      _jobType = Nothing,
-      _jobDeviceMinutes = Nothing
+    { counters = Prelude.Nothing,
+      status = Prelude.Nothing,
+      result = Prelude.Nothing,
+      started = Prelude.Nothing,
+      message = Prelude.Nothing,
+      device = Prelude.Nothing,
+      videoCapture = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      videoEndpoint = Prelude.Nothing,
+      name = Prelude.Nothing,
+      instanceArn = Prelude.Nothing,
+      stopped = Prelude.Nothing,
+      created = Prelude.Nothing,
+      type' = Prelude.Nothing,
+      deviceMinutes = Prelude.Nothing
     }
 
--- | The job's result counters.
-jobCounters :: Lens' Job (Maybe Counters)
-jobCounters = lens _jobCounters (\s a -> s {_jobCounters = a})
+-- | The job\'s result counters.
+job_counters :: Lens.Lens' Job (Prelude.Maybe Counters)
+job_counters = Lens.lens (\Job' {counters} -> counters) (\s@Job' {} a -> s {counters = a} :: Job)
 
--- | The job's status. Allowed values include:     * PENDING     * PENDING_CONCURRENCY     * PENDING_DEVICE     * PROCESSING     * SCHEDULING     * PREPARING     * RUNNING     * COMPLETED     * STOPPING
-jobStatus :: Lens' Job (Maybe ExecutionStatus)
-jobStatus = lens _jobStatus (\s a -> s {_jobStatus = a})
+-- | The job\'s status.
+--
+-- Allowed values include:
+--
+-- -   PENDING
+--
+-- -   PENDING_CONCURRENCY
+--
+-- -   PENDING_DEVICE
+--
+-- -   PROCESSING
+--
+-- -   SCHEDULING
+--
+-- -   PREPARING
+--
+-- -   RUNNING
+--
+-- -   COMPLETED
+--
+-- -   STOPPING
+job_status :: Lens.Lens' Job (Prelude.Maybe ExecutionStatus)
+job_status = Lens.lens (\Job' {status} -> status) (\s@Job' {} a -> s {status = a} :: Job)
 
--- | The job's result. Allowed values include:     * PENDING     * PASSED     * WARNED     * FAILED     * SKIPPED     * ERRORED     * STOPPED
-jobResult :: Lens' Job (Maybe ExecutionResult)
-jobResult = lens _jobResult (\s a -> s {_jobResult = a})
+-- | The job\'s result.
+--
+-- Allowed values include:
+--
+-- -   PENDING
+--
+-- -   PASSED
+--
+-- -   WARNED
+--
+-- -   FAILED
+--
+-- -   SKIPPED
+--
+-- -   ERRORED
+--
+-- -   STOPPED
+job_result :: Lens.Lens' Job (Prelude.Maybe ExecutionResult)
+job_result = Lens.lens (\Job' {result} -> result) (\s@Job' {} a -> s {result = a} :: Job)
 
--- | The job's start time.
-jobStarted :: Lens' Job (Maybe UTCTime)
-jobStarted = lens _jobStarted (\s a -> s {_jobStarted = a}) . mapping _Time
+-- | The job\'s start time.
+job_started :: Lens.Lens' Job (Prelude.Maybe Prelude.UTCTime)
+job_started = Lens.lens (\Job' {started} -> started) (\s@Job' {} a -> s {started = a} :: Job) Prelude.. Lens.mapping Prelude._Time
 
--- | A message about the job's result.
-jobMessage :: Lens' Job (Maybe Text)
-jobMessage = lens _jobMessage (\s a -> s {_jobMessage = a})
+-- | A message about the job\'s result.
+job_message :: Lens.Lens' Job (Prelude.Maybe Prelude.Text)
+job_message = Lens.lens (\Job' {message} -> message) (\s@Job' {} a -> s {message = a} :: Job)
 
 -- | The device (phone or tablet).
-jobDevice :: Lens' Job (Maybe Device)
-jobDevice = lens _jobDevice (\s a -> s {_jobDevice = a})
+job_device :: Lens.Lens' Job (Prelude.Maybe Device)
+job_device = Lens.lens (\Job' {device} -> device) (\s@Job' {} a -> s {device = a} :: Job)
 
--- | This value is set to true if video capture is enabled. Otherwise, it is set to false.
-jobVideoCapture :: Lens' Job (Maybe Bool)
-jobVideoCapture = lens _jobVideoCapture (\s a -> s {_jobVideoCapture = a})
+-- | This value is set to true if video capture is enabled. Otherwise, it is
+-- set to false.
+job_videoCapture :: Lens.Lens' Job (Prelude.Maybe Prelude.Bool)
+job_videoCapture = Lens.lens (\Job' {videoCapture} -> videoCapture) (\s@Job' {} a -> s {videoCapture = a} :: Job)
 
--- | The job's ARN.
-jobArn :: Lens' Job (Maybe Text)
-jobArn = lens _jobArn (\s a -> s {_jobArn = a})
+-- | The job\'s ARN.
+job_arn :: Lens.Lens' Job (Prelude.Maybe Prelude.Text)
+job_arn = Lens.lens (\Job' {arn} -> arn) (\s@Job' {} a -> s {arn = a} :: Job)
 
 -- | The endpoint for streaming device video.
-jobVideoEndpoint :: Lens' Job (Maybe Text)
-jobVideoEndpoint = lens _jobVideoEndpoint (\s a -> s {_jobVideoEndpoint = a})
+job_videoEndpoint :: Lens.Lens' Job (Prelude.Maybe Prelude.Text)
+job_videoEndpoint = Lens.lens (\Job' {videoEndpoint} -> videoEndpoint) (\s@Job' {} a -> s {videoEndpoint = a} :: Job)
 
--- | The job's name.
-jobName :: Lens' Job (Maybe Text)
-jobName = lens _jobName (\s a -> s {_jobName = a})
+-- | The job\'s name.
+job_name :: Lens.Lens' Job (Prelude.Maybe Prelude.Text)
+job_name = Lens.lens (\Job' {name} -> name) (\s@Job' {} a -> s {name = a} :: Job)
 
 -- | The ARN of the instance.
-jobInstanceARN :: Lens' Job (Maybe Text)
-jobInstanceARN = lens _jobInstanceARN (\s a -> s {_jobInstanceARN = a})
+job_instanceArn :: Lens.Lens' Job (Prelude.Maybe Prelude.Text)
+job_instanceArn = Lens.lens (\Job' {instanceArn} -> instanceArn) (\s@Job' {} a -> s {instanceArn = a} :: Job)
 
--- | The job's stop time.
-jobStopped :: Lens' Job (Maybe UTCTime)
-jobStopped = lens _jobStopped (\s a -> s {_jobStopped = a}) . mapping _Time
+-- | The job\'s stop time.
+job_stopped :: Lens.Lens' Job (Prelude.Maybe Prelude.UTCTime)
+job_stopped = Lens.lens (\Job' {stopped} -> stopped) (\s@Job' {} a -> s {stopped = a} :: Job) Prelude.. Lens.mapping Prelude._Time
 
 -- | When the job was created.
-jobCreated :: Lens' Job (Maybe UTCTime)
-jobCreated = lens _jobCreated (\s a -> s {_jobCreated = a}) . mapping _Time
+job_created :: Lens.Lens' Job (Prelude.Maybe Prelude.UTCTime)
+job_created = Lens.lens (\Job' {created} -> created) (\s@Job' {} a -> s {created = a} :: Job) Prelude.. Lens.mapping Prelude._Time
 
--- | The job's type. Allowed values include the following:     * BUILTIN_FUZZ     * BUILTIN_EXPLORER. For Android, an app explorer that traverses an Android app, interacting with it and capturing screenshots at the same time.     * APPIUM_JAVA_JUNIT     * APPIUM_JAVA_TESTNG     * APPIUM_PYTHON     * APPIUM_NODE     * APPIUM_RUBY     * APPIUM_WEB_JAVA_JUNIT     * APPIUM_WEB_JAVA_TESTNG     * APPIUM_WEB_PYTHON     * APPIUM_WEB_NODE     * APPIUM_WEB_RUBY     * CALABASH     * INSTRUMENTATION     * UIAUTOMATION     * UIAUTOMATOR     * XCTEST     * XCTEST_UI
-jobType :: Lens' Job (Maybe TestType)
-jobType = lens _jobType (\s a -> s {_jobType = a})
+-- | The job\'s type.
+--
+-- Allowed values include the following:
+--
+-- -   BUILTIN_FUZZ
+--
+-- -   BUILTIN_EXPLORER. For Android, an app explorer that traverses an
+--     Android app, interacting with it and capturing screenshots at the
+--     same time.
+--
+-- -   APPIUM_JAVA_JUNIT
+--
+-- -   APPIUM_JAVA_TESTNG
+--
+-- -   APPIUM_PYTHON
+--
+-- -   APPIUM_NODE
+--
+-- -   APPIUM_RUBY
+--
+-- -   APPIUM_WEB_JAVA_JUNIT
+--
+-- -   APPIUM_WEB_JAVA_TESTNG
+--
+-- -   APPIUM_WEB_PYTHON
+--
+-- -   APPIUM_WEB_NODE
+--
+-- -   APPIUM_WEB_RUBY
+--
+-- -   CALABASH
+--
+-- -   INSTRUMENTATION
+--
+-- -   UIAUTOMATION
+--
+-- -   UIAUTOMATOR
+--
+-- -   XCTEST
+--
+-- -   XCTEST_UI
+job_type :: Lens.Lens' Job (Prelude.Maybe TestType)
+job_type = Lens.lens (\Job' {type'} -> type') (\s@Job' {} a -> s {type' = a} :: Job)
 
 -- | Represents the total (metered or unmetered) minutes used by the job.
-jobDeviceMinutes :: Lens' Job (Maybe DeviceMinutes)
-jobDeviceMinutes = lens _jobDeviceMinutes (\s a -> s {_jobDeviceMinutes = a})
+job_deviceMinutes :: Lens.Lens' Job (Prelude.Maybe DeviceMinutes)
+job_deviceMinutes = Lens.lens (\Job' {deviceMinutes} -> deviceMinutes) (\s@Job' {} a -> s {deviceMinutes = a} :: Job)
 
-instance FromJSON Job where
+instance Prelude.FromJSON Job where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Job"
       ( \x ->
           Job'
-            <$> (x .:? "counters")
-            <*> (x .:? "status")
-            <*> (x .:? "result")
-            <*> (x .:? "started")
-            <*> (x .:? "message")
-            <*> (x .:? "device")
-            <*> (x .:? "videoCapture")
-            <*> (x .:? "arn")
-            <*> (x .:? "videoEndpoint")
-            <*> (x .:? "name")
-            <*> (x .:? "instanceArn")
-            <*> (x .:? "stopped")
-            <*> (x .:? "created")
-            <*> (x .:? "type")
-            <*> (x .:? "deviceMinutes")
+            Prelude.<$> (x Prelude..:? "counters")
+            Prelude.<*> (x Prelude..:? "status")
+            Prelude.<*> (x Prelude..:? "result")
+            Prelude.<*> (x Prelude..:? "started")
+            Prelude.<*> (x Prelude..:? "message")
+            Prelude.<*> (x Prelude..:? "device")
+            Prelude.<*> (x Prelude..:? "videoCapture")
+            Prelude.<*> (x Prelude..:? "arn")
+            Prelude.<*> (x Prelude..:? "videoEndpoint")
+            Prelude.<*> (x Prelude..:? "name")
+            Prelude.<*> (x Prelude..:? "instanceArn")
+            Prelude.<*> (x Prelude..:? "stopped")
+            Prelude.<*> (x Prelude..:? "created")
+            Prelude.<*> (x Prelude..:? "type")
+            Prelude.<*> (x Prelude..:? "deviceMinutes")
       )
 
-instance Hashable Job
+instance Prelude.Hashable Job
 
-instance NFData Job
+instance Prelude.NFData Job

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,127 +24,126 @@
 -- Deletes a network profile.
 module Network.AWS.DeviceFarm.DeleteNetworkProfile
   ( -- * Creating a Request
-    deleteNetworkProfile,
-    DeleteNetworkProfile,
+    DeleteNetworkProfile (..),
+    newDeleteNetworkProfile,
 
     -- * Request Lenses
-    dnpArn,
+    deleteNetworkProfile_arn,
 
     -- * Destructuring the Response
-    deleteNetworkProfileResponse,
-    DeleteNetworkProfileResponse,
+    DeleteNetworkProfileResponse (..),
+    newDeleteNetworkProfileResponse,
 
     -- * Response Lenses
-    dnprrsResponseStatus,
+    deleteNetworkProfileResponse_httpStatus,
   )
 where
 
 import Network.AWS.DeviceFarm.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteNetworkProfile' smart constructor.
-newtype DeleteNetworkProfile = DeleteNetworkProfile'
-  { _dnpArn ::
-      Text
+-- | /See:/ 'newDeleteNetworkProfile' smart constructor.
+data DeleteNetworkProfile = DeleteNetworkProfile'
+  { -- | The ARN of the network profile to delete.
+    arn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteNetworkProfile' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteNetworkProfile' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dnpArn' - The ARN of the network profile to delete.
-deleteNetworkProfile ::
-  -- | 'dnpArn'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'arn', 'deleteNetworkProfile_arn' - The ARN of the network profile to delete.
+newDeleteNetworkProfile ::
+  -- | 'arn'
+  Prelude.Text ->
   DeleteNetworkProfile
-deleteNetworkProfile pArn_ =
-  DeleteNetworkProfile' {_dnpArn = pArn_}
+newDeleteNetworkProfile pArn_ =
+  DeleteNetworkProfile' {arn = pArn_}
 
 -- | The ARN of the network profile to delete.
-dnpArn :: Lens' DeleteNetworkProfile Text
-dnpArn = lens _dnpArn (\s a -> s {_dnpArn = a})
+deleteNetworkProfile_arn :: Lens.Lens' DeleteNetworkProfile Prelude.Text
+deleteNetworkProfile_arn = Lens.lens (\DeleteNetworkProfile' {arn} -> arn) (\s@DeleteNetworkProfile' {} a -> s {arn = a} :: DeleteNetworkProfile)
 
-instance AWSRequest DeleteNetworkProfile where
+instance Prelude.AWSRequest DeleteNetworkProfile where
   type
     Rs DeleteNetworkProfile =
       DeleteNetworkProfileResponse
-  request = postJSON deviceFarm
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           DeleteNetworkProfileResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteNetworkProfile
+instance Prelude.Hashable DeleteNetworkProfile
 
-instance NFData DeleteNetworkProfile
+instance Prelude.NFData DeleteNetworkProfile
 
-instance ToHeaders DeleteNetworkProfile where
+instance Prelude.ToHeaders DeleteNetworkProfile where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "DeviceFarm_20150623.DeleteNetworkProfile" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "DeviceFarm_20150623.DeleteNetworkProfile" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteNetworkProfile where
+instance Prelude.ToJSON DeleteNetworkProfile where
   toJSON DeleteNetworkProfile' {..} =
-    object (catMaybes [Just ("arn" .= _dnpArn)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("arn" Prelude..= arn)]
+      )
 
-instance ToPath DeleteNetworkProfile where
-  toPath = const "/"
+instance Prelude.ToPath DeleteNetworkProfile where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteNetworkProfile where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteNetworkProfile where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteNetworkProfileResponse' smart constructor.
-newtype DeleteNetworkProfileResponse = DeleteNetworkProfileResponse'
-  { _dnprrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteNetworkProfileResponse' smart constructor.
+data DeleteNetworkProfileResponse = DeleteNetworkProfileResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteNetworkProfileResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteNetworkProfileResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dnprrsResponseStatus' - -- | The response status code.
-deleteNetworkProfileResponse ::
-  -- | 'dnprrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteNetworkProfileResponse_httpStatus' - The response's http status code.
+newDeleteNetworkProfileResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteNetworkProfileResponse
-deleteNetworkProfileResponse pResponseStatus_ =
+newDeleteNetworkProfileResponse pHttpStatus_ =
   DeleteNetworkProfileResponse'
-    { _dnprrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-dnprrsResponseStatus :: Lens' DeleteNetworkProfileResponse Int
-dnprrsResponseStatus = lens _dnprrsResponseStatus (\s a -> s {_dnprrsResponseStatus = a})
+-- | The response's http status code.
+deleteNetworkProfileResponse_httpStatus :: Lens.Lens' DeleteNetworkProfileResponse Prelude.Int
+deleteNetworkProfileResponse_httpStatus = Lens.lens (\DeleteNetworkProfileResponse' {httpStatus} -> httpStatus) (\s@DeleteNetworkProfileResponse' {} a -> s {httpStatus = a} :: DeleteNetworkProfileResponse)
 
-instance NFData DeleteNetworkProfileResponse
+instance Prelude.NFData DeleteNetworkProfileResponse

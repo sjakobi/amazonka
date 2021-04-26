@@ -18,20 +18,18 @@ extra-source-files:
   src/.gitkeep
 
 description:
-  The types from this library are intended to be used with
-  <http://hackage.haskell.org/package/amazonka amazonka>, which provides
-  mechanisms for specifying AuthN/AuthZ information, sending requests,
+  The types from this library are intended to be used with <http://hackage.haskell.org/package/amazonka amazonka>,
+  which provides mechanisms for specifying AuthN/AuthZ information, sending requests,
   and receiving responses.
   .
-  Lenses are used for constructing and manipulating types,
-  due to the depth of nesting of AWS types and transparency regarding
-  de/serialisation into more palatable Haskell values.
-  The provided lenses should be compatible with any of the major lens libraries
-  such as <http://hackage.haskell.org/package/lens lens> or
-  <http://hackage.haskell.org/package/lens-family-core lens-family-core>.
+  It is recommended to use generic lenses or optics from packages such as <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify optional fields and deconstruct responses.
   .
-  See "Network.AWS.DeviceFarm" or <https://aws.amazon.com/documentation/ the AWS documentation>
-  to get started.
+  Generated lenses for legacy behaviour can be found in "Network.AWS.DeviceFarm.Lens"
+  and are suitable for use with a lens package such as <http://hackage.haskell.org/package/lens lens> or <http://hackage.haskell.org/package/lens-family-core lens-family-core>.
+  .
+  Additional types and functions from <https://hackage.haskell.org/package/amazonka-core amazonka-core> are re-exported by the "Network.AWS.Prelude" module in this package.
+  .
+  See "Network.AWS.DeviceFarm" and the <https://aws.amazon.com/documentation/ AWS documentation> to get started.
 
 source-repository head
   type:     git
@@ -39,8 +37,8 @@ source-repository head
   subdir:   amazonka-devicefarm
 
 library
-  default-language: Haskell2010
-  hs-source-dirs:   src gen
+  default-language:   Haskell2010
+  hs-source-dirs:     src gen
   ghc-options:
     -Wall -fwarn-incomplete-uni-patterns
     -fwarn-incomplete-record-updates -funbox-strict-fields
@@ -53,7 +51,7 @@ library
     Network.AWS.DeviceFarm.CreateProject
     Network.AWS.DeviceFarm.CreateRemoteAccessSession
     Network.AWS.DeviceFarm.CreateTestGridProject
-    Network.AWS.DeviceFarm.CreateTestGridURL
+    Network.AWS.DeviceFarm.CreateTestGridUrl
     Network.AWS.DeviceFarm.CreateUpload
     Network.AWS.DeviceFarm.CreateVPCEConfiguration
     Network.AWS.DeviceFarm.DeleteDevicePool
@@ -84,6 +82,7 @@ library
     Network.AWS.DeviceFarm.GetUpload
     Network.AWS.DeviceFarm.GetVPCEConfiguration
     Network.AWS.DeviceFarm.InstallToRemoteAccessSession
+    Network.AWS.DeviceFarm.Lens
     Network.AWS.DeviceFarm.ListArtifacts
     Network.AWS.DeviceFarm.ListDeviceInstances
     Network.AWS.DeviceFarm.ListDevicePools
@@ -116,18 +115,6 @@ library
     Network.AWS.DeviceFarm.StopRun
     Network.AWS.DeviceFarm.TagResource
     Network.AWS.DeviceFarm.Types
-    Network.AWS.DeviceFarm.UntagResource
-    Network.AWS.DeviceFarm.UpdateDeviceInstance
-    Network.AWS.DeviceFarm.UpdateDevicePool
-    Network.AWS.DeviceFarm.UpdateInstanceProfile
-    Network.AWS.DeviceFarm.UpdateNetworkProfile
-    Network.AWS.DeviceFarm.UpdateProject
-    Network.AWS.DeviceFarm.UpdateTestGridProject
-    Network.AWS.DeviceFarm.UpdateUpload
-    Network.AWS.DeviceFarm.UpdateVPCEConfiguration
-    Network.AWS.DeviceFarm.Waiters
-
-  other-modules:
     Network.AWS.DeviceFarm.Types.AccountSettings
     Network.AWS.DeviceFarm.Types.Artifact
     Network.AWS.DeviceFarm.Types.ArtifactCategory
@@ -204,11 +191,21 @@ library
     Network.AWS.DeviceFarm.Types.UploadStatus
     Network.AWS.DeviceFarm.Types.UploadType
     Network.AWS.DeviceFarm.Types.VPCEConfiguration
+    Network.AWS.DeviceFarm.UntagResource
+    Network.AWS.DeviceFarm.UpdateDeviceInstance
+    Network.AWS.DeviceFarm.UpdateDevicePool
+    Network.AWS.DeviceFarm.UpdateInstanceProfile
+    Network.AWS.DeviceFarm.UpdateNetworkProfile
+    Network.AWS.DeviceFarm.UpdateProject
+    Network.AWS.DeviceFarm.UpdateTestGridProject
+    Network.AWS.DeviceFarm.UpdateUpload
+    Network.AWS.DeviceFarm.UpdateVPCEConfiguration
+    Network.AWS.DeviceFarm.Waiters
 
+  reexported-modules: Network.AWS.Prelude
   build-depends:
-      amazonka-core     >=1.6.1 && <1.6.2
-    , base              >=4.7   && <5
-    , case-insensitive
+      amazonka-core  >=1.6.1 && <1.6.2
+    , base           >=4.7   && <5
 
 test-suite amazonka-devicefarm-test
   type:             exitcode-stdio-1.0

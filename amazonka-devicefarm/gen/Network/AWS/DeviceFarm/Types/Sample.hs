@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,60 +20,196 @@
 module Network.AWS.DeviceFarm.Types.Sample where
 
 import Network.AWS.DeviceFarm.Types.SampleType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents a sample of performance data.
 --
---
---
--- /See:/ 'sample' smart constructor.
+-- /See:/ 'newSample' smart constructor.
 data Sample = Sample'
-  { _sArn :: !(Maybe Text),
-    _sUrl :: !(Maybe Text),
-    _sType :: !(Maybe SampleType)
+  { -- | The sample\'s ARN.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The presigned Amazon S3 URL that can be used with a GET request to
+    -- download the sample\'s file.
+    url :: Prelude.Maybe Prelude.Text,
+    -- | The sample\'s type.
+    --
+    -- Must be one of the following values:
+    --
+    -- -   CPU: A CPU sample type. This is expressed as the app processing CPU
+    --     time (including child processes) as reported by process, as a
+    --     percentage.
+    --
+    -- -   MEMORY: A memory usage sample type. This is expressed as the total
+    --     proportional set size of an app process, in kilobytes.
+    --
+    -- -   NATIVE_AVG_DRAWTIME
+    --
+    -- -   NATIVE_FPS
+    --
+    -- -   NATIVE_FRAMES
+    --
+    -- -   NATIVE_MAX_DRAWTIME
+    --
+    -- -   NATIVE_MIN_DRAWTIME
+    --
+    -- -   OPENGL_AVG_DRAWTIME
+    --
+    -- -   OPENGL_FPS
+    --
+    -- -   OPENGL_FRAMES
+    --
+    -- -   OPENGL_MAX_DRAWTIME
+    --
+    -- -   OPENGL_MIN_DRAWTIME
+    --
+    -- -   RX
+    --
+    -- -   RX_RATE: The total number of bytes per second (TCP and UDP) that are
+    --     sent, by app process.
+    --
+    -- -   THREADS: A threads sample type. This is expressed as the total
+    --     number of threads per app process.
+    --
+    -- -   TX
+    --
+    -- -   TX_RATE: The total number of bytes per second (TCP and UDP) that are
+    --     received, by app process.
+    type' :: Prelude.Maybe SampleType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Sample' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Sample' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sArn' - The sample's ARN.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sUrl' - The presigned Amazon S3 URL that can be used with a GET request to download the sample's file.
+-- 'arn', 'sample_arn' - The sample\'s ARN.
 --
--- * 'sType' - The sample's type. Must be one of the following values:     * CPU: A CPU sample type. This is expressed as the app processing CPU time (including child processes) as reported by process, as a percentage.     * MEMORY: A memory usage sample type. This is expressed as the total proportional set size of an app process, in kilobytes.     * NATIVE_AVG_DRAWTIME     * NATIVE_FPS     * NATIVE_FRAMES     * NATIVE_MAX_DRAWTIME     * NATIVE_MIN_DRAWTIME     * OPENGL_AVG_DRAWTIME     * OPENGL_FPS     * OPENGL_FRAMES     * OPENGL_MAX_DRAWTIME     * OPENGL_MIN_DRAWTIME     * RX     * RX_RATE: The total number of bytes per second (TCP and UDP) that are sent, by app process.     * THREADS: A threads sample type. This is expressed as the total number of threads per app process.     * TX     * TX_RATE: The total number of bytes per second (TCP and UDP) that are received, by app process.
-sample ::
+-- 'url', 'sample_url' - The presigned Amazon S3 URL that can be used with a GET request to
+-- download the sample\'s file.
+--
+-- 'type'', 'sample_type' - The sample\'s type.
+--
+-- Must be one of the following values:
+--
+-- -   CPU: A CPU sample type. This is expressed as the app processing CPU
+--     time (including child processes) as reported by process, as a
+--     percentage.
+--
+-- -   MEMORY: A memory usage sample type. This is expressed as the total
+--     proportional set size of an app process, in kilobytes.
+--
+-- -   NATIVE_AVG_DRAWTIME
+--
+-- -   NATIVE_FPS
+--
+-- -   NATIVE_FRAMES
+--
+-- -   NATIVE_MAX_DRAWTIME
+--
+-- -   NATIVE_MIN_DRAWTIME
+--
+-- -   OPENGL_AVG_DRAWTIME
+--
+-- -   OPENGL_FPS
+--
+-- -   OPENGL_FRAMES
+--
+-- -   OPENGL_MAX_DRAWTIME
+--
+-- -   OPENGL_MIN_DRAWTIME
+--
+-- -   RX
+--
+-- -   RX_RATE: The total number of bytes per second (TCP and UDP) that are
+--     sent, by app process.
+--
+-- -   THREADS: A threads sample type. This is expressed as the total
+--     number of threads per app process.
+--
+-- -   TX
+--
+-- -   TX_RATE: The total number of bytes per second (TCP and UDP) that are
+--     received, by app process.
+newSample ::
   Sample
-sample =
+newSample =
   Sample'
-    { _sArn = Nothing,
-      _sUrl = Nothing,
-      _sType = Nothing
+    { arn = Prelude.Nothing,
+      url = Prelude.Nothing,
+      type' = Prelude.Nothing
     }
 
--- | The sample's ARN.
-sArn :: Lens' Sample (Maybe Text)
-sArn = lens _sArn (\s a -> s {_sArn = a})
+-- | The sample\'s ARN.
+sample_arn :: Lens.Lens' Sample (Prelude.Maybe Prelude.Text)
+sample_arn = Lens.lens (\Sample' {arn} -> arn) (\s@Sample' {} a -> s {arn = a} :: Sample)
 
--- | The presigned Amazon S3 URL that can be used with a GET request to download the sample's file.
-sUrl :: Lens' Sample (Maybe Text)
-sUrl = lens _sUrl (\s a -> s {_sUrl = a})
+-- | The presigned Amazon S3 URL that can be used with a GET request to
+-- download the sample\'s file.
+sample_url :: Lens.Lens' Sample (Prelude.Maybe Prelude.Text)
+sample_url = Lens.lens (\Sample' {url} -> url) (\s@Sample' {} a -> s {url = a} :: Sample)
 
--- | The sample's type. Must be one of the following values:     * CPU: A CPU sample type. This is expressed as the app processing CPU time (including child processes) as reported by process, as a percentage.     * MEMORY: A memory usage sample type. This is expressed as the total proportional set size of an app process, in kilobytes.     * NATIVE_AVG_DRAWTIME     * NATIVE_FPS     * NATIVE_FRAMES     * NATIVE_MAX_DRAWTIME     * NATIVE_MIN_DRAWTIME     * OPENGL_AVG_DRAWTIME     * OPENGL_FPS     * OPENGL_FRAMES     * OPENGL_MAX_DRAWTIME     * OPENGL_MIN_DRAWTIME     * RX     * RX_RATE: The total number of bytes per second (TCP and UDP) that are sent, by app process.     * THREADS: A threads sample type. This is expressed as the total number of threads per app process.     * TX     * TX_RATE: The total number of bytes per second (TCP and UDP) that are received, by app process.
-sType :: Lens' Sample (Maybe SampleType)
-sType = lens _sType (\s a -> s {_sType = a})
+-- | The sample\'s type.
+--
+-- Must be one of the following values:
+--
+-- -   CPU: A CPU sample type. This is expressed as the app processing CPU
+--     time (including child processes) as reported by process, as a
+--     percentage.
+--
+-- -   MEMORY: A memory usage sample type. This is expressed as the total
+--     proportional set size of an app process, in kilobytes.
+--
+-- -   NATIVE_AVG_DRAWTIME
+--
+-- -   NATIVE_FPS
+--
+-- -   NATIVE_FRAMES
+--
+-- -   NATIVE_MAX_DRAWTIME
+--
+-- -   NATIVE_MIN_DRAWTIME
+--
+-- -   OPENGL_AVG_DRAWTIME
+--
+-- -   OPENGL_FPS
+--
+-- -   OPENGL_FRAMES
+--
+-- -   OPENGL_MAX_DRAWTIME
+--
+-- -   OPENGL_MIN_DRAWTIME
+--
+-- -   RX
+--
+-- -   RX_RATE: The total number of bytes per second (TCP and UDP) that are
+--     sent, by app process.
+--
+-- -   THREADS: A threads sample type. This is expressed as the total
+--     number of threads per app process.
+--
+-- -   TX
+--
+-- -   TX_RATE: The total number of bytes per second (TCP and UDP) that are
+--     received, by app process.
+sample_type :: Lens.Lens' Sample (Prelude.Maybe SampleType)
+sample_type = Lens.lens (\Sample' {type'} -> type') (\s@Sample' {} a -> s {type' = a} :: Sample)
 
-instance FromJSON Sample where
+instance Prelude.FromJSON Sample where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Sample"
       ( \x ->
           Sample'
-            <$> (x .:? "arn") <*> (x .:? "url") <*> (x .:? "type")
+            Prelude.<$> (x Prelude..:? "arn")
+            Prelude.<*> (x Prelude..:? "url")
+            Prelude.<*> (x Prelude..:? "type")
       )
 
-instance Hashable Sample
+instance Prelude.Hashable Sample
 
-instance NFData Sample
+instance Prelude.NFData Sample

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,121 +24,138 @@
 -- Gets information about a suite.
 module Network.AWS.DeviceFarm.GetSuite
   ( -- * Creating a Request
-    getSuite,
-    GetSuite,
+    GetSuite (..),
+    newGetSuite,
 
     -- * Request Lenses
-    gsArn,
+    getSuite_arn,
 
     -- * Destructuring the Response
-    getSuiteResponse,
-    GetSuiteResponse,
+    GetSuiteResponse (..),
+    newGetSuiteResponse,
 
     -- * Response Lenses
-    gsrrsSuite,
-    gsrrsResponseStatus,
+    getSuiteResponse_suite,
+    getSuiteResponse_httpStatus,
   )
 where
 
 import Network.AWS.DeviceFarm.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DeviceFarm.Types.Suite
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents a request to the get suite operation.
 --
---
---
--- /See:/ 'getSuite' smart constructor.
-newtype GetSuite = GetSuite' {_gsArn :: Text}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- /See:/ 'newGetSuite' smart constructor.
+data GetSuite = GetSuite'
+  { -- | The suite\'s ARN.
+    arn :: Prelude.Text
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetSuite' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetSuite' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gsArn' - The suite's ARN.
-getSuite ::
-  -- | 'gsArn'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'arn', 'getSuite_arn' - The suite\'s ARN.
+newGetSuite ::
+  -- | 'arn'
+  Prelude.Text ->
   GetSuite
-getSuite pArn_ = GetSuite' {_gsArn = pArn_}
+newGetSuite pArn_ = GetSuite' {arn = pArn_}
 
--- | The suite's ARN.
-gsArn :: Lens' GetSuite Text
-gsArn = lens _gsArn (\s a -> s {_gsArn = a})
+-- | The suite\'s ARN.
+getSuite_arn :: Lens.Lens' GetSuite Prelude.Text
+getSuite_arn = Lens.lens (\GetSuite' {arn} -> arn) (\s@GetSuite' {} a -> s {arn = a} :: GetSuite)
 
-instance AWSRequest GetSuite where
+instance Prelude.AWSRequest GetSuite where
   type Rs GetSuite = GetSuiteResponse
-  request = postJSON deviceFarm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetSuiteResponse'
-            <$> (x .?> "suite") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "suite")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetSuite
+instance Prelude.Hashable GetSuite
 
-instance NFData GetSuite
+instance Prelude.NFData GetSuite
 
-instance ToHeaders GetSuite where
+instance Prelude.ToHeaders GetSuite where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("DeviceFarm_20150623.GetSuite" :: ByteString),
+              Prelude.=# ( "DeviceFarm_20150623.GetSuite" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetSuite where
+instance Prelude.ToJSON GetSuite where
   toJSON GetSuite' {..} =
-    object (catMaybes [Just ("arn" .= _gsArn)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("arn" Prelude..= arn)]
+      )
 
-instance ToPath GetSuite where
-  toPath = const "/"
+instance Prelude.ToPath GetSuite where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetSuite where
-  toQuery = const mempty
+instance Prelude.ToQuery GetSuite where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the result of a get suite request.
 --
---
---
--- /See:/ 'getSuiteResponse' smart constructor.
+-- /See:/ 'newGetSuiteResponse' smart constructor.
 data GetSuiteResponse = GetSuiteResponse'
-  { _gsrrsSuite ::
-      !(Maybe Suite),
-    _gsrrsResponseStatus :: !Int
+  { -- | A collection of one or more tests.
+    suite :: Prelude.Maybe Suite,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetSuiteResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetSuiteResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gsrrsSuite' - A collection of one or more tests.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gsrrsResponseStatus' - -- | The response status code.
-getSuiteResponse ::
-  -- | 'gsrrsResponseStatus'
-  Int ->
+-- 'suite', 'getSuiteResponse_suite' - A collection of one or more tests.
+--
+-- 'httpStatus', 'getSuiteResponse_httpStatus' - The response's http status code.
+newGetSuiteResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetSuiteResponse
-getSuiteResponse pResponseStatus_ =
+newGetSuiteResponse pHttpStatus_ =
   GetSuiteResponse'
-    { _gsrrsSuite = Nothing,
-      _gsrrsResponseStatus = pResponseStatus_
+    { suite = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A collection of one or more tests.
-gsrrsSuite :: Lens' GetSuiteResponse (Maybe Suite)
-gsrrsSuite = lens _gsrrsSuite (\s a -> s {_gsrrsSuite = a})
+getSuiteResponse_suite :: Lens.Lens' GetSuiteResponse (Prelude.Maybe Suite)
+getSuiteResponse_suite = Lens.lens (\GetSuiteResponse' {suite} -> suite) (\s@GetSuiteResponse' {} a -> s {suite = a} :: GetSuiteResponse)
 
--- | -- | The response status code.
-gsrrsResponseStatus :: Lens' GetSuiteResponse Int
-gsrrsResponseStatus = lens _gsrrsResponseStatus (\s a -> s {_gsrrsResponseStatus = a})
+-- | The response's http status code.
+getSuiteResponse_httpStatus :: Lens.Lens' GetSuiteResponse Prelude.Int
+getSuiteResponse_httpStatus = Lens.lens (\GetSuiteResponse' {httpStatus} -> httpStatus) (\s@GetSuiteResponse' {} a -> s {httpStatus = a} :: GetSuiteResponse)
 
-instance NFData GetSuiteResponse
+instance Prelude.NFData GetSuiteResponse

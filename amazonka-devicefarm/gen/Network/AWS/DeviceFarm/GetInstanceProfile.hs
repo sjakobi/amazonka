@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,139 +24,138 @@
 -- Returns information about the specified instance profile.
 module Network.AWS.DeviceFarm.GetInstanceProfile
   ( -- * Creating a Request
-    getInstanceProfile,
-    GetInstanceProfile,
+    GetInstanceProfile (..),
+    newGetInstanceProfile,
 
     -- * Request Lenses
-    gipArn,
+    getInstanceProfile_arn,
 
     -- * Destructuring the Response
-    getInstanceProfileResponse,
-    GetInstanceProfileResponse,
+    GetInstanceProfileResponse (..),
+    newGetInstanceProfileResponse,
 
     -- * Response Lenses
-    giprrsInstanceProfile,
-    giprrsResponseStatus,
+    getInstanceProfileResponse_instanceProfile,
+    getInstanceProfileResponse_httpStatus,
   )
 where
 
 import Network.AWS.DeviceFarm.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DeviceFarm.Types.InstanceProfile
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getInstanceProfile' smart constructor.
-newtype GetInstanceProfile = GetInstanceProfile'
-  { _gipArn ::
-      Text
+-- | /See:/ 'newGetInstanceProfile' smart constructor.
+data GetInstanceProfile = GetInstanceProfile'
+  { -- | The Amazon Resource Name (ARN) of an instance profile.
+    arn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetInstanceProfile' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetInstanceProfile' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gipArn' - The Amazon Resource Name (ARN) of an instance profile.
-getInstanceProfile ::
-  -- | 'gipArn'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'arn', 'getInstanceProfile_arn' - The Amazon Resource Name (ARN) of an instance profile.
+newGetInstanceProfile ::
+  -- | 'arn'
+  Prelude.Text ->
   GetInstanceProfile
-getInstanceProfile pArn_ =
-  GetInstanceProfile' {_gipArn = pArn_}
+newGetInstanceProfile pArn_ =
+  GetInstanceProfile' {arn = pArn_}
 
 -- | The Amazon Resource Name (ARN) of an instance profile.
-gipArn :: Lens' GetInstanceProfile Text
-gipArn = lens _gipArn (\s a -> s {_gipArn = a})
+getInstanceProfile_arn :: Lens.Lens' GetInstanceProfile Prelude.Text
+getInstanceProfile_arn = Lens.lens (\GetInstanceProfile' {arn} -> arn) (\s@GetInstanceProfile' {} a -> s {arn = a} :: GetInstanceProfile)
 
-instance AWSRequest GetInstanceProfile where
+instance Prelude.AWSRequest GetInstanceProfile where
   type
     Rs GetInstanceProfile =
       GetInstanceProfileResponse
-  request = postJSON deviceFarm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetInstanceProfileResponse'
-            <$> (x .?> "instanceProfile") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "instanceProfile")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetInstanceProfile
+instance Prelude.Hashable GetInstanceProfile
 
-instance NFData GetInstanceProfile
+instance Prelude.NFData GetInstanceProfile
 
-instance ToHeaders GetInstanceProfile where
+instance Prelude.ToHeaders GetInstanceProfile where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "DeviceFarm_20150623.GetInstanceProfile" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "DeviceFarm_20150623.GetInstanceProfile" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetInstanceProfile where
+instance Prelude.ToJSON GetInstanceProfile where
   toJSON GetInstanceProfile' {..} =
-    object (catMaybes [Just ("arn" .= _gipArn)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("arn" Prelude..= arn)]
+      )
 
-instance ToPath GetInstanceProfile where
-  toPath = const "/"
+instance Prelude.ToPath GetInstanceProfile where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetInstanceProfile where
-  toQuery = const mempty
+instance Prelude.ToQuery GetInstanceProfile where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getInstanceProfileResponse' smart constructor.
+-- | /See:/ 'newGetInstanceProfileResponse' smart constructor.
 data GetInstanceProfileResponse = GetInstanceProfileResponse'
-  { _giprrsInstanceProfile ::
-      !( Maybe
-           InstanceProfile
-       ),
-    _giprrsResponseStatus ::
-      !Int
+  { -- | An object that contains information about an instance profile.
+    instanceProfile :: Prelude.Maybe InstanceProfile,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetInstanceProfileResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetInstanceProfileResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'giprrsInstanceProfile' - An object that contains information about an instance profile.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'giprrsResponseStatus' - -- | The response status code.
-getInstanceProfileResponse ::
-  -- | 'giprrsResponseStatus'
-  Int ->
+-- 'instanceProfile', 'getInstanceProfileResponse_instanceProfile' - An object that contains information about an instance profile.
+--
+-- 'httpStatus', 'getInstanceProfileResponse_httpStatus' - The response's http status code.
+newGetInstanceProfileResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetInstanceProfileResponse
-getInstanceProfileResponse pResponseStatus_ =
+newGetInstanceProfileResponse pHttpStatus_ =
   GetInstanceProfileResponse'
-    { _giprrsInstanceProfile =
-        Nothing,
-      _giprrsResponseStatus = pResponseStatus_
+    { instanceProfile =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | An object that contains information about an instance profile.
-giprrsInstanceProfile :: Lens' GetInstanceProfileResponse (Maybe InstanceProfile)
-giprrsInstanceProfile = lens _giprrsInstanceProfile (\s a -> s {_giprrsInstanceProfile = a})
+getInstanceProfileResponse_instanceProfile :: Lens.Lens' GetInstanceProfileResponse (Prelude.Maybe InstanceProfile)
+getInstanceProfileResponse_instanceProfile = Lens.lens (\GetInstanceProfileResponse' {instanceProfile} -> instanceProfile) (\s@GetInstanceProfileResponse' {} a -> s {instanceProfile = a} :: GetInstanceProfileResponse)
 
--- | -- | The response status code.
-giprrsResponseStatus :: Lens' GetInstanceProfileResponse Int
-giprrsResponseStatus = lens _giprrsResponseStatus (\s a -> s {_giprrsResponseStatus = a})
+-- | The response's http status code.
+getInstanceProfileResponse_httpStatus :: Lens.Lens' GetInstanceProfileResponse Prelude.Int
+getInstanceProfileResponse_httpStatus = Lens.lens (\GetInstanceProfileResponse' {httpStatus} -> httpStatus) (\s@GetInstanceProfileResponse' {} a -> s {httpStatus = a} :: GetInstanceProfileResponse)
 
-instance NFData GetInstanceProfileResponse
+instance Prelude.NFData GetInstanceProfileResponse

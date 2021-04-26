@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.DeviceFarm.Types.NetworkProfileType
   ( NetworkProfileType
       ( ..,
-        Curated,
-        Private
+        NetworkProfileTypeCURATED,
+        NetworkProfileTypePRIVATE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data NetworkProfileType
-  = NetworkProfileType'
-      ( CI
-          Text
-      )
+newtype NetworkProfileType = NetworkProfileType'
+  { fromNetworkProfileType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Curated :: NetworkProfileType
-pattern Curated = NetworkProfileType' "CURATED"
+pattern NetworkProfileTypeCURATED :: NetworkProfileType
+pattern NetworkProfileTypeCURATED = NetworkProfileType' "CURATED"
 
-pattern Private :: NetworkProfileType
-pattern Private = NetworkProfileType' "PRIVATE"
+pattern NetworkProfileTypePRIVATE :: NetworkProfileType
+pattern NetworkProfileTypePRIVATE = NetworkProfileType' "PRIVATE"
 
 {-# COMPLETE
-  Curated,
-  Private,
+  NetworkProfileTypeCURATED,
+  NetworkProfileTypePRIVATE,
   NetworkProfileType'
   #-}
 
-instance FromText NetworkProfileType where
-  parser = (NetworkProfileType' . mk) <$> takeText
+instance Prelude.FromText NetworkProfileType where
+  parser = NetworkProfileType' Prelude.<$> Prelude.takeText
 
-instance ToText NetworkProfileType where
-  toText (NetworkProfileType' ci) = original ci
+instance Prelude.ToText NetworkProfileType where
+  toText (NetworkProfileType' x) = x
 
-instance Hashable NetworkProfileType
+instance Prelude.Hashable NetworkProfileType
 
-instance NFData NetworkProfileType
+instance Prelude.NFData NetworkProfileType
 
-instance ToByteString NetworkProfileType
+instance Prelude.ToByteString NetworkProfileType
 
-instance ToQuery NetworkProfileType
+instance Prelude.ToQuery NetworkProfileType
 
-instance ToHeader NetworkProfileType
+instance Prelude.ToHeader NetworkProfileType
 
-instance ToJSON NetworkProfileType where
-  toJSON = toJSONText
+instance Prelude.ToJSON NetworkProfileType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON NetworkProfileType where
-  parseJSON = parseJSONText "NetworkProfileType"
+instance Prelude.FromJSON NetworkProfileType where
+  parseJSON = Prelude.parseJSONText "NetworkProfileType"

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,172 +23,201 @@
 --
 -- Returns information about all the instance profiles in an AWS account.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.DeviceFarm.ListInstanceProfiles
   ( -- * Creating a Request
-    listInstanceProfiles,
-    ListInstanceProfiles,
+    ListInstanceProfiles (..),
+    newListInstanceProfiles,
 
     -- * Request Lenses
-    lipNextToken,
-    lipMaxResults,
+    listInstanceProfiles_nextToken,
+    listInstanceProfiles_maxResults,
 
     -- * Destructuring the Response
-    listInstanceProfilesResponse,
-    ListInstanceProfilesResponse,
+    ListInstanceProfilesResponse (..),
+    newListInstanceProfilesResponse,
 
     -- * Response Lenses
-    liprrsNextToken,
-    liprrsInstanceProfiles,
-    liprrsResponseStatus,
+    listInstanceProfilesResponse_nextToken,
+    listInstanceProfilesResponse_instanceProfiles,
+    listInstanceProfilesResponse_httpStatus,
   )
 where
 
 import Network.AWS.DeviceFarm.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DeviceFarm.Types.InstanceProfile
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listInstanceProfiles' smart constructor.
+-- | /See:/ 'newListInstanceProfiles' smart constructor.
 data ListInstanceProfiles = ListInstanceProfiles'
-  { _lipNextToken ::
-      !(Maybe Text),
-    _lipMaxResults ::
-      !(Maybe Int)
+  { -- | An identifier that was returned from the previous call to this
+    -- operation, which can be used to return the next set of items in the
+    -- list.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | An integer that specifies the maximum number of items you want to return
+    -- in the API response.
+    maxResults :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListInstanceProfiles' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListInstanceProfiles' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lipNextToken' - An identifier that was returned from the previous call to this operation, which can be used to return the next set of items in the list.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lipMaxResults' - An integer that specifies the maximum number of items you want to return in the API response.
-listInstanceProfiles ::
+-- 'nextToken', 'listInstanceProfiles_nextToken' - An identifier that was returned from the previous call to this
+-- operation, which can be used to return the next set of items in the
+-- list.
+--
+-- 'maxResults', 'listInstanceProfiles_maxResults' - An integer that specifies the maximum number of items you want to return
+-- in the API response.
+newListInstanceProfiles ::
   ListInstanceProfiles
-listInstanceProfiles =
+newListInstanceProfiles =
   ListInstanceProfiles'
-    { _lipNextToken = Nothing,
-      _lipMaxResults = Nothing
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing
     }
 
--- | An identifier that was returned from the previous call to this operation, which can be used to return the next set of items in the list.
-lipNextToken :: Lens' ListInstanceProfiles (Maybe Text)
-lipNextToken = lens _lipNextToken (\s a -> s {_lipNextToken = a})
+-- | An identifier that was returned from the previous call to this
+-- operation, which can be used to return the next set of items in the
+-- list.
+listInstanceProfiles_nextToken :: Lens.Lens' ListInstanceProfiles (Prelude.Maybe Prelude.Text)
+listInstanceProfiles_nextToken = Lens.lens (\ListInstanceProfiles' {nextToken} -> nextToken) (\s@ListInstanceProfiles' {} a -> s {nextToken = a} :: ListInstanceProfiles)
 
--- | An integer that specifies the maximum number of items you want to return in the API response.
-lipMaxResults :: Lens' ListInstanceProfiles (Maybe Int)
-lipMaxResults = lens _lipMaxResults (\s a -> s {_lipMaxResults = a})
+-- | An integer that specifies the maximum number of items you want to return
+-- in the API response.
+listInstanceProfiles_maxResults :: Lens.Lens' ListInstanceProfiles (Prelude.Maybe Prelude.Int)
+listInstanceProfiles_maxResults = Lens.lens (\ListInstanceProfiles' {maxResults} -> maxResults) (\s@ListInstanceProfiles' {} a -> s {maxResults = a} :: ListInstanceProfiles)
 
-instance AWSPager ListInstanceProfiles where
+instance Pager.AWSPager ListInstanceProfiles where
   page rq rs
-    | stop (rs ^. liprrsNextToken) = Nothing
-    | stop (rs ^. liprrsInstanceProfiles) = Nothing
-    | otherwise =
-      Just $ rq & lipNextToken .~ rs ^. liprrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listInstanceProfilesResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listInstanceProfilesResponse_instanceProfiles
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listInstanceProfiles_nextToken
+          Lens..~ rs
+          Lens.^? listInstanceProfilesResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListInstanceProfiles where
+instance Prelude.AWSRequest ListInstanceProfiles where
   type
     Rs ListInstanceProfiles =
       ListInstanceProfilesResponse
-  request = postJSON deviceFarm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListInstanceProfilesResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "instanceProfiles" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> ( x Prelude..?> "instanceProfiles"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListInstanceProfiles
+instance Prelude.Hashable ListInstanceProfiles
 
-instance NFData ListInstanceProfiles
+instance Prelude.NFData ListInstanceProfiles
 
-instance ToHeaders ListInstanceProfiles where
+instance Prelude.ToHeaders ListInstanceProfiles where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "DeviceFarm_20150623.ListInstanceProfiles" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "DeviceFarm_20150623.ListInstanceProfiles" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListInstanceProfiles where
+instance Prelude.ToJSON ListInstanceProfiles where
   toJSON ListInstanceProfiles' {..} =
-    object
-      ( catMaybes
-          [ ("nextToken" .=) <$> _lipNextToken,
-            ("maxResults" .=) <$> _lipMaxResults
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("nextToken" Prelude..=) Prelude.<$> nextToken,
+            ("maxResults" Prelude..=) Prelude.<$> maxResults
           ]
       )
 
-instance ToPath ListInstanceProfiles where
-  toPath = const "/"
+instance Prelude.ToPath ListInstanceProfiles where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListInstanceProfiles where
-  toQuery = const mempty
+instance Prelude.ToQuery ListInstanceProfiles where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listInstanceProfilesResponse' smart constructor.
+-- | /See:/ 'newListInstanceProfilesResponse' smart constructor.
 data ListInstanceProfilesResponse = ListInstanceProfilesResponse'
-  { _liprrsNextToken ::
-      !(Maybe Text),
-    _liprrsInstanceProfiles ::
-      !( Maybe
-           [InstanceProfile]
-       ),
-    _liprrsResponseStatus ::
-      !Int
+  { -- | An identifier that can be used in the next call to this operation to
+    -- return the next set of items in the list.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | An object that contains information about your instance profiles.
+    instanceProfiles :: Prelude.Maybe [InstanceProfile],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListInstanceProfilesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListInstanceProfilesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'liprrsNextToken' - An identifier that can be used in the next call to this operation to return the next set of items in the list.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'liprrsInstanceProfiles' - An object that contains information about your instance profiles.
+-- 'nextToken', 'listInstanceProfilesResponse_nextToken' - An identifier that can be used in the next call to this operation to
+-- return the next set of items in the list.
 --
--- * 'liprrsResponseStatus' - -- | The response status code.
-listInstanceProfilesResponse ::
-  -- | 'liprrsResponseStatus'
-  Int ->
+-- 'instanceProfiles', 'listInstanceProfilesResponse_instanceProfiles' - An object that contains information about your instance profiles.
+--
+-- 'httpStatus', 'listInstanceProfilesResponse_httpStatus' - The response's http status code.
+newListInstanceProfilesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListInstanceProfilesResponse
-listInstanceProfilesResponse pResponseStatus_ =
+newListInstanceProfilesResponse pHttpStatus_ =
   ListInstanceProfilesResponse'
-    { _liprrsNextToken =
-        Nothing,
-      _liprrsInstanceProfiles = Nothing,
-      _liprrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      instanceProfiles = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An identifier that can be used in the next call to this operation to return the next set of items in the list.
-liprrsNextToken :: Lens' ListInstanceProfilesResponse (Maybe Text)
-liprrsNextToken = lens _liprrsNextToken (\s a -> s {_liprrsNextToken = a})
+-- | An identifier that can be used in the next call to this operation to
+-- return the next set of items in the list.
+listInstanceProfilesResponse_nextToken :: Lens.Lens' ListInstanceProfilesResponse (Prelude.Maybe Prelude.Text)
+listInstanceProfilesResponse_nextToken = Lens.lens (\ListInstanceProfilesResponse' {nextToken} -> nextToken) (\s@ListInstanceProfilesResponse' {} a -> s {nextToken = a} :: ListInstanceProfilesResponse)
 
 -- | An object that contains information about your instance profiles.
-liprrsInstanceProfiles :: Lens' ListInstanceProfilesResponse [InstanceProfile]
-liprrsInstanceProfiles = lens _liprrsInstanceProfiles (\s a -> s {_liprrsInstanceProfiles = a}) . _Default . _Coerce
+listInstanceProfilesResponse_instanceProfiles :: Lens.Lens' ListInstanceProfilesResponse (Prelude.Maybe [InstanceProfile])
+listInstanceProfilesResponse_instanceProfiles = Lens.lens (\ListInstanceProfilesResponse' {instanceProfiles} -> instanceProfiles) (\s@ListInstanceProfilesResponse' {} a -> s {instanceProfiles = a} :: ListInstanceProfilesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-liprrsResponseStatus :: Lens' ListInstanceProfilesResponse Int
-liprrsResponseStatus = lens _liprrsResponseStatus (\s a -> s {_liprrsResponseStatus = a})
+-- | The response's http status code.
+listInstanceProfilesResponse_httpStatus :: Lens.Lens' ListInstanceProfilesResponse Prelude.Int
+listInstanceProfilesResponse_httpStatus = Lens.lens (\ListInstanceProfilesResponse' {httpStatus} -> httpStatus) (\s@ListInstanceProfilesResponse' {} a -> s {httpStatus = a} :: ListInstanceProfilesResponse)
 
-instance NFData ListInstanceProfilesResponse
+instance Prelude.NFData ListInstanceProfilesResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,116 +21,145 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Initiates a stop request for the current job. AWS Device Farm immediately stops the job on the device where tests have not started. You are not billed for this device. On the device where tests have started, setup suite and teardown suite tests run to completion on the device. You are billed for setup, teardown, and any tests that were in progress or already completed.
+-- Initiates a stop request for the current job. AWS Device Farm
+-- immediately stops the job on the device where tests have not started.
+-- You are not billed for this device. On the device where tests have
+-- started, setup suite and teardown suite tests run to completion on the
+-- device. You are billed for setup, teardown, and any tests that were in
+-- progress or already completed.
 module Network.AWS.DeviceFarm.StopJob
   ( -- * Creating a Request
-    stopJob,
-    StopJob,
+    StopJob (..),
+    newStopJob,
 
     -- * Request Lenses
-    sjArn,
+    stopJob_arn,
 
     -- * Destructuring the Response
-    stopJobResponse,
-    StopJobResponse,
+    StopJobResponse (..),
+    newStopJobResponse,
 
     -- * Response Lenses
-    sjrrsJob,
-    sjrrsResponseStatus,
+    stopJobResponse_job,
+    stopJobResponse_httpStatus,
   )
 where
 
 import Network.AWS.DeviceFarm.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DeviceFarm.Types.Job
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'stopJob' smart constructor.
-newtype StopJob = StopJob' {_sjArn :: Text}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- | /See:/ 'newStopJob' smart constructor.
+data StopJob = StopJob'
+  { -- | Represents the Amazon Resource Name (ARN) of the Device Farm job to
+    -- stop.
+    arn :: Prelude.Text
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopJob' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopJob' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sjArn' - Represents the Amazon Resource Name (ARN) of the Device Farm job to stop.
-stopJob ::
-  -- | 'sjArn'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'arn', 'stopJob_arn' - Represents the Amazon Resource Name (ARN) of the Device Farm job to
+-- stop.
+newStopJob ::
+  -- | 'arn'
+  Prelude.Text ->
   StopJob
-stopJob pArn_ = StopJob' {_sjArn = pArn_}
+newStopJob pArn_ = StopJob' {arn = pArn_}
 
--- | Represents the Amazon Resource Name (ARN) of the Device Farm job to stop.
-sjArn :: Lens' StopJob Text
-sjArn = lens _sjArn (\s a -> s {_sjArn = a})
+-- | Represents the Amazon Resource Name (ARN) of the Device Farm job to
+-- stop.
+stopJob_arn :: Lens.Lens' StopJob Prelude.Text
+stopJob_arn = Lens.lens (\StopJob' {arn} -> arn) (\s@StopJob' {} a -> s {arn = a} :: StopJob)
 
-instance AWSRequest StopJob where
+instance Prelude.AWSRequest StopJob where
   type Rs StopJob = StopJobResponse
-  request = postJSON deviceFarm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           StopJobResponse'
-            <$> (x .?> "job") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "job")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StopJob
+instance Prelude.Hashable StopJob
 
-instance NFData StopJob
+instance Prelude.NFData StopJob
 
-instance ToHeaders StopJob where
+instance Prelude.ToHeaders StopJob where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("DeviceFarm_20150623.StopJob" :: ByteString),
+              Prelude.=# ( "DeviceFarm_20150623.StopJob" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StopJob where
+instance Prelude.ToJSON StopJob where
   toJSON StopJob' {..} =
-    object (catMaybes [Just ("arn" .= _sjArn)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("arn" Prelude..= arn)]
+      )
 
-instance ToPath StopJob where
-  toPath = const "/"
+instance Prelude.ToPath StopJob where
+  toPath = Prelude.const "/"
 
-instance ToQuery StopJob where
-  toQuery = const mempty
+instance Prelude.ToQuery StopJob where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'stopJobResponse' smart constructor.
+-- | /See:/ 'newStopJobResponse' smart constructor.
 data StopJobResponse = StopJobResponse'
-  { _sjrrsJob ::
-      !(Maybe Job),
-    _sjrrsResponseStatus :: !Int
+  { -- | The job that was stopped.
+    job :: Prelude.Maybe Job,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopJobResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopJobResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sjrrsJob' - The job that was stopped.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sjrrsResponseStatus' - -- | The response status code.
-stopJobResponse ::
-  -- | 'sjrrsResponseStatus'
-  Int ->
+-- 'job', 'stopJobResponse_job' - The job that was stopped.
+--
+-- 'httpStatus', 'stopJobResponse_httpStatus' - The response's http status code.
+newStopJobResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StopJobResponse
-stopJobResponse pResponseStatus_ =
+newStopJobResponse pHttpStatus_ =
   StopJobResponse'
-    { _sjrrsJob = Nothing,
-      _sjrrsResponseStatus = pResponseStatus_
+    { job = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The job that was stopped.
-sjrrsJob :: Lens' StopJobResponse (Maybe Job)
-sjrrsJob = lens _sjrrsJob (\s a -> s {_sjrrsJob = a})
+stopJobResponse_job :: Lens.Lens' StopJobResponse (Prelude.Maybe Job)
+stopJobResponse_job = Lens.lens (\StopJobResponse' {job} -> job) (\s@StopJobResponse' {} a -> s {job = a} :: StopJobResponse)
 
--- | -- | The response status code.
-sjrrsResponseStatus :: Lens' StopJobResponse Int
-sjrrsResponseStatus = lens _sjrrsResponseStatus (\s a -> s {_sjrrsResponseStatus = a})
+-- | The response's http status code.
+stopJobResponse_httpStatus :: Lens.Lens' StopJobResponse Prelude.Int
+stopJobResponse_httpStatus = Lens.lens (\StopJobResponse' {httpStatus} -> httpStatus) (\s@StopJobResponse' {} a -> s {httpStatus = a} :: StopJobResponse)
 
-instance NFData StopJobResponse
+instance Prelude.NFData StopJobResponse

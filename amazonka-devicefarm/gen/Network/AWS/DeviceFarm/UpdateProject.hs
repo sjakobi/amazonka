@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,163 +21,175 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Modifies the specified project name, given the project ARN and a new name.
+-- Modifies the specified project name, given the project ARN and a new
+-- name.
 module Network.AWS.DeviceFarm.UpdateProject
   ( -- * Creating a Request
-    updateProject,
-    UpdateProject,
+    UpdateProject (..),
+    newUpdateProject,
 
     -- * Request Lenses
-    upName,
-    upDefaultJobTimeoutMinutes,
-    upArn,
+    updateProject_name,
+    updateProject_defaultJobTimeoutMinutes,
+    updateProject_arn,
 
     -- * Destructuring the Response
-    updateProjectResponse,
-    UpdateProjectResponse,
+    UpdateProjectResponse (..),
+    newUpdateProjectResponse,
 
     -- * Response Lenses
-    uprrsProject,
-    uprrsResponseStatus,
+    updateProjectResponse_project,
+    updateProjectResponse_httpStatus,
   )
 where
 
 import Network.AWS.DeviceFarm.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DeviceFarm.Types.Project
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents a request to the update project operation.
 --
---
---
--- /See:/ 'updateProject' smart constructor.
+-- /See:/ 'newUpdateProject' smart constructor.
 data UpdateProject = UpdateProject'
-  { _upName ::
-      !(Maybe Text),
-    _upDefaultJobTimeoutMinutes :: !(Maybe Int),
-    _upArn :: !Text
+  { -- | A string that represents the new name of the project that you are
+    -- updating.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The number of minutes a test run in the project executes before it times
+    -- out.
+    defaultJobTimeoutMinutes :: Prelude.Maybe Prelude.Int,
+    -- | The Amazon Resource Name (ARN) of the project whose name to update.
+    arn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateProject' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateProject' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'upName' - A string that represents the new name of the project that you are updating.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'upDefaultJobTimeoutMinutes' - The number of minutes a test run in the project executes before it times out.
+-- 'name', 'updateProject_name' - A string that represents the new name of the project that you are
+-- updating.
 --
--- * 'upArn' - The Amazon Resource Name (ARN) of the project whose name to update.
-updateProject ::
-  -- | 'upArn'
-  Text ->
+-- 'defaultJobTimeoutMinutes', 'updateProject_defaultJobTimeoutMinutes' - The number of minutes a test run in the project executes before it times
+-- out.
+--
+-- 'arn', 'updateProject_arn' - The Amazon Resource Name (ARN) of the project whose name to update.
+newUpdateProject ::
+  -- | 'arn'
+  Prelude.Text ->
   UpdateProject
-updateProject pArn_ =
+newUpdateProject pArn_ =
   UpdateProject'
-    { _upName = Nothing,
-      _upDefaultJobTimeoutMinutes = Nothing,
-      _upArn = pArn_
+    { name = Prelude.Nothing,
+      defaultJobTimeoutMinutes = Prelude.Nothing,
+      arn = pArn_
     }
 
--- | A string that represents the new name of the project that you are updating.
-upName :: Lens' UpdateProject (Maybe Text)
-upName = lens _upName (\s a -> s {_upName = a})
+-- | A string that represents the new name of the project that you are
+-- updating.
+updateProject_name :: Lens.Lens' UpdateProject (Prelude.Maybe Prelude.Text)
+updateProject_name = Lens.lens (\UpdateProject' {name} -> name) (\s@UpdateProject' {} a -> s {name = a} :: UpdateProject)
 
--- | The number of minutes a test run in the project executes before it times out.
-upDefaultJobTimeoutMinutes :: Lens' UpdateProject (Maybe Int)
-upDefaultJobTimeoutMinutes = lens _upDefaultJobTimeoutMinutes (\s a -> s {_upDefaultJobTimeoutMinutes = a})
+-- | The number of minutes a test run in the project executes before it times
+-- out.
+updateProject_defaultJobTimeoutMinutes :: Lens.Lens' UpdateProject (Prelude.Maybe Prelude.Int)
+updateProject_defaultJobTimeoutMinutes = Lens.lens (\UpdateProject' {defaultJobTimeoutMinutes} -> defaultJobTimeoutMinutes) (\s@UpdateProject' {} a -> s {defaultJobTimeoutMinutes = a} :: UpdateProject)
 
 -- | The Amazon Resource Name (ARN) of the project whose name to update.
-upArn :: Lens' UpdateProject Text
-upArn = lens _upArn (\s a -> s {_upArn = a})
+updateProject_arn :: Lens.Lens' UpdateProject Prelude.Text
+updateProject_arn = Lens.lens (\UpdateProject' {arn} -> arn) (\s@UpdateProject' {} a -> s {arn = a} :: UpdateProject)
 
-instance AWSRequest UpdateProject where
+instance Prelude.AWSRequest UpdateProject where
   type Rs UpdateProject = UpdateProjectResponse
-  request = postJSON deviceFarm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateProjectResponse'
-            <$> (x .?> "project") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "project")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateProject
+instance Prelude.Hashable UpdateProject
 
-instance NFData UpdateProject
+instance Prelude.NFData UpdateProject
 
-instance ToHeaders UpdateProject where
+instance Prelude.ToHeaders UpdateProject where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("DeviceFarm_20150623.UpdateProject" :: ByteString),
+              Prelude.=# ( "DeviceFarm_20150623.UpdateProject" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateProject where
+instance Prelude.ToJSON UpdateProject where
   toJSON UpdateProject' {..} =
-    object
-      ( catMaybes
-          [ ("name" .=) <$> _upName,
-            ("defaultJobTimeoutMinutes" .=)
-              <$> _upDefaultJobTimeoutMinutes,
-            Just ("arn" .= _upArn)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("name" Prelude..=) Prelude.<$> name,
+            ("defaultJobTimeoutMinutes" Prelude..=)
+              Prelude.<$> defaultJobTimeoutMinutes,
+            Prelude.Just ("arn" Prelude..= arn)
           ]
       )
 
-instance ToPath UpdateProject where
-  toPath = const "/"
+instance Prelude.ToPath UpdateProject where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateProject where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateProject where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the result of an update project request.
 --
---
---
--- /See:/ 'updateProjectResponse' smart constructor.
+-- /See:/ 'newUpdateProjectResponse' smart constructor.
 data UpdateProjectResponse = UpdateProjectResponse'
-  { _uprrsProject ::
-      !(Maybe Project),
-    _uprrsResponseStatus ::
-      !Int
+  { -- | The project to update.
+    project :: Prelude.Maybe Project,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateProjectResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateProjectResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uprrsProject' - The project to update.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uprrsResponseStatus' - -- | The response status code.
-updateProjectResponse ::
-  -- | 'uprrsResponseStatus'
-  Int ->
+-- 'project', 'updateProjectResponse_project' - The project to update.
+--
+-- 'httpStatus', 'updateProjectResponse_httpStatus' - The response's http status code.
+newUpdateProjectResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateProjectResponse
-updateProjectResponse pResponseStatus_ =
+newUpdateProjectResponse pHttpStatus_ =
   UpdateProjectResponse'
-    { _uprrsProject = Nothing,
-      _uprrsResponseStatus = pResponseStatus_
+    { project = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The project to update.
-uprrsProject :: Lens' UpdateProjectResponse (Maybe Project)
-uprrsProject = lens _uprrsProject (\s a -> s {_uprrsProject = a})
+updateProjectResponse_project :: Lens.Lens' UpdateProjectResponse (Prelude.Maybe Project)
+updateProjectResponse_project = Lens.lens (\UpdateProjectResponse' {project} -> project) (\s@UpdateProjectResponse' {} a -> s {project = a} :: UpdateProjectResponse)
 
--- | -- | The response status code.
-uprrsResponseStatus :: Lens' UpdateProjectResponse Int
-uprrsResponseStatus = lens _uprrsResponseStatus (\s a -> s {_uprrsResponseStatus = a})
+-- | The response's http status code.
+updateProjectResponse_httpStatus :: Lens.Lens' UpdateProjectResponse Prelude.Int
+updateProjectResponse_httpStatus = Lens.lens (\UpdateProjectResponse' {httpStatus} -> httpStatus) (\s@UpdateProjectResponse' {} a -> s {httpStatus = a} :: UpdateProjectResponse)
 
-instance NFData UpdateProjectResponse
+instance Prelude.NFData UpdateProjectResponse

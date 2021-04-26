@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -20,134 +24,378 @@ import Network.AWS.DeviceFarm.Types.DeviceMinutes
 import Network.AWS.DeviceFarm.Types.ExecutionResult
 import Network.AWS.DeviceFarm.Types.ExecutionStatus
 import Network.AWS.DeviceFarm.Types.TestType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents a condition that is evaluated.
 --
---
---
--- /See:/ 'test' smart constructor.
+-- /See:/ 'newTest' smart constructor.
 data Test = Test'
-  { _tCounters :: !(Maybe Counters),
-    _tStatus :: !(Maybe ExecutionStatus),
-    _tResult :: !(Maybe ExecutionResult),
-    _tStarted :: !(Maybe POSIX),
-    _tMessage :: !(Maybe Text),
-    _tArn :: !(Maybe Text),
-    _tName :: !(Maybe Text),
-    _tStopped :: !(Maybe POSIX),
-    _tCreated :: !(Maybe POSIX),
-    _tType :: !(Maybe TestType),
-    _tDeviceMinutes :: !(Maybe DeviceMinutes)
+  { -- | The test\'s result counters.
+    counters :: Prelude.Maybe Counters,
+    -- | The test\'s status.
+    --
+    -- Allowed values include:
+    --
+    -- -   PENDING
+    --
+    -- -   PENDING_CONCURRENCY
+    --
+    -- -   PENDING_DEVICE
+    --
+    -- -   PROCESSING
+    --
+    -- -   SCHEDULING
+    --
+    -- -   PREPARING
+    --
+    -- -   RUNNING
+    --
+    -- -   COMPLETED
+    --
+    -- -   STOPPING
+    status :: Prelude.Maybe ExecutionStatus,
+    -- | The test\'s result.
+    --
+    -- Allowed values include:
+    --
+    -- -   PENDING
+    --
+    -- -   PASSED
+    --
+    -- -   WARNED
+    --
+    -- -   FAILED
+    --
+    -- -   SKIPPED
+    --
+    -- -   ERRORED
+    --
+    -- -   STOPPED
+    result :: Prelude.Maybe ExecutionResult,
+    -- | The test\'s start time.
+    started :: Prelude.Maybe Prelude.POSIX,
+    -- | A message about the test\'s result.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The test\'s ARN.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The test\'s name.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The test\'s stop time.
+    stopped :: Prelude.Maybe Prelude.POSIX,
+    -- | When the test was created.
+    created :: Prelude.Maybe Prelude.POSIX,
+    -- | The test\'s type.
+    --
+    -- Must be one of the following values:
+    --
+    -- -   BUILTIN_FUZZ
+    --
+    -- -   BUILTIN_EXPLORER
+    --
+    --     For Android, an app explorer that traverses an Android app,
+    --     interacting with it and capturing screenshots at the same time.
+    --
+    -- -   APPIUM_JAVA_JUNIT
+    --
+    -- -   APPIUM_JAVA_TESTNG
+    --
+    -- -   APPIUM_PYTHON
+    --
+    -- -   APPIUM_NODE
+    --
+    -- -   APPIUM_RUBY
+    --
+    -- -   APPIUM_WEB_JAVA_JUNIT
+    --
+    -- -   APPIUM_WEB_JAVA_TESTNG
+    --
+    -- -   APPIUM_WEB_PYTHON
+    --
+    -- -   APPIUM_WEB_NODE
+    --
+    -- -   APPIUM_WEB_RUBY
+    --
+    -- -   CALABASH
+    --
+    -- -   INSTRUMENTATION
+    --
+    -- -   UIAUTOMATION
+    --
+    -- -   UIAUTOMATOR
+    --
+    -- -   XCTEST
+    --
+    -- -   XCTEST_UI
+    type' :: Prelude.Maybe TestType,
+    -- | Represents the total (metered or unmetered) minutes used by the test.
+    deviceMinutes :: Prelude.Maybe DeviceMinutes
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Test' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Test' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tCounters' - The test's result counters.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tStatus' - The test's status. Allowed values include:     * PENDING     * PENDING_CONCURRENCY     * PENDING_DEVICE     * PROCESSING     * SCHEDULING     * PREPARING     * RUNNING     * COMPLETED     * STOPPING
+-- 'counters', 'test_counters' - The test\'s result counters.
 --
--- * 'tResult' - The test's result. Allowed values include:     * PENDING     * PASSED     * WARNED     * FAILED     * SKIPPED     * ERRORED     * STOPPED
+-- 'status', 'test_status' - The test\'s status.
 --
--- * 'tStarted' - The test's start time.
+-- Allowed values include:
 --
--- * 'tMessage' - A message about the test's result.
+-- -   PENDING
 --
--- * 'tArn' - The test's ARN.
+-- -   PENDING_CONCURRENCY
 --
--- * 'tName' - The test's name.
+-- -   PENDING_DEVICE
 --
--- * 'tStopped' - The test's stop time.
+-- -   PROCESSING
 --
--- * 'tCreated' - When the test was created.
+-- -   SCHEDULING
 --
--- * 'tType' - The test's type. Must be one of the following values:     * BUILTIN_FUZZ     * BUILTIN_EXPLORER     * APPIUM_JAVA_JUNIT     * APPIUM_JAVA_TESTNG     * APPIUM_PYTHON     * APPIUM_NODE     * APPIUM_RUBY     * APPIUM_WEB_JAVA_JUNIT     * APPIUM_WEB_JAVA_TESTNG     * APPIUM_WEB_PYTHON     * APPIUM_WEB_NODE     * APPIUM_WEB_RUBY     * CALABASH     * INSTRUMENTATION     * UIAUTOMATION     * UIAUTOMATOR     * XCTEST     * XCTEST_UI
+-- -   PREPARING
 --
--- * 'tDeviceMinutes' - Represents the total (metered or unmetered) minutes used by the test.
-test ::
+-- -   RUNNING
+--
+-- -   COMPLETED
+--
+-- -   STOPPING
+--
+-- 'result', 'test_result' - The test\'s result.
+--
+-- Allowed values include:
+--
+-- -   PENDING
+--
+-- -   PASSED
+--
+-- -   WARNED
+--
+-- -   FAILED
+--
+-- -   SKIPPED
+--
+-- -   ERRORED
+--
+-- -   STOPPED
+--
+-- 'started', 'test_started' - The test\'s start time.
+--
+-- 'message', 'test_message' - A message about the test\'s result.
+--
+-- 'arn', 'test_arn' - The test\'s ARN.
+--
+-- 'name', 'test_name' - The test\'s name.
+--
+-- 'stopped', 'test_stopped' - The test\'s stop time.
+--
+-- 'created', 'test_created' - When the test was created.
+--
+-- 'type'', 'test_type' - The test\'s type.
+--
+-- Must be one of the following values:
+--
+-- -   BUILTIN_FUZZ
+--
+-- -   BUILTIN_EXPLORER
+--
+--     For Android, an app explorer that traverses an Android app,
+--     interacting with it and capturing screenshots at the same time.
+--
+-- -   APPIUM_JAVA_JUNIT
+--
+-- -   APPIUM_JAVA_TESTNG
+--
+-- -   APPIUM_PYTHON
+--
+-- -   APPIUM_NODE
+--
+-- -   APPIUM_RUBY
+--
+-- -   APPIUM_WEB_JAVA_JUNIT
+--
+-- -   APPIUM_WEB_JAVA_TESTNG
+--
+-- -   APPIUM_WEB_PYTHON
+--
+-- -   APPIUM_WEB_NODE
+--
+-- -   APPIUM_WEB_RUBY
+--
+-- -   CALABASH
+--
+-- -   INSTRUMENTATION
+--
+-- -   UIAUTOMATION
+--
+-- -   UIAUTOMATOR
+--
+-- -   XCTEST
+--
+-- -   XCTEST_UI
+--
+-- 'deviceMinutes', 'test_deviceMinutes' - Represents the total (metered or unmetered) minutes used by the test.
+newTest ::
   Test
-test =
+newTest =
   Test'
-    { _tCounters = Nothing,
-      _tStatus = Nothing,
-      _tResult = Nothing,
-      _tStarted = Nothing,
-      _tMessage = Nothing,
-      _tArn = Nothing,
-      _tName = Nothing,
-      _tStopped = Nothing,
-      _tCreated = Nothing,
-      _tType = Nothing,
-      _tDeviceMinutes = Nothing
+    { counters = Prelude.Nothing,
+      status = Prelude.Nothing,
+      result = Prelude.Nothing,
+      started = Prelude.Nothing,
+      message = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      name = Prelude.Nothing,
+      stopped = Prelude.Nothing,
+      created = Prelude.Nothing,
+      type' = Prelude.Nothing,
+      deviceMinutes = Prelude.Nothing
     }
 
--- | The test's result counters.
-tCounters :: Lens' Test (Maybe Counters)
-tCounters = lens _tCounters (\s a -> s {_tCounters = a})
+-- | The test\'s result counters.
+test_counters :: Lens.Lens' Test (Prelude.Maybe Counters)
+test_counters = Lens.lens (\Test' {counters} -> counters) (\s@Test' {} a -> s {counters = a} :: Test)
 
--- | The test's status. Allowed values include:     * PENDING     * PENDING_CONCURRENCY     * PENDING_DEVICE     * PROCESSING     * SCHEDULING     * PREPARING     * RUNNING     * COMPLETED     * STOPPING
-tStatus :: Lens' Test (Maybe ExecutionStatus)
-tStatus = lens _tStatus (\s a -> s {_tStatus = a})
+-- | The test\'s status.
+--
+-- Allowed values include:
+--
+-- -   PENDING
+--
+-- -   PENDING_CONCURRENCY
+--
+-- -   PENDING_DEVICE
+--
+-- -   PROCESSING
+--
+-- -   SCHEDULING
+--
+-- -   PREPARING
+--
+-- -   RUNNING
+--
+-- -   COMPLETED
+--
+-- -   STOPPING
+test_status :: Lens.Lens' Test (Prelude.Maybe ExecutionStatus)
+test_status = Lens.lens (\Test' {status} -> status) (\s@Test' {} a -> s {status = a} :: Test)
 
--- | The test's result. Allowed values include:     * PENDING     * PASSED     * WARNED     * FAILED     * SKIPPED     * ERRORED     * STOPPED
-tResult :: Lens' Test (Maybe ExecutionResult)
-tResult = lens _tResult (\s a -> s {_tResult = a})
+-- | The test\'s result.
+--
+-- Allowed values include:
+--
+-- -   PENDING
+--
+-- -   PASSED
+--
+-- -   WARNED
+--
+-- -   FAILED
+--
+-- -   SKIPPED
+--
+-- -   ERRORED
+--
+-- -   STOPPED
+test_result :: Lens.Lens' Test (Prelude.Maybe ExecutionResult)
+test_result = Lens.lens (\Test' {result} -> result) (\s@Test' {} a -> s {result = a} :: Test)
 
--- | The test's start time.
-tStarted :: Lens' Test (Maybe UTCTime)
-tStarted = lens _tStarted (\s a -> s {_tStarted = a}) . mapping _Time
+-- | The test\'s start time.
+test_started :: Lens.Lens' Test (Prelude.Maybe Prelude.UTCTime)
+test_started = Lens.lens (\Test' {started} -> started) (\s@Test' {} a -> s {started = a} :: Test) Prelude.. Lens.mapping Prelude._Time
 
--- | A message about the test's result.
-tMessage :: Lens' Test (Maybe Text)
-tMessage = lens _tMessage (\s a -> s {_tMessage = a})
+-- | A message about the test\'s result.
+test_message :: Lens.Lens' Test (Prelude.Maybe Prelude.Text)
+test_message = Lens.lens (\Test' {message} -> message) (\s@Test' {} a -> s {message = a} :: Test)
 
--- | The test's ARN.
-tArn :: Lens' Test (Maybe Text)
-tArn = lens _tArn (\s a -> s {_tArn = a})
+-- | The test\'s ARN.
+test_arn :: Lens.Lens' Test (Prelude.Maybe Prelude.Text)
+test_arn = Lens.lens (\Test' {arn} -> arn) (\s@Test' {} a -> s {arn = a} :: Test)
 
--- | The test's name.
-tName :: Lens' Test (Maybe Text)
-tName = lens _tName (\s a -> s {_tName = a})
+-- | The test\'s name.
+test_name :: Lens.Lens' Test (Prelude.Maybe Prelude.Text)
+test_name = Lens.lens (\Test' {name} -> name) (\s@Test' {} a -> s {name = a} :: Test)
 
--- | The test's stop time.
-tStopped :: Lens' Test (Maybe UTCTime)
-tStopped = lens _tStopped (\s a -> s {_tStopped = a}) . mapping _Time
+-- | The test\'s stop time.
+test_stopped :: Lens.Lens' Test (Prelude.Maybe Prelude.UTCTime)
+test_stopped = Lens.lens (\Test' {stopped} -> stopped) (\s@Test' {} a -> s {stopped = a} :: Test) Prelude.. Lens.mapping Prelude._Time
 
 -- | When the test was created.
-tCreated :: Lens' Test (Maybe UTCTime)
-tCreated = lens _tCreated (\s a -> s {_tCreated = a}) . mapping _Time
+test_created :: Lens.Lens' Test (Prelude.Maybe Prelude.UTCTime)
+test_created = Lens.lens (\Test' {created} -> created) (\s@Test' {} a -> s {created = a} :: Test) Prelude.. Lens.mapping Prelude._Time
 
--- | The test's type. Must be one of the following values:     * BUILTIN_FUZZ     * BUILTIN_EXPLORER     * APPIUM_JAVA_JUNIT     * APPIUM_JAVA_TESTNG     * APPIUM_PYTHON     * APPIUM_NODE     * APPIUM_RUBY     * APPIUM_WEB_JAVA_JUNIT     * APPIUM_WEB_JAVA_TESTNG     * APPIUM_WEB_PYTHON     * APPIUM_WEB_NODE     * APPIUM_WEB_RUBY     * CALABASH     * INSTRUMENTATION     * UIAUTOMATION     * UIAUTOMATOR     * XCTEST     * XCTEST_UI
-tType :: Lens' Test (Maybe TestType)
-tType = lens _tType (\s a -> s {_tType = a})
+-- | The test\'s type.
+--
+-- Must be one of the following values:
+--
+-- -   BUILTIN_FUZZ
+--
+-- -   BUILTIN_EXPLORER
+--
+--     For Android, an app explorer that traverses an Android app,
+--     interacting with it and capturing screenshots at the same time.
+--
+-- -   APPIUM_JAVA_JUNIT
+--
+-- -   APPIUM_JAVA_TESTNG
+--
+-- -   APPIUM_PYTHON
+--
+-- -   APPIUM_NODE
+--
+-- -   APPIUM_RUBY
+--
+-- -   APPIUM_WEB_JAVA_JUNIT
+--
+-- -   APPIUM_WEB_JAVA_TESTNG
+--
+-- -   APPIUM_WEB_PYTHON
+--
+-- -   APPIUM_WEB_NODE
+--
+-- -   APPIUM_WEB_RUBY
+--
+-- -   CALABASH
+--
+-- -   INSTRUMENTATION
+--
+-- -   UIAUTOMATION
+--
+-- -   UIAUTOMATOR
+--
+-- -   XCTEST
+--
+-- -   XCTEST_UI
+test_type :: Lens.Lens' Test (Prelude.Maybe TestType)
+test_type = Lens.lens (\Test' {type'} -> type') (\s@Test' {} a -> s {type' = a} :: Test)
 
 -- | Represents the total (metered or unmetered) minutes used by the test.
-tDeviceMinutes :: Lens' Test (Maybe DeviceMinutes)
-tDeviceMinutes = lens _tDeviceMinutes (\s a -> s {_tDeviceMinutes = a})
+test_deviceMinutes :: Lens.Lens' Test (Prelude.Maybe DeviceMinutes)
+test_deviceMinutes = Lens.lens (\Test' {deviceMinutes} -> deviceMinutes) (\s@Test' {} a -> s {deviceMinutes = a} :: Test)
 
-instance FromJSON Test where
+instance Prelude.FromJSON Test where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Test"
       ( \x ->
           Test'
-            <$> (x .:? "counters")
-            <*> (x .:? "status")
-            <*> (x .:? "result")
-            <*> (x .:? "started")
-            <*> (x .:? "message")
-            <*> (x .:? "arn")
-            <*> (x .:? "name")
-            <*> (x .:? "stopped")
-            <*> (x .:? "created")
-            <*> (x .:? "type")
-            <*> (x .:? "deviceMinutes")
+            Prelude.<$> (x Prelude..:? "counters")
+            Prelude.<*> (x Prelude..:? "status")
+            Prelude.<*> (x Prelude..:? "result")
+            Prelude.<*> (x Prelude..:? "started")
+            Prelude.<*> (x Prelude..:? "message")
+            Prelude.<*> (x Prelude..:? "arn")
+            Prelude.<*> (x Prelude..:? "name")
+            Prelude.<*> (x Prelude..:? "stopped")
+            Prelude.<*> (x Prelude..:? "created")
+            Prelude.<*> (x Prelude..:? "type")
+            Prelude.<*> (x Prelude..:? "deviceMinutes")
       )
 
-instance Hashable Test
+instance Prelude.Hashable Test
 
-instance NFData Test
+instance Prelude.NFData Test

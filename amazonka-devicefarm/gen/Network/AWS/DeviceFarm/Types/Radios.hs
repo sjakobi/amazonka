@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,82 +19,92 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.DeviceFarm.Types.Radios where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents the set of radios and their states on a device. Examples of radios include Wi-Fi, GPS, Bluetooth, and NFC.
+-- | Represents the set of radios and their states on a device. Examples of
+-- radios include Wi-Fi, GPS, Bluetooth, and NFC.
 --
---
---
--- /See:/ 'radios' smart constructor.
+-- /See:/ 'newRadios' smart constructor.
 data Radios = Radios'
-  { _rGps :: !(Maybe Bool),
-    _rWifi :: !(Maybe Bool),
-    _rBluetooth :: !(Maybe Bool),
-    _rNfc :: !(Maybe Bool)
+  { -- | True if GPS is enabled at the beginning of the test. Otherwise, false.
+    gps :: Prelude.Maybe Prelude.Bool,
+    -- | True if Wi-Fi is enabled at the beginning of the test. Otherwise, false.
+    wifi :: Prelude.Maybe Prelude.Bool,
+    -- | True if Bluetooth is enabled at the beginning of the test. Otherwise,
+    -- false.
+    bluetooth :: Prelude.Maybe Prelude.Bool,
+    -- | True if NFC is enabled at the beginning of the test. Otherwise, false.
+    nfc :: Prelude.Maybe Prelude.Bool
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Radios' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Radios' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rGps' - True if GPS is enabled at the beginning of the test. Otherwise, false.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rWifi' - True if Wi-Fi is enabled at the beginning of the test. Otherwise, false.
+-- 'gps', 'radios_gps' - True if GPS is enabled at the beginning of the test. Otherwise, false.
 --
--- * 'rBluetooth' - True if Bluetooth is enabled at the beginning of the test. Otherwise, false.
+-- 'wifi', 'radios_wifi' - True if Wi-Fi is enabled at the beginning of the test. Otherwise, false.
 --
--- * 'rNfc' - True if NFC is enabled at the beginning of the test. Otherwise, false.
-radios ::
+-- 'bluetooth', 'radios_bluetooth' - True if Bluetooth is enabled at the beginning of the test. Otherwise,
+-- false.
+--
+-- 'nfc', 'radios_nfc' - True if NFC is enabled at the beginning of the test. Otherwise, false.
+newRadios ::
   Radios
-radios =
+newRadios =
   Radios'
-    { _rGps = Nothing,
-      _rWifi = Nothing,
-      _rBluetooth = Nothing,
-      _rNfc = Nothing
+    { gps = Prelude.Nothing,
+      wifi = Prelude.Nothing,
+      bluetooth = Prelude.Nothing,
+      nfc = Prelude.Nothing
     }
 
 -- | True if GPS is enabled at the beginning of the test. Otherwise, false.
-rGps :: Lens' Radios (Maybe Bool)
-rGps = lens _rGps (\s a -> s {_rGps = a})
+radios_gps :: Lens.Lens' Radios (Prelude.Maybe Prelude.Bool)
+radios_gps = Lens.lens (\Radios' {gps} -> gps) (\s@Radios' {} a -> s {gps = a} :: Radios)
 
 -- | True if Wi-Fi is enabled at the beginning of the test. Otherwise, false.
-rWifi :: Lens' Radios (Maybe Bool)
-rWifi = lens _rWifi (\s a -> s {_rWifi = a})
+radios_wifi :: Lens.Lens' Radios (Prelude.Maybe Prelude.Bool)
+radios_wifi = Lens.lens (\Radios' {wifi} -> wifi) (\s@Radios' {} a -> s {wifi = a} :: Radios)
 
--- | True if Bluetooth is enabled at the beginning of the test. Otherwise, false.
-rBluetooth :: Lens' Radios (Maybe Bool)
-rBluetooth = lens _rBluetooth (\s a -> s {_rBluetooth = a})
+-- | True if Bluetooth is enabled at the beginning of the test. Otherwise,
+-- false.
+radios_bluetooth :: Lens.Lens' Radios (Prelude.Maybe Prelude.Bool)
+radios_bluetooth = Lens.lens (\Radios' {bluetooth} -> bluetooth) (\s@Radios' {} a -> s {bluetooth = a} :: Radios)
 
 -- | True if NFC is enabled at the beginning of the test. Otherwise, false.
-rNfc :: Lens' Radios (Maybe Bool)
-rNfc = lens _rNfc (\s a -> s {_rNfc = a})
+radios_nfc :: Lens.Lens' Radios (Prelude.Maybe Prelude.Bool)
+radios_nfc = Lens.lens (\Radios' {nfc} -> nfc) (\s@Radios' {} a -> s {nfc = a} :: Radios)
 
-instance FromJSON Radios where
+instance Prelude.FromJSON Radios where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Radios"
       ( \x ->
           Radios'
-            <$> (x .:? "gps")
-            <*> (x .:? "wifi")
-            <*> (x .:? "bluetooth")
-            <*> (x .:? "nfc")
+            Prelude.<$> (x Prelude..:? "gps")
+            Prelude.<*> (x Prelude..:? "wifi")
+            Prelude.<*> (x Prelude..:? "bluetooth")
+            Prelude.<*> (x Prelude..:? "nfc")
       )
 
-instance Hashable Radios
+instance Prelude.Hashable Radios
 
-instance NFData Radios
+instance Prelude.NFData Radios
 
-instance ToJSON Radios where
+instance Prelude.ToJSON Radios where
   toJSON Radios' {..} =
-    object
-      ( catMaybes
-          [ ("gps" .=) <$> _rGps,
-            ("wifi" .=) <$> _rWifi,
-            ("bluetooth" .=) <$> _rBluetooth,
-            ("nfc" .=) <$> _rNfc
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("gps" Prelude..=) Prelude.<$> gps,
+            ("wifi" Prelude..=) Prelude.<$> wifi,
+            ("bluetooth" Prelude..=) Prelude.<$> bluetooth,
+            ("nfc" Prelude..=) Prelude.<$> nfc
           ]
       )

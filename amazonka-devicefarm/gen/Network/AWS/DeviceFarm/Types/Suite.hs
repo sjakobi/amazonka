@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -20,135 +24,384 @@ import Network.AWS.DeviceFarm.Types.DeviceMinutes
 import Network.AWS.DeviceFarm.Types.ExecutionResult
 import Network.AWS.DeviceFarm.Types.ExecutionStatus
 import Network.AWS.DeviceFarm.Types.TestType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents a collection of one or more tests.
 --
---
---
--- /See:/ 'suite' smart constructor.
+-- /See:/ 'newSuite' smart constructor.
 data Suite = Suite'
-  { _suiCounters ::
-      !(Maybe Counters),
-    _suiStatus :: !(Maybe ExecutionStatus),
-    _suiResult :: !(Maybe ExecutionResult),
-    _suiStarted :: !(Maybe POSIX),
-    _suiMessage :: !(Maybe Text),
-    _suiArn :: !(Maybe Text),
-    _suiName :: !(Maybe Text),
-    _suiStopped :: !(Maybe POSIX),
-    _suiCreated :: !(Maybe POSIX),
-    _suiType :: !(Maybe TestType),
-    _suiDeviceMinutes :: !(Maybe DeviceMinutes)
+  { -- | The suite\'s result counters.
+    counters :: Prelude.Maybe Counters,
+    -- | The suite\'s status.
+    --
+    -- Allowed values include:
+    --
+    -- -   PENDING
+    --
+    -- -   PENDING_CONCURRENCY
+    --
+    -- -   PENDING_DEVICE
+    --
+    -- -   PROCESSING
+    --
+    -- -   SCHEDULING
+    --
+    -- -   PREPARING
+    --
+    -- -   RUNNING
+    --
+    -- -   COMPLETED
+    --
+    -- -   STOPPING
+    status :: Prelude.Maybe ExecutionStatus,
+    -- | The suite\'s result.
+    --
+    -- Allowed values include:
+    --
+    -- -   PENDING
+    --
+    -- -   PASSED
+    --
+    -- -   WARNED
+    --
+    -- -   FAILED
+    --
+    -- -   SKIPPED
+    --
+    -- -   ERRORED
+    --
+    -- -   STOPPED
+    result :: Prelude.Maybe ExecutionResult,
+    -- | The suite\'s start time.
+    started :: Prelude.Maybe Prelude.POSIX,
+    -- | A message about the suite\'s result.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The suite\'s ARN.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The suite\'s name.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The suite\'s stop time.
+    stopped :: Prelude.Maybe Prelude.POSIX,
+    -- | When the suite was created.
+    created :: Prelude.Maybe Prelude.POSIX,
+    -- | The suite\'s type.
+    --
+    -- Must be one of the following values:
+    --
+    -- -   BUILTIN_FUZZ
+    --
+    -- -   BUILTIN_EXPLORER
+    --
+    --     Only available for Android; an app explorer that traverses an
+    --     Android app, interacting with it and capturing screenshots at the
+    --     same time.
+    --
+    -- -   APPIUM_JAVA_JUNIT
+    --
+    -- -   APPIUM_JAVA_TESTNG
+    --
+    -- -   APPIUM_PYTHON
+    --
+    -- -   APPIUM_NODE
+    --
+    -- -   APPIUM_RUBY
+    --
+    -- -   APPIUM_WEB_JAVA_JUNIT
+    --
+    -- -   APPIUM_WEB_JAVA_TESTNG
+    --
+    -- -   APPIUM_WEB_PYTHON
+    --
+    -- -   APPIUM_WEB_NODE
+    --
+    -- -   APPIUM_WEB_RUBY
+    --
+    -- -   CALABASH
+    --
+    -- -   INSTRUMENTATION
+    --
+    -- -   UIAUTOMATION
+    --
+    -- -   UIAUTOMATOR
+    --
+    -- -   XCTEST
+    --
+    -- -   XCTEST_UI
+    type' :: Prelude.Maybe TestType,
+    -- | Represents the total (metered or unmetered) minutes used by the test
+    -- suite.
+    deviceMinutes :: Prelude.Maybe DeviceMinutes
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Suite' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Suite' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'suiCounters' - The suite's result counters.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'suiStatus' - The suite's status. Allowed values include:     * PENDING     * PENDING_CONCURRENCY     * PENDING_DEVICE     * PROCESSING     * SCHEDULING     * PREPARING     * RUNNING     * COMPLETED     * STOPPING
+-- 'counters', 'suite_counters' - The suite\'s result counters.
 --
--- * 'suiResult' - The suite's result. Allowed values include:     * PENDING     * PASSED     * WARNED     * FAILED     * SKIPPED     * ERRORED     * STOPPED
+-- 'status', 'suite_status' - The suite\'s status.
 --
--- * 'suiStarted' - The suite's start time.
+-- Allowed values include:
 --
--- * 'suiMessage' - A message about the suite's result.
+-- -   PENDING
 --
--- * 'suiArn' - The suite's ARN.
+-- -   PENDING_CONCURRENCY
 --
--- * 'suiName' - The suite's name.
+-- -   PENDING_DEVICE
 --
--- * 'suiStopped' - The suite's stop time.
+-- -   PROCESSING
 --
--- * 'suiCreated' - When the suite was created.
+-- -   SCHEDULING
 --
--- * 'suiType' - The suite's type. Must be one of the following values:     * BUILTIN_FUZZ     * BUILTIN_EXPLORER      * APPIUM_JAVA_JUNIT     * APPIUM_JAVA_TESTNG     * APPIUM_PYTHON     * APPIUM_NODE     * APPIUM_RUBY     * APPIUM_WEB_JAVA_JUNIT     * APPIUM_WEB_JAVA_TESTNG     * APPIUM_WEB_PYTHON     * APPIUM_WEB_NODE     * APPIUM_WEB_RUBY     * CALABASH     * INSTRUMENTATION     * UIAUTOMATION     * UIAUTOMATOR     * XCTEST     * XCTEST_UI
+-- -   PREPARING
 --
--- * 'suiDeviceMinutes' - Represents the total (metered or unmetered) minutes used by the test suite.
-suite ::
+-- -   RUNNING
+--
+-- -   COMPLETED
+--
+-- -   STOPPING
+--
+-- 'result', 'suite_result' - The suite\'s result.
+--
+-- Allowed values include:
+--
+-- -   PENDING
+--
+-- -   PASSED
+--
+-- -   WARNED
+--
+-- -   FAILED
+--
+-- -   SKIPPED
+--
+-- -   ERRORED
+--
+-- -   STOPPED
+--
+-- 'started', 'suite_started' - The suite\'s start time.
+--
+-- 'message', 'suite_message' - A message about the suite\'s result.
+--
+-- 'arn', 'suite_arn' - The suite\'s ARN.
+--
+-- 'name', 'suite_name' - The suite\'s name.
+--
+-- 'stopped', 'suite_stopped' - The suite\'s stop time.
+--
+-- 'created', 'suite_created' - When the suite was created.
+--
+-- 'type'', 'suite_type' - The suite\'s type.
+--
+-- Must be one of the following values:
+--
+-- -   BUILTIN_FUZZ
+--
+-- -   BUILTIN_EXPLORER
+--
+--     Only available for Android; an app explorer that traverses an
+--     Android app, interacting with it and capturing screenshots at the
+--     same time.
+--
+-- -   APPIUM_JAVA_JUNIT
+--
+-- -   APPIUM_JAVA_TESTNG
+--
+-- -   APPIUM_PYTHON
+--
+-- -   APPIUM_NODE
+--
+-- -   APPIUM_RUBY
+--
+-- -   APPIUM_WEB_JAVA_JUNIT
+--
+-- -   APPIUM_WEB_JAVA_TESTNG
+--
+-- -   APPIUM_WEB_PYTHON
+--
+-- -   APPIUM_WEB_NODE
+--
+-- -   APPIUM_WEB_RUBY
+--
+-- -   CALABASH
+--
+-- -   INSTRUMENTATION
+--
+-- -   UIAUTOMATION
+--
+-- -   UIAUTOMATOR
+--
+-- -   XCTEST
+--
+-- -   XCTEST_UI
+--
+-- 'deviceMinutes', 'suite_deviceMinutes' - Represents the total (metered or unmetered) minutes used by the test
+-- suite.
+newSuite ::
   Suite
-suite =
+newSuite =
   Suite'
-    { _suiCounters = Nothing,
-      _suiStatus = Nothing,
-      _suiResult = Nothing,
-      _suiStarted = Nothing,
-      _suiMessage = Nothing,
-      _suiArn = Nothing,
-      _suiName = Nothing,
-      _suiStopped = Nothing,
-      _suiCreated = Nothing,
-      _suiType = Nothing,
-      _suiDeviceMinutes = Nothing
+    { counters = Prelude.Nothing,
+      status = Prelude.Nothing,
+      result = Prelude.Nothing,
+      started = Prelude.Nothing,
+      message = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      name = Prelude.Nothing,
+      stopped = Prelude.Nothing,
+      created = Prelude.Nothing,
+      type' = Prelude.Nothing,
+      deviceMinutes = Prelude.Nothing
     }
 
--- | The suite's result counters.
-suiCounters :: Lens' Suite (Maybe Counters)
-suiCounters = lens _suiCounters (\s a -> s {_suiCounters = a})
+-- | The suite\'s result counters.
+suite_counters :: Lens.Lens' Suite (Prelude.Maybe Counters)
+suite_counters = Lens.lens (\Suite' {counters} -> counters) (\s@Suite' {} a -> s {counters = a} :: Suite)
 
--- | The suite's status. Allowed values include:     * PENDING     * PENDING_CONCURRENCY     * PENDING_DEVICE     * PROCESSING     * SCHEDULING     * PREPARING     * RUNNING     * COMPLETED     * STOPPING
-suiStatus :: Lens' Suite (Maybe ExecutionStatus)
-suiStatus = lens _suiStatus (\s a -> s {_suiStatus = a})
+-- | The suite\'s status.
+--
+-- Allowed values include:
+--
+-- -   PENDING
+--
+-- -   PENDING_CONCURRENCY
+--
+-- -   PENDING_DEVICE
+--
+-- -   PROCESSING
+--
+-- -   SCHEDULING
+--
+-- -   PREPARING
+--
+-- -   RUNNING
+--
+-- -   COMPLETED
+--
+-- -   STOPPING
+suite_status :: Lens.Lens' Suite (Prelude.Maybe ExecutionStatus)
+suite_status = Lens.lens (\Suite' {status} -> status) (\s@Suite' {} a -> s {status = a} :: Suite)
 
--- | The suite's result. Allowed values include:     * PENDING     * PASSED     * WARNED     * FAILED     * SKIPPED     * ERRORED     * STOPPED
-suiResult :: Lens' Suite (Maybe ExecutionResult)
-suiResult = lens _suiResult (\s a -> s {_suiResult = a})
+-- | The suite\'s result.
+--
+-- Allowed values include:
+--
+-- -   PENDING
+--
+-- -   PASSED
+--
+-- -   WARNED
+--
+-- -   FAILED
+--
+-- -   SKIPPED
+--
+-- -   ERRORED
+--
+-- -   STOPPED
+suite_result :: Lens.Lens' Suite (Prelude.Maybe ExecutionResult)
+suite_result = Lens.lens (\Suite' {result} -> result) (\s@Suite' {} a -> s {result = a} :: Suite)
 
--- | The suite's start time.
-suiStarted :: Lens' Suite (Maybe UTCTime)
-suiStarted = lens _suiStarted (\s a -> s {_suiStarted = a}) . mapping _Time
+-- | The suite\'s start time.
+suite_started :: Lens.Lens' Suite (Prelude.Maybe Prelude.UTCTime)
+suite_started = Lens.lens (\Suite' {started} -> started) (\s@Suite' {} a -> s {started = a} :: Suite) Prelude.. Lens.mapping Prelude._Time
 
--- | A message about the suite's result.
-suiMessage :: Lens' Suite (Maybe Text)
-suiMessage = lens _suiMessage (\s a -> s {_suiMessage = a})
+-- | A message about the suite\'s result.
+suite_message :: Lens.Lens' Suite (Prelude.Maybe Prelude.Text)
+suite_message = Lens.lens (\Suite' {message} -> message) (\s@Suite' {} a -> s {message = a} :: Suite)
 
--- | The suite's ARN.
-suiArn :: Lens' Suite (Maybe Text)
-suiArn = lens _suiArn (\s a -> s {_suiArn = a})
+-- | The suite\'s ARN.
+suite_arn :: Lens.Lens' Suite (Prelude.Maybe Prelude.Text)
+suite_arn = Lens.lens (\Suite' {arn} -> arn) (\s@Suite' {} a -> s {arn = a} :: Suite)
 
--- | The suite's name.
-suiName :: Lens' Suite (Maybe Text)
-suiName = lens _suiName (\s a -> s {_suiName = a})
+-- | The suite\'s name.
+suite_name :: Lens.Lens' Suite (Prelude.Maybe Prelude.Text)
+suite_name = Lens.lens (\Suite' {name} -> name) (\s@Suite' {} a -> s {name = a} :: Suite)
 
--- | The suite's stop time.
-suiStopped :: Lens' Suite (Maybe UTCTime)
-suiStopped = lens _suiStopped (\s a -> s {_suiStopped = a}) . mapping _Time
+-- | The suite\'s stop time.
+suite_stopped :: Lens.Lens' Suite (Prelude.Maybe Prelude.UTCTime)
+suite_stopped = Lens.lens (\Suite' {stopped} -> stopped) (\s@Suite' {} a -> s {stopped = a} :: Suite) Prelude.. Lens.mapping Prelude._Time
 
 -- | When the suite was created.
-suiCreated :: Lens' Suite (Maybe UTCTime)
-suiCreated = lens _suiCreated (\s a -> s {_suiCreated = a}) . mapping _Time
+suite_created :: Lens.Lens' Suite (Prelude.Maybe Prelude.UTCTime)
+suite_created = Lens.lens (\Suite' {created} -> created) (\s@Suite' {} a -> s {created = a} :: Suite) Prelude.. Lens.mapping Prelude._Time
 
--- | The suite's type. Must be one of the following values:     * BUILTIN_FUZZ     * BUILTIN_EXPLORER      * APPIUM_JAVA_JUNIT     * APPIUM_JAVA_TESTNG     * APPIUM_PYTHON     * APPIUM_NODE     * APPIUM_RUBY     * APPIUM_WEB_JAVA_JUNIT     * APPIUM_WEB_JAVA_TESTNG     * APPIUM_WEB_PYTHON     * APPIUM_WEB_NODE     * APPIUM_WEB_RUBY     * CALABASH     * INSTRUMENTATION     * UIAUTOMATION     * UIAUTOMATOR     * XCTEST     * XCTEST_UI
-suiType :: Lens' Suite (Maybe TestType)
-suiType = lens _suiType (\s a -> s {_suiType = a})
+-- | The suite\'s type.
+--
+-- Must be one of the following values:
+--
+-- -   BUILTIN_FUZZ
+--
+-- -   BUILTIN_EXPLORER
+--
+--     Only available for Android; an app explorer that traverses an
+--     Android app, interacting with it and capturing screenshots at the
+--     same time.
+--
+-- -   APPIUM_JAVA_JUNIT
+--
+-- -   APPIUM_JAVA_TESTNG
+--
+-- -   APPIUM_PYTHON
+--
+-- -   APPIUM_NODE
+--
+-- -   APPIUM_RUBY
+--
+-- -   APPIUM_WEB_JAVA_JUNIT
+--
+-- -   APPIUM_WEB_JAVA_TESTNG
+--
+-- -   APPIUM_WEB_PYTHON
+--
+-- -   APPIUM_WEB_NODE
+--
+-- -   APPIUM_WEB_RUBY
+--
+-- -   CALABASH
+--
+-- -   INSTRUMENTATION
+--
+-- -   UIAUTOMATION
+--
+-- -   UIAUTOMATOR
+--
+-- -   XCTEST
+--
+-- -   XCTEST_UI
+suite_type :: Lens.Lens' Suite (Prelude.Maybe TestType)
+suite_type = Lens.lens (\Suite' {type'} -> type') (\s@Suite' {} a -> s {type' = a} :: Suite)
 
--- | Represents the total (metered or unmetered) minutes used by the test suite.
-suiDeviceMinutes :: Lens' Suite (Maybe DeviceMinutes)
-suiDeviceMinutes = lens _suiDeviceMinutes (\s a -> s {_suiDeviceMinutes = a})
+-- | Represents the total (metered or unmetered) minutes used by the test
+-- suite.
+suite_deviceMinutes :: Lens.Lens' Suite (Prelude.Maybe DeviceMinutes)
+suite_deviceMinutes = Lens.lens (\Suite' {deviceMinutes} -> deviceMinutes) (\s@Suite' {} a -> s {deviceMinutes = a} :: Suite)
 
-instance FromJSON Suite where
+instance Prelude.FromJSON Suite where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Suite"
       ( \x ->
           Suite'
-            <$> (x .:? "counters")
-            <*> (x .:? "status")
-            <*> (x .:? "result")
-            <*> (x .:? "started")
-            <*> (x .:? "message")
-            <*> (x .:? "arn")
-            <*> (x .:? "name")
-            <*> (x .:? "stopped")
-            <*> (x .:? "created")
-            <*> (x .:? "type")
-            <*> (x .:? "deviceMinutes")
+            Prelude.<$> (x Prelude..:? "counters")
+            Prelude.<*> (x Prelude..:? "status")
+            Prelude.<*> (x Prelude..:? "result")
+            Prelude.<*> (x Prelude..:? "started")
+            Prelude.<*> (x Prelude..:? "message")
+            Prelude.<*> (x Prelude..:? "arn")
+            Prelude.<*> (x Prelude..:? "name")
+            Prelude.<*> (x Prelude..:? "stopped")
+            Prelude.<*> (x Prelude..:? "created")
+            Prelude.<*> (x Prelude..:? "type")
+            Prelude.<*> (x Prelude..:? "deviceMinutes")
       )
 
-instance Hashable Suite
+instance Prelude.Hashable Suite
 
-instance NFData Suite
+instance Prelude.NFData Suite

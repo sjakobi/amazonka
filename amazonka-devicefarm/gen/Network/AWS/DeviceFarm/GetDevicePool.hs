@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,132 +24,139 @@
 -- Gets information about a device pool.
 module Network.AWS.DeviceFarm.GetDevicePool
   ( -- * Creating a Request
-    getDevicePool,
-    GetDevicePool,
+    GetDevicePool (..),
+    newGetDevicePool,
 
     -- * Request Lenses
-    gdpArn,
+    getDevicePool_arn,
 
     -- * Destructuring the Response
-    getDevicePoolResponse,
-    GetDevicePoolResponse,
+    GetDevicePoolResponse (..),
+    newGetDevicePoolResponse,
 
     -- * Response Lenses
-    gdprrsDevicePool,
-    gdprrsResponseStatus,
+    getDevicePoolResponse_devicePool,
+    getDevicePoolResponse_httpStatus,
   )
 where
 
 import Network.AWS.DeviceFarm.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DeviceFarm.Types.DevicePool
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents a request to the get device pool operation.
 --
---
---
--- /See:/ 'getDevicePool' smart constructor.
-newtype GetDevicePool = GetDevicePool'
-  { _gdpArn ::
-      Text
+-- /See:/ 'newGetDevicePool' smart constructor.
+data GetDevicePool = GetDevicePool'
+  { -- | The device pool\'s ARN.
+    arn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDevicePool' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDevicePool' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdpArn' - The device pool's ARN.
-getDevicePool ::
-  -- | 'gdpArn'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'arn', 'getDevicePool_arn' - The device pool\'s ARN.
+newGetDevicePool ::
+  -- | 'arn'
+  Prelude.Text ->
   GetDevicePool
-getDevicePool pArn_ = GetDevicePool' {_gdpArn = pArn_}
+newGetDevicePool pArn_ = GetDevicePool' {arn = pArn_}
 
--- | The device pool's ARN.
-gdpArn :: Lens' GetDevicePool Text
-gdpArn = lens _gdpArn (\s a -> s {_gdpArn = a})
+-- | The device pool\'s ARN.
+getDevicePool_arn :: Lens.Lens' GetDevicePool Prelude.Text
+getDevicePool_arn = Lens.lens (\GetDevicePool' {arn} -> arn) (\s@GetDevicePool' {} a -> s {arn = a} :: GetDevicePool)
 
-instance AWSRequest GetDevicePool where
+instance Prelude.AWSRequest GetDevicePool where
   type Rs GetDevicePool = GetDevicePoolResponse
-  request = postJSON deviceFarm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetDevicePoolResponse'
-            <$> (x .?> "devicePool") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "devicePool")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetDevicePool
+instance Prelude.Hashable GetDevicePool
 
-instance NFData GetDevicePool
+instance Prelude.NFData GetDevicePool
 
-instance ToHeaders GetDevicePool where
+instance Prelude.ToHeaders GetDevicePool where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("DeviceFarm_20150623.GetDevicePool" :: ByteString),
+              Prelude.=# ( "DeviceFarm_20150623.GetDevicePool" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetDevicePool where
+instance Prelude.ToJSON GetDevicePool where
   toJSON GetDevicePool' {..} =
-    object (catMaybes [Just ("arn" .= _gdpArn)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("arn" Prelude..= arn)]
+      )
 
-instance ToPath GetDevicePool where
-  toPath = const "/"
+instance Prelude.ToPath GetDevicePool where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetDevicePool where
-  toQuery = const mempty
+instance Prelude.ToQuery GetDevicePool where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the result of a get device pool request.
 --
---
---
--- /See:/ 'getDevicePoolResponse' smart constructor.
+-- /See:/ 'newGetDevicePoolResponse' smart constructor.
 data GetDevicePoolResponse = GetDevicePoolResponse'
-  { _gdprrsDevicePool ::
-      !(Maybe DevicePool),
-    _gdprrsResponseStatus ::
-      !Int
+  { -- | An object that contains information about the requested device pool.
+    devicePool :: Prelude.Maybe DevicePool,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDevicePoolResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDevicePoolResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdprrsDevicePool' - An object that contains information about the requested device pool.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gdprrsResponseStatus' - -- | The response status code.
-getDevicePoolResponse ::
-  -- | 'gdprrsResponseStatus'
-  Int ->
+-- 'devicePool', 'getDevicePoolResponse_devicePool' - An object that contains information about the requested device pool.
+--
+-- 'httpStatus', 'getDevicePoolResponse_httpStatus' - The response's http status code.
+newGetDevicePoolResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetDevicePoolResponse
-getDevicePoolResponse pResponseStatus_ =
+newGetDevicePoolResponse pHttpStatus_ =
   GetDevicePoolResponse'
-    { _gdprrsDevicePool = Nothing,
-      _gdprrsResponseStatus = pResponseStatus_
+    { devicePool =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | An object that contains information about the requested device pool.
-gdprrsDevicePool :: Lens' GetDevicePoolResponse (Maybe DevicePool)
-gdprrsDevicePool = lens _gdprrsDevicePool (\s a -> s {_gdprrsDevicePool = a})
+getDevicePoolResponse_devicePool :: Lens.Lens' GetDevicePoolResponse (Prelude.Maybe DevicePool)
+getDevicePoolResponse_devicePool = Lens.lens (\GetDevicePoolResponse' {devicePool} -> devicePool) (\s@GetDevicePoolResponse' {} a -> s {devicePool = a} :: GetDevicePoolResponse)
 
--- | -- | The response status code.
-gdprrsResponseStatus :: Lens' GetDevicePoolResponse Int
-gdprrsResponseStatus = lens _gdprrsResponseStatus (\s a -> s {_gdprrsResponseStatus = a})
+-- | The response's http status code.
+getDevicePoolResponse_httpStatus :: Lens.Lens' GetDevicePoolResponse Prelude.Int
+getDevicePoolResponse_httpStatus = Lens.lens (\GetDevicePoolResponse' {httpStatus} -> httpStatus) (\s@GetDevicePoolResponse' {} a -> s {httpStatus = a} :: GetDevicePoolResponse)
 
-instance NFData GetDevicePoolResponse
+instance Prelude.NFData GetDevicePoolResponse

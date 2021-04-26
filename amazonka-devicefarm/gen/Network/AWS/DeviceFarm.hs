@@ -11,19 +11,25 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Welcome to the AWS Device Farm API documentation, which contains APIs for:
+-- Welcome to the AWS Device Farm API documentation, which contains APIs
+-- for:
 --
+-- -   Testing on desktop browsers
 --
---     * Testing on desktop browsers
+--     Device Farm makes it possible for you to test your web applications
+--     on desktop browsers using Selenium. The APIs for desktop browser
+--     testing contain @TestGrid@ in their names. For more information, see
+--     <https://docs.aws.amazon.com/devicefarm/latest/testgrid/ Testing Web Applications on Selenium with Device Farm>.
 --
--- Device Farm makes it possible for you to test your web applications on desktop browsers using Selenium. The APIs for desktop browser testing contain @TestGrid@ in their names. For more information, see <https://docs.aws.amazon.com/devicefarm/latest/testgrid/ Testing Web Applications on Selenium with Device Farm> .
+-- -   Testing on real mobile devices
 --
---     * Testing on real mobile devices
---
--- Device Farm makes it possible for you to test apps on physical phones, tablets, and other devices in the cloud. For more information, see the <https://docs.aws.amazon.com/devicefarm/latest/developerguide/ Device Farm Developer Guide> .
+--     Device Farm makes it possible for you to test apps on physical
+--     phones, tablets, and other devices in the cloud. For more
+--     information, see the
+--     <https://docs.aws.amazon.com/devicefarm/latest/developerguide/ Device Farm Developer Guide>.
 module Network.AWS.DeviceFarm
   ( -- * Service Configuration
-    deviceFarm,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -71,235 +77,466 @@ module Network.AWS.DeviceFarm
     -- $operations
 
     -- ** CreateUpload
-    module Network.AWS.DeviceFarm.CreateUpload,
+    CreateUpload (CreateUpload'),
+    newCreateUpload,
+    CreateUploadResponse (CreateUploadResponse'),
+    newCreateUploadResponse,
 
     -- ** ListTestGridSessionActions
-    module Network.AWS.DeviceFarm.ListTestGridSessionActions,
+    ListTestGridSessionActions (ListTestGridSessionActions'),
+    newListTestGridSessionActions,
+    ListTestGridSessionActionsResponse (ListTestGridSessionActionsResponse'),
+    newListTestGridSessionActionsResponse,
 
     -- ** CreateTestGridProject
-    module Network.AWS.DeviceFarm.CreateTestGridProject,
+    CreateTestGridProject (CreateTestGridProject'),
+    newCreateTestGridProject,
+    CreateTestGridProjectResponse (CreateTestGridProjectResponse'),
+    newCreateTestGridProjectResponse,
 
     -- ** ListSamples (Paginated)
-    module Network.AWS.DeviceFarm.ListSamples,
+    ListSamples (ListSamples'),
+    newListSamples,
+    ListSamplesResponse (ListSamplesResponse'),
+    newListSamplesResponse,
 
     -- ** ListTestGridSessionArtifacts
-    module Network.AWS.DeviceFarm.ListTestGridSessionArtifacts,
+    ListTestGridSessionArtifacts (ListTestGridSessionArtifacts'),
+    newListTestGridSessionArtifacts,
+    ListTestGridSessionArtifactsResponse (ListTestGridSessionArtifactsResponse'),
+    newListTestGridSessionArtifactsResponse,
 
     -- ** ListNetworkProfiles (Paginated)
-    module Network.AWS.DeviceFarm.ListNetworkProfiles,
+    ListNetworkProfiles (ListNetworkProfiles'),
+    newListNetworkProfiles,
+    ListNetworkProfilesResponse (ListNetworkProfilesResponse'),
+    newListNetworkProfilesResponse,
 
     -- ** ScheduleRun
-    module Network.AWS.DeviceFarm.ScheduleRun,
+    ScheduleRun (ScheduleRun'),
+    newScheduleRun,
+    ScheduleRunResponse (ScheduleRunResponse'),
+    newScheduleRunResponse,
 
     -- ** UpdateNetworkProfile
-    module Network.AWS.DeviceFarm.UpdateNetworkProfile,
+    UpdateNetworkProfile (UpdateNetworkProfile'),
+    newUpdateNetworkProfile,
+    UpdateNetworkProfileResponse (UpdateNetworkProfileResponse'),
+    newUpdateNetworkProfileResponse,
 
     -- ** InstallToRemoteAccessSession
-    module Network.AWS.DeviceFarm.InstallToRemoteAccessSession,
+    InstallToRemoteAccessSession (InstallToRemoteAccessSession'),
+    newInstallToRemoteAccessSession,
+    InstallToRemoteAccessSessionResponse (InstallToRemoteAccessSessionResponse'),
+    newInstallToRemoteAccessSessionResponse,
 
     -- ** DeleteNetworkProfile
-    module Network.AWS.DeviceFarm.DeleteNetworkProfile,
+    DeleteNetworkProfile (DeleteNetworkProfile'),
+    newDeleteNetworkProfile,
+    DeleteNetworkProfileResponse (DeleteNetworkProfileResponse'),
+    newDeleteNetworkProfileResponse,
 
     -- ** GetDevicePoolCompatibility
-    module Network.AWS.DeviceFarm.GetDevicePoolCompatibility,
+    GetDevicePoolCompatibility (GetDevicePoolCompatibility'),
+    newGetDevicePoolCompatibility,
+    GetDevicePoolCompatibilityResponse (GetDevicePoolCompatibilityResponse'),
+    newGetDevicePoolCompatibilityResponse,
 
     -- ** CreateVPCEConfiguration
-    module Network.AWS.DeviceFarm.CreateVPCEConfiguration,
+    CreateVPCEConfiguration (CreateVPCEConfiguration'),
+    newCreateVPCEConfiguration,
+    CreateVPCEConfigurationResponse (CreateVPCEConfigurationResponse'),
+    newCreateVPCEConfigurationResponse,
 
     -- ** ListProjects (Paginated)
-    module Network.AWS.DeviceFarm.ListProjects,
+    ListProjects (ListProjects'),
+    newListProjects,
+    ListProjectsResponse (ListProjectsResponse'),
+    newListProjectsResponse,
 
     -- ** CreateProject
-    module Network.AWS.DeviceFarm.CreateProject,
+    CreateProject (CreateProject'),
+    newCreateProject,
+    CreateProjectResponse (CreateProjectResponse'),
+    newCreateProjectResponse,
 
-    -- ** CreateTestGridURL
-    module Network.AWS.DeviceFarm.CreateTestGridURL,
+    -- ** CreateTestGridUrl
+    CreateTestGridUrl (CreateTestGridUrl'),
+    newCreateTestGridUrl,
+    CreateTestGridUrlResponse (CreateTestGridUrlResponse'),
+    newCreateTestGridUrlResponse,
 
     -- ** ListOfferings (Paginated)
-    module Network.AWS.DeviceFarm.ListOfferings,
+    ListOfferings (ListOfferings'),
+    newListOfferings,
+    ListOfferingsResponse (ListOfferingsResponse'),
+    newListOfferingsResponse,
 
     -- ** ListDevices (Paginated)
-    module Network.AWS.DeviceFarm.ListDevices,
+    ListDevices (ListDevices'),
+    newListDevices,
+    ListDevicesResponse (ListDevicesResponse'),
+    newListDevicesResponse,
 
     -- ** StopRun
-    module Network.AWS.DeviceFarm.StopRun,
+    StopRun (StopRun'),
+    newStopRun,
+    StopRunResponse (StopRunResponse'),
+    newStopRunResponse,
 
     -- ** CreateNetworkProfile
-    module Network.AWS.DeviceFarm.CreateNetworkProfile,
+    CreateNetworkProfile (CreateNetworkProfile'),
+    newCreateNetworkProfile,
+    CreateNetworkProfileResponse (CreateNetworkProfileResponse'),
+    newCreateNetworkProfileResponse,
 
     -- ** GetJob
-    module Network.AWS.DeviceFarm.GetJob,
+    GetJob (GetJob'),
+    newGetJob,
+    GetJobResponse (GetJobResponse'),
+    newGetJobResponse,
 
     -- ** CreateInstanceProfile
-    module Network.AWS.DeviceFarm.CreateInstanceProfile,
+    CreateInstanceProfile (CreateInstanceProfile'),
+    newCreateInstanceProfile,
+    CreateInstanceProfileResponse (CreateInstanceProfileResponse'),
+    newCreateInstanceProfileResponse,
 
     -- ** GetDevice
-    module Network.AWS.DeviceFarm.GetDevice,
+    GetDevice (GetDevice'),
+    newGetDevice,
+    GetDeviceResponse (GetDeviceResponse'),
+    newGetDeviceResponse,
 
     -- ** StopRemoteAccessSession
-    module Network.AWS.DeviceFarm.StopRemoteAccessSession,
+    StopRemoteAccessSession (StopRemoteAccessSession'),
+    newStopRemoteAccessSession,
+    StopRemoteAccessSessionResponse (StopRemoteAccessSessionResponse'),
+    newStopRemoteAccessSessionResponse,
 
     -- ** UntagResource
-    module Network.AWS.DeviceFarm.UntagResource,
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
 
     -- ** ListDeviceInstances (Paginated)
-    module Network.AWS.DeviceFarm.ListDeviceInstances,
+    ListDeviceInstances (ListDeviceInstances'),
+    newListDeviceInstances,
+    ListDeviceInstancesResponse (ListDeviceInstancesResponse'),
+    newListDeviceInstancesResponse,
 
     -- ** UpdateDeviceInstance
-    module Network.AWS.DeviceFarm.UpdateDeviceInstance,
+    UpdateDeviceInstance (UpdateDeviceInstance'),
+    newUpdateDeviceInstance,
+    UpdateDeviceInstanceResponse (UpdateDeviceInstanceResponse'),
+    newUpdateDeviceInstanceResponse,
 
     -- ** CreateDevicePool
-    module Network.AWS.DeviceFarm.CreateDevicePool,
+    CreateDevicePool (CreateDevicePool'),
+    newCreateDevicePool,
+    CreateDevicePoolResponse (CreateDevicePoolResponse'),
+    newCreateDevicePoolResponse,
 
     -- ** TagResource
-    module Network.AWS.DeviceFarm.TagResource,
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
 
     -- ** ListRuns (Paginated)
-    module Network.AWS.DeviceFarm.ListRuns,
+    ListRuns (ListRuns'),
+    newListRuns,
+    ListRunsResponse (ListRunsResponse'),
+    newListRunsResponse,
 
     -- ** GetUpload
-    module Network.AWS.DeviceFarm.GetUpload,
+    GetUpload (GetUpload'),
+    newGetUpload,
+    GetUploadResponse (GetUploadResponse'),
+    newGetUploadResponse,
 
     -- ** GetTestGridProject
-    module Network.AWS.DeviceFarm.GetTestGridProject,
+    GetTestGridProject (GetTestGridProject'),
+    newGetTestGridProject,
+    GetTestGridProjectResponse (GetTestGridProjectResponse'),
+    newGetTestGridProjectResponse,
 
     -- ** ListDevicePools (Paginated)
-    module Network.AWS.DeviceFarm.ListDevicePools,
+    ListDevicePools (ListDevicePools'),
+    newListDevicePools,
+    ListDevicePoolsResponse (ListDevicePoolsResponse'),
+    newListDevicePoolsResponse,
 
     -- ** GetOfferingStatus (Paginated)
-    module Network.AWS.DeviceFarm.GetOfferingStatus,
+    GetOfferingStatus (GetOfferingStatus'),
+    newGetOfferingStatus,
+    GetOfferingStatusResponse (GetOfferingStatusResponse'),
+    newGetOfferingStatusResponse,
 
     -- ** DeleteUpload
-    module Network.AWS.DeviceFarm.DeleteUpload,
+    DeleteUpload (DeleteUpload'),
+    newDeleteUpload,
+    DeleteUploadResponse (DeleteUploadResponse'),
+    newDeleteUploadResponse,
 
     -- ** ListUploads (Paginated)
-    module Network.AWS.DeviceFarm.ListUploads,
+    ListUploads (ListUploads'),
+    newListUploads,
+    ListUploadsResponse (ListUploadsResponse'),
+    newListUploadsResponse,
 
     -- ** CreateRemoteAccessSession
-    module Network.AWS.DeviceFarm.CreateRemoteAccessSession,
+    CreateRemoteAccessSession (CreateRemoteAccessSession'),
+    newCreateRemoteAccessSession,
+    CreateRemoteAccessSessionResponse (CreateRemoteAccessSessionResponse'),
+    newCreateRemoteAccessSessionResponse,
 
     -- ** UpdateUpload
-    module Network.AWS.DeviceFarm.UpdateUpload,
+    UpdateUpload (UpdateUpload'),
+    newUpdateUpload,
+    UpdateUploadResponse (UpdateUploadResponse'),
+    newUpdateUploadResponse,
 
     -- ** ListTestGridProjects
-    module Network.AWS.DeviceFarm.ListTestGridProjects,
+    ListTestGridProjects (ListTestGridProjects'),
+    newListTestGridProjects,
+    ListTestGridProjectsResponse (ListTestGridProjectsResponse'),
+    newListTestGridProjectsResponse,
 
     -- ** ListArtifacts (Paginated)
-    module Network.AWS.DeviceFarm.ListArtifacts,
+    ListArtifacts (ListArtifacts'),
+    newListArtifacts,
+    ListArtifactsResponse (ListArtifactsResponse'),
+    newListArtifactsResponse,
 
     -- ** ListRemoteAccessSessions (Paginated)
-    module Network.AWS.DeviceFarm.ListRemoteAccessSessions,
+    ListRemoteAccessSessions (ListRemoteAccessSessions'),
+    newListRemoteAccessSessions,
+    ListRemoteAccessSessionsResponse (ListRemoteAccessSessionsResponse'),
+    newListRemoteAccessSessionsResponse,
 
     -- ** GetRun
-    module Network.AWS.DeviceFarm.GetRun,
+    GetRun (GetRun'),
+    newGetRun,
+    GetRunResponse (GetRunResponse'),
+    newGetRunResponse,
 
     -- ** GetDeviceInstance
-    module Network.AWS.DeviceFarm.GetDeviceInstance,
+    GetDeviceInstance (GetDeviceInstance'),
+    newGetDeviceInstance,
+    GetDeviceInstanceResponse (GetDeviceInstanceResponse'),
+    newGetDeviceInstanceResponse,
 
     -- ** ListSuites (Paginated)
-    module Network.AWS.DeviceFarm.ListSuites,
+    ListSuites (ListSuites'),
+    newListSuites,
+    ListSuitesResponse (ListSuitesResponse'),
+    newListSuitesResponse,
 
     -- ** StopJob
-    module Network.AWS.DeviceFarm.StopJob,
+    StopJob (StopJob'),
+    newStopJob,
+    StopJobResponse (StopJobResponse'),
+    newStopJobResponse,
 
     -- ** ListTests (Paginated)
-    module Network.AWS.DeviceFarm.ListTests,
+    ListTests (ListTests'),
+    newListTests,
+    ListTestsResponse (ListTestsResponse'),
+    newListTestsResponse,
 
     -- ** DeleteRemoteAccessSession
-    module Network.AWS.DeviceFarm.DeleteRemoteAccessSession,
+    DeleteRemoteAccessSession (DeleteRemoteAccessSession'),
+    newDeleteRemoteAccessSession,
+    DeleteRemoteAccessSessionResponse (DeleteRemoteAccessSessionResponse'),
+    newDeleteRemoteAccessSessionResponse,
 
     -- ** DeleteProject
-    module Network.AWS.DeviceFarm.DeleteProject,
+    DeleteProject (DeleteProject'),
+    newDeleteProject,
+    DeleteProjectResponse (DeleteProjectResponse'),
+    newDeleteProjectResponse,
 
     -- ** GetInstanceProfile
-    module Network.AWS.DeviceFarm.GetInstanceProfile,
+    GetInstanceProfile (GetInstanceProfile'),
+    newGetInstanceProfile,
+    GetInstanceProfileResponse (GetInstanceProfileResponse'),
+    newGetInstanceProfileResponse,
 
     -- ** UpdateProject
-    module Network.AWS.DeviceFarm.UpdateProject,
+    UpdateProject (UpdateProject'),
+    newUpdateProject,
+    UpdateProjectResponse (UpdateProjectResponse'),
+    newUpdateProjectResponse,
 
     -- ** ListTestGridSessions
-    module Network.AWS.DeviceFarm.ListTestGridSessions,
+    ListTestGridSessions (ListTestGridSessions'),
+    newListTestGridSessions,
+    ListTestGridSessionsResponse (ListTestGridSessionsResponse'),
+    newListTestGridSessionsResponse,
 
     -- ** ListUniqueProblems (Paginated)
-    module Network.AWS.DeviceFarm.ListUniqueProblems,
+    ListUniqueProblems (ListUniqueProblems'),
+    newListUniqueProblems,
+    ListUniqueProblemsResponse (ListUniqueProblemsResponse'),
+    newListUniqueProblemsResponse,
 
     -- ** DeleteVPCEConfiguration
-    module Network.AWS.DeviceFarm.DeleteVPCEConfiguration,
+    DeleteVPCEConfiguration (DeleteVPCEConfiguration'),
+    newDeleteVPCEConfiguration,
+    DeleteVPCEConfigurationResponse (DeleteVPCEConfigurationResponse'),
+    newDeleteVPCEConfigurationResponse,
 
     -- ** UpdateVPCEConfiguration
-    module Network.AWS.DeviceFarm.UpdateVPCEConfiguration,
+    UpdateVPCEConfiguration (UpdateVPCEConfiguration'),
+    newUpdateVPCEConfiguration,
+    UpdateVPCEConfigurationResponse (UpdateVPCEConfigurationResponse'),
+    newUpdateVPCEConfigurationResponse,
 
     -- ** ListVPCEConfigurations (Paginated)
-    module Network.AWS.DeviceFarm.ListVPCEConfigurations,
+    ListVPCEConfigurations (ListVPCEConfigurations'),
+    newListVPCEConfigurations,
+    ListVPCEConfigurationsResponse (ListVPCEConfigurationsResponse'),
+    newListVPCEConfigurationsResponse,
 
     -- ** GetVPCEConfiguration
-    module Network.AWS.DeviceFarm.GetVPCEConfiguration,
+    GetVPCEConfiguration (GetVPCEConfiguration'),
+    newGetVPCEConfiguration,
+    GetVPCEConfigurationResponse (GetVPCEConfigurationResponse'),
+    newGetVPCEConfigurationResponse,
 
     -- ** ListJobs (Paginated)
-    module Network.AWS.DeviceFarm.ListJobs,
+    ListJobs (ListJobs'),
+    newListJobs,
+    ListJobsResponse (ListJobsResponse'),
+    newListJobsResponse,
 
     -- ** GetTestGridSession
-    module Network.AWS.DeviceFarm.GetTestGridSession,
+    GetTestGridSession (GetTestGridSession'),
+    newGetTestGridSession,
+    GetTestGridSessionResponse (GetTestGridSessionResponse'),
+    newGetTestGridSessionResponse,
 
     -- ** PurchaseOffering
-    module Network.AWS.DeviceFarm.PurchaseOffering,
+    PurchaseOffering (PurchaseOffering'),
+    newPurchaseOffering,
+    PurchaseOfferingResponse (PurchaseOfferingResponse'),
+    newPurchaseOfferingResponse,
 
     -- ** GetProject
-    module Network.AWS.DeviceFarm.GetProject,
+    GetProject (GetProject'),
+    newGetProject,
+    GetProjectResponse (GetProjectResponse'),
+    newGetProjectResponse,
 
     -- ** ListInstanceProfiles (Paginated)
-    module Network.AWS.DeviceFarm.ListInstanceProfiles,
+    ListInstanceProfiles (ListInstanceProfiles'),
+    newListInstanceProfiles,
+    ListInstanceProfilesResponse (ListInstanceProfilesResponse'),
+    newListInstanceProfilesResponse,
 
     -- ** GetNetworkProfile
-    module Network.AWS.DeviceFarm.GetNetworkProfile,
+    GetNetworkProfile (GetNetworkProfile'),
+    newGetNetworkProfile,
+    GetNetworkProfileResponse (GetNetworkProfileResponse'),
+    newGetNetworkProfileResponse,
 
     -- ** UpdateInstanceProfile
-    module Network.AWS.DeviceFarm.UpdateInstanceProfile,
+    UpdateInstanceProfile (UpdateInstanceProfile'),
+    newUpdateInstanceProfile,
+    UpdateInstanceProfileResponse (UpdateInstanceProfileResponse'),
+    newUpdateInstanceProfileResponse,
 
     -- ** DeleteInstanceProfile
-    module Network.AWS.DeviceFarm.DeleteInstanceProfile,
+    DeleteInstanceProfile (DeleteInstanceProfile'),
+    newDeleteInstanceProfile,
+    DeleteInstanceProfileResponse (DeleteInstanceProfileResponse'),
+    newDeleteInstanceProfileResponse,
 
     -- ** RenewOffering
-    module Network.AWS.DeviceFarm.RenewOffering,
+    RenewOffering (RenewOffering'),
+    newRenewOffering,
+    RenewOfferingResponse (RenewOfferingResponse'),
+    newRenewOfferingResponse,
 
     -- ** GetRemoteAccessSession
-    module Network.AWS.DeviceFarm.GetRemoteAccessSession,
+    GetRemoteAccessSession (GetRemoteAccessSession'),
+    newGetRemoteAccessSession,
+    GetRemoteAccessSessionResponse (GetRemoteAccessSessionResponse'),
+    newGetRemoteAccessSessionResponse,
 
     -- ** GetSuite
-    module Network.AWS.DeviceFarm.GetSuite,
+    GetSuite (GetSuite'),
+    newGetSuite,
+    GetSuiteResponse (GetSuiteResponse'),
+    newGetSuiteResponse,
 
     -- ** DeleteRun
-    module Network.AWS.DeviceFarm.DeleteRun,
+    DeleteRun (DeleteRun'),
+    newDeleteRun,
+    DeleteRunResponse (DeleteRunResponse'),
+    newDeleteRunResponse,
 
     -- ** GetTest
-    module Network.AWS.DeviceFarm.GetTest,
+    GetTest (GetTest'),
+    newGetTest,
+    GetTestResponse (GetTestResponse'),
+    newGetTestResponse,
 
     -- ** DeleteDevicePool
-    module Network.AWS.DeviceFarm.DeleteDevicePool,
+    DeleteDevicePool (DeleteDevicePool'),
+    newDeleteDevicePool,
+    DeleteDevicePoolResponse (DeleteDevicePoolResponse'),
+    newDeleteDevicePoolResponse,
 
     -- ** ListOfferingTransactions (Paginated)
-    module Network.AWS.DeviceFarm.ListOfferingTransactions,
+    ListOfferingTransactions (ListOfferingTransactions'),
+    newListOfferingTransactions,
+    ListOfferingTransactionsResponse (ListOfferingTransactionsResponse'),
+    newListOfferingTransactionsResponse,
 
     -- ** UpdateDevicePool
-    module Network.AWS.DeviceFarm.UpdateDevicePool,
+    UpdateDevicePool (UpdateDevicePool'),
+    newUpdateDevicePool,
+    UpdateDevicePoolResponse (UpdateDevicePoolResponse'),
+    newUpdateDevicePoolResponse,
 
     -- ** UpdateTestGridProject
-    module Network.AWS.DeviceFarm.UpdateTestGridProject,
+    UpdateTestGridProject (UpdateTestGridProject'),
+    newUpdateTestGridProject,
+    UpdateTestGridProjectResponse (UpdateTestGridProjectResponse'),
+    newUpdateTestGridProjectResponse,
 
     -- ** ListTagsForResource
-    module Network.AWS.DeviceFarm.ListTagsForResource,
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
 
     -- ** DeleteTestGridProject
-    module Network.AWS.DeviceFarm.DeleteTestGridProject,
+    DeleteTestGridProject (DeleteTestGridProject'),
+    newDeleteTestGridProject,
+    DeleteTestGridProjectResponse (DeleteTestGridProjectResponse'),
+    newDeleteTestGridProjectResponse,
 
     -- ** ListOfferingPromotions (Paginated)
-    module Network.AWS.DeviceFarm.ListOfferingPromotions,
+    ListOfferingPromotions (ListOfferingPromotions'),
+    newListOfferingPromotions,
+    ListOfferingPromotionsResponse (ListOfferingPromotionsResponse'),
+    newListOfferingPromotionsResponse,
 
     -- ** GetDevicePool
-    module Network.AWS.DeviceFarm.GetDevicePool,
+    GetDevicePool (GetDevicePool'),
+    newGetDevicePool,
+    GetDevicePoolResponse (GetDevicePoolResponse'),
+    newGetDevicePoolResponse,
 
     -- ** GetAccountSettings
-    module Network.AWS.DeviceFarm.GetAccountSettings,
+    GetAccountSettings (GetAccountSettings'),
+    newGetAccountSettings,
+    GetAccountSettingsResponse (GetAccountSettingsResponse'),
+    newGetAccountSettingsResponse,
 
     -- * Types
 
@@ -388,485 +625,196 @@ module Network.AWS.DeviceFarm
     UploadType (..),
 
     -- ** AccountSettings
-    AccountSettings,
-    accountSettings,
-    asAwsAccountNumber,
-    asMaxSlots,
-    asTrialMinutes,
-    asSkipAppResign,
-    asMaxJobTimeoutMinutes,
-    asDefaultJobTimeoutMinutes,
-    asUnmeteredDevices,
-    asUnmeteredRemoteAccessDevices,
+    AccountSettings (AccountSettings'),
+    newAccountSettings,
 
     -- ** Artifact
-    Artifact,
-    artifact,
-    aArn,
-    aName,
-    aExtension,
-    aUrl,
-    aType,
+    Artifact (Artifact'),
+    newArtifact,
 
     -- ** CPU
-    CPU,
-    cpu,
-    cpuArchitecture,
-    cpuFrequency,
-    cpuClock,
+    CPU (CPU'),
+    newCPU,
 
     -- ** Counters
-    Counters,
-    counters,
-    cErrored,
-    cWarned,
-    cPassed,
-    cTotal,
-    cStopped,
-    cFailed,
-    cSkipped,
+    Counters (Counters'),
+    newCounters,
 
     -- ** CreateRemoteAccessSessionConfiguration
-    CreateRemoteAccessSessionConfiguration,
-    createRemoteAccessSessionConfiguration,
-    crascBillingMethod,
-    crascVpceConfigurationARNs,
+    CreateRemoteAccessSessionConfiguration (CreateRemoteAccessSessionConfiguration'),
+    newCreateRemoteAccessSessionConfiguration,
 
     -- ** CustomerArtifactPaths
-    CustomerArtifactPaths,
-    customerArtifactPaths,
-    capDeviceHostPaths,
-    capIosPaths,
-    capAndroidPaths,
+    CustomerArtifactPaths (CustomerArtifactPaths'),
+    newCustomerArtifactPaths,
 
     -- ** Device
-    Device,
-    device,
-    dManufacturer,
-    dPlatform,
-    dModel,
-    dFleetName,
-    dMemory,
-    dAvailability,
-    dFleetType,
-    dFormFactor,
-    dRemoteAccessEnabled,
-    dArn,
-    dInstances,
-    dName,
-    dImage,
-    dCarrier,
-    dOs,
-    dHeapSize,
-    dRadio,
-    dResolution,
-    dCpu,
-    dRemoteDebugEnabled,
-    dModelId,
+    Device (Device'),
+    newDevice,
 
     -- ** DeviceFilter
-    DeviceFilter,
-    deviceFilter,
-    dfOperator,
-    dfValues,
-    dfAttribute,
+    DeviceFilter (DeviceFilter'),
+    newDeviceFilter,
 
     -- ** DeviceInstance
-    DeviceInstance,
-    deviceInstance,
-    diUdid,
-    diStatus,
-    diDeviceARN,
-    diArn,
-    diLabels,
-    diInstanceProfile,
+    DeviceInstance (DeviceInstance'),
+    newDeviceInstance,
 
     -- ** DeviceMinutes
-    DeviceMinutes,
-    deviceMinutes,
-    dmUnmetered,
-    dmMetered,
-    dmTotal,
+    DeviceMinutes (DeviceMinutes'),
+    newDeviceMinutes,
 
     -- ** DevicePool
-    DevicePool,
-    devicePool,
-    dpRules,
-    dpArn,
-    dpName,
-    dpMaxDevices,
-    dpDescription,
-    dpType,
+    DevicePool (DevicePool'),
+    newDevicePool,
 
     -- ** DevicePoolCompatibilityResult
-    DevicePoolCompatibilityResult,
-    devicePoolCompatibilityResult,
-    dpcrIncompatibilityMessages,
-    dpcrCompatible,
-    dpcrDevice,
+    DevicePoolCompatibilityResult (DevicePoolCompatibilityResult'),
+    newDevicePoolCompatibilityResult,
 
     -- ** DeviceSelectionConfiguration
-    DeviceSelectionConfiguration,
-    deviceSelectionConfiguration,
-    dscFilters,
-    dscMaxDevices,
+    DeviceSelectionConfiguration (DeviceSelectionConfiguration'),
+    newDeviceSelectionConfiguration,
 
     -- ** DeviceSelectionResult
-    DeviceSelectionResult,
-    deviceSelectionResult,
-    dsrMaxDevices,
-    dsrFilters,
-    dsrMatchedDevicesCount,
+    DeviceSelectionResult (DeviceSelectionResult'),
+    newDeviceSelectionResult,
 
     -- ** ExecutionConfiguration
-    ExecutionConfiguration,
-    executionConfiguration,
-    ecAppPackagesCleanup,
-    ecVideoCapture,
-    ecSkipAppResign,
-    ecJobTimeoutMinutes,
-    ecAccountsCleanup,
+    ExecutionConfiguration (ExecutionConfiguration'),
+    newExecutionConfiguration,
 
     -- ** IncompatibilityMessage
-    IncompatibilityMessage,
-    incompatibilityMessage,
-    imMessage,
-    imType,
+    IncompatibilityMessage (IncompatibilityMessage'),
+    newIncompatibilityMessage,
 
     -- ** InstanceProfile
-    InstanceProfile,
-    instanceProfile,
-    ipExcludeAppPackagesFromCleanup,
-    ipArn,
-    ipName,
-    ipDescription,
-    ipRebootAfterUse,
-    ipPackageCleanup,
+    InstanceProfile (InstanceProfile'),
+    newInstanceProfile,
 
     -- ** Job
-    Job,
-    job,
-    jobCounters,
-    jobStatus,
-    jobResult,
-    jobStarted,
-    jobMessage,
-    jobDevice,
-    jobVideoCapture,
-    jobArn,
-    jobVideoEndpoint,
-    jobName,
-    jobInstanceARN,
-    jobStopped,
-    jobCreated,
-    jobType,
-    jobDeviceMinutes,
+    Job (Job'),
+    newJob,
 
     -- ** Location
-    Location,
-    location,
-    lLatitude,
-    lLongitude,
+    Location (Location'),
+    newLocation,
 
     -- ** MonetaryAmount
-    MonetaryAmount,
-    monetaryAmount,
-    maAmount,
-    maCurrencyCode,
+    MonetaryAmount (MonetaryAmount'),
+    newMonetaryAmount,
 
     -- ** NetworkProfile
-    NetworkProfile,
-    networkProfile,
-    npUplinkJitterMs,
-    npDownlinkDelayMs,
-    npDownlinkBandwidthBits,
-    npDownlinkJitterMs,
-    npUplinkLossPercent,
-    npArn,
-    npDownlinkLossPercent,
-    npName,
-    npDescription,
-    npUplinkDelayMs,
-    npUplinkBandwidthBits,
-    npType,
+    NetworkProfile (NetworkProfile'),
+    newNetworkProfile,
 
     -- ** Offering
-    Offering,
-    offering,
-    oPlatform,
-    oId,
-    oDescription,
-    oRecurringCharges,
-    oType,
+    Offering (Offering'),
+    newOffering,
 
     -- ** OfferingPromotion
-    OfferingPromotion,
-    offeringPromotion,
-    opId,
-    opDescription,
+    OfferingPromotion (OfferingPromotion'),
+    newOfferingPromotion,
 
     -- ** OfferingStatus
-    OfferingStatus,
-    offeringStatus,
-    osQuantity,
-    osOffering,
-    osEffectiveOn,
-    osType,
+    OfferingStatus (OfferingStatus'),
+    newOfferingStatus,
 
     -- ** OfferingTransaction
-    OfferingTransaction,
-    offeringTransaction,
-    otOfferingStatus,
-    otCreatedOn,
-    otCost,
-    otTransactionId,
-    otOfferingPromotionId,
+    OfferingTransaction (OfferingTransaction'),
+    newOfferingTransaction,
 
     -- ** Problem
-    Problem,
-    problem,
-    pJob,
-    pResult,
-    pMessage,
-    pDevice,
-    pRun,
-    pTest,
-    pSuite,
+    Problem (Problem'),
+    newProblem,
 
     -- ** ProblemDetail
-    ProblemDetail,
-    problemDetail,
-    pdArn,
-    pdName,
+    ProblemDetail (ProblemDetail'),
+    newProblemDetail,
 
     -- ** Project
-    Project,
-    project,
-    pArn,
-    pName,
-    pCreated,
-    pDefaultJobTimeoutMinutes,
+    Project (Project'),
+    newProject,
 
     -- ** Radios
-    Radios,
-    radios,
-    rGps,
-    rWifi,
-    rBluetooth,
-    rNfc,
+    Radios (Radios'),
+    newRadios,
 
     -- ** RecurringCharge
-    RecurringCharge,
-    recurringCharge,
-    rcCost,
-    rcFrequency,
+    RecurringCharge (RecurringCharge'),
+    newRecurringCharge,
 
     -- ** RemoteAccessSession
-    RemoteAccessSession,
-    remoteAccessSession,
-    rasDeviceUdid,
-    rasClientId,
-    rasStatus,
-    rasResult,
-    rasInteractionMode,
-    rasStarted,
-    rasMessage,
-    rasDevice,
-    rasArn,
-    rasName,
-    rasInstanceARN,
-    rasBillingMethod,
-    rasRemoteRecordEnabled,
-    rasSkipAppResign,
-    rasStopped,
-    rasHostAddress,
-    rasEndpoint,
-    rasCreated,
-    rasRemoteDebugEnabled,
-    rasRemoteRecordAppARN,
-    rasDeviceMinutes,
+    RemoteAccessSession (RemoteAccessSession'),
+    newRemoteAccessSession,
 
     -- ** Resolution
-    Resolution,
-    resolution,
-    rHeight,
-    rWidth,
+    Resolution (Resolution'),
+    newResolution,
 
     -- ** Rule
-    Rule,
-    rule,
-    rOperator,
-    rAttribute,
-    rValue,
+    Rule (Rule'),
+    newRule,
 
     -- ** Run
-    Run,
-    run,
-    runSeed,
-    runEventCount,
-    runCounters,
-    runPlatform,
-    runStatus,
-    runResult,
-    runDevicePoolARN,
-    runDeviceSelectionResult,
-    runStarted,
-    runTestSpecARN,
-    runMessage,
-    runLocale,
-    runArn,
-    runNetworkProfile,
-    runAppUpload,
-    runRadios,
-    runName,
-    runBillingMethod,
-    runCustomerArtifactPaths,
-    runResultCode,
-    runSkipAppResign,
-    runCompletedJobs,
-    runStopped,
-    runJobTimeoutMinutes,
-    runTotalJobs,
-    runWebURL,
-    runCreated,
-    runType,
-    runDeviceMinutes,
-    runLocation,
-    runParsingResultURL,
+    Run (Run'),
+    newRun,
 
     -- ** Sample
-    Sample,
-    sample,
-    sArn,
-    sUrl,
-    sType,
+    Sample (Sample'),
+    newSample,
 
     -- ** ScheduleRunConfiguration
-    ScheduleRunConfiguration,
-    scheduleRunConfiguration,
-    srcLocale,
-    srcAuxiliaryApps,
-    srcRadios,
-    srcBillingMethod,
-    srcCustomerArtifactPaths,
-    srcVpceConfigurationARNs,
-    srcNetworkProfileARN,
-    srcLocation,
-    srcExtraDataPackageARN,
+    ScheduleRunConfiguration (ScheduleRunConfiguration'),
+    newScheduleRunConfiguration,
 
     -- ** ScheduleRunTest
-    ScheduleRunTest,
-    scheduleRunTest,
-    srtTestPackageARN,
-    srtTestSpecARN,
-    srtFilter,
-    srtParameters,
-    srtType,
+    ScheduleRunTest (ScheduleRunTest'),
+    newScheduleRunTest,
 
     -- ** Suite
-    Suite,
-    suite,
-    suiCounters,
-    suiStatus,
-    suiResult,
-    suiStarted,
-    suiMessage,
-    suiArn,
-    suiName,
-    suiStopped,
-    suiCreated,
-    suiType,
-    suiDeviceMinutes,
+    Suite (Suite'),
+    newSuite,
 
     -- ** Tag
-    Tag,
-    tag,
-    tagKey,
-    tagValue,
+    Tag (Tag'),
+    newTag,
 
     -- ** Test
-    Test,
-    test,
-    tCounters,
-    tStatus,
-    tResult,
-    tStarted,
-    tMessage,
-    tArn,
-    tName,
-    tStopped,
-    tCreated,
-    tType,
-    tDeviceMinutes,
+    Test (Test'),
+    newTest,
 
     -- ** TestGridProject
-    TestGridProject,
-    testGridProject,
-    tgpArn,
-    tgpName,
-    tgpDescription,
-    tgpCreated,
+    TestGridProject (TestGridProject'),
+    newTestGridProject,
 
     -- ** TestGridSession
-    TestGridSession,
-    testGridSession,
-    tgsStatus,
-    tgsArn,
-    tgsSeleniumProperties,
-    tgsBillingMinutes,
-    tgsEnded,
-    tgsCreated,
+    TestGridSession (TestGridSession'),
+    newTestGridSession,
 
     -- ** TestGridSessionAction
-    TestGridSessionAction,
-    testGridSessionAction,
-    tgsaStarted,
-    tgsaDuration,
-    tgsaStatusCode,
-    tgsaAction,
-    tgsaRequestMethod,
+    TestGridSessionAction (TestGridSessionAction'),
+    newTestGridSessionAction,
 
     -- ** TestGridSessionArtifact
-    TestGridSessionArtifact,
-    testGridSessionArtifact,
-    tgsaFilename,
-    tgsaUrl,
-    tgsaType,
+    TestGridSessionArtifact (TestGridSessionArtifact'),
+    newTestGridSessionArtifact,
 
     -- ** TrialMinutes
-    TrialMinutes,
-    trialMinutes,
-    tmTotal,
-    tmRemaining,
+    TrialMinutes (TrialMinutes'),
+    newTrialMinutes,
 
     -- ** UniqueProblem
-    UniqueProblem,
-    uniqueProblem,
-    upMessage,
-    upProblems,
+    UniqueProblem (UniqueProblem'),
+    newUniqueProblem,
 
     -- ** Upload
-    Upload,
-    upload,
-    uStatus,
-    uContentType,
-    uMessage,
-    uCategory,
-    uMetadata,
-    uArn,
-    uName,
-    uUrl,
-    uCreated,
-    uType,
+    Upload (Upload'),
+    newUpload,
 
     -- ** VPCEConfiguration
-    VPCEConfiguration,
-    vpcEConfiguration,
-    vecVpceConfigurationName,
-    vecVpceConfigurationDescription,
-    vecArn,
-    vecServiceDNSName,
-    vecVpceServiceName,
+    VPCEConfiguration (VPCEConfiguration'),
+    newVPCEConfiguration,
   )
 where
 
@@ -876,7 +824,7 @@ import Network.AWS.DeviceFarm.CreateNetworkProfile
 import Network.AWS.DeviceFarm.CreateProject
 import Network.AWS.DeviceFarm.CreateRemoteAccessSession
 import Network.AWS.DeviceFarm.CreateTestGridProject
-import Network.AWS.DeviceFarm.CreateTestGridURL
+import Network.AWS.DeviceFarm.CreateTestGridUrl
 import Network.AWS.DeviceFarm.CreateUpload
 import Network.AWS.DeviceFarm.CreateVPCEConfiguration
 import Network.AWS.DeviceFarm.DeleteDevicePool
@@ -907,6 +855,7 @@ import Network.AWS.DeviceFarm.GetTestGridSession
 import Network.AWS.DeviceFarm.GetUpload
 import Network.AWS.DeviceFarm.GetVPCEConfiguration
 import Network.AWS.DeviceFarm.InstallToRemoteAccessSession
+import Network.AWS.DeviceFarm.Lens
 import Network.AWS.DeviceFarm.ListArtifacts
 import Network.AWS.DeviceFarm.ListDeviceInstances
 import Network.AWS.DeviceFarm.ListDevicePools

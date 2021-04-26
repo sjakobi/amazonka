@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.DeviceFarm.Types.TestGridSessionArtifactCategory
   ( TestGridSessionArtifactCategory
       ( ..,
-        Log,
-        Video
+        TestGridSessionArtifactCategoryLOG,
+        TestGridSessionArtifactCategoryVIDEO
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TestGridSessionArtifactCategory
-  = TestGridSessionArtifactCategory'
-      ( CI
-          Text
-      )
+newtype TestGridSessionArtifactCategory = TestGridSessionArtifactCategory'
+  { fromTestGridSessionArtifactCategory ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Log :: TestGridSessionArtifactCategory
-pattern Log = TestGridSessionArtifactCategory' "LOG"
+pattern TestGridSessionArtifactCategoryLOG :: TestGridSessionArtifactCategory
+pattern TestGridSessionArtifactCategoryLOG = TestGridSessionArtifactCategory' "LOG"
 
-pattern Video :: TestGridSessionArtifactCategory
-pattern Video = TestGridSessionArtifactCategory' "VIDEO"
+pattern TestGridSessionArtifactCategoryVIDEO :: TestGridSessionArtifactCategory
+pattern TestGridSessionArtifactCategoryVIDEO = TestGridSessionArtifactCategory' "VIDEO"
 
 {-# COMPLETE
-  Log,
-  Video,
+  TestGridSessionArtifactCategoryLOG,
+  TestGridSessionArtifactCategoryVIDEO,
   TestGridSessionArtifactCategory'
   #-}
 
-instance FromText TestGridSessionArtifactCategory where
-  parser = (TestGridSessionArtifactCategory' . mk) <$> takeText
+instance Prelude.FromText TestGridSessionArtifactCategory where
+  parser = TestGridSessionArtifactCategory' Prelude.<$> Prelude.takeText
 
-instance ToText TestGridSessionArtifactCategory where
-  toText (TestGridSessionArtifactCategory' ci) = original ci
+instance Prelude.ToText TestGridSessionArtifactCategory where
+  toText (TestGridSessionArtifactCategory' x) = x
 
-instance Hashable TestGridSessionArtifactCategory
+instance Prelude.Hashable TestGridSessionArtifactCategory
 
-instance NFData TestGridSessionArtifactCategory
+instance Prelude.NFData TestGridSessionArtifactCategory
 
-instance ToByteString TestGridSessionArtifactCategory
+instance Prelude.ToByteString TestGridSessionArtifactCategory
 
-instance ToQuery TestGridSessionArtifactCategory
+instance Prelude.ToQuery TestGridSessionArtifactCategory
 
-instance ToHeader TestGridSessionArtifactCategory
+instance Prelude.ToHeader TestGridSessionArtifactCategory
 
-instance ToJSON TestGridSessionArtifactCategory where
-  toJSON = toJSONText
+instance Prelude.ToJSON TestGridSessionArtifactCategory where
+  toJSON = Prelude.toJSONText

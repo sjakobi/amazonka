@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,65 @@
 module Network.AWS.DeviceFarm.Types.DeviceAvailability
   ( DeviceAvailability
       ( ..,
-        Available,
-        Busy,
-        HighlyAvailable,
-        TemporaryNotAvailable
+        DeviceAvailabilityAVAILABLE,
+        DeviceAvailabilityBUSY,
+        DeviceAvailabilityHIGHLYAVAILABLE,
+        DeviceAvailabilityTEMPORARYNOTAVAILABLE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DeviceAvailability
-  = DeviceAvailability'
-      ( CI
-          Text
-      )
+newtype DeviceAvailability = DeviceAvailability'
+  { fromDeviceAvailability ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Available :: DeviceAvailability
-pattern Available = DeviceAvailability' "AVAILABLE"
+pattern DeviceAvailabilityAVAILABLE :: DeviceAvailability
+pattern DeviceAvailabilityAVAILABLE = DeviceAvailability' "AVAILABLE"
 
-pattern Busy :: DeviceAvailability
-pattern Busy = DeviceAvailability' "BUSY"
+pattern DeviceAvailabilityBUSY :: DeviceAvailability
+pattern DeviceAvailabilityBUSY = DeviceAvailability' "BUSY"
 
-pattern HighlyAvailable :: DeviceAvailability
-pattern HighlyAvailable = DeviceAvailability' "HIGHLY_AVAILABLE"
+pattern DeviceAvailabilityHIGHLYAVAILABLE :: DeviceAvailability
+pattern DeviceAvailabilityHIGHLYAVAILABLE = DeviceAvailability' "HIGHLY_AVAILABLE"
 
-pattern TemporaryNotAvailable :: DeviceAvailability
-pattern TemporaryNotAvailable = DeviceAvailability' "TEMPORARY_NOT_AVAILABLE"
+pattern DeviceAvailabilityTEMPORARYNOTAVAILABLE :: DeviceAvailability
+pattern DeviceAvailabilityTEMPORARYNOTAVAILABLE = DeviceAvailability' "TEMPORARY_NOT_AVAILABLE"
 
 {-# COMPLETE
-  Available,
-  Busy,
-  HighlyAvailable,
-  TemporaryNotAvailable,
+  DeviceAvailabilityAVAILABLE,
+  DeviceAvailabilityBUSY,
+  DeviceAvailabilityHIGHLYAVAILABLE,
+  DeviceAvailabilityTEMPORARYNOTAVAILABLE,
   DeviceAvailability'
   #-}
 
-instance FromText DeviceAvailability where
-  parser = (DeviceAvailability' . mk) <$> takeText
+instance Prelude.FromText DeviceAvailability where
+  parser = DeviceAvailability' Prelude.<$> Prelude.takeText
 
-instance ToText DeviceAvailability where
-  toText (DeviceAvailability' ci) = original ci
+instance Prelude.ToText DeviceAvailability where
+  toText (DeviceAvailability' x) = x
 
-instance Hashable DeviceAvailability
+instance Prelude.Hashable DeviceAvailability
 
-instance NFData DeviceAvailability
+instance Prelude.NFData DeviceAvailability
 
-instance ToByteString DeviceAvailability
+instance Prelude.ToByteString DeviceAvailability
 
-instance ToQuery DeviceAvailability
+instance Prelude.ToQuery DeviceAvailability
 
-instance ToHeader DeviceAvailability
+instance Prelude.ToHeader DeviceAvailability
 
-instance FromJSON DeviceAvailability where
-  parseJSON = parseJSONText "DeviceAvailability"
+instance Prelude.FromJSON DeviceAvailability where
+  parseJSON = Prelude.parseJSONText "DeviceAvailability"

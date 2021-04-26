@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,67 +19,73 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.DeviceFarm.Types.Location where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents a latitude and longitude pair, expressed in geographic coordinate system degrees (for example, 47.6204, -122.3491).
---
+-- | Represents a latitude and longitude pair, expressed in geographic
+-- coordinate system degrees (for example, 47.6204, -122.3491).
 --
 -- Elevation is currently not supported.
 --
---
--- /See:/ 'location' smart constructor.
+-- /See:/ 'newLocation' smart constructor.
 data Location = Location'
-  { _lLatitude :: !Double,
-    _lLongitude :: !Double
+  { -- | The latitude.
+    latitude :: Prelude.Double,
+    -- | The longitude.
+    longitude :: Prelude.Double
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Location' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Location' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lLatitude' - The latitude.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lLongitude' - The longitude.
-location ::
-  -- | 'lLatitude'
-  Double ->
-  -- | 'lLongitude'
-  Double ->
+-- 'latitude', 'location_latitude' - The latitude.
+--
+-- 'longitude', 'location_longitude' - The longitude.
+newLocation ::
+  -- | 'latitude'
+  Prelude.Double ->
+  -- | 'longitude'
+  Prelude.Double ->
   Location
-location pLatitude_ pLongitude_ =
+newLocation pLatitude_ pLongitude_ =
   Location'
-    { _lLatitude = pLatitude_,
-      _lLongitude = pLongitude_
+    { latitude = pLatitude_,
+      longitude = pLongitude_
     }
 
 -- | The latitude.
-lLatitude :: Lens' Location Double
-lLatitude = lens _lLatitude (\s a -> s {_lLatitude = a})
+location_latitude :: Lens.Lens' Location Prelude.Double
+location_latitude = Lens.lens (\Location' {latitude} -> latitude) (\s@Location' {} a -> s {latitude = a} :: Location)
 
 -- | The longitude.
-lLongitude :: Lens' Location Double
-lLongitude = lens _lLongitude (\s a -> s {_lLongitude = a})
+location_longitude :: Lens.Lens' Location Prelude.Double
+location_longitude = Lens.lens (\Location' {longitude} -> longitude) (\s@Location' {} a -> s {longitude = a} :: Location)
 
-instance FromJSON Location where
+instance Prelude.FromJSON Location where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Location"
       ( \x ->
           Location'
-            <$> (x .: "latitude") <*> (x .: "longitude")
+            Prelude.<$> (x Prelude..: "latitude")
+            Prelude.<*> (x Prelude..: "longitude")
       )
 
-instance Hashable Location
+instance Prelude.Hashable Location
 
-instance NFData Location
+instance Prelude.NFData Location
 
-instance ToJSON Location where
+instance Prelude.ToJSON Location where
   toJSON Location' {..} =
-    object
-      ( catMaybes
-          [ Just ("latitude" .= _lLatitude),
-            Just ("longitude" .= _lLongitude)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("latitude" Prelude..= latitude),
+            Prelude.Just ("longitude" Prelude..= longitude)
           ]
       )

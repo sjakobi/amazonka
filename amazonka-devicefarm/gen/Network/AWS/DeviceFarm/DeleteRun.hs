@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,116 +23,127 @@
 --
 -- Deletes the run, given the run ARN.
 --
---
 -- Deleting this resource does not stop an in-progress run.
 module Network.AWS.DeviceFarm.DeleteRun
   ( -- * Creating a Request
-    deleteRun,
-    DeleteRun,
+    DeleteRun (..),
+    newDeleteRun,
 
     -- * Request Lenses
-    drArn,
+    deleteRun_arn,
 
     -- * Destructuring the Response
-    deleteRunResponse,
-    DeleteRunResponse,
+    DeleteRunResponse (..),
+    newDeleteRunResponse,
 
     -- * Response Lenses
-    drrrsResponseStatus,
+    deleteRunResponse_httpStatus,
   )
 where
 
 import Network.AWS.DeviceFarm.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents a request to the delete run operation.
 --
---
---
--- /See:/ 'deleteRun' smart constructor.
-newtype DeleteRun = DeleteRun' {_drArn :: Text}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- /See:/ 'newDeleteRun' smart constructor.
+data DeleteRun = DeleteRun'
+  { -- | The Amazon Resource Name (ARN) for the run to delete.
+    arn :: Prelude.Text
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteRun' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteRun' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drArn' - The Amazon Resource Name (ARN) for the run to delete.
-deleteRun ::
-  -- | 'drArn'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'arn', 'deleteRun_arn' - The Amazon Resource Name (ARN) for the run to delete.
+newDeleteRun ::
+  -- | 'arn'
+  Prelude.Text ->
   DeleteRun
-deleteRun pArn_ = DeleteRun' {_drArn = pArn_}
+newDeleteRun pArn_ = DeleteRun' {arn = pArn_}
 
 -- | The Amazon Resource Name (ARN) for the run to delete.
-drArn :: Lens' DeleteRun Text
-drArn = lens _drArn (\s a -> s {_drArn = a})
+deleteRun_arn :: Lens.Lens' DeleteRun Prelude.Text
+deleteRun_arn = Lens.lens (\DeleteRun' {arn} -> arn) (\s@DeleteRun' {} a -> s {arn = a} :: DeleteRun)
 
-instance AWSRequest DeleteRun where
+instance Prelude.AWSRequest DeleteRun where
   type Rs DeleteRun = DeleteRunResponse
-  request = postJSON deviceFarm
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          DeleteRunResponse' <$> (pure (fromEnum s))
+          DeleteRunResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteRun
+instance Prelude.Hashable DeleteRun
 
-instance NFData DeleteRun
+instance Prelude.NFData DeleteRun
 
-instance ToHeaders DeleteRun where
+instance Prelude.ToHeaders DeleteRun where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("DeviceFarm_20150623.DeleteRun" :: ByteString),
+              Prelude.=# ( "DeviceFarm_20150623.DeleteRun" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteRun where
+instance Prelude.ToJSON DeleteRun where
   toJSON DeleteRun' {..} =
-    object (catMaybes [Just ("arn" .= _drArn)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("arn" Prelude..= arn)]
+      )
 
-instance ToPath DeleteRun where
-  toPath = const "/"
+instance Prelude.ToPath DeleteRun where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteRun where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteRun where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the result of a delete run request.
 --
---
---
--- /See:/ 'deleteRunResponse' smart constructor.
-newtype DeleteRunResponse = DeleteRunResponse'
-  { _drrrsResponseStatus ::
-      Int
+-- /See:/ 'newDeleteRunResponse' smart constructor.
+data DeleteRunResponse = DeleteRunResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteRunResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteRunResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drrrsResponseStatus' - -- | The response status code.
-deleteRunResponse ::
-  -- | 'drrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteRunResponse_httpStatus' - The response's http status code.
+newDeleteRunResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteRunResponse
-deleteRunResponse pResponseStatus_ =
-  DeleteRunResponse'
-    { _drrrsResponseStatus =
-        pResponseStatus_
-    }
+newDeleteRunResponse pHttpStatus_ =
+  DeleteRunResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-drrrsResponseStatus :: Lens' DeleteRunResponse Int
-drrrsResponseStatus = lens _drrrsResponseStatus (\s a -> s {_drrrsResponseStatus = a})
+-- | The response's http status code.
+deleteRunResponse_httpStatus :: Lens.Lens' DeleteRunResponse Prelude.Int
+deleteRunResponse_httpStatus = Lens.lens (\DeleteRunResponse' {httpStatus} -> httpStatus) (\s@DeleteRunResponse' {} a -> s {httpStatus = a} :: DeleteRunResponse)
 
-instance NFData DeleteRunResponse
+instance Prelude.NFData DeleteRunResponse

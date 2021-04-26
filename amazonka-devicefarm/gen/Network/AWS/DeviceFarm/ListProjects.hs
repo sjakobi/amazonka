@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,164 +23,203 @@
 --
 -- Gets information about projects.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.DeviceFarm.ListProjects
   ( -- * Creating a Request
-    listProjects,
-    ListProjects,
+    ListProjects (..),
+    newListProjects,
 
     -- * Request Lenses
-    lpNextToken,
-    lpArn,
+    listProjects_nextToken,
+    listProjects_arn,
 
     -- * Destructuring the Response
-    listProjectsResponse,
-    ListProjectsResponse,
+    ListProjectsResponse (..),
+    newListProjectsResponse,
 
     -- * Response Lenses
-    lprrsNextToken,
-    lprrsProjects,
-    lprrsResponseStatus,
+    listProjectsResponse_nextToken,
+    listProjectsResponse_projects,
+    listProjectsResponse_httpStatus,
   )
 where
 
 import Network.AWS.DeviceFarm.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DeviceFarm.Types.Project
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents a request to the list projects operation.
 --
---
---
--- /See:/ 'listProjects' smart constructor.
+-- /See:/ 'newListProjects' smart constructor.
 data ListProjects = ListProjects'
-  { _lpNextToken ::
-      !(Maybe Text),
-    _lpArn :: !(Maybe Text)
+  { -- | An identifier that was returned from the previous call to this
+    -- operation, which can be used to return the next set of items in the
+    -- list.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Optional. If no Amazon Resource Name (ARN) is specified, then AWS Device
+    -- Farm returns a list of all projects for the AWS account. You can also
+    -- specify a project ARN.
+    arn :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListProjects' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListProjects' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lpNextToken' - An identifier that was returned from the previous call to this operation, which can be used to return the next set of items in the list.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lpArn' - Optional. If no Amazon Resource Name (ARN) is specified, then AWS Device Farm returns a list of all projects for the AWS account. You can also specify a project ARN.
-listProjects ::
+-- 'nextToken', 'listProjects_nextToken' - An identifier that was returned from the previous call to this
+-- operation, which can be used to return the next set of items in the
+-- list.
+--
+-- 'arn', 'listProjects_arn' - Optional. If no Amazon Resource Name (ARN) is specified, then AWS Device
+-- Farm returns a list of all projects for the AWS account. You can also
+-- specify a project ARN.
+newListProjects ::
   ListProjects
-listProjects =
+newListProjects =
   ListProjects'
-    { _lpNextToken = Nothing,
-      _lpArn = Nothing
+    { nextToken = Prelude.Nothing,
+      arn = Prelude.Nothing
     }
 
--- | An identifier that was returned from the previous call to this operation, which can be used to return the next set of items in the list.
-lpNextToken :: Lens' ListProjects (Maybe Text)
-lpNextToken = lens _lpNextToken (\s a -> s {_lpNextToken = a})
+-- | An identifier that was returned from the previous call to this
+-- operation, which can be used to return the next set of items in the
+-- list.
+listProjects_nextToken :: Lens.Lens' ListProjects (Prelude.Maybe Prelude.Text)
+listProjects_nextToken = Lens.lens (\ListProjects' {nextToken} -> nextToken) (\s@ListProjects' {} a -> s {nextToken = a} :: ListProjects)
 
--- | Optional. If no Amazon Resource Name (ARN) is specified, then AWS Device Farm returns a list of all projects for the AWS account. You can also specify a project ARN.
-lpArn :: Lens' ListProjects (Maybe Text)
-lpArn = lens _lpArn (\s a -> s {_lpArn = a})
+-- | Optional. If no Amazon Resource Name (ARN) is specified, then AWS Device
+-- Farm returns a list of all projects for the AWS account. You can also
+-- specify a project ARN.
+listProjects_arn :: Lens.Lens' ListProjects (Prelude.Maybe Prelude.Text)
+listProjects_arn = Lens.lens (\ListProjects' {arn} -> arn) (\s@ListProjects' {} a -> s {arn = a} :: ListProjects)
 
-instance AWSPager ListProjects where
+instance Pager.AWSPager ListProjects where
   page rq rs
-    | stop (rs ^. lprrsNextToken) = Nothing
-    | stop (rs ^. lprrsProjects) = Nothing
-    | otherwise =
-      Just $ rq & lpNextToken .~ rs ^. lprrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listProjectsResponse_nextToken Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listProjectsResponse_projects Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listProjects_nextToken
+          Lens..~ rs
+          Lens.^? listProjectsResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest ListProjects where
+instance Prelude.AWSRequest ListProjects where
   type Rs ListProjects = ListProjectsResponse
-  request = postJSON deviceFarm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListProjectsResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "projects" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> (x Prelude..?> "projects" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListProjects
+instance Prelude.Hashable ListProjects
 
-instance NFData ListProjects
+instance Prelude.NFData ListProjects
 
-instance ToHeaders ListProjects where
+instance Prelude.ToHeaders ListProjects where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("DeviceFarm_20150623.ListProjects" :: ByteString),
+              Prelude.=# ( "DeviceFarm_20150623.ListProjects" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListProjects where
+instance Prelude.ToJSON ListProjects where
   toJSON ListProjects' {..} =
-    object
-      ( catMaybes
-          [ ("nextToken" .=) <$> _lpNextToken,
-            ("arn" .=) <$> _lpArn
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("nextToken" Prelude..=) Prelude.<$> nextToken,
+            ("arn" Prelude..=) Prelude.<$> arn
           ]
       )
 
-instance ToPath ListProjects where
-  toPath = const "/"
+instance Prelude.ToPath ListProjects where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListProjects where
-  toQuery = const mempty
+instance Prelude.ToQuery ListProjects where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the result of a list projects request.
 --
---
---
--- /See:/ 'listProjectsResponse' smart constructor.
+-- /See:/ 'newListProjectsResponse' smart constructor.
 data ListProjectsResponse = ListProjectsResponse'
-  { _lprrsNextToken ::
-      !(Maybe Text),
-    _lprrsProjects ::
-      !(Maybe [Project]),
-    _lprrsResponseStatus :: !Int
+  { -- | If the number of items that are returned is significantly large, this is
+    -- an identifier that is also returned. It can be used in a subsequent call
+    -- to this operation to return the next set of items in the list.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about the projects.
+    projects :: Prelude.Maybe [Project],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListProjectsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListProjectsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lprrsNextToken' - If the number of items that are returned is significantly large, this is an identifier that is also returned. It can be used in a subsequent call to this operation to return the next set of items in the list.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lprrsProjects' - Information about the projects.
+-- 'nextToken', 'listProjectsResponse_nextToken' - If the number of items that are returned is significantly large, this is
+-- an identifier that is also returned. It can be used in a subsequent call
+-- to this operation to return the next set of items in the list.
 --
--- * 'lprrsResponseStatus' - -- | The response status code.
-listProjectsResponse ::
-  -- | 'lprrsResponseStatus'
-  Int ->
+-- 'projects', 'listProjectsResponse_projects' - Information about the projects.
+--
+-- 'httpStatus', 'listProjectsResponse_httpStatus' - The response's http status code.
+newListProjectsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListProjectsResponse
-listProjectsResponse pResponseStatus_ =
+newListProjectsResponse pHttpStatus_ =
   ListProjectsResponse'
-    { _lprrsNextToken = Nothing,
-      _lprrsProjects = Nothing,
-      _lprrsResponseStatus = pResponseStatus_
+    { nextToken = Prelude.Nothing,
+      projects = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | If the number of items that are returned is significantly large, this is an identifier that is also returned. It can be used in a subsequent call to this operation to return the next set of items in the list.
-lprrsNextToken :: Lens' ListProjectsResponse (Maybe Text)
-lprrsNextToken = lens _lprrsNextToken (\s a -> s {_lprrsNextToken = a})
+-- | If the number of items that are returned is significantly large, this is
+-- an identifier that is also returned. It can be used in a subsequent call
+-- to this operation to return the next set of items in the list.
+listProjectsResponse_nextToken :: Lens.Lens' ListProjectsResponse (Prelude.Maybe Prelude.Text)
+listProjectsResponse_nextToken = Lens.lens (\ListProjectsResponse' {nextToken} -> nextToken) (\s@ListProjectsResponse' {} a -> s {nextToken = a} :: ListProjectsResponse)
 
 -- | Information about the projects.
-lprrsProjects :: Lens' ListProjectsResponse [Project]
-lprrsProjects = lens _lprrsProjects (\s a -> s {_lprrsProjects = a}) . _Default . _Coerce
+listProjectsResponse_projects :: Lens.Lens' ListProjectsResponse (Prelude.Maybe [Project])
+listProjectsResponse_projects = Lens.lens (\ListProjectsResponse' {projects} -> projects) (\s@ListProjectsResponse' {} a -> s {projects = a} :: ListProjectsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lprrsResponseStatus :: Lens' ListProjectsResponse Int
-lprrsResponseStatus = lens _lprrsResponseStatus (\s a -> s {_lprrsResponseStatus = a})
+-- | The response's http status code.
+listProjectsResponse_httpStatus :: Lens.Lens' ListProjectsResponse Prelude.Int
+listProjectsResponse_httpStatus = Lens.lens (\ListProjectsResponse' {httpStatus} -> httpStatus) (\s@ListProjectsResponse' {} a -> s {httpStatus = a} :: ListProjectsResponse)
 
-instance NFData ListProjectsResponse
+instance Prelude.NFData ListProjectsResponse

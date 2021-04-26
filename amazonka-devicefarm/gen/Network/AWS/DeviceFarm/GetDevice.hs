@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,121 +24,138 @@
 -- Gets information about a unique device type.
 module Network.AWS.DeviceFarm.GetDevice
   ( -- * Creating a Request
-    getDevice,
-    GetDevice,
+    GetDevice (..),
+    newGetDevice,
 
     -- * Request Lenses
-    gdArn,
+    getDevice_arn,
 
     -- * Destructuring the Response
-    getDeviceResponse,
-    GetDeviceResponse,
+    GetDeviceResponse (..),
+    newGetDeviceResponse,
 
     -- * Response Lenses
-    gdrrsDevice,
-    gdrrsResponseStatus,
+    getDeviceResponse_device,
+    getDeviceResponse_httpStatus,
   )
 where
 
 import Network.AWS.DeviceFarm.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DeviceFarm.Types.Device
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents a request to the get device request.
 --
---
---
--- /See:/ 'getDevice' smart constructor.
-newtype GetDevice = GetDevice' {_gdArn :: Text}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- /See:/ 'newGetDevice' smart constructor.
+data GetDevice = GetDevice'
+  { -- | The device type\'s ARN.
+    arn :: Prelude.Text
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDevice' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDevice' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdArn' - The device type's ARN.
-getDevice ::
-  -- | 'gdArn'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'arn', 'getDevice_arn' - The device type\'s ARN.
+newGetDevice ::
+  -- | 'arn'
+  Prelude.Text ->
   GetDevice
-getDevice pArn_ = GetDevice' {_gdArn = pArn_}
+newGetDevice pArn_ = GetDevice' {arn = pArn_}
 
--- | The device type's ARN.
-gdArn :: Lens' GetDevice Text
-gdArn = lens _gdArn (\s a -> s {_gdArn = a})
+-- | The device type\'s ARN.
+getDevice_arn :: Lens.Lens' GetDevice Prelude.Text
+getDevice_arn = Lens.lens (\GetDevice' {arn} -> arn) (\s@GetDevice' {} a -> s {arn = a} :: GetDevice)
 
-instance AWSRequest GetDevice where
+instance Prelude.AWSRequest GetDevice where
   type Rs GetDevice = GetDeviceResponse
-  request = postJSON deviceFarm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetDeviceResponse'
-            <$> (x .?> "device") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "device")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetDevice
+instance Prelude.Hashable GetDevice
 
-instance NFData GetDevice
+instance Prelude.NFData GetDevice
 
-instance ToHeaders GetDevice where
+instance Prelude.ToHeaders GetDevice where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("DeviceFarm_20150623.GetDevice" :: ByteString),
+              Prelude.=# ( "DeviceFarm_20150623.GetDevice" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetDevice where
+instance Prelude.ToJSON GetDevice where
   toJSON GetDevice' {..} =
-    object (catMaybes [Just ("arn" .= _gdArn)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("arn" Prelude..= arn)]
+      )
 
-instance ToPath GetDevice where
-  toPath = const "/"
+instance Prelude.ToPath GetDevice where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetDevice where
-  toQuery = const mempty
+instance Prelude.ToQuery GetDevice where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the result of a get device request.
 --
---
---
--- /See:/ 'getDeviceResponse' smart constructor.
+-- /See:/ 'newGetDeviceResponse' smart constructor.
 data GetDeviceResponse = GetDeviceResponse'
-  { _gdrrsDevice ::
-      !(Maybe Device),
-    _gdrrsResponseStatus :: !Int
+  { -- | An object that contains information about the requested device.
+    device :: Prelude.Maybe Device,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDeviceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDeviceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdrrsDevice' - An object that contains information about the requested device.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gdrrsResponseStatus' - -- | The response status code.
-getDeviceResponse ::
-  -- | 'gdrrsResponseStatus'
-  Int ->
+-- 'device', 'getDeviceResponse_device' - An object that contains information about the requested device.
+--
+-- 'httpStatus', 'getDeviceResponse_httpStatus' - The response's http status code.
+newGetDeviceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetDeviceResponse
-getDeviceResponse pResponseStatus_ =
+newGetDeviceResponse pHttpStatus_ =
   GetDeviceResponse'
-    { _gdrrsDevice = Nothing,
-      _gdrrsResponseStatus = pResponseStatus_
+    { device = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | An object that contains information about the requested device.
-gdrrsDevice :: Lens' GetDeviceResponse (Maybe Device)
-gdrrsDevice = lens _gdrrsDevice (\s a -> s {_gdrrsDevice = a})
+getDeviceResponse_device :: Lens.Lens' GetDeviceResponse (Prelude.Maybe Device)
+getDeviceResponse_device = Lens.lens (\GetDeviceResponse' {device} -> device) (\s@GetDeviceResponse' {} a -> s {device = a} :: GetDeviceResponse)
 
--- | -- | The response status code.
-gdrrsResponseStatus :: Lens' GetDeviceResponse Int
-gdrrsResponseStatus = lens _gdrrsResponseStatus (\s a -> s {_gdrrsResponseStatus = a})
+-- | The response's http status code.
+getDeviceResponse_httpStatus :: Lens.Lens' GetDeviceResponse Prelude.Int
+getDeviceResponse_httpStatus = Lens.lens (\GetDeviceResponse' {httpStatus} -> httpStatus) (\s@GetDeviceResponse' {} a -> s {httpStatus = a} :: GetDeviceResponse)
 
-instance NFData GetDeviceResponse
+instance Prelude.NFData GetDeviceResponse

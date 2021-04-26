@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,88 +19,90 @@
 module Network.AWS.DeviceFarm.Types.ExecutionStatus
   ( ExecutionStatus
       ( ..,
-        ESCompleted,
-        ESPending,
-        ESPendingConcurrency,
-        ESPendingDevice,
-        ESPreparing,
-        ESProcessing,
-        ESRunning,
-        ESScheduling,
-        ESStopping
+        ExecutionStatusCOMPLETED,
+        ExecutionStatusPENDING,
+        ExecutionStatusPENDINGCONCURRENCY,
+        ExecutionStatusPENDINGDEVICE,
+        ExecutionStatusPREPARING,
+        ExecutionStatusPROCESSING,
+        ExecutionStatusRUNNING,
+        ExecutionStatusSCHEDULING,
+        ExecutionStatusSTOPPING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ExecutionStatus = ExecutionStatus' (CI Text)
+newtype ExecutionStatus = ExecutionStatus'
+  { fromExecutionStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ESCompleted :: ExecutionStatus
-pattern ESCompleted = ExecutionStatus' "COMPLETED"
+pattern ExecutionStatusCOMPLETED :: ExecutionStatus
+pattern ExecutionStatusCOMPLETED = ExecutionStatus' "COMPLETED"
 
-pattern ESPending :: ExecutionStatus
-pattern ESPending = ExecutionStatus' "PENDING"
+pattern ExecutionStatusPENDING :: ExecutionStatus
+pattern ExecutionStatusPENDING = ExecutionStatus' "PENDING"
 
-pattern ESPendingConcurrency :: ExecutionStatus
-pattern ESPendingConcurrency = ExecutionStatus' "PENDING_CONCURRENCY"
+pattern ExecutionStatusPENDINGCONCURRENCY :: ExecutionStatus
+pattern ExecutionStatusPENDINGCONCURRENCY = ExecutionStatus' "PENDING_CONCURRENCY"
 
-pattern ESPendingDevice :: ExecutionStatus
-pattern ESPendingDevice = ExecutionStatus' "PENDING_DEVICE"
+pattern ExecutionStatusPENDINGDEVICE :: ExecutionStatus
+pattern ExecutionStatusPENDINGDEVICE = ExecutionStatus' "PENDING_DEVICE"
 
-pattern ESPreparing :: ExecutionStatus
-pattern ESPreparing = ExecutionStatus' "PREPARING"
+pattern ExecutionStatusPREPARING :: ExecutionStatus
+pattern ExecutionStatusPREPARING = ExecutionStatus' "PREPARING"
 
-pattern ESProcessing :: ExecutionStatus
-pattern ESProcessing = ExecutionStatus' "PROCESSING"
+pattern ExecutionStatusPROCESSING :: ExecutionStatus
+pattern ExecutionStatusPROCESSING = ExecutionStatus' "PROCESSING"
 
-pattern ESRunning :: ExecutionStatus
-pattern ESRunning = ExecutionStatus' "RUNNING"
+pattern ExecutionStatusRUNNING :: ExecutionStatus
+pattern ExecutionStatusRUNNING = ExecutionStatus' "RUNNING"
 
-pattern ESScheduling :: ExecutionStatus
-pattern ESScheduling = ExecutionStatus' "SCHEDULING"
+pattern ExecutionStatusSCHEDULING :: ExecutionStatus
+pattern ExecutionStatusSCHEDULING = ExecutionStatus' "SCHEDULING"
 
-pattern ESStopping :: ExecutionStatus
-pattern ESStopping = ExecutionStatus' "STOPPING"
+pattern ExecutionStatusSTOPPING :: ExecutionStatus
+pattern ExecutionStatusSTOPPING = ExecutionStatus' "STOPPING"
 
 {-# COMPLETE
-  ESCompleted,
-  ESPending,
-  ESPendingConcurrency,
-  ESPendingDevice,
-  ESPreparing,
-  ESProcessing,
-  ESRunning,
-  ESScheduling,
-  ESStopping,
+  ExecutionStatusCOMPLETED,
+  ExecutionStatusPENDING,
+  ExecutionStatusPENDINGCONCURRENCY,
+  ExecutionStatusPENDINGDEVICE,
+  ExecutionStatusPREPARING,
+  ExecutionStatusPROCESSING,
+  ExecutionStatusRUNNING,
+  ExecutionStatusSCHEDULING,
+  ExecutionStatusSTOPPING,
   ExecutionStatus'
   #-}
 
-instance FromText ExecutionStatus where
-  parser = (ExecutionStatus' . mk) <$> takeText
+instance Prelude.FromText ExecutionStatus where
+  parser = ExecutionStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ExecutionStatus where
-  toText (ExecutionStatus' ci) = original ci
+instance Prelude.ToText ExecutionStatus where
+  toText (ExecutionStatus' x) = x
 
-instance Hashable ExecutionStatus
+instance Prelude.Hashable ExecutionStatus
 
-instance NFData ExecutionStatus
+instance Prelude.NFData ExecutionStatus
 
-instance ToByteString ExecutionStatus
+instance Prelude.ToByteString ExecutionStatus
 
-instance ToQuery ExecutionStatus
+instance Prelude.ToQuery ExecutionStatus
 
-instance ToHeader ExecutionStatus
+instance Prelude.ToHeader ExecutionStatus
 
-instance FromJSON ExecutionStatus where
-  parseJSON = parseJSONText "ExecutionStatus"
+instance Prelude.FromJSON ExecutionStatus where
+  parseJSON = Prelude.parseJSONText "ExecutionStatus"

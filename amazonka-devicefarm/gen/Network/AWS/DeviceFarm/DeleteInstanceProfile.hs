@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,130 +21,133 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a profile that can be applied to one or more private device instances.
+-- Deletes a profile that can be applied to one or more private device
+-- instances.
 module Network.AWS.DeviceFarm.DeleteInstanceProfile
   ( -- * Creating a Request
-    deleteInstanceProfile,
-    DeleteInstanceProfile,
+    DeleteInstanceProfile (..),
+    newDeleteInstanceProfile,
 
     -- * Request Lenses
-    dipArn,
+    deleteInstanceProfile_arn,
 
     -- * Destructuring the Response
-    deleteInstanceProfileResponse,
-    DeleteInstanceProfileResponse,
+    DeleteInstanceProfileResponse (..),
+    newDeleteInstanceProfileResponse,
 
     -- * Response Lenses
-    diprrsResponseStatus,
+    deleteInstanceProfileResponse_httpStatus,
   )
 where
 
 import Network.AWS.DeviceFarm.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteInstanceProfile' smart constructor.
-newtype DeleteInstanceProfile = DeleteInstanceProfile'
-  { _dipArn ::
-      Text
+-- | /See:/ 'newDeleteInstanceProfile' smart constructor.
+data DeleteInstanceProfile = DeleteInstanceProfile'
+  { -- | The Amazon Resource Name (ARN) of the instance profile you are
+    -- requesting to delete.
+    arn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteInstanceProfile' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteInstanceProfile' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dipArn' - The Amazon Resource Name (ARN) of the instance profile you are requesting to delete.
-deleteInstanceProfile ::
-  -- | 'dipArn'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'arn', 'deleteInstanceProfile_arn' - The Amazon Resource Name (ARN) of the instance profile you are
+-- requesting to delete.
+newDeleteInstanceProfile ::
+  -- | 'arn'
+  Prelude.Text ->
   DeleteInstanceProfile
-deleteInstanceProfile pArn_ =
-  DeleteInstanceProfile' {_dipArn = pArn_}
+newDeleteInstanceProfile pArn_ =
+  DeleteInstanceProfile' {arn = pArn_}
 
--- | The Amazon Resource Name (ARN) of the instance profile you are requesting to delete.
-dipArn :: Lens' DeleteInstanceProfile Text
-dipArn = lens _dipArn (\s a -> s {_dipArn = a})
+-- | The Amazon Resource Name (ARN) of the instance profile you are
+-- requesting to delete.
+deleteInstanceProfile_arn :: Lens.Lens' DeleteInstanceProfile Prelude.Text
+deleteInstanceProfile_arn = Lens.lens (\DeleteInstanceProfile' {arn} -> arn) (\s@DeleteInstanceProfile' {} a -> s {arn = a} :: DeleteInstanceProfile)
 
-instance AWSRequest DeleteInstanceProfile where
+instance Prelude.AWSRequest DeleteInstanceProfile where
   type
     Rs DeleteInstanceProfile =
       DeleteInstanceProfileResponse
-  request = postJSON deviceFarm
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           DeleteInstanceProfileResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteInstanceProfile
+instance Prelude.Hashable DeleteInstanceProfile
 
-instance NFData DeleteInstanceProfile
+instance Prelude.NFData DeleteInstanceProfile
 
-instance ToHeaders DeleteInstanceProfile where
+instance Prelude.ToHeaders DeleteInstanceProfile where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "DeviceFarm_20150623.DeleteInstanceProfile" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "DeviceFarm_20150623.DeleteInstanceProfile" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteInstanceProfile where
+instance Prelude.ToJSON DeleteInstanceProfile where
   toJSON DeleteInstanceProfile' {..} =
-    object (catMaybes [Just ("arn" .= _dipArn)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("arn" Prelude..= arn)]
+      )
 
-instance ToPath DeleteInstanceProfile where
-  toPath = const "/"
+instance Prelude.ToPath DeleteInstanceProfile where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteInstanceProfile where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteInstanceProfile where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteInstanceProfileResponse' smart constructor.
-newtype DeleteInstanceProfileResponse = DeleteInstanceProfileResponse'
-  { _diprrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteInstanceProfileResponse' smart constructor.
+data DeleteInstanceProfileResponse = DeleteInstanceProfileResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteInstanceProfileResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteInstanceProfileResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'diprrsResponseStatus' - -- | The response status code.
-deleteInstanceProfileResponse ::
-  -- | 'diprrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteInstanceProfileResponse_httpStatus' - The response's http status code.
+newDeleteInstanceProfileResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteInstanceProfileResponse
-deleteInstanceProfileResponse pResponseStatus_ =
+newDeleteInstanceProfileResponse pHttpStatus_ =
   DeleteInstanceProfileResponse'
-    { _diprrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-diprrsResponseStatus :: Lens' DeleteInstanceProfileResponse Int
-diprrsResponseStatus = lens _diprrsResponseStatus (\s a -> s {_diprrsResponseStatus = a})
+-- | The response's http status code.
+deleteInstanceProfileResponse_httpStatus :: Lens.Lens' DeleteInstanceProfileResponse Prelude.Int
+deleteInstanceProfileResponse_httpStatus = Lens.lens (\DeleteInstanceProfileResponse' {httpStatus} -> httpStatus) (\s@DeleteInstanceProfileResponse' {} a -> s {httpStatus = a} :: DeleteInstanceProfileResponse)
 
-instance NFData DeleteInstanceProfileResponse
+instance Prelude.NFData DeleteInstanceProfileResponse

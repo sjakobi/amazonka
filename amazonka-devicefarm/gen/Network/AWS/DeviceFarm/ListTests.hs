@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,162 +23,199 @@
 --
 -- Gets information about tests in a given test suite.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.DeviceFarm.ListTests
   ( -- * Creating a Request
-    listTests,
-    ListTests,
+    ListTests (..),
+    newListTests,
 
     -- * Request Lenses
-    ltNextToken,
-    ltArn,
+    listTests_nextToken,
+    listTests_arn,
 
     -- * Destructuring the Response
-    listTestsResponse,
-    ListTestsResponse,
+    ListTestsResponse (..),
+    newListTestsResponse,
 
     -- * Response Lenses
-    ltrrsNextToken,
-    ltrrsTests,
-    ltrrsResponseStatus,
+    listTestsResponse_nextToken,
+    listTestsResponse_tests,
+    listTestsResponse_httpStatus,
   )
 where
 
 import Network.AWS.DeviceFarm.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DeviceFarm.Types.Test
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents a request to the list tests operation.
 --
---
---
--- /See:/ 'listTests' smart constructor.
+-- /See:/ 'newListTests' smart constructor.
 data ListTests = ListTests'
-  { _ltNextToken ::
-      !(Maybe Text),
-    _ltArn :: !Text
+  { -- | An identifier that was returned from the previous call to this
+    -- operation, which can be used to return the next set of items in the
+    -- list.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The test suite\'s Amazon Resource Name (ARN).
+    arn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListTests' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListTests' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltNextToken' - An identifier that was returned from the previous call to this operation, which can be used to return the next set of items in the list.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltArn' - The test suite's Amazon Resource Name (ARN).
-listTests ::
-  -- | 'ltArn'
-  Text ->
+-- 'nextToken', 'listTests_nextToken' - An identifier that was returned from the previous call to this
+-- operation, which can be used to return the next set of items in the
+-- list.
+--
+-- 'arn', 'listTests_arn' - The test suite\'s Amazon Resource Name (ARN).
+newListTests ::
+  -- | 'arn'
+  Prelude.Text ->
   ListTests
-listTests pArn_ =
-  ListTests' {_ltNextToken = Nothing, _ltArn = pArn_}
+newListTests pArn_ =
+  ListTests'
+    { nextToken = Prelude.Nothing,
+      arn = pArn_
+    }
 
--- | An identifier that was returned from the previous call to this operation, which can be used to return the next set of items in the list.
-ltNextToken :: Lens' ListTests (Maybe Text)
-ltNextToken = lens _ltNextToken (\s a -> s {_ltNextToken = a})
+-- | An identifier that was returned from the previous call to this
+-- operation, which can be used to return the next set of items in the
+-- list.
+listTests_nextToken :: Lens.Lens' ListTests (Prelude.Maybe Prelude.Text)
+listTests_nextToken = Lens.lens (\ListTests' {nextToken} -> nextToken) (\s@ListTests' {} a -> s {nextToken = a} :: ListTests)
 
--- | The test suite's Amazon Resource Name (ARN).
-ltArn :: Lens' ListTests Text
-ltArn = lens _ltArn (\s a -> s {_ltArn = a})
+-- | The test suite\'s Amazon Resource Name (ARN).
+listTests_arn :: Lens.Lens' ListTests Prelude.Text
+listTests_arn = Lens.lens (\ListTests' {arn} -> arn) (\s@ListTests' {} a -> s {arn = a} :: ListTests)
 
-instance AWSPager ListTests where
+instance Pager.AWSPager ListTests where
   page rq rs
-    | stop (rs ^. ltrrsNextToken) = Nothing
-    | stop (rs ^. ltrrsTests) = Nothing
-    | otherwise =
-      Just $ rq & ltNextToken .~ rs ^. ltrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listTestsResponse_nextToken Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listTestsResponse_tests Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listTests_nextToken
+          Lens..~ rs
+          Lens.^? listTestsResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest ListTests where
+instance Prelude.AWSRequest ListTests where
   type Rs ListTests = ListTestsResponse
-  request = postJSON deviceFarm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListTestsResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "tests" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> (x Prelude..?> "tests" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListTests
+instance Prelude.Hashable ListTests
 
-instance NFData ListTests
+instance Prelude.NFData ListTests
 
-instance ToHeaders ListTests where
+instance Prelude.ToHeaders ListTests where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("DeviceFarm_20150623.ListTests" :: ByteString),
+              Prelude.=# ( "DeviceFarm_20150623.ListTests" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListTests where
+instance Prelude.ToJSON ListTests where
   toJSON ListTests' {..} =
-    object
-      ( catMaybes
-          [ ("nextToken" .=) <$> _ltNextToken,
-            Just ("arn" .= _ltArn)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("nextToken" Prelude..=) Prelude.<$> nextToken,
+            Prelude.Just ("arn" Prelude..= arn)
           ]
       )
 
-instance ToPath ListTests where
-  toPath = const "/"
+instance Prelude.ToPath ListTests where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListTests where
-  toQuery = const mempty
+instance Prelude.ToQuery ListTests where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the result of a list tests request.
 --
---
---
--- /See:/ 'listTestsResponse' smart constructor.
+-- /See:/ 'newListTestsResponse' smart constructor.
 data ListTestsResponse = ListTestsResponse'
-  { _ltrrsNextToken ::
-      !(Maybe Text),
-    _ltrrsTests :: !(Maybe [Test]),
-    _ltrrsResponseStatus :: !Int
+  { -- | If the number of items that are returned is significantly large, this is
+    -- an identifier that is also returned. It can be used in a subsequent call
+    -- to this operation to return the next set of items in the list.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about the tests.
+    tests :: Prelude.Maybe [Test],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListTestsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListTestsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltrrsNextToken' - If the number of items that are returned is significantly large, this is an identifier that is also returned. It can be used in a subsequent call to this operation to return the next set of items in the list.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltrrsTests' - Information about the tests.
+-- 'nextToken', 'listTestsResponse_nextToken' - If the number of items that are returned is significantly large, this is
+-- an identifier that is also returned. It can be used in a subsequent call
+-- to this operation to return the next set of items in the list.
 --
--- * 'ltrrsResponseStatus' - -- | The response status code.
-listTestsResponse ::
-  -- | 'ltrrsResponseStatus'
-  Int ->
+-- 'tests', 'listTestsResponse_tests' - Information about the tests.
+--
+-- 'httpStatus', 'listTestsResponse_httpStatus' - The response's http status code.
+newListTestsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListTestsResponse
-listTestsResponse pResponseStatus_ =
+newListTestsResponse pHttpStatus_ =
   ListTestsResponse'
-    { _ltrrsNextToken = Nothing,
-      _ltrrsTests = Nothing,
-      _ltrrsResponseStatus = pResponseStatus_
+    { nextToken = Prelude.Nothing,
+      tests = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | If the number of items that are returned is significantly large, this is an identifier that is also returned. It can be used in a subsequent call to this operation to return the next set of items in the list.
-ltrrsNextToken :: Lens' ListTestsResponse (Maybe Text)
-ltrrsNextToken = lens _ltrrsNextToken (\s a -> s {_ltrrsNextToken = a})
+-- | If the number of items that are returned is significantly large, this is
+-- an identifier that is also returned. It can be used in a subsequent call
+-- to this operation to return the next set of items in the list.
+listTestsResponse_nextToken :: Lens.Lens' ListTestsResponse (Prelude.Maybe Prelude.Text)
+listTestsResponse_nextToken = Lens.lens (\ListTestsResponse' {nextToken} -> nextToken) (\s@ListTestsResponse' {} a -> s {nextToken = a} :: ListTestsResponse)
 
 -- | Information about the tests.
-ltrrsTests :: Lens' ListTestsResponse [Test]
-ltrrsTests = lens _ltrrsTests (\s a -> s {_ltrrsTests = a}) . _Default . _Coerce
+listTestsResponse_tests :: Lens.Lens' ListTestsResponse (Prelude.Maybe [Test])
+listTestsResponse_tests = Lens.lens (\ListTestsResponse' {tests} -> tests) (\s@ListTestsResponse' {} a -> s {tests = a} :: ListTestsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-ltrrsResponseStatus :: Lens' ListTestsResponse Int
-ltrrsResponseStatus = lens _ltrrsResponseStatus (\s a -> s {_ltrrsResponseStatus = a})
+-- | The response's http status code.
+listTestsResponse_httpStatus :: Lens.Lens' ListTestsResponse Prelude.Int
+listTestsResponse_httpStatus = Lens.lens (\ListTestsResponse' {httpStatus} -> httpStatus) (\s@ListTestsResponse' {} a -> s {httpStatus = a} :: ListTestsResponse)
 
-instance NFData ListTestsResponse
+instance Prelude.NFData ListTestsResponse

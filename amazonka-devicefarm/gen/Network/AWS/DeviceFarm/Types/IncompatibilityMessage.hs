@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,61 +20,99 @@
 module Network.AWS.DeviceFarm.Types.IncompatibilityMessage where
 
 import Network.AWS.DeviceFarm.Types.DeviceAttribute
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents information about incompatibility.
 --
---
---
--- /See:/ 'incompatibilityMessage' smart constructor.
+-- /See:/ 'newIncompatibilityMessage' smart constructor.
 data IncompatibilityMessage = IncompatibilityMessage'
-  { _imMessage ::
-      !(Maybe Text),
-    _imType ::
-      !(Maybe DeviceAttribute)
+  { -- | A message about the incompatibility.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The type of incompatibility.
+    --
+    -- Allowed values include:
+    --
+    -- -   ARN
+    --
+    -- -   FORM_FACTOR (for example, phone or tablet)
+    --
+    -- -   MANUFACTURER
+    --
+    -- -   PLATFORM (for example, Android or iOS)
+    --
+    -- -   REMOTE_ACCESS_ENABLED
+    --
+    -- -   APPIUM_VERSION
+    type' :: Prelude.Maybe DeviceAttribute
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'IncompatibilityMessage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'IncompatibilityMessage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'imMessage' - A message about the incompatibility.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'imType' - The type of incompatibility. Allowed values include:     * ARN     * FORM_FACTOR (for example, phone or tablet)     * MANUFACTURER     * PLATFORM (for example, Android or iOS)     * REMOTE_ACCESS_ENABLED     * APPIUM_VERSION
-incompatibilityMessage ::
+-- 'message', 'incompatibilityMessage_message' - A message about the incompatibility.
+--
+-- 'type'', 'incompatibilityMessage_type' - The type of incompatibility.
+--
+-- Allowed values include:
+--
+-- -   ARN
+--
+-- -   FORM_FACTOR (for example, phone or tablet)
+--
+-- -   MANUFACTURER
+--
+-- -   PLATFORM (for example, Android or iOS)
+--
+-- -   REMOTE_ACCESS_ENABLED
+--
+-- -   APPIUM_VERSION
+newIncompatibilityMessage ::
   IncompatibilityMessage
-incompatibilityMessage =
+newIncompatibilityMessage =
   IncompatibilityMessage'
-    { _imMessage = Nothing,
-      _imType = Nothing
+    { message = Prelude.Nothing,
+      type' = Prelude.Nothing
     }
 
 -- | A message about the incompatibility.
-imMessage :: Lens' IncompatibilityMessage (Maybe Text)
-imMessage = lens _imMessage (\s a -> s {_imMessage = a})
+incompatibilityMessage_message :: Lens.Lens' IncompatibilityMessage (Prelude.Maybe Prelude.Text)
+incompatibilityMessage_message = Lens.lens (\IncompatibilityMessage' {message} -> message) (\s@IncompatibilityMessage' {} a -> s {message = a} :: IncompatibilityMessage)
 
--- | The type of incompatibility. Allowed values include:     * ARN     * FORM_FACTOR (for example, phone or tablet)     * MANUFACTURER     * PLATFORM (for example, Android or iOS)     * REMOTE_ACCESS_ENABLED     * APPIUM_VERSION
-imType :: Lens' IncompatibilityMessage (Maybe DeviceAttribute)
-imType = lens _imType (\s a -> s {_imType = a})
+-- | The type of incompatibility.
+--
+-- Allowed values include:
+--
+-- -   ARN
+--
+-- -   FORM_FACTOR (for example, phone or tablet)
+--
+-- -   MANUFACTURER
+--
+-- -   PLATFORM (for example, Android or iOS)
+--
+-- -   REMOTE_ACCESS_ENABLED
+--
+-- -   APPIUM_VERSION
+incompatibilityMessage_type :: Lens.Lens' IncompatibilityMessage (Prelude.Maybe DeviceAttribute)
+incompatibilityMessage_type = Lens.lens (\IncompatibilityMessage' {type'} -> type') (\s@IncompatibilityMessage' {} a -> s {type' = a} :: IncompatibilityMessage)
 
-instance FromJSON IncompatibilityMessage where
+instance Prelude.FromJSON IncompatibilityMessage where
   parseJSON =
-    withObject
+    Prelude.withObject
       "IncompatibilityMessage"
       ( \x ->
           IncompatibilityMessage'
-            <$> (x .:? "message") <*> (x .:? "type")
+            Prelude.<$> (x Prelude..:? "message")
+            Prelude.<*> (x Prelude..:? "type")
       )
 
-instance Hashable IncompatibilityMessage
+instance Prelude.Hashable IncompatibilityMessage
 
-instance NFData IncompatibilityMessage
+instance Prelude.NFData IncompatibilityMessage

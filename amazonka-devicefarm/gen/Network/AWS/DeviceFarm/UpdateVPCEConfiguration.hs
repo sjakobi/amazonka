@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,194 +21,214 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates information about an Amazon Virtual Private Cloud (VPC) endpoint configuration.
+-- Updates information about an Amazon Virtual Private Cloud (VPC) endpoint
+-- configuration.
 module Network.AWS.DeviceFarm.UpdateVPCEConfiguration
   ( -- * Creating a Request
-    updateVPCEConfiguration,
-    UpdateVPCEConfiguration,
+    UpdateVPCEConfiguration (..),
+    newUpdateVPCEConfiguration,
 
     -- * Request Lenses
-    uvecVpceConfigurationName,
-    uvecVpceConfigurationDescription,
-    uvecServiceDNSName,
-    uvecVpceServiceName,
-    uvecArn,
+    updateVPCEConfiguration_vpceConfigurationName,
+    updateVPCEConfiguration_vpceConfigurationDescription,
+    updateVPCEConfiguration_serviceDnsName,
+    updateVPCEConfiguration_vpceServiceName,
+    updateVPCEConfiguration_arn,
 
     -- * Destructuring the Response
-    updateVPCEConfigurationResponse,
-    UpdateVPCEConfigurationResponse,
+    UpdateVPCEConfigurationResponse (..),
+    newUpdateVPCEConfigurationResponse,
 
     -- * Response Lenses
-    uvecrrsVpceConfiguration,
-    uvecrrsResponseStatus,
+    updateVPCEConfigurationResponse_vpceConfiguration,
+    updateVPCEConfigurationResponse_httpStatus,
   )
 where
 
 import Network.AWS.DeviceFarm.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DeviceFarm.Types.VPCEConfiguration
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateVPCEConfiguration' smart constructor.
+-- | /See:/ 'newUpdateVPCEConfiguration' smart constructor.
 data UpdateVPCEConfiguration = UpdateVPCEConfiguration'
-  { _uvecVpceConfigurationName ::
-      !(Maybe Text),
-    _uvecVpceConfigurationDescription ::
-      !(Maybe Text),
-    _uvecServiceDNSName ::
-      !(Maybe Text),
-    _uvecVpceServiceName ::
-      !(Maybe Text),
-    _uvecArn :: !Text
+  { -- | The friendly name you give to your VPC endpoint configuration to manage
+    -- your configurations more easily.
+    vpceConfigurationName :: Prelude.Maybe Prelude.Text,
+    -- | An optional description that provides details about your VPC endpoint
+    -- configuration.
+    vpceConfigurationDescription :: Prelude.Maybe Prelude.Text,
+    -- | The DNS (domain) name used to connect to your private service in your
+    -- VPC. The DNS name must not already be in use on the internet.
+    serviceDnsName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the VPC endpoint service running in your AWS account that
+    -- you want Device Farm to test.
+    vpceServiceName :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the VPC endpoint configuration you
+    -- want to update.
+    arn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateVPCEConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateVPCEConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uvecVpceConfigurationName' - The friendly name you give to your VPC endpoint configuration to manage your configurations more easily.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uvecVpceConfigurationDescription' - An optional description that provides details about your VPC endpoint configuration.
+-- 'vpceConfigurationName', 'updateVPCEConfiguration_vpceConfigurationName' - The friendly name you give to your VPC endpoint configuration to manage
+-- your configurations more easily.
 --
--- * 'uvecServiceDNSName' - The DNS (domain) name used to connect to your private service in your VPC. The DNS name must not already be in use on the internet.
+-- 'vpceConfigurationDescription', 'updateVPCEConfiguration_vpceConfigurationDescription' - An optional description that provides details about your VPC endpoint
+-- configuration.
 --
--- * 'uvecVpceServiceName' - The name of the VPC endpoint service running in your AWS account that you want Device Farm to test.
+-- 'serviceDnsName', 'updateVPCEConfiguration_serviceDnsName' - The DNS (domain) name used to connect to your private service in your
+-- VPC. The DNS name must not already be in use on the internet.
 --
--- * 'uvecArn' - The Amazon Resource Name (ARN) of the VPC endpoint configuration you want to update.
-updateVPCEConfiguration ::
-  -- | 'uvecArn'
-  Text ->
+-- 'vpceServiceName', 'updateVPCEConfiguration_vpceServiceName' - The name of the VPC endpoint service running in your AWS account that
+-- you want Device Farm to test.
+--
+-- 'arn', 'updateVPCEConfiguration_arn' - The Amazon Resource Name (ARN) of the VPC endpoint configuration you
+-- want to update.
+newUpdateVPCEConfiguration ::
+  -- | 'arn'
+  Prelude.Text ->
   UpdateVPCEConfiguration
-updateVPCEConfiguration pArn_ =
+newUpdateVPCEConfiguration pArn_ =
   UpdateVPCEConfiguration'
-    { _uvecVpceConfigurationName =
-        Nothing,
-      _uvecVpceConfigurationDescription = Nothing,
-      _uvecServiceDNSName = Nothing,
-      _uvecVpceServiceName = Nothing,
-      _uvecArn = pArn_
+    { vpceConfigurationName =
+        Prelude.Nothing,
+      vpceConfigurationDescription = Prelude.Nothing,
+      serviceDnsName = Prelude.Nothing,
+      vpceServiceName = Prelude.Nothing,
+      arn = pArn_
     }
 
--- | The friendly name you give to your VPC endpoint configuration to manage your configurations more easily.
-uvecVpceConfigurationName :: Lens' UpdateVPCEConfiguration (Maybe Text)
-uvecVpceConfigurationName = lens _uvecVpceConfigurationName (\s a -> s {_uvecVpceConfigurationName = a})
+-- | The friendly name you give to your VPC endpoint configuration to manage
+-- your configurations more easily.
+updateVPCEConfiguration_vpceConfigurationName :: Lens.Lens' UpdateVPCEConfiguration (Prelude.Maybe Prelude.Text)
+updateVPCEConfiguration_vpceConfigurationName = Lens.lens (\UpdateVPCEConfiguration' {vpceConfigurationName} -> vpceConfigurationName) (\s@UpdateVPCEConfiguration' {} a -> s {vpceConfigurationName = a} :: UpdateVPCEConfiguration)
 
--- | An optional description that provides details about your VPC endpoint configuration.
-uvecVpceConfigurationDescription :: Lens' UpdateVPCEConfiguration (Maybe Text)
-uvecVpceConfigurationDescription = lens _uvecVpceConfigurationDescription (\s a -> s {_uvecVpceConfigurationDescription = a})
+-- | An optional description that provides details about your VPC endpoint
+-- configuration.
+updateVPCEConfiguration_vpceConfigurationDescription :: Lens.Lens' UpdateVPCEConfiguration (Prelude.Maybe Prelude.Text)
+updateVPCEConfiguration_vpceConfigurationDescription = Lens.lens (\UpdateVPCEConfiguration' {vpceConfigurationDescription} -> vpceConfigurationDescription) (\s@UpdateVPCEConfiguration' {} a -> s {vpceConfigurationDescription = a} :: UpdateVPCEConfiguration)
 
--- | The DNS (domain) name used to connect to your private service in your VPC. The DNS name must not already be in use on the internet.
-uvecServiceDNSName :: Lens' UpdateVPCEConfiguration (Maybe Text)
-uvecServiceDNSName = lens _uvecServiceDNSName (\s a -> s {_uvecServiceDNSName = a})
+-- | The DNS (domain) name used to connect to your private service in your
+-- VPC. The DNS name must not already be in use on the internet.
+updateVPCEConfiguration_serviceDnsName :: Lens.Lens' UpdateVPCEConfiguration (Prelude.Maybe Prelude.Text)
+updateVPCEConfiguration_serviceDnsName = Lens.lens (\UpdateVPCEConfiguration' {serviceDnsName} -> serviceDnsName) (\s@UpdateVPCEConfiguration' {} a -> s {serviceDnsName = a} :: UpdateVPCEConfiguration)
 
--- | The name of the VPC endpoint service running in your AWS account that you want Device Farm to test.
-uvecVpceServiceName :: Lens' UpdateVPCEConfiguration (Maybe Text)
-uvecVpceServiceName = lens _uvecVpceServiceName (\s a -> s {_uvecVpceServiceName = a})
+-- | The name of the VPC endpoint service running in your AWS account that
+-- you want Device Farm to test.
+updateVPCEConfiguration_vpceServiceName :: Lens.Lens' UpdateVPCEConfiguration (Prelude.Maybe Prelude.Text)
+updateVPCEConfiguration_vpceServiceName = Lens.lens (\UpdateVPCEConfiguration' {vpceServiceName} -> vpceServiceName) (\s@UpdateVPCEConfiguration' {} a -> s {vpceServiceName = a} :: UpdateVPCEConfiguration)
 
--- | The Amazon Resource Name (ARN) of the VPC endpoint configuration you want to update.
-uvecArn :: Lens' UpdateVPCEConfiguration Text
-uvecArn = lens _uvecArn (\s a -> s {_uvecArn = a})
+-- | The Amazon Resource Name (ARN) of the VPC endpoint configuration you
+-- want to update.
+updateVPCEConfiguration_arn :: Lens.Lens' UpdateVPCEConfiguration Prelude.Text
+updateVPCEConfiguration_arn = Lens.lens (\UpdateVPCEConfiguration' {arn} -> arn) (\s@UpdateVPCEConfiguration' {} a -> s {arn = a} :: UpdateVPCEConfiguration)
 
-instance AWSRequest UpdateVPCEConfiguration where
+instance Prelude.AWSRequest UpdateVPCEConfiguration where
   type
     Rs UpdateVPCEConfiguration =
       UpdateVPCEConfigurationResponse
-  request = postJSON deviceFarm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateVPCEConfigurationResponse'
-            <$> (x .?> "vpceConfiguration") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "vpceConfiguration")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateVPCEConfiguration
+instance Prelude.Hashable UpdateVPCEConfiguration
 
-instance NFData UpdateVPCEConfiguration
+instance Prelude.NFData UpdateVPCEConfiguration
 
-instance ToHeaders UpdateVPCEConfiguration where
+instance Prelude.ToHeaders UpdateVPCEConfiguration where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "DeviceFarm_20150623.UpdateVPCEConfiguration" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "DeviceFarm_20150623.UpdateVPCEConfiguration" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateVPCEConfiguration where
+instance Prelude.ToJSON UpdateVPCEConfiguration where
   toJSON UpdateVPCEConfiguration' {..} =
-    object
-      ( catMaybes
-          [ ("vpceConfigurationName" .=)
-              <$> _uvecVpceConfigurationName,
-            ("vpceConfigurationDescription" .=)
-              <$> _uvecVpceConfigurationDescription,
-            ("serviceDnsName" .=) <$> _uvecServiceDNSName,
-            ("vpceServiceName" .=) <$> _uvecVpceServiceName,
-            Just ("arn" .= _uvecArn)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("vpceConfigurationName" Prelude..=)
+              Prelude.<$> vpceConfigurationName,
+            ("vpceConfigurationDescription" Prelude..=)
+              Prelude.<$> vpceConfigurationDescription,
+            ("serviceDnsName" Prelude..=)
+              Prelude.<$> serviceDnsName,
+            ("vpceServiceName" Prelude..=)
+              Prelude.<$> vpceServiceName,
+            Prelude.Just ("arn" Prelude..= arn)
           ]
       )
 
-instance ToPath UpdateVPCEConfiguration where
-  toPath = const "/"
+instance Prelude.ToPath UpdateVPCEConfiguration where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateVPCEConfiguration where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateVPCEConfiguration where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateVPCEConfigurationResponse' smart constructor.
+-- | /See:/ 'newUpdateVPCEConfigurationResponse' smart constructor.
 data UpdateVPCEConfigurationResponse = UpdateVPCEConfigurationResponse'
-  { _uvecrrsVpceConfiguration ::
-      !( Maybe
-           VPCEConfiguration
-       ),
-    _uvecrrsResponseStatus ::
-      !Int
+  { -- | An object that contains information about your VPC endpoint
+    -- configuration.
+    vpceConfiguration :: Prelude.Maybe VPCEConfiguration,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateVPCEConfigurationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateVPCEConfigurationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uvecrrsVpceConfiguration' - An object that contains information about your VPC endpoint configuration.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uvecrrsResponseStatus' - -- | The response status code.
-updateVPCEConfigurationResponse ::
-  -- | 'uvecrrsResponseStatus'
-  Int ->
+-- 'vpceConfiguration', 'updateVPCEConfigurationResponse_vpceConfiguration' - An object that contains information about your VPC endpoint
+-- configuration.
+--
+-- 'httpStatus', 'updateVPCEConfigurationResponse_httpStatus' - The response's http status code.
+newUpdateVPCEConfigurationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateVPCEConfigurationResponse
-updateVPCEConfigurationResponse pResponseStatus_ =
+newUpdateVPCEConfigurationResponse pHttpStatus_ =
   UpdateVPCEConfigurationResponse'
-    { _uvecrrsVpceConfiguration =
-        Nothing,
-      _uvecrrsResponseStatus = pResponseStatus_
+    { vpceConfiguration =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An object that contains information about your VPC endpoint configuration.
-uvecrrsVpceConfiguration :: Lens' UpdateVPCEConfigurationResponse (Maybe VPCEConfiguration)
-uvecrrsVpceConfiguration = lens _uvecrrsVpceConfiguration (\s a -> s {_uvecrrsVpceConfiguration = a})
+-- | An object that contains information about your VPC endpoint
+-- configuration.
+updateVPCEConfigurationResponse_vpceConfiguration :: Lens.Lens' UpdateVPCEConfigurationResponse (Prelude.Maybe VPCEConfiguration)
+updateVPCEConfigurationResponse_vpceConfiguration = Lens.lens (\UpdateVPCEConfigurationResponse' {vpceConfiguration} -> vpceConfiguration) (\s@UpdateVPCEConfigurationResponse' {} a -> s {vpceConfiguration = a} :: UpdateVPCEConfigurationResponse)
 
--- | -- | The response status code.
-uvecrrsResponseStatus :: Lens' UpdateVPCEConfigurationResponse Int
-uvecrrsResponseStatus = lens _uvecrrsResponseStatus (\s a -> s {_uvecrrsResponseStatus = a})
+-- | The response's http status code.
+updateVPCEConfigurationResponse_httpStatus :: Lens.Lens' UpdateVPCEConfigurationResponse Prelude.Int
+updateVPCEConfigurationResponse_httpStatus = Lens.lens (\UpdateVPCEConfigurationResponse' {httpStatus} -> httpStatus) (\s@UpdateVPCEConfigurationResponse' {} a -> s {httpStatus = a} :: UpdateVPCEConfigurationResponse)
 
-instance NFData UpdateVPCEConfigurationResponse
+instance
+  Prelude.NFData
+    UpdateVPCEConfigurationResponse

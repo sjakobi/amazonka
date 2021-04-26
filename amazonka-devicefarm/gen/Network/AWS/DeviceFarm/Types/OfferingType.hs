@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,48 +19,50 @@
 module Network.AWS.DeviceFarm.Types.OfferingType
   ( OfferingType
       ( ..,
-        Recurring
+        OfferingTypeRECURRING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data OfferingType = OfferingType' (CI Text)
+newtype OfferingType = OfferingType'
+  { fromOfferingType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Recurring :: OfferingType
-pattern Recurring = OfferingType' "RECURRING"
+pattern OfferingTypeRECURRING :: OfferingType
+pattern OfferingTypeRECURRING = OfferingType' "RECURRING"
 
 {-# COMPLETE
-  Recurring,
+  OfferingTypeRECURRING,
   OfferingType'
   #-}
 
-instance FromText OfferingType where
-  parser = (OfferingType' . mk) <$> takeText
+instance Prelude.FromText OfferingType where
+  parser = OfferingType' Prelude.<$> Prelude.takeText
 
-instance ToText OfferingType where
-  toText (OfferingType' ci) = original ci
+instance Prelude.ToText OfferingType where
+  toText (OfferingType' x) = x
 
-instance Hashable OfferingType
+instance Prelude.Hashable OfferingType
 
-instance NFData OfferingType
+instance Prelude.NFData OfferingType
 
-instance ToByteString OfferingType
+instance Prelude.ToByteString OfferingType
 
-instance ToQuery OfferingType
+instance Prelude.ToQuery OfferingType
 
-instance ToHeader OfferingType
+instance Prelude.ToHeader OfferingType
 
-instance FromJSON OfferingType where
-  parseJSON = parseJSONText "OfferingType"
+instance Prelude.FromJSON OfferingType where
+  parseJSON = Prelude.parseJSONText "OfferingType"

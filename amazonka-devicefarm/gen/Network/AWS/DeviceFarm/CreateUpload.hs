@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,165 +24,398 @@
 -- Uploads an app or test scripts.
 module Network.AWS.DeviceFarm.CreateUpload
   ( -- * Creating a Request
-    createUpload,
-    CreateUpload,
+    CreateUpload (..),
+    newCreateUpload,
 
     -- * Request Lenses
-    cuContentType,
-    cuProjectARN,
-    cuName,
-    cuType,
+    createUpload_contentType,
+    createUpload_projectArn,
+    createUpload_name,
+    createUpload_type,
 
     -- * Destructuring the Response
-    createUploadResponse,
-    CreateUploadResponse,
+    CreateUploadResponse (..),
+    newCreateUploadResponse,
 
     -- * Response Lenses
-    currsUpload,
-    currsResponseStatus,
+    createUploadResponse_upload,
+    createUploadResponse_httpStatus,
   )
 where
 
 import Network.AWS.DeviceFarm.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DeviceFarm.Types.Upload
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents a request to the create upload operation.
 --
---
---
--- /See:/ 'createUpload' smart constructor.
+-- /See:/ 'newCreateUpload' smart constructor.
 data CreateUpload = CreateUpload'
-  { _cuContentType ::
-      !(Maybe Text),
-    _cuProjectARN :: !Text,
-    _cuName :: !Text,
-    _cuType :: !UploadType
+  { -- | The upload\'s content type (for example, @application\/octet-stream@).
+    contentType :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the project for the upload.
+    projectArn :: Prelude.Text,
+    -- | The upload\'s file name. The name should not contain any forward slashes
+    -- (@\/@). If you are uploading an iOS app, the file name must end with the
+    -- @.ipa@ extension. If you are uploading an Android app, the file name
+    -- must end with the @.apk@ extension. For all others, the file name must
+    -- end with the @.zip@ file extension.
+    name :: Prelude.Text,
+    -- | The upload\'s upload type.
+    --
+    -- Must be one of the following values:
+    --
+    -- -   ANDROID_APP
+    --
+    -- -   IOS_APP
+    --
+    -- -   WEB_APP
+    --
+    -- -   EXTERNAL_DATA
+    --
+    -- -   APPIUM_JAVA_JUNIT_TEST_PACKAGE
+    --
+    -- -   APPIUM_JAVA_TESTNG_TEST_PACKAGE
+    --
+    -- -   APPIUM_PYTHON_TEST_PACKAGE
+    --
+    -- -   APPIUM_NODE_TEST_PACKAGE
+    --
+    -- -   APPIUM_RUBY_TEST_PACKAGE
+    --
+    -- -   APPIUM_WEB_JAVA_JUNIT_TEST_PACKAGE
+    --
+    -- -   APPIUM_WEB_JAVA_TESTNG_TEST_PACKAGE
+    --
+    -- -   APPIUM_WEB_PYTHON_TEST_PACKAGE
+    --
+    -- -   APPIUM_WEB_NODE_TEST_PACKAGE
+    --
+    -- -   APPIUM_WEB_RUBY_TEST_PACKAGE
+    --
+    -- -   CALABASH_TEST_PACKAGE
+    --
+    -- -   INSTRUMENTATION_TEST_PACKAGE
+    --
+    -- -   UIAUTOMATION_TEST_PACKAGE
+    --
+    -- -   UIAUTOMATOR_TEST_PACKAGE
+    --
+    -- -   XCTEST_TEST_PACKAGE
+    --
+    -- -   XCTEST_UI_TEST_PACKAGE
+    --
+    -- -   APPIUM_JAVA_JUNIT_TEST_SPEC
+    --
+    -- -   APPIUM_JAVA_TESTNG_TEST_SPEC
+    --
+    -- -   APPIUM_PYTHON_TEST_SPEC
+    --
+    -- -   APPIUM_NODE_TEST_SPEC
+    --
+    -- -   APPIUM_RUBY_TEST_SPEC
+    --
+    -- -   APPIUM_WEB_JAVA_JUNIT_TEST_SPEC
+    --
+    -- -   APPIUM_WEB_JAVA_TESTNG_TEST_SPEC
+    --
+    -- -   APPIUM_WEB_PYTHON_TEST_SPEC
+    --
+    -- -   APPIUM_WEB_NODE_TEST_SPEC
+    --
+    -- -   APPIUM_WEB_RUBY_TEST_SPEC
+    --
+    -- -   INSTRUMENTATION_TEST_SPEC
+    --
+    -- -   XCTEST_UI_TEST_SPEC
+    --
+    -- If you call @CreateUpload@ with @WEB_APP@ specified, AWS Device Farm
+    -- throws an @ArgumentException@ error.
+    type' :: UploadType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateUpload' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateUpload' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cuContentType' - The upload's content type (for example, @application/octet-stream@ ).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cuProjectARN' - The ARN of the project for the upload.
+-- 'contentType', 'createUpload_contentType' - The upload\'s content type (for example, @application\/octet-stream@).
 --
--- * 'cuName' - The upload's file name. The name should not contain any forward slashes (@/@ ). If you are uploading an iOS app, the file name must end with the @.ipa@ extension. If you are uploading an Android app, the file name must end with the @.apk@ extension. For all others, the file name must end with the @.zip@ file extension.
+-- 'projectArn', 'createUpload_projectArn' - The ARN of the project for the upload.
 --
--- * 'cuType' - The upload's upload type. Must be one of the following values:     * ANDROID_APP     * IOS_APP     * WEB_APP     * EXTERNAL_DATA     * APPIUM_JAVA_JUNIT_TEST_PACKAGE     * APPIUM_JAVA_TESTNG_TEST_PACKAGE     * APPIUM_PYTHON_TEST_PACKAGE     * APPIUM_NODE_TEST_PACKAGE     * APPIUM_RUBY_TEST_PACKAGE     * APPIUM_WEB_JAVA_JUNIT_TEST_PACKAGE     * APPIUM_WEB_JAVA_TESTNG_TEST_PACKAGE     * APPIUM_WEB_PYTHON_TEST_PACKAGE     * APPIUM_WEB_NODE_TEST_PACKAGE     * APPIUM_WEB_RUBY_TEST_PACKAGE     * CALABASH_TEST_PACKAGE     * INSTRUMENTATION_TEST_PACKAGE     * UIAUTOMATION_TEST_PACKAGE     * UIAUTOMATOR_TEST_PACKAGE     * XCTEST_TEST_PACKAGE     * XCTEST_UI_TEST_PACKAGE     * APPIUM_JAVA_JUNIT_TEST_SPEC     * APPIUM_JAVA_TESTNG_TEST_SPEC     * APPIUM_PYTHON_TEST_SPEC     * APPIUM_NODE_TEST_SPEC     * APPIUM_RUBY_TEST_SPEC     * APPIUM_WEB_JAVA_JUNIT_TEST_SPEC     * APPIUM_WEB_JAVA_TESTNG_TEST_SPEC     * APPIUM_WEB_PYTHON_TEST_SPEC     * APPIUM_WEB_NODE_TEST_SPEC     * APPIUM_WEB_RUBY_TEST_SPEC     * INSTRUMENTATION_TEST_SPEC     * XCTEST_UI_TEST_SPEC If you call @CreateUpload@ with @WEB_APP@ specified, AWS Device Farm throws an @ArgumentException@ error.
-createUpload ::
-  -- | 'cuProjectARN'
-  Text ->
-  -- | 'cuName'
-  Text ->
-  -- | 'cuType'
+-- 'name', 'createUpload_name' - The upload\'s file name. The name should not contain any forward slashes
+-- (@\/@). If you are uploading an iOS app, the file name must end with the
+-- @.ipa@ extension. If you are uploading an Android app, the file name
+-- must end with the @.apk@ extension. For all others, the file name must
+-- end with the @.zip@ file extension.
+--
+-- 'type'', 'createUpload_type' - The upload\'s upload type.
+--
+-- Must be one of the following values:
+--
+-- -   ANDROID_APP
+--
+-- -   IOS_APP
+--
+-- -   WEB_APP
+--
+-- -   EXTERNAL_DATA
+--
+-- -   APPIUM_JAVA_JUNIT_TEST_PACKAGE
+--
+-- -   APPIUM_JAVA_TESTNG_TEST_PACKAGE
+--
+-- -   APPIUM_PYTHON_TEST_PACKAGE
+--
+-- -   APPIUM_NODE_TEST_PACKAGE
+--
+-- -   APPIUM_RUBY_TEST_PACKAGE
+--
+-- -   APPIUM_WEB_JAVA_JUNIT_TEST_PACKAGE
+--
+-- -   APPIUM_WEB_JAVA_TESTNG_TEST_PACKAGE
+--
+-- -   APPIUM_WEB_PYTHON_TEST_PACKAGE
+--
+-- -   APPIUM_WEB_NODE_TEST_PACKAGE
+--
+-- -   APPIUM_WEB_RUBY_TEST_PACKAGE
+--
+-- -   CALABASH_TEST_PACKAGE
+--
+-- -   INSTRUMENTATION_TEST_PACKAGE
+--
+-- -   UIAUTOMATION_TEST_PACKAGE
+--
+-- -   UIAUTOMATOR_TEST_PACKAGE
+--
+-- -   XCTEST_TEST_PACKAGE
+--
+-- -   XCTEST_UI_TEST_PACKAGE
+--
+-- -   APPIUM_JAVA_JUNIT_TEST_SPEC
+--
+-- -   APPIUM_JAVA_TESTNG_TEST_SPEC
+--
+-- -   APPIUM_PYTHON_TEST_SPEC
+--
+-- -   APPIUM_NODE_TEST_SPEC
+--
+-- -   APPIUM_RUBY_TEST_SPEC
+--
+-- -   APPIUM_WEB_JAVA_JUNIT_TEST_SPEC
+--
+-- -   APPIUM_WEB_JAVA_TESTNG_TEST_SPEC
+--
+-- -   APPIUM_WEB_PYTHON_TEST_SPEC
+--
+-- -   APPIUM_WEB_NODE_TEST_SPEC
+--
+-- -   APPIUM_WEB_RUBY_TEST_SPEC
+--
+-- -   INSTRUMENTATION_TEST_SPEC
+--
+-- -   XCTEST_UI_TEST_SPEC
+--
+-- If you call @CreateUpload@ with @WEB_APP@ specified, AWS Device Farm
+-- throws an @ArgumentException@ error.
+newCreateUpload ::
+  -- | 'projectArn'
+  Prelude.Text ->
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'type''
   UploadType ->
   CreateUpload
-createUpload pProjectARN_ pName_ pType_ =
+newCreateUpload pProjectArn_ pName_ pType_ =
   CreateUpload'
-    { _cuContentType = Nothing,
-      _cuProjectARN = pProjectARN_,
-      _cuName = pName_,
-      _cuType = pType_
+    { contentType = Prelude.Nothing,
+      projectArn = pProjectArn_,
+      name = pName_,
+      type' = pType_
     }
 
--- | The upload's content type (for example, @application/octet-stream@ ).
-cuContentType :: Lens' CreateUpload (Maybe Text)
-cuContentType = lens _cuContentType (\s a -> s {_cuContentType = a})
+-- | The upload\'s content type (for example, @application\/octet-stream@).
+createUpload_contentType :: Lens.Lens' CreateUpload (Prelude.Maybe Prelude.Text)
+createUpload_contentType = Lens.lens (\CreateUpload' {contentType} -> contentType) (\s@CreateUpload' {} a -> s {contentType = a} :: CreateUpload)
 
 -- | The ARN of the project for the upload.
-cuProjectARN :: Lens' CreateUpload Text
-cuProjectARN = lens _cuProjectARN (\s a -> s {_cuProjectARN = a})
+createUpload_projectArn :: Lens.Lens' CreateUpload Prelude.Text
+createUpload_projectArn = Lens.lens (\CreateUpload' {projectArn} -> projectArn) (\s@CreateUpload' {} a -> s {projectArn = a} :: CreateUpload)
 
--- | The upload's file name. The name should not contain any forward slashes (@/@ ). If you are uploading an iOS app, the file name must end with the @.ipa@ extension. If you are uploading an Android app, the file name must end with the @.apk@ extension. For all others, the file name must end with the @.zip@ file extension.
-cuName :: Lens' CreateUpload Text
-cuName = lens _cuName (\s a -> s {_cuName = a})
+-- | The upload\'s file name. The name should not contain any forward slashes
+-- (@\/@). If you are uploading an iOS app, the file name must end with the
+-- @.ipa@ extension. If you are uploading an Android app, the file name
+-- must end with the @.apk@ extension. For all others, the file name must
+-- end with the @.zip@ file extension.
+createUpload_name :: Lens.Lens' CreateUpload Prelude.Text
+createUpload_name = Lens.lens (\CreateUpload' {name} -> name) (\s@CreateUpload' {} a -> s {name = a} :: CreateUpload)
 
--- | The upload's upload type. Must be one of the following values:     * ANDROID_APP     * IOS_APP     * WEB_APP     * EXTERNAL_DATA     * APPIUM_JAVA_JUNIT_TEST_PACKAGE     * APPIUM_JAVA_TESTNG_TEST_PACKAGE     * APPIUM_PYTHON_TEST_PACKAGE     * APPIUM_NODE_TEST_PACKAGE     * APPIUM_RUBY_TEST_PACKAGE     * APPIUM_WEB_JAVA_JUNIT_TEST_PACKAGE     * APPIUM_WEB_JAVA_TESTNG_TEST_PACKAGE     * APPIUM_WEB_PYTHON_TEST_PACKAGE     * APPIUM_WEB_NODE_TEST_PACKAGE     * APPIUM_WEB_RUBY_TEST_PACKAGE     * CALABASH_TEST_PACKAGE     * INSTRUMENTATION_TEST_PACKAGE     * UIAUTOMATION_TEST_PACKAGE     * UIAUTOMATOR_TEST_PACKAGE     * XCTEST_TEST_PACKAGE     * XCTEST_UI_TEST_PACKAGE     * APPIUM_JAVA_JUNIT_TEST_SPEC     * APPIUM_JAVA_TESTNG_TEST_SPEC     * APPIUM_PYTHON_TEST_SPEC     * APPIUM_NODE_TEST_SPEC     * APPIUM_RUBY_TEST_SPEC     * APPIUM_WEB_JAVA_JUNIT_TEST_SPEC     * APPIUM_WEB_JAVA_TESTNG_TEST_SPEC     * APPIUM_WEB_PYTHON_TEST_SPEC     * APPIUM_WEB_NODE_TEST_SPEC     * APPIUM_WEB_RUBY_TEST_SPEC     * INSTRUMENTATION_TEST_SPEC     * XCTEST_UI_TEST_SPEC If you call @CreateUpload@ with @WEB_APP@ specified, AWS Device Farm throws an @ArgumentException@ error.
-cuType :: Lens' CreateUpload UploadType
-cuType = lens _cuType (\s a -> s {_cuType = a})
+-- | The upload\'s upload type.
+--
+-- Must be one of the following values:
+--
+-- -   ANDROID_APP
+--
+-- -   IOS_APP
+--
+-- -   WEB_APP
+--
+-- -   EXTERNAL_DATA
+--
+-- -   APPIUM_JAVA_JUNIT_TEST_PACKAGE
+--
+-- -   APPIUM_JAVA_TESTNG_TEST_PACKAGE
+--
+-- -   APPIUM_PYTHON_TEST_PACKAGE
+--
+-- -   APPIUM_NODE_TEST_PACKAGE
+--
+-- -   APPIUM_RUBY_TEST_PACKAGE
+--
+-- -   APPIUM_WEB_JAVA_JUNIT_TEST_PACKAGE
+--
+-- -   APPIUM_WEB_JAVA_TESTNG_TEST_PACKAGE
+--
+-- -   APPIUM_WEB_PYTHON_TEST_PACKAGE
+--
+-- -   APPIUM_WEB_NODE_TEST_PACKAGE
+--
+-- -   APPIUM_WEB_RUBY_TEST_PACKAGE
+--
+-- -   CALABASH_TEST_PACKAGE
+--
+-- -   INSTRUMENTATION_TEST_PACKAGE
+--
+-- -   UIAUTOMATION_TEST_PACKAGE
+--
+-- -   UIAUTOMATOR_TEST_PACKAGE
+--
+-- -   XCTEST_TEST_PACKAGE
+--
+-- -   XCTEST_UI_TEST_PACKAGE
+--
+-- -   APPIUM_JAVA_JUNIT_TEST_SPEC
+--
+-- -   APPIUM_JAVA_TESTNG_TEST_SPEC
+--
+-- -   APPIUM_PYTHON_TEST_SPEC
+--
+-- -   APPIUM_NODE_TEST_SPEC
+--
+-- -   APPIUM_RUBY_TEST_SPEC
+--
+-- -   APPIUM_WEB_JAVA_JUNIT_TEST_SPEC
+--
+-- -   APPIUM_WEB_JAVA_TESTNG_TEST_SPEC
+--
+-- -   APPIUM_WEB_PYTHON_TEST_SPEC
+--
+-- -   APPIUM_WEB_NODE_TEST_SPEC
+--
+-- -   APPIUM_WEB_RUBY_TEST_SPEC
+--
+-- -   INSTRUMENTATION_TEST_SPEC
+--
+-- -   XCTEST_UI_TEST_SPEC
+--
+-- If you call @CreateUpload@ with @WEB_APP@ specified, AWS Device Farm
+-- throws an @ArgumentException@ error.
+createUpload_type :: Lens.Lens' CreateUpload UploadType
+createUpload_type = Lens.lens (\CreateUpload' {type'} -> type') (\s@CreateUpload' {} a -> s {type' = a} :: CreateUpload)
 
-instance AWSRequest CreateUpload where
+instance Prelude.AWSRequest CreateUpload where
   type Rs CreateUpload = CreateUploadResponse
-  request = postJSON deviceFarm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateUploadResponse'
-            <$> (x .?> "upload") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "upload")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateUpload
+instance Prelude.Hashable CreateUpload
 
-instance NFData CreateUpload
+instance Prelude.NFData CreateUpload
 
-instance ToHeaders CreateUpload where
+instance Prelude.ToHeaders CreateUpload where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("DeviceFarm_20150623.CreateUpload" :: ByteString),
+              Prelude.=# ( "DeviceFarm_20150623.CreateUpload" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateUpload where
+instance Prelude.ToJSON CreateUpload where
   toJSON CreateUpload' {..} =
-    object
-      ( catMaybes
-          [ ("contentType" .=) <$> _cuContentType,
-            Just ("projectArn" .= _cuProjectARN),
-            Just ("name" .= _cuName),
-            Just ("type" .= _cuType)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("contentType" Prelude..=) Prelude.<$> contentType,
+            Prelude.Just ("projectArn" Prelude..= projectArn),
+            Prelude.Just ("name" Prelude..= name),
+            Prelude.Just ("type" Prelude..= type')
           ]
       )
 
-instance ToPath CreateUpload where
-  toPath = const "/"
+instance Prelude.ToPath CreateUpload where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateUpload where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateUpload where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the result of a create upload request.
 --
---
---
--- /See:/ 'createUploadResponse' smart constructor.
+-- /See:/ 'newCreateUploadResponse' smart constructor.
 data CreateUploadResponse = CreateUploadResponse'
-  { _currsUpload ::
-      !(Maybe Upload),
-    _currsResponseStatus :: !Int
+  { -- | The newly created upload.
+    upload :: Prelude.Maybe Upload,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateUploadResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateUploadResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'currsUpload' - The newly created upload.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'currsResponseStatus' - -- | The response status code.
-createUploadResponse ::
-  -- | 'currsResponseStatus'
-  Int ->
+-- 'upload', 'createUploadResponse_upload' - The newly created upload.
+--
+-- 'httpStatus', 'createUploadResponse_httpStatus' - The response's http status code.
+newCreateUploadResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateUploadResponse
-createUploadResponse pResponseStatus_ =
+newCreateUploadResponse pHttpStatus_ =
   CreateUploadResponse'
-    { _currsUpload = Nothing,
-      _currsResponseStatus = pResponseStatus_
+    { upload = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The newly created upload.
-currsUpload :: Lens' CreateUploadResponse (Maybe Upload)
-currsUpload = lens _currsUpload (\s a -> s {_currsUpload = a})
+createUploadResponse_upload :: Lens.Lens' CreateUploadResponse (Prelude.Maybe Upload)
+createUploadResponse_upload = Lens.lens (\CreateUploadResponse' {upload} -> upload) (\s@CreateUploadResponse' {} a -> s {upload = a} :: CreateUploadResponse)
 
--- | -- | The response status code.
-currsResponseStatus :: Lens' CreateUploadResponse Int
-currsResponseStatus = lens _currsResponseStatus (\s a -> s {_currsResponseStatus = a})
+-- | The response's http status code.
+createUploadResponse_httpStatus :: Lens.Lens' CreateUploadResponse Prelude.Int
+createUploadResponse_httpStatus = Lens.lens (\CreateUploadResponse' {httpStatus} -> httpStatus) (\s@CreateUploadResponse' {} a -> s {httpStatus = a} :: CreateUploadResponse)
 
-instance NFData CreateUploadResponse
+instance Prelude.NFData CreateUploadResponse

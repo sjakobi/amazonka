@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,72 +19,78 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.DeviceFarm.Types.TestGridProject where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A Selenium testing project. Projects are used to collect and collate sessions.
+-- | A Selenium testing project. Projects are used to collect and collate
+-- sessions.
 --
---
---
--- /See:/ 'testGridProject' smart constructor.
+-- /See:/ 'newTestGridProject' smart constructor.
 data TestGridProject = TestGridProject'
-  { _tgpArn ::
-      !(Maybe Text),
-    _tgpName :: !(Maybe Text),
-    _tgpDescription :: !(Maybe Text),
-    _tgpCreated :: !(Maybe POSIX)
+  { -- | The ARN for the project.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | A human-readable name for the project.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | A human-readable description for the project.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | When the project was created.
+    created :: Prelude.Maybe Prelude.POSIX
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TestGridProject' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TestGridProject' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tgpArn' - The ARN for the project.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tgpName' - A human-readable name for the project.
+-- 'arn', 'testGridProject_arn' - The ARN for the project.
 --
--- * 'tgpDescription' - A human-readable description for the project.
+-- 'name', 'testGridProject_name' - A human-readable name for the project.
 --
--- * 'tgpCreated' - When the project was created.
-testGridProject ::
+-- 'description', 'testGridProject_description' - A human-readable description for the project.
+--
+-- 'created', 'testGridProject_created' - When the project was created.
+newTestGridProject ::
   TestGridProject
-testGridProject =
+newTestGridProject =
   TestGridProject'
-    { _tgpArn = Nothing,
-      _tgpName = Nothing,
-      _tgpDescription = Nothing,
-      _tgpCreated = Nothing
+    { arn = Prelude.Nothing,
+      name = Prelude.Nothing,
+      description = Prelude.Nothing,
+      created = Prelude.Nothing
     }
 
 -- | The ARN for the project.
-tgpArn :: Lens' TestGridProject (Maybe Text)
-tgpArn = lens _tgpArn (\s a -> s {_tgpArn = a})
+testGridProject_arn :: Lens.Lens' TestGridProject (Prelude.Maybe Prelude.Text)
+testGridProject_arn = Lens.lens (\TestGridProject' {arn} -> arn) (\s@TestGridProject' {} a -> s {arn = a} :: TestGridProject)
 
 -- | A human-readable name for the project.
-tgpName :: Lens' TestGridProject (Maybe Text)
-tgpName = lens _tgpName (\s a -> s {_tgpName = a})
+testGridProject_name :: Lens.Lens' TestGridProject (Prelude.Maybe Prelude.Text)
+testGridProject_name = Lens.lens (\TestGridProject' {name} -> name) (\s@TestGridProject' {} a -> s {name = a} :: TestGridProject)
 
 -- | A human-readable description for the project.
-tgpDescription :: Lens' TestGridProject (Maybe Text)
-tgpDescription = lens _tgpDescription (\s a -> s {_tgpDescription = a})
+testGridProject_description :: Lens.Lens' TestGridProject (Prelude.Maybe Prelude.Text)
+testGridProject_description = Lens.lens (\TestGridProject' {description} -> description) (\s@TestGridProject' {} a -> s {description = a} :: TestGridProject)
 
 -- | When the project was created.
-tgpCreated :: Lens' TestGridProject (Maybe UTCTime)
-tgpCreated = lens _tgpCreated (\s a -> s {_tgpCreated = a}) . mapping _Time
+testGridProject_created :: Lens.Lens' TestGridProject (Prelude.Maybe Prelude.UTCTime)
+testGridProject_created = Lens.lens (\TestGridProject' {created} -> created) (\s@TestGridProject' {} a -> s {created = a} :: TestGridProject) Prelude.. Lens.mapping Prelude._Time
 
-instance FromJSON TestGridProject where
+instance Prelude.FromJSON TestGridProject where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TestGridProject"
       ( \x ->
           TestGridProject'
-            <$> (x .:? "arn")
-            <*> (x .:? "name")
-            <*> (x .:? "description")
-            <*> (x .:? "created")
+            Prelude.<$> (x Prelude..:? "arn")
+            Prelude.<*> (x Prelude..:? "name")
+            Prelude.<*> (x Prelude..:? "description")
+            Prelude.<*> (x Prelude..:? "created")
       )
 
-instance Hashable TestGridProject
+instance Prelude.Hashable TestGridProject
 
-instance NFData TestGridProject
+instance Prelude.NFData TestGridProject

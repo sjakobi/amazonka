@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,121 +24,141 @@
 -- Gets information about an upload.
 module Network.AWS.DeviceFarm.GetUpload
   ( -- * Creating a Request
-    getUpload,
-    GetUpload,
+    GetUpload (..),
+    newGetUpload,
 
     -- * Request Lenses
-    guArn,
+    getUpload_arn,
 
     -- * Destructuring the Response
-    getUploadResponse,
-    GetUploadResponse,
+    GetUploadResponse (..),
+    newGetUploadResponse,
 
     -- * Response Lenses
-    gurrsUpload,
-    gurrsResponseStatus,
+    getUploadResponse_upload,
+    getUploadResponse_httpStatus,
   )
 where
 
 import Network.AWS.DeviceFarm.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DeviceFarm.Types.Upload
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents a request to the get upload operation.
 --
---
---
--- /See:/ 'getUpload' smart constructor.
-newtype GetUpload = GetUpload' {_guArn :: Text}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- /See:/ 'newGetUpload' smart constructor.
+data GetUpload = GetUpload'
+  { -- | The upload\'s ARN.
+    arn :: Prelude.Text
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetUpload' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetUpload' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'guArn' - The upload's ARN.
-getUpload ::
-  -- | 'guArn'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'arn', 'getUpload_arn' - The upload\'s ARN.
+newGetUpload ::
+  -- | 'arn'
+  Prelude.Text ->
   GetUpload
-getUpload pArn_ = GetUpload' {_guArn = pArn_}
+newGetUpload pArn_ = GetUpload' {arn = pArn_}
 
--- | The upload's ARN.
-guArn :: Lens' GetUpload Text
-guArn = lens _guArn (\s a -> s {_guArn = a})
+-- | The upload\'s ARN.
+getUpload_arn :: Lens.Lens' GetUpload Prelude.Text
+getUpload_arn = Lens.lens (\GetUpload' {arn} -> arn) (\s@GetUpload' {} a -> s {arn = a} :: GetUpload)
 
-instance AWSRequest GetUpload where
+instance Prelude.AWSRequest GetUpload where
   type Rs GetUpload = GetUploadResponse
-  request = postJSON deviceFarm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetUploadResponse'
-            <$> (x .?> "upload") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "upload")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetUpload
+instance Prelude.Hashable GetUpload
 
-instance NFData GetUpload
+instance Prelude.NFData GetUpload
 
-instance ToHeaders GetUpload where
+instance Prelude.ToHeaders GetUpload where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("DeviceFarm_20150623.GetUpload" :: ByteString),
+              Prelude.=# ( "DeviceFarm_20150623.GetUpload" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetUpload where
+instance Prelude.ToJSON GetUpload where
   toJSON GetUpload' {..} =
-    object (catMaybes [Just ("arn" .= _guArn)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("arn" Prelude..= arn)]
+      )
 
-instance ToPath GetUpload where
-  toPath = const "/"
+instance Prelude.ToPath GetUpload where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetUpload where
-  toQuery = const mempty
+instance Prelude.ToQuery GetUpload where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the result of a get upload request.
 --
---
---
--- /See:/ 'getUploadResponse' smart constructor.
+-- /See:/ 'newGetUploadResponse' smart constructor.
 data GetUploadResponse = GetUploadResponse'
-  { _gurrsUpload ::
-      !(Maybe Upload),
-    _gurrsResponseStatus :: !Int
+  { -- | An app or a set of one or more tests to upload or that have been
+    -- uploaded.
+    upload :: Prelude.Maybe Upload,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetUploadResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetUploadResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gurrsUpload' - An app or a set of one or more tests to upload or that have been uploaded.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gurrsResponseStatus' - -- | The response status code.
-getUploadResponse ::
-  -- | 'gurrsResponseStatus'
-  Int ->
+-- 'upload', 'getUploadResponse_upload' - An app or a set of one or more tests to upload or that have been
+-- uploaded.
+--
+-- 'httpStatus', 'getUploadResponse_httpStatus' - The response's http status code.
+newGetUploadResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetUploadResponse
-getUploadResponse pResponseStatus_ =
+newGetUploadResponse pHttpStatus_ =
   GetUploadResponse'
-    { _gurrsUpload = Nothing,
-      _gurrsResponseStatus = pResponseStatus_
+    { upload = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An app or a set of one or more tests to upload or that have been uploaded.
-gurrsUpload :: Lens' GetUploadResponse (Maybe Upload)
-gurrsUpload = lens _gurrsUpload (\s a -> s {_gurrsUpload = a})
+-- | An app or a set of one or more tests to upload or that have been
+-- uploaded.
+getUploadResponse_upload :: Lens.Lens' GetUploadResponse (Prelude.Maybe Upload)
+getUploadResponse_upload = Lens.lens (\GetUploadResponse' {upload} -> upload) (\s@GetUploadResponse' {} a -> s {upload = a} :: GetUploadResponse)
 
--- | -- | The response status code.
-gurrsResponseStatus :: Lens' GetUploadResponse Int
-gurrsResponseStatus = lens _gurrsResponseStatus (\s a -> s {_gurrsResponseStatus = a})
+-- | The response's http status code.
+getUploadResponse_httpStatus :: Lens.Lens' GetUploadResponse Prelude.Int
+getUploadResponse_httpStatus = Lens.lens (\GetUploadResponse' {httpStatus} -> httpStatus) (\s@GetUploadResponse' {} a -> s {httpStatus = a} :: GetUploadResponse)
 
-instance NFData GetUploadResponse
+instance Prelude.NFData GetUploadResponse

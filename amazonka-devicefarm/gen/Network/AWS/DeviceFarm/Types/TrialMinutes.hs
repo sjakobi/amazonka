@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,58 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.DeviceFarm.Types.TrialMinutes where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents information about free trial device minutes for an AWS account.
+-- | Represents information about free trial device minutes for an AWS
+-- account.
 --
---
---
--- /See:/ 'trialMinutes' smart constructor.
+-- /See:/ 'newTrialMinutes' smart constructor.
 data TrialMinutes = TrialMinutes'
-  { _tmTotal ::
-      !(Maybe Double),
-    _tmRemaining :: !(Maybe Double)
+  { -- | The total number of free trial minutes that the account started with.
+    total :: Prelude.Maybe Prelude.Double,
+    -- | The number of free trial minutes remaining in the account.
+    remaining :: Prelude.Maybe Prelude.Double
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TrialMinutes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TrialMinutes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tmTotal' - The total number of free trial minutes that the account started with.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tmRemaining' - The number of free trial minutes remaining in the account.
-trialMinutes ::
+-- 'total', 'trialMinutes_total' - The total number of free trial minutes that the account started with.
+--
+-- 'remaining', 'trialMinutes_remaining' - The number of free trial minutes remaining in the account.
+newTrialMinutes ::
   TrialMinutes
-trialMinutes =
+newTrialMinutes =
   TrialMinutes'
-    { _tmTotal = Nothing,
-      _tmRemaining = Nothing
+    { total = Prelude.Nothing,
+      remaining = Prelude.Nothing
     }
 
 -- | The total number of free trial minutes that the account started with.
-tmTotal :: Lens' TrialMinutes (Maybe Double)
-tmTotal = lens _tmTotal (\s a -> s {_tmTotal = a})
+trialMinutes_total :: Lens.Lens' TrialMinutes (Prelude.Maybe Prelude.Double)
+trialMinutes_total = Lens.lens (\TrialMinutes' {total} -> total) (\s@TrialMinutes' {} a -> s {total = a} :: TrialMinutes)
 
 -- | The number of free trial minutes remaining in the account.
-tmRemaining :: Lens' TrialMinutes (Maybe Double)
-tmRemaining = lens _tmRemaining (\s a -> s {_tmRemaining = a})
+trialMinutes_remaining :: Lens.Lens' TrialMinutes (Prelude.Maybe Prelude.Double)
+trialMinutes_remaining = Lens.lens (\TrialMinutes' {remaining} -> remaining) (\s@TrialMinutes' {} a -> s {remaining = a} :: TrialMinutes)
 
-instance FromJSON TrialMinutes where
+instance Prelude.FromJSON TrialMinutes where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TrialMinutes"
       ( \x ->
           TrialMinutes'
-            <$> (x .:? "total") <*> (x .:? "remaining")
+            Prelude.<$> (x Prelude..:? "total")
+            Prelude.<*> (x Prelude..:? "remaining")
       )
 
-instance Hashable TrialMinutes
+instance Prelude.Hashable TrialMinutes
 
-instance NFData TrialMinutes
+instance Prelude.NFData TrialMinutes

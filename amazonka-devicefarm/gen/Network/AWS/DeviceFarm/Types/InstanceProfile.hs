@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,91 +19,118 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.DeviceFarm.Types.InstanceProfile where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents the instance profile.
 --
---
---
--- /See:/ 'instanceProfile' smart constructor.
+-- /See:/ 'newInstanceProfile' smart constructor.
 data InstanceProfile = InstanceProfile'
-  { _ipExcludeAppPackagesFromCleanup ::
-      !(Maybe [Text]),
-    _ipArn :: !(Maybe Text),
-    _ipName :: !(Maybe Text),
-    _ipDescription :: !(Maybe Text),
-    _ipRebootAfterUse :: !(Maybe Bool),
-    _ipPackageCleanup :: !(Maybe Bool)
+  { -- | An array of strings containing the list of app packages that should not
+    -- be cleaned up from the device after a test run completes.
+    --
+    -- The list of packages is considered only if you set @packageCleanup@ to
+    -- @true@.
+    excludeAppPackagesFromCleanup :: Prelude.Maybe [Prelude.Text],
+    -- | The Amazon Resource Name (ARN) of the instance profile.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the instance profile.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The description of the instance profile.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | When set to @true@, Device Farm reboots the instance after a test run.
+    -- The default value is @true@.
+    rebootAfterUse :: Prelude.Maybe Prelude.Bool,
+    -- | When set to @true@, Device Farm removes app packages after a test run.
+    -- The default value is @false@ for private devices.
+    packageCleanup :: Prelude.Maybe Prelude.Bool
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InstanceProfile' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InstanceProfile' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ipExcludeAppPackagesFromCleanup' - An array of strings containing the list of app packages that should not be cleaned up from the device after a test run completes. The list of packages is considered only if you set @packageCleanup@ to @true@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ipArn' - The Amazon Resource Name (ARN) of the instance profile.
+-- 'excludeAppPackagesFromCleanup', 'instanceProfile_excludeAppPackagesFromCleanup' - An array of strings containing the list of app packages that should not
+-- be cleaned up from the device after a test run completes.
 --
--- * 'ipName' - The name of the instance profile.
+-- The list of packages is considered only if you set @packageCleanup@ to
+-- @true@.
 --
--- * 'ipDescription' - The description of the instance profile.
+-- 'arn', 'instanceProfile_arn' - The Amazon Resource Name (ARN) of the instance profile.
 --
--- * 'ipRebootAfterUse' - When set to @true@ , Device Farm reboots the instance after a test run. The default value is @true@ .
+-- 'name', 'instanceProfile_name' - The name of the instance profile.
 --
--- * 'ipPackageCleanup' - When set to @true@ , Device Farm removes app packages after a test run. The default value is @false@ for private devices.
-instanceProfile ::
+-- 'description', 'instanceProfile_description' - The description of the instance profile.
+--
+-- 'rebootAfterUse', 'instanceProfile_rebootAfterUse' - When set to @true@, Device Farm reboots the instance after a test run.
+-- The default value is @true@.
+--
+-- 'packageCleanup', 'instanceProfile_packageCleanup' - When set to @true@, Device Farm removes app packages after a test run.
+-- The default value is @false@ for private devices.
+newInstanceProfile ::
   InstanceProfile
-instanceProfile =
+newInstanceProfile =
   InstanceProfile'
-    { _ipExcludeAppPackagesFromCleanup =
-        Nothing,
-      _ipArn = Nothing,
-      _ipName = Nothing,
-      _ipDescription = Nothing,
-      _ipRebootAfterUse = Nothing,
-      _ipPackageCleanup = Nothing
+    { excludeAppPackagesFromCleanup =
+        Prelude.Nothing,
+      arn = Prelude.Nothing,
+      name = Prelude.Nothing,
+      description = Prelude.Nothing,
+      rebootAfterUse = Prelude.Nothing,
+      packageCleanup = Prelude.Nothing
     }
 
--- | An array of strings containing the list of app packages that should not be cleaned up from the device after a test run completes. The list of packages is considered only if you set @packageCleanup@ to @true@ .
-ipExcludeAppPackagesFromCleanup :: Lens' InstanceProfile [Text]
-ipExcludeAppPackagesFromCleanup = lens _ipExcludeAppPackagesFromCleanup (\s a -> s {_ipExcludeAppPackagesFromCleanup = a}) . _Default . _Coerce
+-- | An array of strings containing the list of app packages that should not
+-- be cleaned up from the device after a test run completes.
+--
+-- The list of packages is considered only if you set @packageCleanup@ to
+-- @true@.
+instanceProfile_excludeAppPackagesFromCleanup :: Lens.Lens' InstanceProfile (Prelude.Maybe [Prelude.Text])
+instanceProfile_excludeAppPackagesFromCleanup = Lens.lens (\InstanceProfile' {excludeAppPackagesFromCleanup} -> excludeAppPackagesFromCleanup) (\s@InstanceProfile' {} a -> s {excludeAppPackagesFromCleanup = a} :: InstanceProfile) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The Amazon Resource Name (ARN) of the instance profile.
-ipArn :: Lens' InstanceProfile (Maybe Text)
-ipArn = lens _ipArn (\s a -> s {_ipArn = a})
+instanceProfile_arn :: Lens.Lens' InstanceProfile (Prelude.Maybe Prelude.Text)
+instanceProfile_arn = Lens.lens (\InstanceProfile' {arn} -> arn) (\s@InstanceProfile' {} a -> s {arn = a} :: InstanceProfile)
 
 -- | The name of the instance profile.
-ipName :: Lens' InstanceProfile (Maybe Text)
-ipName = lens _ipName (\s a -> s {_ipName = a})
+instanceProfile_name :: Lens.Lens' InstanceProfile (Prelude.Maybe Prelude.Text)
+instanceProfile_name = Lens.lens (\InstanceProfile' {name} -> name) (\s@InstanceProfile' {} a -> s {name = a} :: InstanceProfile)
 
 -- | The description of the instance profile.
-ipDescription :: Lens' InstanceProfile (Maybe Text)
-ipDescription = lens _ipDescription (\s a -> s {_ipDescription = a})
+instanceProfile_description :: Lens.Lens' InstanceProfile (Prelude.Maybe Prelude.Text)
+instanceProfile_description = Lens.lens (\InstanceProfile' {description} -> description) (\s@InstanceProfile' {} a -> s {description = a} :: InstanceProfile)
 
--- | When set to @true@ , Device Farm reboots the instance after a test run. The default value is @true@ .
-ipRebootAfterUse :: Lens' InstanceProfile (Maybe Bool)
-ipRebootAfterUse = lens _ipRebootAfterUse (\s a -> s {_ipRebootAfterUse = a})
+-- | When set to @true@, Device Farm reboots the instance after a test run.
+-- The default value is @true@.
+instanceProfile_rebootAfterUse :: Lens.Lens' InstanceProfile (Prelude.Maybe Prelude.Bool)
+instanceProfile_rebootAfterUse = Lens.lens (\InstanceProfile' {rebootAfterUse} -> rebootAfterUse) (\s@InstanceProfile' {} a -> s {rebootAfterUse = a} :: InstanceProfile)
 
--- | When set to @true@ , Device Farm removes app packages after a test run. The default value is @false@ for private devices.
-ipPackageCleanup :: Lens' InstanceProfile (Maybe Bool)
-ipPackageCleanup = lens _ipPackageCleanup (\s a -> s {_ipPackageCleanup = a})
+-- | When set to @true@, Device Farm removes app packages after a test run.
+-- The default value is @false@ for private devices.
+instanceProfile_packageCleanup :: Lens.Lens' InstanceProfile (Prelude.Maybe Prelude.Bool)
+instanceProfile_packageCleanup = Lens.lens (\InstanceProfile' {packageCleanup} -> packageCleanup) (\s@InstanceProfile' {} a -> s {packageCleanup = a} :: InstanceProfile)
 
-instance FromJSON InstanceProfile where
+instance Prelude.FromJSON InstanceProfile where
   parseJSON =
-    withObject
+    Prelude.withObject
       "InstanceProfile"
       ( \x ->
           InstanceProfile'
-            <$> (x .:? "excludeAppPackagesFromCleanup" .!= mempty)
-            <*> (x .:? "arn")
-            <*> (x .:? "name")
-            <*> (x .:? "description")
-            <*> (x .:? "rebootAfterUse")
-            <*> (x .:? "packageCleanup")
+            Prelude.<$> ( x Prelude..:? "excludeAppPackagesFromCleanup"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "arn")
+            Prelude.<*> (x Prelude..:? "name")
+            Prelude.<*> (x Prelude..:? "description")
+            Prelude.<*> (x Prelude..:? "rebootAfterUse")
+            Prelude.<*> (x Prelude..:? "packageCleanup")
       )
 
-instance Hashable InstanceProfile
+instance Prelude.Hashable InstanceProfile
 
-instance NFData InstanceProfile
+instance Prelude.NFData InstanceProfile

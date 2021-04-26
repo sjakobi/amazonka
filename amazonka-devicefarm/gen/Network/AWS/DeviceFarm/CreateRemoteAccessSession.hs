@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,285 +24,389 @@
 -- Specifies and starts a remote access session.
 module Network.AWS.DeviceFarm.CreateRemoteAccessSession
   ( -- * Creating a Request
-    createRemoteAccessSession,
-    CreateRemoteAccessSession,
+    CreateRemoteAccessSession (..),
+    newCreateRemoteAccessSession,
 
     -- * Request Lenses
-    crasClientId,
-    crasInteractionMode,
-    crasConfiguration,
-    crasName,
-    crasInstanceARN,
-    crasRemoteRecordEnabled,
-    crasSkipAppResign,
-    crasSshPublicKey,
-    crasRemoteDebugEnabled,
-    crasRemoteRecordAppARN,
-    crasProjectARN,
-    crasDeviceARN,
+    createRemoteAccessSession_clientId,
+    createRemoteAccessSession_interactionMode,
+    createRemoteAccessSession_configuration,
+    createRemoteAccessSession_name,
+    createRemoteAccessSession_instanceArn,
+    createRemoteAccessSession_remoteRecordEnabled,
+    createRemoteAccessSession_skipAppResign,
+    createRemoteAccessSession_sshPublicKey,
+    createRemoteAccessSession_remoteDebugEnabled,
+    createRemoteAccessSession_remoteRecordAppArn,
+    createRemoteAccessSession_projectArn,
+    createRemoteAccessSession_deviceArn,
 
     -- * Destructuring the Response
-    createRemoteAccessSessionResponse,
-    CreateRemoteAccessSessionResponse,
+    CreateRemoteAccessSessionResponse (..),
+    newCreateRemoteAccessSessionResponse,
 
     -- * Response Lenses
-    crasrrsRemoteAccessSession,
-    crasrrsResponseStatus,
+    createRemoteAccessSessionResponse_remoteAccessSession,
+    createRemoteAccessSessionResponse_httpStatus,
   )
 where
 
 import Network.AWS.DeviceFarm.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DeviceFarm.Types.RemoteAccessSession
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Creates and submits a request to start a remote access session.
 --
---
---
--- /See:/ 'createRemoteAccessSession' smart constructor.
+-- /See:/ 'newCreateRemoteAccessSession' smart constructor.
 data CreateRemoteAccessSession = CreateRemoteAccessSession'
-  { _crasClientId ::
-      !(Maybe Text),
-    _crasInteractionMode ::
-      !( Maybe
-           InteractionMode
-       ),
-    _crasConfiguration ::
-      !( Maybe
-           CreateRemoteAccessSessionConfiguration
-       ),
-    _crasName ::
-      !(Maybe Text),
-    _crasInstanceARN ::
-      !(Maybe Text),
-    _crasRemoteRecordEnabled ::
-      !(Maybe Bool),
-    _crasSkipAppResign ::
-      !(Maybe Bool),
-    _crasSshPublicKey ::
-      !(Maybe Text),
-    _crasRemoteDebugEnabled ::
-      !(Maybe Bool),
-    _crasRemoteRecordAppARN ::
-      !(Maybe Text),
-    _crasProjectARN ::
-      !Text,
-    _crasDeviceARN ::
-      !Text
+  { -- | Unique identifier for the client. If you want access to multiple devices
+    -- on the same client, you should pass the same @clientId@ value in each
+    -- call to @CreateRemoteAccessSession@. This identifier is required only if
+    -- @remoteDebugEnabled@ is set to @true@.
+    --
+    -- Remote debugging is
+    -- <https://docs.aws.amazon.com/devicefarm/latest/developerguide/history.html no longer supported>.
+    clientId :: Prelude.Maybe Prelude.Text,
+    -- | The interaction mode of the remote access session. Valid values are:
+    --
+    -- -   INTERACTIVE: You can interact with the iOS device by viewing,
+    --     touching, and rotating the screen. You cannot run XCUITest
+    --     framework-based tests in this mode.
+    --
+    -- -   NO_VIDEO: You are connected to the device, but cannot interact with
+    --     it or view the screen. This mode has the fastest test execution
+    --     speed. You can run XCUITest framework-based tests in this mode.
+    --
+    -- -   VIDEO_ONLY: You can view the screen, but cannot touch or rotate it.
+    --     You can run XCUITest framework-based tests and watch the screen in
+    --     this mode.
+    interactionMode :: Prelude.Maybe InteractionMode,
+    -- | The configuration information for the remote access session request.
+    configuration :: Prelude.Maybe CreateRemoteAccessSessionConfiguration,
+    -- | The name of the remote access session to create.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the device instance for which you want
+    -- to create a remote access session.
+    instanceArn :: Prelude.Maybe Prelude.Text,
+    -- | Set to @true@ to enable remote recording for the remote access session.
+    remoteRecordEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | When set to @true@, for private devices, Device Farm does not sign your
+    -- app again. For public devices, Device Farm always signs your apps again.
+    --
+    -- For more information on how Device Farm modifies your uploads during
+    -- tests, see
+    -- <https://aws.amazon.com/device-farm/faq/ Do you modify my app?>
+    skipAppResign :: Prelude.Maybe Prelude.Bool,
+    -- | Ignored. The public key of the @ssh@ key pair you want to use for
+    -- connecting to remote devices in your remote debugging session. This key
+    -- is required only if @remoteDebugEnabled@ is set to @true@.
+    --
+    -- Remote debugging is
+    -- <https://docs.aws.amazon.com/devicefarm/latest/developerguide/history.html no longer supported>.
+    sshPublicKey :: Prelude.Maybe Prelude.Text,
+    -- | Set to @true@ if you want to access devices remotely for debugging in
+    -- your remote access session.
+    --
+    -- Remote debugging is
+    -- <https://docs.aws.amazon.com/devicefarm/latest/developerguide/history.html no longer supported>.
+    remoteDebugEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | The Amazon Resource Name (ARN) for the app to be recorded in the remote
+    -- access session.
+    remoteRecordAppArn :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the project for which you want to
+    -- create a remote access session.
+    projectArn :: Prelude.Text,
+    -- | The ARN of the device for which you want to create a remote access
+    -- session.
+    deviceArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateRemoteAccessSession' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateRemoteAccessSession' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'crasClientId' - Unique identifier for the client. If you want access to multiple devices on the same client, you should pass the same @clientId@ value in each call to @CreateRemoteAccessSession@ . This identifier is required only if @remoteDebugEnabled@ is set to @true@ . Remote debugging is <https://docs.aws.amazon.com/devicefarm/latest/developerguide/history.html no longer supported> .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'crasInteractionMode' - The interaction mode of the remote access session. Valid values are:     * INTERACTIVE: You can interact with the iOS device by viewing, touching, and rotating the screen. You cannot run XCUITest framework-based tests in this mode.     * NO_VIDEO: You are connected to the device, but cannot interact with it or view the screen. This mode has the fastest test execution speed. You can run XCUITest framework-based tests in this mode.     * VIDEO_ONLY: You can view the screen, but cannot touch or rotate it. You can run XCUITest framework-based tests and watch the screen in this mode.
+-- 'clientId', 'createRemoteAccessSession_clientId' - Unique identifier for the client. If you want access to multiple devices
+-- on the same client, you should pass the same @clientId@ value in each
+-- call to @CreateRemoteAccessSession@. This identifier is required only if
+-- @remoteDebugEnabled@ is set to @true@.
 --
--- * 'crasConfiguration' - The configuration information for the remote access session request.
+-- Remote debugging is
+-- <https://docs.aws.amazon.com/devicefarm/latest/developerguide/history.html no longer supported>.
 --
--- * 'crasName' - The name of the remote access session to create.
+-- 'interactionMode', 'createRemoteAccessSession_interactionMode' - The interaction mode of the remote access session. Valid values are:
 --
--- * 'crasInstanceARN' - The Amazon Resource Name (ARN) of the device instance for which you want to create a remote access session.
+-- -   INTERACTIVE: You can interact with the iOS device by viewing,
+--     touching, and rotating the screen. You cannot run XCUITest
+--     framework-based tests in this mode.
 --
--- * 'crasRemoteRecordEnabled' - Set to @true@ to enable remote recording for the remote access session.
+-- -   NO_VIDEO: You are connected to the device, but cannot interact with
+--     it or view the screen. This mode has the fastest test execution
+--     speed. You can run XCUITest framework-based tests in this mode.
 --
--- * 'crasSkipAppResign' - When set to @true@ , for private devices, Device Farm does not sign your app again. For public devices, Device Farm always signs your apps again. For more information on how Device Farm modifies your uploads during tests, see <https://aws.amazon.com/device-farm/faq/ Do you modify my app?>
+-- -   VIDEO_ONLY: You can view the screen, but cannot touch or rotate it.
+--     You can run XCUITest framework-based tests and watch the screen in
+--     this mode.
 --
--- * 'crasSshPublicKey' - Ignored. The public key of the @ssh@ key pair you want to use for connecting to remote devices in your remote debugging session. This key is required only if @remoteDebugEnabled@ is set to @true@ . Remote debugging is <https://docs.aws.amazon.com/devicefarm/latest/developerguide/history.html no longer supported> .
+-- 'configuration', 'createRemoteAccessSession_configuration' - The configuration information for the remote access session request.
 --
--- * 'crasRemoteDebugEnabled' - Set to @true@ if you want to access devices remotely for debugging in your remote access session. Remote debugging is <https://docs.aws.amazon.com/devicefarm/latest/developerguide/history.html no longer supported> .
+-- 'name', 'createRemoteAccessSession_name' - The name of the remote access session to create.
 --
--- * 'crasRemoteRecordAppARN' - The Amazon Resource Name (ARN) for the app to be recorded in the remote access session.
+-- 'instanceArn', 'createRemoteAccessSession_instanceArn' - The Amazon Resource Name (ARN) of the device instance for which you want
+-- to create a remote access session.
 --
--- * 'crasProjectARN' - The Amazon Resource Name (ARN) of the project for which you want to create a remote access session.
+-- 'remoteRecordEnabled', 'createRemoteAccessSession_remoteRecordEnabled' - Set to @true@ to enable remote recording for the remote access session.
 --
--- * 'crasDeviceARN' - The ARN of the device for which you want to create a remote access session.
-createRemoteAccessSession ::
-  -- | 'crasProjectARN'
-  Text ->
-  -- | 'crasDeviceARN'
-  Text ->
+-- 'skipAppResign', 'createRemoteAccessSession_skipAppResign' - When set to @true@, for private devices, Device Farm does not sign your
+-- app again. For public devices, Device Farm always signs your apps again.
+--
+-- For more information on how Device Farm modifies your uploads during
+-- tests, see
+-- <https://aws.amazon.com/device-farm/faq/ Do you modify my app?>
+--
+-- 'sshPublicKey', 'createRemoteAccessSession_sshPublicKey' - Ignored. The public key of the @ssh@ key pair you want to use for
+-- connecting to remote devices in your remote debugging session. This key
+-- is required only if @remoteDebugEnabled@ is set to @true@.
+--
+-- Remote debugging is
+-- <https://docs.aws.amazon.com/devicefarm/latest/developerguide/history.html no longer supported>.
+--
+-- 'remoteDebugEnabled', 'createRemoteAccessSession_remoteDebugEnabled' - Set to @true@ if you want to access devices remotely for debugging in
+-- your remote access session.
+--
+-- Remote debugging is
+-- <https://docs.aws.amazon.com/devicefarm/latest/developerguide/history.html no longer supported>.
+--
+-- 'remoteRecordAppArn', 'createRemoteAccessSession_remoteRecordAppArn' - The Amazon Resource Name (ARN) for the app to be recorded in the remote
+-- access session.
+--
+-- 'projectArn', 'createRemoteAccessSession_projectArn' - The Amazon Resource Name (ARN) of the project for which you want to
+-- create a remote access session.
+--
+-- 'deviceArn', 'createRemoteAccessSession_deviceArn' - The ARN of the device for which you want to create a remote access
+-- session.
+newCreateRemoteAccessSession ::
+  -- | 'projectArn'
+  Prelude.Text ->
+  -- | 'deviceArn'
+  Prelude.Text ->
   CreateRemoteAccessSession
-createRemoteAccessSession pProjectARN_ pDeviceARN_ =
+newCreateRemoteAccessSession pProjectArn_ pDeviceArn_ =
   CreateRemoteAccessSession'
-    { _crasClientId = Nothing,
-      _crasInteractionMode = Nothing,
-      _crasConfiguration = Nothing,
-      _crasName = Nothing,
-      _crasInstanceARN = Nothing,
-      _crasRemoteRecordEnabled = Nothing,
-      _crasSkipAppResign = Nothing,
-      _crasSshPublicKey = Nothing,
-      _crasRemoteDebugEnabled = Nothing,
-      _crasRemoteRecordAppARN = Nothing,
-      _crasProjectARN = pProjectARN_,
-      _crasDeviceARN = pDeviceARN_
+    { clientId =
+        Prelude.Nothing,
+      interactionMode = Prelude.Nothing,
+      configuration = Prelude.Nothing,
+      name = Prelude.Nothing,
+      instanceArn = Prelude.Nothing,
+      remoteRecordEnabled = Prelude.Nothing,
+      skipAppResign = Prelude.Nothing,
+      sshPublicKey = Prelude.Nothing,
+      remoteDebugEnabled = Prelude.Nothing,
+      remoteRecordAppArn = Prelude.Nothing,
+      projectArn = pProjectArn_,
+      deviceArn = pDeviceArn_
     }
 
--- | Unique identifier for the client. If you want access to multiple devices on the same client, you should pass the same @clientId@ value in each call to @CreateRemoteAccessSession@ . This identifier is required only if @remoteDebugEnabled@ is set to @true@ . Remote debugging is <https://docs.aws.amazon.com/devicefarm/latest/developerguide/history.html no longer supported> .
-crasClientId :: Lens' CreateRemoteAccessSession (Maybe Text)
-crasClientId = lens _crasClientId (\s a -> s {_crasClientId = a})
+-- | Unique identifier for the client. If you want access to multiple devices
+-- on the same client, you should pass the same @clientId@ value in each
+-- call to @CreateRemoteAccessSession@. This identifier is required only if
+-- @remoteDebugEnabled@ is set to @true@.
+--
+-- Remote debugging is
+-- <https://docs.aws.amazon.com/devicefarm/latest/developerguide/history.html no longer supported>.
+createRemoteAccessSession_clientId :: Lens.Lens' CreateRemoteAccessSession (Prelude.Maybe Prelude.Text)
+createRemoteAccessSession_clientId = Lens.lens (\CreateRemoteAccessSession' {clientId} -> clientId) (\s@CreateRemoteAccessSession' {} a -> s {clientId = a} :: CreateRemoteAccessSession)
 
--- | The interaction mode of the remote access session. Valid values are:     * INTERACTIVE: You can interact with the iOS device by viewing, touching, and rotating the screen. You cannot run XCUITest framework-based tests in this mode.     * NO_VIDEO: You are connected to the device, but cannot interact with it or view the screen. This mode has the fastest test execution speed. You can run XCUITest framework-based tests in this mode.     * VIDEO_ONLY: You can view the screen, but cannot touch or rotate it. You can run XCUITest framework-based tests and watch the screen in this mode.
-crasInteractionMode :: Lens' CreateRemoteAccessSession (Maybe InteractionMode)
-crasInteractionMode = lens _crasInteractionMode (\s a -> s {_crasInteractionMode = a})
+-- | The interaction mode of the remote access session. Valid values are:
+--
+-- -   INTERACTIVE: You can interact with the iOS device by viewing,
+--     touching, and rotating the screen. You cannot run XCUITest
+--     framework-based tests in this mode.
+--
+-- -   NO_VIDEO: You are connected to the device, but cannot interact with
+--     it or view the screen. This mode has the fastest test execution
+--     speed. You can run XCUITest framework-based tests in this mode.
+--
+-- -   VIDEO_ONLY: You can view the screen, but cannot touch or rotate it.
+--     You can run XCUITest framework-based tests and watch the screen in
+--     this mode.
+createRemoteAccessSession_interactionMode :: Lens.Lens' CreateRemoteAccessSession (Prelude.Maybe InteractionMode)
+createRemoteAccessSession_interactionMode = Lens.lens (\CreateRemoteAccessSession' {interactionMode} -> interactionMode) (\s@CreateRemoteAccessSession' {} a -> s {interactionMode = a} :: CreateRemoteAccessSession)
 
 -- | The configuration information for the remote access session request.
-crasConfiguration :: Lens' CreateRemoteAccessSession (Maybe CreateRemoteAccessSessionConfiguration)
-crasConfiguration = lens _crasConfiguration (\s a -> s {_crasConfiguration = a})
+createRemoteAccessSession_configuration :: Lens.Lens' CreateRemoteAccessSession (Prelude.Maybe CreateRemoteAccessSessionConfiguration)
+createRemoteAccessSession_configuration = Lens.lens (\CreateRemoteAccessSession' {configuration} -> configuration) (\s@CreateRemoteAccessSession' {} a -> s {configuration = a} :: CreateRemoteAccessSession)
 
 -- | The name of the remote access session to create.
-crasName :: Lens' CreateRemoteAccessSession (Maybe Text)
-crasName = lens _crasName (\s a -> s {_crasName = a})
+createRemoteAccessSession_name :: Lens.Lens' CreateRemoteAccessSession (Prelude.Maybe Prelude.Text)
+createRemoteAccessSession_name = Lens.lens (\CreateRemoteAccessSession' {name} -> name) (\s@CreateRemoteAccessSession' {} a -> s {name = a} :: CreateRemoteAccessSession)
 
--- | The Amazon Resource Name (ARN) of the device instance for which you want to create a remote access session.
-crasInstanceARN :: Lens' CreateRemoteAccessSession (Maybe Text)
-crasInstanceARN = lens _crasInstanceARN (\s a -> s {_crasInstanceARN = a})
+-- | The Amazon Resource Name (ARN) of the device instance for which you want
+-- to create a remote access session.
+createRemoteAccessSession_instanceArn :: Lens.Lens' CreateRemoteAccessSession (Prelude.Maybe Prelude.Text)
+createRemoteAccessSession_instanceArn = Lens.lens (\CreateRemoteAccessSession' {instanceArn} -> instanceArn) (\s@CreateRemoteAccessSession' {} a -> s {instanceArn = a} :: CreateRemoteAccessSession)
 
 -- | Set to @true@ to enable remote recording for the remote access session.
-crasRemoteRecordEnabled :: Lens' CreateRemoteAccessSession (Maybe Bool)
-crasRemoteRecordEnabled = lens _crasRemoteRecordEnabled (\s a -> s {_crasRemoteRecordEnabled = a})
+createRemoteAccessSession_remoteRecordEnabled :: Lens.Lens' CreateRemoteAccessSession (Prelude.Maybe Prelude.Bool)
+createRemoteAccessSession_remoteRecordEnabled = Lens.lens (\CreateRemoteAccessSession' {remoteRecordEnabled} -> remoteRecordEnabled) (\s@CreateRemoteAccessSession' {} a -> s {remoteRecordEnabled = a} :: CreateRemoteAccessSession)
 
--- | When set to @true@ , for private devices, Device Farm does not sign your app again. For public devices, Device Farm always signs your apps again. For more information on how Device Farm modifies your uploads during tests, see <https://aws.amazon.com/device-farm/faq/ Do you modify my app?>
-crasSkipAppResign :: Lens' CreateRemoteAccessSession (Maybe Bool)
-crasSkipAppResign = lens _crasSkipAppResign (\s a -> s {_crasSkipAppResign = a})
+-- | When set to @true@, for private devices, Device Farm does not sign your
+-- app again. For public devices, Device Farm always signs your apps again.
+--
+-- For more information on how Device Farm modifies your uploads during
+-- tests, see
+-- <https://aws.amazon.com/device-farm/faq/ Do you modify my app?>
+createRemoteAccessSession_skipAppResign :: Lens.Lens' CreateRemoteAccessSession (Prelude.Maybe Prelude.Bool)
+createRemoteAccessSession_skipAppResign = Lens.lens (\CreateRemoteAccessSession' {skipAppResign} -> skipAppResign) (\s@CreateRemoteAccessSession' {} a -> s {skipAppResign = a} :: CreateRemoteAccessSession)
 
--- | Ignored. The public key of the @ssh@ key pair you want to use for connecting to remote devices in your remote debugging session. This key is required only if @remoteDebugEnabled@ is set to @true@ . Remote debugging is <https://docs.aws.amazon.com/devicefarm/latest/developerguide/history.html no longer supported> .
-crasSshPublicKey :: Lens' CreateRemoteAccessSession (Maybe Text)
-crasSshPublicKey = lens _crasSshPublicKey (\s a -> s {_crasSshPublicKey = a})
+-- | Ignored. The public key of the @ssh@ key pair you want to use for
+-- connecting to remote devices in your remote debugging session. This key
+-- is required only if @remoteDebugEnabled@ is set to @true@.
+--
+-- Remote debugging is
+-- <https://docs.aws.amazon.com/devicefarm/latest/developerguide/history.html no longer supported>.
+createRemoteAccessSession_sshPublicKey :: Lens.Lens' CreateRemoteAccessSession (Prelude.Maybe Prelude.Text)
+createRemoteAccessSession_sshPublicKey = Lens.lens (\CreateRemoteAccessSession' {sshPublicKey} -> sshPublicKey) (\s@CreateRemoteAccessSession' {} a -> s {sshPublicKey = a} :: CreateRemoteAccessSession)
 
--- | Set to @true@ if you want to access devices remotely for debugging in your remote access session. Remote debugging is <https://docs.aws.amazon.com/devicefarm/latest/developerguide/history.html no longer supported> .
-crasRemoteDebugEnabled :: Lens' CreateRemoteAccessSession (Maybe Bool)
-crasRemoteDebugEnabled = lens _crasRemoteDebugEnabled (\s a -> s {_crasRemoteDebugEnabled = a})
+-- | Set to @true@ if you want to access devices remotely for debugging in
+-- your remote access session.
+--
+-- Remote debugging is
+-- <https://docs.aws.amazon.com/devicefarm/latest/developerguide/history.html no longer supported>.
+createRemoteAccessSession_remoteDebugEnabled :: Lens.Lens' CreateRemoteAccessSession (Prelude.Maybe Prelude.Bool)
+createRemoteAccessSession_remoteDebugEnabled = Lens.lens (\CreateRemoteAccessSession' {remoteDebugEnabled} -> remoteDebugEnabled) (\s@CreateRemoteAccessSession' {} a -> s {remoteDebugEnabled = a} :: CreateRemoteAccessSession)
 
--- | The Amazon Resource Name (ARN) for the app to be recorded in the remote access session.
-crasRemoteRecordAppARN :: Lens' CreateRemoteAccessSession (Maybe Text)
-crasRemoteRecordAppARN = lens _crasRemoteRecordAppARN (\s a -> s {_crasRemoteRecordAppARN = a})
+-- | The Amazon Resource Name (ARN) for the app to be recorded in the remote
+-- access session.
+createRemoteAccessSession_remoteRecordAppArn :: Lens.Lens' CreateRemoteAccessSession (Prelude.Maybe Prelude.Text)
+createRemoteAccessSession_remoteRecordAppArn = Lens.lens (\CreateRemoteAccessSession' {remoteRecordAppArn} -> remoteRecordAppArn) (\s@CreateRemoteAccessSession' {} a -> s {remoteRecordAppArn = a} :: CreateRemoteAccessSession)
 
--- | The Amazon Resource Name (ARN) of the project for which you want to create a remote access session.
-crasProjectARN :: Lens' CreateRemoteAccessSession Text
-crasProjectARN = lens _crasProjectARN (\s a -> s {_crasProjectARN = a})
+-- | The Amazon Resource Name (ARN) of the project for which you want to
+-- create a remote access session.
+createRemoteAccessSession_projectArn :: Lens.Lens' CreateRemoteAccessSession Prelude.Text
+createRemoteAccessSession_projectArn = Lens.lens (\CreateRemoteAccessSession' {projectArn} -> projectArn) (\s@CreateRemoteAccessSession' {} a -> s {projectArn = a} :: CreateRemoteAccessSession)
 
--- | The ARN of the device for which you want to create a remote access session.
-crasDeviceARN :: Lens' CreateRemoteAccessSession Text
-crasDeviceARN = lens _crasDeviceARN (\s a -> s {_crasDeviceARN = a})
+-- | The ARN of the device for which you want to create a remote access
+-- session.
+createRemoteAccessSession_deviceArn :: Lens.Lens' CreateRemoteAccessSession Prelude.Text
+createRemoteAccessSession_deviceArn = Lens.lens (\CreateRemoteAccessSession' {deviceArn} -> deviceArn) (\s@CreateRemoteAccessSession' {} a -> s {deviceArn = a} :: CreateRemoteAccessSession)
 
-instance AWSRequest CreateRemoteAccessSession where
+instance Prelude.AWSRequest CreateRemoteAccessSession where
   type
     Rs CreateRemoteAccessSession =
       CreateRemoteAccessSessionResponse
-  request = postJSON deviceFarm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateRemoteAccessSessionResponse'
-            <$> (x .?> "remoteAccessSession")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "remoteAccessSession")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateRemoteAccessSession
+instance Prelude.Hashable CreateRemoteAccessSession
 
-instance NFData CreateRemoteAccessSession
+instance Prelude.NFData CreateRemoteAccessSession
 
-instance ToHeaders CreateRemoteAccessSession where
+instance Prelude.ToHeaders CreateRemoteAccessSession where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "DeviceFarm_20150623.CreateRemoteAccessSession" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "DeviceFarm_20150623.CreateRemoteAccessSession" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateRemoteAccessSession where
+instance Prelude.ToJSON CreateRemoteAccessSession where
   toJSON CreateRemoteAccessSession' {..} =
-    object
-      ( catMaybes
-          [ ("clientId" .=) <$> _crasClientId,
-            ("interactionMode" .=) <$> _crasInteractionMode,
-            ("configuration" .=) <$> _crasConfiguration,
-            ("name" .=) <$> _crasName,
-            ("instanceArn" .=) <$> _crasInstanceARN,
-            ("remoteRecordEnabled" .=)
-              <$> _crasRemoteRecordEnabled,
-            ("skipAppResign" .=) <$> _crasSkipAppResign,
-            ("sshPublicKey" .=) <$> _crasSshPublicKey,
-            ("remoteDebugEnabled" .=)
-              <$> _crasRemoteDebugEnabled,
-            ("remoteRecordAppArn" .=)
-              <$> _crasRemoteRecordAppARN,
-            Just ("projectArn" .= _crasProjectARN),
-            Just ("deviceArn" .= _crasDeviceARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("clientId" Prelude..=) Prelude.<$> clientId,
+            ("interactionMode" Prelude..=)
+              Prelude.<$> interactionMode,
+            ("configuration" Prelude..=)
+              Prelude.<$> configuration,
+            ("name" Prelude..=) Prelude.<$> name,
+            ("instanceArn" Prelude..=) Prelude.<$> instanceArn,
+            ("remoteRecordEnabled" Prelude..=)
+              Prelude.<$> remoteRecordEnabled,
+            ("skipAppResign" Prelude..=)
+              Prelude.<$> skipAppResign,
+            ("sshPublicKey" Prelude..=) Prelude.<$> sshPublicKey,
+            ("remoteDebugEnabled" Prelude..=)
+              Prelude.<$> remoteDebugEnabled,
+            ("remoteRecordAppArn" Prelude..=)
+              Prelude.<$> remoteRecordAppArn,
+            Prelude.Just ("projectArn" Prelude..= projectArn),
+            Prelude.Just ("deviceArn" Prelude..= deviceArn)
           ]
       )
 
-instance ToPath CreateRemoteAccessSession where
-  toPath = const "/"
+instance Prelude.ToPath CreateRemoteAccessSession where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateRemoteAccessSession where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateRemoteAccessSession where
+  toQuery = Prelude.const Prelude.mempty
 
--- | Represents the server response from a request to create a remote access session.
+-- | Represents the server response from a request to create a remote access
+-- session.
 --
---
---
--- /See:/ 'createRemoteAccessSessionResponse' smart constructor.
+-- /See:/ 'newCreateRemoteAccessSessionResponse' smart constructor.
 data CreateRemoteAccessSessionResponse = CreateRemoteAccessSessionResponse'
-  { _crasrrsRemoteAccessSession ::
-      !( Maybe
-           RemoteAccessSession
-       ),
-    _crasrrsResponseStatus ::
-      !Int
+  { -- | A container that describes the remote access session when the request to
+    -- create a remote access session is sent.
+    remoteAccessSession :: Prelude.Maybe RemoteAccessSession,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateRemoteAccessSessionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateRemoteAccessSessionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'crasrrsRemoteAccessSession' - A container that describes the remote access session when the request to create a remote access session is sent.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'crasrrsResponseStatus' - -- | The response status code.
-createRemoteAccessSessionResponse ::
-  -- | 'crasrrsResponseStatus'
-  Int ->
+-- 'remoteAccessSession', 'createRemoteAccessSessionResponse_remoteAccessSession' - A container that describes the remote access session when the request to
+-- create a remote access session is sent.
+--
+-- 'httpStatus', 'createRemoteAccessSessionResponse_httpStatus' - The response's http status code.
+newCreateRemoteAccessSessionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateRemoteAccessSessionResponse
-createRemoteAccessSessionResponse pResponseStatus_ =
+newCreateRemoteAccessSessionResponse pHttpStatus_ =
   CreateRemoteAccessSessionResponse'
-    { _crasrrsRemoteAccessSession =
-        Nothing,
-      _crasrrsResponseStatus =
-        pResponseStatus_
+    { remoteAccessSession =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A container that describes the remote access session when the request to create a remote access session is sent.
-crasrrsRemoteAccessSession :: Lens' CreateRemoteAccessSessionResponse (Maybe RemoteAccessSession)
-crasrrsRemoteAccessSession = lens _crasrrsRemoteAccessSession (\s a -> s {_crasrrsRemoteAccessSession = a})
+-- | A container that describes the remote access session when the request to
+-- create a remote access session is sent.
+createRemoteAccessSessionResponse_remoteAccessSession :: Lens.Lens' CreateRemoteAccessSessionResponse (Prelude.Maybe RemoteAccessSession)
+createRemoteAccessSessionResponse_remoteAccessSession = Lens.lens (\CreateRemoteAccessSessionResponse' {remoteAccessSession} -> remoteAccessSession) (\s@CreateRemoteAccessSessionResponse' {} a -> s {remoteAccessSession = a} :: CreateRemoteAccessSessionResponse)
 
--- | -- | The response status code.
-crasrrsResponseStatus :: Lens' CreateRemoteAccessSessionResponse Int
-crasrrsResponseStatus = lens _crasrrsResponseStatus (\s a -> s {_crasrrsResponseStatus = a})
+-- | The response's http status code.
+createRemoteAccessSessionResponse_httpStatus :: Lens.Lens' CreateRemoteAccessSessionResponse Prelude.Int
+createRemoteAccessSessionResponse_httpStatus = Lens.lens (\CreateRemoteAccessSessionResponse' {httpStatus} -> httpStatus) (\s@CreateRemoteAccessSessionResponse' {} a -> s {httpStatus = a} :: CreateRemoteAccessSessionResponse)
 
-instance NFData CreateRemoteAccessSessionResponse
+instance
+  Prelude.NFData
+    CreateRemoteAccessSessionResponse

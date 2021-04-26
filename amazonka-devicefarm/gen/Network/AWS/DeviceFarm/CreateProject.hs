@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,151 +24,161 @@
 -- Creates a project.
 module Network.AWS.DeviceFarm.CreateProject
   ( -- * Creating a Request
-    createProject,
-    CreateProject,
+    CreateProject (..),
+    newCreateProject,
 
     -- * Request Lenses
-    cpDefaultJobTimeoutMinutes,
-    cpName,
+    createProject_defaultJobTimeoutMinutes,
+    createProject_name,
 
     -- * Destructuring the Response
-    createProjectResponse,
-    CreateProjectResponse,
+    CreateProjectResponse (..),
+    newCreateProjectResponse,
 
     -- * Response Lenses
-    cprrsProject,
-    cprrsResponseStatus,
+    createProjectResponse_project,
+    createProjectResponse_httpStatus,
   )
 where
 
 import Network.AWS.DeviceFarm.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DeviceFarm.Types.Project
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents a request to the create project operation.
 --
---
---
--- /See:/ 'createProject' smart constructor.
+-- /See:/ 'newCreateProject' smart constructor.
 data CreateProject = CreateProject'
-  { _cpDefaultJobTimeoutMinutes ::
-      !(Maybe Int),
-    _cpName :: !Text
+  { -- | Sets the execution timeout value (in minutes) for a project. All test
+    -- runs in this project use the specified execution timeout value unless
+    -- overridden when scheduling a run.
+    defaultJobTimeoutMinutes :: Prelude.Maybe Prelude.Int,
+    -- | The project\'s name.
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateProject' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateProject' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cpDefaultJobTimeoutMinutes' - Sets the execution timeout value (in minutes) for a project. All test runs in this project use the specified execution timeout value unless overridden when scheduling a run.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cpName' - The project's name.
-createProject ::
-  -- | 'cpName'
-  Text ->
+-- 'defaultJobTimeoutMinutes', 'createProject_defaultJobTimeoutMinutes' - Sets the execution timeout value (in minutes) for a project. All test
+-- runs in this project use the specified execution timeout value unless
+-- overridden when scheduling a run.
+--
+-- 'name', 'createProject_name' - The project\'s name.
+newCreateProject ::
+  -- | 'name'
+  Prelude.Text ->
   CreateProject
-createProject pName_ =
+newCreateProject pName_ =
   CreateProject'
-    { _cpDefaultJobTimeoutMinutes =
-        Nothing,
-      _cpName = pName_
+    { defaultJobTimeoutMinutes =
+        Prelude.Nothing,
+      name = pName_
     }
 
--- | Sets the execution timeout value (in minutes) for a project. All test runs in this project use the specified execution timeout value unless overridden when scheduling a run.
-cpDefaultJobTimeoutMinutes :: Lens' CreateProject (Maybe Int)
-cpDefaultJobTimeoutMinutes = lens _cpDefaultJobTimeoutMinutes (\s a -> s {_cpDefaultJobTimeoutMinutes = a})
+-- | Sets the execution timeout value (in minutes) for a project. All test
+-- runs in this project use the specified execution timeout value unless
+-- overridden when scheduling a run.
+createProject_defaultJobTimeoutMinutes :: Lens.Lens' CreateProject (Prelude.Maybe Prelude.Int)
+createProject_defaultJobTimeoutMinutes = Lens.lens (\CreateProject' {defaultJobTimeoutMinutes} -> defaultJobTimeoutMinutes) (\s@CreateProject' {} a -> s {defaultJobTimeoutMinutes = a} :: CreateProject)
 
--- | The project's name.
-cpName :: Lens' CreateProject Text
-cpName = lens _cpName (\s a -> s {_cpName = a})
+-- | The project\'s name.
+createProject_name :: Lens.Lens' CreateProject Prelude.Text
+createProject_name = Lens.lens (\CreateProject' {name} -> name) (\s@CreateProject' {} a -> s {name = a} :: CreateProject)
 
-instance AWSRequest CreateProject where
+instance Prelude.AWSRequest CreateProject where
   type Rs CreateProject = CreateProjectResponse
-  request = postJSON deviceFarm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateProjectResponse'
-            <$> (x .?> "project") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "project")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateProject
+instance Prelude.Hashable CreateProject
 
-instance NFData CreateProject
+instance Prelude.NFData CreateProject
 
-instance ToHeaders CreateProject where
+instance Prelude.ToHeaders CreateProject where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("DeviceFarm_20150623.CreateProject" :: ByteString),
+              Prelude.=# ( "DeviceFarm_20150623.CreateProject" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateProject where
+instance Prelude.ToJSON CreateProject where
   toJSON CreateProject' {..} =
-    object
-      ( catMaybes
-          [ ("defaultJobTimeoutMinutes" .=)
-              <$> _cpDefaultJobTimeoutMinutes,
-            Just ("name" .= _cpName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("defaultJobTimeoutMinutes" Prelude..=)
+              Prelude.<$> defaultJobTimeoutMinutes,
+            Prelude.Just ("name" Prelude..= name)
           ]
       )
 
-instance ToPath CreateProject where
-  toPath = const "/"
+instance Prelude.ToPath CreateProject where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateProject where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateProject where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the result of a create project request.
 --
---
---
--- /See:/ 'createProjectResponse' smart constructor.
+-- /See:/ 'newCreateProjectResponse' smart constructor.
 data CreateProjectResponse = CreateProjectResponse'
-  { _cprrsProject ::
-      !(Maybe Project),
-    _cprrsResponseStatus ::
-      !Int
+  { -- | The newly created project.
+    project :: Prelude.Maybe Project,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateProjectResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateProjectResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cprrsProject' - The newly created project.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cprrsResponseStatus' - -- | The response status code.
-createProjectResponse ::
-  -- | 'cprrsResponseStatus'
-  Int ->
+-- 'project', 'createProjectResponse_project' - The newly created project.
+--
+-- 'httpStatus', 'createProjectResponse_httpStatus' - The response's http status code.
+newCreateProjectResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateProjectResponse
-createProjectResponse pResponseStatus_ =
+newCreateProjectResponse pHttpStatus_ =
   CreateProjectResponse'
-    { _cprrsProject = Nothing,
-      _cprrsResponseStatus = pResponseStatus_
+    { project = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The newly created project.
-cprrsProject :: Lens' CreateProjectResponse (Maybe Project)
-cprrsProject = lens _cprrsProject (\s a -> s {_cprrsProject = a})
+createProjectResponse_project :: Lens.Lens' CreateProjectResponse (Prelude.Maybe Project)
+createProjectResponse_project = Lens.lens (\CreateProjectResponse' {project} -> project) (\s@CreateProjectResponse' {} a -> s {project = a} :: CreateProjectResponse)
 
--- | -- | The response status code.
-cprrsResponseStatus :: Lens' CreateProjectResponse Int
-cprrsResponseStatus = lens _cprrsResponseStatus (\s a -> s {_cprrsResponseStatus = a})
+-- | The response's http status code.
+createProjectResponse_httpStatus :: Lens.Lens' CreateProjectResponse Prelude.Int
+createProjectResponse_httpStatus = Lens.lens (\CreateProjectResponse' {httpStatus} -> httpStatus) (\s@CreateProjectResponse' {} a -> s {httpStatus = a} :: CreateProjectResponse)
 
-instance NFData CreateProjectResponse
+instance Prelude.NFData CreateProjectResponse

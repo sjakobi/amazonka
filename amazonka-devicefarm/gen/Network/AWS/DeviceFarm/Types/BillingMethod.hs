@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.DeviceFarm.Types.BillingMethod
   ( BillingMethod
       ( ..,
-        Metered,
-        Unmetered
+        BillingMethodMETERED,
+        BillingMethodUNMETERED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data BillingMethod = BillingMethod' (CI Text)
+newtype BillingMethod = BillingMethod'
+  { fromBillingMethod ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Metered :: BillingMethod
-pattern Metered = BillingMethod' "METERED"
+pattern BillingMethodMETERED :: BillingMethod
+pattern BillingMethodMETERED = BillingMethod' "METERED"
 
-pattern Unmetered :: BillingMethod
-pattern Unmetered = BillingMethod' "UNMETERED"
+pattern BillingMethodUNMETERED :: BillingMethod
+pattern BillingMethodUNMETERED = BillingMethod' "UNMETERED"
 
 {-# COMPLETE
-  Metered,
-  Unmetered,
+  BillingMethodMETERED,
+  BillingMethodUNMETERED,
   BillingMethod'
   #-}
 
-instance FromText BillingMethod where
-  parser = (BillingMethod' . mk) <$> takeText
+instance Prelude.FromText BillingMethod where
+  parser = BillingMethod' Prelude.<$> Prelude.takeText
 
-instance ToText BillingMethod where
-  toText (BillingMethod' ci) = original ci
+instance Prelude.ToText BillingMethod where
+  toText (BillingMethod' x) = x
 
-instance Hashable BillingMethod
+instance Prelude.Hashable BillingMethod
 
-instance NFData BillingMethod
+instance Prelude.NFData BillingMethod
 
-instance ToByteString BillingMethod
+instance Prelude.ToByteString BillingMethod
 
-instance ToQuery BillingMethod
+instance Prelude.ToQuery BillingMethod
 
-instance ToHeader BillingMethod
+instance Prelude.ToHeader BillingMethod
 
-instance ToJSON BillingMethod where
-  toJSON = toJSONText
+instance Prelude.ToJSON BillingMethod where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON BillingMethod where
-  parseJSON = parseJSONText "BillingMethod"
+instance Prelude.FromJSON BillingMethod where
+  parseJSON = Prelude.parseJSONText "BillingMethod"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,78 +19,80 @@
 module Network.AWS.DeviceFarm.Types.ExecutionResult
   ( ExecutionResult
       ( ..,
-        Errored,
-        Failed,
-        Passed,
-        Pending,
-        Skipped,
-        Stopped,
-        Warned
+        ExecutionResultERRORED,
+        ExecutionResultFAILED,
+        ExecutionResultPASSED,
+        ExecutionResultPENDING,
+        ExecutionResultSKIPPED,
+        ExecutionResultSTOPPED,
+        ExecutionResultWARNED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ExecutionResult = ExecutionResult' (CI Text)
+newtype ExecutionResult = ExecutionResult'
+  { fromExecutionResult ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Errored :: ExecutionResult
-pattern Errored = ExecutionResult' "ERRORED"
+pattern ExecutionResultERRORED :: ExecutionResult
+pattern ExecutionResultERRORED = ExecutionResult' "ERRORED"
 
-pattern Failed :: ExecutionResult
-pattern Failed = ExecutionResult' "FAILED"
+pattern ExecutionResultFAILED :: ExecutionResult
+pattern ExecutionResultFAILED = ExecutionResult' "FAILED"
 
-pattern Passed :: ExecutionResult
-pattern Passed = ExecutionResult' "PASSED"
+pattern ExecutionResultPASSED :: ExecutionResult
+pattern ExecutionResultPASSED = ExecutionResult' "PASSED"
 
-pattern Pending :: ExecutionResult
-pattern Pending = ExecutionResult' "PENDING"
+pattern ExecutionResultPENDING :: ExecutionResult
+pattern ExecutionResultPENDING = ExecutionResult' "PENDING"
 
-pattern Skipped :: ExecutionResult
-pattern Skipped = ExecutionResult' "SKIPPED"
+pattern ExecutionResultSKIPPED :: ExecutionResult
+pattern ExecutionResultSKIPPED = ExecutionResult' "SKIPPED"
 
-pattern Stopped :: ExecutionResult
-pattern Stopped = ExecutionResult' "STOPPED"
+pattern ExecutionResultSTOPPED :: ExecutionResult
+pattern ExecutionResultSTOPPED = ExecutionResult' "STOPPED"
 
-pattern Warned :: ExecutionResult
-pattern Warned = ExecutionResult' "WARNED"
+pattern ExecutionResultWARNED :: ExecutionResult
+pattern ExecutionResultWARNED = ExecutionResult' "WARNED"
 
 {-# COMPLETE
-  Errored,
-  Failed,
-  Passed,
-  Pending,
-  Skipped,
-  Stopped,
-  Warned,
+  ExecutionResultERRORED,
+  ExecutionResultFAILED,
+  ExecutionResultPASSED,
+  ExecutionResultPENDING,
+  ExecutionResultSKIPPED,
+  ExecutionResultSTOPPED,
+  ExecutionResultWARNED,
   ExecutionResult'
   #-}
 
-instance FromText ExecutionResult where
-  parser = (ExecutionResult' . mk) <$> takeText
+instance Prelude.FromText ExecutionResult where
+  parser = ExecutionResult' Prelude.<$> Prelude.takeText
 
-instance ToText ExecutionResult where
-  toText (ExecutionResult' ci) = original ci
+instance Prelude.ToText ExecutionResult where
+  toText (ExecutionResult' x) = x
 
-instance Hashable ExecutionResult
+instance Prelude.Hashable ExecutionResult
 
-instance NFData ExecutionResult
+instance Prelude.NFData ExecutionResult
 
-instance ToByteString ExecutionResult
+instance Prelude.ToByteString ExecutionResult
 
-instance ToQuery ExecutionResult
+instance Prelude.ToQuery ExecutionResult
 
-instance ToHeader ExecutionResult
+instance Prelude.ToHeader ExecutionResult
 
-instance FromJSON ExecutionResult where
-  parseJSON = parseJSONText "ExecutionResult"
+instance Prelude.FromJSON ExecutionResult where
+  parseJSON = Prelude.parseJSONText "ExecutionResult"

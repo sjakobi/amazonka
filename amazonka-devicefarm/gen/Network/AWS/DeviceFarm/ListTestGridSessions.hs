@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,232 +21,237 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves a list of sessions for a 'TestGridProject' .
+-- Retrieves a list of sessions for a TestGridProject.
 module Network.AWS.DeviceFarm.ListTestGridSessions
   ( -- * Creating a Request
-    listTestGridSessions,
-    ListTestGridSessions,
+    ListTestGridSessions (..),
+    newListTestGridSessions,
 
     -- * Request Lenses
-    ltgsNextToken,
-    ltgsStatus,
-    ltgsMaxResult,
-    ltgsCreationTimeBefore,
-    ltgsEndTimeAfter,
-    ltgsEndTimeBefore,
-    ltgsCreationTimeAfter,
-    ltgsProjectARN,
+    listTestGridSessions_nextToken,
+    listTestGridSessions_status,
+    listTestGridSessions_maxResult,
+    listTestGridSessions_creationTimeBefore,
+    listTestGridSessions_endTimeAfter,
+    listTestGridSessions_endTimeBefore,
+    listTestGridSessions_creationTimeAfter,
+    listTestGridSessions_projectArn,
 
     -- * Destructuring the Response
-    listTestGridSessionsResponse,
-    ListTestGridSessionsResponse,
+    ListTestGridSessionsResponse (..),
+    newListTestGridSessionsResponse,
 
     -- * Response Lenses
-    ltgsrrsNextToken,
-    ltgsrrsTestGridSessions,
-    ltgsrrsResponseStatus,
+    listTestGridSessionsResponse_nextToken,
+    listTestGridSessionsResponse_testGridSessions,
+    listTestGridSessionsResponse_httpStatus,
   )
 where
 
 import Network.AWS.DeviceFarm.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DeviceFarm.Types.TestGridSession
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listTestGridSessions' smart constructor.
+-- | /See:/ 'newListTestGridSessions' smart constructor.
 data ListTestGridSessions = ListTestGridSessions'
-  { _ltgsNextToken ::
-      !(Maybe Text),
-    _ltgsStatus ::
-      !( Maybe
-           TestGridSessionStatus
-       ),
-    _ltgsMaxResult ::
-      !(Maybe Nat),
-    _ltgsCreationTimeBefore ::
-      !(Maybe POSIX),
-    _ltgsEndTimeAfter ::
-      !(Maybe POSIX),
-    _ltgsEndTimeBefore ::
-      !(Maybe POSIX),
-    _ltgsCreationTimeAfter ::
-      !(Maybe POSIX),
-    _ltgsProjectARN :: !Text
+  { -- | Pagination token.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Return only sessions in this state.
+    status :: Prelude.Maybe TestGridSessionStatus,
+    -- | Return only this many results at a time.
+    maxResult :: Prelude.Maybe Prelude.Nat,
+    -- | Return only sessions created before this time.
+    creationTimeBefore :: Prelude.Maybe Prelude.POSIX,
+    -- | Return only sessions that ended after this time.
+    endTimeAfter :: Prelude.Maybe Prelude.POSIX,
+    -- | Return only sessions that ended before this time.
+    endTimeBefore :: Prelude.Maybe Prelude.POSIX,
+    -- | Return only sessions created after this time.
+    creationTimeAfter :: Prelude.Maybe Prelude.POSIX,
+    -- | ARN of a TestGridProject.
+    projectArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListTestGridSessions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListTestGridSessions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltgsNextToken' - Pagination token.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltgsStatus' - Return only sessions in this state.
+-- 'nextToken', 'listTestGridSessions_nextToken' - Pagination token.
 --
--- * 'ltgsMaxResult' - Return only this many results at a time.
+-- 'status', 'listTestGridSessions_status' - Return only sessions in this state.
 --
--- * 'ltgsCreationTimeBefore' - Return only sessions created before this time.
+-- 'maxResult', 'listTestGridSessions_maxResult' - Return only this many results at a time.
 --
--- * 'ltgsEndTimeAfter' - Return only sessions that ended after this time.
+-- 'creationTimeBefore', 'listTestGridSessions_creationTimeBefore' - Return only sessions created before this time.
 --
--- * 'ltgsEndTimeBefore' - Return only sessions that ended before this time.
+-- 'endTimeAfter', 'listTestGridSessions_endTimeAfter' - Return only sessions that ended after this time.
 --
--- * 'ltgsCreationTimeAfter' - Return only sessions created after this time.
+-- 'endTimeBefore', 'listTestGridSessions_endTimeBefore' - Return only sessions that ended before this time.
 --
--- * 'ltgsProjectARN' - ARN of a 'TestGridProject' .
-listTestGridSessions ::
-  -- | 'ltgsProjectARN'
-  Text ->
+-- 'creationTimeAfter', 'listTestGridSessions_creationTimeAfter' - Return only sessions created after this time.
+--
+-- 'projectArn', 'listTestGridSessions_projectArn' - ARN of a TestGridProject.
+newListTestGridSessions ::
+  -- | 'projectArn'
+  Prelude.Text ->
   ListTestGridSessions
-listTestGridSessions pProjectARN_ =
+newListTestGridSessions pProjectArn_ =
   ListTestGridSessions'
-    { _ltgsNextToken = Nothing,
-      _ltgsStatus = Nothing,
-      _ltgsMaxResult = Nothing,
-      _ltgsCreationTimeBefore = Nothing,
-      _ltgsEndTimeAfter = Nothing,
-      _ltgsEndTimeBefore = Nothing,
-      _ltgsCreationTimeAfter = Nothing,
-      _ltgsProjectARN = pProjectARN_
+    { nextToken = Prelude.Nothing,
+      status = Prelude.Nothing,
+      maxResult = Prelude.Nothing,
+      creationTimeBefore = Prelude.Nothing,
+      endTimeAfter = Prelude.Nothing,
+      endTimeBefore = Prelude.Nothing,
+      creationTimeAfter = Prelude.Nothing,
+      projectArn = pProjectArn_
     }
 
 -- | Pagination token.
-ltgsNextToken :: Lens' ListTestGridSessions (Maybe Text)
-ltgsNextToken = lens _ltgsNextToken (\s a -> s {_ltgsNextToken = a})
+listTestGridSessions_nextToken :: Lens.Lens' ListTestGridSessions (Prelude.Maybe Prelude.Text)
+listTestGridSessions_nextToken = Lens.lens (\ListTestGridSessions' {nextToken} -> nextToken) (\s@ListTestGridSessions' {} a -> s {nextToken = a} :: ListTestGridSessions)
 
 -- | Return only sessions in this state.
-ltgsStatus :: Lens' ListTestGridSessions (Maybe TestGridSessionStatus)
-ltgsStatus = lens _ltgsStatus (\s a -> s {_ltgsStatus = a})
+listTestGridSessions_status :: Lens.Lens' ListTestGridSessions (Prelude.Maybe TestGridSessionStatus)
+listTestGridSessions_status = Lens.lens (\ListTestGridSessions' {status} -> status) (\s@ListTestGridSessions' {} a -> s {status = a} :: ListTestGridSessions)
 
 -- | Return only this many results at a time.
-ltgsMaxResult :: Lens' ListTestGridSessions (Maybe Natural)
-ltgsMaxResult = lens _ltgsMaxResult (\s a -> s {_ltgsMaxResult = a}) . mapping _Nat
+listTestGridSessions_maxResult :: Lens.Lens' ListTestGridSessions (Prelude.Maybe Prelude.Natural)
+listTestGridSessions_maxResult = Lens.lens (\ListTestGridSessions' {maxResult} -> maxResult) (\s@ListTestGridSessions' {} a -> s {maxResult = a} :: ListTestGridSessions) Prelude.. Lens.mapping Prelude._Nat
 
 -- | Return only sessions created before this time.
-ltgsCreationTimeBefore :: Lens' ListTestGridSessions (Maybe UTCTime)
-ltgsCreationTimeBefore = lens _ltgsCreationTimeBefore (\s a -> s {_ltgsCreationTimeBefore = a}) . mapping _Time
+listTestGridSessions_creationTimeBefore :: Lens.Lens' ListTestGridSessions (Prelude.Maybe Prelude.UTCTime)
+listTestGridSessions_creationTimeBefore = Lens.lens (\ListTestGridSessions' {creationTimeBefore} -> creationTimeBefore) (\s@ListTestGridSessions' {} a -> s {creationTimeBefore = a} :: ListTestGridSessions) Prelude.. Lens.mapping Prelude._Time
 
 -- | Return only sessions that ended after this time.
-ltgsEndTimeAfter :: Lens' ListTestGridSessions (Maybe UTCTime)
-ltgsEndTimeAfter = lens _ltgsEndTimeAfter (\s a -> s {_ltgsEndTimeAfter = a}) . mapping _Time
+listTestGridSessions_endTimeAfter :: Lens.Lens' ListTestGridSessions (Prelude.Maybe Prelude.UTCTime)
+listTestGridSessions_endTimeAfter = Lens.lens (\ListTestGridSessions' {endTimeAfter} -> endTimeAfter) (\s@ListTestGridSessions' {} a -> s {endTimeAfter = a} :: ListTestGridSessions) Prelude.. Lens.mapping Prelude._Time
 
 -- | Return only sessions that ended before this time.
-ltgsEndTimeBefore :: Lens' ListTestGridSessions (Maybe UTCTime)
-ltgsEndTimeBefore = lens _ltgsEndTimeBefore (\s a -> s {_ltgsEndTimeBefore = a}) . mapping _Time
+listTestGridSessions_endTimeBefore :: Lens.Lens' ListTestGridSessions (Prelude.Maybe Prelude.UTCTime)
+listTestGridSessions_endTimeBefore = Lens.lens (\ListTestGridSessions' {endTimeBefore} -> endTimeBefore) (\s@ListTestGridSessions' {} a -> s {endTimeBefore = a} :: ListTestGridSessions) Prelude.. Lens.mapping Prelude._Time
 
 -- | Return only sessions created after this time.
-ltgsCreationTimeAfter :: Lens' ListTestGridSessions (Maybe UTCTime)
-ltgsCreationTimeAfter = lens _ltgsCreationTimeAfter (\s a -> s {_ltgsCreationTimeAfter = a}) . mapping _Time
+listTestGridSessions_creationTimeAfter :: Lens.Lens' ListTestGridSessions (Prelude.Maybe Prelude.UTCTime)
+listTestGridSessions_creationTimeAfter = Lens.lens (\ListTestGridSessions' {creationTimeAfter} -> creationTimeAfter) (\s@ListTestGridSessions' {} a -> s {creationTimeAfter = a} :: ListTestGridSessions) Prelude.. Lens.mapping Prelude._Time
 
--- | ARN of a 'TestGridProject' .
-ltgsProjectARN :: Lens' ListTestGridSessions Text
-ltgsProjectARN = lens _ltgsProjectARN (\s a -> s {_ltgsProjectARN = a})
+-- | ARN of a TestGridProject.
+listTestGridSessions_projectArn :: Lens.Lens' ListTestGridSessions Prelude.Text
+listTestGridSessions_projectArn = Lens.lens (\ListTestGridSessions' {projectArn} -> projectArn) (\s@ListTestGridSessions' {} a -> s {projectArn = a} :: ListTestGridSessions)
 
-instance AWSRequest ListTestGridSessions where
+instance Prelude.AWSRequest ListTestGridSessions where
   type
     Rs ListTestGridSessions =
       ListTestGridSessionsResponse
-  request = postJSON deviceFarm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListTestGridSessionsResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "testGridSessions" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> ( x Prelude..?> "testGridSessions"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListTestGridSessions
+instance Prelude.Hashable ListTestGridSessions
 
-instance NFData ListTestGridSessions
+instance Prelude.NFData ListTestGridSessions
 
-instance ToHeaders ListTestGridSessions where
+instance Prelude.ToHeaders ListTestGridSessions where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "DeviceFarm_20150623.ListTestGridSessions" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "DeviceFarm_20150623.ListTestGridSessions" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListTestGridSessions where
+instance Prelude.ToJSON ListTestGridSessions where
   toJSON ListTestGridSessions' {..} =
-    object
-      ( catMaybes
-          [ ("nextToken" .=) <$> _ltgsNextToken,
-            ("status" .=) <$> _ltgsStatus,
-            ("maxResult" .=) <$> _ltgsMaxResult,
-            ("creationTimeBefore" .=)
-              <$> _ltgsCreationTimeBefore,
-            ("endTimeAfter" .=) <$> _ltgsEndTimeAfter,
-            ("endTimeBefore" .=) <$> _ltgsEndTimeBefore,
-            ("creationTimeAfter" .=) <$> _ltgsCreationTimeAfter,
-            Just ("projectArn" .= _ltgsProjectARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("nextToken" Prelude..=) Prelude.<$> nextToken,
+            ("status" Prelude..=) Prelude.<$> status,
+            ("maxResult" Prelude..=) Prelude.<$> maxResult,
+            ("creationTimeBefore" Prelude..=)
+              Prelude.<$> creationTimeBefore,
+            ("endTimeAfter" Prelude..=) Prelude.<$> endTimeAfter,
+            ("endTimeBefore" Prelude..=)
+              Prelude.<$> endTimeBefore,
+            ("creationTimeAfter" Prelude..=)
+              Prelude.<$> creationTimeAfter,
+            Prelude.Just ("projectArn" Prelude..= projectArn)
           ]
       )
 
-instance ToPath ListTestGridSessions where
-  toPath = const "/"
+instance Prelude.ToPath ListTestGridSessions where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListTestGridSessions where
-  toQuery = const mempty
+instance Prelude.ToQuery ListTestGridSessions where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listTestGridSessionsResponse' smart constructor.
+-- | /See:/ 'newListTestGridSessionsResponse' smart constructor.
 data ListTestGridSessionsResponse = ListTestGridSessionsResponse'
-  { _ltgsrrsNextToken ::
-      !(Maybe Text),
-    _ltgsrrsTestGridSessions ::
-      !( Maybe
-           [TestGridSession]
-       ),
-    _ltgsrrsResponseStatus ::
-      !Int
+  { -- | Pagination token.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The sessions that match the criteria in a ListTestGridSessionsRequest.
+    testGridSessions :: Prelude.Maybe [TestGridSession],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListTestGridSessionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListTestGridSessionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltgsrrsNextToken' - Pagination token.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltgsrrsTestGridSessions' - The sessions that match the criteria in a 'ListTestGridSessionsRequest' .
+-- 'nextToken', 'listTestGridSessionsResponse_nextToken' - Pagination token.
 --
--- * 'ltgsrrsResponseStatus' - -- | The response status code.
-listTestGridSessionsResponse ::
-  -- | 'ltgsrrsResponseStatus'
-  Int ->
+-- 'testGridSessions', 'listTestGridSessionsResponse_testGridSessions' - The sessions that match the criteria in a ListTestGridSessionsRequest.
+--
+-- 'httpStatus', 'listTestGridSessionsResponse_httpStatus' - The response's http status code.
+newListTestGridSessionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListTestGridSessionsResponse
-listTestGridSessionsResponse pResponseStatus_ =
+newListTestGridSessionsResponse pHttpStatus_ =
   ListTestGridSessionsResponse'
-    { _ltgsrrsNextToken =
-        Nothing,
-      _ltgsrrsTestGridSessions = Nothing,
-      _ltgsrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      testGridSessions = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Pagination token.
-ltgsrrsNextToken :: Lens' ListTestGridSessionsResponse (Maybe Text)
-ltgsrrsNextToken = lens _ltgsrrsNextToken (\s a -> s {_ltgsrrsNextToken = a})
+listTestGridSessionsResponse_nextToken :: Lens.Lens' ListTestGridSessionsResponse (Prelude.Maybe Prelude.Text)
+listTestGridSessionsResponse_nextToken = Lens.lens (\ListTestGridSessionsResponse' {nextToken} -> nextToken) (\s@ListTestGridSessionsResponse' {} a -> s {nextToken = a} :: ListTestGridSessionsResponse)
 
--- | The sessions that match the criteria in a 'ListTestGridSessionsRequest' .
-ltgsrrsTestGridSessions :: Lens' ListTestGridSessionsResponse [TestGridSession]
-ltgsrrsTestGridSessions = lens _ltgsrrsTestGridSessions (\s a -> s {_ltgsrrsTestGridSessions = a}) . _Default . _Coerce
+-- | The sessions that match the criteria in a ListTestGridSessionsRequest.
+listTestGridSessionsResponse_testGridSessions :: Lens.Lens' ListTestGridSessionsResponse (Prelude.Maybe [TestGridSession])
+listTestGridSessionsResponse_testGridSessions = Lens.lens (\ListTestGridSessionsResponse' {testGridSessions} -> testGridSessions) (\s@ListTestGridSessionsResponse' {} a -> s {testGridSessions = a} :: ListTestGridSessionsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-ltgsrrsResponseStatus :: Lens' ListTestGridSessionsResponse Int
-ltgsrrsResponseStatus = lens _ltgsrrsResponseStatus (\s a -> s {_ltgsrrsResponseStatus = a})
+-- | The response's http status code.
+listTestGridSessionsResponse_httpStatus :: Lens.Lens' ListTestGridSessionsResponse Prelude.Int
+listTestGridSessionsResponse_httpStatus = Lens.lens (\ListTestGridSessionsResponse' {httpStatus} -> httpStatus) (\s@ListTestGridSessionsResponse' {} a -> s {httpStatus = a} :: ListTestGridSessionsResponse)
 
-instance NFData ListTestGridSessionsResponse
+instance Prelude.NFData ListTestGridSessionsResponse

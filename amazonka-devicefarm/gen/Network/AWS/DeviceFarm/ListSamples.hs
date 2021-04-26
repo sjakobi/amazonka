@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,166 +23,199 @@
 --
 -- Gets information about samples, given an AWS Device Farm job ARN.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.DeviceFarm.ListSamples
   ( -- * Creating a Request
-    listSamples,
-    ListSamples,
+    ListSamples (..),
+    newListSamples,
 
     -- * Request Lenses
-    lsNextToken,
-    lsArn,
+    listSamples_nextToken,
+    listSamples_arn,
 
     -- * Destructuring the Response
-    listSamplesResponse,
-    ListSamplesResponse,
+    ListSamplesResponse (..),
+    newListSamplesResponse,
 
     -- * Response Lenses
-    lsrrsNextToken,
-    lsrrsSamples,
-    lsrrsResponseStatus,
+    listSamplesResponse_nextToken,
+    listSamplesResponse_samples,
+    listSamplesResponse_httpStatus,
   )
 where
 
 import Network.AWS.DeviceFarm.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DeviceFarm.Types.Sample
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents a request to the list samples operation.
 --
---
---
--- /See:/ 'listSamples' smart constructor.
+-- /See:/ 'newListSamples' smart constructor.
 data ListSamples = ListSamples'
-  { _lsNextToken ::
-      !(Maybe Text),
-    _lsArn :: !Text
+  { -- | An identifier that was returned from the previous call to this
+    -- operation, which can be used to return the next set of items in the
+    -- list.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the job used to list samples.
+    arn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListSamples' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListSamples' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lsNextToken' - An identifier that was returned from the previous call to this operation, which can be used to return the next set of items in the list.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lsArn' - The Amazon Resource Name (ARN) of the job used to list samples.
-listSamples ::
-  -- | 'lsArn'
-  Text ->
+-- 'nextToken', 'listSamples_nextToken' - An identifier that was returned from the previous call to this
+-- operation, which can be used to return the next set of items in the
+-- list.
+--
+-- 'arn', 'listSamples_arn' - The Amazon Resource Name (ARN) of the job used to list samples.
+newListSamples ::
+  -- | 'arn'
+  Prelude.Text ->
   ListSamples
-listSamples pArn_ =
+newListSamples pArn_ =
   ListSamples'
-    { _lsNextToken = Nothing,
-      _lsArn = pArn_
+    { nextToken = Prelude.Nothing,
+      arn = pArn_
     }
 
--- | An identifier that was returned from the previous call to this operation, which can be used to return the next set of items in the list.
-lsNextToken :: Lens' ListSamples (Maybe Text)
-lsNextToken = lens _lsNextToken (\s a -> s {_lsNextToken = a})
+-- | An identifier that was returned from the previous call to this
+-- operation, which can be used to return the next set of items in the
+-- list.
+listSamples_nextToken :: Lens.Lens' ListSamples (Prelude.Maybe Prelude.Text)
+listSamples_nextToken = Lens.lens (\ListSamples' {nextToken} -> nextToken) (\s@ListSamples' {} a -> s {nextToken = a} :: ListSamples)
 
 -- | The Amazon Resource Name (ARN) of the job used to list samples.
-lsArn :: Lens' ListSamples Text
-lsArn = lens _lsArn (\s a -> s {_lsArn = a})
+listSamples_arn :: Lens.Lens' ListSamples Prelude.Text
+listSamples_arn = Lens.lens (\ListSamples' {arn} -> arn) (\s@ListSamples' {} a -> s {arn = a} :: ListSamples)
 
-instance AWSPager ListSamples where
+instance Pager.AWSPager ListSamples where
   page rq rs
-    | stop (rs ^. lsrrsNextToken) = Nothing
-    | stop (rs ^. lsrrsSamples) = Nothing
-    | otherwise =
-      Just $ rq & lsNextToken .~ rs ^. lsrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listSamplesResponse_nextToken Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listSamplesResponse_samples Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listSamples_nextToken
+          Lens..~ rs
+          Lens.^? listSamplesResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest ListSamples where
+instance Prelude.AWSRequest ListSamples where
   type Rs ListSamples = ListSamplesResponse
-  request = postJSON deviceFarm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListSamplesResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "samples" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> (x Prelude..?> "samples" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListSamples
+instance Prelude.Hashable ListSamples
 
-instance NFData ListSamples
+instance Prelude.NFData ListSamples
 
-instance ToHeaders ListSamples where
+instance Prelude.ToHeaders ListSamples where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("DeviceFarm_20150623.ListSamples" :: ByteString),
+              Prelude.=# ( "DeviceFarm_20150623.ListSamples" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListSamples where
+instance Prelude.ToJSON ListSamples where
   toJSON ListSamples' {..} =
-    object
-      ( catMaybes
-          [ ("nextToken" .=) <$> _lsNextToken,
-            Just ("arn" .= _lsArn)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("nextToken" Prelude..=) Prelude.<$> nextToken,
+            Prelude.Just ("arn" Prelude..= arn)
           ]
       )
 
-instance ToPath ListSamples where
-  toPath = const "/"
+instance Prelude.ToPath ListSamples where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListSamples where
-  toQuery = const mempty
+instance Prelude.ToQuery ListSamples where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the result of a list samples request.
 --
---
---
--- /See:/ 'listSamplesResponse' smart constructor.
+-- /See:/ 'newListSamplesResponse' smart constructor.
 data ListSamplesResponse = ListSamplesResponse'
-  { _lsrrsNextToken ::
-      !(Maybe Text),
-    _lsrrsSamples ::
-      !(Maybe [Sample]),
-    _lsrrsResponseStatus :: !Int
+  { -- | If the number of items that are returned is significantly large, this is
+    -- an identifier that is also returned. It can be used in a subsequent call
+    -- to this operation to return the next set of items in the list.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about the samples.
+    samples :: Prelude.Maybe [Sample],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListSamplesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListSamplesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lsrrsNextToken' - If the number of items that are returned is significantly large, this is an identifier that is also returned. It can be used in a subsequent call to this operation to return the next set of items in the list.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lsrrsSamples' - Information about the samples.
+-- 'nextToken', 'listSamplesResponse_nextToken' - If the number of items that are returned is significantly large, this is
+-- an identifier that is also returned. It can be used in a subsequent call
+-- to this operation to return the next set of items in the list.
 --
--- * 'lsrrsResponseStatus' - -- | The response status code.
-listSamplesResponse ::
-  -- | 'lsrrsResponseStatus'
-  Int ->
+-- 'samples', 'listSamplesResponse_samples' - Information about the samples.
+--
+-- 'httpStatus', 'listSamplesResponse_httpStatus' - The response's http status code.
+newListSamplesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListSamplesResponse
-listSamplesResponse pResponseStatus_ =
+newListSamplesResponse pHttpStatus_ =
   ListSamplesResponse'
-    { _lsrrsNextToken = Nothing,
-      _lsrrsSamples = Nothing,
-      _lsrrsResponseStatus = pResponseStatus_
+    { nextToken = Prelude.Nothing,
+      samples = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | If the number of items that are returned is significantly large, this is an identifier that is also returned. It can be used in a subsequent call to this operation to return the next set of items in the list.
-lsrrsNextToken :: Lens' ListSamplesResponse (Maybe Text)
-lsrrsNextToken = lens _lsrrsNextToken (\s a -> s {_lsrrsNextToken = a})
+-- | If the number of items that are returned is significantly large, this is
+-- an identifier that is also returned. It can be used in a subsequent call
+-- to this operation to return the next set of items in the list.
+listSamplesResponse_nextToken :: Lens.Lens' ListSamplesResponse (Prelude.Maybe Prelude.Text)
+listSamplesResponse_nextToken = Lens.lens (\ListSamplesResponse' {nextToken} -> nextToken) (\s@ListSamplesResponse' {} a -> s {nextToken = a} :: ListSamplesResponse)
 
 -- | Information about the samples.
-lsrrsSamples :: Lens' ListSamplesResponse [Sample]
-lsrrsSamples = lens _lsrrsSamples (\s a -> s {_lsrrsSamples = a}) . _Default . _Coerce
+listSamplesResponse_samples :: Lens.Lens' ListSamplesResponse (Prelude.Maybe [Sample])
+listSamplesResponse_samples = Lens.lens (\ListSamplesResponse' {samples} -> samples) (\s@ListSamplesResponse' {} a -> s {samples = a} :: ListSamplesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lsrrsResponseStatus :: Lens' ListSamplesResponse Int
-lsrrsResponseStatus = lens _lsrrsResponseStatus (\s a -> s {_lsrrsResponseStatus = a})
+-- | The response's http status code.
+listSamplesResponse_httpStatus :: Lens.Lens' ListSamplesResponse Prelude.Int
+listSamplesResponse_httpStatus = Lens.lens (\ListSamplesResponse' {httpStatus} -> httpStatus) (\s@ListSamplesResponse' {} a -> s {httpStatus = a} :: ListSamplesResponse)
 
-instance NFData ListSamplesResponse
+instance Prelude.NFData ListSamplesResponse

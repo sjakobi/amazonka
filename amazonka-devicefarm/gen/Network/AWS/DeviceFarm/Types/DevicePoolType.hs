@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.DeviceFarm.Types.DevicePoolType
   ( DevicePoolType
       ( ..,
-        DPTCurated,
-        DPTPrivate
+        DevicePoolTypeCURATED,
+        DevicePoolTypePRIVATE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DevicePoolType = DevicePoolType' (CI Text)
+newtype DevicePoolType = DevicePoolType'
+  { fromDevicePoolType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DPTCurated :: DevicePoolType
-pattern DPTCurated = DevicePoolType' "CURATED"
+pattern DevicePoolTypeCURATED :: DevicePoolType
+pattern DevicePoolTypeCURATED = DevicePoolType' "CURATED"
 
-pattern DPTPrivate :: DevicePoolType
-pattern DPTPrivate = DevicePoolType' "PRIVATE"
+pattern DevicePoolTypePRIVATE :: DevicePoolType
+pattern DevicePoolTypePRIVATE = DevicePoolType' "PRIVATE"
 
 {-# COMPLETE
-  DPTCurated,
-  DPTPrivate,
+  DevicePoolTypeCURATED,
+  DevicePoolTypePRIVATE,
   DevicePoolType'
   #-}
 
-instance FromText DevicePoolType where
-  parser = (DevicePoolType' . mk) <$> takeText
+instance Prelude.FromText DevicePoolType where
+  parser = DevicePoolType' Prelude.<$> Prelude.takeText
 
-instance ToText DevicePoolType where
-  toText (DevicePoolType' ci) = original ci
+instance Prelude.ToText DevicePoolType where
+  toText (DevicePoolType' x) = x
 
-instance Hashable DevicePoolType
+instance Prelude.Hashable DevicePoolType
 
-instance NFData DevicePoolType
+instance Prelude.NFData DevicePoolType
 
-instance ToByteString DevicePoolType
+instance Prelude.ToByteString DevicePoolType
 
-instance ToQuery DevicePoolType
+instance Prelude.ToQuery DevicePoolType
 
-instance ToHeader DevicePoolType
+instance Prelude.ToHeader DevicePoolType
 
-instance ToJSON DevicePoolType where
-  toJSON = toJSONText
+instance Prelude.ToJSON DevicePoolType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DevicePoolType where
-  parseJSON = parseJSONText "DevicePoolType"
+instance Prelude.FromJSON DevicePoolType where
+  parseJSON = Prelude.parseJSONText "DevicePoolType"

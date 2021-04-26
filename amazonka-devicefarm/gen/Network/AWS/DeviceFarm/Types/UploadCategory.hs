@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.DeviceFarm.Types.UploadCategory
   ( UploadCategory
       ( ..,
-        UCCurated,
-        UCPrivate
+        UploadCategoryCURATED,
+        UploadCategoryPRIVATE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data UploadCategory = UploadCategory' (CI Text)
+newtype UploadCategory = UploadCategory'
+  { fromUploadCategory ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern UCCurated :: UploadCategory
-pattern UCCurated = UploadCategory' "CURATED"
+pattern UploadCategoryCURATED :: UploadCategory
+pattern UploadCategoryCURATED = UploadCategory' "CURATED"
 
-pattern UCPrivate :: UploadCategory
-pattern UCPrivate = UploadCategory' "PRIVATE"
+pattern UploadCategoryPRIVATE :: UploadCategory
+pattern UploadCategoryPRIVATE = UploadCategory' "PRIVATE"
 
 {-# COMPLETE
-  UCCurated,
-  UCPrivate,
+  UploadCategoryCURATED,
+  UploadCategoryPRIVATE,
   UploadCategory'
   #-}
 
-instance FromText UploadCategory where
-  parser = (UploadCategory' . mk) <$> takeText
+instance Prelude.FromText UploadCategory where
+  parser = UploadCategory' Prelude.<$> Prelude.takeText
 
-instance ToText UploadCategory where
-  toText (UploadCategory' ci) = original ci
+instance Prelude.ToText UploadCategory where
+  toText (UploadCategory' x) = x
 
-instance Hashable UploadCategory
+instance Prelude.Hashable UploadCategory
 
-instance NFData UploadCategory
+instance Prelude.NFData UploadCategory
 
-instance ToByteString UploadCategory
+instance Prelude.ToByteString UploadCategory
 
-instance ToQuery UploadCategory
+instance Prelude.ToQuery UploadCategory
 
-instance ToHeader UploadCategory
+instance Prelude.ToHeader UploadCategory
 
-instance FromJSON UploadCategory where
-  parseJSON = parseJSONText "UploadCategory"
+instance Prelude.FromJSON UploadCategory where
+  parseJSON = Prelude.parseJSONText "UploadCategory"

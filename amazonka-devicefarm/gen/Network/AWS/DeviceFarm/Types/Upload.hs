@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,126 +22,387 @@ module Network.AWS.DeviceFarm.Types.Upload where
 import Network.AWS.DeviceFarm.Types.UploadCategory
 import Network.AWS.DeviceFarm.Types.UploadStatus
 import Network.AWS.DeviceFarm.Types.UploadType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | An app or a set of one or more tests to upload or that have been uploaded.
+-- | An app or a set of one or more tests to upload or that have been
+-- uploaded.
 --
---
---
--- /See:/ 'upload' smart constructor.
+-- /See:/ 'newUpload' smart constructor.
 data Upload = Upload'
-  { _uStatus ::
-      !(Maybe UploadStatus),
-    _uContentType :: !(Maybe Text),
-    _uMessage :: !(Maybe Text),
-    _uCategory :: !(Maybe UploadCategory),
-    _uMetadata :: !(Maybe Text),
-    _uArn :: !(Maybe Text),
-    _uName :: !(Maybe Text),
-    _uUrl :: !(Maybe Text),
-    _uCreated :: !(Maybe POSIX),
-    _uType :: !(Maybe UploadType)
+  { -- | The upload\'s status.
+    --
+    -- Must be one of the following values:
+    --
+    -- -   FAILED
+    --
+    -- -   INITIALIZED
+    --
+    -- -   PROCESSING
+    --
+    -- -   SUCCEEDED
+    status :: Prelude.Maybe UploadStatus,
+    -- | The upload\'s content type (for example, @application\/octet-stream@).
+    contentType :: Prelude.Maybe Prelude.Text,
+    -- | A message about the upload\'s result.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The upload\'s category. Allowed values include:
+    --
+    -- -   CURATED: An upload managed by AWS Device Farm.
+    --
+    -- -   PRIVATE: An upload managed by the AWS Device Farm customer.
+    category :: Prelude.Maybe UploadCategory,
+    -- | The upload\'s metadata. For example, for Android, this contains
+    -- information that is parsed from the manifest and is displayed in the AWS
+    -- Device Farm console after the associated app is uploaded.
+    metadata :: Prelude.Maybe Prelude.Text,
+    -- | The upload\'s ARN.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The upload\'s file name.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The presigned Amazon S3 URL that was used to store a file using a PUT
+    -- request.
+    url :: Prelude.Maybe Prelude.Text,
+    -- | When the upload was created.
+    created :: Prelude.Maybe Prelude.POSIX,
+    -- | The upload\'s type.
+    --
+    -- Must be one of the following values:
+    --
+    -- -   ANDROID_APP
+    --
+    -- -   IOS_APP
+    --
+    -- -   WEB_APP
+    --
+    -- -   EXTERNAL_DATA
+    --
+    -- -   APPIUM_JAVA_JUNIT_TEST_PACKAGE
+    --
+    -- -   APPIUM_JAVA_TESTNG_TEST_PACKAGE
+    --
+    -- -   APPIUM_PYTHON_TEST_PACKAGE
+    --
+    -- -   APPIUM_NODE_TEST_PACKAGE
+    --
+    -- -   APPIUM_RUBY_TEST_PACKAGE
+    --
+    -- -   APPIUM_WEB_JAVA_JUNIT_TEST_PACKAGE
+    --
+    -- -   APPIUM_WEB_JAVA_TESTNG_TEST_PACKAGE
+    --
+    -- -   APPIUM_WEB_PYTHON_TEST_PACKAGE
+    --
+    -- -   APPIUM_WEB_NODE_TEST_PACKAGE
+    --
+    -- -   APPIUM_WEB_RUBY_TEST_PACKAGE
+    --
+    -- -   CALABASH_TEST_PACKAGE
+    --
+    -- -   INSTRUMENTATION_TEST_PACKAGE
+    --
+    -- -   UIAUTOMATION_TEST_PACKAGE
+    --
+    -- -   UIAUTOMATOR_TEST_PACKAGE
+    --
+    -- -   XCTEST_TEST_PACKAGE
+    --
+    -- -   XCTEST_UI_TEST_PACKAGE
+    --
+    -- -   APPIUM_JAVA_JUNIT_TEST_SPEC
+    --
+    -- -   APPIUM_JAVA_TESTNG_TEST_SPEC
+    --
+    -- -   APPIUM_PYTHON_TEST_SPEC
+    --
+    -- -   APPIUM_NODE_TEST_SPEC
+    --
+    -- -   APPIUM_RUBY_TEST_SPEC
+    --
+    -- -   APPIUM_WEB_JAVA_JUNIT_TEST_SPEC
+    --
+    -- -   APPIUM_WEB_JAVA_TESTNG_TEST_SPEC
+    --
+    -- -   APPIUM_WEB_PYTHON_TEST_SPEC
+    --
+    -- -   APPIUM_WEB_NODE_TEST_SPEC
+    --
+    -- -   APPIUM_WEB_RUBY_TEST_SPEC
+    --
+    -- -   INSTRUMENTATION_TEST_SPEC
+    --
+    -- -   XCTEST_UI_TEST_SPEC
+    type' :: Prelude.Maybe UploadType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Upload' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Upload' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uStatus' - The upload's status. Must be one of the following values:     * FAILED     * INITIALIZED     * PROCESSING     * SUCCEEDED
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uContentType' - The upload's content type (for example, @application/octet-stream@ ).
+-- 'status', 'upload_status' - The upload\'s status.
 --
--- * 'uMessage' - A message about the upload's result.
+-- Must be one of the following values:
 --
--- * 'uCategory' - The upload's category. Allowed values include:     * CURATED: An upload managed by AWS Device Farm.     * PRIVATE: An upload managed by the AWS Device Farm customer.
+-- -   FAILED
 --
--- * 'uMetadata' - The upload's metadata. For example, for Android, this contains information that is parsed from the manifest and is displayed in the AWS Device Farm console after the associated app is uploaded.
+-- -   INITIALIZED
 --
--- * 'uArn' - The upload's ARN.
+-- -   PROCESSING
 --
--- * 'uName' - The upload's file name.
+-- -   SUCCEEDED
 --
--- * 'uUrl' - The presigned Amazon S3 URL that was used to store a file using a PUT request.
+-- 'contentType', 'upload_contentType' - The upload\'s content type (for example, @application\/octet-stream@).
 --
--- * 'uCreated' - When the upload was created.
+-- 'message', 'upload_message' - A message about the upload\'s result.
 --
--- * 'uType' - The upload's type. Must be one of the following values:     * ANDROID_APP     * IOS_APP     * WEB_APP     * EXTERNAL_DATA     * APPIUM_JAVA_JUNIT_TEST_PACKAGE     * APPIUM_JAVA_TESTNG_TEST_PACKAGE     * APPIUM_PYTHON_TEST_PACKAGE     * APPIUM_NODE_TEST_PACKAGE     * APPIUM_RUBY_TEST_PACKAGE     * APPIUM_WEB_JAVA_JUNIT_TEST_PACKAGE     * APPIUM_WEB_JAVA_TESTNG_TEST_PACKAGE     * APPIUM_WEB_PYTHON_TEST_PACKAGE     * APPIUM_WEB_NODE_TEST_PACKAGE     * APPIUM_WEB_RUBY_TEST_PACKAGE     * CALABASH_TEST_PACKAGE     * INSTRUMENTATION_TEST_PACKAGE     * UIAUTOMATION_TEST_PACKAGE     * UIAUTOMATOR_TEST_PACKAGE     * XCTEST_TEST_PACKAGE     * XCTEST_UI_TEST_PACKAGE     * APPIUM_JAVA_JUNIT_TEST_SPEC     * APPIUM_JAVA_TESTNG_TEST_SPEC     * APPIUM_PYTHON_TEST_SPEC     * APPIUM_NODE_TEST_SPEC     * APPIUM_RUBY_TEST_SPEC     * APPIUM_WEB_JAVA_JUNIT_TEST_SPEC     * APPIUM_WEB_JAVA_TESTNG_TEST_SPEC     * APPIUM_WEB_PYTHON_TEST_SPEC     * APPIUM_WEB_NODE_TEST_SPEC     * APPIUM_WEB_RUBY_TEST_SPEC     * INSTRUMENTATION_TEST_SPEC     * XCTEST_UI_TEST_SPEC
-upload ::
+-- 'category', 'upload_category' - The upload\'s category. Allowed values include:
+--
+-- -   CURATED: An upload managed by AWS Device Farm.
+--
+-- -   PRIVATE: An upload managed by the AWS Device Farm customer.
+--
+-- 'metadata', 'upload_metadata' - The upload\'s metadata. For example, for Android, this contains
+-- information that is parsed from the manifest and is displayed in the AWS
+-- Device Farm console after the associated app is uploaded.
+--
+-- 'arn', 'upload_arn' - The upload\'s ARN.
+--
+-- 'name', 'upload_name' - The upload\'s file name.
+--
+-- 'url', 'upload_url' - The presigned Amazon S3 URL that was used to store a file using a PUT
+-- request.
+--
+-- 'created', 'upload_created' - When the upload was created.
+--
+-- 'type'', 'upload_type' - The upload\'s type.
+--
+-- Must be one of the following values:
+--
+-- -   ANDROID_APP
+--
+-- -   IOS_APP
+--
+-- -   WEB_APP
+--
+-- -   EXTERNAL_DATA
+--
+-- -   APPIUM_JAVA_JUNIT_TEST_PACKAGE
+--
+-- -   APPIUM_JAVA_TESTNG_TEST_PACKAGE
+--
+-- -   APPIUM_PYTHON_TEST_PACKAGE
+--
+-- -   APPIUM_NODE_TEST_PACKAGE
+--
+-- -   APPIUM_RUBY_TEST_PACKAGE
+--
+-- -   APPIUM_WEB_JAVA_JUNIT_TEST_PACKAGE
+--
+-- -   APPIUM_WEB_JAVA_TESTNG_TEST_PACKAGE
+--
+-- -   APPIUM_WEB_PYTHON_TEST_PACKAGE
+--
+-- -   APPIUM_WEB_NODE_TEST_PACKAGE
+--
+-- -   APPIUM_WEB_RUBY_TEST_PACKAGE
+--
+-- -   CALABASH_TEST_PACKAGE
+--
+-- -   INSTRUMENTATION_TEST_PACKAGE
+--
+-- -   UIAUTOMATION_TEST_PACKAGE
+--
+-- -   UIAUTOMATOR_TEST_PACKAGE
+--
+-- -   XCTEST_TEST_PACKAGE
+--
+-- -   XCTEST_UI_TEST_PACKAGE
+--
+-- -   APPIUM_JAVA_JUNIT_TEST_SPEC
+--
+-- -   APPIUM_JAVA_TESTNG_TEST_SPEC
+--
+-- -   APPIUM_PYTHON_TEST_SPEC
+--
+-- -   APPIUM_NODE_TEST_SPEC
+--
+-- -   APPIUM_RUBY_TEST_SPEC
+--
+-- -   APPIUM_WEB_JAVA_JUNIT_TEST_SPEC
+--
+-- -   APPIUM_WEB_JAVA_TESTNG_TEST_SPEC
+--
+-- -   APPIUM_WEB_PYTHON_TEST_SPEC
+--
+-- -   APPIUM_WEB_NODE_TEST_SPEC
+--
+-- -   APPIUM_WEB_RUBY_TEST_SPEC
+--
+-- -   INSTRUMENTATION_TEST_SPEC
+--
+-- -   XCTEST_UI_TEST_SPEC
+newUpload ::
   Upload
-upload =
+newUpload =
   Upload'
-    { _uStatus = Nothing,
-      _uContentType = Nothing,
-      _uMessage = Nothing,
-      _uCategory = Nothing,
-      _uMetadata = Nothing,
-      _uArn = Nothing,
-      _uName = Nothing,
-      _uUrl = Nothing,
-      _uCreated = Nothing,
-      _uType = Nothing
+    { status = Prelude.Nothing,
+      contentType = Prelude.Nothing,
+      message = Prelude.Nothing,
+      category = Prelude.Nothing,
+      metadata = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      name = Prelude.Nothing,
+      url = Prelude.Nothing,
+      created = Prelude.Nothing,
+      type' = Prelude.Nothing
     }
 
--- | The upload's status. Must be one of the following values:     * FAILED     * INITIALIZED     * PROCESSING     * SUCCEEDED
-uStatus :: Lens' Upload (Maybe UploadStatus)
-uStatus = lens _uStatus (\s a -> s {_uStatus = a})
+-- | The upload\'s status.
+--
+-- Must be one of the following values:
+--
+-- -   FAILED
+--
+-- -   INITIALIZED
+--
+-- -   PROCESSING
+--
+-- -   SUCCEEDED
+upload_status :: Lens.Lens' Upload (Prelude.Maybe UploadStatus)
+upload_status = Lens.lens (\Upload' {status} -> status) (\s@Upload' {} a -> s {status = a} :: Upload)
 
--- | The upload's content type (for example, @application/octet-stream@ ).
-uContentType :: Lens' Upload (Maybe Text)
-uContentType = lens _uContentType (\s a -> s {_uContentType = a})
+-- | The upload\'s content type (for example, @application\/octet-stream@).
+upload_contentType :: Lens.Lens' Upload (Prelude.Maybe Prelude.Text)
+upload_contentType = Lens.lens (\Upload' {contentType} -> contentType) (\s@Upload' {} a -> s {contentType = a} :: Upload)
 
--- | A message about the upload's result.
-uMessage :: Lens' Upload (Maybe Text)
-uMessage = lens _uMessage (\s a -> s {_uMessage = a})
+-- | A message about the upload\'s result.
+upload_message :: Lens.Lens' Upload (Prelude.Maybe Prelude.Text)
+upload_message = Lens.lens (\Upload' {message} -> message) (\s@Upload' {} a -> s {message = a} :: Upload)
 
--- | The upload's category. Allowed values include:     * CURATED: An upload managed by AWS Device Farm.     * PRIVATE: An upload managed by the AWS Device Farm customer.
-uCategory :: Lens' Upload (Maybe UploadCategory)
-uCategory = lens _uCategory (\s a -> s {_uCategory = a})
+-- | The upload\'s category. Allowed values include:
+--
+-- -   CURATED: An upload managed by AWS Device Farm.
+--
+-- -   PRIVATE: An upload managed by the AWS Device Farm customer.
+upload_category :: Lens.Lens' Upload (Prelude.Maybe UploadCategory)
+upload_category = Lens.lens (\Upload' {category} -> category) (\s@Upload' {} a -> s {category = a} :: Upload)
 
--- | The upload's metadata. For example, for Android, this contains information that is parsed from the manifest and is displayed in the AWS Device Farm console after the associated app is uploaded.
-uMetadata :: Lens' Upload (Maybe Text)
-uMetadata = lens _uMetadata (\s a -> s {_uMetadata = a})
+-- | The upload\'s metadata. For example, for Android, this contains
+-- information that is parsed from the manifest and is displayed in the AWS
+-- Device Farm console after the associated app is uploaded.
+upload_metadata :: Lens.Lens' Upload (Prelude.Maybe Prelude.Text)
+upload_metadata = Lens.lens (\Upload' {metadata} -> metadata) (\s@Upload' {} a -> s {metadata = a} :: Upload)
 
--- | The upload's ARN.
-uArn :: Lens' Upload (Maybe Text)
-uArn = lens _uArn (\s a -> s {_uArn = a})
+-- | The upload\'s ARN.
+upload_arn :: Lens.Lens' Upload (Prelude.Maybe Prelude.Text)
+upload_arn = Lens.lens (\Upload' {arn} -> arn) (\s@Upload' {} a -> s {arn = a} :: Upload)
 
--- | The upload's file name.
-uName :: Lens' Upload (Maybe Text)
-uName = lens _uName (\s a -> s {_uName = a})
+-- | The upload\'s file name.
+upload_name :: Lens.Lens' Upload (Prelude.Maybe Prelude.Text)
+upload_name = Lens.lens (\Upload' {name} -> name) (\s@Upload' {} a -> s {name = a} :: Upload)
 
--- | The presigned Amazon S3 URL that was used to store a file using a PUT request.
-uUrl :: Lens' Upload (Maybe Text)
-uUrl = lens _uUrl (\s a -> s {_uUrl = a})
+-- | The presigned Amazon S3 URL that was used to store a file using a PUT
+-- request.
+upload_url :: Lens.Lens' Upload (Prelude.Maybe Prelude.Text)
+upload_url = Lens.lens (\Upload' {url} -> url) (\s@Upload' {} a -> s {url = a} :: Upload)
 
 -- | When the upload was created.
-uCreated :: Lens' Upload (Maybe UTCTime)
-uCreated = lens _uCreated (\s a -> s {_uCreated = a}) . mapping _Time
+upload_created :: Lens.Lens' Upload (Prelude.Maybe Prelude.UTCTime)
+upload_created = Lens.lens (\Upload' {created} -> created) (\s@Upload' {} a -> s {created = a} :: Upload) Prelude.. Lens.mapping Prelude._Time
 
--- | The upload's type. Must be one of the following values:     * ANDROID_APP     * IOS_APP     * WEB_APP     * EXTERNAL_DATA     * APPIUM_JAVA_JUNIT_TEST_PACKAGE     * APPIUM_JAVA_TESTNG_TEST_PACKAGE     * APPIUM_PYTHON_TEST_PACKAGE     * APPIUM_NODE_TEST_PACKAGE     * APPIUM_RUBY_TEST_PACKAGE     * APPIUM_WEB_JAVA_JUNIT_TEST_PACKAGE     * APPIUM_WEB_JAVA_TESTNG_TEST_PACKAGE     * APPIUM_WEB_PYTHON_TEST_PACKAGE     * APPIUM_WEB_NODE_TEST_PACKAGE     * APPIUM_WEB_RUBY_TEST_PACKAGE     * CALABASH_TEST_PACKAGE     * INSTRUMENTATION_TEST_PACKAGE     * UIAUTOMATION_TEST_PACKAGE     * UIAUTOMATOR_TEST_PACKAGE     * XCTEST_TEST_PACKAGE     * XCTEST_UI_TEST_PACKAGE     * APPIUM_JAVA_JUNIT_TEST_SPEC     * APPIUM_JAVA_TESTNG_TEST_SPEC     * APPIUM_PYTHON_TEST_SPEC     * APPIUM_NODE_TEST_SPEC     * APPIUM_RUBY_TEST_SPEC     * APPIUM_WEB_JAVA_JUNIT_TEST_SPEC     * APPIUM_WEB_JAVA_TESTNG_TEST_SPEC     * APPIUM_WEB_PYTHON_TEST_SPEC     * APPIUM_WEB_NODE_TEST_SPEC     * APPIUM_WEB_RUBY_TEST_SPEC     * INSTRUMENTATION_TEST_SPEC     * XCTEST_UI_TEST_SPEC
-uType :: Lens' Upload (Maybe UploadType)
-uType = lens _uType (\s a -> s {_uType = a})
+-- | The upload\'s type.
+--
+-- Must be one of the following values:
+--
+-- -   ANDROID_APP
+--
+-- -   IOS_APP
+--
+-- -   WEB_APP
+--
+-- -   EXTERNAL_DATA
+--
+-- -   APPIUM_JAVA_JUNIT_TEST_PACKAGE
+--
+-- -   APPIUM_JAVA_TESTNG_TEST_PACKAGE
+--
+-- -   APPIUM_PYTHON_TEST_PACKAGE
+--
+-- -   APPIUM_NODE_TEST_PACKAGE
+--
+-- -   APPIUM_RUBY_TEST_PACKAGE
+--
+-- -   APPIUM_WEB_JAVA_JUNIT_TEST_PACKAGE
+--
+-- -   APPIUM_WEB_JAVA_TESTNG_TEST_PACKAGE
+--
+-- -   APPIUM_WEB_PYTHON_TEST_PACKAGE
+--
+-- -   APPIUM_WEB_NODE_TEST_PACKAGE
+--
+-- -   APPIUM_WEB_RUBY_TEST_PACKAGE
+--
+-- -   CALABASH_TEST_PACKAGE
+--
+-- -   INSTRUMENTATION_TEST_PACKAGE
+--
+-- -   UIAUTOMATION_TEST_PACKAGE
+--
+-- -   UIAUTOMATOR_TEST_PACKAGE
+--
+-- -   XCTEST_TEST_PACKAGE
+--
+-- -   XCTEST_UI_TEST_PACKAGE
+--
+-- -   APPIUM_JAVA_JUNIT_TEST_SPEC
+--
+-- -   APPIUM_JAVA_TESTNG_TEST_SPEC
+--
+-- -   APPIUM_PYTHON_TEST_SPEC
+--
+-- -   APPIUM_NODE_TEST_SPEC
+--
+-- -   APPIUM_RUBY_TEST_SPEC
+--
+-- -   APPIUM_WEB_JAVA_JUNIT_TEST_SPEC
+--
+-- -   APPIUM_WEB_JAVA_TESTNG_TEST_SPEC
+--
+-- -   APPIUM_WEB_PYTHON_TEST_SPEC
+--
+-- -   APPIUM_WEB_NODE_TEST_SPEC
+--
+-- -   APPIUM_WEB_RUBY_TEST_SPEC
+--
+-- -   INSTRUMENTATION_TEST_SPEC
+--
+-- -   XCTEST_UI_TEST_SPEC
+upload_type :: Lens.Lens' Upload (Prelude.Maybe UploadType)
+upload_type = Lens.lens (\Upload' {type'} -> type') (\s@Upload' {} a -> s {type' = a} :: Upload)
 
-instance FromJSON Upload where
+instance Prelude.FromJSON Upload where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Upload"
       ( \x ->
           Upload'
-            <$> (x .:? "status")
-            <*> (x .:? "contentType")
-            <*> (x .:? "message")
-            <*> (x .:? "category")
-            <*> (x .:? "metadata")
-            <*> (x .:? "arn")
-            <*> (x .:? "name")
-            <*> (x .:? "url")
-            <*> (x .:? "created")
-            <*> (x .:? "type")
+            Prelude.<$> (x Prelude..:? "status")
+            Prelude.<*> (x Prelude..:? "contentType")
+            Prelude.<*> (x Prelude..:? "message")
+            Prelude.<*> (x Prelude..:? "category")
+            Prelude.<*> (x Prelude..:? "metadata")
+            Prelude.<*> (x Prelude..:? "arn")
+            Prelude.<*> (x Prelude..:? "name")
+            Prelude.<*> (x Prelude..:? "url")
+            Prelude.<*> (x Prelude..:? "created")
+            Prelude.<*> (x Prelude..:? "type")
       )
 
-instance Hashable Upload
+instance Prelude.Hashable Upload
 
-instance NFData Upload
+instance Prelude.NFData Upload

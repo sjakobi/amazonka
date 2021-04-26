@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,119 +24,127 @@
 -- Deletes an upload given the upload ARN.
 module Network.AWS.DeviceFarm.DeleteUpload
   ( -- * Creating a Request
-    deleteUpload,
-    DeleteUpload,
+    DeleteUpload (..),
+    newDeleteUpload,
 
     -- * Request Lenses
-    duArn,
+    deleteUpload_arn,
 
     -- * Destructuring the Response
-    deleteUploadResponse,
-    DeleteUploadResponse,
+    DeleteUploadResponse (..),
+    newDeleteUploadResponse,
 
     -- * Response Lenses
-    durrsResponseStatus,
+    deleteUploadResponse_httpStatus,
   )
 where
 
 import Network.AWS.DeviceFarm.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents a request to the delete upload operation.
 --
---
---
--- /See:/ 'deleteUpload' smart constructor.
-newtype DeleteUpload = DeleteUpload' {_duArn :: Text}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- /See:/ 'newDeleteUpload' smart constructor.
+data DeleteUpload = DeleteUpload'
+  { -- | Represents the Amazon Resource Name (ARN) of the Device Farm upload to
+    -- delete.
+    arn :: Prelude.Text
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteUpload' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteUpload' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'duArn' - Represents the Amazon Resource Name (ARN) of the Device Farm upload to delete.
-deleteUpload ::
-  -- | 'duArn'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'arn', 'deleteUpload_arn' - Represents the Amazon Resource Name (ARN) of the Device Farm upload to
+-- delete.
+newDeleteUpload ::
+  -- | 'arn'
+  Prelude.Text ->
   DeleteUpload
-deleteUpload pArn_ = DeleteUpload' {_duArn = pArn_}
+newDeleteUpload pArn_ = DeleteUpload' {arn = pArn_}
 
--- | Represents the Amazon Resource Name (ARN) of the Device Farm upload to delete.
-duArn :: Lens' DeleteUpload Text
-duArn = lens _duArn (\s a -> s {_duArn = a})
+-- | Represents the Amazon Resource Name (ARN) of the Device Farm upload to
+-- delete.
+deleteUpload_arn :: Lens.Lens' DeleteUpload Prelude.Text
+deleteUpload_arn = Lens.lens (\DeleteUpload' {arn} -> arn) (\s@DeleteUpload' {} a -> s {arn = a} :: DeleteUpload)
 
-instance AWSRequest DeleteUpload where
+instance Prelude.AWSRequest DeleteUpload where
   type Rs DeleteUpload = DeleteUploadResponse
-  request = postJSON deviceFarm
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          DeleteUploadResponse' <$> (pure (fromEnum s))
+          DeleteUploadResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteUpload
+instance Prelude.Hashable DeleteUpload
 
-instance NFData DeleteUpload
+instance Prelude.NFData DeleteUpload
 
-instance ToHeaders DeleteUpload where
+instance Prelude.ToHeaders DeleteUpload where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("DeviceFarm_20150623.DeleteUpload" :: ByteString),
+              Prelude.=# ( "DeviceFarm_20150623.DeleteUpload" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteUpload where
+instance Prelude.ToJSON DeleteUpload where
   toJSON DeleteUpload' {..} =
-    object (catMaybes [Just ("arn" .= _duArn)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("arn" Prelude..= arn)]
+      )
 
-instance ToPath DeleteUpload where
-  toPath = const "/"
+instance Prelude.ToPath DeleteUpload where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteUpload where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteUpload where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the result of a delete upload request.
 --
---
---
--- /See:/ 'deleteUploadResponse' smart constructor.
-newtype DeleteUploadResponse = DeleteUploadResponse'
-  { _durrsResponseStatus ::
-      Int
+-- /See:/ 'newDeleteUploadResponse' smart constructor.
+data DeleteUploadResponse = DeleteUploadResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteUploadResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteUploadResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'durrsResponseStatus' - -- | The response status code.
-deleteUploadResponse ::
-  -- | 'durrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteUploadResponse_httpStatus' - The response's http status code.
+newDeleteUploadResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteUploadResponse
-deleteUploadResponse pResponseStatus_ =
-  DeleteUploadResponse'
-    { _durrsResponseStatus =
-        pResponseStatus_
-    }
+newDeleteUploadResponse pHttpStatus_ =
+  DeleteUploadResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-durrsResponseStatus :: Lens' DeleteUploadResponse Int
-durrsResponseStatus = lens _durrsResponseStatus (\s a -> s {_durrsResponseStatus = a})
+-- | The response's http status code.
+deleteUploadResponse_httpStatus :: Lens.Lens' DeleteUploadResponse Prelude.Int
+deleteUploadResponse_httpStatus = Lens.lens (\DeleteUploadResponse' {httpStatus} -> httpStatus) (\s@DeleteUploadResponse' {} a -> s {httpStatus = a} :: DeleteUploadResponse)
 
-instance NFData DeleteUploadResponse
+instance Prelude.NFData DeleteUploadResponse

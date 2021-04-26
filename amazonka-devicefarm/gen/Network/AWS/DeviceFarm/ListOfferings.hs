@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,159 +21,192 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns a list of products or offerings that the user can manage through the API. Each offering record indicates the recurring price per unit and the frequency for that offering. The API returns a @NotEligible@ error if the user is not permitted to invoke the operation. If you must be able to invoke this operation, contact <mailto:aws-devicefarm-support@amazon.com aws-devicefarm-support@amazon.com> .
---
---
+-- Returns a list of products or offerings that the user can manage through
+-- the API. Each offering record indicates the recurring price per unit and
+-- the frequency for that offering. The API returns a @NotEligible@ error
+-- if the user is not permitted to invoke the operation. If you must be
+-- able to invoke this operation, contact
+-- <mailto:aws-devicefarm-support@amazon.com aws-devicefarm-support\@amazon.com>.
 --
 -- This operation returns paginated results.
 module Network.AWS.DeviceFarm.ListOfferings
   ( -- * Creating a Request
-    listOfferings,
-    ListOfferings,
+    ListOfferings (..),
+    newListOfferings,
 
     -- * Request Lenses
-    loNextToken,
+    listOfferings_nextToken,
 
     -- * Destructuring the Response
-    listOfferingsResponse,
-    ListOfferingsResponse,
+    ListOfferingsResponse (..),
+    newListOfferingsResponse,
 
     -- * Response Lenses
-    lorrsNextToken,
-    lorrsOfferings,
-    lorrsResponseStatus,
+    listOfferingsResponse_nextToken,
+    listOfferingsResponse_offerings,
+    listOfferingsResponse_httpStatus,
   )
 where
 
 import Network.AWS.DeviceFarm.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DeviceFarm.Types.Offering
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the request to list all offerings.
 --
---
---
--- /See:/ 'listOfferings' smart constructor.
-newtype ListOfferings = ListOfferings'
-  { _loNextToken ::
-      Maybe Text
+-- /See:/ 'newListOfferings' smart constructor.
+data ListOfferings = ListOfferings'
+  { -- | An identifier that was returned from the previous call to this
+    -- operation, which can be used to return the next set of items in the
+    -- list.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListOfferings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListOfferings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'loNextToken' - An identifier that was returned from the previous call to this operation, which can be used to return the next set of items in the list.
-listOfferings ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'nextToken', 'listOfferings_nextToken' - An identifier that was returned from the previous call to this
+-- operation, which can be used to return the next set of items in the
+-- list.
+newListOfferings ::
   ListOfferings
-listOfferings =
-  ListOfferings' {_loNextToken = Nothing}
+newListOfferings =
+  ListOfferings' {nextToken = Prelude.Nothing}
 
--- | An identifier that was returned from the previous call to this operation, which can be used to return the next set of items in the list.
-loNextToken :: Lens' ListOfferings (Maybe Text)
-loNextToken = lens _loNextToken (\s a -> s {_loNextToken = a})
+-- | An identifier that was returned from the previous call to this
+-- operation, which can be used to return the next set of items in the
+-- list.
+listOfferings_nextToken :: Lens.Lens' ListOfferings (Prelude.Maybe Prelude.Text)
+listOfferings_nextToken = Lens.lens (\ListOfferings' {nextToken} -> nextToken) (\s@ListOfferings' {} a -> s {nextToken = a} :: ListOfferings)
 
-instance AWSPager ListOfferings where
+instance Pager.AWSPager ListOfferings where
   page rq rs
-    | stop (rs ^. lorrsNextToken) = Nothing
-    | stop (rs ^. lorrsOfferings) = Nothing
-    | otherwise =
-      Just $ rq & loNextToken .~ rs ^. lorrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listOfferingsResponse_nextToken Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listOfferingsResponse_offerings Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listOfferings_nextToken
+          Lens..~ rs
+          Lens.^? listOfferingsResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest ListOfferings where
+instance Prelude.AWSRequest ListOfferings where
   type Rs ListOfferings = ListOfferingsResponse
-  request = postJSON deviceFarm
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListOfferingsResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "offerings" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> ( x Prelude..?> "offerings"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListOfferings
+instance Prelude.Hashable ListOfferings
 
-instance NFData ListOfferings
+instance Prelude.NFData ListOfferings
 
-instance ToHeaders ListOfferings where
+instance Prelude.ToHeaders ListOfferings where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("DeviceFarm_20150623.ListOfferings" :: ByteString),
+              Prelude.=# ( "DeviceFarm_20150623.ListOfferings" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListOfferings where
+instance Prelude.ToJSON ListOfferings where
   toJSON ListOfferings' {..} =
-    object
-      (catMaybes [("nextToken" .=) <$> _loNextToken])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("nextToken" Prelude..=) Prelude.<$> nextToken]
+      )
 
-instance ToPath ListOfferings where
-  toPath = const "/"
+instance Prelude.ToPath ListOfferings where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListOfferings where
-  toQuery = const mempty
+instance Prelude.ToQuery ListOfferings where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the return values of the list of offerings.
 --
---
---
--- /See:/ 'listOfferingsResponse' smart constructor.
+-- /See:/ 'newListOfferingsResponse' smart constructor.
 data ListOfferingsResponse = ListOfferingsResponse'
-  { _lorrsNextToken ::
-      !(Maybe Text),
-    _lorrsOfferings ::
-      !(Maybe [Offering]),
-    _lorrsResponseStatus ::
-      !Int
+  { -- | An identifier that was returned from the previous call to this
+    -- operation, which can be used to return the next set of items in the
+    -- list.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A value that represents the list offering results.
+    offerings :: Prelude.Maybe [Offering],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListOfferingsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListOfferingsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lorrsNextToken' - An identifier that was returned from the previous call to this operation, which can be used to return the next set of items in the list.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lorrsOfferings' - A value that represents the list offering results.
+-- 'nextToken', 'listOfferingsResponse_nextToken' - An identifier that was returned from the previous call to this
+-- operation, which can be used to return the next set of items in the
+-- list.
 --
--- * 'lorrsResponseStatus' - -- | The response status code.
-listOfferingsResponse ::
-  -- | 'lorrsResponseStatus'
-  Int ->
+-- 'offerings', 'listOfferingsResponse_offerings' - A value that represents the list offering results.
+--
+-- 'httpStatus', 'listOfferingsResponse_httpStatus' - The response's http status code.
+newListOfferingsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListOfferingsResponse
-listOfferingsResponse pResponseStatus_ =
+newListOfferingsResponse pHttpStatus_ =
   ListOfferingsResponse'
-    { _lorrsNextToken = Nothing,
-      _lorrsOfferings = Nothing,
-      _lorrsResponseStatus = pResponseStatus_
+    { nextToken = Prelude.Nothing,
+      offerings = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An identifier that was returned from the previous call to this operation, which can be used to return the next set of items in the list.
-lorrsNextToken :: Lens' ListOfferingsResponse (Maybe Text)
-lorrsNextToken = lens _lorrsNextToken (\s a -> s {_lorrsNextToken = a})
+-- | An identifier that was returned from the previous call to this
+-- operation, which can be used to return the next set of items in the
+-- list.
+listOfferingsResponse_nextToken :: Lens.Lens' ListOfferingsResponse (Prelude.Maybe Prelude.Text)
+listOfferingsResponse_nextToken = Lens.lens (\ListOfferingsResponse' {nextToken} -> nextToken) (\s@ListOfferingsResponse' {} a -> s {nextToken = a} :: ListOfferingsResponse)
 
 -- | A value that represents the list offering results.
-lorrsOfferings :: Lens' ListOfferingsResponse [Offering]
-lorrsOfferings = lens _lorrsOfferings (\s a -> s {_lorrsOfferings = a}) . _Default . _Coerce
+listOfferingsResponse_offerings :: Lens.Lens' ListOfferingsResponse (Prelude.Maybe [Offering])
+listOfferingsResponse_offerings = Lens.lens (\ListOfferingsResponse' {offerings} -> offerings) (\s@ListOfferingsResponse' {} a -> s {offerings = a} :: ListOfferingsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lorrsResponseStatus :: Lens' ListOfferingsResponse Int
-lorrsResponseStatus = lens _lorrsResponseStatus (\s a -> s {_lorrsResponseStatus = a})
+-- | The response's http status code.
+listOfferingsResponse_httpStatus :: Lens.Lens' ListOfferingsResponse Prelude.Int
+listOfferingsResponse_httpStatus = Lens.lens (\ListOfferingsResponse' {httpStatus} -> httpStatus) (\s@ListOfferingsResponse' {} a -> s {httpStatus = a} :: ListOfferingsResponse)
 
-instance NFData ListOfferingsResponse
+instance Prelude.NFData ListOfferingsResponse

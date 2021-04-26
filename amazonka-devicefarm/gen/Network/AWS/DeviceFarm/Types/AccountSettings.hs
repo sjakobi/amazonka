@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,112 +21,152 @@ module Network.AWS.DeviceFarm.Types.AccountSettings where
 
 import Network.AWS.DeviceFarm.Types.DevicePlatform
 import Network.AWS.DeviceFarm.Types.TrialMinutes
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A container for account-level settings in AWS Device Farm.
 --
---
---
--- /See:/ 'accountSettings' smart constructor.
+-- /See:/ 'newAccountSettings' smart constructor.
 data AccountSettings = AccountSettings'
-  { _asAwsAccountNumber ::
-      !(Maybe Text),
-    _asMaxSlots :: !(Maybe (Map Text Int)),
-    _asTrialMinutes ::
-      !(Maybe TrialMinutes),
-    _asSkipAppResign :: !(Maybe Bool),
-    _asMaxJobTimeoutMinutes :: !(Maybe Int),
-    _asDefaultJobTimeoutMinutes ::
-      !(Maybe Int),
-    _asUnmeteredDevices ::
-      !(Maybe (Map DevicePlatform Int)),
-    _asUnmeteredRemoteAccessDevices ::
-      !(Maybe (Map DevicePlatform Int))
+  { -- | The AWS account number specified in the @AccountSettings@ container.
+    awsAccountNumber :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of device slots that the AWS account can purchase.
+    -- Each maximum is expressed as an @offering-id:number@ pair, where the
+    -- @offering-id@ represents one of the IDs returned by the @ListOfferings@
+    -- command.
+    maxSlots :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Int),
+    -- | Information about an AWS account\'s usage of free trial device minutes.
+    trialMinutes :: Prelude.Maybe TrialMinutes,
+    -- | When set to @true@, for private devices, Device Farm does not sign your
+    -- app again. For public devices, Device Farm always signs your apps again.
+    --
+    -- For more information about how Device Farm re-signs your apps, see
+    -- <https://aws.amazon.com/device-farm/faq/ Do you modify my app?> in the
+    -- /AWS Device Farm FAQs/.
+    skipAppResign :: Prelude.Maybe Prelude.Bool,
+    -- | The maximum number of minutes a test run executes before it times out.
+    maxJobTimeoutMinutes :: Prelude.Maybe Prelude.Int,
+    -- | The default number of minutes (at the account level) a test run executes
+    -- before it times out. The default value is 150 minutes.
+    defaultJobTimeoutMinutes :: Prelude.Maybe Prelude.Int,
+    -- | Returns the unmetered devices you have purchased or want to purchase.
+    unmeteredDevices :: Prelude.Maybe (Prelude.Map DevicePlatform Prelude.Int),
+    -- | Returns the unmetered remote access devices you have purchased or want
+    -- to purchase.
+    unmeteredRemoteAccessDevices :: Prelude.Maybe (Prelude.Map DevicePlatform Prelude.Int)
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AccountSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AccountSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'asAwsAccountNumber' - The AWS account number specified in the @AccountSettings@ container.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'asMaxSlots' - The maximum number of device slots that the AWS account can purchase. Each maximum is expressed as an @offering-id:number@ pair, where the @offering-id@ represents one of the IDs returned by the @ListOfferings@ command.
+-- 'awsAccountNumber', 'accountSettings_awsAccountNumber' - The AWS account number specified in the @AccountSettings@ container.
 --
--- * 'asTrialMinutes' - Information about an AWS account's usage of free trial device minutes.
+-- 'maxSlots', 'accountSettings_maxSlots' - The maximum number of device slots that the AWS account can purchase.
+-- Each maximum is expressed as an @offering-id:number@ pair, where the
+-- @offering-id@ represents one of the IDs returned by the @ListOfferings@
+-- command.
 --
--- * 'asSkipAppResign' - When set to @true@ , for private devices, Device Farm does not sign your app again. For public devices, Device Farm always signs your apps again. For more information about how Device Farm re-signs your apps, see <https://aws.amazon.com/device-farm/faq/ Do you modify my app?> in the /AWS Device Farm FAQs/ .
+-- 'trialMinutes', 'accountSettings_trialMinutes' - Information about an AWS account\'s usage of free trial device minutes.
 --
--- * 'asMaxJobTimeoutMinutes' - The maximum number of minutes a test run executes before it times out.
+-- 'skipAppResign', 'accountSettings_skipAppResign' - When set to @true@, for private devices, Device Farm does not sign your
+-- app again. For public devices, Device Farm always signs your apps again.
 --
--- * 'asDefaultJobTimeoutMinutes' - The default number of minutes (at the account level) a test run executes before it times out. The default value is 150 minutes.
+-- For more information about how Device Farm re-signs your apps, see
+-- <https://aws.amazon.com/device-farm/faq/ Do you modify my app?> in the
+-- /AWS Device Farm FAQs/.
 --
--- * 'asUnmeteredDevices' - Returns the unmetered devices you have purchased or want to purchase.
+-- 'maxJobTimeoutMinutes', 'accountSettings_maxJobTimeoutMinutes' - The maximum number of minutes a test run executes before it times out.
 --
--- * 'asUnmeteredRemoteAccessDevices' - Returns the unmetered remote access devices you have purchased or want to purchase.
-accountSettings ::
+-- 'defaultJobTimeoutMinutes', 'accountSettings_defaultJobTimeoutMinutes' - The default number of minutes (at the account level) a test run executes
+-- before it times out. The default value is 150 minutes.
+--
+-- 'unmeteredDevices', 'accountSettings_unmeteredDevices' - Returns the unmetered devices you have purchased or want to purchase.
+--
+-- 'unmeteredRemoteAccessDevices', 'accountSettings_unmeteredRemoteAccessDevices' - Returns the unmetered remote access devices you have purchased or want
+-- to purchase.
+newAccountSettings ::
   AccountSettings
-accountSettings =
+newAccountSettings =
   AccountSettings'
-    { _asAwsAccountNumber = Nothing,
-      _asMaxSlots = Nothing,
-      _asTrialMinutes = Nothing,
-      _asSkipAppResign = Nothing,
-      _asMaxJobTimeoutMinutes = Nothing,
-      _asDefaultJobTimeoutMinutes = Nothing,
-      _asUnmeteredDevices = Nothing,
-      _asUnmeteredRemoteAccessDevices = Nothing
+    { awsAccountNumber =
+        Prelude.Nothing,
+      maxSlots = Prelude.Nothing,
+      trialMinutes = Prelude.Nothing,
+      skipAppResign = Prelude.Nothing,
+      maxJobTimeoutMinutes = Prelude.Nothing,
+      defaultJobTimeoutMinutes = Prelude.Nothing,
+      unmeteredDevices = Prelude.Nothing,
+      unmeteredRemoteAccessDevices = Prelude.Nothing
     }
 
 -- | The AWS account number specified in the @AccountSettings@ container.
-asAwsAccountNumber :: Lens' AccountSettings (Maybe Text)
-asAwsAccountNumber = lens _asAwsAccountNumber (\s a -> s {_asAwsAccountNumber = a})
+accountSettings_awsAccountNumber :: Lens.Lens' AccountSettings (Prelude.Maybe Prelude.Text)
+accountSettings_awsAccountNumber = Lens.lens (\AccountSettings' {awsAccountNumber} -> awsAccountNumber) (\s@AccountSettings' {} a -> s {awsAccountNumber = a} :: AccountSettings)
 
--- | The maximum number of device slots that the AWS account can purchase. Each maximum is expressed as an @offering-id:number@ pair, where the @offering-id@ represents one of the IDs returned by the @ListOfferings@ command.
-asMaxSlots :: Lens' AccountSettings (HashMap Text Int)
-asMaxSlots = lens _asMaxSlots (\s a -> s {_asMaxSlots = a}) . _Default . _Map
+-- | The maximum number of device slots that the AWS account can purchase.
+-- Each maximum is expressed as an @offering-id:number@ pair, where the
+-- @offering-id@ represents one of the IDs returned by the @ListOfferings@
+-- command.
+accountSettings_maxSlots :: Lens.Lens' AccountSettings (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Int))
+accountSettings_maxSlots = Lens.lens (\AccountSettings' {maxSlots} -> maxSlots) (\s@AccountSettings' {} a -> s {maxSlots = a} :: AccountSettings) Prelude.. Lens.mapping Prelude._Map
 
--- | Information about an AWS account's usage of free trial device minutes.
-asTrialMinutes :: Lens' AccountSettings (Maybe TrialMinutes)
-asTrialMinutes = lens _asTrialMinutes (\s a -> s {_asTrialMinutes = a})
+-- | Information about an AWS account\'s usage of free trial device minutes.
+accountSettings_trialMinutes :: Lens.Lens' AccountSettings (Prelude.Maybe TrialMinutes)
+accountSettings_trialMinutes = Lens.lens (\AccountSettings' {trialMinutes} -> trialMinutes) (\s@AccountSettings' {} a -> s {trialMinutes = a} :: AccountSettings)
 
--- | When set to @true@ , for private devices, Device Farm does not sign your app again. For public devices, Device Farm always signs your apps again. For more information about how Device Farm re-signs your apps, see <https://aws.amazon.com/device-farm/faq/ Do you modify my app?> in the /AWS Device Farm FAQs/ .
-asSkipAppResign :: Lens' AccountSettings (Maybe Bool)
-asSkipAppResign = lens _asSkipAppResign (\s a -> s {_asSkipAppResign = a})
+-- | When set to @true@, for private devices, Device Farm does not sign your
+-- app again. For public devices, Device Farm always signs your apps again.
+--
+-- For more information about how Device Farm re-signs your apps, see
+-- <https://aws.amazon.com/device-farm/faq/ Do you modify my app?> in the
+-- /AWS Device Farm FAQs/.
+accountSettings_skipAppResign :: Lens.Lens' AccountSettings (Prelude.Maybe Prelude.Bool)
+accountSettings_skipAppResign = Lens.lens (\AccountSettings' {skipAppResign} -> skipAppResign) (\s@AccountSettings' {} a -> s {skipAppResign = a} :: AccountSettings)
 
 -- | The maximum number of minutes a test run executes before it times out.
-asMaxJobTimeoutMinutes :: Lens' AccountSettings (Maybe Int)
-asMaxJobTimeoutMinutes = lens _asMaxJobTimeoutMinutes (\s a -> s {_asMaxJobTimeoutMinutes = a})
+accountSettings_maxJobTimeoutMinutes :: Lens.Lens' AccountSettings (Prelude.Maybe Prelude.Int)
+accountSettings_maxJobTimeoutMinutes = Lens.lens (\AccountSettings' {maxJobTimeoutMinutes} -> maxJobTimeoutMinutes) (\s@AccountSettings' {} a -> s {maxJobTimeoutMinutes = a} :: AccountSettings)
 
--- | The default number of minutes (at the account level) a test run executes before it times out. The default value is 150 minutes.
-asDefaultJobTimeoutMinutes :: Lens' AccountSettings (Maybe Int)
-asDefaultJobTimeoutMinutes = lens _asDefaultJobTimeoutMinutes (\s a -> s {_asDefaultJobTimeoutMinutes = a})
+-- | The default number of minutes (at the account level) a test run executes
+-- before it times out. The default value is 150 minutes.
+accountSettings_defaultJobTimeoutMinutes :: Lens.Lens' AccountSettings (Prelude.Maybe Prelude.Int)
+accountSettings_defaultJobTimeoutMinutes = Lens.lens (\AccountSettings' {defaultJobTimeoutMinutes} -> defaultJobTimeoutMinutes) (\s@AccountSettings' {} a -> s {defaultJobTimeoutMinutes = a} :: AccountSettings)
 
 -- | Returns the unmetered devices you have purchased or want to purchase.
-asUnmeteredDevices :: Lens' AccountSettings (HashMap DevicePlatform Int)
-asUnmeteredDevices = lens _asUnmeteredDevices (\s a -> s {_asUnmeteredDevices = a}) . _Default . _Map
+accountSettings_unmeteredDevices :: Lens.Lens' AccountSettings (Prelude.Maybe (Prelude.HashMap DevicePlatform Prelude.Int))
+accountSettings_unmeteredDevices = Lens.lens (\AccountSettings' {unmeteredDevices} -> unmeteredDevices) (\s@AccountSettings' {} a -> s {unmeteredDevices = a} :: AccountSettings) Prelude.. Lens.mapping Prelude._Map
 
--- | Returns the unmetered remote access devices you have purchased or want to purchase.
-asUnmeteredRemoteAccessDevices :: Lens' AccountSettings (HashMap DevicePlatform Int)
-asUnmeteredRemoteAccessDevices = lens _asUnmeteredRemoteAccessDevices (\s a -> s {_asUnmeteredRemoteAccessDevices = a}) . _Default . _Map
+-- | Returns the unmetered remote access devices you have purchased or want
+-- to purchase.
+accountSettings_unmeteredRemoteAccessDevices :: Lens.Lens' AccountSettings (Prelude.Maybe (Prelude.HashMap DevicePlatform Prelude.Int))
+accountSettings_unmeteredRemoteAccessDevices = Lens.lens (\AccountSettings' {unmeteredRemoteAccessDevices} -> unmeteredRemoteAccessDevices) (\s@AccountSettings' {} a -> s {unmeteredRemoteAccessDevices = a} :: AccountSettings) Prelude.. Lens.mapping Prelude._Map
 
-instance FromJSON AccountSettings where
+instance Prelude.FromJSON AccountSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AccountSettings"
       ( \x ->
           AccountSettings'
-            <$> (x .:? "awsAccountNumber")
-            <*> (x .:? "maxSlots" .!= mempty)
-            <*> (x .:? "trialMinutes")
-            <*> (x .:? "skipAppResign")
-            <*> (x .:? "maxJobTimeoutMinutes")
-            <*> (x .:? "defaultJobTimeoutMinutes")
-            <*> (x .:? "unmeteredDevices" .!= mempty)
-            <*> (x .:? "unmeteredRemoteAccessDevices" .!= mempty)
+            Prelude.<$> (x Prelude..:? "awsAccountNumber")
+            Prelude.<*> (x Prelude..:? "maxSlots" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "trialMinutes")
+            Prelude.<*> (x Prelude..:? "skipAppResign")
+            Prelude.<*> (x Prelude..:? "maxJobTimeoutMinutes")
+            Prelude.<*> (x Prelude..:? "defaultJobTimeoutMinutes")
+            Prelude.<*> ( x Prelude..:? "unmeteredDevices"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..:? "unmeteredRemoteAccessDevices"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable AccountSettings
+instance Prelude.Hashable AccountSettings
 
-instance NFData AccountSettings
+instance Prelude.NFData AccountSettings

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,75 +20,68 @@
 module Network.AWS.DeviceFarm.Types.CreateRemoteAccessSessionConfiguration where
 
 import Network.AWS.DeviceFarm.Types.BillingMethod
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Configuration settings for a remote access session, including billing method.
+-- | Configuration settings for a remote access session, including billing
+-- method.
 --
---
---
--- /See:/ 'createRemoteAccessSessionConfiguration' smart constructor.
+-- /See:/ 'newCreateRemoteAccessSessionConfiguration' smart constructor.
 data CreateRemoteAccessSessionConfiguration = CreateRemoteAccessSessionConfiguration'
-  { _crascBillingMethod ::
-      !( Maybe
-           BillingMethod
-       ),
-    _crascVpceConfigurationARNs ::
-      !( Maybe
-           [Text]
-       )
+  { -- | The billing method for the remote access session.
+    billingMethod :: Prelude.Maybe BillingMethod,
+    -- | An array of ARNs included in the VPC endpoint configuration.
+    vpceConfigurationArns :: Prelude.Maybe [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateRemoteAccessSessionConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateRemoteAccessSessionConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'crascBillingMethod' - The billing method for the remote access session.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'crascVpceConfigurationARNs' - An array of ARNs included in the VPC endpoint configuration.
-createRemoteAccessSessionConfiguration ::
+-- 'billingMethod', 'createRemoteAccessSessionConfiguration_billingMethod' - The billing method for the remote access session.
+--
+-- 'vpceConfigurationArns', 'createRemoteAccessSessionConfiguration_vpceConfigurationArns' - An array of ARNs included in the VPC endpoint configuration.
+newCreateRemoteAccessSessionConfiguration ::
   CreateRemoteAccessSessionConfiguration
-createRemoteAccessSessionConfiguration =
+newCreateRemoteAccessSessionConfiguration =
   CreateRemoteAccessSessionConfiguration'
-    { _crascBillingMethod =
-        Nothing,
-      _crascVpceConfigurationARNs =
-        Nothing
+    { billingMethod =
+        Prelude.Nothing,
+      vpceConfigurationArns =
+        Prelude.Nothing
     }
 
 -- | The billing method for the remote access session.
-crascBillingMethod :: Lens' CreateRemoteAccessSessionConfiguration (Maybe BillingMethod)
-crascBillingMethod = lens _crascBillingMethod (\s a -> s {_crascBillingMethod = a})
+createRemoteAccessSessionConfiguration_billingMethod :: Lens.Lens' CreateRemoteAccessSessionConfiguration (Prelude.Maybe BillingMethod)
+createRemoteAccessSessionConfiguration_billingMethod = Lens.lens (\CreateRemoteAccessSessionConfiguration' {billingMethod} -> billingMethod) (\s@CreateRemoteAccessSessionConfiguration' {} a -> s {billingMethod = a} :: CreateRemoteAccessSessionConfiguration)
 
 -- | An array of ARNs included in the VPC endpoint configuration.
-crascVpceConfigurationARNs :: Lens' CreateRemoteAccessSessionConfiguration [Text]
-crascVpceConfigurationARNs = lens _crascVpceConfigurationARNs (\s a -> s {_crascVpceConfigurationARNs = a}) . _Default . _Coerce
+createRemoteAccessSessionConfiguration_vpceConfigurationArns :: Lens.Lens' CreateRemoteAccessSessionConfiguration (Prelude.Maybe [Prelude.Text])
+createRemoteAccessSessionConfiguration_vpceConfigurationArns = Lens.lens (\CreateRemoteAccessSessionConfiguration' {vpceConfigurationArns} -> vpceConfigurationArns) (\s@CreateRemoteAccessSessionConfiguration' {} a -> s {vpceConfigurationArns = a} :: CreateRemoteAccessSessionConfiguration) Prelude.. Lens.mapping Prelude._Coerce
 
 instance
-  Hashable
+  Prelude.Hashable
     CreateRemoteAccessSessionConfiguration
 
 instance
-  NFData
+  Prelude.NFData
     CreateRemoteAccessSessionConfiguration
 
 instance
-  ToJSON
+  Prelude.ToJSON
     CreateRemoteAccessSessionConfiguration
   where
   toJSON CreateRemoteAccessSessionConfiguration' {..} =
-    object
-      ( catMaybes
-          [ ("billingMethod" .=) <$> _crascBillingMethod,
-            ("vpceConfigurationArns" .=)
-              <$> _crascVpceConfigurationARNs
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("billingMethod" Prelude..=)
+              Prelude.<$> billingMethod,
+            ("vpceConfigurationArns" Prelude..=)
+              Prelude.<$> vpceConfigurationArns
           ]
       )
