@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.GameLift.Types.BuildStatus
   ( BuildStatus
       ( ..,
-        Failed,
-        Initialized,
-        Ready
+        BuildStatusFAILED,
+        BuildStatusINITIALIZED,
+        BuildStatusREADY
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data BuildStatus = BuildStatus' (CI Text)
+newtype BuildStatus = BuildStatus'
+  { fromBuildStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Failed :: BuildStatus
-pattern Failed = BuildStatus' "FAILED"
+pattern BuildStatusFAILED :: BuildStatus
+pattern BuildStatusFAILED = BuildStatus' "FAILED"
 
-pattern Initialized :: BuildStatus
-pattern Initialized = BuildStatus' "INITIALIZED"
+pattern BuildStatusINITIALIZED :: BuildStatus
+pattern BuildStatusINITIALIZED = BuildStatus' "INITIALIZED"
 
-pattern Ready :: BuildStatus
-pattern Ready = BuildStatus' "READY"
+pattern BuildStatusREADY :: BuildStatus
+pattern BuildStatusREADY = BuildStatus' "READY"
 
 {-# COMPLETE
-  Failed,
-  Initialized,
-  Ready,
+  BuildStatusFAILED,
+  BuildStatusINITIALIZED,
+  BuildStatusREADY,
   BuildStatus'
   #-}
 
-instance FromText BuildStatus where
-  parser = (BuildStatus' . mk) <$> takeText
+instance Prelude.FromText BuildStatus where
+  parser = BuildStatus' Prelude.<$> Prelude.takeText
 
-instance ToText BuildStatus where
-  toText (BuildStatus' ci) = original ci
+instance Prelude.ToText BuildStatus where
+  toText (BuildStatus' x) = x
 
-instance Hashable BuildStatus
+instance Prelude.Hashable BuildStatus
 
-instance NFData BuildStatus
+instance Prelude.NFData BuildStatus
 
-instance ToByteString BuildStatus
+instance Prelude.ToByteString BuildStatus
 
-instance ToQuery BuildStatus
+instance Prelude.ToQuery BuildStatus
 
-instance ToHeader BuildStatus
+instance Prelude.ToHeader BuildStatus
 
-instance ToJSON BuildStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON BuildStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON BuildStatus where
-  parseJSON = parseJSONText "BuildStatus"
+instance Prelude.FromJSON BuildStatus where
+  parseJSON = Prelude.parseJSONText "BuildStatus"

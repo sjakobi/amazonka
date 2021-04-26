@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,249 +21,302 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves a set of one or more game sessions. Request a specific game session or request all game sessions on a fleet. Alternatively, use 'SearchGameSessions' to request a set of active game sessions that are filtered by certain criteria. To retrieve protection policy settings for game sessions, use 'DescribeGameSessionDetails' .
+-- Retrieves a set of one or more game sessions. Request a specific game
+-- session or request all game sessions on a fleet. Alternatively, use
+-- SearchGameSessions to request a set of active game sessions that are
+-- filtered by certain criteria. To retrieve protection policy settings for
+-- game sessions, use DescribeGameSessionDetails.
 --
---
--- To get game sessions, specify one of the following: game session ID, fleet ID, or alias ID. You can filter this request by game session status. Use the pagination parameters to retrieve results as a set of sequential pages. If successful, a 'GameSession' object is returned for each game session matching the request.
+-- To get game sessions, specify one of the following: game session ID,
+-- fleet ID, or alias ID. You can filter this request by game session
+-- status. Use the pagination parameters to retrieve results as a set of
+-- sequential pages. If successful, a GameSession object is returned for
+-- each game session matching the request.
 --
 -- /Available in Amazon GameLift Local./
 --
---     * 'CreateGameSession'
+-- -   CreateGameSession
 --
---     * 'DescribeGameSessions'
+-- -   DescribeGameSessions
 --
---     * 'DescribeGameSessionDetails'
+-- -   DescribeGameSessionDetails
 --
---     * 'SearchGameSessions'
+-- -   SearchGameSessions
 --
---     * 'UpdateGameSession'
+-- -   UpdateGameSession
 --
---     * 'GetGameSessionLogUrl'
+-- -   GetGameSessionLogUrl
 --
---     * Game session placements
+-- -   Game session placements
 --
---     * 'StartGameSessionPlacement'
+--     -   StartGameSessionPlacement
 --
---     * 'DescribeGameSessionPlacement'
+--     -   DescribeGameSessionPlacement
 --
---     * 'StopGameSessionPlacement'
---
---
---
---
---
+--     -   StopGameSessionPlacement
 --
 -- This operation returns paginated results.
 module Network.AWS.GameLift.DescribeGameSessions
   ( -- * Creating a Request
-    describeGameSessions,
-    DescribeGameSessions,
+    DescribeGameSessions (..),
+    newDescribeGameSessions,
 
     -- * Request Lenses
-    dgsNextToken,
-    dgsFleetId,
-    dgsGameSessionId,
-    dgsStatusFilter,
-    dgsAliasId,
-    dgsLimit,
+    describeGameSessions_nextToken,
+    describeGameSessions_fleetId,
+    describeGameSessions_gameSessionId,
+    describeGameSessions_statusFilter,
+    describeGameSessions_aliasId,
+    describeGameSessions_limit,
 
     -- * Destructuring the Response
-    describeGameSessionsResponse,
-    DescribeGameSessionsResponse,
+    DescribeGameSessionsResponse (..),
+    newDescribeGameSessionsResponse,
 
     -- * Response Lenses
-    dgsrrsNextToken,
-    dgsrrsGameSessions,
-    dgsrrsResponseStatus,
+    describeGameSessionsResponse_nextToken,
+    describeGameSessionsResponse_gameSessions,
+    describeGameSessionsResponse_httpStatus,
   )
 where
 
 import Network.AWS.GameLift.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.GameLift.Types.GameSession
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input for a request operation.
 --
---
---
--- /See:/ 'describeGameSessions' smart constructor.
+-- /See:/ 'newDescribeGameSessions' smart constructor.
 data DescribeGameSessions = DescribeGameSessions'
-  { _dgsNextToken ::
-      !(Maybe Text),
-    _dgsFleetId :: !(Maybe Text),
-    _dgsGameSessionId ::
-      !(Maybe Text),
-    _dgsStatusFilter ::
-      !(Maybe Text),
-    _dgsAliasId :: !(Maybe Text),
-    _dgsLimit :: !(Maybe Nat)
+  { -- | Token that indicates the start of the next sequential page of results.
+    -- Use the token that is returned with a previous call to this operation.
+    -- To start at the beginning of the result set, do not specify a value.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A unique identifier for a fleet to retrieve all game sessions for. You
+    -- can use either the fleet ID or ARN value.
+    fleetId :: Prelude.Maybe Prelude.Text,
+    -- | A unique identifier for the game session to retrieve.
+    gameSessionId :: Prelude.Maybe Prelude.Text,
+    -- | Game session status to filter results on. Possible game session statuses
+    -- include @ACTIVE@, @TERMINATED@, @ACTIVATING@, and @TERMINATING@ (the
+    -- last two are transitory).
+    statusFilter :: Prelude.Maybe Prelude.Text,
+    -- | A unique identifier for an alias associated with the fleet to retrieve
+    -- all game sessions for. You can use either the alias ID or ARN value.
+    aliasId :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return. Use this parameter with
+    -- @NextToken@ to get results as a set of sequential pages.
+    limit :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeGameSessions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeGameSessions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dgsNextToken' - Token that indicates the start of the next sequential page of results. Use the token that is returned with a previous call to this operation. To start at the beginning of the result set, do not specify a value.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dgsFleetId' - A unique identifier for a fleet to retrieve all game sessions for. You can use either the fleet ID or ARN value.
+-- 'nextToken', 'describeGameSessions_nextToken' - Token that indicates the start of the next sequential page of results.
+-- Use the token that is returned with a previous call to this operation.
+-- To start at the beginning of the result set, do not specify a value.
 --
--- * 'dgsGameSessionId' - A unique identifier for the game session to retrieve.
+-- 'fleetId', 'describeGameSessions_fleetId' - A unique identifier for a fleet to retrieve all game sessions for. You
+-- can use either the fleet ID or ARN value.
 --
--- * 'dgsStatusFilter' - Game session status to filter results on. Possible game session statuses include @ACTIVE@ , @TERMINATED@ , @ACTIVATING@ , and @TERMINATING@ (the last two are transitory).
+-- 'gameSessionId', 'describeGameSessions_gameSessionId' - A unique identifier for the game session to retrieve.
 --
--- * 'dgsAliasId' - A unique identifier for an alias associated with the fleet to retrieve all game sessions for. You can use either the alias ID or ARN value.
+-- 'statusFilter', 'describeGameSessions_statusFilter' - Game session status to filter results on. Possible game session statuses
+-- include @ACTIVE@, @TERMINATED@, @ACTIVATING@, and @TERMINATING@ (the
+-- last two are transitory).
 --
--- * 'dgsLimit' - The maximum number of results to return. Use this parameter with @NextToken@ to get results as a set of sequential pages.
-describeGameSessions ::
+-- 'aliasId', 'describeGameSessions_aliasId' - A unique identifier for an alias associated with the fleet to retrieve
+-- all game sessions for. You can use either the alias ID or ARN value.
+--
+-- 'limit', 'describeGameSessions_limit' - The maximum number of results to return. Use this parameter with
+-- @NextToken@ to get results as a set of sequential pages.
+newDescribeGameSessions ::
   DescribeGameSessions
-describeGameSessions =
+newDescribeGameSessions =
   DescribeGameSessions'
-    { _dgsNextToken = Nothing,
-      _dgsFleetId = Nothing,
-      _dgsGameSessionId = Nothing,
-      _dgsStatusFilter = Nothing,
-      _dgsAliasId = Nothing,
-      _dgsLimit = Nothing
+    { nextToken = Prelude.Nothing,
+      fleetId = Prelude.Nothing,
+      gameSessionId = Prelude.Nothing,
+      statusFilter = Prelude.Nothing,
+      aliasId = Prelude.Nothing,
+      limit = Prelude.Nothing
     }
 
--- | Token that indicates the start of the next sequential page of results. Use the token that is returned with a previous call to this operation. To start at the beginning of the result set, do not specify a value.
-dgsNextToken :: Lens' DescribeGameSessions (Maybe Text)
-dgsNextToken = lens _dgsNextToken (\s a -> s {_dgsNextToken = a})
+-- | Token that indicates the start of the next sequential page of results.
+-- Use the token that is returned with a previous call to this operation.
+-- To start at the beginning of the result set, do not specify a value.
+describeGameSessions_nextToken :: Lens.Lens' DescribeGameSessions (Prelude.Maybe Prelude.Text)
+describeGameSessions_nextToken = Lens.lens (\DescribeGameSessions' {nextToken} -> nextToken) (\s@DescribeGameSessions' {} a -> s {nextToken = a} :: DescribeGameSessions)
 
--- | A unique identifier for a fleet to retrieve all game sessions for. You can use either the fleet ID or ARN value.
-dgsFleetId :: Lens' DescribeGameSessions (Maybe Text)
-dgsFleetId = lens _dgsFleetId (\s a -> s {_dgsFleetId = a})
+-- | A unique identifier for a fleet to retrieve all game sessions for. You
+-- can use either the fleet ID or ARN value.
+describeGameSessions_fleetId :: Lens.Lens' DescribeGameSessions (Prelude.Maybe Prelude.Text)
+describeGameSessions_fleetId = Lens.lens (\DescribeGameSessions' {fleetId} -> fleetId) (\s@DescribeGameSessions' {} a -> s {fleetId = a} :: DescribeGameSessions)
 
 -- | A unique identifier for the game session to retrieve.
-dgsGameSessionId :: Lens' DescribeGameSessions (Maybe Text)
-dgsGameSessionId = lens _dgsGameSessionId (\s a -> s {_dgsGameSessionId = a})
+describeGameSessions_gameSessionId :: Lens.Lens' DescribeGameSessions (Prelude.Maybe Prelude.Text)
+describeGameSessions_gameSessionId = Lens.lens (\DescribeGameSessions' {gameSessionId} -> gameSessionId) (\s@DescribeGameSessions' {} a -> s {gameSessionId = a} :: DescribeGameSessions)
 
--- | Game session status to filter results on. Possible game session statuses include @ACTIVE@ , @TERMINATED@ , @ACTIVATING@ , and @TERMINATING@ (the last two are transitory).
-dgsStatusFilter :: Lens' DescribeGameSessions (Maybe Text)
-dgsStatusFilter = lens _dgsStatusFilter (\s a -> s {_dgsStatusFilter = a})
+-- | Game session status to filter results on. Possible game session statuses
+-- include @ACTIVE@, @TERMINATED@, @ACTIVATING@, and @TERMINATING@ (the
+-- last two are transitory).
+describeGameSessions_statusFilter :: Lens.Lens' DescribeGameSessions (Prelude.Maybe Prelude.Text)
+describeGameSessions_statusFilter = Lens.lens (\DescribeGameSessions' {statusFilter} -> statusFilter) (\s@DescribeGameSessions' {} a -> s {statusFilter = a} :: DescribeGameSessions)
 
--- | A unique identifier for an alias associated with the fleet to retrieve all game sessions for. You can use either the alias ID or ARN value.
-dgsAliasId :: Lens' DescribeGameSessions (Maybe Text)
-dgsAliasId = lens _dgsAliasId (\s a -> s {_dgsAliasId = a})
+-- | A unique identifier for an alias associated with the fleet to retrieve
+-- all game sessions for. You can use either the alias ID or ARN value.
+describeGameSessions_aliasId :: Lens.Lens' DescribeGameSessions (Prelude.Maybe Prelude.Text)
+describeGameSessions_aliasId = Lens.lens (\DescribeGameSessions' {aliasId} -> aliasId) (\s@DescribeGameSessions' {} a -> s {aliasId = a} :: DescribeGameSessions)
 
--- | The maximum number of results to return. Use this parameter with @NextToken@ to get results as a set of sequential pages.
-dgsLimit :: Lens' DescribeGameSessions (Maybe Natural)
-dgsLimit = lens _dgsLimit (\s a -> s {_dgsLimit = a}) . mapping _Nat
+-- | The maximum number of results to return. Use this parameter with
+-- @NextToken@ to get results as a set of sequential pages.
+describeGameSessions_limit :: Lens.Lens' DescribeGameSessions (Prelude.Maybe Prelude.Natural)
+describeGameSessions_limit = Lens.lens (\DescribeGameSessions' {limit} -> limit) (\s@DescribeGameSessions' {} a -> s {limit = a} :: DescribeGameSessions) Prelude.. Lens.mapping Prelude._Nat
 
-instance AWSPager DescribeGameSessions where
+instance Pager.AWSPager DescribeGameSessions where
   page rq rs
-    | stop (rs ^. dgsrrsNextToken) = Nothing
-    | stop (rs ^. dgsrrsGameSessions) = Nothing
-    | otherwise =
-      Just $ rq & dgsNextToken .~ rs ^. dgsrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeGameSessionsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeGameSessionsResponse_gameSessions
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeGameSessions_nextToken
+          Lens..~ rs
+          Lens.^? describeGameSessionsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeGameSessions where
+instance Prelude.AWSRequest DescribeGameSessions where
   type
     Rs DescribeGameSessions =
       DescribeGameSessionsResponse
-  request = postJSON gameLift
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeGameSessionsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "GameSessions" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "GameSessions"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeGameSessions
+instance Prelude.Hashable DescribeGameSessions
 
-instance NFData DescribeGameSessions
+instance Prelude.NFData DescribeGameSessions
 
-instance ToHeaders DescribeGameSessions where
+instance Prelude.ToHeaders DescribeGameSessions where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("GameLift.DescribeGameSessions" :: ByteString),
+              Prelude.=# ( "GameLift.DescribeGameSessions" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeGameSessions where
+instance Prelude.ToJSON DescribeGameSessions where
   toJSON DescribeGameSessions' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _dgsNextToken,
-            ("FleetId" .=) <$> _dgsFleetId,
-            ("GameSessionId" .=) <$> _dgsGameSessionId,
-            ("StatusFilter" .=) <$> _dgsStatusFilter,
-            ("AliasId" .=) <$> _dgsAliasId,
-            ("Limit" .=) <$> _dgsLimit
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("FleetId" Prelude..=) Prelude.<$> fleetId,
+            ("GameSessionId" Prelude..=)
+              Prelude.<$> gameSessionId,
+            ("StatusFilter" Prelude..=) Prelude.<$> statusFilter,
+            ("AliasId" Prelude..=) Prelude.<$> aliasId,
+            ("Limit" Prelude..=) Prelude.<$> limit
           ]
       )
 
-instance ToPath DescribeGameSessions where
-  toPath = const "/"
+instance Prelude.ToPath DescribeGameSessions where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeGameSessions where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeGameSessions where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the returned data in response to a request operation.
 --
---
---
--- /See:/ 'describeGameSessionsResponse' smart constructor.
+-- /See:/ 'newDescribeGameSessionsResponse' smart constructor.
 data DescribeGameSessionsResponse = DescribeGameSessionsResponse'
-  { _dgsrrsNextToken ::
-      !(Maybe Text),
-    _dgsrrsGameSessions ::
-      !( Maybe
-           [GameSession]
-       ),
-    _dgsrrsResponseStatus ::
-      !Int
+  { -- | Token that indicates where to resume retrieving results on the next call
+    -- to this operation. If no token is returned, these results represent the
+    -- end of the list.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A collection of objects containing game session properties for each
+    -- session matching the request.
+    gameSessions :: Prelude.Maybe [GameSession],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeGameSessionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeGameSessionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dgsrrsNextToken' - Token that indicates where to resume retrieving results on the next call to this operation. If no token is returned, these results represent the end of the list.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dgsrrsGameSessions' - A collection of objects containing game session properties for each session matching the request.
+-- 'nextToken', 'describeGameSessionsResponse_nextToken' - Token that indicates where to resume retrieving results on the next call
+-- to this operation. If no token is returned, these results represent the
+-- end of the list.
 --
--- * 'dgsrrsResponseStatus' - -- | The response status code.
-describeGameSessionsResponse ::
-  -- | 'dgsrrsResponseStatus'
-  Int ->
+-- 'gameSessions', 'describeGameSessionsResponse_gameSessions' - A collection of objects containing game session properties for each
+-- session matching the request.
+--
+-- 'httpStatus', 'describeGameSessionsResponse_httpStatus' - The response's http status code.
+newDescribeGameSessionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeGameSessionsResponse
-describeGameSessionsResponse pResponseStatus_ =
+newDescribeGameSessionsResponse pHttpStatus_ =
   DescribeGameSessionsResponse'
-    { _dgsrrsNextToken =
-        Nothing,
-      _dgsrrsGameSessions = Nothing,
-      _dgsrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      gameSessions = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Token that indicates where to resume retrieving results on the next call to this operation. If no token is returned, these results represent the end of the list.
-dgsrrsNextToken :: Lens' DescribeGameSessionsResponse (Maybe Text)
-dgsrrsNextToken = lens _dgsrrsNextToken (\s a -> s {_dgsrrsNextToken = a})
+-- | Token that indicates where to resume retrieving results on the next call
+-- to this operation. If no token is returned, these results represent the
+-- end of the list.
+describeGameSessionsResponse_nextToken :: Lens.Lens' DescribeGameSessionsResponse (Prelude.Maybe Prelude.Text)
+describeGameSessionsResponse_nextToken = Lens.lens (\DescribeGameSessionsResponse' {nextToken} -> nextToken) (\s@DescribeGameSessionsResponse' {} a -> s {nextToken = a} :: DescribeGameSessionsResponse)
 
--- | A collection of objects containing game session properties for each session matching the request.
-dgsrrsGameSessions :: Lens' DescribeGameSessionsResponse [GameSession]
-dgsrrsGameSessions = lens _dgsrrsGameSessions (\s a -> s {_dgsrrsGameSessions = a}) . _Default . _Coerce
+-- | A collection of objects containing game session properties for each
+-- session matching the request.
+describeGameSessionsResponse_gameSessions :: Lens.Lens' DescribeGameSessionsResponse (Prelude.Maybe [GameSession])
+describeGameSessionsResponse_gameSessions = Lens.lens (\DescribeGameSessionsResponse' {gameSessions} -> gameSessions) (\s@DescribeGameSessionsResponse' {} a -> s {gameSessions = a} :: DescribeGameSessionsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dgsrrsResponseStatus :: Lens' DescribeGameSessionsResponse Int
-dgsrrsResponseStatus = lens _dgsrrsResponseStatus (\s a -> s {_dgsrrsResponseStatus = a})
+-- | The response's http status code.
+describeGameSessionsResponse_httpStatus :: Lens.Lens' DescribeGameSessionsResponse Prelude.Int
+describeGameSessionsResponse_httpStatus = Lens.lens (\DescribeGameSessionsResponse' {httpStatus} -> httpStatus) (\s@DescribeGameSessionsResponse' {} a -> s {httpStatus = a} :: DescribeGameSessionsResponse)
 
-instance NFData DescribeGameSessionsResponse
+instance Prelude.NFData DescribeGameSessionsResponse

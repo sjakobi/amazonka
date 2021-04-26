@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,8 +21,12 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates port settings for a fleet. To update settings, specify the fleet ID to be updated and list the permissions you want to update. List the permissions you want to add in @InboundPermissionAuthorizations@ , and permissions you want to remove in @InboundPermissionRevocations@ . Permissions to be removed must match existing fleet permissions. If successful, the fleet ID for the updated fleet is returned.
---
+-- Updates port settings for a fleet. To update settings, specify the fleet
+-- ID to be updated and list the permissions you want to update. List the
+-- permissions you want to add in @InboundPermissionAuthorizations@, and
+-- permissions you want to remove in @InboundPermissionRevocations@.
+-- Permissions to be removed must match existing fleet permissions. If
+-- successful, the fleet ID for the updated fleet is returned.
 --
 -- __Learn more__
 --
@@ -26,198 +34,195 @@
 --
 -- __Related operations__
 --
---     * 'CreateFleet'
+-- -   CreateFleet
 --
---     * 'ListFleets'
+-- -   ListFleets
 --
---     * 'DeleteFleet'
+-- -   DeleteFleet
 --
---     * 'DescribeFleetAttributes'
+-- -   DescribeFleetAttributes
 --
---     * Update fleets:
+-- -   Update fleets:
 --
---     * 'UpdateFleetAttributes'
+--     -   UpdateFleetAttributes
 --
---     * 'UpdateFleetCapacity'
+--     -   UpdateFleetCapacity
 --
---     * 'UpdateFleetPortSettings'
+--     -   UpdateFleetPortSettings
 --
---     * 'UpdateRuntimeConfiguration'
+--     -   UpdateRuntimeConfiguration
 --
---
---
---     * 'StartFleetActions' or 'StopFleetActions'
+-- -   StartFleetActions or StopFleetActions
 module Network.AWS.GameLift.UpdateFleetPortSettings
   ( -- * Creating a Request
-    updateFleetPortSettings,
-    UpdateFleetPortSettings,
+    UpdateFleetPortSettings (..),
+    newUpdateFleetPortSettings,
 
     -- * Request Lenses
-    ufpsInboundPermissionAuthorizations,
-    ufpsInboundPermissionRevocations,
-    ufpsFleetId,
+    updateFleetPortSettings_inboundPermissionAuthorizations,
+    updateFleetPortSettings_inboundPermissionRevocations,
+    updateFleetPortSettings_fleetId,
 
     -- * Destructuring the Response
-    updateFleetPortSettingsResponse,
-    UpdateFleetPortSettingsResponse,
+    UpdateFleetPortSettingsResponse (..),
+    newUpdateFleetPortSettingsResponse,
 
     -- * Response Lenses
-    ufpsrrsFleetId,
-    ufpsrrsResponseStatus,
+    updateFleetPortSettingsResponse_fleetId,
+    updateFleetPortSettingsResponse_httpStatus,
   )
 where
 
 import Network.AWS.GameLift.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input for a request operation.
 --
---
---
--- /See:/ 'updateFleetPortSettings' smart constructor.
+-- /See:/ 'newUpdateFleetPortSettings' smart constructor.
 data UpdateFleetPortSettings = UpdateFleetPortSettings'
-  { _ufpsInboundPermissionAuthorizations ::
-      !(Maybe [IPPermission]),
-    _ufpsInboundPermissionRevocations ::
-      !(Maybe [IPPermission]),
-    _ufpsFleetId :: !Text
+  { -- | A collection of port settings to be added to the fleet resource.
+    inboundPermissionAuthorizations :: Prelude.Maybe [IpPermission],
+    -- | A collection of port settings to be removed from the fleet resource.
+    inboundPermissionRevocations :: Prelude.Maybe [IpPermission],
+    -- | A unique identifier for a fleet to update port settings for. You can use
+    -- either the fleet ID or ARN value.
+    fleetId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateFleetPortSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateFleetPortSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ufpsInboundPermissionAuthorizations' - A collection of port settings to be added to the fleet resource.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ufpsInboundPermissionRevocations' - A collection of port settings to be removed from the fleet resource.
+-- 'inboundPermissionAuthorizations', 'updateFleetPortSettings_inboundPermissionAuthorizations' - A collection of port settings to be added to the fleet resource.
 --
--- * 'ufpsFleetId' - A unique identifier for a fleet to update port settings for. You can use either the fleet ID or ARN value.
-updateFleetPortSettings ::
-  -- | 'ufpsFleetId'
-  Text ->
+-- 'inboundPermissionRevocations', 'updateFleetPortSettings_inboundPermissionRevocations' - A collection of port settings to be removed from the fleet resource.
+--
+-- 'fleetId', 'updateFleetPortSettings_fleetId' - A unique identifier for a fleet to update port settings for. You can use
+-- either the fleet ID or ARN value.
+newUpdateFleetPortSettings ::
+  -- | 'fleetId'
+  Prelude.Text ->
   UpdateFleetPortSettings
-updateFleetPortSettings pFleetId_ =
+newUpdateFleetPortSettings pFleetId_ =
   UpdateFleetPortSettings'
-    { _ufpsInboundPermissionAuthorizations =
-        Nothing,
-      _ufpsInboundPermissionRevocations = Nothing,
-      _ufpsFleetId = pFleetId_
+    { inboundPermissionAuthorizations =
+        Prelude.Nothing,
+      inboundPermissionRevocations = Prelude.Nothing,
+      fleetId = pFleetId_
     }
 
 -- | A collection of port settings to be added to the fleet resource.
-ufpsInboundPermissionAuthorizations :: Lens' UpdateFleetPortSettings [IPPermission]
-ufpsInboundPermissionAuthorizations = lens _ufpsInboundPermissionAuthorizations (\s a -> s {_ufpsInboundPermissionAuthorizations = a}) . _Default . _Coerce
+updateFleetPortSettings_inboundPermissionAuthorizations :: Lens.Lens' UpdateFleetPortSettings (Prelude.Maybe [IpPermission])
+updateFleetPortSettings_inboundPermissionAuthorizations = Lens.lens (\UpdateFleetPortSettings' {inboundPermissionAuthorizations} -> inboundPermissionAuthorizations) (\s@UpdateFleetPortSettings' {} a -> s {inboundPermissionAuthorizations = a} :: UpdateFleetPortSettings) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A collection of port settings to be removed from the fleet resource.
-ufpsInboundPermissionRevocations :: Lens' UpdateFleetPortSettings [IPPermission]
-ufpsInboundPermissionRevocations = lens _ufpsInboundPermissionRevocations (\s a -> s {_ufpsInboundPermissionRevocations = a}) . _Default . _Coerce
+updateFleetPortSettings_inboundPermissionRevocations :: Lens.Lens' UpdateFleetPortSettings (Prelude.Maybe [IpPermission])
+updateFleetPortSettings_inboundPermissionRevocations = Lens.lens (\UpdateFleetPortSettings' {inboundPermissionRevocations} -> inboundPermissionRevocations) (\s@UpdateFleetPortSettings' {} a -> s {inboundPermissionRevocations = a} :: UpdateFleetPortSettings) Prelude.. Lens.mapping Prelude._Coerce
 
--- | A unique identifier for a fleet to update port settings for. You can use either the fleet ID or ARN value.
-ufpsFleetId :: Lens' UpdateFleetPortSettings Text
-ufpsFleetId = lens _ufpsFleetId (\s a -> s {_ufpsFleetId = a})
+-- | A unique identifier for a fleet to update port settings for. You can use
+-- either the fleet ID or ARN value.
+updateFleetPortSettings_fleetId :: Lens.Lens' UpdateFleetPortSettings Prelude.Text
+updateFleetPortSettings_fleetId = Lens.lens (\UpdateFleetPortSettings' {fleetId} -> fleetId) (\s@UpdateFleetPortSettings' {} a -> s {fleetId = a} :: UpdateFleetPortSettings)
 
-instance AWSRequest UpdateFleetPortSettings where
+instance Prelude.AWSRequest UpdateFleetPortSettings where
   type
     Rs UpdateFleetPortSettings =
       UpdateFleetPortSettingsResponse
-  request = postJSON gameLift
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateFleetPortSettingsResponse'
-            <$> (x .?> "FleetId") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "FleetId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateFleetPortSettings
+instance Prelude.Hashable UpdateFleetPortSettings
 
-instance NFData UpdateFleetPortSettings
+instance Prelude.NFData UpdateFleetPortSettings
 
-instance ToHeaders UpdateFleetPortSettings where
+instance Prelude.ToHeaders UpdateFleetPortSettings where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("GameLift.UpdateFleetPortSettings" :: ByteString),
+              Prelude.=# ( "GameLift.UpdateFleetPortSettings" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateFleetPortSettings where
+instance Prelude.ToJSON UpdateFleetPortSettings where
   toJSON UpdateFleetPortSettings' {..} =
-    object
-      ( catMaybes
-          [ ("InboundPermissionAuthorizations" .=)
-              <$> _ufpsInboundPermissionAuthorizations,
-            ("InboundPermissionRevocations" .=)
-              <$> _ufpsInboundPermissionRevocations,
-            Just ("FleetId" .= _ufpsFleetId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("InboundPermissionAuthorizations" Prelude..=)
+              Prelude.<$> inboundPermissionAuthorizations,
+            ("InboundPermissionRevocations" Prelude..=)
+              Prelude.<$> inboundPermissionRevocations,
+            Prelude.Just ("FleetId" Prelude..= fleetId)
           ]
       )
 
-instance ToPath UpdateFleetPortSettings where
-  toPath = const "/"
+instance Prelude.ToPath UpdateFleetPortSettings where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateFleetPortSettings where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateFleetPortSettings where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the returned data in response to a request operation.
 --
---
---
--- /See:/ 'updateFleetPortSettingsResponse' smart constructor.
+-- /See:/ 'newUpdateFleetPortSettingsResponse' smart constructor.
 data UpdateFleetPortSettingsResponse = UpdateFleetPortSettingsResponse'
-  { _ufpsrrsFleetId ::
-      !( Maybe
-           Text
-       ),
-    _ufpsrrsResponseStatus ::
-      !Int
+  { -- | A unique identifier for a fleet that was updated.
+    fleetId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateFleetPortSettingsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateFleetPortSettingsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ufpsrrsFleetId' - A unique identifier for a fleet that was updated.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ufpsrrsResponseStatus' - -- | The response status code.
-updateFleetPortSettingsResponse ::
-  -- | 'ufpsrrsResponseStatus'
-  Int ->
+-- 'fleetId', 'updateFleetPortSettingsResponse_fleetId' - A unique identifier for a fleet that was updated.
+--
+-- 'httpStatus', 'updateFleetPortSettingsResponse_httpStatus' - The response's http status code.
+newUpdateFleetPortSettingsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateFleetPortSettingsResponse
-updateFleetPortSettingsResponse pResponseStatus_ =
+newUpdateFleetPortSettingsResponse pHttpStatus_ =
   UpdateFleetPortSettingsResponse'
-    { _ufpsrrsFleetId =
-        Nothing,
-      _ufpsrrsResponseStatus = pResponseStatus_
+    { fleetId =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A unique identifier for a fleet that was updated.
-ufpsrrsFleetId :: Lens' UpdateFleetPortSettingsResponse (Maybe Text)
-ufpsrrsFleetId = lens _ufpsrrsFleetId (\s a -> s {_ufpsrrsFleetId = a})
+updateFleetPortSettingsResponse_fleetId :: Lens.Lens' UpdateFleetPortSettingsResponse (Prelude.Maybe Prelude.Text)
+updateFleetPortSettingsResponse_fleetId = Lens.lens (\UpdateFleetPortSettingsResponse' {fleetId} -> fleetId) (\s@UpdateFleetPortSettingsResponse' {} a -> s {fleetId = a} :: UpdateFleetPortSettingsResponse)
 
--- | -- | The response status code.
-ufpsrrsResponseStatus :: Lens' UpdateFleetPortSettingsResponse Int
-ufpsrrsResponseStatus = lens _ufpsrrsResponseStatus (\s a -> s {_ufpsrrsResponseStatus = a})
+-- | The response's http status code.
+updateFleetPortSettingsResponse_httpStatus :: Lens.Lens' UpdateFleetPortSettingsResponse Prelude.Int
+updateFleetPortSettingsResponse_httpStatus = Lens.lens (\UpdateFleetPortSettingsResponse' {httpStatus} -> httpStatus) (\s@UpdateFleetPortSettingsResponse' {} a -> s {httpStatus = a} :: UpdateFleetPortSettingsResponse)
 
-instance NFData UpdateFleetPortSettingsResponse
+instance
+  Prelude.NFData
+    UpdateFleetPortSettingsResponse

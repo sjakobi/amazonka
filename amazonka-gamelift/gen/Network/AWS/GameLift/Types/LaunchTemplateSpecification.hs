@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,74 +19,84 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.GameLift.Types.LaunchTemplateSpecification where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | __This data type is used with the Amazon GameLift FleetIQ and game server groups.__
+-- | __This data type is used with the Amazon GameLift FleetIQ and game
+-- server groups.__
 --
+-- An EC2 launch template that contains configuration settings and game
+-- server code to be deployed to all instances in a game server group. The
+-- launch template is specified when creating a new game server group with
+-- CreateGameServerGroup.
 --
--- An EC2 launch template that contains configuration settings and game server code to be deployed to all instances in a game server group. The launch template is specified when creating a new game server group with 'CreateGameServerGroup' .
---
---
--- /See:/ 'launchTemplateSpecification' smart constructor.
+-- /See:/ 'newLaunchTemplateSpecification' smart constructor.
 data LaunchTemplateSpecification = LaunchTemplateSpecification'
-  { _ltsLaunchTemplateId ::
-      !(Maybe Text),
-    _ltsLaunchTemplateName ::
-      !(Maybe Text),
-    _ltsVersion ::
-      !(Maybe Text)
+  { -- | A unique identifier for an existing EC2 launch template.
+    launchTemplateId :: Prelude.Maybe Prelude.Text,
+    -- | A readable identifier for an existing EC2 launch template.
+    launchTemplateName :: Prelude.Maybe Prelude.Text,
+    -- | The version of the EC2 launch template to use. If no version is
+    -- specified, the default version will be used. With Amazon EC2, you can
+    -- specify a default version for a launch template. If none is set, the
+    -- default is the first version created.
+    version :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LaunchTemplateSpecification' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LaunchTemplateSpecification' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltsLaunchTemplateId' - A unique identifier for an existing EC2 launch template.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltsLaunchTemplateName' - A readable identifier for an existing EC2 launch template.
+-- 'launchTemplateId', 'launchTemplateSpecification_launchTemplateId' - A unique identifier for an existing EC2 launch template.
 --
--- * 'ltsVersion' - The version of the EC2 launch template to use. If no version is specified, the default version will be used. With Amazon EC2, you can specify a default version for a launch template. If none is set, the default is the first version created.
-launchTemplateSpecification ::
+-- 'launchTemplateName', 'launchTemplateSpecification_launchTemplateName' - A readable identifier for an existing EC2 launch template.
+--
+-- 'version', 'launchTemplateSpecification_version' - The version of the EC2 launch template to use. If no version is
+-- specified, the default version will be used. With Amazon EC2, you can
+-- specify a default version for a launch template. If none is set, the
+-- default is the first version created.
+newLaunchTemplateSpecification ::
   LaunchTemplateSpecification
-launchTemplateSpecification =
+newLaunchTemplateSpecification =
   LaunchTemplateSpecification'
-    { _ltsLaunchTemplateId =
-        Nothing,
-      _ltsLaunchTemplateName = Nothing,
-      _ltsVersion = Nothing
+    { launchTemplateId =
+        Prelude.Nothing,
+      launchTemplateName = Prelude.Nothing,
+      version = Prelude.Nothing
     }
 
 -- | A unique identifier for an existing EC2 launch template.
-ltsLaunchTemplateId :: Lens' LaunchTemplateSpecification (Maybe Text)
-ltsLaunchTemplateId = lens _ltsLaunchTemplateId (\s a -> s {_ltsLaunchTemplateId = a})
+launchTemplateSpecification_launchTemplateId :: Lens.Lens' LaunchTemplateSpecification (Prelude.Maybe Prelude.Text)
+launchTemplateSpecification_launchTemplateId = Lens.lens (\LaunchTemplateSpecification' {launchTemplateId} -> launchTemplateId) (\s@LaunchTemplateSpecification' {} a -> s {launchTemplateId = a} :: LaunchTemplateSpecification)
 
 -- | A readable identifier for an existing EC2 launch template.
-ltsLaunchTemplateName :: Lens' LaunchTemplateSpecification (Maybe Text)
-ltsLaunchTemplateName = lens _ltsLaunchTemplateName (\s a -> s {_ltsLaunchTemplateName = a})
+launchTemplateSpecification_launchTemplateName :: Lens.Lens' LaunchTemplateSpecification (Prelude.Maybe Prelude.Text)
+launchTemplateSpecification_launchTemplateName = Lens.lens (\LaunchTemplateSpecification' {launchTemplateName} -> launchTemplateName) (\s@LaunchTemplateSpecification' {} a -> s {launchTemplateName = a} :: LaunchTemplateSpecification)
 
--- | The version of the EC2 launch template to use. If no version is specified, the default version will be used. With Amazon EC2, you can specify a default version for a launch template. If none is set, the default is the first version created.
-ltsVersion :: Lens' LaunchTemplateSpecification (Maybe Text)
-ltsVersion = lens _ltsVersion (\s a -> s {_ltsVersion = a})
+-- | The version of the EC2 launch template to use. If no version is
+-- specified, the default version will be used. With Amazon EC2, you can
+-- specify a default version for a launch template. If none is set, the
+-- default is the first version created.
+launchTemplateSpecification_version :: Lens.Lens' LaunchTemplateSpecification (Prelude.Maybe Prelude.Text)
+launchTemplateSpecification_version = Lens.lens (\LaunchTemplateSpecification' {version} -> version) (\s@LaunchTemplateSpecification' {} a -> s {version = a} :: LaunchTemplateSpecification)
 
-instance Hashable LaunchTemplateSpecification
+instance Prelude.Hashable LaunchTemplateSpecification
 
-instance NFData LaunchTemplateSpecification
+instance Prelude.NFData LaunchTemplateSpecification
 
-instance ToJSON LaunchTemplateSpecification where
+instance Prelude.ToJSON LaunchTemplateSpecification where
   toJSON LaunchTemplateSpecification' {..} =
-    object
-      ( catMaybes
-          [ ("LaunchTemplateId" .=) <$> _ltsLaunchTemplateId,
-            ("LaunchTemplateName" .=) <$> _ltsLaunchTemplateName,
-            ("Version" .=) <$> _ltsVersion
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("LaunchTemplateId" Prelude..=)
+              Prelude.<$> launchTemplateId,
+            ("LaunchTemplateName" Prelude..=)
+              Prelude.<$> launchTemplateName,
+            ("Version" Prelude..=) Prelude.<$> version
           ]
       )

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,8 +21,10 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates settings for a game session queue, which determines how new game session requests in the queue are processed. To update settings, specify the queue name to be updated and provide the new settings. When updating destinations, provide a complete list of destinations.
---
+-- Updates settings for a game session queue, which determines how new game
+-- session requests in the queue are processed. To update settings, specify
+-- the queue name to be updated and provide the new settings. When updating
+-- destinations, provide a complete list of destinations.
 --
 -- __Learn more__
 --
@@ -26,198 +32,240 @@
 --
 -- __Related operations__
 --
---     * 'CreateGameSessionQueue'
+-- -   CreateGameSessionQueue
 --
---     * 'DescribeGameSessionQueues'
+-- -   DescribeGameSessionQueues
 --
---     * 'UpdateGameSessionQueue'
+-- -   UpdateGameSessionQueue
 --
---     * 'DeleteGameSessionQueue'
+-- -   DeleteGameSessionQueue
 module Network.AWS.GameLift.UpdateGameSessionQueue
   ( -- * Creating a Request
-    updateGameSessionQueue,
-    UpdateGameSessionQueue,
+    UpdateGameSessionQueue (..),
+    newUpdateGameSessionQueue,
 
     -- * Request Lenses
-    ugsqPlayerLatencyPolicies,
-    ugsqTimeoutInSeconds,
-    ugsqDestinations,
-    ugsqName,
+    updateGameSessionQueue_playerLatencyPolicies,
+    updateGameSessionQueue_timeoutInSeconds,
+    updateGameSessionQueue_destinations,
+    updateGameSessionQueue_name,
 
     -- * Destructuring the Response
-    updateGameSessionQueueResponse,
-    UpdateGameSessionQueueResponse,
+    UpdateGameSessionQueueResponse (..),
+    newUpdateGameSessionQueueResponse,
 
     -- * Response Lenses
-    ugsqrrsGameSessionQueue,
-    ugsqrrsResponseStatus,
+    updateGameSessionQueueResponse_gameSessionQueue,
+    updateGameSessionQueueResponse_httpStatus,
   )
 where
 
 import Network.AWS.GameLift.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.GameLift.Types.GameSessionQueue
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input for a request operation.
 --
---
---
--- /See:/ 'updateGameSessionQueue' smart constructor.
+-- /See:/ 'newUpdateGameSessionQueue' smart constructor.
 data UpdateGameSessionQueue = UpdateGameSessionQueue'
-  { _ugsqPlayerLatencyPolicies ::
-      !( Maybe
-           [PlayerLatencyPolicy]
-       ),
-    _ugsqTimeoutInSeconds ::
-      !(Maybe Nat),
-    _ugsqDestinations ::
-      !( Maybe
-           [GameSessionQueueDestination]
-       ),
-    _ugsqName :: !Text
+  { -- | A collection of latency policies to apply when processing game sessions
+    -- placement requests with player latency information. Multiple policies
+    -- are evaluated in order of the maximum latency value, starting with the
+    -- lowest latency values. With just one policy, the policy is enforced at
+    -- the start of the game session placement for the duration period. With
+    -- multiple policies, each policy is enforced consecutively for its
+    -- duration period. For example, a queue might enforce a 60-second policy
+    -- followed by a 120-second policy, and then no policy for the remainder of
+    -- the placement. When updating policies, provide a complete collection of
+    -- policies.
+    playerLatencyPolicies :: Prelude.Maybe [PlayerLatencyPolicy],
+    -- | The maximum time, in seconds, that a new game session placement request
+    -- remains in the queue. When a request exceeds this time, the game session
+    -- placement changes to a @TIMED_OUT@ status.
+    timeoutInSeconds :: Prelude.Maybe Prelude.Nat,
+    -- | A list of fleets that can be used to fulfill game session placement
+    -- requests in the queue. Fleets are identified by either a fleet ARN or a
+    -- fleet alias ARN. Destinations are listed in default preference order.
+    -- When updating this list, provide a complete list of destinations.
+    destinations :: Prelude.Maybe [GameSessionQueueDestination],
+    -- | A descriptive label that is associated with game session queue. Queue
+    -- names must be unique within each Region. You can use either the queue ID
+    -- or ARN value.
+    name :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateGameSessionQueue' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateGameSessionQueue' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ugsqPlayerLatencyPolicies' - A collection of latency policies to apply when processing game sessions placement requests with player latency information. Multiple policies are evaluated in order of the maximum latency value, starting with the lowest latency values. With just one policy, the policy is enforced at the start of the game session placement for the duration period. With multiple policies, each policy is enforced consecutively for its duration period. For example, a queue might enforce a 60-second policy followed by a 120-second policy, and then no policy for the remainder of the placement. When updating policies, provide a complete collection of policies.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ugsqTimeoutInSeconds' - The maximum time, in seconds, that a new game session placement request remains in the queue. When a request exceeds this time, the game session placement changes to a @TIMED_OUT@ status.
+-- 'playerLatencyPolicies', 'updateGameSessionQueue_playerLatencyPolicies' - A collection of latency policies to apply when processing game sessions
+-- placement requests with player latency information. Multiple policies
+-- are evaluated in order of the maximum latency value, starting with the
+-- lowest latency values. With just one policy, the policy is enforced at
+-- the start of the game session placement for the duration period. With
+-- multiple policies, each policy is enforced consecutively for its
+-- duration period. For example, a queue might enforce a 60-second policy
+-- followed by a 120-second policy, and then no policy for the remainder of
+-- the placement. When updating policies, provide a complete collection of
+-- policies.
 --
--- * 'ugsqDestinations' - A list of fleets that can be used to fulfill game session placement requests in the queue. Fleets are identified by either a fleet ARN or a fleet alias ARN. Destinations are listed in default preference order. When updating this list, provide a complete list of destinations.
+-- 'timeoutInSeconds', 'updateGameSessionQueue_timeoutInSeconds' - The maximum time, in seconds, that a new game session placement request
+-- remains in the queue. When a request exceeds this time, the game session
+-- placement changes to a @TIMED_OUT@ status.
 --
--- * 'ugsqName' - A descriptive label that is associated with game session queue. Queue names must be unique within each Region. You can use either the queue ID or ARN value.
-updateGameSessionQueue ::
-  -- | 'ugsqName'
-  Text ->
+-- 'destinations', 'updateGameSessionQueue_destinations' - A list of fleets that can be used to fulfill game session placement
+-- requests in the queue. Fleets are identified by either a fleet ARN or a
+-- fleet alias ARN. Destinations are listed in default preference order.
+-- When updating this list, provide a complete list of destinations.
+--
+-- 'name', 'updateGameSessionQueue_name' - A descriptive label that is associated with game session queue. Queue
+-- names must be unique within each Region. You can use either the queue ID
+-- or ARN value.
+newUpdateGameSessionQueue ::
+  -- | 'name'
+  Prelude.Text ->
   UpdateGameSessionQueue
-updateGameSessionQueue pName_ =
+newUpdateGameSessionQueue pName_ =
   UpdateGameSessionQueue'
-    { _ugsqPlayerLatencyPolicies =
-        Nothing,
-      _ugsqTimeoutInSeconds = Nothing,
-      _ugsqDestinations = Nothing,
-      _ugsqName = pName_
+    { playerLatencyPolicies =
+        Prelude.Nothing,
+      timeoutInSeconds = Prelude.Nothing,
+      destinations = Prelude.Nothing,
+      name = pName_
     }
 
--- | A collection of latency policies to apply when processing game sessions placement requests with player latency information. Multiple policies are evaluated in order of the maximum latency value, starting with the lowest latency values. With just one policy, the policy is enforced at the start of the game session placement for the duration period. With multiple policies, each policy is enforced consecutively for its duration period. For example, a queue might enforce a 60-second policy followed by a 120-second policy, and then no policy for the remainder of the placement. When updating policies, provide a complete collection of policies.
-ugsqPlayerLatencyPolicies :: Lens' UpdateGameSessionQueue [PlayerLatencyPolicy]
-ugsqPlayerLatencyPolicies = lens _ugsqPlayerLatencyPolicies (\s a -> s {_ugsqPlayerLatencyPolicies = a}) . _Default . _Coerce
+-- | A collection of latency policies to apply when processing game sessions
+-- placement requests with player latency information. Multiple policies
+-- are evaluated in order of the maximum latency value, starting with the
+-- lowest latency values. With just one policy, the policy is enforced at
+-- the start of the game session placement for the duration period. With
+-- multiple policies, each policy is enforced consecutively for its
+-- duration period. For example, a queue might enforce a 60-second policy
+-- followed by a 120-second policy, and then no policy for the remainder of
+-- the placement. When updating policies, provide a complete collection of
+-- policies.
+updateGameSessionQueue_playerLatencyPolicies :: Lens.Lens' UpdateGameSessionQueue (Prelude.Maybe [PlayerLatencyPolicy])
+updateGameSessionQueue_playerLatencyPolicies = Lens.lens (\UpdateGameSessionQueue' {playerLatencyPolicies} -> playerLatencyPolicies) (\s@UpdateGameSessionQueue' {} a -> s {playerLatencyPolicies = a} :: UpdateGameSessionQueue) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The maximum time, in seconds, that a new game session placement request remains in the queue. When a request exceeds this time, the game session placement changes to a @TIMED_OUT@ status.
-ugsqTimeoutInSeconds :: Lens' UpdateGameSessionQueue (Maybe Natural)
-ugsqTimeoutInSeconds = lens _ugsqTimeoutInSeconds (\s a -> s {_ugsqTimeoutInSeconds = a}) . mapping _Nat
+-- | The maximum time, in seconds, that a new game session placement request
+-- remains in the queue. When a request exceeds this time, the game session
+-- placement changes to a @TIMED_OUT@ status.
+updateGameSessionQueue_timeoutInSeconds :: Lens.Lens' UpdateGameSessionQueue (Prelude.Maybe Prelude.Natural)
+updateGameSessionQueue_timeoutInSeconds = Lens.lens (\UpdateGameSessionQueue' {timeoutInSeconds} -> timeoutInSeconds) (\s@UpdateGameSessionQueue' {} a -> s {timeoutInSeconds = a} :: UpdateGameSessionQueue) Prelude.. Lens.mapping Prelude._Nat
 
--- | A list of fleets that can be used to fulfill game session placement requests in the queue. Fleets are identified by either a fleet ARN or a fleet alias ARN. Destinations are listed in default preference order. When updating this list, provide a complete list of destinations.
-ugsqDestinations :: Lens' UpdateGameSessionQueue [GameSessionQueueDestination]
-ugsqDestinations = lens _ugsqDestinations (\s a -> s {_ugsqDestinations = a}) . _Default . _Coerce
+-- | A list of fleets that can be used to fulfill game session placement
+-- requests in the queue. Fleets are identified by either a fleet ARN or a
+-- fleet alias ARN. Destinations are listed in default preference order.
+-- When updating this list, provide a complete list of destinations.
+updateGameSessionQueue_destinations :: Lens.Lens' UpdateGameSessionQueue (Prelude.Maybe [GameSessionQueueDestination])
+updateGameSessionQueue_destinations = Lens.lens (\UpdateGameSessionQueue' {destinations} -> destinations) (\s@UpdateGameSessionQueue' {} a -> s {destinations = a} :: UpdateGameSessionQueue) Prelude.. Lens.mapping Prelude._Coerce
 
--- | A descriptive label that is associated with game session queue. Queue names must be unique within each Region. You can use either the queue ID or ARN value.
-ugsqName :: Lens' UpdateGameSessionQueue Text
-ugsqName = lens _ugsqName (\s a -> s {_ugsqName = a})
+-- | A descriptive label that is associated with game session queue. Queue
+-- names must be unique within each Region. You can use either the queue ID
+-- or ARN value.
+updateGameSessionQueue_name :: Lens.Lens' UpdateGameSessionQueue Prelude.Text
+updateGameSessionQueue_name = Lens.lens (\UpdateGameSessionQueue' {name} -> name) (\s@UpdateGameSessionQueue' {} a -> s {name = a} :: UpdateGameSessionQueue)
 
-instance AWSRequest UpdateGameSessionQueue where
+instance Prelude.AWSRequest UpdateGameSessionQueue where
   type
     Rs UpdateGameSessionQueue =
       UpdateGameSessionQueueResponse
-  request = postJSON gameLift
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateGameSessionQueueResponse'
-            <$> (x .?> "GameSessionQueue") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "GameSessionQueue")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateGameSessionQueue
+instance Prelude.Hashable UpdateGameSessionQueue
 
-instance NFData UpdateGameSessionQueue
+instance Prelude.NFData UpdateGameSessionQueue
 
-instance ToHeaders UpdateGameSessionQueue where
+instance Prelude.ToHeaders UpdateGameSessionQueue where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("GameLift.UpdateGameSessionQueue" :: ByteString),
+              Prelude.=# ( "GameLift.UpdateGameSessionQueue" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateGameSessionQueue where
+instance Prelude.ToJSON UpdateGameSessionQueue where
   toJSON UpdateGameSessionQueue' {..} =
-    object
-      ( catMaybes
-          [ ("PlayerLatencyPolicies" .=)
-              <$> _ugsqPlayerLatencyPolicies,
-            ("TimeoutInSeconds" .=) <$> _ugsqTimeoutInSeconds,
-            ("Destinations" .=) <$> _ugsqDestinations,
-            Just ("Name" .= _ugsqName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("PlayerLatencyPolicies" Prelude..=)
+              Prelude.<$> playerLatencyPolicies,
+            ("TimeoutInSeconds" Prelude..=)
+              Prelude.<$> timeoutInSeconds,
+            ("Destinations" Prelude..=) Prelude.<$> destinations,
+            Prelude.Just ("Name" Prelude..= name)
           ]
       )
 
-instance ToPath UpdateGameSessionQueue where
-  toPath = const "/"
+instance Prelude.ToPath UpdateGameSessionQueue where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateGameSessionQueue where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateGameSessionQueue where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the returned data in response to a request operation.
 --
---
---
--- /See:/ 'updateGameSessionQueueResponse' smart constructor.
+-- /See:/ 'newUpdateGameSessionQueueResponse' smart constructor.
 data UpdateGameSessionQueueResponse = UpdateGameSessionQueueResponse'
-  { _ugsqrrsGameSessionQueue ::
-      !( Maybe
-           GameSessionQueue
-       ),
-    _ugsqrrsResponseStatus ::
-      !Int
+  { -- | An object that describes the newly updated game session queue.
+    gameSessionQueue :: Prelude.Maybe GameSessionQueue,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateGameSessionQueueResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateGameSessionQueueResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ugsqrrsGameSessionQueue' - An object that describes the newly updated game session queue.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ugsqrrsResponseStatus' - -- | The response status code.
-updateGameSessionQueueResponse ::
-  -- | 'ugsqrrsResponseStatus'
-  Int ->
+-- 'gameSessionQueue', 'updateGameSessionQueueResponse_gameSessionQueue' - An object that describes the newly updated game session queue.
+--
+-- 'httpStatus', 'updateGameSessionQueueResponse_httpStatus' - The response's http status code.
+newUpdateGameSessionQueueResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateGameSessionQueueResponse
-updateGameSessionQueueResponse pResponseStatus_ =
+newUpdateGameSessionQueueResponse pHttpStatus_ =
   UpdateGameSessionQueueResponse'
-    { _ugsqrrsGameSessionQueue =
-        Nothing,
-      _ugsqrrsResponseStatus = pResponseStatus_
+    { gameSessionQueue =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | An object that describes the newly updated game session queue.
-ugsqrrsGameSessionQueue :: Lens' UpdateGameSessionQueueResponse (Maybe GameSessionQueue)
-ugsqrrsGameSessionQueue = lens _ugsqrrsGameSessionQueue (\s a -> s {_ugsqrrsGameSessionQueue = a})
+updateGameSessionQueueResponse_gameSessionQueue :: Lens.Lens' UpdateGameSessionQueueResponse (Prelude.Maybe GameSessionQueue)
+updateGameSessionQueueResponse_gameSessionQueue = Lens.lens (\UpdateGameSessionQueueResponse' {gameSessionQueue} -> gameSessionQueue) (\s@UpdateGameSessionQueueResponse' {} a -> s {gameSessionQueue = a} :: UpdateGameSessionQueueResponse)
 
--- | -- | The response status code.
-ugsqrrsResponseStatus :: Lens' UpdateGameSessionQueueResponse Int
-ugsqrrsResponseStatus = lens _ugsqrrsResponseStatus (\s a -> s {_ugsqrrsResponseStatus = a})
+-- | The response's http status code.
+updateGameSessionQueueResponse_httpStatus :: Lens.Lens' UpdateGameSessionQueueResponse Prelude.Int
+updateGameSessionQueueResponse_httpStatus = Lens.lens (\UpdateGameSessionQueueResponse' {httpStatus} -> httpStatus) (\s@UpdateGameSessionQueueResponse' {} a -> s {httpStatus = a} :: UpdateGameSessionQueueResponse)
 
-instance NFData UpdateGameSessionQueueResponse
+instance
+  Prelude.NFData
+    UpdateGameSessionQueueResponse

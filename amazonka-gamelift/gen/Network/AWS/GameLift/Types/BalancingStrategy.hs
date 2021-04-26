@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.GameLift.Types.BalancingStrategy
   ( BalancingStrategy
       ( ..,
-        OnDemandOnly,
-        SpotOnly,
-        SpotPreferred
+        BalancingStrategyONDEMANDONLY,
+        BalancingStrategySPOTONLY,
+        BalancingStrategySPOTPREFERRED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data BalancingStrategy = BalancingStrategy' (CI Text)
+newtype BalancingStrategy = BalancingStrategy'
+  { fromBalancingStrategy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern OnDemandOnly :: BalancingStrategy
-pattern OnDemandOnly = BalancingStrategy' "ON_DEMAND_ONLY"
+pattern BalancingStrategyONDEMANDONLY :: BalancingStrategy
+pattern BalancingStrategyONDEMANDONLY = BalancingStrategy' "ON_DEMAND_ONLY"
 
-pattern SpotOnly :: BalancingStrategy
-pattern SpotOnly = BalancingStrategy' "SPOT_ONLY"
+pattern BalancingStrategySPOTONLY :: BalancingStrategy
+pattern BalancingStrategySPOTONLY = BalancingStrategy' "SPOT_ONLY"
 
-pattern SpotPreferred :: BalancingStrategy
-pattern SpotPreferred = BalancingStrategy' "SPOT_PREFERRED"
+pattern BalancingStrategySPOTPREFERRED :: BalancingStrategy
+pattern BalancingStrategySPOTPREFERRED = BalancingStrategy' "SPOT_PREFERRED"
 
 {-# COMPLETE
-  OnDemandOnly,
-  SpotOnly,
-  SpotPreferred,
+  BalancingStrategyONDEMANDONLY,
+  BalancingStrategySPOTONLY,
+  BalancingStrategySPOTPREFERRED,
   BalancingStrategy'
   #-}
 
-instance FromText BalancingStrategy where
-  parser = (BalancingStrategy' . mk) <$> takeText
+instance Prelude.FromText BalancingStrategy where
+  parser = BalancingStrategy' Prelude.<$> Prelude.takeText
 
-instance ToText BalancingStrategy where
-  toText (BalancingStrategy' ci) = original ci
+instance Prelude.ToText BalancingStrategy where
+  toText (BalancingStrategy' x) = x
 
-instance Hashable BalancingStrategy
+instance Prelude.Hashable BalancingStrategy
 
-instance NFData BalancingStrategy
+instance Prelude.NFData BalancingStrategy
 
-instance ToByteString BalancingStrategy
+instance Prelude.ToByteString BalancingStrategy
 
-instance ToQuery BalancingStrategy
+instance Prelude.ToQuery BalancingStrategy
 
-instance ToHeader BalancingStrategy
+instance Prelude.ToHeader BalancingStrategy
 
-instance ToJSON BalancingStrategy where
-  toJSON = toJSONText
+instance Prelude.ToJSON BalancingStrategy where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON BalancingStrategy where
-  parseJSON = parseJSONText "BalancingStrategy"
+instance Prelude.FromJSON BalancingStrategy where
+  parseJSON = Prelude.parseJSONText "BalancingStrategy"

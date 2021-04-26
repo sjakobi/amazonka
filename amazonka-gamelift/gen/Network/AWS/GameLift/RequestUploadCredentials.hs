@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,10 +21,14 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves a fresh set of credentials for use when uploading a new set of game build files to Amazon GameLift's Amazon S3. This is done as part of the build creation process; see 'CreateBuild' .
+-- Retrieves a fresh set of credentials for use when uploading a new set of
+-- game build files to Amazon GameLift\'s Amazon S3. This is done as part
+-- of the build creation process; see CreateBuild.
 --
---
--- To request new credentials, specify the build ID as returned with an initial @CreateBuild@ request. If successful, a new set of credentials are returned, along with the S3 storage location associated with the build ID.
+-- To request new credentials, specify the build ID as returned with an
+-- initial @CreateBuild@ request. If successful, a new set of credentials
+-- are returned, along with the S3 storage location associated with the
+-- build ID.
 --
 -- __Learn more__
 --
@@ -28,172 +36,179 @@
 --
 -- __Related operations__
 --
---     * 'CreateBuild'
+-- -   CreateBuild
 --
---     * 'ListBuilds'
+-- -   ListBuilds
 --
---     * 'DescribeBuild'
+-- -   DescribeBuild
 --
---     * 'UpdateBuild'
+-- -   UpdateBuild
 --
---     * 'DeleteBuild'
+-- -   DeleteBuild
 module Network.AWS.GameLift.RequestUploadCredentials
   ( -- * Creating a Request
-    requestUploadCredentials,
-    RequestUploadCredentials,
+    RequestUploadCredentials (..),
+    newRequestUploadCredentials,
 
     -- * Request Lenses
-    rucBuildId,
+    requestUploadCredentials_buildId,
 
     -- * Destructuring the Response
-    requestUploadCredentialsResponse,
-    RequestUploadCredentialsResponse,
+    RequestUploadCredentialsResponse (..),
+    newRequestUploadCredentialsResponse,
 
     -- * Response Lenses
-    rucrrsStorageLocation,
-    rucrrsUploadCredentials,
-    rucrrsResponseStatus,
+    requestUploadCredentialsResponse_storageLocation,
+    requestUploadCredentialsResponse_uploadCredentials,
+    requestUploadCredentialsResponse_httpStatus,
   )
 where
 
 import Network.AWS.GameLift.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.GameLift.Types.AwsCredentials
+import Network.AWS.GameLift.Types.S3Location
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input for a request operation.
 --
---
---
--- /See:/ 'requestUploadCredentials' smart constructor.
-newtype RequestUploadCredentials = RequestUploadCredentials'
-  { _rucBuildId ::
-      Text
+-- /See:/ 'newRequestUploadCredentials' smart constructor.
+data RequestUploadCredentials = RequestUploadCredentials'
+  { -- | A unique identifier for a build to get credentials for. You can use
+    -- either the build ID or ARN value.
+    buildId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RequestUploadCredentials' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RequestUploadCredentials' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rucBuildId' - A unique identifier for a build to get credentials for. You can use either the build ID or ARN value.
-requestUploadCredentials ::
-  -- | 'rucBuildId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'buildId', 'requestUploadCredentials_buildId' - A unique identifier for a build to get credentials for. You can use
+-- either the build ID or ARN value.
+newRequestUploadCredentials ::
+  -- | 'buildId'
+  Prelude.Text ->
   RequestUploadCredentials
-requestUploadCredentials pBuildId_ =
-  RequestUploadCredentials' {_rucBuildId = pBuildId_}
+newRequestUploadCredentials pBuildId_ =
+  RequestUploadCredentials' {buildId = pBuildId_}
 
--- | A unique identifier for a build to get credentials for. You can use either the build ID or ARN value.
-rucBuildId :: Lens' RequestUploadCredentials Text
-rucBuildId = lens _rucBuildId (\s a -> s {_rucBuildId = a})
+-- | A unique identifier for a build to get credentials for. You can use
+-- either the build ID or ARN value.
+requestUploadCredentials_buildId :: Lens.Lens' RequestUploadCredentials Prelude.Text
+requestUploadCredentials_buildId = Lens.lens (\RequestUploadCredentials' {buildId} -> buildId) (\s@RequestUploadCredentials' {} a -> s {buildId = a} :: RequestUploadCredentials)
 
-instance AWSRequest RequestUploadCredentials where
+instance Prelude.AWSRequest RequestUploadCredentials where
   type
     Rs RequestUploadCredentials =
       RequestUploadCredentialsResponse
-  request = postJSON gameLift
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           RequestUploadCredentialsResponse'
-            <$> (x .?> "StorageLocation")
-            <*> (x .?> "UploadCredentials")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "StorageLocation")
+            Prelude.<*> (x Prelude..?> "UploadCredentials")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable RequestUploadCredentials
+instance Prelude.Hashable RequestUploadCredentials
 
-instance NFData RequestUploadCredentials
+instance Prelude.NFData RequestUploadCredentials
 
-instance ToHeaders RequestUploadCredentials where
+instance Prelude.ToHeaders RequestUploadCredentials where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("GameLift.RequestUploadCredentials" :: ByteString),
+              Prelude.=# ( "GameLift.RequestUploadCredentials" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON RequestUploadCredentials where
+instance Prelude.ToJSON RequestUploadCredentials where
   toJSON RequestUploadCredentials' {..} =
-    object
-      (catMaybes [Just ("BuildId" .= _rucBuildId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("BuildId" Prelude..= buildId)]
+      )
 
-instance ToPath RequestUploadCredentials where
-  toPath = const "/"
+instance Prelude.ToPath RequestUploadCredentials where
+  toPath = Prelude.const "/"
 
-instance ToQuery RequestUploadCredentials where
-  toQuery = const mempty
+instance Prelude.ToQuery RequestUploadCredentials where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the returned data in response to a request operation.
 --
---
---
--- /See:/ 'requestUploadCredentialsResponse' smart constructor.
+-- /See:/ 'newRequestUploadCredentialsResponse' smart constructor.
 data RequestUploadCredentialsResponse = RequestUploadCredentialsResponse'
-  { _rucrrsStorageLocation ::
-      !( Maybe
-           S3Location
-       ),
-    _rucrrsUploadCredentials ::
-      !( Maybe
-           ( Sensitive
-               AWSCredentials
-           )
-       ),
-    _rucrrsResponseStatus ::
-      !Int
+  { -- | Amazon S3 path and key, identifying where the game build files are
+    -- stored.
+    storageLocation :: Prelude.Maybe S3Location,
+    -- | AWS credentials required when uploading a game build to the storage
+    -- location. These credentials have a limited lifespan and are valid only
+    -- for the build they were issued for.
+    uploadCredentials :: Prelude.Maybe (Prelude.Sensitive AwsCredentials),
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RequestUploadCredentialsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RequestUploadCredentialsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rucrrsStorageLocation' - Amazon S3 path and key, identifying where the game build files are stored.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rucrrsUploadCredentials' - AWS credentials required when uploading a game build to the storage location. These credentials have a limited lifespan and are valid only for the build they were issued for.
+-- 'storageLocation', 'requestUploadCredentialsResponse_storageLocation' - Amazon S3 path and key, identifying where the game build files are
+-- stored.
 --
--- * 'rucrrsResponseStatus' - -- | The response status code.
-requestUploadCredentialsResponse ::
-  -- | 'rucrrsResponseStatus'
-  Int ->
+-- 'uploadCredentials', 'requestUploadCredentialsResponse_uploadCredentials' - AWS credentials required when uploading a game build to the storage
+-- location. These credentials have a limited lifespan and are valid only
+-- for the build they were issued for.
+--
+-- 'httpStatus', 'requestUploadCredentialsResponse_httpStatus' - The response's http status code.
+newRequestUploadCredentialsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   RequestUploadCredentialsResponse
-requestUploadCredentialsResponse pResponseStatus_ =
+newRequestUploadCredentialsResponse pHttpStatus_ =
   RequestUploadCredentialsResponse'
-    { _rucrrsStorageLocation =
-        Nothing,
-      _rucrrsUploadCredentials = Nothing,
-      _rucrrsResponseStatus = pResponseStatus_
+    { storageLocation =
+        Prelude.Nothing,
+      uploadCredentials = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Amazon S3 path and key, identifying where the game build files are stored.
-rucrrsStorageLocation :: Lens' RequestUploadCredentialsResponse (Maybe S3Location)
-rucrrsStorageLocation = lens _rucrrsStorageLocation (\s a -> s {_rucrrsStorageLocation = a})
+-- | Amazon S3 path and key, identifying where the game build files are
+-- stored.
+requestUploadCredentialsResponse_storageLocation :: Lens.Lens' RequestUploadCredentialsResponse (Prelude.Maybe S3Location)
+requestUploadCredentialsResponse_storageLocation = Lens.lens (\RequestUploadCredentialsResponse' {storageLocation} -> storageLocation) (\s@RequestUploadCredentialsResponse' {} a -> s {storageLocation = a} :: RequestUploadCredentialsResponse)
 
--- | AWS credentials required when uploading a game build to the storage location. These credentials have a limited lifespan and are valid only for the build they were issued for.
-rucrrsUploadCredentials :: Lens' RequestUploadCredentialsResponse (Maybe AWSCredentials)
-rucrrsUploadCredentials = lens _rucrrsUploadCredentials (\s a -> s {_rucrrsUploadCredentials = a}) . mapping _Sensitive
+-- | AWS credentials required when uploading a game build to the storage
+-- location. These credentials have a limited lifespan and are valid only
+-- for the build they were issued for.
+requestUploadCredentialsResponse_uploadCredentials :: Lens.Lens' RequestUploadCredentialsResponse (Prelude.Maybe AwsCredentials)
+requestUploadCredentialsResponse_uploadCredentials = Lens.lens (\RequestUploadCredentialsResponse' {uploadCredentials} -> uploadCredentials) (\s@RequestUploadCredentialsResponse' {} a -> s {uploadCredentials = a} :: RequestUploadCredentialsResponse) Prelude.. Lens.mapping Prelude._Sensitive
 
--- | -- | The response status code.
-rucrrsResponseStatus :: Lens' RequestUploadCredentialsResponse Int
-rucrrsResponseStatus = lens _rucrrsResponseStatus (\s a -> s {_rucrrsResponseStatus = a})
+-- | The response's http status code.
+requestUploadCredentialsResponse_httpStatus :: Lens.Lens' RequestUploadCredentialsResponse Prelude.Int
+requestUploadCredentialsResponse_httpStatus = Lens.lens (\RequestUploadCredentialsResponse' {httpStatus} -> httpStatus) (\s@RequestUploadCredentialsResponse' {} a -> s {httpStatus = a} :: RequestUploadCredentialsResponse)
 
-instance NFData RequestUploadCredentialsResponse
+instance
+  Prelude.NFData
+    RequestUploadCredentialsResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,12 +21,17 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes everything related to a fleet. Before deleting a fleet, you must set the fleet's desired capacity to zero. See 'UpdateFleetCapacity' .
+-- Deletes everything related to a fleet. Before deleting a fleet, you must
+-- set the fleet\'s desired capacity to zero. See UpdateFleetCapacity.
 --
+-- If the fleet being deleted has a VPC peering connection, you first need
+-- to get a valid authorization (good for 24 hours) by calling
+-- CreateVpcPeeringAuthorization. You do not need to explicitly delete the
+-- VPC peering connection--this is done as part of the delete fleet
+-- process.
 --
--- If the fleet being deleted has a VPC peering connection, you first need to get a valid authorization (good for 24 hours) by calling 'CreateVpcPeeringAuthorization' . You do not need to explicitly delete the VPC peering connection--this is done as part of the delete fleet process.
---
--- This operation removes the fleet and its resources. Once a fleet is deleted, you can no longer use any of the resource in that fleet.
+-- This operation removes the fleet and its resources. Once a fleet is
+-- deleted, you can no longer use any of the resource in that fleet.
 --
 -- __Learn more__
 --
@@ -30,101 +39,116 @@
 --
 -- __Related operations__
 --
---     * 'CreateFleet'
+-- -   CreateFleet
 --
---     * 'ListFleets'
+-- -   ListFleets
 --
---     * 'DeleteFleet'
+-- -   DeleteFleet
 --
---     * 'DescribeFleetAttributes'
+-- -   DescribeFleetAttributes
 --
---     * 'UpdateFleetAttributes'
+-- -   UpdateFleetAttributes
 --
---     * 'StartFleetActions' or 'StopFleetActions'
+-- -   StartFleetActions or StopFleetActions
 module Network.AWS.GameLift.DeleteFleet
   ( -- * Creating a Request
-    deleteFleet,
-    DeleteFleet,
+    DeleteFleet (..),
+    newDeleteFleet,
 
     -- * Request Lenses
-    dfFleetId,
+    deleteFleet_fleetId,
 
     -- * Destructuring the Response
-    deleteFleetResponse,
-    DeleteFleetResponse,
+    DeleteFleetResponse (..),
+    newDeleteFleetResponse,
   )
 where
 
 import Network.AWS.GameLift.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input for a request operation.
 --
---
---
--- /See:/ 'deleteFleet' smart constructor.
-newtype DeleteFleet = DeleteFleet'
-  { _dfFleetId ::
-      Text
+-- /See:/ 'newDeleteFleet' smart constructor.
+data DeleteFleet = DeleteFleet'
+  { -- | A unique identifier for a fleet to be deleted. You can use either the
+    -- fleet ID or ARN value.
+    fleetId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteFleet' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteFleet' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dfFleetId' - A unique identifier for a fleet to be deleted. You can use either the fleet ID or ARN value.
-deleteFleet ::
-  -- | 'dfFleetId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'fleetId', 'deleteFleet_fleetId' - A unique identifier for a fleet to be deleted. You can use either the
+-- fleet ID or ARN value.
+newDeleteFleet ::
+  -- | 'fleetId'
+  Prelude.Text ->
   DeleteFleet
-deleteFleet pFleetId_ =
-  DeleteFleet' {_dfFleetId = pFleetId_}
+newDeleteFleet pFleetId_ =
+  DeleteFleet' {fleetId = pFleetId_}
 
--- | A unique identifier for a fleet to be deleted. You can use either the fleet ID or ARN value.
-dfFleetId :: Lens' DeleteFleet Text
-dfFleetId = lens _dfFleetId (\s a -> s {_dfFleetId = a})
+-- | A unique identifier for a fleet to be deleted. You can use either the
+-- fleet ID or ARN value.
+deleteFleet_fleetId :: Lens.Lens' DeleteFleet Prelude.Text
+deleteFleet_fleetId = Lens.lens (\DeleteFleet' {fleetId} -> fleetId) (\s@DeleteFleet' {} a -> s {fleetId = a} :: DeleteFleet)
 
-instance AWSRequest DeleteFleet where
+instance Prelude.AWSRequest DeleteFleet where
   type Rs DeleteFleet = DeleteFleetResponse
-  request = postJSON gameLift
-  response = receiveNull DeleteFleetResponse'
+  request = Request.postJSON defaultService
+  response = Response.receiveNull DeleteFleetResponse'
 
-instance Hashable DeleteFleet
+instance Prelude.Hashable DeleteFleet
 
-instance NFData DeleteFleet
+instance Prelude.NFData DeleteFleet
 
-instance ToHeaders DeleteFleet where
+instance Prelude.ToHeaders DeleteFleet where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("GameLift.DeleteFleet" :: ByteString),
+              Prelude.=# ("GameLift.DeleteFleet" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteFleet where
+instance Prelude.ToJSON DeleteFleet where
   toJSON DeleteFleet' {..} =
-    object (catMaybes [Just ("FleetId" .= _dfFleetId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("FleetId" Prelude..= fleetId)]
+      )
 
-instance ToPath DeleteFleet where
-  toPath = const "/"
+instance Prelude.ToPath DeleteFleet where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteFleet where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteFleet where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteFleetResponse' smart constructor.
+-- | /See:/ 'newDeleteFleetResponse' smart constructor.
 data DeleteFleetResponse = DeleteFleetResponse'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteFleetResponse' with the minimum fields required to make a request.
-deleteFleetResponse ::
+-- |
+-- Create a value of 'DeleteFleetResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteFleetResponse ::
   DeleteFleetResponse
-deleteFleetResponse = DeleteFleetResponse'
+newDeleteFleetResponse = DeleteFleetResponse'
 
-instance NFData DeleteFleetResponse
+instance Prelude.NFData DeleteFleetResponse

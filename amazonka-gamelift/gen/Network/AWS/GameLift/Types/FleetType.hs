@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.GameLift.Types.FleetType
   ( FleetType
       ( ..,
-        OnDemand,
-        Spot
+        FleetTypeONDEMAND,
+        FleetTypeSPOT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data FleetType = FleetType' (CI Text)
+newtype FleetType = FleetType'
+  { fromFleetType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern OnDemand :: FleetType
-pattern OnDemand = FleetType' "ON_DEMAND"
+pattern FleetTypeONDEMAND :: FleetType
+pattern FleetTypeONDEMAND = FleetType' "ON_DEMAND"
 
-pattern Spot :: FleetType
-pattern Spot = FleetType' "SPOT"
+pattern FleetTypeSPOT :: FleetType
+pattern FleetTypeSPOT = FleetType' "SPOT"
 
 {-# COMPLETE
-  OnDemand,
-  Spot,
+  FleetTypeONDEMAND,
+  FleetTypeSPOT,
   FleetType'
   #-}
 
-instance FromText FleetType where
-  parser = (FleetType' . mk) <$> takeText
+instance Prelude.FromText FleetType where
+  parser = FleetType' Prelude.<$> Prelude.takeText
 
-instance ToText FleetType where
-  toText (FleetType' ci) = original ci
+instance Prelude.ToText FleetType where
+  toText (FleetType' x) = x
 
-instance Hashable FleetType
+instance Prelude.Hashable FleetType
 
-instance NFData FleetType
+instance Prelude.NFData FleetType
 
-instance ToByteString FleetType
+instance Prelude.ToByteString FleetType
 
-instance ToQuery FleetType
+instance Prelude.ToQuery FleetType
 
-instance ToHeader FleetType
+instance Prelude.ToHeader FleetType
 
-instance ToJSON FleetType where
-  toJSON = toJSONText
+instance Prelude.ToJSON FleetType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON FleetType where
-  parseJSON = parseJSONText "FleetType"
+instance Prelude.FromJSON FleetType where
+  parseJSON = Prelude.parseJSONText "FleetType"

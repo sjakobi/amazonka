@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,52 +19,50 @@
 module Network.AWS.GameLift.Types.GameServerClaimStatus
   ( GameServerClaimStatus
       ( ..,
-        Claimed
+        GameServerClaimStatusCLAIMED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data GameServerClaimStatus
-  = GameServerClaimStatus'
-      ( CI
-          Text
-      )
+newtype GameServerClaimStatus = GameServerClaimStatus'
+  { fromGameServerClaimStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Claimed :: GameServerClaimStatus
-pattern Claimed = GameServerClaimStatus' "CLAIMED"
+pattern GameServerClaimStatusCLAIMED :: GameServerClaimStatus
+pattern GameServerClaimStatusCLAIMED = GameServerClaimStatus' "CLAIMED"
 
 {-# COMPLETE
-  Claimed,
+  GameServerClaimStatusCLAIMED,
   GameServerClaimStatus'
   #-}
 
-instance FromText GameServerClaimStatus where
-  parser = (GameServerClaimStatus' . mk) <$> takeText
+instance Prelude.FromText GameServerClaimStatus where
+  parser = GameServerClaimStatus' Prelude.<$> Prelude.takeText
 
-instance ToText GameServerClaimStatus where
-  toText (GameServerClaimStatus' ci) = original ci
+instance Prelude.ToText GameServerClaimStatus where
+  toText (GameServerClaimStatus' x) = x
 
-instance Hashable GameServerClaimStatus
+instance Prelude.Hashable GameServerClaimStatus
 
-instance NFData GameServerClaimStatus
+instance Prelude.NFData GameServerClaimStatus
 
-instance ToByteString GameServerClaimStatus
+instance Prelude.ToByteString GameServerClaimStatus
 
-instance ToQuery GameServerClaimStatus
+instance Prelude.ToQuery GameServerClaimStatus
 
-instance ToHeader GameServerClaimStatus
+instance Prelude.ToHeader GameServerClaimStatus
 
-instance FromJSON GameServerClaimStatus where
-  parseJSON = parseJSONText "GameServerClaimStatus"
+instance Prelude.FromJSON GameServerClaimStatus where
+  parseJSON = Prelude.parseJSONText "GameServerClaimStatus"

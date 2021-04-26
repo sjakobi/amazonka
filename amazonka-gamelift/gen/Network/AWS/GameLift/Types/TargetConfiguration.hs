@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,85 +19,96 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.GameLift.Types.TargetConfiguration where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Settings for a target-based scaling policy (see 'ScalingPolicy' . A target-based policy tracks a particular fleet metric specifies a target value for the metric. As player usage changes, the policy triggers Amazon GameLift to adjust capacity so that the metric returns to the target value. The target configuration specifies settings as needed for the target based policy, including the target value.
+-- | Settings for a target-based scaling policy (see ScalingPolicy. A
+-- target-based policy tracks a particular fleet metric specifies a target
+-- value for the metric. As player usage changes, the policy triggers
+-- Amazon GameLift to adjust capacity so that the metric returns to the
+-- target value. The target configuration specifies settings as needed for
+-- the target based policy, including the target value.
 --
+-- -   DescribeFleetCapacity
 --
---     * 'DescribeFleetCapacity'
+-- -   UpdateFleetCapacity
 --
---     * 'UpdateFleetCapacity'
+-- -   DescribeEC2InstanceLimits
 --
---     * 'DescribeEC2InstanceLimits'
+-- -   Manage scaling policies:
 --
---     * Manage scaling policies:
+--     -   PutScalingPolicy (auto-scaling)
 --
---     * 'PutScalingPolicy' (auto-scaling)
+--     -   DescribeScalingPolicies (auto-scaling)
 --
---     * 'DescribeScalingPolicies' (auto-scaling)
+--     -   DeleteScalingPolicy (auto-scaling)
 --
---     * 'DeleteScalingPolicy' (auto-scaling)
+-- -   Manage fleet actions:
 --
+--     -   StartFleetActions
 --
+--     -   StopFleetActions
 --
---     * Manage fleet actions:
---
---     * 'StartFleetActions'
---
---     * 'StopFleetActions'
---
---
---
---
---
---
--- /See:/ 'targetConfiguration' smart constructor.
-newtype TargetConfiguration = TargetConfiguration'
-  { _tcTargetValue ::
-      Double
+-- /See:/ 'newTargetConfiguration' smart constructor.
+data TargetConfiguration = TargetConfiguration'
+  { -- | Desired value to use with a target-based scaling policy. The value must
+    -- be relevant for whatever metric the scaling policy is using. For
+    -- example, in a policy using the metric PercentAvailableGameSessions, the
+    -- target value should be the preferred size of the fleet\'s buffer (the
+    -- percent of capacity that should be idle and ready for new game
+    -- sessions).
+    targetValue :: Prelude.Double
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TargetConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TargetConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tcTargetValue' - Desired value to use with a target-based scaling policy. The value must be relevant for whatever metric the scaling policy is using. For example, in a policy using the metric PercentAvailableGameSessions, the target value should be the preferred size of the fleet's buffer (the percent of capacity that should be idle and ready for new game sessions).
-targetConfiguration ::
-  -- | 'tcTargetValue'
-  Double ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'targetValue', 'targetConfiguration_targetValue' - Desired value to use with a target-based scaling policy. The value must
+-- be relevant for whatever metric the scaling policy is using. For
+-- example, in a policy using the metric PercentAvailableGameSessions, the
+-- target value should be the preferred size of the fleet\'s buffer (the
+-- percent of capacity that should be idle and ready for new game
+-- sessions).
+newTargetConfiguration ::
+  -- | 'targetValue'
+  Prelude.Double ->
   TargetConfiguration
-targetConfiguration pTargetValue_ =
-  TargetConfiguration'
-    { _tcTargetValue =
-        pTargetValue_
-    }
+newTargetConfiguration pTargetValue_ =
+  TargetConfiguration' {targetValue = pTargetValue_}
 
--- | Desired value to use with a target-based scaling policy. The value must be relevant for whatever metric the scaling policy is using. For example, in a policy using the metric PercentAvailableGameSessions, the target value should be the preferred size of the fleet's buffer (the percent of capacity that should be idle and ready for new game sessions).
-tcTargetValue :: Lens' TargetConfiguration Double
-tcTargetValue = lens _tcTargetValue (\s a -> s {_tcTargetValue = a})
+-- | Desired value to use with a target-based scaling policy. The value must
+-- be relevant for whatever metric the scaling policy is using. For
+-- example, in a policy using the metric PercentAvailableGameSessions, the
+-- target value should be the preferred size of the fleet\'s buffer (the
+-- percent of capacity that should be idle and ready for new game
+-- sessions).
+targetConfiguration_targetValue :: Lens.Lens' TargetConfiguration Prelude.Double
+targetConfiguration_targetValue = Lens.lens (\TargetConfiguration' {targetValue} -> targetValue) (\s@TargetConfiguration' {} a -> s {targetValue = a} :: TargetConfiguration)
 
-instance FromJSON TargetConfiguration where
+instance Prelude.FromJSON TargetConfiguration where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TargetConfiguration"
       ( \x ->
-          TargetConfiguration' <$> (x .: "TargetValue")
+          TargetConfiguration'
+            Prelude.<$> (x Prelude..: "TargetValue")
       )
 
-instance Hashable TargetConfiguration
+instance Prelude.Hashable TargetConfiguration
 
-instance NFData TargetConfiguration
+instance Prelude.NFData TargetConfiguration
 
-instance ToJSON TargetConfiguration where
+instance Prelude.ToJSON TargetConfiguration where
   toJSON TargetConfiguration' {..} =
-    object
-      (catMaybes [Just ("TargetValue" .= _tcTargetValue)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("TargetValue" Prelude..= targetValue)
+          ]
+      )

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,65 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.GameLift.Types.InstanceCredentials where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Set of credentials required to remotely access a fleet instance. Access credentials are requested by calling 'GetInstanceAccess' and returned in an 'InstanceAccess' object.
+-- | Set of credentials required to remotely access a fleet instance. Access
+-- credentials are requested by calling GetInstanceAccess and returned in
+-- an InstanceAccess object.
 --
---
---
--- /See:/ 'instanceCredentials' smart constructor.
+-- /See:/ 'newInstanceCredentials' smart constructor.
 data InstanceCredentials = InstanceCredentials'
-  { _icSecret ::
-      !(Maybe Text),
-    _icUserName :: !(Maybe Text)
+  { -- | Secret string. For Windows instances, the secret is a password for use
+    -- with Windows Remote Desktop. For Linux instances, it is a private key
+    -- (which must be saved as a @.pem@ file) for use with SSH.
+    secret :: Prelude.Maybe Prelude.Text,
+    -- | User login string.
+    userName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InstanceCredentials' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InstanceCredentials' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'icSecret' - Secret string. For Windows instances, the secret is a password for use with Windows Remote Desktop. For Linux instances, it is a private key (which must be saved as a @.pem@ file) for use with SSH.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'icUserName' - User login string.
-instanceCredentials ::
+-- 'secret', 'instanceCredentials_secret' - Secret string. For Windows instances, the secret is a password for use
+-- with Windows Remote Desktop. For Linux instances, it is a private key
+-- (which must be saved as a @.pem@ file) for use with SSH.
+--
+-- 'userName', 'instanceCredentials_userName' - User login string.
+newInstanceCredentials ::
   InstanceCredentials
-instanceCredentials =
+newInstanceCredentials =
   InstanceCredentials'
-    { _icSecret = Nothing,
-      _icUserName = Nothing
+    { secret = Prelude.Nothing,
+      userName = Prelude.Nothing
     }
 
--- | Secret string. For Windows instances, the secret is a password for use with Windows Remote Desktop. For Linux instances, it is a private key (which must be saved as a @.pem@ file) for use with SSH.
-icSecret :: Lens' InstanceCredentials (Maybe Text)
-icSecret = lens _icSecret (\s a -> s {_icSecret = a})
+-- | Secret string. For Windows instances, the secret is a password for use
+-- with Windows Remote Desktop. For Linux instances, it is a private key
+-- (which must be saved as a @.pem@ file) for use with SSH.
+instanceCredentials_secret :: Lens.Lens' InstanceCredentials (Prelude.Maybe Prelude.Text)
+instanceCredentials_secret = Lens.lens (\InstanceCredentials' {secret} -> secret) (\s@InstanceCredentials' {} a -> s {secret = a} :: InstanceCredentials)
 
 -- | User login string.
-icUserName :: Lens' InstanceCredentials (Maybe Text)
-icUserName = lens _icUserName (\s a -> s {_icUserName = a})
+instanceCredentials_userName :: Lens.Lens' InstanceCredentials (Prelude.Maybe Prelude.Text)
+instanceCredentials_userName = Lens.lens (\InstanceCredentials' {userName} -> userName) (\s@InstanceCredentials' {} a -> s {userName = a} :: InstanceCredentials)
 
-instance FromJSON InstanceCredentials where
+instance Prelude.FromJSON InstanceCredentials where
   parseJSON =
-    withObject
+    Prelude.withObject
       "InstanceCredentials"
       ( \x ->
           InstanceCredentials'
-            <$> (x .:? "Secret") <*> (x .:? "UserName")
+            Prelude.<$> (x Prelude..:? "Secret")
+            Prelude.<*> (x Prelude..:? "UserName")
       )
 
-instance Hashable InstanceCredentials
+instance Prelude.Hashable InstanceCredentials
 
-instance NFData InstanceCredentials
+instance Prelude.NFData InstanceCredentials

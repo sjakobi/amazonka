@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,113 +20,146 @@
 module Network.AWS.GameLift.Types.Alias where
 
 import Network.AWS.GameLift.Types.RoutingStrategy
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Properties that describe an alias resource.
 --
+-- -   CreateAlias
 --
---     * 'CreateAlias'
+-- -   ListAliases
 --
---     * 'ListAliases'
+-- -   DescribeAlias
 --
---     * 'DescribeAlias'
+-- -   UpdateAlias
 --
---     * 'UpdateAlias'
+-- -   DeleteAlias
 --
---     * 'DeleteAlias'
+-- -   ResolveAlias
 --
---     * 'ResolveAlias'
---
---
---
---
--- /See:/ 'alias' smart constructor.
+-- /See:/ 'newAlias' smart constructor.
 data Alias = Alias'
-  { _aRoutingStrategy ::
-      !(Maybe RoutingStrategy),
-    _aCreationTime :: !(Maybe POSIX),
-    _aName :: !(Maybe Text),
-    _aDescription :: !(Maybe Text),
-    _aAliasARN :: !(Maybe Text),
-    _aAliasId :: !(Maybe Text),
-    _aLastUpdatedTime :: !(Maybe POSIX)
+  { -- | The routing configuration, including routing type and fleet target, for
+    -- the alias.
+    routingStrategy :: Prelude.Maybe RoutingStrategy,
+    -- | A time stamp indicating when this data object was created. Format is a
+    -- number expressed in Unix time as milliseconds (for example
+    -- \"1469498468.057\").
+    creationTime :: Prelude.Maybe Prelude.POSIX,
+    -- | A descriptive label that is associated with an alias. Alias names do not
+    -- need to be unique.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | A human-readable description of an alias.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | Amazon Resource Name
+    -- (<https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html ARN>)
+    -- that is assigned to a GameLift alias resource and uniquely identifies
+    -- it. ARNs are unique across all Regions. In a GameLift alias ARN, the
+    -- resource ID matches the alias ID value.
+    aliasArn :: Prelude.Maybe Prelude.Text,
+    -- | A unique identifier for an alias. Alias IDs are unique within a Region.
+    aliasId :: Prelude.Maybe Prelude.Text,
+    -- | The time that this data object was last modified. Format is a number
+    -- expressed in Unix time as milliseconds (for example \"1469498468.057\").
+    lastUpdatedTime :: Prelude.Maybe Prelude.POSIX
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Alias' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Alias' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aRoutingStrategy' - The routing configuration, including routing type and fleet target, for the alias.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aCreationTime' - A time stamp indicating when this data object was created. Format is a number expressed in Unix time as milliseconds (for example "1469498468.057").
+-- 'routingStrategy', 'alias_routingStrategy' - The routing configuration, including routing type and fleet target, for
+-- the alias.
 --
--- * 'aName' - A descriptive label that is associated with an alias. Alias names do not need to be unique.
+-- 'creationTime', 'alias_creationTime' - A time stamp indicating when this data object was created. Format is a
+-- number expressed in Unix time as milliseconds (for example
+-- \"1469498468.057\").
 --
--- * 'aDescription' - A human-readable description of an alias.
+-- 'name', 'alias_name' - A descriptive label that is associated with an alias. Alias names do not
+-- need to be unique.
 --
--- * 'aAliasARN' - Amazon Resource Name (<https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html ARN> ) that is assigned to a GameLift alias resource and uniquely identifies it. ARNs are unique across all Regions. In a GameLift alias ARN, the resource ID matches the alias ID value.
+-- 'description', 'alias_description' - A human-readable description of an alias.
 --
--- * 'aAliasId' - A unique identifier for an alias. Alias IDs are unique within a Region.
+-- 'aliasArn', 'alias_aliasArn' - Amazon Resource Name
+-- (<https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html ARN>)
+-- that is assigned to a GameLift alias resource and uniquely identifies
+-- it. ARNs are unique across all Regions. In a GameLift alias ARN, the
+-- resource ID matches the alias ID value.
 --
--- * 'aLastUpdatedTime' - The time that this data object was last modified. Format is a number expressed in Unix time as milliseconds (for example "1469498468.057").
-alias ::
+-- 'aliasId', 'alias_aliasId' - A unique identifier for an alias. Alias IDs are unique within a Region.
+--
+-- 'lastUpdatedTime', 'alias_lastUpdatedTime' - The time that this data object was last modified. Format is a number
+-- expressed in Unix time as milliseconds (for example \"1469498468.057\").
+newAlias ::
   Alias
-alias =
+newAlias =
   Alias'
-    { _aRoutingStrategy = Nothing,
-      _aCreationTime = Nothing,
-      _aName = Nothing,
-      _aDescription = Nothing,
-      _aAliasARN = Nothing,
-      _aAliasId = Nothing,
-      _aLastUpdatedTime = Nothing
+    { routingStrategy = Prelude.Nothing,
+      creationTime = Prelude.Nothing,
+      name = Prelude.Nothing,
+      description = Prelude.Nothing,
+      aliasArn = Prelude.Nothing,
+      aliasId = Prelude.Nothing,
+      lastUpdatedTime = Prelude.Nothing
     }
 
--- | The routing configuration, including routing type and fleet target, for the alias.
-aRoutingStrategy :: Lens' Alias (Maybe RoutingStrategy)
-aRoutingStrategy = lens _aRoutingStrategy (\s a -> s {_aRoutingStrategy = a})
+-- | The routing configuration, including routing type and fleet target, for
+-- the alias.
+alias_routingStrategy :: Lens.Lens' Alias (Prelude.Maybe RoutingStrategy)
+alias_routingStrategy = Lens.lens (\Alias' {routingStrategy} -> routingStrategy) (\s@Alias' {} a -> s {routingStrategy = a} :: Alias)
 
--- | A time stamp indicating when this data object was created. Format is a number expressed in Unix time as milliseconds (for example "1469498468.057").
-aCreationTime :: Lens' Alias (Maybe UTCTime)
-aCreationTime = lens _aCreationTime (\s a -> s {_aCreationTime = a}) . mapping _Time
+-- | A time stamp indicating when this data object was created. Format is a
+-- number expressed in Unix time as milliseconds (for example
+-- \"1469498468.057\").
+alias_creationTime :: Lens.Lens' Alias (Prelude.Maybe Prelude.UTCTime)
+alias_creationTime = Lens.lens (\Alias' {creationTime} -> creationTime) (\s@Alias' {} a -> s {creationTime = a} :: Alias) Prelude.. Lens.mapping Prelude._Time
 
--- | A descriptive label that is associated with an alias. Alias names do not need to be unique.
-aName :: Lens' Alias (Maybe Text)
-aName = lens _aName (\s a -> s {_aName = a})
+-- | A descriptive label that is associated with an alias. Alias names do not
+-- need to be unique.
+alias_name :: Lens.Lens' Alias (Prelude.Maybe Prelude.Text)
+alias_name = Lens.lens (\Alias' {name} -> name) (\s@Alias' {} a -> s {name = a} :: Alias)
 
 -- | A human-readable description of an alias.
-aDescription :: Lens' Alias (Maybe Text)
-aDescription = lens _aDescription (\s a -> s {_aDescription = a})
+alias_description :: Lens.Lens' Alias (Prelude.Maybe Prelude.Text)
+alias_description = Lens.lens (\Alias' {description} -> description) (\s@Alias' {} a -> s {description = a} :: Alias)
 
--- | Amazon Resource Name (<https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html ARN> ) that is assigned to a GameLift alias resource and uniquely identifies it. ARNs are unique across all Regions. In a GameLift alias ARN, the resource ID matches the alias ID value.
-aAliasARN :: Lens' Alias (Maybe Text)
-aAliasARN = lens _aAliasARN (\s a -> s {_aAliasARN = a})
+-- | Amazon Resource Name
+-- (<https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html ARN>)
+-- that is assigned to a GameLift alias resource and uniquely identifies
+-- it. ARNs are unique across all Regions. In a GameLift alias ARN, the
+-- resource ID matches the alias ID value.
+alias_aliasArn :: Lens.Lens' Alias (Prelude.Maybe Prelude.Text)
+alias_aliasArn = Lens.lens (\Alias' {aliasArn} -> aliasArn) (\s@Alias' {} a -> s {aliasArn = a} :: Alias)
 
 -- | A unique identifier for an alias. Alias IDs are unique within a Region.
-aAliasId :: Lens' Alias (Maybe Text)
-aAliasId = lens _aAliasId (\s a -> s {_aAliasId = a})
+alias_aliasId :: Lens.Lens' Alias (Prelude.Maybe Prelude.Text)
+alias_aliasId = Lens.lens (\Alias' {aliasId} -> aliasId) (\s@Alias' {} a -> s {aliasId = a} :: Alias)
 
--- | The time that this data object was last modified. Format is a number expressed in Unix time as milliseconds (for example "1469498468.057").
-aLastUpdatedTime :: Lens' Alias (Maybe UTCTime)
-aLastUpdatedTime = lens _aLastUpdatedTime (\s a -> s {_aLastUpdatedTime = a}) . mapping _Time
+-- | The time that this data object was last modified. Format is a number
+-- expressed in Unix time as milliseconds (for example \"1469498468.057\").
+alias_lastUpdatedTime :: Lens.Lens' Alias (Prelude.Maybe Prelude.UTCTime)
+alias_lastUpdatedTime = Lens.lens (\Alias' {lastUpdatedTime} -> lastUpdatedTime) (\s@Alias' {} a -> s {lastUpdatedTime = a} :: Alias) Prelude.. Lens.mapping Prelude._Time
 
-instance FromJSON Alias where
+instance Prelude.FromJSON Alias where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Alias"
       ( \x ->
           Alias'
-            <$> (x .:? "RoutingStrategy")
-            <*> (x .:? "CreationTime")
-            <*> (x .:? "Name")
-            <*> (x .:? "Description")
-            <*> (x .:? "AliasArn")
-            <*> (x .:? "AliasId")
-            <*> (x .:? "LastUpdatedTime")
+            Prelude.<$> (x Prelude..:? "RoutingStrategy")
+            Prelude.<*> (x Prelude..:? "CreationTime")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "Description")
+            Prelude.<*> (x Prelude..:? "AliasArn")
+            Prelude.<*> (x Prelude..:? "AliasId")
+            Prelude.<*> (x Prelude..:? "LastUpdatedTime")
       )
 
-instance Hashable Alias
+instance Prelude.Hashable Alias
 
-instance NFData Alias
+instance Prelude.NFData Alias

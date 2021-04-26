@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,16 +21,26 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- __This operation is used with the Amazon GameLift FleetIQ solution and game server groups.__
+-- __This operation is used with the Amazon GameLift FleetIQ solution and
+-- game server groups.__
 --
+-- Temporarily stops activity on a game server group without terminating
+-- instances or the game server group. You can restart activity by calling
+-- ResumeGameServerGroup. You can suspend the following activity:
 --
--- Temporarily stops activity on a game server group without terminating instances or the game server group. You can restart activity by calling 'ResumeGameServerGroup' . You can suspend the following activity:
+-- -   __Instance type replacement__ - This activity evaluates the current
+--     game hosting viability of all Spot instance types that are defined
+--     for the game server group. It updates the Auto Scaling group to
+--     remove nonviable Spot Instance types, which have a higher chance of
+--     game server interruptions. It then balances capacity across the
+--     remaining viable Spot Instance types. When this activity is
+--     suspended, the Auto Scaling group continues with its current
+--     balance, regardless of viability. Instance protection, utilization
+--     metrics, and capacity scaling activities continue to be active.
 --
---     * __Instance type replacement__ - This activity evaluates the current game hosting viability of all Spot instance types that are defined for the game server group. It updates the Auto Scaling group to remove nonviable Spot Instance types, which have a higher chance of game server interruptions. It then balances capacity across the remaining viable Spot Instance types. When this activity is suspended, the Auto Scaling group continues with its current balance, regardless of viability. Instance protection, utilization metrics, and capacity scaling activities continue to be active.
---
---
---
--- To suspend activity, specify a game server group ARN and the type of activity to be suspended. If successful, a 'GameServerGroup' object is returned showing that the activity is listed in @SuspendedActions@ .
+-- To suspend activity, specify a game server group ARN and the type of
+-- activity to be suspended. If successful, a GameServerGroup object is
+-- returned showing that the activity is listed in @SuspendedActions@.
 --
 -- __Learn more__
 --
@@ -34,179 +48,187 @@
 --
 -- __Related operations__
 --
---     * 'CreateGameServerGroup'
+-- -   CreateGameServerGroup
 --
---     * 'ListGameServerGroups'
+-- -   ListGameServerGroups
 --
---     * 'DescribeGameServerGroup'
+-- -   DescribeGameServerGroup
 --
---     * 'UpdateGameServerGroup'
+-- -   UpdateGameServerGroup
 --
---     * 'DeleteGameServerGroup'
+-- -   DeleteGameServerGroup
 --
---     * 'ResumeGameServerGroup'
+-- -   ResumeGameServerGroup
 --
---     * 'SuspendGameServerGroup'
+-- -   SuspendGameServerGroup
 --
---     * 'DescribeGameServerInstances'
+-- -   DescribeGameServerInstances
 module Network.AWS.GameLift.SuspendGameServerGroup
   ( -- * Creating a Request
-    suspendGameServerGroup,
-    SuspendGameServerGroup,
+    SuspendGameServerGroup (..),
+    newSuspendGameServerGroup,
 
     -- * Request Lenses
-    sgsgGameServerGroupName,
-    sgsgSuspendActions,
+    suspendGameServerGroup_gameServerGroupName,
+    suspendGameServerGroup_suspendActions,
 
     -- * Destructuring the Response
-    suspendGameServerGroupResponse,
-    SuspendGameServerGroupResponse,
+    SuspendGameServerGroupResponse (..),
+    newSuspendGameServerGroupResponse,
 
     -- * Response Lenses
-    sgsgrrsGameServerGroup,
-    sgsgrrsResponseStatus,
+    suspendGameServerGroupResponse_gameServerGroup,
+    suspendGameServerGroupResponse_httpStatus,
   )
 where
 
 import Network.AWS.GameLift.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.GameLift.Types.GameServerGroup
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'suspendGameServerGroup' smart constructor.
+-- | /See:/ 'newSuspendGameServerGroup' smart constructor.
 data SuspendGameServerGroup = SuspendGameServerGroup'
-  { _sgsgGameServerGroupName ::
-      !Text,
-    _sgsgSuspendActions ::
-      !( List1
-           GameServerGroupAction
-       )
+  { -- | A unique identifier for the game server group. Use either the
+    -- GameServerGroup name or ARN value.
+    gameServerGroupName :: Prelude.Text,
+    -- | The activity to suspend for this game server group.
+    suspendActions :: Prelude.List1 GameServerGroupAction
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SuspendGameServerGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SuspendGameServerGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sgsgGameServerGroupName' - A unique identifier for the game server group. Use either the 'GameServerGroup' name or ARN value.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sgsgSuspendActions' - The activity to suspend for this game server group.
-suspendGameServerGroup ::
-  -- | 'sgsgGameServerGroupName'
-  Text ->
-  -- | 'sgsgSuspendActions'
-  NonEmpty GameServerGroupAction ->
+-- 'gameServerGroupName', 'suspendGameServerGroup_gameServerGroupName' - A unique identifier for the game server group. Use either the
+-- GameServerGroup name or ARN value.
+--
+-- 'suspendActions', 'suspendGameServerGroup_suspendActions' - The activity to suspend for this game server group.
+newSuspendGameServerGroup ::
+  -- | 'gameServerGroupName'
+  Prelude.Text ->
+  -- | 'suspendActions'
+  Prelude.NonEmpty GameServerGroupAction ->
   SuspendGameServerGroup
-suspendGameServerGroup
+newSuspendGameServerGroup
   pGameServerGroupName_
   pSuspendActions_ =
     SuspendGameServerGroup'
-      { _sgsgGameServerGroupName =
+      { gameServerGroupName =
           pGameServerGroupName_,
-        _sgsgSuspendActions = _List1 # pSuspendActions_
+        suspendActions =
+          Prelude._List1 Lens.# pSuspendActions_
       }
 
--- | A unique identifier for the game server group. Use either the 'GameServerGroup' name or ARN value.
-sgsgGameServerGroupName :: Lens' SuspendGameServerGroup Text
-sgsgGameServerGroupName = lens _sgsgGameServerGroupName (\s a -> s {_sgsgGameServerGroupName = a})
+-- | A unique identifier for the game server group. Use either the
+-- GameServerGroup name or ARN value.
+suspendGameServerGroup_gameServerGroupName :: Lens.Lens' SuspendGameServerGroup Prelude.Text
+suspendGameServerGroup_gameServerGroupName = Lens.lens (\SuspendGameServerGroup' {gameServerGroupName} -> gameServerGroupName) (\s@SuspendGameServerGroup' {} a -> s {gameServerGroupName = a} :: SuspendGameServerGroup)
 
 -- | The activity to suspend for this game server group.
-sgsgSuspendActions :: Lens' SuspendGameServerGroup (NonEmpty GameServerGroupAction)
-sgsgSuspendActions = lens _sgsgSuspendActions (\s a -> s {_sgsgSuspendActions = a}) . _List1
+suspendGameServerGroup_suspendActions :: Lens.Lens' SuspendGameServerGroup (Prelude.NonEmpty GameServerGroupAction)
+suspendGameServerGroup_suspendActions = Lens.lens (\SuspendGameServerGroup' {suspendActions} -> suspendActions) (\s@SuspendGameServerGroup' {} a -> s {suspendActions = a} :: SuspendGameServerGroup) Prelude.. Prelude._List1
 
-instance AWSRequest SuspendGameServerGroup where
+instance Prelude.AWSRequest SuspendGameServerGroup where
   type
     Rs SuspendGameServerGroup =
       SuspendGameServerGroupResponse
-  request = postJSON gameLift
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           SuspendGameServerGroupResponse'
-            <$> (x .?> "GameServerGroup") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "GameServerGroup")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable SuspendGameServerGroup
+instance Prelude.Hashable SuspendGameServerGroup
 
-instance NFData SuspendGameServerGroup
+instance Prelude.NFData SuspendGameServerGroup
 
-instance ToHeaders SuspendGameServerGroup where
+instance Prelude.ToHeaders SuspendGameServerGroup where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("GameLift.SuspendGameServerGroup" :: ByteString),
+              Prelude.=# ( "GameLift.SuspendGameServerGroup" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON SuspendGameServerGroup where
+instance Prelude.ToJSON SuspendGameServerGroup where
   toJSON SuspendGameServerGroup' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("GameServerGroupName" .= _sgsgGameServerGroupName),
-            Just ("SuspendActions" .= _sgsgSuspendActions)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ( "GameServerGroupName"
+                  Prelude..= gameServerGroupName
+              ),
+            Prelude.Just
+              ("SuspendActions" Prelude..= suspendActions)
           ]
       )
 
-instance ToPath SuspendGameServerGroup where
-  toPath = const "/"
+instance Prelude.ToPath SuspendGameServerGroup where
+  toPath = Prelude.const "/"
 
-instance ToQuery SuspendGameServerGroup where
-  toQuery = const mempty
+instance Prelude.ToQuery SuspendGameServerGroup where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'suspendGameServerGroupResponse' smart constructor.
+-- | /See:/ 'newSuspendGameServerGroupResponse' smart constructor.
 data SuspendGameServerGroupResponse = SuspendGameServerGroupResponse'
-  { _sgsgrrsGameServerGroup ::
-      !( Maybe
-           GameServerGroup
-       ),
-    _sgsgrrsResponseStatus ::
-      !Int
+  { -- | An object that describes the game server group resource, with the
+    -- @SuspendedActions@ property updated to reflect the suspended activity.
+    gameServerGroup :: Prelude.Maybe GameServerGroup,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SuspendGameServerGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SuspendGameServerGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sgsgrrsGameServerGroup' - An object that describes the game server group resource, with the @SuspendedActions@ property updated to reflect the suspended activity.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sgsgrrsResponseStatus' - -- | The response status code.
-suspendGameServerGroupResponse ::
-  -- | 'sgsgrrsResponseStatus'
-  Int ->
+-- 'gameServerGroup', 'suspendGameServerGroupResponse_gameServerGroup' - An object that describes the game server group resource, with the
+-- @SuspendedActions@ property updated to reflect the suspended activity.
+--
+-- 'httpStatus', 'suspendGameServerGroupResponse_httpStatus' - The response's http status code.
+newSuspendGameServerGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   SuspendGameServerGroupResponse
-suspendGameServerGroupResponse pResponseStatus_ =
+newSuspendGameServerGroupResponse pHttpStatus_ =
   SuspendGameServerGroupResponse'
-    { _sgsgrrsGameServerGroup =
-        Nothing,
-      _sgsgrrsResponseStatus = pResponseStatus_
+    { gameServerGroup =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An object that describes the game server group resource, with the @SuspendedActions@ property updated to reflect the suspended activity.
-sgsgrrsGameServerGroup :: Lens' SuspendGameServerGroupResponse (Maybe GameServerGroup)
-sgsgrrsGameServerGroup = lens _sgsgrrsGameServerGroup (\s a -> s {_sgsgrrsGameServerGroup = a})
+-- | An object that describes the game server group resource, with the
+-- @SuspendedActions@ property updated to reflect the suspended activity.
+suspendGameServerGroupResponse_gameServerGroup :: Lens.Lens' SuspendGameServerGroupResponse (Prelude.Maybe GameServerGroup)
+suspendGameServerGroupResponse_gameServerGroup = Lens.lens (\SuspendGameServerGroupResponse' {gameServerGroup} -> gameServerGroup) (\s@SuspendGameServerGroupResponse' {} a -> s {gameServerGroup = a} :: SuspendGameServerGroupResponse)
 
--- | -- | The response status code.
-sgsgrrsResponseStatus :: Lens' SuspendGameServerGroupResponse Int
-sgsgrrsResponseStatus = lens _sgsgrrsResponseStatus (\s a -> s {_sgsgrrsResponseStatus = a})
+-- | The response's http status code.
+suspendGameServerGroupResponse_httpStatus :: Lens.Lens' SuspendGameServerGroupResponse Prelude.Int
+suspendGameServerGroupResponse_httpStatus = Lens.lens (\SuspendGameServerGroupResponse' {httpStatus} -> httpStatus) (\s@SuspendGameServerGroupResponse' {} a -> s {httpStatus = a} :: SuspendGameServerGroupResponse)
 
-instance NFData SuspendGameServerGroupResponse
+instance
+  Prelude.NFData
+    SuspendGameServerGroupResponse

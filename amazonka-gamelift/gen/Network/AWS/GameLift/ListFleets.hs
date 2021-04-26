@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,8 +21,12 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves a collection of fleet resources for this AWS account. You can filter the result set to find only those fleets that are deployed with a specific build or script. Use the pagination parameters to retrieve results in sequential pages.
+-- Retrieves a collection of fleet resources for this AWS account. You can
+-- filter the result set to find only those fleets that are deployed with a
+-- specific build or script. Use the pagination parameters to retrieve
+-- results in sequential pages.
 --
+-- Fleet resources are not listed in a particular order.
 --
 -- __Learn more__
 --
@@ -26,197 +34,259 @@
 --
 -- __Related operations__
 --
---     * 'CreateFleet'
+-- -   CreateFleet
 --
---     * 'ListFleets'
+-- -   ListFleets
 --
---     * 'DeleteFleet'
+-- -   DeleteFleet
 --
---     * 'DescribeFleetAttributes'
+-- -   DescribeFleetAttributes
 --
---     * 'UpdateFleetAttributes'
+-- -   UpdateFleetAttributes
 --
---     * 'StartFleetActions' or 'StopFleetActions'
---
---
---
+-- -   StartFleetActions or StopFleetActions
 --
 -- This operation returns paginated results.
 module Network.AWS.GameLift.ListFleets
   ( -- * Creating a Request
-    listFleets,
-    ListFleets,
+    ListFleets (..),
+    newListFleets,
 
     -- * Request Lenses
-    lfNextToken,
-    lfBuildId,
-    lfLimit,
-    lfScriptId,
+    listFleets_nextToken,
+    listFleets_buildId,
+    listFleets_limit,
+    listFleets_scriptId,
 
     -- * Destructuring the Response
-    listFleetsResponse,
-    ListFleetsResponse,
+    ListFleetsResponse (..),
+    newListFleetsResponse,
 
     -- * Response Lenses
-    lfrrsNextToken,
-    lfrrsFleetIds,
-    lfrrsResponseStatus,
+    listFleetsResponse_nextToken,
+    listFleetsResponse_fleetIds,
+    listFleetsResponse_httpStatus,
   )
 where
 
 import Network.AWS.GameLift.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input for a request operation.
 --
---
---
--- /See:/ 'listFleets' smart constructor.
+-- /See:/ 'newListFleets' smart constructor.
 data ListFleets = ListFleets'
-  { _lfNextToken ::
-      !(Maybe Text),
-    _lfBuildId :: !(Maybe Text),
-    _lfLimit :: !(Maybe Nat),
-    _lfScriptId :: !(Maybe Text)
+  { -- | Token that indicates the start of the next sequential page of results.
+    -- Use the token that is returned with a previous call to this operation.
+    -- To start at the beginning of the result set, do not specify a value.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A unique identifier for a build to return fleets for. Use this parameter
+    -- to return only fleets using a specified build. Use either the build ID
+    -- or ARN value. To retrieve all fleets, do not include either a BuildId
+    -- and ScriptID parameter.
+    buildId :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return. Use this parameter with
+    -- @NextToken@ to get results as a set of sequential pages.
+    limit :: Prelude.Maybe Prelude.Nat,
+    -- | A unique identifier for a Realtime script to return fleets for. Use this
+    -- parameter to return only fleets using a specified script. Use either the
+    -- script ID or ARN value. To retrieve all fleets, leave this parameter
+    -- empty.
+    scriptId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListFleets' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListFleets' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lfNextToken' - Token that indicates the start of the next sequential page of results. Use the token that is returned with a previous call to this operation. To start at the beginning of the result set, do not specify a value.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lfBuildId' - A unique identifier for a build to return fleets for. Use this parameter to return only fleets using a specified build. Use either the build ID or ARN value. To retrieve all fleets, do not include either a BuildId and ScriptID parameter.
+-- 'nextToken', 'listFleets_nextToken' - Token that indicates the start of the next sequential page of results.
+-- Use the token that is returned with a previous call to this operation.
+-- To start at the beginning of the result set, do not specify a value.
 --
--- * 'lfLimit' - The maximum number of results to return. Use this parameter with @NextToken@ to get results as a set of sequential pages.
+-- 'buildId', 'listFleets_buildId' - A unique identifier for a build to return fleets for. Use this parameter
+-- to return only fleets using a specified build. Use either the build ID
+-- or ARN value. To retrieve all fleets, do not include either a BuildId
+-- and ScriptID parameter.
 --
--- * 'lfScriptId' - A unique identifier for a Realtime script to return fleets for. Use this parameter to return only fleets using a specified script. Use either the script ID or ARN value. To retrieve all fleets, leave this parameter empty.
-listFleets ::
+-- 'limit', 'listFleets_limit' - The maximum number of results to return. Use this parameter with
+-- @NextToken@ to get results as a set of sequential pages.
+--
+-- 'scriptId', 'listFleets_scriptId' - A unique identifier for a Realtime script to return fleets for. Use this
+-- parameter to return only fleets using a specified script. Use either the
+-- script ID or ARN value. To retrieve all fleets, leave this parameter
+-- empty.
+newListFleets ::
   ListFleets
-listFleets =
+newListFleets =
   ListFleets'
-    { _lfNextToken = Nothing,
-      _lfBuildId = Nothing,
-      _lfLimit = Nothing,
-      _lfScriptId = Nothing
+    { nextToken = Prelude.Nothing,
+      buildId = Prelude.Nothing,
+      limit = Prelude.Nothing,
+      scriptId = Prelude.Nothing
     }
 
--- | Token that indicates the start of the next sequential page of results. Use the token that is returned with a previous call to this operation. To start at the beginning of the result set, do not specify a value.
-lfNextToken :: Lens' ListFleets (Maybe Text)
-lfNextToken = lens _lfNextToken (\s a -> s {_lfNextToken = a})
+-- | Token that indicates the start of the next sequential page of results.
+-- Use the token that is returned with a previous call to this operation.
+-- To start at the beginning of the result set, do not specify a value.
+listFleets_nextToken :: Lens.Lens' ListFleets (Prelude.Maybe Prelude.Text)
+listFleets_nextToken = Lens.lens (\ListFleets' {nextToken} -> nextToken) (\s@ListFleets' {} a -> s {nextToken = a} :: ListFleets)
 
--- | A unique identifier for a build to return fleets for. Use this parameter to return only fleets using a specified build. Use either the build ID or ARN value. To retrieve all fleets, do not include either a BuildId and ScriptID parameter.
-lfBuildId :: Lens' ListFleets (Maybe Text)
-lfBuildId = lens _lfBuildId (\s a -> s {_lfBuildId = a})
+-- | A unique identifier for a build to return fleets for. Use this parameter
+-- to return only fleets using a specified build. Use either the build ID
+-- or ARN value. To retrieve all fleets, do not include either a BuildId
+-- and ScriptID parameter.
+listFleets_buildId :: Lens.Lens' ListFleets (Prelude.Maybe Prelude.Text)
+listFleets_buildId = Lens.lens (\ListFleets' {buildId} -> buildId) (\s@ListFleets' {} a -> s {buildId = a} :: ListFleets)
 
--- | The maximum number of results to return. Use this parameter with @NextToken@ to get results as a set of sequential pages.
-lfLimit :: Lens' ListFleets (Maybe Natural)
-lfLimit = lens _lfLimit (\s a -> s {_lfLimit = a}) . mapping _Nat
+-- | The maximum number of results to return. Use this parameter with
+-- @NextToken@ to get results as a set of sequential pages.
+listFleets_limit :: Lens.Lens' ListFleets (Prelude.Maybe Prelude.Natural)
+listFleets_limit = Lens.lens (\ListFleets' {limit} -> limit) (\s@ListFleets' {} a -> s {limit = a} :: ListFleets) Prelude.. Lens.mapping Prelude._Nat
 
--- | A unique identifier for a Realtime script to return fleets for. Use this parameter to return only fleets using a specified script. Use either the script ID or ARN value. To retrieve all fleets, leave this parameter empty.
-lfScriptId :: Lens' ListFleets (Maybe Text)
-lfScriptId = lens _lfScriptId (\s a -> s {_lfScriptId = a})
+-- | A unique identifier for a Realtime script to return fleets for. Use this
+-- parameter to return only fleets using a specified script. Use either the
+-- script ID or ARN value. To retrieve all fleets, leave this parameter
+-- empty.
+listFleets_scriptId :: Lens.Lens' ListFleets (Prelude.Maybe Prelude.Text)
+listFleets_scriptId = Lens.lens (\ListFleets' {scriptId} -> scriptId) (\s@ListFleets' {} a -> s {scriptId = a} :: ListFleets)
 
-instance AWSPager ListFleets where
+instance Pager.AWSPager ListFleets where
   page rq rs
-    | stop (rs ^. lfrrsNextToken) = Nothing
-    | stop (rs ^. lfrrsFleetIds) = Nothing
-    | otherwise =
-      Just $ rq & lfNextToken .~ rs ^. lfrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listFleetsResponse_nextToken Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listFleetsResponse_fleetIds Prelude.. Lens._Just
+              Prelude.. Lens.to Prelude.toList
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listFleets_nextToken
+          Lens..~ rs
+          Lens.^? listFleetsResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest ListFleets where
+instance Prelude.AWSRequest ListFleets where
   type Rs ListFleets = ListFleetsResponse
-  request = postJSON gameLift
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListFleetsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "FleetIds")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (x Prelude..?> "FleetIds")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListFleets
+instance Prelude.Hashable ListFleets
 
-instance NFData ListFleets
+instance Prelude.NFData ListFleets
 
-instance ToHeaders ListFleets where
+instance Prelude.ToHeaders ListFleets where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("GameLift.ListFleets" :: ByteString),
+              Prelude.=# ("GameLift.ListFleets" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListFleets where
+instance Prelude.ToJSON ListFleets where
   toJSON ListFleets' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _lfNextToken,
-            ("BuildId" .=) <$> _lfBuildId,
-            ("Limit" .=) <$> _lfLimit,
-            ("ScriptId" .=) <$> _lfScriptId
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("BuildId" Prelude..=) Prelude.<$> buildId,
+            ("Limit" Prelude..=) Prelude.<$> limit,
+            ("ScriptId" Prelude..=) Prelude.<$> scriptId
           ]
       )
 
-instance ToPath ListFleets where
-  toPath = const "/"
+instance Prelude.ToPath ListFleets where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListFleets where
-  toQuery = const mempty
+instance Prelude.ToQuery ListFleets where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the returned data in response to a request operation.
 --
---
---
--- /See:/ 'listFleetsResponse' smart constructor.
+-- /See:/ 'newListFleetsResponse' smart constructor.
 data ListFleetsResponse = ListFleetsResponse'
-  { _lfrrsNextToken ::
-      !(Maybe Text),
-    _lfrrsFleetIds ::
-      !(Maybe (List1 Text)),
-    _lfrrsResponseStatus :: !Int
+  { -- | Token that indicates where to resume retrieving results on the next call
+    -- to this operation. If no token is returned, these results represent the
+    -- end of the list.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Set of fleet IDs matching the list request. You can retrieve additional
+    -- information about all returned fleets by passing this result set to a
+    -- call to DescribeFleetAttributes, DescribeFleetCapacity, or
+    -- DescribeFleetUtilization.
+    fleetIds :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListFleetsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListFleetsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lfrrsNextToken' - Token that indicates where to resume retrieving results on the next call to this operation. If no token is returned, these results represent the end of the list.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lfrrsFleetIds' - Set of fleet IDs matching the list request. You can retrieve additional information about all returned fleets by passing this result set to a call to 'DescribeFleetAttributes' , 'DescribeFleetCapacity' , or 'DescribeFleetUtilization' .
+-- 'nextToken', 'listFleetsResponse_nextToken' - Token that indicates where to resume retrieving results on the next call
+-- to this operation. If no token is returned, these results represent the
+-- end of the list.
 --
--- * 'lfrrsResponseStatus' - -- | The response status code.
-listFleetsResponse ::
-  -- | 'lfrrsResponseStatus'
-  Int ->
+-- 'fleetIds', 'listFleetsResponse_fleetIds' - Set of fleet IDs matching the list request. You can retrieve additional
+-- information about all returned fleets by passing this result set to a
+-- call to DescribeFleetAttributes, DescribeFleetCapacity, or
+-- DescribeFleetUtilization.
+--
+-- 'httpStatus', 'listFleetsResponse_httpStatus' - The response's http status code.
+newListFleetsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListFleetsResponse
-listFleetsResponse pResponseStatus_ =
+newListFleetsResponse pHttpStatus_ =
   ListFleetsResponse'
-    { _lfrrsNextToken = Nothing,
-      _lfrrsFleetIds = Nothing,
-      _lfrrsResponseStatus = pResponseStatus_
+    { nextToken = Prelude.Nothing,
+      fleetIds = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Token that indicates where to resume retrieving results on the next call to this operation. If no token is returned, these results represent the end of the list.
-lfrrsNextToken :: Lens' ListFleetsResponse (Maybe Text)
-lfrrsNextToken = lens _lfrrsNextToken (\s a -> s {_lfrrsNextToken = a})
+-- | Token that indicates where to resume retrieving results on the next call
+-- to this operation. If no token is returned, these results represent the
+-- end of the list.
+listFleetsResponse_nextToken :: Lens.Lens' ListFleetsResponse (Prelude.Maybe Prelude.Text)
+listFleetsResponse_nextToken = Lens.lens (\ListFleetsResponse' {nextToken} -> nextToken) (\s@ListFleetsResponse' {} a -> s {nextToken = a} :: ListFleetsResponse)
 
--- | Set of fleet IDs matching the list request. You can retrieve additional information about all returned fleets by passing this result set to a call to 'DescribeFleetAttributes' , 'DescribeFleetCapacity' , or 'DescribeFleetUtilization' .
-lfrrsFleetIds :: Lens' ListFleetsResponse (Maybe (NonEmpty Text))
-lfrrsFleetIds = lens _lfrrsFleetIds (\s a -> s {_lfrrsFleetIds = a}) . mapping _List1
+-- | Set of fleet IDs matching the list request. You can retrieve additional
+-- information about all returned fleets by passing this result set to a
+-- call to DescribeFleetAttributes, DescribeFleetCapacity, or
+-- DescribeFleetUtilization.
+listFleetsResponse_fleetIds :: Lens.Lens' ListFleetsResponse (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+listFleetsResponse_fleetIds = Lens.lens (\ListFleetsResponse' {fleetIds} -> fleetIds) (\s@ListFleetsResponse' {} a -> s {fleetIds = a} :: ListFleetsResponse) Prelude.. Lens.mapping Prelude._List1
 
--- | -- | The response status code.
-lfrrsResponseStatus :: Lens' ListFleetsResponse Int
-lfrrsResponseStatus = lens _lfrrsResponseStatus (\s a -> s {_lfrrsResponseStatus = a})
+-- | The response's http status code.
+listFleetsResponse_httpStatus :: Lens.Lens' ListFleetsResponse Prelude.Int
+listFleetsResponse_httpStatus = Lens.lens (\ListFleetsResponse' {httpStatus} -> httpStatus) (\s@ListFleetsResponse' {} a -> s {httpStatus = a} :: ListFleetsResponse)
 
-instance NFData ListFleetsResponse
+instance Prelude.NFData ListFleetsResponse

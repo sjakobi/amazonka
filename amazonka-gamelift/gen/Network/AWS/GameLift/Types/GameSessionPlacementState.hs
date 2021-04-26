@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,72 +19,70 @@
 module Network.AWS.GameLift.Types.GameSessionPlacementState
   ( GameSessionPlacementState
       ( ..,
-        GSPSCancelled,
-        GSPSFailed,
-        GSPSFulfilled,
-        GSPSPending,
-        GSPSTimedOut
+        GameSessionPlacementStateCANCELLED,
+        GameSessionPlacementStateFAILED,
+        GameSessionPlacementStateFULFILLED,
+        GameSessionPlacementStatePENDING,
+        GameSessionPlacementStateTIMEDOUT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data GameSessionPlacementState
-  = GameSessionPlacementState'
-      ( CI
-          Text
-      )
+newtype GameSessionPlacementState = GameSessionPlacementState'
+  { fromGameSessionPlacementState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern GSPSCancelled :: GameSessionPlacementState
-pattern GSPSCancelled = GameSessionPlacementState' "CANCELLED"
+pattern GameSessionPlacementStateCANCELLED :: GameSessionPlacementState
+pattern GameSessionPlacementStateCANCELLED = GameSessionPlacementState' "CANCELLED"
 
-pattern GSPSFailed :: GameSessionPlacementState
-pattern GSPSFailed = GameSessionPlacementState' "FAILED"
+pattern GameSessionPlacementStateFAILED :: GameSessionPlacementState
+pattern GameSessionPlacementStateFAILED = GameSessionPlacementState' "FAILED"
 
-pattern GSPSFulfilled :: GameSessionPlacementState
-pattern GSPSFulfilled = GameSessionPlacementState' "FULFILLED"
+pattern GameSessionPlacementStateFULFILLED :: GameSessionPlacementState
+pattern GameSessionPlacementStateFULFILLED = GameSessionPlacementState' "FULFILLED"
 
-pattern GSPSPending :: GameSessionPlacementState
-pattern GSPSPending = GameSessionPlacementState' "PENDING"
+pattern GameSessionPlacementStatePENDING :: GameSessionPlacementState
+pattern GameSessionPlacementStatePENDING = GameSessionPlacementState' "PENDING"
 
-pattern GSPSTimedOut :: GameSessionPlacementState
-pattern GSPSTimedOut = GameSessionPlacementState' "TIMED_OUT"
+pattern GameSessionPlacementStateTIMEDOUT :: GameSessionPlacementState
+pattern GameSessionPlacementStateTIMEDOUT = GameSessionPlacementState' "TIMED_OUT"
 
 {-# COMPLETE
-  GSPSCancelled,
-  GSPSFailed,
-  GSPSFulfilled,
-  GSPSPending,
-  GSPSTimedOut,
+  GameSessionPlacementStateCANCELLED,
+  GameSessionPlacementStateFAILED,
+  GameSessionPlacementStateFULFILLED,
+  GameSessionPlacementStatePENDING,
+  GameSessionPlacementStateTIMEDOUT,
   GameSessionPlacementState'
   #-}
 
-instance FromText GameSessionPlacementState where
-  parser = (GameSessionPlacementState' . mk) <$> takeText
+instance Prelude.FromText GameSessionPlacementState where
+  parser = GameSessionPlacementState' Prelude.<$> Prelude.takeText
 
-instance ToText GameSessionPlacementState where
-  toText (GameSessionPlacementState' ci) = original ci
+instance Prelude.ToText GameSessionPlacementState where
+  toText (GameSessionPlacementState' x) = x
 
-instance Hashable GameSessionPlacementState
+instance Prelude.Hashable GameSessionPlacementState
 
-instance NFData GameSessionPlacementState
+instance Prelude.NFData GameSessionPlacementState
 
-instance ToByteString GameSessionPlacementState
+instance Prelude.ToByteString GameSessionPlacementState
 
-instance ToQuery GameSessionPlacementState
+instance Prelude.ToQuery GameSessionPlacementState
 
-instance ToHeader GameSessionPlacementState
+instance Prelude.ToHeader GameSessionPlacementState
 
-instance FromJSON GameSessionPlacementState where
-  parseJSON = parseJSONText "GameSessionPlacementState"
+instance Prelude.FromJSON GameSessionPlacementState where
+  parseJSON = Prelude.parseJSONText "GameSessionPlacementState"

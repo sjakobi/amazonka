@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,10 +21,21 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves the current capacity statistics for one or more fleets. These statistics present a snapshot of the fleet's instances and provide insight on current or imminent scaling activity. To get statistics on game hosting activity in the fleet, see 'DescribeFleetUtilization' .
+-- Retrieves the current capacity statistics for one or more fleets. These
+-- statistics present a snapshot of the fleet\'s instances and provide
+-- insight on current or imminent scaling activity. To get statistics on
+-- game hosting activity in the fleet, see DescribeFleetUtilization.
 --
+-- You can request capacity for all fleets or specify a list of one or more
+-- fleet identifiers. When requesting multiple fleets, use the pagination
+-- parameters to retrieve results as a set of sequential pages. If
+-- successful, a FleetCapacity object is returned for each requested fleet
+-- ID. When a list of fleet IDs is provided, attribute objects are returned
+-- only for fleets that currently exist.
 --
--- You can request capacity for all fleets or specify a list of one or more fleet identifiers. When requesting multiple fleets, use the pagination parameters to retrieve results as a set of sequential pages. If successful, a 'FleetCapacity' object is returned for each requested fleet ID. When a list of fleet IDs is provided, attribute objects are returned only for fleets that currently exist.
+-- Some API operations may limit the number of fleet IDs allowed in one
+-- request. If a request exceeds this limit, the request fails and the
+-- error message includes the maximum allowed.
 --
 -- __Learn more__
 --
@@ -30,226 +45,263 @@
 --
 -- __Related operations__
 --
---     * 'CreateFleet'
+-- -   CreateFleet
 --
---     * 'ListFleets'
+-- -   ListFleets
 --
---     * 'DeleteFleet'
+-- -   DeleteFleet
 --
---     * Describe fleets:
+-- -   Describe fleets:
 --
---     * 'DescribeFleetAttributes'
+--     -   DescribeFleetAttributes
 --
---     * 'DescribeFleetCapacity'
+--     -   DescribeFleetCapacity
 --
---     * 'DescribeFleetPortSettings'
+--     -   DescribeFleetPortSettings
 --
---     * 'DescribeFleetUtilization'
+--     -   DescribeFleetUtilization
 --
---     * 'DescribeRuntimeConfiguration'
+--     -   DescribeRuntimeConfiguration
 --
---     * 'DescribeEC2InstanceLimits'
+--     -   DescribeEC2InstanceLimits
 --
---     * 'DescribeFleetEvents'
+--     -   DescribeFleetEvents
 --
+-- -   UpdateFleetAttributes
 --
---
---     * 'UpdateFleetAttributes'
---
---     * 'StartFleetActions' or 'StopFleetActions'
---
---
---
+-- -   StartFleetActions or StopFleetActions
 --
 -- This operation returns paginated results.
 module Network.AWS.GameLift.DescribeFleetCapacity
   ( -- * Creating a Request
-    describeFleetCapacity,
-    DescribeFleetCapacity,
+    DescribeFleetCapacity (..),
+    newDescribeFleetCapacity,
 
     -- * Request Lenses
-    dfcNextToken,
-    dfcFleetIds,
-    dfcLimit,
+    describeFleetCapacity_nextToken,
+    describeFleetCapacity_fleetIds,
+    describeFleetCapacity_limit,
 
     -- * Destructuring the Response
-    describeFleetCapacityResponse,
-    DescribeFleetCapacityResponse,
+    DescribeFleetCapacityResponse (..),
+    newDescribeFleetCapacityResponse,
 
     -- * Response Lenses
-    dfcrrsNextToken,
-    dfcrrsFleetCapacity,
-    dfcrrsResponseStatus,
+    describeFleetCapacityResponse_nextToken,
+    describeFleetCapacityResponse_fleetCapacity,
+    describeFleetCapacityResponse_httpStatus,
   )
 where
 
 import Network.AWS.GameLift.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.GameLift.Types.FleetCapacity
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input for a request operation.
 --
---
---
--- /See:/ 'describeFleetCapacity' smart constructor.
+-- /See:/ 'newDescribeFleetCapacity' smart constructor.
 data DescribeFleetCapacity = DescribeFleetCapacity'
-  { _dfcNextToken ::
-      !(Maybe Text),
-    _dfcFleetIds ::
-      !(Maybe (List1 Text)),
-    _dfcLimit :: !(Maybe Nat)
+  { -- | Token that indicates the start of the next sequential page of results.
+    -- Use the token that is returned with a previous call to this operation.
+    -- To start at the beginning of the result set, do not specify a value.
+    -- This parameter is ignored when the request specifies one or a list of
+    -- fleet IDs.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A unique identifier for a fleet(s) to retrieve capacity information for.
+    -- You can use either the fleet ID or ARN value.
+    fleetIds :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | The maximum number of results to return. Use this parameter with
+    -- @NextToken@ to get results as a set of sequential pages. This parameter
+    -- is ignored when the request specifies one or a list of fleet IDs.
+    limit :: Prelude.Maybe Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeFleetCapacity' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeFleetCapacity' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dfcNextToken' - Token that indicates the start of the next sequential page of results. Use the token that is returned with a previous call to this operation. To start at the beginning of the result set, do not specify a value. This parameter is ignored when the request specifies one or a list of fleet IDs.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dfcFleetIds' - A unique identifier for a fleet(s) to retrieve capacity information for. You can use either the fleet ID or ARN value.
+-- 'nextToken', 'describeFleetCapacity_nextToken' - Token that indicates the start of the next sequential page of results.
+-- Use the token that is returned with a previous call to this operation.
+-- To start at the beginning of the result set, do not specify a value.
+-- This parameter is ignored when the request specifies one or a list of
+-- fleet IDs.
 --
--- * 'dfcLimit' - The maximum number of results to return. Use this parameter with @NextToken@ to get results as a set of sequential pages. This parameter is ignored when the request specifies one or a list of fleet IDs.
-describeFleetCapacity ::
+-- 'fleetIds', 'describeFleetCapacity_fleetIds' - A unique identifier for a fleet(s) to retrieve capacity information for.
+-- You can use either the fleet ID or ARN value.
+--
+-- 'limit', 'describeFleetCapacity_limit' - The maximum number of results to return. Use this parameter with
+-- @NextToken@ to get results as a set of sequential pages. This parameter
+-- is ignored when the request specifies one or a list of fleet IDs.
+newDescribeFleetCapacity ::
   DescribeFleetCapacity
-describeFleetCapacity =
+newDescribeFleetCapacity =
   DescribeFleetCapacity'
-    { _dfcNextToken = Nothing,
-      _dfcFleetIds = Nothing,
-      _dfcLimit = Nothing
+    { nextToken = Prelude.Nothing,
+      fleetIds = Prelude.Nothing,
+      limit = Prelude.Nothing
     }
 
--- | Token that indicates the start of the next sequential page of results. Use the token that is returned with a previous call to this operation. To start at the beginning of the result set, do not specify a value. This parameter is ignored when the request specifies one or a list of fleet IDs.
-dfcNextToken :: Lens' DescribeFleetCapacity (Maybe Text)
-dfcNextToken = lens _dfcNextToken (\s a -> s {_dfcNextToken = a})
+-- | Token that indicates the start of the next sequential page of results.
+-- Use the token that is returned with a previous call to this operation.
+-- To start at the beginning of the result set, do not specify a value.
+-- This parameter is ignored when the request specifies one or a list of
+-- fleet IDs.
+describeFleetCapacity_nextToken :: Lens.Lens' DescribeFleetCapacity (Prelude.Maybe Prelude.Text)
+describeFleetCapacity_nextToken = Lens.lens (\DescribeFleetCapacity' {nextToken} -> nextToken) (\s@DescribeFleetCapacity' {} a -> s {nextToken = a} :: DescribeFleetCapacity)
 
--- | A unique identifier for a fleet(s) to retrieve capacity information for. You can use either the fleet ID or ARN value.
-dfcFleetIds :: Lens' DescribeFleetCapacity (Maybe (NonEmpty Text))
-dfcFleetIds = lens _dfcFleetIds (\s a -> s {_dfcFleetIds = a}) . mapping _List1
+-- | A unique identifier for a fleet(s) to retrieve capacity information for.
+-- You can use either the fleet ID or ARN value.
+describeFleetCapacity_fleetIds :: Lens.Lens' DescribeFleetCapacity (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+describeFleetCapacity_fleetIds = Lens.lens (\DescribeFleetCapacity' {fleetIds} -> fleetIds) (\s@DescribeFleetCapacity' {} a -> s {fleetIds = a} :: DescribeFleetCapacity) Prelude.. Lens.mapping Prelude._List1
 
--- | The maximum number of results to return. Use this parameter with @NextToken@ to get results as a set of sequential pages. This parameter is ignored when the request specifies one or a list of fleet IDs.
-dfcLimit :: Lens' DescribeFleetCapacity (Maybe Natural)
-dfcLimit = lens _dfcLimit (\s a -> s {_dfcLimit = a}) . mapping _Nat
+-- | The maximum number of results to return. Use this parameter with
+-- @NextToken@ to get results as a set of sequential pages. This parameter
+-- is ignored when the request specifies one or a list of fleet IDs.
+describeFleetCapacity_limit :: Lens.Lens' DescribeFleetCapacity (Prelude.Maybe Prelude.Natural)
+describeFleetCapacity_limit = Lens.lens (\DescribeFleetCapacity' {limit} -> limit) (\s@DescribeFleetCapacity' {} a -> s {limit = a} :: DescribeFleetCapacity) Prelude.. Lens.mapping Prelude._Nat
 
-instance AWSPager DescribeFleetCapacity where
+instance Pager.AWSPager DescribeFleetCapacity where
   page rq rs
-    | stop (rs ^. dfcrrsNextToken) = Nothing
-    | stop (rs ^. dfcrrsFleetCapacity) = Nothing
-    | otherwise =
-      Just $ rq & dfcNextToken .~ rs ^. dfcrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeFleetCapacityResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeFleetCapacityResponse_fleetCapacity
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeFleetCapacity_nextToken
+          Lens..~ rs
+          Lens.^? describeFleetCapacityResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeFleetCapacity where
+instance Prelude.AWSRequest DescribeFleetCapacity where
   type
     Rs DescribeFleetCapacity =
       DescribeFleetCapacityResponse
-  request = postJSON gameLift
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeFleetCapacityResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "FleetCapacity" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "FleetCapacity"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeFleetCapacity
+instance Prelude.Hashable DescribeFleetCapacity
 
-instance NFData DescribeFleetCapacity
+instance Prelude.NFData DescribeFleetCapacity
 
-instance ToHeaders DescribeFleetCapacity where
+instance Prelude.ToHeaders DescribeFleetCapacity where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("GameLift.DescribeFleetCapacity" :: ByteString),
+              Prelude.=# ( "GameLift.DescribeFleetCapacity" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeFleetCapacity where
+instance Prelude.ToJSON DescribeFleetCapacity where
   toJSON DescribeFleetCapacity' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _dfcNextToken,
-            ("FleetIds" .=) <$> _dfcFleetIds,
-            ("Limit" .=) <$> _dfcLimit
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("FleetIds" Prelude..=) Prelude.<$> fleetIds,
+            ("Limit" Prelude..=) Prelude.<$> limit
           ]
       )
 
-instance ToPath DescribeFleetCapacity where
-  toPath = const "/"
+instance Prelude.ToPath DescribeFleetCapacity where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeFleetCapacity where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeFleetCapacity where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the returned data in response to a request operation.
 --
---
---
--- /See:/ 'describeFleetCapacityResponse' smart constructor.
+-- /See:/ 'newDescribeFleetCapacityResponse' smart constructor.
 data DescribeFleetCapacityResponse = DescribeFleetCapacityResponse'
-  { _dfcrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dfcrrsFleetCapacity ::
-      !( Maybe
-           [FleetCapacity]
-       ),
-    _dfcrrsResponseStatus ::
-      !Int
+  { -- | Token that indicates where to resume retrieving results on the next call
+    -- to this operation. If no token is returned, these results represent the
+    -- end of the list.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A collection of objects containing capacity information for each
+    -- requested fleet ID. Leave this parameter empty to retrieve capacity
+    -- information for all fleets.
+    fleetCapacity :: Prelude.Maybe [FleetCapacity],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeFleetCapacityResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeFleetCapacityResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dfcrrsNextToken' - Token that indicates where to resume retrieving results on the next call to this operation. If no token is returned, these results represent the end of the list.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dfcrrsFleetCapacity' - A collection of objects containing capacity information for each requested fleet ID. Leave this parameter empty to retrieve capacity information for all fleets.
+-- 'nextToken', 'describeFleetCapacityResponse_nextToken' - Token that indicates where to resume retrieving results on the next call
+-- to this operation. If no token is returned, these results represent the
+-- end of the list.
 --
--- * 'dfcrrsResponseStatus' - -- | The response status code.
-describeFleetCapacityResponse ::
-  -- | 'dfcrrsResponseStatus'
-  Int ->
+-- 'fleetCapacity', 'describeFleetCapacityResponse_fleetCapacity' - A collection of objects containing capacity information for each
+-- requested fleet ID. Leave this parameter empty to retrieve capacity
+-- information for all fleets.
+--
+-- 'httpStatus', 'describeFleetCapacityResponse_httpStatus' - The response's http status code.
+newDescribeFleetCapacityResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeFleetCapacityResponse
-describeFleetCapacityResponse pResponseStatus_ =
+newDescribeFleetCapacityResponse pHttpStatus_ =
   DescribeFleetCapacityResponse'
-    { _dfcrrsNextToken =
-        Nothing,
-      _dfcrrsFleetCapacity = Nothing,
-      _dfcrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      fleetCapacity = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Token that indicates where to resume retrieving results on the next call to this operation. If no token is returned, these results represent the end of the list.
-dfcrrsNextToken :: Lens' DescribeFleetCapacityResponse (Maybe Text)
-dfcrrsNextToken = lens _dfcrrsNextToken (\s a -> s {_dfcrrsNextToken = a})
+-- | Token that indicates where to resume retrieving results on the next call
+-- to this operation. If no token is returned, these results represent the
+-- end of the list.
+describeFleetCapacityResponse_nextToken :: Lens.Lens' DescribeFleetCapacityResponse (Prelude.Maybe Prelude.Text)
+describeFleetCapacityResponse_nextToken = Lens.lens (\DescribeFleetCapacityResponse' {nextToken} -> nextToken) (\s@DescribeFleetCapacityResponse' {} a -> s {nextToken = a} :: DescribeFleetCapacityResponse)
 
--- | A collection of objects containing capacity information for each requested fleet ID. Leave this parameter empty to retrieve capacity information for all fleets.
-dfcrrsFleetCapacity :: Lens' DescribeFleetCapacityResponse [FleetCapacity]
-dfcrrsFleetCapacity = lens _dfcrrsFleetCapacity (\s a -> s {_dfcrrsFleetCapacity = a}) . _Default . _Coerce
+-- | A collection of objects containing capacity information for each
+-- requested fleet ID. Leave this parameter empty to retrieve capacity
+-- information for all fleets.
+describeFleetCapacityResponse_fleetCapacity :: Lens.Lens' DescribeFleetCapacityResponse (Prelude.Maybe [FleetCapacity])
+describeFleetCapacityResponse_fleetCapacity = Lens.lens (\DescribeFleetCapacityResponse' {fleetCapacity} -> fleetCapacity) (\s@DescribeFleetCapacityResponse' {} a -> s {fleetCapacity = a} :: DescribeFleetCapacityResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dfcrrsResponseStatus :: Lens' DescribeFleetCapacityResponse Int
-dfcrrsResponseStatus = lens _dfcrrsResponseStatus (\s a -> s {_dfcrrsResponseStatus = a})
+-- | The response's http status code.
+describeFleetCapacityResponse_httpStatus :: Lens.Lens' DescribeFleetCapacityResponse Prelude.Int
+describeFleetCapacityResponse_httpStatus = Lens.lens (\DescribeFleetCapacityResponse' {httpStatus} -> httpStatus) (\s@DescribeFleetCapacityResponse' {} a -> s {httpStatus = a} :: DescribeFleetCapacityResponse)
 
-instance NFData DescribeFleetCapacityResponse
+instance Prelude.NFData DescribeFleetCapacityResponse

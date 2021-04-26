@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.GameLift.Types.ScalingAdjustmentType
   ( ScalingAdjustmentType
       ( ..,
-        ChangeInCapacity,
-        ExactCapacity,
-        PercentChangeInCapacity
+        ScalingAdjustmentTypeChangeInCapacity,
+        ScalingAdjustmentTypeExactCapacity,
+        ScalingAdjustmentTypePercentChangeInCapacity
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ScalingAdjustmentType
-  = ScalingAdjustmentType'
-      ( CI
-          Text
-      )
+newtype ScalingAdjustmentType = ScalingAdjustmentType'
+  { fromScalingAdjustmentType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ChangeInCapacity :: ScalingAdjustmentType
-pattern ChangeInCapacity = ScalingAdjustmentType' "ChangeInCapacity"
+pattern ScalingAdjustmentTypeChangeInCapacity :: ScalingAdjustmentType
+pattern ScalingAdjustmentTypeChangeInCapacity = ScalingAdjustmentType' "ChangeInCapacity"
 
-pattern ExactCapacity :: ScalingAdjustmentType
-pattern ExactCapacity = ScalingAdjustmentType' "ExactCapacity"
+pattern ScalingAdjustmentTypeExactCapacity :: ScalingAdjustmentType
+pattern ScalingAdjustmentTypeExactCapacity = ScalingAdjustmentType' "ExactCapacity"
 
-pattern PercentChangeInCapacity :: ScalingAdjustmentType
-pattern PercentChangeInCapacity = ScalingAdjustmentType' "PercentChangeInCapacity"
+pattern ScalingAdjustmentTypePercentChangeInCapacity :: ScalingAdjustmentType
+pattern ScalingAdjustmentTypePercentChangeInCapacity = ScalingAdjustmentType' "PercentChangeInCapacity"
 
 {-# COMPLETE
-  ChangeInCapacity,
-  ExactCapacity,
-  PercentChangeInCapacity,
+  ScalingAdjustmentTypeChangeInCapacity,
+  ScalingAdjustmentTypeExactCapacity,
+  ScalingAdjustmentTypePercentChangeInCapacity,
   ScalingAdjustmentType'
   #-}
 
-instance FromText ScalingAdjustmentType where
-  parser = (ScalingAdjustmentType' . mk) <$> takeText
+instance Prelude.FromText ScalingAdjustmentType where
+  parser = ScalingAdjustmentType' Prelude.<$> Prelude.takeText
 
-instance ToText ScalingAdjustmentType where
-  toText (ScalingAdjustmentType' ci) = original ci
+instance Prelude.ToText ScalingAdjustmentType where
+  toText (ScalingAdjustmentType' x) = x
 
-instance Hashable ScalingAdjustmentType
+instance Prelude.Hashable ScalingAdjustmentType
 
-instance NFData ScalingAdjustmentType
+instance Prelude.NFData ScalingAdjustmentType
 
-instance ToByteString ScalingAdjustmentType
+instance Prelude.ToByteString ScalingAdjustmentType
 
-instance ToQuery ScalingAdjustmentType
+instance Prelude.ToQuery ScalingAdjustmentType
 
-instance ToHeader ScalingAdjustmentType
+instance Prelude.ToHeader ScalingAdjustmentType
 
-instance ToJSON ScalingAdjustmentType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ScalingAdjustmentType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ScalingAdjustmentType where
-  parseJSON = parseJSONText "ScalingAdjustmentType"
+instance Prelude.FromJSON ScalingAdjustmentType where
+  parseJSON = Prelude.parseJSONText "ScalingAdjustmentType"

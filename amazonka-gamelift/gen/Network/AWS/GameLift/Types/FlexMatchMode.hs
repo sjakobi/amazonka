@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.GameLift.Types.FlexMatchMode
   ( FlexMatchMode
       ( ..,
-        Standalone,
-        WithQueue
+        FlexMatchModeSTANDALONE,
+        FlexMatchModeWITHQUEUE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data FlexMatchMode = FlexMatchMode' (CI Text)
+newtype FlexMatchMode = FlexMatchMode'
+  { fromFlexMatchMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Standalone :: FlexMatchMode
-pattern Standalone = FlexMatchMode' "STANDALONE"
+pattern FlexMatchModeSTANDALONE :: FlexMatchMode
+pattern FlexMatchModeSTANDALONE = FlexMatchMode' "STANDALONE"
 
-pattern WithQueue :: FlexMatchMode
-pattern WithQueue = FlexMatchMode' "WITH_QUEUE"
+pattern FlexMatchModeWITHQUEUE :: FlexMatchMode
+pattern FlexMatchModeWITHQUEUE = FlexMatchMode' "WITH_QUEUE"
 
 {-# COMPLETE
-  Standalone,
-  WithQueue,
+  FlexMatchModeSTANDALONE,
+  FlexMatchModeWITHQUEUE,
   FlexMatchMode'
   #-}
 
-instance FromText FlexMatchMode where
-  parser = (FlexMatchMode' . mk) <$> takeText
+instance Prelude.FromText FlexMatchMode where
+  parser = FlexMatchMode' Prelude.<$> Prelude.takeText
 
-instance ToText FlexMatchMode where
-  toText (FlexMatchMode' ci) = original ci
+instance Prelude.ToText FlexMatchMode where
+  toText (FlexMatchMode' x) = x
 
-instance Hashable FlexMatchMode
+instance Prelude.Hashable FlexMatchMode
 
-instance NFData FlexMatchMode
+instance Prelude.NFData FlexMatchMode
 
-instance ToByteString FlexMatchMode
+instance Prelude.ToByteString FlexMatchMode
 
-instance ToQuery FlexMatchMode
+instance Prelude.ToQuery FlexMatchMode
 
-instance ToHeader FlexMatchMode
+instance Prelude.ToHeader FlexMatchMode
 
-instance ToJSON FlexMatchMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON FlexMatchMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON FlexMatchMode where
-  parseJSON = parseJSONText "FlexMatchMode"
+instance Prelude.FromJSON FlexMatchMode where
+  parseJSON = Prelude.parseJSONText "FlexMatchMode"

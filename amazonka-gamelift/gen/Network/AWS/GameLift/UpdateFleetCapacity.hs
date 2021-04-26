@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,12 +21,25 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates capacity settings for a fleet. Use this operation to specify the number of EC2 instances (hosts) that you want this fleet to contain. Before calling this operation, you may want to call 'DescribeEC2InstanceLimits' to get the maximum capacity based on the fleet's EC2 instance type.
+-- Updates capacity settings for a fleet. Use this operation to specify the
+-- number of EC2 instances (hosts) that you want this fleet to contain.
+-- Before calling this operation, you may want to call
+-- DescribeEC2InstanceLimits to get the maximum capacity based on the
+-- fleet\'s EC2 instance type.
 --
+-- Specify minimum and maximum number of instances. Amazon GameLift will
+-- not change fleet capacity to values fall outside of this range. This is
+-- particularly important when using auto-scaling (see PutScalingPolicy) to
+-- allow capacity to adjust based on player demand while imposing limits on
+-- automatic adjustments.
 --
--- Specify minimum and maximum number of instances. Amazon GameLift will not change fleet capacity to values fall outside of this range. This is particularly important when using auto-scaling (see 'PutScalingPolicy' ) to allow capacity to adjust based on player demand while imposing limits on automatic adjustments.
---
--- To update fleet capacity, specify the fleet ID and the number of instances you want the fleet to host. If successful, Amazon GameLift starts or terminates instances so that the fleet's active instance count matches the desired instance count. You can view a fleet's current capacity information by calling 'DescribeFleetCapacity' . If the desired instance count is higher than the instance type's limit, the "Limit Exceeded" exception occurs.
+-- To update fleet capacity, specify the fleet ID and the number of
+-- instances you want the fleet to host. If successful, Amazon GameLift
+-- starts or terminates instances so that the fleet\'s active instance
+-- count matches the desired instance count. You can view a fleet\'s
+-- current capacity information by calling DescribeFleetCapacity. If the
+-- desired instance count is higher than the instance type\'s limit, the
+-- \"Limit Exceeded\" exception occurs.
 --
 -- __Learn more__
 --
@@ -30,196 +47,208 @@
 --
 -- __Related operations__
 --
---     * 'CreateFleet'
+-- -   CreateFleet
 --
---     * 'ListFleets'
+-- -   ListFleets
 --
---     * 'DeleteFleet'
+-- -   DeleteFleet
 --
---     * 'DescribeFleetAttributes'
+-- -   DescribeFleetAttributes
 --
---     * Update fleets:
+-- -   Update fleets:
 --
---     * 'UpdateFleetAttributes'
+--     -   UpdateFleetAttributes
 --
---     * 'UpdateFleetCapacity'
+--     -   UpdateFleetCapacity
 --
---     * 'UpdateFleetPortSettings'
+--     -   UpdateFleetPortSettings
 --
---     * 'UpdateRuntimeConfiguration'
+--     -   UpdateRuntimeConfiguration
 --
---
---
---     * 'StartFleetActions' or 'StopFleetActions'
+-- -   StartFleetActions or StopFleetActions
 module Network.AWS.GameLift.UpdateFleetCapacity
   ( -- * Creating a Request
-    updateFleetCapacity,
-    UpdateFleetCapacity,
+    UpdateFleetCapacity (..),
+    newUpdateFleetCapacity,
 
     -- * Request Lenses
-    ufcMinSize,
-    ufcMaxSize,
-    ufcDesiredInstances,
-    ufcFleetId,
+    updateFleetCapacity_minSize,
+    updateFleetCapacity_maxSize,
+    updateFleetCapacity_desiredInstances,
+    updateFleetCapacity_fleetId,
 
     -- * Destructuring the Response
-    updateFleetCapacityResponse,
-    UpdateFleetCapacityResponse,
+    UpdateFleetCapacityResponse (..),
+    newUpdateFleetCapacityResponse,
 
     -- * Response Lenses
-    ufcrrsFleetId,
-    ufcrrsResponseStatus,
+    updateFleetCapacityResponse_fleetId,
+    updateFleetCapacityResponse_httpStatus,
   )
 where
 
 import Network.AWS.GameLift.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input for a request operation.
 --
---
---
--- /See:/ 'updateFleetCapacity' smart constructor.
+-- /See:/ 'newUpdateFleetCapacity' smart constructor.
 data UpdateFleetCapacity = UpdateFleetCapacity'
-  { _ufcMinSize ::
-      !(Maybe Nat),
-    _ufcMaxSize :: !(Maybe Nat),
-    _ufcDesiredInstances ::
-      !(Maybe Nat),
-    _ufcFleetId :: !Text
+  { -- | The minimum value allowed for the fleet\'s instance count. Default if
+    -- not set is 0.
+    minSize :: Prelude.Maybe Prelude.Nat,
+    -- | The maximum value allowed for the fleet\'s instance count. Default if
+    -- not set is 1.
+    maxSize :: Prelude.Maybe Prelude.Nat,
+    -- | Number of EC2 instances you want this fleet to host.
+    desiredInstances :: Prelude.Maybe Prelude.Nat,
+    -- | A unique identifier for a fleet to update capacity for. You can use
+    -- either the fleet ID or ARN value.
+    fleetId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateFleetCapacity' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateFleetCapacity' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ufcMinSize' - The minimum value allowed for the fleet's instance count. Default if not set is 0.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ufcMaxSize' - The maximum value allowed for the fleet's instance count. Default if not set is 1.
+-- 'minSize', 'updateFleetCapacity_minSize' - The minimum value allowed for the fleet\'s instance count. Default if
+-- not set is 0.
 --
--- * 'ufcDesiredInstances' - Number of EC2 instances you want this fleet to host.
+-- 'maxSize', 'updateFleetCapacity_maxSize' - The maximum value allowed for the fleet\'s instance count. Default if
+-- not set is 1.
 --
--- * 'ufcFleetId' - A unique identifier for a fleet to update capacity for. You can use either the fleet ID or ARN value.
-updateFleetCapacity ::
-  -- | 'ufcFleetId'
-  Text ->
+-- 'desiredInstances', 'updateFleetCapacity_desiredInstances' - Number of EC2 instances you want this fleet to host.
+--
+-- 'fleetId', 'updateFleetCapacity_fleetId' - A unique identifier for a fleet to update capacity for. You can use
+-- either the fleet ID or ARN value.
+newUpdateFleetCapacity ::
+  -- | 'fleetId'
+  Prelude.Text ->
   UpdateFleetCapacity
-updateFleetCapacity pFleetId_ =
+newUpdateFleetCapacity pFleetId_ =
   UpdateFleetCapacity'
-    { _ufcMinSize = Nothing,
-      _ufcMaxSize = Nothing,
-      _ufcDesiredInstances = Nothing,
-      _ufcFleetId = pFleetId_
+    { minSize = Prelude.Nothing,
+      maxSize = Prelude.Nothing,
+      desiredInstances = Prelude.Nothing,
+      fleetId = pFleetId_
     }
 
--- | The minimum value allowed for the fleet's instance count. Default if not set is 0.
-ufcMinSize :: Lens' UpdateFleetCapacity (Maybe Natural)
-ufcMinSize = lens _ufcMinSize (\s a -> s {_ufcMinSize = a}) . mapping _Nat
+-- | The minimum value allowed for the fleet\'s instance count. Default if
+-- not set is 0.
+updateFleetCapacity_minSize :: Lens.Lens' UpdateFleetCapacity (Prelude.Maybe Prelude.Natural)
+updateFleetCapacity_minSize = Lens.lens (\UpdateFleetCapacity' {minSize} -> minSize) (\s@UpdateFleetCapacity' {} a -> s {minSize = a} :: UpdateFleetCapacity) Prelude.. Lens.mapping Prelude._Nat
 
--- | The maximum value allowed for the fleet's instance count. Default if not set is 1.
-ufcMaxSize :: Lens' UpdateFleetCapacity (Maybe Natural)
-ufcMaxSize = lens _ufcMaxSize (\s a -> s {_ufcMaxSize = a}) . mapping _Nat
+-- | The maximum value allowed for the fleet\'s instance count. Default if
+-- not set is 1.
+updateFleetCapacity_maxSize :: Lens.Lens' UpdateFleetCapacity (Prelude.Maybe Prelude.Natural)
+updateFleetCapacity_maxSize = Lens.lens (\UpdateFleetCapacity' {maxSize} -> maxSize) (\s@UpdateFleetCapacity' {} a -> s {maxSize = a} :: UpdateFleetCapacity) Prelude.. Lens.mapping Prelude._Nat
 
 -- | Number of EC2 instances you want this fleet to host.
-ufcDesiredInstances :: Lens' UpdateFleetCapacity (Maybe Natural)
-ufcDesiredInstances = lens _ufcDesiredInstances (\s a -> s {_ufcDesiredInstances = a}) . mapping _Nat
+updateFleetCapacity_desiredInstances :: Lens.Lens' UpdateFleetCapacity (Prelude.Maybe Prelude.Natural)
+updateFleetCapacity_desiredInstances = Lens.lens (\UpdateFleetCapacity' {desiredInstances} -> desiredInstances) (\s@UpdateFleetCapacity' {} a -> s {desiredInstances = a} :: UpdateFleetCapacity) Prelude.. Lens.mapping Prelude._Nat
 
--- | A unique identifier for a fleet to update capacity for. You can use either the fleet ID or ARN value.
-ufcFleetId :: Lens' UpdateFleetCapacity Text
-ufcFleetId = lens _ufcFleetId (\s a -> s {_ufcFleetId = a})
+-- | A unique identifier for a fleet to update capacity for. You can use
+-- either the fleet ID or ARN value.
+updateFleetCapacity_fleetId :: Lens.Lens' UpdateFleetCapacity Prelude.Text
+updateFleetCapacity_fleetId = Lens.lens (\UpdateFleetCapacity' {fleetId} -> fleetId) (\s@UpdateFleetCapacity' {} a -> s {fleetId = a} :: UpdateFleetCapacity)
 
-instance AWSRequest UpdateFleetCapacity where
+instance Prelude.AWSRequest UpdateFleetCapacity where
   type
     Rs UpdateFleetCapacity =
       UpdateFleetCapacityResponse
-  request = postJSON gameLift
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateFleetCapacityResponse'
-            <$> (x .?> "FleetId") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "FleetId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateFleetCapacity
+instance Prelude.Hashable UpdateFleetCapacity
 
-instance NFData UpdateFleetCapacity
+instance Prelude.NFData UpdateFleetCapacity
 
-instance ToHeaders UpdateFleetCapacity where
+instance Prelude.ToHeaders UpdateFleetCapacity where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("GameLift.UpdateFleetCapacity" :: ByteString),
+              Prelude.=# ( "GameLift.UpdateFleetCapacity" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateFleetCapacity where
+instance Prelude.ToJSON UpdateFleetCapacity where
   toJSON UpdateFleetCapacity' {..} =
-    object
-      ( catMaybes
-          [ ("MinSize" .=) <$> _ufcMinSize,
-            ("MaxSize" .=) <$> _ufcMaxSize,
-            ("DesiredInstances" .=) <$> _ufcDesiredInstances,
-            Just ("FleetId" .= _ufcFleetId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("MinSize" Prelude..=) Prelude.<$> minSize,
+            ("MaxSize" Prelude..=) Prelude.<$> maxSize,
+            ("DesiredInstances" Prelude..=)
+              Prelude.<$> desiredInstances,
+            Prelude.Just ("FleetId" Prelude..= fleetId)
           ]
       )
 
-instance ToPath UpdateFleetCapacity where
-  toPath = const "/"
+instance Prelude.ToPath UpdateFleetCapacity where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateFleetCapacity where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateFleetCapacity where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the returned data in response to a request operation.
 --
---
---
--- /See:/ 'updateFleetCapacityResponse' smart constructor.
+-- /See:/ 'newUpdateFleetCapacityResponse' smart constructor.
 data UpdateFleetCapacityResponse = UpdateFleetCapacityResponse'
-  { _ufcrrsFleetId ::
-      !(Maybe Text),
-    _ufcrrsResponseStatus ::
-      !Int
+  { -- | A unique identifier for a fleet that was updated.
+    fleetId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateFleetCapacityResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateFleetCapacityResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ufcrrsFleetId' - A unique identifier for a fleet that was updated.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ufcrrsResponseStatus' - -- | The response status code.
-updateFleetCapacityResponse ::
-  -- | 'ufcrrsResponseStatus'
-  Int ->
+-- 'fleetId', 'updateFleetCapacityResponse_fleetId' - A unique identifier for a fleet that was updated.
+--
+-- 'httpStatus', 'updateFleetCapacityResponse_httpStatus' - The response's http status code.
+newUpdateFleetCapacityResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateFleetCapacityResponse
-updateFleetCapacityResponse pResponseStatus_ =
+newUpdateFleetCapacityResponse pHttpStatus_ =
   UpdateFleetCapacityResponse'
-    { _ufcrrsFleetId =
-        Nothing,
-      _ufcrrsResponseStatus = pResponseStatus_
+    { fleetId =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A unique identifier for a fleet that was updated.
-ufcrrsFleetId :: Lens' UpdateFleetCapacityResponse (Maybe Text)
-ufcrrsFleetId = lens _ufcrrsFleetId (\s a -> s {_ufcrrsFleetId = a})
+updateFleetCapacityResponse_fleetId :: Lens.Lens' UpdateFleetCapacityResponse (Prelude.Maybe Prelude.Text)
+updateFleetCapacityResponse_fleetId = Lens.lens (\UpdateFleetCapacityResponse' {fleetId} -> fleetId) (\s@UpdateFleetCapacityResponse' {} a -> s {fleetId = a} :: UpdateFleetCapacityResponse)
 
--- | -- | The response status code.
-ufcrrsResponseStatus :: Lens' UpdateFleetCapacityResponse Int
-ufcrrsResponseStatus = lens _ufcrrsResponseStatus (\s a -> s {_ufcrrsResponseStatus = a})
+-- | The response's http status code.
+updateFleetCapacityResponse_httpStatus :: Lens.Lens' UpdateFleetCapacityResponse Prelude.Int
+updateFleetCapacityResponse_httpStatus = Lens.lens (\UpdateFleetCapacityResponse' {httpStatus} -> httpStatus) (\s@UpdateFleetCapacityResponse' {} a -> s {httpStatus = a} :: UpdateFleetCapacityResponse)
 
-instance NFData UpdateFleetCapacityResponse
+instance Prelude.NFData UpdateFleetCapacityResponse

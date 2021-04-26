@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,265 +21,522 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves all active game sessions that match a set of search criteria and sorts them in a specified order. You can search or sort by the following game session attributes:
+-- Retrieves all active game sessions that match a set of search criteria
+-- and sorts them in a specified order. You can search or sort by the
+-- following game session attributes:
 --
+-- -   __gameSessionId__ -- A unique identifier for the game session. You
+--     can use either a @GameSessionId@ or @GameSessionArn@ value.
 --
---     * __gameSessionId__ -- A unique identifier for the game session. You can use either a @GameSessionId@ or @GameSessionArn@ value.
+-- -   __gameSessionName__ -- Name assigned to a game session. This value
+--     is set when requesting a new game session with CreateGameSession or
+--     updating with UpdateGameSession. Game session names do not need to
+--     be unique to a game session.
 --
---     * __gameSessionName__ -- Name assigned to a game session. This value is set when requesting a new game session with 'CreateGameSession' or updating with 'UpdateGameSession' . Game session names do not need to be unique to a game session.
+-- -   __gameSessionProperties__ -- Custom data defined in a game
+--     session\'s @GameProperty@ parameter. @GameProperty@ values are
+--     stored as key:value pairs; the filter expression must indicate the
+--     key and a string to search the data values for. For example, to
+--     search for game sessions with custom data containing the key:value
+--     pair \"gameMode:brawl\", specify the following:
+--     @gameSessionProperties.gameMode = \"brawl\"@. All custom data values
+--     are searched as strings.
 --
---     * __gameSessionProperties__ -- Custom data defined in a game session's @GameProperty@ parameter. @GameProperty@ values are stored as key:value pairs; the filter expression must indicate the key and a string to search the data values for. For example, to search for game sessions with custom data containing the key:value pair "gameMode:brawl", specify the following: @gameSessionProperties.gameMode = "brawl"@ . All custom data values are searched as strings.
+-- -   __maximumSessions__ -- Maximum number of player sessions allowed for
+--     a game session. This value is set when requesting a new game session
+--     with CreateGameSession or updating with UpdateGameSession.
 --
---     * __maximumSessions__ -- Maximum number of player sessions allowed for a game session. This value is set when requesting a new game session with 'CreateGameSession' or updating with 'UpdateGameSession' .
+-- -   __creationTimeMillis__ -- Value indicating when a game session was
+--     created. It is expressed in Unix time as milliseconds.
 --
---     * __creationTimeMillis__ -- Value indicating when a game session was created. It is expressed in Unix time as milliseconds.
+-- -   __playerSessionCount__ -- Number of players currently connected to a
+--     game session. This value changes rapidly as players join the session
+--     or drop out.
 --
---     * __playerSessionCount__ -- Number of players currently connected to a game session. This value changes rapidly as players join the session or drop out.
+-- -   __hasAvailablePlayerSessions__ -- Boolean value indicating whether a
+--     game session has reached its maximum number of players. It is highly
+--     recommended that all search requests include this filter attribute
+--     to optimize search performance and return only sessions that players
+--     can join.
 --
---     * __hasAvailablePlayerSessions__ -- Boolean value indicating whether a game session has reached its maximum number of players. It is highly recommended that all search requests include this filter attribute to optimize search performance and return only sessions that players can join.
+-- Returned values for @playerSessionCount@ and
+-- @hasAvailablePlayerSessions@ change quickly as players join sessions and
+-- others drop out. Results should be considered a snapshot in time. Be
+-- sure to refresh search results often, and handle sessions that fill up
+-- before a player can join.
 --
+-- To search or sort, specify either a fleet ID or an alias ID, and provide
+-- a search filter expression, a sort expression, or both. If successful, a
+-- collection of GameSession objects matching the request is returned. Use
+-- the pagination parameters to retrieve results as a set of sequential
+-- pages.
 --
+-- You can search for game sessions one fleet at a time only. To find game
+-- sessions across multiple fleets, you must search each fleet separately
+-- and combine the results. This search feature finds only game sessions
+-- that are in @ACTIVE@ status. To locate games in statuses other than
+-- active, use DescribeGameSessionDetails.
 --
--- To search or sort, specify either a fleet ID or an alias ID, and provide a search filter expression, a sort expression, or both. If successful, a collection of 'GameSession' objects matching the request is returned. Use the pagination parameters to retrieve results as a set of sequential pages.
+-- -   CreateGameSession
 --
--- You can search for game sessions one fleet at a time only. To find game sessions across multiple fleets, you must search each fleet separately and combine the results. This search feature finds only game sessions that are in @ACTIVE@ status. To locate games in statuses other than active, use 'DescribeGameSessionDetails' .
+-- -   DescribeGameSessions
 --
---     * 'CreateGameSession'
+-- -   DescribeGameSessionDetails
 --
---     * 'DescribeGameSessions'
+-- -   SearchGameSessions
 --
---     * 'DescribeGameSessionDetails'
+-- -   UpdateGameSession
 --
---     * 'SearchGameSessions'
+-- -   GetGameSessionLogUrl
 --
---     * 'UpdateGameSession'
+-- -   Game session placements
 --
---     * 'GetGameSessionLogUrl'
+--     -   StartGameSessionPlacement
 --
---     * Game session placements
+--     -   DescribeGameSessionPlacement
 --
---     * 'StartGameSessionPlacement'
---
---     * 'DescribeGameSessionPlacement'
---
---     * 'StopGameSessionPlacement'
---
---
---
---
---
+--     -   StopGameSessionPlacement
 --
 -- This operation returns paginated results.
 module Network.AWS.GameLift.SearchGameSessions
   ( -- * Creating a Request
-    searchGameSessions,
-    SearchGameSessions,
+    SearchGameSessions (..),
+    newSearchGameSessions,
 
     -- * Request Lenses
-    sgsNextToken,
-    sgsFleetId,
-    sgsSortExpression,
-    sgsFilterExpression,
-    sgsAliasId,
-    sgsLimit,
+    searchGameSessions_nextToken,
+    searchGameSessions_fleetId,
+    searchGameSessions_sortExpression,
+    searchGameSessions_filterExpression,
+    searchGameSessions_aliasId,
+    searchGameSessions_limit,
 
     -- * Destructuring the Response
-    searchGameSessionsResponse,
-    SearchGameSessionsResponse,
+    SearchGameSessionsResponse (..),
+    newSearchGameSessionsResponse,
 
     -- * Response Lenses
-    sgsrrsNextToken,
-    sgsrrsGameSessions,
-    sgsrrsResponseStatus,
+    searchGameSessionsResponse_nextToken,
+    searchGameSessionsResponse_gameSessions,
+    searchGameSessionsResponse_httpStatus,
   )
 where
 
 import Network.AWS.GameLift.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.GameLift.Types.GameSession
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input for a request operation.
 --
---
---
--- /See:/ 'searchGameSessions' smart constructor.
+-- /See:/ 'newSearchGameSessions' smart constructor.
 data SearchGameSessions = SearchGameSessions'
-  { _sgsNextToken ::
-      !(Maybe Text),
-    _sgsFleetId :: !(Maybe Text),
-    _sgsSortExpression ::
-      !(Maybe Text),
-    _sgsFilterExpression ::
-      !(Maybe Text),
-    _sgsAliasId :: !(Maybe Text),
-    _sgsLimit :: !(Maybe Nat)
+  { -- | Token that indicates the start of the next sequential page of results.
+    -- Use the token that is returned with a previous call to this operation.
+    -- To start at the beginning of the result set, do not specify a value.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A unique identifier for a fleet to search for active game sessions. You
+    -- can use either the fleet ID or ARN value. Each request must reference
+    -- either a fleet ID or alias ID, but not both.
+    fleetId :: Prelude.Maybe Prelude.Text,
+    -- | Instructions on how to sort the search results. If no sort expression is
+    -- included, the request returns results in random order. A sort expression
+    -- consists of the following elements:
+    --
+    -- -   __Operand__ -- Name of a game session attribute. Valid values are
+    --     @gameSessionName@, @gameSessionId@, @gameSessionProperties@,
+    --     @maximumSessions@, @creationTimeMillis@, @playerSessionCount@,
+    --     @hasAvailablePlayerSessions@.
+    --
+    -- -   __Order__ -- Valid sort orders are @ASC@ (ascending) and @DESC@
+    --     (descending).
+    --
+    -- For example, this sort expression returns the oldest active sessions
+    -- first: @\"SortExpression\": \"creationTimeMillis ASC\"@. Results with a
+    -- null value for the sort operand are returned at the end of the list.
+    sortExpression :: Prelude.Maybe Prelude.Text,
+    -- | String containing the search criteria for the session search. If no
+    -- filter expression is included, the request returns results for all game
+    -- sessions in the fleet that are in @ACTIVE@ status.
+    --
+    -- A filter expression can contain one or multiple conditions. Each
+    -- condition consists of the following:
+    --
+    -- -   __Operand__ -- Name of a game session attribute. Valid values are
+    --     @gameSessionName@, @gameSessionId@, @gameSessionProperties@,
+    --     @maximumSessions@, @creationTimeMillis@, @playerSessionCount@,
+    --     @hasAvailablePlayerSessions@.
+    --
+    -- -   __Comparator__ -- Valid comparators are: @=@, @\<>@, @\<@, @>@,
+    --     @\<=@, @>=@.
+    --
+    -- -   __Value__ -- Value to be searched for. Values may be numbers,
+    --     boolean values (true\/false) or strings depending on the operand.
+    --     String values are case sensitive and must be enclosed in single
+    --     quotes. Special characters must be escaped. Boolean and string
+    --     values can only be used with the comparators @=@ and @\<>@. For
+    --     example, the following filter expression searches on
+    --     @gameSessionName@:
+    --     \"@FilterExpression\": \"gameSessionName = \'Matt\\\\\'s Awesome Game 1\'\"@.
+    --
+    -- To chain multiple conditions in a single expression, use the logical
+    -- keywords @AND@, @OR@, and @NOT@ and parentheses as needed. For example:
+    -- @x AND y AND NOT z@, @NOT (x OR y)@.
+    --
+    -- Session search evaluates conditions from left to right using the
+    -- following precedence rules:
+    --
+    -- 1.  @=@, @\<>@, @\<@, @>@, @\<=@, @>=@
+    --
+    -- 2.  Parentheses
+    --
+    -- 3.  NOT
+    --
+    -- 4.  AND
+    --
+    -- 5.  OR
+    --
+    -- For example, this filter expression retrieves game sessions hosting at
+    -- least ten players that have an open player slot:
+    -- @\"maximumSessions>=10 AND hasAvailablePlayerSessions=true\"@.
+    filterExpression :: Prelude.Maybe Prelude.Text,
+    -- | A unique identifier for an alias associated with the fleet to search for
+    -- active game sessions. You can use either the alias ID or ARN value. Each
+    -- request must reference either a fleet ID or alias ID, but not both.
+    aliasId :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return. Use this parameter with
+    -- @NextToken@ to get results as a set of sequential pages. The maximum
+    -- number of results returned is 20, even if this value is not set or is
+    -- set higher than 20.
+    limit :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SearchGameSessions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SearchGameSessions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sgsNextToken' - Token that indicates the start of the next sequential page of results. Use the token that is returned with a previous call to this operation. To start at the beginning of the result set, do not specify a value.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sgsFleetId' - A unique identifier for a fleet to search for active game sessions. You can use either the fleet ID or ARN value. Each request must reference either a fleet ID or alias ID, but not both.
+-- 'nextToken', 'searchGameSessions_nextToken' - Token that indicates the start of the next sequential page of results.
+-- Use the token that is returned with a previous call to this operation.
+-- To start at the beginning of the result set, do not specify a value.
 --
--- * 'sgsSortExpression' - Instructions on how to sort the search results. If no sort expression is included, the request returns results in random order. A sort expression consists of the following elements:     * __Operand__ -- Name of a game session attribute. Valid values are @gameSessionName@ , @gameSessionId@ , @gameSessionProperties@ , @maximumSessions@ , @creationTimeMillis@ , @playerSessionCount@ , @hasAvailablePlayerSessions@ .     * __Order__ -- Valid sort orders are @ASC@ (ascending) and @DESC@ (descending). For example, this sort expression returns the oldest active sessions first: @"SortExpression": "creationTimeMillis ASC"@ . Results with a null value for the sort operand are returned at the end of the list.
+-- 'fleetId', 'searchGameSessions_fleetId' - A unique identifier for a fleet to search for active game sessions. You
+-- can use either the fleet ID or ARN value. Each request must reference
+-- either a fleet ID or alias ID, but not both.
 --
--- * 'sgsFilterExpression' - String containing the search criteria for the session search. If no filter expression is included, the request returns results for all game sessions in the fleet that are in @ACTIVE@ status. A filter expression can contain one or multiple conditions. Each condition consists of the following:     * __Operand__ -- Name of a game session attribute. Valid values are @gameSessionName@ , @gameSessionId@ , @gameSessionProperties@ , @maximumSessions@ , @creationTimeMillis@ , @playerSessionCount@ , @hasAvailablePlayerSessions@ .     * __Comparator__ -- Valid comparators are: @=@ , @<>@ , @<@ , @>@ , @<=@ , @>=@ .      * __Value__ -- Value to be searched for. Values may be numbers, boolean values (true/false) or strings depending on the operand. String values are case sensitive and must be enclosed in single quotes. Special characters must be escaped. Boolean and string values can only be used with the comparators @=@ and @<>@ . For example, the following filter expression searches on @gameSessionName@ : "@FilterExpression": "gameSessionName = 'Matt\\'s Awesome Game 1'"@ .  To chain multiple conditions in a single expression, use the logical keywords @AND@ , @OR@ , and @NOT@ and parentheses as needed. For example: @x AND y AND NOT z@ , @NOT (x OR y)@ . Session search evaluates conditions from left to right using the following precedence rules:     * @=@ , @<>@ , @<@ , @>@ , @<=@ , @>=@      * Parentheses     * NOT     * AND     * OR For example, this filter expression retrieves game sessions hosting at least ten players that have an open player slot: @"maximumSessions>=10 AND hasAvailablePlayerSessions=true"@ .
+-- 'sortExpression', 'searchGameSessions_sortExpression' - Instructions on how to sort the search results. If no sort expression is
+-- included, the request returns results in random order. A sort expression
+-- consists of the following elements:
 --
--- * 'sgsAliasId' - A unique identifier for an alias associated with the fleet to search for active game sessions. You can use either the alias ID or ARN value. Each request must reference either a fleet ID or alias ID, but not both.
+-- -   __Operand__ -- Name of a game session attribute. Valid values are
+--     @gameSessionName@, @gameSessionId@, @gameSessionProperties@,
+--     @maximumSessions@, @creationTimeMillis@, @playerSessionCount@,
+--     @hasAvailablePlayerSessions@.
 --
--- * 'sgsLimit' - The maximum number of results to return. Use this parameter with @NextToken@ to get results as a set of sequential pages. The maximum number of results returned is 20, even if this value is not set or is set higher than 20.
-searchGameSessions ::
+-- -   __Order__ -- Valid sort orders are @ASC@ (ascending) and @DESC@
+--     (descending).
+--
+-- For example, this sort expression returns the oldest active sessions
+-- first: @\"SortExpression\": \"creationTimeMillis ASC\"@. Results with a
+-- null value for the sort operand are returned at the end of the list.
+--
+-- 'filterExpression', 'searchGameSessions_filterExpression' - String containing the search criteria for the session search. If no
+-- filter expression is included, the request returns results for all game
+-- sessions in the fleet that are in @ACTIVE@ status.
+--
+-- A filter expression can contain one or multiple conditions. Each
+-- condition consists of the following:
+--
+-- -   __Operand__ -- Name of a game session attribute. Valid values are
+--     @gameSessionName@, @gameSessionId@, @gameSessionProperties@,
+--     @maximumSessions@, @creationTimeMillis@, @playerSessionCount@,
+--     @hasAvailablePlayerSessions@.
+--
+-- -   __Comparator__ -- Valid comparators are: @=@, @\<>@, @\<@, @>@,
+--     @\<=@, @>=@.
+--
+-- -   __Value__ -- Value to be searched for. Values may be numbers,
+--     boolean values (true\/false) or strings depending on the operand.
+--     String values are case sensitive and must be enclosed in single
+--     quotes. Special characters must be escaped. Boolean and string
+--     values can only be used with the comparators @=@ and @\<>@. For
+--     example, the following filter expression searches on
+--     @gameSessionName@:
+--     \"@FilterExpression\": \"gameSessionName = \'Matt\\\\\'s Awesome Game 1\'\"@.
+--
+-- To chain multiple conditions in a single expression, use the logical
+-- keywords @AND@, @OR@, and @NOT@ and parentheses as needed. For example:
+-- @x AND y AND NOT z@, @NOT (x OR y)@.
+--
+-- Session search evaluates conditions from left to right using the
+-- following precedence rules:
+--
+-- 1.  @=@, @\<>@, @\<@, @>@, @\<=@, @>=@
+--
+-- 2.  Parentheses
+--
+-- 3.  NOT
+--
+-- 4.  AND
+--
+-- 5.  OR
+--
+-- For example, this filter expression retrieves game sessions hosting at
+-- least ten players that have an open player slot:
+-- @\"maximumSessions>=10 AND hasAvailablePlayerSessions=true\"@.
+--
+-- 'aliasId', 'searchGameSessions_aliasId' - A unique identifier for an alias associated with the fleet to search for
+-- active game sessions. You can use either the alias ID or ARN value. Each
+-- request must reference either a fleet ID or alias ID, but not both.
+--
+-- 'limit', 'searchGameSessions_limit' - The maximum number of results to return. Use this parameter with
+-- @NextToken@ to get results as a set of sequential pages. The maximum
+-- number of results returned is 20, even if this value is not set or is
+-- set higher than 20.
+newSearchGameSessions ::
   SearchGameSessions
-searchGameSessions =
+newSearchGameSessions =
   SearchGameSessions'
-    { _sgsNextToken = Nothing,
-      _sgsFleetId = Nothing,
-      _sgsSortExpression = Nothing,
-      _sgsFilterExpression = Nothing,
-      _sgsAliasId = Nothing,
-      _sgsLimit = Nothing
+    { nextToken = Prelude.Nothing,
+      fleetId = Prelude.Nothing,
+      sortExpression = Prelude.Nothing,
+      filterExpression = Prelude.Nothing,
+      aliasId = Prelude.Nothing,
+      limit = Prelude.Nothing
     }
 
--- | Token that indicates the start of the next sequential page of results. Use the token that is returned with a previous call to this operation. To start at the beginning of the result set, do not specify a value.
-sgsNextToken :: Lens' SearchGameSessions (Maybe Text)
-sgsNextToken = lens _sgsNextToken (\s a -> s {_sgsNextToken = a})
+-- | Token that indicates the start of the next sequential page of results.
+-- Use the token that is returned with a previous call to this operation.
+-- To start at the beginning of the result set, do not specify a value.
+searchGameSessions_nextToken :: Lens.Lens' SearchGameSessions (Prelude.Maybe Prelude.Text)
+searchGameSessions_nextToken = Lens.lens (\SearchGameSessions' {nextToken} -> nextToken) (\s@SearchGameSessions' {} a -> s {nextToken = a} :: SearchGameSessions)
 
--- | A unique identifier for a fleet to search for active game sessions. You can use either the fleet ID or ARN value. Each request must reference either a fleet ID or alias ID, but not both.
-sgsFleetId :: Lens' SearchGameSessions (Maybe Text)
-sgsFleetId = lens _sgsFleetId (\s a -> s {_sgsFleetId = a})
+-- | A unique identifier for a fleet to search for active game sessions. You
+-- can use either the fleet ID or ARN value. Each request must reference
+-- either a fleet ID or alias ID, but not both.
+searchGameSessions_fleetId :: Lens.Lens' SearchGameSessions (Prelude.Maybe Prelude.Text)
+searchGameSessions_fleetId = Lens.lens (\SearchGameSessions' {fleetId} -> fleetId) (\s@SearchGameSessions' {} a -> s {fleetId = a} :: SearchGameSessions)
 
--- | Instructions on how to sort the search results. If no sort expression is included, the request returns results in random order. A sort expression consists of the following elements:     * __Operand__ -- Name of a game session attribute. Valid values are @gameSessionName@ , @gameSessionId@ , @gameSessionProperties@ , @maximumSessions@ , @creationTimeMillis@ , @playerSessionCount@ , @hasAvailablePlayerSessions@ .     * __Order__ -- Valid sort orders are @ASC@ (ascending) and @DESC@ (descending). For example, this sort expression returns the oldest active sessions first: @"SortExpression": "creationTimeMillis ASC"@ . Results with a null value for the sort operand are returned at the end of the list.
-sgsSortExpression :: Lens' SearchGameSessions (Maybe Text)
-sgsSortExpression = lens _sgsSortExpression (\s a -> s {_sgsSortExpression = a})
+-- | Instructions on how to sort the search results. If no sort expression is
+-- included, the request returns results in random order. A sort expression
+-- consists of the following elements:
+--
+-- -   __Operand__ -- Name of a game session attribute. Valid values are
+--     @gameSessionName@, @gameSessionId@, @gameSessionProperties@,
+--     @maximumSessions@, @creationTimeMillis@, @playerSessionCount@,
+--     @hasAvailablePlayerSessions@.
+--
+-- -   __Order__ -- Valid sort orders are @ASC@ (ascending) and @DESC@
+--     (descending).
+--
+-- For example, this sort expression returns the oldest active sessions
+-- first: @\"SortExpression\": \"creationTimeMillis ASC\"@. Results with a
+-- null value for the sort operand are returned at the end of the list.
+searchGameSessions_sortExpression :: Lens.Lens' SearchGameSessions (Prelude.Maybe Prelude.Text)
+searchGameSessions_sortExpression = Lens.lens (\SearchGameSessions' {sortExpression} -> sortExpression) (\s@SearchGameSessions' {} a -> s {sortExpression = a} :: SearchGameSessions)
 
--- | String containing the search criteria for the session search. If no filter expression is included, the request returns results for all game sessions in the fleet that are in @ACTIVE@ status. A filter expression can contain one or multiple conditions. Each condition consists of the following:     * __Operand__ -- Name of a game session attribute. Valid values are @gameSessionName@ , @gameSessionId@ , @gameSessionProperties@ , @maximumSessions@ , @creationTimeMillis@ , @playerSessionCount@ , @hasAvailablePlayerSessions@ .     * __Comparator__ -- Valid comparators are: @=@ , @<>@ , @<@ , @>@ , @<=@ , @>=@ .      * __Value__ -- Value to be searched for. Values may be numbers, boolean values (true/false) or strings depending on the operand. String values are case sensitive and must be enclosed in single quotes. Special characters must be escaped. Boolean and string values can only be used with the comparators @=@ and @<>@ . For example, the following filter expression searches on @gameSessionName@ : "@FilterExpression": "gameSessionName = 'Matt\\'s Awesome Game 1'"@ .  To chain multiple conditions in a single expression, use the logical keywords @AND@ , @OR@ , and @NOT@ and parentheses as needed. For example: @x AND y AND NOT z@ , @NOT (x OR y)@ . Session search evaluates conditions from left to right using the following precedence rules:     * @=@ , @<>@ , @<@ , @>@ , @<=@ , @>=@      * Parentheses     * NOT     * AND     * OR For example, this filter expression retrieves game sessions hosting at least ten players that have an open player slot: @"maximumSessions>=10 AND hasAvailablePlayerSessions=true"@ .
-sgsFilterExpression :: Lens' SearchGameSessions (Maybe Text)
-sgsFilterExpression = lens _sgsFilterExpression (\s a -> s {_sgsFilterExpression = a})
+-- | String containing the search criteria for the session search. If no
+-- filter expression is included, the request returns results for all game
+-- sessions in the fleet that are in @ACTIVE@ status.
+--
+-- A filter expression can contain one or multiple conditions. Each
+-- condition consists of the following:
+--
+-- -   __Operand__ -- Name of a game session attribute. Valid values are
+--     @gameSessionName@, @gameSessionId@, @gameSessionProperties@,
+--     @maximumSessions@, @creationTimeMillis@, @playerSessionCount@,
+--     @hasAvailablePlayerSessions@.
+--
+-- -   __Comparator__ -- Valid comparators are: @=@, @\<>@, @\<@, @>@,
+--     @\<=@, @>=@.
+--
+-- -   __Value__ -- Value to be searched for. Values may be numbers,
+--     boolean values (true\/false) or strings depending on the operand.
+--     String values are case sensitive and must be enclosed in single
+--     quotes. Special characters must be escaped. Boolean and string
+--     values can only be used with the comparators @=@ and @\<>@. For
+--     example, the following filter expression searches on
+--     @gameSessionName@:
+--     \"@FilterExpression\": \"gameSessionName = \'Matt\\\\\'s Awesome Game 1\'\"@.
+--
+-- To chain multiple conditions in a single expression, use the logical
+-- keywords @AND@, @OR@, and @NOT@ and parentheses as needed. For example:
+-- @x AND y AND NOT z@, @NOT (x OR y)@.
+--
+-- Session search evaluates conditions from left to right using the
+-- following precedence rules:
+--
+-- 1.  @=@, @\<>@, @\<@, @>@, @\<=@, @>=@
+--
+-- 2.  Parentheses
+--
+-- 3.  NOT
+--
+-- 4.  AND
+--
+-- 5.  OR
+--
+-- For example, this filter expression retrieves game sessions hosting at
+-- least ten players that have an open player slot:
+-- @\"maximumSessions>=10 AND hasAvailablePlayerSessions=true\"@.
+searchGameSessions_filterExpression :: Lens.Lens' SearchGameSessions (Prelude.Maybe Prelude.Text)
+searchGameSessions_filterExpression = Lens.lens (\SearchGameSessions' {filterExpression} -> filterExpression) (\s@SearchGameSessions' {} a -> s {filterExpression = a} :: SearchGameSessions)
 
--- | A unique identifier for an alias associated with the fleet to search for active game sessions. You can use either the alias ID or ARN value. Each request must reference either a fleet ID or alias ID, but not both.
-sgsAliasId :: Lens' SearchGameSessions (Maybe Text)
-sgsAliasId = lens _sgsAliasId (\s a -> s {_sgsAliasId = a})
+-- | A unique identifier for an alias associated with the fleet to search for
+-- active game sessions. You can use either the alias ID or ARN value. Each
+-- request must reference either a fleet ID or alias ID, but not both.
+searchGameSessions_aliasId :: Lens.Lens' SearchGameSessions (Prelude.Maybe Prelude.Text)
+searchGameSessions_aliasId = Lens.lens (\SearchGameSessions' {aliasId} -> aliasId) (\s@SearchGameSessions' {} a -> s {aliasId = a} :: SearchGameSessions)
 
--- | The maximum number of results to return. Use this parameter with @NextToken@ to get results as a set of sequential pages. The maximum number of results returned is 20, even if this value is not set or is set higher than 20.
-sgsLimit :: Lens' SearchGameSessions (Maybe Natural)
-sgsLimit = lens _sgsLimit (\s a -> s {_sgsLimit = a}) . mapping _Nat
+-- | The maximum number of results to return. Use this parameter with
+-- @NextToken@ to get results as a set of sequential pages. The maximum
+-- number of results returned is 20, even if this value is not set or is
+-- set higher than 20.
+searchGameSessions_limit :: Lens.Lens' SearchGameSessions (Prelude.Maybe Prelude.Natural)
+searchGameSessions_limit = Lens.lens (\SearchGameSessions' {limit} -> limit) (\s@SearchGameSessions' {} a -> s {limit = a} :: SearchGameSessions) Prelude.. Lens.mapping Prelude._Nat
 
-instance AWSPager SearchGameSessions where
+instance Pager.AWSPager SearchGameSessions where
   page rq rs
-    | stop (rs ^. sgsrrsNextToken) = Nothing
-    | stop (rs ^. sgsrrsGameSessions) = Nothing
-    | otherwise =
-      Just $ rq & sgsNextToken .~ rs ^. sgsrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? searchGameSessionsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? searchGameSessionsResponse_gameSessions
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& searchGameSessions_nextToken
+          Lens..~ rs
+          Lens.^? searchGameSessionsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest SearchGameSessions where
+instance Prelude.AWSRequest SearchGameSessions where
   type
     Rs SearchGameSessions =
       SearchGameSessionsResponse
-  request = postJSON gameLift
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           SearchGameSessionsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "GameSessions" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "GameSessions"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable SearchGameSessions
+instance Prelude.Hashable SearchGameSessions
 
-instance NFData SearchGameSessions
+instance Prelude.NFData SearchGameSessions
 
-instance ToHeaders SearchGameSessions where
+instance Prelude.ToHeaders SearchGameSessions where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("GameLift.SearchGameSessions" :: ByteString),
+              Prelude.=# ( "GameLift.SearchGameSessions" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON SearchGameSessions where
+instance Prelude.ToJSON SearchGameSessions where
   toJSON SearchGameSessions' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _sgsNextToken,
-            ("FleetId" .=) <$> _sgsFleetId,
-            ("SortExpression" .=) <$> _sgsSortExpression,
-            ("FilterExpression" .=) <$> _sgsFilterExpression,
-            ("AliasId" .=) <$> _sgsAliasId,
-            ("Limit" .=) <$> _sgsLimit
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("FleetId" Prelude..=) Prelude.<$> fleetId,
+            ("SortExpression" Prelude..=)
+              Prelude.<$> sortExpression,
+            ("FilterExpression" Prelude..=)
+              Prelude.<$> filterExpression,
+            ("AliasId" Prelude..=) Prelude.<$> aliasId,
+            ("Limit" Prelude..=) Prelude.<$> limit
           ]
       )
 
-instance ToPath SearchGameSessions where
-  toPath = const "/"
+instance Prelude.ToPath SearchGameSessions where
+  toPath = Prelude.const "/"
 
-instance ToQuery SearchGameSessions where
-  toQuery = const mempty
+instance Prelude.ToQuery SearchGameSessions where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the returned data in response to a request operation.
 --
---
---
--- /See:/ 'searchGameSessionsResponse' smart constructor.
+-- /See:/ 'newSearchGameSessionsResponse' smart constructor.
 data SearchGameSessionsResponse = SearchGameSessionsResponse'
-  { _sgsrrsNextToken ::
-      !(Maybe Text),
-    _sgsrrsGameSessions ::
-      !( Maybe
-           [GameSession]
-       ),
-    _sgsrrsResponseStatus ::
-      !Int
+  { -- | Token that indicates where to resume retrieving results on the next call
+    -- to this operation. If no token is returned, these results represent the
+    -- end of the list.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A collection of objects containing game session properties for each
+    -- session matching the request.
+    gameSessions :: Prelude.Maybe [GameSession],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SearchGameSessionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SearchGameSessionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sgsrrsNextToken' - Token that indicates where to resume retrieving results on the next call to this operation. If no token is returned, these results represent the end of the list.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sgsrrsGameSessions' - A collection of objects containing game session properties for each session matching the request.
+-- 'nextToken', 'searchGameSessionsResponse_nextToken' - Token that indicates where to resume retrieving results on the next call
+-- to this operation. If no token is returned, these results represent the
+-- end of the list.
 --
--- * 'sgsrrsResponseStatus' - -- | The response status code.
-searchGameSessionsResponse ::
-  -- | 'sgsrrsResponseStatus'
-  Int ->
+-- 'gameSessions', 'searchGameSessionsResponse_gameSessions' - A collection of objects containing game session properties for each
+-- session matching the request.
+--
+-- 'httpStatus', 'searchGameSessionsResponse_httpStatus' - The response's http status code.
+newSearchGameSessionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   SearchGameSessionsResponse
-searchGameSessionsResponse pResponseStatus_ =
+newSearchGameSessionsResponse pHttpStatus_ =
   SearchGameSessionsResponse'
-    { _sgsrrsNextToken =
-        Nothing,
-      _sgsrrsGameSessions = Nothing,
-      _sgsrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      gameSessions = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Token that indicates where to resume retrieving results on the next call to this operation. If no token is returned, these results represent the end of the list.
-sgsrrsNextToken :: Lens' SearchGameSessionsResponse (Maybe Text)
-sgsrrsNextToken = lens _sgsrrsNextToken (\s a -> s {_sgsrrsNextToken = a})
+-- | Token that indicates where to resume retrieving results on the next call
+-- to this operation. If no token is returned, these results represent the
+-- end of the list.
+searchGameSessionsResponse_nextToken :: Lens.Lens' SearchGameSessionsResponse (Prelude.Maybe Prelude.Text)
+searchGameSessionsResponse_nextToken = Lens.lens (\SearchGameSessionsResponse' {nextToken} -> nextToken) (\s@SearchGameSessionsResponse' {} a -> s {nextToken = a} :: SearchGameSessionsResponse)
 
--- | A collection of objects containing game session properties for each session matching the request.
-sgsrrsGameSessions :: Lens' SearchGameSessionsResponse [GameSession]
-sgsrrsGameSessions = lens _sgsrrsGameSessions (\s a -> s {_sgsrrsGameSessions = a}) . _Default . _Coerce
+-- | A collection of objects containing game session properties for each
+-- session matching the request.
+searchGameSessionsResponse_gameSessions :: Lens.Lens' SearchGameSessionsResponse (Prelude.Maybe [GameSession])
+searchGameSessionsResponse_gameSessions = Lens.lens (\SearchGameSessionsResponse' {gameSessions} -> gameSessions) (\s@SearchGameSessionsResponse' {} a -> s {gameSessions = a} :: SearchGameSessionsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-sgsrrsResponseStatus :: Lens' SearchGameSessionsResponse Int
-sgsrrsResponseStatus = lens _sgsrrsResponseStatus (\s a -> s {_sgsrrsResponseStatus = a})
+-- | The response's http status code.
+searchGameSessionsResponse_httpStatus :: Lens.Lens' SearchGameSessionsResponse Prelude.Int
+searchGameSessionsResponse_httpStatus = Lens.lens (\SearchGameSessionsResponse' {httpStatus} -> httpStatus) (\s@SearchGameSessionsResponse' {} a -> s {httpStatus = a} :: SearchGameSessionsResponse)
 
-instance NFData SearchGameSessionsResponse
+instance Prelude.NFData SearchGameSessionsResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,14 +23,13 @@
 --
 -- Retrieves the following information for the specified EC2 instance type:
 --
+-- -   Maximum number of instances allowed per AWS account (service limit).
 --
---     * Maximum number of instances allowed per AWS account (service limit).
+-- -   Current usage for the AWS account.
 --
---     * Current usage for the AWS account.
---
---
---
--- To learn more about the capabilities of each instance type, see <http://aws.amazon.com/ec2/instance-types/ Amazon EC2 Instance Types> . Note that the instance types offered may vary depending on the region.
+-- To learn more about the capabilities of each instance type, see
+-- <http://aws.amazon.com/ec2/instance-types/ Amazon EC2 Instance Types>.
+-- Note that the instance types offered may vary depending on the region.
 --
 -- __Learn more__
 --
@@ -34,165 +37,180 @@
 --
 -- __Related operations__
 --
---     * 'CreateFleet'
+-- -   CreateFleet
 --
---     * 'ListFleets'
+-- -   ListFleets
 --
---     * 'DeleteFleet'
+-- -   DeleteFleet
 --
---     * 'DescribeFleetAttributes'
+-- -   DescribeFleetAttributes
 --
---     * 'UpdateFleetAttributes'
+-- -   UpdateFleetAttributes
 --
---     * 'StartFleetActions' or 'StopFleetActions'
+-- -   StartFleetActions or StopFleetActions
 module Network.AWS.GameLift.DescribeEC2InstanceLimits
   ( -- * Creating a Request
-    describeEC2InstanceLimits,
-    DescribeEC2InstanceLimits,
+    DescribeEC2InstanceLimits (..),
+    newDescribeEC2InstanceLimits,
 
     -- * Request Lenses
-    deilEC2InstanceType,
+    describeEC2InstanceLimits_eC2InstanceType,
 
     -- * Destructuring the Response
-    describeEC2InstanceLimitsResponse,
-    DescribeEC2InstanceLimitsResponse,
+    DescribeEC2InstanceLimitsResponse (..),
+    newDescribeEC2InstanceLimitsResponse,
 
     -- * Response Lenses
-    deilrrsEC2InstanceLimits,
-    deilrrsResponseStatus,
+    describeEC2InstanceLimitsResponse_eC2InstanceLimits,
+    describeEC2InstanceLimitsResponse_httpStatus,
   )
 where
 
 import Network.AWS.GameLift.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.GameLift.Types.EC2InstanceLimit
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input for a request operation.
 --
---
---
--- /See:/ 'describeEC2InstanceLimits' smart constructor.
-newtype DescribeEC2InstanceLimits = DescribeEC2InstanceLimits'
-  { _deilEC2InstanceType ::
-      Maybe
-        EC2InstanceType
+-- /See:/ 'newDescribeEC2InstanceLimits' smart constructor.
+data DescribeEC2InstanceLimits = DescribeEC2InstanceLimits'
+  { -- | Name of an EC2 instance type that is supported in Amazon GameLift. A
+    -- fleet instance type determines the computing resources of each instance
+    -- in the fleet, including CPU, memory, storage, and networking capacity.
+    -- Amazon GameLift supports the following EC2 instance types. See
+    -- <http://aws.amazon.com/ec2/instance-types/ Amazon EC2 Instance Types>
+    -- for detailed descriptions. Leave this parameter blank to retrieve limits
+    -- for all types.
+    eC2InstanceType :: Prelude.Maybe EC2InstanceType
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeEC2InstanceLimits' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeEC2InstanceLimits' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'deilEC2InstanceType' - Name of an EC2 instance type that is supported in Amazon GameLift. A fleet instance type determines the computing resources of each instance in the fleet, including CPU, memory, storage, and networking capacity. Amazon GameLift supports the following EC2 instance types. See <http://aws.amazon.com/ec2/instance-types/ Amazon EC2 Instance Types> for detailed descriptions. Leave this parameter blank to retrieve limits for all types.
-describeEC2InstanceLimits ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'eC2InstanceType', 'describeEC2InstanceLimits_eC2InstanceType' - Name of an EC2 instance type that is supported in Amazon GameLift. A
+-- fleet instance type determines the computing resources of each instance
+-- in the fleet, including CPU, memory, storage, and networking capacity.
+-- Amazon GameLift supports the following EC2 instance types. See
+-- <http://aws.amazon.com/ec2/instance-types/ Amazon EC2 Instance Types>
+-- for detailed descriptions. Leave this parameter blank to retrieve limits
+-- for all types.
+newDescribeEC2InstanceLimits ::
   DescribeEC2InstanceLimits
-describeEC2InstanceLimits =
+newDescribeEC2InstanceLimits =
   DescribeEC2InstanceLimits'
-    { _deilEC2InstanceType =
-        Nothing
+    { eC2InstanceType =
+        Prelude.Nothing
     }
 
--- | Name of an EC2 instance type that is supported in Amazon GameLift. A fleet instance type determines the computing resources of each instance in the fleet, including CPU, memory, storage, and networking capacity. Amazon GameLift supports the following EC2 instance types. See <http://aws.amazon.com/ec2/instance-types/ Amazon EC2 Instance Types> for detailed descriptions. Leave this parameter blank to retrieve limits for all types.
-deilEC2InstanceType :: Lens' DescribeEC2InstanceLimits (Maybe EC2InstanceType)
-deilEC2InstanceType = lens _deilEC2InstanceType (\s a -> s {_deilEC2InstanceType = a})
+-- | Name of an EC2 instance type that is supported in Amazon GameLift. A
+-- fleet instance type determines the computing resources of each instance
+-- in the fleet, including CPU, memory, storage, and networking capacity.
+-- Amazon GameLift supports the following EC2 instance types. See
+-- <http://aws.amazon.com/ec2/instance-types/ Amazon EC2 Instance Types>
+-- for detailed descriptions. Leave this parameter blank to retrieve limits
+-- for all types.
+describeEC2InstanceLimits_eC2InstanceType :: Lens.Lens' DescribeEC2InstanceLimits (Prelude.Maybe EC2InstanceType)
+describeEC2InstanceLimits_eC2InstanceType = Lens.lens (\DescribeEC2InstanceLimits' {eC2InstanceType} -> eC2InstanceType) (\s@DescribeEC2InstanceLimits' {} a -> s {eC2InstanceType = a} :: DescribeEC2InstanceLimits)
 
-instance AWSRequest DescribeEC2InstanceLimits where
+instance Prelude.AWSRequest DescribeEC2InstanceLimits where
   type
     Rs DescribeEC2InstanceLimits =
       DescribeEC2InstanceLimitsResponse
-  request = postJSON gameLift
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeEC2InstanceLimitsResponse'
-            <$> (x .?> "EC2InstanceLimits" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "EC2InstanceLimits"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeEC2InstanceLimits
+instance Prelude.Hashable DescribeEC2InstanceLimits
 
-instance NFData DescribeEC2InstanceLimits
+instance Prelude.NFData DescribeEC2InstanceLimits
 
-instance ToHeaders DescribeEC2InstanceLimits where
+instance Prelude.ToHeaders DescribeEC2InstanceLimits where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("GameLift.DescribeEC2InstanceLimits" :: ByteString),
+              Prelude.=# ( "GameLift.DescribeEC2InstanceLimits" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeEC2InstanceLimits where
+instance Prelude.ToJSON DescribeEC2InstanceLimits where
   toJSON DescribeEC2InstanceLimits' {..} =
-    object
-      ( catMaybes
-          [("EC2InstanceType" .=) <$> _deilEC2InstanceType]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("EC2InstanceType" Prelude..=)
+              Prelude.<$> eC2InstanceType
+          ]
       )
 
-instance ToPath DescribeEC2InstanceLimits where
-  toPath = const "/"
+instance Prelude.ToPath DescribeEC2InstanceLimits where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeEC2InstanceLimits where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeEC2InstanceLimits where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the returned data in response to a request operation.
 --
---
---
--- /See:/ 'describeEC2InstanceLimitsResponse' smart constructor.
+-- /See:/ 'newDescribeEC2InstanceLimitsResponse' smart constructor.
 data DescribeEC2InstanceLimitsResponse = DescribeEC2InstanceLimitsResponse'
-  { _deilrrsEC2InstanceLimits ::
-      !( Maybe
-           [EC2InstanceLimit]
-       ),
-    _deilrrsResponseStatus ::
-      !Int
+  { -- | The maximum number of instances for the specified instance type.
+    eC2InstanceLimits :: Prelude.Maybe [EC2InstanceLimit],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeEC2InstanceLimitsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeEC2InstanceLimitsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'deilrrsEC2InstanceLimits' - The maximum number of instances for the specified instance type.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'deilrrsResponseStatus' - -- | The response status code.
-describeEC2InstanceLimitsResponse ::
-  -- | 'deilrrsResponseStatus'
-  Int ->
+-- 'eC2InstanceLimits', 'describeEC2InstanceLimitsResponse_eC2InstanceLimits' - The maximum number of instances for the specified instance type.
+--
+-- 'httpStatus', 'describeEC2InstanceLimitsResponse_httpStatus' - The response's http status code.
+newDescribeEC2InstanceLimitsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeEC2InstanceLimitsResponse
-describeEC2InstanceLimitsResponse pResponseStatus_ =
+newDescribeEC2InstanceLimitsResponse pHttpStatus_ =
   DescribeEC2InstanceLimitsResponse'
-    { _deilrrsEC2InstanceLimits =
-        Nothing,
-      _deilrrsResponseStatus =
-        pResponseStatus_
+    { eC2InstanceLimits =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The maximum number of instances for the specified instance type.
-deilrrsEC2InstanceLimits :: Lens' DescribeEC2InstanceLimitsResponse [EC2InstanceLimit]
-deilrrsEC2InstanceLimits = lens _deilrrsEC2InstanceLimits (\s a -> s {_deilrrsEC2InstanceLimits = a}) . _Default . _Coerce
+describeEC2InstanceLimitsResponse_eC2InstanceLimits :: Lens.Lens' DescribeEC2InstanceLimitsResponse (Prelude.Maybe [EC2InstanceLimit])
+describeEC2InstanceLimitsResponse_eC2InstanceLimits = Lens.lens (\DescribeEC2InstanceLimitsResponse' {eC2InstanceLimits} -> eC2InstanceLimits) (\s@DescribeEC2InstanceLimitsResponse' {} a -> s {eC2InstanceLimits = a} :: DescribeEC2InstanceLimitsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-deilrrsResponseStatus :: Lens' DescribeEC2InstanceLimitsResponse Int
-deilrrsResponseStatus = lens _deilrrsResponseStatus (\s a -> s {_deilrrsResponseStatus = a})
+-- | The response's http status code.
+describeEC2InstanceLimitsResponse_httpStatus :: Lens.Lens' DescribeEC2InstanceLimitsResponse Prelude.Int
+describeEC2InstanceLimitsResponse_httpStatus = Lens.lens (\DescribeEC2InstanceLimitsResponse' {httpStatus} -> httpStatus) (\s@DescribeEC2InstanceLimitsResponse' {} a -> s {httpStatus = a} :: DescribeEC2InstanceLimitsResponse)
 
-instance NFData DescribeEC2InstanceLimitsResponse
+instance
+  Prelude.NFData
+    DescribeEC2InstanceLimitsResponse

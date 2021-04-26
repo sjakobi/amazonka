@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,12 +21,15 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- __This operation is used with the Amazon GameLift FleetIQ solution and game server groups.__
+-- __This operation is used with the Amazon GameLift FleetIQ solution and
+-- game server groups.__
 --
+-- Retrieves information for a registered game server. Information includes
+-- game server status, health check info, and the instance that the game
+-- server is running on.
 --
--- Retrieves information for a registered game server. Information includes game server status, health check info, and the instance that the game server is running on.
---
--- To retrieve game server information, specify the game server ID. If successful, the requested game server object is returned.
+-- To retrieve game server information, specify the game server ID. If
+-- successful, the requested game server object is returned.
 --
 -- __Learn more__
 --
@@ -30,165 +37,180 @@
 --
 -- __Related operations__
 --
---     * 'RegisterGameServer'
+-- -   RegisterGameServer
 --
---     * 'ListGameServers'
+-- -   ListGameServers
 --
---     * 'ClaimGameServer'
+-- -   ClaimGameServer
 --
---     * 'DescribeGameServer'
+-- -   DescribeGameServer
 --
---     * 'UpdateGameServer'
+-- -   UpdateGameServer
 --
---     * 'DeregisterGameServer'
+-- -   DeregisterGameServer
 module Network.AWS.GameLift.DescribeGameServer
   ( -- * Creating a Request
-    describeGameServer,
-    DescribeGameServer,
+    DescribeGameServer (..),
+    newDescribeGameServer,
 
     -- * Request Lenses
-    dGameServerGroupName,
-    dGameServerId,
+    describeGameServer_gameServerGroupName,
+    describeGameServer_gameServerId,
 
     -- * Destructuring the Response
-    describeGameServerResponse,
-    DescribeGameServerResponse,
+    DescribeGameServerResponse (..),
+    newDescribeGameServerResponse,
 
     -- * Response Lenses
-    desrsGameServer,
-    desrsResponseStatus,
+    describeGameServerResponse_gameServer,
+    describeGameServerResponse_httpStatus,
   )
 where
 
 import Network.AWS.GameLift.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.GameLift.Types.GameServer
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeGameServer' smart constructor.
+-- | /See:/ 'newDescribeGameServer' smart constructor.
 data DescribeGameServer = DescribeGameServer'
-  { _dGameServerGroupName ::
-      !Text,
-    _dGameServerId :: !Text
+  { -- | A unique identifier for the game server group where the game server is
+    -- running. Use either the GameServerGroup name or ARN value.
+    gameServerGroupName :: Prelude.Text,
+    -- | A custom string that uniquely identifies the game server information to
+    -- be retrieved.
+    gameServerId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeGameServer' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeGameServer' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dGameServerGroupName' - A unique identifier for the game server group where the game server is running. Use either the 'GameServerGroup' name or ARN value.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dGameServerId' - A custom string that uniquely identifies the game server information to be retrieved.
-describeGameServer ::
-  -- | 'dGameServerGroupName'
-  Text ->
-  -- | 'dGameServerId'
-  Text ->
+-- 'gameServerGroupName', 'describeGameServer_gameServerGroupName' - A unique identifier for the game server group where the game server is
+-- running. Use either the GameServerGroup name or ARN value.
+--
+-- 'gameServerId', 'describeGameServer_gameServerId' - A custom string that uniquely identifies the game server information to
+-- be retrieved.
+newDescribeGameServer ::
+  -- | 'gameServerGroupName'
+  Prelude.Text ->
+  -- | 'gameServerId'
+  Prelude.Text ->
   DescribeGameServer
-describeGameServer
+newDescribeGameServer
   pGameServerGroupName_
   pGameServerId_ =
     DescribeGameServer'
-      { _dGameServerGroupName =
+      { gameServerGroupName =
           pGameServerGroupName_,
-        _dGameServerId = pGameServerId_
+        gameServerId = pGameServerId_
       }
 
--- | A unique identifier for the game server group where the game server is running. Use either the 'GameServerGroup' name or ARN value.
-dGameServerGroupName :: Lens' DescribeGameServer Text
-dGameServerGroupName = lens _dGameServerGroupName (\s a -> s {_dGameServerGroupName = a})
+-- | A unique identifier for the game server group where the game server is
+-- running. Use either the GameServerGroup name or ARN value.
+describeGameServer_gameServerGroupName :: Lens.Lens' DescribeGameServer Prelude.Text
+describeGameServer_gameServerGroupName = Lens.lens (\DescribeGameServer' {gameServerGroupName} -> gameServerGroupName) (\s@DescribeGameServer' {} a -> s {gameServerGroupName = a} :: DescribeGameServer)
 
--- | A custom string that uniquely identifies the game server information to be retrieved.
-dGameServerId :: Lens' DescribeGameServer Text
-dGameServerId = lens _dGameServerId (\s a -> s {_dGameServerId = a})
+-- | A custom string that uniquely identifies the game server information to
+-- be retrieved.
+describeGameServer_gameServerId :: Lens.Lens' DescribeGameServer Prelude.Text
+describeGameServer_gameServerId = Lens.lens (\DescribeGameServer' {gameServerId} -> gameServerId) (\s@DescribeGameServer' {} a -> s {gameServerId = a} :: DescribeGameServer)
 
-instance AWSRequest DescribeGameServer where
+instance Prelude.AWSRequest DescribeGameServer where
   type
     Rs DescribeGameServer =
       DescribeGameServerResponse
-  request = postJSON gameLift
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeGameServerResponse'
-            <$> (x .?> "GameServer") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "GameServer")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeGameServer
+instance Prelude.Hashable DescribeGameServer
 
-instance NFData DescribeGameServer
+instance Prelude.NFData DescribeGameServer
 
-instance ToHeaders DescribeGameServer where
+instance Prelude.ToHeaders DescribeGameServer where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("GameLift.DescribeGameServer" :: ByteString),
+              Prelude.=# ( "GameLift.DescribeGameServer" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeGameServer where
+instance Prelude.ToJSON DescribeGameServer where
   toJSON DescribeGameServer' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("GameServerGroupName" .= _dGameServerGroupName),
-            Just ("GameServerId" .= _dGameServerId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ( "GameServerGroupName"
+                  Prelude..= gameServerGroupName
+              ),
+            Prelude.Just
+              ("GameServerId" Prelude..= gameServerId)
           ]
       )
 
-instance ToPath DescribeGameServer where
-  toPath = const "/"
+instance Prelude.ToPath DescribeGameServer where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeGameServer where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeGameServer where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeGameServerResponse' smart constructor.
+-- | /See:/ 'newDescribeGameServerResponse' smart constructor.
 data DescribeGameServerResponse = DescribeGameServerResponse'
-  { _desrsGameServer ::
-      !( Maybe
-           GameServer
-       ),
-    _desrsResponseStatus ::
-      !Int
+  { -- | Object that describes the requested game server.
+    gameServer :: Prelude.Maybe GameServer,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeGameServerResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeGameServerResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'desrsGameServer' - Object that describes the requested game server.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'desrsResponseStatus' - -- | The response status code.
-describeGameServerResponse ::
-  -- | 'desrsResponseStatus'
-  Int ->
+-- 'gameServer', 'describeGameServerResponse_gameServer' - Object that describes the requested game server.
+--
+-- 'httpStatus', 'describeGameServerResponse_httpStatus' - The response's http status code.
+newDescribeGameServerResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeGameServerResponse
-describeGameServerResponse pResponseStatus_ =
+newDescribeGameServerResponse pHttpStatus_ =
   DescribeGameServerResponse'
-    { _desrsGameServer =
-        Nothing,
-      _desrsResponseStatus = pResponseStatus_
+    { gameServer =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Object that describes the requested game server.
-desrsGameServer :: Lens' DescribeGameServerResponse (Maybe GameServer)
-desrsGameServer = lens _desrsGameServer (\s a -> s {_desrsGameServer = a})
+describeGameServerResponse_gameServer :: Lens.Lens' DescribeGameServerResponse (Prelude.Maybe GameServer)
+describeGameServerResponse_gameServer = Lens.lens (\DescribeGameServerResponse' {gameServer} -> gameServer) (\s@DescribeGameServerResponse' {} a -> s {gameServer = a} :: DescribeGameServerResponse)
 
--- | -- | The response status code.
-desrsResponseStatus :: Lens' DescribeGameServerResponse Int
-desrsResponseStatus = lens _desrsResponseStatus (\s a -> s {_desrsResponseStatus = a})
+-- | The response's http status code.
+describeGameServerResponse_httpStatus :: Lens.Lens' DescribeGameServerResponse Prelude.Int
+describeGameServerResponse_httpStatus = Lens.lens (\DescribeGameServerResponse' {httpStatus} -> httpStatus) (\s@DescribeGameServerResponse' {} a -> s {httpStatus = a} :: DescribeGameServerResponse)
 
-instance NFData DescribeGameServerResponse
+instance Prelude.NFData DescribeGameServerResponse

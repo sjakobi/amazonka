@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,87 +20,122 @@
 module Network.AWS.GameLift.Types.RoutingStrategy where
 
 import Network.AWS.GameLift.Types.RoutingStrategyType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The routing configuration for a fleet alias.
 --
+-- -   CreateAlias
 --
---     * 'CreateAlias'
+-- -   ListAliases
 --
---     * 'ListAliases'
+-- -   DescribeAlias
 --
---     * 'DescribeAlias'
+-- -   UpdateAlias
 --
---     * 'UpdateAlias'
+-- -   DeleteAlias
 --
---     * 'DeleteAlias'
+-- -   ResolveAlias
 --
---     * 'ResolveAlias'
---
---
---
---
--- /See:/ 'routingStrategy' smart constructor.
+-- /See:/ 'newRoutingStrategy' smart constructor.
 data RoutingStrategy = RoutingStrategy'
-  { _rsFleetId ::
-      !(Maybe Text),
-    _rsMessage :: !(Maybe Text),
-    _rsType :: !(Maybe RoutingStrategyType)
+  { -- | The unique identifier for a fleet that the alias points to. This value
+    -- is the fleet ID, not the fleet ARN.
+    fleetId :: Prelude.Maybe Prelude.Text,
+    -- | The message text to be used with a terminal routing strategy.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The type of routing strategy for the alias.
+    --
+    -- Possible routing types include the following:
+    --
+    -- -   __SIMPLE__ - The alias resolves to one specific fleet. Use this type
+    --     when routing to active fleets.
+    --
+    -- -   __TERMINAL__ - The alias does not resolve to a fleet but instead can
+    --     be used to display a message to the user. A terminal alias throws a
+    --     TerminalRoutingStrategyException with the RoutingStrategy message
+    --     embedded.
+    type' :: Prelude.Maybe RoutingStrategyType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RoutingStrategy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RoutingStrategy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rsFleetId' - The unique identifier for a fleet that the alias points to. This value is the fleet ID, not the fleet ARN.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rsMessage' - The message text to be used with a terminal routing strategy.
+-- 'fleetId', 'routingStrategy_fleetId' - The unique identifier for a fleet that the alias points to. This value
+-- is the fleet ID, not the fleet ARN.
 --
--- * 'rsType' - The type of routing strategy for the alias. Possible routing types include the following:     * __SIMPLE__ - The alias resolves to one specific fleet. Use this type when routing to active fleets.     * __TERMINAL__ - The alias does not resolve to a fleet but instead can be used to display a message to the user. A terminal alias throws a TerminalRoutingStrategyException with the 'RoutingStrategy' message embedded.
-routingStrategy ::
+-- 'message', 'routingStrategy_message' - The message text to be used with a terminal routing strategy.
+--
+-- 'type'', 'routingStrategy_type' - The type of routing strategy for the alias.
+--
+-- Possible routing types include the following:
+--
+-- -   __SIMPLE__ - The alias resolves to one specific fleet. Use this type
+--     when routing to active fleets.
+--
+-- -   __TERMINAL__ - The alias does not resolve to a fleet but instead can
+--     be used to display a message to the user. A terminal alias throws a
+--     TerminalRoutingStrategyException with the RoutingStrategy message
+--     embedded.
+newRoutingStrategy ::
   RoutingStrategy
-routingStrategy =
+newRoutingStrategy =
   RoutingStrategy'
-    { _rsFleetId = Nothing,
-      _rsMessage = Nothing,
-      _rsType = Nothing
+    { fleetId = Prelude.Nothing,
+      message = Prelude.Nothing,
+      type' = Prelude.Nothing
     }
 
--- | The unique identifier for a fleet that the alias points to. This value is the fleet ID, not the fleet ARN.
-rsFleetId :: Lens' RoutingStrategy (Maybe Text)
-rsFleetId = lens _rsFleetId (\s a -> s {_rsFleetId = a})
+-- | The unique identifier for a fleet that the alias points to. This value
+-- is the fleet ID, not the fleet ARN.
+routingStrategy_fleetId :: Lens.Lens' RoutingStrategy (Prelude.Maybe Prelude.Text)
+routingStrategy_fleetId = Lens.lens (\RoutingStrategy' {fleetId} -> fleetId) (\s@RoutingStrategy' {} a -> s {fleetId = a} :: RoutingStrategy)
 
 -- | The message text to be used with a terminal routing strategy.
-rsMessage :: Lens' RoutingStrategy (Maybe Text)
-rsMessage = lens _rsMessage (\s a -> s {_rsMessage = a})
+routingStrategy_message :: Lens.Lens' RoutingStrategy (Prelude.Maybe Prelude.Text)
+routingStrategy_message = Lens.lens (\RoutingStrategy' {message} -> message) (\s@RoutingStrategy' {} a -> s {message = a} :: RoutingStrategy)
 
--- | The type of routing strategy for the alias. Possible routing types include the following:     * __SIMPLE__ - The alias resolves to one specific fleet. Use this type when routing to active fleets.     * __TERMINAL__ - The alias does not resolve to a fleet but instead can be used to display a message to the user. A terminal alias throws a TerminalRoutingStrategyException with the 'RoutingStrategy' message embedded.
-rsType :: Lens' RoutingStrategy (Maybe RoutingStrategyType)
-rsType = lens _rsType (\s a -> s {_rsType = a})
+-- | The type of routing strategy for the alias.
+--
+-- Possible routing types include the following:
+--
+-- -   __SIMPLE__ - The alias resolves to one specific fleet. Use this type
+--     when routing to active fleets.
+--
+-- -   __TERMINAL__ - The alias does not resolve to a fleet but instead can
+--     be used to display a message to the user. A terminal alias throws a
+--     TerminalRoutingStrategyException with the RoutingStrategy message
+--     embedded.
+routingStrategy_type :: Lens.Lens' RoutingStrategy (Prelude.Maybe RoutingStrategyType)
+routingStrategy_type = Lens.lens (\RoutingStrategy' {type'} -> type') (\s@RoutingStrategy' {} a -> s {type' = a} :: RoutingStrategy)
 
-instance FromJSON RoutingStrategy where
+instance Prelude.FromJSON RoutingStrategy where
   parseJSON =
-    withObject
+    Prelude.withObject
       "RoutingStrategy"
       ( \x ->
           RoutingStrategy'
-            <$> (x .:? "FleetId")
-            <*> (x .:? "Message")
-            <*> (x .:? "Type")
+            Prelude.<$> (x Prelude..:? "FleetId")
+            Prelude.<*> (x Prelude..:? "Message")
+            Prelude.<*> (x Prelude..:? "Type")
       )
 
-instance Hashable RoutingStrategy
+instance Prelude.Hashable RoutingStrategy
 
-instance NFData RoutingStrategy
+instance Prelude.NFData RoutingStrategy
 
-instance ToJSON RoutingStrategy where
+instance Prelude.ToJSON RoutingStrategy where
   toJSON RoutingStrategy' {..} =
-    object
-      ( catMaybes
-          [ ("FleetId" .=) <$> _rsFleetId,
-            ("Message" .=) <$> _rsMessage,
-            ("Type" .=) <$> _rsType
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("FleetId" Prelude..=) Prelude.<$> fleetId,
+            ("Message" Prelude..=) Prelude.<$> message,
+            ("Type" Prelude..=) Prelude.<$> type'
           ]
       )

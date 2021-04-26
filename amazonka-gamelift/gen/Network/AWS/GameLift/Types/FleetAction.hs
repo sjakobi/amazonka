@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,51 +19,53 @@
 module Network.AWS.GameLift.Types.FleetAction
   ( FleetAction
       ( ..,
-        AutoScaling
+        FleetActionAUTOSCALING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data FleetAction = FleetAction' (CI Text)
+newtype FleetAction = FleetAction'
+  { fromFleetAction ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AutoScaling :: FleetAction
-pattern AutoScaling = FleetAction' "AUTO_SCALING"
+pattern FleetActionAUTOSCALING :: FleetAction
+pattern FleetActionAUTOSCALING = FleetAction' "AUTO_SCALING"
 
 {-# COMPLETE
-  AutoScaling,
+  FleetActionAUTOSCALING,
   FleetAction'
   #-}
 
-instance FromText FleetAction where
-  parser = (FleetAction' . mk) <$> takeText
+instance Prelude.FromText FleetAction where
+  parser = FleetAction' Prelude.<$> Prelude.takeText
 
-instance ToText FleetAction where
-  toText (FleetAction' ci) = original ci
+instance Prelude.ToText FleetAction where
+  toText (FleetAction' x) = x
 
-instance Hashable FleetAction
+instance Prelude.Hashable FleetAction
 
-instance NFData FleetAction
+instance Prelude.NFData FleetAction
 
-instance ToByteString FleetAction
+instance Prelude.ToByteString FleetAction
 
-instance ToQuery FleetAction
+instance Prelude.ToQuery FleetAction
 
-instance ToHeader FleetAction
+instance Prelude.ToHeader FleetAction
 
-instance ToJSON FleetAction where
-  toJSON = toJSONText
+instance Prelude.ToJSON FleetAction where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON FleetAction where
-  parseJSON = parseJSONText "FleetAction"
+instance Prelude.FromJSON FleetAction where
+  parseJSON = Prelude.parseJSONText "FleetAction"

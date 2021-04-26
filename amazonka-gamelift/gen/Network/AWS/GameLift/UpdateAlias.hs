@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,177 +21,201 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates properties for an alias. To update properties, specify the alias ID to be updated and provide the information to be changed. To reassign an alias to another fleet, provide an updated routing strategy. If successful, the updated alias record is returned.
+-- Updates properties for an alias. To update properties, specify the alias
+-- ID to be updated and provide the information to be changed. To reassign
+-- an alias to another fleet, provide an updated routing strategy. If
+-- successful, the updated alias record is returned.
 --
+-- -   CreateAlias
 --
---     * 'CreateAlias'
+-- -   ListAliases
 --
---     * 'ListAliases'
+-- -   DescribeAlias
 --
---     * 'DescribeAlias'
+-- -   UpdateAlias
 --
---     * 'UpdateAlias'
+-- -   DeleteAlias
 --
---     * 'DeleteAlias'
---
---     * 'ResolveAlias'
+-- -   ResolveAlias
 module Network.AWS.GameLift.UpdateAlias
   ( -- * Creating a Request
-    updateAlias,
-    UpdateAlias,
+    UpdateAlias (..),
+    newUpdateAlias,
 
     -- * Request Lenses
-    uaRoutingStrategy,
-    uaName,
-    uaDescription,
-    uaAliasId,
+    updateAlias_routingStrategy,
+    updateAlias_name,
+    updateAlias_description,
+    updateAlias_aliasId,
 
     -- * Destructuring the Response
-    updateAliasResponse,
-    UpdateAliasResponse,
+    UpdateAliasResponse (..),
+    newUpdateAliasResponse,
 
     -- * Response Lenses
-    uarrsAlias,
-    uarrsResponseStatus,
+    updateAliasResponse_alias,
+    updateAliasResponse_httpStatus,
   )
 where
 
 import Network.AWS.GameLift.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.GameLift.Types.Alias
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input for a request operation.
 --
---
---
--- /See:/ 'updateAlias' smart constructor.
+-- /See:/ 'newUpdateAlias' smart constructor.
 data UpdateAlias = UpdateAlias'
-  { _uaRoutingStrategy ::
-      !(Maybe RoutingStrategy),
-    _uaName :: !(Maybe Text),
-    _uaDescription :: !(Maybe Text),
-    _uaAliasId :: !Text
+  { -- | The routing configuration, including routing type and fleet target, for
+    -- the alias.
+    routingStrategy :: Prelude.Maybe RoutingStrategy,
+    -- | A descriptive label that is associated with an alias. Alias names do not
+    -- need to be unique.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | A human-readable description of the alias.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | A unique identifier for the alias that you want to update. You can use
+    -- either the alias ID or ARN value.
+    aliasId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateAlias' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateAlias' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uaRoutingStrategy' - The routing configuration, including routing type and fleet target, for the alias.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uaName' - A descriptive label that is associated with an alias. Alias names do not need to be unique.
+-- 'routingStrategy', 'updateAlias_routingStrategy' - The routing configuration, including routing type and fleet target, for
+-- the alias.
 --
--- * 'uaDescription' - A human-readable description of the alias.
+-- 'name', 'updateAlias_name' - A descriptive label that is associated with an alias. Alias names do not
+-- need to be unique.
 --
--- * 'uaAliasId' - A unique identifier for the alias that you want to update. You can use either the alias ID or ARN value.
-updateAlias ::
-  -- | 'uaAliasId'
-  Text ->
+-- 'description', 'updateAlias_description' - A human-readable description of the alias.
+--
+-- 'aliasId', 'updateAlias_aliasId' - A unique identifier for the alias that you want to update. You can use
+-- either the alias ID or ARN value.
+newUpdateAlias ::
+  -- | 'aliasId'
+  Prelude.Text ->
   UpdateAlias
-updateAlias pAliasId_ =
+newUpdateAlias pAliasId_ =
   UpdateAlias'
-    { _uaRoutingStrategy = Nothing,
-      _uaName = Nothing,
-      _uaDescription = Nothing,
-      _uaAliasId = pAliasId_
+    { routingStrategy = Prelude.Nothing,
+      name = Prelude.Nothing,
+      description = Prelude.Nothing,
+      aliasId = pAliasId_
     }
 
--- | The routing configuration, including routing type and fleet target, for the alias.
-uaRoutingStrategy :: Lens' UpdateAlias (Maybe RoutingStrategy)
-uaRoutingStrategy = lens _uaRoutingStrategy (\s a -> s {_uaRoutingStrategy = a})
+-- | The routing configuration, including routing type and fleet target, for
+-- the alias.
+updateAlias_routingStrategy :: Lens.Lens' UpdateAlias (Prelude.Maybe RoutingStrategy)
+updateAlias_routingStrategy = Lens.lens (\UpdateAlias' {routingStrategy} -> routingStrategy) (\s@UpdateAlias' {} a -> s {routingStrategy = a} :: UpdateAlias)
 
--- | A descriptive label that is associated with an alias. Alias names do not need to be unique.
-uaName :: Lens' UpdateAlias (Maybe Text)
-uaName = lens _uaName (\s a -> s {_uaName = a})
+-- | A descriptive label that is associated with an alias. Alias names do not
+-- need to be unique.
+updateAlias_name :: Lens.Lens' UpdateAlias (Prelude.Maybe Prelude.Text)
+updateAlias_name = Lens.lens (\UpdateAlias' {name} -> name) (\s@UpdateAlias' {} a -> s {name = a} :: UpdateAlias)
 
 -- | A human-readable description of the alias.
-uaDescription :: Lens' UpdateAlias (Maybe Text)
-uaDescription = lens _uaDescription (\s a -> s {_uaDescription = a})
+updateAlias_description :: Lens.Lens' UpdateAlias (Prelude.Maybe Prelude.Text)
+updateAlias_description = Lens.lens (\UpdateAlias' {description} -> description) (\s@UpdateAlias' {} a -> s {description = a} :: UpdateAlias)
 
--- | A unique identifier for the alias that you want to update. You can use either the alias ID or ARN value.
-uaAliasId :: Lens' UpdateAlias Text
-uaAliasId = lens _uaAliasId (\s a -> s {_uaAliasId = a})
+-- | A unique identifier for the alias that you want to update. You can use
+-- either the alias ID or ARN value.
+updateAlias_aliasId :: Lens.Lens' UpdateAlias Prelude.Text
+updateAlias_aliasId = Lens.lens (\UpdateAlias' {aliasId} -> aliasId) (\s@UpdateAlias' {} a -> s {aliasId = a} :: UpdateAlias)
 
-instance AWSRequest UpdateAlias where
+instance Prelude.AWSRequest UpdateAlias where
   type Rs UpdateAlias = UpdateAliasResponse
-  request = postJSON gameLift
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateAliasResponse'
-            <$> (x .?> "Alias") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Alias")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateAlias
+instance Prelude.Hashable UpdateAlias
 
-instance NFData UpdateAlias
+instance Prelude.NFData UpdateAlias
 
-instance ToHeaders UpdateAlias where
+instance Prelude.ToHeaders UpdateAlias where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("GameLift.UpdateAlias" :: ByteString),
+              Prelude.=# ("GameLift.UpdateAlias" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateAlias where
+instance Prelude.ToJSON UpdateAlias where
   toJSON UpdateAlias' {..} =
-    object
-      ( catMaybes
-          [ ("RoutingStrategy" .=) <$> _uaRoutingStrategy,
-            ("Name" .=) <$> _uaName,
-            ("Description" .=) <$> _uaDescription,
-            Just ("AliasId" .= _uaAliasId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("RoutingStrategy" Prelude..=)
+              Prelude.<$> routingStrategy,
+            ("Name" Prelude..=) Prelude.<$> name,
+            ("Description" Prelude..=) Prelude.<$> description,
+            Prelude.Just ("AliasId" Prelude..= aliasId)
           ]
       )
 
-instance ToPath UpdateAlias where
-  toPath = const "/"
+instance Prelude.ToPath UpdateAlias where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateAlias where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateAlias where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the returned data in response to a request operation.
 --
---
---
--- /See:/ 'updateAliasResponse' smart constructor.
+-- /See:/ 'newUpdateAliasResponse' smart constructor.
 data UpdateAliasResponse = UpdateAliasResponse'
-  { _uarrsAlias ::
-      !(Maybe Alias),
-    _uarrsResponseStatus :: !Int
+  { -- | The updated alias resource.
+    alias :: Prelude.Maybe Alias,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateAliasResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateAliasResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uarrsAlias' - The updated alias resource.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uarrsResponseStatus' - -- | The response status code.
-updateAliasResponse ::
-  -- | 'uarrsResponseStatus'
-  Int ->
+-- 'alias', 'updateAliasResponse_alias' - The updated alias resource.
+--
+-- 'httpStatus', 'updateAliasResponse_httpStatus' - The response's http status code.
+newUpdateAliasResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateAliasResponse
-updateAliasResponse pResponseStatus_ =
+newUpdateAliasResponse pHttpStatus_ =
   UpdateAliasResponse'
-    { _uarrsAlias = Nothing,
-      _uarrsResponseStatus = pResponseStatus_
+    { alias = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The updated alias resource.
-uarrsAlias :: Lens' UpdateAliasResponse (Maybe Alias)
-uarrsAlias = lens _uarrsAlias (\s a -> s {_uarrsAlias = a})
+updateAliasResponse_alias :: Lens.Lens' UpdateAliasResponse (Prelude.Maybe Alias)
+updateAliasResponse_alias = Lens.lens (\UpdateAliasResponse' {alias} -> alias) (\s@UpdateAliasResponse' {} a -> s {alias = a} :: UpdateAliasResponse)
 
--- | -- | The response status code.
-uarrsResponseStatus :: Lens' UpdateAliasResponse Int
-uarrsResponseStatus = lens _uarrsResponseStatus (\s a -> s {_uarrsResponseStatus = a})
+-- | The response's http status code.
+updateAliasResponse_httpStatus :: Lens.Lens' UpdateAliasResponse Prelude.Int
+updateAliasResponse_httpStatus = Lens.lens (\UpdateAliasResponse' {httpStatus} -> httpStatus) (\s@UpdateAliasResponse' {} a -> s {httpStatus = a} :: UpdateAliasResponse)
 
-instance NFData UpdateAliasResponse
+instance Prelude.NFData UpdateAliasResponse

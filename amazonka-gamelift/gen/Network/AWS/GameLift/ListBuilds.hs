@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,8 +21,12 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves build resources for all builds associated with the AWS account in use. You can limit results to builds that are in a specific status by using the @Status@ parameter. Use the pagination parameters to retrieve results in a set of sequential pages.
+-- Retrieves build resources for all builds associated with the AWS account
+-- in use. You can limit results to builds that are in a specific status by
+-- using the @Status@ parameter. Use the pagination parameters to retrieve
+-- results in a set of sequential pages.
 --
+-- Build resources are not listed in any particular order.
 --
 -- __Learn more__
 --
@@ -26,184 +34,261 @@
 --
 -- __Related operations__
 --
---     * 'CreateBuild'
+-- -   CreateBuild
 --
---     * 'ListBuilds'
+-- -   ListBuilds
 --
---     * 'DescribeBuild'
+-- -   DescribeBuild
 --
---     * 'UpdateBuild'
+-- -   UpdateBuild
 --
---     * 'DeleteBuild'
---
---
---
+-- -   DeleteBuild
 --
 -- This operation returns paginated results.
 module Network.AWS.GameLift.ListBuilds
   ( -- * Creating a Request
-    listBuilds,
-    ListBuilds,
+    ListBuilds (..),
+    newListBuilds,
 
     -- * Request Lenses
-    lbStatus,
-    lbNextToken,
-    lbLimit,
+    listBuilds_status,
+    listBuilds_nextToken,
+    listBuilds_limit,
 
     -- * Destructuring the Response
-    listBuildsResponse,
-    ListBuildsResponse,
+    ListBuildsResponse (..),
+    newListBuildsResponse,
 
     -- * Response Lenses
-    lbrrsNextToken,
-    lbrrsBuilds,
-    lbrrsResponseStatus,
+    listBuildsResponse_nextToken,
+    listBuildsResponse_builds,
+    listBuildsResponse_httpStatus,
   )
 where
 
 import Network.AWS.GameLift.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.GameLift.Types.Build
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input for a request operation.
 --
---
---
--- /See:/ 'listBuilds' smart constructor.
+-- /See:/ 'newListBuilds' smart constructor.
 data ListBuilds = ListBuilds'
-  { _lbStatus ::
-      !(Maybe BuildStatus),
-    _lbNextToken :: !(Maybe Text),
-    _lbLimit :: !(Maybe Nat)
+  { -- | Build status to filter results by. To retrieve all builds, leave this
+    -- parameter empty.
+    --
+    -- Possible build statuses include the following:
+    --
+    -- -   __INITIALIZED__ -- A new build has been defined, but no files have
+    --     been uploaded. You cannot create fleets for builds that are in this
+    --     status. When a build is successfully created, the build status is
+    --     set to this value.
+    --
+    -- -   __READY__ -- The game build has been successfully uploaded. You can
+    --     now create new fleets for this build.
+    --
+    -- -   __FAILED__ -- The game build upload failed. You cannot create new
+    --     fleets for this build.
+    status :: Prelude.Maybe BuildStatus,
+    -- | Token that indicates the start of the next sequential page of results.
+    -- Use the token that is returned with a previous call to this operation.
+    -- To start at the beginning of the result set, do not specify a value.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return. Use this parameter with
+    -- @NextToken@ to get results as a set of sequential pages.
+    limit :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListBuilds' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListBuilds' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lbStatus' - Build status to filter results by. To retrieve all builds, leave this parameter empty. Possible build statuses include the following:     * __INITIALIZED__ -- A new build has been defined, but no files have been uploaded. You cannot create fleets for builds that are in this status. When a build is successfully created, the build status is set to this value.      * __READY__ -- The game build has been successfully uploaded. You can now create new fleets for this build.     * __FAILED__ -- The game build upload failed. You cannot create new fleets for this build.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lbNextToken' - Token that indicates the start of the next sequential page of results. Use the token that is returned with a previous call to this operation. To start at the beginning of the result set, do not specify a value.
+-- 'status', 'listBuilds_status' - Build status to filter results by. To retrieve all builds, leave this
+-- parameter empty.
 --
--- * 'lbLimit' - The maximum number of results to return. Use this parameter with @NextToken@ to get results as a set of sequential pages.
-listBuilds ::
+-- Possible build statuses include the following:
+--
+-- -   __INITIALIZED__ -- A new build has been defined, but no files have
+--     been uploaded. You cannot create fleets for builds that are in this
+--     status. When a build is successfully created, the build status is
+--     set to this value.
+--
+-- -   __READY__ -- The game build has been successfully uploaded. You can
+--     now create new fleets for this build.
+--
+-- -   __FAILED__ -- The game build upload failed. You cannot create new
+--     fleets for this build.
+--
+-- 'nextToken', 'listBuilds_nextToken' - Token that indicates the start of the next sequential page of results.
+-- Use the token that is returned with a previous call to this operation.
+-- To start at the beginning of the result set, do not specify a value.
+--
+-- 'limit', 'listBuilds_limit' - The maximum number of results to return. Use this parameter with
+-- @NextToken@ to get results as a set of sequential pages.
+newListBuilds ::
   ListBuilds
-listBuilds =
+newListBuilds =
   ListBuilds'
-    { _lbStatus = Nothing,
-      _lbNextToken = Nothing,
-      _lbLimit = Nothing
+    { status = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      limit = Prelude.Nothing
     }
 
--- | Build status to filter results by. To retrieve all builds, leave this parameter empty. Possible build statuses include the following:     * __INITIALIZED__ -- A new build has been defined, but no files have been uploaded. You cannot create fleets for builds that are in this status. When a build is successfully created, the build status is set to this value.      * __READY__ -- The game build has been successfully uploaded. You can now create new fleets for this build.     * __FAILED__ -- The game build upload failed. You cannot create new fleets for this build.
-lbStatus :: Lens' ListBuilds (Maybe BuildStatus)
-lbStatus = lens _lbStatus (\s a -> s {_lbStatus = a})
+-- | Build status to filter results by. To retrieve all builds, leave this
+-- parameter empty.
+--
+-- Possible build statuses include the following:
+--
+-- -   __INITIALIZED__ -- A new build has been defined, but no files have
+--     been uploaded. You cannot create fleets for builds that are in this
+--     status. When a build is successfully created, the build status is
+--     set to this value.
+--
+-- -   __READY__ -- The game build has been successfully uploaded. You can
+--     now create new fleets for this build.
+--
+-- -   __FAILED__ -- The game build upload failed. You cannot create new
+--     fleets for this build.
+listBuilds_status :: Lens.Lens' ListBuilds (Prelude.Maybe BuildStatus)
+listBuilds_status = Lens.lens (\ListBuilds' {status} -> status) (\s@ListBuilds' {} a -> s {status = a} :: ListBuilds)
 
--- | Token that indicates the start of the next sequential page of results. Use the token that is returned with a previous call to this operation. To start at the beginning of the result set, do not specify a value.
-lbNextToken :: Lens' ListBuilds (Maybe Text)
-lbNextToken = lens _lbNextToken (\s a -> s {_lbNextToken = a})
+-- | Token that indicates the start of the next sequential page of results.
+-- Use the token that is returned with a previous call to this operation.
+-- To start at the beginning of the result set, do not specify a value.
+listBuilds_nextToken :: Lens.Lens' ListBuilds (Prelude.Maybe Prelude.Text)
+listBuilds_nextToken = Lens.lens (\ListBuilds' {nextToken} -> nextToken) (\s@ListBuilds' {} a -> s {nextToken = a} :: ListBuilds)
 
--- | The maximum number of results to return. Use this parameter with @NextToken@ to get results as a set of sequential pages.
-lbLimit :: Lens' ListBuilds (Maybe Natural)
-lbLimit = lens _lbLimit (\s a -> s {_lbLimit = a}) . mapping _Nat
+-- | The maximum number of results to return. Use this parameter with
+-- @NextToken@ to get results as a set of sequential pages.
+listBuilds_limit :: Lens.Lens' ListBuilds (Prelude.Maybe Prelude.Natural)
+listBuilds_limit = Lens.lens (\ListBuilds' {limit} -> limit) (\s@ListBuilds' {} a -> s {limit = a} :: ListBuilds) Prelude.. Lens.mapping Prelude._Nat
 
-instance AWSPager ListBuilds where
+instance Pager.AWSPager ListBuilds where
   page rq rs
-    | stop (rs ^. lbrrsNextToken) = Nothing
-    | stop (rs ^. lbrrsBuilds) = Nothing
-    | otherwise =
-      Just $ rq & lbNextToken .~ rs ^. lbrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listBuildsResponse_nextToken Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listBuildsResponse_builds Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listBuilds_nextToken
+          Lens..~ rs
+          Lens.^? listBuildsResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest ListBuilds where
+instance Prelude.AWSRequest ListBuilds where
   type Rs ListBuilds = ListBuildsResponse
-  request = postJSON gameLift
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListBuildsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "Builds" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (x Prelude..?> "Builds" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListBuilds
+instance Prelude.Hashable ListBuilds
 
-instance NFData ListBuilds
+instance Prelude.NFData ListBuilds
 
-instance ToHeaders ListBuilds where
+instance Prelude.ToHeaders ListBuilds where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("GameLift.ListBuilds" :: ByteString),
+              Prelude.=# ("GameLift.ListBuilds" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListBuilds where
+instance Prelude.ToJSON ListBuilds where
   toJSON ListBuilds' {..} =
-    object
-      ( catMaybes
-          [ ("Status" .=) <$> _lbStatus,
-            ("NextToken" .=) <$> _lbNextToken,
-            ("Limit" .=) <$> _lbLimit
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Status" Prelude..=) Prelude.<$> status,
+            ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("Limit" Prelude..=) Prelude.<$> limit
           ]
       )
 
-instance ToPath ListBuilds where
-  toPath = const "/"
+instance Prelude.ToPath ListBuilds where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListBuilds where
-  toQuery = const mempty
+instance Prelude.ToQuery ListBuilds where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the returned data in response to a request operation.
 --
---
---
--- /See:/ 'listBuildsResponse' smart constructor.
+-- /See:/ 'newListBuildsResponse' smart constructor.
 data ListBuildsResponse = ListBuildsResponse'
-  { _lbrrsNextToken ::
-      !(Maybe Text),
-    _lbrrsBuilds :: !(Maybe [Build]),
-    _lbrrsResponseStatus :: !Int
+  { -- | Token that indicates where to resume retrieving results on the next call
+    -- to this operation. If no token is returned, these results represent the
+    -- end of the list.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A collection of build resources that match the request.
+    builds :: Prelude.Maybe [Build],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListBuildsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListBuildsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lbrrsNextToken' - Token that indicates where to resume retrieving results on the next call to this operation. If no token is returned, these results represent the end of the list.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lbrrsBuilds' - A collection of build resources that match the request.
+-- 'nextToken', 'listBuildsResponse_nextToken' - Token that indicates where to resume retrieving results on the next call
+-- to this operation. If no token is returned, these results represent the
+-- end of the list.
 --
--- * 'lbrrsResponseStatus' - -- | The response status code.
-listBuildsResponse ::
-  -- | 'lbrrsResponseStatus'
-  Int ->
+-- 'builds', 'listBuildsResponse_builds' - A collection of build resources that match the request.
+--
+-- 'httpStatus', 'listBuildsResponse_httpStatus' - The response's http status code.
+newListBuildsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListBuildsResponse
-listBuildsResponse pResponseStatus_ =
+newListBuildsResponse pHttpStatus_ =
   ListBuildsResponse'
-    { _lbrrsNextToken = Nothing,
-      _lbrrsBuilds = Nothing,
-      _lbrrsResponseStatus = pResponseStatus_
+    { nextToken = Prelude.Nothing,
+      builds = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Token that indicates where to resume retrieving results on the next call to this operation. If no token is returned, these results represent the end of the list.
-lbrrsNextToken :: Lens' ListBuildsResponse (Maybe Text)
-lbrrsNextToken = lens _lbrrsNextToken (\s a -> s {_lbrrsNextToken = a})
+-- | Token that indicates where to resume retrieving results on the next call
+-- to this operation. If no token is returned, these results represent the
+-- end of the list.
+listBuildsResponse_nextToken :: Lens.Lens' ListBuildsResponse (Prelude.Maybe Prelude.Text)
+listBuildsResponse_nextToken = Lens.lens (\ListBuildsResponse' {nextToken} -> nextToken) (\s@ListBuildsResponse' {} a -> s {nextToken = a} :: ListBuildsResponse)
 
 -- | A collection of build resources that match the request.
-lbrrsBuilds :: Lens' ListBuildsResponse [Build]
-lbrrsBuilds = lens _lbrrsBuilds (\s a -> s {_lbrrsBuilds = a}) . _Default . _Coerce
+listBuildsResponse_builds :: Lens.Lens' ListBuildsResponse (Prelude.Maybe [Build])
+listBuildsResponse_builds = Lens.lens (\ListBuildsResponse' {builds} -> builds) (\s@ListBuildsResponse' {} a -> s {builds = a} :: ListBuildsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lbrrsResponseStatus :: Lens' ListBuildsResponse Int
-lbrrsResponseStatus = lens _lbrrsResponseStatus (\s a -> s {_lbrrsResponseStatus = a})
+-- | The response's http status code.
+listBuildsResponse_httpStatus :: Lens.Lens' ListBuildsResponse Prelude.Int
+listBuildsResponse_httpStatus = Lens.lens (\ListBuildsResponse' {httpStatus} -> httpStatus) (\s@ListBuildsResponse' {} a -> s {httpStatus = a} :: ListBuildsResponse)
 
-instance NFData ListBuildsResponse
+instance Prelude.NFData ListBuildsResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,14 +21,21 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves one or more matchmaking tickets. Use this operation to retrieve ticket information, including--after a successful match is made--connection information for the resulting new game session.
+-- Retrieves one or more matchmaking tickets. Use this operation to
+-- retrieve ticket information, including--after a successful match is
+-- made--connection information for the resulting new game session.
 --
+-- To request matchmaking tickets, provide a list of up to 10 ticket IDs.
+-- If the request is successful, a ticket object is returned for each
+-- requested ID that currently exists.
 --
--- To request matchmaking tickets, provide a list of up to 10 ticket IDs. If the request is successful, a ticket object is returned for each requested ID that currently exists.
---
--- This operation is not designed to be continually called to track matchmaking ticket status. This practice can cause you to exceed your API limit, which results in errors. Instead, as a best practice, set up an Amazon Simple Notification Service (SNS) to receive notifications, and provide the topic ARN in the matchmaking configuration. Continuously poling ticket status with 'DescribeMatchmaking' should only be used for games in development with low matchmaking usage.
---
---
+-- This operation is not designed to be continually called to track
+-- matchmaking ticket status. This practice can cause you to exceed your
+-- API limit, which results in errors. Instead, as a best practice, set up
+-- an Amazon Simple Notification Service (SNS) to receive notifications,
+-- and provide the topic ARN in the matchmaking configuration. Continuously
+-- poling ticket status with DescribeMatchmaking should only be used for
+-- games in development with low matchmaking usage.
 --
 -- __Learn more__
 --
@@ -34,156 +45,159 @@
 --
 -- __Related operations__
 --
---     * 'StartMatchmaking'
+-- -   StartMatchmaking
 --
---     * 'DescribeMatchmaking'
+-- -   DescribeMatchmaking
 --
---     * 'StopMatchmaking'
+-- -   StopMatchmaking
 --
---     * 'AcceptMatch'
+-- -   AcceptMatch
 --
---     * 'StartMatchBackfill'
+-- -   StartMatchBackfill
 module Network.AWS.GameLift.DescribeMatchmaking
   ( -- * Creating a Request
-    describeMatchmaking,
-    DescribeMatchmaking,
+    DescribeMatchmaking (..),
+    newDescribeMatchmaking,
 
     -- * Request Lenses
-    dmTicketIds,
+    describeMatchmaking_ticketIds,
 
     -- * Destructuring the Response
-    describeMatchmakingResponse,
-    DescribeMatchmakingResponse,
+    DescribeMatchmakingResponse (..),
+    newDescribeMatchmakingResponse,
 
     -- * Response Lenses
-    dmrrsTicketList,
-    dmrrsResponseStatus,
+    describeMatchmakingResponse_ticketList,
+    describeMatchmakingResponse_httpStatus,
   )
 where
 
 import Network.AWS.GameLift.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.GameLift.Types.MatchmakingTicket
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input for a request operation.
 --
---
---
--- /See:/ 'describeMatchmaking' smart constructor.
-newtype DescribeMatchmaking = DescribeMatchmaking'
-  { _dmTicketIds ::
-      [Text]
+-- /See:/ 'newDescribeMatchmaking' smart constructor.
+data DescribeMatchmaking = DescribeMatchmaking'
+  { -- | A unique identifier for a matchmaking ticket. You can include up to 10
+    -- ID values.
+    ticketIds :: [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeMatchmaking' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeMatchmaking' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dmTicketIds' - A unique identifier for a matchmaking ticket. You can include up to 10 ID values.
-describeMatchmaking ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'ticketIds', 'describeMatchmaking_ticketIds' - A unique identifier for a matchmaking ticket. You can include up to 10
+-- ID values.
+newDescribeMatchmaking ::
   DescribeMatchmaking
-describeMatchmaking =
-  DescribeMatchmaking' {_dmTicketIds = mempty}
+newDescribeMatchmaking =
+  DescribeMatchmaking' {ticketIds = Prelude.mempty}
 
--- | A unique identifier for a matchmaking ticket. You can include up to 10 ID values.
-dmTicketIds :: Lens' DescribeMatchmaking [Text]
-dmTicketIds = lens _dmTicketIds (\s a -> s {_dmTicketIds = a}) . _Coerce
+-- | A unique identifier for a matchmaking ticket. You can include up to 10
+-- ID values.
+describeMatchmaking_ticketIds :: Lens.Lens' DescribeMatchmaking [Prelude.Text]
+describeMatchmaking_ticketIds = Lens.lens (\DescribeMatchmaking' {ticketIds} -> ticketIds) (\s@DescribeMatchmaking' {} a -> s {ticketIds = a} :: DescribeMatchmaking) Prelude.. Prelude._Coerce
 
-instance AWSRequest DescribeMatchmaking where
+instance Prelude.AWSRequest DescribeMatchmaking where
   type
     Rs DescribeMatchmaking =
       DescribeMatchmakingResponse
-  request = postJSON gameLift
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeMatchmakingResponse'
-            <$> (x .?> "TicketList" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "TicketList"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeMatchmaking
+instance Prelude.Hashable DescribeMatchmaking
 
-instance NFData DescribeMatchmaking
+instance Prelude.NFData DescribeMatchmaking
 
-instance ToHeaders DescribeMatchmaking where
+instance Prelude.ToHeaders DescribeMatchmaking where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("GameLift.DescribeMatchmaking" :: ByteString),
+              Prelude.=# ( "GameLift.DescribeMatchmaking" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeMatchmaking where
+instance Prelude.ToJSON DescribeMatchmaking where
   toJSON DescribeMatchmaking' {..} =
-    object
-      (catMaybes [Just ("TicketIds" .= _dmTicketIds)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("TicketIds" Prelude..= ticketIds)]
+      )
 
-instance ToPath DescribeMatchmaking where
-  toPath = const "/"
+instance Prelude.ToPath DescribeMatchmaking where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeMatchmaking where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeMatchmaking where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the returned data in response to a request operation.
 --
---
---
--- /See:/ 'describeMatchmakingResponse' smart constructor.
+-- /See:/ 'newDescribeMatchmakingResponse' smart constructor.
 data DescribeMatchmakingResponse = DescribeMatchmakingResponse'
-  { _dmrrsTicketList ::
-      !( Maybe
-           [MatchmakingTicket]
-       ),
-    _dmrrsResponseStatus ::
-      !Int
+  { -- | A collection of existing matchmaking ticket objects matching the
+    -- request.
+    ticketList :: Prelude.Maybe [MatchmakingTicket],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeMatchmakingResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeMatchmakingResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dmrrsTicketList' - A collection of existing matchmaking ticket objects matching the request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dmrrsResponseStatus' - -- | The response status code.
-describeMatchmakingResponse ::
-  -- | 'dmrrsResponseStatus'
-  Int ->
+-- 'ticketList', 'describeMatchmakingResponse_ticketList' - A collection of existing matchmaking ticket objects matching the
+-- request.
+--
+-- 'httpStatus', 'describeMatchmakingResponse_httpStatus' - The response's http status code.
+newDescribeMatchmakingResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeMatchmakingResponse
-describeMatchmakingResponse pResponseStatus_ =
+newDescribeMatchmakingResponse pHttpStatus_ =
   DescribeMatchmakingResponse'
-    { _dmrrsTicketList =
-        Nothing,
-      _dmrrsResponseStatus = pResponseStatus_
+    { ticketList =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A collection of existing matchmaking ticket objects matching the request.
-dmrrsTicketList :: Lens' DescribeMatchmakingResponse [MatchmakingTicket]
-dmrrsTicketList = lens _dmrrsTicketList (\s a -> s {_dmrrsTicketList = a}) . _Default . _Coerce
+-- | A collection of existing matchmaking ticket objects matching the
+-- request.
+describeMatchmakingResponse_ticketList :: Lens.Lens' DescribeMatchmakingResponse (Prelude.Maybe [MatchmakingTicket])
+describeMatchmakingResponse_ticketList = Lens.lens (\DescribeMatchmakingResponse' {ticketList} -> ticketList) (\s@DescribeMatchmakingResponse' {} a -> s {ticketList = a} :: DescribeMatchmakingResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dmrrsResponseStatus :: Lens' DescribeMatchmakingResponse Int
-dmrrsResponseStatus = lens _dmrrsResponseStatus (\s a -> s {_dmrrsResponseStatus = a})
+-- | The response's http status code.
+describeMatchmakingResponse_httpStatus :: Lens.Lens' DescribeMatchmakingResponse Prelude.Int
+describeMatchmakingResponse_httpStatus = Lens.lens (\DescribeMatchmakingResponse' {httpStatus} -> httpStatus) (\s@DescribeMatchmakingResponse' {} a -> s {httpStatus = a} :: DescribeMatchmakingResponse)
 
-instance NFData DescribeMatchmakingResponse
+instance Prelude.NFData DescribeMatchmakingResponse

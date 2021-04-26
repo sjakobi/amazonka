@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,72 +19,77 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.GameLift.Types.PlacedPlayerSession where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Information about a player session that was created as part of a 'StartGameSessionPlacement' request. This object contains only the player ID and player session ID. To retrieve full details on a player session, call 'DescribePlayerSessions' with the player session ID.
+-- | Information about a player session that was created as part of a
+-- StartGameSessionPlacement request. This object contains only the player
+-- ID and player session ID. To retrieve full details on a player session,
+-- call DescribePlayerSessions with the player session ID.
 --
+-- -   CreatePlayerSession
 --
---     * 'CreatePlayerSession'
+-- -   CreatePlayerSessions
 --
---     * 'CreatePlayerSessions'
+-- -   DescribePlayerSessions
 --
---     * 'DescribePlayerSessions'
+-- -   Game session placements
 --
---     * Game session placements
+--     -   StartGameSessionPlacement
 --
---     * 'StartGameSessionPlacement'
+--     -   DescribeGameSessionPlacement
 --
---     * 'DescribeGameSessionPlacement'
+--     -   StopGameSessionPlacement
 --
---     * 'StopGameSessionPlacement'
---
---
---
---
---
---
--- /See:/ 'placedPlayerSession' smart constructor.
+-- /See:/ 'newPlacedPlayerSession' smart constructor.
 data PlacedPlayerSession = PlacedPlayerSession'
-  { _ppsPlayerId ::
-      !(Maybe Text),
-    _ppsPlayerSessionId ::
-      !(Maybe Text)
+  { -- | A unique identifier for a player that is associated with this player
+    -- session.
+    playerId :: Prelude.Maybe Prelude.Text,
+    -- | A unique identifier for a player session.
+    playerSessionId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PlacedPlayerSession' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PlacedPlayerSession' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ppsPlayerId' - A unique identifier for a player that is associated with this player session.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ppsPlayerSessionId' - A unique identifier for a player session.
-placedPlayerSession ::
+-- 'playerId', 'placedPlayerSession_playerId' - A unique identifier for a player that is associated with this player
+-- session.
+--
+-- 'playerSessionId', 'placedPlayerSession_playerSessionId' - A unique identifier for a player session.
+newPlacedPlayerSession ::
   PlacedPlayerSession
-placedPlayerSession =
+newPlacedPlayerSession =
   PlacedPlayerSession'
-    { _ppsPlayerId = Nothing,
-      _ppsPlayerSessionId = Nothing
+    { playerId = Prelude.Nothing,
+      playerSessionId = Prelude.Nothing
     }
 
--- | A unique identifier for a player that is associated with this player session.
-ppsPlayerId :: Lens' PlacedPlayerSession (Maybe Text)
-ppsPlayerId = lens _ppsPlayerId (\s a -> s {_ppsPlayerId = a})
+-- | A unique identifier for a player that is associated with this player
+-- session.
+placedPlayerSession_playerId :: Lens.Lens' PlacedPlayerSession (Prelude.Maybe Prelude.Text)
+placedPlayerSession_playerId = Lens.lens (\PlacedPlayerSession' {playerId} -> playerId) (\s@PlacedPlayerSession' {} a -> s {playerId = a} :: PlacedPlayerSession)
 
 -- | A unique identifier for a player session.
-ppsPlayerSessionId :: Lens' PlacedPlayerSession (Maybe Text)
-ppsPlayerSessionId = lens _ppsPlayerSessionId (\s a -> s {_ppsPlayerSessionId = a})
+placedPlayerSession_playerSessionId :: Lens.Lens' PlacedPlayerSession (Prelude.Maybe Prelude.Text)
+placedPlayerSession_playerSessionId = Lens.lens (\PlacedPlayerSession' {playerSessionId} -> playerSessionId) (\s@PlacedPlayerSession' {} a -> s {playerSessionId = a} :: PlacedPlayerSession)
 
-instance FromJSON PlacedPlayerSession where
+instance Prelude.FromJSON PlacedPlayerSession where
   parseJSON =
-    withObject
+    Prelude.withObject
       "PlacedPlayerSession"
       ( \x ->
           PlacedPlayerSession'
-            <$> (x .:? "PlayerId") <*> (x .:? "PlayerSessionId")
+            Prelude.<$> (x Prelude..:? "PlayerId")
+            Prelude.<*> (x Prelude..:? "PlayerSessionId")
       )
 
-instance Hashable PlacedPlayerSession
+instance Prelude.Hashable PlacedPlayerSession
 
-instance NFData PlacedPlayerSession
+instance Prelude.NFData PlacedPlayerSession

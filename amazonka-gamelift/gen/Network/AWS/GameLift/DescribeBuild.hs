@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,8 +21,9 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves properties for a custom game build. To request a build resource, specify a build ID. If successful, an object containing the build properties is returned.
---
+-- Retrieves properties for a custom game build. To request a build
+-- resource, specify a build ID. If successful, an object containing the
+-- build properties is returned.
 --
 -- __Learn more__
 --
@@ -26,144 +31,151 @@
 --
 -- __Related operations__
 --
---     * 'CreateBuild'
+-- -   CreateBuild
 --
---     * 'ListBuilds'
+-- -   ListBuilds
 --
---     * 'DescribeBuild'
+-- -   DescribeBuild
 --
---     * 'UpdateBuild'
+-- -   UpdateBuild
 --
---     * 'DeleteBuild'
+-- -   DeleteBuild
 module Network.AWS.GameLift.DescribeBuild
   ( -- * Creating a Request
-    describeBuild,
-    DescribeBuild,
+    DescribeBuild (..),
+    newDescribeBuild,
 
     -- * Request Lenses
-    dBuildId,
+    describeBuild_buildId,
 
     -- * Destructuring the Response
-    describeBuildResponse,
-    DescribeBuildResponse,
+    DescribeBuildResponse (..),
+    newDescribeBuildResponse,
 
     -- * Response Lenses
-    dbrrsBuild,
-    dbrrsResponseStatus,
+    describeBuildResponse_build,
+    describeBuildResponse_httpStatus,
   )
 where
 
 import Network.AWS.GameLift.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.GameLift.Types.Build
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input for a request operation.
 --
---
---
--- /See:/ 'describeBuild' smart constructor.
-newtype DescribeBuild = DescribeBuild'
-  { _dBuildId ::
-      Text
+-- /See:/ 'newDescribeBuild' smart constructor.
+data DescribeBuild = DescribeBuild'
+  { -- | A unique identifier for a build to retrieve properties for. You can use
+    -- either the build ID or ARN value.
+    buildId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeBuild' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeBuild' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dBuildId' - A unique identifier for a build to retrieve properties for. You can use either the build ID or ARN value.
-describeBuild ::
-  -- | 'dBuildId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'buildId', 'describeBuild_buildId' - A unique identifier for a build to retrieve properties for. You can use
+-- either the build ID or ARN value.
+newDescribeBuild ::
+  -- | 'buildId'
+  Prelude.Text ->
   DescribeBuild
-describeBuild pBuildId_ =
-  DescribeBuild' {_dBuildId = pBuildId_}
+newDescribeBuild pBuildId_ =
+  DescribeBuild' {buildId = pBuildId_}
 
--- | A unique identifier for a build to retrieve properties for. You can use either the build ID or ARN value.
-dBuildId :: Lens' DescribeBuild Text
-dBuildId = lens _dBuildId (\s a -> s {_dBuildId = a})
+-- | A unique identifier for a build to retrieve properties for. You can use
+-- either the build ID or ARN value.
+describeBuild_buildId :: Lens.Lens' DescribeBuild Prelude.Text
+describeBuild_buildId = Lens.lens (\DescribeBuild' {buildId} -> buildId) (\s@DescribeBuild' {} a -> s {buildId = a} :: DescribeBuild)
 
-instance AWSRequest DescribeBuild where
+instance Prelude.AWSRequest DescribeBuild where
   type Rs DescribeBuild = DescribeBuildResponse
-  request = postJSON gameLift
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeBuildResponse'
-            <$> (x .?> "Build") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Build")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeBuild
+instance Prelude.Hashable DescribeBuild
 
-instance NFData DescribeBuild
+instance Prelude.NFData DescribeBuild
 
-instance ToHeaders DescribeBuild where
+instance Prelude.ToHeaders DescribeBuild where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("GameLift.DescribeBuild" :: ByteString),
+              Prelude.=# ("GameLift.DescribeBuild" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeBuild where
+instance Prelude.ToJSON DescribeBuild where
   toJSON DescribeBuild' {..} =
-    object (catMaybes [Just ("BuildId" .= _dBuildId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("BuildId" Prelude..= buildId)]
+      )
 
-instance ToPath DescribeBuild where
-  toPath = const "/"
+instance Prelude.ToPath DescribeBuild where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeBuild where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeBuild where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the returned data in response to a request operation.
 --
---
---
--- /See:/ 'describeBuildResponse' smart constructor.
+-- /See:/ 'newDescribeBuildResponse' smart constructor.
 data DescribeBuildResponse = DescribeBuildResponse'
-  { _dbrrsBuild ::
-      !(Maybe Build),
-    _dbrrsResponseStatus ::
-      !Int
+  { -- | Set of properties describing the requested build.
+    build :: Prelude.Maybe Build,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeBuildResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeBuildResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dbrrsBuild' - Set of properties describing the requested build.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dbrrsResponseStatus' - -- | The response status code.
-describeBuildResponse ::
-  -- | 'dbrrsResponseStatus'
-  Int ->
+-- 'build', 'describeBuildResponse_build' - Set of properties describing the requested build.
+--
+-- 'httpStatus', 'describeBuildResponse_httpStatus' - The response's http status code.
+newDescribeBuildResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeBuildResponse
-describeBuildResponse pResponseStatus_ =
+newDescribeBuildResponse pHttpStatus_ =
   DescribeBuildResponse'
-    { _dbrrsBuild = Nothing,
-      _dbrrsResponseStatus = pResponseStatus_
+    { build = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Set of properties describing the requested build.
-dbrrsBuild :: Lens' DescribeBuildResponse (Maybe Build)
-dbrrsBuild = lens _dbrrsBuild (\s a -> s {_dbrrsBuild = a})
+describeBuildResponse_build :: Lens.Lens' DescribeBuildResponse (Prelude.Maybe Build)
+describeBuildResponse_build = Lens.lens (\DescribeBuildResponse' {build} -> build) (\s@DescribeBuildResponse' {} a -> s {build = a} :: DescribeBuildResponse)
 
--- | -- | The response status code.
-dbrrsResponseStatus :: Lens' DescribeBuildResponse Int
-dbrrsResponseStatus = lens _dbrrsResponseStatus (\s a -> s {_dbrrsResponseStatus = a})
+-- | The response's http status code.
+describeBuildResponse_httpStatus :: Lens.Lens' DescribeBuildResponse Prelude.Int
+describeBuildResponse_httpStatus = Lens.lens (\DescribeBuildResponse' {httpStatus} -> httpStatus) (\s@DescribeBuildResponse' {} a -> s {httpStatus = a} :: DescribeBuildResponse)
 
-instance NFData DescribeBuildResponse
+instance Prelude.NFData DescribeBuildResponse

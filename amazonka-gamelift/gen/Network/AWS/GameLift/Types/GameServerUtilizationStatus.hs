@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.GameLift.Types.GameServerUtilizationStatus
   ( GameServerUtilizationStatus
       ( ..,
-        Available,
-        Utilized
+        GameServerUtilizationStatusAVAILABLE,
+        GameServerUtilizationStatusUTILIZED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data GameServerUtilizationStatus
-  = GameServerUtilizationStatus'
-      ( CI
-          Text
-      )
+newtype GameServerUtilizationStatus = GameServerUtilizationStatus'
+  { fromGameServerUtilizationStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Available :: GameServerUtilizationStatus
-pattern Available = GameServerUtilizationStatus' "AVAILABLE"
+pattern GameServerUtilizationStatusAVAILABLE :: GameServerUtilizationStatus
+pattern GameServerUtilizationStatusAVAILABLE = GameServerUtilizationStatus' "AVAILABLE"
 
-pattern Utilized :: GameServerUtilizationStatus
-pattern Utilized = GameServerUtilizationStatus' "UTILIZED"
+pattern GameServerUtilizationStatusUTILIZED :: GameServerUtilizationStatus
+pattern GameServerUtilizationStatusUTILIZED = GameServerUtilizationStatus' "UTILIZED"
 
 {-# COMPLETE
-  Available,
-  Utilized,
+  GameServerUtilizationStatusAVAILABLE,
+  GameServerUtilizationStatusUTILIZED,
   GameServerUtilizationStatus'
   #-}
 
-instance FromText GameServerUtilizationStatus where
-  parser = (GameServerUtilizationStatus' . mk) <$> takeText
+instance Prelude.FromText GameServerUtilizationStatus where
+  parser = GameServerUtilizationStatus' Prelude.<$> Prelude.takeText
 
-instance ToText GameServerUtilizationStatus where
-  toText (GameServerUtilizationStatus' ci) = original ci
+instance Prelude.ToText GameServerUtilizationStatus where
+  toText (GameServerUtilizationStatus' x) = x
 
-instance Hashable GameServerUtilizationStatus
+instance Prelude.Hashable GameServerUtilizationStatus
 
-instance NFData GameServerUtilizationStatus
+instance Prelude.NFData GameServerUtilizationStatus
 
-instance ToByteString GameServerUtilizationStatus
+instance Prelude.ToByteString GameServerUtilizationStatus
 
-instance ToQuery GameServerUtilizationStatus
+instance Prelude.ToQuery GameServerUtilizationStatus
 
-instance ToHeader GameServerUtilizationStatus
+instance Prelude.ToHeader GameServerUtilizationStatus
 
-instance ToJSON GameServerUtilizationStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON GameServerUtilizationStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON GameServerUtilizationStatus where
-  parseJSON = parseJSONText "GameServerUtilizationStatus"
+instance Prelude.FromJSON GameServerUtilizationStatus where
+  parseJSON = Prelude.parseJSONText "GameServerUtilizationStatus"

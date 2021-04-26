@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,74 +20,108 @@
 module Network.AWS.GameLift.Types.GameServerGroupAutoScalingPolicy where
 
 import Network.AWS.GameLift.Types.TargetTrackingConfiguration
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | __This data type is used with the Amazon GameLift FleetIQ and game server groups.__
+-- | __This data type is used with the Amazon GameLift FleetIQ and game
+-- server groups.__
 --
+-- Configuration settings for intelligent automatic scaling that uses
+-- target tracking. These settings are used to add an Auto Scaling policy
+-- when creating the corresponding Auto Scaling group with
+-- CreateGameServerGroup. After the Auto Scaling group is created, all
+-- updates to Auto Scaling policies, including changing this policy and
+-- adding or removing other policies, is done directly on the Auto Scaling
+-- group.
 --
--- Configuration settings for intelligent automatic scaling that uses target tracking. These settings are used to add an Auto Scaling policy when creating the corresponding Auto Scaling group with 'CreateGameServerGroup' . After the Auto Scaling group is created, all updates to Auto Scaling policies, including changing this policy and adding or removing other policies, is done directly on the Auto Scaling group.
---
---
--- /See:/ 'gameServerGroupAutoScalingPolicy' smart constructor.
+-- /See:/ 'newGameServerGroupAutoScalingPolicy' smart constructor.
 data GameServerGroupAutoScalingPolicy = GameServerGroupAutoScalingPolicy'
-  { _gsgaspEstimatedInstanceWarmup ::
-      !( Maybe
-           Nat
-       ),
-    _gsgaspTargetTrackingConfiguration ::
-      !TargetTrackingConfiguration
+  { -- | Length of time, in seconds, it takes for a new instance to start new
+    -- game server processes and register with GameLift FleetIQ. Specifying a
+    -- warm-up time can be useful, particularly with game servers that take a
+    -- long time to start up, because it avoids prematurely starting new
+    -- instances.
+    estimatedInstanceWarmup :: Prelude.Maybe Prelude.Nat,
+    -- | Settings for a target-based scaling policy applied to Auto Scaling
+    -- group. These settings are used to create a target-based policy that
+    -- tracks the GameLift FleetIQ metric @\"PercentUtilizedGameServers\"@ and
+    -- specifies a target value for the metric. As player usage changes, the
+    -- policy triggers to adjust the game server group capacity so that the
+    -- metric returns to the target value.
+    targetTrackingConfiguration :: TargetTrackingConfiguration
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GameServerGroupAutoScalingPolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GameServerGroupAutoScalingPolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gsgaspEstimatedInstanceWarmup' - Length of time, in seconds, it takes for a new instance to start new game server processes and register with GameLift FleetIQ. Specifying a warm-up time can be useful, particularly with game servers that take a long time to start up, because it avoids prematurely starting new instances.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gsgaspTargetTrackingConfiguration' - Settings for a target-based scaling policy applied to Auto Scaling group. These settings are used to create a target-based policy that tracks the GameLift FleetIQ metric @"PercentUtilizedGameServers"@ and specifies a target value for the metric. As player usage changes, the policy triggers to adjust the game server group capacity so that the metric returns to the target value.
-gameServerGroupAutoScalingPolicy ::
-  -- | 'gsgaspTargetTrackingConfiguration'
+-- 'estimatedInstanceWarmup', 'gameServerGroupAutoScalingPolicy_estimatedInstanceWarmup' - Length of time, in seconds, it takes for a new instance to start new
+-- game server processes and register with GameLift FleetIQ. Specifying a
+-- warm-up time can be useful, particularly with game servers that take a
+-- long time to start up, because it avoids prematurely starting new
+-- instances.
+--
+-- 'targetTrackingConfiguration', 'gameServerGroupAutoScalingPolicy_targetTrackingConfiguration' - Settings for a target-based scaling policy applied to Auto Scaling
+-- group. These settings are used to create a target-based policy that
+-- tracks the GameLift FleetIQ metric @\"PercentUtilizedGameServers\"@ and
+-- specifies a target value for the metric. As player usage changes, the
+-- policy triggers to adjust the game server group capacity so that the
+-- metric returns to the target value.
+newGameServerGroupAutoScalingPolicy ::
+  -- | 'targetTrackingConfiguration'
   TargetTrackingConfiguration ->
   GameServerGroupAutoScalingPolicy
-gameServerGroupAutoScalingPolicy
+newGameServerGroupAutoScalingPolicy
   pTargetTrackingConfiguration_ =
     GameServerGroupAutoScalingPolicy'
-      { _gsgaspEstimatedInstanceWarmup =
-          Nothing,
-        _gsgaspTargetTrackingConfiguration =
+      { estimatedInstanceWarmup =
+          Prelude.Nothing,
+        targetTrackingConfiguration =
           pTargetTrackingConfiguration_
       }
 
--- | Length of time, in seconds, it takes for a new instance to start new game server processes and register with GameLift FleetIQ. Specifying a warm-up time can be useful, particularly with game servers that take a long time to start up, because it avoids prematurely starting new instances.
-gsgaspEstimatedInstanceWarmup :: Lens' GameServerGroupAutoScalingPolicy (Maybe Natural)
-gsgaspEstimatedInstanceWarmup = lens _gsgaspEstimatedInstanceWarmup (\s a -> s {_gsgaspEstimatedInstanceWarmup = a}) . mapping _Nat
+-- | Length of time, in seconds, it takes for a new instance to start new
+-- game server processes and register with GameLift FleetIQ. Specifying a
+-- warm-up time can be useful, particularly with game servers that take a
+-- long time to start up, because it avoids prematurely starting new
+-- instances.
+gameServerGroupAutoScalingPolicy_estimatedInstanceWarmup :: Lens.Lens' GameServerGroupAutoScalingPolicy (Prelude.Maybe Prelude.Natural)
+gameServerGroupAutoScalingPolicy_estimatedInstanceWarmup = Lens.lens (\GameServerGroupAutoScalingPolicy' {estimatedInstanceWarmup} -> estimatedInstanceWarmup) (\s@GameServerGroupAutoScalingPolicy' {} a -> s {estimatedInstanceWarmup = a} :: GameServerGroupAutoScalingPolicy) Prelude.. Lens.mapping Prelude._Nat
 
--- | Settings for a target-based scaling policy applied to Auto Scaling group. These settings are used to create a target-based policy that tracks the GameLift FleetIQ metric @"PercentUtilizedGameServers"@ and specifies a target value for the metric. As player usage changes, the policy triggers to adjust the game server group capacity so that the metric returns to the target value.
-gsgaspTargetTrackingConfiguration :: Lens' GameServerGroupAutoScalingPolicy TargetTrackingConfiguration
-gsgaspTargetTrackingConfiguration = lens _gsgaspTargetTrackingConfiguration (\s a -> s {_gsgaspTargetTrackingConfiguration = a})
+-- | Settings for a target-based scaling policy applied to Auto Scaling
+-- group. These settings are used to create a target-based policy that
+-- tracks the GameLift FleetIQ metric @\"PercentUtilizedGameServers\"@ and
+-- specifies a target value for the metric. As player usage changes, the
+-- policy triggers to adjust the game server group capacity so that the
+-- metric returns to the target value.
+gameServerGroupAutoScalingPolicy_targetTrackingConfiguration :: Lens.Lens' GameServerGroupAutoScalingPolicy TargetTrackingConfiguration
+gameServerGroupAutoScalingPolicy_targetTrackingConfiguration = Lens.lens (\GameServerGroupAutoScalingPolicy' {targetTrackingConfiguration} -> targetTrackingConfiguration) (\s@GameServerGroupAutoScalingPolicy' {} a -> s {targetTrackingConfiguration = a} :: GameServerGroupAutoScalingPolicy)
 
-instance Hashable GameServerGroupAutoScalingPolicy
+instance
+  Prelude.Hashable
+    GameServerGroupAutoScalingPolicy
 
-instance NFData GameServerGroupAutoScalingPolicy
+instance
+  Prelude.NFData
+    GameServerGroupAutoScalingPolicy
 
-instance ToJSON GameServerGroupAutoScalingPolicy where
+instance
+  Prelude.ToJSON
+    GameServerGroupAutoScalingPolicy
+  where
   toJSON GameServerGroupAutoScalingPolicy' {..} =
-    object
-      ( catMaybes
-          [ ("EstimatedInstanceWarmup" .=)
-              <$> _gsgaspEstimatedInstanceWarmup,
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("EstimatedInstanceWarmup" Prelude..=)
+              Prelude.<$> estimatedInstanceWarmup,
+            Prelude.Just
               ( "TargetTrackingConfiguration"
-                  .= _gsgaspTargetTrackingConfiguration
+                  Prelude..= targetTrackingConfiguration
               )
           ]
       )

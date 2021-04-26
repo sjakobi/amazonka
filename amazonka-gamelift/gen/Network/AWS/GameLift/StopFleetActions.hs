@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,10 +21,16 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Suspends activity on a fleet. Currently, this operation is used to stop a fleet's auto-scaling activity. It is used to temporarily stop triggering scaling events. The policies can be retained and auto-scaling activity can be restarted using 'StartFleetActions' . You can view a fleet's stopped actions using 'DescribeFleetAttributes' .
+-- Suspends activity on a fleet. Currently, this operation is used to stop
+-- a fleet\'s auto-scaling activity. It is used to temporarily stop
+-- triggering scaling events. The policies can be retained and auto-scaling
+-- activity can be restarted using StartFleetActions. You can view a
+-- fleet\'s stopped actions using DescribeFleetAttributes.
 --
---
--- To stop fleet actions, specify the fleet ID and the type of actions to suspend. When auto-scaling fleet actions are stopped, Amazon GameLift no longer initiates scaling events except in response to manual changes using 'UpdateFleetCapacity' .
+-- To stop fleet actions, specify the fleet ID and the type of actions to
+-- suspend. When auto-scaling fleet actions are stopped, Amazon GameLift no
+-- longer initiates scaling events except in response to manual changes
+-- using UpdateFleetCapacity.
 --
 -- __Learn more__
 --
@@ -28,146 +38,154 @@
 --
 -- __Related operations__
 --
---     * 'CreateFleet'
+-- -   CreateFleet
 --
---     * 'ListFleets'
+-- -   ListFleets
 --
---     * 'DeleteFleet'
+-- -   DeleteFleet
 --
---     * 'DescribeFleetAttributes'
+-- -   DescribeFleetAttributes
 --
---     * 'UpdateFleetAttributes'
+-- -   UpdateFleetAttributes
 --
---     * 'StartFleetActions' or 'StopFleetActions'
+-- -   StartFleetActions or StopFleetActions
 module Network.AWS.GameLift.StopFleetActions
   ( -- * Creating a Request
-    stopFleetActions,
-    StopFleetActions,
+    StopFleetActions (..),
+    newStopFleetActions,
 
     -- * Request Lenses
-    sfaFleetId,
-    sfaActions,
+    stopFleetActions_fleetId,
+    stopFleetActions_actions,
 
     -- * Destructuring the Response
-    stopFleetActionsResponse,
-    StopFleetActionsResponse,
+    StopFleetActionsResponse (..),
+    newStopFleetActionsResponse,
 
     -- * Response Lenses
-    storsResponseStatus,
+    stopFleetActionsResponse_httpStatus,
   )
 where
 
 import Network.AWS.GameLift.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'stopFleetActions' smart constructor.
+-- | /See:/ 'newStopFleetActions' smart constructor.
 data StopFleetActions = StopFleetActions'
-  { _sfaFleetId ::
-      !Text,
-    _sfaActions :: !(List1 FleetAction)
+  { -- | A unique identifier for a fleet to stop actions on. You can use either
+    -- the fleet ID or ARN value.
+    fleetId :: Prelude.Text,
+    -- | List of actions to suspend on the fleet.
+    actions :: Prelude.List1 FleetAction
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopFleetActions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopFleetActions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sfaFleetId' - A unique identifier for a fleet to stop actions on. You can use either the fleet ID or ARN value.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sfaActions' - List of actions to suspend on the fleet.
-stopFleetActions ::
-  -- | 'sfaFleetId'
-  Text ->
-  -- | 'sfaActions'
-  NonEmpty FleetAction ->
+-- 'fleetId', 'stopFleetActions_fleetId' - A unique identifier for a fleet to stop actions on. You can use either
+-- the fleet ID or ARN value.
+--
+-- 'actions', 'stopFleetActions_actions' - List of actions to suspend on the fleet.
+newStopFleetActions ::
+  -- | 'fleetId'
+  Prelude.Text ->
+  -- | 'actions'
+  Prelude.NonEmpty FleetAction ->
   StopFleetActions
-stopFleetActions pFleetId_ pActions_ =
+newStopFleetActions pFleetId_ pActions_ =
   StopFleetActions'
-    { _sfaFleetId = pFleetId_,
-      _sfaActions = _List1 # pActions_
+    { fleetId = pFleetId_,
+      actions = Prelude._List1 Lens.# pActions_
     }
 
--- | A unique identifier for a fleet to stop actions on. You can use either the fleet ID or ARN value.
-sfaFleetId :: Lens' StopFleetActions Text
-sfaFleetId = lens _sfaFleetId (\s a -> s {_sfaFleetId = a})
+-- | A unique identifier for a fleet to stop actions on. You can use either
+-- the fleet ID or ARN value.
+stopFleetActions_fleetId :: Lens.Lens' StopFleetActions Prelude.Text
+stopFleetActions_fleetId = Lens.lens (\StopFleetActions' {fleetId} -> fleetId) (\s@StopFleetActions' {} a -> s {fleetId = a} :: StopFleetActions)
 
 -- | List of actions to suspend on the fleet.
-sfaActions :: Lens' StopFleetActions (NonEmpty FleetAction)
-sfaActions = lens _sfaActions (\s a -> s {_sfaActions = a}) . _List1
+stopFleetActions_actions :: Lens.Lens' StopFleetActions (Prelude.NonEmpty FleetAction)
+stopFleetActions_actions = Lens.lens (\StopFleetActions' {actions} -> actions) (\s@StopFleetActions' {} a -> s {actions = a} :: StopFleetActions) Prelude.. Prelude._List1
 
-instance AWSRequest StopFleetActions where
+instance Prelude.AWSRequest StopFleetActions where
   type Rs StopFleetActions = StopFleetActionsResponse
-  request = postJSON gameLift
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          StopFleetActionsResponse' <$> (pure (fromEnum s))
+          StopFleetActionsResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StopFleetActions
+instance Prelude.Hashable StopFleetActions
 
-instance NFData StopFleetActions
+instance Prelude.NFData StopFleetActions
 
-instance ToHeaders StopFleetActions where
+instance Prelude.ToHeaders StopFleetActions where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("GameLift.StopFleetActions" :: ByteString),
+              Prelude.=# ("GameLift.StopFleetActions" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StopFleetActions where
+instance Prelude.ToJSON StopFleetActions where
   toJSON StopFleetActions' {..} =
-    object
-      ( catMaybes
-          [ Just ("FleetId" .= _sfaFleetId),
-            Just ("Actions" .= _sfaActions)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("FleetId" Prelude..= fleetId),
+            Prelude.Just ("Actions" Prelude..= actions)
           ]
       )
 
-instance ToPath StopFleetActions where
-  toPath = const "/"
+instance Prelude.ToPath StopFleetActions where
+  toPath = Prelude.const "/"
 
-instance ToQuery StopFleetActions where
-  toQuery = const mempty
+instance Prelude.ToQuery StopFleetActions where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'stopFleetActionsResponse' smart constructor.
-newtype StopFleetActionsResponse = StopFleetActionsResponse'
-  { _storsResponseStatus ::
-      Int
+-- | /See:/ 'newStopFleetActionsResponse' smart constructor.
+data StopFleetActionsResponse = StopFleetActionsResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopFleetActionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopFleetActionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'storsResponseStatus' - -- | The response status code.
-stopFleetActionsResponse ::
-  -- | 'storsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'stopFleetActionsResponse_httpStatus' - The response's http status code.
+newStopFleetActionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StopFleetActionsResponse
-stopFleetActionsResponse pResponseStatus_ =
+newStopFleetActionsResponse pHttpStatus_ =
   StopFleetActionsResponse'
-    { _storsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-storsResponseStatus :: Lens' StopFleetActionsResponse Int
-storsResponseStatus = lens _storsResponseStatus (\s a -> s {_storsResponseStatus = a})
+-- | The response's http status code.
+stopFleetActionsResponse_httpStatus :: Lens.Lens' StopFleetActionsResponse Prelude.Int
+stopFleetActionsResponse_httpStatus = Lens.lens (\StopFleetActionsResponse' {httpStatus} -> httpStatus) (\s@StopFleetActionsResponse' {} a -> s {httpStatus = a} :: StopFleetActionsResponse)
 
-instance NFData StopFleetActionsResponse
+instance Prelude.NFData StopFleetActionsResponse

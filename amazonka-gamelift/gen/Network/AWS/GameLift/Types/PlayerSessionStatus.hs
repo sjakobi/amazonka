@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,65 @@
 module Network.AWS.GameLift.Types.PlayerSessionStatus
   ( PlayerSessionStatus
       ( ..,
-        PSSActive,
-        PSSCompleted,
-        PSSReserved,
-        PSSTimedout
+        PlayerSessionStatusACTIVE,
+        PlayerSessionStatusCOMPLETED,
+        PlayerSessionStatusRESERVED,
+        PlayerSessionStatusTIMEDOUT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PlayerSessionStatus
-  = PlayerSessionStatus'
-      ( CI
-          Text
-      )
+newtype PlayerSessionStatus = PlayerSessionStatus'
+  { fromPlayerSessionStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PSSActive :: PlayerSessionStatus
-pattern PSSActive = PlayerSessionStatus' "ACTIVE"
+pattern PlayerSessionStatusACTIVE :: PlayerSessionStatus
+pattern PlayerSessionStatusACTIVE = PlayerSessionStatus' "ACTIVE"
 
-pattern PSSCompleted :: PlayerSessionStatus
-pattern PSSCompleted = PlayerSessionStatus' "COMPLETED"
+pattern PlayerSessionStatusCOMPLETED :: PlayerSessionStatus
+pattern PlayerSessionStatusCOMPLETED = PlayerSessionStatus' "COMPLETED"
 
-pattern PSSReserved :: PlayerSessionStatus
-pattern PSSReserved = PlayerSessionStatus' "RESERVED"
+pattern PlayerSessionStatusRESERVED :: PlayerSessionStatus
+pattern PlayerSessionStatusRESERVED = PlayerSessionStatus' "RESERVED"
 
-pattern PSSTimedout :: PlayerSessionStatus
-pattern PSSTimedout = PlayerSessionStatus' "TIMEDOUT"
+pattern PlayerSessionStatusTIMEDOUT :: PlayerSessionStatus
+pattern PlayerSessionStatusTIMEDOUT = PlayerSessionStatus' "TIMEDOUT"
 
 {-# COMPLETE
-  PSSActive,
-  PSSCompleted,
-  PSSReserved,
-  PSSTimedout,
+  PlayerSessionStatusACTIVE,
+  PlayerSessionStatusCOMPLETED,
+  PlayerSessionStatusRESERVED,
+  PlayerSessionStatusTIMEDOUT,
   PlayerSessionStatus'
   #-}
 
-instance FromText PlayerSessionStatus where
-  parser = (PlayerSessionStatus' . mk) <$> takeText
+instance Prelude.FromText PlayerSessionStatus where
+  parser = PlayerSessionStatus' Prelude.<$> Prelude.takeText
 
-instance ToText PlayerSessionStatus where
-  toText (PlayerSessionStatus' ci) = original ci
+instance Prelude.ToText PlayerSessionStatus where
+  toText (PlayerSessionStatus' x) = x
 
-instance Hashable PlayerSessionStatus
+instance Prelude.Hashable PlayerSessionStatus
 
-instance NFData PlayerSessionStatus
+instance Prelude.NFData PlayerSessionStatus
 
-instance ToByteString PlayerSessionStatus
+instance Prelude.ToByteString PlayerSessionStatus
 
-instance ToQuery PlayerSessionStatus
+instance Prelude.ToQuery PlayerSessionStatus
 
-instance ToHeader PlayerSessionStatus
+instance Prelude.ToHeader PlayerSessionStatus
 
-instance FromJSON PlayerSessionStatus where
-  parseJSON = parseJSONText "PlayerSessionStatus"
+instance Prelude.FromJSON PlayerSessionStatus where
+  parseJSON = Prelude.parseJSONText "PlayerSessionStatus"

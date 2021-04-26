@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,64 +20,87 @@
 module Network.AWS.GameLift.Types.EC2InstanceLimit where
 
 import Network.AWS.GameLift.Types.EC2InstanceType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The maximum number of instances allowed based on the Amazon Elastic Compute Cloud (Amazon EC2) instance type. Instance limits can be retrieved by calling 'DescribeEC2InstanceLimits' .
+-- | The maximum number of instances allowed based on the Amazon Elastic
+-- Compute Cloud (Amazon EC2) instance type. Instance limits can be
+-- retrieved by calling DescribeEC2InstanceLimits.
 --
---
---
--- /See:/ 'ec2InstanceLimit' smart constructor.
+-- /See:/ 'newEC2InstanceLimit' smart constructor.
 data EC2InstanceLimit = EC2InstanceLimit'
-  { _eilInstanceLimit ::
-      !(Maybe Nat),
-    _eilCurrentInstances :: !(Maybe Nat),
-    _eilEC2InstanceType ::
-      !(Maybe EC2InstanceType)
+  { -- | Number of instances allowed.
+    instanceLimit :: Prelude.Maybe Prelude.Nat,
+    -- | Number of instances of the specified type that are currently in use by
+    -- this AWS account.
+    currentInstances :: Prelude.Maybe Prelude.Nat,
+    -- | Name of an EC2 instance type that is supported in Amazon GameLift. A
+    -- fleet instance type determines the computing resources of each instance
+    -- in the fleet, including CPU, memory, storage, and networking capacity.
+    -- Amazon GameLift supports the following EC2 instance types. See
+    -- <http://aws.amazon.com/ec2/instance-types/ Amazon EC2 Instance Types>
+    -- for detailed descriptions.
+    eC2InstanceType :: Prelude.Maybe EC2InstanceType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EC2InstanceLimit' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EC2InstanceLimit' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eilInstanceLimit' - Number of instances allowed.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'eilCurrentInstances' - Number of instances of the specified type that are currently in use by this AWS account.
+-- 'instanceLimit', 'eC2InstanceLimit_instanceLimit' - Number of instances allowed.
 --
--- * 'eilEC2InstanceType' - Name of an EC2 instance type that is supported in Amazon GameLift. A fleet instance type determines the computing resources of each instance in the fleet, including CPU, memory, storage, and networking capacity. Amazon GameLift supports the following EC2 instance types. See <http://aws.amazon.com/ec2/instance-types/ Amazon EC2 Instance Types> for detailed descriptions.
-ec2InstanceLimit ::
+-- 'currentInstances', 'eC2InstanceLimit_currentInstances' - Number of instances of the specified type that are currently in use by
+-- this AWS account.
+--
+-- 'eC2InstanceType', 'eC2InstanceLimit_eC2InstanceType' - Name of an EC2 instance type that is supported in Amazon GameLift. A
+-- fleet instance type determines the computing resources of each instance
+-- in the fleet, including CPU, memory, storage, and networking capacity.
+-- Amazon GameLift supports the following EC2 instance types. See
+-- <http://aws.amazon.com/ec2/instance-types/ Amazon EC2 Instance Types>
+-- for detailed descriptions.
+newEC2InstanceLimit ::
   EC2InstanceLimit
-ec2InstanceLimit =
+newEC2InstanceLimit =
   EC2InstanceLimit'
-    { _eilInstanceLimit = Nothing,
-      _eilCurrentInstances = Nothing,
-      _eilEC2InstanceType = Nothing
+    { instanceLimit = Prelude.Nothing,
+      currentInstances = Prelude.Nothing,
+      eC2InstanceType = Prelude.Nothing
     }
 
 -- | Number of instances allowed.
-eilInstanceLimit :: Lens' EC2InstanceLimit (Maybe Natural)
-eilInstanceLimit = lens _eilInstanceLimit (\s a -> s {_eilInstanceLimit = a}) . mapping _Nat
+eC2InstanceLimit_instanceLimit :: Lens.Lens' EC2InstanceLimit (Prelude.Maybe Prelude.Natural)
+eC2InstanceLimit_instanceLimit = Lens.lens (\EC2InstanceLimit' {instanceLimit} -> instanceLimit) (\s@EC2InstanceLimit' {} a -> s {instanceLimit = a} :: EC2InstanceLimit) Prelude.. Lens.mapping Prelude._Nat
 
--- | Number of instances of the specified type that are currently in use by this AWS account.
-eilCurrentInstances :: Lens' EC2InstanceLimit (Maybe Natural)
-eilCurrentInstances = lens _eilCurrentInstances (\s a -> s {_eilCurrentInstances = a}) . mapping _Nat
+-- | Number of instances of the specified type that are currently in use by
+-- this AWS account.
+eC2InstanceLimit_currentInstances :: Lens.Lens' EC2InstanceLimit (Prelude.Maybe Prelude.Natural)
+eC2InstanceLimit_currentInstances = Lens.lens (\EC2InstanceLimit' {currentInstances} -> currentInstances) (\s@EC2InstanceLimit' {} a -> s {currentInstances = a} :: EC2InstanceLimit) Prelude.. Lens.mapping Prelude._Nat
 
--- | Name of an EC2 instance type that is supported in Amazon GameLift. A fleet instance type determines the computing resources of each instance in the fleet, including CPU, memory, storage, and networking capacity. Amazon GameLift supports the following EC2 instance types. See <http://aws.amazon.com/ec2/instance-types/ Amazon EC2 Instance Types> for detailed descriptions.
-eilEC2InstanceType :: Lens' EC2InstanceLimit (Maybe EC2InstanceType)
-eilEC2InstanceType = lens _eilEC2InstanceType (\s a -> s {_eilEC2InstanceType = a})
+-- | Name of an EC2 instance type that is supported in Amazon GameLift. A
+-- fleet instance type determines the computing resources of each instance
+-- in the fleet, including CPU, memory, storage, and networking capacity.
+-- Amazon GameLift supports the following EC2 instance types. See
+-- <http://aws.amazon.com/ec2/instance-types/ Amazon EC2 Instance Types>
+-- for detailed descriptions.
+eC2InstanceLimit_eC2InstanceType :: Lens.Lens' EC2InstanceLimit (Prelude.Maybe EC2InstanceType)
+eC2InstanceLimit_eC2InstanceType = Lens.lens (\EC2InstanceLimit' {eC2InstanceType} -> eC2InstanceType) (\s@EC2InstanceLimit' {} a -> s {eC2InstanceType = a} :: EC2InstanceLimit)
 
-instance FromJSON EC2InstanceLimit where
+instance Prelude.FromJSON EC2InstanceLimit where
   parseJSON =
-    withObject
+    Prelude.withObject
       "EC2InstanceLimit"
       ( \x ->
           EC2InstanceLimit'
-            <$> (x .:? "InstanceLimit")
-            <*> (x .:? "CurrentInstances")
-            <*> (x .:? "EC2InstanceType")
+            Prelude.<$> (x Prelude..:? "InstanceLimit")
+            Prelude.<*> (x Prelude..:? "CurrentInstances")
+            Prelude.<*> (x Prelude..:? "EC2InstanceType")
       )
 
-instance Hashable EC2InstanceLimit
+instance Prelude.Hashable EC2InstanceLimit
 
-instance NFData EC2InstanceLimit
+instance Prelude.NFData EC2InstanceLimit

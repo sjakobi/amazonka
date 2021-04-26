@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,10 +21,14 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves a fleet's runtime configuration settings. The runtime configuration tells Amazon GameLift which server processes to run (and how) on each instance in the fleet.
+-- Retrieves a fleet\'s runtime configuration settings. The runtime
+-- configuration tells Amazon GameLift which server processes to run (and
+-- how) on each instance in the fleet.
 --
---
--- To get a runtime configuration, specify the fleet's unique identifier. If successful, a 'RuntimeConfiguration' object is returned for the requested fleet. If the requested fleet has been deleted, the result set is empty.
+-- To get a runtime configuration, specify the fleet\'s unique identifier.
+-- If successful, a RuntimeConfiguration object is returned for the
+-- requested fleet. If the requested fleet has been deleted, the result set
+-- is empty.
 --
 -- __Learn more__
 --
@@ -30,182 +38,185 @@
 --
 -- __Related operations__
 --
---     * 'CreateFleet'
+-- -   CreateFleet
 --
---     * 'ListFleets'
+-- -   ListFleets
 --
---     * 'DeleteFleet'
+-- -   DeleteFleet
 --
---     * Describe fleets:
+-- -   Describe fleets:
 --
---     * 'DescribeFleetAttributes'
+--     -   DescribeFleetAttributes
 --
---     * 'DescribeFleetCapacity'
+--     -   DescribeFleetCapacity
 --
---     * 'DescribeFleetPortSettings'
+--     -   DescribeFleetPortSettings
 --
---     * 'DescribeFleetUtilization'
+--     -   DescribeFleetUtilization
 --
---     * 'DescribeRuntimeConfiguration'
+--     -   DescribeRuntimeConfiguration
 --
---     * 'DescribeEC2InstanceLimits'
+--     -   DescribeEC2InstanceLimits
 --
---     * 'DescribeFleetEvents'
+--     -   DescribeFleetEvents
 --
+-- -   UpdateFleetAttributes
 --
---
---     * 'UpdateFleetAttributes'
---
---     * 'StartFleetActions' or 'StopFleetActions'
+-- -   StartFleetActions or StopFleetActions
 module Network.AWS.GameLift.DescribeRuntimeConfiguration
   ( -- * Creating a Request
-    describeRuntimeConfiguration,
-    DescribeRuntimeConfiguration,
+    DescribeRuntimeConfiguration (..),
+    newDescribeRuntimeConfiguration,
 
     -- * Request Lenses
-    drcFleetId,
+    describeRuntimeConfiguration_fleetId,
 
     -- * Destructuring the Response
-    describeRuntimeConfigurationResponse,
-    DescribeRuntimeConfigurationResponse,
+    DescribeRuntimeConfigurationResponse (..),
+    newDescribeRuntimeConfigurationResponse,
 
     -- * Response Lenses
-    drcrrsRuntimeConfiguration,
-    drcrrsResponseStatus,
+    describeRuntimeConfigurationResponse_runtimeConfiguration,
+    describeRuntimeConfigurationResponse_httpStatus,
   )
 where
 
 import Network.AWS.GameLift.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.GameLift.Types.RuntimeConfiguration
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input for a request operation.
 --
---
---
--- /See:/ 'describeRuntimeConfiguration' smart constructor.
-newtype DescribeRuntimeConfiguration = DescribeRuntimeConfiguration'
-  { _drcFleetId ::
-      Text
+-- /See:/ 'newDescribeRuntimeConfiguration' smart constructor.
+data DescribeRuntimeConfiguration = DescribeRuntimeConfiguration'
+  { -- | A unique identifier for a fleet to get the runtime configuration for.
+    -- You can use either the fleet ID or ARN value.
+    fleetId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeRuntimeConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeRuntimeConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drcFleetId' - A unique identifier for a fleet to get the runtime configuration for. You can use either the fleet ID or ARN value.
-describeRuntimeConfiguration ::
-  -- | 'drcFleetId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'fleetId', 'describeRuntimeConfiguration_fleetId' - A unique identifier for a fleet to get the runtime configuration for.
+-- You can use either the fleet ID or ARN value.
+newDescribeRuntimeConfiguration ::
+  -- | 'fleetId'
+  Prelude.Text ->
   DescribeRuntimeConfiguration
-describeRuntimeConfiguration pFleetId_ =
-  DescribeRuntimeConfiguration'
-    { _drcFleetId =
-        pFleetId_
-    }
+newDescribeRuntimeConfiguration pFleetId_ =
+  DescribeRuntimeConfiguration' {fleetId = pFleetId_}
 
--- | A unique identifier for a fleet to get the runtime configuration for. You can use either the fleet ID or ARN value.
-drcFleetId :: Lens' DescribeRuntimeConfiguration Text
-drcFleetId = lens _drcFleetId (\s a -> s {_drcFleetId = a})
+-- | A unique identifier for a fleet to get the runtime configuration for.
+-- You can use either the fleet ID or ARN value.
+describeRuntimeConfiguration_fleetId :: Lens.Lens' DescribeRuntimeConfiguration Prelude.Text
+describeRuntimeConfiguration_fleetId = Lens.lens (\DescribeRuntimeConfiguration' {fleetId} -> fleetId) (\s@DescribeRuntimeConfiguration' {} a -> s {fleetId = a} :: DescribeRuntimeConfiguration)
 
-instance AWSRequest DescribeRuntimeConfiguration where
+instance
+  Prelude.AWSRequest
+    DescribeRuntimeConfiguration
+  where
   type
     Rs DescribeRuntimeConfiguration =
       DescribeRuntimeConfigurationResponse
-  request = postJSON gameLift
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeRuntimeConfigurationResponse'
-            <$> (x .?> "RuntimeConfiguration")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "RuntimeConfiguration")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeRuntimeConfiguration
+instance
+  Prelude.Hashable
+    DescribeRuntimeConfiguration
 
-instance NFData DescribeRuntimeConfiguration
+instance Prelude.NFData DescribeRuntimeConfiguration
 
-instance ToHeaders DescribeRuntimeConfiguration where
+instance
+  Prelude.ToHeaders
+    DescribeRuntimeConfiguration
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "GameLift.DescribeRuntimeConfiguration" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "GameLift.DescribeRuntimeConfiguration" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeRuntimeConfiguration where
+instance Prelude.ToJSON DescribeRuntimeConfiguration where
   toJSON DescribeRuntimeConfiguration' {..} =
-    object
-      (catMaybes [Just ("FleetId" .= _drcFleetId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("FleetId" Prelude..= fleetId)]
+      )
 
-instance ToPath DescribeRuntimeConfiguration where
-  toPath = const "/"
+instance Prelude.ToPath DescribeRuntimeConfiguration where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeRuntimeConfiguration where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeRuntimeConfiguration where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the returned data in response to a request operation.
 --
---
---
--- /See:/ 'describeRuntimeConfigurationResponse' smart constructor.
+-- /See:/ 'newDescribeRuntimeConfigurationResponse' smart constructor.
 data DescribeRuntimeConfigurationResponse = DescribeRuntimeConfigurationResponse'
-  { _drcrrsRuntimeConfiguration ::
-      !( Maybe
-           RuntimeConfiguration
-       ),
-    _drcrrsResponseStatus ::
-      !Int
+  { -- | Instructions describing how server processes should be launched and
+    -- maintained on each instance in the fleet.
+    runtimeConfiguration :: Prelude.Maybe RuntimeConfiguration,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeRuntimeConfigurationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeRuntimeConfigurationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drcrrsRuntimeConfiguration' - Instructions describing how server processes should be launched and maintained on each instance in the fleet.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drcrrsResponseStatus' - -- | The response status code.
-describeRuntimeConfigurationResponse ::
-  -- | 'drcrrsResponseStatus'
-  Int ->
+-- 'runtimeConfiguration', 'describeRuntimeConfigurationResponse_runtimeConfiguration' - Instructions describing how server processes should be launched and
+-- maintained on each instance in the fleet.
+--
+-- 'httpStatus', 'describeRuntimeConfigurationResponse_httpStatus' - The response's http status code.
+newDescribeRuntimeConfigurationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeRuntimeConfigurationResponse
-describeRuntimeConfigurationResponse pResponseStatus_ =
+newDescribeRuntimeConfigurationResponse pHttpStatus_ =
   DescribeRuntimeConfigurationResponse'
-    { _drcrrsRuntimeConfiguration =
-        Nothing,
-      _drcrrsResponseStatus =
-        pResponseStatus_
+    { runtimeConfiguration =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Instructions describing how server processes should be launched and maintained on each instance in the fleet.
-drcrrsRuntimeConfiguration :: Lens' DescribeRuntimeConfigurationResponse (Maybe RuntimeConfiguration)
-drcrrsRuntimeConfiguration = lens _drcrrsRuntimeConfiguration (\s a -> s {_drcrrsRuntimeConfiguration = a})
+-- | Instructions describing how server processes should be launched and
+-- maintained on each instance in the fleet.
+describeRuntimeConfigurationResponse_runtimeConfiguration :: Lens.Lens' DescribeRuntimeConfigurationResponse (Prelude.Maybe RuntimeConfiguration)
+describeRuntimeConfigurationResponse_runtimeConfiguration = Lens.lens (\DescribeRuntimeConfigurationResponse' {runtimeConfiguration} -> runtimeConfiguration) (\s@DescribeRuntimeConfigurationResponse' {} a -> s {runtimeConfiguration = a} :: DescribeRuntimeConfigurationResponse)
 
--- | -- | The response status code.
-drcrrsResponseStatus :: Lens' DescribeRuntimeConfigurationResponse Int
-drcrrsResponseStatus = lens _drcrrsResponseStatus (\s a -> s {_drcrrsResponseStatus = a})
+-- | The response's http status code.
+describeRuntimeConfigurationResponse_httpStatus :: Lens.Lens' DescribeRuntimeConfigurationResponse Prelude.Int
+describeRuntimeConfigurationResponse_httpStatus = Lens.lens (\DescribeRuntimeConfigurationResponse' {httpStatus} -> httpStatus) (\s@DescribeRuntimeConfigurationResponse' {} a -> s {httpStatus = a} :: DescribeRuntimeConfigurationResponse)
 
-instance NFData DescribeRuntimeConfigurationResponse
+instance
+  Prelude.NFData
+    DescribeRuntimeConfigurationResponse

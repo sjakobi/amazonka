@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,179 +21,182 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves properties and current status of a game session placement request. To get game session placement details, specify the placement ID. If successful, a 'GameSessionPlacement' object is returned.
+-- Retrieves properties and current status of a game session placement
+-- request. To get game session placement details, specify the placement
+-- ID. If successful, a GameSessionPlacement object is returned.
 --
+-- -   CreateGameSession
 --
---     * 'CreateGameSession'
+-- -   DescribeGameSessions
 --
---     * 'DescribeGameSessions'
+-- -   DescribeGameSessionDetails
 --
---     * 'DescribeGameSessionDetails'
+-- -   SearchGameSessions
 --
---     * 'SearchGameSessions'
+-- -   UpdateGameSession
 --
---     * 'UpdateGameSession'
+-- -   GetGameSessionLogUrl
 --
---     * 'GetGameSessionLogUrl'
+-- -   Game session placements
 --
---     * Game session placements
+--     -   StartGameSessionPlacement
 --
---     * 'StartGameSessionPlacement'
+--     -   DescribeGameSessionPlacement
 --
---     * 'DescribeGameSessionPlacement'
---
---     * 'StopGameSessionPlacement'
+--     -   StopGameSessionPlacement
 module Network.AWS.GameLift.DescribeGameSessionPlacement
   ( -- * Creating a Request
-    describeGameSessionPlacement,
-    DescribeGameSessionPlacement,
+    DescribeGameSessionPlacement (..),
+    newDescribeGameSessionPlacement,
 
     -- * Request Lenses
-    dgspPlacementId,
+    describeGameSessionPlacement_placementId,
 
     -- * Destructuring the Response
-    describeGameSessionPlacementResponse,
-    DescribeGameSessionPlacementResponse,
+    DescribeGameSessionPlacementResponse (..),
+    newDescribeGameSessionPlacementResponse,
 
     -- * Response Lenses
-    dgsprrsGameSessionPlacement,
-    dgsprrsResponseStatus,
+    describeGameSessionPlacementResponse_gameSessionPlacement,
+    describeGameSessionPlacementResponse_httpStatus,
   )
 where
 
 import Network.AWS.GameLift.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.GameLift.Types.GameSessionPlacement
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input for a request operation.
 --
---
---
--- /See:/ 'describeGameSessionPlacement' smart constructor.
-newtype DescribeGameSessionPlacement = DescribeGameSessionPlacement'
-  { _dgspPlacementId ::
-      Text
+-- /See:/ 'newDescribeGameSessionPlacement' smart constructor.
+data DescribeGameSessionPlacement = DescribeGameSessionPlacement'
+  { -- | A unique identifier for a game session placement to retrieve.
+    placementId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeGameSessionPlacement' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeGameSessionPlacement' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dgspPlacementId' - A unique identifier for a game session placement to retrieve.
-describeGameSessionPlacement ::
-  -- | 'dgspPlacementId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'placementId', 'describeGameSessionPlacement_placementId' - A unique identifier for a game session placement to retrieve.
+newDescribeGameSessionPlacement ::
+  -- | 'placementId'
+  Prelude.Text ->
   DescribeGameSessionPlacement
-describeGameSessionPlacement pPlacementId_ =
+newDescribeGameSessionPlacement pPlacementId_ =
   DescribeGameSessionPlacement'
-    { _dgspPlacementId =
+    { placementId =
         pPlacementId_
     }
 
 -- | A unique identifier for a game session placement to retrieve.
-dgspPlacementId :: Lens' DescribeGameSessionPlacement Text
-dgspPlacementId = lens _dgspPlacementId (\s a -> s {_dgspPlacementId = a})
+describeGameSessionPlacement_placementId :: Lens.Lens' DescribeGameSessionPlacement Prelude.Text
+describeGameSessionPlacement_placementId = Lens.lens (\DescribeGameSessionPlacement' {placementId} -> placementId) (\s@DescribeGameSessionPlacement' {} a -> s {placementId = a} :: DescribeGameSessionPlacement)
 
-instance AWSRequest DescribeGameSessionPlacement where
+instance
+  Prelude.AWSRequest
+    DescribeGameSessionPlacement
+  where
   type
     Rs DescribeGameSessionPlacement =
       DescribeGameSessionPlacementResponse
-  request = postJSON gameLift
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeGameSessionPlacementResponse'
-            <$> (x .?> "GameSessionPlacement")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "GameSessionPlacement")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeGameSessionPlacement
+instance
+  Prelude.Hashable
+    DescribeGameSessionPlacement
 
-instance NFData DescribeGameSessionPlacement
+instance Prelude.NFData DescribeGameSessionPlacement
 
-instance ToHeaders DescribeGameSessionPlacement where
+instance
+  Prelude.ToHeaders
+    DescribeGameSessionPlacement
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "GameLift.DescribeGameSessionPlacement" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "GameLift.DescribeGameSessionPlacement" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeGameSessionPlacement where
+instance Prelude.ToJSON DescribeGameSessionPlacement where
   toJSON DescribeGameSessionPlacement' {..} =
-    object
-      ( catMaybes
-          [Just ("PlacementId" .= _dgspPlacementId)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("PlacementId" Prelude..= placementId)
+          ]
       )
 
-instance ToPath DescribeGameSessionPlacement where
-  toPath = const "/"
+instance Prelude.ToPath DescribeGameSessionPlacement where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeGameSessionPlacement where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeGameSessionPlacement where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the returned data in response to a request operation.
 --
---
---
--- /See:/ 'describeGameSessionPlacementResponse' smart constructor.
+-- /See:/ 'newDescribeGameSessionPlacementResponse' smart constructor.
 data DescribeGameSessionPlacementResponse = DescribeGameSessionPlacementResponse'
-  { _dgsprrsGameSessionPlacement ::
-      !( Maybe
-           GameSessionPlacement
-       ),
-    _dgsprrsResponseStatus ::
-      !Int
+  { -- | Object that describes the requested game session placement.
+    gameSessionPlacement :: Prelude.Maybe GameSessionPlacement,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeGameSessionPlacementResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeGameSessionPlacementResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dgsprrsGameSessionPlacement' - Object that describes the requested game session placement.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dgsprrsResponseStatus' - -- | The response status code.
-describeGameSessionPlacementResponse ::
-  -- | 'dgsprrsResponseStatus'
-  Int ->
+-- 'gameSessionPlacement', 'describeGameSessionPlacementResponse_gameSessionPlacement' - Object that describes the requested game session placement.
+--
+-- 'httpStatus', 'describeGameSessionPlacementResponse_httpStatus' - The response's http status code.
+newDescribeGameSessionPlacementResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeGameSessionPlacementResponse
-describeGameSessionPlacementResponse pResponseStatus_ =
+newDescribeGameSessionPlacementResponse pHttpStatus_ =
   DescribeGameSessionPlacementResponse'
-    { _dgsprrsGameSessionPlacement =
-        Nothing,
-      _dgsprrsResponseStatus =
-        pResponseStatus_
+    { gameSessionPlacement =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Object that describes the requested game session placement.
-dgsprrsGameSessionPlacement :: Lens' DescribeGameSessionPlacementResponse (Maybe GameSessionPlacement)
-dgsprrsGameSessionPlacement = lens _dgsprrsGameSessionPlacement (\s a -> s {_dgsprrsGameSessionPlacement = a})
+describeGameSessionPlacementResponse_gameSessionPlacement :: Lens.Lens' DescribeGameSessionPlacementResponse (Prelude.Maybe GameSessionPlacement)
+describeGameSessionPlacementResponse_gameSessionPlacement = Lens.lens (\DescribeGameSessionPlacementResponse' {gameSessionPlacement} -> gameSessionPlacement) (\s@DescribeGameSessionPlacementResponse' {} a -> s {gameSessionPlacement = a} :: DescribeGameSessionPlacementResponse)
 
--- | -- | The response status code.
-dgsprrsResponseStatus :: Lens' DescribeGameSessionPlacementResponse Int
-dgsprrsResponseStatus = lens _dgsprrsResponseStatus (\s a -> s {_dgsprrsResponseStatus = a})
+-- | The response's http status code.
+describeGameSessionPlacementResponse_httpStatus :: Lens.Lens' DescribeGameSessionPlacementResponse Prelude.Int
+describeGameSessionPlacementResponse_httpStatus = Lens.lens (\DescribeGameSessionPlacementResponse' {httpStatus} -> httpStatus) (\s@DescribeGameSessionPlacementResponse' {} a -> s {httpStatus = a} :: DescribeGameSessionPlacementResponse)
 
-instance NFData DescribeGameSessionPlacementResponse
+instance
+  Prelude.NFData
+    DescribeGameSessionPlacementResponse

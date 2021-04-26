@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,59 +19,73 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.GameLift.Types.GameProperty where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Set of key-value pairs that contain information about a game session. When included in a game session request, these properties communicate details to be used when setting up the new game session. For example, a game property might specify a game mode, level, or map. Game properties are passed to the game server process when initiating a new game session. For more information, see the <https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-sdk-client-api.html#gamelift-sdk-client-api-create Amazon GameLift Developer Guide> .
+-- | Set of key-value pairs that contain information about a game session.
+-- When included in a game session request, these properties communicate
+-- details to be used when setting up the new game session. For example, a
+-- game property might specify a game mode, level, or map. Game properties
+-- are passed to the game server process when initiating a new game
+-- session. For more information, see the
+-- <https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-sdk-client-api.html#gamelift-sdk-client-api-create Amazon GameLift Developer Guide>.
 --
---
---
--- /See:/ 'gameProperty' smart constructor.
+-- /See:/ 'newGameProperty' smart constructor.
 data GameProperty = GameProperty'
-  { _gpKey :: !Text,
-    _gpValue :: !Text
+  { -- | The game property identifier.
+    key :: Prelude.Text,
+    -- | The game property value.
+    value :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GameProperty' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GameProperty' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gpKey' - The game property identifier.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gpValue' - The game property value.
-gameProperty ::
-  -- | 'gpKey'
-  Text ->
-  -- | 'gpValue'
-  Text ->
+-- 'key', 'gameProperty_key' - The game property identifier.
+--
+-- 'value', 'gameProperty_value' - The game property value.
+newGameProperty ::
+  -- | 'key'
+  Prelude.Text ->
+  -- | 'value'
+  Prelude.Text ->
   GameProperty
-gameProperty pKey_ pValue_ =
-  GameProperty' {_gpKey = pKey_, _gpValue = pValue_}
+newGameProperty pKey_ pValue_ =
+  GameProperty' {key = pKey_, value = pValue_}
 
 -- | The game property identifier.
-gpKey :: Lens' GameProperty Text
-gpKey = lens _gpKey (\s a -> s {_gpKey = a})
+gameProperty_key :: Lens.Lens' GameProperty Prelude.Text
+gameProperty_key = Lens.lens (\GameProperty' {key} -> key) (\s@GameProperty' {} a -> s {key = a} :: GameProperty)
 
 -- | The game property value.
-gpValue :: Lens' GameProperty Text
-gpValue = lens _gpValue (\s a -> s {_gpValue = a})
+gameProperty_value :: Lens.Lens' GameProperty Prelude.Text
+gameProperty_value = Lens.lens (\GameProperty' {value} -> value) (\s@GameProperty' {} a -> s {value = a} :: GameProperty)
 
-instance FromJSON GameProperty where
+instance Prelude.FromJSON GameProperty where
   parseJSON =
-    withObject
+    Prelude.withObject
       "GameProperty"
       ( \x ->
-          GameProperty' <$> (x .: "Key") <*> (x .: "Value")
+          GameProperty'
+            Prelude.<$> (x Prelude..: "Key")
+            Prelude.<*> (x Prelude..: "Value")
       )
 
-instance Hashable GameProperty
+instance Prelude.Hashable GameProperty
 
-instance NFData GameProperty
+instance Prelude.NFData GameProperty
 
-instance ToJSON GameProperty where
+instance Prelude.ToJSON GameProperty where
   toJSON GameProperty' {..} =
-    object
-      ( catMaybes
-          [Just ("Key" .= _gpKey), Just ("Value" .= _gpValue)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("Key" Prelude..= key),
+            Prelude.Just ("Value" Prelude..= value)
+          ]
       )

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,151 +21,160 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves properties for an alias. This operation returns all alias metadata and settings. To get an alias's target fleet ID only, use @ResolveAlias@ .
+-- Retrieves properties for an alias. This operation returns all alias
+-- metadata and settings. To get an alias\'s target fleet ID only, use
+-- @ResolveAlias@.
 --
+-- To get alias properties, specify the alias ID. If successful, the
+-- requested alias record is returned.
 --
--- To get alias properties, specify the alias ID. If successful, the requested alias record is returned.
+-- -   CreateAlias
 --
---     * 'CreateAlias'
+-- -   ListAliases
 --
---     * 'ListAliases'
+-- -   DescribeAlias
 --
---     * 'DescribeAlias'
+-- -   UpdateAlias
 --
---     * 'UpdateAlias'
+-- -   DeleteAlias
 --
---     * 'DeleteAlias'
---
---     * 'ResolveAlias'
+-- -   ResolveAlias
 module Network.AWS.GameLift.DescribeAlias
   ( -- * Creating a Request
-    describeAlias,
-    DescribeAlias,
+    DescribeAlias (..),
+    newDescribeAlias,
 
     -- * Request Lenses
-    dAliasId,
+    describeAlias_aliasId,
 
     -- * Destructuring the Response
-    describeAliasResponse,
-    DescribeAliasResponse,
+    DescribeAliasResponse (..),
+    newDescribeAliasResponse,
 
     -- * Response Lenses
-    darrsAlias,
-    darrsResponseStatus,
+    describeAliasResponse_alias,
+    describeAliasResponse_httpStatus,
   )
 where
 
 import Network.AWS.GameLift.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.GameLift.Types.Alias
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input for a request operation.
 --
---
---
--- /See:/ 'describeAlias' smart constructor.
-newtype DescribeAlias = DescribeAlias'
-  { _dAliasId ::
-      Text
+-- /See:/ 'newDescribeAlias' smart constructor.
+data DescribeAlias = DescribeAlias'
+  { -- | The unique identifier for the fleet alias that you want to retrieve. You
+    -- can use either the alias ID or ARN value.
+    aliasId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeAlias' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeAlias' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dAliasId' - The unique identifier for the fleet alias that you want to retrieve. You can use either the alias ID or ARN value.
-describeAlias ::
-  -- | 'dAliasId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'aliasId', 'describeAlias_aliasId' - The unique identifier for the fleet alias that you want to retrieve. You
+-- can use either the alias ID or ARN value.
+newDescribeAlias ::
+  -- | 'aliasId'
+  Prelude.Text ->
   DescribeAlias
-describeAlias pAliasId_ =
-  DescribeAlias' {_dAliasId = pAliasId_}
+newDescribeAlias pAliasId_ =
+  DescribeAlias' {aliasId = pAliasId_}
 
--- | The unique identifier for the fleet alias that you want to retrieve. You can use either the alias ID or ARN value.
-dAliasId :: Lens' DescribeAlias Text
-dAliasId = lens _dAliasId (\s a -> s {_dAliasId = a})
+-- | The unique identifier for the fleet alias that you want to retrieve. You
+-- can use either the alias ID or ARN value.
+describeAlias_aliasId :: Lens.Lens' DescribeAlias Prelude.Text
+describeAlias_aliasId = Lens.lens (\DescribeAlias' {aliasId} -> aliasId) (\s@DescribeAlias' {} a -> s {aliasId = a} :: DescribeAlias)
 
-instance AWSRequest DescribeAlias where
+instance Prelude.AWSRequest DescribeAlias where
   type Rs DescribeAlias = DescribeAliasResponse
-  request = postJSON gameLift
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeAliasResponse'
-            <$> (x .?> "Alias") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Alias")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeAlias
+instance Prelude.Hashable DescribeAlias
 
-instance NFData DescribeAlias
+instance Prelude.NFData DescribeAlias
 
-instance ToHeaders DescribeAlias where
+instance Prelude.ToHeaders DescribeAlias where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("GameLift.DescribeAlias" :: ByteString),
+              Prelude.=# ("GameLift.DescribeAlias" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeAlias where
+instance Prelude.ToJSON DescribeAlias where
   toJSON DescribeAlias' {..} =
-    object (catMaybes [Just ("AliasId" .= _dAliasId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("AliasId" Prelude..= aliasId)]
+      )
 
-instance ToPath DescribeAlias where
-  toPath = const "/"
+instance Prelude.ToPath DescribeAlias where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeAlias where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeAlias where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the returned data in response to a request operation.
 --
---
---
--- /See:/ 'describeAliasResponse' smart constructor.
+-- /See:/ 'newDescribeAliasResponse' smart constructor.
 data DescribeAliasResponse = DescribeAliasResponse'
-  { _darrsAlias ::
-      !(Maybe Alias),
-    _darrsResponseStatus ::
-      !Int
+  { -- | The requested alias resource.
+    alias :: Prelude.Maybe Alias,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeAliasResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeAliasResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'darrsAlias' - The requested alias resource.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'darrsResponseStatus' - -- | The response status code.
-describeAliasResponse ::
-  -- | 'darrsResponseStatus'
-  Int ->
+-- 'alias', 'describeAliasResponse_alias' - The requested alias resource.
+--
+-- 'httpStatus', 'describeAliasResponse_httpStatus' - The response's http status code.
+newDescribeAliasResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeAliasResponse
-describeAliasResponse pResponseStatus_ =
+newDescribeAliasResponse pHttpStatus_ =
   DescribeAliasResponse'
-    { _darrsAlias = Nothing,
-      _darrsResponseStatus = pResponseStatus_
+    { alias = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The requested alias resource.
-darrsAlias :: Lens' DescribeAliasResponse (Maybe Alias)
-darrsAlias = lens _darrsAlias (\s a -> s {_darrsAlias = a})
+describeAliasResponse_alias :: Lens.Lens' DescribeAliasResponse (Prelude.Maybe Alias)
+describeAliasResponse_alias = Lens.lens (\DescribeAliasResponse' {alias} -> alias) (\s@DescribeAliasResponse' {} a -> s {alias = a} :: DescribeAliasResponse)
 
--- | -- | The response status code.
-darrsResponseStatus :: Lens' DescribeAliasResponse Int
-darrsResponseStatus = lens _darrsResponseStatus (\s a -> s {_darrsResponseStatus = a})
+-- | The response's http status code.
+describeAliasResponse_httpStatus :: Lens.Lens' DescribeAliasResponse Prelude.Int
+describeAliasResponse_httpStatus = Lens.lens (\DescribeAliasResponse' {httpStatus} -> httpStatus) (\s@DescribeAliasResponse' {} a -> s {httpStatus = a} :: DescribeAliasResponse)
 
-instance NFData DescribeAliasResponse
+instance Prelude.NFData DescribeAliasResponse

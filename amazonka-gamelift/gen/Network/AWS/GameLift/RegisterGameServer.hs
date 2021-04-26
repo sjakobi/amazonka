@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,14 +21,26 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- __This operation is used with the Amazon GameLift FleetIQ solution and game server groups.__
+-- __This operation is used with the Amazon GameLift FleetIQ solution and
+-- game server groups.__
 --
+-- Creates a new game server resource and notifies GameLift FleetIQ that
+-- the game server is ready to host gameplay and players. This operation is
+-- called by a game server process that is running on an instance in a game
+-- server group. Registering game servers enables GameLift FleetIQ to track
+-- available game servers and enables game clients and services to claim a
+-- game server for a new game session.
 --
--- Creates a new game server resource and notifies GameLift FleetIQ that the game server is ready to host gameplay and players. This operation is called by a game server process that is running on an instance in a game server group. Registering game servers enables GameLift FleetIQ to track available game servers and enables game clients and services to claim a game server for a new game session.
+-- To register a game server, identify the game server group and instance
+-- where the game server is running, and provide a unique identifier for
+-- the game server. You can also include connection and game server data.
+-- When a game client or service requests a game server by calling
+-- ClaimGameServer, this information is returned in the response.
 --
--- To register a game server, identify the game server group and instance where the game server is running, and provide a unique identifier for the game server. You can also include connection and game server data. When a game client or service requests a game server by calling 'ClaimGameServer' , this information is returned in the response.
---
--- Once a game server is successfully registered, it is put in status @AVAILABLE@ . A request to register a game server may fail if the instance it is running on is in the process of shutting down as part of instance balancing or scale-down activity.
+-- Once a game server is successfully registered, it is put in status
+-- @AVAILABLE@. A request to register a game server may fail if the
+-- instance it is running on is in the process of shutting down as part of
+-- instance balancing or scale-down activity.
 --
 -- __Learn more__
 --
@@ -32,198 +48,239 @@
 --
 -- __Related operations__
 --
---     * 'RegisterGameServer'
+-- -   RegisterGameServer
 --
---     * 'ListGameServers'
+-- -   ListGameServers
 --
---     * 'ClaimGameServer'
+-- -   ClaimGameServer
 --
---     * 'DescribeGameServer'
+-- -   DescribeGameServer
 --
---     * 'UpdateGameServer'
+-- -   UpdateGameServer
 --
---     * 'DeregisterGameServer'
+-- -   DeregisterGameServer
 module Network.AWS.GameLift.RegisterGameServer
   ( -- * Creating a Request
-    registerGameServer,
-    RegisterGameServer,
+    RegisterGameServer (..),
+    newRegisterGameServer,
 
     -- * Request Lenses
-    rgsGameServerData,
-    rgsConnectionInfo,
-    rgsGameServerGroupName,
-    rgsGameServerId,
-    rgsInstanceId,
+    registerGameServer_gameServerData,
+    registerGameServer_connectionInfo,
+    registerGameServer_gameServerGroupName,
+    registerGameServer_gameServerId,
+    registerGameServer_instanceId,
 
     -- * Destructuring the Response
-    registerGameServerResponse,
-    RegisterGameServerResponse,
+    RegisterGameServerResponse (..),
+    newRegisterGameServerResponse,
 
     -- * Response Lenses
-    rgsrrsGameServer,
-    rgsrrsResponseStatus,
+    registerGameServerResponse_gameServer,
+    registerGameServerResponse_httpStatus,
   )
 where
 
 import Network.AWS.GameLift.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.GameLift.Types.GameServer
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'registerGameServer' smart constructor.
+-- | /See:/ 'newRegisterGameServer' smart constructor.
 data RegisterGameServer = RegisterGameServer'
-  { _rgsGameServerData ::
-      !(Maybe Text),
-    _rgsConnectionInfo ::
-      !(Maybe Text),
-    _rgsGameServerGroupName :: !Text,
-    _rgsGameServerId :: !Text,
-    _rgsInstanceId :: !Text
+  { -- | A set of custom game server properties, formatted as a single string
+    -- value. This data is passed to a game client or service when it requests
+    -- information on game servers using ListGameServers or ClaimGameServer.
+    gameServerData :: Prelude.Maybe Prelude.Text,
+    -- | Information that is needed to make inbound client connections to the
+    -- game server. This might include the IP address and port, DNS name, and
+    -- other information.
+    connectionInfo :: Prelude.Maybe Prelude.Text,
+    -- | A unique identifier for the game server group where the game server is
+    -- running. Use either the GameServerGroup name or ARN value.
+    gameServerGroupName :: Prelude.Text,
+    -- | A custom string that uniquely identifies the game server to register.
+    -- Game server IDs are developer-defined and must be unique across all game
+    -- server groups in your AWS account.
+    gameServerId :: Prelude.Text,
+    -- | The unique identifier for the instance where the game server is running.
+    -- This ID is available in the instance metadata. EC2 instance IDs use a
+    -- 17-character format, for example: @i-1234567890abcdef0@.
+    instanceId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RegisterGameServer' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RegisterGameServer' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rgsGameServerData' - A set of custom game server properties, formatted as a single string value. This data is passed to a game client or service when it requests information on game servers using 'ListGameServers' or 'ClaimGameServer' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rgsConnectionInfo' - Information that is needed to make inbound client connections to the game server. This might include the IP address and port, DNS name, and other information.
+-- 'gameServerData', 'registerGameServer_gameServerData' - A set of custom game server properties, formatted as a single string
+-- value. This data is passed to a game client or service when it requests
+-- information on game servers using ListGameServers or ClaimGameServer.
 --
--- * 'rgsGameServerGroupName' - A unique identifier for the game server group where the game server is running. Use either the 'GameServerGroup' name or ARN value.
+-- 'connectionInfo', 'registerGameServer_connectionInfo' - Information that is needed to make inbound client connections to the
+-- game server. This might include the IP address and port, DNS name, and
+-- other information.
 --
--- * 'rgsGameServerId' - A custom string that uniquely identifies the game server to register. Game server IDs are developer-defined and must be unique across all game server groups in your AWS account.
+-- 'gameServerGroupName', 'registerGameServer_gameServerGroupName' - A unique identifier for the game server group where the game server is
+-- running. Use either the GameServerGroup name or ARN value.
 --
--- * 'rgsInstanceId' - The unique identifier for the instance where the game server is running. This ID is available in the instance metadata. EC2 instance IDs use a 17-character format, for example: @i-1234567890abcdef0@ .
-registerGameServer ::
-  -- | 'rgsGameServerGroupName'
-  Text ->
-  -- | 'rgsGameServerId'
-  Text ->
-  -- | 'rgsInstanceId'
-  Text ->
+-- 'gameServerId', 'registerGameServer_gameServerId' - A custom string that uniquely identifies the game server to register.
+-- Game server IDs are developer-defined and must be unique across all game
+-- server groups in your AWS account.
+--
+-- 'instanceId', 'registerGameServer_instanceId' - The unique identifier for the instance where the game server is running.
+-- This ID is available in the instance metadata. EC2 instance IDs use a
+-- 17-character format, for example: @i-1234567890abcdef0@.
+newRegisterGameServer ::
+  -- | 'gameServerGroupName'
+  Prelude.Text ->
+  -- | 'gameServerId'
+  Prelude.Text ->
+  -- | 'instanceId'
+  Prelude.Text ->
   RegisterGameServer
-registerGameServer
+newRegisterGameServer
   pGameServerGroupName_
   pGameServerId_
   pInstanceId_ =
     RegisterGameServer'
-      { _rgsGameServerData = Nothing,
-        _rgsConnectionInfo = Nothing,
-        _rgsGameServerGroupName = pGameServerGroupName_,
-        _rgsGameServerId = pGameServerId_,
-        _rgsInstanceId = pInstanceId_
+      { gameServerData =
+          Prelude.Nothing,
+        connectionInfo = Prelude.Nothing,
+        gameServerGroupName = pGameServerGroupName_,
+        gameServerId = pGameServerId_,
+        instanceId = pInstanceId_
       }
 
--- | A set of custom game server properties, formatted as a single string value. This data is passed to a game client or service when it requests information on game servers using 'ListGameServers' or 'ClaimGameServer' .
-rgsGameServerData :: Lens' RegisterGameServer (Maybe Text)
-rgsGameServerData = lens _rgsGameServerData (\s a -> s {_rgsGameServerData = a})
+-- | A set of custom game server properties, formatted as a single string
+-- value. This data is passed to a game client or service when it requests
+-- information on game servers using ListGameServers or ClaimGameServer.
+registerGameServer_gameServerData :: Lens.Lens' RegisterGameServer (Prelude.Maybe Prelude.Text)
+registerGameServer_gameServerData = Lens.lens (\RegisterGameServer' {gameServerData} -> gameServerData) (\s@RegisterGameServer' {} a -> s {gameServerData = a} :: RegisterGameServer)
 
--- | Information that is needed to make inbound client connections to the game server. This might include the IP address and port, DNS name, and other information.
-rgsConnectionInfo :: Lens' RegisterGameServer (Maybe Text)
-rgsConnectionInfo = lens _rgsConnectionInfo (\s a -> s {_rgsConnectionInfo = a})
+-- | Information that is needed to make inbound client connections to the
+-- game server. This might include the IP address and port, DNS name, and
+-- other information.
+registerGameServer_connectionInfo :: Lens.Lens' RegisterGameServer (Prelude.Maybe Prelude.Text)
+registerGameServer_connectionInfo = Lens.lens (\RegisterGameServer' {connectionInfo} -> connectionInfo) (\s@RegisterGameServer' {} a -> s {connectionInfo = a} :: RegisterGameServer)
 
--- | A unique identifier for the game server group where the game server is running. Use either the 'GameServerGroup' name or ARN value.
-rgsGameServerGroupName :: Lens' RegisterGameServer Text
-rgsGameServerGroupName = lens _rgsGameServerGroupName (\s a -> s {_rgsGameServerGroupName = a})
+-- | A unique identifier for the game server group where the game server is
+-- running. Use either the GameServerGroup name or ARN value.
+registerGameServer_gameServerGroupName :: Lens.Lens' RegisterGameServer Prelude.Text
+registerGameServer_gameServerGroupName = Lens.lens (\RegisterGameServer' {gameServerGroupName} -> gameServerGroupName) (\s@RegisterGameServer' {} a -> s {gameServerGroupName = a} :: RegisterGameServer)
 
--- | A custom string that uniquely identifies the game server to register. Game server IDs are developer-defined and must be unique across all game server groups in your AWS account.
-rgsGameServerId :: Lens' RegisterGameServer Text
-rgsGameServerId = lens _rgsGameServerId (\s a -> s {_rgsGameServerId = a})
+-- | A custom string that uniquely identifies the game server to register.
+-- Game server IDs are developer-defined and must be unique across all game
+-- server groups in your AWS account.
+registerGameServer_gameServerId :: Lens.Lens' RegisterGameServer Prelude.Text
+registerGameServer_gameServerId = Lens.lens (\RegisterGameServer' {gameServerId} -> gameServerId) (\s@RegisterGameServer' {} a -> s {gameServerId = a} :: RegisterGameServer)
 
--- | The unique identifier for the instance where the game server is running. This ID is available in the instance metadata. EC2 instance IDs use a 17-character format, for example: @i-1234567890abcdef0@ .
-rgsInstanceId :: Lens' RegisterGameServer Text
-rgsInstanceId = lens _rgsInstanceId (\s a -> s {_rgsInstanceId = a})
+-- | The unique identifier for the instance where the game server is running.
+-- This ID is available in the instance metadata. EC2 instance IDs use a
+-- 17-character format, for example: @i-1234567890abcdef0@.
+registerGameServer_instanceId :: Lens.Lens' RegisterGameServer Prelude.Text
+registerGameServer_instanceId = Lens.lens (\RegisterGameServer' {instanceId} -> instanceId) (\s@RegisterGameServer' {} a -> s {instanceId = a} :: RegisterGameServer)
 
-instance AWSRequest RegisterGameServer where
+instance Prelude.AWSRequest RegisterGameServer where
   type
     Rs RegisterGameServer =
       RegisterGameServerResponse
-  request = postJSON gameLift
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           RegisterGameServerResponse'
-            <$> (x .?> "GameServer") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "GameServer")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable RegisterGameServer
+instance Prelude.Hashable RegisterGameServer
 
-instance NFData RegisterGameServer
+instance Prelude.NFData RegisterGameServer
 
-instance ToHeaders RegisterGameServer where
+instance Prelude.ToHeaders RegisterGameServer where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("GameLift.RegisterGameServer" :: ByteString),
+              Prelude.=# ( "GameLift.RegisterGameServer" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON RegisterGameServer where
+instance Prelude.ToJSON RegisterGameServer where
   toJSON RegisterGameServer' {..} =
-    object
-      ( catMaybes
-          [ ("GameServerData" .=) <$> _rgsGameServerData,
-            ("ConnectionInfo" .=) <$> _rgsConnectionInfo,
-            Just
-              ("GameServerGroupName" .= _rgsGameServerGroupName),
-            Just ("GameServerId" .= _rgsGameServerId),
-            Just ("InstanceId" .= _rgsInstanceId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("GameServerData" Prelude..=)
+              Prelude.<$> gameServerData,
+            ("ConnectionInfo" Prelude..=)
+              Prelude.<$> connectionInfo,
+            Prelude.Just
+              ( "GameServerGroupName"
+                  Prelude..= gameServerGroupName
+              ),
+            Prelude.Just
+              ("GameServerId" Prelude..= gameServerId),
+            Prelude.Just ("InstanceId" Prelude..= instanceId)
           ]
       )
 
-instance ToPath RegisterGameServer where
-  toPath = const "/"
+instance Prelude.ToPath RegisterGameServer where
+  toPath = Prelude.const "/"
 
-instance ToQuery RegisterGameServer where
-  toQuery = const mempty
+instance Prelude.ToQuery RegisterGameServer where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'registerGameServerResponse' smart constructor.
+-- | /See:/ 'newRegisterGameServerResponse' smart constructor.
 data RegisterGameServerResponse = RegisterGameServerResponse'
-  { _rgsrrsGameServer ::
-      !( Maybe
-           GameServer
-       ),
-    _rgsrrsResponseStatus ::
-      !Int
+  { -- | Object that describes the newly registered game server.
+    gameServer :: Prelude.Maybe GameServer,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RegisterGameServerResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RegisterGameServerResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rgsrrsGameServer' - Object that describes the newly registered game server.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rgsrrsResponseStatus' - -- | The response status code.
-registerGameServerResponse ::
-  -- | 'rgsrrsResponseStatus'
-  Int ->
+-- 'gameServer', 'registerGameServerResponse_gameServer' - Object that describes the newly registered game server.
+--
+-- 'httpStatus', 'registerGameServerResponse_httpStatus' - The response's http status code.
+newRegisterGameServerResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   RegisterGameServerResponse
-registerGameServerResponse pResponseStatus_ =
+newRegisterGameServerResponse pHttpStatus_ =
   RegisterGameServerResponse'
-    { _rgsrrsGameServer =
-        Nothing,
-      _rgsrrsResponseStatus = pResponseStatus_
+    { gameServer =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Object that describes the newly registered game server.
-rgsrrsGameServer :: Lens' RegisterGameServerResponse (Maybe GameServer)
-rgsrrsGameServer = lens _rgsrrsGameServer (\s a -> s {_rgsrrsGameServer = a})
+registerGameServerResponse_gameServer :: Lens.Lens' RegisterGameServerResponse (Prelude.Maybe GameServer)
+registerGameServerResponse_gameServer = Lens.lens (\RegisterGameServerResponse' {gameServer} -> gameServer) (\s@RegisterGameServerResponse' {} a -> s {gameServer = a} :: RegisterGameServerResponse)
 
--- | -- | The response status code.
-rgsrrsResponseStatus :: Lens' RegisterGameServerResponse Int
-rgsrrsResponseStatus = lens _rgsrrsResponseStatus (\s a -> s {_rgsrrsResponseStatus = a})
+-- | The response's http status code.
+registerGameServerResponse_httpStatus :: Lens.Lens' RegisterGameServerResponse Prelude.Int
+registerGameServerResponse_httpStatus = Lens.lens (\RegisterGameServerResponse' {httpStatus} -> httpStatus) (\s@RegisterGameServerResponse' {} a -> s {httpStatus = a} :: RegisterGameServerResponse)
 
-instance NFData RegisterGameServerResponse
+instance Prelude.NFData RegisterGameServerResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,83 +19,100 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.GameLift.Types.AttributeValue where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Values for use in 'Player' attribute key-value pairs. This object lets you specify an attribute value using any of the valid data types: string, number, string array, or data map. Each @AttributeValue@ object can use only one of the available properties.
+-- | Values for use in Player attribute key-value pairs. This object lets you
+-- specify an attribute value using any of the valid data types: string,
+-- number, string array, or data map. Each @AttributeValue@ object can use
+-- only one of the available properties.
 --
---
---
--- /See:/ 'attributeValue' smart constructor.
+-- /See:/ 'newAttributeValue' smart constructor.
 data AttributeValue = AttributeValue'
-  { _avSL ::
-      !(Maybe [Text]),
-    _avN :: !(Maybe Double),
-    _avS :: !(Maybe Text),
-    _avSDM :: !(Maybe (Map Text Double))
+  { -- | For a list of up to 10 strings. Maximum length for each string is 100
+    -- characters. Duplicate values are not recognized; all occurrences of the
+    -- repeated value after the first of a repeated value are ignored.
+    sL :: Prelude.Maybe [Prelude.Text],
+    -- | For number values, expressed as double.
+    n :: Prelude.Maybe Prelude.Double,
+    -- | For single string values. Maximum string length is 100 characters.
+    s :: Prelude.Maybe Prelude.Text,
+    -- | For a map of up to 10 data type:value pairs. Maximum length for each
+    -- string value is 100 characters.
+    sDM :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Double)
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AttributeValue' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AttributeValue' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'avSL' - For a list of up to 10 strings. Maximum length for each string is 100 characters. Duplicate values are not recognized; all occurrences of the repeated value after the first of a repeated value are ignored.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'avN' - For number values, expressed as double.
+-- 'sL', 'attributeValue_sL' - For a list of up to 10 strings. Maximum length for each string is 100
+-- characters. Duplicate values are not recognized; all occurrences of the
+-- repeated value after the first of a repeated value are ignored.
 --
--- * 'avS' - For single string values. Maximum string length is 100 characters.
+-- 'n', 'attributeValue_n' - For number values, expressed as double.
 --
--- * 'avSDM' - For a map of up to 10 data type:value pairs. Maximum length for each string value is 100 characters.
-attributeValue ::
+-- 's', 'attributeValue_s' - For single string values. Maximum string length is 100 characters.
+--
+-- 'sDM', 'attributeValue_sDM' - For a map of up to 10 data type:value pairs. Maximum length for each
+-- string value is 100 characters.
+newAttributeValue ::
   AttributeValue
-attributeValue =
+newAttributeValue =
   AttributeValue'
-    { _avSL = Nothing,
-      _avN = Nothing,
-      _avS = Nothing,
-      _avSDM = Nothing
+    { sL = Prelude.Nothing,
+      n = Prelude.Nothing,
+      s = Prelude.Nothing,
+      sDM = Prelude.Nothing
     }
 
--- | For a list of up to 10 strings. Maximum length for each string is 100 characters. Duplicate values are not recognized; all occurrences of the repeated value after the first of a repeated value are ignored.
-avSL :: Lens' AttributeValue [Text]
-avSL = lens _avSL (\s a -> s {_avSL = a}) . _Default . _Coerce
+-- | For a list of up to 10 strings. Maximum length for each string is 100
+-- characters. Duplicate values are not recognized; all occurrences of the
+-- repeated value after the first of a repeated value are ignored.
+attributeValue_sL :: Lens.Lens' AttributeValue (Prelude.Maybe [Prelude.Text])
+attributeValue_sL = Lens.lens (\AttributeValue' {sL} -> sL) (\s@AttributeValue' {} a -> s {sL = a} :: AttributeValue) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | For number values, expressed as double.
-avN :: Lens' AttributeValue (Maybe Double)
-avN = lens _avN (\s a -> s {_avN = a})
+attributeValue_n :: Lens.Lens' AttributeValue (Prelude.Maybe Prelude.Double)
+attributeValue_n = Lens.lens (\AttributeValue' {n} -> n) (\s@AttributeValue' {} a -> s {n = a} :: AttributeValue)
 
 -- | For single string values. Maximum string length is 100 characters.
-avS :: Lens' AttributeValue (Maybe Text)
-avS = lens _avS (\s a -> s {_avS = a})
+attributeValue_s :: Lens.Lens' AttributeValue (Prelude.Maybe Prelude.Text)
+attributeValue_s = Lens.lens (\AttributeValue' {s} -> s) (\s@AttributeValue' {} a -> s {s = a} :: AttributeValue)
 
--- | For a map of up to 10 data type:value pairs. Maximum length for each string value is 100 characters.
-avSDM :: Lens' AttributeValue (HashMap Text Double)
-avSDM = lens _avSDM (\s a -> s {_avSDM = a}) . _Default . _Map
+-- | For a map of up to 10 data type:value pairs. Maximum length for each
+-- string value is 100 characters.
+attributeValue_sDM :: Lens.Lens' AttributeValue (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Double))
+attributeValue_sDM = Lens.lens (\AttributeValue' {sDM} -> sDM) (\s@AttributeValue' {} a -> s {sDM = a} :: AttributeValue) Prelude.. Lens.mapping Prelude._Map
 
-instance FromJSON AttributeValue where
+instance Prelude.FromJSON AttributeValue where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AttributeValue"
       ( \x ->
           AttributeValue'
-            <$> (x .:? "SL" .!= mempty)
-            <*> (x .:? "N")
-            <*> (x .:? "S")
-            <*> (x .:? "SDM" .!= mempty)
+            Prelude.<$> (x Prelude..:? "SL" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "N")
+            Prelude.<*> (x Prelude..:? "S")
+            Prelude.<*> (x Prelude..:? "SDM" Prelude..!= Prelude.mempty)
       )
 
-instance Hashable AttributeValue
+instance Prelude.Hashable AttributeValue
 
-instance NFData AttributeValue
+instance Prelude.NFData AttributeValue
 
-instance ToJSON AttributeValue where
+instance Prelude.ToJSON AttributeValue where
   toJSON AttributeValue' {..} =
-    object
-      ( catMaybes
-          [ ("SL" .=) <$> _avSL,
-            ("N" .=) <$> _avN,
-            ("S" .=) <$> _avS,
-            ("SDM" .=) <$> _avSDM
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("SL" Prelude..=) Prelude.<$> sL,
+            ("N" Prelude..=) Prelude.<$> n,
+            ("S" Prelude..=) Prelude.<$> s,
+            ("SDM" Prelude..=) Prelude.<$> sDM
           ]
       )

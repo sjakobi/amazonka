@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,108 +22,197 @@ module Network.AWS.GameLift.Types.Instance where
 import Network.AWS.GameLift.Types.EC2InstanceType
 import Network.AWS.GameLift.Types.InstanceStatus
 import Network.AWS.GameLift.Types.OperatingSystem
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Properties that describe an instance of a virtual computing resource that hosts one or more game servers. A fleet may contain zero or more instances.
+-- | Properties that describe an instance of a virtual computing resource
+-- that hosts one or more game servers. A fleet may contain zero or more
+-- instances.
 --
---
---
--- /See:/ 'instance'' smart constructor.
+-- /See:/ 'newInstance' smart constructor.
 data Instance = Instance'
-  { _iStatus ::
-      !(Maybe InstanceStatus),
-    _iInstanceId :: !(Maybe Text),
-    _iCreationTime :: !(Maybe POSIX),
-    _iFleetId :: !(Maybe Text),
-    _iIPAddress :: !(Maybe Text),
-    _iDNSName :: !(Maybe Text),
-    _iType :: !(Maybe EC2InstanceType),
-    _iOperatingSystem :: !(Maybe OperatingSystem)
+  { -- | Current status of the instance. Possible statuses include the following:
+    --
+    -- -   __PENDING__ -- The instance is in the process of being created and
+    --     launching server processes as defined in the fleet\'s run-time
+    --     configuration.
+    --
+    -- -   __ACTIVE__ -- The instance has been successfully created and at
+    --     least one server process has successfully launched and reported back
+    --     to Amazon GameLift that it is ready to host a game session. The
+    --     instance is now considered ready to host game sessions.
+    --
+    -- -   __TERMINATING__ -- The instance is in the process of shutting down.
+    --     This may happen to reduce capacity during a scaling down event or to
+    --     recycle resources in the event of a problem.
+    status :: Prelude.Maybe InstanceStatus,
+    -- | A unique identifier for an instance.
+    instanceId :: Prelude.Maybe Prelude.Text,
+    -- | Time stamp indicating when this data object was created. Format is a
+    -- number expressed in Unix time as milliseconds (for example
+    -- \"1469498468.057\").
+    creationTime :: Prelude.Maybe Prelude.POSIX,
+    -- | A unique identifier for a fleet that the instance is in.
+    fleetId :: Prelude.Maybe Prelude.Text,
+    -- | IP address that is assigned to the instance.
+    ipAddress :: Prelude.Maybe Prelude.Text,
+    -- | DNS identifier assigned to the instance that is running the game
+    -- session. Values have the following format:
+    --
+    -- -   TLS-enabled fleets:
+    --     @\<unique identifier>.\<region identifier>.amazongamelift.com@.
+    --
+    -- -   Non-TLS-enabled fleets:
+    --     @ec2-\<unique identifier>.compute.amazonaws.com@. (See
+    --     <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-instance-addressing.html#concepts-public-addresses Amazon EC2 Instance IP Addressing>.)
+    --
+    -- When connecting to a game session that is running on a TLS-enabled
+    -- fleet, you must use the DNS name, not the IP address.
+    dnsName :: Prelude.Maybe Prelude.Text,
+    -- | EC2 instance type that defines the computing resources of this instance.
+    type' :: Prelude.Maybe EC2InstanceType,
+    -- | Operating system that is running on this instance.
+    operatingSystem :: Prelude.Maybe OperatingSystem
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Instance' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Instance' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'iStatus' - Current status of the instance. Possible statuses include the following:     * __PENDING__ -- The instance is in the process of being created and launching server processes as defined in the fleet's run-time configuration.      * __ACTIVE__ -- The instance has been successfully created and at least one server process has successfully launched and reported back to Amazon GameLift that it is ready to host a game session. The instance is now considered ready to host game sessions.      * __TERMINATING__ -- The instance is in the process of shutting down. This may happen to reduce capacity during a scaling down event or to recycle resources in the event of a problem.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'iInstanceId' - A unique identifier for an instance.
+-- 'status', 'instance_status' - Current status of the instance. Possible statuses include the following:
 --
--- * 'iCreationTime' - Time stamp indicating when this data object was created. Format is a number expressed in Unix time as milliseconds (for example "1469498468.057").
+-- -   __PENDING__ -- The instance is in the process of being created and
+--     launching server processes as defined in the fleet\'s run-time
+--     configuration.
 --
--- * 'iFleetId' - A unique identifier for a fleet that the instance is in.
+-- -   __ACTIVE__ -- The instance has been successfully created and at
+--     least one server process has successfully launched and reported back
+--     to Amazon GameLift that it is ready to host a game session. The
+--     instance is now considered ready to host game sessions.
 --
--- * 'iIPAddress' - IP address that is assigned to the instance.
+-- -   __TERMINATING__ -- The instance is in the process of shutting down.
+--     This may happen to reduce capacity during a scaling down event or to
+--     recycle resources in the event of a problem.
 --
--- * 'iDNSName' - DNS identifier assigned to the instance that is running the game session. Values have the following format:     * TLS-enabled fleets: @<unique identifier>.<region identifier>.amazongamelift.com@ .     * Non-TLS-enabled fleets: @ec2-<unique identifier>.compute.amazonaws.com@ . (See <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-instance-addressing.html#concepts-public-addresses Amazon EC2 Instance IP Addressing> .) When connecting to a game session that is running on a TLS-enabled fleet, you must use the DNS name, not the IP address.
+-- 'instanceId', 'instance_instanceId' - A unique identifier for an instance.
 --
--- * 'iType' - EC2 instance type that defines the computing resources of this instance.
+-- 'creationTime', 'instance_creationTime' - Time stamp indicating when this data object was created. Format is a
+-- number expressed in Unix time as milliseconds (for example
+-- \"1469498468.057\").
 --
--- * 'iOperatingSystem' - Operating system that is running on this instance.
-instance' ::
+-- 'fleetId', 'instance_fleetId' - A unique identifier for a fleet that the instance is in.
+--
+-- 'ipAddress', 'instance_ipAddress' - IP address that is assigned to the instance.
+--
+-- 'dnsName', 'instance_dnsName' - DNS identifier assigned to the instance that is running the game
+-- session. Values have the following format:
+--
+-- -   TLS-enabled fleets:
+--     @\<unique identifier>.\<region identifier>.amazongamelift.com@.
+--
+-- -   Non-TLS-enabled fleets:
+--     @ec2-\<unique identifier>.compute.amazonaws.com@. (See
+--     <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-instance-addressing.html#concepts-public-addresses Amazon EC2 Instance IP Addressing>.)
+--
+-- When connecting to a game session that is running on a TLS-enabled
+-- fleet, you must use the DNS name, not the IP address.
+--
+-- 'type'', 'instance_type' - EC2 instance type that defines the computing resources of this instance.
+--
+-- 'operatingSystem', 'instance_operatingSystem' - Operating system that is running on this instance.
+newInstance ::
   Instance
-instance' =
+newInstance =
   Instance'
-    { _iStatus = Nothing,
-      _iInstanceId = Nothing,
-      _iCreationTime = Nothing,
-      _iFleetId = Nothing,
-      _iIPAddress = Nothing,
-      _iDNSName = Nothing,
-      _iType = Nothing,
-      _iOperatingSystem = Nothing
+    { status = Prelude.Nothing,
+      instanceId = Prelude.Nothing,
+      creationTime = Prelude.Nothing,
+      fleetId = Prelude.Nothing,
+      ipAddress = Prelude.Nothing,
+      dnsName = Prelude.Nothing,
+      type' = Prelude.Nothing,
+      operatingSystem = Prelude.Nothing
     }
 
--- | Current status of the instance. Possible statuses include the following:     * __PENDING__ -- The instance is in the process of being created and launching server processes as defined in the fleet's run-time configuration.      * __ACTIVE__ -- The instance has been successfully created and at least one server process has successfully launched and reported back to Amazon GameLift that it is ready to host a game session. The instance is now considered ready to host game sessions.      * __TERMINATING__ -- The instance is in the process of shutting down. This may happen to reduce capacity during a scaling down event or to recycle resources in the event of a problem.
-iStatus :: Lens' Instance (Maybe InstanceStatus)
-iStatus = lens _iStatus (\s a -> s {_iStatus = a})
+-- | Current status of the instance. Possible statuses include the following:
+--
+-- -   __PENDING__ -- The instance is in the process of being created and
+--     launching server processes as defined in the fleet\'s run-time
+--     configuration.
+--
+-- -   __ACTIVE__ -- The instance has been successfully created and at
+--     least one server process has successfully launched and reported back
+--     to Amazon GameLift that it is ready to host a game session. The
+--     instance is now considered ready to host game sessions.
+--
+-- -   __TERMINATING__ -- The instance is in the process of shutting down.
+--     This may happen to reduce capacity during a scaling down event or to
+--     recycle resources in the event of a problem.
+instance_status :: Lens.Lens' Instance (Prelude.Maybe InstanceStatus)
+instance_status = Lens.lens (\Instance' {status} -> status) (\s@Instance' {} a -> s {status = a} :: Instance)
 
 -- | A unique identifier for an instance.
-iInstanceId :: Lens' Instance (Maybe Text)
-iInstanceId = lens _iInstanceId (\s a -> s {_iInstanceId = a})
+instance_instanceId :: Lens.Lens' Instance (Prelude.Maybe Prelude.Text)
+instance_instanceId = Lens.lens (\Instance' {instanceId} -> instanceId) (\s@Instance' {} a -> s {instanceId = a} :: Instance)
 
--- | Time stamp indicating when this data object was created. Format is a number expressed in Unix time as milliseconds (for example "1469498468.057").
-iCreationTime :: Lens' Instance (Maybe UTCTime)
-iCreationTime = lens _iCreationTime (\s a -> s {_iCreationTime = a}) . mapping _Time
+-- | Time stamp indicating when this data object was created. Format is a
+-- number expressed in Unix time as milliseconds (for example
+-- \"1469498468.057\").
+instance_creationTime :: Lens.Lens' Instance (Prelude.Maybe Prelude.UTCTime)
+instance_creationTime = Lens.lens (\Instance' {creationTime} -> creationTime) (\s@Instance' {} a -> s {creationTime = a} :: Instance) Prelude.. Lens.mapping Prelude._Time
 
 -- | A unique identifier for a fleet that the instance is in.
-iFleetId :: Lens' Instance (Maybe Text)
-iFleetId = lens _iFleetId (\s a -> s {_iFleetId = a})
+instance_fleetId :: Lens.Lens' Instance (Prelude.Maybe Prelude.Text)
+instance_fleetId = Lens.lens (\Instance' {fleetId} -> fleetId) (\s@Instance' {} a -> s {fleetId = a} :: Instance)
 
 -- | IP address that is assigned to the instance.
-iIPAddress :: Lens' Instance (Maybe Text)
-iIPAddress = lens _iIPAddress (\s a -> s {_iIPAddress = a})
+instance_ipAddress :: Lens.Lens' Instance (Prelude.Maybe Prelude.Text)
+instance_ipAddress = Lens.lens (\Instance' {ipAddress} -> ipAddress) (\s@Instance' {} a -> s {ipAddress = a} :: Instance)
 
--- | DNS identifier assigned to the instance that is running the game session. Values have the following format:     * TLS-enabled fleets: @<unique identifier>.<region identifier>.amazongamelift.com@ .     * Non-TLS-enabled fleets: @ec2-<unique identifier>.compute.amazonaws.com@ . (See <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-instance-addressing.html#concepts-public-addresses Amazon EC2 Instance IP Addressing> .) When connecting to a game session that is running on a TLS-enabled fleet, you must use the DNS name, not the IP address.
-iDNSName :: Lens' Instance (Maybe Text)
-iDNSName = lens _iDNSName (\s a -> s {_iDNSName = a})
+-- | DNS identifier assigned to the instance that is running the game
+-- session. Values have the following format:
+--
+-- -   TLS-enabled fleets:
+--     @\<unique identifier>.\<region identifier>.amazongamelift.com@.
+--
+-- -   Non-TLS-enabled fleets:
+--     @ec2-\<unique identifier>.compute.amazonaws.com@. (See
+--     <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-instance-addressing.html#concepts-public-addresses Amazon EC2 Instance IP Addressing>.)
+--
+-- When connecting to a game session that is running on a TLS-enabled
+-- fleet, you must use the DNS name, not the IP address.
+instance_dnsName :: Lens.Lens' Instance (Prelude.Maybe Prelude.Text)
+instance_dnsName = Lens.lens (\Instance' {dnsName} -> dnsName) (\s@Instance' {} a -> s {dnsName = a} :: Instance)
 
 -- | EC2 instance type that defines the computing resources of this instance.
-iType :: Lens' Instance (Maybe EC2InstanceType)
-iType = lens _iType (\s a -> s {_iType = a})
+instance_type :: Lens.Lens' Instance (Prelude.Maybe EC2InstanceType)
+instance_type = Lens.lens (\Instance' {type'} -> type') (\s@Instance' {} a -> s {type' = a} :: Instance)
 
 -- | Operating system that is running on this instance.
-iOperatingSystem :: Lens' Instance (Maybe OperatingSystem)
-iOperatingSystem = lens _iOperatingSystem (\s a -> s {_iOperatingSystem = a})
+instance_operatingSystem :: Lens.Lens' Instance (Prelude.Maybe OperatingSystem)
+instance_operatingSystem = Lens.lens (\Instance' {operatingSystem} -> operatingSystem) (\s@Instance' {} a -> s {operatingSystem = a} :: Instance)
 
-instance FromJSON Instance where
+instance Prelude.FromJSON Instance where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Instance"
       ( \x ->
           Instance'
-            <$> (x .:? "Status")
-            <*> (x .:? "InstanceId")
-            <*> (x .:? "CreationTime")
-            <*> (x .:? "FleetId")
-            <*> (x .:? "IpAddress")
-            <*> (x .:? "DnsName")
-            <*> (x .:? "Type")
-            <*> (x .:? "OperatingSystem")
+            Prelude.<$> (x Prelude..:? "Status")
+            Prelude.<*> (x Prelude..:? "InstanceId")
+            Prelude.<*> (x Prelude..:? "CreationTime")
+            Prelude.<*> (x Prelude..:? "FleetId")
+            Prelude.<*> (x Prelude..:? "IpAddress")
+            Prelude.<*> (x Prelude..:? "DnsName")
+            Prelude.<*> (x Prelude..:? "Type")
+            Prelude.<*> (x Prelude..:? "OperatingSystem")
       )
 
-instance Hashable Instance
+instance Prelude.Hashable Instance
 
-instance NFData Instance
+instance Prelude.NFData Instance

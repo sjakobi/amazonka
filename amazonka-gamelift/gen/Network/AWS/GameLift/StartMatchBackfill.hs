@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,12 +21,31 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Finds new players to fill open slots in an existing game session. This operation can be used to add players to matched games that start with fewer than the maximum number of players or to replace players when they drop out. By backfilling with the same matchmaker used to create the original match, you ensure that new players meet the match criteria and maintain a consistent experience throughout the game session. You can backfill a match anytime after a game session has been created.
+-- Finds new players to fill open slots in an existing game session. This
+-- operation can be used to add players to matched games that start with
+-- fewer than the maximum number of players or to replace players when they
+-- drop out. By backfilling with the same matchmaker used to create the
+-- original match, you ensure that new players meet the match criteria and
+-- maintain a consistent experience throughout the game session. You can
+-- backfill a match anytime after a game session has been created.
 --
+-- To request a match backfill, specify a unique ticket ID, the existing
+-- game session\'s ARN, a matchmaking configuration, and a set of data that
+-- describes all current players in the game session. If successful, a
+-- match backfill ticket is created and returned with status set to QUEUED.
+-- The ticket is placed in the matchmaker\'s ticket pool and processed.
+-- Track the status of the ticket to respond as needed.
 --
--- To request a match backfill, specify a unique ticket ID, the existing game session's ARN, a matchmaking configuration, and a set of data that describes all current players in the game session. If successful, a match backfill ticket is created and returned with status set to QUEUED. The ticket is placed in the matchmaker's ticket pool and processed. Track the status of the ticket to respond as needed.
---
--- The process of finding backfill matches is essentially identical to the initial matchmaking process. The matchmaker searches the pool and groups tickets together to form potential matches, allowing only one backfill ticket per potential match. Once the a match is formed, the matchmaker creates player sessions for the new players. All tickets in the match are updated with the game session's connection information, and the 'GameSession' object is updated to include matchmaker data on the new players. For more detail on how match backfill requests are processed, see <https://docs.aws.amazon.com/gamelift/latest/flexmatchguide/gamelift-match.html How Amazon GameLift FlexMatch Works> .
+-- The process of finding backfill matches is essentially identical to the
+-- initial matchmaking process. The matchmaker searches the pool and groups
+-- tickets together to form potential matches, allowing only one backfill
+-- ticket per potential match. Once the a match is formed, the matchmaker
+-- creates player sessions for the new players. All tickets in the match
+-- are updated with the game session\'s connection information, and the
+-- GameSession object is updated to include matchmaker data on the new
+-- players. For more detail on how match backfill requests are processed,
+-- see
+-- <https://docs.aws.amazon.com/gamelift/latest/flexmatchguide/gamelift-match.html How Amazon GameLift FlexMatch Works>.
 --
 -- __Learn more__
 --
@@ -32,186 +55,263 @@
 --
 -- __Related operations__
 --
---     * 'StartMatchmaking'
+-- -   StartMatchmaking
 --
---     * 'DescribeMatchmaking'
+-- -   DescribeMatchmaking
 --
---     * 'StopMatchmaking'
+-- -   StopMatchmaking
 --
---     * 'AcceptMatch'
+-- -   AcceptMatch
 --
---     * 'StartMatchBackfill'
+-- -   StartMatchBackfill
 module Network.AWS.GameLift.StartMatchBackfill
   ( -- * Creating a Request
-    startMatchBackfill,
-    StartMatchBackfill,
+    StartMatchBackfill (..),
+    newStartMatchBackfill,
 
     -- * Request Lenses
-    smbTicketId,
-    smbGameSessionARN,
-    smbConfigurationName,
-    smbPlayers,
+    startMatchBackfill_ticketId,
+    startMatchBackfill_gameSessionArn,
+    startMatchBackfill_configurationName,
+    startMatchBackfill_players,
 
     -- * Destructuring the Response
-    startMatchBackfillResponse,
-    StartMatchBackfillResponse,
+    StartMatchBackfillResponse (..),
+    newStartMatchBackfillResponse,
 
     -- * Response Lenses
-    smbrrsMatchmakingTicket,
-    smbrrsResponseStatus,
+    startMatchBackfillResponse_matchmakingTicket,
+    startMatchBackfillResponse_httpStatus,
   )
 where
 
 import Network.AWS.GameLift.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.GameLift.Types.MatchmakingTicket
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input for a request operation.
 --
---
---
--- /See:/ 'startMatchBackfill' smart constructor.
+-- /See:/ 'newStartMatchBackfill' smart constructor.
 data StartMatchBackfill = StartMatchBackfill'
-  { _smbTicketId ::
-      !(Maybe Text),
-    _smbGameSessionARN ::
-      !(Maybe Text),
-    _smbConfigurationName :: !Text,
-    _smbPlayers :: ![Player]
+  { -- | A unique identifier for a matchmaking ticket. If no ticket ID is
+    -- specified here, Amazon GameLift will generate one in the form of a UUID.
+    -- Use this identifier to track the match backfill ticket status and
+    -- retrieve match results.
+    ticketId :: Prelude.Maybe Prelude.Text,
+    -- | Amazon Resource Name
+    -- (<https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html ARN>)
+    -- that is assigned to a game session and uniquely identifies it. This is
+    -- the same as the game session ID.
+    gameSessionArn :: Prelude.Maybe Prelude.Text,
+    -- | Name of the matchmaker to use for this request. You can use either the
+    -- configuration name or ARN value. The ARN of the matchmaker that was used
+    -- with the original game session is listed in the GameSession object,
+    -- @MatchmakerData@ property.
+    configurationName :: Prelude.Text,
+    -- | Match information on all players that are currently assigned to the game
+    -- session. This information is used by the matchmaker to find new players
+    -- and add them to the existing game.
+    --
+    -- -   PlayerID, PlayerAttributes, Team -\\\\- This information is
+    --     maintained in the GameSession object, @MatchmakerData@ property, for
+    --     all players who are currently assigned to the game session. The
+    --     matchmaker data is in JSON syntax, formatted as a string. For more
+    --     details, see
+    --     <https://docs.aws.amazon.com/gamelift/latest/flexmatchguide/match-server.html#match-server-data Match Data>.
+    --
+    -- -   LatencyInMs -\\\\- If the matchmaker uses player latency, include a
+    --     latency value, in milliseconds, for the Region that the game session
+    --     is currently in. Do not include latency values for any other Region.
+    players :: [Player]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartMatchBackfill' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartMatchBackfill' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'smbTicketId' - A unique identifier for a matchmaking ticket. If no ticket ID is specified here, Amazon GameLift will generate one in the form of a UUID. Use this identifier to track the match backfill ticket status and retrieve match results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'smbGameSessionARN' - Amazon Resource Name (<https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html ARN> ) that is assigned to a game session and uniquely identifies it. This is the same as the game session ID.
+-- 'ticketId', 'startMatchBackfill_ticketId' - A unique identifier for a matchmaking ticket. If no ticket ID is
+-- specified here, Amazon GameLift will generate one in the form of a UUID.
+-- Use this identifier to track the match backfill ticket status and
+-- retrieve match results.
 --
--- * 'smbConfigurationName' - Name of the matchmaker to use for this request. You can use either the configuration name or ARN value. The ARN of the matchmaker that was used with the original game session is listed in the 'GameSession' object, @MatchmakerData@ property.
+-- 'gameSessionArn', 'startMatchBackfill_gameSessionArn' - Amazon Resource Name
+-- (<https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html ARN>)
+-- that is assigned to a game session and uniquely identifies it. This is
+-- the same as the game session ID.
 --
--- * 'smbPlayers' - Match information on all players that are currently assigned to the game session. This information is used by the matchmaker to find new players and add them to the existing game.     * PlayerID, PlayerAttributes, Team -\\- This information is maintained in the 'GameSession' object, @MatchmakerData@ property, for all players who are currently assigned to the game session. The matchmaker data is in JSON syntax, formatted as a string. For more details, see <https://docs.aws.amazon.com/gamelift/latest/flexmatchguide/match-server.html#match-server-data Match Data> .      * LatencyInMs -\\- If the matchmaker uses player latency, include a latency value, in milliseconds, for the Region that the game session is currently in. Do not include latency values for any other Region.
-startMatchBackfill ::
-  -- | 'smbConfigurationName'
-  Text ->
+-- 'configurationName', 'startMatchBackfill_configurationName' - Name of the matchmaker to use for this request. You can use either the
+-- configuration name or ARN value. The ARN of the matchmaker that was used
+-- with the original game session is listed in the GameSession object,
+-- @MatchmakerData@ property.
+--
+-- 'players', 'startMatchBackfill_players' - Match information on all players that are currently assigned to the game
+-- session. This information is used by the matchmaker to find new players
+-- and add them to the existing game.
+--
+-- -   PlayerID, PlayerAttributes, Team -\\\\- This information is
+--     maintained in the GameSession object, @MatchmakerData@ property, for
+--     all players who are currently assigned to the game session. The
+--     matchmaker data is in JSON syntax, formatted as a string. For more
+--     details, see
+--     <https://docs.aws.amazon.com/gamelift/latest/flexmatchguide/match-server.html#match-server-data Match Data>.
+--
+-- -   LatencyInMs -\\\\- If the matchmaker uses player latency, include a
+--     latency value, in milliseconds, for the Region that the game session
+--     is currently in. Do not include latency values for any other Region.
+newStartMatchBackfill ::
+  -- | 'configurationName'
+  Prelude.Text ->
   StartMatchBackfill
-startMatchBackfill pConfigurationName_ =
+newStartMatchBackfill pConfigurationName_ =
   StartMatchBackfill'
-    { _smbTicketId = Nothing,
-      _smbGameSessionARN = Nothing,
-      _smbConfigurationName = pConfigurationName_,
-      _smbPlayers = mempty
+    { ticketId = Prelude.Nothing,
+      gameSessionArn = Prelude.Nothing,
+      configurationName = pConfigurationName_,
+      players = Prelude.mempty
     }
 
--- | A unique identifier for a matchmaking ticket. If no ticket ID is specified here, Amazon GameLift will generate one in the form of a UUID. Use this identifier to track the match backfill ticket status and retrieve match results.
-smbTicketId :: Lens' StartMatchBackfill (Maybe Text)
-smbTicketId = lens _smbTicketId (\s a -> s {_smbTicketId = a})
+-- | A unique identifier for a matchmaking ticket. If no ticket ID is
+-- specified here, Amazon GameLift will generate one in the form of a UUID.
+-- Use this identifier to track the match backfill ticket status and
+-- retrieve match results.
+startMatchBackfill_ticketId :: Lens.Lens' StartMatchBackfill (Prelude.Maybe Prelude.Text)
+startMatchBackfill_ticketId = Lens.lens (\StartMatchBackfill' {ticketId} -> ticketId) (\s@StartMatchBackfill' {} a -> s {ticketId = a} :: StartMatchBackfill)
 
--- | Amazon Resource Name (<https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html ARN> ) that is assigned to a game session and uniquely identifies it. This is the same as the game session ID.
-smbGameSessionARN :: Lens' StartMatchBackfill (Maybe Text)
-smbGameSessionARN = lens _smbGameSessionARN (\s a -> s {_smbGameSessionARN = a})
+-- | Amazon Resource Name
+-- (<https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html ARN>)
+-- that is assigned to a game session and uniquely identifies it. This is
+-- the same as the game session ID.
+startMatchBackfill_gameSessionArn :: Lens.Lens' StartMatchBackfill (Prelude.Maybe Prelude.Text)
+startMatchBackfill_gameSessionArn = Lens.lens (\StartMatchBackfill' {gameSessionArn} -> gameSessionArn) (\s@StartMatchBackfill' {} a -> s {gameSessionArn = a} :: StartMatchBackfill)
 
--- | Name of the matchmaker to use for this request. You can use either the configuration name or ARN value. The ARN of the matchmaker that was used with the original game session is listed in the 'GameSession' object, @MatchmakerData@ property.
-smbConfigurationName :: Lens' StartMatchBackfill Text
-smbConfigurationName = lens _smbConfigurationName (\s a -> s {_smbConfigurationName = a})
+-- | Name of the matchmaker to use for this request. You can use either the
+-- configuration name or ARN value. The ARN of the matchmaker that was used
+-- with the original game session is listed in the GameSession object,
+-- @MatchmakerData@ property.
+startMatchBackfill_configurationName :: Lens.Lens' StartMatchBackfill Prelude.Text
+startMatchBackfill_configurationName = Lens.lens (\StartMatchBackfill' {configurationName} -> configurationName) (\s@StartMatchBackfill' {} a -> s {configurationName = a} :: StartMatchBackfill)
 
--- | Match information on all players that are currently assigned to the game session. This information is used by the matchmaker to find new players and add them to the existing game.     * PlayerID, PlayerAttributes, Team -\\- This information is maintained in the 'GameSession' object, @MatchmakerData@ property, for all players who are currently assigned to the game session. The matchmaker data is in JSON syntax, formatted as a string. For more details, see <https://docs.aws.amazon.com/gamelift/latest/flexmatchguide/match-server.html#match-server-data Match Data> .      * LatencyInMs -\\- If the matchmaker uses player latency, include a latency value, in milliseconds, for the Region that the game session is currently in. Do not include latency values for any other Region.
-smbPlayers :: Lens' StartMatchBackfill [Player]
-smbPlayers = lens _smbPlayers (\s a -> s {_smbPlayers = a}) . _Coerce
+-- | Match information on all players that are currently assigned to the game
+-- session. This information is used by the matchmaker to find new players
+-- and add them to the existing game.
+--
+-- -   PlayerID, PlayerAttributes, Team -\\\\- This information is
+--     maintained in the GameSession object, @MatchmakerData@ property, for
+--     all players who are currently assigned to the game session. The
+--     matchmaker data is in JSON syntax, formatted as a string. For more
+--     details, see
+--     <https://docs.aws.amazon.com/gamelift/latest/flexmatchguide/match-server.html#match-server-data Match Data>.
+--
+-- -   LatencyInMs -\\\\- If the matchmaker uses player latency, include a
+--     latency value, in milliseconds, for the Region that the game session
+--     is currently in. Do not include latency values for any other Region.
+startMatchBackfill_players :: Lens.Lens' StartMatchBackfill [Player]
+startMatchBackfill_players = Lens.lens (\StartMatchBackfill' {players} -> players) (\s@StartMatchBackfill' {} a -> s {players = a} :: StartMatchBackfill) Prelude.. Prelude._Coerce
 
-instance AWSRequest StartMatchBackfill where
+instance Prelude.AWSRequest StartMatchBackfill where
   type
     Rs StartMatchBackfill =
       StartMatchBackfillResponse
-  request = postJSON gameLift
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           StartMatchBackfillResponse'
-            <$> (x .?> "MatchmakingTicket") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "MatchmakingTicket")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StartMatchBackfill
+instance Prelude.Hashable StartMatchBackfill
 
-instance NFData StartMatchBackfill
+instance Prelude.NFData StartMatchBackfill
 
-instance ToHeaders StartMatchBackfill where
+instance Prelude.ToHeaders StartMatchBackfill where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("GameLift.StartMatchBackfill" :: ByteString),
+              Prelude.=# ( "GameLift.StartMatchBackfill" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StartMatchBackfill where
+instance Prelude.ToJSON StartMatchBackfill where
   toJSON StartMatchBackfill' {..} =
-    object
-      ( catMaybes
-          [ ("TicketId" .=) <$> _smbTicketId,
-            ("GameSessionArn" .=) <$> _smbGameSessionARN,
-            Just ("ConfigurationName" .= _smbConfigurationName),
-            Just ("Players" .= _smbPlayers)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("TicketId" Prelude..=) Prelude.<$> ticketId,
+            ("GameSessionArn" Prelude..=)
+              Prelude.<$> gameSessionArn,
+            Prelude.Just
+              ("ConfigurationName" Prelude..= configurationName),
+            Prelude.Just ("Players" Prelude..= players)
           ]
       )
 
-instance ToPath StartMatchBackfill where
-  toPath = const "/"
+instance Prelude.ToPath StartMatchBackfill where
+  toPath = Prelude.const "/"
 
-instance ToQuery StartMatchBackfill where
-  toQuery = const mempty
+instance Prelude.ToQuery StartMatchBackfill where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the returned data in response to a request operation.
 --
---
---
--- /See:/ 'startMatchBackfillResponse' smart constructor.
+-- /See:/ 'newStartMatchBackfillResponse' smart constructor.
 data StartMatchBackfillResponse = StartMatchBackfillResponse'
-  { _smbrrsMatchmakingTicket ::
-      !( Maybe
-           MatchmakingTicket
-       ),
-    _smbrrsResponseStatus ::
-      !Int
+  { -- | Ticket representing the backfill matchmaking request. This object
+    -- includes the information in the request, ticket status, and match
+    -- results as generated during the matchmaking process.
+    matchmakingTicket :: Prelude.Maybe MatchmakingTicket,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartMatchBackfillResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartMatchBackfillResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'smbrrsMatchmakingTicket' - Ticket representing the backfill matchmaking request. This object includes the information in the request, ticket status, and match results as generated during the matchmaking process.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'smbrrsResponseStatus' - -- | The response status code.
-startMatchBackfillResponse ::
-  -- | 'smbrrsResponseStatus'
-  Int ->
+-- 'matchmakingTicket', 'startMatchBackfillResponse_matchmakingTicket' - Ticket representing the backfill matchmaking request. This object
+-- includes the information in the request, ticket status, and match
+-- results as generated during the matchmaking process.
+--
+-- 'httpStatus', 'startMatchBackfillResponse_httpStatus' - The response's http status code.
+newStartMatchBackfillResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StartMatchBackfillResponse
-startMatchBackfillResponse pResponseStatus_ =
+newStartMatchBackfillResponse pHttpStatus_ =
   StartMatchBackfillResponse'
-    { _smbrrsMatchmakingTicket =
-        Nothing,
-      _smbrrsResponseStatus = pResponseStatus_
+    { matchmakingTicket =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Ticket representing the backfill matchmaking request. This object includes the information in the request, ticket status, and match results as generated during the matchmaking process.
-smbrrsMatchmakingTicket :: Lens' StartMatchBackfillResponse (Maybe MatchmakingTicket)
-smbrrsMatchmakingTicket = lens _smbrrsMatchmakingTicket (\s a -> s {_smbrrsMatchmakingTicket = a})
+-- | Ticket representing the backfill matchmaking request. This object
+-- includes the information in the request, ticket status, and match
+-- results as generated during the matchmaking process.
+startMatchBackfillResponse_matchmakingTicket :: Lens.Lens' StartMatchBackfillResponse (Prelude.Maybe MatchmakingTicket)
+startMatchBackfillResponse_matchmakingTicket = Lens.lens (\StartMatchBackfillResponse' {matchmakingTicket} -> matchmakingTicket) (\s@StartMatchBackfillResponse' {} a -> s {matchmakingTicket = a} :: StartMatchBackfillResponse)
 
--- | -- | The response status code.
-smbrrsResponseStatus :: Lens' StartMatchBackfillResponse Int
-smbrrsResponseStatus = lens _smbrrsResponseStatus (\s a -> s {_smbrrsResponseStatus = a})
+-- | The response's http status code.
+startMatchBackfillResponse_httpStatus :: Lens.Lens' StartMatchBackfillResponse Prelude.Int
+startMatchBackfillResponse_httpStatus = Lens.lens (\StartMatchBackfillResponse' {httpStatus} -> httpStatus) (\s@StartMatchBackfillResponse' {} a -> s {httpStatus = a} :: StartMatchBackfillResponse)
 
-instance NFData StartMatchBackfillResponse
+instance Prelude.NFData StartMatchBackfillResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,52 +19,50 @@
 module Network.AWS.GameLift.Types.GameServerHealthCheck
   ( GameServerHealthCheck
       ( ..,
-        Healthy
+        GameServerHealthCheckHEALTHY
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data GameServerHealthCheck
-  = GameServerHealthCheck'
-      ( CI
-          Text
-      )
+newtype GameServerHealthCheck = GameServerHealthCheck'
+  { fromGameServerHealthCheck ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Healthy :: GameServerHealthCheck
-pattern Healthy = GameServerHealthCheck' "HEALTHY"
+pattern GameServerHealthCheckHEALTHY :: GameServerHealthCheck
+pattern GameServerHealthCheckHEALTHY = GameServerHealthCheck' "HEALTHY"
 
 {-# COMPLETE
-  Healthy,
+  GameServerHealthCheckHEALTHY,
   GameServerHealthCheck'
   #-}
 
-instance FromText GameServerHealthCheck where
-  parser = (GameServerHealthCheck' . mk) <$> takeText
+instance Prelude.FromText GameServerHealthCheck where
+  parser = GameServerHealthCheck' Prelude.<$> Prelude.takeText
 
-instance ToText GameServerHealthCheck where
-  toText (GameServerHealthCheck' ci) = original ci
+instance Prelude.ToText GameServerHealthCheck where
+  toText (GameServerHealthCheck' x) = x
 
-instance Hashable GameServerHealthCheck
+instance Prelude.Hashable GameServerHealthCheck
 
-instance NFData GameServerHealthCheck
+instance Prelude.NFData GameServerHealthCheck
 
-instance ToByteString GameServerHealthCheck
+instance Prelude.ToByteString GameServerHealthCheck
 
-instance ToQuery GameServerHealthCheck
+instance Prelude.ToQuery GameServerHealthCheck
 
-instance ToHeader GameServerHealthCheck
+instance Prelude.ToHeader GameServerHealthCheck
 
-instance ToJSON GameServerHealthCheck where
-  toJSON = toJSONText
+instance Prelude.ToJSON GameServerHealthCheck where
+  toJSON = Prelude.toJSONText

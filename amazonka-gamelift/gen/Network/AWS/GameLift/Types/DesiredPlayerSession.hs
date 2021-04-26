@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,54 +19,60 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.GameLift.Types.DesiredPlayerSession where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Player information for use when creating player sessions using a game session placement request with 'StartGameSessionPlacement' .
+-- | Player information for use when creating player sessions using a game
+-- session placement request with StartGameSessionPlacement.
 --
---
---
--- /See:/ 'desiredPlayerSession' smart constructor.
+-- /See:/ 'newDesiredPlayerSession' smart constructor.
 data DesiredPlayerSession = DesiredPlayerSession'
-  { _dpsPlayerId ::
-      !(Maybe Text),
-    _dpsPlayerData ::
-      !(Maybe Text)
+  { -- | A unique identifier for a player to associate with the player session.
+    playerId :: Prelude.Maybe Prelude.Text,
+    -- | Developer-defined information related to a player. Amazon GameLift does
+    -- not use this data, so it can be formatted as needed for use in the game.
+    playerData :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DesiredPlayerSession' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DesiredPlayerSession' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dpsPlayerId' - A unique identifier for a player to associate with the player session.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dpsPlayerData' - Developer-defined information related to a player. Amazon GameLift does not use this data, so it can be formatted as needed for use in the game.
-desiredPlayerSession ::
+-- 'playerId', 'desiredPlayerSession_playerId' - A unique identifier for a player to associate with the player session.
+--
+-- 'playerData', 'desiredPlayerSession_playerData' - Developer-defined information related to a player. Amazon GameLift does
+-- not use this data, so it can be formatted as needed for use in the game.
+newDesiredPlayerSession ::
   DesiredPlayerSession
-desiredPlayerSession =
+newDesiredPlayerSession =
   DesiredPlayerSession'
-    { _dpsPlayerId = Nothing,
-      _dpsPlayerData = Nothing
+    { playerId = Prelude.Nothing,
+      playerData = Prelude.Nothing
     }
 
 -- | A unique identifier for a player to associate with the player session.
-dpsPlayerId :: Lens' DesiredPlayerSession (Maybe Text)
-dpsPlayerId = lens _dpsPlayerId (\s a -> s {_dpsPlayerId = a})
+desiredPlayerSession_playerId :: Lens.Lens' DesiredPlayerSession (Prelude.Maybe Prelude.Text)
+desiredPlayerSession_playerId = Lens.lens (\DesiredPlayerSession' {playerId} -> playerId) (\s@DesiredPlayerSession' {} a -> s {playerId = a} :: DesiredPlayerSession)
 
--- | Developer-defined information related to a player. Amazon GameLift does not use this data, so it can be formatted as needed for use in the game.
-dpsPlayerData :: Lens' DesiredPlayerSession (Maybe Text)
-dpsPlayerData = lens _dpsPlayerData (\s a -> s {_dpsPlayerData = a})
+-- | Developer-defined information related to a player. Amazon GameLift does
+-- not use this data, so it can be formatted as needed for use in the game.
+desiredPlayerSession_playerData :: Lens.Lens' DesiredPlayerSession (Prelude.Maybe Prelude.Text)
+desiredPlayerSession_playerData = Lens.lens (\DesiredPlayerSession' {playerData} -> playerData) (\s@DesiredPlayerSession' {} a -> s {playerData = a} :: DesiredPlayerSession)
 
-instance Hashable DesiredPlayerSession
+instance Prelude.Hashable DesiredPlayerSession
 
-instance NFData DesiredPlayerSession
+instance Prelude.NFData DesiredPlayerSession
 
-instance ToJSON DesiredPlayerSession where
+instance Prelude.ToJSON DesiredPlayerSession where
   toJSON DesiredPlayerSession' {..} =
-    object
-      ( catMaybes
-          [ ("PlayerId" .=) <$> _dpsPlayerId,
-            ("PlayerData" .=) <$> _dpsPlayerData
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("PlayerId" Prelude..=) Prelude.<$> playerId,
+            ("PlayerData" Prelude..=) Prelude.<$> playerData
           ]
       )

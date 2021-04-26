@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.GameLift.Types.RoutingStrategyType
   ( RoutingStrategyType
       ( ..,
-        Simple,
-        Terminal
+        RoutingStrategyTypeSIMPLE,
+        RoutingStrategyTypeTERMINAL
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RoutingStrategyType
-  = RoutingStrategyType'
-      ( CI
-          Text
-      )
+newtype RoutingStrategyType = RoutingStrategyType'
+  { fromRoutingStrategyType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Simple :: RoutingStrategyType
-pattern Simple = RoutingStrategyType' "SIMPLE"
+pattern RoutingStrategyTypeSIMPLE :: RoutingStrategyType
+pattern RoutingStrategyTypeSIMPLE = RoutingStrategyType' "SIMPLE"
 
-pattern Terminal :: RoutingStrategyType
-pattern Terminal = RoutingStrategyType' "TERMINAL"
+pattern RoutingStrategyTypeTERMINAL :: RoutingStrategyType
+pattern RoutingStrategyTypeTERMINAL = RoutingStrategyType' "TERMINAL"
 
 {-# COMPLETE
-  Simple,
-  Terminal,
+  RoutingStrategyTypeSIMPLE,
+  RoutingStrategyTypeTERMINAL,
   RoutingStrategyType'
   #-}
 
-instance FromText RoutingStrategyType where
-  parser = (RoutingStrategyType' . mk) <$> takeText
+instance Prelude.FromText RoutingStrategyType where
+  parser = RoutingStrategyType' Prelude.<$> Prelude.takeText
 
-instance ToText RoutingStrategyType where
-  toText (RoutingStrategyType' ci) = original ci
+instance Prelude.ToText RoutingStrategyType where
+  toText (RoutingStrategyType' x) = x
 
-instance Hashable RoutingStrategyType
+instance Prelude.Hashable RoutingStrategyType
 
-instance NFData RoutingStrategyType
+instance Prelude.NFData RoutingStrategyType
 
-instance ToByteString RoutingStrategyType
+instance Prelude.ToByteString RoutingStrategyType
 
-instance ToQuery RoutingStrategyType
+instance Prelude.ToQuery RoutingStrategyType
 
-instance ToHeader RoutingStrategyType
+instance Prelude.ToHeader RoutingStrategyType
 
-instance ToJSON RoutingStrategyType where
-  toJSON = toJSONText
+instance Prelude.ToJSON RoutingStrategyType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON RoutingStrategyType where
-  parseJSON = parseJSONText "RoutingStrategyType"
+instance Prelude.FromJSON RoutingStrategyType where
+  parseJSON = Prelude.parseJSONText "RoutingStrategyType"

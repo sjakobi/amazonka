@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,176 +21,177 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Cancels a game session placement that is in @PENDING@ status. To stop a placement, provide the placement ID values. If successful, the placement is moved to @CANCELLED@ status.
+-- Cancels a game session placement that is in @PENDING@ status. To stop a
+-- placement, provide the placement ID values. If successful, the placement
+-- is moved to @CANCELLED@ status.
 --
+-- -   CreateGameSession
 --
---     * 'CreateGameSession'
+-- -   DescribeGameSessions
 --
---     * 'DescribeGameSessions'
+-- -   DescribeGameSessionDetails
 --
---     * 'DescribeGameSessionDetails'
+-- -   SearchGameSessions
 --
---     * 'SearchGameSessions'
+-- -   UpdateGameSession
 --
---     * 'UpdateGameSession'
+-- -   GetGameSessionLogUrl
 --
---     * 'GetGameSessionLogUrl'
+-- -   Game session placements
 --
---     * Game session placements
+--     -   StartGameSessionPlacement
 --
---     * 'StartGameSessionPlacement'
+--     -   DescribeGameSessionPlacement
 --
---     * 'DescribeGameSessionPlacement'
---
---     * 'StopGameSessionPlacement'
+--     -   StopGameSessionPlacement
 module Network.AWS.GameLift.StopGameSessionPlacement
   ( -- * Creating a Request
-    stopGameSessionPlacement,
-    StopGameSessionPlacement,
+    StopGameSessionPlacement (..),
+    newStopGameSessionPlacement,
 
     -- * Request Lenses
-    sgspPlacementId,
+    stopGameSessionPlacement_placementId,
 
     -- * Destructuring the Response
-    stopGameSessionPlacementResponse,
-    StopGameSessionPlacementResponse,
+    StopGameSessionPlacementResponse (..),
+    newStopGameSessionPlacementResponse,
 
     -- * Response Lenses
-    sgsprrsGameSessionPlacement,
-    sgsprrsResponseStatus,
+    stopGameSessionPlacementResponse_gameSessionPlacement,
+    stopGameSessionPlacementResponse_httpStatus,
   )
 where
 
 import Network.AWS.GameLift.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.GameLift.Types.GameSessionPlacement
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input for a request operation.
 --
---
---
--- /See:/ 'stopGameSessionPlacement' smart constructor.
-newtype StopGameSessionPlacement = StopGameSessionPlacement'
-  { _sgspPlacementId ::
-      Text
+-- /See:/ 'newStopGameSessionPlacement' smart constructor.
+data StopGameSessionPlacement = StopGameSessionPlacement'
+  { -- | A unique identifier for a game session placement to cancel.
+    placementId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopGameSessionPlacement' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopGameSessionPlacement' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sgspPlacementId' - A unique identifier for a game session placement to cancel.
-stopGameSessionPlacement ::
-  -- | 'sgspPlacementId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'placementId', 'stopGameSessionPlacement_placementId' - A unique identifier for a game session placement to cancel.
+newStopGameSessionPlacement ::
+  -- | 'placementId'
+  Prelude.Text ->
   StopGameSessionPlacement
-stopGameSessionPlacement pPlacementId_ =
+newStopGameSessionPlacement pPlacementId_ =
   StopGameSessionPlacement'
-    { _sgspPlacementId =
+    { placementId =
         pPlacementId_
     }
 
 -- | A unique identifier for a game session placement to cancel.
-sgspPlacementId :: Lens' StopGameSessionPlacement Text
-sgspPlacementId = lens _sgspPlacementId (\s a -> s {_sgspPlacementId = a})
+stopGameSessionPlacement_placementId :: Lens.Lens' StopGameSessionPlacement Prelude.Text
+stopGameSessionPlacement_placementId = Lens.lens (\StopGameSessionPlacement' {placementId} -> placementId) (\s@StopGameSessionPlacement' {} a -> s {placementId = a} :: StopGameSessionPlacement)
 
-instance AWSRequest StopGameSessionPlacement where
+instance Prelude.AWSRequest StopGameSessionPlacement where
   type
     Rs StopGameSessionPlacement =
       StopGameSessionPlacementResponse
-  request = postJSON gameLift
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           StopGameSessionPlacementResponse'
-            <$> (x .?> "GameSessionPlacement")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "GameSessionPlacement")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StopGameSessionPlacement
+instance Prelude.Hashable StopGameSessionPlacement
 
-instance NFData StopGameSessionPlacement
+instance Prelude.NFData StopGameSessionPlacement
 
-instance ToHeaders StopGameSessionPlacement where
+instance Prelude.ToHeaders StopGameSessionPlacement where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("GameLift.StopGameSessionPlacement" :: ByteString),
+              Prelude.=# ( "GameLift.StopGameSessionPlacement" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StopGameSessionPlacement where
+instance Prelude.ToJSON StopGameSessionPlacement where
   toJSON StopGameSessionPlacement' {..} =
-    object
-      ( catMaybes
-          [Just ("PlacementId" .= _sgspPlacementId)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("PlacementId" Prelude..= placementId)
+          ]
       )
 
-instance ToPath StopGameSessionPlacement where
-  toPath = const "/"
+instance Prelude.ToPath StopGameSessionPlacement where
+  toPath = Prelude.const "/"
 
-instance ToQuery StopGameSessionPlacement where
-  toQuery = const mempty
+instance Prelude.ToQuery StopGameSessionPlacement where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the returned data in response to a request operation.
 --
---
---
--- /See:/ 'stopGameSessionPlacementResponse' smart constructor.
+-- /See:/ 'newStopGameSessionPlacementResponse' smart constructor.
 data StopGameSessionPlacementResponse = StopGameSessionPlacementResponse'
-  { _sgsprrsGameSessionPlacement ::
-      !( Maybe
-           GameSessionPlacement
-       ),
-    _sgsprrsResponseStatus ::
-      !Int
+  { -- | Object that describes the canceled game session placement, with
+    -- @CANCELLED@ status and an end time stamp.
+    gameSessionPlacement :: Prelude.Maybe GameSessionPlacement,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopGameSessionPlacementResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopGameSessionPlacementResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sgsprrsGameSessionPlacement' - Object that describes the canceled game session placement, with @CANCELLED@ status and an end time stamp.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sgsprrsResponseStatus' - -- | The response status code.
-stopGameSessionPlacementResponse ::
-  -- | 'sgsprrsResponseStatus'
-  Int ->
+-- 'gameSessionPlacement', 'stopGameSessionPlacementResponse_gameSessionPlacement' - Object that describes the canceled game session placement, with
+-- @CANCELLED@ status and an end time stamp.
+--
+-- 'httpStatus', 'stopGameSessionPlacementResponse_httpStatus' - The response's http status code.
+newStopGameSessionPlacementResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StopGameSessionPlacementResponse
-stopGameSessionPlacementResponse pResponseStatus_ =
+newStopGameSessionPlacementResponse pHttpStatus_ =
   StopGameSessionPlacementResponse'
-    { _sgsprrsGameSessionPlacement =
-        Nothing,
-      _sgsprrsResponseStatus = pResponseStatus_
+    { gameSessionPlacement =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Object that describes the canceled game session placement, with @CANCELLED@ status and an end time stamp.
-sgsprrsGameSessionPlacement :: Lens' StopGameSessionPlacementResponse (Maybe GameSessionPlacement)
-sgsprrsGameSessionPlacement = lens _sgsprrsGameSessionPlacement (\s a -> s {_sgsprrsGameSessionPlacement = a})
+-- | Object that describes the canceled game session placement, with
+-- @CANCELLED@ status and an end time stamp.
+stopGameSessionPlacementResponse_gameSessionPlacement :: Lens.Lens' StopGameSessionPlacementResponse (Prelude.Maybe GameSessionPlacement)
+stopGameSessionPlacementResponse_gameSessionPlacement = Lens.lens (\StopGameSessionPlacementResponse' {gameSessionPlacement} -> gameSessionPlacement) (\s@StopGameSessionPlacementResponse' {} a -> s {gameSessionPlacement = a} :: StopGameSessionPlacementResponse)
 
--- | -- | The response status code.
-sgsprrsResponseStatus :: Lens' StopGameSessionPlacementResponse Int
-sgsprrsResponseStatus = lens _sgsprrsResponseStatus (\s a -> s {_sgsprrsResponseStatus = a})
+-- | The response's http status code.
+stopGameSessionPlacementResponse_httpStatus :: Lens.Lens' StopGameSessionPlacementResponse Prelude.Int
+stopGameSessionPlacementResponse_httpStatus = Lens.lens (\StopGameSessionPlacementResponse' {httpStatus} -> httpStatus) (\s@StopGameSessionPlacementResponse' {} a -> s {httpStatus = a} :: StopGameSessionPlacementResponse)
 
-instance NFData StopGameSessionPlacementResponse
+instance
+  Prelude.NFData
+    StopGameSessionPlacementResponse

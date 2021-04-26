@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.GameLift.Types.BackfillMode
   ( BackfillMode
       ( ..,
-        Automatic,
-        Manual
+        BackfillModeAUTOMATIC,
+        BackfillModeMANUAL
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data BackfillMode = BackfillMode' (CI Text)
+newtype BackfillMode = BackfillMode'
+  { fromBackfillMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Automatic :: BackfillMode
-pattern Automatic = BackfillMode' "AUTOMATIC"
+pattern BackfillModeAUTOMATIC :: BackfillMode
+pattern BackfillModeAUTOMATIC = BackfillMode' "AUTOMATIC"
 
-pattern Manual :: BackfillMode
-pattern Manual = BackfillMode' "MANUAL"
+pattern BackfillModeMANUAL :: BackfillMode
+pattern BackfillModeMANUAL = BackfillMode' "MANUAL"
 
 {-# COMPLETE
-  Automatic,
-  Manual,
+  BackfillModeAUTOMATIC,
+  BackfillModeMANUAL,
   BackfillMode'
   #-}
 
-instance FromText BackfillMode where
-  parser = (BackfillMode' . mk) <$> takeText
+instance Prelude.FromText BackfillMode where
+  parser = BackfillMode' Prelude.<$> Prelude.takeText
 
-instance ToText BackfillMode where
-  toText (BackfillMode' ci) = original ci
+instance Prelude.ToText BackfillMode where
+  toText (BackfillMode' x) = x
 
-instance Hashable BackfillMode
+instance Prelude.Hashable BackfillMode
 
-instance NFData BackfillMode
+instance Prelude.NFData BackfillMode
 
-instance ToByteString BackfillMode
+instance Prelude.ToByteString BackfillMode
 
-instance ToQuery BackfillMode
+instance Prelude.ToQuery BackfillMode
 
-instance ToHeader BackfillMode
+instance Prelude.ToHeader BackfillMode
 
-instance ToJSON BackfillMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON BackfillMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON BackfillMode where
-  parseJSON = parseJSONText "BackfillMode"
+instance Prelude.FromJSON BackfillMode where
+  parseJSON = Prelude.parseJSONText "BackfillMode"

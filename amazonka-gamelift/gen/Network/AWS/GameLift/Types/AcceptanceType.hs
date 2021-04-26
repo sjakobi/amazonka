@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.GameLift.Types.AcceptanceType
   ( AcceptanceType
       ( ..,
-        Accept,
-        Reject
+        AcceptanceTypeACCEPT,
+        AcceptanceTypeREJECT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AcceptanceType = AcceptanceType' (CI Text)
+newtype AcceptanceType = AcceptanceType'
+  { fromAcceptanceType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Accept :: AcceptanceType
-pattern Accept = AcceptanceType' "ACCEPT"
+pattern AcceptanceTypeACCEPT :: AcceptanceType
+pattern AcceptanceTypeACCEPT = AcceptanceType' "ACCEPT"
 
-pattern Reject :: AcceptanceType
-pattern Reject = AcceptanceType' "REJECT"
+pattern AcceptanceTypeREJECT :: AcceptanceType
+pattern AcceptanceTypeREJECT = AcceptanceType' "REJECT"
 
 {-# COMPLETE
-  Accept,
-  Reject,
+  AcceptanceTypeACCEPT,
+  AcceptanceTypeREJECT,
   AcceptanceType'
   #-}
 
-instance FromText AcceptanceType where
-  parser = (AcceptanceType' . mk) <$> takeText
+instance Prelude.FromText AcceptanceType where
+  parser = AcceptanceType' Prelude.<$> Prelude.takeText
 
-instance ToText AcceptanceType where
-  toText (AcceptanceType' ci) = original ci
+instance Prelude.ToText AcceptanceType where
+  toText (AcceptanceType' x) = x
 
-instance Hashable AcceptanceType
+instance Prelude.Hashable AcceptanceType
 
-instance NFData AcceptanceType
+instance Prelude.NFData AcceptanceType
 
-instance ToByteString AcceptanceType
+instance Prelude.ToByteString AcceptanceType
 
-instance ToQuery AcceptanceType
+instance Prelude.ToQuery AcceptanceType
 
-instance ToHeader AcceptanceType
+instance Prelude.ToHeader AcceptanceType
 
-instance ToJSON AcceptanceType where
-  toJSON = toJSONText
+instance Prelude.ToJSON AcceptanceType where
+  toJSON = Prelude.toJSONText

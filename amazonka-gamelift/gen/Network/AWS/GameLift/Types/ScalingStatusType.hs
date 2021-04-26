@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,81 +19,83 @@
 module Network.AWS.GameLift.Types.ScalingStatusType
   ( ScalingStatusType
       ( ..,
-        SSTActive,
-        SSTDeleteRequested,
-        SSTDeleted,
-        SSTDeleting,
-        SSTError',
-        SSTUpdateRequested,
-        SSTUpdating
+        ScalingStatusTypeACTIVE,
+        ScalingStatusTypeDELETED,
+        ScalingStatusTypeDELETEREQUESTED,
+        ScalingStatusTypeDELETING,
+        ScalingStatusTypeERROR,
+        ScalingStatusTypeUPDATEREQUESTED,
+        ScalingStatusTypeUPDATING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ScalingStatusType = ScalingStatusType' (CI Text)
+newtype ScalingStatusType = ScalingStatusType'
+  { fromScalingStatusType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SSTActive :: ScalingStatusType
-pattern SSTActive = ScalingStatusType' "ACTIVE"
+pattern ScalingStatusTypeACTIVE :: ScalingStatusType
+pattern ScalingStatusTypeACTIVE = ScalingStatusType' "ACTIVE"
 
-pattern SSTDeleteRequested :: ScalingStatusType
-pattern SSTDeleteRequested = ScalingStatusType' "DELETE_REQUESTED"
+pattern ScalingStatusTypeDELETED :: ScalingStatusType
+pattern ScalingStatusTypeDELETED = ScalingStatusType' "DELETED"
 
-pattern SSTDeleted :: ScalingStatusType
-pattern SSTDeleted = ScalingStatusType' "DELETED"
+pattern ScalingStatusTypeDELETEREQUESTED :: ScalingStatusType
+pattern ScalingStatusTypeDELETEREQUESTED = ScalingStatusType' "DELETE_REQUESTED"
 
-pattern SSTDeleting :: ScalingStatusType
-pattern SSTDeleting = ScalingStatusType' "DELETING"
+pattern ScalingStatusTypeDELETING :: ScalingStatusType
+pattern ScalingStatusTypeDELETING = ScalingStatusType' "DELETING"
 
-pattern SSTError' :: ScalingStatusType
-pattern SSTError' = ScalingStatusType' "ERROR"
+pattern ScalingStatusTypeERROR :: ScalingStatusType
+pattern ScalingStatusTypeERROR = ScalingStatusType' "ERROR"
 
-pattern SSTUpdateRequested :: ScalingStatusType
-pattern SSTUpdateRequested = ScalingStatusType' "UPDATE_REQUESTED"
+pattern ScalingStatusTypeUPDATEREQUESTED :: ScalingStatusType
+pattern ScalingStatusTypeUPDATEREQUESTED = ScalingStatusType' "UPDATE_REQUESTED"
 
-pattern SSTUpdating :: ScalingStatusType
-pattern SSTUpdating = ScalingStatusType' "UPDATING"
+pattern ScalingStatusTypeUPDATING :: ScalingStatusType
+pattern ScalingStatusTypeUPDATING = ScalingStatusType' "UPDATING"
 
 {-# COMPLETE
-  SSTActive,
-  SSTDeleteRequested,
-  SSTDeleted,
-  SSTDeleting,
-  SSTError',
-  SSTUpdateRequested,
-  SSTUpdating,
+  ScalingStatusTypeACTIVE,
+  ScalingStatusTypeDELETED,
+  ScalingStatusTypeDELETEREQUESTED,
+  ScalingStatusTypeDELETING,
+  ScalingStatusTypeERROR,
+  ScalingStatusTypeUPDATEREQUESTED,
+  ScalingStatusTypeUPDATING,
   ScalingStatusType'
   #-}
 
-instance FromText ScalingStatusType where
-  parser = (ScalingStatusType' . mk) <$> takeText
+instance Prelude.FromText ScalingStatusType where
+  parser = ScalingStatusType' Prelude.<$> Prelude.takeText
 
-instance ToText ScalingStatusType where
-  toText (ScalingStatusType' ci) = original ci
+instance Prelude.ToText ScalingStatusType where
+  toText (ScalingStatusType' x) = x
 
-instance Hashable ScalingStatusType
+instance Prelude.Hashable ScalingStatusType
 
-instance NFData ScalingStatusType
+instance Prelude.NFData ScalingStatusType
 
-instance ToByteString ScalingStatusType
+instance Prelude.ToByteString ScalingStatusType
 
-instance ToQuery ScalingStatusType
+instance Prelude.ToQuery ScalingStatusType
 
-instance ToHeader ScalingStatusType
+instance Prelude.ToHeader ScalingStatusType
 
-instance ToJSON ScalingStatusType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ScalingStatusType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ScalingStatusType where
-  parseJSON = parseJSONText "ScalingStatusType"
+instance Prelude.FromJSON ScalingStatusType where
+  parseJSON = Prelude.parseJSONText "ScalingStatusType"

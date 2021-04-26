@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,70 @@
 module Network.AWS.GameLift.Types.GameSessionStatus
   ( GameSessionStatus
       ( ..,
-        GSSActivating,
-        GSSActive,
-        GSSError',
-        GSSTerminated,
-        GSSTerminating
+        GameSessionStatusACTIVATING,
+        GameSessionStatusACTIVE,
+        GameSessionStatusERROR,
+        GameSessionStatusTERMINATED,
+        GameSessionStatusTERMINATING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data GameSessionStatus = GameSessionStatus' (CI Text)
+newtype GameSessionStatus = GameSessionStatus'
+  { fromGameSessionStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern GSSActivating :: GameSessionStatus
-pattern GSSActivating = GameSessionStatus' "ACTIVATING"
+pattern GameSessionStatusACTIVATING :: GameSessionStatus
+pattern GameSessionStatusACTIVATING = GameSessionStatus' "ACTIVATING"
 
-pattern GSSActive :: GameSessionStatus
-pattern GSSActive = GameSessionStatus' "ACTIVE"
+pattern GameSessionStatusACTIVE :: GameSessionStatus
+pattern GameSessionStatusACTIVE = GameSessionStatus' "ACTIVE"
 
-pattern GSSError' :: GameSessionStatus
-pattern GSSError' = GameSessionStatus' "ERROR"
+pattern GameSessionStatusERROR :: GameSessionStatus
+pattern GameSessionStatusERROR = GameSessionStatus' "ERROR"
 
-pattern GSSTerminated :: GameSessionStatus
-pattern GSSTerminated = GameSessionStatus' "TERMINATED"
+pattern GameSessionStatusTERMINATED :: GameSessionStatus
+pattern GameSessionStatusTERMINATED = GameSessionStatus' "TERMINATED"
 
-pattern GSSTerminating :: GameSessionStatus
-pattern GSSTerminating = GameSessionStatus' "TERMINATING"
+pattern GameSessionStatusTERMINATING :: GameSessionStatus
+pattern GameSessionStatusTERMINATING = GameSessionStatus' "TERMINATING"
 
 {-# COMPLETE
-  GSSActivating,
-  GSSActive,
-  GSSError',
-  GSSTerminated,
-  GSSTerminating,
+  GameSessionStatusACTIVATING,
+  GameSessionStatusACTIVE,
+  GameSessionStatusERROR,
+  GameSessionStatusTERMINATED,
+  GameSessionStatusTERMINATING,
   GameSessionStatus'
   #-}
 
-instance FromText GameSessionStatus where
-  parser = (GameSessionStatus' . mk) <$> takeText
+instance Prelude.FromText GameSessionStatus where
+  parser = GameSessionStatus' Prelude.<$> Prelude.takeText
 
-instance ToText GameSessionStatus where
-  toText (GameSessionStatus' ci) = original ci
+instance Prelude.ToText GameSessionStatus where
+  toText (GameSessionStatus' x) = x
 
-instance Hashable GameSessionStatus
+instance Prelude.Hashable GameSessionStatus
 
-instance NFData GameSessionStatus
+instance Prelude.NFData GameSessionStatus
 
-instance ToByteString GameSessionStatus
+instance Prelude.ToByteString GameSessionStatus
 
-instance ToQuery GameSessionStatus
+instance Prelude.ToQuery GameSessionStatus
 
-instance ToHeader GameSessionStatus
+instance Prelude.ToHeader GameSessionStatus
 
-instance FromJSON GameSessionStatus where
-  parseJSON = parseJSONText "GameSessionStatus"
+instance Prelude.FromJSON GameSessionStatus where
+  parseJSON = Prelude.parseJSONText "GameSessionStatus"

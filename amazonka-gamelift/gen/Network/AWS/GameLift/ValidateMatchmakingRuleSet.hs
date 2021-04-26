@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,182 +21,182 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Validates the syntax of a matchmaking rule or rule set. This operation checks that the rule set is using syntactically correct JSON and that it conforms to allowed property expressions. To validate syntax, provide a rule set JSON string.
---
+-- Validates the syntax of a matchmaking rule or rule set. This operation
+-- checks that the rule set is using syntactically correct JSON and that it
+-- conforms to allowed property expressions. To validate syntax, provide a
+-- rule set JSON string.
 --
 -- __Learn more__
 --
---     * <https://docs.aws.amazon.com/gamelift/latest/flexmatchguide/match-rulesets.html Build a Rule Set>
---
---
+-- -   <https://docs.aws.amazon.com/gamelift/latest/flexmatchguide/match-rulesets.html Build a Rule Set>
 --
 -- __Related operations__
 --
---     * 'CreateMatchmakingConfiguration'
+-- -   CreateMatchmakingConfiguration
 --
---     * 'DescribeMatchmakingConfigurations'
+-- -   DescribeMatchmakingConfigurations
 --
---     * 'UpdateMatchmakingConfiguration'
+-- -   UpdateMatchmakingConfiguration
 --
---     * 'DeleteMatchmakingConfiguration'
+-- -   DeleteMatchmakingConfiguration
 --
---     * 'CreateMatchmakingRuleSet'
+-- -   CreateMatchmakingRuleSet
 --
---     * 'DescribeMatchmakingRuleSets'
+-- -   DescribeMatchmakingRuleSets
 --
---     * 'ValidateMatchmakingRuleSet'
+-- -   ValidateMatchmakingRuleSet
 --
---     * 'DeleteMatchmakingRuleSet'
+-- -   DeleteMatchmakingRuleSet
 module Network.AWS.GameLift.ValidateMatchmakingRuleSet
   ( -- * Creating a Request
-    validateMatchmakingRuleSet,
-    ValidateMatchmakingRuleSet,
+    ValidateMatchmakingRuleSet (..),
+    newValidateMatchmakingRuleSet,
 
     -- * Request Lenses
-    vmrsRuleSetBody,
+    validateMatchmakingRuleSet_ruleSetBody,
 
     -- * Destructuring the Response
-    validateMatchmakingRuleSetResponse,
-    ValidateMatchmakingRuleSetResponse,
+    ValidateMatchmakingRuleSetResponse (..),
+    newValidateMatchmakingRuleSetResponse,
 
     -- * Response Lenses
-    vmrsrrsValid,
-    vmrsrrsResponseStatus,
+    validateMatchmakingRuleSetResponse_valid,
+    validateMatchmakingRuleSetResponse_httpStatus,
   )
 where
 
 import Network.AWS.GameLift.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input for a request operation.
 --
---
---
--- /See:/ 'validateMatchmakingRuleSet' smart constructor.
-newtype ValidateMatchmakingRuleSet = ValidateMatchmakingRuleSet'
-  { _vmrsRuleSetBody ::
-      Text
+-- /See:/ 'newValidateMatchmakingRuleSet' smart constructor.
+data ValidateMatchmakingRuleSet = ValidateMatchmakingRuleSet'
+  { -- | A collection of matchmaking rules to validate, formatted as a JSON
+    -- string.
+    ruleSetBody :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ValidateMatchmakingRuleSet' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ValidateMatchmakingRuleSet' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'vmrsRuleSetBody' - A collection of matchmaking rules to validate, formatted as a JSON string.
-validateMatchmakingRuleSet ::
-  -- | 'vmrsRuleSetBody'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'ruleSetBody', 'validateMatchmakingRuleSet_ruleSetBody' - A collection of matchmaking rules to validate, formatted as a JSON
+-- string.
+newValidateMatchmakingRuleSet ::
+  -- | 'ruleSetBody'
+  Prelude.Text ->
   ValidateMatchmakingRuleSet
-validateMatchmakingRuleSet pRuleSetBody_ =
+newValidateMatchmakingRuleSet pRuleSetBody_ =
   ValidateMatchmakingRuleSet'
-    { _vmrsRuleSetBody =
+    { ruleSetBody =
         pRuleSetBody_
     }
 
--- | A collection of matchmaking rules to validate, formatted as a JSON string.
-vmrsRuleSetBody :: Lens' ValidateMatchmakingRuleSet Text
-vmrsRuleSetBody = lens _vmrsRuleSetBody (\s a -> s {_vmrsRuleSetBody = a})
+-- | A collection of matchmaking rules to validate, formatted as a JSON
+-- string.
+validateMatchmakingRuleSet_ruleSetBody :: Lens.Lens' ValidateMatchmakingRuleSet Prelude.Text
+validateMatchmakingRuleSet_ruleSetBody = Lens.lens (\ValidateMatchmakingRuleSet' {ruleSetBody} -> ruleSetBody) (\s@ValidateMatchmakingRuleSet' {} a -> s {ruleSetBody = a} :: ValidateMatchmakingRuleSet)
 
-instance AWSRequest ValidateMatchmakingRuleSet where
+instance
+  Prelude.AWSRequest
+    ValidateMatchmakingRuleSet
+  where
   type
     Rs ValidateMatchmakingRuleSet =
       ValidateMatchmakingRuleSetResponse
-  request = postJSON gameLift
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ValidateMatchmakingRuleSetResponse'
-            <$> (x .?> "Valid") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Valid")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ValidateMatchmakingRuleSet
+instance Prelude.Hashable ValidateMatchmakingRuleSet
 
-instance NFData ValidateMatchmakingRuleSet
+instance Prelude.NFData ValidateMatchmakingRuleSet
 
-instance ToHeaders ValidateMatchmakingRuleSet where
+instance Prelude.ToHeaders ValidateMatchmakingRuleSet where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "GameLift.ValidateMatchmakingRuleSet" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "GameLift.ValidateMatchmakingRuleSet" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ValidateMatchmakingRuleSet where
+instance Prelude.ToJSON ValidateMatchmakingRuleSet where
   toJSON ValidateMatchmakingRuleSet' {..} =
-    object
-      ( catMaybes
-          [Just ("RuleSetBody" .= _vmrsRuleSetBody)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("RuleSetBody" Prelude..= ruleSetBody)
+          ]
       )
 
-instance ToPath ValidateMatchmakingRuleSet where
-  toPath = const "/"
+instance Prelude.ToPath ValidateMatchmakingRuleSet where
+  toPath = Prelude.const "/"
 
-instance ToQuery ValidateMatchmakingRuleSet where
-  toQuery = const mempty
+instance Prelude.ToQuery ValidateMatchmakingRuleSet where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the returned data in response to a request operation.
 --
---
---
--- /See:/ 'validateMatchmakingRuleSetResponse' smart constructor.
+-- /See:/ 'newValidateMatchmakingRuleSetResponse' smart constructor.
 data ValidateMatchmakingRuleSetResponse = ValidateMatchmakingRuleSetResponse'
-  { _vmrsrrsValid ::
-      !( Maybe
-           Bool
-       ),
-    _vmrsrrsResponseStatus ::
-      !Int
+  { -- | A response indicating whether the rule set is valid.
+    valid :: Prelude.Maybe Prelude.Bool,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ValidateMatchmakingRuleSetResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ValidateMatchmakingRuleSetResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'vmrsrrsValid' - A response indicating whether the rule set is valid.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'vmrsrrsResponseStatus' - -- | The response status code.
-validateMatchmakingRuleSetResponse ::
-  -- | 'vmrsrrsResponseStatus'
-  Int ->
+-- 'valid', 'validateMatchmakingRuleSetResponse_valid' - A response indicating whether the rule set is valid.
+--
+-- 'httpStatus', 'validateMatchmakingRuleSetResponse_httpStatus' - The response's http status code.
+newValidateMatchmakingRuleSetResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ValidateMatchmakingRuleSetResponse
-validateMatchmakingRuleSetResponse pResponseStatus_ =
+newValidateMatchmakingRuleSetResponse pHttpStatus_ =
   ValidateMatchmakingRuleSetResponse'
-    { _vmrsrrsValid =
-        Nothing,
-      _vmrsrrsResponseStatus =
-        pResponseStatus_
+    { valid =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A response indicating whether the rule set is valid.
-vmrsrrsValid :: Lens' ValidateMatchmakingRuleSetResponse (Maybe Bool)
-vmrsrrsValid = lens _vmrsrrsValid (\s a -> s {_vmrsrrsValid = a})
+validateMatchmakingRuleSetResponse_valid :: Lens.Lens' ValidateMatchmakingRuleSetResponse (Prelude.Maybe Prelude.Bool)
+validateMatchmakingRuleSetResponse_valid = Lens.lens (\ValidateMatchmakingRuleSetResponse' {valid} -> valid) (\s@ValidateMatchmakingRuleSetResponse' {} a -> s {valid = a} :: ValidateMatchmakingRuleSetResponse)
 
--- | -- | The response status code.
-vmrsrrsResponseStatus :: Lens' ValidateMatchmakingRuleSetResponse Int
-vmrsrrsResponseStatus = lens _vmrsrrsResponseStatus (\s a -> s {_vmrsrrsResponseStatus = a})
+-- | The response's http status code.
+validateMatchmakingRuleSetResponse_httpStatus :: Lens.Lens' ValidateMatchmakingRuleSetResponse Prelude.Int
+validateMatchmakingRuleSetResponse_httpStatus = Lens.lens (\ValidateMatchmakingRuleSetResponse' {httpStatus} -> httpStatus) (\s@ValidateMatchmakingRuleSetResponse' {} a -> s {httpStatus = a} :: ValidateMatchmakingRuleSetResponse)
 
-instance NFData ValidateMatchmakingRuleSetResponse
+instance
+  Prelude.NFData
+    ValidateMatchmakingRuleSetResponse

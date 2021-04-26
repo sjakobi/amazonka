@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,10 +21,20 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves utilization statistics for one or more fleets. These statistics provide insight into how available hosting resources are currently being used. To get statistics on available hosting resources, see 'DescribeFleetCapacity' .
+-- Retrieves utilization statistics for one or more fleets. These
+-- statistics provide insight into how available hosting resources are
+-- currently being used. To get statistics on available hosting resources,
+-- see DescribeFleetCapacity.
 --
+-- You can request utilization data for all fleets, or specify a list of
+-- one or more fleet IDs. When requesting multiple fleets, use the
+-- pagination parameters to retrieve results as a set of sequential pages.
+-- If successful, a FleetUtilization object is returned for each requested
+-- fleet ID, unless the fleet identifier is not found.
 --
--- You can request utilization data for all fleets, or specify a list of one or more fleet IDs. When requesting multiple fleets, use the pagination parameters to retrieve results as a set of sequential pages. If successful, a 'FleetUtilization' object is returned for each requested fleet ID, unless the fleet identifier is not found.
+-- Some API operations may limit the number of fleet IDs allowed in one
+-- request. If a request exceeds this limit, the request fails and the
+-- error message includes the maximum allowed.
 --
 -- __Learn more__
 --
@@ -30,227 +44,272 @@
 --
 -- __Related operations__
 --
---     * 'CreateFleet'
+-- -   CreateFleet
 --
---     * 'ListFleets'
+-- -   ListFleets
 --
---     * 'DeleteFleet'
+-- -   DeleteFleet
 --
---     * Describe fleets:
+-- -   Describe fleets:
 --
---     * 'DescribeFleetAttributes'
+--     -   DescribeFleetAttributes
 --
---     * 'DescribeFleetCapacity'
+--     -   DescribeFleetCapacity
 --
---     * 'DescribeFleetPortSettings'
+--     -   DescribeFleetPortSettings
 --
---     * 'DescribeFleetUtilization'
+--     -   DescribeFleetUtilization
 --
---     * 'DescribeRuntimeConfiguration'
+--     -   DescribeRuntimeConfiguration
 --
---     * 'DescribeEC2InstanceLimits'
+--     -   DescribeEC2InstanceLimits
 --
---     * 'DescribeFleetEvents'
+--     -   DescribeFleetEvents
 --
+-- -   UpdateFleetAttributes
 --
---
---     * 'UpdateFleetAttributes'
---
---     * 'StartFleetActions' or 'StopFleetActions'
---
---
---
+-- -   StartFleetActions or StopFleetActions
 --
 -- This operation returns paginated results.
 module Network.AWS.GameLift.DescribeFleetUtilization
   ( -- * Creating a Request
-    describeFleetUtilization,
-    DescribeFleetUtilization,
+    DescribeFleetUtilization (..),
+    newDescribeFleetUtilization,
 
     -- * Request Lenses
-    dfuNextToken,
-    dfuFleetIds,
-    dfuLimit,
+    describeFleetUtilization_nextToken,
+    describeFleetUtilization_fleetIds,
+    describeFleetUtilization_limit,
 
     -- * Destructuring the Response
-    describeFleetUtilizationResponse,
-    DescribeFleetUtilizationResponse,
+    DescribeFleetUtilizationResponse (..),
+    newDescribeFleetUtilizationResponse,
 
     -- * Response Lenses
-    dfurrsNextToken,
-    dfurrsFleetUtilization,
-    dfurrsResponseStatus,
+    describeFleetUtilizationResponse_nextToken,
+    describeFleetUtilizationResponse_fleetUtilization,
+    describeFleetUtilizationResponse_httpStatus,
   )
 where
 
 import Network.AWS.GameLift.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.GameLift.Types.FleetUtilization
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input for a request operation.
 --
---
---
--- /See:/ 'describeFleetUtilization' smart constructor.
+-- /See:/ 'newDescribeFleetUtilization' smart constructor.
 data DescribeFleetUtilization = DescribeFleetUtilization'
-  { _dfuNextToken ::
-      !(Maybe Text),
-    _dfuFleetIds ::
-      !(Maybe (List1 Text)),
-    _dfuLimit ::
-      !(Maybe Nat)
+  { -- | Token that indicates the start of the next sequential page of results.
+    -- Use the token that is returned with a previous call to this operation.
+    -- To start at the beginning of the result set, do not specify a value.
+    -- This parameter is ignored when the request specifies one or a list of
+    -- fleet IDs.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A unique identifier for a fleet(s) to retrieve utilization data for. You
+    -- can use either the fleet ID or ARN value. To retrieve attributes for all
+    -- current fleets, do not include this parameter. If the list of fleet
+    -- identifiers includes fleets that don\'t currently exist, the request
+    -- succeeds but no attributes for that fleet are returned.
+    fleetIds :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | The maximum number of results to return. Use this parameter with
+    -- @NextToken@ to get results as a set of sequential pages. This parameter
+    -- is ignored when the request specifies one or a list of fleet IDs.
+    limit :: Prelude.Maybe Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeFleetUtilization' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeFleetUtilization' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dfuNextToken' - Token that indicates the start of the next sequential page of results. Use the token that is returned with a previous call to this operation. To start at the beginning of the result set, do not specify a value. This parameter is ignored when the request specifies one or a list of fleet IDs.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dfuFleetIds' - A unique identifier for a fleet(s) to retrieve utilization data for. You can use either the fleet ID or ARN value. To retrieve attributes for all current fleets, do not include this parameter. If the list of fleet identifiers includes fleets that don't currently exist, the request succeeds but no attributes for that fleet are returned.
+-- 'nextToken', 'describeFleetUtilization_nextToken' - Token that indicates the start of the next sequential page of results.
+-- Use the token that is returned with a previous call to this operation.
+-- To start at the beginning of the result set, do not specify a value.
+-- This parameter is ignored when the request specifies one or a list of
+-- fleet IDs.
 --
--- * 'dfuLimit' - The maximum number of results to return. Use this parameter with @NextToken@ to get results as a set of sequential pages. This parameter is ignored when the request specifies one or a list of fleet IDs.
-describeFleetUtilization ::
+-- 'fleetIds', 'describeFleetUtilization_fleetIds' - A unique identifier for a fleet(s) to retrieve utilization data for. You
+-- can use either the fleet ID or ARN value. To retrieve attributes for all
+-- current fleets, do not include this parameter. If the list of fleet
+-- identifiers includes fleets that don\'t currently exist, the request
+-- succeeds but no attributes for that fleet are returned.
+--
+-- 'limit', 'describeFleetUtilization_limit' - The maximum number of results to return. Use this parameter with
+-- @NextToken@ to get results as a set of sequential pages. This parameter
+-- is ignored when the request specifies one or a list of fleet IDs.
+newDescribeFleetUtilization ::
   DescribeFleetUtilization
-describeFleetUtilization =
+newDescribeFleetUtilization =
   DescribeFleetUtilization'
-    { _dfuNextToken = Nothing,
-      _dfuFleetIds = Nothing,
-      _dfuLimit = Nothing
+    { nextToken =
+        Prelude.Nothing,
+      fleetIds = Prelude.Nothing,
+      limit = Prelude.Nothing
     }
 
--- | Token that indicates the start of the next sequential page of results. Use the token that is returned with a previous call to this operation. To start at the beginning of the result set, do not specify a value. This parameter is ignored when the request specifies one or a list of fleet IDs.
-dfuNextToken :: Lens' DescribeFleetUtilization (Maybe Text)
-dfuNextToken = lens _dfuNextToken (\s a -> s {_dfuNextToken = a})
+-- | Token that indicates the start of the next sequential page of results.
+-- Use the token that is returned with a previous call to this operation.
+-- To start at the beginning of the result set, do not specify a value.
+-- This parameter is ignored when the request specifies one or a list of
+-- fleet IDs.
+describeFleetUtilization_nextToken :: Lens.Lens' DescribeFleetUtilization (Prelude.Maybe Prelude.Text)
+describeFleetUtilization_nextToken = Lens.lens (\DescribeFleetUtilization' {nextToken} -> nextToken) (\s@DescribeFleetUtilization' {} a -> s {nextToken = a} :: DescribeFleetUtilization)
 
--- | A unique identifier for a fleet(s) to retrieve utilization data for. You can use either the fleet ID or ARN value. To retrieve attributes for all current fleets, do not include this parameter. If the list of fleet identifiers includes fleets that don't currently exist, the request succeeds but no attributes for that fleet are returned.
-dfuFleetIds :: Lens' DescribeFleetUtilization (Maybe (NonEmpty Text))
-dfuFleetIds = lens _dfuFleetIds (\s a -> s {_dfuFleetIds = a}) . mapping _List1
+-- | A unique identifier for a fleet(s) to retrieve utilization data for. You
+-- can use either the fleet ID or ARN value. To retrieve attributes for all
+-- current fleets, do not include this parameter. If the list of fleet
+-- identifiers includes fleets that don\'t currently exist, the request
+-- succeeds but no attributes for that fleet are returned.
+describeFleetUtilization_fleetIds :: Lens.Lens' DescribeFleetUtilization (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+describeFleetUtilization_fleetIds = Lens.lens (\DescribeFleetUtilization' {fleetIds} -> fleetIds) (\s@DescribeFleetUtilization' {} a -> s {fleetIds = a} :: DescribeFleetUtilization) Prelude.. Lens.mapping Prelude._List1
 
--- | The maximum number of results to return. Use this parameter with @NextToken@ to get results as a set of sequential pages. This parameter is ignored when the request specifies one or a list of fleet IDs.
-dfuLimit :: Lens' DescribeFleetUtilization (Maybe Natural)
-dfuLimit = lens _dfuLimit (\s a -> s {_dfuLimit = a}) . mapping _Nat
+-- | The maximum number of results to return. Use this parameter with
+-- @NextToken@ to get results as a set of sequential pages. This parameter
+-- is ignored when the request specifies one or a list of fleet IDs.
+describeFleetUtilization_limit :: Lens.Lens' DescribeFleetUtilization (Prelude.Maybe Prelude.Natural)
+describeFleetUtilization_limit = Lens.lens (\DescribeFleetUtilization' {limit} -> limit) (\s@DescribeFleetUtilization' {} a -> s {limit = a} :: DescribeFleetUtilization) Prelude.. Lens.mapping Prelude._Nat
 
-instance AWSPager DescribeFleetUtilization where
+instance Pager.AWSPager DescribeFleetUtilization where
   page rq rs
-    | stop (rs ^. dfurrsNextToken) = Nothing
-    | stop (rs ^. dfurrsFleetUtilization) = Nothing
-    | otherwise =
-      Just $ rq & dfuNextToken .~ rs ^. dfurrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeFleetUtilizationResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeFleetUtilizationResponse_fleetUtilization
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeFleetUtilization_nextToken
+          Lens..~ rs
+          Lens.^? describeFleetUtilizationResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeFleetUtilization where
+instance Prelude.AWSRequest DescribeFleetUtilization where
   type
     Rs DescribeFleetUtilization =
       DescribeFleetUtilizationResponse
-  request = postJSON gameLift
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeFleetUtilizationResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "FleetUtilization" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "FleetUtilization"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeFleetUtilization
+instance Prelude.Hashable DescribeFleetUtilization
 
-instance NFData DescribeFleetUtilization
+instance Prelude.NFData DescribeFleetUtilization
 
-instance ToHeaders DescribeFleetUtilization where
+instance Prelude.ToHeaders DescribeFleetUtilization where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("GameLift.DescribeFleetUtilization" :: ByteString),
+              Prelude.=# ( "GameLift.DescribeFleetUtilization" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeFleetUtilization where
+instance Prelude.ToJSON DescribeFleetUtilization where
   toJSON DescribeFleetUtilization' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _dfuNextToken,
-            ("FleetIds" .=) <$> _dfuFleetIds,
-            ("Limit" .=) <$> _dfuLimit
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("FleetIds" Prelude..=) Prelude.<$> fleetIds,
+            ("Limit" Prelude..=) Prelude.<$> limit
           ]
       )
 
-instance ToPath DescribeFleetUtilization where
-  toPath = const "/"
+instance Prelude.ToPath DescribeFleetUtilization where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeFleetUtilization where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeFleetUtilization where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the returned data in response to a request operation.
 --
---
---
--- /See:/ 'describeFleetUtilizationResponse' smart constructor.
+-- /See:/ 'newDescribeFleetUtilizationResponse' smart constructor.
 data DescribeFleetUtilizationResponse = DescribeFleetUtilizationResponse'
-  { _dfurrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dfurrsFleetUtilization ::
-      !( Maybe
-           [FleetUtilization]
-       ),
-    _dfurrsResponseStatus ::
-      !Int
+  { -- | Token that indicates where to resume retrieving results on the next call
+    -- to this operation. If no token is returned, these results represent the
+    -- end of the list.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A collection of objects containing utilization information for each
+    -- requested fleet ID.
+    fleetUtilization :: Prelude.Maybe [FleetUtilization],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeFleetUtilizationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeFleetUtilizationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dfurrsNextToken' - Token that indicates where to resume retrieving results on the next call to this operation. If no token is returned, these results represent the end of the list.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dfurrsFleetUtilization' - A collection of objects containing utilization information for each requested fleet ID.
+-- 'nextToken', 'describeFleetUtilizationResponse_nextToken' - Token that indicates where to resume retrieving results on the next call
+-- to this operation. If no token is returned, these results represent the
+-- end of the list.
 --
--- * 'dfurrsResponseStatus' - -- | The response status code.
-describeFleetUtilizationResponse ::
-  -- | 'dfurrsResponseStatus'
-  Int ->
+-- 'fleetUtilization', 'describeFleetUtilizationResponse_fleetUtilization' - A collection of objects containing utilization information for each
+-- requested fleet ID.
+--
+-- 'httpStatus', 'describeFleetUtilizationResponse_httpStatus' - The response's http status code.
+newDescribeFleetUtilizationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeFleetUtilizationResponse
-describeFleetUtilizationResponse pResponseStatus_ =
+newDescribeFleetUtilizationResponse pHttpStatus_ =
   DescribeFleetUtilizationResponse'
-    { _dfurrsNextToken =
-        Nothing,
-      _dfurrsFleetUtilization = Nothing,
-      _dfurrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      fleetUtilization = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Token that indicates where to resume retrieving results on the next call to this operation. If no token is returned, these results represent the end of the list.
-dfurrsNextToken :: Lens' DescribeFleetUtilizationResponse (Maybe Text)
-dfurrsNextToken = lens _dfurrsNextToken (\s a -> s {_dfurrsNextToken = a})
+-- | Token that indicates where to resume retrieving results on the next call
+-- to this operation. If no token is returned, these results represent the
+-- end of the list.
+describeFleetUtilizationResponse_nextToken :: Lens.Lens' DescribeFleetUtilizationResponse (Prelude.Maybe Prelude.Text)
+describeFleetUtilizationResponse_nextToken = Lens.lens (\DescribeFleetUtilizationResponse' {nextToken} -> nextToken) (\s@DescribeFleetUtilizationResponse' {} a -> s {nextToken = a} :: DescribeFleetUtilizationResponse)
 
--- | A collection of objects containing utilization information for each requested fleet ID.
-dfurrsFleetUtilization :: Lens' DescribeFleetUtilizationResponse [FleetUtilization]
-dfurrsFleetUtilization = lens _dfurrsFleetUtilization (\s a -> s {_dfurrsFleetUtilization = a}) . _Default . _Coerce
+-- | A collection of objects containing utilization information for each
+-- requested fleet ID.
+describeFleetUtilizationResponse_fleetUtilization :: Lens.Lens' DescribeFleetUtilizationResponse (Prelude.Maybe [FleetUtilization])
+describeFleetUtilizationResponse_fleetUtilization = Lens.lens (\DescribeFleetUtilizationResponse' {fleetUtilization} -> fleetUtilization) (\s@DescribeFleetUtilizationResponse' {} a -> s {fleetUtilization = a} :: DescribeFleetUtilizationResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dfurrsResponseStatus :: Lens' DescribeFleetUtilizationResponse Int
-dfurrsResponseStatus = lens _dfurrsResponseStatus (\s a -> s {_dfurrsResponseStatus = a})
+-- | The response's http status code.
+describeFleetUtilizationResponse_httpStatus :: Lens.Lens' DescribeFleetUtilizationResponse Prelude.Int
+describeFleetUtilizationResponse_httpStatus = Lens.lens (\DescribeFleetUtilizationResponse' {httpStatus} -> httpStatus) (\s@DescribeFleetUtilizationResponse' {} a -> s {httpStatus = a} :: DescribeFleetUtilizationResponse)
 
-instance NFData DescribeFleetUtilizationResponse
+instance
+  Prelude.NFData
+    DescribeFleetUtilizationResponse

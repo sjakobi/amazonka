@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,208 +19,210 @@
 module Network.AWS.GameLift.Types.EventCode
   ( EventCode
       ( ..,
-        FleetActivationFailed,
-        FleetActivationFailedNoInstances,
-        FleetBinaryDownloadFailed,
-        FleetCreated,
-        FleetCreationExtractingBuild,
-        FleetCreationRunningInstaller,
-        FleetCreationValidatingRuntimeConfig,
-        FleetDeleted,
-        FleetInitializationFailed,
-        FleetNewGameSessionProtectionPolicyUpdated,
-        FleetScalingEvent,
-        FleetStateActivating,
-        FleetStateActive,
-        FleetStateBuilding,
-        FleetStateDownloading,
-        FleetStateError,
-        FleetStateValidating,
-        FleetVPCPeeringDeleted,
-        FleetVPCPeeringFailed,
-        FleetVPCPeeringSucceeded,
-        FleetValidationExecutableRuntimeFailure,
-        FleetValidationLaunchPathNotFound,
-        FleetValidationTimedOut,
-        GameSessionActivationTimeout,
-        GenericEvent,
-        InstanceInterrupted,
-        ServerProcessCrashed,
-        ServerProcessForceTerminated,
-        ServerProcessInvalidPath,
-        ServerProcessProcessExitTimeout,
-        ServerProcessProcessReadyTimeout,
-        ServerProcessSDKInitializationTimeout,
-        ServerProcessTerminatedUnhealthy
+        EventCodeFLEETACTIVATIONFAILED,
+        EventCodeFLEETACTIVATIONFAILEDNOINSTANCES,
+        EventCodeFLEETBINARYDOWNLOADFAILED,
+        EventCodeFLEETCREATED,
+        EventCodeFLEETCREATIONEXTRACTINGBUILD,
+        EventCodeFLEETCREATIONRUNNINGINSTALLER,
+        EventCodeFLEETCREATIONVALIDATINGRUNTIMECONFIG,
+        EventCodeFLEETDELETED,
+        EventCodeFLEETINITIALIZATIONFAILED,
+        EventCodeFLEETNEWGAMESESSIONPROTECTIONPOLICYUPDATED,
+        EventCodeFLEETSCALINGEVENT,
+        EventCodeFLEETSTATEACTIVATING,
+        EventCodeFLEETSTATEACTIVE,
+        EventCodeFLEETSTATEBUILDING,
+        EventCodeFLEETSTATEDOWNLOADING,
+        EventCodeFLEETSTATEERROR,
+        EventCodeFLEETSTATEVALIDATING,
+        EventCodeFLEETVALIDATIONEXECUTABLERUNTIMEFAILURE,
+        EventCodeFLEETVALIDATIONLAUNCHPATHNOTFOUND,
+        EventCodeFLEETVALIDATIONTIMEDOUT,
+        EventCodeFLEETVPCPEERINGDELETED,
+        EventCodeFLEETVPCPEERINGFAILED,
+        EventCodeFLEETVPCPEERINGSUCCEEDED,
+        EventCodeGAMESESSIONACTIVATIONTIMEOUT,
+        EventCodeGENERICEVENT,
+        EventCodeINSTANCEINTERRUPTED,
+        EventCodeSERVERPROCESSCRASHED,
+        EventCodeSERVERPROCESSFORCETERMINATED,
+        EventCodeSERVERPROCESSINVALIDPATH,
+        EventCodeSERVERPROCESSPROCESSEXITTIMEOUT,
+        EventCodeSERVERPROCESSPROCESSREADYTIMEOUT,
+        EventCodeSERVERPROCESSSDKINITIALIZATIONTIMEOUT,
+        EventCodeSERVERPROCESSTERMINATEDUNHEALTHY
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data EventCode = EventCode' (CI Text)
+newtype EventCode = EventCode'
+  { fromEventCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern FleetActivationFailed :: EventCode
-pattern FleetActivationFailed = EventCode' "FLEET_ACTIVATION_FAILED"
+pattern EventCodeFLEETACTIVATIONFAILED :: EventCode
+pattern EventCodeFLEETACTIVATIONFAILED = EventCode' "FLEET_ACTIVATION_FAILED"
 
-pattern FleetActivationFailedNoInstances :: EventCode
-pattern FleetActivationFailedNoInstances = EventCode' "FLEET_ACTIVATION_FAILED_NO_INSTANCES"
+pattern EventCodeFLEETACTIVATIONFAILEDNOINSTANCES :: EventCode
+pattern EventCodeFLEETACTIVATIONFAILEDNOINSTANCES = EventCode' "FLEET_ACTIVATION_FAILED_NO_INSTANCES"
 
-pattern FleetBinaryDownloadFailed :: EventCode
-pattern FleetBinaryDownloadFailed = EventCode' "FLEET_BINARY_DOWNLOAD_FAILED"
+pattern EventCodeFLEETBINARYDOWNLOADFAILED :: EventCode
+pattern EventCodeFLEETBINARYDOWNLOADFAILED = EventCode' "FLEET_BINARY_DOWNLOAD_FAILED"
 
-pattern FleetCreated :: EventCode
-pattern FleetCreated = EventCode' "FLEET_CREATED"
+pattern EventCodeFLEETCREATED :: EventCode
+pattern EventCodeFLEETCREATED = EventCode' "FLEET_CREATED"
 
-pattern FleetCreationExtractingBuild :: EventCode
-pattern FleetCreationExtractingBuild = EventCode' "FLEET_CREATION_EXTRACTING_BUILD"
+pattern EventCodeFLEETCREATIONEXTRACTINGBUILD :: EventCode
+pattern EventCodeFLEETCREATIONEXTRACTINGBUILD = EventCode' "FLEET_CREATION_EXTRACTING_BUILD"
 
-pattern FleetCreationRunningInstaller :: EventCode
-pattern FleetCreationRunningInstaller = EventCode' "FLEET_CREATION_RUNNING_INSTALLER"
+pattern EventCodeFLEETCREATIONRUNNINGINSTALLER :: EventCode
+pattern EventCodeFLEETCREATIONRUNNINGINSTALLER = EventCode' "FLEET_CREATION_RUNNING_INSTALLER"
 
-pattern FleetCreationValidatingRuntimeConfig :: EventCode
-pattern FleetCreationValidatingRuntimeConfig = EventCode' "FLEET_CREATION_VALIDATING_RUNTIME_CONFIG"
+pattern EventCodeFLEETCREATIONVALIDATINGRUNTIMECONFIG :: EventCode
+pattern EventCodeFLEETCREATIONVALIDATINGRUNTIMECONFIG = EventCode' "FLEET_CREATION_VALIDATING_RUNTIME_CONFIG"
 
-pattern FleetDeleted :: EventCode
-pattern FleetDeleted = EventCode' "FLEET_DELETED"
+pattern EventCodeFLEETDELETED :: EventCode
+pattern EventCodeFLEETDELETED = EventCode' "FLEET_DELETED"
 
-pattern FleetInitializationFailed :: EventCode
-pattern FleetInitializationFailed = EventCode' "FLEET_INITIALIZATION_FAILED"
+pattern EventCodeFLEETINITIALIZATIONFAILED :: EventCode
+pattern EventCodeFLEETINITIALIZATIONFAILED = EventCode' "FLEET_INITIALIZATION_FAILED"
 
-pattern FleetNewGameSessionProtectionPolicyUpdated :: EventCode
-pattern FleetNewGameSessionProtectionPolicyUpdated = EventCode' "FLEET_NEW_GAME_SESSION_PROTECTION_POLICY_UPDATED"
+pattern EventCodeFLEETNEWGAMESESSIONPROTECTIONPOLICYUPDATED :: EventCode
+pattern EventCodeFLEETNEWGAMESESSIONPROTECTIONPOLICYUPDATED = EventCode' "FLEET_NEW_GAME_SESSION_PROTECTION_POLICY_UPDATED"
 
-pattern FleetScalingEvent :: EventCode
-pattern FleetScalingEvent = EventCode' "FLEET_SCALING_EVENT"
+pattern EventCodeFLEETSCALINGEVENT :: EventCode
+pattern EventCodeFLEETSCALINGEVENT = EventCode' "FLEET_SCALING_EVENT"
 
-pattern FleetStateActivating :: EventCode
-pattern FleetStateActivating = EventCode' "FLEET_STATE_ACTIVATING"
+pattern EventCodeFLEETSTATEACTIVATING :: EventCode
+pattern EventCodeFLEETSTATEACTIVATING = EventCode' "FLEET_STATE_ACTIVATING"
 
-pattern FleetStateActive :: EventCode
-pattern FleetStateActive = EventCode' "FLEET_STATE_ACTIVE"
+pattern EventCodeFLEETSTATEACTIVE :: EventCode
+pattern EventCodeFLEETSTATEACTIVE = EventCode' "FLEET_STATE_ACTIVE"
 
-pattern FleetStateBuilding :: EventCode
-pattern FleetStateBuilding = EventCode' "FLEET_STATE_BUILDING"
+pattern EventCodeFLEETSTATEBUILDING :: EventCode
+pattern EventCodeFLEETSTATEBUILDING = EventCode' "FLEET_STATE_BUILDING"
 
-pattern FleetStateDownloading :: EventCode
-pattern FleetStateDownloading = EventCode' "FLEET_STATE_DOWNLOADING"
+pattern EventCodeFLEETSTATEDOWNLOADING :: EventCode
+pattern EventCodeFLEETSTATEDOWNLOADING = EventCode' "FLEET_STATE_DOWNLOADING"
 
-pattern FleetStateError :: EventCode
-pattern FleetStateError = EventCode' "FLEET_STATE_ERROR"
+pattern EventCodeFLEETSTATEERROR :: EventCode
+pattern EventCodeFLEETSTATEERROR = EventCode' "FLEET_STATE_ERROR"
 
-pattern FleetStateValidating :: EventCode
-pattern FleetStateValidating = EventCode' "FLEET_STATE_VALIDATING"
+pattern EventCodeFLEETSTATEVALIDATING :: EventCode
+pattern EventCodeFLEETSTATEVALIDATING = EventCode' "FLEET_STATE_VALIDATING"
 
-pattern FleetVPCPeeringDeleted :: EventCode
-pattern FleetVPCPeeringDeleted = EventCode' "FLEET_VPC_PEERING_DELETED"
+pattern EventCodeFLEETVALIDATIONEXECUTABLERUNTIMEFAILURE :: EventCode
+pattern EventCodeFLEETVALIDATIONEXECUTABLERUNTIMEFAILURE = EventCode' "FLEET_VALIDATION_EXECUTABLE_RUNTIME_FAILURE"
 
-pattern FleetVPCPeeringFailed :: EventCode
-pattern FleetVPCPeeringFailed = EventCode' "FLEET_VPC_PEERING_FAILED"
+pattern EventCodeFLEETVALIDATIONLAUNCHPATHNOTFOUND :: EventCode
+pattern EventCodeFLEETVALIDATIONLAUNCHPATHNOTFOUND = EventCode' "FLEET_VALIDATION_LAUNCH_PATH_NOT_FOUND"
 
-pattern FleetVPCPeeringSucceeded :: EventCode
-pattern FleetVPCPeeringSucceeded = EventCode' "FLEET_VPC_PEERING_SUCCEEDED"
+pattern EventCodeFLEETVALIDATIONTIMEDOUT :: EventCode
+pattern EventCodeFLEETVALIDATIONTIMEDOUT = EventCode' "FLEET_VALIDATION_TIMED_OUT"
 
-pattern FleetValidationExecutableRuntimeFailure :: EventCode
-pattern FleetValidationExecutableRuntimeFailure = EventCode' "FLEET_VALIDATION_EXECUTABLE_RUNTIME_FAILURE"
+pattern EventCodeFLEETVPCPEERINGDELETED :: EventCode
+pattern EventCodeFLEETVPCPEERINGDELETED = EventCode' "FLEET_VPC_PEERING_DELETED"
 
-pattern FleetValidationLaunchPathNotFound :: EventCode
-pattern FleetValidationLaunchPathNotFound = EventCode' "FLEET_VALIDATION_LAUNCH_PATH_NOT_FOUND"
+pattern EventCodeFLEETVPCPEERINGFAILED :: EventCode
+pattern EventCodeFLEETVPCPEERINGFAILED = EventCode' "FLEET_VPC_PEERING_FAILED"
 
-pattern FleetValidationTimedOut :: EventCode
-pattern FleetValidationTimedOut = EventCode' "FLEET_VALIDATION_TIMED_OUT"
+pattern EventCodeFLEETVPCPEERINGSUCCEEDED :: EventCode
+pattern EventCodeFLEETVPCPEERINGSUCCEEDED = EventCode' "FLEET_VPC_PEERING_SUCCEEDED"
 
-pattern GameSessionActivationTimeout :: EventCode
-pattern GameSessionActivationTimeout = EventCode' "GAME_SESSION_ACTIVATION_TIMEOUT"
+pattern EventCodeGAMESESSIONACTIVATIONTIMEOUT :: EventCode
+pattern EventCodeGAMESESSIONACTIVATIONTIMEOUT = EventCode' "GAME_SESSION_ACTIVATION_TIMEOUT"
 
-pattern GenericEvent :: EventCode
-pattern GenericEvent = EventCode' "GENERIC_EVENT"
+pattern EventCodeGENERICEVENT :: EventCode
+pattern EventCodeGENERICEVENT = EventCode' "GENERIC_EVENT"
 
-pattern InstanceInterrupted :: EventCode
-pattern InstanceInterrupted = EventCode' "INSTANCE_INTERRUPTED"
+pattern EventCodeINSTANCEINTERRUPTED :: EventCode
+pattern EventCodeINSTANCEINTERRUPTED = EventCode' "INSTANCE_INTERRUPTED"
 
-pattern ServerProcessCrashed :: EventCode
-pattern ServerProcessCrashed = EventCode' "SERVER_PROCESS_CRASHED"
+pattern EventCodeSERVERPROCESSCRASHED :: EventCode
+pattern EventCodeSERVERPROCESSCRASHED = EventCode' "SERVER_PROCESS_CRASHED"
 
-pattern ServerProcessForceTerminated :: EventCode
-pattern ServerProcessForceTerminated = EventCode' "SERVER_PROCESS_FORCE_TERMINATED"
+pattern EventCodeSERVERPROCESSFORCETERMINATED :: EventCode
+pattern EventCodeSERVERPROCESSFORCETERMINATED = EventCode' "SERVER_PROCESS_FORCE_TERMINATED"
 
-pattern ServerProcessInvalidPath :: EventCode
-pattern ServerProcessInvalidPath = EventCode' "SERVER_PROCESS_INVALID_PATH"
+pattern EventCodeSERVERPROCESSINVALIDPATH :: EventCode
+pattern EventCodeSERVERPROCESSINVALIDPATH = EventCode' "SERVER_PROCESS_INVALID_PATH"
 
-pattern ServerProcessProcessExitTimeout :: EventCode
-pattern ServerProcessProcessExitTimeout = EventCode' "SERVER_PROCESS_PROCESS_EXIT_TIMEOUT"
+pattern EventCodeSERVERPROCESSPROCESSEXITTIMEOUT :: EventCode
+pattern EventCodeSERVERPROCESSPROCESSEXITTIMEOUT = EventCode' "SERVER_PROCESS_PROCESS_EXIT_TIMEOUT"
 
-pattern ServerProcessProcessReadyTimeout :: EventCode
-pattern ServerProcessProcessReadyTimeout = EventCode' "SERVER_PROCESS_PROCESS_READY_TIMEOUT"
+pattern EventCodeSERVERPROCESSPROCESSREADYTIMEOUT :: EventCode
+pattern EventCodeSERVERPROCESSPROCESSREADYTIMEOUT = EventCode' "SERVER_PROCESS_PROCESS_READY_TIMEOUT"
 
-pattern ServerProcessSDKInitializationTimeout :: EventCode
-pattern ServerProcessSDKInitializationTimeout = EventCode' "SERVER_PROCESS_SDK_INITIALIZATION_TIMEOUT"
+pattern EventCodeSERVERPROCESSSDKINITIALIZATIONTIMEOUT :: EventCode
+pattern EventCodeSERVERPROCESSSDKINITIALIZATIONTIMEOUT = EventCode' "SERVER_PROCESS_SDK_INITIALIZATION_TIMEOUT"
 
-pattern ServerProcessTerminatedUnhealthy :: EventCode
-pattern ServerProcessTerminatedUnhealthy = EventCode' "SERVER_PROCESS_TERMINATED_UNHEALTHY"
+pattern EventCodeSERVERPROCESSTERMINATEDUNHEALTHY :: EventCode
+pattern EventCodeSERVERPROCESSTERMINATEDUNHEALTHY = EventCode' "SERVER_PROCESS_TERMINATED_UNHEALTHY"
 
 {-# COMPLETE
-  FleetActivationFailed,
-  FleetActivationFailedNoInstances,
-  FleetBinaryDownloadFailed,
-  FleetCreated,
-  FleetCreationExtractingBuild,
-  FleetCreationRunningInstaller,
-  FleetCreationValidatingRuntimeConfig,
-  FleetDeleted,
-  FleetInitializationFailed,
-  FleetNewGameSessionProtectionPolicyUpdated,
-  FleetScalingEvent,
-  FleetStateActivating,
-  FleetStateActive,
-  FleetStateBuilding,
-  FleetStateDownloading,
-  FleetStateError,
-  FleetStateValidating,
-  FleetVPCPeeringDeleted,
-  FleetVPCPeeringFailed,
-  FleetVPCPeeringSucceeded,
-  FleetValidationExecutableRuntimeFailure,
-  FleetValidationLaunchPathNotFound,
-  FleetValidationTimedOut,
-  GameSessionActivationTimeout,
-  GenericEvent,
-  InstanceInterrupted,
-  ServerProcessCrashed,
-  ServerProcessForceTerminated,
-  ServerProcessInvalidPath,
-  ServerProcessProcessExitTimeout,
-  ServerProcessProcessReadyTimeout,
-  ServerProcessSDKInitializationTimeout,
-  ServerProcessTerminatedUnhealthy,
+  EventCodeFLEETACTIVATIONFAILED,
+  EventCodeFLEETACTIVATIONFAILEDNOINSTANCES,
+  EventCodeFLEETBINARYDOWNLOADFAILED,
+  EventCodeFLEETCREATED,
+  EventCodeFLEETCREATIONEXTRACTINGBUILD,
+  EventCodeFLEETCREATIONRUNNINGINSTALLER,
+  EventCodeFLEETCREATIONVALIDATINGRUNTIMECONFIG,
+  EventCodeFLEETDELETED,
+  EventCodeFLEETINITIALIZATIONFAILED,
+  EventCodeFLEETNEWGAMESESSIONPROTECTIONPOLICYUPDATED,
+  EventCodeFLEETSCALINGEVENT,
+  EventCodeFLEETSTATEACTIVATING,
+  EventCodeFLEETSTATEACTIVE,
+  EventCodeFLEETSTATEBUILDING,
+  EventCodeFLEETSTATEDOWNLOADING,
+  EventCodeFLEETSTATEERROR,
+  EventCodeFLEETSTATEVALIDATING,
+  EventCodeFLEETVALIDATIONEXECUTABLERUNTIMEFAILURE,
+  EventCodeFLEETVALIDATIONLAUNCHPATHNOTFOUND,
+  EventCodeFLEETVALIDATIONTIMEDOUT,
+  EventCodeFLEETVPCPEERINGDELETED,
+  EventCodeFLEETVPCPEERINGFAILED,
+  EventCodeFLEETVPCPEERINGSUCCEEDED,
+  EventCodeGAMESESSIONACTIVATIONTIMEOUT,
+  EventCodeGENERICEVENT,
+  EventCodeINSTANCEINTERRUPTED,
+  EventCodeSERVERPROCESSCRASHED,
+  EventCodeSERVERPROCESSFORCETERMINATED,
+  EventCodeSERVERPROCESSINVALIDPATH,
+  EventCodeSERVERPROCESSPROCESSEXITTIMEOUT,
+  EventCodeSERVERPROCESSPROCESSREADYTIMEOUT,
+  EventCodeSERVERPROCESSSDKINITIALIZATIONTIMEOUT,
+  EventCodeSERVERPROCESSTERMINATEDUNHEALTHY,
   EventCode'
   #-}
 
-instance FromText EventCode where
-  parser = (EventCode' . mk) <$> takeText
+instance Prelude.FromText EventCode where
+  parser = EventCode' Prelude.<$> Prelude.takeText
 
-instance ToText EventCode where
-  toText (EventCode' ci) = original ci
+instance Prelude.ToText EventCode where
+  toText (EventCode' x) = x
 
-instance Hashable EventCode
+instance Prelude.Hashable EventCode
 
-instance NFData EventCode
+instance Prelude.NFData EventCode
 
-instance ToByteString EventCode
+instance Prelude.ToByteString EventCode
 
-instance ToQuery EventCode
+instance Prelude.ToQuery EventCode
 
-instance ToHeader EventCode
+instance Prelude.ToHeader EventCode
 
-instance FromJSON EventCode where
-  parseJSON = parseJSONText "EventCode"
+instance Prelude.FromJSON EventCode where
+  parseJSON = Prelude.parseJSONText "EventCode"

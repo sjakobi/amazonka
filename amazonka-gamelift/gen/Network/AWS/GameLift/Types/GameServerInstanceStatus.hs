@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.GameLift.Types.GameServerInstanceStatus
   ( GameServerInstanceStatus
       ( ..,
-        GSISActive,
-        GSISDraining,
-        GSISSpotTerminating
+        GameServerInstanceStatusACTIVE,
+        GameServerInstanceStatusDRAINING,
+        GameServerInstanceStatusSPOTTERMINATING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data GameServerInstanceStatus
-  = GameServerInstanceStatus'
-      ( CI
-          Text
-      )
+newtype GameServerInstanceStatus = GameServerInstanceStatus'
+  { fromGameServerInstanceStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern GSISActive :: GameServerInstanceStatus
-pattern GSISActive = GameServerInstanceStatus' "ACTIVE"
+pattern GameServerInstanceStatusACTIVE :: GameServerInstanceStatus
+pattern GameServerInstanceStatusACTIVE = GameServerInstanceStatus' "ACTIVE"
 
-pattern GSISDraining :: GameServerInstanceStatus
-pattern GSISDraining = GameServerInstanceStatus' "DRAINING"
+pattern GameServerInstanceStatusDRAINING :: GameServerInstanceStatus
+pattern GameServerInstanceStatusDRAINING = GameServerInstanceStatus' "DRAINING"
 
-pattern GSISSpotTerminating :: GameServerInstanceStatus
-pattern GSISSpotTerminating = GameServerInstanceStatus' "SPOT_TERMINATING"
+pattern GameServerInstanceStatusSPOTTERMINATING :: GameServerInstanceStatus
+pattern GameServerInstanceStatusSPOTTERMINATING = GameServerInstanceStatus' "SPOT_TERMINATING"
 
 {-# COMPLETE
-  GSISActive,
-  GSISDraining,
-  GSISSpotTerminating,
+  GameServerInstanceStatusACTIVE,
+  GameServerInstanceStatusDRAINING,
+  GameServerInstanceStatusSPOTTERMINATING,
   GameServerInstanceStatus'
   #-}
 
-instance FromText GameServerInstanceStatus where
-  parser = (GameServerInstanceStatus' . mk) <$> takeText
+instance Prelude.FromText GameServerInstanceStatus where
+  parser = GameServerInstanceStatus' Prelude.<$> Prelude.takeText
 
-instance ToText GameServerInstanceStatus where
-  toText (GameServerInstanceStatus' ci) = original ci
+instance Prelude.ToText GameServerInstanceStatus where
+  toText (GameServerInstanceStatus' x) = x
 
-instance Hashable GameServerInstanceStatus
+instance Prelude.Hashable GameServerInstanceStatus
 
-instance NFData GameServerInstanceStatus
+instance Prelude.NFData GameServerInstanceStatus
 
-instance ToByteString GameServerInstanceStatus
+instance Prelude.ToByteString GameServerInstanceStatus
 
-instance ToQuery GameServerInstanceStatus
+instance Prelude.ToQuery GameServerInstanceStatus
 
-instance ToHeader GameServerInstanceStatus
+instance Prelude.ToHeader GameServerInstanceStatus
 
-instance FromJSON GameServerInstanceStatus where
-  parseJSON = parseJSONText "GameServerInstanceStatus"
+instance Prelude.FromJSON GameServerInstanceStatus where
+  parseJSON = Prelude.parseJSONText "GameServerInstanceStatus"

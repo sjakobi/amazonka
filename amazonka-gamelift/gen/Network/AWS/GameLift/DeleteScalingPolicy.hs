@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,144 +21,157 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a fleet scaling policy. Once deleted, the policy is no longer in force and GameLift removes all record of it. To delete a scaling policy, specify both the scaling policy name and the fleet ID it is associated with.
+-- Deletes a fleet scaling policy. Once deleted, the policy is no longer in
+-- force and GameLift removes all record of it. To delete a scaling policy,
+-- specify both the scaling policy name and the fleet ID it is associated
+-- with.
 --
+-- To temporarily suspend scaling policies, call StopFleetActions. This
+-- operation suspends all policies for the fleet.
 --
--- To temporarily suspend scaling policies, call 'StopFleetActions' . This operation suspends all policies for the fleet.
+-- -   DescribeFleetCapacity
 --
---     * 'DescribeFleetCapacity'
+-- -   UpdateFleetCapacity
 --
---     * 'UpdateFleetCapacity'
+-- -   DescribeEC2InstanceLimits
 --
---     * 'DescribeEC2InstanceLimits'
+-- -   Manage scaling policies:
 --
---     * Manage scaling policies:
+--     -   PutScalingPolicy (auto-scaling)
 --
---     * 'PutScalingPolicy' (auto-scaling)
+--     -   DescribeScalingPolicies (auto-scaling)
 --
---     * 'DescribeScalingPolicies' (auto-scaling)
+--     -   DeleteScalingPolicy (auto-scaling)
 --
---     * 'DeleteScalingPolicy' (auto-scaling)
+-- -   Manage fleet actions:
 --
+--     -   StartFleetActions
 --
---
---     * Manage fleet actions:
---
---     * 'StartFleetActions'
---
---     * 'StopFleetActions'
+--     -   StopFleetActions
 module Network.AWS.GameLift.DeleteScalingPolicy
   ( -- * Creating a Request
-    deleteScalingPolicy,
-    DeleteScalingPolicy,
+    DeleteScalingPolicy (..),
+    newDeleteScalingPolicy,
 
     -- * Request Lenses
-    dName,
-    dFleetId,
+    deleteScalingPolicy_name,
+    deleteScalingPolicy_fleetId,
 
     -- * Destructuring the Response
-    deleteScalingPolicyResponse,
-    DeleteScalingPolicyResponse,
+    DeleteScalingPolicyResponse (..),
+    newDeleteScalingPolicyResponse,
   )
 where
 
 import Network.AWS.GameLift.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input for a request operation.
 --
---
---
--- /See:/ 'deleteScalingPolicy' smart constructor.
+-- /See:/ 'newDeleteScalingPolicy' smart constructor.
 data DeleteScalingPolicy = DeleteScalingPolicy'
-  { _dName ::
-      !Text,
-    _dFleetId :: !Text
+  { -- | A descriptive label that is associated with a scaling policy. Policy
+    -- names do not need to be unique.
+    name :: Prelude.Text,
+    -- | A unique identifier for a fleet to be deleted. You can use either the
+    -- fleet ID or ARN value.
+    fleetId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteScalingPolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteScalingPolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dName' - A descriptive label that is associated with a scaling policy. Policy names do not need to be unique.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dFleetId' - A unique identifier for a fleet to be deleted. You can use either the fleet ID or ARN value.
-deleteScalingPolicy ::
-  -- | 'dName'
-  Text ->
-  -- | 'dFleetId'
-  Text ->
+-- 'name', 'deleteScalingPolicy_name' - A descriptive label that is associated with a scaling policy. Policy
+-- names do not need to be unique.
+--
+-- 'fleetId', 'deleteScalingPolicy_fleetId' - A unique identifier for a fleet to be deleted. You can use either the
+-- fleet ID or ARN value.
+newDeleteScalingPolicy ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'fleetId'
+  Prelude.Text ->
   DeleteScalingPolicy
-deleteScalingPolicy pName_ pFleetId_ =
+newDeleteScalingPolicy pName_ pFleetId_ =
   DeleteScalingPolicy'
-    { _dName = pName_,
-      _dFleetId = pFleetId_
+    { name = pName_,
+      fleetId = pFleetId_
     }
 
--- | A descriptive label that is associated with a scaling policy. Policy names do not need to be unique.
-dName :: Lens' DeleteScalingPolicy Text
-dName = lens _dName (\s a -> s {_dName = a})
+-- | A descriptive label that is associated with a scaling policy. Policy
+-- names do not need to be unique.
+deleteScalingPolicy_name :: Lens.Lens' DeleteScalingPolicy Prelude.Text
+deleteScalingPolicy_name = Lens.lens (\DeleteScalingPolicy' {name} -> name) (\s@DeleteScalingPolicy' {} a -> s {name = a} :: DeleteScalingPolicy)
 
--- | A unique identifier for a fleet to be deleted. You can use either the fleet ID or ARN value.
-dFleetId :: Lens' DeleteScalingPolicy Text
-dFleetId = lens _dFleetId (\s a -> s {_dFleetId = a})
+-- | A unique identifier for a fleet to be deleted. You can use either the
+-- fleet ID or ARN value.
+deleteScalingPolicy_fleetId :: Lens.Lens' DeleteScalingPolicy Prelude.Text
+deleteScalingPolicy_fleetId = Lens.lens (\DeleteScalingPolicy' {fleetId} -> fleetId) (\s@DeleteScalingPolicy' {} a -> s {fleetId = a} :: DeleteScalingPolicy)
 
-instance AWSRequest DeleteScalingPolicy where
+instance Prelude.AWSRequest DeleteScalingPolicy where
   type
     Rs DeleteScalingPolicy =
       DeleteScalingPolicyResponse
-  request = postJSON gameLift
-  response = receiveNull DeleteScalingPolicyResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull DeleteScalingPolicyResponse'
 
-instance Hashable DeleteScalingPolicy
+instance Prelude.Hashable DeleteScalingPolicy
 
-instance NFData DeleteScalingPolicy
+instance Prelude.NFData DeleteScalingPolicy
 
-instance ToHeaders DeleteScalingPolicy where
+instance Prelude.ToHeaders DeleteScalingPolicy where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("GameLift.DeleteScalingPolicy" :: ByteString),
+              Prelude.=# ( "GameLift.DeleteScalingPolicy" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteScalingPolicy where
+instance Prelude.ToJSON DeleteScalingPolicy where
   toJSON DeleteScalingPolicy' {..} =
-    object
-      ( catMaybes
-          [ Just ("Name" .= _dName),
-            Just ("FleetId" .= _dFleetId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("Name" Prelude..= name),
+            Prelude.Just ("FleetId" Prelude..= fleetId)
           ]
       )
 
-instance ToPath DeleteScalingPolicy where
-  toPath = const "/"
+instance Prelude.ToPath DeleteScalingPolicy where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteScalingPolicy where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteScalingPolicy where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteScalingPolicyResponse' smart constructor.
+-- | /See:/ 'newDeleteScalingPolicyResponse' smart constructor.
 data DeleteScalingPolicyResponse = DeleteScalingPolicyResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteScalingPolicyResponse' with the minimum fields required to make a request.
-deleteScalingPolicyResponse ::
+-- |
+-- Create a value of 'DeleteScalingPolicyResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteScalingPolicyResponse ::
   DeleteScalingPolicyResponse
-deleteScalingPolicyResponse =
+newDeleteScalingPolicyResponse =
   DeleteScalingPolicyResponse'
 
-instance NFData DeleteScalingPolicyResponse
+instance Prelude.NFData DeleteScalingPolicyResponse

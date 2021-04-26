@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.GameLift.Types.InstanceStatus
   ( InstanceStatus
       ( ..,
-        ISActive,
-        ISPending,
-        ISTerminating
+        InstanceStatusACTIVE,
+        InstanceStatusPENDING,
+        InstanceStatusTERMINATING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data InstanceStatus = InstanceStatus' (CI Text)
+newtype InstanceStatus = InstanceStatus'
+  { fromInstanceStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ISActive :: InstanceStatus
-pattern ISActive = InstanceStatus' "ACTIVE"
+pattern InstanceStatusACTIVE :: InstanceStatus
+pattern InstanceStatusACTIVE = InstanceStatus' "ACTIVE"
 
-pattern ISPending :: InstanceStatus
-pattern ISPending = InstanceStatus' "PENDING"
+pattern InstanceStatusPENDING :: InstanceStatus
+pattern InstanceStatusPENDING = InstanceStatus' "PENDING"
 
-pattern ISTerminating :: InstanceStatus
-pattern ISTerminating = InstanceStatus' "TERMINATING"
+pattern InstanceStatusTERMINATING :: InstanceStatus
+pattern InstanceStatusTERMINATING = InstanceStatus' "TERMINATING"
 
 {-# COMPLETE
-  ISActive,
-  ISPending,
-  ISTerminating,
+  InstanceStatusACTIVE,
+  InstanceStatusPENDING,
+  InstanceStatusTERMINATING,
   InstanceStatus'
   #-}
 
-instance FromText InstanceStatus where
-  parser = (InstanceStatus' . mk) <$> takeText
+instance Prelude.FromText InstanceStatus where
+  parser = InstanceStatus' Prelude.<$> Prelude.takeText
 
-instance ToText InstanceStatus where
-  toText (InstanceStatus' ci) = original ci
+instance Prelude.ToText InstanceStatus where
+  toText (InstanceStatus' x) = x
 
-instance Hashable InstanceStatus
+instance Prelude.Hashable InstanceStatus
 
-instance NFData InstanceStatus
+instance Prelude.NFData InstanceStatus
 
-instance ToByteString InstanceStatus
+instance Prelude.ToByteString InstanceStatus
 
-instance ToQuery InstanceStatus
+instance Prelude.ToQuery InstanceStatus
 
-instance ToHeader InstanceStatus
+instance Prelude.ToHeader InstanceStatus
 
-instance FromJSON InstanceStatus where
-  parseJSON = parseJSONText "InstanceStatus"
+instance Prelude.FromJSON InstanceStatus where
+  parseJSON = Prelude.parseJSONText "InstanceStatus"

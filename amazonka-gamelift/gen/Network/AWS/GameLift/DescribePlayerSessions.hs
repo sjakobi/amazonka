@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,255 +21,344 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves properties for one or more player sessions. This operation can be used in several ways: (1) provide a @PlayerSessionId@ to request properties for a specific player session; (2) provide a @GameSessionId@ to request properties for all player sessions in the specified game session; (3) provide a @PlayerId@ to request properties for all player sessions of a specified player.
+-- Retrieves properties for one or more player sessions. This operation can
+-- be used in several ways: (1) provide a @PlayerSessionId@ to request
+-- properties for a specific player session; (2) provide a @GameSessionId@
+-- to request properties for all player sessions in the specified game
+-- session; (3) provide a @PlayerId@ to request properties for all player
+-- sessions of a specified player.
 --
---
--- To get game session record(s), specify only one of the following: a player session ID, a game session ID, or a player ID. You can filter this request by player session status. Use the pagination parameters to retrieve results as a set of sequential pages. If successful, a 'PlayerSession' object is returned for each session matching the request.
+-- To get game session record(s), specify only one of the following: a
+-- player session ID, a game session ID, or a player ID. You can filter
+-- this request by player session status. Use the pagination parameters to
+-- retrieve results as a set of sequential pages. If successful, a
+-- PlayerSession object is returned for each session matching the request.
 --
 -- /Available in Amazon GameLift Local./
 --
---     * 'CreatePlayerSession'
+-- -   CreatePlayerSession
 --
---     * 'CreatePlayerSessions'
+-- -   CreatePlayerSessions
 --
---     * 'DescribePlayerSessions'
+-- -   DescribePlayerSessions
 --
---     * Game session placements
+-- -   Game session placements
 --
---     * 'StartGameSessionPlacement'
+--     -   StartGameSessionPlacement
 --
---     * 'DescribeGameSessionPlacement'
+--     -   DescribeGameSessionPlacement
 --
---     * 'StopGameSessionPlacement'
---
---
---
---
---
+--     -   StopGameSessionPlacement
 --
 -- This operation returns paginated results.
 module Network.AWS.GameLift.DescribePlayerSessions
   ( -- * Creating a Request
-    describePlayerSessions,
-    DescribePlayerSessions,
+    DescribePlayerSessions (..),
+    newDescribePlayerSessions,
 
     -- * Request Lenses
-    dNextToken,
-    dPlayerSessionStatusFilter,
-    dPlayerId,
-    dPlayerSessionId,
-    dGameSessionId,
-    dLimit,
+    describePlayerSessions_nextToken,
+    describePlayerSessions_playerSessionStatusFilter,
+    describePlayerSessions_playerId,
+    describePlayerSessions_playerSessionId,
+    describePlayerSessions_gameSessionId,
+    describePlayerSessions_limit,
 
     -- * Destructuring the Response
-    describePlayerSessionsResponse,
-    DescribePlayerSessionsResponse,
+    DescribePlayerSessionsResponse (..),
+    newDescribePlayerSessionsResponse,
 
     -- * Response Lenses
-    dpsrrsNextToken,
-    dpsrrsPlayerSessions,
-    dpsrrsResponseStatus,
+    describePlayerSessionsResponse_nextToken,
+    describePlayerSessionsResponse_playerSessions,
+    describePlayerSessionsResponse_httpStatus,
   )
 where
 
 import Network.AWS.GameLift.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.GameLift.Types.PlayerSession
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input for a request operation.
 --
---
---
--- /See:/ 'describePlayerSessions' smart constructor.
+-- /See:/ 'newDescribePlayerSessions' smart constructor.
 data DescribePlayerSessions = DescribePlayerSessions'
-  { _dNextToken ::
-      !(Maybe Text),
-    _dPlayerSessionStatusFilter ::
-      !(Maybe Text),
-    _dPlayerId ::
-      !(Maybe Text),
-    _dPlayerSessionId ::
-      !(Maybe Text),
-    _dGameSessionId ::
-      !(Maybe Text),
-    _dLimit :: !(Maybe Nat)
+  { -- | Token that indicates the start of the next sequential page of results.
+    -- Use the token that is returned with a previous call to this operation.
+    -- To start at the beginning of the result set, do not specify a value. If
+    -- a player session ID is specified, this parameter is ignored.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Player session status to filter results on.
+    --
+    -- Possible player session statuses include the following:
+    --
+    -- -   __RESERVED__ -- The player session request has been received, but
+    --     the player has not yet connected to the server process and\/or been
+    --     validated.
+    --
+    -- -   __ACTIVE__ -- The player has been validated by the server process
+    --     and is currently connected.
+    --
+    -- -   __COMPLETED__ -- The player connection has been dropped.
+    --
+    -- -   __TIMEDOUT__ -- A player session request was received, but the
+    --     player did not connect and\/or was not validated within the timeout
+    --     limit (60 seconds).
+    playerSessionStatusFilter :: Prelude.Maybe Prelude.Text,
+    -- | A unique identifier for a player to retrieve player sessions for.
+    playerId :: Prelude.Maybe Prelude.Text,
+    -- | A unique identifier for a player session to retrieve.
+    playerSessionId :: Prelude.Maybe Prelude.Text,
+    -- | A unique identifier for the game session to retrieve player sessions
+    -- for.
+    gameSessionId :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return. Use this parameter with
+    -- @NextToken@ to get results as a set of sequential pages. If a player
+    -- session ID is specified, this parameter is ignored.
+    limit :: Prelude.Maybe Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribePlayerSessions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribePlayerSessions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dNextToken' - Token that indicates the start of the next sequential page of results. Use the token that is returned with a previous call to this operation. To start at the beginning of the result set, do not specify a value. If a player session ID is specified, this parameter is ignored.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dPlayerSessionStatusFilter' - Player session status to filter results on. Possible player session statuses include the following:     * __RESERVED__ -- The player session request has been received, but the player has not yet connected to the server process and/or been validated.      * __ACTIVE__ -- The player has been validated by the server process and is currently connected.     * __COMPLETED__ -- The player connection has been dropped.     * __TIMEDOUT__ -- A player session request was received, but the player did not connect and/or was not validated within the timeout limit (60 seconds).
+-- 'nextToken', 'describePlayerSessions_nextToken' - Token that indicates the start of the next sequential page of results.
+-- Use the token that is returned with a previous call to this operation.
+-- To start at the beginning of the result set, do not specify a value. If
+-- a player session ID is specified, this parameter is ignored.
 --
--- * 'dPlayerId' - A unique identifier for a player to retrieve player sessions for.
+-- 'playerSessionStatusFilter', 'describePlayerSessions_playerSessionStatusFilter' - Player session status to filter results on.
 --
--- * 'dPlayerSessionId' - A unique identifier for a player session to retrieve.
+-- Possible player session statuses include the following:
 --
--- * 'dGameSessionId' - A unique identifier for the game session to retrieve player sessions for.
+-- -   __RESERVED__ -- The player session request has been received, but
+--     the player has not yet connected to the server process and\/or been
+--     validated.
 --
--- * 'dLimit' - The maximum number of results to return. Use this parameter with @NextToken@ to get results as a set of sequential pages. If a player session ID is specified, this parameter is ignored.
-describePlayerSessions ::
+-- -   __ACTIVE__ -- The player has been validated by the server process
+--     and is currently connected.
+--
+-- -   __COMPLETED__ -- The player connection has been dropped.
+--
+-- -   __TIMEDOUT__ -- A player session request was received, but the
+--     player did not connect and\/or was not validated within the timeout
+--     limit (60 seconds).
+--
+-- 'playerId', 'describePlayerSessions_playerId' - A unique identifier for a player to retrieve player sessions for.
+--
+-- 'playerSessionId', 'describePlayerSessions_playerSessionId' - A unique identifier for a player session to retrieve.
+--
+-- 'gameSessionId', 'describePlayerSessions_gameSessionId' - A unique identifier for the game session to retrieve player sessions
+-- for.
+--
+-- 'limit', 'describePlayerSessions_limit' - The maximum number of results to return. Use this parameter with
+-- @NextToken@ to get results as a set of sequential pages. If a player
+-- session ID is specified, this parameter is ignored.
+newDescribePlayerSessions ::
   DescribePlayerSessions
-describePlayerSessions =
+newDescribePlayerSessions =
   DescribePlayerSessions'
-    { _dNextToken = Nothing,
-      _dPlayerSessionStatusFilter = Nothing,
-      _dPlayerId = Nothing,
-      _dPlayerSessionId = Nothing,
-      _dGameSessionId = Nothing,
-      _dLimit = Nothing
+    { nextToken =
+        Prelude.Nothing,
+      playerSessionStatusFilter = Prelude.Nothing,
+      playerId = Prelude.Nothing,
+      playerSessionId = Prelude.Nothing,
+      gameSessionId = Prelude.Nothing,
+      limit = Prelude.Nothing
     }
 
--- | Token that indicates the start of the next sequential page of results. Use the token that is returned with a previous call to this operation. To start at the beginning of the result set, do not specify a value. If a player session ID is specified, this parameter is ignored.
-dNextToken :: Lens' DescribePlayerSessions (Maybe Text)
-dNextToken = lens _dNextToken (\s a -> s {_dNextToken = a})
+-- | Token that indicates the start of the next sequential page of results.
+-- Use the token that is returned with a previous call to this operation.
+-- To start at the beginning of the result set, do not specify a value. If
+-- a player session ID is specified, this parameter is ignored.
+describePlayerSessions_nextToken :: Lens.Lens' DescribePlayerSessions (Prelude.Maybe Prelude.Text)
+describePlayerSessions_nextToken = Lens.lens (\DescribePlayerSessions' {nextToken} -> nextToken) (\s@DescribePlayerSessions' {} a -> s {nextToken = a} :: DescribePlayerSessions)
 
--- | Player session status to filter results on. Possible player session statuses include the following:     * __RESERVED__ -- The player session request has been received, but the player has not yet connected to the server process and/or been validated.      * __ACTIVE__ -- The player has been validated by the server process and is currently connected.     * __COMPLETED__ -- The player connection has been dropped.     * __TIMEDOUT__ -- A player session request was received, but the player did not connect and/or was not validated within the timeout limit (60 seconds).
-dPlayerSessionStatusFilter :: Lens' DescribePlayerSessions (Maybe Text)
-dPlayerSessionStatusFilter = lens _dPlayerSessionStatusFilter (\s a -> s {_dPlayerSessionStatusFilter = a})
+-- | Player session status to filter results on.
+--
+-- Possible player session statuses include the following:
+--
+-- -   __RESERVED__ -- The player session request has been received, but
+--     the player has not yet connected to the server process and\/or been
+--     validated.
+--
+-- -   __ACTIVE__ -- The player has been validated by the server process
+--     and is currently connected.
+--
+-- -   __COMPLETED__ -- The player connection has been dropped.
+--
+-- -   __TIMEDOUT__ -- A player session request was received, but the
+--     player did not connect and\/or was not validated within the timeout
+--     limit (60 seconds).
+describePlayerSessions_playerSessionStatusFilter :: Lens.Lens' DescribePlayerSessions (Prelude.Maybe Prelude.Text)
+describePlayerSessions_playerSessionStatusFilter = Lens.lens (\DescribePlayerSessions' {playerSessionStatusFilter} -> playerSessionStatusFilter) (\s@DescribePlayerSessions' {} a -> s {playerSessionStatusFilter = a} :: DescribePlayerSessions)
 
 -- | A unique identifier for a player to retrieve player sessions for.
-dPlayerId :: Lens' DescribePlayerSessions (Maybe Text)
-dPlayerId = lens _dPlayerId (\s a -> s {_dPlayerId = a})
+describePlayerSessions_playerId :: Lens.Lens' DescribePlayerSessions (Prelude.Maybe Prelude.Text)
+describePlayerSessions_playerId = Lens.lens (\DescribePlayerSessions' {playerId} -> playerId) (\s@DescribePlayerSessions' {} a -> s {playerId = a} :: DescribePlayerSessions)
 
 -- | A unique identifier for a player session to retrieve.
-dPlayerSessionId :: Lens' DescribePlayerSessions (Maybe Text)
-dPlayerSessionId = lens _dPlayerSessionId (\s a -> s {_dPlayerSessionId = a})
+describePlayerSessions_playerSessionId :: Lens.Lens' DescribePlayerSessions (Prelude.Maybe Prelude.Text)
+describePlayerSessions_playerSessionId = Lens.lens (\DescribePlayerSessions' {playerSessionId} -> playerSessionId) (\s@DescribePlayerSessions' {} a -> s {playerSessionId = a} :: DescribePlayerSessions)
 
--- | A unique identifier for the game session to retrieve player sessions for.
-dGameSessionId :: Lens' DescribePlayerSessions (Maybe Text)
-dGameSessionId = lens _dGameSessionId (\s a -> s {_dGameSessionId = a})
+-- | A unique identifier for the game session to retrieve player sessions
+-- for.
+describePlayerSessions_gameSessionId :: Lens.Lens' DescribePlayerSessions (Prelude.Maybe Prelude.Text)
+describePlayerSessions_gameSessionId = Lens.lens (\DescribePlayerSessions' {gameSessionId} -> gameSessionId) (\s@DescribePlayerSessions' {} a -> s {gameSessionId = a} :: DescribePlayerSessions)
 
--- | The maximum number of results to return. Use this parameter with @NextToken@ to get results as a set of sequential pages. If a player session ID is specified, this parameter is ignored.
-dLimit :: Lens' DescribePlayerSessions (Maybe Natural)
-dLimit = lens _dLimit (\s a -> s {_dLimit = a}) . mapping _Nat
+-- | The maximum number of results to return. Use this parameter with
+-- @NextToken@ to get results as a set of sequential pages. If a player
+-- session ID is specified, this parameter is ignored.
+describePlayerSessions_limit :: Lens.Lens' DescribePlayerSessions (Prelude.Maybe Prelude.Natural)
+describePlayerSessions_limit = Lens.lens (\DescribePlayerSessions' {limit} -> limit) (\s@DescribePlayerSessions' {} a -> s {limit = a} :: DescribePlayerSessions) Prelude.. Lens.mapping Prelude._Nat
 
-instance AWSPager DescribePlayerSessions where
+instance Pager.AWSPager DescribePlayerSessions where
   page rq rs
-    | stop (rs ^. dpsrrsNextToken) = Nothing
-    | stop (rs ^. dpsrrsPlayerSessions) = Nothing
-    | otherwise =
-      Just $ rq & dNextToken .~ rs ^. dpsrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describePlayerSessionsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describePlayerSessionsResponse_playerSessions
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describePlayerSessions_nextToken
+          Lens..~ rs
+          Lens.^? describePlayerSessionsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribePlayerSessions where
+instance Prelude.AWSRequest DescribePlayerSessions where
   type
     Rs DescribePlayerSessions =
       DescribePlayerSessionsResponse
-  request = postJSON gameLift
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribePlayerSessionsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "PlayerSessions" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "PlayerSessions"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribePlayerSessions
+instance Prelude.Hashable DescribePlayerSessions
 
-instance NFData DescribePlayerSessions
+instance Prelude.NFData DescribePlayerSessions
 
-instance ToHeaders DescribePlayerSessions where
+instance Prelude.ToHeaders DescribePlayerSessions where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("GameLift.DescribePlayerSessions" :: ByteString),
+              Prelude.=# ( "GameLift.DescribePlayerSessions" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribePlayerSessions where
+instance Prelude.ToJSON DescribePlayerSessions where
   toJSON DescribePlayerSessions' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _dNextToken,
-            ("PlayerSessionStatusFilter" .=)
-              <$> _dPlayerSessionStatusFilter,
-            ("PlayerId" .=) <$> _dPlayerId,
-            ("PlayerSessionId" .=) <$> _dPlayerSessionId,
-            ("GameSessionId" .=) <$> _dGameSessionId,
-            ("Limit" .=) <$> _dLimit
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("PlayerSessionStatusFilter" Prelude..=)
+              Prelude.<$> playerSessionStatusFilter,
+            ("PlayerId" Prelude..=) Prelude.<$> playerId,
+            ("PlayerSessionId" Prelude..=)
+              Prelude.<$> playerSessionId,
+            ("GameSessionId" Prelude..=)
+              Prelude.<$> gameSessionId,
+            ("Limit" Prelude..=) Prelude.<$> limit
           ]
       )
 
-instance ToPath DescribePlayerSessions where
-  toPath = const "/"
+instance Prelude.ToPath DescribePlayerSessions where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribePlayerSessions where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribePlayerSessions where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the returned data in response to a request operation.
 --
---
---
--- /See:/ 'describePlayerSessionsResponse' smart constructor.
+-- /See:/ 'newDescribePlayerSessionsResponse' smart constructor.
 data DescribePlayerSessionsResponse = DescribePlayerSessionsResponse'
-  { _dpsrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dpsrrsPlayerSessions ::
-      !( Maybe
-           [PlayerSession]
-       ),
-    _dpsrrsResponseStatus ::
-      !Int
+  { -- | Token that indicates where to resume retrieving results on the next call
+    -- to this operation. If no token is returned, these results represent the
+    -- end of the list.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A collection of objects containing properties for each player session
+    -- that matches the request.
+    playerSessions :: Prelude.Maybe [PlayerSession],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribePlayerSessionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribePlayerSessionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dpsrrsNextToken' - Token that indicates where to resume retrieving results on the next call to this operation. If no token is returned, these results represent the end of the list.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dpsrrsPlayerSessions' - A collection of objects containing properties for each player session that matches the request.
+-- 'nextToken', 'describePlayerSessionsResponse_nextToken' - Token that indicates where to resume retrieving results on the next call
+-- to this operation. If no token is returned, these results represent the
+-- end of the list.
 --
--- * 'dpsrrsResponseStatus' - -- | The response status code.
-describePlayerSessionsResponse ::
-  -- | 'dpsrrsResponseStatus'
-  Int ->
+-- 'playerSessions', 'describePlayerSessionsResponse_playerSessions' - A collection of objects containing properties for each player session
+-- that matches the request.
+--
+-- 'httpStatus', 'describePlayerSessionsResponse_httpStatus' - The response's http status code.
+newDescribePlayerSessionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribePlayerSessionsResponse
-describePlayerSessionsResponse pResponseStatus_ =
+newDescribePlayerSessionsResponse pHttpStatus_ =
   DescribePlayerSessionsResponse'
-    { _dpsrrsNextToken =
-        Nothing,
-      _dpsrrsPlayerSessions = Nothing,
-      _dpsrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      playerSessions = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Token that indicates where to resume retrieving results on the next call to this operation. If no token is returned, these results represent the end of the list.
-dpsrrsNextToken :: Lens' DescribePlayerSessionsResponse (Maybe Text)
-dpsrrsNextToken = lens _dpsrrsNextToken (\s a -> s {_dpsrrsNextToken = a})
+-- | Token that indicates where to resume retrieving results on the next call
+-- to this operation. If no token is returned, these results represent the
+-- end of the list.
+describePlayerSessionsResponse_nextToken :: Lens.Lens' DescribePlayerSessionsResponse (Prelude.Maybe Prelude.Text)
+describePlayerSessionsResponse_nextToken = Lens.lens (\DescribePlayerSessionsResponse' {nextToken} -> nextToken) (\s@DescribePlayerSessionsResponse' {} a -> s {nextToken = a} :: DescribePlayerSessionsResponse)
 
--- | A collection of objects containing properties for each player session that matches the request.
-dpsrrsPlayerSessions :: Lens' DescribePlayerSessionsResponse [PlayerSession]
-dpsrrsPlayerSessions = lens _dpsrrsPlayerSessions (\s a -> s {_dpsrrsPlayerSessions = a}) . _Default . _Coerce
+-- | A collection of objects containing properties for each player session
+-- that matches the request.
+describePlayerSessionsResponse_playerSessions :: Lens.Lens' DescribePlayerSessionsResponse (Prelude.Maybe [PlayerSession])
+describePlayerSessionsResponse_playerSessions = Lens.lens (\DescribePlayerSessionsResponse' {playerSessions} -> playerSessions) (\s@DescribePlayerSessionsResponse' {} a -> s {playerSessions = a} :: DescribePlayerSessionsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dpsrrsResponseStatus :: Lens' DescribePlayerSessionsResponse Int
-dpsrrsResponseStatus = lens _dpsrrsResponseStatus (\s a -> s {_dpsrrsResponseStatus = a})
+-- | The response's http status code.
+describePlayerSessionsResponse_httpStatus :: Lens.Lens' DescribePlayerSessionsResponse Prelude.Int
+describePlayerSessionsResponse_httpStatus = Lens.lens (\DescribePlayerSessionsResponse' {httpStatus} -> httpStatus) (\s@DescribePlayerSessionsResponse' {} a -> s {httpStatus = a} :: DescribePlayerSessionsResponse)
 
-instance NFData DescribePlayerSessionsResponse
+instance
+  Prelude.NFData
+    DescribePlayerSessionsResponse

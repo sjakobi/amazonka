@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,83 +20,131 @@
 module Network.AWS.GameLift.Types.Player where
 
 import Network.AWS.GameLift.Types.AttributeValue
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents a player in matchmaking. When starting a matchmaking request, a player has a player ID, attributes, and may have latency data. Team information is added after a match has been successfully completed.
+-- | Represents a player in matchmaking. When starting a matchmaking request,
+-- a player has a player ID, attributes, and may have latency data. Team
+-- information is added after a match has been successfully completed.
 --
---
---
--- /See:/ 'player' smart constructor.
+-- /See:/ 'newPlayer' smart constructor.
 data Player = Player'
-  { _pPlayerAttributes ::
-      !(Maybe (Map Text AttributeValue)),
-    _pLatencyInMs :: !(Maybe (Map Text Nat)),
-    _pPlayerId :: !(Maybe Text),
-    _pTeam :: !(Maybe Text)
+  { -- | A collection of key:value pairs containing player information for use in
+    -- matchmaking. Player attribute keys must match the /playerAttributes/
+    -- used in a matchmaking rule set. Example:
+    -- @\"PlayerAttributes\": {\"skill\": {\"N\": \"23\"}, \"gameMode\": {\"S\": \"deathmatch\"}}@.
+    playerAttributes :: Prelude.Maybe (Prelude.Map Prelude.Text AttributeValue),
+    -- | Set of values, expressed in milliseconds, indicating the amount of
+    -- latency that a player experiences when connected to AWS Regions. If this
+    -- property is present, FlexMatch considers placing the match only in
+    -- Regions for which latency is reported.
+    --
+    -- If a matchmaker has a rule that evaluates player latency, players must
+    -- report latency in order to be matched. If no latency is reported in this
+    -- scenario, FlexMatch assumes that no Regions are available to the player
+    -- and the ticket is not matchable.
+    latencyInMs :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Nat),
+    -- | A unique identifier for a player
+    playerId :: Prelude.Maybe Prelude.Text,
+    -- | Name of the team that the player is assigned to in a match. Team names
+    -- are defined in a matchmaking rule set.
+    team :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Player' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Player' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pPlayerAttributes' - A collection of key:value pairs containing player information for use in matchmaking. Player attribute keys must match the /playerAttributes/ used in a matchmaking rule set. Example: @"PlayerAttributes": {"skill": {"N": "23"}, "gameMode": {"S": "deathmatch"}}@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pLatencyInMs' - Set of values, expressed in milliseconds, indicating the amount of latency that a player experiences when connected to AWS Regions. If this property is present, FlexMatch considers placing the match only in Regions for which latency is reported.  If a matchmaker has a rule that evaluates player latency, players must report latency in order to be matched. If no latency is reported in this scenario, FlexMatch assumes that no Regions are available to the player and the ticket is not matchable.
+-- 'playerAttributes', 'player_playerAttributes' - A collection of key:value pairs containing player information for use in
+-- matchmaking. Player attribute keys must match the /playerAttributes/
+-- used in a matchmaking rule set. Example:
+-- @\"PlayerAttributes\": {\"skill\": {\"N\": \"23\"}, \"gameMode\": {\"S\": \"deathmatch\"}}@.
 --
--- * 'pPlayerId' - A unique identifier for a player
+-- 'latencyInMs', 'player_latencyInMs' - Set of values, expressed in milliseconds, indicating the amount of
+-- latency that a player experiences when connected to AWS Regions. If this
+-- property is present, FlexMatch considers placing the match only in
+-- Regions for which latency is reported.
 --
--- * 'pTeam' - Name of the team that the player is assigned to in a match. Team names are defined in a matchmaking rule set.
-player ::
+-- If a matchmaker has a rule that evaluates player latency, players must
+-- report latency in order to be matched. If no latency is reported in this
+-- scenario, FlexMatch assumes that no Regions are available to the player
+-- and the ticket is not matchable.
+--
+-- 'playerId', 'player_playerId' - A unique identifier for a player
+--
+-- 'team', 'player_team' - Name of the team that the player is assigned to in a match. Team names
+-- are defined in a matchmaking rule set.
+newPlayer ::
   Player
-player =
+newPlayer =
   Player'
-    { _pPlayerAttributes = Nothing,
-      _pLatencyInMs = Nothing,
-      _pPlayerId = Nothing,
-      _pTeam = Nothing
+    { playerAttributes = Prelude.Nothing,
+      latencyInMs = Prelude.Nothing,
+      playerId = Prelude.Nothing,
+      team = Prelude.Nothing
     }
 
--- | A collection of key:value pairs containing player information for use in matchmaking. Player attribute keys must match the /playerAttributes/ used in a matchmaking rule set. Example: @"PlayerAttributes": {"skill": {"N": "23"}, "gameMode": {"S": "deathmatch"}}@ .
-pPlayerAttributes :: Lens' Player (HashMap Text AttributeValue)
-pPlayerAttributes = lens _pPlayerAttributes (\s a -> s {_pPlayerAttributes = a}) . _Default . _Map
+-- | A collection of key:value pairs containing player information for use in
+-- matchmaking. Player attribute keys must match the /playerAttributes/
+-- used in a matchmaking rule set. Example:
+-- @\"PlayerAttributes\": {\"skill\": {\"N\": \"23\"}, \"gameMode\": {\"S\": \"deathmatch\"}}@.
+player_playerAttributes :: Lens.Lens' Player (Prelude.Maybe (Prelude.HashMap Prelude.Text AttributeValue))
+player_playerAttributes = Lens.lens (\Player' {playerAttributes} -> playerAttributes) (\s@Player' {} a -> s {playerAttributes = a} :: Player) Prelude.. Lens.mapping Prelude._Map
 
--- | Set of values, expressed in milliseconds, indicating the amount of latency that a player experiences when connected to AWS Regions. If this property is present, FlexMatch considers placing the match only in Regions for which latency is reported.  If a matchmaker has a rule that evaluates player latency, players must report latency in order to be matched. If no latency is reported in this scenario, FlexMatch assumes that no Regions are available to the player and the ticket is not matchable.
-pLatencyInMs :: Lens' Player (HashMap Text Natural)
-pLatencyInMs = lens _pLatencyInMs (\s a -> s {_pLatencyInMs = a}) . _Default . _Map
+-- | Set of values, expressed in milliseconds, indicating the amount of
+-- latency that a player experiences when connected to AWS Regions. If this
+-- property is present, FlexMatch considers placing the match only in
+-- Regions for which latency is reported.
+--
+-- If a matchmaker has a rule that evaluates player latency, players must
+-- report latency in order to be matched. If no latency is reported in this
+-- scenario, FlexMatch assumes that no Regions are available to the player
+-- and the ticket is not matchable.
+player_latencyInMs :: Lens.Lens' Player (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Natural))
+player_latencyInMs = Lens.lens (\Player' {latencyInMs} -> latencyInMs) (\s@Player' {} a -> s {latencyInMs = a} :: Player) Prelude.. Lens.mapping Prelude._Map
 
 -- | A unique identifier for a player
-pPlayerId :: Lens' Player (Maybe Text)
-pPlayerId = lens _pPlayerId (\s a -> s {_pPlayerId = a})
+player_playerId :: Lens.Lens' Player (Prelude.Maybe Prelude.Text)
+player_playerId = Lens.lens (\Player' {playerId} -> playerId) (\s@Player' {} a -> s {playerId = a} :: Player)
 
--- | Name of the team that the player is assigned to in a match. Team names are defined in a matchmaking rule set.
-pTeam :: Lens' Player (Maybe Text)
-pTeam = lens _pTeam (\s a -> s {_pTeam = a})
+-- | Name of the team that the player is assigned to in a match. Team names
+-- are defined in a matchmaking rule set.
+player_team :: Lens.Lens' Player (Prelude.Maybe Prelude.Text)
+player_team = Lens.lens (\Player' {team} -> team) (\s@Player' {} a -> s {team = a} :: Player)
 
-instance FromJSON Player where
+instance Prelude.FromJSON Player where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Player"
       ( \x ->
           Player'
-            <$> (x .:? "PlayerAttributes" .!= mempty)
-            <*> (x .:? "LatencyInMs" .!= mempty)
-            <*> (x .:? "PlayerId")
-            <*> (x .:? "Team")
+            Prelude.<$> ( x Prelude..:? "PlayerAttributes"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..:? "LatencyInMs"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "PlayerId")
+            Prelude.<*> (x Prelude..:? "Team")
       )
 
-instance Hashable Player
+instance Prelude.Hashable Player
 
-instance NFData Player
+instance Prelude.NFData Player
 
-instance ToJSON Player where
+instance Prelude.ToJSON Player where
   toJSON Player' {..} =
-    object
-      ( catMaybes
-          [ ("PlayerAttributes" .=) <$> _pPlayerAttributes,
-            ("LatencyInMs" .=) <$> _pLatencyInMs,
-            ("PlayerId" .=) <$> _pPlayerId,
-            ("Team" .=) <$> _pTeam
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("PlayerAttributes" Prelude..=)
+              Prelude.<$> playerAttributes,
+            ("LatencyInMs" Prelude..=) Prelude.<$> latencyInMs,
+            ("PlayerId" Prelude..=) Prelude.<$> playerId,
+            ("Team" Prelude..=) Prelude.<$> team
           ]
       )

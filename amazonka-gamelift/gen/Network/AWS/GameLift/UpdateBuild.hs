@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,8 +21,10 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates metadata in a build resource, including the build name and version. To update the metadata, specify the build ID to update and provide the new values. If successful, a build object containing the updated metadata is returned.
---
+-- Updates metadata in a build resource, including the build name and
+-- version. To update the metadata, specify the build ID to update and
+-- provide the new values. If successful, a build object containing the
+-- updated metadata is returned.
 --
 -- __Learn more__
 --
@@ -26,162 +32,182 @@
 --
 -- __Related operations__
 --
---     * 'CreateBuild'
+-- -   CreateBuild
 --
---     * 'ListBuilds'
+-- -   ListBuilds
 --
---     * 'DescribeBuild'
+-- -   DescribeBuild
 --
---     * 'UpdateBuild'
+-- -   UpdateBuild
 --
---     * 'DeleteBuild'
+-- -   DeleteBuild
 module Network.AWS.GameLift.UpdateBuild
   ( -- * Creating a Request
-    updateBuild,
-    UpdateBuild,
+    UpdateBuild (..),
+    newUpdateBuild,
 
     -- * Request Lenses
-    ubVersion,
-    ubName,
-    ubBuildId,
+    updateBuild_version,
+    updateBuild_name,
+    updateBuild_buildId,
 
     -- * Destructuring the Response
-    updateBuildResponse,
-    UpdateBuildResponse,
+    UpdateBuildResponse (..),
+    newUpdateBuildResponse,
 
     -- * Response Lenses
-    ubrrsBuild,
-    ubrrsResponseStatus,
+    updateBuildResponse_build,
+    updateBuildResponse_httpStatus,
   )
 where
 
 import Network.AWS.GameLift.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.GameLift.Types.Build
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input for a request operation.
 --
---
---
--- /See:/ 'updateBuild' smart constructor.
+-- /See:/ 'newUpdateBuild' smart constructor.
 data UpdateBuild = UpdateBuild'
-  { _ubVersion ::
-      !(Maybe Text),
-    _ubName :: !(Maybe Text),
-    _ubBuildId :: !Text
+  { -- | Version information that is associated with a build or script. Version
+    -- strings do not need to be unique.
+    version :: Prelude.Maybe Prelude.Text,
+    -- | A descriptive label that is associated with a build. Build names do not
+    -- need to be unique.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | A unique identifier for a build to update. You can use either the build
+    -- ID or ARN value.
+    buildId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateBuild' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateBuild' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ubVersion' - Version information that is associated with a build or script. Version strings do not need to be unique.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ubName' - A descriptive label that is associated with a build. Build names do not need to be unique.
+-- 'version', 'updateBuild_version' - Version information that is associated with a build or script. Version
+-- strings do not need to be unique.
 --
--- * 'ubBuildId' - A unique identifier for a build to update. You can use either the build ID or ARN value.
-updateBuild ::
-  -- | 'ubBuildId'
-  Text ->
+-- 'name', 'updateBuild_name' - A descriptive label that is associated with a build. Build names do not
+-- need to be unique.
+--
+-- 'buildId', 'updateBuild_buildId' - A unique identifier for a build to update. You can use either the build
+-- ID or ARN value.
+newUpdateBuild ::
+  -- | 'buildId'
+  Prelude.Text ->
   UpdateBuild
-updateBuild pBuildId_ =
+newUpdateBuild pBuildId_ =
   UpdateBuild'
-    { _ubVersion = Nothing,
-      _ubName = Nothing,
-      _ubBuildId = pBuildId_
+    { version = Prelude.Nothing,
+      name = Prelude.Nothing,
+      buildId = pBuildId_
     }
 
--- | Version information that is associated with a build or script. Version strings do not need to be unique.
-ubVersion :: Lens' UpdateBuild (Maybe Text)
-ubVersion = lens _ubVersion (\s a -> s {_ubVersion = a})
+-- | Version information that is associated with a build or script. Version
+-- strings do not need to be unique.
+updateBuild_version :: Lens.Lens' UpdateBuild (Prelude.Maybe Prelude.Text)
+updateBuild_version = Lens.lens (\UpdateBuild' {version} -> version) (\s@UpdateBuild' {} a -> s {version = a} :: UpdateBuild)
 
--- | A descriptive label that is associated with a build. Build names do not need to be unique.
-ubName :: Lens' UpdateBuild (Maybe Text)
-ubName = lens _ubName (\s a -> s {_ubName = a})
+-- | A descriptive label that is associated with a build. Build names do not
+-- need to be unique.
+updateBuild_name :: Lens.Lens' UpdateBuild (Prelude.Maybe Prelude.Text)
+updateBuild_name = Lens.lens (\UpdateBuild' {name} -> name) (\s@UpdateBuild' {} a -> s {name = a} :: UpdateBuild)
 
--- | A unique identifier for a build to update. You can use either the build ID or ARN value.
-ubBuildId :: Lens' UpdateBuild Text
-ubBuildId = lens _ubBuildId (\s a -> s {_ubBuildId = a})
+-- | A unique identifier for a build to update. You can use either the build
+-- ID or ARN value.
+updateBuild_buildId :: Lens.Lens' UpdateBuild Prelude.Text
+updateBuild_buildId = Lens.lens (\UpdateBuild' {buildId} -> buildId) (\s@UpdateBuild' {} a -> s {buildId = a} :: UpdateBuild)
 
-instance AWSRequest UpdateBuild where
+instance Prelude.AWSRequest UpdateBuild where
   type Rs UpdateBuild = UpdateBuildResponse
-  request = postJSON gameLift
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateBuildResponse'
-            <$> (x .?> "Build") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Build")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateBuild
+instance Prelude.Hashable UpdateBuild
 
-instance NFData UpdateBuild
+instance Prelude.NFData UpdateBuild
 
-instance ToHeaders UpdateBuild where
+instance Prelude.ToHeaders UpdateBuild where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("GameLift.UpdateBuild" :: ByteString),
+              Prelude.=# ("GameLift.UpdateBuild" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateBuild where
+instance Prelude.ToJSON UpdateBuild where
   toJSON UpdateBuild' {..} =
-    object
-      ( catMaybes
-          [ ("Version" .=) <$> _ubVersion,
-            ("Name" .=) <$> _ubName,
-            Just ("BuildId" .= _ubBuildId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Version" Prelude..=) Prelude.<$> version,
+            ("Name" Prelude..=) Prelude.<$> name,
+            Prelude.Just ("BuildId" Prelude..= buildId)
           ]
       )
 
-instance ToPath UpdateBuild where
-  toPath = const "/"
+instance Prelude.ToPath UpdateBuild where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateBuild where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateBuild where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the returned data in response to a request operation.
 --
---
---
--- /See:/ 'updateBuildResponse' smart constructor.
+-- /See:/ 'newUpdateBuildResponse' smart constructor.
 data UpdateBuildResponse = UpdateBuildResponse'
-  { _ubrrsBuild ::
-      !(Maybe Build),
-    _ubrrsResponseStatus :: !Int
+  { -- | The updated build resource.
+    build :: Prelude.Maybe Build,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateBuildResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateBuildResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ubrrsBuild' - The updated build resource.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ubrrsResponseStatus' - -- | The response status code.
-updateBuildResponse ::
-  -- | 'ubrrsResponseStatus'
-  Int ->
+-- 'build', 'updateBuildResponse_build' - The updated build resource.
+--
+-- 'httpStatus', 'updateBuildResponse_httpStatus' - The response's http status code.
+newUpdateBuildResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateBuildResponse
-updateBuildResponse pResponseStatus_ =
+newUpdateBuildResponse pHttpStatus_ =
   UpdateBuildResponse'
-    { _ubrrsBuild = Nothing,
-      _ubrrsResponseStatus = pResponseStatus_
+    { build = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The updated build resource.
-ubrrsBuild :: Lens' UpdateBuildResponse (Maybe Build)
-ubrrsBuild = lens _ubrrsBuild (\s a -> s {_ubrrsBuild = a})
+updateBuildResponse_build :: Lens.Lens' UpdateBuildResponse (Prelude.Maybe Build)
+updateBuildResponse_build = Lens.lens (\UpdateBuildResponse' {build} -> build) (\s@UpdateBuildResponse' {} a -> s {build = a} :: UpdateBuildResponse)
 
--- | -- | The response status code.
-ubrrsResponseStatus :: Lens' UpdateBuildResponse Int
-ubrrsResponseStatus = lens _ubrrsResponseStatus (\s a -> s {_ubrrsResponseStatus = a})
+-- | The response's http status code.
+updateBuildResponse_httpStatus :: Lens.Lens' UpdateBuildResponse Prelude.Int
+updateBuildResponse_httpStatus = Lens.lens (\UpdateBuildResponse' {httpStatus} -> httpStatus) (\s@UpdateBuildResponse' {} a -> s {httpStatus = a} :: UpdateBuildResponse)
 
-instance NFData UpdateBuildResponse
+instance Prelude.NFData UpdateBuildResponse

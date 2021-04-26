@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,99 +19,113 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.GameLift.Types.FleetUtilization where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Current status of fleet utilization, including the number of game and player sessions being hosted.
+-- | Current status of fleet utilization, including the number of game and
+-- player sessions being hosted.
 --
+-- -   CreateFleet
 --
---     * 'CreateFleet'
+-- -   ListFleets
 --
---     * 'ListFleets'
+-- -   DeleteFleet
 --
---     * 'DeleteFleet'
+-- -   DescribeFleetAttributes
 --
---     * 'DescribeFleetAttributes'
+-- -   UpdateFleetAttributes
 --
---     * 'UpdateFleetAttributes'
+-- -   StartFleetActions or StopFleetActions
 --
---     * 'StartFleetActions' or 'StopFleetActions'
---
---
---
---
--- /See:/ 'fleetUtilization' smart constructor.
+-- /See:/ 'newFleetUtilization' smart constructor.
 data FleetUtilization = FleetUtilization'
-  { _fuActiveGameSessionCount ::
-      !(Maybe Nat),
-    _fuCurrentPlayerSessionCount ::
-      !(Maybe Nat),
-    _fuMaximumPlayerSessionCount ::
-      !(Maybe Nat),
-    _fuFleetId :: !(Maybe Text),
-    _fuActiveServerProcessCount ::
-      !(Maybe Nat)
+  { -- | Number of active game sessions currently being hosted on all instances
+    -- in the fleet.
+    activeGameSessionCount :: Prelude.Maybe Prelude.Nat,
+    -- | Number of active player sessions currently being hosted on all instances
+    -- in the fleet.
+    currentPlayerSessionCount :: Prelude.Maybe Prelude.Nat,
+    -- | The maximum number of players allowed across all game sessions currently
+    -- being hosted on all instances in the fleet.
+    maximumPlayerSessionCount :: Prelude.Maybe Prelude.Nat,
+    -- | A unique identifier for a fleet.
+    fleetId :: Prelude.Maybe Prelude.Text,
+    -- | Number of server processes in an @ACTIVE@ status currently running
+    -- across all instances in the fleet
+    activeServerProcessCount :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FleetUtilization' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FleetUtilization' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fuActiveGameSessionCount' - Number of active game sessions currently being hosted on all instances in the fleet.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fuCurrentPlayerSessionCount' - Number of active player sessions currently being hosted on all instances in the fleet.
+-- 'activeGameSessionCount', 'fleetUtilization_activeGameSessionCount' - Number of active game sessions currently being hosted on all instances
+-- in the fleet.
 --
--- * 'fuMaximumPlayerSessionCount' - The maximum number of players allowed across all game sessions currently being hosted on all instances in the fleet.
+-- 'currentPlayerSessionCount', 'fleetUtilization_currentPlayerSessionCount' - Number of active player sessions currently being hosted on all instances
+-- in the fleet.
 --
--- * 'fuFleetId' - A unique identifier for a fleet.
+-- 'maximumPlayerSessionCount', 'fleetUtilization_maximumPlayerSessionCount' - The maximum number of players allowed across all game sessions currently
+-- being hosted on all instances in the fleet.
 --
--- * 'fuActiveServerProcessCount' - Number of server processes in an @ACTIVE@ status currently running across all instances in the fleet
-fleetUtilization ::
+-- 'fleetId', 'fleetUtilization_fleetId' - A unique identifier for a fleet.
+--
+-- 'activeServerProcessCount', 'fleetUtilization_activeServerProcessCount' - Number of server processes in an @ACTIVE@ status currently running
+-- across all instances in the fleet
+newFleetUtilization ::
   FleetUtilization
-fleetUtilization =
+newFleetUtilization =
   FleetUtilization'
-    { _fuActiveGameSessionCount =
-        Nothing,
-      _fuCurrentPlayerSessionCount = Nothing,
-      _fuMaximumPlayerSessionCount = Nothing,
-      _fuFleetId = Nothing,
-      _fuActiveServerProcessCount = Nothing
+    { activeGameSessionCount =
+        Prelude.Nothing,
+      currentPlayerSessionCount = Prelude.Nothing,
+      maximumPlayerSessionCount = Prelude.Nothing,
+      fleetId = Prelude.Nothing,
+      activeServerProcessCount = Prelude.Nothing
     }
 
--- | Number of active game sessions currently being hosted on all instances in the fleet.
-fuActiveGameSessionCount :: Lens' FleetUtilization (Maybe Natural)
-fuActiveGameSessionCount = lens _fuActiveGameSessionCount (\s a -> s {_fuActiveGameSessionCount = a}) . mapping _Nat
+-- | Number of active game sessions currently being hosted on all instances
+-- in the fleet.
+fleetUtilization_activeGameSessionCount :: Lens.Lens' FleetUtilization (Prelude.Maybe Prelude.Natural)
+fleetUtilization_activeGameSessionCount = Lens.lens (\FleetUtilization' {activeGameSessionCount} -> activeGameSessionCount) (\s@FleetUtilization' {} a -> s {activeGameSessionCount = a} :: FleetUtilization) Prelude.. Lens.mapping Prelude._Nat
 
--- | Number of active player sessions currently being hosted on all instances in the fleet.
-fuCurrentPlayerSessionCount :: Lens' FleetUtilization (Maybe Natural)
-fuCurrentPlayerSessionCount = lens _fuCurrentPlayerSessionCount (\s a -> s {_fuCurrentPlayerSessionCount = a}) . mapping _Nat
+-- | Number of active player sessions currently being hosted on all instances
+-- in the fleet.
+fleetUtilization_currentPlayerSessionCount :: Lens.Lens' FleetUtilization (Prelude.Maybe Prelude.Natural)
+fleetUtilization_currentPlayerSessionCount = Lens.lens (\FleetUtilization' {currentPlayerSessionCount} -> currentPlayerSessionCount) (\s@FleetUtilization' {} a -> s {currentPlayerSessionCount = a} :: FleetUtilization) Prelude.. Lens.mapping Prelude._Nat
 
--- | The maximum number of players allowed across all game sessions currently being hosted on all instances in the fleet.
-fuMaximumPlayerSessionCount :: Lens' FleetUtilization (Maybe Natural)
-fuMaximumPlayerSessionCount = lens _fuMaximumPlayerSessionCount (\s a -> s {_fuMaximumPlayerSessionCount = a}) . mapping _Nat
+-- | The maximum number of players allowed across all game sessions currently
+-- being hosted on all instances in the fleet.
+fleetUtilization_maximumPlayerSessionCount :: Lens.Lens' FleetUtilization (Prelude.Maybe Prelude.Natural)
+fleetUtilization_maximumPlayerSessionCount = Lens.lens (\FleetUtilization' {maximumPlayerSessionCount} -> maximumPlayerSessionCount) (\s@FleetUtilization' {} a -> s {maximumPlayerSessionCount = a} :: FleetUtilization) Prelude.. Lens.mapping Prelude._Nat
 
 -- | A unique identifier for a fleet.
-fuFleetId :: Lens' FleetUtilization (Maybe Text)
-fuFleetId = lens _fuFleetId (\s a -> s {_fuFleetId = a})
+fleetUtilization_fleetId :: Lens.Lens' FleetUtilization (Prelude.Maybe Prelude.Text)
+fleetUtilization_fleetId = Lens.lens (\FleetUtilization' {fleetId} -> fleetId) (\s@FleetUtilization' {} a -> s {fleetId = a} :: FleetUtilization)
 
--- | Number of server processes in an @ACTIVE@ status currently running across all instances in the fleet
-fuActiveServerProcessCount :: Lens' FleetUtilization (Maybe Natural)
-fuActiveServerProcessCount = lens _fuActiveServerProcessCount (\s a -> s {_fuActiveServerProcessCount = a}) . mapping _Nat
+-- | Number of server processes in an @ACTIVE@ status currently running
+-- across all instances in the fleet
+fleetUtilization_activeServerProcessCount :: Lens.Lens' FleetUtilization (Prelude.Maybe Prelude.Natural)
+fleetUtilization_activeServerProcessCount = Lens.lens (\FleetUtilization' {activeServerProcessCount} -> activeServerProcessCount) (\s@FleetUtilization' {} a -> s {activeServerProcessCount = a} :: FleetUtilization) Prelude.. Lens.mapping Prelude._Nat
 
-instance FromJSON FleetUtilization where
+instance Prelude.FromJSON FleetUtilization where
   parseJSON =
-    withObject
+    Prelude.withObject
       "FleetUtilization"
       ( \x ->
           FleetUtilization'
-            <$> (x .:? "ActiveGameSessionCount")
-            <*> (x .:? "CurrentPlayerSessionCount")
-            <*> (x .:? "MaximumPlayerSessionCount")
-            <*> (x .:? "FleetId")
-            <*> (x .:? "ActiveServerProcessCount")
+            Prelude.<$> (x Prelude..:? "ActiveGameSessionCount")
+            Prelude.<*> (x Prelude..:? "CurrentPlayerSessionCount")
+            Prelude.<*> (x Prelude..:? "MaximumPlayerSessionCount")
+            Prelude.<*> (x Prelude..:? "FleetId")
+            Prelude.<*> (x Prelude..:? "ActiveServerProcessCount")
       )
 
-instance Hashable FleetUtilization
+instance Prelude.Hashable FleetUtilization
 
-instance NFData FleetUtilization
+instance Prelude.NFData FleetUtilization

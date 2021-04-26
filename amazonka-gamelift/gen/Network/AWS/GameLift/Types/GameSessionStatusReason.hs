@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,52 +19,50 @@
 module Network.AWS.GameLift.Types.GameSessionStatusReason
   ( GameSessionStatusReason
       ( ..,
-        Interrupted
+        GameSessionStatusReasonINTERRUPTED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data GameSessionStatusReason
-  = GameSessionStatusReason'
-      ( CI
-          Text
-      )
+newtype GameSessionStatusReason = GameSessionStatusReason'
+  { fromGameSessionStatusReason ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Interrupted :: GameSessionStatusReason
-pattern Interrupted = GameSessionStatusReason' "INTERRUPTED"
+pattern GameSessionStatusReasonINTERRUPTED :: GameSessionStatusReason
+pattern GameSessionStatusReasonINTERRUPTED = GameSessionStatusReason' "INTERRUPTED"
 
 {-# COMPLETE
-  Interrupted,
+  GameSessionStatusReasonINTERRUPTED,
   GameSessionStatusReason'
   #-}
 
-instance FromText GameSessionStatusReason where
-  parser = (GameSessionStatusReason' . mk) <$> takeText
+instance Prelude.FromText GameSessionStatusReason where
+  parser = GameSessionStatusReason' Prelude.<$> Prelude.takeText
 
-instance ToText GameSessionStatusReason where
-  toText (GameSessionStatusReason' ci) = original ci
+instance Prelude.ToText GameSessionStatusReason where
+  toText (GameSessionStatusReason' x) = x
 
-instance Hashable GameSessionStatusReason
+instance Prelude.Hashable GameSessionStatusReason
 
-instance NFData GameSessionStatusReason
+instance Prelude.NFData GameSessionStatusReason
 
-instance ToByteString GameSessionStatusReason
+instance Prelude.ToByteString GameSessionStatusReason
 
-instance ToQuery GameSessionStatusReason
+instance Prelude.ToQuery GameSessionStatusReason
 
-instance ToHeader GameSessionStatusReason
+instance Prelude.ToHeader GameSessionStatusReason
 
-instance FromJSON GameSessionStatusReason where
-  parseJSON = parseJSONText "GameSessionStatusReason"
+instance Prelude.FromJSON GameSessionStatusReason where
+  parseJSON = Prelude.parseJSONText "GameSessionStatusReason"

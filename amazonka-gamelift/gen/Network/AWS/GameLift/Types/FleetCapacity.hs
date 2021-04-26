@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,78 +21,97 @@ module Network.AWS.GameLift.Types.FleetCapacity where
 
 import Network.AWS.GameLift.Types.EC2InstanceCounts
 import Network.AWS.GameLift.Types.EC2InstanceType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Information about the fleet's capacity. Fleet capacity is measured in EC2 instances. By default, new fleets have a capacity of one instance, but can be updated as needed. The maximum number of instances for a fleet is determined by the fleet's instance type.
+-- | Information about the fleet\'s capacity. Fleet capacity is measured in
+-- EC2 instances. By default, new fleets have a capacity of one instance,
+-- but can be updated as needed. The maximum number of instances for a
+-- fleet is determined by the fleet\'s instance type.
 --
+-- -   CreateFleet
 --
---     * 'CreateFleet'
+-- -   ListFleets
 --
---     * 'ListFleets'
+-- -   DeleteFleet
 --
---     * 'DeleteFleet'
+-- -   DescribeFleetAttributes
 --
---     * 'DescribeFleetAttributes'
+-- -   UpdateFleetAttributes
 --
---     * 'UpdateFleetAttributes'
+-- -   StartFleetActions or StopFleetActions
 --
---     * 'StartFleetActions' or 'StopFleetActions'
---
---
---
---
--- /See:/ 'fleetCapacity' smart constructor.
+-- /See:/ 'newFleetCapacity' smart constructor.
 data FleetCapacity = FleetCapacity'
-  { _fcInstanceType ::
-      !(Maybe EC2InstanceType),
-    _fcFleetId :: !(Maybe Text),
-    _fcInstanceCounts ::
-      !(Maybe EC2InstanceCounts)
+  { -- | Name of an EC2 instance type that is supported in Amazon GameLift. A
+    -- fleet instance type determines the computing resources of each instance
+    -- in the fleet, including CPU, memory, storage, and networking capacity.
+    -- Amazon GameLift supports the following EC2 instance types. See
+    -- <http://aws.amazon.com/ec2/instance-types/ Amazon EC2 Instance Types>
+    -- for detailed descriptions.
+    instanceType :: Prelude.Maybe EC2InstanceType,
+    -- | A unique identifier for a fleet.
+    fleetId :: Prelude.Maybe Prelude.Text,
+    -- | Current status of fleet capacity.
+    instanceCounts :: Prelude.Maybe EC2InstanceCounts
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FleetCapacity' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FleetCapacity' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fcInstanceType' - Name of an EC2 instance type that is supported in Amazon GameLift. A fleet instance type determines the computing resources of each instance in the fleet, including CPU, memory, storage, and networking capacity. Amazon GameLift supports the following EC2 instance types. See <http://aws.amazon.com/ec2/instance-types/ Amazon EC2 Instance Types> for detailed descriptions.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fcFleetId' - A unique identifier for a fleet.
+-- 'instanceType', 'fleetCapacity_instanceType' - Name of an EC2 instance type that is supported in Amazon GameLift. A
+-- fleet instance type determines the computing resources of each instance
+-- in the fleet, including CPU, memory, storage, and networking capacity.
+-- Amazon GameLift supports the following EC2 instance types. See
+-- <http://aws.amazon.com/ec2/instance-types/ Amazon EC2 Instance Types>
+-- for detailed descriptions.
 --
--- * 'fcInstanceCounts' - Current status of fleet capacity.
-fleetCapacity ::
+-- 'fleetId', 'fleetCapacity_fleetId' - A unique identifier for a fleet.
+--
+-- 'instanceCounts', 'fleetCapacity_instanceCounts' - Current status of fleet capacity.
+newFleetCapacity ::
   FleetCapacity
-fleetCapacity =
+newFleetCapacity =
   FleetCapacity'
-    { _fcInstanceType = Nothing,
-      _fcFleetId = Nothing,
-      _fcInstanceCounts = Nothing
+    { instanceType = Prelude.Nothing,
+      fleetId = Prelude.Nothing,
+      instanceCounts = Prelude.Nothing
     }
 
--- | Name of an EC2 instance type that is supported in Amazon GameLift. A fleet instance type determines the computing resources of each instance in the fleet, including CPU, memory, storage, and networking capacity. Amazon GameLift supports the following EC2 instance types. See <http://aws.amazon.com/ec2/instance-types/ Amazon EC2 Instance Types> for detailed descriptions.
-fcInstanceType :: Lens' FleetCapacity (Maybe EC2InstanceType)
-fcInstanceType = lens _fcInstanceType (\s a -> s {_fcInstanceType = a})
+-- | Name of an EC2 instance type that is supported in Amazon GameLift. A
+-- fleet instance type determines the computing resources of each instance
+-- in the fleet, including CPU, memory, storage, and networking capacity.
+-- Amazon GameLift supports the following EC2 instance types. See
+-- <http://aws.amazon.com/ec2/instance-types/ Amazon EC2 Instance Types>
+-- for detailed descriptions.
+fleetCapacity_instanceType :: Lens.Lens' FleetCapacity (Prelude.Maybe EC2InstanceType)
+fleetCapacity_instanceType = Lens.lens (\FleetCapacity' {instanceType} -> instanceType) (\s@FleetCapacity' {} a -> s {instanceType = a} :: FleetCapacity)
 
 -- | A unique identifier for a fleet.
-fcFleetId :: Lens' FleetCapacity (Maybe Text)
-fcFleetId = lens _fcFleetId (\s a -> s {_fcFleetId = a})
+fleetCapacity_fleetId :: Lens.Lens' FleetCapacity (Prelude.Maybe Prelude.Text)
+fleetCapacity_fleetId = Lens.lens (\FleetCapacity' {fleetId} -> fleetId) (\s@FleetCapacity' {} a -> s {fleetId = a} :: FleetCapacity)
 
 -- | Current status of fleet capacity.
-fcInstanceCounts :: Lens' FleetCapacity (Maybe EC2InstanceCounts)
-fcInstanceCounts = lens _fcInstanceCounts (\s a -> s {_fcInstanceCounts = a})
+fleetCapacity_instanceCounts :: Lens.Lens' FleetCapacity (Prelude.Maybe EC2InstanceCounts)
+fleetCapacity_instanceCounts = Lens.lens (\FleetCapacity' {instanceCounts} -> instanceCounts) (\s@FleetCapacity' {} a -> s {instanceCounts = a} :: FleetCapacity)
 
-instance FromJSON FleetCapacity where
+instance Prelude.FromJSON FleetCapacity where
   parseJSON =
-    withObject
+    Prelude.withObject
       "FleetCapacity"
       ( \x ->
           FleetCapacity'
-            <$> (x .:? "InstanceType")
-            <*> (x .:? "FleetId")
-            <*> (x .:? "InstanceCounts")
+            Prelude.<$> (x Prelude..:? "InstanceType")
+            Prelude.<*> (x Prelude..:? "FleetId")
+            Prelude.<*> (x Prelude..:? "InstanceCounts")
       )
 
-instance Hashable FleetCapacity
+instance Prelude.Hashable FleetCapacity
 
-instance NFData FleetCapacity
+instance Prelude.NFData FleetCapacity

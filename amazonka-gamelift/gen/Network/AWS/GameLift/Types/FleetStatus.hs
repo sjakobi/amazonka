@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,88 +19,90 @@
 module Network.AWS.GameLift.Types.FleetStatus
   ( FleetStatus
       ( ..,
-        FSActivating,
-        FSActive,
-        FSBuilding,
-        FSDeleting,
-        FSDownloading,
-        FSError',
-        FSNew,
-        FSTerminated,
-        FSValidating
+        FleetStatusACTIVATING,
+        FleetStatusACTIVE,
+        FleetStatusBUILDING,
+        FleetStatusDELETING,
+        FleetStatusDOWNLOADING,
+        FleetStatusERROR,
+        FleetStatusNEW,
+        FleetStatusTERMINATED,
+        FleetStatusVALIDATING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data FleetStatus = FleetStatus' (CI Text)
+newtype FleetStatus = FleetStatus'
+  { fromFleetStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern FSActivating :: FleetStatus
-pattern FSActivating = FleetStatus' "ACTIVATING"
+pattern FleetStatusACTIVATING :: FleetStatus
+pattern FleetStatusACTIVATING = FleetStatus' "ACTIVATING"
 
-pattern FSActive :: FleetStatus
-pattern FSActive = FleetStatus' "ACTIVE"
+pattern FleetStatusACTIVE :: FleetStatus
+pattern FleetStatusACTIVE = FleetStatus' "ACTIVE"
 
-pattern FSBuilding :: FleetStatus
-pattern FSBuilding = FleetStatus' "BUILDING"
+pattern FleetStatusBUILDING :: FleetStatus
+pattern FleetStatusBUILDING = FleetStatus' "BUILDING"
 
-pattern FSDeleting :: FleetStatus
-pattern FSDeleting = FleetStatus' "DELETING"
+pattern FleetStatusDELETING :: FleetStatus
+pattern FleetStatusDELETING = FleetStatus' "DELETING"
 
-pattern FSDownloading :: FleetStatus
-pattern FSDownloading = FleetStatus' "DOWNLOADING"
+pattern FleetStatusDOWNLOADING :: FleetStatus
+pattern FleetStatusDOWNLOADING = FleetStatus' "DOWNLOADING"
 
-pattern FSError' :: FleetStatus
-pattern FSError' = FleetStatus' "ERROR"
+pattern FleetStatusERROR :: FleetStatus
+pattern FleetStatusERROR = FleetStatus' "ERROR"
 
-pattern FSNew :: FleetStatus
-pattern FSNew = FleetStatus' "NEW"
+pattern FleetStatusNEW :: FleetStatus
+pattern FleetStatusNEW = FleetStatus' "NEW"
 
-pattern FSTerminated :: FleetStatus
-pattern FSTerminated = FleetStatus' "TERMINATED"
+pattern FleetStatusTERMINATED :: FleetStatus
+pattern FleetStatusTERMINATED = FleetStatus' "TERMINATED"
 
-pattern FSValidating :: FleetStatus
-pattern FSValidating = FleetStatus' "VALIDATING"
+pattern FleetStatusVALIDATING :: FleetStatus
+pattern FleetStatusVALIDATING = FleetStatus' "VALIDATING"
 
 {-# COMPLETE
-  FSActivating,
-  FSActive,
-  FSBuilding,
-  FSDeleting,
-  FSDownloading,
-  FSError',
-  FSNew,
-  FSTerminated,
-  FSValidating,
+  FleetStatusACTIVATING,
+  FleetStatusACTIVE,
+  FleetStatusBUILDING,
+  FleetStatusDELETING,
+  FleetStatusDOWNLOADING,
+  FleetStatusERROR,
+  FleetStatusNEW,
+  FleetStatusTERMINATED,
+  FleetStatusVALIDATING,
   FleetStatus'
   #-}
 
-instance FromText FleetStatus where
-  parser = (FleetStatus' . mk) <$> takeText
+instance Prelude.FromText FleetStatus where
+  parser = FleetStatus' Prelude.<$> Prelude.takeText
 
-instance ToText FleetStatus where
-  toText (FleetStatus' ci) = original ci
+instance Prelude.ToText FleetStatus where
+  toText (FleetStatus' x) = x
 
-instance Hashable FleetStatus
+instance Prelude.Hashable FleetStatus
 
-instance NFData FleetStatus
+instance Prelude.NFData FleetStatus
 
-instance ToByteString FleetStatus
+instance Prelude.ToByteString FleetStatus
 
-instance ToQuery FleetStatus
+instance Prelude.ToQuery FleetStatus
 
-instance ToHeader FleetStatus
+instance Prelude.ToHeader FleetStatus
 
-instance FromJSON FleetStatus where
-  parseJSON = parseJSONText "FleetStatus"
+instance Prelude.FromJSON FleetStatus where
+  parseJSON = Prelude.parseJSONText "FleetStatus"

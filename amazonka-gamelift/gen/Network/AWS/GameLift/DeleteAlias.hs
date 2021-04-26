@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,104 +21,121 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes an alias. This operation removes all record of the alias. Game clients attempting to access a server process using the deleted alias receive an error. To delete an alias, specify the alias ID to be deleted.
+-- Deletes an alias. This operation removes all record of the alias. Game
+-- clients attempting to access a server process using the deleted alias
+-- receive an error. To delete an alias, specify the alias ID to be
+-- deleted.
 --
+-- -   CreateAlias
 --
---     * 'CreateAlias'
+-- -   ListAliases
 --
---     * 'ListAliases'
+-- -   DescribeAlias
 --
---     * 'DescribeAlias'
+-- -   UpdateAlias
 --
---     * 'UpdateAlias'
+-- -   DeleteAlias
 --
---     * 'DeleteAlias'
---
---     * 'ResolveAlias'
+-- -   ResolveAlias
 module Network.AWS.GameLift.DeleteAlias
   ( -- * Creating a Request
-    deleteAlias,
-    DeleteAlias,
+    DeleteAlias (..),
+    newDeleteAlias,
 
     -- * Request Lenses
-    daAliasId,
+    deleteAlias_aliasId,
 
     -- * Destructuring the Response
-    deleteAliasResponse,
-    DeleteAliasResponse,
+    DeleteAliasResponse (..),
+    newDeleteAliasResponse,
   )
 where
 
 import Network.AWS.GameLift.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input for a request operation.
 --
---
---
--- /See:/ 'deleteAlias' smart constructor.
-newtype DeleteAlias = DeleteAlias'
-  { _daAliasId ::
-      Text
+-- /See:/ 'newDeleteAlias' smart constructor.
+data DeleteAlias = DeleteAlias'
+  { -- | A unique identifier of the alias that you want to delete. You can use
+    -- either the alias ID or ARN value.
+    aliasId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteAlias' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteAlias' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'daAliasId' - A unique identifier of the alias that you want to delete. You can use either the alias ID or ARN value.
-deleteAlias ::
-  -- | 'daAliasId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'aliasId', 'deleteAlias_aliasId' - A unique identifier of the alias that you want to delete. You can use
+-- either the alias ID or ARN value.
+newDeleteAlias ::
+  -- | 'aliasId'
+  Prelude.Text ->
   DeleteAlias
-deleteAlias pAliasId_ =
-  DeleteAlias' {_daAliasId = pAliasId_}
+newDeleteAlias pAliasId_ =
+  DeleteAlias' {aliasId = pAliasId_}
 
--- | A unique identifier of the alias that you want to delete. You can use either the alias ID or ARN value.
-daAliasId :: Lens' DeleteAlias Text
-daAliasId = lens _daAliasId (\s a -> s {_daAliasId = a})
+-- | A unique identifier of the alias that you want to delete. You can use
+-- either the alias ID or ARN value.
+deleteAlias_aliasId :: Lens.Lens' DeleteAlias Prelude.Text
+deleteAlias_aliasId = Lens.lens (\DeleteAlias' {aliasId} -> aliasId) (\s@DeleteAlias' {} a -> s {aliasId = a} :: DeleteAlias)
 
-instance AWSRequest DeleteAlias where
+instance Prelude.AWSRequest DeleteAlias where
   type Rs DeleteAlias = DeleteAliasResponse
-  request = postJSON gameLift
-  response = receiveNull DeleteAliasResponse'
+  request = Request.postJSON defaultService
+  response = Response.receiveNull DeleteAliasResponse'
 
-instance Hashable DeleteAlias
+instance Prelude.Hashable DeleteAlias
 
-instance NFData DeleteAlias
+instance Prelude.NFData DeleteAlias
 
-instance ToHeaders DeleteAlias where
+instance Prelude.ToHeaders DeleteAlias where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("GameLift.DeleteAlias" :: ByteString),
+              Prelude.=# ("GameLift.DeleteAlias" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteAlias where
+instance Prelude.ToJSON DeleteAlias where
   toJSON DeleteAlias' {..} =
-    object (catMaybes [Just ("AliasId" .= _daAliasId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("AliasId" Prelude..= aliasId)]
+      )
 
-instance ToPath DeleteAlias where
-  toPath = const "/"
+instance Prelude.ToPath DeleteAlias where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteAlias where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteAlias where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteAliasResponse' smart constructor.
+-- | /See:/ 'newDeleteAliasResponse' smart constructor.
 data DeleteAliasResponse = DeleteAliasResponse'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteAliasResponse' with the minimum fields required to make a request.
-deleteAliasResponse ::
+-- |
+-- Create a value of 'DeleteAliasResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteAliasResponse ::
   DeleteAliasResponse
-deleteAliasResponse = DeleteAliasResponse'
+newDeleteAliasResponse = DeleteAliasResponse'
 
-instance NFData DeleteAliasResponse
+instance Prelude.NFData DeleteAliasResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,10 +21,16 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves a fleet's inbound connection permissions. Connection permissions specify the range of IP addresses and port settings that incoming traffic can use to access server processes in the fleet. Game sessions that are running on instances in the fleet use connections that fall in this range.
+-- Retrieves a fleet\'s inbound connection permissions. Connection
+-- permissions specify the range of IP addresses and port settings that
+-- incoming traffic can use to access server processes in the fleet. Game
+-- sessions that are running on instances in the fleet use connections that
+-- fall in this range.
 --
---
--- To get a fleet's inbound connection permissions, specify the fleet's unique identifier. If successful, a collection of 'IpPermission' objects is returned for the requested fleet ID. If the requested fleet has been deleted, the result set is empty.
+-- To get a fleet\'s inbound connection permissions, specify the fleet\'s
+-- unique identifier. If successful, a collection of IpPermission objects
+-- is returned for the requested fleet ID. If the requested fleet has been
+-- deleted, the result set is empty.
 --
 -- __Learn more__
 --
@@ -28,180 +38,176 @@
 --
 -- __Related operations__
 --
---     * 'CreateFleet'
+-- -   CreateFleet
 --
---     * 'ListFleets'
+-- -   ListFleets
 --
---     * 'DeleteFleet'
+-- -   DeleteFleet
 --
---     * Describe fleets:
+-- -   Describe fleets:
 --
---     * 'DescribeFleetAttributes'
+--     -   DescribeFleetAttributes
 --
---     * 'DescribeFleetCapacity'
+--     -   DescribeFleetCapacity
 --
---     * 'DescribeFleetPortSettings'
+--     -   DescribeFleetPortSettings
 --
---     * 'DescribeFleetUtilization'
+--     -   DescribeFleetUtilization
 --
---     * 'DescribeRuntimeConfiguration'
+--     -   DescribeRuntimeConfiguration
 --
---     * 'DescribeEC2InstanceLimits'
+--     -   DescribeEC2InstanceLimits
 --
---     * 'DescribeFleetEvents'
+--     -   DescribeFleetEvents
 --
+-- -   UpdateFleetAttributes
 --
---
---     * 'UpdateFleetAttributes'
---
---     * 'StartFleetActions' or 'StopFleetActions'
+-- -   StartFleetActions or StopFleetActions
 module Network.AWS.GameLift.DescribeFleetPortSettings
   ( -- * Creating a Request
-    describeFleetPortSettings,
-    DescribeFleetPortSettings,
+    DescribeFleetPortSettings (..),
+    newDescribeFleetPortSettings,
 
     -- * Request Lenses
-    dfpsFleetId,
+    describeFleetPortSettings_fleetId,
 
     -- * Destructuring the Response
-    describeFleetPortSettingsResponse,
-    DescribeFleetPortSettingsResponse,
+    DescribeFleetPortSettingsResponse (..),
+    newDescribeFleetPortSettingsResponse,
 
     -- * Response Lenses
-    dfpsrrsInboundPermissions,
-    dfpsrrsResponseStatus,
+    describeFleetPortSettingsResponse_inboundPermissions,
+    describeFleetPortSettingsResponse_httpStatus,
   )
 where
 
 import Network.AWS.GameLift.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.GameLift.Types.IpPermission
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input for a request operation.
 --
---
---
--- /See:/ 'describeFleetPortSettings' smart constructor.
-newtype DescribeFleetPortSettings = DescribeFleetPortSettings'
-  { _dfpsFleetId ::
-      Text
+-- /See:/ 'newDescribeFleetPortSettings' smart constructor.
+data DescribeFleetPortSettings = DescribeFleetPortSettings'
+  { -- | A unique identifier for a fleet to retrieve port settings for. You can
+    -- use either the fleet ID or ARN value.
+    fleetId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeFleetPortSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeFleetPortSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dfpsFleetId' - A unique identifier for a fleet to retrieve port settings for. You can use either the fleet ID or ARN value.
-describeFleetPortSettings ::
-  -- | 'dfpsFleetId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'fleetId', 'describeFleetPortSettings_fleetId' - A unique identifier for a fleet to retrieve port settings for. You can
+-- use either the fleet ID or ARN value.
+newDescribeFleetPortSettings ::
+  -- | 'fleetId'
+  Prelude.Text ->
   DescribeFleetPortSettings
-describeFleetPortSettings pFleetId_ =
-  DescribeFleetPortSettings'
-    { _dfpsFleetId =
-        pFleetId_
-    }
+newDescribeFleetPortSettings pFleetId_ =
+  DescribeFleetPortSettings' {fleetId = pFleetId_}
 
--- | A unique identifier for a fleet to retrieve port settings for. You can use either the fleet ID or ARN value.
-dfpsFleetId :: Lens' DescribeFleetPortSettings Text
-dfpsFleetId = lens _dfpsFleetId (\s a -> s {_dfpsFleetId = a})
+-- | A unique identifier for a fleet to retrieve port settings for. You can
+-- use either the fleet ID or ARN value.
+describeFleetPortSettings_fleetId :: Lens.Lens' DescribeFleetPortSettings Prelude.Text
+describeFleetPortSettings_fleetId = Lens.lens (\DescribeFleetPortSettings' {fleetId} -> fleetId) (\s@DescribeFleetPortSettings' {} a -> s {fleetId = a} :: DescribeFleetPortSettings)
 
-instance AWSRequest DescribeFleetPortSettings where
+instance Prelude.AWSRequest DescribeFleetPortSettings where
   type
     Rs DescribeFleetPortSettings =
       DescribeFleetPortSettingsResponse
-  request = postJSON gameLift
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeFleetPortSettingsResponse'
-            <$> (x .?> "InboundPermissions" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "InboundPermissions"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeFleetPortSettings
+instance Prelude.Hashable DescribeFleetPortSettings
 
-instance NFData DescribeFleetPortSettings
+instance Prelude.NFData DescribeFleetPortSettings
 
-instance ToHeaders DescribeFleetPortSettings where
+instance Prelude.ToHeaders DescribeFleetPortSettings where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("GameLift.DescribeFleetPortSettings" :: ByteString),
+              Prelude.=# ( "GameLift.DescribeFleetPortSettings" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeFleetPortSettings where
+instance Prelude.ToJSON DescribeFleetPortSettings where
   toJSON DescribeFleetPortSettings' {..} =
-    object
-      (catMaybes [Just ("FleetId" .= _dfpsFleetId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("FleetId" Prelude..= fleetId)]
+      )
 
-instance ToPath DescribeFleetPortSettings where
-  toPath = const "/"
+instance Prelude.ToPath DescribeFleetPortSettings where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeFleetPortSettings where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeFleetPortSettings where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the returned data in response to a request operation.
 --
---
---
--- /See:/ 'describeFleetPortSettingsResponse' smart constructor.
+-- /See:/ 'newDescribeFleetPortSettingsResponse' smart constructor.
 data DescribeFleetPortSettingsResponse = DescribeFleetPortSettingsResponse'
-  { _dfpsrrsInboundPermissions ::
-      !( Maybe
-           [IPPermission]
-       ),
-    _dfpsrrsResponseStatus ::
-      !Int
+  { -- | The port settings for the requested fleet ID.
+    inboundPermissions :: Prelude.Maybe [IpPermission],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeFleetPortSettingsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeFleetPortSettingsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dfpsrrsInboundPermissions' - The port settings for the requested fleet ID.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dfpsrrsResponseStatus' - -- | The response status code.
-describeFleetPortSettingsResponse ::
-  -- | 'dfpsrrsResponseStatus'
-  Int ->
+-- 'inboundPermissions', 'describeFleetPortSettingsResponse_inboundPermissions' - The port settings for the requested fleet ID.
+--
+-- 'httpStatus', 'describeFleetPortSettingsResponse_httpStatus' - The response's http status code.
+newDescribeFleetPortSettingsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeFleetPortSettingsResponse
-describeFleetPortSettingsResponse pResponseStatus_ =
+newDescribeFleetPortSettingsResponse pHttpStatus_ =
   DescribeFleetPortSettingsResponse'
-    { _dfpsrrsInboundPermissions =
-        Nothing,
-      _dfpsrrsResponseStatus =
-        pResponseStatus_
+    { inboundPermissions =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The port settings for the requested fleet ID.
-dfpsrrsInboundPermissions :: Lens' DescribeFleetPortSettingsResponse [IPPermission]
-dfpsrrsInboundPermissions = lens _dfpsrrsInboundPermissions (\s a -> s {_dfpsrrsInboundPermissions = a}) . _Default . _Coerce
+describeFleetPortSettingsResponse_inboundPermissions :: Lens.Lens' DescribeFleetPortSettingsResponse (Prelude.Maybe [IpPermission])
+describeFleetPortSettingsResponse_inboundPermissions = Lens.lens (\DescribeFleetPortSettingsResponse' {inboundPermissions} -> inboundPermissions) (\s@DescribeFleetPortSettingsResponse' {} a -> s {inboundPermissions = a} :: DescribeFleetPortSettingsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dfpsrrsResponseStatus :: Lens' DescribeFleetPortSettingsResponse Int
-dfpsrrsResponseStatus = lens _dfpsrrsResponseStatus (\s a -> s {_dfpsrrsResponseStatus = a})
+-- | The response's http status code.
+describeFleetPortSettingsResponse_httpStatus :: Lens.Lens' DescribeFleetPortSettingsResponse Prelude.Int
+describeFleetPortSettingsResponse_httpStatus = Lens.lens (\DescribeFleetPortSettingsResponse' {httpStatus} -> httpStatus) (\s@DescribeFleetPortSettingsResponse' {} a -> s {httpStatus = a} :: DescribeFleetPortSettingsResponse)
 
-instance NFData DescribeFleetPortSettingsResponse
+instance
+  Prelude.NFData
+    DescribeFleetPortSettingsResponse

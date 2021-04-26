@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,8 +21,9 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a game session queue. Once a queue is successfully deleted, unfulfilled 'StartGameSessionPlacement' requests that reference the queue will fail. To delete a queue, specify the queue name.
---
+-- Deletes a game session queue. Once a queue is successfully deleted,
+-- unfulfilled StartGameSessionPlacement requests that reference the queue
+-- will fail. To delete a queue, specify the queue name.
 --
 -- __Learn more__
 --
@@ -26,138 +31,145 @@
 --
 -- __Related operations__
 --
---     * 'CreateGameSessionQueue'
+-- -   CreateGameSessionQueue
 --
---     * 'DescribeGameSessionQueues'
+-- -   DescribeGameSessionQueues
 --
---     * 'UpdateGameSessionQueue'
+-- -   UpdateGameSessionQueue
 --
---     * 'DeleteGameSessionQueue'
+-- -   DeleteGameSessionQueue
 module Network.AWS.GameLift.DeleteGameSessionQueue
   ( -- * Creating a Request
-    deleteGameSessionQueue,
-    DeleteGameSessionQueue,
+    DeleteGameSessionQueue (..),
+    newDeleteGameSessionQueue,
 
     -- * Request Lenses
-    dgsqName,
+    deleteGameSessionQueue_name,
 
     -- * Destructuring the Response
-    deleteGameSessionQueueResponse,
-    DeleteGameSessionQueueResponse,
+    DeleteGameSessionQueueResponse (..),
+    newDeleteGameSessionQueueResponse,
 
     -- * Response Lenses
-    drsResponseStatus,
+    deleteGameSessionQueueResponse_httpStatus,
   )
 where
 
 import Network.AWS.GameLift.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input for a request operation.
 --
---
---
--- /See:/ 'deleteGameSessionQueue' smart constructor.
-newtype DeleteGameSessionQueue = DeleteGameSessionQueue'
-  { _dgsqName ::
-      Text
+-- /See:/ 'newDeleteGameSessionQueue' smart constructor.
+data DeleteGameSessionQueue = DeleteGameSessionQueue'
+  { -- | A descriptive label that is associated with game session queue. Queue
+    -- names must be unique within each Region. You can use either the queue ID
+    -- or ARN value.
+    name :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteGameSessionQueue' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteGameSessionQueue' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dgsqName' - A descriptive label that is associated with game session queue. Queue names must be unique within each Region. You can use either the queue ID or ARN value.
-deleteGameSessionQueue ::
-  -- | 'dgsqName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'name', 'deleteGameSessionQueue_name' - A descriptive label that is associated with game session queue. Queue
+-- names must be unique within each Region. You can use either the queue ID
+-- or ARN value.
+newDeleteGameSessionQueue ::
+  -- | 'name'
+  Prelude.Text ->
   DeleteGameSessionQueue
-deleteGameSessionQueue pName_ =
-  DeleteGameSessionQueue' {_dgsqName = pName_}
+newDeleteGameSessionQueue pName_ =
+  DeleteGameSessionQueue' {name = pName_}
 
--- | A descriptive label that is associated with game session queue. Queue names must be unique within each Region. You can use either the queue ID or ARN value.
-dgsqName :: Lens' DeleteGameSessionQueue Text
-dgsqName = lens _dgsqName (\s a -> s {_dgsqName = a})
+-- | A descriptive label that is associated with game session queue. Queue
+-- names must be unique within each Region. You can use either the queue ID
+-- or ARN value.
+deleteGameSessionQueue_name :: Lens.Lens' DeleteGameSessionQueue Prelude.Text
+deleteGameSessionQueue_name = Lens.lens (\DeleteGameSessionQueue' {name} -> name) (\s@DeleteGameSessionQueue' {} a -> s {name = a} :: DeleteGameSessionQueue)
 
-instance AWSRequest DeleteGameSessionQueue where
+instance Prelude.AWSRequest DeleteGameSessionQueue where
   type
     Rs DeleteGameSessionQueue =
       DeleteGameSessionQueueResponse
-  request = postJSON gameLift
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           DeleteGameSessionQueueResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteGameSessionQueue
+instance Prelude.Hashable DeleteGameSessionQueue
 
-instance NFData DeleteGameSessionQueue
+instance Prelude.NFData DeleteGameSessionQueue
 
-instance ToHeaders DeleteGameSessionQueue where
+instance Prelude.ToHeaders DeleteGameSessionQueue where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("GameLift.DeleteGameSessionQueue" :: ByteString),
+              Prelude.=# ( "GameLift.DeleteGameSessionQueue" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteGameSessionQueue where
+instance Prelude.ToJSON DeleteGameSessionQueue where
   toJSON DeleteGameSessionQueue' {..} =
-    object (catMaybes [Just ("Name" .= _dgsqName)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("Name" Prelude..= name)]
+      )
 
-instance ToPath DeleteGameSessionQueue where
-  toPath = const "/"
+instance Prelude.ToPath DeleteGameSessionQueue where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteGameSessionQueue where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteGameSessionQueue where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteGameSessionQueueResponse' smart constructor.
-newtype DeleteGameSessionQueueResponse = DeleteGameSessionQueueResponse'
-  { _drsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteGameSessionQueueResponse' smart constructor.
+data DeleteGameSessionQueueResponse = DeleteGameSessionQueueResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteGameSessionQueueResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteGameSessionQueueResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drsResponseStatus' - -- | The response status code.
-deleteGameSessionQueueResponse ::
-  -- | 'drsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteGameSessionQueueResponse_httpStatus' - The response's http status code.
+newDeleteGameSessionQueueResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteGameSessionQueueResponse
-deleteGameSessionQueueResponse pResponseStatus_ =
+newDeleteGameSessionQueueResponse pHttpStatus_ =
   DeleteGameSessionQueueResponse'
-    { _drsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-drsResponseStatus :: Lens' DeleteGameSessionQueueResponse Int
-drsResponseStatus = lens _drsResponseStatus (\s a -> s {_drsResponseStatus = a})
+-- | The response's http status code.
+deleteGameSessionQueueResponse_httpStatus :: Lens.Lens' DeleteGameSessionQueueResponse Prelude.Int
+deleteGameSessionQueueResponse_httpStatus = Lens.lens (\DeleteGameSessionQueueResponse' {httpStatus} -> httpStatus) (\s@DeleteGameSessionQueueResponse' {} a -> s {httpStatus = a} :: DeleteGameSessionQueueResponse)
 
-instance NFData DeleteGameSessionQueueResponse
+instance
+  Prelude.NFData
+    DeleteGameSessionQueueResponse

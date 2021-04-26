@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,22 +21,31 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- __This operation is used with the Amazon GameLift FleetIQ solution and game server groups.__
+-- __This operation is used with the Amazon GameLift FleetIQ solution and
+-- game server groups.__
 --
+-- Terminates a game server group and permanently deletes the game server
+-- group record. You have several options for how these resources are
+-- impacted when deleting the game server group. Depending on the type of
+-- delete operation selected, this operation might affect these resources:
 --
--- Terminates a game server group and permanently deletes the game server group record. You have several options for how these resources are impacted when deleting the game server group. Depending on the type of delete operation selected, this operation might affect these resources:
+-- -   The game server group
 --
---     * The game server group
+-- -   The corresponding Auto Scaling group
 --
---     * The corresponding Auto Scaling group
+-- -   All game servers that are currently running in the group
 --
---     * All game servers that are currently running in the group
+-- To delete a game server group, identify the game server group to delete
+-- and specify the type of delete operation to initiate. Game server groups
+-- can only be deleted if they are in @ACTIVE@ or @ERROR@ status.
 --
---
---
--- To delete a game server group, identify the game server group to delete and specify the type of delete operation to initiate. Game server groups can only be deleted if they are in @ACTIVE@ or @ERROR@ status.
---
--- If the delete request is successful, a series of operations are kicked off. The game server group status is changed to @DELETE_SCHEDULED@ , which prevents new game servers from being registered and stops automatic scaling activity. Once all game servers in the game server group are deregistered, GameLift FleetIQ can begin deleting resources. If any of the delete operations fail, the game server group is placed in @ERROR@ status.
+-- If the delete request is successful, a series of operations are kicked
+-- off. The game server group status is changed to @DELETE_SCHEDULED@,
+-- which prevents new game servers from being registered and stops
+-- automatic scaling activity. Once all game servers in the game server
+-- group are deregistered, GameLift FleetIQ can begin deleting resources.
+-- If any of the delete operations fail, the game server group is placed in
+-- @ERROR@ status.
 --
 -- GameLift FleetIQ emits delete events to Amazon CloudWatch.
 --
@@ -42,174 +55,213 @@
 --
 -- __Related operations__
 --
---     * 'CreateGameServerGroup'
+-- -   CreateGameServerGroup
 --
---     * 'ListGameServerGroups'
+-- -   ListGameServerGroups
 --
---     * 'DescribeGameServerGroup'
+-- -   DescribeGameServerGroup
 --
---     * 'UpdateGameServerGroup'
+-- -   UpdateGameServerGroup
 --
---     * 'DeleteGameServerGroup'
+-- -   DeleteGameServerGroup
 --
---     * 'ResumeGameServerGroup'
+-- -   ResumeGameServerGroup
 --
---     * 'SuspendGameServerGroup'
+-- -   SuspendGameServerGroup
 --
---     * 'DescribeGameServerInstances'
+-- -   DescribeGameServerInstances
 module Network.AWS.GameLift.DeleteGameServerGroup
   ( -- * Creating a Request
-    deleteGameServerGroup,
-    DeleteGameServerGroup,
+    DeleteGameServerGroup (..),
+    newDeleteGameServerGroup,
 
     -- * Request Lenses
-    delDeleteOption,
-    delGameServerGroupName,
+    deleteGameServerGroup_deleteOption,
+    deleteGameServerGroup_gameServerGroupName,
 
     -- * Destructuring the Response
-    deleteGameServerGroupResponse,
-    DeleteGameServerGroupResponse,
+    DeleteGameServerGroupResponse (..),
+    newDeleteGameServerGroupResponse,
 
     -- * Response Lenses
-    dgsgrrsGameServerGroup,
-    dgsgrrsResponseStatus,
+    deleteGameServerGroupResponse_gameServerGroup,
+    deleteGameServerGroupResponse_httpStatus,
   )
 where
 
 import Network.AWS.GameLift.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.GameLift.Types.GameServerGroup
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteGameServerGroup' smart constructor.
+-- | /See:/ 'newDeleteGameServerGroup' smart constructor.
 data DeleteGameServerGroup = DeleteGameServerGroup'
-  { _delDeleteOption ::
-      !( Maybe
-           GameServerGroupDeleteOption
-       ),
-    _delGameServerGroupName ::
-      !Text
+  { -- | The type of delete to perform. Options include the following:
+    --
+    -- -   @SAFE_DELETE@ – (default) Terminates the game server group and EC2
+    --     Auto Scaling group only when it has no game servers that are in
+    --     @UTILIZED@ status.
+    --
+    -- -   @FORCE_DELETE@ – Terminates the game server group, including all
+    --     active game servers regardless of their utilization status, and the
+    --     EC2 Auto Scaling group.
+    --
+    -- -   @RETAIN@ – Does a safe delete of the game server group but retains
+    --     the EC2 Auto Scaling group as is.
+    deleteOption :: Prelude.Maybe GameServerGroupDeleteOption,
+    -- | A unique identifier for the game server group. Use either the
+    -- GameServerGroup name or ARN value.
+    gameServerGroupName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteGameServerGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteGameServerGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'delDeleteOption' - The type of delete to perform. Options include the following:     * @SAFE_DELETE@ – (default) Terminates the game server group and EC2 Auto Scaling group only when it has no game servers that are in @UTILIZED@ status.     * @FORCE_DELETE@ – Terminates the game server group, including all active game servers regardless of their utilization status, and the EC2 Auto Scaling group.      * @RETAIN@ – Does a safe delete of the game server group but retains the EC2 Auto Scaling group as is.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'delGameServerGroupName' - A unique identifier for the game server group. Use either the 'GameServerGroup' name or ARN value.
-deleteGameServerGroup ::
-  -- | 'delGameServerGroupName'
-  Text ->
+-- 'deleteOption', 'deleteGameServerGroup_deleteOption' - The type of delete to perform. Options include the following:
+--
+-- -   @SAFE_DELETE@ – (default) Terminates the game server group and EC2
+--     Auto Scaling group only when it has no game servers that are in
+--     @UTILIZED@ status.
+--
+-- -   @FORCE_DELETE@ – Terminates the game server group, including all
+--     active game servers regardless of their utilization status, and the
+--     EC2 Auto Scaling group.
+--
+-- -   @RETAIN@ – Does a safe delete of the game server group but retains
+--     the EC2 Auto Scaling group as is.
+--
+-- 'gameServerGroupName', 'deleteGameServerGroup_gameServerGroupName' - A unique identifier for the game server group. Use either the
+-- GameServerGroup name or ARN value.
+newDeleteGameServerGroup ::
+  -- | 'gameServerGroupName'
+  Prelude.Text ->
   DeleteGameServerGroup
-deleteGameServerGroup pGameServerGroupName_ =
+newDeleteGameServerGroup pGameServerGroupName_ =
   DeleteGameServerGroup'
-    { _delDeleteOption = Nothing,
-      _delGameServerGroupName = pGameServerGroupName_
+    { deleteOption =
+        Prelude.Nothing,
+      gameServerGroupName = pGameServerGroupName_
     }
 
--- | The type of delete to perform. Options include the following:     * @SAFE_DELETE@ – (default) Terminates the game server group and EC2 Auto Scaling group only when it has no game servers that are in @UTILIZED@ status.     * @FORCE_DELETE@ – Terminates the game server group, including all active game servers regardless of their utilization status, and the EC2 Auto Scaling group.      * @RETAIN@ – Does a safe delete of the game server group but retains the EC2 Auto Scaling group as is.
-delDeleteOption :: Lens' DeleteGameServerGroup (Maybe GameServerGroupDeleteOption)
-delDeleteOption = lens _delDeleteOption (\s a -> s {_delDeleteOption = a})
+-- | The type of delete to perform. Options include the following:
+--
+-- -   @SAFE_DELETE@ – (default) Terminates the game server group and EC2
+--     Auto Scaling group only when it has no game servers that are in
+--     @UTILIZED@ status.
+--
+-- -   @FORCE_DELETE@ – Terminates the game server group, including all
+--     active game servers regardless of their utilization status, and the
+--     EC2 Auto Scaling group.
+--
+-- -   @RETAIN@ – Does a safe delete of the game server group but retains
+--     the EC2 Auto Scaling group as is.
+deleteGameServerGroup_deleteOption :: Lens.Lens' DeleteGameServerGroup (Prelude.Maybe GameServerGroupDeleteOption)
+deleteGameServerGroup_deleteOption = Lens.lens (\DeleteGameServerGroup' {deleteOption} -> deleteOption) (\s@DeleteGameServerGroup' {} a -> s {deleteOption = a} :: DeleteGameServerGroup)
 
--- | A unique identifier for the game server group. Use either the 'GameServerGroup' name or ARN value.
-delGameServerGroupName :: Lens' DeleteGameServerGroup Text
-delGameServerGroupName = lens _delGameServerGroupName (\s a -> s {_delGameServerGroupName = a})
+-- | A unique identifier for the game server group. Use either the
+-- GameServerGroup name or ARN value.
+deleteGameServerGroup_gameServerGroupName :: Lens.Lens' DeleteGameServerGroup Prelude.Text
+deleteGameServerGroup_gameServerGroupName = Lens.lens (\DeleteGameServerGroup' {gameServerGroupName} -> gameServerGroupName) (\s@DeleteGameServerGroup' {} a -> s {gameServerGroupName = a} :: DeleteGameServerGroup)
 
-instance AWSRequest DeleteGameServerGroup where
+instance Prelude.AWSRequest DeleteGameServerGroup where
   type
     Rs DeleteGameServerGroup =
       DeleteGameServerGroupResponse
-  request = postJSON gameLift
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteGameServerGroupResponse'
-            <$> (x .?> "GameServerGroup") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "GameServerGroup")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteGameServerGroup
+instance Prelude.Hashable DeleteGameServerGroup
 
-instance NFData DeleteGameServerGroup
+instance Prelude.NFData DeleteGameServerGroup
 
-instance ToHeaders DeleteGameServerGroup where
+instance Prelude.ToHeaders DeleteGameServerGroup where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("GameLift.DeleteGameServerGroup" :: ByteString),
+              Prelude.=# ( "GameLift.DeleteGameServerGroup" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteGameServerGroup where
+instance Prelude.ToJSON DeleteGameServerGroup where
   toJSON DeleteGameServerGroup' {..} =
-    object
-      ( catMaybes
-          [ ("DeleteOption" .=) <$> _delDeleteOption,
-            Just
-              ("GameServerGroupName" .= _delGameServerGroupName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("DeleteOption" Prelude..=)
+              Prelude.<$> deleteOption,
+            Prelude.Just
+              ( "GameServerGroupName"
+                  Prelude..= gameServerGroupName
+              )
           ]
       )
 
-instance ToPath DeleteGameServerGroup where
-  toPath = const "/"
+instance Prelude.ToPath DeleteGameServerGroup where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteGameServerGroup where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteGameServerGroup where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteGameServerGroupResponse' smart constructor.
+-- | /See:/ 'newDeleteGameServerGroupResponse' smart constructor.
 data DeleteGameServerGroupResponse = DeleteGameServerGroupResponse'
-  { _dgsgrrsGameServerGroup ::
-      !( Maybe
-           GameServerGroup
-       ),
-    _dgsgrrsResponseStatus ::
-      !Int
+  { -- | An object that describes the deleted game server group resource, with
+    -- status updated to @DELETE_SCHEDULED@.
+    gameServerGroup :: Prelude.Maybe GameServerGroup,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteGameServerGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteGameServerGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dgsgrrsGameServerGroup' - An object that describes the deleted game server group resource, with status updated to @DELETE_SCHEDULED@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dgsgrrsResponseStatus' - -- | The response status code.
-deleteGameServerGroupResponse ::
-  -- | 'dgsgrrsResponseStatus'
-  Int ->
+-- 'gameServerGroup', 'deleteGameServerGroupResponse_gameServerGroup' - An object that describes the deleted game server group resource, with
+-- status updated to @DELETE_SCHEDULED@.
+--
+-- 'httpStatus', 'deleteGameServerGroupResponse_httpStatus' - The response's http status code.
+newDeleteGameServerGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteGameServerGroupResponse
-deleteGameServerGroupResponse pResponseStatus_ =
+newDeleteGameServerGroupResponse pHttpStatus_ =
   DeleteGameServerGroupResponse'
-    { _dgsgrrsGameServerGroup =
-        Nothing,
-      _dgsgrrsResponseStatus = pResponseStatus_
+    { gameServerGroup =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An object that describes the deleted game server group resource, with status updated to @DELETE_SCHEDULED@ .
-dgsgrrsGameServerGroup :: Lens' DeleteGameServerGroupResponse (Maybe GameServerGroup)
-dgsgrrsGameServerGroup = lens _dgsgrrsGameServerGroup (\s a -> s {_dgsgrrsGameServerGroup = a})
+-- | An object that describes the deleted game server group resource, with
+-- status updated to @DELETE_SCHEDULED@.
+deleteGameServerGroupResponse_gameServerGroup :: Lens.Lens' DeleteGameServerGroupResponse (Prelude.Maybe GameServerGroup)
+deleteGameServerGroupResponse_gameServerGroup = Lens.lens (\DeleteGameServerGroupResponse' {gameServerGroup} -> gameServerGroup) (\s@DeleteGameServerGroupResponse' {} a -> s {gameServerGroup = a} :: DeleteGameServerGroupResponse)
 
--- | -- | The response status code.
-dgsgrrsResponseStatus :: Lens' DeleteGameServerGroupResponse Int
-dgsgrrsResponseStatus = lens _dgsgrrsResponseStatus (\s a -> s {_dgsgrrsResponseStatus = a})
+-- | The response's http status code.
+deleteGameServerGroupResponse_httpStatus :: Lens.Lens' DeleteGameServerGroupResponse Prelude.Int
+deleteGameServerGroupResponse_httpStatus = Lens.lens (\DeleteGameServerGroupResponse' {httpStatus} -> httpStatus) (\s@DeleteGameServerGroupResponse' {} a -> s {httpStatus = a} :: DeleteGameServerGroupResponse)
 
-instance NFData DeleteGameServerGroupResponse
+instance Prelude.NFData DeleteGameServerGroupResponse

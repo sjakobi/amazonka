@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,12 +21,25 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Requests remote access to a fleet instance. Remote access is useful for debugging, gathering benchmarking data, or observing activity in real time.
+-- Requests remote access to a fleet instance. Remote access is useful for
+-- debugging, gathering benchmarking data, or observing activity in real
+-- time.
 --
+-- To remotely access an instance, you need credentials that match the
+-- operating system of the instance. For a Windows instance, Amazon
+-- GameLift returns a user name and password as strings for use with a
+-- Windows Remote Desktop client. For a Linux instance, Amazon GameLift
+-- returns a user name and RSA private key, also as strings, for use with
+-- an SSH client. The private key must be saved in the proper format to a
+-- @.pem@ file before using. If you\'re making this request using the AWS
+-- CLI, saving the secret can be handled as part of the GetInstanceAccess
+-- request, as shown in one of the examples for this operation.
 --
--- To remotely access an instance, you need credentials that match the operating system of the instance. For a Windows instance, Amazon GameLift returns a user name and password as strings for use with a Windows Remote Desktop client. For a Linux instance, Amazon GameLift returns a user name and RSA private key, also as strings, for use with an SSH client. The private key must be saved in the proper format to a @.pem@ file before using. If you're making this request using the AWS CLI, saving the secret can be handled as part of the GetInstanceAccess request, as shown in one of the examples for this operation.
---
--- To request access to a specific instance, specify the IDs of both the instance and the fleet it belongs to. You can retrieve a fleet's instance IDs by calling 'DescribeInstances' . If successful, an 'InstanceAccess' object is returned that contains the instance's IP address and a set of credentials.
+-- To request access to a specific instance, specify the IDs of both the
+-- instance and the fleet it belongs to. You can retrieve a fleet\'s
+-- instance IDs by calling DescribeInstances. If successful, an
+-- InstanceAccess object is returned that contains the instance\'s IP
+-- address and a set of credentials.
 --
 -- __Learn more__
 --
@@ -32,152 +49,177 @@
 --
 -- __Related operations__
 --
---     * 'DescribeInstances'
+-- -   DescribeInstances
 --
---     * 'GetInstanceAccess'
+-- -   GetInstanceAccess
 module Network.AWS.GameLift.GetInstanceAccess
   ( -- * Creating a Request
-    getInstanceAccess,
-    GetInstanceAccess,
+    GetInstanceAccess (..),
+    newGetInstanceAccess,
 
     -- * Request Lenses
-    giaFleetId,
-    giaInstanceId,
+    getInstanceAccess_fleetId,
+    getInstanceAccess_instanceId,
 
     -- * Destructuring the Response
-    getInstanceAccessResponse,
-    GetInstanceAccessResponse,
+    GetInstanceAccessResponse (..),
+    newGetInstanceAccessResponse,
 
     -- * Response Lenses
-    giarrsInstanceAccess,
-    giarrsResponseStatus,
+    getInstanceAccessResponse_instanceAccess,
+    getInstanceAccessResponse_httpStatus,
   )
 where
 
 import Network.AWS.GameLift.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.GameLift.Types.InstanceAccess
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input for a request operation.
 --
---
---
--- /See:/ 'getInstanceAccess' smart constructor.
+-- /See:/ 'newGetInstanceAccess' smart constructor.
 data GetInstanceAccess = GetInstanceAccess'
-  { _giaFleetId ::
-      !Text,
-    _giaInstanceId :: !Text
+  { -- | A unique identifier for a fleet that contains the instance you want
+    -- access to. You can use either the fleet ID or ARN value. The fleet can
+    -- be in any of the following statuses: @ACTIVATING@, @ACTIVE@, or @ERROR@.
+    -- Fleets with an @ERROR@ status may be accessible for a short time before
+    -- they are deleted.
+    fleetId :: Prelude.Text,
+    -- | A unique identifier for an instance you want to get access to. You can
+    -- access an instance in any status.
+    instanceId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetInstanceAccess' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetInstanceAccess' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'giaFleetId' - A unique identifier for a fleet that contains the instance you want access to. You can use either the fleet ID or ARN value. The fleet can be in any of the following statuses: @ACTIVATING@ , @ACTIVE@ , or @ERROR@ . Fleets with an @ERROR@ status may be accessible for a short time before they are deleted.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'giaInstanceId' - A unique identifier for an instance you want to get access to. You can access an instance in any status.
-getInstanceAccess ::
-  -- | 'giaFleetId'
-  Text ->
-  -- | 'giaInstanceId'
-  Text ->
+-- 'fleetId', 'getInstanceAccess_fleetId' - A unique identifier for a fleet that contains the instance you want
+-- access to. You can use either the fleet ID or ARN value. The fleet can
+-- be in any of the following statuses: @ACTIVATING@, @ACTIVE@, or @ERROR@.
+-- Fleets with an @ERROR@ status may be accessible for a short time before
+-- they are deleted.
+--
+-- 'instanceId', 'getInstanceAccess_instanceId' - A unique identifier for an instance you want to get access to. You can
+-- access an instance in any status.
+newGetInstanceAccess ::
+  -- | 'fleetId'
+  Prelude.Text ->
+  -- | 'instanceId'
+  Prelude.Text ->
   GetInstanceAccess
-getInstanceAccess pFleetId_ pInstanceId_ =
+newGetInstanceAccess pFleetId_ pInstanceId_ =
   GetInstanceAccess'
-    { _giaFleetId = pFleetId_,
-      _giaInstanceId = pInstanceId_
+    { fleetId = pFleetId_,
+      instanceId = pInstanceId_
     }
 
--- | A unique identifier for a fleet that contains the instance you want access to. You can use either the fleet ID or ARN value. The fleet can be in any of the following statuses: @ACTIVATING@ , @ACTIVE@ , or @ERROR@ . Fleets with an @ERROR@ status may be accessible for a short time before they are deleted.
-giaFleetId :: Lens' GetInstanceAccess Text
-giaFleetId = lens _giaFleetId (\s a -> s {_giaFleetId = a})
+-- | A unique identifier for a fleet that contains the instance you want
+-- access to. You can use either the fleet ID or ARN value. The fleet can
+-- be in any of the following statuses: @ACTIVATING@, @ACTIVE@, or @ERROR@.
+-- Fleets with an @ERROR@ status may be accessible for a short time before
+-- they are deleted.
+getInstanceAccess_fleetId :: Lens.Lens' GetInstanceAccess Prelude.Text
+getInstanceAccess_fleetId = Lens.lens (\GetInstanceAccess' {fleetId} -> fleetId) (\s@GetInstanceAccess' {} a -> s {fleetId = a} :: GetInstanceAccess)
 
--- | A unique identifier for an instance you want to get access to. You can access an instance in any status.
-giaInstanceId :: Lens' GetInstanceAccess Text
-giaInstanceId = lens _giaInstanceId (\s a -> s {_giaInstanceId = a})
+-- | A unique identifier for an instance you want to get access to. You can
+-- access an instance in any status.
+getInstanceAccess_instanceId :: Lens.Lens' GetInstanceAccess Prelude.Text
+getInstanceAccess_instanceId = Lens.lens (\GetInstanceAccess' {instanceId} -> instanceId) (\s@GetInstanceAccess' {} a -> s {instanceId = a} :: GetInstanceAccess)
 
-instance AWSRequest GetInstanceAccess where
+instance Prelude.AWSRequest GetInstanceAccess where
   type Rs GetInstanceAccess = GetInstanceAccessResponse
-  request = postJSON gameLift
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetInstanceAccessResponse'
-            <$> (x .?> "InstanceAccess") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "InstanceAccess")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetInstanceAccess
+instance Prelude.Hashable GetInstanceAccess
 
-instance NFData GetInstanceAccess
+instance Prelude.NFData GetInstanceAccess
 
-instance ToHeaders GetInstanceAccess where
+instance Prelude.ToHeaders GetInstanceAccess where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("GameLift.GetInstanceAccess" :: ByteString),
+              Prelude.=# ("GameLift.GetInstanceAccess" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetInstanceAccess where
+instance Prelude.ToJSON GetInstanceAccess where
   toJSON GetInstanceAccess' {..} =
-    object
-      ( catMaybes
-          [ Just ("FleetId" .= _giaFleetId),
-            Just ("InstanceId" .= _giaInstanceId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("FleetId" Prelude..= fleetId),
+            Prelude.Just ("InstanceId" Prelude..= instanceId)
           ]
       )
 
-instance ToPath GetInstanceAccess where
-  toPath = const "/"
+instance Prelude.ToPath GetInstanceAccess where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetInstanceAccess where
-  toQuery = const mempty
+instance Prelude.ToQuery GetInstanceAccess where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the returned data in response to a request operation.
 --
---
---
--- /See:/ 'getInstanceAccessResponse' smart constructor.
+-- /See:/ 'newGetInstanceAccessResponse' smart constructor.
 data GetInstanceAccessResponse = GetInstanceAccessResponse'
-  { _giarrsInstanceAccess ::
-      !( Maybe
-           InstanceAccess
-       ),
-    _giarrsResponseStatus ::
-      !Int
+  { -- | The connection information for a fleet instance, including IP address
+    -- and access credentials.
+    instanceAccess :: Prelude.Maybe InstanceAccess,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetInstanceAccessResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetInstanceAccessResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'giarrsInstanceAccess' - The connection information for a fleet instance, including IP address and access credentials.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'giarrsResponseStatus' - -- | The response status code.
-getInstanceAccessResponse ::
-  -- | 'giarrsResponseStatus'
-  Int ->
+-- 'instanceAccess', 'getInstanceAccessResponse_instanceAccess' - The connection information for a fleet instance, including IP address
+-- and access credentials.
+--
+-- 'httpStatus', 'getInstanceAccessResponse_httpStatus' - The response's http status code.
+newGetInstanceAccessResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetInstanceAccessResponse
-getInstanceAccessResponse pResponseStatus_ =
+newGetInstanceAccessResponse pHttpStatus_ =
   GetInstanceAccessResponse'
-    { _giarrsInstanceAccess =
-        Nothing,
-      _giarrsResponseStatus = pResponseStatus_
+    { instanceAccess =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The connection information for a fleet instance, including IP address and access credentials.
-giarrsInstanceAccess :: Lens' GetInstanceAccessResponse (Maybe InstanceAccess)
-giarrsInstanceAccess = lens _giarrsInstanceAccess (\s a -> s {_giarrsInstanceAccess = a})
+-- | The connection information for a fleet instance, including IP address
+-- and access credentials.
+getInstanceAccessResponse_instanceAccess :: Lens.Lens' GetInstanceAccessResponse (Prelude.Maybe InstanceAccess)
+getInstanceAccessResponse_instanceAccess = Lens.lens (\GetInstanceAccessResponse' {instanceAccess} -> instanceAccess) (\s@GetInstanceAccessResponse' {} a -> s {instanceAccess = a} :: GetInstanceAccessResponse)
 
--- | -- | The response status code.
-giarrsResponseStatus :: Lens' GetInstanceAccessResponse Int
-giarrsResponseStatus = lens _giarrsResponseStatus (\s a -> s {_giarrsResponseStatus = a})
+-- | The response's http status code.
+getInstanceAccessResponse_httpStatus :: Lens.Lens' GetInstanceAccessResponse Prelude.Int
+getInstanceAccessResponse_httpStatus = Lens.lens (\GetInstanceAccessResponse' {httpStatus} -> httpStatus) (\s@GetInstanceAccessResponse' {} a -> s {httpStatus = a} :: GetInstanceAccessResponse)
 
-instance NFData GetInstanceAccessResponse
+instance Prelude.NFData GetInstanceAccessResponse

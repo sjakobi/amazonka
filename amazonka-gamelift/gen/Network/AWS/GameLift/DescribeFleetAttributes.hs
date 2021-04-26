@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,10 +21,19 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves core properties, including configuration, status, and metadata, for a fleet.
+-- Retrieves core properties, including configuration, status, and
+-- metadata, for a fleet.
 --
+-- To get attributes for one or more fleets, provide a list of fleet IDs or
+-- fleet ARNs. To get attributes for all fleets, do not specify a fleet
+-- identifier. When requesting attributes for multiple fleets, use the
+-- pagination parameters to retrieve results as a set of sequential pages.
+-- If successful, a FleetAttributes object is returned for each fleet
+-- requested, unless the fleet identifier is not found.
 --
--- To get attributes for one or more fleets, provide a list of fleet IDs or fleet ARNs. To get attributes for all fleets, do not specify a fleet identifier. When requesting attributes for multiple fleets, use the pagination parameters to retrieve results as a set of sequential pages. If successful, a 'FleetAttributes' object is returned for each fleet requested, unless the fleet identifier is not found.
+-- Some API operations may limit the number of fleet IDs allowed in one
+-- request. If a request exceeds this limit, the request fails and the
+-- error message includes the maximum allowed number.
 --
 -- __Learn more__
 --
@@ -28,227 +41,275 @@
 --
 -- __Related operations__
 --
---     * 'CreateFleet'
+-- -   CreateFleet
 --
---     * 'ListFleets'
+-- -   ListFleets
 --
---     * 'DeleteFleet'
+-- -   DeleteFleet
 --
---     * Describe fleets:
+-- -   Describe fleets:
 --
---     * 'DescribeFleetAttributes'
+--     -   DescribeFleetAttributes
 --
---     * 'DescribeFleetCapacity'
+--     -   DescribeFleetCapacity
 --
---     * 'DescribeFleetPortSettings'
+--     -   DescribeFleetPortSettings
 --
---     * 'DescribeFleetUtilization'
+--     -   DescribeFleetUtilization
 --
---     * 'DescribeRuntimeConfiguration'
+--     -   DescribeRuntimeConfiguration
 --
---     * 'DescribeEC2InstanceLimits'
+--     -   DescribeEC2InstanceLimits
 --
---     * 'DescribeFleetEvents'
+--     -   DescribeFleetEvents
 --
+-- -   UpdateFleetAttributes
 --
---
---     * 'UpdateFleetAttributes'
---
---     * 'StartFleetActions' or 'StopFleetActions'
---
---
---
+-- -   StartFleetActions or StopFleetActions
 --
 -- This operation returns paginated results.
 module Network.AWS.GameLift.DescribeFleetAttributes
   ( -- * Creating a Request
-    describeFleetAttributes,
-    DescribeFleetAttributes,
+    DescribeFleetAttributes (..),
+    newDescribeFleetAttributes,
 
     -- * Request Lenses
-    dfaNextToken,
-    dfaFleetIds,
-    dfaLimit,
+    describeFleetAttributes_nextToken,
+    describeFleetAttributes_fleetIds,
+    describeFleetAttributes_limit,
 
     -- * Destructuring the Response
-    describeFleetAttributesResponse,
-    DescribeFleetAttributesResponse,
+    DescribeFleetAttributesResponse (..),
+    newDescribeFleetAttributesResponse,
 
     -- * Response Lenses
-    dfarrsNextToken,
-    dfarrsFleetAttributes,
-    dfarrsResponseStatus,
+    describeFleetAttributesResponse_nextToken,
+    describeFleetAttributesResponse_fleetAttributes,
+    describeFleetAttributesResponse_httpStatus,
   )
 where
 
 import Network.AWS.GameLift.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.GameLift.Types.FleetAttributes
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input for a request operation.
 --
---
---
--- /See:/ 'describeFleetAttributes' smart constructor.
+-- /See:/ 'newDescribeFleetAttributes' smart constructor.
 data DescribeFleetAttributes = DescribeFleetAttributes'
-  { _dfaNextToken ::
-      !(Maybe Text),
-    _dfaFleetIds ::
-      !(Maybe (List1 Text)),
-    _dfaLimit ::
-      !(Maybe Nat)
+  { -- | Token that indicates the start of the next sequential page of results.
+    -- Use the token that is returned with a previous call to this operation.
+    -- To start at the beginning of the result set, do not specify a value.
+    -- This parameter is ignored when the request specifies one or a list of
+    -- fleet IDs.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of unique fleet identifiers to retrieve attributes for. You can
+    -- use either the fleet ID or ARN value. To retrieve attributes for all
+    -- current fleets, do not include this parameter. If the list of fleet
+    -- identifiers includes fleets that don\'t currently exist, the request
+    -- succeeds but no attributes for that fleet are returned.
+    fleetIds :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | The maximum number of results to return. Use this parameter with
+    -- @NextToken@ to get results as a set of sequential pages. This parameter
+    -- is ignored when the request specifies one or a list of fleet IDs.
+    limit :: Prelude.Maybe Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeFleetAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeFleetAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dfaNextToken' - Token that indicates the start of the next sequential page of results. Use the token that is returned with a previous call to this operation. To start at the beginning of the result set, do not specify a value. This parameter is ignored when the request specifies one or a list of fleet IDs.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dfaFleetIds' - A list of unique fleet identifiers to retrieve attributes for. You can use either the fleet ID or ARN value. To retrieve attributes for all current fleets, do not include this parameter. If the list of fleet identifiers includes fleets that don't currently exist, the request succeeds but no attributes for that fleet are returned.
+-- 'nextToken', 'describeFleetAttributes_nextToken' - Token that indicates the start of the next sequential page of results.
+-- Use the token that is returned with a previous call to this operation.
+-- To start at the beginning of the result set, do not specify a value.
+-- This parameter is ignored when the request specifies one or a list of
+-- fleet IDs.
 --
--- * 'dfaLimit' - The maximum number of results to return. Use this parameter with @NextToken@ to get results as a set of sequential pages. This parameter is ignored when the request specifies one or a list of fleet IDs.
-describeFleetAttributes ::
+-- 'fleetIds', 'describeFleetAttributes_fleetIds' - A list of unique fleet identifiers to retrieve attributes for. You can
+-- use either the fleet ID or ARN value. To retrieve attributes for all
+-- current fleets, do not include this parameter. If the list of fleet
+-- identifiers includes fleets that don\'t currently exist, the request
+-- succeeds but no attributes for that fleet are returned.
+--
+-- 'limit', 'describeFleetAttributes_limit' - The maximum number of results to return. Use this parameter with
+-- @NextToken@ to get results as a set of sequential pages. This parameter
+-- is ignored when the request specifies one or a list of fleet IDs.
+newDescribeFleetAttributes ::
   DescribeFleetAttributes
-describeFleetAttributes =
+newDescribeFleetAttributes =
   DescribeFleetAttributes'
-    { _dfaNextToken = Nothing,
-      _dfaFleetIds = Nothing,
-      _dfaLimit = Nothing
+    { nextToken =
+        Prelude.Nothing,
+      fleetIds = Prelude.Nothing,
+      limit = Prelude.Nothing
     }
 
--- | Token that indicates the start of the next sequential page of results. Use the token that is returned with a previous call to this operation. To start at the beginning of the result set, do not specify a value. This parameter is ignored when the request specifies one or a list of fleet IDs.
-dfaNextToken :: Lens' DescribeFleetAttributes (Maybe Text)
-dfaNextToken = lens _dfaNextToken (\s a -> s {_dfaNextToken = a})
+-- | Token that indicates the start of the next sequential page of results.
+-- Use the token that is returned with a previous call to this operation.
+-- To start at the beginning of the result set, do not specify a value.
+-- This parameter is ignored when the request specifies one or a list of
+-- fleet IDs.
+describeFleetAttributes_nextToken :: Lens.Lens' DescribeFleetAttributes (Prelude.Maybe Prelude.Text)
+describeFleetAttributes_nextToken = Lens.lens (\DescribeFleetAttributes' {nextToken} -> nextToken) (\s@DescribeFleetAttributes' {} a -> s {nextToken = a} :: DescribeFleetAttributes)
 
--- | A list of unique fleet identifiers to retrieve attributes for. You can use either the fleet ID or ARN value. To retrieve attributes for all current fleets, do not include this parameter. If the list of fleet identifiers includes fleets that don't currently exist, the request succeeds but no attributes for that fleet are returned.
-dfaFleetIds :: Lens' DescribeFleetAttributes (Maybe (NonEmpty Text))
-dfaFleetIds = lens _dfaFleetIds (\s a -> s {_dfaFleetIds = a}) . mapping _List1
+-- | A list of unique fleet identifiers to retrieve attributes for. You can
+-- use either the fleet ID or ARN value. To retrieve attributes for all
+-- current fleets, do not include this parameter. If the list of fleet
+-- identifiers includes fleets that don\'t currently exist, the request
+-- succeeds but no attributes for that fleet are returned.
+describeFleetAttributes_fleetIds :: Lens.Lens' DescribeFleetAttributes (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+describeFleetAttributes_fleetIds = Lens.lens (\DescribeFleetAttributes' {fleetIds} -> fleetIds) (\s@DescribeFleetAttributes' {} a -> s {fleetIds = a} :: DescribeFleetAttributes) Prelude.. Lens.mapping Prelude._List1
 
--- | The maximum number of results to return. Use this parameter with @NextToken@ to get results as a set of sequential pages. This parameter is ignored when the request specifies one or a list of fleet IDs.
-dfaLimit :: Lens' DescribeFleetAttributes (Maybe Natural)
-dfaLimit = lens _dfaLimit (\s a -> s {_dfaLimit = a}) . mapping _Nat
+-- | The maximum number of results to return. Use this parameter with
+-- @NextToken@ to get results as a set of sequential pages. This parameter
+-- is ignored when the request specifies one or a list of fleet IDs.
+describeFleetAttributes_limit :: Lens.Lens' DescribeFleetAttributes (Prelude.Maybe Prelude.Natural)
+describeFleetAttributes_limit = Lens.lens (\DescribeFleetAttributes' {limit} -> limit) (\s@DescribeFleetAttributes' {} a -> s {limit = a} :: DescribeFleetAttributes) Prelude.. Lens.mapping Prelude._Nat
 
-instance AWSPager DescribeFleetAttributes where
+instance Pager.AWSPager DescribeFleetAttributes where
   page rq rs
-    | stop (rs ^. dfarrsNextToken) = Nothing
-    | stop (rs ^. dfarrsFleetAttributes) = Nothing
-    | otherwise =
-      Just $ rq & dfaNextToken .~ rs ^. dfarrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeFleetAttributesResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeFleetAttributesResponse_fleetAttributes
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeFleetAttributes_nextToken
+          Lens..~ rs
+          Lens.^? describeFleetAttributesResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeFleetAttributes where
+instance Prelude.AWSRequest DescribeFleetAttributes where
   type
     Rs DescribeFleetAttributes =
       DescribeFleetAttributesResponse
-  request = postJSON gameLift
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeFleetAttributesResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "FleetAttributes" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "FleetAttributes"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeFleetAttributes
+instance Prelude.Hashable DescribeFleetAttributes
 
-instance NFData DescribeFleetAttributes
+instance Prelude.NFData DescribeFleetAttributes
 
-instance ToHeaders DescribeFleetAttributes where
+instance Prelude.ToHeaders DescribeFleetAttributes where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("GameLift.DescribeFleetAttributes" :: ByteString),
+              Prelude.=# ( "GameLift.DescribeFleetAttributes" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeFleetAttributes where
+instance Prelude.ToJSON DescribeFleetAttributes where
   toJSON DescribeFleetAttributes' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _dfaNextToken,
-            ("FleetIds" .=) <$> _dfaFleetIds,
-            ("Limit" .=) <$> _dfaLimit
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("FleetIds" Prelude..=) Prelude.<$> fleetIds,
+            ("Limit" Prelude..=) Prelude.<$> limit
           ]
       )
 
-instance ToPath DescribeFleetAttributes where
-  toPath = const "/"
+instance Prelude.ToPath DescribeFleetAttributes where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeFleetAttributes where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeFleetAttributes where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the returned data in response to a request operation.
 --
---
---
--- /See:/ 'describeFleetAttributesResponse' smart constructor.
+-- /See:/ 'newDescribeFleetAttributesResponse' smart constructor.
 data DescribeFleetAttributesResponse = DescribeFleetAttributesResponse'
-  { _dfarrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dfarrsFleetAttributes ::
-      !( Maybe
-           [FleetAttributes]
-       ),
-    _dfarrsResponseStatus ::
-      !Int
+  { -- | Token that indicates where to resume retrieving results on the next call
+    -- to this operation. If no token is returned, these results represent the
+    -- end of the list.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A collection of objects containing attribute metadata for each requested
+    -- fleet ID. Attribute objects are returned only for fleets that currently
+    -- exist.
+    fleetAttributes :: Prelude.Maybe [FleetAttributes],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeFleetAttributesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeFleetAttributesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dfarrsNextToken' - Token that indicates where to resume retrieving results on the next call to this operation. If no token is returned, these results represent the end of the list.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dfarrsFleetAttributes' - A collection of objects containing attribute metadata for each requested fleet ID. Attribute objects are returned only for fleets that currently exist.
+-- 'nextToken', 'describeFleetAttributesResponse_nextToken' - Token that indicates where to resume retrieving results on the next call
+-- to this operation. If no token is returned, these results represent the
+-- end of the list.
 --
--- * 'dfarrsResponseStatus' - -- | The response status code.
-describeFleetAttributesResponse ::
-  -- | 'dfarrsResponseStatus'
-  Int ->
+-- 'fleetAttributes', 'describeFleetAttributesResponse_fleetAttributes' - A collection of objects containing attribute metadata for each requested
+-- fleet ID. Attribute objects are returned only for fleets that currently
+-- exist.
+--
+-- 'httpStatus', 'describeFleetAttributesResponse_httpStatus' - The response's http status code.
+newDescribeFleetAttributesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeFleetAttributesResponse
-describeFleetAttributesResponse pResponseStatus_ =
+newDescribeFleetAttributesResponse pHttpStatus_ =
   DescribeFleetAttributesResponse'
-    { _dfarrsNextToken =
-        Nothing,
-      _dfarrsFleetAttributes = Nothing,
-      _dfarrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      fleetAttributes = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Token that indicates where to resume retrieving results on the next call to this operation. If no token is returned, these results represent the end of the list.
-dfarrsNextToken :: Lens' DescribeFleetAttributesResponse (Maybe Text)
-dfarrsNextToken = lens _dfarrsNextToken (\s a -> s {_dfarrsNextToken = a})
+-- | Token that indicates where to resume retrieving results on the next call
+-- to this operation. If no token is returned, these results represent the
+-- end of the list.
+describeFleetAttributesResponse_nextToken :: Lens.Lens' DescribeFleetAttributesResponse (Prelude.Maybe Prelude.Text)
+describeFleetAttributesResponse_nextToken = Lens.lens (\DescribeFleetAttributesResponse' {nextToken} -> nextToken) (\s@DescribeFleetAttributesResponse' {} a -> s {nextToken = a} :: DescribeFleetAttributesResponse)
 
--- | A collection of objects containing attribute metadata for each requested fleet ID. Attribute objects are returned only for fleets that currently exist.
-dfarrsFleetAttributes :: Lens' DescribeFleetAttributesResponse [FleetAttributes]
-dfarrsFleetAttributes = lens _dfarrsFleetAttributes (\s a -> s {_dfarrsFleetAttributes = a}) . _Default . _Coerce
+-- | A collection of objects containing attribute metadata for each requested
+-- fleet ID. Attribute objects are returned only for fleets that currently
+-- exist.
+describeFleetAttributesResponse_fleetAttributes :: Lens.Lens' DescribeFleetAttributesResponse (Prelude.Maybe [FleetAttributes])
+describeFleetAttributesResponse_fleetAttributes = Lens.lens (\DescribeFleetAttributesResponse' {fleetAttributes} -> fleetAttributes) (\s@DescribeFleetAttributesResponse' {} a -> s {fleetAttributes = a} :: DescribeFleetAttributesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dfarrsResponseStatus :: Lens' DescribeFleetAttributesResponse Int
-dfarrsResponseStatus = lens _dfarrsResponseStatus (\s a -> s {_dfarrsResponseStatus = a})
+-- | The response's http status code.
+describeFleetAttributesResponse_httpStatus :: Lens.Lens' DescribeFleetAttributesResponse Prelude.Int
+describeFleetAttributesResponse_httpStatus = Lens.lens (\DescribeFleetAttributesResponse' {httpStatus} -> httpStatus) (\s@DescribeFleetAttributesResponse' {} a -> s {httpStatus = a} :: DescribeFleetAttributesResponse)
 
-instance NFData DescribeFleetAttributesResponse
+instance
+  Prelude.NFData
+    DescribeFleetAttributesResponse

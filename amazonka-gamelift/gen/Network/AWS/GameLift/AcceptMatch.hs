@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,14 +21,30 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Registers a player's acceptance or rejection of a proposed FlexMatch match. A matchmaking configuration may require player acceptance; if so, then matches built with that configuration cannot be completed unless all players accept the proposed match within a specified time limit.
+-- Registers a player\'s acceptance or rejection of a proposed FlexMatch
+-- match. A matchmaking configuration may require player acceptance; if so,
+-- then matches built with that configuration cannot be completed unless
+-- all players accept the proposed match within a specified time limit.
 --
+-- When FlexMatch builds a match, all the matchmaking tickets involved in
+-- the proposed match are placed into status @REQUIRES_ACCEPTANCE@. This is
+-- a trigger for your game to get acceptance from all players in the
+-- ticket. Acceptances are only valid for tickets when they are in this
+-- status; all other acceptances result in an error.
 --
--- When FlexMatch builds a match, all the matchmaking tickets involved in the proposed match are placed into status @REQUIRES_ACCEPTANCE@ . This is a trigger for your game to get acceptance from all players in the ticket. Acceptances are only valid for tickets when they are in this status; all other acceptances result in an error.
+-- To register acceptance, specify the ticket ID, a response, and one or
+-- more players. Once all players have registered acceptance, the
+-- matchmaking tickets advance to status @PLACING@, where a new game
+-- session is created for the match.
 --
--- To register acceptance, specify the ticket ID, a response, and one or more players. Once all players have registered acceptance, the matchmaking tickets advance to status @PLACING@ , where a new game session is created for the match.
---
--- If any player rejects the match, or if acceptances are not received before a specified timeout, the proposed match is dropped. The matchmaking tickets are then handled in one of two ways: For tickets where one or more players rejected the match, the ticket status is returned to @SEARCHING@ to find a new match. For tickets where one or more players failed to respond, the ticket status is set to @CANCELLED@ , and processing is terminated. A new matchmaking request for these players can be submitted as needed.
+-- If any player rejects the match, or if acceptances are not received
+-- before a specified timeout, the proposed match is dropped. The
+-- matchmaking tickets are then handled in one of two ways: For tickets
+-- where one or more players rejected the match, the ticket status is
+-- returned to @SEARCHING@ to find a new match. For tickets where one or
+-- more players failed to respond, the ticket status is set to @CANCELLED@,
+-- and processing is terminated. A new matchmaking request for these
+-- players can be submitted as needed.
 --
 -- __Learn more__
 --
@@ -34,157 +54,166 @@
 --
 -- __Related operations__
 --
---     * 'StartMatchmaking'
+-- -   StartMatchmaking
 --
---     * 'DescribeMatchmaking'
+-- -   DescribeMatchmaking
 --
---     * 'StopMatchmaking'
+-- -   StopMatchmaking
 --
---     * 'AcceptMatch'
+-- -   AcceptMatch
 --
---     * 'StartMatchBackfill'
+-- -   StartMatchBackfill
 module Network.AWS.GameLift.AcceptMatch
   ( -- * Creating a Request
-    acceptMatch,
-    AcceptMatch,
+    AcceptMatch (..),
+    newAcceptMatch,
 
     -- * Request Lenses
-    amTicketId,
-    amPlayerIds,
-    amAcceptanceType,
+    acceptMatch_ticketId,
+    acceptMatch_playerIds,
+    acceptMatch_acceptanceType,
 
     -- * Destructuring the Response
-    acceptMatchResponse,
-    AcceptMatchResponse,
+    AcceptMatchResponse (..),
+    newAcceptMatchResponse,
 
     -- * Response Lenses
-    amrrsResponseStatus,
+    acceptMatchResponse_httpStatus,
   )
 where
 
 import Network.AWS.GameLift.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input for a request operation.
 --
---
---
--- /See:/ 'acceptMatch' smart constructor.
+-- /See:/ 'newAcceptMatch' smart constructor.
 data AcceptMatch = AcceptMatch'
-  { _amTicketId :: !Text,
-    _amPlayerIds :: ![Text],
-    _amAcceptanceType :: !AcceptanceType
+  { -- | A unique identifier for a matchmaking ticket. The ticket must be in
+    -- status @REQUIRES_ACCEPTANCE@; otherwise this request will fail.
+    ticketId :: Prelude.Text,
+    -- | A unique identifier for a player delivering the response. This parameter
+    -- can include one or multiple player IDs.
+    playerIds :: [Prelude.Text],
+    -- | Player response to the proposed match.
+    acceptanceType :: AcceptanceType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AcceptMatch' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AcceptMatch' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'amTicketId' - A unique identifier for a matchmaking ticket. The ticket must be in status @REQUIRES_ACCEPTANCE@ ; otherwise this request will fail.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'amPlayerIds' - A unique identifier for a player delivering the response. This parameter can include one or multiple player IDs.
+-- 'ticketId', 'acceptMatch_ticketId' - A unique identifier for a matchmaking ticket. The ticket must be in
+-- status @REQUIRES_ACCEPTANCE@; otherwise this request will fail.
 --
--- * 'amAcceptanceType' - Player response to the proposed match.
-acceptMatch ::
-  -- | 'amTicketId'
-  Text ->
-  -- | 'amAcceptanceType'
+-- 'playerIds', 'acceptMatch_playerIds' - A unique identifier for a player delivering the response. This parameter
+-- can include one or multiple player IDs.
+--
+-- 'acceptanceType', 'acceptMatch_acceptanceType' - Player response to the proposed match.
+newAcceptMatch ::
+  -- | 'ticketId'
+  Prelude.Text ->
+  -- | 'acceptanceType'
   AcceptanceType ->
   AcceptMatch
-acceptMatch pTicketId_ pAcceptanceType_ =
+newAcceptMatch pTicketId_ pAcceptanceType_ =
   AcceptMatch'
-    { _amTicketId = pTicketId_,
-      _amPlayerIds = mempty,
-      _amAcceptanceType = pAcceptanceType_
+    { ticketId = pTicketId_,
+      playerIds = Prelude.mempty,
+      acceptanceType = pAcceptanceType_
     }
 
--- | A unique identifier for a matchmaking ticket. The ticket must be in status @REQUIRES_ACCEPTANCE@ ; otherwise this request will fail.
-amTicketId :: Lens' AcceptMatch Text
-amTicketId = lens _amTicketId (\s a -> s {_amTicketId = a})
+-- | A unique identifier for a matchmaking ticket. The ticket must be in
+-- status @REQUIRES_ACCEPTANCE@; otherwise this request will fail.
+acceptMatch_ticketId :: Lens.Lens' AcceptMatch Prelude.Text
+acceptMatch_ticketId = Lens.lens (\AcceptMatch' {ticketId} -> ticketId) (\s@AcceptMatch' {} a -> s {ticketId = a} :: AcceptMatch)
 
--- | A unique identifier for a player delivering the response. This parameter can include one or multiple player IDs.
-amPlayerIds :: Lens' AcceptMatch [Text]
-amPlayerIds = lens _amPlayerIds (\s a -> s {_amPlayerIds = a}) . _Coerce
+-- | A unique identifier for a player delivering the response. This parameter
+-- can include one or multiple player IDs.
+acceptMatch_playerIds :: Lens.Lens' AcceptMatch [Prelude.Text]
+acceptMatch_playerIds = Lens.lens (\AcceptMatch' {playerIds} -> playerIds) (\s@AcceptMatch' {} a -> s {playerIds = a} :: AcceptMatch) Prelude.. Prelude._Coerce
 
 -- | Player response to the proposed match.
-amAcceptanceType :: Lens' AcceptMatch AcceptanceType
-amAcceptanceType = lens _amAcceptanceType (\s a -> s {_amAcceptanceType = a})
+acceptMatch_acceptanceType :: Lens.Lens' AcceptMatch AcceptanceType
+acceptMatch_acceptanceType = Lens.lens (\AcceptMatch' {acceptanceType} -> acceptanceType) (\s@AcceptMatch' {} a -> s {acceptanceType = a} :: AcceptMatch)
 
-instance AWSRequest AcceptMatch where
+instance Prelude.AWSRequest AcceptMatch where
   type Rs AcceptMatch = AcceptMatchResponse
-  request = postJSON gameLift
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          AcceptMatchResponse' <$> (pure (fromEnum s))
+          AcceptMatchResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable AcceptMatch
+instance Prelude.Hashable AcceptMatch
 
-instance NFData AcceptMatch
+instance Prelude.NFData AcceptMatch
 
-instance ToHeaders AcceptMatch where
+instance Prelude.ToHeaders AcceptMatch where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("GameLift.AcceptMatch" :: ByteString),
+              Prelude.=# ("GameLift.AcceptMatch" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON AcceptMatch where
+instance Prelude.ToJSON AcceptMatch where
   toJSON AcceptMatch' {..} =
-    object
-      ( catMaybes
-          [ Just ("TicketId" .= _amTicketId),
-            Just ("PlayerIds" .= _amPlayerIds),
-            Just ("AcceptanceType" .= _amAcceptanceType)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("TicketId" Prelude..= ticketId),
+            Prelude.Just ("PlayerIds" Prelude..= playerIds),
+            Prelude.Just
+              ("AcceptanceType" Prelude..= acceptanceType)
           ]
       )
 
-instance ToPath AcceptMatch where
-  toPath = const "/"
+instance Prelude.ToPath AcceptMatch where
+  toPath = Prelude.const "/"
 
-instance ToQuery AcceptMatch where
-  toQuery = const mempty
+instance Prelude.ToQuery AcceptMatch where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'acceptMatchResponse' smart constructor.
-newtype AcceptMatchResponse = AcceptMatchResponse'
-  { _amrrsResponseStatus ::
-      Int
+-- | /See:/ 'newAcceptMatchResponse' smart constructor.
+data AcceptMatchResponse = AcceptMatchResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AcceptMatchResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AcceptMatchResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'amrrsResponseStatus' - -- | The response status code.
-acceptMatchResponse ::
-  -- | 'amrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'acceptMatchResponse_httpStatus' - The response's http status code.
+newAcceptMatchResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   AcceptMatchResponse
-acceptMatchResponse pResponseStatus_ =
-  AcceptMatchResponse'
-    { _amrrsResponseStatus =
-        pResponseStatus_
-    }
+newAcceptMatchResponse pHttpStatus_ =
+  AcceptMatchResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-amrrsResponseStatus :: Lens' AcceptMatchResponse Int
-amrrsResponseStatus = lens _amrrsResponseStatus (\s a -> s {_amrrsResponseStatus = a})
+-- | The response's http status code.
+acceptMatchResponse_httpStatus :: Lens.Lens' AcceptMatchResponse Prelude.Int
+acceptMatchResponse_httpStatus = Lens.lens (\AcceptMatchResponse' {httpStatus} -> httpStatus) (\s@AcceptMatchResponse' {} a -> s {httpStatus = a} :: AcceptMatchResponse)
 
-instance NFData AcceptMatchResponse
+instance Prelude.NFData AcceptMatchResponse

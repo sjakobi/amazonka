@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.GameLift.Types.OperatingSystem
   ( OperatingSystem
       ( ..,
-        AmazonLinux,
-        AmazonLinux2,
-        Windows2012
+        OperatingSystemAMAZONLINUX,
+        OperatingSystemAMAZONLINUX2,
+        OperatingSystemWINDOWS2012
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data OperatingSystem = OperatingSystem' (CI Text)
+newtype OperatingSystem = OperatingSystem'
+  { fromOperatingSystem ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AmazonLinux :: OperatingSystem
-pattern AmazonLinux = OperatingSystem' "AMAZON_LINUX"
+pattern OperatingSystemAMAZONLINUX :: OperatingSystem
+pattern OperatingSystemAMAZONLINUX = OperatingSystem' "AMAZON_LINUX"
 
-pattern AmazonLinux2 :: OperatingSystem
-pattern AmazonLinux2 = OperatingSystem' "AMAZON_LINUX_2"
+pattern OperatingSystemAMAZONLINUX2 :: OperatingSystem
+pattern OperatingSystemAMAZONLINUX2 = OperatingSystem' "AMAZON_LINUX_2"
 
-pattern Windows2012 :: OperatingSystem
-pattern Windows2012 = OperatingSystem' "WINDOWS_2012"
+pattern OperatingSystemWINDOWS2012 :: OperatingSystem
+pattern OperatingSystemWINDOWS2012 = OperatingSystem' "WINDOWS_2012"
 
 {-# COMPLETE
-  AmazonLinux,
-  AmazonLinux2,
-  Windows2012,
+  OperatingSystemAMAZONLINUX,
+  OperatingSystemAMAZONLINUX2,
+  OperatingSystemWINDOWS2012,
   OperatingSystem'
   #-}
 
-instance FromText OperatingSystem where
-  parser = (OperatingSystem' . mk) <$> takeText
+instance Prelude.FromText OperatingSystem where
+  parser = OperatingSystem' Prelude.<$> Prelude.takeText
 
-instance ToText OperatingSystem where
-  toText (OperatingSystem' ci) = original ci
+instance Prelude.ToText OperatingSystem where
+  toText (OperatingSystem' x) = x
 
-instance Hashable OperatingSystem
+instance Prelude.Hashable OperatingSystem
 
-instance NFData OperatingSystem
+instance Prelude.NFData OperatingSystem
 
-instance ToByteString OperatingSystem
+instance Prelude.ToByteString OperatingSystem
 
-instance ToQuery OperatingSystem
+instance Prelude.ToQuery OperatingSystem
 
-instance ToHeader OperatingSystem
+instance Prelude.ToHeader OperatingSystem
 
-instance ToJSON OperatingSystem where
-  toJSON = toJSONText
+instance Prelude.ToJSON OperatingSystem where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON OperatingSystem where
-  parseJSON = parseJSONText "OperatingSystem"
+instance Prelude.FromJSON OperatingSystem where
+  parseJSON = Prelude.parseJSONText "OperatingSystem"

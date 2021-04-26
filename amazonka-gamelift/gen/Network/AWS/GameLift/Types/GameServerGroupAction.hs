@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,55 +19,53 @@
 module Network.AWS.GameLift.Types.GameServerGroupAction
   ( GameServerGroupAction
       ( ..,
-        ReplaceInstanceTypes
+        GameServerGroupActionREPLACEINSTANCETYPES
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data GameServerGroupAction
-  = GameServerGroupAction'
-      ( CI
-          Text
-      )
+newtype GameServerGroupAction = GameServerGroupAction'
+  { fromGameServerGroupAction ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ReplaceInstanceTypes :: GameServerGroupAction
-pattern ReplaceInstanceTypes = GameServerGroupAction' "REPLACE_INSTANCE_TYPES"
+pattern GameServerGroupActionREPLACEINSTANCETYPES :: GameServerGroupAction
+pattern GameServerGroupActionREPLACEINSTANCETYPES = GameServerGroupAction' "REPLACE_INSTANCE_TYPES"
 
 {-# COMPLETE
-  ReplaceInstanceTypes,
+  GameServerGroupActionREPLACEINSTANCETYPES,
   GameServerGroupAction'
   #-}
 
-instance FromText GameServerGroupAction where
-  parser = (GameServerGroupAction' . mk) <$> takeText
+instance Prelude.FromText GameServerGroupAction where
+  parser = GameServerGroupAction' Prelude.<$> Prelude.takeText
 
-instance ToText GameServerGroupAction where
-  toText (GameServerGroupAction' ci) = original ci
+instance Prelude.ToText GameServerGroupAction where
+  toText (GameServerGroupAction' x) = x
 
-instance Hashable GameServerGroupAction
+instance Prelude.Hashable GameServerGroupAction
 
-instance NFData GameServerGroupAction
+instance Prelude.NFData GameServerGroupAction
 
-instance ToByteString GameServerGroupAction
+instance Prelude.ToByteString GameServerGroupAction
 
-instance ToQuery GameServerGroupAction
+instance Prelude.ToQuery GameServerGroupAction
 
-instance ToHeader GameServerGroupAction
+instance Prelude.ToHeader GameServerGroupAction
 
-instance ToJSON GameServerGroupAction where
-  toJSON = toJSONText
+instance Prelude.ToJSON GameServerGroupAction where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON GameServerGroupAction where
-  parseJSON = parseJSONText "GameServerGroupAction"
+instance Prelude.FromJSON GameServerGroupAction where
+  parseJSON = Prelude.parseJSONText "GameServerGroupAction"

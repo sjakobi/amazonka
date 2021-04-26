@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,87 +19,85 @@
 module Network.AWS.GameLift.Types.MatchmakingConfigurationStatus
   ( MatchmakingConfigurationStatus
       ( ..,
-        MCSCancelled,
-        MCSCompleted,
-        MCSFailed,
-        MCSPlacing,
-        MCSQueued,
-        MCSRequiresAcceptance,
-        MCSSearching,
-        MCSTimedOut
+        MatchmakingConfigurationStatusCANCELLED,
+        MatchmakingConfigurationStatusCOMPLETED,
+        MatchmakingConfigurationStatusFAILED,
+        MatchmakingConfigurationStatusPLACING,
+        MatchmakingConfigurationStatusQUEUED,
+        MatchmakingConfigurationStatusREQUIRESACCEPTANCE,
+        MatchmakingConfigurationStatusSEARCHING,
+        MatchmakingConfigurationStatusTIMEDOUT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data MatchmakingConfigurationStatus
-  = MatchmakingConfigurationStatus'
-      ( CI
-          Text
-      )
+newtype MatchmakingConfigurationStatus = MatchmakingConfigurationStatus'
+  { fromMatchmakingConfigurationStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MCSCancelled :: MatchmakingConfigurationStatus
-pattern MCSCancelled = MatchmakingConfigurationStatus' "CANCELLED"
+pattern MatchmakingConfigurationStatusCANCELLED :: MatchmakingConfigurationStatus
+pattern MatchmakingConfigurationStatusCANCELLED = MatchmakingConfigurationStatus' "CANCELLED"
 
-pattern MCSCompleted :: MatchmakingConfigurationStatus
-pattern MCSCompleted = MatchmakingConfigurationStatus' "COMPLETED"
+pattern MatchmakingConfigurationStatusCOMPLETED :: MatchmakingConfigurationStatus
+pattern MatchmakingConfigurationStatusCOMPLETED = MatchmakingConfigurationStatus' "COMPLETED"
 
-pattern MCSFailed :: MatchmakingConfigurationStatus
-pattern MCSFailed = MatchmakingConfigurationStatus' "FAILED"
+pattern MatchmakingConfigurationStatusFAILED :: MatchmakingConfigurationStatus
+pattern MatchmakingConfigurationStatusFAILED = MatchmakingConfigurationStatus' "FAILED"
 
-pattern MCSPlacing :: MatchmakingConfigurationStatus
-pattern MCSPlacing = MatchmakingConfigurationStatus' "PLACING"
+pattern MatchmakingConfigurationStatusPLACING :: MatchmakingConfigurationStatus
+pattern MatchmakingConfigurationStatusPLACING = MatchmakingConfigurationStatus' "PLACING"
 
-pattern MCSQueued :: MatchmakingConfigurationStatus
-pattern MCSQueued = MatchmakingConfigurationStatus' "QUEUED"
+pattern MatchmakingConfigurationStatusQUEUED :: MatchmakingConfigurationStatus
+pattern MatchmakingConfigurationStatusQUEUED = MatchmakingConfigurationStatus' "QUEUED"
 
-pattern MCSRequiresAcceptance :: MatchmakingConfigurationStatus
-pattern MCSRequiresAcceptance = MatchmakingConfigurationStatus' "REQUIRES_ACCEPTANCE"
+pattern MatchmakingConfigurationStatusREQUIRESACCEPTANCE :: MatchmakingConfigurationStatus
+pattern MatchmakingConfigurationStatusREQUIRESACCEPTANCE = MatchmakingConfigurationStatus' "REQUIRES_ACCEPTANCE"
 
-pattern MCSSearching :: MatchmakingConfigurationStatus
-pattern MCSSearching = MatchmakingConfigurationStatus' "SEARCHING"
+pattern MatchmakingConfigurationStatusSEARCHING :: MatchmakingConfigurationStatus
+pattern MatchmakingConfigurationStatusSEARCHING = MatchmakingConfigurationStatus' "SEARCHING"
 
-pattern MCSTimedOut :: MatchmakingConfigurationStatus
-pattern MCSTimedOut = MatchmakingConfigurationStatus' "TIMED_OUT"
+pattern MatchmakingConfigurationStatusTIMEDOUT :: MatchmakingConfigurationStatus
+pattern MatchmakingConfigurationStatusTIMEDOUT = MatchmakingConfigurationStatus' "TIMED_OUT"
 
 {-# COMPLETE
-  MCSCancelled,
-  MCSCompleted,
-  MCSFailed,
-  MCSPlacing,
-  MCSQueued,
-  MCSRequiresAcceptance,
-  MCSSearching,
-  MCSTimedOut,
+  MatchmakingConfigurationStatusCANCELLED,
+  MatchmakingConfigurationStatusCOMPLETED,
+  MatchmakingConfigurationStatusFAILED,
+  MatchmakingConfigurationStatusPLACING,
+  MatchmakingConfigurationStatusQUEUED,
+  MatchmakingConfigurationStatusREQUIRESACCEPTANCE,
+  MatchmakingConfigurationStatusSEARCHING,
+  MatchmakingConfigurationStatusTIMEDOUT,
   MatchmakingConfigurationStatus'
   #-}
 
-instance FromText MatchmakingConfigurationStatus where
-  parser = (MatchmakingConfigurationStatus' . mk) <$> takeText
+instance Prelude.FromText MatchmakingConfigurationStatus where
+  parser = MatchmakingConfigurationStatus' Prelude.<$> Prelude.takeText
 
-instance ToText MatchmakingConfigurationStatus where
-  toText (MatchmakingConfigurationStatus' ci) = original ci
+instance Prelude.ToText MatchmakingConfigurationStatus where
+  toText (MatchmakingConfigurationStatus' x) = x
 
-instance Hashable MatchmakingConfigurationStatus
+instance Prelude.Hashable MatchmakingConfigurationStatus
 
-instance NFData MatchmakingConfigurationStatus
+instance Prelude.NFData MatchmakingConfigurationStatus
 
-instance ToByteString MatchmakingConfigurationStatus
+instance Prelude.ToByteString MatchmakingConfigurationStatus
 
-instance ToQuery MatchmakingConfigurationStatus
+instance Prelude.ToQuery MatchmakingConfigurationStatus
 
-instance ToHeader MatchmakingConfigurationStatus
+instance Prelude.ToHeader MatchmakingConfigurationStatus
 
-instance FromJSON MatchmakingConfigurationStatus where
-  parseJSON = parseJSONText "MatchmakingConfigurationStatus"
+instance Prelude.FromJSON MatchmakingConfigurationStatus where
+  parseJSON = Prelude.parseJSONText "MatchmakingConfigurationStatus"

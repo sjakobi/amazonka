@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,8 +23,8 @@
 --
 -- Retrieves properties for a Realtime script.
 --
---
--- To request a script record, specify the script ID. If successful, an object containing the script properties is returned.
+-- To request a script record, specify the script ID. If successful, an
+-- object containing the script properties is returned.
 --
 -- __Learn more__
 --
@@ -28,137 +32,147 @@
 --
 -- __Related operations__
 --
---     * 'CreateScript'
+-- -   CreateScript
 --
---     * 'ListScripts'
+-- -   ListScripts
 --
---     * 'DescribeScript'
+-- -   DescribeScript
 --
---     * 'UpdateScript'
+-- -   UpdateScript
 --
---     * 'DeleteScript'
+-- -   DeleteScript
 module Network.AWS.GameLift.DescribeScript
   ( -- * Creating a Request
-    describeScript,
-    DescribeScript,
+    DescribeScript (..),
+    newDescribeScript,
 
     -- * Request Lenses
-    dScriptId,
+    describeScript_scriptId,
 
     -- * Destructuring the Response
-    describeScriptResponse,
-    DescribeScriptResponse,
+    DescribeScriptResponse (..),
+    newDescribeScriptResponse,
 
     -- * Response Lenses
-    dsrrsScript,
-    dsrrsResponseStatus,
+    describeScriptResponse_script,
+    describeScriptResponse_httpStatus,
   )
 where
 
 import Network.AWS.GameLift.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.GameLift.Types.Script
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeScript' smart constructor.
-newtype DescribeScript = DescribeScript'
-  { _dScriptId ::
-      Text
+-- | /See:/ 'newDescribeScript' smart constructor.
+data DescribeScript = DescribeScript'
+  { -- | A unique identifier for a Realtime script to retrieve properties for.
+    -- You can use either the script ID or ARN value.
+    scriptId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeScript' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeScript' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dScriptId' - A unique identifier for a Realtime script to retrieve properties for. You can use either the script ID or ARN value.
-describeScript ::
-  -- | 'dScriptId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'scriptId', 'describeScript_scriptId' - A unique identifier for a Realtime script to retrieve properties for.
+-- You can use either the script ID or ARN value.
+newDescribeScript ::
+  -- | 'scriptId'
+  Prelude.Text ->
   DescribeScript
-describeScript pScriptId_ =
-  DescribeScript' {_dScriptId = pScriptId_}
+newDescribeScript pScriptId_ =
+  DescribeScript' {scriptId = pScriptId_}
 
--- | A unique identifier for a Realtime script to retrieve properties for. You can use either the script ID or ARN value.
-dScriptId :: Lens' DescribeScript Text
-dScriptId = lens _dScriptId (\s a -> s {_dScriptId = a})
+-- | A unique identifier for a Realtime script to retrieve properties for.
+-- You can use either the script ID or ARN value.
+describeScript_scriptId :: Lens.Lens' DescribeScript Prelude.Text
+describeScript_scriptId = Lens.lens (\DescribeScript' {scriptId} -> scriptId) (\s@DescribeScript' {} a -> s {scriptId = a} :: DescribeScript)
 
-instance AWSRequest DescribeScript where
+instance Prelude.AWSRequest DescribeScript where
   type Rs DescribeScript = DescribeScriptResponse
-  request = postJSON gameLift
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeScriptResponse'
-            <$> (x .?> "Script") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Script")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeScript
+instance Prelude.Hashable DescribeScript
 
-instance NFData DescribeScript
+instance Prelude.NFData DescribeScript
 
-instance ToHeaders DescribeScript where
+instance Prelude.ToHeaders DescribeScript where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("GameLift.DescribeScript" :: ByteString),
+              Prelude.=# ("GameLift.DescribeScript" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeScript where
+instance Prelude.ToJSON DescribeScript where
   toJSON DescribeScript' {..} =
-    object
-      (catMaybes [Just ("ScriptId" .= _dScriptId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("ScriptId" Prelude..= scriptId)]
+      )
 
-instance ToPath DescribeScript where
-  toPath = const "/"
+instance Prelude.ToPath DescribeScript where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeScript where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeScript where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeScriptResponse' smart constructor.
+-- | /See:/ 'newDescribeScriptResponse' smart constructor.
 data DescribeScriptResponse = DescribeScriptResponse'
-  { _dsrrsScript ::
-      !(Maybe Script),
-    _dsrrsResponseStatus ::
-      !Int
+  { -- | A set of properties describing the requested script.
+    script :: Prelude.Maybe Script,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeScriptResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeScriptResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsrrsScript' - A set of properties describing the requested script.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsrrsResponseStatus' - -- | The response status code.
-describeScriptResponse ::
-  -- | 'dsrrsResponseStatus'
-  Int ->
+-- 'script', 'describeScriptResponse_script' - A set of properties describing the requested script.
+--
+-- 'httpStatus', 'describeScriptResponse_httpStatus' - The response's http status code.
+newDescribeScriptResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeScriptResponse
-describeScriptResponse pResponseStatus_ =
+newDescribeScriptResponse pHttpStatus_ =
   DescribeScriptResponse'
-    { _dsrrsScript = Nothing,
-      _dsrrsResponseStatus = pResponseStatus_
+    { script = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A set of properties describing the requested script.
-dsrrsScript :: Lens' DescribeScriptResponse (Maybe Script)
-dsrrsScript = lens _dsrrsScript (\s a -> s {_dsrrsScript = a})
+describeScriptResponse_script :: Lens.Lens' DescribeScriptResponse (Prelude.Maybe Script)
+describeScriptResponse_script = Lens.lens (\DescribeScriptResponse' {script} -> script) (\s@DescribeScriptResponse' {} a -> s {script = a} :: DescribeScriptResponse)
 
--- | -- | The response status code.
-dsrrsResponseStatus :: Lens' DescribeScriptResponse Int
-dsrrsResponseStatus = lens _dsrrsResponseStatus (\s a -> s {_dsrrsResponseStatus = a})
+-- | The response's http status code.
+describeScriptResponse_httpStatus :: Lens.Lens' DescribeScriptResponse Prelude.Int
+describeScriptResponse_httpStatus = Lens.lens (\DescribeScriptResponse' {httpStatus} -> httpStatus) (\s@DescribeScriptResponse' {} a -> s {httpStatus = a} :: DescribeScriptResponse)
 
-instance NFData DescribeScriptResponse
+instance Prelude.NFData DescribeScriptResponse
