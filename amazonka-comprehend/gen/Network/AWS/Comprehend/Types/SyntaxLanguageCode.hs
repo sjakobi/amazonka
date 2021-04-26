@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,77 +19,75 @@
 module Network.AWS.Comprehend.Types.SyntaxLanguageCode
   ( SyntaxLanguageCode
       ( ..,
-        SLCDE,
-        SLCEN,
-        SLCES,
-        SLCFR,
-        SLCIT,
-        SLCPT
+        SyntaxLanguageCodeDE,
+        SyntaxLanguageCodeEN,
+        SyntaxLanguageCodeES,
+        SyntaxLanguageCodeFR,
+        SyntaxLanguageCodeIT,
+        SyntaxLanguageCodePT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SyntaxLanguageCode
-  = SyntaxLanguageCode'
-      ( CI
-          Text
-      )
+newtype SyntaxLanguageCode = SyntaxLanguageCode'
+  { fromSyntaxLanguageCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SLCDE :: SyntaxLanguageCode
-pattern SLCDE = SyntaxLanguageCode' "de"
+pattern SyntaxLanguageCodeDE :: SyntaxLanguageCode
+pattern SyntaxLanguageCodeDE = SyntaxLanguageCode' "de"
 
-pattern SLCEN :: SyntaxLanguageCode
-pattern SLCEN = SyntaxLanguageCode' "en"
+pattern SyntaxLanguageCodeEN :: SyntaxLanguageCode
+pattern SyntaxLanguageCodeEN = SyntaxLanguageCode' "en"
 
-pattern SLCES :: SyntaxLanguageCode
-pattern SLCES = SyntaxLanguageCode' "es"
+pattern SyntaxLanguageCodeES :: SyntaxLanguageCode
+pattern SyntaxLanguageCodeES = SyntaxLanguageCode' "es"
 
-pattern SLCFR :: SyntaxLanguageCode
-pattern SLCFR = SyntaxLanguageCode' "fr"
+pattern SyntaxLanguageCodeFR :: SyntaxLanguageCode
+pattern SyntaxLanguageCodeFR = SyntaxLanguageCode' "fr"
 
-pattern SLCIT :: SyntaxLanguageCode
-pattern SLCIT = SyntaxLanguageCode' "it"
+pattern SyntaxLanguageCodeIT :: SyntaxLanguageCode
+pattern SyntaxLanguageCodeIT = SyntaxLanguageCode' "it"
 
-pattern SLCPT :: SyntaxLanguageCode
-pattern SLCPT = SyntaxLanguageCode' "pt"
+pattern SyntaxLanguageCodePT :: SyntaxLanguageCode
+pattern SyntaxLanguageCodePT = SyntaxLanguageCode' "pt"
 
 {-# COMPLETE
-  SLCDE,
-  SLCEN,
-  SLCES,
-  SLCFR,
-  SLCIT,
-  SLCPT,
+  SyntaxLanguageCodeDE,
+  SyntaxLanguageCodeEN,
+  SyntaxLanguageCodeES,
+  SyntaxLanguageCodeFR,
+  SyntaxLanguageCodeIT,
+  SyntaxLanguageCodePT,
   SyntaxLanguageCode'
   #-}
 
-instance FromText SyntaxLanguageCode where
-  parser = (SyntaxLanguageCode' . mk) <$> takeText
+instance Prelude.FromText SyntaxLanguageCode where
+  parser = SyntaxLanguageCode' Prelude.<$> Prelude.takeText
 
-instance ToText SyntaxLanguageCode where
-  toText (SyntaxLanguageCode' ci) = original ci
+instance Prelude.ToText SyntaxLanguageCode where
+  toText (SyntaxLanguageCode' x) = x
 
-instance Hashable SyntaxLanguageCode
+instance Prelude.Hashable SyntaxLanguageCode
 
-instance NFData SyntaxLanguageCode
+instance Prelude.NFData SyntaxLanguageCode
 
-instance ToByteString SyntaxLanguageCode
+instance Prelude.ToByteString SyntaxLanguageCode
 
-instance ToQuery SyntaxLanguageCode
+instance Prelude.ToQuery SyntaxLanguageCode
 
-instance ToHeader SyntaxLanguageCode
+instance Prelude.ToHeader SyntaxLanguageCode
 
-instance ToJSON SyntaxLanguageCode where
-  toJSON = toJSONText
+instance Prelude.ToJSON SyntaxLanguageCode where
+  toJSON = Prelude.toJSONText

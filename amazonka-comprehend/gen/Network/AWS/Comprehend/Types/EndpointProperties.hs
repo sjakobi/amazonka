@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,112 +20,136 @@
 module Network.AWS.Comprehend.Types.EndpointProperties where
 
 import Network.AWS.Comprehend.Types.EndpointStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Specifies information about the specified endpoint.
 --
---
---
--- /See:/ 'endpointProperties' smart constructor.
+-- /See:/ 'newEndpointProperties' smart constructor.
 data EndpointProperties = EndpointProperties'
-  { _epCurrentInferenceUnits ::
-      !(Maybe Nat),
-    _epStatus ::
-      !(Maybe EndpointStatus),
-    _epCreationTime :: !(Maybe POSIX),
-    _epDesiredInferenceUnits ::
-      !(Maybe Nat),
-    _epMessage :: !(Maybe Text),
-    _epModelARN :: !(Maybe Text),
-    _epLastModifiedTime ::
-      !(Maybe POSIX),
-    _epEndpointARN :: !(Maybe Text)
+  { -- | The number of inference units currently used by the model using this
+    -- endpoint.
+    currentInferenceUnits :: Prelude.Maybe Prelude.Nat,
+    -- | Specifies the status of the endpoint. Because the endpoint updates and
+    -- creation are asynchronous, so customers will need to wait for the
+    -- endpoint to be @Ready@ status before making inference requests.
+    status :: Prelude.Maybe EndpointStatus,
+    -- | The creation date and time of the endpoint.
+    creationTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The desired number of inference units to be used by the model using this
+    -- endpoint. Each inference unit represents of a throughput of 100
+    -- characters per second.
+    desiredInferenceUnits :: Prelude.Maybe Prelude.Nat,
+    -- | Specifies a reason for failure in cases of @Failed@ status.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Number (ARN) of the model to which the endpoint is
+    -- attached.
+    modelArn :: Prelude.Maybe Prelude.Text,
+    -- | The date and time that the endpoint was last modified.
+    lastModifiedTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The Amazon Resource Number (ARN) of the endpoint.
+    endpointArn :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EndpointProperties' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EndpointProperties' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'epCurrentInferenceUnits' - The number of inference units currently used by the model using this endpoint.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'epStatus' - Specifies the status of the endpoint. Because the endpoint updates and creation are asynchronous, so customers will need to wait for the endpoint to be @Ready@ status before making inference requests.
+-- 'currentInferenceUnits', 'endpointProperties_currentInferenceUnits' - The number of inference units currently used by the model using this
+-- endpoint.
 --
--- * 'epCreationTime' - The creation date and time of the endpoint.
+-- 'status', 'endpointProperties_status' - Specifies the status of the endpoint. Because the endpoint updates and
+-- creation are asynchronous, so customers will need to wait for the
+-- endpoint to be @Ready@ status before making inference requests.
 --
--- * 'epDesiredInferenceUnits' - The desired number of inference units to be used by the model using this endpoint. Each inference unit represents of a throughput of 100 characters per second.
+-- 'creationTime', 'endpointProperties_creationTime' - The creation date and time of the endpoint.
 --
--- * 'epMessage' - Specifies a reason for failure in cases of @Failed@ status.
+-- 'desiredInferenceUnits', 'endpointProperties_desiredInferenceUnits' - The desired number of inference units to be used by the model using this
+-- endpoint. Each inference unit represents of a throughput of 100
+-- characters per second.
 --
--- * 'epModelARN' - The Amazon Resource Number (ARN) of the model to which the endpoint is attached.
+-- 'message', 'endpointProperties_message' - Specifies a reason for failure in cases of @Failed@ status.
 --
--- * 'epLastModifiedTime' - The date and time that the endpoint was last modified.
+-- 'modelArn', 'endpointProperties_modelArn' - The Amazon Resource Number (ARN) of the model to which the endpoint is
+-- attached.
 --
--- * 'epEndpointARN' - The Amazon Resource Number (ARN) of the endpoint.
-endpointProperties ::
+-- 'lastModifiedTime', 'endpointProperties_lastModifiedTime' - The date and time that the endpoint was last modified.
+--
+-- 'endpointArn', 'endpointProperties_endpointArn' - The Amazon Resource Number (ARN) of the endpoint.
+newEndpointProperties ::
   EndpointProperties
-endpointProperties =
+newEndpointProperties =
   EndpointProperties'
-    { _epCurrentInferenceUnits =
-        Nothing,
-      _epStatus = Nothing,
-      _epCreationTime = Nothing,
-      _epDesiredInferenceUnits = Nothing,
-      _epMessage = Nothing,
-      _epModelARN = Nothing,
-      _epLastModifiedTime = Nothing,
-      _epEndpointARN = Nothing
+    { currentInferenceUnits =
+        Prelude.Nothing,
+      status = Prelude.Nothing,
+      creationTime = Prelude.Nothing,
+      desiredInferenceUnits = Prelude.Nothing,
+      message = Prelude.Nothing,
+      modelArn = Prelude.Nothing,
+      lastModifiedTime = Prelude.Nothing,
+      endpointArn = Prelude.Nothing
     }
 
--- | The number of inference units currently used by the model using this endpoint.
-epCurrentInferenceUnits :: Lens' EndpointProperties (Maybe Natural)
-epCurrentInferenceUnits = lens _epCurrentInferenceUnits (\s a -> s {_epCurrentInferenceUnits = a}) . mapping _Nat
+-- | The number of inference units currently used by the model using this
+-- endpoint.
+endpointProperties_currentInferenceUnits :: Lens.Lens' EndpointProperties (Prelude.Maybe Prelude.Natural)
+endpointProperties_currentInferenceUnits = Lens.lens (\EndpointProperties' {currentInferenceUnits} -> currentInferenceUnits) (\s@EndpointProperties' {} a -> s {currentInferenceUnits = a} :: EndpointProperties) Prelude.. Lens.mapping Prelude._Nat
 
--- | Specifies the status of the endpoint. Because the endpoint updates and creation are asynchronous, so customers will need to wait for the endpoint to be @Ready@ status before making inference requests.
-epStatus :: Lens' EndpointProperties (Maybe EndpointStatus)
-epStatus = lens _epStatus (\s a -> s {_epStatus = a})
+-- | Specifies the status of the endpoint. Because the endpoint updates and
+-- creation are asynchronous, so customers will need to wait for the
+-- endpoint to be @Ready@ status before making inference requests.
+endpointProperties_status :: Lens.Lens' EndpointProperties (Prelude.Maybe EndpointStatus)
+endpointProperties_status = Lens.lens (\EndpointProperties' {status} -> status) (\s@EndpointProperties' {} a -> s {status = a} :: EndpointProperties)
 
 -- | The creation date and time of the endpoint.
-epCreationTime :: Lens' EndpointProperties (Maybe UTCTime)
-epCreationTime = lens _epCreationTime (\s a -> s {_epCreationTime = a}) . mapping _Time
+endpointProperties_creationTime :: Lens.Lens' EndpointProperties (Prelude.Maybe Prelude.UTCTime)
+endpointProperties_creationTime = Lens.lens (\EndpointProperties' {creationTime} -> creationTime) (\s@EndpointProperties' {} a -> s {creationTime = a} :: EndpointProperties) Prelude.. Lens.mapping Prelude._Time
 
--- | The desired number of inference units to be used by the model using this endpoint. Each inference unit represents of a throughput of 100 characters per second.
-epDesiredInferenceUnits :: Lens' EndpointProperties (Maybe Natural)
-epDesiredInferenceUnits = lens _epDesiredInferenceUnits (\s a -> s {_epDesiredInferenceUnits = a}) . mapping _Nat
+-- | The desired number of inference units to be used by the model using this
+-- endpoint. Each inference unit represents of a throughput of 100
+-- characters per second.
+endpointProperties_desiredInferenceUnits :: Lens.Lens' EndpointProperties (Prelude.Maybe Prelude.Natural)
+endpointProperties_desiredInferenceUnits = Lens.lens (\EndpointProperties' {desiredInferenceUnits} -> desiredInferenceUnits) (\s@EndpointProperties' {} a -> s {desiredInferenceUnits = a} :: EndpointProperties) Prelude.. Lens.mapping Prelude._Nat
 
 -- | Specifies a reason for failure in cases of @Failed@ status.
-epMessage :: Lens' EndpointProperties (Maybe Text)
-epMessage = lens _epMessage (\s a -> s {_epMessage = a})
+endpointProperties_message :: Lens.Lens' EndpointProperties (Prelude.Maybe Prelude.Text)
+endpointProperties_message = Lens.lens (\EndpointProperties' {message} -> message) (\s@EndpointProperties' {} a -> s {message = a} :: EndpointProperties)
 
--- | The Amazon Resource Number (ARN) of the model to which the endpoint is attached.
-epModelARN :: Lens' EndpointProperties (Maybe Text)
-epModelARN = lens _epModelARN (\s a -> s {_epModelARN = a})
+-- | The Amazon Resource Number (ARN) of the model to which the endpoint is
+-- attached.
+endpointProperties_modelArn :: Lens.Lens' EndpointProperties (Prelude.Maybe Prelude.Text)
+endpointProperties_modelArn = Lens.lens (\EndpointProperties' {modelArn} -> modelArn) (\s@EndpointProperties' {} a -> s {modelArn = a} :: EndpointProperties)
 
 -- | The date and time that the endpoint was last modified.
-epLastModifiedTime :: Lens' EndpointProperties (Maybe UTCTime)
-epLastModifiedTime = lens _epLastModifiedTime (\s a -> s {_epLastModifiedTime = a}) . mapping _Time
+endpointProperties_lastModifiedTime :: Lens.Lens' EndpointProperties (Prelude.Maybe Prelude.UTCTime)
+endpointProperties_lastModifiedTime = Lens.lens (\EndpointProperties' {lastModifiedTime} -> lastModifiedTime) (\s@EndpointProperties' {} a -> s {lastModifiedTime = a} :: EndpointProperties) Prelude.. Lens.mapping Prelude._Time
 
 -- | The Amazon Resource Number (ARN) of the endpoint.
-epEndpointARN :: Lens' EndpointProperties (Maybe Text)
-epEndpointARN = lens _epEndpointARN (\s a -> s {_epEndpointARN = a})
+endpointProperties_endpointArn :: Lens.Lens' EndpointProperties (Prelude.Maybe Prelude.Text)
+endpointProperties_endpointArn = Lens.lens (\EndpointProperties' {endpointArn} -> endpointArn) (\s@EndpointProperties' {} a -> s {endpointArn = a} :: EndpointProperties)
 
-instance FromJSON EndpointProperties where
+instance Prelude.FromJSON EndpointProperties where
   parseJSON =
-    withObject
+    Prelude.withObject
       "EndpointProperties"
       ( \x ->
           EndpointProperties'
-            <$> (x .:? "CurrentInferenceUnits")
-            <*> (x .:? "Status")
-            <*> (x .:? "CreationTime")
-            <*> (x .:? "DesiredInferenceUnits")
-            <*> (x .:? "Message")
-            <*> (x .:? "ModelArn")
-            <*> (x .:? "LastModifiedTime")
-            <*> (x .:? "EndpointArn")
+            Prelude.<$> (x Prelude..:? "CurrentInferenceUnits")
+            Prelude.<*> (x Prelude..:? "Status")
+            Prelude.<*> (x Prelude..:? "CreationTime")
+            Prelude.<*> (x Prelude..:? "DesiredInferenceUnits")
+            Prelude.<*> (x Prelude..:? "Message")
+            Prelude.<*> (x Prelude..:? "ModelArn")
+            Prelude.<*> (x Prelude..:? "LastModifiedTime")
+            Prelude.<*> (x Prelude..:? "EndpointArn")
       )
 
-instance Hashable EndpointProperties
+instance Prelude.Hashable EndpointProperties
 
-instance NFData EndpointProperties
+instance Prelude.NFData EndpointProperties

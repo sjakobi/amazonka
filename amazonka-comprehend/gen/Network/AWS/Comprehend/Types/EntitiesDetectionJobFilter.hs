@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,83 +20,95 @@
 module Network.AWS.Comprehend.Types.EntitiesDetectionJobFilter where
 
 import Network.AWS.Comprehend.Types.JobStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Provides information for filtering a list of dominant language detection jobs. For more information, see the operation.
+-- | Provides information for filtering a list of dominant language detection
+-- jobs. For more information, see the operation.
 --
---
---
--- /See:/ 'entitiesDetectionJobFilter' smart constructor.
+-- /See:/ 'newEntitiesDetectionJobFilter' smart constructor.
 data EntitiesDetectionJobFilter = EntitiesDetectionJobFilter'
-  { _eJobStatus ::
-      !( Maybe
-           JobStatus
-       ),
-    _eSubmitTimeBefore ::
-      !(Maybe POSIX),
-    _eSubmitTimeAfter ::
-      !(Maybe POSIX),
-    _eJobName ::
-      !(Maybe Text)
+  { -- | Filters the list of jobs based on job status. Returns only jobs with the
+    -- specified status.
+    jobStatus :: Prelude.Maybe JobStatus,
+    -- | Filters the list of jobs based on the time that the job was submitted
+    -- for processing. Returns only jobs submitted before the specified time.
+    -- Jobs are returned in ascending order, oldest to newest.
+    submitTimeBefore :: Prelude.Maybe Prelude.POSIX,
+    -- | Filters the list of jobs based on the time that the job was submitted
+    -- for processing. Returns only jobs submitted after the specified time.
+    -- Jobs are returned in descending order, newest to oldest.
+    submitTimeAfter :: Prelude.Maybe Prelude.POSIX,
+    -- | Filters on the name of the job.
+    jobName :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EntitiesDetectionJobFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EntitiesDetectionJobFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eJobStatus' - Filters the list of jobs based on job status. Returns only jobs with the specified status.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'eSubmitTimeBefore' - Filters the list of jobs based on the time that the job was submitted for processing. Returns only jobs submitted before the specified time. Jobs are returned in ascending order, oldest to newest.
+-- 'jobStatus', 'entitiesDetectionJobFilter_jobStatus' - Filters the list of jobs based on job status. Returns only jobs with the
+-- specified status.
 --
--- * 'eSubmitTimeAfter' - Filters the list of jobs based on the time that the job was submitted for processing. Returns only jobs submitted after the specified time. Jobs are returned in descending order, newest to oldest.
+-- 'submitTimeBefore', 'entitiesDetectionJobFilter_submitTimeBefore' - Filters the list of jobs based on the time that the job was submitted
+-- for processing. Returns only jobs submitted before the specified time.
+-- Jobs are returned in ascending order, oldest to newest.
 --
--- * 'eJobName' - Filters on the name of the job.
-entitiesDetectionJobFilter ::
+-- 'submitTimeAfter', 'entitiesDetectionJobFilter_submitTimeAfter' - Filters the list of jobs based on the time that the job was submitted
+-- for processing. Returns only jobs submitted after the specified time.
+-- Jobs are returned in descending order, newest to oldest.
+--
+-- 'jobName', 'entitiesDetectionJobFilter_jobName' - Filters on the name of the job.
+newEntitiesDetectionJobFilter ::
   EntitiesDetectionJobFilter
-entitiesDetectionJobFilter =
+newEntitiesDetectionJobFilter =
   EntitiesDetectionJobFilter'
-    { _eJobStatus = Nothing,
-      _eSubmitTimeBefore = Nothing,
-      _eSubmitTimeAfter = Nothing,
-      _eJobName = Nothing
+    { jobStatus =
+        Prelude.Nothing,
+      submitTimeBefore = Prelude.Nothing,
+      submitTimeAfter = Prelude.Nothing,
+      jobName = Prelude.Nothing
     }
 
--- | Filters the list of jobs based on job status. Returns only jobs with the specified status.
-eJobStatus :: Lens' EntitiesDetectionJobFilter (Maybe JobStatus)
-eJobStatus = lens _eJobStatus (\s a -> s {_eJobStatus = a})
+-- | Filters the list of jobs based on job status. Returns only jobs with the
+-- specified status.
+entitiesDetectionJobFilter_jobStatus :: Lens.Lens' EntitiesDetectionJobFilter (Prelude.Maybe JobStatus)
+entitiesDetectionJobFilter_jobStatus = Lens.lens (\EntitiesDetectionJobFilter' {jobStatus} -> jobStatus) (\s@EntitiesDetectionJobFilter' {} a -> s {jobStatus = a} :: EntitiesDetectionJobFilter)
 
--- | Filters the list of jobs based on the time that the job was submitted for processing. Returns only jobs submitted before the specified time. Jobs are returned in ascending order, oldest to newest.
-eSubmitTimeBefore :: Lens' EntitiesDetectionJobFilter (Maybe UTCTime)
-eSubmitTimeBefore = lens _eSubmitTimeBefore (\s a -> s {_eSubmitTimeBefore = a}) . mapping _Time
+-- | Filters the list of jobs based on the time that the job was submitted
+-- for processing. Returns only jobs submitted before the specified time.
+-- Jobs are returned in ascending order, oldest to newest.
+entitiesDetectionJobFilter_submitTimeBefore :: Lens.Lens' EntitiesDetectionJobFilter (Prelude.Maybe Prelude.UTCTime)
+entitiesDetectionJobFilter_submitTimeBefore = Lens.lens (\EntitiesDetectionJobFilter' {submitTimeBefore} -> submitTimeBefore) (\s@EntitiesDetectionJobFilter' {} a -> s {submitTimeBefore = a} :: EntitiesDetectionJobFilter) Prelude.. Lens.mapping Prelude._Time
 
--- | Filters the list of jobs based on the time that the job was submitted for processing. Returns only jobs submitted after the specified time. Jobs are returned in descending order, newest to oldest.
-eSubmitTimeAfter :: Lens' EntitiesDetectionJobFilter (Maybe UTCTime)
-eSubmitTimeAfter = lens _eSubmitTimeAfter (\s a -> s {_eSubmitTimeAfter = a}) . mapping _Time
+-- | Filters the list of jobs based on the time that the job was submitted
+-- for processing. Returns only jobs submitted after the specified time.
+-- Jobs are returned in descending order, newest to oldest.
+entitiesDetectionJobFilter_submitTimeAfter :: Lens.Lens' EntitiesDetectionJobFilter (Prelude.Maybe Prelude.UTCTime)
+entitiesDetectionJobFilter_submitTimeAfter = Lens.lens (\EntitiesDetectionJobFilter' {submitTimeAfter} -> submitTimeAfter) (\s@EntitiesDetectionJobFilter' {} a -> s {submitTimeAfter = a} :: EntitiesDetectionJobFilter) Prelude.. Lens.mapping Prelude._Time
 
 -- | Filters on the name of the job.
-eJobName :: Lens' EntitiesDetectionJobFilter (Maybe Text)
-eJobName = lens _eJobName (\s a -> s {_eJobName = a})
+entitiesDetectionJobFilter_jobName :: Lens.Lens' EntitiesDetectionJobFilter (Prelude.Maybe Prelude.Text)
+entitiesDetectionJobFilter_jobName = Lens.lens (\EntitiesDetectionJobFilter' {jobName} -> jobName) (\s@EntitiesDetectionJobFilter' {} a -> s {jobName = a} :: EntitiesDetectionJobFilter)
 
-instance Hashable EntitiesDetectionJobFilter
+instance Prelude.Hashable EntitiesDetectionJobFilter
 
-instance NFData EntitiesDetectionJobFilter
+instance Prelude.NFData EntitiesDetectionJobFilter
 
-instance ToJSON EntitiesDetectionJobFilter where
+instance Prelude.ToJSON EntitiesDetectionJobFilter where
   toJSON EntitiesDetectionJobFilter' {..} =
-    object
-      ( catMaybes
-          [ ("JobStatus" .=) <$> _eJobStatus,
-            ("SubmitTimeBefore" .=) <$> _eSubmitTimeBefore,
-            ("SubmitTimeAfter" .=) <$> _eSubmitTimeAfter,
-            ("JobName" .=) <$> _eJobName
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("JobStatus" Prelude..=) Prelude.<$> jobStatus,
+            ("SubmitTimeBefore" Prelude..=)
+              Prelude.<$> submitTimeBefore,
+            ("SubmitTimeAfter" Prelude..=)
+              Prelude.<$> submitTimeAfter,
+            ("JobName" Prelude..=) Prelude.<$> jobName
           ]
       )

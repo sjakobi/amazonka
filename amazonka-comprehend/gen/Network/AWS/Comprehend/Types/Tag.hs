@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,57 +19,92 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Comprehend.Types.Tag where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A key-value pair that adds as a metadata to a resource used by Amazon Comprehend. For example, a tag with the key-value pair ‘Department’:’Sales’ might be added to a resource to indicate its use by a particular department.
+-- | A key-value pair that adds as a metadata to a resource used by Amazon
+-- Comprehend. For example, a tag with the key-value pair
+-- ‘Department’:’Sales’ might be added to a resource to indicate its use by
+-- a particular department.
 --
---
---
--- /See:/ 'tag' smart constructor.
+-- /See:/ 'newTag' smart constructor.
 data Tag = Tag'
-  { _tagValue :: !(Maybe Text),
-    _tagKey :: !Text
+  { -- | The second part of a key-value pair that forms a tag associated with a
+    -- given resource. For instance, if you want to show which resources are
+    -- used by which departments, you might use “Department” as the initial
+    -- (key) portion of the pair, with a value of “sales” to indicate the sales
+    -- department.
+    value :: Prelude.Maybe Prelude.Text,
+    -- | The initial part of a key-value pair that forms a tag associated with a
+    -- given resource. For instance, if you want to show which resources are
+    -- used by which departments, you might use “Department” as the key portion
+    -- of the pair, with multiple possible values such as “sales,” “legal,” and
+    -- “administration.”
+    key :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Tag' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Tag' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tagValue' - The second part of a key-value pair that forms a tag associated with a given resource. For instance, if you want to show which resources are used by which departments, you might use “Department” as the initial (key) portion of the pair, with a value of “sales” to indicate the sales department.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tagKey' - The initial part of a key-value pair that forms a tag associated with a given resource. For instance, if you want to show which resources are used by which departments, you might use “Department” as the key portion of the pair, with multiple possible values such as “sales,” “legal,” and “administration.”
-tag ::
-  -- | 'tagKey'
-  Text ->
+-- 'value', 'tag_value' - The second part of a key-value pair that forms a tag associated with a
+-- given resource. For instance, if you want to show which resources are
+-- used by which departments, you might use “Department” as the initial
+-- (key) portion of the pair, with a value of “sales” to indicate the sales
+-- department.
+--
+-- 'key', 'tag_key' - The initial part of a key-value pair that forms a tag associated with a
+-- given resource. For instance, if you want to show which resources are
+-- used by which departments, you might use “Department” as the key portion
+-- of the pair, with multiple possible values such as “sales,” “legal,” and
+-- “administration.”
+newTag ::
+  -- | 'key'
+  Prelude.Text ->
   Tag
-tag pKey_ =
-  Tag' {_tagValue = Nothing, _tagKey = pKey_}
+newTag pKey_ =
+  Tag' {value = Prelude.Nothing, key = pKey_}
 
--- | The second part of a key-value pair that forms a tag associated with a given resource. For instance, if you want to show which resources are used by which departments, you might use “Department” as the initial (key) portion of the pair, with a value of “sales” to indicate the sales department.
-tagValue :: Lens' Tag (Maybe Text)
-tagValue = lens _tagValue (\s a -> s {_tagValue = a})
+-- | The second part of a key-value pair that forms a tag associated with a
+-- given resource. For instance, if you want to show which resources are
+-- used by which departments, you might use “Department” as the initial
+-- (key) portion of the pair, with a value of “sales” to indicate the sales
+-- department.
+tag_value :: Lens.Lens' Tag (Prelude.Maybe Prelude.Text)
+tag_value = Lens.lens (\Tag' {value} -> value) (\s@Tag' {} a -> s {value = a} :: Tag)
 
--- | The initial part of a key-value pair that forms a tag associated with a given resource. For instance, if you want to show which resources are used by which departments, you might use “Department” as the key portion of the pair, with multiple possible values such as “sales,” “legal,” and “administration.”
-tagKey :: Lens' Tag Text
-tagKey = lens _tagKey (\s a -> s {_tagKey = a})
+-- | The initial part of a key-value pair that forms a tag associated with a
+-- given resource. For instance, if you want to show which resources are
+-- used by which departments, you might use “Department” as the key portion
+-- of the pair, with multiple possible values such as “sales,” “legal,” and
+-- “administration.”
+tag_key :: Lens.Lens' Tag Prelude.Text
+tag_key = Lens.lens (\Tag' {key} -> key) (\s@Tag' {} a -> s {key = a} :: Tag)
 
-instance FromJSON Tag where
+instance Prelude.FromJSON Tag where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Tag"
-      (\x -> Tag' <$> (x .:? "Value") <*> (x .: "Key"))
+      ( \x ->
+          Tag'
+            Prelude.<$> (x Prelude..:? "Value")
+            Prelude.<*> (x Prelude..: "Key")
+      )
 
-instance Hashable Tag
+instance Prelude.Hashable Tag
 
-instance NFData Tag
+instance Prelude.NFData Tag
 
-instance ToJSON Tag where
+instance Prelude.ToJSON Tag where
   toJSON Tag' {..} =
-    object
-      ( catMaybes
-          [ ("Value" .=) <$> _tagValue,
-            Just ("Key" .= _tagKey)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Value" Prelude..=) Prelude.<$> value,
+            Prelude.Just ("Key" Prelude..= key)
           ]
       )

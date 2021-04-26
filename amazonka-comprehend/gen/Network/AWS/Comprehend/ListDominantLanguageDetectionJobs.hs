@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,212 +21,240 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets a list of the dominant language detection jobs that you have submitted.
---
---
+-- Gets a list of the dominant language detection jobs that you have
+-- submitted.
 --
 -- This operation returns paginated results.
 module Network.AWS.Comprehend.ListDominantLanguageDetectionJobs
   ( -- * Creating a Request
-    listDominantLanguageDetectionJobs,
-    ListDominantLanguageDetectionJobs,
+    ListDominantLanguageDetectionJobs (..),
+    newListDominantLanguageDetectionJobs,
 
     -- * Request Lenses
-    ldldjNextToken,
-    ldldjMaxResults,
-    ldldjFilter,
+    listDominantLanguageDetectionJobs_nextToken,
+    listDominantLanguageDetectionJobs_maxResults,
+    listDominantLanguageDetectionJobs_filter,
 
     -- * Destructuring the Response
-    listDominantLanguageDetectionJobsResponse,
-    ListDominantLanguageDetectionJobsResponse,
+    ListDominantLanguageDetectionJobsResponse (..),
+    newListDominantLanguageDetectionJobsResponse,
 
     -- * Response Lenses
-    ldldjrrsNextToken,
-    ldldjrrsDominantLanguageDetectionJobPropertiesList,
-    ldldjrrsResponseStatus,
+    listDominantLanguageDetectionJobsResponse_nextToken,
+    listDominantLanguageDetectionJobsResponse_dominantLanguageDetectionJobPropertiesList,
+    listDominantLanguageDetectionJobsResponse_httpStatus,
   )
 where
 
 import Network.AWS.Comprehend.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Comprehend.Types.DominantLanguageDetectionJobProperties
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listDominantLanguageDetectionJobs' smart constructor.
+-- | /See:/ 'newListDominantLanguageDetectionJobs' smart constructor.
 data ListDominantLanguageDetectionJobs = ListDominantLanguageDetectionJobs'
-  { _ldldjNextToken ::
-      !( Maybe
-           Text
-       ),
-    _ldldjMaxResults ::
-      !( Maybe
-           Nat
-       ),
-    _ldldjFilter ::
-      !( Maybe
-           DominantLanguageDetectionJobFilter
-       )
+  { -- | Identifies the next page of results to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return in each page. The default is
+    -- 100.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | Filters that jobs that are returned. You can filter jobs on their name,
+    -- status, or the date and time that they were submitted. You can only set
+    -- one filter at a time.
+    filter' :: Prelude.Maybe DominantLanguageDetectionJobFilter
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListDominantLanguageDetectionJobs' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListDominantLanguageDetectionJobs' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ldldjNextToken' - Identifies the next page of results to return.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ldldjMaxResults' - The maximum number of results to return in each page. The default is 100.
+-- 'nextToken', 'listDominantLanguageDetectionJobs_nextToken' - Identifies the next page of results to return.
 --
--- * 'ldldjFilter' - Filters that jobs that are returned. You can filter jobs on their name, status, or the date and time that they were submitted. You can only set one filter at a time.
-listDominantLanguageDetectionJobs ::
+-- 'maxResults', 'listDominantLanguageDetectionJobs_maxResults' - The maximum number of results to return in each page. The default is
+-- 100.
+--
+-- 'filter'', 'listDominantLanguageDetectionJobs_filter' - Filters that jobs that are returned. You can filter jobs on their name,
+-- status, or the date and time that they were submitted. You can only set
+-- one filter at a time.
+newListDominantLanguageDetectionJobs ::
   ListDominantLanguageDetectionJobs
-listDominantLanguageDetectionJobs =
+newListDominantLanguageDetectionJobs =
   ListDominantLanguageDetectionJobs'
-    { _ldldjNextToken =
-        Nothing,
-      _ldldjMaxResults = Nothing,
-      _ldldjFilter = Nothing
+    { nextToken =
+        Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      filter' = Prelude.Nothing
     }
 
 -- | Identifies the next page of results to return.
-ldldjNextToken :: Lens' ListDominantLanguageDetectionJobs (Maybe Text)
-ldldjNextToken = lens _ldldjNextToken (\s a -> s {_ldldjNextToken = a})
+listDominantLanguageDetectionJobs_nextToken :: Lens.Lens' ListDominantLanguageDetectionJobs (Prelude.Maybe Prelude.Text)
+listDominantLanguageDetectionJobs_nextToken = Lens.lens (\ListDominantLanguageDetectionJobs' {nextToken} -> nextToken) (\s@ListDominantLanguageDetectionJobs' {} a -> s {nextToken = a} :: ListDominantLanguageDetectionJobs)
 
--- | The maximum number of results to return in each page. The default is 100.
-ldldjMaxResults :: Lens' ListDominantLanguageDetectionJobs (Maybe Natural)
-ldldjMaxResults = lens _ldldjMaxResults (\s a -> s {_ldldjMaxResults = a}) . mapping _Nat
+-- | The maximum number of results to return in each page. The default is
+-- 100.
+listDominantLanguageDetectionJobs_maxResults :: Lens.Lens' ListDominantLanguageDetectionJobs (Prelude.Maybe Prelude.Natural)
+listDominantLanguageDetectionJobs_maxResults = Lens.lens (\ListDominantLanguageDetectionJobs' {maxResults} -> maxResults) (\s@ListDominantLanguageDetectionJobs' {} a -> s {maxResults = a} :: ListDominantLanguageDetectionJobs) Prelude.. Lens.mapping Prelude._Nat
 
--- | Filters that jobs that are returned. You can filter jobs on their name, status, or the date and time that they were submitted. You can only set one filter at a time.
-ldldjFilter :: Lens' ListDominantLanguageDetectionJobs (Maybe DominantLanguageDetectionJobFilter)
-ldldjFilter = lens _ldldjFilter (\s a -> s {_ldldjFilter = a})
+-- | Filters that jobs that are returned. You can filter jobs on their name,
+-- status, or the date and time that they were submitted. You can only set
+-- one filter at a time.
+listDominantLanguageDetectionJobs_filter :: Lens.Lens' ListDominantLanguageDetectionJobs (Prelude.Maybe DominantLanguageDetectionJobFilter)
+listDominantLanguageDetectionJobs_filter = Lens.lens (\ListDominantLanguageDetectionJobs' {filter'} -> filter') (\s@ListDominantLanguageDetectionJobs' {} a -> s {filter' = a} :: ListDominantLanguageDetectionJobs)
 
-instance AWSPager ListDominantLanguageDetectionJobs where
+instance
+  Pager.AWSPager
+    ListDominantLanguageDetectionJobs
+  where
   page rq rs
-    | stop (rs ^. ldldjrrsNextToken) = Nothing
-    | stop
+    | Pager.stop
         ( rs
-            ^. ldldjrrsDominantLanguageDetectionJobPropertiesList
+            Lens.^? listDominantLanguageDetectionJobsResponse_nextToken
+              Prelude.. Lens._Just
         ) =
-      Nothing
-    | otherwise =
-      Just $ rq & ldldjNextToken .~ rs ^. ldldjrrsNextToken
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listDominantLanguageDetectionJobsResponse_dominantLanguageDetectionJobPropertiesList
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listDominantLanguageDetectionJobs_nextToken
+          Lens..~ rs
+          Lens.^? listDominantLanguageDetectionJobsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListDominantLanguageDetectionJobs where
+instance
+  Prelude.AWSRequest
+    ListDominantLanguageDetectionJobs
+  where
   type
     Rs ListDominantLanguageDetectionJobs =
       ListDominantLanguageDetectionJobsResponse
-  request = postJSON comprehend
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListDominantLanguageDetectionJobsResponse'
-            <$> (x .?> "NextToken")
-            <*> ( x .?> "DominantLanguageDetectionJobPropertiesList"
-                    .!@ mempty
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+              Prelude.<*> ( x
+                              Prelude..?> "DominantLanguageDetectionJobPropertiesList"
+                              Prelude..!@ Prelude.mempty
+                          )
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListDominantLanguageDetectionJobs
+instance
+  Prelude.Hashable
+    ListDominantLanguageDetectionJobs
 
-instance NFData ListDominantLanguageDetectionJobs
+instance
+  Prelude.NFData
+    ListDominantLanguageDetectionJobs
 
-instance ToHeaders ListDominantLanguageDetectionJobs where
+instance
+  Prelude.ToHeaders
+    ListDominantLanguageDetectionJobs
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Comprehend_20171127.ListDominantLanguageDetectionJobs" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Comprehend_20171127.ListDominantLanguageDetectionJobs" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListDominantLanguageDetectionJobs where
+instance
+  Prelude.ToJSON
+    ListDominantLanguageDetectionJobs
+  where
   toJSON ListDominantLanguageDetectionJobs' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _ldldjNextToken,
-            ("MaxResults" .=) <$> _ldldjMaxResults,
-            ("Filter" .=) <$> _ldldjFilter
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("Filter" Prelude..=) Prelude.<$> filter'
           ]
       )
 
-instance ToPath ListDominantLanguageDetectionJobs where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    ListDominantLanguageDetectionJobs
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListDominantLanguageDetectionJobs where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    ListDominantLanguageDetectionJobs
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listDominantLanguageDetectionJobsResponse' smart constructor.
+-- | /See:/ 'newListDominantLanguageDetectionJobsResponse' smart constructor.
 data ListDominantLanguageDetectionJobsResponse = ListDominantLanguageDetectionJobsResponse'
-  { _ldldjrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _ldldjrrsDominantLanguageDetectionJobPropertiesList ::
-      !( Maybe
-           [DominantLanguageDetectionJobProperties]
-       ),
-    _ldldjrrsResponseStatus ::
-      !Int
+  { -- | Identifies the next page of results to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list containing the properties of each job that is returned.
+    dominantLanguageDetectionJobPropertiesList :: Prelude.Maybe [DominantLanguageDetectionJobProperties],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListDominantLanguageDetectionJobsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListDominantLanguageDetectionJobsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ldldjrrsNextToken' - Identifies the next page of results to return.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ldldjrrsDominantLanguageDetectionJobPropertiesList' - A list containing the properties of each job that is returned.
+-- 'nextToken', 'listDominantLanguageDetectionJobsResponse_nextToken' - Identifies the next page of results to return.
 --
--- * 'ldldjrrsResponseStatus' - -- | The response status code.
-listDominantLanguageDetectionJobsResponse ::
-  -- | 'ldldjrrsResponseStatus'
-  Int ->
+-- 'dominantLanguageDetectionJobPropertiesList', 'listDominantLanguageDetectionJobsResponse_dominantLanguageDetectionJobPropertiesList' - A list containing the properties of each job that is returned.
+--
+-- 'httpStatus', 'listDominantLanguageDetectionJobsResponse_httpStatus' - The response's http status code.
+newListDominantLanguageDetectionJobsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListDominantLanguageDetectionJobsResponse
-listDominantLanguageDetectionJobsResponse
-  pResponseStatus_ =
+newListDominantLanguageDetectionJobsResponse
+  pHttpStatus_ =
     ListDominantLanguageDetectionJobsResponse'
-      { _ldldjrrsNextToken =
-          Nothing,
-        _ldldjrrsDominantLanguageDetectionJobPropertiesList =
-          Nothing,
-        _ldldjrrsResponseStatus =
-          pResponseStatus_
+      { nextToken =
+          Prelude.Nothing,
+        dominantLanguageDetectionJobPropertiesList =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | Identifies the next page of results to return.
-ldldjrrsNextToken :: Lens' ListDominantLanguageDetectionJobsResponse (Maybe Text)
-ldldjrrsNextToken = lens _ldldjrrsNextToken (\s a -> s {_ldldjrrsNextToken = a})
+listDominantLanguageDetectionJobsResponse_nextToken :: Lens.Lens' ListDominantLanguageDetectionJobsResponse (Prelude.Maybe Prelude.Text)
+listDominantLanguageDetectionJobsResponse_nextToken = Lens.lens (\ListDominantLanguageDetectionJobsResponse' {nextToken} -> nextToken) (\s@ListDominantLanguageDetectionJobsResponse' {} a -> s {nextToken = a} :: ListDominantLanguageDetectionJobsResponse)
 
 -- | A list containing the properties of each job that is returned.
-ldldjrrsDominantLanguageDetectionJobPropertiesList :: Lens' ListDominantLanguageDetectionJobsResponse [DominantLanguageDetectionJobProperties]
-ldldjrrsDominantLanguageDetectionJobPropertiesList = lens _ldldjrrsDominantLanguageDetectionJobPropertiesList (\s a -> s {_ldldjrrsDominantLanguageDetectionJobPropertiesList = a}) . _Default . _Coerce
+listDominantLanguageDetectionJobsResponse_dominantLanguageDetectionJobPropertiesList :: Lens.Lens' ListDominantLanguageDetectionJobsResponse (Prelude.Maybe [DominantLanguageDetectionJobProperties])
+listDominantLanguageDetectionJobsResponse_dominantLanguageDetectionJobPropertiesList = Lens.lens (\ListDominantLanguageDetectionJobsResponse' {dominantLanguageDetectionJobPropertiesList} -> dominantLanguageDetectionJobPropertiesList) (\s@ListDominantLanguageDetectionJobsResponse' {} a -> s {dominantLanguageDetectionJobPropertiesList = a} :: ListDominantLanguageDetectionJobsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-ldldjrrsResponseStatus :: Lens' ListDominantLanguageDetectionJobsResponse Int
-ldldjrrsResponseStatus = lens _ldldjrrsResponseStatus (\s a -> s {_ldldjrrsResponseStatus = a})
+-- | The response's http status code.
+listDominantLanguageDetectionJobsResponse_httpStatus :: Lens.Lens' ListDominantLanguageDetectionJobsResponse Prelude.Int
+listDominantLanguageDetectionJobsResponse_httpStatus = Lens.lens (\ListDominantLanguageDetectionJobsResponse' {httpStatus} -> httpStatus) (\s@ListDominantLanguageDetectionJobsResponse' {} a -> s {httpStatus = a} :: ListDominantLanguageDetectionJobsResponse)
 
 instance
-  NFData
+  Prelude.NFData
     ListDominantLanguageDetectionJobsResponse

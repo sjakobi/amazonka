@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Comprehend.Types
   ( -- * Service Configuration
-    comprehend,
+    defaultService,
 
     -- * Errors
     _ResourceUnavailableException,
@@ -23,7 +26,7 @@ module Network.AWS.Comprehend.Types
     _InvalidRequestException,
     _ResourceInUseException,
     _TextSizeLimitExceededException,
-    _KMSKeyValidationException,
+    _KmsKeyValidationException,
     _TooManyTagKeysException,
     _ResourceNotFoundException,
     _JobNotFoundException,
@@ -78,504 +81,231 @@ module Network.AWS.Comprehend.Types
 
     -- * AugmentedManifestsListItem
     AugmentedManifestsListItem (..),
-    augmentedManifestsListItem,
-    amliS3URI,
-    amliAttributeNames,
+    newAugmentedManifestsListItem,
 
     -- * BatchDetectDominantLanguageItemResult
     BatchDetectDominantLanguageItemResult (..),
-    batchDetectDominantLanguageItemResult,
-    bddlirLanguages,
-    bddlirIndex,
+    newBatchDetectDominantLanguageItemResult,
 
     -- * BatchDetectEntitiesItemResult
     BatchDetectEntitiesItemResult (..),
-    batchDetectEntitiesItemResult,
-    bdeirIndex,
-    bdeirEntities,
+    newBatchDetectEntitiesItemResult,
 
     -- * BatchDetectKeyPhrasesItemResult
     BatchDetectKeyPhrasesItemResult (..),
-    batchDetectKeyPhrasesItemResult,
-    bdkpirKeyPhrases,
-    bdkpirIndex,
+    newBatchDetectKeyPhrasesItemResult,
 
     -- * BatchDetectSentimentItemResult
     BatchDetectSentimentItemResult (..),
-    batchDetectSentimentItemResult,
-    bdsirSentimentScore,
-    bdsirSentiment,
-    bdsirIndex,
+    newBatchDetectSentimentItemResult,
 
     -- * BatchDetectSyntaxItemResult
     BatchDetectSyntaxItemResult (..),
-    batchDetectSyntaxItemResult,
-    bSyntaxTokens,
-    bIndex,
+    newBatchDetectSyntaxItemResult,
 
     -- * BatchItemError
     BatchItemError (..),
-    batchItemError,
-    bieIndex,
-    bieErrorMessage,
-    bieErrorCode,
+    newBatchItemError,
 
     -- * ClassifierEvaluationMetrics
     ClassifierEvaluationMetrics (..),
-    classifierEvaluationMetrics,
-    cemMicroRecall,
-    cemF1Score,
-    cemMicroPrecision,
-    cemPrecision,
-    cemAccuracy,
-    cemHammingLoss,
-    cemRecall,
-    cemMicroF1Score,
+    newClassifierEvaluationMetrics,
 
     -- * ClassifierMetadata
     ClassifierMetadata (..),
-    classifierMetadata,
-    cmNumberOfLabels,
-    cmNumberOfTestDocuments,
-    cmNumberOfTrainedDocuments,
-    cmEvaluationMetrics,
+    newClassifierMetadata,
 
     -- * DocumentClass
     DocumentClass (..),
-    documentClass,
-    dcName,
-    dcScore,
+    newDocumentClass,
 
     -- * DocumentClassificationJobFilter
     DocumentClassificationJobFilter (..),
-    documentClassificationJobFilter,
-    dcjfJobStatus,
-    dcjfSubmitTimeBefore,
-    dcjfSubmitTimeAfter,
-    dcjfJobName,
+    newDocumentClassificationJobFilter,
 
     -- * DocumentClassificationJobProperties
     DocumentClassificationJobProperties (..),
-    documentClassificationJobProperties,
-    dcjpVPCConfig,
-    dcjpInputDataConfig,
-    dcjpMessage,
-    dcjpJobStatus,
-    dcjpOutputDataConfig,
-    dcjpDocumentClassifierARN,
-    dcjpEndTime,
-    dcjpVolumeKMSKeyId,
-    dcjpSubmitTime,
-    dcjpJobName,
-    dcjpDataAccessRoleARN,
-    dcjpJobId,
+    newDocumentClassificationJobProperties,
 
     -- * DocumentClassifierFilter
     DocumentClassifierFilter (..),
-    documentClassifierFilter,
-    dcfStatus,
-    dcfSubmitTimeBefore,
-    dcfSubmitTimeAfter,
+    newDocumentClassifierFilter,
 
     -- * DocumentClassifierInputDataConfig
     DocumentClassifierInputDataConfig (..),
-    documentClassifierInputDataConfig,
-    dcidcAugmentedManifests,
-    dcidcDataFormat,
-    dcidcLabelDelimiter,
-    dcidcS3URI,
+    newDocumentClassifierInputDataConfig,
 
     -- * DocumentClassifierOutputDataConfig
     DocumentClassifierOutputDataConfig (..),
-    documentClassifierOutputDataConfig,
-    dcodcKMSKeyId,
-    dcodcS3URI,
+    newDocumentClassifierOutputDataConfig,
 
     -- * DocumentClassifierProperties
     DocumentClassifierProperties (..),
-    documentClassifierProperties,
-    dcpVPCConfig,
-    dcpLanguageCode,
-    dcpStatus,
-    dcpInputDataConfig,
-    dcpMode,
-    dcpMessage,
-    dcpOutputDataConfig,
-    dcpDocumentClassifierARN,
-    dcpEndTime,
-    dcpClassifierMetadata,
-    dcpVolumeKMSKeyId,
-    dcpSubmitTime,
-    dcpTrainingStartTime,
-    dcpDataAccessRoleARN,
-    dcpTrainingEndTime,
+    newDocumentClassifierProperties,
 
     -- * DocumentLabel
     DocumentLabel (..),
-    documentLabel,
-    dName,
-    dScore,
+    newDocumentLabel,
 
     -- * DominantLanguage
     DominantLanguage (..),
-    dominantLanguage,
-    dlLanguageCode,
-    dlScore,
+    newDominantLanguage,
 
     -- * DominantLanguageDetectionJobFilter
     DominantLanguageDetectionJobFilter (..),
-    dominantLanguageDetectionJobFilter,
-    dldjfJobStatus,
-    dldjfSubmitTimeBefore,
-    dldjfSubmitTimeAfter,
-    dldjfJobName,
+    newDominantLanguageDetectionJobFilter,
 
     -- * DominantLanguageDetectionJobProperties
     DominantLanguageDetectionJobProperties (..),
-    dominantLanguageDetectionJobProperties,
-    dldjpVPCConfig,
-    dldjpInputDataConfig,
-    dldjpMessage,
-    dldjpJobStatus,
-    dldjpOutputDataConfig,
-    dldjpEndTime,
-    dldjpVolumeKMSKeyId,
-    dldjpSubmitTime,
-    dldjpJobName,
-    dldjpDataAccessRoleARN,
-    dldjpJobId,
+    newDominantLanguageDetectionJobProperties,
 
     -- * EndpointFilter
     EndpointFilter (..),
-    endpointFilter,
-    efStatus,
-    efCreationTimeBefore,
-    efModelARN,
-    efCreationTimeAfter,
+    newEndpointFilter,
 
     -- * EndpointProperties
     EndpointProperties (..),
-    endpointProperties,
-    epCurrentInferenceUnits,
-    epStatus,
-    epCreationTime,
-    epDesiredInferenceUnits,
-    epMessage,
-    epModelARN,
-    epLastModifiedTime,
-    epEndpointARN,
+    newEndpointProperties,
 
     -- * EntitiesDetectionJobFilter
     EntitiesDetectionJobFilter (..),
-    entitiesDetectionJobFilter,
-    eJobStatus,
-    eSubmitTimeBefore,
-    eSubmitTimeAfter,
-    eJobName,
+    newEntitiesDetectionJobFilter,
 
     -- * EntitiesDetectionJobProperties
     EntitiesDetectionJobProperties (..),
-    entitiesDetectionJobProperties,
-    edjpsVPCConfig,
-    edjpsLanguageCode,
-    edjpsInputDataConfig,
-    edjpsMessage,
-    edjpsJobStatus,
-    edjpsOutputDataConfig,
-    edjpsEndTime,
-    edjpsVolumeKMSKeyId,
-    edjpsSubmitTime,
-    edjpsEntityRecognizerARN,
-    edjpsJobName,
-    edjpsDataAccessRoleARN,
-    edjpsJobId,
+    newEntitiesDetectionJobProperties,
 
     -- * Entity
     Entity (..),
-    entity,
-    eEndOffset,
-    eType,
-    eScore,
-    eText,
-    eBeginOffset,
+    newEntity,
 
     -- * EntityRecognizerAnnotations
     EntityRecognizerAnnotations (..),
-    entityRecognizerAnnotations,
-    eraS3URI,
+    newEntityRecognizerAnnotations,
 
     -- * EntityRecognizerDocuments
     EntityRecognizerDocuments (..),
-    entityRecognizerDocuments,
-    erdS3URI,
+    newEntityRecognizerDocuments,
 
     -- * EntityRecognizerEntityList
     EntityRecognizerEntityList (..),
-    entityRecognizerEntityList,
-    erelS3URI,
+    newEntityRecognizerEntityList,
 
     -- * EntityRecognizerEvaluationMetrics
     EntityRecognizerEvaluationMetrics (..),
-    entityRecognizerEvaluationMetrics,
-    eremF1Score,
-    eremPrecision,
-    eremRecall,
+    newEntityRecognizerEvaluationMetrics,
 
     -- * EntityRecognizerFilter
     EntityRecognizerFilter (..),
-    entityRecognizerFilter,
-    erfStatus,
-    erfSubmitTimeBefore,
-    erfSubmitTimeAfter,
+    newEntityRecognizerFilter,
 
     -- * EntityRecognizerInputDataConfig
     EntityRecognizerInputDataConfig (..),
-    entityRecognizerInputDataConfig,
-    eridcDocuments,
-    eridcAugmentedManifests,
-    eridcDataFormat,
-    eridcAnnotations,
-    eridcEntityList,
-    eridcEntityTypes,
+    newEntityRecognizerInputDataConfig,
 
     -- * EntityRecognizerMetadata
     EntityRecognizerMetadata (..),
-    entityRecognizerMetadata,
-    ermNumberOfTestDocuments,
-    ermNumberOfTrainedDocuments,
-    ermEvaluationMetrics,
-    ermEntityTypes,
+    newEntityRecognizerMetadata,
 
     -- * EntityRecognizerMetadataEntityTypesListItem
     EntityRecognizerMetadataEntityTypesListItem (..),
-    entityRecognizerMetadataEntityTypesListItem,
-    ermetliNumberOfTrainMentions,
-    ermetliEvaluationMetrics,
-    ermetliType,
+    newEntityRecognizerMetadataEntityTypesListItem,
 
     -- * EntityRecognizerProperties
     EntityRecognizerProperties (..),
-    entityRecognizerProperties,
-    erpVPCConfig,
-    erpLanguageCode,
-    erpStatus,
-    erpInputDataConfig,
-    erpMessage,
-    erpEndTime,
-    erpVolumeKMSKeyId,
-    erpSubmitTime,
-    erpRecognizerMetadata,
-    erpEntityRecognizerARN,
-    erpTrainingStartTime,
-    erpDataAccessRoleARN,
-    erpTrainingEndTime,
+    newEntityRecognizerProperties,
 
     -- * EntityTypesEvaluationMetrics
     EntityTypesEvaluationMetrics (..),
-    entityTypesEvaluationMetrics,
-    etemF1Score,
-    etemPrecision,
-    etemRecall,
+    newEntityTypesEvaluationMetrics,
 
     -- * EntityTypesListItem
     EntityTypesListItem (..),
-    entityTypesListItem,
-    etliType,
+    newEntityTypesListItem,
 
     -- * EventsDetectionJobFilter
     EventsDetectionJobFilter (..),
-    eventsDetectionJobFilter,
-    edjfJobStatus,
-    edjfSubmitTimeBefore,
-    edjfSubmitTimeAfter,
-    edjfJobName,
+    newEventsDetectionJobFilter,
 
     -- * EventsDetectionJobProperties
     EventsDetectionJobProperties (..),
-    eventsDetectionJobProperties,
-    edjpLanguageCode,
-    edjpInputDataConfig,
-    edjpMessage,
-    edjpJobStatus,
-    edjpOutputDataConfig,
-    edjpEndTime,
-    edjpSubmitTime,
-    edjpTargetEventTypes,
-    edjpJobName,
-    edjpDataAccessRoleARN,
-    edjpJobId,
+    newEventsDetectionJobProperties,
 
     -- * InputDataConfig
     InputDataConfig (..),
-    inputDataConfig,
-    idcInputFormat,
-    idcS3URI,
+    newInputDataConfig,
 
     -- * KeyPhrase
     KeyPhrase (..),
-    keyPhrase,
-    kpEndOffset,
-    kpScore,
-    kpText,
-    kpBeginOffset,
+    newKeyPhrase,
 
     -- * KeyPhrasesDetectionJobFilter
     KeyPhrasesDetectionJobFilter (..),
-    keyPhrasesDetectionJobFilter,
-    kpdjfJobStatus,
-    kpdjfSubmitTimeBefore,
-    kpdjfSubmitTimeAfter,
-    kpdjfJobName,
+    newKeyPhrasesDetectionJobFilter,
 
     -- * KeyPhrasesDetectionJobProperties
     KeyPhrasesDetectionJobProperties (..),
-    keyPhrasesDetectionJobProperties,
-    kpdjpVPCConfig,
-    kpdjpLanguageCode,
-    kpdjpInputDataConfig,
-    kpdjpMessage,
-    kpdjpJobStatus,
-    kpdjpOutputDataConfig,
-    kpdjpEndTime,
-    kpdjpVolumeKMSKeyId,
-    kpdjpSubmitTime,
-    kpdjpJobName,
-    kpdjpDataAccessRoleARN,
-    kpdjpJobId,
+    newKeyPhrasesDetectionJobProperties,
 
     -- * OutputDataConfig
     OutputDataConfig (..),
-    outputDataConfig,
-    odcKMSKeyId,
-    odcS3URI,
+    newOutputDataConfig,
 
     -- * PartOfSpeechTag
     PartOfSpeechTag (..),
-    partOfSpeechTag,
-    postScore,
-    postTag,
+    newPartOfSpeechTag,
 
     -- * PiiEntitiesDetectionJobFilter
     PiiEntitiesDetectionJobFilter (..),
-    piiEntitiesDetectionJobFilter,
-    pedjfJobStatus,
-    pedjfSubmitTimeBefore,
-    pedjfSubmitTimeAfter,
-    pedjfJobName,
+    newPiiEntitiesDetectionJobFilter,
 
     -- * PiiEntitiesDetectionJobProperties
     PiiEntitiesDetectionJobProperties (..),
-    piiEntitiesDetectionJobProperties,
-    pedjpRedactionConfig,
-    pedjpLanguageCode,
-    pedjpInputDataConfig,
-    pedjpMode,
-    pedjpMessage,
-    pedjpJobStatus,
-    pedjpOutputDataConfig,
-    pedjpEndTime,
-    pedjpSubmitTime,
-    pedjpJobName,
-    pedjpDataAccessRoleARN,
-    pedjpJobId,
+    newPiiEntitiesDetectionJobProperties,
 
     -- * PiiEntity
     PiiEntity (..),
-    piiEntity,
-    peEndOffset,
-    peType,
-    peScore,
-    peBeginOffset,
+    newPiiEntity,
 
     -- * PiiOutputDataConfig
     PiiOutputDataConfig (..),
-    piiOutputDataConfig,
-    podcKMSKeyId,
-    podcS3URI,
+    newPiiOutputDataConfig,
 
     -- * RedactionConfig
     RedactionConfig (..),
-    redactionConfig,
-    rcMaskCharacter,
-    rcMaskMode,
-    rcPiiEntityTypes,
+    newRedactionConfig,
 
     -- * SentimentDetectionJobFilter
     SentimentDetectionJobFilter (..),
-    sentimentDetectionJobFilter,
-    sdjfJobStatus,
-    sdjfSubmitTimeBefore,
-    sdjfSubmitTimeAfter,
-    sdjfJobName,
+    newSentimentDetectionJobFilter,
 
     -- * SentimentDetectionJobProperties
     SentimentDetectionJobProperties (..),
-    sentimentDetectionJobProperties,
-    sdjpVPCConfig,
-    sdjpLanguageCode,
-    sdjpInputDataConfig,
-    sdjpMessage,
-    sdjpJobStatus,
-    sdjpOutputDataConfig,
-    sdjpEndTime,
-    sdjpVolumeKMSKeyId,
-    sdjpSubmitTime,
-    sdjpJobName,
-    sdjpDataAccessRoleARN,
-    sdjpJobId,
+    newSentimentDetectionJobProperties,
 
     -- * SentimentScore
     SentimentScore (..),
-    sentimentScore,
-    ssNegative,
-    ssMixed,
-    ssPositive,
-    ssNeutral,
+    newSentimentScore,
 
     -- * SyntaxToken
     SyntaxToken (..),
-    syntaxToken,
-    stTokenId,
-    stPartOfSpeech,
-    stEndOffset,
-    stText,
-    stBeginOffset,
+    newSyntaxToken,
 
     -- * Tag
     Tag (..),
-    tag,
-    tagValue,
-    tagKey,
+    newTag,
 
     -- * TopicsDetectionJobFilter
     TopicsDetectionJobFilter (..),
-    topicsDetectionJobFilter,
-    tdjfJobStatus,
-    tdjfSubmitTimeBefore,
-    tdjfSubmitTimeAfter,
-    tdjfJobName,
+    newTopicsDetectionJobFilter,
 
     -- * TopicsDetectionJobProperties
     TopicsDetectionJobProperties (..),
-    topicsDetectionJobProperties,
-    tdjpVPCConfig,
-    tdjpInputDataConfig,
-    tdjpMessage,
-    tdjpJobStatus,
-    tdjpOutputDataConfig,
-    tdjpEndTime,
-    tdjpVolumeKMSKeyId,
-    tdjpSubmitTime,
-    tdjpNumberOfTopics,
-    tdjpJobName,
-    tdjpDataAccessRoleARN,
-    tdjpJobId,
+    newTopicsDetectionJobProperties,
 
-    -- * VPCConfig
-    VPCConfig (..),
-    vpcConfig,
-    vcSecurityGroupIds,
-    vcSubnets,
+    -- * VpcConfig
+    VpcConfig (..),
+    newVpcConfig,
   )
 where
 
@@ -650,170 +380,205 @@ import Network.AWS.Comprehend.Types.SyntaxToken
 import Network.AWS.Comprehend.Types.Tag
 import Network.AWS.Comprehend.Types.TopicsDetectionJobFilter
 import Network.AWS.Comprehend.Types.TopicsDetectionJobProperties
-import Network.AWS.Comprehend.Types.VPCConfig
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Sign.V4
+import Network.AWS.Comprehend.Types.VpcConfig
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Sign.V4 as Sign
 
 -- | API version @2017-11-27@ of the Amazon Comprehend SDK configuration.
-comprehend :: Service
-comprehend =
-  Service
-    { _svcAbbrev = "Comprehend",
-      _svcSigner = v4,
-      _svcPrefix = "comprehend",
-      _svcVersion = "2017-11-27",
-      _svcEndpoint = defaultEndpoint comprehend,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseJSONError "Comprehend",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev = "Comprehend",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "comprehend",
+      Prelude._svcVersion = "2017-11-27",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError =
+        Prelude.parseJSONError "Comprehend",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
--- | The specified resource is not available. Check the resource and try your request again.
-_ResourceUnavailableException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified resource is not available. Check the resource and try your
+-- request again.
+_ResourceUnavailableException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceUnavailableException =
-  _MatchServiceError
-    comprehend
+  Prelude._MatchServiceError
+    defaultService
     "ResourceUnavailableException"
 
--- | The request contains more tags than can be associated with a resource (50 tags per resource). The maximum number of tags includes both existing tags and those included in your current request.
-_TooManyTagsException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The request contains more tags than can be associated with a resource
+-- (50 tags per resource). The maximum number of tags includes both
+-- existing tags and those included in your current request.
+_TooManyTagsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TooManyTagsException =
-  _MatchServiceError
-    comprehend
+  Prelude._MatchServiceError
+    defaultService
     "TooManyTagsException"
 
--- | The filter specified for the operation is invalid. Specify a different filter.
-_InvalidFilterException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The filter specified for the operation is invalid. Specify a different
+-- filter.
+_InvalidFilterException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidFilterException =
-  _MatchServiceError
-    comprehend
+  Prelude._MatchServiceError
+    defaultService
     "InvalidFilterException"
 
--- | The maximum number of resources per account has been exceeded. Review the resources, and then try your request again.
-_ResourceLimitExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The maximum number of resources per account has been exceeded. Review
+-- the resources, and then try your request again.
+_ResourceLimitExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceLimitExceededException =
-  _MatchServiceError
-    comprehend
+  Prelude._MatchServiceError
+    defaultService
     "ResourceLimitExceededException"
 
--- | The number of documents in the request exceeds the limit of 25. Try your request again with fewer documents.
-_BatchSizeLimitExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The number of documents in the request exceeds the limit of 25. Try your
+-- request again with fewer documents.
+_BatchSizeLimitExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _BatchSizeLimitExceededException =
-  _MatchServiceError
-    comprehend
+  Prelude._MatchServiceError
+    defaultService
     "BatchSizeLimitExceededException"
 
--- | Concurrent modification of the tags associated with an Amazon Comprehend resource is not supported.
-_ConcurrentModificationException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Concurrent modification of the tags associated with an Amazon Comprehend
+-- resource is not supported.
+_ConcurrentModificationException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ConcurrentModificationException =
-  _MatchServiceError
-    comprehend
+  Prelude._MatchServiceError
+    defaultService
     "ConcurrentModificationException"
 
 -- | The request is invalid.
-_InvalidRequestException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidRequestException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidRequestException =
-  _MatchServiceError
-    comprehend
+  Prelude._MatchServiceError
+    defaultService
     "InvalidRequestException"
 
--- | The specified resource name is already in use. Use a different name and try your request again.
-_ResourceInUseException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified resource name is already in use. Use a different name and
+-- try your request again.
+_ResourceInUseException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceInUseException =
-  _MatchServiceError
-    comprehend
+  Prelude._MatchServiceError
+    defaultService
     "ResourceInUseException"
 
 -- | The size of the input text exceeds the limit. Use a smaller document.
-_TextSizeLimitExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+_TextSizeLimitExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TextSizeLimitExceededException =
-  _MatchServiceError
-    comprehend
+  Prelude._MatchServiceError
+    defaultService
     "TextSizeLimitExceededException"
 
--- | The KMS customer managed key (CMK) entered cannot be validated. Verify the key and re-enter it.
-_KMSKeyValidationException :: AsError a => Getting (First ServiceError) a ServiceError
-_KMSKeyValidationException =
-  _MatchServiceError
-    comprehend
+-- | The KMS customer managed key (CMK) entered cannot be validated. Verify
+-- the key and re-enter it.
+_KmsKeyValidationException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
+_KmsKeyValidationException =
+  Prelude._MatchServiceError
+    defaultService
     "KmsKeyValidationException"
 
--- | The request contains more tag keys than can be associated with a resource (50 tag keys per resource).
-_TooManyTagKeysException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The request contains more tag keys than can be associated with a
+-- resource (50 tag keys per resource).
+_TooManyTagKeysException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TooManyTagKeysException =
-  _MatchServiceError
-    comprehend
+  Prelude._MatchServiceError
+    defaultService
     "TooManyTagKeysException"
 
--- | The specified resource ARN was not found. Check the ARN and try your request again.
-_ResourceNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified resource ARN was not found. Check the ARN and try your
+-- request again.
+_ResourceNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceNotFoundException =
-  _MatchServiceError
-    comprehend
+  Prelude._MatchServiceError
+    defaultService
     "ResourceNotFoundException"
 
 -- | The specified job was not found. Check the job ID and try again.
-_JobNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+_JobNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _JobNotFoundException =
-  _MatchServiceError
-    comprehend
+  Prelude._MatchServiceError
+    defaultService
     "JobNotFoundException"
 
--- | Amazon Comprehend can't process the language of the input text. For all custom entity recognition APIs (such as @CreateEntityRecognizer@ ), only English, Spanish, French, Italian, German, or Portuguese are accepted. For most other APIs, such as those for Custom Classification, Amazon Comprehend accepts text in all supported languages. For a list of supported languages, see 'supported-languages' .
-_UnsupportedLanguageException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Amazon Comprehend can\'t process the language of the input text. For all
+-- custom entity recognition APIs (such as @CreateEntityRecognizer@), only
+-- English, Spanish, French, Italian, German, or Portuguese are accepted.
+-- For most other APIs, such as those for Custom Classification, Amazon
+-- Comprehend accepts text in all supported languages. For a list of
+-- supported languages, see supported-languages.
+_UnsupportedLanguageException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _UnsupportedLanguageException =
-  _MatchServiceError
-    comprehend
+  Prelude._MatchServiceError
+    defaultService
     "UnsupportedLanguageException"
 
 -- | An internal server error occurred. Retry your request.
-_InternalServerException :: AsError a => Getting (First ServiceError) a ServiceError
+_InternalServerException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InternalServerException =
-  _MatchServiceError
-    comprehend
+  Prelude._MatchServiceError
+    defaultService
     "InternalServerException"
 
 -- | The number of requests exceeds the limit. Resubmit your request later.
-_TooManyRequestsException :: AsError a => Getting (First ServiceError) a ServiceError
+_TooManyRequestsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TooManyRequestsException =
-  _MatchServiceError
-    comprehend
+  Prelude._MatchServiceError
+    defaultService
     "TooManyRequestsException"

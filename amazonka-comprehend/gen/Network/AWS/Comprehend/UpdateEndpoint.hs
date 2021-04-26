@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,137 +24,149 @@
 -- Updates information about the specified endpoint.
 module Network.AWS.Comprehend.UpdateEndpoint
   ( -- * Creating a Request
-    updateEndpoint,
-    UpdateEndpoint,
+    UpdateEndpoint (..),
+    newUpdateEndpoint,
 
     -- * Request Lenses
-    ueEndpointARN,
-    ueDesiredInferenceUnits,
+    updateEndpoint_endpointArn,
+    updateEndpoint_desiredInferenceUnits,
 
     -- * Destructuring the Response
-    updateEndpointResponse,
-    UpdateEndpointResponse,
+    UpdateEndpointResponse (..),
+    newUpdateEndpointResponse,
 
     -- * Response Lenses
-    uerrsResponseStatus,
+    updateEndpointResponse_httpStatus,
   )
 where
 
 import Network.AWS.Comprehend.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateEndpoint' smart constructor.
+-- | /See:/ 'newUpdateEndpoint' smart constructor.
 data UpdateEndpoint = UpdateEndpoint'
-  { _ueEndpointARN ::
-      !Text,
-    _ueDesiredInferenceUnits :: !Nat
+  { -- | The Amazon Resource Number (ARN) of the endpoint being updated.
+    endpointArn :: Prelude.Text,
+    -- | The desired number of inference units to be used by the model using this
+    -- endpoint. Each inference unit represents of a throughput of 100
+    -- characters per second.
+    desiredInferenceUnits :: Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateEndpoint' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateEndpoint' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ueEndpointARN' - The Amazon Resource Number (ARN) of the endpoint being updated.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ueDesiredInferenceUnits' - The desired number of inference units to be used by the model using this endpoint. Each inference unit represents of a throughput of 100 characters per second.
-updateEndpoint ::
-  -- | 'ueEndpointARN'
-  Text ->
-  -- | 'ueDesiredInferenceUnits'
-  Natural ->
+-- 'endpointArn', 'updateEndpoint_endpointArn' - The Amazon Resource Number (ARN) of the endpoint being updated.
+--
+-- 'desiredInferenceUnits', 'updateEndpoint_desiredInferenceUnits' - The desired number of inference units to be used by the model using this
+-- endpoint. Each inference unit represents of a throughput of 100
+-- characters per second.
+newUpdateEndpoint ::
+  -- | 'endpointArn'
+  Prelude.Text ->
+  -- | 'desiredInferenceUnits'
+  Prelude.Natural ->
   UpdateEndpoint
-updateEndpoint pEndpointARN_ pDesiredInferenceUnits_ =
-  UpdateEndpoint'
-    { _ueEndpointARN = pEndpointARN_,
-      _ueDesiredInferenceUnits =
-        _Nat # pDesiredInferenceUnits_
-    }
+newUpdateEndpoint
+  pEndpointArn_
+  pDesiredInferenceUnits_ =
+    UpdateEndpoint'
+      { endpointArn = pEndpointArn_,
+        desiredInferenceUnits =
+          Prelude._Nat Lens.# pDesiredInferenceUnits_
+      }
 
 -- | The Amazon Resource Number (ARN) of the endpoint being updated.
-ueEndpointARN :: Lens' UpdateEndpoint Text
-ueEndpointARN = lens _ueEndpointARN (\s a -> s {_ueEndpointARN = a})
+updateEndpoint_endpointArn :: Lens.Lens' UpdateEndpoint Prelude.Text
+updateEndpoint_endpointArn = Lens.lens (\UpdateEndpoint' {endpointArn} -> endpointArn) (\s@UpdateEndpoint' {} a -> s {endpointArn = a} :: UpdateEndpoint)
 
--- | The desired number of inference units to be used by the model using this endpoint. Each inference unit represents of a throughput of 100 characters per second.
-ueDesiredInferenceUnits :: Lens' UpdateEndpoint Natural
-ueDesiredInferenceUnits = lens _ueDesiredInferenceUnits (\s a -> s {_ueDesiredInferenceUnits = a}) . _Nat
+-- | The desired number of inference units to be used by the model using this
+-- endpoint. Each inference unit represents of a throughput of 100
+-- characters per second.
+updateEndpoint_desiredInferenceUnits :: Lens.Lens' UpdateEndpoint Prelude.Natural
+updateEndpoint_desiredInferenceUnits = Lens.lens (\UpdateEndpoint' {desiredInferenceUnits} -> desiredInferenceUnits) (\s@UpdateEndpoint' {} a -> s {desiredInferenceUnits = a} :: UpdateEndpoint) Prelude.. Prelude._Nat
 
-instance AWSRequest UpdateEndpoint where
+instance Prelude.AWSRequest UpdateEndpoint where
   type Rs UpdateEndpoint = UpdateEndpointResponse
-  request = postJSON comprehend
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          UpdateEndpointResponse' <$> (pure (fromEnum s))
+          UpdateEndpointResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateEndpoint
+instance Prelude.Hashable UpdateEndpoint
 
-instance NFData UpdateEndpoint
+instance Prelude.NFData UpdateEndpoint
 
-instance ToHeaders UpdateEndpoint where
+instance Prelude.ToHeaders UpdateEndpoint where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("Comprehend_20171127.UpdateEndpoint" :: ByteString),
+              Prelude.=# ( "Comprehend_20171127.UpdateEndpoint" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateEndpoint where
+instance Prelude.ToJSON UpdateEndpoint where
   toJSON UpdateEndpoint' {..} =
-    object
-      ( catMaybes
-          [ Just ("EndpointArn" .= _ueEndpointARN),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("EndpointArn" Prelude..= endpointArn),
+            Prelude.Just
               ( "DesiredInferenceUnits"
-                  .= _ueDesiredInferenceUnits
+                  Prelude..= desiredInferenceUnits
               )
           ]
       )
 
-instance ToPath UpdateEndpoint where
-  toPath = const "/"
+instance Prelude.ToPath UpdateEndpoint where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateEndpoint where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateEndpoint where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateEndpointResponse' smart constructor.
-newtype UpdateEndpointResponse = UpdateEndpointResponse'
-  { _uerrsResponseStatus ::
-      Int
+-- | /See:/ 'newUpdateEndpointResponse' smart constructor.
+data UpdateEndpointResponse = UpdateEndpointResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateEndpointResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateEndpointResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uerrsResponseStatus' - -- | The response status code.
-updateEndpointResponse ::
-  -- | 'uerrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'updateEndpointResponse_httpStatus' - The response's http status code.
+newUpdateEndpointResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateEndpointResponse
-updateEndpointResponse pResponseStatus_ =
-  UpdateEndpointResponse'
-    { _uerrsResponseStatus =
-        pResponseStatus_
-    }
+newUpdateEndpointResponse pHttpStatus_ =
+  UpdateEndpointResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-uerrsResponseStatus :: Lens' UpdateEndpointResponse Int
-uerrsResponseStatus = lens _uerrsResponseStatus (\s a -> s {_uerrsResponseStatus = a})
+-- | The response's http status code.
+updateEndpointResponse_httpStatus :: Lens.Lens' UpdateEndpointResponse Prelude.Int
+updateEndpointResponse_httpStatus = Lens.lens (\UpdateEndpointResponse' {httpStatus} -> httpStatus) (\s@UpdateEndpointResponse' {} a -> s {httpStatus = a} :: UpdateEndpointResponse)
 
-instance NFData UpdateEndpointResponse
+instance Prelude.NFData UpdateEndpointResponse

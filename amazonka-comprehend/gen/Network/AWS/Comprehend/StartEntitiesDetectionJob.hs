@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,264 +21,377 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Starts an asynchronous entity detection job for a collection of documents. Use the operation to track the status of a job.
+-- Starts an asynchronous entity detection job for a collection of
+-- documents. Use the operation to track the status of a job.
 --
---
--- This API can be used for either standard entity detection or custom entity recognition. In order to be used for custom entity recognition, the optional @EntityRecognizerArn@ must be used in order to provide access to the recognizer being used to detect the custom entity.
+-- This API can be used for either standard entity detection or custom
+-- entity recognition. In order to be used for custom entity recognition,
+-- the optional @EntityRecognizerArn@ must be used in order to provide
+-- access to the recognizer being used to detect the custom entity.
 module Network.AWS.Comprehend.StartEntitiesDetectionJob
   ( -- * Creating a Request
-    startEntitiesDetectionJob,
-    StartEntitiesDetectionJob,
+    StartEntitiesDetectionJob (..),
+    newStartEntitiesDetectionJob,
 
     -- * Request Lenses
-    sVPCConfig,
-    sVolumeKMSKeyId,
-    sClientRequestToken,
-    sEntityRecognizerARN,
-    sJobName,
-    sInputDataConfig,
-    sOutputDataConfig,
-    sDataAccessRoleARN,
-    sLanguageCode,
+    startEntitiesDetectionJob_vpcConfig,
+    startEntitiesDetectionJob_volumeKmsKeyId,
+    startEntitiesDetectionJob_clientRequestToken,
+    startEntitiesDetectionJob_entityRecognizerArn,
+    startEntitiesDetectionJob_jobName,
+    startEntitiesDetectionJob_inputDataConfig,
+    startEntitiesDetectionJob_outputDataConfig,
+    startEntitiesDetectionJob_dataAccessRoleArn,
+    startEntitiesDetectionJob_languageCode,
 
     -- * Destructuring the Response
-    startEntitiesDetectionJobResponse,
-    StartEntitiesDetectionJobResponse,
+    StartEntitiesDetectionJobResponse (..),
+    newStartEntitiesDetectionJobResponse,
 
     -- * Response Lenses
-    sedjrersJobStatus,
-    sedjrersJobId,
-    sedjrersResponseStatus,
+    startEntitiesDetectionJobResponse_jobStatus,
+    startEntitiesDetectionJobResponse_jobId,
+    startEntitiesDetectionJobResponse_httpStatus,
   )
 where
 
 import Network.AWS.Comprehend.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Comprehend.Types.JobStatus
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'startEntitiesDetectionJob' smart constructor.
+-- | /See:/ 'newStartEntitiesDetectionJob' smart constructor.
 data StartEntitiesDetectionJob = StartEntitiesDetectionJob'
-  { _sVPCConfig ::
-      !(Maybe VPCConfig),
-    _sVolumeKMSKeyId ::
-      !(Maybe Text),
-    _sClientRequestToken ::
-      !(Maybe Text),
-    _sEntityRecognizerARN ::
-      !(Maybe Text),
-    _sJobName ::
-      !(Maybe Text),
-    _sInputDataConfig ::
-      !InputDataConfig,
-    _sOutputDataConfig ::
-      !OutputDataConfig,
-    _sDataAccessRoleARN ::
-      !Text,
-    _sLanguageCode ::
-      !LanguageCode
+  { -- | Configuration parameters for an optional private Virtual Private Cloud
+    -- (VPC) containing the resources you are using for your entity detection
+    -- job. For more information, see
+    -- <https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html Amazon VPC>.
+    vpcConfig :: Prelude.Maybe VpcConfig,
+    -- | ID for the AWS Key Management Service (KMS) key that Amazon Comprehend
+    -- uses to encrypt data on the storage volume attached to the ML compute
+    -- instance(s) that process the analysis job. The VolumeKmsKeyId can be
+    -- either of the following formats:
+    --
+    -- -   KMS Key ID: @\"1234abcd-12ab-34cd-56ef-1234567890ab\"@
+    --
+    -- -   Amazon Resource Name (ARN) of a KMS Key:
+    --     @\"arn:aws:kms:us-west-2:111122223333:key\/1234abcd-12ab-34cd-56ef-1234567890ab\"@
+    volumeKmsKeyId :: Prelude.Maybe Prelude.Text,
+    -- | A unique identifier for the request. If you don\'t set the client
+    -- request token, Amazon Comprehend generates one.
+    clientRequestToken :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) that identifies the specific entity
+    -- recognizer to be used by the @StartEntitiesDetectionJob@. This ARN is
+    -- optional and is only used for a custom entity recognition job.
+    entityRecognizerArn :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the job.
+    jobName :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the format and location of the input data for the job.
+    inputDataConfig :: InputDataConfig,
+    -- | Specifies where to send the output files.
+    outputDataConfig :: OutputDataConfig,
+    -- | The Amazon Resource Name (ARN) of the AWS Identity and Access Management
+    -- (IAM) role that grants Amazon Comprehend read access to your input data.
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/comprehend/latest/dg/access-control-managing-permissions.html#auth-role-permissions>.
+    dataAccessRoleArn :: Prelude.Text,
+    -- | The language of the input documents. All documents must be in the same
+    -- language. You can specify any of the languages supported by Amazon
+    -- Comprehend. If custom entities recognition is used, this parameter is
+    -- ignored and the language used for training the model is used instead.
+    languageCode :: LanguageCode
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartEntitiesDetectionJob' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartEntitiesDetectionJob' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sVPCConfig' - Configuration parameters for an optional private Virtual Private Cloud (VPC) containing the resources you are using for your entity detection job. For more information, see <https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html Amazon VPC> .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sVolumeKMSKeyId' - ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be either of the following formats:     * KMS Key ID: @"1234abcd-12ab-34cd-56ef-1234567890ab"@      * Amazon Resource Name (ARN) of a KMS Key: @"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"@
+-- 'vpcConfig', 'startEntitiesDetectionJob_vpcConfig' - Configuration parameters for an optional private Virtual Private Cloud
+-- (VPC) containing the resources you are using for your entity detection
+-- job. For more information, see
+-- <https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html Amazon VPC>.
 --
--- * 'sClientRequestToken' - A unique identifier for the request. If you don't set the client request token, Amazon Comprehend generates one.
+-- 'volumeKmsKeyId', 'startEntitiesDetectionJob_volumeKmsKeyId' - ID for the AWS Key Management Service (KMS) key that Amazon Comprehend
+-- uses to encrypt data on the storage volume attached to the ML compute
+-- instance(s) that process the analysis job. The VolumeKmsKeyId can be
+-- either of the following formats:
 --
--- * 'sEntityRecognizerARN' - The Amazon Resource Name (ARN) that identifies the specific entity recognizer to be used by the @StartEntitiesDetectionJob@ . This ARN is optional and is only used for a custom entity recognition job.
+-- -   KMS Key ID: @\"1234abcd-12ab-34cd-56ef-1234567890ab\"@
 --
--- * 'sJobName' - The identifier of the job.
+-- -   Amazon Resource Name (ARN) of a KMS Key:
+--     @\"arn:aws:kms:us-west-2:111122223333:key\/1234abcd-12ab-34cd-56ef-1234567890ab\"@
 --
--- * 'sInputDataConfig' - Specifies the format and location of the input data for the job.
+-- 'clientRequestToken', 'startEntitiesDetectionJob_clientRequestToken' - A unique identifier for the request. If you don\'t set the client
+-- request token, Amazon Comprehend generates one.
 --
--- * 'sOutputDataConfig' - Specifies where to send the output files.
+-- 'entityRecognizerArn', 'startEntitiesDetectionJob_entityRecognizerArn' - The Amazon Resource Name (ARN) that identifies the specific entity
+-- recognizer to be used by the @StartEntitiesDetectionJob@. This ARN is
+-- optional and is only used for a custom entity recognition job.
 --
--- * 'sDataAccessRoleARN' - The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role that grants Amazon Comprehend read access to your input data. For more information, see <https://docs.aws.amazon.com/comprehend/latest/dg/access-control-managing-permissions.html#auth-role-permissions https://docs.aws.amazon.com/comprehend/latest/dg/access-control-managing-permissions.html#auth-role-permissions> .
+-- 'jobName', 'startEntitiesDetectionJob_jobName' - The identifier of the job.
 --
--- * 'sLanguageCode' - The language of the input documents. All documents must be in the same language. You can specify any of the languages supported by Amazon Comprehend. If custom entities recognition is used, this parameter is ignored and the language used for training the model is used instead.
-startEntitiesDetectionJob ::
-  -- | 'sInputDataConfig'
+-- 'inputDataConfig', 'startEntitiesDetectionJob_inputDataConfig' - Specifies the format and location of the input data for the job.
+--
+-- 'outputDataConfig', 'startEntitiesDetectionJob_outputDataConfig' - Specifies where to send the output files.
+--
+-- 'dataAccessRoleArn', 'startEntitiesDetectionJob_dataAccessRoleArn' - The Amazon Resource Name (ARN) of the AWS Identity and Access Management
+-- (IAM) role that grants Amazon Comprehend read access to your input data.
+-- For more information, see
+-- <https://docs.aws.amazon.com/comprehend/latest/dg/access-control-managing-permissions.html#auth-role-permissions>.
+--
+-- 'languageCode', 'startEntitiesDetectionJob_languageCode' - The language of the input documents. All documents must be in the same
+-- language. You can specify any of the languages supported by Amazon
+-- Comprehend. If custom entities recognition is used, this parameter is
+-- ignored and the language used for training the model is used instead.
+newStartEntitiesDetectionJob ::
+  -- | 'inputDataConfig'
   InputDataConfig ->
-  -- | 'sOutputDataConfig'
+  -- | 'outputDataConfig'
   OutputDataConfig ->
-  -- | 'sDataAccessRoleARN'
-  Text ->
-  -- | 'sLanguageCode'
+  -- | 'dataAccessRoleArn'
+  Prelude.Text ->
+  -- | 'languageCode'
   LanguageCode ->
   StartEntitiesDetectionJob
-startEntitiesDetectionJob
+newStartEntitiesDetectionJob
   pInputDataConfig_
   pOutputDataConfig_
-  pDataAccessRoleARN_
+  pDataAccessRoleArn_
   pLanguageCode_ =
     StartEntitiesDetectionJob'
-      { _sVPCConfig = Nothing,
-        _sVolumeKMSKeyId = Nothing,
-        _sClientRequestToken = Nothing,
-        _sEntityRecognizerARN = Nothing,
-        _sJobName = Nothing,
-        _sInputDataConfig = pInputDataConfig_,
-        _sOutputDataConfig = pOutputDataConfig_,
-        _sDataAccessRoleARN = pDataAccessRoleARN_,
-        _sLanguageCode = pLanguageCode_
+      { vpcConfig =
+          Prelude.Nothing,
+        volumeKmsKeyId = Prelude.Nothing,
+        clientRequestToken = Prelude.Nothing,
+        entityRecognizerArn = Prelude.Nothing,
+        jobName = Prelude.Nothing,
+        inputDataConfig = pInputDataConfig_,
+        outputDataConfig = pOutputDataConfig_,
+        dataAccessRoleArn = pDataAccessRoleArn_,
+        languageCode = pLanguageCode_
       }
 
--- | Configuration parameters for an optional private Virtual Private Cloud (VPC) containing the resources you are using for your entity detection job. For more information, see <https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html Amazon VPC> .
-sVPCConfig :: Lens' StartEntitiesDetectionJob (Maybe VPCConfig)
-sVPCConfig = lens _sVPCConfig (\s a -> s {_sVPCConfig = a})
+-- | Configuration parameters for an optional private Virtual Private Cloud
+-- (VPC) containing the resources you are using for your entity detection
+-- job. For more information, see
+-- <https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html Amazon VPC>.
+startEntitiesDetectionJob_vpcConfig :: Lens.Lens' StartEntitiesDetectionJob (Prelude.Maybe VpcConfig)
+startEntitiesDetectionJob_vpcConfig = Lens.lens (\StartEntitiesDetectionJob' {vpcConfig} -> vpcConfig) (\s@StartEntitiesDetectionJob' {} a -> s {vpcConfig = a} :: StartEntitiesDetectionJob)
 
--- | ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be either of the following formats:     * KMS Key ID: @"1234abcd-12ab-34cd-56ef-1234567890ab"@      * Amazon Resource Name (ARN) of a KMS Key: @"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"@
-sVolumeKMSKeyId :: Lens' StartEntitiesDetectionJob (Maybe Text)
-sVolumeKMSKeyId = lens _sVolumeKMSKeyId (\s a -> s {_sVolumeKMSKeyId = a})
+-- | ID for the AWS Key Management Service (KMS) key that Amazon Comprehend
+-- uses to encrypt data on the storage volume attached to the ML compute
+-- instance(s) that process the analysis job. The VolumeKmsKeyId can be
+-- either of the following formats:
+--
+-- -   KMS Key ID: @\"1234abcd-12ab-34cd-56ef-1234567890ab\"@
+--
+-- -   Amazon Resource Name (ARN) of a KMS Key:
+--     @\"arn:aws:kms:us-west-2:111122223333:key\/1234abcd-12ab-34cd-56ef-1234567890ab\"@
+startEntitiesDetectionJob_volumeKmsKeyId :: Lens.Lens' StartEntitiesDetectionJob (Prelude.Maybe Prelude.Text)
+startEntitiesDetectionJob_volumeKmsKeyId = Lens.lens (\StartEntitiesDetectionJob' {volumeKmsKeyId} -> volumeKmsKeyId) (\s@StartEntitiesDetectionJob' {} a -> s {volumeKmsKeyId = a} :: StartEntitiesDetectionJob)
 
--- | A unique identifier for the request. If you don't set the client request token, Amazon Comprehend generates one.
-sClientRequestToken :: Lens' StartEntitiesDetectionJob (Maybe Text)
-sClientRequestToken = lens _sClientRequestToken (\s a -> s {_sClientRequestToken = a})
+-- | A unique identifier for the request. If you don\'t set the client
+-- request token, Amazon Comprehend generates one.
+startEntitiesDetectionJob_clientRequestToken :: Lens.Lens' StartEntitiesDetectionJob (Prelude.Maybe Prelude.Text)
+startEntitiesDetectionJob_clientRequestToken = Lens.lens (\StartEntitiesDetectionJob' {clientRequestToken} -> clientRequestToken) (\s@StartEntitiesDetectionJob' {} a -> s {clientRequestToken = a} :: StartEntitiesDetectionJob)
 
--- | The Amazon Resource Name (ARN) that identifies the specific entity recognizer to be used by the @StartEntitiesDetectionJob@ . This ARN is optional and is only used for a custom entity recognition job.
-sEntityRecognizerARN :: Lens' StartEntitiesDetectionJob (Maybe Text)
-sEntityRecognizerARN = lens _sEntityRecognizerARN (\s a -> s {_sEntityRecognizerARN = a})
+-- | The Amazon Resource Name (ARN) that identifies the specific entity
+-- recognizer to be used by the @StartEntitiesDetectionJob@. This ARN is
+-- optional and is only used for a custom entity recognition job.
+startEntitiesDetectionJob_entityRecognizerArn :: Lens.Lens' StartEntitiesDetectionJob (Prelude.Maybe Prelude.Text)
+startEntitiesDetectionJob_entityRecognizerArn = Lens.lens (\StartEntitiesDetectionJob' {entityRecognizerArn} -> entityRecognizerArn) (\s@StartEntitiesDetectionJob' {} a -> s {entityRecognizerArn = a} :: StartEntitiesDetectionJob)
 
 -- | The identifier of the job.
-sJobName :: Lens' StartEntitiesDetectionJob (Maybe Text)
-sJobName = lens _sJobName (\s a -> s {_sJobName = a})
+startEntitiesDetectionJob_jobName :: Lens.Lens' StartEntitiesDetectionJob (Prelude.Maybe Prelude.Text)
+startEntitiesDetectionJob_jobName = Lens.lens (\StartEntitiesDetectionJob' {jobName} -> jobName) (\s@StartEntitiesDetectionJob' {} a -> s {jobName = a} :: StartEntitiesDetectionJob)
 
 -- | Specifies the format and location of the input data for the job.
-sInputDataConfig :: Lens' StartEntitiesDetectionJob InputDataConfig
-sInputDataConfig = lens _sInputDataConfig (\s a -> s {_sInputDataConfig = a})
+startEntitiesDetectionJob_inputDataConfig :: Lens.Lens' StartEntitiesDetectionJob InputDataConfig
+startEntitiesDetectionJob_inputDataConfig = Lens.lens (\StartEntitiesDetectionJob' {inputDataConfig} -> inputDataConfig) (\s@StartEntitiesDetectionJob' {} a -> s {inputDataConfig = a} :: StartEntitiesDetectionJob)
 
 -- | Specifies where to send the output files.
-sOutputDataConfig :: Lens' StartEntitiesDetectionJob OutputDataConfig
-sOutputDataConfig = lens _sOutputDataConfig (\s a -> s {_sOutputDataConfig = a})
+startEntitiesDetectionJob_outputDataConfig :: Lens.Lens' StartEntitiesDetectionJob OutputDataConfig
+startEntitiesDetectionJob_outputDataConfig = Lens.lens (\StartEntitiesDetectionJob' {outputDataConfig} -> outputDataConfig) (\s@StartEntitiesDetectionJob' {} a -> s {outputDataConfig = a} :: StartEntitiesDetectionJob)
 
--- | The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role that grants Amazon Comprehend read access to your input data. For more information, see <https://docs.aws.amazon.com/comprehend/latest/dg/access-control-managing-permissions.html#auth-role-permissions https://docs.aws.amazon.com/comprehend/latest/dg/access-control-managing-permissions.html#auth-role-permissions> .
-sDataAccessRoleARN :: Lens' StartEntitiesDetectionJob Text
-sDataAccessRoleARN = lens _sDataAccessRoleARN (\s a -> s {_sDataAccessRoleARN = a})
+-- | The Amazon Resource Name (ARN) of the AWS Identity and Access Management
+-- (IAM) role that grants Amazon Comprehend read access to your input data.
+-- For more information, see
+-- <https://docs.aws.amazon.com/comprehend/latest/dg/access-control-managing-permissions.html#auth-role-permissions>.
+startEntitiesDetectionJob_dataAccessRoleArn :: Lens.Lens' StartEntitiesDetectionJob Prelude.Text
+startEntitiesDetectionJob_dataAccessRoleArn = Lens.lens (\StartEntitiesDetectionJob' {dataAccessRoleArn} -> dataAccessRoleArn) (\s@StartEntitiesDetectionJob' {} a -> s {dataAccessRoleArn = a} :: StartEntitiesDetectionJob)
 
--- | The language of the input documents. All documents must be in the same language. You can specify any of the languages supported by Amazon Comprehend. If custom entities recognition is used, this parameter is ignored and the language used for training the model is used instead.
-sLanguageCode :: Lens' StartEntitiesDetectionJob LanguageCode
-sLanguageCode = lens _sLanguageCode (\s a -> s {_sLanguageCode = a})
+-- | The language of the input documents. All documents must be in the same
+-- language. You can specify any of the languages supported by Amazon
+-- Comprehend. If custom entities recognition is used, this parameter is
+-- ignored and the language used for training the model is used instead.
+startEntitiesDetectionJob_languageCode :: Lens.Lens' StartEntitiesDetectionJob LanguageCode
+startEntitiesDetectionJob_languageCode = Lens.lens (\StartEntitiesDetectionJob' {languageCode} -> languageCode) (\s@StartEntitiesDetectionJob' {} a -> s {languageCode = a} :: StartEntitiesDetectionJob)
 
-instance AWSRequest StartEntitiesDetectionJob where
+instance Prelude.AWSRequest StartEntitiesDetectionJob where
   type
     Rs StartEntitiesDetectionJob =
       StartEntitiesDetectionJobResponse
-  request = postJSON comprehend
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           StartEntitiesDetectionJobResponse'
-            <$> (x .?> "JobStatus")
-            <*> (x .?> "JobId")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "JobStatus")
+            Prelude.<*> (x Prelude..?> "JobId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StartEntitiesDetectionJob
+instance Prelude.Hashable StartEntitiesDetectionJob
 
-instance NFData StartEntitiesDetectionJob
+instance Prelude.NFData StartEntitiesDetectionJob
 
-instance ToHeaders StartEntitiesDetectionJob where
+instance Prelude.ToHeaders StartEntitiesDetectionJob where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Comprehend_20171127.StartEntitiesDetectionJob" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Comprehend_20171127.StartEntitiesDetectionJob" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StartEntitiesDetectionJob where
+instance Prelude.ToJSON StartEntitiesDetectionJob where
   toJSON StartEntitiesDetectionJob' {..} =
-    object
-      ( catMaybes
-          [ ("VpcConfig" .=) <$> _sVPCConfig,
-            ("VolumeKmsKeyId" .=) <$> _sVolumeKMSKeyId,
-            ("ClientRequestToken" .=) <$> _sClientRequestToken,
-            ("EntityRecognizerArn" .=) <$> _sEntityRecognizerARN,
-            ("JobName" .=) <$> _sJobName,
-            Just ("InputDataConfig" .= _sInputDataConfig),
-            Just ("OutputDataConfig" .= _sOutputDataConfig),
-            Just ("DataAccessRoleArn" .= _sDataAccessRoleARN),
-            Just ("LanguageCode" .= _sLanguageCode)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("VpcConfig" Prelude..=) Prelude.<$> vpcConfig,
+            ("VolumeKmsKeyId" Prelude..=)
+              Prelude.<$> volumeKmsKeyId,
+            ("ClientRequestToken" Prelude..=)
+              Prelude.<$> clientRequestToken,
+            ("EntityRecognizerArn" Prelude..=)
+              Prelude.<$> entityRecognizerArn,
+            ("JobName" Prelude..=) Prelude.<$> jobName,
+            Prelude.Just
+              ("InputDataConfig" Prelude..= inputDataConfig),
+            Prelude.Just
+              ("OutputDataConfig" Prelude..= outputDataConfig),
+            Prelude.Just
+              ("DataAccessRoleArn" Prelude..= dataAccessRoleArn),
+            Prelude.Just
+              ("LanguageCode" Prelude..= languageCode)
           ]
       )
 
-instance ToPath StartEntitiesDetectionJob where
-  toPath = const "/"
+instance Prelude.ToPath StartEntitiesDetectionJob where
+  toPath = Prelude.const "/"
 
-instance ToQuery StartEntitiesDetectionJob where
-  toQuery = const mempty
+instance Prelude.ToQuery StartEntitiesDetectionJob where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'startEntitiesDetectionJobResponse' smart constructor.
+-- | /See:/ 'newStartEntitiesDetectionJobResponse' smart constructor.
 data StartEntitiesDetectionJobResponse = StartEntitiesDetectionJobResponse'
-  { _sedjrersJobStatus ::
-      !( Maybe
-           JobStatus
-       ),
-    _sedjrersJobId ::
-      !( Maybe
-           Text
-       ),
-    _sedjrersResponseStatus ::
-      !Int
+  { -- | The status of the job.
+    --
+    -- -   SUBMITTED - The job has been received and is queued for processing.
+    --
+    -- -   IN_PROGRESS - Amazon Comprehend is processing the job.
+    --
+    -- -   COMPLETED - The job was successfully completed and the output is
+    --     available.
+    --
+    -- -   FAILED - The job did not complete. To get details, use the
+    --     operation.
+    --
+    -- -   STOP_REQUESTED - Amazon Comprehend has received a stop request for
+    --     the job and is processing the request.
+    --
+    -- -   STOPPED - The job was successfully stopped without completing.
+    jobStatus :: Prelude.Maybe JobStatus,
+    -- | The identifier generated for the job. To get the status of job, use this
+    -- identifier with the operation.
+    jobId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartEntitiesDetectionJobResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartEntitiesDetectionJobResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sedjrersJobStatus' - The status of the job.      * SUBMITTED - The job has been received and is queued for processing.     * IN_PROGRESS - Amazon Comprehend is processing the job.     * COMPLETED - The job was successfully completed and the output is available.     * FAILED - The job did not complete. To get details, use the operation.     * STOP_REQUESTED - Amazon Comprehend has received a stop request for the job and is processing the request.     * STOPPED - The job was successfully stopped without completing.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sedjrersJobId' - The identifier generated for the job. To get the status of job, use this identifier with the operation.
+-- 'jobStatus', 'startEntitiesDetectionJobResponse_jobStatus' - The status of the job.
 --
--- * 'sedjrersResponseStatus' - -- | The response status code.
-startEntitiesDetectionJobResponse ::
-  -- | 'sedjrersResponseStatus'
-  Int ->
+-- -   SUBMITTED - The job has been received and is queued for processing.
+--
+-- -   IN_PROGRESS - Amazon Comprehend is processing the job.
+--
+-- -   COMPLETED - The job was successfully completed and the output is
+--     available.
+--
+-- -   FAILED - The job did not complete. To get details, use the
+--     operation.
+--
+-- -   STOP_REQUESTED - Amazon Comprehend has received a stop request for
+--     the job and is processing the request.
+--
+-- -   STOPPED - The job was successfully stopped without completing.
+--
+-- 'jobId', 'startEntitiesDetectionJobResponse_jobId' - The identifier generated for the job. To get the status of job, use this
+-- identifier with the operation.
+--
+-- 'httpStatus', 'startEntitiesDetectionJobResponse_httpStatus' - The response's http status code.
+newStartEntitiesDetectionJobResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StartEntitiesDetectionJobResponse
-startEntitiesDetectionJobResponse pResponseStatus_ =
+newStartEntitiesDetectionJobResponse pHttpStatus_ =
   StartEntitiesDetectionJobResponse'
-    { _sedjrersJobStatus =
-        Nothing,
-      _sedjrersJobId = Nothing,
-      _sedjrersResponseStatus =
-        pResponseStatus_
+    { jobStatus =
+        Prelude.Nothing,
+      jobId = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The status of the job.      * SUBMITTED - The job has been received and is queued for processing.     * IN_PROGRESS - Amazon Comprehend is processing the job.     * COMPLETED - The job was successfully completed and the output is available.     * FAILED - The job did not complete. To get details, use the operation.     * STOP_REQUESTED - Amazon Comprehend has received a stop request for the job and is processing the request.     * STOPPED - The job was successfully stopped without completing.
-sedjrersJobStatus :: Lens' StartEntitiesDetectionJobResponse (Maybe JobStatus)
-sedjrersJobStatus = lens _sedjrersJobStatus (\s a -> s {_sedjrersJobStatus = a})
+-- | The status of the job.
+--
+-- -   SUBMITTED - The job has been received and is queued for processing.
+--
+-- -   IN_PROGRESS - Amazon Comprehend is processing the job.
+--
+-- -   COMPLETED - The job was successfully completed and the output is
+--     available.
+--
+-- -   FAILED - The job did not complete. To get details, use the
+--     operation.
+--
+-- -   STOP_REQUESTED - Amazon Comprehend has received a stop request for
+--     the job and is processing the request.
+--
+-- -   STOPPED - The job was successfully stopped without completing.
+startEntitiesDetectionJobResponse_jobStatus :: Lens.Lens' StartEntitiesDetectionJobResponse (Prelude.Maybe JobStatus)
+startEntitiesDetectionJobResponse_jobStatus = Lens.lens (\StartEntitiesDetectionJobResponse' {jobStatus} -> jobStatus) (\s@StartEntitiesDetectionJobResponse' {} a -> s {jobStatus = a} :: StartEntitiesDetectionJobResponse)
 
--- | The identifier generated for the job. To get the status of job, use this identifier with the operation.
-sedjrersJobId :: Lens' StartEntitiesDetectionJobResponse (Maybe Text)
-sedjrersJobId = lens _sedjrersJobId (\s a -> s {_sedjrersJobId = a})
+-- | The identifier generated for the job. To get the status of job, use this
+-- identifier with the operation.
+startEntitiesDetectionJobResponse_jobId :: Lens.Lens' StartEntitiesDetectionJobResponse (Prelude.Maybe Prelude.Text)
+startEntitiesDetectionJobResponse_jobId = Lens.lens (\StartEntitiesDetectionJobResponse' {jobId} -> jobId) (\s@StartEntitiesDetectionJobResponse' {} a -> s {jobId = a} :: StartEntitiesDetectionJobResponse)
 
--- | -- | The response status code.
-sedjrersResponseStatus :: Lens' StartEntitiesDetectionJobResponse Int
-sedjrersResponseStatus = lens _sedjrersResponseStatus (\s a -> s {_sedjrersResponseStatus = a})
+-- | The response's http status code.
+startEntitiesDetectionJobResponse_httpStatus :: Lens.Lens' StartEntitiesDetectionJobResponse Prelude.Int
+startEntitiesDetectionJobResponse_httpStatus = Lens.lens (\StartEntitiesDetectionJobResponse' {httpStatus} -> httpStatus) (\s@StartEntitiesDetectionJobResponse' {} a -> s {httpStatus = a} :: StartEntitiesDetectionJobResponse)
 
-instance NFData StartEntitiesDetectionJobResponse
+instance
+  Prelude.NFData
+    StartEntitiesDetectionJobResponse

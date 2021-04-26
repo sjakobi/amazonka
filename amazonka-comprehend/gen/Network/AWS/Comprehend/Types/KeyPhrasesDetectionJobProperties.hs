@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -19,188 +23,214 @@ import Network.AWS.Comprehend.Types.InputDataConfig
 import Network.AWS.Comprehend.Types.JobStatus
 import Network.AWS.Comprehend.Types.LanguageCode
 import Network.AWS.Comprehend.Types.OutputDataConfig
-import Network.AWS.Comprehend.Types.VPCConfig
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import Network.AWS.Comprehend.Types.VpcConfig
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Provides information about a key phrases detection job.
 --
---
---
--- /See:/ 'keyPhrasesDetectionJobProperties' smart constructor.
+-- /See:/ 'newKeyPhrasesDetectionJobProperties' smart constructor.
 data KeyPhrasesDetectionJobProperties = KeyPhrasesDetectionJobProperties'
-  { _kpdjpVPCConfig ::
-      !( Maybe
-           VPCConfig
-       ),
-    _kpdjpLanguageCode ::
-      !( Maybe
-           LanguageCode
-       ),
-    _kpdjpInputDataConfig ::
-      !( Maybe
-           InputDataConfig
-       ),
-    _kpdjpMessage ::
-      !( Maybe
-           Text
-       ),
-    _kpdjpJobStatus ::
-      !( Maybe
-           JobStatus
-       ),
-    _kpdjpOutputDataConfig ::
-      !( Maybe
-           OutputDataConfig
-       ),
-    _kpdjpEndTime ::
-      !( Maybe
-           POSIX
-       ),
-    _kpdjpVolumeKMSKeyId ::
-      !( Maybe
-           Text
-       ),
-    _kpdjpSubmitTime ::
-      !( Maybe
-           POSIX
-       ),
-    _kpdjpJobName ::
-      !( Maybe
-           Text
-       ),
-    _kpdjpDataAccessRoleARN ::
-      !( Maybe
-           Text
-       ),
-    _kpdjpJobId ::
-      !( Maybe
-           Text
-       )
+  { -- | Configuration parameters for a private Virtual Private Cloud (VPC)
+    -- containing the resources you are using for your key phrases detection
+    -- job. For more information, see
+    -- <https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html Amazon VPC>.
+    vpcConfig :: Prelude.Maybe VpcConfig,
+    -- | The language code of the input documents.
+    languageCode :: Prelude.Maybe LanguageCode,
+    -- | The input data configuration that you supplied when you created the key
+    -- phrases detection job.
+    inputDataConfig :: Prelude.Maybe InputDataConfig,
+    -- | A description of the status of a job.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The current status of the key phrases detection job. If the status is
+    -- @FAILED@, the @Message@ field shows the reason for the failure.
+    jobStatus :: Prelude.Maybe JobStatus,
+    -- | The output data configuration that you supplied when you created the key
+    -- phrases detection job.
+    outputDataConfig :: Prelude.Maybe OutputDataConfig,
+    -- | The time that the key phrases detection job completed.
+    endTime :: Prelude.Maybe Prelude.POSIX,
+    -- | ID for the AWS Key Management Service (KMS) key that Amazon Comprehend
+    -- uses to encrypt data on the storage volume attached to the ML compute
+    -- instance(s) that process the analysis job. The VolumeKmsKeyId can be
+    -- either of the following formats:
+    --
+    -- -   KMS Key ID: @\"1234abcd-12ab-34cd-56ef-1234567890ab\"@
+    --
+    -- -   Amazon Resource Name (ARN) of a KMS Key:
+    --     @\"arn:aws:kms:us-west-2:111122223333:key\/1234abcd-12ab-34cd-56ef-1234567890ab\"@
+    volumeKmsKeyId :: Prelude.Maybe Prelude.Text,
+    -- | The time that the key phrases detection job was submitted for
+    -- processing.
+    submitTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The name that you assigned the key phrases detection job.
+    jobName :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) that gives Amazon Comprehend read access
+    -- to your input data.
+    dataAccessRoleArn :: Prelude.Maybe Prelude.Text,
+    -- | The identifier assigned to the key phrases detection job.
+    jobId :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'KeyPhrasesDetectionJobProperties' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'KeyPhrasesDetectionJobProperties' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'kpdjpVPCConfig' - Configuration parameters for a private Virtual Private Cloud (VPC) containing the resources you are using for your key phrases detection job. For more information, see <https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html Amazon VPC> .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'kpdjpLanguageCode' - The language code of the input documents.
+-- 'vpcConfig', 'keyPhrasesDetectionJobProperties_vpcConfig' - Configuration parameters for a private Virtual Private Cloud (VPC)
+-- containing the resources you are using for your key phrases detection
+-- job. For more information, see
+-- <https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html Amazon VPC>.
 --
--- * 'kpdjpInputDataConfig' - The input data configuration that you supplied when you created the key phrases detection job.
+-- 'languageCode', 'keyPhrasesDetectionJobProperties_languageCode' - The language code of the input documents.
 --
--- * 'kpdjpMessage' - A description of the status of a job.
+-- 'inputDataConfig', 'keyPhrasesDetectionJobProperties_inputDataConfig' - The input data configuration that you supplied when you created the key
+-- phrases detection job.
 --
--- * 'kpdjpJobStatus' - The current status of the key phrases detection job. If the status is @FAILED@ , the @Message@ field shows the reason for the failure.
+-- 'message', 'keyPhrasesDetectionJobProperties_message' - A description of the status of a job.
 --
--- * 'kpdjpOutputDataConfig' - The output data configuration that you supplied when you created the key phrases detection job.
+-- 'jobStatus', 'keyPhrasesDetectionJobProperties_jobStatus' - The current status of the key phrases detection job. If the status is
+-- @FAILED@, the @Message@ field shows the reason for the failure.
 --
--- * 'kpdjpEndTime' - The time that the key phrases detection job completed.
+-- 'outputDataConfig', 'keyPhrasesDetectionJobProperties_outputDataConfig' - The output data configuration that you supplied when you created the key
+-- phrases detection job.
 --
--- * 'kpdjpVolumeKMSKeyId' - ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be either of the following formats:     * KMS Key ID: @"1234abcd-12ab-34cd-56ef-1234567890ab"@      * Amazon Resource Name (ARN) of a KMS Key: @"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"@
+-- 'endTime', 'keyPhrasesDetectionJobProperties_endTime' - The time that the key phrases detection job completed.
 --
--- * 'kpdjpSubmitTime' - The time that the key phrases detection job was submitted for processing.
+-- 'volumeKmsKeyId', 'keyPhrasesDetectionJobProperties_volumeKmsKeyId' - ID for the AWS Key Management Service (KMS) key that Amazon Comprehend
+-- uses to encrypt data on the storage volume attached to the ML compute
+-- instance(s) that process the analysis job. The VolumeKmsKeyId can be
+-- either of the following formats:
 --
--- * 'kpdjpJobName' - The name that you assigned the key phrases detection job.
+-- -   KMS Key ID: @\"1234abcd-12ab-34cd-56ef-1234567890ab\"@
 --
--- * 'kpdjpDataAccessRoleARN' - The Amazon Resource Name (ARN) that gives Amazon Comprehend read access to your input data.
+-- -   Amazon Resource Name (ARN) of a KMS Key:
+--     @\"arn:aws:kms:us-west-2:111122223333:key\/1234abcd-12ab-34cd-56ef-1234567890ab\"@
 --
--- * 'kpdjpJobId' - The identifier assigned to the key phrases detection job.
-keyPhrasesDetectionJobProperties ::
+-- 'submitTime', 'keyPhrasesDetectionJobProperties_submitTime' - The time that the key phrases detection job was submitted for
+-- processing.
+--
+-- 'jobName', 'keyPhrasesDetectionJobProperties_jobName' - The name that you assigned the key phrases detection job.
+--
+-- 'dataAccessRoleArn', 'keyPhrasesDetectionJobProperties_dataAccessRoleArn' - The Amazon Resource Name (ARN) that gives Amazon Comprehend read access
+-- to your input data.
+--
+-- 'jobId', 'keyPhrasesDetectionJobProperties_jobId' - The identifier assigned to the key phrases detection job.
+newKeyPhrasesDetectionJobProperties ::
   KeyPhrasesDetectionJobProperties
-keyPhrasesDetectionJobProperties =
+newKeyPhrasesDetectionJobProperties =
   KeyPhrasesDetectionJobProperties'
-    { _kpdjpVPCConfig =
-        Nothing,
-      _kpdjpLanguageCode = Nothing,
-      _kpdjpInputDataConfig = Nothing,
-      _kpdjpMessage = Nothing,
-      _kpdjpJobStatus = Nothing,
-      _kpdjpOutputDataConfig = Nothing,
-      _kpdjpEndTime = Nothing,
-      _kpdjpVolumeKMSKeyId = Nothing,
-      _kpdjpSubmitTime = Nothing,
-      _kpdjpJobName = Nothing,
-      _kpdjpDataAccessRoleARN = Nothing,
-      _kpdjpJobId = Nothing
+    { vpcConfig =
+        Prelude.Nothing,
+      languageCode = Prelude.Nothing,
+      inputDataConfig = Prelude.Nothing,
+      message = Prelude.Nothing,
+      jobStatus = Prelude.Nothing,
+      outputDataConfig = Prelude.Nothing,
+      endTime = Prelude.Nothing,
+      volumeKmsKeyId = Prelude.Nothing,
+      submitTime = Prelude.Nothing,
+      jobName = Prelude.Nothing,
+      dataAccessRoleArn = Prelude.Nothing,
+      jobId = Prelude.Nothing
     }
 
--- | Configuration parameters for a private Virtual Private Cloud (VPC) containing the resources you are using for your key phrases detection job. For more information, see <https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html Amazon VPC> .
-kpdjpVPCConfig :: Lens' KeyPhrasesDetectionJobProperties (Maybe VPCConfig)
-kpdjpVPCConfig = lens _kpdjpVPCConfig (\s a -> s {_kpdjpVPCConfig = a})
+-- | Configuration parameters for a private Virtual Private Cloud (VPC)
+-- containing the resources you are using for your key phrases detection
+-- job. For more information, see
+-- <https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html Amazon VPC>.
+keyPhrasesDetectionJobProperties_vpcConfig :: Lens.Lens' KeyPhrasesDetectionJobProperties (Prelude.Maybe VpcConfig)
+keyPhrasesDetectionJobProperties_vpcConfig = Lens.lens (\KeyPhrasesDetectionJobProperties' {vpcConfig} -> vpcConfig) (\s@KeyPhrasesDetectionJobProperties' {} a -> s {vpcConfig = a} :: KeyPhrasesDetectionJobProperties)
 
 -- | The language code of the input documents.
-kpdjpLanguageCode :: Lens' KeyPhrasesDetectionJobProperties (Maybe LanguageCode)
-kpdjpLanguageCode = lens _kpdjpLanguageCode (\s a -> s {_kpdjpLanguageCode = a})
+keyPhrasesDetectionJobProperties_languageCode :: Lens.Lens' KeyPhrasesDetectionJobProperties (Prelude.Maybe LanguageCode)
+keyPhrasesDetectionJobProperties_languageCode = Lens.lens (\KeyPhrasesDetectionJobProperties' {languageCode} -> languageCode) (\s@KeyPhrasesDetectionJobProperties' {} a -> s {languageCode = a} :: KeyPhrasesDetectionJobProperties)
 
--- | The input data configuration that you supplied when you created the key phrases detection job.
-kpdjpInputDataConfig :: Lens' KeyPhrasesDetectionJobProperties (Maybe InputDataConfig)
-kpdjpInputDataConfig = lens _kpdjpInputDataConfig (\s a -> s {_kpdjpInputDataConfig = a})
+-- | The input data configuration that you supplied when you created the key
+-- phrases detection job.
+keyPhrasesDetectionJobProperties_inputDataConfig :: Lens.Lens' KeyPhrasesDetectionJobProperties (Prelude.Maybe InputDataConfig)
+keyPhrasesDetectionJobProperties_inputDataConfig = Lens.lens (\KeyPhrasesDetectionJobProperties' {inputDataConfig} -> inputDataConfig) (\s@KeyPhrasesDetectionJobProperties' {} a -> s {inputDataConfig = a} :: KeyPhrasesDetectionJobProperties)
 
 -- | A description of the status of a job.
-kpdjpMessage :: Lens' KeyPhrasesDetectionJobProperties (Maybe Text)
-kpdjpMessage = lens _kpdjpMessage (\s a -> s {_kpdjpMessage = a})
+keyPhrasesDetectionJobProperties_message :: Lens.Lens' KeyPhrasesDetectionJobProperties (Prelude.Maybe Prelude.Text)
+keyPhrasesDetectionJobProperties_message = Lens.lens (\KeyPhrasesDetectionJobProperties' {message} -> message) (\s@KeyPhrasesDetectionJobProperties' {} a -> s {message = a} :: KeyPhrasesDetectionJobProperties)
 
--- | The current status of the key phrases detection job. If the status is @FAILED@ , the @Message@ field shows the reason for the failure.
-kpdjpJobStatus :: Lens' KeyPhrasesDetectionJobProperties (Maybe JobStatus)
-kpdjpJobStatus = lens _kpdjpJobStatus (\s a -> s {_kpdjpJobStatus = a})
+-- | The current status of the key phrases detection job. If the status is
+-- @FAILED@, the @Message@ field shows the reason for the failure.
+keyPhrasesDetectionJobProperties_jobStatus :: Lens.Lens' KeyPhrasesDetectionJobProperties (Prelude.Maybe JobStatus)
+keyPhrasesDetectionJobProperties_jobStatus = Lens.lens (\KeyPhrasesDetectionJobProperties' {jobStatus} -> jobStatus) (\s@KeyPhrasesDetectionJobProperties' {} a -> s {jobStatus = a} :: KeyPhrasesDetectionJobProperties)
 
--- | The output data configuration that you supplied when you created the key phrases detection job.
-kpdjpOutputDataConfig :: Lens' KeyPhrasesDetectionJobProperties (Maybe OutputDataConfig)
-kpdjpOutputDataConfig = lens _kpdjpOutputDataConfig (\s a -> s {_kpdjpOutputDataConfig = a})
+-- | The output data configuration that you supplied when you created the key
+-- phrases detection job.
+keyPhrasesDetectionJobProperties_outputDataConfig :: Lens.Lens' KeyPhrasesDetectionJobProperties (Prelude.Maybe OutputDataConfig)
+keyPhrasesDetectionJobProperties_outputDataConfig = Lens.lens (\KeyPhrasesDetectionJobProperties' {outputDataConfig} -> outputDataConfig) (\s@KeyPhrasesDetectionJobProperties' {} a -> s {outputDataConfig = a} :: KeyPhrasesDetectionJobProperties)
 
 -- | The time that the key phrases detection job completed.
-kpdjpEndTime :: Lens' KeyPhrasesDetectionJobProperties (Maybe UTCTime)
-kpdjpEndTime = lens _kpdjpEndTime (\s a -> s {_kpdjpEndTime = a}) . mapping _Time
+keyPhrasesDetectionJobProperties_endTime :: Lens.Lens' KeyPhrasesDetectionJobProperties (Prelude.Maybe Prelude.UTCTime)
+keyPhrasesDetectionJobProperties_endTime = Lens.lens (\KeyPhrasesDetectionJobProperties' {endTime} -> endTime) (\s@KeyPhrasesDetectionJobProperties' {} a -> s {endTime = a} :: KeyPhrasesDetectionJobProperties) Prelude.. Lens.mapping Prelude._Time
 
--- | ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be either of the following formats:     * KMS Key ID: @"1234abcd-12ab-34cd-56ef-1234567890ab"@      * Amazon Resource Name (ARN) of a KMS Key: @"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"@
-kpdjpVolumeKMSKeyId :: Lens' KeyPhrasesDetectionJobProperties (Maybe Text)
-kpdjpVolumeKMSKeyId = lens _kpdjpVolumeKMSKeyId (\s a -> s {_kpdjpVolumeKMSKeyId = a})
+-- | ID for the AWS Key Management Service (KMS) key that Amazon Comprehend
+-- uses to encrypt data on the storage volume attached to the ML compute
+-- instance(s) that process the analysis job. The VolumeKmsKeyId can be
+-- either of the following formats:
+--
+-- -   KMS Key ID: @\"1234abcd-12ab-34cd-56ef-1234567890ab\"@
+--
+-- -   Amazon Resource Name (ARN) of a KMS Key:
+--     @\"arn:aws:kms:us-west-2:111122223333:key\/1234abcd-12ab-34cd-56ef-1234567890ab\"@
+keyPhrasesDetectionJobProperties_volumeKmsKeyId :: Lens.Lens' KeyPhrasesDetectionJobProperties (Prelude.Maybe Prelude.Text)
+keyPhrasesDetectionJobProperties_volumeKmsKeyId = Lens.lens (\KeyPhrasesDetectionJobProperties' {volumeKmsKeyId} -> volumeKmsKeyId) (\s@KeyPhrasesDetectionJobProperties' {} a -> s {volumeKmsKeyId = a} :: KeyPhrasesDetectionJobProperties)
 
--- | The time that the key phrases detection job was submitted for processing.
-kpdjpSubmitTime :: Lens' KeyPhrasesDetectionJobProperties (Maybe UTCTime)
-kpdjpSubmitTime = lens _kpdjpSubmitTime (\s a -> s {_kpdjpSubmitTime = a}) . mapping _Time
+-- | The time that the key phrases detection job was submitted for
+-- processing.
+keyPhrasesDetectionJobProperties_submitTime :: Lens.Lens' KeyPhrasesDetectionJobProperties (Prelude.Maybe Prelude.UTCTime)
+keyPhrasesDetectionJobProperties_submitTime = Lens.lens (\KeyPhrasesDetectionJobProperties' {submitTime} -> submitTime) (\s@KeyPhrasesDetectionJobProperties' {} a -> s {submitTime = a} :: KeyPhrasesDetectionJobProperties) Prelude.. Lens.mapping Prelude._Time
 
 -- | The name that you assigned the key phrases detection job.
-kpdjpJobName :: Lens' KeyPhrasesDetectionJobProperties (Maybe Text)
-kpdjpJobName = lens _kpdjpJobName (\s a -> s {_kpdjpJobName = a})
+keyPhrasesDetectionJobProperties_jobName :: Lens.Lens' KeyPhrasesDetectionJobProperties (Prelude.Maybe Prelude.Text)
+keyPhrasesDetectionJobProperties_jobName = Lens.lens (\KeyPhrasesDetectionJobProperties' {jobName} -> jobName) (\s@KeyPhrasesDetectionJobProperties' {} a -> s {jobName = a} :: KeyPhrasesDetectionJobProperties)
 
--- | The Amazon Resource Name (ARN) that gives Amazon Comprehend read access to your input data.
-kpdjpDataAccessRoleARN :: Lens' KeyPhrasesDetectionJobProperties (Maybe Text)
-kpdjpDataAccessRoleARN = lens _kpdjpDataAccessRoleARN (\s a -> s {_kpdjpDataAccessRoleARN = a})
+-- | The Amazon Resource Name (ARN) that gives Amazon Comprehend read access
+-- to your input data.
+keyPhrasesDetectionJobProperties_dataAccessRoleArn :: Lens.Lens' KeyPhrasesDetectionJobProperties (Prelude.Maybe Prelude.Text)
+keyPhrasesDetectionJobProperties_dataAccessRoleArn = Lens.lens (\KeyPhrasesDetectionJobProperties' {dataAccessRoleArn} -> dataAccessRoleArn) (\s@KeyPhrasesDetectionJobProperties' {} a -> s {dataAccessRoleArn = a} :: KeyPhrasesDetectionJobProperties)
 
 -- | The identifier assigned to the key phrases detection job.
-kpdjpJobId :: Lens' KeyPhrasesDetectionJobProperties (Maybe Text)
-kpdjpJobId = lens _kpdjpJobId (\s a -> s {_kpdjpJobId = a})
+keyPhrasesDetectionJobProperties_jobId :: Lens.Lens' KeyPhrasesDetectionJobProperties (Prelude.Maybe Prelude.Text)
+keyPhrasesDetectionJobProperties_jobId = Lens.lens (\KeyPhrasesDetectionJobProperties' {jobId} -> jobId) (\s@KeyPhrasesDetectionJobProperties' {} a -> s {jobId = a} :: KeyPhrasesDetectionJobProperties)
 
-instance FromJSON KeyPhrasesDetectionJobProperties where
+instance
+  Prelude.FromJSON
+    KeyPhrasesDetectionJobProperties
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "KeyPhrasesDetectionJobProperties"
       ( \x ->
           KeyPhrasesDetectionJobProperties'
-            <$> (x .:? "VpcConfig")
-            <*> (x .:? "LanguageCode")
-            <*> (x .:? "InputDataConfig")
-            <*> (x .:? "Message")
-            <*> (x .:? "JobStatus")
-            <*> (x .:? "OutputDataConfig")
-            <*> (x .:? "EndTime")
-            <*> (x .:? "VolumeKmsKeyId")
-            <*> (x .:? "SubmitTime")
-            <*> (x .:? "JobName")
-            <*> (x .:? "DataAccessRoleArn")
-            <*> (x .:? "JobId")
+            Prelude.<$> (x Prelude..:? "VpcConfig")
+            Prelude.<*> (x Prelude..:? "LanguageCode")
+            Prelude.<*> (x Prelude..:? "InputDataConfig")
+            Prelude.<*> (x Prelude..:? "Message")
+            Prelude.<*> (x Prelude..:? "JobStatus")
+            Prelude.<*> (x Prelude..:? "OutputDataConfig")
+            Prelude.<*> (x Prelude..:? "EndTime")
+            Prelude.<*> (x Prelude..:? "VolumeKmsKeyId")
+            Prelude.<*> (x Prelude..:? "SubmitTime")
+            Prelude.<*> (x Prelude..:? "JobName")
+            Prelude.<*> (x Prelude..:? "DataAccessRoleArn")
+            Prelude.<*> (x Prelude..:? "JobId")
       )
 
-instance Hashable KeyPhrasesDetectionJobProperties
+instance
+  Prelude.Hashable
+    KeyPhrasesDetectionJobProperties
 
-instance NFData KeyPhrasesDetectionJobProperties
+instance
+  Prelude.NFData
+    KeyPhrasesDetectionJobProperties

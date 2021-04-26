@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,153 +24,151 @@
 -- Stops an events detection job in progress.
 module Network.AWS.Comprehend.StopEventsDetectionJob
   ( -- * Creating a Request
-    stopEventsDetectionJob,
-    StopEventsDetectionJob,
+    StopEventsDetectionJob (..),
+    newStopEventsDetectionJob,
 
     -- * Request Lenses
-    sedjJobId,
+    stopEventsDetectionJob_jobId,
 
     -- * Destructuring the Response
-    stopEventsDetectionJobResponse,
-    StopEventsDetectionJobResponse,
+    StopEventsDetectionJobResponse (..),
+    newStopEventsDetectionJobResponse,
 
     -- * Response Lenses
-    srsJobStatus,
-    srsJobId,
-    srsResponseStatus,
+    stopEventsDetectionJobResponse_jobStatus,
+    stopEventsDetectionJobResponse_jobId,
+    stopEventsDetectionJobResponse_httpStatus,
   )
 where
 
 import Network.AWS.Comprehend.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Comprehend.Types.JobStatus
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'stopEventsDetectionJob' smart constructor.
-newtype StopEventsDetectionJob = StopEventsDetectionJob'
-  { _sedjJobId ::
-      Text
+-- | /See:/ 'newStopEventsDetectionJob' smart constructor.
+data StopEventsDetectionJob = StopEventsDetectionJob'
+  { -- | The identifier of the events detection job to stop.
+    jobId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopEventsDetectionJob' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopEventsDetectionJob' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sedjJobId' - The identifier of the events detection job to stop.
-stopEventsDetectionJob ::
-  -- | 'sedjJobId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'jobId', 'stopEventsDetectionJob_jobId' - The identifier of the events detection job to stop.
+newStopEventsDetectionJob ::
+  -- | 'jobId'
+  Prelude.Text ->
   StopEventsDetectionJob
-stopEventsDetectionJob pJobId_ =
-  StopEventsDetectionJob' {_sedjJobId = pJobId_}
+newStopEventsDetectionJob pJobId_ =
+  StopEventsDetectionJob' {jobId = pJobId_}
 
 -- | The identifier of the events detection job to stop.
-sedjJobId :: Lens' StopEventsDetectionJob Text
-sedjJobId = lens _sedjJobId (\s a -> s {_sedjJobId = a})
+stopEventsDetectionJob_jobId :: Lens.Lens' StopEventsDetectionJob Prelude.Text
+stopEventsDetectionJob_jobId = Lens.lens (\StopEventsDetectionJob' {jobId} -> jobId) (\s@StopEventsDetectionJob' {} a -> s {jobId = a} :: StopEventsDetectionJob)
 
-instance AWSRequest StopEventsDetectionJob where
+instance Prelude.AWSRequest StopEventsDetectionJob where
   type
     Rs StopEventsDetectionJob =
       StopEventsDetectionJobResponse
-  request = postJSON comprehend
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           StopEventsDetectionJobResponse'
-            <$> (x .?> "JobStatus")
-            <*> (x .?> "JobId")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "JobStatus")
+            Prelude.<*> (x Prelude..?> "JobId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StopEventsDetectionJob
+instance Prelude.Hashable StopEventsDetectionJob
 
-instance NFData StopEventsDetectionJob
+instance Prelude.NFData StopEventsDetectionJob
 
-instance ToHeaders StopEventsDetectionJob where
+instance Prelude.ToHeaders StopEventsDetectionJob where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Comprehend_20171127.StopEventsDetectionJob" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Comprehend_20171127.StopEventsDetectionJob" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StopEventsDetectionJob where
+instance Prelude.ToJSON StopEventsDetectionJob where
   toJSON StopEventsDetectionJob' {..} =
-    object (catMaybes [Just ("JobId" .= _sedjJobId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("JobId" Prelude..= jobId)]
+      )
 
-instance ToPath StopEventsDetectionJob where
-  toPath = const "/"
+instance Prelude.ToPath StopEventsDetectionJob where
+  toPath = Prelude.const "/"
 
-instance ToQuery StopEventsDetectionJob where
-  toQuery = const mempty
+instance Prelude.ToQuery StopEventsDetectionJob where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'stopEventsDetectionJobResponse' smart constructor.
+-- | /See:/ 'newStopEventsDetectionJobResponse' smart constructor.
 data StopEventsDetectionJobResponse = StopEventsDetectionJobResponse'
-  { _srsJobStatus ::
-      !( Maybe
-           JobStatus
-       ),
-    _srsJobId ::
-      !( Maybe
-           Text
-       ),
-    _srsResponseStatus ::
-      !Int
+  { -- | The status of the events detection job.
+    jobStatus :: Prelude.Maybe JobStatus,
+    -- | The identifier of the events detection job to stop.
+    jobId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopEventsDetectionJobResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopEventsDetectionJobResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'srsJobStatus' - The status of the events detection job.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'srsJobId' - The identifier of the events detection job to stop.
+-- 'jobStatus', 'stopEventsDetectionJobResponse_jobStatus' - The status of the events detection job.
 --
--- * 'srsResponseStatus' - -- | The response status code.
-stopEventsDetectionJobResponse ::
-  -- | 'srsResponseStatus'
-  Int ->
+-- 'jobId', 'stopEventsDetectionJobResponse_jobId' - The identifier of the events detection job to stop.
+--
+-- 'httpStatus', 'stopEventsDetectionJobResponse_httpStatus' - The response's http status code.
+newStopEventsDetectionJobResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StopEventsDetectionJobResponse
-stopEventsDetectionJobResponse pResponseStatus_ =
+newStopEventsDetectionJobResponse pHttpStatus_ =
   StopEventsDetectionJobResponse'
-    { _srsJobStatus =
-        Nothing,
-      _srsJobId = Nothing,
-      _srsResponseStatus = pResponseStatus_
+    { jobStatus =
+        Prelude.Nothing,
+      jobId = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The status of the events detection job.
-srsJobStatus :: Lens' StopEventsDetectionJobResponse (Maybe JobStatus)
-srsJobStatus = lens _srsJobStatus (\s a -> s {_srsJobStatus = a})
+stopEventsDetectionJobResponse_jobStatus :: Lens.Lens' StopEventsDetectionJobResponse (Prelude.Maybe JobStatus)
+stopEventsDetectionJobResponse_jobStatus = Lens.lens (\StopEventsDetectionJobResponse' {jobStatus} -> jobStatus) (\s@StopEventsDetectionJobResponse' {} a -> s {jobStatus = a} :: StopEventsDetectionJobResponse)
 
 -- | The identifier of the events detection job to stop.
-srsJobId :: Lens' StopEventsDetectionJobResponse (Maybe Text)
-srsJobId = lens _srsJobId (\s a -> s {_srsJobId = a})
+stopEventsDetectionJobResponse_jobId :: Lens.Lens' StopEventsDetectionJobResponse (Prelude.Maybe Prelude.Text)
+stopEventsDetectionJobResponse_jobId = Lens.lens (\StopEventsDetectionJobResponse' {jobId} -> jobId) (\s@StopEventsDetectionJobResponse' {} a -> s {jobId = a} :: StopEventsDetectionJobResponse)
 
--- | -- | The response status code.
-srsResponseStatus :: Lens' StopEventsDetectionJobResponse Int
-srsResponseStatus = lens _srsResponseStatus (\s a -> s {_srsResponseStatus = a})
+-- | The response's http status code.
+stopEventsDetectionJobResponse_httpStatus :: Lens.Lens' StopEventsDetectionJobResponse Prelude.Int
+stopEventsDetectionJobResponse_httpStatus = Lens.lens (\StopEventsDetectionJobResponse' {httpStatus} -> httpStatus) (\s@StopEventsDetectionJobResponse' {} a -> s {httpStatus = a} :: StopEventsDetectionJobResponse)
 
-instance NFData StopEventsDetectionJobResponse
+instance
+  Prelude.NFData
+    StopEventsDetectionJobResponse

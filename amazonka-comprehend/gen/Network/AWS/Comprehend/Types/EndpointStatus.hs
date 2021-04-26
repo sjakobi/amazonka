@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,71 +19,73 @@
 module Network.AWS.Comprehend.Types.EndpointStatus
   ( EndpointStatus
       ( ..,
-        ESCreating,
-        ESDeleting,
-        ESFailed,
-        ESInService,
-        ESUpdating
+        EndpointStatusCREATING,
+        EndpointStatusDELETING,
+        EndpointStatusFAILED,
+        EndpointStatusINSERVICE,
+        EndpointStatusUPDATING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data EndpointStatus = EndpointStatus' (CI Text)
+newtype EndpointStatus = EndpointStatus'
+  { fromEndpointStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ESCreating :: EndpointStatus
-pattern ESCreating = EndpointStatus' "CREATING"
+pattern EndpointStatusCREATING :: EndpointStatus
+pattern EndpointStatusCREATING = EndpointStatus' "CREATING"
 
-pattern ESDeleting :: EndpointStatus
-pattern ESDeleting = EndpointStatus' "DELETING"
+pattern EndpointStatusDELETING :: EndpointStatus
+pattern EndpointStatusDELETING = EndpointStatus' "DELETING"
 
-pattern ESFailed :: EndpointStatus
-pattern ESFailed = EndpointStatus' "FAILED"
+pattern EndpointStatusFAILED :: EndpointStatus
+pattern EndpointStatusFAILED = EndpointStatus' "FAILED"
 
-pattern ESInService :: EndpointStatus
-pattern ESInService = EndpointStatus' "IN_SERVICE"
+pattern EndpointStatusINSERVICE :: EndpointStatus
+pattern EndpointStatusINSERVICE = EndpointStatus' "IN_SERVICE"
 
-pattern ESUpdating :: EndpointStatus
-pattern ESUpdating = EndpointStatus' "UPDATING"
+pattern EndpointStatusUPDATING :: EndpointStatus
+pattern EndpointStatusUPDATING = EndpointStatus' "UPDATING"
 
 {-# COMPLETE
-  ESCreating,
-  ESDeleting,
-  ESFailed,
-  ESInService,
-  ESUpdating,
+  EndpointStatusCREATING,
+  EndpointStatusDELETING,
+  EndpointStatusFAILED,
+  EndpointStatusINSERVICE,
+  EndpointStatusUPDATING,
   EndpointStatus'
   #-}
 
-instance FromText EndpointStatus where
-  parser = (EndpointStatus' . mk) <$> takeText
+instance Prelude.FromText EndpointStatus where
+  parser = EndpointStatus' Prelude.<$> Prelude.takeText
 
-instance ToText EndpointStatus where
-  toText (EndpointStatus' ci) = original ci
+instance Prelude.ToText EndpointStatus where
+  toText (EndpointStatus' x) = x
 
-instance Hashable EndpointStatus
+instance Prelude.Hashable EndpointStatus
 
-instance NFData EndpointStatus
+instance Prelude.NFData EndpointStatus
 
-instance ToByteString EndpointStatus
+instance Prelude.ToByteString EndpointStatus
 
-instance ToQuery EndpointStatus
+instance Prelude.ToQuery EndpointStatus
 
-instance ToHeader EndpointStatus
+instance Prelude.ToHeader EndpointStatus
 
-instance ToJSON EndpointStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON EndpointStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON EndpointStatus where
-  parseJSON = parseJSONText "EndpointStatus"
+instance Prelude.FromJSON EndpointStatus where
+  parseJSON = Prelude.parseJSONText "EndpointStatus"

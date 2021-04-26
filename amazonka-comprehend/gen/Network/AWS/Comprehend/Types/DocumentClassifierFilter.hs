@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,71 +20,88 @@
 module Network.AWS.Comprehend.Types.DocumentClassifierFilter where
 
 import Network.AWS.Comprehend.Types.ModelStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Provides information for filtering a list of document classifiers. You can only specify one filtering parameter in a request. For more information, see the operation.
+-- | Provides information for filtering a list of document classifiers. You
+-- can only specify one filtering parameter in a request. For more
+-- information, see the operation.
 --
---
---
--- /See:/ 'documentClassifierFilter' smart constructor.
+-- /See:/ 'newDocumentClassifierFilter' smart constructor.
 data DocumentClassifierFilter = DocumentClassifierFilter'
-  { _dcfStatus ::
-      !(Maybe ModelStatus),
-    _dcfSubmitTimeBefore ::
-      !(Maybe POSIX),
-    _dcfSubmitTimeAfter ::
-      !(Maybe POSIX)
+  { -- | Filters the list of classifiers based on status.
+    status :: Prelude.Maybe ModelStatus,
+    -- | Filters the list of classifiers based on the time that the classifier
+    -- was submitted for processing. Returns only classifiers submitted before
+    -- the specified time. Classifiers are returned in ascending order, oldest
+    -- to newest.
+    submitTimeBefore :: Prelude.Maybe Prelude.POSIX,
+    -- | Filters the list of classifiers based on the time that the classifier
+    -- was submitted for processing. Returns only classifiers submitted after
+    -- the specified time. Classifiers are returned in descending order, newest
+    -- to oldest.
+    submitTimeAfter :: Prelude.Maybe Prelude.POSIX
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DocumentClassifierFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DocumentClassifierFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcfStatus' - Filters the list of classifiers based on status.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcfSubmitTimeBefore' - Filters the list of classifiers based on the time that the classifier was submitted for processing. Returns only classifiers submitted before the specified time. Classifiers are returned in ascending order, oldest to newest.
+-- 'status', 'documentClassifierFilter_status' - Filters the list of classifiers based on status.
 --
--- * 'dcfSubmitTimeAfter' - Filters the list of classifiers based on the time that the classifier was submitted for processing. Returns only classifiers submitted after the specified time. Classifiers are returned in descending order, newest to oldest.
-documentClassifierFilter ::
+-- 'submitTimeBefore', 'documentClassifierFilter_submitTimeBefore' - Filters the list of classifiers based on the time that the classifier
+-- was submitted for processing. Returns only classifiers submitted before
+-- the specified time. Classifiers are returned in ascending order, oldest
+-- to newest.
+--
+-- 'submitTimeAfter', 'documentClassifierFilter_submitTimeAfter' - Filters the list of classifiers based on the time that the classifier
+-- was submitted for processing. Returns only classifiers submitted after
+-- the specified time. Classifiers are returned in descending order, newest
+-- to oldest.
+newDocumentClassifierFilter ::
   DocumentClassifierFilter
-documentClassifierFilter =
+newDocumentClassifierFilter =
   DocumentClassifierFilter'
-    { _dcfStatus = Nothing,
-      _dcfSubmitTimeBefore = Nothing,
-      _dcfSubmitTimeAfter = Nothing
+    { status = Prelude.Nothing,
+      submitTimeBefore = Prelude.Nothing,
+      submitTimeAfter = Prelude.Nothing
     }
 
 -- | Filters the list of classifiers based on status.
-dcfStatus :: Lens' DocumentClassifierFilter (Maybe ModelStatus)
-dcfStatus = lens _dcfStatus (\s a -> s {_dcfStatus = a})
+documentClassifierFilter_status :: Lens.Lens' DocumentClassifierFilter (Prelude.Maybe ModelStatus)
+documentClassifierFilter_status = Lens.lens (\DocumentClassifierFilter' {status} -> status) (\s@DocumentClassifierFilter' {} a -> s {status = a} :: DocumentClassifierFilter)
 
--- | Filters the list of classifiers based on the time that the classifier was submitted for processing. Returns only classifiers submitted before the specified time. Classifiers are returned in ascending order, oldest to newest.
-dcfSubmitTimeBefore :: Lens' DocumentClassifierFilter (Maybe UTCTime)
-dcfSubmitTimeBefore = lens _dcfSubmitTimeBefore (\s a -> s {_dcfSubmitTimeBefore = a}) . mapping _Time
+-- | Filters the list of classifiers based on the time that the classifier
+-- was submitted for processing. Returns only classifiers submitted before
+-- the specified time. Classifiers are returned in ascending order, oldest
+-- to newest.
+documentClassifierFilter_submitTimeBefore :: Lens.Lens' DocumentClassifierFilter (Prelude.Maybe Prelude.UTCTime)
+documentClassifierFilter_submitTimeBefore = Lens.lens (\DocumentClassifierFilter' {submitTimeBefore} -> submitTimeBefore) (\s@DocumentClassifierFilter' {} a -> s {submitTimeBefore = a} :: DocumentClassifierFilter) Prelude.. Lens.mapping Prelude._Time
 
--- | Filters the list of classifiers based on the time that the classifier was submitted for processing. Returns only classifiers submitted after the specified time. Classifiers are returned in descending order, newest to oldest.
-dcfSubmitTimeAfter :: Lens' DocumentClassifierFilter (Maybe UTCTime)
-dcfSubmitTimeAfter = lens _dcfSubmitTimeAfter (\s a -> s {_dcfSubmitTimeAfter = a}) . mapping _Time
+-- | Filters the list of classifiers based on the time that the classifier
+-- was submitted for processing. Returns only classifiers submitted after
+-- the specified time. Classifiers are returned in descending order, newest
+-- to oldest.
+documentClassifierFilter_submitTimeAfter :: Lens.Lens' DocumentClassifierFilter (Prelude.Maybe Prelude.UTCTime)
+documentClassifierFilter_submitTimeAfter = Lens.lens (\DocumentClassifierFilter' {submitTimeAfter} -> submitTimeAfter) (\s@DocumentClassifierFilter' {} a -> s {submitTimeAfter = a} :: DocumentClassifierFilter) Prelude.. Lens.mapping Prelude._Time
 
-instance Hashable DocumentClassifierFilter
+instance Prelude.Hashable DocumentClassifierFilter
 
-instance NFData DocumentClassifierFilter
+instance Prelude.NFData DocumentClassifierFilter
 
-instance ToJSON DocumentClassifierFilter where
+instance Prelude.ToJSON DocumentClassifierFilter where
   toJSON DocumentClassifierFilter' {..} =
-    object
-      ( catMaybes
-          [ ("Status" .=) <$> _dcfStatus,
-            ("SubmitTimeBefore" .=) <$> _dcfSubmitTimeBefore,
-            ("SubmitTimeAfter" .=) <$> _dcfSubmitTimeAfter
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Status" Prelude..=) Prelude.<$> status,
+            ("SubmitTimeBefore" Prelude..=)
+              Prelude.<$> submitTimeBefore,
+            ("SubmitTimeAfter" Prelude..=)
+              Prelude.<$> submitTimeAfter
           ]
       )

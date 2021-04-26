@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,82 +20,114 @@
 module Network.AWS.Comprehend.Types.Entity where
 
 import Network.AWS.Comprehend.Types.EntityType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Provides information about an entity.
 --
---
---
---
---
--- /See:/ 'entity' smart constructor.
+-- /See:/ 'newEntity' smart constructor.
 data Entity = Entity'
-  { _eEndOffset :: !(Maybe Int),
-    _eType :: !(Maybe EntityType),
-    _eScore :: !(Maybe Double),
-    _eText :: !(Maybe Text),
-    _eBeginOffset :: !(Maybe Int)
+  { -- | A character offset in the input text that shows where the entity ends.
+    -- The offset returns the position of each UTF-8 code point in the string.
+    -- A /code point/ is the abstract character from a particular graphical
+    -- representation. For example, a multi-byte UTF-8 character maps to a
+    -- single code point.
+    endOffset :: Prelude.Maybe Prelude.Int,
+    -- | The entity\'s type.
+    type' :: Prelude.Maybe EntityType,
+    -- | The level of confidence that Amazon Comprehend has in the accuracy of
+    -- the detection.
+    score :: Prelude.Maybe Prelude.Double,
+    -- | The text of the entity.
+    text :: Prelude.Maybe Prelude.Text,
+    -- | A character offset in the input text that shows where the entity begins
+    -- (the first character is at position 0). The offset returns the position
+    -- of each UTF-8 code point in the string. A /code point/ is the abstract
+    -- character from a particular graphical representation. For example, a
+    -- multi-byte UTF-8 character maps to a single code point.
+    beginOffset :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Entity' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Entity' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eEndOffset' - A character offset in the input text that shows where the entity ends. The offset returns the position of each UTF-8 code point in the string. A /code point/ is the abstract character from a particular graphical representation. For example, a multi-byte UTF-8 character maps to a single code point.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'eType' - The entity's type.
+-- 'endOffset', 'entity_endOffset' - A character offset in the input text that shows where the entity ends.
+-- The offset returns the position of each UTF-8 code point in the string.
+-- A /code point/ is the abstract character from a particular graphical
+-- representation. For example, a multi-byte UTF-8 character maps to a
+-- single code point.
 --
--- * 'eScore' - The level of confidence that Amazon Comprehend has in the accuracy of the detection.
+-- 'type'', 'entity_type' - The entity\'s type.
 --
--- * 'eText' - The text of the entity.
+-- 'score', 'entity_score' - The level of confidence that Amazon Comprehend has in the accuracy of
+-- the detection.
 --
--- * 'eBeginOffset' - A character offset in the input text that shows where the entity begins (the first character is at position 0). The offset returns the position of each UTF-8 code point in the string. A /code point/ is the abstract character from a particular graphical representation. For example, a multi-byte UTF-8 character maps to a single code point.
-entity ::
+-- 'text', 'entity_text' - The text of the entity.
+--
+-- 'beginOffset', 'entity_beginOffset' - A character offset in the input text that shows where the entity begins
+-- (the first character is at position 0). The offset returns the position
+-- of each UTF-8 code point in the string. A /code point/ is the abstract
+-- character from a particular graphical representation. For example, a
+-- multi-byte UTF-8 character maps to a single code point.
+newEntity ::
   Entity
-entity =
+newEntity =
   Entity'
-    { _eEndOffset = Nothing,
-      _eType = Nothing,
-      _eScore = Nothing,
-      _eText = Nothing,
-      _eBeginOffset = Nothing
+    { endOffset = Prelude.Nothing,
+      type' = Prelude.Nothing,
+      score = Prelude.Nothing,
+      text = Prelude.Nothing,
+      beginOffset = Prelude.Nothing
     }
 
--- | A character offset in the input text that shows where the entity ends. The offset returns the position of each UTF-8 code point in the string. A /code point/ is the abstract character from a particular graphical representation. For example, a multi-byte UTF-8 character maps to a single code point.
-eEndOffset :: Lens' Entity (Maybe Int)
-eEndOffset = lens _eEndOffset (\s a -> s {_eEndOffset = a})
+-- | A character offset in the input text that shows where the entity ends.
+-- The offset returns the position of each UTF-8 code point in the string.
+-- A /code point/ is the abstract character from a particular graphical
+-- representation. For example, a multi-byte UTF-8 character maps to a
+-- single code point.
+entity_endOffset :: Lens.Lens' Entity (Prelude.Maybe Prelude.Int)
+entity_endOffset = Lens.lens (\Entity' {endOffset} -> endOffset) (\s@Entity' {} a -> s {endOffset = a} :: Entity)
 
--- | The entity's type.
-eType :: Lens' Entity (Maybe EntityType)
-eType = lens _eType (\s a -> s {_eType = a})
+-- | The entity\'s type.
+entity_type :: Lens.Lens' Entity (Prelude.Maybe EntityType)
+entity_type = Lens.lens (\Entity' {type'} -> type') (\s@Entity' {} a -> s {type' = a} :: Entity)
 
--- | The level of confidence that Amazon Comprehend has in the accuracy of the detection.
-eScore :: Lens' Entity (Maybe Double)
-eScore = lens _eScore (\s a -> s {_eScore = a})
+-- | The level of confidence that Amazon Comprehend has in the accuracy of
+-- the detection.
+entity_score :: Lens.Lens' Entity (Prelude.Maybe Prelude.Double)
+entity_score = Lens.lens (\Entity' {score} -> score) (\s@Entity' {} a -> s {score = a} :: Entity)
 
 -- | The text of the entity.
-eText :: Lens' Entity (Maybe Text)
-eText = lens _eText (\s a -> s {_eText = a})
+entity_text :: Lens.Lens' Entity (Prelude.Maybe Prelude.Text)
+entity_text = Lens.lens (\Entity' {text} -> text) (\s@Entity' {} a -> s {text = a} :: Entity)
 
--- | A character offset in the input text that shows where the entity begins (the first character is at position 0). The offset returns the position of each UTF-8 code point in the string. A /code point/ is the abstract character from a particular graphical representation. For example, a multi-byte UTF-8 character maps to a single code point.
-eBeginOffset :: Lens' Entity (Maybe Int)
-eBeginOffset = lens _eBeginOffset (\s a -> s {_eBeginOffset = a})
+-- | A character offset in the input text that shows where the entity begins
+-- (the first character is at position 0). The offset returns the position
+-- of each UTF-8 code point in the string. A /code point/ is the abstract
+-- character from a particular graphical representation. For example, a
+-- multi-byte UTF-8 character maps to a single code point.
+entity_beginOffset :: Lens.Lens' Entity (Prelude.Maybe Prelude.Int)
+entity_beginOffset = Lens.lens (\Entity' {beginOffset} -> beginOffset) (\s@Entity' {} a -> s {beginOffset = a} :: Entity)
 
-instance FromJSON Entity where
+instance Prelude.FromJSON Entity where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Entity"
       ( \x ->
           Entity'
-            <$> (x .:? "EndOffset")
-            <*> (x .:? "Type")
-            <*> (x .:? "Score")
-            <*> (x .:? "Text")
-            <*> (x .:? "BeginOffset")
+            Prelude.<$> (x Prelude..:? "EndOffset")
+            Prelude.<*> (x Prelude..:? "Type")
+            Prelude.<*> (x Prelude..:? "Score")
+            Prelude.<*> (x Prelude..:? "Text")
+            Prelude.<*> (x Prelude..:? "BeginOffset")
       )
 
-instance Hashable Entity
+instance Prelude.Hashable Entity
 
-instance NFData Entity
+instance Prelude.NFData Entity

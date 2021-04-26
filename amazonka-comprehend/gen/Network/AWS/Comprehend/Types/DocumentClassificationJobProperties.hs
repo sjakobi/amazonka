@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,188 +22,215 @@ module Network.AWS.Comprehend.Types.DocumentClassificationJobProperties where
 import Network.AWS.Comprehend.Types.InputDataConfig
 import Network.AWS.Comprehend.Types.JobStatus
 import Network.AWS.Comprehend.Types.OutputDataConfig
-import Network.AWS.Comprehend.Types.VPCConfig
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import Network.AWS.Comprehend.Types.VpcConfig
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Provides information about a document classification job.
 --
---
---
--- /See:/ 'documentClassificationJobProperties' smart constructor.
+-- /See:/ 'newDocumentClassificationJobProperties' smart constructor.
 data DocumentClassificationJobProperties = DocumentClassificationJobProperties'
-  { _dcjpVPCConfig ::
-      !( Maybe
-           VPCConfig
-       ),
-    _dcjpInputDataConfig ::
-      !( Maybe
-           InputDataConfig
-       ),
-    _dcjpMessage ::
-      !( Maybe
-           Text
-       ),
-    _dcjpJobStatus ::
-      !( Maybe
-           JobStatus
-       ),
-    _dcjpOutputDataConfig ::
-      !( Maybe
-           OutputDataConfig
-       ),
-    _dcjpDocumentClassifierARN ::
-      !( Maybe
-           Text
-       ),
-    _dcjpEndTime ::
-      !( Maybe
-           POSIX
-       ),
-    _dcjpVolumeKMSKeyId ::
-      !( Maybe
-           Text
-       ),
-    _dcjpSubmitTime ::
-      !( Maybe
-           POSIX
-       ),
-    _dcjpJobName ::
-      !( Maybe
-           Text
-       ),
-    _dcjpDataAccessRoleARN ::
-      !( Maybe
-           Text
-       ),
-    _dcjpJobId ::
-      !( Maybe
-           Text
-       )
+  { -- | Configuration parameters for a private Virtual Private Cloud (VPC)
+    -- containing the resources you are using for your document classification
+    -- job. For more information, see
+    -- <https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html Amazon VPC>.
+    vpcConfig :: Prelude.Maybe VpcConfig,
+    -- | The input data configuration that you supplied when you created the
+    -- document classification job.
+    inputDataConfig :: Prelude.Maybe InputDataConfig,
+    -- | A description of the status of the job.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The current status of the document classification job. If the status is
+    -- @FAILED@, the @Message@ field shows the reason for the failure.
+    jobStatus :: Prelude.Maybe JobStatus,
+    -- | The output data configuration that you supplied when you created the
+    -- document classification job.
+    outputDataConfig :: Prelude.Maybe OutputDataConfig,
+    -- | The Amazon Resource Name (ARN) that identifies the document classifier.
+    documentClassifierArn :: Prelude.Maybe Prelude.Text,
+    -- | The time that the document classification job completed.
+    endTime :: Prelude.Maybe Prelude.POSIX,
+    -- | ID for the AWS Key Management Service (KMS) key that Amazon Comprehend
+    -- uses to encrypt data on the storage volume attached to the ML compute
+    -- instance(s) that process the analysis job. The VolumeKmsKeyId can be
+    -- either of the following formats:
+    --
+    -- -   KMS Key ID: @\"1234abcd-12ab-34cd-56ef-1234567890ab\"@
+    --
+    -- -   Amazon Resource Name (ARN) of a KMS Key:
+    --     @\"arn:aws:kms:us-west-2:111122223333:key\/1234abcd-12ab-34cd-56ef-1234567890ab\"@
+    volumeKmsKeyId :: Prelude.Maybe Prelude.Text,
+    -- | The time that the document classification job was submitted for
+    -- processing.
+    submitTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The name that you assigned to the document classification job.
+    jobName :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the AWS identity and Access Management
+    -- (IAM) role that grants Amazon Comprehend read access to your input data.
+    dataAccessRoleArn :: Prelude.Maybe Prelude.Text,
+    -- | The identifier assigned to the document classification job.
+    jobId :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DocumentClassificationJobProperties' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DocumentClassificationJobProperties' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcjpVPCConfig' - Configuration parameters for a private Virtual Private Cloud (VPC) containing the resources you are using for your document classification job. For more information, see <https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html Amazon VPC> .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcjpInputDataConfig' - The input data configuration that you supplied when you created the document classification job.
+-- 'vpcConfig', 'documentClassificationJobProperties_vpcConfig' - Configuration parameters for a private Virtual Private Cloud (VPC)
+-- containing the resources you are using for your document classification
+-- job. For more information, see
+-- <https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html Amazon VPC>.
 --
--- * 'dcjpMessage' - A description of the status of the job.
+-- 'inputDataConfig', 'documentClassificationJobProperties_inputDataConfig' - The input data configuration that you supplied when you created the
+-- document classification job.
 --
--- * 'dcjpJobStatus' - The current status of the document classification job. If the status is @FAILED@ , the @Message@ field shows the reason for the failure.
+-- 'message', 'documentClassificationJobProperties_message' - A description of the status of the job.
 --
--- * 'dcjpOutputDataConfig' - The output data configuration that you supplied when you created the document classification job.
+-- 'jobStatus', 'documentClassificationJobProperties_jobStatus' - The current status of the document classification job. If the status is
+-- @FAILED@, the @Message@ field shows the reason for the failure.
 --
--- * 'dcjpDocumentClassifierARN' - The Amazon Resource Name (ARN) that identifies the document classifier.
+-- 'outputDataConfig', 'documentClassificationJobProperties_outputDataConfig' - The output data configuration that you supplied when you created the
+-- document classification job.
 --
--- * 'dcjpEndTime' - The time that the document classification job completed.
+-- 'documentClassifierArn', 'documentClassificationJobProperties_documentClassifierArn' - The Amazon Resource Name (ARN) that identifies the document classifier.
 --
--- * 'dcjpVolumeKMSKeyId' - ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be either of the following formats:     * KMS Key ID: @"1234abcd-12ab-34cd-56ef-1234567890ab"@      * Amazon Resource Name (ARN) of a KMS Key: @"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"@
+-- 'endTime', 'documentClassificationJobProperties_endTime' - The time that the document classification job completed.
 --
--- * 'dcjpSubmitTime' - The time that the document classification job was submitted for processing.
+-- 'volumeKmsKeyId', 'documentClassificationJobProperties_volumeKmsKeyId' - ID for the AWS Key Management Service (KMS) key that Amazon Comprehend
+-- uses to encrypt data on the storage volume attached to the ML compute
+-- instance(s) that process the analysis job. The VolumeKmsKeyId can be
+-- either of the following formats:
 --
--- * 'dcjpJobName' - The name that you assigned to the document classification job.
+-- -   KMS Key ID: @\"1234abcd-12ab-34cd-56ef-1234567890ab\"@
 --
--- * 'dcjpDataAccessRoleARN' - The Amazon Resource Name (ARN) of the AWS identity and Access Management (IAM) role that grants Amazon Comprehend read access to your input data.
+-- -   Amazon Resource Name (ARN) of a KMS Key:
+--     @\"arn:aws:kms:us-west-2:111122223333:key\/1234abcd-12ab-34cd-56ef-1234567890ab\"@
 --
--- * 'dcjpJobId' - The identifier assigned to the document classification job.
-documentClassificationJobProperties ::
+-- 'submitTime', 'documentClassificationJobProperties_submitTime' - The time that the document classification job was submitted for
+-- processing.
+--
+-- 'jobName', 'documentClassificationJobProperties_jobName' - The name that you assigned to the document classification job.
+--
+-- 'dataAccessRoleArn', 'documentClassificationJobProperties_dataAccessRoleArn' - The Amazon Resource Name (ARN) of the AWS identity and Access Management
+-- (IAM) role that grants Amazon Comprehend read access to your input data.
+--
+-- 'jobId', 'documentClassificationJobProperties_jobId' - The identifier assigned to the document classification job.
+newDocumentClassificationJobProperties ::
   DocumentClassificationJobProperties
-documentClassificationJobProperties =
+newDocumentClassificationJobProperties =
   DocumentClassificationJobProperties'
-    { _dcjpVPCConfig =
-        Nothing,
-      _dcjpInputDataConfig = Nothing,
-      _dcjpMessage = Nothing,
-      _dcjpJobStatus = Nothing,
-      _dcjpOutputDataConfig = Nothing,
-      _dcjpDocumentClassifierARN = Nothing,
-      _dcjpEndTime = Nothing,
-      _dcjpVolumeKMSKeyId = Nothing,
-      _dcjpSubmitTime = Nothing,
-      _dcjpJobName = Nothing,
-      _dcjpDataAccessRoleARN = Nothing,
-      _dcjpJobId = Nothing
+    { vpcConfig =
+        Prelude.Nothing,
+      inputDataConfig = Prelude.Nothing,
+      message = Prelude.Nothing,
+      jobStatus = Prelude.Nothing,
+      outputDataConfig = Prelude.Nothing,
+      documentClassifierArn =
+        Prelude.Nothing,
+      endTime = Prelude.Nothing,
+      volumeKmsKeyId = Prelude.Nothing,
+      submitTime = Prelude.Nothing,
+      jobName = Prelude.Nothing,
+      dataAccessRoleArn = Prelude.Nothing,
+      jobId = Prelude.Nothing
     }
 
--- | Configuration parameters for a private Virtual Private Cloud (VPC) containing the resources you are using for your document classification job. For more information, see <https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html Amazon VPC> .
-dcjpVPCConfig :: Lens' DocumentClassificationJobProperties (Maybe VPCConfig)
-dcjpVPCConfig = lens _dcjpVPCConfig (\s a -> s {_dcjpVPCConfig = a})
+-- | Configuration parameters for a private Virtual Private Cloud (VPC)
+-- containing the resources you are using for your document classification
+-- job. For more information, see
+-- <https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html Amazon VPC>.
+documentClassificationJobProperties_vpcConfig :: Lens.Lens' DocumentClassificationJobProperties (Prelude.Maybe VpcConfig)
+documentClassificationJobProperties_vpcConfig = Lens.lens (\DocumentClassificationJobProperties' {vpcConfig} -> vpcConfig) (\s@DocumentClassificationJobProperties' {} a -> s {vpcConfig = a} :: DocumentClassificationJobProperties)
 
--- | The input data configuration that you supplied when you created the document classification job.
-dcjpInputDataConfig :: Lens' DocumentClassificationJobProperties (Maybe InputDataConfig)
-dcjpInputDataConfig = lens _dcjpInputDataConfig (\s a -> s {_dcjpInputDataConfig = a})
+-- | The input data configuration that you supplied when you created the
+-- document classification job.
+documentClassificationJobProperties_inputDataConfig :: Lens.Lens' DocumentClassificationJobProperties (Prelude.Maybe InputDataConfig)
+documentClassificationJobProperties_inputDataConfig = Lens.lens (\DocumentClassificationJobProperties' {inputDataConfig} -> inputDataConfig) (\s@DocumentClassificationJobProperties' {} a -> s {inputDataConfig = a} :: DocumentClassificationJobProperties)
 
 -- | A description of the status of the job.
-dcjpMessage :: Lens' DocumentClassificationJobProperties (Maybe Text)
-dcjpMessage = lens _dcjpMessage (\s a -> s {_dcjpMessage = a})
+documentClassificationJobProperties_message :: Lens.Lens' DocumentClassificationJobProperties (Prelude.Maybe Prelude.Text)
+documentClassificationJobProperties_message = Lens.lens (\DocumentClassificationJobProperties' {message} -> message) (\s@DocumentClassificationJobProperties' {} a -> s {message = a} :: DocumentClassificationJobProperties)
 
--- | The current status of the document classification job. If the status is @FAILED@ , the @Message@ field shows the reason for the failure.
-dcjpJobStatus :: Lens' DocumentClassificationJobProperties (Maybe JobStatus)
-dcjpJobStatus = lens _dcjpJobStatus (\s a -> s {_dcjpJobStatus = a})
+-- | The current status of the document classification job. If the status is
+-- @FAILED@, the @Message@ field shows the reason for the failure.
+documentClassificationJobProperties_jobStatus :: Lens.Lens' DocumentClassificationJobProperties (Prelude.Maybe JobStatus)
+documentClassificationJobProperties_jobStatus = Lens.lens (\DocumentClassificationJobProperties' {jobStatus} -> jobStatus) (\s@DocumentClassificationJobProperties' {} a -> s {jobStatus = a} :: DocumentClassificationJobProperties)
 
--- | The output data configuration that you supplied when you created the document classification job.
-dcjpOutputDataConfig :: Lens' DocumentClassificationJobProperties (Maybe OutputDataConfig)
-dcjpOutputDataConfig = lens _dcjpOutputDataConfig (\s a -> s {_dcjpOutputDataConfig = a})
+-- | The output data configuration that you supplied when you created the
+-- document classification job.
+documentClassificationJobProperties_outputDataConfig :: Lens.Lens' DocumentClassificationJobProperties (Prelude.Maybe OutputDataConfig)
+documentClassificationJobProperties_outputDataConfig = Lens.lens (\DocumentClassificationJobProperties' {outputDataConfig} -> outputDataConfig) (\s@DocumentClassificationJobProperties' {} a -> s {outputDataConfig = a} :: DocumentClassificationJobProperties)
 
 -- | The Amazon Resource Name (ARN) that identifies the document classifier.
-dcjpDocumentClassifierARN :: Lens' DocumentClassificationJobProperties (Maybe Text)
-dcjpDocumentClassifierARN = lens _dcjpDocumentClassifierARN (\s a -> s {_dcjpDocumentClassifierARN = a})
+documentClassificationJobProperties_documentClassifierArn :: Lens.Lens' DocumentClassificationJobProperties (Prelude.Maybe Prelude.Text)
+documentClassificationJobProperties_documentClassifierArn = Lens.lens (\DocumentClassificationJobProperties' {documentClassifierArn} -> documentClassifierArn) (\s@DocumentClassificationJobProperties' {} a -> s {documentClassifierArn = a} :: DocumentClassificationJobProperties)
 
 -- | The time that the document classification job completed.
-dcjpEndTime :: Lens' DocumentClassificationJobProperties (Maybe UTCTime)
-dcjpEndTime = lens _dcjpEndTime (\s a -> s {_dcjpEndTime = a}) . mapping _Time
+documentClassificationJobProperties_endTime :: Lens.Lens' DocumentClassificationJobProperties (Prelude.Maybe Prelude.UTCTime)
+documentClassificationJobProperties_endTime = Lens.lens (\DocumentClassificationJobProperties' {endTime} -> endTime) (\s@DocumentClassificationJobProperties' {} a -> s {endTime = a} :: DocumentClassificationJobProperties) Prelude.. Lens.mapping Prelude._Time
 
--- | ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be either of the following formats:     * KMS Key ID: @"1234abcd-12ab-34cd-56ef-1234567890ab"@      * Amazon Resource Name (ARN) of a KMS Key: @"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"@
-dcjpVolumeKMSKeyId :: Lens' DocumentClassificationJobProperties (Maybe Text)
-dcjpVolumeKMSKeyId = lens _dcjpVolumeKMSKeyId (\s a -> s {_dcjpVolumeKMSKeyId = a})
+-- | ID for the AWS Key Management Service (KMS) key that Amazon Comprehend
+-- uses to encrypt data on the storage volume attached to the ML compute
+-- instance(s) that process the analysis job. The VolumeKmsKeyId can be
+-- either of the following formats:
+--
+-- -   KMS Key ID: @\"1234abcd-12ab-34cd-56ef-1234567890ab\"@
+--
+-- -   Amazon Resource Name (ARN) of a KMS Key:
+--     @\"arn:aws:kms:us-west-2:111122223333:key\/1234abcd-12ab-34cd-56ef-1234567890ab\"@
+documentClassificationJobProperties_volumeKmsKeyId :: Lens.Lens' DocumentClassificationJobProperties (Prelude.Maybe Prelude.Text)
+documentClassificationJobProperties_volumeKmsKeyId = Lens.lens (\DocumentClassificationJobProperties' {volumeKmsKeyId} -> volumeKmsKeyId) (\s@DocumentClassificationJobProperties' {} a -> s {volumeKmsKeyId = a} :: DocumentClassificationJobProperties)
 
--- | The time that the document classification job was submitted for processing.
-dcjpSubmitTime :: Lens' DocumentClassificationJobProperties (Maybe UTCTime)
-dcjpSubmitTime = lens _dcjpSubmitTime (\s a -> s {_dcjpSubmitTime = a}) . mapping _Time
+-- | The time that the document classification job was submitted for
+-- processing.
+documentClassificationJobProperties_submitTime :: Lens.Lens' DocumentClassificationJobProperties (Prelude.Maybe Prelude.UTCTime)
+documentClassificationJobProperties_submitTime = Lens.lens (\DocumentClassificationJobProperties' {submitTime} -> submitTime) (\s@DocumentClassificationJobProperties' {} a -> s {submitTime = a} :: DocumentClassificationJobProperties) Prelude.. Lens.mapping Prelude._Time
 
 -- | The name that you assigned to the document classification job.
-dcjpJobName :: Lens' DocumentClassificationJobProperties (Maybe Text)
-dcjpJobName = lens _dcjpJobName (\s a -> s {_dcjpJobName = a})
+documentClassificationJobProperties_jobName :: Lens.Lens' DocumentClassificationJobProperties (Prelude.Maybe Prelude.Text)
+documentClassificationJobProperties_jobName = Lens.lens (\DocumentClassificationJobProperties' {jobName} -> jobName) (\s@DocumentClassificationJobProperties' {} a -> s {jobName = a} :: DocumentClassificationJobProperties)
 
--- | The Amazon Resource Name (ARN) of the AWS identity and Access Management (IAM) role that grants Amazon Comprehend read access to your input data.
-dcjpDataAccessRoleARN :: Lens' DocumentClassificationJobProperties (Maybe Text)
-dcjpDataAccessRoleARN = lens _dcjpDataAccessRoleARN (\s a -> s {_dcjpDataAccessRoleARN = a})
+-- | The Amazon Resource Name (ARN) of the AWS identity and Access Management
+-- (IAM) role that grants Amazon Comprehend read access to your input data.
+documentClassificationJobProperties_dataAccessRoleArn :: Lens.Lens' DocumentClassificationJobProperties (Prelude.Maybe Prelude.Text)
+documentClassificationJobProperties_dataAccessRoleArn = Lens.lens (\DocumentClassificationJobProperties' {dataAccessRoleArn} -> dataAccessRoleArn) (\s@DocumentClassificationJobProperties' {} a -> s {dataAccessRoleArn = a} :: DocumentClassificationJobProperties)
 
 -- | The identifier assigned to the document classification job.
-dcjpJobId :: Lens' DocumentClassificationJobProperties (Maybe Text)
-dcjpJobId = lens _dcjpJobId (\s a -> s {_dcjpJobId = a})
+documentClassificationJobProperties_jobId :: Lens.Lens' DocumentClassificationJobProperties (Prelude.Maybe Prelude.Text)
+documentClassificationJobProperties_jobId = Lens.lens (\DocumentClassificationJobProperties' {jobId} -> jobId) (\s@DocumentClassificationJobProperties' {} a -> s {jobId = a} :: DocumentClassificationJobProperties)
 
-instance FromJSON DocumentClassificationJobProperties where
+instance
+  Prelude.FromJSON
+    DocumentClassificationJobProperties
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DocumentClassificationJobProperties"
       ( \x ->
           DocumentClassificationJobProperties'
-            <$> (x .:? "VpcConfig")
-            <*> (x .:? "InputDataConfig")
-            <*> (x .:? "Message")
-            <*> (x .:? "JobStatus")
-            <*> (x .:? "OutputDataConfig")
-            <*> (x .:? "DocumentClassifierArn")
-            <*> (x .:? "EndTime")
-            <*> (x .:? "VolumeKmsKeyId")
-            <*> (x .:? "SubmitTime")
-            <*> (x .:? "JobName")
-            <*> (x .:? "DataAccessRoleArn")
-            <*> (x .:? "JobId")
+            Prelude.<$> (x Prelude..:? "VpcConfig")
+            Prelude.<*> (x Prelude..:? "InputDataConfig")
+            Prelude.<*> (x Prelude..:? "Message")
+            Prelude.<*> (x Prelude..:? "JobStatus")
+            Prelude.<*> (x Prelude..:? "OutputDataConfig")
+            Prelude.<*> (x Prelude..:? "DocumentClassifierArn")
+            Prelude.<*> (x Prelude..:? "EndTime")
+            Prelude.<*> (x Prelude..:? "VolumeKmsKeyId")
+            Prelude.<*> (x Prelude..:? "SubmitTime")
+            Prelude.<*> (x Prelude..:? "JobName")
+            Prelude.<*> (x Prelude..:? "DataAccessRoleArn")
+            Prelude.<*> (x Prelude..:? "JobId")
       )
 
-instance Hashable DocumentClassificationJobProperties
+instance
+  Prelude.Hashable
+    DocumentClassificationJobProperties
 
-instance NFData DocumentClassificationJobProperties
+instance
+  Prelude.NFData
+    DocumentClassificationJobProperties

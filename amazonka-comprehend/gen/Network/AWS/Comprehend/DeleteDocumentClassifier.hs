@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,143 +23,145 @@
 --
 -- Deletes a previously created document classifier
 --
+-- Only those classifiers that are in terminated states (IN_ERROR, TRAINED)
+-- will be deleted. If an active inference job is using the model, a
+-- @ResourceInUseException@ will be returned.
 --
--- Only those classifiers that are in terminated states (IN_ERROR, TRAINED) will be deleted. If an active inference job is using the model, a @ResourceInUseException@ will be returned.
---
--- This is an asynchronous action that puts the classifier into a DELETING state, and it is then removed by a background job. Once removed, the classifier disappears from your account and is no longer available for use.
+-- This is an asynchronous action that puts the classifier into a DELETING
+-- state, and it is then removed by a background job. Once removed, the
+-- classifier disappears from your account and is no longer available for
+-- use.
 module Network.AWS.Comprehend.DeleteDocumentClassifier
   ( -- * Creating a Request
-    deleteDocumentClassifier,
-    DeleteDocumentClassifier,
+    DeleteDocumentClassifier (..),
+    newDeleteDocumentClassifier,
 
     -- * Request Lenses
-    dDocumentClassifierARN,
+    deleteDocumentClassifier_documentClassifierArn,
 
     -- * Destructuring the Response
-    deleteDocumentClassifierResponse,
-    DeleteDocumentClassifierResponse,
+    DeleteDocumentClassifierResponse (..),
+    newDeleteDocumentClassifierResponse,
 
     -- * Response Lenses
-    delrsResponseStatus,
+    deleteDocumentClassifierResponse_httpStatus,
   )
 where
 
 import Network.AWS.Comprehend.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteDocumentClassifier' smart constructor.
-newtype DeleteDocumentClassifier = DeleteDocumentClassifier'
-  { _dDocumentClassifierARN ::
-      Text
+-- | /See:/ 'newDeleteDocumentClassifier' smart constructor.
+data DeleteDocumentClassifier = DeleteDocumentClassifier'
+  { -- | The Amazon Resource Name (ARN) that identifies the document classifier.
+    documentClassifierArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteDocumentClassifier' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteDocumentClassifier' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dDocumentClassifierARN' - The Amazon Resource Name (ARN) that identifies the document classifier.
-deleteDocumentClassifier ::
-  -- | 'dDocumentClassifierARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'documentClassifierArn', 'deleteDocumentClassifier_documentClassifierArn' - The Amazon Resource Name (ARN) that identifies the document classifier.
+newDeleteDocumentClassifier ::
+  -- | 'documentClassifierArn'
+  Prelude.Text ->
   DeleteDocumentClassifier
-deleteDocumentClassifier pDocumentClassifierARN_ =
+newDeleteDocumentClassifier pDocumentClassifierArn_ =
   DeleteDocumentClassifier'
-    { _dDocumentClassifierARN =
-        pDocumentClassifierARN_
+    { documentClassifierArn =
+        pDocumentClassifierArn_
     }
 
 -- | The Amazon Resource Name (ARN) that identifies the document classifier.
-dDocumentClassifierARN :: Lens' DeleteDocumentClassifier Text
-dDocumentClassifierARN = lens _dDocumentClassifierARN (\s a -> s {_dDocumentClassifierARN = a})
+deleteDocumentClassifier_documentClassifierArn :: Lens.Lens' DeleteDocumentClassifier Prelude.Text
+deleteDocumentClassifier_documentClassifierArn = Lens.lens (\DeleteDocumentClassifier' {documentClassifierArn} -> documentClassifierArn) (\s@DeleteDocumentClassifier' {} a -> s {documentClassifierArn = a} :: DeleteDocumentClassifier)
 
-instance AWSRequest DeleteDocumentClassifier where
+instance Prelude.AWSRequest DeleteDocumentClassifier where
   type
     Rs DeleteDocumentClassifier =
       DeleteDocumentClassifierResponse
-  request = postJSON comprehend
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           DeleteDocumentClassifierResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteDocumentClassifier
+instance Prelude.Hashable DeleteDocumentClassifier
 
-instance NFData DeleteDocumentClassifier
+instance Prelude.NFData DeleteDocumentClassifier
 
-instance ToHeaders DeleteDocumentClassifier where
+instance Prelude.ToHeaders DeleteDocumentClassifier where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Comprehend_20171127.DeleteDocumentClassifier" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Comprehend_20171127.DeleteDocumentClassifier" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteDocumentClassifier where
+instance Prelude.ToJSON DeleteDocumentClassifier where
   toJSON DeleteDocumentClassifier' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "DocumentClassifierArn"
-                  .= _dDocumentClassifierARN
+                  Prelude..= documentClassifierArn
               )
           ]
       )
 
-instance ToPath DeleteDocumentClassifier where
-  toPath = const "/"
+instance Prelude.ToPath DeleteDocumentClassifier where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteDocumentClassifier where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteDocumentClassifier where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteDocumentClassifierResponse' smart constructor.
-newtype DeleteDocumentClassifierResponse = DeleteDocumentClassifierResponse'
-  { _delrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteDocumentClassifierResponse' smart constructor.
+data DeleteDocumentClassifierResponse = DeleteDocumentClassifierResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteDocumentClassifierResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteDocumentClassifierResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'delrsResponseStatus' - -- | The response status code.
-deleteDocumentClassifierResponse ::
-  -- | 'delrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteDocumentClassifierResponse_httpStatus' - The response's http status code.
+newDeleteDocumentClassifierResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteDocumentClassifierResponse
-deleteDocumentClassifierResponse pResponseStatus_ =
+newDeleteDocumentClassifierResponse pHttpStatus_ =
   DeleteDocumentClassifierResponse'
-    { _delrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-delrsResponseStatus :: Lens' DeleteDocumentClassifierResponse Int
-delrsResponseStatus = lens _delrsResponseStatus (\s a -> s {_delrsResponseStatus = a})
+-- | The response's http status code.
+deleteDocumentClassifierResponse_httpStatus :: Lens.Lens' DeleteDocumentClassifierResponse Prelude.Int
+deleteDocumentClassifierResponse_httpStatus = Lens.lens (\DeleteDocumentClassifierResponse' {httpStatus} -> httpStatus) (\s@DeleteDocumentClassifierResponse' {} a -> s {httpStatus = a} :: DeleteDocumentClassifierResponse)
 
-instance NFData DeleteDocumentClassifierResponse
+instance
+  Prelude.NFData
+    DeleteDocumentClassifierResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,145 +23,166 @@
 --
 -- Stops a document classifier training job while in progress.
 --
---
--- If the training job state is @TRAINING@ , the job is marked for termination and put into the @STOP_REQUESTED@ state. If the training job completes before it can be stopped, it is put into the @TRAINED@ ; otherwise the training job is stopped and put into the @STOPPED@ state and the service sends back an HTTP 200 response with an empty HTTP body.
+-- If the training job state is @TRAINING@, the job is marked for
+-- termination and put into the @STOP_REQUESTED@ state. If the training job
+-- completes before it can be stopped, it is put into the @TRAINED@;
+-- otherwise the training job is stopped and put into the @STOPPED@ state
+-- and the service sends back an HTTP 200 response with an empty HTTP body.
 module Network.AWS.Comprehend.StopTrainingDocumentClassifier
   ( -- * Creating a Request
-    stopTrainingDocumentClassifier,
-    StopTrainingDocumentClassifier,
+    StopTrainingDocumentClassifier (..),
+    newStopTrainingDocumentClassifier,
 
     -- * Request Lenses
-    stdcDocumentClassifierARN,
+    stopTrainingDocumentClassifier_documentClassifierArn,
 
     -- * Destructuring the Response
-    stopTrainingDocumentClassifierResponse,
-    StopTrainingDocumentClassifierResponse,
+    StopTrainingDocumentClassifierResponse (..),
+    newStopTrainingDocumentClassifierResponse,
 
     -- * Response Lenses
-    stdcrrsResponseStatus,
+    stopTrainingDocumentClassifierResponse_httpStatus,
   )
 where
 
 import Network.AWS.Comprehend.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'stopTrainingDocumentClassifier' smart constructor.
-newtype StopTrainingDocumentClassifier = StopTrainingDocumentClassifier'
-  { _stdcDocumentClassifierARN ::
-      Text
+-- | /See:/ 'newStopTrainingDocumentClassifier' smart constructor.
+data StopTrainingDocumentClassifier = StopTrainingDocumentClassifier'
+  { -- | The Amazon Resource Name (ARN) that identifies the document classifier
+    -- currently being trained.
+    documentClassifierArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopTrainingDocumentClassifier' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopTrainingDocumentClassifier' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'stdcDocumentClassifierARN' - The Amazon Resource Name (ARN) that identifies the document classifier currently being trained.
-stopTrainingDocumentClassifier ::
-  -- | 'stdcDocumentClassifierARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'documentClassifierArn', 'stopTrainingDocumentClassifier_documentClassifierArn' - The Amazon Resource Name (ARN) that identifies the document classifier
+-- currently being trained.
+newStopTrainingDocumentClassifier ::
+  -- | 'documentClassifierArn'
+  Prelude.Text ->
   StopTrainingDocumentClassifier
-stopTrainingDocumentClassifier
-  pDocumentClassifierARN_ =
+newStopTrainingDocumentClassifier
+  pDocumentClassifierArn_ =
     StopTrainingDocumentClassifier'
-      { _stdcDocumentClassifierARN =
-          pDocumentClassifierARN_
+      { documentClassifierArn =
+          pDocumentClassifierArn_
       }
 
--- | The Amazon Resource Name (ARN) that identifies the document classifier currently being trained.
-stdcDocumentClassifierARN :: Lens' StopTrainingDocumentClassifier Text
-stdcDocumentClassifierARN = lens _stdcDocumentClassifierARN (\s a -> s {_stdcDocumentClassifierARN = a})
+-- | The Amazon Resource Name (ARN) that identifies the document classifier
+-- currently being trained.
+stopTrainingDocumentClassifier_documentClassifierArn :: Lens.Lens' StopTrainingDocumentClassifier Prelude.Text
+stopTrainingDocumentClassifier_documentClassifierArn = Lens.lens (\StopTrainingDocumentClassifier' {documentClassifierArn} -> documentClassifierArn) (\s@StopTrainingDocumentClassifier' {} a -> s {documentClassifierArn = a} :: StopTrainingDocumentClassifier)
 
-instance AWSRequest StopTrainingDocumentClassifier where
+instance
+  Prelude.AWSRequest
+    StopTrainingDocumentClassifier
+  where
   type
     Rs StopTrainingDocumentClassifier =
       StopTrainingDocumentClassifierResponse
-  request = postJSON comprehend
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           StopTrainingDocumentClassifierResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StopTrainingDocumentClassifier
+instance
+  Prelude.Hashable
+    StopTrainingDocumentClassifier
 
-instance NFData StopTrainingDocumentClassifier
+instance
+  Prelude.NFData
+    StopTrainingDocumentClassifier
 
-instance ToHeaders StopTrainingDocumentClassifier where
+instance
+  Prelude.ToHeaders
+    StopTrainingDocumentClassifier
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Comprehend_20171127.StopTrainingDocumentClassifier" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Comprehend_20171127.StopTrainingDocumentClassifier" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StopTrainingDocumentClassifier where
+instance
+  Prelude.ToJSON
+    StopTrainingDocumentClassifier
+  where
   toJSON StopTrainingDocumentClassifier' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "DocumentClassifierArn"
-                  .= _stdcDocumentClassifierARN
+                  Prelude..= documentClassifierArn
               )
           ]
       )
 
-instance ToPath StopTrainingDocumentClassifier where
-  toPath = const "/"
-
-instance ToQuery StopTrainingDocumentClassifier where
-  toQuery = const mempty
-
--- | /See:/ 'stopTrainingDocumentClassifierResponse' smart constructor.
-newtype StopTrainingDocumentClassifierResponse = StopTrainingDocumentClassifierResponse'
-  { _stdcrrsResponseStatus ::
-      Int
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'StopTrainingDocumentClassifierResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'stdcrrsResponseStatus' - -- | The response status code.
-stopTrainingDocumentClassifierResponse ::
-  -- | 'stdcrrsResponseStatus'
-  Int ->
-  StopTrainingDocumentClassifierResponse
-stopTrainingDocumentClassifierResponse
-  pResponseStatus_ =
-    StopTrainingDocumentClassifierResponse'
-      { _stdcrrsResponseStatus =
-          pResponseStatus_
-      }
-
--- | -- | The response status code.
-stdcrrsResponseStatus :: Lens' StopTrainingDocumentClassifierResponse Int
-stdcrrsResponseStatus = lens _stdcrrsResponseStatus (\s a -> s {_stdcrrsResponseStatus = a})
+instance
+  Prelude.ToPath
+    StopTrainingDocumentClassifier
+  where
+  toPath = Prelude.const "/"
 
 instance
-  NFData
+  Prelude.ToQuery
+    StopTrainingDocumentClassifier
+  where
+  toQuery = Prelude.const Prelude.mempty
+
+-- | /See:/ 'newStopTrainingDocumentClassifierResponse' smart constructor.
+data StopTrainingDocumentClassifierResponse = StopTrainingDocumentClassifierResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'StopTrainingDocumentClassifierResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'stopTrainingDocumentClassifierResponse_httpStatus' - The response's http status code.
+newStopTrainingDocumentClassifierResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  StopTrainingDocumentClassifierResponse
+newStopTrainingDocumentClassifierResponse
+  pHttpStatus_ =
+    StopTrainingDocumentClassifierResponse'
+      { httpStatus =
+          pHttpStatus_
+      }
+
+-- | The response's http status code.
+stopTrainingDocumentClassifierResponse_httpStatus :: Lens.Lens' StopTrainingDocumentClassifierResponse Prelude.Int
+stopTrainingDocumentClassifierResponse_httpStatus = Lens.lens (\StopTrainingDocumentClassifierResponse' {httpStatus} -> httpStatus) (\s@StopTrainingDocumentClassifierResponse' {} a -> s {httpStatus = a} :: StopTrainingDocumentClassifierResponse)
+
+instance
+  Prelude.NFData
     StopTrainingDocumentClassifierResponse

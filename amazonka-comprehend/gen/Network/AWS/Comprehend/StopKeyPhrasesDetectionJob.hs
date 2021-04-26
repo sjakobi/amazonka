@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,161 +23,173 @@
 --
 -- Stops a key phrases detection job in progress.
 --
+-- If the job state is @IN_PROGRESS@ the job is marked for termination and
+-- put into the @STOP_REQUESTED@ state. If the job completes before it can
+-- be stopped, it is put into the @COMPLETED@ state; otherwise the job is
+-- stopped and put into the @STOPPED@ state.
 --
--- If the job state is @IN_PROGRESS@ the job is marked for termination and put into the @STOP_REQUESTED@ state. If the job completes before it can be stopped, it is put into the @COMPLETED@ state; otherwise the job is stopped and put into the @STOPPED@ state.
+-- If the job is in the @COMPLETED@ or @FAILED@ state when you call the
+-- @StopDominantLanguageDetectionJob@ operation, the operation returns a
+-- 400 Internal Request Exception.
 --
--- If the job is in the @COMPLETED@ or @FAILED@ state when you call the @StopDominantLanguageDetectionJob@ operation, the operation returns a 400 Internal Request Exception.
---
--- When a job is stopped, any documents already processed are written to the output location.
+-- When a job is stopped, any documents already processed are written to
+-- the output location.
 module Network.AWS.Comprehend.StopKeyPhrasesDetectionJob
   ( -- * Creating a Request
-    stopKeyPhrasesDetectionJob,
-    StopKeyPhrasesDetectionJob,
+    StopKeyPhrasesDetectionJob (..),
+    newStopKeyPhrasesDetectionJob,
 
     -- * Request Lenses
-    skpdjJobId,
+    stopKeyPhrasesDetectionJob_jobId,
 
     -- * Destructuring the Response
-    stopKeyPhrasesDetectionJobResponse,
-    StopKeyPhrasesDetectionJobResponse,
+    StopKeyPhrasesDetectionJobResponse (..),
+    newStopKeyPhrasesDetectionJobResponse,
 
     -- * Response Lenses
-    storsJobStatus,
-    storsJobId,
-    storsResponseStatus,
+    stopKeyPhrasesDetectionJobResponse_jobStatus,
+    stopKeyPhrasesDetectionJobResponse_jobId,
+    stopKeyPhrasesDetectionJobResponse_httpStatus,
   )
 where
 
 import Network.AWS.Comprehend.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Comprehend.Types.JobStatus
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'stopKeyPhrasesDetectionJob' smart constructor.
-newtype StopKeyPhrasesDetectionJob = StopKeyPhrasesDetectionJob'
-  { _skpdjJobId ::
-      Text
+-- | /See:/ 'newStopKeyPhrasesDetectionJob' smart constructor.
+data StopKeyPhrasesDetectionJob = StopKeyPhrasesDetectionJob'
+  { -- | The identifier of the key phrases detection job to stop.
+    jobId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopKeyPhrasesDetectionJob' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopKeyPhrasesDetectionJob' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'skpdjJobId' - The identifier of the key phrases detection job to stop.
-stopKeyPhrasesDetectionJob ::
-  -- | 'skpdjJobId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'jobId', 'stopKeyPhrasesDetectionJob_jobId' - The identifier of the key phrases detection job to stop.
+newStopKeyPhrasesDetectionJob ::
+  -- | 'jobId'
+  Prelude.Text ->
   StopKeyPhrasesDetectionJob
-stopKeyPhrasesDetectionJob pJobId_ =
-  StopKeyPhrasesDetectionJob' {_skpdjJobId = pJobId_}
+newStopKeyPhrasesDetectionJob pJobId_ =
+  StopKeyPhrasesDetectionJob' {jobId = pJobId_}
 
 -- | The identifier of the key phrases detection job to stop.
-skpdjJobId :: Lens' StopKeyPhrasesDetectionJob Text
-skpdjJobId = lens _skpdjJobId (\s a -> s {_skpdjJobId = a})
+stopKeyPhrasesDetectionJob_jobId :: Lens.Lens' StopKeyPhrasesDetectionJob Prelude.Text
+stopKeyPhrasesDetectionJob_jobId = Lens.lens (\StopKeyPhrasesDetectionJob' {jobId} -> jobId) (\s@StopKeyPhrasesDetectionJob' {} a -> s {jobId = a} :: StopKeyPhrasesDetectionJob)
 
-instance AWSRequest StopKeyPhrasesDetectionJob where
+instance
+  Prelude.AWSRequest
+    StopKeyPhrasesDetectionJob
+  where
   type
     Rs StopKeyPhrasesDetectionJob =
       StopKeyPhrasesDetectionJobResponse
-  request = postJSON comprehend
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           StopKeyPhrasesDetectionJobResponse'
-            <$> (x .?> "JobStatus")
-            <*> (x .?> "JobId")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "JobStatus")
+            Prelude.<*> (x Prelude..?> "JobId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StopKeyPhrasesDetectionJob
+instance Prelude.Hashable StopKeyPhrasesDetectionJob
 
-instance NFData StopKeyPhrasesDetectionJob
+instance Prelude.NFData StopKeyPhrasesDetectionJob
 
-instance ToHeaders StopKeyPhrasesDetectionJob where
+instance Prelude.ToHeaders StopKeyPhrasesDetectionJob where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Comprehend_20171127.StopKeyPhrasesDetectionJob" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Comprehend_20171127.StopKeyPhrasesDetectionJob" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StopKeyPhrasesDetectionJob where
+instance Prelude.ToJSON StopKeyPhrasesDetectionJob where
   toJSON StopKeyPhrasesDetectionJob' {..} =
-    object (catMaybes [Just ("JobId" .= _skpdjJobId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("JobId" Prelude..= jobId)]
+      )
 
-instance ToPath StopKeyPhrasesDetectionJob where
-  toPath = const "/"
+instance Prelude.ToPath StopKeyPhrasesDetectionJob where
+  toPath = Prelude.const "/"
 
-instance ToQuery StopKeyPhrasesDetectionJob where
-  toQuery = const mempty
+instance Prelude.ToQuery StopKeyPhrasesDetectionJob where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'stopKeyPhrasesDetectionJobResponse' smart constructor.
+-- | /See:/ 'newStopKeyPhrasesDetectionJobResponse' smart constructor.
 data StopKeyPhrasesDetectionJobResponse = StopKeyPhrasesDetectionJobResponse'
-  { _storsJobStatus ::
-      !( Maybe
-           JobStatus
-       ),
-    _storsJobId ::
-      !( Maybe
-           Text
-       ),
-    _storsResponseStatus ::
-      !Int
+  { -- | Either @STOP_REQUESTED@ if the job is currently running, or @STOPPED@ if
+    -- the job was previously stopped with the @StopKeyPhrasesDetectionJob@
+    -- operation.
+    jobStatus :: Prelude.Maybe JobStatus,
+    -- | The identifier of the key phrases detection job to stop.
+    jobId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopKeyPhrasesDetectionJobResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopKeyPhrasesDetectionJobResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'storsJobStatus' - Either @STOP_REQUESTED@ if the job is currently running, or @STOPPED@ if the job was previously stopped with the @StopKeyPhrasesDetectionJob@ operation.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'storsJobId' - The identifier of the key phrases detection job to stop.
+-- 'jobStatus', 'stopKeyPhrasesDetectionJobResponse_jobStatus' - Either @STOP_REQUESTED@ if the job is currently running, or @STOPPED@ if
+-- the job was previously stopped with the @StopKeyPhrasesDetectionJob@
+-- operation.
 --
--- * 'storsResponseStatus' - -- | The response status code.
-stopKeyPhrasesDetectionJobResponse ::
-  -- | 'storsResponseStatus'
-  Int ->
+-- 'jobId', 'stopKeyPhrasesDetectionJobResponse_jobId' - The identifier of the key phrases detection job to stop.
+--
+-- 'httpStatus', 'stopKeyPhrasesDetectionJobResponse_httpStatus' - The response's http status code.
+newStopKeyPhrasesDetectionJobResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StopKeyPhrasesDetectionJobResponse
-stopKeyPhrasesDetectionJobResponse pResponseStatus_ =
+newStopKeyPhrasesDetectionJobResponse pHttpStatus_ =
   StopKeyPhrasesDetectionJobResponse'
-    { _storsJobStatus =
-        Nothing,
-      _storsJobId = Nothing,
-      _storsResponseStatus = pResponseStatus_
+    { jobStatus =
+        Prelude.Nothing,
+      jobId = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Either @STOP_REQUESTED@ if the job is currently running, or @STOPPED@ if the job was previously stopped with the @StopKeyPhrasesDetectionJob@ operation.
-storsJobStatus :: Lens' StopKeyPhrasesDetectionJobResponse (Maybe JobStatus)
-storsJobStatus = lens _storsJobStatus (\s a -> s {_storsJobStatus = a})
+-- | Either @STOP_REQUESTED@ if the job is currently running, or @STOPPED@ if
+-- the job was previously stopped with the @StopKeyPhrasesDetectionJob@
+-- operation.
+stopKeyPhrasesDetectionJobResponse_jobStatus :: Lens.Lens' StopKeyPhrasesDetectionJobResponse (Prelude.Maybe JobStatus)
+stopKeyPhrasesDetectionJobResponse_jobStatus = Lens.lens (\StopKeyPhrasesDetectionJobResponse' {jobStatus} -> jobStatus) (\s@StopKeyPhrasesDetectionJobResponse' {} a -> s {jobStatus = a} :: StopKeyPhrasesDetectionJobResponse)
 
 -- | The identifier of the key phrases detection job to stop.
-storsJobId :: Lens' StopKeyPhrasesDetectionJobResponse (Maybe Text)
-storsJobId = lens _storsJobId (\s a -> s {_storsJobId = a})
+stopKeyPhrasesDetectionJobResponse_jobId :: Lens.Lens' StopKeyPhrasesDetectionJobResponse (Prelude.Maybe Prelude.Text)
+stopKeyPhrasesDetectionJobResponse_jobId = Lens.lens (\StopKeyPhrasesDetectionJobResponse' {jobId} -> jobId) (\s@StopKeyPhrasesDetectionJobResponse' {} a -> s {jobId = a} :: StopKeyPhrasesDetectionJobResponse)
 
--- | -- | The response status code.
-storsResponseStatus :: Lens' StopKeyPhrasesDetectionJobResponse Int
-storsResponseStatus = lens _storsResponseStatus (\s a -> s {_storsResponseStatus = a})
+-- | The response's http status code.
+stopKeyPhrasesDetectionJobResponse_httpStatus :: Lens.Lens' StopKeyPhrasesDetectionJobResponse Prelude.Int
+stopKeyPhrasesDetectionJobResponse_httpStatus = Lens.lens (\StopKeyPhrasesDetectionJobResponse' {httpStatus} -> httpStatus) (\s@StopKeyPhrasesDetectionJobResponse' {} a -> s {httpStatus = a} :: StopKeyPhrasesDetectionJobResponse)
 
-instance NFData StopKeyPhrasesDetectionJobResponse
+instance
+  Prelude.NFData
+    StopKeyPhrasesDetectionJobResponse

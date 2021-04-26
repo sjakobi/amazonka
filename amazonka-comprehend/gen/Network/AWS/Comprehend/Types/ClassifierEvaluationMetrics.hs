@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,123 +19,194 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Comprehend.Types.ClassifierEvaluationMetrics where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes the result metrics for the test data associated with an documentation classifier.
+-- | Describes the result metrics for the test data associated with an
+-- documentation classifier.
 --
---
---
--- /See:/ 'classifierEvaluationMetrics' smart constructor.
+-- /See:/ 'newClassifierEvaluationMetrics' smart constructor.
 data ClassifierEvaluationMetrics = ClassifierEvaluationMetrics'
-  { _cemMicroRecall ::
-      !(Maybe Double),
-    _cemF1Score ::
-      !(Maybe Double),
-    _cemMicroPrecision ::
-      !(Maybe Double),
-    _cemPrecision ::
-      !(Maybe Double),
-    _cemAccuracy ::
-      !(Maybe Double),
-    _cemHammingLoss ::
-      !(Maybe Double),
-    _cemRecall ::
-      !(Maybe Double),
-    _cemMicroF1Score ::
-      !(Maybe Double)
+  { -- | A measure of how complete the classifier results are for the test data.
+    -- High recall means that the classifier returned most of the relevant
+    -- results. Specifically, this indicates how many of the correct categories
+    -- in the text that the model can predict. It is a percentage of correct
+    -- categories in the text that can found. Instead of averaging the recall
+    -- scores of all labels (as with Recall), micro Recall is based on the
+    -- overall score of all recall scores added together.
+    microRecall :: Prelude.Maybe Prelude.Double,
+    -- | A measure of how accurate the classifier results are for the test data.
+    -- It is derived from the @Precision@ and @Recall@ values. The @F1Score@ is
+    -- the harmonic average of the two scores. The highest score is 1, and the
+    -- worst score is 0.
+    f1Score :: Prelude.Maybe Prelude.Double,
+    -- | A measure of the usefulness of the recognizer results in the test data.
+    -- High precision means that the recognizer returned substantially more
+    -- relevant results than irrelevant ones. Unlike the Precision metric which
+    -- comes from averaging the precision of all available labels, this is
+    -- based on the overall score of all precision scores added together.
+    microPrecision :: Prelude.Maybe Prelude.Double,
+    -- | A measure of the usefulness of the classifier results in the test data.
+    -- High precision means that the classifier returned substantially more
+    -- relevant results than irrelevant ones.
+    precision :: Prelude.Maybe Prelude.Double,
+    -- | The fraction of the labels that were correct recognized. It is computed
+    -- by dividing the number of labels in the test documents that were
+    -- correctly recognized by the total number of labels in the test
+    -- documents.
+    accuracy :: Prelude.Maybe Prelude.Double,
+    -- | Indicates the fraction of labels that are incorrectly predicted. Also
+    -- seen as the fraction of wrong labels compared to the total number of
+    -- labels. Scores closer to zero are better.
+    hammingLoss :: Prelude.Maybe Prelude.Double,
+    -- | A measure of how complete the classifier results are for the test data.
+    -- High recall means that the classifier returned most of the relevant
+    -- results.
+    recall :: Prelude.Maybe Prelude.Double,
+    -- | A measure of how accurate the classifier results are for the test data.
+    -- It is a combination of the @Micro Precision@ and @Micro Recall@ values.
+    -- The @Micro F1Score@ is the harmonic mean of the two scores. The highest
+    -- score is 1, and the worst score is 0.
+    microF1Score :: Prelude.Maybe Prelude.Double
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ClassifierEvaluationMetrics' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ClassifierEvaluationMetrics' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cemMicroRecall' - A measure of how complete the classifier results are for the test data. High recall means that the classifier returned most of the relevant results. Specifically, this indicates how many of the correct categories in the text that the model can predict. It is a percentage of correct categories in the text that can found. Instead of averaging the recall scores of all labels (as with Recall), micro Recall is based on the overall score of all recall scores added together.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cemF1Score' - A measure of how accurate the classifier results are for the test data. It is derived from the @Precision@ and @Recall@ values. The @F1Score@ is the harmonic average of the two scores. The highest score is 1, and the worst score is 0.
+-- 'microRecall', 'classifierEvaluationMetrics_microRecall' - A measure of how complete the classifier results are for the test data.
+-- High recall means that the classifier returned most of the relevant
+-- results. Specifically, this indicates how many of the correct categories
+-- in the text that the model can predict. It is a percentage of correct
+-- categories in the text that can found. Instead of averaging the recall
+-- scores of all labels (as with Recall), micro Recall is based on the
+-- overall score of all recall scores added together.
 --
--- * 'cemMicroPrecision' - A measure of the usefulness of the recognizer results in the test data. High precision means that the recognizer returned substantially more relevant results than irrelevant ones. Unlike the Precision metric which comes from averaging the precision of all available labels, this is based on the overall score of all precision scores added together.
+-- 'f1Score', 'classifierEvaluationMetrics_f1Score' - A measure of how accurate the classifier results are for the test data.
+-- It is derived from the @Precision@ and @Recall@ values. The @F1Score@ is
+-- the harmonic average of the two scores. The highest score is 1, and the
+-- worst score is 0.
 --
--- * 'cemPrecision' - A measure of the usefulness of the classifier results in the test data. High precision means that the classifier returned substantially more relevant results than irrelevant ones.
+-- 'microPrecision', 'classifierEvaluationMetrics_microPrecision' - A measure of the usefulness of the recognizer results in the test data.
+-- High precision means that the recognizer returned substantially more
+-- relevant results than irrelevant ones. Unlike the Precision metric which
+-- comes from averaging the precision of all available labels, this is
+-- based on the overall score of all precision scores added together.
 --
--- * 'cemAccuracy' - The fraction of the labels that were correct recognized. It is computed by dividing the number of labels in the test documents that were correctly recognized by the total number of labels in the test documents.
+-- 'precision', 'classifierEvaluationMetrics_precision' - A measure of the usefulness of the classifier results in the test data.
+-- High precision means that the classifier returned substantially more
+-- relevant results than irrelevant ones.
 --
--- * 'cemHammingLoss' - Indicates the fraction of labels that are incorrectly predicted. Also seen as the fraction of wrong labels compared to the total number of labels. Scores closer to zero are better.
+-- 'accuracy', 'classifierEvaluationMetrics_accuracy' - The fraction of the labels that were correct recognized. It is computed
+-- by dividing the number of labels in the test documents that were
+-- correctly recognized by the total number of labels in the test
+-- documents.
 --
--- * 'cemRecall' - A measure of how complete the classifier results are for the test data. High recall means that the classifier returned most of the relevant results.
+-- 'hammingLoss', 'classifierEvaluationMetrics_hammingLoss' - Indicates the fraction of labels that are incorrectly predicted. Also
+-- seen as the fraction of wrong labels compared to the total number of
+-- labels. Scores closer to zero are better.
 --
--- * 'cemMicroF1Score' - A measure of how accurate the classifier results are for the test data. It is a combination of the @Micro Precision@ and @Micro Recall@ values. The @Micro F1Score@ is the harmonic mean of the two scores. The highest score is 1, and the worst score is 0.
-classifierEvaluationMetrics ::
+-- 'recall', 'classifierEvaluationMetrics_recall' - A measure of how complete the classifier results are for the test data.
+-- High recall means that the classifier returned most of the relevant
+-- results.
+--
+-- 'microF1Score', 'classifierEvaluationMetrics_microF1Score' - A measure of how accurate the classifier results are for the test data.
+-- It is a combination of the @Micro Precision@ and @Micro Recall@ values.
+-- The @Micro F1Score@ is the harmonic mean of the two scores. The highest
+-- score is 1, and the worst score is 0.
+newClassifierEvaluationMetrics ::
   ClassifierEvaluationMetrics
-classifierEvaluationMetrics =
+newClassifierEvaluationMetrics =
   ClassifierEvaluationMetrics'
-    { _cemMicroRecall =
-        Nothing,
-      _cemF1Score = Nothing,
-      _cemMicroPrecision = Nothing,
-      _cemPrecision = Nothing,
-      _cemAccuracy = Nothing,
-      _cemHammingLoss = Nothing,
-      _cemRecall = Nothing,
-      _cemMicroF1Score = Nothing
+    { microRecall =
+        Prelude.Nothing,
+      f1Score = Prelude.Nothing,
+      microPrecision = Prelude.Nothing,
+      precision = Prelude.Nothing,
+      accuracy = Prelude.Nothing,
+      hammingLoss = Prelude.Nothing,
+      recall = Prelude.Nothing,
+      microF1Score = Prelude.Nothing
     }
 
--- | A measure of how complete the classifier results are for the test data. High recall means that the classifier returned most of the relevant results. Specifically, this indicates how many of the correct categories in the text that the model can predict. It is a percentage of correct categories in the text that can found. Instead of averaging the recall scores of all labels (as with Recall), micro Recall is based on the overall score of all recall scores added together.
-cemMicroRecall :: Lens' ClassifierEvaluationMetrics (Maybe Double)
-cemMicroRecall = lens _cemMicroRecall (\s a -> s {_cemMicroRecall = a})
+-- | A measure of how complete the classifier results are for the test data.
+-- High recall means that the classifier returned most of the relevant
+-- results. Specifically, this indicates how many of the correct categories
+-- in the text that the model can predict. It is a percentage of correct
+-- categories in the text that can found. Instead of averaging the recall
+-- scores of all labels (as with Recall), micro Recall is based on the
+-- overall score of all recall scores added together.
+classifierEvaluationMetrics_microRecall :: Lens.Lens' ClassifierEvaluationMetrics (Prelude.Maybe Prelude.Double)
+classifierEvaluationMetrics_microRecall = Lens.lens (\ClassifierEvaluationMetrics' {microRecall} -> microRecall) (\s@ClassifierEvaluationMetrics' {} a -> s {microRecall = a} :: ClassifierEvaluationMetrics)
 
--- | A measure of how accurate the classifier results are for the test data. It is derived from the @Precision@ and @Recall@ values. The @F1Score@ is the harmonic average of the two scores. The highest score is 1, and the worst score is 0.
-cemF1Score :: Lens' ClassifierEvaluationMetrics (Maybe Double)
-cemF1Score = lens _cemF1Score (\s a -> s {_cemF1Score = a})
+-- | A measure of how accurate the classifier results are for the test data.
+-- It is derived from the @Precision@ and @Recall@ values. The @F1Score@ is
+-- the harmonic average of the two scores. The highest score is 1, and the
+-- worst score is 0.
+classifierEvaluationMetrics_f1Score :: Lens.Lens' ClassifierEvaluationMetrics (Prelude.Maybe Prelude.Double)
+classifierEvaluationMetrics_f1Score = Lens.lens (\ClassifierEvaluationMetrics' {f1Score} -> f1Score) (\s@ClassifierEvaluationMetrics' {} a -> s {f1Score = a} :: ClassifierEvaluationMetrics)
 
--- | A measure of the usefulness of the recognizer results in the test data. High precision means that the recognizer returned substantially more relevant results than irrelevant ones. Unlike the Precision metric which comes from averaging the precision of all available labels, this is based on the overall score of all precision scores added together.
-cemMicroPrecision :: Lens' ClassifierEvaluationMetrics (Maybe Double)
-cemMicroPrecision = lens _cemMicroPrecision (\s a -> s {_cemMicroPrecision = a})
+-- | A measure of the usefulness of the recognizer results in the test data.
+-- High precision means that the recognizer returned substantially more
+-- relevant results than irrelevant ones. Unlike the Precision metric which
+-- comes from averaging the precision of all available labels, this is
+-- based on the overall score of all precision scores added together.
+classifierEvaluationMetrics_microPrecision :: Lens.Lens' ClassifierEvaluationMetrics (Prelude.Maybe Prelude.Double)
+classifierEvaluationMetrics_microPrecision = Lens.lens (\ClassifierEvaluationMetrics' {microPrecision} -> microPrecision) (\s@ClassifierEvaluationMetrics' {} a -> s {microPrecision = a} :: ClassifierEvaluationMetrics)
 
--- | A measure of the usefulness of the classifier results in the test data. High precision means that the classifier returned substantially more relevant results than irrelevant ones.
-cemPrecision :: Lens' ClassifierEvaluationMetrics (Maybe Double)
-cemPrecision = lens _cemPrecision (\s a -> s {_cemPrecision = a})
+-- | A measure of the usefulness of the classifier results in the test data.
+-- High precision means that the classifier returned substantially more
+-- relevant results than irrelevant ones.
+classifierEvaluationMetrics_precision :: Lens.Lens' ClassifierEvaluationMetrics (Prelude.Maybe Prelude.Double)
+classifierEvaluationMetrics_precision = Lens.lens (\ClassifierEvaluationMetrics' {precision} -> precision) (\s@ClassifierEvaluationMetrics' {} a -> s {precision = a} :: ClassifierEvaluationMetrics)
 
--- | The fraction of the labels that were correct recognized. It is computed by dividing the number of labels in the test documents that were correctly recognized by the total number of labels in the test documents.
-cemAccuracy :: Lens' ClassifierEvaluationMetrics (Maybe Double)
-cemAccuracy = lens _cemAccuracy (\s a -> s {_cemAccuracy = a})
+-- | The fraction of the labels that were correct recognized. It is computed
+-- by dividing the number of labels in the test documents that were
+-- correctly recognized by the total number of labels in the test
+-- documents.
+classifierEvaluationMetrics_accuracy :: Lens.Lens' ClassifierEvaluationMetrics (Prelude.Maybe Prelude.Double)
+classifierEvaluationMetrics_accuracy = Lens.lens (\ClassifierEvaluationMetrics' {accuracy} -> accuracy) (\s@ClassifierEvaluationMetrics' {} a -> s {accuracy = a} :: ClassifierEvaluationMetrics)
 
--- | Indicates the fraction of labels that are incorrectly predicted. Also seen as the fraction of wrong labels compared to the total number of labels. Scores closer to zero are better.
-cemHammingLoss :: Lens' ClassifierEvaluationMetrics (Maybe Double)
-cemHammingLoss = lens _cemHammingLoss (\s a -> s {_cemHammingLoss = a})
+-- | Indicates the fraction of labels that are incorrectly predicted. Also
+-- seen as the fraction of wrong labels compared to the total number of
+-- labels. Scores closer to zero are better.
+classifierEvaluationMetrics_hammingLoss :: Lens.Lens' ClassifierEvaluationMetrics (Prelude.Maybe Prelude.Double)
+classifierEvaluationMetrics_hammingLoss = Lens.lens (\ClassifierEvaluationMetrics' {hammingLoss} -> hammingLoss) (\s@ClassifierEvaluationMetrics' {} a -> s {hammingLoss = a} :: ClassifierEvaluationMetrics)
 
--- | A measure of how complete the classifier results are for the test data. High recall means that the classifier returned most of the relevant results.
-cemRecall :: Lens' ClassifierEvaluationMetrics (Maybe Double)
-cemRecall = lens _cemRecall (\s a -> s {_cemRecall = a})
+-- | A measure of how complete the classifier results are for the test data.
+-- High recall means that the classifier returned most of the relevant
+-- results.
+classifierEvaluationMetrics_recall :: Lens.Lens' ClassifierEvaluationMetrics (Prelude.Maybe Prelude.Double)
+classifierEvaluationMetrics_recall = Lens.lens (\ClassifierEvaluationMetrics' {recall} -> recall) (\s@ClassifierEvaluationMetrics' {} a -> s {recall = a} :: ClassifierEvaluationMetrics)
 
--- | A measure of how accurate the classifier results are for the test data. It is a combination of the @Micro Precision@ and @Micro Recall@ values. The @Micro F1Score@ is the harmonic mean of the two scores. The highest score is 1, and the worst score is 0.
-cemMicroF1Score :: Lens' ClassifierEvaluationMetrics (Maybe Double)
-cemMicroF1Score = lens _cemMicroF1Score (\s a -> s {_cemMicroF1Score = a})
+-- | A measure of how accurate the classifier results are for the test data.
+-- It is a combination of the @Micro Precision@ and @Micro Recall@ values.
+-- The @Micro F1Score@ is the harmonic mean of the two scores. The highest
+-- score is 1, and the worst score is 0.
+classifierEvaluationMetrics_microF1Score :: Lens.Lens' ClassifierEvaluationMetrics (Prelude.Maybe Prelude.Double)
+classifierEvaluationMetrics_microF1Score = Lens.lens (\ClassifierEvaluationMetrics' {microF1Score} -> microF1Score) (\s@ClassifierEvaluationMetrics' {} a -> s {microF1Score = a} :: ClassifierEvaluationMetrics)
 
-instance FromJSON ClassifierEvaluationMetrics where
+instance Prelude.FromJSON ClassifierEvaluationMetrics where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ClassifierEvaluationMetrics"
       ( \x ->
           ClassifierEvaluationMetrics'
-            <$> (x .:? "MicroRecall")
-            <*> (x .:? "F1Score")
-            <*> (x .:? "MicroPrecision")
-            <*> (x .:? "Precision")
-            <*> (x .:? "Accuracy")
-            <*> (x .:? "HammingLoss")
-            <*> (x .:? "Recall")
-            <*> (x .:? "MicroF1Score")
+            Prelude.<$> (x Prelude..:? "MicroRecall")
+            Prelude.<*> (x Prelude..:? "F1Score")
+            Prelude.<*> (x Prelude..:? "MicroPrecision")
+            Prelude.<*> (x Prelude..:? "Precision")
+            Prelude.<*> (x Prelude..:? "Accuracy")
+            Prelude.<*> (x Prelude..:? "HammingLoss")
+            Prelude.<*> (x Prelude..:? "Recall")
+            Prelude.<*> (x Prelude..:? "MicroF1Score")
       )
 
-instance Hashable ClassifierEvaluationMetrics
+instance Prelude.Hashable ClassifierEvaluationMetrics
 
-instance NFData ClassifierEvaluationMetrics
+instance Prelude.NFData ClassifierEvaluationMetrics

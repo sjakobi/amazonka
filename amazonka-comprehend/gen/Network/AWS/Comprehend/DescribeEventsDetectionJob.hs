@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,141 +24,146 @@
 -- Gets the status and details of an events detection job.
 module Network.AWS.Comprehend.DescribeEventsDetectionJob
   ( -- * Creating a Request
-    describeEventsDetectionJob,
-    DescribeEventsDetectionJob,
+    DescribeEventsDetectionJob (..),
+    newDescribeEventsDetectionJob,
 
     -- * Request Lenses
-    dedjJobId,
+    describeEventsDetectionJob_jobId,
 
     -- * Destructuring the Response
-    describeEventsDetectionJobResponse,
-    DescribeEventsDetectionJobResponse,
+    DescribeEventsDetectionJobResponse (..),
+    newDescribeEventsDetectionJobResponse,
 
     -- * Response Lenses
-    dedjrrsEventsDetectionJobProperties,
-    dedjrrsResponseStatus,
+    describeEventsDetectionJobResponse_eventsDetectionJobProperties,
+    describeEventsDetectionJobResponse_httpStatus,
   )
 where
 
 import Network.AWS.Comprehend.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Comprehend.Types.EventsDetectionJobProperties
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeEventsDetectionJob' smart constructor.
-newtype DescribeEventsDetectionJob = DescribeEventsDetectionJob'
-  { _dedjJobId ::
-      Text
+-- | /See:/ 'newDescribeEventsDetectionJob' smart constructor.
+data DescribeEventsDetectionJob = DescribeEventsDetectionJob'
+  { -- | The identifier of the events detection job.
+    jobId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeEventsDetectionJob' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeEventsDetectionJob' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dedjJobId' - The identifier of the events detection job.
-describeEventsDetectionJob ::
-  -- | 'dedjJobId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'jobId', 'describeEventsDetectionJob_jobId' - The identifier of the events detection job.
+newDescribeEventsDetectionJob ::
+  -- | 'jobId'
+  Prelude.Text ->
   DescribeEventsDetectionJob
-describeEventsDetectionJob pJobId_ =
-  DescribeEventsDetectionJob' {_dedjJobId = pJobId_}
+newDescribeEventsDetectionJob pJobId_ =
+  DescribeEventsDetectionJob' {jobId = pJobId_}
 
 -- | The identifier of the events detection job.
-dedjJobId :: Lens' DescribeEventsDetectionJob Text
-dedjJobId = lens _dedjJobId (\s a -> s {_dedjJobId = a})
+describeEventsDetectionJob_jobId :: Lens.Lens' DescribeEventsDetectionJob Prelude.Text
+describeEventsDetectionJob_jobId = Lens.lens (\DescribeEventsDetectionJob' {jobId} -> jobId) (\s@DescribeEventsDetectionJob' {} a -> s {jobId = a} :: DescribeEventsDetectionJob)
 
-instance AWSRequest DescribeEventsDetectionJob where
+instance
+  Prelude.AWSRequest
+    DescribeEventsDetectionJob
+  where
   type
     Rs DescribeEventsDetectionJob =
       DescribeEventsDetectionJobResponse
-  request = postJSON comprehend
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeEventsDetectionJobResponse'
-            <$> (x .?> "EventsDetectionJobProperties")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "EventsDetectionJobProperties")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeEventsDetectionJob
+instance Prelude.Hashable DescribeEventsDetectionJob
 
-instance NFData DescribeEventsDetectionJob
+instance Prelude.NFData DescribeEventsDetectionJob
 
-instance ToHeaders DescribeEventsDetectionJob where
+instance Prelude.ToHeaders DescribeEventsDetectionJob where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Comprehend_20171127.DescribeEventsDetectionJob" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Comprehend_20171127.DescribeEventsDetectionJob" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeEventsDetectionJob where
+instance Prelude.ToJSON DescribeEventsDetectionJob where
   toJSON DescribeEventsDetectionJob' {..} =
-    object (catMaybes [Just ("JobId" .= _dedjJobId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("JobId" Prelude..= jobId)]
+      )
 
-instance ToPath DescribeEventsDetectionJob where
-  toPath = const "/"
+instance Prelude.ToPath DescribeEventsDetectionJob where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeEventsDetectionJob where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeEventsDetectionJob where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeEventsDetectionJobResponse' smart constructor.
+-- | /See:/ 'newDescribeEventsDetectionJobResponse' smart constructor.
 data DescribeEventsDetectionJobResponse = DescribeEventsDetectionJobResponse'
-  { _dedjrrsEventsDetectionJobProperties ::
-      !( Maybe
-           EventsDetectionJobProperties
-       ),
-    _dedjrrsResponseStatus ::
-      !Int
+  { -- | An object that contains the properties associated with an event
+    -- detection job.
+    eventsDetectionJobProperties :: Prelude.Maybe EventsDetectionJobProperties,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeEventsDetectionJobResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeEventsDetectionJobResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dedjrrsEventsDetectionJobProperties' - An object that contains the properties associated with an event detection job.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dedjrrsResponseStatus' - -- | The response status code.
-describeEventsDetectionJobResponse ::
-  -- | 'dedjrrsResponseStatus'
-  Int ->
+-- 'eventsDetectionJobProperties', 'describeEventsDetectionJobResponse_eventsDetectionJobProperties' - An object that contains the properties associated with an event
+-- detection job.
+--
+-- 'httpStatus', 'describeEventsDetectionJobResponse_httpStatus' - The response's http status code.
+newDescribeEventsDetectionJobResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeEventsDetectionJobResponse
-describeEventsDetectionJobResponse pResponseStatus_ =
+newDescribeEventsDetectionJobResponse pHttpStatus_ =
   DescribeEventsDetectionJobResponse'
-    { _dedjrrsEventsDetectionJobProperties =
-        Nothing,
-      _dedjrrsResponseStatus =
-        pResponseStatus_
+    { eventsDetectionJobProperties =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An object that contains the properties associated with an event detection job.
-dedjrrsEventsDetectionJobProperties :: Lens' DescribeEventsDetectionJobResponse (Maybe EventsDetectionJobProperties)
-dedjrrsEventsDetectionJobProperties = lens _dedjrrsEventsDetectionJobProperties (\s a -> s {_dedjrrsEventsDetectionJobProperties = a})
+-- | An object that contains the properties associated with an event
+-- detection job.
+describeEventsDetectionJobResponse_eventsDetectionJobProperties :: Lens.Lens' DescribeEventsDetectionJobResponse (Prelude.Maybe EventsDetectionJobProperties)
+describeEventsDetectionJobResponse_eventsDetectionJobProperties = Lens.lens (\DescribeEventsDetectionJobResponse' {eventsDetectionJobProperties} -> eventsDetectionJobProperties) (\s@DescribeEventsDetectionJobResponse' {} a -> s {eventsDetectionJobProperties = a} :: DescribeEventsDetectionJobResponse)
 
--- | -- | The response status code.
-dedjrrsResponseStatus :: Lens' DescribeEventsDetectionJobResponse Int
-dedjrrsResponseStatus = lens _dedjrrsResponseStatus (\s a -> s {_dedjrrsResponseStatus = a})
+-- | The response's http status code.
+describeEventsDetectionJobResponse_httpStatus :: Lens.Lens' DescribeEventsDetectionJobResponse Prelude.Int
+describeEventsDetectionJobResponse_httpStatus = Lens.lens (\DescribeEventsDetectionJobResponse' {httpStatus} -> httpStatus) (\s@DescribeEventsDetectionJobResponse' {} a -> s {httpStatus = a} :: DescribeEventsDetectionJobResponse)
 
-instance NFData DescribeEventsDetectionJobResponse
+instance
+  Prelude.NFData
+    DescribeEventsDetectionJobResponse

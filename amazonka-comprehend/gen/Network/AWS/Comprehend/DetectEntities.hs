@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,148 +21,231 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Inspects text for named entities, and returns information about them. For more information, about named entities, see 'how-entities' .
+-- Inspects text for named entities, and returns information about them.
+-- For more information, about named entities, see how-entities.
 module Network.AWS.Comprehend.DetectEntities
   ( -- * Creating a Request
-    detectEntities,
-    DetectEntities,
+    DetectEntities (..),
+    newDetectEntities,
 
     -- * Request Lenses
-    desLanguageCode,
-    desEndpointARN,
-    desText,
+    detectEntities_languageCode,
+    detectEntities_endpointArn,
+    detectEntities_text,
 
     -- * Destructuring the Response
-    detectEntitiesResponse,
-    DetectEntitiesResponse,
+    DetectEntitiesResponse (..),
+    newDetectEntitiesResponse,
 
     -- * Response Lenses
-    detrsEntities,
-    detrsResponseStatus,
+    detectEntitiesResponse_entities,
+    detectEntitiesResponse_httpStatus,
   )
 where
 
 import Network.AWS.Comprehend.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Comprehend.Types.Entity
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'detectEntities' smart constructor.
+-- | /See:/ 'newDetectEntities' smart constructor.
 data DetectEntities = DetectEntities'
-  { _desLanguageCode ::
-      !(Maybe LanguageCode),
-    _desEndpointARN :: !(Maybe Text),
-    _desText :: !(Sensitive Text)
+  { -- | The language of the input documents. You can specify any of the primary
+    -- languages supported by Amazon Comprehend. All documents must be in the
+    -- same language.
+    --
+    -- If your request includes the endpoint for a custom entity recognition
+    -- model, Amazon Comprehend uses the language of your custom model, and it
+    -- ignores any language code that you specify here.
+    languageCode :: Prelude.Maybe LanguageCode,
+    -- | The Amazon Resource Name of an endpoint that is associated with a custom
+    -- entity recognition model. Provide an endpoint if you want to detect
+    -- entities by using your own custom model instead of the default model
+    -- that is used by Amazon Comprehend.
+    --
+    -- If you specify an endpoint, Amazon Comprehend uses the language of your
+    -- custom model, and it ignores any language code that you provide in your
+    -- request.
+    endpointArn :: Prelude.Maybe Prelude.Text,
+    -- | A UTF-8 text string. Each string must contain fewer that 5,000 bytes of
+    -- UTF-8 encoded characters.
+    text :: Prelude.Sensitive Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DetectEntities' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DetectEntities' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'desLanguageCode' - The language of the input documents. You can specify any of the primary languages supported by Amazon Comprehend. All documents must be in the same language. If your request includes the endpoint for a custom entity recognition model, Amazon Comprehend uses the language of your custom model, and it ignores any language code that you specify here.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'desEndpointARN' - The Amazon Resource Name of an endpoint that is associated with a custom entity recognition model. Provide an endpoint if you want to detect entities by using your own custom model instead of the default model that is used by Amazon Comprehend. If you specify an endpoint, Amazon Comprehend uses the language of your custom model, and it ignores any language code that you provide in your request.
+-- 'languageCode', 'detectEntities_languageCode' - The language of the input documents. You can specify any of the primary
+-- languages supported by Amazon Comprehend. All documents must be in the
+-- same language.
 --
--- * 'desText' - A UTF-8 text string. Each string must contain fewer that 5,000 bytes of UTF-8 encoded characters.
-detectEntities ::
-  -- | 'desText'
-  Text ->
+-- If your request includes the endpoint for a custom entity recognition
+-- model, Amazon Comprehend uses the language of your custom model, and it
+-- ignores any language code that you specify here.
+--
+-- 'endpointArn', 'detectEntities_endpointArn' - The Amazon Resource Name of an endpoint that is associated with a custom
+-- entity recognition model. Provide an endpoint if you want to detect
+-- entities by using your own custom model instead of the default model
+-- that is used by Amazon Comprehend.
+--
+-- If you specify an endpoint, Amazon Comprehend uses the language of your
+-- custom model, and it ignores any language code that you provide in your
+-- request.
+--
+-- 'text', 'detectEntities_text' - A UTF-8 text string. Each string must contain fewer that 5,000 bytes of
+-- UTF-8 encoded characters.
+newDetectEntities ::
+  -- | 'text'
+  Prelude.Text ->
   DetectEntities
-detectEntities pText_ =
+newDetectEntities pText_ =
   DetectEntities'
-    { _desLanguageCode = Nothing,
-      _desEndpointARN = Nothing,
-      _desText = _Sensitive # pText_
+    { languageCode = Prelude.Nothing,
+      endpointArn = Prelude.Nothing,
+      text = Prelude._Sensitive Lens.# pText_
     }
 
--- | The language of the input documents. You can specify any of the primary languages supported by Amazon Comprehend. All documents must be in the same language. If your request includes the endpoint for a custom entity recognition model, Amazon Comprehend uses the language of your custom model, and it ignores any language code that you specify here.
-desLanguageCode :: Lens' DetectEntities (Maybe LanguageCode)
-desLanguageCode = lens _desLanguageCode (\s a -> s {_desLanguageCode = a})
+-- | The language of the input documents. You can specify any of the primary
+-- languages supported by Amazon Comprehend. All documents must be in the
+-- same language.
+--
+-- If your request includes the endpoint for a custom entity recognition
+-- model, Amazon Comprehend uses the language of your custom model, and it
+-- ignores any language code that you specify here.
+detectEntities_languageCode :: Lens.Lens' DetectEntities (Prelude.Maybe LanguageCode)
+detectEntities_languageCode = Lens.lens (\DetectEntities' {languageCode} -> languageCode) (\s@DetectEntities' {} a -> s {languageCode = a} :: DetectEntities)
 
--- | The Amazon Resource Name of an endpoint that is associated with a custom entity recognition model. Provide an endpoint if you want to detect entities by using your own custom model instead of the default model that is used by Amazon Comprehend. If you specify an endpoint, Amazon Comprehend uses the language of your custom model, and it ignores any language code that you provide in your request.
-desEndpointARN :: Lens' DetectEntities (Maybe Text)
-desEndpointARN = lens _desEndpointARN (\s a -> s {_desEndpointARN = a})
+-- | The Amazon Resource Name of an endpoint that is associated with a custom
+-- entity recognition model. Provide an endpoint if you want to detect
+-- entities by using your own custom model instead of the default model
+-- that is used by Amazon Comprehend.
+--
+-- If you specify an endpoint, Amazon Comprehend uses the language of your
+-- custom model, and it ignores any language code that you provide in your
+-- request.
+detectEntities_endpointArn :: Lens.Lens' DetectEntities (Prelude.Maybe Prelude.Text)
+detectEntities_endpointArn = Lens.lens (\DetectEntities' {endpointArn} -> endpointArn) (\s@DetectEntities' {} a -> s {endpointArn = a} :: DetectEntities)
 
--- | A UTF-8 text string. Each string must contain fewer that 5,000 bytes of UTF-8 encoded characters.
-desText :: Lens' DetectEntities Text
-desText = lens _desText (\s a -> s {_desText = a}) . _Sensitive
+-- | A UTF-8 text string. Each string must contain fewer that 5,000 bytes of
+-- UTF-8 encoded characters.
+detectEntities_text :: Lens.Lens' DetectEntities Prelude.Text
+detectEntities_text = Lens.lens (\DetectEntities' {text} -> text) (\s@DetectEntities' {} a -> s {text = a} :: DetectEntities) Prelude.. Prelude._Sensitive
 
-instance AWSRequest DetectEntities where
+instance Prelude.AWSRequest DetectEntities where
   type Rs DetectEntities = DetectEntitiesResponse
-  request = postJSON comprehend
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DetectEntitiesResponse'
-            <$> (x .?> "Entities" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Entities" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DetectEntities
+instance Prelude.Hashable DetectEntities
 
-instance NFData DetectEntities
+instance Prelude.NFData DetectEntities
 
-instance ToHeaders DetectEntities where
+instance Prelude.ToHeaders DetectEntities where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("Comprehend_20171127.DetectEntities" :: ByteString),
+              Prelude.=# ( "Comprehend_20171127.DetectEntities" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DetectEntities where
+instance Prelude.ToJSON DetectEntities where
   toJSON DetectEntities' {..} =
-    object
-      ( catMaybes
-          [ ("LanguageCode" .=) <$> _desLanguageCode,
-            ("EndpointArn" .=) <$> _desEndpointARN,
-            Just ("Text" .= _desText)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("LanguageCode" Prelude..=)
+              Prelude.<$> languageCode,
+            ("EndpointArn" Prelude..=) Prelude.<$> endpointArn,
+            Prelude.Just ("Text" Prelude..= text)
           ]
       )
 
-instance ToPath DetectEntities where
-  toPath = const "/"
+instance Prelude.ToPath DetectEntities where
+  toPath = Prelude.const "/"
 
-instance ToQuery DetectEntities where
-  toQuery = const mempty
+instance Prelude.ToQuery DetectEntities where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'detectEntitiesResponse' smart constructor.
+-- | /See:/ 'newDetectEntitiesResponse' smart constructor.
 data DetectEntitiesResponse = DetectEntitiesResponse'
-  { _detrsEntities ::
-      !(Maybe [Entity]),
-    _detrsResponseStatus ::
-      !Int
+  { -- | A collection of entities identified in the input text. For each entity,
+    -- the response provides the entity text, entity type, where the entity
+    -- text begins and ends, and the level of confidence that Amazon Comprehend
+    -- has in the detection.
+    --
+    -- If your request uses a custom entity recognition model, Amazon
+    -- Comprehend detects the entities that the model is trained to recognize.
+    -- Otherwise, it detects the default entity types. For a list of default
+    -- entity types, see how-entities.
+    entities :: Prelude.Maybe [Entity],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DetectEntitiesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DetectEntitiesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'detrsEntities' - A collection of entities identified in the input text. For each entity, the response provides the entity text, entity type, where the entity text begins and ends, and the level of confidence that Amazon Comprehend has in the detection.  If your request uses a custom entity recognition model, Amazon Comprehend detects the entities that the model is trained to recognize. Otherwise, it detects the default entity types. For a list of default entity types, see 'how-entities' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'detrsResponseStatus' - -- | The response status code.
-detectEntitiesResponse ::
-  -- | 'detrsResponseStatus'
-  Int ->
+-- 'entities', 'detectEntitiesResponse_entities' - A collection of entities identified in the input text. For each entity,
+-- the response provides the entity text, entity type, where the entity
+-- text begins and ends, and the level of confidence that Amazon Comprehend
+-- has in the detection.
+--
+-- If your request uses a custom entity recognition model, Amazon
+-- Comprehend detects the entities that the model is trained to recognize.
+-- Otherwise, it detects the default entity types. For a list of default
+-- entity types, see how-entities.
+--
+-- 'httpStatus', 'detectEntitiesResponse_httpStatus' - The response's http status code.
+newDetectEntitiesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DetectEntitiesResponse
-detectEntitiesResponse pResponseStatus_ =
+newDetectEntitiesResponse pHttpStatus_ =
   DetectEntitiesResponse'
-    { _detrsEntities = Nothing,
-      _detrsResponseStatus = pResponseStatus_
+    { entities = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A collection of entities identified in the input text. For each entity, the response provides the entity text, entity type, where the entity text begins and ends, and the level of confidence that Amazon Comprehend has in the detection.  If your request uses a custom entity recognition model, Amazon Comprehend detects the entities that the model is trained to recognize. Otherwise, it detects the default entity types. For a list of default entity types, see 'how-entities' .
-detrsEntities :: Lens' DetectEntitiesResponse [Entity]
-detrsEntities = lens _detrsEntities (\s a -> s {_detrsEntities = a}) . _Default . _Coerce
+-- | A collection of entities identified in the input text. For each entity,
+-- the response provides the entity text, entity type, where the entity
+-- text begins and ends, and the level of confidence that Amazon Comprehend
+-- has in the detection.
+--
+-- If your request uses a custom entity recognition model, Amazon
+-- Comprehend detects the entities that the model is trained to recognize.
+-- Otherwise, it detects the default entity types. For a list of default
+-- entity types, see how-entities.
+detectEntitiesResponse_entities :: Lens.Lens' DetectEntitiesResponse (Prelude.Maybe [Entity])
+detectEntitiesResponse_entities = Lens.lens (\DetectEntitiesResponse' {entities} -> entities) (\s@DetectEntitiesResponse' {} a -> s {entities = a} :: DetectEntitiesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-detrsResponseStatus :: Lens' DetectEntitiesResponse Int
-detrsResponseStatus = lens _detrsResponseStatus (\s a -> s {_detrsResponseStatus = a})
+-- | The response's http status code.
+detectEntitiesResponse_httpStatus :: Lens.Lens' DetectEntitiesResponse Prelude.Int
+detectEntitiesResponse_httpStatus = Lens.lens (\DetectEntitiesResponse' {httpStatus} -> httpStatus) (\s@DetectEntitiesResponse' {} a -> s {httpStatus = a} :: DetectEntitiesResponse)
 
-instance NFData DetectEntitiesResponse
+instance Prelude.NFData DetectEntitiesResponse

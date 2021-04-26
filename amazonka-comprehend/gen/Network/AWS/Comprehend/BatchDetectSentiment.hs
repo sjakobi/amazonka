@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,161 +21,203 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Inspects a batch of documents and returns an inference of the prevailing sentiment, @POSITIVE@ , @NEUTRAL@ , @MIXED@ , or @NEGATIVE@ , in each one.
+-- Inspects a batch of documents and returns an inference of the prevailing
+-- sentiment, @POSITIVE@, @NEUTRAL@, @MIXED@, or @NEGATIVE@, in each one.
 module Network.AWS.Comprehend.BatchDetectSentiment
   ( -- * Creating a Request
-    batchDetectSentiment,
-    BatchDetectSentiment,
+    BatchDetectSentiment (..),
+    newBatchDetectSentiment,
 
     -- * Request Lenses
-    bdsTextList,
-    bdsLanguageCode,
+    batchDetectSentiment_textList,
+    batchDetectSentiment_languageCode,
 
     -- * Destructuring the Response
-    batchDetectSentimentResponse,
-    BatchDetectSentimentResponse,
+    BatchDetectSentimentResponse (..),
+    newBatchDetectSentimentResponse,
 
     -- * Response Lenses
-    bdsrrsResponseStatus,
-    bdsrrsResultList,
-    bdsrrsErrorList,
+    batchDetectSentimentResponse_httpStatus,
+    batchDetectSentimentResponse_resultList,
+    batchDetectSentimentResponse_errorList,
   )
 where
 
 import Network.AWS.Comprehend.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Comprehend.Types.BatchDetectSentimentItemResult
+import Network.AWS.Comprehend.Types.BatchItemError
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'batchDetectSentiment' smart constructor.
+-- | /See:/ 'newBatchDetectSentiment' smart constructor.
 data BatchDetectSentiment = BatchDetectSentiment'
-  { _bdsTextList ::
-      !(Sensitive [Sensitive Text]),
-    _bdsLanguageCode ::
-      !LanguageCode
+  { -- | A list containing the text of the input documents. The list can contain
+    -- a maximum of 25 documents. Each document must contain fewer that 5,000
+    -- bytes of UTF-8 encoded characters.
+    textList :: Prelude.Sensitive [Prelude.Sensitive Prelude.Text],
+    -- | The language of the input documents. You can specify any of the primary
+    -- languages supported by Amazon Comprehend. All documents must be in the
+    -- same language.
+    languageCode :: LanguageCode
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchDetectSentiment' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchDetectSentiment' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bdsTextList' - A list containing the text of the input documents. The list can contain a maximum of 25 documents. Each document must contain fewer that 5,000 bytes of UTF-8 encoded characters.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bdsLanguageCode' - The language of the input documents. You can specify any of the primary languages supported by Amazon Comprehend. All documents must be in the same language.
-batchDetectSentiment ::
-  -- | 'bdsLanguageCode'
+-- 'textList', 'batchDetectSentiment_textList' - A list containing the text of the input documents. The list can contain
+-- a maximum of 25 documents. Each document must contain fewer that 5,000
+-- bytes of UTF-8 encoded characters.
+--
+-- 'languageCode', 'batchDetectSentiment_languageCode' - The language of the input documents. You can specify any of the primary
+-- languages supported by Amazon Comprehend. All documents must be in the
+-- same language.
+newBatchDetectSentiment ::
+  -- | 'languageCode'
   LanguageCode ->
   BatchDetectSentiment
-batchDetectSentiment pLanguageCode_ =
+newBatchDetectSentiment pLanguageCode_ =
   BatchDetectSentiment'
-    { _bdsTextList = mempty,
-      _bdsLanguageCode = pLanguageCode_
+    { textList = Prelude.mempty,
+      languageCode = pLanguageCode_
     }
 
--- | A list containing the text of the input documents. The list can contain a maximum of 25 documents. Each document must contain fewer that 5,000 bytes of UTF-8 encoded characters.
-bdsTextList :: Lens' BatchDetectSentiment [Text]
-bdsTextList = lens _bdsTextList (\s a -> s {_bdsTextList = a}) . _Sensitive . _Coerce
+-- | A list containing the text of the input documents. The list can contain
+-- a maximum of 25 documents. Each document must contain fewer that 5,000
+-- bytes of UTF-8 encoded characters.
+batchDetectSentiment_textList :: Lens.Lens' BatchDetectSentiment [Prelude.Text]
+batchDetectSentiment_textList = Lens.lens (\BatchDetectSentiment' {textList} -> textList) (\s@BatchDetectSentiment' {} a -> s {textList = a} :: BatchDetectSentiment) Prelude.. Prelude._Sensitive Prelude.. Prelude._Coerce
 
--- | The language of the input documents. You can specify any of the primary languages supported by Amazon Comprehend. All documents must be in the same language.
-bdsLanguageCode :: Lens' BatchDetectSentiment LanguageCode
-bdsLanguageCode = lens _bdsLanguageCode (\s a -> s {_bdsLanguageCode = a})
+-- | The language of the input documents. You can specify any of the primary
+-- languages supported by Amazon Comprehend. All documents must be in the
+-- same language.
+batchDetectSentiment_languageCode :: Lens.Lens' BatchDetectSentiment LanguageCode
+batchDetectSentiment_languageCode = Lens.lens (\BatchDetectSentiment' {languageCode} -> languageCode) (\s@BatchDetectSentiment' {} a -> s {languageCode = a} :: BatchDetectSentiment)
 
-instance AWSRequest BatchDetectSentiment where
+instance Prelude.AWSRequest BatchDetectSentiment where
   type
     Rs BatchDetectSentiment =
       BatchDetectSentimentResponse
-  request = postJSON comprehend
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           BatchDetectSentimentResponse'
-            <$> (pure (fromEnum s))
-            <*> (x .?> "ResultList" .!@ mempty)
-            <*> (x .?> "ErrorList" .!@ mempty)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> ( x Prelude..?> "ResultList"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..?> "ErrorList"
+                            Prelude..!@ Prelude.mempty
+                        )
       )
 
-instance Hashable BatchDetectSentiment
+instance Prelude.Hashable BatchDetectSentiment
 
-instance NFData BatchDetectSentiment
+instance Prelude.NFData BatchDetectSentiment
 
-instance ToHeaders BatchDetectSentiment where
+instance Prelude.ToHeaders BatchDetectSentiment where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Comprehend_20171127.BatchDetectSentiment" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Comprehend_20171127.BatchDetectSentiment" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON BatchDetectSentiment where
+instance Prelude.ToJSON BatchDetectSentiment where
   toJSON BatchDetectSentiment' {..} =
-    object
-      ( catMaybes
-          [ Just ("TextList" .= _bdsTextList),
-            Just ("LanguageCode" .= _bdsLanguageCode)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("TextList" Prelude..= textList),
+            Prelude.Just
+              ("LanguageCode" Prelude..= languageCode)
           ]
       )
 
-instance ToPath BatchDetectSentiment where
-  toPath = const "/"
+instance Prelude.ToPath BatchDetectSentiment where
+  toPath = Prelude.const "/"
 
-instance ToQuery BatchDetectSentiment where
-  toQuery = const mempty
+instance Prelude.ToQuery BatchDetectSentiment where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'batchDetectSentimentResponse' smart constructor.
+-- | /See:/ 'newBatchDetectSentimentResponse' smart constructor.
 data BatchDetectSentimentResponse = BatchDetectSentimentResponse'
-  { _bdsrrsResponseStatus ::
-      !Int,
-    _bdsrrsResultList ::
-      ![BatchDetectSentimentItemResult],
-    _bdsrrsErrorList ::
-      ![BatchItemError]
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | A list of objects containing the results of the operation. The results
+    -- are sorted in ascending order by the @Index@ field and match the order
+    -- of the documents in the input list. If all of the documents contain an
+    -- error, the @ResultList@ is empty.
+    resultList :: [BatchDetectSentimentItemResult],
+    -- | A list containing one object for each document that contained an error.
+    -- The results are sorted in ascending order by the @Index@ field and match
+    -- the order of the documents in the input list. If there are no errors in
+    -- the batch, the @ErrorList@ is empty.
+    errorList :: [BatchItemError]
   }
-  deriving
-    ( Eq,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchDetectSentimentResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchDetectSentimentResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bdsrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bdsrrsResultList' - A list of objects containing the results of the operation. The results are sorted in ascending order by the @Index@ field and match the order of the documents in the input list. If all of the documents contain an error, the @ResultList@ is empty.
+-- 'httpStatus', 'batchDetectSentimentResponse_httpStatus' - The response's http status code.
 --
--- * 'bdsrrsErrorList' - A list containing one object for each document that contained an error. The results are sorted in ascending order by the @Index@ field and match the order of the documents in the input list. If there are no errors in the batch, the @ErrorList@ is empty.
-batchDetectSentimentResponse ::
-  -- | 'bdsrrsResponseStatus'
-  Int ->
+-- 'resultList', 'batchDetectSentimentResponse_resultList' - A list of objects containing the results of the operation. The results
+-- are sorted in ascending order by the @Index@ field and match the order
+-- of the documents in the input list. If all of the documents contain an
+-- error, the @ResultList@ is empty.
+--
+-- 'errorList', 'batchDetectSentimentResponse_errorList' - A list containing one object for each document that contained an error.
+-- The results are sorted in ascending order by the @Index@ field and match
+-- the order of the documents in the input list. If there are no errors in
+-- the batch, the @ErrorList@ is empty.
+newBatchDetectSentimentResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   BatchDetectSentimentResponse
-batchDetectSentimentResponse pResponseStatus_ =
+newBatchDetectSentimentResponse pHttpStatus_ =
   BatchDetectSentimentResponse'
-    { _bdsrrsResponseStatus =
-        pResponseStatus_,
-      _bdsrrsResultList = mempty,
-      _bdsrrsErrorList = mempty
+    { httpStatus =
+        pHttpStatus_,
+      resultList = Prelude.mempty,
+      errorList = Prelude.mempty
     }
 
--- | -- | The response status code.
-bdsrrsResponseStatus :: Lens' BatchDetectSentimentResponse Int
-bdsrrsResponseStatus = lens _bdsrrsResponseStatus (\s a -> s {_bdsrrsResponseStatus = a})
+-- | The response's http status code.
+batchDetectSentimentResponse_httpStatus :: Lens.Lens' BatchDetectSentimentResponse Prelude.Int
+batchDetectSentimentResponse_httpStatus = Lens.lens (\BatchDetectSentimentResponse' {httpStatus} -> httpStatus) (\s@BatchDetectSentimentResponse' {} a -> s {httpStatus = a} :: BatchDetectSentimentResponse)
 
--- | A list of objects containing the results of the operation. The results are sorted in ascending order by the @Index@ field and match the order of the documents in the input list. If all of the documents contain an error, the @ResultList@ is empty.
-bdsrrsResultList :: Lens' BatchDetectSentimentResponse [BatchDetectSentimentItemResult]
-bdsrrsResultList = lens _bdsrrsResultList (\s a -> s {_bdsrrsResultList = a}) . _Coerce
+-- | A list of objects containing the results of the operation. The results
+-- are sorted in ascending order by the @Index@ field and match the order
+-- of the documents in the input list. If all of the documents contain an
+-- error, the @ResultList@ is empty.
+batchDetectSentimentResponse_resultList :: Lens.Lens' BatchDetectSentimentResponse [BatchDetectSentimentItemResult]
+batchDetectSentimentResponse_resultList = Lens.lens (\BatchDetectSentimentResponse' {resultList} -> resultList) (\s@BatchDetectSentimentResponse' {} a -> s {resultList = a} :: BatchDetectSentimentResponse) Prelude.. Prelude._Coerce
 
--- | A list containing one object for each document that contained an error. The results are sorted in ascending order by the @Index@ field and match the order of the documents in the input list. If there are no errors in the batch, the @ErrorList@ is empty.
-bdsrrsErrorList :: Lens' BatchDetectSentimentResponse [BatchItemError]
-bdsrrsErrorList = lens _bdsrrsErrorList (\s a -> s {_bdsrrsErrorList = a}) . _Coerce
+-- | A list containing one object for each document that contained an error.
+-- The results are sorted in ascending order by the @Index@ field and match
+-- the order of the documents in the input list. If there are no errors in
+-- the batch, the @ErrorList@ is empty.
+batchDetectSentimentResponse_errorList :: Lens.Lens' BatchDetectSentimentResponse [BatchItemError]
+batchDetectSentimentResponse_errorList = Lens.lens (\BatchDetectSentimentResponse' {errorList} -> errorList) (\s@BatchDetectSentimentResponse' {} a -> s {errorList = a} :: BatchDetectSentimentResponse) Prelude.. Prelude._Coerce
 
-instance NFData BatchDetectSentimentResponse
+instance Prelude.NFData BatchDetectSentimentResponse

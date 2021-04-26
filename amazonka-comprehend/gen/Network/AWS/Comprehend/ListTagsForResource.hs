@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,155 +24,166 @@
 -- Lists all tags associated with a given Amazon Comprehend resource.
 module Network.AWS.Comprehend.ListTagsForResource
   ( -- * Creating a Request
-    listTagsForResource,
-    ListTagsForResource,
+    ListTagsForResource (..),
+    newListTagsForResource,
 
     -- * Request Lenses
-    ltfrResourceARN,
+    listTagsForResource_resourceArn,
 
     -- * Destructuring the Response
-    listTagsForResourceResponse,
-    ListTagsForResourceResponse,
+    ListTagsForResourceResponse (..),
+    newListTagsForResourceResponse,
 
     -- * Response Lenses
-    ltfrrrsResourceARN,
-    ltfrrrsTags,
-    ltfrrrsResponseStatus,
+    listTagsForResourceResponse_resourceArn,
+    listTagsForResourceResponse_tags,
+    listTagsForResourceResponse_httpStatus,
   )
 where
 
 import Network.AWS.Comprehend.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Comprehend.Types.Tag
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listTagsForResource' smart constructor.
-newtype ListTagsForResource = ListTagsForResource'
-  { _ltfrResourceARN ::
-      Text
+-- | /See:/ 'newListTagsForResource' smart constructor.
+data ListTagsForResource = ListTagsForResource'
+  { -- | The Amazon Resource Name (ARN) of the given Amazon Comprehend resource
+    -- you are querying.
+    resourceArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListTagsForResource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListTagsForResource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltfrResourceARN' - The Amazon Resource Name (ARN) of the given Amazon Comprehend resource you are querying.
-listTagsForResource ::
-  -- | 'ltfrResourceARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'resourceArn', 'listTagsForResource_resourceArn' - The Amazon Resource Name (ARN) of the given Amazon Comprehend resource
+-- you are querying.
+newListTagsForResource ::
+  -- | 'resourceArn'
+  Prelude.Text ->
   ListTagsForResource
-listTagsForResource pResourceARN_ =
-  ListTagsForResource'
-    { _ltfrResourceARN =
-        pResourceARN_
-    }
+newListTagsForResource pResourceArn_ =
+  ListTagsForResource' {resourceArn = pResourceArn_}
 
--- | The Amazon Resource Name (ARN) of the given Amazon Comprehend resource you are querying.
-ltfrResourceARN :: Lens' ListTagsForResource Text
-ltfrResourceARN = lens _ltfrResourceARN (\s a -> s {_ltfrResourceARN = a})
+-- | The Amazon Resource Name (ARN) of the given Amazon Comprehend resource
+-- you are querying.
+listTagsForResource_resourceArn :: Lens.Lens' ListTagsForResource Prelude.Text
+listTagsForResource_resourceArn = Lens.lens (\ListTagsForResource' {resourceArn} -> resourceArn) (\s@ListTagsForResource' {} a -> s {resourceArn = a} :: ListTagsForResource)
 
-instance AWSRequest ListTagsForResource where
+instance Prelude.AWSRequest ListTagsForResource where
   type
     Rs ListTagsForResource =
       ListTagsForResourceResponse
-  request = postJSON comprehend
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListTagsForResourceResponse'
-            <$> (x .?> "ResourceArn")
-            <*> (x .?> "Tags" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ResourceArn")
+            Prelude.<*> (x Prelude..?> "Tags" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListTagsForResource
+instance Prelude.Hashable ListTagsForResource
 
-instance NFData ListTagsForResource
+instance Prelude.NFData ListTagsForResource
 
-instance ToHeaders ListTagsForResource where
+instance Prelude.ToHeaders ListTagsForResource where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Comprehend_20171127.ListTagsForResource" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Comprehend_20171127.ListTagsForResource" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListTagsForResource where
+instance Prelude.ToJSON ListTagsForResource where
   toJSON ListTagsForResource' {..} =
-    object
-      ( catMaybes
-          [Just ("ResourceArn" .= _ltfrResourceARN)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("ResourceArn" Prelude..= resourceArn)
+          ]
       )
 
-instance ToPath ListTagsForResource where
-  toPath = const "/"
+instance Prelude.ToPath ListTagsForResource where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListTagsForResource where
-  toQuery = const mempty
+instance Prelude.ToQuery ListTagsForResource where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listTagsForResourceResponse' smart constructor.
+-- | /See:/ 'newListTagsForResourceResponse' smart constructor.
 data ListTagsForResourceResponse = ListTagsForResourceResponse'
-  { _ltfrrrsResourceARN ::
-      !(Maybe Text),
-    _ltfrrrsTags ::
-      !(Maybe [Tag]),
-    _ltfrrrsResponseStatus ::
-      !Int
+  { -- | The Amazon Resource Name (ARN) of the given Amazon Comprehend resource
+    -- you are querying.
+    resourceArn :: Prelude.Maybe Prelude.Text,
+    -- | Tags associated with the Amazon Comprehend resource being queried. A tag
+    -- is a key-value pair that adds as a metadata to a resource used by Amazon
+    -- Comprehend. For example, a tag with \"Sales\" as the key might be added
+    -- to a resource to indicate its use by the sales department.
+    tags :: Prelude.Maybe [Tag],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListTagsForResourceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListTagsForResourceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltfrrrsResourceARN' - The Amazon Resource Name (ARN) of the given Amazon Comprehend resource you are querying.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltfrrrsTags' - Tags associated with the Amazon Comprehend resource being queried. A tag is a key-value pair that adds as a metadata to a resource used by Amazon Comprehend. For example, a tag with "Sales" as the key might be added to a resource to indicate its use by the sales department.
+-- 'resourceArn', 'listTagsForResourceResponse_resourceArn' - The Amazon Resource Name (ARN) of the given Amazon Comprehend resource
+-- you are querying.
 --
--- * 'ltfrrrsResponseStatus' - -- | The response status code.
-listTagsForResourceResponse ::
-  -- | 'ltfrrrsResponseStatus'
-  Int ->
+-- 'tags', 'listTagsForResourceResponse_tags' - Tags associated with the Amazon Comprehend resource being queried. A tag
+-- is a key-value pair that adds as a metadata to a resource used by Amazon
+-- Comprehend. For example, a tag with \"Sales\" as the key might be added
+-- to a resource to indicate its use by the sales department.
+--
+-- 'httpStatus', 'listTagsForResourceResponse_httpStatus' - The response's http status code.
+newListTagsForResourceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListTagsForResourceResponse
-listTagsForResourceResponse pResponseStatus_ =
+newListTagsForResourceResponse pHttpStatus_ =
   ListTagsForResourceResponse'
-    { _ltfrrrsResourceARN =
-        Nothing,
-      _ltfrrrsTags = Nothing,
-      _ltfrrrsResponseStatus = pResponseStatus_
+    { resourceArn =
+        Prelude.Nothing,
+      tags = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The Amazon Resource Name (ARN) of the given Amazon Comprehend resource you are querying.
-ltfrrrsResourceARN :: Lens' ListTagsForResourceResponse (Maybe Text)
-ltfrrrsResourceARN = lens _ltfrrrsResourceARN (\s a -> s {_ltfrrrsResourceARN = a})
+-- | The Amazon Resource Name (ARN) of the given Amazon Comprehend resource
+-- you are querying.
+listTagsForResourceResponse_resourceArn :: Lens.Lens' ListTagsForResourceResponse (Prelude.Maybe Prelude.Text)
+listTagsForResourceResponse_resourceArn = Lens.lens (\ListTagsForResourceResponse' {resourceArn} -> resourceArn) (\s@ListTagsForResourceResponse' {} a -> s {resourceArn = a} :: ListTagsForResourceResponse)
 
--- | Tags associated with the Amazon Comprehend resource being queried. A tag is a key-value pair that adds as a metadata to a resource used by Amazon Comprehend. For example, a tag with "Sales" as the key might be added to a resource to indicate its use by the sales department.
-ltfrrrsTags :: Lens' ListTagsForResourceResponse [Tag]
-ltfrrrsTags = lens _ltfrrrsTags (\s a -> s {_ltfrrrsTags = a}) . _Default . _Coerce
+-- | Tags associated with the Amazon Comprehend resource being queried. A tag
+-- is a key-value pair that adds as a metadata to a resource used by Amazon
+-- Comprehend. For example, a tag with \"Sales\" as the key might be added
+-- to a resource to indicate its use by the sales department.
+listTagsForResourceResponse_tags :: Lens.Lens' ListTagsForResourceResponse (Prelude.Maybe [Tag])
+listTagsForResourceResponse_tags = Lens.lens (\ListTagsForResourceResponse' {tags} -> tags) (\s@ListTagsForResourceResponse' {} a -> s {tags = a} :: ListTagsForResourceResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-ltfrrrsResponseStatus :: Lens' ListTagsForResourceResponse Int
-ltfrrrsResponseStatus = lens _ltfrrrsResponseStatus (\s a -> s {_ltfrrrsResponseStatus = a})
+-- | The response's http status code.
+listTagsForResourceResponse_httpStatus :: Lens.Lens' ListTagsForResourceResponse Prelude.Int
+listTagsForResourceResponse_httpStatus = Lens.lens (\ListTagsForResourceResponse' {httpStatus} -> httpStatus) (\s@ListTagsForResourceResponse' {} a -> s {httpStatus = a} :: ListTagsForResourceResponse)
 
-instance NFData ListTagsForResourceResponse
+instance Prelude.NFData ListTagsForResourceResponse

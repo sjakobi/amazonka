@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,88 +19,90 @@
 module Network.AWS.Comprehend.Types.EntityType
   ( EntityType
       ( ..,
-        CommercialItem,
-        Date,
-        Event,
-        Location,
-        Organization,
-        Other,
-        Person,
-        Quantity,
-        Title
+        EntityTypeCOMMERCIALITEM,
+        EntityTypeDATE,
+        EntityTypeEVENT,
+        EntityTypeLOCATION,
+        EntityTypeORGANIZATION,
+        EntityTypeOTHER,
+        EntityTypePERSON,
+        EntityTypeQUANTITY,
+        EntityTypeTITLE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data EntityType = EntityType' (CI Text)
+newtype EntityType = EntityType'
+  { fromEntityType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CommercialItem :: EntityType
-pattern CommercialItem = EntityType' "COMMERCIAL_ITEM"
+pattern EntityTypeCOMMERCIALITEM :: EntityType
+pattern EntityTypeCOMMERCIALITEM = EntityType' "COMMERCIAL_ITEM"
 
-pattern Date :: EntityType
-pattern Date = EntityType' "DATE"
+pattern EntityTypeDATE :: EntityType
+pattern EntityTypeDATE = EntityType' "DATE"
 
-pattern Event :: EntityType
-pattern Event = EntityType' "EVENT"
+pattern EntityTypeEVENT :: EntityType
+pattern EntityTypeEVENT = EntityType' "EVENT"
 
-pattern Location :: EntityType
-pattern Location = EntityType' "LOCATION"
+pattern EntityTypeLOCATION :: EntityType
+pattern EntityTypeLOCATION = EntityType' "LOCATION"
 
-pattern Organization :: EntityType
-pattern Organization = EntityType' "ORGANIZATION"
+pattern EntityTypeORGANIZATION :: EntityType
+pattern EntityTypeORGANIZATION = EntityType' "ORGANIZATION"
 
-pattern Other :: EntityType
-pattern Other = EntityType' "OTHER"
+pattern EntityTypeOTHER :: EntityType
+pattern EntityTypeOTHER = EntityType' "OTHER"
 
-pattern Person :: EntityType
-pattern Person = EntityType' "PERSON"
+pattern EntityTypePERSON :: EntityType
+pattern EntityTypePERSON = EntityType' "PERSON"
 
-pattern Quantity :: EntityType
-pattern Quantity = EntityType' "QUANTITY"
+pattern EntityTypeQUANTITY :: EntityType
+pattern EntityTypeQUANTITY = EntityType' "QUANTITY"
 
-pattern Title :: EntityType
-pattern Title = EntityType' "TITLE"
+pattern EntityTypeTITLE :: EntityType
+pattern EntityTypeTITLE = EntityType' "TITLE"
 
 {-# COMPLETE
-  CommercialItem,
-  Date,
-  Event,
-  Location,
-  Organization,
-  Other,
-  Person,
-  Quantity,
-  Title,
+  EntityTypeCOMMERCIALITEM,
+  EntityTypeDATE,
+  EntityTypeEVENT,
+  EntityTypeLOCATION,
+  EntityTypeORGANIZATION,
+  EntityTypeOTHER,
+  EntityTypePERSON,
+  EntityTypeQUANTITY,
+  EntityTypeTITLE,
   EntityType'
   #-}
 
-instance FromText EntityType where
-  parser = (EntityType' . mk) <$> takeText
+instance Prelude.FromText EntityType where
+  parser = EntityType' Prelude.<$> Prelude.takeText
 
-instance ToText EntityType where
-  toText (EntityType' ci) = original ci
+instance Prelude.ToText EntityType where
+  toText (EntityType' x) = x
 
-instance Hashable EntityType
+instance Prelude.Hashable EntityType
 
-instance NFData EntityType
+instance Prelude.NFData EntityType
 
-instance ToByteString EntityType
+instance Prelude.ToByteString EntityType
 
-instance ToQuery EntityType
+instance Prelude.ToQuery EntityType
 
-instance ToHeader EntityType
+instance Prelude.ToHeader EntityType
 
-instance FromJSON EntityType where
-  parseJSON = parseJSONText "EntityType"
+instance Prelude.FromJSON EntityType where
+  parseJSON = Prelude.parseJSONText "EntityType"

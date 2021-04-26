@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,81 +20,101 @@
 module Network.AWS.Comprehend.Types.SyntaxToken where
 
 import Network.AWS.Comprehend.Types.PartOfSpeechTag
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents a work in the input text that was recognized and assigned a part of speech. There is one syntax token record for each word in the source text.
+-- | Represents a work in the input text that was recognized and assigned a
+-- part of speech. There is one syntax token record for each word in the
+-- source text.
 --
---
---
--- /See:/ 'syntaxToken' smart constructor.
+-- /See:/ 'newSyntaxToken' smart constructor.
 data SyntaxToken = SyntaxToken'
-  { _stTokenId ::
-      !(Maybe Int),
-    _stPartOfSpeech :: !(Maybe PartOfSpeechTag),
-    _stEndOffset :: !(Maybe Int),
-    _stText :: !(Maybe Text),
-    _stBeginOffset :: !(Maybe Int)
+  { -- | A unique identifier for a token.
+    tokenId :: Prelude.Maybe Prelude.Int,
+    -- | Provides the part of speech label and the confidence level that Amazon
+    -- Comprehend has that the part of speech was correctly identified. For
+    -- more information, see how-syntax.
+    partOfSpeech :: Prelude.Maybe PartOfSpeechTag,
+    -- | The zero-based offset from the beginning of the source text to the last
+    -- character in the word.
+    endOffset :: Prelude.Maybe Prelude.Int,
+    -- | The word that was recognized in the source text.
+    text :: Prelude.Maybe Prelude.Text,
+    -- | The zero-based offset from the beginning of the source text to the first
+    -- character in the word.
+    beginOffset :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SyntaxToken' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SyntaxToken' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'stTokenId' - A unique identifier for a token.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'stPartOfSpeech' - Provides the part of speech label and the confidence level that Amazon Comprehend has that the part of speech was correctly identified. For more information, see 'how-syntax' .
+-- 'tokenId', 'syntaxToken_tokenId' - A unique identifier for a token.
 --
--- * 'stEndOffset' - The zero-based offset from the beginning of the source text to the last character in the word.
+-- 'partOfSpeech', 'syntaxToken_partOfSpeech' - Provides the part of speech label and the confidence level that Amazon
+-- Comprehend has that the part of speech was correctly identified. For
+-- more information, see how-syntax.
 --
--- * 'stText' - The word that was recognized in the source text.
+-- 'endOffset', 'syntaxToken_endOffset' - The zero-based offset from the beginning of the source text to the last
+-- character in the word.
 --
--- * 'stBeginOffset' - The zero-based offset from the beginning of the source text to the first character in the word.
-syntaxToken ::
+-- 'text', 'syntaxToken_text' - The word that was recognized in the source text.
+--
+-- 'beginOffset', 'syntaxToken_beginOffset' - The zero-based offset from the beginning of the source text to the first
+-- character in the word.
+newSyntaxToken ::
   SyntaxToken
-syntaxToken =
+newSyntaxToken =
   SyntaxToken'
-    { _stTokenId = Nothing,
-      _stPartOfSpeech = Nothing,
-      _stEndOffset = Nothing,
-      _stText = Nothing,
-      _stBeginOffset = Nothing
+    { tokenId = Prelude.Nothing,
+      partOfSpeech = Prelude.Nothing,
+      endOffset = Prelude.Nothing,
+      text = Prelude.Nothing,
+      beginOffset = Prelude.Nothing
     }
 
 -- | A unique identifier for a token.
-stTokenId :: Lens' SyntaxToken (Maybe Int)
-stTokenId = lens _stTokenId (\s a -> s {_stTokenId = a})
+syntaxToken_tokenId :: Lens.Lens' SyntaxToken (Prelude.Maybe Prelude.Int)
+syntaxToken_tokenId = Lens.lens (\SyntaxToken' {tokenId} -> tokenId) (\s@SyntaxToken' {} a -> s {tokenId = a} :: SyntaxToken)
 
--- | Provides the part of speech label and the confidence level that Amazon Comprehend has that the part of speech was correctly identified. For more information, see 'how-syntax' .
-stPartOfSpeech :: Lens' SyntaxToken (Maybe PartOfSpeechTag)
-stPartOfSpeech = lens _stPartOfSpeech (\s a -> s {_stPartOfSpeech = a})
+-- | Provides the part of speech label and the confidence level that Amazon
+-- Comprehend has that the part of speech was correctly identified. For
+-- more information, see how-syntax.
+syntaxToken_partOfSpeech :: Lens.Lens' SyntaxToken (Prelude.Maybe PartOfSpeechTag)
+syntaxToken_partOfSpeech = Lens.lens (\SyntaxToken' {partOfSpeech} -> partOfSpeech) (\s@SyntaxToken' {} a -> s {partOfSpeech = a} :: SyntaxToken)
 
--- | The zero-based offset from the beginning of the source text to the last character in the word.
-stEndOffset :: Lens' SyntaxToken (Maybe Int)
-stEndOffset = lens _stEndOffset (\s a -> s {_stEndOffset = a})
+-- | The zero-based offset from the beginning of the source text to the last
+-- character in the word.
+syntaxToken_endOffset :: Lens.Lens' SyntaxToken (Prelude.Maybe Prelude.Int)
+syntaxToken_endOffset = Lens.lens (\SyntaxToken' {endOffset} -> endOffset) (\s@SyntaxToken' {} a -> s {endOffset = a} :: SyntaxToken)
 
 -- | The word that was recognized in the source text.
-stText :: Lens' SyntaxToken (Maybe Text)
-stText = lens _stText (\s a -> s {_stText = a})
+syntaxToken_text :: Lens.Lens' SyntaxToken (Prelude.Maybe Prelude.Text)
+syntaxToken_text = Lens.lens (\SyntaxToken' {text} -> text) (\s@SyntaxToken' {} a -> s {text = a} :: SyntaxToken)
 
--- | The zero-based offset from the beginning of the source text to the first character in the word.
-stBeginOffset :: Lens' SyntaxToken (Maybe Int)
-stBeginOffset = lens _stBeginOffset (\s a -> s {_stBeginOffset = a})
+-- | The zero-based offset from the beginning of the source text to the first
+-- character in the word.
+syntaxToken_beginOffset :: Lens.Lens' SyntaxToken (Prelude.Maybe Prelude.Int)
+syntaxToken_beginOffset = Lens.lens (\SyntaxToken' {beginOffset} -> beginOffset) (\s@SyntaxToken' {} a -> s {beginOffset = a} :: SyntaxToken)
 
-instance FromJSON SyntaxToken where
+instance Prelude.FromJSON SyntaxToken where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SyntaxToken"
       ( \x ->
           SyntaxToken'
-            <$> (x .:? "TokenId")
-            <*> (x .:? "PartOfSpeech")
-            <*> (x .:? "EndOffset")
-            <*> (x .:? "Text")
-            <*> (x .:? "BeginOffset")
+            Prelude.<$> (x Prelude..:? "TokenId")
+            Prelude.<*> (x Prelude..:? "PartOfSpeech")
+            Prelude.<*> (x Prelude..:? "EndOffset")
+            Prelude.<*> (x Prelude..:? "Text")
+            Prelude.<*> (x Prelude..:? "BeginOffset")
       )
 
-instance Hashable SyntaxToken
+instance Prelude.Hashable SyntaxToken
 
-instance NFData SyntaxToken
+instance Prelude.NFData SyntaxToken

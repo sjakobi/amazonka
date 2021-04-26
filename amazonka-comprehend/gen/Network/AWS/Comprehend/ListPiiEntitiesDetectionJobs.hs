@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,186 +24,193 @@
 -- Gets a list of the PII entity detection jobs that you have submitted.
 module Network.AWS.Comprehend.ListPiiEntitiesDetectionJobs
   ( -- * Creating a Request
-    listPiiEntitiesDetectionJobs,
-    ListPiiEntitiesDetectionJobs,
+    ListPiiEntitiesDetectionJobs (..),
+    newListPiiEntitiesDetectionJobs,
 
     -- * Request Lenses
-    lpedjNextToken,
-    lpedjMaxResults,
-    lpedjFilter,
+    listPiiEntitiesDetectionJobs_nextToken,
+    listPiiEntitiesDetectionJobs_maxResults,
+    listPiiEntitiesDetectionJobs_filter,
 
     -- * Destructuring the Response
-    listPiiEntitiesDetectionJobsResponse,
-    ListPiiEntitiesDetectionJobsResponse,
+    ListPiiEntitiesDetectionJobsResponse (..),
+    newListPiiEntitiesDetectionJobsResponse,
 
     -- * Response Lenses
-    lpedjrrsNextToken,
-    lpedjrrsPiiEntitiesDetectionJobPropertiesList,
-    lpedjrrsResponseStatus,
+    listPiiEntitiesDetectionJobsResponse_nextToken,
+    listPiiEntitiesDetectionJobsResponse_piiEntitiesDetectionJobPropertiesList,
+    listPiiEntitiesDetectionJobsResponse_httpStatus,
   )
 where
 
 import Network.AWS.Comprehend.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Comprehend.Types.PiiEntitiesDetectionJobProperties
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listPiiEntitiesDetectionJobs' smart constructor.
+-- | /See:/ 'newListPiiEntitiesDetectionJobs' smart constructor.
 data ListPiiEntitiesDetectionJobs = ListPiiEntitiesDetectionJobs'
-  { _lpedjNextToken ::
-      !(Maybe Text),
-    _lpedjMaxResults ::
-      !(Maybe Nat),
-    _lpedjFilter ::
-      !( Maybe
-           PiiEntitiesDetectionJobFilter
-       )
+  { -- | Identifies the next page of results to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return in each page.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | Filters the jobs that are returned. You can filter jobs on their name,
+    -- status, or the date and time that they were submitted. You can only set
+    -- one filter at a time.
+    filter' :: Prelude.Maybe PiiEntitiesDetectionJobFilter
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListPiiEntitiesDetectionJobs' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListPiiEntitiesDetectionJobs' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lpedjNextToken' - Identifies the next page of results to return.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lpedjMaxResults' - The maximum number of results to return in each page.
+-- 'nextToken', 'listPiiEntitiesDetectionJobs_nextToken' - Identifies the next page of results to return.
 --
--- * 'lpedjFilter' - Filters the jobs that are returned. You can filter jobs on their name, status, or the date and time that they were submitted. You can only set one filter at a time.
-listPiiEntitiesDetectionJobs ::
+-- 'maxResults', 'listPiiEntitiesDetectionJobs_maxResults' - The maximum number of results to return in each page.
+--
+-- 'filter'', 'listPiiEntitiesDetectionJobs_filter' - Filters the jobs that are returned. You can filter jobs on their name,
+-- status, or the date and time that they were submitted. You can only set
+-- one filter at a time.
+newListPiiEntitiesDetectionJobs ::
   ListPiiEntitiesDetectionJobs
-listPiiEntitiesDetectionJobs =
+newListPiiEntitiesDetectionJobs =
   ListPiiEntitiesDetectionJobs'
-    { _lpedjNextToken =
-        Nothing,
-      _lpedjMaxResults = Nothing,
-      _lpedjFilter = Nothing
+    { nextToken =
+        Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      filter' = Prelude.Nothing
     }
 
 -- | Identifies the next page of results to return.
-lpedjNextToken :: Lens' ListPiiEntitiesDetectionJobs (Maybe Text)
-lpedjNextToken = lens _lpedjNextToken (\s a -> s {_lpedjNextToken = a})
+listPiiEntitiesDetectionJobs_nextToken :: Lens.Lens' ListPiiEntitiesDetectionJobs (Prelude.Maybe Prelude.Text)
+listPiiEntitiesDetectionJobs_nextToken = Lens.lens (\ListPiiEntitiesDetectionJobs' {nextToken} -> nextToken) (\s@ListPiiEntitiesDetectionJobs' {} a -> s {nextToken = a} :: ListPiiEntitiesDetectionJobs)
 
 -- | The maximum number of results to return in each page.
-lpedjMaxResults :: Lens' ListPiiEntitiesDetectionJobs (Maybe Natural)
-lpedjMaxResults = lens _lpedjMaxResults (\s a -> s {_lpedjMaxResults = a}) . mapping _Nat
+listPiiEntitiesDetectionJobs_maxResults :: Lens.Lens' ListPiiEntitiesDetectionJobs (Prelude.Maybe Prelude.Natural)
+listPiiEntitiesDetectionJobs_maxResults = Lens.lens (\ListPiiEntitiesDetectionJobs' {maxResults} -> maxResults) (\s@ListPiiEntitiesDetectionJobs' {} a -> s {maxResults = a} :: ListPiiEntitiesDetectionJobs) Prelude.. Lens.mapping Prelude._Nat
 
--- | Filters the jobs that are returned. You can filter jobs on their name, status, or the date and time that they were submitted. You can only set one filter at a time.
-lpedjFilter :: Lens' ListPiiEntitiesDetectionJobs (Maybe PiiEntitiesDetectionJobFilter)
-lpedjFilter = lens _lpedjFilter (\s a -> s {_lpedjFilter = a})
+-- | Filters the jobs that are returned. You can filter jobs on their name,
+-- status, or the date and time that they were submitted. You can only set
+-- one filter at a time.
+listPiiEntitiesDetectionJobs_filter :: Lens.Lens' ListPiiEntitiesDetectionJobs (Prelude.Maybe PiiEntitiesDetectionJobFilter)
+listPiiEntitiesDetectionJobs_filter = Lens.lens (\ListPiiEntitiesDetectionJobs' {filter'} -> filter') (\s@ListPiiEntitiesDetectionJobs' {} a -> s {filter' = a} :: ListPiiEntitiesDetectionJobs)
 
-instance AWSRequest ListPiiEntitiesDetectionJobs where
+instance
+  Prelude.AWSRequest
+    ListPiiEntitiesDetectionJobs
+  where
   type
     Rs ListPiiEntitiesDetectionJobs =
       ListPiiEntitiesDetectionJobsResponse
-  request = postJSON comprehend
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListPiiEntitiesDetectionJobsResponse'
-            <$> (x .?> "NextToken")
-            <*> ( x .?> "PiiEntitiesDetectionJobPropertiesList"
-                    .!@ mempty
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x
+                            Prelude..?> "PiiEntitiesDetectionJobPropertiesList"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListPiiEntitiesDetectionJobs
+instance
+  Prelude.Hashable
+    ListPiiEntitiesDetectionJobs
 
-instance NFData ListPiiEntitiesDetectionJobs
+instance Prelude.NFData ListPiiEntitiesDetectionJobs
 
-instance ToHeaders ListPiiEntitiesDetectionJobs where
+instance
+  Prelude.ToHeaders
+    ListPiiEntitiesDetectionJobs
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Comprehend_20171127.ListPiiEntitiesDetectionJobs" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Comprehend_20171127.ListPiiEntitiesDetectionJobs" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListPiiEntitiesDetectionJobs where
+instance Prelude.ToJSON ListPiiEntitiesDetectionJobs where
   toJSON ListPiiEntitiesDetectionJobs' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _lpedjNextToken,
-            ("MaxResults" .=) <$> _lpedjMaxResults,
-            ("Filter" .=) <$> _lpedjFilter
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("Filter" Prelude..=) Prelude.<$> filter'
           ]
       )
 
-instance ToPath ListPiiEntitiesDetectionJobs where
-  toPath = const "/"
+instance Prelude.ToPath ListPiiEntitiesDetectionJobs where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListPiiEntitiesDetectionJobs where
-  toQuery = const mempty
+instance Prelude.ToQuery ListPiiEntitiesDetectionJobs where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listPiiEntitiesDetectionJobsResponse' smart constructor.
+-- | /See:/ 'newListPiiEntitiesDetectionJobsResponse' smart constructor.
 data ListPiiEntitiesDetectionJobsResponse = ListPiiEntitiesDetectionJobsResponse'
-  { _lpedjrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _lpedjrrsPiiEntitiesDetectionJobPropertiesList ::
-      !( Maybe
-           [PiiEntitiesDetectionJobProperties]
-       ),
-    _lpedjrrsResponseStatus ::
-      !Int
+  { -- | Identifies the next page of results to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list containing the properties of each job that is returned.
+    piiEntitiesDetectionJobPropertiesList :: Prelude.Maybe [PiiEntitiesDetectionJobProperties],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListPiiEntitiesDetectionJobsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListPiiEntitiesDetectionJobsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lpedjrrsNextToken' - Identifies the next page of results to return.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lpedjrrsPiiEntitiesDetectionJobPropertiesList' - A list containing the properties of each job that is returned.
+-- 'nextToken', 'listPiiEntitiesDetectionJobsResponse_nextToken' - Identifies the next page of results to return.
 --
--- * 'lpedjrrsResponseStatus' - -- | The response status code.
-listPiiEntitiesDetectionJobsResponse ::
-  -- | 'lpedjrrsResponseStatus'
-  Int ->
+-- 'piiEntitiesDetectionJobPropertiesList', 'listPiiEntitiesDetectionJobsResponse_piiEntitiesDetectionJobPropertiesList' - A list containing the properties of each job that is returned.
+--
+-- 'httpStatus', 'listPiiEntitiesDetectionJobsResponse_httpStatus' - The response's http status code.
+newListPiiEntitiesDetectionJobsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListPiiEntitiesDetectionJobsResponse
-listPiiEntitiesDetectionJobsResponse pResponseStatus_ =
+newListPiiEntitiesDetectionJobsResponse pHttpStatus_ =
   ListPiiEntitiesDetectionJobsResponse'
-    { _lpedjrrsNextToken =
-        Nothing,
-      _lpedjrrsPiiEntitiesDetectionJobPropertiesList =
-        Nothing,
-      _lpedjrrsResponseStatus =
-        pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      piiEntitiesDetectionJobPropertiesList =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Identifies the next page of results to return.
-lpedjrrsNextToken :: Lens' ListPiiEntitiesDetectionJobsResponse (Maybe Text)
-lpedjrrsNextToken = lens _lpedjrrsNextToken (\s a -> s {_lpedjrrsNextToken = a})
+listPiiEntitiesDetectionJobsResponse_nextToken :: Lens.Lens' ListPiiEntitiesDetectionJobsResponse (Prelude.Maybe Prelude.Text)
+listPiiEntitiesDetectionJobsResponse_nextToken = Lens.lens (\ListPiiEntitiesDetectionJobsResponse' {nextToken} -> nextToken) (\s@ListPiiEntitiesDetectionJobsResponse' {} a -> s {nextToken = a} :: ListPiiEntitiesDetectionJobsResponse)
 
 -- | A list containing the properties of each job that is returned.
-lpedjrrsPiiEntitiesDetectionJobPropertiesList :: Lens' ListPiiEntitiesDetectionJobsResponse [PiiEntitiesDetectionJobProperties]
-lpedjrrsPiiEntitiesDetectionJobPropertiesList = lens _lpedjrrsPiiEntitiesDetectionJobPropertiesList (\s a -> s {_lpedjrrsPiiEntitiesDetectionJobPropertiesList = a}) . _Default . _Coerce
+listPiiEntitiesDetectionJobsResponse_piiEntitiesDetectionJobPropertiesList :: Lens.Lens' ListPiiEntitiesDetectionJobsResponse (Prelude.Maybe [PiiEntitiesDetectionJobProperties])
+listPiiEntitiesDetectionJobsResponse_piiEntitiesDetectionJobPropertiesList = Lens.lens (\ListPiiEntitiesDetectionJobsResponse' {piiEntitiesDetectionJobPropertiesList} -> piiEntitiesDetectionJobPropertiesList) (\s@ListPiiEntitiesDetectionJobsResponse' {} a -> s {piiEntitiesDetectionJobPropertiesList = a} :: ListPiiEntitiesDetectionJobsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lpedjrrsResponseStatus :: Lens' ListPiiEntitiesDetectionJobsResponse Int
-lpedjrrsResponseStatus = lens _lpedjrrsResponseStatus (\s a -> s {_lpedjrrsResponseStatus = a})
+-- | The response's http status code.
+listPiiEntitiesDetectionJobsResponse_httpStatus :: Lens.Lens' ListPiiEntitiesDetectionJobsResponse Prelude.Int
+listPiiEntitiesDetectionJobsResponse_httpStatus = Lens.lens (\ListPiiEntitiesDetectionJobsResponse' {httpStatus} -> httpStatus) (\s@ListPiiEntitiesDetectionJobsResponse' {} a -> s {httpStatus = a} :: ListPiiEntitiesDetectionJobsResponse)
 
-instance NFData ListPiiEntitiesDetectionJobsResponse
+instance
+  Prelude.NFData
+    ListPiiEntitiesDetectionJobsResponse

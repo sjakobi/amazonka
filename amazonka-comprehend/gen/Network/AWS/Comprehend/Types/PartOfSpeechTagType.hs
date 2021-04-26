@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,137 +19,135 @@
 module Network.AWS.Comprehend.Types.PartOfSpeechTagType
   ( PartOfSpeechTagType
       ( ..,
-        Adj,
-        Adp,
-        Adv,
-        Aux,
-        Cconj,
-        Conj,
-        Det,
-        Intj,
-        Noun,
-        Num,
-        O,
-        Part,
-        Pron,
-        Propn,
-        Punct,
-        Sconj,
-        Sym,
-        Verb
+        PartOfSpeechTagTypeADJ,
+        PartOfSpeechTagTypeADP,
+        PartOfSpeechTagTypeADV,
+        PartOfSpeechTagTypeAUX,
+        PartOfSpeechTagTypeCCONJ,
+        PartOfSpeechTagTypeCONJ,
+        PartOfSpeechTagTypeDET,
+        PartOfSpeechTagTypeINTJ,
+        PartOfSpeechTagTypeNOUN,
+        PartOfSpeechTagTypeNUM,
+        PartOfSpeechTagTypeO,
+        PartOfSpeechTagTypePART,
+        PartOfSpeechTagTypePRON,
+        PartOfSpeechTagTypePROPN,
+        PartOfSpeechTagTypePUNCT,
+        PartOfSpeechTagTypeSCONJ,
+        PartOfSpeechTagTypeSYM,
+        PartOfSpeechTagTypeVERB
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PartOfSpeechTagType
-  = PartOfSpeechTagType'
-      ( CI
-          Text
-      )
+newtype PartOfSpeechTagType = PartOfSpeechTagType'
+  { fromPartOfSpeechTagType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Adj :: PartOfSpeechTagType
-pattern Adj = PartOfSpeechTagType' "ADJ"
+pattern PartOfSpeechTagTypeADJ :: PartOfSpeechTagType
+pattern PartOfSpeechTagTypeADJ = PartOfSpeechTagType' "ADJ"
 
-pattern Adp :: PartOfSpeechTagType
-pattern Adp = PartOfSpeechTagType' "ADP"
+pattern PartOfSpeechTagTypeADP :: PartOfSpeechTagType
+pattern PartOfSpeechTagTypeADP = PartOfSpeechTagType' "ADP"
 
-pattern Adv :: PartOfSpeechTagType
-pattern Adv = PartOfSpeechTagType' "ADV"
+pattern PartOfSpeechTagTypeADV :: PartOfSpeechTagType
+pattern PartOfSpeechTagTypeADV = PartOfSpeechTagType' "ADV"
 
-pattern Aux :: PartOfSpeechTagType
-pattern Aux = PartOfSpeechTagType' "AUX"
+pattern PartOfSpeechTagTypeAUX :: PartOfSpeechTagType
+pattern PartOfSpeechTagTypeAUX = PartOfSpeechTagType' "AUX"
 
-pattern Cconj :: PartOfSpeechTagType
-pattern Cconj = PartOfSpeechTagType' "CCONJ"
+pattern PartOfSpeechTagTypeCCONJ :: PartOfSpeechTagType
+pattern PartOfSpeechTagTypeCCONJ = PartOfSpeechTagType' "CCONJ"
 
-pattern Conj :: PartOfSpeechTagType
-pattern Conj = PartOfSpeechTagType' "CONJ"
+pattern PartOfSpeechTagTypeCONJ :: PartOfSpeechTagType
+pattern PartOfSpeechTagTypeCONJ = PartOfSpeechTagType' "CONJ"
 
-pattern Det :: PartOfSpeechTagType
-pattern Det = PartOfSpeechTagType' "DET"
+pattern PartOfSpeechTagTypeDET :: PartOfSpeechTagType
+pattern PartOfSpeechTagTypeDET = PartOfSpeechTagType' "DET"
 
-pattern Intj :: PartOfSpeechTagType
-pattern Intj = PartOfSpeechTagType' "INTJ"
+pattern PartOfSpeechTagTypeINTJ :: PartOfSpeechTagType
+pattern PartOfSpeechTagTypeINTJ = PartOfSpeechTagType' "INTJ"
 
-pattern Noun :: PartOfSpeechTagType
-pattern Noun = PartOfSpeechTagType' "NOUN"
+pattern PartOfSpeechTagTypeNOUN :: PartOfSpeechTagType
+pattern PartOfSpeechTagTypeNOUN = PartOfSpeechTagType' "NOUN"
 
-pattern Num :: PartOfSpeechTagType
-pattern Num = PartOfSpeechTagType' "NUM"
+pattern PartOfSpeechTagTypeNUM :: PartOfSpeechTagType
+pattern PartOfSpeechTagTypeNUM = PartOfSpeechTagType' "NUM"
 
-pattern O :: PartOfSpeechTagType
-pattern O = PartOfSpeechTagType' "O"
+pattern PartOfSpeechTagTypeO :: PartOfSpeechTagType
+pattern PartOfSpeechTagTypeO = PartOfSpeechTagType' "O"
 
-pattern Part :: PartOfSpeechTagType
-pattern Part = PartOfSpeechTagType' "PART"
+pattern PartOfSpeechTagTypePART :: PartOfSpeechTagType
+pattern PartOfSpeechTagTypePART = PartOfSpeechTagType' "PART"
 
-pattern Pron :: PartOfSpeechTagType
-pattern Pron = PartOfSpeechTagType' "PRON"
+pattern PartOfSpeechTagTypePRON :: PartOfSpeechTagType
+pattern PartOfSpeechTagTypePRON = PartOfSpeechTagType' "PRON"
 
-pattern Propn :: PartOfSpeechTagType
-pattern Propn = PartOfSpeechTagType' "PROPN"
+pattern PartOfSpeechTagTypePROPN :: PartOfSpeechTagType
+pattern PartOfSpeechTagTypePROPN = PartOfSpeechTagType' "PROPN"
 
-pattern Punct :: PartOfSpeechTagType
-pattern Punct = PartOfSpeechTagType' "PUNCT"
+pattern PartOfSpeechTagTypePUNCT :: PartOfSpeechTagType
+pattern PartOfSpeechTagTypePUNCT = PartOfSpeechTagType' "PUNCT"
 
-pattern Sconj :: PartOfSpeechTagType
-pattern Sconj = PartOfSpeechTagType' "SCONJ"
+pattern PartOfSpeechTagTypeSCONJ :: PartOfSpeechTagType
+pattern PartOfSpeechTagTypeSCONJ = PartOfSpeechTagType' "SCONJ"
 
-pattern Sym :: PartOfSpeechTagType
-pattern Sym = PartOfSpeechTagType' "SYM"
+pattern PartOfSpeechTagTypeSYM :: PartOfSpeechTagType
+pattern PartOfSpeechTagTypeSYM = PartOfSpeechTagType' "SYM"
 
-pattern Verb :: PartOfSpeechTagType
-pattern Verb = PartOfSpeechTagType' "VERB"
+pattern PartOfSpeechTagTypeVERB :: PartOfSpeechTagType
+pattern PartOfSpeechTagTypeVERB = PartOfSpeechTagType' "VERB"
 
 {-# COMPLETE
-  Adj,
-  Adp,
-  Adv,
-  Aux,
-  Cconj,
-  Conj,
-  Det,
-  Intj,
-  Noun,
-  Num,
-  O,
-  Part,
-  Pron,
-  Propn,
-  Punct,
-  Sconj,
-  Sym,
-  Verb,
+  PartOfSpeechTagTypeADJ,
+  PartOfSpeechTagTypeADP,
+  PartOfSpeechTagTypeADV,
+  PartOfSpeechTagTypeAUX,
+  PartOfSpeechTagTypeCCONJ,
+  PartOfSpeechTagTypeCONJ,
+  PartOfSpeechTagTypeDET,
+  PartOfSpeechTagTypeINTJ,
+  PartOfSpeechTagTypeNOUN,
+  PartOfSpeechTagTypeNUM,
+  PartOfSpeechTagTypeO,
+  PartOfSpeechTagTypePART,
+  PartOfSpeechTagTypePRON,
+  PartOfSpeechTagTypePROPN,
+  PartOfSpeechTagTypePUNCT,
+  PartOfSpeechTagTypeSCONJ,
+  PartOfSpeechTagTypeSYM,
+  PartOfSpeechTagTypeVERB,
   PartOfSpeechTagType'
   #-}
 
-instance FromText PartOfSpeechTagType where
-  parser = (PartOfSpeechTagType' . mk) <$> takeText
+instance Prelude.FromText PartOfSpeechTagType where
+  parser = PartOfSpeechTagType' Prelude.<$> Prelude.takeText
 
-instance ToText PartOfSpeechTagType where
-  toText (PartOfSpeechTagType' ci) = original ci
+instance Prelude.ToText PartOfSpeechTagType where
+  toText (PartOfSpeechTagType' x) = x
 
-instance Hashable PartOfSpeechTagType
+instance Prelude.Hashable PartOfSpeechTagType
 
-instance NFData PartOfSpeechTagType
+instance Prelude.NFData PartOfSpeechTagType
 
-instance ToByteString PartOfSpeechTagType
+instance Prelude.ToByteString PartOfSpeechTagType
 
-instance ToQuery PartOfSpeechTagType
+instance Prelude.ToQuery PartOfSpeechTagType
 
-instance ToHeader PartOfSpeechTagType
+instance Prelude.ToHeader PartOfSpeechTagType
 
-instance FromJSON PartOfSpeechTagType where
-  parseJSON = parseJSONText "PartOfSpeechTagType"
+instance Prelude.FromJSON PartOfSpeechTagType where
+  parseJSON = Prelude.parseJSONText "PartOfSpeechTagType"

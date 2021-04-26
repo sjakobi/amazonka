@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,161 +19,163 @@
 module Network.AWS.Comprehend.Types.PiiEntityType
   ( PiiEntityType
       ( ..,
-        AWSAccessKey,
-        AWSSecretKey,
-        Address,
-        Age,
-        All,
-        BankAccountNumber,
-        BankRouting,
-        CreditDebitCvv,
-        CreditDebitExpiry,
-        CreditDebitNumber,
-        DateTime,
-        DriverId,
-        Email,
-        IPAddress,
-        MACAddress,
-        Name,
-        PassportNumber,
-        Password,
-        Phone,
-        Pin,
-        Ssn,
-        URL,
-        Username
+        PiiEntityTypeADDRESS,
+        PiiEntityTypeAGE,
+        PiiEntityTypeALL,
+        PiiEntityTypeAWSACCESSKEY,
+        PiiEntityTypeAWSSECRETKEY,
+        PiiEntityTypeBANKACCOUNTNUMBER,
+        PiiEntityTypeBANKROUTING,
+        PiiEntityTypeCREDITDEBITCVV,
+        PiiEntityTypeCREDITDEBITEXPIRY,
+        PiiEntityTypeCREDITDEBITNUMBER,
+        PiiEntityTypeDATETIME,
+        PiiEntityTypeDRIVERID,
+        PiiEntityTypeEMAIL,
+        PiiEntityTypeIPADDRESS,
+        PiiEntityTypeMACADDRESS,
+        PiiEntityTypeNAME,
+        PiiEntityTypePASSPORTNUMBER,
+        PiiEntityTypePASSWORD,
+        PiiEntityTypePHONE,
+        PiiEntityTypePIN,
+        PiiEntityTypeSSN,
+        PiiEntityTypeURL,
+        PiiEntityTypeUSERNAME
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PiiEntityType = PiiEntityType' (CI Text)
+newtype PiiEntityType = PiiEntityType'
+  { fromPiiEntityType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AWSAccessKey :: PiiEntityType
-pattern AWSAccessKey = PiiEntityType' "AWS_ACCESS_KEY"
+pattern PiiEntityTypeADDRESS :: PiiEntityType
+pattern PiiEntityTypeADDRESS = PiiEntityType' "ADDRESS"
 
-pattern AWSSecretKey :: PiiEntityType
-pattern AWSSecretKey = PiiEntityType' "AWS_SECRET_KEY"
+pattern PiiEntityTypeAGE :: PiiEntityType
+pattern PiiEntityTypeAGE = PiiEntityType' "AGE"
 
-pattern Address :: PiiEntityType
-pattern Address = PiiEntityType' "ADDRESS"
+pattern PiiEntityTypeALL :: PiiEntityType
+pattern PiiEntityTypeALL = PiiEntityType' "ALL"
 
-pattern Age :: PiiEntityType
-pattern Age = PiiEntityType' "AGE"
+pattern PiiEntityTypeAWSACCESSKEY :: PiiEntityType
+pattern PiiEntityTypeAWSACCESSKEY = PiiEntityType' "AWS_ACCESS_KEY"
 
-pattern All :: PiiEntityType
-pattern All = PiiEntityType' "ALL"
+pattern PiiEntityTypeAWSSECRETKEY :: PiiEntityType
+pattern PiiEntityTypeAWSSECRETKEY = PiiEntityType' "AWS_SECRET_KEY"
 
-pattern BankAccountNumber :: PiiEntityType
-pattern BankAccountNumber = PiiEntityType' "BANK_ACCOUNT_NUMBER"
+pattern PiiEntityTypeBANKACCOUNTNUMBER :: PiiEntityType
+pattern PiiEntityTypeBANKACCOUNTNUMBER = PiiEntityType' "BANK_ACCOUNT_NUMBER"
 
-pattern BankRouting :: PiiEntityType
-pattern BankRouting = PiiEntityType' "BANK_ROUTING"
+pattern PiiEntityTypeBANKROUTING :: PiiEntityType
+pattern PiiEntityTypeBANKROUTING = PiiEntityType' "BANK_ROUTING"
 
-pattern CreditDebitCvv :: PiiEntityType
-pattern CreditDebitCvv = PiiEntityType' "CREDIT_DEBIT_CVV"
+pattern PiiEntityTypeCREDITDEBITCVV :: PiiEntityType
+pattern PiiEntityTypeCREDITDEBITCVV = PiiEntityType' "CREDIT_DEBIT_CVV"
 
-pattern CreditDebitExpiry :: PiiEntityType
-pattern CreditDebitExpiry = PiiEntityType' "CREDIT_DEBIT_EXPIRY"
+pattern PiiEntityTypeCREDITDEBITEXPIRY :: PiiEntityType
+pattern PiiEntityTypeCREDITDEBITEXPIRY = PiiEntityType' "CREDIT_DEBIT_EXPIRY"
 
-pattern CreditDebitNumber :: PiiEntityType
-pattern CreditDebitNumber = PiiEntityType' "CREDIT_DEBIT_NUMBER"
+pattern PiiEntityTypeCREDITDEBITNUMBER :: PiiEntityType
+pattern PiiEntityTypeCREDITDEBITNUMBER = PiiEntityType' "CREDIT_DEBIT_NUMBER"
 
-pattern DateTime :: PiiEntityType
-pattern DateTime = PiiEntityType' "DATE_TIME"
+pattern PiiEntityTypeDATETIME :: PiiEntityType
+pattern PiiEntityTypeDATETIME = PiiEntityType' "DATE_TIME"
 
-pattern DriverId :: PiiEntityType
-pattern DriverId = PiiEntityType' "DRIVER_ID"
+pattern PiiEntityTypeDRIVERID :: PiiEntityType
+pattern PiiEntityTypeDRIVERID = PiiEntityType' "DRIVER_ID"
 
-pattern Email :: PiiEntityType
-pattern Email = PiiEntityType' "EMAIL"
+pattern PiiEntityTypeEMAIL :: PiiEntityType
+pattern PiiEntityTypeEMAIL = PiiEntityType' "EMAIL"
 
-pattern IPAddress :: PiiEntityType
-pattern IPAddress = PiiEntityType' "IP_ADDRESS"
+pattern PiiEntityTypeIPADDRESS :: PiiEntityType
+pattern PiiEntityTypeIPADDRESS = PiiEntityType' "IP_ADDRESS"
 
-pattern MACAddress :: PiiEntityType
-pattern MACAddress = PiiEntityType' "MAC_ADDRESS"
+pattern PiiEntityTypeMACADDRESS :: PiiEntityType
+pattern PiiEntityTypeMACADDRESS = PiiEntityType' "MAC_ADDRESS"
 
-pattern Name :: PiiEntityType
-pattern Name = PiiEntityType' "NAME"
+pattern PiiEntityTypeNAME :: PiiEntityType
+pattern PiiEntityTypeNAME = PiiEntityType' "NAME"
 
-pattern PassportNumber :: PiiEntityType
-pattern PassportNumber = PiiEntityType' "PASSPORT_NUMBER"
+pattern PiiEntityTypePASSPORTNUMBER :: PiiEntityType
+pattern PiiEntityTypePASSPORTNUMBER = PiiEntityType' "PASSPORT_NUMBER"
 
-pattern Password :: PiiEntityType
-pattern Password = PiiEntityType' "PASSWORD"
+pattern PiiEntityTypePASSWORD :: PiiEntityType
+pattern PiiEntityTypePASSWORD = PiiEntityType' "PASSWORD"
 
-pattern Phone :: PiiEntityType
-pattern Phone = PiiEntityType' "PHONE"
+pattern PiiEntityTypePHONE :: PiiEntityType
+pattern PiiEntityTypePHONE = PiiEntityType' "PHONE"
 
-pattern Pin :: PiiEntityType
-pattern Pin = PiiEntityType' "PIN"
+pattern PiiEntityTypePIN :: PiiEntityType
+pattern PiiEntityTypePIN = PiiEntityType' "PIN"
 
-pattern Ssn :: PiiEntityType
-pattern Ssn = PiiEntityType' "SSN"
+pattern PiiEntityTypeSSN :: PiiEntityType
+pattern PiiEntityTypeSSN = PiiEntityType' "SSN"
 
-pattern URL :: PiiEntityType
-pattern URL = PiiEntityType' "URL"
+pattern PiiEntityTypeURL :: PiiEntityType
+pattern PiiEntityTypeURL = PiiEntityType' "URL"
 
-pattern Username :: PiiEntityType
-pattern Username = PiiEntityType' "USERNAME"
+pattern PiiEntityTypeUSERNAME :: PiiEntityType
+pattern PiiEntityTypeUSERNAME = PiiEntityType' "USERNAME"
 
 {-# COMPLETE
-  AWSAccessKey,
-  AWSSecretKey,
-  Address,
-  Age,
-  All,
-  BankAccountNumber,
-  BankRouting,
-  CreditDebitCvv,
-  CreditDebitExpiry,
-  CreditDebitNumber,
-  DateTime,
-  DriverId,
-  Email,
-  IPAddress,
-  MACAddress,
-  Name,
-  PassportNumber,
-  Password,
-  Phone,
-  Pin,
-  Ssn,
-  URL,
-  Username,
+  PiiEntityTypeADDRESS,
+  PiiEntityTypeAGE,
+  PiiEntityTypeALL,
+  PiiEntityTypeAWSACCESSKEY,
+  PiiEntityTypeAWSSECRETKEY,
+  PiiEntityTypeBANKACCOUNTNUMBER,
+  PiiEntityTypeBANKROUTING,
+  PiiEntityTypeCREDITDEBITCVV,
+  PiiEntityTypeCREDITDEBITEXPIRY,
+  PiiEntityTypeCREDITDEBITNUMBER,
+  PiiEntityTypeDATETIME,
+  PiiEntityTypeDRIVERID,
+  PiiEntityTypeEMAIL,
+  PiiEntityTypeIPADDRESS,
+  PiiEntityTypeMACADDRESS,
+  PiiEntityTypeNAME,
+  PiiEntityTypePASSPORTNUMBER,
+  PiiEntityTypePASSWORD,
+  PiiEntityTypePHONE,
+  PiiEntityTypePIN,
+  PiiEntityTypeSSN,
+  PiiEntityTypeURL,
+  PiiEntityTypeUSERNAME,
   PiiEntityType'
   #-}
 
-instance FromText PiiEntityType where
-  parser = (PiiEntityType' . mk) <$> takeText
+instance Prelude.FromText PiiEntityType where
+  parser = PiiEntityType' Prelude.<$> Prelude.takeText
 
-instance ToText PiiEntityType where
-  toText (PiiEntityType' ci) = original ci
+instance Prelude.ToText PiiEntityType where
+  toText (PiiEntityType' x) = x
 
-instance Hashable PiiEntityType
+instance Prelude.Hashable PiiEntityType
 
-instance NFData PiiEntityType
+instance Prelude.NFData PiiEntityType
 
-instance ToByteString PiiEntityType
+instance Prelude.ToByteString PiiEntityType
 
-instance ToQuery PiiEntityType
+instance Prelude.ToQuery PiiEntityType
 
-instance ToHeader PiiEntityType
+instance Prelude.ToHeader PiiEntityType
 
-instance ToJSON PiiEntityType where
-  toJSON = toJSONText
+instance Prelude.ToJSON PiiEntityType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON PiiEntityType where
-  parseJSON = parseJSONText "PiiEntityType"
+instance Prelude.FromJSON PiiEntityType where
+  parseJSON = Prelude.parseJSONText "PiiEntityType"

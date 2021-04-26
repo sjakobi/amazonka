@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,157 +21,197 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a new document classification request to analyze a single document in real-time, using a previously created and trained custom model and an endpoint.
+-- Creates a new document classification request to analyze a single
+-- document in real-time, using a previously created and trained custom
+-- model and an endpoint.
 module Network.AWS.Comprehend.ClassifyDocument
   ( -- * Creating a Request
-    classifyDocument,
-    ClassifyDocument,
+    ClassifyDocument (..),
+    newClassifyDocument,
 
     -- * Request Lenses
-    cdText,
-    cdEndpointARN,
+    classifyDocument_text,
+    classifyDocument_endpointArn,
 
     -- * Destructuring the Response
-    classifyDocumentResponse,
-    ClassifyDocumentResponse,
+    ClassifyDocumentResponse (..),
+    newClassifyDocumentResponse,
 
     -- * Response Lenses
-    cdrrsClasses,
-    cdrrsLabels,
-    cdrrsResponseStatus,
+    classifyDocumentResponse_classes,
+    classifyDocumentResponse_labels,
+    classifyDocumentResponse_httpStatus,
   )
 where
 
 import Network.AWS.Comprehend.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Comprehend.Types.DocumentClass
+import Network.AWS.Comprehend.Types.DocumentLabel
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'classifyDocument' smart constructor.
+-- | /See:/ 'newClassifyDocument' smart constructor.
 data ClassifyDocument = ClassifyDocument'
-  { _cdText ::
-      !(Sensitive Text),
-    _cdEndpointARN :: !Text
+  { -- | The document text to be analyzed.
+    text :: Prelude.Sensitive Prelude.Text,
+    -- | The Amazon Resource Number (ARN) of the endpoint.
+    endpointArn :: Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ClassifyDocument' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ClassifyDocument' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cdText' - The document text to be analyzed.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cdEndpointARN' - The Amazon Resource Number (ARN) of the endpoint.
-classifyDocument ::
-  -- | 'cdText'
-  Text ->
-  -- | 'cdEndpointARN'
-  Text ->
+-- 'text', 'classifyDocument_text' - The document text to be analyzed.
+--
+-- 'endpointArn', 'classifyDocument_endpointArn' - The Amazon Resource Number (ARN) of the endpoint.
+newClassifyDocument ::
+  -- | 'text'
+  Prelude.Text ->
+  -- | 'endpointArn'
+  Prelude.Text ->
   ClassifyDocument
-classifyDocument pText_ pEndpointARN_ =
+newClassifyDocument pText_ pEndpointArn_ =
   ClassifyDocument'
-    { _cdText = _Sensitive # pText_,
-      _cdEndpointARN = pEndpointARN_
+    { text =
+        Prelude._Sensitive Lens.# pText_,
+      endpointArn = pEndpointArn_
     }
 
 -- | The document text to be analyzed.
-cdText :: Lens' ClassifyDocument Text
-cdText = lens _cdText (\s a -> s {_cdText = a}) . _Sensitive
+classifyDocument_text :: Lens.Lens' ClassifyDocument Prelude.Text
+classifyDocument_text = Lens.lens (\ClassifyDocument' {text} -> text) (\s@ClassifyDocument' {} a -> s {text = a} :: ClassifyDocument) Prelude.. Prelude._Sensitive
 
 -- | The Amazon Resource Number (ARN) of the endpoint.
-cdEndpointARN :: Lens' ClassifyDocument Text
-cdEndpointARN = lens _cdEndpointARN (\s a -> s {_cdEndpointARN = a})
+classifyDocument_endpointArn :: Lens.Lens' ClassifyDocument Prelude.Text
+classifyDocument_endpointArn = Lens.lens (\ClassifyDocument' {endpointArn} -> endpointArn) (\s@ClassifyDocument' {} a -> s {endpointArn = a} :: ClassifyDocument)
 
-instance AWSRequest ClassifyDocument where
+instance Prelude.AWSRequest ClassifyDocument where
   type Rs ClassifyDocument = ClassifyDocumentResponse
-  request = postJSON comprehend
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ClassifyDocumentResponse'
-            <$> (x .?> "Classes" .!@ mempty)
-            <*> (x .?> "Labels" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Classes" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (x Prelude..?> "Labels" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ClassifyDocument
+instance Prelude.Hashable ClassifyDocument
 
-instance NFData ClassifyDocument
+instance Prelude.NFData ClassifyDocument
 
-instance ToHeaders ClassifyDocument where
+instance Prelude.ToHeaders ClassifyDocument where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Comprehend_20171127.ClassifyDocument" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Comprehend_20171127.ClassifyDocument" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ClassifyDocument where
+instance Prelude.ToJSON ClassifyDocument where
   toJSON ClassifyDocument' {..} =
-    object
-      ( catMaybes
-          [ Just ("Text" .= _cdText),
-            Just ("EndpointArn" .= _cdEndpointARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("Text" Prelude..= text),
+            Prelude.Just ("EndpointArn" Prelude..= endpointArn)
           ]
       )
 
-instance ToPath ClassifyDocument where
-  toPath = const "/"
+instance Prelude.ToPath ClassifyDocument where
+  toPath = Prelude.const "/"
 
-instance ToQuery ClassifyDocument where
-  toQuery = const mempty
+instance Prelude.ToQuery ClassifyDocument where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'classifyDocumentResponse' smart constructor.
+-- | /See:/ 'newClassifyDocumentResponse' smart constructor.
 data ClassifyDocumentResponse = ClassifyDocumentResponse'
-  { _cdrrsClasses ::
-      !( Maybe
-           [DocumentClass]
-       ),
-    _cdrrsLabels ::
-      !( Maybe
-           [DocumentLabel]
-       ),
-    _cdrrsResponseStatus ::
-      !Int
+  { -- | The classes used by the document being analyzed. These are used for
+    -- multi-class trained models. Individual classes are mutually exclusive
+    -- and each document is expected to have only a single class assigned to
+    -- it. For example, an animal can be a dog or a cat, but not both at the
+    -- same time.
+    classes :: Prelude.Maybe [DocumentClass],
+    -- | The labels used the document being analyzed. These are used for
+    -- multi-label trained models. Individual labels represent different
+    -- categories that are related in some manner and are not mutually
+    -- exclusive. For example, a movie can be just an action movie, or it can
+    -- be an action movie, a science fiction movie, and a comedy, all at the
+    -- same time.
+    labels :: Prelude.Maybe [DocumentLabel],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ClassifyDocumentResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ClassifyDocumentResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cdrrsClasses' - The classes used by the document being analyzed. These are used for multi-class trained models. Individual classes are mutually exclusive and each document is expected to have only a single class assigned to it. For example, an animal can be a dog or a cat, but not both at the same time.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cdrrsLabels' - The labels used the document being analyzed. These are used for multi-label trained models. Individual labels represent different categories that are related in some manner and are not mutually exclusive. For example, a movie can be just an action movie, or it can be an action movie, a science fiction movie, and a comedy, all at the same time.
+-- 'classes', 'classifyDocumentResponse_classes' - The classes used by the document being analyzed. These are used for
+-- multi-class trained models. Individual classes are mutually exclusive
+-- and each document is expected to have only a single class assigned to
+-- it. For example, an animal can be a dog or a cat, but not both at the
+-- same time.
 --
--- * 'cdrrsResponseStatus' - -- | The response status code.
-classifyDocumentResponse ::
-  -- | 'cdrrsResponseStatus'
-  Int ->
+-- 'labels', 'classifyDocumentResponse_labels' - The labels used the document being analyzed. These are used for
+-- multi-label trained models. Individual labels represent different
+-- categories that are related in some manner and are not mutually
+-- exclusive. For example, a movie can be just an action movie, or it can
+-- be an action movie, a science fiction movie, and a comedy, all at the
+-- same time.
+--
+-- 'httpStatus', 'classifyDocumentResponse_httpStatus' - The response's http status code.
+newClassifyDocumentResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ClassifyDocumentResponse
-classifyDocumentResponse pResponseStatus_ =
+newClassifyDocumentResponse pHttpStatus_ =
   ClassifyDocumentResponse'
-    { _cdrrsClasses = Nothing,
-      _cdrrsLabels = Nothing,
-      _cdrrsResponseStatus = pResponseStatus_
+    { classes =
+        Prelude.Nothing,
+      labels = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The classes used by the document being analyzed. These are used for multi-class trained models. Individual classes are mutually exclusive and each document is expected to have only a single class assigned to it. For example, an animal can be a dog or a cat, but not both at the same time.
-cdrrsClasses :: Lens' ClassifyDocumentResponse [DocumentClass]
-cdrrsClasses = lens _cdrrsClasses (\s a -> s {_cdrrsClasses = a}) . _Default . _Coerce
+-- | The classes used by the document being analyzed. These are used for
+-- multi-class trained models. Individual classes are mutually exclusive
+-- and each document is expected to have only a single class assigned to
+-- it. For example, an animal can be a dog or a cat, but not both at the
+-- same time.
+classifyDocumentResponse_classes :: Lens.Lens' ClassifyDocumentResponse (Prelude.Maybe [DocumentClass])
+classifyDocumentResponse_classes = Lens.lens (\ClassifyDocumentResponse' {classes} -> classes) (\s@ClassifyDocumentResponse' {} a -> s {classes = a} :: ClassifyDocumentResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The labels used the document being analyzed. These are used for multi-label trained models. Individual labels represent different categories that are related in some manner and are not mutually exclusive. For example, a movie can be just an action movie, or it can be an action movie, a science fiction movie, and a comedy, all at the same time.
-cdrrsLabels :: Lens' ClassifyDocumentResponse [DocumentLabel]
-cdrrsLabels = lens _cdrrsLabels (\s a -> s {_cdrrsLabels = a}) . _Default . _Coerce
+-- | The labels used the document being analyzed. These are used for
+-- multi-label trained models. Individual labels represent different
+-- categories that are related in some manner and are not mutually
+-- exclusive. For example, a movie can be just an action movie, or it can
+-- be an action movie, a science fiction movie, and a comedy, all at the
+-- same time.
+classifyDocumentResponse_labels :: Lens.Lens' ClassifyDocumentResponse (Prelude.Maybe [DocumentLabel])
+classifyDocumentResponse_labels = Lens.lens (\ClassifyDocumentResponse' {labels} -> labels) (\s@ClassifyDocumentResponse' {} a -> s {labels = a} :: ClassifyDocumentResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-cdrrsResponseStatus :: Lens' ClassifyDocumentResponse Int
-cdrrsResponseStatus = lens _cdrrsResponseStatus (\s a -> s {_cdrrsResponseStatus = a})
+-- | The response's http status code.
+classifyDocumentResponse_httpStatus :: Lens.Lens' ClassifyDocumentResponse Prelude.Int
+classifyDocumentResponse_httpStatus = Lens.lens (\ClassifyDocumentResponse' {httpStatus} -> httpStatus) (\s@ClassifyDocumentResponse' {} a -> s {httpStatus = a} :: ClassifyDocumentResponse)
 
-instance NFData ClassifyDocumentResponse
+instance Prelude.NFData ClassifyDocumentResponse

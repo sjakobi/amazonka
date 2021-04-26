@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,54 +20,63 @@
 module Network.AWS.Comprehend.Types.PartOfSpeechTag where
 
 import Network.AWS.Comprehend.Types.PartOfSpeechTagType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Identifies the part of speech represented by the token and gives the confidence that Amazon Comprehend has that the part of speech was correctly identified. For more information about the parts of speech that Amazon Comprehend can identify, see 'how-syntax' .
+-- | Identifies the part of speech represented by the token and gives the
+-- confidence that Amazon Comprehend has that the part of speech was
+-- correctly identified. For more information about the parts of speech
+-- that Amazon Comprehend can identify, see how-syntax.
 --
---
---
--- /See:/ 'partOfSpeechTag' smart constructor.
+-- /See:/ 'newPartOfSpeechTag' smart constructor.
 data PartOfSpeechTag = PartOfSpeechTag'
-  { _postScore ::
-      !(Maybe Double),
-    _postTag ::
-      !(Maybe PartOfSpeechTagType)
+  { -- | The confidence that Amazon Comprehend has that the part of speech was
+    -- correctly identified.
+    score :: Prelude.Maybe Prelude.Double,
+    -- | Identifies the part of speech that the token represents.
+    tag :: Prelude.Maybe PartOfSpeechTagType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PartOfSpeechTag' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PartOfSpeechTag' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'postScore' - The confidence that Amazon Comprehend has that the part of speech was correctly identified.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'postTag' - Identifies the part of speech that the token represents.
-partOfSpeechTag ::
+-- 'score', 'partOfSpeechTag_score' - The confidence that Amazon Comprehend has that the part of speech was
+-- correctly identified.
+--
+-- 'tag', 'partOfSpeechTag_tag' - Identifies the part of speech that the token represents.
+newPartOfSpeechTag ::
   PartOfSpeechTag
-partOfSpeechTag =
+newPartOfSpeechTag =
   PartOfSpeechTag'
-    { _postScore = Nothing,
-      _postTag = Nothing
+    { score = Prelude.Nothing,
+      tag = Prelude.Nothing
     }
 
--- | The confidence that Amazon Comprehend has that the part of speech was correctly identified.
-postScore :: Lens' PartOfSpeechTag (Maybe Double)
-postScore = lens _postScore (\s a -> s {_postScore = a})
+-- | The confidence that Amazon Comprehend has that the part of speech was
+-- correctly identified.
+partOfSpeechTag_score :: Lens.Lens' PartOfSpeechTag (Prelude.Maybe Prelude.Double)
+partOfSpeechTag_score = Lens.lens (\PartOfSpeechTag' {score} -> score) (\s@PartOfSpeechTag' {} a -> s {score = a} :: PartOfSpeechTag)
 
 -- | Identifies the part of speech that the token represents.
-postTag :: Lens' PartOfSpeechTag (Maybe PartOfSpeechTagType)
-postTag = lens _postTag (\s a -> s {_postTag = a})
+partOfSpeechTag_tag :: Lens.Lens' PartOfSpeechTag (Prelude.Maybe PartOfSpeechTagType)
+partOfSpeechTag_tag = Lens.lens (\PartOfSpeechTag' {tag} -> tag) (\s@PartOfSpeechTag' {} a -> s {tag = a} :: PartOfSpeechTag)
 
-instance FromJSON PartOfSpeechTag where
+instance Prelude.FromJSON PartOfSpeechTag where
   parseJSON =
-    withObject
+    Prelude.withObject
       "PartOfSpeechTag"
       ( \x ->
           PartOfSpeechTag'
-            <$> (x .:? "Score") <*> (x .:? "Tag")
+            Prelude.<$> (x Prelude..:? "Score")
+            Prelude.<*> (x Prelude..:? "Tag")
       )
 
-instance Hashable PartOfSpeechTag
+instance Prelude.Hashable PartOfSpeechTag
 
-instance NFData PartOfSpeechTag
+instance Prelude.NFData PartOfSpeechTag

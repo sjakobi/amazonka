@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,76 +19,78 @@
 module Network.AWS.Comprehend.Types.JobStatus
   ( JobStatus
       ( ..,
-        Completed,
-        Failed,
-        InProgress,
-        StopRequested,
-        Stopped,
-        Submitted
+        JobStatusCOMPLETED,
+        JobStatusFAILED,
+        JobStatusINPROGRESS,
+        JobStatusSTOPPED,
+        JobStatusSTOPREQUESTED,
+        JobStatusSUBMITTED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data JobStatus = JobStatus' (CI Text)
+newtype JobStatus = JobStatus'
+  { fromJobStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Completed :: JobStatus
-pattern Completed = JobStatus' "COMPLETED"
+pattern JobStatusCOMPLETED :: JobStatus
+pattern JobStatusCOMPLETED = JobStatus' "COMPLETED"
 
-pattern Failed :: JobStatus
-pattern Failed = JobStatus' "FAILED"
+pattern JobStatusFAILED :: JobStatus
+pattern JobStatusFAILED = JobStatus' "FAILED"
 
-pattern InProgress :: JobStatus
-pattern InProgress = JobStatus' "IN_PROGRESS"
+pattern JobStatusINPROGRESS :: JobStatus
+pattern JobStatusINPROGRESS = JobStatus' "IN_PROGRESS"
 
-pattern StopRequested :: JobStatus
-pattern StopRequested = JobStatus' "STOP_REQUESTED"
+pattern JobStatusSTOPPED :: JobStatus
+pattern JobStatusSTOPPED = JobStatus' "STOPPED"
 
-pattern Stopped :: JobStatus
-pattern Stopped = JobStatus' "STOPPED"
+pattern JobStatusSTOPREQUESTED :: JobStatus
+pattern JobStatusSTOPREQUESTED = JobStatus' "STOP_REQUESTED"
 
-pattern Submitted :: JobStatus
-pattern Submitted = JobStatus' "SUBMITTED"
+pattern JobStatusSUBMITTED :: JobStatus
+pattern JobStatusSUBMITTED = JobStatus' "SUBMITTED"
 
 {-# COMPLETE
-  Completed,
-  Failed,
-  InProgress,
-  StopRequested,
-  Stopped,
-  Submitted,
+  JobStatusCOMPLETED,
+  JobStatusFAILED,
+  JobStatusINPROGRESS,
+  JobStatusSTOPPED,
+  JobStatusSTOPREQUESTED,
+  JobStatusSUBMITTED,
   JobStatus'
   #-}
 
-instance FromText JobStatus where
-  parser = (JobStatus' . mk) <$> takeText
+instance Prelude.FromText JobStatus where
+  parser = JobStatus' Prelude.<$> Prelude.takeText
 
-instance ToText JobStatus where
-  toText (JobStatus' ci) = original ci
+instance Prelude.ToText JobStatus where
+  toText (JobStatus' x) = x
 
-instance Hashable JobStatus
+instance Prelude.Hashable JobStatus
 
-instance NFData JobStatus
+instance Prelude.NFData JobStatus
 
-instance ToByteString JobStatus
+instance Prelude.ToByteString JobStatus
 
-instance ToQuery JobStatus
+instance Prelude.ToQuery JobStatus
 
-instance ToHeader JobStatus
+instance Prelude.ToHeader JobStatus
 
-instance ToJSON JobStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON JobStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON JobStatus where
-  parseJSON = parseJSONText "JobStatus"
+instance Prelude.FromJSON JobStatus where
+  parseJSON = Prelude.parseJSONText "JobStatus"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.Comprehend.Types.PiiEntitiesDetectionMode
   ( PiiEntitiesDetectionMode
       ( ..,
-        OnlyOffsets,
-        OnlyRedaction
+        PiiEntitiesDetectionModeONLYOFFSETS,
+        PiiEntitiesDetectionModeONLYREDACTION
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PiiEntitiesDetectionMode
-  = PiiEntitiesDetectionMode'
-      ( CI
-          Text
-      )
+newtype PiiEntitiesDetectionMode = PiiEntitiesDetectionMode'
+  { fromPiiEntitiesDetectionMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern OnlyOffsets :: PiiEntitiesDetectionMode
-pattern OnlyOffsets = PiiEntitiesDetectionMode' "ONLY_OFFSETS"
+pattern PiiEntitiesDetectionModeONLYOFFSETS :: PiiEntitiesDetectionMode
+pattern PiiEntitiesDetectionModeONLYOFFSETS = PiiEntitiesDetectionMode' "ONLY_OFFSETS"
 
-pattern OnlyRedaction :: PiiEntitiesDetectionMode
-pattern OnlyRedaction = PiiEntitiesDetectionMode' "ONLY_REDACTION"
+pattern PiiEntitiesDetectionModeONLYREDACTION :: PiiEntitiesDetectionMode
+pattern PiiEntitiesDetectionModeONLYREDACTION = PiiEntitiesDetectionMode' "ONLY_REDACTION"
 
 {-# COMPLETE
-  OnlyOffsets,
-  OnlyRedaction,
+  PiiEntitiesDetectionModeONLYOFFSETS,
+  PiiEntitiesDetectionModeONLYREDACTION,
   PiiEntitiesDetectionMode'
   #-}
 
-instance FromText PiiEntitiesDetectionMode where
-  parser = (PiiEntitiesDetectionMode' . mk) <$> takeText
+instance Prelude.FromText PiiEntitiesDetectionMode where
+  parser = PiiEntitiesDetectionMode' Prelude.<$> Prelude.takeText
 
-instance ToText PiiEntitiesDetectionMode where
-  toText (PiiEntitiesDetectionMode' ci) = original ci
+instance Prelude.ToText PiiEntitiesDetectionMode where
+  toText (PiiEntitiesDetectionMode' x) = x
 
-instance Hashable PiiEntitiesDetectionMode
+instance Prelude.Hashable PiiEntitiesDetectionMode
 
-instance NFData PiiEntitiesDetectionMode
+instance Prelude.NFData PiiEntitiesDetectionMode
 
-instance ToByteString PiiEntitiesDetectionMode
+instance Prelude.ToByteString PiiEntitiesDetectionMode
 
-instance ToQuery PiiEntitiesDetectionMode
+instance Prelude.ToQuery PiiEntitiesDetectionMode
 
-instance ToHeader PiiEntitiesDetectionMode
+instance Prelude.ToHeader PiiEntitiesDetectionMode
 
-instance ToJSON PiiEntitiesDetectionMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON PiiEntitiesDetectionMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON PiiEntitiesDetectionMode where
-  parseJSON = parseJSONText "PiiEntitiesDetectionMode"
+instance Prelude.FromJSON PiiEntitiesDetectionMode where
+  parseJSON = Prelude.parseJSONText "PiiEntitiesDetectionMode"

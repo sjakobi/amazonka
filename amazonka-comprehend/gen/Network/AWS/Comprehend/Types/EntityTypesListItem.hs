@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,73 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Comprehend.Types.EntityTypesListItem where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | An entity type within a labeled training dataset that Amazon Comprehend uses to train a custom entity recognizer.
+-- | An entity type within a labeled training dataset that Amazon Comprehend
+-- uses to train a custom entity recognizer.
 --
---
---
--- /See:/ 'entityTypesListItem' smart constructor.
-newtype EntityTypesListItem = EntityTypesListItem'
-  { _etliType ::
-      Text
+-- /See:/ 'newEntityTypesListItem' smart constructor.
+data EntityTypesListItem = EntityTypesListItem'
+  { -- | An entity type within a labeled training dataset that Amazon Comprehend
+    -- uses to train a custom entity recognizer.
+    --
+    -- Entity types must not contain the following invalid characters: \\n
+    -- (line break), \\\\n (escaped line break, \\r (carriage return), \\\\r
+    -- (escaped carriage return), \\t (tab), \\\\t (escaped tab), space, and ,
+    -- (comma).
+    type' :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EntityTypesListItem' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EntityTypesListItem' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'etliType' - An entity type within a labeled training dataset that Amazon Comprehend uses to train a custom entity recognizer. Entity types must not contain the following invalid characters: \n (line break), \\n (escaped line break, \r (carriage return), \\r (escaped carriage return), \t (tab), \\t (escaped tab), space, and , (comma).
-entityTypesListItem ::
-  -- | 'etliType'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'type'', 'entityTypesListItem_type' - An entity type within a labeled training dataset that Amazon Comprehend
+-- uses to train a custom entity recognizer.
+--
+-- Entity types must not contain the following invalid characters: \\n
+-- (line break), \\\\n (escaped line break, \\r (carriage return), \\\\r
+-- (escaped carriage return), \\t (tab), \\\\t (escaped tab), space, and ,
+-- (comma).
+newEntityTypesListItem ::
+  -- | 'type''
+  Prelude.Text ->
   EntityTypesListItem
-entityTypesListItem pType_ =
-  EntityTypesListItem' {_etliType = pType_}
+newEntityTypesListItem pType_ =
+  EntityTypesListItem' {type' = pType_}
 
--- | An entity type within a labeled training dataset that Amazon Comprehend uses to train a custom entity recognizer. Entity types must not contain the following invalid characters: \n (line break), \\n (escaped line break, \r (carriage return), \\r (escaped carriage return), \t (tab), \\t (escaped tab), space, and , (comma).
-etliType :: Lens' EntityTypesListItem Text
-etliType = lens _etliType (\s a -> s {_etliType = a})
+-- | An entity type within a labeled training dataset that Amazon Comprehend
+-- uses to train a custom entity recognizer.
+--
+-- Entity types must not contain the following invalid characters: \\n
+-- (line break), \\\\n (escaped line break, \\r (carriage return), \\\\r
+-- (escaped carriage return), \\t (tab), \\\\t (escaped tab), space, and ,
+-- (comma).
+entityTypesListItem_type :: Lens.Lens' EntityTypesListItem Prelude.Text
+entityTypesListItem_type = Lens.lens (\EntityTypesListItem' {type'} -> type') (\s@EntityTypesListItem' {} a -> s {type' = a} :: EntityTypesListItem)
 
-instance FromJSON EntityTypesListItem where
+instance Prelude.FromJSON EntityTypesListItem where
   parseJSON =
-    withObject
+    Prelude.withObject
       "EntityTypesListItem"
-      (\x -> EntityTypesListItem' <$> (x .: "Type"))
+      ( \x ->
+          EntityTypesListItem'
+            Prelude.<$> (x Prelude..: "Type")
+      )
 
-instance Hashable EntityTypesListItem
+instance Prelude.Hashable EntityTypesListItem
 
-instance NFData EntityTypesListItem
+instance Prelude.NFData EntityTypesListItem
 
-instance ToJSON EntityTypesListItem where
+instance Prelude.ToJSON EntityTypesListItem where
   toJSON EntityTypesListItem' {..} =
-    object (catMaybes [Just ("Type" .= _etliType)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("Type" Prelude..= type')]
+      )

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,55 +19,60 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Comprehend.Types.EntityRecognizerDocuments where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the training documents submitted with an entity recognizer.
 --
---
---
--- /See:/ 'entityRecognizerDocuments' smart constructor.
-newtype EntityRecognizerDocuments = EntityRecognizerDocuments'
-  { _erdS3URI ::
-      Text
+-- /See:/ 'newEntityRecognizerDocuments' smart constructor.
+data EntityRecognizerDocuments = EntityRecognizerDocuments'
+  { -- | Specifies the Amazon S3 location where the training documents for an
+    -- entity recognizer are located. The URI must be in the same region as the
+    -- API endpoint that you are calling.
+    s3Uri :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EntityRecognizerDocuments' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EntityRecognizerDocuments' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'erdS3URI' - Specifies the Amazon S3 location where the training documents for an entity recognizer are located. The URI must be in the same region as the API endpoint that you are calling.
-entityRecognizerDocuments ::
-  -- | 'erdS3URI'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 's3Uri', 'entityRecognizerDocuments_s3Uri' - Specifies the Amazon S3 location where the training documents for an
+-- entity recognizer are located. The URI must be in the same region as the
+-- API endpoint that you are calling.
+newEntityRecognizerDocuments ::
+  -- | 's3Uri'
+  Prelude.Text ->
   EntityRecognizerDocuments
-entityRecognizerDocuments pS3URI_ =
-  EntityRecognizerDocuments' {_erdS3URI = pS3URI_}
+newEntityRecognizerDocuments pS3Uri_ =
+  EntityRecognizerDocuments' {s3Uri = pS3Uri_}
 
--- | Specifies the Amazon S3 location where the training documents for an entity recognizer are located. The URI must be in the same region as the API endpoint that you are calling.
-erdS3URI :: Lens' EntityRecognizerDocuments Text
-erdS3URI = lens _erdS3URI (\s a -> s {_erdS3URI = a})
+-- | Specifies the Amazon S3 location where the training documents for an
+-- entity recognizer are located. The URI must be in the same region as the
+-- API endpoint that you are calling.
+entityRecognizerDocuments_s3Uri :: Lens.Lens' EntityRecognizerDocuments Prelude.Text
+entityRecognizerDocuments_s3Uri = Lens.lens (\EntityRecognizerDocuments' {s3Uri} -> s3Uri) (\s@EntityRecognizerDocuments' {} a -> s {s3Uri = a} :: EntityRecognizerDocuments)
 
-instance FromJSON EntityRecognizerDocuments where
+instance Prelude.FromJSON EntityRecognizerDocuments where
   parseJSON =
-    withObject
+    Prelude.withObject
       "EntityRecognizerDocuments"
       ( \x ->
-          EntityRecognizerDocuments' <$> (x .: "S3Uri")
+          EntityRecognizerDocuments'
+            Prelude.<$> (x Prelude..: "S3Uri")
       )
 
-instance Hashable EntityRecognizerDocuments
+instance Prelude.Hashable EntityRecognizerDocuments
 
-instance NFData EntityRecognizerDocuments
+instance Prelude.NFData EntityRecognizerDocuments
 
-instance ToJSON EntityRecognizerDocuments where
+instance Prelude.ToJSON EntityRecognizerDocuments where
   toJSON EntityRecognizerDocuments' {..} =
-    object (catMaybes [Just ("S3Uri" .= _erdS3URI)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("S3Uri" Prelude..= s3Uri)]
+      )

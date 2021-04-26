@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,79 +19,96 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Comprehend.Types.EntityRecognizerEvaluationMetrics where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Detailed information about the accuracy of an entity recognizer.
 --
---
---
--- /See:/ 'entityRecognizerEvaluationMetrics' smart constructor.
+-- /See:/ 'newEntityRecognizerEvaluationMetrics' smart constructor.
 data EntityRecognizerEvaluationMetrics = EntityRecognizerEvaluationMetrics'
-  { _eremF1Score ::
-      !( Maybe
-           Double
-       ),
-    _eremPrecision ::
-      !( Maybe
-           Double
-       ),
-    _eremRecall ::
-      !( Maybe
-           Double
-       )
+  { -- | A measure of how accurate the recognizer results are for the test data.
+    -- It is derived from the @Precision@ and @Recall@ values. The @F1Score@ is
+    -- the harmonic average of the two scores. The highest score is 1, and the
+    -- worst score is 0.
+    f1Score :: Prelude.Maybe Prelude.Double,
+    -- | A measure of the usefulness of the recognizer results in the test data.
+    -- High precision means that the recognizer returned substantially more
+    -- relevant results than irrelevant ones.
+    precision :: Prelude.Maybe Prelude.Double,
+    -- | A measure of how complete the recognizer results are for the test data.
+    -- High recall means that the recognizer returned most of the relevant
+    -- results.
+    recall :: Prelude.Maybe Prelude.Double
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EntityRecognizerEvaluationMetrics' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EntityRecognizerEvaluationMetrics' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eremF1Score' - A measure of how accurate the recognizer results are for the test data. It is derived from the @Precision@ and @Recall@ values. The @F1Score@ is the harmonic average of the two scores. The highest score is 1, and the worst score is 0.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'eremPrecision' - A measure of the usefulness of the recognizer results in the test data. High precision means that the recognizer returned substantially more relevant results than irrelevant ones.
+-- 'f1Score', 'entityRecognizerEvaluationMetrics_f1Score' - A measure of how accurate the recognizer results are for the test data.
+-- It is derived from the @Precision@ and @Recall@ values. The @F1Score@ is
+-- the harmonic average of the two scores. The highest score is 1, and the
+-- worst score is 0.
 --
--- * 'eremRecall' - A measure of how complete the recognizer results are for the test data. High recall means that the recognizer returned most of the relevant results.
-entityRecognizerEvaluationMetrics ::
+-- 'precision', 'entityRecognizerEvaluationMetrics_precision' - A measure of the usefulness of the recognizer results in the test data.
+-- High precision means that the recognizer returned substantially more
+-- relevant results than irrelevant ones.
+--
+-- 'recall', 'entityRecognizerEvaluationMetrics_recall' - A measure of how complete the recognizer results are for the test data.
+-- High recall means that the recognizer returned most of the relevant
+-- results.
+newEntityRecognizerEvaluationMetrics ::
   EntityRecognizerEvaluationMetrics
-entityRecognizerEvaluationMetrics =
+newEntityRecognizerEvaluationMetrics =
   EntityRecognizerEvaluationMetrics'
-    { _eremF1Score =
-        Nothing,
-      _eremPrecision = Nothing,
-      _eremRecall = Nothing
+    { f1Score =
+        Prelude.Nothing,
+      precision = Prelude.Nothing,
+      recall = Prelude.Nothing
     }
 
--- | A measure of how accurate the recognizer results are for the test data. It is derived from the @Precision@ and @Recall@ values. The @F1Score@ is the harmonic average of the two scores. The highest score is 1, and the worst score is 0.
-eremF1Score :: Lens' EntityRecognizerEvaluationMetrics (Maybe Double)
-eremF1Score = lens _eremF1Score (\s a -> s {_eremF1Score = a})
+-- | A measure of how accurate the recognizer results are for the test data.
+-- It is derived from the @Precision@ and @Recall@ values. The @F1Score@ is
+-- the harmonic average of the two scores. The highest score is 1, and the
+-- worst score is 0.
+entityRecognizerEvaluationMetrics_f1Score :: Lens.Lens' EntityRecognizerEvaluationMetrics (Prelude.Maybe Prelude.Double)
+entityRecognizerEvaluationMetrics_f1Score = Lens.lens (\EntityRecognizerEvaluationMetrics' {f1Score} -> f1Score) (\s@EntityRecognizerEvaluationMetrics' {} a -> s {f1Score = a} :: EntityRecognizerEvaluationMetrics)
 
--- | A measure of the usefulness of the recognizer results in the test data. High precision means that the recognizer returned substantially more relevant results than irrelevant ones.
-eremPrecision :: Lens' EntityRecognizerEvaluationMetrics (Maybe Double)
-eremPrecision = lens _eremPrecision (\s a -> s {_eremPrecision = a})
+-- | A measure of the usefulness of the recognizer results in the test data.
+-- High precision means that the recognizer returned substantially more
+-- relevant results than irrelevant ones.
+entityRecognizerEvaluationMetrics_precision :: Lens.Lens' EntityRecognizerEvaluationMetrics (Prelude.Maybe Prelude.Double)
+entityRecognizerEvaluationMetrics_precision = Lens.lens (\EntityRecognizerEvaluationMetrics' {precision} -> precision) (\s@EntityRecognizerEvaluationMetrics' {} a -> s {precision = a} :: EntityRecognizerEvaluationMetrics)
 
--- | A measure of how complete the recognizer results are for the test data. High recall means that the recognizer returned most of the relevant results.
-eremRecall :: Lens' EntityRecognizerEvaluationMetrics (Maybe Double)
-eremRecall = lens _eremRecall (\s a -> s {_eremRecall = a})
+-- | A measure of how complete the recognizer results are for the test data.
+-- High recall means that the recognizer returned most of the relevant
+-- results.
+entityRecognizerEvaluationMetrics_recall :: Lens.Lens' EntityRecognizerEvaluationMetrics (Prelude.Maybe Prelude.Double)
+entityRecognizerEvaluationMetrics_recall = Lens.lens (\EntityRecognizerEvaluationMetrics' {recall} -> recall) (\s@EntityRecognizerEvaluationMetrics' {} a -> s {recall = a} :: EntityRecognizerEvaluationMetrics)
 
-instance FromJSON EntityRecognizerEvaluationMetrics where
+instance
+  Prelude.FromJSON
+    EntityRecognizerEvaluationMetrics
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "EntityRecognizerEvaluationMetrics"
       ( \x ->
           EntityRecognizerEvaluationMetrics'
-            <$> (x .:? "F1Score")
-            <*> (x .:? "Precision")
-            <*> (x .:? "Recall")
+            Prelude.<$> (x Prelude..:? "F1Score")
+            Prelude.<*> (x Prelude..:? "Precision")
+            Prelude.<*> (x Prelude..:? "Recall")
       )
 
-instance Hashable EntityRecognizerEvaluationMetrics
+instance
+  Prelude.Hashable
+    EntityRecognizerEvaluationMetrics
 
-instance NFData EntityRecognizerEvaluationMetrics
+instance
+  Prelude.NFData
+    EntityRecognizerEvaluationMetrics

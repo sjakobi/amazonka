@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,154 +24,157 @@
 -- Stops a PII entities detection job in progress.
 module Network.AWS.Comprehend.StopPiiEntitiesDetectionJob
   ( -- * Creating a Request
-    stopPiiEntitiesDetectionJob,
-    StopPiiEntitiesDetectionJob,
+    StopPiiEntitiesDetectionJob (..),
+    newStopPiiEntitiesDetectionJob,
 
     -- * Request Lenses
-    spedjJobId,
+    stopPiiEntitiesDetectionJob_jobId,
 
     -- * Destructuring the Response
-    stopPiiEntitiesDetectionJobResponse,
-    StopPiiEntitiesDetectionJobResponse,
+    StopPiiEntitiesDetectionJobResponse (..),
+    newStopPiiEntitiesDetectionJobResponse,
 
     -- * Response Lenses
-    spedjrrsJobStatus,
-    spedjrrsJobId,
-    spedjrrsResponseStatus,
+    stopPiiEntitiesDetectionJobResponse_jobStatus,
+    stopPiiEntitiesDetectionJobResponse_jobId,
+    stopPiiEntitiesDetectionJobResponse_httpStatus,
   )
 where
 
 import Network.AWS.Comprehend.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Comprehend.Types.JobStatus
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'stopPiiEntitiesDetectionJob' smart constructor.
-newtype StopPiiEntitiesDetectionJob = StopPiiEntitiesDetectionJob'
-  { _spedjJobId ::
-      Text
+-- | /See:/ 'newStopPiiEntitiesDetectionJob' smart constructor.
+data StopPiiEntitiesDetectionJob = StopPiiEntitiesDetectionJob'
+  { -- | The identifier of the PII entities detection job to stop.
+    jobId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopPiiEntitiesDetectionJob' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopPiiEntitiesDetectionJob' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'spedjJobId' - The identifier of the PII entities detection job to stop.
-stopPiiEntitiesDetectionJob ::
-  -- | 'spedjJobId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'jobId', 'stopPiiEntitiesDetectionJob_jobId' - The identifier of the PII entities detection job to stop.
+newStopPiiEntitiesDetectionJob ::
+  -- | 'jobId'
+  Prelude.Text ->
   StopPiiEntitiesDetectionJob
-stopPiiEntitiesDetectionJob pJobId_ =
-  StopPiiEntitiesDetectionJob' {_spedjJobId = pJobId_}
+newStopPiiEntitiesDetectionJob pJobId_ =
+  StopPiiEntitiesDetectionJob' {jobId = pJobId_}
 
 -- | The identifier of the PII entities detection job to stop.
-spedjJobId :: Lens' StopPiiEntitiesDetectionJob Text
-spedjJobId = lens _spedjJobId (\s a -> s {_spedjJobId = a})
+stopPiiEntitiesDetectionJob_jobId :: Lens.Lens' StopPiiEntitiesDetectionJob Prelude.Text
+stopPiiEntitiesDetectionJob_jobId = Lens.lens (\StopPiiEntitiesDetectionJob' {jobId} -> jobId) (\s@StopPiiEntitiesDetectionJob' {} a -> s {jobId = a} :: StopPiiEntitiesDetectionJob)
 
-instance AWSRequest StopPiiEntitiesDetectionJob where
+instance
+  Prelude.AWSRequest
+    StopPiiEntitiesDetectionJob
+  where
   type
     Rs StopPiiEntitiesDetectionJob =
       StopPiiEntitiesDetectionJobResponse
-  request = postJSON comprehend
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           StopPiiEntitiesDetectionJobResponse'
-            <$> (x .?> "JobStatus")
-            <*> (x .?> "JobId")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "JobStatus")
+            Prelude.<*> (x Prelude..?> "JobId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StopPiiEntitiesDetectionJob
+instance Prelude.Hashable StopPiiEntitiesDetectionJob
 
-instance NFData StopPiiEntitiesDetectionJob
+instance Prelude.NFData StopPiiEntitiesDetectionJob
 
-instance ToHeaders StopPiiEntitiesDetectionJob where
+instance
+  Prelude.ToHeaders
+    StopPiiEntitiesDetectionJob
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Comprehend_20171127.StopPiiEntitiesDetectionJob" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Comprehend_20171127.StopPiiEntitiesDetectionJob" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StopPiiEntitiesDetectionJob where
+instance Prelude.ToJSON StopPiiEntitiesDetectionJob where
   toJSON StopPiiEntitiesDetectionJob' {..} =
-    object (catMaybes [Just ("JobId" .= _spedjJobId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("JobId" Prelude..= jobId)]
+      )
 
-instance ToPath StopPiiEntitiesDetectionJob where
-  toPath = const "/"
+instance Prelude.ToPath StopPiiEntitiesDetectionJob where
+  toPath = Prelude.const "/"
 
-instance ToQuery StopPiiEntitiesDetectionJob where
-  toQuery = const mempty
+instance Prelude.ToQuery StopPiiEntitiesDetectionJob where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'stopPiiEntitiesDetectionJobResponse' smart constructor.
+-- | /See:/ 'newStopPiiEntitiesDetectionJobResponse' smart constructor.
 data StopPiiEntitiesDetectionJobResponse = StopPiiEntitiesDetectionJobResponse'
-  { _spedjrrsJobStatus ::
-      !( Maybe
-           JobStatus
-       ),
-    _spedjrrsJobId ::
-      !( Maybe
-           Text
-       ),
-    _spedjrrsResponseStatus ::
-      !Int
+  { -- | The status of the PII entities detection job.
+    jobStatus :: Prelude.Maybe JobStatus,
+    -- | The identifier of the PII entities detection job to stop.
+    jobId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopPiiEntitiesDetectionJobResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopPiiEntitiesDetectionJobResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'spedjrrsJobStatus' - The status of the PII entities detection job.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'spedjrrsJobId' - The identifier of the PII entities detection job to stop.
+-- 'jobStatus', 'stopPiiEntitiesDetectionJobResponse_jobStatus' - The status of the PII entities detection job.
 --
--- * 'spedjrrsResponseStatus' - -- | The response status code.
-stopPiiEntitiesDetectionJobResponse ::
-  -- | 'spedjrrsResponseStatus'
-  Int ->
+-- 'jobId', 'stopPiiEntitiesDetectionJobResponse_jobId' - The identifier of the PII entities detection job to stop.
+--
+-- 'httpStatus', 'stopPiiEntitiesDetectionJobResponse_httpStatus' - The response's http status code.
+newStopPiiEntitiesDetectionJobResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StopPiiEntitiesDetectionJobResponse
-stopPiiEntitiesDetectionJobResponse pResponseStatus_ =
+newStopPiiEntitiesDetectionJobResponse pHttpStatus_ =
   StopPiiEntitiesDetectionJobResponse'
-    { _spedjrrsJobStatus =
-        Nothing,
-      _spedjrrsJobId = Nothing,
-      _spedjrrsResponseStatus =
-        pResponseStatus_
+    { jobStatus =
+        Prelude.Nothing,
+      jobId = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The status of the PII entities detection job.
-spedjrrsJobStatus :: Lens' StopPiiEntitiesDetectionJobResponse (Maybe JobStatus)
-spedjrrsJobStatus = lens _spedjrrsJobStatus (\s a -> s {_spedjrrsJobStatus = a})
+stopPiiEntitiesDetectionJobResponse_jobStatus :: Lens.Lens' StopPiiEntitiesDetectionJobResponse (Prelude.Maybe JobStatus)
+stopPiiEntitiesDetectionJobResponse_jobStatus = Lens.lens (\StopPiiEntitiesDetectionJobResponse' {jobStatus} -> jobStatus) (\s@StopPiiEntitiesDetectionJobResponse' {} a -> s {jobStatus = a} :: StopPiiEntitiesDetectionJobResponse)
 
 -- | The identifier of the PII entities detection job to stop.
-spedjrrsJobId :: Lens' StopPiiEntitiesDetectionJobResponse (Maybe Text)
-spedjrrsJobId = lens _spedjrrsJobId (\s a -> s {_spedjrrsJobId = a})
+stopPiiEntitiesDetectionJobResponse_jobId :: Lens.Lens' StopPiiEntitiesDetectionJobResponse (Prelude.Maybe Prelude.Text)
+stopPiiEntitiesDetectionJobResponse_jobId = Lens.lens (\StopPiiEntitiesDetectionJobResponse' {jobId} -> jobId) (\s@StopPiiEntitiesDetectionJobResponse' {} a -> s {jobId = a} :: StopPiiEntitiesDetectionJobResponse)
 
--- | -- | The response status code.
-spedjrrsResponseStatus :: Lens' StopPiiEntitiesDetectionJobResponse Int
-spedjrrsResponseStatus = lens _spedjrrsResponseStatus (\s a -> s {_spedjrrsResponseStatus = a})
+-- | The response's http status code.
+stopPiiEntitiesDetectionJobResponse_httpStatus :: Lens.Lens' StopPiiEntitiesDetectionJobResponse Prelude.Int
+stopPiiEntitiesDetectionJobResponse_httpStatus = Lens.lens (\StopPiiEntitiesDetectionJobResponse' {httpStatus} -> httpStatus) (\s@StopPiiEntitiesDetectionJobResponse' {} a -> s {httpStatus = a} :: StopPiiEntitiesDetectionJobResponse)
 
-instance NFData StopPiiEntitiesDetectionJobResponse
+instance
+  Prelude.NFData
+    StopPiiEntitiesDetectionJobResponse

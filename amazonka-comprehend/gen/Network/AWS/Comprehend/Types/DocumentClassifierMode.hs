@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.Comprehend.Types.DocumentClassifierMode
   ( DocumentClassifierMode
       ( ..,
-        MultiClass,
-        MultiLabel
+        DocumentClassifierModeMULTICLASS,
+        DocumentClassifierModeMULTILABEL
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DocumentClassifierMode
-  = DocumentClassifierMode'
-      ( CI
-          Text
-      )
+newtype DocumentClassifierMode = DocumentClassifierMode'
+  { fromDocumentClassifierMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MultiClass :: DocumentClassifierMode
-pattern MultiClass = DocumentClassifierMode' "MULTI_CLASS"
+pattern DocumentClassifierModeMULTICLASS :: DocumentClassifierMode
+pattern DocumentClassifierModeMULTICLASS = DocumentClassifierMode' "MULTI_CLASS"
 
-pattern MultiLabel :: DocumentClassifierMode
-pattern MultiLabel = DocumentClassifierMode' "MULTI_LABEL"
+pattern DocumentClassifierModeMULTILABEL :: DocumentClassifierMode
+pattern DocumentClassifierModeMULTILABEL = DocumentClassifierMode' "MULTI_LABEL"
 
 {-# COMPLETE
-  MultiClass,
-  MultiLabel,
+  DocumentClassifierModeMULTICLASS,
+  DocumentClassifierModeMULTILABEL,
   DocumentClassifierMode'
   #-}
 
-instance FromText DocumentClassifierMode where
-  parser = (DocumentClassifierMode' . mk) <$> takeText
+instance Prelude.FromText DocumentClassifierMode where
+  parser = DocumentClassifierMode' Prelude.<$> Prelude.takeText
 
-instance ToText DocumentClassifierMode where
-  toText (DocumentClassifierMode' ci) = original ci
+instance Prelude.ToText DocumentClassifierMode where
+  toText (DocumentClassifierMode' x) = x
 
-instance Hashable DocumentClassifierMode
+instance Prelude.Hashable DocumentClassifierMode
 
-instance NFData DocumentClassifierMode
+instance Prelude.NFData DocumentClassifierMode
 
-instance ToByteString DocumentClassifierMode
+instance Prelude.ToByteString DocumentClassifierMode
 
-instance ToQuery DocumentClassifierMode
+instance Prelude.ToQuery DocumentClassifierMode
 
-instance ToHeader DocumentClassifierMode
+instance Prelude.ToHeader DocumentClassifierMode
 
-instance ToJSON DocumentClassifierMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON DocumentClassifierMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DocumentClassifierMode where
-  parseJSON = parseJSONText "DocumentClassifierMode"
+instance Prelude.FromJSON DocumentClassifierMode where
+  parseJSON = Prelude.parseJSONText "DocumentClassifierMode"

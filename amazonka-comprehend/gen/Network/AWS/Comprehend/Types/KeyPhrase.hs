@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,72 +19,104 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Comprehend.Types.KeyPhrase where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a key noun phrase.
 --
---
---
--- /See:/ 'keyPhrase' smart constructor.
+-- /See:/ 'newKeyPhrase' smart constructor.
 data KeyPhrase = KeyPhrase'
-  { _kpEndOffset ::
-      !(Maybe Int),
-    _kpScore :: !(Maybe Double),
-    _kpText :: !(Maybe Text),
-    _kpBeginOffset :: !(Maybe Int)
+  { -- | A character offset in the input text where the key phrase ends. The
+    -- offset returns the position of each UTF-8 code point in the string. A
+    -- @code point@ is the abstract character from a particular graphical
+    -- representation. For example, a multi-byte UTF-8 character maps to a
+    -- single code point.
+    endOffset :: Prelude.Maybe Prelude.Int,
+    -- | The level of confidence that Amazon Comprehend has in the accuracy of
+    -- the detection.
+    score :: Prelude.Maybe Prelude.Double,
+    -- | The text of a key noun phrase.
+    text :: Prelude.Maybe Prelude.Text,
+    -- | A character offset in the input text that shows where the key phrase
+    -- begins (the first character is at position 0). The offset returns the
+    -- position of each UTF-8 code point in the string. A /code point/ is the
+    -- abstract character from a particular graphical representation. For
+    -- example, a multi-byte UTF-8 character maps to a single code point.
+    beginOffset :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'KeyPhrase' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'KeyPhrase' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'kpEndOffset' - A character offset in the input text where the key phrase ends. The offset returns the position of each UTF-8 code point in the string. A @code point@ is the abstract character from a particular graphical representation. For example, a multi-byte UTF-8 character maps to a single code point.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'kpScore' - The level of confidence that Amazon Comprehend has in the accuracy of the detection.
+-- 'endOffset', 'keyPhrase_endOffset' - A character offset in the input text where the key phrase ends. The
+-- offset returns the position of each UTF-8 code point in the string. A
+-- @code point@ is the abstract character from a particular graphical
+-- representation. For example, a multi-byte UTF-8 character maps to a
+-- single code point.
 --
--- * 'kpText' - The text of a key noun phrase.
+-- 'score', 'keyPhrase_score' - The level of confidence that Amazon Comprehend has in the accuracy of
+-- the detection.
 --
--- * 'kpBeginOffset' - A character offset in the input text that shows where the key phrase begins (the first character is at position 0). The offset returns the position of each UTF-8 code point in the string. A /code point/ is the abstract character from a particular graphical representation. For example, a multi-byte UTF-8 character maps to a single code point.
-keyPhrase ::
+-- 'text', 'keyPhrase_text' - The text of a key noun phrase.
+--
+-- 'beginOffset', 'keyPhrase_beginOffset' - A character offset in the input text that shows where the key phrase
+-- begins (the first character is at position 0). The offset returns the
+-- position of each UTF-8 code point in the string. A /code point/ is the
+-- abstract character from a particular graphical representation. For
+-- example, a multi-byte UTF-8 character maps to a single code point.
+newKeyPhrase ::
   KeyPhrase
-keyPhrase =
+newKeyPhrase =
   KeyPhrase'
-    { _kpEndOffset = Nothing,
-      _kpScore = Nothing,
-      _kpText = Nothing,
-      _kpBeginOffset = Nothing
+    { endOffset = Prelude.Nothing,
+      score = Prelude.Nothing,
+      text = Prelude.Nothing,
+      beginOffset = Prelude.Nothing
     }
 
--- | A character offset in the input text where the key phrase ends. The offset returns the position of each UTF-8 code point in the string. A @code point@ is the abstract character from a particular graphical representation. For example, a multi-byte UTF-8 character maps to a single code point.
-kpEndOffset :: Lens' KeyPhrase (Maybe Int)
-kpEndOffset = lens _kpEndOffset (\s a -> s {_kpEndOffset = a})
+-- | A character offset in the input text where the key phrase ends. The
+-- offset returns the position of each UTF-8 code point in the string. A
+-- @code point@ is the abstract character from a particular graphical
+-- representation. For example, a multi-byte UTF-8 character maps to a
+-- single code point.
+keyPhrase_endOffset :: Lens.Lens' KeyPhrase (Prelude.Maybe Prelude.Int)
+keyPhrase_endOffset = Lens.lens (\KeyPhrase' {endOffset} -> endOffset) (\s@KeyPhrase' {} a -> s {endOffset = a} :: KeyPhrase)
 
--- | The level of confidence that Amazon Comprehend has in the accuracy of the detection.
-kpScore :: Lens' KeyPhrase (Maybe Double)
-kpScore = lens _kpScore (\s a -> s {_kpScore = a})
+-- | The level of confidence that Amazon Comprehend has in the accuracy of
+-- the detection.
+keyPhrase_score :: Lens.Lens' KeyPhrase (Prelude.Maybe Prelude.Double)
+keyPhrase_score = Lens.lens (\KeyPhrase' {score} -> score) (\s@KeyPhrase' {} a -> s {score = a} :: KeyPhrase)
 
 -- | The text of a key noun phrase.
-kpText :: Lens' KeyPhrase (Maybe Text)
-kpText = lens _kpText (\s a -> s {_kpText = a})
+keyPhrase_text :: Lens.Lens' KeyPhrase (Prelude.Maybe Prelude.Text)
+keyPhrase_text = Lens.lens (\KeyPhrase' {text} -> text) (\s@KeyPhrase' {} a -> s {text = a} :: KeyPhrase)
 
--- | A character offset in the input text that shows where the key phrase begins (the first character is at position 0). The offset returns the position of each UTF-8 code point in the string. A /code point/ is the abstract character from a particular graphical representation. For example, a multi-byte UTF-8 character maps to a single code point.
-kpBeginOffset :: Lens' KeyPhrase (Maybe Int)
-kpBeginOffset = lens _kpBeginOffset (\s a -> s {_kpBeginOffset = a})
+-- | A character offset in the input text that shows where the key phrase
+-- begins (the first character is at position 0). The offset returns the
+-- position of each UTF-8 code point in the string. A /code point/ is the
+-- abstract character from a particular graphical representation. For
+-- example, a multi-byte UTF-8 character maps to a single code point.
+keyPhrase_beginOffset :: Lens.Lens' KeyPhrase (Prelude.Maybe Prelude.Int)
+keyPhrase_beginOffset = Lens.lens (\KeyPhrase' {beginOffset} -> beginOffset) (\s@KeyPhrase' {} a -> s {beginOffset = a} :: KeyPhrase)
 
-instance FromJSON KeyPhrase where
+instance Prelude.FromJSON KeyPhrase where
   parseJSON =
-    withObject
+    Prelude.withObject
       "KeyPhrase"
       ( \x ->
           KeyPhrase'
-            <$> (x .:? "EndOffset")
-            <*> (x .:? "Score")
-            <*> (x .:? "Text")
-            <*> (x .:? "BeginOffset")
+            Prelude.<$> (x Prelude..:? "EndOffset")
+            Prelude.<*> (x Prelude..:? "Score")
+            Prelude.<*> (x Prelude..:? "Text")
+            Prelude.<*> (x Prelude..:? "BeginOffset")
       )
 
-instance Hashable KeyPhrase
+instance Prelude.Hashable KeyPhrase
 
-instance NFData KeyPhrase
+instance Prelude.NFData KeyPhrase

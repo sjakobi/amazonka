@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,186 +21,226 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a model-specific endpoint for synchronous inference for a previously trained custom model
+-- Creates a model-specific endpoint for synchronous inference for a
+-- previously trained custom model
 module Network.AWS.Comprehend.CreateEndpoint
   ( -- * Creating a Request
-    createEndpoint,
-    CreateEndpoint,
+    CreateEndpoint (..),
+    newCreateEndpoint,
 
     -- * Request Lenses
-    ceTags,
-    ceClientRequestToken,
-    ceEndpointName,
-    ceModelARN,
-    ceDesiredInferenceUnits,
+    createEndpoint_tags,
+    createEndpoint_clientRequestToken,
+    createEndpoint_endpointName,
+    createEndpoint_modelArn,
+    createEndpoint_desiredInferenceUnits,
 
     -- * Destructuring the Response
-    createEndpointResponse,
-    CreateEndpointResponse,
+    CreateEndpointResponse (..),
+    newCreateEndpointResponse,
 
     -- * Response Lenses
-    cerrsEndpointARN,
-    cerrsResponseStatus,
+    createEndpointResponse_endpointArn,
+    createEndpointResponse_httpStatus,
   )
 where
 
 import Network.AWS.Comprehend.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createEndpoint' smart constructor.
+-- | /See:/ 'newCreateEndpoint' smart constructor.
 data CreateEndpoint = CreateEndpoint'
-  { _ceTags ::
-      !(Maybe [Tag]),
-    _ceClientRequestToken :: !(Maybe Text),
-    _ceEndpointName :: !Text,
-    _ceModelARN :: !Text,
-    _ceDesiredInferenceUnits :: !Nat
+  { -- | Tags associated with the endpoint being created. A tag is a key-value
+    -- pair that adds metadata to the endpoint. For example, a tag with
+    -- \"Sales\" as the key might be added to an endpoint to indicate its use
+    -- by the sales department.
+    tags :: Prelude.Maybe [Tag],
+    -- | An idempotency token provided by the customer. If this token matches a
+    -- previous endpoint creation request, Amazon Comprehend will not return a
+    -- @ResourceInUseException@.
+    clientRequestToken :: Prelude.Maybe Prelude.Text,
+    -- | This is the descriptive suffix that becomes part of the @EndpointArn@
+    -- used for all subsequent requests to this resource.
+    endpointName :: Prelude.Text,
+    -- | The Amazon Resource Number (ARN) of the model to which the endpoint will
+    -- be attached.
+    modelArn :: Prelude.Text,
+    -- | The desired number of inference units to be used by the model using this
+    -- endpoint. Each inference unit represents of a throughput of 100
+    -- characters per second.
+    desiredInferenceUnits :: Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateEndpoint' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateEndpoint' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ceTags' - Tags associated with the endpoint being created. A tag is a key-value pair that adds metadata to the endpoint. For example, a tag with "Sales" as the key might be added to an endpoint to indicate its use by the sales department.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ceClientRequestToken' - An idempotency token provided by the customer. If this token matches a previous endpoint creation request, Amazon Comprehend will not return a @ResourceInUseException@ .
+-- 'tags', 'createEndpoint_tags' - Tags associated with the endpoint being created. A tag is a key-value
+-- pair that adds metadata to the endpoint. For example, a tag with
+-- \"Sales\" as the key might be added to an endpoint to indicate its use
+-- by the sales department.
 --
--- * 'ceEndpointName' - This is the descriptive suffix that becomes part of the @EndpointArn@ used for all subsequent requests to this resource.
+-- 'clientRequestToken', 'createEndpoint_clientRequestToken' - An idempotency token provided by the customer. If this token matches a
+-- previous endpoint creation request, Amazon Comprehend will not return a
+-- @ResourceInUseException@.
 --
--- * 'ceModelARN' - The Amazon Resource Number (ARN) of the model to which the endpoint will be attached.
+-- 'endpointName', 'createEndpoint_endpointName' - This is the descriptive suffix that becomes part of the @EndpointArn@
+-- used for all subsequent requests to this resource.
 --
--- * 'ceDesiredInferenceUnits' - The desired number of inference units to be used by the model using this endpoint. Each inference unit represents of a throughput of 100 characters per second.
-createEndpoint ::
-  -- | 'ceEndpointName'
-  Text ->
-  -- | 'ceModelARN'
-  Text ->
-  -- | 'ceDesiredInferenceUnits'
-  Natural ->
+-- 'modelArn', 'createEndpoint_modelArn' - The Amazon Resource Number (ARN) of the model to which the endpoint will
+-- be attached.
+--
+-- 'desiredInferenceUnits', 'createEndpoint_desiredInferenceUnits' - The desired number of inference units to be used by the model using this
+-- endpoint. Each inference unit represents of a throughput of 100
+-- characters per second.
+newCreateEndpoint ::
+  -- | 'endpointName'
+  Prelude.Text ->
+  -- | 'modelArn'
+  Prelude.Text ->
+  -- | 'desiredInferenceUnits'
+  Prelude.Natural ->
   CreateEndpoint
-createEndpoint
+newCreateEndpoint
   pEndpointName_
-  pModelARN_
+  pModelArn_
   pDesiredInferenceUnits_ =
     CreateEndpoint'
-      { _ceTags = Nothing,
-        _ceClientRequestToken = Nothing,
-        _ceEndpointName = pEndpointName_,
-        _ceModelARN = pModelARN_,
-        _ceDesiredInferenceUnits =
-          _Nat # pDesiredInferenceUnits_
+      { tags = Prelude.Nothing,
+        clientRequestToken = Prelude.Nothing,
+        endpointName = pEndpointName_,
+        modelArn = pModelArn_,
+        desiredInferenceUnits =
+          Prelude._Nat Lens.# pDesiredInferenceUnits_
       }
 
--- | Tags associated with the endpoint being created. A tag is a key-value pair that adds metadata to the endpoint. For example, a tag with "Sales" as the key might be added to an endpoint to indicate its use by the sales department.
-ceTags :: Lens' CreateEndpoint [Tag]
-ceTags = lens _ceTags (\s a -> s {_ceTags = a}) . _Default . _Coerce
+-- | Tags associated with the endpoint being created. A tag is a key-value
+-- pair that adds metadata to the endpoint. For example, a tag with
+-- \"Sales\" as the key might be added to an endpoint to indicate its use
+-- by the sales department.
+createEndpoint_tags :: Lens.Lens' CreateEndpoint (Prelude.Maybe [Tag])
+createEndpoint_tags = Lens.lens (\CreateEndpoint' {tags} -> tags) (\s@CreateEndpoint' {} a -> s {tags = a} :: CreateEndpoint) Prelude.. Lens.mapping Prelude._Coerce
 
--- | An idempotency token provided by the customer. If this token matches a previous endpoint creation request, Amazon Comprehend will not return a @ResourceInUseException@ .
-ceClientRequestToken :: Lens' CreateEndpoint (Maybe Text)
-ceClientRequestToken = lens _ceClientRequestToken (\s a -> s {_ceClientRequestToken = a})
+-- | An idempotency token provided by the customer. If this token matches a
+-- previous endpoint creation request, Amazon Comprehend will not return a
+-- @ResourceInUseException@.
+createEndpoint_clientRequestToken :: Lens.Lens' CreateEndpoint (Prelude.Maybe Prelude.Text)
+createEndpoint_clientRequestToken = Lens.lens (\CreateEndpoint' {clientRequestToken} -> clientRequestToken) (\s@CreateEndpoint' {} a -> s {clientRequestToken = a} :: CreateEndpoint)
 
--- | This is the descriptive suffix that becomes part of the @EndpointArn@ used for all subsequent requests to this resource.
-ceEndpointName :: Lens' CreateEndpoint Text
-ceEndpointName = lens _ceEndpointName (\s a -> s {_ceEndpointName = a})
+-- | This is the descriptive suffix that becomes part of the @EndpointArn@
+-- used for all subsequent requests to this resource.
+createEndpoint_endpointName :: Lens.Lens' CreateEndpoint Prelude.Text
+createEndpoint_endpointName = Lens.lens (\CreateEndpoint' {endpointName} -> endpointName) (\s@CreateEndpoint' {} a -> s {endpointName = a} :: CreateEndpoint)
 
--- | The Amazon Resource Number (ARN) of the model to which the endpoint will be attached.
-ceModelARN :: Lens' CreateEndpoint Text
-ceModelARN = lens _ceModelARN (\s a -> s {_ceModelARN = a})
+-- | The Amazon Resource Number (ARN) of the model to which the endpoint will
+-- be attached.
+createEndpoint_modelArn :: Lens.Lens' CreateEndpoint Prelude.Text
+createEndpoint_modelArn = Lens.lens (\CreateEndpoint' {modelArn} -> modelArn) (\s@CreateEndpoint' {} a -> s {modelArn = a} :: CreateEndpoint)
 
--- | The desired number of inference units to be used by the model using this endpoint. Each inference unit represents of a throughput of 100 characters per second.
-ceDesiredInferenceUnits :: Lens' CreateEndpoint Natural
-ceDesiredInferenceUnits = lens _ceDesiredInferenceUnits (\s a -> s {_ceDesiredInferenceUnits = a}) . _Nat
+-- | The desired number of inference units to be used by the model using this
+-- endpoint. Each inference unit represents of a throughput of 100
+-- characters per second.
+createEndpoint_desiredInferenceUnits :: Lens.Lens' CreateEndpoint Prelude.Natural
+createEndpoint_desiredInferenceUnits = Lens.lens (\CreateEndpoint' {desiredInferenceUnits} -> desiredInferenceUnits) (\s@CreateEndpoint' {} a -> s {desiredInferenceUnits = a} :: CreateEndpoint) Prelude.. Prelude._Nat
 
-instance AWSRequest CreateEndpoint where
+instance Prelude.AWSRequest CreateEndpoint where
   type Rs CreateEndpoint = CreateEndpointResponse
-  request = postJSON comprehend
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateEndpointResponse'
-            <$> (x .?> "EndpointArn") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "EndpointArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateEndpoint
+instance Prelude.Hashable CreateEndpoint
 
-instance NFData CreateEndpoint
+instance Prelude.NFData CreateEndpoint
 
-instance ToHeaders CreateEndpoint where
+instance Prelude.ToHeaders CreateEndpoint where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("Comprehend_20171127.CreateEndpoint" :: ByteString),
+              Prelude.=# ( "Comprehend_20171127.CreateEndpoint" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateEndpoint where
+instance Prelude.ToJSON CreateEndpoint where
   toJSON CreateEndpoint' {..} =
-    object
-      ( catMaybes
-          [ ("Tags" .=) <$> _ceTags,
-            ("ClientRequestToken" .=) <$> _ceClientRequestToken,
-            Just ("EndpointName" .= _ceEndpointName),
-            Just ("ModelArn" .= _ceModelARN),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Tags" Prelude..=) Prelude.<$> tags,
+            ("ClientRequestToken" Prelude..=)
+              Prelude.<$> clientRequestToken,
+            Prelude.Just
+              ("EndpointName" Prelude..= endpointName),
+            Prelude.Just ("ModelArn" Prelude..= modelArn),
+            Prelude.Just
               ( "DesiredInferenceUnits"
-                  .= _ceDesiredInferenceUnits
+                  Prelude..= desiredInferenceUnits
               )
           ]
       )
 
-instance ToPath CreateEndpoint where
-  toPath = const "/"
+instance Prelude.ToPath CreateEndpoint where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateEndpoint where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateEndpoint where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createEndpointResponse' smart constructor.
+-- | /See:/ 'newCreateEndpointResponse' smart constructor.
 data CreateEndpointResponse = CreateEndpointResponse'
-  { _cerrsEndpointARN ::
-      !(Maybe Text),
-    _cerrsResponseStatus ::
-      !Int
+  { -- | The Amazon Resource Number (ARN) of the endpoint being created.
+    endpointArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateEndpointResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateEndpointResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cerrsEndpointARN' - The Amazon Resource Number (ARN) of the endpoint being created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cerrsResponseStatus' - -- | The response status code.
-createEndpointResponse ::
-  -- | 'cerrsResponseStatus'
-  Int ->
+-- 'endpointArn', 'createEndpointResponse_endpointArn' - The Amazon Resource Number (ARN) of the endpoint being created.
+--
+-- 'httpStatus', 'createEndpointResponse_httpStatus' - The response's http status code.
+newCreateEndpointResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateEndpointResponse
-createEndpointResponse pResponseStatus_ =
+newCreateEndpointResponse pHttpStatus_ =
   CreateEndpointResponse'
-    { _cerrsEndpointARN =
-        Nothing,
-      _cerrsResponseStatus = pResponseStatus_
+    { endpointArn =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The Amazon Resource Number (ARN) of the endpoint being created.
-cerrsEndpointARN :: Lens' CreateEndpointResponse (Maybe Text)
-cerrsEndpointARN = lens _cerrsEndpointARN (\s a -> s {_cerrsEndpointARN = a})
+createEndpointResponse_endpointArn :: Lens.Lens' CreateEndpointResponse (Prelude.Maybe Prelude.Text)
+createEndpointResponse_endpointArn = Lens.lens (\CreateEndpointResponse' {endpointArn} -> endpointArn) (\s@CreateEndpointResponse' {} a -> s {endpointArn = a} :: CreateEndpointResponse)
 
--- | -- | The response status code.
-cerrsResponseStatus :: Lens' CreateEndpointResponse Int
-cerrsResponseStatus = lens _cerrsResponseStatus (\s a -> s {_cerrsResponseStatus = a})
+-- | The response's http status code.
+createEndpointResponse_httpStatus :: Lens.Lens' CreateEndpointResponse Prelude.Int
+createEndpointResponse_httpStatus = Lens.lens (\CreateEndpointResponse' {httpStatus} -> httpStatus) (\s@CreateEndpointResponse' {} a -> s {httpStatus = a} :: CreateEndpointResponse)
 
-instance NFData CreateEndpointResponse
+instance Prelude.NFData CreateEndpointResponse

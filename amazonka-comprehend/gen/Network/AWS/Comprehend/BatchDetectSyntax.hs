@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,153 +21,205 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Inspects the text of a batch of documents for the syntax and part of speech of the words in the document and returns information about them. For more information, see 'how-syntax' .
+-- Inspects the text of a batch of documents for the syntax and part of
+-- speech of the words in the document and returns information about them.
+-- For more information, see how-syntax.
 module Network.AWS.Comprehend.BatchDetectSyntax
   ( -- * Creating a Request
-    batchDetectSyntax,
-    BatchDetectSyntax,
+    BatchDetectSyntax (..),
+    newBatchDetectSyntax,
 
     -- * Request Lenses
-    bTextList,
-    bLanguageCode,
+    batchDetectSyntax_textList,
+    batchDetectSyntax_languageCode,
 
     -- * Destructuring the Response
-    batchDetectSyntaxResponse,
-    BatchDetectSyntaxResponse,
+    BatchDetectSyntaxResponse (..),
+    newBatchDetectSyntaxResponse,
 
     -- * Response Lenses
-    brsResponseStatus,
-    brsResultList,
-    brsErrorList,
+    batchDetectSyntaxResponse_httpStatus,
+    batchDetectSyntaxResponse_resultList,
+    batchDetectSyntaxResponse_errorList,
   )
 where
 
 import Network.AWS.Comprehend.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Comprehend.Types.BatchDetectSyntaxItemResult
+import Network.AWS.Comprehend.Types.BatchItemError
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'batchDetectSyntax' smart constructor.
+-- | /See:/ 'newBatchDetectSyntax' smart constructor.
 data BatchDetectSyntax = BatchDetectSyntax'
-  { _bTextList ::
-      !(Sensitive [Sensitive Text]),
-    _bLanguageCode ::
-      !SyntaxLanguageCode
+  { -- | A list containing the text of the input documents. The list can contain
+    -- a maximum of 25 documents. Each document must contain fewer that 5,000
+    -- bytes of UTF-8 encoded characters.
+    textList :: Prelude.Sensitive [Prelude.Sensitive Prelude.Text],
+    -- | The language of the input documents. You can specify any of the
+    -- following languages supported by Amazon Comprehend: German (\"de\"),
+    -- English (\"en\"), Spanish (\"es\"), French (\"fr\"), Italian (\"it\"),
+    -- or Portuguese (\"pt\"). All documents must be in the same language.
+    languageCode :: SyntaxLanguageCode
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchDetectSyntax' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchDetectSyntax' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bTextList' - A list containing the text of the input documents. The list can contain a maximum of 25 documents. Each document must contain fewer that 5,000 bytes of UTF-8 encoded characters.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bLanguageCode' - The language of the input documents. You can specify any of the following languages supported by Amazon Comprehend: German ("de"), English ("en"), Spanish ("es"), French ("fr"), Italian ("it"), or Portuguese ("pt"). All documents must be in the same language.
-batchDetectSyntax ::
-  -- | 'bLanguageCode'
+-- 'textList', 'batchDetectSyntax_textList' - A list containing the text of the input documents. The list can contain
+-- a maximum of 25 documents. Each document must contain fewer that 5,000
+-- bytes of UTF-8 encoded characters.
+--
+-- 'languageCode', 'batchDetectSyntax_languageCode' - The language of the input documents. You can specify any of the
+-- following languages supported by Amazon Comprehend: German (\"de\"),
+-- English (\"en\"), Spanish (\"es\"), French (\"fr\"), Italian (\"it\"),
+-- or Portuguese (\"pt\"). All documents must be in the same language.
+newBatchDetectSyntax ::
+  -- | 'languageCode'
   SyntaxLanguageCode ->
   BatchDetectSyntax
-batchDetectSyntax pLanguageCode_ =
+newBatchDetectSyntax pLanguageCode_ =
   BatchDetectSyntax'
-    { _bTextList = mempty,
-      _bLanguageCode = pLanguageCode_
+    { textList = Prelude.mempty,
+      languageCode = pLanguageCode_
     }
 
--- | A list containing the text of the input documents. The list can contain a maximum of 25 documents. Each document must contain fewer that 5,000 bytes of UTF-8 encoded characters.
-bTextList :: Lens' BatchDetectSyntax [Text]
-bTextList = lens _bTextList (\s a -> s {_bTextList = a}) . _Sensitive . _Coerce
+-- | A list containing the text of the input documents. The list can contain
+-- a maximum of 25 documents. Each document must contain fewer that 5,000
+-- bytes of UTF-8 encoded characters.
+batchDetectSyntax_textList :: Lens.Lens' BatchDetectSyntax [Prelude.Text]
+batchDetectSyntax_textList = Lens.lens (\BatchDetectSyntax' {textList} -> textList) (\s@BatchDetectSyntax' {} a -> s {textList = a} :: BatchDetectSyntax) Prelude.. Prelude._Sensitive Prelude.. Prelude._Coerce
 
--- | The language of the input documents. You can specify any of the following languages supported by Amazon Comprehend: German ("de"), English ("en"), Spanish ("es"), French ("fr"), Italian ("it"), or Portuguese ("pt"). All documents must be in the same language.
-bLanguageCode :: Lens' BatchDetectSyntax SyntaxLanguageCode
-bLanguageCode = lens _bLanguageCode (\s a -> s {_bLanguageCode = a})
+-- | The language of the input documents. You can specify any of the
+-- following languages supported by Amazon Comprehend: German (\"de\"),
+-- English (\"en\"), Spanish (\"es\"), French (\"fr\"), Italian (\"it\"),
+-- or Portuguese (\"pt\"). All documents must be in the same language.
+batchDetectSyntax_languageCode :: Lens.Lens' BatchDetectSyntax SyntaxLanguageCode
+batchDetectSyntax_languageCode = Lens.lens (\BatchDetectSyntax' {languageCode} -> languageCode) (\s@BatchDetectSyntax' {} a -> s {languageCode = a} :: BatchDetectSyntax)
 
-instance AWSRequest BatchDetectSyntax where
+instance Prelude.AWSRequest BatchDetectSyntax where
   type Rs BatchDetectSyntax = BatchDetectSyntaxResponse
-  request = postJSON comprehend
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           BatchDetectSyntaxResponse'
-            <$> (pure (fromEnum s))
-            <*> (x .?> "ResultList" .!@ mempty)
-            <*> (x .?> "ErrorList" .!@ mempty)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> ( x Prelude..?> "ResultList"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..?> "ErrorList"
+                            Prelude..!@ Prelude.mempty
+                        )
       )
 
-instance Hashable BatchDetectSyntax
+instance Prelude.Hashable BatchDetectSyntax
 
-instance NFData BatchDetectSyntax
+instance Prelude.NFData BatchDetectSyntax
 
-instance ToHeaders BatchDetectSyntax where
+instance Prelude.ToHeaders BatchDetectSyntax where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Comprehend_20171127.BatchDetectSyntax" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Comprehend_20171127.BatchDetectSyntax" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON BatchDetectSyntax where
+instance Prelude.ToJSON BatchDetectSyntax where
   toJSON BatchDetectSyntax' {..} =
-    object
-      ( catMaybes
-          [ Just ("TextList" .= _bTextList),
-            Just ("LanguageCode" .= _bLanguageCode)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("TextList" Prelude..= textList),
+            Prelude.Just
+              ("LanguageCode" Prelude..= languageCode)
           ]
       )
 
-instance ToPath BatchDetectSyntax where
-  toPath = const "/"
+instance Prelude.ToPath BatchDetectSyntax where
+  toPath = Prelude.const "/"
 
-instance ToQuery BatchDetectSyntax where
-  toQuery = const mempty
+instance Prelude.ToQuery BatchDetectSyntax where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'batchDetectSyntaxResponse' smart constructor.
+-- | /See:/ 'newBatchDetectSyntaxResponse' smart constructor.
 data BatchDetectSyntaxResponse = BatchDetectSyntaxResponse'
-  { _brsResponseStatus ::
-      !Int,
-    _brsResultList ::
-      ![BatchDetectSyntaxItemResult],
-    _brsErrorList ::
-      ![BatchItemError]
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | A list of objects containing the results of the operation. The results
+    -- are sorted in ascending order by the @Index@ field and match the order
+    -- of the documents in the input list. If all of the documents contain an
+    -- error, the @ResultList@ is empty.
+    resultList :: [BatchDetectSyntaxItemResult],
+    -- | A list containing one object for each document that contained an error.
+    -- The results are sorted in ascending order by the @Index@ field and match
+    -- the order of the documents in the input list. If there are no errors in
+    -- the batch, the @ErrorList@ is empty.
+    errorList :: [BatchItemError]
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchDetectSyntaxResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchDetectSyntaxResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'brsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'brsResultList' - A list of objects containing the results of the operation. The results are sorted in ascending order by the @Index@ field and match the order of the documents in the input list. If all of the documents contain an error, the @ResultList@ is empty.
+-- 'httpStatus', 'batchDetectSyntaxResponse_httpStatus' - The response's http status code.
 --
--- * 'brsErrorList' - A list containing one object for each document that contained an error. The results are sorted in ascending order by the @Index@ field and match the order of the documents in the input list. If there are no errors in the batch, the @ErrorList@ is empty.
-batchDetectSyntaxResponse ::
-  -- | 'brsResponseStatus'
-  Int ->
+-- 'resultList', 'batchDetectSyntaxResponse_resultList' - A list of objects containing the results of the operation. The results
+-- are sorted in ascending order by the @Index@ field and match the order
+-- of the documents in the input list. If all of the documents contain an
+-- error, the @ResultList@ is empty.
+--
+-- 'errorList', 'batchDetectSyntaxResponse_errorList' - A list containing one object for each document that contained an error.
+-- The results are sorted in ascending order by the @Index@ field and match
+-- the order of the documents in the input list. If there are no errors in
+-- the batch, the @ErrorList@ is empty.
+newBatchDetectSyntaxResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   BatchDetectSyntaxResponse
-batchDetectSyntaxResponse pResponseStatus_ =
+newBatchDetectSyntaxResponse pHttpStatus_ =
   BatchDetectSyntaxResponse'
-    { _brsResponseStatus =
-        pResponseStatus_,
-      _brsResultList = mempty,
-      _brsErrorList = mempty
+    { httpStatus =
+        pHttpStatus_,
+      resultList = Prelude.mempty,
+      errorList = Prelude.mempty
     }
 
--- | -- | The response status code.
-brsResponseStatus :: Lens' BatchDetectSyntaxResponse Int
-brsResponseStatus = lens _brsResponseStatus (\s a -> s {_brsResponseStatus = a})
+-- | The response's http status code.
+batchDetectSyntaxResponse_httpStatus :: Lens.Lens' BatchDetectSyntaxResponse Prelude.Int
+batchDetectSyntaxResponse_httpStatus = Lens.lens (\BatchDetectSyntaxResponse' {httpStatus} -> httpStatus) (\s@BatchDetectSyntaxResponse' {} a -> s {httpStatus = a} :: BatchDetectSyntaxResponse)
 
--- | A list of objects containing the results of the operation. The results are sorted in ascending order by the @Index@ field and match the order of the documents in the input list. If all of the documents contain an error, the @ResultList@ is empty.
-brsResultList :: Lens' BatchDetectSyntaxResponse [BatchDetectSyntaxItemResult]
-brsResultList = lens _brsResultList (\s a -> s {_brsResultList = a}) . _Coerce
+-- | A list of objects containing the results of the operation. The results
+-- are sorted in ascending order by the @Index@ field and match the order
+-- of the documents in the input list. If all of the documents contain an
+-- error, the @ResultList@ is empty.
+batchDetectSyntaxResponse_resultList :: Lens.Lens' BatchDetectSyntaxResponse [BatchDetectSyntaxItemResult]
+batchDetectSyntaxResponse_resultList = Lens.lens (\BatchDetectSyntaxResponse' {resultList} -> resultList) (\s@BatchDetectSyntaxResponse' {} a -> s {resultList = a} :: BatchDetectSyntaxResponse) Prelude.. Prelude._Coerce
 
--- | A list containing one object for each document that contained an error. The results are sorted in ascending order by the @Index@ field and match the order of the documents in the input list. If there are no errors in the batch, the @ErrorList@ is empty.
-brsErrorList :: Lens' BatchDetectSyntaxResponse [BatchItemError]
-brsErrorList = lens _brsErrorList (\s a -> s {_brsErrorList = a}) . _Coerce
+-- | A list containing one object for each document that contained an error.
+-- The results are sorted in ascending order by the @Index@ field and match
+-- the order of the documents in the input list. If there are no errors in
+-- the batch, the @ErrorList@ is empty.
+batchDetectSyntaxResponse_errorList :: Lens.Lens' BatchDetectSyntaxResponse [BatchItemError]
+batchDetectSyntaxResponse_errorList = Lens.lens (\BatchDetectSyntaxResponse' {errorList} -> errorList) (\s@BatchDetectSyntaxResponse' {} a -> s {errorList = a} :: BatchDetectSyntaxResponse) Prelude.. Prelude._Coerce
 
-instance NFData BatchDetectSyntaxResponse
+instance Prelude.NFData BatchDetectSyntaxResponse

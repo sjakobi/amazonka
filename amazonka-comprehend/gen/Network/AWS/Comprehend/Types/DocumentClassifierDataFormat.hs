@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.Comprehend.Types.DocumentClassifierDataFormat
   ( DocumentClassifierDataFormat
       ( ..,
-        DCDFAugmentedManifest,
-        DCDFComprehendCSV
+        DocumentClassifierDataFormatAUGMENTEDMANIFEST,
+        DocumentClassifierDataFormatCOMPREHENDCSV
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DocumentClassifierDataFormat
-  = DocumentClassifierDataFormat'
-      ( CI
-          Text
-      )
+newtype DocumentClassifierDataFormat = DocumentClassifierDataFormat'
+  { fromDocumentClassifierDataFormat ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DCDFAugmentedManifest :: DocumentClassifierDataFormat
-pattern DCDFAugmentedManifest = DocumentClassifierDataFormat' "AUGMENTED_MANIFEST"
+pattern DocumentClassifierDataFormatAUGMENTEDMANIFEST :: DocumentClassifierDataFormat
+pattern DocumentClassifierDataFormatAUGMENTEDMANIFEST = DocumentClassifierDataFormat' "AUGMENTED_MANIFEST"
 
-pattern DCDFComprehendCSV :: DocumentClassifierDataFormat
-pattern DCDFComprehendCSV = DocumentClassifierDataFormat' "COMPREHEND_CSV"
+pattern DocumentClassifierDataFormatCOMPREHENDCSV :: DocumentClassifierDataFormat
+pattern DocumentClassifierDataFormatCOMPREHENDCSV = DocumentClassifierDataFormat' "COMPREHEND_CSV"
 
 {-# COMPLETE
-  DCDFAugmentedManifest,
-  DCDFComprehendCSV,
+  DocumentClassifierDataFormatAUGMENTEDMANIFEST,
+  DocumentClassifierDataFormatCOMPREHENDCSV,
   DocumentClassifierDataFormat'
   #-}
 
-instance FromText DocumentClassifierDataFormat where
-  parser = (DocumentClassifierDataFormat' . mk) <$> takeText
+instance Prelude.FromText DocumentClassifierDataFormat where
+  parser = DocumentClassifierDataFormat' Prelude.<$> Prelude.takeText
 
-instance ToText DocumentClassifierDataFormat where
-  toText (DocumentClassifierDataFormat' ci) = original ci
+instance Prelude.ToText DocumentClassifierDataFormat where
+  toText (DocumentClassifierDataFormat' x) = x
 
-instance Hashable DocumentClassifierDataFormat
+instance Prelude.Hashable DocumentClassifierDataFormat
 
-instance NFData DocumentClassifierDataFormat
+instance Prelude.NFData DocumentClassifierDataFormat
 
-instance ToByteString DocumentClassifierDataFormat
+instance Prelude.ToByteString DocumentClassifierDataFormat
 
-instance ToQuery DocumentClassifierDataFormat
+instance Prelude.ToQuery DocumentClassifierDataFormat
 
-instance ToHeader DocumentClassifierDataFormat
+instance Prelude.ToHeader DocumentClassifierDataFormat
 
-instance ToJSON DocumentClassifierDataFormat where
-  toJSON = toJSONText
+instance Prelude.ToJSON DocumentClassifierDataFormat where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DocumentClassifierDataFormat where
-  parseJSON = parseJSONText "DocumentClassifierDataFormat"
+instance Prelude.FromJSON DocumentClassifierDataFormat where
+  parseJSON = Prelude.parseJSONText "DocumentClassifierDataFormat"

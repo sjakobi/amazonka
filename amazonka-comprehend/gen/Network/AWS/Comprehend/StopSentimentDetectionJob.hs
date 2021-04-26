@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,162 +23,170 @@
 --
 -- Stops a sentiment detection job in progress.
 --
+-- If the job state is @IN_PROGRESS@ the job is marked for termination and
+-- put into the @STOP_REQUESTED@ state. If the job completes before it can
+-- be stopped, it is put into the @COMPLETED@ state; otherwise the job is
+-- be stopped and put into the @STOPPED@ state.
 --
--- If the job state is @IN_PROGRESS@ the job is marked for termination and put into the @STOP_REQUESTED@ state. If the job completes before it can be stopped, it is put into the @COMPLETED@ state; otherwise the job is be stopped and put into the @STOPPED@ state.
+-- If the job is in the @COMPLETED@ or @FAILED@ state when you call the
+-- @StopDominantLanguageDetectionJob@ operation, the operation returns a
+-- 400 Internal Request Exception.
 --
--- If the job is in the @COMPLETED@ or @FAILED@ state when you call the @StopDominantLanguageDetectionJob@ operation, the operation returns a 400 Internal Request Exception.
---
--- When a job is stopped, any documents already processed are written to the output location.
+-- When a job is stopped, any documents already processed are written to
+-- the output location.
 module Network.AWS.Comprehend.StopSentimentDetectionJob
   ( -- * Creating a Request
-    stopSentimentDetectionJob,
-    StopSentimentDetectionJob,
+    StopSentimentDetectionJob (..),
+    newStopSentimentDetectionJob,
 
     -- * Request Lenses
-    ssdjJobId,
+    stopSentimentDetectionJob_jobId,
 
     -- * Destructuring the Response
-    stopSentimentDetectionJobResponse,
-    StopSentimentDetectionJobResponse,
+    StopSentimentDetectionJobResponse (..),
+    newStopSentimentDetectionJobResponse,
 
     -- * Response Lenses
-    ssdjrrsJobStatus,
-    ssdjrrsJobId,
-    ssdjrrsResponseStatus,
+    stopSentimentDetectionJobResponse_jobStatus,
+    stopSentimentDetectionJobResponse_jobId,
+    stopSentimentDetectionJobResponse_httpStatus,
   )
 where
 
 import Network.AWS.Comprehend.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Comprehend.Types.JobStatus
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'stopSentimentDetectionJob' smart constructor.
-newtype StopSentimentDetectionJob = StopSentimentDetectionJob'
-  { _ssdjJobId ::
-      Text
+-- | /See:/ 'newStopSentimentDetectionJob' smart constructor.
+data StopSentimentDetectionJob = StopSentimentDetectionJob'
+  { -- | The identifier of the sentiment detection job to stop.
+    jobId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopSentimentDetectionJob' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopSentimentDetectionJob' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ssdjJobId' - The identifier of the sentiment detection job to stop.
-stopSentimentDetectionJob ::
-  -- | 'ssdjJobId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'jobId', 'stopSentimentDetectionJob_jobId' - The identifier of the sentiment detection job to stop.
+newStopSentimentDetectionJob ::
+  -- | 'jobId'
+  Prelude.Text ->
   StopSentimentDetectionJob
-stopSentimentDetectionJob pJobId_ =
-  StopSentimentDetectionJob' {_ssdjJobId = pJobId_}
+newStopSentimentDetectionJob pJobId_ =
+  StopSentimentDetectionJob' {jobId = pJobId_}
 
 -- | The identifier of the sentiment detection job to stop.
-ssdjJobId :: Lens' StopSentimentDetectionJob Text
-ssdjJobId = lens _ssdjJobId (\s a -> s {_ssdjJobId = a})
+stopSentimentDetectionJob_jobId :: Lens.Lens' StopSentimentDetectionJob Prelude.Text
+stopSentimentDetectionJob_jobId = Lens.lens (\StopSentimentDetectionJob' {jobId} -> jobId) (\s@StopSentimentDetectionJob' {} a -> s {jobId = a} :: StopSentimentDetectionJob)
 
-instance AWSRequest StopSentimentDetectionJob where
+instance Prelude.AWSRequest StopSentimentDetectionJob where
   type
     Rs StopSentimentDetectionJob =
       StopSentimentDetectionJobResponse
-  request = postJSON comprehend
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           StopSentimentDetectionJobResponse'
-            <$> (x .?> "JobStatus")
-            <*> (x .?> "JobId")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "JobStatus")
+            Prelude.<*> (x Prelude..?> "JobId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StopSentimentDetectionJob
+instance Prelude.Hashable StopSentimentDetectionJob
 
-instance NFData StopSentimentDetectionJob
+instance Prelude.NFData StopSentimentDetectionJob
 
-instance ToHeaders StopSentimentDetectionJob where
+instance Prelude.ToHeaders StopSentimentDetectionJob where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Comprehend_20171127.StopSentimentDetectionJob" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Comprehend_20171127.StopSentimentDetectionJob" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StopSentimentDetectionJob where
+instance Prelude.ToJSON StopSentimentDetectionJob where
   toJSON StopSentimentDetectionJob' {..} =
-    object (catMaybes [Just ("JobId" .= _ssdjJobId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("JobId" Prelude..= jobId)]
+      )
 
-instance ToPath StopSentimentDetectionJob where
-  toPath = const "/"
+instance Prelude.ToPath StopSentimentDetectionJob where
+  toPath = Prelude.const "/"
 
-instance ToQuery StopSentimentDetectionJob where
-  toQuery = const mempty
+instance Prelude.ToQuery StopSentimentDetectionJob where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'stopSentimentDetectionJobResponse' smart constructor.
+-- | /See:/ 'newStopSentimentDetectionJobResponse' smart constructor.
 data StopSentimentDetectionJobResponse = StopSentimentDetectionJobResponse'
-  { _ssdjrrsJobStatus ::
-      !( Maybe
-           JobStatus
-       ),
-    _ssdjrrsJobId ::
-      !( Maybe
-           Text
-       ),
-    _ssdjrrsResponseStatus ::
-      !Int
+  { -- | Either @STOP_REQUESTED@ if the job is currently running, or @STOPPED@ if
+    -- the job was previously stopped with the @StopSentimentDetectionJob@
+    -- operation.
+    jobStatus :: Prelude.Maybe JobStatus,
+    -- | The identifier of the sentiment detection job to stop.
+    jobId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopSentimentDetectionJobResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopSentimentDetectionJobResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ssdjrrsJobStatus' - Either @STOP_REQUESTED@ if the job is currently running, or @STOPPED@ if the job was previously stopped with the @StopSentimentDetectionJob@ operation.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ssdjrrsJobId' - The identifier of the sentiment detection job to stop.
+-- 'jobStatus', 'stopSentimentDetectionJobResponse_jobStatus' - Either @STOP_REQUESTED@ if the job is currently running, or @STOPPED@ if
+-- the job was previously stopped with the @StopSentimentDetectionJob@
+-- operation.
 --
--- * 'ssdjrrsResponseStatus' - -- | The response status code.
-stopSentimentDetectionJobResponse ::
-  -- | 'ssdjrrsResponseStatus'
-  Int ->
+-- 'jobId', 'stopSentimentDetectionJobResponse_jobId' - The identifier of the sentiment detection job to stop.
+--
+-- 'httpStatus', 'stopSentimentDetectionJobResponse_httpStatus' - The response's http status code.
+newStopSentimentDetectionJobResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StopSentimentDetectionJobResponse
-stopSentimentDetectionJobResponse pResponseStatus_ =
+newStopSentimentDetectionJobResponse pHttpStatus_ =
   StopSentimentDetectionJobResponse'
-    { _ssdjrrsJobStatus =
-        Nothing,
-      _ssdjrrsJobId = Nothing,
-      _ssdjrrsResponseStatus =
-        pResponseStatus_
+    { jobStatus =
+        Prelude.Nothing,
+      jobId = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Either @STOP_REQUESTED@ if the job is currently running, or @STOPPED@ if the job was previously stopped with the @StopSentimentDetectionJob@ operation.
-ssdjrrsJobStatus :: Lens' StopSentimentDetectionJobResponse (Maybe JobStatus)
-ssdjrrsJobStatus = lens _ssdjrrsJobStatus (\s a -> s {_ssdjrrsJobStatus = a})
+-- | Either @STOP_REQUESTED@ if the job is currently running, or @STOPPED@ if
+-- the job was previously stopped with the @StopSentimentDetectionJob@
+-- operation.
+stopSentimentDetectionJobResponse_jobStatus :: Lens.Lens' StopSentimentDetectionJobResponse (Prelude.Maybe JobStatus)
+stopSentimentDetectionJobResponse_jobStatus = Lens.lens (\StopSentimentDetectionJobResponse' {jobStatus} -> jobStatus) (\s@StopSentimentDetectionJobResponse' {} a -> s {jobStatus = a} :: StopSentimentDetectionJobResponse)
 
 -- | The identifier of the sentiment detection job to stop.
-ssdjrrsJobId :: Lens' StopSentimentDetectionJobResponse (Maybe Text)
-ssdjrrsJobId = lens _ssdjrrsJobId (\s a -> s {_ssdjrrsJobId = a})
+stopSentimentDetectionJobResponse_jobId :: Lens.Lens' StopSentimentDetectionJobResponse (Prelude.Maybe Prelude.Text)
+stopSentimentDetectionJobResponse_jobId = Lens.lens (\StopSentimentDetectionJobResponse' {jobId} -> jobId) (\s@StopSentimentDetectionJobResponse' {} a -> s {jobId = a} :: StopSentimentDetectionJobResponse)
 
--- | -- | The response status code.
-ssdjrrsResponseStatus :: Lens' StopSentimentDetectionJobResponse Int
-ssdjrrsResponseStatus = lens _ssdjrrsResponseStatus (\s a -> s {_ssdjrrsResponseStatus = a})
+-- | The response's http status code.
+stopSentimentDetectionJobResponse_httpStatus :: Lens.Lens' StopSentimentDetectionJobResponse Prelude.Int
+stopSentimentDetectionJobResponse_httpStatus = Lens.lens (\StopSentimentDetectionJobResponse' {httpStatus} -> httpStatus) (\s@StopSentimentDetectionJobResponse' {} a -> s {httpStatus = a} :: StopSentimentDetectionJobResponse)
 
-instance NFData StopSentimentDetectionJobResponse
+instance
+  Prelude.NFData
+    StopSentimentDetectionJobResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,63 +19,65 @@
 module Network.AWS.Comprehend.Types.SentimentType
   ( SentimentType
       ( ..,
-        Mixed,
-        Negative,
-        Neutral,
-        Positive
+        SentimentTypeMIXED,
+        SentimentTypeNEGATIVE,
+        SentimentTypeNEUTRAL,
+        SentimentTypePOSITIVE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SentimentType = SentimentType' (CI Text)
+newtype SentimentType = SentimentType'
+  { fromSentimentType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Mixed :: SentimentType
-pattern Mixed = SentimentType' "MIXED"
+pattern SentimentTypeMIXED :: SentimentType
+pattern SentimentTypeMIXED = SentimentType' "MIXED"
 
-pattern Negative :: SentimentType
-pattern Negative = SentimentType' "NEGATIVE"
+pattern SentimentTypeNEGATIVE :: SentimentType
+pattern SentimentTypeNEGATIVE = SentimentType' "NEGATIVE"
 
-pattern Neutral :: SentimentType
-pattern Neutral = SentimentType' "NEUTRAL"
+pattern SentimentTypeNEUTRAL :: SentimentType
+pattern SentimentTypeNEUTRAL = SentimentType' "NEUTRAL"
 
-pattern Positive :: SentimentType
-pattern Positive = SentimentType' "POSITIVE"
+pattern SentimentTypePOSITIVE :: SentimentType
+pattern SentimentTypePOSITIVE = SentimentType' "POSITIVE"
 
 {-# COMPLETE
-  Mixed,
-  Negative,
-  Neutral,
-  Positive,
+  SentimentTypeMIXED,
+  SentimentTypeNEGATIVE,
+  SentimentTypeNEUTRAL,
+  SentimentTypePOSITIVE,
   SentimentType'
   #-}
 
-instance FromText SentimentType where
-  parser = (SentimentType' . mk) <$> takeText
+instance Prelude.FromText SentimentType where
+  parser = SentimentType' Prelude.<$> Prelude.takeText
 
-instance ToText SentimentType where
-  toText (SentimentType' ci) = original ci
+instance Prelude.ToText SentimentType where
+  toText (SentimentType' x) = x
 
-instance Hashable SentimentType
+instance Prelude.Hashable SentimentType
 
-instance NFData SentimentType
+instance Prelude.NFData SentimentType
 
-instance ToByteString SentimentType
+instance Prelude.ToByteString SentimentType
 
-instance ToQuery SentimentType
+instance Prelude.ToQuery SentimentType
 
-instance ToHeader SentimentType
+instance Prelude.ToHeader SentimentType
 
-instance FromJSON SentimentType where
-  parseJSON = parseJSONText "SentimentType"
+instance Prelude.FromJSON SentimentType where
+  parseJSON = Prelude.parseJSONText "SentimentType"

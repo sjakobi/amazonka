@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,81 +20,94 @@
 module Network.AWS.Comprehend.Types.EventsDetectionJobFilter where
 
 import Network.AWS.Comprehend.Types.JobStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Provides information for filtering a list of event detection jobs.
 --
---
---
--- /See:/ 'eventsDetectionJobFilter' smart constructor.
+-- /See:/ 'newEventsDetectionJobFilter' smart constructor.
 data EventsDetectionJobFilter = EventsDetectionJobFilter'
-  { _edjfJobStatus ::
-      !(Maybe JobStatus),
-    _edjfSubmitTimeBefore ::
-      !(Maybe POSIX),
-    _edjfSubmitTimeAfter ::
-      !(Maybe POSIX),
-    _edjfJobName ::
-      !(Maybe Text)
+  { -- | Filters the list of jobs based on job status. Returns only jobs with the
+    -- specified status.
+    jobStatus :: Prelude.Maybe JobStatus,
+    -- | Filters the list of jobs based on the time that the job was submitted
+    -- for processing. Returns only jobs submitted before the specified time.
+    -- Jobs are returned in ascending order, oldest to newest.
+    submitTimeBefore :: Prelude.Maybe Prelude.POSIX,
+    -- | Filters the list of jobs based on the time that the job was submitted
+    -- for processing. Returns only jobs submitted after the specified time.
+    -- Jobs are returned in descending order, newest to oldest.
+    submitTimeAfter :: Prelude.Maybe Prelude.POSIX,
+    -- | Filters on the name of the events detection job.
+    jobName :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EventsDetectionJobFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EventsDetectionJobFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'edjfJobStatus' - Filters the list of jobs based on job status. Returns only jobs with the specified status.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'edjfSubmitTimeBefore' - Filters the list of jobs based on the time that the job was submitted for processing. Returns only jobs submitted before the specified time. Jobs are returned in ascending order, oldest to newest.
+-- 'jobStatus', 'eventsDetectionJobFilter_jobStatus' - Filters the list of jobs based on job status. Returns only jobs with the
+-- specified status.
 --
--- * 'edjfSubmitTimeAfter' - Filters the list of jobs based on the time that the job was submitted for processing. Returns only jobs submitted after the specified time. Jobs are returned in descending order, newest to oldest.
+-- 'submitTimeBefore', 'eventsDetectionJobFilter_submitTimeBefore' - Filters the list of jobs based on the time that the job was submitted
+-- for processing. Returns only jobs submitted before the specified time.
+-- Jobs are returned in ascending order, oldest to newest.
 --
--- * 'edjfJobName' - Filters on the name of the events detection job.
-eventsDetectionJobFilter ::
+-- 'submitTimeAfter', 'eventsDetectionJobFilter_submitTimeAfter' - Filters the list of jobs based on the time that the job was submitted
+-- for processing. Returns only jobs submitted after the specified time.
+-- Jobs are returned in descending order, newest to oldest.
+--
+-- 'jobName', 'eventsDetectionJobFilter_jobName' - Filters on the name of the events detection job.
+newEventsDetectionJobFilter ::
   EventsDetectionJobFilter
-eventsDetectionJobFilter =
+newEventsDetectionJobFilter =
   EventsDetectionJobFilter'
-    { _edjfJobStatus = Nothing,
-      _edjfSubmitTimeBefore = Nothing,
-      _edjfSubmitTimeAfter = Nothing,
-      _edjfJobName = Nothing
+    { jobStatus =
+        Prelude.Nothing,
+      submitTimeBefore = Prelude.Nothing,
+      submitTimeAfter = Prelude.Nothing,
+      jobName = Prelude.Nothing
     }
 
--- | Filters the list of jobs based on job status. Returns only jobs with the specified status.
-edjfJobStatus :: Lens' EventsDetectionJobFilter (Maybe JobStatus)
-edjfJobStatus = lens _edjfJobStatus (\s a -> s {_edjfJobStatus = a})
+-- | Filters the list of jobs based on job status. Returns only jobs with the
+-- specified status.
+eventsDetectionJobFilter_jobStatus :: Lens.Lens' EventsDetectionJobFilter (Prelude.Maybe JobStatus)
+eventsDetectionJobFilter_jobStatus = Lens.lens (\EventsDetectionJobFilter' {jobStatus} -> jobStatus) (\s@EventsDetectionJobFilter' {} a -> s {jobStatus = a} :: EventsDetectionJobFilter)
 
--- | Filters the list of jobs based on the time that the job was submitted for processing. Returns only jobs submitted before the specified time. Jobs are returned in ascending order, oldest to newest.
-edjfSubmitTimeBefore :: Lens' EventsDetectionJobFilter (Maybe UTCTime)
-edjfSubmitTimeBefore = lens _edjfSubmitTimeBefore (\s a -> s {_edjfSubmitTimeBefore = a}) . mapping _Time
+-- | Filters the list of jobs based on the time that the job was submitted
+-- for processing. Returns only jobs submitted before the specified time.
+-- Jobs are returned in ascending order, oldest to newest.
+eventsDetectionJobFilter_submitTimeBefore :: Lens.Lens' EventsDetectionJobFilter (Prelude.Maybe Prelude.UTCTime)
+eventsDetectionJobFilter_submitTimeBefore = Lens.lens (\EventsDetectionJobFilter' {submitTimeBefore} -> submitTimeBefore) (\s@EventsDetectionJobFilter' {} a -> s {submitTimeBefore = a} :: EventsDetectionJobFilter) Prelude.. Lens.mapping Prelude._Time
 
--- | Filters the list of jobs based on the time that the job was submitted for processing. Returns only jobs submitted after the specified time. Jobs are returned in descending order, newest to oldest.
-edjfSubmitTimeAfter :: Lens' EventsDetectionJobFilter (Maybe UTCTime)
-edjfSubmitTimeAfter = lens _edjfSubmitTimeAfter (\s a -> s {_edjfSubmitTimeAfter = a}) . mapping _Time
+-- | Filters the list of jobs based on the time that the job was submitted
+-- for processing. Returns only jobs submitted after the specified time.
+-- Jobs are returned in descending order, newest to oldest.
+eventsDetectionJobFilter_submitTimeAfter :: Lens.Lens' EventsDetectionJobFilter (Prelude.Maybe Prelude.UTCTime)
+eventsDetectionJobFilter_submitTimeAfter = Lens.lens (\EventsDetectionJobFilter' {submitTimeAfter} -> submitTimeAfter) (\s@EventsDetectionJobFilter' {} a -> s {submitTimeAfter = a} :: EventsDetectionJobFilter) Prelude.. Lens.mapping Prelude._Time
 
 -- | Filters on the name of the events detection job.
-edjfJobName :: Lens' EventsDetectionJobFilter (Maybe Text)
-edjfJobName = lens _edjfJobName (\s a -> s {_edjfJobName = a})
+eventsDetectionJobFilter_jobName :: Lens.Lens' EventsDetectionJobFilter (Prelude.Maybe Prelude.Text)
+eventsDetectionJobFilter_jobName = Lens.lens (\EventsDetectionJobFilter' {jobName} -> jobName) (\s@EventsDetectionJobFilter' {} a -> s {jobName = a} :: EventsDetectionJobFilter)
 
-instance Hashable EventsDetectionJobFilter
+instance Prelude.Hashable EventsDetectionJobFilter
 
-instance NFData EventsDetectionJobFilter
+instance Prelude.NFData EventsDetectionJobFilter
 
-instance ToJSON EventsDetectionJobFilter where
+instance Prelude.ToJSON EventsDetectionJobFilter where
   toJSON EventsDetectionJobFilter' {..} =
-    object
-      ( catMaybes
-          [ ("JobStatus" .=) <$> _edjfJobStatus,
-            ("SubmitTimeBefore" .=) <$> _edjfSubmitTimeBefore,
-            ("SubmitTimeAfter" .=) <$> _edjfSubmitTimeAfter,
-            ("JobName" .=) <$> _edjfJobName
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("JobStatus" Prelude..=) Prelude.<$> jobStatus,
+            ("SubmitTimeBefore" Prelude..=)
+              Prelude.<$> submitTimeBefore,
+            ("SubmitTimeAfter" Prelude..=)
+              Prelude.<$> submitTimeAfter,
+            ("JobName" Prelude..=) Prelude.<$> jobName
           ]
       )

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -19,169 +23,162 @@ import Network.AWS.Comprehend.Types.InputDataConfig
 import Network.AWS.Comprehend.Types.JobStatus
 import Network.AWS.Comprehend.Types.LanguageCode
 import Network.AWS.Comprehend.Types.OutputDataConfig
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Provides information about an events detection job.
 --
---
---
--- /See:/ 'eventsDetectionJobProperties' smart constructor.
+-- /See:/ 'newEventsDetectionJobProperties' smart constructor.
 data EventsDetectionJobProperties = EventsDetectionJobProperties'
-  { _edjpLanguageCode ::
-      !( Maybe
-           LanguageCode
-       ),
-    _edjpInputDataConfig ::
-      !( Maybe
-           InputDataConfig
-       ),
-    _edjpMessage ::
-      !(Maybe Text),
-    _edjpJobStatus ::
-      !( Maybe
-           JobStatus
-       ),
-    _edjpOutputDataConfig ::
-      !( Maybe
-           OutputDataConfig
-       ),
-    _edjpEndTime ::
-      !( Maybe
-           POSIX
-       ),
-    _edjpSubmitTime ::
-      !( Maybe
-           POSIX
-       ),
-    _edjpTargetEventTypes ::
-      !( Maybe
-           ( List1
-               Text
-           )
-       ),
-    _edjpJobName ::
-      !(Maybe Text),
-    _edjpDataAccessRoleARN ::
-      !(Maybe Text),
-    _edjpJobId ::
-      !(Maybe Text)
+  { -- | The language code of the input documents.
+    languageCode :: Prelude.Maybe LanguageCode,
+    -- | The input data configuration that you supplied when you created the
+    -- events detection job.
+    inputDataConfig :: Prelude.Maybe InputDataConfig,
+    -- | A description of the status of the events detection job.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The current status of the events detection job.
+    jobStatus :: Prelude.Maybe JobStatus,
+    -- | The output data configuration that you supplied when you created the
+    -- events detection job.
+    outputDataConfig :: Prelude.Maybe OutputDataConfig,
+    -- | The time that the events detection job completed.
+    endTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The time that the events detection job was submitted for processing.
+    submitTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The types of events that are detected by the job.
+    targetEventTypes :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | The name you assigned the events detection job.
+    jobName :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the AWS Identify and Access Management
+    -- (IAM) role that grants Amazon Comprehend read access to your input data.
+    dataAccessRoleArn :: Prelude.Maybe Prelude.Text,
+    -- | The identifier assigned to the events detection job.
+    jobId :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EventsDetectionJobProperties' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EventsDetectionJobProperties' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'edjpLanguageCode' - The language code of the input documents.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'edjpInputDataConfig' - The input data configuration that you supplied when you created the events detection job.
+-- 'languageCode', 'eventsDetectionJobProperties_languageCode' - The language code of the input documents.
 --
--- * 'edjpMessage' - A description of the status of the events detection job.
+-- 'inputDataConfig', 'eventsDetectionJobProperties_inputDataConfig' - The input data configuration that you supplied when you created the
+-- events detection job.
 --
--- * 'edjpJobStatus' - The current status of the events detection job.
+-- 'message', 'eventsDetectionJobProperties_message' - A description of the status of the events detection job.
 --
--- * 'edjpOutputDataConfig' - The output data configuration that you supplied when you created the events detection job.
+-- 'jobStatus', 'eventsDetectionJobProperties_jobStatus' - The current status of the events detection job.
 --
--- * 'edjpEndTime' - The time that the events detection job completed.
+-- 'outputDataConfig', 'eventsDetectionJobProperties_outputDataConfig' - The output data configuration that you supplied when you created the
+-- events detection job.
 --
--- * 'edjpSubmitTime' - The time that the events detection job was submitted for processing.
+-- 'endTime', 'eventsDetectionJobProperties_endTime' - The time that the events detection job completed.
 --
--- * 'edjpTargetEventTypes' - The types of events that are detected by the job.
+-- 'submitTime', 'eventsDetectionJobProperties_submitTime' - The time that the events detection job was submitted for processing.
 --
--- * 'edjpJobName' - The name you assigned the events detection job.
+-- 'targetEventTypes', 'eventsDetectionJobProperties_targetEventTypes' - The types of events that are detected by the job.
 --
--- * 'edjpDataAccessRoleARN' - The Amazon Resource Name (ARN) of the AWS Identify and Access Management (IAM) role that grants Amazon Comprehend read access to your input data.
+-- 'jobName', 'eventsDetectionJobProperties_jobName' - The name you assigned the events detection job.
 --
--- * 'edjpJobId' - The identifier assigned to the events detection job.
-eventsDetectionJobProperties ::
+-- 'dataAccessRoleArn', 'eventsDetectionJobProperties_dataAccessRoleArn' - The Amazon Resource Name (ARN) of the AWS Identify and Access Management
+-- (IAM) role that grants Amazon Comprehend read access to your input data.
+--
+-- 'jobId', 'eventsDetectionJobProperties_jobId' - The identifier assigned to the events detection job.
+newEventsDetectionJobProperties ::
   EventsDetectionJobProperties
-eventsDetectionJobProperties =
+newEventsDetectionJobProperties =
   EventsDetectionJobProperties'
-    { _edjpLanguageCode =
-        Nothing,
-      _edjpInputDataConfig = Nothing,
-      _edjpMessage = Nothing,
-      _edjpJobStatus = Nothing,
-      _edjpOutputDataConfig = Nothing,
-      _edjpEndTime = Nothing,
-      _edjpSubmitTime = Nothing,
-      _edjpTargetEventTypes = Nothing,
-      _edjpJobName = Nothing,
-      _edjpDataAccessRoleARN = Nothing,
-      _edjpJobId = Nothing
+    { languageCode =
+        Prelude.Nothing,
+      inputDataConfig = Prelude.Nothing,
+      message = Prelude.Nothing,
+      jobStatus = Prelude.Nothing,
+      outputDataConfig = Prelude.Nothing,
+      endTime = Prelude.Nothing,
+      submitTime = Prelude.Nothing,
+      targetEventTypes = Prelude.Nothing,
+      jobName = Prelude.Nothing,
+      dataAccessRoleArn = Prelude.Nothing,
+      jobId = Prelude.Nothing
     }
 
 -- | The language code of the input documents.
-edjpLanguageCode :: Lens' EventsDetectionJobProperties (Maybe LanguageCode)
-edjpLanguageCode = lens _edjpLanguageCode (\s a -> s {_edjpLanguageCode = a})
+eventsDetectionJobProperties_languageCode :: Lens.Lens' EventsDetectionJobProperties (Prelude.Maybe LanguageCode)
+eventsDetectionJobProperties_languageCode = Lens.lens (\EventsDetectionJobProperties' {languageCode} -> languageCode) (\s@EventsDetectionJobProperties' {} a -> s {languageCode = a} :: EventsDetectionJobProperties)
 
--- | The input data configuration that you supplied when you created the events detection job.
-edjpInputDataConfig :: Lens' EventsDetectionJobProperties (Maybe InputDataConfig)
-edjpInputDataConfig = lens _edjpInputDataConfig (\s a -> s {_edjpInputDataConfig = a})
+-- | The input data configuration that you supplied when you created the
+-- events detection job.
+eventsDetectionJobProperties_inputDataConfig :: Lens.Lens' EventsDetectionJobProperties (Prelude.Maybe InputDataConfig)
+eventsDetectionJobProperties_inputDataConfig = Lens.lens (\EventsDetectionJobProperties' {inputDataConfig} -> inputDataConfig) (\s@EventsDetectionJobProperties' {} a -> s {inputDataConfig = a} :: EventsDetectionJobProperties)
 
 -- | A description of the status of the events detection job.
-edjpMessage :: Lens' EventsDetectionJobProperties (Maybe Text)
-edjpMessage = lens _edjpMessage (\s a -> s {_edjpMessage = a})
+eventsDetectionJobProperties_message :: Lens.Lens' EventsDetectionJobProperties (Prelude.Maybe Prelude.Text)
+eventsDetectionJobProperties_message = Lens.lens (\EventsDetectionJobProperties' {message} -> message) (\s@EventsDetectionJobProperties' {} a -> s {message = a} :: EventsDetectionJobProperties)
 
 -- | The current status of the events detection job.
-edjpJobStatus :: Lens' EventsDetectionJobProperties (Maybe JobStatus)
-edjpJobStatus = lens _edjpJobStatus (\s a -> s {_edjpJobStatus = a})
+eventsDetectionJobProperties_jobStatus :: Lens.Lens' EventsDetectionJobProperties (Prelude.Maybe JobStatus)
+eventsDetectionJobProperties_jobStatus = Lens.lens (\EventsDetectionJobProperties' {jobStatus} -> jobStatus) (\s@EventsDetectionJobProperties' {} a -> s {jobStatus = a} :: EventsDetectionJobProperties)
 
--- | The output data configuration that you supplied when you created the events detection job.
-edjpOutputDataConfig :: Lens' EventsDetectionJobProperties (Maybe OutputDataConfig)
-edjpOutputDataConfig = lens _edjpOutputDataConfig (\s a -> s {_edjpOutputDataConfig = a})
+-- | The output data configuration that you supplied when you created the
+-- events detection job.
+eventsDetectionJobProperties_outputDataConfig :: Lens.Lens' EventsDetectionJobProperties (Prelude.Maybe OutputDataConfig)
+eventsDetectionJobProperties_outputDataConfig = Lens.lens (\EventsDetectionJobProperties' {outputDataConfig} -> outputDataConfig) (\s@EventsDetectionJobProperties' {} a -> s {outputDataConfig = a} :: EventsDetectionJobProperties)
 
 -- | The time that the events detection job completed.
-edjpEndTime :: Lens' EventsDetectionJobProperties (Maybe UTCTime)
-edjpEndTime = lens _edjpEndTime (\s a -> s {_edjpEndTime = a}) . mapping _Time
+eventsDetectionJobProperties_endTime :: Lens.Lens' EventsDetectionJobProperties (Prelude.Maybe Prelude.UTCTime)
+eventsDetectionJobProperties_endTime = Lens.lens (\EventsDetectionJobProperties' {endTime} -> endTime) (\s@EventsDetectionJobProperties' {} a -> s {endTime = a} :: EventsDetectionJobProperties) Prelude.. Lens.mapping Prelude._Time
 
 -- | The time that the events detection job was submitted for processing.
-edjpSubmitTime :: Lens' EventsDetectionJobProperties (Maybe UTCTime)
-edjpSubmitTime = lens _edjpSubmitTime (\s a -> s {_edjpSubmitTime = a}) . mapping _Time
+eventsDetectionJobProperties_submitTime :: Lens.Lens' EventsDetectionJobProperties (Prelude.Maybe Prelude.UTCTime)
+eventsDetectionJobProperties_submitTime = Lens.lens (\EventsDetectionJobProperties' {submitTime} -> submitTime) (\s@EventsDetectionJobProperties' {} a -> s {submitTime = a} :: EventsDetectionJobProperties) Prelude.. Lens.mapping Prelude._Time
 
 -- | The types of events that are detected by the job.
-edjpTargetEventTypes :: Lens' EventsDetectionJobProperties (Maybe (NonEmpty Text))
-edjpTargetEventTypes = lens _edjpTargetEventTypes (\s a -> s {_edjpTargetEventTypes = a}) . mapping _List1
+eventsDetectionJobProperties_targetEventTypes :: Lens.Lens' EventsDetectionJobProperties (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+eventsDetectionJobProperties_targetEventTypes = Lens.lens (\EventsDetectionJobProperties' {targetEventTypes} -> targetEventTypes) (\s@EventsDetectionJobProperties' {} a -> s {targetEventTypes = a} :: EventsDetectionJobProperties) Prelude.. Lens.mapping Prelude._List1
 
 -- | The name you assigned the events detection job.
-edjpJobName :: Lens' EventsDetectionJobProperties (Maybe Text)
-edjpJobName = lens _edjpJobName (\s a -> s {_edjpJobName = a})
+eventsDetectionJobProperties_jobName :: Lens.Lens' EventsDetectionJobProperties (Prelude.Maybe Prelude.Text)
+eventsDetectionJobProperties_jobName = Lens.lens (\EventsDetectionJobProperties' {jobName} -> jobName) (\s@EventsDetectionJobProperties' {} a -> s {jobName = a} :: EventsDetectionJobProperties)
 
--- | The Amazon Resource Name (ARN) of the AWS Identify and Access Management (IAM) role that grants Amazon Comprehend read access to your input data.
-edjpDataAccessRoleARN :: Lens' EventsDetectionJobProperties (Maybe Text)
-edjpDataAccessRoleARN = lens _edjpDataAccessRoleARN (\s a -> s {_edjpDataAccessRoleARN = a})
+-- | The Amazon Resource Name (ARN) of the AWS Identify and Access Management
+-- (IAM) role that grants Amazon Comprehend read access to your input data.
+eventsDetectionJobProperties_dataAccessRoleArn :: Lens.Lens' EventsDetectionJobProperties (Prelude.Maybe Prelude.Text)
+eventsDetectionJobProperties_dataAccessRoleArn = Lens.lens (\EventsDetectionJobProperties' {dataAccessRoleArn} -> dataAccessRoleArn) (\s@EventsDetectionJobProperties' {} a -> s {dataAccessRoleArn = a} :: EventsDetectionJobProperties)
 
 -- | The identifier assigned to the events detection job.
-edjpJobId :: Lens' EventsDetectionJobProperties (Maybe Text)
-edjpJobId = lens _edjpJobId (\s a -> s {_edjpJobId = a})
+eventsDetectionJobProperties_jobId :: Lens.Lens' EventsDetectionJobProperties (Prelude.Maybe Prelude.Text)
+eventsDetectionJobProperties_jobId = Lens.lens (\EventsDetectionJobProperties' {jobId} -> jobId) (\s@EventsDetectionJobProperties' {} a -> s {jobId = a} :: EventsDetectionJobProperties)
 
-instance FromJSON EventsDetectionJobProperties where
+instance
+  Prelude.FromJSON
+    EventsDetectionJobProperties
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "EventsDetectionJobProperties"
       ( \x ->
           EventsDetectionJobProperties'
-            <$> (x .:? "LanguageCode")
-            <*> (x .:? "InputDataConfig")
-            <*> (x .:? "Message")
-            <*> (x .:? "JobStatus")
-            <*> (x .:? "OutputDataConfig")
-            <*> (x .:? "EndTime")
-            <*> (x .:? "SubmitTime")
-            <*> (x .:? "TargetEventTypes")
-            <*> (x .:? "JobName")
-            <*> (x .:? "DataAccessRoleArn")
-            <*> (x .:? "JobId")
+            Prelude.<$> (x Prelude..:? "LanguageCode")
+            Prelude.<*> (x Prelude..:? "InputDataConfig")
+            Prelude.<*> (x Prelude..:? "Message")
+            Prelude.<*> (x Prelude..:? "JobStatus")
+            Prelude.<*> (x Prelude..:? "OutputDataConfig")
+            Prelude.<*> (x Prelude..:? "EndTime")
+            Prelude.<*> (x Prelude..:? "SubmitTime")
+            Prelude.<*> (x Prelude..:? "TargetEventTypes")
+            Prelude.<*> (x Prelude..:? "JobName")
+            Prelude.<*> (x Prelude..:? "DataAccessRoleArn")
+            Prelude.<*> (x Prelude..:? "JobId")
       )
 
-instance Hashable EventsDetectionJobProperties
+instance
+  Prelude.Hashable
+    EventsDetectionJobProperties
 
-instance NFData EventsDetectionJobProperties
+instance Prelude.NFData EventsDetectionJobProperties

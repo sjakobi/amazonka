@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.Comprehend.Types.InputFormat
   ( InputFormat
       ( ..,
-        OneDocPerFile,
-        OneDocPerLine
+        InputFormatONEDOCPERFILE,
+        InputFormatONEDOCPERLINE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data InputFormat = InputFormat' (CI Text)
+newtype InputFormat = InputFormat'
+  { fromInputFormat ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern OneDocPerFile :: InputFormat
-pattern OneDocPerFile = InputFormat' "ONE_DOC_PER_FILE"
+pattern InputFormatONEDOCPERFILE :: InputFormat
+pattern InputFormatONEDOCPERFILE = InputFormat' "ONE_DOC_PER_FILE"
 
-pattern OneDocPerLine :: InputFormat
-pattern OneDocPerLine = InputFormat' "ONE_DOC_PER_LINE"
+pattern InputFormatONEDOCPERLINE :: InputFormat
+pattern InputFormatONEDOCPERLINE = InputFormat' "ONE_DOC_PER_LINE"
 
 {-# COMPLETE
-  OneDocPerFile,
-  OneDocPerLine,
+  InputFormatONEDOCPERFILE,
+  InputFormatONEDOCPERLINE,
   InputFormat'
   #-}
 
-instance FromText InputFormat where
-  parser = (InputFormat' . mk) <$> takeText
+instance Prelude.FromText InputFormat where
+  parser = InputFormat' Prelude.<$> Prelude.takeText
 
-instance ToText InputFormat where
-  toText (InputFormat' ci) = original ci
+instance Prelude.ToText InputFormat where
+  toText (InputFormat' x) = x
 
-instance Hashable InputFormat
+instance Prelude.Hashable InputFormat
 
-instance NFData InputFormat
+instance Prelude.NFData InputFormat
 
-instance ToByteString InputFormat
+instance Prelude.ToByteString InputFormat
 
-instance ToQuery InputFormat
+instance Prelude.ToQuery InputFormat
 
-instance ToHeader InputFormat
+instance Prelude.ToHeader InputFormat
 
-instance ToJSON InputFormat where
-  toJSON = toJSONText
+instance Prelude.ToJSON InputFormat where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON InputFormat where
-  parseJSON = parseJSONText "InputFormat"
+instance Prelude.FromJSON InputFormat where
+  parseJSON = Prelude.parseJSONText "InputFormat"

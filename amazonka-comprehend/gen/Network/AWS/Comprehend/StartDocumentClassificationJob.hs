@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,269 +21,362 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Starts an asynchronous document classification job. Use the operation to track the progress of the job.
+-- Starts an asynchronous document classification job. Use the operation to
+-- track the progress of the job.
 module Network.AWS.Comprehend.StartDocumentClassificationJob
   ( -- * Creating a Request
-    startDocumentClassificationJob,
-    StartDocumentClassificationJob,
+    StartDocumentClassificationJob (..),
+    newStartDocumentClassificationJob,
 
     -- * Request Lenses
-    sdcjVPCConfig,
-    sdcjVolumeKMSKeyId,
-    sdcjClientRequestToken,
-    sdcjJobName,
-    sdcjDocumentClassifierARN,
-    sdcjInputDataConfig,
-    sdcjOutputDataConfig,
-    sdcjDataAccessRoleARN,
+    startDocumentClassificationJob_vpcConfig,
+    startDocumentClassificationJob_volumeKmsKeyId,
+    startDocumentClassificationJob_clientRequestToken,
+    startDocumentClassificationJob_jobName,
+    startDocumentClassificationJob_documentClassifierArn,
+    startDocumentClassificationJob_inputDataConfig,
+    startDocumentClassificationJob_outputDataConfig,
+    startDocumentClassificationJob_dataAccessRoleArn,
 
     -- * Destructuring the Response
-    startDocumentClassificationJobResponse,
-    StartDocumentClassificationJobResponse,
+    StartDocumentClassificationJobResponse (..),
+    newStartDocumentClassificationJobResponse,
 
     -- * Response Lenses
-    sdcjrrsJobStatus,
-    sdcjrrsJobId,
-    sdcjrrsResponseStatus,
+    startDocumentClassificationJobResponse_jobStatus,
+    startDocumentClassificationJobResponse_jobId,
+    startDocumentClassificationJobResponse_httpStatus,
   )
 where
 
 import Network.AWS.Comprehend.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Comprehend.Types.JobStatus
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'startDocumentClassificationJob' smart constructor.
+-- | /See:/ 'newStartDocumentClassificationJob' smart constructor.
 data StartDocumentClassificationJob = StartDocumentClassificationJob'
-  { _sdcjVPCConfig ::
-      !( Maybe
-           VPCConfig
-       ),
-    _sdcjVolumeKMSKeyId ::
-      !( Maybe
-           Text
-       ),
-    _sdcjClientRequestToken ::
-      !( Maybe
-           Text
-       ),
-    _sdcjJobName ::
-      !( Maybe
-           Text
-       ),
-    _sdcjDocumentClassifierARN ::
-      !Text,
-    _sdcjInputDataConfig ::
-      !InputDataConfig,
-    _sdcjOutputDataConfig ::
-      !OutputDataConfig,
-    _sdcjDataAccessRoleARN ::
-      !Text
+  { -- | Configuration parameters for an optional private Virtual Private Cloud
+    -- (VPC) containing the resources you are using for your document
+    -- classification job. For more information, see
+    -- <https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html Amazon VPC>.
+    vpcConfig :: Prelude.Maybe VpcConfig,
+    -- | ID for the AWS Key Management Service (KMS) key that Amazon Comprehend
+    -- uses to encrypt data on the storage volume attached to the ML compute
+    -- instance(s) that process the analysis job. The VolumeKmsKeyId can be
+    -- either of the following formats:
+    --
+    -- -   KMS Key ID: @\"1234abcd-12ab-34cd-56ef-1234567890ab\"@
+    --
+    -- -   Amazon Resource Name (ARN) of a KMS Key:
+    --     @\"arn:aws:kms:us-west-2:111122223333:key\/1234abcd-12ab-34cd-56ef-1234567890ab\"@
+    volumeKmsKeyId :: Prelude.Maybe Prelude.Text,
+    -- | A unique identifier for the request. If you do not set the client
+    -- request token, Amazon Comprehend generates one.
+    clientRequestToken :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the job.
+    jobName :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the document classifier to use to
+    -- process the job.
+    documentClassifierArn :: Prelude.Text,
+    -- | Specifies the format and location of the input data for the job.
+    inputDataConfig :: InputDataConfig,
+    -- | Specifies where to send the output files.
+    outputDataConfig :: OutputDataConfig,
+    -- | The Amazon Resource Name (ARN) of the AWS Identity and Access Management
+    -- (IAM) role that grants Amazon Comprehend read access to your input data.
+    dataAccessRoleArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartDocumentClassificationJob' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartDocumentClassificationJob' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sdcjVPCConfig' - Configuration parameters for an optional private Virtual Private Cloud (VPC) containing the resources you are using for your document classification job. For more information, see <https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html Amazon VPC> .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sdcjVolumeKMSKeyId' - ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be either of the following formats:     * KMS Key ID: @"1234abcd-12ab-34cd-56ef-1234567890ab"@      * Amazon Resource Name (ARN) of a KMS Key: @"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"@
+-- 'vpcConfig', 'startDocumentClassificationJob_vpcConfig' - Configuration parameters for an optional private Virtual Private Cloud
+-- (VPC) containing the resources you are using for your document
+-- classification job. For more information, see
+-- <https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html Amazon VPC>.
 --
--- * 'sdcjClientRequestToken' - A unique identifier for the request. If you do not set the client request token, Amazon Comprehend generates one.
+-- 'volumeKmsKeyId', 'startDocumentClassificationJob_volumeKmsKeyId' - ID for the AWS Key Management Service (KMS) key that Amazon Comprehend
+-- uses to encrypt data on the storage volume attached to the ML compute
+-- instance(s) that process the analysis job. The VolumeKmsKeyId can be
+-- either of the following formats:
 --
--- * 'sdcjJobName' - The identifier of the job.
+-- -   KMS Key ID: @\"1234abcd-12ab-34cd-56ef-1234567890ab\"@
 --
--- * 'sdcjDocumentClassifierARN' - The Amazon Resource Name (ARN) of the document classifier to use to process the job.
+-- -   Amazon Resource Name (ARN) of a KMS Key:
+--     @\"arn:aws:kms:us-west-2:111122223333:key\/1234abcd-12ab-34cd-56ef-1234567890ab\"@
 --
--- * 'sdcjInputDataConfig' - Specifies the format and location of the input data for the job.
+-- 'clientRequestToken', 'startDocumentClassificationJob_clientRequestToken' - A unique identifier for the request. If you do not set the client
+-- request token, Amazon Comprehend generates one.
 --
--- * 'sdcjOutputDataConfig' - Specifies where to send the output files.
+-- 'jobName', 'startDocumentClassificationJob_jobName' - The identifier of the job.
 --
--- * 'sdcjDataAccessRoleARN' - The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role that grants Amazon Comprehend read access to your input data.
-startDocumentClassificationJob ::
-  -- | 'sdcjDocumentClassifierARN'
-  Text ->
-  -- | 'sdcjInputDataConfig'
+-- 'documentClassifierArn', 'startDocumentClassificationJob_documentClassifierArn' - The Amazon Resource Name (ARN) of the document classifier to use to
+-- process the job.
+--
+-- 'inputDataConfig', 'startDocumentClassificationJob_inputDataConfig' - Specifies the format and location of the input data for the job.
+--
+-- 'outputDataConfig', 'startDocumentClassificationJob_outputDataConfig' - Specifies where to send the output files.
+--
+-- 'dataAccessRoleArn', 'startDocumentClassificationJob_dataAccessRoleArn' - The Amazon Resource Name (ARN) of the AWS Identity and Access Management
+-- (IAM) role that grants Amazon Comprehend read access to your input data.
+newStartDocumentClassificationJob ::
+  -- | 'documentClassifierArn'
+  Prelude.Text ->
+  -- | 'inputDataConfig'
   InputDataConfig ->
-  -- | 'sdcjOutputDataConfig'
+  -- | 'outputDataConfig'
   OutputDataConfig ->
-  -- | 'sdcjDataAccessRoleARN'
-  Text ->
+  -- | 'dataAccessRoleArn'
+  Prelude.Text ->
   StartDocumentClassificationJob
-startDocumentClassificationJob
-  pDocumentClassifierARN_
+newStartDocumentClassificationJob
+  pDocumentClassifierArn_
   pInputDataConfig_
   pOutputDataConfig_
-  pDataAccessRoleARN_ =
+  pDataAccessRoleArn_ =
     StartDocumentClassificationJob'
-      { _sdcjVPCConfig =
-          Nothing,
-        _sdcjVolumeKMSKeyId = Nothing,
-        _sdcjClientRequestToken = Nothing,
-        _sdcjJobName = Nothing,
-        _sdcjDocumentClassifierARN =
-          pDocumentClassifierARN_,
-        _sdcjInputDataConfig = pInputDataConfig_,
-        _sdcjOutputDataConfig = pOutputDataConfig_,
-        _sdcjDataAccessRoleARN =
-          pDataAccessRoleARN_
+      { vpcConfig =
+          Prelude.Nothing,
+        volumeKmsKeyId = Prelude.Nothing,
+        clientRequestToken = Prelude.Nothing,
+        jobName = Prelude.Nothing,
+        documentClassifierArn =
+          pDocumentClassifierArn_,
+        inputDataConfig = pInputDataConfig_,
+        outputDataConfig = pOutputDataConfig_,
+        dataAccessRoleArn = pDataAccessRoleArn_
       }
 
--- | Configuration parameters for an optional private Virtual Private Cloud (VPC) containing the resources you are using for your document classification job. For more information, see <https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html Amazon VPC> .
-sdcjVPCConfig :: Lens' StartDocumentClassificationJob (Maybe VPCConfig)
-sdcjVPCConfig = lens _sdcjVPCConfig (\s a -> s {_sdcjVPCConfig = a})
+-- | Configuration parameters for an optional private Virtual Private Cloud
+-- (VPC) containing the resources you are using for your document
+-- classification job. For more information, see
+-- <https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html Amazon VPC>.
+startDocumentClassificationJob_vpcConfig :: Lens.Lens' StartDocumentClassificationJob (Prelude.Maybe VpcConfig)
+startDocumentClassificationJob_vpcConfig = Lens.lens (\StartDocumentClassificationJob' {vpcConfig} -> vpcConfig) (\s@StartDocumentClassificationJob' {} a -> s {vpcConfig = a} :: StartDocumentClassificationJob)
 
--- | ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be either of the following formats:     * KMS Key ID: @"1234abcd-12ab-34cd-56ef-1234567890ab"@      * Amazon Resource Name (ARN) of a KMS Key: @"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"@
-sdcjVolumeKMSKeyId :: Lens' StartDocumentClassificationJob (Maybe Text)
-sdcjVolumeKMSKeyId = lens _sdcjVolumeKMSKeyId (\s a -> s {_sdcjVolumeKMSKeyId = a})
+-- | ID for the AWS Key Management Service (KMS) key that Amazon Comprehend
+-- uses to encrypt data on the storage volume attached to the ML compute
+-- instance(s) that process the analysis job. The VolumeKmsKeyId can be
+-- either of the following formats:
+--
+-- -   KMS Key ID: @\"1234abcd-12ab-34cd-56ef-1234567890ab\"@
+--
+-- -   Amazon Resource Name (ARN) of a KMS Key:
+--     @\"arn:aws:kms:us-west-2:111122223333:key\/1234abcd-12ab-34cd-56ef-1234567890ab\"@
+startDocumentClassificationJob_volumeKmsKeyId :: Lens.Lens' StartDocumentClassificationJob (Prelude.Maybe Prelude.Text)
+startDocumentClassificationJob_volumeKmsKeyId = Lens.lens (\StartDocumentClassificationJob' {volumeKmsKeyId} -> volumeKmsKeyId) (\s@StartDocumentClassificationJob' {} a -> s {volumeKmsKeyId = a} :: StartDocumentClassificationJob)
 
--- | A unique identifier for the request. If you do not set the client request token, Amazon Comprehend generates one.
-sdcjClientRequestToken :: Lens' StartDocumentClassificationJob (Maybe Text)
-sdcjClientRequestToken = lens _sdcjClientRequestToken (\s a -> s {_sdcjClientRequestToken = a})
+-- | A unique identifier for the request. If you do not set the client
+-- request token, Amazon Comprehend generates one.
+startDocumentClassificationJob_clientRequestToken :: Lens.Lens' StartDocumentClassificationJob (Prelude.Maybe Prelude.Text)
+startDocumentClassificationJob_clientRequestToken = Lens.lens (\StartDocumentClassificationJob' {clientRequestToken} -> clientRequestToken) (\s@StartDocumentClassificationJob' {} a -> s {clientRequestToken = a} :: StartDocumentClassificationJob)
 
 -- | The identifier of the job.
-sdcjJobName :: Lens' StartDocumentClassificationJob (Maybe Text)
-sdcjJobName = lens _sdcjJobName (\s a -> s {_sdcjJobName = a})
+startDocumentClassificationJob_jobName :: Lens.Lens' StartDocumentClassificationJob (Prelude.Maybe Prelude.Text)
+startDocumentClassificationJob_jobName = Lens.lens (\StartDocumentClassificationJob' {jobName} -> jobName) (\s@StartDocumentClassificationJob' {} a -> s {jobName = a} :: StartDocumentClassificationJob)
 
--- | The Amazon Resource Name (ARN) of the document classifier to use to process the job.
-sdcjDocumentClassifierARN :: Lens' StartDocumentClassificationJob Text
-sdcjDocumentClassifierARN = lens _sdcjDocumentClassifierARN (\s a -> s {_sdcjDocumentClassifierARN = a})
+-- | The Amazon Resource Name (ARN) of the document classifier to use to
+-- process the job.
+startDocumentClassificationJob_documentClassifierArn :: Lens.Lens' StartDocumentClassificationJob Prelude.Text
+startDocumentClassificationJob_documentClassifierArn = Lens.lens (\StartDocumentClassificationJob' {documentClassifierArn} -> documentClassifierArn) (\s@StartDocumentClassificationJob' {} a -> s {documentClassifierArn = a} :: StartDocumentClassificationJob)
 
 -- | Specifies the format and location of the input data for the job.
-sdcjInputDataConfig :: Lens' StartDocumentClassificationJob InputDataConfig
-sdcjInputDataConfig = lens _sdcjInputDataConfig (\s a -> s {_sdcjInputDataConfig = a})
+startDocumentClassificationJob_inputDataConfig :: Lens.Lens' StartDocumentClassificationJob InputDataConfig
+startDocumentClassificationJob_inputDataConfig = Lens.lens (\StartDocumentClassificationJob' {inputDataConfig} -> inputDataConfig) (\s@StartDocumentClassificationJob' {} a -> s {inputDataConfig = a} :: StartDocumentClassificationJob)
 
 -- | Specifies where to send the output files.
-sdcjOutputDataConfig :: Lens' StartDocumentClassificationJob OutputDataConfig
-sdcjOutputDataConfig = lens _sdcjOutputDataConfig (\s a -> s {_sdcjOutputDataConfig = a})
+startDocumentClassificationJob_outputDataConfig :: Lens.Lens' StartDocumentClassificationJob OutputDataConfig
+startDocumentClassificationJob_outputDataConfig = Lens.lens (\StartDocumentClassificationJob' {outputDataConfig} -> outputDataConfig) (\s@StartDocumentClassificationJob' {} a -> s {outputDataConfig = a} :: StartDocumentClassificationJob)
 
--- | The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role that grants Amazon Comprehend read access to your input data.
-sdcjDataAccessRoleARN :: Lens' StartDocumentClassificationJob Text
-sdcjDataAccessRoleARN = lens _sdcjDataAccessRoleARN (\s a -> s {_sdcjDataAccessRoleARN = a})
+-- | The Amazon Resource Name (ARN) of the AWS Identity and Access Management
+-- (IAM) role that grants Amazon Comprehend read access to your input data.
+startDocumentClassificationJob_dataAccessRoleArn :: Lens.Lens' StartDocumentClassificationJob Prelude.Text
+startDocumentClassificationJob_dataAccessRoleArn = Lens.lens (\StartDocumentClassificationJob' {dataAccessRoleArn} -> dataAccessRoleArn) (\s@StartDocumentClassificationJob' {} a -> s {dataAccessRoleArn = a} :: StartDocumentClassificationJob)
 
-instance AWSRequest StartDocumentClassificationJob where
+instance
+  Prelude.AWSRequest
+    StartDocumentClassificationJob
+  where
   type
     Rs StartDocumentClassificationJob =
       StartDocumentClassificationJobResponse
-  request = postJSON comprehend
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           StartDocumentClassificationJobResponse'
-            <$> (x .?> "JobStatus")
-            <*> (x .?> "JobId")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "JobStatus")
+            Prelude.<*> (x Prelude..?> "JobId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
-
-instance Hashable StartDocumentClassificationJob
-
-instance NFData StartDocumentClassificationJob
-
-instance ToHeaders StartDocumentClassificationJob where
-  toHeaders =
-    const
-      ( mconcat
-          [ "X-Amz-Target"
-              =# ( "Comprehend_20171127.StartDocumentClassificationJob" ::
-                     ByteString
-                 ),
-            "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
-          ]
-      )
-
-instance ToJSON StartDocumentClassificationJob where
-  toJSON StartDocumentClassificationJob' {..} =
-    object
-      ( catMaybes
-          [ ("VpcConfig" .=) <$> _sdcjVPCConfig,
-            ("VolumeKmsKeyId" .=) <$> _sdcjVolumeKMSKeyId,
-            ("ClientRequestToken" .=)
-              <$> _sdcjClientRequestToken,
-            ("JobName" .=) <$> _sdcjJobName,
-            Just
-              ( "DocumentClassifierArn"
-                  .= _sdcjDocumentClassifierARN
-              ),
-            Just ("InputDataConfig" .= _sdcjInputDataConfig),
-            Just ("OutputDataConfig" .= _sdcjOutputDataConfig),
-            Just
-              ("DataAccessRoleArn" .= _sdcjDataAccessRoleARN)
-          ]
-      )
-
-instance ToPath StartDocumentClassificationJob where
-  toPath = const "/"
-
-instance ToQuery StartDocumentClassificationJob where
-  toQuery = const mempty
-
--- | /See:/ 'startDocumentClassificationJobResponse' smart constructor.
-data StartDocumentClassificationJobResponse = StartDocumentClassificationJobResponse'
-  { _sdcjrrsJobStatus ::
-      !( Maybe
-           JobStatus
-       ),
-    _sdcjrrsJobId ::
-      !( Maybe
-           Text
-       ),
-    _sdcjrrsResponseStatus ::
-      !Int
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'StartDocumentClassificationJobResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'sdcjrrsJobStatus' - The status of the job:     * SUBMITTED - The job has been received and queued for processing.     * IN_PROGRESS - Amazon Comprehend is processing the job.     * COMPLETED - The job was successfully completed and the output is available.     * FAILED - The job did not complete. For details, use the operation.     * STOP_REQUESTED - Amazon Comprehend has received a stop request for the job and is processing the request.     * STOPPED - The job was successfully stopped without completing.
---
--- * 'sdcjrrsJobId' - The identifier generated for the job. To get the status of the job, use this identifier with the operation.
---
--- * 'sdcjrrsResponseStatus' - -- | The response status code.
-startDocumentClassificationJobResponse ::
-  -- | 'sdcjrrsResponseStatus'
-  Int ->
-  StartDocumentClassificationJobResponse
-startDocumentClassificationJobResponse
-  pResponseStatus_ =
-    StartDocumentClassificationJobResponse'
-      { _sdcjrrsJobStatus =
-          Nothing,
-        _sdcjrrsJobId = Nothing,
-        _sdcjrrsResponseStatus =
-          pResponseStatus_
-      }
-
--- | The status of the job:     * SUBMITTED - The job has been received and queued for processing.     * IN_PROGRESS - Amazon Comprehend is processing the job.     * COMPLETED - The job was successfully completed and the output is available.     * FAILED - The job did not complete. For details, use the operation.     * STOP_REQUESTED - Amazon Comprehend has received a stop request for the job and is processing the request.     * STOPPED - The job was successfully stopped without completing.
-sdcjrrsJobStatus :: Lens' StartDocumentClassificationJobResponse (Maybe JobStatus)
-sdcjrrsJobStatus = lens _sdcjrrsJobStatus (\s a -> s {_sdcjrrsJobStatus = a})
-
--- | The identifier generated for the job. To get the status of the job, use this identifier with the operation.
-sdcjrrsJobId :: Lens' StartDocumentClassificationJobResponse (Maybe Text)
-sdcjrrsJobId = lens _sdcjrrsJobId (\s a -> s {_sdcjrrsJobId = a})
-
--- | -- | The response status code.
-sdcjrrsResponseStatus :: Lens' StartDocumentClassificationJobResponse Int
-sdcjrrsResponseStatus = lens _sdcjrrsResponseStatus (\s a -> s {_sdcjrrsResponseStatus = a})
 
 instance
-  NFData
+  Prelude.Hashable
+    StartDocumentClassificationJob
+
+instance
+  Prelude.NFData
+    StartDocumentClassificationJob
+
+instance
+  Prelude.ToHeaders
+    StartDocumentClassificationJob
+  where
+  toHeaders =
+    Prelude.const
+      ( Prelude.mconcat
+          [ "X-Amz-Target"
+              Prelude.=# ( "Comprehend_20171127.StartDocumentClassificationJob" ::
+                             Prelude.ByteString
+                         ),
+            "Content-Type"
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
+          ]
+      )
+
+instance
+  Prelude.ToJSON
+    StartDocumentClassificationJob
+  where
+  toJSON StartDocumentClassificationJob' {..} =
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("VpcConfig" Prelude..=) Prelude.<$> vpcConfig,
+            ("VolumeKmsKeyId" Prelude..=)
+              Prelude.<$> volumeKmsKeyId,
+            ("ClientRequestToken" Prelude..=)
+              Prelude.<$> clientRequestToken,
+            ("JobName" Prelude..=) Prelude.<$> jobName,
+            Prelude.Just
+              ( "DocumentClassifierArn"
+                  Prelude..= documentClassifierArn
+              ),
+            Prelude.Just
+              ("InputDataConfig" Prelude..= inputDataConfig),
+            Prelude.Just
+              ("OutputDataConfig" Prelude..= outputDataConfig),
+            Prelude.Just
+              ("DataAccessRoleArn" Prelude..= dataAccessRoleArn)
+          ]
+      )
+
+instance
+  Prelude.ToPath
+    StartDocumentClassificationJob
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
+    StartDocumentClassificationJob
+  where
+  toQuery = Prelude.const Prelude.mempty
+
+-- | /See:/ 'newStartDocumentClassificationJobResponse' smart constructor.
+data StartDocumentClassificationJobResponse = StartDocumentClassificationJobResponse'
+  { -- | The status of the job:
+    --
+    -- -   SUBMITTED - The job has been received and queued for processing.
+    --
+    -- -   IN_PROGRESS - Amazon Comprehend is processing the job.
+    --
+    -- -   COMPLETED - The job was successfully completed and the output is
+    --     available.
+    --
+    -- -   FAILED - The job did not complete. For details, use the operation.
+    --
+    -- -   STOP_REQUESTED - Amazon Comprehend has received a stop request for
+    --     the job and is processing the request.
+    --
+    -- -   STOPPED - The job was successfully stopped without completing.
+    jobStatus :: Prelude.Maybe JobStatus,
+    -- | The identifier generated for the job. To get the status of the job, use
+    -- this identifier with the operation.
+    jobId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'StartDocumentClassificationJobResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'jobStatus', 'startDocumentClassificationJobResponse_jobStatus' - The status of the job:
+--
+-- -   SUBMITTED - The job has been received and queued for processing.
+--
+-- -   IN_PROGRESS - Amazon Comprehend is processing the job.
+--
+-- -   COMPLETED - The job was successfully completed and the output is
+--     available.
+--
+-- -   FAILED - The job did not complete. For details, use the operation.
+--
+-- -   STOP_REQUESTED - Amazon Comprehend has received a stop request for
+--     the job and is processing the request.
+--
+-- -   STOPPED - The job was successfully stopped without completing.
+--
+-- 'jobId', 'startDocumentClassificationJobResponse_jobId' - The identifier generated for the job. To get the status of the job, use
+-- this identifier with the operation.
+--
+-- 'httpStatus', 'startDocumentClassificationJobResponse_httpStatus' - The response's http status code.
+newStartDocumentClassificationJobResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  StartDocumentClassificationJobResponse
+newStartDocumentClassificationJobResponse
+  pHttpStatus_ =
+    StartDocumentClassificationJobResponse'
+      { jobStatus =
+          Prelude.Nothing,
+        jobId = Prelude.Nothing,
+        httpStatus = pHttpStatus_
+      }
+
+-- | The status of the job:
+--
+-- -   SUBMITTED - The job has been received and queued for processing.
+--
+-- -   IN_PROGRESS - Amazon Comprehend is processing the job.
+--
+-- -   COMPLETED - The job was successfully completed and the output is
+--     available.
+--
+-- -   FAILED - The job did not complete. For details, use the operation.
+--
+-- -   STOP_REQUESTED - Amazon Comprehend has received a stop request for
+--     the job and is processing the request.
+--
+-- -   STOPPED - The job was successfully stopped without completing.
+startDocumentClassificationJobResponse_jobStatus :: Lens.Lens' StartDocumentClassificationJobResponse (Prelude.Maybe JobStatus)
+startDocumentClassificationJobResponse_jobStatus = Lens.lens (\StartDocumentClassificationJobResponse' {jobStatus} -> jobStatus) (\s@StartDocumentClassificationJobResponse' {} a -> s {jobStatus = a} :: StartDocumentClassificationJobResponse)
+
+-- | The identifier generated for the job. To get the status of the job, use
+-- this identifier with the operation.
+startDocumentClassificationJobResponse_jobId :: Lens.Lens' StartDocumentClassificationJobResponse (Prelude.Maybe Prelude.Text)
+startDocumentClassificationJobResponse_jobId = Lens.lens (\StartDocumentClassificationJobResponse' {jobId} -> jobId) (\s@StartDocumentClassificationJobResponse' {} a -> s {jobId = a} :: StartDocumentClassificationJobResponse)
+
+-- | The response's http status code.
+startDocumentClassificationJobResponse_httpStatus :: Lens.Lens' StartDocumentClassificationJobResponse Prelude.Int
+startDocumentClassificationJobResponse_httpStatus = Lens.lens (\StartDocumentClassificationJobResponse' {httpStatus} -> httpStatus) (\s@StartDocumentClassificationJobResponse' {} a -> s {httpStatus = a} :: StartDocumentClassificationJobResponse)
+
+instance
+  Prelude.NFData
     StartDocumentClassificationJobResponse

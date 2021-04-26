@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,140 +21,181 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Inspects text for syntax and the part of speech of words in the document. For more information, 'how-syntax' .
+-- Inspects text for syntax and the part of speech of words in the
+-- document. For more information, how-syntax.
 module Network.AWS.Comprehend.DetectSyntax
   ( -- * Creating a Request
-    detectSyntax,
-    DetectSyntax,
+    DetectSyntax (..),
+    newDetectSyntax,
 
     -- * Request Lenses
-    dsText,
-    dsLanguageCode,
+    detectSyntax_text,
+    detectSyntax_languageCode,
 
     -- * Destructuring the Response
-    detectSyntaxResponse,
-    DetectSyntaxResponse,
+    DetectSyntaxResponse (..),
+    newDetectSyntaxResponse,
 
     -- * Response Lenses
-    dsrsrsSyntaxTokens,
-    dsrsrsResponseStatus,
+    detectSyntaxResponse_syntaxTokens,
+    detectSyntaxResponse_httpStatus,
   )
 where
 
 import Network.AWS.Comprehend.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Comprehend.Types.SyntaxToken
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'detectSyntax' smart constructor.
+-- | /See:/ 'newDetectSyntax' smart constructor.
 data DetectSyntax = DetectSyntax'
-  { _dsText ::
-      !(Sensitive Text),
-    _dsLanguageCode :: !SyntaxLanguageCode
+  { -- | A UTF-8 string. Each string must contain fewer that 5,000 bytes of UTF
+    -- encoded characters.
+    text :: Prelude.Sensitive Prelude.Text,
+    -- | The language code of the input documents. You can specify any of the
+    -- following languages supported by Amazon Comprehend: German (\"de\"),
+    -- English (\"en\"), Spanish (\"es\"), French (\"fr\"), Italian (\"it\"),
+    -- or Portuguese (\"pt\").
+    languageCode :: SyntaxLanguageCode
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DetectSyntax' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DetectSyntax' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsText' - A UTF-8 string. Each string must contain fewer that 5,000 bytes of UTF encoded characters.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsLanguageCode' - The language code of the input documents. You can specify any of the following languages supported by Amazon Comprehend: German ("de"), English ("en"), Spanish ("es"), French ("fr"), Italian ("it"), or Portuguese ("pt").
-detectSyntax ::
-  -- | 'dsText'
-  Text ->
-  -- | 'dsLanguageCode'
+-- 'text', 'detectSyntax_text' - A UTF-8 string. Each string must contain fewer that 5,000 bytes of UTF
+-- encoded characters.
+--
+-- 'languageCode', 'detectSyntax_languageCode' - The language code of the input documents. You can specify any of the
+-- following languages supported by Amazon Comprehend: German (\"de\"),
+-- English (\"en\"), Spanish (\"es\"), French (\"fr\"), Italian (\"it\"),
+-- or Portuguese (\"pt\").
+newDetectSyntax ::
+  -- | 'text'
+  Prelude.Text ->
+  -- | 'languageCode'
   SyntaxLanguageCode ->
   DetectSyntax
-detectSyntax pText_ pLanguageCode_ =
+newDetectSyntax pText_ pLanguageCode_ =
   DetectSyntax'
-    { _dsText = _Sensitive # pText_,
-      _dsLanguageCode = pLanguageCode_
+    { text =
+        Prelude._Sensitive Lens.# pText_,
+      languageCode = pLanguageCode_
     }
 
--- | A UTF-8 string. Each string must contain fewer that 5,000 bytes of UTF encoded characters.
-dsText :: Lens' DetectSyntax Text
-dsText = lens _dsText (\s a -> s {_dsText = a}) . _Sensitive
+-- | A UTF-8 string. Each string must contain fewer that 5,000 bytes of UTF
+-- encoded characters.
+detectSyntax_text :: Lens.Lens' DetectSyntax Prelude.Text
+detectSyntax_text = Lens.lens (\DetectSyntax' {text} -> text) (\s@DetectSyntax' {} a -> s {text = a} :: DetectSyntax) Prelude.. Prelude._Sensitive
 
--- | The language code of the input documents. You can specify any of the following languages supported by Amazon Comprehend: German ("de"), English ("en"), Spanish ("es"), French ("fr"), Italian ("it"), or Portuguese ("pt").
-dsLanguageCode :: Lens' DetectSyntax SyntaxLanguageCode
-dsLanguageCode = lens _dsLanguageCode (\s a -> s {_dsLanguageCode = a})
+-- | The language code of the input documents. You can specify any of the
+-- following languages supported by Amazon Comprehend: German (\"de\"),
+-- English (\"en\"), Spanish (\"es\"), French (\"fr\"), Italian (\"it\"),
+-- or Portuguese (\"pt\").
+detectSyntax_languageCode :: Lens.Lens' DetectSyntax SyntaxLanguageCode
+detectSyntax_languageCode = Lens.lens (\DetectSyntax' {languageCode} -> languageCode) (\s@DetectSyntax' {} a -> s {languageCode = a} :: DetectSyntax)
 
-instance AWSRequest DetectSyntax where
+instance Prelude.AWSRequest DetectSyntax where
   type Rs DetectSyntax = DetectSyntaxResponse
-  request = postJSON comprehend
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DetectSyntaxResponse'
-            <$> (x .?> "SyntaxTokens" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "SyntaxTokens"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DetectSyntax
+instance Prelude.Hashable DetectSyntax
 
-instance NFData DetectSyntax
+instance Prelude.NFData DetectSyntax
 
-instance ToHeaders DetectSyntax where
+instance Prelude.ToHeaders DetectSyntax where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("Comprehend_20171127.DetectSyntax" :: ByteString),
+              Prelude.=# ( "Comprehend_20171127.DetectSyntax" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DetectSyntax where
+instance Prelude.ToJSON DetectSyntax where
   toJSON DetectSyntax' {..} =
-    object
-      ( catMaybes
-          [ Just ("Text" .= _dsText),
-            Just ("LanguageCode" .= _dsLanguageCode)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("Text" Prelude..= text),
+            Prelude.Just
+              ("LanguageCode" Prelude..= languageCode)
           ]
       )
 
-instance ToPath DetectSyntax where
-  toPath = const "/"
+instance Prelude.ToPath DetectSyntax where
+  toPath = Prelude.const "/"
 
-instance ToQuery DetectSyntax where
-  toQuery = const mempty
+instance Prelude.ToQuery DetectSyntax where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'detectSyntaxResponse' smart constructor.
+-- | /See:/ 'newDetectSyntaxResponse' smart constructor.
 data DetectSyntaxResponse = DetectSyntaxResponse'
-  { _dsrsrsSyntaxTokens ::
-      !(Maybe [SyntaxToken]),
-    _dsrsrsResponseStatus :: !Int
+  { -- | A collection of syntax tokens describing the text. For each token, the
+    -- response provides the text, the token type, where the text begins and
+    -- ends, and the level of confidence that Amazon Comprehend has that the
+    -- token is correct. For a list of token types, see how-syntax.
+    syntaxTokens :: Prelude.Maybe [SyntaxToken],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DetectSyntaxResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DetectSyntaxResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsrsrsSyntaxTokens' - A collection of syntax tokens describing the text. For each token, the response provides the text, the token type, where the text begins and ends, and the level of confidence that Amazon Comprehend has that the token is correct. For a list of token types, see 'how-syntax' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsrsrsResponseStatus' - -- | The response status code.
-detectSyntaxResponse ::
-  -- | 'dsrsrsResponseStatus'
-  Int ->
+-- 'syntaxTokens', 'detectSyntaxResponse_syntaxTokens' - A collection of syntax tokens describing the text. For each token, the
+-- response provides the text, the token type, where the text begins and
+-- ends, and the level of confidence that Amazon Comprehend has that the
+-- token is correct. For a list of token types, see how-syntax.
+--
+-- 'httpStatus', 'detectSyntaxResponse_httpStatus' - The response's http status code.
+newDetectSyntaxResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DetectSyntaxResponse
-detectSyntaxResponse pResponseStatus_ =
+newDetectSyntaxResponse pHttpStatus_ =
   DetectSyntaxResponse'
-    { _dsrsrsSyntaxTokens =
-        Nothing,
-      _dsrsrsResponseStatus = pResponseStatus_
+    { syntaxTokens =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A collection of syntax tokens describing the text. For each token, the response provides the text, the token type, where the text begins and ends, and the level of confidence that Amazon Comprehend has that the token is correct. For a list of token types, see 'how-syntax' .
-dsrsrsSyntaxTokens :: Lens' DetectSyntaxResponse [SyntaxToken]
-dsrsrsSyntaxTokens = lens _dsrsrsSyntaxTokens (\s a -> s {_dsrsrsSyntaxTokens = a}) . _Default . _Coerce
+-- | A collection of syntax tokens describing the text. For each token, the
+-- response provides the text, the token type, where the text begins and
+-- ends, and the level of confidence that Amazon Comprehend has that the
+-- token is correct. For a list of token types, see how-syntax.
+detectSyntaxResponse_syntaxTokens :: Lens.Lens' DetectSyntaxResponse (Prelude.Maybe [SyntaxToken])
+detectSyntaxResponse_syntaxTokens = Lens.lens (\DetectSyntaxResponse' {syntaxTokens} -> syntaxTokens) (\s@DetectSyntaxResponse' {} a -> s {syntaxTokens = a} :: DetectSyntaxResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dsrsrsResponseStatus :: Lens' DetectSyntaxResponse Int
-dsrsrsResponseStatus = lens _dsrsrsResponseStatus (\s a -> s {_dsrsrsResponseStatus = a})
+-- | The response's http status code.
+detectSyntaxResponse_httpStatus :: Lens.Lens' DetectSyntaxResponse Prelude.Int
+detectSyntaxResponse_httpStatus = Lens.lens (\DetectSyntaxResponse' {httpStatus} -> httpStatus) (\s@DetectSyntaxResponse' {} a -> s {httpStatus = a} :: DetectSyntaxResponse)
 
-instance NFData DetectSyntaxResponse
+instance Prelude.NFData DetectSyntaxResponse

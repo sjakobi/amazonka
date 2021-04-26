@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,150 +24,156 @@
 -- Gets the properties associated with a document classifier.
 module Network.AWS.Comprehend.DescribeDocumentClassifier
   ( -- * Creating a Request
-    describeDocumentClassifier,
-    DescribeDocumentClassifier,
+    DescribeDocumentClassifier (..),
+    newDescribeDocumentClassifier,
 
     -- * Request Lenses
-    ddcDocumentClassifierARN,
+    describeDocumentClassifier_documentClassifierArn,
 
     -- * Destructuring the Response
-    describeDocumentClassifierResponse,
-    DescribeDocumentClassifierResponse,
+    DescribeDocumentClassifierResponse (..),
+    newDescribeDocumentClassifierResponse,
 
     -- * Response Lenses
-    ddcrrsDocumentClassifierProperties,
-    ddcrrsResponseStatus,
+    describeDocumentClassifierResponse_documentClassifierProperties,
+    describeDocumentClassifierResponse_httpStatus,
   )
 where
 
 import Network.AWS.Comprehend.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Comprehend.Types.DocumentClassifierProperties
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeDocumentClassifier' smart constructor.
-newtype DescribeDocumentClassifier = DescribeDocumentClassifier'
-  { _ddcDocumentClassifierARN ::
-      Text
+-- | /See:/ 'newDescribeDocumentClassifier' smart constructor.
+data DescribeDocumentClassifier = DescribeDocumentClassifier'
+  { -- | The Amazon Resource Name (ARN) that identifies the document classifier.
+    -- The operation returns this identifier in its response.
+    documentClassifierArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeDocumentClassifier' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeDocumentClassifier' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddcDocumentClassifierARN' - The Amazon Resource Name (ARN) that identifies the document classifier. The operation returns this identifier in its response.
-describeDocumentClassifier ::
-  -- | 'ddcDocumentClassifierARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'documentClassifierArn', 'describeDocumentClassifier_documentClassifierArn' - The Amazon Resource Name (ARN) that identifies the document classifier.
+-- The operation returns this identifier in its response.
+newDescribeDocumentClassifier ::
+  -- | 'documentClassifierArn'
+  Prelude.Text ->
   DescribeDocumentClassifier
-describeDocumentClassifier pDocumentClassifierARN_ =
+newDescribeDocumentClassifier pDocumentClassifierArn_ =
   DescribeDocumentClassifier'
-    { _ddcDocumentClassifierARN =
-        pDocumentClassifierARN_
+    { documentClassifierArn =
+        pDocumentClassifierArn_
     }
 
--- | The Amazon Resource Name (ARN) that identifies the document classifier. The operation returns this identifier in its response.
-ddcDocumentClassifierARN :: Lens' DescribeDocumentClassifier Text
-ddcDocumentClassifierARN = lens _ddcDocumentClassifierARN (\s a -> s {_ddcDocumentClassifierARN = a})
+-- | The Amazon Resource Name (ARN) that identifies the document classifier.
+-- The operation returns this identifier in its response.
+describeDocumentClassifier_documentClassifierArn :: Lens.Lens' DescribeDocumentClassifier Prelude.Text
+describeDocumentClassifier_documentClassifierArn = Lens.lens (\DescribeDocumentClassifier' {documentClassifierArn} -> documentClassifierArn) (\s@DescribeDocumentClassifier' {} a -> s {documentClassifierArn = a} :: DescribeDocumentClassifier)
 
-instance AWSRequest DescribeDocumentClassifier where
+instance
+  Prelude.AWSRequest
+    DescribeDocumentClassifier
+  where
   type
     Rs DescribeDocumentClassifier =
       DescribeDocumentClassifierResponse
-  request = postJSON comprehend
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeDocumentClassifierResponse'
-            <$> (x .?> "DocumentClassifierProperties")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "DocumentClassifierProperties")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeDocumentClassifier
+instance Prelude.Hashable DescribeDocumentClassifier
 
-instance NFData DescribeDocumentClassifier
+instance Prelude.NFData DescribeDocumentClassifier
 
-instance ToHeaders DescribeDocumentClassifier where
+instance Prelude.ToHeaders DescribeDocumentClassifier where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Comprehend_20171127.DescribeDocumentClassifier" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Comprehend_20171127.DescribeDocumentClassifier" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeDocumentClassifier where
+instance Prelude.ToJSON DescribeDocumentClassifier where
   toJSON DescribeDocumentClassifier' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "DocumentClassifierArn"
-                  .= _ddcDocumentClassifierARN
+                  Prelude..= documentClassifierArn
               )
           ]
       )
 
-instance ToPath DescribeDocumentClassifier where
-  toPath = const "/"
+instance Prelude.ToPath DescribeDocumentClassifier where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeDocumentClassifier where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeDocumentClassifier where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeDocumentClassifierResponse' smart constructor.
+-- | /See:/ 'newDescribeDocumentClassifierResponse' smart constructor.
 data DescribeDocumentClassifierResponse = DescribeDocumentClassifierResponse'
-  { _ddcrrsDocumentClassifierProperties ::
-      !( Maybe
-           DocumentClassifierProperties
-       ),
-    _ddcrrsResponseStatus ::
-      !Int
+  { -- | An object that contains the properties associated with a document
+    -- classifier.
+    documentClassifierProperties :: Prelude.Maybe DocumentClassifierProperties,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeDocumentClassifierResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeDocumentClassifierResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddcrrsDocumentClassifierProperties' - An object that contains the properties associated with a document classifier.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ddcrrsResponseStatus' - -- | The response status code.
-describeDocumentClassifierResponse ::
-  -- | 'ddcrrsResponseStatus'
-  Int ->
+-- 'documentClassifierProperties', 'describeDocumentClassifierResponse_documentClassifierProperties' - An object that contains the properties associated with a document
+-- classifier.
+--
+-- 'httpStatus', 'describeDocumentClassifierResponse_httpStatus' - The response's http status code.
+newDescribeDocumentClassifierResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeDocumentClassifierResponse
-describeDocumentClassifierResponse pResponseStatus_ =
+newDescribeDocumentClassifierResponse pHttpStatus_ =
   DescribeDocumentClassifierResponse'
-    { _ddcrrsDocumentClassifierProperties =
-        Nothing,
-      _ddcrrsResponseStatus =
-        pResponseStatus_
+    { documentClassifierProperties =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An object that contains the properties associated with a document classifier.
-ddcrrsDocumentClassifierProperties :: Lens' DescribeDocumentClassifierResponse (Maybe DocumentClassifierProperties)
-ddcrrsDocumentClassifierProperties = lens _ddcrrsDocumentClassifierProperties (\s a -> s {_ddcrrsDocumentClassifierProperties = a})
+-- | An object that contains the properties associated with a document
+-- classifier.
+describeDocumentClassifierResponse_documentClassifierProperties :: Lens.Lens' DescribeDocumentClassifierResponse (Prelude.Maybe DocumentClassifierProperties)
+describeDocumentClassifierResponse_documentClassifierProperties = Lens.lens (\DescribeDocumentClassifierResponse' {documentClassifierProperties} -> documentClassifierProperties) (\s@DescribeDocumentClassifierResponse' {} a -> s {documentClassifierProperties = a} :: DescribeDocumentClassifierResponse)
 
--- | -- | The response status code.
-ddcrrsResponseStatus :: Lens' DescribeDocumentClassifierResponse Int
-ddcrrsResponseStatus = lens _ddcrrsResponseStatus (\s a -> s {_ddcrrsResponseStatus = a})
+-- | The response's http status code.
+describeDocumentClassifierResponse_httpStatus :: Lens.Lens' DescribeDocumentClassifierResponse Prelude.Int
+describeDocumentClassifierResponse_httpStatus = Lens.lens (\DescribeDocumentClassifierResponse' {httpStatus} -> httpStatus) (\s@DescribeDocumentClassifierResponse' {} a -> s {httpStatus = a} :: DescribeDocumentClassifierResponse)
 
-instance NFData DescribeDocumentClassifierResponse
+instance
+  Prelude.NFData
+    DescribeDocumentClassifierResponse

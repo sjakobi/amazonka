@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,166 +21,186 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets a list of all existing endpoints that you've created.
+-- Gets a list of all existing endpoints that you\'ve created.
 module Network.AWS.Comprehend.ListEndpoints
   ( -- * Creating a Request
-    listEndpoints,
-    ListEndpoints,
+    ListEndpoints (..),
+    newListEndpoints,
 
     -- * Request Lenses
-    leNextToken,
-    leMaxResults,
-    leFilter,
+    listEndpoints_nextToken,
+    listEndpoints_maxResults,
+    listEndpoints_filter,
 
     -- * Destructuring the Response
-    listEndpointsResponse,
-    ListEndpointsResponse,
+    ListEndpointsResponse (..),
+    newListEndpointsResponse,
 
     -- * Response Lenses
-    lerrsNextToken,
-    lerrsEndpointPropertiesList,
-    lerrsResponseStatus,
+    listEndpointsResponse_nextToken,
+    listEndpointsResponse_endpointPropertiesList,
+    listEndpointsResponse_httpStatus,
   )
 where
 
 import Network.AWS.Comprehend.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Comprehend.Types.EndpointProperties
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listEndpoints' smart constructor.
+-- | /See:/ 'newListEndpoints' smart constructor.
 data ListEndpoints = ListEndpoints'
-  { _leNextToken ::
-      !(Maybe Text),
-    _leMaxResults :: !(Maybe Nat),
-    _leFilter :: !(Maybe EndpointFilter)
+  { -- | Identifies the next page of results to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return in each page. The default is
+    -- 100.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | Filters the endpoints that are returned. You can filter endpoints on
+    -- their name, model, status, or the date and time that they were created.
+    -- You can only set one filter at a time.
+    filter' :: Prelude.Maybe EndpointFilter
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListEndpoints' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListEndpoints' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'leNextToken' - Identifies the next page of results to return.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'leMaxResults' - The maximum number of results to return in each page. The default is 100.
+-- 'nextToken', 'listEndpoints_nextToken' - Identifies the next page of results to return.
 --
--- * 'leFilter' - Filters the endpoints that are returned. You can filter endpoints on their name, model, status, or the date and time that they were created. You can only set one filter at a time.
-listEndpoints ::
+-- 'maxResults', 'listEndpoints_maxResults' - The maximum number of results to return in each page. The default is
+-- 100.
+--
+-- 'filter'', 'listEndpoints_filter' - Filters the endpoints that are returned. You can filter endpoints on
+-- their name, model, status, or the date and time that they were created.
+-- You can only set one filter at a time.
+newListEndpoints ::
   ListEndpoints
-listEndpoints =
+newListEndpoints =
   ListEndpoints'
-    { _leNextToken = Nothing,
-      _leMaxResults = Nothing,
-      _leFilter = Nothing
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      filter' = Prelude.Nothing
     }
 
 -- | Identifies the next page of results to return.
-leNextToken :: Lens' ListEndpoints (Maybe Text)
-leNextToken = lens _leNextToken (\s a -> s {_leNextToken = a})
+listEndpoints_nextToken :: Lens.Lens' ListEndpoints (Prelude.Maybe Prelude.Text)
+listEndpoints_nextToken = Lens.lens (\ListEndpoints' {nextToken} -> nextToken) (\s@ListEndpoints' {} a -> s {nextToken = a} :: ListEndpoints)
 
--- | The maximum number of results to return in each page. The default is 100.
-leMaxResults :: Lens' ListEndpoints (Maybe Natural)
-leMaxResults = lens _leMaxResults (\s a -> s {_leMaxResults = a}) . mapping _Nat
+-- | The maximum number of results to return in each page. The default is
+-- 100.
+listEndpoints_maxResults :: Lens.Lens' ListEndpoints (Prelude.Maybe Prelude.Natural)
+listEndpoints_maxResults = Lens.lens (\ListEndpoints' {maxResults} -> maxResults) (\s@ListEndpoints' {} a -> s {maxResults = a} :: ListEndpoints) Prelude.. Lens.mapping Prelude._Nat
 
--- | Filters the endpoints that are returned. You can filter endpoints on their name, model, status, or the date and time that they were created. You can only set one filter at a time.
-leFilter :: Lens' ListEndpoints (Maybe EndpointFilter)
-leFilter = lens _leFilter (\s a -> s {_leFilter = a})
+-- | Filters the endpoints that are returned. You can filter endpoints on
+-- their name, model, status, or the date and time that they were created.
+-- You can only set one filter at a time.
+listEndpoints_filter :: Lens.Lens' ListEndpoints (Prelude.Maybe EndpointFilter)
+listEndpoints_filter = Lens.lens (\ListEndpoints' {filter'} -> filter') (\s@ListEndpoints' {} a -> s {filter' = a} :: ListEndpoints)
 
-instance AWSRequest ListEndpoints where
+instance Prelude.AWSRequest ListEndpoints where
   type Rs ListEndpoints = ListEndpointsResponse
-  request = postJSON comprehend
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListEndpointsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "EndpointPropertiesList" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "EndpointPropertiesList"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListEndpoints
+instance Prelude.Hashable ListEndpoints
 
-instance NFData ListEndpoints
+instance Prelude.NFData ListEndpoints
 
-instance ToHeaders ListEndpoints where
+instance Prelude.ToHeaders ListEndpoints where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("Comprehend_20171127.ListEndpoints" :: ByteString),
+              Prelude.=# ( "Comprehend_20171127.ListEndpoints" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListEndpoints where
+instance Prelude.ToJSON ListEndpoints where
   toJSON ListEndpoints' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _leNextToken,
-            ("MaxResults" .=) <$> _leMaxResults,
-            ("Filter" .=) <$> _leFilter
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("Filter" Prelude..=) Prelude.<$> filter'
           ]
       )
 
-instance ToPath ListEndpoints where
-  toPath = const "/"
+instance Prelude.ToPath ListEndpoints where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListEndpoints where
-  toQuery = const mempty
+instance Prelude.ToQuery ListEndpoints where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listEndpointsResponse' smart constructor.
+-- | /See:/ 'newListEndpointsResponse' smart constructor.
 data ListEndpointsResponse = ListEndpointsResponse'
-  { _lerrsNextToken ::
-      !(Maybe Text),
-    _lerrsEndpointPropertiesList ::
-      !( Maybe
-           [EndpointProperties]
-       ),
-    _lerrsResponseStatus ::
-      !Int
+  { -- | Identifies the next page of results to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Displays a list of endpoint properties being retrieved by the service in
+    -- response to the request.
+    endpointPropertiesList :: Prelude.Maybe [EndpointProperties],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListEndpointsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListEndpointsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lerrsNextToken' - Identifies the next page of results to return.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lerrsEndpointPropertiesList' - Displays a list of endpoint properties being retrieved by the service in response to the request.
+-- 'nextToken', 'listEndpointsResponse_nextToken' - Identifies the next page of results to return.
 --
--- * 'lerrsResponseStatus' - -- | The response status code.
-listEndpointsResponse ::
-  -- | 'lerrsResponseStatus'
-  Int ->
+-- 'endpointPropertiesList', 'listEndpointsResponse_endpointPropertiesList' - Displays a list of endpoint properties being retrieved by the service in
+-- response to the request.
+--
+-- 'httpStatus', 'listEndpointsResponse_httpStatus' - The response's http status code.
+newListEndpointsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListEndpointsResponse
-listEndpointsResponse pResponseStatus_ =
+newListEndpointsResponse pHttpStatus_ =
   ListEndpointsResponse'
-    { _lerrsNextToken = Nothing,
-      _lerrsEndpointPropertiesList = Nothing,
-      _lerrsResponseStatus = pResponseStatus_
+    { nextToken = Prelude.Nothing,
+      endpointPropertiesList = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Identifies the next page of results to return.
-lerrsNextToken :: Lens' ListEndpointsResponse (Maybe Text)
-lerrsNextToken = lens _lerrsNextToken (\s a -> s {_lerrsNextToken = a})
+listEndpointsResponse_nextToken :: Lens.Lens' ListEndpointsResponse (Prelude.Maybe Prelude.Text)
+listEndpointsResponse_nextToken = Lens.lens (\ListEndpointsResponse' {nextToken} -> nextToken) (\s@ListEndpointsResponse' {} a -> s {nextToken = a} :: ListEndpointsResponse)
 
--- | Displays a list of endpoint properties being retrieved by the service in response to the request.
-lerrsEndpointPropertiesList :: Lens' ListEndpointsResponse [EndpointProperties]
-lerrsEndpointPropertiesList = lens _lerrsEndpointPropertiesList (\s a -> s {_lerrsEndpointPropertiesList = a}) . _Default . _Coerce
+-- | Displays a list of endpoint properties being retrieved by the service in
+-- response to the request.
+listEndpointsResponse_endpointPropertiesList :: Lens.Lens' ListEndpointsResponse (Prelude.Maybe [EndpointProperties])
+listEndpointsResponse_endpointPropertiesList = Lens.lens (\ListEndpointsResponse' {endpointPropertiesList} -> endpointPropertiesList) (\s@ListEndpointsResponse' {} a -> s {endpointPropertiesList = a} :: ListEndpointsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lerrsResponseStatus :: Lens' ListEndpointsResponse Int
-lerrsResponseStatus = lens _lerrsResponseStatus (\s a -> s {_lerrsResponseStatus = a})
+-- | The response's http status code.
+listEndpointsResponse_httpStatus :: Lens.Lens' ListEndpointsResponse Prelude.Int
+listEndpointsResponse_httpStatus = Lens.lens (\ListEndpointsResponse' {httpStatus} -> httpStatus) (\s@ListEndpointsResponse' {} a -> s {httpStatus = a} :: ListEndpointsResponse)
 
-instance NFData ListEndpointsResponse
+instance Prelude.NFData ListEndpointsResponse

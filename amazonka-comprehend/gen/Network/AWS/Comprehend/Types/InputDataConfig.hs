@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,64 +20,113 @@
 module Network.AWS.Comprehend.Types.InputDataConfig where
 
 import Network.AWS.Comprehend.Types.InputFormat
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The input properties for a topic detection job.
 --
---
---
--- /See:/ 'inputDataConfig' smart constructor.
+-- /See:/ 'newInputDataConfig' smart constructor.
 data InputDataConfig = InputDataConfig'
-  { _idcInputFormat ::
-      !(Maybe InputFormat),
-    _idcS3URI :: !Text
+  { -- | Specifies how the text in an input file should be processed:
+    --
+    -- -   @ONE_DOC_PER_FILE@ - Each file is considered a separate document.
+    --     Use this option when you are processing large documents, such as
+    --     newspaper articles or scientific papers.
+    --
+    -- -   @ONE_DOC_PER_LINE@ - Each line in a file is considered a separate
+    --     document. Use this option when you are processing many short
+    --     documents, such as text messages.
+    inputFormat :: Prelude.Maybe InputFormat,
+    -- | The Amazon S3 URI for the input data. The URI must be in same region as
+    -- the API endpoint that you are calling. The URI can point to a single
+    -- input file or it can provide the prefix for a collection of data files.
+    --
+    -- For example, if you use the URI @S3:\/\/bucketName\/prefix@, if the
+    -- prefix is a single file, Amazon Comprehend uses that file as input. If
+    -- more than one file begins with the prefix, Amazon Comprehend uses all of
+    -- them as input.
+    s3Uri :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InputDataConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InputDataConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'idcInputFormat' - Specifies how the text in an input file should be processed:     * @ONE_DOC_PER_FILE@ - Each file is considered a separate document. Use this option when you are processing large documents, such as newspaper articles or scientific papers.     * @ONE_DOC_PER_LINE@ - Each line in a file is considered a separate document. Use this option when you are processing many short documents, such as text messages.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'idcS3URI' - The Amazon S3 URI for the input data. The URI must be in same region as the API endpoint that you are calling. The URI can point to a single input file or it can provide the prefix for a collection of data files.  For example, if you use the URI @S3://bucketName/prefix@ , if the prefix is a single file, Amazon Comprehend uses that file as input. If more than one file begins with the prefix, Amazon Comprehend uses all of them as input.
-inputDataConfig ::
-  -- | 'idcS3URI'
-  Text ->
+-- 'inputFormat', 'inputDataConfig_inputFormat' - Specifies how the text in an input file should be processed:
+--
+-- -   @ONE_DOC_PER_FILE@ - Each file is considered a separate document.
+--     Use this option when you are processing large documents, such as
+--     newspaper articles or scientific papers.
+--
+-- -   @ONE_DOC_PER_LINE@ - Each line in a file is considered a separate
+--     document. Use this option when you are processing many short
+--     documents, such as text messages.
+--
+-- 's3Uri', 'inputDataConfig_s3Uri' - The Amazon S3 URI for the input data. The URI must be in same region as
+-- the API endpoint that you are calling. The URI can point to a single
+-- input file or it can provide the prefix for a collection of data files.
+--
+-- For example, if you use the URI @S3:\/\/bucketName\/prefix@, if the
+-- prefix is a single file, Amazon Comprehend uses that file as input. If
+-- more than one file begins with the prefix, Amazon Comprehend uses all of
+-- them as input.
+newInputDataConfig ::
+  -- | 's3Uri'
+  Prelude.Text ->
   InputDataConfig
-inputDataConfig pS3URI_ =
+newInputDataConfig pS3Uri_ =
   InputDataConfig'
-    { _idcInputFormat = Nothing,
-      _idcS3URI = pS3URI_
+    { inputFormat = Prelude.Nothing,
+      s3Uri = pS3Uri_
     }
 
--- | Specifies how the text in an input file should be processed:     * @ONE_DOC_PER_FILE@ - Each file is considered a separate document. Use this option when you are processing large documents, such as newspaper articles or scientific papers.     * @ONE_DOC_PER_LINE@ - Each line in a file is considered a separate document. Use this option when you are processing many short documents, such as text messages.
-idcInputFormat :: Lens' InputDataConfig (Maybe InputFormat)
-idcInputFormat = lens _idcInputFormat (\s a -> s {_idcInputFormat = a})
+-- | Specifies how the text in an input file should be processed:
+--
+-- -   @ONE_DOC_PER_FILE@ - Each file is considered a separate document.
+--     Use this option when you are processing large documents, such as
+--     newspaper articles or scientific papers.
+--
+-- -   @ONE_DOC_PER_LINE@ - Each line in a file is considered a separate
+--     document. Use this option when you are processing many short
+--     documents, such as text messages.
+inputDataConfig_inputFormat :: Lens.Lens' InputDataConfig (Prelude.Maybe InputFormat)
+inputDataConfig_inputFormat = Lens.lens (\InputDataConfig' {inputFormat} -> inputFormat) (\s@InputDataConfig' {} a -> s {inputFormat = a} :: InputDataConfig)
 
--- | The Amazon S3 URI for the input data. The URI must be in same region as the API endpoint that you are calling. The URI can point to a single input file or it can provide the prefix for a collection of data files.  For example, if you use the URI @S3://bucketName/prefix@ , if the prefix is a single file, Amazon Comprehend uses that file as input. If more than one file begins with the prefix, Amazon Comprehend uses all of them as input.
-idcS3URI :: Lens' InputDataConfig Text
-idcS3URI = lens _idcS3URI (\s a -> s {_idcS3URI = a})
+-- | The Amazon S3 URI for the input data. The URI must be in same region as
+-- the API endpoint that you are calling. The URI can point to a single
+-- input file or it can provide the prefix for a collection of data files.
+--
+-- For example, if you use the URI @S3:\/\/bucketName\/prefix@, if the
+-- prefix is a single file, Amazon Comprehend uses that file as input. If
+-- more than one file begins with the prefix, Amazon Comprehend uses all of
+-- them as input.
+inputDataConfig_s3Uri :: Lens.Lens' InputDataConfig Prelude.Text
+inputDataConfig_s3Uri = Lens.lens (\InputDataConfig' {s3Uri} -> s3Uri) (\s@InputDataConfig' {} a -> s {s3Uri = a} :: InputDataConfig)
 
-instance FromJSON InputDataConfig where
+instance Prelude.FromJSON InputDataConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "InputDataConfig"
       ( \x ->
           InputDataConfig'
-            <$> (x .:? "InputFormat") <*> (x .: "S3Uri")
+            Prelude.<$> (x Prelude..:? "InputFormat")
+            Prelude.<*> (x Prelude..: "S3Uri")
       )
 
-instance Hashable InputDataConfig
+instance Prelude.Hashable InputDataConfig
 
-instance NFData InputDataConfig
+instance Prelude.NFData InputDataConfig
 
-instance ToJSON InputDataConfig where
+instance Prelude.ToJSON InputDataConfig where
   toJSON InputDataConfig' {..} =
-    object
-      ( catMaybes
-          [ ("InputFormat" .=) <$> _idcInputFormat,
-            Just ("S3Uri" .= _idcS3URI)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("InputFormat" Prelude..=) Prelude.<$> inputFormat,
+            Prelude.Just ("S3Uri" Prelude..= s3Uri)
           ]
       )

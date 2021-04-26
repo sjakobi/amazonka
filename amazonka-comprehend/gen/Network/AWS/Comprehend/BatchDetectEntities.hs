@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,161 +21,204 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Inspects the text of a batch of documents for named entities and returns information about them. For more information about named entities, see 'how-entities'
+-- Inspects the text of a batch of documents for named entities and returns
+-- information about them. For more information about named entities, see
+-- how-entities
 module Network.AWS.Comprehend.BatchDetectEntities
   ( -- * Creating a Request
-    batchDetectEntities,
-    BatchDetectEntities,
+    BatchDetectEntities (..),
+    newBatchDetectEntities,
 
     -- * Request Lenses
-    bdeTextList,
-    bdeLanguageCode,
+    batchDetectEntities_textList,
+    batchDetectEntities_languageCode,
 
     -- * Destructuring the Response
-    batchDetectEntitiesResponse,
-    BatchDetectEntitiesResponse,
+    BatchDetectEntitiesResponse (..),
+    newBatchDetectEntitiesResponse,
 
     -- * Response Lenses
-    bderrsResponseStatus,
-    bderrsResultList,
-    bderrsErrorList,
+    batchDetectEntitiesResponse_httpStatus,
+    batchDetectEntitiesResponse_resultList,
+    batchDetectEntitiesResponse_errorList,
   )
 where
 
 import Network.AWS.Comprehend.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Comprehend.Types.BatchDetectEntitiesItemResult
+import Network.AWS.Comprehend.Types.BatchItemError
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'batchDetectEntities' smart constructor.
+-- | /See:/ 'newBatchDetectEntities' smart constructor.
 data BatchDetectEntities = BatchDetectEntities'
-  { _bdeTextList ::
-      !(Sensitive [Sensitive Text]),
-    _bdeLanguageCode ::
-      !LanguageCode
+  { -- | A list containing the text of the input documents. The list can contain
+    -- a maximum of 25 documents. Each document must contain fewer than 5,000
+    -- bytes of UTF-8 encoded characters.
+    textList :: Prelude.Sensitive [Prelude.Sensitive Prelude.Text],
+    -- | The language of the input documents. You can specify any of the primary
+    -- languages supported by Amazon Comprehend. All documents must be in the
+    -- same language.
+    languageCode :: LanguageCode
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchDetectEntities' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchDetectEntities' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bdeTextList' - A list containing the text of the input documents. The list can contain a maximum of 25 documents. Each document must contain fewer than 5,000 bytes of UTF-8 encoded characters.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bdeLanguageCode' - The language of the input documents. You can specify any of the primary languages supported by Amazon Comprehend. All documents must be in the same language.
-batchDetectEntities ::
-  -- | 'bdeLanguageCode'
+-- 'textList', 'batchDetectEntities_textList' - A list containing the text of the input documents. The list can contain
+-- a maximum of 25 documents. Each document must contain fewer than 5,000
+-- bytes of UTF-8 encoded characters.
+--
+-- 'languageCode', 'batchDetectEntities_languageCode' - The language of the input documents. You can specify any of the primary
+-- languages supported by Amazon Comprehend. All documents must be in the
+-- same language.
+newBatchDetectEntities ::
+  -- | 'languageCode'
   LanguageCode ->
   BatchDetectEntities
-batchDetectEntities pLanguageCode_ =
+newBatchDetectEntities pLanguageCode_ =
   BatchDetectEntities'
-    { _bdeTextList = mempty,
-      _bdeLanguageCode = pLanguageCode_
+    { textList = Prelude.mempty,
+      languageCode = pLanguageCode_
     }
 
--- | A list containing the text of the input documents. The list can contain a maximum of 25 documents. Each document must contain fewer than 5,000 bytes of UTF-8 encoded characters.
-bdeTextList :: Lens' BatchDetectEntities [Text]
-bdeTextList = lens _bdeTextList (\s a -> s {_bdeTextList = a}) . _Sensitive . _Coerce
+-- | A list containing the text of the input documents. The list can contain
+-- a maximum of 25 documents. Each document must contain fewer than 5,000
+-- bytes of UTF-8 encoded characters.
+batchDetectEntities_textList :: Lens.Lens' BatchDetectEntities [Prelude.Text]
+batchDetectEntities_textList = Lens.lens (\BatchDetectEntities' {textList} -> textList) (\s@BatchDetectEntities' {} a -> s {textList = a} :: BatchDetectEntities) Prelude.. Prelude._Sensitive Prelude.. Prelude._Coerce
 
--- | The language of the input documents. You can specify any of the primary languages supported by Amazon Comprehend. All documents must be in the same language.
-bdeLanguageCode :: Lens' BatchDetectEntities LanguageCode
-bdeLanguageCode = lens _bdeLanguageCode (\s a -> s {_bdeLanguageCode = a})
+-- | The language of the input documents. You can specify any of the primary
+-- languages supported by Amazon Comprehend. All documents must be in the
+-- same language.
+batchDetectEntities_languageCode :: Lens.Lens' BatchDetectEntities LanguageCode
+batchDetectEntities_languageCode = Lens.lens (\BatchDetectEntities' {languageCode} -> languageCode) (\s@BatchDetectEntities' {} a -> s {languageCode = a} :: BatchDetectEntities)
 
-instance AWSRequest BatchDetectEntities where
+instance Prelude.AWSRequest BatchDetectEntities where
   type
     Rs BatchDetectEntities =
       BatchDetectEntitiesResponse
-  request = postJSON comprehend
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           BatchDetectEntitiesResponse'
-            <$> (pure (fromEnum s))
-            <*> (x .?> "ResultList" .!@ mempty)
-            <*> (x .?> "ErrorList" .!@ mempty)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> ( x Prelude..?> "ResultList"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..?> "ErrorList"
+                            Prelude..!@ Prelude.mempty
+                        )
       )
 
-instance Hashable BatchDetectEntities
+instance Prelude.Hashable BatchDetectEntities
 
-instance NFData BatchDetectEntities
+instance Prelude.NFData BatchDetectEntities
 
-instance ToHeaders BatchDetectEntities where
+instance Prelude.ToHeaders BatchDetectEntities where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Comprehend_20171127.BatchDetectEntities" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Comprehend_20171127.BatchDetectEntities" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON BatchDetectEntities where
+instance Prelude.ToJSON BatchDetectEntities where
   toJSON BatchDetectEntities' {..} =
-    object
-      ( catMaybes
-          [ Just ("TextList" .= _bdeTextList),
-            Just ("LanguageCode" .= _bdeLanguageCode)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("TextList" Prelude..= textList),
+            Prelude.Just
+              ("LanguageCode" Prelude..= languageCode)
           ]
       )
 
-instance ToPath BatchDetectEntities where
-  toPath = const "/"
+instance Prelude.ToPath BatchDetectEntities where
+  toPath = Prelude.const "/"
 
-instance ToQuery BatchDetectEntities where
-  toQuery = const mempty
+instance Prelude.ToQuery BatchDetectEntities where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'batchDetectEntitiesResponse' smart constructor.
+-- | /See:/ 'newBatchDetectEntitiesResponse' smart constructor.
 data BatchDetectEntitiesResponse = BatchDetectEntitiesResponse'
-  { _bderrsResponseStatus ::
-      !Int,
-    _bderrsResultList ::
-      ![BatchDetectEntitiesItemResult],
-    _bderrsErrorList ::
-      ![BatchItemError]
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | A list of objects containing the results of the operation. The results
+    -- are sorted in ascending order by the @Index@ field and match the order
+    -- of the documents in the input list. If all of the documents contain an
+    -- error, the @ResultList@ is empty.
+    resultList :: [BatchDetectEntitiesItemResult],
+    -- | A list containing one object for each document that contained an error.
+    -- The results are sorted in ascending order by the @Index@ field and match
+    -- the order of the documents in the input list. If there are no errors in
+    -- the batch, the @ErrorList@ is empty.
+    errorList :: [BatchItemError]
   }
-  deriving
-    ( Eq,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchDetectEntitiesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchDetectEntitiesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bderrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bderrsResultList' - A list of objects containing the results of the operation. The results are sorted in ascending order by the @Index@ field and match the order of the documents in the input list. If all of the documents contain an error, the @ResultList@ is empty.
+-- 'httpStatus', 'batchDetectEntitiesResponse_httpStatus' - The response's http status code.
 --
--- * 'bderrsErrorList' - A list containing one object for each document that contained an error. The results are sorted in ascending order by the @Index@ field and match the order of the documents in the input list. If there are no errors in the batch, the @ErrorList@ is empty.
-batchDetectEntitiesResponse ::
-  -- | 'bderrsResponseStatus'
-  Int ->
+-- 'resultList', 'batchDetectEntitiesResponse_resultList' - A list of objects containing the results of the operation. The results
+-- are sorted in ascending order by the @Index@ field and match the order
+-- of the documents in the input list. If all of the documents contain an
+-- error, the @ResultList@ is empty.
+--
+-- 'errorList', 'batchDetectEntitiesResponse_errorList' - A list containing one object for each document that contained an error.
+-- The results are sorted in ascending order by the @Index@ field and match
+-- the order of the documents in the input list. If there are no errors in
+-- the batch, the @ErrorList@ is empty.
+newBatchDetectEntitiesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   BatchDetectEntitiesResponse
-batchDetectEntitiesResponse pResponseStatus_ =
+newBatchDetectEntitiesResponse pHttpStatus_ =
   BatchDetectEntitiesResponse'
-    { _bderrsResponseStatus =
-        pResponseStatus_,
-      _bderrsResultList = mempty,
-      _bderrsErrorList = mempty
+    { httpStatus =
+        pHttpStatus_,
+      resultList = Prelude.mempty,
+      errorList = Prelude.mempty
     }
 
--- | -- | The response status code.
-bderrsResponseStatus :: Lens' BatchDetectEntitiesResponse Int
-bderrsResponseStatus = lens _bderrsResponseStatus (\s a -> s {_bderrsResponseStatus = a})
+-- | The response's http status code.
+batchDetectEntitiesResponse_httpStatus :: Lens.Lens' BatchDetectEntitiesResponse Prelude.Int
+batchDetectEntitiesResponse_httpStatus = Lens.lens (\BatchDetectEntitiesResponse' {httpStatus} -> httpStatus) (\s@BatchDetectEntitiesResponse' {} a -> s {httpStatus = a} :: BatchDetectEntitiesResponse)
 
--- | A list of objects containing the results of the operation. The results are sorted in ascending order by the @Index@ field and match the order of the documents in the input list. If all of the documents contain an error, the @ResultList@ is empty.
-bderrsResultList :: Lens' BatchDetectEntitiesResponse [BatchDetectEntitiesItemResult]
-bderrsResultList = lens _bderrsResultList (\s a -> s {_bderrsResultList = a}) . _Coerce
+-- | A list of objects containing the results of the operation. The results
+-- are sorted in ascending order by the @Index@ field and match the order
+-- of the documents in the input list. If all of the documents contain an
+-- error, the @ResultList@ is empty.
+batchDetectEntitiesResponse_resultList :: Lens.Lens' BatchDetectEntitiesResponse [BatchDetectEntitiesItemResult]
+batchDetectEntitiesResponse_resultList = Lens.lens (\BatchDetectEntitiesResponse' {resultList} -> resultList) (\s@BatchDetectEntitiesResponse' {} a -> s {resultList = a} :: BatchDetectEntitiesResponse) Prelude.. Prelude._Coerce
 
--- | A list containing one object for each document that contained an error. The results are sorted in ascending order by the @Index@ field and match the order of the documents in the input list. If there are no errors in the batch, the @ErrorList@ is empty.
-bderrsErrorList :: Lens' BatchDetectEntitiesResponse [BatchItemError]
-bderrsErrorList = lens _bderrsErrorList (\s a -> s {_bderrsErrorList = a}) . _Coerce
+-- | A list containing one object for each document that contained an error.
+-- The results are sorted in ascending order by the @Index@ field and match
+-- the order of the documents in the input list. If there are no errors in
+-- the batch, the @ErrorList@ is empty.
+batchDetectEntitiesResponse_errorList :: Lens.Lens' BatchDetectEntitiesResponse [BatchItemError]
+batchDetectEntitiesResponse_errorList = Lens.lens (\BatchDetectEntitiesResponse' {errorList} -> errorList) (\s@BatchDetectEntitiesResponse' {} a -> s {errorList = a} :: BatchDetectEntitiesResponse) Prelude.. Prelude._Coerce
 
-instance NFData BatchDetectEntitiesResponse
+instance Prelude.NFData BatchDetectEntitiesResponse

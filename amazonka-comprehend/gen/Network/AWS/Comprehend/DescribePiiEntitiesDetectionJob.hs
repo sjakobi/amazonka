@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,150 +21,166 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets the properties associated with a PII entities detection job. For example, you can use this operation to get the job status.
+-- Gets the properties associated with a PII entities detection job. For
+-- example, you can use this operation to get the job status.
 module Network.AWS.Comprehend.DescribePiiEntitiesDetectionJob
   ( -- * Creating a Request
-    describePiiEntitiesDetectionJob,
-    DescribePiiEntitiesDetectionJob,
+    DescribePiiEntitiesDetectionJob (..),
+    newDescribePiiEntitiesDetectionJob,
 
     -- * Request Lenses
-    dpedjJobId,
+    describePiiEntitiesDetectionJob_jobId,
 
     -- * Destructuring the Response
-    describePiiEntitiesDetectionJobResponse,
-    DescribePiiEntitiesDetectionJobResponse,
+    DescribePiiEntitiesDetectionJobResponse (..),
+    newDescribePiiEntitiesDetectionJobResponse,
 
     -- * Response Lenses
-    dpedjrrsPiiEntitiesDetectionJobProperties,
-    dpedjrrsResponseStatus,
+    describePiiEntitiesDetectionJobResponse_piiEntitiesDetectionJobProperties,
+    describePiiEntitiesDetectionJobResponse_httpStatus,
   )
 where
 
 import Network.AWS.Comprehend.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Comprehend.Types.PiiEntitiesDetectionJobProperties
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describePiiEntitiesDetectionJob' smart constructor.
-newtype DescribePiiEntitiesDetectionJob = DescribePiiEntitiesDetectionJob'
-  { _dpedjJobId ::
-      Text
+-- | /See:/ 'newDescribePiiEntitiesDetectionJob' smart constructor.
+data DescribePiiEntitiesDetectionJob = DescribePiiEntitiesDetectionJob'
+  { -- | The identifier that Amazon Comprehend generated for the job. The
+    -- operation returns this identifier in its response.
+    jobId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribePiiEntitiesDetectionJob' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribePiiEntitiesDetectionJob' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dpedjJobId' - The identifier that Amazon Comprehend generated for the job. The operation returns this identifier in its response.
-describePiiEntitiesDetectionJob ::
-  -- | 'dpedjJobId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'jobId', 'describePiiEntitiesDetectionJob_jobId' - The identifier that Amazon Comprehend generated for the job. The
+-- operation returns this identifier in its response.
+newDescribePiiEntitiesDetectionJob ::
+  -- | 'jobId'
+  Prelude.Text ->
   DescribePiiEntitiesDetectionJob
-describePiiEntitiesDetectionJob pJobId_ =
-  DescribePiiEntitiesDetectionJob'
-    { _dpedjJobId =
-        pJobId_
-    }
+newDescribePiiEntitiesDetectionJob pJobId_ =
+  DescribePiiEntitiesDetectionJob' {jobId = pJobId_}
 
--- | The identifier that Amazon Comprehend generated for the job. The operation returns this identifier in its response.
-dpedjJobId :: Lens' DescribePiiEntitiesDetectionJob Text
-dpedjJobId = lens _dpedjJobId (\s a -> s {_dpedjJobId = a})
+-- | The identifier that Amazon Comprehend generated for the job. The
+-- operation returns this identifier in its response.
+describePiiEntitiesDetectionJob_jobId :: Lens.Lens' DescribePiiEntitiesDetectionJob Prelude.Text
+describePiiEntitiesDetectionJob_jobId = Lens.lens (\DescribePiiEntitiesDetectionJob' {jobId} -> jobId) (\s@DescribePiiEntitiesDetectionJob' {} a -> s {jobId = a} :: DescribePiiEntitiesDetectionJob)
 
-instance AWSRequest DescribePiiEntitiesDetectionJob where
+instance
+  Prelude.AWSRequest
+    DescribePiiEntitiesDetectionJob
+  where
   type
     Rs DescribePiiEntitiesDetectionJob =
       DescribePiiEntitiesDetectionJobResponse
-  request = postJSON comprehend
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribePiiEntitiesDetectionJobResponse'
-            <$> (x .?> "PiiEntitiesDetectionJobProperties")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "PiiEntitiesDetectionJobProperties")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribePiiEntitiesDetectionJob
+instance
+  Prelude.Hashable
+    DescribePiiEntitiesDetectionJob
 
-instance NFData DescribePiiEntitiesDetectionJob
+instance
+  Prelude.NFData
+    DescribePiiEntitiesDetectionJob
 
-instance ToHeaders DescribePiiEntitiesDetectionJob where
+instance
+  Prelude.ToHeaders
+    DescribePiiEntitiesDetectionJob
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Comprehend_20171127.DescribePiiEntitiesDetectionJob" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Comprehend_20171127.DescribePiiEntitiesDetectionJob" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribePiiEntitiesDetectionJob where
+instance
+  Prelude.ToJSON
+    DescribePiiEntitiesDetectionJob
+  where
   toJSON DescribePiiEntitiesDetectionJob' {..} =
-    object (catMaybes [Just ("JobId" .= _dpedjJobId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("JobId" Prelude..= jobId)]
+      )
 
-instance ToPath DescribePiiEntitiesDetectionJob where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    DescribePiiEntitiesDetectionJob
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribePiiEntitiesDetectionJob where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    DescribePiiEntitiesDetectionJob
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describePiiEntitiesDetectionJobResponse' smart constructor.
+-- | /See:/ 'newDescribePiiEntitiesDetectionJobResponse' smart constructor.
 data DescribePiiEntitiesDetectionJobResponse = DescribePiiEntitiesDetectionJobResponse'
-  { _dpedjrrsPiiEntitiesDetectionJobProperties ::
-      !( Maybe
-           PiiEntitiesDetectionJobProperties
-       ),
-    _dpedjrrsResponseStatus ::
-      !Int
+  { piiEntitiesDetectionJobProperties :: Prelude.Maybe PiiEntitiesDetectionJobProperties,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribePiiEntitiesDetectionJobResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribePiiEntitiesDetectionJobResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dpedjrrsPiiEntitiesDetectionJobProperties' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dpedjrrsResponseStatus' - -- | The response status code.
-describePiiEntitiesDetectionJobResponse ::
-  -- | 'dpedjrrsResponseStatus'
-  Int ->
+-- 'piiEntitiesDetectionJobProperties', 'describePiiEntitiesDetectionJobResponse_piiEntitiesDetectionJobProperties' - Undocumented member.
+--
+-- 'httpStatus', 'describePiiEntitiesDetectionJobResponse_httpStatus' - The response's http status code.
+newDescribePiiEntitiesDetectionJobResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribePiiEntitiesDetectionJobResponse
-describePiiEntitiesDetectionJobResponse
-  pResponseStatus_ =
+newDescribePiiEntitiesDetectionJobResponse
+  pHttpStatus_ =
     DescribePiiEntitiesDetectionJobResponse'
-      { _dpedjrrsPiiEntitiesDetectionJobProperties =
-          Nothing,
-        _dpedjrrsResponseStatus =
-          pResponseStatus_
+      { piiEntitiesDetectionJobProperties =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | Undocumented member.
-dpedjrrsPiiEntitiesDetectionJobProperties :: Lens' DescribePiiEntitiesDetectionJobResponse (Maybe PiiEntitiesDetectionJobProperties)
-dpedjrrsPiiEntitiesDetectionJobProperties = lens _dpedjrrsPiiEntitiesDetectionJobProperties (\s a -> s {_dpedjrrsPiiEntitiesDetectionJobProperties = a})
+describePiiEntitiesDetectionJobResponse_piiEntitiesDetectionJobProperties :: Lens.Lens' DescribePiiEntitiesDetectionJobResponse (Prelude.Maybe PiiEntitiesDetectionJobProperties)
+describePiiEntitiesDetectionJobResponse_piiEntitiesDetectionJobProperties = Lens.lens (\DescribePiiEntitiesDetectionJobResponse' {piiEntitiesDetectionJobProperties} -> piiEntitiesDetectionJobProperties) (\s@DescribePiiEntitiesDetectionJobResponse' {} a -> s {piiEntitiesDetectionJobProperties = a} :: DescribePiiEntitiesDetectionJobResponse)
 
--- | -- | The response status code.
-dpedjrrsResponseStatus :: Lens' DescribePiiEntitiesDetectionJobResponse Int
-dpedjrrsResponseStatus = lens _dpedjrrsResponseStatus (\s a -> s {_dpedjrrsResponseStatus = a})
+-- | The response's http status code.
+describePiiEntitiesDetectionJobResponse_httpStatus :: Lens.Lens' DescribePiiEntitiesDetectionJobResponse Prelude.Int
+describePiiEntitiesDetectionJobResponse_httpStatus = Lens.lens (\DescribePiiEntitiesDetectionJobResponse' {httpStatus} -> httpStatus) (\s@DescribePiiEntitiesDetectionJobResponse' {} a -> s {httpStatus = a} :: DescribePiiEntitiesDetectionJobResponse)
 
 instance
-  NFData
+  Prelude.NFData
     DescribePiiEntitiesDetectionJobResponse

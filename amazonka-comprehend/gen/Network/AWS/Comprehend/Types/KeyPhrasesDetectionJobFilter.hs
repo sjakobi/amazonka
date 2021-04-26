@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,88 +20,97 @@
 module Network.AWS.Comprehend.Types.KeyPhrasesDetectionJobFilter where
 
 import Network.AWS.Comprehend.Types.JobStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Provides information for filtering a list of dominant language detection jobs. For more information, see the operation.
+-- | Provides information for filtering a list of dominant language detection
+-- jobs. For more information, see the operation.
 --
---
---
--- /See:/ 'keyPhrasesDetectionJobFilter' smart constructor.
+-- /See:/ 'newKeyPhrasesDetectionJobFilter' smart constructor.
 data KeyPhrasesDetectionJobFilter = KeyPhrasesDetectionJobFilter'
-  { _kpdjfJobStatus ::
-      !( Maybe
-           JobStatus
-       ),
-    _kpdjfSubmitTimeBefore ::
-      !( Maybe
-           POSIX
-       ),
-    _kpdjfSubmitTimeAfter ::
-      !( Maybe
-           POSIX
-       ),
-    _kpdjfJobName ::
-      !(Maybe Text)
+  { -- | Filters the list of jobs based on job status. Returns only jobs with the
+    -- specified status.
+    jobStatus :: Prelude.Maybe JobStatus,
+    -- | Filters the list of jobs based on the time that the job was submitted
+    -- for processing. Returns only jobs submitted before the specified time.
+    -- Jobs are returned in ascending order, oldest to newest.
+    submitTimeBefore :: Prelude.Maybe Prelude.POSIX,
+    -- | Filters the list of jobs based on the time that the job was submitted
+    -- for processing. Returns only jobs submitted after the specified time.
+    -- Jobs are returned in descending order, newest to oldest.
+    submitTimeAfter :: Prelude.Maybe Prelude.POSIX,
+    -- | Filters on the name of the job.
+    jobName :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'KeyPhrasesDetectionJobFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'KeyPhrasesDetectionJobFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'kpdjfJobStatus' - Filters the list of jobs based on job status. Returns only jobs with the specified status.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'kpdjfSubmitTimeBefore' - Filters the list of jobs based on the time that the job was submitted for processing. Returns only jobs submitted before the specified time. Jobs are returned in ascending order, oldest to newest.
+-- 'jobStatus', 'keyPhrasesDetectionJobFilter_jobStatus' - Filters the list of jobs based on job status. Returns only jobs with the
+-- specified status.
 --
--- * 'kpdjfSubmitTimeAfter' - Filters the list of jobs based on the time that the job was submitted for processing. Returns only jobs submitted after the specified time. Jobs are returned in descending order, newest to oldest.
+-- 'submitTimeBefore', 'keyPhrasesDetectionJobFilter_submitTimeBefore' - Filters the list of jobs based on the time that the job was submitted
+-- for processing. Returns only jobs submitted before the specified time.
+-- Jobs are returned in ascending order, oldest to newest.
 --
--- * 'kpdjfJobName' - Filters on the name of the job.
-keyPhrasesDetectionJobFilter ::
+-- 'submitTimeAfter', 'keyPhrasesDetectionJobFilter_submitTimeAfter' - Filters the list of jobs based on the time that the job was submitted
+-- for processing. Returns only jobs submitted after the specified time.
+-- Jobs are returned in descending order, newest to oldest.
+--
+-- 'jobName', 'keyPhrasesDetectionJobFilter_jobName' - Filters on the name of the job.
+newKeyPhrasesDetectionJobFilter ::
   KeyPhrasesDetectionJobFilter
-keyPhrasesDetectionJobFilter =
+newKeyPhrasesDetectionJobFilter =
   KeyPhrasesDetectionJobFilter'
-    { _kpdjfJobStatus =
-        Nothing,
-      _kpdjfSubmitTimeBefore = Nothing,
-      _kpdjfSubmitTimeAfter = Nothing,
-      _kpdjfJobName = Nothing
+    { jobStatus =
+        Prelude.Nothing,
+      submitTimeBefore = Prelude.Nothing,
+      submitTimeAfter = Prelude.Nothing,
+      jobName = Prelude.Nothing
     }
 
--- | Filters the list of jobs based on job status. Returns only jobs with the specified status.
-kpdjfJobStatus :: Lens' KeyPhrasesDetectionJobFilter (Maybe JobStatus)
-kpdjfJobStatus = lens _kpdjfJobStatus (\s a -> s {_kpdjfJobStatus = a})
+-- | Filters the list of jobs based on job status. Returns only jobs with the
+-- specified status.
+keyPhrasesDetectionJobFilter_jobStatus :: Lens.Lens' KeyPhrasesDetectionJobFilter (Prelude.Maybe JobStatus)
+keyPhrasesDetectionJobFilter_jobStatus = Lens.lens (\KeyPhrasesDetectionJobFilter' {jobStatus} -> jobStatus) (\s@KeyPhrasesDetectionJobFilter' {} a -> s {jobStatus = a} :: KeyPhrasesDetectionJobFilter)
 
--- | Filters the list of jobs based on the time that the job was submitted for processing. Returns only jobs submitted before the specified time. Jobs are returned in ascending order, oldest to newest.
-kpdjfSubmitTimeBefore :: Lens' KeyPhrasesDetectionJobFilter (Maybe UTCTime)
-kpdjfSubmitTimeBefore = lens _kpdjfSubmitTimeBefore (\s a -> s {_kpdjfSubmitTimeBefore = a}) . mapping _Time
+-- | Filters the list of jobs based on the time that the job was submitted
+-- for processing. Returns only jobs submitted before the specified time.
+-- Jobs are returned in ascending order, oldest to newest.
+keyPhrasesDetectionJobFilter_submitTimeBefore :: Lens.Lens' KeyPhrasesDetectionJobFilter (Prelude.Maybe Prelude.UTCTime)
+keyPhrasesDetectionJobFilter_submitTimeBefore = Lens.lens (\KeyPhrasesDetectionJobFilter' {submitTimeBefore} -> submitTimeBefore) (\s@KeyPhrasesDetectionJobFilter' {} a -> s {submitTimeBefore = a} :: KeyPhrasesDetectionJobFilter) Prelude.. Lens.mapping Prelude._Time
 
--- | Filters the list of jobs based on the time that the job was submitted for processing. Returns only jobs submitted after the specified time. Jobs are returned in descending order, newest to oldest.
-kpdjfSubmitTimeAfter :: Lens' KeyPhrasesDetectionJobFilter (Maybe UTCTime)
-kpdjfSubmitTimeAfter = lens _kpdjfSubmitTimeAfter (\s a -> s {_kpdjfSubmitTimeAfter = a}) . mapping _Time
+-- | Filters the list of jobs based on the time that the job was submitted
+-- for processing. Returns only jobs submitted after the specified time.
+-- Jobs are returned in descending order, newest to oldest.
+keyPhrasesDetectionJobFilter_submitTimeAfter :: Lens.Lens' KeyPhrasesDetectionJobFilter (Prelude.Maybe Prelude.UTCTime)
+keyPhrasesDetectionJobFilter_submitTimeAfter = Lens.lens (\KeyPhrasesDetectionJobFilter' {submitTimeAfter} -> submitTimeAfter) (\s@KeyPhrasesDetectionJobFilter' {} a -> s {submitTimeAfter = a} :: KeyPhrasesDetectionJobFilter) Prelude.. Lens.mapping Prelude._Time
 
 -- | Filters on the name of the job.
-kpdjfJobName :: Lens' KeyPhrasesDetectionJobFilter (Maybe Text)
-kpdjfJobName = lens _kpdjfJobName (\s a -> s {_kpdjfJobName = a})
+keyPhrasesDetectionJobFilter_jobName :: Lens.Lens' KeyPhrasesDetectionJobFilter (Prelude.Maybe Prelude.Text)
+keyPhrasesDetectionJobFilter_jobName = Lens.lens (\KeyPhrasesDetectionJobFilter' {jobName} -> jobName) (\s@KeyPhrasesDetectionJobFilter' {} a -> s {jobName = a} :: KeyPhrasesDetectionJobFilter)
 
-instance Hashable KeyPhrasesDetectionJobFilter
+instance
+  Prelude.Hashable
+    KeyPhrasesDetectionJobFilter
 
-instance NFData KeyPhrasesDetectionJobFilter
+instance Prelude.NFData KeyPhrasesDetectionJobFilter
 
-instance ToJSON KeyPhrasesDetectionJobFilter where
+instance Prelude.ToJSON KeyPhrasesDetectionJobFilter where
   toJSON KeyPhrasesDetectionJobFilter' {..} =
-    object
-      ( catMaybes
-          [ ("JobStatus" .=) <$> _kpdjfJobStatus,
-            ("SubmitTimeBefore" .=) <$> _kpdjfSubmitTimeBefore,
-            ("SubmitTimeAfter" .=) <$> _kpdjfSubmitTimeAfter,
-            ("JobName" .=) <$> _kpdjfJobName
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("JobStatus" Prelude..=) Prelude.<$> jobStatus,
+            ("SubmitTimeBefore" Prelude..=)
+              Prelude.<$> submitTimeBefore,
+            ("SubmitTimeAfter" Prelude..=)
+              Prelude.<$> submitTimeAfter,
+            ("JobName" Prelude..=) Prelude.<$> jobName
           ]
       )

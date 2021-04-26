@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.Comprehend.Types.EntityRecognizerDataFormat
   ( EntityRecognizerDataFormat
       ( ..,
-        AugmentedManifest,
-        ComprehendCSV
+        EntityRecognizerDataFormatAUGMENTEDMANIFEST,
+        EntityRecognizerDataFormatCOMPREHENDCSV
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data EntityRecognizerDataFormat
-  = EntityRecognizerDataFormat'
-      ( CI
-          Text
-      )
+newtype EntityRecognizerDataFormat = EntityRecognizerDataFormat'
+  { fromEntityRecognizerDataFormat ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AugmentedManifest :: EntityRecognizerDataFormat
-pattern AugmentedManifest = EntityRecognizerDataFormat' "AUGMENTED_MANIFEST"
+pattern EntityRecognizerDataFormatAUGMENTEDMANIFEST :: EntityRecognizerDataFormat
+pattern EntityRecognizerDataFormatAUGMENTEDMANIFEST = EntityRecognizerDataFormat' "AUGMENTED_MANIFEST"
 
-pattern ComprehendCSV :: EntityRecognizerDataFormat
-pattern ComprehendCSV = EntityRecognizerDataFormat' "COMPREHEND_CSV"
+pattern EntityRecognizerDataFormatCOMPREHENDCSV :: EntityRecognizerDataFormat
+pattern EntityRecognizerDataFormatCOMPREHENDCSV = EntityRecognizerDataFormat' "COMPREHEND_CSV"
 
 {-# COMPLETE
-  AugmentedManifest,
-  ComprehendCSV,
+  EntityRecognizerDataFormatAUGMENTEDMANIFEST,
+  EntityRecognizerDataFormatCOMPREHENDCSV,
   EntityRecognizerDataFormat'
   #-}
 
-instance FromText EntityRecognizerDataFormat where
-  parser = (EntityRecognizerDataFormat' . mk) <$> takeText
+instance Prelude.FromText EntityRecognizerDataFormat where
+  parser = EntityRecognizerDataFormat' Prelude.<$> Prelude.takeText
 
-instance ToText EntityRecognizerDataFormat where
-  toText (EntityRecognizerDataFormat' ci) = original ci
+instance Prelude.ToText EntityRecognizerDataFormat where
+  toText (EntityRecognizerDataFormat' x) = x
 
-instance Hashable EntityRecognizerDataFormat
+instance Prelude.Hashable EntityRecognizerDataFormat
 
-instance NFData EntityRecognizerDataFormat
+instance Prelude.NFData EntityRecognizerDataFormat
 
-instance ToByteString EntityRecognizerDataFormat
+instance Prelude.ToByteString EntityRecognizerDataFormat
 
-instance ToQuery EntityRecognizerDataFormat
+instance Prelude.ToQuery EntityRecognizerDataFormat
 
-instance ToHeader EntityRecognizerDataFormat
+instance Prelude.ToHeader EntityRecognizerDataFormat
 
-instance ToJSON EntityRecognizerDataFormat where
-  toJSON = toJSONText
+instance Prelude.ToJSON EntityRecognizerDataFormat where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON EntityRecognizerDataFormat where
-  parseJSON = parseJSONText "EntityRecognizerDataFormat"
+instance Prelude.FromJSON EntityRecognizerDataFormat where
+  parseJSON = Prelude.parseJSONText "EntityRecognizerDataFormat"

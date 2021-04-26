@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,63 +19,69 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Comprehend.Types.BatchItemError where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes an error that occurred while processing a document in a batch. The operation returns on @BatchItemError@ object for each document that contained an error.
+-- | Describes an error that occurred while processing a document in a batch.
+-- The operation returns on @BatchItemError@ object for each document that
+-- contained an error.
 --
---
---
--- /See:/ 'batchItemError' smart constructor.
+-- /See:/ 'newBatchItemError' smart constructor.
 data BatchItemError = BatchItemError'
-  { _bieIndex ::
-      !(Maybe Int),
-    _bieErrorMessage :: !(Maybe Text),
-    _bieErrorCode :: !(Maybe Text)
+  { -- | The zero-based index of the document in the input list.
+    index :: Prelude.Maybe Prelude.Int,
+    -- | A text description of the error.
+    errorMessage :: Prelude.Maybe Prelude.Text,
+    -- | The numeric error code of the error.
+    errorCode :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchItemError' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchItemError' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bieIndex' - The zero-based index of the document in the input list.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bieErrorMessage' - A text description of the error.
+-- 'index', 'batchItemError_index' - The zero-based index of the document in the input list.
 --
--- * 'bieErrorCode' - The numeric error code of the error.
-batchItemError ::
+-- 'errorMessage', 'batchItemError_errorMessage' - A text description of the error.
+--
+-- 'errorCode', 'batchItemError_errorCode' - The numeric error code of the error.
+newBatchItemError ::
   BatchItemError
-batchItemError =
+newBatchItemError =
   BatchItemError'
-    { _bieIndex = Nothing,
-      _bieErrorMessage = Nothing,
-      _bieErrorCode = Nothing
+    { index = Prelude.Nothing,
+      errorMessage = Prelude.Nothing,
+      errorCode = Prelude.Nothing
     }
 
 -- | The zero-based index of the document in the input list.
-bieIndex :: Lens' BatchItemError (Maybe Int)
-bieIndex = lens _bieIndex (\s a -> s {_bieIndex = a})
+batchItemError_index :: Lens.Lens' BatchItemError (Prelude.Maybe Prelude.Int)
+batchItemError_index = Lens.lens (\BatchItemError' {index} -> index) (\s@BatchItemError' {} a -> s {index = a} :: BatchItemError)
 
 -- | A text description of the error.
-bieErrorMessage :: Lens' BatchItemError (Maybe Text)
-bieErrorMessage = lens _bieErrorMessage (\s a -> s {_bieErrorMessage = a})
+batchItemError_errorMessage :: Lens.Lens' BatchItemError (Prelude.Maybe Prelude.Text)
+batchItemError_errorMessage = Lens.lens (\BatchItemError' {errorMessage} -> errorMessage) (\s@BatchItemError' {} a -> s {errorMessage = a} :: BatchItemError)
 
 -- | The numeric error code of the error.
-bieErrorCode :: Lens' BatchItemError (Maybe Text)
-bieErrorCode = lens _bieErrorCode (\s a -> s {_bieErrorCode = a})
+batchItemError_errorCode :: Lens.Lens' BatchItemError (Prelude.Maybe Prelude.Text)
+batchItemError_errorCode = Lens.lens (\BatchItemError' {errorCode} -> errorCode) (\s@BatchItemError' {} a -> s {errorCode = a} :: BatchItemError)
 
-instance FromJSON BatchItemError where
+instance Prelude.FromJSON BatchItemError where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BatchItemError"
       ( \x ->
           BatchItemError'
-            <$> (x .:? "Index")
-            <*> (x .:? "ErrorMessage")
-            <*> (x .:? "ErrorCode")
+            Prelude.<$> (x Prelude..:? "Index")
+            Prelude.<*> (x Prelude..:? "ErrorMessage")
+            Prelude.<*> (x Prelude..:? "ErrorCode")
       )
 
-instance Hashable BatchItemError
+instance Prelude.Hashable BatchItemError
 
-instance NFData BatchItemError
+instance Prelude.NFData BatchItemError

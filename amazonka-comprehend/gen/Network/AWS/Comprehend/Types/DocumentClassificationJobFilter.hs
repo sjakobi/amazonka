@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,90 +20,103 @@
 module Network.AWS.Comprehend.Types.DocumentClassificationJobFilter where
 
 import Network.AWS.Comprehend.Types.JobStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Provides information for filtering a list of document classification jobs. For more information, see the operation. You can provide only one filter parameter in each request.
+-- | Provides information for filtering a list of document classification
+-- jobs. For more information, see the operation. You can provide only one
+-- filter parameter in each request.
 --
---
---
--- /See:/ 'documentClassificationJobFilter' smart constructor.
+-- /See:/ 'newDocumentClassificationJobFilter' smart constructor.
 data DocumentClassificationJobFilter = DocumentClassificationJobFilter'
-  { _dcjfJobStatus ::
-      !( Maybe
-           JobStatus
-       ),
-    _dcjfSubmitTimeBefore ::
-      !( Maybe
-           POSIX
-       ),
-    _dcjfSubmitTimeAfter ::
-      !( Maybe
-           POSIX
-       ),
-    _dcjfJobName ::
-      !( Maybe
-           Text
-       )
+  { -- | Filters the list based on job status. Returns only jobs with the
+    -- specified status.
+    jobStatus :: Prelude.Maybe JobStatus,
+    -- | Filters the list of jobs based on the time that the job was submitted
+    -- for processing. Returns only jobs submitted before the specified time.
+    -- Jobs are returned in ascending order, oldest to newest.
+    submitTimeBefore :: Prelude.Maybe Prelude.POSIX,
+    -- | Filters the list of jobs based on the time that the job was submitted
+    -- for processing. Returns only jobs submitted after the specified time.
+    -- Jobs are returned in descending order, newest to oldest.
+    submitTimeAfter :: Prelude.Maybe Prelude.POSIX,
+    -- | Filters on the name of the job.
+    jobName :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DocumentClassificationJobFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DocumentClassificationJobFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcjfJobStatus' - Filters the list based on job status. Returns only jobs with the specified status.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcjfSubmitTimeBefore' - Filters the list of jobs based on the time that the job was submitted for processing. Returns only jobs submitted before the specified time. Jobs are returned in ascending order, oldest to newest.
+-- 'jobStatus', 'documentClassificationJobFilter_jobStatus' - Filters the list based on job status. Returns only jobs with the
+-- specified status.
 --
--- * 'dcjfSubmitTimeAfter' - Filters the list of jobs based on the time that the job was submitted for processing. Returns only jobs submitted after the specified time. Jobs are returned in descending order, newest to oldest.
+-- 'submitTimeBefore', 'documentClassificationJobFilter_submitTimeBefore' - Filters the list of jobs based on the time that the job was submitted
+-- for processing. Returns only jobs submitted before the specified time.
+-- Jobs are returned in ascending order, oldest to newest.
 --
--- * 'dcjfJobName' - Filters on the name of the job.
-documentClassificationJobFilter ::
+-- 'submitTimeAfter', 'documentClassificationJobFilter_submitTimeAfter' - Filters the list of jobs based on the time that the job was submitted
+-- for processing. Returns only jobs submitted after the specified time.
+-- Jobs are returned in descending order, newest to oldest.
+--
+-- 'jobName', 'documentClassificationJobFilter_jobName' - Filters on the name of the job.
+newDocumentClassificationJobFilter ::
   DocumentClassificationJobFilter
-documentClassificationJobFilter =
+newDocumentClassificationJobFilter =
   DocumentClassificationJobFilter'
-    { _dcjfJobStatus =
-        Nothing,
-      _dcjfSubmitTimeBefore = Nothing,
-      _dcjfSubmitTimeAfter = Nothing,
-      _dcjfJobName = Nothing
+    { jobStatus =
+        Prelude.Nothing,
+      submitTimeBefore = Prelude.Nothing,
+      submitTimeAfter = Prelude.Nothing,
+      jobName = Prelude.Nothing
     }
 
--- | Filters the list based on job status. Returns only jobs with the specified status.
-dcjfJobStatus :: Lens' DocumentClassificationJobFilter (Maybe JobStatus)
-dcjfJobStatus = lens _dcjfJobStatus (\s a -> s {_dcjfJobStatus = a})
+-- | Filters the list based on job status. Returns only jobs with the
+-- specified status.
+documentClassificationJobFilter_jobStatus :: Lens.Lens' DocumentClassificationJobFilter (Prelude.Maybe JobStatus)
+documentClassificationJobFilter_jobStatus = Lens.lens (\DocumentClassificationJobFilter' {jobStatus} -> jobStatus) (\s@DocumentClassificationJobFilter' {} a -> s {jobStatus = a} :: DocumentClassificationJobFilter)
 
--- | Filters the list of jobs based on the time that the job was submitted for processing. Returns only jobs submitted before the specified time. Jobs are returned in ascending order, oldest to newest.
-dcjfSubmitTimeBefore :: Lens' DocumentClassificationJobFilter (Maybe UTCTime)
-dcjfSubmitTimeBefore = lens _dcjfSubmitTimeBefore (\s a -> s {_dcjfSubmitTimeBefore = a}) . mapping _Time
+-- | Filters the list of jobs based on the time that the job was submitted
+-- for processing. Returns only jobs submitted before the specified time.
+-- Jobs are returned in ascending order, oldest to newest.
+documentClassificationJobFilter_submitTimeBefore :: Lens.Lens' DocumentClassificationJobFilter (Prelude.Maybe Prelude.UTCTime)
+documentClassificationJobFilter_submitTimeBefore = Lens.lens (\DocumentClassificationJobFilter' {submitTimeBefore} -> submitTimeBefore) (\s@DocumentClassificationJobFilter' {} a -> s {submitTimeBefore = a} :: DocumentClassificationJobFilter) Prelude.. Lens.mapping Prelude._Time
 
--- | Filters the list of jobs based on the time that the job was submitted for processing. Returns only jobs submitted after the specified time. Jobs are returned in descending order, newest to oldest.
-dcjfSubmitTimeAfter :: Lens' DocumentClassificationJobFilter (Maybe UTCTime)
-dcjfSubmitTimeAfter = lens _dcjfSubmitTimeAfter (\s a -> s {_dcjfSubmitTimeAfter = a}) . mapping _Time
+-- | Filters the list of jobs based on the time that the job was submitted
+-- for processing. Returns only jobs submitted after the specified time.
+-- Jobs are returned in descending order, newest to oldest.
+documentClassificationJobFilter_submitTimeAfter :: Lens.Lens' DocumentClassificationJobFilter (Prelude.Maybe Prelude.UTCTime)
+documentClassificationJobFilter_submitTimeAfter = Lens.lens (\DocumentClassificationJobFilter' {submitTimeAfter} -> submitTimeAfter) (\s@DocumentClassificationJobFilter' {} a -> s {submitTimeAfter = a} :: DocumentClassificationJobFilter) Prelude.. Lens.mapping Prelude._Time
 
 -- | Filters on the name of the job.
-dcjfJobName :: Lens' DocumentClassificationJobFilter (Maybe Text)
-dcjfJobName = lens _dcjfJobName (\s a -> s {_dcjfJobName = a})
+documentClassificationJobFilter_jobName :: Lens.Lens' DocumentClassificationJobFilter (Prelude.Maybe Prelude.Text)
+documentClassificationJobFilter_jobName = Lens.lens (\DocumentClassificationJobFilter' {jobName} -> jobName) (\s@DocumentClassificationJobFilter' {} a -> s {jobName = a} :: DocumentClassificationJobFilter)
 
-instance Hashable DocumentClassificationJobFilter
+instance
+  Prelude.Hashable
+    DocumentClassificationJobFilter
 
-instance NFData DocumentClassificationJobFilter
+instance
+  Prelude.NFData
+    DocumentClassificationJobFilter
 
-instance ToJSON DocumentClassificationJobFilter where
+instance
+  Prelude.ToJSON
+    DocumentClassificationJobFilter
+  where
   toJSON DocumentClassificationJobFilter' {..} =
-    object
-      ( catMaybes
-          [ ("JobStatus" .=) <$> _dcjfJobStatus,
-            ("SubmitTimeBefore" .=) <$> _dcjfSubmitTimeBefore,
-            ("SubmitTimeAfter" .=) <$> _dcjfSubmitTimeAfter,
-            ("JobName" .=) <$> _dcjfJobName
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("JobStatus" Prelude..=) Prelude.<$> jobStatus,
+            ("SubmitTimeBefore" Prelude..=)
+              Prelude.<$> submitTimeBefore,
+            ("SubmitTimeAfter" Prelude..=)
+              Prelude.<$> submitTimeAfter,
+            ("JobName" Prelude..=) Prelude.<$> jobName
           ]
       )

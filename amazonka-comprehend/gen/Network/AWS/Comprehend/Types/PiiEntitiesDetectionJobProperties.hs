@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -21,187 +25,192 @@ import Network.AWS.Comprehend.Types.LanguageCode
 import Network.AWS.Comprehend.Types.PiiEntitiesDetectionMode
 import Network.AWS.Comprehend.Types.PiiOutputDataConfig
 import Network.AWS.Comprehend.Types.RedactionConfig
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Provides information about a PII entities detection job.
 --
---
---
--- /See:/ 'piiEntitiesDetectionJobProperties' smart constructor.
+-- /See:/ 'newPiiEntitiesDetectionJobProperties' smart constructor.
 data PiiEntitiesDetectionJobProperties = PiiEntitiesDetectionJobProperties'
-  { _pedjpRedactionConfig ::
-      !( Maybe
-           RedactionConfig
-       ),
-    _pedjpLanguageCode ::
-      !( Maybe
-           LanguageCode
-       ),
-    _pedjpInputDataConfig ::
-      !( Maybe
-           InputDataConfig
-       ),
-    _pedjpMode ::
-      !( Maybe
-           PiiEntitiesDetectionMode
-       ),
-    _pedjpMessage ::
-      !( Maybe
-           Text
-       ),
-    _pedjpJobStatus ::
-      !( Maybe
-           JobStatus
-       ),
-    _pedjpOutputDataConfig ::
-      !( Maybe
-           PiiOutputDataConfig
-       ),
-    _pedjpEndTime ::
-      !( Maybe
-           POSIX
-       ),
-    _pedjpSubmitTime ::
-      !( Maybe
-           POSIX
-       ),
-    _pedjpJobName ::
-      !( Maybe
-           Text
-       ),
-    _pedjpDataAccessRoleARN ::
-      !( Maybe
-           Text
-       ),
-    _pedjpJobId ::
-      !( Maybe
-           Text
-       )
+  { -- | Provides configuration parameters for PII entity redaction.
+    --
+    -- This parameter is required if you set the @Mode@ parameter to
+    -- @ONLY_REDACTION@. In that case, you must provide a @RedactionConfig@
+    -- definition that includes the @PiiEntityTypes@ parameter.
+    redactionConfig :: Prelude.Maybe RedactionConfig,
+    -- | The language code of the input documents
+    languageCode :: Prelude.Maybe LanguageCode,
+    -- | The input properties for a PII entities detection job.
+    inputDataConfig :: Prelude.Maybe InputDataConfig,
+    -- | Specifies whether the output provides the locations (offsets) of PII
+    -- entities or a file in which PII entities are redacted.
+    mode :: Prelude.Maybe PiiEntitiesDetectionMode,
+    -- | A description of the status of a job.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The current status of the PII entities detection job. If the status is
+    -- @FAILED@, the @Message@ field shows the reason for the failure.
+    jobStatus :: Prelude.Maybe JobStatus,
+    -- | The output data configuration that you supplied when you created the PII
+    -- entities detection job.
+    outputDataConfig :: Prelude.Maybe PiiOutputDataConfig,
+    -- | The time that the PII entities detection job completed.
+    endTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The time that the PII entities detection job was submitted for
+    -- processing.
+    submitTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The name that you assigned the PII entities detection job.
+    jobName :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) that gives Amazon Comprehend read access
+    -- to your input data.
+    dataAccessRoleArn :: Prelude.Maybe Prelude.Text,
+    -- | The identifier assigned to the PII entities detection job.
+    jobId :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PiiEntitiesDetectionJobProperties' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PiiEntitiesDetectionJobProperties' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pedjpRedactionConfig' - Provides configuration parameters for PII entity redaction. This parameter is required if you set the @Mode@ parameter to @ONLY_REDACTION@ . In that case, you must provide a @RedactionConfig@ definition that includes the @PiiEntityTypes@ parameter.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pedjpLanguageCode' - The language code of the input documents
+-- 'redactionConfig', 'piiEntitiesDetectionJobProperties_redactionConfig' - Provides configuration parameters for PII entity redaction.
 --
--- * 'pedjpInputDataConfig' - The input properties for a PII entities detection job.
+-- This parameter is required if you set the @Mode@ parameter to
+-- @ONLY_REDACTION@. In that case, you must provide a @RedactionConfig@
+-- definition that includes the @PiiEntityTypes@ parameter.
 --
--- * 'pedjpMode' - Specifies whether the output provides the locations (offsets) of PII entities or a file in which PII entities are redacted.
+-- 'languageCode', 'piiEntitiesDetectionJobProperties_languageCode' - The language code of the input documents
 --
--- * 'pedjpMessage' - A description of the status of a job.
+-- 'inputDataConfig', 'piiEntitiesDetectionJobProperties_inputDataConfig' - The input properties for a PII entities detection job.
 --
--- * 'pedjpJobStatus' - The current status of the PII entities detection job. If the status is @FAILED@ , the @Message@ field shows the reason for the failure.
+-- 'mode', 'piiEntitiesDetectionJobProperties_mode' - Specifies whether the output provides the locations (offsets) of PII
+-- entities or a file in which PII entities are redacted.
 --
--- * 'pedjpOutputDataConfig' - The output data configuration that you supplied when you created the PII entities detection job.
+-- 'message', 'piiEntitiesDetectionJobProperties_message' - A description of the status of a job.
 --
--- * 'pedjpEndTime' - The time that the PII entities detection job completed.
+-- 'jobStatus', 'piiEntitiesDetectionJobProperties_jobStatus' - The current status of the PII entities detection job. If the status is
+-- @FAILED@, the @Message@ field shows the reason for the failure.
 --
--- * 'pedjpSubmitTime' - The time that the PII entities detection job was submitted for processing.
+-- 'outputDataConfig', 'piiEntitiesDetectionJobProperties_outputDataConfig' - The output data configuration that you supplied when you created the PII
+-- entities detection job.
 --
--- * 'pedjpJobName' - The name that you assigned the PII entities detection job.
+-- 'endTime', 'piiEntitiesDetectionJobProperties_endTime' - The time that the PII entities detection job completed.
 --
--- * 'pedjpDataAccessRoleARN' - The Amazon Resource Name (ARN) that gives Amazon Comprehend read access to your input data.
+-- 'submitTime', 'piiEntitiesDetectionJobProperties_submitTime' - The time that the PII entities detection job was submitted for
+-- processing.
 --
--- * 'pedjpJobId' - The identifier assigned to the PII entities detection job.
-piiEntitiesDetectionJobProperties ::
+-- 'jobName', 'piiEntitiesDetectionJobProperties_jobName' - The name that you assigned the PII entities detection job.
+--
+-- 'dataAccessRoleArn', 'piiEntitiesDetectionJobProperties_dataAccessRoleArn' - The Amazon Resource Name (ARN) that gives Amazon Comprehend read access
+-- to your input data.
+--
+-- 'jobId', 'piiEntitiesDetectionJobProperties_jobId' - The identifier assigned to the PII entities detection job.
+newPiiEntitiesDetectionJobProperties ::
   PiiEntitiesDetectionJobProperties
-piiEntitiesDetectionJobProperties =
+newPiiEntitiesDetectionJobProperties =
   PiiEntitiesDetectionJobProperties'
-    { _pedjpRedactionConfig =
-        Nothing,
-      _pedjpLanguageCode = Nothing,
-      _pedjpInputDataConfig = Nothing,
-      _pedjpMode = Nothing,
-      _pedjpMessage = Nothing,
-      _pedjpJobStatus = Nothing,
-      _pedjpOutputDataConfig = Nothing,
-      _pedjpEndTime = Nothing,
-      _pedjpSubmitTime = Nothing,
-      _pedjpJobName = Nothing,
-      _pedjpDataAccessRoleARN = Nothing,
-      _pedjpJobId = Nothing
+    { redactionConfig =
+        Prelude.Nothing,
+      languageCode = Prelude.Nothing,
+      inputDataConfig = Prelude.Nothing,
+      mode = Prelude.Nothing,
+      message = Prelude.Nothing,
+      jobStatus = Prelude.Nothing,
+      outputDataConfig = Prelude.Nothing,
+      endTime = Prelude.Nothing,
+      submitTime = Prelude.Nothing,
+      jobName = Prelude.Nothing,
+      dataAccessRoleArn = Prelude.Nothing,
+      jobId = Prelude.Nothing
     }
 
--- | Provides configuration parameters for PII entity redaction. This parameter is required if you set the @Mode@ parameter to @ONLY_REDACTION@ . In that case, you must provide a @RedactionConfig@ definition that includes the @PiiEntityTypes@ parameter.
-pedjpRedactionConfig :: Lens' PiiEntitiesDetectionJobProperties (Maybe RedactionConfig)
-pedjpRedactionConfig = lens _pedjpRedactionConfig (\s a -> s {_pedjpRedactionConfig = a})
+-- | Provides configuration parameters for PII entity redaction.
+--
+-- This parameter is required if you set the @Mode@ parameter to
+-- @ONLY_REDACTION@. In that case, you must provide a @RedactionConfig@
+-- definition that includes the @PiiEntityTypes@ parameter.
+piiEntitiesDetectionJobProperties_redactionConfig :: Lens.Lens' PiiEntitiesDetectionJobProperties (Prelude.Maybe RedactionConfig)
+piiEntitiesDetectionJobProperties_redactionConfig = Lens.lens (\PiiEntitiesDetectionJobProperties' {redactionConfig} -> redactionConfig) (\s@PiiEntitiesDetectionJobProperties' {} a -> s {redactionConfig = a} :: PiiEntitiesDetectionJobProperties)
 
 -- | The language code of the input documents
-pedjpLanguageCode :: Lens' PiiEntitiesDetectionJobProperties (Maybe LanguageCode)
-pedjpLanguageCode = lens _pedjpLanguageCode (\s a -> s {_pedjpLanguageCode = a})
+piiEntitiesDetectionJobProperties_languageCode :: Lens.Lens' PiiEntitiesDetectionJobProperties (Prelude.Maybe LanguageCode)
+piiEntitiesDetectionJobProperties_languageCode = Lens.lens (\PiiEntitiesDetectionJobProperties' {languageCode} -> languageCode) (\s@PiiEntitiesDetectionJobProperties' {} a -> s {languageCode = a} :: PiiEntitiesDetectionJobProperties)
 
 -- | The input properties for a PII entities detection job.
-pedjpInputDataConfig :: Lens' PiiEntitiesDetectionJobProperties (Maybe InputDataConfig)
-pedjpInputDataConfig = lens _pedjpInputDataConfig (\s a -> s {_pedjpInputDataConfig = a})
+piiEntitiesDetectionJobProperties_inputDataConfig :: Lens.Lens' PiiEntitiesDetectionJobProperties (Prelude.Maybe InputDataConfig)
+piiEntitiesDetectionJobProperties_inputDataConfig = Lens.lens (\PiiEntitiesDetectionJobProperties' {inputDataConfig} -> inputDataConfig) (\s@PiiEntitiesDetectionJobProperties' {} a -> s {inputDataConfig = a} :: PiiEntitiesDetectionJobProperties)
 
--- | Specifies whether the output provides the locations (offsets) of PII entities or a file in which PII entities are redacted.
-pedjpMode :: Lens' PiiEntitiesDetectionJobProperties (Maybe PiiEntitiesDetectionMode)
-pedjpMode = lens _pedjpMode (\s a -> s {_pedjpMode = a})
+-- | Specifies whether the output provides the locations (offsets) of PII
+-- entities or a file in which PII entities are redacted.
+piiEntitiesDetectionJobProperties_mode :: Lens.Lens' PiiEntitiesDetectionJobProperties (Prelude.Maybe PiiEntitiesDetectionMode)
+piiEntitiesDetectionJobProperties_mode = Lens.lens (\PiiEntitiesDetectionJobProperties' {mode} -> mode) (\s@PiiEntitiesDetectionJobProperties' {} a -> s {mode = a} :: PiiEntitiesDetectionJobProperties)
 
 -- | A description of the status of a job.
-pedjpMessage :: Lens' PiiEntitiesDetectionJobProperties (Maybe Text)
-pedjpMessage = lens _pedjpMessage (\s a -> s {_pedjpMessage = a})
+piiEntitiesDetectionJobProperties_message :: Lens.Lens' PiiEntitiesDetectionJobProperties (Prelude.Maybe Prelude.Text)
+piiEntitiesDetectionJobProperties_message = Lens.lens (\PiiEntitiesDetectionJobProperties' {message} -> message) (\s@PiiEntitiesDetectionJobProperties' {} a -> s {message = a} :: PiiEntitiesDetectionJobProperties)
 
--- | The current status of the PII entities detection job. If the status is @FAILED@ , the @Message@ field shows the reason for the failure.
-pedjpJobStatus :: Lens' PiiEntitiesDetectionJobProperties (Maybe JobStatus)
-pedjpJobStatus = lens _pedjpJobStatus (\s a -> s {_pedjpJobStatus = a})
+-- | The current status of the PII entities detection job. If the status is
+-- @FAILED@, the @Message@ field shows the reason for the failure.
+piiEntitiesDetectionJobProperties_jobStatus :: Lens.Lens' PiiEntitiesDetectionJobProperties (Prelude.Maybe JobStatus)
+piiEntitiesDetectionJobProperties_jobStatus = Lens.lens (\PiiEntitiesDetectionJobProperties' {jobStatus} -> jobStatus) (\s@PiiEntitiesDetectionJobProperties' {} a -> s {jobStatus = a} :: PiiEntitiesDetectionJobProperties)
 
--- | The output data configuration that you supplied when you created the PII entities detection job.
-pedjpOutputDataConfig :: Lens' PiiEntitiesDetectionJobProperties (Maybe PiiOutputDataConfig)
-pedjpOutputDataConfig = lens _pedjpOutputDataConfig (\s a -> s {_pedjpOutputDataConfig = a})
+-- | The output data configuration that you supplied when you created the PII
+-- entities detection job.
+piiEntitiesDetectionJobProperties_outputDataConfig :: Lens.Lens' PiiEntitiesDetectionJobProperties (Prelude.Maybe PiiOutputDataConfig)
+piiEntitiesDetectionJobProperties_outputDataConfig = Lens.lens (\PiiEntitiesDetectionJobProperties' {outputDataConfig} -> outputDataConfig) (\s@PiiEntitiesDetectionJobProperties' {} a -> s {outputDataConfig = a} :: PiiEntitiesDetectionJobProperties)
 
 -- | The time that the PII entities detection job completed.
-pedjpEndTime :: Lens' PiiEntitiesDetectionJobProperties (Maybe UTCTime)
-pedjpEndTime = lens _pedjpEndTime (\s a -> s {_pedjpEndTime = a}) . mapping _Time
+piiEntitiesDetectionJobProperties_endTime :: Lens.Lens' PiiEntitiesDetectionJobProperties (Prelude.Maybe Prelude.UTCTime)
+piiEntitiesDetectionJobProperties_endTime = Lens.lens (\PiiEntitiesDetectionJobProperties' {endTime} -> endTime) (\s@PiiEntitiesDetectionJobProperties' {} a -> s {endTime = a} :: PiiEntitiesDetectionJobProperties) Prelude.. Lens.mapping Prelude._Time
 
--- | The time that the PII entities detection job was submitted for processing.
-pedjpSubmitTime :: Lens' PiiEntitiesDetectionJobProperties (Maybe UTCTime)
-pedjpSubmitTime = lens _pedjpSubmitTime (\s a -> s {_pedjpSubmitTime = a}) . mapping _Time
+-- | The time that the PII entities detection job was submitted for
+-- processing.
+piiEntitiesDetectionJobProperties_submitTime :: Lens.Lens' PiiEntitiesDetectionJobProperties (Prelude.Maybe Prelude.UTCTime)
+piiEntitiesDetectionJobProperties_submitTime = Lens.lens (\PiiEntitiesDetectionJobProperties' {submitTime} -> submitTime) (\s@PiiEntitiesDetectionJobProperties' {} a -> s {submitTime = a} :: PiiEntitiesDetectionJobProperties) Prelude.. Lens.mapping Prelude._Time
 
 -- | The name that you assigned the PII entities detection job.
-pedjpJobName :: Lens' PiiEntitiesDetectionJobProperties (Maybe Text)
-pedjpJobName = lens _pedjpJobName (\s a -> s {_pedjpJobName = a})
+piiEntitiesDetectionJobProperties_jobName :: Lens.Lens' PiiEntitiesDetectionJobProperties (Prelude.Maybe Prelude.Text)
+piiEntitiesDetectionJobProperties_jobName = Lens.lens (\PiiEntitiesDetectionJobProperties' {jobName} -> jobName) (\s@PiiEntitiesDetectionJobProperties' {} a -> s {jobName = a} :: PiiEntitiesDetectionJobProperties)
 
--- | The Amazon Resource Name (ARN) that gives Amazon Comprehend read access to your input data.
-pedjpDataAccessRoleARN :: Lens' PiiEntitiesDetectionJobProperties (Maybe Text)
-pedjpDataAccessRoleARN = lens _pedjpDataAccessRoleARN (\s a -> s {_pedjpDataAccessRoleARN = a})
+-- | The Amazon Resource Name (ARN) that gives Amazon Comprehend read access
+-- to your input data.
+piiEntitiesDetectionJobProperties_dataAccessRoleArn :: Lens.Lens' PiiEntitiesDetectionJobProperties (Prelude.Maybe Prelude.Text)
+piiEntitiesDetectionJobProperties_dataAccessRoleArn = Lens.lens (\PiiEntitiesDetectionJobProperties' {dataAccessRoleArn} -> dataAccessRoleArn) (\s@PiiEntitiesDetectionJobProperties' {} a -> s {dataAccessRoleArn = a} :: PiiEntitiesDetectionJobProperties)
 
 -- | The identifier assigned to the PII entities detection job.
-pedjpJobId :: Lens' PiiEntitiesDetectionJobProperties (Maybe Text)
-pedjpJobId = lens _pedjpJobId (\s a -> s {_pedjpJobId = a})
+piiEntitiesDetectionJobProperties_jobId :: Lens.Lens' PiiEntitiesDetectionJobProperties (Prelude.Maybe Prelude.Text)
+piiEntitiesDetectionJobProperties_jobId = Lens.lens (\PiiEntitiesDetectionJobProperties' {jobId} -> jobId) (\s@PiiEntitiesDetectionJobProperties' {} a -> s {jobId = a} :: PiiEntitiesDetectionJobProperties)
 
-instance FromJSON PiiEntitiesDetectionJobProperties where
+instance
+  Prelude.FromJSON
+    PiiEntitiesDetectionJobProperties
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "PiiEntitiesDetectionJobProperties"
       ( \x ->
           PiiEntitiesDetectionJobProperties'
-            <$> (x .:? "RedactionConfig")
-            <*> (x .:? "LanguageCode")
-            <*> (x .:? "InputDataConfig")
-            <*> (x .:? "Mode")
-            <*> (x .:? "Message")
-            <*> (x .:? "JobStatus")
-            <*> (x .:? "OutputDataConfig")
-            <*> (x .:? "EndTime")
-            <*> (x .:? "SubmitTime")
-            <*> (x .:? "JobName")
-            <*> (x .:? "DataAccessRoleArn")
-            <*> (x .:? "JobId")
+            Prelude.<$> (x Prelude..:? "RedactionConfig")
+            Prelude.<*> (x Prelude..:? "LanguageCode")
+            Prelude.<*> (x Prelude..:? "InputDataConfig")
+            Prelude.<*> (x Prelude..:? "Mode")
+            Prelude.<*> (x Prelude..:? "Message")
+            Prelude.<*> (x Prelude..:? "JobStatus")
+            Prelude.<*> (x Prelude..:? "OutputDataConfig")
+            Prelude.<*> (x Prelude..:? "EndTime")
+            Prelude.<*> (x Prelude..:? "SubmitTime")
+            Prelude.<*> (x Prelude..:? "JobName")
+            Prelude.<*> (x Prelude..:? "DataAccessRoleArn")
+            Prelude.<*> (x Prelude..:? "JobId")
       )
 
-instance Hashable PiiEntitiesDetectionJobProperties
+instance
+  Prelude.Hashable
+    PiiEntitiesDetectionJobProperties
 
-instance NFData PiiEntitiesDetectionJobProperties
+instance
+  Prelude.NFData
+    PiiEntitiesDetectionJobProperties

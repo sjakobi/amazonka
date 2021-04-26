@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,154 +21,185 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Inspects text and returns an inference of the prevailing sentiment (@POSITIVE@ , @NEUTRAL@ , @MIXED@ , or @NEGATIVE@ ).
+-- Inspects text and returns an inference of the prevailing sentiment
+-- (@POSITIVE@, @NEUTRAL@, @MIXED@, or @NEGATIVE@).
 module Network.AWS.Comprehend.DetectSentiment
   ( -- * Creating a Request
-    detectSentiment,
-    DetectSentiment,
+    DetectSentiment (..),
+    newDetectSentiment,
 
     -- * Request Lenses
-    dText,
-    dLanguageCode,
+    detectSentiment_text,
+    detectSentiment_languageCode,
 
     -- * Destructuring the Response
-    detectSentimentResponse,
-    DetectSentimentResponse,
+    DetectSentimentResponse (..),
+    newDetectSentimentResponse,
 
     -- * Response Lenses
-    dsrrsSentimentScore,
-    dsrrsSentiment,
-    dsrrsResponseStatus,
+    detectSentimentResponse_sentimentScore,
+    detectSentimentResponse_sentiment,
+    detectSentimentResponse_httpStatus,
   )
 where
 
 import Network.AWS.Comprehend.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Comprehend.Types.SentimentScore
+import Network.AWS.Comprehend.Types.SentimentType
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'detectSentiment' smart constructor.
+-- | /See:/ 'newDetectSentiment' smart constructor.
 data DetectSentiment = DetectSentiment'
-  { _dText ::
-      !(Sensitive Text),
-    _dLanguageCode :: !LanguageCode
+  { -- | A UTF-8 text string. Each string must contain fewer that 5,000 bytes of
+    -- UTF-8 encoded characters.
+    text :: Prelude.Sensitive Prelude.Text,
+    -- | The language of the input documents. You can specify any of the primary
+    -- languages supported by Amazon Comprehend. All documents must be in the
+    -- same language.
+    languageCode :: LanguageCode
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DetectSentiment' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DetectSentiment' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dText' - A UTF-8 text string. Each string must contain fewer that 5,000 bytes of UTF-8 encoded characters.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dLanguageCode' - The language of the input documents. You can specify any of the primary languages supported by Amazon Comprehend. All documents must be in the same language.
-detectSentiment ::
-  -- | 'dText'
-  Text ->
-  -- | 'dLanguageCode'
+-- 'text', 'detectSentiment_text' - A UTF-8 text string. Each string must contain fewer that 5,000 bytes of
+-- UTF-8 encoded characters.
+--
+-- 'languageCode', 'detectSentiment_languageCode' - The language of the input documents. You can specify any of the primary
+-- languages supported by Amazon Comprehend. All documents must be in the
+-- same language.
+newDetectSentiment ::
+  -- | 'text'
+  Prelude.Text ->
+  -- | 'languageCode'
   LanguageCode ->
   DetectSentiment
-detectSentiment pText_ pLanguageCode_ =
+newDetectSentiment pText_ pLanguageCode_ =
   DetectSentiment'
-    { _dText = _Sensitive # pText_,
-      _dLanguageCode = pLanguageCode_
+    { text =
+        Prelude._Sensitive Lens.# pText_,
+      languageCode = pLanguageCode_
     }
 
--- | A UTF-8 text string. Each string must contain fewer that 5,000 bytes of UTF-8 encoded characters.
-dText :: Lens' DetectSentiment Text
-dText = lens _dText (\s a -> s {_dText = a}) . _Sensitive
+-- | A UTF-8 text string. Each string must contain fewer that 5,000 bytes of
+-- UTF-8 encoded characters.
+detectSentiment_text :: Lens.Lens' DetectSentiment Prelude.Text
+detectSentiment_text = Lens.lens (\DetectSentiment' {text} -> text) (\s@DetectSentiment' {} a -> s {text = a} :: DetectSentiment) Prelude.. Prelude._Sensitive
 
--- | The language of the input documents. You can specify any of the primary languages supported by Amazon Comprehend. All documents must be in the same language.
-dLanguageCode :: Lens' DetectSentiment LanguageCode
-dLanguageCode = lens _dLanguageCode (\s a -> s {_dLanguageCode = a})
+-- | The language of the input documents. You can specify any of the primary
+-- languages supported by Amazon Comprehend. All documents must be in the
+-- same language.
+detectSentiment_languageCode :: Lens.Lens' DetectSentiment LanguageCode
+detectSentiment_languageCode = Lens.lens (\DetectSentiment' {languageCode} -> languageCode) (\s@DetectSentiment' {} a -> s {languageCode = a} :: DetectSentiment)
 
-instance AWSRequest DetectSentiment where
+instance Prelude.AWSRequest DetectSentiment where
   type Rs DetectSentiment = DetectSentimentResponse
-  request = postJSON comprehend
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DetectSentimentResponse'
-            <$> (x .?> "SentimentScore")
-            <*> (x .?> "Sentiment")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "SentimentScore")
+            Prelude.<*> (x Prelude..?> "Sentiment")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DetectSentiment
+instance Prelude.Hashable DetectSentiment
 
-instance NFData DetectSentiment
+instance Prelude.NFData DetectSentiment
 
-instance ToHeaders DetectSentiment where
+instance Prelude.ToHeaders DetectSentiment where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Comprehend_20171127.DetectSentiment" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Comprehend_20171127.DetectSentiment" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DetectSentiment where
+instance Prelude.ToJSON DetectSentiment where
   toJSON DetectSentiment' {..} =
-    object
-      ( catMaybes
-          [ Just ("Text" .= _dText),
-            Just ("LanguageCode" .= _dLanguageCode)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("Text" Prelude..= text),
+            Prelude.Just
+              ("LanguageCode" Prelude..= languageCode)
           ]
       )
 
-instance ToPath DetectSentiment where
-  toPath = const "/"
+instance Prelude.ToPath DetectSentiment where
+  toPath = Prelude.const "/"
 
-instance ToQuery DetectSentiment where
-  toQuery = const mempty
+instance Prelude.ToQuery DetectSentiment where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'detectSentimentResponse' smart constructor.
+-- | /See:/ 'newDetectSentimentResponse' smart constructor.
 data DetectSentimentResponse = DetectSentimentResponse'
-  { _dsrrsSentimentScore ::
-      !(Maybe SentimentScore),
-    _dsrrsSentiment ::
-      !(Maybe SentimentType),
-    _dsrrsResponseStatus ::
-      !Int
+  { -- | An object that lists the sentiments, and their corresponding confidence
+    -- levels.
+    sentimentScore :: Prelude.Maybe SentimentScore,
+    -- | The inferred sentiment that Amazon Comprehend has the highest level of
+    -- confidence in.
+    sentiment :: Prelude.Maybe SentimentType,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DetectSentimentResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DetectSentimentResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsrrsSentimentScore' - An object that lists the sentiments, and their corresponding confidence levels.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsrrsSentiment' - The inferred sentiment that Amazon Comprehend has the highest level of confidence in.
+-- 'sentimentScore', 'detectSentimentResponse_sentimentScore' - An object that lists the sentiments, and their corresponding confidence
+-- levels.
 --
--- * 'dsrrsResponseStatus' - -- | The response status code.
-detectSentimentResponse ::
-  -- | 'dsrrsResponseStatus'
-  Int ->
+-- 'sentiment', 'detectSentimentResponse_sentiment' - The inferred sentiment that Amazon Comprehend has the highest level of
+-- confidence in.
+--
+-- 'httpStatus', 'detectSentimentResponse_httpStatus' - The response's http status code.
+newDetectSentimentResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DetectSentimentResponse
-detectSentimentResponse pResponseStatus_ =
+newDetectSentimentResponse pHttpStatus_ =
   DetectSentimentResponse'
-    { _dsrrsSentimentScore =
-        Nothing,
-      _dsrrsSentiment = Nothing,
-      _dsrrsResponseStatus = pResponseStatus_
+    { sentimentScore =
+        Prelude.Nothing,
+      sentiment = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | An object that lists the sentiments, and their corresponding confidence levels.
-dsrrsSentimentScore :: Lens' DetectSentimentResponse (Maybe SentimentScore)
-dsrrsSentimentScore = lens _dsrrsSentimentScore (\s a -> s {_dsrrsSentimentScore = a})
+-- | An object that lists the sentiments, and their corresponding confidence
+-- levels.
+detectSentimentResponse_sentimentScore :: Lens.Lens' DetectSentimentResponse (Prelude.Maybe SentimentScore)
+detectSentimentResponse_sentimentScore = Lens.lens (\DetectSentimentResponse' {sentimentScore} -> sentimentScore) (\s@DetectSentimentResponse' {} a -> s {sentimentScore = a} :: DetectSentimentResponse)
 
--- | The inferred sentiment that Amazon Comprehend has the highest level of confidence in.
-dsrrsSentiment :: Lens' DetectSentimentResponse (Maybe SentimentType)
-dsrrsSentiment = lens _dsrrsSentiment (\s a -> s {_dsrrsSentiment = a})
+-- | The inferred sentiment that Amazon Comprehend has the highest level of
+-- confidence in.
+detectSentimentResponse_sentiment :: Lens.Lens' DetectSentimentResponse (Prelude.Maybe SentimentType)
+detectSentimentResponse_sentiment = Lens.lens (\DetectSentimentResponse' {sentiment} -> sentiment) (\s@DetectSentimentResponse' {} a -> s {sentiment = a} :: DetectSentimentResponse)
 
--- | -- | The response status code.
-dsrrsResponseStatus :: Lens' DetectSentimentResponse Int
-dsrrsResponseStatus = lens _dsrrsResponseStatus (\s a -> s {_dsrrsResponseStatus = a})
+-- | The response's http status code.
+detectSentimentResponse_httpStatus :: Lens.Lens' DetectSentimentResponse Prelude.Int
+detectSentimentResponse_httpStatus = Lens.lens (\DetectSentimentResponse' {httpStatus} -> httpStatus) (\s@DetectSentimentResponse' {} a -> s {httpStatus = a} :: DetectSentimentResponse)
 
-instance NFData DetectSentimentResponse
+instance Prelude.NFData DetectSentimentResponse

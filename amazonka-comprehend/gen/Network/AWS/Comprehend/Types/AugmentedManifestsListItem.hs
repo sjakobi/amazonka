@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,73 +19,106 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Comprehend.Types.AugmentedManifestsListItem where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | An augmented manifest file that provides training data for your custom model. An augmented manifest file is a labeled dataset that is produced by Amazon SageMaker Ground Truth.
+-- | An augmented manifest file that provides training data for your custom
+-- model. An augmented manifest file is a labeled dataset that is produced
+-- by Amazon SageMaker Ground Truth.
 --
---
---
--- /See:/ 'augmentedManifestsListItem' smart constructor.
+-- /See:/ 'newAugmentedManifestsListItem' smart constructor.
 data AugmentedManifestsListItem = AugmentedManifestsListItem'
-  { _amliS3URI ::
-      !Text,
-    _amliAttributeNames ::
-      ![Text]
+  { -- | The Amazon S3 location of the augmented manifest file.
+    s3Uri :: Prelude.Text,
+    -- | The JSON attribute that contains the annotations for your training
+    -- documents. The number of attribute names that you specify depends on
+    -- whether your augmented manifest file is the output of a single labeling
+    -- job or a chained labeling job.
+    --
+    -- If your file is the output of a single labeling job, specify the
+    -- LabelAttributeName key that was used when the job was created in Ground
+    -- Truth.
+    --
+    -- If your file is the output of a chained labeling job, specify the
+    -- LabelAttributeName key for one or more jobs in the chain. Each
+    -- LabelAttributeName key provides the annotations from an individual job.
+    attributeNames :: [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AugmentedManifestsListItem' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AugmentedManifestsListItem' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'amliS3URI' - The Amazon S3 location of the augmented manifest file.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'amliAttributeNames' - The JSON attribute that contains the annotations for your training documents. The number of attribute names that you specify depends on whether your augmented manifest file is the output of a single labeling job or a chained labeling job. If your file is the output of a single labeling job, specify the LabelAttributeName key that was used when the job was created in Ground Truth. If your file is the output of a chained labeling job, specify the LabelAttributeName key for one or more jobs in the chain. Each LabelAttributeName key provides the annotations from an individual job.
-augmentedManifestsListItem ::
-  -- | 'amliS3URI'
-  Text ->
+-- 's3Uri', 'augmentedManifestsListItem_s3Uri' - The Amazon S3 location of the augmented manifest file.
+--
+-- 'attributeNames', 'augmentedManifestsListItem_attributeNames' - The JSON attribute that contains the annotations for your training
+-- documents. The number of attribute names that you specify depends on
+-- whether your augmented manifest file is the output of a single labeling
+-- job or a chained labeling job.
+--
+-- If your file is the output of a single labeling job, specify the
+-- LabelAttributeName key that was used when the job was created in Ground
+-- Truth.
+--
+-- If your file is the output of a chained labeling job, specify the
+-- LabelAttributeName key for one or more jobs in the chain. Each
+-- LabelAttributeName key provides the annotations from an individual job.
+newAugmentedManifestsListItem ::
+  -- | 's3Uri'
+  Prelude.Text ->
   AugmentedManifestsListItem
-augmentedManifestsListItem pS3URI_ =
+newAugmentedManifestsListItem pS3Uri_ =
   AugmentedManifestsListItem'
-    { _amliS3URI = pS3URI_,
-      _amliAttributeNames = mempty
+    { s3Uri = pS3Uri_,
+      attributeNames = Prelude.mempty
     }
 
 -- | The Amazon S3 location of the augmented manifest file.
-amliS3URI :: Lens' AugmentedManifestsListItem Text
-amliS3URI = lens _amliS3URI (\s a -> s {_amliS3URI = a})
+augmentedManifestsListItem_s3Uri :: Lens.Lens' AugmentedManifestsListItem Prelude.Text
+augmentedManifestsListItem_s3Uri = Lens.lens (\AugmentedManifestsListItem' {s3Uri} -> s3Uri) (\s@AugmentedManifestsListItem' {} a -> s {s3Uri = a} :: AugmentedManifestsListItem)
 
--- | The JSON attribute that contains the annotations for your training documents. The number of attribute names that you specify depends on whether your augmented manifest file is the output of a single labeling job or a chained labeling job. If your file is the output of a single labeling job, specify the LabelAttributeName key that was used when the job was created in Ground Truth. If your file is the output of a chained labeling job, specify the LabelAttributeName key for one or more jobs in the chain. Each LabelAttributeName key provides the annotations from an individual job.
-amliAttributeNames :: Lens' AugmentedManifestsListItem [Text]
-amliAttributeNames = lens _amliAttributeNames (\s a -> s {_amliAttributeNames = a}) . _Coerce
+-- | The JSON attribute that contains the annotations for your training
+-- documents. The number of attribute names that you specify depends on
+-- whether your augmented manifest file is the output of a single labeling
+-- job or a chained labeling job.
+--
+-- If your file is the output of a single labeling job, specify the
+-- LabelAttributeName key that was used when the job was created in Ground
+-- Truth.
+--
+-- If your file is the output of a chained labeling job, specify the
+-- LabelAttributeName key for one or more jobs in the chain. Each
+-- LabelAttributeName key provides the annotations from an individual job.
+augmentedManifestsListItem_attributeNames :: Lens.Lens' AugmentedManifestsListItem [Prelude.Text]
+augmentedManifestsListItem_attributeNames = Lens.lens (\AugmentedManifestsListItem' {attributeNames} -> attributeNames) (\s@AugmentedManifestsListItem' {} a -> s {attributeNames = a} :: AugmentedManifestsListItem) Prelude.. Prelude._Coerce
 
-instance FromJSON AugmentedManifestsListItem where
+instance Prelude.FromJSON AugmentedManifestsListItem where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AugmentedManifestsListItem"
       ( \x ->
           AugmentedManifestsListItem'
-            <$> (x .: "S3Uri")
-            <*> (x .:? "AttributeNames" .!= mempty)
+            Prelude.<$> (x Prelude..: "S3Uri")
+            Prelude.<*> ( x Prelude..:? "AttributeNames"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable AugmentedManifestsListItem
+instance Prelude.Hashable AugmentedManifestsListItem
 
-instance NFData AugmentedManifestsListItem
+instance Prelude.NFData AugmentedManifestsListItem
 
-instance ToJSON AugmentedManifestsListItem where
+instance Prelude.ToJSON AugmentedManifestsListItem where
   toJSON AugmentedManifestsListItem' {..} =
-    object
-      ( catMaybes
-          [ Just ("S3Uri" .= _amliS3URI),
-            Just ("AttributeNames" .= _amliAttributeNames)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("S3Uri" Prelude..= s3Uri),
+            Prelude.Just
+              ("AttributeNames" Prelude..= attributeNames)
           ]
       )

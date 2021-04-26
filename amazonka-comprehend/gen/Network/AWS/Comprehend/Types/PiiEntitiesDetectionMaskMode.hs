@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.Comprehend.Types.PiiEntitiesDetectionMaskMode
   ( PiiEntitiesDetectionMaskMode
       ( ..,
-        Mask,
-        ReplaceWithPiiEntityType
+        PiiEntitiesDetectionMaskModeMASK,
+        PiiEntitiesDetectionMaskModeREPLACEWITHPIIENTITYTYPE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PiiEntitiesDetectionMaskMode
-  = PiiEntitiesDetectionMaskMode'
-      ( CI
-          Text
-      )
+newtype PiiEntitiesDetectionMaskMode = PiiEntitiesDetectionMaskMode'
+  { fromPiiEntitiesDetectionMaskMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Mask :: PiiEntitiesDetectionMaskMode
-pattern Mask = PiiEntitiesDetectionMaskMode' "MASK"
+pattern PiiEntitiesDetectionMaskModeMASK :: PiiEntitiesDetectionMaskMode
+pattern PiiEntitiesDetectionMaskModeMASK = PiiEntitiesDetectionMaskMode' "MASK"
 
-pattern ReplaceWithPiiEntityType :: PiiEntitiesDetectionMaskMode
-pattern ReplaceWithPiiEntityType = PiiEntitiesDetectionMaskMode' "REPLACE_WITH_PII_ENTITY_TYPE"
+pattern PiiEntitiesDetectionMaskModeREPLACEWITHPIIENTITYTYPE :: PiiEntitiesDetectionMaskMode
+pattern PiiEntitiesDetectionMaskModeREPLACEWITHPIIENTITYTYPE = PiiEntitiesDetectionMaskMode' "REPLACE_WITH_PII_ENTITY_TYPE"
 
 {-# COMPLETE
-  Mask,
-  ReplaceWithPiiEntityType,
+  PiiEntitiesDetectionMaskModeMASK,
+  PiiEntitiesDetectionMaskModeREPLACEWITHPIIENTITYTYPE,
   PiiEntitiesDetectionMaskMode'
   #-}
 
-instance FromText PiiEntitiesDetectionMaskMode where
-  parser = (PiiEntitiesDetectionMaskMode' . mk) <$> takeText
+instance Prelude.FromText PiiEntitiesDetectionMaskMode where
+  parser = PiiEntitiesDetectionMaskMode' Prelude.<$> Prelude.takeText
 
-instance ToText PiiEntitiesDetectionMaskMode where
-  toText (PiiEntitiesDetectionMaskMode' ci) = original ci
+instance Prelude.ToText PiiEntitiesDetectionMaskMode where
+  toText (PiiEntitiesDetectionMaskMode' x) = x
 
-instance Hashable PiiEntitiesDetectionMaskMode
+instance Prelude.Hashable PiiEntitiesDetectionMaskMode
 
-instance NFData PiiEntitiesDetectionMaskMode
+instance Prelude.NFData PiiEntitiesDetectionMaskMode
 
-instance ToByteString PiiEntitiesDetectionMaskMode
+instance Prelude.ToByteString PiiEntitiesDetectionMaskMode
 
-instance ToQuery PiiEntitiesDetectionMaskMode
+instance Prelude.ToQuery PiiEntitiesDetectionMaskMode
 
-instance ToHeader PiiEntitiesDetectionMaskMode
+instance Prelude.ToHeader PiiEntitiesDetectionMaskMode
 
-instance ToJSON PiiEntitiesDetectionMaskMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON PiiEntitiesDetectionMaskMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON PiiEntitiesDetectionMaskMode where
-  parseJSON = parseJSONText "PiiEntitiesDetectionMaskMode"
+instance Prelude.FromJSON PiiEntitiesDetectionMaskMode where
+  parseJSON = Prelude.parseJSONText "PiiEntitiesDetectionMaskMode"

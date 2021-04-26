@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,79 +21,79 @@ module Network.AWS.Comprehend.Types.BatchDetectSentimentItemResult where
 
 import Network.AWS.Comprehend.Types.SentimentScore
 import Network.AWS.Comprehend.Types.SentimentType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The result of calling the operation. The operation returns one object for each document that is successfully processed by the operation.
+-- | The result of calling the operation. The operation returns one object
+-- for each document that is successfully processed by the operation.
 --
---
---
--- /See:/ 'batchDetectSentimentItemResult' smart constructor.
+-- /See:/ 'newBatchDetectSentimentItemResult' smart constructor.
 data BatchDetectSentimentItemResult = BatchDetectSentimentItemResult'
-  { _bdsirSentimentScore ::
-      !( Maybe
-           SentimentScore
-       ),
-    _bdsirSentiment ::
-      !( Maybe
-           SentimentType
-       ),
-    _bdsirIndex ::
-      !( Maybe
-           Int
-       )
+  { -- | The level of confidence that Amazon Comprehend has in the accuracy of
+    -- its sentiment detection.
+    sentimentScore :: Prelude.Maybe SentimentScore,
+    -- | The sentiment detected in the document.
+    sentiment :: Prelude.Maybe SentimentType,
+    -- | The zero-based index of the document in the input list.
+    index :: Prelude.Maybe Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchDetectSentimentItemResult' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchDetectSentimentItemResult' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bdsirSentimentScore' - The level of confidence that Amazon Comprehend has in the accuracy of its sentiment detection.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bdsirSentiment' - The sentiment detected in the document.
+-- 'sentimentScore', 'batchDetectSentimentItemResult_sentimentScore' - The level of confidence that Amazon Comprehend has in the accuracy of
+-- its sentiment detection.
 --
--- * 'bdsirIndex' - The zero-based index of the document in the input list.
-batchDetectSentimentItemResult ::
+-- 'sentiment', 'batchDetectSentimentItemResult_sentiment' - The sentiment detected in the document.
+--
+-- 'index', 'batchDetectSentimentItemResult_index' - The zero-based index of the document in the input list.
+newBatchDetectSentimentItemResult ::
   BatchDetectSentimentItemResult
-batchDetectSentimentItemResult =
+newBatchDetectSentimentItemResult =
   BatchDetectSentimentItemResult'
-    { _bdsirSentimentScore =
-        Nothing,
-      _bdsirSentiment = Nothing,
-      _bdsirIndex = Nothing
+    { sentimentScore =
+        Prelude.Nothing,
+      sentiment = Prelude.Nothing,
+      index = Prelude.Nothing
     }
 
--- | The level of confidence that Amazon Comprehend has in the accuracy of its sentiment detection.
-bdsirSentimentScore :: Lens' BatchDetectSentimentItemResult (Maybe SentimentScore)
-bdsirSentimentScore = lens _bdsirSentimentScore (\s a -> s {_bdsirSentimentScore = a})
+-- | The level of confidence that Amazon Comprehend has in the accuracy of
+-- its sentiment detection.
+batchDetectSentimentItemResult_sentimentScore :: Lens.Lens' BatchDetectSentimentItemResult (Prelude.Maybe SentimentScore)
+batchDetectSentimentItemResult_sentimentScore = Lens.lens (\BatchDetectSentimentItemResult' {sentimentScore} -> sentimentScore) (\s@BatchDetectSentimentItemResult' {} a -> s {sentimentScore = a} :: BatchDetectSentimentItemResult)
 
 -- | The sentiment detected in the document.
-bdsirSentiment :: Lens' BatchDetectSentimentItemResult (Maybe SentimentType)
-bdsirSentiment = lens _bdsirSentiment (\s a -> s {_bdsirSentiment = a})
+batchDetectSentimentItemResult_sentiment :: Lens.Lens' BatchDetectSentimentItemResult (Prelude.Maybe SentimentType)
+batchDetectSentimentItemResult_sentiment = Lens.lens (\BatchDetectSentimentItemResult' {sentiment} -> sentiment) (\s@BatchDetectSentimentItemResult' {} a -> s {sentiment = a} :: BatchDetectSentimentItemResult)
 
 -- | The zero-based index of the document in the input list.
-bdsirIndex :: Lens' BatchDetectSentimentItemResult (Maybe Int)
-bdsirIndex = lens _bdsirIndex (\s a -> s {_bdsirIndex = a})
+batchDetectSentimentItemResult_index :: Lens.Lens' BatchDetectSentimentItemResult (Prelude.Maybe Prelude.Int)
+batchDetectSentimentItemResult_index = Lens.lens (\BatchDetectSentimentItemResult' {index} -> index) (\s@BatchDetectSentimentItemResult' {} a -> s {index = a} :: BatchDetectSentimentItemResult)
 
-instance FromJSON BatchDetectSentimentItemResult where
+instance
+  Prelude.FromJSON
+    BatchDetectSentimentItemResult
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BatchDetectSentimentItemResult"
       ( \x ->
           BatchDetectSentimentItemResult'
-            <$> (x .:? "SentimentScore")
-            <*> (x .:? "Sentiment")
-            <*> (x .:? "Index")
+            Prelude.<$> (x Prelude..:? "SentimentScore")
+            Prelude.<*> (x Prelude..:? "Sentiment")
+            Prelude.<*> (x Prelude..:? "Index")
       )
 
-instance Hashable BatchDetectSentimentItemResult
+instance
+  Prelude.Hashable
+    BatchDetectSentimentItemResult
 
-instance NFData BatchDetectSentimentItemResult
+instance
+  Prelude.NFData
+    BatchDetectSentimentItemResult

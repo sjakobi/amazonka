@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,55 +19,60 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Comprehend.Types.EntityRecognizerAnnotations where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the annotations associated with a entity recognizer.
 --
---
---
--- /See:/ 'entityRecognizerAnnotations' smart constructor.
-newtype EntityRecognizerAnnotations = EntityRecognizerAnnotations'
-  { _eraS3URI ::
-      Text
+-- /See:/ 'newEntityRecognizerAnnotations' smart constructor.
+data EntityRecognizerAnnotations = EntityRecognizerAnnotations'
+  { -- | Specifies the Amazon S3 location where the annotations for an entity
+    -- recognizer are located. The URI must be in the same region as the API
+    -- endpoint that you are calling.
+    s3Uri :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EntityRecognizerAnnotations' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EntityRecognizerAnnotations' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eraS3URI' - Specifies the Amazon S3 location where the annotations for an entity recognizer are located. The URI must be in the same region as the API endpoint that you are calling.
-entityRecognizerAnnotations ::
-  -- | 'eraS3URI'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 's3Uri', 'entityRecognizerAnnotations_s3Uri' - Specifies the Amazon S3 location where the annotations for an entity
+-- recognizer are located. The URI must be in the same region as the API
+-- endpoint that you are calling.
+newEntityRecognizerAnnotations ::
+  -- | 's3Uri'
+  Prelude.Text ->
   EntityRecognizerAnnotations
-entityRecognizerAnnotations pS3URI_ =
-  EntityRecognizerAnnotations' {_eraS3URI = pS3URI_}
+newEntityRecognizerAnnotations pS3Uri_ =
+  EntityRecognizerAnnotations' {s3Uri = pS3Uri_}
 
--- | Specifies the Amazon S3 location where the annotations for an entity recognizer are located. The URI must be in the same region as the API endpoint that you are calling.
-eraS3URI :: Lens' EntityRecognizerAnnotations Text
-eraS3URI = lens _eraS3URI (\s a -> s {_eraS3URI = a})
+-- | Specifies the Amazon S3 location where the annotations for an entity
+-- recognizer are located. The URI must be in the same region as the API
+-- endpoint that you are calling.
+entityRecognizerAnnotations_s3Uri :: Lens.Lens' EntityRecognizerAnnotations Prelude.Text
+entityRecognizerAnnotations_s3Uri = Lens.lens (\EntityRecognizerAnnotations' {s3Uri} -> s3Uri) (\s@EntityRecognizerAnnotations' {} a -> s {s3Uri = a} :: EntityRecognizerAnnotations)
 
-instance FromJSON EntityRecognizerAnnotations where
+instance Prelude.FromJSON EntityRecognizerAnnotations where
   parseJSON =
-    withObject
+    Prelude.withObject
       "EntityRecognizerAnnotations"
       ( \x ->
-          EntityRecognizerAnnotations' <$> (x .: "S3Uri")
+          EntityRecognizerAnnotations'
+            Prelude.<$> (x Prelude..: "S3Uri")
       )
 
-instance Hashable EntityRecognizerAnnotations
+instance Prelude.Hashable EntityRecognizerAnnotations
 
-instance NFData EntityRecognizerAnnotations
+instance Prelude.NFData EntityRecognizerAnnotations
 
-instance ToJSON EntityRecognizerAnnotations where
+instance Prelude.ToJSON EntityRecognizerAnnotations where
   toJSON EntityRecognizerAnnotations' {..} =
-    object (catMaybes [Just ("S3Uri" .= _eraS3URI)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("S3Uri" Prelude..= s3Uri)]
+      )

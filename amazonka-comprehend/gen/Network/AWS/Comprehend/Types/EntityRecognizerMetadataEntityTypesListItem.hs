@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,87 +20,86 @@
 module Network.AWS.Comprehend.Types.EntityRecognizerMetadataEntityTypesListItem where
 
 import Network.AWS.Comprehend.Types.EntityTypesEvaluationMetrics
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Individual item from the list of entity types in the metadata of an entity recognizer.
+-- | Individual item from the list of entity types in the metadata of an
+-- entity recognizer.
 --
---
---
--- /See:/ 'entityRecognizerMetadataEntityTypesListItem' smart constructor.
+-- /See:/ 'newEntityRecognizerMetadataEntityTypesListItem' smart constructor.
 data EntityRecognizerMetadataEntityTypesListItem = EntityRecognizerMetadataEntityTypesListItem'
-  { _ermetliNumberOfTrainMentions ::
-      !( Maybe
-           Int
-       ),
-    _ermetliEvaluationMetrics ::
-      !( Maybe
-           EntityTypesEvaluationMetrics
-       ),
-    _ermetliType ::
-      !( Maybe
-           Text
-       )
+  { -- | Indicates the number of times the given entity type was seen in the
+    -- training data.
+    numberOfTrainMentions :: Prelude.Maybe Prelude.Int,
+    -- | Detailed information about the accuracy of the entity recognizer for a
+    -- specific item on the list of entity types.
+    evaluationMetrics :: Prelude.Maybe EntityTypesEvaluationMetrics,
+    -- | Type of entity from the list of entity types in the metadata of an
+    -- entity recognizer.
+    type' :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EntityRecognizerMetadataEntityTypesListItem' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EntityRecognizerMetadataEntityTypesListItem' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ermetliNumberOfTrainMentions' - Indicates the number of times the given entity type was seen in the training data.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ermetliEvaluationMetrics' - Detailed information about the accuracy of the entity recognizer for a specific item on the list of entity types.
+-- 'numberOfTrainMentions', 'entityRecognizerMetadataEntityTypesListItem_numberOfTrainMentions' - Indicates the number of times the given entity type was seen in the
+-- training data.
 --
--- * 'ermetliType' - Type of entity from the list of entity types in the metadata of an entity recognizer.
-entityRecognizerMetadataEntityTypesListItem ::
+-- 'evaluationMetrics', 'entityRecognizerMetadataEntityTypesListItem_evaluationMetrics' - Detailed information about the accuracy of the entity recognizer for a
+-- specific item on the list of entity types.
+--
+-- 'type'', 'entityRecognizerMetadataEntityTypesListItem_type' - Type of entity from the list of entity types in the metadata of an
+-- entity recognizer.
+newEntityRecognizerMetadataEntityTypesListItem ::
   EntityRecognizerMetadataEntityTypesListItem
-entityRecognizerMetadataEntityTypesListItem =
+newEntityRecognizerMetadataEntityTypesListItem =
   EntityRecognizerMetadataEntityTypesListItem'
-    { _ermetliNumberOfTrainMentions =
-        Nothing,
-      _ermetliEvaluationMetrics =
-        Nothing,
-      _ermetliType = Nothing
+    { numberOfTrainMentions =
+        Prelude.Nothing,
+      evaluationMetrics =
+        Prelude.Nothing,
+      type' = Prelude.Nothing
     }
 
--- | Indicates the number of times the given entity type was seen in the training data.
-ermetliNumberOfTrainMentions :: Lens' EntityRecognizerMetadataEntityTypesListItem (Maybe Int)
-ermetliNumberOfTrainMentions = lens _ermetliNumberOfTrainMentions (\s a -> s {_ermetliNumberOfTrainMentions = a})
+-- | Indicates the number of times the given entity type was seen in the
+-- training data.
+entityRecognizerMetadataEntityTypesListItem_numberOfTrainMentions :: Lens.Lens' EntityRecognizerMetadataEntityTypesListItem (Prelude.Maybe Prelude.Int)
+entityRecognizerMetadataEntityTypesListItem_numberOfTrainMentions = Lens.lens (\EntityRecognizerMetadataEntityTypesListItem' {numberOfTrainMentions} -> numberOfTrainMentions) (\s@EntityRecognizerMetadataEntityTypesListItem' {} a -> s {numberOfTrainMentions = a} :: EntityRecognizerMetadataEntityTypesListItem)
 
--- | Detailed information about the accuracy of the entity recognizer for a specific item on the list of entity types.
-ermetliEvaluationMetrics :: Lens' EntityRecognizerMetadataEntityTypesListItem (Maybe EntityTypesEvaluationMetrics)
-ermetliEvaluationMetrics = lens _ermetliEvaluationMetrics (\s a -> s {_ermetliEvaluationMetrics = a})
+-- | Detailed information about the accuracy of the entity recognizer for a
+-- specific item on the list of entity types.
+entityRecognizerMetadataEntityTypesListItem_evaluationMetrics :: Lens.Lens' EntityRecognizerMetadataEntityTypesListItem (Prelude.Maybe EntityTypesEvaluationMetrics)
+entityRecognizerMetadataEntityTypesListItem_evaluationMetrics = Lens.lens (\EntityRecognizerMetadataEntityTypesListItem' {evaluationMetrics} -> evaluationMetrics) (\s@EntityRecognizerMetadataEntityTypesListItem' {} a -> s {evaluationMetrics = a} :: EntityRecognizerMetadataEntityTypesListItem)
 
--- | Type of entity from the list of entity types in the metadata of an entity recognizer.
-ermetliType :: Lens' EntityRecognizerMetadataEntityTypesListItem (Maybe Text)
-ermetliType = lens _ermetliType (\s a -> s {_ermetliType = a})
+-- | Type of entity from the list of entity types in the metadata of an
+-- entity recognizer.
+entityRecognizerMetadataEntityTypesListItem_type :: Lens.Lens' EntityRecognizerMetadataEntityTypesListItem (Prelude.Maybe Prelude.Text)
+entityRecognizerMetadataEntityTypesListItem_type = Lens.lens (\EntityRecognizerMetadataEntityTypesListItem' {type'} -> type') (\s@EntityRecognizerMetadataEntityTypesListItem' {} a -> s {type' = a} :: EntityRecognizerMetadataEntityTypesListItem)
 
 instance
-  FromJSON
+  Prelude.FromJSON
     EntityRecognizerMetadataEntityTypesListItem
   where
   parseJSON =
-    withObject
+    Prelude.withObject
       "EntityRecognizerMetadataEntityTypesListItem"
       ( \x ->
           EntityRecognizerMetadataEntityTypesListItem'
-            <$> (x .:? "NumberOfTrainMentions")
-            <*> (x .:? "EvaluationMetrics")
-            <*> (x .:? "Type")
+            Prelude.<$> (x Prelude..:? "NumberOfTrainMentions")
+              Prelude.<*> (x Prelude..:? "EvaluationMetrics")
+              Prelude.<*> (x Prelude..:? "Type")
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     EntityRecognizerMetadataEntityTypesListItem
 
 instance
-  NFData
+  Prelude.NFData
     EntityRecognizerMetadataEntityTypesListItem

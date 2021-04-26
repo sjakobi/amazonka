@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,152 +21,169 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Inspects the input text for entities that contain personally identifiable information (PII) and returns information about them.
+-- Inspects the input text for entities that contain personally
+-- identifiable information (PII) and returns information about them.
 module Network.AWS.Comprehend.DetectPiiEntities
   ( -- * Creating a Request
-    detectPiiEntities,
-    DetectPiiEntities,
+    DetectPiiEntities (..),
+    newDetectPiiEntities,
 
     -- * Request Lenses
-    dpeText,
-    dpeLanguageCode,
+    detectPiiEntities_text,
+    detectPiiEntities_languageCode,
 
     -- * Destructuring the Response
-    detectPiiEntitiesResponse,
-    DetectPiiEntitiesResponse,
+    DetectPiiEntitiesResponse (..),
+    newDetectPiiEntitiesResponse,
 
     -- * Response Lenses
-    dperrsEntities,
-    dperrsResponseStatus,
+    detectPiiEntitiesResponse_entities,
+    detectPiiEntitiesResponse_httpStatus,
   )
 where
 
 import Network.AWS.Comprehend.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Comprehend.Types.PiiEntity
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'detectPiiEntities' smart constructor.
+-- | /See:/ 'newDetectPiiEntities' smart constructor.
 data DetectPiiEntities = DetectPiiEntities'
-  { _dpeText ::
-      !Text,
-    _dpeLanguageCode :: !LanguageCode
+  { -- | A UTF-8 text string. Each string must contain fewer that 5,000 bytes of
+    -- UTF-8 encoded characters.
+    text :: Prelude.Text,
+    -- | The language of the input documents.
+    languageCode :: LanguageCode
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DetectPiiEntities' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DetectPiiEntities' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dpeText' - A UTF-8 text string. Each string must contain fewer that 5,000 bytes of UTF-8 encoded characters.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dpeLanguageCode' - The language of the input documents.
-detectPiiEntities ::
-  -- | 'dpeText'
-  Text ->
-  -- | 'dpeLanguageCode'
+-- 'text', 'detectPiiEntities_text' - A UTF-8 text string. Each string must contain fewer that 5,000 bytes of
+-- UTF-8 encoded characters.
+--
+-- 'languageCode', 'detectPiiEntities_languageCode' - The language of the input documents.
+newDetectPiiEntities ::
+  -- | 'text'
+  Prelude.Text ->
+  -- | 'languageCode'
   LanguageCode ->
   DetectPiiEntities
-detectPiiEntities pText_ pLanguageCode_ =
+newDetectPiiEntities pText_ pLanguageCode_ =
   DetectPiiEntities'
-    { _dpeText = pText_,
-      _dpeLanguageCode = pLanguageCode_
+    { text = pText_,
+      languageCode = pLanguageCode_
     }
 
--- | A UTF-8 text string. Each string must contain fewer that 5,000 bytes of UTF-8 encoded characters.
-dpeText :: Lens' DetectPiiEntities Text
-dpeText = lens _dpeText (\s a -> s {_dpeText = a})
+-- | A UTF-8 text string. Each string must contain fewer that 5,000 bytes of
+-- UTF-8 encoded characters.
+detectPiiEntities_text :: Lens.Lens' DetectPiiEntities Prelude.Text
+detectPiiEntities_text = Lens.lens (\DetectPiiEntities' {text} -> text) (\s@DetectPiiEntities' {} a -> s {text = a} :: DetectPiiEntities)
 
 -- | The language of the input documents.
-dpeLanguageCode :: Lens' DetectPiiEntities LanguageCode
-dpeLanguageCode = lens _dpeLanguageCode (\s a -> s {_dpeLanguageCode = a})
+detectPiiEntities_languageCode :: Lens.Lens' DetectPiiEntities LanguageCode
+detectPiiEntities_languageCode = Lens.lens (\DetectPiiEntities' {languageCode} -> languageCode) (\s@DetectPiiEntities' {} a -> s {languageCode = a} :: DetectPiiEntities)
 
-instance AWSRequest DetectPiiEntities where
+instance Prelude.AWSRequest DetectPiiEntities where
   type Rs DetectPiiEntities = DetectPiiEntitiesResponse
-  request = postJSON comprehend
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DetectPiiEntitiesResponse'
-            <$> (x .?> "Entities" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Entities" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DetectPiiEntities
+instance Prelude.Hashable DetectPiiEntities
 
-instance NFData DetectPiiEntities
+instance Prelude.NFData DetectPiiEntities
 
-instance ToHeaders DetectPiiEntities where
+instance Prelude.ToHeaders DetectPiiEntities where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Comprehend_20171127.DetectPiiEntities" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Comprehend_20171127.DetectPiiEntities" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DetectPiiEntities where
+instance Prelude.ToJSON DetectPiiEntities where
   toJSON DetectPiiEntities' {..} =
-    object
-      ( catMaybes
-          [ Just ("Text" .= _dpeText),
-            Just ("LanguageCode" .= _dpeLanguageCode)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("Text" Prelude..= text),
+            Prelude.Just
+              ("LanguageCode" Prelude..= languageCode)
           ]
       )
 
-instance ToPath DetectPiiEntities where
-  toPath = const "/"
+instance Prelude.ToPath DetectPiiEntities where
+  toPath = Prelude.const "/"
 
-instance ToQuery DetectPiiEntities where
-  toQuery = const mempty
+instance Prelude.ToQuery DetectPiiEntities where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'detectPiiEntitiesResponse' smart constructor.
+-- | /See:/ 'newDetectPiiEntitiesResponse' smart constructor.
 data DetectPiiEntitiesResponse = DetectPiiEntitiesResponse'
-  { _dperrsEntities ::
-      !( Maybe
-           [PiiEntity]
-       ),
-    _dperrsResponseStatus ::
-      !Int
+  { -- | A collection of PII entities identified in the input text. For each
+    -- entity, the response provides the entity type, where the entity text
+    -- begins and ends, and the level of confidence that Amazon Comprehend has
+    -- in the detection.
+    entities :: Prelude.Maybe [PiiEntity],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DetectPiiEntitiesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DetectPiiEntitiesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dperrsEntities' - A collection of PII entities identified in the input text. For each entity, the response provides the entity type, where the entity text begins and ends, and the level of confidence that Amazon Comprehend has in the detection.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dperrsResponseStatus' - -- | The response status code.
-detectPiiEntitiesResponse ::
-  -- | 'dperrsResponseStatus'
-  Int ->
+-- 'entities', 'detectPiiEntitiesResponse_entities' - A collection of PII entities identified in the input text. For each
+-- entity, the response provides the entity type, where the entity text
+-- begins and ends, and the level of confidence that Amazon Comprehend has
+-- in the detection.
+--
+-- 'httpStatus', 'detectPiiEntitiesResponse_httpStatus' - The response's http status code.
+newDetectPiiEntitiesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DetectPiiEntitiesResponse
-detectPiiEntitiesResponse pResponseStatus_ =
+newDetectPiiEntitiesResponse pHttpStatus_ =
   DetectPiiEntitiesResponse'
-    { _dperrsEntities =
-        Nothing,
-      _dperrsResponseStatus = pResponseStatus_
+    { entities =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A collection of PII entities identified in the input text. For each entity, the response provides the entity type, where the entity text begins and ends, and the level of confidence that Amazon Comprehend has in the detection.
-dperrsEntities :: Lens' DetectPiiEntitiesResponse [PiiEntity]
-dperrsEntities = lens _dperrsEntities (\s a -> s {_dperrsEntities = a}) . _Default . _Coerce
+-- | A collection of PII entities identified in the input text. For each
+-- entity, the response provides the entity type, where the entity text
+-- begins and ends, and the level of confidence that Amazon Comprehend has
+-- in the detection.
+detectPiiEntitiesResponse_entities :: Lens.Lens' DetectPiiEntitiesResponse (Prelude.Maybe [PiiEntity])
+detectPiiEntitiesResponse_entities = Lens.lens (\DetectPiiEntitiesResponse' {entities} -> entities) (\s@DetectPiiEntitiesResponse' {} a -> s {entities = a} :: DetectPiiEntitiesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dperrsResponseStatus :: Lens' DetectPiiEntitiesResponse Int
-dperrsResponseStatus = lens _dperrsResponseStatus (\s a -> s {_dperrsResponseStatus = a})
+-- | The response's http status code.
+detectPiiEntitiesResponse_httpStatus :: Lens.Lens' DetectPiiEntitiesResponse Prelude.Int
+detectPiiEntitiesResponse_httpStatus = Lens.lens (\DetectPiiEntitiesResponse' {httpStatus} -> httpStatus) (\s@DetectPiiEntitiesResponse' {} a -> s {httpStatus = a} :: DetectPiiEntitiesResponse)
 
-instance NFData DetectPiiEntitiesResponse
+instance Prelude.NFData DetectPiiEntitiesResponse

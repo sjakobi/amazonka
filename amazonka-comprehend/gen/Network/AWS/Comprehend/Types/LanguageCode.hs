@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,106 +19,108 @@
 module Network.AWS.Comprehend.Types.LanguageCode
   ( LanguageCode
       ( ..,
-        AR,
-        DE,
-        EN,
-        ES,
-        FR,
-        HI,
-        IT,
-        JA,
-        KO,
-        PT,
-        ZH,
-        ZhTw
+        LanguageCodeAR,
+        LanguageCodeDE,
+        LanguageCodeEN,
+        LanguageCodeES,
+        LanguageCodeFR,
+        LanguageCodeHI,
+        LanguageCodeIT,
+        LanguageCodeJA,
+        LanguageCodeKO,
+        LanguageCodePT,
+        LanguageCodeZH,
+        LanguageCodeZhTW
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data LanguageCode = LanguageCode' (CI Text)
+newtype LanguageCode = LanguageCode'
+  { fromLanguageCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AR :: LanguageCode
-pattern AR = LanguageCode' "ar"
+pattern LanguageCodeAR :: LanguageCode
+pattern LanguageCodeAR = LanguageCode' "ar"
 
-pattern DE :: LanguageCode
-pattern DE = LanguageCode' "de"
+pattern LanguageCodeDE :: LanguageCode
+pattern LanguageCodeDE = LanguageCode' "de"
 
-pattern EN :: LanguageCode
-pattern EN = LanguageCode' "en"
+pattern LanguageCodeEN :: LanguageCode
+pattern LanguageCodeEN = LanguageCode' "en"
 
-pattern ES :: LanguageCode
-pattern ES = LanguageCode' "es"
+pattern LanguageCodeES :: LanguageCode
+pattern LanguageCodeES = LanguageCode' "es"
 
-pattern FR :: LanguageCode
-pattern FR = LanguageCode' "fr"
+pattern LanguageCodeFR :: LanguageCode
+pattern LanguageCodeFR = LanguageCode' "fr"
 
-pattern HI :: LanguageCode
-pattern HI = LanguageCode' "hi"
+pattern LanguageCodeHI :: LanguageCode
+pattern LanguageCodeHI = LanguageCode' "hi"
 
-pattern IT :: LanguageCode
-pattern IT = LanguageCode' "it"
+pattern LanguageCodeIT :: LanguageCode
+pattern LanguageCodeIT = LanguageCode' "it"
 
-pattern JA :: LanguageCode
-pattern JA = LanguageCode' "ja"
+pattern LanguageCodeJA :: LanguageCode
+pattern LanguageCodeJA = LanguageCode' "ja"
 
-pattern KO :: LanguageCode
-pattern KO = LanguageCode' "ko"
+pattern LanguageCodeKO :: LanguageCode
+pattern LanguageCodeKO = LanguageCode' "ko"
 
-pattern PT :: LanguageCode
-pattern PT = LanguageCode' "pt"
+pattern LanguageCodePT :: LanguageCode
+pattern LanguageCodePT = LanguageCode' "pt"
 
-pattern ZH :: LanguageCode
-pattern ZH = LanguageCode' "zh"
+pattern LanguageCodeZH :: LanguageCode
+pattern LanguageCodeZH = LanguageCode' "zh"
 
-pattern ZhTw :: LanguageCode
-pattern ZhTw = LanguageCode' "zh-TW"
+pattern LanguageCodeZhTW :: LanguageCode
+pattern LanguageCodeZhTW = LanguageCode' "zh-TW"
 
 {-# COMPLETE
-  AR,
-  DE,
-  EN,
-  ES,
-  FR,
-  HI,
-  IT,
-  JA,
-  KO,
-  PT,
-  ZH,
-  ZhTw,
+  LanguageCodeAR,
+  LanguageCodeDE,
+  LanguageCodeEN,
+  LanguageCodeES,
+  LanguageCodeFR,
+  LanguageCodeHI,
+  LanguageCodeIT,
+  LanguageCodeJA,
+  LanguageCodeKO,
+  LanguageCodePT,
+  LanguageCodeZH,
+  LanguageCodeZhTW,
   LanguageCode'
   #-}
 
-instance FromText LanguageCode where
-  parser = (LanguageCode' . mk) <$> takeText
+instance Prelude.FromText LanguageCode where
+  parser = LanguageCode' Prelude.<$> Prelude.takeText
 
-instance ToText LanguageCode where
-  toText (LanguageCode' ci) = original ci
+instance Prelude.ToText LanguageCode where
+  toText (LanguageCode' x) = x
 
-instance Hashable LanguageCode
+instance Prelude.Hashable LanguageCode
 
-instance NFData LanguageCode
+instance Prelude.NFData LanguageCode
 
-instance ToByteString LanguageCode
+instance Prelude.ToByteString LanguageCode
 
-instance ToQuery LanguageCode
+instance Prelude.ToQuery LanguageCode
 
-instance ToHeader LanguageCode
+instance Prelude.ToHeader LanguageCode
 
-instance ToJSON LanguageCode where
-  toJSON = toJSONText
+instance Prelude.ToJSON LanguageCode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON LanguageCode where
-  parseJSON = parseJSONText "LanguageCode"
+instance Prelude.FromJSON LanguageCode where
+  parseJSON = Prelude.parseJSONText "LanguageCode"

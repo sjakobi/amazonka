@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,71 +20,71 @@
 module Network.AWS.Comprehend.Types.BatchDetectDominantLanguageItemResult where
 
 import Network.AWS.Comprehend.Types.DominantLanguage
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The result of calling the operation. The operation returns one object for each document that is successfully processed by the operation.
+-- | The result of calling the operation. The operation returns one object
+-- for each document that is successfully processed by the operation.
 --
---
---
--- /See:/ 'batchDetectDominantLanguageItemResult' smart constructor.
+-- /See:/ 'newBatchDetectDominantLanguageItemResult' smart constructor.
 data BatchDetectDominantLanguageItemResult = BatchDetectDominantLanguageItemResult'
-  { _bddlirLanguages ::
-      !( Maybe
-           [DominantLanguage]
-       ),
-    _bddlirIndex ::
-      !( Maybe
-           Int
-       )
+  { -- | One or more DominantLanguage objects describing the dominant languages
+    -- in the document.
+    languages :: Prelude.Maybe [DominantLanguage],
+    -- | The zero-based index of the document in the input list.
+    index :: Prelude.Maybe Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchDetectDominantLanguageItemResult' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchDetectDominantLanguageItemResult' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bddlirLanguages' - One or more 'DominantLanguage' objects describing the dominant languages in the document.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bddlirIndex' - The zero-based index of the document in the input list.
-batchDetectDominantLanguageItemResult ::
+-- 'languages', 'batchDetectDominantLanguageItemResult_languages' - One or more DominantLanguage objects describing the dominant languages
+-- in the document.
+--
+-- 'index', 'batchDetectDominantLanguageItemResult_index' - The zero-based index of the document in the input list.
+newBatchDetectDominantLanguageItemResult ::
   BatchDetectDominantLanguageItemResult
-batchDetectDominantLanguageItemResult =
+newBatchDetectDominantLanguageItemResult =
   BatchDetectDominantLanguageItemResult'
-    { _bddlirLanguages =
-        Nothing,
-      _bddlirIndex = Nothing
+    { languages =
+        Prelude.Nothing,
+      index = Prelude.Nothing
     }
 
--- | One or more 'DominantLanguage' objects describing the dominant languages in the document.
-bddlirLanguages :: Lens' BatchDetectDominantLanguageItemResult [DominantLanguage]
-bddlirLanguages = lens _bddlirLanguages (\s a -> s {_bddlirLanguages = a}) . _Default . _Coerce
+-- | One or more DominantLanguage objects describing the dominant languages
+-- in the document.
+batchDetectDominantLanguageItemResult_languages :: Lens.Lens' BatchDetectDominantLanguageItemResult (Prelude.Maybe [DominantLanguage])
+batchDetectDominantLanguageItemResult_languages = Lens.lens (\BatchDetectDominantLanguageItemResult' {languages} -> languages) (\s@BatchDetectDominantLanguageItemResult' {} a -> s {languages = a} :: BatchDetectDominantLanguageItemResult) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The zero-based index of the document in the input list.
-bddlirIndex :: Lens' BatchDetectDominantLanguageItemResult (Maybe Int)
-bddlirIndex = lens _bddlirIndex (\s a -> s {_bddlirIndex = a})
+batchDetectDominantLanguageItemResult_index :: Lens.Lens' BatchDetectDominantLanguageItemResult (Prelude.Maybe Prelude.Int)
+batchDetectDominantLanguageItemResult_index = Lens.lens (\BatchDetectDominantLanguageItemResult' {index} -> index) (\s@BatchDetectDominantLanguageItemResult' {} a -> s {index = a} :: BatchDetectDominantLanguageItemResult)
 
 instance
-  FromJSON
+  Prelude.FromJSON
     BatchDetectDominantLanguageItemResult
   where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BatchDetectDominantLanguageItemResult"
       ( \x ->
           BatchDetectDominantLanguageItemResult'
-            <$> (x .:? "Languages" .!= mempty) <*> (x .:? "Index")
+            Prelude.<$> ( x Prelude..:? "Languages"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "Index")
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     BatchDetectDominantLanguageItemResult
 
-instance NFData BatchDetectDominantLanguageItemResult
+instance
+  Prelude.NFData
+    BatchDetectDominantLanguageItemResult

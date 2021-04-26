@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,72 +20,104 @@
 module Network.AWS.Comprehend.Types.PiiEntity where
 
 import Network.AWS.Comprehend.Types.PiiEntityType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Provides information about a PII entity.
 --
---
---
--- /See:/ 'piiEntity' smart constructor.
+-- /See:/ 'newPiiEntity' smart constructor.
 data PiiEntity = PiiEntity'
-  { _peEndOffset ::
-      !(Maybe Int),
-    _peType :: !(Maybe PiiEntityType),
-    _peScore :: !(Maybe Double),
-    _peBeginOffset :: !(Maybe Int)
+  { -- | A character offset in the input text that shows where the PII entity
+    -- ends. The offset returns the position of each UTF-8 code point in the
+    -- string. A /code point/ is the abstract character from a particular
+    -- graphical representation. For example, a multi-byte UTF-8 character maps
+    -- to a single code point.
+    endOffset :: Prelude.Maybe Prelude.Int,
+    -- | The entity\'s type.
+    type' :: Prelude.Maybe PiiEntityType,
+    -- | The level of confidence that Amazon Comprehend has in the accuracy of
+    -- the detection.
+    score :: Prelude.Maybe Prelude.Double,
+    -- | A character offset in the input text that shows where the PII entity
+    -- begins (the first character is at position 0). The offset returns the
+    -- position of each UTF-8 code point in the string. A /code point/ is the
+    -- abstract character from a particular graphical representation. For
+    -- example, a multi-byte UTF-8 character maps to a single code point.
+    beginOffset :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PiiEntity' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PiiEntity' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'peEndOffset' - A character offset in the input text that shows where the PII entity ends. The offset returns the position of each UTF-8 code point in the string. A /code point/ is the abstract character from a particular graphical representation. For example, a multi-byte UTF-8 character maps to a single code point.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'peType' - The entity's type.
+-- 'endOffset', 'piiEntity_endOffset' - A character offset in the input text that shows where the PII entity
+-- ends. The offset returns the position of each UTF-8 code point in the
+-- string. A /code point/ is the abstract character from a particular
+-- graphical representation. For example, a multi-byte UTF-8 character maps
+-- to a single code point.
 --
--- * 'peScore' - The level of confidence that Amazon Comprehend has in the accuracy of the detection.
+-- 'type'', 'piiEntity_type' - The entity\'s type.
 --
--- * 'peBeginOffset' - A character offset in the input text that shows where the PII entity begins (the first character is at position 0). The offset returns the position of each UTF-8 code point in the string. A /code point/ is the abstract character from a particular graphical representation. For example, a multi-byte UTF-8 character maps to a single code point.
-piiEntity ::
+-- 'score', 'piiEntity_score' - The level of confidence that Amazon Comprehend has in the accuracy of
+-- the detection.
+--
+-- 'beginOffset', 'piiEntity_beginOffset' - A character offset in the input text that shows where the PII entity
+-- begins (the first character is at position 0). The offset returns the
+-- position of each UTF-8 code point in the string. A /code point/ is the
+-- abstract character from a particular graphical representation. For
+-- example, a multi-byte UTF-8 character maps to a single code point.
+newPiiEntity ::
   PiiEntity
-piiEntity =
+newPiiEntity =
   PiiEntity'
-    { _peEndOffset = Nothing,
-      _peType = Nothing,
-      _peScore = Nothing,
-      _peBeginOffset = Nothing
+    { endOffset = Prelude.Nothing,
+      type' = Prelude.Nothing,
+      score = Prelude.Nothing,
+      beginOffset = Prelude.Nothing
     }
 
--- | A character offset in the input text that shows where the PII entity ends. The offset returns the position of each UTF-8 code point in the string. A /code point/ is the abstract character from a particular graphical representation. For example, a multi-byte UTF-8 character maps to a single code point.
-peEndOffset :: Lens' PiiEntity (Maybe Int)
-peEndOffset = lens _peEndOffset (\s a -> s {_peEndOffset = a})
+-- | A character offset in the input text that shows where the PII entity
+-- ends. The offset returns the position of each UTF-8 code point in the
+-- string. A /code point/ is the abstract character from a particular
+-- graphical representation. For example, a multi-byte UTF-8 character maps
+-- to a single code point.
+piiEntity_endOffset :: Lens.Lens' PiiEntity (Prelude.Maybe Prelude.Int)
+piiEntity_endOffset = Lens.lens (\PiiEntity' {endOffset} -> endOffset) (\s@PiiEntity' {} a -> s {endOffset = a} :: PiiEntity)
 
--- | The entity's type.
-peType :: Lens' PiiEntity (Maybe PiiEntityType)
-peType = lens _peType (\s a -> s {_peType = a})
+-- | The entity\'s type.
+piiEntity_type :: Lens.Lens' PiiEntity (Prelude.Maybe PiiEntityType)
+piiEntity_type = Lens.lens (\PiiEntity' {type'} -> type') (\s@PiiEntity' {} a -> s {type' = a} :: PiiEntity)
 
--- | The level of confidence that Amazon Comprehend has in the accuracy of the detection.
-peScore :: Lens' PiiEntity (Maybe Double)
-peScore = lens _peScore (\s a -> s {_peScore = a})
+-- | The level of confidence that Amazon Comprehend has in the accuracy of
+-- the detection.
+piiEntity_score :: Lens.Lens' PiiEntity (Prelude.Maybe Prelude.Double)
+piiEntity_score = Lens.lens (\PiiEntity' {score} -> score) (\s@PiiEntity' {} a -> s {score = a} :: PiiEntity)
 
--- | A character offset in the input text that shows where the PII entity begins (the first character is at position 0). The offset returns the position of each UTF-8 code point in the string. A /code point/ is the abstract character from a particular graphical representation. For example, a multi-byte UTF-8 character maps to a single code point.
-peBeginOffset :: Lens' PiiEntity (Maybe Int)
-peBeginOffset = lens _peBeginOffset (\s a -> s {_peBeginOffset = a})
+-- | A character offset in the input text that shows where the PII entity
+-- begins (the first character is at position 0). The offset returns the
+-- position of each UTF-8 code point in the string. A /code point/ is the
+-- abstract character from a particular graphical representation. For
+-- example, a multi-byte UTF-8 character maps to a single code point.
+piiEntity_beginOffset :: Lens.Lens' PiiEntity (Prelude.Maybe Prelude.Int)
+piiEntity_beginOffset = Lens.lens (\PiiEntity' {beginOffset} -> beginOffset) (\s@PiiEntity' {} a -> s {beginOffset = a} :: PiiEntity)
 
-instance FromJSON PiiEntity where
+instance Prelude.FromJSON PiiEntity where
   parseJSON =
-    withObject
+    Prelude.withObject
       "PiiEntity"
       ( \x ->
           PiiEntity'
-            <$> (x .:? "EndOffset")
-            <*> (x .:? "Type")
-            <*> (x .:? "Score")
-            <*> (x .:? "BeginOffset")
+            Prelude.<$> (x Prelude..:? "EndOffset")
+            Prelude.<*> (x Prelude..:? "Type")
+            Prelude.<*> (x Prelude..:? "Score")
+            Prelude.<*> (x Prelude..:? "BeginOffset")
       )
 
-instance Hashable PiiEntity
+instance Prelude.Hashable PiiEntity
 
-instance NFData PiiEntity
+instance Prelude.NFData PiiEntity

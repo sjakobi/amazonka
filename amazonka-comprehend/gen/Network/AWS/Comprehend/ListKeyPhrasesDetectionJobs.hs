@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,201 +23,219 @@
 --
 -- Get a list of key phrase detection jobs that you have submitted.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.Comprehend.ListKeyPhrasesDetectionJobs
   ( -- * Creating a Request
-    listKeyPhrasesDetectionJobs,
-    ListKeyPhrasesDetectionJobs,
+    ListKeyPhrasesDetectionJobs (..),
+    newListKeyPhrasesDetectionJobs,
 
     -- * Request Lenses
-    lkpdjNextToken,
-    lkpdjMaxResults,
-    lkpdjFilter,
+    listKeyPhrasesDetectionJobs_nextToken,
+    listKeyPhrasesDetectionJobs_maxResults,
+    listKeyPhrasesDetectionJobs_filter,
 
     -- * Destructuring the Response
-    listKeyPhrasesDetectionJobsResponse,
-    ListKeyPhrasesDetectionJobsResponse,
+    ListKeyPhrasesDetectionJobsResponse (..),
+    newListKeyPhrasesDetectionJobsResponse,
 
     -- * Response Lenses
-    lkpdjrrsNextToken,
-    lkpdjrrsKeyPhrasesDetectionJobPropertiesList,
-    lkpdjrrsResponseStatus,
+    listKeyPhrasesDetectionJobsResponse_nextToken,
+    listKeyPhrasesDetectionJobsResponse_keyPhrasesDetectionJobPropertiesList,
+    listKeyPhrasesDetectionJobsResponse_httpStatus,
   )
 where
 
 import Network.AWS.Comprehend.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Comprehend.Types.KeyPhrasesDetectionJobProperties
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listKeyPhrasesDetectionJobs' smart constructor.
+-- | /See:/ 'newListKeyPhrasesDetectionJobs' smart constructor.
 data ListKeyPhrasesDetectionJobs = ListKeyPhrasesDetectionJobs'
-  { _lkpdjNextToken ::
-      !(Maybe Text),
-    _lkpdjMaxResults ::
-      !(Maybe Nat),
-    _lkpdjFilter ::
-      !( Maybe
-           KeyPhrasesDetectionJobFilter
-       )
+  { -- | Identifies the next page of results to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return in each page. The default is
+    -- 100.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | Filters the jobs that are returned. You can filter jobs on their name,
+    -- status, or the date and time that they were submitted. You can only set
+    -- one filter at a time.
+    filter' :: Prelude.Maybe KeyPhrasesDetectionJobFilter
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListKeyPhrasesDetectionJobs' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListKeyPhrasesDetectionJobs' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lkpdjNextToken' - Identifies the next page of results to return.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lkpdjMaxResults' - The maximum number of results to return in each page. The default is 100.
+-- 'nextToken', 'listKeyPhrasesDetectionJobs_nextToken' - Identifies the next page of results to return.
 --
--- * 'lkpdjFilter' - Filters the jobs that are returned. You can filter jobs on their name, status, or the date and time that they were submitted. You can only set one filter at a time.
-listKeyPhrasesDetectionJobs ::
+-- 'maxResults', 'listKeyPhrasesDetectionJobs_maxResults' - The maximum number of results to return in each page. The default is
+-- 100.
+--
+-- 'filter'', 'listKeyPhrasesDetectionJobs_filter' - Filters the jobs that are returned. You can filter jobs on their name,
+-- status, or the date and time that they were submitted. You can only set
+-- one filter at a time.
+newListKeyPhrasesDetectionJobs ::
   ListKeyPhrasesDetectionJobs
-listKeyPhrasesDetectionJobs =
+newListKeyPhrasesDetectionJobs =
   ListKeyPhrasesDetectionJobs'
-    { _lkpdjNextToken =
-        Nothing,
-      _lkpdjMaxResults = Nothing,
-      _lkpdjFilter = Nothing
+    { nextToken =
+        Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      filter' = Prelude.Nothing
     }
 
 -- | Identifies the next page of results to return.
-lkpdjNextToken :: Lens' ListKeyPhrasesDetectionJobs (Maybe Text)
-lkpdjNextToken = lens _lkpdjNextToken (\s a -> s {_lkpdjNextToken = a})
+listKeyPhrasesDetectionJobs_nextToken :: Lens.Lens' ListKeyPhrasesDetectionJobs (Prelude.Maybe Prelude.Text)
+listKeyPhrasesDetectionJobs_nextToken = Lens.lens (\ListKeyPhrasesDetectionJobs' {nextToken} -> nextToken) (\s@ListKeyPhrasesDetectionJobs' {} a -> s {nextToken = a} :: ListKeyPhrasesDetectionJobs)
 
--- | The maximum number of results to return in each page. The default is 100.
-lkpdjMaxResults :: Lens' ListKeyPhrasesDetectionJobs (Maybe Natural)
-lkpdjMaxResults = lens _lkpdjMaxResults (\s a -> s {_lkpdjMaxResults = a}) . mapping _Nat
+-- | The maximum number of results to return in each page. The default is
+-- 100.
+listKeyPhrasesDetectionJobs_maxResults :: Lens.Lens' ListKeyPhrasesDetectionJobs (Prelude.Maybe Prelude.Natural)
+listKeyPhrasesDetectionJobs_maxResults = Lens.lens (\ListKeyPhrasesDetectionJobs' {maxResults} -> maxResults) (\s@ListKeyPhrasesDetectionJobs' {} a -> s {maxResults = a} :: ListKeyPhrasesDetectionJobs) Prelude.. Lens.mapping Prelude._Nat
 
--- | Filters the jobs that are returned. You can filter jobs on their name, status, or the date and time that they were submitted. You can only set one filter at a time.
-lkpdjFilter :: Lens' ListKeyPhrasesDetectionJobs (Maybe KeyPhrasesDetectionJobFilter)
-lkpdjFilter = lens _lkpdjFilter (\s a -> s {_lkpdjFilter = a})
+-- | Filters the jobs that are returned. You can filter jobs on their name,
+-- status, or the date and time that they were submitted. You can only set
+-- one filter at a time.
+listKeyPhrasesDetectionJobs_filter :: Lens.Lens' ListKeyPhrasesDetectionJobs (Prelude.Maybe KeyPhrasesDetectionJobFilter)
+listKeyPhrasesDetectionJobs_filter = Lens.lens (\ListKeyPhrasesDetectionJobs' {filter'} -> filter') (\s@ListKeyPhrasesDetectionJobs' {} a -> s {filter' = a} :: ListKeyPhrasesDetectionJobs)
 
-instance AWSPager ListKeyPhrasesDetectionJobs where
+instance Pager.AWSPager ListKeyPhrasesDetectionJobs where
   page rq rs
-    | stop (rs ^. lkpdjrrsNextToken) = Nothing
-    | stop
-        (rs ^. lkpdjrrsKeyPhrasesDetectionJobPropertiesList) =
-      Nothing
-    | otherwise =
-      Just $ rq & lkpdjNextToken .~ rs ^. lkpdjrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listKeyPhrasesDetectionJobsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listKeyPhrasesDetectionJobsResponse_keyPhrasesDetectionJobPropertiesList
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listKeyPhrasesDetectionJobs_nextToken
+          Lens..~ rs
+          Lens.^? listKeyPhrasesDetectionJobsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListKeyPhrasesDetectionJobs where
+instance
+  Prelude.AWSRequest
+    ListKeyPhrasesDetectionJobs
+  where
   type
     Rs ListKeyPhrasesDetectionJobs =
       ListKeyPhrasesDetectionJobsResponse
-  request = postJSON comprehend
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListKeyPhrasesDetectionJobsResponse'
-            <$> (x .?> "NextToken")
-            <*> ( x .?> "KeyPhrasesDetectionJobPropertiesList"
-                    .!@ mempty
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "KeyPhrasesDetectionJobPropertiesList"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListKeyPhrasesDetectionJobs
+instance Prelude.Hashable ListKeyPhrasesDetectionJobs
 
-instance NFData ListKeyPhrasesDetectionJobs
+instance Prelude.NFData ListKeyPhrasesDetectionJobs
 
-instance ToHeaders ListKeyPhrasesDetectionJobs where
+instance
+  Prelude.ToHeaders
+    ListKeyPhrasesDetectionJobs
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Comprehend_20171127.ListKeyPhrasesDetectionJobs" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Comprehend_20171127.ListKeyPhrasesDetectionJobs" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListKeyPhrasesDetectionJobs where
+instance Prelude.ToJSON ListKeyPhrasesDetectionJobs where
   toJSON ListKeyPhrasesDetectionJobs' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _lkpdjNextToken,
-            ("MaxResults" .=) <$> _lkpdjMaxResults,
-            ("Filter" .=) <$> _lkpdjFilter
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("Filter" Prelude..=) Prelude.<$> filter'
           ]
       )
 
-instance ToPath ListKeyPhrasesDetectionJobs where
-  toPath = const "/"
+instance Prelude.ToPath ListKeyPhrasesDetectionJobs where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListKeyPhrasesDetectionJobs where
-  toQuery = const mempty
+instance Prelude.ToQuery ListKeyPhrasesDetectionJobs where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listKeyPhrasesDetectionJobsResponse' smart constructor.
+-- | /See:/ 'newListKeyPhrasesDetectionJobsResponse' smart constructor.
 data ListKeyPhrasesDetectionJobsResponse = ListKeyPhrasesDetectionJobsResponse'
-  { _lkpdjrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _lkpdjrrsKeyPhrasesDetectionJobPropertiesList ::
-      !( Maybe
-           [KeyPhrasesDetectionJobProperties]
-       ),
-    _lkpdjrrsResponseStatus ::
-      !Int
+  { -- | Identifies the next page of results to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list containing the properties of each job that is returned.
+    keyPhrasesDetectionJobPropertiesList :: Prelude.Maybe [KeyPhrasesDetectionJobProperties],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListKeyPhrasesDetectionJobsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListKeyPhrasesDetectionJobsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lkpdjrrsNextToken' - Identifies the next page of results to return.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lkpdjrrsKeyPhrasesDetectionJobPropertiesList' - A list containing the properties of each job that is returned.
+-- 'nextToken', 'listKeyPhrasesDetectionJobsResponse_nextToken' - Identifies the next page of results to return.
 --
--- * 'lkpdjrrsResponseStatus' - -- | The response status code.
-listKeyPhrasesDetectionJobsResponse ::
-  -- | 'lkpdjrrsResponseStatus'
-  Int ->
+-- 'keyPhrasesDetectionJobPropertiesList', 'listKeyPhrasesDetectionJobsResponse_keyPhrasesDetectionJobPropertiesList' - A list containing the properties of each job that is returned.
+--
+-- 'httpStatus', 'listKeyPhrasesDetectionJobsResponse_httpStatus' - The response's http status code.
+newListKeyPhrasesDetectionJobsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListKeyPhrasesDetectionJobsResponse
-listKeyPhrasesDetectionJobsResponse pResponseStatus_ =
+newListKeyPhrasesDetectionJobsResponse pHttpStatus_ =
   ListKeyPhrasesDetectionJobsResponse'
-    { _lkpdjrrsNextToken =
-        Nothing,
-      _lkpdjrrsKeyPhrasesDetectionJobPropertiesList =
-        Nothing,
-      _lkpdjrrsResponseStatus =
-        pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      keyPhrasesDetectionJobPropertiesList =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Identifies the next page of results to return.
-lkpdjrrsNextToken :: Lens' ListKeyPhrasesDetectionJobsResponse (Maybe Text)
-lkpdjrrsNextToken = lens _lkpdjrrsNextToken (\s a -> s {_lkpdjrrsNextToken = a})
+listKeyPhrasesDetectionJobsResponse_nextToken :: Lens.Lens' ListKeyPhrasesDetectionJobsResponse (Prelude.Maybe Prelude.Text)
+listKeyPhrasesDetectionJobsResponse_nextToken = Lens.lens (\ListKeyPhrasesDetectionJobsResponse' {nextToken} -> nextToken) (\s@ListKeyPhrasesDetectionJobsResponse' {} a -> s {nextToken = a} :: ListKeyPhrasesDetectionJobsResponse)
 
 -- | A list containing the properties of each job that is returned.
-lkpdjrrsKeyPhrasesDetectionJobPropertiesList :: Lens' ListKeyPhrasesDetectionJobsResponse [KeyPhrasesDetectionJobProperties]
-lkpdjrrsKeyPhrasesDetectionJobPropertiesList = lens _lkpdjrrsKeyPhrasesDetectionJobPropertiesList (\s a -> s {_lkpdjrrsKeyPhrasesDetectionJobPropertiesList = a}) . _Default . _Coerce
+listKeyPhrasesDetectionJobsResponse_keyPhrasesDetectionJobPropertiesList :: Lens.Lens' ListKeyPhrasesDetectionJobsResponse (Prelude.Maybe [KeyPhrasesDetectionJobProperties])
+listKeyPhrasesDetectionJobsResponse_keyPhrasesDetectionJobPropertiesList = Lens.lens (\ListKeyPhrasesDetectionJobsResponse' {keyPhrasesDetectionJobPropertiesList} -> keyPhrasesDetectionJobPropertiesList) (\s@ListKeyPhrasesDetectionJobsResponse' {} a -> s {keyPhrasesDetectionJobPropertiesList = a} :: ListKeyPhrasesDetectionJobsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lkpdjrrsResponseStatus :: Lens' ListKeyPhrasesDetectionJobsResponse Int
-lkpdjrrsResponseStatus = lens _lkpdjrrsResponseStatus (\s a -> s {_lkpdjrrsResponseStatus = a})
+-- | The response's http status code.
+listKeyPhrasesDetectionJobsResponse_httpStatus :: Lens.Lens' ListKeyPhrasesDetectionJobsResponse Prelude.Int
+listKeyPhrasesDetectionJobsResponse_httpStatus = Lens.lens (\ListKeyPhrasesDetectionJobsResponse' {httpStatus} -> httpStatus) (\s@ListKeyPhrasesDetectionJobsResponse' {} a -> s {httpStatus = a} :: ListKeyPhrasesDetectionJobsResponse)
 
-instance NFData ListKeyPhrasesDetectionJobsResponse
+instance
+  Prelude.NFData
+    ListKeyPhrasesDetectionJobsResponse

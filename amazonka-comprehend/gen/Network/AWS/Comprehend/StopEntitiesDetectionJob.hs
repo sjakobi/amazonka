@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,161 +23,170 @@
 --
 -- Stops an entities detection job in progress.
 --
+-- If the job state is @IN_PROGRESS@ the job is marked for termination and
+-- put into the @STOP_REQUESTED@ state. If the job completes before it can
+-- be stopped, it is put into the @COMPLETED@ state; otherwise the job is
+-- stopped and put into the @STOPPED@ state.
 --
--- If the job state is @IN_PROGRESS@ the job is marked for termination and put into the @STOP_REQUESTED@ state. If the job completes before it can be stopped, it is put into the @COMPLETED@ state; otherwise the job is stopped and put into the @STOPPED@ state.
+-- If the job is in the @COMPLETED@ or @FAILED@ state when you call the
+-- @StopDominantLanguageDetectionJob@ operation, the operation returns a
+-- 400 Internal Request Exception.
 --
--- If the job is in the @COMPLETED@ or @FAILED@ state when you call the @StopDominantLanguageDetectionJob@ operation, the operation returns a 400 Internal Request Exception.
---
--- When a job is stopped, any documents already processed are written to the output location.
+-- When a job is stopped, any documents already processed are written to
+-- the output location.
 module Network.AWS.Comprehend.StopEntitiesDetectionJob
   ( -- * Creating a Request
-    stopEntitiesDetectionJob,
-    StopEntitiesDetectionJob,
+    StopEntitiesDetectionJob (..),
+    newStopEntitiesDetectionJob,
 
     -- * Request Lenses
-    sJobId,
+    stopEntitiesDetectionJob_jobId,
 
     -- * Destructuring the Response
-    stopEntitiesDetectionJobResponse,
-    StopEntitiesDetectionJobResponse,
+    StopEntitiesDetectionJobResponse (..),
+    newStopEntitiesDetectionJobResponse,
 
     -- * Response Lenses
-    ssrsJobStatus,
-    ssrsJobId,
-    ssrsResponseStatus,
+    stopEntitiesDetectionJobResponse_jobStatus,
+    stopEntitiesDetectionJobResponse_jobId,
+    stopEntitiesDetectionJobResponse_httpStatus,
   )
 where
 
 import Network.AWS.Comprehend.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Comprehend.Types.JobStatus
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'stopEntitiesDetectionJob' smart constructor.
-newtype StopEntitiesDetectionJob = StopEntitiesDetectionJob'
-  { _sJobId ::
-      Text
+-- | /See:/ 'newStopEntitiesDetectionJob' smart constructor.
+data StopEntitiesDetectionJob = StopEntitiesDetectionJob'
+  { -- | The identifier of the entities detection job to stop.
+    jobId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopEntitiesDetectionJob' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopEntitiesDetectionJob' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sJobId' - The identifier of the entities detection job to stop.
-stopEntitiesDetectionJob ::
-  -- | 'sJobId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'jobId', 'stopEntitiesDetectionJob_jobId' - The identifier of the entities detection job to stop.
+newStopEntitiesDetectionJob ::
+  -- | 'jobId'
+  Prelude.Text ->
   StopEntitiesDetectionJob
-stopEntitiesDetectionJob pJobId_ =
-  StopEntitiesDetectionJob' {_sJobId = pJobId_}
+newStopEntitiesDetectionJob pJobId_ =
+  StopEntitiesDetectionJob' {jobId = pJobId_}
 
 -- | The identifier of the entities detection job to stop.
-sJobId :: Lens' StopEntitiesDetectionJob Text
-sJobId = lens _sJobId (\s a -> s {_sJobId = a})
+stopEntitiesDetectionJob_jobId :: Lens.Lens' StopEntitiesDetectionJob Prelude.Text
+stopEntitiesDetectionJob_jobId = Lens.lens (\StopEntitiesDetectionJob' {jobId} -> jobId) (\s@StopEntitiesDetectionJob' {} a -> s {jobId = a} :: StopEntitiesDetectionJob)
 
-instance AWSRequest StopEntitiesDetectionJob where
+instance Prelude.AWSRequest StopEntitiesDetectionJob where
   type
     Rs StopEntitiesDetectionJob =
       StopEntitiesDetectionJobResponse
-  request = postJSON comprehend
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           StopEntitiesDetectionJobResponse'
-            <$> (x .?> "JobStatus")
-            <*> (x .?> "JobId")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "JobStatus")
+            Prelude.<*> (x Prelude..?> "JobId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StopEntitiesDetectionJob
+instance Prelude.Hashable StopEntitiesDetectionJob
 
-instance NFData StopEntitiesDetectionJob
+instance Prelude.NFData StopEntitiesDetectionJob
 
-instance ToHeaders StopEntitiesDetectionJob where
+instance Prelude.ToHeaders StopEntitiesDetectionJob where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Comprehend_20171127.StopEntitiesDetectionJob" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Comprehend_20171127.StopEntitiesDetectionJob" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StopEntitiesDetectionJob where
+instance Prelude.ToJSON StopEntitiesDetectionJob where
   toJSON StopEntitiesDetectionJob' {..} =
-    object (catMaybes [Just ("JobId" .= _sJobId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("JobId" Prelude..= jobId)]
+      )
 
-instance ToPath StopEntitiesDetectionJob where
-  toPath = const "/"
+instance Prelude.ToPath StopEntitiesDetectionJob where
+  toPath = Prelude.const "/"
 
-instance ToQuery StopEntitiesDetectionJob where
-  toQuery = const mempty
+instance Prelude.ToQuery StopEntitiesDetectionJob where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'stopEntitiesDetectionJobResponse' smart constructor.
+-- | /See:/ 'newStopEntitiesDetectionJobResponse' smart constructor.
 data StopEntitiesDetectionJobResponse = StopEntitiesDetectionJobResponse'
-  { _ssrsJobStatus ::
-      !( Maybe
-           JobStatus
-       ),
-    _ssrsJobId ::
-      !( Maybe
-           Text
-       ),
-    _ssrsResponseStatus ::
-      !Int
+  { -- | Either @STOP_REQUESTED@ if the job is currently running, or @STOPPED@ if
+    -- the job was previously stopped with the @StopEntitiesDetectionJob@
+    -- operation.
+    jobStatus :: Prelude.Maybe JobStatus,
+    -- | The identifier of the entities detection job to stop.
+    jobId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopEntitiesDetectionJobResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopEntitiesDetectionJobResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ssrsJobStatus' - Either @STOP_REQUESTED@ if the job is currently running, or @STOPPED@ if the job was previously stopped with the @StopEntitiesDetectionJob@ operation.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ssrsJobId' - The identifier of the entities detection job to stop.
+-- 'jobStatus', 'stopEntitiesDetectionJobResponse_jobStatus' - Either @STOP_REQUESTED@ if the job is currently running, or @STOPPED@ if
+-- the job was previously stopped with the @StopEntitiesDetectionJob@
+-- operation.
 --
--- * 'ssrsResponseStatus' - -- | The response status code.
-stopEntitiesDetectionJobResponse ::
-  -- | 'ssrsResponseStatus'
-  Int ->
+-- 'jobId', 'stopEntitiesDetectionJobResponse_jobId' - The identifier of the entities detection job to stop.
+--
+-- 'httpStatus', 'stopEntitiesDetectionJobResponse_httpStatus' - The response's http status code.
+newStopEntitiesDetectionJobResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StopEntitiesDetectionJobResponse
-stopEntitiesDetectionJobResponse pResponseStatus_ =
+newStopEntitiesDetectionJobResponse pHttpStatus_ =
   StopEntitiesDetectionJobResponse'
-    { _ssrsJobStatus =
-        Nothing,
-      _ssrsJobId = Nothing,
-      _ssrsResponseStatus = pResponseStatus_
+    { jobStatus =
+        Prelude.Nothing,
+      jobId = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Either @STOP_REQUESTED@ if the job is currently running, or @STOPPED@ if the job was previously stopped with the @StopEntitiesDetectionJob@ operation.
-ssrsJobStatus :: Lens' StopEntitiesDetectionJobResponse (Maybe JobStatus)
-ssrsJobStatus = lens _ssrsJobStatus (\s a -> s {_ssrsJobStatus = a})
+-- | Either @STOP_REQUESTED@ if the job is currently running, or @STOPPED@ if
+-- the job was previously stopped with the @StopEntitiesDetectionJob@
+-- operation.
+stopEntitiesDetectionJobResponse_jobStatus :: Lens.Lens' StopEntitiesDetectionJobResponse (Prelude.Maybe JobStatus)
+stopEntitiesDetectionJobResponse_jobStatus = Lens.lens (\StopEntitiesDetectionJobResponse' {jobStatus} -> jobStatus) (\s@StopEntitiesDetectionJobResponse' {} a -> s {jobStatus = a} :: StopEntitiesDetectionJobResponse)
 
 -- | The identifier of the entities detection job to stop.
-ssrsJobId :: Lens' StopEntitiesDetectionJobResponse (Maybe Text)
-ssrsJobId = lens _ssrsJobId (\s a -> s {_ssrsJobId = a})
+stopEntitiesDetectionJobResponse_jobId :: Lens.Lens' StopEntitiesDetectionJobResponse (Prelude.Maybe Prelude.Text)
+stopEntitiesDetectionJobResponse_jobId = Lens.lens (\StopEntitiesDetectionJobResponse' {jobId} -> jobId) (\s@StopEntitiesDetectionJobResponse' {} a -> s {jobId = a} :: StopEntitiesDetectionJobResponse)
 
--- | -- | The response status code.
-ssrsResponseStatus :: Lens' StopEntitiesDetectionJobResponse Int
-ssrsResponseStatus = lens _ssrsResponseStatus (\s a -> s {_ssrsResponseStatus = a})
+-- | The response's http status code.
+stopEntitiesDetectionJobResponse_httpStatus :: Lens.Lens' StopEntitiesDetectionJobResponse Prelude.Int
+stopEntitiesDetectionJobResponse_httpStatus = Lens.lens (\StopEntitiesDetectionJobResponse' {httpStatus} -> httpStatus) (\s@StopEntitiesDetectionJobResponse' {} a -> s {httpStatus = a} :: StopEntitiesDetectionJobResponse)
 
-instance NFData StopEntitiesDetectionJobResponse
+instance
+  Prelude.NFData
+    StopEntitiesDetectionJobResponse

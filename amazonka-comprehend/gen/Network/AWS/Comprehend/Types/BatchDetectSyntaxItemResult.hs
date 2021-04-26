@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,65 +20,64 @@
 module Network.AWS.Comprehend.Types.BatchDetectSyntaxItemResult where
 
 import Network.AWS.Comprehend.Types.SyntaxToken
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The result of calling the operation. The operation returns one object that is successfully processed by the operation.
+-- | The result of calling the operation. The operation returns one object
+-- that is successfully processed by the operation.
 --
---
---
--- /See:/ 'batchDetectSyntaxItemResult' smart constructor.
+-- /See:/ 'newBatchDetectSyntaxItemResult' smart constructor.
 data BatchDetectSyntaxItemResult = BatchDetectSyntaxItemResult'
-  { _bSyntaxTokens ::
-      !( Maybe
-           [SyntaxToken]
-       ),
-    _bIndex ::
-      !(Maybe Int)
+  { -- | The syntax tokens for the words in the document, one token for each
+    -- word.
+    syntaxTokens :: Prelude.Maybe [SyntaxToken],
+    -- | The zero-based index of the document in the input list.
+    index :: Prelude.Maybe Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchDetectSyntaxItemResult' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchDetectSyntaxItemResult' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bSyntaxTokens' - The syntax tokens for the words in the document, one token for each word.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bIndex' - The zero-based index of the document in the input list.
-batchDetectSyntaxItemResult ::
+-- 'syntaxTokens', 'batchDetectSyntaxItemResult_syntaxTokens' - The syntax tokens for the words in the document, one token for each
+-- word.
+--
+-- 'index', 'batchDetectSyntaxItemResult_index' - The zero-based index of the document in the input list.
+newBatchDetectSyntaxItemResult ::
   BatchDetectSyntaxItemResult
-batchDetectSyntaxItemResult =
+newBatchDetectSyntaxItemResult =
   BatchDetectSyntaxItemResult'
-    { _bSyntaxTokens =
-        Nothing,
-      _bIndex = Nothing
+    { syntaxTokens =
+        Prelude.Nothing,
+      index = Prelude.Nothing
     }
 
--- | The syntax tokens for the words in the document, one token for each word.
-bSyntaxTokens :: Lens' BatchDetectSyntaxItemResult [SyntaxToken]
-bSyntaxTokens = lens _bSyntaxTokens (\s a -> s {_bSyntaxTokens = a}) . _Default . _Coerce
+-- | The syntax tokens for the words in the document, one token for each
+-- word.
+batchDetectSyntaxItemResult_syntaxTokens :: Lens.Lens' BatchDetectSyntaxItemResult (Prelude.Maybe [SyntaxToken])
+batchDetectSyntaxItemResult_syntaxTokens = Lens.lens (\BatchDetectSyntaxItemResult' {syntaxTokens} -> syntaxTokens) (\s@BatchDetectSyntaxItemResult' {} a -> s {syntaxTokens = a} :: BatchDetectSyntaxItemResult) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The zero-based index of the document in the input list.
-bIndex :: Lens' BatchDetectSyntaxItemResult (Maybe Int)
-bIndex = lens _bIndex (\s a -> s {_bIndex = a})
+batchDetectSyntaxItemResult_index :: Lens.Lens' BatchDetectSyntaxItemResult (Prelude.Maybe Prelude.Int)
+batchDetectSyntaxItemResult_index = Lens.lens (\BatchDetectSyntaxItemResult' {index} -> index) (\s@BatchDetectSyntaxItemResult' {} a -> s {index = a} :: BatchDetectSyntaxItemResult)
 
-instance FromJSON BatchDetectSyntaxItemResult where
+instance Prelude.FromJSON BatchDetectSyntaxItemResult where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BatchDetectSyntaxItemResult"
       ( \x ->
           BatchDetectSyntaxItemResult'
-            <$> (x .:? "SyntaxTokens" .!= mempty)
-            <*> (x .:? "Index")
+            Prelude.<$> ( x Prelude..:? "SyntaxTokens"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "Index")
       )
 
-instance Hashable BatchDetectSyntaxItemResult
+instance Prelude.Hashable BatchDetectSyntaxItemResult
 
-instance NFData BatchDetectSyntaxItemResult
+instance Prelude.NFData BatchDetectSyntaxItemResult

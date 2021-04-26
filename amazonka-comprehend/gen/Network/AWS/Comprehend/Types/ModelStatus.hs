@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,81 +19,83 @@
 module Network.AWS.Comprehend.Types.ModelStatus
   ( ModelStatus
       ( ..,
-        MSDeleting,
-        MSInError,
-        MSStopRequested,
-        MSStopped,
-        MSSubmitted,
-        MSTrained,
-        MSTraining
+        ModelStatusDELETING,
+        ModelStatusINERROR,
+        ModelStatusSTOPPED,
+        ModelStatusSTOPREQUESTED,
+        ModelStatusSUBMITTED,
+        ModelStatusTRAINED,
+        ModelStatusTRAINING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ModelStatus = ModelStatus' (CI Text)
+newtype ModelStatus = ModelStatus'
+  { fromModelStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MSDeleting :: ModelStatus
-pattern MSDeleting = ModelStatus' "DELETING"
+pattern ModelStatusDELETING :: ModelStatus
+pattern ModelStatusDELETING = ModelStatus' "DELETING"
 
-pattern MSInError :: ModelStatus
-pattern MSInError = ModelStatus' "IN_ERROR"
+pattern ModelStatusINERROR :: ModelStatus
+pattern ModelStatusINERROR = ModelStatus' "IN_ERROR"
 
-pattern MSStopRequested :: ModelStatus
-pattern MSStopRequested = ModelStatus' "STOP_REQUESTED"
+pattern ModelStatusSTOPPED :: ModelStatus
+pattern ModelStatusSTOPPED = ModelStatus' "STOPPED"
 
-pattern MSStopped :: ModelStatus
-pattern MSStopped = ModelStatus' "STOPPED"
+pattern ModelStatusSTOPREQUESTED :: ModelStatus
+pattern ModelStatusSTOPREQUESTED = ModelStatus' "STOP_REQUESTED"
 
-pattern MSSubmitted :: ModelStatus
-pattern MSSubmitted = ModelStatus' "SUBMITTED"
+pattern ModelStatusSUBMITTED :: ModelStatus
+pattern ModelStatusSUBMITTED = ModelStatus' "SUBMITTED"
 
-pattern MSTrained :: ModelStatus
-pattern MSTrained = ModelStatus' "TRAINED"
+pattern ModelStatusTRAINED :: ModelStatus
+pattern ModelStatusTRAINED = ModelStatus' "TRAINED"
 
-pattern MSTraining :: ModelStatus
-pattern MSTraining = ModelStatus' "TRAINING"
+pattern ModelStatusTRAINING :: ModelStatus
+pattern ModelStatusTRAINING = ModelStatus' "TRAINING"
 
 {-# COMPLETE
-  MSDeleting,
-  MSInError,
-  MSStopRequested,
-  MSStopped,
-  MSSubmitted,
-  MSTrained,
-  MSTraining,
+  ModelStatusDELETING,
+  ModelStatusINERROR,
+  ModelStatusSTOPPED,
+  ModelStatusSTOPREQUESTED,
+  ModelStatusSUBMITTED,
+  ModelStatusTRAINED,
+  ModelStatusTRAINING,
   ModelStatus'
   #-}
 
-instance FromText ModelStatus where
-  parser = (ModelStatus' . mk) <$> takeText
+instance Prelude.FromText ModelStatus where
+  parser = ModelStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ModelStatus where
-  toText (ModelStatus' ci) = original ci
+instance Prelude.ToText ModelStatus where
+  toText (ModelStatus' x) = x
 
-instance Hashable ModelStatus
+instance Prelude.Hashable ModelStatus
 
-instance NFData ModelStatus
+instance Prelude.NFData ModelStatus
 
-instance ToByteString ModelStatus
+instance Prelude.ToByteString ModelStatus
 
-instance ToQuery ModelStatus
+instance Prelude.ToQuery ModelStatus
 
-instance ToHeader ModelStatus
+instance Prelude.ToHeader ModelStatus
 
-instance ToJSON ModelStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON ModelStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ModelStatus where
-  parseJSON = parseJSONText "ModelStatus"
+instance Prelude.FromJSON ModelStatus where
+  parseJSON = Prelude.parseJSONText "ModelStatus"

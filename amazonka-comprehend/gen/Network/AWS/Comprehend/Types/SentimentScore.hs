@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,72 +19,90 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Comprehend.Types.SentimentScore where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes the level of confidence that Amazon Comprehend has in the accuracy of its detection of sentiments.
+-- | Describes the level of confidence that Amazon Comprehend has in the
+-- accuracy of its detection of sentiments.
 --
---
---
--- /See:/ 'sentimentScore' smart constructor.
+-- /See:/ 'newSentimentScore' smart constructor.
 data SentimentScore = SentimentScore'
-  { _ssNegative ::
-      !(Maybe Double),
-    _ssMixed :: !(Maybe Double),
-    _ssPositive :: !(Maybe Double),
-    _ssNeutral :: !(Maybe Double)
+  { -- | The level of confidence that Amazon Comprehend has in the accuracy of
+    -- its detection of the @NEGATIVE@ sentiment.
+    negative :: Prelude.Maybe Prelude.Double,
+    -- | The level of confidence that Amazon Comprehend has in the accuracy of
+    -- its detection of the @MIXED@ sentiment.
+    mixed :: Prelude.Maybe Prelude.Double,
+    -- | The level of confidence that Amazon Comprehend has in the accuracy of
+    -- its detection of the @POSITIVE@ sentiment.
+    positive :: Prelude.Maybe Prelude.Double,
+    -- | The level of confidence that Amazon Comprehend has in the accuracy of
+    -- its detection of the @NEUTRAL@ sentiment.
+    neutral :: Prelude.Maybe Prelude.Double
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SentimentScore' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SentimentScore' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ssNegative' - The level of confidence that Amazon Comprehend has in the accuracy of its detection of the @NEGATIVE@ sentiment.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ssMixed' - The level of confidence that Amazon Comprehend has in the accuracy of its detection of the @MIXED@ sentiment.
+-- 'negative', 'sentimentScore_negative' - The level of confidence that Amazon Comprehend has in the accuracy of
+-- its detection of the @NEGATIVE@ sentiment.
 --
--- * 'ssPositive' - The level of confidence that Amazon Comprehend has in the accuracy of its detection of the @POSITIVE@ sentiment.
+-- 'mixed', 'sentimentScore_mixed' - The level of confidence that Amazon Comprehend has in the accuracy of
+-- its detection of the @MIXED@ sentiment.
 --
--- * 'ssNeutral' - The level of confidence that Amazon Comprehend has in the accuracy of its detection of the @NEUTRAL@ sentiment.
-sentimentScore ::
+-- 'positive', 'sentimentScore_positive' - The level of confidence that Amazon Comprehend has in the accuracy of
+-- its detection of the @POSITIVE@ sentiment.
+--
+-- 'neutral', 'sentimentScore_neutral' - The level of confidence that Amazon Comprehend has in the accuracy of
+-- its detection of the @NEUTRAL@ sentiment.
+newSentimentScore ::
   SentimentScore
-sentimentScore =
+newSentimentScore =
   SentimentScore'
-    { _ssNegative = Nothing,
-      _ssMixed = Nothing,
-      _ssPositive = Nothing,
-      _ssNeutral = Nothing
+    { negative = Prelude.Nothing,
+      mixed = Prelude.Nothing,
+      positive = Prelude.Nothing,
+      neutral = Prelude.Nothing
     }
 
--- | The level of confidence that Amazon Comprehend has in the accuracy of its detection of the @NEGATIVE@ sentiment.
-ssNegative :: Lens' SentimentScore (Maybe Double)
-ssNegative = lens _ssNegative (\s a -> s {_ssNegative = a})
+-- | The level of confidence that Amazon Comprehend has in the accuracy of
+-- its detection of the @NEGATIVE@ sentiment.
+sentimentScore_negative :: Lens.Lens' SentimentScore (Prelude.Maybe Prelude.Double)
+sentimentScore_negative = Lens.lens (\SentimentScore' {negative} -> negative) (\s@SentimentScore' {} a -> s {negative = a} :: SentimentScore)
 
--- | The level of confidence that Amazon Comprehend has in the accuracy of its detection of the @MIXED@ sentiment.
-ssMixed :: Lens' SentimentScore (Maybe Double)
-ssMixed = lens _ssMixed (\s a -> s {_ssMixed = a})
+-- | The level of confidence that Amazon Comprehend has in the accuracy of
+-- its detection of the @MIXED@ sentiment.
+sentimentScore_mixed :: Lens.Lens' SentimentScore (Prelude.Maybe Prelude.Double)
+sentimentScore_mixed = Lens.lens (\SentimentScore' {mixed} -> mixed) (\s@SentimentScore' {} a -> s {mixed = a} :: SentimentScore)
 
--- | The level of confidence that Amazon Comprehend has in the accuracy of its detection of the @POSITIVE@ sentiment.
-ssPositive :: Lens' SentimentScore (Maybe Double)
-ssPositive = lens _ssPositive (\s a -> s {_ssPositive = a})
+-- | The level of confidence that Amazon Comprehend has in the accuracy of
+-- its detection of the @POSITIVE@ sentiment.
+sentimentScore_positive :: Lens.Lens' SentimentScore (Prelude.Maybe Prelude.Double)
+sentimentScore_positive = Lens.lens (\SentimentScore' {positive} -> positive) (\s@SentimentScore' {} a -> s {positive = a} :: SentimentScore)
 
--- | The level of confidence that Amazon Comprehend has in the accuracy of its detection of the @NEUTRAL@ sentiment.
-ssNeutral :: Lens' SentimentScore (Maybe Double)
-ssNeutral = lens _ssNeutral (\s a -> s {_ssNeutral = a})
+-- | The level of confidence that Amazon Comprehend has in the accuracy of
+-- its detection of the @NEUTRAL@ sentiment.
+sentimentScore_neutral :: Lens.Lens' SentimentScore (Prelude.Maybe Prelude.Double)
+sentimentScore_neutral = Lens.lens (\SentimentScore' {neutral} -> neutral) (\s@SentimentScore' {} a -> s {neutral = a} :: SentimentScore)
 
-instance FromJSON SentimentScore where
+instance Prelude.FromJSON SentimentScore where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SentimentScore"
       ( \x ->
           SentimentScore'
-            <$> (x .:? "Negative")
-            <*> (x .:? "Mixed")
-            <*> (x .:? "Positive")
-            <*> (x .:? "Neutral")
+            Prelude.<$> (x Prelude..:? "Negative")
+            Prelude.<*> (x Prelude..:? "Mixed")
+            Prelude.<*> (x Prelude..:? "Positive")
+            Prelude.<*> (x Prelude..:? "Neutral")
       )
 
-instance Hashable SentimentScore
+instance Prelude.Hashable SentimentScore
 
-instance NFData SentimentScore
+instance Prelude.NFData SentimentScore
