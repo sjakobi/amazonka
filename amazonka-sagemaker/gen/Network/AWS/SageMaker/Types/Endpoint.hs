@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,8 +19,8 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.Endpoint where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.DataCaptureConfigSummary
 import Network.AWS.SageMaker.Types.EndpointStatus
 import Network.AWS.SageMaker.Types.MonitoringSchedule
@@ -25,150 +29,180 @@ import Network.AWS.SageMaker.Types.Tag
 
 -- | A hosted endpoint for real-time inference.
 --
---
---
--- /See:/ 'endpoint' smart constructor.
+-- /See:/ 'newEndpoint' smart constructor.
 data Endpoint = Endpoint'
-  { _endProductionVariants ::
-      !(Maybe (List1 ProductionVariantSummary)),
-    _endMonitoringSchedules ::
-      !(Maybe [MonitoringSchedule]),
-    _endFailureReason :: !(Maybe Text),
-    _endTags :: !(Maybe [Tag]),
-    _endDataCaptureConfig ::
-      !(Maybe DataCaptureConfigSummary),
-    _endEndpointName :: !Text,
-    _endEndpointARN :: !Text,
-    _endEndpointConfigName :: !Text,
-    _endEndpointStatus :: !EndpointStatus,
-    _endCreationTime :: !POSIX,
-    _endLastModifiedTime :: !POSIX
+  { -- | A list of the production variants hosted on the endpoint. Each
+    -- production variant is a model.
+    productionVariants :: Prelude.Maybe (Prelude.List1 ProductionVariantSummary),
+    -- | A list of monitoring schedules for the endpoint. For information about
+    -- model monitoring, see
+    -- <https://docs.aws.amazon.com/sagemaker/latest/dg/model-monitor.html Amazon SageMaker Model Monitor>.
+    monitoringSchedules :: Prelude.Maybe [MonitoringSchedule],
+    -- | If the endpoint failed, the reason it failed.
+    failureReason :: Prelude.Maybe Prelude.Text,
+    -- | A list of the tags associated with the endpoint. For more information,
+    -- see
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging AWS resources>
+    -- in the /AWS General Reference Guide/.
+    tags :: Prelude.Maybe [Tag],
+    dataCaptureConfig :: Prelude.Maybe DataCaptureConfigSummary,
+    -- | The name of the endpoint.
+    endpointName :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the endpoint.
+    endpointArn :: Prelude.Text,
+    -- | The endpoint configuration associated with the endpoint.
+    endpointConfigName :: Prelude.Text,
+    -- | The status of the endpoint.
+    endpointStatus :: EndpointStatus,
+    -- | The time that the endpoint was created.
+    creationTime :: Prelude.POSIX,
+    -- | The last time the endpoint was modified.
+    lastModifiedTime :: Prelude.POSIX
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Endpoint' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Endpoint' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'endProductionVariants' - A list of the production variants hosted on the endpoint. Each production variant is a model.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'endMonitoringSchedules' - A list of monitoring schedules for the endpoint. For information about model monitoring, see <https://docs.aws.amazon.com/sagemaker/latest/dg/model-monitor.html Amazon SageMaker Model Monitor> .
+-- 'productionVariants', 'endpoint_productionVariants' - A list of the production variants hosted on the endpoint. Each
+-- production variant is a model.
 --
--- * 'endFailureReason' - If the endpoint failed, the reason it failed.
+-- 'monitoringSchedules', 'endpoint_monitoringSchedules' - A list of monitoring schedules for the endpoint. For information about
+-- model monitoring, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/model-monitor.html Amazon SageMaker Model Monitor>.
 --
--- * 'endTags' - A list of the tags associated with the endpoint. For more information, see <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging AWS resources> in the /AWS General Reference Guide/ .
+-- 'failureReason', 'endpoint_failureReason' - If the endpoint failed, the reason it failed.
 --
--- * 'endDataCaptureConfig' - Undocumented member.
+-- 'tags', 'endpoint_tags' - A list of the tags associated with the endpoint. For more information,
+-- see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging AWS resources>
+-- in the /AWS General Reference Guide/.
 --
--- * 'endEndpointName' - The name of the endpoint.
+-- 'dataCaptureConfig', 'endpoint_dataCaptureConfig' - Undocumented member.
 --
--- * 'endEndpointARN' - The Amazon Resource Name (ARN) of the endpoint.
+-- 'endpointName', 'endpoint_endpointName' - The name of the endpoint.
 --
--- * 'endEndpointConfigName' - The endpoint configuration associated with the endpoint.
+-- 'endpointArn', 'endpoint_endpointArn' - The Amazon Resource Name (ARN) of the endpoint.
 --
--- * 'endEndpointStatus' - The status of the endpoint.
+-- 'endpointConfigName', 'endpoint_endpointConfigName' - The endpoint configuration associated with the endpoint.
 --
--- * 'endCreationTime' - The time that the endpoint was created.
+-- 'endpointStatus', 'endpoint_endpointStatus' - The status of the endpoint.
 --
--- * 'endLastModifiedTime' - The last time the endpoint was modified.
-endpoint ::
-  -- | 'endEndpointName'
-  Text ->
-  -- | 'endEndpointARN'
-  Text ->
-  -- | 'endEndpointConfigName'
-  Text ->
-  -- | 'endEndpointStatus'
+-- 'creationTime', 'endpoint_creationTime' - The time that the endpoint was created.
+--
+-- 'lastModifiedTime', 'endpoint_lastModifiedTime' - The last time the endpoint was modified.
+newEndpoint ::
+  -- | 'endpointName'
+  Prelude.Text ->
+  -- | 'endpointArn'
+  Prelude.Text ->
+  -- | 'endpointConfigName'
+  Prelude.Text ->
+  -- | 'endpointStatus'
   EndpointStatus ->
-  -- | 'endCreationTime'
-  UTCTime ->
-  -- | 'endLastModifiedTime'
-  UTCTime ->
+  -- | 'creationTime'
+  Prelude.UTCTime ->
+  -- | 'lastModifiedTime'
+  Prelude.UTCTime ->
   Endpoint
-endpoint
+newEndpoint
   pEndpointName_
-  pEndpointARN_
+  pEndpointArn_
   pEndpointConfigName_
   pEndpointStatus_
   pCreationTime_
   pLastModifiedTime_ =
     Endpoint'
-      { _endProductionVariants = Nothing,
-        _endMonitoringSchedules = Nothing,
-        _endFailureReason = Nothing,
-        _endTags = Nothing,
-        _endDataCaptureConfig = Nothing,
-        _endEndpointName = pEndpointName_,
-        _endEndpointARN = pEndpointARN_,
-        _endEndpointConfigName = pEndpointConfigName_,
-        _endEndpointStatus = pEndpointStatus_,
-        _endCreationTime = _Time # pCreationTime_,
-        _endLastModifiedTime = _Time # pLastModifiedTime_
+      { productionVariants = Prelude.Nothing,
+        monitoringSchedules = Prelude.Nothing,
+        failureReason = Prelude.Nothing,
+        tags = Prelude.Nothing,
+        dataCaptureConfig = Prelude.Nothing,
+        endpointName = pEndpointName_,
+        endpointArn = pEndpointArn_,
+        endpointConfigName = pEndpointConfigName_,
+        endpointStatus = pEndpointStatus_,
+        creationTime = Prelude._Time Lens.# pCreationTime_,
+        lastModifiedTime =
+          Prelude._Time Lens.# pLastModifiedTime_
       }
 
--- | A list of the production variants hosted on the endpoint. Each production variant is a model.
-endProductionVariants :: Lens' Endpoint (Maybe (NonEmpty ProductionVariantSummary))
-endProductionVariants = lens _endProductionVariants (\s a -> s {_endProductionVariants = a}) . mapping _List1
+-- | A list of the production variants hosted on the endpoint. Each
+-- production variant is a model.
+endpoint_productionVariants :: Lens.Lens' Endpoint (Prelude.Maybe (Prelude.NonEmpty ProductionVariantSummary))
+endpoint_productionVariants = Lens.lens (\Endpoint' {productionVariants} -> productionVariants) (\s@Endpoint' {} a -> s {productionVariants = a} :: Endpoint) Prelude.. Lens.mapping Prelude._List1
 
--- | A list of monitoring schedules for the endpoint. For information about model monitoring, see <https://docs.aws.amazon.com/sagemaker/latest/dg/model-monitor.html Amazon SageMaker Model Monitor> .
-endMonitoringSchedules :: Lens' Endpoint [MonitoringSchedule]
-endMonitoringSchedules = lens _endMonitoringSchedules (\s a -> s {_endMonitoringSchedules = a}) . _Default . _Coerce
+-- | A list of monitoring schedules for the endpoint. For information about
+-- model monitoring, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/model-monitor.html Amazon SageMaker Model Monitor>.
+endpoint_monitoringSchedules :: Lens.Lens' Endpoint (Prelude.Maybe [MonitoringSchedule])
+endpoint_monitoringSchedules = Lens.lens (\Endpoint' {monitoringSchedules} -> monitoringSchedules) (\s@Endpoint' {} a -> s {monitoringSchedules = a} :: Endpoint) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | If the endpoint failed, the reason it failed.
-endFailureReason :: Lens' Endpoint (Maybe Text)
-endFailureReason = lens _endFailureReason (\s a -> s {_endFailureReason = a})
+endpoint_failureReason :: Lens.Lens' Endpoint (Prelude.Maybe Prelude.Text)
+endpoint_failureReason = Lens.lens (\Endpoint' {failureReason} -> failureReason) (\s@Endpoint' {} a -> s {failureReason = a} :: Endpoint)
 
--- | A list of the tags associated with the endpoint. For more information, see <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging AWS resources> in the /AWS General Reference Guide/ .
-endTags :: Lens' Endpoint [Tag]
-endTags = lens _endTags (\s a -> s {_endTags = a}) . _Default . _Coerce
+-- | A list of the tags associated with the endpoint. For more information,
+-- see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging AWS resources>
+-- in the /AWS General Reference Guide/.
+endpoint_tags :: Lens.Lens' Endpoint (Prelude.Maybe [Tag])
+endpoint_tags = Lens.lens (\Endpoint' {tags} -> tags) (\s@Endpoint' {} a -> s {tags = a} :: Endpoint) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Undocumented member.
-endDataCaptureConfig :: Lens' Endpoint (Maybe DataCaptureConfigSummary)
-endDataCaptureConfig = lens _endDataCaptureConfig (\s a -> s {_endDataCaptureConfig = a})
+endpoint_dataCaptureConfig :: Lens.Lens' Endpoint (Prelude.Maybe DataCaptureConfigSummary)
+endpoint_dataCaptureConfig = Lens.lens (\Endpoint' {dataCaptureConfig} -> dataCaptureConfig) (\s@Endpoint' {} a -> s {dataCaptureConfig = a} :: Endpoint)
 
 -- | The name of the endpoint.
-endEndpointName :: Lens' Endpoint Text
-endEndpointName = lens _endEndpointName (\s a -> s {_endEndpointName = a})
+endpoint_endpointName :: Lens.Lens' Endpoint Prelude.Text
+endpoint_endpointName = Lens.lens (\Endpoint' {endpointName} -> endpointName) (\s@Endpoint' {} a -> s {endpointName = a} :: Endpoint)
 
 -- | The Amazon Resource Name (ARN) of the endpoint.
-endEndpointARN :: Lens' Endpoint Text
-endEndpointARN = lens _endEndpointARN (\s a -> s {_endEndpointARN = a})
+endpoint_endpointArn :: Lens.Lens' Endpoint Prelude.Text
+endpoint_endpointArn = Lens.lens (\Endpoint' {endpointArn} -> endpointArn) (\s@Endpoint' {} a -> s {endpointArn = a} :: Endpoint)
 
 -- | The endpoint configuration associated with the endpoint.
-endEndpointConfigName :: Lens' Endpoint Text
-endEndpointConfigName = lens _endEndpointConfigName (\s a -> s {_endEndpointConfigName = a})
+endpoint_endpointConfigName :: Lens.Lens' Endpoint Prelude.Text
+endpoint_endpointConfigName = Lens.lens (\Endpoint' {endpointConfigName} -> endpointConfigName) (\s@Endpoint' {} a -> s {endpointConfigName = a} :: Endpoint)
 
 -- | The status of the endpoint.
-endEndpointStatus :: Lens' Endpoint EndpointStatus
-endEndpointStatus = lens _endEndpointStatus (\s a -> s {_endEndpointStatus = a})
+endpoint_endpointStatus :: Lens.Lens' Endpoint EndpointStatus
+endpoint_endpointStatus = Lens.lens (\Endpoint' {endpointStatus} -> endpointStatus) (\s@Endpoint' {} a -> s {endpointStatus = a} :: Endpoint)
 
 -- | The time that the endpoint was created.
-endCreationTime :: Lens' Endpoint UTCTime
-endCreationTime = lens _endCreationTime (\s a -> s {_endCreationTime = a}) . _Time
+endpoint_creationTime :: Lens.Lens' Endpoint Prelude.UTCTime
+endpoint_creationTime = Lens.lens (\Endpoint' {creationTime} -> creationTime) (\s@Endpoint' {} a -> s {creationTime = a} :: Endpoint) Prelude.. Prelude._Time
 
 -- | The last time the endpoint was modified.
-endLastModifiedTime :: Lens' Endpoint UTCTime
-endLastModifiedTime = lens _endLastModifiedTime (\s a -> s {_endLastModifiedTime = a}) . _Time
+endpoint_lastModifiedTime :: Lens.Lens' Endpoint Prelude.UTCTime
+endpoint_lastModifiedTime = Lens.lens (\Endpoint' {lastModifiedTime} -> lastModifiedTime) (\s@Endpoint' {} a -> s {lastModifiedTime = a} :: Endpoint) Prelude.. Prelude._Time
 
-instance FromJSON Endpoint where
+instance Prelude.FromJSON Endpoint where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Endpoint"
       ( \x ->
           Endpoint'
-            <$> (x .:? "ProductionVariants")
-            <*> (x .:? "MonitoringSchedules" .!= mempty)
-            <*> (x .:? "FailureReason")
-            <*> (x .:? "Tags" .!= mempty)
-            <*> (x .:? "DataCaptureConfig")
-            <*> (x .: "EndpointName")
-            <*> (x .: "EndpointArn")
-            <*> (x .: "EndpointConfigName")
-            <*> (x .: "EndpointStatus")
-            <*> (x .: "CreationTime")
-            <*> (x .: "LastModifiedTime")
+            Prelude.<$> (x Prelude..:? "ProductionVariants")
+            Prelude.<*> ( x Prelude..:? "MonitoringSchedules"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "FailureReason")
+            Prelude.<*> (x Prelude..:? "Tags" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "DataCaptureConfig")
+            Prelude.<*> (x Prelude..: "EndpointName")
+            Prelude.<*> (x Prelude..: "EndpointArn")
+            Prelude.<*> (x Prelude..: "EndpointConfigName")
+            Prelude.<*> (x Prelude..: "EndpointStatus")
+            Prelude.<*> (x Prelude..: "CreationTime")
+            Prelude.<*> (x Prelude..: "LastModifiedTime")
       )
 
-instance Hashable Endpoint
+instance Prelude.Hashable Endpoint
 
-instance NFData Endpoint
+instance Prelude.NFData Endpoint

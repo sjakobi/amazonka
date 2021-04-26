@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.SageMaker.Types.S3DataType
   ( S3DataType
       ( ..,
-        AugmentedManifestFile,
-        ManifestFile,
-        S3Prefix
+        S3DataTypeAugmentedManifestFile,
+        S3DataTypeManifestFile,
+        S3DataTypeS3Prefix
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data S3DataType = S3DataType' (CI Text)
+newtype S3DataType = S3DataType'
+  { fromS3DataType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AugmentedManifestFile :: S3DataType
-pattern AugmentedManifestFile = S3DataType' "AugmentedManifestFile"
+pattern S3DataTypeAugmentedManifestFile :: S3DataType
+pattern S3DataTypeAugmentedManifestFile = S3DataType' "AugmentedManifestFile"
 
-pattern ManifestFile :: S3DataType
-pattern ManifestFile = S3DataType' "ManifestFile"
+pattern S3DataTypeManifestFile :: S3DataType
+pattern S3DataTypeManifestFile = S3DataType' "ManifestFile"
 
-pattern S3Prefix :: S3DataType
-pattern S3Prefix = S3DataType' "S3Prefix"
+pattern S3DataTypeS3Prefix :: S3DataType
+pattern S3DataTypeS3Prefix = S3DataType' "S3Prefix"
 
 {-# COMPLETE
-  AugmentedManifestFile,
-  ManifestFile,
-  S3Prefix,
+  S3DataTypeAugmentedManifestFile,
+  S3DataTypeManifestFile,
+  S3DataTypeS3Prefix,
   S3DataType'
   #-}
 
-instance FromText S3DataType where
-  parser = (S3DataType' . mk) <$> takeText
+instance Prelude.FromText S3DataType where
+  parser = S3DataType' Prelude.<$> Prelude.takeText
 
-instance ToText S3DataType where
-  toText (S3DataType' ci) = original ci
+instance Prelude.ToText S3DataType where
+  toText (S3DataType' x) = x
 
-instance Hashable S3DataType
+instance Prelude.Hashable S3DataType
 
-instance NFData S3DataType
+instance Prelude.NFData S3DataType
 
-instance ToByteString S3DataType
+instance Prelude.ToByteString S3DataType
 
-instance ToQuery S3DataType
+instance Prelude.ToQuery S3DataType
 
-instance ToHeader S3DataType
+instance Prelude.ToHeader S3DataType
 
-instance ToJSON S3DataType where
-  toJSON = toJSONText
+instance Prelude.ToJSON S3DataType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON S3DataType where
-  parseJSON = parseJSONText "S3DataType"
+instance Prelude.FromJSON S3DataType where
+  parseJSON = Prelude.parseJSONText "S3DataType"

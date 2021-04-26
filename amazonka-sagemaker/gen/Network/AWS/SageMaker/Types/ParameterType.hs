@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,68 @@
 module Network.AWS.SageMaker.Types.ParameterType
   ( ParameterType
       ( ..,
-        PTCategorical,
-        PTContinuous,
-        PTFreeText,
-        PTInteger
+        ParameterTypeCategorical,
+        ParameterTypeContinuous,
+        ParameterTypeFreeText,
+        ParameterTypeInteger
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ParameterType = ParameterType' (CI Text)
+newtype ParameterType = ParameterType'
+  { fromParameterType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PTCategorical :: ParameterType
-pattern PTCategorical = ParameterType' "Categorical"
+pattern ParameterTypeCategorical :: ParameterType
+pattern ParameterTypeCategorical = ParameterType' "Categorical"
 
-pattern PTContinuous :: ParameterType
-pattern PTContinuous = ParameterType' "Continuous"
+pattern ParameterTypeContinuous :: ParameterType
+pattern ParameterTypeContinuous = ParameterType' "Continuous"
 
-pattern PTFreeText :: ParameterType
-pattern PTFreeText = ParameterType' "FreeText"
+pattern ParameterTypeFreeText :: ParameterType
+pattern ParameterTypeFreeText = ParameterType' "FreeText"
 
-pattern PTInteger :: ParameterType
-pattern PTInteger = ParameterType' "Integer"
+pattern ParameterTypeInteger :: ParameterType
+pattern ParameterTypeInteger = ParameterType' "Integer"
 
 {-# COMPLETE
-  PTCategorical,
-  PTContinuous,
-  PTFreeText,
-  PTInteger,
+  ParameterTypeCategorical,
+  ParameterTypeContinuous,
+  ParameterTypeFreeText,
+  ParameterTypeInteger,
   ParameterType'
   #-}
 
-instance FromText ParameterType where
-  parser = (ParameterType' . mk) <$> takeText
+instance Prelude.FromText ParameterType where
+  parser = ParameterType' Prelude.<$> Prelude.takeText
 
-instance ToText ParameterType where
-  toText (ParameterType' ci) = original ci
+instance Prelude.ToText ParameterType where
+  toText (ParameterType' x) = x
 
-instance Hashable ParameterType
+instance Prelude.Hashable ParameterType
 
-instance NFData ParameterType
+instance Prelude.NFData ParameterType
 
-instance ToByteString ParameterType
+instance Prelude.ToByteString ParameterType
 
-instance ToQuery ParameterType
+instance Prelude.ToQuery ParameterType
 
-instance ToHeader ParameterType
+instance Prelude.ToHeader ParameterType
 
-instance ToJSON ParameterType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ParameterType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ParameterType where
-  parseJSON = parseJSONText "ParameterType"
+instance Prelude.FromJSON ParameterType where
+  parseJSON = Prelude.parseJSONText "ParameterType"

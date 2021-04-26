@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,63 +19,68 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.MetricData where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The name, value, and date and time of a metric that was emitted to Amazon CloudWatch.
+-- | The name, value, and date and time of a metric that was emitted to
+-- Amazon CloudWatch.
 --
---
---
--- /See:/ 'metricData' smart constructor.
+-- /See:/ 'newMetricData' smart constructor.
 data MetricData = MetricData'
-  { _mdMetricName ::
-      !(Maybe Text),
-    _mdTimestamp :: !(Maybe POSIX),
-    _mdValue :: !(Maybe Double)
+  { -- | The name of the metric.
+    metricName :: Prelude.Maybe Prelude.Text,
+    -- | The date and time that the algorithm emitted the metric.
+    timestamp :: Prelude.Maybe Prelude.POSIX,
+    -- | The value of the metric.
+    value :: Prelude.Maybe Prelude.Double
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MetricData' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MetricData' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mdMetricName' - The name of the metric.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mdTimestamp' - The date and time that the algorithm emitted the metric.
+-- 'metricName', 'metricData_metricName' - The name of the metric.
 --
--- * 'mdValue' - The value of the metric.
-metricData ::
+-- 'timestamp', 'metricData_timestamp' - The date and time that the algorithm emitted the metric.
+--
+-- 'value', 'metricData_value' - The value of the metric.
+newMetricData ::
   MetricData
-metricData =
+newMetricData =
   MetricData'
-    { _mdMetricName = Nothing,
-      _mdTimestamp = Nothing,
-      _mdValue = Nothing
+    { metricName = Prelude.Nothing,
+      timestamp = Prelude.Nothing,
+      value = Prelude.Nothing
     }
 
 -- | The name of the metric.
-mdMetricName :: Lens' MetricData (Maybe Text)
-mdMetricName = lens _mdMetricName (\s a -> s {_mdMetricName = a})
+metricData_metricName :: Lens.Lens' MetricData (Prelude.Maybe Prelude.Text)
+metricData_metricName = Lens.lens (\MetricData' {metricName} -> metricName) (\s@MetricData' {} a -> s {metricName = a} :: MetricData)
 
 -- | The date and time that the algorithm emitted the metric.
-mdTimestamp :: Lens' MetricData (Maybe UTCTime)
-mdTimestamp = lens _mdTimestamp (\s a -> s {_mdTimestamp = a}) . mapping _Time
+metricData_timestamp :: Lens.Lens' MetricData (Prelude.Maybe Prelude.UTCTime)
+metricData_timestamp = Lens.lens (\MetricData' {timestamp} -> timestamp) (\s@MetricData' {} a -> s {timestamp = a} :: MetricData) Prelude.. Lens.mapping Prelude._Time
 
 -- | The value of the metric.
-mdValue :: Lens' MetricData (Maybe Double)
-mdValue = lens _mdValue (\s a -> s {_mdValue = a})
+metricData_value :: Lens.Lens' MetricData (Prelude.Maybe Prelude.Double)
+metricData_value = Lens.lens (\MetricData' {value} -> value) (\s@MetricData' {} a -> s {value = a} :: MetricData)
 
-instance FromJSON MetricData where
+instance Prelude.FromJSON MetricData where
   parseJSON =
-    withObject
+    Prelude.withObject
       "MetricData"
       ( \x ->
           MetricData'
-            <$> (x .:? "MetricName")
-            <*> (x .:? "Timestamp")
-            <*> (x .:? "Value")
+            Prelude.<$> (x Prelude..:? "MetricName")
+            Prelude.<*> (x Prelude..:? "Timestamp")
+            Prelude.<*> (x Prelude..:? "Value")
       )
 
-instance Hashable MetricData
+instance Prelude.Hashable MetricData
 
-instance NFData MetricData
+instance Prelude.NFData MetricData

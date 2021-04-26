@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,81 +19,83 @@
 module Network.AWS.SageMaker.Types.ExecutionStatus
   ( ExecutionStatus
       ( ..,
-        ESCompleted,
-        ESCompletedWithViolations,
-        ESFailed,
-        ESInProgress,
-        ESPending,
-        ESStopped,
-        ESStopping
+        ExecutionStatusCompleted,
+        ExecutionStatusCompletedWithViolations,
+        ExecutionStatusFailed,
+        ExecutionStatusInProgress,
+        ExecutionStatusPending,
+        ExecutionStatusStopped,
+        ExecutionStatusStopping
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ExecutionStatus = ExecutionStatus' (CI Text)
+newtype ExecutionStatus = ExecutionStatus'
+  { fromExecutionStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ESCompleted :: ExecutionStatus
-pattern ESCompleted = ExecutionStatus' "Completed"
+pattern ExecutionStatusCompleted :: ExecutionStatus
+pattern ExecutionStatusCompleted = ExecutionStatus' "Completed"
 
-pattern ESCompletedWithViolations :: ExecutionStatus
-pattern ESCompletedWithViolations = ExecutionStatus' "CompletedWithViolations"
+pattern ExecutionStatusCompletedWithViolations :: ExecutionStatus
+pattern ExecutionStatusCompletedWithViolations = ExecutionStatus' "CompletedWithViolations"
 
-pattern ESFailed :: ExecutionStatus
-pattern ESFailed = ExecutionStatus' "Failed"
+pattern ExecutionStatusFailed :: ExecutionStatus
+pattern ExecutionStatusFailed = ExecutionStatus' "Failed"
 
-pattern ESInProgress :: ExecutionStatus
-pattern ESInProgress = ExecutionStatus' "InProgress"
+pattern ExecutionStatusInProgress :: ExecutionStatus
+pattern ExecutionStatusInProgress = ExecutionStatus' "InProgress"
 
-pattern ESPending :: ExecutionStatus
-pattern ESPending = ExecutionStatus' "Pending"
+pattern ExecutionStatusPending :: ExecutionStatus
+pattern ExecutionStatusPending = ExecutionStatus' "Pending"
 
-pattern ESStopped :: ExecutionStatus
-pattern ESStopped = ExecutionStatus' "Stopped"
+pattern ExecutionStatusStopped :: ExecutionStatus
+pattern ExecutionStatusStopped = ExecutionStatus' "Stopped"
 
-pattern ESStopping :: ExecutionStatus
-pattern ESStopping = ExecutionStatus' "Stopping"
+pattern ExecutionStatusStopping :: ExecutionStatus
+pattern ExecutionStatusStopping = ExecutionStatus' "Stopping"
 
 {-# COMPLETE
-  ESCompleted,
-  ESCompletedWithViolations,
-  ESFailed,
-  ESInProgress,
-  ESPending,
-  ESStopped,
-  ESStopping,
+  ExecutionStatusCompleted,
+  ExecutionStatusCompletedWithViolations,
+  ExecutionStatusFailed,
+  ExecutionStatusInProgress,
+  ExecutionStatusPending,
+  ExecutionStatusStopped,
+  ExecutionStatusStopping,
   ExecutionStatus'
   #-}
 
-instance FromText ExecutionStatus where
-  parser = (ExecutionStatus' . mk) <$> takeText
+instance Prelude.FromText ExecutionStatus where
+  parser = ExecutionStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ExecutionStatus where
-  toText (ExecutionStatus' ci) = original ci
+instance Prelude.ToText ExecutionStatus where
+  toText (ExecutionStatus' x) = x
 
-instance Hashable ExecutionStatus
+instance Prelude.Hashable ExecutionStatus
 
-instance NFData ExecutionStatus
+instance Prelude.NFData ExecutionStatus
 
-instance ToByteString ExecutionStatus
+instance Prelude.ToByteString ExecutionStatus
 
-instance ToQuery ExecutionStatus
+instance Prelude.ToQuery ExecutionStatus
 
-instance ToHeader ExecutionStatus
+instance Prelude.ToHeader ExecutionStatus
 
-instance ToJSON ExecutionStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON ExecutionStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ExecutionStatus where
-  parseJSON = parseJSONText "ExecutionStatus"
+instance Prelude.FromJSON ExecutionStatus where
+  parseJSON = Prelude.parseJSONText "ExecutionStatus"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,72 +19,70 @@
 module Network.AWS.SageMaker.Types.ImageVersionStatus
   ( ImageVersionStatus
       ( ..,
-        IVSCreateFailed,
-        IVSCreated,
-        IVSCreating,
-        IVSDeleteFailed,
-        IVSDeleting
+        ImageVersionStatusCREATED,
+        ImageVersionStatusCREATEFAILED,
+        ImageVersionStatusCREATING,
+        ImageVersionStatusDELETEFAILED,
+        ImageVersionStatusDELETING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ImageVersionStatus
-  = ImageVersionStatus'
-      ( CI
-          Text
-      )
+newtype ImageVersionStatus = ImageVersionStatus'
+  { fromImageVersionStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern IVSCreateFailed :: ImageVersionStatus
-pattern IVSCreateFailed = ImageVersionStatus' "CREATE_FAILED"
+pattern ImageVersionStatusCREATED :: ImageVersionStatus
+pattern ImageVersionStatusCREATED = ImageVersionStatus' "CREATED"
 
-pattern IVSCreated :: ImageVersionStatus
-pattern IVSCreated = ImageVersionStatus' "CREATED"
+pattern ImageVersionStatusCREATEFAILED :: ImageVersionStatus
+pattern ImageVersionStatusCREATEFAILED = ImageVersionStatus' "CREATE_FAILED"
 
-pattern IVSCreating :: ImageVersionStatus
-pattern IVSCreating = ImageVersionStatus' "CREATING"
+pattern ImageVersionStatusCREATING :: ImageVersionStatus
+pattern ImageVersionStatusCREATING = ImageVersionStatus' "CREATING"
 
-pattern IVSDeleteFailed :: ImageVersionStatus
-pattern IVSDeleteFailed = ImageVersionStatus' "DELETE_FAILED"
+pattern ImageVersionStatusDELETEFAILED :: ImageVersionStatus
+pattern ImageVersionStatusDELETEFAILED = ImageVersionStatus' "DELETE_FAILED"
 
-pattern IVSDeleting :: ImageVersionStatus
-pattern IVSDeleting = ImageVersionStatus' "DELETING"
+pattern ImageVersionStatusDELETING :: ImageVersionStatus
+pattern ImageVersionStatusDELETING = ImageVersionStatus' "DELETING"
 
 {-# COMPLETE
-  IVSCreateFailed,
-  IVSCreated,
-  IVSCreating,
-  IVSDeleteFailed,
-  IVSDeleting,
+  ImageVersionStatusCREATED,
+  ImageVersionStatusCREATEFAILED,
+  ImageVersionStatusCREATING,
+  ImageVersionStatusDELETEFAILED,
+  ImageVersionStatusDELETING,
   ImageVersionStatus'
   #-}
 
-instance FromText ImageVersionStatus where
-  parser = (ImageVersionStatus' . mk) <$> takeText
+instance Prelude.FromText ImageVersionStatus where
+  parser = ImageVersionStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ImageVersionStatus where
-  toText (ImageVersionStatus' ci) = original ci
+instance Prelude.ToText ImageVersionStatus where
+  toText (ImageVersionStatus' x) = x
 
-instance Hashable ImageVersionStatus
+instance Prelude.Hashable ImageVersionStatus
 
-instance NFData ImageVersionStatus
+instance Prelude.NFData ImageVersionStatus
 
-instance ToByteString ImageVersionStatus
+instance Prelude.ToByteString ImageVersionStatus
 
-instance ToQuery ImageVersionStatus
+instance Prelude.ToQuery ImageVersionStatus
 
-instance ToHeader ImageVersionStatus
+instance Prelude.ToHeader ImageVersionStatus
 
-instance FromJSON ImageVersionStatus where
-  parseJSON = parseJSONText "ImageVersionStatus"
+instance Prelude.FromJSON ImageVersionStatus where
+  parseJSON = Prelude.parseJSONText "ImageVersionStatus"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,48 +19,56 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.CaptureOption where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.CaptureMode
 
 -- |
 --
---
---
--- /See:/ 'captureOption' smart constructor.
-newtype CaptureOption = CaptureOption'
-  { _coCaptureMode ::
-      CaptureMode
+-- /See:/ 'newCaptureOption' smart constructor.
+data CaptureOption = CaptureOption'
+  { captureMode :: CaptureMode
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
-
--- | Creates a value of 'CaptureOption' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'coCaptureMode' -
-captureOption ::
-  -- | 'coCaptureMode'
-  CaptureMode ->
-  CaptureOption
-captureOption pCaptureMode_ =
-  CaptureOption' {_coCaptureMode = pCaptureMode_}
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
 -- |
-coCaptureMode :: Lens' CaptureOption CaptureMode
-coCaptureMode = lens _coCaptureMode (\s a -> s {_coCaptureMode = a})
+-- Create a value of 'CaptureOption' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'captureMode', 'captureOption_captureMode' -
+newCaptureOption ::
+  -- | 'captureMode'
+  CaptureMode ->
+  CaptureOption
+newCaptureOption pCaptureMode_ =
+  CaptureOption' {captureMode = pCaptureMode_}
 
-instance FromJSON CaptureOption where
+-- |
+captureOption_captureMode :: Lens.Lens' CaptureOption CaptureMode
+captureOption_captureMode = Lens.lens (\CaptureOption' {captureMode} -> captureMode) (\s@CaptureOption' {} a -> s {captureMode = a} :: CaptureOption)
+
+instance Prelude.FromJSON CaptureOption where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CaptureOption"
-      (\x -> CaptureOption' <$> (x .: "CaptureMode"))
+      ( \x ->
+          CaptureOption'
+            Prelude.<$> (x Prelude..: "CaptureMode")
+      )
 
-instance Hashable CaptureOption
+instance Prelude.Hashable CaptureOption
 
-instance NFData CaptureOption
+instance Prelude.NFData CaptureOption
 
-instance ToJSON CaptureOption where
+instance Prelude.ToJSON CaptureOption where
   toJSON CaptureOption' {..} =
-    object
-      (catMaybes [Just ("CaptureMode" .= _coCaptureMode)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("CaptureMode" Prelude..= captureMode)
+          ]
+      )

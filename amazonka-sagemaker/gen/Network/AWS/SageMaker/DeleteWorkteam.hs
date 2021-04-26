@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,133 +21,142 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes an existing work team. This operation can't be undone.
+-- Deletes an existing work team. This operation can\'t be undone.
 module Network.AWS.SageMaker.DeleteWorkteam
   ( -- * Creating a Request
-    deleteWorkteam,
-    DeleteWorkteam,
+    DeleteWorkteam (..),
+    newDeleteWorkteam,
 
     -- * Request Lenses
-    dwWorkteamName,
+    deleteWorkteam_workteamName,
 
     -- * Destructuring the Response
-    deleteWorkteamResponse,
-    DeleteWorkteamResponse,
+    DeleteWorkteamResponse (..),
+    newDeleteWorkteamResponse,
 
     -- * Response Lenses
-    dwrrsResponseStatus,
-    dwrrsSuccess,
+    deleteWorkteamResponse_httpStatus,
+    deleteWorkteamResponse_success,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'deleteWorkteam' smart constructor.
-newtype DeleteWorkteam = DeleteWorkteam'
-  { _dwWorkteamName ::
-      Text
+-- | /See:/ 'newDeleteWorkteam' smart constructor.
+data DeleteWorkteam = DeleteWorkteam'
+  { -- | The name of the work team to delete.
+    workteamName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteWorkteam' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteWorkteam' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dwWorkteamName' - The name of the work team to delete.
-deleteWorkteam ::
-  -- | 'dwWorkteamName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'workteamName', 'deleteWorkteam_workteamName' - The name of the work team to delete.
+newDeleteWorkteam ::
+  -- | 'workteamName'
+  Prelude.Text ->
   DeleteWorkteam
-deleteWorkteam pWorkteamName_ =
-  DeleteWorkteam' {_dwWorkteamName = pWorkteamName_}
+newDeleteWorkteam pWorkteamName_ =
+  DeleteWorkteam' {workteamName = pWorkteamName_}
 
 -- | The name of the work team to delete.
-dwWorkteamName :: Lens' DeleteWorkteam Text
-dwWorkteamName = lens _dwWorkteamName (\s a -> s {_dwWorkteamName = a})
+deleteWorkteam_workteamName :: Lens.Lens' DeleteWorkteam Prelude.Text
+deleteWorkteam_workteamName = Lens.lens (\DeleteWorkteam' {workteamName} -> workteamName) (\s@DeleteWorkteam' {} a -> s {workteamName = a} :: DeleteWorkteam)
 
-instance AWSRequest DeleteWorkteam where
+instance Prelude.AWSRequest DeleteWorkteam where
   type Rs DeleteWorkteam = DeleteWorkteamResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteWorkteamResponse'
-            <$> (pure (fromEnum s)) <*> (x .:> "Success")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "Success")
       )
 
-instance Hashable DeleteWorkteam
+instance Prelude.Hashable DeleteWorkteam
 
-instance NFData DeleteWorkteam
+instance Prelude.NFData DeleteWorkteam
 
-instance ToHeaders DeleteWorkteam where
+instance Prelude.ToHeaders DeleteWorkteam where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.DeleteWorkteam" :: ByteString),
+              Prelude.=# ("SageMaker.DeleteWorkteam" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteWorkteam where
+instance Prelude.ToJSON DeleteWorkteam where
   toJSON DeleteWorkteam' {..} =
-    object
-      ( catMaybes
-          [Just ("WorkteamName" .= _dwWorkteamName)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("WorkteamName" Prelude..= workteamName)
+          ]
       )
 
-instance ToPath DeleteWorkteam where
-  toPath = const "/"
+instance Prelude.ToPath DeleteWorkteam where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteWorkteam where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteWorkteam where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteWorkteamResponse' smart constructor.
+-- | /See:/ 'newDeleteWorkteamResponse' smart constructor.
 data DeleteWorkteamResponse = DeleteWorkteamResponse'
-  { _dwrrsResponseStatus ::
-      !Int,
-    _dwrrsSuccess :: !Bool
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | Returns @true@ if the work team was successfully deleted; otherwise,
+    -- returns @false@.
+    success :: Prelude.Bool
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteWorkteamResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteWorkteamResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dwrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dwrrsSuccess' - Returns @true@ if the work team was successfully deleted; otherwise, returns @false@ .
-deleteWorkteamResponse ::
-  -- | 'dwrrsResponseStatus'
-  Int ->
-  -- | 'dwrrsSuccess'
-  Bool ->
+-- 'httpStatus', 'deleteWorkteamResponse_httpStatus' - The response's http status code.
+--
+-- 'success', 'deleteWorkteamResponse_success' - Returns @true@ if the work team was successfully deleted; otherwise,
+-- returns @false@.
+newDeleteWorkteamResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'success'
+  Prelude.Bool ->
   DeleteWorkteamResponse
-deleteWorkteamResponse pResponseStatus_ pSuccess_ =
+newDeleteWorkteamResponse pHttpStatus_ pSuccess_ =
   DeleteWorkteamResponse'
-    { _dwrrsResponseStatus =
-        pResponseStatus_,
-      _dwrrsSuccess = pSuccess_
+    { httpStatus = pHttpStatus_,
+      success = pSuccess_
     }
 
--- | -- | The response status code.
-dwrrsResponseStatus :: Lens' DeleteWorkteamResponse Int
-dwrrsResponseStatus = lens _dwrrsResponseStatus (\s a -> s {_dwrrsResponseStatus = a})
+-- | The response's http status code.
+deleteWorkteamResponse_httpStatus :: Lens.Lens' DeleteWorkteamResponse Prelude.Int
+deleteWorkteamResponse_httpStatus = Lens.lens (\DeleteWorkteamResponse' {httpStatus} -> httpStatus) (\s@DeleteWorkteamResponse' {} a -> s {httpStatus = a} :: DeleteWorkteamResponse)
 
--- | Returns @true@ if the work team was successfully deleted; otherwise, returns @false@ .
-dwrrsSuccess :: Lens' DeleteWorkteamResponse Bool
-dwrrsSuccess = lens _dwrrsSuccess (\s a -> s {_dwrrsSuccess = a})
+-- | Returns @true@ if the work team was successfully deleted; otherwise,
+-- returns @false@.
+deleteWorkteamResponse_success :: Lens.Lens' DeleteWorkteamResponse Prelude.Bool
+deleteWorkteamResponse_success = Lens.lens (\DeleteWorkteamResponse' {success} -> success) (\s@DeleteWorkteamResponse' {} a -> s {success = a} :: DeleteWorkteamResponse)
 
-instance NFData DeleteWorkteamResponse
+instance Prelude.NFData DeleteWorkteamResponse

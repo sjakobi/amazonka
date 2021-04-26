@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,100 +19,103 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.AlgorithmValidationProfile where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.TrainingJobDefinition
 import Network.AWS.SageMaker.Types.TransformJobDefinition
 
--- | Defines a training job and a batch transform job that Amazon SageMaker runs to validate your algorithm.
+-- | Defines a training job and a batch transform job that Amazon SageMaker
+-- runs to validate your algorithm.
 --
+-- The data provided in the validation profile is made available to your
+-- buyers on AWS Marketplace.
 --
--- The data provided in the validation profile is made available to your buyers on AWS Marketplace.
---
---
--- /See:/ 'algorithmValidationProfile' smart constructor.
+-- /See:/ 'newAlgorithmValidationProfile' smart constructor.
 data AlgorithmValidationProfile = AlgorithmValidationProfile'
-  { _avpTransformJobDefinition ::
-      !( Maybe
-           TransformJobDefinition
-       ),
-    _avpProfileName ::
-      !Text,
-    _avpTrainingJobDefinition ::
-      !TrainingJobDefinition
+  { -- | The @TransformJobDefinition@ object that describes the transform job
+    -- that Amazon SageMaker runs to validate your algorithm.
+    transformJobDefinition :: Prelude.Maybe TransformJobDefinition,
+    -- | The name of the profile for the algorithm. The name must have 1 to 63
+    -- characters. Valid characters are a-z, A-Z, 0-9, and - (hyphen).
+    profileName :: Prelude.Text,
+    -- | The @TrainingJobDefinition@ object that describes the training job that
+    -- Amazon SageMaker runs to validate your algorithm.
+    trainingJobDefinition :: TrainingJobDefinition
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AlgorithmValidationProfile' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AlgorithmValidationProfile' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'avpTransformJobDefinition' - The @TransformJobDefinition@ object that describes the transform job that Amazon SageMaker runs to validate your algorithm.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'avpProfileName' - The name of the profile for the algorithm. The name must have 1 to 63 characters. Valid characters are a-z, A-Z, 0-9, and - (hyphen).
+-- 'transformJobDefinition', 'algorithmValidationProfile_transformJobDefinition' - The @TransformJobDefinition@ object that describes the transform job
+-- that Amazon SageMaker runs to validate your algorithm.
 --
--- * 'avpTrainingJobDefinition' - The @TrainingJobDefinition@ object that describes the training job that Amazon SageMaker runs to validate your algorithm.
-algorithmValidationProfile ::
-  -- | 'avpProfileName'
-  Text ->
-  -- | 'avpTrainingJobDefinition'
+-- 'profileName', 'algorithmValidationProfile_profileName' - The name of the profile for the algorithm. The name must have 1 to 63
+-- characters. Valid characters are a-z, A-Z, 0-9, and - (hyphen).
+--
+-- 'trainingJobDefinition', 'algorithmValidationProfile_trainingJobDefinition' - The @TrainingJobDefinition@ object that describes the training job that
+-- Amazon SageMaker runs to validate your algorithm.
+newAlgorithmValidationProfile ::
+  -- | 'profileName'
+  Prelude.Text ->
+  -- | 'trainingJobDefinition'
   TrainingJobDefinition ->
   AlgorithmValidationProfile
-algorithmValidationProfile
+newAlgorithmValidationProfile
   pProfileName_
   pTrainingJobDefinition_ =
     AlgorithmValidationProfile'
-      { _avpTransformJobDefinition =
-          Nothing,
-        _avpProfileName = pProfileName_,
-        _avpTrainingJobDefinition =
-          pTrainingJobDefinition_
+      { transformJobDefinition =
+          Prelude.Nothing,
+        profileName = pProfileName_,
+        trainingJobDefinition = pTrainingJobDefinition_
       }
 
--- | The @TransformJobDefinition@ object that describes the transform job that Amazon SageMaker runs to validate your algorithm.
-avpTransformJobDefinition :: Lens' AlgorithmValidationProfile (Maybe TransformJobDefinition)
-avpTransformJobDefinition = lens _avpTransformJobDefinition (\s a -> s {_avpTransformJobDefinition = a})
+-- | The @TransformJobDefinition@ object that describes the transform job
+-- that Amazon SageMaker runs to validate your algorithm.
+algorithmValidationProfile_transformJobDefinition :: Lens.Lens' AlgorithmValidationProfile (Prelude.Maybe TransformJobDefinition)
+algorithmValidationProfile_transformJobDefinition = Lens.lens (\AlgorithmValidationProfile' {transformJobDefinition} -> transformJobDefinition) (\s@AlgorithmValidationProfile' {} a -> s {transformJobDefinition = a} :: AlgorithmValidationProfile)
 
--- | The name of the profile for the algorithm. The name must have 1 to 63 characters. Valid characters are a-z, A-Z, 0-9, and - (hyphen).
-avpProfileName :: Lens' AlgorithmValidationProfile Text
-avpProfileName = lens _avpProfileName (\s a -> s {_avpProfileName = a})
+-- | The name of the profile for the algorithm. The name must have 1 to 63
+-- characters. Valid characters are a-z, A-Z, 0-9, and - (hyphen).
+algorithmValidationProfile_profileName :: Lens.Lens' AlgorithmValidationProfile Prelude.Text
+algorithmValidationProfile_profileName = Lens.lens (\AlgorithmValidationProfile' {profileName} -> profileName) (\s@AlgorithmValidationProfile' {} a -> s {profileName = a} :: AlgorithmValidationProfile)
 
--- | The @TrainingJobDefinition@ object that describes the training job that Amazon SageMaker runs to validate your algorithm.
-avpTrainingJobDefinition :: Lens' AlgorithmValidationProfile TrainingJobDefinition
-avpTrainingJobDefinition = lens _avpTrainingJobDefinition (\s a -> s {_avpTrainingJobDefinition = a})
+-- | The @TrainingJobDefinition@ object that describes the training job that
+-- Amazon SageMaker runs to validate your algorithm.
+algorithmValidationProfile_trainingJobDefinition :: Lens.Lens' AlgorithmValidationProfile TrainingJobDefinition
+algorithmValidationProfile_trainingJobDefinition = Lens.lens (\AlgorithmValidationProfile' {trainingJobDefinition} -> trainingJobDefinition) (\s@AlgorithmValidationProfile' {} a -> s {trainingJobDefinition = a} :: AlgorithmValidationProfile)
 
-instance FromJSON AlgorithmValidationProfile where
+instance Prelude.FromJSON AlgorithmValidationProfile where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AlgorithmValidationProfile"
       ( \x ->
           AlgorithmValidationProfile'
-            <$> (x .:? "TransformJobDefinition")
-            <*> (x .: "ProfileName")
-            <*> (x .: "TrainingJobDefinition")
+            Prelude.<$> (x Prelude..:? "TransformJobDefinition")
+            Prelude.<*> (x Prelude..: "ProfileName")
+            Prelude.<*> (x Prelude..: "TrainingJobDefinition")
       )
 
-instance Hashable AlgorithmValidationProfile
+instance Prelude.Hashable AlgorithmValidationProfile
 
-instance NFData AlgorithmValidationProfile
+instance Prelude.NFData AlgorithmValidationProfile
 
-instance ToJSON AlgorithmValidationProfile where
+instance Prelude.ToJSON AlgorithmValidationProfile where
   toJSON AlgorithmValidationProfile' {..} =
-    object
-      ( catMaybes
-          [ ("TransformJobDefinition" .=)
-              <$> _avpTransformJobDefinition,
-            Just ("ProfileName" .= _avpProfileName),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("TransformJobDefinition" Prelude..=)
+              Prelude.<$> transformJobDefinition,
+            Prelude.Just ("ProfileName" Prelude..= profileName),
+            Prelude.Just
               ( "TrainingJobDefinition"
-                  .= _avpTrainingJobDefinition
+                  Prelude..= trainingJobDefinition
               )
           ]
       )

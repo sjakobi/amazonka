@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,197 +21,228 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets a list of private work teams that you have defined in a region. The list may be empty if no work team satisfies the filter specified in the @NameContains@ parameter.
---
---
+-- Gets a list of private work teams that you have defined in a region. The
+-- list may be empty if no work team satisfies the filter specified in the
+-- @NameContains@ parameter.
 --
 -- This operation returns paginated results.
 module Network.AWS.SageMaker.ListWorkteams
   ( -- * Creating a Request
-    listWorkteams,
-    ListWorkteams,
+    ListWorkteams (..),
+    newListWorkteams,
 
     -- * Request Lenses
-    lwsSortOrder,
-    lwsNextToken,
-    lwsNameContains,
-    lwsMaxResults,
-    lwsSortBy,
+    listWorkteams_sortOrder,
+    listWorkteams_nextToken,
+    listWorkteams_nameContains,
+    listWorkteams_maxResults,
+    listWorkteams_sortBy,
 
     -- * Destructuring the Response
-    listWorkteamsResponse,
-    ListWorkteamsResponse,
+    ListWorkteamsResponse (..),
+    newListWorkteamsResponse,
 
     -- * Response Lenses
-    lwrrsNextToken,
-    lwrrsResponseStatus,
-    lwrrsWorkteams,
+    listWorkteamsResponse_nextToken,
+    listWorkteamsResponse_httpStatus,
+    listWorkteamsResponse_workteams,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
+import Network.AWS.SageMaker.Types.Workteam
 
--- | /See:/ 'listWorkteams' smart constructor.
+-- | /See:/ 'newListWorkteams' smart constructor.
 data ListWorkteams = ListWorkteams'
-  { _lwsSortOrder ::
-      !(Maybe SortOrder),
-    _lwsNextToken :: !(Maybe Text),
-    _lwsNameContains :: !(Maybe Text),
-    _lwsMaxResults :: !(Maybe Nat),
-    _lwsSortBy ::
-      !(Maybe ListWorkteamsSortByOptions)
+  { -- | The sort order for results. The default is @Ascending@.
+    sortOrder :: Prelude.Maybe SortOrder,
+    -- | If the result of the previous @ListWorkteams@ request was truncated, the
+    -- response includes a @NextToken@. To retrieve the next set of labeling
+    -- jobs, use the token in the next request.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A string in the work team\'s name. This filter returns only work teams
+    -- whose name contains the specified string.
+    nameContains :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of work teams to return in each page of the response.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The field to sort results by. The default is @CreationTime@.
+    sortBy :: Prelude.Maybe ListWorkteamsSortByOptions
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListWorkteams' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListWorkteams' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lwsSortOrder' - The sort order for results. The default is @Ascending@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lwsNextToken' - If the result of the previous @ListWorkteams@ request was truncated, the response includes a @NextToken@ . To retrieve the next set of labeling jobs, use the token in the next request.
+-- 'sortOrder', 'listWorkteams_sortOrder' - The sort order for results. The default is @Ascending@.
 --
--- * 'lwsNameContains' - A string in the work team's name. This filter returns only work teams whose name contains the specified string.
+-- 'nextToken', 'listWorkteams_nextToken' - If the result of the previous @ListWorkteams@ request was truncated, the
+-- response includes a @NextToken@. To retrieve the next set of labeling
+-- jobs, use the token in the next request.
 --
--- * 'lwsMaxResults' - The maximum number of work teams to return in each page of the response.
+-- 'nameContains', 'listWorkteams_nameContains' - A string in the work team\'s name. This filter returns only work teams
+-- whose name contains the specified string.
 --
--- * 'lwsSortBy' - The field to sort results by. The default is @CreationTime@ .
-listWorkteams ::
+-- 'maxResults', 'listWorkteams_maxResults' - The maximum number of work teams to return in each page of the response.
+--
+-- 'sortBy', 'listWorkteams_sortBy' - The field to sort results by. The default is @CreationTime@.
+newListWorkteams ::
   ListWorkteams
-listWorkteams =
+newListWorkteams =
   ListWorkteams'
-    { _lwsSortOrder = Nothing,
-      _lwsNextToken = Nothing,
-      _lwsNameContains = Nothing,
-      _lwsMaxResults = Nothing,
-      _lwsSortBy = Nothing
+    { sortOrder = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      nameContains = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      sortBy = Prelude.Nothing
     }
 
--- | The sort order for results. The default is @Ascending@ .
-lwsSortOrder :: Lens' ListWorkteams (Maybe SortOrder)
-lwsSortOrder = lens _lwsSortOrder (\s a -> s {_lwsSortOrder = a})
+-- | The sort order for results. The default is @Ascending@.
+listWorkteams_sortOrder :: Lens.Lens' ListWorkteams (Prelude.Maybe SortOrder)
+listWorkteams_sortOrder = Lens.lens (\ListWorkteams' {sortOrder} -> sortOrder) (\s@ListWorkteams' {} a -> s {sortOrder = a} :: ListWorkteams)
 
--- | If the result of the previous @ListWorkteams@ request was truncated, the response includes a @NextToken@ . To retrieve the next set of labeling jobs, use the token in the next request.
-lwsNextToken :: Lens' ListWorkteams (Maybe Text)
-lwsNextToken = lens _lwsNextToken (\s a -> s {_lwsNextToken = a})
+-- | If the result of the previous @ListWorkteams@ request was truncated, the
+-- response includes a @NextToken@. To retrieve the next set of labeling
+-- jobs, use the token in the next request.
+listWorkteams_nextToken :: Lens.Lens' ListWorkteams (Prelude.Maybe Prelude.Text)
+listWorkteams_nextToken = Lens.lens (\ListWorkteams' {nextToken} -> nextToken) (\s@ListWorkteams' {} a -> s {nextToken = a} :: ListWorkteams)
 
--- | A string in the work team's name. This filter returns only work teams whose name contains the specified string.
-lwsNameContains :: Lens' ListWorkteams (Maybe Text)
-lwsNameContains = lens _lwsNameContains (\s a -> s {_lwsNameContains = a})
+-- | A string in the work team\'s name. This filter returns only work teams
+-- whose name contains the specified string.
+listWorkteams_nameContains :: Lens.Lens' ListWorkteams (Prelude.Maybe Prelude.Text)
+listWorkteams_nameContains = Lens.lens (\ListWorkteams' {nameContains} -> nameContains) (\s@ListWorkteams' {} a -> s {nameContains = a} :: ListWorkteams)
 
 -- | The maximum number of work teams to return in each page of the response.
-lwsMaxResults :: Lens' ListWorkteams (Maybe Natural)
-lwsMaxResults = lens _lwsMaxResults (\s a -> s {_lwsMaxResults = a}) . mapping _Nat
+listWorkteams_maxResults :: Lens.Lens' ListWorkteams (Prelude.Maybe Prelude.Natural)
+listWorkteams_maxResults = Lens.lens (\ListWorkteams' {maxResults} -> maxResults) (\s@ListWorkteams' {} a -> s {maxResults = a} :: ListWorkteams) Prelude.. Lens.mapping Prelude._Nat
 
--- | The field to sort results by. The default is @CreationTime@ .
-lwsSortBy :: Lens' ListWorkteams (Maybe ListWorkteamsSortByOptions)
-lwsSortBy = lens _lwsSortBy (\s a -> s {_lwsSortBy = a})
+-- | The field to sort results by. The default is @CreationTime@.
+listWorkteams_sortBy :: Lens.Lens' ListWorkteams (Prelude.Maybe ListWorkteamsSortByOptions)
+listWorkteams_sortBy = Lens.lens (\ListWorkteams' {sortBy} -> sortBy) (\s@ListWorkteams' {} a -> s {sortBy = a} :: ListWorkteams)
 
-instance AWSPager ListWorkteams where
+instance Pager.AWSPager ListWorkteams where
   page rq rs
-    | stop (rs ^. lwrrsNextToken) = Nothing
-    | stop (rs ^. lwrrsWorkteams) = Nothing
-    | otherwise =
-      Just $ rq & lwsNextToken .~ rs ^. lwrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listWorkteamsResponse_nextToken Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        (rs Lens.^. listWorkteamsResponse_workteams) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listWorkteams_nextToken
+          Lens..~ rs
+          Lens.^? listWorkteamsResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest ListWorkteams where
+instance Prelude.AWSRequest ListWorkteams where
   type Rs ListWorkteams = ListWorkteamsResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListWorkteamsResponse'
-            <$> (x .?> "NextToken")
-            <*> (pure (fromEnum s))
-            <*> (x .?> "Workteams" .!@ mempty)
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> ( x Prelude..?> "Workteams"
+                            Prelude..!@ Prelude.mempty
+                        )
       )
 
-instance Hashable ListWorkteams
+instance Prelude.Hashable ListWorkteams
 
-instance NFData ListWorkteams
+instance Prelude.NFData ListWorkteams
 
-instance ToHeaders ListWorkteams where
+instance Prelude.ToHeaders ListWorkteams where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.ListWorkteams" :: ByteString),
+              Prelude.=# ("SageMaker.ListWorkteams" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListWorkteams where
+instance Prelude.ToJSON ListWorkteams where
   toJSON ListWorkteams' {..} =
-    object
-      ( catMaybes
-          [ ("SortOrder" .=) <$> _lwsSortOrder,
-            ("NextToken" .=) <$> _lwsNextToken,
-            ("NameContains" .=) <$> _lwsNameContains,
-            ("MaxResults" .=) <$> _lwsMaxResults,
-            ("SortBy" .=) <$> _lwsSortBy
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("SortOrder" Prelude..=) Prelude.<$> sortOrder,
+            ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("NameContains" Prelude..=) Prelude.<$> nameContains,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("SortBy" Prelude..=) Prelude.<$> sortBy
           ]
       )
 
-instance ToPath ListWorkteams where
-  toPath = const "/"
+instance Prelude.ToPath ListWorkteams where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListWorkteams where
-  toQuery = const mempty
+instance Prelude.ToQuery ListWorkteams where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listWorkteamsResponse' smart constructor.
+-- | /See:/ 'newListWorkteamsResponse' smart constructor.
 data ListWorkteamsResponse = ListWorkteamsResponse'
-  { _lwrrsNextToken ::
-      !(Maybe Text),
-    _lwrrsResponseStatus ::
-      !Int,
-    _lwrrsWorkteams ::
-      ![Workteam]
+  { -- | If the response is truncated, Amazon SageMaker returns this token. To
+    -- retrieve the next set of work teams, use it in the subsequent request.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | An array of @Workteam@ objects, each describing a work team.
+    workteams :: [Workteam]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListWorkteamsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListWorkteamsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lwrrsNextToken' - If the response is truncated, Amazon SageMaker returns this token. To retrieve the next set of work teams, use it in the subsequent request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lwrrsResponseStatus' - -- | The response status code.
+-- 'nextToken', 'listWorkteamsResponse_nextToken' - If the response is truncated, Amazon SageMaker returns this token. To
+-- retrieve the next set of work teams, use it in the subsequent request.
 --
--- * 'lwrrsWorkteams' - An array of @Workteam@ objects, each describing a work team.
-listWorkteamsResponse ::
-  -- | 'lwrrsResponseStatus'
-  Int ->
+-- 'httpStatus', 'listWorkteamsResponse_httpStatus' - The response's http status code.
+--
+-- 'workteams', 'listWorkteamsResponse_workteams' - An array of @Workteam@ objects, each describing a work team.
+newListWorkteamsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListWorkteamsResponse
-listWorkteamsResponse pResponseStatus_ =
+newListWorkteamsResponse pHttpStatus_ =
   ListWorkteamsResponse'
-    { _lwrrsNextToken = Nothing,
-      _lwrrsResponseStatus = pResponseStatus_,
-      _lwrrsWorkteams = mempty
+    { nextToken = Prelude.Nothing,
+      httpStatus = pHttpStatus_,
+      workteams = Prelude.mempty
     }
 
--- | If the response is truncated, Amazon SageMaker returns this token. To retrieve the next set of work teams, use it in the subsequent request.
-lwrrsNextToken :: Lens' ListWorkteamsResponse (Maybe Text)
-lwrrsNextToken = lens _lwrrsNextToken (\s a -> s {_lwrrsNextToken = a})
+-- | If the response is truncated, Amazon SageMaker returns this token. To
+-- retrieve the next set of work teams, use it in the subsequent request.
+listWorkteamsResponse_nextToken :: Lens.Lens' ListWorkteamsResponse (Prelude.Maybe Prelude.Text)
+listWorkteamsResponse_nextToken = Lens.lens (\ListWorkteamsResponse' {nextToken} -> nextToken) (\s@ListWorkteamsResponse' {} a -> s {nextToken = a} :: ListWorkteamsResponse)
 
--- | -- | The response status code.
-lwrrsResponseStatus :: Lens' ListWorkteamsResponse Int
-lwrrsResponseStatus = lens _lwrrsResponseStatus (\s a -> s {_lwrrsResponseStatus = a})
+-- | The response's http status code.
+listWorkteamsResponse_httpStatus :: Lens.Lens' ListWorkteamsResponse Prelude.Int
+listWorkteamsResponse_httpStatus = Lens.lens (\ListWorkteamsResponse' {httpStatus} -> httpStatus) (\s@ListWorkteamsResponse' {} a -> s {httpStatus = a} :: ListWorkteamsResponse)
 
 -- | An array of @Workteam@ objects, each describing a work team.
-lwrrsWorkteams :: Lens' ListWorkteamsResponse [Workteam]
-lwrrsWorkteams = lens _lwrrsWorkteams (\s a -> s {_lwrrsWorkteams = a}) . _Coerce
+listWorkteamsResponse_workteams :: Lens.Lens' ListWorkteamsResponse [Workteam]
+listWorkteamsResponse_workteams = Lens.lens (\ListWorkteamsResponse' {workteams} -> workteams) (\s@ListWorkteamsResponse' {} a -> s {workteams = a} :: ListWorkteamsResponse) Prelude.. Prelude._Coerce
 
-instance NFData ListWorkteamsResponse
+instance Prelude.NFData ListWorkteamsResponse

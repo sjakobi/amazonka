@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,105 +19,96 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.MonitoringScheduleConfig where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.MonitoringJobDefinition
 import Network.AWS.SageMaker.Types.MonitoringType
 import Network.AWS.SageMaker.Types.ScheduleConfig
 
 -- | Configures the monitoring schedule and defines the monitoring job.
 --
---
---
--- /See:/ 'monitoringScheduleConfig' smart constructor.
+-- /See:/ 'newMonitoringScheduleConfig' smart constructor.
 data MonitoringScheduleConfig = MonitoringScheduleConfig'
-  { _mscScheduleConfig ::
-      !( Maybe
-           ScheduleConfig
-       ),
-    _mscMonitoringType ::
-      !( Maybe
-           MonitoringType
-       ),
-    _mscMonitoringJobDefinitionName ::
-      !(Maybe Text),
-    _mscMonitoringJobDefinition ::
-      !( Maybe
-           MonitoringJobDefinition
-       )
+  { -- | Configures the monitoring schedule.
+    scheduleConfig :: Prelude.Maybe ScheduleConfig,
+    -- | The type of the monitoring job definition to schedule.
+    monitoringType :: Prelude.Maybe MonitoringType,
+    -- | The name of the monitoring job definition to schedule.
+    monitoringJobDefinitionName :: Prelude.Maybe Prelude.Text,
+    -- | Defines the monitoring job.
+    monitoringJobDefinition :: Prelude.Maybe MonitoringJobDefinition
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MonitoringScheduleConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MonitoringScheduleConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mscScheduleConfig' - Configures the monitoring schedule.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mscMonitoringType' - The type of the monitoring job definition to schedule.
+-- 'scheduleConfig', 'monitoringScheduleConfig_scheduleConfig' - Configures the monitoring schedule.
 --
--- * 'mscMonitoringJobDefinitionName' - The name of the monitoring job definition to schedule.
+-- 'monitoringType', 'monitoringScheduleConfig_monitoringType' - The type of the monitoring job definition to schedule.
 --
--- * 'mscMonitoringJobDefinition' - Defines the monitoring job.
-monitoringScheduleConfig ::
+-- 'monitoringJobDefinitionName', 'monitoringScheduleConfig_monitoringJobDefinitionName' - The name of the monitoring job definition to schedule.
+--
+-- 'monitoringJobDefinition', 'monitoringScheduleConfig_monitoringJobDefinition' - Defines the monitoring job.
+newMonitoringScheduleConfig ::
   MonitoringScheduleConfig
-monitoringScheduleConfig =
+newMonitoringScheduleConfig =
   MonitoringScheduleConfig'
-    { _mscScheduleConfig =
-        Nothing,
-      _mscMonitoringType = Nothing,
-      _mscMonitoringJobDefinitionName = Nothing,
-      _mscMonitoringJobDefinition = Nothing
+    { scheduleConfig =
+        Prelude.Nothing,
+      monitoringType = Prelude.Nothing,
+      monitoringJobDefinitionName = Prelude.Nothing,
+      monitoringJobDefinition = Prelude.Nothing
     }
 
 -- | Configures the monitoring schedule.
-mscScheduleConfig :: Lens' MonitoringScheduleConfig (Maybe ScheduleConfig)
-mscScheduleConfig = lens _mscScheduleConfig (\s a -> s {_mscScheduleConfig = a})
+monitoringScheduleConfig_scheduleConfig :: Lens.Lens' MonitoringScheduleConfig (Prelude.Maybe ScheduleConfig)
+monitoringScheduleConfig_scheduleConfig = Lens.lens (\MonitoringScheduleConfig' {scheduleConfig} -> scheduleConfig) (\s@MonitoringScheduleConfig' {} a -> s {scheduleConfig = a} :: MonitoringScheduleConfig)
 
 -- | The type of the monitoring job definition to schedule.
-mscMonitoringType :: Lens' MonitoringScheduleConfig (Maybe MonitoringType)
-mscMonitoringType = lens _mscMonitoringType (\s a -> s {_mscMonitoringType = a})
+monitoringScheduleConfig_monitoringType :: Lens.Lens' MonitoringScheduleConfig (Prelude.Maybe MonitoringType)
+monitoringScheduleConfig_monitoringType = Lens.lens (\MonitoringScheduleConfig' {monitoringType} -> monitoringType) (\s@MonitoringScheduleConfig' {} a -> s {monitoringType = a} :: MonitoringScheduleConfig)
 
 -- | The name of the monitoring job definition to schedule.
-mscMonitoringJobDefinitionName :: Lens' MonitoringScheduleConfig (Maybe Text)
-mscMonitoringJobDefinitionName = lens _mscMonitoringJobDefinitionName (\s a -> s {_mscMonitoringJobDefinitionName = a})
+monitoringScheduleConfig_monitoringJobDefinitionName :: Lens.Lens' MonitoringScheduleConfig (Prelude.Maybe Prelude.Text)
+monitoringScheduleConfig_monitoringJobDefinitionName = Lens.lens (\MonitoringScheduleConfig' {monitoringJobDefinitionName} -> monitoringJobDefinitionName) (\s@MonitoringScheduleConfig' {} a -> s {monitoringJobDefinitionName = a} :: MonitoringScheduleConfig)
 
 -- | Defines the monitoring job.
-mscMonitoringJobDefinition :: Lens' MonitoringScheduleConfig (Maybe MonitoringJobDefinition)
-mscMonitoringJobDefinition = lens _mscMonitoringJobDefinition (\s a -> s {_mscMonitoringJobDefinition = a})
+monitoringScheduleConfig_monitoringJobDefinition :: Lens.Lens' MonitoringScheduleConfig (Prelude.Maybe MonitoringJobDefinition)
+monitoringScheduleConfig_monitoringJobDefinition = Lens.lens (\MonitoringScheduleConfig' {monitoringJobDefinition} -> monitoringJobDefinition) (\s@MonitoringScheduleConfig' {} a -> s {monitoringJobDefinition = a} :: MonitoringScheduleConfig)
 
-instance FromJSON MonitoringScheduleConfig where
+instance Prelude.FromJSON MonitoringScheduleConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "MonitoringScheduleConfig"
       ( \x ->
           MonitoringScheduleConfig'
-            <$> (x .:? "ScheduleConfig")
-            <*> (x .:? "MonitoringType")
-            <*> (x .:? "MonitoringJobDefinitionName")
-            <*> (x .:? "MonitoringJobDefinition")
+            Prelude.<$> (x Prelude..:? "ScheduleConfig")
+            Prelude.<*> (x Prelude..:? "MonitoringType")
+            Prelude.<*> (x Prelude..:? "MonitoringJobDefinitionName")
+            Prelude.<*> (x Prelude..:? "MonitoringJobDefinition")
       )
 
-instance Hashable MonitoringScheduleConfig
+instance Prelude.Hashable MonitoringScheduleConfig
 
-instance NFData MonitoringScheduleConfig
+instance Prelude.NFData MonitoringScheduleConfig
 
-instance ToJSON MonitoringScheduleConfig where
+instance Prelude.ToJSON MonitoringScheduleConfig where
   toJSON MonitoringScheduleConfig' {..} =
-    object
-      ( catMaybes
-          [ ("ScheduleConfig" .=) <$> _mscScheduleConfig,
-            ("MonitoringType" .=) <$> _mscMonitoringType,
-            ("MonitoringJobDefinitionName" .=)
-              <$> _mscMonitoringJobDefinitionName,
-            ("MonitoringJobDefinition" .=)
-              <$> _mscMonitoringJobDefinition
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ScheduleConfig" Prelude..=)
+              Prelude.<$> scheduleConfig,
+            ("MonitoringType" Prelude..=)
+              Prelude.<$> monitoringType,
+            ("MonitoringJobDefinitionName" Prelude..=)
+              Prelude.<$> monitoringJobDefinitionName,
+            ("MonitoringJobDefinition" Prelude..=)
+              Prelude.<$> monitoringJobDefinition
           ]
       )

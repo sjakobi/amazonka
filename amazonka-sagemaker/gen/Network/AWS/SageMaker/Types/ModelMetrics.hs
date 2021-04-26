@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,8 +19,8 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.ModelMetrics where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.Bias
 import Network.AWS.SageMaker.Types.Explainability
 import Network.AWS.SageMaker.Types.ModelDataQuality
@@ -24,79 +28,86 @@ import Network.AWS.SageMaker.Types.ModelQuality
 
 -- | Contains metrics captured from a model.
 --
---
---
--- /See:/ 'modelMetrics' smart constructor.
+-- /See:/ 'newModelMetrics' smart constructor.
 data ModelMetrics = ModelMetrics'
-  { _mmBias ::
-      !(Maybe Bias),
-    _mmExplainability :: !(Maybe Explainability),
-    _mmModelDataQuality ::
-      !(Maybe ModelDataQuality),
-    _mmModelQuality :: !(Maybe ModelQuality)
+  { -- | Metrics that measure bais in a model.
+    bias :: Prelude.Maybe Bias,
+    -- | Metrics that help explain a model.
+    explainability :: Prelude.Maybe Explainability,
+    -- | Metrics that measure the quality of the input data for a model.
+    modelDataQuality :: Prelude.Maybe ModelDataQuality,
+    -- | Metrics that measure the quality of a model.
+    modelQuality :: Prelude.Maybe ModelQuality
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModelMetrics' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModelMetrics' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mmBias' - Metrics that measure bais in a model.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mmExplainability' - Metrics that help explain a model.
+-- 'bias', 'modelMetrics_bias' - Metrics that measure bais in a model.
 --
--- * 'mmModelDataQuality' - Metrics that measure the quality of the input data for a model.
+-- 'explainability', 'modelMetrics_explainability' - Metrics that help explain a model.
 --
--- * 'mmModelQuality' - Metrics that measure the quality of a model.
-modelMetrics ::
+-- 'modelDataQuality', 'modelMetrics_modelDataQuality' - Metrics that measure the quality of the input data for a model.
+--
+-- 'modelQuality', 'modelMetrics_modelQuality' - Metrics that measure the quality of a model.
+newModelMetrics ::
   ModelMetrics
-modelMetrics =
+newModelMetrics =
   ModelMetrics'
-    { _mmBias = Nothing,
-      _mmExplainability = Nothing,
-      _mmModelDataQuality = Nothing,
-      _mmModelQuality = Nothing
+    { bias = Prelude.Nothing,
+      explainability = Prelude.Nothing,
+      modelDataQuality = Prelude.Nothing,
+      modelQuality = Prelude.Nothing
     }
 
 -- | Metrics that measure bais in a model.
-mmBias :: Lens' ModelMetrics (Maybe Bias)
-mmBias = lens _mmBias (\s a -> s {_mmBias = a})
+modelMetrics_bias :: Lens.Lens' ModelMetrics (Prelude.Maybe Bias)
+modelMetrics_bias = Lens.lens (\ModelMetrics' {bias} -> bias) (\s@ModelMetrics' {} a -> s {bias = a} :: ModelMetrics)
 
 -- | Metrics that help explain a model.
-mmExplainability :: Lens' ModelMetrics (Maybe Explainability)
-mmExplainability = lens _mmExplainability (\s a -> s {_mmExplainability = a})
+modelMetrics_explainability :: Lens.Lens' ModelMetrics (Prelude.Maybe Explainability)
+modelMetrics_explainability = Lens.lens (\ModelMetrics' {explainability} -> explainability) (\s@ModelMetrics' {} a -> s {explainability = a} :: ModelMetrics)
 
 -- | Metrics that measure the quality of the input data for a model.
-mmModelDataQuality :: Lens' ModelMetrics (Maybe ModelDataQuality)
-mmModelDataQuality = lens _mmModelDataQuality (\s a -> s {_mmModelDataQuality = a})
+modelMetrics_modelDataQuality :: Lens.Lens' ModelMetrics (Prelude.Maybe ModelDataQuality)
+modelMetrics_modelDataQuality = Lens.lens (\ModelMetrics' {modelDataQuality} -> modelDataQuality) (\s@ModelMetrics' {} a -> s {modelDataQuality = a} :: ModelMetrics)
 
 -- | Metrics that measure the quality of a model.
-mmModelQuality :: Lens' ModelMetrics (Maybe ModelQuality)
-mmModelQuality = lens _mmModelQuality (\s a -> s {_mmModelQuality = a})
+modelMetrics_modelQuality :: Lens.Lens' ModelMetrics (Prelude.Maybe ModelQuality)
+modelMetrics_modelQuality = Lens.lens (\ModelMetrics' {modelQuality} -> modelQuality) (\s@ModelMetrics' {} a -> s {modelQuality = a} :: ModelMetrics)
 
-instance FromJSON ModelMetrics where
+instance Prelude.FromJSON ModelMetrics where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ModelMetrics"
       ( \x ->
           ModelMetrics'
-            <$> (x .:? "Bias")
-            <*> (x .:? "Explainability")
-            <*> (x .:? "ModelDataQuality")
-            <*> (x .:? "ModelQuality")
+            Prelude.<$> (x Prelude..:? "Bias")
+            Prelude.<*> (x Prelude..:? "Explainability")
+            Prelude.<*> (x Prelude..:? "ModelDataQuality")
+            Prelude.<*> (x Prelude..:? "ModelQuality")
       )
 
-instance Hashable ModelMetrics
+instance Prelude.Hashable ModelMetrics
 
-instance NFData ModelMetrics
+instance Prelude.NFData ModelMetrics
 
-instance ToJSON ModelMetrics where
+instance Prelude.ToJSON ModelMetrics where
   toJSON ModelMetrics' {..} =
-    object
-      ( catMaybes
-          [ ("Bias" .=) <$> _mmBias,
-            ("Explainability" .=) <$> _mmExplainability,
-            ("ModelDataQuality" .=) <$> _mmModelDataQuality,
-            ("ModelQuality" .=) <$> _mmModelQuality
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Bias" Prelude..=) Prelude.<$> bias,
+            ("Explainability" Prelude..=)
+              Prelude.<$> explainability,
+            ("ModelDataQuality" Prelude..=)
+              Prelude.<$> modelDataQuality,
+            ("ModelQuality" Prelude..=)
+              Prelude.<$> modelQuality
           ]
       )

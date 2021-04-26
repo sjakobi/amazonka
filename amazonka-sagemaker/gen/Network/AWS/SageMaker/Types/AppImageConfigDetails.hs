@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,95 +19,92 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.AppImageConfigDetails where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.KernelGatewayImageConfig
 
 -- | The configuration for running a SageMaker image as a KernelGateway app.
 --
---
---
--- /See:/ 'appImageConfigDetails' smart constructor.
+-- /See:/ 'newAppImageConfigDetails' smart constructor.
 data AppImageConfigDetails = AppImageConfigDetails'
-  { _aicdCreationTime ::
-      !(Maybe POSIX),
-    _aicdAppImageConfigARN ::
-      !(Maybe Text),
-    _aicdKernelGatewayImageConfig ::
-      !( Maybe
-           KernelGatewayImageConfig
-       ),
-    _aicdAppImageConfigName ::
-      !(Maybe Text),
-    _aicdLastModifiedTime ::
-      !(Maybe POSIX)
+  { -- | When the AppImageConfig was created.
+    creationTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The Amazon Resource Name (ARN) of the AppImageConfig.
+    appImageConfigArn :: Prelude.Maybe Prelude.Text,
+    -- | The configuration for the file system and kernels in the SageMaker
+    -- image.
+    kernelGatewayImageConfig :: Prelude.Maybe KernelGatewayImageConfig,
+    -- | The name of the AppImageConfig. Must be unique to your account.
+    appImageConfigName :: Prelude.Maybe Prelude.Text,
+    -- | When the AppImageConfig was last modified.
+    lastModifiedTime :: Prelude.Maybe Prelude.POSIX
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AppImageConfigDetails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AppImageConfigDetails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aicdCreationTime' - When the AppImageConfig was created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aicdAppImageConfigARN' - The Amazon Resource Name (ARN) of the AppImageConfig.
+-- 'creationTime', 'appImageConfigDetails_creationTime' - When the AppImageConfig was created.
 --
--- * 'aicdKernelGatewayImageConfig' - The configuration for the file system and kernels in the SageMaker image.
+-- 'appImageConfigArn', 'appImageConfigDetails_appImageConfigArn' - The Amazon Resource Name (ARN) of the AppImageConfig.
 --
--- * 'aicdAppImageConfigName' - The name of the AppImageConfig. Must be unique to your account.
+-- 'kernelGatewayImageConfig', 'appImageConfigDetails_kernelGatewayImageConfig' - The configuration for the file system and kernels in the SageMaker
+-- image.
 --
--- * 'aicdLastModifiedTime' - When the AppImageConfig was last modified.
-appImageConfigDetails ::
+-- 'appImageConfigName', 'appImageConfigDetails_appImageConfigName' - The name of the AppImageConfig. Must be unique to your account.
+--
+-- 'lastModifiedTime', 'appImageConfigDetails_lastModifiedTime' - When the AppImageConfig was last modified.
+newAppImageConfigDetails ::
   AppImageConfigDetails
-appImageConfigDetails =
+newAppImageConfigDetails =
   AppImageConfigDetails'
-    { _aicdCreationTime = Nothing,
-      _aicdAppImageConfigARN = Nothing,
-      _aicdKernelGatewayImageConfig = Nothing,
-      _aicdAppImageConfigName = Nothing,
-      _aicdLastModifiedTime = Nothing
+    { creationTime =
+        Prelude.Nothing,
+      appImageConfigArn = Prelude.Nothing,
+      kernelGatewayImageConfig = Prelude.Nothing,
+      appImageConfigName = Prelude.Nothing,
+      lastModifiedTime = Prelude.Nothing
     }
 
 -- | When the AppImageConfig was created.
-aicdCreationTime :: Lens' AppImageConfigDetails (Maybe UTCTime)
-aicdCreationTime = lens _aicdCreationTime (\s a -> s {_aicdCreationTime = a}) . mapping _Time
+appImageConfigDetails_creationTime :: Lens.Lens' AppImageConfigDetails (Prelude.Maybe Prelude.UTCTime)
+appImageConfigDetails_creationTime = Lens.lens (\AppImageConfigDetails' {creationTime} -> creationTime) (\s@AppImageConfigDetails' {} a -> s {creationTime = a} :: AppImageConfigDetails) Prelude.. Lens.mapping Prelude._Time
 
 -- | The Amazon Resource Name (ARN) of the AppImageConfig.
-aicdAppImageConfigARN :: Lens' AppImageConfigDetails (Maybe Text)
-aicdAppImageConfigARN = lens _aicdAppImageConfigARN (\s a -> s {_aicdAppImageConfigARN = a})
+appImageConfigDetails_appImageConfigArn :: Lens.Lens' AppImageConfigDetails (Prelude.Maybe Prelude.Text)
+appImageConfigDetails_appImageConfigArn = Lens.lens (\AppImageConfigDetails' {appImageConfigArn} -> appImageConfigArn) (\s@AppImageConfigDetails' {} a -> s {appImageConfigArn = a} :: AppImageConfigDetails)
 
--- | The configuration for the file system and kernels in the SageMaker image.
-aicdKernelGatewayImageConfig :: Lens' AppImageConfigDetails (Maybe KernelGatewayImageConfig)
-aicdKernelGatewayImageConfig = lens _aicdKernelGatewayImageConfig (\s a -> s {_aicdKernelGatewayImageConfig = a})
+-- | The configuration for the file system and kernels in the SageMaker
+-- image.
+appImageConfigDetails_kernelGatewayImageConfig :: Lens.Lens' AppImageConfigDetails (Prelude.Maybe KernelGatewayImageConfig)
+appImageConfigDetails_kernelGatewayImageConfig = Lens.lens (\AppImageConfigDetails' {kernelGatewayImageConfig} -> kernelGatewayImageConfig) (\s@AppImageConfigDetails' {} a -> s {kernelGatewayImageConfig = a} :: AppImageConfigDetails)
 
 -- | The name of the AppImageConfig. Must be unique to your account.
-aicdAppImageConfigName :: Lens' AppImageConfigDetails (Maybe Text)
-aicdAppImageConfigName = lens _aicdAppImageConfigName (\s a -> s {_aicdAppImageConfigName = a})
+appImageConfigDetails_appImageConfigName :: Lens.Lens' AppImageConfigDetails (Prelude.Maybe Prelude.Text)
+appImageConfigDetails_appImageConfigName = Lens.lens (\AppImageConfigDetails' {appImageConfigName} -> appImageConfigName) (\s@AppImageConfigDetails' {} a -> s {appImageConfigName = a} :: AppImageConfigDetails)
 
 -- | When the AppImageConfig was last modified.
-aicdLastModifiedTime :: Lens' AppImageConfigDetails (Maybe UTCTime)
-aicdLastModifiedTime = lens _aicdLastModifiedTime (\s a -> s {_aicdLastModifiedTime = a}) . mapping _Time
+appImageConfigDetails_lastModifiedTime :: Lens.Lens' AppImageConfigDetails (Prelude.Maybe Prelude.UTCTime)
+appImageConfigDetails_lastModifiedTime = Lens.lens (\AppImageConfigDetails' {lastModifiedTime} -> lastModifiedTime) (\s@AppImageConfigDetails' {} a -> s {lastModifiedTime = a} :: AppImageConfigDetails) Prelude.. Lens.mapping Prelude._Time
 
-instance FromJSON AppImageConfigDetails where
+instance Prelude.FromJSON AppImageConfigDetails where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AppImageConfigDetails"
       ( \x ->
           AppImageConfigDetails'
-            <$> (x .:? "CreationTime")
-            <*> (x .:? "AppImageConfigArn")
-            <*> (x .:? "KernelGatewayImageConfig")
-            <*> (x .:? "AppImageConfigName")
-            <*> (x .:? "LastModifiedTime")
+            Prelude.<$> (x Prelude..:? "CreationTime")
+            Prelude.<*> (x Prelude..:? "AppImageConfigArn")
+            Prelude.<*> (x Prelude..:? "KernelGatewayImageConfig")
+            Prelude.<*> (x Prelude..:? "AppImageConfigName")
+            Prelude.<*> (x Prelude..:? "LastModifiedTime")
       )
 
-instance Hashable AppImageConfigDetails
+instance Prelude.Hashable AppImageConfigDetails
 
-instance NFData AppImageConfigDetails
+instance Prelude.NFData AppImageConfigDetails

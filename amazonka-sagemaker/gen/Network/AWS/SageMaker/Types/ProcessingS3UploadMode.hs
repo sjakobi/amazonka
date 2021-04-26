@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.SageMaker.Types.ProcessingS3UploadMode
   ( ProcessingS3UploadMode
       ( ..,
-        Continuous,
-        EndOfJob
+        ProcessingS3UploadModeContinuous,
+        ProcessingS3UploadModeEndOfJob
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ProcessingS3UploadMode
-  = ProcessingS3UploadMode'
-      ( CI
-          Text
-      )
+newtype ProcessingS3UploadMode = ProcessingS3UploadMode'
+  { fromProcessingS3UploadMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Continuous :: ProcessingS3UploadMode
-pattern Continuous = ProcessingS3UploadMode' "Continuous"
+pattern ProcessingS3UploadModeContinuous :: ProcessingS3UploadMode
+pattern ProcessingS3UploadModeContinuous = ProcessingS3UploadMode' "Continuous"
 
-pattern EndOfJob :: ProcessingS3UploadMode
-pattern EndOfJob = ProcessingS3UploadMode' "EndOfJob"
+pattern ProcessingS3UploadModeEndOfJob :: ProcessingS3UploadMode
+pattern ProcessingS3UploadModeEndOfJob = ProcessingS3UploadMode' "EndOfJob"
 
 {-# COMPLETE
-  Continuous,
-  EndOfJob,
+  ProcessingS3UploadModeContinuous,
+  ProcessingS3UploadModeEndOfJob,
   ProcessingS3UploadMode'
   #-}
 
-instance FromText ProcessingS3UploadMode where
-  parser = (ProcessingS3UploadMode' . mk) <$> takeText
+instance Prelude.FromText ProcessingS3UploadMode where
+  parser = ProcessingS3UploadMode' Prelude.<$> Prelude.takeText
 
-instance ToText ProcessingS3UploadMode where
-  toText (ProcessingS3UploadMode' ci) = original ci
+instance Prelude.ToText ProcessingS3UploadMode where
+  toText (ProcessingS3UploadMode' x) = x
 
-instance Hashable ProcessingS3UploadMode
+instance Prelude.Hashable ProcessingS3UploadMode
 
-instance NFData ProcessingS3UploadMode
+instance Prelude.NFData ProcessingS3UploadMode
 
-instance ToByteString ProcessingS3UploadMode
+instance Prelude.ToByteString ProcessingS3UploadMode
 
-instance ToQuery ProcessingS3UploadMode
+instance Prelude.ToQuery ProcessingS3UploadMode
 
-instance ToHeader ProcessingS3UploadMode
+instance Prelude.ToHeader ProcessingS3UploadMode
 
-instance ToJSON ProcessingS3UploadMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON ProcessingS3UploadMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ProcessingS3UploadMode where
-  parseJSON = parseJSONText "ProcessingS3UploadMode"
+instance Prelude.FromJSON ProcessingS3UploadMode where
+  parseJSON = Prelude.parseJSONText "ProcessingS3UploadMode"

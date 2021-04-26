@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,216 +23,262 @@
 --
 -- Lists the actions in your account and their properties.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.SageMaker.ListActions
   ( -- * Creating a Request
-    listActions,
-    ListActions,
+    ListActions (..),
+    newListActions,
 
     -- * Request Lenses
-    lisCreatedAfter,
-    lisSortOrder,
-    lisNextToken,
-    lisCreatedBefore,
-    lisActionType,
-    lisMaxResults,
-    lisSourceURI,
-    lisSortBy,
+    listActions_createdAfter,
+    listActions_sortOrder,
+    listActions_nextToken,
+    listActions_createdBefore,
+    listActions_actionType,
+    listActions_maxResults,
+    listActions_sourceUri,
+    listActions_sortBy,
 
     -- * Destructuring the Response
-    listActionsResponse,
-    ListActionsResponse,
+    ListActionsResponse (..),
+    newListActionsResponse,
 
     -- * Response Lenses
-    lararsNextToken,
-    lararsActionSummaries,
-    lararsResponseStatus,
+    listActionsResponse_nextToken,
+    listActionsResponse_actionSummaries,
+    listActionsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
+import Network.AWS.SageMaker.Types.ActionSummary
 
--- | /See:/ 'listActions' smart constructor.
+-- | /See:/ 'newListActions' smart constructor.
 data ListActions = ListActions'
-  { _lisCreatedAfter ::
-      !(Maybe POSIX),
-    _lisSortOrder :: !(Maybe SortOrder),
-    _lisNextToken :: !(Maybe Text),
-    _lisCreatedBefore :: !(Maybe POSIX),
-    _lisActionType :: !(Maybe Text),
-    _lisMaxResults :: !(Maybe Nat),
-    _lisSourceURI :: !(Maybe Text),
-    _lisSortBy :: !(Maybe SortActionsBy)
+  { -- | A filter that returns only actions created on or after the specified
+    -- time.
+    createdAfter :: Prelude.Maybe Prelude.POSIX,
+    -- | The sort order. The default value is @Descending@.
+    sortOrder :: Prelude.Maybe SortOrder,
+    -- | If the previous call to @ListActions@ didn\'t return the full set of
+    -- actions, the call returns a token for getting the next set of actions.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A filter that returns only actions created on or before the specified
+    -- time.
+    createdBefore :: Prelude.Maybe Prelude.POSIX,
+    -- | A filter that returns only actions of the specified type.
+    actionType :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of actions to return in the response. The default
+    -- value is 10.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | A filter that returns only actions with the specified source URI.
+    sourceUri :: Prelude.Maybe Prelude.Text,
+    -- | The property used to sort results. The default value is @CreationTime@.
+    sortBy :: Prelude.Maybe SortActionsBy
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListActions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListActions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lisCreatedAfter' - A filter that returns only actions created on or after the specified time.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lisSortOrder' - The sort order. The default value is @Descending@ .
+-- 'createdAfter', 'listActions_createdAfter' - A filter that returns only actions created on or after the specified
+-- time.
 --
--- * 'lisNextToken' - If the previous call to @ListActions@ didn't return the full set of actions, the call returns a token for getting the next set of actions.
+-- 'sortOrder', 'listActions_sortOrder' - The sort order. The default value is @Descending@.
 --
--- * 'lisCreatedBefore' - A filter that returns only actions created on or before the specified time.
+-- 'nextToken', 'listActions_nextToken' - If the previous call to @ListActions@ didn\'t return the full set of
+-- actions, the call returns a token for getting the next set of actions.
 --
--- * 'lisActionType' - A filter that returns only actions of the specified type.
+-- 'createdBefore', 'listActions_createdBefore' - A filter that returns only actions created on or before the specified
+-- time.
 --
--- * 'lisMaxResults' - The maximum number of actions to return in the response. The default value is 10.
+-- 'actionType', 'listActions_actionType' - A filter that returns only actions of the specified type.
 --
--- * 'lisSourceURI' - A filter that returns only actions with the specified source URI.
+-- 'maxResults', 'listActions_maxResults' - The maximum number of actions to return in the response. The default
+-- value is 10.
 --
--- * 'lisSortBy' - The property used to sort results. The default value is @CreationTime@ .
-listActions ::
+-- 'sourceUri', 'listActions_sourceUri' - A filter that returns only actions with the specified source URI.
+--
+-- 'sortBy', 'listActions_sortBy' - The property used to sort results. The default value is @CreationTime@.
+newListActions ::
   ListActions
-listActions =
+newListActions =
   ListActions'
-    { _lisCreatedAfter = Nothing,
-      _lisSortOrder = Nothing,
-      _lisNextToken = Nothing,
-      _lisCreatedBefore = Nothing,
-      _lisActionType = Nothing,
-      _lisMaxResults = Nothing,
-      _lisSourceURI = Nothing,
-      _lisSortBy = Nothing
+    { createdAfter = Prelude.Nothing,
+      sortOrder = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      createdBefore = Prelude.Nothing,
+      actionType = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      sourceUri = Prelude.Nothing,
+      sortBy = Prelude.Nothing
     }
 
--- | A filter that returns only actions created on or after the specified time.
-lisCreatedAfter :: Lens' ListActions (Maybe UTCTime)
-lisCreatedAfter = lens _lisCreatedAfter (\s a -> s {_lisCreatedAfter = a}) . mapping _Time
+-- | A filter that returns only actions created on or after the specified
+-- time.
+listActions_createdAfter :: Lens.Lens' ListActions (Prelude.Maybe Prelude.UTCTime)
+listActions_createdAfter = Lens.lens (\ListActions' {createdAfter} -> createdAfter) (\s@ListActions' {} a -> s {createdAfter = a} :: ListActions) Prelude.. Lens.mapping Prelude._Time
 
--- | The sort order. The default value is @Descending@ .
-lisSortOrder :: Lens' ListActions (Maybe SortOrder)
-lisSortOrder = lens _lisSortOrder (\s a -> s {_lisSortOrder = a})
+-- | The sort order. The default value is @Descending@.
+listActions_sortOrder :: Lens.Lens' ListActions (Prelude.Maybe SortOrder)
+listActions_sortOrder = Lens.lens (\ListActions' {sortOrder} -> sortOrder) (\s@ListActions' {} a -> s {sortOrder = a} :: ListActions)
 
--- | If the previous call to @ListActions@ didn't return the full set of actions, the call returns a token for getting the next set of actions.
-lisNextToken :: Lens' ListActions (Maybe Text)
-lisNextToken = lens _lisNextToken (\s a -> s {_lisNextToken = a})
+-- | If the previous call to @ListActions@ didn\'t return the full set of
+-- actions, the call returns a token for getting the next set of actions.
+listActions_nextToken :: Lens.Lens' ListActions (Prelude.Maybe Prelude.Text)
+listActions_nextToken = Lens.lens (\ListActions' {nextToken} -> nextToken) (\s@ListActions' {} a -> s {nextToken = a} :: ListActions)
 
--- | A filter that returns only actions created on or before the specified time.
-lisCreatedBefore :: Lens' ListActions (Maybe UTCTime)
-lisCreatedBefore = lens _lisCreatedBefore (\s a -> s {_lisCreatedBefore = a}) . mapping _Time
+-- | A filter that returns only actions created on or before the specified
+-- time.
+listActions_createdBefore :: Lens.Lens' ListActions (Prelude.Maybe Prelude.UTCTime)
+listActions_createdBefore = Lens.lens (\ListActions' {createdBefore} -> createdBefore) (\s@ListActions' {} a -> s {createdBefore = a} :: ListActions) Prelude.. Lens.mapping Prelude._Time
 
 -- | A filter that returns only actions of the specified type.
-lisActionType :: Lens' ListActions (Maybe Text)
-lisActionType = lens _lisActionType (\s a -> s {_lisActionType = a})
+listActions_actionType :: Lens.Lens' ListActions (Prelude.Maybe Prelude.Text)
+listActions_actionType = Lens.lens (\ListActions' {actionType} -> actionType) (\s@ListActions' {} a -> s {actionType = a} :: ListActions)
 
--- | The maximum number of actions to return in the response. The default value is 10.
-lisMaxResults :: Lens' ListActions (Maybe Natural)
-lisMaxResults = lens _lisMaxResults (\s a -> s {_lisMaxResults = a}) . mapping _Nat
+-- | The maximum number of actions to return in the response. The default
+-- value is 10.
+listActions_maxResults :: Lens.Lens' ListActions (Prelude.Maybe Prelude.Natural)
+listActions_maxResults = Lens.lens (\ListActions' {maxResults} -> maxResults) (\s@ListActions' {} a -> s {maxResults = a} :: ListActions) Prelude.. Lens.mapping Prelude._Nat
 
 -- | A filter that returns only actions with the specified source URI.
-lisSourceURI :: Lens' ListActions (Maybe Text)
-lisSourceURI = lens _lisSourceURI (\s a -> s {_lisSourceURI = a})
+listActions_sourceUri :: Lens.Lens' ListActions (Prelude.Maybe Prelude.Text)
+listActions_sourceUri = Lens.lens (\ListActions' {sourceUri} -> sourceUri) (\s@ListActions' {} a -> s {sourceUri = a} :: ListActions)
 
--- | The property used to sort results. The default value is @CreationTime@ .
-lisSortBy :: Lens' ListActions (Maybe SortActionsBy)
-lisSortBy = lens _lisSortBy (\s a -> s {_lisSortBy = a})
+-- | The property used to sort results. The default value is @CreationTime@.
+listActions_sortBy :: Lens.Lens' ListActions (Prelude.Maybe SortActionsBy)
+listActions_sortBy = Lens.lens (\ListActions' {sortBy} -> sortBy) (\s@ListActions' {} a -> s {sortBy = a} :: ListActions)
 
-instance AWSPager ListActions where
+instance Pager.AWSPager ListActions where
   page rq rs
-    | stop (rs ^. lararsNextToken) = Nothing
-    | stop (rs ^. lararsActionSummaries) = Nothing
-    | otherwise =
-      Just $ rq & lisNextToken .~ rs ^. lararsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listActionsResponse_nextToken Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listActionsResponse_actionSummaries
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listActions_nextToken
+          Lens..~ rs
+          Lens.^? listActionsResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest ListActions where
+instance Prelude.AWSRequest ListActions where
   type Rs ListActions = ListActionsResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListActionsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "ActionSummaries" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "ActionSummaries"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListActions
+instance Prelude.Hashable ListActions
 
-instance NFData ListActions
+instance Prelude.NFData ListActions
 
-instance ToHeaders ListActions where
+instance Prelude.ToHeaders ListActions where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.ListActions" :: ByteString),
+              Prelude.=# ("SageMaker.ListActions" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListActions where
+instance Prelude.ToJSON ListActions where
   toJSON ListActions' {..} =
-    object
-      ( catMaybes
-          [ ("CreatedAfter" .=) <$> _lisCreatedAfter,
-            ("SortOrder" .=) <$> _lisSortOrder,
-            ("NextToken" .=) <$> _lisNextToken,
-            ("CreatedBefore" .=) <$> _lisCreatedBefore,
-            ("ActionType" .=) <$> _lisActionType,
-            ("MaxResults" .=) <$> _lisMaxResults,
-            ("SourceUri" .=) <$> _lisSourceURI,
-            ("SortBy" .=) <$> _lisSortBy
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("CreatedAfter" Prelude..=)
+              Prelude.<$> createdAfter,
+            ("SortOrder" Prelude..=) Prelude.<$> sortOrder,
+            ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("CreatedBefore" Prelude..=)
+              Prelude.<$> createdBefore,
+            ("ActionType" Prelude..=) Prelude.<$> actionType,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("SourceUri" Prelude..=) Prelude.<$> sourceUri,
+            ("SortBy" Prelude..=) Prelude.<$> sortBy
           ]
       )
 
-instance ToPath ListActions where
-  toPath = const "/"
+instance Prelude.ToPath ListActions where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListActions where
-  toQuery = const mempty
+instance Prelude.ToQuery ListActions where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listActionsResponse' smart constructor.
+-- | /See:/ 'newListActionsResponse' smart constructor.
 data ListActionsResponse = ListActionsResponse'
-  { _lararsNextToken ::
-      !(Maybe Text),
-    _lararsActionSummaries ::
-      !(Maybe [ActionSummary]),
-    _lararsResponseStatus :: !Int
+  { -- | A token for getting the next set of actions, if there are any.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of actions and their properties.
+    actionSummaries :: Prelude.Maybe [ActionSummary],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListActionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListActionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lararsNextToken' - A token for getting the next set of actions, if there are any.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lararsActionSummaries' - A list of actions and their properties.
+-- 'nextToken', 'listActionsResponse_nextToken' - A token for getting the next set of actions, if there are any.
 --
--- * 'lararsResponseStatus' - -- | The response status code.
-listActionsResponse ::
-  -- | 'lararsResponseStatus'
-  Int ->
+-- 'actionSummaries', 'listActionsResponse_actionSummaries' - A list of actions and their properties.
+--
+-- 'httpStatus', 'listActionsResponse_httpStatus' - The response's http status code.
+newListActionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListActionsResponse
-listActionsResponse pResponseStatus_ =
+newListActionsResponse pHttpStatus_ =
   ListActionsResponse'
-    { _lararsNextToken = Nothing,
-      _lararsActionSummaries = Nothing,
-      _lararsResponseStatus = pResponseStatus_
+    { nextToken = Prelude.Nothing,
+      actionSummaries = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A token for getting the next set of actions, if there are any.
-lararsNextToken :: Lens' ListActionsResponse (Maybe Text)
-lararsNextToken = lens _lararsNextToken (\s a -> s {_lararsNextToken = a})
+listActionsResponse_nextToken :: Lens.Lens' ListActionsResponse (Prelude.Maybe Prelude.Text)
+listActionsResponse_nextToken = Lens.lens (\ListActionsResponse' {nextToken} -> nextToken) (\s@ListActionsResponse' {} a -> s {nextToken = a} :: ListActionsResponse)
 
 -- | A list of actions and their properties.
-lararsActionSummaries :: Lens' ListActionsResponse [ActionSummary]
-lararsActionSummaries = lens _lararsActionSummaries (\s a -> s {_lararsActionSummaries = a}) . _Default . _Coerce
+listActionsResponse_actionSummaries :: Lens.Lens' ListActionsResponse (Prelude.Maybe [ActionSummary])
+listActionsResponse_actionSummaries = Lens.lens (\ListActionsResponse' {actionSummaries} -> actionSummaries) (\s@ListActionsResponse' {} a -> s {actionSummaries = a} :: ListActionsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lararsResponseStatus :: Lens' ListActionsResponse Int
-lararsResponseStatus = lens _lararsResponseStatus (\s a -> s {_lararsResponseStatus = a})
+-- | The response's http status code.
+listActionsResponse_httpStatus :: Lens.Lens' ListActionsResponse Prelude.Int
+listActionsResponse_httpStatus = Lens.lens (\ListActionsResponse' {httpStatus} -> httpStatus) (\s@ListActionsResponse' {} a -> s {httpStatus = a} :: ListActionsResponse)
 
-instance NFData ListActionsResponse
+instance Prelude.NFData ListActionsResponse

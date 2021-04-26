@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,163 +24,180 @@
 -- Updates an action.
 module Network.AWS.SageMaker.UpdateAction
   ( -- * Creating a Request
-    updateAction,
-    UpdateAction,
+    UpdateAction (..),
+    newUpdateAction,
 
     -- * Request Lenses
-    uaStatus,
-    uaPropertiesToRemove,
-    uaProperties,
-    uaDescription,
-    uaActionName,
+    updateAction_status,
+    updateAction_propertiesToRemove,
+    updateAction_properties,
+    updateAction_description,
+    updateAction_actionName,
 
     -- * Destructuring the Response
-    updateActionResponse,
-    UpdateActionResponse,
+    UpdateActionResponse (..),
+    newUpdateActionResponse,
 
     -- * Response Lenses
-    uarrsActionARN,
-    uarrsResponseStatus,
+    updateActionResponse_actionArn,
+    updateActionResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'updateAction' smart constructor.
+-- | /See:/ 'newUpdateAction' smart constructor.
 data UpdateAction = UpdateAction'
-  { _uaStatus ::
-      !(Maybe ActionStatus),
-    _uaPropertiesToRemove :: !(Maybe [Text]),
-    _uaProperties :: !(Maybe (Map Text Text)),
-    _uaDescription :: !(Maybe Text),
-    _uaActionName :: !Text
+  { -- | The new status for the action.
+    status :: Prelude.Maybe ActionStatus,
+    -- | A list of properties to remove.
+    propertiesToRemove :: Prelude.Maybe [Prelude.Text],
+    -- | The new list of properties. Overwrites the current property list.
+    properties :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The new description for the action.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The name of the action to update.
+    actionName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateAction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateAction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uaStatus' - The new status for the action.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uaPropertiesToRemove' - A list of properties to remove.
+-- 'status', 'updateAction_status' - The new status for the action.
 --
--- * 'uaProperties' - The new list of properties. Overwrites the current property list.
+-- 'propertiesToRemove', 'updateAction_propertiesToRemove' - A list of properties to remove.
 --
--- * 'uaDescription' - The new description for the action.
+-- 'properties', 'updateAction_properties' - The new list of properties. Overwrites the current property list.
 --
--- * 'uaActionName' - The name of the action to update.
-updateAction ::
-  -- | 'uaActionName'
-  Text ->
+-- 'description', 'updateAction_description' - The new description for the action.
+--
+-- 'actionName', 'updateAction_actionName' - The name of the action to update.
+newUpdateAction ::
+  -- | 'actionName'
+  Prelude.Text ->
   UpdateAction
-updateAction pActionName_ =
+newUpdateAction pActionName_ =
   UpdateAction'
-    { _uaStatus = Nothing,
-      _uaPropertiesToRemove = Nothing,
-      _uaProperties = Nothing,
-      _uaDescription = Nothing,
-      _uaActionName = pActionName_
+    { status = Prelude.Nothing,
+      propertiesToRemove = Prelude.Nothing,
+      properties = Prelude.Nothing,
+      description = Prelude.Nothing,
+      actionName = pActionName_
     }
 
 -- | The new status for the action.
-uaStatus :: Lens' UpdateAction (Maybe ActionStatus)
-uaStatus = lens _uaStatus (\s a -> s {_uaStatus = a})
+updateAction_status :: Lens.Lens' UpdateAction (Prelude.Maybe ActionStatus)
+updateAction_status = Lens.lens (\UpdateAction' {status} -> status) (\s@UpdateAction' {} a -> s {status = a} :: UpdateAction)
 
 -- | A list of properties to remove.
-uaPropertiesToRemove :: Lens' UpdateAction [Text]
-uaPropertiesToRemove = lens _uaPropertiesToRemove (\s a -> s {_uaPropertiesToRemove = a}) . _Default . _Coerce
+updateAction_propertiesToRemove :: Lens.Lens' UpdateAction (Prelude.Maybe [Prelude.Text])
+updateAction_propertiesToRemove = Lens.lens (\UpdateAction' {propertiesToRemove} -> propertiesToRemove) (\s@UpdateAction' {} a -> s {propertiesToRemove = a} :: UpdateAction) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The new list of properties. Overwrites the current property list.
-uaProperties :: Lens' UpdateAction (HashMap Text Text)
-uaProperties = lens _uaProperties (\s a -> s {_uaProperties = a}) . _Default . _Map
+updateAction_properties :: Lens.Lens' UpdateAction (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+updateAction_properties = Lens.lens (\UpdateAction' {properties} -> properties) (\s@UpdateAction' {} a -> s {properties = a} :: UpdateAction) Prelude.. Lens.mapping Prelude._Map
 
 -- | The new description for the action.
-uaDescription :: Lens' UpdateAction (Maybe Text)
-uaDescription = lens _uaDescription (\s a -> s {_uaDescription = a})
+updateAction_description :: Lens.Lens' UpdateAction (Prelude.Maybe Prelude.Text)
+updateAction_description = Lens.lens (\UpdateAction' {description} -> description) (\s@UpdateAction' {} a -> s {description = a} :: UpdateAction)
 
 -- | The name of the action to update.
-uaActionName :: Lens' UpdateAction Text
-uaActionName = lens _uaActionName (\s a -> s {_uaActionName = a})
+updateAction_actionName :: Lens.Lens' UpdateAction Prelude.Text
+updateAction_actionName = Lens.lens (\UpdateAction' {actionName} -> actionName) (\s@UpdateAction' {} a -> s {actionName = a} :: UpdateAction)
 
-instance AWSRequest UpdateAction where
+instance Prelude.AWSRequest UpdateAction where
   type Rs UpdateAction = UpdateActionResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateActionResponse'
-            <$> (x .?> "ActionArn") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ActionArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateAction
+instance Prelude.Hashable UpdateAction
 
-instance NFData UpdateAction
+instance Prelude.NFData UpdateAction
 
-instance ToHeaders UpdateAction where
+instance Prelude.ToHeaders UpdateAction where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.UpdateAction" :: ByteString),
+              Prelude.=# ("SageMaker.UpdateAction" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateAction where
+instance Prelude.ToJSON UpdateAction where
   toJSON UpdateAction' {..} =
-    object
-      ( catMaybes
-          [ ("Status" .=) <$> _uaStatus,
-            ("PropertiesToRemove" .=) <$> _uaPropertiesToRemove,
-            ("Properties" .=) <$> _uaProperties,
-            ("Description" .=) <$> _uaDescription,
-            Just ("ActionName" .= _uaActionName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Status" Prelude..=) Prelude.<$> status,
+            ("PropertiesToRemove" Prelude..=)
+              Prelude.<$> propertiesToRemove,
+            ("Properties" Prelude..=) Prelude.<$> properties,
+            ("Description" Prelude..=) Prelude.<$> description,
+            Prelude.Just ("ActionName" Prelude..= actionName)
           ]
       )
 
-instance ToPath UpdateAction where
-  toPath = const "/"
+instance Prelude.ToPath UpdateAction where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateAction where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateAction where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateActionResponse' smart constructor.
+-- | /See:/ 'newUpdateActionResponse' smart constructor.
 data UpdateActionResponse = UpdateActionResponse'
-  { _uarrsActionARN ::
-      !(Maybe Text),
-    _uarrsResponseStatus :: !Int
+  { -- | The Amazon Resource Name (ARN) of the action.
+    actionArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateActionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateActionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uarrsActionARN' - The Amazon Resource Name (ARN) of the action.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uarrsResponseStatus' - -- | The response status code.
-updateActionResponse ::
-  -- | 'uarrsResponseStatus'
-  Int ->
+-- 'actionArn', 'updateActionResponse_actionArn' - The Amazon Resource Name (ARN) of the action.
+--
+-- 'httpStatus', 'updateActionResponse_httpStatus' - The response's http status code.
+newUpdateActionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateActionResponse
-updateActionResponse pResponseStatus_ =
+newUpdateActionResponse pHttpStatus_ =
   UpdateActionResponse'
-    { _uarrsActionARN = Nothing,
-      _uarrsResponseStatus = pResponseStatus_
+    { actionArn = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The Amazon Resource Name (ARN) of the action.
-uarrsActionARN :: Lens' UpdateActionResponse (Maybe Text)
-uarrsActionARN = lens _uarrsActionARN (\s a -> s {_uarrsActionARN = a})
+updateActionResponse_actionArn :: Lens.Lens' UpdateActionResponse (Prelude.Maybe Prelude.Text)
+updateActionResponse_actionArn = Lens.lens (\UpdateActionResponse' {actionArn} -> actionArn) (\s@UpdateActionResponse' {} a -> s {actionArn = a} :: UpdateActionResponse)
 
--- | -- | The response status code.
-uarrsResponseStatus :: Lens' UpdateActionResponse Int
-uarrsResponseStatus = lens _uarrsResponseStatus (\s a -> s {_uarrsResponseStatus = a})
+-- | The response's http status code.
+updateActionResponse_httpStatus :: Lens.Lens' UpdateActionResponse Prelude.Int
+updateActionResponse_httpStatus = Lens.lens (\UpdateActionResponse' {httpStatus} -> httpStatus) (\s@UpdateActionResponse' {} a -> s {httpStatus = a} :: UpdateActionResponse)
 
-instance NFData UpdateActionResponse
+instance Prelude.NFData UpdateActionResponse

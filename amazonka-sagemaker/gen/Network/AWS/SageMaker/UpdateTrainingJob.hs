@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,163 +21,181 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Update a model training job to request a new Debugger profiling configuration.
+-- Update a model training job to request a new Debugger profiling
+-- configuration.
 module Network.AWS.SageMaker.UpdateTrainingJob
   ( -- * Creating a Request
-    updateTrainingJob,
-    UpdateTrainingJob,
+    UpdateTrainingJob (..),
+    newUpdateTrainingJob,
 
     -- * Request Lenses
-    utjProfilerConfig,
-    utjProfilerRuleConfigurations,
-    utjTrainingJobName,
+    updateTrainingJob_profilerConfig,
+    updateTrainingJob_profilerRuleConfigurations,
+    updateTrainingJob_trainingJobName,
 
     -- * Destructuring the Response
-    updateTrainingJobResponse,
-    UpdateTrainingJobResponse,
+    UpdateTrainingJobResponse (..),
+    newUpdateTrainingJobResponse,
 
     -- * Response Lenses
-    utjrrsResponseStatus,
-    utjrrsTrainingJobARN,
+    updateTrainingJobResponse_httpStatus,
+    updateTrainingJobResponse_trainingJobArn,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'updateTrainingJob' smart constructor.
+-- | /See:/ 'newUpdateTrainingJob' smart constructor.
 data UpdateTrainingJob = UpdateTrainingJob'
-  { _utjProfilerConfig ::
-      !(Maybe ProfilerConfigForUpdate),
-    _utjProfilerRuleConfigurations ::
-      !( Maybe
-           [ProfilerRuleConfiguration]
-       ),
-    _utjTrainingJobName :: !Text
+  { -- | Configuration information for Debugger system monitoring, framework
+    -- profiling, and storage paths.
+    profilerConfig :: Prelude.Maybe ProfilerConfigForUpdate,
+    -- | Configuration information for Debugger rules for profiling system and
+    -- framework metrics.
+    profilerRuleConfigurations :: Prelude.Maybe [ProfilerRuleConfiguration],
+    -- | The name of a training job to update the Debugger profiling
+    -- configuration.
+    trainingJobName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateTrainingJob' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateTrainingJob' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'utjProfilerConfig' - Configuration information for Debugger system monitoring, framework profiling, and storage paths.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'utjProfilerRuleConfigurations' - Configuration information for Debugger rules for profiling system and framework metrics.
+-- 'profilerConfig', 'updateTrainingJob_profilerConfig' - Configuration information for Debugger system monitoring, framework
+-- profiling, and storage paths.
 --
--- * 'utjTrainingJobName' - The name of a training job to update the Debugger profiling configuration.
-updateTrainingJob ::
-  -- | 'utjTrainingJobName'
-  Text ->
+-- 'profilerRuleConfigurations', 'updateTrainingJob_profilerRuleConfigurations' - Configuration information for Debugger rules for profiling system and
+-- framework metrics.
+--
+-- 'trainingJobName', 'updateTrainingJob_trainingJobName' - The name of a training job to update the Debugger profiling
+-- configuration.
+newUpdateTrainingJob ::
+  -- | 'trainingJobName'
+  Prelude.Text ->
   UpdateTrainingJob
-updateTrainingJob pTrainingJobName_ =
+newUpdateTrainingJob pTrainingJobName_ =
   UpdateTrainingJob'
-    { _utjProfilerConfig = Nothing,
-      _utjProfilerRuleConfigurations = Nothing,
-      _utjTrainingJobName = pTrainingJobName_
+    { profilerConfig =
+        Prelude.Nothing,
+      profilerRuleConfigurations = Prelude.Nothing,
+      trainingJobName = pTrainingJobName_
     }
 
--- | Configuration information for Debugger system monitoring, framework profiling, and storage paths.
-utjProfilerConfig :: Lens' UpdateTrainingJob (Maybe ProfilerConfigForUpdate)
-utjProfilerConfig = lens _utjProfilerConfig (\s a -> s {_utjProfilerConfig = a})
+-- | Configuration information for Debugger system monitoring, framework
+-- profiling, and storage paths.
+updateTrainingJob_profilerConfig :: Lens.Lens' UpdateTrainingJob (Prelude.Maybe ProfilerConfigForUpdate)
+updateTrainingJob_profilerConfig = Lens.lens (\UpdateTrainingJob' {profilerConfig} -> profilerConfig) (\s@UpdateTrainingJob' {} a -> s {profilerConfig = a} :: UpdateTrainingJob)
 
--- | Configuration information for Debugger rules for profiling system and framework metrics.
-utjProfilerRuleConfigurations :: Lens' UpdateTrainingJob [ProfilerRuleConfiguration]
-utjProfilerRuleConfigurations = lens _utjProfilerRuleConfigurations (\s a -> s {_utjProfilerRuleConfigurations = a}) . _Default . _Coerce
+-- | Configuration information for Debugger rules for profiling system and
+-- framework metrics.
+updateTrainingJob_profilerRuleConfigurations :: Lens.Lens' UpdateTrainingJob (Prelude.Maybe [ProfilerRuleConfiguration])
+updateTrainingJob_profilerRuleConfigurations = Lens.lens (\UpdateTrainingJob' {profilerRuleConfigurations} -> profilerRuleConfigurations) (\s@UpdateTrainingJob' {} a -> s {profilerRuleConfigurations = a} :: UpdateTrainingJob) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The name of a training job to update the Debugger profiling configuration.
-utjTrainingJobName :: Lens' UpdateTrainingJob Text
-utjTrainingJobName = lens _utjTrainingJobName (\s a -> s {_utjTrainingJobName = a})
+-- | The name of a training job to update the Debugger profiling
+-- configuration.
+updateTrainingJob_trainingJobName :: Lens.Lens' UpdateTrainingJob Prelude.Text
+updateTrainingJob_trainingJobName = Lens.lens (\UpdateTrainingJob' {trainingJobName} -> trainingJobName) (\s@UpdateTrainingJob' {} a -> s {trainingJobName = a} :: UpdateTrainingJob)
 
-instance AWSRequest UpdateTrainingJob where
+instance Prelude.AWSRequest UpdateTrainingJob where
   type Rs UpdateTrainingJob = UpdateTrainingJobResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateTrainingJobResponse'
-            <$> (pure (fromEnum s)) <*> (x .:> "TrainingJobArn")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "TrainingJobArn")
       )
 
-instance Hashable UpdateTrainingJob
+instance Prelude.Hashable UpdateTrainingJob
 
-instance NFData UpdateTrainingJob
+instance Prelude.NFData UpdateTrainingJob
 
-instance ToHeaders UpdateTrainingJob where
+instance Prelude.ToHeaders UpdateTrainingJob where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.UpdateTrainingJob" :: ByteString),
+              Prelude.=# ( "SageMaker.UpdateTrainingJob" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateTrainingJob where
+instance Prelude.ToJSON UpdateTrainingJob where
   toJSON UpdateTrainingJob' {..} =
-    object
-      ( catMaybes
-          [ ("ProfilerConfig" .=) <$> _utjProfilerConfig,
-            ("ProfilerRuleConfigurations" .=)
-              <$> _utjProfilerRuleConfigurations,
-            Just ("TrainingJobName" .= _utjTrainingJobName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ProfilerConfig" Prelude..=)
+              Prelude.<$> profilerConfig,
+            ("ProfilerRuleConfigurations" Prelude..=)
+              Prelude.<$> profilerRuleConfigurations,
+            Prelude.Just
+              ("TrainingJobName" Prelude..= trainingJobName)
           ]
       )
 
-instance ToPath UpdateTrainingJob where
-  toPath = const "/"
+instance Prelude.ToPath UpdateTrainingJob where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateTrainingJob where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateTrainingJob where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateTrainingJobResponse' smart constructor.
+-- | /See:/ 'newUpdateTrainingJobResponse' smart constructor.
 data UpdateTrainingJobResponse = UpdateTrainingJobResponse'
-  { _utjrrsResponseStatus ::
-      !Int,
-    _utjrrsTrainingJobARN ::
-      !Text
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The Amazon Resource Name (ARN) of the training job.
+    trainingJobArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateTrainingJobResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateTrainingJobResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'utjrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'utjrrsTrainingJobARN' - The Amazon Resource Name (ARN) of the training job.
-updateTrainingJobResponse ::
-  -- | 'utjrrsResponseStatus'
-  Int ->
-  -- | 'utjrrsTrainingJobARN'
-  Text ->
+-- 'httpStatus', 'updateTrainingJobResponse_httpStatus' - The response's http status code.
+--
+-- 'trainingJobArn', 'updateTrainingJobResponse_trainingJobArn' - The Amazon Resource Name (ARN) of the training job.
+newUpdateTrainingJobResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'trainingJobArn'
+  Prelude.Text ->
   UpdateTrainingJobResponse
-updateTrainingJobResponse
-  pResponseStatus_
-  pTrainingJobARN_ =
+newUpdateTrainingJobResponse
+  pHttpStatus_
+  pTrainingJobArn_ =
     UpdateTrainingJobResponse'
-      { _utjrrsResponseStatus =
-          pResponseStatus_,
-        _utjrrsTrainingJobARN = pTrainingJobARN_
+      { httpStatus =
+          pHttpStatus_,
+        trainingJobArn = pTrainingJobArn_
       }
 
--- | -- | The response status code.
-utjrrsResponseStatus :: Lens' UpdateTrainingJobResponse Int
-utjrrsResponseStatus = lens _utjrrsResponseStatus (\s a -> s {_utjrrsResponseStatus = a})
+-- | The response's http status code.
+updateTrainingJobResponse_httpStatus :: Lens.Lens' UpdateTrainingJobResponse Prelude.Int
+updateTrainingJobResponse_httpStatus = Lens.lens (\UpdateTrainingJobResponse' {httpStatus} -> httpStatus) (\s@UpdateTrainingJobResponse' {} a -> s {httpStatus = a} :: UpdateTrainingJobResponse)
 
 -- | The Amazon Resource Name (ARN) of the training job.
-utjrrsTrainingJobARN :: Lens' UpdateTrainingJobResponse Text
-utjrrsTrainingJobARN = lens _utjrrsTrainingJobARN (\s a -> s {_utjrrsTrainingJobARN = a})
+updateTrainingJobResponse_trainingJobArn :: Lens.Lens' UpdateTrainingJobResponse Prelude.Text
+updateTrainingJobResponse_trainingJobArn = Lens.lens (\UpdateTrainingJobResponse' {trainingJobArn} -> trainingJobArn) (\s@UpdateTrainingJobResponse' {} a -> s {trainingJobArn = a} :: UpdateTrainingJobResponse)
 
-instance NFData UpdateTrainingJobResponse
+instance Prelude.NFData UpdateTrainingJobResponse

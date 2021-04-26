@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,201 +21,223 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates an /action/ . An action is a lineage tracking entity that represents an action or activity. For example, a model deployment or an HPO job. Generally, an action involves at least one input or output artifact. For more information, see <https://docs.aws.amazon.com/sagemaker/latest/dg/lineage-tracking.html Amazon SageMaker ML Lineage Tracking> .
+-- Creates an /action/. An action is a lineage tracking entity that
+-- represents an action or activity. For example, a model deployment or an
+-- HPO job. Generally, an action involves at least one input or output
+-- artifact. For more information, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/lineage-tracking.html Amazon SageMaker ML Lineage Tracking>.
 module Network.AWS.SageMaker.CreateAction
   ( -- * Creating a Request
-    createAction,
-    CreateAction,
+    CreateAction (..),
+    newCreateAction,
 
     -- * Request Lenses
-    caStatus,
-    caMetadataProperties,
-    caTags,
-    caProperties,
-    caDescription,
-    caActionName,
-    caSource,
-    caActionType,
+    createAction_status,
+    createAction_metadataProperties,
+    createAction_tags,
+    createAction_properties,
+    createAction_description,
+    createAction_actionName,
+    createAction_source,
+    createAction_actionType,
 
     -- * Destructuring the Response
-    createActionResponse,
-    CreateActionResponse,
+    CreateActionResponse (..),
+    newCreateActionResponse,
 
     -- * Response Lenses
-    carrsActionARN,
-    carrsResponseStatus,
+    createActionResponse_actionArn,
+    createActionResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'createAction' smart constructor.
+-- | /See:/ 'newCreateAction' smart constructor.
 data CreateAction = CreateAction'
-  { _caStatus ::
-      !(Maybe ActionStatus),
-    _caMetadataProperties ::
-      !(Maybe MetadataProperties),
-    _caTags :: !(Maybe [Tag]),
-    _caProperties :: !(Maybe (Map Text Text)),
-    _caDescription :: !(Maybe Text),
-    _caActionName :: !Text,
-    _caSource :: !ActionSource,
-    _caActionType :: !Text
+  { -- | The status of the action.
+    status :: Prelude.Maybe ActionStatus,
+    metadataProperties :: Prelude.Maybe MetadataProperties,
+    -- | A list of tags to apply to the action.
+    tags :: Prelude.Maybe [Tag],
+    -- | A list of properties to add to the action.
+    properties :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The description of the action.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The name of the action. Must be unique to your account in an AWS Region.
+    actionName :: Prelude.Text,
+    -- | The source type, ID, and URI.
+    source :: ActionSource,
+    -- | The action type.
+    actionType :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateAction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateAction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'caStatus' - The status of the action.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'caMetadataProperties' - Undocumented member.
+-- 'status', 'createAction_status' - The status of the action.
 --
--- * 'caTags' - A list of tags to apply to the action.
+-- 'metadataProperties', 'createAction_metadataProperties' - Undocumented member.
 --
--- * 'caProperties' - A list of properties to add to the action.
+-- 'tags', 'createAction_tags' - A list of tags to apply to the action.
 --
--- * 'caDescription' - The description of the action.
+-- 'properties', 'createAction_properties' - A list of properties to add to the action.
 --
--- * 'caActionName' - The name of the action. Must be unique to your account in an AWS Region.
+-- 'description', 'createAction_description' - The description of the action.
 --
--- * 'caSource' - The source type, ID, and URI.
+-- 'actionName', 'createAction_actionName' - The name of the action. Must be unique to your account in an AWS Region.
 --
--- * 'caActionType' - The action type.
-createAction ::
-  -- | 'caActionName'
-  Text ->
-  -- | 'caSource'
+-- 'source', 'createAction_source' - The source type, ID, and URI.
+--
+-- 'actionType', 'createAction_actionType' - The action type.
+newCreateAction ::
+  -- | 'actionName'
+  Prelude.Text ->
+  -- | 'source'
   ActionSource ->
-  -- | 'caActionType'
-  Text ->
+  -- | 'actionType'
+  Prelude.Text ->
   CreateAction
-createAction pActionName_ pSource_ pActionType_ =
+newCreateAction pActionName_ pSource_ pActionType_ =
   CreateAction'
-    { _caStatus = Nothing,
-      _caMetadataProperties = Nothing,
-      _caTags = Nothing,
-      _caProperties = Nothing,
-      _caDescription = Nothing,
-      _caActionName = pActionName_,
-      _caSource = pSource_,
-      _caActionType = pActionType_
+    { status = Prelude.Nothing,
+      metadataProperties = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      properties = Prelude.Nothing,
+      description = Prelude.Nothing,
+      actionName = pActionName_,
+      source = pSource_,
+      actionType = pActionType_
     }
 
 -- | The status of the action.
-caStatus :: Lens' CreateAction (Maybe ActionStatus)
-caStatus = lens _caStatus (\s a -> s {_caStatus = a})
+createAction_status :: Lens.Lens' CreateAction (Prelude.Maybe ActionStatus)
+createAction_status = Lens.lens (\CreateAction' {status} -> status) (\s@CreateAction' {} a -> s {status = a} :: CreateAction)
 
 -- | Undocumented member.
-caMetadataProperties :: Lens' CreateAction (Maybe MetadataProperties)
-caMetadataProperties = lens _caMetadataProperties (\s a -> s {_caMetadataProperties = a})
+createAction_metadataProperties :: Lens.Lens' CreateAction (Prelude.Maybe MetadataProperties)
+createAction_metadataProperties = Lens.lens (\CreateAction' {metadataProperties} -> metadataProperties) (\s@CreateAction' {} a -> s {metadataProperties = a} :: CreateAction)
 
 -- | A list of tags to apply to the action.
-caTags :: Lens' CreateAction [Tag]
-caTags = lens _caTags (\s a -> s {_caTags = a}) . _Default . _Coerce
+createAction_tags :: Lens.Lens' CreateAction (Prelude.Maybe [Tag])
+createAction_tags = Lens.lens (\CreateAction' {tags} -> tags) (\s@CreateAction' {} a -> s {tags = a} :: CreateAction) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A list of properties to add to the action.
-caProperties :: Lens' CreateAction (HashMap Text Text)
-caProperties = lens _caProperties (\s a -> s {_caProperties = a}) . _Default . _Map
+createAction_properties :: Lens.Lens' CreateAction (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+createAction_properties = Lens.lens (\CreateAction' {properties} -> properties) (\s@CreateAction' {} a -> s {properties = a} :: CreateAction) Prelude.. Lens.mapping Prelude._Map
 
 -- | The description of the action.
-caDescription :: Lens' CreateAction (Maybe Text)
-caDescription = lens _caDescription (\s a -> s {_caDescription = a})
+createAction_description :: Lens.Lens' CreateAction (Prelude.Maybe Prelude.Text)
+createAction_description = Lens.lens (\CreateAction' {description} -> description) (\s@CreateAction' {} a -> s {description = a} :: CreateAction)
 
 -- | The name of the action. Must be unique to your account in an AWS Region.
-caActionName :: Lens' CreateAction Text
-caActionName = lens _caActionName (\s a -> s {_caActionName = a})
+createAction_actionName :: Lens.Lens' CreateAction Prelude.Text
+createAction_actionName = Lens.lens (\CreateAction' {actionName} -> actionName) (\s@CreateAction' {} a -> s {actionName = a} :: CreateAction)
 
 -- | The source type, ID, and URI.
-caSource :: Lens' CreateAction ActionSource
-caSource = lens _caSource (\s a -> s {_caSource = a})
+createAction_source :: Lens.Lens' CreateAction ActionSource
+createAction_source = Lens.lens (\CreateAction' {source} -> source) (\s@CreateAction' {} a -> s {source = a} :: CreateAction)
 
 -- | The action type.
-caActionType :: Lens' CreateAction Text
-caActionType = lens _caActionType (\s a -> s {_caActionType = a})
+createAction_actionType :: Lens.Lens' CreateAction Prelude.Text
+createAction_actionType = Lens.lens (\CreateAction' {actionType} -> actionType) (\s@CreateAction' {} a -> s {actionType = a} :: CreateAction)
 
-instance AWSRequest CreateAction where
+instance Prelude.AWSRequest CreateAction where
   type Rs CreateAction = CreateActionResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateActionResponse'
-            <$> (x .?> "ActionArn") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ActionArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateAction
+instance Prelude.Hashable CreateAction
 
-instance NFData CreateAction
+instance Prelude.NFData CreateAction
 
-instance ToHeaders CreateAction where
+instance Prelude.ToHeaders CreateAction where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.CreateAction" :: ByteString),
+              Prelude.=# ("SageMaker.CreateAction" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateAction where
+instance Prelude.ToJSON CreateAction where
   toJSON CreateAction' {..} =
-    object
-      ( catMaybes
-          [ ("Status" .=) <$> _caStatus,
-            ("MetadataProperties" .=) <$> _caMetadataProperties,
-            ("Tags" .=) <$> _caTags,
-            ("Properties" .=) <$> _caProperties,
-            ("Description" .=) <$> _caDescription,
-            Just ("ActionName" .= _caActionName),
-            Just ("Source" .= _caSource),
-            Just ("ActionType" .= _caActionType)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Status" Prelude..=) Prelude.<$> status,
+            ("MetadataProperties" Prelude..=)
+              Prelude.<$> metadataProperties,
+            ("Tags" Prelude..=) Prelude.<$> tags,
+            ("Properties" Prelude..=) Prelude.<$> properties,
+            ("Description" Prelude..=) Prelude.<$> description,
+            Prelude.Just ("ActionName" Prelude..= actionName),
+            Prelude.Just ("Source" Prelude..= source),
+            Prelude.Just ("ActionType" Prelude..= actionType)
           ]
       )
 
-instance ToPath CreateAction where
-  toPath = const "/"
+instance Prelude.ToPath CreateAction where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateAction where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateAction where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createActionResponse' smart constructor.
+-- | /See:/ 'newCreateActionResponse' smart constructor.
 data CreateActionResponse = CreateActionResponse'
-  { _carrsActionARN ::
-      !(Maybe Text),
-    _carrsResponseStatus :: !Int
+  { -- | The Amazon Resource Name (ARN) of the action.
+    actionArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateActionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateActionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'carrsActionARN' - The Amazon Resource Name (ARN) of the action.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'carrsResponseStatus' - -- | The response status code.
-createActionResponse ::
-  -- | 'carrsResponseStatus'
-  Int ->
+-- 'actionArn', 'createActionResponse_actionArn' - The Amazon Resource Name (ARN) of the action.
+--
+-- 'httpStatus', 'createActionResponse_httpStatus' - The response's http status code.
+newCreateActionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateActionResponse
-createActionResponse pResponseStatus_ =
+newCreateActionResponse pHttpStatus_ =
   CreateActionResponse'
-    { _carrsActionARN = Nothing,
-      _carrsResponseStatus = pResponseStatus_
+    { actionArn = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The Amazon Resource Name (ARN) of the action.
-carrsActionARN :: Lens' CreateActionResponse (Maybe Text)
-carrsActionARN = lens _carrsActionARN (\s a -> s {_carrsActionARN = a})
+createActionResponse_actionArn :: Lens.Lens' CreateActionResponse (Prelude.Maybe Prelude.Text)
+createActionResponse_actionArn = Lens.lens (\CreateActionResponse' {actionArn} -> actionArn) (\s@CreateActionResponse' {} a -> s {actionArn = a} :: CreateActionResponse)
 
--- | -- | The response status code.
-carrsResponseStatus :: Lens' CreateActionResponse Int
-carrsResponseStatus = lens _carrsResponseStatus (\s a -> s {_carrsResponseStatus = a})
+-- | The response's http status code.
+createActionResponse_httpStatus :: Lens.Lens' CreateActionResponse Prelude.Int
+createActionResponse_httpStatus = Lens.lens (\CreateActionResponse' {httpStatus} -> httpStatus) (\s@CreateActionResponse' {} a -> s {httpStatus = a} :: CreateActionResponse)
 
-instance NFData CreateActionResponse
+instance Prelude.NFData CreateActionResponse

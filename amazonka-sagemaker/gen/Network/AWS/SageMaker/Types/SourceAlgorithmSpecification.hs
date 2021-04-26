@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,64 +19,65 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.SourceAlgorithmSpecification where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.SourceAlgorithm
 
 -- | A list of algorithms that were used to create a model package.
 --
---
---
--- /See:/ 'sourceAlgorithmSpecification' smart constructor.
-newtype SourceAlgorithmSpecification = SourceAlgorithmSpecification'
-  { _sasSourceAlgorithms ::
-      List1
-        SourceAlgorithm
+-- /See:/ 'newSourceAlgorithmSpecification' smart constructor.
+data SourceAlgorithmSpecification = SourceAlgorithmSpecification'
+  { -- | A list of the algorithms that were used to create a model package.
+    sourceAlgorithms :: Prelude.List1 SourceAlgorithm
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SourceAlgorithmSpecification' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SourceAlgorithmSpecification' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sasSourceAlgorithms' - A list of the algorithms that were used to create a model package.
-sourceAlgorithmSpecification ::
-  -- | 'sasSourceAlgorithms'
-  NonEmpty SourceAlgorithm ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'sourceAlgorithms', 'sourceAlgorithmSpecification_sourceAlgorithms' - A list of the algorithms that were used to create a model package.
+newSourceAlgorithmSpecification ::
+  -- | 'sourceAlgorithms'
+  Prelude.NonEmpty SourceAlgorithm ->
   SourceAlgorithmSpecification
-sourceAlgorithmSpecification pSourceAlgorithms_ =
+newSourceAlgorithmSpecification pSourceAlgorithms_ =
   SourceAlgorithmSpecification'
-    { _sasSourceAlgorithms =
-        _List1 # pSourceAlgorithms_
+    { sourceAlgorithms =
+        Prelude._List1 Lens.# pSourceAlgorithms_
     }
 
 -- | A list of the algorithms that were used to create a model package.
-sasSourceAlgorithms :: Lens' SourceAlgorithmSpecification (NonEmpty SourceAlgorithm)
-sasSourceAlgorithms = lens _sasSourceAlgorithms (\s a -> s {_sasSourceAlgorithms = a}) . _List1
+sourceAlgorithmSpecification_sourceAlgorithms :: Lens.Lens' SourceAlgorithmSpecification (Prelude.NonEmpty SourceAlgorithm)
+sourceAlgorithmSpecification_sourceAlgorithms = Lens.lens (\SourceAlgorithmSpecification' {sourceAlgorithms} -> sourceAlgorithms) (\s@SourceAlgorithmSpecification' {} a -> s {sourceAlgorithms = a} :: SourceAlgorithmSpecification) Prelude.. Prelude._List1
 
-instance FromJSON SourceAlgorithmSpecification where
+instance
+  Prelude.FromJSON
+    SourceAlgorithmSpecification
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SourceAlgorithmSpecification"
       ( \x ->
           SourceAlgorithmSpecification'
-            <$> (x .: "SourceAlgorithms")
+            Prelude.<$> (x Prelude..: "SourceAlgorithms")
       )
 
-instance Hashable SourceAlgorithmSpecification
+instance
+  Prelude.Hashable
+    SourceAlgorithmSpecification
 
-instance NFData SourceAlgorithmSpecification
+instance Prelude.NFData SourceAlgorithmSpecification
 
-instance ToJSON SourceAlgorithmSpecification where
+instance Prelude.ToJSON SourceAlgorithmSpecification where
   toJSON SourceAlgorithmSpecification' {..} =
-    object
-      ( catMaybes
-          [Just ("SourceAlgorithms" .= _sasSourceAlgorithms)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("SourceAlgorithms" Prelude..= sourceAlgorithms)
+          ]
       )

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,48 +19,50 @@
 module Network.AWS.SageMaker.Types.PipelineStatus
   ( PipelineStatus
       ( ..,
-        PSActive
+        PipelineStatusActive
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PipelineStatus = PipelineStatus' (CI Text)
+newtype PipelineStatus = PipelineStatus'
+  { fromPipelineStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PSActive :: PipelineStatus
-pattern PSActive = PipelineStatus' "Active"
+pattern PipelineStatusActive :: PipelineStatus
+pattern PipelineStatusActive = PipelineStatus' "Active"
 
 {-# COMPLETE
-  PSActive,
+  PipelineStatusActive,
   PipelineStatus'
   #-}
 
-instance FromText PipelineStatus where
-  parser = (PipelineStatus' . mk) <$> takeText
+instance Prelude.FromText PipelineStatus where
+  parser = PipelineStatus' Prelude.<$> Prelude.takeText
 
-instance ToText PipelineStatus where
-  toText (PipelineStatus' ci) = original ci
+instance Prelude.ToText PipelineStatus where
+  toText (PipelineStatus' x) = x
 
-instance Hashable PipelineStatus
+instance Prelude.Hashable PipelineStatus
 
-instance NFData PipelineStatus
+instance Prelude.NFData PipelineStatus
 
-instance ToByteString PipelineStatus
+instance Prelude.ToByteString PipelineStatus
 
-instance ToQuery PipelineStatus
+instance Prelude.ToQuery PipelineStatus
 
-instance ToHeader PipelineStatus
+instance Prelude.ToHeader PipelineStatus
 
-instance FromJSON PipelineStatus where
-  parseJSON = parseJSONText "PipelineStatus"
+instance Prelude.FromJSON PipelineStatus where
+  parseJSON = Prelude.parseJSONText "PipelineStatus"

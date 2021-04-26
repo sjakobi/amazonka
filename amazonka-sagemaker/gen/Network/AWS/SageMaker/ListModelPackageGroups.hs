@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,237 +23,267 @@
 --
 -- Gets a list of the model groups in your AWS account.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.SageMaker.ListModelPackageGroups
   ( -- * Creating a Request
-    listModelPackageGroups,
-    ListModelPackageGroups,
+    ListModelPackageGroups (..),
+    newListModelPackageGroups,
 
     -- * Request Lenses
-    lmpgSortOrder,
-    lmpgNextToken,
-    lmpgNameContains,
-    lmpgMaxResults,
-    lmpgCreationTimeBefore,
-    lmpgSortBy,
-    lmpgCreationTimeAfter,
+    listModelPackageGroups_sortOrder,
+    listModelPackageGroups_nextToken,
+    listModelPackageGroups_nameContains,
+    listModelPackageGroups_maxResults,
+    listModelPackageGroups_creationTimeBefore,
+    listModelPackageGroups_sortBy,
+    listModelPackageGroups_creationTimeAfter,
 
     -- * Destructuring the Response
-    listModelPackageGroupsResponse,
-    ListModelPackageGroupsResponse,
+    ListModelPackageGroupsResponse (..),
+    newListModelPackageGroupsResponse,
 
     -- * Response Lenses
-    lmpgrrsNextToken,
-    lmpgrrsResponseStatus,
-    lmpgrrsModelPackageGroupSummaryList,
+    listModelPackageGroupsResponse_nextToken,
+    listModelPackageGroupsResponse_httpStatus,
+    listModelPackageGroupsResponse_modelPackageGroupSummaryList,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
+import Network.AWS.SageMaker.Types.ModelPackageGroupSummary
 
--- | /See:/ 'listModelPackageGroups' smart constructor.
+-- | /See:/ 'newListModelPackageGroups' smart constructor.
 data ListModelPackageGroups = ListModelPackageGroups'
-  { _lmpgSortOrder ::
-      !(Maybe SortOrder),
-    _lmpgNextToken ::
-      !(Maybe Text),
-    _lmpgNameContains ::
-      !(Maybe Text),
-    _lmpgMaxResults ::
-      !(Maybe Nat),
-    _lmpgCreationTimeBefore ::
-      !(Maybe POSIX),
-    _lmpgSortBy ::
-      !( Maybe
-           ModelPackageGroupSortBy
-       ),
-    _lmpgCreationTimeAfter ::
-      !(Maybe POSIX)
+  { -- | The sort order for results. The default is @Ascending@.
+    sortOrder :: Prelude.Maybe SortOrder,
+    -- | If the result of the previous @ListModelPackageGroups@ request was
+    -- truncated, the response includes a @NextToken@. To retrieve the next set
+    -- of model groups, use the token in the next request.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A string in the model group name. This filter returns only model groups
+    -- whose name contains the specified string.
+    nameContains :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return in the response.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | A filter that returns only model groups created before the specified
+    -- time.
+    creationTimeBefore :: Prelude.Maybe Prelude.POSIX,
+    -- | The field to sort results by. The default is @CreationTime@.
+    sortBy :: Prelude.Maybe ModelPackageGroupSortBy,
+    -- | A filter that returns only model groups created after the specified
+    -- time.
+    creationTimeAfter :: Prelude.Maybe Prelude.POSIX
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListModelPackageGroups' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListModelPackageGroups' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lmpgSortOrder' - The sort order for results. The default is @Ascending@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lmpgNextToken' - If the result of the previous @ListModelPackageGroups@ request was truncated, the response includes a @NextToken@ . To retrieve the next set of model groups, use the token in the next request.
+-- 'sortOrder', 'listModelPackageGroups_sortOrder' - The sort order for results. The default is @Ascending@.
 --
--- * 'lmpgNameContains' - A string in the model group name. This filter returns only model groups whose name contains the specified string.
+-- 'nextToken', 'listModelPackageGroups_nextToken' - If the result of the previous @ListModelPackageGroups@ request was
+-- truncated, the response includes a @NextToken@. To retrieve the next set
+-- of model groups, use the token in the next request.
 --
--- * 'lmpgMaxResults' - The maximum number of results to return in the response.
+-- 'nameContains', 'listModelPackageGroups_nameContains' - A string in the model group name. This filter returns only model groups
+-- whose name contains the specified string.
 --
--- * 'lmpgCreationTimeBefore' - A filter that returns only model groups created before the specified time.
+-- 'maxResults', 'listModelPackageGroups_maxResults' - The maximum number of results to return in the response.
 --
--- * 'lmpgSortBy' - The field to sort results by. The default is @CreationTime@ .
+-- 'creationTimeBefore', 'listModelPackageGroups_creationTimeBefore' - A filter that returns only model groups created before the specified
+-- time.
 --
--- * 'lmpgCreationTimeAfter' - A filter that returns only model groups created after the specified time.
-listModelPackageGroups ::
+-- 'sortBy', 'listModelPackageGroups_sortBy' - The field to sort results by. The default is @CreationTime@.
+--
+-- 'creationTimeAfter', 'listModelPackageGroups_creationTimeAfter' - A filter that returns only model groups created after the specified
+-- time.
+newListModelPackageGroups ::
   ListModelPackageGroups
-listModelPackageGroups =
+newListModelPackageGroups =
   ListModelPackageGroups'
-    { _lmpgSortOrder = Nothing,
-      _lmpgNextToken = Nothing,
-      _lmpgNameContains = Nothing,
-      _lmpgMaxResults = Nothing,
-      _lmpgCreationTimeBefore = Nothing,
-      _lmpgSortBy = Nothing,
-      _lmpgCreationTimeAfter = Nothing
+    { sortOrder =
+        Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      nameContains = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      creationTimeBefore = Prelude.Nothing,
+      sortBy = Prelude.Nothing,
+      creationTimeAfter = Prelude.Nothing
     }
 
--- | The sort order for results. The default is @Ascending@ .
-lmpgSortOrder :: Lens' ListModelPackageGroups (Maybe SortOrder)
-lmpgSortOrder = lens _lmpgSortOrder (\s a -> s {_lmpgSortOrder = a})
+-- | The sort order for results. The default is @Ascending@.
+listModelPackageGroups_sortOrder :: Lens.Lens' ListModelPackageGroups (Prelude.Maybe SortOrder)
+listModelPackageGroups_sortOrder = Lens.lens (\ListModelPackageGroups' {sortOrder} -> sortOrder) (\s@ListModelPackageGroups' {} a -> s {sortOrder = a} :: ListModelPackageGroups)
 
--- | If the result of the previous @ListModelPackageGroups@ request was truncated, the response includes a @NextToken@ . To retrieve the next set of model groups, use the token in the next request.
-lmpgNextToken :: Lens' ListModelPackageGroups (Maybe Text)
-lmpgNextToken = lens _lmpgNextToken (\s a -> s {_lmpgNextToken = a})
+-- | If the result of the previous @ListModelPackageGroups@ request was
+-- truncated, the response includes a @NextToken@. To retrieve the next set
+-- of model groups, use the token in the next request.
+listModelPackageGroups_nextToken :: Lens.Lens' ListModelPackageGroups (Prelude.Maybe Prelude.Text)
+listModelPackageGroups_nextToken = Lens.lens (\ListModelPackageGroups' {nextToken} -> nextToken) (\s@ListModelPackageGroups' {} a -> s {nextToken = a} :: ListModelPackageGroups)
 
--- | A string in the model group name. This filter returns only model groups whose name contains the specified string.
-lmpgNameContains :: Lens' ListModelPackageGroups (Maybe Text)
-lmpgNameContains = lens _lmpgNameContains (\s a -> s {_lmpgNameContains = a})
+-- | A string in the model group name. This filter returns only model groups
+-- whose name contains the specified string.
+listModelPackageGroups_nameContains :: Lens.Lens' ListModelPackageGroups (Prelude.Maybe Prelude.Text)
+listModelPackageGroups_nameContains = Lens.lens (\ListModelPackageGroups' {nameContains} -> nameContains) (\s@ListModelPackageGroups' {} a -> s {nameContains = a} :: ListModelPackageGroups)
 
 -- | The maximum number of results to return in the response.
-lmpgMaxResults :: Lens' ListModelPackageGroups (Maybe Natural)
-lmpgMaxResults = lens _lmpgMaxResults (\s a -> s {_lmpgMaxResults = a}) . mapping _Nat
+listModelPackageGroups_maxResults :: Lens.Lens' ListModelPackageGroups (Prelude.Maybe Prelude.Natural)
+listModelPackageGroups_maxResults = Lens.lens (\ListModelPackageGroups' {maxResults} -> maxResults) (\s@ListModelPackageGroups' {} a -> s {maxResults = a} :: ListModelPackageGroups) Prelude.. Lens.mapping Prelude._Nat
 
--- | A filter that returns only model groups created before the specified time.
-lmpgCreationTimeBefore :: Lens' ListModelPackageGroups (Maybe UTCTime)
-lmpgCreationTimeBefore = lens _lmpgCreationTimeBefore (\s a -> s {_lmpgCreationTimeBefore = a}) . mapping _Time
+-- | A filter that returns only model groups created before the specified
+-- time.
+listModelPackageGroups_creationTimeBefore :: Lens.Lens' ListModelPackageGroups (Prelude.Maybe Prelude.UTCTime)
+listModelPackageGroups_creationTimeBefore = Lens.lens (\ListModelPackageGroups' {creationTimeBefore} -> creationTimeBefore) (\s@ListModelPackageGroups' {} a -> s {creationTimeBefore = a} :: ListModelPackageGroups) Prelude.. Lens.mapping Prelude._Time
 
--- | The field to sort results by. The default is @CreationTime@ .
-lmpgSortBy :: Lens' ListModelPackageGroups (Maybe ModelPackageGroupSortBy)
-lmpgSortBy = lens _lmpgSortBy (\s a -> s {_lmpgSortBy = a})
+-- | The field to sort results by. The default is @CreationTime@.
+listModelPackageGroups_sortBy :: Lens.Lens' ListModelPackageGroups (Prelude.Maybe ModelPackageGroupSortBy)
+listModelPackageGroups_sortBy = Lens.lens (\ListModelPackageGroups' {sortBy} -> sortBy) (\s@ListModelPackageGroups' {} a -> s {sortBy = a} :: ListModelPackageGroups)
 
--- | A filter that returns only model groups created after the specified time.
-lmpgCreationTimeAfter :: Lens' ListModelPackageGroups (Maybe UTCTime)
-lmpgCreationTimeAfter = lens _lmpgCreationTimeAfter (\s a -> s {_lmpgCreationTimeAfter = a}) . mapping _Time
+-- | A filter that returns only model groups created after the specified
+-- time.
+listModelPackageGroups_creationTimeAfter :: Lens.Lens' ListModelPackageGroups (Prelude.Maybe Prelude.UTCTime)
+listModelPackageGroups_creationTimeAfter = Lens.lens (\ListModelPackageGroups' {creationTimeAfter} -> creationTimeAfter) (\s@ListModelPackageGroups' {} a -> s {creationTimeAfter = a} :: ListModelPackageGroups) Prelude.. Lens.mapping Prelude._Time
 
-instance AWSPager ListModelPackageGroups where
+instance Pager.AWSPager ListModelPackageGroups where
   page rq rs
-    | stop (rs ^. lmpgrrsNextToken) = Nothing
-    | stop (rs ^. lmpgrrsModelPackageGroupSummaryList) =
-      Nothing
-    | otherwise =
-      Just $ rq & lmpgNextToken .~ rs ^. lmpgrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listModelPackageGroupsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^. listModelPackageGroupsResponse_modelPackageGroupSummaryList
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listModelPackageGroups_nextToken
+          Lens..~ rs
+          Lens.^? listModelPackageGroupsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListModelPackageGroups where
+instance Prelude.AWSRequest ListModelPackageGroups where
   type
     Rs ListModelPackageGroups =
       ListModelPackageGroupsResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListModelPackageGroupsResponse'
-            <$> (x .?> "NextToken")
-            <*> (pure (fromEnum s))
-            <*> (x .?> "ModelPackageGroupSummaryList" .!@ mempty)
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> ( x Prelude..?> "ModelPackageGroupSummaryList"
+                            Prelude..!@ Prelude.mempty
+                        )
       )
 
-instance Hashable ListModelPackageGroups
+instance Prelude.Hashable ListModelPackageGroups
 
-instance NFData ListModelPackageGroups
+instance Prelude.NFData ListModelPackageGroups
 
-instance ToHeaders ListModelPackageGroups where
+instance Prelude.ToHeaders ListModelPackageGroups where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.ListModelPackageGroups" :: ByteString),
+              Prelude.=# ( "SageMaker.ListModelPackageGroups" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListModelPackageGroups where
+instance Prelude.ToJSON ListModelPackageGroups where
   toJSON ListModelPackageGroups' {..} =
-    object
-      ( catMaybes
-          [ ("SortOrder" .=) <$> _lmpgSortOrder,
-            ("NextToken" .=) <$> _lmpgNextToken,
-            ("NameContains" .=) <$> _lmpgNameContains,
-            ("MaxResults" .=) <$> _lmpgMaxResults,
-            ("CreationTimeBefore" .=)
-              <$> _lmpgCreationTimeBefore,
-            ("SortBy" .=) <$> _lmpgSortBy,
-            ("CreationTimeAfter" .=) <$> _lmpgCreationTimeAfter
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("SortOrder" Prelude..=) Prelude.<$> sortOrder,
+            ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("NameContains" Prelude..=) Prelude.<$> nameContains,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("CreationTimeBefore" Prelude..=)
+              Prelude.<$> creationTimeBefore,
+            ("SortBy" Prelude..=) Prelude.<$> sortBy,
+            ("CreationTimeAfter" Prelude..=)
+              Prelude.<$> creationTimeAfter
           ]
       )
 
-instance ToPath ListModelPackageGroups where
-  toPath = const "/"
+instance Prelude.ToPath ListModelPackageGroups where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListModelPackageGroups where
-  toQuery = const mempty
+instance Prelude.ToQuery ListModelPackageGroups where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listModelPackageGroupsResponse' smart constructor.
+-- | /See:/ 'newListModelPackageGroupsResponse' smart constructor.
 data ListModelPackageGroupsResponse = ListModelPackageGroupsResponse'
-  { _lmpgrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _lmpgrrsResponseStatus ::
-      !Int,
-    _lmpgrrsModelPackageGroupSummaryList ::
-      ![ModelPackageGroupSummary]
+  { -- | If the response is truncated, SageMaker returns this token. To retrieve
+    -- the next set of model groups, use it in the subsequent request.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | A list of summaries of the model groups in your AWS account.
+    modelPackageGroupSummaryList :: [ModelPackageGroupSummary]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListModelPackageGroupsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListModelPackageGroupsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lmpgrrsNextToken' - If the response is truncated, SageMaker returns this token. To retrieve the next set of model groups, use it in the subsequent request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lmpgrrsResponseStatus' - -- | The response status code.
+-- 'nextToken', 'listModelPackageGroupsResponse_nextToken' - If the response is truncated, SageMaker returns this token. To retrieve
+-- the next set of model groups, use it in the subsequent request.
 --
--- * 'lmpgrrsModelPackageGroupSummaryList' - A list of summaries of the model groups in your AWS account.
-listModelPackageGroupsResponse ::
-  -- | 'lmpgrrsResponseStatus'
-  Int ->
+-- 'httpStatus', 'listModelPackageGroupsResponse_httpStatus' - The response's http status code.
+--
+-- 'modelPackageGroupSummaryList', 'listModelPackageGroupsResponse_modelPackageGroupSummaryList' - A list of summaries of the model groups in your AWS account.
+newListModelPackageGroupsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListModelPackageGroupsResponse
-listModelPackageGroupsResponse pResponseStatus_ =
+newListModelPackageGroupsResponse pHttpStatus_ =
   ListModelPackageGroupsResponse'
-    { _lmpgrrsNextToken =
-        Nothing,
-      _lmpgrrsResponseStatus = pResponseStatus_,
-      _lmpgrrsModelPackageGroupSummaryList =
-        mempty
+    { nextToken =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_,
+      modelPackageGroupSummaryList =
+        Prelude.mempty
     }
 
--- | If the response is truncated, SageMaker returns this token. To retrieve the next set of model groups, use it in the subsequent request.
-lmpgrrsNextToken :: Lens' ListModelPackageGroupsResponse (Maybe Text)
-lmpgrrsNextToken = lens _lmpgrrsNextToken (\s a -> s {_lmpgrrsNextToken = a})
+-- | If the response is truncated, SageMaker returns this token. To retrieve
+-- the next set of model groups, use it in the subsequent request.
+listModelPackageGroupsResponse_nextToken :: Lens.Lens' ListModelPackageGroupsResponse (Prelude.Maybe Prelude.Text)
+listModelPackageGroupsResponse_nextToken = Lens.lens (\ListModelPackageGroupsResponse' {nextToken} -> nextToken) (\s@ListModelPackageGroupsResponse' {} a -> s {nextToken = a} :: ListModelPackageGroupsResponse)
 
--- | -- | The response status code.
-lmpgrrsResponseStatus :: Lens' ListModelPackageGroupsResponse Int
-lmpgrrsResponseStatus = lens _lmpgrrsResponseStatus (\s a -> s {_lmpgrrsResponseStatus = a})
+-- | The response's http status code.
+listModelPackageGroupsResponse_httpStatus :: Lens.Lens' ListModelPackageGroupsResponse Prelude.Int
+listModelPackageGroupsResponse_httpStatus = Lens.lens (\ListModelPackageGroupsResponse' {httpStatus} -> httpStatus) (\s@ListModelPackageGroupsResponse' {} a -> s {httpStatus = a} :: ListModelPackageGroupsResponse)
 
 -- | A list of summaries of the model groups in your AWS account.
-lmpgrrsModelPackageGroupSummaryList :: Lens' ListModelPackageGroupsResponse [ModelPackageGroupSummary]
-lmpgrrsModelPackageGroupSummaryList = lens _lmpgrrsModelPackageGroupSummaryList (\s a -> s {_lmpgrrsModelPackageGroupSummaryList = a}) . _Coerce
+listModelPackageGroupsResponse_modelPackageGroupSummaryList :: Lens.Lens' ListModelPackageGroupsResponse [ModelPackageGroupSummary]
+listModelPackageGroupsResponse_modelPackageGroupSummaryList = Lens.lens (\ListModelPackageGroupsResponse' {modelPackageGroupSummaryList} -> modelPackageGroupSummaryList) (\s@ListModelPackageGroupsResponse' {} a -> s {modelPackageGroupSummaryList = a} :: ListModelPackageGroupsResponse) Prelude.. Prelude._Coerce
 
-instance NFData ListModelPackageGroupsResponse
+instance
+  Prelude.NFData
+    ListModelPackageGroupsResponse

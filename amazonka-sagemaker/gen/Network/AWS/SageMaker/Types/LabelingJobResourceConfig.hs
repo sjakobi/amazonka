@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,60 +19,90 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.LabelingJobResourceConfig where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Provides configuration information for labeling jobs.
 --
---
---
--- /See:/ 'labelingJobResourceConfig' smart constructor.
-newtype LabelingJobResourceConfig = LabelingJobResourceConfig'
-  { _ljrcVolumeKMSKeyId ::
-      Maybe Text
+-- /See:/ 'newLabelingJobResourceConfig' smart constructor.
+data LabelingJobResourceConfig = LabelingJobResourceConfig'
+  { -- | The AWS Key Management Service (AWS KMS) key that Amazon SageMaker uses
+    -- to encrypt data on the storage volume attached to the ML compute
+    -- instance(s) that run the training job. The @VolumeKmsKeyId@ can be any
+    -- of the following formats:
+    --
+    -- -   \/\/ KMS Key ID
+    --
+    --     @\"1234abcd-12ab-34cd-56ef-1234567890ab\"@
+    --
+    -- -   \/\/ Amazon Resource Name (ARN) of a KMS Key
+    --
+    --     @\"arn:aws:kms:us-west-2:111122223333:key\/1234abcd-12ab-34cd-56ef-1234567890ab\"@
+    volumeKmsKeyId :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LabelingJobResourceConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LabelingJobResourceConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ljrcVolumeKMSKeyId' - The AWS Key Management Service (AWS KMS) key that Amazon SageMaker uses to encrypt data on the storage volume attached to the ML compute instance(s) that run the training job. The @VolumeKmsKeyId@ can be any of the following formats:     * // KMS Key ID @"1234abcd-12ab-34cd-56ef-1234567890ab"@      * // Amazon Resource Name (ARN) of a KMS Key @"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"@
-labelingJobResourceConfig ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'volumeKmsKeyId', 'labelingJobResourceConfig_volumeKmsKeyId' - The AWS Key Management Service (AWS KMS) key that Amazon SageMaker uses
+-- to encrypt data on the storage volume attached to the ML compute
+-- instance(s) that run the training job. The @VolumeKmsKeyId@ can be any
+-- of the following formats:
+--
+-- -   \/\/ KMS Key ID
+--
+--     @\"1234abcd-12ab-34cd-56ef-1234567890ab\"@
+--
+-- -   \/\/ Amazon Resource Name (ARN) of a KMS Key
+--
+--     @\"arn:aws:kms:us-west-2:111122223333:key\/1234abcd-12ab-34cd-56ef-1234567890ab\"@
+newLabelingJobResourceConfig ::
   LabelingJobResourceConfig
-labelingJobResourceConfig =
+newLabelingJobResourceConfig =
   LabelingJobResourceConfig'
-    { _ljrcVolumeKMSKeyId =
-        Nothing
+    { volumeKmsKeyId =
+        Prelude.Nothing
     }
 
--- | The AWS Key Management Service (AWS KMS) key that Amazon SageMaker uses to encrypt data on the storage volume attached to the ML compute instance(s) that run the training job. The @VolumeKmsKeyId@ can be any of the following formats:     * // KMS Key ID @"1234abcd-12ab-34cd-56ef-1234567890ab"@      * // Amazon Resource Name (ARN) of a KMS Key @"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"@
-ljrcVolumeKMSKeyId :: Lens' LabelingJobResourceConfig (Maybe Text)
-ljrcVolumeKMSKeyId = lens _ljrcVolumeKMSKeyId (\s a -> s {_ljrcVolumeKMSKeyId = a})
+-- | The AWS Key Management Service (AWS KMS) key that Amazon SageMaker uses
+-- to encrypt data on the storage volume attached to the ML compute
+-- instance(s) that run the training job. The @VolumeKmsKeyId@ can be any
+-- of the following formats:
+--
+-- -   \/\/ KMS Key ID
+--
+--     @\"1234abcd-12ab-34cd-56ef-1234567890ab\"@
+--
+-- -   \/\/ Amazon Resource Name (ARN) of a KMS Key
+--
+--     @\"arn:aws:kms:us-west-2:111122223333:key\/1234abcd-12ab-34cd-56ef-1234567890ab\"@
+labelingJobResourceConfig_volumeKmsKeyId :: Lens.Lens' LabelingJobResourceConfig (Prelude.Maybe Prelude.Text)
+labelingJobResourceConfig_volumeKmsKeyId = Lens.lens (\LabelingJobResourceConfig' {volumeKmsKeyId} -> volumeKmsKeyId) (\s@LabelingJobResourceConfig' {} a -> s {volumeKmsKeyId = a} :: LabelingJobResourceConfig)
 
-instance FromJSON LabelingJobResourceConfig where
+instance Prelude.FromJSON LabelingJobResourceConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "LabelingJobResourceConfig"
       ( \x ->
           LabelingJobResourceConfig'
-            <$> (x .:? "VolumeKmsKeyId")
+            Prelude.<$> (x Prelude..:? "VolumeKmsKeyId")
       )
 
-instance Hashable LabelingJobResourceConfig
+instance Prelude.Hashable LabelingJobResourceConfig
 
-instance NFData LabelingJobResourceConfig
+instance Prelude.NFData LabelingJobResourceConfig
 
-instance ToJSON LabelingJobResourceConfig where
+instance Prelude.ToJSON LabelingJobResourceConfig where
   toJSON LabelingJobResourceConfig' {..} =
-    object
-      ( catMaybes
-          [("VolumeKmsKeyId" .=) <$> _ljrcVolumeKMSKeyId]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("VolumeKmsKeyId" Prelude..=)
+              Prelude.<$> volumeKmsKeyId
+          ]
       )

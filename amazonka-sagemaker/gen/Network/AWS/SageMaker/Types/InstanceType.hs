@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,236 +19,238 @@
 module Network.AWS.SageMaker.Types.InstanceType
   ( InstanceType
       ( ..,
-        ITMl_C4_2XLarge,
-        ITMl_C4_4XLarge,
-        ITMl_C4_8XLarge,
-        ITMl_C4_XLarge,
-        ITMl_C5_18XLarge,
-        ITMl_C5_2XLarge,
-        ITMl_C5_4XLarge,
-        ITMl_C5_9XLarge,
-        ITMl_C5_XLarge,
-        ITMl_C5d_18XLarge,
-        ITMl_C5d_2XLarge,
-        ITMl_C5d_4XLarge,
-        ITMl_C5d_9XLarge,
-        ITMl_C5d_XLarge,
-        ITMl_M4_10XLarge,
-        ITMl_M4_16XLarge,
-        ITMl_M4_2XLarge,
-        ITMl_M4_4XLarge,
-        ITMl_M4_XLarge,
-        ITMl_M5_12XLarge,
-        ITMl_M5_24XLarge,
-        ITMl_M5_2XLarge,
-        ITMl_M5_4XLarge,
-        ITMl_M5_XLarge,
-        ITMl_P2_16XLarge,
-        ITMl_P2_8XLarge,
-        ITMl_P2_XLarge,
-        ITMl_P3_16XLarge,
-        ITMl_P3_2XLarge,
-        ITMl_P3_8XLarge,
-        ITMl_T2_2XLarge,
-        ITMl_T2_Large,
-        ITMl_T2_Medium,
-        ITMl_T2_XLarge,
-        ITMl_T3_2XLarge,
-        ITMl_T3_Large,
-        ITMl_T3_Medium,
-        ITMl_T3_XLarge
+        InstanceTypeMl_C4_2xlarge,
+        InstanceTypeMl_C4_4xlarge,
+        InstanceTypeMl_C4_8xlarge,
+        InstanceTypeMl_C4_Xlarge,
+        InstanceTypeMl_C5_18xlarge,
+        InstanceTypeMl_C5_2xlarge,
+        InstanceTypeMl_C5_4xlarge,
+        InstanceTypeMl_C5_9xlarge,
+        InstanceTypeMl_C5_Xlarge,
+        InstanceTypeMl_C5d_18xlarge,
+        InstanceTypeMl_C5d_2xlarge,
+        InstanceTypeMl_C5d_4xlarge,
+        InstanceTypeMl_C5d_9xlarge,
+        InstanceTypeMl_C5d_Xlarge,
+        InstanceTypeMl_M4_10xlarge,
+        InstanceTypeMl_M4_16xlarge,
+        InstanceTypeMl_M4_2xlarge,
+        InstanceTypeMl_M4_4xlarge,
+        InstanceTypeMl_M4_Xlarge,
+        InstanceTypeMl_M5_12xlarge,
+        InstanceTypeMl_M5_24xlarge,
+        InstanceTypeMl_M5_2xlarge,
+        InstanceTypeMl_M5_4xlarge,
+        InstanceTypeMl_M5_Xlarge,
+        InstanceTypeMl_P2_16xlarge,
+        InstanceTypeMl_P2_8xlarge,
+        InstanceTypeMl_P2_Xlarge,
+        InstanceTypeMl_P3_16xlarge,
+        InstanceTypeMl_P3_2xlarge,
+        InstanceTypeMl_P3_8xlarge,
+        InstanceTypeMl_T2_2xlarge,
+        InstanceTypeMl_T2_Large,
+        InstanceTypeMl_T2_Medium,
+        InstanceTypeMl_T2_Xlarge,
+        InstanceTypeMl_T3_2xlarge,
+        InstanceTypeMl_T3_Large,
+        InstanceTypeMl_T3_Medium,
+        InstanceTypeMl_T3_Xlarge
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data InstanceType = InstanceType' (CI Text)
+newtype InstanceType = InstanceType'
+  { fromInstanceType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ITMl_C4_2XLarge :: InstanceType
-pattern ITMl_C4_2XLarge = InstanceType' "ml.c4.2xlarge"
+pattern InstanceTypeMl_C4_2xlarge :: InstanceType
+pattern InstanceTypeMl_C4_2xlarge = InstanceType' "ml.c4.2xlarge"
 
-pattern ITMl_C4_4XLarge :: InstanceType
-pattern ITMl_C4_4XLarge = InstanceType' "ml.c4.4xlarge"
+pattern InstanceTypeMl_C4_4xlarge :: InstanceType
+pattern InstanceTypeMl_C4_4xlarge = InstanceType' "ml.c4.4xlarge"
 
-pattern ITMl_C4_8XLarge :: InstanceType
-pattern ITMl_C4_8XLarge = InstanceType' "ml.c4.8xlarge"
+pattern InstanceTypeMl_C4_8xlarge :: InstanceType
+pattern InstanceTypeMl_C4_8xlarge = InstanceType' "ml.c4.8xlarge"
 
-pattern ITMl_C4_XLarge :: InstanceType
-pattern ITMl_C4_XLarge = InstanceType' "ml.c4.xlarge"
+pattern InstanceTypeMl_C4_Xlarge :: InstanceType
+pattern InstanceTypeMl_C4_Xlarge = InstanceType' "ml.c4.xlarge"
 
-pattern ITMl_C5_18XLarge :: InstanceType
-pattern ITMl_C5_18XLarge = InstanceType' "ml.c5.18xlarge"
+pattern InstanceTypeMl_C5_18xlarge :: InstanceType
+pattern InstanceTypeMl_C5_18xlarge = InstanceType' "ml.c5.18xlarge"
 
-pattern ITMl_C5_2XLarge :: InstanceType
-pattern ITMl_C5_2XLarge = InstanceType' "ml.c5.2xlarge"
+pattern InstanceTypeMl_C5_2xlarge :: InstanceType
+pattern InstanceTypeMl_C5_2xlarge = InstanceType' "ml.c5.2xlarge"
 
-pattern ITMl_C5_4XLarge :: InstanceType
-pattern ITMl_C5_4XLarge = InstanceType' "ml.c5.4xlarge"
+pattern InstanceTypeMl_C5_4xlarge :: InstanceType
+pattern InstanceTypeMl_C5_4xlarge = InstanceType' "ml.c5.4xlarge"
 
-pattern ITMl_C5_9XLarge :: InstanceType
-pattern ITMl_C5_9XLarge = InstanceType' "ml.c5.9xlarge"
+pattern InstanceTypeMl_C5_9xlarge :: InstanceType
+pattern InstanceTypeMl_C5_9xlarge = InstanceType' "ml.c5.9xlarge"
 
-pattern ITMl_C5_XLarge :: InstanceType
-pattern ITMl_C5_XLarge = InstanceType' "ml.c5.xlarge"
+pattern InstanceTypeMl_C5_Xlarge :: InstanceType
+pattern InstanceTypeMl_C5_Xlarge = InstanceType' "ml.c5.xlarge"
 
-pattern ITMl_C5d_18XLarge :: InstanceType
-pattern ITMl_C5d_18XLarge = InstanceType' "ml.c5d.18xlarge"
+pattern InstanceTypeMl_C5d_18xlarge :: InstanceType
+pattern InstanceTypeMl_C5d_18xlarge = InstanceType' "ml.c5d.18xlarge"
 
-pattern ITMl_C5d_2XLarge :: InstanceType
-pattern ITMl_C5d_2XLarge = InstanceType' "ml.c5d.2xlarge"
+pattern InstanceTypeMl_C5d_2xlarge :: InstanceType
+pattern InstanceTypeMl_C5d_2xlarge = InstanceType' "ml.c5d.2xlarge"
 
-pattern ITMl_C5d_4XLarge :: InstanceType
-pattern ITMl_C5d_4XLarge = InstanceType' "ml.c5d.4xlarge"
+pattern InstanceTypeMl_C5d_4xlarge :: InstanceType
+pattern InstanceTypeMl_C5d_4xlarge = InstanceType' "ml.c5d.4xlarge"
 
-pattern ITMl_C5d_9XLarge :: InstanceType
-pattern ITMl_C5d_9XLarge = InstanceType' "ml.c5d.9xlarge"
+pattern InstanceTypeMl_C5d_9xlarge :: InstanceType
+pattern InstanceTypeMl_C5d_9xlarge = InstanceType' "ml.c5d.9xlarge"
 
-pattern ITMl_C5d_XLarge :: InstanceType
-pattern ITMl_C5d_XLarge = InstanceType' "ml.c5d.xlarge"
+pattern InstanceTypeMl_C5d_Xlarge :: InstanceType
+pattern InstanceTypeMl_C5d_Xlarge = InstanceType' "ml.c5d.xlarge"
 
-pattern ITMl_M4_10XLarge :: InstanceType
-pattern ITMl_M4_10XLarge = InstanceType' "ml.m4.10xlarge"
+pattern InstanceTypeMl_M4_10xlarge :: InstanceType
+pattern InstanceTypeMl_M4_10xlarge = InstanceType' "ml.m4.10xlarge"
 
-pattern ITMl_M4_16XLarge :: InstanceType
-pattern ITMl_M4_16XLarge = InstanceType' "ml.m4.16xlarge"
+pattern InstanceTypeMl_M4_16xlarge :: InstanceType
+pattern InstanceTypeMl_M4_16xlarge = InstanceType' "ml.m4.16xlarge"
 
-pattern ITMl_M4_2XLarge :: InstanceType
-pattern ITMl_M4_2XLarge = InstanceType' "ml.m4.2xlarge"
+pattern InstanceTypeMl_M4_2xlarge :: InstanceType
+pattern InstanceTypeMl_M4_2xlarge = InstanceType' "ml.m4.2xlarge"
 
-pattern ITMl_M4_4XLarge :: InstanceType
-pattern ITMl_M4_4XLarge = InstanceType' "ml.m4.4xlarge"
+pattern InstanceTypeMl_M4_4xlarge :: InstanceType
+pattern InstanceTypeMl_M4_4xlarge = InstanceType' "ml.m4.4xlarge"
 
-pattern ITMl_M4_XLarge :: InstanceType
-pattern ITMl_M4_XLarge = InstanceType' "ml.m4.xlarge"
+pattern InstanceTypeMl_M4_Xlarge :: InstanceType
+pattern InstanceTypeMl_M4_Xlarge = InstanceType' "ml.m4.xlarge"
 
-pattern ITMl_M5_12XLarge :: InstanceType
-pattern ITMl_M5_12XLarge = InstanceType' "ml.m5.12xlarge"
+pattern InstanceTypeMl_M5_12xlarge :: InstanceType
+pattern InstanceTypeMl_M5_12xlarge = InstanceType' "ml.m5.12xlarge"
 
-pattern ITMl_M5_24XLarge :: InstanceType
-pattern ITMl_M5_24XLarge = InstanceType' "ml.m5.24xlarge"
+pattern InstanceTypeMl_M5_24xlarge :: InstanceType
+pattern InstanceTypeMl_M5_24xlarge = InstanceType' "ml.m5.24xlarge"
 
-pattern ITMl_M5_2XLarge :: InstanceType
-pattern ITMl_M5_2XLarge = InstanceType' "ml.m5.2xlarge"
+pattern InstanceTypeMl_M5_2xlarge :: InstanceType
+pattern InstanceTypeMl_M5_2xlarge = InstanceType' "ml.m5.2xlarge"
 
-pattern ITMl_M5_4XLarge :: InstanceType
-pattern ITMl_M5_4XLarge = InstanceType' "ml.m5.4xlarge"
+pattern InstanceTypeMl_M5_4xlarge :: InstanceType
+pattern InstanceTypeMl_M5_4xlarge = InstanceType' "ml.m5.4xlarge"
 
-pattern ITMl_M5_XLarge :: InstanceType
-pattern ITMl_M5_XLarge = InstanceType' "ml.m5.xlarge"
+pattern InstanceTypeMl_M5_Xlarge :: InstanceType
+pattern InstanceTypeMl_M5_Xlarge = InstanceType' "ml.m5.xlarge"
 
-pattern ITMl_P2_16XLarge :: InstanceType
-pattern ITMl_P2_16XLarge = InstanceType' "ml.p2.16xlarge"
+pattern InstanceTypeMl_P2_16xlarge :: InstanceType
+pattern InstanceTypeMl_P2_16xlarge = InstanceType' "ml.p2.16xlarge"
 
-pattern ITMl_P2_8XLarge :: InstanceType
-pattern ITMl_P2_8XLarge = InstanceType' "ml.p2.8xlarge"
+pattern InstanceTypeMl_P2_8xlarge :: InstanceType
+pattern InstanceTypeMl_P2_8xlarge = InstanceType' "ml.p2.8xlarge"
 
-pattern ITMl_P2_XLarge :: InstanceType
-pattern ITMl_P2_XLarge = InstanceType' "ml.p2.xlarge"
+pattern InstanceTypeMl_P2_Xlarge :: InstanceType
+pattern InstanceTypeMl_P2_Xlarge = InstanceType' "ml.p2.xlarge"
 
-pattern ITMl_P3_16XLarge :: InstanceType
-pattern ITMl_P3_16XLarge = InstanceType' "ml.p3.16xlarge"
+pattern InstanceTypeMl_P3_16xlarge :: InstanceType
+pattern InstanceTypeMl_P3_16xlarge = InstanceType' "ml.p3.16xlarge"
 
-pattern ITMl_P3_2XLarge :: InstanceType
-pattern ITMl_P3_2XLarge = InstanceType' "ml.p3.2xlarge"
+pattern InstanceTypeMl_P3_2xlarge :: InstanceType
+pattern InstanceTypeMl_P3_2xlarge = InstanceType' "ml.p3.2xlarge"
 
-pattern ITMl_P3_8XLarge :: InstanceType
-pattern ITMl_P3_8XLarge = InstanceType' "ml.p3.8xlarge"
+pattern InstanceTypeMl_P3_8xlarge :: InstanceType
+pattern InstanceTypeMl_P3_8xlarge = InstanceType' "ml.p3.8xlarge"
 
-pattern ITMl_T2_2XLarge :: InstanceType
-pattern ITMl_T2_2XLarge = InstanceType' "ml.t2.2xlarge"
+pattern InstanceTypeMl_T2_2xlarge :: InstanceType
+pattern InstanceTypeMl_T2_2xlarge = InstanceType' "ml.t2.2xlarge"
 
-pattern ITMl_T2_Large :: InstanceType
-pattern ITMl_T2_Large = InstanceType' "ml.t2.large"
+pattern InstanceTypeMl_T2_Large :: InstanceType
+pattern InstanceTypeMl_T2_Large = InstanceType' "ml.t2.large"
 
-pattern ITMl_T2_Medium :: InstanceType
-pattern ITMl_T2_Medium = InstanceType' "ml.t2.medium"
+pattern InstanceTypeMl_T2_Medium :: InstanceType
+pattern InstanceTypeMl_T2_Medium = InstanceType' "ml.t2.medium"
 
-pattern ITMl_T2_XLarge :: InstanceType
-pattern ITMl_T2_XLarge = InstanceType' "ml.t2.xlarge"
+pattern InstanceTypeMl_T2_Xlarge :: InstanceType
+pattern InstanceTypeMl_T2_Xlarge = InstanceType' "ml.t2.xlarge"
 
-pattern ITMl_T3_2XLarge :: InstanceType
-pattern ITMl_T3_2XLarge = InstanceType' "ml.t3.2xlarge"
+pattern InstanceTypeMl_T3_2xlarge :: InstanceType
+pattern InstanceTypeMl_T3_2xlarge = InstanceType' "ml.t3.2xlarge"
 
-pattern ITMl_T3_Large :: InstanceType
-pattern ITMl_T3_Large = InstanceType' "ml.t3.large"
+pattern InstanceTypeMl_T3_Large :: InstanceType
+pattern InstanceTypeMl_T3_Large = InstanceType' "ml.t3.large"
 
-pattern ITMl_T3_Medium :: InstanceType
-pattern ITMl_T3_Medium = InstanceType' "ml.t3.medium"
+pattern InstanceTypeMl_T3_Medium :: InstanceType
+pattern InstanceTypeMl_T3_Medium = InstanceType' "ml.t3.medium"
 
-pattern ITMl_T3_XLarge :: InstanceType
-pattern ITMl_T3_XLarge = InstanceType' "ml.t3.xlarge"
+pattern InstanceTypeMl_T3_Xlarge :: InstanceType
+pattern InstanceTypeMl_T3_Xlarge = InstanceType' "ml.t3.xlarge"
 
 {-# COMPLETE
-  ITMl_C4_2XLarge,
-  ITMl_C4_4XLarge,
-  ITMl_C4_8XLarge,
-  ITMl_C4_XLarge,
-  ITMl_C5_18XLarge,
-  ITMl_C5_2XLarge,
-  ITMl_C5_4XLarge,
-  ITMl_C5_9XLarge,
-  ITMl_C5_XLarge,
-  ITMl_C5d_18XLarge,
-  ITMl_C5d_2XLarge,
-  ITMl_C5d_4XLarge,
-  ITMl_C5d_9XLarge,
-  ITMl_C5d_XLarge,
-  ITMl_M4_10XLarge,
-  ITMl_M4_16XLarge,
-  ITMl_M4_2XLarge,
-  ITMl_M4_4XLarge,
-  ITMl_M4_XLarge,
-  ITMl_M5_12XLarge,
-  ITMl_M5_24XLarge,
-  ITMl_M5_2XLarge,
-  ITMl_M5_4XLarge,
-  ITMl_M5_XLarge,
-  ITMl_P2_16XLarge,
-  ITMl_P2_8XLarge,
-  ITMl_P2_XLarge,
-  ITMl_P3_16XLarge,
-  ITMl_P3_2XLarge,
-  ITMl_P3_8XLarge,
-  ITMl_T2_2XLarge,
-  ITMl_T2_Large,
-  ITMl_T2_Medium,
-  ITMl_T2_XLarge,
-  ITMl_T3_2XLarge,
-  ITMl_T3_Large,
-  ITMl_T3_Medium,
-  ITMl_T3_XLarge,
+  InstanceTypeMl_C4_2xlarge,
+  InstanceTypeMl_C4_4xlarge,
+  InstanceTypeMl_C4_8xlarge,
+  InstanceTypeMl_C4_Xlarge,
+  InstanceTypeMl_C5_18xlarge,
+  InstanceTypeMl_C5_2xlarge,
+  InstanceTypeMl_C5_4xlarge,
+  InstanceTypeMl_C5_9xlarge,
+  InstanceTypeMl_C5_Xlarge,
+  InstanceTypeMl_C5d_18xlarge,
+  InstanceTypeMl_C5d_2xlarge,
+  InstanceTypeMl_C5d_4xlarge,
+  InstanceTypeMl_C5d_9xlarge,
+  InstanceTypeMl_C5d_Xlarge,
+  InstanceTypeMl_M4_10xlarge,
+  InstanceTypeMl_M4_16xlarge,
+  InstanceTypeMl_M4_2xlarge,
+  InstanceTypeMl_M4_4xlarge,
+  InstanceTypeMl_M4_Xlarge,
+  InstanceTypeMl_M5_12xlarge,
+  InstanceTypeMl_M5_24xlarge,
+  InstanceTypeMl_M5_2xlarge,
+  InstanceTypeMl_M5_4xlarge,
+  InstanceTypeMl_M5_Xlarge,
+  InstanceTypeMl_P2_16xlarge,
+  InstanceTypeMl_P2_8xlarge,
+  InstanceTypeMl_P2_Xlarge,
+  InstanceTypeMl_P3_16xlarge,
+  InstanceTypeMl_P3_2xlarge,
+  InstanceTypeMl_P3_8xlarge,
+  InstanceTypeMl_T2_2xlarge,
+  InstanceTypeMl_T2_Large,
+  InstanceTypeMl_T2_Medium,
+  InstanceTypeMl_T2_Xlarge,
+  InstanceTypeMl_T3_2xlarge,
+  InstanceTypeMl_T3_Large,
+  InstanceTypeMl_T3_Medium,
+  InstanceTypeMl_T3_Xlarge,
   InstanceType'
   #-}
 
-instance FromText InstanceType where
-  parser = (InstanceType' . mk) <$> takeText
+instance Prelude.FromText InstanceType where
+  parser = InstanceType' Prelude.<$> Prelude.takeText
 
-instance ToText InstanceType where
-  toText (InstanceType' ci) = original ci
+instance Prelude.ToText InstanceType where
+  toText (InstanceType' x) = x
 
-instance Hashable InstanceType
+instance Prelude.Hashable InstanceType
 
-instance NFData InstanceType
+instance Prelude.NFData InstanceType
 
-instance ToByteString InstanceType
+instance Prelude.ToByteString InstanceType
 
-instance ToQuery InstanceType
+instance Prelude.ToQuery InstanceType
 
-instance ToHeader InstanceType
+instance Prelude.ToHeader InstanceType
 
-instance ToJSON InstanceType where
-  toJSON = toJSONText
+instance Prelude.ToJSON InstanceType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON InstanceType where
-  parseJSON = parseJSONText "InstanceType"
+instance Prelude.FromJSON InstanceType where
+  parseJSON = Prelude.parseJSONText "InstanceType"

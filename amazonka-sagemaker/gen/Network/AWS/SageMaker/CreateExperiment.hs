@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,176 +21,210 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates an SageMaker /experiment/ . An experiment is a collection of /trials/ that are observed, compared and evaluated as a group. A trial is a set of steps, called /trial components/ , that produce a machine learning model.
+-- Creates an SageMaker /experiment/. An experiment is a collection of
+-- /trials/ that are observed, compared and evaluated as a group. A trial
+-- is a set of steps, called /trial components/, that produce a machine
+-- learning model.
 --
+-- The goal of an experiment is to determine the components that produce
+-- the best model. Multiple trials are performed, each one isolating and
+-- measuring the impact of a change to one or more inputs, while keeping
+-- the remaining inputs constant.
 --
--- The goal of an experiment is to determine the components that produce the best model. Multiple trials are performed, each one isolating and measuring the impact of a change to one or more inputs, while keeping the remaining inputs constant.
+-- When you use Amazon SageMaker Studio or the Amazon SageMaker Python SDK,
+-- all experiments, trials, and trial components are automatically tracked,
+-- logged, and indexed. When you use the AWS SDK for Python (Boto), you
+-- must use the logging APIs provided by the SDK.
 --
--- When you use Amazon SageMaker Studio or the Amazon SageMaker Python SDK, all experiments, trials, and trial components are automatically tracked, logged, and indexed. When you use the AWS SDK for Python (Boto), you must use the logging APIs provided by the SDK.
+-- You can add tags to experiments, trials, trial components and then use
+-- the Search API to search for the tags.
 --
--- You can add tags to experiments, trials, trial components and then use the 'Search' API to search for the tags.
+-- To add a description to an experiment, specify the optional
+-- @Description@ parameter. To add a description later, or to change the
+-- description, call the UpdateExperiment API.
 --
--- To add a description to an experiment, specify the optional @Description@ parameter. To add a description later, or to change the description, call the 'UpdateExperiment' API.
---
--- To get a list of all your experiments, call the 'ListExperiments' API. To view an experiment's properties, call the 'DescribeExperiment' API. To get a list of all the trials associated with an experiment, call the 'ListTrials' API. To create a trial call the 'CreateTrial' API.
+-- To get a list of all your experiments, call the ListExperiments API. To
+-- view an experiment\'s properties, call the DescribeExperiment API. To
+-- get a list of all the trials associated with an experiment, call the
+-- ListTrials API. To create a trial call the CreateTrial API.
 module Network.AWS.SageMaker.CreateExperiment
   ( -- * Creating a Request
-    createExperiment,
-    CreateExperiment,
+    CreateExperiment (..),
+    newCreateExperiment,
 
     -- * Request Lenses
-    ceeTags,
-    ceeDescription,
-    ceeDisplayName,
-    ceeExperimentName,
+    createExperiment_tags,
+    createExperiment_description,
+    createExperiment_displayName,
+    createExperiment_experimentName,
 
     -- * Destructuring the Response
-    createExperimentResponse,
-    CreateExperimentResponse,
+    CreateExperimentResponse (..),
+    newCreateExperimentResponse,
 
     -- * Response Lenses
-    cerersExperimentARN,
-    cerersResponseStatus,
+    createExperimentResponse_experimentArn,
+    createExperimentResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'createExperiment' smart constructor.
+-- | /See:/ 'newCreateExperiment' smart constructor.
 data CreateExperiment = CreateExperiment'
-  { _ceeTags ::
-      !(Maybe [Tag]),
-    _ceeDescription :: !(Maybe Text),
-    _ceeDisplayName :: !(Maybe Text),
-    _ceeExperimentName :: !Text
+  { -- | A list of tags to associate with the experiment. You can use Search API
+    -- to search on the tags.
+    tags :: Prelude.Maybe [Tag],
+    -- | The description of the experiment.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The name of the experiment as displayed. The name doesn\'t need to be
+    -- unique. If you don\'t specify @DisplayName@, the value in
+    -- @ExperimentName@ is displayed.
+    displayName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the experiment. The name must be unique in your AWS account
+    -- and is not case-sensitive.
+    experimentName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateExperiment' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateExperiment' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ceeTags' - A list of tags to associate with the experiment. You can use 'Search' API to search on the tags.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ceeDescription' - The description of the experiment.
+-- 'tags', 'createExperiment_tags' - A list of tags to associate with the experiment. You can use Search API
+-- to search on the tags.
 --
--- * 'ceeDisplayName' - The name of the experiment as displayed. The name doesn't need to be unique. If you don't specify @DisplayName@ , the value in @ExperimentName@ is displayed.
+-- 'description', 'createExperiment_description' - The description of the experiment.
 --
--- * 'ceeExperimentName' - The name of the experiment. The name must be unique in your AWS account and is not case-sensitive.
-createExperiment ::
-  -- | 'ceeExperimentName'
-  Text ->
+-- 'displayName', 'createExperiment_displayName' - The name of the experiment as displayed. The name doesn\'t need to be
+-- unique. If you don\'t specify @DisplayName@, the value in
+-- @ExperimentName@ is displayed.
+--
+-- 'experimentName', 'createExperiment_experimentName' - The name of the experiment. The name must be unique in your AWS account
+-- and is not case-sensitive.
+newCreateExperiment ::
+  -- | 'experimentName'
+  Prelude.Text ->
   CreateExperiment
-createExperiment pExperimentName_ =
+newCreateExperiment pExperimentName_ =
   CreateExperiment'
-    { _ceeTags = Nothing,
-      _ceeDescription = Nothing,
-      _ceeDisplayName = Nothing,
-      _ceeExperimentName = pExperimentName_
+    { tags = Prelude.Nothing,
+      description = Prelude.Nothing,
+      displayName = Prelude.Nothing,
+      experimentName = pExperimentName_
     }
 
--- | A list of tags to associate with the experiment. You can use 'Search' API to search on the tags.
-ceeTags :: Lens' CreateExperiment [Tag]
-ceeTags = lens _ceeTags (\s a -> s {_ceeTags = a}) . _Default . _Coerce
+-- | A list of tags to associate with the experiment. You can use Search API
+-- to search on the tags.
+createExperiment_tags :: Lens.Lens' CreateExperiment (Prelude.Maybe [Tag])
+createExperiment_tags = Lens.lens (\CreateExperiment' {tags} -> tags) (\s@CreateExperiment' {} a -> s {tags = a} :: CreateExperiment) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The description of the experiment.
-ceeDescription :: Lens' CreateExperiment (Maybe Text)
-ceeDescription = lens _ceeDescription (\s a -> s {_ceeDescription = a})
+createExperiment_description :: Lens.Lens' CreateExperiment (Prelude.Maybe Prelude.Text)
+createExperiment_description = Lens.lens (\CreateExperiment' {description} -> description) (\s@CreateExperiment' {} a -> s {description = a} :: CreateExperiment)
 
--- | The name of the experiment as displayed. The name doesn't need to be unique. If you don't specify @DisplayName@ , the value in @ExperimentName@ is displayed.
-ceeDisplayName :: Lens' CreateExperiment (Maybe Text)
-ceeDisplayName = lens _ceeDisplayName (\s a -> s {_ceeDisplayName = a})
+-- | The name of the experiment as displayed. The name doesn\'t need to be
+-- unique. If you don\'t specify @DisplayName@, the value in
+-- @ExperimentName@ is displayed.
+createExperiment_displayName :: Lens.Lens' CreateExperiment (Prelude.Maybe Prelude.Text)
+createExperiment_displayName = Lens.lens (\CreateExperiment' {displayName} -> displayName) (\s@CreateExperiment' {} a -> s {displayName = a} :: CreateExperiment)
 
--- | The name of the experiment. The name must be unique in your AWS account and is not case-sensitive.
-ceeExperimentName :: Lens' CreateExperiment Text
-ceeExperimentName = lens _ceeExperimentName (\s a -> s {_ceeExperimentName = a})
+-- | The name of the experiment. The name must be unique in your AWS account
+-- and is not case-sensitive.
+createExperiment_experimentName :: Lens.Lens' CreateExperiment Prelude.Text
+createExperiment_experimentName = Lens.lens (\CreateExperiment' {experimentName} -> experimentName) (\s@CreateExperiment' {} a -> s {experimentName = a} :: CreateExperiment)
 
-instance AWSRequest CreateExperiment where
+instance Prelude.AWSRequest CreateExperiment where
   type Rs CreateExperiment = CreateExperimentResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateExperimentResponse'
-            <$> (x .?> "ExperimentArn") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ExperimentArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateExperiment
+instance Prelude.Hashable CreateExperiment
 
-instance NFData CreateExperiment
+instance Prelude.NFData CreateExperiment
 
-instance ToHeaders CreateExperiment where
+instance Prelude.ToHeaders CreateExperiment where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.CreateExperiment" :: ByteString),
+              Prelude.=# ("SageMaker.CreateExperiment" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateExperiment where
+instance Prelude.ToJSON CreateExperiment where
   toJSON CreateExperiment' {..} =
-    object
-      ( catMaybes
-          [ ("Tags" .=) <$> _ceeTags,
-            ("Description" .=) <$> _ceeDescription,
-            ("DisplayName" .=) <$> _ceeDisplayName,
-            Just ("ExperimentName" .= _ceeExperimentName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Tags" Prelude..=) Prelude.<$> tags,
+            ("Description" Prelude..=) Prelude.<$> description,
+            ("DisplayName" Prelude..=) Prelude.<$> displayName,
+            Prelude.Just
+              ("ExperimentName" Prelude..= experimentName)
           ]
       )
 
-instance ToPath CreateExperiment where
-  toPath = const "/"
+instance Prelude.ToPath CreateExperiment where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateExperiment where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateExperiment where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createExperimentResponse' smart constructor.
+-- | /See:/ 'newCreateExperimentResponse' smart constructor.
 data CreateExperimentResponse = CreateExperimentResponse'
-  { _cerersExperimentARN ::
-      !(Maybe Text),
-    _cerersResponseStatus ::
-      !Int
+  { -- | The Amazon Resource Name (ARN) of the experiment.
+    experimentArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateExperimentResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateExperimentResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cerersExperimentARN' - The Amazon Resource Name (ARN) of the experiment.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cerersResponseStatus' - -- | The response status code.
-createExperimentResponse ::
-  -- | 'cerersResponseStatus'
-  Int ->
+-- 'experimentArn', 'createExperimentResponse_experimentArn' - The Amazon Resource Name (ARN) of the experiment.
+--
+-- 'httpStatus', 'createExperimentResponse_httpStatus' - The response's http status code.
+newCreateExperimentResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateExperimentResponse
-createExperimentResponse pResponseStatus_ =
+newCreateExperimentResponse pHttpStatus_ =
   CreateExperimentResponse'
-    { _cerersExperimentARN =
-        Nothing,
-      _cerersResponseStatus = pResponseStatus_
+    { experimentArn =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The Amazon Resource Name (ARN) of the experiment.
-cerersExperimentARN :: Lens' CreateExperimentResponse (Maybe Text)
-cerersExperimentARN = lens _cerersExperimentARN (\s a -> s {_cerersExperimentARN = a})
+createExperimentResponse_experimentArn :: Lens.Lens' CreateExperimentResponse (Prelude.Maybe Prelude.Text)
+createExperimentResponse_experimentArn = Lens.lens (\CreateExperimentResponse' {experimentArn} -> experimentArn) (\s@CreateExperimentResponse' {} a -> s {experimentArn = a} :: CreateExperimentResponse)
 
--- | -- | The response status code.
-cerersResponseStatus :: Lens' CreateExperimentResponse Int
-cerersResponseStatus = lens _cerersResponseStatus (\s a -> s {_cerersResponseStatus = a})
+-- | The response's http status code.
+createExperimentResponse_httpStatus :: Lens.Lens' CreateExperimentResponse Prelude.Int
+createExperimentResponse_httpStatus = Lens.lens (\CreateExperimentResponse' {httpStatus} -> httpStatus) (\s@CreateExperimentResponse' {} a -> s {httpStatus = a} :: CreateExperimentResponse)
 
-instance NFData CreateExperimentResponse
+instance Prelude.NFData CreateExperimentResponse

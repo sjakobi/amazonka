@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,100 +21,109 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Stops a running labeling job. A job that is stopped cannot be restarted. Any results obtained before the job is stopped are placed in the Amazon S3 output bucket.
+-- Stops a running labeling job. A job that is stopped cannot be restarted.
+-- Any results obtained before the job is stopped are placed in the Amazon
+-- S3 output bucket.
 module Network.AWS.SageMaker.StopLabelingJob
   ( -- * Creating a Request
-    stopLabelingJob,
-    StopLabelingJob,
+    StopLabelingJob (..),
+    newStopLabelingJob,
 
     -- * Request Lenses
-    sljLabelingJobName,
+    stopLabelingJob_labelingJobName,
 
     -- * Destructuring the Response
-    stopLabelingJobResponse,
-    StopLabelingJobResponse,
+    StopLabelingJobResponse (..),
+    newStopLabelingJobResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'stopLabelingJob' smart constructor.
-newtype StopLabelingJob = StopLabelingJob'
-  { _sljLabelingJobName ::
-      Text
+-- | /See:/ 'newStopLabelingJob' smart constructor.
+data StopLabelingJob = StopLabelingJob'
+  { -- | The name of the labeling job to stop.
+    labelingJobName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopLabelingJob' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopLabelingJob' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sljLabelingJobName' - The name of the labeling job to stop.
-stopLabelingJob ::
-  -- | 'sljLabelingJobName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'labelingJobName', 'stopLabelingJob_labelingJobName' - The name of the labeling job to stop.
+newStopLabelingJob ::
+  -- | 'labelingJobName'
+  Prelude.Text ->
   StopLabelingJob
-stopLabelingJob pLabelingJobName_ =
+newStopLabelingJob pLabelingJobName_ =
   StopLabelingJob'
-    { _sljLabelingJobName =
+    { labelingJobName =
         pLabelingJobName_
     }
 
 -- | The name of the labeling job to stop.
-sljLabelingJobName :: Lens' StopLabelingJob Text
-sljLabelingJobName = lens _sljLabelingJobName (\s a -> s {_sljLabelingJobName = a})
+stopLabelingJob_labelingJobName :: Lens.Lens' StopLabelingJob Prelude.Text
+stopLabelingJob_labelingJobName = Lens.lens (\StopLabelingJob' {labelingJobName} -> labelingJobName) (\s@StopLabelingJob' {} a -> s {labelingJobName = a} :: StopLabelingJob)
 
-instance AWSRequest StopLabelingJob where
+instance Prelude.AWSRequest StopLabelingJob where
   type Rs StopLabelingJob = StopLabelingJobResponse
-  request = postJSON sageMaker
-  response = receiveNull StopLabelingJobResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull StopLabelingJobResponse'
 
-instance Hashable StopLabelingJob
+instance Prelude.Hashable StopLabelingJob
 
-instance NFData StopLabelingJob
+instance Prelude.NFData StopLabelingJob
 
-instance ToHeaders StopLabelingJob where
+instance Prelude.ToHeaders StopLabelingJob where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.StopLabelingJob" :: ByteString),
+              Prelude.=# ("SageMaker.StopLabelingJob" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StopLabelingJob where
+instance Prelude.ToJSON StopLabelingJob where
   toJSON StopLabelingJob' {..} =
-    object
-      ( catMaybes
-          [Just ("LabelingJobName" .= _sljLabelingJobName)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("LabelingJobName" Prelude..= labelingJobName)
+          ]
       )
 
-instance ToPath StopLabelingJob where
-  toPath = const "/"
+instance Prelude.ToPath StopLabelingJob where
+  toPath = Prelude.const "/"
 
-instance ToQuery StopLabelingJob where
-  toQuery = const mempty
+instance Prelude.ToQuery StopLabelingJob where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'stopLabelingJobResponse' smart constructor.
+-- | /See:/ 'newStopLabelingJobResponse' smart constructor.
 data StopLabelingJobResponse = StopLabelingJobResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopLabelingJobResponse' with the minimum fields required to make a request.
-stopLabelingJobResponse ::
+-- |
+-- Create a value of 'StopLabelingJobResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newStopLabelingJobResponse ::
   StopLabelingJobResponse
-stopLabelingJobResponse = StopLabelingJobResponse'
+newStopLabelingJobResponse = StopLabelingJobResponse'
 
-instance NFData StopLabelingJobResponse
+instance Prelude.NFData StopLabelingJobResponse

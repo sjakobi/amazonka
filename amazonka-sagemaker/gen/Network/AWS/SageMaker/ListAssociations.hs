@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,259 +23,310 @@
 --
 -- Lists the associations in your account and their properties.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.SageMaker.ListAssociations
   ( -- * Creating a Request
-    listAssociations,
-    ListAssociations,
+    ListAssociations (..),
+    newListAssociations,
 
     -- * Request Lenses
-    llCreatedAfter,
-    llSortOrder,
-    llNextToken,
-    llDestinationType,
-    llCreatedBefore,
-    llDestinationARN,
-    llMaxResults,
-    llSortBy,
-    llAssociationType,
-    llSourceARN,
-    llSourceType,
+    listAssociations_createdAfter,
+    listAssociations_sortOrder,
+    listAssociations_nextToken,
+    listAssociations_destinationType,
+    listAssociations_createdBefore,
+    listAssociations_destinationArn,
+    listAssociations_maxResults,
+    listAssociations_sortBy,
+    listAssociations_associationType,
+    listAssociations_sourceArn,
+    listAssociations_sourceType,
 
     -- * Destructuring the Response
-    listAssociationsResponse,
-    ListAssociationsResponse,
+    ListAssociationsResponse (..),
+    newListAssociationsResponse,
 
     -- * Response Lenses
-    lisirsNextToken,
-    lisirsAssociationSummaries,
-    lisirsResponseStatus,
+    listAssociationsResponse_nextToken,
+    listAssociationsResponse_associationSummaries,
+    listAssociationsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
+import Network.AWS.SageMaker.Types.AssociationSummary
 
--- | /See:/ 'listAssociations' smart constructor.
+-- | /See:/ 'newListAssociations' smart constructor.
 data ListAssociations = ListAssociations'
-  { _llCreatedAfter ::
-      !(Maybe POSIX),
-    _llSortOrder :: !(Maybe SortOrder),
-    _llNextToken :: !(Maybe Text),
-    _llDestinationType :: !(Maybe Text),
-    _llCreatedBefore :: !(Maybe POSIX),
-    _llDestinationARN :: !(Maybe Text),
-    _llMaxResults :: !(Maybe Nat),
-    _llSortBy ::
-      !(Maybe SortAssociationsBy),
-    _llAssociationType ::
-      !(Maybe AssociationEdgeType),
-    _llSourceARN :: !(Maybe Text),
-    _llSourceType :: !(Maybe Text)
+  { -- | A filter that returns only associations created on or after the
+    -- specified time.
+    createdAfter :: Prelude.Maybe Prelude.POSIX,
+    -- | The sort order. The default value is @Descending@.
+    sortOrder :: Prelude.Maybe SortOrder,
+    -- | If the previous call to @ListAssociations@ didn\'t return the full set
+    -- of associations, the call returns a token for getting the next set of
+    -- associations.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A filter that returns only associations with the specified destination
+    -- type.
+    destinationType :: Prelude.Maybe Prelude.Text,
+    -- | A filter that returns only associations created on or before the
+    -- specified time.
+    createdBefore :: Prelude.Maybe Prelude.POSIX,
+    -- | A filter that returns only associations with the specified destination
+    -- Amazon Resource Name (ARN).
+    destinationArn :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of associations to return in the response. The
+    -- default value is 10.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The property used to sort results. The default value is @CreationTime@.
+    sortBy :: Prelude.Maybe SortAssociationsBy,
+    -- | A filter that returns only associations of the specified type.
+    associationType :: Prelude.Maybe AssociationEdgeType,
+    -- | A filter that returns only associations with the specified source ARN.
+    sourceArn :: Prelude.Maybe Prelude.Text,
+    -- | A filter that returns only associations with the specified source type.
+    sourceType :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListAssociations' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListAssociations' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'llCreatedAfter' - A filter that returns only associations created on or after the specified time.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'llSortOrder' - The sort order. The default value is @Descending@ .
+-- 'createdAfter', 'listAssociations_createdAfter' - A filter that returns only associations created on or after the
+-- specified time.
 --
--- * 'llNextToken' - If the previous call to @ListAssociations@ didn't return the full set of associations, the call returns a token for getting the next set of associations.
+-- 'sortOrder', 'listAssociations_sortOrder' - The sort order. The default value is @Descending@.
 --
--- * 'llDestinationType' - A filter that returns only associations with the specified destination type.
+-- 'nextToken', 'listAssociations_nextToken' - If the previous call to @ListAssociations@ didn\'t return the full set
+-- of associations, the call returns a token for getting the next set of
+-- associations.
 --
--- * 'llCreatedBefore' - A filter that returns only associations created on or before the specified time.
+-- 'destinationType', 'listAssociations_destinationType' - A filter that returns only associations with the specified destination
+-- type.
 --
--- * 'llDestinationARN' - A filter that returns only associations with the specified destination Amazon Resource Name (ARN).
+-- 'createdBefore', 'listAssociations_createdBefore' - A filter that returns only associations created on or before the
+-- specified time.
 --
--- * 'llMaxResults' - The maximum number of associations to return in the response. The default value is 10.
+-- 'destinationArn', 'listAssociations_destinationArn' - A filter that returns only associations with the specified destination
+-- Amazon Resource Name (ARN).
 --
--- * 'llSortBy' - The property used to sort results. The default value is @CreationTime@ .
+-- 'maxResults', 'listAssociations_maxResults' - The maximum number of associations to return in the response. The
+-- default value is 10.
 --
--- * 'llAssociationType' - A filter that returns only associations of the specified type.
+-- 'sortBy', 'listAssociations_sortBy' - The property used to sort results. The default value is @CreationTime@.
 --
--- * 'llSourceARN' - A filter that returns only associations with the specified source ARN.
+-- 'associationType', 'listAssociations_associationType' - A filter that returns only associations of the specified type.
 --
--- * 'llSourceType' - A filter that returns only associations with the specified source type.
-listAssociations ::
+-- 'sourceArn', 'listAssociations_sourceArn' - A filter that returns only associations with the specified source ARN.
+--
+-- 'sourceType', 'listAssociations_sourceType' - A filter that returns only associations with the specified source type.
+newListAssociations ::
   ListAssociations
-listAssociations =
+newListAssociations =
   ListAssociations'
-    { _llCreatedAfter = Nothing,
-      _llSortOrder = Nothing,
-      _llNextToken = Nothing,
-      _llDestinationType = Nothing,
-      _llCreatedBefore = Nothing,
-      _llDestinationARN = Nothing,
-      _llMaxResults = Nothing,
-      _llSortBy = Nothing,
-      _llAssociationType = Nothing,
-      _llSourceARN = Nothing,
-      _llSourceType = Nothing
+    { createdAfter = Prelude.Nothing,
+      sortOrder = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      destinationType = Prelude.Nothing,
+      createdBefore = Prelude.Nothing,
+      destinationArn = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      sortBy = Prelude.Nothing,
+      associationType = Prelude.Nothing,
+      sourceArn = Prelude.Nothing,
+      sourceType = Prelude.Nothing
     }
 
--- | A filter that returns only associations created on or after the specified time.
-llCreatedAfter :: Lens' ListAssociations (Maybe UTCTime)
-llCreatedAfter = lens _llCreatedAfter (\s a -> s {_llCreatedAfter = a}) . mapping _Time
+-- | A filter that returns only associations created on or after the
+-- specified time.
+listAssociations_createdAfter :: Lens.Lens' ListAssociations (Prelude.Maybe Prelude.UTCTime)
+listAssociations_createdAfter = Lens.lens (\ListAssociations' {createdAfter} -> createdAfter) (\s@ListAssociations' {} a -> s {createdAfter = a} :: ListAssociations) Prelude.. Lens.mapping Prelude._Time
 
--- | The sort order. The default value is @Descending@ .
-llSortOrder :: Lens' ListAssociations (Maybe SortOrder)
-llSortOrder = lens _llSortOrder (\s a -> s {_llSortOrder = a})
+-- | The sort order. The default value is @Descending@.
+listAssociations_sortOrder :: Lens.Lens' ListAssociations (Prelude.Maybe SortOrder)
+listAssociations_sortOrder = Lens.lens (\ListAssociations' {sortOrder} -> sortOrder) (\s@ListAssociations' {} a -> s {sortOrder = a} :: ListAssociations)
 
--- | If the previous call to @ListAssociations@ didn't return the full set of associations, the call returns a token for getting the next set of associations.
-llNextToken :: Lens' ListAssociations (Maybe Text)
-llNextToken = lens _llNextToken (\s a -> s {_llNextToken = a})
+-- | If the previous call to @ListAssociations@ didn\'t return the full set
+-- of associations, the call returns a token for getting the next set of
+-- associations.
+listAssociations_nextToken :: Lens.Lens' ListAssociations (Prelude.Maybe Prelude.Text)
+listAssociations_nextToken = Lens.lens (\ListAssociations' {nextToken} -> nextToken) (\s@ListAssociations' {} a -> s {nextToken = a} :: ListAssociations)
 
--- | A filter that returns only associations with the specified destination type.
-llDestinationType :: Lens' ListAssociations (Maybe Text)
-llDestinationType = lens _llDestinationType (\s a -> s {_llDestinationType = a})
+-- | A filter that returns only associations with the specified destination
+-- type.
+listAssociations_destinationType :: Lens.Lens' ListAssociations (Prelude.Maybe Prelude.Text)
+listAssociations_destinationType = Lens.lens (\ListAssociations' {destinationType} -> destinationType) (\s@ListAssociations' {} a -> s {destinationType = a} :: ListAssociations)
 
--- | A filter that returns only associations created on or before the specified time.
-llCreatedBefore :: Lens' ListAssociations (Maybe UTCTime)
-llCreatedBefore = lens _llCreatedBefore (\s a -> s {_llCreatedBefore = a}) . mapping _Time
+-- | A filter that returns only associations created on or before the
+-- specified time.
+listAssociations_createdBefore :: Lens.Lens' ListAssociations (Prelude.Maybe Prelude.UTCTime)
+listAssociations_createdBefore = Lens.lens (\ListAssociations' {createdBefore} -> createdBefore) (\s@ListAssociations' {} a -> s {createdBefore = a} :: ListAssociations) Prelude.. Lens.mapping Prelude._Time
 
--- | A filter that returns only associations with the specified destination Amazon Resource Name (ARN).
-llDestinationARN :: Lens' ListAssociations (Maybe Text)
-llDestinationARN = lens _llDestinationARN (\s a -> s {_llDestinationARN = a})
+-- | A filter that returns only associations with the specified destination
+-- Amazon Resource Name (ARN).
+listAssociations_destinationArn :: Lens.Lens' ListAssociations (Prelude.Maybe Prelude.Text)
+listAssociations_destinationArn = Lens.lens (\ListAssociations' {destinationArn} -> destinationArn) (\s@ListAssociations' {} a -> s {destinationArn = a} :: ListAssociations)
 
--- | The maximum number of associations to return in the response. The default value is 10.
-llMaxResults :: Lens' ListAssociations (Maybe Natural)
-llMaxResults = lens _llMaxResults (\s a -> s {_llMaxResults = a}) . mapping _Nat
+-- | The maximum number of associations to return in the response. The
+-- default value is 10.
+listAssociations_maxResults :: Lens.Lens' ListAssociations (Prelude.Maybe Prelude.Natural)
+listAssociations_maxResults = Lens.lens (\ListAssociations' {maxResults} -> maxResults) (\s@ListAssociations' {} a -> s {maxResults = a} :: ListAssociations) Prelude.. Lens.mapping Prelude._Nat
 
--- | The property used to sort results. The default value is @CreationTime@ .
-llSortBy :: Lens' ListAssociations (Maybe SortAssociationsBy)
-llSortBy = lens _llSortBy (\s a -> s {_llSortBy = a})
+-- | The property used to sort results. The default value is @CreationTime@.
+listAssociations_sortBy :: Lens.Lens' ListAssociations (Prelude.Maybe SortAssociationsBy)
+listAssociations_sortBy = Lens.lens (\ListAssociations' {sortBy} -> sortBy) (\s@ListAssociations' {} a -> s {sortBy = a} :: ListAssociations)
 
 -- | A filter that returns only associations of the specified type.
-llAssociationType :: Lens' ListAssociations (Maybe AssociationEdgeType)
-llAssociationType = lens _llAssociationType (\s a -> s {_llAssociationType = a})
+listAssociations_associationType :: Lens.Lens' ListAssociations (Prelude.Maybe AssociationEdgeType)
+listAssociations_associationType = Lens.lens (\ListAssociations' {associationType} -> associationType) (\s@ListAssociations' {} a -> s {associationType = a} :: ListAssociations)
 
 -- | A filter that returns only associations with the specified source ARN.
-llSourceARN :: Lens' ListAssociations (Maybe Text)
-llSourceARN = lens _llSourceARN (\s a -> s {_llSourceARN = a})
+listAssociations_sourceArn :: Lens.Lens' ListAssociations (Prelude.Maybe Prelude.Text)
+listAssociations_sourceArn = Lens.lens (\ListAssociations' {sourceArn} -> sourceArn) (\s@ListAssociations' {} a -> s {sourceArn = a} :: ListAssociations)
 
 -- | A filter that returns only associations with the specified source type.
-llSourceType :: Lens' ListAssociations (Maybe Text)
-llSourceType = lens _llSourceType (\s a -> s {_llSourceType = a})
+listAssociations_sourceType :: Lens.Lens' ListAssociations (Prelude.Maybe Prelude.Text)
+listAssociations_sourceType = Lens.lens (\ListAssociations' {sourceType} -> sourceType) (\s@ListAssociations' {} a -> s {sourceType = a} :: ListAssociations)
 
-instance AWSPager ListAssociations where
+instance Pager.AWSPager ListAssociations where
   page rq rs
-    | stop (rs ^. lisirsNextToken) = Nothing
-    | stop (rs ^. lisirsAssociationSummaries) = Nothing
-    | otherwise =
-      Just $ rq & llNextToken .~ rs ^. lisirsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listAssociationsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listAssociationsResponse_associationSummaries
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listAssociations_nextToken
+          Lens..~ rs
+          Lens.^? listAssociationsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListAssociations where
+instance Prelude.AWSRequest ListAssociations where
   type Rs ListAssociations = ListAssociationsResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListAssociationsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "AssociationSummaries" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "AssociationSummaries"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListAssociations
+instance Prelude.Hashable ListAssociations
 
-instance NFData ListAssociations
+instance Prelude.NFData ListAssociations
 
-instance ToHeaders ListAssociations where
+instance Prelude.ToHeaders ListAssociations where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.ListAssociations" :: ByteString),
+              Prelude.=# ("SageMaker.ListAssociations" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListAssociations where
+instance Prelude.ToJSON ListAssociations where
   toJSON ListAssociations' {..} =
-    object
-      ( catMaybes
-          [ ("CreatedAfter" .=) <$> _llCreatedAfter,
-            ("SortOrder" .=) <$> _llSortOrder,
-            ("NextToken" .=) <$> _llNextToken,
-            ("DestinationType" .=) <$> _llDestinationType,
-            ("CreatedBefore" .=) <$> _llCreatedBefore,
-            ("DestinationArn" .=) <$> _llDestinationARN,
-            ("MaxResults" .=) <$> _llMaxResults,
-            ("SortBy" .=) <$> _llSortBy,
-            ("AssociationType" .=) <$> _llAssociationType,
-            ("SourceArn" .=) <$> _llSourceARN,
-            ("SourceType" .=) <$> _llSourceType
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("CreatedAfter" Prelude..=)
+              Prelude.<$> createdAfter,
+            ("SortOrder" Prelude..=) Prelude.<$> sortOrder,
+            ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("DestinationType" Prelude..=)
+              Prelude.<$> destinationType,
+            ("CreatedBefore" Prelude..=)
+              Prelude.<$> createdBefore,
+            ("DestinationArn" Prelude..=)
+              Prelude.<$> destinationArn,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("SortBy" Prelude..=) Prelude.<$> sortBy,
+            ("AssociationType" Prelude..=)
+              Prelude.<$> associationType,
+            ("SourceArn" Prelude..=) Prelude.<$> sourceArn,
+            ("SourceType" Prelude..=) Prelude.<$> sourceType
           ]
       )
 
-instance ToPath ListAssociations where
-  toPath = const "/"
+instance Prelude.ToPath ListAssociations where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListAssociations where
-  toQuery = const mempty
+instance Prelude.ToQuery ListAssociations where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listAssociationsResponse' smart constructor.
+-- | /See:/ 'newListAssociationsResponse' smart constructor.
 data ListAssociationsResponse = ListAssociationsResponse'
-  { _lisirsNextToken ::
-      !(Maybe Text),
-    _lisirsAssociationSummaries ::
-      !( Maybe
-           [AssociationSummary]
-       ),
-    _lisirsResponseStatus ::
-      !Int
+  { -- | A token for getting the next set of associations, if there are any.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of associations and their properties.
+    associationSummaries :: Prelude.Maybe [AssociationSummary],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListAssociationsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListAssociationsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lisirsNextToken' - A token for getting the next set of associations, if there are any.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lisirsAssociationSummaries' - A list of associations and their properties.
+-- 'nextToken', 'listAssociationsResponse_nextToken' - A token for getting the next set of associations, if there are any.
 --
--- * 'lisirsResponseStatus' - -- | The response status code.
-listAssociationsResponse ::
-  -- | 'lisirsResponseStatus'
-  Int ->
+-- 'associationSummaries', 'listAssociationsResponse_associationSummaries' - A list of associations and their properties.
+--
+-- 'httpStatus', 'listAssociationsResponse_httpStatus' - The response's http status code.
+newListAssociationsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListAssociationsResponse
-listAssociationsResponse pResponseStatus_ =
+newListAssociationsResponse pHttpStatus_ =
   ListAssociationsResponse'
-    { _lisirsNextToken =
-        Nothing,
-      _lisirsAssociationSummaries = Nothing,
-      _lisirsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      associationSummaries = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A token for getting the next set of associations, if there are any.
-lisirsNextToken :: Lens' ListAssociationsResponse (Maybe Text)
-lisirsNextToken = lens _lisirsNextToken (\s a -> s {_lisirsNextToken = a})
+listAssociationsResponse_nextToken :: Lens.Lens' ListAssociationsResponse (Prelude.Maybe Prelude.Text)
+listAssociationsResponse_nextToken = Lens.lens (\ListAssociationsResponse' {nextToken} -> nextToken) (\s@ListAssociationsResponse' {} a -> s {nextToken = a} :: ListAssociationsResponse)
 
 -- | A list of associations and their properties.
-lisirsAssociationSummaries :: Lens' ListAssociationsResponse [AssociationSummary]
-lisirsAssociationSummaries = lens _lisirsAssociationSummaries (\s a -> s {_lisirsAssociationSummaries = a}) . _Default . _Coerce
+listAssociationsResponse_associationSummaries :: Lens.Lens' ListAssociationsResponse (Prelude.Maybe [AssociationSummary])
+listAssociationsResponse_associationSummaries = Lens.lens (\ListAssociationsResponse' {associationSummaries} -> associationSummaries) (\s@ListAssociationsResponse' {} a -> s {associationSummaries = a} :: ListAssociationsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lisirsResponseStatus :: Lens' ListAssociationsResponse Int
-lisirsResponseStatus = lens _lisirsResponseStatus (\s a -> s {_lisirsResponseStatus = a})
+-- | The response's http status code.
+listAssociationsResponse_httpStatus :: Lens.Lens' ListAssociationsResponse Prelude.Int
+listAssociationsResponse_httpStatus = Lens.lens (\ListAssociationsResponse' {httpStatus} -> httpStatus) (\s@ListAssociationsResponse' {} a -> s {httpStatus = a} :: ListAssociationsResponse)
 
-instance NFData ListAssociationsResponse
+instance Prelude.NFData ListAssociationsResponse

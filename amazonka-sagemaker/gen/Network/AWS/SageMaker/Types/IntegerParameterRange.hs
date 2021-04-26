@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,99 +19,151 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.IntegerParameterRange where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.HyperParameterScalingType
 
--- | For a hyperparameter of the integer type, specifies the range that a hyperparameter tuning job searches.
+-- | For a hyperparameter of the integer type, specifies the range that a
+-- hyperparameter tuning job searches.
 --
---
---
--- /See:/ 'integerParameterRange' smart constructor.
+-- /See:/ 'newIntegerParameterRange' smart constructor.
 data IntegerParameterRange = IntegerParameterRange'
-  { _iprScalingType ::
-      !( Maybe
-           HyperParameterScalingType
-       ),
-    _iprName :: !Text,
-    _iprMinValue :: !Text,
-    _iprMaxValue :: !Text
+  { -- | The scale that hyperparameter tuning uses to search the hyperparameter
+    -- range. For information about choosing a hyperparameter scale, see
+    -- <https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-define-ranges.html#scaling-type Hyperparameter Scaling>.
+    -- One of the following values:
+    --
+    -- [Auto]
+    --     Amazon SageMaker hyperparameter tuning chooses the best scale for
+    --     the hyperparameter.
+    --
+    -- [Linear]
+    --     Hyperparameter tuning searches the values in the hyperparameter
+    --     range by using a linear scale.
+    --
+    -- [Logarithmic]
+    --     Hyperparameter tuning searches the values in the hyperparameter
+    --     range by using a logarithmic scale.
+    --
+    --     Logarithmic scaling works only for ranges that have only values
+    --     greater than 0.
+    scalingType :: Prelude.Maybe HyperParameterScalingType,
+    -- | The name of the hyperparameter to search.
+    name :: Prelude.Text,
+    -- | The minimum value of the hyperparameter to search.
+    minValue :: Prelude.Text,
+    -- | The maximum value of the hyperparameter to search.
+    maxValue :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'IntegerParameterRange' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'IntegerParameterRange' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'iprScalingType' - The scale that hyperparameter tuning uses to search the hyperparameter range. For information about choosing a hyperparameter scale, see <https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-define-ranges.html#scaling-type Hyperparameter Scaling> . One of the following values:     * Auto    * Amazon SageMaker hyperparameter tuning chooses the best scale for the hyperparameter.     * Linear    * Hyperparameter tuning searches the values in the hyperparameter range by using a linear scale.     * Logarithmic    * Hyperparameter tuning searches the values in the hyperparameter range by using a logarithmic scale. Logarithmic scaling works only for ranges that have only values greater than 0.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'iprName' - The name of the hyperparameter to search.
+-- 'scalingType', 'integerParameterRange_scalingType' - The scale that hyperparameter tuning uses to search the hyperparameter
+-- range. For information about choosing a hyperparameter scale, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-define-ranges.html#scaling-type Hyperparameter Scaling>.
+-- One of the following values:
 --
--- * 'iprMinValue' - The minimum value of the hyperparameter to search.
+-- [Auto]
+--     Amazon SageMaker hyperparameter tuning chooses the best scale for
+--     the hyperparameter.
 --
--- * 'iprMaxValue' - The maximum value of the hyperparameter to search.
-integerParameterRange ::
-  -- | 'iprName'
-  Text ->
-  -- | 'iprMinValue'
-  Text ->
-  -- | 'iprMaxValue'
-  Text ->
+-- [Linear]
+--     Hyperparameter tuning searches the values in the hyperparameter
+--     range by using a linear scale.
+--
+-- [Logarithmic]
+--     Hyperparameter tuning searches the values in the hyperparameter
+--     range by using a logarithmic scale.
+--
+--     Logarithmic scaling works only for ranges that have only values
+--     greater than 0.
+--
+-- 'name', 'integerParameterRange_name' - The name of the hyperparameter to search.
+--
+-- 'minValue', 'integerParameterRange_minValue' - The minimum value of the hyperparameter to search.
+--
+-- 'maxValue', 'integerParameterRange_maxValue' - The maximum value of the hyperparameter to search.
+newIntegerParameterRange ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'minValue'
+  Prelude.Text ->
+  -- | 'maxValue'
+  Prelude.Text ->
   IntegerParameterRange
-integerParameterRange pName_ pMinValue_ pMaxValue_ =
+newIntegerParameterRange pName_ pMinValue_ pMaxValue_ =
   IntegerParameterRange'
-    { _iprScalingType = Nothing,
-      _iprName = pName_,
-      _iprMinValue = pMinValue_,
-      _iprMaxValue = pMaxValue_
+    { scalingType =
+        Prelude.Nothing,
+      name = pName_,
+      minValue = pMinValue_,
+      maxValue = pMaxValue_
     }
 
--- | The scale that hyperparameter tuning uses to search the hyperparameter range. For information about choosing a hyperparameter scale, see <https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-define-ranges.html#scaling-type Hyperparameter Scaling> . One of the following values:     * Auto    * Amazon SageMaker hyperparameter tuning chooses the best scale for the hyperparameter.     * Linear    * Hyperparameter tuning searches the values in the hyperparameter range by using a linear scale.     * Logarithmic    * Hyperparameter tuning searches the values in the hyperparameter range by using a logarithmic scale. Logarithmic scaling works only for ranges that have only values greater than 0.
-iprScalingType :: Lens' IntegerParameterRange (Maybe HyperParameterScalingType)
-iprScalingType = lens _iprScalingType (\s a -> s {_iprScalingType = a})
+-- | The scale that hyperparameter tuning uses to search the hyperparameter
+-- range. For information about choosing a hyperparameter scale, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-define-ranges.html#scaling-type Hyperparameter Scaling>.
+-- One of the following values:
+--
+-- [Auto]
+--     Amazon SageMaker hyperparameter tuning chooses the best scale for
+--     the hyperparameter.
+--
+-- [Linear]
+--     Hyperparameter tuning searches the values in the hyperparameter
+--     range by using a linear scale.
+--
+-- [Logarithmic]
+--     Hyperparameter tuning searches the values in the hyperparameter
+--     range by using a logarithmic scale.
+--
+--     Logarithmic scaling works only for ranges that have only values
+--     greater than 0.
+integerParameterRange_scalingType :: Lens.Lens' IntegerParameterRange (Prelude.Maybe HyperParameterScalingType)
+integerParameterRange_scalingType = Lens.lens (\IntegerParameterRange' {scalingType} -> scalingType) (\s@IntegerParameterRange' {} a -> s {scalingType = a} :: IntegerParameterRange)
 
 -- | The name of the hyperparameter to search.
-iprName :: Lens' IntegerParameterRange Text
-iprName = lens _iprName (\s a -> s {_iprName = a})
+integerParameterRange_name :: Lens.Lens' IntegerParameterRange Prelude.Text
+integerParameterRange_name = Lens.lens (\IntegerParameterRange' {name} -> name) (\s@IntegerParameterRange' {} a -> s {name = a} :: IntegerParameterRange)
 
 -- | The minimum value of the hyperparameter to search.
-iprMinValue :: Lens' IntegerParameterRange Text
-iprMinValue = lens _iprMinValue (\s a -> s {_iprMinValue = a})
+integerParameterRange_minValue :: Lens.Lens' IntegerParameterRange Prelude.Text
+integerParameterRange_minValue = Lens.lens (\IntegerParameterRange' {minValue} -> minValue) (\s@IntegerParameterRange' {} a -> s {minValue = a} :: IntegerParameterRange)
 
 -- | The maximum value of the hyperparameter to search.
-iprMaxValue :: Lens' IntegerParameterRange Text
-iprMaxValue = lens _iprMaxValue (\s a -> s {_iprMaxValue = a})
+integerParameterRange_maxValue :: Lens.Lens' IntegerParameterRange Prelude.Text
+integerParameterRange_maxValue = Lens.lens (\IntegerParameterRange' {maxValue} -> maxValue) (\s@IntegerParameterRange' {} a -> s {maxValue = a} :: IntegerParameterRange)
 
-instance FromJSON IntegerParameterRange where
+instance Prelude.FromJSON IntegerParameterRange where
   parseJSON =
-    withObject
+    Prelude.withObject
       "IntegerParameterRange"
       ( \x ->
           IntegerParameterRange'
-            <$> (x .:? "ScalingType")
-            <*> (x .: "Name")
-            <*> (x .: "MinValue")
-            <*> (x .: "MaxValue")
+            Prelude.<$> (x Prelude..:? "ScalingType")
+            Prelude.<*> (x Prelude..: "Name")
+            Prelude.<*> (x Prelude..: "MinValue")
+            Prelude.<*> (x Prelude..: "MaxValue")
       )
 
-instance Hashable IntegerParameterRange
+instance Prelude.Hashable IntegerParameterRange
 
-instance NFData IntegerParameterRange
+instance Prelude.NFData IntegerParameterRange
 
-instance ToJSON IntegerParameterRange where
+instance Prelude.ToJSON IntegerParameterRange where
   toJSON IntegerParameterRange' {..} =
-    object
-      ( catMaybes
-          [ ("ScalingType" .=) <$> _iprScalingType,
-            Just ("Name" .= _iprName),
-            Just ("MinValue" .= _iprMinValue),
-            Just ("MaxValue" .= _iprMaxValue)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ScalingType" Prelude..=) Prelude.<$> scalingType,
+            Prelude.Just ("Name" Prelude..= name),
+            Prelude.Just ("MinValue" Prelude..= minValue),
+            Prelude.Just ("MaxValue" Prelude..= maxValue)
           ]
       )

@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,16 +14,13 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types
   ( -- * Service Configuration
-    sageMaker,
+    defaultService,
 
     -- * Errors
     _ResourceInUse,
     _ResourceLimitExceeded,
     _ConflictException,
     _ResourceNotFound,
-
-    -- * AWSManagedHumanLoopRequestSource
-    AWSManagedHumanLoopRequestSource (..),
 
     -- * ActionStatus
     ActionStatus (..),
@@ -87,6 +87,9 @@ module Network.AWS.SageMaker.Types
 
     -- * AutoMLSortOrder
     AutoMLSortOrder (..),
+
+    -- * AwsManagedHumanLoopRequestSource
+    AwsManagedHumanLoopRequestSource (..),
 
     -- * BatchStrategy
     BatchStrategy (..),
@@ -472,8 +475,8 @@ module Network.AWS.SageMaker.Types
     -- * TargetPlatformArch
     TargetPlatformArch (..),
 
-    -- * TargetPlatformOS
-    TargetPlatformOS (..),
+    -- * TargetPlatformOs
+    TargetPlatformOs (..),
 
     -- * TrafficRoutingConfigType
     TrafficRoutingConfigType (..),
@@ -513,2543 +516,1260 @@ module Network.AWS.SageMaker.Types
 
     -- * ActionSource
     ActionSource (..),
-    actionSource,
-    aSourceId,
-    aSourceType,
-    aSourceURI,
+    newActionSource,
 
     -- * ActionSummary
     ActionSummary (..),
-    actionSummary,
-    actStatus,
-    actCreationTime,
-    actActionName,
-    actActionType,
-    actActionARN,
-    actSource,
-    actLastModifiedTime,
+    newActionSummary,
 
     -- * AgentVersion
     AgentVersion (..),
-    agentVersion,
-    avVersion,
-    avAgentCount,
+    newAgentVersion,
 
     -- * Alarm
     Alarm (..),
-    alarm,
-    aAlarmName,
+    newAlarm,
 
     -- * AlgorithmSpecification
     AlgorithmSpecification (..),
-    algorithmSpecification,
-    asTrainingImage,
-    asEnableSageMakerMetricsTimeSeries,
-    asMetricDefinitions,
-    asAlgorithmName,
-    asTrainingInputMode,
+    newAlgorithmSpecification,
 
     -- * AlgorithmStatusDetails
     AlgorithmStatusDetails (..),
-    algorithmStatusDetails,
-    asdValidationStatuses,
-    asdImageScanStatuses,
+    newAlgorithmStatusDetails,
 
     -- * AlgorithmStatusItem
     AlgorithmStatusItem (..),
-    algorithmStatusItem,
-    asiFailureReason,
-    asiName,
-    asiStatus,
+    newAlgorithmStatusItem,
 
     -- * AlgorithmSummary
     AlgorithmSummary (..),
-    algorithmSummary,
-    aAlgorithmDescription,
-    aAlgorithmName,
-    aAlgorithmARN,
-    aCreationTime,
-    aAlgorithmStatus,
+    newAlgorithmSummary,
 
     -- * AlgorithmValidationProfile
     AlgorithmValidationProfile (..),
-    algorithmValidationProfile,
-    avpTransformJobDefinition,
-    avpProfileName,
-    avpTrainingJobDefinition,
+    newAlgorithmValidationProfile,
 
     -- * AlgorithmValidationSpecification
     AlgorithmValidationSpecification (..),
-    algorithmValidationSpecification,
-    avsValidationRole,
-    avsValidationProfiles,
+    newAlgorithmValidationSpecification,
 
     -- * AnnotationConsolidationConfig
     AnnotationConsolidationConfig (..),
-    annotationConsolidationConfig,
-    accAnnotationConsolidationLambdaARN,
+    newAnnotationConsolidationConfig,
 
     -- * AppDetails
     AppDetails (..),
-    appDetails,
-    adStatus,
-    adCreationTime,
-    adAppType,
-    adAppName,
-    adUserProfileName,
-    adDomainId,
+    newAppDetails,
 
     -- * AppImageConfigDetails
     AppImageConfigDetails (..),
-    appImageConfigDetails,
-    aicdCreationTime,
-    aicdAppImageConfigARN,
-    aicdKernelGatewayImageConfig,
-    aicdAppImageConfigName,
-    aicdLastModifiedTime,
+    newAppImageConfigDetails,
 
     -- * AppSpecification
     AppSpecification (..),
-    appSpecification,
-    asContainerArguments,
-    asContainerEntrypoint,
-    asImageURI,
+    newAppSpecification,
 
     -- * ArtifactSource
     ArtifactSource (..),
-    artifactSource,
-    asSourceTypes,
-    asSourceURI,
+    newArtifactSource,
 
     -- * ArtifactSourceType
     ArtifactSourceType (..),
-    artifactSourceType,
-    astSourceIdType,
-    astValue,
+    newArtifactSourceType,
 
     -- * ArtifactSummary
     ArtifactSummary (..),
-    artifactSummary,
-    asCreationTime,
-    asArtifactName,
-    asArtifactType,
-    asArtifactARN,
-    asSource,
-    asLastModifiedTime,
+    newArtifactSummary,
 
     -- * AssociationSummary
     AssociationSummary (..),
-    associationSummary,
-    assDestinationType,
-    assCreationTime,
-    assDestinationARN,
-    assDestinationName,
-    assSourceName,
-    assAssociationType,
-    assCreatedBy,
-    assSourceARN,
-    assSourceType,
+    newAssociationSummary,
 
     -- * AthenaDatasetDefinition
     AthenaDatasetDefinition (..),
-    athenaDatasetDefinition,
-    addOutputCompression,
-    addKMSKeyId,
-    addWorkGroup,
-    addCatalog,
-    addDatabase,
-    addQueryString,
-    addOutputS3URI,
-    addOutputFormat,
+    newAthenaDatasetDefinition,
 
     -- * AutoMLCandidate
     AutoMLCandidate (..),
-    autoMLCandidate,
-    amlcEndTime,
-    amlcInferenceContainers,
-    amlcFailureReason,
-    amlcFinalAutoMLJobObjectiveMetric,
-    amlcCandidateName,
-    amlcObjectiveStatus,
-    amlcCandidateSteps,
-    amlcCandidateStatus,
-    amlcCreationTime,
-    amlcLastModifiedTime,
+    newAutoMLCandidate,
 
     -- * AutoMLCandidateStep
     AutoMLCandidateStep (..),
-    autoMLCandidateStep,
-    amlcsCandidateStepType,
-    amlcsCandidateStepARN,
-    amlcsCandidateStepName,
+    newAutoMLCandidateStep,
 
     -- * AutoMLChannel
     AutoMLChannel (..),
-    autoMLChannel,
-    amlcCompressionType,
-    amlcDataSource,
-    amlcTargetAttributeName,
+    newAutoMLChannel,
 
     -- * AutoMLContainerDefinition
     AutoMLContainerDefinition (..),
-    autoMLContainerDefinition,
-    amlcdEnvironment,
-    amlcdImage,
-    amlcdModelDataURL,
+    newAutoMLContainerDefinition,
 
     -- * AutoMLDataSource
     AutoMLDataSource (..),
-    autoMLDataSource,
-    amldsS3DataSource,
+    newAutoMLDataSource,
 
     -- * AutoMLJobArtifacts
     AutoMLJobArtifacts (..),
-    autoMLJobArtifacts,
-    amljaCandidateDefinitionNotebookLocation,
-    amljaDataExplorationNotebookLocation,
+    newAutoMLJobArtifacts,
 
     -- * AutoMLJobCompletionCriteria
     AutoMLJobCompletionCriteria (..),
-    autoMLJobCompletionCriteria,
-    amljccMaxRuntimePerTrainingJobInSeconds,
-    amljccMaxAutoMLJobRuntimeInSeconds,
-    amljccMaxCandidates,
+    newAutoMLJobCompletionCriteria,
 
     -- * AutoMLJobConfig
     AutoMLJobConfig (..),
-    autoMLJobConfig,
-    amljcSecurityConfig,
-    amljcCompletionCriteria,
+    newAutoMLJobConfig,
 
     -- * AutoMLJobObjective
     AutoMLJobObjective (..),
-    autoMLJobObjective,
-    amljoMetricName,
+    newAutoMLJobObjective,
 
     -- * AutoMLJobSummary
     AutoMLJobSummary (..),
-    autoMLJobSummary,
-    amljsEndTime,
-    amljsFailureReason,
-    amljsAutoMLJobName,
-    amljsAutoMLJobARN,
-    amljsAutoMLJobStatus,
-    amljsAutoMLJobSecondaryStatus,
-    amljsCreationTime,
-    amljsLastModifiedTime,
+    newAutoMLJobSummary,
 
     -- * AutoMLOutputDataConfig
     AutoMLOutputDataConfig (..),
-    autoMLOutputDataConfig,
-    amlodcKMSKeyId,
-    amlodcS3OutputPath,
+    newAutoMLOutputDataConfig,
 
     -- * AutoMLS3DataSource
     AutoMLS3DataSource (..),
-    autoMLS3DataSource,
-    amlsdsS3DataType,
-    amlsdsS3URI,
+    newAutoMLS3DataSource,
 
     -- * AutoMLSecurityConfig
     AutoMLSecurityConfig (..),
-    autoMLSecurityConfig,
-    amlscVPCConfig,
-    amlscEnableInterContainerTrafficEncryption,
-    amlscVolumeKMSKeyId,
+    newAutoMLSecurityConfig,
 
     -- * AutoRollbackConfig
     AutoRollbackConfig (..),
-    autoRollbackConfig,
-    arcAlarms,
+    newAutoRollbackConfig,
 
     -- * Bias
     Bias (..),
-    bias,
-    bReport,
+    newBias,
 
     -- * BlueGreenUpdatePolicy
     BlueGreenUpdatePolicy (..),
-    blueGreenUpdatePolicy,
-    bgupTerminationWaitInSeconds,
-    bgupMaximumExecutionTimeoutInSeconds,
-    bgupTrafficRoutingConfiguration,
+    newBlueGreenUpdatePolicy,
 
     -- * CacheHitResult
     CacheHitResult (..),
-    cacheHitResult,
-    chrSourcePipelineExecutionARN,
+    newCacheHitResult,
 
     -- * CapacitySize
     CapacitySize (..),
-    capacitySize,
-    csType,
-    csValue,
+    newCapacitySize,
 
     -- * CaptureContentTypeHeader
     CaptureContentTypeHeader (..),
-    captureContentTypeHeader,
-    ccthCSVContentTypes,
-    ccthJSONContentTypes,
+    newCaptureContentTypeHeader,
 
     -- * CaptureOption
     CaptureOption (..),
-    captureOption,
-    coCaptureMode,
+    newCaptureOption,
 
     -- * CategoricalParameterRange
     CategoricalParameterRange (..),
-    categoricalParameterRange,
-    cprName,
-    cprValues,
+    newCategoricalParameterRange,
 
     -- * CategoricalParameterRangeSpecification
     CategoricalParameterRangeSpecification (..),
-    categoricalParameterRangeSpecification,
-    cprsValues,
+    newCategoricalParameterRangeSpecification,
 
     -- * Channel
     Channel (..),
-    channel,
-    cContentType,
-    cRecordWrapperType,
-    cShuffleConfig,
-    cCompressionType,
-    cInputMode,
-    cChannelName,
-    cDataSource,
+    newChannel,
 
     -- * ChannelSpecification
     ChannelSpecification (..),
-    channelSpecification,
-    csDescription,
-    csIsRequired,
-    csSupportedCompressionTypes,
-    csName,
-    csSupportedContentTypes,
-    csSupportedInputModes,
+    newChannelSpecification,
 
     -- * CheckpointConfig
     CheckpointConfig (..),
-    checkpointConfig,
-    ccLocalPath,
-    ccS3URI,
+    newCheckpointConfig,
 
     -- * CodeRepositorySummary
     CodeRepositorySummary (..),
-    codeRepositorySummary,
-    crsGitConfig,
-    crsCodeRepositoryName,
-    crsCodeRepositoryARN,
-    crsCreationTime,
-    crsLastModifiedTime,
+    newCodeRepositorySummary,
 
     -- * CognitoConfig
     CognitoConfig (..),
-    cognitoConfig,
-    ccUserPool,
-    ccClientId,
+    newCognitoConfig,
 
     -- * CognitoMemberDefinition
     CognitoMemberDefinition (..),
-    cognitoMemberDefinition,
-    cmdUserPool,
-    cmdUserGroup,
-    cmdClientId,
+    newCognitoMemberDefinition,
 
     -- * CollectionConfiguration
     CollectionConfiguration (..),
-    collectionConfiguration,
-    ccCollectionParameters,
-    ccCollectionName,
+    newCollectionConfiguration,
 
     -- * CompilationJobSummary
     CompilationJobSummary (..),
-    compilationJobSummary,
-    cjsCompilationTargetPlatformArch,
-    cjsCompilationStartTime,
-    cjsCompilationTargetPlatformOS,
-    cjsCompilationTargetPlatformAccelerator,
-    cjsLastModifiedTime,
-    cjsCompilationEndTime,
-    cjsCompilationTargetDevice,
-    cjsCompilationJobName,
-    cjsCompilationJobARN,
-    cjsCreationTime,
-    cjsCompilationJobStatus,
+    newCompilationJobSummary,
 
     -- * ConditionStepMetadata
     ConditionStepMetadata (..),
-    conditionStepMetadata,
-    csmOutcome,
+    newConditionStepMetadata,
 
     -- * ContainerDefinition
     ContainerDefinition (..),
-    containerDefinition,
-    cdMultiModelConfig,
-    cdModelDataURL,
-    cdMode,
-    cdContainerHostname,
-    cdImageConfig,
-    cdEnvironment,
-    cdModelPackageName,
-    cdImage,
+    newContainerDefinition,
 
     -- * ContextSource
     ContextSource (..),
-    contextSource,
-    csSourceId,
-    csSourceType,
-    csSourceURI,
+    newContextSource,
 
     -- * ContextSummary
     ContextSummary (..),
-    contextSummary,
-    csContextType,
-    csCreationTime,
-    csContextName,
-    csSource,
-    csLastModifiedTime,
-    csContextARN,
+    newContextSummary,
 
     -- * ContinuousParameterRange
     ContinuousParameterRange (..),
-    continuousParameterRange,
-    cScalingType,
-    cName,
-    cMinValue,
-    cMaxValue,
+    newContinuousParameterRange,
 
     -- * ContinuousParameterRangeSpecification
     ContinuousParameterRangeSpecification (..),
-    continuousParameterRangeSpecification,
-    cprsMinValue,
-    cprsMaxValue,
+    newContinuousParameterRangeSpecification,
 
     -- * CustomImage
     CustomImage (..),
-    customImage,
-    ciImageVersionNumber,
-    ciImageName,
-    ciAppImageConfigName,
+    newCustomImage,
 
     -- * DataCaptureConfig
     DataCaptureConfig (..),
-    dataCaptureConfig,
-    dccCaptureContentTypeHeader,
-    dccKMSKeyId,
-    dccEnableCapture,
-    dccInitialSamplingPercentage,
-    dccDestinationS3URI,
-    dccCaptureOptions,
+    newDataCaptureConfig,
 
     -- * DataCaptureConfigSummary
     DataCaptureConfigSummary (..),
-    dataCaptureConfigSummary,
-    dccsEnableCapture,
-    dccsCaptureStatus,
-    dccsCurrentSamplingPercentage,
-    dccsDestinationS3URI,
-    dccsKMSKeyId,
+    newDataCaptureConfigSummary,
 
     -- * DataCatalogConfig
     DataCatalogConfig (..),
-    dataCatalogConfig,
-    dccTableName,
-    dccCatalog,
-    dccDatabase,
+    newDataCatalogConfig,
 
     -- * DataProcessing
     DataProcessing (..),
-    dataProcessing,
-    dpOutputFilter,
-    dpJoinSource,
-    dpInputFilter,
+    newDataProcessing,
 
     -- * DataQualityAppSpecification
     DataQualityAppSpecification (..),
-    dataQualityAppSpecification,
-    dqasContainerArguments,
-    dqasContainerEntrypoint,
-    dqasPostAnalyticsProcessorSourceURI,
-    dqasEnvironment,
-    dqasRecordPreprocessorSourceURI,
-    dqasImageURI,
+    newDataQualityAppSpecification,
 
     -- * DataQualityBaselineConfig
     DataQualityBaselineConfig (..),
-    dataQualityBaselineConfig,
-    dqbcStatisticsResource,
-    dqbcConstraintsResource,
-    dqbcBaseliningJobName,
+    newDataQualityBaselineConfig,
 
     -- * DataQualityJobInput
     DataQualityJobInput (..),
-    dataQualityJobInput,
-    dqjiEndpointInput,
+    newDataQualityJobInput,
 
     -- * DataSource
     DataSource (..),
-    dataSource,
-    dsFileSystemDataSource,
-    dsS3DataSource,
+    newDataSource,
 
     -- * DatasetDefinition
     DatasetDefinition (..),
-    datasetDefinition,
-    ddRedshiftDatasetDefinition,
-    ddAthenaDatasetDefinition,
-    ddLocalPath,
-    ddInputMode,
-    ddDataDistributionType,
+    newDatasetDefinition,
 
     -- * DebugHookConfig
     DebugHookConfig (..),
-    debugHookConfig,
-    dhcCollectionConfigurations,
-    dhcHookParameters,
-    dhcLocalPath,
-    dhcS3OutputPath,
+    newDebugHookConfig,
 
     -- * DebugRuleConfiguration
     DebugRuleConfiguration (..),
-    debugRuleConfiguration,
-    drcRuleParameters,
-    drcInstanceType,
-    drcS3OutputPath,
-    drcVolumeSizeInGB,
-    drcLocalPath,
-    drcRuleConfigurationName,
-    drcRuleEvaluatorImage,
+    newDebugRuleConfiguration,
 
     -- * DebugRuleEvaluationStatus
     DebugRuleEvaluationStatus (..),
-    debugRuleEvaluationStatus,
-    dresRuleConfigurationName,
-    dresStatusDetails,
-    dresRuleEvaluationStatus,
-    dresLastModifiedTime,
-    dresRuleEvaluationJobARN,
+    newDebugRuleEvaluationStatus,
 
     -- * DeployedImage
     DeployedImage (..),
-    deployedImage,
-    diSpecifiedImage,
-    diResolvedImage,
-    diResolutionTime,
+    newDeployedImage,
 
     -- * DeploymentConfig
     DeploymentConfig (..),
-    deploymentConfig,
-    dcAutoRollbackConfiguration,
-    dcBlueGreenUpdatePolicy,
+    newDeploymentConfig,
 
     -- * DesiredWeightAndCapacity
     DesiredWeightAndCapacity (..),
-    desiredWeightAndCapacity,
-    dwacDesiredInstanceCount,
-    dwacDesiredWeight,
-    dwacVariantName,
+    newDesiredWeightAndCapacity,
 
     -- * Device
     Device (..),
-    device,
-    dIotThingName,
-    dDescription,
-    dDeviceName,
+    newDevice,
 
     -- * DeviceFleetSummary
     DeviceFleetSummary (..),
-    deviceFleetSummary,
-    dfsCreationTime,
-    dfsLastModifiedTime,
-    dfsDeviceFleetARN,
-    dfsDeviceFleetName,
+    newDeviceFleetSummary,
 
     -- * DeviceStats
     DeviceStats (..),
-    deviceStats,
-    dsConnectedDeviceCount,
-    dsRegisteredDeviceCount,
+    newDeviceStats,
 
     -- * DeviceSummary
     DeviceSummary (..),
-    deviceSummary,
-    dsDeviceFleetName,
-    dsLatestHeartbeat,
-    dsRegistrationTime,
-    dsModels,
-    dsIotThingName,
-    dsDescription,
-    dsDeviceName,
-    dsDeviceARN,
+    newDeviceSummary,
 
     -- * DomainDetails
     DomainDetails (..),
-    domainDetails,
-    ddsStatus,
-    ddsCreationTime,
-    ddsDomainId,
-    ddsDomainARN,
-    ddsDomainName,
-    ddsLastModifiedTime,
-    ddsURL,
+    newDomainDetails,
 
     -- * EdgeModel
     EdgeModel (..),
-    edgeModel,
-    emLatestInference,
-    emLatestSampleTime,
-    emModelName,
-    emModelVersion,
+    newEdgeModel,
 
     -- * EdgeModelStat
     EdgeModelStat (..),
-    edgeModelStat,
-    eModelName,
-    eModelVersion,
-    eOfflineDeviceCount,
-    eConnectedDeviceCount,
-    eActiveDeviceCount,
-    eSamplingDeviceCount,
+    newEdgeModelStat,
 
     -- * EdgeModelSummary
     EdgeModelSummary (..),
-    edgeModelSummary,
-    emsModelName,
-    emsModelVersion,
+    newEdgeModelSummary,
 
     -- * EdgeOutputConfig
     EdgeOutputConfig (..),
-    edgeOutputConfig,
-    eocKMSKeyId,
-    eocS3OutputLocation,
+    newEdgeOutputConfig,
 
     -- * EdgePackagingJobSummary
     EdgePackagingJobSummary (..),
-    edgePackagingJobSummary,
-    epjsCreationTime,
-    epjsCompilationJobName,
-    epjsModelVersion,
-    epjsLastModifiedTime,
-    epjsModelName,
-    epjsEdgePackagingJobARN,
-    epjsEdgePackagingJobName,
-    epjsEdgePackagingJobStatus,
+    newEdgePackagingJobSummary,
 
     -- * Endpoint
     Endpoint (..),
-    endpoint,
-    endProductionVariants,
-    endMonitoringSchedules,
-    endFailureReason,
-    endTags,
-    endDataCaptureConfig,
-    endEndpointName,
-    endEndpointARN,
-    endEndpointConfigName,
-    endEndpointStatus,
-    endCreationTime,
-    endLastModifiedTime,
+    newEndpoint,
 
     -- * EndpointConfigSummary
     EndpointConfigSummary (..),
-    endpointConfigSummary,
-    ecsEndpointConfigName,
-    ecsEndpointConfigARN,
-    ecsCreationTime,
+    newEndpointConfigSummary,
 
     -- * EndpointInput
     EndpointInput (..),
-    endpointInput,
-    eiEndTimeOffset,
-    eiInferenceAttribute,
-    eiS3InputMode,
-    eiS3DataDistributionType,
-    eiProbabilityAttribute,
-    eiProbabilityThresholdAttribute,
-    eiFeaturesAttribute,
-    eiStartTimeOffset,
-    eiEndpointName,
-    eiLocalPath,
+    newEndpointInput,
 
     -- * EndpointSummary
     EndpointSummary (..),
-    endpointSummary,
-    esEndpointName,
-    esEndpointARN,
-    esCreationTime,
-    esLastModifiedTime,
-    esEndpointStatus,
+    newEndpointSummary,
 
     -- * Experiment
     Experiment (..),
-    experiment,
-    eExperimentARN,
-    eCreationTime,
-    eSource,
-    eTags,
-    eLastModifiedTime,
-    eExperimentName,
-    eDescription,
-    eCreatedBy,
-    eLastModifiedBy,
-    eDisplayName,
+    newExperiment,
 
     -- * ExperimentConfig
     ExperimentConfig (..),
-    experimentConfig,
-    ecExperimentName,
-    ecTrialComponentDisplayName,
-    ecTrialName,
+    newExperimentConfig,
 
     -- * ExperimentSource
     ExperimentSource (..),
-    experimentSource,
-    esSourceType,
-    esSourceARN,
+    newExperimentSource,
 
     -- * ExperimentSummary
     ExperimentSummary (..),
-    experimentSummary,
-    expExperimentARN,
-    expCreationTime,
-    expExperimentSource,
-    expLastModifiedTime,
-    expExperimentName,
-    expDisplayName,
+    newExperimentSummary,
 
     -- * Explainability
     Explainability (..),
-    explainability,
-    eReport,
+    newExplainability,
 
     -- * FeatureDefinition
     FeatureDefinition (..),
-    featureDefinition,
-    fdFeatureType,
-    fdFeatureName,
+    newFeatureDefinition,
 
     -- * FeatureGroup
     FeatureGroup (..),
-    featureGroup,
-    fgFeatureGroupStatus,
-    fgOfflineStoreConfig,
-    fgCreationTime,
-    fgRoleARN,
-    fgFeatureGroupARN,
-    fgRecordIdentifierFeatureName,
-    fgFeatureDefinitions,
-    fgOfflineStoreStatus,
-    fgEventTimeFeatureName,
-    fgFeatureGroupName,
-    fgFailureReason,
-    fgTags,
-    fgDescription,
-    fgOnlineStoreConfig,
+    newFeatureGroup,
 
     -- * FeatureGroupSummary
     FeatureGroupSummary (..),
-    featureGroupSummary,
-    fgsFeatureGroupStatus,
-    fgsOfflineStoreStatus,
-    fgsFeatureGroupName,
-    fgsFeatureGroupARN,
-    fgsCreationTime,
+    newFeatureGroupSummary,
 
     -- * FileSystemConfig
     FileSystemConfig (..),
-    fileSystemConfig,
-    fscDefaultGid,
-    fscMountPath,
-    fscDefaultUid,
+    newFileSystemConfig,
 
     -- * FileSystemDataSource
     FileSystemDataSource (..),
-    fileSystemDataSource,
-    fsdsFileSystemId,
-    fsdsFileSystemAccessMode,
-    fsdsFileSystemType,
-    fsdsDirectoryPath,
+    newFileSystemDataSource,
 
     -- * Filter
     Filter (..),
-    filter',
-    fOperator,
-    fValue,
-    fName,
+    newFilter,
 
     -- * FinalAutoMLJobObjectiveMetric
     FinalAutoMLJobObjectiveMetric (..),
-    finalAutoMLJobObjectiveMetric,
-    famljomType,
-    famljomMetricName,
-    famljomValue,
+    newFinalAutoMLJobObjectiveMetric,
 
     -- * FinalHyperParameterTuningJobObjectiveMetric
     FinalHyperParameterTuningJobObjectiveMetric (..),
-    finalHyperParameterTuningJobObjectiveMetric,
-    fhptjomType,
-    fhptjomMetricName,
-    fhptjomValue,
+    newFinalHyperParameterTuningJobObjectiveMetric,
 
     -- * FlowDefinitionOutputConfig
     FlowDefinitionOutputConfig (..),
-    flowDefinitionOutputConfig,
-    fdocKMSKeyId,
-    fdocS3OutputPath,
+    newFlowDefinitionOutputConfig,
 
     -- * FlowDefinitionSummary
     FlowDefinitionSummary (..),
-    flowDefinitionSummary,
-    fdsFailureReason,
-    fdsFlowDefinitionName,
-    fdsFlowDefinitionARN,
-    fdsFlowDefinitionStatus,
-    fdsCreationTime,
+    newFlowDefinitionSummary,
 
     -- * GitConfig
     GitConfig (..),
-    gitConfig,
-    gcSecretARN,
-    gcBranch,
-    gcRepositoryURL,
+    newGitConfig,
 
     -- * GitConfigForUpdate
     GitConfigForUpdate (..),
-    gitConfigForUpdate,
-    gcfuSecretARN,
+    newGitConfigForUpdate,
 
     -- * HumanLoopActivationConditionsConfig
     HumanLoopActivationConditionsConfig (..),
-    humanLoopActivationConditionsConfig,
-    hlaccHumanLoopActivationConditions,
+    newHumanLoopActivationConditionsConfig,
 
     -- * HumanLoopActivationConfig
     HumanLoopActivationConfig (..),
-    humanLoopActivationConfig,
-    hlacHumanLoopActivationConditionsConfig,
+    newHumanLoopActivationConfig,
 
     -- * HumanLoopConfig
     HumanLoopConfig (..),
-    humanLoopConfig,
-    hlcTaskKeywords,
-    hlcTaskTimeLimitInSeconds,
-    hlcTaskAvailabilityLifetimeInSeconds,
-    hlcPublicWorkforceTaskPrice,
-    hlcWorkteamARN,
-    hlcHumanTaskUiARN,
-    hlcTaskTitle,
-    hlcTaskDescription,
-    hlcTaskCount,
+    newHumanLoopConfig,
 
     -- * HumanLoopRequestSource
     HumanLoopRequestSource (..),
-    humanLoopRequestSource,
-    hlrsAWSManagedHumanLoopRequestSource,
+    newHumanLoopRequestSource,
 
     -- * HumanTaskConfig
     HumanTaskConfig (..),
-    humanTaskConfig,
-    htcTaskKeywords,
-    htcTaskAvailabilityLifetimeInSeconds,
-    htcMaxConcurrentTaskCount,
-    htcPublicWorkforceTaskPrice,
-    htcWorkteamARN,
-    htcUiConfig,
-    htcPreHumanTaskLambdaARN,
-    htcTaskTitle,
-    htcTaskDescription,
-    htcNumberOfHumanWorkersPerDataObject,
-    htcTaskTimeLimitInSeconds,
-    htcAnnotationConsolidationConfig,
+    newHumanTaskConfig,
 
     -- * HumanTaskUiSummary
     HumanTaskUiSummary (..),
-    humanTaskUiSummary,
-    htusHumanTaskUiName,
-    htusHumanTaskUiARN,
-    htusCreationTime,
+    newHumanTaskUiSummary,
 
     -- * HyperParameterAlgorithmSpecification
     HyperParameterAlgorithmSpecification (..),
-    hyperParameterAlgorithmSpecification,
-    hpasTrainingImage,
-    hpasMetricDefinitions,
-    hpasAlgorithmName,
-    hpasTrainingInputMode,
+    newHyperParameterAlgorithmSpecification,
 
     -- * HyperParameterSpecification
     HyperParameterSpecification (..),
-    hyperParameterSpecification,
-    hpsRange,
-    hpsIsTunable,
-    hpsDescription,
-    hpsIsRequired,
-    hpsDefaultValue,
-    hpsName,
-    hpsType,
+    newHyperParameterSpecification,
 
     -- * HyperParameterTrainingJobDefinition
     HyperParameterTrainingJobDefinition (..),
-    hyperParameterTrainingJobDefinition,
-    hptjdVPCConfig,
-    hptjdInputDataConfig,
-    hptjdEnableManagedSpotTraining,
-    hptjdStaticHyperParameters,
-    hptjdHyperParameterRanges,
-    hptjdEnableNetworkIsolation,
-    hptjdEnableInterContainerTrafficEncryption,
-    hptjdCheckpointConfig,
-    hptjdTuningObjective,
-    hptjdDefinitionName,
-    hptjdAlgorithmSpecification,
-    hptjdRoleARN,
-    hptjdOutputDataConfig,
-    hptjdResourceConfig,
-    hptjdStoppingCondition,
+    newHyperParameterTrainingJobDefinition,
 
     -- * HyperParameterTrainingJobSummary
     HyperParameterTrainingJobSummary (..),
-    hyperParameterTrainingJobSummary,
-    hptjsFinalHyperParameterTuningJobObjectiveMetric,
-    hptjsTuningJobName,
-    hptjsFailureReason,
-    hptjsObjectiveStatus,
-    hptjsTrainingJobDefinitionName,
-    hptjsTrainingStartTime,
-    hptjsTrainingEndTime,
-    hptjsTrainingJobName,
-    hptjsTrainingJobARN,
-    hptjsCreationTime,
-    hptjsTrainingJobStatus,
-    hptjsTunedHyperParameters,
+    newHyperParameterTrainingJobSummary,
 
     -- * HyperParameterTuningJobConfig
     HyperParameterTuningJobConfig (..),
-    hyperParameterTuningJobConfig,
-    hptjcHyperParameterTuningJobObjective,
-    hptjcParameterRanges,
-    hptjcTuningJobCompletionCriteria,
-    hptjcTrainingJobEarlyStoppingType,
-    hptjcStrategy,
-    hptjcResourceLimits,
+    newHyperParameterTuningJobConfig,
 
     -- * HyperParameterTuningJobObjective
     HyperParameterTuningJobObjective (..),
-    hyperParameterTuningJobObjective,
-    hptjoType,
-    hptjoMetricName,
+    newHyperParameterTuningJobObjective,
 
     -- * HyperParameterTuningJobSummary
     HyperParameterTuningJobSummary (..),
-    hyperParameterTuningJobSummary,
-    hResourceLimits,
-    hHyperParameterTuningEndTime,
-    hLastModifiedTime,
-    hHyperParameterTuningJobName,
-    hHyperParameterTuningJobARN,
-    hHyperParameterTuningJobStatus,
-    hStrategy,
-    hCreationTime,
-    hTrainingJobStatusCounters,
-    hObjectiveStatusCounters,
+    newHyperParameterTuningJobSummary,
 
     -- * HyperParameterTuningJobWarmStartConfig
     HyperParameterTuningJobWarmStartConfig (..),
-    hyperParameterTuningJobWarmStartConfig,
-    hptjwscParentHyperParameterTuningJobs,
-    hptjwscWarmStartType,
+    newHyperParameterTuningJobWarmStartConfig,
 
     -- * Image
     Image (..),
-    image,
-    iFailureReason,
-    iDescription,
-    iDisplayName,
-    iCreationTime,
-    iImageARN,
-    iImageName,
-    iImageStatus,
-    iLastModifiedTime,
+    newImage,
 
     -- * ImageConfig
     ImageConfig (..),
-    imageConfig,
-    icRepositoryAccessMode,
+    newImageConfig,
 
     -- * ImageVersion
     ImageVersion (..),
-    imageVersion,
-    ivFailureReason,
-    ivCreationTime,
-    ivImageARN,
-    ivImageVersionARN,
-    ivImageVersionStatus,
-    ivLastModifiedTime,
-    ivVersion,
+    newImageVersion,
 
     -- * InferenceExecutionConfig
     InferenceExecutionConfig (..),
-    inferenceExecutionConfig,
-    iecMode,
+    newInferenceExecutionConfig,
 
     -- * InferenceSpecification
     InferenceSpecification (..),
-    inferenceSpecification,
-    isSupportedTransformInstanceTypes,
-    isSupportedRealtimeInferenceInstanceTypes,
-    isContainers,
-    isSupportedContentTypes,
-    isSupportedResponseMIMETypes,
+    newInferenceSpecification,
 
     -- * InputConfig
     InputConfig (..),
-    inputConfig,
-    icFrameworkVersion,
-    icS3URI,
-    icDataInputConfig,
-    icFramework,
+    newInputConfig,
 
     -- * IntegerParameterRange
     IntegerParameterRange (..),
-    integerParameterRange,
-    iprScalingType,
-    iprName,
-    iprMinValue,
-    iprMaxValue,
+    newIntegerParameterRange,
 
     -- * IntegerParameterRangeSpecification
     IntegerParameterRangeSpecification (..),
-    integerParameterRangeSpecification,
-    iprsMinValue,
-    iprsMaxValue,
+    newIntegerParameterRangeSpecification,
 
     -- * JupyterServerAppSettings
     JupyterServerAppSettings (..),
-    jupyterServerAppSettings,
-    jsasDefaultResourceSpec,
+    newJupyterServerAppSettings,
 
     -- * KernelGatewayAppSettings
     KernelGatewayAppSettings (..),
-    kernelGatewayAppSettings,
-    kgasCustomImages,
-    kgasDefaultResourceSpec,
+    newKernelGatewayAppSettings,
 
     -- * KernelGatewayImageConfig
     KernelGatewayImageConfig (..),
-    kernelGatewayImageConfig,
-    kgicFileSystemConfig,
-    kgicKernelSpecs,
+    newKernelGatewayImageConfig,
 
     -- * KernelSpec
     KernelSpec (..),
-    kernelSpec,
-    ksDisplayName,
-    ksName,
+    newKernelSpec,
 
     -- * LabelCounters
     LabelCounters (..),
-    labelCounters,
-    lcUnlabeled,
-    lcFailedNonRetryableError,
-    lcMachineLabeled,
-    lcHumanLabeled,
-    lcTotalLabeled,
+    newLabelCounters,
 
     -- * LabelCountersForWorkteam
     LabelCountersForWorkteam (..),
-    labelCountersForWorkteam,
-    lcfwPendingHuman,
-    lcfwTotal,
-    lcfwHumanLabeled,
+    newLabelCountersForWorkteam,
 
     -- * LabelingJobAlgorithmsConfig
     LabelingJobAlgorithmsConfig (..),
-    labelingJobAlgorithmsConfig,
-    ljacInitialActiveLearningModelARN,
-    ljacLabelingJobResourceConfig,
-    ljacLabelingJobAlgorithmSpecificationARN,
+    newLabelingJobAlgorithmsConfig,
 
     -- * LabelingJobDataAttributes
     LabelingJobDataAttributes (..),
-    labelingJobDataAttributes,
-    ljdaContentClassifiers,
+    newLabelingJobDataAttributes,
 
     -- * LabelingJobDataSource
     LabelingJobDataSource (..),
-    labelingJobDataSource,
-    ljdsSNSDataSource,
-    ljdsS3DataSource,
+    newLabelingJobDataSource,
 
     -- * LabelingJobForWorkteamSummary
     LabelingJobForWorkteamSummary (..),
-    labelingJobForWorkteamSummary,
-    ljfwsLabelCounters,
-    ljfwsLabelingJobName,
-    ljfwsNumberOfHumanWorkersPerDataObject,
-    ljfwsJobReferenceCode,
-    ljfwsWorkRequesterAccountId,
-    ljfwsCreationTime,
+    newLabelingJobForWorkteamSummary,
 
     -- * LabelingJobInputConfig
     LabelingJobInputConfig (..),
-    labelingJobInputConfig,
-    ljicDataAttributes,
-    ljicDataSource,
+    newLabelingJobInputConfig,
 
     -- * LabelingJobOutput
     LabelingJobOutput (..),
-    labelingJobOutput,
-    ljoFinalActiveLearningModelARN,
-    ljoOutputDatasetS3URI,
+    newLabelingJobOutput,
 
     -- * LabelingJobOutputConfig
     LabelingJobOutputConfig (..),
-    labelingJobOutputConfig,
-    ljocKMSKeyId,
-    ljocSNSTopicARN,
-    ljocS3OutputPath,
+    newLabelingJobOutputConfig,
 
     -- * LabelingJobResourceConfig
     LabelingJobResourceConfig (..),
-    labelingJobResourceConfig,
-    ljrcVolumeKMSKeyId,
+    newLabelingJobResourceConfig,
 
     -- * LabelingJobS3DataSource
     LabelingJobS3DataSource (..),
-    labelingJobS3DataSource,
-    ljsdsManifestS3URI,
+    newLabelingJobS3DataSource,
 
-    -- * LabelingJobSNSDataSource
-    LabelingJobSNSDataSource (..),
-    labelingJobSNSDataSource,
-    ljsdsSNSTopicARN,
+    -- * LabelingJobSnsDataSource
+    LabelingJobSnsDataSource (..),
+    newLabelingJobSnsDataSource,
 
     -- * LabelingJobStoppingConditions
     LabelingJobStoppingConditions (..),
-    labelingJobStoppingConditions,
-    ljscMaxPercentageOfInputDatasetLabeled,
-    ljscMaxHumanLabeledObjectCount,
+    newLabelingJobStoppingConditions,
 
     -- * LabelingJobSummary
     LabelingJobSummary (..),
-    labelingJobSummary,
-    ljsAnnotationConsolidationLambdaARN,
-    ljsInputConfig,
-    ljsFailureReason,
-    ljsLabelingJobOutput,
-    ljsLabelingJobName,
-    ljsLabelingJobARN,
-    ljsCreationTime,
-    ljsLastModifiedTime,
-    ljsLabelingJobStatus,
-    ljsLabelCounters,
-    ljsWorkteamARN,
-    ljsPreHumanTaskLambdaARN,
+    newLabelingJobSummary,
 
     -- * MemberDefinition
     MemberDefinition (..),
-    memberDefinition,
-    mdOidcMemberDefinition,
-    mdCognitoMemberDefinition,
+    newMemberDefinition,
 
     -- * MetadataProperties
     MetadataProperties (..),
-    metadataProperties,
-    mpGeneratedBy,
-    mpCommitId,
-    mpProjectId,
-    mpRepository,
+    newMetadataProperties,
 
     -- * MetricData
     MetricData (..),
-    metricData,
-    mdMetricName,
-    mdTimestamp,
-    mdValue,
+    newMetricData,
 
     -- * MetricDefinition
     MetricDefinition (..),
-    metricDefinition,
-    mdName,
-    mdRegex,
+    newMetricDefinition,
 
     -- * MetricsSource
     MetricsSource (..),
-    metricsSource,
-    msContentDigest,
-    msContentType,
-    msS3URI,
+    newMetricsSource,
 
     -- * ModelArtifacts
     ModelArtifacts (..),
-    modelArtifacts,
-    maS3ModelArtifacts,
+    newModelArtifacts,
 
     -- * ModelBiasAppSpecification
     ModelBiasAppSpecification (..),
-    modelBiasAppSpecification,
-    mbasEnvironment,
-    mbasImageURI,
-    mbasConfigURI,
+    newModelBiasAppSpecification,
 
     -- * ModelBiasBaselineConfig
     ModelBiasBaselineConfig (..),
-    modelBiasBaselineConfig,
-    mbbcConstraintsResource,
-    mbbcBaseliningJobName,
+    newModelBiasBaselineConfig,
 
     -- * ModelBiasJobInput
     ModelBiasJobInput (..),
-    modelBiasJobInput,
-    mbjiEndpointInput,
-    mbjiGroundTruthS3Input,
+    newModelBiasJobInput,
 
     -- * ModelClientConfig
     ModelClientConfig (..),
-    modelClientConfig,
-    mccInvocationsTimeoutInSeconds,
-    mccInvocationsMaxRetries,
+    newModelClientConfig,
 
     -- * ModelDataQuality
     ModelDataQuality (..),
-    modelDataQuality,
-    mdqConstraints,
-    mdqStatistics,
+    newModelDataQuality,
 
     -- * ModelDigests
     ModelDigests (..),
-    modelDigests,
-    mdArtifactDigest,
+    newModelDigests,
 
     -- * ModelExplainabilityAppSpecification
     ModelExplainabilityAppSpecification (..),
-    modelExplainabilityAppSpecification,
-    measEnvironment,
-    measImageURI,
-    measConfigURI,
+    newModelExplainabilityAppSpecification,
 
     -- * ModelExplainabilityBaselineConfig
     ModelExplainabilityBaselineConfig (..),
-    modelExplainabilityBaselineConfig,
-    mebcConstraintsResource,
-    mebcBaseliningJobName,
+    newModelExplainabilityBaselineConfig,
 
     -- * ModelExplainabilityJobInput
     ModelExplainabilityJobInput (..),
-    modelExplainabilityJobInput,
-    mejiEndpointInput,
+    newModelExplainabilityJobInput,
 
     -- * ModelMetrics
     ModelMetrics (..),
-    modelMetrics,
-    mmBias,
-    mmExplainability,
-    mmModelDataQuality,
-    mmModelQuality,
+    newModelMetrics,
 
     -- * ModelPackage
     ModelPackage (..),
-    modelPackage,
-    mpSourceAlgorithmSpecification,
-    mpModelPackageVersion,
-    mpMetadataProperties,
-    mpCreationTime,
-    mpValidationSpecification,
-    mpModelPackageStatusDetails,
-    mpModelMetrics,
-    mpCertifyForMarketplace,
-    mpModelPackageName,
-    mpModelApprovalStatus,
-    mpApprovalDescription,
-    mpTags,
-    mpModelPackageStatus,
-    mpLastModifiedTime,
-    mpInferenceSpecification,
-    mpModelPackageDescription,
-    mpCreatedBy,
-    mpModelPackageARN,
-    mpLastModifiedBy,
-    mpModelPackageGroupName,
+    newModelPackage,
 
     -- * ModelPackageContainerDefinition
     ModelPackageContainerDefinition (..),
-    modelPackageContainerDefinition,
-    mpcdImageDigest,
-    mpcdModelDataURL,
-    mpcdContainerHostname,
-    mpcdProductId,
-    mpcdImage,
+    newModelPackageContainerDefinition,
 
     -- * ModelPackageGroup
     ModelPackageGroup (..),
-    modelPackageGroup,
-    mpgModelPackageGroupARN,
-    mpgCreationTime,
-    mpgModelPackageGroupDescription,
-    mpgTags,
-    mpgModelPackageGroupStatus,
-    mpgCreatedBy,
-    mpgModelPackageGroupName,
+    newModelPackageGroup,
 
     -- * ModelPackageGroupSummary
     ModelPackageGroupSummary (..),
-    modelPackageGroupSummary,
-    mpgsModelPackageGroupDescription,
-    mpgsModelPackageGroupName,
-    mpgsModelPackageGroupARN,
-    mpgsCreationTime,
-    mpgsModelPackageGroupStatus,
+    newModelPackageGroupSummary,
 
     -- * ModelPackageStatusDetails
     ModelPackageStatusDetails (..),
-    modelPackageStatusDetails,
-    mpsdImageScanStatuses,
-    mpsdValidationStatuses,
+    newModelPackageStatusDetails,
 
     -- * ModelPackageStatusItem
     ModelPackageStatusItem (..),
-    modelPackageStatusItem,
-    mpsiFailureReason,
-    mpsiName,
-    mpsiStatus,
+    newModelPackageStatusItem,
 
     -- * ModelPackageSummary
     ModelPackageSummary (..),
-    modelPackageSummary,
-    mpsModelPackageVersion,
-    mpsModelApprovalStatus,
-    mpsModelPackageDescription,
-    mpsModelPackageGroupName,
-    mpsModelPackageName,
-    mpsModelPackageARN,
-    mpsCreationTime,
-    mpsModelPackageStatus,
+    newModelPackageSummary,
 
     -- * ModelPackageValidationProfile
     ModelPackageValidationProfile (..),
-    modelPackageValidationProfile,
-    mpvpProfileName,
-    mpvpTransformJobDefinition,
+    newModelPackageValidationProfile,
 
     -- * ModelPackageValidationSpecification
     ModelPackageValidationSpecification (..),
-    modelPackageValidationSpecification,
-    mpvsValidationRole,
-    mpvsValidationProfiles,
+    newModelPackageValidationSpecification,
 
     -- * ModelQuality
     ModelQuality (..),
-    modelQuality,
-    mqConstraints,
-    mqStatistics,
+    newModelQuality,
 
     -- * ModelQualityAppSpecification
     ModelQualityAppSpecification (..),
-    modelQualityAppSpecification,
-    mqasContainerArguments,
-    mqasContainerEntrypoint,
-    mqasPostAnalyticsProcessorSourceURI,
-    mqasEnvironment,
-    mqasRecordPreprocessorSourceURI,
-    mqasProblemType,
-    mqasImageURI,
+    newModelQualityAppSpecification,
 
     -- * ModelQualityBaselineConfig
     ModelQualityBaselineConfig (..),
-    modelQualityBaselineConfig,
-    mqbcConstraintsResource,
-    mqbcBaseliningJobName,
+    newModelQualityBaselineConfig,
 
     -- * ModelQualityJobInput
     ModelQualityJobInput (..),
-    modelQualityJobInput,
-    mqjiEndpointInput,
-    mqjiGroundTruthS3Input,
+    newModelQualityJobInput,
 
     -- * ModelStepMetadata
     ModelStepMetadata (..),
-    modelStepMetadata,
-    msmARN,
+    newModelStepMetadata,
 
     -- * ModelSummary
     ModelSummary (..),
-    modelSummary,
-    msModelName,
-    msModelARN,
-    msCreationTime,
+    newModelSummary,
 
     -- * MonitoringAppSpecification
     MonitoringAppSpecification (..),
-    monitoringAppSpecification,
-    masContainerArguments,
-    masContainerEntrypoint,
-    masPostAnalyticsProcessorSourceURI,
-    masRecordPreprocessorSourceURI,
-    masImageURI,
+    newMonitoringAppSpecification,
 
     -- * MonitoringBaselineConfig
     MonitoringBaselineConfig (..),
-    monitoringBaselineConfig,
-    mbcStatisticsResource,
-    mbcConstraintsResource,
-    mbcBaseliningJobName,
+    newMonitoringBaselineConfig,
 
     -- * MonitoringClusterConfig
     MonitoringClusterConfig (..),
-    monitoringClusterConfig,
-    mccVolumeKMSKeyId,
-    mccInstanceCount,
-    mccInstanceType,
-    mccVolumeSizeInGB,
+    newMonitoringClusterConfig,
 
     -- * MonitoringConstraintsResource
     MonitoringConstraintsResource (..),
-    monitoringConstraintsResource,
-    mcrS3URI,
+    newMonitoringConstraintsResource,
 
     -- * MonitoringExecutionSummary
     MonitoringExecutionSummary (..),
-    monitoringExecutionSummary,
-    mesEndpointName,
-    mesMonitoringType,
-    mesMonitoringJobDefinitionName,
-    mesFailureReason,
-    mesProcessingJobARN,
-    mesMonitoringScheduleName,
-    mesScheduledTime,
-    mesCreationTime,
-    mesLastModifiedTime,
-    mesMonitoringExecutionStatus,
+    newMonitoringExecutionSummary,
 
     -- * MonitoringGroundTruthS3Input
     MonitoringGroundTruthS3Input (..),
-    monitoringGroundTruthS3Input,
-    mgtsiS3URI,
+    newMonitoringGroundTruthS3Input,
 
     -- * MonitoringInput
     MonitoringInput (..),
-    monitoringInput,
-    miEndpointInput,
+    newMonitoringInput,
 
     -- * MonitoringJobDefinition
     MonitoringJobDefinition (..),
-    monitoringJobDefinition,
-    mjdNetworkConfig,
-    mjdEnvironment,
-    mjdBaselineConfig,
-    mjdStoppingCondition,
-    mjdMonitoringInputs,
-    mjdMonitoringOutputConfig,
-    mjdMonitoringResources,
-    mjdMonitoringAppSpecification,
-    mjdRoleARN,
+    newMonitoringJobDefinition,
 
     -- * MonitoringJobDefinitionSummary
     MonitoringJobDefinitionSummary (..),
-    monitoringJobDefinitionSummary,
-    mjdsMonitoringJobDefinitionName,
-    mjdsMonitoringJobDefinitionARN,
-    mjdsCreationTime,
-    mjdsEndpointName,
+    newMonitoringJobDefinitionSummary,
 
     -- * MonitoringNetworkConfig
     MonitoringNetworkConfig (..),
-    monitoringNetworkConfig,
-    mncVPCConfig,
-    mncEnableNetworkIsolation,
-    mncEnableInterContainerTrafficEncryption,
+    newMonitoringNetworkConfig,
 
     -- * MonitoringOutput
     MonitoringOutput (..),
-    monitoringOutput,
-    moS3Output,
+    newMonitoringOutput,
 
     -- * MonitoringOutputConfig
     MonitoringOutputConfig (..),
-    monitoringOutputConfig,
-    mocKMSKeyId,
-    mocMonitoringOutputs,
+    newMonitoringOutputConfig,
 
     -- * MonitoringResources
     MonitoringResources (..),
-    monitoringResources,
-    mrClusterConfig,
+    newMonitoringResources,
 
     -- * MonitoringS3Output
     MonitoringS3Output (..),
-    monitoringS3Output,
-    msoS3UploadMode,
-    msoS3URI,
-    msoLocalPath,
+    newMonitoringS3Output,
 
     -- * MonitoringSchedule
     MonitoringSchedule (..),
-    monitoringSchedule,
-    mEndpointName,
-    mCreationTime,
-    mMonitoringType,
-    mMonitoringScheduleName,
-    mMonitoringScheduleStatus,
-    mFailureReason,
-    mMonitoringScheduleARN,
-    mTags,
-    mLastModifiedTime,
-    mMonitoringScheduleConfig,
-    mLastMonitoringExecutionSummary,
+    newMonitoringSchedule,
 
     -- * MonitoringScheduleConfig
     MonitoringScheduleConfig (..),
-    monitoringScheduleConfig,
-    mscScheduleConfig,
-    mscMonitoringType,
-    mscMonitoringJobDefinitionName,
-    mscMonitoringJobDefinition,
+    newMonitoringScheduleConfig,
 
     -- * MonitoringScheduleSummary
     MonitoringScheduleSummary (..),
-    monitoringScheduleSummary,
-    mssEndpointName,
-    mssMonitoringType,
-    mssMonitoringJobDefinitionName,
-    mssMonitoringScheduleName,
-    mssMonitoringScheduleARN,
-    mssCreationTime,
-    mssLastModifiedTime,
-    mssMonitoringScheduleStatus,
+    newMonitoringScheduleSummary,
 
     -- * MonitoringStatisticsResource
     MonitoringStatisticsResource (..),
-    monitoringStatisticsResource,
-    msrS3URI,
+    newMonitoringStatisticsResource,
 
     -- * MonitoringStoppingCondition
     MonitoringStoppingCondition (..),
-    monitoringStoppingCondition,
-    mscMaxRuntimeInSeconds,
+    newMonitoringStoppingCondition,
 
     -- * MultiModelConfig
     MultiModelConfig (..),
-    multiModelConfig,
-    mmcModelCacheSetting,
+    newMultiModelConfig,
 
     -- * NestedFilters
     NestedFilters (..),
-    nestedFilters,
-    nfNestedPropertyName,
-    nfFilters,
+    newNestedFilters,
 
     -- * NetworkConfig
     NetworkConfig (..),
-    networkConfig,
-    ncVPCConfig,
-    ncEnableNetworkIsolation,
-    ncEnableInterContainerTrafficEncryption,
+    newNetworkConfig,
 
     -- * NotebookInstanceLifecycleConfigSummary
     NotebookInstanceLifecycleConfigSummary (..),
-    notebookInstanceLifecycleConfigSummary,
-    nilcsCreationTime,
-    nilcsLastModifiedTime,
-    nilcsNotebookInstanceLifecycleConfigName,
-    nilcsNotebookInstanceLifecycleConfigARN,
+    newNotebookInstanceLifecycleConfigSummary,
 
     -- * NotebookInstanceLifecycleHook
     NotebookInstanceLifecycleHook (..),
-    notebookInstanceLifecycleHook,
-    nilhContent,
+    newNotebookInstanceLifecycleHook,
 
     -- * NotebookInstanceSummary
     NotebookInstanceSummary (..),
-    notebookInstanceSummary,
-    nisCreationTime,
-    nisDefaultCodeRepository,
-    nisInstanceType,
-    nisNotebookInstanceLifecycleConfigName,
-    nisAdditionalCodeRepositories,
-    nisNotebookInstanceStatus,
-    nisLastModifiedTime,
-    nisURL,
-    nisNotebookInstanceName,
-    nisNotebookInstanceARN,
+    newNotebookInstanceSummary,
 
     -- * NotificationConfiguration
     NotificationConfiguration (..),
-    notificationConfiguration,
-    ncNotificationTopicARN,
+    newNotificationConfiguration,
 
     -- * ObjectiveStatusCounters
     ObjectiveStatusCounters (..),
-    objectiveStatusCounters,
-    oscSucceeded,
-    oscPending,
-    oscFailed,
+    newObjectiveStatusCounters,
 
     -- * OfflineStoreConfig
     OfflineStoreConfig (..),
-    offlineStoreConfig,
-    oscDisableGlueTableCreation,
-    oscDataCatalogConfig,
-    oscS3StorageConfig,
+    newOfflineStoreConfig,
 
     -- * OfflineStoreStatus
     OfflineStoreStatus (..),
-    offlineStoreStatus,
-    ossBlockedReason,
-    ossStatus,
+    newOfflineStoreStatus,
 
     -- * OidcConfig
     OidcConfig (..),
-    oidcConfig,
-    ocClientId,
-    ocClientSecret,
-    ocIssuer,
-    ocAuthorizationEndpoint,
-    ocTokenEndpoint,
-    ocUserInfoEndpoint,
-    ocLogoutEndpoint,
-    ocJwksURI,
+    newOidcConfig,
 
     -- * OidcConfigForResponse
     OidcConfigForResponse (..),
-    oidcConfigForResponse,
-    ocfrClientId,
-    ocfrTokenEndpoint,
-    ocfrAuthorizationEndpoint,
-    ocfrUserInfoEndpoint,
-    ocfrLogoutEndpoint,
-    ocfrIssuer,
-    ocfrJwksURI,
+    newOidcConfigForResponse,
 
     -- * OidcMemberDefinition
     OidcMemberDefinition (..),
-    oidcMemberDefinition,
-    omdGroups,
+    newOidcMemberDefinition,
 
     -- * OnlineStoreConfig
     OnlineStoreConfig (..),
-    onlineStoreConfig,
-    oscSecurityConfig,
-    oscEnableOnlineStore,
+    newOnlineStoreConfig,
 
     -- * OnlineStoreSecurityConfig
     OnlineStoreSecurityConfig (..),
-    onlineStoreSecurityConfig,
-    osscKMSKeyId,
+    newOnlineStoreSecurityConfig,
 
     -- * OutputConfig
     OutputConfig (..),
-    outputConfig,
-    ocCompilerOptions,
-    ocKMSKeyId,
-    ocTargetDevice,
-    ocTargetPlatform,
-    ocS3OutputLocation,
+    newOutputConfig,
 
     -- * OutputDataConfig
     OutputDataConfig (..),
-    outputDataConfig,
-    odcKMSKeyId,
-    odcS3OutputPath,
+    newOutputDataConfig,
 
     -- * Parameter
     Parameter (..),
-    parameter,
-    pName,
-    pValue,
+    newParameter,
 
     -- * ParameterRange
     ParameterRange (..),
-    parameterRange,
-    prContinuousParameterRangeSpecification,
-    prIntegerParameterRangeSpecification,
-    prCategoricalParameterRangeSpecification,
+    newParameterRange,
 
     -- * ParameterRanges
     ParameterRanges (..),
-    parameterRanges,
-    prIntegerParameterRanges,
-    prCategoricalParameterRanges,
-    prContinuousParameterRanges,
+    newParameterRanges,
 
     -- * Parent
     Parent (..),
-    parent,
-    pExperimentName,
-    pTrialName,
+    newParent,
 
     -- * ParentHyperParameterTuningJob
     ParentHyperParameterTuningJob (..),
-    parentHyperParameterTuningJob,
-    phptjHyperParameterTuningJobName,
+    newParentHyperParameterTuningJob,
 
     -- * Pipeline
     Pipeline (..),
-    pipeline,
-    pipPipelineARN,
-    pipPipelineDescription,
-    pipCreationTime,
-    pipRoleARN,
-    pipLastRunTime,
-    pipPipelineDisplayName,
-    pipTags,
-    pipLastModifiedTime,
-    pipPipelineStatus,
-    pipCreatedBy,
-    pipLastModifiedBy,
-    pipPipelineName,
+    newPipeline,
 
     -- * PipelineExecution
     PipelineExecution (..),
-    pipelineExecution,
-    pePipelineARN,
-    peCreationTime,
-    pePipelineExecutionDescription,
-    pePipelineParameters,
-    pePipelineExecutionDisplayName,
-    pePipelineExecutionStatus,
-    peLastModifiedTime,
-    peCreatedBy,
-    peLastModifiedBy,
-    pePipelineExecutionARN,
+    newPipelineExecution,
 
     -- * PipelineExecutionStep
     PipelineExecutionStep (..),
-    pipelineExecutionStep,
-    pStartTime,
-    pMetadata,
-    pEndTime,
-    pFailureReason,
-    pStepStatus,
-    pCacheHitResult,
-    pStepName,
+    newPipelineExecutionStep,
 
     -- * PipelineExecutionStepMetadata
     PipelineExecutionStepMetadata (..),
-    pipelineExecutionStepMetadata,
-    pesmModel,
-    pesmProcessingJob,
-    pesmCondition,
-    pesmTrainingJob,
-    pesmRegisterModel,
-    pesmTransformJob,
+    newPipelineExecutionStepMetadata,
 
     -- * PipelineExecutionSummary
     PipelineExecutionSummary (..),
-    pipelineExecutionSummary,
-    pesPipelineExecutionDescription,
-    pesStartTime,
-    pesPipelineExecutionDisplayName,
-    pesPipelineExecutionStatus,
-    pesPipelineExecutionARN,
+    newPipelineExecutionSummary,
 
     -- * PipelineSummary
     PipelineSummary (..),
-    pipelineSummary,
-    pPipelineARN,
-    pPipelineDescription,
-    pCreationTime,
-    pRoleARN,
-    pLastExecutionTime,
-    pPipelineDisplayName,
-    pLastModifiedTime,
-    pPipelineName,
+    newPipelineSummary,
 
     -- * ProcessingClusterConfig
     ProcessingClusterConfig (..),
-    processingClusterConfig,
-    pccVolumeKMSKeyId,
-    pccInstanceCount,
-    pccInstanceType,
-    pccVolumeSizeInGB,
+    newProcessingClusterConfig,
 
     -- * ProcessingFeatureStoreOutput
     ProcessingFeatureStoreOutput (..),
-    processingFeatureStoreOutput,
-    pfsoFeatureGroupName,
+    newProcessingFeatureStoreOutput,
 
     -- * ProcessingInput
     ProcessingInput (..),
-    processingInput,
-    piDatasetDefinition,
-    piAppManaged,
-    piS3Input,
-    piInputName,
+    newProcessingInput,
 
     -- * ProcessingJob
     ProcessingJob (..),
-    processingJob,
-    pjNetworkConfig,
-    pjCreationTime,
-    pjAppSpecification,
-    pjProcessingEndTime,
-    pjRoleARN,
-    pjProcessingOutputConfig,
-    pjExitMessage,
-    pjExperimentConfig,
-    pjProcessingJobStatus,
-    pjEnvironment,
-    pjAutoMLJobARN,
-    pjFailureReason,
-    pjMonitoringScheduleARN,
-    pjProcessingJobARN,
-    pjTags,
-    pjLastModifiedTime,
-    pjProcessingInputs,
-    pjProcessingStartTime,
-    pjStoppingCondition,
-    pjProcessingJobName,
-    pjProcessingResources,
-    pjTrainingJobARN,
+    newProcessingJob,
 
     -- * ProcessingJobStepMetadata
     ProcessingJobStepMetadata (..),
-    processingJobStepMetadata,
-    pjsmARN,
+    newProcessingJobStepMetadata,
 
     -- * ProcessingJobSummary
     ProcessingJobSummary (..),
-    processingJobSummary,
-    pjsProcessingEndTime,
-    pjsExitMessage,
-    pjsFailureReason,
-    pjsLastModifiedTime,
-    pjsProcessingJobName,
-    pjsProcessingJobARN,
-    pjsCreationTime,
-    pjsProcessingJobStatus,
+    newProcessingJobSummary,
 
     -- * ProcessingOutput
     ProcessingOutput (..),
-    processingOutput,
-    poS3Output,
-    poFeatureStoreOutput,
-    poAppManaged,
-    poOutputName,
+    newProcessingOutput,
 
     -- * ProcessingOutputConfig
     ProcessingOutputConfig (..),
-    processingOutputConfig,
-    pocKMSKeyId,
-    pocOutputs,
+    newProcessingOutputConfig,
 
     -- * ProcessingResources
     ProcessingResources (..),
-    processingResources,
-    prClusterConfig,
+    newProcessingResources,
 
     -- * ProcessingS3Input
     ProcessingS3Input (..),
-    processingS3Input,
-    psiS3CompressionType,
-    psiS3InputMode,
-    psiS3DataDistributionType,
-    psiLocalPath,
-    psiS3URI,
-    psiS3DataType,
+    newProcessingS3Input,
 
     -- * ProcessingS3Output
     ProcessingS3Output (..),
-    processingS3Output,
-    psoS3URI,
-    psoLocalPath,
-    psoS3UploadMode,
+    newProcessingS3Output,
 
     -- * ProcessingStoppingCondition
     ProcessingStoppingCondition (..),
-    processingStoppingCondition,
-    pscMaxRuntimeInSeconds,
+    newProcessingStoppingCondition,
 
     -- * ProductionVariant
     ProductionVariant (..),
-    productionVariant,
-    pvInitialVariantWeight,
-    pvAcceleratorType,
-    pvCoreDumpConfig,
-    pvVariantName,
-    pvModelName,
-    pvInitialInstanceCount,
-    pvInstanceType,
+    newProductionVariant,
 
     -- * ProductionVariantCoreDumpConfig
     ProductionVariantCoreDumpConfig (..),
-    productionVariantCoreDumpConfig,
-    pvcdcKMSKeyId,
-    pvcdcDestinationS3URI,
+    newProductionVariantCoreDumpConfig,
 
     -- * ProductionVariantSummary
     ProductionVariantSummary (..),
-    productionVariantSummary,
-    pvsDeployedImages,
-    pvsDesiredInstanceCount,
-    pvsCurrentWeight,
-    pvsCurrentInstanceCount,
-    pvsDesiredWeight,
-    pvsVariantName,
+    newProductionVariantSummary,
 
     -- * ProfilerConfig
     ProfilerConfig (..),
-    profilerConfig,
-    pcProfilingParameters,
-    pcProfilingIntervalInMilliseconds,
-    pcS3OutputPath,
+    newProfilerConfig,
 
     -- * ProfilerConfigForUpdate
     ProfilerConfigForUpdate (..),
-    profilerConfigForUpdate,
-    pcfuS3OutputPath,
-    pcfuProfilingParameters,
-    pcfuProfilingIntervalInMilliseconds,
-    pcfuDisableProfiler,
+    newProfilerConfigForUpdate,
 
     -- * ProfilerRuleConfiguration
     ProfilerRuleConfiguration (..),
-    profilerRuleConfiguration,
-    prcRuleParameters,
-    prcInstanceType,
-    prcS3OutputPath,
-    prcVolumeSizeInGB,
-    prcLocalPath,
-    prcRuleConfigurationName,
-    prcRuleEvaluatorImage,
+    newProfilerRuleConfiguration,
 
     -- * ProfilerRuleEvaluationStatus
     ProfilerRuleEvaluationStatus (..),
-    profilerRuleEvaluationStatus,
-    presRuleConfigurationName,
-    presStatusDetails,
-    presRuleEvaluationStatus,
-    presLastModifiedTime,
-    presRuleEvaluationJobARN,
+    newProfilerRuleEvaluationStatus,
 
     -- * ProjectSummary
     ProjectSummary (..),
-    projectSummary,
-    psProjectDescription,
-    psProjectName,
-    psProjectARN,
-    psProjectId,
-    psCreationTime,
-    psProjectStatus,
+    newProjectSummary,
 
     -- * PropertyNameQuery
     PropertyNameQuery (..),
-    propertyNameQuery,
-    pnqPropertyNameHint,
+    newPropertyNameQuery,
 
     -- * PropertyNameSuggestion
     PropertyNameSuggestion (..),
-    propertyNameSuggestion,
-    pnsPropertyName,
+    newPropertyNameSuggestion,
 
     -- * ProvisioningParameter
     ProvisioningParameter (..),
-    provisioningParameter,
-    ppKey,
-    ppValue,
+    newProvisioningParameter,
 
     -- * PublicWorkforceTaskPrice
     PublicWorkforceTaskPrice (..),
-    publicWorkforceTaskPrice,
-    pwtpAmountInUsd,
+    newPublicWorkforceTaskPrice,
 
     -- * RedshiftDatasetDefinition
     RedshiftDatasetDefinition (..),
-    redshiftDatasetDefinition,
-    rddOutputCompression,
-    rddKMSKeyId,
-    rddClusterId,
-    rddDatabase,
-    rddDBUser,
-    rddQueryString,
-    rddClusterRoleARN,
-    rddOutputS3URI,
-    rddOutputFormat,
+    newRedshiftDatasetDefinition,
 
     -- * RegisterModelStepMetadata
     RegisterModelStepMetadata (..),
-    registerModelStepMetadata,
-    rmsmARN,
+    newRegisterModelStepMetadata,
 
     -- * RenderableTask
     RenderableTask (..),
-    renderableTask,
-    rtInput,
+    newRenderableTask,
 
     -- * RenderingError
     RenderingError (..),
-    renderingError,
-    reCode,
-    reMessage,
+    newRenderingError,
 
     -- * ResolvedAttributes
     ResolvedAttributes (..),
-    resolvedAttributes,
-    raCompletionCriteria,
-    raAutoMLJobObjective,
-    raProblemType,
+    newResolvedAttributes,
 
     -- * ResourceConfig
     ResourceConfig (..),
-    resourceConfig,
-    rcVolumeKMSKeyId,
-    rcInstanceType,
-    rcInstanceCount,
-    rcVolumeSizeInGB,
+    newResourceConfig,
 
     -- * ResourceLimits
     ResourceLimits (..),
-    resourceLimits,
-    rlMaxNumberOfTrainingJobs,
-    rlMaxParallelTrainingJobs,
+    newResourceLimits,
 
     -- * ResourceSpec
     ResourceSpec (..),
-    resourceSpec,
-    rsInstanceType,
-    rsSageMakerImageARN,
-    rsSageMakerImageVersionARN,
+    newResourceSpec,
 
     -- * RetentionPolicy
     RetentionPolicy (..),
-    retentionPolicy,
-    rpHomeEfsFileSystem,
+    newRetentionPolicy,
 
     -- * S3DataSource
     S3DataSource (..),
-    s3DataSource,
-    sdsS3DataDistributionType,
-    sdsAttributeNames,
-    sdsS3DataType,
-    sdsS3URI,
+    newS3DataSource,
 
     -- * S3StorageConfig
     S3StorageConfig (..),
-    s3StorageConfig,
-    sscKMSKeyId,
-    sscResolvedOutputS3URI,
-    sscS3URI,
+    newS3StorageConfig,
 
     -- * ScheduleConfig
     ScheduleConfig (..),
-    scheduleConfig,
-    scScheduleExpression,
+    newScheduleConfig,
 
     -- * SearchExpression
     SearchExpression (..),
-    searchExpression,
-    seNestedFilters,
-    seOperator,
-    seFilters,
-    seSubExpressions,
+    newSearchExpression,
 
     -- * SearchRecord
     SearchRecord (..),
-    searchRecord,
-    srExperiment,
-    srFeatureGroup,
-    srModelPackage,
-    srTrainingJob,
-    srEndpoint,
-    srPipelineExecution,
-    srTrialComponent,
-    srModelPackageGroup,
-    srPipeline,
-    srTrial,
+    newSearchRecord,
 
     -- * SecondaryStatusTransition
     SecondaryStatusTransition (..),
-    secondaryStatusTransition,
-    sstStatusMessage,
-    sstEndTime,
-    sstStatus,
-    sstStartTime,
+    newSecondaryStatusTransition,
 
     -- * ServiceCatalogProvisionedProductDetails
     ServiceCatalogProvisionedProductDetails (..),
-    serviceCatalogProvisionedProductDetails,
-    scppdProvisionedProductStatusMessage,
-    scppdProvisionedProductId,
+    newServiceCatalogProvisionedProductDetails,
 
     -- * ServiceCatalogProvisioningDetails
     ServiceCatalogProvisioningDetails (..),
-    serviceCatalogProvisioningDetails,
-    scpdProvisioningParameters,
-    scpdPathId,
-    scpdProductId,
-    scpdProvisioningArtifactId,
+    newServiceCatalogProvisioningDetails,
 
     -- * SharingSettings
     SharingSettings (..),
-    sharingSettings,
-    ssS3KMSKeyId,
-    ssS3OutputPath,
-    ssNotebookOutputOption,
+    newSharingSettings,
 
     -- * ShuffleConfig
     ShuffleConfig (..),
-    shuffleConfig,
-    scSeed,
+    newShuffleConfig,
 
     -- * SourceAlgorithm
     SourceAlgorithm (..),
-    sourceAlgorithm,
-    saModelDataURL,
-    saAlgorithmName,
+    newSourceAlgorithm,
 
     -- * SourceAlgorithmSpecification
     SourceAlgorithmSpecification (..),
-    sourceAlgorithmSpecification,
-    sasSourceAlgorithms,
+    newSourceAlgorithmSpecification,
 
-    -- * SourceIPConfig
-    SourceIPConfig (..),
-    sourceIPConfig,
-    sicCidrs,
+    -- * SourceIpConfig
+    SourceIpConfig (..),
+    newSourceIpConfig,
 
     -- * StoppingCondition
     StoppingCondition (..),
-    stoppingCondition,
-    scMaxRuntimeInSeconds,
-    scMaxWaitTimeInSeconds,
+    newStoppingCondition,
 
     -- * SubscribedWorkteam
     SubscribedWorkteam (..),
-    subscribedWorkteam,
-    swMarketplaceTitle,
-    swListingId,
-    swMarketplaceDescription,
-    swSellerName,
-    swWorkteamARN,
+    newSubscribedWorkteam,
 
     -- * SuggestionQuery
     SuggestionQuery (..),
-    suggestionQuery,
-    sqPropertyNameQuery,
+    newSuggestionQuery,
 
     -- * Tag
     Tag (..),
-    tag,
-    tagKey,
-    tagValue,
+    newTag,
 
     -- * TargetPlatform
     TargetPlatform (..),
-    targetPlatform,
-    tpAccelerator,
-    tpOS,
-    tpArch,
+    newTargetPlatform,
 
     -- * TensorBoardAppSettings
     TensorBoardAppSettings (..),
-    tensorBoardAppSettings,
-    tbasDefaultResourceSpec,
+    newTensorBoardAppSettings,
 
     -- * TensorBoardOutputConfig
     TensorBoardOutputConfig (..),
-    tensorBoardOutputConfig,
-    tbocLocalPath,
-    tbocS3OutputPath,
+    newTensorBoardOutputConfig,
 
     -- * TrafficRoutingConfig
     TrafficRoutingConfig (..),
-    trafficRoutingConfig,
-    trcCanarySize,
-    trcType,
-    trcWaitIntervalInSeconds,
+    newTrafficRoutingConfig,
 
     -- * TrainingJob
     TrainingJob (..),
-    trainingJob,
-    tjVPCConfig,
-    tjDebugRuleConfigurations,
-    tjInputDataConfig,
-    tjHyperParameters,
-    tjEnableManagedSpotTraining,
-    tjCreationTime,
-    tjLabelingJobARN,
-    tjRoleARN,
-    tjTrainingTimeInSeconds,
-    tjExperimentConfig,
-    tjEnableNetworkIsolation,
-    tjEnableInterContainerTrafficEncryption,
-    tjTrainingJobName,
-    tjCheckpointConfig,
-    tjOutputDataConfig,
-    tjTuningJobARN,
-    tjModelArtifacts,
-    tjSecondaryStatusTransitions,
-    tjFinalMetricDataList,
-    tjAutoMLJobARN,
-    tjFailureReason,
-    tjTags,
-    tjSecondaryStatus,
-    tjLastModifiedTime,
-    tjTensorBoardOutputConfig,
-    tjStoppingCondition,
-    tjDebugRuleEvaluationStatuses,
-    tjTrainingJobStatus,
-    tjDebugHookConfig,
-    tjBillableTimeInSeconds,
-    tjResourceConfig,
-    tjTrainingStartTime,
-    tjTrainingEndTime,
-    tjAlgorithmSpecification,
-    tjTrainingJobARN,
+    newTrainingJob,
 
     -- * TrainingJobDefinition
     TrainingJobDefinition (..),
-    trainingJobDefinition,
-    tjdHyperParameters,
-    tjdTrainingInputMode,
-    tjdInputDataConfig,
-    tjdOutputDataConfig,
-    tjdResourceConfig,
-    tjdStoppingCondition,
+    newTrainingJobDefinition,
 
     -- * TrainingJobStatusCounters
     TrainingJobStatusCounters (..),
-    trainingJobStatusCounters,
-    tjscStopped,
-    tjscCompleted,
-    tjscNonRetryableError,
-    tjscInProgress,
-    tjscRetryableError,
+    newTrainingJobStatusCounters,
 
     -- * TrainingJobStepMetadata
     TrainingJobStepMetadata (..),
-    trainingJobStepMetadata,
-    tjsmARN,
+    newTrainingJobStepMetadata,
 
     -- * TrainingJobSummary
     TrainingJobSummary (..),
-    trainingJobSummary,
-    traLastModifiedTime,
-    traTrainingEndTime,
-    traTrainingJobName,
-    traTrainingJobARN,
-    traCreationTime,
-    traTrainingJobStatus,
+    newTrainingJobSummary,
 
     -- * TrainingSpecification
     TrainingSpecification (..),
-    trainingSpecification,
-    tsSupportedHyperParameters,
-    tsMetricDefinitions,
-    tsTrainingImageDigest,
-    tsSupportsDistributedTraining,
-    tsSupportedTuningJobObjectiveMetrics,
-    tsTrainingImage,
-    tsSupportedTrainingInstanceTypes,
-    tsTrainingChannels,
+    newTrainingSpecification,
 
     -- * TransformDataSource
     TransformDataSource (..),
-    transformDataSource,
-    tdsS3DataSource,
+    newTransformDataSource,
 
     -- * TransformInput
     TransformInput (..),
-    transformInput,
-    tiContentType,
-    tiSplitType,
-    tiCompressionType,
-    tiDataSource,
+    newTransformInput,
 
     -- * TransformJob
     TransformJob (..),
-    transformJob,
-    tCreationTime,
-    tLabelingJobARN,
-    tTransformJobName,
-    tTransformStartTime,
-    tTransformOutput,
-    tExperimentConfig,
-    tMaxConcurrentTransforms,
-    tEnvironment,
-    tMaxPayloadInMB,
-    tBatchStrategy,
-    tTransformJobStatus,
-    tAutoMLJobARN,
-    tFailureReason,
-    tModelClientConfig,
-    tTags,
-    tTransformEndTime,
-    tTransformJobARN,
-    tDataProcessing,
-    tModelName,
-    tTransformResources,
-    tTransformInput,
+    newTransformJob,
 
     -- * TransformJobDefinition
     TransformJobDefinition (..),
-    transformJobDefinition,
-    tjdMaxConcurrentTransforms,
-    tjdEnvironment,
-    tjdMaxPayloadInMB,
-    tjdBatchStrategy,
-    tjdTransformInput,
-    tjdTransformOutput,
-    tjdTransformResources,
+    newTransformJobDefinition,
 
     -- * TransformJobStepMetadata
     TransformJobStepMetadata (..),
-    transformJobStepMetadata,
-    tARN,
+    newTransformJobStepMetadata,
 
     -- * TransformJobSummary
     TransformJobSummary (..),
-    transformJobSummary,
-    tjsFailureReason,
-    tjsLastModifiedTime,
-    tjsTransformEndTime,
-    tjsTransformJobName,
-    tjsTransformJobARN,
-    tjsCreationTime,
-    tjsTransformJobStatus,
+    newTransformJobSummary,
 
     -- * TransformOutput
     TransformOutput (..),
-    transformOutput,
-    toAccept,
-    toAssembleWith,
-    toKMSKeyId,
-    toS3OutputPath,
+    newTransformOutput,
 
     -- * TransformResources
     TransformResources (..),
-    transformResources,
-    trVolumeKMSKeyId,
-    trInstanceType,
-    trInstanceCount,
+    newTransformResources,
 
     -- * TransformS3DataSource
     TransformS3DataSource (..),
-    transformS3DataSource,
-    tsdsS3DataType,
-    tsdsS3URI,
+    newTransformS3DataSource,
 
     -- * Trial
     Trial (..),
-    trial,
-    triTrialARN,
-    triMetadataProperties,
-    triCreationTime,
-    triSource,
-    triTrialComponentSummaries,
-    triTags,
-    triLastModifiedTime,
-    triExperimentName,
-    triCreatedBy,
-    triLastModifiedBy,
-    triDisplayName,
-    triTrialName,
+    newTrial,
 
     -- * TrialComponent
     TrialComponent (..),
-    trialComponent,
-    tcParents,
-    tcStatus,
-    tcMetadataProperties,
-    tcCreationTime,
-    tcSourceDetail,
-    tcTrialComponentARN,
-    tcStartTime,
-    tcSource,
-    tcEndTime,
-    tcMetrics,
-    tcTags,
-    tcLastModifiedTime,
-    tcInputArtifacts,
-    tcCreatedBy,
-    tcLastModifiedBy,
-    tcDisplayName,
-    tcParameters,
-    tcOutputArtifacts,
-    tcTrialComponentName,
+    newTrialComponent,
 
     -- * TrialComponentArtifact
     TrialComponentArtifact (..),
-    trialComponentArtifact,
-    tcaMediaType,
-    tcaValue,
+    newTrialComponentArtifact,
 
     -- * TrialComponentMetricSummary
     TrialComponentMetricSummary (..),
-    trialComponentMetricSummary,
-    tcmsMetricName,
-    tcmsMin,
-    tcmsStdDev,
-    tcmsMax,
-    tcmsTimeStamp,
-    tcmsCount,
-    tcmsSourceARN,
-    tcmsAvg,
-    tcmsLast,
+    newTrialComponentMetricSummary,
 
     -- * TrialComponentParameterValue
     TrialComponentParameterValue (..),
-    trialComponentParameterValue,
-    tcpvStringValue,
-    tcpvNumberValue,
+    newTrialComponentParameterValue,
 
     -- * TrialComponentSimpleSummary
     TrialComponentSimpleSummary (..),
-    trialComponentSimpleSummary,
-    tcssCreationTime,
-    tcssTrialComponentARN,
-    tcssCreatedBy,
-    tcssTrialComponentSource,
-    tcssTrialComponentName,
+    newTrialComponentSimpleSummary,
 
     -- * TrialComponentSource
     TrialComponentSource (..),
-    trialComponentSource,
-    tcsSourceType,
-    tcsSourceARN,
+    newTrialComponentSource,
 
     -- * TrialComponentSourceDetail
     TrialComponentSourceDetail (..),
-    trialComponentSourceDetail,
-    tcsdProcessingJob,
-    tcsdTrainingJob,
-    tcsdTransformJob,
-    tcsdSourceARN,
+    newTrialComponentSourceDetail,
 
     -- * TrialComponentStatus
     TrialComponentStatus (..),
-    trialComponentStatus,
-    tcsMessage,
-    tcsPrimaryStatus,
+    newTrialComponentStatus,
 
     -- * TrialComponentSummary
     TrialComponentSummary (..),
-    trialComponentSummary,
-    tcsStatus,
-    tcsCreationTime,
-    tcsTrialComponentARN,
-    tcsStartTime,
-    tcsEndTime,
-    tcsLastModifiedTime,
-    tcsCreatedBy,
-    tcsLastModifiedBy,
-    tcsTrialComponentSource,
-    tcsDisplayName,
-    tcsTrialComponentName,
+    newTrialComponentSummary,
 
     -- * TrialSource
     TrialSource (..),
-    trialSource,
-    tsSourceType,
-    tsSourceARN,
+    newTrialSource,
 
     -- * TrialSummary
     TrialSummary (..),
-    trialSummary,
-    tsTrialSource,
-    tsTrialARN,
-    tsCreationTime,
-    tsLastModifiedTime,
-    tsDisplayName,
-    tsTrialName,
+    newTrialSummary,
 
     -- * TuningJobCompletionCriteria
     TuningJobCompletionCriteria (..),
-    tuningJobCompletionCriteria,
-    tjccTargetObjectiveMetricValue,
+    newTuningJobCompletionCriteria,
 
     -- * USD
     USD (..),
-    uSD,
-    usdDollars,
-    usdCents,
-    usdTenthFractionsOfACent,
+    newUSD,
 
     -- * UiConfig
     UiConfig (..),
-    uiConfig,
-    ucHumanTaskUiARN,
-    ucUiTemplateS3URI,
+    newUiConfig,
 
     -- * UiTemplate
     UiTemplate (..),
-    uiTemplate,
-    utContent,
+    newUiTemplate,
 
     -- * UiTemplateInfo
     UiTemplateInfo (..),
-    uiTemplateInfo,
-    utiContentSha256,
-    utiURL,
+    newUiTemplateInfo,
 
     -- * UserContext
     UserContext (..),
-    userContext,
-    ucUserProfileName,
-    ucDomainId,
-    ucUserProfileARN,
+    newUserContext,
 
     -- * UserProfileDetails
     UserProfileDetails (..),
-    userProfileDetails,
-    updStatus,
-    updCreationTime,
-    updUserProfileName,
-    updDomainId,
-    updLastModifiedTime,
+    newUserProfileDetails,
 
     -- * UserSettings
     UserSettings (..),
-    userSettings,
-    usKernelGatewayAppSettings,
-    usTensorBoardAppSettings,
-    usSecurityGroups,
-    usJupyterServerAppSettings,
-    usExecutionRole,
-    usSharingSettings,
-
-    -- * VPCConfig
-    VPCConfig (..),
-    vpcConfig,
-    vcSecurityGroupIds,
-    vcSubnets,
+    newUserSettings,
 
     -- * VariantProperty
     VariantProperty (..),
-    variantProperty,
-    vpVariantPropertyType,
+    newVariantProperty,
+
+    -- * VpcConfig
+    VpcConfig (..),
+    newVpcConfig,
 
     -- * Workforce
     Workforce (..),
-    workforce,
-    worLastUpdatedDate,
-    worCreateDate,
-    worSubDomain,
-    worSourceIPConfig,
-    worOidcConfig,
-    worCognitoConfig,
-    worWorkforceName,
-    worWorkforceARN,
+    newWorkforce,
 
     -- * Workteam
     Workteam (..),
-    workteam,
-    wWorkforceARN,
-    wLastUpdatedDate,
-    wCreateDate,
-    wNotificationConfiguration,
-    wProductListingIds,
-    wSubDomain,
-    wWorkteamName,
-    wMemberDefinitions,
-    wWorkteamARN,
-    wDescription,
+    newWorkteam,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.SageMaker.Types.AWSManagedHumanLoopRequestSource
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.ActionSource
 import Network.AWS.SageMaker.Types.ActionStatus
 import Network.AWS.SageMaker.Types.ActionSummary
@@ -3105,6 +1825,7 @@ import Network.AWS.SageMaker.Types.AutoMLSecurityConfig
 import Network.AWS.SageMaker.Types.AutoMLSortBy
 import Network.AWS.SageMaker.Types.AutoMLSortOrder
 import Network.AWS.SageMaker.Types.AutoRollbackConfig
+import Network.AWS.SageMaker.Types.AwsManagedHumanLoopRequestSource
 import Network.AWS.SageMaker.Types.BatchStrategy
 import Network.AWS.SageMaker.Types.Bias
 import Network.AWS.SageMaker.Types.BlueGreenUpdatePolicy
@@ -3261,7 +1982,7 @@ import Network.AWS.SageMaker.Types.LabelingJobOutput
 import Network.AWS.SageMaker.Types.LabelingJobOutputConfig
 import Network.AWS.SageMaker.Types.LabelingJobResourceConfig
 import Network.AWS.SageMaker.Types.LabelingJobS3DataSource
-import Network.AWS.SageMaker.Types.LabelingJobSNSDataSource
+import Network.AWS.SageMaker.Types.LabelingJobSnsDataSource
 import Network.AWS.SageMaker.Types.LabelingJobStatus
 import Network.AWS.SageMaker.Types.LabelingJobStoppingConditions
 import Network.AWS.SageMaker.Types.LabelingJobSummary
@@ -3460,7 +2181,7 @@ import Network.AWS.SageMaker.Types.SortTrialComponentsBy
 import Network.AWS.SageMaker.Types.SortTrialsBy
 import Network.AWS.SageMaker.Types.SourceAlgorithm
 import Network.AWS.SageMaker.Types.SourceAlgorithmSpecification
-import Network.AWS.SageMaker.Types.SourceIPConfig
+import Network.AWS.SageMaker.Types.SourceIpConfig
 import Network.AWS.SageMaker.Types.SplitType
 import Network.AWS.SageMaker.Types.StepStatus
 import Network.AWS.SageMaker.Types.StoppingCondition
@@ -3471,7 +2192,7 @@ import Network.AWS.SageMaker.Types.TargetDevice
 import Network.AWS.SageMaker.Types.TargetPlatform
 import Network.AWS.SageMaker.Types.TargetPlatformAccelerator
 import Network.AWS.SageMaker.Types.TargetPlatformArch
-import Network.AWS.SageMaker.Types.TargetPlatformOS
+import Network.AWS.SageMaker.Types.TargetPlatformOs
 import Network.AWS.SageMaker.Types.TensorBoardAppSettings
 import Network.AWS.SageMaker.Types.TensorBoardOutputConfig
 import Network.AWS.SageMaker.Types.TrafficRoutingConfig
@@ -3521,82 +2242,109 @@ import Network.AWS.SageMaker.Types.UserProfileDetails
 import Network.AWS.SageMaker.Types.UserProfileSortKey
 import Network.AWS.SageMaker.Types.UserProfileStatus
 import Network.AWS.SageMaker.Types.UserSettings
-import Network.AWS.SageMaker.Types.VPCConfig
 import Network.AWS.SageMaker.Types.VariantProperty
 import Network.AWS.SageMaker.Types.VariantPropertyType
+import Network.AWS.SageMaker.Types.VpcConfig
 import Network.AWS.SageMaker.Types.Workforce
 import Network.AWS.SageMaker.Types.Workteam
-import Network.AWS.Sign.V4
+import qualified Network.AWS.Sign.V4 as Sign
 
 -- | API version @2017-07-24@ of the Amazon SageMaker Service SDK configuration.
-sageMaker :: Service
-sageMaker =
-  Service
-    { _svcAbbrev = "SageMaker",
-      _svcSigner = v4,
-      _svcPrefix = "api.sagemaker",
-      _svcVersion = "2017-07-24",
-      _svcEndpoint = defaultEndpoint sageMaker,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseJSONError "SageMaker",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev = "SageMaker",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "api.sagemaker",
+      Prelude._svcVersion = "2017-07-24",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError =
+        Prelude.parseJSONError "SageMaker",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
 -- | Resource being accessed is in use.
-_ResourceInUse :: AsError a => Getting (First ServiceError) a ServiceError
+_ResourceInUse :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceInUse =
-  _MatchServiceError sageMaker "ResourceInUse"
+  Prelude._MatchServiceError
+    defaultService
+    "ResourceInUse"
 
--- | You have exceeded an Amazon SageMaker resource limit. For example, you might have too many training jobs created.
-_ResourceLimitExceeded :: AsError a => Getting (First ServiceError) a ServiceError
+-- | You have exceeded an Amazon SageMaker resource limit. For example, you
+-- might have too many training jobs created.
+_ResourceLimitExceeded :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceLimitExceeded =
-  _MatchServiceError
-    sageMaker
+  Prelude._MatchServiceError
+    defaultService
     "ResourceLimitExceeded"
 
--- | There was a conflict when you attempted to modify an experiment, trial, or trial component.
-_ConflictException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | There was a conflict when you attempted to modify an experiment, trial,
+-- or trial component.
+_ConflictException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ConflictException =
-  _MatchServiceError sageMaker "ConflictException"
+  Prelude._MatchServiceError
+    defaultService
+    "ConflictException"
 
 -- | Resource being access is not found.
-_ResourceNotFound :: AsError a => Getting (First ServiceError) a ServiceError
+_ResourceNotFound :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceNotFound =
-  _MatchServiceError sageMaker "ResourceNotFound"
+  Prelude._MatchServiceError
+    defaultService
+    "ResourceNotFound"

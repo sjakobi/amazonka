@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,70 +19,68 @@
 module Network.AWS.SageMaker.Types.ArtifactSourceIdType
   ( ArtifactSourceIdType
       ( ..,
-        Custom,
-        MD5Hash,
-        S3ETag,
-        S3Version
+        ArtifactSourceIdTypeCustom,
+        ArtifactSourceIdTypeMD5Hash,
+        ArtifactSourceIdTypeS3ETag,
+        ArtifactSourceIdTypeS3Version
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ArtifactSourceIdType
-  = ArtifactSourceIdType'
-      ( CI
-          Text
-      )
+newtype ArtifactSourceIdType = ArtifactSourceIdType'
+  { fromArtifactSourceIdType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Custom :: ArtifactSourceIdType
-pattern Custom = ArtifactSourceIdType' "Custom"
+pattern ArtifactSourceIdTypeCustom :: ArtifactSourceIdType
+pattern ArtifactSourceIdTypeCustom = ArtifactSourceIdType' "Custom"
 
-pattern MD5Hash :: ArtifactSourceIdType
-pattern MD5Hash = ArtifactSourceIdType' "MD5Hash"
+pattern ArtifactSourceIdTypeMD5Hash :: ArtifactSourceIdType
+pattern ArtifactSourceIdTypeMD5Hash = ArtifactSourceIdType' "MD5Hash"
 
-pattern S3ETag :: ArtifactSourceIdType
-pattern S3ETag = ArtifactSourceIdType' "S3ETag"
+pattern ArtifactSourceIdTypeS3ETag :: ArtifactSourceIdType
+pattern ArtifactSourceIdTypeS3ETag = ArtifactSourceIdType' "S3ETag"
 
-pattern S3Version :: ArtifactSourceIdType
-pattern S3Version = ArtifactSourceIdType' "S3Version"
+pattern ArtifactSourceIdTypeS3Version :: ArtifactSourceIdType
+pattern ArtifactSourceIdTypeS3Version = ArtifactSourceIdType' "S3Version"
 
 {-# COMPLETE
-  Custom,
-  MD5Hash,
-  S3ETag,
-  S3Version,
+  ArtifactSourceIdTypeCustom,
+  ArtifactSourceIdTypeMD5Hash,
+  ArtifactSourceIdTypeS3ETag,
+  ArtifactSourceIdTypeS3Version,
   ArtifactSourceIdType'
   #-}
 
-instance FromText ArtifactSourceIdType where
-  parser = (ArtifactSourceIdType' . mk) <$> takeText
+instance Prelude.FromText ArtifactSourceIdType where
+  parser = ArtifactSourceIdType' Prelude.<$> Prelude.takeText
 
-instance ToText ArtifactSourceIdType where
-  toText (ArtifactSourceIdType' ci) = original ci
+instance Prelude.ToText ArtifactSourceIdType where
+  toText (ArtifactSourceIdType' x) = x
 
-instance Hashable ArtifactSourceIdType
+instance Prelude.Hashable ArtifactSourceIdType
 
-instance NFData ArtifactSourceIdType
+instance Prelude.NFData ArtifactSourceIdType
 
-instance ToByteString ArtifactSourceIdType
+instance Prelude.ToByteString ArtifactSourceIdType
 
-instance ToQuery ArtifactSourceIdType
+instance Prelude.ToQuery ArtifactSourceIdType
 
-instance ToHeader ArtifactSourceIdType
+instance Prelude.ToHeader ArtifactSourceIdType
 
-instance ToJSON ArtifactSourceIdType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ArtifactSourceIdType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ArtifactSourceIdType where
-  parseJSON = parseJSONText "ArtifactSourceIdType"
+instance Prelude.FromJSON ArtifactSourceIdType where
+  parseJSON = Prelude.parseJSONText "ArtifactSourceIdType"

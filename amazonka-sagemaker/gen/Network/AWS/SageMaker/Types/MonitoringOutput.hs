@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,48 +19,58 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.MonitoringOutput where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.MonitoringS3Output
 
 -- | The output object for a monitoring job.
 --
---
---
--- /See:/ 'monitoringOutput' smart constructor.
-newtype MonitoringOutput = MonitoringOutput'
-  { _moS3Output ::
-      MonitoringS3Output
+-- /See:/ 'newMonitoringOutput' smart constructor.
+data MonitoringOutput = MonitoringOutput'
+  { -- | The Amazon S3 storage location where the results of a monitoring job are
+    -- saved.
+    s3Output :: MonitoringS3Output
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MonitoringOutput' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MonitoringOutput' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'moS3Output' - The Amazon S3 storage location where the results of a monitoring job are saved.
-monitoringOutput ::
-  -- | 'moS3Output'
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 's3Output', 'monitoringOutput_s3Output' - The Amazon S3 storage location where the results of a monitoring job are
+-- saved.
+newMonitoringOutput ::
+  -- | 's3Output'
   MonitoringS3Output ->
   MonitoringOutput
-monitoringOutput pS3Output_ =
-  MonitoringOutput' {_moS3Output = pS3Output_}
+newMonitoringOutput pS3Output_ =
+  MonitoringOutput' {s3Output = pS3Output_}
 
--- | The Amazon S3 storage location where the results of a monitoring job are saved.
-moS3Output :: Lens' MonitoringOutput MonitoringS3Output
-moS3Output = lens _moS3Output (\s a -> s {_moS3Output = a})
+-- | The Amazon S3 storage location where the results of a monitoring job are
+-- saved.
+monitoringOutput_s3Output :: Lens.Lens' MonitoringOutput MonitoringS3Output
+monitoringOutput_s3Output = Lens.lens (\MonitoringOutput' {s3Output} -> s3Output) (\s@MonitoringOutput' {} a -> s {s3Output = a} :: MonitoringOutput)
 
-instance FromJSON MonitoringOutput where
+instance Prelude.FromJSON MonitoringOutput where
   parseJSON =
-    withObject
+    Prelude.withObject
       "MonitoringOutput"
-      (\x -> MonitoringOutput' <$> (x .: "S3Output"))
+      ( \x ->
+          MonitoringOutput'
+            Prelude.<$> (x Prelude..: "S3Output")
+      )
 
-instance Hashable MonitoringOutput
+instance Prelude.Hashable MonitoringOutput
 
-instance NFData MonitoringOutput
+instance Prelude.NFData MonitoringOutput
 
-instance ToJSON MonitoringOutput where
+instance Prelude.ToJSON MonitoringOutput where
   toJSON MonitoringOutput' {..} =
-    object
-      (catMaybes [Just ("S3Output" .= _moS3Output)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("S3Output" Prelude..= s3Output)]
+      )

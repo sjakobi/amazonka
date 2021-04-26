@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,71 +19,73 @@
 module Network.AWS.SageMaker.Types.CandidateStatus
   ( CandidateStatus
       ( ..,
-        CSCompleted,
-        CSFailed,
-        CSInProgress,
-        CSStopped,
-        CSStopping
+        CandidateStatusCompleted,
+        CandidateStatusFailed,
+        CandidateStatusInProgress,
+        CandidateStatusStopped,
+        CandidateStatusStopping
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CandidateStatus = CandidateStatus' (CI Text)
+newtype CandidateStatus = CandidateStatus'
+  { fromCandidateStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CSCompleted :: CandidateStatus
-pattern CSCompleted = CandidateStatus' "Completed"
+pattern CandidateStatusCompleted :: CandidateStatus
+pattern CandidateStatusCompleted = CandidateStatus' "Completed"
 
-pattern CSFailed :: CandidateStatus
-pattern CSFailed = CandidateStatus' "Failed"
+pattern CandidateStatusFailed :: CandidateStatus
+pattern CandidateStatusFailed = CandidateStatus' "Failed"
 
-pattern CSInProgress :: CandidateStatus
-pattern CSInProgress = CandidateStatus' "InProgress"
+pattern CandidateStatusInProgress :: CandidateStatus
+pattern CandidateStatusInProgress = CandidateStatus' "InProgress"
 
-pattern CSStopped :: CandidateStatus
-pattern CSStopped = CandidateStatus' "Stopped"
+pattern CandidateStatusStopped :: CandidateStatus
+pattern CandidateStatusStopped = CandidateStatus' "Stopped"
 
-pattern CSStopping :: CandidateStatus
-pattern CSStopping = CandidateStatus' "Stopping"
+pattern CandidateStatusStopping :: CandidateStatus
+pattern CandidateStatusStopping = CandidateStatus' "Stopping"
 
 {-# COMPLETE
-  CSCompleted,
-  CSFailed,
-  CSInProgress,
-  CSStopped,
-  CSStopping,
+  CandidateStatusCompleted,
+  CandidateStatusFailed,
+  CandidateStatusInProgress,
+  CandidateStatusStopped,
+  CandidateStatusStopping,
   CandidateStatus'
   #-}
 
-instance FromText CandidateStatus where
-  parser = (CandidateStatus' . mk) <$> takeText
+instance Prelude.FromText CandidateStatus where
+  parser = CandidateStatus' Prelude.<$> Prelude.takeText
 
-instance ToText CandidateStatus where
-  toText (CandidateStatus' ci) = original ci
+instance Prelude.ToText CandidateStatus where
+  toText (CandidateStatus' x) = x
 
-instance Hashable CandidateStatus
+instance Prelude.Hashable CandidateStatus
 
-instance NFData CandidateStatus
+instance Prelude.NFData CandidateStatus
 
-instance ToByteString CandidateStatus
+instance Prelude.ToByteString CandidateStatus
 
-instance ToQuery CandidateStatus
+instance Prelude.ToQuery CandidateStatus
 
-instance ToHeader CandidateStatus
+instance Prelude.ToHeader CandidateStatus
 
-instance ToJSON CandidateStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON CandidateStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CandidateStatus where
-  parseJSON = parseJSONText "CandidateStatus"
+instance Prelude.FromJSON CandidateStatus where
+  parseJSON = Prelude.parseJSONText "CandidateStatus"

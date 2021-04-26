@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,82 +19,108 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.ParameterRanges where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.CategoricalParameterRange
 import Network.AWS.SageMaker.Types.ContinuousParameterRange
 import Network.AWS.SageMaker.Types.IntegerParameterRange
 
--- | Specifies ranges of integer, continuous, and categorical hyperparameters that a hyperparameter tuning job searches. The hyperparameter tuning job launches training jobs with hyperparameter values within these ranges to find the combination of values that result in the training job with the best performance as measured by the objective metric of the hyperparameter tuning job.
+-- | Specifies ranges of integer, continuous, and categorical hyperparameters
+-- that a hyperparameter tuning job searches. The hyperparameter tuning job
+-- launches training jobs with hyperparameter values within these ranges to
+-- find the combination of values that result in the training job with the
+-- best performance as measured by the objective metric of the
+-- hyperparameter tuning job.
 --
+-- You can specify a maximum of 20 hyperparameters that a hyperparameter
+-- tuning job can search over. Every possible value of a categorical
+-- parameter range counts against this limit.
 --
---
--- /See:/ 'parameterRanges' smart constructor.
+-- /See:/ 'newParameterRanges' smart constructor.
 data ParameterRanges = ParameterRanges'
-  { _prIntegerParameterRanges ::
-      !(Maybe [IntegerParameterRange]),
-    _prCategoricalParameterRanges ::
-      !(Maybe [CategoricalParameterRange]),
-    _prContinuousParameterRanges ::
-      !(Maybe [ContinuousParameterRange])
+  { -- | The array of IntegerParameterRange objects that specify ranges of
+    -- integer hyperparameters that a hyperparameter tuning job searches.
+    integerParameterRanges :: Prelude.Maybe [IntegerParameterRange],
+    -- | The array of CategoricalParameterRange objects that specify ranges of
+    -- categorical hyperparameters that a hyperparameter tuning job searches.
+    categoricalParameterRanges :: Prelude.Maybe [CategoricalParameterRange],
+    -- | The array of ContinuousParameterRange objects that specify ranges of
+    -- continuous hyperparameters that a hyperparameter tuning job searches.
+    continuousParameterRanges :: Prelude.Maybe [ContinuousParameterRange]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ParameterRanges' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ParameterRanges' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'prIntegerParameterRanges' - The array of 'IntegerParameterRange' objects that specify ranges of integer hyperparameters that a hyperparameter tuning job searches.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'prCategoricalParameterRanges' - The array of 'CategoricalParameterRange' objects that specify ranges of categorical hyperparameters that a hyperparameter tuning job searches.
+-- 'integerParameterRanges', 'parameterRanges_integerParameterRanges' - The array of IntegerParameterRange objects that specify ranges of
+-- integer hyperparameters that a hyperparameter tuning job searches.
 --
--- * 'prContinuousParameterRanges' - The array of 'ContinuousParameterRange' objects that specify ranges of continuous hyperparameters that a hyperparameter tuning job searches.
-parameterRanges ::
+-- 'categoricalParameterRanges', 'parameterRanges_categoricalParameterRanges' - The array of CategoricalParameterRange objects that specify ranges of
+-- categorical hyperparameters that a hyperparameter tuning job searches.
+--
+-- 'continuousParameterRanges', 'parameterRanges_continuousParameterRanges' - The array of ContinuousParameterRange objects that specify ranges of
+-- continuous hyperparameters that a hyperparameter tuning job searches.
+newParameterRanges ::
   ParameterRanges
-parameterRanges =
+newParameterRanges =
   ParameterRanges'
-    { _prIntegerParameterRanges =
-        Nothing,
-      _prCategoricalParameterRanges = Nothing,
-      _prContinuousParameterRanges = Nothing
+    { integerParameterRanges =
+        Prelude.Nothing,
+      categoricalParameterRanges = Prelude.Nothing,
+      continuousParameterRanges = Prelude.Nothing
     }
 
--- | The array of 'IntegerParameterRange' objects that specify ranges of integer hyperparameters that a hyperparameter tuning job searches.
-prIntegerParameterRanges :: Lens' ParameterRanges [IntegerParameterRange]
-prIntegerParameterRanges = lens _prIntegerParameterRanges (\s a -> s {_prIntegerParameterRanges = a}) . _Default . _Coerce
+-- | The array of IntegerParameterRange objects that specify ranges of
+-- integer hyperparameters that a hyperparameter tuning job searches.
+parameterRanges_integerParameterRanges :: Lens.Lens' ParameterRanges (Prelude.Maybe [IntegerParameterRange])
+parameterRanges_integerParameterRanges = Lens.lens (\ParameterRanges' {integerParameterRanges} -> integerParameterRanges) (\s@ParameterRanges' {} a -> s {integerParameterRanges = a} :: ParameterRanges) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The array of 'CategoricalParameterRange' objects that specify ranges of categorical hyperparameters that a hyperparameter tuning job searches.
-prCategoricalParameterRanges :: Lens' ParameterRanges [CategoricalParameterRange]
-prCategoricalParameterRanges = lens _prCategoricalParameterRanges (\s a -> s {_prCategoricalParameterRanges = a}) . _Default . _Coerce
+-- | The array of CategoricalParameterRange objects that specify ranges of
+-- categorical hyperparameters that a hyperparameter tuning job searches.
+parameterRanges_categoricalParameterRanges :: Lens.Lens' ParameterRanges (Prelude.Maybe [CategoricalParameterRange])
+parameterRanges_categoricalParameterRanges = Lens.lens (\ParameterRanges' {categoricalParameterRanges} -> categoricalParameterRanges) (\s@ParameterRanges' {} a -> s {categoricalParameterRanges = a} :: ParameterRanges) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The array of 'ContinuousParameterRange' objects that specify ranges of continuous hyperparameters that a hyperparameter tuning job searches.
-prContinuousParameterRanges :: Lens' ParameterRanges [ContinuousParameterRange]
-prContinuousParameterRanges = lens _prContinuousParameterRanges (\s a -> s {_prContinuousParameterRanges = a}) . _Default . _Coerce
+-- | The array of ContinuousParameterRange objects that specify ranges of
+-- continuous hyperparameters that a hyperparameter tuning job searches.
+parameterRanges_continuousParameterRanges :: Lens.Lens' ParameterRanges (Prelude.Maybe [ContinuousParameterRange])
+parameterRanges_continuousParameterRanges = Lens.lens (\ParameterRanges' {continuousParameterRanges} -> continuousParameterRanges) (\s@ParameterRanges' {} a -> s {continuousParameterRanges = a} :: ParameterRanges) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON ParameterRanges where
+instance Prelude.FromJSON ParameterRanges where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ParameterRanges"
       ( \x ->
           ParameterRanges'
-            <$> (x .:? "IntegerParameterRanges" .!= mempty)
-            <*> (x .:? "CategoricalParameterRanges" .!= mempty)
-            <*> (x .:? "ContinuousParameterRanges" .!= mempty)
+            Prelude.<$> ( x Prelude..:? "IntegerParameterRanges"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..:? "CategoricalParameterRanges"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..:? "ContinuousParameterRanges"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable ParameterRanges
+instance Prelude.Hashable ParameterRanges
 
-instance NFData ParameterRanges
+instance Prelude.NFData ParameterRanges
 
-instance ToJSON ParameterRanges where
+instance Prelude.ToJSON ParameterRanges where
   toJSON ParameterRanges' {..} =
-    object
-      ( catMaybes
-          [ ("IntegerParameterRanges" .=)
-              <$> _prIntegerParameterRanges,
-            ("CategoricalParameterRanges" .=)
-              <$> _prCategoricalParameterRanges,
-            ("ContinuousParameterRanges" .=)
-              <$> _prContinuousParameterRanges
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("IntegerParameterRanges" Prelude..=)
+              Prelude.<$> integerParameterRanges,
+            ("CategoricalParameterRanges" Prelude..=)
+              Prelude.<$> categoricalParameterRanges,
+            ("ContinuousParameterRanges" Prelude..=)
+              Prelude.<$> continuousParameterRanges
           ]
       )

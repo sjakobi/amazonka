@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.SageMaker.Types.DataDistributionType
   ( DataDistributionType
       ( ..,
-        DDTFullyReplicated,
-        DDTShardedByS3Key
+        DataDistributionTypeFullyReplicated,
+        DataDistributionTypeShardedByS3Key
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DataDistributionType
-  = DataDistributionType'
-      ( CI
-          Text
-      )
+newtype DataDistributionType = DataDistributionType'
+  { fromDataDistributionType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DDTFullyReplicated :: DataDistributionType
-pattern DDTFullyReplicated = DataDistributionType' "FullyReplicated"
+pattern DataDistributionTypeFullyReplicated :: DataDistributionType
+pattern DataDistributionTypeFullyReplicated = DataDistributionType' "FullyReplicated"
 
-pattern DDTShardedByS3Key :: DataDistributionType
-pattern DDTShardedByS3Key = DataDistributionType' "ShardedByS3Key"
+pattern DataDistributionTypeShardedByS3Key :: DataDistributionType
+pattern DataDistributionTypeShardedByS3Key = DataDistributionType' "ShardedByS3Key"
 
 {-# COMPLETE
-  DDTFullyReplicated,
-  DDTShardedByS3Key,
+  DataDistributionTypeFullyReplicated,
+  DataDistributionTypeShardedByS3Key,
   DataDistributionType'
   #-}
 
-instance FromText DataDistributionType where
-  parser = (DataDistributionType' . mk) <$> takeText
+instance Prelude.FromText DataDistributionType where
+  parser = DataDistributionType' Prelude.<$> Prelude.takeText
 
-instance ToText DataDistributionType where
-  toText (DataDistributionType' ci) = original ci
+instance Prelude.ToText DataDistributionType where
+  toText (DataDistributionType' x) = x
 
-instance Hashable DataDistributionType
+instance Prelude.Hashable DataDistributionType
 
-instance NFData DataDistributionType
+instance Prelude.NFData DataDistributionType
 
-instance ToByteString DataDistributionType
+instance Prelude.ToByteString DataDistributionType
 
-instance ToQuery DataDistributionType
+instance Prelude.ToQuery DataDistributionType
 
-instance ToHeader DataDistributionType
+instance Prelude.ToHeader DataDistributionType
 
-instance ToJSON DataDistributionType where
-  toJSON = toJSONText
+instance Prelude.ToJSON DataDistributionType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DataDistributionType where
-  parseJSON = parseJSONText "DataDistributionType"
+instance Prelude.FromJSON DataDistributionType where
+  parseJSON = Prelude.parseJSONText "DataDistributionType"

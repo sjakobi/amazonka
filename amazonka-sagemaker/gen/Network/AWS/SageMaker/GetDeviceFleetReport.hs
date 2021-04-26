@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,236 +24,234 @@
 -- Describes a fleet.
 module Network.AWS.SageMaker.GetDeviceFleetReport
   ( -- * Creating a Request
-    getDeviceFleetReport,
-    GetDeviceFleetReport,
+    GetDeviceFleetReport (..),
+    newGetDeviceFleetReport,
 
     -- * Request Lenses
-    gdfrDeviceFleetName,
+    getDeviceFleetReport_deviceFleetName,
 
     -- * Destructuring the Response
-    getDeviceFleetReportResponse,
-    GetDeviceFleetReportResponse,
+    GetDeviceFleetReportResponse (..),
+    newGetDeviceFleetReportResponse,
 
     -- * Response Lenses
-    gdfrrrsModelStats,
-    gdfrrrsOutputConfig,
-    gdfrrrsReportGenerated,
-    gdfrrrsDeviceStats,
-    gdfrrrsDescription,
-    gdfrrrsAgentVersions,
-    gdfrrrsResponseStatus,
-    gdfrrrsDeviceFleetARN,
-    gdfrrrsDeviceFleetName,
+    getDeviceFleetReportResponse_modelStats,
+    getDeviceFleetReportResponse_outputConfig,
+    getDeviceFleetReportResponse_reportGenerated,
+    getDeviceFleetReportResponse_deviceStats,
+    getDeviceFleetReportResponse_description,
+    getDeviceFleetReportResponse_agentVersions,
+    getDeviceFleetReportResponse_httpStatus,
+    getDeviceFleetReportResponse_deviceFleetArn,
+    getDeviceFleetReportResponse_deviceFleetName,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
+import Network.AWS.SageMaker.Types.AgentVersion
+import Network.AWS.SageMaker.Types.DeviceStats
+import Network.AWS.SageMaker.Types.EdgeModelStat
+import Network.AWS.SageMaker.Types.EdgeOutputConfig
 
--- | /See:/ 'getDeviceFleetReport' smart constructor.
-newtype GetDeviceFleetReport = GetDeviceFleetReport'
-  { _gdfrDeviceFleetName ::
-      Text
+-- | /See:/ 'newGetDeviceFleetReport' smart constructor.
+data GetDeviceFleetReport = GetDeviceFleetReport'
+  { -- | The name of the fleet.
+    deviceFleetName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDeviceFleetReport' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDeviceFleetReport' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdfrDeviceFleetName' - The name of the fleet.
-getDeviceFleetReport ::
-  -- | 'gdfrDeviceFleetName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'deviceFleetName', 'getDeviceFleetReport_deviceFleetName' - The name of the fleet.
+newGetDeviceFleetReport ::
+  -- | 'deviceFleetName'
+  Prelude.Text ->
   GetDeviceFleetReport
-getDeviceFleetReport pDeviceFleetName_ =
+newGetDeviceFleetReport pDeviceFleetName_ =
   GetDeviceFleetReport'
-    { _gdfrDeviceFleetName =
+    { deviceFleetName =
         pDeviceFleetName_
     }
 
 -- | The name of the fleet.
-gdfrDeviceFleetName :: Lens' GetDeviceFleetReport Text
-gdfrDeviceFleetName = lens _gdfrDeviceFleetName (\s a -> s {_gdfrDeviceFleetName = a})
+getDeviceFleetReport_deviceFleetName :: Lens.Lens' GetDeviceFleetReport Prelude.Text
+getDeviceFleetReport_deviceFleetName = Lens.lens (\GetDeviceFleetReport' {deviceFleetName} -> deviceFleetName) (\s@GetDeviceFleetReport' {} a -> s {deviceFleetName = a} :: GetDeviceFleetReport)
 
-instance AWSRequest GetDeviceFleetReport where
+instance Prelude.AWSRequest GetDeviceFleetReport where
   type
     Rs GetDeviceFleetReport =
       GetDeviceFleetReportResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetDeviceFleetReportResponse'
-            <$> (x .?> "ModelStats" .!@ mempty)
-            <*> (x .?> "OutputConfig")
-            <*> (x .?> "ReportGenerated")
-            <*> (x .?> "DeviceStats")
-            <*> (x .?> "Description")
-            <*> (x .?> "AgentVersions" .!@ mempty)
-            <*> (pure (fromEnum s))
-            <*> (x .:> "DeviceFleetArn")
-            <*> (x .:> "DeviceFleetName")
+            Prelude.<$> ( x Prelude..?> "ModelStats"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "OutputConfig")
+            Prelude.<*> (x Prelude..?> "ReportGenerated")
+            Prelude.<*> (x Prelude..?> "DeviceStats")
+            Prelude.<*> (x Prelude..?> "Description")
+            Prelude.<*> ( x Prelude..?> "AgentVersions"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "DeviceFleetArn")
+            Prelude.<*> (x Prelude..:> "DeviceFleetName")
       )
 
-instance Hashable GetDeviceFleetReport
+instance Prelude.Hashable GetDeviceFleetReport
 
-instance NFData GetDeviceFleetReport
+instance Prelude.NFData GetDeviceFleetReport
 
-instance ToHeaders GetDeviceFleetReport where
+instance Prelude.ToHeaders GetDeviceFleetReport where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.GetDeviceFleetReport" :: ByteString),
+              Prelude.=# ( "SageMaker.GetDeviceFleetReport" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetDeviceFleetReport where
+instance Prelude.ToJSON GetDeviceFleetReport where
   toJSON GetDeviceFleetReport' {..} =
-    object
-      ( catMaybes
-          [Just ("DeviceFleetName" .= _gdfrDeviceFleetName)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("DeviceFleetName" Prelude..= deviceFleetName)
+          ]
       )
 
-instance ToPath GetDeviceFleetReport where
-  toPath = const "/"
+instance Prelude.ToPath GetDeviceFleetReport where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetDeviceFleetReport where
-  toQuery = const mempty
+instance Prelude.ToQuery GetDeviceFleetReport where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getDeviceFleetReportResponse' smart constructor.
+-- | /See:/ 'newGetDeviceFleetReportResponse' smart constructor.
 data GetDeviceFleetReportResponse = GetDeviceFleetReportResponse'
-  { _gdfrrrsModelStats ::
-      !( Maybe
-           [EdgeModelStat]
-       ),
-    _gdfrrrsOutputConfig ::
-      !( Maybe
-           EdgeOutputConfig
-       ),
-    _gdfrrrsReportGenerated ::
-      !( Maybe
-           POSIX
-       ),
-    _gdfrrrsDeviceStats ::
-      !( Maybe
-           DeviceStats
-       ),
-    _gdfrrrsDescription ::
-      !(Maybe Text),
-    _gdfrrrsAgentVersions ::
-      !( Maybe
-           [AgentVersion]
-       ),
-    _gdfrrrsResponseStatus ::
-      !Int,
-    _gdfrrrsDeviceFleetARN ::
-      !Text,
-    _gdfrrrsDeviceFleetName ::
-      !Text
+  { -- | Status of model on device.
+    modelStats :: Prelude.Maybe [EdgeModelStat],
+    -- | The output configuration for storing sample data collected by the fleet.
+    outputConfig :: Prelude.Maybe EdgeOutputConfig,
+    -- | Timestamp of when the report was generated.
+    reportGenerated :: Prelude.Maybe Prelude.POSIX,
+    -- | Status of devices.
+    deviceStats :: Prelude.Maybe DeviceStats,
+    -- | Description of the fleet.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The versions of Edge Manager agent deployed on the fleet.
+    agentVersions :: Prelude.Maybe [AgentVersion],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The Amazon Resource Name (ARN) of the device.
+    deviceFleetArn :: Prelude.Text,
+    -- | The name of the fleet.
+    deviceFleetName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDeviceFleetReportResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDeviceFleetReportResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdfrrrsModelStats' - Status of model on device.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gdfrrrsOutputConfig' - The output configuration for storing sample data collected by the fleet.
+-- 'modelStats', 'getDeviceFleetReportResponse_modelStats' - Status of model on device.
 --
--- * 'gdfrrrsReportGenerated' - Timestamp of when the report was generated.
+-- 'outputConfig', 'getDeviceFleetReportResponse_outputConfig' - The output configuration for storing sample data collected by the fleet.
 --
--- * 'gdfrrrsDeviceStats' - Status of devices.
+-- 'reportGenerated', 'getDeviceFleetReportResponse_reportGenerated' - Timestamp of when the report was generated.
 --
--- * 'gdfrrrsDescription' - Description of the fleet.
+-- 'deviceStats', 'getDeviceFleetReportResponse_deviceStats' - Status of devices.
 --
--- * 'gdfrrrsAgentVersions' - The versions of Edge Manager agent deployed on the fleet.
+-- 'description', 'getDeviceFleetReportResponse_description' - Description of the fleet.
 --
--- * 'gdfrrrsResponseStatus' - -- | The response status code.
+-- 'agentVersions', 'getDeviceFleetReportResponse_agentVersions' - The versions of Edge Manager agent deployed on the fleet.
 --
--- * 'gdfrrrsDeviceFleetARN' - The Amazon Resource Name (ARN) of the device.
+-- 'httpStatus', 'getDeviceFleetReportResponse_httpStatus' - The response's http status code.
 --
--- * 'gdfrrrsDeviceFleetName' - The name of the fleet.
-getDeviceFleetReportResponse ::
-  -- | 'gdfrrrsResponseStatus'
-  Int ->
-  -- | 'gdfrrrsDeviceFleetARN'
-  Text ->
-  -- | 'gdfrrrsDeviceFleetName'
-  Text ->
+-- 'deviceFleetArn', 'getDeviceFleetReportResponse_deviceFleetArn' - The Amazon Resource Name (ARN) of the device.
+--
+-- 'deviceFleetName', 'getDeviceFleetReportResponse_deviceFleetName' - The name of the fleet.
+newGetDeviceFleetReportResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'deviceFleetArn'
+  Prelude.Text ->
+  -- | 'deviceFleetName'
+  Prelude.Text ->
   GetDeviceFleetReportResponse
-getDeviceFleetReportResponse
-  pResponseStatus_
-  pDeviceFleetARN_
+newGetDeviceFleetReportResponse
+  pHttpStatus_
+  pDeviceFleetArn_
   pDeviceFleetName_ =
     GetDeviceFleetReportResponse'
-      { _gdfrrrsModelStats =
-          Nothing,
-        _gdfrrrsOutputConfig = Nothing,
-        _gdfrrrsReportGenerated = Nothing,
-        _gdfrrrsDeviceStats = Nothing,
-        _gdfrrrsDescription = Nothing,
-        _gdfrrrsAgentVersions = Nothing,
-        _gdfrrrsResponseStatus = pResponseStatus_,
-        _gdfrrrsDeviceFleetARN = pDeviceFleetARN_,
-        _gdfrrrsDeviceFleetName = pDeviceFleetName_
+      { modelStats =
+          Prelude.Nothing,
+        outputConfig = Prelude.Nothing,
+        reportGenerated = Prelude.Nothing,
+        deviceStats = Prelude.Nothing,
+        description = Prelude.Nothing,
+        agentVersions = Prelude.Nothing,
+        httpStatus = pHttpStatus_,
+        deviceFleetArn = pDeviceFleetArn_,
+        deviceFleetName = pDeviceFleetName_
       }
 
 -- | Status of model on device.
-gdfrrrsModelStats :: Lens' GetDeviceFleetReportResponse [EdgeModelStat]
-gdfrrrsModelStats = lens _gdfrrrsModelStats (\s a -> s {_gdfrrrsModelStats = a}) . _Default . _Coerce
+getDeviceFleetReportResponse_modelStats :: Lens.Lens' GetDeviceFleetReportResponse (Prelude.Maybe [EdgeModelStat])
+getDeviceFleetReportResponse_modelStats = Lens.lens (\GetDeviceFleetReportResponse' {modelStats} -> modelStats) (\s@GetDeviceFleetReportResponse' {} a -> s {modelStats = a} :: GetDeviceFleetReportResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The output configuration for storing sample data collected by the fleet.
-gdfrrrsOutputConfig :: Lens' GetDeviceFleetReportResponse (Maybe EdgeOutputConfig)
-gdfrrrsOutputConfig = lens _gdfrrrsOutputConfig (\s a -> s {_gdfrrrsOutputConfig = a})
+getDeviceFleetReportResponse_outputConfig :: Lens.Lens' GetDeviceFleetReportResponse (Prelude.Maybe EdgeOutputConfig)
+getDeviceFleetReportResponse_outputConfig = Lens.lens (\GetDeviceFleetReportResponse' {outputConfig} -> outputConfig) (\s@GetDeviceFleetReportResponse' {} a -> s {outputConfig = a} :: GetDeviceFleetReportResponse)
 
 -- | Timestamp of when the report was generated.
-gdfrrrsReportGenerated :: Lens' GetDeviceFleetReportResponse (Maybe UTCTime)
-gdfrrrsReportGenerated = lens _gdfrrrsReportGenerated (\s a -> s {_gdfrrrsReportGenerated = a}) . mapping _Time
+getDeviceFleetReportResponse_reportGenerated :: Lens.Lens' GetDeviceFleetReportResponse (Prelude.Maybe Prelude.UTCTime)
+getDeviceFleetReportResponse_reportGenerated = Lens.lens (\GetDeviceFleetReportResponse' {reportGenerated} -> reportGenerated) (\s@GetDeviceFleetReportResponse' {} a -> s {reportGenerated = a} :: GetDeviceFleetReportResponse) Prelude.. Lens.mapping Prelude._Time
 
 -- | Status of devices.
-gdfrrrsDeviceStats :: Lens' GetDeviceFleetReportResponse (Maybe DeviceStats)
-gdfrrrsDeviceStats = lens _gdfrrrsDeviceStats (\s a -> s {_gdfrrrsDeviceStats = a})
+getDeviceFleetReportResponse_deviceStats :: Lens.Lens' GetDeviceFleetReportResponse (Prelude.Maybe DeviceStats)
+getDeviceFleetReportResponse_deviceStats = Lens.lens (\GetDeviceFleetReportResponse' {deviceStats} -> deviceStats) (\s@GetDeviceFleetReportResponse' {} a -> s {deviceStats = a} :: GetDeviceFleetReportResponse)
 
 -- | Description of the fleet.
-gdfrrrsDescription :: Lens' GetDeviceFleetReportResponse (Maybe Text)
-gdfrrrsDescription = lens _gdfrrrsDescription (\s a -> s {_gdfrrrsDescription = a})
+getDeviceFleetReportResponse_description :: Lens.Lens' GetDeviceFleetReportResponse (Prelude.Maybe Prelude.Text)
+getDeviceFleetReportResponse_description = Lens.lens (\GetDeviceFleetReportResponse' {description} -> description) (\s@GetDeviceFleetReportResponse' {} a -> s {description = a} :: GetDeviceFleetReportResponse)
 
 -- | The versions of Edge Manager agent deployed on the fleet.
-gdfrrrsAgentVersions :: Lens' GetDeviceFleetReportResponse [AgentVersion]
-gdfrrrsAgentVersions = lens _gdfrrrsAgentVersions (\s a -> s {_gdfrrrsAgentVersions = a}) . _Default . _Coerce
+getDeviceFleetReportResponse_agentVersions :: Lens.Lens' GetDeviceFleetReportResponse (Prelude.Maybe [AgentVersion])
+getDeviceFleetReportResponse_agentVersions = Lens.lens (\GetDeviceFleetReportResponse' {agentVersions} -> agentVersions) (\s@GetDeviceFleetReportResponse' {} a -> s {agentVersions = a} :: GetDeviceFleetReportResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-gdfrrrsResponseStatus :: Lens' GetDeviceFleetReportResponse Int
-gdfrrrsResponseStatus = lens _gdfrrrsResponseStatus (\s a -> s {_gdfrrrsResponseStatus = a})
+-- | The response's http status code.
+getDeviceFleetReportResponse_httpStatus :: Lens.Lens' GetDeviceFleetReportResponse Prelude.Int
+getDeviceFleetReportResponse_httpStatus = Lens.lens (\GetDeviceFleetReportResponse' {httpStatus} -> httpStatus) (\s@GetDeviceFleetReportResponse' {} a -> s {httpStatus = a} :: GetDeviceFleetReportResponse)
 
 -- | The Amazon Resource Name (ARN) of the device.
-gdfrrrsDeviceFleetARN :: Lens' GetDeviceFleetReportResponse Text
-gdfrrrsDeviceFleetARN = lens _gdfrrrsDeviceFleetARN (\s a -> s {_gdfrrrsDeviceFleetARN = a})
+getDeviceFleetReportResponse_deviceFleetArn :: Lens.Lens' GetDeviceFleetReportResponse Prelude.Text
+getDeviceFleetReportResponse_deviceFleetArn = Lens.lens (\GetDeviceFleetReportResponse' {deviceFleetArn} -> deviceFleetArn) (\s@GetDeviceFleetReportResponse' {} a -> s {deviceFleetArn = a} :: GetDeviceFleetReportResponse)
 
 -- | The name of the fleet.
-gdfrrrsDeviceFleetName :: Lens' GetDeviceFleetReportResponse Text
-gdfrrrsDeviceFleetName = lens _gdfrrrsDeviceFleetName (\s a -> s {_gdfrrrsDeviceFleetName = a})
+getDeviceFleetReportResponse_deviceFleetName :: Lens.Lens' GetDeviceFleetReportResponse Prelude.Text
+getDeviceFleetReportResponse_deviceFleetName = Lens.lens (\GetDeviceFleetReportResponse' {deviceFleetName} -> deviceFleetName) (\s@GetDeviceFleetReportResponse' {} a -> s {deviceFleetName = a} :: GetDeviceFleetReportResponse)
 
-instance NFData GetDeviceFleetReportResponse
+instance Prelude.NFData GetDeviceFleetReportResponse

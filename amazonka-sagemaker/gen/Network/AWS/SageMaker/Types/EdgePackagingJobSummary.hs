@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,134 +19,128 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.EdgePackagingJobSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.EdgePackagingJobStatus
 
 -- | Summary of edge packaging job.
 --
---
---
--- /See:/ 'edgePackagingJobSummary' smart constructor.
+-- /See:/ 'newEdgePackagingJobSummary' smart constructor.
 data EdgePackagingJobSummary = EdgePackagingJobSummary'
-  { _epjsCreationTime ::
-      !(Maybe POSIX),
-    _epjsCompilationJobName ::
-      !(Maybe Text),
-    _epjsModelVersion ::
-      !(Maybe Text),
-    _epjsLastModifiedTime ::
-      !(Maybe POSIX),
-    _epjsModelName ::
-      !(Maybe Text),
-    _epjsEdgePackagingJobARN ::
-      !Text,
-    _epjsEdgePackagingJobName ::
-      !Text,
-    _epjsEdgePackagingJobStatus ::
-      !EdgePackagingJobStatus
+  { -- | The timestamp of when the job was created.
+    creationTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The name of the SageMaker Neo compilation job.
+    compilationJobName :: Prelude.Maybe Prelude.Text,
+    -- | The version of the model.
+    modelVersion :: Prelude.Maybe Prelude.Text,
+    -- | The timestamp of when the edge packaging job was last updated.
+    lastModifiedTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The name of the model.
+    modelName :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the edge packaging job.
+    edgePackagingJobArn :: Prelude.Text,
+    -- | The name of the edge packaging job.
+    edgePackagingJobName :: Prelude.Text,
+    -- | The status of the edge packaging job.
+    edgePackagingJobStatus :: EdgePackagingJobStatus
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EdgePackagingJobSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EdgePackagingJobSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'epjsCreationTime' - The timestamp of when the job was created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'epjsCompilationJobName' - The name of the SageMaker Neo compilation job.
+-- 'creationTime', 'edgePackagingJobSummary_creationTime' - The timestamp of when the job was created.
 --
--- * 'epjsModelVersion' - The version of the model.
+-- 'compilationJobName', 'edgePackagingJobSummary_compilationJobName' - The name of the SageMaker Neo compilation job.
 --
--- * 'epjsLastModifiedTime' - The timestamp of when the edge packaging job was last updated.
+-- 'modelVersion', 'edgePackagingJobSummary_modelVersion' - The version of the model.
 --
--- * 'epjsModelName' - The name of the model.
+-- 'lastModifiedTime', 'edgePackagingJobSummary_lastModifiedTime' - The timestamp of when the edge packaging job was last updated.
 --
--- * 'epjsEdgePackagingJobARN' - The Amazon Resource Name (ARN) of the edge packaging job.
+-- 'modelName', 'edgePackagingJobSummary_modelName' - The name of the model.
 --
--- * 'epjsEdgePackagingJobName' - The name of the edge packaging job.
+-- 'edgePackagingJobArn', 'edgePackagingJobSummary_edgePackagingJobArn' - The Amazon Resource Name (ARN) of the edge packaging job.
 --
--- * 'epjsEdgePackagingJobStatus' - The status of the edge packaging job.
-edgePackagingJobSummary ::
-  -- | 'epjsEdgePackagingJobARN'
-  Text ->
-  -- | 'epjsEdgePackagingJobName'
-  Text ->
-  -- | 'epjsEdgePackagingJobStatus'
+-- 'edgePackagingJobName', 'edgePackagingJobSummary_edgePackagingJobName' - The name of the edge packaging job.
+--
+-- 'edgePackagingJobStatus', 'edgePackagingJobSummary_edgePackagingJobStatus' - The status of the edge packaging job.
+newEdgePackagingJobSummary ::
+  -- | 'edgePackagingJobArn'
+  Prelude.Text ->
+  -- | 'edgePackagingJobName'
+  Prelude.Text ->
+  -- | 'edgePackagingJobStatus'
   EdgePackagingJobStatus ->
   EdgePackagingJobSummary
-edgePackagingJobSummary
-  pEdgePackagingJobARN_
+newEdgePackagingJobSummary
+  pEdgePackagingJobArn_
   pEdgePackagingJobName_
   pEdgePackagingJobStatus_ =
     EdgePackagingJobSummary'
-      { _epjsCreationTime =
-          Nothing,
-        _epjsCompilationJobName = Nothing,
-        _epjsModelVersion = Nothing,
-        _epjsLastModifiedTime = Nothing,
-        _epjsModelName = Nothing,
-        _epjsEdgePackagingJobARN = pEdgePackagingJobARN_,
-        _epjsEdgePackagingJobName = pEdgePackagingJobName_,
-        _epjsEdgePackagingJobStatus =
-          pEdgePackagingJobStatus_
+      { creationTime =
+          Prelude.Nothing,
+        compilationJobName = Prelude.Nothing,
+        modelVersion = Prelude.Nothing,
+        lastModifiedTime = Prelude.Nothing,
+        modelName = Prelude.Nothing,
+        edgePackagingJobArn = pEdgePackagingJobArn_,
+        edgePackagingJobName = pEdgePackagingJobName_,
+        edgePackagingJobStatus = pEdgePackagingJobStatus_
       }
 
 -- | The timestamp of when the job was created.
-epjsCreationTime :: Lens' EdgePackagingJobSummary (Maybe UTCTime)
-epjsCreationTime = lens _epjsCreationTime (\s a -> s {_epjsCreationTime = a}) . mapping _Time
+edgePackagingJobSummary_creationTime :: Lens.Lens' EdgePackagingJobSummary (Prelude.Maybe Prelude.UTCTime)
+edgePackagingJobSummary_creationTime = Lens.lens (\EdgePackagingJobSummary' {creationTime} -> creationTime) (\s@EdgePackagingJobSummary' {} a -> s {creationTime = a} :: EdgePackagingJobSummary) Prelude.. Lens.mapping Prelude._Time
 
 -- | The name of the SageMaker Neo compilation job.
-epjsCompilationJobName :: Lens' EdgePackagingJobSummary (Maybe Text)
-epjsCompilationJobName = lens _epjsCompilationJobName (\s a -> s {_epjsCompilationJobName = a})
+edgePackagingJobSummary_compilationJobName :: Lens.Lens' EdgePackagingJobSummary (Prelude.Maybe Prelude.Text)
+edgePackagingJobSummary_compilationJobName = Lens.lens (\EdgePackagingJobSummary' {compilationJobName} -> compilationJobName) (\s@EdgePackagingJobSummary' {} a -> s {compilationJobName = a} :: EdgePackagingJobSummary)
 
 -- | The version of the model.
-epjsModelVersion :: Lens' EdgePackagingJobSummary (Maybe Text)
-epjsModelVersion = lens _epjsModelVersion (\s a -> s {_epjsModelVersion = a})
+edgePackagingJobSummary_modelVersion :: Lens.Lens' EdgePackagingJobSummary (Prelude.Maybe Prelude.Text)
+edgePackagingJobSummary_modelVersion = Lens.lens (\EdgePackagingJobSummary' {modelVersion} -> modelVersion) (\s@EdgePackagingJobSummary' {} a -> s {modelVersion = a} :: EdgePackagingJobSummary)
 
 -- | The timestamp of when the edge packaging job was last updated.
-epjsLastModifiedTime :: Lens' EdgePackagingJobSummary (Maybe UTCTime)
-epjsLastModifiedTime = lens _epjsLastModifiedTime (\s a -> s {_epjsLastModifiedTime = a}) . mapping _Time
+edgePackagingJobSummary_lastModifiedTime :: Lens.Lens' EdgePackagingJobSummary (Prelude.Maybe Prelude.UTCTime)
+edgePackagingJobSummary_lastModifiedTime = Lens.lens (\EdgePackagingJobSummary' {lastModifiedTime} -> lastModifiedTime) (\s@EdgePackagingJobSummary' {} a -> s {lastModifiedTime = a} :: EdgePackagingJobSummary) Prelude.. Lens.mapping Prelude._Time
 
 -- | The name of the model.
-epjsModelName :: Lens' EdgePackagingJobSummary (Maybe Text)
-epjsModelName = lens _epjsModelName (\s a -> s {_epjsModelName = a})
+edgePackagingJobSummary_modelName :: Lens.Lens' EdgePackagingJobSummary (Prelude.Maybe Prelude.Text)
+edgePackagingJobSummary_modelName = Lens.lens (\EdgePackagingJobSummary' {modelName} -> modelName) (\s@EdgePackagingJobSummary' {} a -> s {modelName = a} :: EdgePackagingJobSummary)
 
 -- | The Amazon Resource Name (ARN) of the edge packaging job.
-epjsEdgePackagingJobARN :: Lens' EdgePackagingJobSummary Text
-epjsEdgePackagingJobARN = lens _epjsEdgePackagingJobARN (\s a -> s {_epjsEdgePackagingJobARN = a})
+edgePackagingJobSummary_edgePackagingJobArn :: Lens.Lens' EdgePackagingJobSummary Prelude.Text
+edgePackagingJobSummary_edgePackagingJobArn = Lens.lens (\EdgePackagingJobSummary' {edgePackagingJobArn} -> edgePackagingJobArn) (\s@EdgePackagingJobSummary' {} a -> s {edgePackagingJobArn = a} :: EdgePackagingJobSummary)
 
 -- | The name of the edge packaging job.
-epjsEdgePackagingJobName :: Lens' EdgePackagingJobSummary Text
-epjsEdgePackagingJobName = lens _epjsEdgePackagingJobName (\s a -> s {_epjsEdgePackagingJobName = a})
+edgePackagingJobSummary_edgePackagingJobName :: Lens.Lens' EdgePackagingJobSummary Prelude.Text
+edgePackagingJobSummary_edgePackagingJobName = Lens.lens (\EdgePackagingJobSummary' {edgePackagingJobName} -> edgePackagingJobName) (\s@EdgePackagingJobSummary' {} a -> s {edgePackagingJobName = a} :: EdgePackagingJobSummary)
 
 -- | The status of the edge packaging job.
-epjsEdgePackagingJobStatus :: Lens' EdgePackagingJobSummary EdgePackagingJobStatus
-epjsEdgePackagingJobStatus = lens _epjsEdgePackagingJobStatus (\s a -> s {_epjsEdgePackagingJobStatus = a})
+edgePackagingJobSummary_edgePackagingJobStatus :: Lens.Lens' EdgePackagingJobSummary EdgePackagingJobStatus
+edgePackagingJobSummary_edgePackagingJobStatus = Lens.lens (\EdgePackagingJobSummary' {edgePackagingJobStatus} -> edgePackagingJobStatus) (\s@EdgePackagingJobSummary' {} a -> s {edgePackagingJobStatus = a} :: EdgePackagingJobSummary)
 
-instance FromJSON EdgePackagingJobSummary where
+instance Prelude.FromJSON EdgePackagingJobSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "EdgePackagingJobSummary"
       ( \x ->
           EdgePackagingJobSummary'
-            <$> (x .:? "CreationTime")
-            <*> (x .:? "CompilationJobName")
-            <*> (x .:? "ModelVersion")
-            <*> (x .:? "LastModifiedTime")
-            <*> (x .:? "ModelName")
-            <*> (x .: "EdgePackagingJobArn")
-            <*> (x .: "EdgePackagingJobName")
-            <*> (x .: "EdgePackagingJobStatus")
+            Prelude.<$> (x Prelude..:? "CreationTime")
+            Prelude.<*> (x Prelude..:? "CompilationJobName")
+            Prelude.<*> (x Prelude..:? "ModelVersion")
+            Prelude.<*> (x Prelude..:? "LastModifiedTime")
+            Prelude.<*> (x Prelude..:? "ModelName")
+            Prelude.<*> (x Prelude..: "EdgePackagingJobArn")
+            Prelude.<*> (x Prelude..: "EdgePackagingJobName")
+            Prelude.<*> (x Prelude..: "EdgePackagingJobStatus")
       )
 
-instance Hashable EdgePackagingJobSummary
+instance Prelude.Hashable EdgePackagingJobSummary
 
-instance NFData EdgePackagingJobSummary
+instance Prelude.NFData EdgePackagingJobSummary

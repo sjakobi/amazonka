@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.SageMaker.Types.ListDeviceFleetsSortBy
   ( ListDeviceFleetsSortBy
       ( ..,
-        LDFSBCreationTime,
-        LDFSBLastModifiedTime,
-        LDFSBName
+        ListDeviceFleetsSortByCREATIONTIME,
+        ListDeviceFleetsSortByLASTMODIFIEDTIME,
+        ListDeviceFleetsSortByNAME
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ListDeviceFleetsSortBy
-  = ListDeviceFleetsSortBy'
-      ( CI
-          Text
-      )
+newtype ListDeviceFleetsSortBy = ListDeviceFleetsSortBy'
+  { fromListDeviceFleetsSortBy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern LDFSBCreationTime :: ListDeviceFleetsSortBy
-pattern LDFSBCreationTime = ListDeviceFleetsSortBy' "CREATION_TIME"
+pattern ListDeviceFleetsSortByCREATIONTIME :: ListDeviceFleetsSortBy
+pattern ListDeviceFleetsSortByCREATIONTIME = ListDeviceFleetsSortBy' "CREATION_TIME"
 
-pattern LDFSBLastModifiedTime :: ListDeviceFleetsSortBy
-pattern LDFSBLastModifiedTime = ListDeviceFleetsSortBy' "LAST_MODIFIED_TIME"
+pattern ListDeviceFleetsSortByLASTMODIFIEDTIME :: ListDeviceFleetsSortBy
+pattern ListDeviceFleetsSortByLASTMODIFIEDTIME = ListDeviceFleetsSortBy' "LAST_MODIFIED_TIME"
 
-pattern LDFSBName :: ListDeviceFleetsSortBy
-pattern LDFSBName = ListDeviceFleetsSortBy' "NAME"
+pattern ListDeviceFleetsSortByNAME :: ListDeviceFleetsSortBy
+pattern ListDeviceFleetsSortByNAME = ListDeviceFleetsSortBy' "NAME"
 
 {-# COMPLETE
-  LDFSBCreationTime,
-  LDFSBLastModifiedTime,
-  LDFSBName,
+  ListDeviceFleetsSortByCREATIONTIME,
+  ListDeviceFleetsSortByLASTMODIFIEDTIME,
+  ListDeviceFleetsSortByNAME,
   ListDeviceFleetsSortBy'
   #-}
 
-instance FromText ListDeviceFleetsSortBy where
-  parser = (ListDeviceFleetsSortBy' . mk) <$> takeText
+instance Prelude.FromText ListDeviceFleetsSortBy where
+  parser = ListDeviceFleetsSortBy' Prelude.<$> Prelude.takeText
 
-instance ToText ListDeviceFleetsSortBy where
-  toText (ListDeviceFleetsSortBy' ci) = original ci
+instance Prelude.ToText ListDeviceFleetsSortBy where
+  toText (ListDeviceFleetsSortBy' x) = x
 
-instance Hashable ListDeviceFleetsSortBy
+instance Prelude.Hashable ListDeviceFleetsSortBy
 
-instance NFData ListDeviceFleetsSortBy
+instance Prelude.NFData ListDeviceFleetsSortBy
 
-instance ToByteString ListDeviceFleetsSortBy
+instance Prelude.ToByteString ListDeviceFleetsSortBy
 
-instance ToQuery ListDeviceFleetsSortBy
+instance Prelude.ToQuery ListDeviceFleetsSortBy
 
-instance ToHeader ListDeviceFleetsSortBy
+instance Prelude.ToHeader ListDeviceFleetsSortBy
 
-instance ToJSON ListDeviceFleetsSortBy where
-  toJSON = toJSONText
+instance Prelude.ToJSON ListDeviceFleetsSortBy where
+  toJSON = Prelude.toJSONText

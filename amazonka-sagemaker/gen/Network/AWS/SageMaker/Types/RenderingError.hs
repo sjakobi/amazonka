@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,57 +19,58 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.RenderingError where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A description of an error that occurred while rendering the template.
 --
---
---
--- /See:/ 'renderingError' smart constructor.
+-- /See:/ 'newRenderingError' smart constructor.
 data RenderingError = RenderingError'
-  { _reCode ::
-      !Text,
-    _reMessage :: !Text
+  { -- | A unique identifier for a specific class of errors.
+    code :: Prelude.Text,
+    -- | A human-readable message describing the error.
+    message :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RenderingError' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RenderingError' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'reCode' - A unique identifier for a specific class of errors.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'reMessage' - A human-readable message describing the error.
-renderingError ::
-  -- | 'reCode'
-  Text ->
-  -- | 'reMessage'
-  Text ->
+-- 'code', 'renderingError_code' - A unique identifier for a specific class of errors.
+--
+-- 'message', 'renderingError_message' - A human-readable message describing the error.
+newRenderingError ::
+  -- | 'code'
+  Prelude.Text ->
+  -- | 'message'
+  Prelude.Text ->
   RenderingError
-renderingError pCode_ pMessage_ =
-  RenderingError'
-    { _reCode = pCode_,
-      _reMessage = pMessage_
-    }
+newRenderingError pCode_ pMessage_ =
+  RenderingError' {code = pCode_, message = pMessage_}
 
 -- | A unique identifier for a specific class of errors.
-reCode :: Lens' RenderingError Text
-reCode = lens _reCode (\s a -> s {_reCode = a})
+renderingError_code :: Lens.Lens' RenderingError Prelude.Text
+renderingError_code = Lens.lens (\RenderingError' {code} -> code) (\s@RenderingError' {} a -> s {code = a} :: RenderingError)
 
 -- | A human-readable message describing the error.
-reMessage :: Lens' RenderingError Text
-reMessage = lens _reMessage (\s a -> s {_reMessage = a})
+renderingError_message :: Lens.Lens' RenderingError Prelude.Text
+renderingError_message = Lens.lens (\RenderingError' {message} -> message) (\s@RenderingError' {} a -> s {message = a} :: RenderingError)
 
-instance FromJSON RenderingError where
+instance Prelude.FromJSON RenderingError where
   parseJSON =
-    withObject
+    Prelude.withObject
       "RenderingError"
       ( \x ->
           RenderingError'
-            <$> (x .: "Code") <*> (x .: "Message")
+            Prelude.<$> (x Prelude..: "Code")
+            Prelude.<*> (x Prelude..: "Message")
       )
 
-instance Hashable RenderingError
+instance Prelude.Hashable RenderingError
 
-instance NFData RenderingError
+instance Prelude.NFData RenderingError

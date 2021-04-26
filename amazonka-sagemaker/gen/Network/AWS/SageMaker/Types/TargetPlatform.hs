@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,80 +19,158 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.TargetPlatform where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.TargetPlatformAccelerator
 import Network.AWS.SageMaker.Types.TargetPlatformArch
-import Network.AWS.SageMaker.Types.TargetPlatformOS
+import Network.AWS.SageMaker.Types.TargetPlatformOs
 
--- | Contains information about a target platform that you want your model to run on, such as OS, architecture, and accelerators. It is an alternative of @TargetDevice@ .
+-- | Contains information about a target platform that you want your model to
+-- run on, such as OS, architecture, and accelerators. It is an alternative
+-- of @TargetDevice@.
 --
---
---
--- /See:/ 'targetPlatform' smart constructor.
+-- /See:/ 'newTargetPlatform' smart constructor.
 data TargetPlatform = TargetPlatform'
-  { _tpAccelerator ::
-      !(Maybe TargetPlatformAccelerator),
-    _tpOS :: !TargetPlatformOS,
-    _tpArch :: !TargetPlatformArch
+  { -- | Specifies a target platform accelerator (optional).
+    --
+    -- -   @NVIDIA@: Nvidia graphics processing unit. It also requires
+    --     @gpu-code@, @trt-ver@, @cuda-ver@ compiler options
+    --
+    -- -   @MALI@: ARM Mali graphics processor
+    --
+    -- -   @INTEL_GRAPHICS@: Integrated Intel graphics
+    accelerator :: Prelude.Maybe TargetPlatformAccelerator,
+    -- | Specifies a target platform OS.
+    --
+    -- -   @LINUX@: Linux-based operating systems.
+    --
+    -- -   @ANDROID@: Android operating systems. Android API level can be
+    --     specified using the @ANDROID_PLATFORM@ compiler option. For example,
+    --     @\"CompilerOptions\": {\'ANDROID_PLATFORM\': 28}@
+    os :: TargetPlatformOs,
+    -- | Specifies a target platform architecture.
+    --
+    -- -   @X86_64@: 64-bit version of the x86 instruction set.
+    --
+    -- -   @X86@: 32-bit version of the x86 instruction set.
+    --
+    -- -   @ARM64@: ARMv8 64-bit CPU.
+    --
+    -- -   @ARM_EABIHF@: ARMv7 32-bit, Hard Float.
+    --
+    -- -   @ARM_EABI@: ARMv7 32-bit, Soft Float. Used by Android 32-bit ARM
+    --     platform.
+    arch :: TargetPlatformArch
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TargetPlatform' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TargetPlatform' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tpAccelerator' - Specifies a target platform accelerator (optional).     * @NVIDIA@ : Nvidia graphics processing unit. It also requires @gpu-code@ , @trt-ver@ , @cuda-ver@ compiler options     * @MALI@ : ARM Mali graphics processor     * @INTEL_GRAPHICS@ : Integrated Intel graphics
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tpOS' - Specifies a target platform OS.     * @LINUX@ : Linux-based operating systems.     * @ANDROID@ : Android operating systems. Android API level can be specified using the @ANDROID_PLATFORM@ compiler option. For example, @"CompilerOptions": {'ANDROID_PLATFORM': 28}@
+-- 'accelerator', 'targetPlatform_accelerator' - Specifies a target platform accelerator (optional).
 --
--- * 'tpArch' - Specifies a target platform architecture.     * @X86_64@ : 64-bit version of the x86 instruction set.     * @X86@ : 32-bit version of the x86 instruction set.     * @ARM64@ : ARMv8 64-bit CPU.     * @ARM_EABIHF@ : ARMv7 32-bit, Hard Float.     * @ARM_EABI@ : ARMv7 32-bit, Soft Float. Used by Android 32-bit ARM platform.
-targetPlatform ::
-  -- | 'tpOS'
-  TargetPlatformOS ->
-  -- | 'tpArch'
+-- -   @NVIDIA@: Nvidia graphics processing unit. It also requires
+--     @gpu-code@, @trt-ver@, @cuda-ver@ compiler options
+--
+-- -   @MALI@: ARM Mali graphics processor
+--
+-- -   @INTEL_GRAPHICS@: Integrated Intel graphics
+--
+-- 'os', 'targetPlatform_os' - Specifies a target platform OS.
+--
+-- -   @LINUX@: Linux-based operating systems.
+--
+-- -   @ANDROID@: Android operating systems. Android API level can be
+--     specified using the @ANDROID_PLATFORM@ compiler option. For example,
+--     @\"CompilerOptions\": {\'ANDROID_PLATFORM\': 28}@
+--
+-- 'arch', 'targetPlatform_arch' - Specifies a target platform architecture.
+--
+-- -   @X86_64@: 64-bit version of the x86 instruction set.
+--
+-- -   @X86@: 32-bit version of the x86 instruction set.
+--
+-- -   @ARM64@: ARMv8 64-bit CPU.
+--
+-- -   @ARM_EABIHF@: ARMv7 32-bit, Hard Float.
+--
+-- -   @ARM_EABI@: ARMv7 32-bit, Soft Float. Used by Android 32-bit ARM
+--     platform.
+newTargetPlatform ::
+  -- | 'os'
+  TargetPlatformOs ->
+  -- | 'arch'
   TargetPlatformArch ->
   TargetPlatform
-targetPlatform pOS_ pArch_ =
+newTargetPlatform pOs_ pArch_ =
   TargetPlatform'
-    { _tpAccelerator = Nothing,
-      _tpOS = pOS_,
-      _tpArch = pArch_
+    { accelerator = Prelude.Nothing,
+      os = pOs_,
+      arch = pArch_
     }
 
--- | Specifies a target platform accelerator (optional).     * @NVIDIA@ : Nvidia graphics processing unit. It also requires @gpu-code@ , @trt-ver@ , @cuda-ver@ compiler options     * @MALI@ : ARM Mali graphics processor     * @INTEL_GRAPHICS@ : Integrated Intel graphics
-tpAccelerator :: Lens' TargetPlatform (Maybe TargetPlatformAccelerator)
-tpAccelerator = lens _tpAccelerator (\s a -> s {_tpAccelerator = a})
+-- | Specifies a target platform accelerator (optional).
+--
+-- -   @NVIDIA@: Nvidia graphics processing unit. It also requires
+--     @gpu-code@, @trt-ver@, @cuda-ver@ compiler options
+--
+-- -   @MALI@: ARM Mali graphics processor
+--
+-- -   @INTEL_GRAPHICS@: Integrated Intel graphics
+targetPlatform_accelerator :: Lens.Lens' TargetPlatform (Prelude.Maybe TargetPlatformAccelerator)
+targetPlatform_accelerator = Lens.lens (\TargetPlatform' {accelerator} -> accelerator) (\s@TargetPlatform' {} a -> s {accelerator = a} :: TargetPlatform)
 
--- | Specifies a target platform OS.     * @LINUX@ : Linux-based operating systems.     * @ANDROID@ : Android operating systems. Android API level can be specified using the @ANDROID_PLATFORM@ compiler option. For example, @"CompilerOptions": {'ANDROID_PLATFORM': 28}@
-tpOS :: Lens' TargetPlatform TargetPlatformOS
-tpOS = lens _tpOS (\s a -> s {_tpOS = a})
+-- | Specifies a target platform OS.
+--
+-- -   @LINUX@: Linux-based operating systems.
+--
+-- -   @ANDROID@: Android operating systems. Android API level can be
+--     specified using the @ANDROID_PLATFORM@ compiler option. For example,
+--     @\"CompilerOptions\": {\'ANDROID_PLATFORM\': 28}@
+targetPlatform_os :: Lens.Lens' TargetPlatform TargetPlatformOs
+targetPlatform_os = Lens.lens (\TargetPlatform' {os} -> os) (\s@TargetPlatform' {} a -> s {os = a} :: TargetPlatform)
 
--- | Specifies a target platform architecture.     * @X86_64@ : 64-bit version of the x86 instruction set.     * @X86@ : 32-bit version of the x86 instruction set.     * @ARM64@ : ARMv8 64-bit CPU.     * @ARM_EABIHF@ : ARMv7 32-bit, Hard Float.     * @ARM_EABI@ : ARMv7 32-bit, Soft Float. Used by Android 32-bit ARM platform.
-tpArch :: Lens' TargetPlatform TargetPlatformArch
-tpArch = lens _tpArch (\s a -> s {_tpArch = a})
+-- | Specifies a target platform architecture.
+--
+-- -   @X86_64@: 64-bit version of the x86 instruction set.
+--
+-- -   @X86@: 32-bit version of the x86 instruction set.
+--
+-- -   @ARM64@: ARMv8 64-bit CPU.
+--
+-- -   @ARM_EABIHF@: ARMv7 32-bit, Hard Float.
+--
+-- -   @ARM_EABI@: ARMv7 32-bit, Soft Float. Used by Android 32-bit ARM
+--     platform.
+targetPlatform_arch :: Lens.Lens' TargetPlatform TargetPlatformArch
+targetPlatform_arch = Lens.lens (\TargetPlatform' {arch} -> arch) (\s@TargetPlatform' {} a -> s {arch = a} :: TargetPlatform)
 
-instance FromJSON TargetPlatform where
+instance Prelude.FromJSON TargetPlatform where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TargetPlatform"
       ( \x ->
           TargetPlatform'
-            <$> (x .:? "Accelerator")
-            <*> (x .: "Os")
-            <*> (x .: "Arch")
+            Prelude.<$> (x Prelude..:? "Accelerator")
+            Prelude.<*> (x Prelude..: "Os")
+            Prelude.<*> (x Prelude..: "Arch")
       )
 
-instance Hashable TargetPlatform
+instance Prelude.Hashable TargetPlatform
 
-instance NFData TargetPlatform
+instance Prelude.NFData TargetPlatform
 
-instance ToJSON TargetPlatform where
+instance Prelude.ToJSON TargetPlatform where
   toJSON TargetPlatform' {..} =
-    object
-      ( catMaybes
-          [ ("Accelerator" .=) <$> _tpAccelerator,
-            Just ("Os" .= _tpOS),
-            Just ("Arch" .= _tpArch)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Accelerator" Prelude..=) Prelude.<$> accelerator,
+            Prelude.Just ("Os" Prelude..= os),
+            Prelude.Just ("Arch" Prelude..= arch)
           ]
       )

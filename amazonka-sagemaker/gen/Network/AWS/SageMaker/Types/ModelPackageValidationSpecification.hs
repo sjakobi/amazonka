@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,83 +19,97 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.ModelPackageValidationSpecification where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.ModelPackageValidationProfile
 
--- | Specifies batch transform jobs that Amazon SageMaker runs to validate your model package.
+-- | Specifies batch transform jobs that Amazon SageMaker runs to validate
+-- your model package.
 --
---
---
--- /See:/ 'modelPackageValidationSpecification' smart constructor.
+-- /See:/ 'newModelPackageValidationSpecification' smart constructor.
 data ModelPackageValidationSpecification = ModelPackageValidationSpecification'
-  { _mpvsValidationRole ::
-      !Text,
-    _mpvsValidationProfiles ::
-      !( List1
-           ModelPackageValidationProfile
-       )
+  { -- | The IAM roles to be used for the validation of the model package.
+    validationRole :: Prelude.Text,
+    -- | An array of @ModelPackageValidationProfile@ objects, each of which
+    -- specifies a batch transform job that Amazon SageMaker runs to validate
+    -- your model package.
+    validationProfiles :: Prelude.List1 ModelPackageValidationProfile
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModelPackageValidationSpecification' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModelPackageValidationSpecification' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mpvsValidationRole' - The IAM roles to be used for the validation of the model package.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mpvsValidationProfiles' - An array of @ModelPackageValidationProfile@ objects, each of which specifies a batch transform job that Amazon SageMaker runs to validate your model package.
-modelPackageValidationSpecification ::
-  -- | 'mpvsValidationRole'
-  Text ->
-  -- | 'mpvsValidationProfiles'
-  NonEmpty ModelPackageValidationProfile ->
+-- 'validationRole', 'modelPackageValidationSpecification_validationRole' - The IAM roles to be used for the validation of the model package.
+--
+-- 'validationProfiles', 'modelPackageValidationSpecification_validationProfiles' - An array of @ModelPackageValidationProfile@ objects, each of which
+-- specifies a batch transform job that Amazon SageMaker runs to validate
+-- your model package.
+newModelPackageValidationSpecification ::
+  -- | 'validationRole'
+  Prelude.Text ->
+  -- | 'validationProfiles'
+  Prelude.NonEmpty ModelPackageValidationProfile ->
   ModelPackageValidationSpecification
-modelPackageValidationSpecification
+newModelPackageValidationSpecification
   pValidationRole_
   pValidationProfiles_ =
     ModelPackageValidationSpecification'
-      { _mpvsValidationRole =
+      { validationRole =
           pValidationRole_,
-        _mpvsValidationProfiles =
-          _List1 # pValidationProfiles_
+        validationProfiles =
+          Prelude._List1
+            Lens.# pValidationProfiles_
       }
 
 -- | The IAM roles to be used for the validation of the model package.
-mpvsValidationRole :: Lens' ModelPackageValidationSpecification Text
-mpvsValidationRole = lens _mpvsValidationRole (\s a -> s {_mpvsValidationRole = a})
+modelPackageValidationSpecification_validationRole :: Lens.Lens' ModelPackageValidationSpecification Prelude.Text
+modelPackageValidationSpecification_validationRole = Lens.lens (\ModelPackageValidationSpecification' {validationRole} -> validationRole) (\s@ModelPackageValidationSpecification' {} a -> s {validationRole = a} :: ModelPackageValidationSpecification)
 
--- | An array of @ModelPackageValidationProfile@ objects, each of which specifies a batch transform job that Amazon SageMaker runs to validate your model package.
-mpvsValidationProfiles :: Lens' ModelPackageValidationSpecification (NonEmpty ModelPackageValidationProfile)
-mpvsValidationProfiles = lens _mpvsValidationProfiles (\s a -> s {_mpvsValidationProfiles = a}) . _List1
+-- | An array of @ModelPackageValidationProfile@ objects, each of which
+-- specifies a batch transform job that Amazon SageMaker runs to validate
+-- your model package.
+modelPackageValidationSpecification_validationProfiles :: Lens.Lens' ModelPackageValidationSpecification (Prelude.NonEmpty ModelPackageValidationProfile)
+modelPackageValidationSpecification_validationProfiles = Lens.lens (\ModelPackageValidationSpecification' {validationProfiles} -> validationProfiles) (\s@ModelPackageValidationSpecification' {} a -> s {validationProfiles = a} :: ModelPackageValidationSpecification) Prelude.. Prelude._List1
 
-instance FromJSON ModelPackageValidationSpecification where
+instance
+  Prelude.FromJSON
+    ModelPackageValidationSpecification
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ModelPackageValidationSpecification"
       ( \x ->
           ModelPackageValidationSpecification'
-            <$> (x .: "ValidationRole")
-            <*> (x .: "ValidationProfiles")
+            Prelude.<$> (x Prelude..: "ValidationRole")
+            Prelude.<*> (x Prelude..: "ValidationProfiles")
       )
 
-instance Hashable ModelPackageValidationSpecification
+instance
+  Prelude.Hashable
+    ModelPackageValidationSpecification
 
-instance NFData ModelPackageValidationSpecification
+instance
+  Prelude.NFData
+    ModelPackageValidationSpecification
 
-instance ToJSON ModelPackageValidationSpecification where
+instance
+  Prelude.ToJSON
+    ModelPackageValidationSpecification
+  where
   toJSON ModelPackageValidationSpecification' {..} =
-    object
-      ( catMaybes
-          [ Just ("ValidationRole" .= _mpvsValidationRole),
-            Just
-              ("ValidationProfiles" .= _mpvsValidationProfiles)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("ValidationRole" Prelude..= validationRole),
+            Prelude.Just
+              ( "ValidationProfiles"
+                  Prelude..= validationProfiles
+              )
           ]
       )

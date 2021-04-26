@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,73 +19,85 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.FlowDefinitionOutputConfig where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains information about where human output will be stored.
 --
---
---
--- /See:/ 'flowDefinitionOutputConfig' smart constructor.
+-- /See:/ 'newFlowDefinitionOutputConfig' smart constructor.
 data FlowDefinitionOutputConfig = FlowDefinitionOutputConfig'
-  { _fdocKMSKeyId ::
-      !(Maybe Text),
-    _fdocS3OutputPath ::
-      !Text
+  { -- | The Amazon Key Management Service (KMS) key ID for server-side
+    -- encryption.
+    kmsKeyId :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon S3 path where the object containing human output will be made
+    -- available.
+    --
+    -- To learn more about the format of Amazon A2I output data, see
+    -- <https://docs.aws.amazon.com/sagemaker/latest/dg/a2i-output-data.html Amazon A2I Output Data>.
+    s3OutputPath :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FlowDefinitionOutputConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FlowDefinitionOutputConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fdocKMSKeyId' - The Amazon Key Management Service (KMS) key ID for server-side encryption.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fdocS3OutputPath' - The Amazon S3 path where the object containing human output will be made available. To learn more about the format of Amazon A2I output data, see <https://docs.aws.amazon.com/sagemaker/latest/dg/a2i-output-data.html Amazon A2I Output Data> .
-flowDefinitionOutputConfig ::
-  -- | 'fdocS3OutputPath'
-  Text ->
+-- 'kmsKeyId', 'flowDefinitionOutputConfig_kmsKeyId' - The Amazon Key Management Service (KMS) key ID for server-side
+-- encryption.
+--
+-- 's3OutputPath', 'flowDefinitionOutputConfig_s3OutputPath' - The Amazon S3 path where the object containing human output will be made
+-- available.
+--
+-- To learn more about the format of Amazon A2I output data, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/a2i-output-data.html Amazon A2I Output Data>.
+newFlowDefinitionOutputConfig ::
+  -- | 's3OutputPath'
+  Prelude.Text ->
   FlowDefinitionOutputConfig
-flowDefinitionOutputConfig pS3OutputPath_ =
+newFlowDefinitionOutputConfig pS3OutputPath_ =
   FlowDefinitionOutputConfig'
-    { _fdocKMSKeyId =
-        Nothing,
-      _fdocS3OutputPath = pS3OutputPath_
+    { kmsKeyId =
+        Prelude.Nothing,
+      s3OutputPath = pS3OutputPath_
     }
 
--- | The Amazon Key Management Service (KMS) key ID for server-side encryption.
-fdocKMSKeyId :: Lens' FlowDefinitionOutputConfig (Maybe Text)
-fdocKMSKeyId = lens _fdocKMSKeyId (\s a -> s {_fdocKMSKeyId = a})
+-- | The Amazon Key Management Service (KMS) key ID for server-side
+-- encryption.
+flowDefinitionOutputConfig_kmsKeyId :: Lens.Lens' FlowDefinitionOutputConfig (Prelude.Maybe Prelude.Text)
+flowDefinitionOutputConfig_kmsKeyId = Lens.lens (\FlowDefinitionOutputConfig' {kmsKeyId} -> kmsKeyId) (\s@FlowDefinitionOutputConfig' {} a -> s {kmsKeyId = a} :: FlowDefinitionOutputConfig)
 
--- | The Amazon S3 path where the object containing human output will be made available. To learn more about the format of Amazon A2I output data, see <https://docs.aws.amazon.com/sagemaker/latest/dg/a2i-output-data.html Amazon A2I Output Data> .
-fdocS3OutputPath :: Lens' FlowDefinitionOutputConfig Text
-fdocS3OutputPath = lens _fdocS3OutputPath (\s a -> s {_fdocS3OutputPath = a})
+-- | The Amazon S3 path where the object containing human output will be made
+-- available.
+--
+-- To learn more about the format of Amazon A2I output data, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/a2i-output-data.html Amazon A2I Output Data>.
+flowDefinitionOutputConfig_s3OutputPath :: Lens.Lens' FlowDefinitionOutputConfig Prelude.Text
+flowDefinitionOutputConfig_s3OutputPath = Lens.lens (\FlowDefinitionOutputConfig' {s3OutputPath} -> s3OutputPath) (\s@FlowDefinitionOutputConfig' {} a -> s {s3OutputPath = a} :: FlowDefinitionOutputConfig)
 
-instance FromJSON FlowDefinitionOutputConfig where
+instance Prelude.FromJSON FlowDefinitionOutputConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "FlowDefinitionOutputConfig"
       ( \x ->
           FlowDefinitionOutputConfig'
-            <$> (x .:? "KmsKeyId") <*> (x .: "S3OutputPath")
+            Prelude.<$> (x Prelude..:? "KmsKeyId")
+            Prelude.<*> (x Prelude..: "S3OutputPath")
       )
 
-instance Hashable FlowDefinitionOutputConfig
+instance Prelude.Hashable FlowDefinitionOutputConfig
 
-instance NFData FlowDefinitionOutputConfig
+instance Prelude.NFData FlowDefinitionOutputConfig
 
-instance ToJSON FlowDefinitionOutputConfig where
+instance Prelude.ToJSON FlowDefinitionOutputConfig where
   toJSON FlowDefinitionOutputConfig' {..} =
-    object
-      ( catMaybes
-          [ ("KmsKeyId" .=) <$> _fdocKMSKeyId,
-            Just ("S3OutputPath" .= _fdocS3OutputPath)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("KmsKeyId" Prelude..=) Prelude.<$> kmsKeyId,
+            Prelude.Just
+              ("S3OutputPath" Prelude..= s3OutputPath)
           ]
       )

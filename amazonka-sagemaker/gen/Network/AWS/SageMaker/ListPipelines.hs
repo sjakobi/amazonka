@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,215 +23,267 @@
 --
 -- Gets a list of pipelines.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.SageMaker.ListPipelines
   ( -- * Creating a Request
-    listPipelines,
-    ListPipelines,
+    ListPipelines (..),
+    newListPipelines,
 
     -- * Request Lenses
-    lpsCreatedAfter,
-    lpsSortOrder,
-    lpsNextToken,
-    lpsCreatedBefore,
-    lpsMaxResults,
-    lpsSortBy,
-    lpsPipelineNamePrefix,
+    listPipelines_createdAfter,
+    listPipelines_sortOrder,
+    listPipelines_nextToken,
+    listPipelines_createdBefore,
+    listPipelines_maxResults,
+    listPipelines_sortBy,
+    listPipelines_pipelineNamePrefix,
 
     -- * Destructuring the Response
-    listPipelinesResponse,
-    ListPipelinesResponse,
+    ListPipelinesResponse (..),
+    newListPipelinesResponse,
 
     -- * Response Lenses
-    lprprsNextToken,
-    lprprsPipelineSummaries,
-    lprprsResponseStatus,
+    listPipelinesResponse_nextToken,
+    listPipelinesResponse_pipelineSummaries,
+    listPipelinesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
+import Network.AWS.SageMaker.Types.PipelineSummary
 
--- | /See:/ 'listPipelines' smart constructor.
+-- | /See:/ 'newListPipelines' smart constructor.
 data ListPipelines = ListPipelines'
-  { _lpsCreatedAfter ::
-      !(Maybe POSIX),
-    _lpsSortOrder :: !(Maybe SortOrder),
-    _lpsNextToken :: !(Maybe Text),
-    _lpsCreatedBefore :: !(Maybe POSIX),
-    _lpsMaxResults :: !(Maybe Nat),
-    _lpsSortBy :: !(Maybe SortPipelinesBy),
-    _lpsPipelineNamePrefix :: !(Maybe Text)
+  { -- | A filter that returns the pipelines that were created after a specified
+    -- time.
+    createdAfter :: Prelude.Maybe Prelude.POSIX,
+    -- | The sort order for results.
+    sortOrder :: Prelude.Maybe SortOrder,
+    -- | If the result of the previous @ListPipelines@ request was truncated, the
+    -- response includes a @NextToken@. To retrieve the next set of pipelines,
+    -- use the token in the next request.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A filter that returns the pipelines that were created before a specified
+    -- time.
+    createdBefore :: Prelude.Maybe Prelude.POSIX,
+    -- | The maximum number of pipelines to return in the response.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The field by which to sort results. The default is @CreatedTime@.
+    sortBy :: Prelude.Maybe SortPipelinesBy,
+    -- | The prefix of the pipeline name.
+    pipelineNamePrefix :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListPipelines' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListPipelines' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lpsCreatedAfter' - A filter that returns the pipelines that were created after a specified time.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lpsSortOrder' - The sort order for results.
+-- 'createdAfter', 'listPipelines_createdAfter' - A filter that returns the pipelines that were created after a specified
+-- time.
 --
--- * 'lpsNextToken' - If the result of the previous @ListPipelines@ request was truncated, the response includes a @NextToken@ . To retrieve the next set of pipelines, use the token in the next request.
+-- 'sortOrder', 'listPipelines_sortOrder' - The sort order for results.
 --
--- * 'lpsCreatedBefore' - A filter that returns the pipelines that were created before a specified time.
+-- 'nextToken', 'listPipelines_nextToken' - If the result of the previous @ListPipelines@ request was truncated, the
+-- response includes a @NextToken@. To retrieve the next set of pipelines,
+-- use the token in the next request.
 --
--- * 'lpsMaxResults' - The maximum number of pipelines to return in the response.
+-- 'createdBefore', 'listPipelines_createdBefore' - A filter that returns the pipelines that were created before a specified
+-- time.
 --
--- * 'lpsSortBy' - The field by which to sort results. The default is @CreatedTime@ .
+-- 'maxResults', 'listPipelines_maxResults' - The maximum number of pipelines to return in the response.
 --
--- * 'lpsPipelineNamePrefix' - The prefix of the pipeline name.
-listPipelines ::
+-- 'sortBy', 'listPipelines_sortBy' - The field by which to sort results. The default is @CreatedTime@.
+--
+-- 'pipelineNamePrefix', 'listPipelines_pipelineNamePrefix' - The prefix of the pipeline name.
+newListPipelines ::
   ListPipelines
-listPipelines =
+newListPipelines =
   ListPipelines'
-    { _lpsCreatedAfter = Nothing,
-      _lpsSortOrder = Nothing,
-      _lpsNextToken = Nothing,
-      _lpsCreatedBefore = Nothing,
-      _lpsMaxResults = Nothing,
-      _lpsSortBy = Nothing,
-      _lpsPipelineNamePrefix = Nothing
+    { createdAfter = Prelude.Nothing,
+      sortOrder = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      createdBefore = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      sortBy = Prelude.Nothing,
+      pipelineNamePrefix = Prelude.Nothing
     }
 
--- | A filter that returns the pipelines that were created after a specified time.
-lpsCreatedAfter :: Lens' ListPipelines (Maybe UTCTime)
-lpsCreatedAfter = lens _lpsCreatedAfter (\s a -> s {_lpsCreatedAfter = a}) . mapping _Time
+-- | A filter that returns the pipelines that were created after a specified
+-- time.
+listPipelines_createdAfter :: Lens.Lens' ListPipelines (Prelude.Maybe Prelude.UTCTime)
+listPipelines_createdAfter = Lens.lens (\ListPipelines' {createdAfter} -> createdAfter) (\s@ListPipelines' {} a -> s {createdAfter = a} :: ListPipelines) Prelude.. Lens.mapping Prelude._Time
 
 -- | The sort order for results.
-lpsSortOrder :: Lens' ListPipelines (Maybe SortOrder)
-lpsSortOrder = lens _lpsSortOrder (\s a -> s {_lpsSortOrder = a})
+listPipelines_sortOrder :: Lens.Lens' ListPipelines (Prelude.Maybe SortOrder)
+listPipelines_sortOrder = Lens.lens (\ListPipelines' {sortOrder} -> sortOrder) (\s@ListPipelines' {} a -> s {sortOrder = a} :: ListPipelines)
 
--- | If the result of the previous @ListPipelines@ request was truncated, the response includes a @NextToken@ . To retrieve the next set of pipelines, use the token in the next request.
-lpsNextToken :: Lens' ListPipelines (Maybe Text)
-lpsNextToken = lens _lpsNextToken (\s a -> s {_lpsNextToken = a})
+-- | If the result of the previous @ListPipelines@ request was truncated, the
+-- response includes a @NextToken@. To retrieve the next set of pipelines,
+-- use the token in the next request.
+listPipelines_nextToken :: Lens.Lens' ListPipelines (Prelude.Maybe Prelude.Text)
+listPipelines_nextToken = Lens.lens (\ListPipelines' {nextToken} -> nextToken) (\s@ListPipelines' {} a -> s {nextToken = a} :: ListPipelines)
 
--- | A filter that returns the pipelines that were created before a specified time.
-lpsCreatedBefore :: Lens' ListPipelines (Maybe UTCTime)
-lpsCreatedBefore = lens _lpsCreatedBefore (\s a -> s {_lpsCreatedBefore = a}) . mapping _Time
+-- | A filter that returns the pipelines that were created before a specified
+-- time.
+listPipelines_createdBefore :: Lens.Lens' ListPipelines (Prelude.Maybe Prelude.UTCTime)
+listPipelines_createdBefore = Lens.lens (\ListPipelines' {createdBefore} -> createdBefore) (\s@ListPipelines' {} a -> s {createdBefore = a} :: ListPipelines) Prelude.. Lens.mapping Prelude._Time
 
 -- | The maximum number of pipelines to return in the response.
-lpsMaxResults :: Lens' ListPipelines (Maybe Natural)
-lpsMaxResults = lens _lpsMaxResults (\s a -> s {_lpsMaxResults = a}) . mapping _Nat
+listPipelines_maxResults :: Lens.Lens' ListPipelines (Prelude.Maybe Prelude.Natural)
+listPipelines_maxResults = Lens.lens (\ListPipelines' {maxResults} -> maxResults) (\s@ListPipelines' {} a -> s {maxResults = a} :: ListPipelines) Prelude.. Lens.mapping Prelude._Nat
 
--- | The field by which to sort results. The default is @CreatedTime@ .
-lpsSortBy :: Lens' ListPipelines (Maybe SortPipelinesBy)
-lpsSortBy = lens _lpsSortBy (\s a -> s {_lpsSortBy = a})
+-- | The field by which to sort results. The default is @CreatedTime@.
+listPipelines_sortBy :: Lens.Lens' ListPipelines (Prelude.Maybe SortPipelinesBy)
+listPipelines_sortBy = Lens.lens (\ListPipelines' {sortBy} -> sortBy) (\s@ListPipelines' {} a -> s {sortBy = a} :: ListPipelines)
 
 -- | The prefix of the pipeline name.
-lpsPipelineNamePrefix :: Lens' ListPipelines (Maybe Text)
-lpsPipelineNamePrefix = lens _lpsPipelineNamePrefix (\s a -> s {_lpsPipelineNamePrefix = a})
+listPipelines_pipelineNamePrefix :: Lens.Lens' ListPipelines (Prelude.Maybe Prelude.Text)
+listPipelines_pipelineNamePrefix = Lens.lens (\ListPipelines' {pipelineNamePrefix} -> pipelineNamePrefix) (\s@ListPipelines' {} a -> s {pipelineNamePrefix = a} :: ListPipelines)
 
-instance AWSPager ListPipelines where
+instance Pager.AWSPager ListPipelines where
   page rq rs
-    | stop (rs ^. lprprsNextToken) = Nothing
-    | stop (rs ^. lprprsPipelineSummaries) = Nothing
-    | otherwise =
-      Just $ rq & lpsNextToken .~ rs ^. lprprsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listPipelinesResponse_nextToken Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listPipelinesResponse_pipelineSummaries
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listPipelines_nextToken
+          Lens..~ rs
+          Lens.^? listPipelinesResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest ListPipelines where
+instance Prelude.AWSRequest ListPipelines where
   type Rs ListPipelines = ListPipelinesResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListPipelinesResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "PipelineSummaries" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "PipelineSummaries"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListPipelines
+instance Prelude.Hashable ListPipelines
 
-instance NFData ListPipelines
+instance Prelude.NFData ListPipelines
 
-instance ToHeaders ListPipelines where
+instance Prelude.ToHeaders ListPipelines where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.ListPipelines" :: ByteString),
+              Prelude.=# ("SageMaker.ListPipelines" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListPipelines where
+instance Prelude.ToJSON ListPipelines where
   toJSON ListPipelines' {..} =
-    object
-      ( catMaybes
-          [ ("CreatedAfter" .=) <$> _lpsCreatedAfter,
-            ("SortOrder" .=) <$> _lpsSortOrder,
-            ("NextToken" .=) <$> _lpsNextToken,
-            ("CreatedBefore" .=) <$> _lpsCreatedBefore,
-            ("MaxResults" .=) <$> _lpsMaxResults,
-            ("SortBy" .=) <$> _lpsSortBy,
-            ("PipelineNamePrefix" .=)
-              <$> _lpsPipelineNamePrefix
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("CreatedAfter" Prelude..=)
+              Prelude.<$> createdAfter,
+            ("SortOrder" Prelude..=) Prelude.<$> sortOrder,
+            ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("CreatedBefore" Prelude..=)
+              Prelude.<$> createdBefore,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("SortBy" Prelude..=) Prelude.<$> sortBy,
+            ("PipelineNamePrefix" Prelude..=)
+              Prelude.<$> pipelineNamePrefix
           ]
       )
 
-instance ToPath ListPipelines where
-  toPath = const "/"
+instance Prelude.ToPath ListPipelines where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListPipelines where
-  toQuery = const mempty
+instance Prelude.ToQuery ListPipelines where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listPipelinesResponse' smart constructor.
+-- | /See:/ 'newListPipelinesResponse' smart constructor.
 data ListPipelinesResponse = ListPipelinesResponse'
-  { _lprprsNextToken ::
-      !(Maybe Text),
-    _lprprsPipelineSummaries ::
-      !(Maybe [PipelineSummary]),
-    _lprprsResponseStatus ::
-      !Int
+  { -- | If the result of the previous @ListPipelines@ request was truncated, the
+    -- response includes a @NextToken@. To retrieve the next set of pipelines,
+    -- use the token in the next request.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Contains a sorted list of @PipelineSummary@ objects matching the
+    -- specified filters. Each @PipelineSummary@ consists of PipelineArn,
+    -- PipelineName, ExperimentName, PipelineDescription, CreationTime,
+    -- LastModifiedTime, LastRunTime, and RoleArn. This list can be empty.
+    pipelineSummaries :: Prelude.Maybe [PipelineSummary],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListPipelinesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListPipelinesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lprprsNextToken' - If the result of the previous @ListPipelines@ request was truncated, the response includes a @NextToken@ . To retrieve the next set of pipelines, use the token in the next request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lprprsPipelineSummaries' - Contains a sorted list of @PipelineSummary@ objects matching the specified filters. Each @PipelineSummary@ consists of PipelineArn, PipelineName, ExperimentName, PipelineDescription, CreationTime, LastModifiedTime, LastRunTime, and RoleArn. This list can be empty.
+-- 'nextToken', 'listPipelinesResponse_nextToken' - If the result of the previous @ListPipelines@ request was truncated, the
+-- response includes a @NextToken@. To retrieve the next set of pipelines,
+-- use the token in the next request.
 --
--- * 'lprprsResponseStatus' - -- | The response status code.
-listPipelinesResponse ::
-  -- | 'lprprsResponseStatus'
-  Int ->
+-- 'pipelineSummaries', 'listPipelinesResponse_pipelineSummaries' - Contains a sorted list of @PipelineSummary@ objects matching the
+-- specified filters. Each @PipelineSummary@ consists of PipelineArn,
+-- PipelineName, ExperimentName, PipelineDescription, CreationTime,
+-- LastModifiedTime, LastRunTime, and RoleArn. This list can be empty.
+--
+-- 'httpStatus', 'listPipelinesResponse_httpStatus' - The response's http status code.
+newListPipelinesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListPipelinesResponse
-listPipelinesResponse pResponseStatus_ =
+newListPipelinesResponse pHttpStatus_ =
   ListPipelinesResponse'
-    { _lprprsNextToken = Nothing,
-      _lprprsPipelineSummaries = Nothing,
-      _lprprsResponseStatus = pResponseStatus_
+    { nextToken = Prelude.Nothing,
+      pipelineSummaries = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | If the result of the previous @ListPipelines@ request was truncated, the response includes a @NextToken@ . To retrieve the next set of pipelines, use the token in the next request.
-lprprsNextToken :: Lens' ListPipelinesResponse (Maybe Text)
-lprprsNextToken = lens _lprprsNextToken (\s a -> s {_lprprsNextToken = a})
+-- | If the result of the previous @ListPipelines@ request was truncated, the
+-- response includes a @NextToken@. To retrieve the next set of pipelines,
+-- use the token in the next request.
+listPipelinesResponse_nextToken :: Lens.Lens' ListPipelinesResponse (Prelude.Maybe Prelude.Text)
+listPipelinesResponse_nextToken = Lens.lens (\ListPipelinesResponse' {nextToken} -> nextToken) (\s@ListPipelinesResponse' {} a -> s {nextToken = a} :: ListPipelinesResponse)
 
--- | Contains a sorted list of @PipelineSummary@ objects matching the specified filters. Each @PipelineSummary@ consists of PipelineArn, PipelineName, ExperimentName, PipelineDescription, CreationTime, LastModifiedTime, LastRunTime, and RoleArn. This list can be empty.
-lprprsPipelineSummaries :: Lens' ListPipelinesResponse [PipelineSummary]
-lprprsPipelineSummaries = lens _lprprsPipelineSummaries (\s a -> s {_lprprsPipelineSummaries = a}) . _Default . _Coerce
+-- | Contains a sorted list of @PipelineSummary@ objects matching the
+-- specified filters. Each @PipelineSummary@ consists of PipelineArn,
+-- PipelineName, ExperimentName, PipelineDescription, CreationTime,
+-- LastModifiedTime, LastRunTime, and RoleArn. This list can be empty.
+listPipelinesResponse_pipelineSummaries :: Lens.Lens' ListPipelinesResponse (Prelude.Maybe [PipelineSummary])
+listPipelinesResponse_pipelineSummaries = Lens.lens (\ListPipelinesResponse' {pipelineSummaries} -> pipelineSummaries) (\s@ListPipelinesResponse' {} a -> s {pipelineSummaries = a} :: ListPipelinesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lprprsResponseStatus :: Lens' ListPipelinesResponse Int
-lprprsResponseStatus = lens _lprprsResponseStatus (\s a -> s {_lprprsResponseStatus = a})
+-- | The response's http status code.
+listPipelinesResponse_httpStatus :: Lens.Lens' ListPipelinesResponse Prelude.Int
+listPipelinesResponse_httpStatus = Lens.lens (\ListPipelinesResponse' {httpStatus} -> httpStatus) (\s@ListPipelinesResponse' {} a -> s {httpStatus = a} :: ListPipelinesResponse)
 
-instance NFData ListPipelinesResponse
+instance Prelude.NFData ListPipelinesResponse

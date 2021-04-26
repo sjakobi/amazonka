@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,70 +19,68 @@
 module Network.AWS.SageMaker.Types.HyperParameterScalingType
   ( HyperParameterScalingType
       ( ..,
-        Auto,
-        Linear,
-        Logarithmic,
-        ReverseLogarithmic
+        HyperParameterScalingTypeAuto,
+        HyperParameterScalingTypeLinear,
+        HyperParameterScalingTypeLogarithmic,
+        HyperParameterScalingTypeReverseLogarithmic
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data HyperParameterScalingType
-  = HyperParameterScalingType'
-      ( CI
-          Text
-      )
+newtype HyperParameterScalingType = HyperParameterScalingType'
+  { fromHyperParameterScalingType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Auto :: HyperParameterScalingType
-pattern Auto = HyperParameterScalingType' "Auto"
+pattern HyperParameterScalingTypeAuto :: HyperParameterScalingType
+pattern HyperParameterScalingTypeAuto = HyperParameterScalingType' "Auto"
 
-pattern Linear :: HyperParameterScalingType
-pattern Linear = HyperParameterScalingType' "Linear"
+pattern HyperParameterScalingTypeLinear :: HyperParameterScalingType
+pattern HyperParameterScalingTypeLinear = HyperParameterScalingType' "Linear"
 
-pattern Logarithmic :: HyperParameterScalingType
-pattern Logarithmic = HyperParameterScalingType' "Logarithmic"
+pattern HyperParameterScalingTypeLogarithmic :: HyperParameterScalingType
+pattern HyperParameterScalingTypeLogarithmic = HyperParameterScalingType' "Logarithmic"
 
-pattern ReverseLogarithmic :: HyperParameterScalingType
-pattern ReverseLogarithmic = HyperParameterScalingType' "ReverseLogarithmic"
+pattern HyperParameterScalingTypeReverseLogarithmic :: HyperParameterScalingType
+pattern HyperParameterScalingTypeReverseLogarithmic = HyperParameterScalingType' "ReverseLogarithmic"
 
 {-# COMPLETE
-  Auto,
-  Linear,
-  Logarithmic,
-  ReverseLogarithmic,
+  HyperParameterScalingTypeAuto,
+  HyperParameterScalingTypeLinear,
+  HyperParameterScalingTypeLogarithmic,
+  HyperParameterScalingTypeReverseLogarithmic,
   HyperParameterScalingType'
   #-}
 
-instance FromText HyperParameterScalingType where
-  parser = (HyperParameterScalingType' . mk) <$> takeText
+instance Prelude.FromText HyperParameterScalingType where
+  parser = HyperParameterScalingType' Prelude.<$> Prelude.takeText
 
-instance ToText HyperParameterScalingType where
-  toText (HyperParameterScalingType' ci) = original ci
+instance Prelude.ToText HyperParameterScalingType where
+  toText (HyperParameterScalingType' x) = x
 
-instance Hashable HyperParameterScalingType
+instance Prelude.Hashable HyperParameterScalingType
 
-instance NFData HyperParameterScalingType
+instance Prelude.NFData HyperParameterScalingType
 
-instance ToByteString HyperParameterScalingType
+instance Prelude.ToByteString HyperParameterScalingType
 
-instance ToQuery HyperParameterScalingType
+instance Prelude.ToQuery HyperParameterScalingType
 
-instance ToHeader HyperParameterScalingType
+instance Prelude.ToHeader HyperParameterScalingType
 
-instance ToJSON HyperParameterScalingType where
-  toJSON = toJSONText
+instance Prelude.ToJSON HyperParameterScalingType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON HyperParameterScalingType where
-  parseJSON = parseJSONText "HyperParameterScalingType"
+instance Prelude.FromJSON HyperParameterScalingType where
+  parseJSON = Prelude.parseJSONText "HyperParameterScalingType"

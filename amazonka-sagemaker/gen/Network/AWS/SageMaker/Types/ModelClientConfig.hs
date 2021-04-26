@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,67 +19,70 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.ModelClientConfig where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Configures the timeout and maximum number of retries for processing a transform job invocation.
+-- | Configures the timeout and maximum number of retries for processing a
+-- transform job invocation.
 --
---
---
--- /See:/ 'modelClientConfig' smart constructor.
+-- /See:/ 'newModelClientConfig' smart constructor.
 data ModelClientConfig = ModelClientConfig'
-  { _mccInvocationsTimeoutInSeconds ::
-      !(Maybe Nat),
-    _mccInvocationsMaxRetries ::
-      !(Maybe Nat)
+  { -- | The timeout value in seconds for an invocation request.
+    invocationsTimeoutInSeconds :: Prelude.Maybe Prelude.Nat,
+    -- | The maximum number of retries when invocation requests are failing.
+    invocationsMaxRetries :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModelClientConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModelClientConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mccInvocationsTimeoutInSeconds' - The timeout value in seconds for an invocation request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mccInvocationsMaxRetries' - The maximum number of retries when invocation requests are failing.
-modelClientConfig ::
+-- 'invocationsTimeoutInSeconds', 'modelClientConfig_invocationsTimeoutInSeconds' - The timeout value in seconds for an invocation request.
+--
+-- 'invocationsMaxRetries', 'modelClientConfig_invocationsMaxRetries' - The maximum number of retries when invocation requests are failing.
+newModelClientConfig ::
   ModelClientConfig
-modelClientConfig =
+newModelClientConfig =
   ModelClientConfig'
-    { _mccInvocationsTimeoutInSeconds =
-        Nothing,
-      _mccInvocationsMaxRetries = Nothing
+    { invocationsTimeoutInSeconds =
+        Prelude.Nothing,
+      invocationsMaxRetries = Prelude.Nothing
     }
 
 -- | The timeout value in seconds for an invocation request.
-mccInvocationsTimeoutInSeconds :: Lens' ModelClientConfig (Maybe Natural)
-mccInvocationsTimeoutInSeconds = lens _mccInvocationsTimeoutInSeconds (\s a -> s {_mccInvocationsTimeoutInSeconds = a}) . mapping _Nat
+modelClientConfig_invocationsTimeoutInSeconds :: Lens.Lens' ModelClientConfig (Prelude.Maybe Prelude.Natural)
+modelClientConfig_invocationsTimeoutInSeconds = Lens.lens (\ModelClientConfig' {invocationsTimeoutInSeconds} -> invocationsTimeoutInSeconds) (\s@ModelClientConfig' {} a -> s {invocationsTimeoutInSeconds = a} :: ModelClientConfig) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The maximum number of retries when invocation requests are failing.
-mccInvocationsMaxRetries :: Lens' ModelClientConfig (Maybe Natural)
-mccInvocationsMaxRetries = lens _mccInvocationsMaxRetries (\s a -> s {_mccInvocationsMaxRetries = a}) . mapping _Nat
+modelClientConfig_invocationsMaxRetries :: Lens.Lens' ModelClientConfig (Prelude.Maybe Prelude.Natural)
+modelClientConfig_invocationsMaxRetries = Lens.lens (\ModelClientConfig' {invocationsMaxRetries} -> invocationsMaxRetries) (\s@ModelClientConfig' {} a -> s {invocationsMaxRetries = a} :: ModelClientConfig) Prelude.. Lens.mapping Prelude._Nat
 
-instance FromJSON ModelClientConfig where
+instance Prelude.FromJSON ModelClientConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ModelClientConfig"
       ( \x ->
           ModelClientConfig'
-            <$> (x .:? "InvocationsTimeoutInSeconds")
-            <*> (x .:? "InvocationsMaxRetries")
+            Prelude.<$> (x Prelude..:? "InvocationsTimeoutInSeconds")
+            Prelude.<*> (x Prelude..:? "InvocationsMaxRetries")
       )
 
-instance Hashable ModelClientConfig
+instance Prelude.Hashable ModelClientConfig
 
-instance NFData ModelClientConfig
+instance Prelude.NFData ModelClientConfig
 
-instance ToJSON ModelClientConfig where
+instance Prelude.ToJSON ModelClientConfig where
   toJSON ModelClientConfig' {..} =
-    object
-      ( catMaybes
-          [ ("InvocationsTimeoutInSeconds" .=)
-              <$> _mccInvocationsTimeoutInSeconds,
-            ("InvocationsMaxRetries" .=)
-              <$> _mccInvocationsMaxRetries
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("InvocationsTimeoutInSeconds" Prelude..=)
+              Prelude.<$> invocationsTimeoutInSeconds,
+            ("InvocationsMaxRetries" Prelude..=)
+              Prelude.<$> invocationsMaxRetries
           ]
       )

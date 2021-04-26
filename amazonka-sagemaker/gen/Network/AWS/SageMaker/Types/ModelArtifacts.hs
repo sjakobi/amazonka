@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,49 +19,58 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.ModelArtifacts where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Provides information about the location that is configured for storing model artifacts.
+-- | Provides information about the location that is configured for storing
+-- model artifacts.
 --
+-- Model artifacts are the output that results from training a model, and
+-- typically consist of trained parameters, a model defintion that desribes
+-- how to compute inferences, and other metadata.
 --
--- Model artifacts are the output that results from training a model, and typically consist of trained parameters, a model defintion that desribes how to compute inferences, and other metadata.
---
---
--- /See:/ 'modelArtifacts' smart constructor.
-newtype ModelArtifacts = ModelArtifacts'
-  { _maS3ModelArtifacts ::
-      Text
+-- /See:/ 'newModelArtifacts' smart constructor.
+data ModelArtifacts = ModelArtifacts'
+  { -- | The path of the S3 object that contains the model artifacts. For
+    -- example, @s3:\/\/bucket-name\/keynameprefix\/model.tar.gz@.
+    s3ModelArtifacts :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModelArtifacts' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModelArtifacts' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'maS3ModelArtifacts' - The path of the S3 object that contains the model artifacts. For example, @s3://bucket-name/keynameprefix/model.tar.gz@ .
-modelArtifacts ::
-  -- | 'maS3ModelArtifacts'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 's3ModelArtifacts', 'modelArtifacts_s3ModelArtifacts' - The path of the S3 object that contains the model artifacts. For
+-- example, @s3:\/\/bucket-name\/keynameprefix\/model.tar.gz@.
+newModelArtifacts ::
+  -- | 's3ModelArtifacts'
+  Prelude.Text ->
   ModelArtifacts
-modelArtifacts pS3ModelArtifacts_ =
+newModelArtifacts pS3ModelArtifacts_ =
   ModelArtifacts'
-    { _maS3ModelArtifacts =
+    { s3ModelArtifacts =
         pS3ModelArtifacts_
     }
 
--- | The path of the S3 object that contains the model artifacts. For example, @s3://bucket-name/keynameprefix/model.tar.gz@ .
-maS3ModelArtifacts :: Lens' ModelArtifacts Text
-maS3ModelArtifacts = lens _maS3ModelArtifacts (\s a -> s {_maS3ModelArtifacts = a})
+-- | The path of the S3 object that contains the model artifacts. For
+-- example, @s3:\/\/bucket-name\/keynameprefix\/model.tar.gz@.
+modelArtifacts_s3ModelArtifacts :: Lens.Lens' ModelArtifacts Prelude.Text
+modelArtifacts_s3ModelArtifacts = Lens.lens (\ModelArtifacts' {s3ModelArtifacts} -> s3ModelArtifacts) (\s@ModelArtifacts' {} a -> s {s3ModelArtifacts = a} :: ModelArtifacts)
 
-instance FromJSON ModelArtifacts where
+instance Prelude.FromJSON ModelArtifacts where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ModelArtifacts"
       ( \x ->
-          ModelArtifacts' <$> (x .: "S3ModelArtifacts")
+          ModelArtifacts'
+            Prelude.<$> (x Prelude..: "S3ModelArtifacts")
       )
 
-instance Hashable ModelArtifacts
+instance Prelude.Hashable ModelArtifacts
 
-instance NFData ModelArtifacts
+instance Prelude.NFData ModelArtifacts

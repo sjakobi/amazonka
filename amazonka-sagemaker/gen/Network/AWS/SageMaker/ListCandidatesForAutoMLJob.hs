@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,247 +23,259 @@
 --
 -- List the Candidates created for the job.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.SageMaker.ListCandidatesForAutoMLJob
   ( -- * Creating a Request
-    listCandidatesForAutoMLJob,
-    ListCandidatesForAutoMLJob,
+    ListCandidatesForAutoMLJob (..),
+    newListCandidatesForAutoMLJob,
 
     -- * Request Lenses
-    lcfamljSortOrder,
-    lcfamljNextToken,
-    lcfamljMaxResults,
-    lcfamljCandidateNameEquals,
-    lcfamljSortBy,
-    lcfamljStatusEquals,
-    lcfamljAutoMLJobName,
+    listCandidatesForAutoMLJob_sortOrder,
+    listCandidatesForAutoMLJob_nextToken,
+    listCandidatesForAutoMLJob_maxResults,
+    listCandidatesForAutoMLJob_candidateNameEquals,
+    listCandidatesForAutoMLJob_sortBy,
+    listCandidatesForAutoMLJob_statusEquals,
+    listCandidatesForAutoMLJob_autoMLJobName,
 
     -- * Destructuring the Response
-    listCandidatesForAutoMLJobResponse,
-    ListCandidatesForAutoMLJobResponse,
+    ListCandidatesForAutoMLJobResponse (..),
+    newListCandidatesForAutoMLJobResponse,
 
     -- * Response Lenses
-    lcfamljrrsNextToken,
-    lcfamljrrsResponseStatus,
-    lcfamljrrsCandidates,
+    listCandidatesForAutoMLJobResponse_nextToken,
+    listCandidatesForAutoMLJobResponse_httpStatus,
+    listCandidatesForAutoMLJobResponse_candidates,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
+import Network.AWS.SageMaker.Types.AutoMLCandidate
 
--- | /See:/ 'listCandidatesForAutoMLJob' smart constructor.
+-- | /See:/ 'newListCandidatesForAutoMLJob' smart constructor.
 data ListCandidatesForAutoMLJob = ListCandidatesForAutoMLJob'
-  { _lcfamljSortOrder ::
-      !( Maybe
-           AutoMLSortOrder
-       ),
-    _lcfamljNextToken ::
-      !(Maybe Text),
-    _lcfamljMaxResults ::
-      !(Maybe Nat),
-    _lcfamljCandidateNameEquals ::
-      !(Maybe Text),
-    _lcfamljSortBy ::
-      !( Maybe
-           CandidateSortBy
-       ),
-    _lcfamljStatusEquals ::
-      !( Maybe
-           CandidateStatus
-       ),
-    _lcfamljAutoMLJobName ::
-      !Text
+  { -- | The sort order for the results. The default is Ascending.
+    sortOrder :: Prelude.Maybe AutoMLSortOrder,
+    -- | If the previous response was truncated, you receive this token. Use it
+    -- in your next request to receive the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | List the job\'s Candidates up to a specified limit.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | List the Candidates for the job and filter by candidate name.
+    candidateNameEquals :: Prelude.Maybe Prelude.Text,
+    -- | The parameter by which to sort the results. The default is Descending.
+    sortBy :: Prelude.Maybe CandidateSortBy,
+    -- | List the Candidates for the job and filter by status.
+    statusEquals :: Prelude.Maybe CandidateStatus,
+    -- | List the Candidates created for the job by providing the job\'s name.
+    autoMLJobName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListCandidatesForAutoMLJob' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListCandidatesForAutoMLJob' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lcfamljSortOrder' - The sort order for the results. The default is Ascending.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lcfamljNextToken' - If the previous response was truncated, you receive this token. Use it in your next request to receive the next set of results.
+-- 'sortOrder', 'listCandidatesForAutoMLJob_sortOrder' - The sort order for the results. The default is Ascending.
 --
--- * 'lcfamljMaxResults' - List the job's Candidates up to a specified limit.
+-- 'nextToken', 'listCandidatesForAutoMLJob_nextToken' - If the previous response was truncated, you receive this token. Use it
+-- in your next request to receive the next set of results.
 --
--- * 'lcfamljCandidateNameEquals' - List the Candidates for the job and filter by candidate name.
+-- 'maxResults', 'listCandidatesForAutoMLJob_maxResults' - List the job\'s Candidates up to a specified limit.
 --
--- * 'lcfamljSortBy' - The parameter by which to sort the results. The default is Descending.
+-- 'candidateNameEquals', 'listCandidatesForAutoMLJob_candidateNameEquals' - List the Candidates for the job and filter by candidate name.
 --
--- * 'lcfamljStatusEquals' - List the Candidates for the job and filter by status.
+-- 'sortBy', 'listCandidatesForAutoMLJob_sortBy' - The parameter by which to sort the results. The default is Descending.
 --
--- * 'lcfamljAutoMLJobName' - List the Candidates created for the job by providing the job's name.
-listCandidatesForAutoMLJob ::
-  -- | 'lcfamljAutoMLJobName'
-  Text ->
+-- 'statusEquals', 'listCandidatesForAutoMLJob_statusEquals' - List the Candidates for the job and filter by status.
+--
+-- 'autoMLJobName', 'listCandidatesForAutoMLJob_autoMLJobName' - List the Candidates created for the job by providing the job\'s name.
+newListCandidatesForAutoMLJob ::
+  -- | 'autoMLJobName'
+  Prelude.Text ->
   ListCandidatesForAutoMLJob
-listCandidatesForAutoMLJob pAutoMLJobName_ =
+newListCandidatesForAutoMLJob pAutoMLJobName_ =
   ListCandidatesForAutoMLJob'
-    { _lcfamljSortOrder =
-        Nothing,
-      _lcfamljNextToken = Nothing,
-      _lcfamljMaxResults = Nothing,
-      _lcfamljCandidateNameEquals = Nothing,
-      _lcfamljSortBy = Nothing,
-      _lcfamljStatusEquals = Nothing,
-      _lcfamljAutoMLJobName = pAutoMLJobName_
+    { sortOrder =
+        Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      candidateNameEquals = Prelude.Nothing,
+      sortBy = Prelude.Nothing,
+      statusEquals = Prelude.Nothing,
+      autoMLJobName = pAutoMLJobName_
     }
 
 -- | The sort order for the results. The default is Ascending.
-lcfamljSortOrder :: Lens' ListCandidatesForAutoMLJob (Maybe AutoMLSortOrder)
-lcfamljSortOrder = lens _lcfamljSortOrder (\s a -> s {_lcfamljSortOrder = a})
+listCandidatesForAutoMLJob_sortOrder :: Lens.Lens' ListCandidatesForAutoMLJob (Prelude.Maybe AutoMLSortOrder)
+listCandidatesForAutoMLJob_sortOrder = Lens.lens (\ListCandidatesForAutoMLJob' {sortOrder} -> sortOrder) (\s@ListCandidatesForAutoMLJob' {} a -> s {sortOrder = a} :: ListCandidatesForAutoMLJob)
 
--- | If the previous response was truncated, you receive this token. Use it in your next request to receive the next set of results.
-lcfamljNextToken :: Lens' ListCandidatesForAutoMLJob (Maybe Text)
-lcfamljNextToken = lens _lcfamljNextToken (\s a -> s {_lcfamljNextToken = a})
+-- | If the previous response was truncated, you receive this token. Use it
+-- in your next request to receive the next set of results.
+listCandidatesForAutoMLJob_nextToken :: Lens.Lens' ListCandidatesForAutoMLJob (Prelude.Maybe Prelude.Text)
+listCandidatesForAutoMLJob_nextToken = Lens.lens (\ListCandidatesForAutoMLJob' {nextToken} -> nextToken) (\s@ListCandidatesForAutoMLJob' {} a -> s {nextToken = a} :: ListCandidatesForAutoMLJob)
 
--- | List the job's Candidates up to a specified limit.
-lcfamljMaxResults :: Lens' ListCandidatesForAutoMLJob (Maybe Natural)
-lcfamljMaxResults = lens _lcfamljMaxResults (\s a -> s {_lcfamljMaxResults = a}) . mapping _Nat
+-- | List the job\'s Candidates up to a specified limit.
+listCandidatesForAutoMLJob_maxResults :: Lens.Lens' ListCandidatesForAutoMLJob (Prelude.Maybe Prelude.Natural)
+listCandidatesForAutoMLJob_maxResults = Lens.lens (\ListCandidatesForAutoMLJob' {maxResults} -> maxResults) (\s@ListCandidatesForAutoMLJob' {} a -> s {maxResults = a} :: ListCandidatesForAutoMLJob) Prelude.. Lens.mapping Prelude._Nat
 
 -- | List the Candidates for the job and filter by candidate name.
-lcfamljCandidateNameEquals :: Lens' ListCandidatesForAutoMLJob (Maybe Text)
-lcfamljCandidateNameEquals = lens _lcfamljCandidateNameEquals (\s a -> s {_lcfamljCandidateNameEquals = a})
+listCandidatesForAutoMLJob_candidateNameEquals :: Lens.Lens' ListCandidatesForAutoMLJob (Prelude.Maybe Prelude.Text)
+listCandidatesForAutoMLJob_candidateNameEquals = Lens.lens (\ListCandidatesForAutoMLJob' {candidateNameEquals} -> candidateNameEquals) (\s@ListCandidatesForAutoMLJob' {} a -> s {candidateNameEquals = a} :: ListCandidatesForAutoMLJob)
 
 -- | The parameter by which to sort the results. The default is Descending.
-lcfamljSortBy :: Lens' ListCandidatesForAutoMLJob (Maybe CandidateSortBy)
-lcfamljSortBy = lens _lcfamljSortBy (\s a -> s {_lcfamljSortBy = a})
+listCandidatesForAutoMLJob_sortBy :: Lens.Lens' ListCandidatesForAutoMLJob (Prelude.Maybe CandidateSortBy)
+listCandidatesForAutoMLJob_sortBy = Lens.lens (\ListCandidatesForAutoMLJob' {sortBy} -> sortBy) (\s@ListCandidatesForAutoMLJob' {} a -> s {sortBy = a} :: ListCandidatesForAutoMLJob)
 
 -- | List the Candidates for the job and filter by status.
-lcfamljStatusEquals :: Lens' ListCandidatesForAutoMLJob (Maybe CandidateStatus)
-lcfamljStatusEquals = lens _lcfamljStatusEquals (\s a -> s {_lcfamljStatusEquals = a})
+listCandidatesForAutoMLJob_statusEquals :: Lens.Lens' ListCandidatesForAutoMLJob (Prelude.Maybe CandidateStatus)
+listCandidatesForAutoMLJob_statusEquals = Lens.lens (\ListCandidatesForAutoMLJob' {statusEquals} -> statusEquals) (\s@ListCandidatesForAutoMLJob' {} a -> s {statusEquals = a} :: ListCandidatesForAutoMLJob)
 
--- | List the Candidates created for the job by providing the job's name.
-lcfamljAutoMLJobName :: Lens' ListCandidatesForAutoMLJob Text
-lcfamljAutoMLJobName = lens _lcfamljAutoMLJobName (\s a -> s {_lcfamljAutoMLJobName = a})
+-- | List the Candidates created for the job by providing the job\'s name.
+listCandidatesForAutoMLJob_autoMLJobName :: Lens.Lens' ListCandidatesForAutoMLJob Prelude.Text
+listCandidatesForAutoMLJob_autoMLJobName = Lens.lens (\ListCandidatesForAutoMLJob' {autoMLJobName} -> autoMLJobName) (\s@ListCandidatesForAutoMLJob' {} a -> s {autoMLJobName = a} :: ListCandidatesForAutoMLJob)
 
-instance AWSPager ListCandidatesForAutoMLJob where
+instance Pager.AWSPager ListCandidatesForAutoMLJob where
   page rq rs
-    | stop (rs ^. lcfamljrrsNextToken) = Nothing
-    | stop (rs ^. lcfamljrrsCandidates) = Nothing
-    | otherwise =
-      Just $
+    | Pager.stop
+        ( rs
+            Lens.^? listCandidatesForAutoMLJobResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^. listCandidatesForAutoMLJobResponse_candidates
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
         rq
-          & lcfamljNextToken .~ rs ^. lcfamljrrsNextToken
+          Lens.& listCandidatesForAutoMLJob_nextToken
+          Lens..~ rs
+          Lens.^? listCandidatesForAutoMLJobResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListCandidatesForAutoMLJob where
+instance
+  Prelude.AWSRequest
+    ListCandidatesForAutoMLJob
+  where
   type
     Rs ListCandidatesForAutoMLJob =
       ListCandidatesForAutoMLJobResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListCandidatesForAutoMLJobResponse'
-            <$> (x .?> "NextToken")
-            <*> (pure (fromEnum s))
-            <*> (x .?> "Candidates" .!@ mempty)
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> ( x Prelude..?> "Candidates"
+                            Prelude..!@ Prelude.mempty
+                        )
       )
 
-instance Hashable ListCandidatesForAutoMLJob
+instance Prelude.Hashable ListCandidatesForAutoMLJob
 
-instance NFData ListCandidatesForAutoMLJob
+instance Prelude.NFData ListCandidatesForAutoMLJob
 
-instance ToHeaders ListCandidatesForAutoMLJob where
+instance Prelude.ToHeaders ListCandidatesForAutoMLJob where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "SageMaker.ListCandidatesForAutoMLJob" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "SageMaker.ListCandidatesForAutoMLJob" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListCandidatesForAutoMLJob where
+instance Prelude.ToJSON ListCandidatesForAutoMLJob where
   toJSON ListCandidatesForAutoMLJob' {..} =
-    object
-      ( catMaybes
-          [ ("SortOrder" .=) <$> _lcfamljSortOrder,
-            ("NextToken" .=) <$> _lcfamljNextToken,
-            ("MaxResults" .=) <$> _lcfamljMaxResults,
-            ("CandidateNameEquals" .=)
-              <$> _lcfamljCandidateNameEquals,
-            ("SortBy" .=) <$> _lcfamljSortBy,
-            ("StatusEquals" .=) <$> _lcfamljStatusEquals,
-            Just ("AutoMLJobName" .= _lcfamljAutoMLJobName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("SortOrder" Prelude..=) Prelude.<$> sortOrder,
+            ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("CandidateNameEquals" Prelude..=)
+              Prelude.<$> candidateNameEquals,
+            ("SortBy" Prelude..=) Prelude.<$> sortBy,
+            ("StatusEquals" Prelude..=) Prelude.<$> statusEquals,
+            Prelude.Just
+              ("AutoMLJobName" Prelude..= autoMLJobName)
           ]
       )
 
-instance ToPath ListCandidatesForAutoMLJob where
-  toPath = const "/"
+instance Prelude.ToPath ListCandidatesForAutoMLJob where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListCandidatesForAutoMLJob where
-  toQuery = const mempty
+instance Prelude.ToQuery ListCandidatesForAutoMLJob where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listCandidatesForAutoMLJobResponse' smart constructor.
+-- | /See:/ 'newListCandidatesForAutoMLJobResponse' smart constructor.
 data ListCandidatesForAutoMLJobResponse = ListCandidatesForAutoMLJobResponse'
-  { _lcfamljrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _lcfamljrrsResponseStatus ::
-      !Int,
-    _lcfamljrrsCandidates ::
-      ![AutoMLCandidate]
+  { -- | If the previous response was truncated, you receive this token. Use it
+    -- in your next request to receive the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | Summaries about the Candidates.
+    candidates :: [AutoMLCandidate]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListCandidatesForAutoMLJobResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListCandidatesForAutoMLJobResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lcfamljrrsNextToken' - If the previous response was truncated, you receive this token. Use it in your next request to receive the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lcfamljrrsResponseStatus' - -- | The response status code.
+-- 'nextToken', 'listCandidatesForAutoMLJobResponse_nextToken' - If the previous response was truncated, you receive this token. Use it
+-- in your next request to receive the next set of results.
 --
--- * 'lcfamljrrsCandidates' - Summaries about the Candidates.
-listCandidatesForAutoMLJobResponse ::
-  -- | 'lcfamljrrsResponseStatus'
-  Int ->
+-- 'httpStatus', 'listCandidatesForAutoMLJobResponse_httpStatus' - The response's http status code.
+--
+-- 'candidates', 'listCandidatesForAutoMLJobResponse_candidates' - Summaries about the Candidates.
+newListCandidatesForAutoMLJobResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListCandidatesForAutoMLJobResponse
-listCandidatesForAutoMLJobResponse pResponseStatus_ =
+newListCandidatesForAutoMLJobResponse pHttpStatus_ =
   ListCandidatesForAutoMLJobResponse'
-    { _lcfamljrrsNextToken =
-        Nothing,
-      _lcfamljrrsResponseStatus =
-        pResponseStatus_,
-      _lcfamljrrsCandidates = mempty
+    { nextToken =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_,
+      candidates = Prelude.mempty
     }
 
--- | If the previous response was truncated, you receive this token. Use it in your next request to receive the next set of results.
-lcfamljrrsNextToken :: Lens' ListCandidatesForAutoMLJobResponse (Maybe Text)
-lcfamljrrsNextToken = lens _lcfamljrrsNextToken (\s a -> s {_lcfamljrrsNextToken = a})
+-- | If the previous response was truncated, you receive this token. Use it
+-- in your next request to receive the next set of results.
+listCandidatesForAutoMLJobResponse_nextToken :: Lens.Lens' ListCandidatesForAutoMLJobResponse (Prelude.Maybe Prelude.Text)
+listCandidatesForAutoMLJobResponse_nextToken = Lens.lens (\ListCandidatesForAutoMLJobResponse' {nextToken} -> nextToken) (\s@ListCandidatesForAutoMLJobResponse' {} a -> s {nextToken = a} :: ListCandidatesForAutoMLJobResponse)
 
--- | -- | The response status code.
-lcfamljrrsResponseStatus :: Lens' ListCandidatesForAutoMLJobResponse Int
-lcfamljrrsResponseStatus = lens _lcfamljrrsResponseStatus (\s a -> s {_lcfamljrrsResponseStatus = a})
+-- | The response's http status code.
+listCandidatesForAutoMLJobResponse_httpStatus :: Lens.Lens' ListCandidatesForAutoMLJobResponse Prelude.Int
+listCandidatesForAutoMLJobResponse_httpStatus = Lens.lens (\ListCandidatesForAutoMLJobResponse' {httpStatus} -> httpStatus) (\s@ListCandidatesForAutoMLJobResponse' {} a -> s {httpStatus = a} :: ListCandidatesForAutoMLJobResponse)
 
 -- | Summaries about the Candidates.
-lcfamljrrsCandidates :: Lens' ListCandidatesForAutoMLJobResponse [AutoMLCandidate]
-lcfamljrrsCandidates = lens _lcfamljrrsCandidates (\s a -> s {_lcfamljrrsCandidates = a}) . _Coerce
+listCandidatesForAutoMLJobResponse_candidates :: Lens.Lens' ListCandidatesForAutoMLJobResponse [AutoMLCandidate]
+listCandidatesForAutoMLJobResponse_candidates = Lens.lens (\ListCandidatesForAutoMLJobResponse' {candidates} -> candidates) (\s@ListCandidatesForAutoMLJobResponse' {} a -> s {candidates = a} :: ListCandidatesForAutoMLJobResponse) Prelude.. Prelude._Coerce
 
-instance NFData ListCandidatesForAutoMLJobResponse
+instance
+  Prelude.NFData
+    ListCandidatesForAutoMLJobResponse

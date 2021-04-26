@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.SageMaker.Types.AutoMLJobObjectiveType
   ( AutoMLJobObjectiveType
       ( ..,
-        AMLJOTMaximize,
-        AMLJOTMinimize
+        AutoMLJobObjectiveTypeMaximize,
+        AutoMLJobObjectiveTypeMinimize
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AutoMLJobObjectiveType
-  = AutoMLJobObjectiveType'
-      ( CI
-          Text
-      )
+newtype AutoMLJobObjectiveType = AutoMLJobObjectiveType'
+  { fromAutoMLJobObjectiveType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AMLJOTMaximize :: AutoMLJobObjectiveType
-pattern AMLJOTMaximize = AutoMLJobObjectiveType' "Maximize"
+pattern AutoMLJobObjectiveTypeMaximize :: AutoMLJobObjectiveType
+pattern AutoMLJobObjectiveTypeMaximize = AutoMLJobObjectiveType' "Maximize"
 
-pattern AMLJOTMinimize :: AutoMLJobObjectiveType
-pattern AMLJOTMinimize = AutoMLJobObjectiveType' "Minimize"
+pattern AutoMLJobObjectiveTypeMinimize :: AutoMLJobObjectiveType
+pattern AutoMLJobObjectiveTypeMinimize = AutoMLJobObjectiveType' "Minimize"
 
 {-# COMPLETE
-  AMLJOTMaximize,
-  AMLJOTMinimize,
+  AutoMLJobObjectiveTypeMaximize,
+  AutoMLJobObjectiveTypeMinimize,
   AutoMLJobObjectiveType'
   #-}
 
-instance FromText AutoMLJobObjectiveType where
-  parser = (AutoMLJobObjectiveType' . mk) <$> takeText
+instance Prelude.FromText AutoMLJobObjectiveType where
+  parser = AutoMLJobObjectiveType' Prelude.<$> Prelude.takeText
 
-instance ToText AutoMLJobObjectiveType where
-  toText (AutoMLJobObjectiveType' ci) = original ci
+instance Prelude.ToText AutoMLJobObjectiveType where
+  toText (AutoMLJobObjectiveType' x) = x
 
-instance Hashable AutoMLJobObjectiveType
+instance Prelude.Hashable AutoMLJobObjectiveType
 
-instance NFData AutoMLJobObjectiveType
+instance Prelude.NFData AutoMLJobObjectiveType
 
-instance ToByteString AutoMLJobObjectiveType
+instance Prelude.ToByteString AutoMLJobObjectiveType
 
-instance ToQuery AutoMLJobObjectiveType
+instance Prelude.ToQuery AutoMLJobObjectiveType
 
-instance ToHeader AutoMLJobObjectiveType
+instance Prelude.ToHeader AutoMLJobObjectiveType
 
-instance FromJSON AutoMLJobObjectiveType where
-  parseJSON = parseJSONText "AutoMLJobObjectiveType"
+instance Prelude.FromJSON AutoMLJobObjectiveType where
+  parseJSON = Prelude.parseJSONText "AutoMLJobObjectiveType"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,92 +19,91 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.TrialComponentSourceDetail where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.ProcessingJob
 import Network.AWS.SageMaker.Types.TrainingJob
 import Network.AWS.SageMaker.Types.TransformJob
 
--- | Detailed information about the source of a trial component. Either @ProcessingJob@ or @TrainingJob@ is returned.
+-- | Detailed information about the source of a trial component. Either
+-- @ProcessingJob@ or @TrainingJob@ is returned.
 --
---
---
--- /See:/ 'trialComponentSourceDetail' smart constructor.
+-- /See:/ 'newTrialComponentSourceDetail' smart constructor.
 data TrialComponentSourceDetail = TrialComponentSourceDetail'
-  { _tcsdProcessingJob ::
-      !( Maybe
-           ProcessingJob
-       ),
-    _tcsdTrainingJob ::
-      !( Maybe
-           TrainingJob
-       ),
-    _tcsdTransformJob ::
-      !( Maybe
-           TransformJob
-       ),
-    _tcsdSourceARN ::
-      !(Maybe Text)
+  { -- | Information about a processing job that\'s the source of a trial
+    -- component.
+    processingJob :: Prelude.Maybe ProcessingJob,
+    -- | Information about a training job that\'s the source of a trial
+    -- component.
+    trainingJob :: Prelude.Maybe TrainingJob,
+    -- | Information about a transform job that\'s the source of a trial
+    -- component.
+    transformJob :: Prelude.Maybe TransformJob,
+    -- | The Amazon Resource Name (ARN) of the source.
+    sourceArn :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TrialComponentSourceDetail' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TrialComponentSourceDetail' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tcsdProcessingJob' - Information about a processing job that's the source of a trial component.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tcsdTrainingJob' - Information about a training job that's the source of a trial component.
+-- 'processingJob', 'trialComponentSourceDetail_processingJob' - Information about a processing job that\'s the source of a trial
+-- component.
 --
--- * 'tcsdTransformJob' - Information about a transform job that's the source of a trial component.
+-- 'trainingJob', 'trialComponentSourceDetail_trainingJob' - Information about a training job that\'s the source of a trial
+-- component.
 --
--- * 'tcsdSourceARN' - The Amazon Resource Name (ARN) of the source.
-trialComponentSourceDetail ::
+-- 'transformJob', 'trialComponentSourceDetail_transformJob' - Information about a transform job that\'s the source of a trial
+-- component.
+--
+-- 'sourceArn', 'trialComponentSourceDetail_sourceArn' - The Amazon Resource Name (ARN) of the source.
+newTrialComponentSourceDetail ::
   TrialComponentSourceDetail
-trialComponentSourceDetail =
+newTrialComponentSourceDetail =
   TrialComponentSourceDetail'
-    { _tcsdProcessingJob =
-        Nothing,
-      _tcsdTrainingJob = Nothing,
-      _tcsdTransformJob = Nothing,
-      _tcsdSourceARN = Nothing
+    { processingJob =
+        Prelude.Nothing,
+      trainingJob = Prelude.Nothing,
+      transformJob = Prelude.Nothing,
+      sourceArn = Prelude.Nothing
     }
 
--- | Information about a processing job that's the source of a trial component.
-tcsdProcessingJob :: Lens' TrialComponentSourceDetail (Maybe ProcessingJob)
-tcsdProcessingJob = lens _tcsdProcessingJob (\s a -> s {_tcsdProcessingJob = a})
+-- | Information about a processing job that\'s the source of a trial
+-- component.
+trialComponentSourceDetail_processingJob :: Lens.Lens' TrialComponentSourceDetail (Prelude.Maybe ProcessingJob)
+trialComponentSourceDetail_processingJob = Lens.lens (\TrialComponentSourceDetail' {processingJob} -> processingJob) (\s@TrialComponentSourceDetail' {} a -> s {processingJob = a} :: TrialComponentSourceDetail)
 
--- | Information about a training job that's the source of a trial component.
-tcsdTrainingJob :: Lens' TrialComponentSourceDetail (Maybe TrainingJob)
-tcsdTrainingJob = lens _tcsdTrainingJob (\s a -> s {_tcsdTrainingJob = a})
+-- | Information about a training job that\'s the source of a trial
+-- component.
+trialComponentSourceDetail_trainingJob :: Lens.Lens' TrialComponentSourceDetail (Prelude.Maybe TrainingJob)
+trialComponentSourceDetail_trainingJob = Lens.lens (\TrialComponentSourceDetail' {trainingJob} -> trainingJob) (\s@TrialComponentSourceDetail' {} a -> s {trainingJob = a} :: TrialComponentSourceDetail)
 
--- | Information about a transform job that's the source of a trial component.
-tcsdTransformJob :: Lens' TrialComponentSourceDetail (Maybe TransformJob)
-tcsdTransformJob = lens _tcsdTransformJob (\s a -> s {_tcsdTransformJob = a})
+-- | Information about a transform job that\'s the source of a trial
+-- component.
+trialComponentSourceDetail_transformJob :: Lens.Lens' TrialComponentSourceDetail (Prelude.Maybe TransformJob)
+trialComponentSourceDetail_transformJob = Lens.lens (\TrialComponentSourceDetail' {transformJob} -> transformJob) (\s@TrialComponentSourceDetail' {} a -> s {transformJob = a} :: TrialComponentSourceDetail)
 
 -- | The Amazon Resource Name (ARN) of the source.
-tcsdSourceARN :: Lens' TrialComponentSourceDetail (Maybe Text)
-tcsdSourceARN = lens _tcsdSourceARN (\s a -> s {_tcsdSourceARN = a})
+trialComponentSourceDetail_sourceArn :: Lens.Lens' TrialComponentSourceDetail (Prelude.Maybe Prelude.Text)
+trialComponentSourceDetail_sourceArn = Lens.lens (\TrialComponentSourceDetail' {sourceArn} -> sourceArn) (\s@TrialComponentSourceDetail' {} a -> s {sourceArn = a} :: TrialComponentSourceDetail)
 
-instance FromJSON TrialComponentSourceDetail where
+instance Prelude.FromJSON TrialComponentSourceDetail where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TrialComponentSourceDetail"
       ( \x ->
           TrialComponentSourceDetail'
-            <$> (x .:? "ProcessingJob")
-            <*> (x .:? "TrainingJob")
-            <*> (x .:? "TransformJob")
-            <*> (x .:? "SourceArn")
+            Prelude.<$> (x Prelude..:? "ProcessingJob")
+            Prelude.<*> (x Prelude..:? "TrainingJob")
+            Prelude.<*> (x Prelude..:? "TransformJob")
+            Prelude.<*> (x Prelude..:? "SourceArn")
       )
 
-instance Hashable TrialComponentSourceDetail
+instance Prelude.Hashable TrialComponentSourceDetail
 
-instance NFData TrialComponentSourceDetail
+instance Prelude.NFData TrialComponentSourceDetail

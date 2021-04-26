@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,97 +24,101 @@
 -- Removes the specified algorithm from your account.
 module Network.AWS.SageMaker.DeleteAlgorithm
   ( -- * Creating a Request
-    deleteAlgorithm,
-    DeleteAlgorithm,
+    DeleteAlgorithm (..),
+    newDeleteAlgorithm,
 
     -- * Request Lenses
-    daAlgorithmName,
+    deleteAlgorithm_algorithmName,
 
     -- * Destructuring the Response
-    deleteAlgorithmResponse,
-    DeleteAlgorithmResponse,
+    DeleteAlgorithmResponse (..),
+    newDeleteAlgorithmResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'deleteAlgorithm' smart constructor.
-newtype DeleteAlgorithm = DeleteAlgorithm'
-  { _daAlgorithmName ::
-      Text
+-- | /See:/ 'newDeleteAlgorithm' smart constructor.
+data DeleteAlgorithm = DeleteAlgorithm'
+  { -- | The name of the algorithm to delete.
+    algorithmName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteAlgorithm' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteAlgorithm' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'daAlgorithmName' - The name of the algorithm to delete.
-deleteAlgorithm ::
-  -- | 'daAlgorithmName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'algorithmName', 'deleteAlgorithm_algorithmName' - The name of the algorithm to delete.
+newDeleteAlgorithm ::
+  -- | 'algorithmName'
+  Prelude.Text ->
   DeleteAlgorithm
-deleteAlgorithm pAlgorithmName_ =
-  DeleteAlgorithm'
-    { _daAlgorithmName =
-        pAlgorithmName_
-    }
+newDeleteAlgorithm pAlgorithmName_ =
+  DeleteAlgorithm' {algorithmName = pAlgorithmName_}
 
 -- | The name of the algorithm to delete.
-daAlgorithmName :: Lens' DeleteAlgorithm Text
-daAlgorithmName = lens _daAlgorithmName (\s a -> s {_daAlgorithmName = a})
+deleteAlgorithm_algorithmName :: Lens.Lens' DeleteAlgorithm Prelude.Text
+deleteAlgorithm_algorithmName = Lens.lens (\DeleteAlgorithm' {algorithmName} -> algorithmName) (\s@DeleteAlgorithm' {} a -> s {algorithmName = a} :: DeleteAlgorithm)
 
-instance AWSRequest DeleteAlgorithm where
+instance Prelude.AWSRequest DeleteAlgorithm where
   type Rs DeleteAlgorithm = DeleteAlgorithmResponse
-  request = postJSON sageMaker
-  response = receiveNull DeleteAlgorithmResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull DeleteAlgorithmResponse'
 
-instance Hashable DeleteAlgorithm
+instance Prelude.Hashable DeleteAlgorithm
 
-instance NFData DeleteAlgorithm
+instance Prelude.NFData DeleteAlgorithm
 
-instance ToHeaders DeleteAlgorithm where
+instance Prelude.ToHeaders DeleteAlgorithm where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.DeleteAlgorithm" :: ByteString),
+              Prelude.=# ("SageMaker.DeleteAlgorithm" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteAlgorithm where
+instance Prelude.ToJSON DeleteAlgorithm where
   toJSON DeleteAlgorithm' {..} =
-    object
-      ( catMaybes
-          [Just ("AlgorithmName" .= _daAlgorithmName)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("AlgorithmName" Prelude..= algorithmName)
+          ]
       )
 
-instance ToPath DeleteAlgorithm where
-  toPath = const "/"
+instance Prelude.ToPath DeleteAlgorithm where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteAlgorithm where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteAlgorithm where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteAlgorithmResponse' smart constructor.
+-- | /See:/ 'newDeleteAlgorithmResponse' smart constructor.
 data DeleteAlgorithmResponse = DeleteAlgorithmResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteAlgorithmResponse' with the minimum fields required to make a request.
-deleteAlgorithmResponse ::
+-- |
+-- Create a value of 'DeleteAlgorithmResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteAlgorithmResponse ::
   DeleteAlgorithmResponse
-deleteAlgorithmResponse = DeleteAlgorithmResponse'
+newDeleteAlgorithmResponse = DeleteAlgorithmResponse'
 
-instance NFData DeleteAlgorithmResponse
+instance Prelude.NFData DeleteAlgorithmResponse

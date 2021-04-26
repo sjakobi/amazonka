@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,104 +19,107 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.CodeRepositorySummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.GitConfig
 
 -- | Specifies summary information about a Git repository.
 --
---
---
--- /See:/ 'codeRepositorySummary' smart constructor.
+-- /See:/ 'newCodeRepositorySummary' smart constructor.
 data CodeRepositorySummary = CodeRepositorySummary'
-  { _crsGitConfig ::
-      !(Maybe GitConfig),
-    _crsCodeRepositoryName ::
-      !Text,
-    _crsCodeRepositoryARN ::
-      !Text,
-    _crsCreationTime :: !POSIX,
-    _crsLastModifiedTime ::
-      !POSIX
+  { -- | Configuration details for the Git repository, including the URL where it
+    -- is located and the ARN of the AWS Secrets Manager secret that contains
+    -- the credentials used to access the repository.
+    gitConfig :: Prelude.Maybe GitConfig,
+    -- | The name of the Git repository.
+    codeRepositoryName :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the Git repository.
+    codeRepositoryArn :: Prelude.Text,
+    -- | The date and time that the Git repository was created.
+    creationTime :: Prelude.POSIX,
+    -- | The date and time that the Git repository was last modified.
+    lastModifiedTime :: Prelude.POSIX
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CodeRepositorySummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CodeRepositorySummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'crsGitConfig' - Configuration details for the Git repository, including the URL where it is located and the ARN of the AWS Secrets Manager secret that contains the credentials used to access the repository.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'crsCodeRepositoryName' - The name of the Git repository.
+-- 'gitConfig', 'codeRepositorySummary_gitConfig' - Configuration details for the Git repository, including the URL where it
+-- is located and the ARN of the AWS Secrets Manager secret that contains
+-- the credentials used to access the repository.
 --
--- * 'crsCodeRepositoryARN' - The Amazon Resource Name (ARN) of the Git repository.
+-- 'codeRepositoryName', 'codeRepositorySummary_codeRepositoryName' - The name of the Git repository.
 --
--- * 'crsCreationTime' - The date and time that the Git repository was created.
+-- 'codeRepositoryArn', 'codeRepositorySummary_codeRepositoryArn' - The Amazon Resource Name (ARN) of the Git repository.
 --
--- * 'crsLastModifiedTime' - The date and time that the Git repository was last modified.
-codeRepositorySummary ::
-  -- | 'crsCodeRepositoryName'
-  Text ->
-  -- | 'crsCodeRepositoryARN'
-  Text ->
-  -- | 'crsCreationTime'
-  UTCTime ->
-  -- | 'crsLastModifiedTime'
-  UTCTime ->
+-- 'creationTime', 'codeRepositorySummary_creationTime' - The date and time that the Git repository was created.
+--
+-- 'lastModifiedTime', 'codeRepositorySummary_lastModifiedTime' - The date and time that the Git repository was last modified.
+newCodeRepositorySummary ::
+  -- | 'codeRepositoryName'
+  Prelude.Text ->
+  -- | 'codeRepositoryArn'
+  Prelude.Text ->
+  -- | 'creationTime'
+  Prelude.UTCTime ->
+  -- | 'lastModifiedTime'
+  Prelude.UTCTime ->
   CodeRepositorySummary
-codeRepositorySummary
+newCodeRepositorySummary
   pCodeRepositoryName_
-  pCodeRepositoryARN_
+  pCodeRepositoryArn_
   pCreationTime_
   pLastModifiedTime_ =
     CodeRepositorySummary'
-      { _crsGitConfig = Nothing,
-        _crsCodeRepositoryName = pCodeRepositoryName_,
-        _crsCodeRepositoryARN = pCodeRepositoryARN_,
-        _crsCreationTime = _Time # pCreationTime_,
-        _crsLastModifiedTime = _Time # pLastModifiedTime_
+      { gitConfig = Prelude.Nothing,
+        codeRepositoryName = pCodeRepositoryName_,
+        codeRepositoryArn = pCodeRepositoryArn_,
+        creationTime = Prelude._Time Lens.# pCreationTime_,
+        lastModifiedTime =
+          Prelude._Time Lens.# pLastModifiedTime_
       }
 
--- | Configuration details for the Git repository, including the URL where it is located and the ARN of the AWS Secrets Manager secret that contains the credentials used to access the repository.
-crsGitConfig :: Lens' CodeRepositorySummary (Maybe GitConfig)
-crsGitConfig = lens _crsGitConfig (\s a -> s {_crsGitConfig = a})
+-- | Configuration details for the Git repository, including the URL where it
+-- is located and the ARN of the AWS Secrets Manager secret that contains
+-- the credentials used to access the repository.
+codeRepositorySummary_gitConfig :: Lens.Lens' CodeRepositorySummary (Prelude.Maybe GitConfig)
+codeRepositorySummary_gitConfig = Lens.lens (\CodeRepositorySummary' {gitConfig} -> gitConfig) (\s@CodeRepositorySummary' {} a -> s {gitConfig = a} :: CodeRepositorySummary)
 
 -- | The name of the Git repository.
-crsCodeRepositoryName :: Lens' CodeRepositorySummary Text
-crsCodeRepositoryName = lens _crsCodeRepositoryName (\s a -> s {_crsCodeRepositoryName = a})
+codeRepositorySummary_codeRepositoryName :: Lens.Lens' CodeRepositorySummary Prelude.Text
+codeRepositorySummary_codeRepositoryName = Lens.lens (\CodeRepositorySummary' {codeRepositoryName} -> codeRepositoryName) (\s@CodeRepositorySummary' {} a -> s {codeRepositoryName = a} :: CodeRepositorySummary)
 
 -- | The Amazon Resource Name (ARN) of the Git repository.
-crsCodeRepositoryARN :: Lens' CodeRepositorySummary Text
-crsCodeRepositoryARN = lens _crsCodeRepositoryARN (\s a -> s {_crsCodeRepositoryARN = a})
+codeRepositorySummary_codeRepositoryArn :: Lens.Lens' CodeRepositorySummary Prelude.Text
+codeRepositorySummary_codeRepositoryArn = Lens.lens (\CodeRepositorySummary' {codeRepositoryArn} -> codeRepositoryArn) (\s@CodeRepositorySummary' {} a -> s {codeRepositoryArn = a} :: CodeRepositorySummary)
 
 -- | The date and time that the Git repository was created.
-crsCreationTime :: Lens' CodeRepositorySummary UTCTime
-crsCreationTime = lens _crsCreationTime (\s a -> s {_crsCreationTime = a}) . _Time
+codeRepositorySummary_creationTime :: Lens.Lens' CodeRepositorySummary Prelude.UTCTime
+codeRepositorySummary_creationTime = Lens.lens (\CodeRepositorySummary' {creationTime} -> creationTime) (\s@CodeRepositorySummary' {} a -> s {creationTime = a} :: CodeRepositorySummary) Prelude.. Prelude._Time
 
 -- | The date and time that the Git repository was last modified.
-crsLastModifiedTime :: Lens' CodeRepositorySummary UTCTime
-crsLastModifiedTime = lens _crsLastModifiedTime (\s a -> s {_crsLastModifiedTime = a}) . _Time
+codeRepositorySummary_lastModifiedTime :: Lens.Lens' CodeRepositorySummary Prelude.UTCTime
+codeRepositorySummary_lastModifiedTime = Lens.lens (\CodeRepositorySummary' {lastModifiedTime} -> lastModifiedTime) (\s@CodeRepositorySummary' {} a -> s {lastModifiedTime = a} :: CodeRepositorySummary) Prelude.. Prelude._Time
 
-instance FromJSON CodeRepositorySummary where
+instance Prelude.FromJSON CodeRepositorySummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CodeRepositorySummary"
       ( \x ->
           CodeRepositorySummary'
-            <$> (x .:? "GitConfig")
-            <*> (x .: "CodeRepositoryName")
-            <*> (x .: "CodeRepositoryArn")
-            <*> (x .: "CreationTime")
-            <*> (x .: "LastModifiedTime")
+            Prelude.<$> (x Prelude..:? "GitConfig")
+            Prelude.<*> (x Prelude..: "CodeRepositoryName")
+            Prelude.<*> (x Prelude..: "CodeRepositoryArn")
+            Prelude.<*> (x Prelude..: "CreationTime")
+            Prelude.<*> (x Prelude..: "LastModifiedTime")
       )
 
-instance Hashable CodeRepositorySummary
+instance Prelude.Hashable CodeRepositorySummary
 
-instance NFData CodeRepositorySummary
+instance Prelude.NFData CodeRepositorySummary

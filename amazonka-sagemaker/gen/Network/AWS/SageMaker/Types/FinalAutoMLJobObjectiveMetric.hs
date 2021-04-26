@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,81 +19,82 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.FinalAutoMLJobObjectiveMetric where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.AutoMLJobObjectiveType
 import Network.AWS.SageMaker.Types.AutoMLMetricEnum
 
 -- | The best candidate result from an AutoML training job.
 --
---
---
--- /See:/ 'finalAutoMLJobObjectiveMetric' smart constructor.
+-- /See:/ 'newFinalAutoMLJobObjectiveMetric' smart constructor.
 data FinalAutoMLJobObjectiveMetric = FinalAutoMLJobObjectiveMetric'
-  { _famljomType ::
-      !( Maybe
-           AutoMLJobObjectiveType
-       ),
-    _famljomMetricName ::
-      !AutoMLMetricEnum,
-    _famljomValue ::
-      !Double
+  { -- | The type of metric with the best result.
+    type' :: Prelude.Maybe AutoMLJobObjectiveType,
+    -- | The name of the metric with the best result. For a description of the
+    -- possible objective metrics, see AutoMLJobObjective$MetricName.
+    metricName :: AutoMLMetricEnum,
+    -- | The value of the metric with the best result.
+    value :: Prelude.Double
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FinalAutoMLJobObjectiveMetric' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FinalAutoMLJobObjectiveMetric' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'famljomType' - The type of metric with the best result.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'famljomMetricName' - The name of the metric with the best result. For a description of the possible objective metrics, see 'AutoMLJobObjective$MetricName' .
+-- 'type'', 'finalAutoMLJobObjectiveMetric_type' - The type of metric with the best result.
 --
--- * 'famljomValue' - The value of the metric with the best result.
-finalAutoMLJobObjectiveMetric ::
-  -- | 'famljomMetricName'
+-- 'metricName', 'finalAutoMLJobObjectiveMetric_metricName' - The name of the metric with the best result. For a description of the
+-- possible objective metrics, see AutoMLJobObjective$MetricName.
+--
+-- 'value', 'finalAutoMLJobObjectiveMetric_value' - The value of the metric with the best result.
+newFinalAutoMLJobObjectiveMetric ::
+  -- | 'metricName'
   AutoMLMetricEnum ->
-  -- | 'famljomValue'
-  Double ->
+  -- | 'value'
+  Prelude.Double ->
   FinalAutoMLJobObjectiveMetric
-finalAutoMLJobObjectiveMetric pMetricName_ pValue_ =
+newFinalAutoMLJobObjectiveMetric pMetricName_ pValue_ =
   FinalAutoMLJobObjectiveMetric'
-    { _famljomType =
-        Nothing,
-      _famljomMetricName = pMetricName_,
-      _famljomValue = pValue_
+    { type' =
+        Prelude.Nothing,
+      metricName = pMetricName_,
+      value = pValue_
     }
 
 -- | The type of metric with the best result.
-famljomType :: Lens' FinalAutoMLJobObjectiveMetric (Maybe AutoMLJobObjectiveType)
-famljomType = lens _famljomType (\s a -> s {_famljomType = a})
+finalAutoMLJobObjectiveMetric_type :: Lens.Lens' FinalAutoMLJobObjectiveMetric (Prelude.Maybe AutoMLJobObjectiveType)
+finalAutoMLJobObjectiveMetric_type = Lens.lens (\FinalAutoMLJobObjectiveMetric' {type'} -> type') (\s@FinalAutoMLJobObjectiveMetric' {} a -> s {type' = a} :: FinalAutoMLJobObjectiveMetric)
 
--- | The name of the metric with the best result. For a description of the possible objective metrics, see 'AutoMLJobObjective$MetricName' .
-famljomMetricName :: Lens' FinalAutoMLJobObjectiveMetric AutoMLMetricEnum
-famljomMetricName = lens _famljomMetricName (\s a -> s {_famljomMetricName = a})
+-- | The name of the metric with the best result. For a description of the
+-- possible objective metrics, see AutoMLJobObjective$MetricName.
+finalAutoMLJobObjectiveMetric_metricName :: Lens.Lens' FinalAutoMLJobObjectiveMetric AutoMLMetricEnum
+finalAutoMLJobObjectiveMetric_metricName = Lens.lens (\FinalAutoMLJobObjectiveMetric' {metricName} -> metricName) (\s@FinalAutoMLJobObjectiveMetric' {} a -> s {metricName = a} :: FinalAutoMLJobObjectiveMetric)
 
 -- | The value of the metric with the best result.
-famljomValue :: Lens' FinalAutoMLJobObjectiveMetric Double
-famljomValue = lens _famljomValue (\s a -> s {_famljomValue = a})
+finalAutoMLJobObjectiveMetric_value :: Lens.Lens' FinalAutoMLJobObjectiveMetric Prelude.Double
+finalAutoMLJobObjectiveMetric_value = Lens.lens (\FinalAutoMLJobObjectiveMetric' {value} -> value) (\s@FinalAutoMLJobObjectiveMetric' {} a -> s {value = a} :: FinalAutoMLJobObjectiveMetric)
 
-instance FromJSON FinalAutoMLJobObjectiveMetric where
+instance
+  Prelude.FromJSON
+    FinalAutoMLJobObjectiveMetric
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "FinalAutoMLJobObjectiveMetric"
       ( \x ->
           FinalAutoMLJobObjectiveMetric'
-            <$> (x .:? "Type")
-            <*> (x .: "MetricName")
-            <*> (x .: "Value")
+            Prelude.<$> (x Prelude..:? "Type")
+            Prelude.<*> (x Prelude..: "MetricName")
+            Prelude.<*> (x Prelude..: "Value")
       )
 
-instance Hashable FinalAutoMLJobObjectiveMetric
+instance
+  Prelude.Hashable
+    FinalAutoMLJobObjectiveMetric
 
-instance NFData FinalAutoMLJobObjectiveMetric
+instance Prelude.NFData FinalAutoMLJobObjectiveMetric

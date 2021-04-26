@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,64 +19,75 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.CheckpointConfig where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains information about the output location for managed spot training checkpoint data.
+-- | Contains information about the output location for managed spot training
+-- checkpoint data.
 --
---
---
--- /See:/ 'checkpointConfig' smart constructor.
+-- /See:/ 'newCheckpointConfig' smart constructor.
 data CheckpointConfig = CheckpointConfig'
-  { _ccLocalPath ::
-      !(Maybe Text),
-    _ccS3URI :: !Text
+  { -- | (Optional) The local directory where checkpoints are written. The
+    -- default directory is @\/opt\/ml\/checkpoints\/@.
+    localPath :: Prelude.Maybe Prelude.Text,
+    -- | Identifies the S3 path where you want Amazon SageMaker to store
+    -- checkpoints. For example, @s3:\/\/bucket-name\/key-name-prefix@.
+    s3Uri :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CheckpointConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CheckpointConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccLocalPath' - (Optional) The local directory where checkpoints are written. The default directory is @/opt/ml/checkpoints/@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ccS3URI' - Identifies the S3 path where you want Amazon SageMaker to store checkpoints. For example, @s3://bucket-name/key-name-prefix@ .
-checkpointConfig ::
-  -- | 'ccS3URI'
-  Text ->
+-- 'localPath', 'checkpointConfig_localPath' - (Optional) The local directory where checkpoints are written. The
+-- default directory is @\/opt\/ml\/checkpoints\/@.
+--
+-- 's3Uri', 'checkpointConfig_s3Uri' - Identifies the S3 path where you want Amazon SageMaker to store
+-- checkpoints. For example, @s3:\/\/bucket-name\/key-name-prefix@.
+newCheckpointConfig ::
+  -- | 's3Uri'
+  Prelude.Text ->
   CheckpointConfig
-checkpointConfig pS3URI_ =
+newCheckpointConfig pS3Uri_ =
   CheckpointConfig'
-    { _ccLocalPath = Nothing,
-      _ccS3URI = pS3URI_
+    { localPath = Prelude.Nothing,
+      s3Uri = pS3Uri_
     }
 
--- | (Optional) The local directory where checkpoints are written. The default directory is @/opt/ml/checkpoints/@ .
-ccLocalPath :: Lens' CheckpointConfig (Maybe Text)
-ccLocalPath = lens _ccLocalPath (\s a -> s {_ccLocalPath = a})
+-- | (Optional) The local directory where checkpoints are written. The
+-- default directory is @\/opt\/ml\/checkpoints\/@.
+checkpointConfig_localPath :: Lens.Lens' CheckpointConfig (Prelude.Maybe Prelude.Text)
+checkpointConfig_localPath = Lens.lens (\CheckpointConfig' {localPath} -> localPath) (\s@CheckpointConfig' {} a -> s {localPath = a} :: CheckpointConfig)
 
--- | Identifies the S3 path where you want Amazon SageMaker to store checkpoints. For example, @s3://bucket-name/key-name-prefix@ .
-ccS3URI :: Lens' CheckpointConfig Text
-ccS3URI = lens _ccS3URI (\s a -> s {_ccS3URI = a})
+-- | Identifies the S3 path where you want Amazon SageMaker to store
+-- checkpoints. For example, @s3:\/\/bucket-name\/key-name-prefix@.
+checkpointConfig_s3Uri :: Lens.Lens' CheckpointConfig Prelude.Text
+checkpointConfig_s3Uri = Lens.lens (\CheckpointConfig' {s3Uri} -> s3Uri) (\s@CheckpointConfig' {} a -> s {s3Uri = a} :: CheckpointConfig)
 
-instance FromJSON CheckpointConfig where
+instance Prelude.FromJSON CheckpointConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CheckpointConfig"
       ( \x ->
           CheckpointConfig'
-            <$> (x .:? "LocalPath") <*> (x .: "S3Uri")
+            Prelude.<$> (x Prelude..:? "LocalPath")
+            Prelude.<*> (x Prelude..: "S3Uri")
       )
 
-instance Hashable CheckpointConfig
+instance Prelude.Hashable CheckpointConfig
 
-instance NFData CheckpointConfig
+instance Prelude.NFData CheckpointConfig
 
-instance ToJSON CheckpointConfig where
+instance Prelude.ToJSON CheckpointConfig where
   toJSON CheckpointConfig' {..} =
-    object
-      ( catMaybes
-          [ ("LocalPath" .=) <$> _ccLocalPath,
-            Just ("S3Uri" .= _ccS3URI)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("LocalPath" Prelude..=) Prelude.<$> localPath,
+            Prelude.Just ("S3Uri" Prelude..= s3Uri)
           ]
       )

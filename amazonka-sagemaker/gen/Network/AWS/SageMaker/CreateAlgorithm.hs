@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,217 +21,330 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Create a machine learning algorithm that you can use in Amazon SageMaker and list in the AWS Marketplace.
+-- Create a machine learning algorithm that you can use in Amazon SageMaker
+-- and list in the AWS Marketplace.
 module Network.AWS.SageMaker.CreateAlgorithm
   ( -- * Creating a Request
-    createAlgorithm,
-    CreateAlgorithm,
+    CreateAlgorithm (..),
+    newCreateAlgorithm,
 
     -- * Request Lenses
-    crerAlgorithmDescription,
-    crerValidationSpecification,
-    crerCertifyForMarketplace,
-    crerTags,
-    crerInferenceSpecification,
-    crerAlgorithmName,
-    crerTrainingSpecification,
+    createAlgorithm_algorithmDescription,
+    createAlgorithm_validationSpecification,
+    createAlgorithm_certifyForMarketplace,
+    createAlgorithm_tags,
+    createAlgorithm_inferenceSpecification,
+    createAlgorithm_algorithmName,
+    createAlgorithm_trainingSpecification,
 
     -- * Destructuring the Response
-    createAlgorithmResponse,
-    CreateAlgorithmResponse,
+    CreateAlgorithmResponse (..),
+    newCreateAlgorithmResponse,
 
     -- * Response Lenses
-    cararsResponseStatus,
-    cararsAlgorithmARN,
+    createAlgorithmResponse_httpStatus,
+    createAlgorithmResponse_algorithmArn,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'createAlgorithm' smart constructor.
+-- | /See:/ 'newCreateAlgorithm' smart constructor.
 data CreateAlgorithm = CreateAlgorithm'
-  { _crerAlgorithmDescription ::
-      !(Maybe Text),
-    _crerValidationSpecification ::
-      !( Maybe
-           AlgorithmValidationSpecification
-       ),
-    _crerCertifyForMarketplace ::
-      !(Maybe Bool),
-    _crerTags :: !(Maybe [Tag]),
-    _crerInferenceSpecification ::
-      !(Maybe InferenceSpecification),
-    _crerAlgorithmName :: !Text,
-    _crerTrainingSpecification ::
-      !TrainingSpecification
+  { -- | A description of the algorithm.
+    algorithmDescription :: Prelude.Maybe Prelude.Text,
+    -- | Specifies configurations for one or more training jobs and that Amazon
+    -- SageMaker runs to test the algorithm\'s training code and, optionally,
+    -- one or more batch transform jobs that Amazon SageMaker runs to test the
+    -- algorithm\'s inference code.
+    validationSpecification :: Prelude.Maybe AlgorithmValidationSpecification,
+    -- | Whether to certify the algorithm so that it can be listed in AWS
+    -- Marketplace.
+    certifyForMarketplace :: Prelude.Maybe Prelude.Bool,
+    -- | An array of key-value pairs. You can use tags to categorize your AWS
+    -- resources in different ways, for example, by purpose, owner, or
+    -- environment. For more information, see
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging AWS Resources>.
+    tags :: Prelude.Maybe [Tag],
+    -- | Specifies details about inference jobs that the algorithm runs,
+    -- including the following:
+    --
+    -- -   The Amazon ECR paths of containers that contain the inference code
+    --     and model artifacts.
+    --
+    -- -   The instance types that the algorithm supports for transform jobs
+    --     and real-time endpoints used for inference.
+    --
+    -- -   The input and output content formats that the algorithm supports for
+    --     inference.
+    inferenceSpecification :: Prelude.Maybe InferenceSpecification,
+    -- | The name of the algorithm.
+    algorithmName :: Prelude.Text,
+    -- | Specifies details about training jobs run by this algorithm, including
+    -- the following:
+    --
+    -- -   The Amazon ECR path of the container and the version digest of the
+    --     algorithm.
+    --
+    -- -   The hyperparameters that the algorithm supports.
+    --
+    -- -   The instance types that the algorithm supports for training.
+    --
+    -- -   Whether the algorithm supports distributed training.
+    --
+    -- -   The metrics that the algorithm emits to Amazon CloudWatch.
+    --
+    -- -   Which metrics that the algorithm emits can be used as the objective
+    --     metric for hyperparameter tuning jobs.
+    --
+    -- -   The input channels that the algorithm supports for training data.
+    --     For example, an algorithm might support @train@, @validation@, and
+    --     @test@ channels.
+    trainingSpecification :: TrainingSpecification
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateAlgorithm' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateAlgorithm' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'crerAlgorithmDescription' - A description of the algorithm.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'crerValidationSpecification' - Specifies configurations for one or more training jobs and that Amazon SageMaker runs to test the algorithm's training code and, optionally, one or more batch transform jobs that Amazon SageMaker runs to test the algorithm's inference code.
+-- 'algorithmDescription', 'createAlgorithm_algorithmDescription' - A description of the algorithm.
 --
--- * 'crerCertifyForMarketplace' - Whether to certify the algorithm so that it can be listed in AWS Marketplace.
+-- 'validationSpecification', 'createAlgorithm_validationSpecification' - Specifies configurations for one or more training jobs and that Amazon
+-- SageMaker runs to test the algorithm\'s training code and, optionally,
+-- one or more batch transform jobs that Amazon SageMaker runs to test the
+-- algorithm\'s inference code.
 --
--- * 'crerTags' - An array of key-value pairs. You can use tags to categorize your AWS resources in different ways, for example, by purpose, owner, or environment. For more information, see <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging AWS Resources> .
+-- 'certifyForMarketplace', 'createAlgorithm_certifyForMarketplace' - Whether to certify the algorithm so that it can be listed in AWS
+-- Marketplace.
 --
--- * 'crerInferenceSpecification' - Specifies details about inference jobs that the algorithm runs, including the following:     * The Amazon ECR paths of containers that contain the inference code and model artifacts.     * The instance types that the algorithm supports for transform jobs and real-time endpoints used for inference.     * The input and output content formats that the algorithm supports for inference.
+-- 'tags', 'createAlgorithm_tags' - An array of key-value pairs. You can use tags to categorize your AWS
+-- resources in different ways, for example, by purpose, owner, or
+-- environment. For more information, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging AWS Resources>.
 --
--- * 'crerAlgorithmName' - The name of the algorithm.
+-- 'inferenceSpecification', 'createAlgorithm_inferenceSpecification' - Specifies details about inference jobs that the algorithm runs,
+-- including the following:
 --
--- * 'crerTrainingSpecification' - Specifies details about training jobs run by this algorithm, including the following:     * The Amazon ECR path of the container and the version digest of the algorithm.     * The hyperparameters that the algorithm supports.     * The instance types that the algorithm supports for training.     * Whether the algorithm supports distributed training.     * The metrics that the algorithm emits to Amazon CloudWatch.     * Which metrics that the algorithm emits can be used as the objective metric for hyperparameter tuning jobs.     * The input channels that the algorithm supports for training data. For example, an algorithm might support @train@ , @validation@ , and @test@ channels.
-createAlgorithm ::
-  -- | 'crerAlgorithmName'
-  Text ->
-  -- | 'crerTrainingSpecification'
+-- -   The Amazon ECR paths of containers that contain the inference code
+--     and model artifacts.
+--
+-- -   The instance types that the algorithm supports for transform jobs
+--     and real-time endpoints used for inference.
+--
+-- -   The input and output content formats that the algorithm supports for
+--     inference.
+--
+-- 'algorithmName', 'createAlgorithm_algorithmName' - The name of the algorithm.
+--
+-- 'trainingSpecification', 'createAlgorithm_trainingSpecification' - Specifies details about training jobs run by this algorithm, including
+-- the following:
+--
+-- -   The Amazon ECR path of the container and the version digest of the
+--     algorithm.
+--
+-- -   The hyperparameters that the algorithm supports.
+--
+-- -   The instance types that the algorithm supports for training.
+--
+-- -   Whether the algorithm supports distributed training.
+--
+-- -   The metrics that the algorithm emits to Amazon CloudWatch.
+--
+-- -   Which metrics that the algorithm emits can be used as the objective
+--     metric for hyperparameter tuning jobs.
+--
+-- -   The input channels that the algorithm supports for training data.
+--     For example, an algorithm might support @train@, @validation@, and
+--     @test@ channels.
+newCreateAlgorithm ::
+  -- | 'algorithmName'
+  Prelude.Text ->
+  -- | 'trainingSpecification'
   TrainingSpecification ->
   CreateAlgorithm
-createAlgorithm
+newCreateAlgorithm
   pAlgorithmName_
   pTrainingSpecification_ =
     CreateAlgorithm'
-      { _crerAlgorithmDescription =
-          Nothing,
-        _crerValidationSpecification = Nothing,
-        _crerCertifyForMarketplace = Nothing,
-        _crerTags = Nothing,
-        _crerInferenceSpecification = Nothing,
-        _crerAlgorithmName = pAlgorithmName_,
-        _crerTrainingSpecification = pTrainingSpecification_
+      { algorithmDescription =
+          Prelude.Nothing,
+        validationSpecification = Prelude.Nothing,
+        certifyForMarketplace = Prelude.Nothing,
+        tags = Prelude.Nothing,
+        inferenceSpecification = Prelude.Nothing,
+        algorithmName = pAlgorithmName_,
+        trainingSpecification = pTrainingSpecification_
       }
 
 -- | A description of the algorithm.
-crerAlgorithmDescription :: Lens' CreateAlgorithm (Maybe Text)
-crerAlgorithmDescription = lens _crerAlgorithmDescription (\s a -> s {_crerAlgorithmDescription = a})
+createAlgorithm_algorithmDescription :: Lens.Lens' CreateAlgorithm (Prelude.Maybe Prelude.Text)
+createAlgorithm_algorithmDescription = Lens.lens (\CreateAlgorithm' {algorithmDescription} -> algorithmDescription) (\s@CreateAlgorithm' {} a -> s {algorithmDescription = a} :: CreateAlgorithm)
 
--- | Specifies configurations for one or more training jobs and that Amazon SageMaker runs to test the algorithm's training code and, optionally, one or more batch transform jobs that Amazon SageMaker runs to test the algorithm's inference code.
-crerValidationSpecification :: Lens' CreateAlgorithm (Maybe AlgorithmValidationSpecification)
-crerValidationSpecification = lens _crerValidationSpecification (\s a -> s {_crerValidationSpecification = a})
+-- | Specifies configurations for one or more training jobs and that Amazon
+-- SageMaker runs to test the algorithm\'s training code and, optionally,
+-- one or more batch transform jobs that Amazon SageMaker runs to test the
+-- algorithm\'s inference code.
+createAlgorithm_validationSpecification :: Lens.Lens' CreateAlgorithm (Prelude.Maybe AlgorithmValidationSpecification)
+createAlgorithm_validationSpecification = Lens.lens (\CreateAlgorithm' {validationSpecification} -> validationSpecification) (\s@CreateAlgorithm' {} a -> s {validationSpecification = a} :: CreateAlgorithm)
 
--- | Whether to certify the algorithm so that it can be listed in AWS Marketplace.
-crerCertifyForMarketplace :: Lens' CreateAlgorithm (Maybe Bool)
-crerCertifyForMarketplace = lens _crerCertifyForMarketplace (\s a -> s {_crerCertifyForMarketplace = a})
+-- | Whether to certify the algorithm so that it can be listed in AWS
+-- Marketplace.
+createAlgorithm_certifyForMarketplace :: Lens.Lens' CreateAlgorithm (Prelude.Maybe Prelude.Bool)
+createAlgorithm_certifyForMarketplace = Lens.lens (\CreateAlgorithm' {certifyForMarketplace} -> certifyForMarketplace) (\s@CreateAlgorithm' {} a -> s {certifyForMarketplace = a} :: CreateAlgorithm)
 
--- | An array of key-value pairs. You can use tags to categorize your AWS resources in different ways, for example, by purpose, owner, or environment. For more information, see <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging AWS Resources> .
-crerTags :: Lens' CreateAlgorithm [Tag]
-crerTags = lens _crerTags (\s a -> s {_crerTags = a}) . _Default . _Coerce
+-- | An array of key-value pairs. You can use tags to categorize your AWS
+-- resources in different ways, for example, by purpose, owner, or
+-- environment. For more information, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging AWS Resources>.
+createAlgorithm_tags :: Lens.Lens' CreateAlgorithm (Prelude.Maybe [Tag])
+createAlgorithm_tags = Lens.lens (\CreateAlgorithm' {tags} -> tags) (\s@CreateAlgorithm' {} a -> s {tags = a} :: CreateAlgorithm) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Specifies details about inference jobs that the algorithm runs, including the following:     * The Amazon ECR paths of containers that contain the inference code and model artifacts.     * The instance types that the algorithm supports for transform jobs and real-time endpoints used for inference.     * The input and output content formats that the algorithm supports for inference.
-crerInferenceSpecification :: Lens' CreateAlgorithm (Maybe InferenceSpecification)
-crerInferenceSpecification = lens _crerInferenceSpecification (\s a -> s {_crerInferenceSpecification = a})
+-- | Specifies details about inference jobs that the algorithm runs,
+-- including the following:
+--
+-- -   The Amazon ECR paths of containers that contain the inference code
+--     and model artifacts.
+--
+-- -   The instance types that the algorithm supports for transform jobs
+--     and real-time endpoints used for inference.
+--
+-- -   The input and output content formats that the algorithm supports for
+--     inference.
+createAlgorithm_inferenceSpecification :: Lens.Lens' CreateAlgorithm (Prelude.Maybe InferenceSpecification)
+createAlgorithm_inferenceSpecification = Lens.lens (\CreateAlgorithm' {inferenceSpecification} -> inferenceSpecification) (\s@CreateAlgorithm' {} a -> s {inferenceSpecification = a} :: CreateAlgorithm)
 
 -- | The name of the algorithm.
-crerAlgorithmName :: Lens' CreateAlgorithm Text
-crerAlgorithmName = lens _crerAlgorithmName (\s a -> s {_crerAlgorithmName = a})
+createAlgorithm_algorithmName :: Lens.Lens' CreateAlgorithm Prelude.Text
+createAlgorithm_algorithmName = Lens.lens (\CreateAlgorithm' {algorithmName} -> algorithmName) (\s@CreateAlgorithm' {} a -> s {algorithmName = a} :: CreateAlgorithm)
 
--- | Specifies details about training jobs run by this algorithm, including the following:     * The Amazon ECR path of the container and the version digest of the algorithm.     * The hyperparameters that the algorithm supports.     * The instance types that the algorithm supports for training.     * Whether the algorithm supports distributed training.     * The metrics that the algorithm emits to Amazon CloudWatch.     * Which metrics that the algorithm emits can be used as the objective metric for hyperparameter tuning jobs.     * The input channels that the algorithm supports for training data. For example, an algorithm might support @train@ , @validation@ , and @test@ channels.
-crerTrainingSpecification :: Lens' CreateAlgorithm TrainingSpecification
-crerTrainingSpecification = lens _crerTrainingSpecification (\s a -> s {_crerTrainingSpecification = a})
+-- | Specifies details about training jobs run by this algorithm, including
+-- the following:
+--
+-- -   The Amazon ECR path of the container and the version digest of the
+--     algorithm.
+--
+-- -   The hyperparameters that the algorithm supports.
+--
+-- -   The instance types that the algorithm supports for training.
+--
+-- -   Whether the algorithm supports distributed training.
+--
+-- -   The metrics that the algorithm emits to Amazon CloudWatch.
+--
+-- -   Which metrics that the algorithm emits can be used as the objective
+--     metric for hyperparameter tuning jobs.
+--
+-- -   The input channels that the algorithm supports for training data.
+--     For example, an algorithm might support @train@, @validation@, and
+--     @test@ channels.
+createAlgorithm_trainingSpecification :: Lens.Lens' CreateAlgorithm TrainingSpecification
+createAlgorithm_trainingSpecification = Lens.lens (\CreateAlgorithm' {trainingSpecification} -> trainingSpecification) (\s@CreateAlgorithm' {} a -> s {trainingSpecification = a} :: CreateAlgorithm)
 
-instance AWSRequest CreateAlgorithm where
+instance Prelude.AWSRequest CreateAlgorithm where
   type Rs CreateAlgorithm = CreateAlgorithmResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateAlgorithmResponse'
-            <$> (pure (fromEnum s)) <*> (x .:> "AlgorithmArn")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "AlgorithmArn")
       )
 
-instance Hashable CreateAlgorithm
+instance Prelude.Hashable CreateAlgorithm
 
-instance NFData CreateAlgorithm
+instance Prelude.NFData CreateAlgorithm
 
-instance ToHeaders CreateAlgorithm where
+instance Prelude.ToHeaders CreateAlgorithm where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.CreateAlgorithm" :: ByteString),
+              Prelude.=# ("SageMaker.CreateAlgorithm" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateAlgorithm where
+instance Prelude.ToJSON CreateAlgorithm where
   toJSON CreateAlgorithm' {..} =
-    object
-      ( catMaybes
-          [ ("AlgorithmDescription" .=)
-              <$> _crerAlgorithmDescription,
-            ("ValidationSpecification" .=)
-              <$> _crerValidationSpecification,
-            ("CertifyForMarketplace" .=)
-              <$> _crerCertifyForMarketplace,
-            ("Tags" .=) <$> _crerTags,
-            ("InferenceSpecification" .=)
-              <$> _crerInferenceSpecification,
-            Just ("AlgorithmName" .= _crerAlgorithmName),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("AlgorithmDescription" Prelude..=)
+              Prelude.<$> algorithmDescription,
+            ("ValidationSpecification" Prelude..=)
+              Prelude.<$> validationSpecification,
+            ("CertifyForMarketplace" Prelude..=)
+              Prelude.<$> certifyForMarketplace,
+            ("Tags" Prelude..=) Prelude.<$> tags,
+            ("InferenceSpecification" Prelude..=)
+              Prelude.<$> inferenceSpecification,
+            Prelude.Just
+              ("AlgorithmName" Prelude..= algorithmName),
+            Prelude.Just
               ( "TrainingSpecification"
-                  .= _crerTrainingSpecification
+                  Prelude..= trainingSpecification
               )
           ]
       )
 
-instance ToPath CreateAlgorithm where
-  toPath = const "/"
+instance Prelude.ToPath CreateAlgorithm where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateAlgorithm where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateAlgorithm where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createAlgorithmResponse' smart constructor.
+-- | /See:/ 'newCreateAlgorithmResponse' smart constructor.
 data CreateAlgorithmResponse = CreateAlgorithmResponse'
-  { _cararsResponseStatus ::
-      !Int,
-    _cararsAlgorithmARN ::
-      !Text
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The Amazon Resource Name (ARN) of the new algorithm.
+    algorithmArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateAlgorithmResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateAlgorithmResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cararsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cararsAlgorithmARN' - The Amazon Resource Name (ARN) of the new algorithm.
-createAlgorithmResponse ::
-  -- | 'cararsResponseStatus'
-  Int ->
-  -- | 'cararsAlgorithmARN'
-  Text ->
+-- 'httpStatus', 'createAlgorithmResponse_httpStatus' - The response's http status code.
+--
+-- 'algorithmArn', 'createAlgorithmResponse_algorithmArn' - The Amazon Resource Name (ARN) of the new algorithm.
+newCreateAlgorithmResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'algorithmArn'
+  Prelude.Text ->
   CreateAlgorithmResponse
-createAlgorithmResponse
-  pResponseStatus_
-  pAlgorithmARN_ =
+newCreateAlgorithmResponse
+  pHttpStatus_
+  pAlgorithmArn_ =
     CreateAlgorithmResponse'
-      { _cararsResponseStatus =
-          pResponseStatus_,
-        _cararsAlgorithmARN = pAlgorithmARN_
+      { httpStatus = pHttpStatus_,
+        algorithmArn = pAlgorithmArn_
       }
 
--- | -- | The response status code.
-cararsResponseStatus :: Lens' CreateAlgorithmResponse Int
-cararsResponseStatus = lens _cararsResponseStatus (\s a -> s {_cararsResponseStatus = a})
+-- | The response's http status code.
+createAlgorithmResponse_httpStatus :: Lens.Lens' CreateAlgorithmResponse Prelude.Int
+createAlgorithmResponse_httpStatus = Lens.lens (\CreateAlgorithmResponse' {httpStatus} -> httpStatus) (\s@CreateAlgorithmResponse' {} a -> s {httpStatus = a} :: CreateAlgorithmResponse)
 
 -- | The Amazon Resource Name (ARN) of the new algorithm.
-cararsAlgorithmARN :: Lens' CreateAlgorithmResponse Text
-cararsAlgorithmARN = lens _cararsAlgorithmARN (\s a -> s {_cararsAlgorithmARN = a})
+createAlgorithmResponse_algorithmArn :: Lens.Lens' CreateAlgorithmResponse Prelude.Text
+createAlgorithmResponse_algorithmArn = Lens.lens (\CreateAlgorithmResponse' {algorithmArn} -> algorithmArn) (\s@CreateAlgorithmResponse' {} a -> s {algorithmArn = a} :: CreateAlgorithmResponse)
 
-instance NFData CreateAlgorithmResponse
+instance Prelude.NFData CreateAlgorithmResponse

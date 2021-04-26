@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,62 +19,71 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.ProcessingFeatureStoreOutput where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Configuration for processing job outputs in Amazon SageMaker Feature Store.
+-- | Configuration for processing job outputs in Amazon SageMaker Feature
+-- Store.
 --
---
---
--- /See:/ 'processingFeatureStoreOutput' smart constructor.
-newtype ProcessingFeatureStoreOutput = ProcessingFeatureStoreOutput'
-  { _pfsoFeatureGroupName ::
-      Text
+-- /See:/ 'newProcessingFeatureStoreOutput' smart constructor.
+data ProcessingFeatureStoreOutput = ProcessingFeatureStoreOutput'
+  { -- | The name of the Amazon SageMaker FeatureGroup to use as the destination
+    -- for processing job output. Note that your processing script is
+    -- responsible for putting records into your Feature Store.
+    featureGroupName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ProcessingFeatureStoreOutput' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ProcessingFeatureStoreOutput' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pfsoFeatureGroupName' - The name of the Amazon SageMaker FeatureGroup to use as the destination for processing job output. Note that your processing script is responsible for putting records into your Feature Store.
-processingFeatureStoreOutput ::
-  -- | 'pfsoFeatureGroupName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'featureGroupName', 'processingFeatureStoreOutput_featureGroupName' - The name of the Amazon SageMaker FeatureGroup to use as the destination
+-- for processing job output. Note that your processing script is
+-- responsible for putting records into your Feature Store.
+newProcessingFeatureStoreOutput ::
+  -- | 'featureGroupName'
+  Prelude.Text ->
   ProcessingFeatureStoreOutput
-processingFeatureStoreOutput pFeatureGroupName_ =
+newProcessingFeatureStoreOutput pFeatureGroupName_ =
   ProcessingFeatureStoreOutput'
-    { _pfsoFeatureGroupName =
+    { featureGroupName =
         pFeatureGroupName_
     }
 
--- | The name of the Amazon SageMaker FeatureGroup to use as the destination for processing job output. Note that your processing script is responsible for putting records into your Feature Store.
-pfsoFeatureGroupName :: Lens' ProcessingFeatureStoreOutput Text
-pfsoFeatureGroupName = lens _pfsoFeatureGroupName (\s a -> s {_pfsoFeatureGroupName = a})
+-- | The name of the Amazon SageMaker FeatureGroup to use as the destination
+-- for processing job output. Note that your processing script is
+-- responsible for putting records into your Feature Store.
+processingFeatureStoreOutput_featureGroupName :: Lens.Lens' ProcessingFeatureStoreOutput Prelude.Text
+processingFeatureStoreOutput_featureGroupName = Lens.lens (\ProcessingFeatureStoreOutput' {featureGroupName} -> featureGroupName) (\s@ProcessingFeatureStoreOutput' {} a -> s {featureGroupName = a} :: ProcessingFeatureStoreOutput)
 
-instance FromJSON ProcessingFeatureStoreOutput where
+instance
+  Prelude.FromJSON
+    ProcessingFeatureStoreOutput
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ProcessingFeatureStoreOutput"
       ( \x ->
           ProcessingFeatureStoreOutput'
-            <$> (x .: "FeatureGroupName")
+            Prelude.<$> (x Prelude..: "FeatureGroupName")
       )
 
-instance Hashable ProcessingFeatureStoreOutput
+instance
+  Prelude.Hashable
+    ProcessingFeatureStoreOutput
 
-instance NFData ProcessingFeatureStoreOutput
+instance Prelude.NFData ProcessingFeatureStoreOutput
 
-instance ToJSON ProcessingFeatureStoreOutput where
+instance Prelude.ToJSON ProcessingFeatureStoreOutput where
   toJSON ProcessingFeatureStoreOutput' {..} =
-    object
-      ( catMaybes
-          [Just ("FeatureGroupName" .= _pfsoFeatureGroupName)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("FeatureGroupName" Prelude..= featureGroupName)
+          ]
       )

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,71 +19,73 @@
 module Network.AWS.SageMaker.Types.TrainingJobStatus
   ( TrainingJobStatus
       ( ..,
-        TJSCompleted,
-        TJSFailed,
-        TJSInProgress,
-        TJSStopped,
-        TJSStopping
+        TrainingJobStatusCompleted,
+        TrainingJobStatusFailed,
+        TrainingJobStatusInProgress,
+        TrainingJobStatusStopped,
+        TrainingJobStatusStopping
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TrainingJobStatus = TrainingJobStatus' (CI Text)
+newtype TrainingJobStatus = TrainingJobStatus'
+  { fromTrainingJobStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TJSCompleted :: TrainingJobStatus
-pattern TJSCompleted = TrainingJobStatus' "Completed"
+pattern TrainingJobStatusCompleted :: TrainingJobStatus
+pattern TrainingJobStatusCompleted = TrainingJobStatus' "Completed"
 
-pattern TJSFailed :: TrainingJobStatus
-pattern TJSFailed = TrainingJobStatus' "Failed"
+pattern TrainingJobStatusFailed :: TrainingJobStatus
+pattern TrainingJobStatusFailed = TrainingJobStatus' "Failed"
 
-pattern TJSInProgress :: TrainingJobStatus
-pattern TJSInProgress = TrainingJobStatus' "InProgress"
+pattern TrainingJobStatusInProgress :: TrainingJobStatus
+pattern TrainingJobStatusInProgress = TrainingJobStatus' "InProgress"
 
-pattern TJSStopped :: TrainingJobStatus
-pattern TJSStopped = TrainingJobStatus' "Stopped"
+pattern TrainingJobStatusStopped :: TrainingJobStatus
+pattern TrainingJobStatusStopped = TrainingJobStatus' "Stopped"
 
-pattern TJSStopping :: TrainingJobStatus
-pattern TJSStopping = TrainingJobStatus' "Stopping"
+pattern TrainingJobStatusStopping :: TrainingJobStatus
+pattern TrainingJobStatusStopping = TrainingJobStatus' "Stopping"
 
 {-# COMPLETE
-  TJSCompleted,
-  TJSFailed,
-  TJSInProgress,
-  TJSStopped,
-  TJSStopping,
+  TrainingJobStatusCompleted,
+  TrainingJobStatusFailed,
+  TrainingJobStatusInProgress,
+  TrainingJobStatusStopped,
+  TrainingJobStatusStopping,
   TrainingJobStatus'
   #-}
 
-instance FromText TrainingJobStatus where
-  parser = (TrainingJobStatus' . mk) <$> takeText
+instance Prelude.FromText TrainingJobStatus where
+  parser = TrainingJobStatus' Prelude.<$> Prelude.takeText
 
-instance ToText TrainingJobStatus where
-  toText (TrainingJobStatus' ci) = original ci
+instance Prelude.ToText TrainingJobStatus where
+  toText (TrainingJobStatus' x) = x
 
-instance Hashable TrainingJobStatus
+instance Prelude.Hashable TrainingJobStatus
 
-instance NFData TrainingJobStatus
+instance Prelude.NFData TrainingJobStatus
 
-instance ToByteString TrainingJobStatus
+instance Prelude.ToByteString TrainingJobStatus
 
-instance ToQuery TrainingJobStatus
+instance Prelude.ToQuery TrainingJobStatus
 
-instance ToHeader TrainingJobStatus
+instance Prelude.ToHeader TrainingJobStatus
 
-instance ToJSON TrainingJobStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON TrainingJobStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON TrainingJobStatus where
-  parseJSON = parseJSONText "TrainingJobStatus"
+instance Prelude.FromJSON TrainingJobStatus where
+  parseJSON = Prelude.parseJSONText "TrainingJobStatus"

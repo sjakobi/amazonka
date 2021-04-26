@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,262 +23,318 @@
 --
 -- Lists model compilation jobs that satisfy various filters.
 --
---
--- To create a model compilation job, use 'CreateCompilationJob' . To get information about a particular model compilation job you have created, use 'DescribeCompilationJob' .
---
+-- To create a model compilation job, use CreateCompilationJob. To get
+-- information about a particular model compilation job you have created,
+-- use DescribeCompilationJob.
 --
 -- This operation returns paginated results.
 module Network.AWS.SageMaker.ListCompilationJobs
   ( -- * Creating a Request
-    listCompilationJobs,
-    ListCompilationJobs,
+    ListCompilationJobs (..),
+    newListCompilationJobs,
 
     -- * Request Lenses
-    lcjLastModifiedTimeBefore,
-    lcjSortOrder,
-    lcjNextToken,
-    lcjNameContains,
-    lcjMaxResults,
-    lcjCreationTimeBefore,
-    lcjLastModifiedTimeAfter,
-    lcjSortBy,
-    lcjStatusEquals,
-    lcjCreationTimeAfter,
+    listCompilationJobs_lastModifiedTimeBefore,
+    listCompilationJobs_sortOrder,
+    listCompilationJobs_nextToken,
+    listCompilationJobs_nameContains,
+    listCompilationJobs_maxResults,
+    listCompilationJobs_creationTimeBefore,
+    listCompilationJobs_lastModifiedTimeAfter,
+    listCompilationJobs_sortBy,
+    listCompilationJobs_statusEquals,
+    listCompilationJobs_creationTimeAfter,
 
     -- * Destructuring the Response
-    listCompilationJobsResponse,
-    ListCompilationJobsResponse,
+    ListCompilationJobsResponse (..),
+    newListCompilationJobsResponse,
 
     -- * Response Lenses
-    lcjrrsNextToken,
-    lcjrrsResponseStatus,
-    lcjrrsCompilationJobSummaries,
+    listCompilationJobsResponse_nextToken,
+    listCompilationJobsResponse_httpStatus,
+    listCompilationJobsResponse_compilationJobSummaries,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
+import Network.AWS.SageMaker.Types.CompilationJobSummary
 
--- | /See:/ 'listCompilationJobs' smart constructor.
+-- | /See:/ 'newListCompilationJobs' smart constructor.
 data ListCompilationJobs = ListCompilationJobs'
-  { _lcjLastModifiedTimeBefore ::
-      !(Maybe POSIX),
-    _lcjSortOrder ::
-      !(Maybe SortOrder),
-    _lcjNextToken :: !(Maybe Text),
-    _lcjNameContains ::
-      !(Maybe Text),
-    _lcjMaxResults :: !(Maybe Nat),
-    _lcjCreationTimeBefore ::
-      !(Maybe POSIX),
-    _lcjLastModifiedTimeAfter ::
-      !(Maybe POSIX),
-    _lcjSortBy ::
-      !( Maybe
-           ListCompilationJobsSortBy
-       ),
-    _lcjStatusEquals ::
-      !(Maybe CompilationJobStatus),
-    _lcjCreationTimeAfter ::
-      !(Maybe POSIX)
+  { -- | A filter that returns the model compilation jobs that were modified
+    -- before a specified time.
+    lastModifiedTimeBefore :: Prelude.Maybe Prelude.POSIX,
+    -- | The sort order for results. The default is @Ascending@.
+    sortOrder :: Prelude.Maybe SortOrder,
+    -- | If the result of the previous @ListCompilationJobs@ request was
+    -- truncated, the response includes a @NextToken@. To retrieve the next set
+    -- of model compilation jobs, use the token in the next request.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A filter that returns the model compilation jobs whose name contains a
+    -- specified string.
+    nameContains :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of model compilation jobs to return in the response.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | A filter that returns the model compilation jobs that were created
+    -- before a specified time.
+    creationTimeBefore :: Prelude.Maybe Prelude.POSIX,
+    -- | A filter that returns the model compilation jobs that were modified
+    -- after a specified time.
+    lastModifiedTimeAfter :: Prelude.Maybe Prelude.POSIX,
+    -- | The field by which to sort results. The default is @CreationTime@.
+    sortBy :: Prelude.Maybe ListCompilationJobsSortBy,
+    -- | A filter that retrieves model compilation jobs with a specific
+    -- DescribeCompilationJobResponse$CompilationJobStatus status.
+    statusEquals :: Prelude.Maybe CompilationJobStatus,
+    -- | A filter that returns the model compilation jobs that were created after
+    -- a specified time.
+    creationTimeAfter :: Prelude.Maybe Prelude.POSIX
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListCompilationJobs' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListCompilationJobs' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lcjLastModifiedTimeBefore' - A filter that returns the model compilation jobs that were modified before a specified time.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lcjSortOrder' - The sort order for results. The default is @Ascending@ .
+-- 'lastModifiedTimeBefore', 'listCompilationJobs_lastModifiedTimeBefore' - A filter that returns the model compilation jobs that were modified
+-- before a specified time.
 --
--- * 'lcjNextToken' - If the result of the previous @ListCompilationJobs@ request was truncated, the response includes a @NextToken@ . To retrieve the next set of model compilation jobs, use the token in the next request.
+-- 'sortOrder', 'listCompilationJobs_sortOrder' - The sort order for results. The default is @Ascending@.
 --
--- * 'lcjNameContains' - A filter that returns the model compilation jobs whose name contains a specified string.
+-- 'nextToken', 'listCompilationJobs_nextToken' - If the result of the previous @ListCompilationJobs@ request was
+-- truncated, the response includes a @NextToken@. To retrieve the next set
+-- of model compilation jobs, use the token in the next request.
 --
--- * 'lcjMaxResults' - The maximum number of model compilation jobs to return in the response.
+-- 'nameContains', 'listCompilationJobs_nameContains' - A filter that returns the model compilation jobs whose name contains a
+-- specified string.
 --
--- * 'lcjCreationTimeBefore' - A filter that returns the model compilation jobs that were created before a specified time.
+-- 'maxResults', 'listCompilationJobs_maxResults' - The maximum number of model compilation jobs to return in the response.
 --
--- * 'lcjLastModifiedTimeAfter' - A filter that returns the model compilation jobs that were modified after a specified time.
+-- 'creationTimeBefore', 'listCompilationJobs_creationTimeBefore' - A filter that returns the model compilation jobs that were created
+-- before a specified time.
 --
--- * 'lcjSortBy' - The field by which to sort results. The default is @CreationTime@ .
+-- 'lastModifiedTimeAfter', 'listCompilationJobs_lastModifiedTimeAfter' - A filter that returns the model compilation jobs that were modified
+-- after a specified time.
 --
--- * 'lcjStatusEquals' - A filter that retrieves model compilation jobs with a specific 'DescribeCompilationJobResponse$CompilationJobStatus' status.
+-- 'sortBy', 'listCompilationJobs_sortBy' - The field by which to sort results. The default is @CreationTime@.
 --
--- * 'lcjCreationTimeAfter' - A filter that returns the model compilation jobs that were created after a specified time.
-listCompilationJobs ::
+-- 'statusEquals', 'listCompilationJobs_statusEquals' - A filter that retrieves model compilation jobs with a specific
+-- DescribeCompilationJobResponse$CompilationJobStatus status.
+--
+-- 'creationTimeAfter', 'listCompilationJobs_creationTimeAfter' - A filter that returns the model compilation jobs that were created after
+-- a specified time.
+newListCompilationJobs ::
   ListCompilationJobs
-listCompilationJobs =
+newListCompilationJobs =
   ListCompilationJobs'
-    { _lcjLastModifiedTimeBefore =
-        Nothing,
-      _lcjSortOrder = Nothing,
-      _lcjNextToken = Nothing,
-      _lcjNameContains = Nothing,
-      _lcjMaxResults = Nothing,
-      _lcjCreationTimeBefore = Nothing,
-      _lcjLastModifiedTimeAfter = Nothing,
-      _lcjSortBy = Nothing,
-      _lcjStatusEquals = Nothing,
-      _lcjCreationTimeAfter = Nothing
+    { lastModifiedTimeBefore =
+        Prelude.Nothing,
+      sortOrder = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      nameContains = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      creationTimeBefore = Prelude.Nothing,
+      lastModifiedTimeAfter = Prelude.Nothing,
+      sortBy = Prelude.Nothing,
+      statusEquals = Prelude.Nothing,
+      creationTimeAfter = Prelude.Nothing
     }
 
--- | A filter that returns the model compilation jobs that were modified before a specified time.
-lcjLastModifiedTimeBefore :: Lens' ListCompilationJobs (Maybe UTCTime)
-lcjLastModifiedTimeBefore = lens _lcjLastModifiedTimeBefore (\s a -> s {_lcjLastModifiedTimeBefore = a}) . mapping _Time
+-- | A filter that returns the model compilation jobs that were modified
+-- before a specified time.
+listCompilationJobs_lastModifiedTimeBefore :: Lens.Lens' ListCompilationJobs (Prelude.Maybe Prelude.UTCTime)
+listCompilationJobs_lastModifiedTimeBefore = Lens.lens (\ListCompilationJobs' {lastModifiedTimeBefore} -> lastModifiedTimeBefore) (\s@ListCompilationJobs' {} a -> s {lastModifiedTimeBefore = a} :: ListCompilationJobs) Prelude.. Lens.mapping Prelude._Time
 
--- | The sort order for results. The default is @Ascending@ .
-lcjSortOrder :: Lens' ListCompilationJobs (Maybe SortOrder)
-lcjSortOrder = lens _lcjSortOrder (\s a -> s {_lcjSortOrder = a})
+-- | The sort order for results. The default is @Ascending@.
+listCompilationJobs_sortOrder :: Lens.Lens' ListCompilationJobs (Prelude.Maybe SortOrder)
+listCompilationJobs_sortOrder = Lens.lens (\ListCompilationJobs' {sortOrder} -> sortOrder) (\s@ListCompilationJobs' {} a -> s {sortOrder = a} :: ListCompilationJobs)
 
--- | If the result of the previous @ListCompilationJobs@ request was truncated, the response includes a @NextToken@ . To retrieve the next set of model compilation jobs, use the token in the next request.
-lcjNextToken :: Lens' ListCompilationJobs (Maybe Text)
-lcjNextToken = lens _lcjNextToken (\s a -> s {_lcjNextToken = a})
+-- | If the result of the previous @ListCompilationJobs@ request was
+-- truncated, the response includes a @NextToken@. To retrieve the next set
+-- of model compilation jobs, use the token in the next request.
+listCompilationJobs_nextToken :: Lens.Lens' ListCompilationJobs (Prelude.Maybe Prelude.Text)
+listCompilationJobs_nextToken = Lens.lens (\ListCompilationJobs' {nextToken} -> nextToken) (\s@ListCompilationJobs' {} a -> s {nextToken = a} :: ListCompilationJobs)
 
--- | A filter that returns the model compilation jobs whose name contains a specified string.
-lcjNameContains :: Lens' ListCompilationJobs (Maybe Text)
-lcjNameContains = lens _lcjNameContains (\s a -> s {_lcjNameContains = a})
+-- | A filter that returns the model compilation jobs whose name contains a
+-- specified string.
+listCompilationJobs_nameContains :: Lens.Lens' ListCompilationJobs (Prelude.Maybe Prelude.Text)
+listCompilationJobs_nameContains = Lens.lens (\ListCompilationJobs' {nameContains} -> nameContains) (\s@ListCompilationJobs' {} a -> s {nameContains = a} :: ListCompilationJobs)
 
 -- | The maximum number of model compilation jobs to return in the response.
-lcjMaxResults :: Lens' ListCompilationJobs (Maybe Natural)
-lcjMaxResults = lens _lcjMaxResults (\s a -> s {_lcjMaxResults = a}) . mapping _Nat
+listCompilationJobs_maxResults :: Lens.Lens' ListCompilationJobs (Prelude.Maybe Prelude.Natural)
+listCompilationJobs_maxResults = Lens.lens (\ListCompilationJobs' {maxResults} -> maxResults) (\s@ListCompilationJobs' {} a -> s {maxResults = a} :: ListCompilationJobs) Prelude.. Lens.mapping Prelude._Nat
 
--- | A filter that returns the model compilation jobs that were created before a specified time.
-lcjCreationTimeBefore :: Lens' ListCompilationJobs (Maybe UTCTime)
-lcjCreationTimeBefore = lens _lcjCreationTimeBefore (\s a -> s {_lcjCreationTimeBefore = a}) . mapping _Time
+-- | A filter that returns the model compilation jobs that were created
+-- before a specified time.
+listCompilationJobs_creationTimeBefore :: Lens.Lens' ListCompilationJobs (Prelude.Maybe Prelude.UTCTime)
+listCompilationJobs_creationTimeBefore = Lens.lens (\ListCompilationJobs' {creationTimeBefore} -> creationTimeBefore) (\s@ListCompilationJobs' {} a -> s {creationTimeBefore = a} :: ListCompilationJobs) Prelude.. Lens.mapping Prelude._Time
 
--- | A filter that returns the model compilation jobs that were modified after a specified time.
-lcjLastModifiedTimeAfter :: Lens' ListCompilationJobs (Maybe UTCTime)
-lcjLastModifiedTimeAfter = lens _lcjLastModifiedTimeAfter (\s a -> s {_lcjLastModifiedTimeAfter = a}) . mapping _Time
+-- | A filter that returns the model compilation jobs that were modified
+-- after a specified time.
+listCompilationJobs_lastModifiedTimeAfter :: Lens.Lens' ListCompilationJobs (Prelude.Maybe Prelude.UTCTime)
+listCompilationJobs_lastModifiedTimeAfter = Lens.lens (\ListCompilationJobs' {lastModifiedTimeAfter} -> lastModifiedTimeAfter) (\s@ListCompilationJobs' {} a -> s {lastModifiedTimeAfter = a} :: ListCompilationJobs) Prelude.. Lens.mapping Prelude._Time
 
--- | The field by which to sort results. The default is @CreationTime@ .
-lcjSortBy :: Lens' ListCompilationJobs (Maybe ListCompilationJobsSortBy)
-lcjSortBy = lens _lcjSortBy (\s a -> s {_lcjSortBy = a})
+-- | The field by which to sort results. The default is @CreationTime@.
+listCompilationJobs_sortBy :: Lens.Lens' ListCompilationJobs (Prelude.Maybe ListCompilationJobsSortBy)
+listCompilationJobs_sortBy = Lens.lens (\ListCompilationJobs' {sortBy} -> sortBy) (\s@ListCompilationJobs' {} a -> s {sortBy = a} :: ListCompilationJobs)
 
--- | A filter that retrieves model compilation jobs with a specific 'DescribeCompilationJobResponse$CompilationJobStatus' status.
-lcjStatusEquals :: Lens' ListCompilationJobs (Maybe CompilationJobStatus)
-lcjStatusEquals = lens _lcjStatusEquals (\s a -> s {_lcjStatusEquals = a})
+-- | A filter that retrieves model compilation jobs with a specific
+-- DescribeCompilationJobResponse$CompilationJobStatus status.
+listCompilationJobs_statusEquals :: Lens.Lens' ListCompilationJobs (Prelude.Maybe CompilationJobStatus)
+listCompilationJobs_statusEquals = Lens.lens (\ListCompilationJobs' {statusEquals} -> statusEquals) (\s@ListCompilationJobs' {} a -> s {statusEquals = a} :: ListCompilationJobs)
 
--- | A filter that returns the model compilation jobs that were created after a specified time.
-lcjCreationTimeAfter :: Lens' ListCompilationJobs (Maybe UTCTime)
-lcjCreationTimeAfter = lens _lcjCreationTimeAfter (\s a -> s {_lcjCreationTimeAfter = a}) . mapping _Time
+-- | A filter that returns the model compilation jobs that were created after
+-- a specified time.
+listCompilationJobs_creationTimeAfter :: Lens.Lens' ListCompilationJobs (Prelude.Maybe Prelude.UTCTime)
+listCompilationJobs_creationTimeAfter = Lens.lens (\ListCompilationJobs' {creationTimeAfter} -> creationTimeAfter) (\s@ListCompilationJobs' {} a -> s {creationTimeAfter = a} :: ListCompilationJobs) Prelude.. Lens.mapping Prelude._Time
 
-instance AWSPager ListCompilationJobs where
+instance Pager.AWSPager ListCompilationJobs where
   page rq rs
-    | stop (rs ^. lcjrrsNextToken) = Nothing
-    | stop (rs ^. lcjrrsCompilationJobSummaries) =
-      Nothing
-    | otherwise =
-      Just $ rq & lcjNextToken .~ rs ^. lcjrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listCompilationJobsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^. listCompilationJobsResponse_compilationJobSummaries
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listCompilationJobs_nextToken
+          Lens..~ rs
+          Lens.^? listCompilationJobsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListCompilationJobs where
+instance Prelude.AWSRequest ListCompilationJobs where
   type
     Rs ListCompilationJobs =
       ListCompilationJobsResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListCompilationJobsResponse'
-            <$> (x .?> "NextToken")
-            <*> (pure (fromEnum s))
-            <*> (x .?> "CompilationJobSummaries" .!@ mempty)
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> ( x Prelude..?> "CompilationJobSummaries"
+                            Prelude..!@ Prelude.mempty
+                        )
       )
 
-instance Hashable ListCompilationJobs
+instance Prelude.Hashable ListCompilationJobs
 
-instance NFData ListCompilationJobs
+instance Prelude.NFData ListCompilationJobs
 
-instance ToHeaders ListCompilationJobs where
+instance Prelude.ToHeaders ListCompilationJobs where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.ListCompilationJobs" :: ByteString),
+              Prelude.=# ( "SageMaker.ListCompilationJobs" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListCompilationJobs where
+instance Prelude.ToJSON ListCompilationJobs where
   toJSON ListCompilationJobs' {..} =
-    object
-      ( catMaybes
-          [ ("LastModifiedTimeBefore" .=)
-              <$> _lcjLastModifiedTimeBefore,
-            ("SortOrder" .=) <$> _lcjSortOrder,
-            ("NextToken" .=) <$> _lcjNextToken,
-            ("NameContains" .=) <$> _lcjNameContains,
-            ("MaxResults" .=) <$> _lcjMaxResults,
-            ("CreationTimeBefore" .=) <$> _lcjCreationTimeBefore,
-            ("LastModifiedTimeAfter" .=)
-              <$> _lcjLastModifiedTimeAfter,
-            ("SortBy" .=) <$> _lcjSortBy,
-            ("StatusEquals" .=) <$> _lcjStatusEquals,
-            ("CreationTimeAfter" .=) <$> _lcjCreationTimeAfter
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("LastModifiedTimeBefore" Prelude..=)
+              Prelude.<$> lastModifiedTimeBefore,
+            ("SortOrder" Prelude..=) Prelude.<$> sortOrder,
+            ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("NameContains" Prelude..=) Prelude.<$> nameContains,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("CreationTimeBefore" Prelude..=)
+              Prelude.<$> creationTimeBefore,
+            ("LastModifiedTimeAfter" Prelude..=)
+              Prelude.<$> lastModifiedTimeAfter,
+            ("SortBy" Prelude..=) Prelude.<$> sortBy,
+            ("StatusEquals" Prelude..=) Prelude.<$> statusEquals,
+            ("CreationTimeAfter" Prelude..=)
+              Prelude.<$> creationTimeAfter
           ]
       )
 
-instance ToPath ListCompilationJobs where
-  toPath = const "/"
+instance Prelude.ToPath ListCompilationJobs where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListCompilationJobs where
-  toQuery = const mempty
+instance Prelude.ToQuery ListCompilationJobs where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listCompilationJobsResponse' smart constructor.
+-- | /See:/ 'newListCompilationJobsResponse' smart constructor.
 data ListCompilationJobsResponse = ListCompilationJobsResponse'
-  { _lcjrrsNextToken ::
-      !(Maybe Text),
-    _lcjrrsResponseStatus ::
-      !Int,
-    _lcjrrsCompilationJobSummaries ::
-      ![CompilationJobSummary]
+  { -- | If the response is truncated, Amazon SageMaker returns this @NextToken@.
+    -- To retrieve the next set of model compilation jobs, use this token in
+    -- the next request.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | An array of CompilationJobSummary objects, each describing a model
+    -- compilation job.
+    compilationJobSummaries :: [CompilationJobSummary]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListCompilationJobsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListCompilationJobsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lcjrrsNextToken' - If the response is truncated, Amazon SageMaker returns this @NextToken@ . To retrieve the next set of model compilation jobs, use this token in the next request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lcjrrsResponseStatus' - -- | The response status code.
+-- 'nextToken', 'listCompilationJobsResponse_nextToken' - If the response is truncated, Amazon SageMaker returns this @NextToken@.
+-- To retrieve the next set of model compilation jobs, use this token in
+-- the next request.
 --
--- * 'lcjrrsCompilationJobSummaries' - An array of 'CompilationJobSummary' objects, each describing a model compilation job.
-listCompilationJobsResponse ::
-  -- | 'lcjrrsResponseStatus'
-  Int ->
+-- 'httpStatus', 'listCompilationJobsResponse_httpStatus' - The response's http status code.
+--
+-- 'compilationJobSummaries', 'listCompilationJobsResponse_compilationJobSummaries' - An array of CompilationJobSummary objects, each describing a model
+-- compilation job.
+newListCompilationJobsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListCompilationJobsResponse
-listCompilationJobsResponse pResponseStatus_ =
+newListCompilationJobsResponse pHttpStatus_ =
   ListCompilationJobsResponse'
-    { _lcjrrsNextToken =
-        Nothing,
-      _lcjrrsResponseStatus = pResponseStatus_,
-      _lcjrrsCompilationJobSummaries = mempty
+    { nextToken =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_,
+      compilationJobSummaries = Prelude.mempty
     }
 
--- | If the response is truncated, Amazon SageMaker returns this @NextToken@ . To retrieve the next set of model compilation jobs, use this token in the next request.
-lcjrrsNextToken :: Lens' ListCompilationJobsResponse (Maybe Text)
-lcjrrsNextToken = lens _lcjrrsNextToken (\s a -> s {_lcjrrsNextToken = a})
+-- | If the response is truncated, Amazon SageMaker returns this @NextToken@.
+-- To retrieve the next set of model compilation jobs, use this token in
+-- the next request.
+listCompilationJobsResponse_nextToken :: Lens.Lens' ListCompilationJobsResponse (Prelude.Maybe Prelude.Text)
+listCompilationJobsResponse_nextToken = Lens.lens (\ListCompilationJobsResponse' {nextToken} -> nextToken) (\s@ListCompilationJobsResponse' {} a -> s {nextToken = a} :: ListCompilationJobsResponse)
 
--- | -- | The response status code.
-lcjrrsResponseStatus :: Lens' ListCompilationJobsResponse Int
-lcjrrsResponseStatus = lens _lcjrrsResponseStatus (\s a -> s {_lcjrrsResponseStatus = a})
+-- | The response's http status code.
+listCompilationJobsResponse_httpStatus :: Lens.Lens' ListCompilationJobsResponse Prelude.Int
+listCompilationJobsResponse_httpStatus = Lens.lens (\ListCompilationJobsResponse' {httpStatus} -> httpStatus) (\s@ListCompilationJobsResponse' {} a -> s {httpStatus = a} :: ListCompilationJobsResponse)
 
--- | An array of 'CompilationJobSummary' objects, each describing a model compilation job.
-lcjrrsCompilationJobSummaries :: Lens' ListCompilationJobsResponse [CompilationJobSummary]
-lcjrrsCompilationJobSummaries = lens _lcjrrsCompilationJobSummaries (\s a -> s {_lcjrrsCompilationJobSummaries = a}) . _Coerce
+-- | An array of CompilationJobSummary objects, each describing a model
+-- compilation job.
+listCompilationJobsResponse_compilationJobSummaries :: Lens.Lens' ListCompilationJobsResponse [CompilationJobSummary]
+listCompilationJobsResponse_compilationJobSummaries = Lens.lens (\ListCompilationJobsResponse' {compilationJobSummaries} -> compilationJobSummaries) (\s@ListCompilationJobsResponse' {} a -> s {compilationJobSummaries = a} :: ListCompilationJobsResponse) Prelude.. Prelude._Coerce
 
-instance NFData ListCompilationJobsResponse
+instance Prelude.NFData ListCompilationJobsResponse

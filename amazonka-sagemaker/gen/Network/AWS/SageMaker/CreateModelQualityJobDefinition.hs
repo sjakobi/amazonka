@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,292 +21,314 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a definition for a job that monitors model quality and drift. For information about model monitor, see <https://docs.aws.amazon.com/sagemaker/latest/dg/model-monitor.html Amazon SageMaker Model Monitor> .
+-- Creates a definition for a job that monitors model quality and drift.
+-- For information about model monitor, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/model-monitor.html Amazon SageMaker Model Monitor>.
 module Network.AWS.SageMaker.CreateModelQualityJobDefinition
   ( -- * Creating a Request
-    createModelQualityJobDefinition,
-    CreateModelQualityJobDefinition,
+    CreateModelQualityJobDefinition (..),
+    newCreateModelQualityJobDefinition,
 
     -- * Request Lenses
-    cmqjdNetworkConfig,
-    cmqjdModelQualityBaselineConfig,
-    cmqjdTags,
-    cmqjdStoppingCondition,
-    cmqjdJobDefinitionName,
-    cmqjdModelQualityAppSpecification,
-    cmqjdModelQualityJobInput,
-    cmqjdModelQualityJobOutputConfig,
-    cmqjdJobResources,
-    cmqjdRoleARN,
+    createModelQualityJobDefinition_networkConfig,
+    createModelQualityJobDefinition_modelQualityBaselineConfig,
+    createModelQualityJobDefinition_tags,
+    createModelQualityJobDefinition_stoppingCondition,
+    createModelQualityJobDefinition_jobDefinitionName,
+    createModelQualityJobDefinition_modelQualityAppSpecification,
+    createModelQualityJobDefinition_modelQualityJobInput,
+    createModelQualityJobDefinition_modelQualityJobOutputConfig,
+    createModelQualityJobDefinition_jobResources,
+    createModelQualityJobDefinition_roleArn,
 
     -- * Destructuring the Response
-    createModelQualityJobDefinitionResponse,
-    CreateModelQualityJobDefinitionResponse,
+    CreateModelQualityJobDefinitionResponse (..),
+    newCreateModelQualityJobDefinitionResponse,
 
     -- * Response Lenses
-    cmqjdrrsResponseStatus,
-    cmqjdrrsJobDefinitionARN,
+    createModelQualityJobDefinitionResponse_httpStatus,
+    createModelQualityJobDefinitionResponse_jobDefinitionArn,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'createModelQualityJobDefinition' smart constructor.
+-- | /See:/ 'newCreateModelQualityJobDefinition' smart constructor.
 data CreateModelQualityJobDefinition = CreateModelQualityJobDefinition'
-  { _cmqjdNetworkConfig ::
-      !( Maybe
-           MonitoringNetworkConfig
-       ),
-    _cmqjdModelQualityBaselineConfig ::
-      !( Maybe
-           ModelQualityBaselineConfig
-       ),
-    _cmqjdTags ::
-      !( Maybe
-           [Tag]
-       ),
-    _cmqjdStoppingCondition ::
-      !( Maybe
-           MonitoringStoppingCondition
-       ),
-    _cmqjdJobDefinitionName ::
-      !Text,
-    _cmqjdModelQualityAppSpecification ::
-      !ModelQualityAppSpecification,
-    _cmqjdModelQualityJobInput ::
-      !ModelQualityJobInput,
-    _cmqjdModelQualityJobOutputConfig ::
-      !MonitoringOutputConfig,
-    _cmqjdJobResources ::
-      !MonitoringResources,
-    _cmqjdRoleARN ::
-      !Text
+  { -- | Specifies the network configuration for the monitoring job.
+    networkConfig :: Prelude.Maybe MonitoringNetworkConfig,
+    -- | Specifies the constraints and baselines for the monitoring job.
+    modelQualityBaselineConfig :: Prelude.Maybe ModelQualityBaselineConfig,
+    -- | (Optional) An array of key-value pairs. For more information, see
+    -- <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-whatURL Using Cost Allocation Tags>
+    -- in the /AWS Billing and Cost Management User Guide/.
+    tags :: Prelude.Maybe [Tag],
+    stoppingCondition :: Prelude.Maybe MonitoringStoppingCondition,
+    -- | The name of the monitoring job definition.
+    jobDefinitionName :: Prelude.Text,
+    -- | The container that runs the monitoring job.
+    modelQualityAppSpecification :: ModelQualityAppSpecification,
+    -- | A list of the inputs that are monitored. Currently endpoints are
+    -- supported.
+    modelQualityJobInput :: ModelQualityJobInput,
+    modelQualityJobOutputConfig :: MonitoringOutputConfig,
+    jobResources :: MonitoringResources,
+    -- | The Amazon Resource Name (ARN) of an IAM role that Amazon SageMaker can
+    -- assume to perform tasks on your behalf.
+    roleArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateModelQualityJobDefinition' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateModelQualityJobDefinition' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cmqjdNetworkConfig' - Specifies the network configuration for the monitoring job.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cmqjdModelQualityBaselineConfig' - Specifies the constraints and baselines for the monitoring job.
+-- 'networkConfig', 'createModelQualityJobDefinition_networkConfig' - Specifies the network configuration for the monitoring job.
 --
--- * 'cmqjdTags' - (Optional) An array of key-value pairs. For more information, see <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-whatURL Using Cost Allocation Tags> in the /AWS Billing and Cost Management User Guide/ .
+-- 'modelQualityBaselineConfig', 'createModelQualityJobDefinition_modelQualityBaselineConfig' - Specifies the constraints and baselines for the monitoring job.
 --
--- * 'cmqjdStoppingCondition' - Undocumented member.
+-- 'tags', 'createModelQualityJobDefinition_tags' - (Optional) An array of key-value pairs. For more information, see
+-- <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-whatURL Using Cost Allocation Tags>
+-- in the /AWS Billing and Cost Management User Guide/.
 --
--- * 'cmqjdJobDefinitionName' - The name of the monitoring job definition.
+-- 'stoppingCondition', 'createModelQualityJobDefinition_stoppingCondition' - Undocumented member.
 --
--- * 'cmqjdModelQualityAppSpecification' - The container that runs the monitoring job.
+-- 'jobDefinitionName', 'createModelQualityJobDefinition_jobDefinitionName' - The name of the monitoring job definition.
 --
--- * 'cmqjdModelQualityJobInput' - A list of the inputs that are monitored. Currently endpoints are supported.
+-- 'modelQualityAppSpecification', 'createModelQualityJobDefinition_modelQualityAppSpecification' - The container that runs the monitoring job.
 --
--- * 'cmqjdModelQualityJobOutputConfig' - Undocumented member.
+-- 'modelQualityJobInput', 'createModelQualityJobDefinition_modelQualityJobInput' - A list of the inputs that are monitored. Currently endpoints are
+-- supported.
 --
--- * 'cmqjdJobResources' - Undocumented member.
+-- 'modelQualityJobOutputConfig', 'createModelQualityJobDefinition_modelQualityJobOutputConfig' - Undocumented member.
 --
--- * 'cmqjdRoleARN' - The Amazon Resource Name (ARN) of an IAM role that Amazon SageMaker can assume to perform tasks on your behalf.
-createModelQualityJobDefinition ::
-  -- | 'cmqjdJobDefinitionName'
-  Text ->
-  -- | 'cmqjdModelQualityAppSpecification'
+-- 'jobResources', 'createModelQualityJobDefinition_jobResources' - Undocumented member.
+--
+-- 'roleArn', 'createModelQualityJobDefinition_roleArn' - The Amazon Resource Name (ARN) of an IAM role that Amazon SageMaker can
+-- assume to perform tasks on your behalf.
+newCreateModelQualityJobDefinition ::
+  -- | 'jobDefinitionName'
+  Prelude.Text ->
+  -- | 'modelQualityAppSpecification'
   ModelQualityAppSpecification ->
-  -- | 'cmqjdModelQualityJobInput'
+  -- | 'modelQualityJobInput'
   ModelQualityJobInput ->
-  -- | 'cmqjdModelQualityJobOutputConfig'
+  -- | 'modelQualityJobOutputConfig'
   MonitoringOutputConfig ->
-  -- | 'cmqjdJobResources'
+  -- | 'jobResources'
   MonitoringResources ->
-  -- | 'cmqjdRoleARN'
-  Text ->
+  -- | 'roleArn'
+  Prelude.Text ->
   CreateModelQualityJobDefinition
-createModelQualityJobDefinition
+newCreateModelQualityJobDefinition
   pJobDefinitionName_
   pModelQualityAppSpecification_
   pModelQualityJobInput_
   pModelQualityJobOutputConfig_
   pJobResources_
-  pRoleARN_ =
+  pRoleArn_ =
     CreateModelQualityJobDefinition'
-      { _cmqjdNetworkConfig =
-          Nothing,
-        _cmqjdModelQualityBaselineConfig = Nothing,
-        _cmqjdTags = Nothing,
-        _cmqjdStoppingCondition = Nothing,
-        _cmqjdJobDefinitionName =
-          pJobDefinitionName_,
-        _cmqjdModelQualityAppSpecification =
+      { networkConfig =
+          Prelude.Nothing,
+        modelQualityBaselineConfig =
+          Prelude.Nothing,
+        tags = Prelude.Nothing,
+        stoppingCondition = Prelude.Nothing,
+        jobDefinitionName = pJobDefinitionName_,
+        modelQualityAppSpecification =
           pModelQualityAppSpecification_,
-        _cmqjdModelQualityJobInput =
+        modelQualityJobInput =
           pModelQualityJobInput_,
-        _cmqjdModelQualityJobOutputConfig =
+        modelQualityJobOutputConfig =
           pModelQualityJobOutputConfig_,
-        _cmqjdJobResources = pJobResources_,
-        _cmqjdRoleARN = pRoleARN_
+        jobResources = pJobResources_,
+        roleArn = pRoleArn_
       }
 
 -- | Specifies the network configuration for the monitoring job.
-cmqjdNetworkConfig :: Lens' CreateModelQualityJobDefinition (Maybe MonitoringNetworkConfig)
-cmqjdNetworkConfig = lens _cmqjdNetworkConfig (\s a -> s {_cmqjdNetworkConfig = a})
+createModelQualityJobDefinition_networkConfig :: Lens.Lens' CreateModelQualityJobDefinition (Prelude.Maybe MonitoringNetworkConfig)
+createModelQualityJobDefinition_networkConfig = Lens.lens (\CreateModelQualityJobDefinition' {networkConfig} -> networkConfig) (\s@CreateModelQualityJobDefinition' {} a -> s {networkConfig = a} :: CreateModelQualityJobDefinition)
 
 -- | Specifies the constraints and baselines for the monitoring job.
-cmqjdModelQualityBaselineConfig :: Lens' CreateModelQualityJobDefinition (Maybe ModelQualityBaselineConfig)
-cmqjdModelQualityBaselineConfig = lens _cmqjdModelQualityBaselineConfig (\s a -> s {_cmqjdModelQualityBaselineConfig = a})
+createModelQualityJobDefinition_modelQualityBaselineConfig :: Lens.Lens' CreateModelQualityJobDefinition (Prelude.Maybe ModelQualityBaselineConfig)
+createModelQualityJobDefinition_modelQualityBaselineConfig = Lens.lens (\CreateModelQualityJobDefinition' {modelQualityBaselineConfig} -> modelQualityBaselineConfig) (\s@CreateModelQualityJobDefinition' {} a -> s {modelQualityBaselineConfig = a} :: CreateModelQualityJobDefinition)
 
--- | (Optional) An array of key-value pairs. For more information, see <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-whatURL Using Cost Allocation Tags> in the /AWS Billing and Cost Management User Guide/ .
-cmqjdTags :: Lens' CreateModelQualityJobDefinition [Tag]
-cmqjdTags = lens _cmqjdTags (\s a -> s {_cmqjdTags = a}) . _Default . _Coerce
+-- | (Optional) An array of key-value pairs. For more information, see
+-- <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-whatURL Using Cost Allocation Tags>
+-- in the /AWS Billing and Cost Management User Guide/.
+createModelQualityJobDefinition_tags :: Lens.Lens' CreateModelQualityJobDefinition (Prelude.Maybe [Tag])
+createModelQualityJobDefinition_tags = Lens.lens (\CreateModelQualityJobDefinition' {tags} -> tags) (\s@CreateModelQualityJobDefinition' {} a -> s {tags = a} :: CreateModelQualityJobDefinition) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Undocumented member.
-cmqjdStoppingCondition :: Lens' CreateModelQualityJobDefinition (Maybe MonitoringStoppingCondition)
-cmqjdStoppingCondition = lens _cmqjdStoppingCondition (\s a -> s {_cmqjdStoppingCondition = a})
+createModelQualityJobDefinition_stoppingCondition :: Lens.Lens' CreateModelQualityJobDefinition (Prelude.Maybe MonitoringStoppingCondition)
+createModelQualityJobDefinition_stoppingCondition = Lens.lens (\CreateModelQualityJobDefinition' {stoppingCondition} -> stoppingCondition) (\s@CreateModelQualityJobDefinition' {} a -> s {stoppingCondition = a} :: CreateModelQualityJobDefinition)
 
 -- | The name of the monitoring job definition.
-cmqjdJobDefinitionName :: Lens' CreateModelQualityJobDefinition Text
-cmqjdJobDefinitionName = lens _cmqjdJobDefinitionName (\s a -> s {_cmqjdJobDefinitionName = a})
+createModelQualityJobDefinition_jobDefinitionName :: Lens.Lens' CreateModelQualityJobDefinition Prelude.Text
+createModelQualityJobDefinition_jobDefinitionName = Lens.lens (\CreateModelQualityJobDefinition' {jobDefinitionName} -> jobDefinitionName) (\s@CreateModelQualityJobDefinition' {} a -> s {jobDefinitionName = a} :: CreateModelQualityJobDefinition)
 
 -- | The container that runs the monitoring job.
-cmqjdModelQualityAppSpecification :: Lens' CreateModelQualityJobDefinition ModelQualityAppSpecification
-cmqjdModelQualityAppSpecification = lens _cmqjdModelQualityAppSpecification (\s a -> s {_cmqjdModelQualityAppSpecification = a})
+createModelQualityJobDefinition_modelQualityAppSpecification :: Lens.Lens' CreateModelQualityJobDefinition ModelQualityAppSpecification
+createModelQualityJobDefinition_modelQualityAppSpecification = Lens.lens (\CreateModelQualityJobDefinition' {modelQualityAppSpecification} -> modelQualityAppSpecification) (\s@CreateModelQualityJobDefinition' {} a -> s {modelQualityAppSpecification = a} :: CreateModelQualityJobDefinition)
 
--- | A list of the inputs that are monitored. Currently endpoints are supported.
-cmqjdModelQualityJobInput :: Lens' CreateModelQualityJobDefinition ModelQualityJobInput
-cmqjdModelQualityJobInput = lens _cmqjdModelQualityJobInput (\s a -> s {_cmqjdModelQualityJobInput = a})
-
--- | Undocumented member.
-cmqjdModelQualityJobOutputConfig :: Lens' CreateModelQualityJobDefinition MonitoringOutputConfig
-cmqjdModelQualityJobOutputConfig = lens _cmqjdModelQualityJobOutputConfig (\s a -> s {_cmqjdModelQualityJobOutputConfig = a})
+-- | A list of the inputs that are monitored. Currently endpoints are
+-- supported.
+createModelQualityJobDefinition_modelQualityJobInput :: Lens.Lens' CreateModelQualityJobDefinition ModelQualityJobInput
+createModelQualityJobDefinition_modelQualityJobInput = Lens.lens (\CreateModelQualityJobDefinition' {modelQualityJobInput} -> modelQualityJobInput) (\s@CreateModelQualityJobDefinition' {} a -> s {modelQualityJobInput = a} :: CreateModelQualityJobDefinition)
 
 -- | Undocumented member.
-cmqjdJobResources :: Lens' CreateModelQualityJobDefinition MonitoringResources
-cmqjdJobResources = lens _cmqjdJobResources (\s a -> s {_cmqjdJobResources = a})
+createModelQualityJobDefinition_modelQualityJobOutputConfig :: Lens.Lens' CreateModelQualityJobDefinition MonitoringOutputConfig
+createModelQualityJobDefinition_modelQualityJobOutputConfig = Lens.lens (\CreateModelQualityJobDefinition' {modelQualityJobOutputConfig} -> modelQualityJobOutputConfig) (\s@CreateModelQualityJobDefinition' {} a -> s {modelQualityJobOutputConfig = a} :: CreateModelQualityJobDefinition)
 
--- | The Amazon Resource Name (ARN) of an IAM role that Amazon SageMaker can assume to perform tasks on your behalf.
-cmqjdRoleARN :: Lens' CreateModelQualityJobDefinition Text
-cmqjdRoleARN = lens _cmqjdRoleARN (\s a -> s {_cmqjdRoleARN = a})
+-- | Undocumented member.
+createModelQualityJobDefinition_jobResources :: Lens.Lens' CreateModelQualityJobDefinition MonitoringResources
+createModelQualityJobDefinition_jobResources = Lens.lens (\CreateModelQualityJobDefinition' {jobResources} -> jobResources) (\s@CreateModelQualityJobDefinition' {} a -> s {jobResources = a} :: CreateModelQualityJobDefinition)
 
-instance AWSRequest CreateModelQualityJobDefinition where
+-- | The Amazon Resource Name (ARN) of an IAM role that Amazon SageMaker can
+-- assume to perform tasks on your behalf.
+createModelQualityJobDefinition_roleArn :: Lens.Lens' CreateModelQualityJobDefinition Prelude.Text
+createModelQualityJobDefinition_roleArn = Lens.lens (\CreateModelQualityJobDefinition' {roleArn} -> roleArn) (\s@CreateModelQualityJobDefinition' {} a -> s {roleArn = a} :: CreateModelQualityJobDefinition)
+
+instance
+  Prelude.AWSRequest
+    CreateModelQualityJobDefinition
+  where
   type
     Rs CreateModelQualityJobDefinition =
       CreateModelQualityJobDefinitionResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateModelQualityJobDefinitionResponse'
-            <$> (pure (fromEnum s)) <*> (x .:> "JobDefinitionArn")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "JobDefinitionArn")
       )
-
-instance Hashable CreateModelQualityJobDefinition
-
-instance NFData CreateModelQualityJobDefinition
-
-instance ToHeaders CreateModelQualityJobDefinition where
-  toHeaders =
-    const
-      ( mconcat
-          [ "X-Amz-Target"
-              =# ( "SageMaker.CreateModelQualityJobDefinition" ::
-                     ByteString
-                 ),
-            "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
-          ]
-      )
-
-instance ToJSON CreateModelQualityJobDefinition where
-  toJSON CreateModelQualityJobDefinition' {..} =
-    object
-      ( catMaybes
-          [ ("NetworkConfig" .=) <$> _cmqjdNetworkConfig,
-            ("ModelQualityBaselineConfig" .=)
-              <$> _cmqjdModelQualityBaselineConfig,
-            ("Tags" .=) <$> _cmqjdTags,
-            ("StoppingCondition" .=) <$> _cmqjdStoppingCondition,
-            Just
-              ("JobDefinitionName" .= _cmqjdJobDefinitionName),
-            Just
-              ( "ModelQualityAppSpecification"
-                  .= _cmqjdModelQualityAppSpecification
-              ),
-            Just
-              ( "ModelQualityJobInput"
-                  .= _cmqjdModelQualityJobInput
-              ),
-            Just
-              ( "ModelQualityJobOutputConfig"
-                  .= _cmqjdModelQualityJobOutputConfig
-              ),
-            Just ("JobResources" .= _cmqjdJobResources),
-            Just ("RoleArn" .= _cmqjdRoleARN)
-          ]
-      )
-
-instance ToPath CreateModelQualityJobDefinition where
-  toPath = const "/"
-
-instance ToQuery CreateModelQualityJobDefinition where
-  toQuery = const mempty
-
--- | /See:/ 'createModelQualityJobDefinitionResponse' smart constructor.
-data CreateModelQualityJobDefinitionResponse = CreateModelQualityJobDefinitionResponse'
-  { _cmqjdrrsResponseStatus ::
-      !Int,
-    _cmqjdrrsJobDefinitionARN ::
-      !Text
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'CreateModelQualityJobDefinitionResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'cmqjdrrsResponseStatus' - -- | The response status code.
---
--- * 'cmqjdrrsJobDefinitionARN' - The Amazon Resource Name (ARN) of the model quality monitoring job.
-createModelQualityJobDefinitionResponse ::
-  -- | 'cmqjdrrsResponseStatus'
-  Int ->
-  -- | 'cmqjdrrsJobDefinitionARN'
-  Text ->
-  CreateModelQualityJobDefinitionResponse
-createModelQualityJobDefinitionResponse
-  pResponseStatus_
-  pJobDefinitionARN_ =
-    CreateModelQualityJobDefinitionResponse'
-      { _cmqjdrrsResponseStatus =
-          pResponseStatus_,
-        _cmqjdrrsJobDefinitionARN =
-          pJobDefinitionARN_
-      }
-
--- | -- | The response status code.
-cmqjdrrsResponseStatus :: Lens' CreateModelQualityJobDefinitionResponse Int
-cmqjdrrsResponseStatus = lens _cmqjdrrsResponseStatus (\s a -> s {_cmqjdrrsResponseStatus = a})
-
--- | The Amazon Resource Name (ARN) of the model quality monitoring job.
-cmqjdrrsJobDefinitionARN :: Lens' CreateModelQualityJobDefinitionResponse Text
-cmqjdrrsJobDefinitionARN = lens _cmqjdrrsJobDefinitionARN (\s a -> s {_cmqjdrrsJobDefinitionARN = a})
 
 instance
-  NFData
+  Prelude.Hashable
+    CreateModelQualityJobDefinition
+
+instance
+  Prelude.NFData
+    CreateModelQualityJobDefinition
+
+instance
+  Prelude.ToHeaders
+    CreateModelQualityJobDefinition
+  where
+  toHeaders =
+    Prelude.const
+      ( Prelude.mconcat
+          [ "X-Amz-Target"
+              Prelude.=# ( "SageMaker.CreateModelQualityJobDefinition" ::
+                             Prelude.ByteString
+                         ),
+            "Content-Type"
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
+          ]
+      )
+
+instance
+  Prelude.ToJSON
+    CreateModelQualityJobDefinition
+  where
+  toJSON CreateModelQualityJobDefinition' {..} =
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NetworkConfig" Prelude..=)
+              Prelude.<$> networkConfig,
+            ("ModelQualityBaselineConfig" Prelude..=)
+              Prelude.<$> modelQualityBaselineConfig,
+            ("Tags" Prelude..=) Prelude.<$> tags,
+            ("StoppingCondition" Prelude..=)
+              Prelude.<$> stoppingCondition,
+            Prelude.Just
+              ("JobDefinitionName" Prelude..= jobDefinitionName),
+            Prelude.Just
+              ( "ModelQualityAppSpecification"
+                  Prelude..= modelQualityAppSpecification
+              ),
+            Prelude.Just
+              ( "ModelQualityJobInput"
+                  Prelude..= modelQualityJobInput
+              ),
+            Prelude.Just
+              ( "ModelQualityJobOutputConfig"
+                  Prelude..= modelQualityJobOutputConfig
+              ),
+            Prelude.Just
+              ("JobResources" Prelude..= jobResources),
+            Prelude.Just ("RoleArn" Prelude..= roleArn)
+          ]
+      )
+
+instance
+  Prelude.ToPath
+    CreateModelQualityJobDefinition
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
+    CreateModelQualityJobDefinition
+  where
+  toQuery = Prelude.const Prelude.mempty
+
+-- | /See:/ 'newCreateModelQualityJobDefinitionResponse' smart constructor.
+data CreateModelQualityJobDefinitionResponse = CreateModelQualityJobDefinitionResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The Amazon Resource Name (ARN) of the model quality monitoring job.
+    jobDefinitionArn :: Prelude.Text
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'CreateModelQualityJobDefinitionResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'createModelQualityJobDefinitionResponse_httpStatus' - The response's http status code.
+--
+-- 'jobDefinitionArn', 'createModelQualityJobDefinitionResponse_jobDefinitionArn' - The Amazon Resource Name (ARN) of the model quality monitoring job.
+newCreateModelQualityJobDefinitionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'jobDefinitionArn'
+  Prelude.Text ->
+  CreateModelQualityJobDefinitionResponse
+newCreateModelQualityJobDefinitionResponse
+  pHttpStatus_
+  pJobDefinitionArn_ =
+    CreateModelQualityJobDefinitionResponse'
+      { httpStatus =
+          pHttpStatus_,
+        jobDefinitionArn =
+          pJobDefinitionArn_
+      }
+
+-- | The response's http status code.
+createModelQualityJobDefinitionResponse_httpStatus :: Lens.Lens' CreateModelQualityJobDefinitionResponse Prelude.Int
+createModelQualityJobDefinitionResponse_httpStatus = Lens.lens (\CreateModelQualityJobDefinitionResponse' {httpStatus} -> httpStatus) (\s@CreateModelQualityJobDefinitionResponse' {} a -> s {httpStatus = a} :: CreateModelQualityJobDefinitionResponse)
+
+-- | The Amazon Resource Name (ARN) of the model quality monitoring job.
+createModelQualityJobDefinitionResponse_jobDefinitionArn :: Lens.Lens' CreateModelQualityJobDefinitionResponse Prelude.Text
+createModelQualityJobDefinitionResponse_jobDefinitionArn = Lens.lens (\CreateModelQualityJobDefinitionResponse' {jobDefinitionArn} -> jobDefinitionArn) (\s@CreateModelQualityJobDefinitionResponse' {} a -> s {jobDefinitionArn = a} :: CreateModelQualityJobDefinitionResponse)
+
+instance
+  Prelude.NFData
     CreateModelQualityJobDefinitionResponse

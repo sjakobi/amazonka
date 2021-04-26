@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.SageMaker.Types.SortActionsBy
   ( SortActionsBy
       ( ..,
-        SABCreationTime,
-        SABName
+        SortActionsByCreationTime,
+        SortActionsByName
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SortActionsBy = SortActionsBy' (CI Text)
+newtype SortActionsBy = SortActionsBy'
+  { fromSortActionsBy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SABCreationTime :: SortActionsBy
-pattern SABCreationTime = SortActionsBy' "CreationTime"
+pattern SortActionsByCreationTime :: SortActionsBy
+pattern SortActionsByCreationTime = SortActionsBy' "CreationTime"
 
-pattern SABName :: SortActionsBy
-pattern SABName = SortActionsBy' "Name"
+pattern SortActionsByName :: SortActionsBy
+pattern SortActionsByName = SortActionsBy' "Name"
 
 {-# COMPLETE
-  SABCreationTime,
-  SABName,
+  SortActionsByCreationTime,
+  SortActionsByName,
   SortActionsBy'
   #-}
 
-instance FromText SortActionsBy where
-  parser = (SortActionsBy' . mk) <$> takeText
+instance Prelude.FromText SortActionsBy where
+  parser = SortActionsBy' Prelude.<$> Prelude.takeText
 
-instance ToText SortActionsBy where
-  toText (SortActionsBy' ci) = original ci
+instance Prelude.ToText SortActionsBy where
+  toText (SortActionsBy' x) = x
 
-instance Hashable SortActionsBy
+instance Prelude.Hashable SortActionsBy
 
-instance NFData SortActionsBy
+instance Prelude.NFData SortActionsBy
 
-instance ToByteString SortActionsBy
+instance Prelude.ToByteString SortActionsBy
 
-instance ToQuery SortActionsBy
+instance Prelude.ToQuery SortActionsBy
 
-instance ToHeader SortActionsBy
+instance Prelude.ToHeader SortActionsBy
 
-instance ToJSON SortActionsBy where
-  toJSON = toJSONText
+instance Prelude.ToJSON SortActionsBy where
+  toJSON = Prelude.toJSONText

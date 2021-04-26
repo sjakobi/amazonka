@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,254 +23,333 @@
 --
 -- Lists the model packages that have been created.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.SageMaker.ListModelPackages
   ( -- * Creating a Request
-    listModelPackages,
-    ListModelPackages,
+    ListModelPackages (..),
+    newListModelPackages,
 
     -- * Request Lenses
-    lmpSortOrder,
-    lmpNextToken,
-    lmpNameContains,
-    lmpMaxResults,
-    lmpCreationTimeBefore,
-    lmpModelApprovalStatus,
-    lmpSortBy,
-    lmpCreationTimeAfter,
-    lmpModelPackageGroupName,
-    lmpModelPackageType,
+    listModelPackages_sortOrder,
+    listModelPackages_nextToken,
+    listModelPackages_nameContains,
+    listModelPackages_maxResults,
+    listModelPackages_creationTimeBefore,
+    listModelPackages_modelApprovalStatus,
+    listModelPackages_sortBy,
+    listModelPackages_creationTimeAfter,
+    listModelPackages_modelPackageGroupName,
+    listModelPackages_modelPackageType,
 
     -- * Destructuring the Response
-    listModelPackagesResponse,
-    ListModelPackagesResponse,
+    ListModelPackagesResponse (..),
+    newListModelPackagesResponse,
 
     -- * Response Lenses
-    lmprrsNextToken,
-    lmprrsResponseStatus,
-    lmprrsModelPackageSummaryList,
+    listModelPackagesResponse_nextToken,
+    listModelPackagesResponse_httpStatus,
+    listModelPackagesResponse_modelPackageSummaryList,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
+import Network.AWS.SageMaker.Types.ModelPackageSummary
 
--- | /See:/ 'listModelPackages' smart constructor.
+-- | /See:/ 'newListModelPackages' smart constructor.
 data ListModelPackages = ListModelPackages'
-  { _lmpSortOrder ::
-      !(Maybe SortOrder),
-    _lmpNextToken :: !(Maybe Text),
-    _lmpNameContains :: !(Maybe Text),
-    _lmpMaxResults :: !(Maybe Nat),
-    _lmpCreationTimeBefore ::
-      !(Maybe POSIX),
-    _lmpModelApprovalStatus ::
-      !(Maybe ModelApprovalStatus),
-    _lmpSortBy ::
-      !(Maybe ModelPackageSortBy),
-    _lmpCreationTimeAfter ::
-      !(Maybe POSIX),
-    _lmpModelPackageGroupName ::
-      !(Maybe Text),
-    _lmpModelPackageType ::
-      !(Maybe ModelPackageType)
+  { -- | The sort order for the results. The default is @Ascending@.
+    sortOrder :: Prelude.Maybe SortOrder,
+    -- | If the response to a previous @ListModelPackages@ request was truncated,
+    -- the response includes a @NextToken@. To retrieve the next set of model
+    -- packages, use the token in the next request.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A string in the model package name. This filter returns only model
+    -- packages whose name contains the specified string.
+    nameContains :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of model packages to return in the response.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | A filter that returns only model packages created before the specified
+    -- time (timestamp).
+    creationTimeBefore :: Prelude.Maybe Prelude.POSIX,
+    -- | A filter that returns only the model packages with the specified
+    -- approval status.
+    modelApprovalStatus :: Prelude.Maybe ModelApprovalStatus,
+    -- | The parameter by which to sort the results. The default is
+    -- @CreationTime@.
+    sortBy :: Prelude.Maybe ModelPackageSortBy,
+    -- | A filter that returns only model packages created after the specified
+    -- time (timestamp).
+    creationTimeAfter :: Prelude.Maybe Prelude.POSIX,
+    -- | A filter that returns only model versions that belong to the specified
+    -- model group.
+    modelPackageGroupName :: Prelude.Maybe Prelude.Text,
+    -- | A filter that returns onlyl the model packages of the specified type.
+    -- This can be one of the following values.
+    --
+    -- -   @VERSIONED@ - List only versioned models.
+    --
+    -- -   @UNVERSIONED@ - List only unversioined models.
+    --
+    -- -   @BOTH@ - List both versioned and unversioned models.
+    modelPackageType :: Prelude.Maybe ModelPackageType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListModelPackages' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListModelPackages' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lmpSortOrder' - The sort order for the results. The default is @Ascending@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lmpNextToken' - If the response to a previous @ListModelPackages@ request was truncated, the response includes a @NextToken@ . To retrieve the next set of model packages, use the token in the next request.
+-- 'sortOrder', 'listModelPackages_sortOrder' - The sort order for the results. The default is @Ascending@.
 --
--- * 'lmpNameContains' - A string in the model package name. This filter returns only model packages whose name contains the specified string.
+-- 'nextToken', 'listModelPackages_nextToken' - If the response to a previous @ListModelPackages@ request was truncated,
+-- the response includes a @NextToken@. To retrieve the next set of model
+-- packages, use the token in the next request.
 --
--- * 'lmpMaxResults' - The maximum number of model packages to return in the response.
+-- 'nameContains', 'listModelPackages_nameContains' - A string in the model package name. This filter returns only model
+-- packages whose name contains the specified string.
 --
--- * 'lmpCreationTimeBefore' - A filter that returns only model packages created before the specified time (timestamp).
+-- 'maxResults', 'listModelPackages_maxResults' - The maximum number of model packages to return in the response.
 --
--- * 'lmpModelApprovalStatus' - A filter that returns only the model packages with the specified approval status.
+-- 'creationTimeBefore', 'listModelPackages_creationTimeBefore' - A filter that returns only model packages created before the specified
+-- time (timestamp).
 --
--- * 'lmpSortBy' - The parameter by which to sort the results. The default is @CreationTime@ .
+-- 'modelApprovalStatus', 'listModelPackages_modelApprovalStatus' - A filter that returns only the model packages with the specified
+-- approval status.
 --
--- * 'lmpCreationTimeAfter' - A filter that returns only model packages created after the specified time (timestamp).
+-- 'sortBy', 'listModelPackages_sortBy' - The parameter by which to sort the results. The default is
+-- @CreationTime@.
 --
--- * 'lmpModelPackageGroupName' - A filter that returns only model versions that belong to the specified model group.
+-- 'creationTimeAfter', 'listModelPackages_creationTimeAfter' - A filter that returns only model packages created after the specified
+-- time (timestamp).
 --
--- * 'lmpModelPackageType' - A filter that returns onlyl the model packages of the specified type. This can be one of the following values.     * @VERSIONED@ - List only versioned models.     * @UNVERSIONED@ - List only unversioined models.     * @BOTH@ - List both versioned and unversioned models.
-listModelPackages ::
+-- 'modelPackageGroupName', 'listModelPackages_modelPackageGroupName' - A filter that returns only model versions that belong to the specified
+-- model group.
+--
+-- 'modelPackageType', 'listModelPackages_modelPackageType' - A filter that returns onlyl the model packages of the specified type.
+-- This can be one of the following values.
+--
+-- -   @VERSIONED@ - List only versioned models.
+--
+-- -   @UNVERSIONED@ - List only unversioined models.
+--
+-- -   @BOTH@ - List both versioned and unversioned models.
+newListModelPackages ::
   ListModelPackages
-listModelPackages =
+newListModelPackages =
   ListModelPackages'
-    { _lmpSortOrder = Nothing,
-      _lmpNextToken = Nothing,
-      _lmpNameContains = Nothing,
-      _lmpMaxResults = Nothing,
-      _lmpCreationTimeBefore = Nothing,
-      _lmpModelApprovalStatus = Nothing,
-      _lmpSortBy = Nothing,
-      _lmpCreationTimeAfter = Nothing,
-      _lmpModelPackageGroupName = Nothing,
-      _lmpModelPackageType = Nothing
+    { sortOrder = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      nameContains = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      creationTimeBefore = Prelude.Nothing,
+      modelApprovalStatus = Prelude.Nothing,
+      sortBy = Prelude.Nothing,
+      creationTimeAfter = Prelude.Nothing,
+      modelPackageGroupName = Prelude.Nothing,
+      modelPackageType = Prelude.Nothing
     }
 
--- | The sort order for the results. The default is @Ascending@ .
-lmpSortOrder :: Lens' ListModelPackages (Maybe SortOrder)
-lmpSortOrder = lens _lmpSortOrder (\s a -> s {_lmpSortOrder = a})
+-- | The sort order for the results. The default is @Ascending@.
+listModelPackages_sortOrder :: Lens.Lens' ListModelPackages (Prelude.Maybe SortOrder)
+listModelPackages_sortOrder = Lens.lens (\ListModelPackages' {sortOrder} -> sortOrder) (\s@ListModelPackages' {} a -> s {sortOrder = a} :: ListModelPackages)
 
--- | If the response to a previous @ListModelPackages@ request was truncated, the response includes a @NextToken@ . To retrieve the next set of model packages, use the token in the next request.
-lmpNextToken :: Lens' ListModelPackages (Maybe Text)
-lmpNextToken = lens _lmpNextToken (\s a -> s {_lmpNextToken = a})
+-- | If the response to a previous @ListModelPackages@ request was truncated,
+-- the response includes a @NextToken@. To retrieve the next set of model
+-- packages, use the token in the next request.
+listModelPackages_nextToken :: Lens.Lens' ListModelPackages (Prelude.Maybe Prelude.Text)
+listModelPackages_nextToken = Lens.lens (\ListModelPackages' {nextToken} -> nextToken) (\s@ListModelPackages' {} a -> s {nextToken = a} :: ListModelPackages)
 
--- | A string in the model package name. This filter returns only model packages whose name contains the specified string.
-lmpNameContains :: Lens' ListModelPackages (Maybe Text)
-lmpNameContains = lens _lmpNameContains (\s a -> s {_lmpNameContains = a})
+-- | A string in the model package name. This filter returns only model
+-- packages whose name contains the specified string.
+listModelPackages_nameContains :: Lens.Lens' ListModelPackages (Prelude.Maybe Prelude.Text)
+listModelPackages_nameContains = Lens.lens (\ListModelPackages' {nameContains} -> nameContains) (\s@ListModelPackages' {} a -> s {nameContains = a} :: ListModelPackages)
 
 -- | The maximum number of model packages to return in the response.
-lmpMaxResults :: Lens' ListModelPackages (Maybe Natural)
-lmpMaxResults = lens _lmpMaxResults (\s a -> s {_lmpMaxResults = a}) . mapping _Nat
+listModelPackages_maxResults :: Lens.Lens' ListModelPackages (Prelude.Maybe Prelude.Natural)
+listModelPackages_maxResults = Lens.lens (\ListModelPackages' {maxResults} -> maxResults) (\s@ListModelPackages' {} a -> s {maxResults = a} :: ListModelPackages) Prelude.. Lens.mapping Prelude._Nat
 
--- | A filter that returns only model packages created before the specified time (timestamp).
-lmpCreationTimeBefore :: Lens' ListModelPackages (Maybe UTCTime)
-lmpCreationTimeBefore = lens _lmpCreationTimeBefore (\s a -> s {_lmpCreationTimeBefore = a}) . mapping _Time
+-- | A filter that returns only model packages created before the specified
+-- time (timestamp).
+listModelPackages_creationTimeBefore :: Lens.Lens' ListModelPackages (Prelude.Maybe Prelude.UTCTime)
+listModelPackages_creationTimeBefore = Lens.lens (\ListModelPackages' {creationTimeBefore} -> creationTimeBefore) (\s@ListModelPackages' {} a -> s {creationTimeBefore = a} :: ListModelPackages) Prelude.. Lens.mapping Prelude._Time
 
--- | A filter that returns only the model packages with the specified approval status.
-lmpModelApprovalStatus :: Lens' ListModelPackages (Maybe ModelApprovalStatus)
-lmpModelApprovalStatus = lens _lmpModelApprovalStatus (\s a -> s {_lmpModelApprovalStatus = a})
+-- | A filter that returns only the model packages with the specified
+-- approval status.
+listModelPackages_modelApprovalStatus :: Lens.Lens' ListModelPackages (Prelude.Maybe ModelApprovalStatus)
+listModelPackages_modelApprovalStatus = Lens.lens (\ListModelPackages' {modelApprovalStatus} -> modelApprovalStatus) (\s@ListModelPackages' {} a -> s {modelApprovalStatus = a} :: ListModelPackages)
 
--- | The parameter by which to sort the results. The default is @CreationTime@ .
-lmpSortBy :: Lens' ListModelPackages (Maybe ModelPackageSortBy)
-lmpSortBy = lens _lmpSortBy (\s a -> s {_lmpSortBy = a})
+-- | The parameter by which to sort the results. The default is
+-- @CreationTime@.
+listModelPackages_sortBy :: Lens.Lens' ListModelPackages (Prelude.Maybe ModelPackageSortBy)
+listModelPackages_sortBy = Lens.lens (\ListModelPackages' {sortBy} -> sortBy) (\s@ListModelPackages' {} a -> s {sortBy = a} :: ListModelPackages)
 
--- | A filter that returns only model packages created after the specified time (timestamp).
-lmpCreationTimeAfter :: Lens' ListModelPackages (Maybe UTCTime)
-lmpCreationTimeAfter = lens _lmpCreationTimeAfter (\s a -> s {_lmpCreationTimeAfter = a}) . mapping _Time
+-- | A filter that returns only model packages created after the specified
+-- time (timestamp).
+listModelPackages_creationTimeAfter :: Lens.Lens' ListModelPackages (Prelude.Maybe Prelude.UTCTime)
+listModelPackages_creationTimeAfter = Lens.lens (\ListModelPackages' {creationTimeAfter} -> creationTimeAfter) (\s@ListModelPackages' {} a -> s {creationTimeAfter = a} :: ListModelPackages) Prelude.. Lens.mapping Prelude._Time
 
--- | A filter that returns only model versions that belong to the specified model group.
-lmpModelPackageGroupName :: Lens' ListModelPackages (Maybe Text)
-lmpModelPackageGroupName = lens _lmpModelPackageGroupName (\s a -> s {_lmpModelPackageGroupName = a})
+-- | A filter that returns only model versions that belong to the specified
+-- model group.
+listModelPackages_modelPackageGroupName :: Lens.Lens' ListModelPackages (Prelude.Maybe Prelude.Text)
+listModelPackages_modelPackageGroupName = Lens.lens (\ListModelPackages' {modelPackageGroupName} -> modelPackageGroupName) (\s@ListModelPackages' {} a -> s {modelPackageGroupName = a} :: ListModelPackages)
 
--- | A filter that returns onlyl the model packages of the specified type. This can be one of the following values.     * @VERSIONED@ - List only versioned models.     * @UNVERSIONED@ - List only unversioined models.     * @BOTH@ - List both versioned and unversioned models.
-lmpModelPackageType :: Lens' ListModelPackages (Maybe ModelPackageType)
-lmpModelPackageType = lens _lmpModelPackageType (\s a -> s {_lmpModelPackageType = a})
+-- | A filter that returns onlyl the model packages of the specified type.
+-- This can be one of the following values.
+--
+-- -   @VERSIONED@ - List only versioned models.
+--
+-- -   @UNVERSIONED@ - List only unversioined models.
+--
+-- -   @BOTH@ - List both versioned and unversioned models.
+listModelPackages_modelPackageType :: Lens.Lens' ListModelPackages (Prelude.Maybe ModelPackageType)
+listModelPackages_modelPackageType = Lens.lens (\ListModelPackages' {modelPackageType} -> modelPackageType) (\s@ListModelPackages' {} a -> s {modelPackageType = a} :: ListModelPackages)
 
-instance AWSPager ListModelPackages where
+instance Pager.AWSPager ListModelPackages where
   page rq rs
-    | stop (rs ^. lmprrsNextToken) = Nothing
-    | stop (rs ^. lmprrsModelPackageSummaryList) =
-      Nothing
-    | otherwise =
-      Just $ rq & lmpNextToken .~ rs ^. lmprrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listModelPackagesResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^. listModelPackagesResponse_modelPackageSummaryList
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listModelPackages_nextToken
+          Lens..~ rs
+          Lens.^? listModelPackagesResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListModelPackages where
+instance Prelude.AWSRequest ListModelPackages where
   type Rs ListModelPackages = ListModelPackagesResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListModelPackagesResponse'
-            <$> (x .?> "NextToken")
-            <*> (pure (fromEnum s))
-            <*> (x .?> "ModelPackageSummaryList" .!@ mempty)
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> ( x Prelude..?> "ModelPackageSummaryList"
+                            Prelude..!@ Prelude.mempty
+                        )
       )
 
-instance Hashable ListModelPackages
+instance Prelude.Hashable ListModelPackages
 
-instance NFData ListModelPackages
+instance Prelude.NFData ListModelPackages
 
-instance ToHeaders ListModelPackages where
+instance Prelude.ToHeaders ListModelPackages where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.ListModelPackages" :: ByteString),
+              Prelude.=# ( "SageMaker.ListModelPackages" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListModelPackages where
+instance Prelude.ToJSON ListModelPackages where
   toJSON ListModelPackages' {..} =
-    object
-      ( catMaybes
-          [ ("SortOrder" .=) <$> _lmpSortOrder,
-            ("NextToken" .=) <$> _lmpNextToken,
-            ("NameContains" .=) <$> _lmpNameContains,
-            ("MaxResults" .=) <$> _lmpMaxResults,
-            ("CreationTimeBefore" .=) <$> _lmpCreationTimeBefore,
-            ("ModelApprovalStatus" .=)
-              <$> _lmpModelApprovalStatus,
-            ("SortBy" .=) <$> _lmpSortBy,
-            ("CreationTimeAfter" .=) <$> _lmpCreationTimeAfter,
-            ("ModelPackageGroupName" .=)
-              <$> _lmpModelPackageGroupName,
-            ("ModelPackageType" .=) <$> _lmpModelPackageType
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("SortOrder" Prelude..=) Prelude.<$> sortOrder,
+            ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("NameContains" Prelude..=) Prelude.<$> nameContains,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("CreationTimeBefore" Prelude..=)
+              Prelude.<$> creationTimeBefore,
+            ("ModelApprovalStatus" Prelude..=)
+              Prelude.<$> modelApprovalStatus,
+            ("SortBy" Prelude..=) Prelude.<$> sortBy,
+            ("CreationTimeAfter" Prelude..=)
+              Prelude.<$> creationTimeAfter,
+            ("ModelPackageGroupName" Prelude..=)
+              Prelude.<$> modelPackageGroupName,
+            ("ModelPackageType" Prelude..=)
+              Prelude.<$> modelPackageType
           ]
       )
 
-instance ToPath ListModelPackages where
-  toPath = const "/"
+instance Prelude.ToPath ListModelPackages where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListModelPackages where
-  toQuery = const mempty
+instance Prelude.ToQuery ListModelPackages where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listModelPackagesResponse' smart constructor.
+-- | /See:/ 'newListModelPackagesResponse' smart constructor.
 data ListModelPackagesResponse = ListModelPackagesResponse'
-  { _lmprrsNextToken ::
-      !(Maybe Text),
-    _lmprrsResponseStatus ::
-      !Int,
-    _lmprrsModelPackageSummaryList ::
-      ![ModelPackageSummary]
+  { -- | If the response is truncated, Amazon SageMaker returns this token. To
+    -- retrieve the next set of model packages, use it in the subsequent
+    -- request.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | An array of @ModelPackageSummary@ objects, each of which lists a model
+    -- package.
+    modelPackageSummaryList :: [ModelPackageSummary]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListModelPackagesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListModelPackagesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lmprrsNextToken' - If the response is truncated, Amazon SageMaker returns this token. To retrieve the next set of model packages, use it in the subsequent request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lmprrsResponseStatus' - -- | The response status code.
+-- 'nextToken', 'listModelPackagesResponse_nextToken' - If the response is truncated, Amazon SageMaker returns this token. To
+-- retrieve the next set of model packages, use it in the subsequent
+-- request.
 --
--- * 'lmprrsModelPackageSummaryList' - An array of @ModelPackageSummary@ objects, each of which lists a model package.
-listModelPackagesResponse ::
-  -- | 'lmprrsResponseStatus'
-  Int ->
+-- 'httpStatus', 'listModelPackagesResponse_httpStatus' - The response's http status code.
+--
+-- 'modelPackageSummaryList', 'listModelPackagesResponse_modelPackageSummaryList' - An array of @ModelPackageSummary@ objects, each of which lists a model
+-- package.
+newListModelPackagesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListModelPackagesResponse
-listModelPackagesResponse pResponseStatus_ =
+newListModelPackagesResponse pHttpStatus_ =
   ListModelPackagesResponse'
-    { _lmprrsNextToken =
-        Nothing,
-      _lmprrsResponseStatus = pResponseStatus_,
-      _lmprrsModelPackageSummaryList = mempty
+    { nextToken =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_,
+      modelPackageSummaryList = Prelude.mempty
     }
 
--- | If the response is truncated, Amazon SageMaker returns this token. To retrieve the next set of model packages, use it in the subsequent request.
-lmprrsNextToken :: Lens' ListModelPackagesResponse (Maybe Text)
-lmprrsNextToken = lens _lmprrsNextToken (\s a -> s {_lmprrsNextToken = a})
+-- | If the response is truncated, Amazon SageMaker returns this token. To
+-- retrieve the next set of model packages, use it in the subsequent
+-- request.
+listModelPackagesResponse_nextToken :: Lens.Lens' ListModelPackagesResponse (Prelude.Maybe Prelude.Text)
+listModelPackagesResponse_nextToken = Lens.lens (\ListModelPackagesResponse' {nextToken} -> nextToken) (\s@ListModelPackagesResponse' {} a -> s {nextToken = a} :: ListModelPackagesResponse)
 
--- | -- | The response status code.
-lmprrsResponseStatus :: Lens' ListModelPackagesResponse Int
-lmprrsResponseStatus = lens _lmprrsResponseStatus (\s a -> s {_lmprrsResponseStatus = a})
+-- | The response's http status code.
+listModelPackagesResponse_httpStatus :: Lens.Lens' ListModelPackagesResponse Prelude.Int
+listModelPackagesResponse_httpStatus = Lens.lens (\ListModelPackagesResponse' {httpStatus} -> httpStatus) (\s@ListModelPackagesResponse' {} a -> s {httpStatus = a} :: ListModelPackagesResponse)
 
--- | An array of @ModelPackageSummary@ objects, each of which lists a model package.
-lmprrsModelPackageSummaryList :: Lens' ListModelPackagesResponse [ModelPackageSummary]
-lmprrsModelPackageSummaryList = lens _lmprrsModelPackageSummaryList (\s a -> s {_lmprrsModelPackageSummaryList = a}) . _Coerce
+-- | An array of @ModelPackageSummary@ objects, each of which lists a model
+-- package.
+listModelPackagesResponse_modelPackageSummaryList :: Lens.Lens' ListModelPackagesResponse [ModelPackageSummary]
+listModelPackagesResponse_modelPackageSummaryList = Lens.lens (\ListModelPackagesResponse' {modelPackageSummaryList} -> modelPackageSummaryList) (\s@ListModelPackagesResponse' {} a -> s {modelPackageSummaryList = a} :: ListModelPackagesResponse) Prelude.. Prelude._Coerce
 
-instance NFData ListModelPackagesResponse
+instance Prelude.NFData ListModelPackagesResponse

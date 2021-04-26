@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.SageMaker.Types.AuthMode
   ( AuthMode
       ( ..,
-        IAM,
-        SSO
+        AuthModeIAM,
+        AuthModeSSO
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AuthMode = AuthMode' (CI Text)
+newtype AuthMode = AuthMode'
+  { fromAuthMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern IAM :: AuthMode
-pattern IAM = AuthMode' "IAM"
+pattern AuthModeIAM :: AuthMode
+pattern AuthModeIAM = AuthMode' "IAM"
 
-pattern SSO :: AuthMode
-pattern SSO = AuthMode' "SSO"
+pattern AuthModeSSO :: AuthMode
+pattern AuthModeSSO = AuthMode' "SSO"
 
 {-# COMPLETE
-  IAM,
-  SSO,
+  AuthModeIAM,
+  AuthModeSSO,
   AuthMode'
   #-}
 
-instance FromText AuthMode where
-  parser = (AuthMode' . mk) <$> takeText
+instance Prelude.FromText AuthMode where
+  parser = AuthMode' Prelude.<$> Prelude.takeText
 
-instance ToText AuthMode where
-  toText (AuthMode' ci) = original ci
+instance Prelude.ToText AuthMode where
+  toText (AuthMode' x) = x
 
-instance Hashable AuthMode
+instance Prelude.Hashable AuthMode
 
-instance NFData AuthMode
+instance Prelude.NFData AuthMode
 
-instance ToByteString AuthMode
+instance Prelude.ToByteString AuthMode
 
-instance ToQuery AuthMode
+instance Prelude.ToQuery AuthMode
 
-instance ToHeader AuthMode
+instance Prelude.ToHeader AuthMode
 
-instance ToJSON AuthMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON AuthMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AuthMode where
-  parseJSON = parseJSONText "AuthMode"
+instance Prelude.FromJSON AuthMode where
+  parseJSON = Prelude.parseJSONText "AuthMode"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.SageMaker.Types.AppImageConfigSortKey
   ( AppImageConfigSortKey
       ( ..,
-        AICSKCreationTime,
-        AICSKLastModifiedTime,
-        AICSKName
+        AppImageConfigSortKeyCreationTime,
+        AppImageConfigSortKeyLastModifiedTime,
+        AppImageConfigSortKeyName
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AppImageConfigSortKey
-  = AppImageConfigSortKey'
-      ( CI
-          Text
-      )
+newtype AppImageConfigSortKey = AppImageConfigSortKey'
+  { fromAppImageConfigSortKey ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AICSKCreationTime :: AppImageConfigSortKey
-pattern AICSKCreationTime = AppImageConfigSortKey' "CreationTime"
+pattern AppImageConfigSortKeyCreationTime :: AppImageConfigSortKey
+pattern AppImageConfigSortKeyCreationTime = AppImageConfigSortKey' "CreationTime"
 
-pattern AICSKLastModifiedTime :: AppImageConfigSortKey
-pattern AICSKLastModifiedTime = AppImageConfigSortKey' "LastModifiedTime"
+pattern AppImageConfigSortKeyLastModifiedTime :: AppImageConfigSortKey
+pattern AppImageConfigSortKeyLastModifiedTime = AppImageConfigSortKey' "LastModifiedTime"
 
-pattern AICSKName :: AppImageConfigSortKey
-pattern AICSKName = AppImageConfigSortKey' "Name"
+pattern AppImageConfigSortKeyName :: AppImageConfigSortKey
+pattern AppImageConfigSortKeyName = AppImageConfigSortKey' "Name"
 
 {-# COMPLETE
-  AICSKCreationTime,
-  AICSKLastModifiedTime,
-  AICSKName,
+  AppImageConfigSortKeyCreationTime,
+  AppImageConfigSortKeyLastModifiedTime,
+  AppImageConfigSortKeyName,
   AppImageConfigSortKey'
   #-}
 
-instance FromText AppImageConfigSortKey where
-  parser = (AppImageConfigSortKey' . mk) <$> takeText
+instance Prelude.FromText AppImageConfigSortKey where
+  parser = AppImageConfigSortKey' Prelude.<$> Prelude.takeText
 
-instance ToText AppImageConfigSortKey where
-  toText (AppImageConfigSortKey' ci) = original ci
+instance Prelude.ToText AppImageConfigSortKey where
+  toText (AppImageConfigSortKey' x) = x
 
-instance Hashable AppImageConfigSortKey
+instance Prelude.Hashable AppImageConfigSortKey
 
-instance NFData AppImageConfigSortKey
+instance Prelude.NFData AppImageConfigSortKey
 
-instance ToByteString AppImageConfigSortKey
+instance Prelude.ToByteString AppImageConfigSortKey
 
-instance ToQuery AppImageConfigSortKey
+instance Prelude.ToQuery AppImageConfigSortKey
 
-instance ToHeader AppImageConfigSortKey
+instance Prelude.ToHeader AppImageConfigSortKey
 
-instance ToJSON AppImageConfigSortKey where
-  toJSON = toJSONText
+instance Prelude.ToJSON AppImageConfigSortKey where
+  toJSON = Prelude.toJSONText

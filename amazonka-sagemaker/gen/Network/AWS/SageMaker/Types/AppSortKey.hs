@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,48 +19,50 @@
 module Network.AWS.SageMaker.Types.AppSortKey
   ( AppSortKey
       ( ..,
-        ASKCreationTime
+        AppSortKeyCreationTime
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AppSortKey = AppSortKey' (CI Text)
+newtype AppSortKey = AppSortKey'
+  { fromAppSortKey ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ASKCreationTime :: AppSortKey
-pattern ASKCreationTime = AppSortKey' "CreationTime"
+pattern AppSortKeyCreationTime :: AppSortKey
+pattern AppSortKeyCreationTime = AppSortKey' "CreationTime"
 
 {-# COMPLETE
-  ASKCreationTime,
+  AppSortKeyCreationTime,
   AppSortKey'
   #-}
 
-instance FromText AppSortKey where
-  parser = (AppSortKey' . mk) <$> takeText
+instance Prelude.FromText AppSortKey where
+  parser = AppSortKey' Prelude.<$> Prelude.takeText
 
-instance ToText AppSortKey where
-  toText (AppSortKey' ci) = original ci
+instance Prelude.ToText AppSortKey where
+  toText (AppSortKey' x) = x
 
-instance Hashable AppSortKey
+instance Prelude.Hashable AppSortKey
 
-instance NFData AppSortKey
+instance Prelude.NFData AppSortKey
 
-instance ToByteString AppSortKey
+instance Prelude.ToByteString AppSortKey
 
-instance ToQuery AppSortKey
+instance Prelude.ToQuery AppSortKey
 
-instance ToHeader AppSortKey
+instance Prelude.ToHeader AppSortKey
 
-instance ToJSON AppSortKey where
-  toJSON = toJSONText
+instance Prelude.ToJSON AppSortKey where
+  toJSON = Prelude.toJSONText

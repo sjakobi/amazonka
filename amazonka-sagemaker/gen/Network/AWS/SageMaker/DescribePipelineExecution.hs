@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,256 +24,237 @@
 -- Describes the details of a pipeline execution.
 module Network.AWS.SageMaker.DescribePipelineExecution
   ( -- * Creating a Request
-    describePipelineExecution,
-    DescribePipelineExecution,
+    DescribePipelineExecution (..),
+    newDescribePipelineExecution,
 
     -- * Request Lenses
-    dpePipelineExecutionARN,
+    describePipelineExecution_pipelineExecutionArn,
 
     -- * Destructuring the Response
-    describePipelineExecutionResponse,
-    DescribePipelineExecutionResponse,
+    DescribePipelineExecutionResponse (..),
+    newDescribePipelineExecutionResponse,
 
     -- * Response Lenses
-    dperrsPipelineARN,
-    dperrsCreationTime,
-    dperrsPipelineExecutionDescription,
-    dperrsPipelineExecutionDisplayName,
-    dperrsPipelineExecutionStatus,
-    dperrsLastModifiedTime,
-    dperrsCreatedBy,
-    dperrsLastModifiedBy,
-    dperrsPipelineExecutionARN,
-    dperrsResponseStatus,
+    describePipelineExecutionResponse_pipelineArn,
+    describePipelineExecutionResponse_creationTime,
+    describePipelineExecutionResponse_pipelineExecutionDescription,
+    describePipelineExecutionResponse_pipelineExecutionDisplayName,
+    describePipelineExecutionResponse_pipelineExecutionStatus,
+    describePipelineExecutionResponse_lastModifiedTime,
+    describePipelineExecutionResponse_createdBy,
+    describePipelineExecutionResponse_lastModifiedBy,
+    describePipelineExecutionResponse_pipelineExecutionArn,
+    describePipelineExecutionResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
+import Network.AWS.SageMaker.Types.PipelineExecutionStatus
+import Network.AWS.SageMaker.Types.UserContext
 
--- | /See:/ 'describePipelineExecution' smart constructor.
-newtype DescribePipelineExecution = DescribePipelineExecution'
-  { _dpePipelineExecutionARN ::
-      Text
+-- | /See:/ 'newDescribePipelineExecution' smart constructor.
+data DescribePipelineExecution = DescribePipelineExecution'
+  { -- | The Amazon Resource Name (ARN) of the pipeline execution.
+    pipelineExecutionArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribePipelineExecution' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribePipelineExecution' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dpePipelineExecutionARN' - The Amazon Resource Name (ARN) of the pipeline execution.
-describePipelineExecution ::
-  -- | 'dpePipelineExecutionARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'pipelineExecutionArn', 'describePipelineExecution_pipelineExecutionArn' - The Amazon Resource Name (ARN) of the pipeline execution.
+newDescribePipelineExecution ::
+  -- | 'pipelineExecutionArn'
+  Prelude.Text ->
   DescribePipelineExecution
-describePipelineExecution pPipelineExecutionARN_ =
+newDescribePipelineExecution pPipelineExecutionArn_ =
   DescribePipelineExecution'
-    { _dpePipelineExecutionARN =
-        pPipelineExecutionARN_
+    { pipelineExecutionArn =
+        pPipelineExecutionArn_
     }
 
 -- | The Amazon Resource Name (ARN) of the pipeline execution.
-dpePipelineExecutionARN :: Lens' DescribePipelineExecution Text
-dpePipelineExecutionARN = lens _dpePipelineExecutionARN (\s a -> s {_dpePipelineExecutionARN = a})
+describePipelineExecution_pipelineExecutionArn :: Lens.Lens' DescribePipelineExecution Prelude.Text
+describePipelineExecution_pipelineExecutionArn = Lens.lens (\DescribePipelineExecution' {pipelineExecutionArn} -> pipelineExecutionArn) (\s@DescribePipelineExecution' {} a -> s {pipelineExecutionArn = a} :: DescribePipelineExecution)
 
-instance AWSRequest DescribePipelineExecution where
+instance Prelude.AWSRequest DescribePipelineExecution where
   type
     Rs DescribePipelineExecution =
       DescribePipelineExecutionResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribePipelineExecutionResponse'
-            <$> (x .?> "PipelineArn")
-            <*> (x .?> "CreationTime")
-            <*> (x .?> "PipelineExecutionDescription")
-            <*> (x .?> "PipelineExecutionDisplayName")
-            <*> (x .?> "PipelineExecutionStatus")
-            <*> (x .?> "LastModifiedTime")
-            <*> (x .?> "CreatedBy")
-            <*> (x .?> "LastModifiedBy")
-            <*> (x .?> "PipelineExecutionArn")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "PipelineArn")
+            Prelude.<*> (x Prelude..?> "CreationTime")
+            Prelude.<*> (x Prelude..?> "PipelineExecutionDescription")
+            Prelude.<*> (x Prelude..?> "PipelineExecutionDisplayName")
+            Prelude.<*> (x Prelude..?> "PipelineExecutionStatus")
+            Prelude.<*> (x Prelude..?> "LastModifiedTime")
+            Prelude.<*> (x Prelude..?> "CreatedBy")
+            Prelude.<*> (x Prelude..?> "LastModifiedBy")
+            Prelude.<*> (x Prelude..?> "PipelineExecutionArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribePipelineExecution
+instance Prelude.Hashable DescribePipelineExecution
 
-instance NFData DescribePipelineExecution
+instance Prelude.NFData DescribePipelineExecution
 
-instance ToHeaders DescribePipelineExecution where
+instance Prelude.ToHeaders DescribePipelineExecution where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "SageMaker.DescribePipelineExecution" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "SageMaker.DescribePipelineExecution" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribePipelineExecution where
+instance Prelude.ToJSON DescribePipelineExecution where
   toJSON DescribePipelineExecution' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "PipelineExecutionArn"
-                  .= _dpePipelineExecutionARN
+                  Prelude..= pipelineExecutionArn
               )
           ]
       )
 
-instance ToPath DescribePipelineExecution where
-  toPath = const "/"
+instance Prelude.ToPath DescribePipelineExecution where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribePipelineExecution where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribePipelineExecution where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describePipelineExecutionResponse' smart constructor.
+-- | /See:/ 'newDescribePipelineExecutionResponse' smart constructor.
 data DescribePipelineExecutionResponse = DescribePipelineExecutionResponse'
-  { _dperrsPipelineARN ::
-      !( Maybe
-           Text
-       ),
-    _dperrsCreationTime ::
-      !( Maybe
-           POSIX
-       ),
-    _dperrsPipelineExecutionDescription ::
-      !( Maybe
-           Text
-       ),
-    _dperrsPipelineExecutionDisplayName ::
-      !( Maybe
-           Text
-       ),
-    _dperrsPipelineExecutionStatus ::
-      !( Maybe
-           PipelineExecutionStatus
-       ),
-    _dperrsLastModifiedTime ::
-      !( Maybe
-           POSIX
-       ),
-    _dperrsCreatedBy ::
-      !( Maybe
-           UserContext
-       ),
-    _dperrsLastModifiedBy ::
-      !( Maybe
-           UserContext
-       ),
-    _dperrsPipelineExecutionARN ::
-      !( Maybe
-           Text
-       ),
-    _dperrsResponseStatus ::
-      !Int
+  { -- | The Amazon Resource Name (ARN) of the pipeline.
+    pipelineArn :: Prelude.Maybe Prelude.Text,
+    -- | The time when the pipeline execution was created.
+    creationTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The description of the pipeline execution.
+    pipelineExecutionDescription :: Prelude.Maybe Prelude.Text,
+    -- | The display name of the pipeline execution.
+    pipelineExecutionDisplayName :: Prelude.Maybe Prelude.Text,
+    -- | The status of the pipeline execution.
+    pipelineExecutionStatus :: Prelude.Maybe PipelineExecutionStatus,
+    -- | The time when the pipeline execution was modified last.
+    lastModifiedTime :: Prelude.Maybe Prelude.POSIX,
+    createdBy :: Prelude.Maybe UserContext,
+    lastModifiedBy :: Prelude.Maybe UserContext,
+    -- | The Amazon Resource Name (ARN) of the pipeline execution.
+    pipelineExecutionArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribePipelineExecutionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribePipelineExecutionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dperrsPipelineARN' - The Amazon Resource Name (ARN) of the pipeline.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dperrsCreationTime' - The time when the pipeline execution was created.
+-- 'pipelineArn', 'describePipelineExecutionResponse_pipelineArn' - The Amazon Resource Name (ARN) of the pipeline.
 --
--- * 'dperrsPipelineExecutionDescription' - The description of the pipeline execution.
+-- 'creationTime', 'describePipelineExecutionResponse_creationTime' - The time when the pipeline execution was created.
 --
--- * 'dperrsPipelineExecutionDisplayName' - The display name of the pipeline execution.
+-- 'pipelineExecutionDescription', 'describePipelineExecutionResponse_pipelineExecutionDescription' - The description of the pipeline execution.
 --
--- * 'dperrsPipelineExecutionStatus' - The status of the pipeline execution.
+-- 'pipelineExecutionDisplayName', 'describePipelineExecutionResponse_pipelineExecutionDisplayName' - The display name of the pipeline execution.
 --
--- * 'dperrsLastModifiedTime' - The time when the pipeline execution was modified last.
+-- 'pipelineExecutionStatus', 'describePipelineExecutionResponse_pipelineExecutionStatus' - The status of the pipeline execution.
 --
--- * 'dperrsCreatedBy' - Undocumented member.
+-- 'lastModifiedTime', 'describePipelineExecutionResponse_lastModifiedTime' - The time when the pipeline execution was modified last.
 --
--- * 'dperrsLastModifiedBy' - Undocumented member.
+-- 'createdBy', 'describePipelineExecutionResponse_createdBy' - Undocumented member.
 --
--- * 'dperrsPipelineExecutionARN' - The Amazon Resource Name (ARN) of the pipeline execution.
+-- 'lastModifiedBy', 'describePipelineExecutionResponse_lastModifiedBy' - Undocumented member.
 --
--- * 'dperrsResponseStatus' - -- | The response status code.
-describePipelineExecutionResponse ::
-  -- | 'dperrsResponseStatus'
-  Int ->
+-- 'pipelineExecutionArn', 'describePipelineExecutionResponse_pipelineExecutionArn' - The Amazon Resource Name (ARN) of the pipeline execution.
+--
+-- 'httpStatus', 'describePipelineExecutionResponse_httpStatus' - The response's http status code.
+newDescribePipelineExecutionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribePipelineExecutionResponse
-describePipelineExecutionResponse pResponseStatus_ =
+newDescribePipelineExecutionResponse pHttpStatus_ =
   DescribePipelineExecutionResponse'
-    { _dperrsPipelineARN =
-        Nothing,
-      _dperrsCreationTime = Nothing,
-      _dperrsPipelineExecutionDescription =
-        Nothing,
-      _dperrsPipelineExecutionDisplayName =
-        Nothing,
-      _dperrsPipelineExecutionStatus = Nothing,
-      _dperrsLastModifiedTime = Nothing,
-      _dperrsCreatedBy = Nothing,
-      _dperrsLastModifiedBy = Nothing,
-      _dperrsPipelineExecutionARN = Nothing,
-      _dperrsResponseStatus = pResponseStatus_
+    { pipelineArn =
+        Prelude.Nothing,
+      creationTime = Prelude.Nothing,
+      pipelineExecutionDescription =
+        Prelude.Nothing,
+      pipelineExecutionDisplayName =
+        Prelude.Nothing,
+      pipelineExecutionStatus =
+        Prelude.Nothing,
+      lastModifiedTime = Prelude.Nothing,
+      createdBy = Prelude.Nothing,
+      lastModifiedBy = Prelude.Nothing,
+      pipelineExecutionArn = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The Amazon Resource Name (ARN) of the pipeline.
-dperrsPipelineARN :: Lens' DescribePipelineExecutionResponse (Maybe Text)
-dperrsPipelineARN = lens _dperrsPipelineARN (\s a -> s {_dperrsPipelineARN = a})
+describePipelineExecutionResponse_pipelineArn :: Lens.Lens' DescribePipelineExecutionResponse (Prelude.Maybe Prelude.Text)
+describePipelineExecutionResponse_pipelineArn = Lens.lens (\DescribePipelineExecutionResponse' {pipelineArn} -> pipelineArn) (\s@DescribePipelineExecutionResponse' {} a -> s {pipelineArn = a} :: DescribePipelineExecutionResponse)
 
 -- | The time when the pipeline execution was created.
-dperrsCreationTime :: Lens' DescribePipelineExecutionResponse (Maybe UTCTime)
-dperrsCreationTime = lens _dperrsCreationTime (\s a -> s {_dperrsCreationTime = a}) . mapping _Time
+describePipelineExecutionResponse_creationTime :: Lens.Lens' DescribePipelineExecutionResponse (Prelude.Maybe Prelude.UTCTime)
+describePipelineExecutionResponse_creationTime = Lens.lens (\DescribePipelineExecutionResponse' {creationTime} -> creationTime) (\s@DescribePipelineExecutionResponse' {} a -> s {creationTime = a} :: DescribePipelineExecutionResponse) Prelude.. Lens.mapping Prelude._Time
 
 -- | The description of the pipeline execution.
-dperrsPipelineExecutionDescription :: Lens' DescribePipelineExecutionResponse (Maybe Text)
-dperrsPipelineExecutionDescription = lens _dperrsPipelineExecutionDescription (\s a -> s {_dperrsPipelineExecutionDescription = a})
+describePipelineExecutionResponse_pipelineExecutionDescription :: Lens.Lens' DescribePipelineExecutionResponse (Prelude.Maybe Prelude.Text)
+describePipelineExecutionResponse_pipelineExecutionDescription = Lens.lens (\DescribePipelineExecutionResponse' {pipelineExecutionDescription} -> pipelineExecutionDescription) (\s@DescribePipelineExecutionResponse' {} a -> s {pipelineExecutionDescription = a} :: DescribePipelineExecutionResponse)
 
 -- | The display name of the pipeline execution.
-dperrsPipelineExecutionDisplayName :: Lens' DescribePipelineExecutionResponse (Maybe Text)
-dperrsPipelineExecutionDisplayName = lens _dperrsPipelineExecutionDisplayName (\s a -> s {_dperrsPipelineExecutionDisplayName = a})
+describePipelineExecutionResponse_pipelineExecutionDisplayName :: Lens.Lens' DescribePipelineExecutionResponse (Prelude.Maybe Prelude.Text)
+describePipelineExecutionResponse_pipelineExecutionDisplayName = Lens.lens (\DescribePipelineExecutionResponse' {pipelineExecutionDisplayName} -> pipelineExecutionDisplayName) (\s@DescribePipelineExecutionResponse' {} a -> s {pipelineExecutionDisplayName = a} :: DescribePipelineExecutionResponse)
 
 -- | The status of the pipeline execution.
-dperrsPipelineExecutionStatus :: Lens' DescribePipelineExecutionResponse (Maybe PipelineExecutionStatus)
-dperrsPipelineExecutionStatus = lens _dperrsPipelineExecutionStatus (\s a -> s {_dperrsPipelineExecutionStatus = a})
+describePipelineExecutionResponse_pipelineExecutionStatus :: Lens.Lens' DescribePipelineExecutionResponse (Prelude.Maybe PipelineExecutionStatus)
+describePipelineExecutionResponse_pipelineExecutionStatus = Lens.lens (\DescribePipelineExecutionResponse' {pipelineExecutionStatus} -> pipelineExecutionStatus) (\s@DescribePipelineExecutionResponse' {} a -> s {pipelineExecutionStatus = a} :: DescribePipelineExecutionResponse)
 
 -- | The time when the pipeline execution was modified last.
-dperrsLastModifiedTime :: Lens' DescribePipelineExecutionResponse (Maybe UTCTime)
-dperrsLastModifiedTime = lens _dperrsLastModifiedTime (\s a -> s {_dperrsLastModifiedTime = a}) . mapping _Time
+describePipelineExecutionResponse_lastModifiedTime :: Lens.Lens' DescribePipelineExecutionResponse (Prelude.Maybe Prelude.UTCTime)
+describePipelineExecutionResponse_lastModifiedTime = Lens.lens (\DescribePipelineExecutionResponse' {lastModifiedTime} -> lastModifiedTime) (\s@DescribePipelineExecutionResponse' {} a -> s {lastModifiedTime = a} :: DescribePipelineExecutionResponse) Prelude.. Lens.mapping Prelude._Time
 
 -- | Undocumented member.
-dperrsCreatedBy :: Lens' DescribePipelineExecutionResponse (Maybe UserContext)
-dperrsCreatedBy = lens _dperrsCreatedBy (\s a -> s {_dperrsCreatedBy = a})
+describePipelineExecutionResponse_createdBy :: Lens.Lens' DescribePipelineExecutionResponse (Prelude.Maybe UserContext)
+describePipelineExecutionResponse_createdBy = Lens.lens (\DescribePipelineExecutionResponse' {createdBy} -> createdBy) (\s@DescribePipelineExecutionResponse' {} a -> s {createdBy = a} :: DescribePipelineExecutionResponse)
 
 -- | Undocumented member.
-dperrsLastModifiedBy :: Lens' DescribePipelineExecutionResponse (Maybe UserContext)
-dperrsLastModifiedBy = lens _dperrsLastModifiedBy (\s a -> s {_dperrsLastModifiedBy = a})
+describePipelineExecutionResponse_lastModifiedBy :: Lens.Lens' DescribePipelineExecutionResponse (Prelude.Maybe UserContext)
+describePipelineExecutionResponse_lastModifiedBy = Lens.lens (\DescribePipelineExecutionResponse' {lastModifiedBy} -> lastModifiedBy) (\s@DescribePipelineExecutionResponse' {} a -> s {lastModifiedBy = a} :: DescribePipelineExecutionResponse)
 
 -- | The Amazon Resource Name (ARN) of the pipeline execution.
-dperrsPipelineExecutionARN :: Lens' DescribePipelineExecutionResponse (Maybe Text)
-dperrsPipelineExecutionARN = lens _dperrsPipelineExecutionARN (\s a -> s {_dperrsPipelineExecutionARN = a})
+describePipelineExecutionResponse_pipelineExecutionArn :: Lens.Lens' DescribePipelineExecutionResponse (Prelude.Maybe Prelude.Text)
+describePipelineExecutionResponse_pipelineExecutionArn = Lens.lens (\DescribePipelineExecutionResponse' {pipelineExecutionArn} -> pipelineExecutionArn) (\s@DescribePipelineExecutionResponse' {} a -> s {pipelineExecutionArn = a} :: DescribePipelineExecutionResponse)
 
--- | -- | The response status code.
-dperrsResponseStatus :: Lens' DescribePipelineExecutionResponse Int
-dperrsResponseStatus = lens _dperrsResponseStatus (\s a -> s {_dperrsResponseStatus = a})
+-- | The response's http status code.
+describePipelineExecutionResponse_httpStatus :: Lens.Lens' DescribePipelineExecutionResponse Prelude.Int
+describePipelineExecutionResponse_httpStatus = Lens.lens (\DescribePipelineExecutionResponse' {httpStatus} -> httpStatus) (\s@DescribePipelineExecutionResponse' {} a -> s {httpStatus = a} :: DescribePipelineExecutionResponse)
 
-instance NFData DescribePipelineExecutionResponse
+instance
+  Prelude.NFData
+    DescribePipelineExecutionResponse

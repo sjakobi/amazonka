@@ -28,1405 +28,1405 @@ import Test.Tasty
 -- fixtures =
 --     [ testGroup "request"
 --         [ requestDisassociateTrialComponent $
---             disassociateTrialComponent
+--             newDisassociateTrialComponent
 --
 --         , requestDeleteArtifact $
---             deleteArtifact
+--             newDeleteArtifact
 --
 --         , requestCreateTransformJob $
---             createTransformJob
+--             newCreateTransformJob
 --
 --         , requestListHumanTaskUis $
---             listHumanTaskUis
+--             newListHumanTaskUis
 --
 --         , requestDeleteHumanTaskUi $
---             deleteHumanTaskUi
+--             newDeleteHumanTaskUi
 --
 --         , requestUpdateAction $
---             updateAction
+--             newUpdateAction
 --
 --         , requestDescribePipeline $
---             describePipeline
+--             newDescribePipeline
 --
 --         , requestUpdateArtifact $
---             updateArtifact
+--             newUpdateArtifact
 --
 --         , requestDescribeUserProfile $
---             describeUserProfile
+--             newDescribeUserProfile
 --
 --         , requestStopTrainingJob $
---             stopTrainingJob
+--             newStopTrainingJob
 --
 --         , requestCreateEndpoint $
---             createEndpoint
+--             newCreateEndpoint
 --
 --         , requestGetSearchSuggestions $
---             getSearchSuggestions
+--             newGetSearchSuggestions
 --
 --         , requestDeleteAction $
---             deleteAction
+--             newDeleteAction
 --
 --         , requestCreateEdgePackagingJob $
---             createEdgePackagingJob
+--             newCreateEdgePackagingJob
 --
 --         , requestDescribeEndpointConfig $
---             describeEndpointConfig
+--             newDescribeEndpointConfig
 --
 --         , requestListModelPackages $
---             listModelPackages
+--             newListModelPackages
 --
 --         , requestGetModelPackageGroupPolicy $
---             getModelPackageGroupPolicy
+--             newGetModelPackageGroupPolicy
 --
 --         , requestDescribeMonitoringSchedule $
---             describeMonitoringSchedule
+--             newDescribeMonitoringSchedule
 --
 --         , requestCreateModelExplainabilityJobDefinition $
---             createModelExplainabilityJobDefinition
+--             newCreateModelExplainabilityJobDefinition
 --
 --         , requestDescribeLabelingJob $
---             describeLabelingJob
+--             newDescribeLabelingJob
 --
 --         , requestCreateNotebookInstance $
---             createNotebookInstance
+--             newCreateNotebookInstance
 --
 --         , requestUpdateModelPackage $
---             updateModelPackage
+--             newUpdateModelPackage
 --
 --         , requestCreateModelQualityJobDefinition $
---             createModelQualityJobDefinition
+--             newCreateModelQualityJobDefinition
 --
 --         , requestDeleteModelPackage $
---             deleteModelPackage
+--             newDeleteModelPackage
 --
 --         , requestListProjects $
---             listProjects
+--             newListProjects
 --
 --         , requestListSubscribedWorkteams $
---             listSubscribedWorkteams
+--             newListSubscribedWorkteams
 --
 --         , requestDeleteNotebookInstance $
---             deleteNotebookInstance
+--             newDeleteNotebookInstance
 --
 --         , requestCreateProject $
---             createProject
+--             newCreateProject
 --
 --         , requestDescribeProcessingJob $
---             describeProcessingJob
+--             newDescribeProcessingJob
 --
 --         , requestListDomains $
---             listDomains
+--             newListDomains
 --
 --         , requestDeleteModelExplainabilityJobDefinition $
---             deleteModelExplainabilityJobDefinition
+--             newDeleteModelExplainabilityJobDefinition
 --
 --         , requestStopMonitoringSchedule $
---             stopMonitoringSchedule
+--             newStopMonitoringSchedule
 --
 --         , requestListDevices $
---             listDevices
+--             newListDevices
 --
 --         , requestCreateModelPackage $
---             createModelPackage
+--             newCreateModelPackage
 --
 --         , requestUpdateNotebookInstance $
---             updateNotebookInstance
+--             newUpdateNotebookInstance
 --
 --         , requestStopAutoMLJob $
---             stopAutoMLJob
+--             newStopAutoMLJob
 --
 --         , requestDescribeAppImageConfig $
---             describeAppImageConfig
+--             newDescribeAppImageConfig
 --
 --         , requestStartMonitoringSchedule $
---             startMonitoringSchedule
+--             newStartMonitoringSchedule
 --
 --         , requestStopCompilationJob $
---             stopCompilationJob
+--             newStopCompilationJob
 --
 --         , requestCreateTrial $
---             createTrial
+--             newCreateTrial
 --
 --         , requestGetSagemakerServicecatalogPortfolioStatus $
---             getSagemakerServicecatalogPortfolioStatus
+--             newGetSagemakerServicecatalogPortfolioStatus
 --
 --         , requestUpdateCodeRepository $
---             updateCodeRepository
+--             newUpdateCodeRepository
 --
 --         , requestSearch $
---             search
+--             newSearch
 --
 --         , requestDeleteModel $
---             deleteModel
+--             newDeleteModel
 --
 --         , requestDeleteDataQualityJobDefinition $
---             deleteDataQualityJobDefinition
+--             newDeleteDataQualityJobDefinition
 --
 --         , requestListImages $
---             listImages
+--             newListImages
 --
 --         , requestListTrainingJobs $
---             listTrainingJobs
+--             newListTrainingJobs
 --
 --         , requestDescribeTransformJob $
---             describeTransformJob
+--             newDescribeTransformJob
 --
 --         , requestCreatePipeline $
---             createPipeline
+--             newCreatePipeline
 --
 --         , requestCreateModelPackageGroup $
---             createModelPackageGroup
+--             newCreateModelPackageGroup
 --
 --         , requestListCandidatesForAutoMLJob $
---             listCandidatesForAutoMLJob
+--             newListCandidatesForAutoMLJob
 --
 --         , requestDeleteAlgorithm $
---             deleteAlgorithm
+--             newDeleteAlgorithm
 --
 --         , requestGetDeviceFleetReport $
---             getDeviceFleetReport
+--             newGetDeviceFleetReport
 --
 --         , requestListDataQualityJobDefinitions $
---             listDataQualityJobDefinitions
+--             newListDataQualityJobDefinitions
 --
 --         , requestDescribeEdgePackagingJob $
---             describeEdgePackagingJob
+--             newDescribeEdgePackagingJob
 --
 --         , requestListContexts $
---             listContexts
+--             newListContexts
 --
 --         , requestDescribeEndpoint $
---             describeEndpoint
+--             newDescribeEndpoint
 --
 --         , requestDeleteCodeRepository $
---             deleteCodeRepository
+--             newDeleteCodeRepository
 --
 --         , requestDeleteModelPackageGroupPolicy $
---             deleteModelPackageGroupPolicy
+--             newDeleteModelPackageGroupPolicy
 --
 --         , requestListUserProfiles $
---             listUserProfiles
+--             newListUserProfiles
 --
 --         , requestDescribeCompilationJob $
---             describeCompilationJob
+--             newDescribeCompilationJob
 --
 --         , requestUpdatePipeline $
---             updatePipeline
+--             newUpdatePipeline
 --
 --         , requestCreateCodeRepository $
---             createCodeRepository
+--             newCreateCodeRepository
 --
 --         , requestDescribeArtifact $
---             describeArtifact
+--             newDescribeArtifact
 --
 --         , requestDescribeHumanTaskUi $
---             describeHumanTaskUi
+--             newDescribeHumanTaskUi
 --
 --         , requestListPipelineExecutionSteps $
---             listPipelineExecutionSteps
+--             newListPipelineExecutionSteps
 --
 --         , requestListCodeRepositories $
---             listCodeRepositories
+--             newListCodeRepositories
 --
 --         , requestUpdateUserProfile $
---             updateUserProfile
+--             newUpdateUserProfile
 --
 --         , requestDescribeAction $
---             describeAction
+--             newDescribeAction
 --
 --         , requestStopTransformJob $
---             stopTransformJob
+--             newStopTransformJob
 --
 --         , requestCreateTrainingJob $
---             createTrainingJob
+--             newCreateTrainingJob
 --
 --         , requestDeleteUserProfile $
---             deleteUserProfile
+--             newDeleteUserProfile
 --
 --         , requestCreateContext $
---             createContext
+--             newCreateContext
 --
 --         , requestStopEdgePackagingJob $
---             stopEdgePackagingJob
+--             newStopEdgePackagingJob
 --
 --         , requestCreateImage $
---             createImage
+--             newCreateImage
 --
 --         , requestDeregisterDevices $
---             deregisterDevices
+--             newDeregisterDevices
 --
 --         , requestCreateDataQualityJobDefinition $
---             createDataQualityJobDefinition
+--             newCreateDataQualityJobDefinition
 --
 --         , requestDeletePipeline $
---             deletePipeline
+--             newDeletePipeline
 --
 --         , requestCreateAppImageConfig $
---             createAppImageConfig
+--             newCreateAppImageConfig
 --
 --         , requestAddTags $
---             addTags
+--             newAddTags
 --
 --         , requestDisableSagemakerServicecatalogPortfolio $
---             disableSagemakerServicecatalogPortfolio
+--             newDisableSagemakerServicecatalogPortfolio
 --
 --         , requestDeleteAssociation $
---             deleteAssociation
+--             newDeleteAssociation
 --
 --         , requestUpdateMonitoringSchedule $
---             updateMonitoringSchedule
+--             newUpdateMonitoringSchedule
 --
 --         , requestListMonitoringSchedules $
---             listMonitoringSchedules
+--             newListMonitoringSchedules
 --
 --         , requestStopNotebookInstance $
---             stopNotebookInstance
+--             newStopNotebookInstance
 --
 --         , requestDeleteMonitoringSchedule $
---             deleteMonitoringSchedule
+--             newDeleteMonitoringSchedule
 --
 --         , requestDeleteEndpointConfig $
---             deleteEndpointConfig
+--             newDeleteEndpointConfig
 --
 --         , requestStartPipelineExecution $
---             startPipelineExecution
+--             newStartPipelineExecution
 --
 --         , requestDescribeModelPackage $
---             describeModelPackage
+--             newDescribeModelPackage
 --
 --         , requestDeleteTags $
---             deleteTags
+--             newDeleteTags
 --
 --         , requestAddAssociation $
---             addAssociation
+--             newAddAssociation
 --
 --         , requestCreateNotebookInstanceLifecycleConfig $
---             createNotebookInstanceLifecycleConfig
+--             newCreateNotebookInstanceLifecycleConfig
 --
 --         , requestListApps $
---             listApps
+--             newListApps
 --
 --         , requestCreateWorkforce $
---             createWorkforce
+--             newCreateWorkforce
 --
 --         , requestListAutoMLJobs $
---             listAutoMLJobs
+--             newListAutoMLJobs
 --
 --         , requestUpdateEndpointWeightsAndCapacities $
---             updateEndpointWeightsAndCapacities
+--             newUpdateEndpointWeightsAndCapacities
 --
 --         , requestStartNotebookInstance $
---             startNotebookInstance
+--             newStartNotebookInstance
 --
 --         , requestStopPipelineExecution $
---             stopPipelineExecution
+--             newStopPipelineExecution
 --
 --         , requestListEndpointConfigs $
---             listEndpointConfigs
+--             newListEndpointConfigs
 --
 --         , requestDeleteWorkteam $
---             deleteWorkteam
+--             newDeleteWorkteam
 --
 --         , requestDeleteWorkforce $
---             deleteWorkforce
+--             newDeleteWorkforce
 --
 --         , requestDeleteModelBiasJobDefinition $
---             deleteModelBiasJobDefinition
+--             newDeleteModelBiasJobDefinition
 --
 --         , requestUpdateWorkforce $
---             updateWorkforce
+--             newUpdateWorkforce
 --
 --         , requestDescribeDevice $
---             describeDevice
+--             newDescribeDevice
 --
 --         , requestDescribeDomain $
---             describeDomain
+--             newDescribeDomain
 --
 --         , requestDeleteNotebookInstanceLifecycleConfig $
---             deleteNotebookInstanceLifecycleConfig
+--             newDeleteNotebookInstanceLifecycleConfig
 --
 --         , requestDescribePipelineExecution $
---             describePipelineExecution
+--             newDescribePipelineExecution
 --
 --         , requestUpdateWorkteam $
---             updateWorkteam
+--             newUpdateWorkteam
 --
 --         , requestCreateLabelingJob $
---             createLabelingJob
+--             newCreateLabelingJob
 --
 --         , requestDescribeModelQualityJobDefinition $
---             describeModelQualityJobDefinition
+--             newDescribeModelQualityJobDefinition
 --
 --         , requestCreateExperiment $
---             createExperiment
+--             newCreateExperiment
 --
 --         , requestListWorkforces $
---             listWorkforces
+--             newListWorkforces
 --
 --         , requestListAppImageConfigs $
---             listAppImageConfigs
+--             newListAppImageConfigs
 --
 --         , requestUpdateNotebookInstanceLifecycleConfig $
---             updateNotebookInstanceLifecycleConfig
+--             newUpdateNotebookInstanceLifecycleConfig
 --
 --         , requestDescribeSubscribedWorkteam $
---             describeSubscribedWorkteam
+--             newDescribeSubscribedWorkteam
 --
 --         , requestListNotebookInstanceLifecycleConfigs $
---             listNotebookInstanceLifecycleConfigs
+--             newListNotebookInstanceLifecycleConfigs
 --
 --         , requestListEdgePackagingJobs $
---             listEdgePackagingJobs
+--             newListEdgePackagingJobs
 --
 --         , requestDescribeCodeRepository $
---             describeCodeRepository
+--             newDescribeCodeRepository
 --
 --         , requestListEndpoints $
---             listEndpoints
+--             newListEndpoints
 --
 --         , requestDescribeDataQualityJobDefinition $
---             describeDataQualityJobDefinition
+--             newDescribeDataQualityJobDefinition
 --
 --         , requestDescribeAlgorithm $
---             describeAlgorithm
+--             newDescribeAlgorithm
 --
 --         , requestCreateAction $
---             createAction
+--             newCreateAction
 --
 --         , requestDeleteEndpoint $
---             deleteEndpoint
+--             newDeleteEndpoint
 --
---         , requestCreatePresignedDomainURL $
---             createPresignedDomainURL
+--         , requestCreatePresignedDomainUrl $
+--             newCreatePresignedDomainUrl
 --
 --         , requestListTransformJobs $
---             listTransformJobs
+--             newListTransformJobs
 --
 --         , requestDescribeHyperParameterTuningJob $
---             describeHyperParameterTuningJob
+--             newDescribeHyperParameterTuningJob
 --
 --         , requestCreateCompilationJob $
---             createCompilationJob
+--             newCreateCompilationJob
 --
 --         , requestUpdateEndpoint $
---             updateEndpoint
+--             newUpdateEndpoint
 --
 --         , requestDescribeModel $
---             describeModel
+--             newDescribeModel
 --
 --         , requestCreateDeviceFleet $
---             createDeviceFleet
+--             newCreateDeviceFleet
 --
 --         , requestCreateArtifact $
---             createArtifact
+--             newCreateArtifact
 --
 --         , requestUpdateDevices $
---             updateDevices
+--             newUpdateDevices
 --
 --         , requestListArtifacts $
---             listArtifacts
+--             newListArtifacts
 --
 --         , requestDeleteDeviceFleet $
---             deleteDeviceFleet
+--             newDeleteDeviceFleet
 --
 --         , requestListMonitoringExecutions $
---             listMonitoringExecutions
+--             newListMonitoringExecutions
 --
 --         , requestListCompilationJobs $
---             listCompilationJobs
+--             newListCompilationJobs
 --
 --         , requestListActions $
---             listActions
+--             newListActions
 --
 --         , requestListDeviceFleets $
---             listDeviceFleets
+--             newListDeviceFleets
 --
 --         , requestDescribeModelPackageGroup $
---             describeModelPackageGroup
+--             newDescribeModelPackageGroup
 --
 --         , requestStopHyperParameterTuningJob $
---             stopHyperParameterTuningJob
+--             newStopHyperParameterTuningJob
 --
 --         , requestDescribeTrial $
---             describeTrial
+--             newDescribeTrial
 --
 --         , requestUpdateDeviceFleet $
---             updateDeviceFleet
+--             newUpdateDeviceFleet
 --
 --         , requestListLabelingJobsForWorkteam $
---             listLabelingJobsForWorkteam
+--             newListLabelingJobsForWorkteam
 --
 --         , requestCreateFeatureGroup $
---             createFeatureGroup
+--             newCreateFeatureGroup
 --
 --         , requestCreateDomain $
---             createDomain
+--             newCreateDomain
 --
 --         , requestListImageVersions $
---             listImageVersions
+--             newListImageVersions
 --
 --         , requestStopProcessingJob $
---             stopProcessingJob
+--             newStopProcessingJob
 --
 --         , requestDeleteImageVersion $
---             deleteImageVersion
+--             newDeleteImageVersion
 --
 --         , requestDeleteProject $
---             deleteProject
+--             newDeleteProject
 --
 --         , requestDescribeExperiment $
---             describeExperiment
+--             newDescribeExperiment
 --
 --         , requestDescribeAutoMLJob $
---             describeAutoMLJob
+--             newDescribeAutoMLJob
 --
 --         , requestDescribeApp $
---             describeApp
+--             newDescribeApp
 --
 --         , requestListTrialComponents $
---             listTrialComponents
+--             newListTrialComponents
 --
 --         , requestUpdateTrialComponent $
---             updateTrialComponent
+--             newUpdateTrialComponent
 --
 --         , requestDeleteTrialComponent $
---             deleteTrialComponent
+--             newDeleteTrialComponent
 --
 --         , requestCreateTrialComponent $
---             createTrialComponent
+--             newCreateTrialComponent
 --
 --         , requestDescribeWorkforce $
---             describeWorkforce
+--             newDescribeWorkforce
 --
 --         , requestListNotebookInstances $
---             listNotebookInstances
+--             newListNotebookInstances
 --
 --         , requestListModelExplainabilityJobDefinitions $
---             listModelExplainabilityJobDefinitions
+--             newListModelExplainabilityJobDefinitions
 --
 --         , requestDeleteModelQualityJobDefinition $
---             deleteModelQualityJobDefinition
+--             newDeleteModelQualityJobDefinition
 --
 --         , requestStopLabelingJob $
---             stopLabelingJob
+--             newStopLabelingJob
 --
 --         , requestListModelQualityJobDefinitions $
---             listModelQualityJobDefinitions
+--             newListModelQualityJobDefinitions
 --
 --         , requestDescribeModelBiasJobDefinition $
---             describeModelBiasJobDefinition
+--             newDescribeModelBiasJobDefinition
 --
 --         , requestDescribeWorkteam $
---             describeWorkteam
+--             newDescribeWorkteam
 --
 --         , requestDescribeNotebookInstanceLifecycleConfig $
---             describeNotebookInstanceLifecycleConfig
+--             newDescribeNotebookInstanceLifecycleConfig
 --
 --         , requestListPipelineExecutions $
---             listPipelineExecutions
+--             newListPipelineExecutions
 --
 --         , requestUpdateDomain $
---             updateDomain
+--             newUpdateDomain
 --
 --         , requestAssociateTrialComponent $
---             associateTrialComponent
+--             newAssociateTrialComponent
 --
 --         , requestUpdatePipelineExecution $
---             updatePipelineExecution
+--             newUpdatePipelineExecution
 --
 --         , requestCreateImageVersion $
---             createImageVersion
+--             newCreateImageVersion
 --
 --         , requestDeleteDomain $
---             deleteDomain
+--             newDeleteDomain
 --
 --         , requestUpdateTrainingJob $
---             updateTrainingJob
+--             newUpdateTrainingJob
 --
 --         , requestUpdateImage $
---             updateImage
+--             newUpdateImage
 --
 --         , requestUpdateContext $
---             updateContext
+--             newUpdateContext
 --
 --         , requestDeleteImage $
---             deleteImage
+--             newDeleteImage
 --
 --         , requestListFlowDefinitions $
---             listFlowDefinitions
+--             newListFlowDefinitions
 --
 --         , requestListModels $
---             listModels
+--             newListModels
 --
 --         , requestCreateUserProfile $
---             createUserProfile
+--             newCreateUserProfile
 --
 --         , requestRenderUiTemplate $
---             renderUiTemplate
+--             newRenderUiTemplate
 --
 --         , requestDescribeFeatureGroup $
---             describeFeatureGroup
+--             newDescribeFeatureGroup
 --
 --         , requestDeleteContext $
---             deleteContext
+--             newDeleteContext
 --
 --         , requestListHyperParameterTuningJobs $
---             listHyperParameterTuningJobs
+--             newListHyperParameterTuningJobs
 --
 --         , requestDeleteFlowDefinition $
---             deleteFlowDefinition
+--             newDeleteFlowDefinition
 --
 --         , requestListAlgorithms $
---             listAlgorithms
+--             newListAlgorithms
 --
 --         , requestCreateAlgorithm $
---             createAlgorithm
+--             newCreateAlgorithm
 --
 --         , requestCreateFlowDefinition $
---             createFlowDefinition
+--             newCreateFlowDefinition
 --
 --         , requestListPipelineParametersForExecution $
---             listPipelineParametersForExecution
+--             newListPipelineParametersForExecution
 --
 --         , requestListTrials $
---             listTrials
+--             newListTrials
 --
 --         , requestCreateHyperParameterTuningJob $
---             createHyperParameterTuningJob
+--             newCreateHyperParameterTuningJob
 --
 --         , requestCreateModel $
---             createModel
+--             newCreateModel
 --
 --         , requestUpdateTrial $
---             updateTrial
+--             newUpdateTrial
 --
 --         , requestDeleteModelPackageGroup $
---             deleteModelPackageGroup
+--             newDeleteModelPackageGroup
 --
 --         , requestDescribeDeviceFleet $
---             describeDeviceFleet
+--             newDescribeDeviceFleet
 --
 --         , requestListModelPackageGroups $
---             listModelPackageGroups
+--             newListModelPackageGroups
 --
 --         , requestListPipelines $
---             listPipelines
+--             newListPipelines
 --
 --         , requestListTags $
---             listTags
+--             newListTags
 --
 --         , requestDescribePipelineDefinitionForExecution $
---             describePipelineDefinitionForExecution
+--             newDescribePipelineDefinitionForExecution
 --
 --         , requestDeleteTrial $
---             deleteTrial
+--             newDeleteTrial
 --
 --         , requestPutModelPackageGroupPolicy $
---             putModelPackageGroupPolicy
+--             newPutModelPackageGroupPolicy
 --
 --         , requestListExperiments $
---             listExperiments
+--             newListExperiments
 --
 --         , requestUpdateExperiment $
---             updateExperiment
+--             newUpdateExperiment
 --
 --         , requestDeleteExperiment $
---             deleteExperiment
+--             newDeleteExperiment
 --
 --         , requestListLabelingJobs $
---             listLabelingJobs
+--             newListLabelingJobs
 --
 --         , requestDescribeImageVersion $
---             describeImageVersion
+--             newDescribeImageVersion
 --
 --         , requestDeleteApp $
---             deleteApp
+--             newDeleteApp
 --
 --         , requestCreateModelBiasJobDefinition $
---             createModelBiasJobDefinition
+--             newCreateModelBiasJobDefinition
 --
 --         , requestDescribeTrialComponent $
---             describeTrialComponent
+--             newDescribeTrialComponent
 --
 --         , requestCreateWorkteam $
---             createWorkteam
+--             newCreateWorkteam
 --
 --         , requestDescribeProject $
---             describeProject
+--             newDescribeProject
 --
 --         , requestCreateProcessingJob $
---             createProcessingJob
+--             newCreateProcessingJob
 --
 --         , requestListAssociations $
---             listAssociations
+--             newListAssociations
 --
 --         , requestEnableSagemakerServicecatalogPortfolio $
---             enableSagemakerServicecatalogPortfolio
+--             newEnableSagemakerServicecatalogPortfolio
 --
 --         , requestUpdateAppImageConfig $
---             updateAppImageConfig
+--             newUpdateAppImageConfig
 --
 --         , requestListModelBiasJobDefinitions $
---             listModelBiasJobDefinitions
+--             newListModelBiasJobDefinitions
 --
 --         , requestCreateAutoMLJob $
---             createAutoMLJob
+--             newCreateAutoMLJob
 --
 --         , requestCreateApp $
---             createApp
+--             newCreateApp
 --
 --         , requestDescribeNotebookInstance $
---             describeNotebookInstance
+--             newDescribeNotebookInstance
 --
 --         , requestDeleteAppImageConfig $
---             deleteAppImageConfig
+--             newDeleteAppImageConfig
 --
 --         , requestCreateEndpointConfig $
---             createEndpointConfig
+--             newCreateEndpointConfig
 --
 --         , requestListProcessingJobs $
---             listProcessingJobs
+--             newListProcessingJobs
 --
 --         , requestCreateMonitoringSchedule $
---             createMonitoringSchedule
+--             newCreateMonitoringSchedule
 --
 --         , requestDescribeModelExplainabilityJobDefinition $
---             describeModelExplainabilityJobDefinition
+--             newDescribeModelExplainabilityJobDefinition
 --
 --         , requestListWorkteams $
---             listWorkteams
+--             newListWorkteams
 --
 --         , requestDescribeFlowDefinition $
---             describeFlowDefinition
+--             newDescribeFlowDefinition
 --
 --         , requestDescribeContext $
---             describeContext
+--             newDescribeContext
 --
 --         , requestRegisterDevices $
---             registerDevices
+--             newRegisterDevices
 --
 --         , requestListFeatureGroups $
---             listFeatureGroups
+--             newListFeatureGroups
 --
---         , requestCreatePresignedNotebookInstanceURL $
---             createPresignedNotebookInstanceURL
+--         , requestCreatePresignedNotebookInstanceUrl $
+--             newCreatePresignedNotebookInstanceUrl
 --
 --         , requestDescribeTrainingJob $
---             describeTrainingJob
+--             newDescribeTrainingJob
 --
 --         , requestCreateHumanTaskUi $
---             createHumanTaskUi
+--             newCreateHumanTaskUi
 --
 --         , requestListTrainingJobsForHyperParameterTuningJob $
---             listTrainingJobsForHyperParameterTuningJob
+--             newListTrainingJobsForHyperParameterTuningJob
 --
 --         , requestDescribeImage $
---             describeImage
+--             newDescribeImage
 --
 --         , requestDeleteFeatureGroup $
---             deleteFeatureGroup
+--             newDeleteFeatureGroup
 --
 --           ]
 
 --     , testGroup "response"
 --         [ responseDisassociateTrialComponent $
---             disassociateTrialComponentResponse
+--             newDisassociateTrialComponentResponse
 --
 --         , responseDeleteArtifact $
---             deleteArtifactResponse
+--             newDeleteArtifactResponse
 --
 --         , responseCreateTransformJob $
---             createTransformJobResponse
+--             newCreateTransformJobResponse
 --
 --         , responseListHumanTaskUis $
---             listHumanTaskUisResponse
+--             newListHumanTaskUisResponse
 --
 --         , responseDeleteHumanTaskUi $
---             deleteHumanTaskUiResponse
+--             newDeleteHumanTaskUiResponse
 --
 --         , responseUpdateAction $
---             updateActionResponse
+--             newUpdateActionResponse
 --
 --         , responseDescribePipeline $
---             describePipelineResponse
+--             newDescribePipelineResponse
 --
 --         , responseUpdateArtifact $
---             updateArtifactResponse
+--             newUpdateArtifactResponse
 --
 --         , responseDescribeUserProfile $
---             describeUserProfileResponse
+--             newDescribeUserProfileResponse
 --
 --         , responseStopTrainingJob $
---             stopTrainingJobResponse
+--             newStopTrainingJobResponse
 --
 --         , responseCreateEndpoint $
---             createEndpointResponse
+--             newCreateEndpointResponse
 --
 --         , responseGetSearchSuggestions $
---             getSearchSuggestionsResponse
+--             newGetSearchSuggestionsResponse
 --
 --         , responseDeleteAction $
---             deleteActionResponse
+--             newDeleteActionResponse
 --
 --         , responseCreateEdgePackagingJob $
---             createEdgePackagingJobResponse
+--             newCreateEdgePackagingJobResponse
 --
 --         , responseDescribeEndpointConfig $
---             describeEndpointConfigResponse
+--             newDescribeEndpointConfigResponse
 --
 --         , responseListModelPackages $
---             listModelPackagesResponse
+--             newListModelPackagesResponse
 --
 --         , responseGetModelPackageGroupPolicy $
---             getModelPackageGroupPolicyResponse
+--             newGetModelPackageGroupPolicyResponse
 --
 --         , responseDescribeMonitoringSchedule $
---             describeMonitoringScheduleResponse
+--             newDescribeMonitoringScheduleResponse
 --
 --         , responseCreateModelExplainabilityJobDefinition $
---             createModelExplainabilityJobDefinitionResponse
+--             newCreateModelExplainabilityJobDefinitionResponse
 --
 --         , responseDescribeLabelingJob $
---             describeLabelingJobResponse
+--             newDescribeLabelingJobResponse
 --
 --         , responseCreateNotebookInstance $
---             createNotebookInstanceResponse
+--             newCreateNotebookInstanceResponse
 --
 --         , responseUpdateModelPackage $
---             updateModelPackageResponse
+--             newUpdateModelPackageResponse
 --
 --         , responseCreateModelQualityJobDefinition $
---             createModelQualityJobDefinitionResponse
+--             newCreateModelQualityJobDefinitionResponse
 --
 --         , responseDeleteModelPackage $
---             deleteModelPackageResponse
+--             newDeleteModelPackageResponse
 --
 --         , responseListProjects $
---             listProjectsResponse
+--             newListProjectsResponse
 --
 --         , responseListSubscribedWorkteams $
---             listSubscribedWorkteamsResponse
+--             newListSubscribedWorkteamsResponse
 --
 --         , responseDeleteNotebookInstance $
---             deleteNotebookInstanceResponse
+--             newDeleteNotebookInstanceResponse
 --
 --         , responseCreateProject $
---             createProjectResponse
+--             newCreateProjectResponse
 --
 --         , responseDescribeProcessingJob $
---             describeProcessingJobResponse
+--             newDescribeProcessingJobResponse
 --
 --         , responseListDomains $
---             listDomainsResponse
+--             newListDomainsResponse
 --
 --         , responseDeleteModelExplainabilityJobDefinition $
---             deleteModelExplainabilityJobDefinitionResponse
+--             newDeleteModelExplainabilityJobDefinitionResponse
 --
 --         , responseStopMonitoringSchedule $
---             stopMonitoringScheduleResponse
+--             newStopMonitoringScheduleResponse
 --
 --         , responseListDevices $
---             listDevicesResponse
+--             newListDevicesResponse
 --
 --         , responseCreateModelPackage $
---             createModelPackageResponse
+--             newCreateModelPackageResponse
 --
 --         , responseUpdateNotebookInstance $
---             updateNotebookInstanceResponse
+--             newUpdateNotebookInstanceResponse
 --
 --         , responseStopAutoMLJob $
---             stopAutoMLJobResponse
+--             newStopAutoMLJobResponse
 --
 --         , responseDescribeAppImageConfig $
---             describeAppImageConfigResponse
+--             newDescribeAppImageConfigResponse
 --
 --         , responseStartMonitoringSchedule $
---             startMonitoringScheduleResponse
+--             newStartMonitoringScheduleResponse
 --
 --         , responseStopCompilationJob $
---             stopCompilationJobResponse
+--             newStopCompilationJobResponse
 --
 --         , responseCreateTrial $
---             createTrialResponse
+--             newCreateTrialResponse
 --
 --         , responseGetSagemakerServicecatalogPortfolioStatus $
---             getSagemakerServicecatalogPortfolioStatusResponse
+--             newGetSagemakerServicecatalogPortfolioStatusResponse
 --
 --         , responseUpdateCodeRepository $
---             updateCodeRepositoryResponse
+--             newUpdateCodeRepositoryResponse
 --
 --         , responseSearch $
---             searchResponse
+--             newSearchResponse
 --
 --         , responseDeleteModel $
---             deleteModelResponse
+--             newDeleteModelResponse
 --
 --         , responseDeleteDataQualityJobDefinition $
---             deleteDataQualityJobDefinitionResponse
+--             newDeleteDataQualityJobDefinitionResponse
 --
 --         , responseListImages $
---             listImagesResponse
+--             newListImagesResponse
 --
 --         , responseListTrainingJobs $
---             listTrainingJobsResponse
+--             newListTrainingJobsResponse
 --
 --         , responseDescribeTransformJob $
---             describeTransformJobResponse
+--             newDescribeTransformJobResponse
 --
 --         , responseCreatePipeline $
---             createPipelineResponse
+--             newCreatePipelineResponse
 --
 --         , responseCreateModelPackageGroup $
---             createModelPackageGroupResponse
+--             newCreateModelPackageGroupResponse
 --
 --         , responseListCandidatesForAutoMLJob $
---             listCandidatesForAutoMLJobResponse
+--             newListCandidatesForAutoMLJobResponse
 --
 --         , responseDeleteAlgorithm $
---             deleteAlgorithmResponse
+--             newDeleteAlgorithmResponse
 --
 --         , responseGetDeviceFleetReport $
---             getDeviceFleetReportResponse
+--             newGetDeviceFleetReportResponse
 --
 --         , responseListDataQualityJobDefinitions $
---             listDataQualityJobDefinitionsResponse
+--             newListDataQualityJobDefinitionsResponse
 --
 --         , responseDescribeEdgePackagingJob $
---             describeEdgePackagingJobResponse
+--             newDescribeEdgePackagingJobResponse
 --
 --         , responseListContexts $
---             listContextsResponse
+--             newListContextsResponse
 --
 --         , responseDescribeEndpoint $
---             describeEndpointResponse
+--             newDescribeEndpointResponse
 --
 --         , responseDeleteCodeRepository $
---             deleteCodeRepositoryResponse
+--             newDeleteCodeRepositoryResponse
 --
 --         , responseDeleteModelPackageGroupPolicy $
---             deleteModelPackageGroupPolicyResponse
+--             newDeleteModelPackageGroupPolicyResponse
 --
 --         , responseListUserProfiles $
---             listUserProfilesResponse
+--             newListUserProfilesResponse
 --
 --         , responseDescribeCompilationJob $
---             describeCompilationJobResponse
+--             newDescribeCompilationJobResponse
 --
 --         , responseUpdatePipeline $
---             updatePipelineResponse
+--             newUpdatePipelineResponse
 --
 --         , responseCreateCodeRepository $
---             createCodeRepositoryResponse
+--             newCreateCodeRepositoryResponse
 --
 --         , responseDescribeArtifact $
---             describeArtifactResponse
+--             newDescribeArtifactResponse
 --
 --         , responseDescribeHumanTaskUi $
---             describeHumanTaskUiResponse
+--             newDescribeHumanTaskUiResponse
 --
 --         , responseListPipelineExecutionSteps $
---             listPipelineExecutionStepsResponse
+--             newListPipelineExecutionStepsResponse
 --
 --         , responseListCodeRepositories $
---             listCodeRepositoriesResponse
+--             newListCodeRepositoriesResponse
 --
 --         , responseUpdateUserProfile $
---             updateUserProfileResponse
+--             newUpdateUserProfileResponse
 --
 --         , responseDescribeAction $
---             describeActionResponse
+--             newDescribeActionResponse
 --
 --         , responseStopTransformJob $
---             stopTransformJobResponse
+--             newStopTransformJobResponse
 --
 --         , responseCreateTrainingJob $
---             createTrainingJobResponse
+--             newCreateTrainingJobResponse
 --
 --         , responseDeleteUserProfile $
---             deleteUserProfileResponse
+--             newDeleteUserProfileResponse
 --
 --         , responseCreateContext $
---             createContextResponse
+--             newCreateContextResponse
 --
 --         , responseStopEdgePackagingJob $
---             stopEdgePackagingJobResponse
+--             newStopEdgePackagingJobResponse
 --
 --         , responseCreateImage $
---             createImageResponse
+--             newCreateImageResponse
 --
 --         , responseDeregisterDevices $
---             deregisterDevicesResponse
+--             newDeregisterDevicesResponse
 --
 --         , responseCreateDataQualityJobDefinition $
---             createDataQualityJobDefinitionResponse
+--             newCreateDataQualityJobDefinitionResponse
 --
 --         , responseDeletePipeline $
---             deletePipelineResponse
+--             newDeletePipelineResponse
 --
 --         , responseCreateAppImageConfig $
---             createAppImageConfigResponse
+--             newCreateAppImageConfigResponse
 --
 --         , responseAddTags $
---             addTagsResponse
+--             newAddTagsResponse
 --
 --         , responseDisableSagemakerServicecatalogPortfolio $
---             disableSagemakerServicecatalogPortfolioResponse
+--             newDisableSagemakerServicecatalogPortfolioResponse
 --
 --         , responseDeleteAssociation $
---             deleteAssociationResponse
+--             newDeleteAssociationResponse
 --
 --         , responseUpdateMonitoringSchedule $
---             updateMonitoringScheduleResponse
+--             newUpdateMonitoringScheduleResponse
 --
 --         , responseListMonitoringSchedules $
---             listMonitoringSchedulesResponse
+--             newListMonitoringSchedulesResponse
 --
 --         , responseStopNotebookInstance $
---             stopNotebookInstanceResponse
+--             newStopNotebookInstanceResponse
 --
 --         , responseDeleteMonitoringSchedule $
---             deleteMonitoringScheduleResponse
+--             newDeleteMonitoringScheduleResponse
 --
 --         , responseDeleteEndpointConfig $
---             deleteEndpointConfigResponse
+--             newDeleteEndpointConfigResponse
 --
 --         , responseStartPipelineExecution $
---             startPipelineExecutionResponse
+--             newStartPipelineExecutionResponse
 --
 --         , responseDescribeModelPackage $
---             describeModelPackageResponse
+--             newDescribeModelPackageResponse
 --
 --         , responseDeleteTags $
---             deleteTagsResponse
+--             newDeleteTagsResponse
 --
 --         , responseAddAssociation $
---             addAssociationResponse
+--             newAddAssociationResponse
 --
 --         , responseCreateNotebookInstanceLifecycleConfig $
---             createNotebookInstanceLifecycleConfigResponse
+--             newCreateNotebookInstanceLifecycleConfigResponse
 --
 --         , responseListApps $
---             listAppsResponse
+--             newListAppsResponse
 --
 --         , responseCreateWorkforce $
---             createWorkforceResponse
+--             newCreateWorkforceResponse
 --
 --         , responseListAutoMLJobs $
---             listAutoMLJobsResponse
+--             newListAutoMLJobsResponse
 --
 --         , responseUpdateEndpointWeightsAndCapacities $
---             updateEndpointWeightsAndCapacitiesResponse
+--             newUpdateEndpointWeightsAndCapacitiesResponse
 --
 --         , responseStartNotebookInstance $
---             startNotebookInstanceResponse
+--             newStartNotebookInstanceResponse
 --
 --         , responseStopPipelineExecution $
---             stopPipelineExecutionResponse
+--             newStopPipelineExecutionResponse
 --
 --         , responseListEndpointConfigs $
---             listEndpointConfigsResponse
+--             newListEndpointConfigsResponse
 --
 --         , responseDeleteWorkteam $
---             deleteWorkteamResponse
+--             newDeleteWorkteamResponse
 --
 --         , responseDeleteWorkforce $
---             deleteWorkforceResponse
+--             newDeleteWorkforceResponse
 --
 --         , responseDeleteModelBiasJobDefinition $
---             deleteModelBiasJobDefinitionResponse
+--             newDeleteModelBiasJobDefinitionResponse
 --
 --         , responseUpdateWorkforce $
---             updateWorkforceResponse
+--             newUpdateWorkforceResponse
 --
 --         , responseDescribeDevice $
---             describeDeviceResponse
+--             newDescribeDeviceResponse
 --
 --         , responseDescribeDomain $
---             describeDomainResponse
+--             newDescribeDomainResponse
 --
 --         , responseDeleteNotebookInstanceLifecycleConfig $
---             deleteNotebookInstanceLifecycleConfigResponse
+--             newDeleteNotebookInstanceLifecycleConfigResponse
 --
 --         , responseDescribePipelineExecution $
---             describePipelineExecutionResponse
+--             newDescribePipelineExecutionResponse
 --
 --         , responseUpdateWorkteam $
---             updateWorkteamResponse
+--             newUpdateWorkteamResponse
 --
 --         , responseCreateLabelingJob $
---             createLabelingJobResponse
+--             newCreateLabelingJobResponse
 --
 --         , responseDescribeModelQualityJobDefinition $
---             describeModelQualityJobDefinitionResponse
+--             newDescribeModelQualityJobDefinitionResponse
 --
 --         , responseCreateExperiment $
---             createExperimentResponse
+--             newCreateExperimentResponse
 --
 --         , responseListWorkforces $
---             listWorkforcesResponse
+--             newListWorkforcesResponse
 --
 --         , responseListAppImageConfigs $
---             listAppImageConfigsResponse
+--             newListAppImageConfigsResponse
 --
 --         , responseUpdateNotebookInstanceLifecycleConfig $
---             updateNotebookInstanceLifecycleConfigResponse
+--             newUpdateNotebookInstanceLifecycleConfigResponse
 --
 --         , responseDescribeSubscribedWorkteam $
---             describeSubscribedWorkteamResponse
+--             newDescribeSubscribedWorkteamResponse
 --
 --         , responseListNotebookInstanceLifecycleConfigs $
---             listNotebookInstanceLifecycleConfigsResponse
+--             newListNotebookInstanceLifecycleConfigsResponse
 --
 --         , responseListEdgePackagingJobs $
---             listEdgePackagingJobsResponse
+--             newListEdgePackagingJobsResponse
 --
 --         , responseDescribeCodeRepository $
---             describeCodeRepositoryResponse
+--             newDescribeCodeRepositoryResponse
 --
 --         , responseListEndpoints $
---             listEndpointsResponse
+--             newListEndpointsResponse
 --
 --         , responseDescribeDataQualityJobDefinition $
---             describeDataQualityJobDefinitionResponse
+--             newDescribeDataQualityJobDefinitionResponse
 --
 --         , responseDescribeAlgorithm $
---             describeAlgorithmResponse
+--             newDescribeAlgorithmResponse
 --
 --         , responseCreateAction $
---             createActionResponse
+--             newCreateActionResponse
 --
 --         , responseDeleteEndpoint $
---             deleteEndpointResponse
+--             newDeleteEndpointResponse
 --
---         , responseCreatePresignedDomainURL $
---             createPresignedDomainURLResponse
+--         , responseCreatePresignedDomainUrl $
+--             newCreatePresignedDomainUrlResponse
 --
 --         , responseListTransformJobs $
---             listTransformJobsResponse
+--             newListTransformJobsResponse
 --
 --         , responseDescribeHyperParameterTuningJob $
---             describeHyperParameterTuningJobResponse
+--             newDescribeHyperParameterTuningJobResponse
 --
 --         , responseCreateCompilationJob $
---             createCompilationJobResponse
+--             newCreateCompilationJobResponse
 --
 --         , responseUpdateEndpoint $
---             updateEndpointResponse
+--             newUpdateEndpointResponse
 --
 --         , responseDescribeModel $
---             describeModelResponse
+--             newDescribeModelResponse
 --
 --         , responseCreateDeviceFleet $
---             createDeviceFleetResponse
+--             newCreateDeviceFleetResponse
 --
 --         , responseCreateArtifact $
---             createArtifactResponse
+--             newCreateArtifactResponse
 --
 --         , responseUpdateDevices $
---             updateDevicesResponse
+--             newUpdateDevicesResponse
 --
 --         , responseListArtifacts $
---             listArtifactsResponse
+--             newListArtifactsResponse
 --
 --         , responseDeleteDeviceFleet $
---             deleteDeviceFleetResponse
+--             newDeleteDeviceFleetResponse
 --
 --         , responseListMonitoringExecutions $
---             listMonitoringExecutionsResponse
+--             newListMonitoringExecutionsResponse
 --
 --         , responseListCompilationJobs $
---             listCompilationJobsResponse
+--             newListCompilationJobsResponse
 --
 --         , responseListActions $
---             listActionsResponse
+--             newListActionsResponse
 --
 --         , responseListDeviceFleets $
---             listDeviceFleetsResponse
+--             newListDeviceFleetsResponse
 --
 --         , responseDescribeModelPackageGroup $
---             describeModelPackageGroupResponse
+--             newDescribeModelPackageGroupResponse
 --
 --         , responseStopHyperParameterTuningJob $
---             stopHyperParameterTuningJobResponse
+--             newStopHyperParameterTuningJobResponse
 --
 --         , responseDescribeTrial $
---             describeTrialResponse
+--             newDescribeTrialResponse
 --
 --         , responseUpdateDeviceFleet $
---             updateDeviceFleetResponse
+--             newUpdateDeviceFleetResponse
 --
 --         , responseListLabelingJobsForWorkteam $
---             listLabelingJobsForWorkteamResponse
+--             newListLabelingJobsForWorkteamResponse
 --
 --         , responseCreateFeatureGroup $
---             createFeatureGroupResponse
+--             newCreateFeatureGroupResponse
 --
 --         , responseCreateDomain $
---             createDomainResponse
+--             newCreateDomainResponse
 --
 --         , responseListImageVersions $
---             listImageVersionsResponse
+--             newListImageVersionsResponse
 --
 --         , responseStopProcessingJob $
---             stopProcessingJobResponse
+--             newStopProcessingJobResponse
 --
 --         , responseDeleteImageVersion $
---             deleteImageVersionResponse
+--             newDeleteImageVersionResponse
 --
 --         , responseDeleteProject $
---             deleteProjectResponse
+--             newDeleteProjectResponse
 --
 --         , responseDescribeExperiment $
---             describeExperimentResponse
+--             newDescribeExperimentResponse
 --
 --         , responseDescribeAutoMLJob $
---             describeAutoMLJobResponse
+--             newDescribeAutoMLJobResponse
 --
 --         , responseDescribeApp $
---             describeAppResponse
+--             newDescribeAppResponse
 --
 --         , responseListTrialComponents $
---             listTrialComponentsResponse
+--             newListTrialComponentsResponse
 --
 --         , responseUpdateTrialComponent $
---             updateTrialComponentResponse
+--             newUpdateTrialComponentResponse
 --
 --         , responseDeleteTrialComponent $
---             deleteTrialComponentResponse
+--             newDeleteTrialComponentResponse
 --
 --         , responseCreateTrialComponent $
---             createTrialComponentResponse
+--             newCreateTrialComponentResponse
 --
 --         , responseDescribeWorkforce $
---             describeWorkforceResponse
+--             newDescribeWorkforceResponse
 --
 --         , responseListNotebookInstances $
---             listNotebookInstancesResponse
+--             newListNotebookInstancesResponse
 --
 --         , responseListModelExplainabilityJobDefinitions $
---             listModelExplainabilityJobDefinitionsResponse
+--             newListModelExplainabilityJobDefinitionsResponse
 --
 --         , responseDeleteModelQualityJobDefinition $
---             deleteModelQualityJobDefinitionResponse
+--             newDeleteModelQualityJobDefinitionResponse
 --
 --         , responseStopLabelingJob $
---             stopLabelingJobResponse
+--             newStopLabelingJobResponse
 --
 --         , responseListModelQualityJobDefinitions $
---             listModelQualityJobDefinitionsResponse
+--             newListModelQualityJobDefinitionsResponse
 --
 --         , responseDescribeModelBiasJobDefinition $
---             describeModelBiasJobDefinitionResponse
+--             newDescribeModelBiasJobDefinitionResponse
 --
 --         , responseDescribeWorkteam $
---             describeWorkteamResponse
+--             newDescribeWorkteamResponse
 --
 --         , responseDescribeNotebookInstanceLifecycleConfig $
---             describeNotebookInstanceLifecycleConfigResponse
+--             newDescribeNotebookInstanceLifecycleConfigResponse
 --
 --         , responseListPipelineExecutions $
---             listPipelineExecutionsResponse
+--             newListPipelineExecutionsResponse
 --
 --         , responseUpdateDomain $
---             updateDomainResponse
+--             newUpdateDomainResponse
 --
 --         , responseAssociateTrialComponent $
---             associateTrialComponentResponse
+--             newAssociateTrialComponentResponse
 --
 --         , responseUpdatePipelineExecution $
---             updatePipelineExecutionResponse
+--             newUpdatePipelineExecutionResponse
 --
 --         , responseCreateImageVersion $
---             createImageVersionResponse
+--             newCreateImageVersionResponse
 --
 --         , responseDeleteDomain $
---             deleteDomainResponse
+--             newDeleteDomainResponse
 --
 --         , responseUpdateTrainingJob $
---             updateTrainingJobResponse
+--             newUpdateTrainingJobResponse
 --
 --         , responseUpdateImage $
---             updateImageResponse
+--             newUpdateImageResponse
 --
 --         , responseUpdateContext $
---             updateContextResponse
+--             newUpdateContextResponse
 --
 --         , responseDeleteImage $
---             deleteImageResponse
+--             newDeleteImageResponse
 --
 --         , responseListFlowDefinitions $
---             listFlowDefinitionsResponse
+--             newListFlowDefinitionsResponse
 --
 --         , responseListModels $
---             listModelsResponse
+--             newListModelsResponse
 --
 --         , responseCreateUserProfile $
---             createUserProfileResponse
+--             newCreateUserProfileResponse
 --
 --         , responseRenderUiTemplate $
---             renderUiTemplateResponse
+--             newRenderUiTemplateResponse
 --
 --         , responseDescribeFeatureGroup $
---             describeFeatureGroupResponse
+--             newDescribeFeatureGroupResponse
 --
 --         , responseDeleteContext $
---             deleteContextResponse
+--             newDeleteContextResponse
 --
 --         , responseListHyperParameterTuningJobs $
---             listHyperParameterTuningJobsResponse
+--             newListHyperParameterTuningJobsResponse
 --
 --         , responseDeleteFlowDefinition $
---             deleteFlowDefinitionResponse
+--             newDeleteFlowDefinitionResponse
 --
 --         , responseListAlgorithms $
---             listAlgorithmsResponse
+--             newListAlgorithmsResponse
 --
 --         , responseCreateAlgorithm $
---             createAlgorithmResponse
+--             newCreateAlgorithmResponse
 --
 --         , responseCreateFlowDefinition $
---             createFlowDefinitionResponse
+--             newCreateFlowDefinitionResponse
 --
 --         , responseListPipelineParametersForExecution $
---             listPipelineParametersForExecutionResponse
+--             newListPipelineParametersForExecutionResponse
 --
 --         , responseListTrials $
---             listTrialsResponse
+--             newListTrialsResponse
 --
 --         , responseCreateHyperParameterTuningJob $
---             createHyperParameterTuningJobResponse
+--             newCreateHyperParameterTuningJobResponse
 --
 --         , responseCreateModel $
---             createModelResponse
+--             newCreateModelResponse
 --
 --         , responseUpdateTrial $
---             updateTrialResponse
+--             newUpdateTrialResponse
 --
 --         , responseDeleteModelPackageGroup $
---             deleteModelPackageGroupResponse
+--             newDeleteModelPackageGroupResponse
 --
 --         , responseDescribeDeviceFleet $
---             describeDeviceFleetResponse
+--             newDescribeDeviceFleetResponse
 --
 --         , responseListModelPackageGroups $
---             listModelPackageGroupsResponse
+--             newListModelPackageGroupsResponse
 --
 --         , responseListPipelines $
---             listPipelinesResponse
+--             newListPipelinesResponse
 --
 --         , responseListTags $
---             listTagsResponse
+--             newListTagsResponse
 --
 --         , responseDescribePipelineDefinitionForExecution $
---             describePipelineDefinitionForExecutionResponse
+--             newDescribePipelineDefinitionForExecutionResponse
 --
 --         , responseDeleteTrial $
---             deleteTrialResponse
+--             newDeleteTrialResponse
 --
 --         , responsePutModelPackageGroupPolicy $
---             putModelPackageGroupPolicyResponse
+--             newPutModelPackageGroupPolicyResponse
 --
 --         , responseListExperiments $
---             listExperimentsResponse
+--             newListExperimentsResponse
 --
 --         , responseUpdateExperiment $
---             updateExperimentResponse
+--             newUpdateExperimentResponse
 --
 --         , responseDeleteExperiment $
---             deleteExperimentResponse
+--             newDeleteExperimentResponse
 --
 --         , responseListLabelingJobs $
---             listLabelingJobsResponse
+--             newListLabelingJobsResponse
 --
 --         , responseDescribeImageVersion $
---             describeImageVersionResponse
+--             newDescribeImageVersionResponse
 --
 --         , responseDeleteApp $
---             deleteAppResponse
+--             newDeleteAppResponse
 --
 --         , responseCreateModelBiasJobDefinition $
---             createModelBiasJobDefinitionResponse
+--             newCreateModelBiasJobDefinitionResponse
 --
 --         , responseDescribeTrialComponent $
---             describeTrialComponentResponse
+--             newDescribeTrialComponentResponse
 --
 --         , responseCreateWorkteam $
---             createWorkteamResponse
+--             newCreateWorkteamResponse
 --
 --         , responseDescribeProject $
---             describeProjectResponse
+--             newDescribeProjectResponse
 --
 --         , responseCreateProcessingJob $
---             createProcessingJobResponse
+--             newCreateProcessingJobResponse
 --
 --         , responseListAssociations $
---             listAssociationsResponse
+--             newListAssociationsResponse
 --
 --         , responseEnableSagemakerServicecatalogPortfolio $
---             enableSagemakerServicecatalogPortfolioResponse
+--             newEnableSagemakerServicecatalogPortfolioResponse
 --
 --         , responseUpdateAppImageConfig $
---             updateAppImageConfigResponse
+--             newUpdateAppImageConfigResponse
 --
 --         , responseListModelBiasJobDefinitions $
---             listModelBiasJobDefinitionsResponse
+--             newListModelBiasJobDefinitionsResponse
 --
 --         , responseCreateAutoMLJob $
---             createAutoMLJobResponse
+--             newCreateAutoMLJobResponse
 --
 --         , responseCreateApp $
---             createAppResponse
+--             newCreateAppResponse
 --
 --         , responseDescribeNotebookInstance $
---             describeNotebookInstanceResponse
+--             newDescribeNotebookInstanceResponse
 --
 --         , responseDeleteAppImageConfig $
---             deleteAppImageConfigResponse
+--             newDeleteAppImageConfigResponse
 --
 --         , responseCreateEndpointConfig $
---             createEndpointConfigResponse
+--             newCreateEndpointConfigResponse
 --
 --         , responseListProcessingJobs $
---             listProcessingJobsResponse
+--             newListProcessingJobsResponse
 --
 --         , responseCreateMonitoringSchedule $
---             createMonitoringScheduleResponse
+--             newCreateMonitoringScheduleResponse
 --
 --         , responseDescribeModelExplainabilityJobDefinition $
---             describeModelExplainabilityJobDefinitionResponse
+--             newDescribeModelExplainabilityJobDefinitionResponse
 --
 --         , responseListWorkteams $
---             listWorkteamsResponse
+--             newListWorkteamsResponse
 --
 --         , responseDescribeFlowDefinition $
---             describeFlowDefinitionResponse
+--             newDescribeFlowDefinitionResponse
 --
 --         , responseDescribeContext $
---             describeContextResponse
+--             newDescribeContextResponse
 --
 --         , responseRegisterDevices $
---             registerDevicesResponse
+--             newRegisterDevicesResponse
 --
 --         , responseListFeatureGroups $
---             listFeatureGroupsResponse
+--             newListFeatureGroupsResponse
 --
---         , responseCreatePresignedNotebookInstanceURL $
---             createPresignedNotebookInstanceURLResponse
+--         , responseCreatePresignedNotebookInstanceUrl $
+--             newCreatePresignedNotebookInstanceUrlResponse
 --
 --         , responseDescribeTrainingJob $
---             describeTrainingJobResponse
+--             newDescribeTrainingJobResponse
 --
 --         , responseCreateHumanTaskUi $
---             createHumanTaskUiResponse
+--             newCreateHumanTaskUiResponse
 --
 --         , responseListTrainingJobsForHyperParameterTuningJob $
---             listTrainingJobsForHyperParameterTuningJobResponse
+--             newListTrainingJobsForHyperParameterTuningJobResponse
 --
 --         , responseDescribeImage $
---             describeImageResponse
+--             newDescribeImageResponse
 --
 --         , responseDeleteFeatureGroup $
---             deleteFeatureGroupResponse
+--             newDeleteFeatureGroupResponse
 --
 --           ]
 --     ]
@@ -2171,11 +2171,11 @@ requestDeleteEndpoint =
     "DeleteEndpoint"
     "fixture/DeleteEndpoint.yaml"
 
-requestCreatePresignedDomainURL :: CreatePresignedDomainURL -> TestTree
-requestCreatePresignedDomainURL =
+requestCreatePresignedDomainUrl :: CreatePresignedDomainUrl -> TestTree
+requestCreatePresignedDomainUrl =
   req
-    "CreatePresignedDomainURL"
-    "fixture/CreatePresignedDomainURL.yaml"
+    "CreatePresignedDomainUrl"
+    "fixture/CreatePresignedDomainUrl.yaml"
 
 requestListTransformJobs :: ListTransformJobs -> TestTree
 requestListTransformJobs =
@@ -2795,11 +2795,11 @@ requestListFeatureGroups =
     "ListFeatureGroups"
     "fixture/ListFeatureGroups.yaml"
 
-requestCreatePresignedNotebookInstanceURL :: CreatePresignedNotebookInstanceURL -> TestTree
-requestCreatePresignedNotebookInstanceURL =
+requestCreatePresignedNotebookInstanceUrl :: CreatePresignedNotebookInstanceUrl -> TestTree
+requestCreatePresignedNotebookInstanceUrl =
   req
-    "CreatePresignedNotebookInstanceURL"
-    "fixture/CreatePresignedNotebookInstanceURL.yaml"
+    "CreatePresignedNotebookInstanceUrl"
+    "fixture/CreatePresignedNotebookInstanceUrl.yaml"
 
 requestDescribeTrainingJob :: DescribeTrainingJob -> TestTree
 requestDescribeTrainingJob =
@@ -2838,7 +2838,7 @@ responseDisassociateTrialComponent =
   res
     "DisassociateTrialComponentResponse"
     "fixture/DisassociateTrialComponentResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DisassociateTrialComponent)
 
 responseDeleteArtifact :: DeleteArtifactResponse -> TestTree
@@ -2846,7 +2846,7 @@ responseDeleteArtifact =
   res
     "DeleteArtifactResponse"
     "fixture/DeleteArtifactResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DeleteArtifact)
 
 responseCreateTransformJob :: CreateTransformJobResponse -> TestTree
@@ -2854,7 +2854,7 @@ responseCreateTransformJob =
   res
     "CreateTransformJobResponse"
     "fixture/CreateTransformJobResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy CreateTransformJob)
 
 responseListHumanTaskUis :: ListHumanTaskUisResponse -> TestTree
@@ -2862,7 +2862,7 @@ responseListHumanTaskUis =
   res
     "ListHumanTaskUisResponse"
     "fixture/ListHumanTaskUisResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy ListHumanTaskUis)
 
 responseDeleteHumanTaskUi :: DeleteHumanTaskUiResponse -> TestTree
@@ -2870,7 +2870,7 @@ responseDeleteHumanTaskUi =
   res
     "DeleteHumanTaskUiResponse"
     "fixture/DeleteHumanTaskUiResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DeleteHumanTaskUi)
 
 responseUpdateAction :: UpdateActionResponse -> TestTree
@@ -2878,7 +2878,7 @@ responseUpdateAction =
   res
     "UpdateActionResponse"
     "fixture/UpdateActionResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy UpdateAction)
 
 responseDescribePipeline :: DescribePipelineResponse -> TestTree
@@ -2886,7 +2886,7 @@ responseDescribePipeline =
   res
     "DescribePipelineResponse"
     "fixture/DescribePipelineResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DescribePipeline)
 
 responseUpdateArtifact :: UpdateArtifactResponse -> TestTree
@@ -2894,7 +2894,7 @@ responseUpdateArtifact =
   res
     "UpdateArtifactResponse"
     "fixture/UpdateArtifactResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy UpdateArtifact)
 
 responseDescribeUserProfile :: DescribeUserProfileResponse -> TestTree
@@ -2902,7 +2902,7 @@ responseDescribeUserProfile =
   res
     "DescribeUserProfileResponse"
     "fixture/DescribeUserProfileResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DescribeUserProfile)
 
 responseStopTrainingJob :: StopTrainingJobResponse -> TestTree
@@ -2910,7 +2910,7 @@ responseStopTrainingJob =
   res
     "StopTrainingJobResponse"
     "fixture/StopTrainingJobResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy StopTrainingJob)
 
 responseCreateEndpoint :: CreateEndpointResponse -> TestTree
@@ -2918,7 +2918,7 @@ responseCreateEndpoint =
   res
     "CreateEndpointResponse"
     "fixture/CreateEndpointResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy CreateEndpoint)
 
 responseGetSearchSuggestions :: GetSearchSuggestionsResponse -> TestTree
@@ -2926,7 +2926,7 @@ responseGetSearchSuggestions =
   res
     "GetSearchSuggestionsResponse"
     "fixture/GetSearchSuggestionsResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy GetSearchSuggestions)
 
 responseDeleteAction :: DeleteActionResponse -> TestTree
@@ -2934,7 +2934,7 @@ responseDeleteAction =
   res
     "DeleteActionResponse"
     "fixture/DeleteActionResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DeleteAction)
 
 responseCreateEdgePackagingJob :: CreateEdgePackagingJobResponse -> TestTree
@@ -2942,7 +2942,7 @@ responseCreateEdgePackagingJob =
   res
     "CreateEdgePackagingJobResponse"
     "fixture/CreateEdgePackagingJobResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy CreateEdgePackagingJob)
 
 responseDescribeEndpointConfig :: DescribeEndpointConfigResponse -> TestTree
@@ -2950,7 +2950,7 @@ responseDescribeEndpointConfig =
   res
     "DescribeEndpointConfigResponse"
     "fixture/DescribeEndpointConfigResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DescribeEndpointConfig)
 
 responseListModelPackages :: ListModelPackagesResponse -> TestTree
@@ -2958,7 +2958,7 @@ responseListModelPackages =
   res
     "ListModelPackagesResponse"
     "fixture/ListModelPackagesResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy ListModelPackages)
 
 responseGetModelPackageGroupPolicy :: GetModelPackageGroupPolicyResponse -> TestTree
@@ -2966,7 +2966,7 @@ responseGetModelPackageGroupPolicy =
   res
     "GetModelPackageGroupPolicyResponse"
     "fixture/GetModelPackageGroupPolicyResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy GetModelPackageGroupPolicy)
 
 responseDescribeMonitoringSchedule :: DescribeMonitoringScheduleResponse -> TestTree
@@ -2974,7 +2974,7 @@ responseDescribeMonitoringSchedule =
   res
     "DescribeMonitoringScheduleResponse"
     "fixture/DescribeMonitoringScheduleResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DescribeMonitoringSchedule)
 
 responseCreateModelExplainabilityJobDefinition :: CreateModelExplainabilityJobDefinitionResponse -> TestTree
@@ -2982,7 +2982,7 @@ responseCreateModelExplainabilityJobDefinition =
   res
     "CreateModelExplainabilityJobDefinitionResponse"
     "fixture/CreateModelExplainabilityJobDefinitionResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy CreateModelExplainabilityJobDefinition)
 
 responseDescribeLabelingJob :: DescribeLabelingJobResponse -> TestTree
@@ -2990,7 +2990,7 @@ responseDescribeLabelingJob =
   res
     "DescribeLabelingJobResponse"
     "fixture/DescribeLabelingJobResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DescribeLabelingJob)
 
 responseCreateNotebookInstance :: CreateNotebookInstanceResponse -> TestTree
@@ -2998,7 +2998,7 @@ responseCreateNotebookInstance =
   res
     "CreateNotebookInstanceResponse"
     "fixture/CreateNotebookInstanceResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy CreateNotebookInstance)
 
 responseUpdateModelPackage :: UpdateModelPackageResponse -> TestTree
@@ -3006,7 +3006,7 @@ responseUpdateModelPackage =
   res
     "UpdateModelPackageResponse"
     "fixture/UpdateModelPackageResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy UpdateModelPackage)
 
 responseCreateModelQualityJobDefinition :: CreateModelQualityJobDefinitionResponse -> TestTree
@@ -3014,7 +3014,7 @@ responseCreateModelQualityJobDefinition =
   res
     "CreateModelQualityJobDefinitionResponse"
     "fixture/CreateModelQualityJobDefinitionResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy CreateModelQualityJobDefinition)
 
 responseDeleteModelPackage :: DeleteModelPackageResponse -> TestTree
@@ -3022,7 +3022,7 @@ responseDeleteModelPackage =
   res
     "DeleteModelPackageResponse"
     "fixture/DeleteModelPackageResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DeleteModelPackage)
 
 responseListProjects :: ListProjectsResponse -> TestTree
@@ -3030,7 +3030,7 @@ responseListProjects =
   res
     "ListProjectsResponse"
     "fixture/ListProjectsResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy ListProjects)
 
 responseListSubscribedWorkteams :: ListSubscribedWorkteamsResponse -> TestTree
@@ -3038,7 +3038,7 @@ responseListSubscribedWorkteams =
   res
     "ListSubscribedWorkteamsResponse"
     "fixture/ListSubscribedWorkteamsResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy ListSubscribedWorkteams)
 
 responseDeleteNotebookInstance :: DeleteNotebookInstanceResponse -> TestTree
@@ -3046,7 +3046,7 @@ responseDeleteNotebookInstance =
   res
     "DeleteNotebookInstanceResponse"
     "fixture/DeleteNotebookInstanceResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DeleteNotebookInstance)
 
 responseCreateProject :: CreateProjectResponse -> TestTree
@@ -3054,7 +3054,7 @@ responseCreateProject =
   res
     "CreateProjectResponse"
     "fixture/CreateProjectResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy CreateProject)
 
 responseDescribeProcessingJob :: DescribeProcessingJobResponse -> TestTree
@@ -3062,7 +3062,7 @@ responseDescribeProcessingJob =
   res
     "DescribeProcessingJobResponse"
     "fixture/DescribeProcessingJobResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DescribeProcessingJob)
 
 responseListDomains :: ListDomainsResponse -> TestTree
@@ -3070,7 +3070,7 @@ responseListDomains =
   res
     "ListDomainsResponse"
     "fixture/ListDomainsResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy ListDomains)
 
 responseDeleteModelExplainabilityJobDefinition :: DeleteModelExplainabilityJobDefinitionResponse -> TestTree
@@ -3078,7 +3078,7 @@ responseDeleteModelExplainabilityJobDefinition =
   res
     "DeleteModelExplainabilityJobDefinitionResponse"
     "fixture/DeleteModelExplainabilityJobDefinitionResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DeleteModelExplainabilityJobDefinition)
 
 responseStopMonitoringSchedule :: StopMonitoringScheduleResponse -> TestTree
@@ -3086,7 +3086,7 @@ responseStopMonitoringSchedule =
   res
     "StopMonitoringScheduleResponse"
     "fixture/StopMonitoringScheduleResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy StopMonitoringSchedule)
 
 responseListDevices :: ListDevicesResponse -> TestTree
@@ -3094,7 +3094,7 @@ responseListDevices =
   res
     "ListDevicesResponse"
     "fixture/ListDevicesResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy ListDevices)
 
 responseCreateModelPackage :: CreateModelPackageResponse -> TestTree
@@ -3102,7 +3102,7 @@ responseCreateModelPackage =
   res
     "CreateModelPackageResponse"
     "fixture/CreateModelPackageResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy CreateModelPackage)
 
 responseUpdateNotebookInstance :: UpdateNotebookInstanceResponse -> TestTree
@@ -3110,7 +3110,7 @@ responseUpdateNotebookInstance =
   res
     "UpdateNotebookInstanceResponse"
     "fixture/UpdateNotebookInstanceResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy UpdateNotebookInstance)
 
 responseStopAutoMLJob :: StopAutoMLJobResponse -> TestTree
@@ -3118,7 +3118,7 @@ responseStopAutoMLJob =
   res
     "StopAutoMLJobResponse"
     "fixture/StopAutoMLJobResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy StopAutoMLJob)
 
 responseDescribeAppImageConfig :: DescribeAppImageConfigResponse -> TestTree
@@ -3126,7 +3126,7 @@ responseDescribeAppImageConfig =
   res
     "DescribeAppImageConfigResponse"
     "fixture/DescribeAppImageConfigResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DescribeAppImageConfig)
 
 responseStartMonitoringSchedule :: StartMonitoringScheduleResponse -> TestTree
@@ -3134,7 +3134,7 @@ responseStartMonitoringSchedule =
   res
     "StartMonitoringScheduleResponse"
     "fixture/StartMonitoringScheduleResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy StartMonitoringSchedule)
 
 responseStopCompilationJob :: StopCompilationJobResponse -> TestTree
@@ -3142,7 +3142,7 @@ responseStopCompilationJob =
   res
     "StopCompilationJobResponse"
     "fixture/StopCompilationJobResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy StopCompilationJob)
 
 responseCreateTrial :: CreateTrialResponse -> TestTree
@@ -3150,7 +3150,7 @@ responseCreateTrial =
   res
     "CreateTrialResponse"
     "fixture/CreateTrialResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy CreateTrial)
 
 responseGetSagemakerServicecatalogPortfolioStatus :: GetSagemakerServicecatalogPortfolioStatusResponse -> TestTree
@@ -3158,7 +3158,7 @@ responseGetSagemakerServicecatalogPortfolioStatus =
   res
     "GetSagemakerServicecatalogPortfolioStatusResponse"
     "fixture/GetSagemakerServicecatalogPortfolioStatusResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy GetSagemakerServicecatalogPortfolioStatus)
 
 responseUpdateCodeRepository :: UpdateCodeRepositoryResponse -> TestTree
@@ -3166,7 +3166,7 @@ responseUpdateCodeRepository =
   res
     "UpdateCodeRepositoryResponse"
     "fixture/UpdateCodeRepositoryResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy UpdateCodeRepository)
 
 responseSearch :: SearchResponse -> TestTree
@@ -3174,7 +3174,7 @@ responseSearch =
   res
     "SearchResponse"
     "fixture/SearchResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy Search)
 
 responseDeleteModel :: DeleteModelResponse -> TestTree
@@ -3182,7 +3182,7 @@ responseDeleteModel =
   res
     "DeleteModelResponse"
     "fixture/DeleteModelResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DeleteModel)
 
 responseDeleteDataQualityJobDefinition :: DeleteDataQualityJobDefinitionResponse -> TestTree
@@ -3190,7 +3190,7 @@ responseDeleteDataQualityJobDefinition =
   res
     "DeleteDataQualityJobDefinitionResponse"
     "fixture/DeleteDataQualityJobDefinitionResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DeleteDataQualityJobDefinition)
 
 responseListImages :: ListImagesResponse -> TestTree
@@ -3198,7 +3198,7 @@ responseListImages =
   res
     "ListImagesResponse"
     "fixture/ListImagesResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy ListImages)
 
 responseListTrainingJobs :: ListTrainingJobsResponse -> TestTree
@@ -3206,7 +3206,7 @@ responseListTrainingJobs =
   res
     "ListTrainingJobsResponse"
     "fixture/ListTrainingJobsResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy ListTrainingJobs)
 
 responseDescribeTransformJob :: DescribeTransformJobResponse -> TestTree
@@ -3214,7 +3214,7 @@ responseDescribeTransformJob =
   res
     "DescribeTransformJobResponse"
     "fixture/DescribeTransformJobResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DescribeTransformJob)
 
 responseCreatePipeline :: CreatePipelineResponse -> TestTree
@@ -3222,7 +3222,7 @@ responseCreatePipeline =
   res
     "CreatePipelineResponse"
     "fixture/CreatePipelineResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy CreatePipeline)
 
 responseCreateModelPackageGroup :: CreateModelPackageGroupResponse -> TestTree
@@ -3230,7 +3230,7 @@ responseCreateModelPackageGroup =
   res
     "CreateModelPackageGroupResponse"
     "fixture/CreateModelPackageGroupResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy CreateModelPackageGroup)
 
 responseListCandidatesForAutoMLJob :: ListCandidatesForAutoMLJobResponse -> TestTree
@@ -3238,7 +3238,7 @@ responseListCandidatesForAutoMLJob =
   res
     "ListCandidatesForAutoMLJobResponse"
     "fixture/ListCandidatesForAutoMLJobResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy ListCandidatesForAutoMLJob)
 
 responseDeleteAlgorithm :: DeleteAlgorithmResponse -> TestTree
@@ -3246,7 +3246,7 @@ responseDeleteAlgorithm =
   res
     "DeleteAlgorithmResponse"
     "fixture/DeleteAlgorithmResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DeleteAlgorithm)
 
 responseGetDeviceFleetReport :: GetDeviceFleetReportResponse -> TestTree
@@ -3254,7 +3254,7 @@ responseGetDeviceFleetReport =
   res
     "GetDeviceFleetReportResponse"
     "fixture/GetDeviceFleetReportResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy GetDeviceFleetReport)
 
 responseListDataQualityJobDefinitions :: ListDataQualityJobDefinitionsResponse -> TestTree
@@ -3262,7 +3262,7 @@ responseListDataQualityJobDefinitions =
   res
     "ListDataQualityJobDefinitionsResponse"
     "fixture/ListDataQualityJobDefinitionsResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy ListDataQualityJobDefinitions)
 
 responseDescribeEdgePackagingJob :: DescribeEdgePackagingJobResponse -> TestTree
@@ -3270,7 +3270,7 @@ responseDescribeEdgePackagingJob =
   res
     "DescribeEdgePackagingJobResponse"
     "fixture/DescribeEdgePackagingJobResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DescribeEdgePackagingJob)
 
 responseListContexts :: ListContextsResponse -> TestTree
@@ -3278,7 +3278,7 @@ responseListContexts =
   res
     "ListContextsResponse"
     "fixture/ListContextsResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy ListContexts)
 
 responseDescribeEndpoint :: DescribeEndpointResponse -> TestTree
@@ -3286,7 +3286,7 @@ responseDescribeEndpoint =
   res
     "DescribeEndpointResponse"
     "fixture/DescribeEndpointResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DescribeEndpoint)
 
 responseDeleteCodeRepository :: DeleteCodeRepositoryResponse -> TestTree
@@ -3294,7 +3294,7 @@ responseDeleteCodeRepository =
   res
     "DeleteCodeRepositoryResponse"
     "fixture/DeleteCodeRepositoryResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DeleteCodeRepository)
 
 responseDeleteModelPackageGroupPolicy :: DeleteModelPackageGroupPolicyResponse -> TestTree
@@ -3302,7 +3302,7 @@ responseDeleteModelPackageGroupPolicy =
   res
     "DeleteModelPackageGroupPolicyResponse"
     "fixture/DeleteModelPackageGroupPolicyResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DeleteModelPackageGroupPolicy)
 
 responseListUserProfiles :: ListUserProfilesResponse -> TestTree
@@ -3310,7 +3310,7 @@ responseListUserProfiles =
   res
     "ListUserProfilesResponse"
     "fixture/ListUserProfilesResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy ListUserProfiles)
 
 responseDescribeCompilationJob :: DescribeCompilationJobResponse -> TestTree
@@ -3318,7 +3318,7 @@ responseDescribeCompilationJob =
   res
     "DescribeCompilationJobResponse"
     "fixture/DescribeCompilationJobResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DescribeCompilationJob)
 
 responseUpdatePipeline :: UpdatePipelineResponse -> TestTree
@@ -3326,7 +3326,7 @@ responseUpdatePipeline =
   res
     "UpdatePipelineResponse"
     "fixture/UpdatePipelineResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy UpdatePipeline)
 
 responseCreateCodeRepository :: CreateCodeRepositoryResponse -> TestTree
@@ -3334,7 +3334,7 @@ responseCreateCodeRepository =
   res
     "CreateCodeRepositoryResponse"
     "fixture/CreateCodeRepositoryResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy CreateCodeRepository)
 
 responseDescribeArtifact :: DescribeArtifactResponse -> TestTree
@@ -3342,7 +3342,7 @@ responseDescribeArtifact =
   res
     "DescribeArtifactResponse"
     "fixture/DescribeArtifactResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DescribeArtifact)
 
 responseDescribeHumanTaskUi :: DescribeHumanTaskUiResponse -> TestTree
@@ -3350,7 +3350,7 @@ responseDescribeHumanTaskUi =
   res
     "DescribeHumanTaskUiResponse"
     "fixture/DescribeHumanTaskUiResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DescribeHumanTaskUi)
 
 responseListPipelineExecutionSteps :: ListPipelineExecutionStepsResponse -> TestTree
@@ -3358,7 +3358,7 @@ responseListPipelineExecutionSteps =
   res
     "ListPipelineExecutionStepsResponse"
     "fixture/ListPipelineExecutionStepsResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy ListPipelineExecutionSteps)
 
 responseListCodeRepositories :: ListCodeRepositoriesResponse -> TestTree
@@ -3366,7 +3366,7 @@ responseListCodeRepositories =
   res
     "ListCodeRepositoriesResponse"
     "fixture/ListCodeRepositoriesResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy ListCodeRepositories)
 
 responseUpdateUserProfile :: UpdateUserProfileResponse -> TestTree
@@ -3374,7 +3374,7 @@ responseUpdateUserProfile =
   res
     "UpdateUserProfileResponse"
     "fixture/UpdateUserProfileResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy UpdateUserProfile)
 
 responseDescribeAction :: DescribeActionResponse -> TestTree
@@ -3382,7 +3382,7 @@ responseDescribeAction =
   res
     "DescribeActionResponse"
     "fixture/DescribeActionResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DescribeAction)
 
 responseStopTransformJob :: StopTransformJobResponse -> TestTree
@@ -3390,7 +3390,7 @@ responseStopTransformJob =
   res
     "StopTransformJobResponse"
     "fixture/StopTransformJobResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy StopTransformJob)
 
 responseCreateTrainingJob :: CreateTrainingJobResponse -> TestTree
@@ -3398,7 +3398,7 @@ responseCreateTrainingJob =
   res
     "CreateTrainingJobResponse"
     "fixture/CreateTrainingJobResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy CreateTrainingJob)
 
 responseDeleteUserProfile :: DeleteUserProfileResponse -> TestTree
@@ -3406,7 +3406,7 @@ responseDeleteUserProfile =
   res
     "DeleteUserProfileResponse"
     "fixture/DeleteUserProfileResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DeleteUserProfile)
 
 responseCreateContext :: CreateContextResponse -> TestTree
@@ -3414,7 +3414,7 @@ responseCreateContext =
   res
     "CreateContextResponse"
     "fixture/CreateContextResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy CreateContext)
 
 responseStopEdgePackagingJob :: StopEdgePackagingJobResponse -> TestTree
@@ -3422,7 +3422,7 @@ responseStopEdgePackagingJob =
   res
     "StopEdgePackagingJobResponse"
     "fixture/StopEdgePackagingJobResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy StopEdgePackagingJob)
 
 responseCreateImage :: CreateImageResponse -> TestTree
@@ -3430,7 +3430,7 @@ responseCreateImage =
   res
     "CreateImageResponse"
     "fixture/CreateImageResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy CreateImage)
 
 responseDeregisterDevices :: DeregisterDevicesResponse -> TestTree
@@ -3438,7 +3438,7 @@ responseDeregisterDevices =
   res
     "DeregisterDevicesResponse"
     "fixture/DeregisterDevicesResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DeregisterDevices)
 
 responseCreateDataQualityJobDefinition :: CreateDataQualityJobDefinitionResponse -> TestTree
@@ -3446,7 +3446,7 @@ responseCreateDataQualityJobDefinition =
   res
     "CreateDataQualityJobDefinitionResponse"
     "fixture/CreateDataQualityJobDefinitionResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy CreateDataQualityJobDefinition)
 
 responseDeletePipeline :: DeletePipelineResponse -> TestTree
@@ -3454,7 +3454,7 @@ responseDeletePipeline =
   res
     "DeletePipelineResponse"
     "fixture/DeletePipelineResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DeletePipeline)
 
 responseCreateAppImageConfig :: CreateAppImageConfigResponse -> TestTree
@@ -3462,7 +3462,7 @@ responseCreateAppImageConfig =
   res
     "CreateAppImageConfigResponse"
     "fixture/CreateAppImageConfigResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy CreateAppImageConfig)
 
 responseAddTags :: AddTagsResponse -> TestTree
@@ -3470,7 +3470,7 @@ responseAddTags =
   res
     "AddTagsResponse"
     "fixture/AddTagsResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy AddTags)
 
 responseDisableSagemakerServicecatalogPortfolio :: DisableSagemakerServicecatalogPortfolioResponse -> TestTree
@@ -3478,7 +3478,7 @@ responseDisableSagemakerServicecatalogPortfolio =
   res
     "DisableSagemakerServicecatalogPortfolioResponse"
     "fixture/DisableSagemakerServicecatalogPortfolioResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DisableSagemakerServicecatalogPortfolio)
 
 responseDeleteAssociation :: DeleteAssociationResponse -> TestTree
@@ -3486,7 +3486,7 @@ responseDeleteAssociation =
   res
     "DeleteAssociationResponse"
     "fixture/DeleteAssociationResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DeleteAssociation)
 
 responseUpdateMonitoringSchedule :: UpdateMonitoringScheduleResponse -> TestTree
@@ -3494,7 +3494,7 @@ responseUpdateMonitoringSchedule =
   res
     "UpdateMonitoringScheduleResponse"
     "fixture/UpdateMonitoringScheduleResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy UpdateMonitoringSchedule)
 
 responseListMonitoringSchedules :: ListMonitoringSchedulesResponse -> TestTree
@@ -3502,7 +3502,7 @@ responseListMonitoringSchedules =
   res
     "ListMonitoringSchedulesResponse"
     "fixture/ListMonitoringSchedulesResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy ListMonitoringSchedules)
 
 responseStopNotebookInstance :: StopNotebookInstanceResponse -> TestTree
@@ -3510,7 +3510,7 @@ responseStopNotebookInstance =
   res
     "StopNotebookInstanceResponse"
     "fixture/StopNotebookInstanceResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy StopNotebookInstance)
 
 responseDeleteMonitoringSchedule :: DeleteMonitoringScheduleResponse -> TestTree
@@ -3518,7 +3518,7 @@ responseDeleteMonitoringSchedule =
   res
     "DeleteMonitoringScheduleResponse"
     "fixture/DeleteMonitoringScheduleResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DeleteMonitoringSchedule)
 
 responseDeleteEndpointConfig :: DeleteEndpointConfigResponse -> TestTree
@@ -3526,7 +3526,7 @@ responseDeleteEndpointConfig =
   res
     "DeleteEndpointConfigResponse"
     "fixture/DeleteEndpointConfigResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DeleteEndpointConfig)
 
 responseStartPipelineExecution :: StartPipelineExecutionResponse -> TestTree
@@ -3534,7 +3534,7 @@ responseStartPipelineExecution =
   res
     "StartPipelineExecutionResponse"
     "fixture/StartPipelineExecutionResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy StartPipelineExecution)
 
 responseDescribeModelPackage :: DescribeModelPackageResponse -> TestTree
@@ -3542,7 +3542,7 @@ responseDescribeModelPackage =
   res
     "DescribeModelPackageResponse"
     "fixture/DescribeModelPackageResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DescribeModelPackage)
 
 responseDeleteTags :: DeleteTagsResponse -> TestTree
@@ -3550,7 +3550,7 @@ responseDeleteTags =
   res
     "DeleteTagsResponse"
     "fixture/DeleteTagsResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DeleteTags)
 
 responseAddAssociation :: AddAssociationResponse -> TestTree
@@ -3558,7 +3558,7 @@ responseAddAssociation =
   res
     "AddAssociationResponse"
     "fixture/AddAssociationResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy AddAssociation)
 
 responseCreateNotebookInstanceLifecycleConfig :: CreateNotebookInstanceLifecycleConfigResponse -> TestTree
@@ -3566,7 +3566,7 @@ responseCreateNotebookInstanceLifecycleConfig =
   res
     "CreateNotebookInstanceLifecycleConfigResponse"
     "fixture/CreateNotebookInstanceLifecycleConfigResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy CreateNotebookInstanceLifecycleConfig)
 
 responseListApps :: ListAppsResponse -> TestTree
@@ -3574,7 +3574,7 @@ responseListApps =
   res
     "ListAppsResponse"
     "fixture/ListAppsResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy ListApps)
 
 responseCreateWorkforce :: CreateWorkforceResponse -> TestTree
@@ -3582,7 +3582,7 @@ responseCreateWorkforce =
   res
     "CreateWorkforceResponse"
     "fixture/CreateWorkforceResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy CreateWorkforce)
 
 responseListAutoMLJobs :: ListAutoMLJobsResponse -> TestTree
@@ -3590,7 +3590,7 @@ responseListAutoMLJobs =
   res
     "ListAutoMLJobsResponse"
     "fixture/ListAutoMLJobsResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy ListAutoMLJobs)
 
 responseUpdateEndpointWeightsAndCapacities :: UpdateEndpointWeightsAndCapacitiesResponse -> TestTree
@@ -3598,7 +3598,7 @@ responseUpdateEndpointWeightsAndCapacities =
   res
     "UpdateEndpointWeightsAndCapacitiesResponse"
     "fixture/UpdateEndpointWeightsAndCapacitiesResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy UpdateEndpointWeightsAndCapacities)
 
 responseStartNotebookInstance :: StartNotebookInstanceResponse -> TestTree
@@ -3606,7 +3606,7 @@ responseStartNotebookInstance =
   res
     "StartNotebookInstanceResponse"
     "fixture/StartNotebookInstanceResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy StartNotebookInstance)
 
 responseStopPipelineExecution :: StopPipelineExecutionResponse -> TestTree
@@ -3614,7 +3614,7 @@ responseStopPipelineExecution =
   res
     "StopPipelineExecutionResponse"
     "fixture/StopPipelineExecutionResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy StopPipelineExecution)
 
 responseListEndpointConfigs :: ListEndpointConfigsResponse -> TestTree
@@ -3622,7 +3622,7 @@ responseListEndpointConfigs =
   res
     "ListEndpointConfigsResponse"
     "fixture/ListEndpointConfigsResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy ListEndpointConfigs)
 
 responseDeleteWorkteam :: DeleteWorkteamResponse -> TestTree
@@ -3630,7 +3630,7 @@ responseDeleteWorkteam =
   res
     "DeleteWorkteamResponse"
     "fixture/DeleteWorkteamResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DeleteWorkteam)
 
 responseDeleteWorkforce :: DeleteWorkforceResponse -> TestTree
@@ -3638,7 +3638,7 @@ responseDeleteWorkforce =
   res
     "DeleteWorkforceResponse"
     "fixture/DeleteWorkforceResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DeleteWorkforce)
 
 responseDeleteModelBiasJobDefinition :: DeleteModelBiasJobDefinitionResponse -> TestTree
@@ -3646,7 +3646,7 @@ responseDeleteModelBiasJobDefinition =
   res
     "DeleteModelBiasJobDefinitionResponse"
     "fixture/DeleteModelBiasJobDefinitionResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DeleteModelBiasJobDefinition)
 
 responseUpdateWorkforce :: UpdateWorkforceResponse -> TestTree
@@ -3654,7 +3654,7 @@ responseUpdateWorkforce =
   res
     "UpdateWorkforceResponse"
     "fixture/UpdateWorkforceResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy UpdateWorkforce)
 
 responseDescribeDevice :: DescribeDeviceResponse -> TestTree
@@ -3662,7 +3662,7 @@ responseDescribeDevice =
   res
     "DescribeDeviceResponse"
     "fixture/DescribeDeviceResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DescribeDevice)
 
 responseDescribeDomain :: DescribeDomainResponse -> TestTree
@@ -3670,7 +3670,7 @@ responseDescribeDomain =
   res
     "DescribeDomainResponse"
     "fixture/DescribeDomainResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DescribeDomain)
 
 responseDeleteNotebookInstanceLifecycleConfig :: DeleteNotebookInstanceLifecycleConfigResponse -> TestTree
@@ -3678,7 +3678,7 @@ responseDeleteNotebookInstanceLifecycleConfig =
   res
     "DeleteNotebookInstanceLifecycleConfigResponse"
     "fixture/DeleteNotebookInstanceLifecycleConfigResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DeleteNotebookInstanceLifecycleConfig)
 
 responseDescribePipelineExecution :: DescribePipelineExecutionResponse -> TestTree
@@ -3686,7 +3686,7 @@ responseDescribePipelineExecution =
   res
     "DescribePipelineExecutionResponse"
     "fixture/DescribePipelineExecutionResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DescribePipelineExecution)
 
 responseUpdateWorkteam :: UpdateWorkteamResponse -> TestTree
@@ -3694,7 +3694,7 @@ responseUpdateWorkteam =
   res
     "UpdateWorkteamResponse"
     "fixture/UpdateWorkteamResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy UpdateWorkteam)
 
 responseCreateLabelingJob :: CreateLabelingJobResponse -> TestTree
@@ -3702,7 +3702,7 @@ responseCreateLabelingJob =
   res
     "CreateLabelingJobResponse"
     "fixture/CreateLabelingJobResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy CreateLabelingJob)
 
 responseDescribeModelQualityJobDefinition :: DescribeModelQualityJobDefinitionResponse -> TestTree
@@ -3710,7 +3710,7 @@ responseDescribeModelQualityJobDefinition =
   res
     "DescribeModelQualityJobDefinitionResponse"
     "fixture/DescribeModelQualityJobDefinitionResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DescribeModelQualityJobDefinition)
 
 responseCreateExperiment :: CreateExperimentResponse -> TestTree
@@ -3718,7 +3718,7 @@ responseCreateExperiment =
   res
     "CreateExperimentResponse"
     "fixture/CreateExperimentResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy CreateExperiment)
 
 responseListWorkforces :: ListWorkforcesResponse -> TestTree
@@ -3726,7 +3726,7 @@ responseListWorkforces =
   res
     "ListWorkforcesResponse"
     "fixture/ListWorkforcesResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy ListWorkforces)
 
 responseListAppImageConfigs :: ListAppImageConfigsResponse -> TestTree
@@ -3734,7 +3734,7 @@ responseListAppImageConfigs =
   res
     "ListAppImageConfigsResponse"
     "fixture/ListAppImageConfigsResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy ListAppImageConfigs)
 
 responseUpdateNotebookInstanceLifecycleConfig :: UpdateNotebookInstanceLifecycleConfigResponse -> TestTree
@@ -3742,7 +3742,7 @@ responseUpdateNotebookInstanceLifecycleConfig =
   res
     "UpdateNotebookInstanceLifecycleConfigResponse"
     "fixture/UpdateNotebookInstanceLifecycleConfigResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy UpdateNotebookInstanceLifecycleConfig)
 
 responseDescribeSubscribedWorkteam :: DescribeSubscribedWorkteamResponse -> TestTree
@@ -3750,7 +3750,7 @@ responseDescribeSubscribedWorkteam =
   res
     "DescribeSubscribedWorkteamResponse"
     "fixture/DescribeSubscribedWorkteamResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DescribeSubscribedWorkteam)
 
 responseListNotebookInstanceLifecycleConfigs :: ListNotebookInstanceLifecycleConfigsResponse -> TestTree
@@ -3758,7 +3758,7 @@ responseListNotebookInstanceLifecycleConfigs =
   res
     "ListNotebookInstanceLifecycleConfigsResponse"
     "fixture/ListNotebookInstanceLifecycleConfigsResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy ListNotebookInstanceLifecycleConfigs)
 
 responseListEdgePackagingJobs :: ListEdgePackagingJobsResponse -> TestTree
@@ -3766,7 +3766,7 @@ responseListEdgePackagingJobs =
   res
     "ListEdgePackagingJobsResponse"
     "fixture/ListEdgePackagingJobsResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy ListEdgePackagingJobs)
 
 responseDescribeCodeRepository :: DescribeCodeRepositoryResponse -> TestTree
@@ -3774,7 +3774,7 @@ responseDescribeCodeRepository =
   res
     "DescribeCodeRepositoryResponse"
     "fixture/DescribeCodeRepositoryResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DescribeCodeRepository)
 
 responseListEndpoints :: ListEndpointsResponse -> TestTree
@@ -3782,7 +3782,7 @@ responseListEndpoints =
   res
     "ListEndpointsResponse"
     "fixture/ListEndpointsResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy ListEndpoints)
 
 responseDescribeDataQualityJobDefinition :: DescribeDataQualityJobDefinitionResponse -> TestTree
@@ -3790,7 +3790,7 @@ responseDescribeDataQualityJobDefinition =
   res
     "DescribeDataQualityJobDefinitionResponse"
     "fixture/DescribeDataQualityJobDefinitionResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DescribeDataQualityJobDefinition)
 
 responseDescribeAlgorithm :: DescribeAlgorithmResponse -> TestTree
@@ -3798,7 +3798,7 @@ responseDescribeAlgorithm =
   res
     "DescribeAlgorithmResponse"
     "fixture/DescribeAlgorithmResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DescribeAlgorithm)
 
 responseCreateAction :: CreateActionResponse -> TestTree
@@ -3806,7 +3806,7 @@ responseCreateAction =
   res
     "CreateActionResponse"
     "fixture/CreateActionResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy CreateAction)
 
 responseDeleteEndpoint :: DeleteEndpointResponse -> TestTree
@@ -3814,23 +3814,23 @@ responseDeleteEndpoint =
   res
     "DeleteEndpointResponse"
     "fixture/DeleteEndpointResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DeleteEndpoint)
 
-responseCreatePresignedDomainURL :: CreatePresignedDomainURLResponse -> TestTree
-responseCreatePresignedDomainURL =
+responseCreatePresignedDomainUrl :: CreatePresignedDomainUrlResponse -> TestTree
+responseCreatePresignedDomainUrl =
   res
-    "CreatePresignedDomainURLResponse"
-    "fixture/CreatePresignedDomainURLResponse.proto"
-    sageMaker
-    (Proxy :: Proxy CreatePresignedDomainURL)
+    "CreatePresignedDomainUrlResponse"
+    "fixture/CreatePresignedDomainUrlResponse.proto"
+    defaultService
+    (Proxy :: Proxy CreatePresignedDomainUrl)
 
 responseListTransformJobs :: ListTransformJobsResponse -> TestTree
 responseListTransformJobs =
   res
     "ListTransformJobsResponse"
     "fixture/ListTransformJobsResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy ListTransformJobs)
 
 responseDescribeHyperParameterTuningJob :: DescribeHyperParameterTuningJobResponse -> TestTree
@@ -3838,7 +3838,7 @@ responseDescribeHyperParameterTuningJob =
   res
     "DescribeHyperParameterTuningJobResponse"
     "fixture/DescribeHyperParameterTuningJobResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DescribeHyperParameterTuningJob)
 
 responseCreateCompilationJob :: CreateCompilationJobResponse -> TestTree
@@ -3846,7 +3846,7 @@ responseCreateCompilationJob =
   res
     "CreateCompilationJobResponse"
     "fixture/CreateCompilationJobResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy CreateCompilationJob)
 
 responseUpdateEndpoint :: UpdateEndpointResponse -> TestTree
@@ -3854,7 +3854,7 @@ responseUpdateEndpoint =
   res
     "UpdateEndpointResponse"
     "fixture/UpdateEndpointResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy UpdateEndpoint)
 
 responseDescribeModel :: DescribeModelResponse -> TestTree
@@ -3862,7 +3862,7 @@ responseDescribeModel =
   res
     "DescribeModelResponse"
     "fixture/DescribeModelResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DescribeModel)
 
 responseCreateDeviceFleet :: CreateDeviceFleetResponse -> TestTree
@@ -3870,7 +3870,7 @@ responseCreateDeviceFleet =
   res
     "CreateDeviceFleetResponse"
     "fixture/CreateDeviceFleetResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy CreateDeviceFleet)
 
 responseCreateArtifact :: CreateArtifactResponse -> TestTree
@@ -3878,7 +3878,7 @@ responseCreateArtifact =
   res
     "CreateArtifactResponse"
     "fixture/CreateArtifactResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy CreateArtifact)
 
 responseUpdateDevices :: UpdateDevicesResponse -> TestTree
@@ -3886,7 +3886,7 @@ responseUpdateDevices =
   res
     "UpdateDevicesResponse"
     "fixture/UpdateDevicesResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy UpdateDevices)
 
 responseListArtifacts :: ListArtifactsResponse -> TestTree
@@ -3894,7 +3894,7 @@ responseListArtifacts =
   res
     "ListArtifactsResponse"
     "fixture/ListArtifactsResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy ListArtifacts)
 
 responseDeleteDeviceFleet :: DeleteDeviceFleetResponse -> TestTree
@@ -3902,7 +3902,7 @@ responseDeleteDeviceFleet =
   res
     "DeleteDeviceFleetResponse"
     "fixture/DeleteDeviceFleetResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DeleteDeviceFleet)
 
 responseListMonitoringExecutions :: ListMonitoringExecutionsResponse -> TestTree
@@ -3910,7 +3910,7 @@ responseListMonitoringExecutions =
   res
     "ListMonitoringExecutionsResponse"
     "fixture/ListMonitoringExecutionsResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy ListMonitoringExecutions)
 
 responseListCompilationJobs :: ListCompilationJobsResponse -> TestTree
@@ -3918,7 +3918,7 @@ responseListCompilationJobs =
   res
     "ListCompilationJobsResponse"
     "fixture/ListCompilationJobsResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy ListCompilationJobs)
 
 responseListActions :: ListActionsResponse -> TestTree
@@ -3926,7 +3926,7 @@ responseListActions =
   res
     "ListActionsResponse"
     "fixture/ListActionsResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy ListActions)
 
 responseListDeviceFleets :: ListDeviceFleetsResponse -> TestTree
@@ -3934,7 +3934,7 @@ responseListDeviceFleets =
   res
     "ListDeviceFleetsResponse"
     "fixture/ListDeviceFleetsResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy ListDeviceFleets)
 
 responseDescribeModelPackageGroup :: DescribeModelPackageGroupResponse -> TestTree
@@ -3942,7 +3942,7 @@ responseDescribeModelPackageGroup =
   res
     "DescribeModelPackageGroupResponse"
     "fixture/DescribeModelPackageGroupResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DescribeModelPackageGroup)
 
 responseStopHyperParameterTuningJob :: StopHyperParameterTuningJobResponse -> TestTree
@@ -3950,7 +3950,7 @@ responseStopHyperParameterTuningJob =
   res
     "StopHyperParameterTuningJobResponse"
     "fixture/StopHyperParameterTuningJobResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy StopHyperParameterTuningJob)
 
 responseDescribeTrial :: DescribeTrialResponse -> TestTree
@@ -3958,7 +3958,7 @@ responseDescribeTrial =
   res
     "DescribeTrialResponse"
     "fixture/DescribeTrialResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DescribeTrial)
 
 responseUpdateDeviceFleet :: UpdateDeviceFleetResponse -> TestTree
@@ -3966,7 +3966,7 @@ responseUpdateDeviceFleet =
   res
     "UpdateDeviceFleetResponse"
     "fixture/UpdateDeviceFleetResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy UpdateDeviceFleet)
 
 responseListLabelingJobsForWorkteam :: ListLabelingJobsForWorkteamResponse -> TestTree
@@ -3974,7 +3974,7 @@ responseListLabelingJobsForWorkteam =
   res
     "ListLabelingJobsForWorkteamResponse"
     "fixture/ListLabelingJobsForWorkteamResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy ListLabelingJobsForWorkteam)
 
 responseCreateFeatureGroup :: CreateFeatureGroupResponse -> TestTree
@@ -3982,7 +3982,7 @@ responseCreateFeatureGroup =
   res
     "CreateFeatureGroupResponse"
     "fixture/CreateFeatureGroupResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy CreateFeatureGroup)
 
 responseCreateDomain :: CreateDomainResponse -> TestTree
@@ -3990,7 +3990,7 @@ responseCreateDomain =
   res
     "CreateDomainResponse"
     "fixture/CreateDomainResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy CreateDomain)
 
 responseListImageVersions :: ListImageVersionsResponse -> TestTree
@@ -3998,7 +3998,7 @@ responseListImageVersions =
   res
     "ListImageVersionsResponse"
     "fixture/ListImageVersionsResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy ListImageVersions)
 
 responseStopProcessingJob :: StopProcessingJobResponse -> TestTree
@@ -4006,7 +4006,7 @@ responseStopProcessingJob =
   res
     "StopProcessingJobResponse"
     "fixture/StopProcessingJobResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy StopProcessingJob)
 
 responseDeleteImageVersion :: DeleteImageVersionResponse -> TestTree
@@ -4014,7 +4014,7 @@ responseDeleteImageVersion =
   res
     "DeleteImageVersionResponse"
     "fixture/DeleteImageVersionResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DeleteImageVersion)
 
 responseDeleteProject :: DeleteProjectResponse -> TestTree
@@ -4022,7 +4022,7 @@ responseDeleteProject =
   res
     "DeleteProjectResponse"
     "fixture/DeleteProjectResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DeleteProject)
 
 responseDescribeExperiment :: DescribeExperimentResponse -> TestTree
@@ -4030,7 +4030,7 @@ responseDescribeExperiment =
   res
     "DescribeExperimentResponse"
     "fixture/DescribeExperimentResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DescribeExperiment)
 
 responseDescribeAutoMLJob :: DescribeAutoMLJobResponse -> TestTree
@@ -4038,7 +4038,7 @@ responseDescribeAutoMLJob =
   res
     "DescribeAutoMLJobResponse"
     "fixture/DescribeAutoMLJobResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DescribeAutoMLJob)
 
 responseDescribeApp :: DescribeAppResponse -> TestTree
@@ -4046,7 +4046,7 @@ responseDescribeApp =
   res
     "DescribeAppResponse"
     "fixture/DescribeAppResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DescribeApp)
 
 responseListTrialComponents :: ListTrialComponentsResponse -> TestTree
@@ -4054,7 +4054,7 @@ responseListTrialComponents =
   res
     "ListTrialComponentsResponse"
     "fixture/ListTrialComponentsResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy ListTrialComponents)
 
 responseUpdateTrialComponent :: UpdateTrialComponentResponse -> TestTree
@@ -4062,7 +4062,7 @@ responseUpdateTrialComponent =
   res
     "UpdateTrialComponentResponse"
     "fixture/UpdateTrialComponentResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy UpdateTrialComponent)
 
 responseDeleteTrialComponent :: DeleteTrialComponentResponse -> TestTree
@@ -4070,7 +4070,7 @@ responseDeleteTrialComponent =
   res
     "DeleteTrialComponentResponse"
     "fixture/DeleteTrialComponentResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DeleteTrialComponent)
 
 responseCreateTrialComponent :: CreateTrialComponentResponse -> TestTree
@@ -4078,7 +4078,7 @@ responseCreateTrialComponent =
   res
     "CreateTrialComponentResponse"
     "fixture/CreateTrialComponentResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy CreateTrialComponent)
 
 responseDescribeWorkforce :: DescribeWorkforceResponse -> TestTree
@@ -4086,7 +4086,7 @@ responseDescribeWorkforce =
   res
     "DescribeWorkforceResponse"
     "fixture/DescribeWorkforceResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DescribeWorkforce)
 
 responseListNotebookInstances :: ListNotebookInstancesResponse -> TestTree
@@ -4094,7 +4094,7 @@ responseListNotebookInstances =
   res
     "ListNotebookInstancesResponse"
     "fixture/ListNotebookInstancesResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy ListNotebookInstances)
 
 responseListModelExplainabilityJobDefinitions :: ListModelExplainabilityJobDefinitionsResponse -> TestTree
@@ -4102,7 +4102,7 @@ responseListModelExplainabilityJobDefinitions =
   res
     "ListModelExplainabilityJobDefinitionsResponse"
     "fixture/ListModelExplainabilityJobDefinitionsResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy ListModelExplainabilityJobDefinitions)
 
 responseDeleteModelQualityJobDefinition :: DeleteModelQualityJobDefinitionResponse -> TestTree
@@ -4110,7 +4110,7 @@ responseDeleteModelQualityJobDefinition =
   res
     "DeleteModelQualityJobDefinitionResponse"
     "fixture/DeleteModelQualityJobDefinitionResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DeleteModelQualityJobDefinition)
 
 responseStopLabelingJob :: StopLabelingJobResponse -> TestTree
@@ -4118,7 +4118,7 @@ responseStopLabelingJob =
   res
     "StopLabelingJobResponse"
     "fixture/StopLabelingJobResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy StopLabelingJob)
 
 responseListModelQualityJobDefinitions :: ListModelQualityJobDefinitionsResponse -> TestTree
@@ -4126,7 +4126,7 @@ responseListModelQualityJobDefinitions =
   res
     "ListModelQualityJobDefinitionsResponse"
     "fixture/ListModelQualityJobDefinitionsResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy ListModelQualityJobDefinitions)
 
 responseDescribeModelBiasJobDefinition :: DescribeModelBiasJobDefinitionResponse -> TestTree
@@ -4134,7 +4134,7 @@ responseDescribeModelBiasJobDefinition =
   res
     "DescribeModelBiasJobDefinitionResponse"
     "fixture/DescribeModelBiasJobDefinitionResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DescribeModelBiasJobDefinition)
 
 responseDescribeWorkteam :: DescribeWorkteamResponse -> TestTree
@@ -4142,7 +4142,7 @@ responseDescribeWorkteam =
   res
     "DescribeWorkteamResponse"
     "fixture/DescribeWorkteamResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DescribeWorkteam)
 
 responseDescribeNotebookInstanceLifecycleConfig :: DescribeNotebookInstanceLifecycleConfigResponse -> TestTree
@@ -4150,7 +4150,7 @@ responseDescribeNotebookInstanceLifecycleConfig =
   res
     "DescribeNotebookInstanceLifecycleConfigResponse"
     "fixture/DescribeNotebookInstanceLifecycleConfigResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DescribeNotebookInstanceLifecycleConfig)
 
 responseListPipelineExecutions :: ListPipelineExecutionsResponse -> TestTree
@@ -4158,7 +4158,7 @@ responseListPipelineExecutions =
   res
     "ListPipelineExecutionsResponse"
     "fixture/ListPipelineExecutionsResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy ListPipelineExecutions)
 
 responseUpdateDomain :: UpdateDomainResponse -> TestTree
@@ -4166,7 +4166,7 @@ responseUpdateDomain =
   res
     "UpdateDomainResponse"
     "fixture/UpdateDomainResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy UpdateDomain)
 
 responseAssociateTrialComponent :: AssociateTrialComponentResponse -> TestTree
@@ -4174,7 +4174,7 @@ responseAssociateTrialComponent =
   res
     "AssociateTrialComponentResponse"
     "fixture/AssociateTrialComponentResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy AssociateTrialComponent)
 
 responseUpdatePipelineExecution :: UpdatePipelineExecutionResponse -> TestTree
@@ -4182,7 +4182,7 @@ responseUpdatePipelineExecution =
   res
     "UpdatePipelineExecutionResponse"
     "fixture/UpdatePipelineExecutionResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy UpdatePipelineExecution)
 
 responseCreateImageVersion :: CreateImageVersionResponse -> TestTree
@@ -4190,7 +4190,7 @@ responseCreateImageVersion =
   res
     "CreateImageVersionResponse"
     "fixture/CreateImageVersionResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy CreateImageVersion)
 
 responseDeleteDomain :: DeleteDomainResponse -> TestTree
@@ -4198,7 +4198,7 @@ responseDeleteDomain =
   res
     "DeleteDomainResponse"
     "fixture/DeleteDomainResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DeleteDomain)
 
 responseUpdateTrainingJob :: UpdateTrainingJobResponse -> TestTree
@@ -4206,7 +4206,7 @@ responseUpdateTrainingJob =
   res
     "UpdateTrainingJobResponse"
     "fixture/UpdateTrainingJobResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy UpdateTrainingJob)
 
 responseUpdateImage :: UpdateImageResponse -> TestTree
@@ -4214,7 +4214,7 @@ responseUpdateImage =
   res
     "UpdateImageResponse"
     "fixture/UpdateImageResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy UpdateImage)
 
 responseUpdateContext :: UpdateContextResponse -> TestTree
@@ -4222,7 +4222,7 @@ responseUpdateContext =
   res
     "UpdateContextResponse"
     "fixture/UpdateContextResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy UpdateContext)
 
 responseDeleteImage :: DeleteImageResponse -> TestTree
@@ -4230,7 +4230,7 @@ responseDeleteImage =
   res
     "DeleteImageResponse"
     "fixture/DeleteImageResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DeleteImage)
 
 responseListFlowDefinitions :: ListFlowDefinitionsResponse -> TestTree
@@ -4238,7 +4238,7 @@ responseListFlowDefinitions =
   res
     "ListFlowDefinitionsResponse"
     "fixture/ListFlowDefinitionsResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy ListFlowDefinitions)
 
 responseListModels :: ListModelsResponse -> TestTree
@@ -4246,7 +4246,7 @@ responseListModels =
   res
     "ListModelsResponse"
     "fixture/ListModelsResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy ListModels)
 
 responseCreateUserProfile :: CreateUserProfileResponse -> TestTree
@@ -4254,7 +4254,7 @@ responseCreateUserProfile =
   res
     "CreateUserProfileResponse"
     "fixture/CreateUserProfileResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy CreateUserProfile)
 
 responseRenderUiTemplate :: RenderUiTemplateResponse -> TestTree
@@ -4262,7 +4262,7 @@ responseRenderUiTemplate =
   res
     "RenderUiTemplateResponse"
     "fixture/RenderUiTemplateResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy RenderUiTemplate)
 
 responseDescribeFeatureGroup :: DescribeFeatureGroupResponse -> TestTree
@@ -4270,7 +4270,7 @@ responseDescribeFeatureGroup =
   res
     "DescribeFeatureGroupResponse"
     "fixture/DescribeFeatureGroupResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DescribeFeatureGroup)
 
 responseDeleteContext :: DeleteContextResponse -> TestTree
@@ -4278,7 +4278,7 @@ responseDeleteContext =
   res
     "DeleteContextResponse"
     "fixture/DeleteContextResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DeleteContext)
 
 responseListHyperParameterTuningJobs :: ListHyperParameterTuningJobsResponse -> TestTree
@@ -4286,7 +4286,7 @@ responseListHyperParameterTuningJobs =
   res
     "ListHyperParameterTuningJobsResponse"
     "fixture/ListHyperParameterTuningJobsResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy ListHyperParameterTuningJobs)
 
 responseDeleteFlowDefinition :: DeleteFlowDefinitionResponse -> TestTree
@@ -4294,7 +4294,7 @@ responseDeleteFlowDefinition =
   res
     "DeleteFlowDefinitionResponse"
     "fixture/DeleteFlowDefinitionResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DeleteFlowDefinition)
 
 responseListAlgorithms :: ListAlgorithmsResponse -> TestTree
@@ -4302,7 +4302,7 @@ responseListAlgorithms =
   res
     "ListAlgorithmsResponse"
     "fixture/ListAlgorithmsResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy ListAlgorithms)
 
 responseCreateAlgorithm :: CreateAlgorithmResponse -> TestTree
@@ -4310,7 +4310,7 @@ responseCreateAlgorithm =
   res
     "CreateAlgorithmResponse"
     "fixture/CreateAlgorithmResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy CreateAlgorithm)
 
 responseCreateFlowDefinition :: CreateFlowDefinitionResponse -> TestTree
@@ -4318,7 +4318,7 @@ responseCreateFlowDefinition =
   res
     "CreateFlowDefinitionResponse"
     "fixture/CreateFlowDefinitionResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy CreateFlowDefinition)
 
 responseListPipelineParametersForExecution :: ListPipelineParametersForExecutionResponse -> TestTree
@@ -4326,7 +4326,7 @@ responseListPipelineParametersForExecution =
   res
     "ListPipelineParametersForExecutionResponse"
     "fixture/ListPipelineParametersForExecutionResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy ListPipelineParametersForExecution)
 
 responseListTrials :: ListTrialsResponse -> TestTree
@@ -4334,7 +4334,7 @@ responseListTrials =
   res
     "ListTrialsResponse"
     "fixture/ListTrialsResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy ListTrials)
 
 responseCreateHyperParameterTuningJob :: CreateHyperParameterTuningJobResponse -> TestTree
@@ -4342,7 +4342,7 @@ responseCreateHyperParameterTuningJob =
   res
     "CreateHyperParameterTuningJobResponse"
     "fixture/CreateHyperParameterTuningJobResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy CreateHyperParameterTuningJob)
 
 responseCreateModel :: CreateModelResponse -> TestTree
@@ -4350,7 +4350,7 @@ responseCreateModel =
   res
     "CreateModelResponse"
     "fixture/CreateModelResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy CreateModel)
 
 responseUpdateTrial :: UpdateTrialResponse -> TestTree
@@ -4358,7 +4358,7 @@ responseUpdateTrial =
   res
     "UpdateTrialResponse"
     "fixture/UpdateTrialResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy UpdateTrial)
 
 responseDeleteModelPackageGroup :: DeleteModelPackageGroupResponse -> TestTree
@@ -4366,7 +4366,7 @@ responseDeleteModelPackageGroup =
   res
     "DeleteModelPackageGroupResponse"
     "fixture/DeleteModelPackageGroupResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DeleteModelPackageGroup)
 
 responseDescribeDeviceFleet :: DescribeDeviceFleetResponse -> TestTree
@@ -4374,7 +4374,7 @@ responseDescribeDeviceFleet =
   res
     "DescribeDeviceFleetResponse"
     "fixture/DescribeDeviceFleetResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DescribeDeviceFleet)
 
 responseListModelPackageGroups :: ListModelPackageGroupsResponse -> TestTree
@@ -4382,7 +4382,7 @@ responseListModelPackageGroups =
   res
     "ListModelPackageGroupsResponse"
     "fixture/ListModelPackageGroupsResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy ListModelPackageGroups)
 
 responseListPipelines :: ListPipelinesResponse -> TestTree
@@ -4390,7 +4390,7 @@ responseListPipelines =
   res
     "ListPipelinesResponse"
     "fixture/ListPipelinesResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy ListPipelines)
 
 responseListTags :: ListTagsResponse -> TestTree
@@ -4398,7 +4398,7 @@ responseListTags =
   res
     "ListTagsResponse"
     "fixture/ListTagsResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy ListTags)
 
 responseDescribePipelineDefinitionForExecution :: DescribePipelineDefinitionForExecutionResponse -> TestTree
@@ -4406,7 +4406,7 @@ responseDescribePipelineDefinitionForExecution =
   res
     "DescribePipelineDefinitionForExecutionResponse"
     "fixture/DescribePipelineDefinitionForExecutionResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DescribePipelineDefinitionForExecution)
 
 responseDeleteTrial :: DeleteTrialResponse -> TestTree
@@ -4414,7 +4414,7 @@ responseDeleteTrial =
   res
     "DeleteTrialResponse"
     "fixture/DeleteTrialResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DeleteTrial)
 
 responsePutModelPackageGroupPolicy :: PutModelPackageGroupPolicyResponse -> TestTree
@@ -4422,7 +4422,7 @@ responsePutModelPackageGroupPolicy =
   res
     "PutModelPackageGroupPolicyResponse"
     "fixture/PutModelPackageGroupPolicyResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy PutModelPackageGroupPolicy)
 
 responseListExperiments :: ListExperimentsResponse -> TestTree
@@ -4430,7 +4430,7 @@ responseListExperiments =
   res
     "ListExperimentsResponse"
     "fixture/ListExperimentsResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy ListExperiments)
 
 responseUpdateExperiment :: UpdateExperimentResponse -> TestTree
@@ -4438,7 +4438,7 @@ responseUpdateExperiment =
   res
     "UpdateExperimentResponse"
     "fixture/UpdateExperimentResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy UpdateExperiment)
 
 responseDeleteExperiment :: DeleteExperimentResponse -> TestTree
@@ -4446,7 +4446,7 @@ responseDeleteExperiment =
   res
     "DeleteExperimentResponse"
     "fixture/DeleteExperimentResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DeleteExperiment)
 
 responseListLabelingJobs :: ListLabelingJobsResponse -> TestTree
@@ -4454,7 +4454,7 @@ responseListLabelingJobs =
   res
     "ListLabelingJobsResponse"
     "fixture/ListLabelingJobsResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy ListLabelingJobs)
 
 responseDescribeImageVersion :: DescribeImageVersionResponse -> TestTree
@@ -4462,7 +4462,7 @@ responseDescribeImageVersion =
   res
     "DescribeImageVersionResponse"
     "fixture/DescribeImageVersionResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DescribeImageVersion)
 
 responseDeleteApp :: DeleteAppResponse -> TestTree
@@ -4470,7 +4470,7 @@ responseDeleteApp =
   res
     "DeleteAppResponse"
     "fixture/DeleteAppResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DeleteApp)
 
 responseCreateModelBiasJobDefinition :: CreateModelBiasJobDefinitionResponse -> TestTree
@@ -4478,7 +4478,7 @@ responseCreateModelBiasJobDefinition =
   res
     "CreateModelBiasJobDefinitionResponse"
     "fixture/CreateModelBiasJobDefinitionResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy CreateModelBiasJobDefinition)
 
 responseDescribeTrialComponent :: DescribeTrialComponentResponse -> TestTree
@@ -4486,7 +4486,7 @@ responseDescribeTrialComponent =
   res
     "DescribeTrialComponentResponse"
     "fixture/DescribeTrialComponentResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DescribeTrialComponent)
 
 responseCreateWorkteam :: CreateWorkteamResponse -> TestTree
@@ -4494,7 +4494,7 @@ responseCreateWorkteam =
   res
     "CreateWorkteamResponse"
     "fixture/CreateWorkteamResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy CreateWorkteam)
 
 responseDescribeProject :: DescribeProjectResponse -> TestTree
@@ -4502,7 +4502,7 @@ responseDescribeProject =
   res
     "DescribeProjectResponse"
     "fixture/DescribeProjectResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DescribeProject)
 
 responseCreateProcessingJob :: CreateProcessingJobResponse -> TestTree
@@ -4510,7 +4510,7 @@ responseCreateProcessingJob =
   res
     "CreateProcessingJobResponse"
     "fixture/CreateProcessingJobResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy CreateProcessingJob)
 
 responseListAssociations :: ListAssociationsResponse -> TestTree
@@ -4518,7 +4518,7 @@ responseListAssociations =
   res
     "ListAssociationsResponse"
     "fixture/ListAssociationsResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy ListAssociations)
 
 responseEnableSagemakerServicecatalogPortfolio :: EnableSagemakerServicecatalogPortfolioResponse -> TestTree
@@ -4526,7 +4526,7 @@ responseEnableSagemakerServicecatalogPortfolio =
   res
     "EnableSagemakerServicecatalogPortfolioResponse"
     "fixture/EnableSagemakerServicecatalogPortfolioResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy EnableSagemakerServicecatalogPortfolio)
 
 responseUpdateAppImageConfig :: UpdateAppImageConfigResponse -> TestTree
@@ -4534,7 +4534,7 @@ responseUpdateAppImageConfig =
   res
     "UpdateAppImageConfigResponse"
     "fixture/UpdateAppImageConfigResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy UpdateAppImageConfig)
 
 responseListModelBiasJobDefinitions :: ListModelBiasJobDefinitionsResponse -> TestTree
@@ -4542,7 +4542,7 @@ responseListModelBiasJobDefinitions =
   res
     "ListModelBiasJobDefinitionsResponse"
     "fixture/ListModelBiasJobDefinitionsResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy ListModelBiasJobDefinitions)
 
 responseCreateAutoMLJob :: CreateAutoMLJobResponse -> TestTree
@@ -4550,7 +4550,7 @@ responseCreateAutoMLJob =
   res
     "CreateAutoMLJobResponse"
     "fixture/CreateAutoMLJobResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy CreateAutoMLJob)
 
 responseCreateApp :: CreateAppResponse -> TestTree
@@ -4558,7 +4558,7 @@ responseCreateApp =
   res
     "CreateAppResponse"
     "fixture/CreateAppResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy CreateApp)
 
 responseDescribeNotebookInstance :: DescribeNotebookInstanceResponse -> TestTree
@@ -4566,7 +4566,7 @@ responseDescribeNotebookInstance =
   res
     "DescribeNotebookInstanceResponse"
     "fixture/DescribeNotebookInstanceResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DescribeNotebookInstance)
 
 responseDeleteAppImageConfig :: DeleteAppImageConfigResponse -> TestTree
@@ -4574,7 +4574,7 @@ responseDeleteAppImageConfig =
   res
     "DeleteAppImageConfigResponse"
     "fixture/DeleteAppImageConfigResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DeleteAppImageConfig)
 
 responseCreateEndpointConfig :: CreateEndpointConfigResponse -> TestTree
@@ -4582,7 +4582,7 @@ responseCreateEndpointConfig =
   res
     "CreateEndpointConfigResponse"
     "fixture/CreateEndpointConfigResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy CreateEndpointConfig)
 
 responseListProcessingJobs :: ListProcessingJobsResponse -> TestTree
@@ -4590,7 +4590,7 @@ responseListProcessingJobs =
   res
     "ListProcessingJobsResponse"
     "fixture/ListProcessingJobsResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy ListProcessingJobs)
 
 responseCreateMonitoringSchedule :: CreateMonitoringScheduleResponse -> TestTree
@@ -4598,7 +4598,7 @@ responseCreateMonitoringSchedule =
   res
     "CreateMonitoringScheduleResponse"
     "fixture/CreateMonitoringScheduleResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy CreateMonitoringSchedule)
 
 responseDescribeModelExplainabilityJobDefinition :: DescribeModelExplainabilityJobDefinitionResponse -> TestTree
@@ -4606,7 +4606,7 @@ responseDescribeModelExplainabilityJobDefinition =
   res
     "DescribeModelExplainabilityJobDefinitionResponse"
     "fixture/DescribeModelExplainabilityJobDefinitionResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DescribeModelExplainabilityJobDefinition)
 
 responseListWorkteams :: ListWorkteamsResponse -> TestTree
@@ -4614,7 +4614,7 @@ responseListWorkteams =
   res
     "ListWorkteamsResponse"
     "fixture/ListWorkteamsResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy ListWorkteams)
 
 responseDescribeFlowDefinition :: DescribeFlowDefinitionResponse -> TestTree
@@ -4622,7 +4622,7 @@ responseDescribeFlowDefinition =
   res
     "DescribeFlowDefinitionResponse"
     "fixture/DescribeFlowDefinitionResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DescribeFlowDefinition)
 
 responseDescribeContext :: DescribeContextResponse -> TestTree
@@ -4630,7 +4630,7 @@ responseDescribeContext =
   res
     "DescribeContextResponse"
     "fixture/DescribeContextResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DescribeContext)
 
 responseRegisterDevices :: RegisterDevicesResponse -> TestTree
@@ -4638,7 +4638,7 @@ responseRegisterDevices =
   res
     "RegisterDevicesResponse"
     "fixture/RegisterDevicesResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy RegisterDevices)
 
 responseListFeatureGroups :: ListFeatureGroupsResponse -> TestTree
@@ -4646,23 +4646,23 @@ responseListFeatureGroups =
   res
     "ListFeatureGroupsResponse"
     "fixture/ListFeatureGroupsResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy ListFeatureGroups)
 
-responseCreatePresignedNotebookInstanceURL :: CreatePresignedNotebookInstanceURLResponse -> TestTree
-responseCreatePresignedNotebookInstanceURL =
+responseCreatePresignedNotebookInstanceUrl :: CreatePresignedNotebookInstanceUrlResponse -> TestTree
+responseCreatePresignedNotebookInstanceUrl =
   res
-    "CreatePresignedNotebookInstanceURLResponse"
-    "fixture/CreatePresignedNotebookInstanceURLResponse.proto"
-    sageMaker
-    (Proxy :: Proxy CreatePresignedNotebookInstanceURL)
+    "CreatePresignedNotebookInstanceUrlResponse"
+    "fixture/CreatePresignedNotebookInstanceUrlResponse.proto"
+    defaultService
+    (Proxy :: Proxy CreatePresignedNotebookInstanceUrl)
 
 responseDescribeTrainingJob :: DescribeTrainingJobResponse -> TestTree
 responseDescribeTrainingJob =
   res
     "DescribeTrainingJobResponse"
     "fixture/DescribeTrainingJobResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DescribeTrainingJob)
 
 responseCreateHumanTaskUi :: CreateHumanTaskUiResponse -> TestTree
@@ -4670,7 +4670,7 @@ responseCreateHumanTaskUi =
   res
     "CreateHumanTaskUiResponse"
     "fixture/CreateHumanTaskUiResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy CreateHumanTaskUi)
 
 responseListTrainingJobsForHyperParameterTuningJob :: ListTrainingJobsForHyperParameterTuningJobResponse -> TestTree
@@ -4678,7 +4678,7 @@ responseListTrainingJobsForHyperParameterTuningJob =
   res
     "ListTrainingJobsForHyperParameterTuningJobResponse"
     "fixture/ListTrainingJobsForHyperParameterTuningJobResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy ListTrainingJobsForHyperParameterTuningJob)
 
 responseDescribeImage :: DescribeImageResponse -> TestTree
@@ -4686,7 +4686,7 @@ responseDescribeImage =
   res
     "DescribeImageResponse"
     "fixture/DescribeImageResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DescribeImage)
 
 responseDeleteFeatureGroup :: DeleteFeatureGroupResponse -> TestTree
@@ -4694,5 +4694,5 @@ responseDeleteFeatureGroup =
   res
     "DeleteFeatureGroupResponse"
     "fixture/DeleteFeatureGroupResponse.proto"
-    sageMaker
+    defaultService
     (Proxy :: Proxy DeleteFeatureGroup)

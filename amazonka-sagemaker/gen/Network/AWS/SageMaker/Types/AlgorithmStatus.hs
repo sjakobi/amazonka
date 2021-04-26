@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,70 @@
 module Network.AWS.SageMaker.Types.AlgorithmStatus
   ( AlgorithmStatus
       ( ..,
-        ACompleted,
-        ADeleting,
-        AFailed,
-        AInProgress,
-        APending
+        AlgorithmStatusCompleted,
+        AlgorithmStatusDeleting,
+        AlgorithmStatusFailed,
+        AlgorithmStatusInProgress,
+        AlgorithmStatusPending
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AlgorithmStatus = AlgorithmStatus' (CI Text)
+newtype AlgorithmStatus = AlgorithmStatus'
+  { fromAlgorithmStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ACompleted :: AlgorithmStatus
-pattern ACompleted = AlgorithmStatus' "Completed"
+pattern AlgorithmStatusCompleted :: AlgorithmStatus
+pattern AlgorithmStatusCompleted = AlgorithmStatus' "Completed"
 
-pattern ADeleting :: AlgorithmStatus
-pattern ADeleting = AlgorithmStatus' "Deleting"
+pattern AlgorithmStatusDeleting :: AlgorithmStatus
+pattern AlgorithmStatusDeleting = AlgorithmStatus' "Deleting"
 
-pattern AFailed :: AlgorithmStatus
-pattern AFailed = AlgorithmStatus' "Failed"
+pattern AlgorithmStatusFailed :: AlgorithmStatus
+pattern AlgorithmStatusFailed = AlgorithmStatus' "Failed"
 
-pattern AInProgress :: AlgorithmStatus
-pattern AInProgress = AlgorithmStatus' "InProgress"
+pattern AlgorithmStatusInProgress :: AlgorithmStatus
+pattern AlgorithmStatusInProgress = AlgorithmStatus' "InProgress"
 
-pattern APending :: AlgorithmStatus
-pattern APending = AlgorithmStatus' "Pending"
+pattern AlgorithmStatusPending :: AlgorithmStatus
+pattern AlgorithmStatusPending = AlgorithmStatus' "Pending"
 
 {-# COMPLETE
-  ACompleted,
-  ADeleting,
-  AFailed,
-  AInProgress,
-  APending,
+  AlgorithmStatusCompleted,
+  AlgorithmStatusDeleting,
+  AlgorithmStatusFailed,
+  AlgorithmStatusInProgress,
+  AlgorithmStatusPending,
   AlgorithmStatus'
   #-}
 
-instance FromText AlgorithmStatus where
-  parser = (AlgorithmStatus' . mk) <$> takeText
+instance Prelude.FromText AlgorithmStatus where
+  parser = AlgorithmStatus' Prelude.<$> Prelude.takeText
 
-instance ToText AlgorithmStatus where
-  toText (AlgorithmStatus' ci) = original ci
+instance Prelude.ToText AlgorithmStatus where
+  toText (AlgorithmStatus' x) = x
 
-instance Hashable AlgorithmStatus
+instance Prelude.Hashable AlgorithmStatus
 
-instance NFData AlgorithmStatus
+instance Prelude.NFData AlgorithmStatus
 
-instance ToByteString AlgorithmStatus
+instance Prelude.ToByteString AlgorithmStatus
 
-instance ToQuery AlgorithmStatus
+instance Prelude.ToQuery AlgorithmStatus
 
-instance ToHeader AlgorithmStatus
+instance Prelude.ToHeader AlgorithmStatus
 
-instance FromJSON AlgorithmStatus where
-  parseJSON = parseJSONText "AlgorithmStatus"
+instance Prelude.FromJSON AlgorithmStatus where
+  parseJSON = Prelude.parseJSONText "AlgorithmStatus"

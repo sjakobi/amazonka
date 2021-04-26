@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.SageMaker.Types.ProfilingStatus
   ( ProfilingStatus
       ( ..,
-        PSDisabled,
-        PSEnabled
+        ProfilingStatusDisabled,
+        ProfilingStatusEnabled
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ProfilingStatus = ProfilingStatus' (CI Text)
+newtype ProfilingStatus = ProfilingStatus'
+  { fromProfilingStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PSDisabled :: ProfilingStatus
-pattern PSDisabled = ProfilingStatus' "Disabled"
+pattern ProfilingStatusDisabled :: ProfilingStatus
+pattern ProfilingStatusDisabled = ProfilingStatus' "Disabled"
 
-pattern PSEnabled :: ProfilingStatus
-pattern PSEnabled = ProfilingStatus' "Enabled"
+pattern ProfilingStatusEnabled :: ProfilingStatus
+pattern ProfilingStatusEnabled = ProfilingStatus' "Enabled"
 
 {-# COMPLETE
-  PSDisabled,
-  PSEnabled,
+  ProfilingStatusDisabled,
+  ProfilingStatusEnabled,
   ProfilingStatus'
   #-}
 
-instance FromText ProfilingStatus where
-  parser = (ProfilingStatus' . mk) <$> takeText
+instance Prelude.FromText ProfilingStatus where
+  parser = ProfilingStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ProfilingStatus where
-  toText (ProfilingStatus' ci) = original ci
+instance Prelude.ToText ProfilingStatus where
+  toText (ProfilingStatus' x) = x
 
-instance Hashable ProfilingStatus
+instance Prelude.Hashable ProfilingStatus
 
-instance NFData ProfilingStatus
+instance Prelude.NFData ProfilingStatus
 
-instance ToByteString ProfilingStatus
+instance Prelude.ToByteString ProfilingStatus
 
-instance ToQuery ProfilingStatus
+instance Prelude.ToQuery ProfilingStatus
 
-instance ToHeader ProfilingStatus
+instance Prelude.ToHeader ProfilingStatus
 
-instance FromJSON ProfilingStatus where
-  parseJSON = parseJSONText "ProfilingStatus"
+instance Prelude.FromJSON ProfilingStatus where
+  parseJSON = Prelude.parseJSONText "ProfilingStatus"

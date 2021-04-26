@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,64 @@
 module Network.AWS.SageMaker.Types.AthenaResultCompressionType
   ( AthenaResultCompressionType
       ( ..,
-        Gzip,
-        Snappy,
-        Zlib
+        AthenaResultCompressionTypeGZIP,
+        AthenaResultCompressionTypeSNAPPY,
+        AthenaResultCompressionTypeZLIB
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The compression used for Athena query results.
-data AthenaResultCompressionType
-  = AthenaResultCompressionType'
-      ( CI
-          Text
-      )
+newtype AthenaResultCompressionType = AthenaResultCompressionType'
+  { fromAthenaResultCompressionType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Gzip :: AthenaResultCompressionType
-pattern Gzip = AthenaResultCompressionType' "GZIP"
+pattern AthenaResultCompressionTypeGZIP :: AthenaResultCompressionType
+pattern AthenaResultCompressionTypeGZIP = AthenaResultCompressionType' "GZIP"
 
-pattern Snappy :: AthenaResultCompressionType
-pattern Snappy = AthenaResultCompressionType' "SNAPPY"
+pattern AthenaResultCompressionTypeSNAPPY :: AthenaResultCompressionType
+pattern AthenaResultCompressionTypeSNAPPY = AthenaResultCompressionType' "SNAPPY"
 
-pattern Zlib :: AthenaResultCompressionType
-pattern Zlib = AthenaResultCompressionType' "ZLIB"
+pattern AthenaResultCompressionTypeZLIB :: AthenaResultCompressionType
+pattern AthenaResultCompressionTypeZLIB = AthenaResultCompressionType' "ZLIB"
 
 {-# COMPLETE
-  Gzip,
-  Snappy,
-  Zlib,
+  AthenaResultCompressionTypeGZIP,
+  AthenaResultCompressionTypeSNAPPY,
+  AthenaResultCompressionTypeZLIB,
   AthenaResultCompressionType'
   #-}
 
-instance FromText AthenaResultCompressionType where
-  parser = (AthenaResultCompressionType' . mk) <$> takeText
+instance Prelude.FromText AthenaResultCompressionType where
+  parser = AthenaResultCompressionType' Prelude.<$> Prelude.takeText
 
-instance ToText AthenaResultCompressionType where
-  toText (AthenaResultCompressionType' ci) = original ci
+instance Prelude.ToText AthenaResultCompressionType where
+  toText (AthenaResultCompressionType' x) = x
 
-instance Hashable AthenaResultCompressionType
+instance Prelude.Hashable AthenaResultCompressionType
 
-instance NFData AthenaResultCompressionType
+instance Prelude.NFData AthenaResultCompressionType
 
-instance ToByteString AthenaResultCompressionType
+instance Prelude.ToByteString AthenaResultCompressionType
 
-instance ToQuery AthenaResultCompressionType
+instance Prelude.ToQuery AthenaResultCompressionType
 
-instance ToHeader AthenaResultCompressionType
+instance Prelude.ToHeader AthenaResultCompressionType
 
-instance ToJSON AthenaResultCompressionType where
-  toJSON = toJSONText
+instance Prelude.ToJSON AthenaResultCompressionType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AthenaResultCompressionType where
-  parseJSON = parseJSONText "AthenaResultCompressionType"
+instance Prelude.FromJSON AthenaResultCompressionType where
+  parseJSON = Prelude.parseJSONText "AthenaResultCompressionType"

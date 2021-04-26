@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,93 +19,95 @@
 module Network.AWS.SageMaker.Types.ResourceType
   ( ResourceType
       ( ..,
-        Endpoint,
-        Experiment,
-        ExperimentTrial,
-        ExperimentTrialComponent,
-        FeatureGroup,
-        ModelPackage,
-        ModelPackageGroup,
-        Pipeline,
-        PipelineExecution,
-        TrainingJob
+        ResourceTypeEndpoint,
+        ResourceTypeExperiment,
+        ResourceTypeExperimentTrial,
+        ResourceTypeExperimentTrialComponent,
+        ResourceTypeFeatureGroup,
+        ResourceTypeModelPackage,
+        ResourceTypeModelPackageGroup,
+        ResourceTypePipeline,
+        ResourceTypePipelineExecution,
+        ResourceTypeTrainingJob
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ResourceType = ResourceType' (CI Text)
+newtype ResourceType = ResourceType'
+  { fromResourceType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Endpoint :: ResourceType
-pattern Endpoint = ResourceType' "Endpoint"
+pattern ResourceTypeEndpoint :: ResourceType
+pattern ResourceTypeEndpoint = ResourceType' "Endpoint"
 
-pattern Experiment :: ResourceType
-pattern Experiment = ResourceType' "Experiment"
+pattern ResourceTypeExperiment :: ResourceType
+pattern ResourceTypeExperiment = ResourceType' "Experiment"
 
-pattern ExperimentTrial :: ResourceType
-pattern ExperimentTrial = ResourceType' "ExperimentTrial"
+pattern ResourceTypeExperimentTrial :: ResourceType
+pattern ResourceTypeExperimentTrial = ResourceType' "ExperimentTrial"
 
-pattern ExperimentTrialComponent :: ResourceType
-pattern ExperimentTrialComponent = ResourceType' "ExperimentTrialComponent"
+pattern ResourceTypeExperimentTrialComponent :: ResourceType
+pattern ResourceTypeExperimentTrialComponent = ResourceType' "ExperimentTrialComponent"
 
-pattern FeatureGroup :: ResourceType
-pattern FeatureGroup = ResourceType' "FeatureGroup"
+pattern ResourceTypeFeatureGroup :: ResourceType
+pattern ResourceTypeFeatureGroup = ResourceType' "FeatureGroup"
 
-pattern ModelPackage :: ResourceType
-pattern ModelPackage = ResourceType' "ModelPackage"
+pattern ResourceTypeModelPackage :: ResourceType
+pattern ResourceTypeModelPackage = ResourceType' "ModelPackage"
 
-pattern ModelPackageGroup :: ResourceType
-pattern ModelPackageGroup = ResourceType' "ModelPackageGroup"
+pattern ResourceTypeModelPackageGroup :: ResourceType
+pattern ResourceTypeModelPackageGroup = ResourceType' "ModelPackageGroup"
 
-pattern Pipeline :: ResourceType
-pattern Pipeline = ResourceType' "Pipeline"
+pattern ResourceTypePipeline :: ResourceType
+pattern ResourceTypePipeline = ResourceType' "Pipeline"
 
-pattern PipelineExecution :: ResourceType
-pattern PipelineExecution = ResourceType' "PipelineExecution"
+pattern ResourceTypePipelineExecution :: ResourceType
+pattern ResourceTypePipelineExecution = ResourceType' "PipelineExecution"
 
-pattern TrainingJob :: ResourceType
-pattern TrainingJob = ResourceType' "TrainingJob"
+pattern ResourceTypeTrainingJob :: ResourceType
+pattern ResourceTypeTrainingJob = ResourceType' "TrainingJob"
 
 {-# COMPLETE
-  Endpoint,
-  Experiment,
-  ExperimentTrial,
-  ExperimentTrialComponent,
-  FeatureGroup,
-  ModelPackage,
-  ModelPackageGroup,
-  Pipeline,
-  PipelineExecution,
-  TrainingJob,
+  ResourceTypeEndpoint,
+  ResourceTypeExperiment,
+  ResourceTypeExperimentTrial,
+  ResourceTypeExperimentTrialComponent,
+  ResourceTypeFeatureGroup,
+  ResourceTypeModelPackage,
+  ResourceTypeModelPackageGroup,
+  ResourceTypePipeline,
+  ResourceTypePipelineExecution,
+  ResourceTypeTrainingJob,
   ResourceType'
   #-}
 
-instance FromText ResourceType where
-  parser = (ResourceType' . mk) <$> takeText
+instance Prelude.FromText ResourceType where
+  parser = ResourceType' Prelude.<$> Prelude.takeText
 
-instance ToText ResourceType where
-  toText (ResourceType' ci) = original ci
+instance Prelude.ToText ResourceType where
+  toText (ResourceType' x) = x
 
-instance Hashable ResourceType
+instance Prelude.Hashable ResourceType
 
-instance NFData ResourceType
+instance Prelude.NFData ResourceType
 
-instance ToByteString ResourceType
+instance Prelude.ToByteString ResourceType
 
-instance ToQuery ResourceType
+instance Prelude.ToQuery ResourceType
 
-instance ToHeader ResourceType
+instance Prelude.ToHeader ResourceType
 
-instance ToJSON ResourceType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ResourceType where
+  toJSON = Prelude.toJSONText

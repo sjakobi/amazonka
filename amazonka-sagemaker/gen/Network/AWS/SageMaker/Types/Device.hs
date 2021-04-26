@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,64 +19,69 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.Device where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information of a particular device.
 --
---
---
--- /See:/ 'device' smart constructor.
+-- /See:/ 'newDevice' smart constructor.
 data Device = Device'
-  { _dIotThingName ::
-      !(Maybe Text),
-    _dDescription :: !(Maybe Text),
-    _dDeviceName :: !Text
+  { -- | AWS Internet of Things (IoT) object name.
+    iotThingName :: Prelude.Maybe Prelude.Text,
+    -- | Description of the device.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The name of the device.
+    deviceName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Device' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Device' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dIotThingName' - AWS Internet of Things (IoT) object name.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dDescription' - Description of the device.
+-- 'iotThingName', 'device_iotThingName' - AWS Internet of Things (IoT) object name.
 --
--- * 'dDeviceName' - The name of the device.
-device ::
-  -- | 'dDeviceName'
-  Text ->
+-- 'description', 'device_description' - Description of the device.
+--
+-- 'deviceName', 'device_deviceName' - The name of the device.
+newDevice ::
+  -- | 'deviceName'
+  Prelude.Text ->
   Device
-device pDeviceName_ =
+newDevice pDeviceName_ =
   Device'
-    { _dIotThingName = Nothing,
-      _dDescription = Nothing,
-      _dDeviceName = pDeviceName_
+    { iotThingName = Prelude.Nothing,
+      description = Prelude.Nothing,
+      deviceName = pDeviceName_
     }
 
 -- | AWS Internet of Things (IoT) object name.
-dIotThingName :: Lens' Device (Maybe Text)
-dIotThingName = lens _dIotThingName (\s a -> s {_dIotThingName = a})
+device_iotThingName :: Lens.Lens' Device (Prelude.Maybe Prelude.Text)
+device_iotThingName = Lens.lens (\Device' {iotThingName} -> iotThingName) (\s@Device' {} a -> s {iotThingName = a} :: Device)
 
 -- | Description of the device.
-dDescription :: Lens' Device (Maybe Text)
-dDescription = lens _dDescription (\s a -> s {_dDescription = a})
+device_description :: Lens.Lens' Device (Prelude.Maybe Prelude.Text)
+device_description = Lens.lens (\Device' {description} -> description) (\s@Device' {} a -> s {description = a} :: Device)
 
 -- | The name of the device.
-dDeviceName :: Lens' Device Text
-dDeviceName = lens _dDeviceName (\s a -> s {_dDeviceName = a})
+device_deviceName :: Lens.Lens' Device Prelude.Text
+device_deviceName = Lens.lens (\Device' {deviceName} -> deviceName) (\s@Device' {} a -> s {deviceName = a} :: Device)
 
-instance Hashable Device
+instance Prelude.Hashable Device
 
-instance NFData Device
+instance Prelude.NFData Device
 
-instance ToJSON Device where
+instance Prelude.ToJSON Device where
   toJSON Device' {..} =
-    object
-      ( catMaybes
-          [ ("IotThingName" .=) <$> _dIotThingName,
-            ("Description" .=) <$> _dDescription,
-            Just ("DeviceName" .= _dDeviceName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("IotThingName" Prelude..=)
+              Prelude.<$> iotThingName,
+            ("Description" Prelude..=) Prelude.<$> description,
+            Prelude.Just ("DeviceName" Prelude..= deviceName)
           ]
       )

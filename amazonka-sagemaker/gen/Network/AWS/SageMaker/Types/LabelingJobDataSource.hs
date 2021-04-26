@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,83 +19,82 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.LabelingJobDataSource where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.LabelingJobS3DataSource
-import Network.AWS.SageMaker.Types.LabelingJobSNSDataSource
+import Network.AWS.SageMaker.Types.LabelingJobSnsDataSource
 
 -- | Provides information about the location of input data.
 --
+-- You must specify at least one of the following: @S3DataSource@ or
+-- @SnsDataSource@.
 --
--- You must specify at least one of the following: @S3DataSource@ or @SnsDataSource@ .
+-- Use @SnsDataSource@ to specify an SNS input topic for a streaming
+-- labeling job. If you do not specify and SNS input topic ARN, Ground
+-- Truth will create a one-time labeling job.
 --
--- Use @SnsDataSource@ to specify an SNS input topic for a streaming labeling job. If you do not specify and SNS input topic ARN, Ground Truth will create a one-time labeling job.
+-- Use @S3DataSource@ to specify an input manifest file for both streaming
+-- and one-time labeling jobs. Adding an @S3DataSource@ is optional if you
+-- use @SnsDataSource@ to create a streaming labeling job.
 --
--- Use @S3DataSource@ to specify an input manifest file for both streaming and one-time labeling jobs. Adding an @S3DataSource@ is optional if you use @SnsDataSource@ to create a streaming labeling job.
---
---
--- /See:/ 'labelingJobDataSource' smart constructor.
+-- /See:/ 'newLabelingJobDataSource' smart constructor.
 data LabelingJobDataSource = LabelingJobDataSource'
-  { _ljdsSNSDataSource ::
-      !( Maybe
-           LabelingJobSNSDataSource
-       ),
-    _ljdsS3DataSource ::
-      !( Maybe
-           LabelingJobS3DataSource
-       )
+  { -- | An Amazon SNS data source used for streaming labeling jobs.
+    snsDataSource :: Prelude.Maybe LabelingJobSnsDataSource,
+    -- | The Amazon S3 location of the input data objects.
+    s3DataSource :: Prelude.Maybe LabelingJobS3DataSource
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LabelingJobDataSource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LabelingJobDataSource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ljdsSNSDataSource' - An Amazon SNS data source used for streaming labeling jobs.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ljdsS3DataSource' - The Amazon S3 location of the input data objects.
-labelingJobDataSource ::
+-- 'snsDataSource', 'labelingJobDataSource_snsDataSource' - An Amazon SNS data source used for streaming labeling jobs.
+--
+-- 's3DataSource', 'labelingJobDataSource_s3DataSource' - The Amazon S3 location of the input data objects.
+newLabelingJobDataSource ::
   LabelingJobDataSource
-labelingJobDataSource =
+newLabelingJobDataSource =
   LabelingJobDataSource'
-    { _ljdsSNSDataSource =
-        Nothing,
-      _ljdsS3DataSource = Nothing
+    { snsDataSource =
+        Prelude.Nothing,
+      s3DataSource = Prelude.Nothing
     }
 
 -- | An Amazon SNS data source used for streaming labeling jobs.
-ljdsSNSDataSource :: Lens' LabelingJobDataSource (Maybe LabelingJobSNSDataSource)
-ljdsSNSDataSource = lens _ljdsSNSDataSource (\s a -> s {_ljdsSNSDataSource = a})
+labelingJobDataSource_snsDataSource :: Lens.Lens' LabelingJobDataSource (Prelude.Maybe LabelingJobSnsDataSource)
+labelingJobDataSource_snsDataSource = Lens.lens (\LabelingJobDataSource' {snsDataSource} -> snsDataSource) (\s@LabelingJobDataSource' {} a -> s {snsDataSource = a} :: LabelingJobDataSource)
 
 -- | The Amazon S3 location of the input data objects.
-ljdsS3DataSource :: Lens' LabelingJobDataSource (Maybe LabelingJobS3DataSource)
-ljdsS3DataSource = lens _ljdsS3DataSource (\s a -> s {_ljdsS3DataSource = a})
+labelingJobDataSource_s3DataSource :: Lens.Lens' LabelingJobDataSource (Prelude.Maybe LabelingJobS3DataSource)
+labelingJobDataSource_s3DataSource = Lens.lens (\LabelingJobDataSource' {s3DataSource} -> s3DataSource) (\s@LabelingJobDataSource' {} a -> s {s3DataSource = a} :: LabelingJobDataSource)
 
-instance FromJSON LabelingJobDataSource where
+instance Prelude.FromJSON LabelingJobDataSource where
   parseJSON =
-    withObject
+    Prelude.withObject
       "LabelingJobDataSource"
       ( \x ->
           LabelingJobDataSource'
-            <$> (x .:? "SnsDataSource") <*> (x .:? "S3DataSource")
+            Prelude.<$> (x Prelude..:? "SnsDataSource")
+            Prelude.<*> (x Prelude..:? "S3DataSource")
       )
 
-instance Hashable LabelingJobDataSource
+instance Prelude.Hashable LabelingJobDataSource
 
-instance NFData LabelingJobDataSource
+instance Prelude.NFData LabelingJobDataSource
 
-instance ToJSON LabelingJobDataSource where
+instance Prelude.ToJSON LabelingJobDataSource where
   toJSON LabelingJobDataSource' {..} =
-    object
-      ( catMaybes
-          [ ("SnsDataSource" .=) <$> _ljdsSNSDataSource,
-            ("S3DataSource" .=) <$> _ljdsS3DataSource
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("SnsDataSource" Prelude..=)
+              Prelude.<$> snsDataSource,
+            ("S3DataSource" Prelude..=)
+              Prelude.<$> s3DataSource
           ]
       )

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,63 +19,67 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.ModelQuality where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.MetricsSource
 
 -- | Model quality statistics and constraints.
 --
---
---
--- /See:/ 'modelQuality' smart constructor.
+-- /See:/ 'newModelQuality' smart constructor.
 data ModelQuality = ModelQuality'
-  { _mqConstraints ::
-      !(Maybe MetricsSource),
-    _mqStatistics :: !(Maybe MetricsSource)
+  { -- | Model quality constraints.
+    constraints :: Prelude.Maybe MetricsSource,
+    -- | Model quality statistics.
+    statistics :: Prelude.Maybe MetricsSource
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModelQuality' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModelQuality' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mqConstraints' - Model quality constraints.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mqStatistics' - Model quality statistics.
-modelQuality ::
+-- 'constraints', 'modelQuality_constraints' - Model quality constraints.
+--
+-- 'statistics', 'modelQuality_statistics' - Model quality statistics.
+newModelQuality ::
   ModelQuality
-modelQuality =
+newModelQuality =
   ModelQuality'
-    { _mqConstraints = Nothing,
-      _mqStatistics = Nothing
+    { constraints = Prelude.Nothing,
+      statistics = Prelude.Nothing
     }
 
 -- | Model quality constraints.
-mqConstraints :: Lens' ModelQuality (Maybe MetricsSource)
-mqConstraints = lens _mqConstraints (\s a -> s {_mqConstraints = a})
+modelQuality_constraints :: Lens.Lens' ModelQuality (Prelude.Maybe MetricsSource)
+modelQuality_constraints = Lens.lens (\ModelQuality' {constraints} -> constraints) (\s@ModelQuality' {} a -> s {constraints = a} :: ModelQuality)
 
 -- | Model quality statistics.
-mqStatistics :: Lens' ModelQuality (Maybe MetricsSource)
-mqStatistics = lens _mqStatistics (\s a -> s {_mqStatistics = a})
+modelQuality_statistics :: Lens.Lens' ModelQuality (Prelude.Maybe MetricsSource)
+modelQuality_statistics = Lens.lens (\ModelQuality' {statistics} -> statistics) (\s@ModelQuality' {} a -> s {statistics = a} :: ModelQuality)
 
-instance FromJSON ModelQuality where
+instance Prelude.FromJSON ModelQuality where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ModelQuality"
       ( \x ->
           ModelQuality'
-            <$> (x .:? "Constraints") <*> (x .:? "Statistics")
+            Prelude.<$> (x Prelude..:? "Constraints")
+            Prelude.<*> (x Prelude..:? "Statistics")
       )
 
-instance Hashable ModelQuality
+instance Prelude.Hashable ModelQuality
 
-instance NFData ModelQuality
+instance Prelude.NFData ModelQuality
 
-instance ToJSON ModelQuality where
+instance Prelude.ToJSON ModelQuality where
   toJSON ModelQuality' {..} =
-    object
-      ( catMaybes
-          [ ("Constraints" .=) <$> _mqConstraints,
-            ("Statistics" .=) <$> _mqStatistics
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Constraints" Prelude..=) Prelude.<$> constraints,
+            ("Statistics" Prelude..=) Prelude.<$> statistics
           ]
       )

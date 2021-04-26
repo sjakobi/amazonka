@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,134 +24,148 @@
 -- Updates the default settings for new user profiles in the domain.
 module Network.AWS.SageMaker.UpdateDomain
   ( -- * Creating a Request
-    updateDomain,
-    UpdateDomain,
+    UpdateDomain (..),
+    newUpdateDomain,
 
     -- * Request Lenses
-    udDefaultUserSettings,
-    udDomainId,
+    updateDomain_defaultUserSettings,
+    updateDomain_domainId,
 
     -- * Destructuring the Response
-    updateDomainResponse,
-    UpdateDomainResponse,
+    UpdateDomainResponse (..),
+    newUpdateDomainResponse,
 
     -- * Response Lenses
-    udrrsDomainARN,
-    udrrsResponseStatus,
+    updateDomainResponse_domainArn,
+    updateDomainResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'updateDomain' smart constructor.
+-- | /See:/ 'newUpdateDomain' smart constructor.
 data UpdateDomain = UpdateDomain'
-  { _udDefaultUserSettings ::
-      !(Maybe UserSettings),
-    _udDomainId :: !Text
+  { -- | A collection of settings.
+    defaultUserSettings :: Prelude.Maybe UserSettings,
+    -- | The ID of the domain to be updated.
+    domainId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateDomain' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateDomain' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'udDefaultUserSettings' - A collection of settings.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'udDomainId' - The ID of the domain to be updated.
-updateDomain ::
-  -- | 'udDomainId'
-  Text ->
+-- 'defaultUserSettings', 'updateDomain_defaultUserSettings' - A collection of settings.
+--
+-- 'domainId', 'updateDomain_domainId' - The ID of the domain to be updated.
+newUpdateDomain ::
+  -- | 'domainId'
+  Prelude.Text ->
   UpdateDomain
-updateDomain pDomainId_ =
+newUpdateDomain pDomainId_ =
   UpdateDomain'
-    { _udDefaultUserSettings = Nothing,
-      _udDomainId = pDomainId_
+    { defaultUserSettings =
+        Prelude.Nothing,
+      domainId = pDomainId_
     }
 
 -- | A collection of settings.
-udDefaultUserSettings :: Lens' UpdateDomain (Maybe UserSettings)
-udDefaultUserSettings = lens _udDefaultUserSettings (\s a -> s {_udDefaultUserSettings = a})
+updateDomain_defaultUserSettings :: Lens.Lens' UpdateDomain (Prelude.Maybe UserSettings)
+updateDomain_defaultUserSettings = Lens.lens (\UpdateDomain' {defaultUserSettings} -> defaultUserSettings) (\s@UpdateDomain' {} a -> s {defaultUserSettings = a} :: UpdateDomain)
 
 -- | The ID of the domain to be updated.
-udDomainId :: Lens' UpdateDomain Text
-udDomainId = lens _udDomainId (\s a -> s {_udDomainId = a})
+updateDomain_domainId :: Lens.Lens' UpdateDomain Prelude.Text
+updateDomain_domainId = Lens.lens (\UpdateDomain' {domainId} -> domainId) (\s@UpdateDomain' {} a -> s {domainId = a} :: UpdateDomain)
 
-instance AWSRequest UpdateDomain where
+instance Prelude.AWSRequest UpdateDomain where
   type Rs UpdateDomain = UpdateDomainResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateDomainResponse'
-            <$> (x .?> "DomainArn") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "DomainArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateDomain
+instance Prelude.Hashable UpdateDomain
 
-instance NFData UpdateDomain
+instance Prelude.NFData UpdateDomain
 
-instance ToHeaders UpdateDomain where
+instance Prelude.ToHeaders UpdateDomain where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.UpdateDomain" :: ByteString),
+              Prelude.=# ("SageMaker.UpdateDomain" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateDomain where
+instance Prelude.ToJSON UpdateDomain where
   toJSON UpdateDomain' {..} =
-    object
-      ( catMaybes
-          [ ("DefaultUserSettings" .=)
-              <$> _udDefaultUserSettings,
-            Just ("DomainId" .= _udDomainId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("DefaultUserSettings" Prelude..=)
+              Prelude.<$> defaultUserSettings,
+            Prelude.Just ("DomainId" Prelude..= domainId)
           ]
       )
 
-instance ToPath UpdateDomain where
-  toPath = const "/"
+instance Prelude.ToPath UpdateDomain where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateDomain where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateDomain where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateDomainResponse' smart constructor.
+-- | /See:/ 'newUpdateDomainResponse' smart constructor.
 data UpdateDomainResponse = UpdateDomainResponse'
-  { _udrrsDomainARN ::
-      !(Maybe Text),
-    _udrrsResponseStatus :: !Int
+  { -- | The Amazon Resource Name (ARN) of the domain.
+    domainArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateDomainResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateDomainResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'udrrsDomainARN' - The Amazon Resource Name (ARN) of the domain.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'udrrsResponseStatus' - -- | The response status code.
-updateDomainResponse ::
-  -- | 'udrrsResponseStatus'
-  Int ->
+-- 'domainArn', 'updateDomainResponse_domainArn' - The Amazon Resource Name (ARN) of the domain.
+--
+-- 'httpStatus', 'updateDomainResponse_httpStatus' - The response's http status code.
+newUpdateDomainResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateDomainResponse
-updateDomainResponse pResponseStatus_ =
+newUpdateDomainResponse pHttpStatus_ =
   UpdateDomainResponse'
-    { _udrrsDomainARN = Nothing,
-      _udrrsResponseStatus = pResponseStatus_
+    { domainArn = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The Amazon Resource Name (ARN) of the domain.
-udrrsDomainARN :: Lens' UpdateDomainResponse (Maybe Text)
-udrrsDomainARN = lens _udrrsDomainARN (\s a -> s {_udrrsDomainARN = a})
+updateDomainResponse_domainArn :: Lens.Lens' UpdateDomainResponse (Prelude.Maybe Prelude.Text)
+updateDomainResponse_domainArn = Lens.lens (\UpdateDomainResponse' {domainArn} -> domainArn) (\s@UpdateDomainResponse' {} a -> s {domainArn = a} :: UpdateDomainResponse)
 
--- | -- | The response status code.
-udrrsResponseStatus :: Lens' UpdateDomainResponse Int
-udrrsResponseStatus = lens _udrrsResponseStatus (\s a -> s {_udrrsResponseStatus = a})
+-- | The response's http status code.
+updateDomainResponse_httpStatus :: Lens.Lens' UpdateDomainResponse Prelude.Int
+updateDomainResponse_httpStatus = Lens.lens (\UpdateDomainResponse' {httpStatus} -> httpStatus) (\s@UpdateDomainResponse' {} a -> s {httpStatus = a} :: UpdateDomainResponse)
 
-instance NFData UpdateDomainResponse
+instance Prelude.NFData UpdateDomainResponse

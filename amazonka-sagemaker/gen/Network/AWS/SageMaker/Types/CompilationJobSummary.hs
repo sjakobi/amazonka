@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,171 +19,180 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.CompilationJobSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.CompilationJobStatus
 import Network.AWS.SageMaker.Types.TargetDevice
 import Network.AWS.SageMaker.Types.TargetPlatformAccelerator
 import Network.AWS.SageMaker.Types.TargetPlatformArch
-import Network.AWS.SageMaker.Types.TargetPlatformOS
+import Network.AWS.SageMaker.Types.TargetPlatformOs
 
 -- | A summary of a model compilation job.
 --
---
---
--- /See:/ 'compilationJobSummary' smart constructor.
+-- /See:/ 'newCompilationJobSummary' smart constructor.
 data CompilationJobSummary = CompilationJobSummary'
-  { _cjsCompilationTargetPlatformArch ::
-      !(Maybe TargetPlatformArch),
-    _cjsCompilationStartTime ::
-      !(Maybe POSIX),
-    _cjsCompilationTargetPlatformOS ::
-      !(Maybe TargetPlatformOS),
-    _cjsCompilationTargetPlatformAccelerator ::
-      !( Maybe
-           TargetPlatformAccelerator
-       ),
-    _cjsLastModifiedTime ::
-      !(Maybe POSIX),
-    _cjsCompilationEndTime ::
-      !(Maybe POSIX),
-    _cjsCompilationTargetDevice ::
-      !(Maybe TargetDevice),
-    _cjsCompilationJobName ::
-      !Text,
-    _cjsCompilationJobARN ::
-      !Text,
-    _cjsCreationTime :: !POSIX,
-    _cjsCompilationJobStatus ::
-      !CompilationJobStatus
+  { -- | The type of architecture that the model will run on after the
+    -- compilation job has completed.
+    compilationTargetPlatformArch :: Prelude.Maybe TargetPlatformArch,
+    -- | The time when the model compilation job started.
+    compilationStartTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The type of OS that the model will run on after the compilation job has
+    -- completed.
+    compilationTargetPlatformOs :: Prelude.Maybe TargetPlatformOs,
+    -- | The type of accelerator that the model will run on after the compilation
+    -- job has completed.
+    compilationTargetPlatformAccelerator :: Prelude.Maybe TargetPlatformAccelerator,
+    -- | The time when the model compilation job was last modified.
+    lastModifiedTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The time when the model compilation job completed.
+    compilationEndTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The type of device that the model will run on after the compilation job
+    -- has completed.
+    compilationTargetDevice :: Prelude.Maybe TargetDevice,
+    -- | The name of the model compilation job that you want a summary for.
+    compilationJobName :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the model compilation job.
+    compilationJobArn :: Prelude.Text,
+    -- | The time when the model compilation job was created.
+    creationTime :: Prelude.POSIX,
+    -- | The status of the model compilation job.
+    compilationJobStatus :: CompilationJobStatus
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CompilationJobSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CompilationJobSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cjsCompilationTargetPlatformArch' - The type of architecture that the model will run on after the compilation job has completed.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cjsCompilationStartTime' - The time when the model compilation job started.
+-- 'compilationTargetPlatformArch', 'compilationJobSummary_compilationTargetPlatformArch' - The type of architecture that the model will run on after the
+-- compilation job has completed.
 --
--- * 'cjsCompilationTargetPlatformOS' - The type of OS that the model will run on after the compilation job has completed.
+-- 'compilationStartTime', 'compilationJobSummary_compilationStartTime' - The time when the model compilation job started.
 --
--- * 'cjsCompilationTargetPlatformAccelerator' - The type of accelerator that the model will run on after the compilation job has completed.
+-- 'compilationTargetPlatformOs', 'compilationJobSummary_compilationTargetPlatformOs' - The type of OS that the model will run on after the compilation job has
+-- completed.
 --
--- * 'cjsLastModifiedTime' - The time when the model compilation job was last modified.
+-- 'compilationTargetPlatformAccelerator', 'compilationJobSummary_compilationTargetPlatformAccelerator' - The type of accelerator that the model will run on after the compilation
+-- job has completed.
 --
--- * 'cjsCompilationEndTime' - The time when the model compilation job completed.
+-- 'lastModifiedTime', 'compilationJobSummary_lastModifiedTime' - The time when the model compilation job was last modified.
 --
--- * 'cjsCompilationTargetDevice' - The type of device that the model will run on after the compilation job has completed.
+-- 'compilationEndTime', 'compilationJobSummary_compilationEndTime' - The time when the model compilation job completed.
 --
--- * 'cjsCompilationJobName' - The name of the model compilation job that you want a summary for.
+-- 'compilationTargetDevice', 'compilationJobSummary_compilationTargetDevice' - The type of device that the model will run on after the compilation job
+-- has completed.
 --
--- * 'cjsCompilationJobARN' - The Amazon Resource Name (ARN) of the model compilation job.
+-- 'compilationJobName', 'compilationJobSummary_compilationJobName' - The name of the model compilation job that you want a summary for.
 --
--- * 'cjsCreationTime' - The time when the model compilation job was created.
+-- 'compilationJobArn', 'compilationJobSummary_compilationJobArn' - The Amazon Resource Name (ARN) of the model compilation job.
 --
--- * 'cjsCompilationJobStatus' - The status of the model compilation job.
-compilationJobSummary ::
-  -- | 'cjsCompilationJobName'
-  Text ->
-  -- | 'cjsCompilationJobARN'
-  Text ->
-  -- | 'cjsCreationTime'
-  UTCTime ->
-  -- | 'cjsCompilationJobStatus'
+-- 'creationTime', 'compilationJobSummary_creationTime' - The time when the model compilation job was created.
+--
+-- 'compilationJobStatus', 'compilationJobSummary_compilationJobStatus' - The status of the model compilation job.
+newCompilationJobSummary ::
+  -- | 'compilationJobName'
+  Prelude.Text ->
+  -- | 'compilationJobArn'
+  Prelude.Text ->
+  -- | 'creationTime'
+  Prelude.UTCTime ->
+  -- | 'compilationJobStatus'
   CompilationJobStatus ->
   CompilationJobSummary
-compilationJobSummary
+newCompilationJobSummary
   pCompilationJobName_
-  pCompilationJobARN_
+  pCompilationJobArn_
   pCreationTime_
   pCompilationJobStatus_ =
     CompilationJobSummary'
-      { _cjsCompilationTargetPlatformArch =
-          Nothing,
-        _cjsCompilationStartTime = Nothing,
-        _cjsCompilationTargetPlatformOS = Nothing,
-        _cjsCompilationTargetPlatformAccelerator = Nothing,
-        _cjsLastModifiedTime = Nothing,
-        _cjsCompilationEndTime = Nothing,
-        _cjsCompilationTargetDevice = Nothing,
-        _cjsCompilationJobName = pCompilationJobName_,
-        _cjsCompilationJobARN = pCompilationJobARN_,
-        _cjsCreationTime = _Time # pCreationTime_,
-        _cjsCompilationJobStatus = pCompilationJobStatus_
+      { compilationTargetPlatformArch =
+          Prelude.Nothing,
+        compilationStartTime = Prelude.Nothing,
+        compilationTargetPlatformOs = Prelude.Nothing,
+        compilationTargetPlatformAccelerator =
+          Prelude.Nothing,
+        lastModifiedTime = Prelude.Nothing,
+        compilationEndTime = Prelude.Nothing,
+        compilationTargetDevice = Prelude.Nothing,
+        compilationJobName = pCompilationJobName_,
+        compilationJobArn = pCompilationJobArn_,
+        creationTime = Prelude._Time Lens.# pCreationTime_,
+        compilationJobStatus = pCompilationJobStatus_
       }
 
--- | The type of architecture that the model will run on after the compilation job has completed.
-cjsCompilationTargetPlatformArch :: Lens' CompilationJobSummary (Maybe TargetPlatformArch)
-cjsCompilationTargetPlatformArch = lens _cjsCompilationTargetPlatformArch (\s a -> s {_cjsCompilationTargetPlatformArch = a})
+-- | The type of architecture that the model will run on after the
+-- compilation job has completed.
+compilationJobSummary_compilationTargetPlatformArch :: Lens.Lens' CompilationJobSummary (Prelude.Maybe TargetPlatformArch)
+compilationJobSummary_compilationTargetPlatformArch = Lens.lens (\CompilationJobSummary' {compilationTargetPlatformArch} -> compilationTargetPlatformArch) (\s@CompilationJobSummary' {} a -> s {compilationTargetPlatformArch = a} :: CompilationJobSummary)
 
 -- | The time when the model compilation job started.
-cjsCompilationStartTime :: Lens' CompilationJobSummary (Maybe UTCTime)
-cjsCompilationStartTime = lens _cjsCompilationStartTime (\s a -> s {_cjsCompilationStartTime = a}) . mapping _Time
+compilationJobSummary_compilationStartTime :: Lens.Lens' CompilationJobSummary (Prelude.Maybe Prelude.UTCTime)
+compilationJobSummary_compilationStartTime = Lens.lens (\CompilationJobSummary' {compilationStartTime} -> compilationStartTime) (\s@CompilationJobSummary' {} a -> s {compilationStartTime = a} :: CompilationJobSummary) Prelude.. Lens.mapping Prelude._Time
 
--- | The type of OS that the model will run on after the compilation job has completed.
-cjsCompilationTargetPlatformOS :: Lens' CompilationJobSummary (Maybe TargetPlatformOS)
-cjsCompilationTargetPlatformOS = lens _cjsCompilationTargetPlatformOS (\s a -> s {_cjsCompilationTargetPlatformOS = a})
+-- | The type of OS that the model will run on after the compilation job has
+-- completed.
+compilationJobSummary_compilationTargetPlatformOs :: Lens.Lens' CompilationJobSummary (Prelude.Maybe TargetPlatformOs)
+compilationJobSummary_compilationTargetPlatformOs = Lens.lens (\CompilationJobSummary' {compilationTargetPlatformOs} -> compilationTargetPlatformOs) (\s@CompilationJobSummary' {} a -> s {compilationTargetPlatformOs = a} :: CompilationJobSummary)
 
--- | The type of accelerator that the model will run on after the compilation job has completed.
-cjsCompilationTargetPlatformAccelerator :: Lens' CompilationJobSummary (Maybe TargetPlatformAccelerator)
-cjsCompilationTargetPlatformAccelerator = lens _cjsCompilationTargetPlatformAccelerator (\s a -> s {_cjsCompilationTargetPlatformAccelerator = a})
+-- | The type of accelerator that the model will run on after the compilation
+-- job has completed.
+compilationJobSummary_compilationTargetPlatformAccelerator :: Lens.Lens' CompilationJobSummary (Prelude.Maybe TargetPlatformAccelerator)
+compilationJobSummary_compilationTargetPlatformAccelerator = Lens.lens (\CompilationJobSummary' {compilationTargetPlatformAccelerator} -> compilationTargetPlatformAccelerator) (\s@CompilationJobSummary' {} a -> s {compilationTargetPlatformAccelerator = a} :: CompilationJobSummary)
 
 -- | The time when the model compilation job was last modified.
-cjsLastModifiedTime :: Lens' CompilationJobSummary (Maybe UTCTime)
-cjsLastModifiedTime = lens _cjsLastModifiedTime (\s a -> s {_cjsLastModifiedTime = a}) . mapping _Time
+compilationJobSummary_lastModifiedTime :: Lens.Lens' CompilationJobSummary (Prelude.Maybe Prelude.UTCTime)
+compilationJobSummary_lastModifiedTime = Lens.lens (\CompilationJobSummary' {lastModifiedTime} -> lastModifiedTime) (\s@CompilationJobSummary' {} a -> s {lastModifiedTime = a} :: CompilationJobSummary) Prelude.. Lens.mapping Prelude._Time
 
 -- | The time when the model compilation job completed.
-cjsCompilationEndTime :: Lens' CompilationJobSummary (Maybe UTCTime)
-cjsCompilationEndTime = lens _cjsCompilationEndTime (\s a -> s {_cjsCompilationEndTime = a}) . mapping _Time
+compilationJobSummary_compilationEndTime :: Lens.Lens' CompilationJobSummary (Prelude.Maybe Prelude.UTCTime)
+compilationJobSummary_compilationEndTime = Lens.lens (\CompilationJobSummary' {compilationEndTime} -> compilationEndTime) (\s@CompilationJobSummary' {} a -> s {compilationEndTime = a} :: CompilationJobSummary) Prelude.. Lens.mapping Prelude._Time
 
--- | The type of device that the model will run on after the compilation job has completed.
-cjsCompilationTargetDevice :: Lens' CompilationJobSummary (Maybe TargetDevice)
-cjsCompilationTargetDevice = lens _cjsCompilationTargetDevice (\s a -> s {_cjsCompilationTargetDevice = a})
+-- | The type of device that the model will run on after the compilation job
+-- has completed.
+compilationJobSummary_compilationTargetDevice :: Lens.Lens' CompilationJobSummary (Prelude.Maybe TargetDevice)
+compilationJobSummary_compilationTargetDevice = Lens.lens (\CompilationJobSummary' {compilationTargetDevice} -> compilationTargetDevice) (\s@CompilationJobSummary' {} a -> s {compilationTargetDevice = a} :: CompilationJobSummary)
 
 -- | The name of the model compilation job that you want a summary for.
-cjsCompilationJobName :: Lens' CompilationJobSummary Text
-cjsCompilationJobName = lens _cjsCompilationJobName (\s a -> s {_cjsCompilationJobName = a})
+compilationJobSummary_compilationJobName :: Lens.Lens' CompilationJobSummary Prelude.Text
+compilationJobSummary_compilationJobName = Lens.lens (\CompilationJobSummary' {compilationJobName} -> compilationJobName) (\s@CompilationJobSummary' {} a -> s {compilationJobName = a} :: CompilationJobSummary)
 
 -- | The Amazon Resource Name (ARN) of the model compilation job.
-cjsCompilationJobARN :: Lens' CompilationJobSummary Text
-cjsCompilationJobARN = lens _cjsCompilationJobARN (\s a -> s {_cjsCompilationJobARN = a})
+compilationJobSummary_compilationJobArn :: Lens.Lens' CompilationJobSummary Prelude.Text
+compilationJobSummary_compilationJobArn = Lens.lens (\CompilationJobSummary' {compilationJobArn} -> compilationJobArn) (\s@CompilationJobSummary' {} a -> s {compilationJobArn = a} :: CompilationJobSummary)
 
 -- | The time when the model compilation job was created.
-cjsCreationTime :: Lens' CompilationJobSummary UTCTime
-cjsCreationTime = lens _cjsCreationTime (\s a -> s {_cjsCreationTime = a}) . _Time
+compilationJobSummary_creationTime :: Lens.Lens' CompilationJobSummary Prelude.UTCTime
+compilationJobSummary_creationTime = Lens.lens (\CompilationJobSummary' {creationTime} -> creationTime) (\s@CompilationJobSummary' {} a -> s {creationTime = a} :: CompilationJobSummary) Prelude.. Prelude._Time
 
 -- | The status of the model compilation job.
-cjsCompilationJobStatus :: Lens' CompilationJobSummary CompilationJobStatus
-cjsCompilationJobStatus = lens _cjsCompilationJobStatus (\s a -> s {_cjsCompilationJobStatus = a})
+compilationJobSummary_compilationJobStatus :: Lens.Lens' CompilationJobSummary CompilationJobStatus
+compilationJobSummary_compilationJobStatus = Lens.lens (\CompilationJobSummary' {compilationJobStatus} -> compilationJobStatus) (\s@CompilationJobSummary' {} a -> s {compilationJobStatus = a} :: CompilationJobSummary)
 
-instance FromJSON CompilationJobSummary where
+instance Prelude.FromJSON CompilationJobSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CompilationJobSummary"
       ( \x ->
           CompilationJobSummary'
-            <$> (x .:? "CompilationTargetPlatformArch")
-            <*> (x .:? "CompilationStartTime")
-            <*> (x .:? "CompilationTargetPlatformOs")
-            <*> (x .:? "CompilationTargetPlatformAccelerator")
-            <*> (x .:? "LastModifiedTime")
-            <*> (x .:? "CompilationEndTime")
-            <*> (x .:? "CompilationTargetDevice")
-            <*> (x .: "CompilationJobName")
-            <*> (x .: "CompilationJobArn")
-            <*> (x .: "CreationTime")
-            <*> (x .: "CompilationJobStatus")
+            Prelude.<$> (x Prelude..:? "CompilationTargetPlatformArch")
+            Prelude.<*> (x Prelude..:? "CompilationStartTime")
+            Prelude.<*> (x Prelude..:? "CompilationTargetPlatformOs")
+            Prelude.<*> ( x
+                            Prelude..:? "CompilationTargetPlatformAccelerator"
+                        )
+            Prelude.<*> (x Prelude..:? "LastModifiedTime")
+            Prelude.<*> (x Prelude..:? "CompilationEndTime")
+            Prelude.<*> (x Prelude..:? "CompilationTargetDevice")
+            Prelude.<*> (x Prelude..: "CompilationJobName")
+            Prelude.<*> (x Prelude..: "CompilationJobArn")
+            Prelude.<*> (x Prelude..: "CreationTime")
+            Prelude.<*> (x Prelude..: "CompilationJobStatus")
       )
 
-instance Hashable CompilationJobSummary
+instance Prelude.Hashable CompilationJobSummary
 
-instance NFData CompilationJobSummary
+instance Prelude.NFData CompilationJobSummary

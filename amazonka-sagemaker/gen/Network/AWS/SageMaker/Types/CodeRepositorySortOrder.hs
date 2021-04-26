@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.SageMaker.Types.CodeRepositorySortOrder
   ( CodeRepositorySortOrder
       ( ..,
-        CRSOAscending,
-        CRSODescending
+        CodeRepositorySortOrderAscending,
+        CodeRepositorySortOrderDescending
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CodeRepositorySortOrder
-  = CodeRepositorySortOrder'
-      ( CI
-          Text
-      )
+newtype CodeRepositorySortOrder = CodeRepositorySortOrder'
+  { fromCodeRepositorySortOrder ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CRSOAscending :: CodeRepositorySortOrder
-pattern CRSOAscending = CodeRepositorySortOrder' "Ascending"
+pattern CodeRepositorySortOrderAscending :: CodeRepositorySortOrder
+pattern CodeRepositorySortOrderAscending = CodeRepositorySortOrder' "Ascending"
 
-pattern CRSODescending :: CodeRepositorySortOrder
-pattern CRSODescending = CodeRepositorySortOrder' "Descending"
+pattern CodeRepositorySortOrderDescending :: CodeRepositorySortOrder
+pattern CodeRepositorySortOrderDescending = CodeRepositorySortOrder' "Descending"
 
 {-# COMPLETE
-  CRSOAscending,
-  CRSODescending,
+  CodeRepositorySortOrderAscending,
+  CodeRepositorySortOrderDescending,
   CodeRepositorySortOrder'
   #-}
 
-instance FromText CodeRepositorySortOrder where
-  parser = (CodeRepositorySortOrder' . mk) <$> takeText
+instance Prelude.FromText CodeRepositorySortOrder where
+  parser = CodeRepositorySortOrder' Prelude.<$> Prelude.takeText
 
-instance ToText CodeRepositorySortOrder where
-  toText (CodeRepositorySortOrder' ci) = original ci
+instance Prelude.ToText CodeRepositorySortOrder where
+  toText (CodeRepositorySortOrder' x) = x
 
-instance Hashable CodeRepositorySortOrder
+instance Prelude.Hashable CodeRepositorySortOrder
 
-instance NFData CodeRepositorySortOrder
+instance Prelude.NFData CodeRepositorySortOrder
 
-instance ToByteString CodeRepositorySortOrder
+instance Prelude.ToByteString CodeRepositorySortOrder
 
-instance ToQuery CodeRepositorySortOrder
+instance Prelude.ToQuery CodeRepositorySortOrder
 
-instance ToHeader CodeRepositorySortOrder
+instance Prelude.ToHeader CodeRepositorySortOrder
 
-instance ToJSON CodeRepositorySortOrder where
-  toJSON = toJSONText
+instance Prelude.ToJSON CodeRepositorySortOrder where
+  toJSON = Prelude.toJSONText

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.SageMaker.Types.ModelSortKey
   ( ModelSortKey
       ( ..,
-        MSKCreationTime,
-        MSKName
+        ModelSortKeyCreationTime,
+        ModelSortKeyName
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ModelSortKey = ModelSortKey' (CI Text)
+newtype ModelSortKey = ModelSortKey'
+  { fromModelSortKey ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MSKCreationTime :: ModelSortKey
-pattern MSKCreationTime = ModelSortKey' "CreationTime"
+pattern ModelSortKeyCreationTime :: ModelSortKey
+pattern ModelSortKeyCreationTime = ModelSortKey' "CreationTime"
 
-pattern MSKName :: ModelSortKey
-pattern MSKName = ModelSortKey' "Name"
+pattern ModelSortKeyName :: ModelSortKey
+pattern ModelSortKeyName = ModelSortKey' "Name"
 
 {-# COMPLETE
-  MSKCreationTime,
-  MSKName,
+  ModelSortKeyCreationTime,
+  ModelSortKeyName,
   ModelSortKey'
   #-}
 
-instance FromText ModelSortKey where
-  parser = (ModelSortKey' . mk) <$> takeText
+instance Prelude.FromText ModelSortKey where
+  parser = ModelSortKey' Prelude.<$> Prelude.takeText
 
-instance ToText ModelSortKey where
-  toText (ModelSortKey' ci) = original ci
+instance Prelude.ToText ModelSortKey where
+  toText (ModelSortKey' x) = x
 
-instance Hashable ModelSortKey
+instance Prelude.Hashable ModelSortKey
 
-instance NFData ModelSortKey
+instance Prelude.NFData ModelSortKey
 
-instance ToByteString ModelSortKey
+instance Prelude.ToByteString ModelSortKey
 
-instance ToQuery ModelSortKey
+instance Prelude.ToQuery ModelSortKey
 
-instance ToHeader ModelSortKey
+instance Prelude.ToHeader ModelSortKey
 
-instance ToJSON ModelSortKey where
-  toJSON = toJSONText
+instance Prelude.ToJSON ModelSortKey where
+  toJSON = Prelude.toJSONText

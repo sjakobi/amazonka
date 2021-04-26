@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,66 +19,70 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.DataSource where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.FileSystemDataSource
 import Network.AWS.SageMaker.Types.S3DataSource
 
 -- | Describes the location of the channel data.
 --
---
---
--- /See:/ 'dataSource' smart constructor.
+-- /See:/ 'newDataSource' smart constructor.
 data DataSource = DataSource'
-  { _dsFileSystemDataSource ::
-      !(Maybe FileSystemDataSource),
-    _dsS3DataSource :: !(Maybe S3DataSource)
+  { -- | The file system that is associated with a channel.
+    fileSystemDataSource :: Prelude.Maybe FileSystemDataSource,
+    -- | The S3 location of the data source that is associated with a channel.
+    s3DataSource :: Prelude.Maybe S3DataSource
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DataSource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DataSource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsFileSystemDataSource' - The file system that is associated with a channel.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsS3DataSource' - The S3 location of the data source that is associated with a channel.
-dataSource ::
+-- 'fileSystemDataSource', 'dataSource_fileSystemDataSource' - The file system that is associated with a channel.
+--
+-- 's3DataSource', 'dataSource_s3DataSource' - The S3 location of the data source that is associated with a channel.
+newDataSource ::
   DataSource
-dataSource =
+newDataSource =
   DataSource'
-    { _dsFileSystemDataSource = Nothing,
-      _dsS3DataSource = Nothing
+    { fileSystemDataSource = Prelude.Nothing,
+      s3DataSource = Prelude.Nothing
     }
 
 -- | The file system that is associated with a channel.
-dsFileSystemDataSource :: Lens' DataSource (Maybe FileSystemDataSource)
-dsFileSystemDataSource = lens _dsFileSystemDataSource (\s a -> s {_dsFileSystemDataSource = a})
+dataSource_fileSystemDataSource :: Lens.Lens' DataSource (Prelude.Maybe FileSystemDataSource)
+dataSource_fileSystemDataSource = Lens.lens (\DataSource' {fileSystemDataSource} -> fileSystemDataSource) (\s@DataSource' {} a -> s {fileSystemDataSource = a} :: DataSource)
 
 -- | The S3 location of the data source that is associated with a channel.
-dsS3DataSource :: Lens' DataSource (Maybe S3DataSource)
-dsS3DataSource = lens _dsS3DataSource (\s a -> s {_dsS3DataSource = a})
+dataSource_s3DataSource :: Lens.Lens' DataSource (Prelude.Maybe S3DataSource)
+dataSource_s3DataSource = Lens.lens (\DataSource' {s3DataSource} -> s3DataSource) (\s@DataSource' {} a -> s {s3DataSource = a} :: DataSource)
 
-instance FromJSON DataSource where
+instance Prelude.FromJSON DataSource where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DataSource"
       ( \x ->
           DataSource'
-            <$> (x .:? "FileSystemDataSource")
-            <*> (x .:? "S3DataSource")
+            Prelude.<$> (x Prelude..:? "FileSystemDataSource")
+            Prelude.<*> (x Prelude..:? "S3DataSource")
       )
 
-instance Hashable DataSource
+instance Prelude.Hashable DataSource
 
-instance NFData DataSource
+instance Prelude.NFData DataSource
 
-instance ToJSON DataSource where
+instance Prelude.ToJSON DataSource where
   toJSON DataSource' {..} =
-    object
-      ( catMaybes
-          [ ("FileSystemDataSource" .=)
-              <$> _dsFileSystemDataSource,
-            ("S3DataSource" .=) <$> _dsS3DataSource
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("FileSystemDataSource" Prelude..=)
+              Prelude.<$> fileSystemDataSource,
+            ("S3DataSource" Prelude..=)
+              Prelude.<$> s3DataSource
           ]
       )

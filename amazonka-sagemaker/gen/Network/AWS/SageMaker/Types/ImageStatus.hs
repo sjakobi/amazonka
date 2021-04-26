@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,78 +19,80 @@
 module Network.AWS.SageMaker.Types.ImageStatus
   ( ImageStatus
       ( ..,
-        ISCreateFailed,
-        ISCreated,
-        ISCreating,
-        ISDeleteFailed,
-        ISDeleting,
-        ISUpdateFailed,
-        ISUpdating
+        ImageStatusCREATED,
+        ImageStatusCREATEFAILED,
+        ImageStatusCREATING,
+        ImageStatusDELETEFAILED,
+        ImageStatusDELETING,
+        ImageStatusUPDATEFAILED,
+        ImageStatusUPDATING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ImageStatus = ImageStatus' (CI Text)
+newtype ImageStatus = ImageStatus'
+  { fromImageStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ISCreateFailed :: ImageStatus
-pattern ISCreateFailed = ImageStatus' "CREATE_FAILED"
+pattern ImageStatusCREATED :: ImageStatus
+pattern ImageStatusCREATED = ImageStatus' "CREATED"
 
-pattern ISCreated :: ImageStatus
-pattern ISCreated = ImageStatus' "CREATED"
+pattern ImageStatusCREATEFAILED :: ImageStatus
+pattern ImageStatusCREATEFAILED = ImageStatus' "CREATE_FAILED"
 
-pattern ISCreating :: ImageStatus
-pattern ISCreating = ImageStatus' "CREATING"
+pattern ImageStatusCREATING :: ImageStatus
+pattern ImageStatusCREATING = ImageStatus' "CREATING"
 
-pattern ISDeleteFailed :: ImageStatus
-pattern ISDeleteFailed = ImageStatus' "DELETE_FAILED"
+pattern ImageStatusDELETEFAILED :: ImageStatus
+pattern ImageStatusDELETEFAILED = ImageStatus' "DELETE_FAILED"
 
-pattern ISDeleting :: ImageStatus
-pattern ISDeleting = ImageStatus' "DELETING"
+pattern ImageStatusDELETING :: ImageStatus
+pattern ImageStatusDELETING = ImageStatus' "DELETING"
 
-pattern ISUpdateFailed :: ImageStatus
-pattern ISUpdateFailed = ImageStatus' "UPDATE_FAILED"
+pattern ImageStatusUPDATEFAILED :: ImageStatus
+pattern ImageStatusUPDATEFAILED = ImageStatus' "UPDATE_FAILED"
 
-pattern ISUpdating :: ImageStatus
-pattern ISUpdating = ImageStatus' "UPDATING"
+pattern ImageStatusUPDATING :: ImageStatus
+pattern ImageStatusUPDATING = ImageStatus' "UPDATING"
 
 {-# COMPLETE
-  ISCreateFailed,
-  ISCreated,
-  ISCreating,
-  ISDeleteFailed,
-  ISDeleting,
-  ISUpdateFailed,
-  ISUpdating,
+  ImageStatusCREATED,
+  ImageStatusCREATEFAILED,
+  ImageStatusCREATING,
+  ImageStatusDELETEFAILED,
+  ImageStatusDELETING,
+  ImageStatusUPDATEFAILED,
+  ImageStatusUPDATING,
   ImageStatus'
   #-}
 
-instance FromText ImageStatus where
-  parser = (ImageStatus' . mk) <$> takeText
+instance Prelude.FromText ImageStatus where
+  parser = ImageStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ImageStatus where
-  toText (ImageStatus' ci) = original ci
+instance Prelude.ToText ImageStatus where
+  toText (ImageStatus' x) = x
 
-instance Hashable ImageStatus
+instance Prelude.Hashable ImageStatus
 
-instance NFData ImageStatus
+instance Prelude.NFData ImageStatus
 
-instance ToByteString ImageStatus
+instance Prelude.ToByteString ImageStatus
 
-instance ToQuery ImageStatus
+instance Prelude.ToQuery ImageStatus
 
-instance ToHeader ImageStatus
+instance Prelude.ToHeader ImageStatus
 
-instance FromJSON ImageStatus where
-  parseJSON = parseJSONText "ImageStatus"
+instance Prelude.FromJSON ImageStatus where
+  parseJSON = Prelude.parseJSONText "ImageStatus"

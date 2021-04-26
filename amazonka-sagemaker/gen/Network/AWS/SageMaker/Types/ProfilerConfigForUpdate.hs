@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,86 +19,106 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.ProfilerConfigForUpdate where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Configuration information for updating the Debugger profile parameters, system and framework metrics configurations, and storage paths.
+-- | Configuration information for updating the Debugger profile parameters,
+-- system and framework metrics configurations, and storage paths.
 --
---
---
--- /See:/ 'profilerConfigForUpdate' smart constructor.
+-- /See:/ 'newProfilerConfigForUpdate' smart constructor.
 data ProfilerConfigForUpdate = ProfilerConfigForUpdate'
-  { _pcfuS3OutputPath ::
-      !(Maybe Text),
-    _pcfuProfilingParameters ::
-      !( Maybe
-           (Map Text Text)
-       ),
-    _pcfuProfilingIntervalInMilliseconds ::
-      !(Maybe Integer),
-    _pcfuDisableProfiler ::
-      !(Maybe Bool)
+  { -- | Path to Amazon S3 storage location for system and framework metrics.
+    s3OutputPath :: Prelude.Maybe Prelude.Text,
+    -- | Configuration information for capturing framework metrics. Available key
+    -- strings for different profiling options are @DetailedProfilingConfig@,
+    -- @PythonProfilingConfig@, and @DataLoaderProfilingConfig@. The following
+    -- codes are configuration structures for the @ProfilingParameters@
+    -- parameter. To learn more about how to configure the
+    -- @ProfilingParameters@ parameter, see
+    -- <https://docs.aws.amazon.com/sagemaker/latest/dg/debugger-createtrainingjob-api.html Use the SageMaker and Debugger Configuration API Operations to Create, Update, and Debug Your Training Job>.
+    profilingParameters :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | A time interval for capturing system metrics in milliseconds. Available
+    -- values are 100, 200, 500, 1000 (1 second), 5000 (5 seconds), and 60000
+    -- (1 minute) milliseconds. The default value is 500 milliseconds.
+    profilingIntervalInMilliseconds :: Prelude.Maybe Prelude.Integer,
+    -- | To disable Debugger monitoring and profiling, set to @True@.
+    disableProfiler :: Prelude.Maybe Prelude.Bool
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ProfilerConfigForUpdate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ProfilerConfigForUpdate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pcfuS3OutputPath' - Path to Amazon S3 storage location for system and framework metrics.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pcfuProfilingParameters' - Configuration information for capturing framework metrics. Available key strings for different profiling options are @DetailedProfilingConfig@ , @PythonProfilingConfig@ , and @DataLoaderProfilingConfig@ . The following codes are configuration structures for the @ProfilingParameters@ parameter. To learn more about how to configure the @ProfilingParameters@ parameter, see <https://docs.aws.amazon.com/sagemaker/latest/dg/debugger-createtrainingjob-api.html Use the SageMaker and Debugger Configuration API Operations to Create, Update, and Debug Your Training Job> .
+-- 's3OutputPath', 'profilerConfigForUpdate_s3OutputPath' - Path to Amazon S3 storage location for system and framework metrics.
 --
--- * 'pcfuProfilingIntervalInMilliseconds' - A time interval for capturing system metrics in milliseconds. Available values are 100, 200, 500, 1000 (1 second), 5000 (5 seconds), and 60000 (1 minute) milliseconds. The default value is 500 milliseconds.
+-- 'profilingParameters', 'profilerConfigForUpdate_profilingParameters' - Configuration information for capturing framework metrics. Available key
+-- strings for different profiling options are @DetailedProfilingConfig@,
+-- @PythonProfilingConfig@, and @DataLoaderProfilingConfig@. The following
+-- codes are configuration structures for the @ProfilingParameters@
+-- parameter. To learn more about how to configure the
+-- @ProfilingParameters@ parameter, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/debugger-createtrainingjob-api.html Use the SageMaker and Debugger Configuration API Operations to Create, Update, and Debug Your Training Job>.
 --
--- * 'pcfuDisableProfiler' - To disable Debugger monitoring and profiling, set to @True@ .
-profilerConfigForUpdate ::
+-- 'profilingIntervalInMilliseconds', 'profilerConfigForUpdate_profilingIntervalInMilliseconds' - A time interval for capturing system metrics in milliseconds. Available
+-- values are 100, 200, 500, 1000 (1 second), 5000 (5 seconds), and 60000
+-- (1 minute) milliseconds. The default value is 500 milliseconds.
+--
+-- 'disableProfiler', 'profilerConfigForUpdate_disableProfiler' - To disable Debugger monitoring and profiling, set to @True@.
+newProfilerConfigForUpdate ::
   ProfilerConfigForUpdate
-profilerConfigForUpdate =
+newProfilerConfigForUpdate =
   ProfilerConfigForUpdate'
-    { _pcfuS3OutputPath =
-        Nothing,
-      _pcfuProfilingParameters = Nothing,
-      _pcfuProfilingIntervalInMilliseconds = Nothing,
-      _pcfuDisableProfiler = Nothing
+    { s3OutputPath =
+        Prelude.Nothing,
+      profilingParameters = Prelude.Nothing,
+      profilingIntervalInMilliseconds = Prelude.Nothing,
+      disableProfiler = Prelude.Nothing
     }
 
 -- | Path to Amazon S3 storage location for system and framework metrics.
-pcfuS3OutputPath :: Lens' ProfilerConfigForUpdate (Maybe Text)
-pcfuS3OutputPath = lens _pcfuS3OutputPath (\s a -> s {_pcfuS3OutputPath = a})
+profilerConfigForUpdate_s3OutputPath :: Lens.Lens' ProfilerConfigForUpdate (Prelude.Maybe Prelude.Text)
+profilerConfigForUpdate_s3OutputPath = Lens.lens (\ProfilerConfigForUpdate' {s3OutputPath} -> s3OutputPath) (\s@ProfilerConfigForUpdate' {} a -> s {s3OutputPath = a} :: ProfilerConfigForUpdate)
 
--- | Configuration information for capturing framework metrics. Available key strings for different profiling options are @DetailedProfilingConfig@ , @PythonProfilingConfig@ , and @DataLoaderProfilingConfig@ . The following codes are configuration structures for the @ProfilingParameters@ parameter. To learn more about how to configure the @ProfilingParameters@ parameter, see <https://docs.aws.amazon.com/sagemaker/latest/dg/debugger-createtrainingjob-api.html Use the SageMaker and Debugger Configuration API Operations to Create, Update, and Debug Your Training Job> .
-pcfuProfilingParameters :: Lens' ProfilerConfigForUpdate (HashMap Text Text)
-pcfuProfilingParameters = lens _pcfuProfilingParameters (\s a -> s {_pcfuProfilingParameters = a}) . _Default . _Map
+-- | Configuration information for capturing framework metrics. Available key
+-- strings for different profiling options are @DetailedProfilingConfig@,
+-- @PythonProfilingConfig@, and @DataLoaderProfilingConfig@. The following
+-- codes are configuration structures for the @ProfilingParameters@
+-- parameter. To learn more about how to configure the
+-- @ProfilingParameters@ parameter, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/debugger-createtrainingjob-api.html Use the SageMaker and Debugger Configuration API Operations to Create, Update, and Debug Your Training Job>.
+profilerConfigForUpdate_profilingParameters :: Lens.Lens' ProfilerConfigForUpdate (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+profilerConfigForUpdate_profilingParameters = Lens.lens (\ProfilerConfigForUpdate' {profilingParameters} -> profilingParameters) (\s@ProfilerConfigForUpdate' {} a -> s {profilingParameters = a} :: ProfilerConfigForUpdate) Prelude.. Lens.mapping Prelude._Map
 
--- | A time interval for capturing system metrics in milliseconds. Available values are 100, 200, 500, 1000 (1 second), 5000 (5 seconds), and 60000 (1 minute) milliseconds. The default value is 500 milliseconds.
-pcfuProfilingIntervalInMilliseconds :: Lens' ProfilerConfigForUpdate (Maybe Integer)
-pcfuProfilingIntervalInMilliseconds = lens _pcfuProfilingIntervalInMilliseconds (\s a -> s {_pcfuProfilingIntervalInMilliseconds = a})
+-- | A time interval for capturing system metrics in milliseconds. Available
+-- values are 100, 200, 500, 1000 (1 second), 5000 (5 seconds), and 60000
+-- (1 minute) milliseconds. The default value is 500 milliseconds.
+profilerConfigForUpdate_profilingIntervalInMilliseconds :: Lens.Lens' ProfilerConfigForUpdate (Prelude.Maybe Prelude.Integer)
+profilerConfigForUpdate_profilingIntervalInMilliseconds = Lens.lens (\ProfilerConfigForUpdate' {profilingIntervalInMilliseconds} -> profilingIntervalInMilliseconds) (\s@ProfilerConfigForUpdate' {} a -> s {profilingIntervalInMilliseconds = a} :: ProfilerConfigForUpdate)
 
--- | To disable Debugger monitoring and profiling, set to @True@ .
-pcfuDisableProfiler :: Lens' ProfilerConfigForUpdate (Maybe Bool)
-pcfuDisableProfiler = lens _pcfuDisableProfiler (\s a -> s {_pcfuDisableProfiler = a})
+-- | To disable Debugger monitoring and profiling, set to @True@.
+profilerConfigForUpdate_disableProfiler :: Lens.Lens' ProfilerConfigForUpdate (Prelude.Maybe Prelude.Bool)
+profilerConfigForUpdate_disableProfiler = Lens.lens (\ProfilerConfigForUpdate' {disableProfiler} -> disableProfiler) (\s@ProfilerConfigForUpdate' {} a -> s {disableProfiler = a} :: ProfilerConfigForUpdate)
 
-instance Hashable ProfilerConfigForUpdate
+instance Prelude.Hashable ProfilerConfigForUpdate
 
-instance NFData ProfilerConfigForUpdate
+instance Prelude.NFData ProfilerConfigForUpdate
 
-instance ToJSON ProfilerConfigForUpdate where
+instance Prelude.ToJSON ProfilerConfigForUpdate where
   toJSON ProfilerConfigForUpdate' {..} =
-    object
-      ( catMaybes
-          [ ("S3OutputPath" .=) <$> _pcfuS3OutputPath,
-            ("ProfilingParameters" .=)
-              <$> _pcfuProfilingParameters,
-            ("ProfilingIntervalInMilliseconds" .=)
-              <$> _pcfuProfilingIntervalInMilliseconds,
-            ("DisableProfiler" .=) <$> _pcfuDisableProfiler
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("S3OutputPath" Prelude..=)
+              Prelude.<$> s3OutputPath,
+            ("ProfilingParameters" Prelude..=)
+              Prelude.<$> profilingParameters,
+            ("ProfilingIntervalInMilliseconds" Prelude..=)
+              Prelude.<$> profilingIntervalInMilliseconds,
+            ("DisableProfiler" Prelude..=)
+              Prelude.<$> disableProfiler
           ]
       )

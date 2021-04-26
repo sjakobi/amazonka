@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,163 +21,172 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a configuration for running a SageMaker image as a KernelGateway app. The configuration specifies the Amazon Elastic File System (EFS) storage volume on the image, and a list of the kernels in the image.
+-- Creates a configuration for running a SageMaker image as a KernelGateway
+-- app. The configuration specifies the Amazon Elastic File System (EFS)
+-- storage volume on the image, and a list of the kernels in the image.
 module Network.AWS.SageMaker.CreateAppImageConfig
   ( -- * Creating a Request
-    createAppImageConfig,
-    CreateAppImageConfig,
+    CreateAppImageConfig (..),
+    newCreateAppImageConfig,
 
     -- * Request Lenses
-    caicKernelGatewayImageConfig,
-    caicTags,
-    caicAppImageConfigName,
+    createAppImageConfig_kernelGatewayImageConfig,
+    createAppImageConfig_tags,
+    createAppImageConfig_appImageConfigName,
 
     -- * Destructuring the Response
-    createAppImageConfigResponse,
-    CreateAppImageConfigResponse,
+    CreateAppImageConfigResponse (..),
+    newCreateAppImageConfigResponse,
 
     -- * Response Lenses
-    caicrrsAppImageConfigARN,
-    caicrrsResponseStatus,
+    createAppImageConfigResponse_appImageConfigArn,
+    createAppImageConfigResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'createAppImageConfig' smart constructor.
+-- | /See:/ 'newCreateAppImageConfig' smart constructor.
 data CreateAppImageConfig = CreateAppImageConfig'
-  { _caicKernelGatewayImageConfig ::
-      !( Maybe
-           KernelGatewayImageConfig
-       ),
-    _caicTags :: !(Maybe [Tag]),
-    _caicAppImageConfigName ::
-      !Text
+  { -- | The KernelGatewayImageConfig.
+    kernelGatewayImageConfig :: Prelude.Maybe KernelGatewayImageConfig,
+    -- | A list of tags to apply to the AppImageConfig.
+    tags :: Prelude.Maybe [Tag],
+    -- | The name of the AppImageConfig. Must be unique to your account.
+    appImageConfigName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateAppImageConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateAppImageConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'caicKernelGatewayImageConfig' - The KernelGatewayImageConfig.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'caicTags' - A list of tags to apply to the AppImageConfig.
+-- 'kernelGatewayImageConfig', 'createAppImageConfig_kernelGatewayImageConfig' - The KernelGatewayImageConfig.
 --
--- * 'caicAppImageConfigName' - The name of the AppImageConfig. Must be unique to your account.
-createAppImageConfig ::
-  -- | 'caicAppImageConfigName'
-  Text ->
+-- 'tags', 'createAppImageConfig_tags' - A list of tags to apply to the AppImageConfig.
+--
+-- 'appImageConfigName', 'createAppImageConfig_appImageConfigName' - The name of the AppImageConfig. Must be unique to your account.
+newCreateAppImageConfig ::
+  -- | 'appImageConfigName'
+  Prelude.Text ->
   CreateAppImageConfig
-createAppImageConfig pAppImageConfigName_ =
+newCreateAppImageConfig pAppImageConfigName_ =
   CreateAppImageConfig'
-    { _caicKernelGatewayImageConfig =
-        Nothing,
-      _caicTags = Nothing,
-      _caicAppImageConfigName = pAppImageConfigName_
+    { kernelGatewayImageConfig =
+        Prelude.Nothing,
+      tags = Prelude.Nothing,
+      appImageConfigName = pAppImageConfigName_
     }
 
 -- | The KernelGatewayImageConfig.
-caicKernelGatewayImageConfig :: Lens' CreateAppImageConfig (Maybe KernelGatewayImageConfig)
-caicKernelGatewayImageConfig = lens _caicKernelGatewayImageConfig (\s a -> s {_caicKernelGatewayImageConfig = a})
+createAppImageConfig_kernelGatewayImageConfig :: Lens.Lens' CreateAppImageConfig (Prelude.Maybe KernelGatewayImageConfig)
+createAppImageConfig_kernelGatewayImageConfig = Lens.lens (\CreateAppImageConfig' {kernelGatewayImageConfig} -> kernelGatewayImageConfig) (\s@CreateAppImageConfig' {} a -> s {kernelGatewayImageConfig = a} :: CreateAppImageConfig)
 
 -- | A list of tags to apply to the AppImageConfig.
-caicTags :: Lens' CreateAppImageConfig [Tag]
-caicTags = lens _caicTags (\s a -> s {_caicTags = a}) . _Default . _Coerce
+createAppImageConfig_tags :: Lens.Lens' CreateAppImageConfig (Prelude.Maybe [Tag])
+createAppImageConfig_tags = Lens.lens (\CreateAppImageConfig' {tags} -> tags) (\s@CreateAppImageConfig' {} a -> s {tags = a} :: CreateAppImageConfig) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The name of the AppImageConfig. Must be unique to your account.
-caicAppImageConfigName :: Lens' CreateAppImageConfig Text
-caicAppImageConfigName = lens _caicAppImageConfigName (\s a -> s {_caicAppImageConfigName = a})
+createAppImageConfig_appImageConfigName :: Lens.Lens' CreateAppImageConfig Prelude.Text
+createAppImageConfig_appImageConfigName = Lens.lens (\CreateAppImageConfig' {appImageConfigName} -> appImageConfigName) (\s@CreateAppImageConfig' {} a -> s {appImageConfigName = a} :: CreateAppImageConfig)
 
-instance AWSRequest CreateAppImageConfig where
+instance Prelude.AWSRequest CreateAppImageConfig where
   type
     Rs CreateAppImageConfig =
       CreateAppImageConfigResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateAppImageConfigResponse'
-            <$> (x .?> "AppImageConfigArn") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "AppImageConfigArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateAppImageConfig
+instance Prelude.Hashable CreateAppImageConfig
 
-instance NFData CreateAppImageConfig
+instance Prelude.NFData CreateAppImageConfig
 
-instance ToHeaders CreateAppImageConfig where
+instance Prelude.ToHeaders CreateAppImageConfig where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.CreateAppImageConfig" :: ByteString),
+              Prelude.=# ( "SageMaker.CreateAppImageConfig" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateAppImageConfig where
+instance Prelude.ToJSON CreateAppImageConfig where
   toJSON CreateAppImageConfig' {..} =
-    object
-      ( catMaybes
-          [ ("KernelGatewayImageConfig" .=)
-              <$> _caicKernelGatewayImageConfig,
-            ("Tags" .=) <$> _caicTags,
-            Just
-              ("AppImageConfigName" .= _caicAppImageConfigName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("KernelGatewayImageConfig" Prelude..=)
+              Prelude.<$> kernelGatewayImageConfig,
+            ("Tags" Prelude..=) Prelude.<$> tags,
+            Prelude.Just
+              ( "AppImageConfigName"
+                  Prelude..= appImageConfigName
+              )
           ]
       )
 
-instance ToPath CreateAppImageConfig where
-  toPath = const "/"
+instance Prelude.ToPath CreateAppImageConfig where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateAppImageConfig where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateAppImageConfig where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createAppImageConfigResponse' smart constructor.
+-- | /See:/ 'newCreateAppImageConfigResponse' smart constructor.
 data CreateAppImageConfigResponse = CreateAppImageConfigResponse'
-  { _caicrrsAppImageConfigARN ::
-      !(Maybe Text),
-    _caicrrsResponseStatus ::
-      !Int
+  { -- | The Amazon Resource Name (ARN) of the AppImageConfig.
+    appImageConfigArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateAppImageConfigResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateAppImageConfigResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'caicrrsAppImageConfigARN' - The Amazon Resource Name (ARN) of the AppImageConfig.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'caicrrsResponseStatus' - -- | The response status code.
-createAppImageConfigResponse ::
-  -- | 'caicrrsResponseStatus'
-  Int ->
+-- 'appImageConfigArn', 'createAppImageConfigResponse_appImageConfigArn' - The Amazon Resource Name (ARN) of the AppImageConfig.
+--
+-- 'httpStatus', 'createAppImageConfigResponse_httpStatus' - The response's http status code.
+newCreateAppImageConfigResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateAppImageConfigResponse
-createAppImageConfigResponse pResponseStatus_ =
+newCreateAppImageConfigResponse pHttpStatus_ =
   CreateAppImageConfigResponse'
-    { _caicrrsAppImageConfigARN =
-        Nothing,
-      _caicrrsResponseStatus = pResponseStatus_
+    { appImageConfigArn =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The Amazon Resource Name (ARN) of the AppImageConfig.
-caicrrsAppImageConfigARN :: Lens' CreateAppImageConfigResponse (Maybe Text)
-caicrrsAppImageConfigARN = lens _caicrrsAppImageConfigARN (\s a -> s {_caicrrsAppImageConfigARN = a})
+createAppImageConfigResponse_appImageConfigArn :: Lens.Lens' CreateAppImageConfigResponse (Prelude.Maybe Prelude.Text)
+createAppImageConfigResponse_appImageConfigArn = Lens.lens (\CreateAppImageConfigResponse' {appImageConfigArn} -> appImageConfigArn) (\s@CreateAppImageConfigResponse' {} a -> s {appImageConfigArn = a} :: CreateAppImageConfigResponse)
 
--- | -- | The response status code.
-caicrrsResponseStatus :: Lens' CreateAppImageConfigResponse Int
-caicrrsResponseStatus = lens _caicrrsResponseStatus (\s a -> s {_caicrrsResponseStatus = a})
+-- | The response's http status code.
+createAppImageConfigResponse_httpStatus :: Lens.Lens' CreateAppImageConfigResponse Prelude.Int
+createAppImageConfigResponse_httpStatus = Lens.lens (\CreateAppImageConfigResponse' {httpStatus} -> httpStatus) (\s@CreateAppImageConfigResponse' {} a -> s {httpStatus = a} :: CreateAppImageConfigResponse)
 
-instance NFData CreateAppImageConfigResponse
+instance Prelude.NFData CreateAppImageConfigResponse

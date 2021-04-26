@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,229 +24,236 @@
 -- Describes a context.
 module Network.AWS.SageMaker.DescribeContext
   ( -- * Creating a Request
-    describeContext,
-    DescribeContext,
+    DescribeContext (..),
+    newDescribeContext,
 
     -- * Request Lenses
-    dContextName,
+    describeContext_contextName,
 
     -- * Destructuring the Response
-    describeContextResponse,
-    DescribeContextResponse,
+    DescribeContextResponse (..),
+    newDescribeContextResponse,
 
     -- * Response Lenses
-    dcrcrsContextType,
-    dcrcrsCreationTime,
-    dcrcrsContextName,
-    dcrcrsSource,
-    dcrcrsProperties,
-    dcrcrsLastModifiedTime,
-    dcrcrsDescription,
-    dcrcrsCreatedBy,
-    dcrcrsLastModifiedBy,
-    dcrcrsContextARN,
-    dcrcrsResponseStatus,
+    describeContextResponse_contextType,
+    describeContextResponse_creationTime,
+    describeContextResponse_contextName,
+    describeContextResponse_source,
+    describeContextResponse_properties,
+    describeContextResponse_lastModifiedTime,
+    describeContextResponse_description,
+    describeContextResponse_createdBy,
+    describeContextResponse_lastModifiedBy,
+    describeContextResponse_contextArn,
+    describeContextResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
+import Network.AWS.SageMaker.Types.ContextSource
+import Network.AWS.SageMaker.Types.UserContext
 
--- | /See:/ 'describeContext' smart constructor.
-newtype DescribeContext = DescribeContext'
-  { _dContextName ::
-      Text
+-- | /See:/ 'newDescribeContext' smart constructor.
+data DescribeContext = DescribeContext'
+  { -- | The name of the context to describe.
+    contextName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeContext' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeContext' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dContextName' - The name of the context to describe.
-describeContext ::
-  -- | 'dContextName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'contextName', 'describeContext_contextName' - The name of the context to describe.
+newDescribeContext ::
+  -- | 'contextName'
+  Prelude.Text ->
   DescribeContext
-describeContext pContextName_ =
-  DescribeContext' {_dContextName = pContextName_}
+newDescribeContext pContextName_ =
+  DescribeContext' {contextName = pContextName_}
 
 -- | The name of the context to describe.
-dContextName :: Lens' DescribeContext Text
-dContextName = lens _dContextName (\s a -> s {_dContextName = a})
+describeContext_contextName :: Lens.Lens' DescribeContext Prelude.Text
+describeContext_contextName = Lens.lens (\DescribeContext' {contextName} -> contextName) (\s@DescribeContext' {} a -> s {contextName = a} :: DescribeContext)
 
-instance AWSRequest DescribeContext where
+instance Prelude.AWSRequest DescribeContext where
   type Rs DescribeContext = DescribeContextResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeContextResponse'
-            <$> (x .?> "ContextType")
-            <*> (x .?> "CreationTime")
-            <*> (x .?> "ContextName")
-            <*> (x .?> "Source")
-            <*> (x .?> "Properties" .!@ mempty)
-            <*> (x .?> "LastModifiedTime")
-            <*> (x .?> "Description")
-            <*> (x .?> "CreatedBy")
-            <*> (x .?> "LastModifiedBy")
-            <*> (x .?> "ContextArn")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ContextType")
+            Prelude.<*> (x Prelude..?> "CreationTime")
+            Prelude.<*> (x Prelude..?> "ContextName")
+            Prelude.<*> (x Prelude..?> "Source")
+            Prelude.<*> ( x Prelude..?> "Properties"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "LastModifiedTime")
+            Prelude.<*> (x Prelude..?> "Description")
+            Prelude.<*> (x Prelude..?> "CreatedBy")
+            Prelude.<*> (x Prelude..?> "LastModifiedBy")
+            Prelude.<*> (x Prelude..?> "ContextArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeContext
+instance Prelude.Hashable DescribeContext
 
-instance NFData DescribeContext
+instance Prelude.NFData DescribeContext
 
-instance ToHeaders DescribeContext where
+instance Prelude.ToHeaders DescribeContext where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.DescribeContext" :: ByteString),
+              Prelude.=# ("SageMaker.DescribeContext" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeContext where
+instance Prelude.ToJSON DescribeContext where
   toJSON DescribeContext' {..} =
-    object
-      (catMaybes [Just ("ContextName" .= _dContextName)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("ContextName" Prelude..= contextName)
+          ]
+      )
 
-instance ToPath DescribeContext where
-  toPath = const "/"
+instance Prelude.ToPath DescribeContext where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeContext where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeContext where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeContextResponse' smart constructor.
+-- | /See:/ 'newDescribeContextResponse' smart constructor.
 data DescribeContextResponse = DescribeContextResponse'
-  { _dcrcrsContextType ::
-      !(Maybe Text),
-    _dcrcrsCreationTime ::
-      !(Maybe POSIX),
-    _dcrcrsContextName ::
-      !(Maybe Text),
-    _dcrcrsSource ::
-      !(Maybe ContextSource),
-    _dcrcrsProperties ::
-      !( Maybe
-           (Map Text Text)
-       ),
-    _dcrcrsLastModifiedTime ::
-      !(Maybe POSIX),
-    _dcrcrsDescription ::
-      !(Maybe Text),
-    _dcrcrsCreatedBy ::
-      !(Maybe UserContext),
-    _dcrcrsLastModifiedBy ::
-      !(Maybe UserContext),
-    _dcrcrsContextARN ::
-      !(Maybe Text),
-    _dcrcrsResponseStatus ::
-      !Int
+  { -- | The type of the context.
+    contextType :: Prelude.Maybe Prelude.Text,
+    -- | When the context was created.
+    creationTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The name of the context.
+    contextName :: Prelude.Maybe Prelude.Text,
+    -- | The source of the context.
+    source :: Prelude.Maybe ContextSource,
+    -- | A list of the context\'s properties.
+    properties :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | When the context was last modified.
+    lastModifiedTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The description of the context.
+    description :: Prelude.Maybe Prelude.Text,
+    createdBy :: Prelude.Maybe UserContext,
+    lastModifiedBy :: Prelude.Maybe UserContext,
+    -- | The Amazon Resource Name (ARN) of the context.
+    contextArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeContextResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeContextResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcrcrsContextType' - The type of the context.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcrcrsCreationTime' - When the context was created.
+-- 'contextType', 'describeContextResponse_contextType' - The type of the context.
 --
--- * 'dcrcrsContextName' - The name of the context.
+-- 'creationTime', 'describeContextResponse_creationTime' - When the context was created.
 --
--- * 'dcrcrsSource' - The source of the context.
+-- 'contextName', 'describeContextResponse_contextName' - The name of the context.
 --
--- * 'dcrcrsProperties' - A list of the context's properties.
+-- 'source', 'describeContextResponse_source' - The source of the context.
 --
--- * 'dcrcrsLastModifiedTime' - When the context was last modified.
+-- 'properties', 'describeContextResponse_properties' - A list of the context\'s properties.
 --
--- * 'dcrcrsDescription' - The description of the context.
+-- 'lastModifiedTime', 'describeContextResponse_lastModifiedTime' - When the context was last modified.
 --
--- * 'dcrcrsCreatedBy' - Undocumented member.
+-- 'description', 'describeContextResponse_description' - The description of the context.
 --
--- * 'dcrcrsLastModifiedBy' - Undocumented member.
+-- 'createdBy', 'describeContextResponse_createdBy' - Undocumented member.
 --
--- * 'dcrcrsContextARN' - The Amazon Resource Name (ARN) of the context.
+-- 'lastModifiedBy', 'describeContextResponse_lastModifiedBy' - Undocumented member.
 --
--- * 'dcrcrsResponseStatus' - -- | The response status code.
-describeContextResponse ::
-  -- | 'dcrcrsResponseStatus'
-  Int ->
+-- 'contextArn', 'describeContextResponse_contextArn' - The Amazon Resource Name (ARN) of the context.
+--
+-- 'httpStatus', 'describeContextResponse_httpStatus' - The response's http status code.
+newDescribeContextResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeContextResponse
-describeContextResponse pResponseStatus_ =
+newDescribeContextResponse pHttpStatus_ =
   DescribeContextResponse'
-    { _dcrcrsContextType =
-        Nothing,
-      _dcrcrsCreationTime = Nothing,
-      _dcrcrsContextName = Nothing,
-      _dcrcrsSource = Nothing,
-      _dcrcrsProperties = Nothing,
-      _dcrcrsLastModifiedTime = Nothing,
-      _dcrcrsDescription = Nothing,
-      _dcrcrsCreatedBy = Nothing,
-      _dcrcrsLastModifiedBy = Nothing,
-      _dcrcrsContextARN = Nothing,
-      _dcrcrsResponseStatus = pResponseStatus_
+    { contextType =
+        Prelude.Nothing,
+      creationTime = Prelude.Nothing,
+      contextName = Prelude.Nothing,
+      source = Prelude.Nothing,
+      properties = Prelude.Nothing,
+      lastModifiedTime = Prelude.Nothing,
+      description = Prelude.Nothing,
+      createdBy = Prelude.Nothing,
+      lastModifiedBy = Prelude.Nothing,
+      contextArn = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The type of the context.
-dcrcrsContextType :: Lens' DescribeContextResponse (Maybe Text)
-dcrcrsContextType = lens _dcrcrsContextType (\s a -> s {_dcrcrsContextType = a})
+describeContextResponse_contextType :: Lens.Lens' DescribeContextResponse (Prelude.Maybe Prelude.Text)
+describeContextResponse_contextType = Lens.lens (\DescribeContextResponse' {contextType} -> contextType) (\s@DescribeContextResponse' {} a -> s {contextType = a} :: DescribeContextResponse)
 
 -- | When the context was created.
-dcrcrsCreationTime :: Lens' DescribeContextResponse (Maybe UTCTime)
-dcrcrsCreationTime = lens _dcrcrsCreationTime (\s a -> s {_dcrcrsCreationTime = a}) . mapping _Time
+describeContextResponse_creationTime :: Lens.Lens' DescribeContextResponse (Prelude.Maybe Prelude.UTCTime)
+describeContextResponse_creationTime = Lens.lens (\DescribeContextResponse' {creationTime} -> creationTime) (\s@DescribeContextResponse' {} a -> s {creationTime = a} :: DescribeContextResponse) Prelude.. Lens.mapping Prelude._Time
 
 -- | The name of the context.
-dcrcrsContextName :: Lens' DescribeContextResponse (Maybe Text)
-dcrcrsContextName = lens _dcrcrsContextName (\s a -> s {_dcrcrsContextName = a})
+describeContextResponse_contextName :: Lens.Lens' DescribeContextResponse (Prelude.Maybe Prelude.Text)
+describeContextResponse_contextName = Lens.lens (\DescribeContextResponse' {contextName} -> contextName) (\s@DescribeContextResponse' {} a -> s {contextName = a} :: DescribeContextResponse)
 
 -- | The source of the context.
-dcrcrsSource :: Lens' DescribeContextResponse (Maybe ContextSource)
-dcrcrsSource = lens _dcrcrsSource (\s a -> s {_dcrcrsSource = a})
+describeContextResponse_source :: Lens.Lens' DescribeContextResponse (Prelude.Maybe ContextSource)
+describeContextResponse_source = Lens.lens (\DescribeContextResponse' {source} -> source) (\s@DescribeContextResponse' {} a -> s {source = a} :: DescribeContextResponse)
 
--- | A list of the context's properties.
-dcrcrsProperties :: Lens' DescribeContextResponse (HashMap Text Text)
-dcrcrsProperties = lens _dcrcrsProperties (\s a -> s {_dcrcrsProperties = a}) . _Default . _Map
+-- | A list of the context\'s properties.
+describeContextResponse_properties :: Lens.Lens' DescribeContextResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+describeContextResponse_properties = Lens.lens (\DescribeContextResponse' {properties} -> properties) (\s@DescribeContextResponse' {} a -> s {properties = a} :: DescribeContextResponse) Prelude.. Lens.mapping Prelude._Map
 
 -- | When the context was last modified.
-dcrcrsLastModifiedTime :: Lens' DescribeContextResponse (Maybe UTCTime)
-dcrcrsLastModifiedTime = lens _dcrcrsLastModifiedTime (\s a -> s {_dcrcrsLastModifiedTime = a}) . mapping _Time
+describeContextResponse_lastModifiedTime :: Lens.Lens' DescribeContextResponse (Prelude.Maybe Prelude.UTCTime)
+describeContextResponse_lastModifiedTime = Lens.lens (\DescribeContextResponse' {lastModifiedTime} -> lastModifiedTime) (\s@DescribeContextResponse' {} a -> s {lastModifiedTime = a} :: DescribeContextResponse) Prelude.. Lens.mapping Prelude._Time
 
 -- | The description of the context.
-dcrcrsDescription :: Lens' DescribeContextResponse (Maybe Text)
-dcrcrsDescription = lens _dcrcrsDescription (\s a -> s {_dcrcrsDescription = a})
+describeContextResponse_description :: Lens.Lens' DescribeContextResponse (Prelude.Maybe Prelude.Text)
+describeContextResponse_description = Lens.lens (\DescribeContextResponse' {description} -> description) (\s@DescribeContextResponse' {} a -> s {description = a} :: DescribeContextResponse)
 
 -- | Undocumented member.
-dcrcrsCreatedBy :: Lens' DescribeContextResponse (Maybe UserContext)
-dcrcrsCreatedBy = lens _dcrcrsCreatedBy (\s a -> s {_dcrcrsCreatedBy = a})
+describeContextResponse_createdBy :: Lens.Lens' DescribeContextResponse (Prelude.Maybe UserContext)
+describeContextResponse_createdBy = Lens.lens (\DescribeContextResponse' {createdBy} -> createdBy) (\s@DescribeContextResponse' {} a -> s {createdBy = a} :: DescribeContextResponse)
 
 -- | Undocumented member.
-dcrcrsLastModifiedBy :: Lens' DescribeContextResponse (Maybe UserContext)
-dcrcrsLastModifiedBy = lens _dcrcrsLastModifiedBy (\s a -> s {_dcrcrsLastModifiedBy = a})
+describeContextResponse_lastModifiedBy :: Lens.Lens' DescribeContextResponse (Prelude.Maybe UserContext)
+describeContextResponse_lastModifiedBy = Lens.lens (\DescribeContextResponse' {lastModifiedBy} -> lastModifiedBy) (\s@DescribeContextResponse' {} a -> s {lastModifiedBy = a} :: DescribeContextResponse)
 
 -- | The Amazon Resource Name (ARN) of the context.
-dcrcrsContextARN :: Lens' DescribeContextResponse (Maybe Text)
-dcrcrsContextARN = lens _dcrcrsContextARN (\s a -> s {_dcrcrsContextARN = a})
+describeContextResponse_contextArn :: Lens.Lens' DescribeContextResponse (Prelude.Maybe Prelude.Text)
+describeContextResponse_contextArn = Lens.lens (\DescribeContextResponse' {contextArn} -> contextArn) (\s@DescribeContextResponse' {} a -> s {contextArn = a} :: DescribeContextResponse)
 
--- | -- | The response status code.
-dcrcrsResponseStatus :: Lens' DescribeContextResponse Int
-dcrcrsResponseStatus = lens _dcrcrsResponseStatus (\s a -> s {_dcrcrsResponseStatus = a})
+-- | The response's http status code.
+describeContextResponse_httpStatus :: Lens.Lens' DescribeContextResponse Prelude.Int
+describeContextResponse_httpStatus = Lens.lens (\DescribeContextResponse' {httpStatus} -> httpStatus) (\s@DescribeContextResponse' {} a -> s {httpStatus = a} :: DescribeContextResponse)
 
-instance NFData DescribeContextResponse
+instance Prelude.NFData DescribeContextResponse

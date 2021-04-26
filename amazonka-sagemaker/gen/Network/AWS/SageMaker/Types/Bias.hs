@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,41 +19,49 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.Bias where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.MetricsSource
 
 -- | Contains bias metrics for a model.
 --
---
---
--- /See:/ 'bias' smart constructor.
-newtype Bias = Bias' {_bReport :: Maybe MetricsSource}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- /See:/ 'newBias' smart constructor.
+data Bias = Bias'
+  { -- | The bias report for a model
+    report :: Prelude.Maybe MetricsSource
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Bias' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Bias' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bReport' - The bias report for a model
-bias ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'report', 'bias_report' - The bias report for a model
+newBias ::
   Bias
-bias = Bias' {_bReport = Nothing}
+newBias = Bias' {report = Prelude.Nothing}
 
 -- | The bias report for a model
-bReport :: Lens' Bias (Maybe MetricsSource)
-bReport = lens _bReport (\s a -> s {_bReport = a})
+bias_report :: Lens.Lens' Bias (Prelude.Maybe MetricsSource)
+bias_report = Lens.lens (\Bias' {report} -> report) (\s@Bias' {} a -> s {report = a} :: Bias)
 
-instance FromJSON Bias where
+instance Prelude.FromJSON Bias where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Bias"
-      (\x -> Bias' <$> (x .:? "Report"))
+      (\x -> Bias' Prelude.<$> (x Prelude..:? "Report"))
 
-instance Hashable Bias
+instance Prelude.Hashable Bias
 
-instance NFData Bias
+instance Prelude.NFData Bias
 
-instance ToJSON Bias where
+instance Prelude.ToJSON Bias where
   toJSON Bias' {..} =
-    object (catMaybes [("Report" .=) <$> _bReport])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("Report" Prelude..=) Prelude.<$> report]
+      )

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,77 +19,75 @@
 module Network.AWS.SageMaker.Types.ModelPackageGroupStatus
   ( ModelPackageGroupStatus
       ( ..,
-        MPGSCompleted,
-        MPGSDeleteFailed,
-        MPGSDeleting,
-        MPGSFailed,
-        MPGSInProgress,
-        MPGSPending
+        ModelPackageGroupStatusCompleted,
+        ModelPackageGroupStatusDeleteFailed,
+        ModelPackageGroupStatusDeleting,
+        ModelPackageGroupStatusFailed,
+        ModelPackageGroupStatusInProgress,
+        ModelPackageGroupStatusPending
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ModelPackageGroupStatus
-  = ModelPackageGroupStatus'
-      ( CI
-          Text
-      )
+newtype ModelPackageGroupStatus = ModelPackageGroupStatus'
+  { fromModelPackageGroupStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MPGSCompleted :: ModelPackageGroupStatus
-pattern MPGSCompleted = ModelPackageGroupStatus' "Completed"
+pattern ModelPackageGroupStatusCompleted :: ModelPackageGroupStatus
+pattern ModelPackageGroupStatusCompleted = ModelPackageGroupStatus' "Completed"
 
-pattern MPGSDeleteFailed :: ModelPackageGroupStatus
-pattern MPGSDeleteFailed = ModelPackageGroupStatus' "DeleteFailed"
+pattern ModelPackageGroupStatusDeleteFailed :: ModelPackageGroupStatus
+pattern ModelPackageGroupStatusDeleteFailed = ModelPackageGroupStatus' "DeleteFailed"
 
-pattern MPGSDeleting :: ModelPackageGroupStatus
-pattern MPGSDeleting = ModelPackageGroupStatus' "Deleting"
+pattern ModelPackageGroupStatusDeleting :: ModelPackageGroupStatus
+pattern ModelPackageGroupStatusDeleting = ModelPackageGroupStatus' "Deleting"
 
-pattern MPGSFailed :: ModelPackageGroupStatus
-pattern MPGSFailed = ModelPackageGroupStatus' "Failed"
+pattern ModelPackageGroupStatusFailed :: ModelPackageGroupStatus
+pattern ModelPackageGroupStatusFailed = ModelPackageGroupStatus' "Failed"
 
-pattern MPGSInProgress :: ModelPackageGroupStatus
-pattern MPGSInProgress = ModelPackageGroupStatus' "InProgress"
+pattern ModelPackageGroupStatusInProgress :: ModelPackageGroupStatus
+pattern ModelPackageGroupStatusInProgress = ModelPackageGroupStatus' "InProgress"
 
-pattern MPGSPending :: ModelPackageGroupStatus
-pattern MPGSPending = ModelPackageGroupStatus' "Pending"
+pattern ModelPackageGroupStatusPending :: ModelPackageGroupStatus
+pattern ModelPackageGroupStatusPending = ModelPackageGroupStatus' "Pending"
 
 {-# COMPLETE
-  MPGSCompleted,
-  MPGSDeleteFailed,
-  MPGSDeleting,
-  MPGSFailed,
-  MPGSInProgress,
-  MPGSPending,
+  ModelPackageGroupStatusCompleted,
+  ModelPackageGroupStatusDeleteFailed,
+  ModelPackageGroupStatusDeleting,
+  ModelPackageGroupStatusFailed,
+  ModelPackageGroupStatusInProgress,
+  ModelPackageGroupStatusPending,
   ModelPackageGroupStatus'
   #-}
 
-instance FromText ModelPackageGroupStatus where
-  parser = (ModelPackageGroupStatus' . mk) <$> takeText
+instance Prelude.FromText ModelPackageGroupStatus where
+  parser = ModelPackageGroupStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ModelPackageGroupStatus where
-  toText (ModelPackageGroupStatus' ci) = original ci
+instance Prelude.ToText ModelPackageGroupStatus where
+  toText (ModelPackageGroupStatus' x) = x
 
-instance Hashable ModelPackageGroupStatus
+instance Prelude.Hashable ModelPackageGroupStatus
 
-instance NFData ModelPackageGroupStatus
+instance Prelude.NFData ModelPackageGroupStatus
 
-instance ToByteString ModelPackageGroupStatus
+instance Prelude.ToByteString ModelPackageGroupStatus
 
-instance ToQuery ModelPackageGroupStatus
+instance Prelude.ToQuery ModelPackageGroupStatus
 
-instance ToHeader ModelPackageGroupStatus
+instance Prelude.ToHeader ModelPackageGroupStatus
 
-instance FromJSON ModelPackageGroupStatus where
-  parseJSON = parseJSONText "ModelPackageGroupStatus"
+instance Prelude.FromJSON ModelPackageGroupStatus where
+  parseJSON = Prelude.parseJSONText "ModelPackageGroupStatus"

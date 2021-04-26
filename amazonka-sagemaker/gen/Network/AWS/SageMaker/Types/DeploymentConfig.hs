@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,73 +19,73 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.DeploymentConfig where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.AutoRollbackConfig
 import Network.AWS.SageMaker.Types.BlueGreenUpdatePolicy
 
 -- | Currently, the @DeploymentConfig@ API is not supported.
 --
---
---
--- /See:/ 'deploymentConfig' smart constructor.
+-- /See:/ 'newDeploymentConfig' smart constructor.
 data DeploymentConfig = DeploymentConfig'
-  { _dcAutoRollbackConfiguration ::
-      !(Maybe AutoRollbackConfig),
-    _dcBlueGreenUpdatePolicy ::
-      !BlueGreenUpdatePolicy
+  { autoRollbackConfiguration :: Prelude.Maybe AutoRollbackConfig,
+    blueGreenUpdatePolicy :: BlueGreenUpdatePolicy
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeploymentConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeploymentConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcAutoRollbackConfiguration' -
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcBlueGreenUpdatePolicy' -
-deploymentConfig ::
-  -- | 'dcBlueGreenUpdatePolicy'
+-- 'autoRollbackConfiguration', 'deploymentConfig_autoRollbackConfiguration' -
+--
+-- 'blueGreenUpdatePolicy', 'deploymentConfig_blueGreenUpdatePolicy' -
+newDeploymentConfig ::
+  -- | 'blueGreenUpdatePolicy'
   BlueGreenUpdatePolicy ->
   DeploymentConfig
-deploymentConfig pBlueGreenUpdatePolicy_ =
+newDeploymentConfig pBlueGreenUpdatePolicy_ =
   DeploymentConfig'
-    { _dcAutoRollbackConfiguration =
-        Nothing,
-      _dcBlueGreenUpdatePolicy = pBlueGreenUpdatePolicy_
+    { autoRollbackConfiguration =
+        Prelude.Nothing,
+      blueGreenUpdatePolicy = pBlueGreenUpdatePolicy_
     }
 
 -- |
-dcAutoRollbackConfiguration :: Lens' DeploymentConfig (Maybe AutoRollbackConfig)
-dcAutoRollbackConfiguration = lens _dcAutoRollbackConfiguration (\s a -> s {_dcAutoRollbackConfiguration = a})
+deploymentConfig_autoRollbackConfiguration :: Lens.Lens' DeploymentConfig (Prelude.Maybe AutoRollbackConfig)
+deploymentConfig_autoRollbackConfiguration = Lens.lens (\DeploymentConfig' {autoRollbackConfiguration} -> autoRollbackConfiguration) (\s@DeploymentConfig' {} a -> s {autoRollbackConfiguration = a} :: DeploymentConfig)
 
 -- |
-dcBlueGreenUpdatePolicy :: Lens' DeploymentConfig BlueGreenUpdatePolicy
-dcBlueGreenUpdatePolicy = lens _dcBlueGreenUpdatePolicy (\s a -> s {_dcBlueGreenUpdatePolicy = a})
+deploymentConfig_blueGreenUpdatePolicy :: Lens.Lens' DeploymentConfig BlueGreenUpdatePolicy
+deploymentConfig_blueGreenUpdatePolicy = Lens.lens (\DeploymentConfig' {blueGreenUpdatePolicy} -> blueGreenUpdatePolicy) (\s@DeploymentConfig' {} a -> s {blueGreenUpdatePolicy = a} :: DeploymentConfig)
 
-instance FromJSON DeploymentConfig where
+instance Prelude.FromJSON DeploymentConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DeploymentConfig"
       ( \x ->
           DeploymentConfig'
-            <$> (x .:? "AutoRollbackConfiguration")
-            <*> (x .: "BlueGreenUpdatePolicy")
+            Prelude.<$> (x Prelude..:? "AutoRollbackConfiguration")
+            Prelude.<*> (x Prelude..: "BlueGreenUpdatePolicy")
       )
 
-instance Hashable DeploymentConfig
+instance Prelude.Hashable DeploymentConfig
 
-instance NFData DeploymentConfig
+instance Prelude.NFData DeploymentConfig
 
-instance ToJSON DeploymentConfig where
+instance Prelude.ToJSON DeploymentConfig where
   toJSON DeploymentConfig' {..} =
-    object
-      ( catMaybes
-          [ ("AutoRollbackConfiguration" .=)
-              <$> _dcAutoRollbackConfiguration,
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("AutoRollbackConfiguration" Prelude..=)
+              Prelude.<$> autoRollbackConfiguration,
+            Prelude.Just
               ( "BlueGreenUpdatePolicy"
-                  .= _dcBlueGreenUpdatePolicy
+                  Prelude..= blueGreenUpdatePolicy
               )
           ]
       )

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,64 +19,80 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.OidcConfig where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Use this parameter to configure your OIDC Identity Provider (IdP).
 --
---
---
--- /See:/ 'oidcConfig' smart constructor.
+-- /See:/ 'newOidcConfig' smart constructor.
 data OidcConfig = OidcConfig'
-  { _ocClientId :: !Text,
-    _ocClientSecret :: !(Sensitive Text),
-    _ocIssuer :: !Text,
-    _ocAuthorizationEndpoint :: !Text,
-    _ocTokenEndpoint :: !Text,
-    _ocUserInfoEndpoint :: !Text,
-    _ocLogoutEndpoint :: !Text,
-    _ocJwksURI :: !Text
+  { -- | The OIDC IdP client ID used to configure your private workforce.
+    clientId :: Prelude.Text,
+    -- | The OIDC IdP client secret used to configure your private workforce.
+    clientSecret :: Prelude.Sensitive Prelude.Text,
+    -- | The OIDC IdP issuer used to configure your private workforce.
+    issuer :: Prelude.Text,
+    -- | The OIDC IdP authorization endpoint used to configure your private
+    -- workforce.
+    authorizationEndpoint :: Prelude.Text,
+    -- | The OIDC IdP token endpoint used to configure your private workforce.
+    tokenEndpoint :: Prelude.Text,
+    -- | The OIDC IdP user information endpoint used to configure your private
+    -- workforce.
+    userInfoEndpoint :: Prelude.Text,
+    -- | The OIDC IdP logout endpoint used to configure your private workforce.
+    logoutEndpoint :: Prelude.Text,
+    -- | The OIDC IdP JSON Web Key Set (Jwks) URI used to configure your private
+    -- workforce.
+    jwksUri :: Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OidcConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OidcConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ocClientId' - The OIDC IdP client ID used to configure your private workforce.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ocClientSecret' - The OIDC IdP client secret used to configure your private workforce.
+-- 'clientId', 'oidcConfig_clientId' - The OIDC IdP client ID used to configure your private workforce.
 --
--- * 'ocIssuer' - The OIDC IdP issuer used to configure your private workforce.
+-- 'clientSecret', 'oidcConfig_clientSecret' - The OIDC IdP client secret used to configure your private workforce.
 --
--- * 'ocAuthorizationEndpoint' - The OIDC IdP authorization endpoint used to configure your private workforce.
+-- 'issuer', 'oidcConfig_issuer' - The OIDC IdP issuer used to configure your private workforce.
 --
--- * 'ocTokenEndpoint' - The OIDC IdP token endpoint used to configure your private workforce.
+-- 'authorizationEndpoint', 'oidcConfig_authorizationEndpoint' - The OIDC IdP authorization endpoint used to configure your private
+-- workforce.
 --
--- * 'ocUserInfoEndpoint' - The OIDC IdP user information endpoint used to configure your private workforce.
+-- 'tokenEndpoint', 'oidcConfig_tokenEndpoint' - The OIDC IdP token endpoint used to configure your private workforce.
 --
--- * 'ocLogoutEndpoint' - The OIDC IdP logout endpoint used to configure your private workforce.
+-- 'userInfoEndpoint', 'oidcConfig_userInfoEndpoint' - The OIDC IdP user information endpoint used to configure your private
+-- workforce.
 --
--- * 'ocJwksURI' - The OIDC IdP JSON Web Key Set (Jwks) URI used to configure your private workforce.
-oidcConfig ::
-  -- | 'ocClientId'
-  Text ->
-  -- | 'ocClientSecret'
-  Text ->
-  -- | 'ocIssuer'
-  Text ->
-  -- | 'ocAuthorizationEndpoint'
-  Text ->
-  -- | 'ocTokenEndpoint'
-  Text ->
-  -- | 'ocUserInfoEndpoint'
-  Text ->
-  -- | 'ocLogoutEndpoint'
-  Text ->
-  -- | 'ocJwksURI'
-  Text ->
+-- 'logoutEndpoint', 'oidcConfig_logoutEndpoint' - The OIDC IdP logout endpoint used to configure your private workforce.
+--
+-- 'jwksUri', 'oidcConfig_jwksUri' - The OIDC IdP JSON Web Key Set (Jwks) URI used to configure your private
+-- workforce.
+newOidcConfig ::
+  -- | 'clientId'
+  Prelude.Text ->
+  -- | 'clientSecret'
+  Prelude.Text ->
+  -- | 'issuer'
+  Prelude.Text ->
+  -- | 'authorizationEndpoint'
+  Prelude.Text ->
+  -- | 'tokenEndpoint'
+  Prelude.Text ->
+  -- | 'userInfoEndpoint'
+  Prelude.Text ->
+  -- | 'logoutEndpoint'
+  Prelude.Text ->
+  -- | 'jwksUri'
+  Prelude.Text ->
   OidcConfig
-oidcConfig
+newOidcConfig
   pClientId_
   pClientSecret_
   pIssuer_
@@ -80,68 +100,76 @@ oidcConfig
   pTokenEndpoint_
   pUserInfoEndpoint_
   pLogoutEndpoint_
-  pJwksURI_ =
+  pJwksUri_ =
     OidcConfig'
-      { _ocClientId = pClientId_,
-        _ocClientSecret = _Sensitive # pClientSecret_,
-        _ocIssuer = pIssuer_,
-        _ocAuthorizationEndpoint = pAuthorizationEndpoint_,
-        _ocTokenEndpoint = pTokenEndpoint_,
-        _ocUserInfoEndpoint = pUserInfoEndpoint_,
-        _ocLogoutEndpoint = pLogoutEndpoint_,
-        _ocJwksURI = pJwksURI_
+      { clientId = pClientId_,
+        clientSecret =
+          Prelude._Sensitive Lens.# pClientSecret_,
+        issuer = pIssuer_,
+        authorizationEndpoint = pAuthorizationEndpoint_,
+        tokenEndpoint = pTokenEndpoint_,
+        userInfoEndpoint = pUserInfoEndpoint_,
+        logoutEndpoint = pLogoutEndpoint_,
+        jwksUri = pJwksUri_
       }
 
 -- | The OIDC IdP client ID used to configure your private workforce.
-ocClientId :: Lens' OidcConfig Text
-ocClientId = lens _ocClientId (\s a -> s {_ocClientId = a})
+oidcConfig_clientId :: Lens.Lens' OidcConfig Prelude.Text
+oidcConfig_clientId = Lens.lens (\OidcConfig' {clientId} -> clientId) (\s@OidcConfig' {} a -> s {clientId = a} :: OidcConfig)
 
 -- | The OIDC IdP client secret used to configure your private workforce.
-ocClientSecret :: Lens' OidcConfig Text
-ocClientSecret = lens _ocClientSecret (\s a -> s {_ocClientSecret = a}) . _Sensitive
+oidcConfig_clientSecret :: Lens.Lens' OidcConfig Prelude.Text
+oidcConfig_clientSecret = Lens.lens (\OidcConfig' {clientSecret} -> clientSecret) (\s@OidcConfig' {} a -> s {clientSecret = a} :: OidcConfig) Prelude.. Prelude._Sensitive
 
 -- | The OIDC IdP issuer used to configure your private workforce.
-ocIssuer :: Lens' OidcConfig Text
-ocIssuer = lens _ocIssuer (\s a -> s {_ocIssuer = a})
+oidcConfig_issuer :: Lens.Lens' OidcConfig Prelude.Text
+oidcConfig_issuer = Lens.lens (\OidcConfig' {issuer} -> issuer) (\s@OidcConfig' {} a -> s {issuer = a} :: OidcConfig)
 
--- | The OIDC IdP authorization endpoint used to configure your private workforce.
-ocAuthorizationEndpoint :: Lens' OidcConfig Text
-ocAuthorizationEndpoint = lens _ocAuthorizationEndpoint (\s a -> s {_ocAuthorizationEndpoint = a})
+-- | The OIDC IdP authorization endpoint used to configure your private
+-- workforce.
+oidcConfig_authorizationEndpoint :: Lens.Lens' OidcConfig Prelude.Text
+oidcConfig_authorizationEndpoint = Lens.lens (\OidcConfig' {authorizationEndpoint} -> authorizationEndpoint) (\s@OidcConfig' {} a -> s {authorizationEndpoint = a} :: OidcConfig)
 
 -- | The OIDC IdP token endpoint used to configure your private workforce.
-ocTokenEndpoint :: Lens' OidcConfig Text
-ocTokenEndpoint = lens _ocTokenEndpoint (\s a -> s {_ocTokenEndpoint = a})
+oidcConfig_tokenEndpoint :: Lens.Lens' OidcConfig Prelude.Text
+oidcConfig_tokenEndpoint = Lens.lens (\OidcConfig' {tokenEndpoint} -> tokenEndpoint) (\s@OidcConfig' {} a -> s {tokenEndpoint = a} :: OidcConfig)
 
--- | The OIDC IdP user information endpoint used to configure your private workforce.
-ocUserInfoEndpoint :: Lens' OidcConfig Text
-ocUserInfoEndpoint = lens _ocUserInfoEndpoint (\s a -> s {_ocUserInfoEndpoint = a})
+-- | The OIDC IdP user information endpoint used to configure your private
+-- workforce.
+oidcConfig_userInfoEndpoint :: Lens.Lens' OidcConfig Prelude.Text
+oidcConfig_userInfoEndpoint = Lens.lens (\OidcConfig' {userInfoEndpoint} -> userInfoEndpoint) (\s@OidcConfig' {} a -> s {userInfoEndpoint = a} :: OidcConfig)
 
 -- | The OIDC IdP logout endpoint used to configure your private workforce.
-ocLogoutEndpoint :: Lens' OidcConfig Text
-ocLogoutEndpoint = lens _ocLogoutEndpoint (\s a -> s {_ocLogoutEndpoint = a})
+oidcConfig_logoutEndpoint :: Lens.Lens' OidcConfig Prelude.Text
+oidcConfig_logoutEndpoint = Lens.lens (\OidcConfig' {logoutEndpoint} -> logoutEndpoint) (\s@OidcConfig' {} a -> s {logoutEndpoint = a} :: OidcConfig)
 
--- | The OIDC IdP JSON Web Key Set (Jwks) URI used to configure your private workforce.
-ocJwksURI :: Lens' OidcConfig Text
-ocJwksURI = lens _ocJwksURI (\s a -> s {_ocJwksURI = a})
+-- | The OIDC IdP JSON Web Key Set (Jwks) URI used to configure your private
+-- workforce.
+oidcConfig_jwksUri :: Lens.Lens' OidcConfig Prelude.Text
+oidcConfig_jwksUri = Lens.lens (\OidcConfig' {jwksUri} -> jwksUri) (\s@OidcConfig' {} a -> s {jwksUri = a} :: OidcConfig)
 
-instance Hashable OidcConfig
+instance Prelude.Hashable OidcConfig
 
-instance NFData OidcConfig
+instance Prelude.NFData OidcConfig
 
-instance ToJSON OidcConfig where
+instance Prelude.ToJSON OidcConfig where
   toJSON OidcConfig' {..} =
-    object
-      ( catMaybes
-          [ Just ("ClientId" .= _ocClientId),
-            Just ("ClientSecret" .= _ocClientSecret),
-            Just ("Issuer" .= _ocIssuer),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("ClientId" Prelude..= clientId),
+            Prelude.Just
+              ("ClientSecret" Prelude..= clientSecret),
+            Prelude.Just ("Issuer" Prelude..= issuer),
+            Prelude.Just
               ( "AuthorizationEndpoint"
-                  .= _ocAuthorizationEndpoint
+                  Prelude..= authorizationEndpoint
               ),
-            Just ("TokenEndpoint" .= _ocTokenEndpoint),
-            Just ("UserInfoEndpoint" .= _ocUserInfoEndpoint),
-            Just ("LogoutEndpoint" .= _ocLogoutEndpoint),
-            Just ("JwksUri" .= _ocJwksURI)
+            Prelude.Just
+              ("TokenEndpoint" Prelude..= tokenEndpoint),
+            Prelude.Just
+              ("UserInfoEndpoint" Prelude..= userInfoEndpoint),
+            Prelude.Just
+              ("LogoutEndpoint" Prelude..= logoutEndpoint),
+            Prelude.Just ("JwksUri" Prelude..= jwksUri)
           ]
       )

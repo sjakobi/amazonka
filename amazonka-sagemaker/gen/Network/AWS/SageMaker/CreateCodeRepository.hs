@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,169 +21,201 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a Git repository as a resource in your Amazon SageMaker account. You can associate the repository with notebook instances so that you can use Git source control for the notebooks you create. The Git repository is a resource in your Amazon SageMaker account, so it can be associated with more than one notebook instance, and it persists independently from the lifecycle of any notebook instances it is associated with.
+-- Creates a Git repository as a resource in your Amazon SageMaker account.
+-- You can associate the repository with notebook instances so that you can
+-- use Git source control for the notebooks you create. The Git repository
+-- is a resource in your Amazon SageMaker account, so it can be associated
+-- with more than one notebook instance, and it persists independently from
+-- the lifecycle of any notebook instances it is associated with.
 --
---
--- The repository can be hosted either in <https://docs.aws.amazon.com/codecommit/latest/userguide/welcome.html AWS CodeCommit> or in any other Git repository.
+-- The repository can be hosted either in
+-- <https://docs.aws.amazon.com/codecommit/latest/userguide/welcome.html AWS CodeCommit>
+-- or in any other Git repository.
 module Network.AWS.SageMaker.CreateCodeRepository
   ( -- * Creating a Request
-    createCodeRepository,
-    CreateCodeRepository,
+    CreateCodeRepository (..),
+    newCreateCodeRepository,
 
     -- * Request Lenses
-    ccrTags,
-    ccrCodeRepositoryName,
-    ccrGitConfig,
+    createCodeRepository_tags,
+    createCodeRepository_codeRepositoryName,
+    createCodeRepository_gitConfig,
 
     -- * Destructuring the Response
-    createCodeRepositoryResponse,
-    CreateCodeRepositoryResponse,
+    CreateCodeRepositoryResponse (..),
+    newCreateCodeRepositoryResponse,
 
     -- * Response Lenses
-    ccrrrsResponseStatus,
-    ccrrrsCodeRepositoryARN,
+    createCodeRepositoryResponse_httpStatus,
+    createCodeRepositoryResponse_codeRepositoryArn,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'createCodeRepository' smart constructor.
+-- | /See:/ 'newCreateCodeRepository' smart constructor.
 data CreateCodeRepository = CreateCodeRepository'
-  { _ccrTags ::
-      !(Maybe [Tag]),
-    _ccrCodeRepositoryName ::
-      !Text,
-    _ccrGitConfig :: !GitConfig
+  { -- | An array of key-value pairs. You can use tags to categorize your AWS
+    -- resources in different ways, for example, by purpose, owner, or
+    -- environment. For more information, see
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging AWS Resources>.
+    tags :: Prelude.Maybe [Tag],
+    -- | The name of the Git repository. The name must have 1 to 63 characters.
+    -- Valid characters are a-z, A-Z, 0-9, and - (hyphen).
+    codeRepositoryName :: Prelude.Text,
+    -- | Specifies details about the repository, including the URL where the
+    -- repository is located, the default branch, and credentials to use to
+    -- access the repository.
+    gitConfig :: GitConfig
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateCodeRepository' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateCodeRepository' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccrTags' - An array of key-value pairs. You can use tags to categorize your AWS resources in different ways, for example, by purpose, owner, or environment. For more information, see <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging AWS Resources> .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ccrCodeRepositoryName' - The name of the Git repository. The name must have 1 to 63 characters. Valid characters are a-z, A-Z, 0-9, and - (hyphen).
+-- 'tags', 'createCodeRepository_tags' - An array of key-value pairs. You can use tags to categorize your AWS
+-- resources in different ways, for example, by purpose, owner, or
+-- environment. For more information, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging AWS Resources>.
 --
--- * 'ccrGitConfig' - Specifies details about the repository, including the URL where the repository is located, the default branch, and credentials to use to access the repository.
-createCodeRepository ::
-  -- | 'ccrCodeRepositoryName'
-  Text ->
-  -- | 'ccrGitConfig'
+-- 'codeRepositoryName', 'createCodeRepository_codeRepositoryName' - The name of the Git repository. The name must have 1 to 63 characters.
+-- Valid characters are a-z, A-Z, 0-9, and - (hyphen).
+--
+-- 'gitConfig', 'createCodeRepository_gitConfig' - Specifies details about the repository, including the URL where the
+-- repository is located, the default branch, and credentials to use to
+-- access the repository.
+newCreateCodeRepository ::
+  -- | 'codeRepositoryName'
+  Prelude.Text ->
+  -- | 'gitConfig'
   GitConfig ->
   CreateCodeRepository
-createCodeRepository pCodeRepositoryName_ pGitConfig_ =
-  CreateCodeRepository'
-    { _ccrTags = Nothing,
-      _ccrCodeRepositoryName = pCodeRepositoryName_,
-      _ccrGitConfig = pGitConfig_
-    }
+newCreateCodeRepository
+  pCodeRepositoryName_
+  pGitConfig_ =
+    CreateCodeRepository'
+      { tags = Prelude.Nothing,
+        codeRepositoryName = pCodeRepositoryName_,
+        gitConfig = pGitConfig_
+      }
 
--- | An array of key-value pairs. You can use tags to categorize your AWS resources in different ways, for example, by purpose, owner, or environment. For more information, see <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging AWS Resources> .
-ccrTags :: Lens' CreateCodeRepository [Tag]
-ccrTags = lens _ccrTags (\s a -> s {_ccrTags = a}) . _Default . _Coerce
+-- | An array of key-value pairs. You can use tags to categorize your AWS
+-- resources in different ways, for example, by purpose, owner, or
+-- environment. For more information, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging AWS Resources>.
+createCodeRepository_tags :: Lens.Lens' CreateCodeRepository (Prelude.Maybe [Tag])
+createCodeRepository_tags = Lens.lens (\CreateCodeRepository' {tags} -> tags) (\s@CreateCodeRepository' {} a -> s {tags = a} :: CreateCodeRepository) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The name of the Git repository. The name must have 1 to 63 characters. Valid characters are a-z, A-Z, 0-9, and - (hyphen).
-ccrCodeRepositoryName :: Lens' CreateCodeRepository Text
-ccrCodeRepositoryName = lens _ccrCodeRepositoryName (\s a -> s {_ccrCodeRepositoryName = a})
+-- | The name of the Git repository. The name must have 1 to 63 characters.
+-- Valid characters are a-z, A-Z, 0-9, and - (hyphen).
+createCodeRepository_codeRepositoryName :: Lens.Lens' CreateCodeRepository Prelude.Text
+createCodeRepository_codeRepositoryName = Lens.lens (\CreateCodeRepository' {codeRepositoryName} -> codeRepositoryName) (\s@CreateCodeRepository' {} a -> s {codeRepositoryName = a} :: CreateCodeRepository)
 
--- | Specifies details about the repository, including the URL where the repository is located, the default branch, and credentials to use to access the repository.
-ccrGitConfig :: Lens' CreateCodeRepository GitConfig
-ccrGitConfig = lens _ccrGitConfig (\s a -> s {_ccrGitConfig = a})
+-- | Specifies details about the repository, including the URL where the
+-- repository is located, the default branch, and credentials to use to
+-- access the repository.
+createCodeRepository_gitConfig :: Lens.Lens' CreateCodeRepository GitConfig
+createCodeRepository_gitConfig = Lens.lens (\CreateCodeRepository' {gitConfig} -> gitConfig) (\s@CreateCodeRepository' {} a -> s {gitConfig = a} :: CreateCodeRepository)
 
-instance AWSRequest CreateCodeRepository where
+instance Prelude.AWSRequest CreateCodeRepository where
   type
     Rs CreateCodeRepository =
       CreateCodeRepositoryResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateCodeRepositoryResponse'
-            <$> (pure (fromEnum s)) <*> (x .:> "CodeRepositoryArn")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "CodeRepositoryArn")
       )
 
-instance Hashable CreateCodeRepository
+instance Prelude.Hashable CreateCodeRepository
 
-instance NFData CreateCodeRepository
+instance Prelude.NFData CreateCodeRepository
 
-instance ToHeaders CreateCodeRepository where
+instance Prelude.ToHeaders CreateCodeRepository where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.CreateCodeRepository" :: ByteString),
+              Prelude.=# ( "SageMaker.CreateCodeRepository" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateCodeRepository where
+instance Prelude.ToJSON CreateCodeRepository where
   toJSON CreateCodeRepository' {..} =
-    object
-      ( catMaybes
-          [ ("Tags" .=) <$> _ccrTags,
-            Just
-              ("CodeRepositoryName" .= _ccrCodeRepositoryName),
-            Just ("GitConfig" .= _ccrGitConfig)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Tags" Prelude..=) Prelude.<$> tags,
+            Prelude.Just
+              ("CodeRepositoryName" Prelude..= codeRepositoryName),
+            Prelude.Just ("GitConfig" Prelude..= gitConfig)
           ]
       )
 
-instance ToPath CreateCodeRepository where
-  toPath = const "/"
+instance Prelude.ToPath CreateCodeRepository where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateCodeRepository where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateCodeRepository where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createCodeRepositoryResponse' smart constructor.
+-- | /See:/ 'newCreateCodeRepositoryResponse' smart constructor.
 data CreateCodeRepositoryResponse = CreateCodeRepositoryResponse'
-  { _ccrrrsResponseStatus ::
-      !Int,
-    _ccrrrsCodeRepositoryARN ::
-      !Text
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The Amazon Resource Name (ARN) of the new repository.
+    codeRepositoryArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateCodeRepositoryResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateCodeRepositoryResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccrrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ccrrrsCodeRepositoryARN' - The Amazon Resource Name (ARN) of the new repository.
-createCodeRepositoryResponse ::
-  -- | 'ccrrrsResponseStatus'
-  Int ->
-  -- | 'ccrrrsCodeRepositoryARN'
-  Text ->
+-- 'httpStatus', 'createCodeRepositoryResponse_httpStatus' - The response's http status code.
+--
+-- 'codeRepositoryArn', 'createCodeRepositoryResponse_codeRepositoryArn' - The Amazon Resource Name (ARN) of the new repository.
+newCreateCodeRepositoryResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'codeRepositoryArn'
+  Prelude.Text ->
   CreateCodeRepositoryResponse
-createCodeRepositoryResponse
-  pResponseStatus_
-  pCodeRepositoryARN_ =
+newCreateCodeRepositoryResponse
+  pHttpStatus_
+  pCodeRepositoryArn_ =
     CreateCodeRepositoryResponse'
-      { _ccrrrsResponseStatus =
-          pResponseStatus_,
-        _ccrrrsCodeRepositoryARN =
-          pCodeRepositoryARN_
+      { httpStatus =
+          pHttpStatus_,
+        codeRepositoryArn = pCodeRepositoryArn_
       }
 
--- | -- | The response status code.
-ccrrrsResponseStatus :: Lens' CreateCodeRepositoryResponse Int
-ccrrrsResponseStatus = lens _ccrrrsResponseStatus (\s a -> s {_ccrrrsResponseStatus = a})
+-- | The response's http status code.
+createCodeRepositoryResponse_httpStatus :: Lens.Lens' CreateCodeRepositoryResponse Prelude.Int
+createCodeRepositoryResponse_httpStatus = Lens.lens (\CreateCodeRepositoryResponse' {httpStatus} -> httpStatus) (\s@CreateCodeRepositoryResponse' {} a -> s {httpStatus = a} :: CreateCodeRepositoryResponse)
 
 -- | The Amazon Resource Name (ARN) of the new repository.
-ccrrrsCodeRepositoryARN :: Lens' CreateCodeRepositoryResponse Text
-ccrrrsCodeRepositoryARN = lens _ccrrrsCodeRepositoryARN (\s a -> s {_ccrrrsCodeRepositoryARN = a})
+createCodeRepositoryResponse_codeRepositoryArn :: Lens.Lens' CreateCodeRepositoryResponse Prelude.Text
+createCodeRepositoryResponse_codeRepositoryArn = Lens.lens (\CreateCodeRepositoryResponse' {codeRepositoryArn} -> codeRepositoryArn) (\s@CreateCodeRepositoryResponse' {} a -> s {codeRepositoryArn = a} :: CreateCodeRepositoryResponse)
 
-instance NFData CreateCodeRepositoryResponse
+instance Prelude.NFData CreateCodeRepositoryResponse

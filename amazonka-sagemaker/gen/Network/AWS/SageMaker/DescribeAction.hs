@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,250 +24,256 @@
 -- Describes an action.
 module Network.AWS.SageMaker.DescribeAction
   ( -- * Creating a Request
-    describeAction,
-    DescribeAction,
+    DescribeAction (..),
+    newDescribeAction,
 
     -- * Request Lenses
-    dActionName,
+    describeAction_actionName,
 
     -- * Destructuring the Response
-    describeActionResponse,
-    DescribeActionResponse,
+    DescribeActionResponse (..),
+    newDescribeActionResponse,
 
     -- * Response Lenses
-    ddrsStatus,
-    ddrsMetadataProperties,
-    ddrsCreationTime,
-    ddrsActionName,
-    ddrsActionType,
-    ddrsActionARN,
-    ddrsSource,
-    ddrsProperties,
-    ddrsLastModifiedTime,
-    ddrsDescription,
-    ddrsCreatedBy,
-    ddrsLastModifiedBy,
-    ddrsResponseStatus,
+    describeActionResponse_status,
+    describeActionResponse_metadataProperties,
+    describeActionResponse_creationTime,
+    describeActionResponse_actionName,
+    describeActionResponse_actionType,
+    describeActionResponse_actionArn,
+    describeActionResponse_source,
+    describeActionResponse_properties,
+    describeActionResponse_lastModifiedTime,
+    describeActionResponse_description,
+    describeActionResponse_createdBy,
+    describeActionResponse_lastModifiedBy,
+    describeActionResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
+import Network.AWS.SageMaker.Types.ActionSource
+import Network.AWS.SageMaker.Types.ActionStatus
+import Network.AWS.SageMaker.Types.MetadataProperties
+import Network.AWS.SageMaker.Types.UserContext
 
--- | /See:/ 'describeAction' smart constructor.
-newtype DescribeAction = DescribeAction'
-  { _dActionName ::
-      Text
+-- | /See:/ 'newDescribeAction' smart constructor.
+data DescribeAction = DescribeAction'
+  { -- | The name of the action to describe.
+    actionName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeAction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeAction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dActionName' - The name of the action to describe.
-describeAction ::
-  -- | 'dActionName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'actionName', 'describeAction_actionName' - The name of the action to describe.
+newDescribeAction ::
+  -- | 'actionName'
+  Prelude.Text ->
   DescribeAction
-describeAction pActionName_ =
-  DescribeAction' {_dActionName = pActionName_}
+newDescribeAction pActionName_ =
+  DescribeAction' {actionName = pActionName_}
 
 -- | The name of the action to describe.
-dActionName :: Lens' DescribeAction Text
-dActionName = lens _dActionName (\s a -> s {_dActionName = a})
+describeAction_actionName :: Lens.Lens' DescribeAction Prelude.Text
+describeAction_actionName = Lens.lens (\DescribeAction' {actionName} -> actionName) (\s@DescribeAction' {} a -> s {actionName = a} :: DescribeAction)
 
-instance AWSRequest DescribeAction where
+instance Prelude.AWSRequest DescribeAction where
   type Rs DescribeAction = DescribeActionResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeActionResponse'
-            <$> (x .?> "Status")
-            <*> (x .?> "MetadataProperties")
-            <*> (x .?> "CreationTime")
-            <*> (x .?> "ActionName")
-            <*> (x .?> "ActionType")
-            <*> (x .?> "ActionArn")
-            <*> (x .?> "Source")
-            <*> (x .?> "Properties" .!@ mempty)
-            <*> (x .?> "LastModifiedTime")
-            <*> (x .?> "Description")
-            <*> (x .?> "CreatedBy")
-            <*> (x .?> "LastModifiedBy")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Status")
+            Prelude.<*> (x Prelude..?> "MetadataProperties")
+            Prelude.<*> (x Prelude..?> "CreationTime")
+            Prelude.<*> (x Prelude..?> "ActionName")
+            Prelude.<*> (x Prelude..?> "ActionType")
+            Prelude.<*> (x Prelude..?> "ActionArn")
+            Prelude.<*> (x Prelude..?> "Source")
+            Prelude.<*> ( x Prelude..?> "Properties"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "LastModifiedTime")
+            Prelude.<*> (x Prelude..?> "Description")
+            Prelude.<*> (x Prelude..?> "CreatedBy")
+            Prelude.<*> (x Prelude..?> "LastModifiedBy")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeAction
+instance Prelude.Hashable DescribeAction
 
-instance NFData DescribeAction
+instance Prelude.NFData DescribeAction
 
-instance ToHeaders DescribeAction where
+instance Prelude.ToHeaders DescribeAction where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.DescribeAction" :: ByteString),
+              Prelude.=# ("SageMaker.DescribeAction" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeAction where
+instance Prelude.ToJSON DescribeAction where
   toJSON DescribeAction' {..} =
-    object
-      (catMaybes [Just ("ActionName" .= _dActionName)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("ActionName" Prelude..= actionName)]
+      )
 
-instance ToPath DescribeAction where
-  toPath = const "/"
+instance Prelude.ToPath DescribeAction where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeAction where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeAction where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeActionResponse' smart constructor.
+-- | /See:/ 'newDescribeActionResponse' smart constructor.
 data DescribeActionResponse = DescribeActionResponse'
-  { _ddrsStatus ::
-      !(Maybe ActionStatus),
-    _ddrsMetadataProperties ::
-      !( Maybe
-           MetadataProperties
-       ),
-    _ddrsCreationTime ::
-      !(Maybe POSIX),
-    _ddrsActionName ::
-      !(Maybe Text),
-    _ddrsActionType ::
-      !(Maybe Text),
-    _ddrsActionARN ::
-      !(Maybe Text),
-    _ddrsSource ::
-      !(Maybe ActionSource),
-    _ddrsProperties ::
-      !(Maybe (Map Text Text)),
-    _ddrsLastModifiedTime ::
-      !(Maybe POSIX),
-    _ddrsDescription ::
-      !(Maybe Text),
-    _ddrsCreatedBy ::
-      !(Maybe UserContext),
-    _ddrsLastModifiedBy ::
-      !(Maybe UserContext),
-    _ddrsResponseStatus ::
-      !Int
+  { -- | The status of the action.
+    status :: Prelude.Maybe ActionStatus,
+    metadataProperties :: Prelude.Maybe MetadataProperties,
+    -- | When the action was created.
+    creationTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The name of the action.
+    actionName :: Prelude.Maybe Prelude.Text,
+    -- | The type of the action.
+    actionType :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the action.
+    actionArn :: Prelude.Maybe Prelude.Text,
+    -- | The source of the action.
+    source :: Prelude.Maybe ActionSource,
+    -- | A list of the action\'s properties.
+    properties :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | When the action was last modified.
+    lastModifiedTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The description of the action.
+    description :: Prelude.Maybe Prelude.Text,
+    createdBy :: Prelude.Maybe UserContext,
+    lastModifiedBy :: Prelude.Maybe UserContext,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeActionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeActionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddrsStatus' - The status of the action.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ddrsMetadataProperties' - Undocumented member.
+-- 'status', 'describeActionResponse_status' - The status of the action.
 --
--- * 'ddrsCreationTime' - When the action was created.
+-- 'metadataProperties', 'describeActionResponse_metadataProperties' - Undocumented member.
 --
--- * 'ddrsActionName' - The name of the action.
+-- 'creationTime', 'describeActionResponse_creationTime' - When the action was created.
 --
--- * 'ddrsActionType' - The type of the action.
+-- 'actionName', 'describeActionResponse_actionName' - The name of the action.
 --
--- * 'ddrsActionARN' - The Amazon Resource Name (ARN) of the action.
+-- 'actionType', 'describeActionResponse_actionType' - The type of the action.
 --
--- * 'ddrsSource' - The source of the action.
+-- 'actionArn', 'describeActionResponse_actionArn' - The Amazon Resource Name (ARN) of the action.
 --
--- * 'ddrsProperties' - A list of the action's properties.
+-- 'source', 'describeActionResponse_source' - The source of the action.
 --
--- * 'ddrsLastModifiedTime' - When the action was last modified.
+-- 'properties', 'describeActionResponse_properties' - A list of the action\'s properties.
 --
--- * 'ddrsDescription' - The description of the action.
+-- 'lastModifiedTime', 'describeActionResponse_lastModifiedTime' - When the action was last modified.
 --
--- * 'ddrsCreatedBy' - Undocumented member.
+-- 'description', 'describeActionResponse_description' - The description of the action.
 --
--- * 'ddrsLastModifiedBy' - Undocumented member.
+-- 'createdBy', 'describeActionResponse_createdBy' - Undocumented member.
 --
--- * 'ddrsResponseStatus' - -- | The response status code.
-describeActionResponse ::
-  -- | 'ddrsResponseStatus'
-  Int ->
+-- 'lastModifiedBy', 'describeActionResponse_lastModifiedBy' - Undocumented member.
+--
+-- 'httpStatus', 'describeActionResponse_httpStatus' - The response's http status code.
+newDescribeActionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeActionResponse
-describeActionResponse pResponseStatus_ =
+newDescribeActionResponse pHttpStatus_ =
   DescribeActionResponse'
-    { _ddrsStatus = Nothing,
-      _ddrsMetadataProperties = Nothing,
-      _ddrsCreationTime = Nothing,
-      _ddrsActionName = Nothing,
-      _ddrsActionType = Nothing,
-      _ddrsActionARN = Nothing,
-      _ddrsSource = Nothing,
-      _ddrsProperties = Nothing,
-      _ddrsLastModifiedTime = Nothing,
-      _ddrsDescription = Nothing,
-      _ddrsCreatedBy = Nothing,
-      _ddrsLastModifiedBy = Nothing,
-      _ddrsResponseStatus = pResponseStatus_
+    { status = Prelude.Nothing,
+      metadataProperties = Prelude.Nothing,
+      creationTime = Prelude.Nothing,
+      actionName = Prelude.Nothing,
+      actionType = Prelude.Nothing,
+      actionArn = Prelude.Nothing,
+      source = Prelude.Nothing,
+      properties = Prelude.Nothing,
+      lastModifiedTime = Prelude.Nothing,
+      description = Prelude.Nothing,
+      createdBy = Prelude.Nothing,
+      lastModifiedBy = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The status of the action.
-ddrsStatus :: Lens' DescribeActionResponse (Maybe ActionStatus)
-ddrsStatus = lens _ddrsStatus (\s a -> s {_ddrsStatus = a})
+describeActionResponse_status :: Lens.Lens' DescribeActionResponse (Prelude.Maybe ActionStatus)
+describeActionResponse_status = Lens.lens (\DescribeActionResponse' {status} -> status) (\s@DescribeActionResponse' {} a -> s {status = a} :: DescribeActionResponse)
 
 -- | Undocumented member.
-ddrsMetadataProperties :: Lens' DescribeActionResponse (Maybe MetadataProperties)
-ddrsMetadataProperties = lens _ddrsMetadataProperties (\s a -> s {_ddrsMetadataProperties = a})
+describeActionResponse_metadataProperties :: Lens.Lens' DescribeActionResponse (Prelude.Maybe MetadataProperties)
+describeActionResponse_metadataProperties = Lens.lens (\DescribeActionResponse' {metadataProperties} -> metadataProperties) (\s@DescribeActionResponse' {} a -> s {metadataProperties = a} :: DescribeActionResponse)
 
 -- | When the action was created.
-ddrsCreationTime :: Lens' DescribeActionResponse (Maybe UTCTime)
-ddrsCreationTime = lens _ddrsCreationTime (\s a -> s {_ddrsCreationTime = a}) . mapping _Time
+describeActionResponse_creationTime :: Lens.Lens' DescribeActionResponse (Prelude.Maybe Prelude.UTCTime)
+describeActionResponse_creationTime = Lens.lens (\DescribeActionResponse' {creationTime} -> creationTime) (\s@DescribeActionResponse' {} a -> s {creationTime = a} :: DescribeActionResponse) Prelude.. Lens.mapping Prelude._Time
 
 -- | The name of the action.
-ddrsActionName :: Lens' DescribeActionResponse (Maybe Text)
-ddrsActionName = lens _ddrsActionName (\s a -> s {_ddrsActionName = a})
+describeActionResponse_actionName :: Lens.Lens' DescribeActionResponse (Prelude.Maybe Prelude.Text)
+describeActionResponse_actionName = Lens.lens (\DescribeActionResponse' {actionName} -> actionName) (\s@DescribeActionResponse' {} a -> s {actionName = a} :: DescribeActionResponse)
 
 -- | The type of the action.
-ddrsActionType :: Lens' DescribeActionResponse (Maybe Text)
-ddrsActionType = lens _ddrsActionType (\s a -> s {_ddrsActionType = a})
+describeActionResponse_actionType :: Lens.Lens' DescribeActionResponse (Prelude.Maybe Prelude.Text)
+describeActionResponse_actionType = Lens.lens (\DescribeActionResponse' {actionType} -> actionType) (\s@DescribeActionResponse' {} a -> s {actionType = a} :: DescribeActionResponse)
 
 -- | The Amazon Resource Name (ARN) of the action.
-ddrsActionARN :: Lens' DescribeActionResponse (Maybe Text)
-ddrsActionARN = lens _ddrsActionARN (\s a -> s {_ddrsActionARN = a})
+describeActionResponse_actionArn :: Lens.Lens' DescribeActionResponse (Prelude.Maybe Prelude.Text)
+describeActionResponse_actionArn = Lens.lens (\DescribeActionResponse' {actionArn} -> actionArn) (\s@DescribeActionResponse' {} a -> s {actionArn = a} :: DescribeActionResponse)
 
 -- | The source of the action.
-ddrsSource :: Lens' DescribeActionResponse (Maybe ActionSource)
-ddrsSource = lens _ddrsSource (\s a -> s {_ddrsSource = a})
+describeActionResponse_source :: Lens.Lens' DescribeActionResponse (Prelude.Maybe ActionSource)
+describeActionResponse_source = Lens.lens (\DescribeActionResponse' {source} -> source) (\s@DescribeActionResponse' {} a -> s {source = a} :: DescribeActionResponse)
 
--- | A list of the action's properties.
-ddrsProperties :: Lens' DescribeActionResponse (HashMap Text Text)
-ddrsProperties = lens _ddrsProperties (\s a -> s {_ddrsProperties = a}) . _Default . _Map
+-- | A list of the action\'s properties.
+describeActionResponse_properties :: Lens.Lens' DescribeActionResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+describeActionResponse_properties = Lens.lens (\DescribeActionResponse' {properties} -> properties) (\s@DescribeActionResponse' {} a -> s {properties = a} :: DescribeActionResponse) Prelude.. Lens.mapping Prelude._Map
 
 -- | When the action was last modified.
-ddrsLastModifiedTime :: Lens' DescribeActionResponse (Maybe UTCTime)
-ddrsLastModifiedTime = lens _ddrsLastModifiedTime (\s a -> s {_ddrsLastModifiedTime = a}) . mapping _Time
+describeActionResponse_lastModifiedTime :: Lens.Lens' DescribeActionResponse (Prelude.Maybe Prelude.UTCTime)
+describeActionResponse_lastModifiedTime = Lens.lens (\DescribeActionResponse' {lastModifiedTime} -> lastModifiedTime) (\s@DescribeActionResponse' {} a -> s {lastModifiedTime = a} :: DescribeActionResponse) Prelude.. Lens.mapping Prelude._Time
 
 -- | The description of the action.
-ddrsDescription :: Lens' DescribeActionResponse (Maybe Text)
-ddrsDescription = lens _ddrsDescription (\s a -> s {_ddrsDescription = a})
+describeActionResponse_description :: Lens.Lens' DescribeActionResponse (Prelude.Maybe Prelude.Text)
+describeActionResponse_description = Lens.lens (\DescribeActionResponse' {description} -> description) (\s@DescribeActionResponse' {} a -> s {description = a} :: DescribeActionResponse)
 
 -- | Undocumented member.
-ddrsCreatedBy :: Lens' DescribeActionResponse (Maybe UserContext)
-ddrsCreatedBy = lens _ddrsCreatedBy (\s a -> s {_ddrsCreatedBy = a})
+describeActionResponse_createdBy :: Lens.Lens' DescribeActionResponse (Prelude.Maybe UserContext)
+describeActionResponse_createdBy = Lens.lens (\DescribeActionResponse' {createdBy} -> createdBy) (\s@DescribeActionResponse' {} a -> s {createdBy = a} :: DescribeActionResponse)
 
 -- | Undocumented member.
-ddrsLastModifiedBy :: Lens' DescribeActionResponse (Maybe UserContext)
-ddrsLastModifiedBy = lens _ddrsLastModifiedBy (\s a -> s {_ddrsLastModifiedBy = a})
+describeActionResponse_lastModifiedBy :: Lens.Lens' DescribeActionResponse (Prelude.Maybe UserContext)
+describeActionResponse_lastModifiedBy = Lens.lens (\DescribeActionResponse' {lastModifiedBy} -> lastModifiedBy) (\s@DescribeActionResponse' {} a -> s {lastModifiedBy = a} :: DescribeActionResponse)
 
--- | -- | The response status code.
-ddrsResponseStatus :: Lens' DescribeActionResponse Int
-ddrsResponseStatus = lens _ddrsResponseStatus (\s a -> s {_ddrsResponseStatus = a})
+-- | The response's http status code.
+describeActionResponse_httpStatus :: Lens.Lens' DescribeActionResponse Prelude.Int
+describeActionResponse_httpStatus = Lens.lens (\DescribeActionResponse' {httpStatus} -> httpStatus) (\s@DescribeActionResponse' {} a -> s {httpStatus = a} :: DescribeActionResponse)
 
-instance NFData DescribeActionResponse
+instance Prelude.NFData DescribeActionResponse

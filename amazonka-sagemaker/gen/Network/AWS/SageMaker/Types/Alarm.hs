@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,41 +19,49 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.Alarm where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | This API is not supported.
 --
---
---
--- /See:/ 'alarm' smart constructor.
-newtype Alarm = Alarm' {_aAlarmName :: Maybe Text}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
-
--- | Creates a value of 'Alarm' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'aAlarmName' -
-alarm ::
-  Alarm
-alarm = Alarm' {_aAlarmName = Nothing}
+-- /See:/ 'newAlarm' smart constructor.
+data Alarm = Alarm'
+  { alarmName :: Prelude.Maybe Prelude.Text
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
 -- |
-aAlarmName :: Lens' Alarm (Maybe Text)
-aAlarmName = lens _aAlarmName (\s a -> s {_aAlarmName = a})
+-- Create a value of 'Alarm' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'alarmName', 'alarm_alarmName' -
+newAlarm ::
+  Alarm
+newAlarm = Alarm' {alarmName = Prelude.Nothing}
 
-instance FromJSON Alarm where
+-- |
+alarm_alarmName :: Lens.Lens' Alarm (Prelude.Maybe Prelude.Text)
+alarm_alarmName = Lens.lens (\Alarm' {alarmName} -> alarmName) (\s@Alarm' {} a -> s {alarmName = a} :: Alarm)
+
+instance Prelude.FromJSON Alarm where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Alarm"
-      (\x -> Alarm' <$> (x .:? "AlarmName"))
+      ( \x ->
+          Alarm' Prelude.<$> (x Prelude..:? "AlarmName")
+      )
 
-instance Hashable Alarm
+instance Prelude.Hashable Alarm
 
-instance NFData Alarm
+instance Prelude.NFData Alarm
 
-instance ToJSON Alarm where
+instance Prelude.ToJSON Alarm where
   toJSON Alarm' {..} =
-    object
-      (catMaybes [("AlarmName" .=) <$> _aAlarmName])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("AlarmName" Prelude..=) Prelude.<$> alarmName]
+      )

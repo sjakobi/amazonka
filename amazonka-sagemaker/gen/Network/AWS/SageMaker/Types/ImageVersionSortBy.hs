@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.SageMaker.Types.ImageVersionSortBy
   ( ImageVersionSortBy
       ( ..,
-        IVSBCreationTime,
-        IVSBLastModifiedTime,
-        IVSBVersion
+        ImageVersionSortByCREATIONTIME,
+        ImageVersionSortByLASTMODIFIEDTIME,
+        ImageVersionSortByVERSION
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ImageVersionSortBy
-  = ImageVersionSortBy'
-      ( CI
-          Text
-      )
+newtype ImageVersionSortBy = ImageVersionSortBy'
+  { fromImageVersionSortBy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern IVSBCreationTime :: ImageVersionSortBy
-pattern IVSBCreationTime = ImageVersionSortBy' "CREATION_TIME"
+pattern ImageVersionSortByCREATIONTIME :: ImageVersionSortBy
+pattern ImageVersionSortByCREATIONTIME = ImageVersionSortBy' "CREATION_TIME"
 
-pattern IVSBLastModifiedTime :: ImageVersionSortBy
-pattern IVSBLastModifiedTime = ImageVersionSortBy' "LAST_MODIFIED_TIME"
+pattern ImageVersionSortByLASTMODIFIEDTIME :: ImageVersionSortBy
+pattern ImageVersionSortByLASTMODIFIEDTIME = ImageVersionSortBy' "LAST_MODIFIED_TIME"
 
-pattern IVSBVersion :: ImageVersionSortBy
-pattern IVSBVersion = ImageVersionSortBy' "VERSION"
+pattern ImageVersionSortByVERSION :: ImageVersionSortBy
+pattern ImageVersionSortByVERSION = ImageVersionSortBy' "VERSION"
 
 {-# COMPLETE
-  IVSBCreationTime,
-  IVSBLastModifiedTime,
-  IVSBVersion,
+  ImageVersionSortByCREATIONTIME,
+  ImageVersionSortByLASTMODIFIEDTIME,
+  ImageVersionSortByVERSION,
   ImageVersionSortBy'
   #-}
 
-instance FromText ImageVersionSortBy where
-  parser = (ImageVersionSortBy' . mk) <$> takeText
+instance Prelude.FromText ImageVersionSortBy where
+  parser = ImageVersionSortBy' Prelude.<$> Prelude.takeText
 
-instance ToText ImageVersionSortBy where
-  toText (ImageVersionSortBy' ci) = original ci
+instance Prelude.ToText ImageVersionSortBy where
+  toText (ImageVersionSortBy' x) = x
 
-instance Hashable ImageVersionSortBy
+instance Prelude.Hashable ImageVersionSortBy
 
-instance NFData ImageVersionSortBy
+instance Prelude.NFData ImageVersionSortBy
 
-instance ToByteString ImageVersionSortBy
+instance Prelude.ToByteString ImageVersionSortBy
 
-instance ToQuery ImageVersionSortBy
+instance Prelude.ToQuery ImageVersionSortBy
 
-instance ToHeader ImageVersionSortBy
+instance Prelude.ToHeader ImageVersionSortBy
 
-instance ToJSON ImageVersionSortBy where
-  toJSON = toJSONText
+instance Prelude.ToJSON ImageVersionSortBy where
+  toJSON = Prelude.toJSONText

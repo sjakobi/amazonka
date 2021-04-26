@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,75 +19,73 @@
 module Network.AWS.SageMaker.Types.ProcessingJobStatus
   ( ProcessingJobStatus
       ( ..,
-        PJSCompleted,
-        PJSFailed,
-        PJSInProgress,
-        PJSStopped,
-        PJSStopping
+        ProcessingJobStatusCompleted,
+        ProcessingJobStatusFailed,
+        ProcessingJobStatusInProgress,
+        ProcessingJobStatusStopped,
+        ProcessingJobStatusStopping
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ProcessingJobStatus
-  = ProcessingJobStatus'
-      ( CI
-          Text
-      )
+newtype ProcessingJobStatus = ProcessingJobStatus'
+  { fromProcessingJobStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PJSCompleted :: ProcessingJobStatus
-pattern PJSCompleted = ProcessingJobStatus' "Completed"
+pattern ProcessingJobStatusCompleted :: ProcessingJobStatus
+pattern ProcessingJobStatusCompleted = ProcessingJobStatus' "Completed"
 
-pattern PJSFailed :: ProcessingJobStatus
-pattern PJSFailed = ProcessingJobStatus' "Failed"
+pattern ProcessingJobStatusFailed :: ProcessingJobStatus
+pattern ProcessingJobStatusFailed = ProcessingJobStatus' "Failed"
 
-pattern PJSInProgress :: ProcessingJobStatus
-pattern PJSInProgress = ProcessingJobStatus' "InProgress"
+pattern ProcessingJobStatusInProgress :: ProcessingJobStatus
+pattern ProcessingJobStatusInProgress = ProcessingJobStatus' "InProgress"
 
-pattern PJSStopped :: ProcessingJobStatus
-pattern PJSStopped = ProcessingJobStatus' "Stopped"
+pattern ProcessingJobStatusStopped :: ProcessingJobStatus
+pattern ProcessingJobStatusStopped = ProcessingJobStatus' "Stopped"
 
-pattern PJSStopping :: ProcessingJobStatus
-pattern PJSStopping = ProcessingJobStatus' "Stopping"
+pattern ProcessingJobStatusStopping :: ProcessingJobStatus
+pattern ProcessingJobStatusStopping = ProcessingJobStatus' "Stopping"
 
 {-# COMPLETE
-  PJSCompleted,
-  PJSFailed,
-  PJSInProgress,
-  PJSStopped,
-  PJSStopping,
+  ProcessingJobStatusCompleted,
+  ProcessingJobStatusFailed,
+  ProcessingJobStatusInProgress,
+  ProcessingJobStatusStopped,
+  ProcessingJobStatusStopping,
   ProcessingJobStatus'
   #-}
 
-instance FromText ProcessingJobStatus where
-  parser = (ProcessingJobStatus' . mk) <$> takeText
+instance Prelude.FromText ProcessingJobStatus where
+  parser = ProcessingJobStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ProcessingJobStatus where
-  toText (ProcessingJobStatus' ci) = original ci
+instance Prelude.ToText ProcessingJobStatus where
+  toText (ProcessingJobStatus' x) = x
 
-instance Hashable ProcessingJobStatus
+instance Prelude.Hashable ProcessingJobStatus
 
-instance NFData ProcessingJobStatus
+instance Prelude.NFData ProcessingJobStatus
 
-instance ToByteString ProcessingJobStatus
+instance Prelude.ToByteString ProcessingJobStatus
 
-instance ToQuery ProcessingJobStatus
+instance Prelude.ToQuery ProcessingJobStatus
 
-instance ToHeader ProcessingJobStatus
+instance Prelude.ToHeader ProcessingJobStatus
 
-instance ToJSON ProcessingJobStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON ProcessingJobStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ProcessingJobStatus where
-  parseJSON = parseJSONText "ProcessingJobStatus"
+instance Prelude.FromJSON ProcessingJobStatus where
+  parseJSON = Prelude.parseJSONText "ProcessingJobStatus"

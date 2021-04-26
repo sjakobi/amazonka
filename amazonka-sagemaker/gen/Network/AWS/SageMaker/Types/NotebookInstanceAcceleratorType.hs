@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,80 +19,78 @@
 module Network.AWS.SageMaker.Types.NotebookInstanceAcceleratorType
   ( NotebookInstanceAcceleratorType
       ( ..,
-        Ml_EIA1_Large,
-        Ml_EIA1_Medium,
-        Ml_EIA1_XLarge,
-        Ml_EIA2_Large,
-        Ml_EIA2_Medium,
-        Ml_EIA2_XLarge
+        NotebookInstanceAcceleratorTypeMl_EIA1_Large,
+        NotebookInstanceAcceleratorTypeMl_EIA1_Medium,
+        NotebookInstanceAcceleratorTypeMl_EIA1_Xlarge,
+        NotebookInstanceAcceleratorTypeMl_EIA2_Large,
+        NotebookInstanceAcceleratorTypeMl_EIA2_Medium,
+        NotebookInstanceAcceleratorTypeMl_EIA2_Xlarge
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data NotebookInstanceAcceleratorType
-  = NotebookInstanceAcceleratorType'
-      ( CI
-          Text
-      )
+newtype NotebookInstanceAcceleratorType = NotebookInstanceAcceleratorType'
+  { fromNotebookInstanceAcceleratorType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Ml_EIA1_Large :: NotebookInstanceAcceleratorType
-pattern Ml_EIA1_Large = NotebookInstanceAcceleratorType' "ml.eia1.large"
+pattern NotebookInstanceAcceleratorTypeMl_EIA1_Large :: NotebookInstanceAcceleratorType
+pattern NotebookInstanceAcceleratorTypeMl_EIA1_Large = NotebookInstanceAcceleratorType' "ml.eia1.large"
 
-pattern Ml_EIA1_Medium :: NotebookInstanceAcceleratorType
-pattern Ml_EIA1_Medium = NotebookInstanceAcceleratorType' "ml.eia1.medium"
+pattern NotebookInstanceAcceleratorTypeMl_EIA1_Medium :: NotebookInstanceAcceleratorType
+pattern NotebookInstanceAcceleratorTypeMl_EIA1_Medium = NotebookInstanceAcceleratorType' "ml.eia1.medium"
 
-pattern Ml_EIA1_XLarge :: NotebookInstanceAcceleratorType
-pattern Ml_EIA1_XLarge = NotebookInstanceAcceleratorType' "ml.eia1.xlarge"
+pattern NotebookInstanceAcceleratorTypeMl_EIA1_Xlarge :: NotebookInstanceAcceleratorType
+pattern NotebookInstanceAcceleratorTypeMl_EIA1_Xlarge = NotebookInstanceAcceleratorType' "ml.eia1.xlarge"
 
-pattern Ml_EIA2_Large :: NotebookInstanceAcceleratorType
-pattern Ml_EIA2_Large = NotebookInstanceAcceleratorType' "ml.eia2.large"
+pattern NotebookInstanceAcceleratorTypeMl_EIA2_Large :: NotebookInstanceAcceleratorType
+pattern NotebookInstanceAcceleratorTypeMl_EIA2_Large = NotebookInstanceAcceleratorType' "ml.eia2.large"
 
-pattern Ml_EIA2_Medium :: NotebookInstanceAcceleratorType
-pattern Ml_EIA2_Medium = NotebookInstanceAcceleratorType' "ml.eia2.medium"
+pattern NotebookInstanceAcceleratorTypeMl_EIA2_Medium :: NotebookInstanceAcceleratorType
+pattern NotebookInstanceAcceleratorTypeMl_EIA2_Medium = NotebookInstanceAcceleratorType' "ml.eia2.medium"
 
-pattern Ml_EIA2_XLarge :: NotebookInstanceAcceleratorType
-pattern Ml_EIA2_XLarge = NotebookInstanceAcceleratorType' "ml.eia2.xlarge"
+pattern NotebookInstanceAcceleratorTypeMl_EIA2_Xlarge :: NotebookInstanceAcceleratorType
+pattern NotebookInstanceAcceleratorTypeMl_EIA2_Xlarge = NotebookInstanceAcceleratorType' "ml.eia2.xlarge"
 
 {-# COMPLETE
-  Ml_EIA1_Large,
-  Ml_EIA1_Medium,
-  Ml_EIA1_XLarge,
-  Ml_EIA2_Large,
-  Ml_EIA2_Medium,
-  Ml_EIA2_XLarge,
+  NotebookInstanceAcceleratorTypeMl_EIA1_Large,
+  NotebookInstanceAcceleratorTypeMl_EIA1_Medium,
+  NotebookInstanceAcceleratorTypeMl_EIA1_Xlarge,
+  NotebookInstanceAcceleratorTypeMl_EIA2_Large,
+  NotebookInstanceAcceleratorTypeMl_EIA2_Medium,
+  NotebookInstanceAcceleratorTypeMl_EIA2_Xlarge,
   NotebookInstanceAcceleratorType'
   #-}
 
-instance FromText NotebookInstanceAcceleratorType where
-  parser = (NotebookInstanceAcceleratorType' . mk) <$> takeText
+instance Prelude.FromText NotebookInstanceAcceleratorType where
+  parser = NotebookInstanceAcceleratorType' Prelude.<$> Prelude.takeText
 
-instance ToText NotebookInstanceAcceleratorType where
-  toText (NotebookInstanceAcceleratorType' ci) = original ci
+instance Prelude.ToText NotebookInstanceAcceleratorType where
+  toText (NotebookInstanceAcceleratorType' x) = x
 
-instance Hashable NotebookInstanceAcceleratorType
+instance Prelude.Hashable NotebookInstanceAcceleratorType
 
-instance NFData NotebookInstanceAcceleratorType
+instance Prelude.NFData NotebookInstanceAcceleratorType
 
-instance ToByteString NotebookInstanceAcceleratorType
+instance Prelude.ToByteString NotebookInstanceAcceleratorType
 
-instance ToQuery NotebookInstanceAcceleratorType
+instance Prelude.ToQuery NotebookInstanceAcceleratorType
 
-instance ToHeader NotebookInstanceAcceleratorType
+instance Prelude.ToHeader NotebookInstanceAcceleratorType
 
-instance ToJSON NotebookInstanceAcceleratorType where
-  toJSON = toJSONText
+instance Prelude.ToJSON NotebookInstanceAcceleratorType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON NotebookInstanceAcceleratorType where
-  parseJSON = parseJSONText "NotebookInstanceAcceleratorType"
+instance Prelude.FromJSON NotebookInstanceAcceleratorType where
+  parseJSON = Prelude.parseJSONText "NotebookInstanceAcceleratorType"

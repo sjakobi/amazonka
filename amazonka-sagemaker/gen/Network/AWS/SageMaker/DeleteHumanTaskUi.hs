@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,127 +21,140 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Use this operation to delete a human task user interface (worker task template).
+-- Use this operation to delete a human task user interface (worker task
+-- template).
 --
---
--- To see a list of human task user interfaces (work task templates) in your account, use . When you delete a worker task template, it no longer appears when you call @ListHumanTaskUis@ .
+-- To see a list of human task user interfaces (work task templates) in
+-- your account, use . When you delete a worker task template, it no longer
+-- appears when you call @ListHumanTaskUis@.
 module Network.AWS.SageMaker.DeleteHumanTaskUi
   ( -- * Creating a Request
-    deleteHumanTaskUi,
-    DeleteHumanTaskUi,
+    DeleteHumanTaskUi (..),
+    newDeleteHumanTaskUi,
 
     -- * Request Lenses
-    dhtuHumanTaskUiName,
+    deleteHumanTaskUi_humanTaskUiName,
 
     -- * Destructuring the Response
-    deleteHumanTaskUiResponse,
-    DeleteHumanTaskUiResponse,
+    DeleteHumanTaskUiResponse (..),
+    newDeleteHumanTaskUiResponse,
 
     -- * Response Lenses
-    dhturrsResponseStatus,
+    deleteHumanTaskUiResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'deleteHumanTaskUi' smart constructor.
-newtype DeleteHumanTaskUi = DeleteHumanTaskUi'
-  { _dhtuHumanTaskUiName ::
-      Text
+-- | /See:/ 'newDeleteHumanTaskUi' smart constructor.
+data DeleteHumanTaskUi = DeleteHumanTaskUi'
+  { -- | The name of the human task user interface (work task template) you want
+    -- to delete.
+    humanTaskUiName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteHumanTaskUi' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteHumanTaskUi' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dhtuHumanTaskUiName' - The name of the human task user interface (work task template) you want to delete.
-deleteHumanTaskUi ::
-  -- | 'dhtuHumanTaskUiName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'humanTaskUiName', 'deleteHumanTaskUi_humanTaskUiName' - The name of the human task user interface (work task template) you want
+-- to delete.
+newDeleteHumanTaskUi ::
+  -- | 'humanTaskUiName'
+  Prelude.Text ->
   DeleteHumanTaskUi
-deleteHumanTaskUi pHumanTaskUiName_ =
+newDeleteHumanTaskUi pHumanTaskUiName_ =
   DeleteHumanTaskUi'
-    { _dhtuHumanTaskUiName =
+    { humanTaskUiName =
         pHumanTaskUiName_
     }
 
--- | The name of the human task user interface (work task template) you want to delete.
-dhtuHumanTaskUiName :: Lens' DeleteHumanTaskUi Text
-dhtuHumanTaskUiName = lens _dhtuHumanTaskUiName (\s a -> s {_dhtuHumanTaskUiName = a})
+-- | The name of the human task user interface (work task template) you want
+-- to delete.
+deleteHumanTaskUi_humanTaskUiName :: Lens.Lens' DeleteHumanTaskUi Prelude.Text
+deleteHumanTaskUi_humanTaskUiName = Lens.lens (\DeleteHumanTaskUi' {humanTaskUiName} -> humanTaskUiName) (\s@DeleteHumanTaskUi' {} a -> s {humanTaskUiName = a} :: DeleteHumanTaskUi)
 
-instance AWSRequest DeleteHumanTaskUi where
+instance Prelude.AWSRequest DeleteHumanTaskUi where
   type Rs DeleteHumanTaskUi = DeleteHumanTaskUiResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          DeleteHumanTaskUiResponse' <$> (pure (fromEnum s))
+          DeleteHumanTaskUiResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteHumanTaskUi
+instance Prelude.Hashable DeleteHumanTaskUi
 
-instance NFData DeleteHumanTaskUi
+instance Prelude.NFData DeleteHumanTaskUi
 
-instance ToHeaders DeleteHumanTaskUi where
+instance Prelude.ToHeaders DeleteHumanTaskUi where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.DeleteHumanTaskUi" :: ByteString),
+              Prelude.=# ( "SageMaker.DeleteHumanTaskUi" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteHumanTaskUi where
+instance Prelude.ToJSON DeleteHumanTaskUi where
   toJSON DeleteHumanTaskUi' {..} =
-    object
-      ( catMaybes
-          [Just ("HumanTaskUiName" .= _dhtuHumanTaskUiName)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("HumanTaskUiName" Prelude..= humanTaskUiName)
+          ]
       )
 
-instance ToPath DeleteHumanTaskUi where
-  toPath = const "/"
+instance Prelude.ToPath DeleteHumanTaskUi where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteHumanTaskUi where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteHumanTaskUi where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteHumanTaskUiResponse' smart constructor.
-newtype DeleteHumanTaskUiResponse = DeleteHumanTaskUiResponse'
-  { _dhturrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteHumanTaskUiResponse' smart constructor.
+data DeleteHumanTaskUiResponse = DeleteHumanTaskUiResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteHumanTaskUiResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteHumanTaskUiResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dhturrsResponseStatus' - -- | The response status code.
-deleteHumanTaskUiResponse ::
-  -- | 'dhturrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteHumanTaskUiResponse_httpStatus' - The response's http status code.
+newDeleteHumanTaskUiResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteHumanTaskUiResponse
-deleteHumanTaskUiResponse pResponseStatus_ =
+newDeleteHumanTaskUiResponse pHttpStatus_ =
   DeleteHumanTaskUiResponse'
-    { _dhturrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-dhturrsResponseStatus :: Lens' DeleteHumanTaskUiResponse Int
-dhturrsResponseStatus = lens _dhturrsResponseStatus (\s a -> s {_dhturrsResponseStatus = a})
+-- | The response's http status code.
+deleteHumanTaskUiResponse_httpStatus :: Lens.Lens' DeleteHumanTaskUiResponse Prelude.Int
+deleteHumanTaskUiResponse_httpStatus = Lens.lens (\DeleteHumanTaskUiResponse' {httpStatus} -> httpStatus) (\s@DeleteHumanTaskUiResponse' {} a -> s {httpStatus = a} :: DeleteHumanTaskUiResponse)
 
-instance NFData DeleteHumanTaskUiResponse
+instance Prelude.NFData DeleteHumanTaskUiResponse

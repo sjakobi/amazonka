@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,226 +24,222 @@
 -- Gets a description for the specified model group.
 module Network.AWS.SageMaker.DescribeModelPackageGroup
   ( -- * Creating a Request
-    describeModelPackageGroup,
-    DescribeModelPackageGroup,
+    DescribeModelPackageGroup (..),
+    newDescribeModelPackageGroup,
 
     -- * Request Lenses
-    dmpgModelPackageGroupName,
+    describeModelPackageGroup_modelPackageGroupName,
 
     -- * Destructuring the Response
-    describeModelPackageGroupResponse,
-    DescribeModelPackageGroupResponse,
+    DescribeModelPackageGroupResponse (..),
+    newDescribeModelPackageGroupResponse,
 
     -- * Response Lenses
-    dmpgrrsModelPackageGroupDescription,
-    dmpgrrsResponseStatus,
-    dmpgrrsModelPackageGroupName,
-    dmpgrrsModelPackageGroupARN,
-    dmpgrrsCreationTime,
-    dmpgrrsCreatedBy,
-    dmpgrrsModelPackageGroupStatus,
+    describeModelPackageGroupResponse_modelPackageGroupDescription,
+    describeModelPackageGroupResponse_httpStatus,
+    describeModelPackageGroupResponse_modelPackageGroupName,
+    describeModelPackageGroupResponse_modelPackageGroupArn,
+    describeModelPackageGroupResponse_creationTime,
+    describeModelPackageGroupResponse_createdBy,
+    describeModelPackageGroupResponse_modelPackageGroupStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
+import Network.AWS.SageMaker.Types.ModelPackageGroupStatus
+import Network.AWS.SageMaker.Types.UserContext
 
--- | /See:/ 'describeModelPackageGroup' smart constructor.
-newtype DescribeModelPackageGroup = DescribeModelPackageGroup'
-  { _dmpgModelPackageGroupName ::
-      Text
+-- | /See:/ 'newDescribeModelPackageGroup' smart constructor.
+data DescribeModelPackageGroup = DescribeModelPackageGroup'
+  { -- | The name of the model group to describe.
+    modelPackageGroupName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeModelPackageGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeModelPackageGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dmpgModelPackageGroupName' - The name of the model group to describe.
-describeModelPackageGroup ::
-  -- | 'dmpgModelPackageGroupName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'modelPackageGroupName', 'describeModelPackageGroup_modelPackageGroupName' - The name of the model group to describe.
+newDescribeModelPackageGroup ::
+  -- | 'modelPackageGroupName'
+  Prelude.Text ->
   DescribeModelPackageGroup
-describeModelPackageGroup pModelPackageGroupName_ =
+newDescribeModelPackageGroup pModelPackageGroupName_ =
   DescribeModelPackageGroup'
-    { _dmpgModelPackageGroupName =
+    { modelPackageGroupName =
         pModelPackageGroupName_
     }
 
 -- | The name of the model group to describe.
-dmpgModelPackageGroupName :: Lens' DescribeModelPackageGroup Text
-dmpgModelPackageGroupName = lens _dmpgModelPackageGroupName (\s a -> s {_dmpgModelPackageGroupName = a})
+describeModelPackageGroup_modelPackageGroupName :: Lens.Lens' DescribeModelPackageGroup Prelude.Text
+describeModelPackageGroup_modelPackageGroupName = Lens.lens (\DescribeModelPackageGroup' {modelPackageGroupName} -> modelPackageGroupName) (\s@DescribeModelPackageGroup' {} a -> s {modelPackageGroupName = a} :: DescribeModelPackageGroup)
 
-instance AWSRequest DescribeModelPackageGroup where
+instance Prelude.AWSRequest DescribeModelPackageGroup where
   type
     Rs DescribeModelPackageGroup =
       DescribeModelPackageGroupResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeModelPackageGroupResponse'
-            <$> (x .?> "ModelPackageGroupDescription")
-            <*> (pure (fromEnum s))
-            <*> (x .:> "ModelPackageGroupName")
-            <*> (x .:> "ModelPackageGroupArn")
-            <*> (x .:> "CreationTime")
-            <*> (x .:> "CreatedBy")
-            <*> (x .:> "ModelPackageGroupStatus")
+            Prelude.<$> (x Prelude..?> "ModelPackageGroupDescription")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "ModelPackageGroupName")
+            Prelude.<*> (x Prelude..:> "ModelPackageGroupArn")
+            Prelude.<*> (x Prelude..:> "CreationTime")
+            Prelude.<*> (x Prelude..:> "CreatedBy")
+            Prelude.<*> (x Prelude..:> "ModelPackageGroupStatus")
       )
 
-instance Hashable DescribeModelPackageGroup
+instance Prelude.Hashable DescribeModelPackageGroup
 
-instance NFData DescribeModelPackageGroup
+instance Prelude.NFData DescribeModelPackageGroup
 
-instance ToHeaders DescribeModelPackageGroup where
+instance Prelude.ToHeaders DescribeModelPackageGroup where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "SageMaker.DescribeModelPackageGroup" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "SageMaker.DescribeModelPackageGroup" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeModelPackageGroup where
+instance Prelude.ToJSON DescribeModelPackageGroup where
   toJSON DescribeModelPackageGroup' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "ModelPackageGroupName"
-                  .= _dmpgModelPackageGroupName
+                  Prelude..= modelPackageGroupName
               )
           ]
       )
 
-instance ToPath DescribeModelPackageGroup where
-  toPath = const "/"
+instance Prelude.ToPath DescribeModelPackageGroup where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeModelPackageGroup where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeModelPackageGroup where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeModelPackageGroupResponse' smart constructor.
+-- | /See:/ 'newDescribeModelPackageGroupResponse' smart constructor.
 data DescribeModelPackageGroupResponse = DescribeModelPackageGroupResponse'
-  { _dmpgrrsModelPackageGroupDescription ::
-      !( Maybe
-           Text
-       ),
-    _dmpgrrsResponseStatus ::
-      !Int,
-    _dmpgrrsModelPackageGroupName ::
-      !Text,
-    _dmpgrrsModelPackageGroupARN ::
-      !Text,
-    _dmpgrrsCreationTime ::
-      !POSIX,
-    _dmpgrrsCreatedBy ::
-      !UserContext,
-    _dmpgrrsModelPackageGroupStatus ::
-      !ModelPackageGroupStatus
+  { -- | A description of the model group.
+    modelPackageGroupDescription :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The name of the model group.
+    modelPackageGroupName :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the model group.
+    modelPackageGroupArn :: Prelude.Text,
+    -- | The time that the model group was created.
+    creationTime :: Prelude.POSIX,
+    createdBy :: UserContext,
+    -- | The status of the model group.
+    modelPackageGroupStatus :: ModelPackageGroupStatus
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeModelPackageGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeModelPackageGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dmpgrrsModelPackageGroupDescription' - A description of the model group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dmpgrrsResponseStatus' - -- | The response status code.
+-- 'modelPackageGroupDescription', 'describeModelPackageGroupResponse_modelPackageGroupDescription' - A description of the model group.
 --
--- * 'dmpgrrsModelPackageGroupName' - The name of the model group.
+-- 'httpStatus', 'describeModelPackageGroupResponse_httpStatus' - The response's http status code.
 --
--- * 'dmpgrrsModelPackageGroupARN' - The Amazon Resource Name (ARN) of the model group.
+-- 'modelPackageGroupName', 'describeModelPackageGroupResponse_modelPackageGroupName' - The name of the model group.
 --
--- * 'dmpgrrsCreationTime' - The time that the model group was created.
+-- 'modelPackageGroupArn', 'describeModelPackageGroupResponse_modelPackageGroupArn' - The Amazon Resource Name (ARN) of the model group.
 --
--- * 'dmpgrrsCreatedBy' - Undocumented member.
+-- 'creationTime', 'describeModelPackageGroupResponse_creationTime' - The time that the model group was created.
 --
--- * 'dmpgrrsModelPackageGroupStatus' - The status of the model group.
-describeModelPackageGroupResponse ::
-  -- | 'dmpgrrsResponseStatus'
-  Int ->
-  -- | 'dmpgrrsModelPackageGroupName'
-  Text ->
-  -- | 'dmpgrrsModelPackageGroupARN'
-  Text ->
-  -- | 'dmpgrrsCreationTime'
-  UTCTime ->
-  -- | 'dmpgrrsCreatedBy'
+-- 'createdBy', 'describeModelPackageGroupResponse_createdBy' - Undocumented member.
+--
+-- 'modelPackageGroupStatus', 'describeModelPackageGroupResponse_modelPackageGroupStatus' - The status of the model group.
+newDescribeModelPackageGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'modelPackageGroupName'
+  Prelude.Text ->
+  -- | 'modelPackageGroupArn'
+  Prelude.Text ->
+  -- | 'creationTime'
+  Prelude.UTCTime ->
+  -- | 'createdBy'
   UserContext ->
-  -- | 'dmpgrrsModelPackageGroupStatus'
+  -- | 'modelPackageGroupStatus'
   ModelPackageGroupStatus ->
   DescribeModelPackageGroupResponse
-describeModelPackageGroupResponse
-  pResponseStatus_
+newDescribeModelPackageGroupResponse
+  pHttpStatus_
   pModelPackageGroupName_
-  pModelPackageGroupARN_
+  pModelPackageGroupArn_
   pCreationTime_
   pCreatedBy_
   pModelPackageGroupStatus_ =
     DescribeModelPackageGroupResponse'
-      { _dmpgrrsModelPackageGroupDescription =
-          Nothing,
-        _dmpgrrsResponseStatus =
-          pResponseStatus_,
-        _dmpgrrsModelPackageGroupName =
+      { modelPackageGroupDescription =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_,
+        modelPackageGroupName =
           pModelPackageGroupName_,
-        _dmpgrrsModelPackageGroupARN =
-          pModelPackageGroupARN_,
-        _dmpgrrsCreationTime =
-          _Time # pCreationTime_,
-        _dmpgrrsCreatedBy = pCreatedBy_,
-        _dmpgrrsModelPackageGroupStatus =
+        modelPackageGroupArn =
+          pModelPackageGroupArn_,
+        creationTime =
+          Prelude._Time Lens.# pCreationTime_,
+        createdBy = pCreatedBy_,
+        modelPackageGroupStatus =
           pModelPackageGroupStatus_
       }
 
 -- | A description of the model group.
-dmpgrrsModelPackageGroupDescription :: Lens' DescribeModelPackageGroupResponse (Maybe Text)
-dmpgrrsModelPackageGroupDescription = lens _dmpgrrsModelPackageGroupDescription (\s a -> s {_dmpgrrsModelPackageGroupDescription = a})
+describeModelPackageGroupResponse_modelPackageGroupDescription :: Lens.Lens' DescribeModelPackageGroupResponse (Prelude.Maybe Prelude.Text)
+describeModelPackageGroupResponse_modelPackageGroupDescription = Lens.lens (\DescribeModelPackageGroupResponse' {modelPackageGroupDescription} -> modelPackageGroupDescription) (\s@DescribeModelPackageGroupResponse' {} a -> s {modelPackageGroupDescription = a} :: DescribeModelPackageGroupResponse)
 
--- | -- | The response status code.
-dmpgrrsResponseStatus :: Lens' DescribeModelPackageGroupResponse Int
-dmpgrrsResponseStatus = lens _dmpgrrsResponseStatus (\s a -> s {_dmpgrrsResponseStatus = a})
+-- | The response's http status code.
+describeModelPackageGroupResponse_httpStatus :: Lens.Lens' DescribeModelPackageGroupResponse Prelude.Int
+describeModelPackageGroupResponse_httpStatus = Lens.lens (\DescribeModelPackageGroupResponse' {httpStatus} -> httpStatus) (\s@DescribeModelPackageGroupResponse' {} a -> s {httpStatus = a} :: DescribeModelPackageGroupResponse)
 
 -- | The name of the model group.
-dmpgrrsModelPackageGroupName :: Lens' DescribeModelPackageGroupResponse Text
-dmpgrrsModelPackageGroupName = lens _dmpgrrsModelPackageGroupName (\s a -> s {_dmpgrrsModelPackageGroupName = a})
+describeModelPackageGroupResponse_modelPackageGroupName :: Lens.Lens' DescribeModelPackageGroupResponse Prelude.Text
+describeModelPackageGroupResponse_modelPackageGroupName = Lens.lens (\DescribeModelPackageGroupResponse' {modelPackageGroupName} -> modelPackageGroupName) (\s@DescribeModelPackageGroupResponse' {} a -> s {modelPackageGroupName = a} :: DescribeModelPackageGroupResponse)
 
 -- | The Amazon Resource Name (ARN) of the model group.
-dmpgrrsModelPackageGroupARN :: Lens' DescribeModelPackageGroupResponse Text
-dmpgrrsModelPackageGroupARN = lens _dmpgrrsModelPackageGroupARN (\s a -> s {_dmpgrrsModelPackageGroupARN = a})
+describeModelPackageGroupResponse_modelPackageGroupArn :: Lens.Lens' DescribeModelPackageGroupResponse Prelude.Text
+describeModelPackageGroupResponse_modelPackageGroupArn = Lens.lens (\DescribeModelPackageGroupResponse' {modelPackageGroupArn} -> modelPackageGroupArn) (\s@DescribeModelPackageGroupResponse' {} a -> s {modelPackageGroupArn = a} :: DescribeModelPackageGroupResponse)
 
 -- | The time that the model group was created.
-dmpgrrsCreationTime :: Lens' DescribeModelPackageGroupResponse UTCTime
-dmpgrrsCreationTime = lens _dmpgrrsCreationTime (\s a -> s {_dmpgrrsCreationTime = a}) . _Time
+describeModelPackageGroupResponse_creationTime :: Lens.Lens' DescribeModelPackageGroupResponse Prelude.UTCTime
+describeModelPackageGroupResponse_creationTime = Lens.lens (\DescribeModelPackageGroupResponse' {creationTime} -> creationTime) (\s@DescribeModelPackageGroupResponse' {} a -> s {creationTime = a} :: DescribeModelPackageGroupResponse) Prelude.. Prelude._Time
 
 -- | Undocumented member.
-dmpgrrsCreatedBy :: Lens' DescribeModelPackageGroupResponse UserContext
-dmpgrrsCreatedBy = lens _dmpgrrsCreatedBy (\s a -> s {_dmpgrrsCreatedBy = a})
+describeModelPackageGroupResponse_createdBy :: Lens.Lens' DescribeModelPackageGroupResponse UserContext
+describeModelPackageGroupResponse_createdBy = Lens.lens (\DescribeModelPackageGroupResponse' {createdBy} -> createdBy) (\s@DescribeModelPackageGroupResponse' {} a -> s {createdBy = a} :: DescribeModelPackageGroupResponse)
 
 -- | The status of the model group.
-dmpgrrsModelPackageGroupStatus :: Lens' DescribeModelPackageGroupResponse ModelPackageGroupStatus
-dmpgrrsModelPackageGroupStatus = lens _dmpgrrsModelPackageGroupStatus (\s a -> s {_dmpgrrsModelPackageGroupStatus = a})
+describeModelPackageGroupResponse_modelPackageGroupStatus :: Lens.Lens' DescribeModelPackageGroupResponse ModelPackageGroupStatus
+describeModelPackageGroupResponse_modelPackageGroupStatus = Lens.lens (\DescribeModelPackageGroupResponse' {modelPackageGroupStatus} -> modelPackageGroupStatus) (\s@DescribeModelPackageGroupResponse' {} a -> s {modelPackageGroupStatus = a} :: DescribeModelPackageGroupResponse)
 
-instance NFData DescribeModelPackageGroupResponse
+instance
+  Prelude.NFData
+    DescribeModelPackageGroupResponse

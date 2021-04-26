@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,200 +21,240 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns information about the human task user interfaces in your account.
---
---
+-- Returns information about the human task user interfaces in your
+-- account.
 --
 -- This operation returns paginated results.
 module Network.AWS.SageMaker.ListHumanTaskUis
   ( -- * Creating a Request
-    listHumanTaskUis,
-    ListHumanTaskUis,
+    ListHumanTaskUis (..),
+    newListHumanTaskUis,
 
     -- * Request Lenses
-    lhtuSortOrder,
-    lhtuNextToken,
-    lhtuMaxResults,
-    lhtuCreationTimeBefore,
-    lhtuCreationTimeAfter,
+    listHumanTaskUis_sortOrder,
+    listHumanTaskUis_nextToken,
+    listHumanTaskUis_maxResults,
+    listHumanTaskUis_creationTimeBefore,
+    listHumanTaskUis_creationTimeAfter,
 
     -- * Destructuring the Response
-    listHumanTaskUisResponse,
-    ListHumanTaskUisResponse,
+    ListHumanTaskUisResponse (..),
+    newListHumanTaskUisResponse,
 
     -- * Response Lenses
-    lhturrsNextToken,
-    lhturrsResponseStatus,
-    lhturrsHumanTaskUiSummaries,
+    listHumanTaskUisResponse_nextToken,
+    listHumanTaskUisResponse_httpStatus,
+    listHumanTaskUisResponse_humanTaskUiSummaries,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
+import Network.AWS.SageMaker.Types.HumanTaskUiSummary
 
--- | /See:/ 'listHumanTaskUis' smart constructor.
+-- | /See:/ 'newListHumanTaskUis' smart constructor.
 data ListHumanTaskUis = ListHumanTaskUis'
-  { _lhtuSortOrder ::
-      !(Maybe SortOrder),
-    _lhtuNextToken :: !(Maybe Text),
-    _lhtuMaxResults :: !(Maybe Nat),
-    _lhtuCreationTimeBefore ::
-      !(Maybe POSIX),
-    _lhtuCreationTimeAfter ::
-      !(Maybe POSIX)
+  { -- | An optional value that specifies whether you want the results sorted in
+    -- @Ascending@ or @Descending@ order.
+    sortOrder :: Prelude.Maybe SortOrder,
+    -- | A token to resume pagination.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The total number of items to return. If the total number of available
+    -- items is more than the value specified in @MaxResults@, then a
+    -- @NextToken@ will be provided in the output that you can use to resume
+    -- pagination.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | A filter that returns only human task user interfaces that were created
+    -- before the specified timestamp.
+    creationTimeBefore :: Prelude.Maybe Prelude.POSIX,
+    -- | A filter that returns only human task user interfaces with a creation
+    -- time greater than or equal to the specified timestamp.
+    creationTimeAfter :: Prelude.Maybe Prelude.POSIX
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListHumanTaskUis' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListHumanTaskUis' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lhtuSortOrder' - An optional value that specifies whether you want the results sorted in @Ascending@ or @Descending@ order.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lhtuNextToken' - A token to resume pagination.
+-- 'sortOrder', 'listHumanTaskUis_sortOrder' - An optional value that specifies whether you want the results sorted in
+-- @Ascending@ or @Descending@ order.
 --
--- * 'lhtuMaxResults' - The total number of items to return. If the total number of available items is more than the value specified in @MaxResults@ , then a @NextToken@ will be provided in the output that you can use to resume pagination.
+-- 'nextToken', 'listHumanTaskUis_nextToken' - A token to resume pagination.
 --
--- * 'lhtuCreationTimeBefore' - A filter that returns only human task user interfaces that were created before the specified timestamp.
+-- 'maxResults', 'listHumanTaskUis_maxResults' - The total number of items to return. If the total number of available
+-- items is more than the value specified in @MaxResults@, then a
+-- @NextToken@ will be provided in the output that you can use to resume
+-- pagination.
 --
--- * 'lhtuCreationTimeAfter' - A filter that returns only human task user interfaces with a creation time greater than or equal to the specified timestamp.
-listHumanTaskUis ::
+-- 'creationTimeBefore', 'listHumanTaskUis_creationTimeBefore' - A filter that returns only human task user interfaces that were created
+-- before the specified timestamp.
+--
+-- 'creationTimeAfter', 'listHumanTaskUis_creationTimeAfter' - A filter that returns only human task user interfaces with a creation
+-- time greater than or equal to the specified timestamp.
+newListHumanTaskUis ::
   ListHumanTaskUis
-listHumanTaskUis =
+newListHumanTaskUis =
   ListHumanTaskUis'
-    { _lhtuSortOrder = Nothing,
-      _lhtuNextToken = Nothing,
-      _lhtuMaxResults = Nothing,
-      _lhtuCreationTimeBefore = Nothing,
-      _lhtuCreationTimeAfter = Nothing
+    { sortOrder = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      creationTimeBefore = Prelude.Nothing,
+      creationTimeAfter = Prelude.Nothing
     }
 
--- | An optional value that specifies whether you want the results sorted in @Ascending@ or @Descending@ order.
-lhtuSortOrder :: Lens' ListHumanTaskUis (Maybe SortOrder)
-lhtuSortOrder = lens _lhtuSortOrder (\s a -> s {_lhtuSortOrder = a})
+-- | An optional value that specifies whether you want the results sorted in
+-- @Ascending@ or @Descending@ order.
+listHumanTaskUis_sortOrder :: Lens.Lens' ListHumanTaskUis (Prelude.Maybe SortOrder)
+listHumanTaskUis_sortOrder = Lens.lens (\ListHumanTaskUis' {sortOrder} -> sortOrder) (\s@ListHumanTaskUis' {} a -> s {sortOrder = a} :: ListHumanTaskUis)
 
 -- | A token to resume pagination.
-lhtuNextToken :: Lens' ListHumanTaskUis (Maybe Text)
-lhtuNextToken = lens _lhtuNextToken (\s a -> s {_lhtuNextToken = a})
+listHumanTaskUis_nextToken :: Lens.Lens' ListHumanTaskUis (Prelude.Maybe Prelude.Text)
+listHumanTaskUis_nextToken = Lens.lens (\ListHumanTaskUis' {nextToken} -> nextToken) (\s@ListHumanTaskUis' {} a -> s {nextToken = a} :: ListHumanTaskUis)
 
--- | The total number of items to return. If the total number of available items is more than the value specified in @MaxResults@ , then a @NextToken@ will be provided in the output that you can use to resume pagination.
-lhtuMaxResults :: Lens' ListHumanTaskUis (Maybe Natural)
-lhtuMaxResults = lens _lhtuMaxResults (\s a -> s {_lhtuMaxResults = a}) . mapping _Nat
+-- | The total number of items to return. If the total number of available
+-- items is more than the value specified in @MaxResults@, then a
+-- @NextToken@ will be provided in the output that you can use to resume
+-- pagination.
+listHumanTaskUis_maxResults :: Lens.Lens' ListHumanTaskUis (Prelude.Maybe Prelude.Natural)
+listHumanTaskUis_maxResults = Lens.lens (\ListHumanTaskUis' {maxResults} -> maxResults) (\s@ListHumanTaskUis' {} a -> s {maxResults = a} :: ListHumanTaskUis) Prelude.. Lens.mapping Prelude._Nat
 
--- | A filter that returns only human task user interfaces that were created before the specified timestamp.
-lhtuCreationTimeBefore :: Lens' ListHumanTaskUis (Maybe UTCTime)
-lhtuCreationTimeBefore = lens _lhtuCreationTimeBefore (\s a -> s {_lhtuCreationTimeBefore = a}) . mapping _Time
+-- | A filter that returns only human task user interfaces that were created
+-- before the specified timestamp.
+listHumanTaskUis_creationTimeBefore :: Lens.Lens' ListHumanTaskUis (Prelude.Maybe Prelude.UTCTime)
+listHumanTaskUis_creationTimeBefore = Lens.lens (\ListHumanTaskUis' {creationTimeBefore} -> creationTimeBefore) (\s@ListHumanTaskUis' {} a -> s {creationTimeBefore = a} :: ListHumanTaskUis) Prelude.. Lens.mapping Prelude._Time
 
--- | A filter that returns only human task user interfaces with a creation time greater than or equal to the specified timestamp.
-lhtuCreationTimeAfter :: Lens' ListHumanTaskUis (Maybe UTCTime)
-lhtuCreationTimeAfter = lens _lhtuCreationTimeAfter (\s a -> s {_lhtuCreationTimeAfter = a}) . mapping _Time
+-- | A filter that returns only human task user interfaces with a creation
+-- time greater than or equal to the specified timestamp.
+listHumanTaskUis_creationTimeAfter :: Lens.Lens' ListHumanTaskUis (Prelude.Maybe Prelude.UTCTime)
+listHumanTaskUis_creationTimeAfter = Lens.lens (\ListHumanTaskUis' {creationTimeAfter} -> creationTimeAfter) (\s@ListHumanTaskUis' {} a -> s {creationTimeAfter = a} :: ListHumanTaskUis) Prelude.. Lens.mapping Prelude._Time
 
-instance AWSPager ListHumanTaskUis where
+instance Pager.AWSPager ListHumanTaskUis where
   page rq rs
-    | stop (rs ^. lhturrsNextToken) = Nothing
-    | stop (rs ^. lhturrsHumanTaskUiSummaries) = Nothing
-    | otherwise =
-      Just $ rq & lhtuNextToken .~ rs ^. lhturrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listHumanTaskUisResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^. listHumanTaskUisResponse_humanTaskUiSummaries
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listHumanTaskUis_nextToken
+          Lens..~ rs
+          Lens.^? listHumanTaskUisResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListHumanTaskUis where
+instance Prelude.AWSRequest ListHumanTaskUis where
   type Rs ListHumanTaskUis = ListHumanTaskUisResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListHumanTaskUisResponse'
-            <$> (x .?> "NextToken")
-            <*> (pure (fromEnum s))
-            <*> (x .?> "HumanTaskUiSummaries" .!@ mempty)
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> ( x Prelude..?> "HumanTaskUiSummaries"
+                            Prelude..!@ Prelude.mempty
+                        )
       )
 
-instance Hashable ListHumanTaskUis
+instance Prelude.Hashable ListHumanTaskUis
 
-instance NFData ListHumanTaskUis
+instance Prelude.NFData ListHumanTaskUis
 
-instance ToHeaders ListHumanTaskUis where
+instance Prelude.ToHeaders ListHumanTaskUis where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.ListHumanTaskUis" :: ByteString),
+              Prelude.=# ("SageMaker.ListHumanTaskUis" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListHumanTaskUis where
+instance Prelude.ToJSON ListHumanTaskUis where
   toJSON ListHumanTaskUis' {..} =
-    object
-      ( catMaybes
-          [ ("SortOrder" .=) <$> _lhtuSortOrder,
-            ("NextToken" .=) <$> _lhtuNextToken,
-            ("MaxResults" .=) <$> _lhtuMaxResults,
-            ("CreationTimeBefore" .=)
-              <$> _lhtuCreationTimeBefore,
-            ("CreationTimeAfter" .=) <$> _lhtuCreationTimeAfter
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("SortOrder" Prelude..=) Prelude.<$> sortOrder,
+            ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("CreationTimeBefore" Prelude..=)
+              Prelude.<$> creationTimeBefore,
+            ("CreationTimeAfter" Prelude..=)
+              Prelude.<$> creationTimeAfter
           ]
       )
 
-instance ToPath ListHumanTaskUis where
-  toPath = const "/"
+instance Prelude.ToPath ListHumanTaskUis where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListHumanTaskUis where
-  toQuery = const mempty
+instance Prelude.ToQuery ListHumanTaskUis where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listHumanTaskUisResponse' smart constructor.
+-- | /See:/ 'newListHumanTaskUisResponse' smart constructor.
 data ListHumanTaskUisResponse = ListHumanTaskUisResponse'
-  { _lhturrsNextToken ::
-      !(Maybe Text),
-    _lhturrsResponseStatus ::
-      !Int,
-    _lhturrsHumanTaskUiSummaries ::
-      ![HumanTaskUiSummary]
+  { -- | A token to resume pagination.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | An array of objects describing the human task user interfaces.
+    humanTaskUiSummaries :: [HumanTaskUiSummary]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListHumanTaskUisResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListHumanTaskUisResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lhturrsNextToken' - A token to resume pagination.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lhturrsResponseStatus' - -- | The response status code.
+-- 'nextToken', 'listHumanTaskUisResponse_nextToken' - A token to resume pagination.
 --
--- * 'lhturrsHumanTaskUiSummaries' - An array of objects describing the human task user interfaces.
-listHumanTaskUisResponse ::
-  -- | 'lhturrsResponseStatus'
-  Int ->
+-- 'httpStatus', 'listHumanTaskUisResponse_httpStatus' - The response's http status code.
+--
+-- 'humanTaskUiSummaries', 'listHumanTaskUisResponse_humanTaskUiSummaries' - An array of objects describing the human task user interfaces.
+newListHumanTaskUisResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListHumanTaskUisResponse
-listHumanTaskUisResponse pResponseStatus_ =
+newListHumanTaskUisResponse pHttpStatus_ =
   ListHumanTaskUisResponse'
-    { _lhturrsNextToken =
-        Nothing,
-      _lhturrsResponseStatus = pResponseStatus_,
-      _lhturrsHumanTaskUiSummaries = mempty
+    { nextToken =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_,
+      humanTaskUiSummaries = Prelude.mempty
     }
 
 -- | A token to resume pagination.
-lhturrsNextToken :: Lens' ListHumanTaskUisResponse (Maybe Text)
-lhturrsNextToken = lens _lhturrsNextToken (\s a -> s {_lhturrsNextToken = a})
+listHumanTaskUisResponse_nextToken :: Lens.Lens' ListHumanTaskUisResponse (Prelude.Maybe Prelude.Text)
+listHumanTaskUisResponse_nextToken = Lens.lens (\ListHumanTaskUisResponse' {nextToken} -> nextToken) (\s@ListHumanTaskUisResponse' {} a -> s {nextToken = a} :: ListHumanTaskUisResponse)
 
--- | -- | The response status code.
-lhturrsResponseStatus :: Lens' ListHumanTaskUisResponse Int
-lhturrsResponseStatus = lens _lhturrsResponseStatus (\s a -> s {_lhturrsResponseStatus = a})
+-- | The response's http status code.
+listHumanTaskUisResponse_httpStatus :: Lens.Lens' ListHumanTaskUisResponse Prelude.Int
+listHumanTaskUisResponse_httpStatus = Lens.lens (\ListHumanTaskUisResponse' {httpStatus} -> httpStatus) (\s@ListHumanTaskUisResponse' {} a -> s {httpStatus = a} :: ListHumanTaskUisResponse)
 
 -- | An array of objects describing the human task user interfaces.
-lhturrsHumanTaskUiSummaries :: Lens' ListHumanTaskUisResponse [HumanTaskUiSummary]
-lhturrsHumanTaskUiSummaries = lens _lhturrsHumanTaskUiSummaries (\s a -> s {_lhturrsHumanTaskUiSummaries = a}) . _Coerce
+listHumanTaskUisResponse_humanTaskUiSummaries :: Lens.Lens' ListHumanTaskUisResponse [HumanTaskUiSummary]
+listHumanTaskUisResponse_humanTaskUiSummaries = Lens.lens (\ListHumanTaskUisResponse' {humanTaskUiSummaries} -> humanTaskUiSummaries) (\s@ListHumanTaskUisResponse' {} a -> s {humanTaskUiSummaries = a} :: ListHumanTaskUisResponse) Prelude.. Prelude._Coerce
 
-instance NFData ListHumanTaskUisResponse
+instance Prelude.NFData ListHumanTaskUisResponse

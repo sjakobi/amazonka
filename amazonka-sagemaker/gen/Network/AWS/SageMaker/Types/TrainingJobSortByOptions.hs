@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,65 @@
 module Network.AWS.SageMaker.Types.TrainingJobSortByOptions
   ( TrainingJobSortByOptions
       ( ..,
-        TJSBOCreationTime,
-        TJSBOFinalObjectiveMetricValue,
-        TJSBOName,
-        TJSBOStatus
+        TrainingJobSortByOptionsCreationTime,
+        TrainingJobSortByOptionsFinalObjectiveMetricValue,
+        TrainingJobSortByOptionsName,
+        TrainingJobSortByOptionsStatus'
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TrainingJobSortByOptions
-  = TrainingJobSortByOptions'
-      ( CI
-          Text
-      )
+newtype TrainingJobSortByOptions = TrainingJobSortByOptions'
+  { fromTrainingJobSortByOptions ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TJSBOCreationTime :: TrainingJobSortByOptions
-pattern TJSBOCreationTime = TrainingJobSortByOptions' "CreationTime"
+pattern TrainingJobSortByOptionsCreationTime :: TrainingJobSortByOptions
+pattern TrainingJobSortByOptionsCreationTime = TrainingJobSortByOptions' "CreationTime"
 
-pattern TJSBOFinalObjectiveMetricValue :: TrainingJobSortByOptions
-pattern TJSBOFinalObjectiveMetricValue = TrainingJobSortByOptions' "FinalObjectiveMetricValue"
+pattern TrainingJobSortByOptionsFinalObjectiveMetricValue :: TrainingJobSortByOptions
+pattern TrainingJobSortByOptionsFinalObjectiveMetricValue = TrainingJobSortByOptions' "FinalObjectiveMetricValue"
 
-pattern TJSBOName :: TrainingJobSortByOptions
-pattern TJSBOName = TrainingJobSortByOptions' "Name"
+pattern TrainingJobSortByOptionsName :: TrainingJobSortByOptions
+pattern TrainingJobSortByOptionsName = TrainingJobSortByOptions' "Name"
 
-pattern TJSBOStatus :: TrainingJobSortByOptions
-pattern TJSBOStatus = TrainingJobSortByOptions' "Status"
+pattern TrainingJobSortByOptionsStatus' :: TrainingJobSortByOptions
+pattern TrainingJobSortByOptionsStatus' = TrainingJobSortByOptions' "Status"
 
 {-# COMPLETE
-  TJSBOCreationTime,
-  TJSBOFinalObjectiveMetricValue,
-  TJSBOName,
-  TJSBOStatus,
+  TrainingJobSortByOptionsCreationTime,
+  TrainingJobSortByOptionsFinalObjectiveMetricValue,
+  TrainingJobSortByOptionsName,
+  TrainingJobSortByOptionsStatus',
   TrainingJobSortByOptions'
   #-}
 
-instance FromText TrainingJobSortByOptions where
-  parser = (TrainingJobSortByOptions' . mk) <$> takeText
+instance Prelude.FromText TrainingJobSortByOptions where
+  parser = TrainingJobSortByOptions' Prelude.<$> Prelude.takeText
 
-instance ToText TrainingJobSortByOptions where
-  toText (TrainingJobSortByOptions' ci) = original ci
+instance Prelude.ToText TrainingJobSortByOptions where
+  toText (TrainingJobSortByOptions' x) = x
 
-instance Hashable TrainingJobSortByOptions
+instance Prelude.Hashable TrainingJobSortByOptions
 
-instance NFData TrainingJobSortByOptions
+instance Prelude.NFData TrainingJobSortByOptions
 
-instance ToByteString TrainingJobSortByOptions
+instance Prelude.ToByteString TrainingJobSortByOptions
 
-instance ToQuery TrainingJobSortByOptions
+instance Prelude.ToQuery TrainingJobSortByOptions
 
-instance ToHeader TrainingJobSortByOptions
+instance Prelude.ToHeader TrainingJobSortByOptions
 
-instance ToJSON TrainingJobSortByOptions where
-  toJSON = toJSONText
+instance Prelude.ToJSON TrainingJobSortByOptions where
+  toJSON = Prelude.toJSONText

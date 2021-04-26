@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,86 +19,95 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.MonitoringNetworkConfig where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.SageMaker.Types.VPCConfig
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import Network.AWS.SageMaker.Types.VpcConfig
 
 -- | The networking configuration for the monitoring job.
 --
---
---
--- /See:/ 'monitoringNetworkConfig' smart constructor.
+-- /See:/ 'newMonitoringNetworkConfig' smart constructor.
 data MonitoringNetworkConfig = MonitoringNetworkConfig'
-  { _mncVPCConfig ::
-      !(Maybe VPCConfig),
-    _mncEnableNetworkIsolation ::
-      !(Maybe Bool),
-    _mncEnableInterContainerTrafficEncryption ::
-      !(Maybe Bool)
+  { vpcConfig :: Prelude.Maybe VpcConfig,
+    -- | Whether to allow inbound and outbound network calls to and from the
+    -- containers used for the monitoring job.
+    enableNetworkIsolation :: Prelude.Maybe Prelude.Bool,
+    -- | Whether to encrypt all communications between the instances used for the
+    -- monitoring jobs. Choose @True@ to encrypt communications. Encryption
+    -- provides greater security for distributed jobs, but the processing might
+    -- take longer.
+    enableInterContainerTrafficEncryption :: Prelude.Maybe Prelude.Bool
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MonitoringNetworkConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MonitoringNetworkConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mncVPCConfig' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mncEnableNetworkIsolation' - Whether to allow inbound and outbound network calls to and from the containers used for the monitoring job.
+-- 'vpcConfig', 'monitoringNetworkConfig_vpcConfig' - Undocumented member.
 --
--- * 'mncEnableInterContainerTrafficEncryption' - Whether to encrypt all communications between the instances used for the monitoring jobs. Choose @True@ to encrypt communications. Encryption provides greater security for distributed jobs, but the processing might take longer.
-monitoringNetworkConfig ::
+-- 'enableNetworkIsolation', 'monitoringNetworkConfig_enableNetworkIsolation' - Whether to allow inbound and outbound network calls to and from the
+-- containers used for the monitoring job.
+--
+-- 'enableInterContainerTrafficEncryption', 'monitoringNetworkConfig_enableInterContainerTrafficEncryption' - Whether to encrypt all communications between the instances used for the
+-- monitoring jobs. Choose @True@ to encrypt communications. Encryption
+-- provides greater security for distributed jobs, but the processing might
+-- take longer.
+newMonitoringNetworkConfig ::
   MonitoringNetworkConfig
-monitoringNetworkConfig =
+newMonitoringNetworkConfig =
   MonitoringNetworkConfig'
-    { _mncVPCConfig = Nothing,
-      _mncEnableNetworkIsolation = Nothing,
-      _mncEnableInterContainerTrafficEncryption =
-        Nothing
+    { vpcConfig =
+        Prelude.Nothing,
+      enableNetworkIsolation = Prelude.Nothing,
+      enableInterContainerTrafficEncryption =
+        Prelude.Nothing
     }
 
 -- | Undocumented member.
-mncVPCConfig :: Lens' MonitoringNetworkConfig (Maybe VPCConfig)
-mncVPCConfig = lens _mncVPCConfig (\s a -> s {_mncVPCConfig = a})
+monitoringNetworkConfig_vpcConfig :: Lens.Lens' MonitoringNetworkConfig (Prelude.Maybe VpcConfig)
+monitoringNetworkConfig_vpcConfig = Lens.lens (\MonitoringNetworkConfig' {vpcConfig} -> vpcConfig) (\s@MonitoringNetworkConfig' {} a -> s {vpcConfig = a} :: MonitoringNetworkConfig)
 
--- | Whether to allow inbound and outbound network calls to and from the containers used for the monitoring job.
-mncEnableNetworkIsolation :: Lens' MonitoringNetworkConfig (Maybe Bool)
-mncEnableNetworkIsolation = lens _mncEnableNetworkIsolation (\s a -> s {_mncEnableNetworkIsolation = a})
+-- | Whether to allow inbound and outbound network calls to and from the
+-- containers used for the monitoring job.
+monitoringNetworkConfig_enableNetworkIsolation :: Lens.Lens' MonitoringNetworkConfig (Prelude.Maybe Prelude.Bool)
+monitoringNetworkConfig_enableNetworkIsolation = Lens.lens (\MonitoringNetworkConfig' {enableNetworkIsolation} -> enableNetworkIsolation) (\s@MonitoringNetworkConfig' {} a -> s {enableNetworkIsolation = a} :: MonitoringNetworkConfig)
 
--- | Whether to encrypt all communications between the instances used for the monitoring jobs. Choose @True@ to encrypt communications. Encryption provides greater security for distributed jobs, but the processing might take longer.
-mncEnableInterContainerTrafficEncryption :: Lens' MonitoringNetworkConfig (Maybe Bool)
-mncEnableInterContainerTrafficEncryption = lens _mncEnableInterContainerTrafficEncryption (\s a -> s {_mncEnableInterContainerTrafficEncryption = a})
+-- | Whether to encrypt all communications between the instances used for the
+-- monitoring jobs. Choose @True@ to encrypt communications. Encryption
+-- provides greater security for distributed jobs, but the processing might
+-- take longer.
+monitoringNetworkConfig_enableInterContainerTrafficEncryption :: Lens.Lens' MonitoringNetworkConfig (Prelude.Maybe Prelude.Bool)
+monitoringNetworkConfig_enableInterContainerTrafficEncryption = Lens.lens (\MonitoringNetworkConfig' {enableInterContainerTrafficEncryption} -> enableInterContainerTrafficEncryption) (\s@MonitoringNetworkConfig' {} a -> s {enableInterContainerTrafficEncryption = a} :: MonitoringNetworkConfig)
 
-instance FromJSON MonitoringNetworkConfig where
+instance Prelude.FromJSON MonitoringNetworkConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "MonitoringNetworkConfig"
       ( \x ->
           MonitoringNetworkConfig'
-            <$> (x .:? "VpcConfig")
-            <*> (x .:? "EnableNetworkIsolation")
-            <*> (x .:? "EnableInterContainerTrafficEncryption")
+            Prelude.<$> (x Prelude..:? "VpcConfig")
+            Prelude.<*> (x Prelude..:? "EnableNetworkIsolation")
+            Prelude.<*> ( x
+                            Prelude..:? "EnableInterContainerTrafficEncryption"
+                        )
       )
 
-instance Hashable MonitoringNetworkConfig
+instance Prelude.Hashable MonitoringNetworkConfig
 
-instance NFData MonitoringNetworkConfig
+instance Prelude.NFData MonitoringNetworkConfig
 
-instance ToJSON MonitoringNetworkConfig where
+instance Prelude.ToJSON MonitoringNetworkConfig where
   toJSON MonitoringNetworkConfig' {..} =
-    object
-      ( catMaybes
-          [ ("VpcConfig" .=) <$> _mncVPCConfig,
-            ("EnableNetworkIsolation" .=)
-              <$> _mncEnableNetworkIsolation,
-            ("EnableInterContainerTrafficEncryption" .=)
-              <$> _mncEnableInterContainerTrafficEncryption
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("VpcConfig" Prelude..=) Prelude.<$> vpcConfig,
+            ("EnableNetworkIsolation" Prelude..=)
+              Prelude.<$> enableNetworkIsolation,
+            ("EnableInterContainerTrafficEncryption" Prelude..=)
+              Prelude.<$> enableInterContainerTrafficEncryption
           ]
       )

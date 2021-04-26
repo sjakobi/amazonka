@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,100 +24,107 @@
 -- Stops a processing job.
 module Network.AWS.SageMaker.StopProcessingJob
   ( -- * Creating a Request
-    stopProcessingJob,
-    StopProcessingJob,
+    StopProcessingJob (..),
+    newStopProcessingJob,
 
     -- * Request Lenses
-    spjProcessingJobName,
+    stopProcessingJob_processingJobName,
 
     -- * Destructuring the Response
-    stopProcessingJobResponse,
-    StopProcessingJobResponse,
+    StopProcessingJobResponse (..),
+    newStopProcessingJobResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'stopProcessingJob' smart constructor.
-newtype StopProcessingJob = StopProcessingJob'
-  { _spjProcessingJobName ::
-      Text
+-- | /See:/ 'newStopProcessingJob' smart constructor.
+data StopProcessingJob = StopProcessingJob'
+  { -- | The name of the processing job to stop.
+    processingJobName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopProcessingJob' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopProcessingJob' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'spjProcessingJobName' - The name of the processing job to stop.
-stopProcessingJob ::
-  -- | 'spjProcessingJobName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'processingJobName', 'stopProcessingJob_processingJobName' - The name of the processing job to stop.
+newStopProcessingJob ::
+  -- | 'processingJobName'
+  Prelude.Text ->
   StopProcessingJob
-stopProcessingJob pProcessingJobName_ =
+newStopProcessingJob pProcessingJobName_ =
   StopProcessingJob'
-    { _spjProcessingJobName =
+    { processingJobName =
         pProcessingJobName_
     }
 
 -- | The name of the processing job to stop.
-spjProcessingJobName :: Lens' StopProcessingJob Text
-spjProcessingJobName = lens _spjProcessingJobName (\s a -> s {_spjProcessingJobName = a})
+stopProcessingJob_processingJobName :: Lens.Lens' StopProcessingJob Prelude.Text
+stopProcessingJob_processingJobName = Lens.lens (\StopProcessingJob' {processingJobName} -> processingJobName) (\s@StopProcessingJob' {} a -> s {processingJobName = a} :: StopProcessingJob)
 
-instance AWSRequest StopProcessingJob where
+instance Prelude.AWSRequest StopProcessingJob where
   type Rs StopProcessingJob = StopProcessingJobResponse
-  request = postJSON sageMaker
-  response = receiveNull StopProcessingJobResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull StopProcessingJobResponse'
 
-instance Hashable StopProcessingJob
+instance Prelude.Hashable StopProcessingJob
 
-instance NFData StopProcessingJob
+instance Prelude.NFData StopProcessingJob
 
-instance ToHeaders StopProcessingJob where
+instance Prelude.ToHeaders StopProcessingJob where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.StopProcessingJob" :: ByteString),
+              Prelude.=# ( "SageMaker.StopProcessingJob" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StopProcessingJob where
+instance Prelude.ToJSON StopProcessingJob where
   toJSON StopProcessingJob' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("ProcessingJobName" .= _spjProcessingJobName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("ProcessingJobName" Prelude..= processingJobName)
           ]
       )
 
-instance ToPath StopProcessingJob where
-  toPath = const "/"
+instance Prelude.ToPath StopProcessingJob where
+  toPath = Prelude.const "/"
 
-instance ToQuery StopProcessingJob where
-  toQuery = const mempty
+instance Prelude.ToQuery StopProcessingJob where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'stopProcessingJobResponse' smart constructor.
+-- | /See:/ 'newStopProcessingJobResponse' smart constructor.
 data StopProcessingJobResponse = StopProcessingJobResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopProcessingJobResponse' with the minimum fields required to make a request.
-stopProcessingJobResponse ::
+-- |
+-- Create a value of 'StopProcessingJobResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newStopProcessingJobResponse ::
   StopProcessingJobResponse
-stopProcessingJobResponse =
+newStopProcessingJobResponse =
   StopProcessingJobResponse'
 
-instance NFData StopProcessingJobResponse
+instance Prelude.NFData StopProcessingJobResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,76 +19,78 @@
 module Network.AWS.SageMaker.Types.LabelingJobStatus
   ( LabelingJobStatus
       ( ..,
-        Completed,
-        Failed,
-        InProgress,
-        Initializing,
-        Stopped,
-        Stopping
+        LabelingJobStatusCompleted,
+        LabelingJobStatusFailed,
+        LabelingJobStatusInProgress,
+        LabelingJobStatusInitializing,
+        LabelingJobStatusStopped,
+        LabelingJobStatusStopping
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data LabelingJobStatus = LabelingJobStatus' (CI Text)
+newtype LabelingJobStatus = LabelingJobStatus'
+  { fromLabelingJobStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Completed :: LabelingJobStatus
-pattern Completed = LabelingJobStatus' "Completed"
+pattern LabelingJobStatusCompleted :: LabelingJobStatus
+pattern LabelingJobStatusCompleted = LabelingJobStatus' "Completed"
 
-pattern Failed :: LabelingJobStatus
-pattern Failed = LabelingJobStatus' "Failed"
+pattern LabelingJobStatusFailed :: LabelingJobStatus
+pattern LabelingJobStatusFailed = LabelingJobStatus' "Failed"
 
-pattern InProgress :: LabelingJobStatus
-pattern InProgress = LabelingJobStatus' "InProgress"
+pattern LabelingJobStatusInProgress :: LabelingJobStatus
+pattern LabelingJobStatusInProgress = LabelingJobStatus' "InProgress"
 
-pattern Initializing :: LabelingJobStatus
-pattern Initializing = LabelingJobStatus' "Initializing"
+pattern LabelingJobStatusInitializing :: LabelingJobStatus
+pattern LabelingJobStatusInitializing = LabelingJobStatus' "Initializing"
 
-pattern Stopped :: LabelingJobStatus
-pattern Stopped = LabelingJobStatus' "Stopped"
+pattern LabelingJobStatusStopped :: LabelingJobStatus
+pattern LabelingJobStatusStopped = LabelingJobStatus' "Stopped"
 
-pattern Stopping :: LabelingJobStatus
-pattern Stopping = LabelingJobStatus' "Stopping"
+pattern LabelingJobStatusStopping :: LabelingJobStatus
+pattern LabelingJobStatusStopping = LabelingJobStatus' "Stopping"
 
 {-# COMPLETE
-  Completed,
-  Failed,
-  InProgress,
-  Initializing,
-  Stopped,
-  Stopping,
+  LabelingJobStatusCompleted,
+  LabelingJobStatusFailed,
+  LabelingJobStatusInProgress,
+  LabelingJobStatusInitializing,
+  LabelingJobStatusStopped,
+  LabelingJobStatusStopping,
   LabelingJobStatus'
   #-}
 
-instance FromText LabelingJobStatus where
-  parser = (LabelingJobStatus' . mk) <$> takeText
+instance Prelude.FromText LabelingJobStatus where
+  parser = LabelingJobStatus' Prelude.<$> Prelude.takeText
 
-instance ToText LabelingJobStatus where
-  toText (LabelingJobStatus' ci) = original ci
+instance Prelude.ToText LabelingJobStatus where
+  toText (LabelingJobStatus' x) = x
 
-instance Hashable LabelingJobStatus
+instance Prelude.Hashable LabelingJobStatus
 
-instance NFData LabelingJobStatus
+instance Prelude.NFData LabelingJobStatus
 
-instance ToByteString LabelingJobStatus
+instance Prelude.ToByteString LabelingJobStatus
 
-instance ToQuery LabelingJobStatus
+instance Prelude.ToQuery LabelingJobStatus
 
-instance ToHeader LabelingJobStatus
+instance Prelude.ToHeader LabelingJobStatus
 
-instance ToJSON LabelingJobStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON LabelingJobStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON LabelingJobStatus where
-  parseJSON = parseJSONText "LabelingJobStatus"
+instance Prelude.FromJSON LabelingJobStatus where
+  parseJSON = Prelude.parseJSONText "LabelingJobStatus"

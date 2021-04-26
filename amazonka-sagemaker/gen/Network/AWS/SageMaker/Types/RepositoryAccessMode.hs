@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.SageMaker.Types.RepositoryAccessMode
   ( RepositoryAccessMode
       ( ..,
-        Platform,
-        VPC
+        RepositoryAccessModePlatform,
+        RepositoryAccessModeVpc
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RepositoryAccessMode
-  = RepositoryAccessMode'
-      ( CI
-          Text
-      )
+newtype RepositoryAccessMode = RepositoryAccessMode'
+  { fromRepositoryAccessMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Platform :: RepositoryAccessMode
-pattern Platform = RepositoryAccessMode' "Platform"
+pattern RepositoryAccessModePlatform :: RepositoryAccessMode
+pattern RepositoryAccessModePlatform = RepositoryAccessMode' "Platform"
 
-pattern VPC :: RepositoryAccessMode
-pattern VPC = RepositoryAccessMode' "Vpc"
+pattern RepositoryAccessModeVpc :: RepositoryAccessMode
+pattern RepositoryAccessModeVpc = RepositoryAccessMode' "Vpc"
 
 {-# COMPLETE
-  Platform,
-  VPC,
+  RepositoryAccessModePlatform,
+  RepositoryAccessModeVpc,
   RepositoryAccessMode'
   #-}
 
-instance FromText RepositoryAccessMode where
-  parser = (RepositoryAccessMode' . mk) <$> takeText
+instance Prelude.FromText RepositoryAccessMode where
+  parser = RepositoryAccessMode' Prelude.<$> Prelude.takeText
 
-instance ToText RepositoryAccessMode where
-  toText (RepositoryAccessMode' ci) = original ci
+instance Prelude.ToText RepositoryAccessMode where
+  toText (RepositoryAccessMode' x) = x
 
-instance Hashable RepositoryAccessMode
+instance Prelude.Hashable RepositoryAccessMode
 
-instance NFData RepositoryAccessMode
+instance Prelude.NFData RepositoryAccessMode
 
-instance ToByteString RepositoryAccessMode
+instance Prelude.ToByteString RepositoryAccessMode
 
-instance ToQuery RepositoryAccessMode
+instance Prelude.ToQuery RepositoryAccessMode
 
-instance ToHeader RepositoryAccessMode
+instance Prelude.ToHeader RepositoryAccessMode
 
-instance ToJSON RepositoryAccessMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON RepositoryAccessMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON RepositoryAccessMode where
-  parseJSON = parseJSONText "RepositoryAccessMode"
+instance Prelude.FromJSON RepositoryAccessMode where
+  parseJSON = Prelude.parseJSONText "RepositoryAccessMode"

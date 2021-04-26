@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,193 +24,236 @@
 -- Gets a list of the projects in an AWS account.
 module Network.AWS.SageMaker.ListProjects
   ( -- * Creating a Request
-    listProjects,
-    ListProjects,
+    ListProjects (..),
+    newListProjects,
 
     -- * Request Lenses
-    lpSortOrder,
-    lpNextToken,
-    lpNameContains,
-    lpMaxResults,
-    lpCreationTimeBefore,
-    lpSortBy,
-    lpCreationTimeAfter,
+    listProjects_sortOrder,
+    listProjects_nextToken,
+    listProjects_nameContains,
+    listProjects_maxResults,
+    listProjects_creationTimeBefore,
+    listProjects_sortBy,
+    listProjects_creationTimeAfter,
 
     -- * Destructuring the Response
-    listProjectsResponse,
-    ListProjectsResponse,
+    ListProjectsResponse (..),
+    newListProjectsResponse,
 
     -- * Response Lenses
-    lprrsNextToken,
-    lprrsResponseStatus,
-    lprrsProjectSummaryList,
+    listProjectsResponse_nextToken,
+    listProjectsResponse_httpStatus,
+    listProjectsResponse_projectSummaryList,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
+import Network.AWS.SageMaker.Types.ProjectSummary
 
--- | /See:/ 'listProjects' smart constructor.
+-- | /See:/ 'newListProjects' smart constructor.
 data ListProjects = ListProjects'
-  { _lpSortOrder ::
-      !(Maybe ProjectSortOrder),
-    _lpNextToken :: !(Maybe Text),
-    _lpNameContains :: !(Maybe Text),
-    _lpMaxResults :: !(Maybe Nat),
-    _lpCreationTimeBefore :: !(Maybe POSIX),
-    _lpSortBy :: !(Maybe ProjectSortBy),
-    _lpCreationTimeAfter :: !(Maybe POSIX)
+  { -- | The sort order for results. The default is @Ascending@.
+    sortOrder :: Prelude.Maybe ProjectSortOrder,
+    -- | If the result of the previous @ListProjects@ request was truncated, the
+    -- response includes a @NextToken@. To retrieve the next set of projects,
+    -- use the token in the next request.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A filter that returns the projects whose name contains a specified
+    -- string.
+    nameContains :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of projects to return in the response.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | A filter that returns the projects that were created before a specified
+    -- time.
+    creationTimeBefore :: Prelude.Maybe Prelude.POSIX,
+    -- | The field by which to sort results. The default is @CreationTime@.
+    sortBy :: Prelude.Maybe ProjectSortBy,
+    -- | A filter that returns the projects that were created after a specified
+    -- time.
+    creationTimeAfter :: Prelude.Maybe Prelude.POSIX
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListProjects' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListProjects' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lpSortOrder' - The sort order for results. The default is @Ascending@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lpNextToken' - If the result of the previous @ListProjects@ request was truncated, the response includes a @NextToken@ . To retrieve the next set of projects, use the token in the next request.
+-- 'sortOrder', 'listProjects_sortOrder' - The sort order for results. The default is @Ascending@.
 --
--- * 'lpNameContains' - A filter that returns the projects whose name contains a specified string.
+-- 'nextToken', 'listProjects_nextToken' - If the result of the previous @ListProjects@ request was truncated, the
+-- response includes a @NextToken@. To retrieve the next set of projects,
+-- use the token in the next request.
 --
--- * 'lpMaxResults' - The maximum number of projects to return in the response.
+-- 'nameContains', 'listProjects_nameContains' - A filter that returns the projects whose name contains a specified
+-- string.
 --
--- * 'lpCreationTimeBefore' - A filter that returns the projects that were created before a specified time.
+-- 'maxResults', 'listProjects_maxResults' - The maximum number of projects to return in the response.
 --
--- * 'lpSortBy' - The field by which to sort results. The default is @CreationTime@ .
+-- 'creationTimeBefore', 'listProjects_creationTimeBefore' - A filter that returns the projects that were created before a specified
+-- time.
 --
--- * 'lpCreationTimeAfter' - A filter that returns the projects that were created after a specified time.
-listProjects ::
+-- 'sortBy', 'listProjects_sortBy' - The field by which to sort results. The default is @CreationTime@.
+--
+-- 'creationTimeAfter', 'listProjects_creationTimeAfter' - A filter that returns the projects that were created after a specified
+-- time.
+newListProjects ::
   ListProjects
-listProjects =
+newListProjects =
   ListProjects'
-    { _lpSortOrder = Nothing,
-      _lpNextToken = Nothing,
-      _lpNameContains = Nothing,
-      _lpMaxResults = Nothing,
-      _lpCreationTimeBefore = Nothing,
-      _lpSortBy = Nothing,
-      _lpCreationTimeAfter = Nothing
+    { sortOrder = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      nameContains = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      creationTimeBefore = Prelude.Nothing,
+      sortBy = Prelude.Nothing,
+      creationTimeAfter = Prelude.Nothing
     }
 
--- | The sort order for results. The default is @Ascending@ .
-lpSortOrder :: Lens' ListProjects (Maybe ProjectSortOrder)
-lpSortOrder = lens _lpSortOrder (\s a -> s {_lpSortOrder = a})
+-- | The sort order for results. The default is @Ascending@.
+listProjects_sortOrder :: Lens.Lens' ListProjects (Prelude.Maybe ProjectSortOrder)
+listProjects_sortOrder = Lens.lens (\ListProjects' {sortOrder} -> sortOrder) (\s@ListProjects' {} a -> s {sortOrder = a} :: ListProjects)
 
--- | If the result of the previous @ListProjects@ request was truncated, the response includes a @NextToken@ . To retrieve the next set of projects, use the token in the next request.
-lpNextToken :: Lens' ListProjects (Maybe Text)
-lpNextToken = lens _lpNextToken (\s a -> s {_lpNextToken = a})
+-- | If the result of the previous @ListProjects@ request was truncated, the
+-- response includes a @NextToken@. To retrieve the next set of projects,
+-- use the token in the next request.
+listProjects_nextToken :: Lens.Lens' ListProjects (Prelude.Maybe Prelude.Text)
+listProjects_nextToken = Lens.lens (\ListProjects' {nextToken} -> nextToken) (\s@ListProjects' {} a -> s {nextToken = a} :: ListProjects)
 
--- | A filter that returns the projects whose name contains a specified string.
-lpNameContains :: Lens' ListProjects (Maybe Text)
-lpNameContains = lens _lpNameContains (\s a -> s {_lpNameContains = a})
+-- | A filter that returns the projects whose name contains a specified
+-- string.
+listProjects_nameContains :: Lens.Lens' ListProjects (Prelude.Maybe Prelude.Text)
+listProjects_nameContains = Lens.lens (\ListProjects' {nameContains} -> nameContains) (\s@ListProjects' {} a -> s {nameContains = a} :: ListProjects)
 
 -- | The maximum number of projects to return in the response.
-lpMaxResults :: Lens' ListProjects (Maybe Natural)
-lpMaxResults = lens _lpMaxResults (\s a -> s {_lpMaxResults = a}) . mapping _Nat
+listProjects_maxResults :: Lens.Lens' ListProjects (Prelude.Maybe Prelude.Natural)
+listProjects_maxResults = Lens.lens (\ListProjects' {maxResults} -> maxResults) (\s@ListProjects' {} a -> s {maxResults = a} :: ListProjects) Prelude.. Lens.mapping Prelude._Nat
 
--- | A filter that returns the projects that were created before a specified time.
-lpCreationTimeBefore :: Lens' ListProjects (Maybe UTCTime)
-lpCreationTimeBefore = lens _lpCreationTimeBefore (\s a -> s {_lpCreationTimeBefore = a}) . mapping _Time
+-- | A filter that returns the projects that were created before a specified
+-- time.
+listProjects_creationTimeBefore :: Lens.Lens' ListProjects (Prelude.Maybe Prelude.UTCTime)
+listProjects_creationTimeBefore = Lens.lens (\ListProjects' {creationTimeBefore} -> creationTimeBefore) (\s@ListProjects' {} a -> s {creationTimeBefore = a} :: ListProjects) Prelude.. Lens.mapping Prelude._Time
 
--- | The field by which to sort results. The default is @CreationTime@ .
-lpSortBy :: Lens' ListProjects (Maybe ProjectSortBy)
-lpSortBy = lens _lpSortBy (\s a -> s {_lpSortBy = a})
+-- | The field by which to sort results. The default is @CreationTime@.
+listProjects_sortBy :: Lens.Lens' ListProjects (Prelude.Maybe ProjectSortBy)
+listProjects_sortBy = Lens.lens (\ListProjects' {sortBy} -> sortBy) (\s@ListProjects' {} a -> s {sortBy = a} :: ListProjects)
 
--- | A filter that returns the projects that were created after a specified time.
-lpCreationTimeAfter :: Lens' ListProjects (Maybe UTCTime)
-lpCreationTimeAfter = lens _lpCreationTimeAfter (\s a -> s {_lpCreationTimeAfter = a}) . mapping _Time
+-- | A filter that returns the projects that were created after a specified
+-- time.
+listProjects_creationTimeAfter :: Lens.Lens' ListProjects (Prelude.Maybe Prelude.UTCTime)
+listProjects_creationTimeAfter = Lens.lens (\ListProjects' {creationTimeAfter} -> creationTimeAfter) (\s@ListProjects' {} a -> s {creationTimeAfter = a} :: ListProjects) Prelude.. Lens.mapping Prelude._Time
 
-instance AWSRequest ListProjects where
+instance Prelude.AWSRequest ListProjects where
   type Rs ListProjects = ListProjectsResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListProjectsResponse'
-            <$> (x .?> "NextToken")
-            <*> (pure (fromEnum s))
-            <*> (x .?> "ProjectSummaryList" .!@ mempty)
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> ( x Prelude..?> "ProjectSummaryList"
+                            Prelude..!@ Prelude.mempty
+                        )
       )
 
-instance Hashable ListProjects
+instance Prelude.Hashable ListProjects
 
-instance NFData ListProjects
+instance Prelude.NFData ListProjects
 
-instance ToHeaders ListProjects where
+instance Prelude.ToHeaders ListProjects where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.ListProjects" :: ByteString),
+              Prelude.=# ("SageMaker.ListProjects" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListProjects where
+instance Prelude.ToJSON ListProjects where
   toJSON ListProjects' {..} =
-    object
-      ( catMaybes
-          [ ("SortOrder" .=) <$> _lpSortOrder,
-            ("NextToken" .=) <$> _lpNextToken,
-            ("NameContains" .=) <$> _lpNameContains,
-            ("MaxResults" .=) <$> _lpMaxResults,
-            ("CreationTimeBefore" .=) <$> _lpCreationTimeBefore,
-            ("SortBy" .=) <$> _lpSortBy,
-            ("CreationTimeAfter" .=) <$> _lpCreationTimeAfter
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("SortOrder" Prelude..=) Prelude.<$> sortOrder,
+            ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("NameContains" Prelude..=) Prelude.<$> nameContains,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("CreationTimeBefore" Prelude..=)
+              Prelude.<$> creationTimeBefore,
+            ("SortBy" Prelude..=) Prelude.<$> sortBy,
+            ("CreationTimeAfter" Prelude..=)
+              Prelude.<$> creationTimeAfter
           ]
       )
 
-instance ToPath ListProjects where
-  toPath = const "/"
+instance Prelude.ToPath ListProjects where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListProjects where
-  toQuery = const mempty
+instance Prelude.ToQuery ListProjects where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listProjectsResponse' smart constructor.
+-- | /See:/ 'newListProjectsResponse' smart constructor.
 data ListProjectsResponse = ListProjectsResponse'
-  { _lprrsNextToken ::
-      !(Maybe Text),
-    _lprrsResponseStatus :: !Int,
-    _lprrsProjectSummaryList ::
-      ![ProjectSummary]
+  { -- | If the result of the previous @ListCompilationJobs@ request was
+    -- truncated, the response includes a @NextToken@. To retrieve the next set
+    -- of model compilation jobs, use the token in the next request.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | A list of summaries of projects.
+    projectSummaryList :: [ProjectSummary]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListProjectsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListProjectsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lprrsNextToken' - If the result of the previous @ListCompilationJobs@ request was truncated, the response includes a @NextToken@ . To retrieve the next set of model compilation jobs, use the token in the next request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lprrsResponseStatus' - -- | The response status code.
+-- 'nextToken', 'listProjectsResponse_nextToken' - If the result of the previous @ListCompilationJobs@ request was
+-- truncated, the response includes a @NextToken@. To retrieve the next set
+-- of model compilation jobs, use the token in the next request.
 --
--- * 'lprrsProjectSummaryList' - A list of summaries of projects.
-listProjectsResponse ::
-  -- | 'lprrsResponseStatus'
-  Int ->
+-- 'httpStatus', 'listProjectsResponse_httpStatus' - The response's http status code.
+--
+-- 'projectSummaryList', 'listProjectsResponse_projectSummaryList' - A list of summaries of projects.
+newListProjectsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListProjectsResponse
-listProjectsResponse pResponseStatus_ =
+newListProjectsResponse pHttpStatus_ =
   ListProjectsResponse'
-    { _lprrsNextToken = Nothing,
-      _lprrsResponseStatus = pResponseStatus_,
-      _lprrsProjectSummaryList = mempty
+    { nextToken = Prelude.Nothing,
+      httpStatus = pHttpStatus_,
+      projectSummaryList = Prelude.mempty
     }
 
--- | If the result of the previous @ListCompilationJobs@ request was truncated, the response includes a @NextToken@ . To retrieve the next set of model compilation jobs, use the token in the next request.
-lprrsNextToken :: Lens' ListProjectsResponse (Maybe Text)
-lprrsNextToken = lens _lprrsNextToken (\s a -> s {_lprrsNextToken = a})
+-- | If the result of the previous @ListCompilationJobs@ request was
+-- truncated, the response includes a @NextToken@. To retrieve the next set
+-- of model compilation jobs, use the token in the next request.
+listProjectsResponse_nextToken :: Lens.Lens' ListProjectsResponse (Prelude.Maybe Prelude.Text)
+listProjectsResponse_nextToken = Lens.lens (\ListProjectsResponse' {nextToken} -> nextToken) (\s@ListProjectsResponse' {} a -> s {nextToken = a} :: ListProjectsResponse)
 
--- | -- | The response status code.
-lprrsResponseStatus :: Lens' ListProjectsResponse Int
-lprrsResponseStatus = lens _lprrsResponseStatus (\s a -> s {_lprrsResponseStatus = a})
+-- | The response's http status code.
+listProjectsResponse_httpStatus :: Lens.Lens' ListProjectsResponse Prelude.Int
+listProjectsResponse_httpStatus = Lens.lens (\ListProjectsResponse' {httpStatus} -> httpStatus) (\s@ListProjectsResponse' {} a -> s {httpStatus = a} :: ListProjectsResponse)
 
 -- | A list of summaries of projects.
-lprrsProjectSummaryList :: Lens' ListProjectsResponse [ProjectSummary]
-lprrsProjectSummaryList = lens _lprrsProjectSummaryList (\s a -> s {_lprrsProjectSummaryList = a}) . _Coerce
+listProjectsResponse_projectSummaryList :: Lens.Lens' ListProjectsResponse [ProjectSummary]
+listProjectsResponse_projectSummaryList = Lens.lens (\ListProjectsResponse' {projectSummaryList} -> projectSummaryList) (\s@ListProjectsResponse' {} a -> s {projectSummaryList = a} :: ListProjectsResponse) Prelude.. Prelude._Coerce
 
-instance NFData ListProjectsResponse
+instance Prelude.NFData ListProjectsResponse

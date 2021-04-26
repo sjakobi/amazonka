@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,240 +21,281 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Use this operation to describe a @FeatureGroup@ . The response includes information on the creation time, @FeatureGroup@ name, the unique identifier for each @FeatureGroup@ , and more.
+-- Use this operation to describe a @FeatureGroup@. The response includes
+-- information on the creation time, @FeatureGroup@ name, the unique
+-- identifier for each @FeatureGroup@, and more.
 module Network.AWS.SageMaker.DescribeFeatureGroup
   ( -- * Creating a Request
-    describeFeatureGroup,
-    DescribeFeatureGroup,
+    DescribeFeatureGroup (..),
+    newDescribeFeatureGroup,
 
     -- * Request Lenses
-    dfgNextToken,
-    dfgFeatureGroupName,
+    describeFeatureGroup_nextToken,
+    describeFeatureGroup_featureGroupName,
 
     -- * Destructuring the Response
-    describeFeatureGroupResponse,
-    DescribeFeatureGroupResponse,
+    DescribeFeatureGroupResponse (..),
+    newDescribeFeatureGroupResponse,
 
     -- * Response Lenses
-    dfgrrsFeatureGroupStatus,
-    dfgrrsOfflineStoreConfig,
-    dfgrrsRoleARN,
-    dfgrrsOfflineStoreStatus,
-    dfgrrsFailureReason,
-    dfgrrsDescription,
-    dfgrrsOnlineStoreConfig,
-    dfgrrsResponseStatus,
-    dfgrrsFeatureGroupARN,
-    dfgrrsFeatureGroupName,
-    dfgrrsRecordIdentifierFeatureName,
-    dfgrrsEventTimeFeatureName,
-    dfgrrsFeatureDefinitions,
-    dfgrrsCreationTime,
-    dfgrrsNextToken,
+    describeFeatureGroupResponse_featureGroupStatus,
+    describeFeatureGroupResponse_offlineStoreConfig,
+    describeFeatureGroupResponse_roleArn,
+    describeFeatureGroupResponse_offlineStoreStatus,
+    describeFeatureGroupResponse_failureReason,
+    describeFeatureGroupResponse_description,
+    describeFeatureGroupResponse_onlineStoreConfig,
+    describeFeatureGroupResponse_httpStatus,
+    describeFeatureGroupResponse_featureGroupArn,
+    describeFeatureGroupResponse_featureGroupName,
+    describeFeatureGroupResponse_recordIdentifierFeatureName,
+    describeFeatureGroupResponse_eventTimeFeatureName,
+    describeFeatureGroupResponse_featureDefinitions,
+    describeFeatureGroupResponse_creationTime,
+    describeFeatureGroupResponse_nextToken,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
+import Network.AWS.SageMaker.Types.FeatureDefinition
+import Network.AWS.SageMaker.Types.FeatureGroupStatus
+import Network.AWS.SageMaker.Types.OfflineStoreConfig
+import Network.AWS.SageMaker.Types.OfflineStoreStatus
+import Network.AWS.SageMaker.Types.OnlineStoreConfig
 
--- | /See:/ 'describeFeatureGroup' smart constructor.
+-- | /See:/ 'newDescribeFeatureGroup' smart constructor.
 data DescribeFeatureGroup = DescribeFeatureGroup'
-  { _dfgNextToken ::
-      !(Maybe Text),
-    _dfgFeatureGroupName :: !Text
+  { -- | A token to resume pagination of the list of @Features@
+    -- (@FeatureDefinitions@). 2,500 @Features@ are returned by default.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The name of the @FeatureGroup@ you want described.
+    featureGroupName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeFeatureGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeFeatureGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dfgNextToken' - A token to resume pagination of the list of @Features@ (@FeatureDefinitions@ ). 2,500 @Features@ are returned by default.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dfgFeatureGroupName' - The name of the @FeatureGroup@ you want described.
-describeFeatureGroup ::
-  -- | 'dfgFeatureGroupName'
-  Text ->
+-- 'nextToken', 'describeFeatureGroup_nextToken' - A token to resume pagination of the list of @Features@
+-- (@FeatureDefinitions@). 2,500 @Features@ are returned by default.
+--
+-- 'featureGroupName', 'describeFeatureGroup_featureGroupName' - The name of the @FeatureGroup@ you want described.
+newDescribeFeatureGroup ::
+  -- | 'featureGroupName'
+  Prelude.Text ->
   DescribeFeatureGroup
-describeFeatureGroup pFeatureGroupName_ =
+newDescribeFeatureGroup pFeatureGroupName_ =
   DescribeFeatureGroup'
-    { _dfgNextToken = Nothing,
-      _dfgFeatureGroupName = pFeatureGroupName_
+    { nextToken = Prelude.Nothing,
+      featureGroupName = pFeatureGroupName_
     }
 
--- | A token to resume pagination of the list of @Features@ (@FeatureDefinitions@ ). 2,500 @Features@ are returned by default.
-dfgNextToken :: Lens' DescribeFeatureGroup (Maybe Text)
-dfgNextToken = lens _dfgNextToken (\s a -> s {_dfgNextToken = a})
+-- | A token to resume pagination of the list of @Features@
+-- (@FeatureDefinitions@). 2,500 @Features@ are returned by default.
+describeFeatureGroup_nextToken :: Lens.Lens' DescribeFeatureGroup (Prelude.Maybe Prelude.Text)
+describeFeatureGroup_nextToken = Lens.lens (\DescribeFeatureGroup' {nextToken} -> nextToken) (\s@DescribeFeatureGroup' {} a -> s {nextToken = a} :: DescribeFeatureGroup)
 
 -- | The name of the @FeatureGroup@ you want described.
-dfgFeatureGroupName :: Lens' DescribeFeatureGroup Text
-dfgFeatureGroupName = lens _dfgFeatureGroupName (\s a -> s {_dfgFeatureGroupName = a})
+describeFeatureGroup_featureGroupName :: Lens.Lens' DescribeFeatureGroup Prelude.Text
+describeFeatureGroup_featureGroupName = Lens.lens (\DescribeFeatureGroup' {featureGroupName} -> featureGroupName) (\s@DescribeFeatureGroup' {} a -> s {featureGroupName = a} :: DescribeFeatureGroup)
 
-instance AWSRequest DescribeFeatureGroup where
+instance Prelude.AWSRequest DescribeFeatureGroup where
   type
     Rs DescribeFeatureGroup =
       DescribeFeatureGroupResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeFeatureGroupResponse'
-            <$> (x .?> "FeatureGroupStatus")
-            <*> (x .?> "OfflineStoreConfig")
-            <*> (x .?> "RoleArn")
-            <*> (x .?> "OfflineStoreStatus")
-            <*> (x .?> "FailureReason")
-            <*> (x .?> "Description")
-            <*> (x .?> "OnlineStoreConfig")
-            <*> (pure (fromEnum s))
-            <*> (x .:> "FeatureGroupArn")
-            <*> (x .:> "FeatureGroupName")
-            <*> (x .:> "RecordIdentifierFeatureName")
-            <*> (x .:> "EventTimeFeatureName")
-            <*> (x .:> "FeatureDefinitions")
-            <*> (x .:> "CreationTime")
-            <*> (x .:> "NextToken")
+            Prelude.<$> (x Prelude..?> "FeatureGroupStatus")
+            Prelude.<*> (x Prelude..?> "OfflineStoreConfig")
+            Prelude.<*> (x Prelude..?> "RoleArn")
+            Prelude.<*> (x Prelude..?> "OfflineStoreStatus")
+            Prelude.<*> (x Prelude..?> "FailureReason")
+            Prelude.<*> (x Prelude..?> "Description")
+            Prelude.<*> (x Prelude..?> "OnlineStoreConfig")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "FeatureGroupArn")
+            Prelude.<*> (x Prelude..:> "FeatureGroupName")
+            Prelude.<*> (x Prelude..:> "RecordIdentifierFeatureName")
+            Prelude.<*> (x Prelude..:> "EventTimeFeatureName")
+            Prelude.<*> (x Prelude..:> "FeatureDefinitions")
+            Prelude.<*> (x Prelude..:> "CreationTime")
+            Prelude.<*> (x Prelude..:> "NextToken")
       )
 
-instance Hashable DescribeFeatureGroup
+instance Prelude.Hashable DescribeFeatureGroup
 
-instance NFData DescribeFeatureGroup
+instance Prelude.NFData DescribeFeatureGroup
 
-instance ToHeaders DescribeFeatureGroup where
+instance Prelude.ToHeaders DescribeFeatureGroup where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.DescribeFeatureGroup" :: ByteString),
+              Prelude.=# ( "SageMaker.DescribeFeatureGroup" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeFeatureGroup where
+instance Prelude.ToJSON DescribeFeatureGroup where
   toJSON DescribeFeatureGroup' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _dfgNextToken,
-            Just ("FeatureGroupName" .= _dfgFeatureGroupName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            Prelude.Just
+              ("FeatureGroupName" Prelude..= featureGroupName)
           ]
       )
 
-instance ToPath DescribeFeatureGroup where
-  toPath = const "/"
+instance Prelude.ToPath DescribeFeatureGroup where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeFeatureGroup where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeFeatureGroup where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeFeatureGroupResponse' smart constructor.
+-- | /See:/ 'newDescribeFeatureGroupResponse' smart constructor.
 data DescribeFeatureGroupResponse = DescribeFeatureGroupResponse'
-  { _dfgrrsFeatureGroupStatus ::
-      !( Maybe
-           FeatureGroupStatus
-       ),
-    _dfgrrsOfflineStoreConfig ::
-      !( Maybe
-           OfflineStoreConfig
-       ),
-    _dfgrrsRoleARN ::
-      !(Maybe Text),
-    _dfgrrsOfflineStoreStatus ::
-      !( Maybe
-           OfflineStoreStatus
-       ),
-    _dfgrrsFailureReason ::
-      !(Maybe Text),
-    _dfgrrsDescription ::
-      !(Maybe Text),
-    _dfgrrsOnlineStoreConfig ::
-      !( Maybe
-           OnlineStoreConfig
-       ),
-    _dfgrrsResponseStatus ::
-      !Int,
-    _dfgrrsFeatureGroupARN ::
-      !Text,
-    _dfgrrsFeatureGroupName ::
-      !Text,
-    _dfgrrsRecordIdentifierFeatureName ::
-      !Text,
-    _dfgrrsEventTimeFeatureName ::
-      !Text,
-    _dfgrrsFeatureDefinitions ::
-      !( List1
-           FeatureDefinition
-       ),
-    _dfgrrsCreationTime ::
-      !POSIX,
-    _dfgrrsNextToken ::
-      !Text
+  { -- | The status of the feature group.
+    featureGroupStatus :: Prelude.Maybe FeatureGroupStatus,
+    -- | The configuration of the @OfflineStore@, inducing the S3 location of the
+    -- @OfflineStore@, AWS Glue or AWS Hive data catalogue configurations, and
+    -- the security configuration.
+    offlineStoreConfig :: Prelude.Maybe OfflineStoreConfig,
+    -- | The Amazon Resource Name (ARN) of the IAM execution role used to persist
+    -- data into the @OfflineStore@ if an @OfflineStoreConfig@ is provided.
+    roleArn :: Prelude.Maybe Prelude.Text,
+    -- | The status of the @OfflineStore@. Notifies you if replicating data into
+    -- the @OfflineStore@ has failed. Returns either: @Active@ or @Blocked@
+    offlineStoreStatus :: Prelude.Maybe OfflineStoreStatus,
+    -- | The reason that the @FeatureGroup@ failed to be replicated in the
+    -- @OfflineStore@. This is failure can occur because:
+    --
+    -- -   The @FeatureGroup@ could not be created in the @OfflineStore@.
+    --
+    -- -   The @FeatureGroup@ could not be deleted from the @OfflineStore@.
+    failureReason :: Prelude.Maybe Prelude.Text,
+    -- | A free form description of the feature group.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The configuration for the @OnlineStore@.
+    onlineStoreConfig :: Prelude.Maybe OnlineStoreConfig,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The Amazon Resource Name (ARN) of the @FeatureGroup@.
+    featureGroupArn :: Prelude.Text,
+    -- | he name of the @FeatureGroup@.
+    featureGroupName :: Prelude.Text,
+    -- | The name of the @Feature@ used for @RecordIdentifier@, whose value
+    -- uniquely identifies a record stored in the feature store.
+    recordIdentifierFeatureName :: Prelude.Text,
+    -- | The name of the feature that stores the @EventTime@ of a Record in a
+    -- @FeatureGroup@.
+    --
+    -- An @EventTime@ is a point in time when a new event occurs that
+    -- corresponds to the creation or update of a @Record@ in a @FeatureGroup@.
+    -- All @Records@ in the @FeatureGroup@ have a corresponding @EventTime@.
+    eventTimeFeatureName :: Prelude.Text,
+    -- | A list of the @Features@ in the @FeatureGroup@. Each feature is defined
+    -- by a @FeatureName@ and @FeatureType@.
+    featureDefinitions :: Prelude.List1 FeatureDefinition,
+    -- | A timestamp indicating when SageMaker created the @FeatureGroup@.
+    creationTime :: Prelude.POSIX,
+    -- | A token to resume pagination of the list of @Features@
+    -- (@FeatureDefinitions@).
+    nextToken :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeFeatureGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeFeatureGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dfgrrsFeatureGroupStatus' - The status of the feature group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dfgrrsOfflineStoreConfig' - The configuration of the @OfflineStore@ , inducing the S3 location of the @OfflineStore@ , AWS Glue or AWS Hive data catalogue configurations, and the security configuration.
+-- 'featureGroupStatus', 'describeFeatureGroupResponse_featureGroupStatus' - The status of the feature group.
 --
--- * 'dfgrrsRoleARN' - The Amazon Resource Name (ARN) of the IAM execution role used to persist data into the @OfflineStore@ if an @OfflineStoreConfig@ is provided.
+-- 'offlineStoreConfig', 'describeFeatureGroupResponse_offlineStoreConfig' - The configuration of the @OfflineStore@, inducing the S3 location of the
+-- @OfflineStore@, AWS Glue or AWS Hive data catalogue configurations, and
+-- the security configuration.
 --
--- * 'dfgrrsOfflineStoreStatus' - The status of the @OfflineStore@ . Notifies you if replicating data into the @OfflineStore@ has failed. Returns either: @Active@ or @Blocked@
+-- 'roleArn', 'describeFeatureGroupResponse_roleArn' - The Amazon Resource Name (ARN) of the IAM execution role used to persist
+-- data into the @OfflineStore@ if an @OfflineStoreConfig@ is provided.
 --
--- * 'dfgrrsFailureReason' - The reason that the @FeatureGroup@ failed to be replicated in the @OfflineStore@ . This is failure can occur because:     * The @FeatureGroup@ could not be created in the @OfflineStore@ .     * The @FeatureGroup@ could not be deleted from the @OfflineStore@ .
+-- 'offlineStoreStatus', 'describeFeatureGroupResponse_offlineStoreStatus' - The status of the @OfflineStore@. Notifies you if replicating data into
+-- the @OfflineStore@ has failed. Returns either: @Active@ or @Blocked@
 --
--- * 'dfgrrsDescription' - A free form description of the feature group.
+-- 'failureReason', 'describeFeatureGroupResponse_failureReason' - The reason that the @FeatureGroup@ failed to be replicated in the
+-- @OfflineStore@. This is failure can occur because:
 --
--- * 'dfgrrsOnlineStoreConfig' - The configuration for the @OnlineStore@ .
+-- -   The @FeatureGroup@ could not be created in the @OfflineStore@.
 --
--- * 'dfgrrsResponseStatus' - -- | The response status code.
+-- -   The @FeatureGroup@ could not be deleted from the @OfflineStore@.
 --
--- * 'dfgrrsFeatureGroupARN' - The Amazon Resource Name (ARN) of the @FeatureGroup@ .
+-- 'description', 'describeFeatureGroupResponse_description' - A free form description of the feature group.
 --
--- * 'dfgrrsFeatureGroupName' - he name of the @FeatureGroup@ .
+-- 'onlineStoreConfig', 'describeFeatureGroupResponse_onlineStoreConfig' - The configuration for the @OnlineStore@.
 --
--- * 'dfgrrsRecordIdentifierFeatureName' - The name of the @Feature@ used for @RecordIdentifier@ , whose value uniquely identifies a record stored in the feature store.
+-- 'httpStatus', 'describeFeatureGroupResponse_httpStatus' - The response's http status code.
 --
--- * 'dfgrrsEventTimeFeatureName' - The name of the feature that stores the @EventTime@ of a Record in a @FeatureGroup@ . An @EventTime@ is a point in time when a new event occurs that corresponds to the creation or update of a @Record@ in a @FeatureGroup@ . All @Records@ in the @FeatureGroup@ have a corresponding @EventTime@ .
+-- 'featureGroupArn', 'describeFeatureGroupResponse_featureGroupArn' - The Amazon Resource Name (ARN) of the @FeatureGroup@.
 --
--- * 'dfgrrsFeatureDefinitions' - A list of the @Features@ in the @FeatureGroup@ . Each feature is defined by a @FeatureName@ and @FeatureType@ .
+-- 'featureGroupName', 'describeFeatureGroupResponse_featureGroupName' - he name of the @FeatureGroup@.
 --
--- * 'dfgrrsCreationTime' - A timestamp indicating when SageMaker created the @FeatureGroup@ .
+-- 'recordIdentifierFeatureName', 'describeFeatureGroupResponse_recordIdentifierFeatureName' - The name of the @Feature@ used for @RecordIdentifier@, whose value
+-- uniquely identifies a record stored in the feature store.
 --
--- * 'dfgrrsNextToken' - A token to resume pagination of the list of @Features@ (@FeatureDefinitions@ ).
-describeFeatureGroupResponse ::
-  -- | 'dfgrrsResponseStatus'
-  Int ->
-  -- | 'dfgrrsFeatureGroupARN'
-  Text ->
-  -- | 'dfgrrsFeatureGroupName'
-  Text ->
-  -- | 'dfgrrsRecordIdentifierFeatureName'
-  Text ->
-  -- | 'dfgrrsEventTimeFeatureName'
-  Text ->
-  -- | 'dfgrrsFeatureDefinitions'
-  NonEmpty FeatureDefinition ->
-  -- | 'dfgrrsCreationTime'
-  UTCTime ->
-  -- | 'dfgrrsNextToken'
-  Text ->
+-- 'eventTimeFeatureName', 'describeFeatureGroupResponse_eventTimeFeatureName' - The name of the feature that stores the @EventTime@ of a Record in a
+-- @FeatureGroup@.
+--
+-- An @EventTime@ is a point in time when a new event occurs that
+-- corresponds to the creation or update of a @Record@ in a @FeatureGroup@.
+-- All @Records@ in the @FeatureGroup@ have a corresponding @EventTime@.
+--
+-- 'featureDefinitions', 'describeFeatureGroupResponse_featureDefinitions' - A list of the @Features@ in the @FeatureGroup@. Each feature is defined
+-- by a @FeatureName@ and @FeatureType@.
+--
+-- 'creationTime', 'describeFeatureGroupResponse_creationTime' - A timestamp indicating when SageMaker created the @FeatureGroup@.
+--
+-- 'nextToken', 'describeFeatureGroupResponse_nextToken' - A token to resume pagination of the list of @Features@
+-- (@FeatureDefinitions@).
+newDescribeFeatureGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'featureGroupArn'
+  Prelude.Text ->
+  -- | 'featureGroupName'
+  Prelude.Text ->
+  -- | 'recordIdentifierFeatureName'
+  Prelude.Text ->
+  -- | 'eventTimeFeatureName'
+  Prelude.Text ->
+  -- | 'featureDefinitions'
+  Prelude.NonEmpty FeatureDefinition ->
+  -- | 'creationTime'
+  Prelude.UTCTime ->
+  -- | 'nextToken'
+  Prelude.Text ->
   DescribeFeatureGroupResponse
-describeFeatureGroupResponse
-  pResponseStatus_
-  pFeatureGroupARN_
+newDescribeFeatureGroupResponse
+  pHttpStatus_
+  pFeatureGroupArn_
   pFeatureGroupName_
   pRecordIdentifierFeatureName_
   pEventTimeFeatureName_
@@ -258,85 +303,102 @@ describeFeatureGroupResponse
   pCreationTime_
   pNextToken_ =
     DescribeFeatureGroupResponse'
-      { _dfgrrsFeatureGroupStatus =
-          Nothing,
-        _dfgrrsOfflineStoreConfig = Nothing,
-        _dfgrrsRoleARN = Nothing,
-        _dfgrrsOfflineStoreStatus = Nothing,
-        _dfgrrsFailureReason = Nothing,
-        _dfgrrsDescription = Nothing,
-        _dfgrrsOnlineStoreConfig = Nothing,
-        _dfgrrsResponseStatus = pResponseStatus_,
-        _dfgrrsFeatureGroupARN = pFeatureGroupARN_,
-        _dfgrrsFeatureGroupName = pFeatureGroupName_,
-        _dfgrrsRecordIdentifierFeatureName =
+      { featureGroupStatus =
+          Prelude.Nothing,
+        offlineStoreConfig = Prelude.Nothing,
+        roleArn = Prelude.Nothing,
+        offlineStoreStatus = Prelude.Nothing,
+        failureReason = Prelude.Nothing,
+        description = Prelude.Nothing,
+        onlineStoreConfig = Prelude.Nothing,
+        httpStatus = pHttpStatus_,
+        featureGroupArn = pFeatureGroupArn_,
+        featureGroupName = pFeatureGroupName_,
+        recordIdentifierFeatureName =
           pRecordIdentifierFeatureName_,
-        _dfgrrsEventTimeFeatureName =
-          pEventTimeFeatureName_,
-        _dfgrrsFeatureDefinitions =
-          _List1 # pFeatureDefinitions_,
-        _dfgrrsCreationTime = _Time # pCreationTime_,
-        _dfgrrsNextToken = pNextToken_
+        eventTimeFeatureName = pEventTimeFeatureName_,
+        featureDefinitions =
+          Prelude._List1 Lens.# pFeatureDefinitions_,
+        creationTime =
+          Prelude._Time Lens.# pCreationTime_,
+        nextToken = pNextToken_
       }
 
 -- | The status of the feature group.
-dfgrrsFeatureGroupStatus :: Lens' DescribeFeatureGroupResponse (Maybe FeatureGroupStatus)
-dfgrrsFeatureGroupStatus = lens _dfgrrsFeatureGroupStatus (\s a -> s {_dfgrrsFeatureGroupStatus = a})
+describeFeatureGroupResponse_featureGroupStatus :: Lens.Lens' DescribeFeatureGroupResponse (Prelude.Maybe FeatureGroupStatus)
+describeFeatureGroupResponse_featureGroupStatus = Lens.lens (\DescribeFeatureGroupResponse' {featureGroupStatus} -> featureGroupStatus) (\s@DescribeFeatureGroupResponse' {} a -> s {featureGroupStatus = a} :: DescribeFeatureGroupResponse)
 
--- | The configuration of the @OfflineStore@ , inducing the S3 location of the @OfflineStore@ , AWS Glue or AWS Hive data catalogue configurations, and the security configuration.
-dfgrrsOfflineStoreConfig :: Lens' DescribeFeatureGroupResponse (Maybe OfflineStoreConfig)
-dfgrrsOfflineStoreConfig = lens _dfgrrsOfflineStoreConfig (\s a -> s {_dfgrrsOfflineStoreConfig = a})
+-- | The configuration of the @OfflineStore@, inducing the S3 location of the
+-- @OfflineStore@, AWS Glue or AWS Hive data catalogue configurations, and
+-- the security configuration.
+describeFeatureGroupResponse_offlineStoreConfig :: Lens.Lens' DescribeFeatureGroupResponse (Prelude.Maybe OfflineStoreConfig)
+describeFeatureGroupResponse_offlineStoreConfig = Lens.lens (\DescribeFeatureGroupResponse' {offlineStoreConfig} -> offlineStoreConfig) (\s@DescribeFeatureGroupResponse' {} a -> s {offlineStoreConfig = a} :: DescribeFeatureGroupResponse)
 
--- | The Amazon Resource Name (ARN) of the IAM execution role used to persist data into the @OfflineStore@ if an @OfflineStoreConfig@ is provided.
-dfgrrsRoleARN :: Lens' DescribeFeatureGroupResponse (Maybe Text)
-dfgrrsRoleARN = lens _dfgrrsRoleARN (\s a -> s {_dfgrrsRoleARN = a})
+-- | The Amazon Resource Name (ARN) of the IAM execution role used to persist
+-- data into the @OfflineStore@ if an @OfflineStoreConfig@ is provided.
+describeFeatureGroupResponse_roleArn :: Lens.Lens' DescribeFeatureGroupResponse (Prelude.Maybe Prelude.Text)
+describeFeatureGroupResponse_roleArn = Lens.lens (\DescribeFeatureGroupResponse' {roleArn} -> roleArn) (\s@DescribeFeatureGroupResponse' {} a -> s {roleArn = a} :: DescribeFeatureGroupResponse)
 
--- | The status of the @OfflineStore@ . Notifies you if replicating data into the @OfflineStore@ has failed. Returns either: @Active@ or @Blocked@
-dfgrrsOfflineStoreStatus :: Lens' DescribeFeatureGroupResponse (Maybe OfflineStoreStatus)
-dfgrrsOfflineStoreStatus = lens _dfgrrsOfflineStoreStatus (\s a -> s {_dfgrrsOfflineStoreStatus = a})
+-- | The status of the @OfflineStore@. Notifies you if replicating data into
+-- the @OfflineStore@ has failed. Returns either: @Active@ or @Blocked@
+describeFeatureGroupResponse_offlineStoreStatus :: Lens.Lens' DescribeFeatureGroupResponse (Prelude.Maybe OfflineStoreStatus)
+describeFeatureGroupResponse_offlineStoreStatus = Lens.lens (\DescribeFeatureGroupResponse' {offlineStoreStatus} -> offlineStoreStatus) (\s@DescribeFeatureGroupResponse' {} a -> s {offlineStoreStatus = a} :: DescribeFeatureGroupResponse)
 
--- | The reason that the @FeatureGroup@ failed to be replicated in the @OfflineStore@ . This is failure can occur because:     * The @FeatureGroup@ could not be created in the @OfflineStore@ .     * The @FeatureGroup@ could not be deleted from the @OfflineStore@ .
-dfgrrsFailureReason :: Lens' DescribeFeatureGroupResponse (Maybe Text)
-dfgrrsFailureReason = lens _dfgrrsFailureReason (\s a -> s {_dfgrrsFailureReason = a})
+-- | The reason that the @FeatureGroup@ failed to be replicated in the
+-- @OfflineStore@. This is failure can occur because:
+--
+-- -   The @FeatureGroup@ could not be created in the @OfflineStore@.
+--
+-- -   The @FeatureGroup@ could not be deleted from the @OfflineStore@.
+describeFeatureGroupResponse_failureReason :: Lens.Lens' DescribeFeatureGroupResponse (Prelude.Maybe Prelude.Text)
+describeFeatureGroupResponse_failureReason = Lens.lens (\DescribeFeatureGroupResponse' {failureReason} -> failureReason) (\s@DescribeFeatureGroupResponse' {} a -> s {failureReason = a} :: DescribeFeatureGroupResponse)
 
 -- | A free form description of the feature group.
-dfgrrsDescription :: Lens' DescribeFeatureGroupResponse (Maybe Text)
-dfgrrsDescription = lens _dfgrrsDescription (\s a -> s {_dfgrrsDescription = a})
+describeFeatureGroupResponse_description :: Lens.Lens' DescribeFeatureGroupResponse (Prelude.Maybe Prelude.Text)
+describeFeatureGroupResponse_description = Lens.lens (\DescribeFeatureGroupResponse' {description} -> description) (\s@DescribeFeatureGroupResponse' {} a -> s {description = a} :: DescribeFeatureGroupResponse)
 
--- | The configuration for the @OnlineStore@ .
-dfgrrsOnlineStoreConfig :: Lens' DescribeFeatureGroupResponse (Maybe OnlineStoreConfig)
-dfgrrsOnlineStoreConfig = lens _dfgrrsOnlineStoreConfig (\s a -> s {_dfgrrsOnlineStoreConfig = a})
+-- | The configuration for the @OnlineStore@.
+describeFeatureGroupResponse_onlineStoreConfig :: Lens.Lens' DescribeFeatureGroupResponse (Prelude.Maybe OnlineStoreConfig)
+describeFeatureGroupResponse_onlineStoreConfig = Lens.lens (\DescribeFeatureGroupResponse' {onlineStoreConfig} -> onlineStoreConfig) (\s@DescribeFeatureGroupResponse' {} a -> s {onlineStoreConfig = a} :: DescribeFeatureGroupResponse)
 
--- | -- | The response status code.
-dfgrrsResponseStatus :: Lens' DescribeFeatureGroupResponse Int
-dfgrrsResponseStatus = lens _dfgrrsResponseStatus (\s a -> s {_dfgrrsResponseStatus = a})
+-- | The response's http status code.
+describeFeatureGroupResponse_httpStatus :: Lens.Lens' DescribeFeatureGroupResponse Prelude.Int
+describeFeatureGroupResponse_httpStatus = Lens.lens (\DescribeFeatureGroupResponse' {httpStatus} -> httpStatus) (\s@DescribeFeatureGroupResponse' {} a -> s {httpStatus = a} :: DescribeFeatureGroupResponse)
 
--- | The Amazon Resource Name (ARN) of the @FeatureGroup@ .
-dfgrrsFeatureGroupARN :: Lens' DescribeFeatureGroupResponse Text
-dfgrrsFeatureGroupARN = lens _dfgrrsFeatureGroupARN (\s a -> s {_dfgrrsFeatureGroupARN = a})
+-- | The Amazon Resource Name (ARN) of the @FeatureGroup@.
+describeFeatureGroupResponse_featureGroupArn :: Lens.Lens' DescribeFeatureGroupResponse Prelude.Text
+describeFeatureGroupResponse_featureGroupArn = Lens.lens (\DescribeFeatureGroupResponse' {featureGroupArn} -> featureGroupArn) (\s@DescribeFeatureGroupResponse' {} a -> s {featureGroupArn = a} :: DescribeFeatureGroupResponse)
 
--- | he name of the @FeatureGroup@ .
-dfgrrsFeatureGroupName :: Lens' DescribeFeatureGroupResponse Text
-dfgrrsFeatureGroupName = lens _dfgrrsFeatureGroupName (\s a -> s {_dfgrrsFeatureGroupName = a})
+-- | he name of the @FeatureGroup@.
+describeFeatureGroupResponse_featureGroupName :: Lens.Lens' DescribeFeatureGroupResponse Prelude.Text
+describeFeatureGroupResponse_featureGroupName = Lens.lens (\DescribeFeatureGroupResponse' {featureGroupName} -> featureGroupName) (\s@DescribeFeatureGroupResponse' {} a -> s {featureGroupName = a} :: DescribeFeatureGroupResponse)
 
--- | The name of the @Feature@ used for @RecordIdentifier@ , whose value uniquely identifies a record stored in the feature store.
-dfgrrsRecordIdentifierFeatureName :: Lens' DescribeFeatureGroupResponse Text
-dfgrrsRecordIdentifierFeatureName = lens _dfgrrsRecordIdentifierFeatureName (\s a -> s {_dfgrrsRecordIdentifierFeatureName = a})
+-- | The name of the @Feature@ used for @RecordIdentifier@, whose value
+-- uniquely identifies a record stored in the feature store.
+describeFeatureGroupResponse_recordIdentifierFeatureName :: Lens.Lens' DescribeFeatureGroupResponse Prelude.Text
+describeFeatureGroupResponse_recordIdentifierFeatureName = Lens.lens (\DescribeFeatureGroupResponse' {recordIdentifierFeatureName} -> recordIdentifierFeatureName) (\s@DescribeFeatureGroupResponse' {} a -> s {recordIdentifierFeatureName = a} :: DescribeFeatureGroupResponse)
 
--- | The name of the feature that stores the @EventTime@ of a Record in a @FeatureGroup@ . An @EventTime@ is a point in time when a new event occurs that corresponds to the creation or update of a @Record@ in a @FeatureGroup@ . All @Records@ in the @FeatureGroup@ have a corresponding @EventTime@ .
-dfgrrsEventTimeFeatureName :: Lens' DescribeFeatureGroupResponse Text
-dfgrrsEventTimeFeatureName = lens _dfgrrsEventTimeFeatureName (\s a -> s {_dfgrrsEventTimeFeatureName = a})
+-- | The name of the feature that stores the @EventTime@ of a Record in a
+-- @FeatureGroup@.
+--
+-- An @EventTime@ is a point in time when a new event occurs that
+-- corresponds to the creation or update of a @Record@ in a @FeatureGroup@.
+-- All @Records@ in the @FeatureGroup@ have a corresponding @EventTime@.
+describeFeatureGroupResponse_eventTimeFeatureName :: Lens.Lens' DescribeFeatureGroupResponse Prelude.Text
+describeFeatureGroupResponse_eventTimeFeatureName = Lens.lens (\DescribeFeatureGroupResponse' {eventTimeFeatureName} -> eventTimeFeatureName) (\s@DescribeFeatureGroupResponse' {} a -> s {eventTimeFeatureName = a} :: DescribeFeatureGroupResponse)
 
--- | A list of the @Features@ in the @FeatureGroup@ . Each feature is defined by a @FeatureName@ and @FeatureType@ .
-dfgrrsFeatureDefinitions :: Lens' DescribeFeatureGroupResponse (NonEmpty FeatureDefinition)
-dfgrrsFeatureDefinitions = lens _dfgrrsFeatureDefinitions (\s a -> s {_dfgrrsFeatureDefinitions = a}) . _List1
+-- | A list of the @Features@ in the @FeatureGroup@. Each feature is defined
+-- by a @FeatureName@ and @FeatureType@.
+describeFeatureGroupResponse_featureDefinitions :: Lens.Lens' DescribeFeatureGroupResponse (Prelude.NonEmpty FeatureDefinition)
+describeFeatureGroupResponse_featureDefinitions = Lens.lens (\DescribeFeatureGroupResponse' {featureDefinitions} -> featureDefinitions) (\s@DescribeFeatureGroupResponse' {} a -> s {featureDefinitions = a} :: DescribeFeatureGroupResponse) Prelude.. Prelude._List1
 
--- | A timestamp indicating when SageMaker created the @FeatureGroup@ .
-dfgrrsCreationTime :: Lens' DescribeFeatureGroupResponse UTCTime
-dfgrrsCreationTime = lens _dfgrrsCreationTime (\s a -> s {_dfgrrsCreationTime = a}) . _Time
+-- | A timestamp indicating when SageMaker created the @FeatureGroup@.
+describeFeatureGroupResponse_creationTime :: Lens.Lens' DescribeFeatureGroupResponse Prelude.UTCTime
+describeFeatureGroupResponse_creationTime = Lens.lens (\DescribeFeatureGroupResponse' {creationTime} -> creationTime) (\s@DescribeFeatureGroupResponse' {} a -> s {creationTime = a} :: DescribeFeatureGroupResponse) Prelude.. Prelude._Time
 
--- | A token to resume pagination of the list of @Features@ (@FeatureDefinitions@ ).
-dfgrrsNextToken :: Lens' DescribeFeatureGroupResponse Text
-dfgrrsNextToken = lens _dfgrrsNextToken (\s a -> s {_dfgrrsNextToken = a})
+-- | A token to resume pagination of the list of @Features@
+-- (@FeatureDefinitions@).
+describeFeatureGroupResponse_nextToken :: Lens.Lens' DescribeFeatureGroupResponse Prelude.Text
+describeFeatureGroupResponse_nextToken = Lens.lens (\DescribeFeatureGroupResponse' {nextToken} -> nextToken) (\s@DescribeFeatureGroupResponse' {} a -> s {nextToken = a} :: DescribeFeatureGroupResponse)
 
-instance NFData DescribeFeatureGroupResponse
+instance Prelude.NFData DescribeFeatureGroupResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,65 @@
 module Network.AWS.SageMaker.Types.FlowDefinitionStatus
   ( FlowDefinitionStatus
       ( ..,
-        FDSActive,
-        FDSDeleting,
-        FDSFailed,
-        FDSInitializing
+        FlowDefinitionStatusActive,
+        FlowDefinitionStatusDeleting,
+        FlowDefinitionStatusFailed,
+        FlowDefinitionStatusInitializing
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data FlowDefinitionStatus
-  = FlowDefinitionStatus'
-      ( CI
-          Text
-      )
+newtype FlowDefinitionStatus = FlowDefinitionStatus'
+  { fromFlowDefinitionStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern FDSActive :: FlowDefinitionStatus
-pattern FDSActive = FlowDefinitionStatus' "Active"
+pattern FlowDefinitionStatusActive :: FlowDefinitionStatus
+pattern FlowDefinitionStatusActive = FlowDefinitionStatus' "Active"
 
-pattern FDSDeleting :: FlowDefinitionStatus
-pattern FDSDeleting = FlowDefinitionStatus' "Deleting"
+pattern FlowDefinitionStatusDeleting :: FlowDefinitionStatus
+pattern FlowDefinitionStatusDeleting = FlowDefinitionStatus' "Deleting"
 
-pattern FDSFailed :: FlowDefinitionStatus
-pattern FDSFailed = FlowDefinitionStatus' "Failed"
+pattern FlowDefinitionStatusFailed :: FlowDefinitionStatus
+pattern FlowDefinitionStatusFailed = FlowDefinitionStatus' "Failed"
 
-pattern FDSInitializing :: FlowDefinitionStatus
-pattern FDSInitializing = FlowDefinitionStatus' "Initializing"
+pattern FlowDefinitionStatusInitializing :: FlowDefinitionStatus
+pattern FlowDefinitionStatusInitializing = FlowDefinitionStatus' "Initializing"
 
 {-# COMPLETE
-  FDSActive,
-  FDSDeleting,
-  FDSFailed,
-  FDSInitializing,
+  FlowDefinitionStatusActive,
+  FlowDefinitionStatusDeleting,
+  FlowDefinitionStatusFailed,
+  FlowDefinitionStatusInitializing,
   FlowDefinitionStatus'
   #-}
 
-instance FromText FlowDefinitionStatus where
-  parser = (FlowDefinitionStatus' . mk) <$> takeText
+instance Prelude.FromText FlowDefinitionStatus where
+  parser = FlowDefinitionStatus' Prelude.<$> Prelude.takeText
 
-instance ToText FlowDefinitionStatus where
-  toText (FlowDefinitionStatus' ci) = original ci
+instance Prelude.ToText FlowDefinitionStatus where
+  toText (FlowDefinitionStatus' x) = x
 
-instance Hashable FlowDefinitionStatus
+instance Prelude.Hashable FlowDefinitionStatus
 
-instance NFData FlowDefinitionStatus
+instance Prelude.NFData FlowDefinitionStatus
 
-instance ToByteString FlowDefinitionStatus
+instance Prelude.ToByteString FlowDefinitionStatus
 
-instance ToQuery FlowDefinitionStatus
+instance Prelude.ToQuery FlowDefinitionStatus
 
-instance ToHeader FlowDefinitionStatus
+instance Prelude.ToHeader FlowDefinitionStatus
 
-instance FromJSON FlowDefinitionStatus where
-  parseJSON = parseJSONText "FlowDefinitionStatus"
+instance Prelude.FromJSON FlowDefinitionStatus where
+  parseJSON = Prelude.parseJSONText "FlowDefinitionStatus"

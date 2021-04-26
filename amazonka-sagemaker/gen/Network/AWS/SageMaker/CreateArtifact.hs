@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,188 +21,205 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates an /artifact/ . An artifact is a lineage tracking entity that represents a URI addressable object or data. Some examples are the S3 URI of a dataset and the ECR registry path of an image. For more information, see <https://docs.aws.amazon.com/sagemaker/latest/dg/lineage-tracking.html Amazon SageMaker ML Lineage Tracking> .
+-- Creates an /artifact/. An artifact is a lineage tracking entity that
+-- represents a URI addressable object or data. Some examples are the S3
+-- URI of a dataset and the ECR registry path of an image. For more
+-- information, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/lineage-tracking.html Amazon SageMaker ML Lineage Tracking>.
 module Network.AWS.SageMaker.CreateArtifact
   ( -- * Creating a Request
-    createArtifact,
-    CreateArtifact,
+    CreateArtifact (..),
+    newCreateArtifact,
 
     -- * Request Lenses
-    caaMetadataProperties,
-    caaArtifactName,
-    caaTags,
-    caaProperties,
-    caaSource,
-    caaArtifactType,
+    createArtifact_metadataProperties,
+    createArtifact_artifactName,
+    createArtifact_tags,
+    createArtifact_properties,
+    createArtifact_source,
+    createArtifact_artifactType,
 
     -- * Destructuring the Response
-    createArtifactResponse,
-    CreateArtifactResponse,
+    CreateArtifactResponse (..),
+    newCreateArtifactResponse,
 
     -- * Response Lenses
-    crsArtifactARN,
-    crsResponseStatus,
+    createArtifactResponse_artifactArn,
+    createArtifactResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'createArtifact' smart constructor.
+-- | /See:/ 'newCreateArtifact' smart constructor.
 data CreateArtifact = CreateArtifact'
-  { _caaMetadataProperties ::
-      !(Maybe MetadataProperties),
-    _caaArtifactName :: !(Maybe Text),
-    _caaTags :: !(Maybe [Tag]),
-    _caaProperties ::
-      !(Maybe (Map Text Text)),
-    _caaSource :: !ArtifactSource,
-    _caaArtifactType :: !Text
+  { metadataProperties :: Prelude.Maybe MetadataProperties,
+    -- | The name of the artifact. Must be unique to your account in an AWS
+    -- Region.
+    artifactName :: Prelude.Maybe Prelude.Text,
+    -- | A list of tags to apply to the artifact.
+    tags :: Prelude.Maybe [Tag],
+    -- | A list of properties to add to the artifact.
+    properties :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The ID, ID type, and URI of the source.
+    source :: ArtifactSource,
+    -- | The artifact type.
+    artifactType :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateArtifact' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateArtifact' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'caaMetadataProperties' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'caaArtifactName' - The name of the artifact. Must be unique to your account in an AWS Region.
+-- 'metadataProperties', 'createArtifact_metadataProperties' - Undocumented member.
 --
--- * 'caaTags' - A list of tags to apply to the artifact.
+-- 'artifactName', 'createArtifact_artifactName' - The name of the artifact. Must be unique to your account in an AWS
+-- Region.
 --
--- * 'caaProperties' - A list of properties to add to the artifact.
+-- 'tags', 'createArtifact_tags' - A list of tags to apply to the artifact.
 --
--- * 'caaSource' - The ID, ID type, and URI of the source.
+-- 'properties', 'createArtifact_properties' - A list of properties to add to the artifact.
 --
--- * 'caaArtifactType' - The artifact type.
-createArtifact ::
-  -- | 'caaSource'
+-- 'source', 'createArtifact_source' - The ID, ID type, and URI of the source.
+--
+-- 'artifactType', 'createArtifact_artifactType' - The artifact type.
+newCreateArtifact ::
+  -- | 'source'
   ArtifactSource ->
-  -- | 'caaArtifactType'
-  Text ->
+  -- | 'artifactType'
+  Prelude.Text ->
   CreateArtifact
-createArtifact pSource_ pArtifactType_ =
+newCreateArtifact pSource_ pArtifactType_ =
   CreateArtifact'
-    { _caaMetadataProperties = Nothing,
-      _caaArtifactName = Nothing,
-      _caaTags = Nothing,
-      _caaProperties = Nothing,
-      _caaSource = pSource_,
-      _caaArtifactType = pArtifactType_
+    { metadataProperties =
+        Prelude.Nothing,
+      artifactName = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      properties = Prelude.Nothing,
+      source = pSource_,
+      artifactType = pArtifactType_
     }
 
 -- | Undocumented member.
-caaMetadataProperties :: Lens' CreateArtifact (Maybe MetadataProperties)
-caaMetadataProperties = lens _caaMetadataProperties (\s a -> s {_caaMetadataProperties = a})
+createArtifact_metadataProperties :: Lens.Lens' CreateArtifact (Prelude.Maybe MetadataProperties)
+createArtifact_metadataProperties = Lens.lens (\CreateArtifact' {metadataProperties} -> metadataProperties) (\s@CreateArtifact' {} a -> s {metadataProperties = a} :: CreateArtifact)
 
--- | The name of the artifact. Must be unique to your account in an AWS Region.
-caaArtifactName :: Lens' CreateArtifact (Maybe Text)
-caaArtifactName = lens _caaArtifactName (\s a -> s {_caaArtifactName = a})
+-- | The name of the artifact. Must be unique to your account in an AWS
+-- Region.
+createArtifact_artifactName :: Lens.Lens' CreateArtifact (Prelude.Maybe Prelude.Text)
+createArtifact_artifactName = Lens.lens (\CreateArtifact' {artifactName} -> artifactName) (\s@CreateArtifact' {} a -> s {artifactName = a} :: CreateArtifact)
 
 -- | A list of tags to apply to the artifact.
-caaTags :: Lens' CreateArtifact [Tag]
-caaTags = lens _caaTags (\s a -> s {_caaTags = a}) . _Default . _Coerce
+createArtifact_tags :: Lens.Lens' CreateArtifact (Prelude.Maybe [Tag])
+createArtifact_tags = Lens.lens (\CreateArtifact' {tags} -> tags) (\s@CreateArtifact' {} a -> s {tags = a} :: CreateArtifact) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A list of properties to add to the artifact.
-caaProperties :: Lens' CreateArtifact (HashMap Text Text)
-caaProperties = lens _caaProperties (\s a -> s {_caaProperties = a}) . _Default . _Map
+createArtifact_properties :: Lens.Lens' CreateArtifact (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+createArtifact_properties = Lens.lens (\CreateArtifact' {properties} -> properties) (\s@CreateArtifact' {} a -> s {properties = a} :: CreateArtifact) Prelude.. Lens.mapping Prelude._Map
 
 -- | The ID, ID type, and URI of the source.
-caaSource :: Lens' CreateArtifact ArtifactSource
-caaSource = lens _caaSource (\s a -> s {_caaSource = a})
+createArtifact_source :: Lens.Lens' CreateArtifact ArtifactSource
+createArtifact_source = Lens.lens (\CreateArtifact' {source} -> source) (\s@CreateArtifact' {} a -> s {source = a} :: CreateArtifact)
 
 -- | The artifact type.
-caaArtifactType :: Lens' CreateArtifact Text
-caaArtifactType = lens _caaArtifactType (\s a -> s {_caaArtifactType = a})
+createArtifact_artifactType :: Lens.Lens' CreateArtifact Prelude.Text
+createArtifact_artifactType = Lens.lens (\CreateArtifact' {artifactType} -> artifactType) (\s@CreateArtifact' {} a -> s {artifactType = a} :: CreateArtifact)
 
-instance AWSRequest CreateArtifact where
+instance Prelude.AWSRequest CreateArtifact where
   type Rs CreateArtifact = CreateArtifactResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateArtifactResponse'
-            <$> (x .?> "ArtifactArn") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ArtifactArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateArtifact
+instance Prelude.Hashable CreateArtifact
 
-instance NFData CreateArtifact
+instance Prelude.NFData CreateArtifact
 
-instance ToHeaders CreateArtifact where
+instance Prelude.ToHeaders CreateArtifact where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.CreateArtifact" :: ByteString),
+              Prelude.=# ("SageMaker.CreateArtifact" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateArtifact where
+instance Prelude.ToJSON CreateArtifact where
   toJSON CreateArtifact' {..} =
-    object
-      ( catMaybes
-          [ ("MetadataProperties" .=)
-              <$> _caaMetadataProperties,
-            ("ArtifactName" .=) <$> _caaArtifactName,
-            ("Tags" .=) <$> _caaTags,
-            ("Properties" .=) <$> _caaProperties,
-            Just ("Source" .= _caaSource),
-            Just ("ArtifactType" .= _caaArtifactType)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("MetadataProperties" Prelude..=)
+              Prelude.<$> metadataProperties,
+            ("ArtifactName" Prelude..=) Prelude.<$> artifactName,
+            ("Tags" Prelude..=) Prelude.<$> tags,
+            ("Properties" Prelude..=) Prelude.<$> properties,
+            Prelude.Just ("Source" Prelude..= source),
+            Prelude.Just
+              ("ArtifactType" Prelude..= artifactType)
           ]
       )
 
-instance ToPath CreateArtifact where
-  toPath = const "/"
+instance Prelude.ToPath CreateArtifact where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateArtifact where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateArtifact where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createArtifactResponse' smart constructor.
+-- | /See:/ 'newCreateArtifactResponse' smart constructor.
 data CreateArtifactResponse = CreateArtifactResponse'
-  { _crsArtifactARN ::
-      !(Maybe Text),
-    _crsResponseStatus ::
-      !Int
+  { -- | The Amazon Resource Name (ARN) of the artifact.
+    artifactArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateArtifactResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateArtifactResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'crsArtifactARN' - The Amazon Resource Name (ARN) of the artifact.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'crsResponseStatus' - -- | The response status code.
-createArtifactResponse ::
-  -- | 'crsResponseStatus'
-  Int ->
+-- 'artifactArn', 'createArtifactResponse_artifactArn' - The Amazon Resource Name (ARN) of the artifact.
+--
+-- 'httpStatus', 'createArtifactResponse_httpStatus' - The response's http status code.
+newCreateArtifactResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateArtifactResponse
-createArtifactResponse pResponseStatus_ =
+newCreateArtifactResponse pHttpStatus_ =
   CreateArtifactResponse'
-    { _crsArtifactARN = Nothing,
-      _crsResponseStatus = pResponseStatus_
+    { artifactArn =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The Amazon Resource Name (ARN) of the artifact.
-crsArtifactARN :: Lens' CreateArtifactResponse (Maybe Text)
-crsArtifactARN = lens _crsArtifactARN (\s a -> s {_crsArtifactARN = a})
+createArtifactResponse_artifactArn :: Lens.Lens' CreateArtifactResponse (Prelude.Maybe Prelude.Text)
+createArtifactResponse_artifactArn = Lens.lens (\CreateArtifactResponse' {artifactArn} -> artifactArn) (\s@CreateArtifactResponse' {} a -> s {artifactArn = a} :: CreateArtifactResponse)
 
--- | -- | The response status code.
-crsResponseStatus :: Lens' CreateArtifactResponse Int
-crsResponseStatus = lens _crsResponseStatus (\s a -> s {_crsResponseStatus = a})
+-- | The response's http status code.
+createArtifactResponse_httpStatus :: Lens.Lens' CreateArtifactResponse Prelude.Int
+createArtifactResponse_httpStatus = Lens.lens (\CreateArtifactResponse' {httpStatus} -> httpStatus) (\s@CreateArtifactResponse' {} a -> s {httpStatus = a} :: CreateArtifactResponse)
 
-instance NFData CreateArtifactResponse
+instance Prelude.NFData CreateArtifactResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,161 +24,168 @@
 -- Stops a pipeline execution.
 module Network.AWS.SageMaker.StopPipelineExecution
   ( -- * Creating a Request
-    stopPipelineExecution,
-    StopPipelineExecution,
+    StopPipelineExecution (..),
+    newStopPipelineExecution,
 
     -- * Request Lenses
-    sPipelineExecutionARN,
-    sClientRequestToken,
+    stopPipelineExecution_pipelineExecutionArn,
+    stopPipelineExecution_clientRequestToken,
 
     -- * Destructuring the Response
-    stopPipelineExecutionResponse,
-    StopPipelineExecutionResponse,
+    StopPipelineExecutionResponse (..),
+    newStopPipelineExecutionResponse,
 
     -- * Response Lenses
-    sperrsPipelineExecutionARN,
-    sperrsResponseStatus,
+    stopPipelineExecutionResponse_pipelineExecutionArn,
+    stopPipelineExecutionResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'stopPipelineExecution' smart constructor.
+-- | /See:/ 'newStopPipelineExecution' smart constructor.
 data StopPipelineExecution = StopPipelineExecution'
-  { _sPipelineExecutionARN ::
-      !Text,
-    _sClientRequestToken ::
-      !Text
+  { -- | The Amazon Resource Name (ARN) of the pipeline execution.
+    pipelineExecutionArn :: Prelude.Text,
+    -- | A unique, case-sensitive identifier that you provide to ensure the
+    -- idempotency of the operation. An idempotent operation completes no more
+    -- than one time.
+    clientRequestToken :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopPipelineExecution' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopPipelineExecution' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sPipelineExecutionARN' - The Amazon Resource Name (ARN) of the pipeline execution.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sClientRequestToken' - A unique, case-sensitive identifier that you provide to ensure the idempotency of the operation. An idempotent operation completes no more than one time.
-stopPipelineExecution ::
-  -- | 'sPipelineExecutionARN'
-  Text ->
-  -- | 'sClientRequestToken'
-  Text ->
+-- 'pipelineExecutionArn', 'stopPipelineExecution_pipelineExecutionArn' - The Amazon Resource Name (ARN) of the pipeline execution.
+--
+-- 'clientRequestToken', 'stopPipelineExecution_clientRequestToken' - A unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the operation. An idempotent operation completes no more
+-- than one time.
+newStopPipelineExecution ::
+  -- | 'pipelineExecutionArn'
+  Prelude.Text ->
+  -- | 'clientRequestToken'
+  Prelude.Text ->
   StopPipelineExecution
-stopPipelineExecution
-  pPipelineExecutionARN_
+newStopPipelineExecution
+  pPipelineExecutionArn_
   pClientRequestToken_ =
     StopPipelineExecution'
-      { _sPipelineExecutionARN =
-          pPipelineExecutionARN_,
-        _sClientRequestToken = pClientRequestToken_
+      { pipelineExecutionArn =
+          pPipelineExecutionArn_,
+        clientRequestToken = pClientRequestToken_
       }
 
 -- | The Amazon Resource Name (ARN) of the pipeline execution.
-sPipelineExecutionARN :: Lens' StopPipelineExecution Text
-sPipelineExecutionARN = lens _sPipelineExecutionARN (\s a -> s {_sPipelineExecutionARN = a})
+stopPipelineExecution_pipelineExecutionArn :: Lens.Lens' StopPipelineExecution Prelude.Text
+stopPipelineExecution_pipelineExecutionArn = Lens.lens (\StopPipelineExecution' {pipelineExecutionArn} -> pipelineExecutionArn) (\s@StopPipelineExecution' {} a -> s {pipelineExecutionArn = a} :: StopPipelineExecution)
 
--- | A unique, case-sensitive identifier that you provide to ensure the idempotency of the operation. An idempotent operation completes no more than one time.
-sClientRequestToken :: Lens' StopPipelineExecution Text
-sClientRequestToken = lens _sClientRequestToken (\s a -> s {_sClientRequestToken = a})
+-- | A unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the operation. An idempotent operation completes no more
+-- than one time.
+stopPipelineExecution_clientRequestToken :: Lens.Lens' StopPipelineExecution Prelude.Text
+stopPipelineExecution_clientRequestToken = Lens.lens (\StopPipelineExecution' {clientRequestToken} -> clientRequestToken) (\s@StopPipelineExecution' {} a -> s {clientRequestToken = a} :: StopPipelineExecution)
 
-instance AWSRequest StopPipelineExecution where
+instance Prelude.AWSRequest StopPipelineExecution where
   type
     Rs StopPipelineExecution =
       StopPipelineExecutionResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           StopPipelineExecutionResponse'
-            <$> (x .?> "PipelineExecutionArn")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "PipelineExecutionArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StopPipelineExecution
+instance Prelude.Hashable StopPipelineExecution
 
-instance NFData StopPipelineExecution
+instance Prelude.NFData StopPipelineExecution
 
-instance ToHeaders StopPipelineExecution where
+instance Prelude.ToHeaders StopPipelineExecution where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.StopPipelineExecution" :: ByteString),
+              Prelude.=# ( "SageMaker.StopPipelineExecution" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StopPipelineExecution where
+instance Prelude.ToJSON StopPipelineExecution where
   toJSON StopPipelineExecution' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("PipelineExecutionArn" .= _sPipelineExecutionARN),
-            Just ("ClientRequestToken" .= _sClientRequestToken)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ( "PipelineExecutionArn"
+                  Prelude..= pipelineExecutionArn
+              ),
+            Prelude.Just
+              ( "ClientRequestToken"
+                  Prelude..= clientRequestToken
+              )
           ]
       )
 
-instance ToPath StopPipelineExecution where
-  toPath = const "/"
+instance Prelude.ToPath StopPipelineExecution where
+  toPath = Prelude.const "/"
 
-instance ToQuery StopPipelineExecution where
-  toQuery = const mempty
+instance Prelude.ToQuery StopPipelineExecution where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'stopPipelineExecutionResponse' smart constructor.
+-- | /See:/ 'newStopPipelineExecutionResponse' smart constructor.
 data StopPipelineExecutionResponse = StopPipelineExecutionResponse'
-  { _sperrsPipelineExecutionARN ::
-      !( Maybe
-           Text
-       ),
-    _sperrsResponseStatus ::
-      !Int
+  { -- | The Amazon Resource Name (ARN) of the pipeline execution.
+    pipelineExecutionArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopPipelineExecutionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopPipelineExecutionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sperrsPipelineExecutionARN' - The Amazon Resource Name (ARN) of the pipeline execution.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sperrsResponseStatus' - -- | The response status code.
-stopPipelineExecutionResponse ::
-  -- | 'sperrsResponseStatus'
-  Int ->
+-- 'pipelineExecutionArn', 'stopPipelineExecutionResponse_pipelineExecutionArn' - The Amazon Resource Name (ARN) of the pipeline execution.
+--
+-- 'httpStatus', 'stopPipelineExecutionResponse_httpStatus' - The response's http status code.
+newStopPipelineExecutionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StopPipelineExecutionResponse
-stopPipelineExecutionResponse pResponseStatus_ =
+newStopPipelineExecutionResponse pHttpStatus_ =
   StopPipelineExecutionResponse'
-    { _sperrsPipelineExecutionARN =
-        Nothing,
-      _sperrsResponseStatus = pResponseStatus_
+    { pipelineExecutionArn =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The Amazon Resource Name (ARN) of the pipeline execution.
-sperrsPipelineExecutionARN :: Lens' StopPipelineExecutionResponse (Maybe Text)
-sperrsPipelineExecutionARN = lens _sperrsPipelineExecutionARN (\s a -> s {_sperrsPipelineExecutionARN = a})
+stopPipelineExecutionResponse_pipelineExecutionArn :: Lens.Lens' StopPipelineExecutionResponse (Prelude.Maybe Prelude.Text)
+stopPipelineExecutionResponse_pipelineExecutionArn = Lens.lens (\StopPipelineExecutionResponse' {pipelineExecutionArn} -> pipelineExecutionArn) (\s@StopPipelineExecutionResponse' {} a -> s {pipelineExecutionArn = a} :: StopPipelineExecutionResponse)
 
--- | -- | The response status code.
-sperrsResponseStatus :: Lens' StopPipelineExecutionResponse Int
-sperrsResponseStatus = lens _sperrsResponseStatus (\s a -> s {_sperrsResponseStatus = a})
+-- | The response's http status code.
+stopPipelineExecutionResponse_httpStatus :: Lens.Lens' StopPipelineExecutionResponse Prelude.Int
+stopPipelineExecutionResponse_httpStatus = Lens.lens (\StopPipelineExecutionResponse' {httpStatus} -> httpStatus) (\s@StopPipelineExecutionResponse' {} a -> s {httpStatus = a} :: StopPipelineExecutionResponse)
 
-instance NFData StopPipelineExecutionResponse
+instance Prelude.NFData StopPipelineExecutionResponse

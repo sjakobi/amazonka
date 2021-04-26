@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.SageMaker.Types.DirectInternetAccess
   ( DirectInternetAccess
       ( ..,
-        DIADisabled,
-        DIAEnabled
+        DirectInternetAccessDisabled,
+        DirectInternetAccessEnabled
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DirectInternetAccess
-  = DirectInternetAccess'
-      ( CI
-          Text
-      )
+newtype DirectInternetAccess = DirectInternetAccess'
+  { fromDirectInternetAccess ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DIADisabled :: DirectInternetAccess
-pattern DIADisabled = DirectInternetAccess' "Disabled"
+pattern DirectInternetAccessDisabled :: DirectInternetAccess
+pattern DirectInternetAccessDisabled = DirectInternetAccess' "Disabled"
 
-pattern DIAEnabled :: DirectInternetAccess
-pattern DIAEnabled = DirectInternetAccess' "Enabled"
+pattern DirectInternetAccessEnabled :: DirectInternetAccess
+pattern DirectInternetAccessEnabled = DirectInternetAccess' "Enabled"
 
 {-# COMPLETE
-  DIADisabled,
-  DIAEnabled,
+  DirectInternetAccessDisabled,
+  DirectInternetAccessEnabled,
   DirectInternetAccess'
   #-}
 
-instance FromText DirectInternetAccess where
-  parser = (DirectInternetAccess' . mk) <$> takeText
+instance Prelude.FromText DirectInternetAccess where
+  parser = DirectInternetAccess' Prelude.<$> Prelude.takeText
 
-instance ToText DirectInternetAccess where
-  toText (DirectInternetAccess' ci) = original ci
+instance Prelude.ToText DirectInternetAccess where
+  toText (DirectInternetAccess' x) = x
 
-instance Hashable DirectInternetAccess
+instance Prelude.Hashable DirectInternetAccess
 
-instance NFData DirectInternetAccess
+instance Prelude.NFData DirectInternetAccess
 
-instance ToByteString DirectInternetAccess
+instance Prelude.ToByteString DirectInternetAccess
 
-instance ToQuery DirectInternetAccess
+instance Prelude.ToQuery DirectInternetAccess
 
-instance ToHeader DirectInternetAccess
+instance Prelude.ToHeader DirectInternetAccess
 
-instance ToJSON DirectInternetAccess where
-  toJSON = toJSONText
+instance Prelude.ToJSON DirectInternetAccess where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DirectInternetAccess where
-  parseJSON = parseJSONText "DirectInternetAccess"
+instance Prelude.FromJSON DirectInternetAccess where
+  parseJSON = Prelude.parseJSONText "DirectInternetAccess"

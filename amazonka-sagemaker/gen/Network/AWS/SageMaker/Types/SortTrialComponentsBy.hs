@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.SageMaker.Types.SortTrialComponentsBy
   ( SortTrialComponentsBy
       ( ..,
-        STCBCreationTime,
-        STCBName
+        SortTrialComponentsByCreationTime,
+        SortTrialComponentsByName
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SortTrialComponentsBy
-  = SortTrialComponentsBy'
-      ( CI
-          Text
-      )
+newtype SortTrialComponentsBy = SortTrialComponentsBy'
+  { fromSortTrialComponentsBy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern STCBCreationTime :: SortTrialComponentsBy
-pattern STCBCreationTime = SortTrialComponentsBy' "CreationTime"
+pattern SortTrialComponentsByCreationTime :: SortTrialComponentsBy
+pattern SortTrialComponentsByCreationTime = SortTrialComponentsBy' "CreationTime"
 
-pattern STCBName :: SortTrialComponentsBy
-pattern STCBName = SortTrialComponentsBy' "Name"
+pattern SortTrialComponentsByName :: SortTrialComponentsBy
+pattern SortTrialComponentsByName = SortTrialComponentsBy' "Name"
 
 {-# COMPLETE
-  STCBCreationTime,
-  STCBName,
+  SortTrialComponentsByCreationTime,
+  SortTrialComponentsByName,
   SortTrialComponentsBy'
   #-}
 
-instance FromText SortTrialComponentsBy where
-  parser = (SortTrialComponentsBy' . mk) <$> takeText
+instance Prelude.FromText SortTrialComponentsBy where
+  parser = SortTrialComponentsBy' Prelude.<$> Prelude.takeText
 
-instance ToText SortTrialComponentsBy where
-  toText (SortTrialComponentsBy' ci) = original ci
+instance Prelude.ToText SortTrialComponentsBy where
+  toText (SortTrialComponentsBy' x) = x
 
-instance Hashable SortTrialComponentsBy
+instance Prelude.Hashable SortTrialComponentsBy
 
-instance NFData SortTrialComponentsBy
+instance Prelude.NFData SortTrialComponentsBy
 
-instance ToByteString SortTrialComponentsBy
+instance Prelude.ToByteString SortTrialComponentsBy
 
-instance ToQuery SortTrialComponentsBy
+instance Prelude.ToQuery SortTrialComponentsBy
 
-instance ToHeader SortTrialComponentsBy
+instance Prelude.ToHeader SortTrialComponentsBy
 
-instance ToJSON SortTrialComponentsBy where
-  toJSON = toJSONText
+instance Prelude.ToJSON SortTrialComponentsBy where
+  toJSON = Prelude.toJSONText

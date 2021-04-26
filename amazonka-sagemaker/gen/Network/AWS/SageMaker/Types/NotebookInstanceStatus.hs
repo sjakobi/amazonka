@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,85 +19,83 @@
 module Network.AWS.SageMaker.Types.NotebookInstanceStatus
   ( NotebookInstanceStatus
       ( ..,
-        NISDeleting,
-        NISFailed,
-        NISInService,
-        NISPending,
-        NISStopped,
-        NISStopping,
-        NISUpdating
+        NotebookInstanceStatusDeleting,
+        NotebookInstanceStatusFailed,
+        NotebookInstanceStatusInService,
+        NotebookInstanceStatusPending,
+        NotebookInstanceStatusStopped,
+        NotebookInstanceStatusStopping,
+        NotebookInstanceStatusUpdating
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data NotebookInstanceStatus
-  = NotebookInstanceStatus'
-      ( CI
-          Text
-      )
+newtype NotebookInstanceStatus = NotebookInstanceStatus'
+  { fromNotebookInstanceStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern NISDeleting :: NotebookInstanceStatus
-pattern NISDeleting = NotebookInstanceStatus' "Deleting"
+pattern NotebookInstanceStatusDeleting :: NotebookInstanceStatus
+pattern NotebookInstanceStatusDeleting = NotebookInstanceStatus' "Deleting"
 
-pattern NISFailed :: NotebookInstanceStatus
-pattern NISFailed = NotebookInstanceStatus' "Failed"
+pattern NotebookInstanceStatusFailed :: NotebookInstanceStatus
+pattern NotebookInstanceStatusFailed = NotebookInstanceStatus' "Failed"
 
-pattern NISInService :: NotebookInstanceStatus
-pattern NISInService = NotebookInstanceStatus' "InService"
+pattern NotebookInstanceStatusInService :: NotebookInstanceStatus
+pattern NotebookInstanceStatusInService = NotebookInstanceStatus' "InService"
 
-pattern NISPending :: NotebookInstanceStatus
-pattern NISPending = NotebookInstanceStatus' "Pending"
+pattern NotebookInstanceStatusPending :: NotebookInstanceStatus
+pattern NotebookInstanceStatusPending = NotebookInstanceStatus' "Pending"
 
-pattern NISStopped :: NotebookInstanceStatus
-pattern NISStopped = NotebookInstanceStatus' "Stopped"
+pattern NotebookInstanceStatusStopped :: NotebookInstanceStatus
+pattern NotebookInstanceStatusStopped = NotebookInstanceStatus' "Stopped"
 
-pattern NISStopping :: NotebookInstanceStatus
-pattern NISStopping = NotebookInstanceStatus' "Stopping"
+pattern NotebookInstanceStatusStopping :: NotebookInstanceStatus
+pattern NotebookInstanceStatusStopping = NotebookInstanceStatus' "Stopping"
 
-pattern NISUpdating :: NotebookInstanceStatus
-pattern NISUpdating = NotebookInstanceStatus' "Updating"
+pattern NotebookInstanceStatusUpdating :: NotebookInstanceStatus
+pattern NotebookInstanceStatusUpdating = NotebookInstanceStatus' "Updating"
 
 {-# COMPLETE
-  NISDeleting,
-  NISFailed,
-  NISInService,
-  NISPending,
-  NISStopped,
-  NISStopping,
-  NISUpdating,
+  NotebookInstanceStatusDeleting,
+  NotebookInstanceStatusFailed,
+  NotebookInstanceStatusInService,
+  NotebookInstanceStatusPending,
+  NotebookInstanceStatusStopped,
+  NotebookInstanceStatusStopping,
+  NotebookInstanceStatusUpdating,
   NotebookInstanceStatus'
   #-}
 
-instance FromText NotebookInstanceStatus where
-  parser = (NotebookInstanceStatus' . mk) <$> takeText
+instance Prelude.FromText NotebookInstanceStatus where
+  parser = NotebookInstanceStatus' Prelude.<$> Prelude.takeText
 
-instance ToText NotebookInstanceStatus where
-  toText (NotebookInstanceStatus' ci) = original ci
+instance Prelude.ToText NotebookInstanceStatus where
+  toText (NotebookInstanceStatus' x) = x
 
-instance Hashable NotebookInstanceStatus
+instance Prelude.Hashable NotebookInstanceStatus
 
-instance NFData NotebookInstanceStatus
+instance Prelude.NFData NotebookInstanceStatus
 
-instance ToByteString NotebookInstanceStatus
+instance Prelude.ToByteString NotebookInstanceStatus
 
-instance ToQuery NotebookInstanceStatus
+instance Prelude.ToQuery NotebookInstanceStatus
 
-instance ToHeader NotebookInstanceStatus
+instance Prelude.ToHeader NotebookInstanceStatus
 
-instance ToJSON NotebookInstanceStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON NotebookInstanceStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON NotebookInstanceStatus where
-  parseJSON = parseJSONText "NotebookInstanceStatus"
+instance Prelude.FromJSON NotebookInstanceStatus where
+  parseJSON = Prelude.parseJSONText "NotebookInstanceStatus"

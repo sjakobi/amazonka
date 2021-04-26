@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.SageMaker.Types.ModelApprovalStatus
   ( ModelApprovalStatus
       ( ..,
-        Approved,
-        PendingManualApproval,
-        Rejected
+        ModelApprovalStatusApproved,
+        ModelApprovalStatusPendingManualApproval,
+        ModelApprovalStatusRejected
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ModelApprovalStatus
-  = ModelApprovalStatus'
-      ( CI
-          Text
-      )
+newtype ModelApprovalStatus = ModelApprovalStatus'
+  { fromModelApprovalStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Approved :: ModelApprovalStatus
-pattern Approved = ModelApprovalStatus' "Approved"
+pattern ModelApprovalStatusApproved :: ModelApprovalStatus
+pattern ModelApprovalStatusApproved = ModelApprovalStatus' "Approved"
 
-pattern PendingManualApproval :: ModelApprovalStatus
-pattern PendingManualApproval = ModelApprovalStatus' "PendingManualApproval"
+pattern ModelApprovalStatusPendingManualApproval :: ModelApprovalStatus
+pattern ModelApprovalStatusPendingManualApproval = ModelApprovalStatus' "PendingManualApproval"
 
-pattern Rejected :: ModelApprovalStatus
-pattern Rejected = ModelApprovalStatus' "Rejected"
+pattern ModelApprovalStatusRejected :: ModelApprovalStatus
+pattern ModelApprovalStatusRejected = ModelApprovalStatus' "Rejected"
 
 {-# COMPLETE
-  Approved,
-  PendingManualApproval,
-  Rejected,
+  ModelApprovalStatusApproved,
+  ModelApprovalStatusPendingManualApproval,
+  ModelApprovalStatusRejected,
   ModelApprovalStatus'
   #-}
 
-instance FromText ModelApprovalStatus where
-  parser = (ModelApprovalStatus' . mk) <$> takeText
+instance Prelude.FromText ModelApprovalStatus where
+  parser = ModelApprovalStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ModelApprovalStatus where
-  toText (ModelApprovalStatus' ci) = original ci
+instance Prelude.ToText ModelApprovalStatus where
+  toText (ModelApprovalStatus' x) = x
 
-instance Hashable ModelApprovalStatus
+instance Prelude.Hashable ModelApprovalStatus
 
-instance NFData ModelApprovalStatus
+instance Prelude.NFData ModelApprovalStatus
 
-instance ToByteString ModelApprovalStatus
+instance Prelude.ToByteString ModelApprovalStatus
 
-instance ToQuery ModelApprovalStatus
+instance Prelude.ToQuery ModelApprovalStatus
 
-instance ToHeader ModelApprovalStatus
+instance Prelude.ToHeader ModelApprovalStatus
 
-instance ToJSON ModelApprovalStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON ModelApprovalStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ModelApprovalStatus where
-  parseJSON = parseJSONText "ModelApprovalStatus"
+instance Prelude.FromJSON ModelApprovalStatus where
+  parseJSON = Prelude.parseJSONText "ModelApprovalStatus"

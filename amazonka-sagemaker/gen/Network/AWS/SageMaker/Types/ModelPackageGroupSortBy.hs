@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.SageMaker.Types.ModelPackageGroupSortBy
   ( ModelPackageGroupSortBy
       ( ..,
-        MPGSBCreationTime,
-        MPGSBName
+        ModelPackageGroupSortByCreationTime,
+        ModelPackageGroupSortByName
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ModelPackageGroupSortBy
-  = ModelPackageGroupSortBy'
-      ( CI
-          Text
-      )
+newtype ModelPackageGroupSortBy = ModelPackageGroupSortBy'
+  { fromModelPackageGroupSortBy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MPGSBCreationTime :: ModelPackageGroupSortBy
-pattern MPGSBCreationTime = ModelPackageGroupSortBy' "CreationTime"
+pattern ModelPackageGroupSortByCreationTime :: ModelPackageGroupSortBy
+pattern ModelPackageGroupSortByCreationTime = ModelPackageGroupSortBy' "CreationTime"
 
-pattern MPGSBName :: ModelPackageGroupSortBy
-pattern MPGSBName = ModelPackageGroupSortBy' "Name"
+pattern ModelPackageGroupSortByName :: ModelPackageGroupSortBy
+pattern ModelPackageGroupSortByName = ModelPackageGroupSortBy' "Name"
 
 {-# COMPLETE
-  MPGSBCreationTime,
-  MPGSBName,
+  ModelPackageGroupSortByCreationTime,
+  ModelPackageGroupSortByName,
   ModelPackageGroupSortBy'
   #-}
 
-instance FromText ModelPackageGroupSortBy where
-  parser = (ModelPackageGroupSortBy' . mk) <$> takeText
+instance Prelude.FromText ModelPackageGroupSortBy where
+  parser = ModelPackageGroupSortBy' Prelude.<$> Prelude.takeText
 
-instance ToText ModelPackageGroupSortBy where
-  toText (ModelPackageGroupSortBy' ci) = original ci
+instance Prelude.ToText ModelPackageGroupSortBy where
+  toText (ModelPackageGroupSortBy' x) = x
 
-instance Hashable ModelPackageGroupSortBy
+instance Prelude.Hashable ModelPackageGroupSortBy
 
-instance NFData ModelPackageGroupSortBy
+instance Prelude.NFData ModelPackageGroupSortBy
 
-instance ToByteString ModelPackageGroupSortBy
+instance Prelude.ToByteString ModelPackageGroupSortBy
 
-instance ToQuery ModelPackageGroupSortBy
+instance Prelude.ToQuery ModelPackageGroupSortBy
 
-instance ToHeader ModelPackageGroupSortBy
+instance Prelude.ToHeader ModelPackageGroupSortBy
 
-instance ToJSON ModelPackageGroupSortBy where
-  toJSON = toJSONText
+instance Prelude.ToJSON ModelPackageGroupSortBy where
+  toJSON = Prelude.toJSONText

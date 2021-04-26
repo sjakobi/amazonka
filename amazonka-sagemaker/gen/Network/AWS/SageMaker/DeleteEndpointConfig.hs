@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,115 +21,123 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes an endpoint configuration. The @DeleteEndpointConfig@ API deletes only the specified configuration. It does not delete endpoints created using the configuration.
+-- Deletes an endpoint configuration. The @DeleteEndpointConfig@ API
+-- deletes only the specified configuration. It does not delete endpoints
+-- created using the configuration.
 --
---
--- You must not delete an @EndpointConfig@ in use by an endpoint that is live or while the @UpdateEndpoint@ or @CreateEndpoint@ operations are being performed on the endpoint. If you delete the @EndpointConfig@ of an endpoint that is active or being created or updated you may lose visibility into the instance type the endpoint is using. The endpoint must be deleted in order to stop incurring charges.
+-- You must not delete an @EndpointConfig@ in use by an endpoint that is
+-- live or while the @UpdateEndpoint@ or @CreateEndpoint@ operations are
+-- being performed on the endpoint. If you delete the @EndpointConfig@ of
+-- an endpoint that is active or being created or updated you may lose
+-- visibility into the instance type the endpoint is using. The endpoint
+-- must be deleted in order to stop incurring charges.
 module Network.AWS.SageMaker.DeleteEndpointConfig
   ( -- * Creating a Request
-    deleteEndpointConfig,
-    DeleteEndpointConfig,
+    DeleteEndpointConfig (..),
+    newDeleteEndpointConfig,
 
     -- * Request Lenses
-    dEndpointConfigName,
+    deleteEndpointConfig_endpointConfigName,
 
     -- * Destructuring the Response
-    deleteEndpointConfigResponse,
-    DeleteEndpointConfigResponse,
+    DeleteEndpointConfigResponse (..),
+    newDeleteEndpointConfigResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'deleteEndpointConfig' smart constructor.
-newtype DeleteEndpointConfig = DeleteEndpointConfig'
-  { _dEndpointConfigName ::
-      Text
+-- | /See:/ 'newDeleteEndpointConfig' smart constructor.
+data DeleteEndpointConfig = DeleteEndpointConfig'
+  { -- | The name of the endpoint configuration that you want to delete.
+    endpointConfigName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteEndpointConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteEndpointConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dEndpointConfigName' - The name of the endpoint configuration that you want to delete.
-deleteEndpointConfig ::
-  -- | 'dEndpointConfigName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'endpointConfigName', 'deleteEndpointConfig_endpointConfigName' - The name of the endpoint configuration that you want to delete.
+newDeleteEndpointConfig ::
+  -- | 'endpointConfigName'
+  Prelude.Text ->
   DeleteEndpointConfig
-deleteEndpointConfig pEndpointConfigName_ =
+newDeleteEndpointConfig pEndpointConfigName_ =
   DeleteEndpointConfig'
-    { _dEndpointConfigName =
+    { endpointConfigName =
         pEndpointConfigName_
     }
 
 -- | The name of the endpoint configuration that you want to delete.
-dEndpointConfigName :: Lens' DeleteEndpointConfig Text
-dEndpointConfigName = lens _dEndpointConfigName (\s a -> s {_dEndpointConfigName = a})
+deleteEndpointConfig_endpointConfigName :: Lens.Lens' DeleteEndpointConfig Prelude.Text
+deleteEndpointConfig_endpointConfigName = Lens.lens (\DeleteEndpointConfig' {endpointConfigName} -> endpointConfigName) (\s@DeleteEndpointConfig' {} a -> s {endpointConfigName = a} :: DeleteEndpointConfig)
 
-instance AWSRequest DeleteEndpointConfig where
+instance Prelude.AWSRequest DeleteEndpointConfig where
   type
     Rs DeleteEndpointConfig =
       DeleteEndpointConfigResponse
-  request = postJSON sageMaker
-  response = receiveNull DeleteEndpointConfigResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull DeleteEndpointConfigResponse'
 
-instance Hashable DeleteEndpointConfig
+instance Prelude.Hashable DeleteEndpointConfig
 
-instance NFData DeleteEndpointConfig
+instance Prelude.NFData DeleteEndpointConfig
 
-instance ToHeaders DeleteEndpointConfig where
+instance Prelude.ToHeaders DeleteEndpointConfig where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.DeleteEndpointConfig" :: ByteString),
+              Prelude.=# ( "SageMaker.DeleteEndpointConfig" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteEndpointConfig where
+instance Prelude.ToJSON DeleteEndpointConfig where
   toJSON DeleteEndpointConfig' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("EndpointConfigName" .= _dEndpointConfigName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ( "EndpointConfigName"
+                  Prelude..= endpointConfigName
+              )
           ]
       )
 
-instance ToPath DeleteEndpointConfig where
-  toPath = const "/"
+instance Prelude.ToPath DeleteEndpointConfig where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteEndpointConfig where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteEndpointConfig where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteEndpointConfigResponse' smart constructor.
+-- | /See:/ 'newDeleteEndpointConfigResponse' smart constructor.
 data DeleteEndpointConfigResponse = DeleteEndpointConfigResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteEndpointConfigResponse' with the minimum fields required to make a request.
-deleteEndpointConfigResponse ::
+-- |
+-- Create a value of 'DeleteEndpointConfigResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteEndpointConfigResponse ::
   DeleteEndpointConfigResponse
-deleteEndpointConfigResponse =
+newDeleteEndpointConfigResponse =
   DeleteEndpointConfigResponse'
 
-instance NFData DeleteEndpointConfigResponse
+instance Prelude.NFData DeleteEndpointConfigResponse

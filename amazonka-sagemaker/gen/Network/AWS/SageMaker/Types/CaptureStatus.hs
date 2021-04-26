@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.SageMaker.Types.CaptureStatus
   ( CaptureStatus
       ( ..,
-        CStarted,
-        CStopped
+        CaptureStatusStarted,
+        CaptureStatusStopped
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CaptureStatus = CaptureStatus' (CI Text)
+newtype CaptureStatus = CaptureStatus'
+  { fromCaptureStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CStarted :: CaptureStatus
-pattern CStarted = CaptureStatus' "Started"
+pattern CaptureStatusStarted :: CaptureStatus
+pattern CaptureStatusStarted = CaptureStatus' "Started"
 
-pattern CStopped :: CaptureStatus
-pattern CStopped = CaptureStatus' "Stopped"
+pattern CaptureStatusStopped :: CaptureStatus
+pattern CaptureStatusStopped = CaptureStatus' "Stopped"
 
 {-# COMPLETE
-  CStarted,
-  CStopped,
+  CaptureStatusStarted,
+  CaptureStatusStopped,
   CaptureStatus'
   #-}
 
-instance FromText CaptureStatus where
-  parser = (CaptureStatus' . mk) <$> takeText
+instance Prelude.FromText CaptureStatus where
+  parser = CaptureStatus' Prelude.<$> Prelude.takeText
 
-instance ToText CaptureStatus where
-  toText (CaptureStatus' ci) = original ci
+instance Prelude.ToText CaptureStatus where
+  toText (CaptureStatus' x) = x
 
-instance Hashable CaptureStatus
+instance Prelude.Hashable CaptureStatus
 
-instance NFData CaptureStatus
+instance Prelude.NFData CaptureStatus
 
-instance ToByteString CaptureStatus
+instance Prelude.ToByteString CaptureStatus
 
-instance ToQuery CaptureStatus
+instance Prelude.ToQuery CaptureStatus
 
-instance ToHeader CaptureStatus
+instance Prelude.ToHeader CaptureStatus
 
-instance FromJSON CaptureStatus where
-  parseJSON = parseJSONText "CaptureStatus"
+instance Prelude.FromJSON CaptureStatus where
+  parseJSON = Prelude.parseJSONText "CaptureStatus"

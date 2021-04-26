@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,225 +21,228 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the description of an endpoint configuration created using the @CreateEndpointConfig@ API.
+-- Returns the description of an endpoint configuration created using the
+-- @CreateEndpointConfig@ API.
 module Network.AWS.SageMaker.DescribeEndpointConfig
   ( -- * Creating a Request
-    describeEndpointConfig,
-    DescribeEndpointConfig,
+    DescribeEndpointConfig (..),
+    newDescribeEndpointConfig,
 
     -- * Request Lenses
-    decEndpointConfigName,
+    describeEndpointConfig_endpointConfigName,
 
     -- * Destructuring the Response
-    describeEndpointConfigResponse,
-    DescribeEndpointConfigResponse,
+    DescribeEndpointConfigResponse (..),
+    newDescribeEndpointConfigResponse,
 
     -- * Response Lenses
-    decrrsKMSKeyId,
-    decrrsDataCaptureConfig,
-    decrrsResponseStatus,
-    decrrsEndpointConfigName,
-    decrrsEndpointConfigARN,
-    decrrsProductionVariants,
-    decrrsCreationTime,
+    describeEndpointConfigResponse_kmsKeyId,
+    describeEndpointConfigResponse_dataCaptureConfig,
+    describeEndpointConfigResponse_httpStatus,
+    describeEndpointConfigResponse_endpointConfigName,
+    describeEndpointConfigResponse_endpointConfigArn,
+    describeEndpointConfigResponse_productionVariants,
+    describeEndpointConfigResponse_creationTime,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
+import Network.AWS.SageMaker.Types.DataCaptureConfig
+import Network.AWS.SageMaker.Types.ProductionVariant
 
--- | /See:/ 'describeEndpointConfig' smart constructor.
-newtype DescribeEndpointConfig = DescribeEndpointConfig'
-  { _decEndpointConfigName ::
-      Text
+-- | /See:/ 'newDescribeEndpointConfig' smart constructor.
+data DescribeEndpointConfig = DescribeEndpointConfig'
+  { -- | The name of the endpoint configuration.
+    endpointConfigName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeEndpointConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeEndpointConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'decEndpointConfigName' - The name of the endpoint configuration.
-describeEndpointConfig ::
-  -- | 'decEndpointConfigName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'endpointConfigName', 'describeEndpointConfig_endpointConfigName' - The name of the endpoint configuration.
+newDescribeEndpointConfig ::
+  -- | 'endpointConfigName'
+  Prelude.Text ->
   DescribeEndpointConfig
-describeEndpointConfig pEndpointConfigName_ =
+newDescribeEndpointConfig pEndpointConfigName_ =
   DescribeEndpointConfig'
-    { _decEndpointConfigName =
+    { endpointConfigName =
         pEndpointConfigName_
     }
 
 -- | The name of the endpoint configuration.
-decEndpointConfigName :: Lens' DescribeEndpointConfig Text
-decEndpointConfigName = lens _decEndpointConfigName (\s a -> s {_decEndpointConfigName = a})
+describeEndpointConfig_endpointConfigName :: Lens.Lens' DescribeEndpointConfig Prelude.Text
+describeEndpointConfig_endpointConfigName = Lens.lens (\DescribeEndpointConfig' {endpointConfigName} -> endpointConfigName) (\s@DescribeEndpointConfig' {} a -> s {endpointConfigName = a} :: DescribeEndpointConfig)
 
-instance AWSRequest DescribeEndpointConfig where
+instance Prelude.AWSRequest DescribeEndpointConfig where
   type
     Rs DescribeEndpointConfig =
       DescribeEndpointConfigResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeEndpointConfigResponse'
-            <$> (x .?> "KmsKeyId")
-            <*> (x .?> "DataCaptureConfig")
-            <*> (pure (fromEnum s))
-            <*> (x .:> "EndpointConfigName")
-            <*> (x .:> "EndpointConfigArn")
-            <*> (x .:> "ProductionVariants")
-            <*> (x .:> "CreationTime")
+            Prelude.<$> (x Prelude..?> "KmsKeyId")
+            Prelude.<*> (x Prelude..?> "DataCaptureConfig")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "EndpointConfigName")
+            Prelude.<*> (x Prelude..:> "EndpointConfigArn")
+            Prelude.<*> (x Prelude..:> "ProductionVariants")
+            Prelude.<*> (x Prelude..:> "CreationTime")
       )
 
-instance Hashable DescribeEndpointConfig
+instance Prelude.Hashable DescribeEndpointConfig
 
-instance NFData DescribeEndpointConfig
+instance Prelude.NFData DescribeEndpointConfig
 
-instance ToHeaders DescribeEndpointConfig where
+instance Prelude.ToHeaders DescribeEndpointConfig where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.DescribeEndpointConfig" :: ByteString),
+              Prelude.=# ( "SageMaker.DescribeEndpointConfig" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeEndpointConfig where
+instance Prelude.ToJSON DescribeEndpointConfig where
   toJSON DescribeEndpointConfig' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("EndpointConfigName" .= _decEndpointConfigName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ( "EndpointConfigName"
+                  Prelude..= endpointConfigName
+              )
           ]
       )
 
-instance ToPath DescribeEndpointConfig where
-  toPath = const "/"
+instance Prelude.ToPath DescribeEndpointConfig where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeEndpointConfig where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeEndpointConfig where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeEndpointConfigResponse' smart constructor.
+-- | /See:/ 'newDescribeEndpointConfigResponse' smart constructor.
 data DescribeEndpointConfigResponse = DescribeEndpointConfigResponse'
-  { _decrrsKMSKeyId ::
-      !( Maybe
-           Text
-       ),
-    _decrrsDataCaptureConfig ::
-      !( Maybe
-           DataCaptureConfig
-       ),
-    _decrrsResponseStatus ::
-      !Int,
-    _decrrsEndpointConfigName ::
-      !Text,
-    _decrrsEndpointConfigARN ::
-      !Text,
-    _decrrsProductionVariants ::
-      !( List1
-           ProductionVariant
-       ),
-    _decrrsCreationTime ::
-      !POSIX
+  { -- | AWS KMS key ID Amazon SageMaker uses to encrypt data when storing it on
+    -- the ML storage volume attached to the instance.
+    kmsKeyId :: Prelude.Maybe Prelude.Text,
+    dataCaptureConfig :: Prelude.Maybe DataCaptureConfig,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | Name of the Amazon SageMaker endpoint configuration.
+    endpointConfigName :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the endpoint configuration.
+    endpointConfigArn :: Prelude.Text,
+    -- | An array of @ProductionVariant@ objects, one for each model that you
+    -- want to host at this endpoint.
+    productionVariants :: Prelude.List1 ProductionVariant,
+    -- | A timestamp that shows when the endpoint configuration was created.
+    creationTime :: Prelude.POSIX
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeEndpointConfigResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeEndpointConfigResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'decrrsKMSKeyId' - AWS KMS key ID Amazon SageMaker uses to encrypt data when storing it on the ML storage volume attached to the instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'decrrsDataCaptureConfig' - Undocumented member.
+-- 'kmsKeyId', 'describeEndpointConfigResponse_kmsKeyId' - AWS KMS key ID Amazon SageMaker uses to encrypt data when storing it on
+-- the ML storage volume attached to the instance.
 --
--- * 'decrrsResponseStatus' - -- | The response status code.
+-- 'dataCaptureConfig', 'describeEndpointConfigResponse_dataCaptureConfig' - Undocumented member.
 --
--- * 'decrrsEndpointConfigName' - Name of the Amazon SageMaker endpoint configuration.
+-- 'httpStatus', 'describeEndpointConfigResponse_httpStatus' - The response's http status code.
 --
--- * 'decrrsEndpointConfigARN' - The Amazon Resource Name (ARN) of the endpoint configuration.
+-- 'endpointConfigName', 'describeEndpointConfigResponse_endpointConfigName' - Name of the Amazon SageMaker endpoint configuration.
 --
--- * 'decrrsProductionVariants' - An array of @ProductionVariant@ objects, one for each model that you want to host at this endpoint.
+-- 'endpointConfigArn', 'describeEndpointConfigResponse_endpointConfigArn' - The Amazon Resource Name (ARN) of the endpoint configuration.
 --
--- * 'decrrsCreationTime' - A timestamp that shows when the endpoint configuration was created.
-describeEndpointConfigResponse ::
-  -- | 'decrrsResponseStatus'
-  Int ->
-  -- | 'decrrsEndpointConfigName'
-  Text ->
-  -- | 'decrrsEndpointConfigARN'
-  Text ->
-  -- | 'decrrsProductionVariants'
-  NonEmpty ProductionVariant ->
-  -- | 'decrrsCreationTime'
-  UTCTime ->
+-- 'productionVariants', 'describeEndpointConfigResponse_productionVariants' - An array of @ProductionVariant@ objects, one for each model that you
+-- want to host at this endpoint.
+--
+-- 'creationTime', 'describeEndpointConfigResponse_creationTime' - A timestamp that shows when the endpoint configuration was created.
+newDescribeEndpointConfigResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'endpointConfigName'
+  Prelude.Text ->
+  -- | 'endpointConfigArn'
+  Prelude.Text ->
+  -- | 'productionVariants'
+  Prelude.NonEmpty ProductionVariant ->
+  -- | 'creationTime'
+  Prelude.UTCTime ->
   DescribeEndpointConfigResponse
-describeEndpointConfigResponse
-  pResponseStatus_
+newDescribeEndpointConfigResponse
+  pHttpStatus_
   pEndpointConfigName_
-  pEndpointConfigARN_
+  pEndpointConfigArn_
   pProductionVariants_
   pCreationTime_ =
     DescribeEndpointConfigResponse'
-      { _decrrsKMSKeyId =
-          Nothing,
-        _decrrsDataCaptureConfig = Nothing,
-        _decrrsResponseStatus = pResponseStatus_,
-        _decrrsEndpointConfigName =
-          pEndpointConfigName_,
-        _decrrsEndpointConfigARN =
-          pEndpointConfigARN_,
-        _decrrsProductionVariants =
-          _List1 # pProductionVariants_,
-        _decrrsCreationTime =
-          _Time # pCreationTime_
+      { kmsKeyId =
+          Prelude.Nothing,
+        dataCaptureConfig = Prelude.Nothing,
+        httpStatus = pHttpStatus_,
+        endpointConfigName = pEndpointConfigName_,
+        endpointConfigArn = pEndpointConfigArn_,
+        productionVariants =
+          Prelude._List1
+            Lens.# pProductionVariants_,
+        creationTime =
+          Prelude._Time Lens.# pCreationTime_
       }
 
--- | AWS KMS key ID Amazon SageMaker uses to encrypt data when storing it on the ML storage volume attached to the instance.
-decrrsKMSKeyId :: Lens' DescribeEndpointConfigResponse (Maybe Text)
-decrrsKMSKeyId = lens _decrrsKMSKeyId (\s a -> s {_decrrsKMSKeyId = a})
+-- | AWS KMS key ID Amazon SageMaker uses to encrypt data when storing it on
+-- the ML storage volume attached to the instance.
+describeEndpointConfigResponse_kmsKeyId :: Lens.Lens' DescribeEndpointConfigResponse (Prelude.Maybe Prelude.Text)
+describeEndpointConfigResponse_kmsKeyId = Lens.lens (\DescribeEndpointConfigResponse' {kmsKeyId} -> kmsKeyId) (\s@DescribeEndpointConfigResponse' {} a -> s {kmsKeyId = a} :: DescribeEndpointConfigResponse)
 
 -- | Undocumented member.
-decrrsDataCaptureConfig :: Lens' DescribeEndpointConfigResponse (Maybe DataCaptureConfig)
-decrrsDataCaptureConfig = lens _decrrsDataCaptureConfig (\s a -> s {_decrrsDataCaptureConfig = a})
+describeEndpointConfigResponse_dataCaptureConfig :: Lens.Lens' DescribeEndpointConfigResponse (Prelude.Maybe DataCaptureConfig)
+describeEndpointConfigResponse_dataCaptureConfig = Lens.lens (\DescribeEndpointConfigResponse' {dataCaptureConfig} -> dataCaptureConfig) (\s@DescribeEndpointConfigResponse' {} a -> s {dataCaptureConfig = a} :: DescribeEndpointConfigResponse)
 
--- | -- | The response status code.
-decrrsResponseStatus :: Lens' DescribeEndpointConfigResponse Int
-decrrsResponseStatus = lens _decrrsResponseStatus (\s a -> s {_decrrsResponseStatus = a})
+-- | The response's http status code.
+describeEndpointConfigResponse_httpStatus :: Lens.Lens' DescribeEndpointConfigResponse Prelude.Int
+describeEndpointConfigResponse_httpStatus = Lens.lens (\DescribeEndpointConfigResponse' {httpStatus} -> httpStatus) (\s@DescribeEndpointConfigResponse' {} a -> s {httpStatus = a} :: DescribeEndpointConfigResponse)
 
 -- | Name of the Amazon SageMaker endpoint configuration.
-decrrsEndpointConfigName :: Lens' DescribeEndpointConfigResponse Text
-decrrsEndpointConfigName = lens _decrrsEndpointConfigName (\s a -> s {_decrrsEndpointConfigName = a})
+describeEndpointConfigResponse_endpointConfigName :: Lens.Lens' DescribeEndpointConfigResponse Prelude.Text
+describeEndpointConfigResponse_endpointConfigName = Lens.lens (\DescribeEndpointConfigResponse' {endpointConfigName} -> endpointConfigName) (\s@DescribeEndpointConfigResponse' {} a -> s {endpointConfigName = a} :: DescribeEndpointConfigResponse)
 
 -- | The Amazon Resource Name (ARN) of the endpoint configuration.
-decrrsEndpointConfigARN :: Lens' DescribeEndpointConfigResponse Text
-decrrsEndpointConfigARN = lens _decrrsEndpointConfigARN (\s a -> s {_decrrsEndpointConfigARN = a})
+describeEndpointConfigResponse_endpointConfigArn :: Lens.Lens' DescribeEndpointConfigResponse Prelude.Text
+describeEndpointConfigResponse_endpointConfigArn = Lens.lens (\DescribeEndpointConfigResponse' {endpointConfigArn} -> endpointConfigArn) (\s@DescribeEndpointConfigResponse' {} a -> s {endpointConfigArn = a} :: DescribeEndpointConfigResponse)
 
--- | An array of @ProductionVariant@ objects, one for each model that you want to host at this endpoint.
-decrrsProductionVariants :: Lens' DescribeEndpointConfigResponse (NonEmpty ProductionVariant)
-decrrsProductionVariants = lens _decrrsProductionVariants (\s a -> s {_decrrsProductionVariants = a}) . _List1
+-- | An array of @ProductionVariant@ objects, one for each model that you
+-- want to host at this endpoint.
+describeEndpointConfigResponse_productionVariants :: Lens.Lens' DescribeEndpointConfigResponse (Prelude.NonEmpty ProductionVariant)
+describeEndpointConfigResponse_productionVariants = Lens.lens (\DescribeEndpointConfigResponse' {productionVariants} -> productionVariants) (\s@DescribeEndpointConfigResponse' {} a -> s {productionVariants = a} :: DescribeEndpointConfigResponse) Prelude.. Prelude._List1
 
 -- | A timestamp that shows when the endpoint configuration was created.
-decrrsCreationTime :: Lens' DescribeEndpointConfigResponse UTCTime
-decrrsCreationTime = lens _decrrsCreationTime (\s a -> s {_decrrsCreationTime = a}) . _Time
+describeEndpointConfigResponse_creationTime :: Lens.Lens' DescribeEndpointConfigResponse Prelude.UTCTime
+describeEndpointConfigResponse_creationTime = Lens.lens (\DescribeEndpointConfigResponse' {creationTime} -> creationTime) (\s@DescribeEndpointConfigResponse' {} a -> s {creationTime = a} :: DescribeEndpointConfigResponse) Prelude.. Prelude._Time
 
-instance NFData DescribeEndpointConfigResponse
+instance
+  Prelude.NFData
+    DescribeEndpointConfigResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.SageMaker.Types.MonitoringProblemType
   ( MonitoringProblemType
       ( ..,
-        BinaryClassification,
-        MulticlassClassification,
-        Regression
+        MonitoringProblemTypeBinaryClassification,
+        MonitoringProblemTypeMulticlassClassification,
+        MonitoringProblemTypeRegression
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data MonitoringProblemType
-  = MonitoringProblemType'
-      ( CI
-          Text
-      )
+newtype MonitoringProblemType = MonitoringProblemType'
+  { fromMonitoringProblemType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern BinaryClassification :: MonitoringProblemType
-pattern BinaryClassification = MonitoringProblemType' "BinaryClassification"
+pattern MonitoringProblemTypeBinaryClassification :: MonitoringProblemType
+pattern MonitoringProblemTypeBinaryClassification = MonitoringProblemType' "BinaryClassification"
 
-pattern MulticlassClassification :: MonitoringProblemType
-pattern MulticlassClassification = MonitoringProblemType' "MulticlassClassification"
+pattern MonitoringProblemTypeMulticlassClassification :: MonitoringProblemType
+pattern MonitoringProblemTypeMulticlassClassification = MonitoringProblemType' "MulticlassClassification"
 
-pattern Regression :: MonitoringProblemType
-pattern Regression = MonitoringProblemType' "Regression"
+pattern MonitoringProblemTypeRegression :: MonitoringProblemType
+pattern MonitoringProblemTypeRegression = MonitoringProblemType' "Regression"
 
 {-# COMPLETE
-  BinaryClassification,
-  MulticlassClassification,
-  Regression,
+  MonitoringProblemTypeBinaryClassification,
+  MonitoringProblemTypeMulticlassClassification,
+  MonitoringProblemTypeRegression,
   MonitoringProblemType'
   #-}
 
-instance FromText MonitoringProblemType where
-  parser = (MonitoringProblemType' . mk) <$> takeText
+instance Prelude.FromText MonitoringProblemType where
+  parser = MonitoringProblemType' Prelude.<$> Prelude.takeText
 
-instance ToText MonitoringProblemType where
-  toText (MonitoringProblemType' ci) = original ci
+instance Prelude.ToText MonitoringProblemType where
+  toText (MonitoringProblemType' x) = x
 
-instance Hashable MonitoringProblemType
+instance Prelude.Hashable MonitoringProblemType
 
-instance NFData MonitoringProblemType
+instance Prelude.NFData MonitoringProblemType
 
-instance ToByteString MonitoringProblemType
+instance Prelude.ToByteString MonitoringProblemType
 
-instance ToQuery MonitoringProblemType
+instance Prelude.ToQuery MonitoringProblemType
 
-instance ToHeader MonitoringProblemType
+instance Prelude.ToHeader MonitoringProblemType
 
-instance ToJSON MonitoringProblemType where
-  toJSON = toJSONText
+instance Prelude.ToJSON MonitoringProblemType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON MonitoringProblemType where
-  parseJSON = parseJSONText "MonitoringProblemType"
+instance Prelude.FromJSON MonitoringProblemType where
+  parseJSON = Prelude.parseJSONText "MonitoringProblemType"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,75 +19,73 @@
 module Network.AWS.SageMaker.Types.TargetPlatformArch
   ( TargetPlatformArch
       ( ..,
-        ARM64,
-        ArmEabi,
-        ArmEabihf,
-        X86,
-        X86_64
+        TargetPlatformArchARM64,
+        TargetPlatformArchARMEABI,
+        TargetPlatformArchARMEABIHF,
+        TargetPlatformArchX86,
+        TargetPlatformArchX8664
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TargetPlatformArch
-  = TargetPlatformArch'
-      ( CI
-          Text
-      )
+newtype TargetPlatformArch = TargetPlatformArch'
+  { fromTargetPlatformArch ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ARM64 :: TargetPlatformArch
-pattern ARM64 = TargetPlatformArch' "ARM64"
+pattern TargetPlatformArchARM64 :: TargetPlatformArch
+pattern TargetPlatformArchARM64 = TargetPlatformArch' "ARM64"
 
-pattern ArmEabi :: TargetPlatformArch
-pattern ArmEabi = TargetPlatformArch' "ARM_EABI"
+pattern TargetPlatformArchARMEABI :: TargetPlatformArch
+pattern TargetPlatformArchARMEABI = TargetPlatformArch' "ARM_EABI"
 
-pattern ArmEabihf :: TargetPlatformArch
-pattern ArmEabihf = TargetPlatformArch' "ARM_EABIHF"
+pattern TargetPlatformArchARMEABIHF :: TargetPlatformArch
+pattern TargetPlatformArchARMEABIHF = TargetPlatformArch' "ARM_EABIHF"
 
-pattern X86 :: TargetPlatformArch
-pattern X86 = TargetPlatformArch' "X86"
+pattern TargetPlatformArchX86 :: TargetPlatformArch
+pattern TargetPlatformArchX86 = TargetPlatformArch' "X86"
 
-pattern X86_64 :: TargetPlatformArch
-pattern X86_64 = TargetPlatformArch' "X86_64"
+pattern TargetPlatformArchX8664 :: TargetPlatformArch
+pattern TargetPlatformArchX8664 = TargetPlatformArch' "X86_64"
 
 {-# COMPLETE
-  ARM64,
-  ArmEabi,
-  ArmEabihf,
-  X86,
-  X86_64,
+  TargetPlatformArchARM64,
+  TargetPlatformArchARMEABI,
+  TargetPlatformArchARMEABIHF,
+  TargetPlatformArchX86,
+  TargetPlatformArchX8664,
   TargetPlatformArch'
   #-}
 
-instance FromText TargetPlatformArch where
-  parser = (TargetPlatformArch' . mk) <$> takeText
+instance Prelude.FromText TargetPlatformArch where
+  parser = TargetPlatformArch' Prelude.<$> Prelude.takeText
 
-instance ToText TargetPlatformArch where
-  toText (TargetPlatformArch' ci) = original ci
+instance Prelude.ToText TargetPlatformArch where
+  toText (TargetPlatformArch' x) = x
 
-instance Hashable TargetPlatformArch
+instance Prelude.Hashable TargetPlatformArch
 
-instance NFData TargetPlatformArch
+instance Prelude.NFData TargetPlatformArch
 
-instance ToByteString TargetPlatformArch
+instance Prelude.ToByteString TargetPlatformArch
 
-instance ToQuery TargetPlatformArch
+instance Prelude.ToQuery TargetPlatformArch
 
-instance ToHeader TargetPlatformArch
+instance Prelude.ToHeader TargetPlatformArch
 
-instance ToJSON TargetPlatformArch where
-  toJSON = toJSONText
+instance Prelude.ToJSON TargetPlatformArch where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON TargetPlatformArch where
-  parseJSON = parseJSONText "TargetPlatformArch"
+instance Prelude.FromJSON TargetPlatformArch where
+  parseJSON = Prelude.parseJSONText "TargetPlatformArch"

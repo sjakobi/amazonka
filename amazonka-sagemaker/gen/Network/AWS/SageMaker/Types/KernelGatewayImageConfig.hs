@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,77 +19,76 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.KernelGatewayImageConfig where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.FileSystemConfig
 import Network.AWS.SageMaker.Types.KernelSpec
 
--- | The configuration for the file system and kernels in a SageMaker image running as a KernelGateway app.
+-- | The configuration for the file system and kernels in a SageMaker image
+-- running as a KernelGateway app.
 --
---
---
--- /See:/ 'kernelGatewayImageConfig' smart constructor.
+-- /See:/ 'newKernelGatewayImageConfig' smart constructor.
 data KernelGatewayImageConfig = KernelGatewayImageConfig'
-  { _kgicFileSystemConfig ::
-      !( Maybe
-           FileSystemConfig
-       ),
-    _kgicKernelSpecs ::
-      !(List1 KernelSpec)
+  { -- | The Amazon Elastic File System (EFS) storage configuration for a
+    -- SageMaker image.
+    fileSystemConfig :: Prelude.Maybe FileSystemConfig,
+    -- | The specification of the Jupyter kernels in the image.
+    kernelSpecs :: Prelude.List1 KernelSpec
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'KernelGatewayImageConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'KernelGatewayImageConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'kgicFileSystemConfig' - The Amazon Elastic File System (EFS) storage configuration for a SageMaker image.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'kgicKernelSpecs' - The specification of the Jupyter kernels in the image.
-kernelGatewayImageConfig ::
-  -- | 'kgicKernelSpecs'
-  NonEmpty KernelSpec ->
+-- 'fileSystemConfig', 'kernelGatewayImageConfig_fileSystemConfig' - The Amazon Elastic File System (EFS) storage configuration for a
+-- SageMaker image.
+--
+-- 'kernelSpecs', 'kernelGatewayImageConfig_kernelSpecs' - The specification of the Jupyter kernels in the image.
+newKernelGatewayImageConfig ::
+  -- | 'kernelSpecs'
+  Prelude.NonEmpty KernelSpec ->
   KernelGatewayImageConfig
-kernelGatewayImageConfig pKernelSpecs_ =
+newKernelGatewayImageConfig pKernelSpecs_ =
   KernelGatewayImageConfig'
-    { _kgicFileSystemConfig =
-        Nothing,
-      _kgicKernelSpecs = _List1 # pKernelSpecs_
+    { fileSystemConfig =
+        Prelude.Nothing,
+      kernelSpecs = Prelude._List1 Lens.# pKernelSpecs_
     }
 
--- | The Amazon Elastic File System (EFS) storage configuration for a SageMaker image.
-kgicFileSystemConfig :: Lens' KernelGatewayImageConfig (Maybe FileSystemConfig)
-kgicFileSystemConfig = lens _kgicFileSystemConfig (\s a -> s {_kgicFileSystemConfig = a})
+-- | The Amazon Elastic File System (EFS) storage configuration for a
+-- SageMaker image.
+kernelGatewayImageConfig_fileSystemConfig :: Lens.Lens' KernelGatewayImageConfig (Prelude.Maybe FileSystemConfig)
+kernelGatewayImageConfig_fileSystemConfig = Lens.lens (\KernelGatewayImageConfig' {fileSystemConfig} -> fileSystemConfig) (\s@KernelGatewayImageConfig' {} a -> s {fileSystemConfig = a} :: KernelGatewayImageConfig)
 
 -- | The specification of the Jupyter kernels in the image.
-kgicKernelSpecs :: Lens' KernelGatewayImageConfig (NonEmpty KernelSpec)
-kgicKernelSpecs = lens _kgicKernelSpecs (\s a -> s {_kgicKernelSpecs = a}) . _List1
+kernelGatewayImageConfig_kernelSpecs :: Lens.Lens' KernelGatewayImageConfig (Prelude.NonEmpty KernelSpec)
+kernelGatewayImageConfig_kernelSpecs = Lens.lens (\KernelGatewayImageConfig' {kernelSpecs} -> kernelSpecs) (\s@KernelGatewayImageConfig' {} a -> s {kernelSpecs = a} :: KernelGatewayImageConfig) Prelude.. Prelude._List1
 
-instance FromJSON KernelGatewayImageConfig where
+instance Prelude.FromJSON KernelGatewayImageConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "KernelGatewayImageConfig"
       ( \x ->
           KernelGatewayImageConfig'
-            <$> (x .:? "FileSystemConfig") <*> (x .: "KernelSpecs")
+            Prelude.<$> (x Prelude..:? "FileSystemConfig")
+            Prelude.<*> (x Prelude..: "KernelSpecs")
       )
 
-instance Hashable KernelGatewayImageConfig
+instance Prelude.Hashable KernelGatewayImageConfig
 
-instance NFData KernelGatewayImageConfig
+instance Prelude.NFData KernelGatewayImageConfig
 
-instance ToJSON KernelGatewayImageConfig where
+instance Prelude.ToJSON KernelGatewayImageConfig where
   toJSON KernelGatewayImageConfig' {..} =
-    object
-      ( catMaybes
-          [ ("FileSystemConfig" .=) <$> _kgicFileSystemConfig,
-            Just ("KernelSpecs" .= _kgicKernelSpecs)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("FileSystemConfig" Prelude..=)
+              Prelude.<$> fileSystemConfig,
+            Prelude.Just ("KernelSpecs" Prelude..= kernelSpecs)
           ]
       )

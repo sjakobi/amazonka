@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,126 +24,135 @@
 -- Deletes an context.
 module Network.AWS.SageMaker.DeleteContext
   ( -- * Creating a Request
-    deleteContext,
-    DeleteContext,
+    DeleteContext (..),
+    newDeleteContext,
 
     -- * Request Lenses
-    dcContextName,
+    deleteContext_contextName,
 
     -- * Destructuring the Response
-    deleteContextResponse,
-    DeleteContextResponse,
+    DeleteContextResponse (..),
+    newDeleteContextResponse,
 
     -- * Response Lenses
-    dcrrsContextARN,
-    dcrrsResponseStatus,
+    deleteContextResponse_contextArn,
+    deleteContextResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'deleteContext' smart constructor.
-newtype DeleteContext = DeleteContext'
-  { _dcContextName ::
-      Text
+-- | /See:/ 'newDeleteContext' smart constructor.
+data DeleteContext = DeleteContext'
+  { -- | The name of the context to delete.
+    contextName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteContext' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteContext' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcContextName' - The name of the context to delete.
-deleteContext ::
-  -- | 'dcContextName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'contextName', 'deleteContext_contextName' - The name of the context to delete.
+newDeleteContext ::
+  -- | 'contextName'
+  Prelude.Text ->
   DeleteContext
-deleteContext pContextName_ =
-  DeleteContext' {_dcContextName = pContextName_}
+newDeleteContext pContextName_ =
+  DeleteContext' {contextName = pContextName_}
 
 -- | The name of the context to delete.
-dcContextName :: Lens' DeleteContext Text
-dcContextName = lens _dcContextName (\s a -> s {_dcContextName = a})
+deleteContext_contextName :: Lens.Lens' DeleteContext Prelude.Text
+deleteContext_contextName = Lens.lens (\DeleteContext' {contextName} -> contextName) (\s@DeleteContext' {} a -> s {contextName = a} :: DeleteContext)
 
-instance AWSRequest DeleteContext where
+instance Prelude.AWSRequest DeleteContext where
   type Rs DeleteContext = DeleteContextResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteContextResponse'
-            <$> (x .?> "ContextArn") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ContextArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteContext
+instance Prelude.Hashable DeleteContext
 
-instance NFData DeleteContext
+instance Prelude.NFData DeleteContext
 
-instance ToHeaders DeleteContext where
+instance Prelude.ToHeaders DeleteContext where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.DeleteContext" :: ByteString),
+              Prelude.=# ("SageMaker.DeleteContext" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteContext where
+instance Prelude.ToJSON DeleteContext where
   toJSON DeleteContext' {..} =
-    object
-      (catMaybes [Just ("ContextName" .= _dcContextName)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("ContextName" Prelude..= contextName)
+          ]
+      )
 
-instance ToPath DeleteContext where
-  toPath = const "/"
+instance Prelude.ToPath DeleteContext where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteContext where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteContext where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteContextResponse' smart constructor.
+-- | /See:/ 'newDeleteContextResponse' smart constructor.
 data DeleteContextResponse = DeleteContextResponse'
-  { _dcrrsContextARN ::
-      !(Maybe Text),
-    _dcrrsResponseStatus ::
-      !Int
+  { -- | The Amazon Resource Name (ARN) of the context.
+    contextArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteContextResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteContextResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcrrsContextARN' - The Amazon Resource Name (ARN) of the context.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcrrsResponseStatus' - -- | The response status code.
-deleteContextResponse ::
-  -- | 'dcrrsResponseStatus'
-  Int ->
+-- 'contextArn', 'deleteContextResponse_contextArn' - The Amazon Resource Name (ARN) of the context.
+--
+-- 'httpStatus', 'deleteContextResponse_httpStatus' - The response's http status code.
+newDeleteContextResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteContextResponse
-deleteContextResponse pResponseStatus_ =
+newDeleteContextResponse pHttpStatus_ =
   DeleteContextResponse'
-    { _dcrrsContextARN = Nothing,
-      _dcrrsResponseStatus = pResponseStatus_
+    { contextArn =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The Amazon Resource Name (ARN) of the context.
-dcrrsContextARN :: Lens' DeleteContextResponse (Maybe Text)
-dcrrsContextARN = lens _dcrrsContextARN (\s a -> s {_dcrrsContextARN = a})
+deleteContextResponse_contextArn :: Lens.Lens' DeleteContextResponse (Prelude.Maybe Prelude.Text)
+deleteContextResponse_contextArn = Lens.lens (\DeleteContextResponse' {contextArn} -> contextArn) (\s@DeleteContextResponse' {} a -> s {contextArn = a} :: DeleteContextResponse)
 
--- | -- | The response status code.
-dcrrsResponseStatus :: Lens' DeleteContextResponse Int
-dcrrsResponseStatus = lens _dcrrsResponseStatus (\s a -> s {_dcrrsResponseStatus = a})
+-- | The response's http status code.
+deleteContextResponse_httpStatus :: Lens.Lens' DeleteContextResponse Prelude.Int
+deleteContextResponse_httpStatus = Lens.lens (\DeleteContextResponse' {httpStatus} -> httpStatus) (\s@DeleteContextResponse' {} a -> s {httpStatus = a} :: DeleteContextResponse)
 
-instance NFData DeleteContextResponse
+instance Prelude.NFData DeleteContextResponse

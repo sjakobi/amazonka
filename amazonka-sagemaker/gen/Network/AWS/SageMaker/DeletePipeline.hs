@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,144 +24,159 @@
 -- Deletes a pipeline if there are no in-progress executions.
 module Network.AWS.SageMaker.DeletePipeline
   ( -- * Creating a Request
-    deletePipeline,
-    DeletePipeline,
+    DeletePipeline (..),
+    newDeletePipeline,
 
     -- * Request Lenses
-    dPipelineName,
-    dClientRequestToken,
+    deletePipeline_pipelineName,
+    deletePipeline_clientRequestToken,
 
     -- * Destructuring the Response
-    deletePipelineResponse,
-    DeletePipelineResponse,
+    DeletePipelineResponse (..),
+    newDeletePipelineResponse,
 
     -- * Response Lenses
-    dprprsPipelineARN,
-    dprprsResponseStatus,
+    deletePipelineResponse_pipelineArn,
+    deletePipelineResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'deletePipeline' smart constructor.
+-- | /See:/ 'newDeletePipeline' smart constructor.
 data DeletePipeline = DeletePipeline'
-  { _dPipelineName ::
-      !Text,
-    _dClientRequestToken :: !Text
+  { -- | The name of the pipeline to delete.
+    pipelineName :: Prelude.Text,
+    -- | A unique, case-sensitive identifier that you provide to ensure the
+    -- idempotency of the operation. An idempotent operation completes no more
+    -- than one time.
+    clientRequestToken :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeletePipeline' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeletePipeline' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dPipelineName' - The name of the pipeline to delete.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dClientRequestToken' - A unique, case-sensitive identifier that you provide to ensure the idempotency of the operation. An idempotent operation completes no more than one time.
-deletePipeline ::
-  -- | 'dPipelineName'
-  Text ->
-  -- | 'dClientRequestToken'
-  Text ->
+-- 'pipelineName', 'deletePipeline_pipelineName' - The name of the pipeline to delete.
+--
+-- 'clientRequestToken', 'deletePipeline_clientRequestToken' - A unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the operation. An idempotent operation completes no more
+-- than one time.
+newDeletePipeline ::
+  -- | 'pipelineName'
+  Prelude.Text ->
+  -- | 'clientRequestToken'
+  Prelude.Text ->
   DeletePipeline
-deletePipeline pPipelineName_ pClientRequestToken_ =
+newDeletePipeline pPipelineName_ pClientRequestToken_ =
   DeletePipeline'
-    { _dPipelineName = pPipelineName_,
-      _dClientRequestToken = pClientRequestToken_
+    { pipelineName = pPipelineName_,
+      clientRequestToken = pClientRequestToken_
     }
 
 -- | The name of the pipeline to delete.
-dPipelineName :: Lens' DeletePipeline Text
-dPipelineName = lens _dPipelineName (\s a -> s {_dPipelineName = a})
+deletePipeline_pipelineName :: Lens.Lens' DeletePipeline Prelude.Text
+deletePipeline_pipelineName = Lens.lens (\DeletePipeline' {pipelineName} -> pipelineName) (\s@DeletePipeline' {} a -> s {pipelineName = a} :: DeletePipeline)
 
--- | A unique, case-sensitive identifier that you provide to ensure the idempotency of the operation. An idempotent operation completes no more than one time.
-dClientRequestToken :: Lens' DeletePipeline Text
-dClientRequestToken = lens _dClientRequestToken (\s a -> s {_dClientRequestToken = a})
+-- | A unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the operation. An idempotent operation completes no more
+-- than one time.
+deletePipeline_clientRequestToken :: Lens.Lens' DeletePipeline Prelude.Text
+deletePipeline_clientRequestToken = Lens.lens (\DeletePipeline' {clientRequestToken} -> clientRequestToken) (\s@DeletePipeline' {} a -> s {clientRequestToken = a} :: DeletePipeline)
 
-instance AWSRequest DeletePipeline where
+instance Prelude.AWSRequest DeletePipeline where
   type Rs DeletePipeline = DeletePipelineResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeletePipelineResponse'
-            <$> (x .?> "PipelineArn") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "PipelineArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeletePipeline
+instance Prelude.Hashable DeletePipeline
 
-instance NFData DeletePipeline
+instance Prelude.NFData DeletePipeline
 
-instance ToHeaders DeletePipeline where
+instance Prelude.ToHeaders DeletePipeline where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.DeletePipeline" :: ByteString),
+              Prelude.=# ("SageMaker.DeletePipeline" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeletePipeline where
+instance Prelude.ToJSON DeletePipeline where
   toJSON DeletePipeline' {..} =
-    object
-      ( catMaybes
-          [ Just ("PipelineName" .= _dPipelineName),
-            Just ("ClientRequestToken" .= _dClientRequestToken)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("PipelineName" Prelude..= pipelineName),
+            Prelude.Just
+              ( "ClientRequestToken"
+                  Prelude..= clientRequestToken
+              )
           ]
       )
 
-instance ToPath DeletePipeline where
-  toPath = const "/"
+instance Prelude.ToPath DeletePipeline where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeletePipeline where
-  toQuery = const mempty
+instance Prelude.ToQuery DeletePipeline where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deletePipelineResponse' smart constructor.
+-- | /See:/ 'newDeletePipelineResponse' smart constructor.
 data DeletePipelineResponse = DeletePipelineResponse'
-  { _dprprsPipelineARN ::
-      !(Maybe Text),
-    _dprprsResponseStatus ::
-      !Int
+  { -- | The Amazon Resource Name (ARN) of the pipeline to delete.
+    pipelineArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeletePipelineResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeletePipelineResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dprprsPipelineARN' - The Amazon Resource Name (ARN) of the pipeline to delete.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dprprsResponseStatus' - -- | The response status code.
-deletePipelineResponse ::
-  -- | 'dprprsResponseStatus'
-  Int ->
+-- 'pipelineArn', 'deletePipelineResponse_pipelineArn' - The Amazon Resource Name (ARN) of the pipeline to delete.
+--
+-- 'httpStatus', 'deletePipelineResponse_httpStatus' - The response's http status code.
+newDeletePipelineResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeletePipelineResponse
-deletePipelineResponse pResponseStatus_ =
+newDeletePipelineResponse pHttpStatus_ =
   DeletePipelineResponse'
-    { _dprprsPipelineARN =
-        Nothing,
-      _dprprsResponseStatus = pResponseStatus_
+    { pipelineArn =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The Amazon Resource Name (ARN) of the pipeline to delete.
-dprprsPipelineARN :: Lens' DeletePipelineResponse (Maybe Text)
-dprprsPipelineARN = lens _dprprsPipelineARN (\s a -> s {_dprprsPipelineARN = a})
+deletePipelineResponse_pipelineArn :: Lens.Lens' DeletePipelineResponse (Prelude.Maybe Prelude.Text)
+deletePipelineResponse_pipelineArn = Lens.lens (\DeletePipelineResponse' {pipelineArn} -> pipelineArn) (\s@DeletePipelineResponse' {} a -> s {pipelineArn = a} :: DeletePipelineResponse)
 
--- | -- | The response status code.
-dprprsResponseStatus :: Lens' DeletePipelineResponse Int
-dprprsResponseStatus = lens _dprprsResponseStatus (\s a -> s {_dprprsResponseStatus = a})
+-- | The response's http status code.
+deletePipelineResponse_httpStatus :: Lens.Lens' DeletePipelineResponse Prelude.Int
+deletePipelineResponse_httpStatus = Lens.lens (\DeletePipelineResponse' {httpStatus} -> httpStatus) (\s@DeletePipelineResponse' {} a -> s {httpStatus = a} :: DeletePipelineResponse)
 
-instance NFData DeletePipelineResponse
+instance Prelude.NFData DeletePipelineResponse

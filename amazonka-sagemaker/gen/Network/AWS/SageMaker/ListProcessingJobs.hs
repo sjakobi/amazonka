@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,255 +23,311 @@
 --
 -- Lists processing jobs that satisfy various filters.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.SageMaker.ListProcessingJobs
   ( -- * Creating a Request
-    listProcessingJobs,
-    ListProcessingJobs,
+    ListProcessingJobs (..),
+    newListProcessingJobs,
 
     -- * Request Lenses
-    lpjLastModifiedTimeBefore,
-    lpjSortOrder,
-    lpjNextToken,
-    lpjNameContains,
-    lpjMaxResults,
-    lpjCreationTimeBefore,
-    lpjLastModifiedTimeAfter,
-    lpjSortBy,
-    lpjStatusEquals,
-    lpjCreationTimeAfter,
+    listProcessingJobs_lastModifiedTimeBefore,
+    listProcessingJobs_sortOrder,
+    listProcessingJobs_nextToken,
+    listProcessingJobs_nameContains,
+    listProcessingJobs_maxResults,
+    listProcessingJobs_creationTimeBefore,
+    listProcessingJobs_lastModifiedTimeAfter,
+    listProcessingJobs_sortBy,
+    listProcessingJobs_statusEquals,
+    listProcessingJobs_creationTimeAfter,
 
     -- * Destructuring the Response
-    listProcessingJobsResponse,
-    ListProcessingJobsResponse,
+    ListProcessingJobsResponse (..),
+    newListProcessingJobsResponse,
 
     -- * Response Lenses
-    lpjrrsNextToken,
-    lpjrrsResponseStatus,
-    lpjrrsProcessingJobSummaries,
+    listProcessingJobsResponse_nextToken,
+    listProcessingJobsResponse_httpStatus,
+    listProcessingJobsResponse_processingJobSummaries,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
+import Network.AWS.SageMaker.Types.ProcessingJobSummary
 
--- | /See:/ 'listProcessingJobs' smart constructor.
+-- | /See:/ 'newListProcessingJobs' smart constructor.
 data ListProcessingJobs = ListProcessingJobs'
-  { _lpjLastModifiedTimeBefore ::
-      !(Maybe POSIX),
-    _lpjSortOrder ::
-      !(Maybe SortOrder),
-    _lpjNextToken :: !(Maybe Text),
-    _lpjNameContains :: !(Maybe Text),
-    _lpjMaxResults :: !(Maybe Nat),
-    _lpjCreationTimeBefore ::
-      !(Maybe POSIX),
-    _lpjLastModifiedTimeAfter ::
-      !(Maybe POSIX),
-    _lpjSortBy :: !(Maybe SortBy),
-    _lpjStatusEquals ::
-      !(Maybe ProcessingJobStatus),
-    _lpjCreationTimeAfter ::
-      !(Maybe POSIX)
+  { -- | A filter that returns only processing jobs modified before the specified
+    -- time.
+    lastModifiedTimeBefore :: Prelude.Maybe Prelude.POSIX,
+    -- | The sort order for results. The default is @Ascending@.
+    sortOrder :: Prelude.Maybe SortOrder,
+    -- | If the result of the previous @ListProcessingJobs@ request was
+    -- truncated, the response includes a @NextToken@. To retrieve the next set
+    -- of processing jobs, use the token in the next request.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A string in the processing job name. This filter returns only processing
+    -- jobs whose name contains the specified string.
+    nameContains :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of processing jobs to return in the response.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | A filter that returns only processing jobs created after the specified
+    -- time.
+    creationTimeBefore :: Prelude.Maybe Prelude.POSIX,
+    -- | A filter that returns only processing jobs modified after the specified
+    -- time.
+    lastModifiedTimeAfter :: Prelude.Maybe Prelude.POSIX,
+    -- | The field to sort results by. The default is @CreationTime@.
+    sortBy :: Prelude.Maybe SortBy,
+    -- | A filter that retrieves only processing jobs with a specific status.
+    statusEquals :: Prelude.Maybe ProcessingJobStatus,
+    -- | A filter that returns only processing jobs created after the specified
+    -- time.
+    creationTimeAfter :: Prelude.Maybe Prelude.POSIX
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListProcessingJobs' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListProcessingJobs' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lpjLastModifiedTimeBefore' - A filter that returns only processing jobs modified before the specified time.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lpjSortOrder' - The sort order for results. The default is @Ascending@ .
+-- 'lastModifiedTimeBefore', 'listProcessingJobs_lastModifiedTimeBefore' - A filter that returns only processing jobs modified before the specified
+-- time.
 --
--- * 'lpjNextToken' - If the result of the previous @ListProcessingJobs@ request was truncated, the response includes a @NextToken@ . To retrieve the next set of processing jobs, use the token in the next request.
+-- 'sortOrder', 'listProcessingJobs_sortOrder' - The sort order for results. The default is @Ascending@.
 --
--- * 'lpjNameContains' - A string in the processing job name. This filter returns only processing jobs whose name contains the specified string.
+-- 'nextToken', 'listProcessingJobs_nextToken' - If the result of the previous @ListProcessingJobs@ request was
+-- truncated, the response includes a @NextToken@. To retrieve the next set
+-- of processing jobs, use the token in the next request.
 --
--- * 'lpjMaxResults' - The maximum number of processing jobs to return in the response.
+-- 'nameContains', 'listProcessingJobs_nameContains' - A string in the processing job name. This filter returns only processing
+-- jobs whose name contains the specified string.
 --
--- * 'lpjCreationTimeBefore' - A filter that returns only processing jobs created after the specified time.
+-- 'maxResults', 'listProcessingJobs_maxResults' - The maximum number of processing jobs to return in the response.
 --
--- * 'lpjLastModifiedTimeAfter' - A filter that returns only processing jobs modified after the specified time.
+-- 'creationTimeBefore', 'listProcessingJobs_creationTimeBefore' - A filter that returns only processing jobs created after the specified
+-- time.
 --
--- * 'lpjSortBy' - The field to sort results by. The default is @CreationTime@ .
+-- 'lastModifiedTimeAfter', 'listProcessingJobs_lastModifiedTimeAfter' - A filter that returns only processing jobs modified after the specified
+-- time.
 --
--- * 'lpjStatusEquals' - A filter that retrieves only processing jobs with a specific status.
+-- 'sortBy', 'listProcessingJobs_sortBy' - The field to sort results by. The default is @CreationTime@.
 --
--- * 'lpjCreationTimeAfter' - A filter that returns only processing jobs created after the specified time.
-listProcessingJobs ::
+-- 'statusEquals', 'listProcessingJobs_statusEquals' - A filter that retrieves only processing jobs with a specific status.
+--
+-- 'creationTimeAfter', 'listProcessingJobs_creationTimeAfter' - A filter that returns only processing jobs created after the specified
+-- time.
+newListProcessingJobs ::
   ListProcessingJobs
-listProcessingJobs =
+newListProcessingJobs =
   ListProcessingJobs'
-    { _lpjLastModifiedTimeBefore =
-        Nothing,
-      _lpjSortOrder = Nothing,
-      _lpjNextToken = Nothing,
-      _lpjNameContains = Nothing,
-      _lpjMaxResults = Nothing,
-      _lpjCreationTimeBefore = Nothing,
-      _lpjLastModifiedTimeAfter = Nothing,
-      _lpjSortBy = Nothing,
-      _lpjStatusEquals = Nothing,
-      _lpjCreationTimeAfter = Nothing
+    { lastModifiedTimeBefore =
+        Prelude.Nothing,
+      sortOrder = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      nameContains = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      creationTimeBefore = Prelude.Nothing,
+      lastModifiedTimeAfter = Prelude.Nothing,
+      sortBy = Prelude.Nothing,
+      statusEquals = Prelude.Nothing,
+      creationTimeAfter = Prelude.Nothing
     }
 
--- | A filter that returns only processing jobs modified before the specified time.
-lpjLastModifiedTimeBefore :: Lens' ListProcessingJobs (Maybe UTCTime)
-lpjLastModifiedTimeBefore = lens _lpjLastModifiedTimeBefore (\s a -> s {_lpjLastModifiedTimeBefore = a}) . mapping _Time
+-- | A filter that returns only processing jobs modified before the specified
+-- time.
+listProcessingJobs_lastModifiedTimeBefore :: Lens.Lens' ListProcessingJobs (Prelude.Maybe Prelude.UTCTime)
+listProcessingJobs_lastModifiedTimeBefore = Lens.lens (\ListProcessingJobs' {lastModifiedTimeBefore} -> lastModifiedTimeBefore) (\s@ListProcessingJobs' {} a -> s {lastModifiedTimeBefore = a} :: ListProcessingJobs) Prelude.. Lens.mapping Prelude._Time
 
--- | The sort order for results. The default is @Ascending@ .
-lpjSortOrder :: Lens' ListProcessingJobs (Maybe SortOrder)
-lpjSortOrder = lens _lpjSortOrder (\s a -> s {_lpjSortOrder = a})
+-- | The sort order for results. The default is @Ascending@.
+listProcessingJobs_sortOrder :: Lens.Lens' ListProcessingJobs (Prelude.Maybe SortOrder)
+listProcessingJobs_sortOrder = Lens.lens (\ListProcessingJobs' {sortOrder} -> sortOrder) (\s@ListProcessingJobs' {} a -> s {sortOrder = a} :: ListProcessingJobs)
 
--- | If the result of the previous @ListProcessingJobs@ request was truncated, the response includes a @NextToken@ . To retrieve the next set of processing jobs, use the token in the next request.
-lpjNextToken :: Lens' ListProcessingJobs (Maybe Text)
-lpjNextToken = lens _lpjNextToken (\s a -> s {_lpjNextToken = a})
+-- | If the result of the previous @ListProcessingJobs@ request was
+-- truncated, the response includes a @NextToken@. To retrieve the next set
+-- of processing jobs, use the token in the next request.
+listProcessingJobs_nextToken :: Lens.Lens' ListProcessingJobs (Prelude.Maybe Prelude.Text)
+listProcessingJobs_nextToken = Lens.lens (\ListProcessingJobs' {nextToken} -> nextToken) (\s@ListProcessingJobs' {} a -> s {nextToken = a} :: ListProcessingJobs)
 
--- | A string in the processing job name. This filter returns only processing jobs whose name contains the specified string.
-lpjNameContains :: Lens' ListProcessingJobs (Maybe Text)
-lpjNameContains = lens _lpjNameContains (\s a -> s {_lpjNameContains = a})
+-- | A string in the processing job name. This filter returns only processing
+-- jobs whose name contains the specified string.
+listProcessingJobs_nameContains :: Lens.Lens' ListProcessingJobs (Prelude.Maybe Prelude.Text)
+listProcessingJobs_nameContains = Lens.lens (\ListProcessingJobs' {nameContains} -> nameContains) (\s@ListProcessingJobs' {} a -> s {nameContains = a} :: ListProcessingJobs)
 
 -- | The maximum number of processing jobs to return in the response.
-lpjMaxResults :: Lens' ListProcessingJobs (Maybe Natural)
-lpjMaxResults = lens _lpjMaxResults (\s a -> s {_lpjMaxResults = a}) . mapping _Nat
+listProcessingJobs_maxResults :: Lens.Lens' ListProcessingJobs (Prelude.Maybe Prelude.Natural)
+listProcessingJobs_maxResults = Lens.lens (\ListProcessingJobs' {maxResults} -> maxResults) (\s@ListProcessingJobs' {} a -> s {maxResults = a} :: ListProcessingJobs) Prelude.. Lens.mapping Prelude._Nat
 
--- | A filter that returns only processing jobs created after the specified time.
-lpjCreationTimeBefore :: Lens' ListProcessingJobs (Maybe UTCTime)
-lpjCreationTimeBefore = lens _lpjCreationTimeBefore (\s a -> s {_lpjCreationTimeBefore = a}) . mapping _Time
+-- | A filter that returns only processing jobs created after the specified
+-- time.
+listProcessingJobs_creationTimeBefore :: Lens.Lens' ListProcessingJobs (Prelude.Maybe Prelude.UTCTime)
+listProcessingJobs_creationTimeBefore = Lens.lens (\ListProcessingJobs' {creationTimeBefore} -> creationTimeBefore) (\s@ListProcessingJobs' {} a -> s {creationTimeBefore = a} :: ListProcessingJobs) Prelude.. Lens.mapping Prelude._Time
 
--- | A filter that returns only processing jobs modified after the specified time.
-lpjLastModifiedTimeAfter :: Lens' ListProcessingJobs (Maybe UTCTime)
-lpjLastModifiedTimeAfter = lens _lpjLastModifiedTimeAfter (\s a -> s {_lpjLastModifiedTimeAfter = a}) . mapping _Time
+-- | A filter that returns only processing jobs modified after the specified
+-- time.
+listProcessingJobs_lastModifiedTimeAfter :: Lens.Lens' ListProcessingJobs (Prelude.Maybe Prelude.UTCTime)
+listProcessingJobs_lastModifiedTimeAfter = Lens.lens (\ListProcessingJobs' {lastModifiedTimeAfter} -> lastModifiedTimeAfter) (\s@ListProcessingJobs' {} a -> s {lastModifiedTimeAfter = a} :: ListProcessingJobs) Prelude.. Lens.mapping Prelude._Time
 
--- | The field to sort results by. The default is @CreationTime@ .
-lpjSortBy :: Lens' ListProcessingJobs (Maybe SortBy)
-lpjSortBy = lens _lpjSortBy (\s a -> s {_lpjSortBy = a})
+-- | The field to sort results by. The default is @CreationTime@.
+listProcessingJobs_sortBy :: Lens.Lens' ListProcessingJobs (Prelude.Maybe SortBy)
+listProcessingJobs_sortBy = Lens.lens (\ListProcessingJobs' {sortBy} -> sortBy) (\s@ListProcessingJobs' {} a -> s {sortBy = a} :: ListProcessingJobs)
 
 -- | A filter that retrieves only processing jobs with a specific status.
-lpjStatusEquals :: Lens' ListProcessingJobs (Maybe ProcessingJobStatus)
-lpjStatusEquals = lens _lpjStatusEquals (\s a -> s {_lpjStatusEquals = a})
+listProcessingJobs_statusEquals :: Lens.Lens' ListProcessingJobs (Prelude.Maybe ProcessingJobStatus)
+listProcessingJobs_statusEquals = Lens.lens (\ListProcessingJobs' {statusEquals} -> statusEquals) (\s@ListProcessingJobs' {} a -> s {statusEquals = a} :: ListProcessingJobs)
 
--- | A filter that returns only processing jobs created after the specified time.
-lpjCreationTimeAfter :: Lens' ListProcessingJobs (Maybe UTCTime)
-lpjCreationTimeAfter = lens _lpjCreationTimeAfter (\s a -> s {_lpjCreationTimeAfter = a}) . mapping _Time
+-- | A filter that returns only processing jobs created after the specified
+-- time.
+listProcessingJobs_creationTimeAfter :: Lens.Lens' ListProcessingJobs (Prelude.Maybe Prelude.UTCTime)
+listProcessingJobs_creationTimeAfter = Lens.lens (\ListProcessingJobs' {creationTimeAfter} -> creationTimeAfter) (\s@ListProcessingJobs' {} a -> s {creationTimeAfter = a} :: ListProcessingJobs) Prelude.. Lens.mapping Prelude._Time
 
-instance AWSPager ListProcessingJobs where
+instance Pager.AWSPager ListProcessingJobs where
   page rq rs
-    | stop (rs ^. lpjrrsNextToken) = Nothing
-    | stop (rs ^. lpjrrsProcessingJobSummaries) = Nothing
-    | otherwise =
-      Just $ rq & lpjNextToken .~ rs ^. lpjrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listProcessingJobsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^. listProcessingJobsResponse_processingJobSummaries
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listProcessingJobs_nextToken
+          Lens..~ rs
+          Lens.^? listProcessingJobsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListProcessingJobs where
+instance Prelude.AWSRequest ListProcessingJobs where
   type
     Rs ListProcessingJobs =
       ListProcessingJobsResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListProcessingJobsResponse'
-            <$> (x .?> "NextToken")
-            <*> (pure (fromEnum s))
-            <*> (x .?> "ProcessingJobSummaries" .!@ mempty)
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> ( x Prelude..?> "ProcessingJobSummaries"
+                            Prelude..!@ Prelude.mempty
+                        )
       )
 
-instance Hashable ListProcessingJobs
+instance Prelude.Hashable ListProcessingJobs
 
-instance NFData ListProcessingJobs
+instance Prelude.NFData ListProcessingJobs
 
-instance ToHeaders ListProcessingJobs where
+instance Prelude.ToHeaders ListProcessingJobs where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.ListProcessingJobs" :: ByteString),
+              Prelude.=# ( "SageMaker.ListProcessingJobs" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListProcessingJobs where
+instance Prelude.ToJSON ListProcessingJobs where
   toJSON ListProcessingJobs' {..} =
-    object
-      ( catMaybes
-          [ ("LastModifiedTimeBefore" .=)
-              <$> _lpjLastModifiedTimeBefore,
-            ("SortOrder" .=) <$> _lpjSortOrder,
-            ("NextToken" .=) <$> _lpjNextToken,
-            ("NameContains" .=) <$> _lpjNameContains,
-            ("MaxResults" .=) <$> _lpjMaxResults,
-            ("CreationTimeBefore" .=) <$> _lpjCreationTimeBefore,
-            ("LastModifiedTimeAfter" .=)
-              <$> _lpjLastModifiedTimeAfter,
-            ("SortBy" .=) <$> _lpjSortBy,
-            ("StatusEquals" .=) <$> _lpjStatusEquals,
-            ("CreationTimeAfter" .=) <$> _lpjCreationTimeAfter
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("LastModifiedTimeBefore" Prelude..=)
+              Prelude.<$> lastModifiedTimeBefore,
+            ("SortOrder" Prelude..=) Prelude.<$> sortOrder,
+            ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("NameContains" Prelude..=) Prelude.<$> nameContains,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("CreationTimeBefore" Prelude..=)
+              Prelude.<$> creationTimeBefore,
+            ("LastModifiedTimeAfter" Prelude..=)
+              Prelude.<$> lastModifiedTimeAfter,
+            ("SortBy" Prelude..=) Prelude.<$> sortBy,
+            ("StatusEquals" Prelude..=) Prelude.<$> statusEquals,
+            ("CreationTimeAfter" Prelude..=)
+              Prelude.<$> creationTimeAfter
           ]
       )
 
-instance ToPath ListProcessingJobs where
-  toPath = const "/"
+instance Prelude.ToPath ListProcessingJobs where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListProcessingJobs where
-  toQuery = const mempty
+instance Prelude.ToQuery ListProcessingJobs where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listProcessingJobsResponse' smart constructor.
+-- | /See:/ 'newListProcessingJobsResponse' smart constructor.
 data ListProcessingJobsResponse = ListProcessingJobsResponse'
-  { _lpjrrsNextToken ::
-      !(Maybe Text),
-    _lpjrrsResponseStatus ::
-      !Int,
-    _lpjrrsProcessingJobSummaries ::
-      ![ProcessingJobSummary]
+  { -- | If the response is truncated, Amazon SageMaker returns this token. To
+    -- retrieve the next set of processing jobs, use it in the subsequent
+    -- request.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | An array of @ProcessingJobSummary@ objects, each listing a processing
+    -- job.
+    processingJobSummaries :: [ProcessingJobSummary]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListProcessingJobsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListProcessingJobsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lpjrrsNextToken' - If the response is truncated, Amazon SageMaker returns this token. To retrieve the next set of processing jobs, use it in the subsequent request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lpjrrsResponseStatus' - -- | The response status code.
+-- 'nextToken', 'listProcessingJobsResponse_nextToken' - If the response is truncated, Amazon SageMaker returns this token. To
+-- retrieve the next set of processing jobs, use it in the subsequent
+-- request.
 --
--- * 'lpjrrsProcessingJobSummaries' - An array of @ProcessingJobSummary@ objects, each listing a processing job.
-listProcessingJobsResponse ::
-  -- | 'lpjrrsResponseStatus'
-  Int ->
+-- 'httpStatus', 'listProcessingJobsResponse_httpStatus' - The response's http status code.
+--
+-- 'processingJobSummaries', 'listProcessingJobsResponse_processingJobSummaries' - An array of @ProcessingJobSummary@ objects, each listing a processing
+-- job.
+newListProcessingJobsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListProcessingJobsResponse
-listProcessingJobsResponse pResponseStatus_ =
+newListProcessingJobsResponse pHttpStatus_ =
   ListProcessingJobsResponse'
-    { _lpjrrsNextToken =
-        Nothing,
-      _lpjrrsResponseStatus = pResponseStatus_,
-      _lpjrrsProcessingJobSummaries = mempty
+    { nextToken =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_,
+      processingJobSummaries = Prelude.mempty
     }
 
--- | If the response is truncated, Amazon SageMaker returns this token. To retrieve the next set of processing jobs, use it in the subsequent request.
-lpjrrsNextToken :: Lens' ListProcessingJobsResponse (Maybe Text)
-lpjrrsNextToken = lens _lpjrrsNextToken (\s a -> s {_lpjrrsNextToken = a})
+-- | If the response is truncated, Amazon SageMaker returns this token. To
+-- retrieve the next set of processing jobs, use it in the subsequent
+-- request.
+listProcessingJobsResponse_nextToken :: Lens.Lens' ListProcessingJobsResponse (Prelude.Maybe Prelude.Text)
+listProcessingJobsResponse_nextToken = Lens.lens (\ListProcessingJobsResponse' {nextToken} -> nextToken) (\s@ListProcessingJobsResponse' {} a -> s {nextToken = a} :: ListProcessingJobsResponse)
 
--- | -- | The response status code.
-lpjrrsResponseStatus :: Lens' ListProcessingJobsResponse Int
-lpjrrsResponseStatus = lens _lpjrrsResponseStatus (\s a -> s {_lpjrrsResponseStatus = a})
+-- | The response's http status code.
+listProcessingJobsResponse_httpStatus :: Lens.Lens' ListProcessingJobsResponse Prelude.Int
+listProcessingJobsResponse_httpStatus = Lens.lens (\ListProcessingJobsResponse' {httpStatus} -> httpStatus) (\s@ListProcessingJobsResponse' {} a -> s {httpStatus = a} :: ListProcessingJobsResponse)
 
--- | An array of @ProcessingJobSummary@ objects, each listing a processing job.
-lpjrrsProcessingJobSummaries :: Lens' ListProcessingJobsResponse [ProcessingJobSummary]
-lpjrrsProcessingJobSummaries = lens _lpjrrsProcessingJobSummaries (\s a -> s {_lpjrrsProcessingJobSummaries = a}) . _Coerce
+-- | An array of @ProcessingJobSummary@ objects, each listing a processing
+-- job.
+listProcessingJobsResponse_processingJobSummaries :: Lens.Lens' ListProcessingJobsResponse [ProcessingJobSummary]
+listProcessingJobsResponse_processingJobSummaries = Lens.lens (\ListProcessingJobsResponse' {processingJobSummaries} -> processingJobSummaries) (\s@ListProcessingJobsResponse' {} a -> s {processingJobSummaries = a} :: ListProcessingJobsResponse) Prelude.. Prelude._Coerce
 
-instance NFData ListProcessingJobsResponse
+instance Prelude.NFData ListProcessingJobsResponse

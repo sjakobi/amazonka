@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,68 +19,71 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.AutoMLS3DataSource where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.AutoMLS3DataType
 
 -- | The Amazon S3 data source.
 --
---
---
--- /See:/ 'autoMLS3DataSource' smart constructor.
+-- /See:/ 'newAutoMLS3DataSource' smart constructor.
 data AutoMLS3DataSource = AutoMLS3DataSource'
-  { _amlsdsS3DataType ::
-      !AutoMLS3DataType,
-    _amlsdsS3URI :: !Text
+  { -- | The data type.
+    s3DataType :: AutoMLS3DataType,
+    -- | The URL to the Amazon S3 data source.
+    s3Uri :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AutoMLS3DataSource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AutoMLS3DataSource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'amlsdsS3DataType' - The data type.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'amlsdsS3URI' - The URL to the Amazon S3 data source.
-autoMLS3DataSource ::
-  -- | 'amlsdsS3DataType'
+-- 's3DataType', 'autoMLS3DataSource_s3DataType' - The data type.
+--
+-- 's3Uri', 'autoMLS3DataSource_s3Uri' - The URL to the Amazon S3 data source.
+newAutoMLS3DataSource ::
+  -- | 's3DataType'
   AutoMLS3DataType ->
-  -- | 'amlsdsS3URI'
-  Text ->
+  -- | 's3Uri'
+  Prelude.Text ->
   AutoMLS3DataSource
-autoMLS3DataSource pS3DataType_ pS3URI_ =
+newAutoMLS3DataSource pS3DataType_ pS3Uri_ =
   AutoMLS3DataSource'
-    { _amlsdsS3DataType =
-        pS3DataType_,
-      _amlsdsS3URI = pS3URI_
+    { s3DataType = pS3DataType_,
+      s3Uri = pS3Uri_
     }
 
 -- | The data type.
-amlsdsS3DataType :: Lens' AutoMLS3DataSource AutoMLS3DataType
-amlsdsS3DataType = lens _amlsdsS3DataType (\s a -> s {_amlsdsS3DataType = a})
+autoMLS3DataSource_s3DataType :: Lens.Lens' AutoMLS3DataSource AutoMLS3DataType
+autoMLS3DataSource_s3DataType = Lens.lens (\AutoMLS3DataSource' {s3DataType} -> s3DataType) (\s@AutoMLS3DataSource' {} a -> s {s3DataType = a} :: AutoMLS3DataSource)
 
 -- | The URL to the Amazon S3 data source.
-amlsdsS3URI :: Lens' AutoMLS3DataSource Text
-amlsdsS3URI = lens _amlsdsS3URI (\s a -> s {_amlsdsS3URI = a})
+autoMLS3DataSource_s3Uri :: Lens.Lens' AutoMLS3DataSource Prelude.Text
+autoMLS3DataSource_s3Uri = Lens.lens (\AutoMLS3DataSource' {s3Uri} -> s3Uri) (\s@AutoMLS3DataSource' {} a -> s {s3Uri = a} :: AutoMLS3DataSource)
 
-instance FromJSON AutoMLS3DataSource where
+instance Prelude.FromJSON AutoMLS3DataSource where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AutoMLS3DataSource"
       ( \x ->
           AutoMLS3DataSource'
-            <$> (x .: "S3DataType") <*> (x .: "S3Uri")
+            Prelude.<$> (x Prelude..: "S3DataType")
+            Prelude.<*> (x Prelude..: "S3Uri")
       )
 
-instance Hashable AutoMLS3DataSource
+instance Prelude.Hashable AutoMLS3DataSource
 
-instance NFData AutoMLS3DataSource
+instance Prelude.NFData AutoMLS3DataSource
 
-instance ToJSON AutoMLS3DataSource where
+instance Prelude.ToJSON AutoMLS3DataSource where
   toJSON AutoMLS3DataSource' {..} =
-    object
-      ( catMaybes
-          [ Just ("S3DataType" .= _amlsdsS3DataType),
-            Just ("S3Uri" .= _amlsdsS3URI)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("S3DataType" Prelude..= s3DataType),
+            Prelude.Just ("S3Uri" Prelude..= s3Uri)
           ]
       )

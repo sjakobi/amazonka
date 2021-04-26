@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,98 +21,110 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes an endpoint. Amazon SageMaker frees up all of the resources that were deployed when the endpoint was created.
+-- Deletes an endpoint. Amazon SageMaker frees up all of the resources that
+-- were deployed when the endpoint was created.
 --
---
--- Amazon SageMaker retires any custom KMS key grants associated with the endpoint, meaning you don't need to use the <http://docs.aws.amazon.com/kms/latest/APIReference/API_RevokeGrant.html RevokeGrant> API call.
+-- Amazon SageMaker retires any custom KMS key grants associated with the
+-- endpoint, meaning you don\'t need to use the
+-- <http://docs.aws.amazon.com/kms/latest/APIReference/API_RevokeGrant.html RevokeGrant>
+-- API call.
 module Network.AWS.SageMaker.DeleteEndpoint
   ( -- * Creating a Request
-    deleteEndpoint,
-    DeleteEndpoint,
+    DeleteEndpoint (..),
+    newDeleteEndpoint,
 
     -- * Request Lenses
-    dEndpointName,
+    deleteEndpoint_endpointName,
 
     -- * Destructuring the Response
-    deleteEndpointResponse,
-    DeleteEndpointResponse,
+    DeleteEndpointResponse (..),
+    newDeleteEndpointResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'deleteEndpoint' smart constructor.
-newtype DeleteEndpoint = DeleteEndpoint'
-  { _dEndpointName ::
-      Text
+-- | /See:/ 'newDeleteEndpoint' smart constructor.
+data DeleteEndpoint = DeleteEndpoint'
+  { -- | The name of the endpoint that you want to delete.
+    endpointName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteEndpoint' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteEndpoint' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dEndpointName' - The name of the endpoint that you want to delete.
-deleteEndpoint ::
-  -- | 'dEndpointName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'endpointName', 'deleteEndpoint_endpointName' - The name of the endpoint that you want to delete.
+newDeleteEndpoint ::
+  -- | 'endpointName'
+  Prelude.Text ->
   DeleteEndpoint
-deleteEndpoint pEndpointName_ =
-  DeleteEndpoint' {_dEndpointName = pEndpointName_}
+newDeleteEndpoint pEndpointName_ =
+  DeleteEndpoint' {endpointName = pEndpointName_}
 
 -- | The name of the endpoint that you want to delete.
-dEndpointName :: Lens' DeleteEndpoint Text
-dEndpointName = lens _dEndpointName (\s a -> s {_dEndpointName = a})
+deleteEndpoint_endpointName :: Lens.Lens' DeleteEndpoint Prelude.Text
+deleteEndpoint_endpointName = Lens.lens (\DeleteEndpoint' {endpointName} -> endpointName) (\s@DeleteEndpoint' {} a -> s {endpointName = a} :: DeleteEndpoint)
 
-instance AWSRequest DeleteEndpoint where
+instance Prelude.AWSRequest DeleteEndpoint where
   type Rs DeleteEndpoint = DeleteEndpointResponse
-  request = postJSON sageMaker
-  response = receiveNull DeleteEndpointResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull DeleteEndpointResponse'
 
-instance Hashable DeleteEndpoint
+instance Prelude.Hashable DeleteEndpoint
 
-instance NFData DeleteEndpoint
+instance Prelude.NFData DeleteEndpoint
 
-instance ToHeaders DeleteEndpoint where
+instance Prelude.ToHeaders DeleteEndpoint where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.DeleteEndpoint" :: ByteString),
+              Prelude.=# ("SageMaker.DeleteEndpoint" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteEndpoint where
+instance Prelude.ToJSON DeleteEndpoint where
   toJSON DeleteEndpoint' {..} =
-    object
-      (catMaybes [Just ("EndpointName" .= _dEndpointName)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("EndpointName" Prelude..= endpointName)
+          ]
+      )
 
-instance ToPath DeleteEndpoint where
-  toPath = const "/"
+instance Prelude.ToPath DeleteEndpoint where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteEndpoint where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteEndpoint where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteEndpointResponse' smart constructor.
+-- | /See:/ 'newDeleteEndpointResponse' smart constructor.
 data DeleteEndpointResponse = DeleteEndpointResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteEndpointResponse' with the minimum fields required to make a request.
-deleteEndpointResponse ::
+-- |
+-- Create a value of 'DeleteEndpointResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteEndpointResponse ::
   DeleteEndpointResponse
-deleteEndpointResponse = DeleteEndpointResponse'
+newDeleteEndpointResponse = DeleteEndpointResponse'
 
-instance NFData DeleteEndpointResponse
+instance Prelude.NFData DeleteEndpointResponse

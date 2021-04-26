@@ -13,15 +13,14 @@
 --
 -- Provides APIs for creating and managing Amazon SageMaker resources.
 --
---
 -- Other Resources:
 --
---     * <https://docs.aws.amazon.com/sagemaker/latest/dg/whatis.html#first-time-user Amazon SageMaker Developer Guide>
+-- -   <https://docs.aws.amazon.com/sagemaker/latest/dg/whatis.html#first-time-user Amazon SageMaker Developer Guide>
 --
---     * <https://docs.aws.amazon.com/augmented-ai/2019-11-07/APIReference/Welcome.html Amazon Augmented AI Runtime API Reference>
+-- -   <https://docs.aws.amazon.com/augmented-ai/2019-11-07/APIReference/Welcome.html Amazon Augmented AI Runtime API Reference>
 module Network.AWS.SageMaker
   ( -- * Service Configuration
-    sageMaker,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -42,735 +41,1431 @@ module Network.AWS.SageMaker
     -- $waiters
 
     -- ** NotebookInstanceStopped
-    notebookInstanceStopped,
+    newNotebookInstanceStopped,
 
     -- ** EndpointDeleted
-    endpointDeleted,
+    newEndpointDeleted,
 
     -- ** NotebookInstanceDeleted
-    notebookInstanceDeleted,
+    newNotebookInstanceDeleted,
 
     -- ** NotebookInstanceInService
-    notebookInstanceInService,
+    newNotebookInstanceInService,
 
     -- ** EndpointInService
-    endpointInService,
+    newEndpointInService,
 
     -- ** TrainingJobCompletedOrStopped
-    trainingJobCompletedOrStopped,
+    newTrainingJobCompletedOrStopped,
 
     -- ** ProcessingJobCompletedOrStopped
-    processingJobCompletedOrStopped,
+    newProcessingJobCompletedOrStopped,
 
     -- ** TransformJobCompletedOrStopped
-    transformJobCompletedOrStopped,
+    newTransformJobCompletedOrStopped,
 
     -- * Operations
     -- $operations
 
     -- ** DisassociateTrialComponent
-    module Network.AWS.SageMaker.DisassociateTrialComponent,
+    DisassociateTrialComponent (DisassociateTrialComponent'),
+    newDisassociateTrialComponent,
+    DisassociateTrialComponentResponse (DisassociateTrialComponentResponse'),
+    newDisassociateTrialComponentResponse,
 
     -- ** DeleteArtifact
-    module Network.AWS.SageMaker.DeleteArtifact,
+    DeleteArtifact (DeleteArtifact'),
+    newDeleteArtifact,
+    DeleteArtifactResponse (DeleteArtifactResponse'),
+    newDeleteArtifactResponse,
 
     -- ** CreateTransformJob
-    module Network.AWS.SageMaker.CreateTransformJob,
+    CreateTransformJob (CreateTransformJob'),
+    newCreateTransformJob,
+    CreateTransformJobResponse (CreateTransformJobResponse'),
+    newCreateTransformJobResponse,
 
     -- ** ListHumanTaskUis (Paginated)
-    module Network.AWS.SageMaker.ListHumanTaskUis,
+    ListHumanTaskUis (ListHumanTaskUis'),
+    newListHumanTaskUis,
+    ListHumanTaskUisResponse (ListHumanTaskUisResponse'),
+    newListHumanTaskUisResponse,
 
     -- ** DeleteHumanTaskUi
-    module Network.AWS.SageMaker.DeleteHumanTaskUi,
+    DeleteHumanTaskUi (DeleteHumanTaskUi'),
+    newDeleteHumanTaskUi,
+    DeleteHumanTaskUiResponse (DeleteHumanTaskUiResponse'),
+    newDeleteHumanTaskUiResponse,
 
     -- ** UpdateAction
-    module Network.AWS.SageMaker.UpdateAction,
+    UpdateAction (UpdateAction'),
+    newUpdateAction,
+    UpdateActionResponse (UpdateActionResponse'),
+    newUpdateActionResponse,
 
     -- ** DescribePipeline
-    module Network.AWS.SageMaker.DescribePipeline,
+    DescribePipeline (DescribePipeline'),
+    newDescribePipeline,
+    DescribePipelineResponse (DescribePipelineResponse'),
+    newDescribePipelineResponse,
 
     -- ** UpdateArtifact
-    module Network.AWS.SageMaker.UpdateArtifact,
+    UpdateArtifact (UpdateArtifact'),
+    newUpdateArtifact,
+    UpdateArtifactResponse (UpdateArtifactResponse'),
+    newUpdateArtifactResponse,
 
     -- ** DescribeUserProfile
-    module Network.AWS.SageMaker.DescribeUserProfile,
+    DescribeUserProfile (DescribeUserProfile'),
+    newDescribeUserProfile,
+    DescribeUserProfileResponse (DescribeUserProfileResponse'),
+    newDescribeUserProfileResponse,
 
     -- ** StopTrainingJob
-    module Network.AWS.SageMaker.StopTrainingJob,
+    StopTrainingJob (StopTrainingJob'),
+    newStopTrainingJob,
+    StopTrainingJobResponse (StopTrainingJobResponse'),
+    newStopTrainingJobResponse,
 
     -- ** CreateEndpoint
-    module Network.AWS.SageMaker.CreateEndpoint,
+    CreateEndpoint (CreateEndpoint'),
+    newCreateEndpoint,
+    CreateEndpointResponse (CreateEndpointResponse'),
+    newCreateEndpointResponse,
 
     -- ** GetSearchSuggestions
-    module Network.AWS.SageMaker.GetSearchSuggestions,
+    GetSearchSuggestions (GetSearchSuggestions'),
+    newGetSearchSuggestions,
+    GetSearchSuggestionsResponse (GetSearchSuggestionsResponse'),
+    newGetSearchSuggestionsResponse,
 
     -- ** DeleteAction
-    module Network.AWS.SageMaker.DeleteAction,
+    DeleteAction (DeleteAction'),
+    newDeleteAction,
+    DeleteActionResponse (DeleteActionResponse'),
+    newDeleteActionResponse,
 
     -- ** CreateEdgePackagingJob
-    module Network.AWS.SageMaker.CreateEdgePackagingJob,
+    CreateEdgePackagingJob (CreateEdgePackagingJob'),
+    newCreateEdgePackagingJob,
+    CreateEdgePackagingJobResponse (CreateEdgePackagingJobResponse'),
+    newCreateEdgePackagingJobResponse,
 
     -- ** DescribeEndpointConfig
-    module Network.AWS.SageMaker.DescribeEndpointConfig,
+    DescribeEndpointConfig (DescribeEndpointConfig'),
+    newDescribeEndpointConfig,
+    DescribeEndpointConfigResponse (DescribeEndpointConfigResponse'),
+    newDescribeEndpointConfigResponse,
 
     -- ** ListModelPackages (Paginated)
-    module Network.AWS.SageMaker.ListModelPackages,
+    ListModelPackages (ListModelPackages'),
+    newListModelPackages,
+    ListModelPackagesResponse (ListModelPackagesResponse'),
+    newListModelPackagesResponse,
 
     -- ** GetModelPackageGroupPolicy
-    module Network.AWS.SageMaker.GetModelPackageGroupPolicy,
+    GetModelPackageGroupPolicy (GetModelPackageGroupPolicy'),
+    newGetModelPackageGroupPolicy,
+    GetModelPackageGroupPolicyResponse (GetModelPackageGroupPolicyResponse'),
+    newGetModelPackageGroupPolicyResponse,
 
     -- ** DescribeMonitoringSchedule
-    module Network.AWS.SageMaker.DescribeMonitoringSchedule,
+    DescribeMonitoringSchedule (DescribeMonitoringSchedule'),
+    newDescribeMonitoringSchedule,
+    DescribeMonitoringScheduleResponse (DescribeMonitoringScheduleResponse'),
+    newDescribeMonitoringScheduleResponse,
 
     -- ** CreateModelExplainabilityJobDefinition
-    module Network.AWS.SageMaker.CreateModelExplainabilityJobDefinition,
+    CreateModelExplainabilityJobDefinition (CreateModelExplainabilityJobDefinition'),
+    newCreateModelExplainabilityJobDefinition,
+    CreateModelExplainabilityJobDefinitionResponse (CreateModelExplainabilityJobDefinitionResponse'),
+    newCreateModelExplainabilityJobDefinitionResponse,
 
     -- ** DescribeLabelingJob
-    module Network.AWS.SageMaker.DescribeLabelingJob,
+    DescribeLabelingJob (DescribeLabelingJob'),
+    newDescribeLabelingJob,
+    DescribeLabelingJobResponse (DescribeLabelingJobResponse'),
+    newDescribeLabelingJobResponse,
 
     -- ** CreateNotebookInstance
-    module Network.AWS.SageMaker.CreateNotebookInstance,
+    CreateNotebookInstance (CreateNotebookInstance'),
+    newCreateNotebookInstance,
+    CreateNotebookInstanceResponse (CreateNotebookInstanceResponse'),
+    newCreateNotebookInstanceResponse,
 
     -- ** UpdateModelPackage
-    module Network.AWS.SageMaker.UpdateModelPackage,
+    UpdateModelPackage (UpdateModelPackage'),
+    newUpdateModelPackage,
+    UpdateModelPackageResponse (UpdateModelPackageResponse'),
+    newUpdateModelPackageResponse,
 
     -- ** CreateModelQualityJobDefinition
-    module Network.AWS.SageMaker.CreateModelQualityJobDefinition,
+    CreateModelQualityJobDefinition (CreateModelQualityJobDefinition'),
+    newCreateModelQualityJobDefinition,
+    CreateModelQualityJobDefinitionResponse (CreateModelQualityJobDefinitionResponse'),
+    newCreateModelQualityJobDefinitionResponse,
 
     -- ** DeleteModelPackage
-    module Network.AWS.SageMaker.DeleteModelPackage,
+    DeleteModelPackage (DeleteModelPackage'),
+    newDeleteModelPackage,
+    DeleteModelPackageResponse (DeleteModelPackageResponse'),
+    newDeleteModelPackageResponse,
 
     -- ** ListProjects
-    module Network.AWS.SageMaker.ListProjects,
+    ListProjects (ListProjects'),
+    newListProjects,
+    ListProjectsResponse (ListProjectsResponse'),
+    newListProjectsResponse,
 
     -- ** ListSubscribedWorkteams (Paginated)
-    module Network.AWS.SageMaker.ListSubscribedWorkteams,
+    ListSubscribedWorkteams (ListSubscribedWorkteams'),
+    newListSubscribedWorkteams,
+    ListSubscribedWorkteamsResponse (ListSubscribedWorkteamsResponse'),
+    newListSubscribedWorkteamsResponse,
 
     -- ** DeleteNotebookInstance
-    module Network.AWS.SageMaker.DeleteNotebookInstance,
+    DeleteNotebookInstance (DeleteNotebookInstance'),
+    newDeleteNotebookInstance,
+    DeleteNotebookInstanceResponse (DeleteNotebookInstanceResponse'),
+    newDeleteNotebookInstanceResponse,
 
     -- ** CreateProject
-    module Network.AWS.SageMaker.CreateProject,
+    CreateProject (CreateProject'),
+    newCreateProject,
+    CreateProjectResponse (CreateProjectResponse'),
+    newCreateProjectResponse,
 
     -- ** DescribeProcessingJob
-    module Network.AWS.SageMaker.DescribeProcessingJob,
+    DescribeProcessingJob (DescribeProcessingJob'),
+    newDescribeProcessingJob,
+    DescribeProcessingJobResponse (DescribeProcessingJobResponse'),
+    newDescribeProcessingJobResponse,
 
     -- ** ListDomains (Paginated)
-    module Network.AWS.SageMaker.ListDomains,
+    ListDomains (ListDomains'),
+    newListDomains,
+    ListDomainsResponse (ListDomainsResponse'),
+    newListDomainsResponse,
 
     -- ** DeleteModelExplainabilityJobDefinition
-    module Network.AWS.SageMaker.DeleteModelExplainabilityJobDefinition,
+    DeleteModelExplainabilityJobDefinition (DeleteModelExplainabilityJobDefinition'),
+    newDeleteModelExplainabilityJobDefinition,
+    DeleteModelExplainabilityJobDefinitionResponse (DeleteModelExplainabilityJobDefinitionResponse'),
+    newDeleteModelExplainabilityJobDefinitionResponse,
 
     -- ** StopMonitoringSchedule
-    module Network.AWS.SageMaker.StopMonitoringSchedule,
+    StopMonitoringSchedule (StopMonitoringSchedule'),
+    newStopMonitoringSchedule,
+    StopMonitoringScheduleResponse (StopMonitoringScheduleResponse'),
+    newStopMonitoringScheduleResponse,
 
     -- ** ListDevices (Paginated)
-    module Network.AWS.SageMaker.ListDevices,
+    ListDevices (ListDevices'),
+    newListDevices,
+    ListDevicesResponse (ListDevicesResponse'),
+    newListDevicesResponse,
 
     -- ** CreateModelPackage
-    module Network.AWS.SageMaker.CreateModelPackage,
+    CreateModelPackage (CreateModelPackage'),
+    newCreateModelPackage,
+    CreateModelPackageResponse (CreateModelPackageResponse'),
+    newCreateModelPackageResponse,
 
     -- ** UpdateNotebookInstance
-    module Network.AWS.SageMaker.UpdateNotebookInstance,
+    UpdateNotebookInstance (UpdateNotebookInstance'),
+    newUpdateNotebookInstance,
+    UpdateNotebookInstanceResponse (UpdateNotebookInstanceResponse'),
+    newUpdateNotebookInstanceResponse,
 
     -- ** StopAutoMLJob
-    module Network.AWS.SageMaker.StopAutoMLJob,
+    StopAutoMLJob (StopAutoMLJob'),
+    newStopAutoMLJob,
+    StopAutoMLJobResponse (StopAutoMLJobResponse'),
+    newStopAutoMLJobResponse,
 
     -- ** DescribeAppImageConfig
-    module Network.AWS.SageMaker.DescribeAppImageConfig,
+    DescribeAppImageConfig (DescribeAppImageConfig'),
+    newDescribeAppImageConfig,
+    DescribeAppImageConfigResponse (DescribeAppImageConfigResponse'),
+    newDescribeAppImageConfigResponse,
 
     -- ** StartMonitoringSchedule
-    module Network.AWS.SageMaker.StartMonitoringSchedule,
+    StartMonitoringSchedule (StartMonitoringSchedule'),
+    newStartMonitoringSchedule,
+    StartMonitoringScheduleResponse (StartMonitoringScheduleResponse'),
+    newStartMonitoringScheduleResponse,
 
     -- ** StopCompilationJob
-    module Network.AWS.SageMaker.StopCompilationJob,
+    StopCompilationJob (StopCompilationJob'),
+    newStopCompilationJob,
+    StopCompilationJobResponse (StopCompilationJobResponse'),
+    newStopCompilationJobResponse,
 
     -- ** CreateTrial
-    module Network.AWS.SageMaker.CreateTrial,
+    CreateTrial (CreateTrial'),
+    newCreateTrial,
+    CreateTrialResponse (CreateTrialResponse'),
+    newCreateTrialResponse,
 
     -- ** GetSagemakerServicecatalogPortfolioStatus
-    module Network.AWS.SageMaker.GetSagemakerServicecatalogPortfolioStatus,
+    GetSagemakerServicecatalogPortfolioStatus (GetSagemakerServicecatalogPortfolioStatus'),
+    newGetSagemakerServicecatalogPortfolioStatus,
+    GetSagemakerServicecatalogPortfolioStatusResponse (GetSagemakerServicecatalogPortfolioStatusResponse'),
+    newGetSagemakerServicecatalogPortfolioStatusResponse,
 
     -- ** UpdateCodeRepository
-    module Network.AWS.SageMaker.UpdateCodeRepository,
+    UpdateCodeRepository (UpdateCodeRepository'),
+    newUpdateCodeRepository,
+    UpdateCodeRepositoryResponse (UpdateCodeRepositoryResponse'),
+    newUpdateCodeRepositoryResponse,
 
     -- ** Search (Paginated)
-    module Network.AWS.SageMaker.Search,
+    Search (Search'),
+    newSearch,
+    SearchResponse (SearchResponse'),
+    newSearchResponse,
 
     -- ** DeleteModel
-    module Network.AWS.SageMaker.DeleteModel,
+    DeleteModel (DeleteModel'),
+    newDeleteModel,
+    DeleteModelResponse (DeleteModelResponse'),
+    newDeleteModelResponse,
 
     -- ** DeleteDataQualityJobDefinition
-    module Network.AWS.SageMaker.DeleteDataQualityJobDefinition,
+    DeleteDataQualityJobDefinition (DeleteDataQualityJobDefinition'),
+    newDeleteDataQualityJobDefinition,
+    DeleteDataQualityJobDefinitionResponse (DeleteDataQualityJobDefinitionResponse'),
+    newDeleteDataQualityJobDefinitionResponse,
 
     -- ** ListImages (Paginated)
-    module Network.AWS.SageMaker.ListImages,
+    ListImages (ListImages'),
+    newListImages,
+    ListImagesResponse (ListImagesResponse'),
+    newListImagesResponse,
 
     -- ** ListTrainingJobs (Paginated)
-    module Network.AWS.SageMaker.ListTrainingJobs,
+    ListTrainingJobs (ListTrainingJobs'),
+    newListTrainingJobs,
+    ListTrainingJobsResponse (ListTrainingJobsResponse'),
+    newListTrainingJobsResponse,
 
     -- ** DescribeTransformJob
-    module Network.AWS.SageMaker.DescribeTransformJob,
+    DescribeTransformJob (DescribeTransformJob'),
+    newDescribeTransformJob,
+    DescribeTransformJobResponse (DescribeTransformJobResponse'),
+    newDescribeTransformJobResponse,
 
     -- ** CreatePipeline
-    module Network.AWS.SageMaker.CreatePipeline,
+    CreatePipeline (CreatePipeline'),
+    newCreatePipeline,
+    CreatePipelineResponse (CreatePipelineResponse'),
+    newCreatePipelineResponse,
 
     -- ** CreateModelPackageGroup
-    module Network.AWS.SageMaker.CreateModelPackageGroup,
+    CreateModelPackageGroup (CreateModelPackageGroup'),
+    newCreateModelPackageGroup,
+    CreateModelPackageGroupResponse (CreateModelPackageGroupResponse'),
+    newCreateModelPackageGroupResponse,
 
     -- ** ListCandidatesForAutoMLJob (Paginated)
-    module Network.AWS.SageMaker.ListCandidatesForAutoMLJob,
+    ListCandidatesForAutoMLJob (ListCandidatesForAutoMLJob'),
+    newListCandidatesForAutoMLJob,
+    ListCandidatesForAutoMLJobResponse (ListCandidatesForAutoMLJobResponse'),
+    newListCandidatesForAutoMLJobResponse,
 
     -- ** DeleteAlgorithm
-    module Network.AWS.SageMaker.DeleteAlgorithm,
+    DeleteAlgorithm (DeleteAlgorithm'),
+    newDeleteAlgorithm,
+    DeleteAlgorithmResponse (DeleteAlgorithmResponse'),
+    newDeleteAlgorithmResponse,
 
     -- ** GetDeviceFleetReport
-    module Network.AWS.SageMaker.GetDeviceFleetReport,
+    GetDeviceFleetReport (GetDeviceFleetReport'),
+    newGetDeviceFleetReport,
+    GetDeviceFleetReportResponse (GetDeviceFleetReportResponse'),
+    newGetDeviceFleetReportResponse,
 
     -- ** ListDataQualityJobDefinitions (Paginated)
-    module Network.AWS.SageMaker.ListDataQualityJobDefinitions,
+    ListDataQualityJobDefinitions (ListDataQualityJobDefinitions'),
+    newListDataQualityJobDefinitions,
+    ListDataQualityJobDefinitionsResponse (ListDataQualityJobDefinitionsResponse'),
+    newListDataQualityJobDefinitionsResponse,
 
     -- ** DescribeEdgePackagingJob
-    module Network.AWS.SageMaker.DescribeEdgePackagingJob,
+    DescribeEdgePackagingJob (DescribeEdgePackagingJob'),
+    newDescribeEdgePackagingJob,
+    DescribeEdgePackagingJobResponse (DescribeEdgePackagingJobResponse'),
+    newDescribeEdgePackagingJobResponse,
 
     -- ** ListContexts (Paginated)
-    module Network.AWS.SageMaker.ListContexts,
+    ListContexts (ListContexts'),
+    newListContexts,
+    ListContextsResponse (ListContextsResponse'),
+    newListContextsResponse,
 
     -- ** DescribeEndpoint
-    module Network.AWS.SageMaker.DescribeEndpoint,
+    DescribeEndpoint (DescribeEndpoint'),
+    newDescribeEndpoint,
+    DescribeEndpointResponse (DescribeEndpointResponse'),
+    newDescribeEndpointResponse,
 
     -- ** DeleteCodeRepository
-    module Network.AWS.SageMaker.DeleteCodeRepository,
+    DeleteCodeRepository (DeleteCodeRepository'),
+    newDeleteCodeRepository,
+    DeleteCodeRepositoryResponse (DeleteCodeRepositoryResponse'),
+    newDeleteCodeRepositoryResponse,
 
     -- ** DeleteModelPackageGroupPolicy
-    module Network.AWS.SageMaker.DeleteModelPackageGroupPolicy,
+    DeleteModelPackageGroupPolicy (DeleteModelPackageGroupPolicy'),
+    newDeleteModelPackageGroupPolicy,
+    DeleteModelPackageGroupPolicyResponse (DeleteModelPackageGroupPolicyResponse'),
+    newDeleteModelPackageGroupPolicyResponse,
 
     -- ** ListUserProfiles (Paginated)
-    module Network.AWS.SageMaker.ListUserProfiles,
+    ListUserProfiles (ListUserProfiles'),
+    newListUserProfiles,
+    ListUserProfilesResponse (ListUserProfilesResponse'),
+    newListUserProfilesResponse,
 
     -- ** DescribeCompilationJob
-    module Network.AWS.SageMaker.DescribeCompilationJob,
+    DescribeCompilationJob (DescribeCompilationJob'),
+    newDescribeCompilationJob,
+    DescribeCompilationJobResponse (DescribeCompilationJobResponse'),
+    newDescribeCompilationJobResponse,
 
     -- ** UpdatePipeline
-    module Network.AWS.SageMaker.UpdatePipeline,
+    UpdatePipeline (UpdatePipeline'),
+    newUpdatePipeline,
+    UpdatePipelineResponse (UpdatePipelineResponse'),
+    newUpdatePipelineResponse,
 
     -- ** CreateCodeRepository
-    module Network.AWS.SageMaker.CreateCodeRepository,
+    CreateCodeRepository (CreateCodeRepository'),
+    newCreateCodeRepository,
+    CreateCodeRepositoryResponse (CreateCodeRepositoryResponse'),
+    newCreateCodeRepositoryResponse,
 
     -- ** DescribeArtifact
-    module Network.AWS.SageMaker.DescribeArtifact,
+    DescribeArtifact (DescribeArtifact'),
+    newDescribeArtifact,
+    DescribeArtifactResponse (DescribeArtifactResponse'),
+    newDescribeArtifactResponse,
 
     -- ** DescribeHumanTaskUi
-    module Network.AWS.SageMaker.DescribeHumanTaskUi,
+    DescribeHumanTaskUi (DescribeHumanTaskUi'),
+    newDescribeHumanTaskUi,
+    DescribeHumanTaskUiResponse (DescribeHumanTaskUiResponse'),
+    newDescribeHumanTaskUiResponse,
 
     -- ** ListPipelineExecutionSteps (Paginated)
-    module Network.AWS.SageMaker.ListPipelineExecutionSteps,
+    ListPipelineExecutionSteps (ListPipelineExecutionSteps'),
+    newListPipelineExecutionSteps,
+    ListPipelineExecutionStepsResponse (ListPipelineExecutionStepsResponse'),
+    newListPipelineExecutionStepsResponse,
 
     -- ** ListCodeRepositories (Paginated)
-    module Network.AWS.SageMaker.ListCodeRepositories,
+    ListCodeRepositories (ListCodeRepositories'),
+    newListCodeRepositories,
+    ListCodeRepositoriesResponse (ListCodeRepositoriesResponse'),
+    newListCodeRepositoriesResponse,
 
     -- ** UpdateUserProfile
-    module Network.AWS.SageMaker.UpdateUserProfile,
+    UpdateUserProfile (UpdateUserProfile'),
+    newUpdateUserProfile,
+    UpdateUserProfileResponse (UpdateUserProfileResponse'),
+    newUpdateUserProfileResponse,
 
     -- ** DescribeAction
-    module Network.AWS.SageMaker.DescribeAction,
+    DescribeAction (DescribeAction'),
+    newDescribeAction,
+    DescribeActionResponse (DescribeActionResponse'),
+    newDescribeActionResponse,
 
     -- ** StopTransformJob
-    module Network.AWS.SageMaker.StopTransformJob,
+    StopTransformJob (StopTransformJob'),
+    newStopTransformJob,
+    StopTransformJobResponse (StopTransformJobResponse'),
+    newStopTransformJobResponse,
 
     -- ** CreateTrainingJob
-    module Network.AWS.SageMaker.CreateTrainingJob,
+    CreateTrainingJob (CreateTrainingJob'),
+    newCreateTrainingJob,
+    CreateTrainingJobResponse (CreateTrainingJobResponse'),
+    newCreateTrainingJobResponse,
 
     -- ** DeleteUserProfile
-    module Network.AWS.SageMaker.DeleteUserProfile,
+    DeleteUserProfile (DeleteUserProfile'),
+    newDeleteUserProfile,
+    DeleteUserProfileResponse (DeleteUserProfileResponse'),
+    newDeleteUserProfileResponse,
 
     -- ** CreateContext
-    module Network.AWS.SageMaker.CreateContext,
+    CreateContext (CreateContext'),
+    newCreateContext,
+    CreateContextResponse (CreateContextResponse'),
+    newCreateContextResponse,
 
     -- ** StopEdgePackagingJob
-    module Network.AWS.SageMaker.StopEdgePackagingJob,
+    StopEdgePackagingJob (StopEdgePackagingJob'),
+    newStopEdgePackagingJob,
+    StopEdgePackagingJobResponse (StopEdgePackagingJobResponse'),
+    newStopEdgePackagingJobResponse,
 
     -- ** CreateImage
-    module Network.AWS.SageMaker.CreateImage,
+    CreateImage (CreateImage'),
+    newCreateImage,
+    CreateImageResponse (CreateImageResponse'),
+    newCreateImageResponse,
 
     -- ** DeregisterDevices
-    module Network.AWS.SageMaker.DeregisterDevices,
+    DeregisterDevices (DeregisterDevices'),
+    newDeregisterDevices,
+    DeregisterDevicesResponse (DeregisterDevicesResponse'),
+    newDeregisterDevicesResponse,
 
     -- ** CreateDataQualityJobDefinition
-    module Network.AWS.SageMaker.CreateDataQualityJobDefinition,
+    CreateDataQualityJobDefinition (CreateDataQualityJobDefinition'),
+    newCreateDataQualityJobDefinition,
+    CreateDataQualityJobDefinitionResponse (CreateDataQualityJobDefinitionResponse'),
+    newCreateDataQualityJobDefinitionResponse,
 
     -- ** DeletePipeline
-    module Network.AWS.SageMaker.DeletePipeline,
+    DeletePipeline (DeletePipeline'),
+    newDeletePipeline,
+    DeletePipelineResponse (DeletePipelineResponse'),
+    newDeletePipelineResponse,
 
     -- ** CreateAppImageConfig
-    module Network.AWS.SageMaker.CreateAppImageConfig,
+    CreateAppImageConfig (CreateAppImageConfig'),
+    newCreateAppImageConfig,
+    CreateAppImageConfigResponse (CreateAppImageConfigResponse'),
+    newCreateAppImageConfigResponse,
 
     -- ** AddTags
-    module Network.AWS.SageMaker.AddTags,
+    AddTags (AddTags'),
+    newAddTags,
+    AddTagsResponse (AddTagsResponse'),
+    newAddTagsResponse,
 
     -- ** DisableSagemakerServicecatalogPortfolio
-    module Network.AWS.SageMaker.DisableSagemakerServicecatalogPortfolio,
+    DisableSagemakerServicecatalogPortfolio (DisableSagemakerServicecatalogPortfolio'),
+    newDisableSagemakerServicecatalogPortfolio,
+    DisableSagemakerServicecatalogPortfolioResponse (DisableSagemakerServicecatalogPortfolioResponse'),
+    newDisableSagemakerServicecatalogPortfolioResponse,
 
     -- ** DeleteAssociation
-    module Network.AWS.SageMaker.DeleteAssociation,
+    DeleteAssociation (DeleteAssociation'),
+    newDeleteAssociation,
+    DeleteAssociationResponse (DeleteAssociationResponse'),
+    newDeleteAssociationResponse,
 
     -- ** UpdateMonitoringSchedule
-    module Network.AWS.SageMaker.UpdateMonitoringSchedule,
+    UpdateMonitoringSchedule (UpdateMonitoringSchedule'),
+    newUpdateMonitoringSchedule,
+    UpdateMonitoringScheduleResponse (UpdateMonitoringScheduleResponse'),
+    newUpdateMonitoringScheduleResponse,
 
     -- ** ListMonitoringSchedules (Paginated)
-    module Network.AWS.SageMaker.ListMonitoringSchedules,
+    ListMonitoringSchedules (ListMonitoringSchedules'),
+    newListMonitoringSchedules,
+    ListMonitoringSchedulesResponse (ListMonitoringSchedulesResponse'),
+    newListMonitoringSchedulesResponse,
 
     -- ** StopNotebookInstance
-    module Network.AWS.SageMaker.StopNotebookInstance,
+    StopNotebookInstance (StopNotebookInstance'),
+    newStopNotebookInstance,
+    StopNotebookInstanceResponse (StopNotebookInstanceResponse'),
+    newStopNotebookInstanceResponse,
 
     -- ** DeleteMonitoringSchedule
-    module Network.AWS.SageMaker.DeleteMonitoringSchedule,
+    DeleteMonitoringSchedule (DeleteMonitoringSchedule'),
+    newDeleteMonitoringSchedule,
+    DeleteMonitoringScheduleResponse (DeleteMonitoringScheduleResponse'),
+    newDeleteMonitoringScheduleResponse,
 
     -- ** DeleteEndpointConfig
-    module Network.AWS.SageMaker.DeleteEndpointConfig,
+    DeleteEndpointConfig (DeleteEndpointConfig'),
+    newDeleteEndpointConfig,
+    DeleteEndpointConfigResponse (DeleteEndpointConfigResponse'),
+    newDeleteEndpointConfigResponse,
 
     -- ** StartPipelineExecution
-    module Network.AWS.SageMaker.StartPipelineExecution,
+    StartPipelineExecution (StartPipelineExecution'),
+    newStartPipelineExecution,
+    StartPipelineExecutionResponse (StartPipelineExecutionResponse'),
+    newStartPipelineExecutionResponse,
 
     -- ** DescribeModelPackage
-    module Network.AWS.SageMaker.DescribeModelPackage,
+    DescribeModelPackage (DescribeModelPackage'),
+    newDescribeModelPackage,
+    DescribeModelPackageResponse (DescribeModelPackageResponse'),
+    newDescribeModelPackageResponse,
 
     -- ** DeleteTags
-    module Network.AWS.SageMaker.DeleteTags,
+    DeleteTags (DeleteTags'),
+    newDeleteTags,
+    DeleteTagsResponse (DeleteTagsResponse'),
+    newDeleteTagsResponse,
 
     -- ** AddAssociation
-    module Network.AWS.SageMaker.AddAssociation,
+    AddAssociation (AddAssociation'),
+    newAddAssociation,
+    AddAssociationResponse (AddAssociationResponse'),
+    newAddAssociationResponse,
 
     -- ** CreateNotebookInstanceLifecycleConfig
-    module Network.AWS.SageMaker.CreateNotebookInstanceLifecycleConfig,
+    CreateNotebookInstanceLifecycleConfig (CreateNotebookInstanceLifecycleConfig'),
+    newCreateNotebookInstanceLifecycleConfig,
+    CreateNotebookInstanceLifecycleConfigResponse (CreateNotebookInstanceLifecycleConfigResponse'),
+    newCreateNotebookInstanceLifecycleConfigResponse,
 
     -- ** ListApps (Paginated)
-    module Network.AWS.SageMaker.ListApps,
+    ListApps (ListApps'),
+    newListApps,
+    ListAppsResponse (ListAppsResponse'),
+    newListAppsResponse,
 
     -- ** CreateWorkforce
-    module Network.AWS.SageMaker.CreateWorkforce,
+    CreateWorkforce (CreateWorkforce'),
+    newCreateWorkforce,
+    CreateWorkforceResponse (CreateWorkforceResponse'),
+    newCreateWorkforceResponse,
 
     -- ** ListAutoMLJobs (Paginated)
-    module Network.AWS.SageMaker.ListAutoMLJobs,
+    ListAutoMLJobs (ListAutoMLJobs'),
+    newListAutoMLJobs,
+    ListAutoMLJobsResponse (ListAutoMLJobsResponse'),
+    newListAutoMLJobsResponse,
 
     -- ** UpdateEndpointWeightsAndCapacities
-    module Network.AWS.SageMaker.UpdateEndpointWeightsAndCapacities,
+    UpdateEndpointWeightsAndCapacities (UpdateEndpointWeightsAndCapacities'),
+    newUpdateEndpointWeightsAndCapacities,
+    UpdateEndpointWeightsAndCapacitiesResponse (UpdateEndpointWeightsAndCapacitiesResponse'),
+    newUpdateEndpointWeightsAndCapacitiesResponse,
 
     -- ** StartNotebookInstance
-    module Network.AWS.SageMaker.StartNotebookInstance,
+    StartNotebookInstance (StartNotebookInstance'),
+    newStartNotebookInstance,
+    StartNotebookInstanceResponse (StartNotebookInstanceResponse'),
+    newStartNotebookInstanceResponse,
 
     -- ** StopPipelineExecution
-    module Network.AWS.SageMaker.StopPipelineExecution,
+    StopPipelineExecution (StopPipelineExecution'),
+    newStopPipelineExecution,
+    StopPipelineExecutionResponse (StopPipelineExecutionResponse'),
+    newStopPipelineExecutionResponse,
 
     -- ** ListEndpointConfigs (Paginated)
-    module Network.AWS.SageMaker.ListEndpointConfigs,
+    ListEndpointConfigs (ListEndpointConfigs'),
+    newListEndpointConfigs,
+    ListEndpointConfigsResponse (ListEndpointConfigsResponse'),
+    newListEndpointConfigsResponse,
 
     -- ** DeleteWorkteam
-    module Network.AWS.SageMaker.DeleteWorkteam,
+    DeleteWorkteam (DeleteWorkteam'),
+    newDeleteWorkteam,
+    DeleteWorkteamResponse (DeleteWorkteamResponse'),
+    newDeleteWorkteamResponse,
 
     -- ** DeleteWorkforce
-    module Network.AWS.SageMaker.DeleteWorkforce,
+    DeleteWorkforce (DeleteWorkforce'),
+    newDeleteWorkforce,
+    DeleteWorkforceResponse (DeleteWorkforceResponse'),
+    newDeleteWorkforceResponse,
 
     -- ** DeleteModelBiasJobDefinition
-    module Network.AWS.SageMaker.DeleteModelBiasJobDefinition,
+    DeleteModelBiasJobDefinition (DeleteModelBiasJobDefinition'),
+    newDeleteModelBiasJobDefinition,
+    DeleteModelBiasJobDefinitionResponse (DeleteModelBiasJobDefinitionResponse'),
+    newDeleteModelBiasJobDefinitionResponse,
 
     -- ** UpdateWorkforce
-    module Network.AWS.SageMaker.UpdateWorkforce,
+    UpdateWorkforce (UpdateWorkforce'),
+    newUpdateWorkforce,
+    UpdateWorkforceResponse (UpdateWorkforceResponse'),
+    newUpdateWorkforceResponse,
 
     -- ** DescribeDevice
-    module Network.AWS.SageMaker.DescribeDevice,
+    DescribeDevice (DescribeDevice'),
+    newDescribeDevice,
+    DescribeDeviceResponse (DescribeDeviceResponse'),
+    newDescribeDeviceResponse,
 
     -- ** DescribeDomain
-    module Network.AWS.SageMaker.DescribeDomain,
+    DescribeDomain (DescribeDomain'),
+    newDescribeDomain,
+    DescribeDomainResponse (DescribeDomainResponse'),
+    newDescribeDomainResponse,
 
     -- ** DeleteNotebookInstanceLifecycleConfig
-    module Network.AWS.SageMaker.DeleteNotebookInstanceLifecycleConfig,
+    DeleteNotebookInstanceLifecycleConfig (DeleteNotebookInstanceLifecycleConfig'),
+    newDeleteNotebookInstanceLifecycleConfig,
+    DeleteNotebookInstanceLifecycleConfigResponse (DeleteNotebookInstanceLifecycleConfigResponse'),
+    newDeleteNotebookInstanceLifecycleConfigResponse,
 
     -- ** DescribePipelineExecution
-    module Network.AWS.SageMaker.DescribePipelineExecution,
+    DescribePipelineExecution (DescribePipelineExecution'),
+    newDescribePipelineExecution,
+    DescribePipelineExecutionResponse (DescribePipelineExecutionResponse'),
+    newDescribePipelineExecutionResponse,
 
     -- ** UpdateWorkteam
-    module Network.AWS.SageMaker.UpdateWorkteam,
+    UpdateWorkteam (UpdateWorkteam'),
+    newUpdateWorkteam,
+    UpdateWorkteamResponse (UpdateWorkteamResponse'),
+    newUpdateWorkteamResponse,
 
     -- ** CreateLabelingJob
-    module Network.AWS.SageMaker.CreateLabelingJob,
+    CreateLabelingJob (CreateLabelingJob'),
+    newCreateLabelingJob,
+    CreateLabelingJobResponse (CreateLabelingJobResponse'),
+    newCreateLabelingJobResponse,
 
     -- ** DescribeModelQualityJobDefinition
-    module Network.AWS.SageMaker.DescribeModelQualityJobDefinition,
+    DescribeModelQualityJobDefinition (DescribeModelQualityJobDefinition'),
+    newDescribeModelQualityJobDefinition,
+    DescribeModelQualityJobDefinitionResponse (DescribeModelQualityJobDefinitionResponse'),
+    newDescribeModelQualityJobDefinitionResponse,
 
     -- ** CreateExperiment
-    module Network.AWS.SageMaker.CreateExperiment,
+    CreateExperiment (CreateExperiment'),
+    newCreateExperiment,
+    CreateExperimentResponse (CreateExperimentResponse'),
+    newCreateExperimentResponse,
 
     -- ** ListWorkforces (Paginated)
-    module Network.AWS.SageMaker.ListWorkforces,
+    ListWorkforces (ListWorkforces'),
+    newListWorkforces,
+    ListWorkforcesResponse (ListWorkforcesResponse'),
+    newListWorkforcesResponse,
 
     -- ** ListAppImageConfigs (Paginated)
-    module Network.AWS.SageMaker.ListAppImageConfigs,
+    ListAppImageConfigs (ListAppImageConfigs'),
+    newListAppImageConfigs,
+    ListAppImageConfigsResponse (ListAppImageConfigsResponse'),
+    newListAppImageConfigsResponse,
 
     -- ** UpdateNotebookInstanceLifecycleConfig
-    module Network.AWS.SageMaker.UpdateNotebookInstanceLifecycleConfig,
+    UpdateNotebookInstanceLifecycleConfig (UpdateNotebookInstanceLifecycleConfig'),
+    newUpdateNotebookInstanceLifecycleConfig,
+    UpdateNotebookInstanceLifecycleConfigResponse (UpdateNotebookInstanceLifecycleConfigResponse'),
+    newUpdateNotebookInstanceLifecycleConfigResponse,
 
     -- ** DescribeSubscribedWorkteam
-    module Network.AWS.SageMaker.DescribeSubscribedWorkteam,
+    DescribeSubscribedWorkteam (DescribeSubscribedWorkteam'),
+    newDescribeSubscribedWorkteam,
+    DescribeSubscribedWorkteamResponse (DescribeSubscribedWorkteamResponse'),
+    newDescribeSubscribedWorkteamResponse,
 
     -- ** ListNotebookInstanceLifecycleConfigs (Paginated)
-    module Network.AWS.SageMaker.ListNotebookInstanceLifecycleConfigs,
+    ListNotebookInstanceLifecycleConfigs (ListNotebookInstanceLifecycleConfigs'),
+    newListNotebookInstanceLifecycleConfigs,
+    ListNotebookInstanceLifecycleConfigsResponse (ListNotebookInstanceLifecycleConfigsResponse'),
+    newListNotebookInstanceLifecycleConfigsResponse,
 
     -- ** ListEdgePackagingJobs (Paginated)
-    module Network.AWS.SageMaker.ListEdgePackagingJobs,
+    ListEdgePackagingJobs (ListEdgePackagingJobs'),
+    newListEdgePackagingJobs,
+    ListEdgePackagingJobsResponse (ListEdgePackagingJobsResponse'),
+    newListEdgePackagingJobsResponse,
 
     -- ** DescribeCodeRepository
-    module Network.AWS.SageMaker.DescribeCodeRepository,
+    DescribeCodeRepository (DescribeCodeRepository'),
+    newDescribeCodeRepository,
+    DescribeCodeRepositoryResponse (DescribeCodeRepositoryResponse'),
+    newDescribeCodeRepositoryResponse,
 
     -- ** ListEndpoints (Paginated)
-    module Network.AWS.SageMaker.ListEndpoints,
+    ListEndpoints (ListEndpoints'),
+    newListEndpoints,
+    ListEndpointsResponse (ListEndpointsResponse'),
+    newListEndpointsResponse,
 
     -- ** DescribeDataQualityJobDefinition
-    module Network.AWS.SageMaker.DescribeDataQualityJobDefinition,
+    DescribeDataQualityJobDefinition (DescribeDataQualityJobDefinition'),
+    newDescribeDataQualityJobDefinition,
+    DescribeDataQualityJobDefinitionResponse (DescribeDataQualityJobDefinitionResponse'),
+    newDescribeDataQualityJobDefinitionResponse,
 
     -- ** DescribeAlgorithm
-    module Network.AWS.SageMaker.DescribeAlgorithm,
+    DescribeAlgorithm (DescribeAlgorithm'),
+    newDescribeAlgorithm,
+    DescribeAlgorithmResponse (DescribeAlgorithmResponse'),
+    newDescribeAlgorithmResponse,
 
     -- ** CreateAction
-    module Network.AWS.SageMaker.CreateAction,
+    CreateAction (CreateAction'),
+    newCreateAction,
+    CreateActionResponse (CreateActionResponse'),
+    newCreateActionResponse,
 
     -- ** DeleteEndpoint
-    module Network.AWS.SageMaker.DeleteEndpoint,
+    DeleteEndpoint (DeleteEndpoint'),
+    newDeleteEndpoint,
+    DeleteEndpointResponse (DeleteEndpointResponse'),
+    newDeleteEndpointResponse,
 
-    -- ** CreatePresignedDomainURL
-    module Network.AWS.SageMaker.CreatePresignedDomainURL,
+    -- ** CreatePresignedDomainUrl
+    CreatePresignedDomainUrl (CreatePresignedDomainUrl'),
+    newCreatePresignedDomainUrl,
+    CreatePresignedDomainUrlResponse (CreatePresignedDomainUrlResponse'),
+    newCreatePresignedDomainUrlResponse,
 
     -- ** ListTransformJobs (Paginated)
-    module Network.AWS.SageMaker.ListTransformJobs,
+    ListTransformJobs (ListTransformJobs'),
+    newListTransformJobs,
+    ListTransformJobsResponse (ListTransformJobsResponse'),
+    newListTransformJobsResponse,
 
     -- ** DescribeHyperParameterTuningJob
-    module Network.AWS.SageMaker.DescribeHyperParameterTuningJob,
+    DescribeHyperParameterTuningJob (DescribeHyperParameterTuningJob'),
+    newDescribeHyperParameterTuningJob,
+    DescribeHyperParameterTuningJobResponse (DescribeHyperParameterTuningJobResponse'),
+    newDescribeHyperParameterTuningJobResponse,
 
     -- ** CreateCompilationJob
-    module Network.AWS.SageMaker.CreateCompilationJob,
+    CreateCompilationJob (CreateCompilationJob'),
+    newCreateCompilationJob,
+    CreateCompilationJobResponse (CreateCompilationJobResponse'),
+    newCreateCompilationJobResponse,
 
     -- ** UpdateEndpoint
-    module Network.AWS.SageMaker.UpdateEndpoint,
+    UpdateEndpoint (UpdateEndpoint'),
+    newUpdateEndpoint,
+    UpdateEndpointResponse (UpdateEndpointResponse'),
+    newUpdateEndpointResponse,
 
     -- ** DescribeModel
-    module Network.AWS.SageMaker.DescribeModel,
+    DescribeModel (DescribeModel'),
+    newDescribeModel,
+    DescribeModelResponse (DescribeModelResponse'),
+    newDescribeModelResponse,
 
     -- ** CreateDeviceFleet
-    module Network.AWS.SageMaker.CreateDeviceFleet,
+    CreateDeviceFleet (CreateDeviceFleet'),
+    newCreateDeviceFleet,
+    CreateDeviceFleetResponse (CreateDeviceFleetResponse'),
+    newCreateDeviceFleetResponse,
 
     -- ** CreateArtifact
-    module Network.AWS.SageMaker.CreateArtifact,
+    CreateArtifact (CreateArtifact'),
+    newCreateArtifact,
+    CreateArtifactResponse (CreateArtifactResponse'),
+    newCreateArtifactResponse,
 
     -- ** UpdateDevices
-    module Network.AWS.SageMaker.UpdateDevices,
+    UpdateDevices (UpdateDevices'),
+    newUpdateDevices,
+    UpdateDevicesResponse (UpdateDevicesResponse'),
+    newUpdateDevicesResponse,
 
     -- ** ListArtifacts (Paginated)
-    module Network.AWS.SageMaker.ListArtifacts,
+    ListArtifacts (ListArtifacts'),
+    newListArtifacts,
+    ListArtifactsResponse (ListArtifactsResponse'),
+    newListArtifactsResponse,
 
     -- ** DeleteDeviceFleet
-    module Network.AWS.SageMaker.DeleteDeviceFleet,
+    DeleteDeviceFleet (DeleteDeviceFleet'),
+    newDeleteDeviceFleet,
+    DeleteDeviceFleetResponse (DeleteDeviceFleetResponse'),
+    newDeleteDeviceFleetResponse,
 
     -- ** ListMonitoringExecutions (Paginated)
-    module Network.AWS.SageMaker.ListMonitoringExecutions,
+    ListMonitoringExecutions (ListMonitoringExecutions'),
+    newListMonitoringExecutions,
+    ListMonitoringExecutionsResponse (ListMonitoringExecutionsResponse'),
+    newListMonitoringExecutionsResponse,
 
     -- ** ListCompilationJobs (Paginated)
-    module Network.AWS.SageMaker.ListCompilationJobs,
+    ListCompilationJobs (ListCompilationJobs'),
+    newListCompilationJobs,
+    ListCompilationJobsResponse (ListCompilationJobsResponse'),
+    newListCompilationJobsResponse,
 
     -- ** ListActions (Paginated)
-    module Network.AWS.SageMaker.ListActions,
+    ListActions (ListActions'),
+    newListActions,
+    ListActionsResponse (ListActionsResponse'),
+    newListActionsResponse,
 
     -- ** ListDeviceFleets (Paginated)
-    module Network.AWS.SageMaker.ListDeviceFleets,
+    ListDeviceFleets (ListDeviceFleets'),
+    newListDeviceFleets,
+    ListDeviceFleetsResponse (ListDeviceFleetsResponse'),
+    newListDeviceFleetsResponse,
 
     -- ** DescribeModelPackageGroup
-    module Network.AWS.SageMaker.DescribeModelPackageGroup,
+    DescribeModelPackageGroup (DescribeModelPackageGroup'),
+    newDescribeModelPackageGroup,
+    DescribeModelPackageGroupResponse (DescribeModelPackageGroupResponse'),
+    newDescribeModelPackageGroupResponse,
 
     -- ** StopHyperParameterTuningJob
-    module Network.AWS.SageMaker.StopHyperParameterTuningJob,
+    StopHyperParameterTuningJob (StopHyperParameterTuningJob'),
+    newStopHyperParameterTuningJob,
+    StopHyperParameterTuningJobResponse (StopHyperParameterTuningJobResponse'),
+    newStopHyperParameterTuningJobResponse,
 
     -- ** DescribeTrial
-    module Network.AWS.SageMaker.DescribeTrial,
+    DescribeTrial (DescribeTrial'),
+    newDescribeTrial,
+    DescribeTrialResponse (DescribeTrialResponse'),
+    newDescribeTrialResponse,
 
     -- ** UpdateDeviceFleet
-    module Network.AWS.SageMaker.UpdateDeviceFleet,
+    UpdateDeviceFleet (UpdateDeviceFleet'),
+    newUpdateDeviceFleet,
+    UpdateDeviceFleetResponse (UpdateDeviceFleetResponse'),
+    newUpdateDeviceFleetResponse,
 
     -- ** ListLabelingJobsForWorkteam (Paginated)
-    module Network.AWS.SageMaker.ListLabelingJobsForWorkteam,
+    ListLabelingJobsForWorkteam (ListLabelingJobsForWorkteam'),
+    newListLabelingJobsForWorkteam,
+    ListLabelingJobsForWorkteamResponse (ListLabelingJobsForWorkteamResponse'),
+    newListLabelingJobsForWorkteamResponse,
 
     -- ** CreateFeatureGroup
-    module Network.AWS.SageMaker.CreateFeatureGroup,
+    CreateFeatureGroup (CreateFeatureGroup'),
+    newCreateFeatureGroup,
+    CreateFeatureGroupResponse (CreateFeatureGroupResponse'),
+    newCreateFeatureGroupResponse,
 
     -- ** CreateDomain
-    module Network.AWS.SageMaker.CreateDomain,
+    CreateDomain (CreateDomain'),
+    newCreateDomain,
+    CreateDomainResponse (CreateDomainResponse'),
+    newCreateDomainResponse,
 
     -- ** ListImageVersions (Paginated)
-    module Network.AWS.SageMaker.ListImageVersions,
+    ListImageVersions (ListImageVersions'),
+    newListImageVersions,
+    ListImageVersionsResponse (ListImageVersionsResponse'),
+    newListImageVersionsResponse,
 
     -- ** StopProcessingJob
-    module Network.AWS.SageMaker.StopProcessingJob,
+    StopProcessingJob (StopProcessingJob'),
+    newStopProcessingJob,
+    StopProcessingJobResponse (StopProcessingJobResponse'),
+    newStopProcessingJobResponse,
 
     -- ** DeleteImageVersion
-    module Network.AWS.SageMaker.DeleteImageVersion,
+    DeleteImageVersion (DeleteImageVersion'),
+    newDeleteImageVersion,
+    DeleteImageVersionResponse (DeleteImageVersionResponse'),
+    newDeleteImageVersionResponse,
 
     -- ** DeleteProject
-    module Network.AWS.SageMaker.DeleteProject,
+    DeleteProject (DeleteProject'),
+    newDeleteProject,
+    DeleteProjectResponse (DeleteProjectResponse'),
+    newDeleteProjectResponse,
 
     -- ** DescribeExperiment
-    module Network.AWS.SageMaker.DescribeExperiment,
+    DescribeExperiment (DescribeExperiment'),
+    newDescribeExperiment,
+    DescribeExperimentResponse (DescribeExperimentResponse'),
+    newDescribeExperimentResponse,
 
     -- ** DescribeAutoMLJob
-    module Network.AWS.SageMaker.DescribeAutoMLJob,
+    DescribeAutoMLJob (DescribeAutoMLJob'),
+    newDescribeAutoMLJob,
+    DescribeAutoMLJobResponse (DescribeAutoMLJobResponse'),
+    newDescribeAutoMLJobResponse,
 
     -- ** DescribeApp
-    module Network.AWS.SageMaker.DescribeApp,
+    DescribeApp (DescribeApp'),
+    newDescribeApp,
+    DescribeAppResponse (DescribeAppResponse'),
+    newDescribeAppResponse,
 
     -- ** ListTrialComponents (Paginated)
-    module Network.AWS.SageMaker.ListTrialComponents,
+    ListTrialComponents (ListTrialComponents'),
+    newListTrialComponents,
+    ListTrialComponentsResponse (ListTrialComponentsResponse'),
+    newListTrialComponentsResponse,
 
     -- ** UpdateTrialComponent
-    module Network.AWS.SageMaker.UpdateTrialComponent,
+    UpdateTrialComponent (UpdateTrialComponent'),
+    newUpdateTrialComponent,
+    UpdateTrialComponentResponse (UpdateTrialComponentResponse'),
+    newUpdateTrialComponentResponse,
 
     -- ** DeleteTrialComponent
-    module Network.AWS.SageMaker.DeleteTrialComponent,
+    DeleteTrialComponent (DeleteTrialComponent'),
+    newDeleteTrialComponent,
+    DeleteTrialComponentResponse (DeleteTrialComponentResponse'),
+    newDeleteTrialComponentResponse,
 
     -- ** CreateTrialComponent
-    module Network.AWS.SageMaker.CreateTrialComponent,
+    CreateTrialComponent (CreateTrialComponent'),
+    newCreateTrialComponent,
+    CreateTrialComponentResponse (CreateTrialComponentResponse'),
+    newCreateTrialComponentResponse,
 
     -- ** DescribeWorkforce
-    module Network.AWS.SageMaker.DescribeWorkforce,
+    DescribeWorkforce (DescribeWorkforce'),
+    newDescribeWorkforce,
+    DescribeWorkforceResponse (DescribeWorkforceResponse'),
+    newDescribeWorkforceResponse,
 
     -- ** ListNotebookInstances (Paginated)
-    module Network.AWS.SageMaker.ListNotebookInstances,
+    ListNotebookInstances (ListNotebookInstances'),
+    newListNotebookInstances,
+    ListNotebookInstancesResponse (ListNotebookInstancesResponse'),
+    newListNotebookInstancesResponse,
 
     -- ** ListModelExplainabilityJobDefinitions (Paginated)
-    module Network.AWS.SageMaker.ListModelExplainabilityJobDefinitions,
+    ListModelExplainabilityJobDefinitions (ListModelExplainabilityJobDefinitions'),
+    newListModelExplainabilityJobDefinitions,
+    ListModelExplainabilityJobDefinitionsResponse (ListModelExplainabilityJobDefinitionsResponse'),
+    newListModelExplainabilityJobDefinitionsResponse,
 
     -- ** DeleteModelQualityJobDefinition
-    module Network.AWS.SageMaker.DeleteModelQualityJobDefinition,
+    DeleteModelQualityJobDefinition (DeleteModelQualityJobDefinition'),
+    newDeleteModelQualityJobDefinition,
+    DeleteModelQualityJobDefinitionResponse (DeleteModelQualityJobDefinitionResponse'),
+    newDeleteModelQualityJobDefinitionResponse,
 
     -- ** StopLabelingJob
-    module Network.AWS.SageMaker.StopLabelingJob,
+    StopLabelingJob (StopLabelingJob'),
+    newStopLabelingJob,
+    StopLabelingJobResponse (StopLabelingJobResponse'),
+    newStopLabelingJobResponse,
 
     -- ** ListModelQualityJobDefinitions (Paginated)
-    module Network.AWS.SageMaker.ListModelQualityJobDefinitions,
+    ListModelQualityJobDefinitions (ListModelQualityJobDefinitions'),
+    newListModelQualityJobDefinitions,
+    ListModelQualityJobDefinitionsResponse (ListModelQualityJobDefinitionsResponse'),
+    newListModelQualityJobDefinitionsResponse,
 
     -- ** DescribeModelBiasJobDefinition
-    module Network.AWS.SageMaker.DescribeModelBiasJobDefinition,
+    DescribeModelBiasJobDefinition (DescribeModelBiasJobDefinition'),
+    newDescribeModelBiasJobDefinition,
+    DescribeModelBiasJobDefinitionResponse (DescribeModelBiasJobDefinitionResponse'),
+    newDescribeModelBiasJobDefinitionResponse,
 
     -- ** DescribeWorkteam
-    module Network.AWS.SageMaker.DescribeWorkteam,
+    DescribeWorkteam (DescribeWorkteam'),
+    newDescribeWorkteam,
+    DescribeWorkteamResponse (DescribeWorkteamResponse'),
+    newDescribeWorkteamResponse,
 
     -- ** DescribeNotebookInstanceLifecycleConfig
-    module Network.AWS.SageMaker.DescribeNotebookInstanceLifecycleConfig,
+    DescribeNotebookInstanceLifecycleConfig (DescribeNotebookInstanceLifecycleConfig'),
+    newDescribeNotebookInstanceLifecycleConfig,
+    DescribeNotebookInstanceLifecycleConfigResponse (DescribeNotebookInstanceLifecycleConfigResponse'),
+    newDescribeNotebookInstanceLifecycleConfigResponse,
 
     -- ** ListPipelineExecutions (Paginated)
-    module Network.AWS.SageMaker.ListPipelineExecutions,
+    ListPipelineExecutions (ListPipelineExecutions'),
+    newListPipelineExecutions,
+    ListPipelineExecutionsResponse (ListPipelineExecutionsResponse'),
+    newListPipelineExecutionsResponse,
 
     -- ** UpdateDomain
-    module Network.AWS.SageMaker.UpdateDomain,
+    UpdateDomain (UpdateDomain'),
+    newUpdateDomain,
+    UpdateDomainResponse (UpdateDomainResponse'),
+    newUpdateDomainResponse,
 
     -- ** AssociateTrialComponent
-    module Network.AWS.SageMaker.AssociateTrialComponent,
+    AssociateTrialComponent (AssociateTrialComponent'),
+    newAssociateTrialComponent,
+    AssociateTrialComponentResponse (AssociateTrialComponentResponse'),
+    newAssociateTrialComponentResponse,
 
     -- ** UpdatePipelineExecution
-    module Network.AWS.SageMaker.UpdatePipelineExecution,
+    UpdatePipelineExecution (UpdatePipelineExecution'),
+    newUpdatePipelineExecution,
+    UpdatePipelineExecutionResponse (UpdatePipelineExecutionResponse'),
+    newUpdatePipelineExecutionResponse,
 
     -- ** CreateImageVersion
-    module Network.AWS.SageMaker.CreateImageVersion,
+    CreateImageVersion (CreateImageVersion'),
+    newCreateImageVersion,
+    CreateImageVersionResponse (CreateImageVersionResponse'),
+    newCreateImageVersionResponse,
 
     -- ** DeleteDomain
-    module Network.AWS.SageMaker.DeleteDomain,
+    DeleteDomain (DeleteDomain'),
+    newDeleteDomain,
+    DeleteDomainResponse (DeleteDomainResponse'),
+    newDeleteDomainResponse,
 
     -- ** UpdateTrainingJob
-    module Network.AWS.SageMaker.UpdateTrainingJob,
+    UpdateTrainingJob (UpdateTrainingJob'),
+    newUpdateTrainingJob,
+    UpdateTrainingJobResponse (UpdateTrainingJobResponse'),
+    newUpdateTrainingJobResponse,
 
     -- ** UpdateImage
-    module Network.AWS.SageMaker.UpdateImage,
+    UpdateImage (UpdateImage'),
+    newUpdateImage,
+    UpdateImageResponse (UpdateImageResponse'),
+    newUpdateImageResponse,
 
     -- ** UpdateContext
-    module Network.AWS.SageMaker.UpdateContext,
+    UpdateContext (UpdateContext'),
+    newUpdateContext,
+    UpdateContextResponse (UpdateContextResponse'),
+    newUpdateContextResponse,
 
     -- ** DeleteImage
-    module Network.AWS.SageMaker.DeleteImage,
+    DeleteImage (DeleteImage'),
+    newDeleteImage,
+    DeleteImageResponse (DeleteImageResponse'),
+    newDeleteImageResponse,
 
     -- ** ListFlowDefinitions (Paginated)
-    module Network.AWS.SageMaker.ListFlowDefinitions,
+    ListFlowDefinitions (ListFlowDefinitions'),
+    newListFlowDefinitions,
+    ListFlowDefinitionsResponse (ListFlowDefinitionsResponse'),
+    newListFlowDefinitionsResponse,
 
     -- ** ListModels (Paginated)
-    module Network.AWS.SageMaker.ListModels,
+    ListModels (ListModels'),
+    newListModels,
+    ListModelsResponse (ListModelsResponse'),
+    newListModelsResponse,
 
     -- ** CreateUserProfile
-    module Network.AWS.SageMaker.CreateUserProfile,
+    CreateUserProfile (CreateUserProfile'),
+    newCreateUserProfile,
+    CreateUserProfileResponse (CreateUserProfileResponse'),
+    newCreateUserProfileResponse,
 
     -- ** RenderUiTemplate
-    module Network.AWS.SageMaker.RenderUiTemplate,
+    RenderUiTemplate (RenderUiTemplate'),
+    newRenderUiTemplate,
+    RenderUiTemplateResponse (RenderUiTemplateResponse'),
+    newRenderUiTemplateResponse,
 
     -- ** DescribeFeatureGroup
-    module Network.AWS.SageMaker.DescribeFeatureGroup,
+    DescribeFeatureGroup (DescribeFeatureGroup'),
+    newDescribeFeatureGroup,
+    DescribeFeatureGroupResponse (DescribeFeatureGroupResponse'),
+    newDescribeFeatureGroupResponse,
 
     -- ** DeleteContext
-    module Network.AWS.SageMaker.DeleteContext,
+    DeleteContext (DeleteContext'),
+    newDeleteContext,
+    DeleteContextResponse (DeleteContextResponse'),
+    newDeleteContextResponse,
 
     -- ** ListHyperParameterTuningJobs (Paginated)
-    module Network.AWS.SageMaker.ListHyperParameterTuningJobs,
+    ListHyperParameterTuningJobs (ListHyperParameterTuningJobs'),
+    newListHyperParameterTuningJobs,
+    ListHyperParameterTuningJobsResponse (ListHyperParameterTuningJobsResponse'),
+    newListHyperParameterTuningJobsResponse,
 
     -- ** DeleteFlowDefinition
-    module Network.AWS.SageMaker.DeleteFlowDefinition,
+    DeleteFlowDefinition (DeleteFlowDefinition'),
+    newDeleteFlowDefinition,
+    DeleteFlowDefinitionResponse (DeleteFlowDefinitionResponse'),
+    newDeleteFlowDefinitionResponse,
 
     -- ** ListAlgorithms (Paginated)
-    module Network.AWS.SageMaker.ListAlgorithms,
+    ListAlgorithms (ListAlgorithms'),
+    newListAlgorithms,
+    ListAlgorithmsResponse (ListAlgorithmsResponse'),
+    newListAlgorithmsResponse,
 
     -- ** CreateAlgorithm
-    module Network.AWS.SageMaker.CreateAlgorithm,
+    CreateAlgorithm (CreateAlgorithm'),
+    newCreateAlgorithm,
+    CreateAlgorithmResponse (CreateAlgorithmResponse'),
+    newCreateAlgorithmResponse,
 
     -- ** CreateFlowDefinition
-    module Network.AWS.SageMaker.CreateFlowDefinition,
+    CreateFlowDefinition (CreateFlowDefinition'),
+    newCreateFlowDefinition,
+    CreateFlowDefinitionResponse (CreateFlowDefinitionResponse'),
+    newCreateFlowDefinitionResponse,
 
     -- ** ListPipelineParametersForExecution (Paginated)
-    module Network.AWS.SageMaker.ListPipelineParametersForExecution,
+    ListPipelineParametersForExecution (ListPipelineParametersForExecution'),
+    newListPipelineParametersForExecution,
+    ListPipelineParametersForExecutionResponse (ListPipelineParametersForExecutionResponse'),
+    newListPipelineParametersForExecutionResponse,
 
     -- ** ListTrials (Paginated)
-    module Network.AWS.SageMaker.ListTrials,
+    ListTrials (ListTrials'),
+    newListTrials,
+    ListTrialsResponse (ListTrialsResponse'),
+    newListTrialsResponse,
 
     -- ** CreateHyperParameterTuningJob
-    module Network.AWS.SageMaker.CreateHyperParameterTuningJob,
+    CreateHyperParameterTuningJob (CreateHyperParameterTuningJob'),
+    newCreateHyperParameterTuningJob,
+    CreateHyperParameterTuningJobResponse (CreateHyperParameterTuningJobResponse'),
+    newCreateHyperParameterTuningJobResponse,
 
     -- ** CreateModel
-    module Network.AWS.SageMaker.CreateModel,
+    CreateModel (CreateModel'),
+    newCreateModel,
+    CreateModelResponse (CreateModelResponse'),
+    newCreateModelResponse,
 
     -- ** UpdateTrial
-    module Network.AWS.SageMaker.UpdateTrial,
+    UpdateTrial (UpdateTrial'),
+    newUpdateTrial,
+    UpdateTrialResponse (UpdateTrialResponse'),
+    newUpdateTrialResponse,
 
     -- ** DeleteModelPackageGroup
-    module Network.AWS.SageMaker.DeleteModelPackageGroup,
+    DeleteModelPackageGroup (DeleteModelPackageGroup'),
+    newDeleteModelPackageGroup,
+    DeleteModelPackageGroupResponse (DeleteModelPackageGroupResponse'),
+    newDeleteModelPackageGroupResponse,
 
     -- ** DescribeDeviceFleet
-    module Network.AWS.SageMaker.DescribeDeviceFleet,
+    DescribeDeviceFleet (DescribeDeviceFleet'),
+    newDescribeDeviceFleet,
+    DescribeDeviceFleetResponse (DescribeDeviceFleetResponse'),
+    newDescribeDeviceFleetResponse,
 
     -- ** ListModelPackageGroups (Paginated)
-    module Network.AWS.SageMaker.ListModelPackageGroups,
+    ListModelPackageGroups (ListModelPackageGroups'),
+    newListModelPackageGroups,
+    ListModelPackageGroupsResponse (ListModelPackageGroupsResponse'),
+    newListModelPackageGroupsResponse,
 
     -- ** ListPipelines (Paginated)
-    module Network.AWS.SageMaker.ListPipelines,
+    ListPipelines (ListPipelines'),
+    newListPipelines,
+    ListPipelinesResponse (ListPipelinesResponse'),
+    newListPipelinesResponse,
 
     -- ** ListTags (Paginated)
-    module Network.AWS.SageMaker.ListTags,
+    ListTags (ListTags'),
+    newListTags,
+    ListTagsResponse (ListTagsResponse'),
+    newListTagsResponse,
 
     -- ** DescribePipelineDefinitionForExecution
-    module Network.AWS.SageMaker.DescribePipelineDefinitionForExecution,
+    DescribePipelineDefinitionForExecution (DescribePipelineDefinitionForExecution'),
+    newDescribePipelineDefinitionForExecution,
+    DescribePipelineDefinitionForExecutionResponse (DescribePipelineDefinitionForExecutionResponse'),
+    newDescribePipelineDefinitionForExecutionResponse,
 
     -- ** DeleteTrial
-    module Network.AWS.SageMaker.DeleteTrial,
+    DeleteTrial (DeleteTrial'),
+    newDeleteTrial,
+    DeleteTrialResponse (DeleteTrialResponse'),
+    newDeleteTrialResponse,
 
     -- ** PutModelPackageGroupPolicy
-    module Network.AWS.SageMaker.PutModelPackageGroupPolicy,
+    PutModelPackageGroupPolicy (PutModelPackageGroupPolicy'),
+    newPutModelPackageGroupPolicy,
+    PutModelPackageGroupPolicyResponse (PutModelPackageGroupPolicyResponse'),
+    newPutModelPackageGroupPolicyResponse,
 
     -- ** ListExperiments (Paginated)
-    module Network.AWS.SageMaker.ListExperiments,
+    ListExperiments (ListExperiments'),
+    newListExperiments,
+    ListExperimentsResponse (ListExperimentsResponse'),
+    newListExperimentsResponse,
 
     -- ** UpdateExperiment
-    module Network.AWS.SageMaker.UpdateExperiment,
+    UpdateExperiment (UpdateExperiment'),
+    newUpdateExperiment,
+    UpdateExperimentResponse (UpdateExperimentResponse'),
+    newUpdateExperimentResponse,
 
     -- ** DeleteExperiment
-    module Network.AWS.SageMaker.DeleteExperiment,
+    DeleteExperiment (DeleteExperiment'),
+    newDeleteExperiment,
+    DeleteExperimentResponse (DeleteExperimentResponse'),
+    newDeleteExperimentResponse,
 
     -- ** ListLabelingJobs (Paginated)
-    module Network.AWS.SageMaker.ListLabelingJobs,
+    ListLabelingJobs (ListLabelingJobs'),
+    newListLabelingJobs,
+    ListLabelingJobsResponse (ListLabelingJobsResponse'),
+    newListLabelingJobsResponse,
 
     -- ** DescribeImageVersion
-    module Network.AWS.SageMaker.DescribeImageVersion,
+    DescribeImageVersion (DescribeImageVersion'),
+    newDescribeImageVersion,
+    DescribeImageVersionResponse (DescribeImageVersionResponse'),
+    newDescribeImageVersionResponse,
 
     -- ** DeleteApp
-    module Network.AWS.SageMaker.DeleteApp,
+    DeleteApp (DeleteApp'),
+    newDeleteApp,
+    DeleteAppResponse (DeleteAppResponse'),
+    newDeleteAppResponse,
 
     -- ** CreateModelBiasJobDefinition
-    module Network.AWS.SageMaker.CreateModelBiasJobDefinition,
+    CreateModelBiasJobDefinition (CreateModelBiasJobDefinition'),
+    newCreateModelBiasJobDefinition,
+    CreateModelBiasJobDefinitionResponse (CreateModelBiasJobDefinitionResponse'),
+    newCreateModelBiasJobDefinitionResponse,
 
     -- ** DescribeTrialComponent
-    module Network.AWS.SageMaker.DescribeTrialComponent,
+    DescribeTrialComponent (DescribeTrialComponent'),
+    newDescribeTrialComponent,
+    DescribeTrialComponentResponse (DescribeTrialComponentResponse'),
+    newDescribeTrialComponentResponse,
 
     -- ** CreateWorkteam
-    module Network.AWS.SageMaker.CreateWorkteam,
+    CreateWorkteam (CreateWorkteam'),
+    newCreateWorkteam,
+    CreateWorkteamResponse (CreateWorkteamResponse'),
+    newCreateWorkteamResponse,
 
     -- ** DescribeProject
-    module Network.AWS.SageMaker.DescribeProject,
+    DescribeProject (DescribeProject'),
+    newDescribeProject,
+    DescribeProjectResponse (DescribeProjectResponse'),
+    newDescribeProjectResponse,
 
     -- ** CreateProcessingJob
-    module Network.AWS.SageMaker.CreateProcessingJob,
+    CreateProcessingJob (CreateProcessingJob'),
+    newCreateProcessingJob,
+    CreateProcessingJobResponse (CreateProcessingJobResponse'),
+    newCreateProcessingJobResponse,
 
     -- ** ListAssociations (Paginated)
-    module Network.AWS.SageMaker.ListAssociations,
+    ListAssociations (ListAssociations'),
+    newListAssociations,
+    ListAssociationsResponse (ListAssociationsResponse'),
+    newListAssociationsResponse,
 
     -- ** EnableSagemakerServicecatalogPortfolio
-    module Network.AWS.SageMaker.EnableSagemakerServicecatalogPortfolio,
+    EnableSagemakerServicecatalogPortfolio (EnableSagemakerServicecatalogPortfolio'),
+    newEnableSagemakerServicecatalogPortfolio,
+    EnableSagemakerServicecatalogPortfolioResponse (EnableSagemakerServicecatalogPortfolioResponse'),
+    newEnableSagemakerServicecatalogPortfolioResponse,
 
     -- ** UpdateAppImageConfig
-    module Network.AWS.SageMaker.UpdateAppImageConfig,
+    UpdateAppImageConfig (UpdateAppImageConfig'),
+    newUpdateAppImageConfig,
+    UpdateAppImageConfigResponse (UpdateAppImageConfigResponse'),
+    newUpdateAppImageConfigResponse,
 
     -- ** ListModelBiasJobDefinitions (Paginated)
-    module Network.AWS.SageMaker.ListModelBiasJobDefinitions,
+    ListModelBiasJobDefinitions (ListModelBiasJobDefinitions'),
+    newListModelBiasJobDefinitions,
+    ListModelBiasJobDefinitionsResponse (ListModelBiasJobDefinitionsResponse'),
+    newListModelBiasJobDefinitionsResponse,
 
     -- ** CreateAutoMLJob
-    module Network.AWS.SageMaker.CreateAutoMLJob,
+    CreateAutoMLJob (CreateAutoMLJob'),
+    newCreateAutoMLJob,
+    CreateAutoMLJobResponse (CreateAutoMLJobResponse'),
+    newCreateAutoMLJobResponse,
 
     -- ** CreateApp
-    module Network.AWS.SageMaker.CreateApp,
+    CreateApp (CreateApp'),
+    newCreateApp,
+    CreateAppResponse (CreateAppResponse'),
+    newCreateAppResponse,
 
     -- ** DescribeNotebookInstance
-    module Network.AWS.SageMaker.DescribeNotebookInstance,
+    DescribeNotebookInstance (DescribeNotebookInstance'),
+    newDescribeNotebookInstance,
+    DescribeNotebookInstanceResponse (DescribeNotebookInstanceResponse'),
+    newDescribeNotebookInstanceResponse,
 
     -- ** DeleteAppImageConfig
-    module Network.AWS.SageMaker.DeleteAppImageConfig,
+    DeleteAppImageConfig (DeleteAppImageConfig'),
+    newDeleteAppImageConfig,
+    DeleteAppImageConfigResponse (DeleteAppImageConfigResponse'),
+    newDeleteAppImageConfigResponse,
 
     -- ** CreateEndpointConfig
-    module Network.AWS.SageMaker.CreateEndpointConfig,
+    CreateEndpointConfig (CreateEndpointConfig'),
+    newCreateEndpointConfig,
+    CreateEndpointConfigResponse (CreateEndpointConfigResponse'),
+    newCreateEndpointConfigResponse,
 
     -- ** ListProcessingJobs (Paginated)
-    module Network.AWS.SageMaker.ListProcessingJobs,
+    ListProcessingJobs (ListProcessingJobs'),
+    newListProcessingJobs,
+    ListProcessingJobsResponse (ListProcessingJobsResponse'),
+    newListProcessingJobsResponse,
 
     -- ** CreateMonitoringSchedule
-    module Network.AWS.SageMaker.CreateMonitoringSchedule,
+    CreateMonitoringSchedule (CreateMonitoringSchedule'),
+    newCreateMonitoringSchedule,
+    CreateMonitoringScheduleResponse (CreateMonitoringScheduleResponse'),
+    newCreateMonitoringScheduleResponse,
 
     -- ** DescribeModelExplainabilityJobDefinition
-    module Network.AWS.SageMaker.DescribeModelExplainabilityJobDefinition,
+    DescribeModelExplainabilityJobDefinition (DescribeModelExplainabilityJobDefinition'),
+    newDescribeModelExplainabilityJobDefinition,
+    DescribeModelExplainabilityJobDefinitionResponse (DescribeModelExplainabilityJobDefinitionResponse'),
+    newDescribeModelExplainabilityJobDefinitionResponse,
 
     -- ** ListWorkteams (Paginated)
-    module Network.AWS.SageMaker.ListWorkteams,
+    ListWorkteams (ListWorkteams'),
+    newListWorkteams,
+    ListWorkteamsResponse (ListWorkteamsResponse'),
+    newListWorkteamsResponse,
 
     -- ** DescribeFlowDefinition
-    module Network.AWS.SageMaker.DescribeFlowDefinition,
+    DescribeFlowDefinition (DescribeFlowDefinition'),
+    newDescribeFlowDefinition,
+    DescribeFlowDefinitionResponse (DescribeFlowDefinitionResponse'),
+    newDescribeFlowDefinitionResponse,
 
     -- ** DescribeContext
-    module Network.AWS.SageMaker.DescribeContext,
+    DescribeContext (DescribeContext'),
+    newDescribeContext,
+    DescribeContextResponse (DescribeContextResponse'),
+    newDescribeContextResponse,
 
     -- ** RegisterDevices
-    module Network.AWS.SageMaker.RegisterDevices,
+    RegisterDevices (RegisterDevices'),
+    newRegisterDevices,
+    RegisterDevicesResponse (RegisterDevicesResponse'),
+    newRegisterDevicesResponse,
 
     -- ** ListFeatureGroups (Paginated)
-    module Network.AWS.SageMaker.ListFeatureGroups,
+    ListFeatureGroups (ListFeatureGroups'),
+    newListFeatureGroups,
+    ListFeatureGroupsResponse (ListFeatureGroupsResponse'),
+    newListFeatureGroupsResponse,
 
-    -- ** CreatePresignedNotebookInstanceURL
-    module Network.AWS.SageMaker.CreatePresignedNotebookInstanceURL,
+    -- ** CreatePresignedNotebookInstanceUrl
+    CreatePresignedNotebookInstanceUrl (CreatePresignedNotebookInstanceUrl'),
+    newCreatePresignedNotebookInstanceUrl,
+    CreatePresignedNotebookInstanceUrlResponse (CreatePresignedNotebookInstanceUrlResponse'),
+    newCreatePresignedNotebookInstanceUrlResponse,
 
     -- ** DescribeTrainingJob
-    module Network.AWS.SageMaker.DescribeTrainingJob,
+    DescribeTrainingJob (DescribeTrainingJob'),
+    newDescribeTrainingJob,
+    DescribeTrainingJobResponse (DescribeTrainingJobResponse'),
+    newDescribeTrainingJobResponse,
 
     -- ** CreateHumanTaskUi
-    module Network.AWS.SageMaker.CreateHumanTaskUi,
+    CreateHumanTaskUi (CreateHumanTaskUi'),
+    newCreateHumanTaskUi,
+    CreateHumanTaskUiResponse (CreateHumanTaskUiResponse'),
+    newCreateHumanTaskUiResponse,
 
     -- ** ListTrainingJobsForHyperParameterTuningJob (Paginated)
-    module Network.AWS.SageMaker.ListTrainingJobsForHyperParameterTuningJob,
+    ListTrainingJobsForHyperParameterTuningJob (ListTrainingJobsForHyperParameterTuningJob'),
+    newListTrainingJobsForHyperParameterTuningJob,
+    ListTrainingJobsForHyperParameterTuningJobResponse (ListTrainingJobsForHyperParameterTuningJobResponse'),
+    newListTrainingJobsForHyperParameterTuningJobResponse,
 
     -- ** DescribeImage
-    module Network.AWS.SageMaker.DescribeImage,
+    DescribeImage (DescribeImage'),
+    newDescribeImage,
+    DescribeImageResponse (DescribeImageResponse'),
+    newDescribeImageResponse,
 
     -- ** DeleteFeatureGroup
-    module Network.AWS.SageMaker.DeleteFeatureGroup,
+    DeleteFeatureGroup (DeleteFeatureGroup'),
+    newDeleteFeatureGroup,
+    DeleteFeatureGroupResponse (DeleteFeatureGroupResponse'),
+    newDeleteFeatureGroupResponse,
 
     -- * Types
-
-    -- ** AWSManagedHumanLoopRequestSource
-    AWSManagedHumanLoopRequestSource (..),
 
     -- ** ActionStatus
     ActionStatus (..),
@@ -837,6 +1532,9 @@ module Network.AWS.SageMaker
 
     -- ** AutoMLSortOrder
     AutoMLSortOrder (..),
+
+    -- ** AwsManagedHumanLoopRequestSource
+    AwsManagedHumanLoopRequestSource (..),
 
     -- ** BatchStrategy
     BatchStrategy (..),
@@ -1222,8 +1920,8 @@ module Network.AWS.SageMaker
     -- ** TargetPlatformArch
     TargetPlatformArch (..),
 
-    -- ** TargetPlatformOS
-    TargetPlatformOS (..),
+    -- ** TargetPlatformOs
+    TargetPlatformOs (..),
 
     -- ** TrafficRoutingConfigType
     TrafficRoutingConfigType (..),
@@ -1262,2538 +1960,1256 @@ module Network.AWS.SageMaker
     VariantPropertyType (..),
 
     -- ** ActionSource
-    ActionSource,
-    actionSource,
-    aSourceId,
-    aSourceType,
-    aSourceURI,
+    ActionSource (ActionSource'),
+    newActionSource,
 
     -- ** ActionSummary
-    ActionSummary,
-    actionSummary,
-    actStatus,
-    actCreationTime,
-    actActionName,
-    actActionType,
-    actActionARN,
-    actSource,
-    actLastModifiedTime,
+    ActionSummary (ActionSummary'),
+    newActionSummary,
 
     -- ** AgentVersion
-    AgentVersion,
-    agentVersion,
-    avVersion,
-    avAgentCount,
+    AgentVersion (AgentVersion'),
+    newAgentVersion,
 
     -- ** Alarm
-    Alarm,
-    alarm,
-    aAlarmName,
+    Alarm (Alarm'),
+    newAlarm,
 
     -- ** AlgorithmSpecification
-    AlgorithmSpecification,
-    algorithmSpecification,
-    asTrainingImage,
-    asEnableSageMakerMetricsTimeSeries,
-    asMetricDefinitions,
-    asAlgorithmName,
-    asTrainingInputMode,
+    AlgorithmSpecification (AlgorithmSpecification'),
+    newAlgorithmSpecification,
 
     -- ** AlgorithmStatusDetails
-    AlgorithmStatusDetails,
-    algorithmStatusDetails,
-    asdValidationStatuses,
-    asdImageScanStatuses,
+    AlgorithmStatusDetails (AlgorithmStatusDetails'),
+    newAlgorithmStatusDetails,
 
     -- ** AlgorithmStatusItem
-    AlgorithmStatusItem,
-    algorithmStatusItem,
-    asiFailureReason,
-    asiName,
-    asiStatus,
+    AlgorithmStatusItem (AlgorithmStatusItem'),
+    newAlgorithmStatusItem,
 
     -- ** AlgorithmSummary
-    AlgorithmSummary,
-    algorithmSummary,
-    aAlgorithmDescription,
-    aAlgorithmName,
-    aAlgorithmARN,
-    aCreationTime,
-    aAlgorithmStatus,
+    AlgorithmSummary (AlgorithmSummary'),
+    newAlgorithmSummary,
 
     -- ** AlgorithmValidationProfile
-    AlgorithmValidationProfile,
-    algorithmValidationProfile,
-    avpTransformJobDefinition,
-    avpProfileName,
-    avpTrainingJobDefinition,
+    AlgorithmValidationProfile (AlgorithmValidationProfile'),
+    newAlgorithmValidationProfile,
 
     -- ** AlgorithmValidationSpecification
-    AlgorithmValidationSpecification,
-    algorithmValidationSpecification,
-    avsValidationRole,
-    avsValidationProfiles,
+    AlgorithmValidationSpecification (AlgorithmValidationSpecification'),
+    newAlgorithmValidationSpecification,
 
     -- ** AnnotationConsolidationConfig
-    AnnotationConsolidationConfig,
-    annotationConsolidationConfig,
-    accAnnotationConsolidationLambdaARN,
+    AnnotationConsolidationConfig (AnnotationConsolidationConfig'),
+    newAnnotationConsolidationConfig,
 
     -- ** AppDetails
-    AppDetails,
-    appDetails,
-    adStatus,
-    adCreationTime,
-    adAppType,
-    adAppName,
-    adUserProfileName,
-    adDomainId,
+    AppDetails (AppDetails'),
+    newAppDetails,
 
     -- ** AppImageConfigDetails
-    AppImageConfigDetails,
-    appImageConfigDetails,
-    aicdCreationTime,
-    aicdAppImageConfigARN,
-    aicdKernelGatewayImageConfig,
-    aicdAppImageConfigName,
-    aicdLastModifiedTime,
+    AppImageConfigDetails (AppImageConfigDetails'),
+    newAppImageConfigDetails,
 
     -- ** AppSpecification
-    AppSpecification,
-    appSpecification,
-    asContainerArguments,
-    asContainerEntrypoint,
-    asImageURI,
+    AppSpecification (AppSpecification'),
+    newAppSpecification,
 
     -- ** ArtifactSource
-    ArtifactSource,
-    artifactSource,
-    asSourceTypes,
-    asSourceURI,
+    ArtifactSource (ArtifactSource'),
+    newArtifactSource,
 
     -- ** ArtifactSourceType
-    ArtifactSourceType,
-    artifactSourceType,
-    astSourceIdType,
-    astValue,
+    ArtifactSourceType (ArtifactSourceType'),
+    newArtifactSourceType,
 
     -- ** ArtifactSummary
-    ArtifactSummary,
-    artifactSummary,
-    asCreationTime,
-    asArtifactName,
-    asArtifactType,
-    asArtifactARN,
-    asSource,
-    asLastModifiedTime,
+    ArtifactSummary (ArtifactSummary'),
+    newArtifactSummary,
 
     -- ** AssociationSummary
-    AssociationSummary,
-    associationSummary,
-    assDestinationType,
-    assCreationTime,
-    assDestinationARN,
-    assDestinationName,
-    assSourceName,
-    assAssociationType,
-    assCreatedBy,
-    assSourceARN,
-    assSourceType,
+    AssociationSummary (AssociationSummary'),
+    newAssociationSummary,
 
     -- ** AthenaDatasetDefinition
-    AthenaDatasetDefinition,
-    athenaDatasetDefinition,
-    addOutputCompression,
-    addKMSKeyId,
-    addWorkGroup,
-    addCatalog,
-    addDatabase,
-    addQueryString,
-    addOutputS3URI,
-    addOutputFormat,
+    AthenaDatasetDefinition (AthenaDatasetDefinition'),
+    newAthenaDatasetDefinition,
 
     -- ** AutoMLCandidate
-    AutoMLCandidate,
-    autoMLCandidate,
-    amlcEndTime,
-    amlcInferenceContainers,
-    amlcFailureReason,
-    amlcFinalAutoMLJobObjectiveMetric,
-    amlcCandidateName,
-    amlcObjectiveStatus,
-    amlcCandidateSteps,
-    amlcCandidateStatus,
-    amlcCreationTime,
-    amlcLastModifiedTime,
+    AutoMLCandidate (AutoMLCandidate'),
+    newAutoMLCandidate,
 
     -- ** AutoMLCandidateStep
-    AutoMLCandidateStep,
-    autoMLCandidateStep,
-    amlcsCandidateStepType,
-    amlcsCandidateStepARN,
-    amlcsCandidateStepName,
+    AutoMLCandidateStep (AutoMLCandidateStep'),
+    newAutoMLCandidateStep,
 
     -- ** AutoMLChannel
-    AutoMLChannel,
-    autoMLChannel,
-    amlcCompressionType,
-    amlcDataSource,
-    amlcTargetAttributeName,
+    AutoMLChannel (AutoMLChannel'),
+    newAutoMLChannel,
 
     -- ** AutoMLContainerDefinition
-    AutoMLContainerDefinition,
-    autoMLContainerDefinition,
-    amlcdEnvironment,
-    amlcdImage,
-    amlcdModelDataURL,
+    AutoMLContainerDefinition (AutoMLContainerDefinition'),
+    newAutoMLContainerDefinition,
 
     -- ** AutoMLDataSource
-    AutoMLDataSource,
-    autoMLDataSource,
-    amldsS3DataSource,
+    AutoMLDataSource (AutoMLDataSource'),
+    newAutoMLDataSource,
 
     -- ** AutoMLJobArtifacts
-    AutoMLJobArtifacts,
-    autoMLJobArtifacts,
-    amljaCandidateDefinitionNotebookLocation,
-    amljaDataExplorationNotebookLocation,
+    AutoMLJobArtifacts (AutoMLJobArtifacts'),
+    newAutoMLJobArtifacts,
 
     -- ** AutoMLJobCompletionCriteria
-    AutoMLJobCompletionCriteria,
-    autoMLJobCompletionCriteria,
-    amljccMaxRuntimePerTrainingJobInSeconds,
-    amljccMaxAutoMLJobRuntimeInSeconds,
-    amljccMaxCandidates,
+    AutoMLJobCompletionCriteria (AutoMLJobCompletionCriteria'),
+    newAutoMLJobCompletionCriteria,
 
     -- ** AutoMLJobConfig
-    AutoMLJobConfig,
-    autoMLJobConfig,
-    amljcSecurityConfig,
-    amljcCompletionCriteria,
+    AutoMLJobConfig (AutoMLJobConfig'),
+    newAutoMLJobConfig,
 
     -- ** AutoMLJobObjective
-    AutoMLJobObjective,
-    autoMLJobObjective,
-    amljoMetricName,
+    AutoMLJobObjective (AutoMLJobObjective'),
+    newAutoMLJobObjective,
 
     -- ** AutoMLJobSummary
-    AutoMLJobSummary,
-    autoMLJobSummary,
-    amljsEndTime,
-    amljsFailureReason,
-    amljsAutoMLJobName,
-    amljsAutoMLJobARN,
-    amljsAutoMLJobStatus,
-    amljsAutoMLJobSecondaryStatus,
-    amljsCreationTime,
-    amljsLastModifiedTime,
+    AutoMLJobSummary (AutoMLJobSummary'),
+    newAutoMLJobSummary,
 
     -- ** AutoMLOutputDataConfig
-    AutoMLOutputDataConfig,
-    autoMLOutputDataConfig,
-    amlodcKMSKeyId,
-    amlodcS3OutputPath,
+    AutoMLOutputDataConfig (AutoMLOutputDataConfig'),
+    newAutoMLOutputDataConfig,
 
     -- ** AutoMLS3DataSource
-    AutoMLS3DataSource,
-    autoMLS3DataSource,
-    amlsdsS3DataType,
-    amlsdsS3URI,
+    AutoMLS3DataSource (AutoMLS3DataSource'),
+    newAutoMLS3DataSource,
 
     -- ** AutoMLSecurityConfig
-    AutoMLSecurityConfig,
-    autoMLSecurityConfig,
-    amlscVPCConfig,
-    amlscEnableInterContainerTrafficEncryption,
-    amlscVolumeKMSKeyId,
+    AutoMLSecurityConfig (AutoMLSecurityConfig'),
+    newAutoMLSecurityConfig,
 
     -- ** AutoRollbackConfig
-    AutoRollbackConfig,
-    autoRollbackConfig,
-    arcAlarms,
+    AutoRollbackConfig (AutoRollbackConfig'),
+    newAutoRollbackConfig,
 
     -- ** Bias
-    Bias,
-    bias,
-    bReport,
+    Bias (Bias'),
+    newBias,
 
     -- ** BlueGreenUpdatePolicy
-    BlueGreenUpdatePolicy,
-    blueGreenUpdatePolicy,
-    bgupTerminationWaitInSeconds,
-    bgupMaximumExecutionTimeoutInSeconds,
-    bgupTrafficRoutingConfiguration,
+    BlueGreenUpdatePolicy (BlueGreenUpdatePolicy'),
+    newBlueGreenUpdatePolicy,
 
     -- ** CacheHitResult
-    CacheHitResult,
-    cacheHitResult,
-    chrSourcePipelineExecutionARN,
+    CacheHitResult (CacheHitResult'),
+    newCacheHitResult,
 
     -- ** CapacitySize
-    CapacitySize,
-    capacitySize,
-    csType,
-    csValue,
+    CapacitySize (CapacitySize'),
+    newCapacitySize,
 
     -- ** CaptureContentTypeHeader
-    CaptureContentTypeHeader,
-    captureContentTypeHeader,
-    ccthCSVContentTypes,
-    ccthJSONContentTypes,
+    CaptureContentTypeHeader (CaptureContentTypeHeader'),
+    newCaptureContentTypeHeader,
 
     -- ** CaptureOption
-    CaptureOption,
-    captureOption,
-    coCaptureMode,
+    CaptureOption (CaptureOption'),
+    newCaptureOption,
 
     -- ** CategoricalParameterRange
-    CategoricalParameterRange,
-    categoricalParameterRange,
-    cprName,
-    cprValues,
+    CategoricalParameterRange (CategoricalParameterRange'),
+    newCategoricalParameterRange,
 
     -- ** CategoricalParameterRangeSpecification
-    CategoricalParameterRangeSpecification,
-    categoricalParameterRangeSpecification,
-    cprsValues,
+    CategoricalParameterRangeSpecification (CategoricalParameterRangeSpecification'),
+    newCategoricalParameterRangeSpecification,
 
     -- ** Channel
-    Channel,
-    channel,
-    cContentType,
-    cRecordWrapperType,
-    cShuffleConfig,
-    cCompressionType,
-    cInputMode,
-    cChannelName,
-    cDataSource,
+    Channel (Channel'),
+    newChannel,
 
     -- ** ChannelSpecification
-    ChannelSpecification,
-    channelSpecification,
-    csDescription,
-    csIsRequired,
-    csSupportedCompressionTypes,
-    csName,
-    csSupportedContentTypes,
-    csSupportedInputModes,
+    ChannelSpecification (ChannelSpecification'),
+    newChannelSpecification,
 
     -- ** CheckpointConfig
-    CheckpointConfig,
-    checkpointConfig,
-    ccLocalPath,
-    ccS3URI,
+    CheckpointConfig (CheckpointConfig'),
+    newCheckpointConfig,
 
     -- ** CodeRepositorySummary
-    CodeRepositorySummary,
-    codeRepositorySummary,
-    crsGitConfig,
-    crsCodeRepositoryName,
-    crsCodeRepositoryARN,
-    crsCreationTime,
-    crsLastModifiedTime,
+    CodeRepositorySummary (CodeRepositorySummary'),
+    newCodeRepositorySummary,
 
     -- ** CognitoConfig
-    CognitoConfig,
-    cognitoConfig,
-    ccUserPool,
-    ccClientId,
+    CognitoConfig (CognitoConfig'),
+    newCognitoConfig,
 
     -- ** CognitoMemberDefinition
-    CognitoMemberDefinition,
-    cognitoMemberDefinition,
-    cmdUserPool,
-    cmdUserGroup,
-    cmdClientId,
+    CognitoMemberDefinition (CognitoMemberDefinition'),
+    newCognitoMemberDefinition,
 
     -- ** CollectionConfiguration
-    CollectionConfiguration,
-    collectionConfiguration,
-    ccCollectionParameters,
-    ccCollectionName,
+    CollectionConfiguration (CollectionConfiguration'),
+    newCollectionConfiguration,
 
     -- ** CompilationJobSummary
-    CompilationJobSummary,
-    compilationJobSummary,
-    cjsCompilationTargetPlatformArch,
-    cjsCompilationStartTime,
-    cjsCompilationTargetPlatformOS,
-    cjsCompilationTargetPlatformAccelerator,
-    cjsLastModifiedTime,
-    cjsCompilationEndTime,
-    cjsCompilationTargetDevice,
-    cjsCompilationJobName,
-    cjsCompilationJobARN,
-    cjsCreationTime,
-    cjsCompilationJobStatus,
+    CompilationJobSummary (CompilationJobSummary'),
+    newCompilationJobSummary,
 
     -- ** ConditionStepMetadata
-    ConditionStepMetadata,
-    conditionStepMetadata,
-    csmOutcome,
+    ConditionStepMetadata (ConditionStepMetadata'),
+    newConditionStepMetadata,
 
     -- ** ContainerDefinition
-    ContainerDefinition,
-    containerDefinition,
-    cdMultiModelConfig,
-    cdModelDataURL,
-    cdMode,
-    cdContainerHostname,
-    cdImageConfig,
-    cdEnvironment,
-    cdModelPackageName,
-    cdImage,
+    ContainerDefinition (ContainerDefinition'),
+    newContainerDefinition,
 
     -- ** ContextSource
-    ContextSource,
-    contextSource,
-    csSourceId,
-    csSourceType,
-    csSourceURI,
+    ContextSource (ContextSource'),
+    newContextSource,
 
     -- ** ContextSummary
-    ContextSummary,
-    contextSummary,
-    csContextType,
-    csCreationTime,
-    csContextName,
-    csSource,
-    csLastModifiedTime,
-    csContextARN,
+    ContextSummary (ContextSummary'),
+    newContextSummary,
 
     -- ** ContinuousParameterRange
-    ContinuousParameterRange,
-    continuousParameterRange,
-    cScalingType,
-    cName,
-    cMinValue,
-    cMaxValue,
+    ContinuousParameterRange (ContinuousParameterRange'),
+    newContinuousParameterRange,
 
     -- ** ContinuousParameterRangeSpecification
-    ContinuousParameterRangeSpecification,
-    continuousParameterRangeSpecification,
-    cprsMinValue,
-    cprsMaxValue,
+    ContinuousParameterRangeSpecification (ContinuousParameterRangeSpecification'),
+    newContinuousParameterRangeSpecification,
 
     -- ** CustomImage
-    CustomImage,
-    customImage,
-    ciImageVersionNumber,
-    ciImageName,
-    ciAppImageConfigName,
+    CustomImage (CustomImage'),
+    newCustomImage,
 
     -- ** DataCaptureConfig
-    DataCaptureConfig,
-    dataCaptureConfig,
-    dccCaptureContentTypeHeader,
-    dccKMSKeyId,
-    dccEnableCapture,
-    dccInitialSamplingPercentage,
-    dccDestinationS3URI,
-    dccCaptureOptions,
+    DataCaptureConfig (DataCaptureConfig'),
+    newDataCaptureConfig,
 
     -- ** DataCaptureConfigSummary
-    DataCaptureConfigSummary,
-    dataCaptureConfigSummary,
-    dccsEnableCapture,
-    dccsCaptureStatus,
-    dccsCurrentSamplingPercentage,
-    dccsDestinationS3URI,
-    dccsKMSKeyId,
+    DataCaptureConfigSummary (DataCaptureConfigSummary'),
+    newDataCaptureConfigSummary,
 
     -- ** DataCatalogConfig
-    DataCatalogConfig,
-    dataCatalogConfig,
-    dccTableName,
-    dccCatalog,
-    dccDatabase,
+    DataCatalogConfig (DataCatalogConfig'),
+    newDataCatalogConfig,
 
     -- ** DataProcessing
-    DataProcessing,
-    dataProcessing,
-    dpOutputFilter,
-    dpJoinSource,
-    dpInputFilter,
+    DataProcessing (DataProcessing'),
+    newDataProcessing,
 
     -- ** DataQualityAppSpecification
-    DataQualityAppSpecification,
-    dataQualityAppSpecification,
-    dqasContainerArguments,
-    dqasContainerEntrypoint,
-    dqasPostAnalyticsProcessorSourceURI,
-    dqasEnvironment,
-    dqasRecordPreprocessorSourceURI,
-    dqasImageURI,
+    DataQualityAppSpecification (DataQualityAppSpecification'),
+    newDataQualityAppSpecification,
 
     -- ** DataQualityBaselineConfig
-    DataQualityBaselineConfig,
-    dataQualityBaselineConfig,
-    dqbcStatisticsResource,
-    dqbcConstraintsResource,
-    dqbcBaseliningJobName,
+    DataQualityBaselineConfig (DataQualityBaselineConfig'),
+    newDataQualityBaselineConfig,
 
     -- ** DataQualityJobInput
-    DataQualityJobInput,
-    dataQualityJobInput,
-    dqjiEndpointInput,
+    DataQualityJobInput (DataQualityJobInput'),
+    newDataQualityJobInput,
 
     -- ** DataSource
-    DataSource,
-    dataSource,
-    dsFileSystemDataSource,
-    dsS3DataSource,
+    DataSource (DataSource'),
+    newDataSource,
 
     -- ** DatasetDefinition
-    DatasetDefinition,
-    datasetDefinition,
-    ddRedshiftDatasetDefinition,
-    ddAthenaDatasetDefinition,
-    ddLocalPath,
-    ddInputMode,
-    ddDataDistributionType,
+    DatasetDefinition (DatasetDefinition'),
+    newDatasetDefinition,
 
     -- ** DebugHookConfig
-    DebugHookConfig,
-    debugHookConfig,
-    dhcCollectionConfigurations,
-    dhcHookParameters,
-    dhcLocalPath,
-    dhcS3OutputPath,
+    DebugHookConfig (DebugHookConfig'),
+    newDebugHookConfig,
 
     -- ** DebugRuleConfiguration
-    DebugRuleConfiguration,
-    debugRuleConfiguration,
-    drcRuleParameters,
-    drcInstanceType,
-    drcS3OutputPath,
-    drcVolumeSizeInGB,
-    drcLocalPath,
-    drcRuleConfigurationName,
-    drcRuleEvaluatorImage,
+    DebugRuleConfiguration (DebugRuleConfiguration'),
+    newDebugRuleConfiguration,
 
     -- ** DebugRuleEvaluationStatus
-    DebugRuleEvaluationStatus,
-    debugRuleEvaluationStatus,
-    dresRuleConfigurationName,
-    dresStatusDetails,
-    dresRuleEvaluationStatus,
-    dresLastModifiedTime,
-    dresRuleEvaluationJobARN,
+    DebugRuleEvaluationStatus (DebugRuleEvaluationStatus'),
+    newDebugRuleEvaluationStatus,
 
     -- ** DeployedImage
-    DeployedImage,
-    deployedImage,
-    diSpecifiedImage,
-    diResolvedImage,
-    diResolutionTime,
+    DeployedImage (DeployedImage'),
+    newDeployedImage,
 
     -- ** DeploymentConfig
-    DeploymentConfig,
-    deploymentConfig,
-    dcAutoRollbackConfiguration,
-    dcBlueGreenUpdatePolicy,
+    DeploymentConfig (DeploymentConfig'),
+    newDeploymentConfig,
 
     -- ** DesiredWeightAndCapacity
-    DesiredWeightAndCapacity,
-    desiredWeightAndCapacity,
-    dwacDesiredInstanceCount,
-    dwacDesiredWeight,
-    dwacVariantName,
+    DesiredWeightAndCapacity (DesiredWeightAndCapacity'),
+    newDesiredWeightAndCapacity,
 
     -- ** Device
-    Device,
-    device,
-    dIotThingName,
-    dDescription,
-    dDeviceName,
+    Device (Device'),
+    newDevice,
 
     -- ** DeviceFleetSummary
-    DeviceFleetSummary,
-    deviceFleetSummary,
-    dfsCreationTime,
-    dfsLastModifiedTime,
-    dfsDeviceFleetARN,
-    dfsDeviceFleetName,
+    DeviceFleetSummary (DeviceFleetSummary'),
+    newDeviceFleetSummary,
 
     -- ** DeviceStats
-    DeviceStats,
-    deviceStats,
-    dsConnectedDeviceCount,
-    dsRegisteredDeviceCount,
+    DeviceStats (DeviceStats'),
+    newDeviceStats,
 
     -- ** DeviceSummary
-    DeviceSummary,
-    deviceSummary,
-    dsDeviceFleetName,
-    dsLatestHeartbeat,
-    dsRegistrationTime,
-    dsModels,
-    dsIotThingName,
-    dsDescription,
-    dsDeviceName,
-    dsDeviceARN,
+    DeviceSummary (DeviceSummary'),
+    newDeviceSummary,
 
     -- ** DomainDetails
-    DomainDetails,
-    domainDetails,
-    ddsStatus,
-    ddsCreationTime,
-    ddsDomainId,
-    ddsDomainARN,
-    ddsDomainName,
-    ddsLastModifiedTime,
-    ddsURL,
+    DomainDetails (DomainDetails'),
+    newDomainDetails,
 
     -- ** EdgeModel
-    EdgeModel,
-    edgeModel,
-    emLatestInference,
-    emLatestSampleTime,
-    emModelName,
-    emModelVersion,
+    EdgeModel (EdgeModel'),
+    newEdgeModel,
 
     -- ** EdgeModelStat
-    EdgeModelStat,
-    edgeModelStat,
-    eModelName,
-    eModelVersion,
-    eOfflineDeviceCount,
-    eConnectedDeviceCount,
-    eActiveDeviceCount,
-    eSamplingDeviceCount,
+    EdgeModelStat (EdgeModelStat'),
+    newEdgeModelStat,
 
     -- ** EdgeModelSummary
-    EdgeModelSummary,
-    edgeModelSummary,
-    emsModelName,
-    emsModelVersion,
+    EdgeModelSummary (EdgeModelSummary'),
+    newEdgeModelSummary,
 
     -- ** EdgeOutputConfig
-    EdgeOutputConfig,
-    edgeOutputConfig,
-    eocKMSKeyId,
-    eocS3OutputLocation,
+    EdgeOutputConfig (EdgeOutputConfig'),
+    newEdgeOutputConfig,
 
     -- ** EdgePackagingJobSummary
-    EdgePackagingJobSummary,
-    edgePackagingJobSummary,
-    epjsCreationTime,
-    epjsCompilationJobName,
-    epjsModelVersion,
-    epjsLastModifiedTime,
-    epjsModelName,
-    epjsEdgePackagingJobARN,
-    epjsEdgePackagingJobName,
-    epjsEdgePackagingJobStatus,
+    EdgePackagingJobSummary (EdgePackagingJobSummary'),
+    newEdgePackagingJobSummary,
 
     -- ** Endpoint
-    Endpoint,
-    endpoint,
-    endProductionVariants,
-    endMonitoringSchedules,
-    endFailureReason,
-    endTags,
-    endDataCaptureConfig,
-    endEndpointName,
-    endEndpointARN,
-    endEndpointConfigName,
-    endEndpointStatus,
-    endCreationTime,
-    endLastModifiedTime,
+    Endpoint (Endpoint'),
+    newEndpoint,
 
     -- ** EndpointConfigSummary
-    EndpointConfigSummary,
-    endpointConfigSummary,
-    ecsEndpointConfigName,
-    ecsEndpointConfigARN,
-    ecsCreationTime,
+    EndpointConfigSummary (EndpointConfigSummary'),
+    newEndpointConfigSummary,
 
     -- ** EndpointInput
-    EndpointInput,
-    endpointInput,
-    eiEndTimeOffset,
-    eiInferenceAttribute,
-    eiS3InputMode,
-    eiS3DataDistributionType,
-    eiProbabilityAttribute,
-    eiProbabilityThresholdAttribute,
-    eiFeaturesAttribute,
-    eiStartTimeOffset,
-    eiEndpointName,
-    eiLocalPath,
+    EndpointInput (EndpointInput'),
+    newEndpointInput,
 
     -- ** EndpointSummary
-    EndpointSummary,
-    endpointSummary,
-    esEndpointName,
-    esEndpointARN,
-    esCreationTime,
-    esLastModifiedTime,
-    esEndpointStatus,
+    EndpointSummary (EndpointSummary'),
+    newEndpointSummary,
 
     -- ** Experiment
-    Experiment,
-    experiment,
-    eExperimentARN,
-    eCreationTime,
-    eSource,
-    eTags,
-    eLastModifiedTime,
-    eExperimentName,
-    eDescription,
-    eCreatedBy,
-    eLastModifiedBy,
-    eDisplayName,
+    Experiment (Experiment'),
+    newExperiment,
 
     -- ** ExperimentConfig
-    ExperimentConfig,
-    experimentConfig,
-    ecExperimentName,
-    ecTrialComponentDisplayName,
-    ecTrialName,
+    ExperimentConfig (ExperimentConfig'),
+    newExperimentConfig,
 
     -- ** ExperimentSource
-    ExperimentSource,
-    experimentSource,
-    esSourceType,
-    esSourceARN,
+    ExperimentSource (ExperimentSource'),
+    newExperimentSource,
 
     -- ** ExperimentSummary
-    ExperimentSummary,
-    experimentSummary,
-    expExperimentARN,
-    expCreationTime,
-    expExperimentSource,
-    expLastModifiedTime,
-    expExperimentName,
-    expDisplayName,
+    ExperimentSummary (ExperimentSummary'),
+    newExperimentSummary,
 
     -- ** Explainability
-    Explainability,
-    explainability,
-    eReport,
+    Explainability (Explainability'),
+    newExplainability,
 
     -- ** FeatureDefinition
-    FeatureDefinition,
-    featureDefinition,
-    fdFeatureType,
-    fdFeatureName,
+    FeatureDefinition (FeatureDefinition'),
+    newFeatureDefinition,
 
     -- ** FeatureGroup
-    FeatureGroup,
-    featureGroup,
-    fgFeatureGroupStatus,
-    fgOfflineStoreConfig,
-    fgCreationTime,
-    fgRoleARN,
-    fgFeatureGroupARN,
-    fgRecordIdentifierFeatureName,
-    fgFeatureDefinitions,
-    fgOfflineStoreStatus,
-    fgEventTimeFeatureName,
-    fgFeatureGroupName,
-    fgFailureReason,
-    fgTags,
-    fgDescription,
-    fgOnlineStoreConfig,
+    FeatureGroup (FeatureGroup'),
+    newFeatureGroup,
 
     -- ** FeatureGroupSummary
-    FeatureGroupSummary,
-    featureGroupSummary,
-    fgsFeatureGroupStatus,
-    fgsOfflineStoreStatus,
-    fgsFeatureGroupName,
-    fgsFeatureGroupARN,
-    fgsCreationTime,
+    FeatureGroupSummary (FeatureGroupSummary'),
+    newFeatureGroupSummary,
 
     -- ** FileSystemConfig
-    FileSystemConfig,
-    fileSystemConfig,
-    fscDefaultGid,
-    fscMountPath,
-    fscDefaultUid,
+    FileSystemConfig (FileSystemConfig'),
+    newFileSystemConfig,
 
     -- ** FileSystemDataSource
-    FileSystemDataSource,
-    fileSystemDataSource,
-    fsdsFileSystemId,
-    fsdsFileSystemAccessMode,
-    fsdsFileSystemType,
-    fsdsDirectoryPath,
+    FileSystemDataSource (FileSystemDataSource'),
+    newFileSystemDataSource,
 
     -- ** Filter
-    Filter,
-    filter',
-    fOperator,
-    fValue,
-    fName,
+    Filter (Filter'),
+    newFilter,
 
     -- ** FinalAutoMLJobObjectiveMetric
-    FinalAutoMLJobObjectiveMetric,
-    finalAutoMLJobObjectiveMetric,
-    famljomType,
-    famljomMetricName,
-    famljomValue,
+    FinalAutoMLJobObjectiveMetric (FinalAutoMLJobObjectiveMetric'),
+    newFinalAutoMLJobObjectiveMetric,
 
     -- ** FinalHyperParameterTuningJobObjectiveMetric
-    FinalHyperParameterTuningJobObjectiveMetric,
-    finalHyperParameterTuningJobObjectiveMetric,
-    fhptjomType,
-    fhptjomMetricName,
-    fhptjomValue,
+    FinalHyperParameterTuningJobObjectiveMetric (FinalHyperParameterTuningJobObjectiveMetric'),
+    newFinalHyperParameterTuningJobObjectiveMetric,
 
     -- ** FlowDefinitionOutputConfig
-    FlowDefinitionOutputConfig,
-    flowDefinitionOutputConfig,
-    fdocKMSKeyId,
-    fdocS3OutputPath,
+    FlowDefinitionOutputConfig (FlowDefinitionOutputConfig'),
+    newFlowDefinitionOutputConfig,
 
     -- ** FlowDefinitionSummary
-    FlowDefinitionSummary,
-    flowDefinitionSummary,
-    fdsFailureReason,
-    fdsFlowDefinitionName,
-    fdsFlowDefinitionARN,
-    fdsFlowDefinitionStatus,
-    fdsCreationTime,
+    FlowDefinitionSummary (FlowDefinitionSummary'),
+    newFlowDefinitionSummary,
 
     -- ** GitConfig
-    GitConfig,
-    gitConfig,
-    gcSecretARN,
-    gcBranch,
-    gcRepositoryURL,
+    GitConfig (GitConfig'),
+    newGitConfig,
 
     -- ** GitConfigForUpdate
-    GitConfigForUpdate,
-    gitConfigForUpdate,
-    gcfuSecretARN,
+    GitConfigForUpdate (GitConfigForUpdate'),
+    newGitConfigForUpdate,
 
     -- ** HumanLoopActivationConditionsConfig
-    HumanLoopActivationConditionsConfig,
-    humanLoopActivationConditionsConfig,
-    hlaccHumanLoopActivationConditions,
+    HumanLoopActivationConditionsConfig (HumanLoopActivationConditionsConfig'),
+    newHumanLoopActivationConditionsConfig,
 
     -- ** HumanLoopActivationConfig
-    HumanLoopActivationConfig,
-    humanLoopActivationConfig,
-    hlacHumanLoopActivationConditionsConfig,
+    HumanLoopActivationConfig (HumanLoopActivationConfig'),
+    newHumanLoopActivationConfig,
 
     -- ** HumanLoopConfig
-    HumanLoopConfig,
-    humanLoopConfig,
-    hlcTaskKeywords,
-    hlcTaskTimeLimitInSeconds,
-    hlcTaskAvailabilityLifetimeInSeconds,
-    hlcPublicWorkforceTaskPrice,
-    hlcWorkteamARN,
-    hlcHumanTaskUiARN,
-    hlcTaskTitle,
-    hlcTaskDescription,
-    hlcTaskCount,
+    HumanLoopConfig (HumanLoopConfig'),
+    newHumanLoopConfig,
 
     -- ** HumanLoopRequestSource
-    HumanLoopRequestSource,
-    humanLoopRequestSource,
-    hlrsAWSManagedHumanLoopRequestSource,
+    HumanLoopRequestSource (HumanLoopRequestSource'),
+    newHumanLoopRequestSource,
 
     -- ** HumanTaskConfig
-    HumanTaskConfig,
-    humanTaskConfig,
-    htcTaskKeywords,
-    htcTaskAvailabilityLifetimeInSeconds,
-    htcMaxConcurrentTaskCount,
-    htcPublicWorkforceTaskPrice,
-    htcWorkteamARN,
-    htcUiConfig,
-    htcPreHumanTaskLambdaARN,
-    htcTaskTitle,
-    htcTaskDescription,
-    htcNumberOfHumanWorkersPerDataObject,
-    htcTaskTimeLimitInSeconds,
-    htcAnnotationConsolidationConfig,
+    HumanTaskConfig (HumanTaskConfig'),
+    newHumanTaskConfig,
 
     -- ** HumanTaskUiSummary
-    HumanTaskUiSummary,
-    humanTaskUiSummary,
-    htusHumanTaskUiName,
-    htusHumanTaskUiARN,
-    htusCreationTime,
+    HumanTaskUiSummary (HumanTaskUiSummary'),
+    newHumanTaskUiSummary,
 
     -- ** HyperParameterAlgorithmSpecification
-    HyperParameterAlgorithmSpecification,
-    hyperParameterAlgorithmSpecification,
-    hpasTrainingImage,
-    hpasMetricDefinitions,
-    hpasAlgorithmName,
-    hpasTrainingInputMode,
+    HyperParameterAlgorithmSpecification (HyperParameterAlgorithmSpecification'),
+    newHyperParameterAlgorithmSpecification,
 
     -- ** HyperParameterSpecification
-    HyperParameterSpecification,
-    hyperParameterSpecification,
-    hpsRange,
-    hpsIsTunable,
-    hpsDescription,
-    hpsIsRequired,
-    hpsDefaultValue,
-    hpsName,
-    hpsType,
+    HyperParameterSpecification (HyperParameterSpecification'),
+    newHyperParameterSpecification,
 
     -- ** HyperParameterTrainingJobDefinition
-    HyperParameterTrainingJobDefinition,
-    hyperParameterTrainingJobDefinition,
-    hptjdVPCConfig,
-    hptjdInputDataConfig,
-    hptjdEnableManagedSpotTraining,
-    hptjdStaticHyperParameters,
-    hptjdHyperParameterRanges,
-    hptjdEnableNetworkIsolation,
-    hptjdEnableInterContainerTrafficEncryption,
-    hptjdCheckpointConfig,
-    hptjdTuningObjective,
-    hptjdDefinitionName,
-    hptjdAlgorithmSpecification,
-    hptjdRoleARN,
-    hptjdOutputDataConfig,
-    hptjdResourceConfig,
-    hptjdStoppingCondition,
+    HyperParameterTrainingJobDefinition (HyperParameterTrainingJobDefinition'),
+    newHyperParameterTrainingJobDefinition,
 
     -- ** HyperParameterTrainingJobSummary
-    HyperParameterTrainingJobSummary,
-    hyperParameterTrainingJobSummary,
-    hptjsFinalHyperParameterTuningJobObjectiveMetric,
-    hptjsTuningJobName,
-    hptjsFailureReason,
-    hptjsObjectiveStatus,
-    hptjsTrainingJobDefinitionName,
-    hptjsTrainingStartTime,
-    hptjsTrainingEndTime,
-    hptjsTrainingJobName,
-    hptjsTrainingJobARN,
-    hptjsCreationTime,
-    hptjsTrainingJobStatus,
-    hptjsTunedHyperParameters,
+    HyperParameterTrainingJobSummary (HyperParameterTrainingJobSummary'),
+    newHyperParameterTrainingJobSummary,
 
     -- ** HyperParameterTuningJobConfig
-    HyperParameterTuningJobConfig,
-    hyperParameterTuningJobConfig,
-    hptjcHyperParameterTuningJobObjective,
-    hptjcParameterRanges,
-    hptjcTuningJobCompletionCriteria,
-    hptjcTrainingJobEarlyStoppingType,
-    hptjcStrategy,
-    hptjcResourceLimits,
+    HyperParameterTuningJobConfig (HyperParameterTuningJobConfig'),
+    newHyperParameterTuningJobConfig,
 
     -- ** HyperParameterTuningJobObjective
-    HyperParameterTuningJobObjective,
-    hyperParameterTuningJobObjective,
-    hptjoType,
-    hptjoMetricName,
+    HyperParameterTuningJobObjective (HyperParameterTuningJobObjective'),
+    newHyperParameterTuningJobObjective,
 
     -- ** HyperParameterTuningJobSummary
-    HyperParameterTuningJobSummary,
-    hyperParameterTuningJobSummary,
-    hResourceLimits,
-    hHyperParameterTuningEndTime,
-    hLastModifiedTime,
-    hHyperParameterTuningJobName,
-    hHyperParameterTuningJobARN,
-    hHyperParameterTuningJobStatus,
-    hStrategy,
-    hCreationTime,
-    hTrainingJobStatusCounters,
-    hObjectiveStatusCounters,
+    HyperParameterTuningJobSummary (HyperParameterTuningJobSummary'),
+    newHyperParameterTuningJobSummary,
 
     -- ** HyperParameterTuningJobWarmStartConfig
-    HyperParameterTuningJobWarmStartConfig,
-    hyperParameterTuningJobWarmStartConfig,
-    hptjwscParentHyperParameterTuningJobs,
-    hptjwscWarmStartType,
+    HyperParameterTuningJobWarmStartConfig (HyperParameterTuningJobWarmStartConfig'),
+    newHyperParameterTuningJobWarmStartConfig,
 
     -- ** Image
-    Image,
-    image,
-    iFailureReason,
-    iDescription,
-    iDisplayName,
-    iCreationTime,
-    iImageARN,
-    iImageName,
-    iImageStatus,
-    iLastModifiedTime,
+    Image (Image'),
+    newImage,
 
     -- ** ImageConfig
-    ImageConfig,
-    imageConfig,
-    icRepositoryAccessMode,
+    ImageConfig (ImageConfig'),
+    newImageConfig,
 
     -- ** ImageVersion
-    ImageVersion,
-    imageVersion,
-    ivFailureReason,
-    ivCreationTime,
-    ivImageARN,
-    ivImageVersionARN,
-    ivImageVersionStatus,
-    ivLastModifiedTime,
-    ivVersion,
+    ImageVersion (ImageVersion'),
+    newImageVersion,
 
     -- ** InferenceExecutionConfig
-    InferenceExecutionConfig,
-    inferenceExecutionConfig,
-    iecMode,
+    InferenceExecutionConfig (InferenceExecutionConfig'),
+    newInferenceExecutionConfig,
 
     -- ** InferenceSpecification
-    InferenceSpecification,
-    inferenceSpecification,
-    isSupportedTransformInstanceTypes,
-    isSupportedRealtimeInferenceInstanceTypes,
-    isContainers,
-    isSupportedContentTypes,
-    isSupportedResponseMIMETypes,
+    InferenceSpecification (InferenceSpecification'),
+    newInferenceSpecification,
 
     -- ** InputConfig
-    InputConfig,
-    inputConfig,
-    icFrameworkVersion,
-    icS3URI,
-    icDataInputConfig,
-    icFramework,
+    InputConfig (InputConfig'),
+    newInputConfig,
 
     -- ** IntegerParameterRange
-    IntegerParameterRange,
-    integerParameterRange,
-    iprScalingType,
-    iprName,
-    iprMinValue,
-    iprMaxValue,
+    IntegerParameterRange (IntegerParameterRange'),
+    newIntegerParameterRange,
 
     -- ** IntegerParameterRangeSpecification
-    IntegerParameterRangeSpecification,
-    integerParameterRangeSpecification,
-    iprsMinValue,
-    iprsMaxValue,
+    IntegerParameterRangeSpecification (IntegerParameterRangeSpecification'),
+    newIntegerParameterRangeSpecification,
 
     -- ** JupyterServerAppSettings
-    JupyterServerAppSettings,
-    jupyterServerAppSettings,
-    jsasDefaultResourceSpec,
+    JupyterServerAppSettings (JupyterServerAppSettings'),
+    newJupyterServerAppSettings,
 
     -- ** KernelGatewayAppSettings
-    KernelGatewayAppSettings,
-    kernelGatewayAppSettings,
-    kgasCustomImages,
-    kgasDefaultResourceSpec,
+    KernelGatewayAppSettings (KernelGatewayAppSettings'),
+    newKernelGatewayAppSettings,
 
     -- ** KernelGatewayImageConfig
-    KernelGatewayImageConfig,
-    kernelGatewayImageConfig,
-    kgicFileSystemConfig,
-    kgicKernelSpecs,
+    KernelGatewayImageConfig (KernelGatewayImageConfig'),
+    newKernelGatewayImageConfig,
 
     -- ** KernelSpec
-    KernelSpec,
-    kernelSpec,
-    ksDisplayName,
-    ksName,
+    KernelSpec (KernelSpec'),
+    newKernelSpec,
 
     -- ** LabelCounters
-    LabelCounters,
-    labelCounters,
-    lcUnlabeled,
-    lcFailedNonRetryableError,
-    lcMachineLabeled,
-    lcHumanLabeled,
-    lcTotalLabeled,
+    LabelCounters (LabelCounters'),
+    newLabelCounters,
 
     -- ** LabelCountersForWorkteam
-    LabelCountersForWorkteam,
-    labelCountersForWorkteam,
-    lcfwPendingHuman,
-    lcfwTotal,
-    lcfwHumanLabeled,
+    LabelCountersForWorkteam (LabelCountersForWorkteam'),
+    newLabelCountersForWorkteam,
 
     -- ** LabelingJobAlgorithmsConfig
-    LabelingJobAlgorithmsConfig,
-    labelingJobAlgorithmsConfig,
-    ljacInitialActiveLearningModelARN,
-    ljacLabelingJobResourceConfig,
-    ljacLabelingJobAlgorithmSpecificationARN,
+    LabelingJobAlgorithmsConfig (LabelingJobAlgorithmsConfig'),
+    newLabelingJobAlgorithmsConfig,
 
     -- ** LabelingJobDataAttributes
-    LabelingJobDataAttributes,
-    labelingJobDataAttributes,
-    ljdaContentClassifiers,
+    LabelingJobDataAttributes (LabelingJobDataAttributes'),
+    newLabelingJobDataAttributes,
 
     -- ** LabelingJobDataSource
-    LabelingJobDataSource,
-    labelingJobDataSource,
-    ljdsSNSDataSource,
-    ljdsS3DataSource,
+    LabelingJobDataSource (LabelingJobDataSource'),
+    newLabelingJobDataSource,
 
     -- ** LabelingJobForWorkteamSummary
-    LabelingJobForWorkteamSummary,
-    labelingJobForWorkteamSummary,
-    ljfwsLabelCounters,
-    ljfwsLabelingJobName,
-    ljfwsNumberOfHumanWorkersPerDataObject,
-    ljfwsJobReferenceCode,
-    ljfwsWorkRequesterAccountId,
-    ljfwsCreationTime,
+    LabelingJobForWorkteamSummary (LabelingJobForWorkteamSummary'),
+    newLabelingJobForWorkteamSummary,
 
     -- ** LabelingJobInputConfig
-    LabelingJobInputConfig,
-    labelingJobInputConfig,
-    ljicDataAttributes,
-    ljicDataSource,
+    LabelingJobInputConfig (LabelingJobInputConfig'),
+    newLabelingJobInputConfig,
 
     -- ** LabelingJobOutput
-    LabelingJobOutput,
-    labelingJobOutput,
-    ljoFinalActiveLearningModelARN,
-    ljoOutputDatasetS3URI,
+    LabelingJobOutput (LabelingJobOutput'),
+    newLabelingJobOutput,
 
     -- ** LabelingJobOutputConfig
-    LabelingJobOutputConfig,
-    labelingJobOutputConfig,
-    ljocKMSKeyId,
-    ljocSNSTopicARN,
-    ljocS3OutputPath,
+    LabelingJobOutputConfig (LabelingJobOutputConfig'),
+    newLabelingJobOutputConfig,
 
     -- ** LabelingJobResourceConfig
-    LabelingJobResourceConfig,
-    labelingJobResourceConfig,
-    ljrcVolumeKMSKeyId,
+    LabelingJobResourceConfig (LabelingJobResourceConfig'),
+    newLabelingJobResourceConfig,
 
     -- ** LabelingJobS3DataSource
-    LabelingJobS3DataSource,
-    labelingJobS3DataSource,
-    ljsdsManifestS3URI,
+    LabelingJobS3DataSource (LabelingJobS3DataSource'),
+    newLabelingJobS3DataSource,
 
-    -- ** LabelingJobSNSDataSource
-    LabelingJobSNSDataSource,
-    labelingJobSNSDataSource,
-    ljsdsSNSTopicARN,
+    -- ** LabelingJobSnsDataSource
+    LabelingJobSnsDataSource (LabelingJobSnsDataSource'),
+    newLabelingJobSnsDataSource,
 
     -- ** LabelingJobStoppingConditions
-    LabelingJobStoppingConditions,
-    labelingJobStoppingConditions,
-    ljscMaxPercentageOfInputDatasetLabeled,
-    ljscMaxHumanLabeledObjectCount,
+    LabelingJobStoppingConditions (LabelingJobStoppingConditions'),
+    newLabelingJobStoppingConditions,
 
     -- ** LabelingJobSummary
-    LabelingJobSummary,
-    labelingJobSummary,
-    ljsAnnotationConsolidationLambdaARN,
-    ljsInputConfig,
-    ljsFailureReason,
-    ljsLabelingJobOutput,
-    ljsLabelingJobName,
-    ljsLabelingJobARN,
-    ljsCreationTime,
-    ljsLastModifiedTime,
-    ljsLabelingJobStatus,
-    ljsLabelCounters,
-    ljsWorkteamARN,
-    ljsPreHumanTaskLambdaARN,
+    LabelingJobSummary (LabelingJobSummary'),
+    newLabelingJobSummary,
 
     -- ** MemberDefinition
-    MemberDefinition,
-    memberDefinition,
-    mdOidcMemberDefinition,
-    mdCognitoMemberDefinition,
+    MemberDefinition (MemberDefinition'),
+    newMemberDefinition,
 
     -- ** MetadataProperties
-    MetadataProperties,
-    metadataProperties,
-    mpGeneratedBy,
-    mpCommitId,
-    mpProjectId,
-    mpRepository,
+    MetadataProperties (MetadataProperties'),
+    newMetadataProperties,
 
     -- ** MetricData
-    MetricData,
-    metricData,
-    mdMetricName,
-    mdTimestamp,
-    mdValue,
+    MetricData (MetricData'),
+    newMetricData,
 
     -- ** MetricDefinition
-    MetricDefinition,
-    metricDefinition,
-    mdName,
-    mdRegex,
+    MetricDefinition (MetricDefinition'),
+    newMetricDefinition,
 
     -- ** MetricsSource
-    MetricsSource,
-    metricsSource,
-    msContentDigest,
-    msContentType,
-    msS3URI,
+    MetricsSource (MetricsSource'),
+    newMetricsSource,
 
     -- ** ModelArtifacts
-    ModelArtifacts,
-    modelArtifacts,
-    maS3ModelArtifacts,
+    ModelArtifacts (ModelArtifacts'),
+    newModelArtifacts,
 
     -- ** ModelBiasAppSpecification
-    ModelBiasAppSpecification,
-    modelBiasAppSpecification,
-    mbasEnvironment,
-    mbasImageURI,
-    mbasConfigURI,
+    ModelBiasAppSpecification (ModelBiasAppSpecification'),
+    newModelBiasAppSpecification,
 
     -- ** ModelBiasBaselineConfig
-    ModelBiasBaselineConfig,
-    modelBiasBaselineConfig,
-    mbbcConstraintsResource,
-    mbbcBaseliningJobName,
+    ModelBiasBaselineConfig (ModelBiasBaselineConfig'),
+    newModelBiasBaselineConfig,
 
     -- ** ModelBiasJobInput
-    ModelBiasJobInput,
-    modelBiasJobInput,
-    mbjiEndpointInput,
-    mbjiGroundTruthS3Input,
+    ModelBiasJobInput (ModelBiasJobInput'),
+    newModelBiasJobInput,
 
     -- ** ModelClientConfig
-    ModelClientConfig,
-    modelClientConfig,
-    mccInvocationsTimeoutInSeconds,
-    mccInvocationsMaxRetries,
+    ModelClientConfig (ModelClientConfig'),
+    newModelClientConfig,
 
     -- ** ModelDataQuality
-    ModelDataQuality,
-    modelDataQuality,
-    mdqConstraints,
-    mdqStatistics,
+    ModelDataQuality (ModelDataQuality'),
+    newModelDataQuality,
 
     -- ** ModelDigests
-    ModelDigests,
-    modelDigests,
-    mdArtifactDigest,
+    ModelDigests (ModelDigests'),
+    newModelDigests,
 
     -- ** ModelExplainabilityAppSpecification
-    ModelExplainabilityAppSpecification,
-    modelExplainabilityAppSpecification,
-    measEnvironment,
-    measImageURI,
-    measConfigURI,
+    ModelExplainabilityAppSpecification (ModelExplainabilityAppSpecification'),
+    newModelExplainabilityAppSpecification,
 
     -- ** ModelExplainabilityBaselineConfig
-    ModelExplainabilityBaselineConfig,
-    modelExplainabilityBaselineConfig,
-    mebcConstraintsResource,
-    mebcBaseliningJobName,
+    ModelExplainabilityBaselineConfig (ModelExplainabilityBaselineConfig'),
+    newModelExplainabilityBaselineConfig,
 
     -- ** ModelExplainabilityJobInput
-    ModelExplainabilityJobInput,
-    modelExplainabilityJobInput,
-    mejiEndpointInput,
+    ModelExplainabilityJobInput (ModelExplainabilityJobInput'),
+    newModelExplainabilityJobInput,
 
     -- ** ModelMetrics
-    ModelMetrics,
-    modelMetrics,
-    mmBias,
-    mmExplainability,
-    mmModelDataQuality,
-    mmModelQuality,
+    ModelMetrics (ModelMetrics'),
+    newModelMetrics,
 
     -- ** ModelPackage
-    ModelPackage,
-    modelPackage,
-    mpSourceAlgorithmSpecification,
-    mpModelPackageVersion,
-    mpMetadataProperties,
-    mpCreationTime,
-    mpValidationSpecification,
-    mpModelPackageStatusDetails,
-    mpModelMetrics,
-    mpCertifyForMarketplace,
-    mpModelPackageName,
-    mpModelApprovalStatus,
-    mpApprovalDescription,
-    mpTags,
-    mpModelPackageStatus,
-    mpLastModifiedTime,
-    mpInferenceSpecification,
-    mpModelPackageDescription,
-    mpCreatedBy,
-    mpModelPackageARN,
-    mpLastModifiedBy,
-    mpModelPackageGroupName,
+    ModelPackage (ModelPackage'),
+    newModelPackage,
 
     -- ** ModelPackageContainerDefinition
-    ModelPackageContainerDefinition,
-    modelPackageContainerDefinition,
-    mpcdImageDigest,
-    mpcdModelDataURL,
-    mpcdContainerHostname,
-    mpcdProductId,
-    mpcdImage,
+    ModelPackageContainerDefinition (ModelPackageContainerDefinition'),
+    newModelPackageContainerDefinition,
 
     -- ** ModelPackageGroup
-    ModelPackageGroup,
-    modelPackageGroup,
-    mpgModelPackageGroupARN,
-    mpgCreationTime,
-    mpgModelPackageGroupDescription,
-    mpgTags,
-    mpgModelPackageGroupStatus,
-    mpgCreatedBy,
-    mpgModelPackageGroupName,
+    ModelPackageGroup (ModelPackageGroup'),
+    newModelPackageGroup,
 
     -- ** ModelPackageGroupSummary
-    ModelPackageGroupSummary,
-    modelPackageGroupSummary,
-    mpgsModelPackageGroupDescription,
-    mpgsModelPackageGroupName,
-    mpgsModelPackageGroupARN,
-    mpgsCreationTime,
-    mpgsModelPackageGroupStatus,
+    ModelPackageGroupSummary (ModelPackageGroupSummary'),
+    newModelPackageGroupSummary,
 
     -- ** ModelPackageStatusDetails
-    ModelPackageStatusDetails,
-    modelPackageStatusDetails,
-    mpsdImageScanStatuses,
-    mpsdValidationStatuses,
+    ModelPackageStatusDetails (ModelPackageStatusDetails'),
+    newModelPackageStatusDetails,
 
     -- ** ModelPackageStatusItem
-    ModelPackageStatusItem,
-    modelPackageStatusItem,
-    mpsiFailureReason,
-    mpsiName,
-    mpsiStatus,
+    ModelPackageStatusItem (ModelPackageStatusItem'),
+    newModelPackageStatusItem,
 
     -- ** ModelPackageSummary
-    ModelPackageSummary,
-    modelPackageSummary,
-    mpsModelPackageVersion,
-    mpsModelApprovalStatus,
-    mpsModelPackageDescription,
-    mpsModelPackageGroupName,
-    mpsModelPackageName,
-    mpsModelPackageARN,
-    mpsCreationTime,
-    mpsModelPackageStatus,
+    ModelPackageSummary (ModelPackageSummary'),
+    newModelPackageSummary,
 
     -- ** ModelPackageValidationProfile
-    ModelPackageValidationProfile,
-    modelPackageValidationProfile,
-    mpvpProfileName,
-    mpvpTransformJobDefinition,
+    ModelPackageValidationProfile (ModelPackageValidationProfile'),
+    newModelPackageValidationProfile,
 
     -- ** ModelPackageValidationSpecification
-    ModelPackageValidationSpecification,
-    modelPackageValidationSpecification,
-    mpvsValidationRole,
-    mpvsValidationProfiles,
+    ModelPackageValidationSpecification (ModelPackageValidationSpecification'),
+    newModelPackageValidationSpecification,
 
     -- ** ModelQuality
-    ModelQuality,
-    modelQuality,
-    mqConstraints,
-    mqStatistics,
+    ModelQuality (ModelQuality'),
+    newModelQuality,
 
     -- ** ModelQualityAppSpecification
-    ModelQualityAppSpecification,
-    modelQualityAppSpecification,
-    mqasContainerArguments,
-    mqasContainerEntrypoint,
-    mqasPostAnalyticsProcessorSourceURI,
-    mqasEnvironment,
-    mqasRecordPreprocessorSourceURI,
-    mqasProblemType,
-    mqasImageURI,
+    ModelQualityAppSpecification (ModelQualityAppSpecification'),
+    newModelQualityAppSpecification,
 
     -- ** ModelQualityBaselineConfig
-    ModelQualityBaselineConfig,
-    modelQualityBaselineConfig,
-    mqbcConstraintsResource,
-    mqbcBaseliningJobName,
+    ModelQualityBaselineConfig (ModelQualityBaselineConfig'),
+    newModelQualityBaselineConfig,
 
     -- ** ModelQualityJobInput
-    ModelQualityJobInput,
-    modelQualityJobInput,
-    mqjiEndpointInput,
-    mqjiGroundTruthS3Input,
+    ModelQualityJobInput (ModelQualityJobInput'),
+    newModelQualityJobInput,
 
     -- ** ModelStepMetadata
-    ModelStepMetadata,
-    modelStepMetadata,
-    msmARN,
+    ModelStepMetadata (ModelStepMetadata'),
+    newModelStepMetadata,
 
     -- ** ModelSummary
-    ModelSummary,
-    modelSummary,
-    msModelName,
-    msModelARN,
-    msCreationTime,
+    ModelSummary (ModelSummary'),
+    newModelSummary,
 
     -- ** MonitoringAppSpecification
-    MonitoringAppSpecification,
-    monitoringAppSpecification,
-    masContainerArguments,
-    masContainerEntrypoint,
-    masPostAnalyticsProcessorSourceURI,
-    masRecordPreprocessorSourceURI,
-    masImageURI,
+    MonitoringAppSpecification (MonitoringAppSpecification'),
+    newMonitoringAppSpecification,
 
     -- ** MonitoringBaselineConfig
-    MonitoringBaselineConfig,
-    monitoringBaselineConfig,
-    mbcStatisticsResource,
-    mbcConstraintsResource,
-    mbcBaseliningJobName,
+    MonitoringBaselineConfig (MonitoringBaselineConfig'),
+    newMonitoringBaselineConfig,
 
     -- ** MonitoringClusterConfig
-    MonitoringClusterConfig,
-    monitoringClusterConfig,
-    mccVolumeKMSKeyId,
-    mccInstanceCount,
-    mccInstanceType,
-    mccVolumeSizeInGB,
+    MonitoringClusterConfig (MonitoringClusterConfig'),
+    newMonitoringClusterConfig,
 
     -- ** MonitoringConstraintsResource
-    MonitoringConstraintsResource,
-    monitoringConstraintsResource,
-    mcrS3URI,
+    MonitoringConstraintsResource (MonitoringConstraintsResource'),
+    newMonitoringConstraintsResource,
 
     -- ** MonitoringExecutionSummary
-    MonitoringExecutionSummary,
-    monitoringExecutionSummary,
-    mesEndpointName,
-    mesMonitoringType,
-    mesMonitoringJobDefinitionName,
-    mesFailureReason,
-    mesProcessingJobARN,
-    mesMonitoringScheduleName,
-    mesScheduledTime,
-    mesCreationTime,
-    mesLastModifiedTime,
-    mesMonitoringExecutionStatus,
+    MonitoringExecutionSummary (MonitoringExecutionSummary'),
+    newMonitoringExecutionSummary,
 
     -- ** MonitoringGroundTruthS3Input
-    MonitoringGroundTruthS3Input,
-    monitoringGroundTruthS3Input,
-    mgtsiS3URI,
+    MonitoringGroundTruthS3Input (MonitoringGroundTruthS3Input'),
+    newMonitoringGroundTruthS3Input,
 
     -- ** MonitoringInput
-    MonitoringInput,
-    monitoringInput,
-    miEndpointInput,
+    MonitoringInput (MonitoringInput'),
+    newMonitoringInput,
 
     -- ** MonitoringJobDefinition
-    MonitoringJobDefinition,
-    monitoringJobDefinition,
-    mjdNetworkConfig,
-    mjdEnvironment,
-    mjdBaselineConfig,
-    mjdStoppingCondition,
-    mjdMonitoringInputs,
-    mjdMonitoringOutputConfig,
-    mjdMonitoringResources,
-    mjdMonitoringAppSpecification,
-    mjdRoleARN,
+    MonitoringJobDefinition (MonitoringJobDefinition'),
+    newMonitoringJobDefinition,
 
     -- ** MonitoringJobDefinitionSummary
-    MonitoringJobDefinitionSummary,
-    monitoringJobDefinitionSummary,
-    mjdsMonitoringJobDefinitionName,
-    mjdsMonitoringJobDefinitionARN,
-    mjdsCreationTime,
-    mjdsEndpointName,
+    MonitoringJobDefinitionSummary (MonitoringJobDefinitionSummary'),
+    newMonitoringJobDefinitionSummary,
 
     -- ** MonitoringNetworkConfig
-    MonitoringNetworkConfig,
-    monitoringNetworkConfig,
-    mncVPCConfig,
-    mncEnableNetworkIsolation,
-    mncEnableInterContainerTrafficEncryption,
+    MonitoringNetworkConfig (MonitoringNetworkConfig'),
+    newMonitoringNetworkConfig,
 
     -- ** MonitoringOutput
-    MonitoringOutput,
-    monitoringOutput,
-    moS3Output,
+    MonitoringOutput (MonitoringOutput'),
+    newMonitoringOutput,
 
     -- ** MonitoringOutputConfig
-    MonitoringOutputConfig,
-    monitoringOutputConfig,
-    mocKMSKeyId,
-    mocMonitoringOutputs,
+    MonitoringOutputConfig (MonitoringOutputConfig'),
+    newMonitoringOutputConfig,
 
     -- ** MonitoringResources
-    MonitoringResources,
-    monitoringResources,
-    mrClusterConfig,
+    MonitoringResources (MonitoringResources'),
+    newMonitoringResources,
 
     -- ** MonitoringS3Output
-    MonitoringS3Output,
-    monitoringS3Output,
-    msoS3UploadMode,
-    msoS3URI,
-    msoLocalPath,
+    MonitoringS3Output (MonitoringS3Output'),
+    newMonitoringS3Output,
 
     -- ** MonitoringSchedule
-    MonitoringSchedule,
-    monitoringSchedule,
-    mEndpointName,
-    mCreationTime,
-    mMonitoringType,
-    mMonitoringScheduleName,
-    mMonitoringScheduleStatus,
-    mFailureReason,
-    mMonitoringScheduleARN,
-    mTags,
-    mLastModifiedTime,
-    mMonitoringScheduleConfig,
-    mLastMonitoringExecutionSummary,
+    MonitoringSchedule (MonitoringSchedule'),
+    newMonitoringSchedule,
 
     -- ** MonitoringScheduleConfig
-    MonitoringScheduleConfig,
-    monitoringScheduleConfig,
-    mscScheduleConfig,
-    mscMonitoringType,
-    mscMonitoringJobDefinitionName,
-    mscMonitoringJobDefinition,
+    MonitoringScheduleConfig (MonitoringScheduleConfig'),
+    newMonitoringScheduleConfig,
 
     -- ** MonitoringScheduleSummary
-    MonitoringScheduleSummary,
-    monitoringScheduleSummary,
-    mssEndpointName,
-    mssMonitoringType,
-    mssMonitoringJobDefinitionName,
-    mssMonitoringScheduleName,
-    mssMonitoringScheduleARN,
-    mssCreationTime,
-    mssLastModifiedTime,
-    mssMonitoringScheduleStatus,
+    MonitoringScheduleSummary (MonitoringScheduleSummary'),
+    newMonitoringScheduleSummary,
 
     -- ** MonitoringStatisticsResource
-    MonitoringStatisticsResource,
-    monitoringStatisticsResource,
-    msrS3URI,
+    MonitoringStatisticsResource (MonitoringStatisticsResource'),
+    newMonitoringStatisticsResource,
 
     -- ** MonitoringStoppingCondition
-    MonitoringStoppingCondition,
-    monitoringStoppingCondition,
-    mscMaxRuntimeInSeconds,
+    MonitoringStoppingCondition (MonitoringStoppingCondition'),
+    newMonitoringStoppingCondition,
 
     -- ** MultiModelConfig
-    MultiModelConfig,
-    multiModelConfig,
-    mmcModelCacheSetting,
+    MultiModelConfig (MultiModelConfig'),
+    newMultiModelConfig,
 
     -- ** NestedFilters
-    NestedFilters,
-    nestedFilters,
-    nfNestedPropertyName,
-    nfFilters,
+    NestedFilters (NestedFilters'),
+    newNestedFilters,
 
     -- ** NetworkConfig
-    NetworkConfig,
-    networkConfig,
-    ncVPCConfig,
-    ncEnableNetworkIsolation,
-    ncEnableInterContainerTrafficEncryption,
+    NetworkConfig (NetworkConfig'),
+    newNetworkConfig,
 
     -- ** NotebookInstanceLifecycleConfigSummary
-    NotebookInstanceLifecycleConfigSummary,
-    notebookInstanceLifecycleConfigSummary,
-    nilcsCreationTime,
-    nilcsLastModifiedTime,
-    nilcsNotebookInstanceLifecycleConfigName,
-    nilcsNotebookInstanceLifecycleConfigARN,
+    NotebookInstanceLifecycleConfigSummary (NotebookInstanceLifecycleConfigSummary'),
+    newNotebookInstanceLifecycleConfigSummary,
 
     -- ** NotebookInstanceLifecycleHook
-    NotebookInstanceLifecycleHook,
-    notebookInstanceLifecycleHook,
-    nilhContent,
+    NotebookInstanceLifecycleHook (NotebookInstanceLifecycleHook'),
+    newNotebookInstanceLifecycleHook,
 
     -- ** NotebookInstanceSummary
-    NotebookInstanceSummary,
-    notebookInstanceSummary,
-    nisCreationTime,
-    nisDefaultCodeRepository,
-    nisInstanceType,
-    nisNotebookInstanceLifecycleConfigName,
-    nisAdditionalCodeRepositories,
-    nisNotebookInstanceStatus,
-    nisLastModifiedTime,
-    nisURL,
-    nisNotebookInstanceName,
-    nisNotebookInstanceARN,
+    NotebookInstanceSummary (NotebookInstanceSummary'),
+    newNotebookInstanceSummary,
 
     -- ** NotificationConfiguration
-    NotificationConfiguration,
-    notificationConfiguration,
-    ncNotificationTopicARN,
+    NotificationConfiguration (NotificationConfiguration'),
+    newNotificationConfiguration,
 
     -- ** ObjectiveStatusCounters
-    ObjectiveStatusCounters,
-    objectiveStatusCounters,
-    oscSucceeded,
-    oscPending,
-    oscFailed,
+    ObjectiveStatusCounters (ObjectiveStatusCounters'),
+    newObjectiveStatusCounters,
 
     -- ** OfflineStoreConfig
-    OfflineStoreConfig,
-    offlineStoreConfig,
-    oscDisableGlueTableCreation,
-    oscDataCatalogConfig,
-    oscS3StorageConfig,
+    OfflineStoreConfig (OfflineStoreConfig'),
+    newOfflineStoreConfig,
 
     -- ** OfflineStoreStatus
-    OfflineStoreStatus,
-    offlineStoreStatus,
-    ossBlockedReason,
-    ossStatus,
+    OfflineStoreStatus (OfflineStoreStatus'),
+    newOfflineStoreStatus,
 
     -- ** OidcConfig
-    OidcConfig,
-    oidcConfig,
-    ocClientId,
-    ocClientSecret,
-    ocIssuer,
-    ocAuthorizationEndpoint,
-    ocTokenEndpoint,
-    ocUserInfoEndpoint,
-    ocLogoutEndpoint,
-    ocJwksURI,
+    OidcConfig (OidcConfig'),
+    newOidcConfig,
 
     -- ** OidcConfigForResponse
-    OidcConfigForResponse,
-    oidcConfigForResponse,
-    ocfrClientId,
-    ocfrTokenEndpoint,
-    ocfrAuthorizationEndpoint,
-    ocfrUserInfoEndpoint,
-    ocfrLogoutEndpoint,
-    ocfrIssuer,
-    ocfrJwksURI,
+    OidcConfigForResponse (OidcConfigForResponse'),
+    newOidcConfigForResponse,
 
     -- ** OidcMemberDefinition
-    OidcMemberDefinition,
-    oidcMemberDefinition,
-    omdGroups,
+    OidcMemberDefinition (OidcMemberDefinition'),
+    newOidcMemberDefinition,
 
     -- ** OnlineStoreConfig
-    OnlineStoreConfig,
-    onlineStoreConfig,
-    oscSecurityConfig,
-    oscEnableOnlineStore,
+    OnlineStoreConfig (OnlineStoreConfig'),
+    newOnlineStoreConfig,
 
     -- ** OnlineStoreSecurityConfig
-    OnlineStoreSecurityConfig,
-    onlineStoreSecurityConfig,
-    osscKMSKeyId,
+    OnlineStoreSecurityConfig (OnlineStoreSecurityConfig'),
+    newOnlineStoreSecurityConfig,
 
     -- ** OutputConfig
-    OutputConfig,
-    outputConfig,
-    ocCompilerOptions,
-    ocKMSKeyId,
-    ocTargetDevice,
-    ocTargetPlatform,
-    ocS3OutputLocation,
+    OutputConfig (OutputConfig'),
+    newOutputConfig,
 
     -- ** OutputDataConfig
-    OutputDataConfig,
-    outputDataConfig,
-    odcKMSKeyId,
-    odcS3OutputPath,
+    OutputDataConfig (OutputDataConfig'),
+    newOutputDataConfig,
 
     -- ** Parameter
-    Parameter,
-    parameter,
-    pName,
-    pValue,
+    Parameter (Parameter'),
+    newParameter,
 
     -- ** ParameterRange
-    ParameterRange,
-    parameterRange,
-    prContinuousParameterRangeSpecification,
-    prIntegerParameterRangeSpecification,
-    prCategoricalParameterRangeSpecification,
+    ParameterRange (ParameterRange'),
+    newParameterRange,
 
     -- ** ParameterRanges
-    ParameterRanges,
-    parameterRanges,
-    prIntegerParameterRanges,
-    prCategoricalParameterRanges,
-    prContinuousParameterRanges,
+    ParameterRanges (ParameterRanges'),
+    newParameterRanges,
 
     -- ** Parent
-    Parent,
-    parent,
-    pExperimentName,
-    pTrialName,
+    Parent (Parent'),
+    newParent,
 
     -- ** ParentHyperParameterTuningJob
-    ParentHyperParameterTuningJob,
-    parentHyperParameterTuningJob,
-    phptjHyperParameterTuningJobName,
+    ParentHyperParameterTuningJob (ParentHyperParameterTuningJob'),
+    newParentHyperParameterTuningJob,
 
     -- ** Pipeline
-    Pipeline,
-    pipeline,
-    pipPipelineARN,
-    pipPipelineDescription,
-    pipCreationTime,
-    pipRoleARN,
-    pipLastRunTime,
-    pipPipelineDisplayName,
-    pipTags,
-    pipLastModifiedTime,
-    pipPipelineStatus,
-    pipCreatedBy,
-    pipLastModifiedBy,
-    pipPipelineName,
+    Pipeline (Pipeline'),
+    newPipeline,
 
     -- ** PipelineExecution
-    PipelineExecution,
-    pipelineExecution,
-    pePipelineARN,
-    peCreationTime,
-    pePipelineExecutionDescription,
-    pePipelineParameters,
-    pePipelineExecutionDisplayName,
-    pePipelineExecutionStatus,
-    peLastModifiedTime,
-    peCreatedBy,
-    peLastModifiedBy,
-    pePipelineExecutionARN,
+    PipelineExecution (PipelineExecution'),
+    newPipelineExecution,
 
     -- ** PipelineExecutionStep
-    PipelineExecutionStep,
-    pipelineExecutionStep,
-    pStartTime,
-    pMetadata,
-    pEndTime,
-    pFailureReason,
-    pStepStatus,
-    pCacheHitResult,
-    pStepName,
+    PipelineExecutionStep (PipelineExecutionStep'),
+    newPipelineExecutionStep,
 
     -- ** PipelineExecutionStepMetadata
-    PipelineExecutionStepMetadata,
-    pipelineExecutionStepMetadata,
-    pesmModel,
-    pesmProcessingJob,
-    pesmCondition,
-    pesmTrainingJob,
-    pesmRegisterModel,
-    pesmTransformJob,
+    PipelineExecutionStepMetadata (PipelineExecutionStepMetadata'),
+    newPipelineExecutionStepMetadata,
 
     -- ** PipelineExecutionSummary
-    PipelineExecutionSummary,
-    pipelineExecutionSummary,
-    pesPipelineExecutionDescription,
-    pesStartTime,
-    pesPipelineExecutionDisplayName,
-    pesPipelineExecutionStatus,
-    pesPipelineExecutionARN,
+    PipelineExecutionSummary (PipelineExecutionSummary'),
+    newPipelineExecutionSummary,
 
     -- ** PipelineSummary
-    PipelineSummary,
-    pipelineSummary,
-    pPipelineARN,
-    pPipelineDescription,
-    pCreationTime,
-    pRoleARN,
-    pLastExecutionTime,
-    pPipelineDisplayName,
-    pLastModifiedTime,
-    pPipelineName,
+    PipelineSummary (PipelineSummary'),
+    newPipelineSummary,
 
     -- ** ProcessingClusterConfig
-    ProcessingClusterConfig,
-    processingClusterConfig,
-    pccVolumeKMSKeyId,
-    pccInstanceCount,
-    pccInstanceType,
-    pccVolumeSizeInGB,
+    ProcessingClusterConfig (ProcessingClusterConfig'),
+    newProcessingClusterConfig,
 
     -- ** ProcessingFeatureStoreOutput
-    ProcessingFeatureStoreOutput,
-    processingFeatureStoreOutput,
-    pfsoFeatureGroupName,
+    ProcessingFeatureStoreOutput (ProcessingFeatureStoreOutput'),
+    newProcessingFeatureStoreOutput,
 
     -- ** ProcessingInput
-    ProcessingInput,
-    processingInput,
-    piDatasetDefinition,
-    piAppManaged,
-    piS3Input,
-    piInputName,
+    ProcessingInput (ProcessingInput'),
+    newProcessingInput,
 
     -- ** ProcessingJob
-    ProcessingJob,
-    processingJob,
-    pjNetworkConfig,
-    pjCreationTime,
-    pjAppSpecification,
-    pjProcessingEndTime,
-    pjRoleARN,
-    pjProcessingOutputConfig,
-    pjExitMessage,
-    pjExperimentConfig,
-    pjProcessingJobStatus,
-    pjEnvironment,
-    pjAutoMLJobARN,
-    pjFailureReason,
-    pjMonitoringScheduleARN,
-    pjProcessingJobARN,
-    pjTags,
-    pjLastModifiedTime,
-    pjProcessingInputs,
-    pjProcessingStartTime,
-    pjStoppingCondition,
-    pjProcessingJobName,
-    pjProcessingResources,
-    pjTrainingJobARN,
+    ProcessingJob (ProcessingJob'),
+    newProcessingJob,
 
     -- ** ProcessingJobStepMetadata
-    ProcessingJobStepMetadata,
-    processingJobStepMetadata,
-    pjsmARN,
+    ProcessingJobStepMetadata (ProcessingJobStepMetadata'),
+    newProcessingJobStepMetadata,
 
     -- ** ProcessingJobSummary
-    ProcessingJobSummary,
-    processingJobSummary,
-    pjsProcessingEndTime,
-    pjsExitMessage,
-    pjsFailureReason,
-    pjsLastModifiedTime,
-    pjsProcessingJobName,
-    pjsProcessingJobARN,
-    pjsCreationTime,
-    pjsProcessingJobStatus,
+    ProcessingJobSummary (ProcessingJobSummary'),
+    newProcessingJobSummary,
 
     -- ** ProcessingOutput
-    ProcessingOutput,
-    processingOutput,
-    poS3Output,
-    poFeatureStoreOutput,
-    poAppManaged,
-    poOutputName,
+    ProcessingOutput (ProcessingOutput'),
+    newProcessingOutput,
 
     -- ** ProcessingOutputConfig
-    ProcessingOutputConfig,
-    processingOutputConfig,
-    pocKMSKeyId,
-    pocOutputs,
+    ProcessingOutputConfig (ProcessingOutputConfig'),
+    newProcessingOutputConfig,
 
     -- ** ProcessingResources
-    ProcessingResources,
-    processingResources,
-    prClusterConfig,
+    ProcessingResources (ProcessingResources'),
+    newProcessingResources,
 
     -- ** ProcessingS3Input
-    ProcessingS3Input,
-    processingS3Input,
-    psiS3CompressionType,
-    psiS3InputMode,
-    psiS3DataDistributionType,
-    psiLocalPath,
-    psiS3URI,
-    psiS3DataType,
+    ProcessingS3Input (ProcessingS3Input'),
+    newProcessingS3Input,
 
     -- ** ProcessingS3Output
-    ProcessingS3Output,
-    processingS3Output,
-    psoS3URI,
-    psoLocalPath,
-    psoS3UploadMode,
+    ProcessingS3Output (ProcessingS3Output'),
+    newProcessingS3Output,
 
     -- ** ProcessingStoppingCondition
-    ProcessingStoppingCondition,
-    processingStoppingCondition,
-    pscMaxRuntimeInSeconds,
+    ProcessingStoppingCondition (ProcessingStoppingCondition'),
+    newProcessingStoppingCondition,
 
     -- ** ProductionVariant
-    ProductionVariant,
-    productionVariant,
-    pvInitialVariantWeight,
-    pvAcceleratorType,
-    pvCoreDumpConfig,
-    pvVariantName,
-    pvModelName,
-    pvInitialInstanceCount,
-    pvInstanceType,
+    ProductionVariant (ProductionVariant'),
+    newProductionVariant,
 
     -- ** ProductionVariantCoreDumpConfig
-    ProductionVariantCoreDumpConfig,
-    productionVariantCoreDumpConfig,
-    pvcdcKMSKeyId,
-    pvcdcDestinationS3URI,
+    ProductionVariantCoreDumpConfig (ProductionVariantCoreDumpConfig'),
+    newProductionVariantCoreDumpConfig,
 
     -- ** ProductionVariantSummary
-    ProductionVariantSummary,
-    productionVariantSummary,
-    pvsDeployedImages,
-    pvsDesiredInstanceCount,
-    pvsCurrentWeight,
-    pvsCurrentInstanceCount,
-    pvsDesiredWeight,
-    pvsVariantName,
+    ProductionVariantSummary (ProductionVariantSummary'),
+    newProductionVariantSummary,
 
     -- ** ProfilerConfig
-    ProfilerConfig,
-    profilerConfig,
-    pcProfilingParameters,
-    pcProfilingIntervalInMilliseconds,
-    pcS3OutputPath,
+    ProfilerConfig (ProfilerConfig'),
+    newProfilerConfig,
 
     -- ** ProfilerConfigForUpdate
-    ProfilerConfigForUpdate,
-    profilerConfigForUpdate,
-    pcfuS3OutputPath,
-    pcfuProfilingParameters,
-    pcfuProfilingIntervalInMilliseconds,
-    pcfuDisableProfiler,
+    ProfilerConfigForUpdate (ProfilerConfigForUpdate'),
+    newProfilerConfigForUpdate,
 
     -- ** ProfilerRuleConfiguration
-    ProfilerRuleConfiguration,
-    profilerRuleConfiguration,
-    prcRuleParameters,
-    prcInstanceType,
-    prcS3OutputPath,
-    prcVolumeSizeInGB,
-    prcLocalPath,
-    prcRuleConfigurationName,
-    prcRuleEvaluatorImage,
+    ProfilerRuleConfiguration (ProfilerRuleConfiguration'),
+    newProfilerRuleConfiguration,
 
     -- ** ProfilerRuleEvaluationStatus
-    ProfilerRuleEvaluationStatus,
-    profilerRuleEvaluationStatus,
-    presRuleConfigurationName,
-    presStatusDetails,
-    presRuleEvaluationStatus,
-    presLastModifiedTime,
-    presRuleEvaluationJobARN,
+    ProfilerRuleEvaluationStatus (ProfilerRuleEvaluationStatus'),
+    newProfilerRuleEvaluationStatus,
 
     -- ** ProjectSummary
-    ProjectSummary,
-    projectSummary,
-    psProjectDescription,
-    psProjectName,
-    psProjectARN,
-    psProjectId,
-    psCreationTime,
-    psProjectStatus,
+    ProjectSummary (ProjectSummary'),
+    newProjectSummary,
 
     -- ** PropertyNameQuery
-    PropertyNameQuery,
-    propertyNameQuery,
-    pnqPropertyNameHint,
+    PropertyNameQuery (PropertyNameQuery'),
+    newPropertyNameQuery,
 
     -- ** PropertyNameSuggestion
-    PropertyNameSuggestion,
-    propertyNameSuggestion,
-    pnsPropertyName,
+    PropertyNameSuggestion (PropertyNameSuggestion'),
+    newPropertyNameSuggestion,
 
     -- ** ProvisioningParameter
-    ProvisioningParameter,
-    provisioningParameter,
-    ppKey,
-    ppValue,
+    ProvisioningParameter (ProvisioningParameter'),
+    newProvisioningParameter,
 
     -- ** PublicWorkforceTaskPrice
-    PublicWorkforceTaskPrice,
-    publicWorkforceTaskPrice,
-    pwtpAmountInUsd,
+    PublicWorkforceTaskPrice (PublicWorkforceTaskPrice'),
+    newPublicWorkforceTaskPrice,
 
     -- ** RedshiftDatasetDefinition
-    RedshiftDatasetDefinition,
-    redshiftDatasetDefinition,
-    rddOutputCompression,
-    rddKMSKeyId,
-    rddClusterId,
-    rddDatabase,
-    rddDBUser,
-    rddQueryString,
-    rddClusterRoleARN,
-    rddOutputS3URI,
-    rddOutputFormat,
+    RedshiftDatasetDefinition (RedshiftDatasetDefinition'),
+    newRedshiftDatasetDefinition,
 
     -- ** RegisterModelStepMetadata
-    RegisterModelStepMetadata,
-    registerModelStepMetadata,
-    rmsmARN,
+    RegisterModelStepMetadata (RegisterModelStepMetadata'),
+    newRegisterModelStepMetadata,
 
     -- ** RenderableTask
-    RenderableTask,
-    renderableTask,
-    rtInput,
+    RenderableTask (RenderableTask'),
+    newRenderableTask,
 
     -- ** RenderingError
-    RenderingError,
-    renderingError,
-    reCode,
-    reMessage,
+    RenderingError (RenderingError'),
+    newRenderingError,
 
     -- ** ResolvedAttributes
-    ResolvedAttributes,
-    resolvedAttributes,
-    raCompletionCriteria,
-    raAutoMLJobObjective,
-    raProblemType,
+    ResolvedAttributes (ResolvedAttributes'),
+    newResolvedAttributes,
 
     -- ** ResourceConfig
-    ResourceConfig,
-    resourceConfig,
-    rcVolumeKMSKeyId,
-    rcInstanceType,
-    rcInstanceCount,
-    rcVolumeSizeInGB,
+    ResourceConfig (ResourceConfig'),
+    newResourceConfig,
 
     -- ** ResourceLimits
-    ResourceLimits,
-    resourceLimits,
-    rlMaxNumberOfTrainingJobs,
-    rlMaxParallelTrainingJobs,
+    ResourceLimits (ResourceLimits'),
+    newResourceLimits,
 
     -- ** ResourceSpec
-    ResourceSpec,
-    resourceSpec,
-    rsInstanceType,
-    rsSageMakerImageARN,
-    rsSageMakerImageVersionARN,
+    ResourceSpec (ResourceSpec'),
+    newResourceSpec,
 
     -- ** RetentionPolicy
-    RetentionPolicy,
-    retentionPolicy,
-    rpHomeEfsFileSystem,
+    RetentionPolicy (RetentionPolicy'),
+    newRetentionPolicy,
 
     -- ** S3DataSource
-    S3DataSource,
-    s3DataSource,
-    sdsS3DataDistributionType,
-    sdsAttributeNames,
-    sdsS3DataType,
-    sdsS3URI,
+    S3DataSource (S3DataSource'),
+    newS3DataSource,
 
     -- ** S3StorageConfig
-    S3StorageConfig,
-    s3StorageConfig,
-    sscKMSKeyId,
-    sscResolvedOutputS3URI,
-    sscS3URI,
+    S3StorageConfig (S3StorageConfig'),
+    newS3StorageConfig,
 
     -- ** ScheduleConfig
-    ScheduleConfig,
-    scheduleConfig,
-    scScheduleExpression,
+    ScheduleConfig (ScheduleConfig'),
+    newScheduleConfig,
 
     -- ** SearchExpression
-    SearchExpression,
-    searchExpression,
-    seNestedFilters,
-    seOperator,
-    seFilters,
-    seSubExpressions,
+    SearchExpression (SearchExpression'),
+    newSearchExpression,
 
     -- ** SearchRecord
-    SearchRecord,
-    searchRecord,
-    srExperiment,
-    srFeatureGroup,
-    srModelPackage,
-    srTrainingJob,
-    srEndpoint,
-    srPipelineExecution,
-    srTrialComponent,
-    srModelPackageGroup,
-    srPipeline,
-    srTrial,
+    SearchRecord (SearchRecord'),
+    newSearchRecord,
 
     -- ** SecondaryStatusTransition
-    SecondaryStatusTransition,
-    secondaryStatusTransition,
-    sstStatusMessage,
-    sstEndTime,
-    sstStatus,
-    sstStartTime,
+    SecondaryStatusTransition (SecondaryStatusTransition'),
+    newSecondaryStatusTransition,
 
     -- ** ServiceCatalogProvisionedProductDetails
-    ServiceCatalogProvisionedProductDetails,
-    serviceCatalogProvisionedProductDetails,
-    scppdProvisionedProductStatusMessage,
-    scppdProvisionedProductId,
+    ServiceCatalogProvisionedProductDetails (ServiceCatalogProvisionedProductDetails'),
+    newServiceCatalogProvisionedProductDetails,
 
     -- ** ServiceCatalogProvisioningDetails
-    ServiceCatalogProvisioningDetails,
-    serviceCatalogProvisioningDetails,
-    scpdProvisioningParameters,
-    scpdPathId,
-    scpdProductId,
-    scpdProvisioningArtifactId,
+    ServiceCatalogProvisioningDetails (ServiceCatalogProvisioningDetails'),
+    newServiceCatalogProvisioningDetails,
 
     -- ** SharingSettings
-    SharingSettings,
-    sharingSettings,
-    ssS3KMSKeyId,
-    ssS3OutputPath,
-    ssNotebookOutputOption,
+    SharingSettings (SharingSettings'),
+    newSharingSettings,
 
     -- ** ShuffleConfig
-    ShuffleConfig,
-    shuffleConfig,
-    scSeed,
+    ShuffleConfig (ShuffleConfig'),
+    newShuffleConfig,
 
     -- ** SourceAlgorithm
-    SourceAlgorithm,
-    sourceAlgorithm,
-    saModelDataURL,
-    saAlgorithmName,
+    SourceAlgorithm (SourceAlgorithm'),
+    newSourceAlgorithm,
 
     -- ** SourceAlgorithmSpecification
-    SourceAlgorithmSpecification,
-    sourceAlgorithmSpecification,
-    sasSourceAlgorithms,
+    SourceAlgorithmSpecification (SourceAlgorithmSpecification'),
+    newSourceAlgorithmSpecification,
 
-    -- ** SourceIPConfig
-    SourceIPConfig,
-    sourceIPConfig,
-    sicCidrs,
+    -- ** SourceIpConfig
+    SourceIpConfig (SourceIpConfig'),
+    newSourceIpConfig,
 
     -- ** StoppingCondition
-    StoppingCondition,
-    stoppingCondition,
-    scMaxRuntimeInSeconds,
-    scMaxWaitTimeInSeconds,
+    StoppingCondition (StoppingCondition'),
+    newStoppingCondition,
 
     -- ** SubscribedWorkteam
-    SubscribedWorkteam,
-    subscribedWorkteam,
-    swMarketplaceTitle,
-    swListingId,
-    swMarketplaceDescription,
-    swSellerName,
-    swWorkteamARN,
+    SubscribedWorkteam (SubscribedWorkteam'),
+    newSubscribedWorkteam,
 
     -- ** SuggestionQuery
-    SuggestionQuery,
-    suggestionQuery,
-    sqPropertyNameQuery,
+    SuggestionQuery (SuggestionQuery'),
+    newSuggestionQuery,
 
     -- ** Tag
-    Tag,
-    tag,
-    tagKey,
-    tagValue,
+    Tag (Tag'),
+    newTag,
 
     -- ** TargetPlatform
-    TargetPlatform,
-    targetPlatform,
-    tpAccelerator,
-    tpOS,
-    tpArch,
+    TargetPlatform (TargetPlatform'),
+    newTargetPlatform,
 
     -- ** TensorBoardAppSettings
-    TensorBoardAppSettings,
-    tensorBoardAppSettings,
-    tbasDefaultResourceSpec,
+    TensorBoardAppSettings (TensorBoardAppSettings'),
+    newTensorBoardAppSettings,
 
     -- ** TensorBoardOutputConfig
-    TensorBoardOutputConfig,
-    tensorBoardOutputConfig,
-    tbocLocalPath,
-    tbocS3OutputPath,
+    TensorBoardOutputConfig (TensorBoardOutputConfig'),
+    newTensorBoardOutputConfig,
 
     -- ** TrafficRoutingConfig
-    TrafficRoutingConfig,
-    trafficRoutingConfig,
-    trcCanarySize,
-    trcType,
-    trcWaitIntervalInSeconds,
+    TrafficRoutingConfig (TrafficRoutingConfig'),
+    newTrafficRoutingConfig,
 
     -- ** TrainingJob
-    TrainingJob,
-    trainingJob,
-    tjVPCConfig,
-    tjDebugRuleConfigurations,
-    tjInputDataConfig,
-    tjHyperParameters,
-    tjEnableManagedSpotTraining,
-    tjCreationTime,
-    tjLabelingJobARN,
-    tjRoleARN,
-    tjTrainingTimeInSeconds,
-    tjExperimentConfig,
-    tjEnableNetworkIsolation,
-    tjEnableInterContainerTrafficEncryption,
-    tjTrainingJobName,
-    tjCheckpointConfig,
-    tjOutputDataConfig,
-    tjTuningJobARN,
-    tjModelArtifacts,
-    tjSecondaryStatusTransitions,
-    tjFinalMetricDataList,
-    tjAutoMLJobARN,
-    tjFailureReason,
-    tjTags,
-    tjSecondaryStatus,
-    tjLastModifiedTime,
-    tjTensorBoardOutputConfig,
-    tjStoppingCondition,
-    tjDebugRuleEvaluationStatuses,
-    tjTrainingJobStatus,
-    tjDebugHookConfig,
-    tjBillableTimeInSeconds,
-    tjResourceConfig,
-    tjTrainingStartTime,
-    tjTrainingEndTime,
-    tjAlgorithmSpecification,
-    tjTrainingJobARN,
+    TrainingJob (TrainingJob'),
+    newTrainingJob,
 
     -- ** TrainingJobDefinition
-    TrainingJobDefinition,
-    trainingJobDefinition,
-    tjdHyperParameters,
-    tjdTrainingInputMode,
-    tjdInputDataConfig,
-    tjdOutputDataConfig,
-    tjdResourceConfig,
-    tjdStoppingCondition,
+    TrainingJobDefinition (TrainingJobDefinition'),
+    newTrainingJobDefinition,
 
     -- ** TrainingJobStatusCounters
-    TrainingJobStatusCounters,
-    trainingJobStatusCounters,
-    tjscStopped,
-    tjscCompleted,
-    tjscNonRetryableError,
-    tjscInProgress,
-    tjscRetryableError,
+    TrainingJobStatusCounters (TrainingJobStatusCounters'),
+    newTrainingJobStatusCounters,
 
     -- ** TrainingJobStepMetadata
-    TrainingJobStepMetadata,
-    trainingJobStepMetadata,
-    tjsmARN,
+    TrainingJobStepMetadata (TrainingJobStepMetadata'),
+    newTrainingJobStepMetadata,
 
     -- ** TrainingJobSummary
-    TrainingJobSummary,
-    trainingJobSummary,
-    traLastModifiedTime,
-    traTrainingEndTime,
-    traTrainingJobName,
-    traTrainingJobARN,
-    traCreationTime,
-    traTrainingJobStatus,
+    TrainingJobSummary (TrainingJobSummary'),
+    newTrainingJobSummary,
 
     -- ** TrainingSpecification
-    TrainingSpecification,
-    trainingSpecification,
-    tsSupportedHyperParameters,
-    tsMetricDefinitions,
-    tsTrainingImageDigest,
-    tsSupportsDistributedTraining,
-    tsSupportedTuningJobObjectiveMetrics,
-    tsTrainingImage,
-    tsSupportedTrainingInstanceTypes,
-    tsTrainingChannels,
+    TrainingSpecification (TrainingSpecification'),
+    newTrainingSpecification,
 
     -- ** TransformDataSource
-    TransformDataSource,
-    transformDataSource,
-    tdsS3DataSource,
+    TransformDataSource (TransformDataSource'),
+    newTransformDataSource,
 
     -- ** TransformInput
-    TransformInput,
-    transformInput,
-    tiContentType,
-    tiSplitType,
-    tiCompressionType,
-    tiDataSource,
+    TransformInput (TransformInput'),
+    newTransformInput,
 
     -- ** TransformJob
-    TransformJob,
-    transformJob,
-    tCreationTime,
-    tLabelingJobARN,
-    tTransformJobName,
-    tTransformStartTime,
-    tTransformOutput,
-    tExperimentConfig,
-    tMaxConcurrentTransforms,
-    tEnvironment,
-    tMaxPayloadInMB,
-    tBatchStrategy,
-    tTransformJobStatus,
-    tAutoMLJobARN,
-    tFailureReason,
-    tModelClientConfig,
-    tTags,
-    tTransformEndTime,
-    tTransformJobARN,
-    tDataProcessing,
-    tModelName,
-    tTransformResources,
-    tTransformInput,
+    TransformJob (TransformJob'),
+    newTransformJob,
 
     -- ** TransformJobDefinition
-    TransformJobDefinition,
-    transformJobDefinition,
-    tjdMaxConcurrentTransforms,
-    tjdEnvironment,
-    tjdMaxPayloadInMB,
-    tjdBatchStrategy,
-    tjdTransformInput,
-    tjdTransformOutput,
-    tjdTransformResources,
+    TransformJobDefinition (TransformJobDefinition'),
+    newTransformJobDefinition,
 
     -- ** TransformJobStepMetadata
-    TransformJobStepMetadata,
-    transformJobStepMetadata,
-    tARN,
+    TransformJobStepMetadata (TransformJobStepMetadata'),
+    newTransformJobStepMetadata,
 
     -- ** TransformJobSummary
-    TransformJobSummary,
-    transformJobSummary,
-    tjsFailureReason,
-    tjsLastModifiedTime,
-    tjsTransformEndTime,
-    tjsTransformJobName,
-    tjsTransformJobARN,
-    tjsCreationTime,
-    tjsTransformJobStatus,
+    TransformJobSummary (TransformJobSummary'),
+    newTransformJobSummary,
 
     -- ** TransformOutput
-    TransformOutput,
-    transformOutput,
-    toAccept,
-    toAssembleWith,
-    toKMSKeyId,
-    toS3OutputPath,
+    TransformOutput (TransformOutput'),
+    newTransformOutput,
 
     -- ** TransformResources
-    TransformResources,
-    transformResources,
-    trVolumeKMSKeyId,
-    trInstanceType,
-    trInstanceCount,
+    TransformResources (TransformResources'),
+    newTransformResources,
 
     -- ** TransformS3DataSource
-    TransformS3DataSource,
-    transformS3DataSource,
-    tsdsS3DataType,
-    tsdsS3URI,
+    TransformS3DataSource (TransformS3DataSource'),
+    newTransformS3DataSource,
 
     -- ** Trial
-    Trial,
-    trial,
-    triTrialARN,
-    triMetadataProperties,
-    triCreationTime,
-    triSource,
-    triTrialComponentSummaries,
-    triTags,
-    triLastModifiedTime,
-    triExperimentName,
-    triCreatedBy,
-    triLastModifiedBy,
-    triDisplayName,
-    triTrialName,
+    Trial (Trial'),
+    newTrial,
 
     -- ** TrialComponent
-    TrialComponent,
-    trialComponent,
-    tcParents,
-    tcStatus,
-    tcMetadataProperties,
-    tcCreationTime,
-    tcSourceDetail,
-    tcTrialComponentARN,
-    tcStartTime,
-    tcSource,
-    tcEndTime,
-    tcMetrics,
-    tcTags,
-    tcLastModifiedTime,
-    tcInputArtifacts,
-    tcCreatedBy,
-    tcLastModifiedBy,
-    tcDisplayName,
-    tcParameters,
-    tcOutputArtifacts,
-    tcTrialComponentName,
+    TrialComponent (TrialComponent'),
+    newTrialComponent,
 
     -- ** TrialComponentArtifact
-    TrialComponentArtifact,
-    trialComponentArtifact,
-    tcaMediaType,
-    tcaValue,
+    TrialComponentArtifact (TrialComponentArtifact'),
+    newTrialComponentArtifact,
 
     -- ** TrialComponentMetricSummary
-    TrialComponentMetricSummary,
-    trialComponentMetricSummary,
-    tcmsMetricName,
-    tcmsMin,
-    tcmsStdDev,
-    tcmsMax,
-    tcmsTimeStamp,
-    tcmsCount,
-    tcmsSourceARN,
-    tcmsAvg,
-    tcmsLast,
+    TrialComponentMetricSummary (TrialComponentMetricSummary'),
+    newTrialComponentMetricSummary,
 
     -- ** TrialComponentParameterValue
-    TrialComponentParameterValue,
-    trialComponentParameterValue,
-    tcpvStringValue,
-    tcpvNumberValue,
+    TrialComponentParameterValue (TrialComponentParameterValue'),
+    newTrialComponentParameterValue,
 
     -- ** TrialComponentSimpleSummary
-    TrialComponentSimpleSummary,
-    trialComponentSimpleSummary,
-    tcssCreationTime,
-    tcssTrialComponentARN,
-    tcssCreatedBy,
-    tcssTrialComponentSource,
-    tcssTrialComponentName,
+    TrialComponentSimpleSummary (TrialComponentSimpleSummary'),
+    newTrialComponentSimpleSummary,
 
     -- ** TrialComponentSource
-    TrialComponentSource,
-    trialComponentSource,
-    tcsSourceType,
-    tcsSourceARN,
+    TrialComponentSource (TrialComponentSource'),
+    newTrialComponentSource,
 
     -- ** TrialComponentSourceDetail
-    TrialComponentSourceDetail,
-    trialComponentSourceDetail,
-    tcsdProcessingJob,
-    tcsdTrainingJob,
-    tcsdTransformJob,
-    tcsdSourceARN,
+    TrialComponentSourceDetail (TrialComponentSourceDetail'),
+    newTrialComponentSourceDetail,
 
     -- ** TrialComponentStatus
-    TrialComponentStatus,
-    trialComponentStatus,
-    tcsMessage,
-    tcsPrimaryStatus,
+    TrialComponentStatus (TrialComponentStatus'),
+    newTrialComponentStatus,
 
     -- ** TrialComponentSummary
-    TrialComponentSummary,
-    trialComponentSummary,
-    tcsStatus,
-    tcsCreationTime,
-    tcsTrialComponentARN,
-    tcsStartTime,
-    tcsEndTime,
-    tcsLastModifiedTime,
-    tcsCreatedBy,
-    tcsLastModifiedBy,
-    tcsTrialComponentSource,
-    tcsDisplayName,
-    tcsTrialComponentName,
+    TrialComponentSummary (TrialComponentSummary'),
+    newTrialComponentSummary,
 
     -- ** TrialSource
-    TrialSource,
-    trialSource,
-    tsSourceType,
-    tsSourceARN,
+    TrialSource (TrialSource'),
+    newTrialSource,
 
     -- ** TrialSummary
-    TrialSummary,
-    trialSummary,
-    tsTrialSource,
-    tsTrialARN,
-    tsCreationTime,
-    tsLastModifiedTime,
-    tsDisplayName,
-    tsTrialName,
+    TrialSummary (TrialSummary'),
+    newTrialSummary,
 
     -- ** TuningJobCompletionCriteria
-    TuningJobCompletionCriteria,
-    tuningJobCompletionCriteria,
-    tjccTargetObjectiveMetricValue,
+    TuningJobCompletionCriteria (TuningJobCompletionCriteria'),
+    newTuningJobCompletionCriteria,
 
     -- ** USD
-    USD,
-    uSD,
-    usdDollars,
-    usdCents,
-    usdTenthFractionsOfACent,
+    USD (USD'),
+    newUSD,
 
     -- ** UiConfig
-    UiConfig,
-    uiConfig,
-    ucHumanTaskUiARN,
-    ucUiTemplateS3URI,
+    UiConfig (UiConfig'),
+    newUiConfig,
 
     -- ** UiTemplate
-    UiTemplate,
-    uiTemplate,
-    utContent,
+    UiTemplate (UiTemplate'),
+    newUiTemplate,
 
     -- ** UiTemplateInfo
-    UiTemplateInfo,
-    uiTemplateInfo,
-    utiContentSha256,
-    utiURL,
+    UiTemplateInfo (UiTemplateInfo'),
+    newUiTemplateInfo,
 
     -- ** UserContext
-    UserContext,
-    userContext,
-    ucUserProfileName,
-    ucDomainId,
-    ucUserProfileARN,
+    UserContext (UserContext'),
+    newUserContext,
 
     -- ** UserProfileDetails
-    UserProfileDetails,
-    userProfileDetails,
-    updStatus,
-    updCreationTime,
-    updUserProfileName,
-    updDomainId,
-    updLastModifiedTime,
+    UserProfileDetails (UserProfileDetails'),
+    newUserProfileDetails,
 
     -- ** UserSettings
-    UserSettings,
-    userSettings,
-    usKernelGatewayAppSettings,
-    usTensorBoardAppSettings,
-    usSecurityGroups,
-    usJupyterServerAppSettings,
-    usExecutionRole,
-    usSharingSettings,
-
-    -- ** VPCConfig
-    VPCConfig,
-    vpcConfig,
-    vcSecurityGroupIds,
-    vcSubnets,
+    UserSettings (UserSettings'),
+    newUserSettings,
 
     -- ** VariantProperty
-    VariantProperty,
-    variantProperty,
-    vpVariantPropertyType,
+    VariantProperty (VariantProperty'),
+    newVariantProperty,
+
+    -- ** VpcConfig
+    VpcConfig (VpcConfig'),
+    newVpcConfig,
 
     -- ** Workforce
-    Workforce,
-    workforce,
-    worLastUpdatedDate,
-    worCreateDate,
-    worSubDomain,
-    worSourceIPConfig,
-    worOidcConfig,
-    worCognitoConfig,
-    worWorkforceName,
-    worWorkforceARN,
+    Workforce (Workforce'),
+    newWorkforce,
 
     -- ** Workteam
-    Workteam,
-    workteam,
-    wWorkforceARN,
-    wLastUpdatedDate,
-    wCreateDate,
-    wNotificationConfiguration,
-    wProductListingIds,
-    wSubDomain,
-    wWorkteamName,
-    wMemberDefinitions,
-    wWorkteamARN,
-    wDescription,
+    Workteam (Workteam'),
+    newWorkteam,
   )
 where
 
@@ -3833,8 +3249,8 @@ import Network.AWS.SageMaker.CreateMonitoringSchedule
 import Network.AWS.SageMaker.CreateNotebookInstance
 import Network.AWS.SageMaker.CreateNotebookInstanceLifecycleConfig
 import Network.AWS.SageMaker.CreatePipeline
-import Network.AWS.SageMaker.CreatePresignedDomainURL
-import Network.AWS.SageMaker.CreatePresignedNotebookInstanceURL
+import Network.AWS.SageMaker.CreatePresignedDomainUrl
+import Network.AWS.SageMaker.CreatePresignedNotebookInstanceUrl
 import Network.AWS.SageMaker.CreateProcessingJob
 import Network.AWS.SageMaker.CreateProject
 import Network.AWS.SageMaker.CreateTrainingJob
@@ -3935,6 +3351,7 @@ import Network.AWS.SageMaker.GetDeviceFleetReport
 import Network.AWS.SageMaker.GetModelPackageGroupPolicy
 import Network.AWS.SageMaker.GetSagemakerServicecatalogPortfolioStatus
 import Network.AWS.SageMaker.GetSearchSuggestions
+import Network.AWS.SageMaker.Lens
 import Network.AWS.SageMaker.ListActions
 import Network.AWS.SageMaker.ListAlgorithms
 import Network.AWS.SageMaker.ListAppImageConfigs

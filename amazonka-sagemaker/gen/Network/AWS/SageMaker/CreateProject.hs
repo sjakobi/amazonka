@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,191 +21,215 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a machine learning (ML) project that can contain one or more templates that set up an ML pipeline from training to deploying an approved model.
+-- Creates a machine learning (ML) project that can contain one or more
+-- templates that set up an ML pipeline from training to deploying an
+-- approved model.
 module Network.AWS.SageMaker.CreateProject
   ( -- * Creating a Request
-    createProject,
-    CreateProject,
+    CreateProject (..),
+    newCreateProject,
 
     -- * Request Lenses
-    cpTags,
-    cpProjectDescription,
-    cpProjectName,
-    cpServiceCatalogProvisioningDetails,
+    createProject_tags,
+    createProject_projectDescription,
+    createProject_projectName,
+    createProject_serviceCatalogProvisioningDetails,
 
     -- * Destructuring the Response
-    createProjectResponse,
-    CreateProjectResponse,
+    CreateProjectResponse (..),
+    newCreateProjectResponse,
 
     -- * Response Lenses
-    cprrsResponseStatus,
-    cprrsProjectARN,
-    cprrsProjectId,
+    createProjectResponse_httpStatus,
+    createProjectResponse_projectArn,
+    createProjectResponse_projectId,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'createProject' smart constructor.
+-- | /See:/ 'newCreateProject' smart constructor.
 data CreateProject = CreateProject'
-  { _cpTags ::
-      !(Maybe [Tag]),
-    _cpProjectDescription :: !(Maybe Text),
-    _cpProjectName :: !Text,
-    _cpServiceCatalogProvisioningDetails ::
-      !ServiceCatalogProvisioningDetails
+  { -- | An array of key-value pairs that you want to use to organize and track
+    -- your AWS resource costs. For more information, see
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging AWS resources>
+    -- in the /AWS General Reference Guide/.
+    tags :: Prelude.Maybe [Tag],
+    -- | A description for the project.
+    projectDescription :: Prelude.Maybe Prelude.Text,
+    -- | The name of the project.
+    projectName :: Prelude.Text,
+    -- | The product ID and provisioning artifact ID to provision a service
+    -- catalog. For information, see
+    -- <https://docs.aws.amazon.com/servicecatalog/latest/adminguide/introduction.html What is AWS Service Catalog>.
+    serviceCatalogProvisioningDetails :: ServiceCatalogProvisioningDetails
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateProject' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateProject' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cpTags' - An array of key-value pairs that you want to use to organize and track your AWS resource costs. For more information, see <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging AWS resources> in the /AWS General Reference Guide/ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cpProjectDescription' - A description for the project.
+-- 'tags', 'createProject_tags' - An array of key-value pairs that you want to use to organize and track
+-- your AWS resource costs. For more information, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging AWS resources>
+-- in the /AWS General Reference Guide/.
 --
--- * 'cpProjectName' - The name of the project.
+-- 'projectDescription', 'createProject_projectDescription' - A description for the project.
 --
--- * 'cpServiceCatalogProvisioningDetails' - The product ID and provisioning artifact ID to provision a service catalog. For information, see <https://docs.aws.amazon.com/servicecatalog/latest/adminguide/introduction.html What is AWS Service Catalog> .
-createProject ::
-  -- | 'cpProjectName'
-  Text ->
-  -- | 'cpServiceCatalogProvisioningDetails'
+-- 'projectName', 'createProject_projectName' - The name of the project.
+--
+-- 'serviceCatalogProvisioningDetails', 'createProject_serviceCatalogProvisioningDetails' - The product ID and provisioning artifact ID to provision a service
+-- catalog. For information, see
+-- <https://docs.aws.amazon.com/servicecatalog/latest/adminguide/introduction.html What is AWS Service Catalog>.
+newCreateProject ::
+  -- | 'projectName'
+  Prelude.Text ->
+  -- | 'serviceCatalogProvisioningDetails'
   ServiceCatalogProvisioningDetails ->
   CreateProject
-createProject
+newCreateProject
   pProjectName_
   pServiceCatalogProvisioningDetails_ =
     CreateProject'
-      { _cpTags = Nothing,
-        _cpProjectDescription = Nothing,
-        _cpProjectName = pProjectName_,
-        _cpServiceCatalogProvisioningDetails =
+      { tags = Prelude.Nothing,
+        projectDescription = Prelude.Nothing,
+        projectName = pProjectName_,
+        serviceCatalogProvisioningDetails =
           pServiceCatalogProvisioningDetails_
       }
 
--- | An array of key-value pairs that you want to use to organize and track your AWS resource costs. For more information, see <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging AWS resources> in the /AWS General Reference Guide/ .
-cpTags :: Lens' CreateProject [Tag]
-cpTags = lens _cpTags (\s a -> s {_cpTags = a}) . _Default . _Coerce
+-- | An array of key-value pairs that you want to use to organize and track
+-- your AWS resource costs. For more information, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging AWS resources>
+-- in the /AWS General Reference Guide/.
+createProject_tags :: Lens.Lens' CreateProject (Prelude.Maybe [Tag])
+createProject_tags = Lens.lens (\CreateProject' {tags} -> tags) (\s@CreateProject' {} a -> s {tags = a} :: CreateProject) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A description for the project.
-cpProjectDescription :: Lens' CreateProject (Maybe Text)
-cpProjectDescription = lens _cpProjectDescription (\s a -> s {_cpProjectDescription = a})
+createProject_projectDescription :: Lens.Lens' CreateProject (Prelude.Maybe Prelude.Text)
+createProject_projectDescription = Lens.lens (\CreateProject' {projectDescription} -> projectDescription) (\s@CreateProject' {} a -> s {projectDescription = a} :: CreateProject)
 
 -- | The name of the project.
-cpProjectName :: Lens' CreateProject Text
-cpProjectName = lens _cpProjectName (\s a -> s {_cpProjectName = a})
+createProject_projectName :: Lens.Lens' CreateProject Prelude.Text
+createProject_projectName = Lens.lens (\CreateProject' {projectName} -> projectName) (\s@CreateProject' {} a -> s {projectName = a} :: CreateProject)
 
--- | The product ID and provisioning artifact ID to provision a service catalog. For information, see <https://docs.aws.amazon.com/servicecatalog/latest/adminguide/introduction.html What is AWS Service Catalog> .
-cpServiceCatalogProvisioningDetails :: Lens' CreateProject ServiceCatalogProvisioningDetails
-cpServiceCatalogProvisioningDetails = lens _cpServiceCatalogProvisioningDetails (\s a -> s {_cpServiceCatalogProvisioningDetails = a})
+-- | The product ID and provisioning artifact ID to provision a service
+-- catalog. For information, see
+-- <https://docs.aws.amazon.com/servicecatalog/latest/adminguide/introduction.html What is AWS Service Catalog>.
+createProject_serviceCatalogProvisioningDetails :: Lens.Lens' CreateProject ServiceCatalogProvisioningDetails
+createProject_serviceCatalogProvisioningDetails = Lens.lens (\CreateProject' {serviceCatalogProvisioningDetails} -> serviceCatalogProvisioningDetails) (\s@CreateProject' {} a -> s {serviceCatalogProvisioningDetails = a} :: CreateProject)
 
-instance AWSRequest CreateProject where
+instance Prelude.AWSRequest CreateProject where
   type Rs CreateProject = CreateProjectResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateProjectResponse'
-            <$> (pure (fromEnum s))
-            <*> (x .:> "ProjectArn")
-            <*> (x .:> "ProjectId")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "ProjectArn")
+            Prelude.<*> (x Prelude..:> "ProjectId")
       )
 
-instance Hashable CreateProject
+instance Prelude.Hashable CreateProject
 
-instance NFData CreateProject
+instance Prelude.NFData CreateProject
 
-instance ToHeaders CreateProject where
+instance Prelude.ToHeaders CreateProject where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.CreateProject" :: ByteString),
+              Prelude.=# ("SageMaker.CreateProject" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateProject where
+instance Prelude.ToJSON CreateProject where
   toJSON CreateProject' {..} =
-    object
-      ( catMaybes
-          [ ("Tags" .=) <$> _cpTags,
-            ("ProjectDescription" .=) <$> _cpProjectDescription,
-            Just ("ProjectName" .= _cpProjectName),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Tags" Prelude..=) Prelude.<$> tags,
+            ("ProjectDescription" Prelude..=)
+              Prelude.<$> projectDescription,
+            Prelude.Just ("ProjectName" Prelude..= projectName),
+            Prelude.Just
               ( "ServiceCatalogProvisioningDetails"
-                  .= _cpServiceCatalogProvisioningDetails
+                  Prelude..= serviceCatalogProvisioningDetails
               )
           ]
       )
 
-instance ToPath CreateProject where
-  toPath = const "/"
+instance Prelude.ToPath CreateProject where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateProject where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateProject where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createProjectResponse' smart constructor.
+-- | /See:/ 'newCreateProjectResponse' smart constructor.
 data CreateProjectResponse = CreateProjectResponse'
-  { _cprrsResponseStatus ::
-      !Int,
-    _cprrsProjectARN :: !Text,
-    _cprrsProjectId :: !Text
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The Amazon Resource Name (ARN) of the project.
+    projectArn :: Prelude.Text,
+    -- | The ID of the new project.
+    projectId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateProjectResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateProjectResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cprrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cprrsProjectARN' - The Amazon Resource Name (ARN) of the project.
+-- 'httpStatus', 'createProjectResponse_httpStatus' - The response's http status code.
 --
--- * 'cprrsProjectId' - The ID of the new project.
-createProjectResponse ::
-  -- | 'cprrsResponseStatus'
-  Int ->
-  -- | 'cprrsProjectARN'
-  Text ->
-  -- | 'cprrsProjectId'
-  Text ->
+-- 'projectArn', 'createProjectResponse_projectArn' - The Amazon Resource Name (ARN) of the project.
+--
+-- 'projectId', 'createProjectResponse_projectId' - The ID of the new project.
+newCreateProjectResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'projectArn'
+  Prelude.Text ->
+  -- | 'projectId'
+  Prelude.Text ->
   CreateProjectResponse
-createProjectResponse
-  pResponseStatus_
-  pProjectARN_
+newCreateProjectResponse
+  pHttpStatus_
+  pProjectArn_
   pProjectId_ =
     CreateProjectResponse'
-      { _cprrsResponseStatus =
-          pResponseStatus_,
-        _cprrsProjectARN = pProjectARN_,
-        _cprrsProjectId = pProjectId_
+      { httpStatus = pHttpStatus_,
+        projectArn = pProjectArn_,
+        projectId = pProjectId_
       }
 
--- | -- | The response status code.
-cprrsResponseStatus :: Lens' CreateProjectResponse Int
-cprrsResponseStatus = lens _cprrsResponseStatus (\s a -> s {_cprrsResponseStatus = a})
+-- | The response's http status code.
+createProjectResponse_httpStatus :: Lens.Lens' CreateProjectResponse Prelude.Int
+createProjectResponse_httpStatus = Lens.lens (\CreateProjectResponse' {httpStatus} -> httpStatus) (\s@CreateProjectResponse' {} a -> s {httpStatus = a} :: CreateProjectResponse)
 
 -- | The Amazon Resource Name (ARN) of the project.
-cprrsProjectARN :: Lens' CreateProjectResponse Text
-cprrsProjectARN = lens _cprrsProjectARN (\s a -> s {_cprrsProjectARN = a})
+createProjectResponse_projectArn :: Lens.Lens' CreateProjectResponse Prelude.Text
+createProjectResponse_projectArn = Lens.lens (\CreateProjectResponse' {projectArn} -> projectArn) (\s@CreateProjectResponse' {} a -> s {projectArn = a} :: CreateProjectResponse)
 
 -- | The ID of the new project.
-cprrsProjectId :: Lens' CreateProjectResponse Text
-cprrsProjectId = lens _cprrsProjectId (\s a -> s {_cprrsProjectId = a})
+createProjectResponse_projectId :: Lens.Lens' CreateProjectResponse Prelude.Text
+createProjectResponse_projectId = Lens.lens (\CreateProjectResponse' {projectId} -> projectId) (\s@CreateProjectResponse' {} a -> s {projectId = a} :: CreateProjectResponse)
 
-instance NFData CreateProjectResponse
+instance Prelude.NFData CreateProjectResponse

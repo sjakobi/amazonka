@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,75 +19,82 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.ResourceSpec where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.AppInstanceType
 
--- | Specifies the ARN's of a SageMaker image and SageMaker image version, and the instance type that the version runs on.
+-- | Specifies the ARN\'s of a SageMaker image and SageMaker image version,
+-- and the instance type that the version runs on.
 --
---
---
--- /See:/ 'resourceSpec' smart constructor.
+-- /See:/ 'newResourceSpec' smart constructor.
 data ResourceSpec = ResourceSpec'
-  { _rsInstanceType ::
-      !(Maybe AppInstanceType),
-    _rsSageMakerImageARN :: !(Maybe Text),
-    _rsSageMakerImageVersionARN :: !(Maybe Text)
+  { -- | The instance type that the image version runs on.
+    instanceType :: Prelude.Maybe AppInstanceType,
+    -- | The ARN of the SageMaker image that the image version belongs to.
+    sageMakerImageArn :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the image version created on the instance.
+    sageMakerImageVersionArn :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResourceSpec' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResourceSpec' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rsInstanceType' - The instance type that the image version runs on.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rsSageMakerImageARN' - The ARN of the SageMaker image that the image version belongs to.
+-- 'instanceType', 'resourceSpec_instanceType' - The instance type that the image version runs on.
 --
--- * 'rsSageMakerImageVersionARN' - The ARN of the image version created on the instance.
-resourceSpec ::
+-- 'sageMakerImageArn', 'resourceSpec_sageMakerImageArn' - The ARN of the SageMaker image that the image version belongs to.
+--
+-- 'sageMakerImageVersionArn', 'resourceSpec_sageMakerImageVersionArn' - The ARN of the image version created on the instance.
+newResourceSpec ::
   ResourceSpec
-resourceSpec =
+newResourceSpec =
   ResourceSpec'
-    { _rsInstanceType = Nothing,
-      _rsSageMakerImageARN = Nothing,
-      _rsSageMakerImageVersionARN = Nothing
+    { instanceType = Prelude.Nothing,
+      sageMakerImageArn = Prelude.Nothing,
+      sageMakerImageVersionArn = Prelude.Nothing
     }
 
 -- | The instance type that the image version runs on.
-rsInstanceType :: Lens' ResourceSpec (Maybe AppInstanceType)
-rsInstanceType = lens _rsInstanceType (\s a -> s {_rsInstanceType = a})
+resourceSpec_instanceType :: Lens.Lens' ResourceSpec (Prelude.Maybe AppInstanceType)
+resourceSpec_instanceType = Lens.lens (\ResourceSpec' {instanceType} -> instanceType) (\s@ResourceSpec' {} a -> s {instanceType = a} :: ResourceSpec)
 
 -- | The ARN of the SageMaker image that the image version belongs to.
-rsSageMakerImageARN :: Lens' ResourceSpec (Maybe Text)
-rsSageMakerImageARN = lens _rsSageMakerImageARN (\s a -> s {_rsSageMakerImageARN = a})
+resourceSpec_sageMakerImageArn :: Lens.Lens' ResourceSpec (Prelude.Maybe Prelude.Text)
+resourceSpec_sageMakerImageArn = Lens.lens (\ResourceSpec' {sageMakerImageArn} -> sageMakerImageArn) (\s@ResourceSpec' {} a -> s {sageMakerImageArn = a} :: ResourceSpec)
 
 -- | The ARN of the image version created on the instance.
-rsSageMakerImageVersionARN :: Lens' ResourceSpec (Maybe Text)
-rsSageMakerImageVersionARN = lens _rsSageMakerImageVersionARN (\s a -> s {_rsSageMakerImageVersionARN = a})
+resourceSpec_sageMakerImageVersionArn :: Lens.Lens' ResourceSpec (Prelude.Maybe Prelude.Text)
+resourceSpec_sageMakerImageVersionArn = Lens.lens (\ResourceSpec' {sageMakerImageVersionArn} -> sageMakerImageVersionArn) (\s@ResourceSpec' {} a -> s {sageMakerImageVersionArn = a} :: ResourceSpec)
 
-instance FromJSON ResourceSpec where
+instance Prelude.FromJSON ResourceSpec where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ResourceSpec"
       ( \x ->
           ResourceSpec'
-            <$> (x .:? "InstanceType")
-            <*> (x .:? "SageMakerImageArn")
-            <*> (x .:? "SageMakerImageVersionArn")
+            Prelude.<$> (x Prelude..:? "InstanceType")
+            Prelude.<*> (x Prelude..:? "SageMakerImageArn")
+            Prelude.<*> (x Prelude..:? "SageMakerImageVersionArn")
       )
 
-instance Hashable ResourceSpec
+instance Prelude.Hashable ResourceSpec
 
-instance NFData ResourceSpec
+instance Prelude.NFData ResourceSpec
 
-instance ToJSON ResourceSpec where
+instance Prelude.ToJSON ResourceSpec where
   toJSON ResourceSpec' {..} =
-    object
-      ( catMaybes
-          [ ("InstanceType" .=) <$> _rsInstanceType,
-            ("SageMakerImageArn" .=) <$> _rsSageMakerImageARN,
-            ("SageMakerImageVersionArn" .=)
-              <$> _rsSageMakerImageVersionARN
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("InstanceType" Prelude..=)
+              Prelude.<$> instanceType,
+            ("SageMakerImageArn" Prelude..=)
+              Prelude.<$> sageMakerImageArn,
+            ("SageMakerImageVersionArn" Prelude..=)
+              Prelude.<$> sageMakerImageVersionArn
           ]
       )

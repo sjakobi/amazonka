@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,71 +19,73 @@
 module Network.AWS.SageMaker.Types.AutoMLMetricEnum
   ( AutoMLMetricEnum
       ( ..,
-        Accuracy,
-        Auc,
-        F1,
-        F1macro,
-        Mse
+        AutoMLMetricEnumAUC,
+        AutoMLMetricEnumAccuracy,
+        AutoMLMetricEnumF1,
+        AutoMLMetricEnumF1macro,
+        AutoMLMetricEnumMSE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AutoMLMetricEnum = AutoMLMetricEnum' (CI Text)
+newtype AutoMLMetricEnum = AutoMLMetricEnum'
+  { fromAutoMLMetricEnum ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Accuracy :: AutoMLMetricEnum
-pattern Accuracy = AutoMLMetricEnum' "Accuracy"
+pattern AutoMLMetricEnumAUC :: AutoMLMetricEnum
+pattern AutoMLMetricEnumAUC = AutoMLMetricEnum' "AUC"
 
-pattern Auc :: AutoMLMetricEnum
-pattern Auc = AutoMLMetricEnum' "AUC"
+pattern AutoMLMetricEnumAccuracy :: AutoMLMetricEnum
+pattern AutoMLMetricEnumAccuracy = AutoMLMetricEnum' "Accuracy"
 
-pattern F1 :: AutoMLMetricEnum
-pattern F1 = AutoMLMetricEnum' "F1"
+pattern AutoMLMetricEnumF1 :: AutoMLMetricEnum
+pattern AutoMLMetricEnumF1 = AutoMLMetricEnum' "F1"
 
-pattern F1macro :: AutoMLMetricEnum
-pattern F1macro = AutoMLMetricEnum' "F1macro"
+pattern AutoMLMetricEnumF1macro :: AutoMLMetricEnum
+pattern AutoMLMetricEnumF1macro = AutoMLMetricEnum' "F1macro"
 
-pattern Mse :: AutoMLMetricEnum
-pattern Mse = AutoMLMetricEnum' "MSE"
+pattern AutoMLMetricEnumMSE :: AutoMLMetricEnum
+pattern AutoMLMetricEnumMSE = AutoMLMetricEnum' "MSE"
 
 {-# COMPLETE
-  Accuracy,
-  Auc,
-  F1,
-  F1macro,
-  Mse,
+  AutoMLMetricEnumAUC,
+  AutoMLMetricEnumAccuracy,
+  AutoMLMetricEnumF1,
+  AutoMLMetricEnumF1macro,
+  AutoMLMetricEnumMSE,
   AutoMLMetricEnum'
   #-}
 
-instance FromText AutoMLMetricEnum where
-  parser = (AutoMLMetricEnum' . mk) <$> takeText
+instance Prelude.FromText AutoMLMetricEnum where
+  parser = AutoMLMetricEnum' Prelude.<$> Prelude.takeText
 
-instance ToText AutoMLMetricEnum where
-  toText (AutoMLMetricEnum' ci) = original ci
+instance Prelude.ToText AutoMLMetricEnum where
+  toText (AutoMLMetricEnum' x) = x
 
-instance Hashable AutoMLMetricEnum
+instance Prelude.Hashable AutoMLMetricEnum
 
-instance NFData AutoMLMetricEnum
+instance Prelude.NFData AutoMLMetricEnum
 
-instance ToByteString AutoMLMetricEnum
+instance Prelude.ToByteString AutoMLMetricEnum
 
-instance ToQuery AutoMLMetricEnum
+instance Prelude.ToQuery AutoMLMetricEnum
 
-instance ToHeader AutoMLMetricEnum
+instance Prelude.ToHeader AutoMLMetricEnum
 
-instance ToJSON AutoMLMetricEnum where
-  toJSON = toJSONText
+instance Prelude.ToJSON AutoMLMetricEnum where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AutoMLMetricEnum where
-  parseJSON = parseJSONText "AutoMLMetricEnum"
+instance Prelude.FromJSON AutoMLMetricEnum where
+  parseJSON = Prelude.parseJSONText "AutoMLMetricEnum"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,80 +19,78 @@
 module Network.AWS.SageMaker.Types.ProductionVariantAcceleratorType
   ( ProductionVariantAcceleratorType
       ( ..,
-        PVATMl_EIA1_Large,
-        PVATMl_EIA1_Medium,
-        PVATMl_EIA1_XLarge,
-        PVATMl_EIA2_Large,
-        PVATMl_EIA2_Medium,
-        PVATMl_EIA2_XLarge
+        ProductionVariantAcceleratorTypeMl_EIA1_Large,
+        ProductionVariantAcceleratorTypeMl_EIA1_Medium,
+        ProductionVariantAcceleratorTypeMl_EIA1_Xlarge,
+        ProductionVariantAcceleratorTypeMl_EIA2_Large,
+        ProductionVariantAcceleratorTypeMl_EIA2_Medium,
+        ProductionVariantAcceleratorTypeMl_EIA2_Xlarge
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ProductionVariantAcceleratorType
-  = ProductionVariantAcceleratorType'
-      ( CI
-          Text
-      )
+newtype ProductionVariantAcceleratorType = ProductionVariantAcceleratorType'
+  { fromProductionVariantAcceleratorType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PVATMl_EIA1_Large :: ProductionVariantAcceleratorType
-pattern PVATMl_EIA1_Large = ProductionVariantAcceleratorType' "ml.eia1.large"
+pattern ProductionVariantAcceleratorTypeMl_EIA1_Large :: ProductionVariantAcceleratorType
+pattern ProductionVariantAcceleratorTypeMl_EIA1_Large = ProductionVariantAcceleratorType' "ml.eia1.large"
 
-pattern PVATMl_EIA1_Medium :: ProductionVariantAcceleratorType
-pattern PVATMl_EIA1_Medium = ProductionVariantAcceleratorType' "ml.eia1.medium"
+pattern ProductionVariantAcceleratorTypeMl_EIA1_Medium :: ProductionVariantAcceleratorType
+pattern ProductionVariantAcceleratorTypeMl_EIA1_Medium = ProductionVariantAcceleratorType' "ml.eia1.medium"
 
-pattern PVATMl_EIA1_XLarge :: ProductionVariantAcceleratorType
-pattern PVATMl_EIA1_XLarge = ProductionVariantAcceleratorType' "ml.eia1.xlarge"
+pattern ProductionVariantAcceleratorTypeMl_EIA1_Xlarge :: ProductionVariantAcceleratorType
+pattern ProductionVariantAcceleratorTypeMl_EIA1_Xlarge = ProductionVariantAcceleratorType' "ml.eia1.xlarge"
 
-pattern PVATMl_EIA2_Large :: ProductionVariantAcceleratorType
-pattern PVATMl_EIA2_Large = ProductionVariantAcceleratorType' "ml.eia2.large"
+pattern ProductionVariantAcceleratorTypeMl_EIA2_Large :: ProductionVariantAcceleratorType
+pattern ProductionVariantAcceleratorTypeMl_EIA2_Large = ProductionVariantAcceleratorType' "ml.eia2.large"
 
-pattern PVATMl_EIA2_Medium :: ProductionVariantAcceleratorType
-pattern PVATMl_EIA2_Medium = ProductionVariantAcceleratorType' "ml.eia2.medium"
+pattern ProductionVariantAcceleratorTypeMl_EIA2_Medium :: ProductionVariantAcceleratorType
+pattern ProductionVariantAcceleratorTypeMl_EIA2_Medium = ProductionVariantAcceleratorType' "ml.eia2.medium"
 
-pattern PVATMl_EIA2_XLarge :: ProductionVariantAcceleratorType
-pattern PVATMl_EIA2_XLarge = ProductionVariantAcceleratorType' "ml.eia2.xlarge"
+pattern ProductionVariantAcceleratorTypeMl_EIA2_Xlarge :: ProductionVariantAcceleratorType
+pattern ProductionVariantAcceleratorTypeMl_EIA2_Xlarge = ProductionVariantAcceleratorType' "ml.eia2.xlarge"
 
 {-# COMPLETE
-  PVATMl_EIA1_Large,
-  PVATMl_EIA1_Medium,
-  PVATMl_EIA1_XLarge,
-  PVATMl_EIA2_Large,
-  PVATMl_EIA2_Medium,
-  PVATMl_EIA2_XLarge,
+  ProductionVariantAcceleratorTypeMl_EIA1_Large,
+  ProductionVariantAcceleratorTypeMl_EIA1_Medium,
+  ProductionVariantAcceleratorTypeMl_EIA1_Xlarge,
+  ProductionVariantAcceleratorTypeMl_EIA2_Large,
+  ProductionVariantAcceleratorTypeMl_EIA2_Medium,
+  ProductionVariantAcceleratorTypeMl_EIA2_Xlarge,
   ProductionVariantAcceleratorType'
   #-}
 
-instance FromText ProductionVariantAcceleratorType where
-  parser = (ProductionVariantAcceleratorType' . mk) <$> takeText
+instance Prelude.FromText ProductionVariantAcceleratorType where
+  parser = ProductionVariantAcceleratorType' Prelude.<$> Prelude.takeText
 
-instance ToText ProductionVariantAcceleratorType where
-  toText (ProductionVariantAcceleratorType' ci) = original ci
+instance Prelude.ToText ProductionVariantAcceleratorType where
+  toText (ProductionVariantAcceleratorType' x) = x
 
-instance Hashable ProductionVariantAcceleratorType
+instance Prelude.Hashable ProductionVariantAcceleratorType
 
-instance NFData ProductionVariantAcceleratorType
+instance Prelude.NFData ProductionVariantAcceleratorType
 
-instance ToByteString ProductionVariantAcceleratorType
+instance Prelude.ToByteString ProductionVariantAcceleratorType
 
-instance ToQuery ProductionVariantAcceleratorType
+instance Prelude.ToQuery ProductionVariantAcceleratorType
 
-instance ToHeader ProductionVariantAcceleratorType
+instance Prelude.ToHeader ProductionVariantAcceleratorType
 
-instance ToJSON ProductionVariantAcceleratorType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ProductionVariantAcceleratorType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ProductionVariantAcceleratorType where
-  parseJSON = parseJSONText "ProductionVariantAcceleratorType"
+instance Prelude.FromJSON ProductionVariantAcceleratorType where
+  parseJSON = Prelude.parseJSONText "ProductionVariantAcceleratorType"

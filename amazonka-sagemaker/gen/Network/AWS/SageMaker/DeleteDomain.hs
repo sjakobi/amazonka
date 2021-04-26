@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,103 +21,125 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Used to delete a domain. If you onboarded with IAM mode, you will need to delete your domain to onboard again using SSO. Use with caution. All of the members of the domain will lose access to their EFS volume, including data, notebooks, and other artifacts.
+-- Used to delete a domain. If you onboarded with IAM mode, you will need
+-- to delete your domain to onboard again using SSO. Use with caution. All
+-- of the members of the domain will lose access to their EFS volume,
+-- including data, notebooks, and other artifacts.
 module Network.AWS.SageMaker.DeleteDomain
   ( -- * Creating a Request
-    deleteDomain,
-    DeleteDomain,
+    DeleteDomain (..),
+    newDeleteDomain,
 
     -- * Request Lenses
-    delRetentionPolicy,
-    delDomainId,
+    deleteDomain_retentionPolicy,
+    deleteDomain_domainId,
 
     -- * Destructuring the Response
-    deleteDomainResponse,
-    DeleteDomainResponse,
+    DeleteDomainResponse (..),
+    newDeleteDomainResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'deleteDomain' smart constructor.
+-- | /See:/ 'newDeleteDomain' smart constructor.
 data DeleteDomain = DeleteDomain'
-  { _delRetentionPolicy ::
-      !(Maybe RetentionPolicy),
-    _delDomainId :: !Text
+  { -- | The retention policy for this domain, which specifies whether resources
+    -- will be retained after the Domain is deleted. By default, all resources
+    -- are retained (not automatically deleted).
+    retentionPolicy :: Prelude.Maybe RetentionPolicy,
+    -- | The domain ID.
+    domainId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteDomain' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteDomain' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'delRetentionPolicy' - The retention policy for this domain, which specifies whether resources will be retained after the Domain is deleted. By default, all resources are retained (not automatically deleted).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'delDomainId' - The domain ID.
-deleteDomain ::
-  -- | 'delDomainId'
-  Text ->
+-- 'retentionPolicy', 'deleteDomain_retentionPolicy' - The retention policy for this domain, which specifies whether resources
+-- will be retained after the Domain is deleted. By default, all resources
+-- are retained (not automatically deleted).
+--
+-- 'domainId', 'deleteDomain_domainId' - The domain ID.
+newDeleteDomain ::
+  -- | 'domainId'
+  Prelude.Text ->
   DeleteDomain
-deleteDomain pDomainId_ =
+newDeleteDomain pDomainId_ =
   DeleteDomain'
-    { _delRetentionPolicy = Nothing,
-      _delDomainId = pDomainId_
+    { retentionPolicy = Prelude.Nothing,
+      domainId = pDomainId_
     }
 
--- | The retention policy for this domain, which specifies whether resources will be retained after the Domain is deleted. By default, all resources are retained (not automatically deleted).
-delRetentionPolicy :: Lens' DeleteDomain (Maybe RetentionPolicy)
-delRetentionPolicy = lens _delRetentionPolicy (\s a -> s {_delRetentionPolicy = a})
+-- | The retention policy for this domain, which specifies whether resources
+-- will be retained after the Domain is deleted. By default, all resources
+-- are retained (not automatically deleted).
+deleteDomain_retentionPolicy :: Lens.Lens' DeleteDomain (Prelude.Maybe RetentionPolicy)
+deleteDomain_retentionPolicy = Lens.lens (\DeleteDomain' {retentionPolicy} -> retentionPolicy) (\s@DeleteDomain' {} a -> s {retentionPolicy = a} :: DeleteDomain)
 
 -- | The domain ID.
-delDomainId :: Lens' DeleteDomain Text
-delDomainId = lens _delDomainId (\s a -> s {_delDomainId = a})
+deleteDomain_domainId :: Lens.Lens' DeleteDomain Prelude.Text
+deleteDomain_domainId = Lens.lens (\DeleteDomain' {domainId} -> domainId) (\s@DeleteDomain' {} a -> s {domainId = a} :: DeleteDomain)
 
-instance AWSRequest DeleteDomain where
+instance Prelude.AWSRequest DeleteDomain where
   type Rs DeleteDomain = DeleteDomainResponse
-  request = postJSON sageMaker
-  response = receiveNull DeleteDomainResponse'
+  request = Request.postJSON defaultService
+  response = Response.receiveNull DeleteDomainResponse'
 
-instance Hashable DeleteDomain
+instance Prelude.Hashable DeleteDomain
 
-instance NFData DeleteDomain
+instance Prelude.NFData DeleteDomain
 
-instance ToHeaders DeleteDomain where
+instance Prelude.ToHeaders DeleteDomain where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.DeleteDomain" :: ByteString),
+              Prelude.=# ("SageMaker.DeleteDomain" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteDomain where
+instance Prelude.ToJSON DeleteDomain where
   toJSON DeleteDomain' {..} =
-    object
-      ( catMaybes
-          [ ("RetentionPolicy" .=) <$> _delRetentionPolicy,
-            Just ("DomainId" .= _delDomainId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("RetentionPolicy" Prelude..=)
+              Prelude.<$> retentionPolicy,
+            Prelude.Just ("DomainId" Prelude..= domainId)
           ]
       )
 
-instance ToPath DeleteDomain where
-  toPath = const "/"
+instance Prelude.ToPath DeleteDomain where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteDomain where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteDomain where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteDomainResponse' smart constructor.
+-- | /See:/ 'newDeleteDomainResponse' smart constructor.
 data DeleteDomainResponse = DeleteDomainResponse'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteDomainResponse' with the minimum fields required to make a request.
-deleteDomainResponse ::
+-- |
+-- Create a value of 'DeleteDomainResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteDomainResponse ::
   DeleteDomainResponse
-deleteDomainResponse = DeleteDomainResponse'
+newDeleteDomainResponse = DeleteDomainResponse'
 
-instance NFData DeleteDomainResponse
+instance Prelude.NFData DeleteDomainResponse

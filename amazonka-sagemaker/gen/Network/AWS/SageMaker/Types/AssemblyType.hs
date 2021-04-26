@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.SageMaker.Types.AssemblyType
   ( AssemblyType
       ( ..,
-        Line,
-        None
+        AssemblyTypeLine,
+        AssemblyTypeNone
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AssemblyType = AssemblyType' (CI Text)
+newtype AssemblyType = AssemblyType'
+  { fromAssemblyType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Line :: AssemblyType
-pattern Line = AssemblyType' "Line"
+pattern AssemblyTypeLine :: AssemblyType
+pattern AssemblyTypeLine = AssemblyType' "Line"
 
-pattern None :: AssemblyType
-pattern None = AssemblyType' "None"
+pattern AssemblyTypeNone :: AssemblyType
+pattern AssemblyTypeNone = AssemblyType' "None"
 
 {-# COMPLETE
-  Line,
-  None,
+  AssemblyTypeLine,
+  AssemblyTypeNone,
   AssemblyType'
   #-}
 
-instance FromText AssemblyType where
-  parser = (AssemblyType' . mk) <$> takeText
+instance Prelude.FromText AssemblyType where
+  parser = AssemblyType' Prelude.<$> Prelude.takeText
 
-instance ToText AssemblyType where
-  toText (AssemblyType' ci) = original ci
+instance Prelude.ToText AssemblyType where
+  toText (AssemblyType' x) = x
 
-instance Hashable AssemblyType
+instance Prelude.Hashable AssemblyType
 
-instance NFData AssemblyType
+instance Prelude.NFData AssemblyType
 
-instance ToByteString AssemblyType
+instance Prelude.ToByteString AssemblyType
 
-instance ToQuery AssemblyType
+instance Prelude.ToQuery AssemblyType
 
-instance ToHeader AssemblyType
+instance Prelude.ToHeader AssemblyType
 
-instance ToJSON AssemblyType where
-  toJSON = toJSONText
+instance Prelude.ToJSON AssemblyType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AssemblyType where
-  parseJSON = parseJSONText "AssemblyType"
+instance Prelude.FromJSON AssemblyType where
+  parseJSON = Prelude.parseJSONText "AssemblyType"

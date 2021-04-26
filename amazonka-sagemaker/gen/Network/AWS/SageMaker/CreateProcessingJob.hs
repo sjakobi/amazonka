@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,259 +24,307 @@
 -- Creates a processing job.
 module Network.AWS.SageMaker.CreateProcessingJob
   ( -- * Creating a Request
-    createProcessingJob,
-    CreateProcessingJob,
+    CreateProcessingJob (..),
+    newCreateProcessingJob,
 
     -- * Request Lenses
-    cpjNetworkConfig,
-    cpjProcessingOutputConfig,
-    cpjExperimentConfig,
-    cpjEnvironment,
-    cpjTags,
-    cpjProcessingInputs,
-    cpjStoppingCondition,
-    cpjProcessingJobName,
-    cpjProcessingResources,
-    cpjAppSpecification,
-    cpjRoleARN,
+    createProcessingJob_networkConfig,
+    createProcessingJob_processingOutputConfig,
+    createProcessingJob_experimentConfig,
+    createProcessingJob_environment,
+    createProcessingJob_tags,
+    createProcessingJob_processingInputs,
+    createProcessingJob_stoppingCondition,
+    createProcessingJob_processingJobName,
+    createProcessingJob_processingResources,
+    createProcessingJob_appSpecification,
+    createProcessingJob_roleArn,
 
     -- * Destructuring the Response
-    createProcessingJobResponse,
-    CreateProcessingJobResponse,
+    CreateProcessingJobResponse (..),
+    newCreateProcessingJobResponse,
 
     -- * Response Lenses
-    cpjrrsResponseStatus,
-    cpjrrsProcessingJobARN,
+    createProcessingJobResponse_httpStatus,
+    createProcessingJobResponse_processingJobArn,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'createProcessingJob' smart constructor.
+-- | /See:/ 'newCreateProcessingJob' smart constructor.
 data CreateProcessingJob = CreateProcessingJob'
-  { _cpjNetworkConfig ::
-      !(Maybe NetworkConfig),
-    _cpjProcessingOutputConfig ::
-      !(Maybe ProcessingOutputConfig),
-    _cpjExperimentConfig ::
-      !(Maybe ExperimentConfig),
-    _cpjEnvironment ::
-      !(Maybe (Map Text Text)),
-    _cpjTags :: !(Maybe [Tag]),
-    _cpjProcessingInputs ::
-      !(Maybe [ProcessingInput]),
-    _cpjStoppingCondition ::
-      !( Maybe
-           ProcessingStoppingCondition
-       ),
-    _cpjProcessingJobName :: !Text,
-    _cpjProcessingResources ::
-      !ProcessingResources,
-    _cpjAppSpecification ::
-      !AppSpecification,
-    _cpjRoleARN :: !Text
+  { -- | Networking options for a processing job, such as whether to allow
+    -- inbound and outbound network calls to and from processing containers,
+    -- and the VPC subnets and security groups to use for VPC-enabled
+    -- processing jobs.
+    networkConfig :: Prelude.Maybe NetworkConfig,
+    -- | Output configuration for the processing job.
+    processingOutputConfig :: Prelude.Maybe ProcessingOutputConfig,
+    experimentConfig :: Prelude.Maybe ExperimentConfig,
+    -- | The environment variables to set in the Docker container. Up to 100 key
+    -- and values entries in the map are supported.
+    environment :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | (Optional) An array of key-value pairs. For more information, see
+    -- <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-whatURL Using Cost Allocation Tags>
+    -- in the /AWS Billing and Cost Management User Guide/.
+    tags :: Prelude.Maybe [Tag],
+    -- | An array of inputs configuring the data to download into the processing
+    -- container.
+    processingInputs :: Prelude.Maybe [ProcessingInput],
+    -- | The time limit for how long the processing job is allowed to run.
+    stoppingCondition :: Prelude.Maybe ProcessingStoppingCondition,
+    -- | The name of the processing job. The name must be unique within an AWS
+    -- Region in the AWS account.
+    processingJobName :: Prelude.Text,
+    -- | Identifies the resources, ML compute instances, and ML storage volumes
+    -- to deploy for a processing job. In distributed training, you specify
+    -- more than one instance.
+    processingResources :: ProcessingResources,
+    -- | Configures the processing job to run a specified Docker container image.
+    appSpecification :: AppSpecification,
+    -- | The Amazon Resource Name (ARN) of an IAM role that Amazon SageMaker can
+    -- assume to perform tasks on your behalf.
+    roleArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateProcessingJob' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateProcessingJob' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cpjNetworkConfig' - Networking options for a processing job, such as whether to allow inbound and outbound network calls to and from processing containers, and the VPC subnets and security groups to use for VPC-enabled processing jobs.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cpjProcessingOutputConfig' - Output configuration for the processing job.
+-- 'networkConfig', 'createProcessingJob_networkConfig' - Networking options for a processing job, such as whether to allow
+-- inbound and outbound network calls to and from processing containers,
+-- and the VPC subnets and security groups to use for VPC-enabled
+-- processing jobs.
 --
--- * 'cpjExperimentConfig' - Undocumented member.
+-- 'processingOutputConfig', 'createProcessingJob_processingOutputConfig' - Output configuration for the processing job.
 --
--- * 'cpjEnvironment' - The environment variables to set in the Docker container. Up to 100 key and values entries in the map are supported.
+-- 'experimentConfig', 'createProcessingJob_experimentConfig' - Undocumented member.
 --
--- * 'cpjTags' - (Optional) An array of key-value pairs. For more information, see <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-whatURL Using Cost Allocation Tags> in the /AWS Billing and Cost Management User Guide/ .
+-- 'environment', 'createProcessingJob_environment' - The environment variables to set in the Docker container. Up to 100 key
+-- and values entries in the map are supported.
 --
--- * 'cpjProcessingInputs' - An array of inputs configuring the data to download into the processing container.
+-- 'tags', 'createProcessingJob_tags' - (Optional) An array of key-value pairs. For more information, see
+-- <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-whatURL Using Cost Allocation Tags>
+-- in the /AWS Billing and Cost Management User Guide/.
 --
--- * 'cpjStoppingCondition' - The time limit for how long the processing job is allowed to run.
+-- 'processingInputs', 'createProcessingJob_processingInputs' - An array of inputs configuring the data to download into the processing
+-- container.
 --
--- * 'cpjProcessingJobName' - The name of the processing job. The name must be unique within an AWS Region in the AWS account.
+-- 'stoppingCondition', 'createProcessingJob_stoppingCondition' - The time limit for how long the processing job is allowed to run.
 --
--- * 'cpjProcessingResources' - Identifies the resources, ML compute instances, and ML storage volumes to deploy for a processing job. In distributed training, you specify more than one instance.
+-- 'processingJobName', 'createProcessingJob_processingJobName' - The name of the processing job. The name must be unique within an AWS
+-- Region in the AWS account.
 --
--- * 'cpjAppSpecification' - Configures the processing job to run a specified Docker container image.
+-- 'processingResources', 'createProcessingJob_processingResources' - Identifies the resources, ML compute instances, and ML storage volumes
+-- to deploy for a processing job. In distributed training, you specify
+-- more than one instance.
 --
--- * 'cpjRoleARN' - The Amazon Resource Name (ARN) of an IAM role that Amazon SageMaker can assume to perform tasks on your behalf.
-createProcessingJob ::
-  -- | 'cpjProcessingJobName'
-  Text ->
-  -- | 'cpjProcessingResources'
+-- 'appSpecification', 'createProcessingJob_appSpecification' - Configures the processing job to run a specified Docker container image.
+--
+-- 'roleArn', 'createProcessingJob_roleArn' - The Amazon Resource Name (ARN) of an IAM role that Amazon SageMaker can
+-- assume to perform tasks on your behalf.
+newCreateProcessingJob ::
+  -- | 'processingJobName'
+  Prelude.Text ->
+  -- | 'processingResources'
   ProcessingResources ->
-  -- | 'cpjAppSpecification'
+  -- | 'appSpecification'
   AppSpecification ->
-  -- | 'cpjRoleARN'
-  Text ->
+  -- | 'roleArn'
+  Prelude.Text ->
   CreateProcessingJob
-createProcessingJob
+newCreateProcessingJob
   pProcessingJobName_
   pProcessingResources_
   pAppSpecification_
-  pRoleARN_ =
+  pRoleArn_ =
     CreateProcessingJob'
-      { _cpjNetworkConfig = Nothing,
-        _cpjProcessingOutputConfig = Nothing,
-        _cpjExperimentConfig = Nothing,
-        _cpjEnvironment = Nothing,
-        _cpjTags = Nothing,
-        _cpjProcessingInputs = Nothing,
-        _cpjStoppingCondition = Nothing,
-        _cpjProcessingJobName = pProcessingJobName_,
-        _cpjProcessingResources = pProcessingResources_,
-        _cpjAppSpecification = pAppSpecification_,
-        _cpjRoleARN = pRoleARN_
+      { networkConfig =
+          Prelude.Nothing,
+        processingOutputConfig = Prelude.Nothing,
+        experimentConfig = Prelude.Nothing,
+        environment = Prelude.Nothing,
+        tags = Prelude.Nothing,
+        processingInputs = Prelude.Nothing,
+        stoppingCondition = Prelude.Nothing,
+        processingJobName = pProcessingJobName_,
+        processingResources = pProcessingResources_,
+        appSpecification = pAppSpecification_,
+        roleArn = pRoleArn_
       }
 
--- | Networking options for a processing job, such as whether to allow inbound and outbound network calls to and from processing containers, and the VPC subnets and security groups to use for VPC-enabled processing jobs.
-cpjNetworkConfig :: Lens' CreateProcessingJob (Maybe NetworkConfig)
-cpjNetworkConfig = lens _cpjNetworkConfig (\s a -> s {_cpjNetworkConfig = a})
+-- | Networking options for a processing job, such as whether to allow
+-- inbound and outbound network calls to and from processing containers,
+-- and the VPC subnets and security groups to use for VPC-enabled
+-- processing jobs.
+createProcessingJob_networkConfig :: Lens.Lens' CreateProcessingJob (Prelude.Maybe NetworkConfig)
+createProcessingJob_networkConfig = Lens.lens (\CreateProcessingJob' {networkConfig} -> networkConfig) (\s@CreateProcessingJob' {} a -> s {networkConfig = a} :: CreateProcessingJob)
 
 -- | Output configuration for the processing job.
-cpjProcessingOutputConfig :: Lens' CreateProcessingJob (Maybe ProcessingOutputConfig)
-cpjProcessingOutputConfig = lens _cpjProcessingOutputConfig (\s a -> s {_cpjProcessingOutputConfig = a})
+createProcessingJob_processingOutputConfig :: Lens.Lens' CreateProcessingJob (Prelude.Maybe ProcessingOutputConfig)
+createProcessingJob_processingOutputConfig = Lens.lens (\CreateProcessingJob' {processingOutputConfig} -> processingOutputConfig) (\s@CreateProcessingJob' {} a -> s {processingOutputConfig = a} :: CreateProcessingJob)
 
 -- | Undocumented member.
-cpjExperimentConfig :: Lens' CreateProcessingJob (Maybe ExperimentConfig)
-cpjExperimentConfig = lens _cpjExperimentConfig (\s a -> s {_cpjExperimentConfig = a})
+createProcessingJob_experimentConfig :: Lens.Lens' CreateProcessingJob (Prelude.Maybe ExperimentConfig)
+createProcessingJob_experimentConfig = Lens.lens (\CreateProcessingJob' {experimentConfig} -> experimentConfig) (\s@CreateProcessingJob' {} a -> s {experimentConfig = a} :: CreateProcessingJob)
 
--- | The environment variables to set in the Docker container. Up to 100 key and values entries in the map are supported.
-cpjEnvironment :: Lens' CreateProcessingJob (HashMap Text Text)
-cpjEnvironment = lens _cpjEnvironment (\s a -> s {_cpjEnvironment = a}) . _Default . _Map
+-- | The environment variables to set in the Docker container. Up to 100 key
+-- and values entries in the map are supported.
+createProcessingJob_environment :: Lens.Lens' CreateProcessingJob (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+createProcessingJob_environment = Lens.lens (\CreateProcessingJob' {environment} -> environment) (\s@CreateProcessingJob' {} a -> s {environment = a} :: CreateProcessingJob) Prelude.. Lens.mapping Prelude._Map
 
--- | (Optional) An array of key-value pairs. For more information, see <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-whatURL Using Cost Allocation Tags> in the /AWS Billing and Cost Management User Guide/ .
-cpjTags :: Lens' CreateProcessingJob [Tag]
-cpjTags = lens _cpjTags (\s a -> s {_cpjTags = a}) . _Default . _Coerce
+-- | (Optional) An array of key-value pairs. For more information, see
+-- <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-whatURL Using Cost Allocation Tags>
+-- in the /AWS Billing and Cost Management User Guide/.
+createProcessingJob_tags :: Lens.Lens' CreateProcessingJob (Prelude.Maybe [Tag])
+createProcessingJob_tags = Lens.lens (\CreateProcessingJob' {tags} -> tags) (\s@CreateProcessingJob' {} a -> s {tags = a} :: CreateProcessingJob) Prelude.. Lens.mapping Prelude._Coerce
 
--- | An array of inputs configuring the data to download into the processing container.
-cpjProcessingInputs :: Lens' CreateProcessingJob [ProcessingInput]
-cpjProcessingInputs = lens _cpjProcessingInputs (\s a -> s {_cpjProcessingInputs = a}) . _Default . _Coerce
+-- | An array of inputs configuring the data to download into the processing
+-- container.
+createProcessingJob_processingInputs :: Lens.Lens' CreateProcessingJob (Prelude.Maybe [ProcessingInput])
+createProcessingJob_processingInputs = Lens.lens (\CreateProcessingJob' {processingInputs} -> processingInputs) (\s@CreateProcessingJob' {} a -> s {processingInputs = a} :: CreateProcessingJob) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The time limit for how long the processing job is allowed to run.
-cpjStoppingCondition :: Lens' CreateProcessingJob (Maybe ProcessingStoppingCondition)
-cpjStoppingCondition = lens _cpjStoppingCondition (\s a -> s {_cpjStoppingCondition = a})
+createProcessingJob_stoppingCondition :: Lens.Lens' CreateProcessingJob (Prelude.Maybe ProcessingStoppingCondition)
+createProcessingJob_stoppingCondition = Lens.lens (\CreateProcessingJob' {stoppingCondition} -> stoppingCondition) (\s@CreateProcessingJob' {} a -> s {stoppingCondition = a} :: CreateProcessingJob)
 
--- | The name of the processing job. The name must be unique within an AWS Region in the AWS account.
-cpjProcessingJobName :: Lens' CreateProcessingJob Text
-cpjProcessingJobName = lens _cpjProcessingJobName (\s a -> s {_cpjProcessingJobName = a})
+-- | The name of the processing job. The name must be unique within an AWS
+-- Region in the AWS account.
+createProcessingJob_processingJobName :: Lens.Lens' CreateProcessingJob Prelude.Text
+createProcessingJob_processingJobName = Lens.lens (\CreateProcessingJob' {processingJobName} -> processingJobName) (\s@CreateProcessingJob' {} a -> s {processingJobName = a} :: CreateProcessingJob)
 
--- | Identifies the resources, ML compute instances, and ML storage volumes to deploy for a processing job. In distributed training, you specify more than one instance.
-cpjProcessingResources :: Lens' CreateProcessingJob ProcessingResources
-cpjProcessingResources = lens _cpjProcessingResources (\s a -> s {_cpjProcessingResources = a})
+-- | Identifies the resources, ML compute instances, and ML storage volumes
+-- to deploy for a processing job. In distributed training, you specify
+-- more than one instance.
+createProcessingJob_processingResources :: Lens.Lens' CreateProcessingJob ProcessingResources
+createProcessingJob_processingResources = Lens.lens (\CreateProcessingJob' {processingResources} -> processingResources) (\s@CreateProcessingJob' {} a -> s {processingResources = a} :: CreateProcessingJob)
 
 -- | Configures the processing job to run a specified Docker container image.
-cpjAppSpecification :: Lens' CreateProcessingJob AppSpecification
-cpjAppSpecification = lens _cpjAppSpecification (\s a -> s {_cpjAppSpecification = a})
+createProcessingJob_appSpecification :: Lens.Lens' CreateProcessingJob AppSpecification
+createProcessingJob_appSpecification = Lens.lens (\CreateProcessingJob' {appSpecification} -> appSpecification) (\s@CreateProcessingJob' {} a -> s {appSpecification = a} :: CreateProcessingJob)
 
--- | The Amazon Resource Name (ARN) of an IAM role that Amazon SageMaker can assume to perform tasks on your behalf.
-cpjRoleARN :: Lens' CreateProcessingJob Text
-cpjRoleARN = lens _cpjRoleARN (\s a -> s {_cpjRoleARN = a})
+-- | The Amazon Resource Name (ARN) of an IAM role that Amazon SageMaker can
+-- assume to perform tasks on your behalf.
+createProcessingJob_roleArn :: Lens.Lens' CreateProcessingJob Prelude.Text
+createProcessingJob_roleArn = Lens.lens (\CreateProcessingJob' {roleArn} -> roleArn) (\s@CreateProcessingJob' {} a -> s {roleArn = a} :: CreateProcessingJob)
 
-instance AWSRequest CreateProcessingJob where
+instance Prelude.AWSRequest CreateProcessingJob where
   type
     Rs CreateProcessingJob =
       CreateProcessingJobResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateProcessingJobResponse'
-            <$> (pure (fromEnum s)) <*> (x .:> "ProcessingJobArn")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "ProcessingJobArn")
       )
 
-instance Hashable CreateProcessingJob
+instance Prelude.Hashable CreateProcessingJob
 
-instance NFData CreateProcessingJob
+instance Prelude.NFData CreateProcessingJob
 
-instance ToHeaders CreateProcessingJob where
+instance Prelude.ToHeaders CreateProcessingJob where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.CreateProcessingJob" :: ByteString),
+              Prelude.=# ( "SageMaker.CreateProcessingJob" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateProcessingJob where
+instance Prelude.ToJSON CreateProcessingJob where
   toJSON CreateProcessingJob' {..} =
-    object
-      ( catMaybes
-          [ ("NetworkConfig" .=) <$> _cpjNetworkConfig,
-            ("ProcessingOutputConfig" .=)
-              <$> _cpjProcessingOutputConfig,
-            ("ExperimentConfig" .=) <$> _cpjExperimentConfig,
-            ("Environment" .=) <$> _cpjEnvironment,
-            ("Tags" .=) <$> _cpjTags,
-            ("ProcessingInputs" .=) <$> _cpjProcessingInputs,
-            ("StoppingCondition" .=) <$> _cpjStoppingCondition,
-            Just ("ProcessingJobName" .= _cpjProcessingJobName),
-            Just
-              ("ProcessingResources" .= _cpjProcessingResources),
-            Just ("AppSpecification" .= _cpjAppSpecification),
-            Just ("RoleArn" .= _cpjRoleARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NetworkConfig" Prelude..=)
+              Prelude.<$> networkConfig,
+            ("ProcessingOutputConfig" Prelude..=)
+              Prelude.<$> processingOutputConfig,
+            ("ExperimentConfig" Prelude..=)
+              Prelude.<$> experimentConfig,
+            ("Environment" Prelude..=) Prelude.<$> environment,
+            ("Tags" Prelude..=) Prelude.<$> tags,
+            ("ProcessingInputs" Prelude..=)
+              Prelude.<$> processingInputs,
+            ("StoppingCondition" Prelude..=)
+              Prelude.<$> stoppingCondition,
+            Prelude.Just
+              ("ProcessingJobName" Prelude..= processingJobName),
+            Prelude.Just
+              ( "ProcessingResources"
+                  Prelude..= processingResources
+              ),
+            Prelude.Just
+              ("AppSpecification" Prelude..= appSpecification),
+            Prelude.Just ("RoleArn" Prelude..= roleArn)
           ]
       )
 
-instance ToPath CreateProcessingJob where
-  toPath = const "/"
+instance Prelude.ToPath CreateProcessingJob where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateProcessingJob where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateProcessingJob where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createProcessingJobResponse' smart constructor.
+-- | /See:/ 'newCreateProcessingJobResponse' smart constructor.
 data CreateProcessingJobResponse = CreateProcessingJobResponse'
-  { _cpjrrsResponseStatus ::
-      !Int,
-    _cpjrrsProcessingJobARN ::
-      !Text
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The Amazon Resource Name (ARN) of the processing job.
+    processingJobArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateProcessingJobResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateProcessingJobResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cpjrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cpjrrsProcessingJobARN' - The Amazon Resource Name (ARN) of the processing job.
-createProcessingJobResponse ::
-  -- | 'cpjrrsResponseStatus'
-  Int ->
-  -- | 'cpjrrsProcessingJobARN'
-  Text ->
+-- 'httpStatus', 'createProcessingJobResponse_httpStatus' - The response's http status code.
+--
+-- 'processingJobArn', 'createProcessingJobResponse_processingJobArn' - The Amazon Resource Name (ARN) of the processing job.
+newCreateProcessingJobResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'processingJobArn'
+  Prelude.Text ->
   CreateProcessingJobResponse
-createProcessingJobResponse
-  pResponseStatus_
-  pProcessingJobARN_ =
+newCreateProcessingJobResponse
+  pHttpStatus_
+  pProcessingJobArn_ =
     CreateProcessingJobResponse'
-      { _cpjrrsResponseStatus =
-          pResponseStatus_,
-        _cpjrrsProcessingJobARN = pProcessingJobARN_
+      { httpStatus =
+          pHttpStatus_,
+        processingJobArn = pProcessingJobArn_
       }
 
--- | -- | The response status code.
-cpjrrsResponseStatus :: Lens' CreateProcessingJobResponse Int
-cpjrrsResponseStatus = lens _cpjrrsResponseStatus (\s a -> s {_cpjrrsResponseStatus = a})
+-- | The response's http status code.
+createProcessingJobResponse_httpStatus :: Lens.Lens' CreateProcessingJobResponse Prelude.Int
+createProcessingJobResponse_httpStatus = Lens.lens (\CreateProcessingJobResponse' {httpStatus} -> httpStatus) (\s@CreateProcessingJobResponse' {} a -> s {httpStatus = a} :: CreateProcessingJobResponse)
 
 -- | The Amazon Resource Name (ARN) of the processing job.
-cpjrrsProcessingJobARN :: Lens' CreateProcessingJobResponse Text
-cpjrrsProcessingJobARN = lens _cpjrrsProcessingJobARN (\s a -> s {_cpjrrsProcessingJobARN = a})
+createProcessingJobResponse_processingJobArn :: Lens.Lens' CreateProcessingJobResponse Prelude.Text
+createProcessingJobResponse_processingJobArn = Lens.lens (\CreateProcessingJobResponse' {processingJobArn} -> processingJobArn) (\s@CreateProcessingJobResponse' {} a -> s {processingJobArn = a} :: CreateProcessingJobResponse)
 
-instance NFData CreateProcessingJobResponse
+instance Prelude.NFData CreateProcessingJobResponse

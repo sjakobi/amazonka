@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,132 +21,143 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets information about a specific work team. You can see information such as the create date, the last updated date, membership information, and the work team's Amazon Resource Name (ARN).
+-- Gets information about a specific work team. You can see information
+-- such as the create date, the last updated date, membership information,
+-- and the work team\'s Amazon Resource Name (ARN).
 module Network.AWS.SageMaker.DescribeWorkteam
   ( -- * Creating a Request
-    describeWorkteam,
-    DescribeWorkteam,
+    DescribeWorkteam (..),
+    newDescribeWorkteam,
 
     -- * Request Lenses
-    dWorkteamName,
+    describeWorkteam_workteamName,
 
     -- * Destructuring the Response
-    describeWorkteamResponse,
-    DescribeWorkteamResponse,
+    DescribeWorkteamResponse (..),
+    newDescribeWorkteamResponse,
 
     -- * Response Lenses
-    describeworkteamresponseersResponseStatus,
-    describeworkteamresponseersWorkteam,
+    describeWorkteamResponse_httpStatus,
+    describeWorkteamResponse_workteam,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
+import Network.AWS.SageMaker.Types.Workteam
 
--- | /See:/ 'describeWorkteam' smart constructor.
-newtype DescribeWorkteam = DescribeWorkteam'
-  { _dWorkteamName ::
-      Text
+-- | /See:/ 'newDescribeWorkteam' smart constructor.
+data DescribeWorkteam = DescribeWorkteam'
+  { -- | The name of the work team to return a description of.
+    workteamName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeWorkteam' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeWorkteam' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dWorkteamName' - The name of the work team to return a description of.
-describeWorkteam ::
-  -- | 'dWorkteamName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'workteamName', 'describeWorkteam_workteamName' - The name of the work team to return a description of.
+newDescribeWorkteam ::
+  -- | 'workteamName'
+  Prelude.Text ->
   DescribeWorkteam
-describeWorkteam pWorkteamName_ =
-  DescribeWorkteam' {_dWorkteamName = pWorkteamName_}
+newDescribeWorkteam pWorkteamName_ =
+  DescribeWorkteam' {workteamName = pWorkteamName_}
 
 -- | The name of the work team to return a description of.
-dWorkteamName :: Lens' DescribeWorkteam Text
-dWorkteamName = lens _dWorkteamName (\s a -> s {_dWorkteamName = a})
+describeWorkteam_workteamName :: Lens.Lens' DescribeWorkteam Prelude.Text
+describeWorkteam_workteamName = Lens.lens (\DescribeWorkteam' {workteamName} -> workteamName) (\s@DescribeWorkteam' {} a -> s {workteamName = a} :: DescribeWorkteam)
 
-instance AWSRequest DescribeWorkteam where
+instance Prelude.AWSRequest DescribeWorkteam where
   type Rs DescribeWorkteam = DescribeWorkteamResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeWorkteamResponse'
-            <$> (pure (fromEnum s)) <*> (x .:> "Workteam")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "Workteam")
       )
 
-instance Hashable DescribeWorkteam
+instance Prelude.Hashable DescribeWorkteam
 
-instance NFData DescribeWorkteam
+instance Prelude.NFData DescribeWorkteam
 
-instance ToHeaders DescribeWorkteam where
+instance Prelude.ToHeaders DescribeWorkteam where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.DescribeWorkteam" :: ByteString),
+              Prelude.=# ("SageMaker.DescribeWorkteam" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeWorkteam where
+instance Prelude.ToJSON DescribeWorkteam where
   toJSON DescribeWorkteam' {..} =
-    object
-      (catMaybes [Just ("WorkteamName" .= _dWorkteamName)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("WorkteamName" Prelude..= workteamName)
+          ]
+      )
 
-instance ToPath DescribeWorkteam where
-  toPath = const "/"
+instance Prelude.ToPath DescribeWorkteam where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeWorkteam where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeWorkteam where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeWorkteamResponse' smart constructor.
+-- | /See:/ 'newDescribeWorkteamResponse' smart constructor.
 data DescribeWorkteamResponse = DescribeWorkteamResponse'
-  { _describeworkteamresponseersResponseStatus ::
-      !Int,
-    _describeworkteamresponseersWorkteam ::
-      !Workteam
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | A @Workteam@ instance that contains information about the work team.
+    workteam :: Workteam
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeWorkteamResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeWorkteamResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'describeworkteamresponseersResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'describeworkteamresponseersWorkteam' - A @Workteam@ instance that contains information about the work team.
-describeWorkteamResponse ::
-  -- | 'describeworkteamresponseersResponseStatus'
-  Int ->
-  -- | 'describeworkteamresponseersWorkteam'
+-- 'httpStatus', 'describeWorkteamResponse_httpStatus' - The response's http status code.
+--
+-- 'workteam', 'describeWorkteamResponse_workteam' - A @Workteam@ instance that contains information about the work team.
+newDescribeWorkteamResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'workteam'
   Workteam ->
   DescribeWorkteamResponse
-describeWorkteamResponse pResponseStatus_ pWorkteam_ =
+newDescribeWorkteamResponse pHttpStatus_ pWorkteam_ =
   DescribeWorkteamResponse'
-    { _describeworkteamresponseersResponseStatus =
-        pResponseStatus_,
-      _describeworkteamresponseersWorkteam = pWorkteam_
+    { httpStatus =
+        pHttpStatus_,
+      workteam = pWorkteam_
     }
 
--- | -- | The response status code.
-describeworkteamresponseersResponseStatus :: Lens' DescribeWorkteamResponse Int
-describeworkteamresponseersResponseStatus = lens _describeworkteamresponseersResponseStatus (\s a -> s {_describeworkteamresponseersResponseStatus = a})
+-- | The response's http status code.
+describeWorkteamResponse_httpStatus :: Lens.Lens' DescribeWorkteamResponse Prelude.Int
+describeWorkteamResponse_httpStatus = Lens.lens (\DescribeWorkteamResponse' {httpStatus} -> httpStatus) (\s@DescribeWorkteamResponse' {} a -> s {httpStatus = a} :: DescribeWorkteamResponse)
 
 -- | A @Workteam@ instance that contains information about the work team.
-describeworkteamresponseersWorkteam :: Lens' DescribeWorkteamResponse Workteam
-describeworkteamresponseersWorkteam = lens _describeworkteamresponseersWorkteam (\s a -> s {_describeworkteamresponseersWorkteam = a})
+describeWorkteamResponse_workteam :: Lens.Lens' DescribeWorkteamResponse Workteam
+describeWorkteamResponse_workteam = Lens.lens (\DescribeWorkteamResponse' {workteam} -> workteam) (\s@DescribeWorkteamResponse' {} a -> s {workteam = a} :: DescribeWorkteamResponse)
 
-instance NFData DescribeWorkteamResponse
+instance Prelude.NFData DescribeWorkteamResponse

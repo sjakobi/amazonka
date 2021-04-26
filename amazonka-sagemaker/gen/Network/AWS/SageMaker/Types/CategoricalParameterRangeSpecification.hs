@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,70 +19,67 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.CategoricalParameterRangeSpecification where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Defines the possible values for a categorical hyperparameter.
 --
---
---
--- /See:/ 'categoricalParameterRangeSpecification' smart constructor.
-newtype CategoricalParameterRangeSpecification = CategoricalParameterRangeSpecification'
-  { _cprsValues ::
-      List1
-        Text
+-- /See:/ 'newCategoricalParameterRangeSpecification' smart constructor.
+data CategoricalParameterRangeSpecification = CategoricalParameterRangeSpecification'
+  { -- | The allowed categories for the hyperparameter.
+    values :: Prelude.List1 Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CategoricalParameterRangeSpecification' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CategoricalParameterRangeSpecification' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cprsValues' - The allowed categories for the hyperparameter.
-categoricalParameterRangeSpecification ::
-  -- | 'cprsValues'
-  NonEmpty Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'values', 'categoricalParameterRangeSpecification_values' - The allowed categories for the hyperparameter.
+newCategoricalParameterRangeSpecification ::
+  -- | 'values'
+  Prelude.NonEmpty Prelude.Text ->
   CategoricalParameterRangeSpecification
-categoricalParameterRangeSpecification pValues_ =
+newCategoricalParameterRangeSpecification pValues_ =
   CategoricalParameterRangeSpecification'
-    { _cprsValues =
-        _List1 # pValues_
+    { values =
+        Prelude._List1 Lens.# pValues_
     }
 
 -- | The allowed categories for the hyperparameter.
-cprsValues :: Lens' CategoricalParameterRangeSpecification (NonEmpty Text)
-cprsValues = lens _cprsValues (\s a -> s {_cprsValues = a}) . _List1
+categoricalParameterRangeSpecification_values :: Lens.Lens' CategoricalParameterRangeSpecification (Prelude.NonEmpty Prelude.Text)
+categoricalParameterRangeSpecification_values = Lens.lens (\CategoricalParameterRangeSpecification' {values} -> values) (\s@CategoricalParameterRangeSpecification' {} a -> s {values = a} :: CategoricalParameterRangeSpecification) Prelude.. Prelude._List1
 
 instance
-  FromJSON
+  Prelude.FromJSON
     CategoricalParameterRangeSpecification
   where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CategoricalParameterRangeSpecification"
       ( \x ->
           CategoricalParameterRangeSpecification'
-            <$> (x .: "Values")
+            Prelude.<$> (x Prelude..: "Values")
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     CategoricalParameterRangeSpecification
 
 instance
-  NFData
+  Prelude.NFData
     CategoricalParameterRangeSpecification
 
 instance
-  ToJSON
+  Prelude.ToJSON
     CategoricalParameterRangeSpecification
   where
   toJSON CategoricalParameterRangeSpecification' {..} =
-    object (catMaybes [Just ("Values" .= _cprsValues)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("Values" Prelude..= values)]
+      )

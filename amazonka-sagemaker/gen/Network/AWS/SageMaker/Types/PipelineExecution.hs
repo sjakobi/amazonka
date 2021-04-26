@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,137 +19,140 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.PipelineExecution where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.Parameter
 import Network.AWS.SageMaker.Types.PipelineExecutionStatus
 import Network.AWS.SageMaker.Types.UserContext
 
 -- | An execution of a pipeline.
 --
---
---
--- /See:/ 'pipelineExecution' smart constructor.
+-- /See:/ 'newPipelineExecution' smart constructor.
 data PipelineExecution = PipelineExecution'
-  { _pePipelineARN ::
-      !(Maybe Text),
-    _peCreationTime :: !(Maybe POSIX),
-    _pePipelineExecutionDescription ::
-      !(Maybe Text),
-    _pePipelineParameters ::
-      !(Maybe [Parameter]),
-    _pePipelineExecutionDisplayName ::
-      !(Maybe Text),
-    _pePipelineExecutionStatus ::
-      !(Maybe PipelineExecutionStatus),
-    _peLastModifiedTime ::
-      !(Maybe POSIX),
-    _peCreatedBy ::
-      !(Maybe UserContext),
-    _peLastModifiedBy ::
-      !(Maybe UserContext),
-    _pePipelineExecutionARN ::
-      !(Maybe Text)
+  { -- | The Amazon Resource Name (ARN) of the pipeline that was executed.
+    pipelineArn :: Prelude.Maybe Prelude.Text,
+    -- | The creation time of the pipeline execution.
+    creationTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The description of the pipeline execution.
+    pipelineExecutionDescription :: Prelude.Maybe Prelude.Text,
+    -- | Contains a list of pipeline parameters. This list can be empty.
+    pipelineParameters :: Prelude.Maybe [Parameter],
+    -- | The display name of the pipeline execution.
+    pipelineExecutionDisplayName :: Prelude.Maybe Prelude.Text,
+    -- | The status of the pipeline status.
+    pipelineExecutionStatus :: Prelude.Maybe PipelineExecutionStatus,
+    -- | The time that the pipeline execution was last modified.
+    lastModifiedTime :: Prelude.Maybe Prelude.POSIX,
+    createdBy :: Prelude.Maybe UserContext,
+    lastModifiedBy :: Prelude.Maybe UserContext,
+    -- | The Amazon Resource Name (ARN) of the pipeline execution.
+    pipelineExecutionArn :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PipelineExecution' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PipelineExecution' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pePipelineARN' - The Amazon Resource Name (ARN) of the pipeline that was executed.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'peCreationTime' - The creation time of the pipeline execution.
+-- 'pipelineArn', 'pipelineExecution_pipelineArn' - The Amazon Resource Name (ARN) of the pipeline that was executed.
 --
--- * 'pePipelineExecutionDescription' - The description of the pipeline execution.
+-- 'creationTime', 'pipelineExecution_creationTime' - The creation time of the pipeline execution.
 --
--- * 'pePipelineParameters' - Contains a list of pipeline parameters. This list can be empty.
+-- 'pipelineExecutionDescription', 'pipelineExecution_pipelineExecutionDescription' - The description of the pipeline execution.
 --
--- * 'pePipelineExecutionDisplayName' - The display name of the pipeline execution.
+-- 'pipelineParameters', 'pipelineExecution_pipelineParameters' - Contains a list of pipeline parameters. This list can be empty.
 --
--- * 'pePipelineExecutionStatus' - The status of the pipeline status.
+-- 'pipelineExecutionDisplayName', 'pipelineExecution_pipelineExecutionDisplayName' - The display name of the pipeline execution.
 --
--- * 'peLastModifiedTime' - The time that the pipeline execution was last modified.
+-- 'pipelineExecutionStatus', 'pipelineExecution_pipelineExecutionStatus' - The status of the pipeline status.
 --
--- * 'peCreatedBy' - Undocumented member.
+-- 'lastModifiedTime', 'pipelineExecution_lastModifiedTime' - The time that the pipeline execution was last modified.
 --
--- * 'peLastModifiedBy' - Undocumented member.
+-- 'createdBy', 'pipelineExecution_createdBy' - Undocumented member.
 --
--- * 'pePipelineExecutionARN' - The Amazon Resource Name (ARN) of the pipeline execution.
-pipelineExecution ::
+-- 'lastModifiedBy', 'pipelineExecution_lastModifiedBy' - Undocumented member.
+--
+-- 'pipelineExecutionArn', 'pipelineExecution_pipelineExecutionArn' - The Amazon Resource Name (ARN) of the pipeline execution.
+newPipelineExecution ::
   PipelineExecution
-pipelineExecution =
+newPipelineExecution =
   PipelineExecution'
-    { _pePipelineARN = Nothing,
-      _peCreationTime = Nothing,
-      _pePipelineExecutionDescription = Nothing,
-      _pePipelineParameters = Nothing,
-      _pePipelineExecutionDisplayName = Nothing,
-      _pePipelineExecutionStatus = Nothing,
-      _peLastModifiedTime = Nothing,
-      _peCreatedBy = Nothing,
-      _peLastModifiedBy = Nothing,
-      _pePipelineExecutionARN = Nothing
+    { pipelineArn = Prelude.Nothing,
+      creationTime = Prelude.Nothing,
+      pipelineExecutionDescription = Prelude.Nothing,
+      pipelineParameters = Prelude.Nothing,
+      pipelineExecutionDisplayName = Prelude.Nothing,
+      pipelineExecutionStatus = Prelude.Nothing,
+      lastModifiedTime = Prelude.Nothing,
+      createdBy = Prelude.Nothing,
+      lastModifiedBy = Prelude.Nothing,
+      pipelineExecutionArn = Prelude.Nothing
     }
 
 -- | The Amazon Resource Name (ARN) of the pipeline that was executed.
-pePipelineARN :: Lens' PipelineExecution (Maybe Text)
-pePipelineARN = lens _pePipelineARN (\s a -> s {_pePipelineARN = a})
+pipelineExecution_pipelineArn :: Lens.Lens' PipelineExecution (Prelude.Maybe Prelude.Text)
+pipelineExecution_pipelineArn = Lens.lens (\PipelineExecution' {pipelineArn} -> pipelineArn) (\s@PipelineExecution' {} a -> s {pipelineArn = a} :: PipelineExecution)
 
 -- | The creation time of the pipeline execution.
-peCreationTime :: Lens' PipelineExecution (Maybe UTCTime)
-peCreationTime = lens _peCreationTime (\s a -> s {_peCreationTime = a}) . mapping _Time
+pipelineExecution_creationTime :: Lens.Lens' PipelineExecution (Prelude.Maybe Prelude.UTCTime)
+pipelineExecution_creationTime = Lens.lens (\PipelineExecution' {creationTime} -> creationTime) (\s@PipelineExecution' {} a -> s {creationTime = a} :: PipelineExecution) Prelude.. Lens.mapping Prelude._Time
 
 -- | The description of the pipeline execution.
-pePipelineExecutionDescription :: Lens' PipelineExecution (Maybe Text)
-pePipelineExecutionDescription = lens _pePipelineExecutionDescription (\s a -> s {_pePipelineExecutionDescription = a})
+pipelineExecution_pipelineExecutionDescription :: Lens.Lens' PipelineExecution (Prelude.Maybe Prelude.Text)
+pipelineExecution_pipelineExecutionDescription = Lens.lens (\PipelineExecution' {pipelineExecutionDescription} -> pipelineExecutionDescription) (\s@PipelineExecution' {} a -> s {pipelineExecutionDescription = a} :: PipelineExecution)
 
 -- | Contains a list of pipeline parameters. This list can be empty.
-pePipelineParameters :: Lens' PipelineExecution [Parameter]
-pePipelineParameters = lens _pePipelineParameters (\s a -> s {_pePipelineParameters = a}) . _Default . _Coerce
+pipelineExecution_pipelineParameters :: Lens.Lens' PipelineExecution (Prelude.Maybe [Parameter])
+pipelineExecution_pipelineParameters = Lens.lens (\PipelineExecution' {pipelineParameters} -> pipelineParameters) (\s@PipelineExecution' {} a -> s {pipelineParameters = a} :: PipelineExecution) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The display name of the pipeline execution.
-pePipelineExecutionDisplayName :: Lens' PipelineExecution (Maybe Text)
-pePipelineExecutionDisplayName = lens _pePipelineExecutionDisplayName (\s a -> s {_pePipelineExecutionDisplayName = a})
+pipelineExecution_pipelineExecutionDisplayName :: Lens.Lens' PipelineExecution (Prelude.Maybe Prelude.Text)
+pipelineExecution_pipelineExecutionDisplayName = Lens.lens (\PipelineExecution' {pipelineExecutionDisplayName} -> pipelineExecutionDisplayName) (\s@PipelineExecution' {} a -> s {pipelineExecutionDisplayName = a} :: PipelineExecution)
 
 -- | The status of the pipeline status.
-pePipelineExecutionStatus :: Lens' PipelineExecution (Maybe PipelineExecutionStatus)
-pePipelineExecutionStatus = lens _pePipelineExecutionStatus (\s a -> s {_pePipelineExecutionStatus = a})
+pipelineExecution_pipelineExecutionStatus :: Lens.Lens' PipelineExecution (Prelude.Maybe PipelineExecutionStatus)
+pipelineExecution_pipelineExecutionStatus = Lens.lens (\PipelineExecution' {pipelineExecutionStatus} -> pipelineExecutionStatus) (\s@PipelineExecution' {} a -> s {pipelineExecutionStatus = a} :: PipelineExecution)
 
 -- | The time that the pipeline execution was last modified.
-peLastModifiedTime :: Lens' PipelineExecution (Maybe UTCTime)
-peLastModifiedTime = lens _peLastModifiedTime (\s a -> s {_peLastModifiedTime = a}) . mapping _Time
+pipelineExecution_lastModifiedTime :: Lens.Lens' PipelineExecution (Prelude.Maybe Prelude.UTCTime)
+pipelineExecution_lastModifiedTime = Lens.lens (\PipelineExecution' {lastModifiedTime} -> lastModifiedTime) (\s@PipelineExecution' {} a -> s {lastModifiedTime = a} :: PipelineExecution) Prelude.. Lens.mapping Prelude._Time
 
 -- | Undocumented member.
-peCreatedBy :: Lens' PipelineExecution (Maybe UserContext)
-peCreatedBy = lens _peCreatedBy (\s a -> s {_peCreatedBy = a})
+pipelineExecution_createdBy :: Lens.Lens' PipelineExecution (Prelude.Maybe UserContext)
+pipelineExecution_createdBy = Lens.lens (\PipelineExecution' {createdBy} -> createdBy) (\s@PipelineExecution' {} a -> s {createdBy = a} :: PipelineExecution)
 
 -- | Undocumented member.
-peLastModifiedBy :: Lens' PipelineExecution (Maybe UserContext)
-peLastModifiedBy = lens _peLastModifiedBy (\s a -> s {_peLastModifiedBy = a})
+pipelineExecution_lastModifiedBy :: Lens.Lens' PipelineExecution (Prelude.Maybe UserContext)
+pipelineExecution_lastModifiedBy = Lens.lens (\PipelineExecution' {lastModifiedBy} -> lastModifiedBy) (\s@PipelineExecution' {} a -> s {lastModifiedBy = a} :: PipelineExecution)
 
 -- | The Amazon Resource Name (ARN) of the pipeline execution.
-pePipelineExecutionARN :: Lens' PipelineExecution (Maybe Text)
-pePipelineExecutionARN = lens _pePipelineExecutionARN (\s a -> s {_pePipelineExecutionARN = a})
+pipelineExecution_pipelineExecutionArn :: Lens.Lens' PipelineExecution (Prelude.Maybe Prelude.Text)
+pipelineExecution_pipelineExecutionArn = Lens.lens (\PipelineExecution' {pipelineExecutionArn} -> pipelineExecutionArn) (\s@PipelineExecution' {} a -> s {pipelineExecutionArn = a} :: PipelineExecution)
 
-instance FromJSON PipelineExecution where
+instance Prelude.FromJSON PipelineExecution where
   parseJSON =
-    withObject
+    Prelude.withObject
       "PipelineExecution"
       ( \x ->
           PipelineExecution'
-            <$> (x .:? "PipelineArn")
-            <*> (x .:? "CreationTime")
-            <*> (x .:? "PipelineExecutionDescription")
-            <*> (x .:? "PipelineParameters" .!= mempty)
-            <*> (x .:? "PipelineExecutionDisplayName")
-            <*> (x .:? "PipelineExecutionStatus")
-            <*> (x .:? "LastModifiedTime")
-            <*> (x .:? "CreatedBy")
-            <*> (x .:? "LastModifiedBy")
-            <*> (x .:? "PipelineExecutionArn")
+            Prelude.<$> (x Prelude..:? "PipelineArn")
+            Prelude.<*> (x Prelude..:? "CreationTime")
+            Prelude.<*> (x Prelude..:? "PipelineExecutionDescription")
+            Prelude.<*> ( x Prelude..:? "PipelineParameters"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "PipelineExecutionDisplayName")
+            Prelude.<*> (x Prelude..:? "PipelineExecutionStatus")
+            Prelude.<*> (x Prelude..:? "LastModifiedTime")
+            Prelude.<*> (x Prelude..:? "CreatedBy")
+            Prelude.<*> (x Prelude..:? "LastModifiedBy")
+            Prelude.<*> (x Prelude..:? "PipelineExecutionArn")
       )
 
-instance Hashable PipelineExecution
+instance Prelude.Hashable PipelineExecution
 
-instance NFData PipelineExecution
+instance Prelude.NFData PipelineExecution

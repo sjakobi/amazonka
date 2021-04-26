@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,108 +24,114 @@
 -- Updates one or more devices in a fleet.
 module Network.AWS.SageMaker.UpdateDevices
   ( -- * Creating a Request
-    updateDevices,
-    UpdateDevices,
+    UpdateDevices (..),
+    newUpdateDevices,
 
     -- * Request Lenses
-    udDeviceFleetName,
-    udDevices,
+    updateDevices_deviceFleetName,
+    updateDevices_devices,
 
     -- * Destructuring the Response
-    updateDevicesResponse,
-    UpdateDevicesResponse,
+    UpdateDevicesResponse (..),
+    newUpdateDevicesResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'updateDevices' smart constructor.
+-- | /See:/ 'newUpdateDevices' smart constructor.
 data UpdateDevices = UpdateDevices'
-  { _udDeviceFleetName ::
-      !Text,
-    _udDevices :: ![Device]
+  { -- | The name of the fleet the devices belong to.
+    deviceFleetName :: Prelude.Text,
+    -- | List of devices to register with Edge Manager agent.
+    devices :: [Device]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateDevices' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateDevices' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'udDeviceFleetName' - The name of the fleet the devices belong to.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'udDevices' - List of devices to register with Edge Manager agent.
-updateDevices ::
-  -- | 'udDeviceFleetName'
-  Text ->
+-- 'deviceFleetName', 'updateDevices_deviceFleetName' - The name of the fleet the devices belong to.
+--
+-- 'devices', 'updateDevices_devices' - List of devices to register with Edge Manager agent.
+newUpdateDevices ::
+  -- | 'deviceFleetName'
+  Prelude.Text ->
   UpdateDevices
-updateDevices pDeviceFleetName_ =
+newUpdateDevices pDeviceFleetName_ =
   UpdateDevices'
-    { _udDeviceFleetName =
-        pDeviceFleetName_,
-      _udDevices = mempty
+    { deviceFleetName = pDeviceFleetName_,
+      devices = Prelude.mempty
     }
 
 -- | The name of the fleet the devices belong to.
-udDeviceFleetName :: Lens' UpdateDevices Text
-udDeviceFleetName = lens _udDeviceFleetName (\s a -> s {_udDeviceFleetName = a})
+updateDevices_deviceFleetName :: Lens.Lens' UpdateDevices Prelude.Text
+updateDevices_deviceFleetName = Lens.lens (\UpdateDevices' {deviceFleetName} -> deviceFleetName) (\s@UpdateDevices' {} a -> s {deviceFleetName = a} :: UpdateDevices)
 
 -- | List of devices to register with Edge Manager agent.
-udDevices :: Lens' UpdateDevices [Device]
-udDevices = lens _udDevices (\s a -> s {_udDevices = a}) . _Coerce
+updateDevices_devices :: Lens.Lens' UpdateDevices [Device]
+updateDevices_devices = Lens.lens (\UpdateDevices' {devices} -> devices) (\s@UpdateDevices' {} a -> s {devices = a} :: UpdateDevices) Prelude.. Prelude._Coerce
 
-instance AWSRequest UpdateDevices where
+instance Prelude.AWSRequest UpdateDevices where
   type Rs UpdateDevices = UpdateDevicesResponse
-  request = postJSON sageMaker
-  response = receiveNull UpdateDevicesResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull UpdateDevicesResponse'
 
-instance Hashable UpdateDevices
+instance Prelude.Hashable UpdateDevices
 
-instance NFData UpdateDevices
+instance Prelude.NFData UpdateDevices
 
-instance ToHeaders UpdateDevices where
+instance Prelude.ToHeaders UpdateDevices where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.UpdateDevices" :: ByteString),
+              Prelude.=# ("SageMaker.UpdateDevices" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateDevices where
+instance Prelude.ToJSON UpdateDevices where
   toJSON UpdateDevices' {..} =
-    object
-      ( catMaybes
-          [ Just ("DeviceFleetName" .= _udDeviceFleetName),
-            Just ("Devices" .= _udDevices)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("DeviceFleetName" Prelude..= deviceFleetName),
+            Prelude.Just ("Devices" Prelude..= devices)
           ]
       )
 
-instance ToPath UpdateDevices where
-  toPath = const "/"
+instance Prelude.ToPath UpdateDevices where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateDevices where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateDevices where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateDevicesResponse' smart constructor.
+-- | /See:/ 'newUpdateDevicesResponse' smart constructor.
 data UpdateDevicesResponse = UpdateDevicesResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateDevicesResponse' with the minimum fields required to make a request.
-updateDevicesResponse ::
+-- |
+-- Create a value of 'UpdateDevicesResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newUpdateDevicesResponse ::
   UpdateDevicesResponse
-updateDevicesResponse = UpdateDevicesResponse'
+newUpdateDevicesResponse = UpdateDevicesResponse'
 
-instance NFData UpdateDevicesResponse
+instance Prelude.NFData UpdateDevicesResponse

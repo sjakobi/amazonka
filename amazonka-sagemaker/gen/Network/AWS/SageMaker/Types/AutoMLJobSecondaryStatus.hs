@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,97 +19,95 @@
 module Network.AWS.SageMaker.Types.AutoMLJobSecondaryStatus
   ( AutoMLJobSecondaryStatus
       ( ..,
-        AMLJSSAnalyzingData,
-        AMLJSSCandidateDefinitionsGenerated,
-        AMLJSSFailed,
-        AMLJSSFeatureEngineering,
-        AMLJSSMaxAutoMLJobRuntimeReached,
-        AMLJSSMaxCandidatesReached,
-        AMLJSSModelTuning,
-        AMLJSSStarting,
-        AMLJSSStopped,
-        AMLJSSStopping
+        AutoMLJobSecondaryStatusAnalyzingData,
+        AutoMLJobSecondaryStatusCandidateDefinitionsGenerated,
+        AutoMLJobSecondaryStatusFailed,
+        AutoMLJobSecondaryStatusFeatureEngineering,
+        AutoMLJobSecondaryStatusMaxAutoMLJobRuntimeReached,
+        AutoMLJobSecondaryStatusMaxCandidatesReached,
+        AutoMLJobSecondaryStatusModelTuning,
+        AutoMLJobSecondaryStatusStarting,
+        AutoMLJobSecondaryStatusStopped,
+        AutoMLJobSecondaryStatusStopping
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AutoMLJobSecondaryStatus
-  = AutoMLJobSecondaryStatus'
-      ( CI
-          Text
-      )
+newtype AutoMLJobSecondaryStatus = AutoMLJobSecondaryStatus'
+  { fromAutoMLJobSecondaryStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AMLJSSAnalyzingData :: AutoMLJobSecondaryStatus
-pattern AMLJSSAnalyzingData = AutoMLJobSecondaryStatus' "AnalyzingData"
+pattern AutoMLJobSecondaryStatusAnalyzingData :: AutoMLJobSecondaryStatus
+pattern AutoMLJobSecondaryStatusAnalyzingData = AutoMLJobSecondaryStatus' "AnalyzingData"
 
-pattern AMLJSSCandidateDefinitionsGenerated :: AutoMLJobSecondaryStatus
-pattern AMLJSSCandidateDefinitionsGenerated = AutoMLJobSecondaryStatus' "CandidateDefinitionsGenerated"
+pattern AutoMLJobSecondaryStatusCandidateDefinitionsGenerated :: AutoMLJobSecondaryStatus
+pattern AutoMLJobSecondaryStatusCandidateDefinitionsGenerated = AutoMLJobSecondaryStatus' "CandidateDefinitionsGenerated"
 
-pattern AMLJSSFailed :: AutoMLJobSecondaryStatus
-pattern AMLJSSFailed = AutoMLJobSecondaryStatus' "Failed"
+pattern AutoMLJobSecondaryStatusFailed :: AutoMLJobSecondaryStatus
+pattern AutoMLJobSecondaryStatusFailed = AutoMLJobSecondaryStatus' "Failed"
 
-pattern AMLJSSFeatureEngineering :: AutoMLJobSecondaryStatus
-pattern AMLJSSFeatureEngineering = AutoMLJobSecondaryStatus' "FeatureEngineering"
+pattern AutoMLJobSecondaryStatusFeatureEngineering :: AutoMLJobSecondaryStatus
+pattern AutoMLJobSecondaryStatusFeatureEngineering = AutoMLJobSecondaryStatus' "FeatureEngineering"
 
-pattern AMLJSSMaxAutoMLJobRuntimeReached :: AutoMLJobSecondaryStatus
-pattern AMLJSSMaxAutoMLJobRuntimeReached = AutoMLJobSecondaryStatus' "MaxAutoMLJobRuntimeReached"
+pattern AutoMLJobSecondaryStatusMaxAutoMLJobRuntimeReached :: AutoMLJobSecondaryStatus
+pattern AutoMLJobSecondaryStatusMaxAutoMLJobRuntimeReached = AutoMLJobSecondaryStatus' "MaxAutoMLJobRuntimeReached"
 
-pattern AMLJSSMaxCandidatesReached :: AutoMLJobSecondaryStatus
-pattern AMLJSSMaxCandidatesReached = AutoMLJobSecondaryStatus' "MaxCandidatesReached"
+pattern AutoMLJobSecondaryStatusMaxCandidatesReached :: AutoMLJobSecondaryStatus
+pattern AutoMLJobSecondaryStatusMaxCandidatesReached = AutoMLJobSecondaryStatus' "MaxCandidatesReached"
 
-pattern AMLJSSModelTuning :: AutoMLJobSecondaryStatus
-pattern AMLJSSModelTuning = AutoMLJobSecondaryStatus' "ModelTuning"
+pattern AutoMLJobSecondaryStatusModelTuning :: AutoMLJobSecondaryStatus
+pattern AutoMLJobSecondaryStatusModelTuning = AutoMLJobSecondaryStatus' "ModelTuning"
 
-pattern AMLJSSStarting :: AutoMLJobSecondaryStatus
-pattern AMLJSSStarting = AutoMLJobSecondaryStatus' "Starting"
+pattern AutoMLJobSecondaryStatusStarting :: AutoMLJobSecondaryStatus
+pattern AutoMLJobSecondaryStatusStarting = AutoMLJobSecondaryStatus' "Starting"
 
-pattern AMLJSSStopped :: AutoMLJobSecondaryStatus
-pattern AMLJSSStopped = AutoMLJobSecondaryStatus' "Stopped"
+pattern AutoMLJobSecondaryStatusStopped :: AutoMLJobSecondaryStatus
+pattern AutoMLJobSecondaryStatusStopped = AutoMLJobSecondaryStatus' "Stopped"
 
-pattern AMLJSSStopping :: AutoMLJobSecondaryStatus
-pattern AMLJSSStopping = AutoMLJobSecondaryStatus' "Stopping"
+pattern AutoMLJobSecondaryStatusStopping :: AutoMLJobSecondaryStatus
+pattern AutoMLJobSecondaryStatusStopping = AutoMLJobSecondaryStatus' "Stopping"
 
 {-# COMPLETE
-  AMLJSSAnalyzingData,
-  AMLJSSCandidateDefinitionsGenerated,
-  AMLJSSFailed,
-  AMLJSSFeatureEngineering,
-  AMLJSSMaxAutoMLJobRuntimeReached,
-  AMLJSSMaxCandidatesReached,
-  AMLJSSModelTuning,
-  AMLJSSStarting,
-  AMLJSSStopped,
-  AMLJSSStopping,
+  AutoMLJobSecondaryStatusAnalyzingData,
+  AutoMLJobSecondaryStatusCandidateDefinitionsGenerated,
+  AutoMLJobSecondaryStatusFailed,
+  AutoMLJobSecondaryStatusFeatureEngineering,
+  AutoMLJobSecondaryStatusMaxAutoMLJobRuntimeReached,
+  AutoMLJobSecondaryStatusMaxCandidatesReached,
+  AutoMLJobSecondaryStatusModelTuning,
+  AutoMLJobSecondaryStatusStarting,
+  AutoMLJobSecondaryStatusStopped,
+  AutoMLJobSecondaryStatusStopping,
   AutoMLJobSecondaryStatus'
   #-}
 
-instance FromText AutoMLJobSecondaryStatus where
-  parser = (AutoMLJobSecondaryStatus' . mk) <$> takeText
+instance Prelude.FromText AutoMLJobSecondaryStatus where
+  parser = AutoMLJobSecondaryStatus' Prelude.<$> Prelude.takeText
 
-instance ToText AutoMLJobSecondaryStatus where
-  toText (AutoMLJobSecondaryStatus' ci) = original ci
+instance Prelude.ToText AutoMLJobSecondaryStatus where
+  toText (AutoMLJobSecondaryStatus' x) = x
 
-instance Hashable AutoMLJobSecondaryStatus
+instance Prelude.Hashable AutoMLJobSecondaryStatus
 
-instance NFData AutoMLJobSecondaryStatus
+instance Prelude.NFData AutoMLJobSecondaryStatus
 
-instance ToByteString AutoMLJobSecondaryStatus
+instance Prelude.ToByteString AutoMLJobSecondaryStatus
 
-instance ToQuery AutoMLJobSecondaryStatus
+instance Prelude.ToQuery AutoMLJobSecondaryStatus
 
-instance ToHeader AutoMLJobSecondaryStatus
+instance Prelude.ToHeader AutoMLJobSecondaryStatus
 
-instance FromJSON AutoMLJobSecondaryStatus where
-  parseJSON = parseJSONText "AutoMLJobSecondaryStatus"
+instance Prelude.FromJSON AutoMLJobSecondaryStatus where
+  parseJSON = Prelude.parseJSONText "AutoMLJobSecondaryStatus"

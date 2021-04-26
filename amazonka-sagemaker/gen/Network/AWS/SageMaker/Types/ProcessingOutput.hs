@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,88 +19,106 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.ProcessingOutput where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.ProcessingFeatureStoreOutput
 import Network.AWS.SageMaker.Types.ProcessingS3Output
 
--- | Describes the results of a processing job. The processing output must specify exactly one of either @S3Output@ or @FeatureStoreOutput@ types.
+-- | Describes the results of a processing job. The processing output must
+-- specify exactly one of either @S3Output@ or @FeatureStoreOutput@ types.
 --
---
---
--- /See:/ 'processingOutput' smart constructor.
+-- /See:/ 'newProcessingOutput' smart constructor.
 data ProcessingOutput = ProcessingOutput'
-  { _poS3Output ::
-      !(Maybe ProcessingS3Output),
-    _poFeatureStoreOutput ::
-      !(Maybe ProcessingFeatureStoreOutput),
-    _poAppManaged :: !(Maybe Bool),
-    _poOutputName :: !Text
+  { -- | Configuration for processing job outputs in Amazon S3.
+    s3Output :: Prelude.Maybe ProcessingS3Output,
+    -- | Configuration for processing job outputs in Amazon SageMaker Feature
+    -- Store. This processing output type is only supported when @AppManaged@
+    -- is specified.
+    featureStoreOutput :: Prelude.Maybe ProcessingFeatureStoreOutput,
+    -- | When @True@, output operations such as data upload are managed natively
+    -- by the processing job application. When @False@ (default), output
+    -- operations are managed by Amazon SageMaker.
+    appManaged :: Prelude.Maybe Prelude.Bool,
+    -- | The name for the processing job output.
+    outputName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ProcessingOutput' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ProcessingOutput' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'poS3Output' - Configuration for processing job outputs in Amazon S3.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'poFeatureStoreOutput' - Configuration for processing job outputs in Amazon SageMaker Feature Store. This processing output type is only supported when @AppManaged@ is specified.
+-- 's3Output', 'processingOutput_s3Output' - Configuration for processing job outputs in Amazon S3.
 --
--- * 'poAppManaged' - When @True@ , output operations such as data upload are managed natively by the processing job application. When @False@ (default), output operations are managed by Amazon SageMaker.
+-- 'featureStoreOutput', 'processingOutput_featureStoreOutput' - Configuration for processing job outputs in Amazon SageMaker Feature
+-- Store. This processing output type is only supported when @AppManaged@
+-- is specified.
 --
--- * 'poOutputName' - The name for the processing job output.
-processingOutput ::
-  -- | 'poOutputName'
-  Text ->
+-- 'appManaged', 'processingOutput_appManaged' - When @True@, output operations such as data upload are managed natively
+-- by the processing job application. When @False@ (default), output
+-- operations are managed by Amazon SageMaker.
+--
+-- 'outputName', 'processingOutput_outputName' - The name for the processing job output.
+newProcessingOutput ::
+  -- | 'outputName'
+  Prelude.Text ->
   ProcessingOutput
-processingOutput pOutputName_ =
+newProcessingOutput pOutputName_ =
   ProcessingOutput'
-    { _poS3Output = Nothing,
-      _poFeatureStoreOutput = Nothing,
-      _poAppManaged = Nothing,
-      _poOutputName = pOutputName_
+    { s3Output = Prelude.Nothing,
+      featureStoreOutput = Prelude.Nothing,
+      appManaged = Prelude.Nothing,
+      outputName = pOutputName_
     }
 
 -- | Configuration for processing job outputs in Amazon S3.
-poS3Output :: Lens' ProcessingOutput (Maybe ProcessingS3Output)
-poS3Output = lens _poS3Output (\s a -> s {_poS3Output = a})
+processingOutput_s3Output :: Lens.Lens' ProcessingOutput (Prelude.Maybe ProcessingS3Output)
+processingOutput_s3Output = Lens.lens (\ProcessingOutput' {s3Output} -> s3Output) (\s@ProcessingOutput' {} a -> s {s3Output = a} :: ProcessingOutput)
 
--- | Configuration for processing job outputs in Amazon SageMaker Feature Store. This processing output type is only supported when @AppManaged@ is specified.
-poFeatureStoreOutput :: Lens' ProcessingOutput (Maybe ProcessingFeatureStoreOutput)
-poFeatureStoreOutput = lens _poFeatureStoreOutput (\s a -> s {_poFeatureStoreOutput = a})
+-- | Configuration for processing job outputs in Amazon SageMaker Feature
+-- Store. This processing output type is only supported when @AppManaged@
+-- is specified.
+processingOutput_featureStoreOutput :: Lens.Lens' ProcessingOutput (Prelude.Maybe ProcessingFeatureStoreOutput)
+processingOutput_featureStoreOutput = Lens.lens (\ProcessingOutput' {featureStoreOutput} -> featureStoreOutput) (\s@ProcessingOutput' {} a -> s {featureStoreOutput = a} :: ProcessingOutput)
 
--- | When @True@ , output operations such as data upload are managed natively by the processing job application. When @False@ (default), output operations are managed by Amazon SageMaker.
-poAppManaged :: Lens' ProcessingOutput (Maybe Bool)
-poAppManaged = lens _poAppManaged (\s a -> s {_poAppManaged = a})
+-- | When @True@, output operations such as data upload are managed natively
+-- by the processing job application. When @False@ (default), output
+-- operations are managed by Amazon SageMaker.
+processingOutput_appManaged :: Lens.Lens' ProcessingOutput (Prelude.Maybe Prelude.Bool)
+processingOutput_appManaged = Lens.lens (\ProcessingOutput' {appManaged} -> appManaged) (\s@ProcessingOutput' {} a -> s {appManaged = a} :: ProcessingOutput)
 
 -- | The name for the processing job output.
-poOutputName :: Lens' ProcessingOutput Text
-poOutputName = lens _poOutputName (\s a -> s {_poOutputName = a})
+processingOutput_outputName :: Lens.Lens' ProcessingOutput Prelude.Text
+processingOutput_outputName = Lens.lens (\ProcessingOutput' {outputName} -> outputName) (\s@ProcessingOutput' {} a -> s {outputName = a} :: ProcessingOutput)
 
-instance FromJSON ProcessingOutput where
+instance Prelude.FromJSON ProcessingOutput where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ProcessingOutput"
       ( \x ->
           ProcessingOutput'
-            <$> (x .:? "S3Output")
-            <*> (x .:? "FeatureStoreOutput")
-            <*> (x .:? "AppManaged")
-            <*> (x .: "OutputName")
+            Prelude.<$> (x Prelude..:? "S3Output")
+            Prelude.<*> (x Prelude..:? "FeatureStoreOutput")
+            Prelude.<*> (x Prelude..:? "AppManaged")
+            Prelude.<*> (x Prelude..: "OutputName")
       )
 
-instance Hashable ProcessingOutput
+instance Prelude.Hashable ProcessingOutput
 
-instance NFData ProcessingOutput
+instance Prelude.NFData ProcessingOutput
 
-instance ToJSON ProcessingOutput where
+instance Prelude.ToJSON ProcessingOutput where
   toJSON ProcessingOutput' {..} =
-    object
-      ( catMaybes
-          [ ("S3Output" .=) <$> _poS3Output,
-            ("FeatureStoreOutput" .=) <$> _poFeatureStoreOutput,
-            ("AppManaged" .=) <$> _poAppManaged,
-            Just ("OutputName" .= _poOutputName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("S3Output" Prelude..=) Prelude.<$> s3Output,
+            ("FeatureStoreOutput" Prelude..=)
+              Prelude.<$> featureStoreOutput,
+            ("AppManaged" Prelude..=) Prelude.<$> appManaged,
+            Prelude.Just ("OutputName" Prelude..= outputName)
           ]
       )

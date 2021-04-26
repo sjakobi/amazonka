@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,64 +19,62 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.MonitoringStoppingCondition where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A time limit for how long the monitoring job is allowed to run before stopping.
+-- | A time limit for how long the monitoring job is allowed to run before
+-- stopping.
 --
---
---
--- /See:/ 'monitoringStoppingCondition' smart constructor.
-newtype MonitoringStoppingCondition = MonitoringStoppingCondition'
-  { _mscMaxRuntimeInSeconds ::
-      Nat
+-- /See:/ 'newMonitoringStoppingCondition' smart constructor.
+data MonitoringStoppingCondition = MonitoringStoppingCondition'
+  { -- | The maximum runtime allowed in seconds.
+    maxRuntimeInSeconds :: Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MonitoringStoppingCondition' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MonitoringStoppingCondition' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mscMaxRuntimeInSeconds' - The maximum runtime allowed in seconds.
-monitoringStoppingCondition ::
-  -- | 'mscMaxRuntimeInSeconds'
-  Natural ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'maxRuntimeInSeconds', 'monitoringStoppingCondition_maxRuntimeInSeconds' - The maximum runtime allowed in seconds.
+newMonitoringStoppingCondition ::
+  -- | 'maxRuntimeInSeconds'
+  Prelude.Natural ->
   MonitoringStoppingCondition
-monitoringStoppingCondition pMaxRuntimeInSeconds_ =
+newMonitoringStoppingCondition pMaxRuntimeInSeconds_ =
   MonitoringStoppingCondition'
-    { _mscMaxRuntimeInSeconds =
-        _Nat # pMaxRuntimeInSeconds_
+    { maxRuntimeInSeconds =
+        Prelude._Nat Lens.# pMaxRuntimeInSeconds_
     }
 
 -- | The maximum runtime allowed in seconds.
-mscMaxRuntimeInSeconds :: Lens' MonitoringStoppingCondition Natural
-mscMaxRuntimeInSeconds = lens _mscMaxRuntimeInSeconds (\s a -> s {_mscMaxRuntimeInSeconds = a}) . _Nat
+monitoringStoppingCondition_maxRuntimeInSeconds :: Lens.Lens' MonitoringStoppingCondition Prelude.Natural
+monitoringStoppingCondition_maxRuntimeInSeconds = Lens.lens (\MonitoringStoppingCondition' {maxRuntimeInSeconds} -> maxRuntimeInSeconds) (\s@MonitoringStoppingCondition' {} a -> s {maxRuntimeInSeconds = a} :: MonitoringStoppingCondition) Prelude.. Prelude._Nat
 
-instance FromJSON MonitoringStoppingCondition where
+instance Prelude.FromJSON MonitoringStoppingCondition where
   parseJSON =
-    withObject
+    Prelude.withObject
       "MonitoringStoppingCondition"
       ( \x ->
           MonitoringStoppingCondition'
-            <$> (x .: "MaxRuntimeInSeconds")
+            Prelude.<$> (x Prelude..: "MaxRuntimeInSeconds")
       )
 
-instance Hashable MonitoringStoppingCondition
+instance Prelude.Hashable MonitoringStoppingCondition
 
-instance NFData MonitoringStoppingCondition
+instance Prelude.NFData MonitoringStoppingCondition
 
-instance ToJSON MonitoringStoppingCondition where
+instance Prelude.ToJSON MonitoringStoppingCondition where
   toJSON MonitoringStoppingCondition' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("MaxRuntimeInSeconds" .= _mscMaxRuntimeInSeconds)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ( "MaxRuntimeInSeconds"
+                  Prelude..= maxRuntimeInSeconds
+              )
           ]
       )

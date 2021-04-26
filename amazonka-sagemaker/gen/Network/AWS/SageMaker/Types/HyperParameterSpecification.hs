@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,134 +19,137 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.HyperParameterSpecification where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.ParameterRange
 import Network.AWS.SageMaker.Types.ParameterType
 
 -- | Defines a hyperparameter to be used by an algorithm.
 --
---
---
--- /See:/ 'hyperParameterSpecification' smart constructor.
+-- /See:/ 'newHyperParameterSpecification' smart constructor.
 data HyperParameterSpecification = HyperParameterSpecification'
-  { _hpsRange ::
-      !( Maybe
-           ParameterRange
-       ),
-    _hpsIsTunable ::
-      !(Maybe Bool),
-    _hpsDescription ::
-      !(Maybe Text),
-    _hpsIsRequired ::
-      !(Maybe Bool),
-    _hpsDefaultValue ::
-      !(Maybe Text),
-    _hpsName ::
-      !Text,
-    _hpsType ::
-      !ParameterType
+  { -- | The allowed range for this hyperparameter.
+    range :: Prelude.Maybe ParameterRange,
+    -- | Indicates whether this hyperparameter is tunable in a hyperparameter
+    -- tuning job.
+    isTunable :: Prelude.Maybe Prelude.Bool,
+    -- | A brief description of the hyperparameter.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | Indicates whether this hyperparameter is required.
+    isRequired :: Prelude.Maybe Prelude.Bool,
+    -- | The default value for this hyperparameter. If a default value is
+    -- specified, a hyperparameter cannot be required.
+    defaultValue :: Prelude.Maybe Prelude.Text,
+    -- | The name of this hyperparameter. The name must be unique.
+    name :: Prelude.Text,
+    -- | The type of this hyperparameter. The valid types are @Integer@,
+    -- @Continuous@, @Categorical@, and @FreeText@.
+    type' :: ParameterType
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'HyperParameterSpecification' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'HyperParameterSpecification' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'hpsRange' - The allowed range for this hyperparameter.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'hpsIsTunable' - Indicates whether this hyperparameter is tunable in a hyperparameter tuning job.
+-- 'range', 'hyperParameterSpecification_range' - The allowed range for this hyperparameter.
 --
--- * 'hpsDescription' - A brief description of the hyperparameter.
+-- 'isTunable', 'hyperParameterSpecification_isTunable' - Indicates whether this hyperparameter is tunable in a hyperparameter
+-- tuning job.
 --
--- * 'hpsIsRequired' - Indicates whether this hyperparameter is required.
+-- 'description', 'hyperParameterSpecification_description' - A brief description of the hyperparameter.
 --
--- * 'hpsDefaultValue' - The default value for this hyperparameter. If a default value is specified, a hyperparameter cannot be required.
+-- 'isRequired', 'hyperParameterSpecification_isRequired' - Indicates whether this hyperparameter is required.
 --
--- * 'hpsName' - The name of this hyperparameter. The name must be unique.
+-- 'defaultValue', 'hyperParameterSpecification_defaultValue' - The default value for this hyperparameter. If a default value is
+-- specified, a hyperparameter cannot be required.
 --
--- * 'hpsType' - The type of this hyperparameter. The valid types are @Integer@ , @Continuous@ , @Categorical@ , and @FreeText@ .
-hyperParameterSpecification ::
-  -- | 'hpsName'
-  Text ->
-  -- | 'hpsType'
+-- 'name', 'hyperParameterSpecification_name' - The name of this hyperparameter. The name must be unique.
+--
+-- 'type'', 'hyperParameterSpecification_type' - The type of this hyperparameter. The valid types are @Integer@,
+-- @Continuous@, @Categorical@, and @FreeText@.
+newHyperParameterSpecification ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'type''
   ParameterType ->
   HyperParameterSpecification
-hyperParameterSpecification pName_ pType_ =
+newHyperParameterSpecification pName_ pType_ =
   HyperParameterSpecification'
-    { _hpsRange = Nothing,
-      _hpsIsTunable = Nothing,
-      _hpsDescription = Nothing,
-      _hpsIsRequired = Nothing,
-      _hpsDefaultValue = Nothing,
-      _hpsName = pName_,
-      _hpsType = pType_
+    { range =
+        Prelude.Nothing,
+      isTunable = Prelude.Nothing,
+      description = Prelude.Nothing,
+      isRequired = Prelude.Nothing,
+      defaultValue = Prelude.Nothing,
+      name = pName_,
+      type' = pType_
     }
 
 -- | The allowed range for this hyperparameter.
-hpsRange :: Lens' HyperParameterSpecification (Maybe ParameterRange)
-hpsRange = lens _hpsRange (\s a -> s {_hpsRange = a})
+hyperParameterSpecification_range :: Lens.Lens' HyperParameterSpecification (Prelude.Maybe ParameterRange)
+hyperParameterSpecification_range = Lens.lens (\HyperParameterSpecification' {range} -> range) (\s@HyperParameterSpecification' {} a -> s {range = a} :: HyperParameterSpecification)
 
--- | Indicates whether this hyperparameter is tunable in a hyperparameter tuning job.
-hpsIsTunable :: Lens' HyperParameterSpecification (Maybe Bool)
-hpsIsTunable = lens _hpsIsTunable (\s a -> s {_hpsIsTunable = a})
+-- | Indicates whether this hyperparameter is tunable in a hyperparameter
+-- tuning job.
+hyperParameterSpecification_isTunable :: Lens.Lens' HyperParameterSpecification (Prelude.Maybe Prelude.Bool)
+hyperParameterSpecification_isTunable = Lens.lens (\HyperParameterSpecification' {isTunable} -> isTunable) (\s@HyperParameterSpecification' {} a -> s {isTunable = a} :: HyperParameterSpecification)
 
 -- | A brief description of the hyperparameter.
-hpsDescription :: Lens' HyperParameterSpecification (Maybe Text)
-hpsDescription = lens _hpsDescription (\s a -> s {_hpsDescription = a})
+hyperParameterSpecification_description :: Lens.Lens' HyperParameterSpecification (Prelude.Maybe Prelude.Text)
+hyperParameterSpecification_description = Lens.lens (\HyperParameterSpecification' {description} -> description) (\s@HyperParameterSpecification' {} a -> s {description = a} :: HyperParameterSpecification)
 
 -- | Indicates whether this hyperparameter is required.
-hpsIsRequired :: Lens' HyperParameterSpecification (Maybe Bool)
-hpsIsRequired = lens _hpsIsRequired (\s a -> s {_hpsIsRequired = a})
+hyperParameterSpecification_isRequired :: Lens.Lens' HyperParameterSpecification (Prelude.Maybe Prelude.Bool)
+hyperParameterSpecification_isRequired = Lens.lens (\HyperParameterSpecification' {isRequired} -> isRequired) (\s@HyperParameterSpecification' {} a -> s {isRequired = a} :: HyperParameterSpecification)
 
--- | The default value for this hyperparameter. If a default value is specified, a hyperparameter cannot be required.
-hpsDefaultValue :: Lens' HyperParameterSpecification (Maybe Text)
-hpsDefaultValue = lens _hpsDefaultValue (\s a -> s {_hpsDefaultValue = a})
+-- | The default value for this hyperparameter. If a default value is
+-- specified, a hyperparameter cannot be required.
+hyperParameterSpecification_defaultValue :: Lens.Lens' HyperParameterSpecification (Prelude.Maybe Prelude.Text)
+hyperParameterSpecification_defaultValue = Lens.lens (\HyperParameterSpecification' {defaultValue} -> defaultValue) (\s@HyperParameterSpecification' {} a -> s {defaultValue = a} :: HyperParameterSpecification)
 
 -- | The name of this hyperparameter. The name must be unique.
-hpsName :: Lens' HyperParameterSpecification Text
-hpsName = lens _hpsName (\s a -> s {_hpsName = a})
+hyperParameterSpecification_name :: Lens.Lens' HyperParameterSpecification Prelude.Text
+hyperParameterSpecification_name = Lens.lens (\HyperParameterSpecification' {name} -> name) (\s@HyperParameterSpecification' {} a -> s {name = a} :: HyperParameterSpecification)
 
--- | The type of this hyperparameter. The valid types are @Integer@ , @Continuous@ , @Categorical@ , and @FreeText@ .
-hpsType :: Lens' HyperParameterSpecification ParameterType
-hpsType = lens _hpsType (\s a -> s {_hpsType = a})
+-- | The type of this hyperparameter. The valid types are @Integer@,
+-- @Continuous@, @Categorical@, and @FreeText@.
+hyperParameterSpecification_type :: Lens.Lens' HyperParameterSpecification ParameterType
+hyperParameterSpecification_type = Lens.lens (\HyperParameterSpecification' {type'} -> type') (\s@HyperParameterSpecification' {} a -> s {type' = a} :: HyperParameterSpecification)
 
-instance FromJSON HyperParameterSpecification where
+instance Prelude.FromJSON HyperParameterSpecification where
   parseJSON =
-    withObject
+    Prelude.withObject
       "HyperParameterSpecification"
       ( \x ->
           HyperParameterSpecification'
-            <$> (x .:? "Range")
-            <*> (x .:? "IsTunable")
-            <*> (x .:? "Description")
-            <*> (x .:? "IsRequired")
-            <*> (x .:? "DefaultValue")
-            <*> (x .: "Name")
-            <*> (x .: "Type")
+            Prelude.<$> (x Prelude..:? "Range")
+            Prelude.<*> (x Prelude..:? "IsTunable")
+            Prelude.<*> (x Prelude..:? "Description")
+            Prelude.<*> (x Prelude..:? "IsRequired")
+            Prelude.<*> (x Prelude..:? "DefaultValue")
+            Prelude.<*> (x Prelude..: "Name")
+            Prelude.<*> (x Prelude..: "Type")
       )
 
-instance Hashable HyperParameterSpecification
+instance Prelude.Hashable HyperParameterSpecification
 
-instance NFData HyperParameterSpecification
+instance Prelude.NFData HyperParameterSpecification
 
-instance ToJSON HyperParameterSpecification where
+instance Prelude.ToJSON HyperParameterSpecification where
   toJSON HyperParameterSpecification' {..} =
-    object
-      ( catMaybes
-          [ ("Range" .=) <$> _hpsRange,
-            ("IsTunable" .=) <$> _hpsIsTunable,
-            ("Description" .=) <$> _hpsDescription,
-            ("IsRequired" .=) <$> _hpsIsRequired,
-            ("DefaultValue" .=) <$> _hpsDefaultValue,
-            Just ("Name" .= _hpsName),
-            Just ("Type" .= _hpsType)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Range" Prelude..=) Prelude.<$> range,
+            ("IsTunable" Prelude..=) Prelude.<$> isTunable,
+            ("Description" Prelude..=) Prelude.<$> description,
+            ("IsRequired" Prelude..=) Prelude.<$> isRequired,
+            ("DefaultValue" Prelude..=) Prelude.<$> defaultValue,
+            Prelude.Just ("Name" Prelude..= name),
+            Prelude.Just ("Type" Prelude..= type')
           ]
       )

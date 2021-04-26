@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,65 +19,88 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.OnlineStoreConfig where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.OnlineStoreSecurityConfig
 
--- | Use this to specify the AWS Key Management Service (KMS) Key ID, or @KMSKeyId@ , for at rest data encryption. You can turn @OnlineStore@ on or off by specifying the @EnableOnlineStore@ flag at General Assembly; the default value is @False@ .
+-- | Use this to specify the AWS Key Management Service (KMS) Key ID, or
+-- @KMSKeyId@, for at rest data encryption. You can turn @OnlineStore@ on
+-- or off by specifying the @EnableOnlineStore@ flag at General Assembly;
+-- the default value is @False@.
 --
---
---
--- /See:/ 'onlineStoreConfig' smart constructor.
+-- /See:/ 'newOnlineStoreConfig' smart constructor.
 data OnlineStoreConfig = OnlineStoreConfig'
-  { _oscSecurityConfig ::
-      !(Maybe OnlineStoreSecurityConfig),
-    _oscEnableOnlineStore ::
-      !(Maybe Bool)
+  { -- | Use to specify KMS Key ID (@KMSKeyId@) for at-rest encryption of your
+    -- @OnlineStore@.
+    securityConfig :: Prelude.Maybe OnlineStoreSecurityConfig,
+    -- | Turn @OnlineStore@ off by specifying @False@ for the @EnableOnlineStore@
+    -- flag. Turn @OnlineStore@ on by specifying @True@ for the
+    -- @EnableOnlineStore@ flag.
+    --
+    -- The default value is @False@.
+    enableOnlineStore :: Prelude.Maybe Prelude.Bool
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OnlineStoreConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OnlineStoreConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'oscSecurityConfig' - Use to specify KMS Key ID (@KMSKeyId@ ) for at-rest encryption of your @OnlineStore@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'oscEnableOnlineStore' - Turn @OnlineStore@ off by specifying @False@ for the @EnableOnlineStore@ flag. Turn @OnlineStore@ on by specifying @True@ for the @EnableOnlineStore@ flag.  The default value is @False@ .
-onlineStoreConfig ::
+-- 'securityConfig', 'onlineStoreConfig_securityConfig' - Use to specify KMS Key ID (@KMSKeyId@) for at-rest encryption of your
+-- @OnlineStore@.
+--
+-- 'enableOnlineStore', 'onlineStoreConfig_enableOnlineStore' - Turn @OnlineStore@ off by specifying @False@ for the @EnableOnlineStore@
+-- flag. Turn @OnlineStore@ on by specifying @True@ for the
+-- @EnableOnlineStore@ flag.
+--
+-- The default value is @False@.
+newOnlineStoreConfig ::
   OnlineStoreConfig
-onlineStoreConfig =
+newOnlineStoreConfig =
   OnlineStoreConfig'
-    { _oscSecurityConfig = Nothing,
-      _oscEnableOnlineStore = Nothing
+    { securityConfig =
+        Prelude.Nothing,
+      enableOnlineStore = Prelude.Nothing
     }
 
--- | Use to specify KMS Key ID (@KMSKeyId@ ) for at-rest encryption of your @OnlineStore@ .
-oscSecurityConfig :: Lens' OnlineStoreConfig (Maybe OnlineStoreSecurityConfig)
-oscSecurityConfig = lens _oscSecurityConfig (\s a -> s {_oscSecurityConfig = a})
+-- | Use to specify KMS Key ID (@KMSKeyId@) for at-rest encryption of your
+-- @OnlineStore@.
+onlineStoreConfig_securityConfig :: Lens.Lens' OnlineStoreConfig (Prelude.Maybe OnlineStoreSecurityConfig)
+onlineStoreConfig_securityConfig = Lens.lens (\OnlineStoreConfig' {securityConfig} -> securityConfig) (\s@OnlineStoreConfig' {} a -> s {securityConfig = a} :: OnlineStoreConfig)
 
--- | Turn @OnlineStore@ off by specifying @False@ for the @EnableOnlineStore@ flag. Turn @OnlineStore@ on by specifying @True@ for the @EnableOnlineStore@ flag.  The default value is @False@ .
-oscEnableOnlineStore :: Lens' OnlineStoreConfig (Maybe Bool)
-oscEnableOnlineStore = lens _oscEnableOnlineStore (\s a -> s {_oscEnableOnlineStore = a})
+-- | Turn @OnlineStore@ off by specifying @False@ for the @EnableOnlineStore@
+-- flag. Turn @OnlineStore@ on by specifying @True@ for the
+-- @EnableOnlineStore@ flag.
+--
+-- The default value is @False@.
+onlineStoreConfig_enableOnlineStore :: Lens.Lens' OnlineStoreConfig (Prelude.Maybe Prelude.Bool)
+onlineStoreConfig_enableOnlineStore = Lens.lens (\OnlineStoreConfig' {enableOnlineStore} -> enableOnlineStore) (\s@OnlineStoreConfig' {} a -> s {enableOnlineStore = a} :: OnlineStoreConfig)
 
-instance FromJSON OnlineStoreConfig where
+instance Prelude.FromJSON OnlineStoreConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "OnlineStoreConfig"
       ( \x ->
           OnlineStoreConfig'
-            <$> (x .:? "SecurityConfig")
-            <*> (x .:? "EnableOnlineStore")
+            Prelude.<$> (x Prelude..:? "SecurityConfig")
+            Prelude.<*> (x Prelude..:? "EnableOnlineStore")
       )
 
-instance Hashable OnlineStoreConfig
+instance Prelude.Hashable OnlineStoreConfig
 
-instance NFData OnlineStoreConfig
+instance Prelude.NFData OnlineStoreConfig
 
-instance ToJSON OnlineStoreConfig where
+instance Prelude.ToJSON OnlineStoreConfig where
   toJSON OnlineStoreConfig' {..} =
-    object
-      ( catMaybes
-          [ ("SecurityConfig" .=) <$> _oscSecurityConfig,
-            ("EnableOnlineStore" .=) <$> _oscEnableOnlineStore
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("SecurityConfig" Prelude..=)
+              Prelude.<$> securityConfig,
+            ("EnableOnlineStore" Prelude..=)
+              Prelude.<$> enableOnlineStore
           ]
       )

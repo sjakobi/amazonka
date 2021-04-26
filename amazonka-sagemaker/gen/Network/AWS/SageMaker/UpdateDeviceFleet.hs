@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,131 +24,142 @@
 -- Updates a fleet of devices.
 module Network.AWS.SageMaker.UpdateDeviceFleet
   ( -- * Creating a Request
-    updateDeviceFleet,
-    UpdateDeviceFleet,
+    UpdateDeviceFleet (..),
+    newUpdateDeviceFleet,
 
     -- * Request Lenses
-    udfRoleARN,
-    udfDescription,
-    udfDeviceFleetName,
-    udfOutputConfig,
+    updateDeviceFleet_roleArn,
+    updateDeviceFleet_description,
+    updateDeviceFleet_deviceFleetName,
+    updateDeviceFleet_outputConfig,
 
     -- * Destructuring the Response
-    updateDeviceFleetResponse,
-    UpdateDeviceFleetResponse,
+    UpdateDeviceFleetResponse (..),
+    newUpdateDeviceFleetResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'updateDeviceFleet' smart constructor.
+-- | /See:/ 'newUpdateDeviceFleet' smart constructor.
 data UpdateDeviceFleet = UpdateDeviceFleet'
-  { _udfRoleARN ::
-      !(Maybe Text),
-    _udfDescription :: !(Maybe Text),
-    _udfDeviceFleetName :: !Text,
-    _udfOutputConfig ::
-      !EdgeOutputConfig
+  { -- | The Amazon Resource Name (ARN) of the device.
+    roleArn :: Prelude.Maybe Prelude.Text,
+    -- | Description of the fleet.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The name of the fleet.
+    deviceFleetName :: Prelude.Text,
+    -- | Output configuration for storing sample data collected by the fleet.
+    outputConfig :: EdgeOutputConfig
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateDeviceFleet' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateDeviceFleet' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'udfRoleARN' - The Amazon Resource Name (ARN) of the device.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'udfDescription' - Description of the fleet.
+-- 'roleArn', 'updateDeviceFleet_roleArn' - The Amazon Resource Name (ARN) of the device.
 --
--- * 'udfDeviceFleetName' - The name of the fleet.
+-- 'description', 'updateDeviceFleet_description' - Description of the fleet.
 --
--- * 'udfOutputConfig' - Output configuration for storing sample data collected by the fleet.
-updateDeviceFleet ::
-  -- | 'udfDeviceFleetName'
-  Text ->
-  -- | 'udfOutputConfig'
+-- 'deviceFleetName', 'updateDeviceFleet_deviceFleetName' - The name of the fleet.
+--
+-- 'outputConfig', 'updateDeviceFleet_outputConfig' - Output configuration for storing sample data collected by the fleet.
+newUpdateDeviceFleet ::
+  -- | 'deviceFleetName'
+  Prelude.Text ->
+  -- | 'outputConfig'
   EdgeOutputConfig ->
   UpdateDeviceFleet
-updateDeviceFleet pDeviceFleetName_ pOutputConfig_ =
+newUpdateDeviceFleet pDeviceFleetName_ pOutputConfig_ =
   UpdateDeviceFleet'
-    { _udfRoleARN = Nothing,
-      _udfDescription = Nothing,
-      _udfDeviceFleetName = pDeviceFleetName_,
-      _udfOutputConfig = pOutputConfig_
+    { roleArn = Prelude.Nothing,
+      description = Prelude.Nothing,
+      deviceFleetName = pDeviceFleetName_,
+      outputConfig = pOutputConfig_
     }
 
 -- | The Amazon Resource Name (ARN) of the device.
-udfRoleARN :: Lens' UpdateDeviceFleet (Maybe Text)
-udfRoleARN = lens _udfRoleARN (\s a -> s {_udfRoleARN = a})
+updateDeviceFleet_roleArn :: Lens.Lens' UpdateDeviceFleet (Prelude.Maybe Prelude.Text)
+updateDeviceFleet_roleArn = Lens.lens (\UpdateDeviceFleet' {roleArn} -> roleArn) (\s@UpdateDeviceFleet' {} a -> s {roleArn = a} :: UpdateDeviceFleet)
 
 -- | Description of the fleet.
-udfDescription :: Lens' UpdateDeviceFleet (Maybe Text)
-udfDescription = lens _udfDescription (\s a -> s {_udfDescription = a})
+updateDeviceFleet_description :: Lens.Lens' UpdateDeviceFleet (Prelude.Maybe Prelude.Text)
+updateDeviceFleet_description = Lens.lens (\UpdateDeviceFleet' {description} -> description) (\s@UpdateDeviceFleet' {} a -> s {description = a} :: UpdateDeviceFleet)
 
 -- | The name of the fleet.
-udfDeviceFleetName :: Lens' UpdateDeviceFleet Text
-udfDeviceFleetName = lens _udfDeviceFleetName (\s a -> s {_udfDeviceFleetName = a})
+updateDeviceFleet_deviceFleetName :: Lens.Lens' UpdateDeviceFleet Prelude.Text
+updateDeviceFleet_deviceFleetName = Lens.lens (\UpdateDeviceFleet' {deviceFleetName} -> deviceFleetName) (\s@UpdateDeviceFleet' {} a -> s {deviceFleetName = a} :: UpdateDeviceFleet)
 
 -- | Output configuration for storing sample data collected by the fleet.
-udfOutputConfig :: Lens' UpdateDeviceFleet EdgeOutputConfig
-udfOutputConfig = lens _udfOutputConfig (\s a -> s {_udfOutputConfig = a})
+updateDeviceFleet_outputConfig :: Lens.Lens' UpdateDeviceFleet EdgeOutputConfig
+updateDeviceFleet_outputConfig = Lens.lens (\UpdateDeviceFleet' {outputConfig} -> outputConfig) (\s@UpdateDeviceFleet' {} a -> s {outputConfig = a} :: UpdateDeviceFleet)
 
-instance AWSRequest UpdateDeviceFleet where
+instance Prelude.AWSRequest UpdateDeviceFleet where
   type Rs UpdateDeviceFleet = UpdateDeviceFleetResponse
-  request = postJSON sageMaker
-  response = receiveNull UpdateDeviceFleetResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull UpdateDeviceFleetResponse'
 
-instance Hashable UpdateDeviceFleet
+instance Prelude.Hashable UpdateDeviceFleet
 
-instance NFData UpdateDeviceFleet
+instance Prelude.NFData UpdateDeviceFleet
 
-instance ToHeaders UpdateDeviceFleet where
+instance Prelude.ToHeaders UpdateDeviceFleet where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.UpdateDeviceFleet" :: ByteString),
+              Prelude.=# ( "SageMaker.UpdateDeviceFleet" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateDeviceFleet where
+instance Prelude.ToJSON UpdateDeviceFleet where
   toJSON UpdateDeviceFleet' {..} =
-    object
-      ( catMaybes
-          [ ("RoleArn" .=) <$> _udfRoleARN,
-            ("Description" .=) <$> _udfDescription,
-            Just ("DeviceFleetName" .= _udfDeviceFleetName),
-            Just ("OutputConfig" .= _udfOutputConfig)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("RoleArn" Prelude..=) Prelude.<$> roleArn,
+            ("Description" Prelude..=) Prelude.<$> description,
+            Prelude.Just
+              ("DeviceFleetName" Prelude..= deviceFleetName),
+            Prelude.Just
+              ("OutputConfig" Prelude..= outputConfig)
           ]
       )
 
-instance ToPath UpdateDeviceFleet where
-  toPath = const "/"
+instance Prelude.ToPath UpdateDeviceFleet where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateDeviceFleet where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateDeviceFleet where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateDeviceFleetResponse' smart constructor.
+-- | /See:/ 'newUpdateDeviceFleetResponse' smart constructor.
 data UpdateDeviceFleetResponse = UpdateDeviceFleetResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateDeviceFleetResponse' with the minimum fields required to make a request.
-updateDeviceFleetResponse ::
+-- |
+-- Create a value of 'UpdateDeviceFleetResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newUpdateDeviceFleetResponse ::
   UpdateDeviceFleetResponse
-updateDeviceFleetResponse =
+newUpdateDeviceFleetResponse =
   UpdateDeviceFleetResponse'
 
-instance NFData UpdateDeviceFleetResponse
+instance Prelude.NFData UpdateDeviceFleetResponse

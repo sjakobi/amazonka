@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,8 +19,8 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.LabelingJobSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.LabelCounters
 import Network.AWS.SageMaker.Types.LabelingJobInputConfig
 import Network.AWS.SageMaker.Types.LabelingJobOutput
@@ -24,170 +28,196 @@ import Network.AWS.SageMaker.Types.LabelingJobStatus
 
 -- | Provides summary information about a labeling job.
 --
---
---
--- /See:/ 'labelingJobSummary' smart constructor.
+-- /See:/ 'newLabelingJobSummary' smart constructor.
 data LabelingJobSummary = LabelingJobSummary'
-  { _ljsAnnotationConsolidationLambdaARN ::
-      !(Maybe Text),
-    _ljsInputConfig ::
-      !(Maybe LabelingJobInputConfig),
-    _ljsFailureReason ::
-      !(Maybe Text),
-    _ljsLabelingJobOutput ::
-      !(Maybe LabelingJobOutput),
-    _ljsLabelingJobName :: !Text,
-    _ljsLabelingJobARN :: !Text,
-    _ljsCreationTime :: !POSIX,
-    _ljsLastModifiedTime :: !POSIX,
-    _ljsLabelingJobStatus ::
-      !LabelingJobStatus,
-    _ljsLabelCounters ::
-      !LabelCounters,
-    _ljsWorkteamARN :: !Text,
-    _ljsPreHumanTaskLambdaARN ::
-      !Text
+  { -- | The Amazon Resource Name (ARN) of the Lambda function used to
+    -- consolidate the annotations from individual workers into a label for a
+    -- data object. For more information, see
+    -- <https://docs.aws.amazon.com/sagemaker/latest/dg/sms-annotation-consolidation.html Annotation Consolidation>.
+    annotationConsolidationLambdaArn :: Prelude.Maybe Prelude.Text,
+    -- | Input configuration for the labeling job.
+    inputConfig :: Prelude.Maybe LabelingJobInputConfig,
+    -- | If the @LabelingJobStatus@ field is @Failed@, this field contains a
+    -- description of the error.
+    failureReason :: Prelude.Maybe Prelude.Text,
+    -- | The location of the output produced by the labeling job.
+    labelingJobOutput :: Prelude.Maybe LabelingJobOutput,
+    -- | The name of the labeling job.
+    labelingJobName :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) assigned to the labeling job when it was
+    -- created.
+    labelingJobArn :: Prelude.Text,
+    -- | The date and time that the job was created (timestamp).
+    creationTime :: Prelude.POSIX,
+    -- | The date and time that the job was last modified (timestamp).
+    lastModifiedTime :: Prelude.POSIX,
+    -- | The current status of the labeling job.
+    labelingJobStatus :: LabelingJobStatus,
+    -- | Counts showing the progress of the labeling job.
+    labelCounters :: LabelCounters,
+    -- | The Amazon Resource Name (ARN) of the work team assigned to the job.
+    workteamArn :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of a Lambda function. The function is run
+    -- before each data object is sent to a worker.
+    preHumanTaskLambdaArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LabelingJobSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LabelingJobSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ljsAnnotationConsolidationLambdaARN' - The Amazon Resource Name (ARN) of the Lambda function used to consolidate the annotations from individual workers into a label for a data object. For more information, see <https://docs.aws.amazon.com/sagemaker/latest/dg/sms-annotation-consolidation.html Annotation Consolidation> .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ljsInputConfig' - Input configuration for the labeling job.
+-- 'annotationConsolidationLambdaArn', 'labelingJobSummary_annotationConsolidationLambdaArn' - The Amazon Resource Name (ARN) of the Lambda function used to
+-- consolidate the annotations from individual workers into a label for a
+-- data object. For more information, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/sms-annotation-consolidation.html Annotation Consolidation>.
 --
--- * 'ljsFailureReason' - If the @LabelingJobStatus@ field is @Failed@ , this field contains a description of the error.
+-- 'inputConfig', 'labelingJobSummary_inputConfig' - Input configuration for the labeling job.
 --
--- * 'ljsLabelingJobOutput' - The location of the output produced by the labeling job.
+-- 'failureReason', 'labelingJobSummary_failureReason' - If the @LabelingJobStatus@ field is @Failed@, this field contains a
+-- description of the error.
 --
--- * 'ljsLabelingJobName' - The name of the labeling job.
+-- 'labelingJobOutput', 'labelingJobSummary_labelingJobOutput' - The location of the output produced by the labeling job.
 --
--- * 'ljsLabelingJobARN' - The Amazon Resource Name (ARN) assigned to the labeling job when it was created.
+-- 'labelingJobName', 'labelingJobSummary_labelingJobName' - The name of the labeling job.
 --
--- * 'ljsCreationTime' - The date and time that the job was created (timestamp).
+-- 'labelingJobArn', 'labelingJobSummary_labelingJobArn' - The Amazon Resource Name (ARN) assigned to the labeling job when it was
+-- created.
 --
--- * 'ljsLastModifiedTime' - The date and time that the job was last modified (timestamp).
+-- 'creationTime', 'labelingJobSummary_creationTime' - The date and time that the job was created (timestamp).
 --
--- * 'ljsLabelingJobStatus' - The current status of the labeling job.
+-- 'lastModifiedTime', 'labelingJobSummary_lastModifiedTime' - The date and time that the job was last modified (timestamp).
 --
--- * 'ljsLabelCounters' - Counts showing the progress of the labeling job.
+-- 'labelingJobStatus', 'labelingJobSummary_labelingJobStatus' - The current status of the labeling job.
 --
--- * 'ljsWorkteamARN' - The Amazon Resource Name (ARN) of the work team assigned to the job.
+-- 'labelCounters', 'labelingJobSummary_labelCounters' - Counts showing the progress of the labeling job.
 --
--- * 'ljsPreHumanTaskLambdaARN' - The Amazon Resource Name (ARN) of a Lambda function. The function is run before each data object is sent to a worker.
-labelingJobSummary ::
-  -- | 'ljsLabelingJobName'
-  Text ->
-  -- | 'ljsLabelingJobARN'
-  Text ->
-  -- | 'ljsCreationTime'
-  UTCTime ->
-  -- | 'ljsLastModifiedTime'
-  UTCTime ->
-  -- | 'ljsLabelingJobStatus'
+-- 'workteamArn', 'labelingJobSummary_workteamArn' - The Amazon Resource Name (ARN) of the work team assigned to the job.
+--
+-- 'preHumanTaskLambdaArn', 'labelingJobSummary_preHumanTaskLambdaArn' - The Amazon Resource Name (ARN) of a Lambda function. The function is run
+-- before each data object is sent to a worker.
+newLabelingJobSummary ::
+  -- | 'labelingJobName'
+  Prelude.Text ->
+  -- | 'labelingJobArn'
+  Prelude.Text ->
+  -- | 'creationTime'
+  Prelude.UTCTime ->
+  -- | 'lastModifiedTime'
+  Prelude.UTCTime ->
+  -- | 'labelingJobStatus'
   LabelingJobStatus ->
-  -- | 'ljsLabelCounters'
+  -- | 'labelCounters'
   LabelCounters ->
-  -- | 'ljsWorkteamARN'
-  Text ->
-  -- | 'ljsPreHumanTaskLambdaARN'
-  Text ->
+  -- | 'workteamArn'
+  Prelude.Text ->
+  -- | 'preHumanTaskLambdaArn'
+  Prelude.Text ->
   LabelingJobSummary
-labelingJobSummary
+newLabelingJobSummary
   pLabelingJobName_
-  pLabelingJobARN_
+  pLabelingJobArn_
   pCreationTime_
   pLastModifiedTime_
   pLabelingJobStatus_
   pLabelCounters_
-  pWorkteamARN_
-  pPreHumanTaskLambdaARN_ =
+  pWorkteamArn_
+  pPreHumanTaskLambdaArn_ =
     LabelingJobSummary'
-      { _ljsAnnotationConsolidationLambdaARN =
-          Nothing,
-        _ljsInputConfig = Nothing,
-        _ljsFailureReason = Nothing,
-        _ljsLabelingJobOutput = Nothing,
-        _ljsLabelingJobName = pLabelingJobName_,
-        _ljsLabelingJobARN = pLabelingJobARN_,
-        _ljsCreationTime = _Time # pCreationTime_,
-        _ljsLastModifiedTime = _Time # pLastModifiedTime_,
-        _ljsLabelingJobStatus = pLabelingJobStatus_,
-        _ljsLabelCounters = pLabelCounters_,
-        _ljsWorkteamARN = pWorkteamARN_,
-        _ljsPreHumanTaskLambdaARN = pPreHumanTaskLambdaARN_
+      { annotationConsolidationLambdaArn =
+          Prelude.Nothing,
+        inputConfig = Prelude.Nothing,
+        failureReason = Prelude.Nothing,
+        labelingJobOutput = Prelude.Nothing,
+        labelingJobName = pLabelingJobName_,
+        labelingJobArn = pLabelingJobArn_,
+        creationTime = Prelude._Time Lens.# pCreationTime_,
+        lastModifiedTime =
+          Prelude._Time Lens.# pLastModifiedTime_,
+        labelingJobStatus = pLabelingJobStatus_,
+        labelCounters = pLabelCounters_,
+        workteamArn = pWorkteamArn_,
+        preHumanTaskLambdaArn = pPreHumanTaskLambdaArn_
       }
 
--- | The Amazon Resource Name (ARN) of the Lambda function used to consolidate the annotations from individual workers into a label for a data object. For more information, see <https://docs.aws.amazon.com/sagemaker/latest/dg/sms-annotation-consolidation.html Annotation Consolidation> .
-ljsAnnotationConsolidationLambdaARN :: Lens' LabelingJobSummary (Maybe Text)
-ljsAnnotationConsolidationLambdaARN = lens _ljsAnnotationConsolidationLambdaARN (\s a -> s {_ljsAnnotationConsolidationLambdaARN = a})
+-- | The Amazon Resource Name (ARN) of the Lambda function used to
+-- consolidate the annotations from individual workers into a label for a
+-- data object. For more information, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/sms-annotation-consolidation.html Annotation Consolidation>.
+labelingJobSummary_annotationConsolidationLambdaArn :: Lens.Lens' LabelingJobSummary (Prelude.Maybe Prelude.Text)
+labelingJobSummary_annotationConsolidationLambdaArn = Lens.lens (\LabelingJobSummary' {annotationConsolidationLambdaArn} -> annotationConsolidationLambdaArn) (\s@LabelingJobSummary' {} a -> s {annotationConsolidationLambdaArn = a} :: LabelingJobSummary)
 
 -- | Input configuration for the labeling job.
-ljsInputConfig :: Lens' LabelingJobSummary (Maybe LabelingJobInputConfig)
-ljsInputConfig = lens _ljsInputConfig (\s a -> s {_ljsInputConfig = a})
+labelingJobSummary_inputConfig :: Lens.Lens' LabelingJobSummary (Prelude.Maybe LabelingJobInputConfig)
+labelingJobSummary_inputConfig = Lens.lens (\LabelingJobSummary' {inputConfig} -> inputConfig) (\s@LabelingJobSummary' {} a -> s {inputConfig = a} :: LabelingJobSummary)
 
--- | If the @LabelingJobStatus@ field is @Failed@ , this field contains a description of the error.
-ljsFailureReason :: Lens' LabelingJobSummary (Maybe Text)
-ljsFailureReason = lens _ljsFailureReason (\s a -> s {_ljsFailureReason = a})
+-- | If the @LabelingJobStatus@ field is @Failed@, this field contains a
+-- description of the error.
+labelingJobSummary_failureReason :: Lens.Lens' LabelingJobSummary (Prelude.Maybe Prelude.Text)
+labelingJobSummary_failureReason = Lens.lens (\LabelingJobSummary' {failureReason} -> failureReason) (\s@LabelingJobSummary' {} a -> s {failureReason = a} :: LabelingJobSummary)
 
 -- | The location of the output produced by the labeling job.
-ljsLabelingJobOutput :: Lens' LabelingJobSummary (Maybe LabelingJobOutput)
-ljsLabelingJobOutput = lens _ljsLabelingJobOutput (\s a -> s {_ljsLabelingJobOutput = a})
+labelingJobSummary_labelingJobOutput :: Lens.Lens' LabelingJobSummary (Prelude.Maybe LabelingJobOutput)
+labelingJobSummary_labelingJobOutput = Lens.lens (\LabelingJobSummary' {labelingJobOutput} -> labelingJobOutput) (\s@LabelingJobSummary' {} a -> s {labelingJobOutput = a} :: LabelingJobSummary)
 
 -- | The name of the labeling job.
-ljsLabelingJobName :: Lens' LabelingJobSummary Text
-ljsLabelingJobName = lens _ljsLabelingJobName (\s a -> s {_ljsLabelingJobName = a})
+labelingJobSummary_labelingJobName :: Lens.Lens' LabelingJobSummary Prelude.Text
+labelingJobSummary_labelingJobName = Lens.lens (\LabelingJobSummary' {labelingJobName} -> labelingJobName) (\s@LabelingJobSummary' {} a -> s {labelingJobName = a} :: LabelingJobSummary)
 
--- | The Amazon Resource Name (ARN) assigned to the labeling job when it was created.
-ljsLabelingJobARN :: Lens' LabelingJobSummary Text
-ljsLabelingJobARN = lens _ljsLabelingJobARN (\s a -> s {_ljsLabelingJobARN = a})
+-- | The Amazon Resource Name (ARN) assigned to the labeling job when it was
+-- created.
+labelingJobSummary_labelingJobArn :: Lens.Lens' LabelingJobSummary Prelude.Text
+labelingJobSummary_labelingJobArn = Lens.lens (\LabelingJobSummary' {labelingJobArn} -> labelingJobArn) (\s@LabelingJobSummary' {} a -> s {labelingJobArn = a} :: LabelingJobSummary)
 
 -- | The date and time that the job was created (timestamp).
-ljsCreationTime :: Lens' LabelingJobSummary UTCTime
-ljsCreationTime = lens _ljsCreationTime (\s a -> s {_ljsCreationTime = a}) . _Time
+labelingJobSummary_creationTime :: Lens.Lens' LabelingJobSummary Prelude.UTCTime
+labelingJobSummary_creationTime = Lens.lens (\LabelingJobSummary' {creationTime} -> creationTime) (\s@LabelingJobSummary' {} a -> s {creationTime = a} :: LabelingJobSummary) Prelude.. Prelude._Time
 
 -- | The date and time that the job was last modified (timestamp).
-ljsLastModifiedTime :: Lens' LabelingJobSummary UTCTime
-ljsLastModifiedTime = lens _ljsLastModifiedTime (\s a -> s {_ljsLastModifiedTime = a}) . _Time
+labelingJobSummary_lastModifiedTime :: Lens.Lens' LabelingJobSummary Prelude.UTCTime
+labelingJobSummary_lastModifiedTime = Lens.lens (\LabelingJobSummary' {lastModifiedTime} -> lastModifiedTime) (\s@LabelingJobSummary' {} a -> s {lastModifiedTime = a} :: LabelingJobSummary) Prelude.. Prelude._Time
 
 -- | The current status of the labeling job.
-ljsLabelingJobStatus :: Lens' LabelingJobSummary LabelingJobStatus
-ljsLabelingJobStatus = lens _ljsLabelingJobStatus (\s a -> s {_ljsLabelingJobStatus = a})
+labelingJobSummary_labelingJobStatus :: Lens.Lens' LabelingJobSummary LabelingJobStatus
+labelingJobSummary_labelingJobStatus = Lens.lens (\LabelingJobSummary' {labelingJobStatus} -> labelingJobStatus) (\s@LabelingJobSummary' {} a -> s {labelingJobStatus = a} :: LabelingJobSummary)
 
 -- | Counts showing the progress of the labeling job.
-ljsLabelCounters :: Lens' LabelingJobSummary LabelCounters
-ljsLabelCounters = lens _ljsLabelCounters (\s a -> s {_ljsLabelCounters = a})
+labelingJobSummary_labelCounters :: Lens.Lens' LabelingJobSummary LabelCounters
+labelingJobSummary_labelCounters = Lens.lens (\LabelingJobSummary' {labelCounters} -> labelCounters) (\s@LabelingJobSummary' {} a -> s {labelCounters = a} :: LabelingJobSummary)
 
 -- | The Amazon Resource Name (ARN) of the work team assigned to the job.
-ljsWorkteamARN :: Lens' LabelingJobSummary Text
-ljsWorkteamARN = lens _ljsWorkteamARN (\s a -> s {_ljsWorkteamARN = a})
+labelingJobSummary_workteamArn :: Lens.Lens' LabelingJobSummary Prelude.Text
+labelingJobSummary_workteamArn = Lens.lens (\LabelingJobSummary' {workteamArn} -> workteamArn) (\s@LabelingJobSummary' {} a -> s {workteamArn = a} :: LabelingJobSummary)
 
--- | The Amazon Resource Name (ARN) of a Lambda function. The function is run before each data object is sent to a worker.
-ljsPreHumanTaskLambdaARN :: Lens' LabelingJobSummary Text
-ljsPreHumanTaskLambdaARN = lens _ljsPreHumanTaskLambdaARN (\s a -> s {_ljsPreHumanTaskLambdaARN = a})
+-- | The Amazon Resource Name (ARN) of a Lambda function. The function is run
+-- before each data object is sent to a worker.
+labelingJobSummary_preHumanTaskLambdaArn :: Lens.Lens' LabelingJobSummary Prelude.Text
+labelingJobSummary_preHumanTaskLambdaArn = Lens.lens (\LabelingJobSummary' {preHumanTaskLambdaArn} -> preHumanTaskLambdaArn) (\s@LabelingJobSummary' {} a -> s {preHumanTaskLambdaArn = a} :: LabelingJobSummary)
 
-instance FromJSON LabelingJobSummary where
+instance Prelude.FromJSON LabelingJobSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "LabelingJobSummary"
       ( \x ->
           LabelingJobSummary'
-            <$> (x .:? "AnnotationConsolidationLambdaArn")
-            <*> (x .:? "InputConfig")
-            <*> (x .:? "FailureReason")
-            <*> (x .:? "LabelingJobOutput")
-            <*> (x .: "LabelingJobName")
-            <*> (x .: "LabelingJobArn")
-            <*> (x .: "CreationTime")
-            <*> (x .: "LastModifiedTime")
-            <*> (x .: "LabelingJobStatus")
-            <*> (x .: "LabelCounters")
-            <*> (x .: "WorkteamArn")
-            <*> (x .: "PreHumanTaskLambdaArn")
+            Prelude.<$> (x Prelude..:? "AnnotationConsolidationLambdaArn")
+            Prelude.<*> (x Prelude..:? "InputConfig")
+            Prelude.<*> (x Prelude..:? "FailureReason")
+            Prelude.<*> (x Prelude..:? "LabelingJobOutput")
+            Prelude.<*> (x Prelude..: "LabelingJobName")
+            Prelude.<*> (x Prelude..: "LabelingJobArn")
+            Prelude.<*> (x Prelude..: "CreationTime")
+            Prelude.<*> (x Prelude..: "LastModifiedTime")
+            Prelude.<*> (x Prelude..: "LabelingJobStatus")
+            Prelude.<*> (x Prelude..: "LabelCounters")
+            Prelude.<*> (x Prelude..: "WorkteamArn")
+            Prelude.<*> (x Prelude..: "PreHumanTaskLambdaArn")
       )
 
-instance Hashable LabelingJobSummary
+instance Prelude.Hashable LabelingJobSummary
 
-instance NFData LabelingJobSummary
+instance Prelude.NFData LabelingJobSummary

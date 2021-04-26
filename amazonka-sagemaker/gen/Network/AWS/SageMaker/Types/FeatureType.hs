@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.SageMaker.Types.FeatureType
   ( FeatureType
       ( ..,
-        Fractional,
-        Integral,
-        String
+        FeatureTypeFractional,
+        FeatureTypeIntegral,
+        FeatureTypeString
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data FeatureType = FeatureType' (CI Text)
+newtype FeatureType = FeatureType'
+  { fromFeatureType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Fractional :: FeatureType
-pattern Fractional = FeatureType' "Fractional"
+pattern FeatureTypeFractional :: FeatureType
+pattern FeatureTypeFractional = FeatureType' "Fractional"
 
-pattern Integral :: FeatureType
-pattern Integral = FeatureType' "Integral"
+pattern FeatureTypeIntegral :: FeatureType
+pattern FeatureTypeIntegral = FeatureType' "Integral"
 
-pattern String :: FeatureType
-pattern String = FeatureType' "String"
+pattern FeatureTypeString :: FeatureType
+pattern FeatureTypeString = FeatureType' "String"
 
 {-# COMPLETE
-  Fractional,
-  Integral,
-  String,
+  FeatureTypeFractional,
+  FeatureTypeIntegral,
+  FeatureTypeString,
   FeatureType'
   #-}
 
-instance FromText FeatureType where
-  parser = (FeatureType' . mk) <$> takeText
+instance Prelude.FromText FeatureType where
+  parser = FeatureType' Prelude.<$> Prelude.takeText
 
-instance ToText FeatureType where
-  toText (FeatureType' ci) = original ci
+instance Prelude.ToText FeatureType where
+  toText (FeatureType' x) = x
 
-instance Hashable FeatureType
+instance Prelude.Hashable FeatureType
 
-instance NFData FeatureType
+instance Prelude.NFData FeatureType
 
-instance ToByteString FeatureType
+instance Prelude.ToByteString FeatureType
 
-instance ToQuery FeatureType
+instance Prelude.ToQuery FeatureType
 
-instance ToHeader FeatureType
+instance Prelude.ToHeader FeatureType
 
-instance ToJSON FeatureType where
-  toJSON = toJSONText
+instance Prelude.ToJSON FeatureType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON FeatureType where
-  parseJSON = parseJSONText "FeatureType"
+instance Prelude.FromJSON FeatureType where
+  parseJSON = Prelude.parseJSONText "FeatureType"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,142 +19,176 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.TransformJobDefinition where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.BatchStrategy
 import Network.AWS.SageMaker.Types.TransformInput
 import Network.AWS.SageMaker.Types.TransformOutput
 import Network.AWS.SageMaker.Types.TransformResources
 
--- | Defines the input needed to run a transform job using the inference specification specified in the algorithm.
+-- | Defines the input needed to run a transform job using the inference
+-- specification specified in the algorithm.
 --
---
---
--- /See:/ 'transformJobDefinition' smart constructor.
+-- /See:/ 'newTransformJobDefinition' smart constructor.
 data TransformJobDefinition = TransformJobDefinition'
-  { _tjdMaxConcurrentTransforms ::
-      !(Maybe Nat),
-    _tjdEnvironment ::
-      !(Maybe (Map Text Text)),
-    _tjdMaxPayloadInMB ::
-      !(Maybe Nat),
-    _tjdBatchStrategy ::
-      !(Maybe BatchStrategy),
-    _tjdTransformInput ::
-      !TransformInput,
-    _tjdTransformOutput ::
-      !TransformOutput,
-    _tjdTransformResources ::
-      !TransformResources
+  { -- | The maximum number of parallel requests that can be sent to each
+    -- instance in a transform job. The default value is 1.
+    maxConcurrentTransforms :: Prelude.Maybe Prelude.Nat,
+    -- | The environment variables to set in the Docker container. We support up
+    -- to 16 key and values entries in the map.
+    environment :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The maximum payload size allowed, in MB. A payload is the data portion
+    -- of a record (without metadata).
+    maxPayloadInMB :: Prelude.Maybe Prelude.Nat,
+    -- | A string that determines the number of records included in a single
+    -- mini-batch.
+    --
+    -- @SingleRecord@ means only one record is used per mini-batch.
+    -- @MultiRecord@ means a mini-batch is set to contain as many records that
+    -- can fit within the @MaxPayloadInMB@ limit.
+    batchStrategy :: Prelude.Maybe BatchStrategy,
+    -- | A description of the input source and the way the transform job consumes
+    -- it.
+    transformInput :: TransformInput,
+    -- | Identifies the Amazon S3 location where you want Amazon SageMaker to
+    -- save the results from the transform job.
+    transformOutput :: TransformOutput,
+    -- | Identifies the ML compute instances for the transform job.
+    transformResources :: TransformResources
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TransformJobDefinition' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TransformJobDefinition' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tjdMaxConcurrentTransforms' - The maximum number of parallel requests that can be sent to each instance in a transform job. The default value is 1.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tjdEnvironment' - The environment variables to set in the Docker container. We support up to 16 key and values entries in the map.
+-- 'maxConcurrentTransforms', 'transformJobDefinition_maxConcurrentTransforms' - The maximum number of parallel requests that can be sent to each
+-- instance in a transform job. The default value is 1.
 --
--- * 'tjdMaxPayloadInMB' - The maximum payload size allowed, in MB. A payload is the data portion of a record (without metadata).
+-- 'environment', 'transformJobDefinition_environment' - The environment variables to set in the Docker container. We support up
+-- to 16 key and values entries in the map.
 --
--- * 'tjdBatchStrategy' - A string that determines the number of records included in a single mini-batch. @SingleRecord@ means only one record is used per mini-batch. @MultiRecord@ means a mini-batch is set to contain as many records that can fit within the @MaxPayloadInMB@ limit.
+-- 'maxPayloadInMB', 'transformJobDefinition_maxPayloadInMB' - The maximum payload size allowed, in MB. A payload is the data portion
+-- of a record (without metadata).
 --
--- * 'tjdTransformInput' - A description of the input source and the way the transform job consumes it.
+-- 'batchStrategy', 'transformJobDefinition_batchStrategy' - A string that determines the number of records included in a single
+-- mini-batch.
 --
--- * 'tjdTransformOutput' - Identifies the Amazon S3 location where you want Amazon SageMaker to save the results from the transform job.
+-- @SingleRecord@ means only one record is used per mini-batch.
+-- @MultiRecord@ means a mini-batch is set to contain as many records that
+-- can fit within the @MaxPayloadInMB@ limit.
 --
--- * 'tjdTransformResources' - Identifies the ML compute instances for the transform job.
-transformJobDefinition ::
-  -- | 'tjdTransformInput'
+-- 'transformInput', 'transformJobDefinition_transformInput' - A description of the input source and the way the transform job consumes
+-- it.
+--
+-- 'transformOutput', 'transformJobDefinition_transformOutput' - Identifies the Amazon S3 location where you want Amazon SageMaker to
+-- save the results from the transform job.
+--
+-- 'transformResources', 'transformJobDefinition_transformResources' - Identifies the ML compute instances for the transform job.
+newTransformJobDefinition ::
+  -- | 'transformInput'
   TransformInput ->
-  -- | 'tjdTransformOutput'
+  -- | 'transformOutput'
   TransformOutput ->
-  -- | 'tjdTransformResources'
+  -- | 'transformResources'
   TransformResources ->
   TransformJobDefinition
-transformJobDefinition
+newTransformJobDefinition
   pTransformInput_
   pTransformOutput_
   pTransformResources_ =
     TransformJobDefinition'
-      { _tjdMaxConcurrentTransforms =
-          Nothing,
-        _tjdEnvironment = Nothing,
-        _tjdMaxPayloadInMB = Nothing,
-        _tjdBatchStrategy = Nothing,
-        _tjdTransformInput = pTransformInput_,
-        _tjdTransformOutput = pTransformOutput_,
-        _tjdTransformResources = pTransformResources_
+      { maxConcurrentTransforms =
+          Prelude.Nothing,
+        environment = Prelude.Nothing,
+        maxPayloadInMB = Prelude.Nothing,
+        batchStrategy = Prelude.Nothing,
+        transformInput = pTransformInput_,
+        transformOutput = pTransformOutput_,
+        transformResources = pTransformResources_
       }
 
--- | The maximum number of parallel requests that can be sent to each instance in a transform job. The default value is 1.
-tjdMaxConcurrentTransforms :: Lens' TransformJobDefinition (Maybe Natural)
-tjdMaxConcurrentTransforms = lens _tjdMaxConcurrentTransforms (\s a -> s {_tjdMaxConcurrentTransforms = a}) . mapping _Nat
+-- | The maximum number of parallel requests that can be sent to each
+-- instance in a transform job. The default value is 1.
+transformJobDefinition_maxConcurrentTransforms :: Lens.Lens' TransformJobDefinition (Prelude.Maybe Prelude.Natural)
+transformJobDefinition_maxConcurrentTransforms = Lens.lens (\TransformJobDefinition' {maxConcurrentTransforms} -> maxConcurrentTransforms) (\s@TransformJobDefinition' {} a -> s {maxConcurrentTransforms = a} :: TransformJobDefinition) Prelude.. Lens.mapping Prelude._Nat
 
--- | The environment variables to set in the Docker container. We support up to 16 key and values entries in the map.
-tjdEnvironment :: Lens' TransformJobDefinition (HashMap Text Text)
-tjdEnvironment = lens _tjdEnvironment (\s a -> s {_tjdEnvironment = a}) . _Default . _Map
+-- | The environment variables to set in the Docker container. We support up
+-- to 16 key and values entries in the map.
+transformJobDefinition_environment :: Lens.Lens' TransformJobDefinition (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+transformJobDefinition_environment = Lens.lens (\TransformJobDefinition' {environment} -> environment) (\s@TransformJobDefinition' {} a -> s {environment = a} :: TransformJobDefinition) Prelude.. Lens.mapping Prelude._Map
 
--- | The maximum payload size allowed, in MB. A payload is the data portion of a record (without metadata).
-tjdMaxPayloadInMB :: Lens' TransformJobDefinition (Maybe Natural)
-tjdMaxPayloadInMB = lens _tjdMaxPayloadInMB (\s a -> s {_tjdMaxPayloadInMB = a}) . mapping _Nat
+-- | The maximum payload size allowed, in MB. A payload is the data portion
+-- of a record (without metadata).
+transformJobDefinition_maxPayloadInMB :: Lens.Lens' TransformJobDefinition (Prelude.Maybe Prelude.Natural)
+transformJobDefinition_maxPayloadInMB = Lens.lens (\TransformJobDefinition' {maxPayloadInMB} -> maxPayloadInMB) (\s@TransformJobDefinition' {} a -> s {maxPayloadInMB = a} :: TransformJobDefinition) Prelude.. Lens.mapping Prelude._Nat
 
--- | A string that determines the number of records included in a single mini-batch. @SingleRecord@ means only one record is used per mini-batch. @MultiRecord@ means a mini-batch is set to contain as many records that can fit within the @MaxPayloadInMB@ limit.
-tjdBatchStrategy :: Lens' TransformJobDefinition (Maybe BatchStrategy)
-tjdBatchStrategy = lens _tjdBatchStrategy (\s a -> s {_tjdBatchStrategy = a})
+-- | A string that determines the number of records included in a single
+-- mini-batch.
+--
+-- @SingleRecord@ means only one record is used per mini-batch.
+-- @MultiRecord@ means a mini-batch is set to contain as many records that
+-- can fit within the @MaxPayloadInMB@ limit.
+transformJobDefinition_batchStrategy :: Lens.Lens' TransformJobDefinition (Prelude.Maybe BatchStrategy)
+transformJobDefinition_batchStrategy = Lens.lens (\TransformJobDefinition' {batchStrategy} -> batchStrategy) (\s@TransformJobDefinition' {} a -> s {batchStrategy = a} :: TransformJobDefinition)
 
--- | A description of the input source and the way the transform job consumes it.
-tjdTransformInput :: Lens' TransformJobDefinition TransformInput
-tjdTransformInput = lens _tjdTransformInput (\s a -> s {_tjdTransformInput = a})
+-- | A description of the input source and the way the transform job consumes
+-- it.
+transformJobDefinition_transformInput :: Lens.Lens' TransformJobDefinition TransformInput
+transformJobDefinition_transformInput = Lens.lens (\TransformJobDefinition' {transformInput} -> transformInput) (\s@TransformJobDefinition' {} a -> s {transformInput = a} :: TransformJobDefinition)
 
--- | Identifies the Amazon S3 location where you want Amazon SageMaker to save the results from the transform job.
-tjdTransformOutput :: Lens' TransformJobDefinition TransformOutput
-tjdTransformOutput = lens _tjdTransformOutput (\s a -> s {_tjdTransformOutput = a})
+-- | Identifies the Amazon S3 location where you want Amazon SageMaker to
+-- save the results from the transform job.
+transformJobDefinition_transformOutput :: Lens.Lens' TransformJobDefinition TransformOutput
+transformJobDefinition_transformOutput = Lens.lens (\TransformJobDefinition' {transformOutput} -> transformOutput) (\s@TransformJobDefinition' {} a -> s {transformOutput = a} :: TransformJobDefinition)
 
 -- | Identifies the ML compute instances for the transform job.
-tjdTransformResources :: Lens' TransformJobDefinition TransformResources
-tjdTransformResources = lens _tjdTransformResources (\s a -> s {_tjdTransformResources = a})
+transformJobDefinition_transformResources :: Lens.Lens' TransformJobDefinition TransformResources
+transformJobDefinition_transformResources = Lens.lens (\TransformJobDefinition' {transformResources} -> transformResources) (\s@TransformJobDefinition' {} a -> s {transformResources = a} :: TransformJobDefinition)
 
-instance FromJSON TransformJobDefinition where
+instance Prelude.FromJSON TransformJobDefinition where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TransformJobDefinition"
       ( \x ->
           TransformJobDefinition'
-            <$> (x .:? "MaxConcurrentTransforms")
-            <*> (x .:? "Environment" .!= mempty)
-            <*> (x .:? "MaxPayloadInMB")
-            <*> (x .:? "BatchStrategy")
-            <*> (x .: "TransformInput")
-            <*> (x .: "TransformOutput")
-            <*> (x .: "TransformResources")
+            Prelude.<$> (x Prelude..:? "MaxConcurrentTransforms")
+            Prelude.<*> ( x Prelude..:? "Environment"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "MaxPayloadInMB")
+            Prelude.<*> (x Prelude..:? "BatchStrategy")
+            Prelude.<*> (x Prelude..: "TransformInput")
+            Prelude.<*> (x Prelude..: "TransformOutput")
+            Prelude.<*> (x Prelude..: "TransformResources")
       )
 
-instance Hashable TransformJobDefinition
+instance Prelude.Hashable TransformJobDefinition
 
-instance NFData TransformJobDefinition
+instance Prelude.NFData TransformJobDefinition
 
-instance ToJSON TransformJobDefinition where
+instance Prelude.ToJSON TransformJobDefinition where
   toJSON TransformJobDefinition' {..} =
-    object
-      ( catMaybes
-          [ ("MaxConcurrentTransforms" .=)
-              <$> _tjdMaxConcurrentTransforms,
-            ("Environment" .=) <$> _tjdEnvironment,
-            ("MaxPayloadInMB" .=) <$> _tjdMaxPayloadInMB,
-            ("BatchStrategy" .=) <$> _tjdBatchStrategy,
-            Just ("TransformInput" .= _tjdTransformInput),
-            Just ("TransformOutput" .= _tjdTransformOutput),
-            Just
-              ("TransformResources" .= _tjdTransformResources)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("MaxConcurrentTransforms" Prelude..=)
+              Prelude.<$> maxConcurrentTransforms,
+            ("Environment" Prelude..=) Prelude.<$> environment,
+            ("MaxPayloadInMB" Prelude..=)
+              Prelude.<$> maxPayloadInMB,
+            ("BatchStrategy" Prelude..=)
+              Prelude.<$> batchStrategy,
+            Prelude.Just
+              ("TransformInput" Prelude..= transformInput),
+            Prelude.Just
+              ("TransformOutput" Prelude..= transformOutput),
+            Prelude.Just
+              ( "TransformResources"
+                  Prelude..= transformResources
+              )
           ]
       )

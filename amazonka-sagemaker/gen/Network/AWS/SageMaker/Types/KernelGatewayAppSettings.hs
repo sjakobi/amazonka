@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,77 +19,79 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.KernelGatewayAppSettings where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.CustomImage
 import Network.AWS.SageMaker.Types.ResourceSpec
 
 -- | The KernelGateway app settings.
 --
---
---
--- /See:/ 'kernelGatewayAppSettings' smart constructor.
+-- /See:/ 'newKernelGatewayAppSettings' smart constructor.
 data KernelGatewayAppSettings = KernelGatewayAppSettings'
-  { _kgasCustomImages ::
-      !( Maybe
-           [CustomImage]
-       ),
-    _kgasDefaultResourceSpec ::
-      !(Maybe ResourceSpec)
+  { -- | A list of custom SageMaker images that are configured to run as a
+    -- KernelGateway app.
+    customImages :: Prelude.Maybe [CustomImage],
+    -- | The default instance type and the Amazon Resource Name (ARN) of the
+    -- default SageMaker image used by the KernelGateway app.
+    defaultResourceSpec :: Prelude.Maybe ResourceSpec
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'KernelGatewayAppSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'KernelGatewayAppSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'kgasCustomImages' - A list of custom SageMaker images that are configured to run as a KernelGateway app.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'kgasDefaultResourceSpec' - The default instance type and the Amazon Resource Name (ARN) of the default SageMaker image used by the KernelGateway app.
-kernelGatewayAppSettings ::
+-- 'customImages', 'kernelGatewayAppSettings_customImages' - A list of custom SageMaker images that are configured to run as a
+-- KernelGateway app.
+--
+-- 'defaultResourceSpec', 'kernelGatewayAppSettings_defaultResourceSpec' - The default instance type and the Amazon Resource Name (ARN) of the
+-- default SageMaker image used by the KernelGateway app.
+newKernelGatewayAppSettings ::
   KernelGatewayAppSettings
-kernelGatewayAppSettings =
+newKernelGatewayAppSettings =
   KernelGatewayAppSettings'
-    { _kgasCustomImages =
-        Nothing,
-      _kgasDefaultResourceSpec = Nothing
+    { customImages =
+        Prelude.Nothing,
+      defaultResourceSpec = Prelude.Nothing
     }
 
--- | A list of custom SageMaker images that are configured to run as a KernelGateway app.
-kgasCustomImages :: Lens' KernelGatewayAppSettings [CustomImage]
-kgasCustomImages = lens _kgasCustomImages (\s a -> s {_kgasCustomImages = a}) . _Default . _Coerce
+-- | A list of custom SageMaker images that are configured to run as a
+-- KernelGateway app.
+kernelGatewayAppSettings_customImages :: Lens.Lens' KernelGatewayAppSettings (Prelude.Maybe [CustomImage])
+kernelGatewayAppSettings_customImages = Lens.lens (\KernelGatewayAppSettings' {customImages} -> customImages) (\s@KernelGatewayAppSettings' {} a -> s {customImages = a} :: KernelGatewayAppSettings) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The default instance type and the Amazon Resource Name (ARN) of the default SageMaker image used by the KernelGateway app.
-kgasDefaultResourceSpec :: Lens' KernelGatewayAppSettings (Maybe ResourceSpec)
-kgasDefaultResourceSpec = lens _kgasDefaultResourceSpec (\s a -> s {_kgasDefaultResourceSpec = a})
+-- | The default instance type and the Amazon Resource Name (ARN) of the
+-- default SageMaker image used by the KernelGateway app.
+kernelGatewayAppSettings_defaultResourceSpec :: Lens.Lens' KernelGatewayAppSettings (Prelude.Maybe ResourceSpec)
+kernelGatewayAppSettings_defaultResourceSpec = Lens.lens (\KernelGatewayAppSettings' {defaultResourceSpec} -> defaultResourceSpec) (\s@KernelGatewayAppSettings' {} a -> s {defaultResourceSpec = a} :: KernelGatewayAppSettings)
 
-instance FromJSON KernelGatewayAppSettings where
+instance Prelude.FromJSON KernelGatewayAppSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "KernelGatewayAppSettings"
       ( \x ->
           KernelGatewayAppSettings'
-            <$> (x .:? "CustomImages" .!= mempty)
-            <*> (x .:? "DefaultResourceSpec")
+            Prelude.<$> ( x Prelude..:? "CustomImages"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "DefaultResourceSpec")
       )
 
-instance Hashable KernelGatewayAppSettings
+instance Prelude.Hashable KernelGatewayAppSettings
 
-instance NFData KernelGatewayAppSettings
+instance Prelude.NFData KernelGatewayAppSettings
 
-instance ToJSON KernelGatewayAppSettings where
+instance Prelude.ToJSON KernelGatewayAppSettings where
   toJSON KernelGatewayAppSettings' {..} =
-    object
-      ( catMaybes
-          [ ("CustomImages" .=) <$> _kgasCustomImages,
-            ("DefaultResourceSpec" .=)
-              <$> _kgasDefaultResourceSpec
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("CustomImages" Prelude..=)
+              Prelude.<$> customImages,
+            ("DefaultResourceSpec" Prelude..=)
+              Prelude.<$> defaultResourceSpec
           ]
       )

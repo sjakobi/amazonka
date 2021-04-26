@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.SageMaker.Types.EndpointSortKey
   ( EndpointSortKey
       ( ..,
-        ESKCreationTime,
-        ESKName,
-        ESKStatus
+        EndpointSortKeyCreationTime,
+        EndpointSortKeyName,
+        EndpointSortKeyStatus'
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data EndpointSortKey = EndpointSortKey' (CI Text)
+newtype EndpointSortKey = EndpointSortKey'
+  { fromEndpointSortKey ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ESKCreationTime :: EndpointSortKey
-pattern ESKCreationTime = EndpointSortKey' "CreationTime"
+pattern EndpointSortKeyCreationTime :: EndpointSortKey
+pattern EndpointSortKeyCreationTime = EndpointSortKey' "CreationTime"
 
-pattern ESKName :: EndpointSortKey
-pattern ESKName = EndpointSortKey' "Name"
+pattern EndpointSortKeyName :: EndpointSortKey
+pattern EndpointSortKeyName = EndpointSortKey' "Name"
 
-pattern ESKStatus :: EndpointSortKey
-pattern ESKStatus = EndpointSortKey' "Status"
+pattern EndpointSortKeyStatus' :: EndpointSortKey
+pattern EndpointSortKeyStatus' = EndpointSortKey' "Status"
 
 {-# COMPLETE
-  ESKCreationTime,
-  ESKName,
-  ESKStatus,
+  EndpointSortKeyCreationTime,
+  EndpointSortKeyName,
+  EndpointSortKeyStatus',
   EndpointSortKey'
   #-}
 
-instance FromText EndpointSortKey where
-  parser = (EndpointSortKey' . mk) <$> takeText
+instance Prelude.FromText EndpointSortKey where
+  parser = EndpointSortKey' Prelude.<$> Prelude.takeText
 
-instance ToText EndpointSortKey where
-  toText (EndpointSortKey' ci) = original ci
+instance Prelude.ToText EndpointSortKey where
+  toText (EndpointSortKey' x) = x
 
-instance Hashable EndpointSortKey
+instance Prelude.Hashable EndpointSortKey
 
-instance NFData EndpointSortKey
+instance Prelude.NFData EndpointSortKey
 
-instance ToByteString EndpointSortKey
+instance Prelude.ToByteString EndpointSortKey
 
-instance ToQuery EndpointSortKey
+instance Prelude.ToQuery EndpointSortKey
 
-instance ToHeader EndpointSortKey
+instance Prelude.ToHeader EndpointSortKey
 
-instance ToJSON EndpointSortKey where
-  toJSON = toJSONText
+instance Prelude.ToJSON EndpointSortKey where
+  toJSON = Prelude.toJSONText

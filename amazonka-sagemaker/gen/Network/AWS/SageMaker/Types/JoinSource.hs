@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.SageMaker.Types.JoinSource
   ( JoinSource
       ( ..,
-        JSInput,
-        JSNone
+        JoinSourceInput,
+        JoinSourceNone
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data JoinSource = JoinSource' (CI Text)
+newtype JoinSource = JoinSource'
+  { fromJoinSource ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern JSInput :: JoinSource
-pattern JSInput = JoinSource' "Input"
+pattern JoinSourceInput :: JoinSource
+pattern JoinSourceInput = JoinSource' "Input"
 
-pattern JSNone :: JoinSource
-pattern JSNone = JoinSource' "None"
+pattern JoinSourceNone :: JoinSource
+pattern JoinSourceNone = JoinSource' "None"
 
 {-# COMPLETE
-  JSInput,
-  JSNone,
+  JoinSourceInput,
+  JoinSourceNone,
   JoinSource'
   #-}
 
-instance FromText JoinSource where
-  parser = (JoinSource' . mk) <$> takeText
+instance Prelude.FromText JoinSource where
+  parser = JoinSource' Prelude.<$> Prelude.takeText
 
-instance ToText JoinSource where
-  toText (JoinSource' ci) = original ci
+instance Prelude.ToText JoinSource where
+  toText (JoinSource' x) = x
 
-instance Hashable JoinSource
+instance Prelude.Hashable JoinSource
 
-instance NFData JoinSource
+instance Prelude.NFData JoinSource
 
-instance ToByteString JoinSource
+instance Prelude.ToByteString JoinSource
 
-instance ToQuery JoinSource
+instance Prelude.ToQuery JoinSource
 
-instance ToHeader JoinSource
+instance Prelude.ToHeader JoinSource
 
-instance ToJSON JoinSource where
-  toJSON = toJSONText
+instance Prelude.ToJSON JoinSource where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON JoinSource where
-  parseJSON = parseJSONText "JoinSource"
+instance Prelude.FromJSON JoinSource where
+  parseJSON = Prelude.parseJSONText "JoinSource"

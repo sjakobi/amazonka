@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,210 +21,247 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists all the experiments in your account. The list can be filtered to show only experiments that were created in a specific time range. The list can be sorted by experiment name or creation time.
---
---
+-- Lists all the experiments in your account. The list can be filtered to
+-- show only experiments that were created in a specific time range. The
+-- list can be sorted by experiment name or creation time.
 --
 -- This operation returns paginated results.
 module Network.AWS.SageMaker.ListExperiments
   ( -- * Creating a Request
-    listExperiments,
-    ListExperiments,
+    ListExperiments (..),
+    newListExperiments,
 
     -- * Request Lenses
-    lesCreatedAfter,
-    lesSortOrder,
-    lesNextToken,
-    lesCreatedBefore,
-    lesMaxResults,
-    lesSortBy,
+    listExperiments_createdAfter,
+    listExperiments_sortOrder,
+    listExperiments_nextToken,
+    listExperiments_createdBefore,
+    listExperiments_maxResults,
+    listExperiments_sortBy,
 
     -- * Destructuring the Response
-    listExperimentsResponse,
-    ListExperimentsResponse,
+    ListExperimentsResponse (..),
+    newListExperimentsResponse,
 
     -- * Response Lenses
-    lerersNextToken,
-    lerersExperimentSummaries,
-    lerersResponseStatus,
+    listExperimentsResponse_nextToken,
+    listExperimentsResponse_experimentSummaries,
+    listExperimentsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
+import Network.AWS.SageMaker.Types.ExperimentSummary
 
--- | /See:/ 'listExperiments' smart constructor.
+-- | /See:/ 'newListExperiments' smart constructor.
 data ListExperiments = ListExperiments'
-  { _lesCreatedAfter ::
-      !(Maybe POSIX),
-    _lesSortOrder :: !(Maybe SortOrder),
-    _lesNextToken :: !(Maybe Text),
-    _lesCreatedBefore :: !(Maybe POSIX),
-    _lesMaxResults :: !(Maybe Nat),
-    _lesSortBy ::
-      !(Maybe SortExperimentsBy)
+  { -- | A filter that returns only experiments created after the specified time.
+    createdAfter :: Prelude.Maybe Prelude.POSIX,
+    -- | The sort order. The default value is @Descending@.
+    sortOrder :: Prelude.Maybe SortOrder,
+    -- | If the previous call to @ListExperiments@ didn\'t return the full set of
+    -- experiments, the call returns a token for getting the next set of
+    -- experiments.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A filter that returns only experiments created before the specified
+    -- time.
+    createdBefore :: Prelude.Maybe Prelude.POSIX,
+    -- | The maximum number of experiments to return in the response. The default
+    -- value is 10.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The property used to sort results. The default value is @CreationTime@.
+    sortBy :: Prelude.Maybe SortExperimentsBy
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListExperiments' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListExperiments' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lesCreatedAfter' - A filter that returns only experiments created after the specified time.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lesSortOrder' - The sort order. The default value is @Descending@ .
+-- 'createdAfter', 'listExperiments_createdAfter' - A filter that returns only experiments created after the specified time.
 --
--- * 'lesNextToken' - If the previous call to @ListExperiments@ didn't return the full set of experiments, the call returns a token for getting the next set of experiments.
+-- 'sortOrder', 'listExperiments_sortOrder' - The sort order. The default value is @Descending@.
 --
--- * 'lesCreatedBefore' - A filter that returns only experiments created before the specified time.
+-- 'nextToken', 'listExperiments_nextToken' - If the previous call to @ListExperiments@ didn\'t return the full set of
+-- experiments, the call returns a token for getting the next set of
+-- experiments.
 --
--- * 'lesMaxResults' - The maximum number of experiments to return in the response. The default value is 10.
+-- 'createdBefore', 'listExperiments_createdBefore' - A filter that returns only experiments created before the specified
+-- time.
 --
--- * 'lesSortBy' - The property used to sort results. The default value is @CreationTime@ .
-listExperiments ::
+-- 'maxResults', 'listExperiments_maxResults' - The maximum number of experiments to return in the response. The default
+-- value is 10.
+--
+-- 'sortBy', 'listExperiments_sortBy' - The property used to sort results. The default value is @CreationTime@.
+newListExperiments ::
   ListExperiments
-listExperiments =
+newListExperiments =
   ListExperiments'
-    { _lesCreatedAfter = Nothing,
-      _lesSortOrder = Nothing,
-      _lesNextToken = Nothing,
-      _lesCreatedBefore = Nothing,
-      _lesMaxResults = Nothing,
-      _lesSortBy = Nothing
+    { createdAfter = Prelude.Nothing,
+      sortOrder = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      createdBefore = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      sortBy = Prelude.Nothing
     }
 
 -- | A filter that returns only experiments created after the specified time.
-lesCreatedAfter :: Lens' ListExperiments (Maybe UTCTime)
-lesCreatedAfter = lens _lesCreatedAfter (\s a -> s {_lesCreatedAfter = a}) . mapping _Time
+listExperiments_createdAfter :: Lens.Lens' ListExperiments (Prelude.Maybe Prelude.UTCTime)
+listExperiments_createdAfter = Lens.lens (\ListExperiments' {createdAfter} -> createdAfter) (\s@ListExperiments' {} a -> s {createdAfter = a} :: ListExperiments) Prelude.. Lens.mapping Prelude._Time
 
--- | The sort order. The default value is @Descending@ .
-lesSortOrder :: Lens' ListExperiments (Maybe SortOrder)
-lesSortOrder = lens _lesSortOrder (\s a -> s {_lesSortOrder = a})
+-- | The sort order. The default value is @Descending@.
+listExperiments_sortOrder :: Lens.Lens' ListExperiments (Prelude.Maybe SortOrder)
+listExperiments_sortOrder = Lens.lens (\ListExperiments' {sortOrder} -> sortOrder) (\s@ListExperiments' {} a -> s {sortOrder = a} :: ListExperiments)
 
--- | If the previous call to @ListExperiments@ didn't return the full set of experiments, the call returns a token for getting the next set of experiments.
-lesNextToken :: Lens' ListExperiments (Maybe Text)
-lesNextToken = lens _lesNextToken (\s a -> s {_lesNextToken = a})
+-- | If the previous call to @ListExperiments@ didn\'t return the full set of
+-- experiments, the call returns a token for getting the next set of
+-- experiments.
+listExperiments_nextToken :: Lens.Lens' ListExperiments (Prelude.Maybe Prelude.Text)
+listExperiments_nextToken = Lens.lens (\ListExperiments' {nextToken} -> nextToken) (\s@ListExperiments' {} a -> s {nextToken = a} :: ListExperiments)
 
--- | A filter that returns only experiments created before the specified time.
-lesCreatedBefore :: Lens' ListExperiments (Maybe UTCTime)
-lesCreatedBefore = lens _lesCreatedBefore (\s a -> s {_lesCreatedBefore = a}) . mapping _Time
+-- | A filter that returns only experiments created before the specified
+-- time.
+listExperiments_createdBefore :: Lens.Lens' ListExperiments (Prelude.Maybe Prelude.UTCTime)
+listExperiments_createdBefore = Lens.lens (\ListExperiments' {createdBefore} -> createdBefore) (\s@ListExperiments' {} a -> s {createdBefore = a} :: ListExperiments) Prelude.. Lens.mapping Prelude._Time
 
--- | The maximum number of experiments to return in the response. The default value is 10.
-lesMaxResults :: Lens' ListExperiments (Maybe Natural)
-lesMaxResults = lens _lesMaxResults (\s a -> s {_lesMaxResults = a}) . mapping _Nat
+-- | The maximum number of experiments to return in the response. The default
+-- value is 10.
+listExperiments_maxResults :: Lens.Lens' ListExperiments (Prelude.Maybe Prelude.Natural)
+listExperiments_maxResults = Lens.lens (\ListExperiments' {maxResults} -> maxResults) (\s@ListExperiments' {} a -> s {maxResults = a} :: ListExperiments) Prelude.. Lens.mapping Prelude._Nat
 
--- | The property used to sort results. The default value is @CreationTime@ .
-lesSortBy :: Lens' ListExperiments (Maybe SortExperimentsBy)
-lesSortBy = lens _lesSortBy (\s a -> s {_lesSortBy = a})
+-- | The property used to sort results. The default value is @CreationTime@.
+listExperiments_sortBy :: Lens.Lens' ListExperiments (Prelude.Maybe SortExperimentsBy)
+listExperiments_sortBy = Lens.lens (\ListExperiments' {sortBy} -> sortBy) (\s@ListExperiments' {} a -> s {sortBy = a} :: ListExperiments)
 
-instance AWSPager ListExperiments where
+instance Pager.AWSPager ListExperiments where
   page rq rs
-    | stop (rs ^. lerersNextToken) = Nothing
-    | stop (rs ^. lerersExperimentSummaries) = Nothing
-    | otherwise =
-      Just $ rq & lesNextToken .~ rs ^. lerersNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listExperimentsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listExperimentsResponse_experimentSummaries
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listExperiments_nextToken
+          Lens..~ rs
+          Lens.^? listExperimentsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListExperiments where
+instance Prelude.AWSRequest ListExperiments where
   type Rs ListExperiments = ListExperimentsResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListExperimentsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "ExperimentSummaries" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "ExperimentSummaries"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListExperiments
+instance Prelude.Hashable ListExperiments
 
-instance NFData ListExperiments
+instance Prelude.NFData ListExperiments
 
-instance ToHeaders ListExperiments where
+instance Prelude.ToHeaders ListExperiments where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.ListExperiments" :: ByteString),
+              Prelude.=# ("SageMaker.ListExperiments" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListExperiments where
+instance Prelude.ToJSON ListExperiments where
   toJSON ListExperiments' {..} =
-    object
-      ( catMaybes
-          [ ("CreatedAfter" .=) <$> _lesCreatedAfter,
-            ("SortOrder" .=) <$> _lesSortOrder,
-            ("NextToken" .=) <$> _lesNextToken,
-            ("CreatedBefore" .=) <$> _lesCreatedBefore,
-            ("MaxResults" .=) <$> _lesMaxResults,
-            ("SortBy" .=) <$> _lesSortBy
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("CreatedAfter" Prelude..=)
+              Prelude.<$> createdAfter,
+            ("SortOrder" Prelude..=) Prelude.<$> sortOrder,
+            ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("CreatedBefore" Prelude..=)
+              Prelude.<$> createdBefore,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("SortBy" Prelude..=) Prelude.<$> sortBy
           ]
       )
 
-instance ToPath ListExperiments where
-  toPath = const "/"
+instance Prelude.ToPath ListExperiments where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListExperiments where
-  toQuery = const mempty
+instance Prelude.ToQuery ListExperiments where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listExperimentsResponse' smart constructor.
+-- | /See:/ 'newListExperimentsResponse' smart constructor.
 data ListExperimentsResponse = ListExperimentsResponse'
-  { _lerersNextToken ::
-      !(Maybe Text),
-    _lerersExperimentSummaries ::
-      !( Maybe
-           [ExperimentSummary]
-       ),
-    _lerersResponseStatus ::
-      !Int
+  { -- | A token for getting the next set of experiments, if there are any.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of the summaries of your experiments.
+    experimentSummaries :: Prelude.Maybe [ExperimentSummary],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListExperimentsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListExperimentsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lerersNextToken' - A token for getting the next set of experiments, if there are any.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lerersExperimentSummaries' - A list of the summaries of your experiments.
+-- 'nextToken', 'listExperimentsResponse_nextToken' - A token for getting the next set of experiments, if there are any.
 --
--- * 'lerersResponseStatus' - -- | The response status code.
-listExperimentsResponse ::
-  -- | 'lerersResponseStatus'
-  Int ->
+-- 'experimentSummaries', 'listExperimentsResponse_experimentSummaries' - A list of the summaries of your experiments.
+--
+-- 'httpStatus', 'listExperimentsResponse_httpStatus' - The response's http status code.
+newListExperimentsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListExperimentsResponse
-listExperimentsResponse pResponseStatus_ =
+newListExperimentsResponse pHttpStatus_ =
   ListExperimentsResponse'
-    { _lerersNextToken =
-        Nothing,
-      _lerersExperimentSummaries = Nothing,
-      _lerersResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      experimentSummaries = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A token for getting the next set of experiments, if there are any.
-lerersNextToken :: Lens' ListExperimentsResponse (Maybe Text)
-lerersNextToken = lens _lerersNextToken (\s a -> s {_lerersNextToken = a})
+listExperimentsResponse_nextToken :: Lens.Lens' ListExperimentsResponse (Prelude.Maybe Prelude.Text)
+listExperimentsResponse_nextToken = Lens.lens (\ListExperimentsResponse' {nextToken} -> nextToken) (\s@ListExperimentsResponse' {} a -> s {nextToken = a} :: ListExperimentsResponse)
 
 -- | A list of the summaries of your experiments.
-lerersExperimentSummaries :: Lens' ListExperimentsResponse [ExperimentSummary]
-lerersExperimentSummaries = lens _lerersExperimentSummaries (\s a -> s {_lerersExperimentSummaries = a}) . _Default . _Coerce
+listExperimentsResponse_experimentSummaries :: Lens.Lens' ListExperimentsResponse (Prelude.Maybe [ExperimentSummary])
+listExperimentsResponse_experimentSummaries = Lens.lens (\ListExperimentsResponse' {experimentSummaries} -> experimentSummaries) (\s@ListExperimentsResponse' {} a -> s {experimentSummaries = a} :: ListExperimentsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lerersResponseStatus :: Lens' ListExperimentsResponse Int
-lerersResponseStatus = lens _lerersResponseStatus (\s a -> s {_lerersResponseStatus = a})
+-- | The response's http status code.
+listExperimentsResponse_httpStatus :: Lens.Lens' ListExperimentsResponse Prelude.Int
+listExperimentsResponse_httpStatus = Lens.lens (\ListExperimentsResponse' {httpStatus} -> httpStatus) (\s@ListExperimentsResponse' {} a -> s {httpStatus = a} :: ListExperimentsResponse)
 
-instance NFData ListExperimentsResponse
+instance Prelude.NFData ListExperimentsResponse

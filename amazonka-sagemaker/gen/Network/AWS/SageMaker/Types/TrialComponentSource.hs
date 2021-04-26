@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,55 +19,60 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.TrialComponentSource where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The Amazon Resource Name (ARN) and job type of the source of a trial component.
+-- | The Amazon Resource Name (ARN) and job type of the source of a trial
+-- component.
 --
---
---
--- /See:/ 'trialComponentSource' smart constructor.
+-- /See:/ 'newTrialComponentSource' smart constructor.
 data TrialComponentSource = TrialComponentSource'
-  { _tcsSourceType ::
-      !(Maybe Text),
-    _tcsSourceARN :: !Text
+  { -- | The source job type.
+    sourceType :: Prelude.Maybe Prelude.Text,
+    -- | The source ARN.
+    sourceArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TrialComponentSource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TrialComponentSource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tcsSourceType' - The source job type.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tcsSourceARN' - The source ARN.
-trialComponentSource ::
-  -- | 'tcsSourceARN'
-  Text ->
+-- 'sourceType', 'trialComponentSource_sourceType' - The source job type.
+--
+-- 'sourceArn', 'trialComponentSource_sourceArn' - The source ARN.
+newTrialComponentSource ::
+  -- | 'sourceArn'
+  Prelude.Text ->
   TrialComponentSource
-trialComponentSource pSourceARN_ =
+newTrialComponentSource pSourceArn_ =
   TrialComponentSource'
-    { _tcsSourceType = Nothing,
-      _tcsSourceARN = pSourceARN_
+    { sourceType = Prelude.Nothing,
+      sourceArn = pSourceArn_
     }
 
 -- | The source job type.
-tcsSourceType :: Lens' TrialComponentSource (Maybe Text)
-tcsSourceType = lens _tcsSourceType (\s a -> s {_tcsSourceType = a})
+trialComponentSource_sourceType :: Lens.Lens' TrialComponentSource (Prelude.Maybe Prelude.Text)
+trialComponentSource_sourceType = Lens.lens (\TrialComponentSource' {sourceType} -> sourceType) (\s@TrialComponentSource' {} a -> s {sourceType = a} :: TrialComponentSource)
 
 -- | The source ARN.
-tcsSourceARN :: Lens' TrialComponentSource Text
-tcsSourceARN = lens _tcsSourceARN (\s a -> s {_tcsSourceARN = a})
+trialComponentSource_sourceArn :: Lens.Lens' TrialComponentSource Prelude.Text
+trialComponentSource_sourceArn = Lens.lens (\TrialComponentSource' {sourceArn} -> sourceArn) (\s@TrialComponentSource' {} a -> s {sourceArn = a} :: TrialComponentSource)
 
-instance FromJSON TrialComponentSource where
+instance Prelude.FromJSON TrialComponentSource where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TrialComponentSource"
       ( \x ->
           TrialComponentSource'
-            <$> (x .:? "SourceType") <*> (x .: "SourceArn")
+            Prelude.<$> (x Prelude..:? "SourceType")
+            Prelude.<*> (x Prelude..: "SourceArn")
       )
 
-instance Hashable TrialComponentSource
+instance Prelude.Hashable TrialComponentSource
 
-instance NFData TrialComponentSource
+instance Prelude.NFData TrialComponentSource

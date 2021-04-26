@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.SageMaker.Types.BooleanOperator
   ( BooleanOperator
       ( ..,
-        And,
-        OR
+        BooleanOperatorAnd,
+        BooleanOperatorOR
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data BooleanOperator = BooleanOperator' (CI Text)
+newtype BooleanOperator = BooleanOperator'
+  { fromBooleanOperator ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern And :: BooleanOperator
-pattern And = BooleanOperator' "And"
+pattern BooleanOperatorAnd :: BooleanOperator
+pattern BooleanOperatorAnd = BooleanOperator' "And"
 
-pattern OR :: BooleanOperator
-pattern OR = BooleanOperator' "Or"
+pattern BooleanOperatorOR :: BooleanOperator
+pattern BooleanOperatorOR = BooleanOperator' "Or"
 
 {-# COMPLETE
-  And,
-  OR,
+  BooleanOperatorAnd,
+  BooleanOperatorOR,
   BooleanOperator'
   #-}
 
-instance FromText BooleanOperator where
-  parser = (BooleanOperator' . mk) <$> takeText
+instance Prelude.FromText BooleanOperator where
+  parser = BooleanOperator' Prelude.<$> Prelude.takeText
 
-instance ToText BooleanOperator where
-  toText (BooleanOperator' ci) = original ci
+instance Prelude.ToText BooleanOperator where
+  toText (BooleanOperator' x) = x
 
-instance Hashable BooleanOperator
+instance Prelude.Hashable BooleanOperator
 
-instance NFData BooleanOperator
+instance Prelude.NFData BooleanOperator
 
-instance ToByteString BooleanOperator
+instance Prelude.ToByteString BooleanOperator
 
-instance ToQuery BooleanOperator
+instance Prelude.ToQuery BooleanOperator
 
-instance ToHeader BooleanOperator
+instance Prelude.ToHeader BooleanOperator
 
-instance ToJSON BooleanOperator where
-  toJSON = toJSONText
+instance Prelude.ToJSON BooleanOperator where
+  toJSON = Prelude.toJSONText

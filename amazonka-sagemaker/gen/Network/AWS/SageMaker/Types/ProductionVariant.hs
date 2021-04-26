@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,139 +19,175 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.ProductionVariant where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.ProductionVariantAcceleratorType
 import Network.AWS.SageMaker.Types.ProductionVariantCoreDumpConfig
 import Network.AWS.SageMaker.Types.ProductionVariantInstanceType
 
--- | Identifies a model that you want to host and the resources to deploy for hosting it. If you are deploying multiple models, tell Amazon SageMaker how to distribute traffic among the models by specifying variant weights.
+-- | Identifies a model that you want to host and the resources to deploy for
+-- hosting it. If you are deploying multiple models, tell Amazon SageMaker
+-- how to distribute traffic among the models by specifying variant
+-- weights.
 --
---
---
--- /See:/ 'productionVariant' smart constructor.
+-- /See:/ 'newProductionVariant' smart constructor.
 data ProductionVariant = ProductionVariant'
-  { _pvInitialVariantWeight ::
-      !(Maybe Double),
-    _pvAcceleratorType ::
-      !( Maybe
-           ProductionVariantAcceleratorType
-       ),
-    _pvCoreDumpConfig ::
-      !( Maybe
-           ProductionVariantCoreDumpConfig
-       ),
-    _pvVariantName :: !Text,
-    _pvModelName :: !Text,
-    _pvInitialInstanceCount :: !Nat,
-    _pvInstanceType ::
-      !ProductionVariantInstanceType
+  { -- | Determines initial traffic distribution among all of the models that you
+    -- specify in the endpoint configuration. The traffic to a production
+    -- variant is determined by the ratio of the @VariantWeight@ to the sum of
+    -- all @VariantWeight@ values across all ProductionVariants. If
+    -- unspecified, it defaults to 1.0.
+    initialVariantWeight :: Prelude.Maybe Prelude.Double,
+    -- | The size of the Elastic Inference (EI) instance to use for the
+    -- production variant. EI instances provide on-demand GPU computing for
+    -- inference. For more information, see
+    -- <https://docs.aws.amazon.com/sagemaker/latest/dg/ei.html Using Elastic Inference in Amazon SageMaker>.
+    acceleratorType :: Prelude.Maybe ProductionVariantAcceleratorType,
+    -- | Specifies configuration for a core dump from the model container when
+    -- the process crashes.
+    coreDumpConfig :: Prelude.Maybe ProductionVariantCoreDumpConfig,
+    -- | The name of the production variant.
+    variantName :: Prelude.Text,
+    -- | The name of the model that you want to host. This is the name that you
+    -- specified when creating the model.
+    modelName :: Prelude.Text,
+    -- | Number of instances to launch initially.
+    initialInstanceCount :: Prelude.Nat,
+    -- | The ML compute instance type.
+    instanceType :: ProductionVariantInstanceType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ProductionVariant' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ProductionVariant' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pvInitialVariantWeight' - Determines initial traffic distribution among all of the models that you specify in the endpoint configuration. The traffic to a production variant is determined by the ratio of the @VariantWeight@ to the sum of all @VariantWeight@ values across all ProductionVariants. If unspecified, it defaults to 1.0.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pvAcceleratorType' - The size of the Elastic Inference (EI) instance to use for the production variant. EI instances provide on-demand GPU computing for inference. For more information, see <https://docs.aws.amazon.com/sagemaker/latest/dg/ei.html Using Elastic Inference in Amazon SageMaker> .
+-- 'initialVariantWeight', 'productionVariant_initialVariantWeight' - Determines initial traffic distribution among all of the models that you
+-- specify in the endpoint configuration. The traffic to a production
+-- variant is determined by the ratio of the @VariantWeight@ to the sum of
+-- all @VariantWeight@ values across all ProductionVariants. If
+-- unspecified, it defaults to 1.0.
 --
--- * 'pvCoreDumpConfig' - Specifies configuration for a core dump from the model container when the process crashes.
+-- 'acceleratorType', 'productionVariant_acceleratorType' - The size of the Elastic Inference (EI) instance to use for the
+-- production variant. EI instances provide on-demand GPU computing for
+-- inference. For more information, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/ei.html Using Elastic Inference in Amazon SageMaker>.
 --
--- * 'pvVariantName' - The name of the production variant.
+-- 'coreDumpConfig', 'productionVariant_coreDumpConfig' - Specifies configuration for a core dump from the model container when
+-- the process crashes.
 --
--- * 'pvModelName' - The name of the model that you want to host. This is the name that you specified when creating the model.
+-- 'variantName', 'productionVariant_variantName' - The name of the production variant.
 --
--- * 'pvInitialInstanceCount' - Number of instances to launch initially.
+-- 'modelName', 'productionVariant_modelName' - The name of the model that you want to host. This is the name that you
+-- specified when creating the model.
 --
--- * 'pvInstanceType' - The ML compute instance type.
-productionVariant ::
-  -- | 'pvVariantName'
-  Text ->
-  -- | 'pvModelName'
-  Text ->
-  -- | 'pvInitialInstanceCount'
-  Natural ->
-  -- | 'pvInstanceType'
+-- 'initialInstanceCount', 'productionVariant_initialInstanceCount' - Number of instances to launch initially.
+--
+-- 'instanceType', 'productionVariant_instanceType' - The ML compute instance type.
+newProductionVariant ::
+  -- | 'variantName'
+  Prelude.Text ->
+  -- | 'modelName'
+  Prelude.Text ->
+  -- | 'initialInstanceCount'
+  Prelude.Natural ->
+  -- | 'instanceType'
   ProductionVariantInstanceType ->
   ProductionVariant
-productionVariant
+newProductionVariant
   pVariantName_
   pModelName_
   pInitialInstanceCount_
   pInstanceType_ =
     ProductionVariant'
-      { _pvInitialVariantWeight =
-          Nothing,
-        _pvAcceleratorType = Nothing,
-        _pvCoreDumpConfig = Nothing,
-        _pvVariantName = pVariantName_,
-        _pvModelName = pModelName_,
-        _pvInitialInstanceCount =
-          _Nat # pInitialInstanceCount_,
-        _pvInstanceType = pInstanceType_
+      { initialVariantWeight =
+          Prelude.Nothing,
+        acceleratorType = Prelude.Nothing,
+        coreDumpConfig = Prelude.Nothing,
+        variantName = pVariantName_,
+        modelName = pModelName_,
+        initialInstanceCount =
+          Prelude._Nat Lens.# pInitialInstanceCount_,
+        instanceType = pInstanceType_
       }
 
--- | Determines initial traffic distribution among all of the models that you specify in the endpoint configuration. The traffic to a production variant is determined by the ratio of the @VariantWeight@ to the sum of all @VariantWeight@ values across all ProductionVariants. If unspecified, it defaults to 1.0.
-pvInitialVariantWeight :: Lens' ProductionVariant (Maybe Double)
-pvInitialVariantWeight = lens _pvInitialVariantWeight (\s a -> s {_pvInitialVariantWeight = a})
+-- | Determines initial traffic distribution among all of the models that you
+-- specify in the endpoint configuration. The traffic to a production
+-- variant is determined by the ratio of the @VariantWeight@ to the sum of
+-- all @VariantWeight@ values across all ProductionVariants. If
+-- unspecified, it defaults to 1.0.
+productionVariant_initialVariantWeight :: Lens.Lens' ProductionVariant (Prelude.Maybe Prelude.Double)
+productionVariant_initialVariantWeight = Lens.lens (\ProductionVariant' {initialVariantWeight} -> initialVariantWeight) (\s@ProductionVariant' {} a -> s {initialVariantWeight = a} :: ProductionVariant)
 
--- | The size of the Elastic Inference (EI) instance to use for the production variant. EI instances provide on-demand GPU computing for inference. For more information, see <https://docs.aws.amazon.com/sagemaker/latest/dg/ei.html Using Elastic Inference in Amazon SageMaker> .
-pvAcceleratorType :: Lens' ProductionVariant (Maybe ProductionVariantAcceleratorType)
-pvAcceleratorType = lens _pvAcceleratorType (\s a -> s {_pvAcceleratorType = a})
+-- | The size of the Elastic Inference (EI) instance to use for the
+-- production variant. EI instances provide on-demand GPU computing for
+-- inference. For more information, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/ei.html Using Elastic Inference in Amazon SageMaker>.
+productionVariant_acceleratorType :: Lens.Lens' ProductionVariant (Prelude.Maybe ProductionVariantAcceleratorType)
+productionVariant_acceleratorType = Lens.lens (\ProductionVariant' {acceleratorType} -> acceleratorType) (\s@ProductionVariant' {} a -> s {acceleratorType = a} :: ProductionVariant)
 
--- | Specifies configuration for a core dump from the model container when the process crashes.
-pvCoreDumpConfig :: Lens' ProductionVariant (Maybe ProductionVariantCoreDumpConfig)
-pvCoreDumpConfig = lens _pvCoreDumpConfig (\s a -> s {_pvCoreDumpConfig = a})
+-- | Specifies configuration for a core dump from the model container when
+-- the process crashes.
+productionVariant_coreDumpConfig :: Lens.Lens' ProductionVariant (Prelude.Maybe ProductionVariantCoreDumpConfig)
+productionVariant_coreDumpConfig = Lens.lens (\ProductionVariant' {coreDumpConfig} -> coreDumpConfig) (\s@ProductionVariant' {} a -> s {coreDumpConfig = a} :: ProductionVariant)
 
 -- | The name of the production variant.
-pvVariantName :: Lens' ProductionVariant Text
-pvVariantName = lens _pvVariantName (\s a -> s {_pvVariantName = a})
+productionVariant_variantName :: Lens.Lens' ProductionVariant Prelude.Text
+productionVariant_variantName = Lens.lens (\ProductionVariant' {variantName} -> variantName) (\s@ProductionVariant' {} a -> s {variantName = a} :: ProductionVariant)
 
--- | The name of the model that you want to host. This is the name that you specified when creating the model.
-pvModelName :: Lens' ProductionVariant Text
-pvModelName = lens _pvModelName (\s a -> s {_pvModelName = a})
+-- | The name of the model that you want to host. This is the name that you
+-- specified when creating the model.
+productionVariant_modelName :: Lens.Lens' ProductionVariant Prelude.Text
+productionVariant_modelName = Lens.lens (\ProductionVariant' {modelName} -> modelName) (\s@ProductionVariant' {} a -> s {modelName = a} :: ProductionVariant)
 
 -- | Number of instances to launch initially.
-pvInitialInstanceCount :: Lens' ProductionVariant Natural
-pvInitialInstanceCount = lens _pvInitialInstanceCount (\s a -> s {_pvInitialInstanceCount = a}) . _Nat
+productionVariant_initialInstanceCount :: Lens.Lens' ProductionVariant Prelude.Natural
+productionVariant_initialInstanceCount = Lens.lens (\ProductionVariant' {initialInstanceCount} -> initialInstanceCount) (\s@ProductionVariant' {} a -> s {initialInstanceCount = a} :: ProductionVariant) Prelude.. Prelude._Nat
 
 -- | The ML compute instance type.
-pvInstanceType :: Lens' ProductionVariant ProductionVariantInstanceType
-pvInstanceType = lens _pvInstanceType (\s a -> s {_pvInstanceType = a})
+productionVariant_instanceType :: Lens.Lens' ProductionVariant ProductionVariantInstanceType
+productionVariant_instanceType = Lens.lens (\ProductionVariant' {instanceType} -> instanceType) (\s@ProductionVariant' {} a -> s {instanceType = a} :: ProductionVariant)
 
-instance FromJSON ProductionVariant where
+instance Prelude.FromJSON ProductionVariant where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ProductionVariant"
       ( \x ->
           ProductionVariant'
-            <$> (x .:? "InitialVariantWeight")
-            <*> (x .:? "AcceleratorType")
-            <*> (x .:? "CoreDumpConfig")
-            <*> (x .: "VariantName")
-            <*> (x .: "ModelName")
-            <*> (x .: "InitialInstanceCount")
-            <*> (x .: "InstanceType")
+            Prelude.<$> (x Prelude..:? "InitialVariantWeight")
+            Prelude.<*> (x Prelude..:? "AcceleratorType")
+            Prelude.<*> (x Prelude..:? "CoreDumpConfig")
+            Prelude.<*> (x Prelude..: "VariantName")
+            Prelude.<*> (x Prelude..: "ModelName")
+            Prelude.<*> (x Prelude..: "InitialInstanceCount")
+            Prelude.<*> (x Prelude..: "InstanceType")
       )
 
-instance Hashable ProductionVariant
+instance Prelude.Hashable ProductionVariant
 
-instance NFData ProductionVariant
+instance Prelude.NFData ProductionVariant
 
-instance ToJSON ProductionVariant where
+instance Prelude.ToJSON ProductionVariant where
   toJSON ProductionVariant' {..} =
-    object
-      ( catMaybes
-          [ ("InitialVariantWeight" .=)
-              <$> _pvInitialVariantWeight,
-            ("AcceleratorType" .=) <$> _pvAcceleratorType,
-            ("CoreDumpConfig" .=) <$> _pvCoreDumpConfig,
-            Just ("VariantName" .= _pvVariantName),
-            Just ("ModelName" .= _pvModelName),
-            Just
-              ("InitialInstanceCount" .= _pvInitialInstanceCount),
-            Just ("InstanceType" .= _pvInstanceType)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("InitialVariantWeight" Prelude..=)
+              Prelude.<$> initialVariantWeight,
+            ("AcceleratorType" Prelude..=)
+              Prelude.<$> acceleratorType,
+            ("CoreDumpConfig" Prelude..=)
+              Prelude.<$> coreDumpConfig,
+            Prelude.Just ("VariantName" Prelude..= variantName),
+            Prelude.Just ("ModelName" Prelude..= modelName),
+            Prelude.Just
+              ( "InitialInstanceCount"
+                  Prelude..= initialInstanceCount
+              ),
+            Prelude.Just
+              ("InstanceType" Prelude..= instanceType)
           ]
       )

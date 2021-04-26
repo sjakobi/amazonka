@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,68 +19,68 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.HumanLoopActivationConfig where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.HumanLoopActivationConditionsConfig
 
--- | Provides information about how and under what conditions SageMaker creates a human loop. If @HumanLoopActivationConfig@ is not given, then all requests go to humans.
+-- | Provides information about how and under what conditions SageMaker
+-- creates a human loop. If @HumanLoopActivationConfig@ is not given, then
+-- all requests go to humans.
 --
---
---
--- /See:/ 'humanLoopActivationConfig' smart constructor.
-newtype HumanLoopActivationConfig = HumanLoopActivationConfig'
-  { _hlacHumanLoopActivationConditionsConfig ::
-      HumanLoopActivationConditionsConfig
+-- /See:/ 'newHumanLoopActivationConfig' smart constructor.
+data HumanLoopActivationConfig = HumanLoopActivationConfig'
+  { -- | Container structure for defining under what conditions SageMaker creates
+    -- a human loop.
+    humanLoopActivationConditionsConfig :: HumanLoopActivationConditionsConfig
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'HumanLoopActivationConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'HumanLoopActivationConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'hlacHumanLoopActivationConditionsConfig' - Container structure for defining under what conditions SageMaker creates a human loop.
-humanLoopActivationConfig ::
-  -- | 'hlacHumanLoopActivationConditionsConfig'
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'humanLoopActivationConditionsConfig', 'humanLoopActivationConfig_humanLoopActivationConditionsConfig' - Container structure for defining under what conditions SageMaker creates
+-- a human loop.
+newHumanLoopActivationConfig ::
+  -- | 'humanLoopActivationConditionsConfig'
   HumanLoopActivationConditionsConfig ->
   HumanLoopActivationConfig
-humanLoopActivationConfig
+newHumanLoopActivationConfig
   pHumanLoopActivationConditionsConfig_ =
     HumanLoopActivationConfig'
-      { _hlacHumanLoopActivationConditionsConfig =
+      { humanLoopActivationConditionsConfig =
           pHumanLoopActivationConditionsConfig_
       }
 
--- | Container structure for defining under what conditions SageMaker creates a human loop.
-hlacHumanLoopActivationConditionsConfig :: Lens' HumanLoopActivationConfig HumanLoopActivationConditionsConfig
-hlacHumanLoopActivationConditionsConfig = lens _hlacHumanLoopActivationConditionsConfig (\s a -> s {_hlacHumanLoopActivationConditionsConfig = a})
+-- | Container structure for defining under what conditions SageMaker creates
+-- a human loop.
+humanLoopActivationConfig_humanLoopActivationConditionsConfig :: Lens.Lens' HumanLoopActivationConfig HumanLoopActivationConditionsConfig
+humanLoopActivationConfig_humanLoopActivationConditionsConfig = Lens.lens (\HumanLoopActivationConfig' {humanLoopActivationConditionsConfig} -> humanLoopActivationConditionsConfig) (\s@HumanLoopActivationConfig' {} a -> s {humanLoopActivationConditionsConfig = a} :: HumanLoopActivationConfig)
 
-instance FromJSON HumanLoopActivationConfig where
+instance Prelude.FromJSON HumanLoopActivationConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "HumanLoopActivationConfig"
       ( \x ->
           HumanLoopActivationConfig'
-            <$> (x .: "HumanLoopActivationConditionsConfig")
+            Prelude.<$> (x Prelude..: "HumanLoopActivationConditionsConfig")
       )
 
-instance Hashable HumanLoopActivationConfig
+instance Prelude.Hashable HumanLoopActivationConfig
 
-instance NFData HumanLoopActivationConfig
+instance Prelude.NFData HumanLoopActivationConfig
 
-instance ToJSON HumanLoopActivationConfig where
+instance Prelude.ToJSON HumanLoopActivationConfig where
   toJSON HumanLoopActivationConfig' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "HumanLoopActivationConditionsConfig"
-                  .= _hlacHumanLoopActivationConditionsConfig
+                  Prelude..= humanLoopActivationConditionsConfig
               )
           ]
       )

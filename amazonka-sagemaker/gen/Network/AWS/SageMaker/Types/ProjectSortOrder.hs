@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.SageMaker.Types.ProjectSortOrder
   ( ProjectSortOrder
       ( ..,
-        PSOAscending,
-        PSODescending
+        ProjectSortOrderAscending,
+        ProjectSortOrderDescending
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ProjectSortOrder = ProjectSortOrder' (CI Text)
+newtype ProjectSortOrder = ProjectSortOrder'
+  { fromProjectSortOrder ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PSOAscending :: ProjectSortOrder
-pattern PSOAscending = ProjectSortOrder' "Ascending"
+pattern ProjectSortOrderAscending :: ProjectSortOrder
+pattern ProjectSortOrderAscending = ProjectSortOrder' "Ascending"
 
-pattern PSODescending :: ProjectSortOrder
-pattern PSODescending = ProjectSortOrder' "Descending"
+pattern ProjectSortOrderDescending :: ProjectSortOrder
+pattern ProjectSortOrderDescending = ProjectSortOrder' "Descending"
 
 {-# COMPLETE
-  PSOAscending,
-  PSODescending,
+  ProjectSortOrderAscending,
+  ProjectSortOrderDescending,
   ProjectSortOrder'
   #-}
 
-instance FromText ProjectSortOrder where
-  parser = (ProjectSortOrder' . mk) <$> takeText
+instance Prelude.FromText ProjectSortOrder where
+  parser = ProjectSortOrder' Prelude.<$> Prelude.takeText
 
-instance ToText ProjectSortOrder where
-  toText (ProjectSortOrder' ci) = original ci
+instance Prelude.ToText ProjectSortOrder where
+  toText (ProjectSortOrder' x) = x
 
-instance Hashable ProjectSortOrder
+instance Prelude.Hashable ProjectSortOrder
 
-instance NFData ProjectSortOrder
+instance Prelude.NFData ProjectSortOrder
 
-instance ToByteString ProjectSortOrder
+instance Prelude.ToByteString ProjectSortOrder
 
-instance ToQuery ProjectSortOrder
+instance Prelude.ToQuery ProjectSortOrder
 
-instance ToHeader ProjectSortOrder
+instance Prelude.ToHeader ProjectSortOrder
 
-instance ToJSON ProjectSortOrder where
-  toJSON = toJSONText
+instance Prelude.ToJSON ProjectSortOrder where
+  toJSON = Prelude.toJSONText

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,68 @@
 module Network.AWS.SageMaker.Types.MonitoringType
   ( MonitoringType
       ( ..,
-        DataQuality,
-        ModelBias,
-        ModelExplainability,
-        ModelQuality
+        MonitoringTypeDataQuality,
+        MonitoringTypeModelBias,
+        MonitoringTypeModelExplainability,
+        MonitoringTypeModelQuality
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data MonitoringType = MonitoringType' (CI Text)
+newtype MonitoringType = MonitoringType'
+  { fromMonitoringType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DataQuality :: MonitoringType
-pattern DataQuality = MonitoringType' "DataQuality"
+pattern MonitoringTypeDataQuality :: MonitoringType
+pattern MonitoringTypeDataQuality = MonitoringType' "DataQuality"
 
-pattern ModelBias :: MonitoringType
-pattern ModelBias = MonitoringType' "ModelBias"
+pattern MonitoringTypeModelBias :: MonitoringType
+pattern MonitoringTypeModelBias = MonitoringType' "ModelBias"
 
-pattern ModelExplainability :: MonitoringType
-pattern ModelExplainability = MonitoringType' "ModelExplainability"
+pattern MonitoringTypeModelExplainability :: MonitoringType
+pattern MonitoringTypeModelExplainability = MonitoringType' "ModelExplainability"
 
-pattern ModelQuality :: MonitoringType
-pattern ModelQuality = MonitoringType' "ModelQuality"
+pattern MonitoringTypeModelQuality :: MonitoringType
+pattern MonitoringTypeModelQuality = MonitoringType' "ModelQuality"
 
 {-# COMPLETE
-  DataQuality,
-  ModelBias,
-  ModelExplainability,
-  ModelQuality,
+  MonitoringTypeDataQuality,
+  MonitoringTypeModelBias,
+  MonitoringTypeModelExplainability,
+  MonitoringTypeModelQuality,
   MonitoringType'
   #-}
 
-instance FromText MonitoringType where
-  parser = (MonitoringType' . mk) <$> takeText
+instance Prelude.FromText MonitoringType where
+  parser = MonitoringType' Prelude.<$> Prelude.takeText
 
-instance ToText MonitoringType where
-  toText (MonitoringType' ci) = original ci
+instance Prelude.ToText MonitoringType where
+  toText (MonitoringType' x) = x
 
-instance Hashable MonitoringType
+instance Prelude.Hashable MonitoringType
 
-instance NFData MonitoringType
+instance Prelude.NFData MonitoringType
 
-instance ToByteString MonitoringType
+instance Prelude.ToByteString MonitoringType
 
-instance ToQuery MonitoringType
+instance Prelude.ToQuery MonitoringType
 
-instance ToHeader MonitoringType
+instance Prelude.ToHeader MonitoringType
 
-instance ToJSON MonitoringType where
-  toJSON = toJSONText
+instance Prelude.ToJSON MonitoringType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON MonitoringType where
-  parseJSON = parseJSONText "MonitoringType"
+instance Prelude.FromJSON MonitoringType where
+  parseJSON = Prelude.parseJSONText "MonitoringType"

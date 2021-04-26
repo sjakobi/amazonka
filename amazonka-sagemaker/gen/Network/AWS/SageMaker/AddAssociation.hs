@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,169 +21,225 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates an /association/ between the source and the destination. A source can be associated with multiple destinations, and a destination can be associated with multiple sources. An association is a lineage tracking entity. For more information, see <https://docs.aws.amazon.com/sagemaker/latest/dg/lineage-tracking.html Amazon SageMaker ML Lineage Tracking> .
+-- Creates an /association/ between the source and the destination. A
+-- source can be associated with multiple destinations, and a destination
+-- can be associated with multiple sources. An association is a lineage
+-- tracking entity. For more information, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/lineage-tracking.html Amazon SageMaker ML Lineage Tracking>.
 module Network.AWS.SageMaker.AddAssociation
   ( -- * Creating a Request
-    addAssociation,
-    AddAssociation,
+    AddAssociation (..),
+    newAddAssociation,
 
     -- * Request Lenses
-    aaAssociationType,
-    aaSourceARN,
-    aaDestinationARN,
+    addAssociation_associationType,
+    addAssociation_sourceArn,
+    addAssociation_destinationArn,
 
     -- * Destructuring the Response
-    addAssociationResponse,
-    AddAssociationResponse,
+    AddAssociationResponse (..),
+    newAddAssociationResponse,
 
     -- * Response Lenses
-    aarrsDestinationARN,
-    aarrsSourceARN,
-    aarrsResponseStatus,
+    addAssociationResponse_destinationArn,
+    addAssociationResponse_sourceArn,
+    addAssociationResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'addAssociation' smart constructor.
+-- | /See:/ 'newAddAssociation' smart constructor.
 data AddAssociation = AddAssociation'
-  { _aaAssociationType ::
-      !(Maybe AssociationEdgeType),
-    _aaSourceARN :: !Text,
-    _aaDestinationARN :: !Text
+  { -- | The type of association. The following are suggested uses for each type.
+    -- Amazon SageMaker places no restrictions on their use.
+    --
+    -- -   ContributedTo - The source contributed to the destination or had a
+    --     part in enabling the destination. For example, the training data
+    --     contributed to the training job.
+    --
+    -- -   AssociatedWith - The source is connected to the destination. For
+    --     example, an approval workflow is associated with a model deployment.
+    --
+    -- -   DerivedFrom - The destination is a modification of the source. For
+    --     example, a digest output of a channel input for a processing job is
+    --     derived from the original inputs.
+    --
+    -- -   Produced - The source generated the destination. For example, a
+    --     training job produced a model artifact.
+    associationType :: Prelude.Maybe AssociationEdgeType,
+    -- | The ARN of the source.
+    sourceArn :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the destination.
+    destinationArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AddAssociation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AddAssociation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aaAssociationType' - The type of association. The following are suggested uses for each type. Amazon SageMaker places no restrictions on their use.     * ContributedTo - The source contributed to the destination or had a part in enabling the destination. For example, the training data contributed to the training job.     * AssociatedWith - The source is connected to the destination. For example, an approval workflow is associated with a model deployment.     * DerivedFrom - The destination is a modification of the source. For example, a digest output of a channel input for a processing job is derived from the original inputs.     * Produced - The source generated the destination. For example, a training job produced a model artifact.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aaSourceARN' - The ARN of the source.
+-- 'associationType', 'addAssociation_associationType' - The type of association. The following are suggested uses for each type.
+-- Amazon SageMaker places no restrictions on their use.
 --
--- * 'aaDestinationARN' - The Amazon Resource Name (ARN) of the destination.
-addAssociation ::
-  -- | 'aaSourceARN'
-  Text ->
-  -- | 'aaDestinationARN'
-  Text ->
+-- -   ContributedTo - The source contributed to the destination or had a
+--     part in enabling the destination. For example, the training data
+--     contributed to the training job.
+--
+-- -   AssociatedWith - The source is connected to the destination. For
+--     example, an approval workflow is associated with a model deployment.
+--
+-- -   DerivedFrom - The destination is a modification of the source. For
+--     example, a digest output of a channel input for a processing job is
+--     derived from the original inputs.
+--
+-- -   Produced - The source generated the destination. For example, a
+--     training job produced a model artifact.
+--
+-- 'sourceArn', 'addAssociation_sourceArn' - The ARN of the source.
+--
+-- 'destinationArn', 'addAssociation_destinationArn' - The Amazon Resource Name (ARN) of the destination.
+newAddAssociation ::
+  -- | 'sourceArn'
+  Prelude.Text ->
+  -- | 'destinationArn'
+  Prelude.Text ->
   AddAssociation
-addAssociation pSourceARN_ pDestinationARN_ =
+newAddAssociation pSourceArn_ pDestinationArn_ =
   AddAssociation'
-    { _aaAssociationType = Nothing,
-      _aaSourceARN = pSourceARN_,
-      _aaDestinationARN = pDestinationARN_
+    { associationType = Prelude.Nothing,
+      sourceArn = pSourceArn_,
+      destinationArn = pDestinationArn_
     }
 
--- | The type of association. The following are suggested uses for each type. Amazon SageMaker places no restrictions on their use.     * ContributedTo - The source contributed to the destination or had a part in enabling the destination. For example, the training data contributed to the training job.     * AssociatedWith - The source is connected to the destination. For example, an approval workflow is associated with a model deployment.     * DerivedFrom - The destination is a modification of the source. For example, a digest output of a channel input for a processing job is derived from the original inputs.     * Produced - The source generated the destination. For example, a training job produced a model artifact.
-aaAssociationType :: Lens' AddAssociation (Maybe AssociationEdgeType)
-aaAssociationType = lens _aaAssociationType (\s a -> s {_aaAssociationType = a})
+-- | The type of association. The following are suggested uses for each type.
+-- Amazon SageMaker places no restrictions on their use.
+--
+-- -   ContributedTo - The source contributed to the destination or had a
+--     part in enabling the destination. For example, the training data
+--     contributed to the training job.
+--
+-- -   AssociatedWith - The source is connected to the destination. For
+--     example, an approval workflow is associated with a model deployment.
+--
+-- -   DerivedFrom - The destination is a modification of the source. For
+--     example, a digest output of a channel input for a processing job is
+--     derived from the original inputs.
+--
+-- -   Produced - The source generated the destination. For example, a
+--     training job produced a model artifact.
+addAssociation_associationType :: Lens.Lens' AddAssociation (Prelude.Maybe AssociationEdgeType)
+addAssociation_associationType = Lens.lens (\AddAssociation' {associationType} -> associationType) (\s@AddAssociation' {} a -> s {associationType = a} :: AddAssociation)
 
 -- | The ARN of the source.
-aaSourceARN :: Lens' AddAssociation Text
-aaSourceARN = lens _aaSourceARN (\s a -> s {_aaSourceARN = a})
+addAssociation_sourceArn :: Lens.Lens' AddAssociation Prelude.Text
+addAssociation_sourceArn = Lens.lens (\AddAssociation' {sourceArn} -> sourceArn) (\s@AddAssociation' {} a -> s {sourceArn = a} :: AddAssociation)
 
 -- | The Amazon Resource Name (ARN) of the destination.
-aaDestinationARN :: Lens' AddAssociation Text
-aaDestinationARN = lens _aaDestinationARN (\s a -> s {_aaDestinationARN = a})
+addAssociation_destinationArn :: Lens.Lens' AddAssociation Prelude.Text
+addAssociation_destinationArn = Lens.lens (\AddAssociation' {destinationArn} -> destinationArn) (\s@AddAssociation' {} a -> s {destinationArn = a} :: AddAssociation)
 
-instance AWSRequest AddAssociation where
+instance Prelude.AWSRequest AddAssociation where
   type Rs AddAssociation = AddAssociationResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           AddAssociationResponse'
-            <$> (x .?> "DestinationArn")
-            <*> (x .?> "SourceArn")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "DestinationArn")
+            Prelude.<*> (x Prelude..?> "SourceArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable AddAssociation
+instance Prelude.Hashable AddAssociation
 
-instance NFData AddAssociation
+instance Prelude.NFData AddAssociation
 
-instance ToHeaders AddAssociation where
+instance Prelude.ToHeaders AddAssociation where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.AddAssociation" :: ByteString),
+              Prelude.=# ("SageMaker.AddAssociation" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON AddAssociation where
+instance Prelude.ToJSON AddAssociation where
   toJSON AddAssociation' {..} =
-    object
-      ( catMaybes
-          [ ("AssociationType" .=) <$> _aaAssociationType,
-            Just ("SourceArn" .= _aaSourceARN),
-            Just ("DestinationArn" .= _aaDestinationARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("AssociationType" Prelude..=)
+              Prelude.<$> associationType,
+            Prelude.Just ("SourceArn" Prelude..= sourceArn),
+            Prelude.Just
+              ("DestinationArn" Prelude..= destinationArn)
           ]
       )
 
-instance ToPath AddAssociation where
-  toPath = const "/"
+instance Prelude.ToPath AddAssociation where
+  toPath = Prelude.const "/"
 
-instance ToQuery AddAssociation where
-  toQuery = const mempty
+instance Prelude.ToQuery AddAssociation where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'addAssociationResponse' smart constructor.
+-- | /See:/ 'newAddAssociationResponse' smart constructor.
 data AddAssociationResponse = AddAssociationResponse'
-  { _aarrsDestinationARN ::
-      !(Maybe Text),
-    _aarrsSourceARN ::
-      !(Maybe Text),
-    _aarrsResponseStatus ::
-      !Int
+  { -- | The Amazon Resource Name (ARN) of the destination.
+    destinationArn :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the source.
+    sourceArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AddAssociationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AddAssociationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aarrsDestinationARN' - The Amazon Resource Name (ARN) of the destination.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aarrsSourceARN' - The ARN of the source.
+-- 'destinationArn', 'addAssociationResponse_destinationArn' - The Amazon Resource Name (ARN) of the destination.
 --
--- * 'aarrsResponseStatus' - -- | The response status code.
-addAssociationResponse ::
-  -- | 'aarrsResponseStatus'
-  Int ->
+-- 'sourceArn', 'addAssociationResponse_sourceArn' - The ARN of the source.
+--
+-- 'httpStatus', 'addAssociationResponse_httpStatus' - The response's http status code.
+newAddAssociationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   AddAssociationResponse
-addAssociationResponse pResponseStatus_ =
+newAddAssociationResponse pHttpStatus_ =
   AddAssociationResponse'
-    { _aarrsDestinationARN =
-        Nothing,
-      _aarrsSourceARN = Nothing,
-      _aarrsResponseStatus = pResponseStatus_
+    { destinationArn =
+        Prelude.Nothing,
+      sourceArn = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The Amazon Resource Name (ARN) of the destination.
-aarrsDestinationARN :: Lens' AddAssociationResponse (Maybe Text)
-aarrsDestinationARN = lens _aarrsDestinationARN (\s a -> s {_aarrsDestinationARN = a})
+addAssociationResponse_destinationArn :: Lens.Lens' AddAssociationResponse (Prelude.Maybe Prelude.Text)
+addAssociationResponse_destinationArn = Lens.lens (\AddAssociationResponse' {destinationArn} -> destinationArn) (\s@AddAssociationResponse' {} a -> s {destinationArn = a} :: AddAssociationResponse)
 
 -- | The ARN of the source.
-aarrsSourceARN :: Lens' AddAssociationResponse (Maybe Text)
-aarrsSourceARN = lens _aarrsSourceARN (\s a -> s {_aarrsSourceARN = a})
+addAssociationResponse_sourceArn :: Lens.Lens' AddAssociationResponse (Prelude.Maybe Prelude.Text)
+addAssociationResponse_sourceArn = Lens.lens (\AddAssociationResponse' {sourceArn} -> sourceArn) (\s@AddAssociationResponse' {} a -> s {sourceArn = a} :: AddAssociationResponse)
 
--- | -- | The response status code.
-aarrsResponseStatus :: Lens' AddAssociationResponse Int
-aarrsResponseStatus = lens _aarrsResponseStatus (\s a -> s {_aarrsResponseStatus = a})
+-- | The response's http status code.
+addAssociationResponse_httpStatus :: Lens.Lens' AddAssociationResponse Prelude.Int
+addAssociationResponse_httpStatus = Lens.lens (\AddAssociationResponse' {httpStatus} -> httpStatus) (\s@AddAssociationResponse' {} a -> s {httpStatus = a} :: AddAssociationResponse)
 
-instance NFData AddAssociationResponse
+instance Prelude.NFData AddAssociationResponse

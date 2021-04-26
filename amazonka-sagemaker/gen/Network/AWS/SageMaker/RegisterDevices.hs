@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,117 +24,125 @@
 -- Register devices.
 module Network.AWS.SageMaker.RegisterDevices
   ( -- * Creating a Request
-    registerDevices,
-    RegisterDevices,
+    RegisterDevices (..),
+    newRegisterDevices,
 
     -- * Request Lenses
-    rdTags,
-    rdDeviceFleetName,
-    rdDevices,
+    registerDevices_tags,
+    registerDevices_deviceFleetName,
+    registerDevices_devices,
 
     -- * Destructuring the Response
-    registerDevicesResponse,
-    RegisterDevicesResponse,
+    RegisterDevicesResponse (..),
+    newRegisterDevicesResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'registerDevices' smart constructor.
+-- | /See:/ 'newRegisterDevices' smart constructor.
 data RegisterDevices = RegisterDevices'
-  { _rdTags ::
-      !(Maybe [Tag]),
-    _rdDeviceFleetName :: !Text,
-    _rdDevices :: ![Device]
+  { -- | The tags associated with devices.
+    tags :: Prelude.Maybe [Tag],
+    -- | The name of the fleet.
+    deviceFleetName :: Prelude.Text,
+    -- | A list of devices to register with SageMaker Edge Manager.
+    devices :: [Device]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RegisterDevices' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RegisterDevices' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rdTags' - The tags associated with devices.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rdDeviceFleetName' - The name of the fleet.
+-- 'tags', 'registerDevices_tags' - The tags associated with devices.
 --
--- * 'rdDevices' - A list of devices to register with SageMaker Edge Manager.
-registerDevices ::
-  -- | 'rdDeviceFleetName'
-  Text ->
+-- 'deviceFleetName', 'registerDevices_deviceFleetName' - The name of the fleet.
+--
+-- 'devices', 'registerDevices_devices' - A list of devices to register with SageMaker Edge Manager.
+newRegisterDevices ::
+  -- | 'deviceFleetName'
+  Prelude.Text ->
   RegisterDevices
-registerDevices pDeviceFleetName_ =
+newRegisterDevices pDeviceFleetName_ =
   RegisterDevices'
-    { _rdTags = Nothing,
-      _rdDeviceFleetName = pDeviceFleetName_,
-      _rdDevices = mempty
+    { tags = Prelude.Nothing,
+      deviceFleetName = pDeviceFleetName_,
+      devices = Prelude.mempty
     }
 
 -- | The tags associated with devices.
-rdTags :: Lens' RegisterDevices [Tag]
-rdTags = lens _rdTags (\s a -> s {_rdTags = a}) . _Default . _Coerce
+registerDevices_tags :: Lens.Lens' RegisterDevices (Prelude.Maybe [Tag])
+registerDevices_tags = Lens.lens (\RegisterDevices' {tags} -> tags) (\s@RegisterDevices' {} a -> s {tags = a} :: RegisterDevices) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The name of the fleet.
-rdDeviceFleetName :: Lens' RegisterDevices Text
-rdDeviceFleetName = lens _rdDeviceFleetName (\s a -> s {_rdDeviceFleetName = a})
+registerDevices_deviceFleetName :: Lens.Lens' RegisterDevices Prelude.Text
+registerDevices_deviceFleetName = Lens.lens (\RegisterDevices' {deviceFleetName} -> deviceFleetName) (\s@RegisterDevices' {} a -> s {deviceFleetName = a} :: RegisterDevices)
 
 -- | A list of devices to register with SageMaker Edge Manager.
-rdDevices :: Lens' RegisterDevices [Device]
-rdDevices = lens _rdDevices (\s a -> s {_rdDevices = a}) . _Coerce
+registerDevices_devices :: Lens.Lens' RegisterDevices [Device]
+registerDevices_devices = Lens.lens (\RegisterDevices' {devices} -> devices) (\s@RegisterDevices' {} a -> s {devices = a} :: RegisterDevices) Prelude.. Prelude._Coerce
 
-instance AWSRequest RegisterDevices where
+instance Prelude.AWSRequest RegisterDevices where
   type Rs RegisterDevices = RegisterDevicesResponse
-  request = postJSON sageMaker
-  response = receiveNull RegisterDevicesResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull RegisterDevicesResponse'
 
-instance Hashable RegisterDevices
+instance Prelude.Hashable RegisterDevices
 
-instance NFData RegisterDevices
+instance Prelude.NFData RegisterDevices
 
-instance ToHeaders RegisterDevices where
+instance Prelude.ToHeaders RegisterDevices where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.RegisterDevices" :: ByteString),
+              Prelude.=# ("SageMaker.RegisterDevices" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON RegisterDevices where
+instance Prelude.ToJSON RegisterDevices where
   toJSON RegisterDevices' {..} =
-    object
-      ( catMaybes
-          [ ("Tags" .=) <$> _rdTags,
-            Just ("DeviceFleetName" .= _rdDeviceFleetName),
-            Just ("Devices" .= _rdDevices)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Tags" Prelude..=) Prelude.<$> tags,
+            Prelude.Just
+              ("DeviceFleetName" Prelude..= deviceFleetName),
+            Prelude.Just ("Devices" Prelude..= devices)
           ]
       )
 
-instance ToPath RegisterDevices where
-  toPath = const "/"
+instance Prelude.ToPath RegisterDevices where
+  toPath = Prelude.const "/"
 
-instance ToQuery RegisterDevices where
-  toQuery = const mempty
+instance Prelude.ToQuery RegisterDevices where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'registerDevicesResponse' smart constructor.
+-- | /See:/ 'newRegisterDevicesResponse' smart constructor.
 data RegisterDevicesResponse = RegisterDevicesResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RegisterDevicesResponse' with the minimum fields required to make a request.
-registerDevicesResponse ::
+-- |
+-- Create a value of 'RegisterDevicesResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newRegisterDevicesResponse ::
   RegisterDevicesResponse
-registerDevicesResponse = RegisterDevicesResponse'
+newRegisterDevicesResponse = RegisterDevicesResponse'
 
-instance NFData RegisterDevicesResponse
+instance Prelude.NFData RegisterDevicesResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,98 +24,107 @@
 -- Deletes a fleet.
 module Network.AWS.SageMaker.DeleteDeviceFleet
   ( -- * Creating a Request
-    deleteDeviceFleet,
-    DeleteDeviceFleet,
+    DeleteDeviceFleet (..),
+    newDeleteDeviceFleet,
 
     -- * Request Lenses
-    ddfDeviceFleetName,
+    deleteDeviceFleet_deviceFleetName,
 
     -- * Destructuring the Response
-    deleteDeviceFleetResponse,
-    DeleteDeviceFleetResponse,
+    DeleteDeviceFleetResponse (..),
+    newDeleteDeviceFleetResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'deleteDeviceFleet' smart constructor.
-newtype DeleteDeviceFleet = DeleteDeviceFleet'
-  { _ddfDeviceFleetName ::
-      Text
+-- | /See:/ 'newDeleteDeviceFleet' smart constructor.
+data DeleteDeviceFleet = DeleteDeviceFleet'
+  { -- | The name of the fleet to delete.
+    deviceFleetName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteDeviceFleet' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteDeviceFleet' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddfDeviceFleetName' - The name of the fleet to delete.
-deleteDeviceFleet ::
-  -- | 'ddfDeviceFleetName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'deviceFleetName', 'deleteDeviceFleet_deviceFleetName' - The name of the fleet to delete.
+newDeleteDeviceFleet ::
+  -- | 'deviceFleetName'
+  Prelude.Text ->
   DeleteDeviceFleet
-deleteDeviceFleet pDeviceFleetName_ =
+newDeleteDeviceFleet pDeviceFleetName_ =
   DeleteDeviceFleet'
-    { _ddfDeviceFleetName =
+    { deviceFleetName =
         pDeviceFleetName_
     }
 
 -- | The name of the fleet to delete.
-ddfDeviceFleetName :: Lens' DeleteDeviceFleet Text
-ddfDeviceFleetName = lens _ddfDeviceFleetName (\s a -> s {_ddfDeviceFleetName = a})
+deleteDeviceFleet_deviceFleetName :: Lens.Lens' DeleteDeviceFleet Prelude.Text
+deleteDeviceFleet_deviceFleetName = Lens.lens (\DeleteDeviceFleet' {deviceFleetName} -> deviceFleetName) (\s@DeleteDeviceFleet' {} a -> s {deviceFleetName = a} :: DeleteDeviceFleet)
 
-instance AWSRequest DeleteDeviceFleet where
+instance Prelude.AWSRequest DeleteDeviceFleet where
   type Rs DeleteDeviceFleet = DeleteDeviceFleetResponse
-  request = postJSON sageMaker
-  response = receiveNull DeleteDeviceFleetResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull DeleteDeviceFleetResponse'
 
-instance Hashable DeleteDeviceFleet
+instance Prelude.Hashable DeleteDeviceFleet
 
-instance NFData DeleteDeviceFleet
+instance Prelude.NFData DeleteDeviceFleet
 
-instance ToHeaders DeleteDeviceFleet where
+instance Prelude.ToHeaders DeleteDeviceFleet where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.DeleteDeviceFleet" :: ByteString),
+              Prelude.=# ( "SageMaker.DeleteDeviceFleet" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteDeviceFleet where
+instance Prelude.ToJSON DeleteDeviceFleet where
   toJSON DeleteDeviceFleet' {..} =
-    object
-      ( catMaybes
-          [Just ("DeviceFleetName" .= _ddfDeviceFleetName)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("DeviceFleetName" Prelude..= deviceFleetName)
+          ]
       )
 
-instance ToPath DeleteDeviceFleet where
-  toPath = const "/"
+instance Prelude.ToPath DeleteDeviceFleet where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteDeviceFleet where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteDeviceFleet where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteDeviceFleetResponse' smart constructor.
+-- | /See:/ 'newDeleteDeviceFleetResponse' smart constructor.
 data DeleteDeviceFleetResponse = DeleteDeviceFleetResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteDeviceFleetResponse' with the minimum fields required to make a request.
-deleteDeviceFleetResponse ::
+-- |
+-- Create a value of 'DeleteDeviceFleetResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteDeviceFleetResponse ::
   DeleteDeviceFleetResponse
-deleteDeviceFleetResponse =
+newDeleteDeviceFleetResponse =
   DeleteDeviceFleetResponse'
 
-instance NFData DeleteDeviceFleetResponse
+instance Prelude.NFData DeleteDeviceFleetResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,72 +19,70 @@
 module Network.AWS.SageMaker.Types.ListEdgePackagingJobsSortBy
   ( ListEdgePackagingJobsSortBy
       ( ..,
-        LEPJSBCreationTime,
-        LEPJSBLastModifiedTime,
-        LEPJSBModelName,
-        LEPJSBName,
-        LEPJSBStatus
+        ListEdgePackagingJobsSortByCREATIONTIME,
+        ListEdgePackagingJobsSortByLASTMODIFIEDTIME,
+        ListEdgePackagingJobsSortByMODELNAME,
+        ListEdgePackagingJobsSortByNAME,
+        ListEdgePackagingJobsSortBySTATUS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ListEdgePackagingJobsSortBy
-  = ListEdgePackagingJobsSortBy'
-      ( CI
-          Text
-      )
+newtype ListEdgePackagingJobsSortBy = ListEdgePackagingJobsSortBy'
+  { fromListEdgePackagingJobsSortBy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern LEPJSBCreationTime :: ListEdgePackagingJobsSortBy
-pattern LEPJSBCreationTime = ListEdgePackagingJobsSortBy' "CREATION_TIME"
+pattern ListEdgePackagingJobsSortByCREATIONTIME :: ListEdgePackagingJobsSortBy
+pattern ListEdgePackagingJobsSortByCREATIONTIME = ListEdgePackagingJobsSortBy' "CREATION_TIME"
 
-pattern LEPJSBLastModifiedTime :: ListEdgePackagingJobsSortBy
-pattern LEPJSBLastModifiedTime = ListEdgePackagingJobsSortBy' "LAST_MODIFIED_TIME"
+pattern ListEdgePackagingJobsSortByLASTMODIFIEDTIME :: ListEdgePackagingJobsSortBy
+pattern ListEdgePackagingJobsSortByLASTMODIFIEDTIME = ListEdgePackagingJobsSortBy' "LAST_MODIFIED_TIME"
 
-pattern LEPJSBModelName :: ListEdgePackagingJobsSortBy
-pattern LEPJSBModelName = ListEdgePackagingJobsSortBy' "MODEL_NAME"
+pattern ListEdgePackagingJobsSortByMODELNAME :: ListEdgePackagingJobsSortBy
+pattern ListEdgePackagingJobsSortByMODELNAME = ListEdgePackagingJobsSortBy' "MODEL_NAME"
 
-pattern LEPJSBName :: ListEdgePackagingJobsSortBy
-pattern LEPJSBName = ListEdgePackagingJobsSortBy' "NAME"
+pattern ListEdgePackagingJobsSortByNAME :: ListEdgePackagingJobsSortBy
+pattern ListEdgePackagingJobsSortByNAME = ListEdgePackagingJobsSortBy' "NAME"
 
-pattern LEPJSBStatus :: ListEdgePackagingJobsSortBy
-pattern LEPJSBStatus = ListEdgePackagingJobsSortBy' "STATUS"
+pattern ListEdgePackagingJobsSortBySTATUS :: ListEdgePackagingJobsSortBy
+pattern ListEdgePackagingJobsSortBySTATUS = ListEdgePackagingJobsSortBy' "STATUS"
 
 {-# COMPLETE
-  LEPJSBCreationTime,
-  LEPJSBLastModifiedTime,
-  LEPJSBModelName,
-  LEPJSBName,
-  LEPJSBStatus,
+  ListEdgePackagingJobsSortByCREATIONTIME,
+  ListEdgePackagingJobsSortByLASTMODIFIEDTIME,
+  ListEdgePackagingJobsSortByMODELNAME,
+  ListEdgePackagingJobsSortByNAME,
+  ListEdgePackagingJobsSortBySTATUS,
   ListEdgePackagingJobsSortBy'
   #-}
 
-instance FromText ListEdgePackagingJobsSortBy where
-  parser = (ListEdgePackagingJobsSortBy' . mk) <$> takeText
+instance Prelude.FromText ListEdgePackagingJobsSortBy where
+  parser = ListEdgePackagingJobsSortBy' Prelude.<$> Prelude.takeText
 
-instance ToText ListEdgePackagingJobsSortBy where
-  toText (ListEdgePackagingJobsSortBy' ci) = original ci
+instance Prelude.ToText ListEdgePackagingJobsSortBy where
+  toText (ListEdgePackagingJobsSortBy' x) = x
 
-instance Hashable ListEdgePackagingJobsSortBy
+instance Prelude.Hashable ListEdgePackagingJobsSortBy
 
-instance NFData ListEdgePackagingJobsSortBy
+instance Prelude.NFData ListEdgePackagingJobsSortBy
 
-instance ToByteString ListEdgePackagingJobsSortBy
+instance Prelude.ToByteString ListEdgePackagingJobsSortBy
 
-instance ToQuery ListEdgePackagingJobsSortBy
+instance Prelude.ToQuery ListEdgePackagingJobsSortBy
 
-instance ToHeader ListEdgePackagingJobsSortBy
+instance Prelude.ToHeader ListEdgePackagingJobsSortBy
 
-instance ToJSON ListEdgePackagingJobsSortBy where
-  toJSON = toJSONText
+instance Prelude.ToJSON ListEdgePackagingJobsSortBy where
+  toJSON = Prelude.toJSONText

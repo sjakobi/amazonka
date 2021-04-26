@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,78 +19,86 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.CustomImage where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A custom SageMaker image. For more information, see <https://docs.aws.amazon.com/sagemaker/latest/dg/studio-byoi.html Bring your own SageMaker image> .
+-- | A custom SageMaker image. For more information, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/studio-byoi.html Bring your own SageMaker image>.
 --
---
---
--- /See:/ 'customImage' smart constructor.
+-- /See:/ 'newCustomImage' smart constructor.
 data CustomImage = CustomImage'
-  { _ciImageVersionNumber ::
-      !(Maybe Nat),
-    _ciImageName :: !Text,
-    _ciAppImageConfigName :: !Text
+  { -- | The version number of the CustomImage.
+    imageVersionNumber :: Prelude.Maybe Prelude.Nat,
+    -- | The name of the CustomImage. Must be unique to your account.
+    imageName :: Prelude.Text,
+    -- | The name of the AppImageConfig.
+    appImageConfigName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CustomImage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CustomImage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ciImageVersionNumber' - The version number of the CustomImage.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ciImageName' - The name of the CustomImage. Must be unique to your account.
+-- 'imageVersionNumber', 'customImage_imageVersionNumber' - The version number of the CustomImage.
 --
--- * 'ciAppImageConfigName' - The name of the AppImageConfig.
-customImage ::
-  -- | 'ciImageName'
-  Text ->
-  -- | 'ciAppImageConfigName'
-  Text ->
+-- 'imageName', 'customImage_imageName' - The name of the CustomImage. Must be unique to your account.
+--
+-- 'appImageConfigName', 'customImage_appImageConfigName' - The name of the AppImageConfig.
+newCustomImage ::
+  -- | 'imageName'
+  Prelude.Text ->
+  -- | 'appImageConfigName'
+  Prelude.Text ->
   CustomImage
-customImage pImageName_ pAppImageConfigName_ =
+newCustomImage pImageName_ pAppImageConfigName_ =
   CustomImage'
-    { _ciImageVersionNumber = Nothing,
-      _ciImageName = pImageName_,
-      _ciAppImageConfigName = pAppImageConfigName_
+    { imageVersionNumber = Prelude.Nothing,
+      imageName = pImageName_,
+      appImageConfigName = pAppImageConfigName_
     }
 
 -- | The version number of the CustomImage.
-ciImageVersionNumber :: Lens' CustomImage (Maybe Natural)
-ciImageVersionNumber = lens _ciImageVersionNumber (\s a -> s {_ciImageVersionNumber = a}) . mapping _Nat
+customImage_imageVersionNumber :: Lens.Lens' CustomImage (Prelude.Maybe Prelude.Natural)
+customImage_imageVersionNumber = Lens.lens (\CustomImage' {imageVersionNumber} -> imageVersionNumber) (\s@CustomImage' {} a -> s {imageVersionNumber = a} :: CustomImage) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The name of the CustomImage. Must be unique to your account.
-ciImageName :: Lens' CustomImage Text
-ciImageName = lens _ciImageName (\s a -> s {_ciImageName = a})
+customImage_imageName :: Lens.Lens' CustomImage Prelude.Text
+customImage_imageName = Lens.lens (\CustomImage' {imageName} -> imageName) (\s@CustomImage' {} a -> s {imageName = a} :: CustomImage)
 
 -- | The name of the AppImageConfig.
-ciAppImageConfigName :: Lens' CustomImage Text
-ciAppImageConfigName = lens _ciAppImageConfigName (\s a -> s {_ciAppImageConfigName = a})
+customImage_appImageConfigName :: Lens.Lens' CustomImage Prelude.Text
+customImage_appImageConfigName = Lens.lens (\CustomImage' {appImageConfigName} -> appImageConfigName) (\s@CustomImage' {} a -> s {appImageConfigName = a} :: CustomImage)
 
-instance FromJSON CustomImage where
+instance Prelude.FromJSON CustomImage where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CustomImage"
       ( \x ->
           CustomImage'
-            <$> (x .:? "ImageVersionNumber")
-            <*> (x .: "ImageName")
-            <*> (x .: "AppImageConfigName")
+            Prelude.<$> (x Prelude..:? "ImageVersionNumber")
+            Prelude.<*> (x Prelude..: "ImageName")
+            Prelude.<*> (x Prelude..: "AppImageConfigName")
       )
 
-instance Hashable CustomImage
+instance Prelude.Hashable CustomImage
 
-instance NFData CustomImage
+instance Prelude.NFData CustomImage
 
-instance ToJSON CustomImage where
+instance Prelude.ToJSON CustomImage where
   toJSON CustomImage' {..} =
-    object
-      ( catMaybes
-          [ ("ImageVersionNumber" .=) <$> _ciImageVersionNumber,
-            Just ("ImageName" .= _ciImageName),
-            Just
-              ("AppImageConfigName" .= _ciAppImageConfigName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ImageVersionNumber" Prelude..=)
+              Prelude.<$> imageVersionNumber,
+            Prelude.Just ("ImageName" Prelude..= imageName),
+            Prelude.Just
+              ( "AppImageConfigName"
+                  Prelude..= appImageConfigName
+              )
           ]
       )

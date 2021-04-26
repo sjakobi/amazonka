@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.SageMaker.Types.TrafficRoutingConfigType
   ( TrafficRoutingConfigType
       ( ..,
-        AllAtOnce,
-        Canary
+        TrafficRoutingConfigTypeALLATONCE,
+        TrafficRoutingConfigTypeCANARY
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TrafficRoutingConfigType
-  = TrafficRoutingConfigType'
-      ( CI
-          Text
-      )
+newtype TrafficRoutingConfigType = TrafficRoutingConfigType'
+  { fromTrafficRoutingConfigType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AllAtOnce :: TrafficRoutingConfigType
-pattern AllAtOnce = TrafficRoutingConfigType' "ALL_AT_ONCE"
+pattern TrafficRoutingConfigTypeALLATONCE :: TrafficRoutingConfigType
+pattern TrafficRoutingConfigTypeALLATONCE = TrafficRoutingConfigType' "ALL_AT_ONCE"
 
-pattern Canary :: TrafficRoutingConfigType
-pattern Canary = TrafficRoutingConfigType' "CANARY"
+pattern TrafficRoutingConfigTypeCANARY :: TrafficRoutingConfigType
+pattern TrafficRoutingConfigTypeCANARY = TrafficRoutingConfigType' "CANARY"
 
 {-# COMPLETE
-  AllAtOnce,
-  Canary,
+  TrafficRoutingConfigTypeALLATONCE,
+  TrafficRoutingConfigTypeCANARY,
   TrafficRoutingConfigType'
   #-}
 
-instance FromText TrafficRoutingConfigType where
-  parser = (TrafficRoutingConfigType' . mk) <$> takeText
+instance Prelude.FromText TrafficRoutingConfigType where
+  parser = TrafficRoutingConfigType' Prelude.<$> Prelude.takeText
 
-instance ToText TrafficRoutingConfigType where
-  toText (TrafficRoutingConfigType' ci) = original ci
+instance Prelude.ToText TrafficRoutingConfigType where
+  toText (TrafficRoutingConfigType' x) = x
 
-instance Hashable TrafficRoutingConfigType
+instance Prelude.Hashable TrafficRoutingConfigType
 
-instance NFData TrafficRoutingConfigType
+instance Prelude.NFData TrafficRoutingConfigType
 
-instance ToByteString TrafficRoutingConfigType
+instance Prelude.ToByteString TrafficRoutingConfigType
 
-instance ToQuery TrafficRoutingConfigType
+instance Prelude.ToQuery TrafficRoutingConfigType
 
-instance ToHeader TrafficRoutingConfigType
+instance Prelude.ToHeader TrafficRoutingConfigType
 
-instance ToJSON TrafficRoutingConfigType where
-  toJSON = toJSONText
+instance Prelude.ToJSON TrafficRoutingConfigType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON TrafficRoutingConfigType where
-  parseJSON = parseJSONText "TrafficRoutingConfigType"
+instance Prelude.FromJSON TrafficRoutingConfigType where
+  parseJSON = Prelude.parseJSONText "TrafficRoutingConfigType"

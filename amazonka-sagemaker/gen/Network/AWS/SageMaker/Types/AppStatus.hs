@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,70 @@
 module Network.AWS.SageMaker.Types.AppStatus
   ( AppStatus
       ( ..,
-        ASsDeleted,
-        ASsDeleting,
-        ASsFailed,
-        ASsInService,
-        ASsPending
+        AppStatusDeleted,
+        AppStatusDeleting,
+        AppStatusFailed,
+        AppStatusInService,
+        AppStatusPending
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AppStatus = AppStatus' (CI Text)
+newtype AppStatus = AppStatus'
+  { fromAppStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ASsDeleted :: AppStatus
-pattern ASsDeleted = AppStatus' "Deleted"
+pattern AppStatusDeleted :: AppStatus
+pattern AppStatusDeleted = AppStatus' "Deleted"
 
-pattern ASsDeleting :: AppStatus
-pattern ASsDeleting = AppStatus' "Deleting"
+pattern AppStatusDeleting :: AppStatus
+pattern AppStatusDeleting = AppStatus' "Deleting"
 
-pattern ASsFailed :: AppStatus
-pattern ASsFailed = AppStatus' "Failed"
+pattern AppStatusFailed :: AppStatus
+pattern AppStatusFailed = AppStatus' "Failed"
 
-pattern ASsInService :: AppStatus
-pattern ASsInService = AppStatus' "InService"
+pattern AppStatusInService :: AppStatus
+pattern AppStatusInService = AppStatus' "InService"
 
-pattern ASsPending :: AppStatus
-pattern ASsPending = AppStatus' "Pending"
+pattern AppStatusPending :: AppStatus
+pattern AppStatusPending = AppStatus' "Pending"
 
 {-# COMPLETE
-  ASsDeleted,
-  ASsDeleting,
-  ASsFailed,
-  ASsInService,
-  ASsPending,
+  AppStatusDeleted,
+  AppStatusDeleting,
+  AppStatusFailed,
+  AppStatusInService,
+  AppStatusPending,
   AppStatus'
   #-}
 
-instance FromText AppStatus where
-  parser = (AppStatus' . mk) <$> takeText
+instance Prelude.FromText AppStatus where
+  parser = AppStatus' Prelude.<$> Prelude.takeText
 
-instance ToText AppStatus where
-  toText (AppStatus' ci) = original ci
+instance Prelude.ToText AppStatus where
+  toText (AppStatus' x) = x
 
-instance Hashable AppStatus
+instance Prelude.Hashable AppStatus
 
-instance NFData AppStatus
+instance Prelude.NFData AppStatus
 
-instance ToByteString AppStatus
+instance Prelude.ToByteString AppStatus
 
-instance ToQuery AppStatus
+instance Prelude.ToQuery AppStatus
 
-instance ToHeader AppStatus
+instance Prelude.ToHeader AppStatus
 
-instance FromJSON AppStatus where
-  parseJSON = parseJSONText "AppStatus"
+instance Prelude.FromJSON AppStatus where
+  parseJSON = Prelude.parseJSONText "AppStatus"

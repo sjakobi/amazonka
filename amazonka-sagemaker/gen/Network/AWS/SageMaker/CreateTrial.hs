@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,175 +21,208 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates an Amazon SageMaker /trial/ . A trial is a set of steps called /trial components/ that produce a machine learning model. A trial is part of a single Amazon SageMaker /experiment/ .
+-- Creates an Amazon SageMaker /trial/. A trial is a set of steps called
+-- /trial components/ that produce a machine learning model. A trial is
+-- part of a single Amazon SageMaker /experiment/.
 --
+-- When you use Amazon SageMaker Studio or the Amazon SageMaker Python SDK,
+-- all experiments, trials, and trial components are automatically tracked,
+-- logged, and indexed. When you use the AWS SDK for Python (Boto), you
+-- must use the logging APIs provided by the SDK.
 --
--- When you use Amazon SageMaker Studio or the Amazon SageMaker Python SDK, all experiments, trials, and trial components are automatically tracked, logged, and indexed. When you use the AWS SDK for Python (Boto), you must use the logging APIs provided by the SDK.
+-- You can add tags to a trial and then use the Search API to search for
+-- the tags.
 --
--- You can add tags to a trial and then use the 'Search' API to search for the tags.
---
--- To get a list of all your trials, call the 'ListTrials' API. To view a trial's properties, call the 'DescribeTrial' API. To create a trial component, call the 'CreateTrialComponent' API.
+-- To get a list of all your trials, call the ListTrials API. To view a
+-- trial\'s properties, call the DescribeTrial API. To create a trial
+-- component, call the CreateTrialComponent API.
 module Network.AWS.SageMaker.CreateTrial
   ( -- * Creating a Request
-    createTrial,
-    CreateTrial,
+    CreateTrial (..),
+    newCreateTrial,
 
     -- * Request Lenses
-    ctMetadataProperties,
-    ctTags,
-    ctDisplayName,
-    ctTrialName,
-    ctExperimentName,
+    createTrial_metadataProperties,
+    createTrial_tags,
+    createTrial_displayName,
+    createTrial_trialName,
+    createTrial_experimentName,
 
     -- * Destructuring the Response
-    createTrialResponse,
-    CreateTrialResponse,
+    CreateTrialResponse (..),
+    newCreateTrialResponse,
 
     -- * Response Lenses
-    ctrrsTrialARN,
-    ctrrsResponseStatus,
+    createTrialResponse_trialArn,
+    createTrialResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'createTrial' smart constructor.
+-- | /See:/ 'newCreateTrial' smart constructor.
 data CreateTrial = CreateTrial'
-  { _ctMetadataProperties ::
-      !(Maybe MetadataProperties),
-    _ctTags :: !(Maybe [Tag]),
-    _ctDisplayName :: !(Maybe Text),
-    _ctTrialName :: !Text,
-    _ctExperimentName :: !Text
+  { metadataProperties :: Prelude.Maybe MetadataProperties,
+    -- | A list of tags to associate with the trial. You can use Search API to
+    -- search on the tags.
+    tags :: Prelude.Maybe [Tag],
+    -- | The name of the trial as displayed. The name doesn\'t need to be unique.
+    -- If @DisplayName@ isn\'t specified, @TrialName@ is displayed.
+    displayName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the trial. The name must be unique in your AWS account and
+    -- is not case-sensitive.
+    trialName :: Prelude.Text,
+    -- | The name of the experiment to associate the trial with.
+    experimentName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateTrial' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateTrial' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ctMetadataProperties' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ctTags' - A list of tags to associate with the trial. You can use 'Search' API to search on the tags.
+-- 'metadataProperties', 'createTrial_metadataProperties' - Undocumented member.
 --
--- * 'ctDisplayName' - The name of the trial as displayed. The name doesn't need to be unique. If @DisplayName@ isn't specified, @TrialName@ is displayed.
+-- 'tags', 'createTrial_tags' - A list of tags to associate with the trial. You can use Search API to
+-- search on the tags.
 --
--- * 'ctTrialName' - The name of the trial. The name must be unique in your AWS account and is not case-sensitive.
+-- 'displayName', 'createTrial_displayName' - The name of the trial as displayed. The name doesn\'t need to be unique.
+-- If @DisplayName@ isn\'t specified, @TrialName@ is displayed.
 --
--- * 'ctExperimentName' - The name of the experiment to associate the trial with.
-createTrial ::
-  -- | 'ctTrialName'
-  Text ->
-  -- | 'ctExperimentName'
-  Text ->
+-- 'trialName', 'createTrial_trialName' - The name of the trial. The name must be unique in your AWS account and
+-- is not case-sensitive.
+--
+-- 'experimentName', 'createTrial_experimentName' - The name of the experiment to associate the trial with.
+newCreateTrial ::
+  -- | 'trialName'
+  Prelude.Text ->
+  -- | 'experimentName'
+  Prelude.Text ->
   CreateTrial
-createTrial pTrialName_ pExperimentName_ =
+newCreateTrial pTrialName_ pExperimentName_ =
   CreateTrial'
-    { _ctMetadataProperties = Nothing,
-      _ctTags = Nothing,
-      _ctDisplayName = Nothing,
-      _ctTrialName = pTrialName_,
-      _ctExperimentName = pExperimentName_
+    { metadataProperties = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      displayName = Prelude.Nothing,
+      trialName = pTrialName_,
+      experimentName = pExperimentName_
     }
 
 -- | Undocumented member.
-ctMetadataProperties :: Lens' CreateTrial (Maybe MetadataProperties)
-ctMetadataProperties = lens _ctMetadataProperties (\s a -> s {_ctMetadataProperties = a})
+createTrial_metadataProperties :: Lens.Lens' CreateTrial (Prelude.Maybe MetadataProperties)
+createTrial_metadataProperties = Lens.lens (\CreateTrial' {metadataProperties} -> metadataProperties) (\s@CreateTrial' {} a -> s {metadataProperties = a} :: CreateTrial)
 
--- | A list of tags to associate with the trial. You can use 'Search' API to search on the tags.
-ctTags :: Lens' CreateTrial [Tag]
-ctTags = lens _ctTags (\s a -> s {_ctTags = a}) . _Default . _Coerce
+-- | A list of tags to associate with the trial. You can use Search API to
+-- search on the tags.
+createTrial_tags :: Lens.Lens' CreateTrial (Prelude.Maybe [Tag])
+createTrial_tags = Lens.lens (\CreateTrial' {tags} -> tags) (\s@CreateTrial' {} a -> s {tags = a} :: CreateTrial) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The name of the trial as displayed. The name doesn't need to be unique. If @DisplayName@ isn't specified, @TrialName@ is displayed.
-ctDisplayName :: Lens' CreateTrial (Maybe Text)
-ctDisplayName = lens _ctDisplayName (\s a -> s {_ctDisplayName = a})
+-- | The name of the trial as displayed. The name doesn\'t need to be unique.
+-- If @DisplayName@ isn\'t specified, @TrialName@ is displayed.
+createTrial_displayName :: Lens.Lens' CreateTrial (Prelude.Maybe Prelude.Text)
+createTrial_displayName = Lens.lens (\CreateTrial' {displayName} -> displayName) (\s@CreateTrial' {} a -> s {displayName = a} :: CreateTrial)
 
--- | The name of the trial. The name must be unique in your AWS account and is not case-sensitive.
-ctTrialName :: Lens' CreateTrial Text
-ctTrialName = lens _ctTrialName (\s a -> s {_ctTrialName = a})
+-- | The name of the trial. The name must be unique in your AWS account and
+-- is not case-sensitive.
+createTrial_trialName :: Lens.Lens' CreateTrial Prelude.Text
+createTrial_trialName = Lens.lens (\CreateTrial' {trialName} -> trialName) (\s@CreateTrial' {} a -> s {trialName = a} :: CreateTrial)
 
 -- | The name of the experiment to associate the trial with.
-ctExperimentName :: Lens' CreateTrial Text
-ctExperimentName = lens _ctExperimentName (\s a -> s {_ctExperimentName = a})
+createTrial_experimentName :: Lens.Lens' CreateTrial Prelude.Text
+createTrial_experimentName = Lens.lens (\CreateTrial' {experimentName} -> experimentName) (\s@CreateTrial' {} a -> s {experimentName = a} :: CreateTrial)
 
-instance AWSRequest CreateTrial where
+instance Prelude.AWSRequest CreateTrial where
   type Rs CreateTrial = CreateTrialResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateTrialResponse'
-            <$> (x .?> "TrialArn") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "TrialArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateTrial
+instance Prelude.Hashable CreateTrial
 
-instance NFData CreateTrial
+instance Prelude.NFData CreateTrial
 
-instance ToHeaders CreateTrial where
+instance Prelude.ToHeaders CreateTrial where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.CreateTrial" :: ByteString),
+              Prelude.=# ("SageMaker.CreateTrial" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateTrial where
+instance Prelude.ToJSON CreateTrial where
   toJSON CreateTrial' {..} =
-    object
-      ( catMaybes
-          [ ("MetadataProperties" .=) <$> _ctMetadataProperties,
-            ("Tags" .=) <$> _ctTags,
-            ("DisplayName" .=) <$> _ctDisplayName,
-            Just ("TrialName" .= _ctTrialName),
-            Just ("ExperimentName" .= _ctExperimentName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("MetadataProperties" Prelude..=)
+              Prelude.<$> metadataProperties,
+            ("Tags" Prelude..=) Prelude.<$> tags,
+            ("DisplayName" Prelude..=) Prelude.<$> displayName,
+            Prelude.Just ("TrialName" Prelude..= trialName),
+            Prelude.Just
+              ("ExperimentName" Prelude..= experimentName)
           ]
       )
 
-instance ToPath CreateTrial where
-  toPath = const "/"
+instance Prelude.ToPath CreateTrial where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateTrial where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateTrial where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createTrialResponse' smart constructor.
+-- | /See:/ 'newCreateTrialResponse' smart constructor.
 data CreateTrialResponse = CreateTrialResponse'
-  { _ctrrsTrialARN ::
-      !(Maybe Text),
-    _ctrrsResponseStatus :: !Int
+  { -- | The Amazon Resource Name (ARN) of the trial.
+    trialArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateTrialResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateTrialResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ctrrsTrialARN' - The Amazon Resource Name (ARN) of the trial.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ctrrsResponseStatus' - -- | The response status code.
-createTrialResponse ::
-  -- | 'ctrrsResponseStatus'
-  Int ->
+-- 'trialArn', 'createTrialResponse_trialArn' - The Amazon Resource Name (ARN) of the trial.
+--
+-- 'httpStatus', 'createTrialResponse_httpStatus' - The response's http status code.
+newCreateTrialResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateTrialResponse
-createTrialResponse pResponseStatus_ =
+newCreateTrialResponse pHttpStatus_ =
   CreateTrialResponse'
-    { _ctrrsTrialARN = Nothing,
-      _ctrrsResponseStatus = pResponseStatus_
+    { trialArn = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The Amazon Resource Name (ARN) of the trial.
-ctrrsTrialARN :: Lens' CreateTrialResponse (Maybe Text)
-ctrrsTrialARN = lens _ctrrsTrialARN (\s a -> s {_ctrrsTrialARN = a})
+createTrialResponse_trialArn :: Lens.Lens' CreateTrialResponse (Prelude.Maybe Prelude.Text)
+createTrialResponse_trialArn = Lens.lens (\CreateTrialResponse' {trialArn} -> trialArn) (\s@CreateTrialResponse' {} a -> s {trialArn = a} :: CreateTrialResponse)
 
--- | -- | The response status code.
-ctrrsResponseStatus :: Lens' CreateTrialResponse Int
-ctrrsResponseStatus = lens _ctrrsResponseStatus (\s a -> s {_ctrrsResponseStatus = a})
+-- | The response's http status code.
+createTrialResponse_httpStatus :: Lens.Lens' CreateTrialResponse Prelude.Int
+createTrialResponse_httpStatus = Lens.lens (\CreateTrialResponse' {httpStatus} -> httpStatus) (\s@CreateTrialResponse' {} a -> s {httpStatus = a} :: CreateTrialResponse)
 
-instance NFData CreateTrialResponse
+instance Prelude.NFData CreateTrialResponse

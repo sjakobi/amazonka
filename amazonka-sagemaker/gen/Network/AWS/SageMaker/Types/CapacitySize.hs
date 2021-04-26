@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,66 +19,70 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.CapacitySize where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.CapacitySizeType
 
 -- | Currently, the @CapacitySize@ API is not supported.
 --
---
---
--- /See:/ 'capacitySize' smart constructor.
+-- /See:/ 'newCapacitySize' smart constructor.
 data CapacitySize = CapacitySize'
-  { _csType ::
-      !CapacitySizeType,
-    _csValue :: !Nat
+  { -- | This API is not supported.
+    type' :: CapacitySizeType,
+    value :: Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CapacitySize' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CapacitySize' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csType' - This API is not supported.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csValue' -
-capacitySize ::
-  -- | 'csType'
+-- 'type'', 'capacitySize_type' - This API is not supported.
+--
+-- 'value', 'capacitySize_value' -
+newCapacitySize ::
+  -- | 'type''
   CapacitySizeType ->
-  -- | 'csValue'
-  Natural ->
+  -- | 'value'
+  Prelude.Natural ->
   CapacitySize
-capacitySize pType_ pValue_ =
+newCapacitySize pType_ pValue_ =
   CapacitySize'
-    { _csType = pType_,
-      _csValue = _Nat # pValue_
+    { type' = pType_,
+      value = Prelude._Nat Lens.# pValue_
     }
 
 -- | This API is not supported.
-csType :: Lens' CapacitySize CapacitySizeType
-csType = lens _csType (\s a -> s {_csType = a})
+capacitySize_type :: Lens.Lens' CapacitySize CapacitySizeType
+capacitySize_type = Lens.lens (\CapacitySize' {type'} -> type') (\s@CapacitySize' {} a -> s {type' = a} :: CapacitySize)
 
 -- |
-csValue :: Lens' CapacitySize Natural
-csValue = lens _csValue (\s a -> s {_csValue = a}) . _Nat
+capacitySize_value :: Lens.Lens' CapacitySize Prelude.Natural
+capacitySize_value = Lens.lens (\CapacitySize' {value} -> value) (\s@CapacitySize' {} a -> s {value = a} :: CapacitySize) Prelude.. Prelude._Nat
 
-instance FromJSON CapacitySize where
+instance Prelude.FromJSON CapacitySize where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CapacitySize"
       ( \x ->
-          CapacitySize' <$> (x .: "Type") <*> (x .: "Value")
+          CapacitySize'
+            Prelude.<$> (x Prelude..: "Type")
+            Prelude.<*> (x Prelude..: "Value")
       )
 
-instance Hashable CapacitySize
+instance Prelude.Hashable CapacitySize
 
-instance NFData CapacitySize
+instance Prelude.NFData CapacitySize
 
-instance ToJSON CapacitySize where
+instance Prelude.ToJSON CapacitySize where
   toJSON CapacitySize' {..} =
-    object
-      ( catMaybes
-          [ Just ("Type" .= _csType),
-            Just ("Value" .= _csValue)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("Type" Prelude..= type'),
+            Prelude.Just ("Value" Prelude..= value)
           ]
       )

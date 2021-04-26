@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,75 +19,81 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.TrialComponentParameterValue where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The value of a hyperparameter. Only one of @NumberValue@ or @StringValue@ can be specified.
+-- | The value of a hyperparameter. Only one of @NumberValue@ or
+-- @StringValue@ can be specified.
 --
+-- This object is specified in the CreateTrialComponent request.
 --
--- This object is specified in the 'CreateTrialComponent' request.
---
---
--- /See:/ 'trialComponentParameterValue' smart constructor.
+-- /See:/ 'newTrialComponentParameterValue' smart constructor.
 data TrialComponentParameterValue = TrialComponentParameterValue'
-  { _tcpvStringValue ::
-      !(Maybe Text),
-    _tcpvNumberValue ::
-      !( Maybe
-           Double
-       )
+  { -- | The string value of a categorical hyperparameter. If you specify a value
+    -- for this parameter, you can\'t specify the @NumberValue@ parameter.
+    stringValue :: Prelude.Maybe Prelude.Text,
+    -- | The numeric value of a numeric hyperparameter. If you specify a value
+    -- for this parameter, you can\'t specify the @StringValue@ parameter.
+    numberValue :: Prelude.Maybe Prelude.Double
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TrialComponentParameterValue' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TrialComponentParameterValue' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tcpvStringValue' - The string value of a categorical hyperparameter. If you specify a value for this parameter, you can't specify the @NumberValue@ parameter.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tcpvNumberValue' - The numeric value of a numeric hyperparameter. If you specify a value for this parameter, you can't specify the @StringValue@ parameter.
-trialComponentParameterValue ::
+-- 'stringValue', 'trialComponentParameterValue_stringValue' - The string value of a categorical hyperparameter. If you specify a value
+-- for this parameter, you can\'t specify the @NumberValue@ parameter.
+--
+-- 'numberValue', 'trialComponentParameterValue_numberValue' - The numeric value of a numeric hyperparameter. If you specify a value
+-- for this parameter, you can\'t specify the @StringValue@ parameter.
+newTrialComponentParameterValue ::
   TrialComponentParameterValue
-trialComponentParameterValue =
+newTrialComponentParameterValue =
   TrialComponentParameterValue'
-    { _tcpvStringValue =
-        Nothing,
-      _tcpvNumberValue = Nothing
+    { stringValue =
+        Prelude.Nothing,
+      numberValue = Prelude.Nothing
     }
 
--- | The string value of a categorical hyperparameter. If you specify a value for this parameter, you can't specify the @NumberValue@ parameter.
-tcpvStringValue :: Lens' TrialComponentParameterValue (Maybe Text)
-tcpvStringValue = lens _tcpvStringValue (\s a -> s {_tcpvStringValue = a})
+-- | The string value of a categorical hyperparameter. If you specify a value
+-- for this parameter, you can\'t specify the @NumberValue@ parameter.
+trialComponentParameterValue_stringValue :: Lens.Lens' TrialComponentParameterValue (Prelude.Maybe Prelude.Text)
+trialComponentParameterValue_stringValue = Lens.lens (\TrialComponentParameterValue' {stringValue} -> stringValue) (\s@TrialComponentParameterValue' {} a -> s {stringValue = a} :: TrialComponentParameterValue)
 
--- | The numeric value of a numeric hyperparameter. If you specify a value for this parameter, you can't specify the @StringValue@ parameter.
-tcpvNumberValue :: Lens' TrialComponentParameterValue (Maybe Double)
-tcpvNumberValue = lens _tcpvNumberValue (\s a -> s {_tcpvNumberValue = a})
+-- | The numeric value of a numeric hyperparameter. If you specify a value
+-- for this parameter, you can\'t specify the @StringValue@ parameter.
+trialComponentParameterValue_numberValue :: Lens.Lens' TrialComponentParameterValue (Prelude.Maybe Prelude.Double)
+trialComponentParameterValue_numberValue = Lens.lens (\TrialComponentParameterValue' {numberValue} -> numberValue) (\s@TrialComponentParameterValue' {} a -> s {numberValue = a} :: TrialComponentParameterValue)
 
-instance FromJSON TrialComponentParameterValue where
+instance
+  Prelude.FromJSON
+    TrialComponentParameterValue
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TrialComponentParameterValue"
       ( \x ->
           TrialComponentParameterValue'
-            <$> (x .:? "StringValue") <*> (x .:? "NumberValue")
+            Prelude.<$> (x Prelude..:? "StringValue")
+            Prelude.<*> (x Prelude..:? "NumberValue")
       )
 
-instance Hashable TrialComponentParameterValue
+instance
+  Prelude.Hashable
+    TrialComponentParameterValue
 
-instance NFData TrialComponentParameterValue
+instance Prelude.NFData TrialComponentParameterValue
 
-instance ToJSON TrialComponentParameterValue where
+instance Prelude.ToJSON TrialComponentParameterValue where
   toJSON TrialComponentParameterValue' {..} =
-    object
-      ( catMaybes
-          [ ("StringValue" .=) <$> _tcpvStringValue,
-            ("NumberValue" .=) <$> _tcpvNumberValue
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("StringValue" Prelude..=) Prelude.<$> stringValue,
+            ("NumberValue" Prelude..=) Prelude.<$> numberValue
           ]
       )

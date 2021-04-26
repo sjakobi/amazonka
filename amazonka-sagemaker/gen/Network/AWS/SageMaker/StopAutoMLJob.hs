@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,97 +24,101 @@
 -- A method for forcing the termination of a running job.
 module Network.AWS.SageMaker.StopAutoMLJob
   ( -- * Creating a Request
-    stopAutoMLJob,
-    StopAutoMLJob,
+    StopAutoMLJob (..),
+    newStopAutoMLJob,
 
     -- * Request Lenses
-    samljAutoMLJobName,
+    stopAutoMLJob_autoMLJobName,
 
     -- * Destructuring the Response
-    stopAutoMLJobResponse,
-    StopAutoMLJobResponse,
+    StopAutoMLJobResponse (..),
+    newStopAutoMLJobResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'stopAutoMLJob' smart constructor.
-newtype StopAutoMLJob = StopAutoMLJob'
-  { _samljAutoMLJobName ::
-      Text
+-- | /See:/ 'newStopAutoMLJob' smart constructor.
+data StopAutoMLJob = StopAutoMLJob'
+  { -- | The name of the object you are requesting.
+    autoMLJobName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopAutoMLJob' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopAutoMLJob' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'samljAutoMLJobName' - The name of the object you are requesting.
-stopAutoMLJob ::
-  -- | 'samljAutoMLJobName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'autoMLJobName', 'stopAutoMLJob_autoMLJobName' - The name of the object you are requesting.
+newStopAutoMLJob ::
+  -- | 'autoMLJobName'
+  Prelude.Text ->
   StopAutoMLJob
-stopAutoMLJob pAutoMLJobName_ =
-  StopAutoMLJob'
-    { _samljAutoMLJobName =
-        pAutoMLJobName_
-    }
+newStopAutoMLJob pAutoMLJobName_ =
+  StopAutoMLJob' {autoMLJobName = pAutoMLJobName_}
 
 -- | The name of the object you are requesting.
-samljAutoMLJobName :: Lens' StopAutoMLJob Text
-samljAutoMLJobName = lens _samljAutoMLJobName (\s a -> s {_samljAutoMLJobName = a})
+stopAutoMLJob_autoMLJobName :: Lens.Lens' StopAutoMLJob Prelude.Text
+stopAutoMLJob_autoMLJobName = Lens.lens (\StopAutoMLJob' {autoMLJobName} -> autoMLJobName) (\s@StopAutoMLJob' {} a -> s {autoMLJobName = a} :: StopAutoMLJob)
 
-instance AWSRequest StopAutoMLJob where
+instance Prelude.AWSRequest StopAutoMLJob where
   type Rs StopAutoMLJob = StopAutoMLJobResponse
-  request = postJSON sageMaker
-  response = receiveNull StopAutoMLJobResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull StopAutoMLJobResponse'
 
-instance Hashable StopAutoMLJob
+instance Prelude.Hashable StopAutoMLJob
 
-instance NFData StopAutoMLJob
+instance Prelude.NFData StopAutoMLJob
 
-instance ToHeaders StopAutoMLJob where
+instance Prelude.ToHeaders StopAutoMLJob where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.StopAutoMLJob" :: ByteString),
+              Prelude.=# ("SageMaker.StopAutoMLJob" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StopAutoMLJob where
+instance Prelude.ToJSON StopAutoMLJob where
   toJSON StopAutoMLJob' {..} =
-    object
-      ( catMaybes
-          [Just ("AutoMLJobName" .= _samljAutoMLJobName)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("AutoMLJobName" Prelude..= autoMLJobName)
+          ]
       )
 
-instance ToPath StopAutoMLJob where
-  toPath = const "/"
+instance Prelude.ToPath StopAutoMLJob where
+  toPath = Prelude.const "/"
 
-instance ToQuery StopAutoMLJob where
-  toQuery = const mempty
+instance Prelude.ToQuery StopAutoMLJob where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'stopAutoMLJobResponse' smart constructor.
+-- | /See:/ 'newStopAutoMLJobResponse' smart constructor.
 data StopAutoMLJobResponse = StopAutoMLJobResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopAutoMLJobResponse' with the minimum fields required to make a request.
-stopAutoMLJobResponse ::
+-- |
+-- Create a value of 'StopAutoMLJobResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newStopAutoMLJobResponse ::
   StopAutoMLJobResponse
-stopAutoMLJobResponse = StopAutoMLJobResponse'
+newStopAutoMLJobResponse = StopAutoMLJobResponse'
 
-instance NFData StopAutoMLJobResponse
+instance Prelude.NFData StopAutoMLJobResponse

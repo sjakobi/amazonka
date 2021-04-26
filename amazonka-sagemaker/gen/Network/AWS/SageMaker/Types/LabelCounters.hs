@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,81 +19,87 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.LabelCounters where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Provides a breakdown of the number of objects labeled.
 --
---
---
--- /See:/ 'labelCounters' smart constructor.
+-- /See:/ 'newLabelCounters' smart constructor.
 data LabelCounters = LabelCounters'
-  { _lcUnlabeled ::
-      !(Maybe Nat),
-    _lcFailedNonRetryableError :: !(Maybe Nat),
-    _lcMachineLabeled :: !(Maybe Nat),
-    _lcHumanLabeled :: !(Maybe Nat),
-    _lcTotalLabeled :: !(Maybe Nat)
+  { -- | The total number of objects not yet labeled.
+    unlabeled :: Prelude.Maybe Prelude.Nat,
+    -- | The total number of objects that could not be labeled due to an error.
+    failedNonRetryableError :: Prelude.Maybe Prelude.Nat,
+    -- | The total number of objects labeled by automated data labeling.
+    machineLabeled :: Prelude.Maybe Prelude.Nat,
+    -- | The total number of objects labeled by a human worker.
+    humanLabeled :: Prelude.Maybe Prelude.Nat,
+    -- | The total number of objects labeled.
+    totalLabeled :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LabelCounters' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LabelCounters' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lcUnlabeled' - The total number of objects not yet labeled.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lcFailedNonRetryableError' - The total number of objects that could not be labeled due to an error.
+-- 'unlabeled', 'labelCounters_unlabeled' - The total number of objects not yet labeled.
 --
--- * 'lcMachineLabeled' - The total number of objects labeled by automated data labeling.
+-- 'failedNonRetryableError', 'labelCounters_failedNonRetryableError' - The total number of objects that could not be labeled due to an error.
 --
--- * 'lcHumanLabeled' - The total number of objects labeled by a human worker.
+-- 'machineLabeled', 'labelCounters_machineLabeled' - The total number of objects labeled by automated data labeling.
 --
--- * 'lcTotalLabeled' - The total number of objects labeled.
-labelCounters ::
+-- 'humanLabeled', 'labelCounters_humanLabeled' - The total number of objects labeled by a human worker.
+--
+-- 'totalLabeled', 'labelCounters_totalLabeled' - The total number of objects labeled.
+newLabelCounters ::
   LabelCounters
-labelCounters =
+newLabelCounters =
   LabelCounters'
-    { _lcUnlabeled = Nothing,
-      _lcFailedNonRetryableError = Nothing,
-      _lcMachineLabeled = Nothing,
-      _lcHumanLabeled = Nothing,
-      _lcTotalLabeled = Nothing
+    { unlabeled = Prelude.Nothing,
+      failedNonRetryableError = Prelude.Nothing,
+      machineLabeled = Prelude.Nothing,
+      humanLabeled = Prelude.Nothing,
+      totalLabeled = Prelude.Nothing
     }
 
 -- | The total number of objects not yet labeled.
-lcUnlabeled :: Lens' LabelCounters (Maybe Natural)
-lcUnlabeled = lens _lcUnlabeled (\s a -> s {_lcUnlabeled = a}) . mapping _Nat
+labelCounters_unlabeled :: Lens.Lens' LabelCounters (Prelude.Maybe Prelude.Natural)
+labelCounters_unlabeled = Lens.lens (\LabelCounters' {unlabeled} -> unlabeled) (\s@LabelCounters' {} a -> s {unlabeled = a} :: LabelCounters) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The total number of objects that could not be labeled due to an error.
-lcFailedNonRetryableError :: Lens' LabelCounters (Maybe Natural)
-lcFailedNonRetryableError = lens _lcFailedNonRetryableError (\s a -> s {_lcFailedNonRetryableError = a}) . mapping _Nat
+labelCounters_failedNonRetryableError :: Lens.Lens' LabelCounters (Prelude.Maybe Prelude.Natural)
+labelCounters_failedNonRetryableError = Lens.lens (\LabelCounters' {failedNonRetryableError} -> failedNonRetryableError) (\s@LabelCounters' {} a -> s {failedNonRetryableError = a} :: LabelCounters) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The total number of objects labeled by automated data labeling.
-lcMachineLabeled :: Lens' LabelCounters (Maybe Natural)
-lcMachineLabeled = lens _lcMachineLabeled (\s a -> s {_lcMachineLabeled = a}) . mapping _Nat
+labelCounters_machineLabeled :: Lens.Lens' LabelCounters (Prelude.Maybe Prelude.Natural)
+labelCounters_machineLabeled = Lens.lens (\LabelCounters' {machineLabeled} -> machineLabeled) (\s@LabelCounters' {} a -> s {machineLabeled = a} :: LabelCounters) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The total number of objects labeled by a human worker.
-lcHumanLabeled :: Lens' LabelCounters (Maybe Natural)
-lcHumanLabeled = lens _lcHumanLabeled (\s a -> s {_lcHumanLabeled = a}) . mapping _Nat
+labelCounters_humanLabeled :: Lens.Lens' LabelCounters (Prelude.Maybe Prelude.Natural)
+labelCounters_humanLabeled = Lens.lens (\LabelCounters' {humanLabeled} -> humanLabeled) (\s@LabelCounters' {} a -> s {humanLabeled = a} :: LabelCounters) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The total number of objects labeled.
-lcTotalLabeled :: Lens' LabelCounters (Maybe Natural)
-lcTotalLabeled = lens _lcTotalLabeled (\s a -> s {_lcTotalLabeled = a}) . mapping _Nat
+labelCounters_totalLabeled :: Lens.Lens' LabelCounters (Prelude.Maybe Prelude.Natural)
+labelCounters_totalLabeled = Lens.lens (\LabelCounters' {totalLabeled} -> totalLabeled) (\s@LabelCounters' {} a -> s {totalLabeled = a} :: LabelCounters) Prelude.. Lens.mapping Prelude._Nat
 
-instance FromJSON LabelCounters where
+instance Prelude.FromJSON LabelCounters where
   parseJSON =
-    withObject
+    Prelude.withObject
       "LabelCounters"
       ( \x ->
           LabelCounters'
-            <$> (x .:? "Unlabeled")
-            <*> (x .:? "FailedNonRetryableError")
-            <*> (x .:? "MachineLabeled")
-            <*> (x .:? "HumanLabeled")
-            <*> (x .:? "TotalLabeled")
+            Prelude.<$> (x Prelude..:? "Unlabeled")
+            Prelude.<*> (x Prelude..:? "FailedNonRetryableError")
+            Prelude.<*> (x Prelude..:? "MachineLabeled")
+            Prelude.<*> (x Prelude..:? "HumanLabeled")
+            Prelude.<*> (x Prelude..:? "TotalLabeled")
       )
 
-instance Hashable LabelCounters
+instance Prelude.Hashable LabelCounters
 
-instance NFData LabelCounters
+instance Prelude.NFData LabelCounters

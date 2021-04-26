@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,155 +19,221 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.HumanLoopConfig where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.PublicWorkforceTaskPrice
 
 -- | Describes the work to be performed by human workers.
 --
---
---
--- /See:/ 'humanLoopConfig' smart constructor.
+-- /See:/ 'newHumanLoopConfig' smart constructor.
 data HumanLoopConfig = HumanLoopConfig'
-  { _hlcTaskKeywords ::
-      !(Maybe (List1 Text)),
-    _hlcTaskTimeLimitInSeconds ::
-      !(Maybe Nat),
-    _hlcTaskAvailabilityLifetimeInSeconds ::
-      !(Maybe Nat),
-    _hlcPublicWorkforceTaskPrice ::
-      !(Maybe PublicWorkforceTaskPrice),
-    _hlcWorkteamARN :: !Text,
-    _hlcHumanTaskUiARN :: !Text,
-    _hlcTaskTitle :: !Text,
-    _hlcTaskDescription :: !Text,
-    _hlcTaskCount :: !Nat
+  { -- | Keywords used to describe the task so that workers can discover the
+    -- task.
+    taskKeywords :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | The amount of time that a worker has to complete a task. The default
+    -- value is 3,600 seconds (1 hour).
+    taskTimeLimitInSeconds :: Prelude.Maybe Prelude.Nat,
+    -- | The length of time that a task remains available for review by human
+    -- workers.
+    taskAvailabilityLifetimeInSeconds :: Prelude.Maybe Prelude.Nat,
+    publicWorkforceTaskPrice :: Prelude.Maybe PublicWorkforceTaskPrice,
+    -- | Amazon Resource Name (ARN) of a team of workers. To learn more about the
+    -- types of workforces and work teams you can create and use with Amazon
+    -- A2I, see
+    -- <https://docs.aws.amazon.com/sagemaker/latest/dg/sms-workforce-management.html Create and Manage Workforces>.
+    workteamArn :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the human task user interface.
+    --
+    -- You can use standard HTML and Crowd HTML Elements to create a custom
+    -- worker task template. You use this template to create a human task UI.
+    --
+    -- To learn how to create a custom HTML template, see
+    -- <https://docs.aws.amazon.com/sagemaker/latest/dg/a2i-custom-templates.html Create Custom Worker Task Template>.
+    --
+    -- To learn how to create a human task UI, which is a worker task template
+    -- that can be used in a flow definition, see
+    -- <https://docs.aws.amazon.com/sagemaker/latest/dg/a2i-worker-template-console.html Create and Delete a Worker Task Templates>.
+    humanTaskUiArn :: Prelude.Text,
+    -- | A title for the human worker task.
+    taskTitle :: Prelude.Text,
+    -- | A description for the human worker task.
+    taskDescription :: Prelude.Text,
+    -- | The number of distinct workers who will perform the same task on each
+    -- object. For example, if @TaskCount@ is set to @3@ for an image
+    -- classification labeling job, three workers will classify each input
+    -- image. Increasing @TaskCount@ can improve label accuracy.
+    taskCount :: Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'HumanLoopConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'HumanLoopConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'hlcTaskKeywords' - Keywords used to describe the task so that workers can discover the task.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'hlcTaskTimeLimitInSeconds' - The amount of time that a worker has to complete a task. The default value is 3,600 seconds (1 hour).
+-- 'taskKeywords', 'humanLoopConfig_taskKeywords' - Keywords used to describe the task so that workers can discover the
+-- task.
 --
--- * 'hlcTaskAvailabilityLifetimeInSeconds' - The length of time that a task remains available for review by human workers.
+-- 'taskTimeLimitInSeconds', 'humanLoopConfig_taskTimeLimitInSeconds' - The amount of time that a worker has to complete a task. The default
+-- value is 3,600 seconds (1 hour).
 --
--- * 'hlcPublicWorkforceTaskPrice' - Undocumented member.
+-- 'taskAvailabilityLifetimeInSeconds', 'humanLoopConfig_taskAvailabilityLifetimeInSeconds' - The length of time that a task remains available for review by human
+-- workers.
 --
--- * 'hlcWorkteamARN' - Amazon Resource Name (ARN) of a team of workers. To learn more about the types of workforces and work teams you can create and use with Amazon A2I, see <https://docs.aws.amazon.com/sagemaker/latest/dg/sms-workforce-management.html Create and Manage Workforces> .
+-- 'publicWorkforceTaskPrice', 'humanLoopConfig_publicWorkforceTaskPrice' - Undocumented member.
 --
--- * 'hlcHumanTaskUiARN' - The Amazon Resource Name (ARN) of the human task user interface. You can use standard HTML and Crowd HTML Elements to create a custom worker task template. You use this template to create a human task UI. To learn how to create a custom HTML template, see <https://docs.aws.amazon.com/sagemaker/latest/dg/a2i-custom-templates.html Create Custom Worker Task Template> . To learn how to create a human task UI, which is a worker task template that can be used in a flow definition, see <https://docs.aws.amazon.com/sagemaker/latest/dg/a2i-worker-template-console.html Create and Delete a Worker Task Templates> .
+-- 'workteamArn', 'humanLoopConfig_workteamArn' - Amazon Resource Name (ARN) of a team of workers. To learn more about the
+-- types of workforces and work teams you can create and use with Amazon
+-- A2I, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/sms-workforce-management.html Create and Manage Workforces>.
 --
--- * 'hlcTaskTitle' - A title for the human worker task.
+-- 'humanTaskUiArn', 'humanLoopConfig_humanTaskUiArn' - The Amazon Resource Name (ARN) of the human task user interface.
 --
--- * 'hlcTaskDescription' - A description for the human worker task.
+-- You can use standard HTML and Crowd HTML Elements to create a custom
+-- worker task template. You use this template to create a human task UI.
 --
--- * 'hlcTaskCount' - The number of distinct workers who will perform the same task on each object. For example, if @TaskCount@ is set to @3@ for an image classification labeling job, three workers will classify each input image. Increasing @TaskCount@ can improve label accuracy.
-humanLoopConfig ::
-  -- | 'hlcWorkteamARN'
-  Text ->
-  -- | 'hlcHumanTaskUiARN'
-  Text ->
-  -- | 'hlcTaskTitle'
-  Text ->
-  -- | 'hlcTaskDescription'
-  Text ->
-  -- | 'hlcTaskCount'
-  Natural ->
+-- To learn how to create a custom HTML template, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/a2i-custom-templates.html Create Custom Worker Task Template>.
+--
+-- To learn how to create a human task UI, which is a worker task template
+-- that can be used in a flow definition, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/a2i-worker-template-console.html Create and Delete a Worker Task Templates>.
+--
+-- 'taskTitle', 'humanLoopConfig_taskTitle' - A title for the human worker task.
+--
+-- 'taskDescription', 'humanLoopConfig_taskDescription' - A description for the human worker task.
+--
+-- 'taskCount', 'humanLoopConfig_taskCount' - The number of distinct workers who will perform the same task on each
+-- object. For example, if @TaskCount@ is set to @3@ for an image
+-- classification labeling job, three workers will classify each input
+-- image. Increasing @TaskCount@ can improve label accuracy.
+newHumanLoopConfig ::
+  -- | 'workteamArn'
+  Prelude.Text ->
+  -- | 'humanTaskUiArn'
+  Prelude.Text ->
+  -- | 'taskTitle'
+  Prelude.Text ->
+  -- | 'taskDescription'
+  Prelude.Text ->
+  -- | 'taskCount'
+  Prelude.Natural ->
   HumanLoopConfig
-humanLoopConfig
-  pWorkteamARN_
-  pHumanTaskUiARN_
+newHumanLoopConfig
+  pWorkteamArn_
+  pHumanTaskUiArn_
   pTaskTitle_
   pTaskDescription_
   pTaskCount_ =
     HumanLoopConfig'
-      { _hlcTaskKeywords = Nothing,
-        _hlcTaskTimeLimitInSeconds = Nothing,
-        _hlcTaskAvailabilityLifetimeInSeconds = Nothing,
-        _hlcPublicWorkforceTaskPrice = Nothing,
-        _hlcWorkteamARN = pWorkteamARN_,
-        _hlcHumanTaskUiARN = pHumanTaskUiARN_,
-        _hlcTaskTitle = pTaskTitle_,
-        _hlcTaskDescription = pTaskDescription_,
-        _hlcTaskCount = _Nat # pTaskCount_
+      { taskKeywords = Prelude.Nothing,
+        taskTimeLimitInSeconds = Prelude.Nothing,
+        taskAvailabilityLifetimeInSeconds = Prelude.Nothing,
+        publicWorkforceTaskPrice = Prelude.Nothing,
+        workteamArn = pWorkteamArn_,
+        humanTaskUiArn = pHumanTaskUiArn_,
+        taskTitle = pTaskTitle_,
+        taskDescription = pTaskDescription_,
+        taskCount = Prelude._Nat Lens.# pTaskCount_
       }
 
--- | Keywords used to describe the task so that workers can discover the task.
-hlcTaskKeywords :: Lens' HumanLoopConfig (Maybe (NonEmpty Text))
-hlcTaskKeywords = lens _hlcTaskKeywords (\s a -> s {_hlcTaskKeywords = a}) . mapping _List1
+-- | Keywords used to describe the task so that workers can discover the
+-- task.
+humanLoopConfig_taskKeywords :: Lens.Lens' HumanLoopConfig (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+humanLoopConfig_taskKeywords = Lens.lens (\HumanLoopConfig' {taskKeywords} -> taskKeywords) (\s@HumanLoopConfig' {} a -> s {taskKeywords = a} :: HumanLoopConfig) Prelude.. Lens.mapping Prelude._List1
 
--- | The amount of time that a worker has to complete a task. The default value is 3,600 seconds (1 hour).
-hlcTaskTimeLimitInSeconds :: Lens' HumanLoopConfig (Maybe Natural)
-hlcTaskTimeLimitInSeconds = lens _hlcTaskTimeLimitInSeconds (\s a -> s {_hlcTaskTimeLimitInSeconds = a}) . mapping _Nat
+-- | The amount of time that a worker has to complete a task. The default
+-- value is 3,600 seconds (1 hour).
+humanLoopConfig_taskTimeLimitInSeconds :: Lens.Lens' HumanLoopConfig (Prelude.Maybe Prelude.Natural)
+humanLoopConfig_taskTimeLimitInSeconds = Lens.lens (\HumanLoopConfig' {taskTimeLimitInSeconds} -> taskTimeLimitInSeconds) (\s@HumanLoopConfig' {} a -> s {taskTimeLimitInSeconds = a} :: HumanLoopConfig) Prelude.. Lens.mapping Prelude._Nat
 
--- | The length of time that a task remains available for review by human workers.
-hlcTaskAvailabilityLifetimeInSeconds :: Lens' HumanLoopConfig (Maybe Natural)
-hlcTaskAvailabilityLifetimeInSeconds = lens _hlcTaskAvailabilityLifetimeInSeconds (\s a -> s {_hlcTaskAvailabilityLifetimeInSeconds = a}) . mapping _Nat
+-- | The length of time that a task remains available for review by human
+-- workers.
+humanLoopConfig_taskAvailabilityLifetimeInSeconds :: Lens.Lens' HumanLoopConfig (Prelude.Maybe Prelude.Natural)
+humanLoopConfig_taskAvailabilityLifetimeInSeconds = Lens.lens (\HumanLoopConfig' {taskAvailabilityLifetimeInSeconds} -> taskAvailabilityLifetimeInSeconds) (\s@HumanLoopConfig' {} a -> s {taskAvailabilityLifetimeInSeconds = a} :: HumanLoopConfig) Prelude.. Lens.mapping Prelude._Nat
 
 -- | Undocumented member.
-hlcPublicWorkforceTaskPrice :: Lens' HumanLoopConfig (Maybe PublicWorkforceTaskPrice)
-hlcPublicWorkforceTaskPrice = lens _hlcPublicWorkforceTaskPrice (\s a -> s {_hlcPublicWorkforceTaskPrice = a})
+humanLoopConfig_publicWorkforceTaskPrice :: Lens.Lens' HumanLoopConfig (Prelude.Maybe PublicWorkforceTaskPrice)
+humanLoopConfig_publicWorkforceTaskPrice = Lens.lens (\HumanLoopConfig' {publicWorkforceTaskPrice} -> publicWorkforceTaskPrice) (\s@HumanLoopConfig' {} a -> s {publicWorkforceTaskPrice = a} :: HumanLoopConfig)
 
--- | Amazon Resource Name (ARN) of a team of workers. To learn more about the types of workforces and work teams you can create and use with Amazon A2I, see <https://docs.aws.amazon.com/sagemaker/latest/dg/sms-workforce-management.html Create and Manage Workforces> .
-hlcWorkteamARN :: Lens' HumanLoopConfig Text
-hlcWorkteamARN = lens _hlcWorkteamARN (\s a -> s {_hlcWorkteamARN = a})
+-- | Amazon Resource Name (ARN) of a team of workers. To learn more about the
+-- types of workforces and work teams you can create and use with Amazon
+-- A2I, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/sms-workforce-management.html Create and Manage Workforces>.
+humanLoopConfig_workteamArn :: Lens.Lens' HumanLoopConfig Prelude.Text
+humanLoopConfig_workteamArn = Lens.lens (\HumanLoopConfig' {workteamArn} -> workteamArn) (\s@HumanLoopConfig' {} a -> s {workteamArn = a} :: HumanLoopConfig)
 
--- | The Amazon Resource Name (ARN) of the human task user interface. You can use standard HTML and Crowd HTML Elements to create a custom worker task template. You use this template to create a human task UI. To learn how to create a custom HTML template, see <https://docs.aws.amazon.com/sagemaker/latest/dg/a2i-custom-templates.html Create Custom Worker Task Template> . To learn how to create a human task UI, which is a worker task template that can be used in a flow definition, see <https://docs.aws.amazon.com/sagemaker/latest/dg/a2i-worker-template-console.html Create and Delete a Worker Task Templates> .
-hlcHumanTaskUiARN :: Lens' HumanLoopConfig Text
-hlcHumanTaskUiARN = lens _hlcHumanTaskUiARN (\s a -> s {_hlcHumanTaskUiARN = a})
+-- | The Amazon Resource Name (ARN) of the human task user interface.
+--
+-- You can use standard HTML and Crowd HTML Elements to create a custom
+-- worker task template. You use this template to create a human task UI.
+--
+-- To learn how to create a custom HTML template, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/a2i-custom-templates.html Create Custom Worker Task Template>.
+--
+-- To learn how to create a human task UI, which is a worker task template
+-- that can be used in a flow definition, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/a2i-worker-template-console.html Create and Delete a Worker Task Templates>.
+humanLoopConfig_humanTaskUiArn :: Lens.Lens' HumanLoopConfig Prelude.Text
+humanLoopConfig_humanTaskUiArn = Lens.lens (\HumanLoopConfig' {humanTaskUiArn} -> humanTaskUiArn) (\s@HumanLoopConfig' {} a -> s {humanTaskUiArn = a} :: HumanLoopConfig)
 
 -- | A title for the human worker task.
-hlcTaskTitle :: Lens' HumanLoopConfig Text
-hlcTaskTitle = lens _hlcTaskTitle (\s a -> s {_hlcTaskTitle = a})
+humanLoopConfig_taskTitle :: Lens.Lens' HumanLoopConfig Prelude.Text
+humanLoopConfig_taskTitle = Lens.lens (\HumanLoopConfig' {taskTitle} -> taskTitle) (\s@HumanLoopConfig' {} a -> s {taskTitle = a} :: HumanLoopConfig)
 
 -- | A description for the human worker task.
-hlcTaskDescription :: Lens' HumanLoopConfig Text
-hlcTaskDescription = lens _hlcTaskDescription (\s a -> s {_hlcTaskDescription = a})
+humanLoopConfig_taskDescription :: Lens.Lens' HumanLoopConfig Prelude.Text
+humanLoopConfig_taskDescription = Lens.lens (\HumanLoopConfig' {taskDescription} -> taskDescription) (\s@HumanLoopConfig' {} a -> s {taskDescription = a} :: HumanLoopConfig)
 
--- | The number of distinct workers who will perform the same task on each object. For example, if @TaskCount@ is set to @3@ for an image classification labeling job, three workers will classify each input image. Increasing @TaskCount@ can improve label accuracy.
-hlcTaskCount :: Lens' HumanLoopConfig Natural
-hlcTaskCount = lens _hlcTaskCount (\s a -> s {_hlcTaskCount = a}) . _Nat
+-- | The number of distinct workers who will perform the same task on each
+-- object. For example, if @TaskCount@ is set to @3@ for an image
+-- classification labeling job, three workers will classify each input
+-- image. Increasing @TaskCount@ can improve label accuracy.
+humanLoopConfig_taskCount :: Lens.Lens' HumanLoopConfig Prelude.Natural
+humanLoopConfig_taskCount = Lens.lens (\HumanLoopConfig' {taskCount} -> taskCount) (\s@HumanLoopConfig' {} a -> s {taskCount = a} :: HumanLoopConfig) Prelude.. Prelude._Nat
 
-instance FromJSON HumanLoopConfig where
+instance Prelude.FromJSON HumanLoopConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "HumanLoopConfig"
       ( \x ->
           HumanLoopConfig'
-            <$> (x .:? "TaskKeywords")
-            <*> (x .:? "TaskTimeLimitInSeconds")
-            <*> (x .:? "TaskAvailabilityLifetimeInSeconds")
-            <*> (x .:? "PublicWorkforceTaskPrice")
-            <*> (x .: "WorkteamArn")
-            <*> (x .: "HumanTaskUiArn")
-            <*> (x .: "TaskTitle")
-            <*> (x .: "TaskDescription")
-            <*> (x .: "TaskCount")
+            Prelude.<$> (x Prelude..:? "TaskKeywords")
+            Prelude.<*> (x Prelude..:? "TaskTimeLimitInSeconds")
+            Prelude.<*> (x Prelude..:? "TaskAvailabilityLifetimeInSeconds")
+            Prelude.<*> (x Prelude..:? "PublicWorkforceTaskPrice")
+            Prelude.<*> (x Prelude..: "WorkteamArn")
+            Prelude.<*> (x Prelude..: "HumanTaskUiArn")
+            Prelude.<*> (x Prelude..: "TaskTitle")
+            Prelude.<*> (x Prelude..: "TaskDescription")
+            Prelude.<*> (x Prelude..: "TaskCount")
       )
 
-instance Hashable HumanLoopConfig
+instance Prelude.Hashable HumanLoopConfig
 
-instance NFData HumanLoopConfig
+instance Prelude.NFData HumanLoopConfig
 
-instance ToJSON HumanLoopConfig where
+instance Prelude.ToJSON HumanLoopConfig where
   toJSON HumanLoopConfig' {..} =
-    object
-      ( catMaybes
-          [ ("TaskKeywords" .=) <$> _hlcTaskKeywords,
-            ("TaskTimeLimitInSeconds" .=)
-              <$> _hlcTaskTimeLimitInSeconds,
-            ("TaskAvailabilityLifetimeInSeconds" .=)
-              <$> _hlcTaskAvailabilityLifetimeInSeconds,
-            ("PublicWorkforceTaskPrice" .=)
-              <$> _hlcPublicWorkforceTaskPrice,
-            Just ("WorkteamArn" .= _hlcWorkteamARN),
-            Just ("HumanTaskUiArn" .= _hlcHumanTaskUiARN),
-            Just ("TaskTitle" .= _hlcTaskTitle),
-            Just ("TaskDescription" .= _hlcTaskDescription),
-            Just ("TaskCount" .= _hlcTaskCount)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("TaskKeywords" Prelude..=)
+              Prelude.<$> taskKeywords,
+            ("TaskTimeLimitInSeconds" Prelude..=)
+              Prelude.<$> taskTimeLimitInSeconds,
+            ("TaskAvailabilityLifetimeInSeconds" Prelude..=)
+              Prelude.<$> taskAvailabilityLifetimeInSeconds,
+            ("PublicWorkforceTaskPrice" Prelude..=)
+              Prelude.<$> publicWorkforceTaskPrice,
+            Prelude.Just ("WorkteamArn" Prelude..= workteamArn),
+            Prelude.Just
+              ("HumanTaskUiArn" Prelude..= humanTaskUiArn),
+            Prelude.Just ("TaskTitle" Prelude..= taskTitle),
+            Prelude.Just
+              ("TaskDescription" Prelude..= taskDescription),
+            Prelude.Just ("TaskCount" Prelude..= taskCount)
           ]
       )

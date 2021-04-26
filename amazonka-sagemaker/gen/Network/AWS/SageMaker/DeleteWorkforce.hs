@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,127 +23,131 @@
 --
 -- Use this operation to delete a workforce.
 --
+-- If you want to create a new workforce in an AWS Region where a workforce
+-- already exists, use this operation to delete the existing workforce and
+-- then use to create a new workforce.
 --
--- If you want to create a new workforce in an AWS Region where a workforce already exists, use this operation to delete the existing workforce and then use to create a new workforce.
---
--- /Important:/ If a private workforce contains one or more work teams, you must use the operation to delete all work teams before you delete the workforce. If you try to delete a workforce that contains one or more work teams, you will recieve a @ResourceInUse@ error.
+-- If a private workforce contains one or more work teams, you must use the
+-- operation to delete all work teams before you delete the workforce. If
+-- you try to delete a workforce that contains one or more work teams, you
+-- will recieve a @ResourceInUse@ error.
 module Network.AWS.SageMaker.DeleteWorkforce
   ( -- * Creating a Request
-    deleteWorkforce,
-    DeleteWorkforce,
+    DeleteWorkforce (..),
+    newDeleteWorkforce,
 
     -- * Request Lenses
-    dwWorkforceName,
+    deleteWorkforce_workforceName,
 
     -- * Destructuring the Response
-    deleteWorkforceResponse,
-    DeleteWorkforceResponse,
+    DeleteWorkforceResponse (..),
+    newDeleteWorkforceResponse,
 
     -- * Response Lenses
-    dwrwrsResponseStatus,
+    deleteWorkforceResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'deleteWorkforce' smart constructor.
-newtype DeleteWorkforce = DeleteWorkforce'
-  { _dwWorkforceName ::
-      Text
+-- | /See:/ 'newDeleteWorkforce' smart constructor.
+data DeleteWorkforce = DeleteWorkforce'
+  { -- | The name of the workforce.
+    workforceName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteWorkforce' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteWorkforce' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dwWorkforceName' - The name of the workforce.
-deleteWorkforce ::
-  -- | 'dwWorkforceName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'workforceName', 'deleteWorkforce_workforceName' - The name of the workforce.
+newDeleteWorkforce ::
+  -- | 'workforceName'
+  Prelude.Text ->
   DeleteWorkforce
-deleteWorkforce pWorkforceName_ =
-  DeleteWorkforce'
-    { _dwWorkforceName =
-        pWorkforceName_
-    }
+newDeleteWorkforce pWorkforceName_ =
+  DeleteWorkforce' {workforceName = pWorkforceName_}
 
 -- | The name of the workforce.
-dwWorkforceName :: Lens' DeleteWorkforce Text
-dwWorkforceName = lens _dwWorkforceName (\s a -> s {_dwWorkforceName = a})
+deleteWorkforce_workforceName :: Lens.Lens' DeleteWorkforce Prelude.Text
+deleteWorkforce_workforceName = Lens.lens (\DeleteWorkforce' {workforceName} -> workforceName) (\s@DeleteWorkforce' {} a -> s {workforceName = a} :: DeleteWorkforce)
 
-instance AWSRequest DeleteWorkforce where
+instance Prelude.AWSRequest DeleteWorkforce where
   type Rs DeleteWorkforce = DeleteWorkforceResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          DeleteWorkforceResponse' <$> (pure (fromEnum s))
+          DeleteWorkforceResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteWorkforce
+instance Prelude.Hashable DeleteWorkforce
 
-instance NFData DeleteWorkforce
+instance Prelude.NFData DeleteWorkforce
 
-instance ToHeaders DeleteWorkforce where
+instance Prelude.ToHeaders DeleteWorkforce where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.DeleteWorkforce" :: ByteString),
+              Prelude.=# ("SageMaker.DeleteWorkforce" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteWorkforce where
+instance Prelude.ToJSON DeleteWorkforce where
   toJSON DeleteWorkforce' {..} =
-    object
-      ( catMaybes
-          [Just ("WorkforceName" .= _dwWorkforceName)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("WorkforceName" Prelude..= workforceName)
+          ]
       )
 
-instance ToPath DeleteWorkforce where
-  toPath = const "/"
+instance Prelude.ToPath DeleteWorkforce where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteWorkforce where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteWorkforce where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteWorkforceResponse' smart constructor.
-newtype DeleteWorkforceResponse = DeleteWorkforceResponse'
-  { _dwrwrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteWorkforceResponse' smart constructor.
+data DeleteWorkforceResponse = DeleteWorkforceResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteWorkforceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteWorkforceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dwrwrsResponseStatus' - -- | The response status code.
-deleteWorkforceResponse ::
-  -- | 'dwrwrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteWorkforceResponse_httpStatus' - The response's http status code.
+newDeleteWorkforceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteWorkforceResponse
-deleteWorkforceResponse pResponseStatus_ =
-  DeleteWorkforceResponse'
-    { _dwrwrsResponseStatus =
-        pResponseStatus_
-    }
+newDeleteWorkforceResponse pHttpStatus_ =
+  DeleteWorkforceResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-dwrwrsResponseStatus :: Lens' DeleteWorkforceResponse Int
-dwrwrsResponseStatus = lens _dwrwrsResponseStatus (\s a -> s {_dwrwrsResponseStatus = a})
+-- | The response's http status code.
+deleteWorkforceResponse_httpStatus :: Lens.Lens' DeleteWorkforceResponse Prelude.Int
+deleteWorkforceResponse_httpStatus = Lens.lens (\DeleteWorkforceResponse' {httpStatus} -> httpStatus) (\s@DeleteWorkforceResponse' {} a -> s {httpStatus = a} :: DeleteWorkforceResponse)
 
-instance NFData DeleteWorkforceResponse
+instance Prelude.NFData DeleteWorkforceResponse

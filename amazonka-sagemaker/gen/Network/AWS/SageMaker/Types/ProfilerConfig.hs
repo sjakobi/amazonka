@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,78 +19,110 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.ProfilerConfig where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Configuration information for Debugger system monitoring, framework profiling, and storage paths.
+-- | Configuration information for Debugger system monitoring, framework
+-- profiling, and storage paths.
 --
---
---
--- /See:/ 'profilerConfig' smart constructor.
+-- /See:/ 'newProfilerConfig' smart constructor.
 data ProfilerConfig = ProfilerConfig'
-  { _pcProfilingParameters ::
-      !(Maybe (Map Text Text)),
-    _pcProfilingIntervalInMilliseconds ::
-      !(Maybe Integer),
-    _pcS3OutputPath :: !Text
+  { -- | Configuration information for capturing framework metrics. Available key
+    -- strings for different profiling options are @DetailedProfilingConfig@,
+    -- @PythonProfilingConfig@, and @DataLoaderProfilingConfig@. The following
+    -- codes are configuration structures for the @ProfilingParameters@
+    -- parameter. To learn more about how to configure the
+    -- @ProfilingParameters@ parameter, see
+    -- <https://docs.aws.amazon.com/sagemaker/latest/dg/debugger-createtrainingjob-api.html Use the SageMaker and Debugger Configuration API Operations to Create, Update, and Debug Your Training Job>.
+    profilingParameters :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | A time interval for capturing system metrics in milliseconds. Available
+    -- values are 100, 200, 500, 1000 (1 second), 5000 (5 seconds), and 60000
+    -- (1 minute) milliseconds. The default value is 500 milliseconds.
+    profilingIntervalInMilliseconds :: Prelude.Maybe Prelude.Integer,
+    -- | Path to Amazon S3 storage location for system and framework metrics.
+    s3OutputPath :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ProfilerConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ProfilerConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pcProfilingParameters' - Configuration information for capturing framework metrics. Available key strings for different profiling options are @DetailedProfilingConfig@ , @PythonProfilingConfig@ , and @DataLoaderProfilingConfig@ . The following codes are configuration structures for the @ProfilingParameters@ parameter. To learn more about how to configure the @ProfilingParameters@ parameter, see <https://docs.aws.amazon.com/sagemaker/latest/dg/debugger-createtrainingjob-api.html Use the SageMaker and Debugger Configuration API Operations to Create, Update, and Debug Your Training Job> .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pcProfilingIntervalInMilliseconds' - A time interval for capturing system metrics in milliseconds. Available values are 100, 200, 500, 1000 (1 second), 5000 (5 seconds), and 60000 (1 minute) milliseconds. The default value is 500 milliseconds.
+-- 'profilingParameters', 'profilerConfig_profilingParameters' - Configuration information for capturing framework metrics. Available key
+-- strings for different profiling options are @DetailedProfilingConfig@,
+-- @PythonProfilingConfig@, and @DataLoaderProfilingConfig@. The following
+-- codes are configuration structures for the @ProfilingParameters@
+-- parameter. To learn more about how to configure the
+-- @ProfilingParameters@ parameter, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/debugger-createtrainingjob-api.html Use the SageMaker and Debugger Configuration API Operations to Create, Update, and Debug Your Training Job>.
 --
--- * 'pcS3OutputPath' - Path to Amazon S3 storage location for system and framework metrics.
-profilerConfig ::
-  -- | 'pcS3OutputPath'
-  Text ->
+-- 'profilingIntervalInMilliseconds', 'profilerConfig_profilingIntervalInMilliseconds' - A time interval for capturing system metrics in milliseconds. Available
+-- values are 100, 200, 500, 1000 (1 second), 5000 (5 seconds), and 60000
+-- (1 minute) milliseconds. The default value is 500 milliseconds.
+--
+-- 's3OutputPath', 'profilerConfig_s3OutputPath' - Path to Amazon S3 storage location for system and framework metrics.
+newProfilerConfig ::
+  -- | 's3OutputPath'
+  Prelude.Text ->
   ProfilerConfig
-profilerConfig pS3OutputPath_ =
+newProfilerConfig pS3OutputPath_ =
   ProfilerConfig'
-    { _pcProfilingParameters = Nothing,
-      _pcProfilingIntervalInMilliseconds = Nothing,
-      _pcS3OutputPath = pS3OutputPath_
+    { profilingParameters =
+        Prelude.Nothing,
+      profilingIntervalInMilliseconds = Prelude.Nothing,
+      s3OutputPath = pS3OutputPath_
     }
 
--- | Configuration information for capturing framework metrics. Available key strings for different profiling options are @DetailedProfilingConfig@ , @PythonProfilingConfig@ , and @DataLoaderProfilingConfig@ . The following codes are configuration structures for the @ProfilingParameters@ parameter. To learn more about how to configure the @ProfilingParameters@ parameter, see <https://docs.aws.amazon.com/sagemaker/latest/dg/debugger-createtrainingjob-api.html Use the SageMaker and Debugger Configuration API Operations to Create, Update, and Debug Your Training Job> .
-pcProfilingParameters :: Lens' ProfilerConfig (HashMap Text Text)
-pcProfilingParameters = lens _pcProfilingParameters (\s a -> s {_pcProfilingParameters = a}) . _Default . _Map
+-- | Configuration information for capturing framework metrics. Available key
+-- strings for different profiling options are @DetailedProfilingConfig@,
+-- @PythonProfilingConfig@, and @DataLoaderProfilingConfig@. The following
+-- codes are configuration structures for the @ProfilingParameters@
+-- parameter. To learn more about how to configure the
+-- @ProfilingParameters@ parameter, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/debugger-createtrainingjob-api.html Use the SageMaker and Debugger Configuration API Operations to Create, Update, and Debug Your Training Job>.
+profilerConfig_profilingParameters :: Lens.Lens' ProfilerConfig (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+profilerConfig_profilingParameters = Lens.lens (\ProfilerConfig' {profilingParameters} -> profilingParameters) (\s@ProfilerConfig' {} a -> s {profilingParameters = a} :: ProfilerConfig) Prelude.. Lens.mapping Prelude._Map
 
--- | A time interval for capturing system metrics in milliseconds. Available values are 100, 200, 500, 1000 (1 second), 5000 (5 seconds), and 60000 (1 minute) milliseconds. The default value is 500 milliseconds.
-pcProfilingIntervalInMilliseconds :: Lens' ProfilerConfig (Maybe Integer)
-pcProfilingIntervalInMilliseconds = lens _pcProfilingIntervalInMilliseconds (\s a -> s {_pcProfilingIntervalInMilliseconds = a})
+-- | A time interval for capturing system metrics in milliseconds. Available
+-- values are 100, 200, 500, 1000 (1 second), 5000 (5 seconds), and 60000
+-- (1 minute) milliseconds. The default value is 500 milliseconds.
+profilerConfig_profilingIntervalInMilliseconds :: Lens.Lens' ProfilerConfig (Prelude.Maybe Prelude.Integer)
+profilerConfig_profilingIntervalInMilliseconds = Lens.lens (\ProfilerConfig' {profilingIntervalInMilliseconds} -> profilingIntervalInMilliseconds) (\s@ProfilerConfig' {} a -> s {profilingIntervalInMilliseconds = a} :: ProfilerConfig)
 
 -- | Path to Amazon S3 storage location for system and framework metrics.
-pcS3OutputPath :: Lens' ProfilerConfig Text
-pcS3OutputPath = lens _pcS3OutputPath (\s a -> s {_pcS3OutputPath = a})
+profilerConfig_s3OutputPath :: Lens.Lens' ProfilerConfig Prelude.Text
+profilerConfig_s3OutputPath = Lens.lens (\ProfilerConfig' {s3OutputPath} -> s3OutputPath) (\s@ProfilerConfig' {} a -> s {s3OutputPath = a} :: ProfilerConfig)
 
-instance FromJSON ProfilerConfig where
+instance Prelude.FromJSON ProfilerConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ProfilerConfig"
       ( \x ->
           ProfilerConfig'
-            <$> (x .:? "ProfilingParameters" .!= mempty)
-            <*> (x .:? "ProfilingIntervalInMilliseconds")
-            <*> (x .: "S3OutputPath")
+            Prelude.<$> ( x Prelude..:? "ProfilingParameters"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "ProfilingIntervalInMilliseconds")
+            Prelude.<*> (x Prelude..: "S3OutputPath")
       )
 
-instance Hashable ProfilerConfig
+instance Prelude.Hashable ProfilerConfig
 
-instance NFData ProfilerConfig
+instance Prelude.NFData ProfilerConfig
 
-instance ToJSON ProfilerConfig where
+instance Prelude.ToJSON ProfilerConfig where
   toJSON ProfilerConfig' {..} =
-    object
-      ( catMaybes
-          [ ("ProfilingParameters" .=)
-              <$> _pcProfilingParameters,
-            ("ProfilingIntervalInMilliseconds" .=)
-              <$> _pcProfilingIntervalInMilliseconds,
-            Just ("S3OutputPath" .= _pcS3OutputPath)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ProfilingParameters" Prelude..=)
+              Prelude.<$> profilingParameters,
+            ("ProfilingIntervalInMilliseconds" Prelude..=)
+              Prelude.<$> profilingIntervalInMilliseconds,
+            Prelude.Just
+              ("S3OutputPath" Prelude..= s3OutputPath)
           ]
       )

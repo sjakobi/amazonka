@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.SageMaker.Types.CaptureMode
   ( CaptureMode
       ( ..,
-        Input,
-        Output
+        CaptureModeInput,
+        CaptureModeOutput
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CaptureMode = CaptureMode' (CI Text)
+newtype CaptureMode = CaptureMode'
+  { fromCaptureMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Input :: CaptureMode
-pattern Input = CaptureMode' "Input"
+pattern CaptureModeInput :: CaptureMode
+pattern CaptureModeInput = CaptureMode' "Input"
 
-pattern Output :: CaptureMode
-pattern Output = CaptureMode' "Output"
+pattern CaptureModeOutput :: CaptureMode
+pattern CaptureModeOutput = CaptureMode' "Output"
 
 {-# COMPLETE
-  Input,
-  Output,
+  CaptureModeInput,
+  CaptureModeOutput,
   CaptureMode'
   #-}
 
-instance FromText CaptureMode where
-  parser = (CaptureMode' . mk) <$> takeText
+instance Prelude.FromText CaptureMode where
+  parser = CaptureMode' Prelude.<$> Prelude.takeText
 
-instance ToText CaptureMode where
-  toText (CaptureMode' ci) = original ci
+instance Prelude.ToText CaptureMode where
+  toText (CaptureMode' x) = x
 
-instance Hashable CaptureMode
+instance Prelude.Hashable CaptureMode
 
-instance NFData CaptureMode
+instance Prelude.NFData CaptureMode
 
-instance ToByteString CaptureMode
+instance Prelude.ToByteString CaptureMode
 
-instance ToQuery CaptureMode
+instance Prelude.ToQuery CaptureMode
 
-instance ToHeader CaptureMode
+instance Prelude.ToHeader CaptureMode
 
-instance ToJSON CaptureMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON CaptureMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CaptureMode where
-  parseJSON = parseJSONText "CaptureMode"
+instance Prelude.FromJSON CaptureMode where
+  parseJSON = Prelude.parseJSONText "CaptureMode"

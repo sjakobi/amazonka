@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,72 +19,87 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.ObjectiveStatusCounters where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies the number of training jobs that this hyperparameter tuning job launched, categorized by the status of their objective metric. The objective metric status shows whether the final objective metric for the training job has been evaluated by the tuning job and used in the hyperparameter tuning process.
+-- | Specifies the number of training jobs that this hyperparameter tuning
+-- job launched, categorized by the status of their objective metric. The
+-- objective metric status shows whether the final objective metric for the
+-- training job has been evaluated by the tuning job and used in the
+-- hyperparameter tuning process.
 --
---
---
--- /See:/ 'objectiveStatusCounters' smart constructor.
+-- /See:/ 'newObjectiveStatusCounters' smart constructor.
 data ObjectiveStatusCounters = ObjectiveStatusCounters'
-  { _oscSucceeded ::
-      !(Maybe Nat),
-    _oscPending ::
-      !(Maybe Nat),
-    _oscFailed ::
-      !(Maybe Nat)
+  { -- | The number of training jobs whose final objective metric was evaluated
+    -- by the hyperparameter tuning job and used in the hyperparameter tuning
+    -- process.
+    succeeded :: Prelude.Maybe Prelude.Nat,
+    -- | The number of training jobs that are in progress and pending evaluation
+    -- of their final objective metric.
+    pending :: Prelude.Maybe Prelude.Nat,
+    -- | The number of training jobs whose final objective metric was not
+    -- evaluated and used in the hyperparameter tuning process. This typically
+    -- occurs when the training job failed or did not emit an objective metric.
+    failed :: Prelude.Maybe Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ObjectiveStatusCounters' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ObjectiveStatusCounters' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'oscSucceeded' - The number of training jobs whose final objective metric was evaluated by the hyperparameter tuning job and used in the hyperparameter tuning process.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'oscPending' - The number of training jobs that are in progress and pending evaluation of their final objective metric.
+-- 'succeeded', 'objectiveStatusCounters_succeeded' - The number of training jobs whose final objective metric was evaluated
+-- by the hyperparameter tuning job and used in the hyperparameter tuning
+-- process.
 --
--- * 'oscFailed' - The number of training jobs whose final objective metric was not evaluated and used in the hyperparameter tuning process. This typically occurs when the training job failed or did not emit an objective metric.
-objectiveStatusCounters ::
+-- 'pending', 'objectiveStatusCounters_pending' - The number of training jobs that are in progress and pending evaluation
+-- of their final objective metric.
+--
+-- 'failed', 'objectiveStatusCounters_failed' - The number of training jobs whose final objective metric was not
+-- evaluated and used in the hyperparameter tuning process. This typically
+-- occurs when the training job failed or did not emit an objective metric.
+newObjectiveStatusCounters ::
   ObjectiveStatusCounters
-objectiveStatusCounters =
+newObjectiveStatusCounters =
   ObjectiveStatusCounters'
-    { _oscSucceeded = Nothing,
-      _oscPending = Nothing,
-      _oscFailed = Nothing
+    { succeeded =
+        Prelude.Nothing,
+      pending = Prelude.Nothing,
+      failed = Prelude.Nothing
     }
 
--- | The number of training jobs whose final objective metric was evaluated by the hyperparameter tuning job and used in the hyperparameter tuning process.
-oscSucceeded :: Lens' ObjectiveStatusCounters (Maybe Natural)
-oscSucceeded = lens _oscSucceeded (\s a -> s {_oscSucceeded = a}) . mapping _Nat
+-- | The number of training jobs whose final objective metric was evaluated
+-- by the hyperparameter tuning job and used in the hyperparameter tuning
+-- process.
+objectiveStatusCounters_succeeded :: Lens.Lens' ObjectiveStatusCounters (Prelude.Maybe Prelude.Natural)
+objectiveStatusCounters_succeeded = Lens.lens (\ObjectiveStatusCounters' {succeeded} -> succeeded) (\s@ObjectiveStatusCounters' {} a -> s {succeeded = a} :: ObjectiveStatusCounters) Prelude.. Lens.mapping Prelude._Nat
 
--- | The number of training jobs that are in progress and pending evaluation of their final objective metric.
-oscPending :: Lens' ObjectiveStatusCounters (Maybe Natural)
-oscPending = lens _oscPending (\s a -> s {_oscPending = a}) . mapping _Nat
+-- | The number of training jobs that are in progress and pending evaluation
+-- of their final objective metric.
+objectiveStatusCounters_pending :: Lens.Lens' ObjectiveStatusCounters (Prelude.Maybe Prelude.Natural)
+objectiveStatusCounters_pending = Lens.lens (\ObjectiveStatusCounters' {pending} -> pending) (\s@ObjectiveStatusCounters' {} a -> s {pending = a} :: ObjectiveStatusCounters) Prelude.. Lens.mapping Prelude._Nat
 
--- | The number of training jobs whose final objective metric was not evaluated and used in the hyperparameter tuning process. This typically occurs when the training job failed or did not emit an objective metric.
-oscFailed :: Lens' ObjectiveStatusCounters (Maybe Natural)
-oscFailed = lens _oscFailed (\s a -> s {_oscFailed = a}) . mapping _Nat
+-- | The number of training jobs whose final objective metric was not
+-- evaluated and used in the hyperparameter tuning process. This typically
+-- occurs when the training job failed or did not emit an objective metric.
+objectiveStatusCounters_failed :: Lens.Lens' ObjectiveStatusCounters (Prelude.Maybe Prelude.Natural)
+objectiveStatusCounters_failed = Lens.lens (\ObjectiveStatusCounters' {failed} -> failed) (\s@ObjectiveStatusCounters' {} a -> s {failed = a} :: ObjectiveStatusCounters) Prelude.. Lens.mapping Prelude._Nat
 
-instance FromJSON ObjectiveStatusCounters where
+instance Prelude.FromJSON ObjectiveStatusCounters where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ObjectiveStatusCounters"
       ( \x ->
           ObjectiveStatusCounters'
-            <$> (x .:? "Succeeded")
-            <*> (x .:? "Pending")
-            <*> (x .:? "Failed")
+            Prelude.<$> (x Prelude..:? "Succeeded")
+            Prelude.<*> (x Prelude..:? "Pending")
+            Prelude.<*> (x Prelude..:? "Failed")
       )
 
-instance Hashable ObjectiveStatusCounters
+instance Prelude.Hashable ObjectiveStatusCounters
 
-instance NFData ObjectiveStatusCounters
+instance Prelude.NFData ObjectiveStatusCounters

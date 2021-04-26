@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,121 +19,118 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.LabelingJobForWorkteamSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.LabelCountersForWorkteam
 
 -- | Provides summary information for a work team.
 --
---
---
--- /See:/ 'labelingJobForWorkteamSummary' smart constructor.
+-- /See:/ 'newLabelingJobForWorkteamSummary' smart constructor.
 data LabelingJobForWorkteamSummary = LabelingJobForWorkteamSummary'
-  { _ljfwsLabelCounters ::
-      !( Maybe
-           LabelCountersForWorkteam
-       ),
-    _ljfwsLabelingJobName ::
-      !( Maybe
-           Text
-       ),
-    _ljfwsNumberOfHumanWorkersPerDataObject ::
-      !( Maybe
-           Nat
-       ),
-    _ljfwsJobReferenceCode ::
-      !Text,
-    _ljfwsWorkRequesterAccountId ::
-      !Text,
-    _ljfwsCreationTime ::
-      !POSIX
+  { -- | Provides information about the progress of a labeling job.
+    labelCounters :: Prelude.Maybe LabelCountersForWorkteam,
+    -- | The name of the labeling job that the work team is assigned to.
+    labelingJobName :: Prelude.Maybe Prelude.Text,
+    -- | The configured number of workers per data object.
+    numberOfHumanWorkersPerDataObject :: Prelude.Maybe Prelude.Nat,
+    -- | A unique identifier for a labeling job. You can use this to refer to a
+    -- specific labeling job.
+    jobReferenceCode :: Prelude.Text,
+    workRequesterAccountId :: Prelude.Text,
+    -- | The date and time that the labeling job was created.
+    creationTime :: Prelude.POSIX
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LabelingJobForWorkteamSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LabelingJobForWorkteamSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ljfwsLabelCounters' - Provides information about the progress of a labeling job.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ljfwsLabelingJobName' - The name of the labeling job that the work team is assigned to.
+-- 'labelCounters', 'labelingJobForWorkteamSummary_labelCounters' - Provides information about the progress of a labeling job.
 --
--- * 'ljfwsNumberOfHumanWorkersPerDataObject' - The configured number of workers per data object.
+-- 'labelingJobName', 'labelingJobForWorkteamSummary_labelingJobName' - The name of the labeling job that the work team is assigned to.
 --
--- * 'ljfwsJobReferenceCode' - A unique identifier for a labeling job. You can use this to refer to a specific labeling job.
+-- 'numberOfHumanWorkersPerDataObject', 'labelingJobForWorkteamSummary_numberOfHumanWorkersPerDataObject' - The configured number of workers per data object.
 --
--- * 'ljfwsWorkRequesterAccountId' -
+-- 'jobReferenceCode', 'labelingJobForWorkteamSummary_jobReferenceCode' - A unique identifier for a labeling job. You can use this to refer to a
+-- specific labeling job.
 --
--- * 'ljfwsCreationTime' - The date and time that the labeling job was created.
-labelingJobForWorkteamSummary ::
-  -- | 'ljfwsJobReferenceCode'
-  Text ->
-  -- | 'ljfwsWorkRequesterAccountId'
-  Text ->
-  -- | 'ljfwsCreationTime'
-  UTCTime ->
+-- 'workRequesterAccountId', 'labelingJobForWorkteamSummary_workRequesterAccountId' -
+--
+-- 'creationTime', 'labelingJobForWorkteamSummary_creationTime' - The date and time that the labeling job was created.
+newLabelingJobForWorkteamSummary ::
+  -- | 'jobReferenceCode'
+  Prelude.Text ->
+  -- | 'workRequesterAccountId'
+  Prelude.Text ->
+  -- | 'creationTime'
+  Prelude.UTCTime ->
   LabelingJobForWorkteamSummary
-labelingJobForWorkteamSummary
+newLabelingJobForWorkteamSummary
   pJobReferenceCode_
   pWorkRequesterAccountId_
   pCreationTime_ =
     LabelingJobForWorkteamSummary'
-      { _ljfwsLabelCounters =
-          Nothing,
-        _ljfwsLabelingJobName = Nothing,
-        _ljfwsNumberOfHumanWorkersPerDataObject =
-          Nothing,
-        _ljfwsJobReferenceCode = pJobReferenceCode_,
-        _ljfwsWorkRequesterAccountId =
+      { labelCounters =
+          Prelude.Nothing,
+        labelingJobName = Prelude.Nothing,
+        numberOfHumanWorkersPerDataObject =
+          Prelude.Nothing,
+        jobReferenceCode = pJobReferenceCode_,
+        workRequesterAccountId =
           pWorkRequesterAccountId_,
-        _ljfwsCreationTime = _Time # pCreationTime_
+        creationTime =
+          Prelude._Time Lens.# pCreationTime_
       }
 
 -- | Provides information about the progress of a labeling job.
-ljfwsLabelCounters :: Lens' LabelingJobForWorkteamSummary (Maybe LabelCountersForWorkteam)
-ljfwsLabelCounters = lens _ljfwsLabelCounters (\s a -> s {_ljfwsLabelCounters = a})
+labelingJobForWorkteamSummary_labelCounters :: Lens.Lens' LabelingJobForWorkteamSummary (Prelude.Maybe LabelCountersForWorkteam)
+labelingJobForWorkteamSummary_labelCounters = Lens.lens (\LabelingJobForWorkteamSummary' {labelCounters} -> labelCounters) (\s@LabelingJobForWorkteamSummary' {} a -> s {labelCounters = a} :: LabelingJobForWorkteamSummary)
 
 -- | The name of the labeling job that the work team is assigned to.
-ljfwsLabelingJobName :: Lens' LabelingJobForWorkteamSummary (Maybe Text)
-ljfwsLabelingJobName = lens _ljfwsLabelingJobName (\s a -> s {_ljfwsLabelingJobName = a})
+labelingJobForWorkteamSummary_labelingJobName :: Lens.Lens' LabelingJobForWorkteamSummary (Prelude.Maybe Prelude.Text)
+labelingJobForWorkteamSummary_labelingJobName = Lens.lens (\LabelingJobForWorkteamSummary' {labelingJobName} -> labelingJobName) (\s@LabelingJobForWorkteamSummary' {} a -> s {labelingJobName = a} :: LabelingJobForWorkteamSummary)
 
 -- | The configured number of workers per data object.
-ljfwsNumberOfHumanWorkersPerDataObject :: Lens' LabelingJobForWorkteamSummary (Maybe Natural)
-ljfwsNumberOfHumanWorkersPerDataObject = lens _ljfwsNumberOfHumanWorkersPerDataObject (\s a -> s {_ljfwsNumberOfHumanWorkersPerDataObject = a}) . mapping _Nat
+labelingJobForWorkteamSummary_numberOfHumanWorkersPerDataObject :: Lens.Lens' LabelingJobForWorkteamSummary (Prelude.Maybe Prelude.Natural)
+labelingJobForWorkteamSummary_numberOfHumanWorkersPerDataObject = Lens.lens (\LabelingJobForWorkteamSummary' {numberOfHumanWorkersPerDataObject} -> numberOfHumanWorkersPerDataObject) (\s@LabelingJobForWorkteamSummary' {} a -> s {numberOfHumanWorkersPerDataObject = a} :: LabelingJobForWorkteamSummary) Prelude.. Lens.mapping Prelude._Nat
 
--- | A unique identifier for a labeling job. You can use this to refer to a specific labeling job.
-ljfwsJobReferenceCode :: Lens' LabelingJobForWorkteamSummary Text
-ljfwsJobReferenceCode = lens _ljfwsJobReferenceCode (\s a -> s {_ljfwsJobReferenceCode = a})
+-- | A unique identifier for a labeling job. You can use this to refer to a
+-- specific labeling job.
+labelingJobForWorkteamSummary_jobReferenceCode :: Lens.Lens' LabelingJobForWorkteamSummary Prelude.Text
+labelingJobForWorkteamSummary_jobReferenceCode = Lens.lens (\LabelingJobForWorkteamSummary' {jobReferenceCode} -> jobReferenceCode) (\s@LabelingJobForWorkteamSummary' {} a -> s {jobReferenceCode = a} :: LabelingJobForWorkteamSummary)
 
 -- |
-ljfwsWorkRequesterAccountId :: Lens' LabelingJobForWorkteamSummary Text
-ljfwsWorkRequesterAccountId = lens _ljfwsWorkRequesterAccountId (\s a -> s {_ljfwsWorkRequesterAccountId = a})
+labelingJobForWorkteamSummary_workRequesterAccountId :: Lens.Lens' LabelingJobForWorkteamSummary Prelude.Text
+labelingJobForWorkteamSummary_workRequesterAccountId = Lens.lens (\LabelingJobForWorkteamSummary' {workRequesterAccountId} -> workRequesterAccountId) (\s@LabelingJobForWorkteamSummary' {} a -> s {workRequesterAccountId = a} :: LabelingJobForWorkteamSummary)
 
 -- | The date and time that the labeling job was created.
-ljfwsCreationTime :: Lens' LabelingJobForWorkteamSummary UTCTime
-ljfwsCreationTime = lens _ljfwsCreationTime (\s a -> s {_ljfwsCreationTime = a}) . _Time
+labelingJobForWorkteamSummary_creationTime :: Lens.Lens' LabelingJobForWorkteamSummary Prelude.UTCTime
+labelingJobForWorkteamSummary_creationTime = Lens.lens (\LabelingJobForWorkteamSummary' {creationTime} -> creationTime) (\s@LabelingJobForWorkteamSummary' {} a -> s {creationTime = a} :: LabelingJobForWorkteamSummary) Prelude.. Prelude._Time
 
-instance FromJSON LabelingJobForWorkteamSummary where
+instance
+  Prelude.FromJSON
+    LabelingJobForWorkteamSummary
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "LabelingJobForWorkteamSummary"
       ( \x ->
           LabelingJobForWorkteamSummary'
-            <$> (x .:? "LabelCounters")
-            <*> (x .:? "LabelingJobName")
-            <*> (x .:? "NumberOfHumanWorkersPerDataObject")
-            <*> (x .: "JobReferenceCode")
-            <*> (x .: "WorkRequesterAccountId")
-            <*> (x .: "CreationTime")
+            Prelude.<$> (x Prelude..:? "LabelCounters")
+            Prelude.<*> (x Prelude..:? "LabelingJobName")
+            Prelude.<*> (x Prelude..:? "NumberOfHumanWorkersPerDataObject")
+            Prelude.<*> (x Prelude..: "JobReferenceCode")
+            Prelude.<*> (x Prelude..: "WorkRequesterAccountId")
+            Prelude.<*> (x Prelude..: "CreationTime")
       )
 
-instance Hashable LabelingJobForWorkteamSummary
+instance
+  Prelude.Hashable
+    LabelingJobForWorkteamSummary
 
-instance NFData LabelingJobForWorkteamSummary
+instance Prelude.NFData LabelingJobForWorkteamSummary

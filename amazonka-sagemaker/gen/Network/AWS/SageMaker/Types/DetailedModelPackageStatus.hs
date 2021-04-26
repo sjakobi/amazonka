@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,65 @@
 module Network.AWS.SageMaker.Types.DetailedModelPackageStatus
   ( DetailedModelPackageStatus
       ( ..,
-        DMPSCompleted,
-        DMPSFailed,
-        DMPSInProgress,
-        DMPSNotStarted
+        DetailedModelPackageStatusCompleted,
+        DetailedModelPackageStatusFailed,
+        DetailedModelPackageStatusInProgress,
+        DetailedModelPackageStatusNotStarted
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DetailedModelPackageStatus
-  = DetailedModelPackageStatus'
-      ( CI
-          Text
-      )
+newtype DetailedModelPackageStatus = DetailedModelPackageStatus'
+  { fromDetailedModelPackageStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DMPSCompleted :: DetailedModelPackageStatus
-pattern DMPSCompleted = DetailedModelPackageStatus' "Completed"
+pattern DetailedModelPackageStatusCompleted :: DetailedModelPackageStatus
+pattern DetailedModelPackageStatusCompleted = DetailedModelPackageStatus' "Completed"
 
-pattern DMPSFailed :: DetailedModelPackageStatus
-pattern DMPSFailed = DetailedModelPackageStatus' "Failed"
+pattern DetailedModelPackageStatusFailed :: DetailedModelPackageStatus
+pattern DetailedModelPackageStatusFailed = DetailedModelPackageStatus' "Failed"
 
-pattern DMPSInProgress :: DetailedModelPackageStatus
-pattern DMPSInProgress = DetailedModelPackageStatus' "InProgress"
+pattern DetailedModelPackageStatusInProgress :: DetailedModelPackageStatus
+pattern DetailedModelPackageStatusInProgress = DetailedModelPackageStatus' "InProgress"
 
-pattern DMPSNotStarted :: DetailedModelPackageStatus
-pattern DMPSNotStarted = DetailedModelPackageStatus' "NotStarted"
+pattern DetailedModelPackageStatusNotStarted :: DetailedModelPackageStatus
+pattern DetailedModelPackageStatusNotStarted = DetailedModelPackageStatus' "NotStarted"
 
 {-# COMPLETE
-  DMPSCompleted,
-  DMPSFailed,
-  DMPSInProgress,
-  DMPSNotStarted,
+  DetailedModelPackageStatusCompleted,
+  DetailedModelPackageStatusFailed,
+  DetailedModelPackageStatusInProgress,
+  DetailedModelPackageStatusNotStarted,
   DetailedModelPackageStatus'
   #-}
 
-instance FromText DetailedModelPackageStatus where
-  parser = (DetailedModelPackageStatus' . mk) <$> takeText
+instance Prelude.FromText DetailedModelPackageStatus where
+  parser = DetailedModelPackageStatus' Prelude.<$> Prelude.takeText
 
-instance ToText DetailedModelPackageStatus where
-  toText (DetailedModelPackageStatus' ci) = original ci
+instance Prelude.ToText DetailedModelPackageStatus where
+  toText (DetailedModelPackageStatus' x) = x
 
-instance Hashable DetailedModelPackageStatus
+instance Prelude.Hashable DetailedModelPackageStatus
 
-instance NFData DetailedModelPackageStatus
+instance Prelude.NFData DetailedModelPackageStatus
 
-instance ToByteString DetailedModelPackageStatus
+instance Prelude.ToByteString DetailedModelPackageStatus
 
-instance ToQuery DetailedModelPackageStatus
+instance Prelude.ToQuery DetailedModelPackageStatus
 
-instance ToHeader DetailedModelPackageStatus
+instance Prelude.ToHeader DetailedModelPackageStatus
 
-instance FromJSON DetailedModelPackageStatus where
-  parseJSON = parseJSONText "DetailedModelPackageStatus"
+instance Prelude.FromJSON DetailedModelPackageStatus where
+  parseJSON = Prelude.parseJSONText "DetailedModelPackageStatus"

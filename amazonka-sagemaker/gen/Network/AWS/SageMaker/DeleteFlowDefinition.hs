@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,133 +24,133 @@
 -- Deletes the specified flow definition.
 module Network.AWS.SageMaker.DeleteFlowDefinition
   ( -- * Creating a Request
-    deleteFlowDefinition,
-    DeleteFlowDefinition,
+    DeleteFlowDefinition (..),
+    newDeleteFlowDefinition,
 
     -- * Request Lenses
-    dfdFlowDefinitionName,
+    deleteFlowDefinition_flowDefinitionName,
 
     -- * Destructuring the Response
-    deleteFlowDefinitionResponse,
-    DeleteFlowDefinitionResponse,
+    DeleteFlowDefinitionResponse (..),
+    newDeleteFlowDefinitionResponse,
 
     -- * Response Lenses
-    dfdrrsResponseStatus,
+    deleteFlowDefinitionResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'deleteFlowDefinition' smart constructor.
-newtype DeleteFlowDefinition = DeleteFlowDefinition'
-  { _dfdFlowDefinitionName ::
-      Text
+-- | /See:/ 'newDeleteFlowDefinition' smart constructor.
+data DeleteFlowDefinition = DeleteFlowDefinition'
+  { -- | The name of the flow definition you are deleting.
+    flowDefinitionName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteFlowDefinition' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteFlowDefinition' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dfdFlowDefinitionName' - The name of the flow definition you are deleting.
-deleteFlowDefinition ::
-  -- | 'dfdFlowDefinitionName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'flowDefinitionName', 'deleteFlowDefinition_flowDefinitionName' - The name of the flow definition you are deleting.
+newDeleteFlowDefinition ::
+  -- | 'flowDefinitionName'
+  Prelude.Text ->
   DeleteFlowDefinition
-deleteFlowDefinition pFlowDefinitionName_ =
+newDeleteFlowDefinition pFlowDefinitionName_ =
   DeleteFlowDefinition'
-    { _dfdFlowDefinitionName =
+    { flowDefinitionName =
         pFlowDefinitionName_
     }
 
 -- | The name of the flow definition you are deleting.
-dfdFlowDefinitionName :: Lens' DeleteFlowDefinition Text
-dfdFlowDefinitionName = lens _dfdFlowDefinitionName (\s a -> s {_dfdFlowDefinitionName = a})
+deleteFlowDefinition_flowDefinitionName :: Lens.Lens' DeleteFlowDefinition Prelude.Text
+deleteFlowDefinition_flowDefinitionName = Lens.lens (\DeleteFlowDefinition' {flowDefinitionName} -> flowDefinitionName) (\s@DeleteFlowDefinition' {} a -> s {flowDefinitionName = a} :: DeleteFlowDefinition)
 
-instance AWSRequest DeleteFlowDefinition where
+instance Prelude.AWSRequest DeleteFlowDefinition where
   type
     Rs DeleteFlowDefinition =
       DeleteFlowDefinitionResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           DeleteFlowDefinitionResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteFlowDefinition
+instance Prelude.Hashable DeleteFlowDefinition
 
-instance NFData DeleteFlowDefinition
+instance Prelude.NFData DeleteFlowDefinition
 
-instance ToHeaders DeleteFlowDefinition where
+instance Prelude.ToHeaders DeleteFlowDefinition where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.DeleteFlowDefinition" :: ByteString),
+              Prelude.=# ( "SageMaker.DeleteFlowDefinition" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteFlowDefinition where
+instance Prelude.ToJSON DeleteFlowDefinition where
   toJSON DeleteFlowDefinition' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("FlowDefinitionName" .= _dfdFlowDefinitionName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ( "FlowDefinitionName"
+                  Prelude..= flowDefinitionName
+              )
           ]
       )
 
-instance ToPath DeleteFlowDefinition where
-  toPath = const "/"
+instance Prelude.ToPath DeleteFlowDefinition where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteFlowDefinition where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteFlowDefinition where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteFlowDefinitionResponse' smart constructor.
-newtype DeleteFlowDefinitionResponse = DeleteFlowDefinitionResponse'
-  { _dfdrrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteFlowDefinitionResponse' smart constructor.
+data DeleteFlowDefinitionResponse = DeleteFlowDefinitionResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteFlowDefinitionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteFlowDefinitionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dfdrrsResponseStatus' - -- | The response status code.
-deleteFlowDefinitionResponse ::
-  -- | 'dfdrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteFlowDefinitionResponse_httpStatus' - The response's http status code.
+newDeleteFlowDefinitionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteFlowDefinitionResponse
-deleteFlowDefinitionResponse pResponseStatus_ =
+newDeleteFlowDefinitionResponse pHttpStatus_ =
   DeleteFlowDefinitionResponse'
-    { _dfdrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-dfdrrsResponseStatus :: Lens' DeleteFlowDefinitionResponse Int
-dfdrrsResponseStatus = lens _dfdrrsResponseStatus (\s a -> s {_dfdrrsResponseStatus = a})
+-- | The response's http status code.
+deleteFlowDefinitionResponse_httpStatus :: Lens.Lens' DeleteFlowDefinitionResponse Prelude.Int
+deleteFlowDefinitionResponse_httpStatus = Lens.lens (\DeleteFlowDefinitionResponse' {httpStatus} -> httpStatus) (\s@DeleteFlowDefinitionResponse' {} a -> s {httpStatus = a} :: DeleteFlowDefinitionResponse)
 
-instance NFData DeleteFlowDefinitionResponse
+instance Prelude.NFData DeleteFlowDefinitionResponse

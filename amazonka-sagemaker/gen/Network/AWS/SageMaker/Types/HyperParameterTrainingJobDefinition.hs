@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,8 +19,8 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.HyperParameterTrainingJobDefinition where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.Channel
 import Network.AWS.SageMaker.Types.CheckpointConfig
 import Network.AWS.SageMaker.Types.HyperParameterAlgorithmSpecification
@@ -25,269 +29,355 @@ import Network.AWS.SageMaker.Types.OutputDataConfig
 import Network.AWS.SageMaker.Types.ParameterRanges
 import Network.AWS.SageMaker.Types.ResourceConfig
 import Network.AWS.SageMaker.Types.StoppingCondition
-import Network.AWS.SageMaker.Types.VPCConfig
+import Network.AWS.SageMaker.Types.VpcConfig
 
 -- | Defines the training jobs launched by a hyperparameter tuning job.
 --
---
---
--- /See:/ 'hyperParameterTrainingJobDefinition' smart constructor.
+-- /See:/ 'newHyperParameterTrainingJobDefinition' smart constructor.
 data HyperParameterTrainingJobDefinition = HyperParameterTrainingJobDefinition'
-  { _hptjdVPCConfig ::
-      !( Maybe
-           VPCConfig
-       ),
-    _hptjdInputDataConfig ::
-      !( Maybe
-           ( List1
-               Channel
-           )
-       ),
-    _hptjdEnableManagedSpotTraining ::
-      !( Maybe
-           Bool
-       ),
-    _hptjdStaticHyperParameters ::
-      !( Maybe
-           ( Map
-               Text
-               Text
-           )
-       ),
-    _hptjdHyperParameterRanges ::
-      !( Maybe
-           ParameterRanges
-       ),
-    _hptjdEnableNetworkIsolation ::
-      !( Maybe
-           Bool
-       ),
-    _hptjdEnableInterContainerTrafficEncryption ::
-      !( Maybe
-           Bool
-       ),
-    _hptjdCheckpointConfig ::
-      !( Maybe
-           CheckpointConfig
-       ),
-    _hptjdTuningObjective ::
-      !( Maybe
-           HyperParameterTuningJobObjective
-       ),
-    _hptjdDefinitionName ::
-      !( Maybe
-           Text
-       ),
-    _hptjdAlgorithmSpecification ::
-      !HyperParameterAlgorithmSpecification,
-    _hptjdRoleARN ::
-      !Text,
-    _hptjdOutputDataConfig ::
-      !OutputDataConfig,
-    _hptjdResourceConfig ::
-      !ResourceConfig,
-    _hptjdStoppingCondition ::
-      !StoppingCondition
+  { -- | The VpcConfig object that specifies the VPC that you want the training
+    -- jobs that this hyperparameter tuning job launches to connect to. Control
+    -- access to and from your training container by configuring the VPC. For
+    -- more information, see
+    -- <https://docs.aws.amazon.com/sagemaker/latest/dg/train-vpc.html Protect Training Jobs by Using an Amazon Virtual Private Cloud>.
+    vpcConfig :: Prelude.Maybe VpcConfig,
+    -- | An array of Channel objects that specify the input for the training jobs
+    -- that the tuning job launches.
+    inputDataConfig :: Prelude.Maybe (Prelude.List1 Channel),
+    -- | A Boolean indicating whether managed spot training is enabled (@True@)
+    -- or not (@False@).
+    enableManagedSpotTraining :: Prelude.Maybe Prelude.Bool,
+    -- | Specifies the values of hyperparameters that do not change for the
+    -- tuning job.
+    staticHyperParameters :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    hyperParameterRanges :: Prelude.Maybe ParameterRanges,
+    -- | Isolates the training container. No inbound or outbound network calls
+    -- can be made, except for calls between peers within a training cluster
+    -- for distributed training. If network isolation is used for training jobs
+    -- that are configured to use a VPC, Amazon SageMaker downloads and uploads
+    -- customer data and model artifacts through the specified VPC, but the
+    -- training container does not have network access.
+    enableNetworkIsolation :: Prelude.Maybe Prelude.Bool,
+    -- | To encrypt all communications between ML compute instances in
+    -- distributed training, choose @True@. Encryption provides greater
+    -- security for distributed training, but training might take longer. How
+    -- long it takes depends on the amount of communication between compute
+    -- instances, especially if you use a deep learning algorithm in
+    -- distributed training.
+    enableInterContainerTrafficEncryption :: Prelude.Maybe Prelude.Bool,
+    checkpointConfig :: Prelude.Maybe CheckpointConfig,
+    tuningObjective :: Prelude.Maybe HyperParameterTuningJobObjective,
+    -- | The job definition name.
+    definitionName :: Prelude.Maybe Prelude.Text,
+    -- | The HyperParameterAlgorithmSpecification object that specifies the
+    -- resource algorithm to use for the training jobs that the tuning job
+    -- launches.
+    algorithmSpecification :: HyperParameterAlgorithmSpecification,
+    -- | The Amazon Resource Name (ARN) of the IAM role associated with the
+    -- training jobs that the tuning job launches.
+    roleArn :: Prelude.Text,
+    -- | Specifies the path to the Amazon S3 bucket where you store model
+    -- artifacts from the training jobs that the tuning job launches.
+    outputDataConfig :: OutputDataConfig,
+    -- | The resources, including the compute instances and storage volumes, to
+    -- use for the training jobs that the tuning job launches.
+    --
+    -- Storage volumes store model artifacts and incremental states. Training
+    -- algorithms might also use storage volumes for scratch space. If you want
+    -- Amazon SageMaker to use the storage volume to store the training data,
+    -- choose @File@ as the @TrainingInputMode@ in the algorithm specification.
+    -- For distributed training algorithms, specify an instance count greater
+    -- than 1.
+    resourceConfig :: ResourceConfig,
+    -- | Specifies a limit to how long a model hyperparameter training job can
+    -- run. It also specifies how long you are willing to wait for a managed
+    -- spot training job to complete. When the job reaches the a limit, Amazon
+    -- SageMaker ends the training job. Use this API to cap model training
+    -- costs.
+    stoppingCondition :: StoppingCondition
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'HyperParameterTrainingJobDefinition' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'HyperParameterTrainingJobDefinition' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'hptjdVPCConfig' - The 'VpcConfig' object that specifies the VPC that you want the training jobs that this hyperparameter tuning job launches to connect to. Control access to and from your training container by configuring the VPC. For more information, see <https://docs.aws.amazon.com/sagemaker/latest/dg/train-vpc.html Protect Training Jobs by Using an Amazon Virtual Private Cloud> .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'hptjdInputDataConfig' - An array of 'Channel' objects that specify the input for the training jobs that the tuning job launches.
+-- 'vpcConfig', 'hyperParameterTrainingJobDefinition_vpcConfig' - The VpcConfig object that specifies the VPC that you want the training
+-- jobs that this hyperparameter tuning job launches to connect to. Control
+-- access to and from your training container by configuring the VPC. For
+-- more information, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/train-vpc.html Protect Training Jobs by Using an Amazon Virtual Private Cloud>.
 --
--- * 'hptjdEnableManagedSpotTraining' - A Boolean indicating whether managed spot training is enabled (@True@ ) or not (@False@ ).
+-- 'inputDataConfig', 'hyperParameterTrainingJobDefinition_inputDataConfig' - An array of Channel objects that specify the input for the training jobs
+-- that the tuning job launches.
 --
--- * 'hptjdStaticHyperParameters' - Specifies the values of hyperparameters that do not change for the tuning job.
+-- 'enableManagedSpotTraining', 'hyperParameterTrainingJobDefinition_enableManagedSpotTraining' - A Boolean indicating whether managed spot training is enabled (@True@)
+-- or not (@False@).
 --
--- * 'hptjdHyperParameterRanges' - Undocumented member.
+-- 'staticHyperParameters', 'hyperParameterTrainingJobDefinition_staticHyperParameters' - Specifies the values of hyperparameters that do not change for the
+-- tuning job.
 --
--- * 'hptjdEnableNetworkIsolation' - Isolates the training container. No inbound or outbound network calls can be made, except for calls between peers within a training cluster for distributed training. If network isolation is used for training jobs that are configured to use a VPC, Amazon SageMaker downloads and uploads customer data and model artifacts through the specified VPC, but the training container does not have network access.
+-- 'hyperParameterRanges', 'hyperParameterTrainingJobDefinition_hyperParameterRanges' - Undocumented member.
 --
--- * 'hptjdEnableInterContainerTrafficEncryption' - To encrypt all communications between ML compute instances in distributed training, choose @True@ . Encryption provides greater security for distributed training, but training might take longer. How long it takes depends on the amount of communication between compute instances, especially if you use a deep learning algorithm in distributed training.
+-- 'enableNetworkIsolation', 'hyperParameterTrainingJobDefinition_enableNetworkIsolation' - Isolates the training container. No inbound or outbound network calls
+-- can be made, except for calls between peers within a training cluster
+-- for distributed training. If network isolation is used for training jobs
+-- that are configured to use a VPC, Amazon SageMaker downloads and uploads
+-- customer data and model artifacts through the specified VPC, but the
+-- training container does not have network access.
 --
--- * 'hptjdCheckpointConfig' - Undocumented member.
+-- 'enableInterContainerTrafficEncryption', 'hyperParameterTrainingJobDefinition_enableInterContainerTrafficEncryption' - To encrypt all communications between ML compute instances in
+-- distributed training, choose @True@. Encryption provides greater
+-- security for distributed training, but training might take longer. How
+-- long it takes depends on the amount of communication between compute
+-- instances, especially if you use a deep learning algorithm in
+-- distributed training.
 --
--- * 'hptjdTuningObjective' - Undocumented member.
+-- 'checkpointConfig', 'hyperParameterTrainingJobDefinition_checkpointConfig' - Undocumented member.
 --
--- * 'hptjdDefinitionName' - The job definition name.
+-- 'tuningObjective', 'hyperParameterTrainingJobDefinition_tuningObjective' - Undocumented member.
 --
--- * 'hptjdAlgorithmSpecification' - The 'HyperParameterAlgorithmSpecification' object that specifies the resource algorithm to use for the training jobs that the tuning job launches.
+-- 'definitionName', 'hyperParameterTrainingJobDefinition_definitionName' - The job definition name.
 --
--- * 'hptjdRoleARN' - The Amazon Resource Name (ARN) of the IAM role associated with the training jobs that the tuning job launches.
+-- 'algorithmSpecification', 'hyperParameterTrainingJobDefinition_algorithmSpecification' - The HyperParameterAlgorithmSpecification object that specifies the
+-- resource algorithm to use for the training jobs that the tuning job
+-- launches.
 --
--- * 'hptjdOutputDataConfig' - Specifies the path to the Amazon S3 bucket where you store model artifacts from the training jobs that the tuning job launches.
+-- 'roleArn', 'hyperParameterTrainingJobDefinition_roleArn' - The Amazon Resource Name (ARN) of the IAM role associated with the
+-- training jobs that the tuning job launches.
 --
--- * 'hptjdResourceConfig' - The resources, including the compute instances and storage volumes, to use for the training jobs that the tuning job launches. Storage volumes store model artifacts and incremental states. Training algorithms might also use storage volumes for scratch space. If you want Amazon SageMaker to use the storage volume to store the training data, choose @File@ as the @TrainingInputMode@ in the algorithm specification. For distributed training algorithms, specify an instance count greater than 1.
+-- 'outputDataConfig', 'hyperParameterTrainingJobDefinition_outputDataConfig' - Specifies the path to the Amazon S3 bucket where you store model
+-- artifacts from the training jobs that the tuning job launches.
 --
--- * 'hptjdStoppingCondition' - Specifies a limit to how long a model hyperparameter training job can run. It also specifies how long you are willing to wait for a managed spot training job to complete. When the job reaches the a limit, Amazon SageMaker ends the training job. Use this API to cap model training costs.
-hyperParameterTrainingJobDefinition ::
-  -- | 'hptjdAlgorithmSpecification'
+-- 'resourceConfig', 'hyperParameterTrainingJobDefinition_resourceConfig' - The resources, including the compute instances and storage volumes, to
+-- use for the training jobs that the tuning job launches.
+--
+-- Storage volumes store model artifacts and incremental states. Training
+-- algorithms might also use storage volumes for scratch space. If you want
+-- Amazon SageMaker to use the storage volume to store the training data,
+-- choose @File@ as the @TrainingInputMode@ in the algorithm specification.
+-- For distributed training algorithms, specify an instance count greater
+-- than 1.
+--
+-- 'stoppingCondition', 'hyperParameterTrainingJobDefinition_stoppingCondition' - Specifies a limit to how long a model hyperparameter training job can
+-- run. It also specifies how long you are willing to wait for a managed
+-- spot training job to complete. When the job reaches the a limit, Amazon
+-- SageMaker ends the training job. Use this API to cap model training
+-- costs.
+newHyperParameterTrainingJobDefinition ::
+  -- | 'algorithmSpecification'
   HyperParameterAlgorithmSpecification ->
-  -- | 'hptjdRoleARN'
-  Text ->
-  -- | 'hptjdOutputDataConfig'
+  -- | 'roleArn'
+  Prelude.Text ->
+  -- | 'outputDataConfig'
   OutputDataConfig ->
-  -- | 'hptjdResourceConfig'
+  -- | 'resourceConfig'
   ResourceConfig ->
-  -- | 'hptjdStoppingCondition'
+  -- | 'stoppingCondition'
   StoppingCondition ->
   HyperParameterTrainingJobDefinition
-hyperParameterTrainingJobDefinition
+newHyperParameterTrainingJobDefinition
   pAlgorithmSpecification_
-  pRoleARN_
+  pRoleArn_
   pOutputDataConfig_
   pResourceConfig_
   pStoppingCondition_ =
     HyperParameterTrainingJobDefinition'
-      { _hptjdVPCConfig =
-          Nothing,
-        _hptjdInputDataConfig = Nothing,
-        _hptjdEnableManagedSpotTraining =
-          Nothing,
-        _hptjdStaticHyperParameters = Nothing,
-        _hptjdHyperParameterRanges = Nothing,
-        _hptjdEnableNetworkIsolation = Nothing,
-        _hptjdEnableInterContainerTrafficEncryption =
-          Nothing,
-        _hptjdCheckpointConfig = Nothing,
-        _hptjdTuningObjective = Nothing,
-        _hptjdDefinitionName = Nothing,
-        _hptjdAlgorithmSpecification =
+      { vpcConfig =
+          Prelude.Nothing,
+        inputDataConfig = Prelude.Nothing,
+        enableManagedSpotTraining =
+          Prelude.Nothing,
+        staticHyperParameters =
+          Prelude.Nothing,
+        hyperParameterRanges = Prelude.Nothing,
+        enableNetworkIsolation =
+          Prelude.Nothing,
+        enableInterContainerTrafficEncryption =
+          Prelude.Nothing,
+        checkpointConfig = Prelude.Nothing,
+        tuningObjective = Prelude.Nothing,
+        definitionName = Prelude.Nothing,
+        algorithmSpecification =
           pAlgorithmSpecification_,
-        _hptjdRoleARN = pRoleARN_,
-        _hptjdOutputDataConfig =
-          pOutputDataConfig_,
-        _hptjdResourceConfig =
-          pResourceConfig_,
-        _hptjdStoppingCondition =
+        roleArn = pRoleArn_,
+        outputDataConfig = pOutputDataConfig_,
+        resourceConfig = pResourceConfig_,
+        stoppingCondition =
           pStoppingCondition_
       }
 
--- | The 'VpcConfig' object that specifies the VPC that you want the training jobs that this hyperparameter tuning job launches to connect to. Control access to and from your training container by configuring the VPC. For more information, see <https://docs.aws.amazon.com/sagemaker/latest/dg/train-vpc.html Protect Training Jobs by Using an Amazon Virtual Private Cloud> .
-hptjdVPCConfig :: Lens' HyperParameterTrainingJobDefinition (Maybe VPCConfig)
-hptjdVPCConfig = lens _hptjdVPCConfig (\s a -> s {_hptjdVPCConfig = a})
+-- | The VpcConfig object that specifies the VPC that you want the training
+-- jobs that this hyperparameter tuning job launches to connect to. Control
+-- access to and from your training container by configuring the VPC. For
+-- more information, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/train-vpc.html Protect Training Jobs by Using an Amazon Virtual Private Cloud>.
+hyperParameterTrainingJobDefinition_vpcConfig :: Lens.Lens' HyperParameterTrainingJobDefinition (Prelude.Maybe VpcConfig)
+hyperParameterTrainingJobDefinition_vpcConfig = Lens.lens (\HyperParameterTrainingJobDefinition' {vpcConfig} -> vpcConfig) (\s@HyperParameterTrainingJobDefinition' {} a -> s {vpcConfig = a} :: HyperParameterTrainingJobDefinition)
 
--- | An array of 'Channel' objects that specify the input for the training jobs that the tuning job launches.
-hptjdInputDataConfig :: Lens' HyperParameterTrainingJobDefinition (Maybe (NonEmpty Channel))
-hptjdInputDataConfig = lens _hptjdInputDataConfig (\s a -> s {_hptjdInputDataConfig = a}) . mapping _List1
+-- | An array of Channel objects that specify the input for the training jobs
+-- that the tuning job launches.
+hyperParameterTrainingJobDefinition_inputDataConfig :: Lens.Lens' HyperParameterTrainingJobDefinition (Prelude.Maybe (Prelude.NonEmpty Channel))
+hyperParameterTrainingJobDefinition_inputDataConfig = Lens.lens (\HyperParameterTrainingJobDefinition' {inputDataConfig} -> inputDataConfig) (\s@HyperParameterTrainingJobDefinition' {} a -> s {inputDataConfig = a} :: HyperParameterTrainingJobDefinition) Prelude.. Lens.mapping Prelude._List1
 
--- | A Boolean indicating whether managed spot training is enabled (@True@ ) or not (@False@ ).
-hptjdEnableManagedSpotTraining :: Lens' HyperParameterTrainingJobDefinition (Maybe Bool)
-hptjdEnableManagedSpotTraining = lens _hptjdEnableManagedSpotTraining (\s a -> s {_hptjdEnableManagedSpotTraining = a})
+-- | A Boolean indicating whether managed spot training is enabled (@True@)
+-- or not (@False@).
+hyperParameterTrainingJobDefinition_enableManagedSpotTraining :: Lens.Lens' HyperParameterTrainingJobDefinition (Prelude.Maybe Prelude.Bool)
+hyperParameterTrainingJobDefinition_enableManagedSpotTraining = Lens.lens (\HyperParameterTrainingJobDefinition' {enableManagedSpotTraining} -> enableManagedSpotTraining) (\s@HyperParameterTrainingJobDefinition' {} a -> s {enableManagedSpotTraining = a} :: HyperParameterTrainingJobDefinition)
 
--- | Specifies the values of hyperparameters that do not change for the tuning job.
-hptjdStaticHyperParameters :: Lens' HyperParameterTrainingJobDefinition (HashMap Text Text)
-hptjdStaticHyperParameters = lens _hptjdStaticHyperParameters (\s a -> s {_hptjdStaticHyperParameters = a}) . _Default . _Map
-
--- | Undocumented member.
-hptjdHyperParameterRanges :: Lens' HyperParameterTrainingJobDefinition (Maybe ParameterRanges)
-hptjdHyperParameterRanges = lens _hptjdHyperParameterRanges (\s a -> s {_hptjdHyperParameterRanges = a})
-
--- | Isolates the training container. No inbound or outbound network calls can be made, except for calls between peers within a training cluster for distributed training. If network isolation is used for training jobs that are configured to use a VPC, Amazon SageMaker downloads and uploads customer data and model artifacts through the specified VPC, but the training container does not have network access.
-hptjdEnableNetworkIsolation :: Lens' HyperParameterTrainingJobDefinition (Maybe Bool)
-hptjdEnableNetworkIsolation = lens _hptjdEnableNetworkIsolation (\s a -> s {_hptjdEnableNetworkIsolation = a})
-
--- | To encrypt all communications between ML compute instances in distributed training, choose @True@ . Encryption provides greater security for distributed training, but training might take longer. How long it takes depends on the amount of communication between compute instances, especially if you use a deep learning algorithm in distributed training.
-hptjdEnableInterContainerTrafficEncryption :: Lens' HyperParameterTrainingJobDefinition (Maybe Bool)
-hptjdEnableInterContainerTrafficEncryption = lens _hptjdEnableInterContainerTrafficEncryption (\s a -> s {_hptjdEnableInterContainerTrafficEncryption = a})
+-- | Specifies the values of hyperparameters that do not change for the
+-- tuning job.
+hyperParameterTrainingJobDefinition_staticHyperParameters :: Lens.Lens' HyperParameterTrainingJobDefinition (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+hyperParameterTrainingJobDefinition_staticHyperParameters = Lens.lens (\HyperParameterTrainingJobDefinition' {staticHyperParameters} -> staticHyperParameters) (\s@HyperParameterTrainingJobDefinition' {} a -> s {staticHyperParameters = a} :: HyperParameterTrainingJobDefinition) Prelude.. Lens.mapping Prelude._Map
 
 -- | Undocumented member.
-hptjdCheckpointConfig :: Lens' HyperParameterTrainingJobDefinition (Maybe CheckpointConfig)
-hptjdCheckpointConfig = lens _hptjdCheckpointConfig (\s a -> s {_hptjdCheckpointConfig = a})
+hyperParameterTrainingJobDefinition_hyperParameterRanges :: Lens.Lens' HyperParameterTrainingJobDefinition (Prelude.Maybe ParameterRanges)
+hyperParameterTrainingJobDefinition_hyperParameterRanges = Lens.lens (\HyperParameterTrainingJobDefinition' {hyperParameterRanges} -> hyperParameterRanges) (\s@HyperParameterTrainingJobDefinition' {} a -> s {hyperParameterRanges = a} :: HyperParameterTrainingJobDefinition)
+
+-- | Isolates the training container. No inbound or outbound network calls
+-- can be made, except for calls between peers within a training cluster
+-- for distributed training. If network isolation is used for training jobs
+-- that are configured to use a VPC, Amazon SageMaker downloads and uploads
+-- customer data and model artifacts through the specified VPC, but the
+-- training container does not have network access.
+hyperParameterTrainingJobDefinition_enableNetworkIsolation :: Lens.Lens' HyperParameterTrainingJobDefinition (Prelude.Maybe Prelude.Bool)
+hyperParameterTrainingJobDefinition_enableNetworkIsolation = Lens.lens (\HyperParameterTrainingJobDefinition' {enableNetworkIsolation} -> enableNetworkIsolation) (\s@HyperParameterTrainingJobDefinition' {} a -> s {enableNetworkIsolation = a} :: HyperParameterTrainingJobDefinition)
+
+-- | To encrypt all communications between ML compute instances in
+-- distributed training, choose @True@. Encryption provides greater
+-- security for distributed training, but training might take longer. How
+-- long it takes depends on the amount of communication between compute
+-- instances, especially if you use a deep learning algorithm in
+-- distributed training.
+hyperParameterTrainingJobDefinition_enableInterContainerTrafficEncryption :: Lens.Lens' HyperParameterTrainingJobDefinition (Prelude.Maybe Prelude.Bool)
+hyperParameterTrainingJobDefinition_enableInterContainerTrafficEncryption = Lens.lens (\HyperParameterTrainingJobDefinition' {enableInterContainerTrafficEncryption} -> enableInterContainerTrafficEncryption) (\s@HyperParameterTrainingJobDefinition' {} a -> s {enableInterContainerTrafficEncryption = a} :: HyperParameterTrainingJobDefinition)
 
 -- | Undocumented member.
-hptjdTuningObjective :: Lens' HyperParameterTrainingJobDefinition (Maybe HyperParameterTuningJobObjective)
-hptjdTuningObjective = lens _hptjdTuningObjective (\s a -> s {_hptjdTuningObjective = a})
+hyperParameterTrainingJobDefinition_checkpointConfig :: Lens.Lens' HyperParameterTrainingJobDefinition (Prelude.Maybe CheckpointConfig)
+hyperParameterTrainingJobDefinition_checkpointConfig = Lens.lens (\HyperParameterTrainingJobDefinition' {checkpointConfig} -> checkpointConfig) (\s@HyperParameterTrainingJobDefinition' {} a -> s {checkpointConfig = a} :: HyperParameterTrainingJobDefinition)
+
+-- | Undocumented member.
+hyperParameterTrainingJobDefinition_tuningObjective :: Lens.Lens' HyperParameterTrainingJobDefinition (Prelude.Maybe HyperParameterTuningJobObjective)
+hyperParameterTrainingJobDefinition_tuningObjective = Lens.lens (\HyperParameterTrainingJobDefinition' {tuningObjective} -> tuningObjective) (\s@HyperParameterTrainingJobDefinition' {} a -> s {tuningObjective = a} :: HyperParameterTrainingJobDefinition)
 
 -- | The job definition name.
-hptjdDefinitionName :: Lens' HyperParameterTrainingJobDefinition (Maybe Text)
-hptjdDefinitionName = lens _hptjdDefinitionName (\s a -> s {_hptjdDefinitionName = a})
+hyperParameterTrainingJobDefinition_definitionName :: Lens.Lens' HyperParameterTrainingJobDefinition (Prelude.Maybe Prelude.Text)
+hyperParameterTrainingJobDefinition_definitionName = Lens.lens (\HyperParameterTrainingJobDefinition' {definitionName} -> definitionName) (\s@HyperParameterTrainingJobDefinition' {} a -> s {definitionName = a} :: HyperParameterTrainingJobDefinition)
 
--- | The 'HyperParameterAlgorithmSpecification' object that specifies the resource algorithm to use for the training jobs that the tuning job launches.
-hptjdAlgorithmSpecification :: Lens' HyperParameterTrainingJobDefinition HyperParameterAlgorithmSpecification
-hptjdAlgorithmSpecification = lens _hptjdAlgorithmSpecification (\s a -> s {_hptjdAlgorithmSpecification = a})
+-- | The HyperParameterAlgorithmSpecification object that specifies the
+-- resource algorithm to use for the training jobs that the tuning job
+-- launches.
+hyperParameterTrainingJobDefinition_algorithmSpecification :: Lens.Lens' HyperParameterTrainingJobDefinition HyperParameterAlgorithmSpecification
+hyperParameterTrainingJobDefinition_algorithmSpecification = Lens.lens (\HyperParameterTrainingJobDefinition' {algorithmSpecification} -> algorithmSpecification) (\s@HyperParameterTrainingJobDefinition' {} a -> s {algorithmSpecification = a} :: HyperParameterTrainingJobDefinition)
 
--- | The Amazon Resource Name (ARN) of the IAM role associated with the training jobs that the tuning job launches.
-hptjdRoleARN :: Lens' HyperParameterTrainingJobDefinition Text
-hptjdRoleARN = lens _hptjdRoleARN (\s a -> s {_hptjdRoleARN = a})
+-- | The Amazon Resource Name (ARN) of the IAM role associated with the
+-- training jobs that the tuning job launches.
+hyperParameterTrainingJobDefinition_roleArn :: Lens.Lens' HyperParameterTrainingJobDefinition Prelude.Text
+hyperParameterTrainingJobDefinition_roleArn = Lens.lens (\HyperParameterTrainingJobDefinition' {roleArn} -> roleArn) (\s@HyperParameterTrainingJobDefinition' {} a -> s {roleArn = a} :: HyperParameterTrainingJobDefinition)
 
--- | Specifies the path to the Amazon S3 bucket where you store model artifacts from the training jobs that the tuning job launches.
-hptjdOutputDataConfig :: Lens' HyperParameterTrainingJobDefinition OutputDataConfig
-hptjdOutputDataConfig = lens _hptjdOutputDataConfig (\s a -> s {_hptjdOutputDataConfig = a})
+-- | Specifies the path to the Amazon S3 bucket where you store model
+-- artifacts from the training jobs that the tuning job launches.
+hyperParameterTrainingJobDefinition_outputDataConfig :: Lens.Lens' HyperParameterTrainingJobDefinition OutputDataConfig
+hyperParameterTrainingJobDefinition_outputDataConfig = Lens.lens (\HyperParameterTrainingJobDefinition' {outputDataConfig} -> outputDataConfig) (\s@HyperParameterTrainingJobDefinition' {} a -> s {outputDataConfig = a} :: HyperParameterTrainingJobDefinition)
 
--- | The resources, including the compute instances and storage volumes, to use for the training jobs that the tuning job launches. Storage volumes store model artifacts and incremental states. Training algorithms might also use storage volumes for scratch space. If you want Amazon SageMaker to use the storage volume to store the training data, choose @File@ as the @TrainingInputMode@ in the algorithm specification. For distributed training algorithms, specify an instance count greater than 1.
-hptjdResourceConfig :: Lens' HyperParameterTrainingJobDefinition ResourceConfig
-hptjdResourceConfig = lens _hptjdResourceConfig (\s a -> s {_hptjdResourceConfig = a})
+-- | The resources, including the compute instances and storage volumes, to
+-- use for the training jobs that the tuning job launches.
+--
+-- Storage volumes store model artifacts and incremental states. Training
+-- algorithms might also use storage volumes for scratch space. If you want
+-- Amazon SageMaker to use the storage volume to store the training data,
+-- choose @File@ as the @TrainingInputMode@ in the algorithm specification.
+-- For distributed training algorithms, specify an instance count greater
+-- than 1.
+hyperParameterTrainingJobDefinition_resourceConfig :: Lens.Lens' HyperParameterTrainingJobDefinition ResourceConfig
+hyperParameterTrainingJobDefinition_resourceConfig = Lens.lens (\HyperParameterTrainingJobDefinition' {resourceConfig} -> resourceConfig) (\s@HyperParameterTrainingJobDefinition' {} a -> s {resourceConfig = a} :: HyperParameterTrainingJobDefinition)
 
--- | Specifies a limit to how long a model hyperparameter training job can run. It also specifies how long you are willing to wait for a managed spot training job to complete. When the job reaches the a limit, Amazon SageMaker ends the training job. Use this API to cap model training costs.
-hptjdStoppingCondition :: Lens' HyperParameterTrainingJobDefinition StoppingCondition
-hptjdStoppingCondition = lens _hptjdStoppingCondition (\s a -> s {_hptjdStoppingCondition = a})
+-- | Specifies a limit to how long a model hyperparameter training job can
+-- run. It also specifies how long you are willing to wait for a managed
+-- spot training job to complete. When the job reaches the a limit, Amazon
+-- SageMaker ends the training job. Use this API to cap model training
+-- costs.
+hyperParameterTrainingJobDefinition_stoppingCondition :: Lens.Lens' HyperParameterTrainingJobDefinition StoppingCondition
+hyperParameterTrainingJobDefinition_stoppingCondition = Lens.lens (\HyperParameterTrainingJobDefinition' {stoppingCondition} -> stoppingCondition) (\s@HyperParameterTrainingJobDefinition' {} a -> s {stoppingCondition = a} :: HyperParameterTrainingJobDefinition)
 
-instance FromJSON HyperParameterTrainingJobDefinition where
+instance
+  Prelude.FromJSON
+    HyperParameterTrainingJobDefinition
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "HyperParameterTrainingJobDefinition"
       ( \x ->
           HyperParameterTrainingJobDefinition'
-            <$> (x .:? "VpcConfig")
-            <*> (x .:? "InputDataConfig")
-            <*> (x .:? "EnableManagedSpotTraining")
-            <*> (x .:? "StaticHyperParameters" .!= mempty)
-            <*> (x .:? "HyperParameterRanges")
-            <*> (x .:? "EnableNetworkIsolation")
-            <*> (x .:? "EnableInterContainerTrafficEncryption")
-            <*> (x .:? "CheckpointConfig")
-            <*> (x .:? "TuningObjective")
-            <*> (x .:? "DefinitionName")
-            <*> (x .: "AlgorithmSpecification")
-            <*> (x .: "RoleArn")
-            <*> (x .: "OutputDataConfig")
-            <*> (x .: "ResourceConfig")
-            <*> (x .: "StoppingCondition")
+            Prelude.<$> (x Prelude..:? "VpcConfig")
+            Prelude.<*> (x Prelude..:? "InputDataConfig")
+            Prelude.<*> (x Prelude..:? "EnableManagedSpotTraining")
+            Prelude.<*> ( x Prelude..:? "StaticHyperParameters"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "HyperParameterRanges")
+            Prelude.<*> (x Prelude..:? "EnableNetworkIsolation")
+            Prelude.<*> ( x
+                            Prelude..:? "EnableInterContainerTrafficEncryption"
+                        )
+            Prelude.<*> (x Prelude..:? "CheckpointConfig")
+            Prelude.<*> (x Prelude..:? "TuningObjective")
+            Prelude.<*> (x Prelude..:? "DefinitionName")
+            Prelude.<*> (x Prelude..: "AlgorithmSpecification")
+            Prelude.<*> (x Prelude..: "RoleArn")
+            Prelude.<*> (x Prelude..: "OutputDataConfig")
+            Prelude.<*> (x Prelude..: "ResourceConfig")
+            Prelude.<*> (x Prelude..: "StoppingCondition")
       )
 
-instance Hashable HyperParameterTrainingJobDefinition
+instance
+  Prelude.Hashable
+    HyperParameterTrainingJobDefinition
 
-instance NFData HyperParameterTrainingJobDefinition
+instance
+  Prelude.NFData
+    HyperParameterTrainingJobDefinition
 
-instance ToJSON HyperParameterTrainingJobDefinition where
+instance
+  Prelude.ToJSON
+    HyperParameterTrainingJobDefinition
+  where
   toJSON HyperParameterTrainingJobDefinition' {..} =
-    object
-      ( catMaybes
-          [ ("VpcConfig" .=) <$> _hptjdVPCConfig,
-            ("InputDataConfig" .=) <$> _hptjdInputDataConfig,
-            ("EnableManagedSpotTraining" .=)
-              <$> _hptjdEnableManagedSpotTraining,
-            ("StaticHyperParameters" .=)
-              <$> _hptjdStaticHyperParameters,
-            ("HyperParameterRanges" .=)
-              <$> _hptjdHyperParameterRanges,
-            ("EnableNetworkIsolation" .=)
-              <$> _hptjdEnableNetworkIsolation,
-            ("EnableInterContainerTrafficEncryption" .=)
-              <$> _hptjdEnableInterContainerTrafficEncryption,
-            ("CheckpointConfig" .=) <$> _hptjdCheckpointConfig,
-            ("TuningObjective" .=) <$> _hptjdTuningObjective,
-            ("DefinitionName" .=) <$> _hptjdDefinitionName,
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("VpcConfig" Prelude..=) Prelude.<$> vpcConfig,
+            ("InputDataConfig" Prelude..=)
+              Prelude.<$> inputDataConfig,
+            ("EnableManagedSpotTraining" Prelude..=)
+              Prelude.<$> enableManagedSpotTraining,
+            ("StaticHyperParameters" Prelude..=)
+              Prelude.<$> staticHyperParameters,
+            ("HyperParameterRanges" Prelude..=)
+              Prelude.<$> hyperParameterRanges,
+            ("EnableNetworkIsolation" Prelude..=)
+              Prelude.<$> enableNetworkIsolation,
+            ("EnableInterContainerTrafficEncryption" Prelude..=)
+              Prelude.<$> enableInterContainerTrafficEncryption,
+            ("CheckpointConfig" Prelude..=)
+              Prelude.<$> checkpointConfig,
+            ("TuningObjective" Prelude..=)
+              Prelude.<$> tuningObjective,
+            ("DefinitionName" Prelude..=)
+              Prelude.<$> definitionName,
+            Prelude.Just
               ( "AlgorithmSpecification"
-                  .= _hptjdAlgorithmSpecification
+                  Prelude..= algorithmSpecification
               ),
-            Just ("RoleArn" .= _hptjdRoleARN),
-            Just ("OutputDataConfig" .= _hptjdOutputDataConfig),
-            Just ("ResourceConfig" .= _hptjdResourceConfig),
-            Just
-              ("StoppingCondition" .= _hptjdStoppingCondition)
+            Prelude.Just ("RoleArn" Prelude..= roleArn),
+            Prelude.Just
+              ("OutputDataConfig" Prelude..= outputDataConfig),
+            Prelude.Just
+              ("ResourceConfig" Prelude..= resourceConfig),
+            Prelude.Just
+              ("StoppingCondition" Prelude..= stoppingCondition)
           ]
       )

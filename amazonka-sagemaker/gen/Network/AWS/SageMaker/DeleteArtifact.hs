@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,140 +24,145 @@
 -- Deletes an artifact. Either @ArtifactArn@ or @Source@ must be specified.
 module Network.AWS.SageMaker.DeleteArtifact
   ( -- * Creating a Request
-    deleteArtifact,
-    DeleteArtifact,
+    DeleteArtifact (..),
+    newDeleteArtifact,
 
     -- * Request Lenses
-    daArtifactARN,
-    daSource,
+    deleteArtifact_artifactArn,
+    deleteArtifact_source,
 
     -- * Destructuring the Response
-    deleteArtifactResponse,
-    DeleteArtifactResponse,
+    DeleteArtifactResponse (..),
+    newDeleteArtifactResponse,
 
     -- * Response Lenses
-    darrsArtifactARN,
-    darrsResponseStatus,
+    deleteArtifactResponse_artifactArn,
+    deleteArtifactResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'deleteArtifact' smart constructor.
+-- | /See:/ 'newDeleteArtifact' smart constructor.
 data DeleteArtifact = DeleteArtifact'
-  { _daArtifactARN ::
-      !(Maybe Text),
-    _daSource :: !(Maybe ArtifactSource)
+  { -- | The Amazon Resource Name (ARN) of the artifact to delete.
+    artifactArn :: Prelude.Maybe Prelude.Text,
+    -- | The URI of the source.
+    source :: Prelude.Maybe ArtifactSource
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteArtifact' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteArtifact' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'daArtifactARN' - The Amazon Resource Name (ARN) of the artifact to delete.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'daSource' - The URI of the source.
-deleteArtifact ::
+-- 'artifactArn', 'deleteArtifact_artifactArn' - The Amazon Resource Name (ARN) of the artifact to delete.
+--
+-- 'source', 'deleteArtifact_source' - The URI of the source.
+newDeleteArtifact ::
   DeleteArtifact
-deleteArtifact =
+newDeleteArtifact =
   DeleteArtifact'
-    { _daArtifactARN = Nothing,
-      _daSource = Nothing
+    { artifactArn = Prelude.Nothing,
+      source = Prelude.Nothing
     }
 
 -- | The Amazon Resource Name (ARN) of the artifact to delete.
-daArtifactARN :: Lens' DeleteArtifact (Maybe Text)
-daArtifactARN = lens _daArtifactARN (\s a -> s {_daArtifactARN = a})
+deleteArtifact_artifactArn :: Lens.Lens' DeleteArtifact (Prelude.Maybe Prelude.Text)
+deleteArtifact_artifactArn = Lens.lens (\DeleteArtifact' {artifactArn} -> artifactArn) (\s@DeleteArtifact' {} a -> s {artifactArn = a} :: DeleteArtifact)
 
 -- | The URI of the source.
-daSource :: Lens' DeleteArtifact (Maybe ArtifactSource)
-daSource = lens _daSource (\s a -> s {_daSource = a})
+deleteArtifact_source :: Lens.Lens' DeleteArtifact (Prelude.Maybe ArtifactSource)
+deleteArtifact_source = Lens.lens (\DeleteArtifact' {source} -> source) (\s@DeleteArtifact' {} a -> s {source = a} :: DeleteArtifact)
 
-instance AWSRequest DeleteArtifact where
+instance Prelude.AWSRequest DeleteArtifact where
   type Rs DeleteArtifact = DeleteArtifactResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteArtifactResponse'
-            <$> (x .?> "ArtifactArn") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ArtifactArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteArtifact
+instance Prelude.Hashable DeleteArtifact
 
-instance NFData DeleteArtifact
+instance Prelude.NFData DeleteArtifact
 
-instance ToHeaders DeleteArtifact where
+instance Prelude.ToHeaders DeleteArtifact where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.DeleteArtifact" :: ByteString),
+              Prelude.=# ("SageMaker.DeleteArtifact" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteArtifact where
+instance Prelude.ToJSON DeleteArtifact where
   toJSON DeleteArtifact' {..} =
-    object
-      ( catMaybes
-          [ ("ArtifactArn" .=) <$> _daArtifactARN,
-            ("Source" .=) <$> _daSource
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ArtifactArn" Prelude..=) Prelude.<$> artifactArn,
+            ("Source" Prelude..=) Prelude.<$> source
           ]
       )
 
-instance ToPath DeleteArtifact where
-  toPath = const "/"
+instance Prelude.ToPath DeleteArtifact where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteArtifact where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteArtifact where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteArtifactResponse' smart constructor.
+-- | /See:/ 'newDeleteArtifactResponse' smart constructor.
 data DeleteArtifactResponse = DeleteArtifactResponse'
-  { _darrsArtifactARN ::
-      !(Maybe Text),
-    _darrsResponseStatus ::
-      !Int
+  { -- | The Amazon Resource Name (ARN) of the artifact.
+    artifactArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteArtifactResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteArtifactResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'darrsArtifactARN' - The Amazon Resource Name (ARN) of the artifact.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'darrsResponseStatus' - -- | The response status code.
-deleteArtifactResponse ::
-  -- | 'darrsResponseStatus'
-  Int ->
+-- 'artifactArn', 'deleteArtifactResponse_artifactArn' - The Amazon Resource Name (ARN) of the artifact.
+--
+-- 'httpStatus', 'deleteArtifactResponse_httpStatus' - The response's http status code.
+newDeleteArtifactResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteArtifactResponse
-deleteArtifactResponse pResponseStatus_ =
+newDeleteArtifactResponse pHttpStatus_ =
   DeleteArtifactResponse'
-    { _darrsArtifactARN =
-        Nothing,
-      _darrsResponseStatus = pResponseStatus_
+    { artifactArn =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The Amazon Resource Name (ARN) of the artifact.
-darrsArtifactARN :: Lens' DeleteArtifactResponse (Maybe Text)
-darrsArtifactARN = lens _darrsArtifactARN (\s a -> s {_darrsArtifactARN = a})
+deleteArtifactResponse_artifactArn :: Lens.Lens' DeleteArtifactResponse (Prelude.Maybe Prelude.Text)
+deleteArtifactResponse_artifactArn = Lens.lens (\DeleteArtifactResponse' {artifactArn} -> artifactArn) (\s@DeleteArtifactResponse' {} a -> s {artifactArn = a} :: DeleteArtifactResponse)
 
--- | -- | The response status code.
-darrsResponseStatus :: Lens' DeleteArtifactResponse Int
-darrsResponseStatus = lens _darrsResponseStatus (\s a -> s {_darrsResponseStatus = a})
+-- | The response's http status code.
+deleteArtifactResponse_httpStatus :: Lens.Lens' DeleteArtifactResponse Prelude.Int
+deleteArtifactResponse_httpStatus = Lens.lens (\DeleteArtifactResponse' {httpStatus} -> httpStatus) (\s@DeleteArtifactResponse' {} a -> s {httpStatus = a} :: DeleteArtifactResponse)
 
-instance NFData DeleteArtifactResponse
+instance Prelude.NFData DeleteArtifactResponse

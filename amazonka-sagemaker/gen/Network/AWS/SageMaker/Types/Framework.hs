@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,91 +19,93 @@
 module Network.AWS.SageMaker.Types.Framework
   ( Framework
       ( ..,
-        Darknet,
-        Keras,
-        Mxnet,
-        Onnx,
-        Pytorch,
-        Sklearn,
-        Tensorflow,
-        Tflite,
-        Xgboost
+        FrameworkDARKNET,
+        FrameworkKERAS,
+        FrameworkMXNET,
+        FrameworkONNX,
+        FrameworkPYTORCH,
+        FrameworkSKLEARN,
+        FrameworkTENSORFLOW,
+        FrameworkTFLITE,
+        FrameworkXGBOOST
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Framework = Framework' (CI Text)
+newtype Framework = Framework'
+  { fromFramework ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Darknet :: Framework
-pattern Darknet = Framework' "DARKNET"
+pattern FrameworkDARKNET :: Framework
+pattern FrameworkDARKNET = Framework' "DARKNET"
 
-pattern Keras :: Framework
-pattern Keras = Framework' "KERAS"
+pattern FrameworkKERAS :: Framework
+pattern FrameworkKERAS = Framework' "KERAS"
 
-pattern Mxnet :: Framework
-pattern Mxnet = Framework' "MXNET"
+pattern FrameworkMXNET :: Framework
+pattern FrameworkMXNET = Framework' "MXNET"
 
-pattern Onnx :: Framework
-pattern Onnx = Framework' "ONNX"
+pattern FrameworkONNX :: Framework
+pattern FrameworkONNX = Framework' "ONNX"
 
-pattern Pytorch :: Framework
-pattern Pytorch = Framework' "PYTORCH"
+pattern FrameworkPYTORCH :: Framework
+pattern FrameworkPYTORCH = Framework' "PYTORCH"
 
-pattern Sklearn :: Framework
-pattern Sklearn = Framework' "SKLEARN"
+pattern FrameworkSKLEARN :: Framework
+pattern FrameworkSKLEARN = Framework' "SKLEARN"
 
-pattern Tensorflow :: Framework
-pattern Tensorflow = Framework' "TENSORFLOW"
+pattern FrameworkTENSORFLOW :: Framework
+pattern FrameworkTENSORFLOW = Framework' "TENSORFLOW"
 
-pattern Tflite :: Framework
-pattern Tflite = Framework' "TFLITE"
+pattern FrameworkTFLITE :: Framework
+pattern FrameworkTFLITE = Framework' "TFLITE"
 
-pattern Xgboost :: Framework
-pattern Xgboost = Framework' "XGBOOST"
+pattern FrameworkXGBOOST :: Framework
+pattern FrameworkXGBOOST = Framework' "XGBOOST"
 
 {-# COMPLETE
-  Darknet,
-  Keras,
-  Mxnet,
-  Onnx,
-  Pytorch,
-  Sklearn,
-  Tensorflow,
-  Tflite,
-  Xgboost,
+  FrameworkDARKNET,
+  FrameworkKERAS,
+  FrameworkMXNET,
+  FrameworkONNX,
+  FrameworkPYTORCH,
+  FrameworkSKLEARN,
+  FrameworkTENSORFLOW,
+  FrameworkTFLITE,
+  FrameworkXGBOOST,
   Framework'
   #-}
 
-instance FromText Framework where
-  parser = (Framework' . mk) <$> takeText
+instance Prelude.FromText Framework where
+  parser = Framework' Prelude.<$> Prelude.takeText
 
-instance ToText Framework where
-  toText (Framework' ci) = original ci
+instance Prelude.ToText Framework where
+  toText (Framework' x) = x
 
-instance Hashable Framework
+instance Prelude.Hashable Framework
 
-instance NFData Framework
+instance Prelude.NFData Framework
 
-instance ToByteString Framework
+instance Prelude.ToByteString Framework
 
-instance ToQuery Framework
+instance Prelude.ToQuery Framework
 
-instance ToHeader Framework
+instance Prelude.ToHeader Framework
 
-instance ToJSON Framework where
-  toJSON = toJSONText
+instance Prelude.ToJSON Framework where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Framework where
-  parseJSON = parseJSONText "Framework"
+instance Prelude.FromJSON Framework where
+  parseJSON = Prelude.parseJSONText "Framework"

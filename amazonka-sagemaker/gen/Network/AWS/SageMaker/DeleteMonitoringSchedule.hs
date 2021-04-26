@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,115 +21,119 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a monitoring schedule. Also stops the schedule had not already been stopped. This does not delete the job execution history of the monitoring schedule.
+-- Deletes a monitoring schedule. Also stops the schedule had not already
+-- been stopped. This does not delete the job execution history of the
+-- monitoring schedule.
 module Network.AWS.SageMaker.DeleteMonitoringSchedule
   ( -- * Creating a Request
-    deleteMonitoringSchedule,
-    DeleteMonitoringSchedule,
+    DeleteMonitoringSchedule (..),
+    newDeleteMonitoringSchedule,
 
     -- * Request Lenses
-    dMonitoringScheduleName,
+    deleteMonitoringSchedule_monitoringScheduleName,
 
     -- * Destructuring the Response
-    deleteMonitoringScheduleResponse,
-    DeleteMonitoringScheduleResponse,
+    DeleteMonitoringScheduleResponse (..),
+    newDeleteMonitoringScheduleResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'deleteMonitoringSchedule' smart constructor.
-newtype DeleteMonitoringSchedule = DeleteMonitoringSchedule'
-  { _dMonitoringScheduleName ::
-      Text
+-- | /See:/ 'newDeleteMonitoringSchedule' smart constructor.
+data DeleteMonitoringSchedule = DeleteMonitoringSchedule'
+  { -- | The name of the monitoring schedule to delete.
+    monitoringScheduleName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteMonitoringSchedule' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteMonitoringSchedule' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dMonitoringScheduleName' - The name of the monitoring schedule to delete.
-deleteMonitoringSchedule ::
-  -- | 'dMonitoringScheduleName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'monitoringScheduleName', 'deleteMonitoringSchedule_monitoringScheduleName' - The name of the monitoring schedule to delete.
+newDeleteMonitoringSchedule ::
+  -- | 'monitoringScheduleName'
+  Prelude.Text ->
   DeleteMonitoringSchedule
-deleteMonitoringSchedule pMonitoringScheduleName_ =
+newDeleteMonitoringSchedule pMonitoringScheduleName_ =
   DeleteMonitoringSchedule'
-    { _dMonitoringScheduleName =
+    { monitoringScheduleName =
         pMonitoringScheduleName_
     }
 
 -- | The name of the monitoring schedule to delete.
-dMonitoringScheduleName :: Lens' DeleteMonitoringSchedule Text
-dMonitoringScheduleName = lens _dMonitoringScheduleName (\s a -> s {_dMonitoringScheduleName = a})
+deleteMonitoringSchedule_monitoringScheduleName :: Lens.Lens' DeleteMonitoringSchedule Prelude.Text
+deleteMonitoringSchedule_monitoringScheduleName = Lens.lens (\DeleteMonitoringSchedule' {monitoringScheduleName} -> monitoringScheduleName) (\s@DeleteMonitoringSchedule' {} a -> s {monitoringScheduleName = a} :: DeleteMonitoringSchedule)
 
-instance AWSRequest DeleteMonitoringSchedule where
+instance Prelude.AWSRequest DeleteMonitoringSchedule where
   type
     Rs DeleteMonitoringSchedule =
       DeleteMonitoringScheduleResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveNull DeleteMonitoringScheduleResponse'
+    Response.receiveNull
+      DeleteMonitoringScheduleResponse'
 
-instance Hashable DeleteMonitoringSchedule
+instance Prelude.Hashable DeleteMonitoringSchedule
 
-instance NFData DeleteMonitoringSchedule
+instance Prelude.NFData DeleteMonitoringSchedule
 
-instance ToHeaders DeleteMonitoringSchedule where
+instance Prelude.ToHeaders DeleteMonitoringSchedule where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.DeleteMonitoringSchedule" :: ByteString),
+              Prelude.=# ( "SageMaker.DeleteMonitoringSchedule" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteMonitoringSchedule where
+instance Prelude.ToJSON DeleteMonitoringSchedule where
   toJSON DeleteMonitoringSchedule' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "MonitoringScheduleName"
-                  .= _dMonitoringScheduleName
+                  Prelude..= monitoringScheduleName
               )
           ]
       )
 
-instance ToPath DeleteMonitoringSchedule where
-  toPath = const "/"
+instance Prelude.ToPath DeleteMonitoringSchedule where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteMonitoringSchedule where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteMonitoringSchedule where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteMonitoringScheduleResponse' smart constructor.
+-- | /See:/ 'newDeleteMonitoringScheduleResponse' smart constructor.
 data DeleteMonitoringScheduleResponse = DeleteMonitoringScheduleResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteMonitoringScheduleResponse' with the minimum fields required to make a request.
-deleteMonitoringScheduleResponse ::
+-- |
+-- Create a value of 'DeleteMonitoringScheduleResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteMonitoringScheduleResponse ::
   DeleteMonitoringScheduleResponse
-deleteMonitoringScheduleResponse =
+newDeleteMonitoringScheduleResponse =
   DeleteMonitoringScheduleResponse'
 
-instance NFData DeleteMonitoringScheduleResponse
+instance
+  Prelude.NFData
+    DeleteMonitoringScheduleResponse

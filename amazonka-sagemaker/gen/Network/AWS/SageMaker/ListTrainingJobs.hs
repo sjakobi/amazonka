@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,252 +23,321 @@
 --
 -- Lists training jobs.
 --
+-- When @StatusEquals@ and @MaxResults@ are set at the same time, the
+-- @MaxResults@ number of training jobs are first retrieved ignoring the
+-- @StatusEquals@ parameter and then they are filtered by the
+-- @StatusEquals@ parameter, which is returned as a response. For example,
+-- if @ListTrainingJobs@ is invoked with the following parameters:
 --
+-- @{ ... MaxResults: 100, StatusEquals: InProgress ... }@
+--
+-- Then, 100 trainings jobs with any status including those other than
+-- @InProgress@ are selected first (sorted according the creation time,
+-- from the latest to the oldest) and those with status @InProgress@ are
+-- returned.
+--
+-- You can quickly test the API using the following AWS CLI code.
+--
+-- @aws sagemaker list-training-jobs --max-results 100 --status-equals InProgress@
 --
 -- This operation returns paginated results.
 module Network.AWS.SageMaker.ListTrainingJobs
   ( -- * Creating a Request
-    listTrainingJobs,
-    ListTrainingJobs,
+    ListTrainingJobs (..),
+    newListTrainingJobs,
 
     -- * Request Lenses
-    ltjLastModifiedTimeBefore,
-    ltjSortOrder,
-    ltjNextToken,
-    ltjNameContains,
-    ltjMaxResults,
-    ltjCreationTimeBefore,
-    ltjLastModifiedTimeAfter,
-    ltjSortBy,
-    ltjStatusEquals,
-    ltjCreationTimeAfter,
+    listTrainingJobs_lastModifiedTimeBefore,
+    listTrainingJobs_sortOrder,
+    listTrainingJobs_nextToken,
+    listTrainingJobs_nameContains,
+    listTrainingJobs_maxResults,
+    listTrainingJobs_creationTimeBefore,
+    listTrainingJobs_lastModifiedTimeAfter,
+    listTrainingJobs_sortBy,
+    listTrainingJobs_statusEquals,
+    listTrainingJobs_creationTimeAfter,
 
     -- * Destructuring the Response
-    listTrainingJobsResponse,
-    ListTrainingJobsResponse,
+    ListTrainingJobsResponse (..),
+    newListTrainingJobsResponse,
 
     -- * Response Lenses
-    ltjrtrsNextToken,
-    ltjrtrsResponseStatus,
-    ltjrtrsTrainingJobSummaries,
+    listTrainingJobsResponse_nextToken,
+    listTrainingJobsResponse_httpStatus,
+    listTrainingJobsResponse_trainingJobSummaries,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
+import Network.AWS.SageMaker.Types.TrainingJobSummary
 
--- | /See:/ 'listTrainingJobs' smart constructor.
+-- | /See:/ 'newListTrainingJobs' smart constructor.
 data ListTrainingJobs = ListTrainingJobs'
-  { _ltjLastModifiedTimeBefore ::
-      !(Maybe POSIX),
-    _ltjSortOrder :: !(Maybe SortOrder),
-    _ltjNextToken :: !(Maybe Text),
-    _ltjNameContains :: !(Maybe Text),
-    _ltjMaxResults :: !(Maybe Nat),
-    _ltjCreationTimeBefore ::
-      !(Maybe POSIX),
-    _ltjLastModifiedTimeAfter ::
-      !(Maybe POSIX),
-    _ltjSortBy :: !(Maybe SortBy),
-    _ltjStatusEquals ::
-      !(Maybe TrainingJobStatus),
-    _ltjCreationTimeAfter ::
-      !(Maybe POSIX)
+  { -- | A filter that returns only training jobs modified before the specified
+    -- time (timestamp).
+    lastModifiedTimeBefore :: Prelude.Maybe Prelude.POSIX,
+    -- | The sort order for results. The default is @Ascending@.
+    sortOrder :: Prelude.Maybe SortOrder,
+    -- | If the result of the previous @ListTrainingJobs@ request was truncated,
+    -- the response includes a @NextToken@. To retrieve the next set of
+    -- training jobs, use the token in the next request.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A string in the training job name. This filter returns only training
+    -- jobs whose name contains the specified string.
+    nameContains :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of training jobs to return in the response.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | A filter that returns only training jobs created before the specified
+    -- time (timestamp).
+    creationTimeBefore :: Prelude.Maybe Prelude.POSIX,
+    -- | A filter that returns only training jobs modified after the specified
+    -- time (timestamp).
+    lastModifiedTimeAfter :: Prelude.Maybe Prelude.POSIX,
+    -- | The field to sort results by. The default is @CreationTime@.
+    sortBy :: Prelude.Maybe SortBy,
+    -- | A filter that retrieves only training jobs with a specific status.
+    statusEquals :: Prelude.Maybe TrainingJobStatus,
+    -- | A filter that returns only training jobs created after the specified
+    -- time (timestamp).
+    creationTimeAfter :: Prelude.Maybe Prelude.POSIX
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListTrainingJobs' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListTrainingJobs' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltjLastModifiedTimeBefore' - A filter that returns only training jobs modified before the specified time (timestamp).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltjSortOrder' - The sort order for results. The default is @Ascending@ .
+-- 'lastModifiedTimeBefore', 'listTrainingJobs_lastModifiedTimeBefore' - A filter that returns only training jobs modified before the specified
+-- time (timestamp).
 --
--- * 'ltjNextToken' - If the result of the previous @ListTrainingJobs@ request was truncated, the response includes a @NextToken@ . To retrieve the next set of training jobs, use the token in the next request.
+-- 'sortOrder', 'listTrainingJobs_sortOrder' - The sort order for results. The default is @Ascending@.
 --
--- * 'ltjNameContains' - A string in the training job name. This filter returns only training jobs whose name contains the specified string.
+-- 'nextToken', 'listTrainingJobs_nextToken' - If the result of the previous @ListTrainingJobs@ request was truncated,
+-- the response includes a @NextToken@. To retrieve the next set of
+-- training jobs, use the token in the next request.
 --
--- * 'ltjMaxResults' - The maximum number of training jobs to return in the response.
+-- 'nameContains', 'listTrainingJobs_nameContains' - A string in the training job name. This filter returns only training
+-- jobs whose name contains the specified string.
 --
--- * 'ltjCreationTimeBefore' - A filter that returns only training jobs created before the specified time (timestamp).
+-- 'maxResults', 'listTrainingJobs_maxResults' - The maximum number of training jobs to return in the response.
 --
--- * 'ltjLastModifiedTimeAfter' - A filter that returns only training jobs modified after the specified time (timestamp).
+-- 'creationTimeBefore', 'listTrainingJobs_creationTimeBefore' - A filter that returns only training jobs created before the specified
+-- time (timestamp).
 --
--- * 'ltjSortBy' - The field to sort results by. The default is @CreationTime@ .
+-- 'lastModifiedTimeAfter', 'listTrainingJobs_lastModifiedTimeAfter' - A filter that returns only training jobs modified after the specified
+-- time (timestamp).
 --
--- * 'ltjStatusEquals' - A filter that retrieves only training jobs with a specific status.
+-- 'sortBy', 'listTrainingJobs_sortBy' - The field to sort results by. The default is @CreationTime@.
 --
--- * 'ltjCreationTimeAfter' - A filter that returns only training jobs created after the specified time (timestamp).
-listTrainingJobs ::
+-- 'statusEquals', 'listTrainingJobs_statusEquals' - A filter that retrieves only training jobs with a specific status.
+--
+-- 'creationTimeAfter', 'listTrainingJobs_creationTimeAfter' - A filter that returns only training jobs created after the specified
+-- time (timestamp).
+newListTrainingJobs ::
   ListTrainingJobs
-listTrainingJobs =
+newListTrainingJobs =
   ListTrainingJobs'
-    { _ltjLastModifiedTimeBefore =
-        Nothing,
-      _ltjSortOrder = Nothing,
-      _ltjNextToken = Nothing,
-      _ltjNameContains = Nothing,
-      _ltjMaxResults = Nothing,
-      _ltjCreationTimeBefore = Nothing,
-      _ltjLastModifiedTimeAfter = Nothing,
-      _ltjSortBy = Nothing,
-      _ltjStatusEquals = Nothing,
-      _ltjCreationTimeAfter = Nothing
+    { lastModifiedTimeBefore =
+        Prelude.Nothing,
+      sortOrder = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      nameContains = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      creationTimeBefore = Prelude.Nothing,
+      lastModifiedTimeAfter = Prelude.Nothing,
+      sortBy = Prelude.Nothing,
+      statusEquals = Prelude.Nothing,
+      creationTimeAfter = Prelude.Nothing
     }
 
--- | A filter that returns only training jobs modified before the specified time (timestamp).
-ltjLastModifiedTimeBefore :: Lens' ListTrainingJobs (Maybe UTCTime)
-ltjLastModifiedTimeBefore = lens _ltjLastModifiedTimeBefore (\s a -> s {_ltjLastModifiedTimeBefore = a}) . mapping _Time
+-- | A filter that returns only training jobs modified before the specified
+-- time (timestamp).
+listTrainingJobs_lastModifiedTimeBefore :: Lens.Lens' ListTrainingJobs (Prelude.Maybe Prelude.UTCTime)
+listTrainingJobs_lastModifiedTimeBefore = Lens.lens (\ListTrainingJobs' {lastModifiedTimeBefore} -> lastModifiedTimeBefore) (\s@ListTrainingJobs' {} a -> s {lastModifiedTimeBefore = a} :: ListTrainingJobs) Prelude.. Lens.mapping Prelude._Time
 
--- | The sort order for results. The default is @Ascending@ .
-ltjSortOrder :: Lens' ListTrainingJobs (Maybe SortOrder)
-ltjSortOrder = lens _ltjSortOrder (\s a -> s {_ltjSortOrder = a})
+-- | The sort order for results. The default is @Ascending@.
+listTrainingJobs_sortOrder :: Lens.Lens' ListTrainingJobs (Prelude.Maybe SortOrder)
+listTrainingJobs_sortOrder = Lens.lens (\ListTrainingJobs' {sortOrder} -> sortOrder) (\s@ListTrainingJobs' {} a -> s {sortOrder = a} :: ListTrainingJobs)
 
--- | If the result of the previous @ListTrainingJobs@ request was truncated, the response includes a @NextToken@ . To retrieve the next set of training jobs, use the token in the next request.
-ltjNextToken :: Lens' ListTrainingJobs (Maybe Text)
-ltjNextToken = lens _ltjNextToken (\s a -> s {_ltjNextToken = a})
+-- | If the result of the previous @ListTrainingJobs@ request was truncated,
+-- the response includes a @NextToken@. To retrieve the next set of
+-- training jobs, use the token in the next request.
+listTrainingJobs_nextToken :: Lens.Lens' ListTrainingJobs (Prelude.Maybe Prelude.Text)
+listTrainingJobs_nextToken = Lens.lens (\ListTrainingJobs' {nextToken} -> nextToken) (\s@ListTrainingJobs' {} a -> s {nextToken = a} :: ListTrainingJobs)
 
--- | A string in the training job name. This filter returns only training jobs whose name contains the specified string.
-ltjNameContains :: Lens' ListTrainingJobs (Maybe Text)
-ltjNameContains = lens _ltjNameContains (\s a -> s {_ltjNameContains = a})
+-- | A string in the training job name. This filter returns only training
+-- jobs whose name contains the specified string.
+listTrainingJobs_nameContains :: Lens.Lens' ListTrainingJobs (Prelude.Maybe Prelude.Text)
+listTrainingJobs_nameContains = Lens.lens (\ListTrainingJobs' {nameContains} -> nameContains) (\s@ListTrainingJobs' {} a -> s {nameContains = a} :: ListTrainingJobs)
 
 -- | The maximum number of training jobs to return in the response.
-ltjMaxResults :: Lens' ListTrainingJobs (Maybe Natural)
-ltjMaxResults = lens _ltjMaxResults (\s a -> s {_ltjMaxResults = a}) . mapping _Nat
+listTrainingJobs_maxResults :: Lens.Lens' ListTrainingJobs (Prelude.Maybe Prelude.Natural)
+listTrainingJobs_maxResults = Lens.lens (\ListTrainingJobs' {maxResults} -> maxResults) (\s@ListTrainingJobs' {} a -> s {maxResults = a} :: ListTrainingJobs) Prelude.. Lens.mapping Prelude._Nat
 
--- | A filter that returns only training jobs created before the specified time (timestamp).
-ltjCreationTimeBefore :: Lens' ListTrainingJobs (Maybe UTCTime)
-ltjCreationTimeBefore = lens _ltjCreationTimeBefore (\s a -> s {_ltjCreationTimeBefore = a}) . mapping _Time
+-- | A filter that returns only training jobs created before the specified
+-- time (timestamp).
+listTrainingJobs_creationTimeBefore :: Lens.Lens' ListTrainingJobs (Prelude.Maybe Prelude.UTCTime)
+listTrainingJobs_creationTimeBefore = Lens.lens (\ListTrainingJobs' {creationTimeBefore} -> creationTimeBefore) (\s@ListTrainingJobs' {} a -> s {creationTimeBefore = a} :: ListTrainingJobs) Prelude.. Lens.mapping Prelude._Time
 
--- | A filter that returns only training jobs modified after the specified time (timestamp).
-ltjLastModifiedTimeAfter :: Lens' ListTrainingJobs (Maybe UTCTime)
-ltjLastModifiedTimeAfter = lens _ltjLastModifiedTimeAfter (\s a -> s {_ltjLastModifiedTimeAfter = a}) . mapping _Time
+-- | A filter that returns only training jobs modified after the specified
+-- time (timestamp).
+listTrainingJobs_lastModifiedTimeAfter :: Lens.Lens' ListTrainingJobs (Prelude.Maybe Prelude.UTCTime)
+listTrainingJobs_lastModifiedTimeAfter = Lens.lens (\ListTrainingJobs' {lastModifiedTimeAfter} -> lastModifiedTimeAfter) (\s@ListTrainingJobs' {} a -> s {lastModifiedTimeAfter = a} :: ListTrainingJobs) Prelude.. Lens.mapping Prelude._Time
 
--- | The field to sort results by. The default is @CreationTime@ .
-ltjSortBy :: Lens' ListTrainingJobs (Maybe SortBy)
-ltjSortBy = lens _ltjSortBy (\s a -> s {_ltjSortBy = a})
+-- | The field to sort results by. The default is @CreationTime@.
+listTrainingJobs_sortBy :: Lens.Lens' ListTrainingJobs (Prelude.Maybe SortBy)
+listTrainingJobs_sortBy = Lens.lens (\ListTrainingJobs' {sortBy} -> sortBy) (\s@ListTrainingJobs' {} a -> s {sortBy = a} :: ListTrainingJobs)
 
 -- | A filter that retrieves only training jobs with a specific status.
-ltjStatusEquals :: Lens' ListTrainingJobs (Maybe TrainingJobStatus)
-ltjStatusEquals = lens _ltjStatusEquals (\s a -> s {_ltjStatusEquals = a})
+listTrainingJobs_statusEquals :: Lens.Lens' ListTrainingJobs (Prelude.Maybe TrainingJobStatus)
+listTrainingJobs_statusEquals = Lens.lens (\ListTrainingJobs' {statusEquals} -> statusEquals) (\s@ListTrainingJobs' {} a -> s {statusEquals = a} :: ListTrainingJobs)
 
--- | A filter that returns only training jobs created after the specified time (timestamp).
-ltjCreationTimeAfter :: Lens' ListTrainingJobs (Maybe UTCTime)
-ltjCreationTimeAfter = lens _ltjCreationTimeAfter (\s a -> s {_ltjCreationTimeAfter = a}) . mapping _Time
+-- | A filter that returns only training jobs created after the specified
+-- time (timestamp).
+listTrainingJobs_creationTimeAfter :: Lens.Lens' ListTrainingJobs (Prelude.Maybe Prelude.UTCTime)
+listTrainingJobs_creationTimeAfter = Lens.lens (\ListTrainingJobs' {creationTimeAfter} -> creationTimeAfter) (\s@ListTrainingJobs' {} a -> s {creationTimeAfter = a} :: ListTrainingJobs) Prelude.. Lens.mapping Prelude._Time
 
-instance AWSPager ListTrainingJobs where
+instance Pager.AWSPager ListTrainingJobs where
   page rq rs
-    | stop (rs ^. ltjrtrsNextToken) = Nothing
-    | stop (rs ^. ltjrtrsTrainingJobSummaries) = Nothing
-    | otherwise =
-      Just $ rq & ltjNextToken .~ rs ^. ltjrtrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listTrainingJobsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^. listTrainingJobsResponse_trainingJobSummaries
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listTrainingJobs_nextToken
+          Lens..~ rs
+          Lens.^? listTrainingJobsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListTrainingJobs where
+instance Prelude.AWSRequest ListTrainingJobs where
   type Rs ListTrainingJobs = ListTrainingJobsResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListTrainingJobsResponse'
-            <$> (x .?> "NextToken")
-            <*> (pure (fromEnum s))
-            <*> (x .?> "TrainingJobSummaries" .!@ mempty)
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> ( x Prelude..?> "TrainingJobSummaries"
+                            Prelude..!@ Prelude.mempty
+                        )
       )
 
-instance Hashable ListTrainingJobs
+instance Prelude.Hashable ListTrainingJobs
 
-instance NFData ListTrainingJobs
+instance Prelude.NFData ListTrainingJobs
 
-instance ToHeaders ListTrainingJobs where
+instance Prelude.ToHeaders ListTrainingJobs where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.ListTrainingJobs" :: ByteString),
+              Prelude.=# ("SageMaker.ListTrainingJobs" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListTrainingJobs where
+instance Prelude.ToJSON ListTrainingJobs where
   toJSON ListTrainingJobs' {..} =
-    object
-      ( catMaybes
-          [ ("LastModifiedTimeBefore" .=)
-              <$> _ltjLastModifiedTimeBefore,
-            ("SortOrder" .=) <$> _ltjSortOrder,
-            ("NextToken" .=) <$> _ltjNextToken,
-            ("NameContains" .=) <$> _ltjNameContains,
-            ("MaxResults" .=) <$> _ltjMaxResults,
-            ("CreationTimeBefore" .=) <$> _ltjCreationTimeBefore,
-            ("LastModifiedTimeAfter" .=)
-              <$> _ltjLastModifiedTimeAfter,
-            ("SortBy" .=) <$> _ltjSortBy,
-            ("StatusEquals" .=) <$> _ltjStatusEquals,
-            ("CreationTimeAfter" .=) <$> _ltjCreationTimeAfter
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("LastModifiedTimeBefore" Prelude..=)
+              Prelude.<$> lastModifiedTimeBefore,
+            ("SortOrder" Prelude..=) Prelude.<$> sortOrder,
+            ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("NameContains" Prelude..=) Prelude.<$> nameContains,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("CreationTimeBefore" Prelude..=)
+              Prelude.<$> creationTimeBefore,
+            ("LastModifiedTimeAfter" Prelude..=)
+              Prelude.<$> lastModifiedTimeAfter,
+            ("SortBy" Prelude..=) Prelude.<$> sortBy,
+            ("StatusEquals" Prelude..=) Prelude.<$> statusEquals,
+            ("CreationTimeAfter" Prelude..=)
+              Prelude.<$> creationTimeAfter
           ]
       )
 
-instance ToPath ListTrainingJobs where
-  toPath = const "/"
+instance Prelude.ToPath ListTrainingJobs where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListTrainingJobs where
-  toQuery = const mempty
+instance Prelude.ToQuery ListTrainingJobs where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listTrainingJobsResponse' smart constructor.
+-- | /See:/ 'newListTrainingJobsResponse' smart constructor.
 data ListTrainingJobsResponse = ListTrainingJobsResponse'
-  { _ltjrtrsNextToken ::
-      !(Maybe Text),
-    _ltjrtrsResponseStatus ::
-      !Int,
-    _ltjrtrsTrainingJobSummaries ::
-      ![TrainingJobSummary]
+  { -- | If the response is truncated, Amazon SageMaker returns this token. To
+    -- retrieve the next set of training jobs, use it in the subsequent
+    -- request.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | An array of @TrainingJobSummary@ objects, each listing a training job.
+    trainingJobSummaries :: [TrainingJobSummary]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListTrainingJobsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListTrainingJobsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltjrtrsNextToken' - If the response is truncated, Amazon SageMaker returns this token. To retrieve the next set of training jobs, use it in the subsequent request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltjrtrsResponseStatus' - -- | The response status code.
+-- 'nextToken', 'listTrainingJobsResponse_nextToken' - If the response is truncated, Amazon SageMaker returns this token. To
+-- retrieve the next set of training jobs, use it in the subsequent
+-- request.
 --
--- * 'ltjrtrsTrainingJobSummaries' - An array of @TrainingJobSummary@ objects, each listing a training job.
-listTrainingJobsResponse ::
-  -- | 'ltjrtrsResponseStatus'
-  Int ->
+-- 'httpStatus', 'listTrainingJobsResponse_httpStatus' - The response's http status code.
+--
+-- 'trainingJobSummaries', 'listTrainingJobsResponse_trainingJobSummaries' - An array of @TrainingJobSummary@ objects, each listing a training job.
+newListTrainingJobsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListTrainingJobsResponse
-listTrainingJobsResponse pResponseStatus_ =
+newListTrainingJobsResponse pHttpStatus_ =
   ListTrainingJobsResponse'
-    { _ltjrtrsNextToken =
-        Nothing,
-      _ltjrtrsResponseStatus = pResponseStatus_,
-      _ltjrtrsTrainingJobSummaries = mempty
+    { nextToken =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_,
+      trainingJobSummaries = Prelude.mempty
     }
 
--- | If the response is truncated, Amazon SageMaker returns this token. To retrieve the next set of training jobs, use it in the subsequent request.
-ltjrtrsNextToken :: Lens' ListTrainingJobsResponse (Maybe Text)
-ltjrtrsNextToken = lens _ltjrtrsNextToken (\s a -> s {_ltjrtrsNextToken = a})
+-- | If the response is truncated, Amazon SageMaker returns this token. To
+-- retrieve the next set of training jobs, use it in the subsequent
+-- request.
+listTrainingJobsResponse_nextToken :: Lens.Lens' ListTrainingJobsResponse (Prelude.Maybe Prelude.Text)
+listTrainingJobsResponse_nextToken = Lens.lens (\ListTrainingJobsResponse' {nextToken} -> nextToken) (\s@ListTrainingJobsResponse' {} a -> s {nextToken = a} :: ListTrainingJobsResponse)
 
--- | -- | The response status code.
-ltjrtrsResponseStatus :: Lens' ListTrainingJobsResponse Int
-ltjrtrsResponseStatus = lens _ltjrtrsResponseStatus (\s a -> s {_ltjrtrsResponseStatus = a})
+-- | The response's http status code.
+listTrainingJobsResponse_httpStatus :: Lens.Lens' ListTrainingJobsResponse Prelude.Int
+listTrainingJobsResponse_httpStatus = Lens.lens (\ListTrainingJobsResponse' {httpStatus} -> httpStatus) (\s@ListTrainingJobsResponse' {} a -> s {httpStatus = a} :: ListTrainingJobsResponse)
 
 -- | An array of @TrainingJobSummary@ objects, each listing a training job.
-ltjrtrsTrainingJobSummaries :: Lens' ListTrainingJobsResponse [TrainingJobSummary]
-ltjrtrsTrainingJobSummaries = lens _ltjrtrsTrainingJobSummaries (\s a -> s {_ltjrtrsTrainingJobSummaries = a}) . _Coerce
+listTrainingJobsResponse_trainingJobSummaries :: Lens.Lens' ListTrainingJobsResponse [TrainingJobSummary]
+listTrainingJobsResponse_trainingJobSummaries = Lens.lens (\ListTrainingJobsResponse' {trainingJobSummaries} -> trainingJobSummaries) (\s@ListTrainingJobsResponse' {} a -> s {trainingJobSummaries = a} :: ListTrainingJobsResponse) Prelude.. Prelude._Coerce
 
-instance NFData ListTrainingJobsResponse
+instance Prelude.NFData ListTrainingJobsResponse

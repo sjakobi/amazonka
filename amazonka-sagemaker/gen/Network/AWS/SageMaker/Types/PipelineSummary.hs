@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,108 +19,117 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.PipelineSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A summary of a pipeline.
 --
---
---
--- /See:/ 'pipelineSummary' smart constructor.
+-- /See:/ 'newPipelineSummary' smart constructor.
 data PipelineSummary = PipelineSummary'
-  { _pPipelineARN ::
-      !(Maybe Text),
-    _pPipelineDescription :: !(Maybe Text),
-    _pCreationTime :: !(Maybe POSIX),
-    _pRoleARN :: !(Maybe Text),
-    _pLastExecutionTime :: !(Maybe POSIX),
-    _pPipelineDisplayName :: !(Maybe Text),
-    _pLastModifiedTime :: !(Maybe POSIX),
-    _pPipelineName :: !(Maybe Text)
+  { -- | The Amazon Resource Name (ARN) of the pipeline.
+    pipelineArn :: Prelude.Maybe Prelude.Text,
+    -- | The description of the pipeline.
+    pipelineDescription :: Prelude.Maybe Prelude.Text,
+    -- | The creation time of the pipeline.
+    creationTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The Amazon Resource Name (ARN) that the pipeline used to execute.
+    roleArn :: Prelude.Maybe Prelude.Text,
+    -- | The last time that a pipeline execution began.
+    lastExecutionTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The display name of the pipeline.
+    pipelineDisplayName :: Prelude.Maybe Prelude.Text,
+    -- | The time that the pipeline was last modified.
+    lastModifiedTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The name of the pipeline.
+    pipelineName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PipelineSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PipelineSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pPipelineARN' - The Amazon Resource Name (ARN) of the pipeline.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pPipelineDescription' - The description of the pipeline.
+-- 'pipelineArn', 'pipelineSummary_pipelineArn' - The Amazon Resource Name (ARN) of the pipeline.
 --
--- * 'pCreationTime' - The creation time of the pipeline.
+-- 'pipelineDescription', 'pipelineSummary_pipelineDescription' - The description of the pipeline.
 --
--- * 'pRoleARN' - The Amazon Resource Name (ARN) that the pipeline used to execute.
+-- 'creationTime', 'pipelineSummary_creationTime' - The creation time of the pipeline.
 --
--- * 'pLastExecutionTime' - The last time that a pipeline execution began.
+-- 'roleArn', 'pipelineSummary_roleArn' - The Amazon Resource Name (ARN) that the pipeline used to execute.
 --
--- * 'pPipelineDisplayName' - The display name of the pipeline.
+-- 'lastExecutionTime', 'pipelineSummary_lastExecutionTime' - The last time that a pipeline execution began.
 --
--- * 'pLastModifiedTime' - The time that the pipeline was last modified.
+-- 'pipelineDisplayName', 'pipelineSummary_pipelineDisplayName' - The display name of the pipeline.
 --
--- * 'pPipelineName' - The name of the pipeline.
-pipelineSummary ::
+-- 'lastModifiedTime', 'pipelineSummary_lastModifiedTime' - The time that the pipeline was last modified.
+--
+-- 'pipelineName', 'pipelineSummary_pipelineName' - The name of the pipeline.
+newPipelineSummary ::
   PipelineSummary
-pipelineSummary =
+newPipelineSummary =
   PipelineSummary'
-    { _pPipelineARN = Nothing,
-      _pPipelineDescription = Nothing,
-      _pCreationTime = Nothing,
-      _pRoleARN = Nothing,
-      _pLastExecutionTime = Nothing,
-      _pPipelineDisplayName = Nothing,
-      _pLastModifiedTime = Nothing,
-      _pPipelineName = Nothing
+    { pipelineArn = Prelude.Nothing,
+      pipelineDescription = Prelude.Nothing,
+      creationTime = Prelude.Nothing,
+      roleArn = Prelude.Nothing,
+      lastExecutionTime = Prelude.Nothing,
+      pipelineDisplayName = Prelude.Nothing,
+      lastModifiedTime = Prelude.Nothing,
+      pipelineName = Prelude.Nothing
     }
 
 -- | The Amazon Resource Name (ARN) of the pipeline.
-pPipelineARN :: Lens' PipelineSummary (Maybe Text)
-pPipelineARN = lens _pPipelineARN (\s a -> s {_pPipelineARN = a})
+pipelineSummary_pipelineArn :: Lens.Lens' PipelineSummary (Prelude.Maybe Prelude.Text)
+pipelineSummary_pipelineArn = Lens.lens (\PipelineSummary' {pipelineArn} -> pipelineArn) (\s@PipelineSummary' {} a -> s {pipelineArn = a} :: PipelineSummary)
 
 -- | The description of the pipeline.
-pPipelineDescription :: Lens' PipelineSummary (Maybe Text)
-pPipelineDescription = lens _pPipelineDescription (\s a -> s {_pPipelineDescription = a})
+pipelineSummary_pipelineDescription :: Lens.Lens' PipelineSummary (Prelude.Maybe Prelude.Text)
+pipelineSummary_pipelineDescription = Lens.lens (\PipelineSummary' {pipelineDescription} -> pipelineDescription) (\s@PipelineSummary' {} a -> s {pipelineDescription = a} :: PipelineSummary)
 
 -- | The creation time of the pipeline.
-pCreationTime :: Lens' PipelineSummary (Maybe UTCTime)
-pCreationTime = lens _pCreationTime (\s a -> s {_pCreationTime = a}) . mapping _Time
+pipelineSummary_creationTime :: Lens.Lens' PipelineSummary (Prelude.Maybe Prelude.UTCTime)
+pipelineSummary_creationTime = Lens.lens (\PipelineSummary' {creationTime} -> creationTime) (\s@PipelineSummary' {} a -> s {creationTime = a} :: PipelineSummary) Prelude.. Lens.mapping Prelude._Time
 
 -- | The Amazon Resource Name (ARN) that the pipeline used to execute.
-pRoleARN :: Lens' PipelineSummary (Maybe Text)
-pRoleARN = lens _pRoleARN (\s a -> s {_pRoleARN = a})
+pipelineSummary_roleArn :: Lens.Lens' PipelineSummary (Prelude.Maybe Prelude.Text)
+pipelineSummary_roleArn = Lens.lens (\PipelineSummary' {roleArn} -> roleArn) (\s@PipelineSummary' {} a -> s {roleArn = a} :: PipelineSummary)
 
 -- | The last time that a pipeline execution began.
-pLastExecutionTime :: Lens' PipelineSummary (Maybe UTCTime)
-pLastExecutionTime = lens _pLastExecutionTime (\s a -> s {_pLastExecutionTime = a}) . mapping _Time
+pipelineSummary_lastExecutionTime :: Lens.Lens' PipelineSummary (Prelude.Maybe Prelude.UTCTime)
+pipelineSummary_lastExecutionTime = Lens.lens (\PipelineSummary' {lastExecutionTime} -> lastExecutionTime) (\s@PipelineSummary' {} a -> s {lastExecutionTime = a} :: PipelineSummary) Prelude.. Lens.mapping Prelude._Time
 
 -- | The display name of the pipeline.
-pPipelineDisplayName :: Lens' PipelineSummary (Maybe Text)
-pPipelineDisplayName = lens _pPipelineDisplayName (\s a -> s {_pPipelineDisplayName = a})
+pipelineSummary_pipelineDisplayName :: Lens.Lens' PipelineSummary (Prelude.Maybe Prelude.Text)
+pipelineSummary_pipelineDisplayName = Lens.lens (\PipelineSummary' {pipelineDisplayName} -> pipelineDisplayName) (\s@PipelineSummary' {} a -> s {pipelineDisplayName = a} :: PipelineSummary)
 
 -- | The time that the pipeline was last modified.
-pLastModifiedTime :: Lens' PipelineSummary (Maybe UTCTime)
-pLastModifiedTime = lens _pLastModifiedTime (\s a -> s {_pLastModifiedTime = a}) . mapping _Time
+pipelineSummary_lastModifiedTime :: Lens.Lens' PipelineSummary (Prelude.Maybe Prelude.UTCTime)
+pipelineSummary_lastModifiedTime = Lens.lens (\PipelineSummary' {lastModifiedTime} -> lastModifiedTime) (\s@PipelineSummary' {} a -> s {lastModifiedTime = a} :: PipelineSummary) Prelude.. Lens.mapping Prelude._Time
 
 -- | The name of the pipeline.
-pPipelineName :: Lens' PipelineSummary (Maybe Text)
-pPipelineName = lens _pPipelineName (\s a -> s {_pPipelineName = a})
+pipelineSummary_pipelineName :: Lens.Lens' PipelineSummary (Prelude.Maybe Prelude.Text)
+pipelineSummary_pipelineName = Lens.lens (\PipelineSummary' {pipelineName} -> pipelineName) (\s@PipelineSummary' {} a -> s {pipelineName = a} :: PipelineSummary)
 
-instance FromJSON PipelineSummary where
+instance Prelude.FromJSON PipelineSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "PipelineSummary"
       ( \x ->
           PipelineSummary'
-            <$> (x .:? "PipelineArn")
-            <*> (x .:? "PipelineDescription")
-            <*> (x .:? "CreationTime")
-            <*> (x .:? "RoleArn")
-            <*> (x .:? "LastExecutionTime")
-            <*> (x .:? "PipelineDisplayName")
-            <*> (x .:? "LastModifiedTime")
-            <*> (x .:? "PipelineName")
+            Prelude.<$> (x Prelude..:? "PipelineArn")
+            Prelude.<*> (x Prelude..:? "PipelineDescription")
+            Prelude.<*> (x Prelude..:? "CreationTime")
+            Prelude.<*> (x Prelude..:? "RoleArn")
+            Prelude.<*> (x Prelude..:? "LastExecutionTime")
+            Prelude.<*> (x Prelude..:? "PipelineDisplayName")
+            Prelude.<*> (x Prelude..:? "LastModifiedTime")
+            Prelude.<*> (x Prelude..:? "PipelineName")
       )
 
-instance Hashable PipelineSummary
+instance Prelude.Hashable PipelineSummary
 
-instance NFData PipelineSummary
+instance Prelude.NFData PipelineSummary

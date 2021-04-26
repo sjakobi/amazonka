@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,96 +19,99 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.MonitoringJobDefinitionSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Summary information about a monitoring job.
 --
---
---
--- /See:/ 'monitoringJobDefinitionSummary' smart constructor.
+-- /See:/ 'newMonitoringJobDefinitionSummary' smart constructor.
 data MonitoringJobDefinitionSummary = MonitoringJobDefinitionSummary'
-  { _mjdsMonitoringJobDefinitionName ::
-      !Text,
-    _mjdsMonitoringJobDefinitionARN ::
-      !Text,
-    _mjdsCreationTime ::
-      !POSIX,
-    _mjdsEndpointName ::
-      !Text
+  { -- | The name of the monitoring job.
+    monitoringJobDefinitionName :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the monitoring job.
+    monitoringJobDefinitionArn :: Prelude.Text,
+    -- | The time that the monitoring job was created.
+    creationTime :: Prelude.POSIX,
+    -- | The name of the endpoint that the job monitors.
+    endpointName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MonitoringJobDefinitionSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MonitoringJobDefinitionSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mjdsMonitoringJobDefinitionName' - The name of the monitoring job.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mjdsMonitoringJobDefinitionARN' - The Amazon Resource Name (ARN) of the monitoring job.
+-- 'monitoringJobDefinitionName', 'monitoringJobDefinitionSummary_monitoringJobDefinitionName' - The name of the monitoring job.
 --
--- * 'mjdsCreationTime' - The time that the monitoring job was created.
+-- 'monitoringJobDefinitionArn', 'monitoringJobDefinitionSummary_monitoringJobDefinitionArn' - The Amazon Resource Name (ARN) of the monitoring job.
 --
--- * 'mjdsEndpointName' - The name of the endpoint that the job monitors.
-monitoringJobDefinitionSummary ::
-  -- | 'mjdsMonitoringJobDefinitionName'
-  Text ->
-  -- | 'mjdsMonitoringJobDefinitionARN'
-  Text ->
-  -- | 'mjdsCreationTime'
-  UTCTime ->
-  -- | 'mjdsEndpointName'
-  Text ->
+-- 'creationTime', 'monitoringJobDefinitionSummary_creationTime' - The time that the monitoring job was created.
+--
+-- 'endpointName', 'monitoringJobDefinitionSummary_endpointName' - The name of the endpoint that the job monitors.
+newMonitoringJobDefinitionSummary ::
+  -- | 'monitoringJobDefinitionName'
+  Prelude.Text ->
+  -- | 'monitoringJobDefinitionArn'
+  Prelude.Text ->
+  -- | 'creationTime'
+  Prelude.UTCTime ->
+  -- | 'endpointName'
+  Prelude.Text ->
   MonitoringJobDefinitionSummary
-monitoringJobDefinitionSummary
+newMonitoringJobDefinitionSummary
   pMonitoringJobDefinitionName_
-  pMonitoringJobDefinitionARN_
+  pMonitoringJobDefinitionArn_
   pCreationTime_
   pEndpointName_ =
     MonitoringJobDefinitionSummary'
-      { _mjdsMonitoringJobDefinitionName =
+      { monitoringJobDefinitionName =
           pMonitoringJobDefinitionName_,
-        _mjdsMonitoringJobDefinitionARN =
-          pMonitoringJobDefinitionARN_,
-        _mjdsCreationTime = _Time # pCreationTime_,
-        _mjdsEndpointName = pEndpointName_
+        monitoringJobDefinitionArn =
+          pMonitoringJobDefinitionArn_,
+        creationTime =
+          Prelude._Time Lens.# pCreationTime_,
+        endpointName = pEndpointName_
       }
 
 -- | The name of the monitoring job.
-mjdsMonitoringJobDefinitionName :: Lens' MonitoringJobDefinitionSummary Text
-mjdsMonitoringJobDefinitionName = lens _mjdsMonitoringJobDefinitionName (\s a -> s {_mjdsMonitoringJobDefinitionName = a})
+monitoringJobDefinitionSummary_monitoringJobDefinitionName :: Lens.Lens' MonitoringJobDefinitionSummary Prelude.Text
+monitoringJobDefinitionSummary_monitoringJobDefinitionName = Lens.lens (\MonitoringJobDefinitionSummary' {monitoringJobDefinitionName} -> monitoringJobDefinitionName) (\s@MonitoringJobDefinitionSummary' {} a -> s {monitoringJobDefinitionName = a} :: MonitoringJobDefinitionSummary)
 
 -- | The Amazon Resource Name (ARN) of the monitoring job.
-mjdsMonitoringJobDefinitionARN :: Lens' MonitoringJobDefinitionSummary Text
-mjdsMonitoringJobDefinitionARN = lens _mjdsMonitoringJobDefinitionARN (\s a -> s {_mjdsMonitoringJobDefinitionARN = a})
+monitoringJobDefinitionSummary_monitoringJobDefinitionArn :: Lens.Lens' MonitoringJobDefinitionSummary Prelude.Text
+monitoringJobDefinitionSummary_monitoringJobDefinitionArn = Lens.lens (\MonitoringJobDefinitionSummary' {monitoringJobDefinitionArn} -> monitoringJobDefinitionArn) (\s@MonitoringJobDefinitionSummary' {} a -> s {monitoringJobDefinitionArn = a} :: MonitoringJobDefinitionSummary)
 
 -- | The time that the monitoring job was created.
-mjdsCreationTime :: Lens' MonitoringJobDefinitionSummary UTCTime
-mjdsCreationTime = lens _mjdsCreationTime (\s a -> s {_mjdsCreationTime = a}) . _Time
+monitoringJobDefinitionSummary_creationTime :: Lens.Lens' MonitoringJobDefinitionSummary Prelude.UTCTime
+monitoringJobDefinitionSummary_creationTime = Lens.lens (\MonitoringJobDefinitionSummary' {creationTime} -> creationTime) (\s@MonitoringJobDefinitionSummary' {} a -> s {creationTime = a} :: MonitoringJobDefinitionSummary) Prelude.. Prelude._Time
 
 -- | The name of the endpoint that the job monitors.
-mjdsEndpointName :: Lens' MonitoringJobDefinitionSummary Text
-mjdsEndpointName = lens _mjdsEndpointName (\s a -> s {_mjdsEndpointName = a})
+monitoringJobDefinitionSummary_endpointName :: Lens.Lens' MonitoringJobDefinitionSummary Prelude.Text
+monitoringJobDefinitionSummary_endpointName = Lens.lens (\MonitoringJobDefinitionSummary' {endpointName} -> endpointName) (\s@MonitoringJobDefinitionSummary' {} a -> s {endpointName = a} :: MonitoringJobDefinitionSummary)
 
-instance FromJSON MonitoringJobDefinitionSummary where
+instance
+  Prelude.FromJSON
+    MonitoringJobDefinitionSummary
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "MonitoringJobDefinitionSummary"
       ( \x ->
           MonitoringJobDefinitionSummary'
-            <$> (x .: "MonitoringJobDefinitionName")
-            <*> (x .: "MonitoringJobDefinitionArn")
-            <*> (x .: "CreationTime")
-            <*> (x .: "EndpointName")
+            Prelude.<$> (x Prelude..: "MonitoringJobDefinitionName")
+            Prelude.<*> (x Prelude..: "MonitoringJobDefinitionArn")
+            Prelude.<*> (x Prelude..: "CreationTime")
+            Prelude.<*> (x Prelude..: "EndpointName")
       )
 
-instance Hashable MonitoringJobDefinitionSummary
+instance
+  Prelude.Hashable
+    MonitoringJobDefinitionSummary
 
-instance NFData MonitoringJobDefinitionSummary
+instance
+  Prelude.NFData
+    MonitoringJobDefinitionSummary

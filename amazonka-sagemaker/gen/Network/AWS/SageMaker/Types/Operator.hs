@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,93 +19,95 @@
 module Network.AWS.SageMaker.Types.Operator
   ( Operator
       ( ..,
-        Contains,
-        Equals,
-        Exists,
-        GreaterThan,
-        GreaterThanOrEqualTo,
-        IN,
-        LessThan,
-        LessThanOrEqualTo,
-        NotEquals,
-        NotExists
+        OperatorContains,
+        OperatorEquals,
+        OperatorExists,
+        OperatorGreaterThan,
+        OperatorGreaterThanOrEqualTo,
+        OperatorIN,
+        OperatorLessThan,
+        OperatorLessThanOrEqualTo,
+        OperatorNotEquals,
+        OperatorNotExists
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Operator = Operator' (CI Text)
+newtype Operator = Operator'
+  { fromOperator ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Contains :: Operator
-pattern Contains = Operator' "Contains"
+pattern OperatorContains :: Operator
+pattern OperatorContains = Operator' "Contains"
 
-pattern Equals :: Operator
-pattern Equals = Operator' "Equals"
+pattern OperatorEquals :: Operator
+pattern OperatorEquals = Operator' "Equals"
 
-pattern Exists :: Operator
-pattern Exists = Operator' "Exists"
+pattern OperatorExists :: Operator
+pattern OperatorExists = Operator' "Exists"
 
-pattern GreaterThan :: Operator
-pattern GreaterThan = Operator' "GreaterThan"
+pattern OperatorGreaterThan :: Operator
+pattern OperatorGreaterThan = Operator' "GreaterThan"
 
-pattern GreaterThanOrEqualTo :: Operator
-pattern GreaterThanOrEqualTo = Operator' "GreaterThanOrEqualTo"
+pattern OperatorGreaterThanOrEqualTo :: Operator
+pattern OperatorGreaterThanOrEqualTo = Operator' "GreaterThanOrEqualTo"
 
-pattern IN :: Operator
-pattern IN = Operator' "In"
+pattern OperatorIN :: Operator
+pattern OperatorIN = Operator' "In"
 
-pattern LessThan :: Operator
-pattern LessThan = Operator' "LessThan"
+pattern OperatorLessThan :: Operator
+pattern OperatorLessThan = Operator' "LessThan"
 
-pattern LessThanOrEqualTo :: Operator
-pattern LessThanOrEqualTo = Operator' "LessThanOrEqualTo"
+pattern OperatorLessThanOrEqualTo :: Operator
+pattern OperatorLessThanOrEqualTo = Operator' "LessThanOrEqualTo"
 
-pattern NotEquals :: Operator
-pattern NotEquals = Operator' "NotEquals"
+pattern OperatorNotEquals :: Operator
+pattern OperatorNotEquals = Operator' "NotEquals"
 
-pattern NotExists :: Operator
-pattern NotExists = Operator' "NotExists"
+pattern OperatorNotExists :: Operator
+pattern OperatorNotExists = Operator' "NotExists"
 
 {-# COMPLETE
-  Contains,
-  Equals,
-  Exists,
-  GreaterThan,
-  GreaterThanOrEqualTo,
-  IN,
-  LessThan,
-  LessThanOrEqualTo,
-  NotEquals,
-  NotExists,
+  OperatorContains,
+  OperatorEquals,
+  OperatorExists,
+  OperatorGreaterThan,
+  OperatorGreaterThanOrEqualTo,
+  OperatorIN,
+  OperatorLessThan,
+  OperatorLessThanOrEqualTo,
+  OperatorNotEquals,
+  OperatorNotExists,
   Operator'
   #-}
 
-instance FromText Operator where
-  parser = (Operator' . mk) <$> takeText
+instance Prelude.FromText Operator where
+  parser = Operator' Prelude.<$> Prelude.takeText
 
-instance ToText Operator where
-  toText (Operator' ci) = original ci
+instance Prelude.ToText Operator where
+  toText (Operator' x) = x
 
-instance Hashable Operator
+instance Prelude.Hashable Operator
 
-instance NFData Operator
+instance Prelude.NFData Operator
 
-instance ToByteString Operator
+instance Prelude.ToByteString Operator
 
-instance ToQuery Operator
+instance Prelude.ToQuery Operator
 
-instance ToHeader Operator
+instance Prelude.ToHeader Operator
 
-instance ToJSON Operator where
-  toJSON = toJSONText
+instance Prelude.ToJSON Operator where
+  toJSON = Prelude.toJSONText

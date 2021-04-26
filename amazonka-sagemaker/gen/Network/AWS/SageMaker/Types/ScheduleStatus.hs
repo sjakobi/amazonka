@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,68 @@
 module Network.AWS.SageMaker.Types.ScheduleStatus
   ( ScheduleStatus
       ( ..,
-        SSFailed,
-        SSPending,
-        SSScheduled,
-        SSStopped
+        ScheduleStatusFailed,
+        ScheduleStatusPending,
+        ScheduleStatusScheduled,
+        ScheduleStatusStopped
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ScheduleStatus = ScheduleStatus' (CI Text)
+newtype ScheduleStatus = ScheduleStatus'
+  { fromScheduleStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SSFailed :: ScheduleStatus
-pattern SSFailed = ScheduleStatus' "Failed"
+pattern ScheduleStatusFailed :: ScheduleStatus
+pattern ScheduleStatusFailed = ScheduleStatus' "Failed"
 
-pattern SSPending :: ScheduleStatus
-pattern SSPending = ScheduleStatus' "Pending"
+pattern ScheduleStatusPending :: ScheduleStatus
+pattern ScheduleStatusPending = ScheduleStatus' "Pending"
 
-pattern SSScheduled :: ScheduleStatus
-pattern SSScheduled = ScheduleStatus' "Scheduled"
+pattern ScheduleStatusScheduled :: ScheduleStatus
+pattern ScheduleStatusScheduled = ScheduleStatus' "Scheduled"
 
-pattern SSStopped :: ScheduleStatus
-pattern SSStopped = ScheduleStatus' "Stopped"
+pattern ScheduleStatusStopped :: ScheduleStatus
+pattern ScheduleStatusStopped = ScheduleStatus' "Stopped"
 
 {-# COMPLETE
-  SSFailed,
-  SSPending,
-  SSScheduled,
-  SSStopped,
+  ScheduleStatusFailed,
+  ScheduleStatusPending,
+  ScheduleStatusScheduled,
+  ScheduleStatusStopped,
   ScheduleStatus'
   #-}
 
-instance FromText ScheduleStatus where
-  parser = (ScheduleStatus' . mk) <$> takeText
+instance Prelude.FromText ScheduleStatus where
+  parser = ScheduleStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ScheduleStatus where
-  toText (ScheduleStatus' ci) = original ci
+instance Prelude.ToText ScheduleStatus where
+  toText (ScheduleStatus' x) = x
 
-instance Hashable ScheduleStatus
+instance Prelude.Hashable ScheduleStatus
 
-instance NFData ScheduleStatus
+instance Prelude.NFData ScheduleStatus
 
-instance ToByteString ScheduleStatus
+instance Prelude.ToByteString ScheduleStatus
 
-instance ToQuery ScheduleStatus
+instance Prelude.ToQuery ScheduleStatus
 
-instance ToHeader ScheduleStatus
+instance Prelude.ToHeader ScheduleStatus
 
-instance ToJSON ScheduleStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON ScheduleStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ScheduleStatus where
-  parseJSON = parseJSONText "ScheduleStatus"
+instance Prelude.FromJSON ScheduleStatus where
+  parseJSON = Prelude.parseJSONText "ScheduleStatus"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,72 +19,70 @@
 module Network.AWS.SageMaker.Types.ModelPackageStatus
   ( ModelPackageStatus
       ( ..,
-        MPSCompleted,
-        MPSDeleting,
-        MPSFailed,
-        MPSInProgress,
-        MPSPending
+        ModelPackageStatusCompleted,
+        ModelPackageStatusDeleting,
+        ModelPackageStatusFailed,
+        ModelPackageStatusInProgress,
+        ModelPackageStatusPending
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ModelPackageStatus
-  = ModelPackageStatus'
-      ( CI
-          Text
-      )
+newtype ModelPackageStatus = ModelPackageStatus'
+  { fromModelPackageStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MPSCompleted :: ModelPackageStatus
-pattern MPSCompleted = ModelPackageStatus' "Completed"
+pattern ModelPackageStatusCompleted :: ModelPackageStatus
+pattern ModelPackageStatusCompleted = ModelPackageStatus' "Completed"
 
-pattern MPSDeleting :: ModelPackageStatus
-pattern MPSDeleting = ModelPackageStatus' "Deleting"
+pattern ModelPackageStatusDeleting :: ModelPackageStatus
+pattern ModelPackageStatusDeleting = ModelPackageStatus' "Deleting"
 
-pattern MPSFailed :: ModelPackageStatus
-pattern MPSFailed = ModelPackageStatus' "Failed"
+pattern ModelPackageStatusFailed :: ModelPackageStatus
+pattern ModelPackageStatusFailed = ModelPackageStatus' "Failed"
 
-pattern MPSInProgress :: ModelPackageStatus
-pattern MPSInProgress = ModelPackageStatus' "InProgress"
+pattern ModelPackageStatusInProgress :: ModelPackageStatus
+pattern ModelPackageStatusInProgress = ModelPackageStatus' "InProgress"
 
-pattern MPSPending :: ModelPackageStatus
-pattern MPSPending = ModelPackageStatus' "Pending"
+pattern ModelPackageStatusPending :: ModelPackageStatus
+pattern ModelPackageStatusPending = ModelPackageStatus' "Pending"
 
 {-# COMPLETE
-  MPSCompleted,
-  MPSDeleting,
-  MPSFailed,
-  MPSInProgress,
-  MPSPending,
+  ModelPackageStatusCompleted,
+  ModelPackageStatusDeleting,
+  ModelPackageStatusFailed,
+  ModelPackageStatusInProgress,
+  ModelPackageStatusPending,
   ModelPackageStatus'
   #-}
 
-instance FromText ModelPackageStatus where
-  parser = (ModelPackageStatus' . mk) <$> takeText
+instance Prelude.FromText ModelPackageStatus where
+  parser = ModelPackageStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ModelPackageStatus where
-  toText (ModelPackageStatus' ci) = original ci
+instance Prelude.ToText ModelPackageStatus where
+  toText (ModelPackageStatus' x) = x
 
-instance Hashable ModelPackageStatus
+instance Prelude.Hashable ModelPackageStatus
 
-instance NFData ModelPackageStatus
+instance Prelude.NFData ModelPackageStatus
 
-instance ToByteString ModelPackageStatus
+instance Prelude.ToByteString ModelPackageStatus
 
-instance ToQuery ModelPackageStatus
+instance Prelude.ToQuery ModelPackageStatus
 
-instance ToHeader ModelPackageStatus
+instance Prelude.ToHeader ModelPackageStatus
 
-instance FromJSON ModelPackageStatus where
-  parseJSON = parseJSONText "ModelPackageStatus"
+instance Prelude.FromJSON ModelPackageStatus where
+  parseJSON = Prelude.parseJSONText "ModelPackageStatus"

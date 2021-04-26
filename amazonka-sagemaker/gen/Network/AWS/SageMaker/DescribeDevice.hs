@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,264 +24,278 @@
 -- Describes the device.
 module Network.AWS.SageMaker.DescribeDevice
   ( -- * Creating a Request
-    describeDevice,
-    DescribeDevice,
+    DescribeDevice (..),
+    newDescribeDevice,
 
     -- * Request Lenses
-    desNextToken,
-    desDeviceName,
-    desDeviceFleetName,
+    describeDevice_nextToken,
+    describeDevice_deviceName,
+    describeDevice_deviceFleetName,
 
     -- * Destructuring the Response
-    describeDeviceResponse,
-    DescribeDeviceResponse,
+    DescribeDeviceResponse (..),
+    newDescribeDeviceResponse,
 
     -- * Response Lenses
-    ddrdrsNextToken,
-    ddrdrsLatestHeartbeat,
-    ddrdrsMaxModels,
-    ddrdrsDeviceARN,
-    ddrdrsModels,
-    ddrdrsIotThingName,
-    ddrdrsDescription,
-    ddrdrsResponseStatus,
-    ddrdrsDeviceName,
-    ddrdrsDeviceFleetName,
-    ddrdrsRegistrationTime,
+    describeDeviceResponse_nextToken,
+    describeDeviceResponse_latestHeartbeat,
+    describeDeviceResponse_maxModels,
+    describeDeviceResponse_deviceArn,
+    describeDeviceResponse_models,
+    describeDeviceResponse_iotThingName,
+    describeDeviceResponse_description,
+    describeDeviceResponse_httpStatus,
+    describeDeviceResponse_deviceName,
+    describeDeviceResponse_deviceFleetName,
+    describeDeviceResponse_registrationTime,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
+import Network.AWS.SageMaker.Types.EdgeModel
 
--- | /See:/ 'describeDevice' smart constructor.
+-- | /See:/ 'newDescribeDevice' smart constructor.
 data DescribeDevice = DescribeDevice'
-  { _desNextToken ::
-      !(Maybe Text),
-    _desDeviceName :: !Text,
-    _desDeviceFleetName :: !Text
+  { -- | Next token of device description.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The unique ID of the device.
+    deviceName :: Prelude.Text,
+    -- | The name of the fleet the devices belong to.
+    deviceFleetName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeDevice' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeDevice' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'desNextToken' - Next token of device description.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'desDeviceName' - The unique ID of the device.
+-- 'nextToken', 'describeDevice_nextToken' - Next token of device description.
 --
--- * 'desDeviceFleetName' - The name of the fleet the devices belong to.
-describeDevice ::
-  -- | 'desDeviceName'
-  Text ->
-  -- | 'desDeviceFleetName'
-  Text ->
+-- 'deviceName', 'describeDevice_deviceName' - The unique ID of the device.
+--
+-- 'deviceFleetName', 'describeDevice_deviceFleetName' - The name of the fleet the devices belong to.
+newDescribeDevice ::
+  -- | 'deviceName'
+  Prelude.Text ->
+  -- | 'deviceFleetName'
+  Prelude.Text ->
   DescribeDevice
-describeDevice pDeviceName_ pDeviceFleetName_ =
+newDescribeDevice pDeviceName_ pDeviceFleetName_ =
   DescribeDevice'
-    { _desNextToken = Nothing,
-      _desDeviceName = pDeviceName_,
-      _desDeviceFleetName = pDeviceFleetName_
+    { nextToken = Prelude.Nothing,
+      deviceName = pDeviceName_,
+      deviceFleetName = pDeviceFleetName_
     }
 
 -- | Next token of device description.
-desNextToken :: Lens' DescribeDevice (Maybe Text)
-desNextToken = lens _desNextToken (\s a -> s {_desNextToken = a})
+describeDevice_nextToken :: Lens.Lens' DescribeDevice (Prelude.Maybe Prelude.Text)
+describeDevice_nextToken = Lens.lens (\DescribeDevice' {nextToken} -> nextToken) (\s@DescribeDevice' {} a -> s {nextToken = a} :: DescribeDevice)
 
 -- | The unique ID of the device.
-desDeviceName :: Lens' DescribeDevice Text
-desDeviceName = lens _desDeviceName (\s a -> s {_desDeviceName = a})
+describeDevice_deviceName :: Lens.Lens' DescribeDevice Prelude.Text
+describeDevice_deviceName = Lens.lens (\DescribeDevice' {deviceName} -> deviceName) (\s@DescribeDevice' {} a -> s {deviceName = a} :: DescribeDevice)
 
 -- | The name of the fleet the devices belong to.
-desDeviceFleetName :: Lens' DescribeDevice Text
-desDeviceFleetName = lens _desDeviceFleetName (\s a -> s {_desDeviceFleetName = a})
+describeDevice_deviceFleetName :: Lens.Lens' DescribeDevice Prelude.Text
+describeDevice_deviceFleetName = Lens.lens (\DescribeDevice' {deviceFleetName} -> deviceFleetName) (\s@DescribeDevice' {} a -> s {deviceFleetName = a} :: DescribeDevice)
 
-instance AWSRequest DescribeDevice where
+instance Prelude.AWSRequest DescribeDevice where
   type Rs DescribeDevice = DescribeDeviceResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeDeviceResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "LatestHeartbeat")
-            <*> (x .?> "MaxModels")
-            <*> (x .?> "DeviceArn")
-            <*> (x .?> "Models" .!@ mempty)
-            <*> (x .?> "IotThingName")
-            <*> (x .?> "Description")
-            <*> (pure (fromEnum s))
-            <*> (x .:> "DeviceName")
-            <*> (x .:> "DeviceFleetName")
-            <*> (x .:> "RegistrationTime")
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (x Prelude..?> "LatestHeartbeat")
+            Prelude.<*> (x Prelude..?> "MaxModels")
+            Prelude.<*> (x Prelude..?> "DeviceArn")
+            Prelude.<*> (x Prelude..?> "Models" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (x Prelude..?> "IotThingName")
+            Prelude.<*> (x Prelude..?> "Description")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "DeviceName")
+            Prelude.<*> (x Prelude..:> "DeviceFleetName")
+            Prelude.<*> (x Prelude..:> "RegistrationTime")
       )
 
-instance Hashable DescribeDevice
+instance Prelude.Hashable DescribeDevice
 
-instance NFData DescribeDevice
+instance Prelude.NFData DescribeDevice
 
-instance ToHeaders DescribeDevice where
+instance Prelude.ToHeaders DescribeDevice where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.DescribeDevice" :: ByteString),
+              Prelude.=# ("SageMaker.DescribeDevice" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeDevice where
+instance Prelude.ToJSON DescribeDevice where
   toJSON DescribeDevice' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _desNextToken,
-            Just ("DeviceName" .= _desDeviceName),
-            Just ("DeviceFleetName" .= _desDeviceFleetName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            Prelude.Just ("DeviceName" Prelude..= deviceName),
+            Prelude.Just
+              ("DeviceFleetName" Prelude..= deviceFleetName)
           ]
       )
 
-instance ToPath DescribeDevice where
-  toPath = const "/"
+instance Prelude.ToPath DescribeDevice where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeDevice where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeDevice where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeDeviceResponse' smart constructor.
+-- | /See:/ 'newDescribeDeviceResponse' smart constructor.
 data DescribeDeviceResponse = DescribeDeviceResponse'
-  { _ddrdrsNextToken ::
-      !(Maybe Text),
-    _ddrdrsLatestHeartbeat ::
-      !(Maybe POSIX),
-    _ddrdrsMaxModels ::
-      !(Maybe Int),
-    _ddrdrsDeviceARN ::
-      !(Maybe Text),
-    _ddrdrsModels ::
-      !(Maybe [EdgeModel]),
-    _ddrdrsIotThingName ::
-      !(Maybe Text),
-    _ddrdrsDescription ::
-      !(Maybe Text),
-    _ddrdrsResponseStatus ::
-      !Int,
-    _ddrdrsDeviceName ::
-      !Text,
-    _ddrdrsDeviceFleetName ::
-      !Text,
-    _ddrdrsRegistrationTime ::
-      !POSIX
+  { -- | The response from the last list when returning a list large enough to
+    -- need tokening.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The last heartbeat received from the device.
+    latestHeartbeat :: Prelude.Maybe Prelude.POSIX,
+    -- | The maximum number of models.
+    maxModels :: Prelude.Maybe Prelude.Int,
+    -- | The Amazon Resource Name (ARN) of the device.
+    deviceArn :: Prelude.Maybe Prelude.Text,
+    -- | Models on the device.
+    models :: Prelude.Maybe [EdgeModel],
+    -- | The AWS Internet of Things (IoT) object thing name associated with the
+    -- device.
+    iotThingName :: Prelude.Maybe Prelude.Text,
+    -- | A description of the device.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The unique identifier of the device.
+    deviceName :: Prelude.Text,
+    -- | The name of the fleet the device belongs to.
+    deviceFleetName :: Prelude.Text,
+    -- | The timestamp of the last registration or de-reregistration.
+    registrationTime :: Prelude.POSIX
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeDeviceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeDeviceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddrdrsNextToken' - The response from the last list when returning a list large enough to need tokening.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ddrdrsLatestHeartbeat' - The last heartbeat received from the device.
+-- 'nextToken', 'describeDeviceResponse_nextToken' - The response from the last list when returning a list large enough to
+-- need tokening.
 --
--- * 'ddrdrsMaxModels' - The maximum number of models.
+-- 'latestHeartbeat', 'describeDeviceResponse_latestHeartbeat' - The last heartbeat received from the device.
 --
--- * 'ddrdrsDeviceARN' - The Amazon Resource Name (ARN) of the device.
+-- 'maxModels', 'describeDeviceResponse_maxModels' - The maximum number of models.
 --
--- * 'ddrdrsModels' - Models on the device.
+-- 'deviceArn', 'describeDeviceResponse_deviceArn' - The Amazon Resource Name (ARN) of the device.
 --
--- * 'ddrdrsIotThingName' - The AWS Internet of Things (IoT) object thing name associated with the device.
+-- 'models', 'describeDeviceResponse_models' - Models on the device.
 --
--- * 'ddrdrsDescription' - A description of the device.
+-- 'iotThingName', 'describeDeviceResponse_iotThingName' - The AWS Internet of Things (IoT) object thing name associated with the
+-- device.
 --
--- * 'ddrdrsResponseStatus' - -- | The response status code.
+-- 'description', 'describeDeviceResponse_description' - A description of the device.
 --
--- * 'ddrdrsDeviceName' - The unique identifier of the device.
+-- 'httpStatus', 'describeDeviceResponse_httpStatus' - The response's http status code.
 --
--- * 'ddrdrsDeviceFleetName' - The name of the fleet the device belongs to.
+-- 'deviceName', 'describeDeviceResponse_deviceName' - The unique identifier of the device.
 --
--- * 'ddrdrsRegistrationTime' - The timestamp of the last registration or de-reregistration.
-describeDeviceResponse ::
-  -- | 'ddrdrsResponseStatus'
-  Int ->
-  -- | 'ddrdrsDeviceName'
-  Text ->
-  -- | 'ddrdrsDeviceFleetName'
-  Text ->
-  -- | 'ddrdrsRegistrationTime'
-  UTCTime ->
+-- 'deviceFleetName', 'describeDeviceResponse_deviceFleetName' - The name of the fleet the device belongs to.
+--
+-- 'registrationTime', 'describeDeviceResponse_registrationTime' - The timestamp of the last registration or de-reregistration.
+newDescribeDeviceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'deviceName'
+  Prelude.Text ->
+  -- | 'deviceFleetName'
+  Prelude.Text ->
+  -- | 'registrationTime'
+  Prelude.UTCTime ->
   DescribeDeviceResponse
-describeDeviceResponse
-  pResponseStatus_
+newDescribeDeviceResponse
+  pHttpStatus_
   pDeviceName_
   pDeviceFleetName_
   pRegistrationTime_ =
     DescribeDeviceResponse'
-      { _ddrdrsNextToken = Nothing,
-        _ddrdrsLatestHeartbeat = Nothing,
-        _ddrdrsMaxModels = Nothing,
-        _ddrdrsDeviceARN = Nothing,
-        _ddrdrsModels = Nothing,
-        _ddrdrsIotThingName = Nothing,
-        _ddrdrsDescription = Nothing,
-        _ddrdrsResponseStatus = pResponseStatus_,
-        _ddrdrsDeviceName = pDeviceName_,
-        _ddrdrsDeviceFleetName = pDeviceFleetName_,
-        _ddrdrsRegistrationTime =
-          _Time # pRegistrationTime_
+      { nextToken =
+          Prelude.Nothing,
+        latestHeartbeat = Prelude.Nothing,
+        maxModels = Prelude.Nothing,
+        deviceArn = Prelude.Nothing,
+        models = Prelude.Nothing,
+        iotThingName = Prelude.Nothing,
+        description = Prelude.Nothing,
+        httpStatus = pHttpStatus_,
+        deviceName = pDeviceName_,
+        deviceFleetName = pDeviceFleetName_,
+        registrationTime =
+          Prelude._Time Lens.# pRegistrationTime_
       }
 
--- | The response from the last list when returning a list large enough to need tokening.
-ddrdrsNextToken :: Lens' DescribeDeviceResponse (Maybe Text)
-ddrdrsNextToken = lens _ddrdrsNextToken (\s a -> s {_ddrdrsNextToken = a})
+-- | The response from the last list when returning a list large enough to
+-- need tokening.
+describeDeviceResponse_nextToken :: Lens.Lens' DescribeDeviceResponse (Prelude.Maybe Prelude.Text)
+describeDeviceResponse_nextToken = Lens.lens (\DescribeDeviceResponse' {nextToken} -> nextToken) (\s@DescribeDeviceResponse' {} a -> s {nextToken = a} :: DescribeDeviceResponse)
 
 -- | The last heartbeat received from the device.
-ddrdrsLatestHeartbeat :: Lens' DescribeDeviceResponse (Maybe UTCTime)
-ddrdrsLatestHeartbeat = lens _ddrdrsLatestHeartbeat (\s a -> s {_ddrdrsLatestHeartbeat = a}) . mapping _Time
+describeDeviceResponse_latestHeartbeat :: Lens.Lens' DescribeDeviceResponse (Prelude.Maybe Prelude.UTCTime)
+describeDeviceResponse_latestHeartbeat = Lens.lens (\DescribeDeviceResponse' {latestHeartbeat} -> latestHeartbeat) (\s@DescribeDeviceResponse' {} a -> s {latestHeartbeat = a} :: DescribeDeviceResponse) Prelude.. Lens.mapping Prelude._Time
 
 -- | The maximum number of models.
-ddrdrsMaxModels :: Lens' DescribeDeviceResponse (Maybe Int)
-ddrdrsMaxModels = lens _ddrdrsMaxModels (\s a -> s {_ddrdrsMaxModels = a})
+describeDeviceResponse_maxModels :: Lens.Lens' DescribeDeviceResponse (Prelude.Maybe Prelude.Int)
+describeDeviceResponse_maxModels = Lens.lens (\DescribeDeviceResponse' {maxModels} -> maxModels) (\s@DescribeDeviceResponse' {} a -> s {maxModels = a} :: DescribeDeviceResponse)
 
 -- | The Amazon Resource Name (ARN) of the device.
-ddrdrsDeviceARN :: Lens' DescribeDeviceResponse (Maybe Text)
-ddrdrsDeviceARN = lens _ddrdrsDeviceARN (\s a -> s {_ddrdrsDeviceARN = a})
+describeDeviceResponse_deviceArn :: Lens.Lens' DescribeDeviceResponse (Prelude.Maybe Prelude.Text)
+describeDeviceResponse_deviceArn = Lens.lens (\DescribeDeviceResponse' {deviceArn} -> deviceArn) (\s@DescribeDeviceResponse' {} a -> s {deviceArn = a} :: DescribeDeviceResponse)
 
 -- | Models on the device.
-ddrdrsModels :: Lens' DescribeDeviceResponse [EdgeModel]
-ddrdrsModels = lens _ddrdrsModels (\s a -> s {_ddrdrsModels = a}) . _Default . _Coerce
+describeDeviceResponse_models :: Lens.Lens' DescribeDeviceResponse (Prelude.Maybe [EdgeModel])
+describeDeviceResponse_models = Lens.lens (\DescribeDeviceResponse' {models} -> models) (\s@DescribeDeviceResponse' {} a -> s {models = a} :: DescribeDeviceResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The AWS Internet of Things (IoT) object thing name associated with the device.
-ddrdrsIotThingName :: Lens' DescribeDeviceResponse (Maybe Text)
-ddrdrsIotThingName = lens _ddrdrsIotThingName (\s a -> s {_ddrdrsIotThingName = a})
+-- | The AWS Internet of Things (IoT) object thing name associated with the
+-- device.
+describeDeviceResponse_iotThingName :: Lens.Lens' DescribeDeviceResponse (Prelude.Maybe Prelude.Text)
+describeDeviceResponse_iotThingName = Lens.lens (\DescribeDeviceResponse' {iotThingName} -> iotThingName) (\s@DescribeDeviceResponse' {} a -> s {iotThingName = a} :: DescribeDeviceResponse)
 
 -- | A description of the device.
-ddrdrsDescription :: Lens' DescribeDeviceResponse (Maybe Text)
-ddrdrsDescription = lens _ddrdrsDescription (\s a -> s {_ddrdrsDescription = a})
+describeDeviceResponse_description :: Lens.Lens' DescribeDeviceResponse (Prelude.Maybe Prelude.Text)
+describeDeviceResponse_description = Lens.lens (\DescribeDeviceResponse' {description} -> description) (\s@DescribeDeviceResponse' {} a -> s {description = a} :: DescribeDeviceResponse)
 
--- | -- | The response status code.
-ddrdrsResponseStatus :: Lens' DescribeDeviceResponse Int
-ddrdrsResponseStatus = lens _ddrdrsResponseStatus (\s a -> s {_ddrdrsResponseStatus = a})
+-- | The response's http status code.
+describeDeviceResponse_httpStatus :: Lens.Lens' DescribeDeviceResponse Prelude.Int
+describeDeviceResponse_httpStatus = Lens.lens (\DescribeDeviceResponse' {httpStatus} -> httpStatus) (\s@DescribeDeviceResponse' {} a -> s {httpStatus = a} :: DescribeDeviceResponse)
 
 -- | The unique identifier of the device.
-ddrdrsDeviceName :: Lens' DescribeDeviceResponse Text
-ddrdrsDeviceName = lens _ddrdrsDeviceName (\s a -> s {_ddrdrsDeviceName = a})
+describeDeviceResponse_deviceName :: Lens.Lens' DescribeDeviceResponse Prelude.Text
+describeDeviceResponse_deviceName = Lens.lens (\DescribeDeviceResponse' {deviceName} -> deviceName) (\s@DescribeDeviceResponse' {} a -> s {deviceName = a} :: DescribeDeviceResponse)
 
 -- | The name of the fleet the device belongs to.
-ddrdrsDeviceFleetName :: Lens' DescribeDeviceResponse Text
-ddrdrsDeviceFleetName = lens _ddrdrsDeviceFleetName (\s a -> s {_ddrdrsDeviceFleetName = a})
+describeDeviceResponse_deviceFleetName :: Lens.Lens' DescribeDeviceResponse Prelude.Text
+describeDeviceResponse_deviceFleetName = Lens.lens (\DescribeDeviceResponse' {deviceFleetName} -> deviceFleetName) (\s@DescribeDeviceResponse' {} a -> s {deviceFleetName = a} :: DescribeDeviceResponse)
 
 -- | The timestamp of the last registration or de-reregistration.
-ddrdrsRegistrationTime :: Lens' DescribeDeviceResponse UTCTime
-ddrdrsRegistrationTime = lens _ddrdrsRegistrationTime (\s a -> s {_ddrdrsRegistrationTime = a}) . _Time
+describeDeviceResponse_registrationTime :: Lens.Lens' DescribeDeviceResponse Prelude.UTCTime
+describeDeviceResponse_registrationTime = Lens.lens (\DescribeDeviceResponse' {registrationTime} -> registrationTime) (\s@DescribeDeviceResponse' {} a -> s {registrationTime = a} :: DescribeDeviceResponse) Prelude.. Prelude._Time
 
-instance NFData DescribeDeviceResponse
+instance Prelude.NFData DescribeDeviceResponse

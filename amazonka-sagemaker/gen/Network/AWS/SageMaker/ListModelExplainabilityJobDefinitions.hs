@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,284 +23,310 @@
 --
 -- Lists model explainability job definitions that satisfy various filters.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.SageMaker.ListModelExplainabilityJobDefinitions
   ( -- * Creating a Request
-    listModelExplainabilityJobDefinitions,
-    ListModelExplainabilityJobDefinitions,
+    ListModelExplainabilityJobDefinitions (..),
+    newListModelExplainabilityJobDefinitions,
 
     -- * Request Lenses
-    lmejdSortOrder,
-    lmejdNextToken,
-    lmejdEndpointName,
-    lmejdNameContains,
-    lmejdMaxResults,
-    lmejdCreationTimeBefore,
-    lmejdSortBy,
-    lmejdCreationTimeAfter,
+    listModelExplainabilityJobDefinitions_sortOrder,
+    listModelExplainabilityJobDefinitions_nextToken,
+    listModelExplainabilityJobDefinitions_endpointName,
+    listModelExplainabilityJobDefinitions_nameContains,
+    listModelExplainabilityJobDefinitions_maxResults,
+    listModelExplainabilityJobDefinitions_creationTimeBefore,
+    listModelExplainabilityJobDefinitions_sortBy,
+    listModelExplainabilityJobDefinitions_creationTimeAfter,
 
     -- * Destructuring the Response
-    listModelExplainabilityJobDefinitionsResponse,
-    ListModelExplainabilityJobDefinitionsResponse,
+    ListModelExplainabilityJobDefinitionsResponse (..),
+    newListModelExplainabilityJobDefinitionsResponse,
 
     -- * Response Lenses
-    lmejdrrsNextToken,
-    lmejdrrsResponseStatus,
-    lmejdrrsJobDefinitionSummaries,
+    listModelExplainabilityJobDefinitionsResponse_nextToken,
+    listModelExplainabilityJobDefinitionsResponse_httpStatus,
+    listModelExplainabilityJobDefinitionsResponse_jobDefinitionSummaries,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
+import Network.AWS.SageMaker.Types.MonitoringJobDefinitionSummary
 
--- | /See:/ 'listModelExplainabilityJobDefinitions' smart constructor.
+-- | /See:/ 'newListModelExplainabilityJobDefinitions' smart constructor.
 data ListModelExplainabilityJobDefinitions = ListModelExplainabilityJobDefinitions'
-  { _lmejdSortOrder ::
-      !( Maybe
-           SortOrder
-       ),
-    _lmejdNextToken ::
-      !( Maybe
-           Text
-       ),
-    _lmejdEndpointName ::
-      !( Maybe
-           Text
-       ),
-    _lmejdNameContains ::
-      !( Maybe
-           Text
-       ),
-    _lmejdMaxResults ::
-      !( Maybe
-           Nat
-       ),
-    _lmejdCreationTimeBefore ::
-      !( Maybe
-           POSIX
-       ),
-    _lmejdSortBy ::
-      !( Maybe
-           MonitoringJobDefinitionSortKey
-       ),
-    _lmejdCreationTimeAfter ::
-      !( Maybe
-           POSIX
-       )
+  { -- | Whether to sort the results in @Ascending@ or @Descending@ order. The
+    -- default is @Descending@.
+    sortOrder :: Prelude.Maybe SortOrder,
+    -- | The token returned if the response is truncated. To retrieve the next
+    -- set of job executions, use it in the next request.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Name of the endpoint to monitor for model explainability.
+    endpointName :: Prelude.Maybe Prelude.Text,
+    -- | Filter for model explainability jobs whose name contains a specified
+    -- string.
+    nameContains :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of jobs to return in the response. The default value
+    -- is 10.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | A filter that returns only model explainability jobs created before a
+    -- specified time.
+    creationTimeBefore :: Prelude.Maybe Prelude.POSIX,
+    -- | Whether to sort results by the @Name@ or @CreationTime@ field. The
+    -- default is @CreationTime@.
+    sortBy :: Prelude.Maybe MonitoringJobDefinitionSortKey,
+    -- | A filter that returns only model explainability jobs created after a
+    -- specified time.
+    creationTimeAfter :: Prelude.Maybe Prelude.POSIX
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListModelExplainabilityJobDefinitions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListModelExplainabilityJobDefinitions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lmejdSortOrder' - Whether to sort the results in @Ascending@ or @Descending@ order. The default is @Descending@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lmejdNextToken' - The token returned if the response is truncated. To retrieve the next set of job executions, use it in the next request.
+-- 'sortOrder', 'listModelExplainabilityJobDefinitions_sortOrder' - Whether to sort the results in @Ascending@ or @Descending@ order. The
+-- default is @Descending@.
 --
--- * 'lmejdEndpointName' - Name of the endpoint to monitor for model explainability.
+-- 'nextToken', 'listModelExplainabilityJobDefinitions_nextToken' - The token returned if the response is truncated. To retrieve the next
+-- set of job executions, use it in the next request.
 --
--- * 'lmejdNameContains' - Filter for model explainability jobs whose name contains a specified string.
+-- 'endpointName', 'listModelExplainabilityJobDefinitions_endpointName' - Name of the endpoint to monitor for model explainability.
 --
--- * 'lmejdMaxResults' - The maximum number of jobs to return in the response. The default value is 10.
+-- 'nameContains', 'listModelExplainabilityJobDefinitions_nameContains' - Filter for model explainability jobs whose name contains a specified
+-- string.
 --
--- * 'lmejdCreationTimeBefore' - A filter that returns only model explainability jobs created before a specified time.
+-- 'maxResults', 'listModelExplainabilityJobDefinitions_maxResults' - The maximum number of jobs to return in the response. The default value
+-- is 10.
 --
--- * 'lmejdSortBy' - Whether to sort results by the @Name@ or @CreationTime@ field. The default is @CreationTime@ .
+-- 'creationTimeBefore', 'listModelExplainabilityJobDefinitions_creationTimeBefore' - A filter that returns only model explainability jobs created before a
+-- specified time.
 --
--- * 'lmejdCreationTimeAfter' - A filter that returns only model explainability jobs created after a specified time.
-listModelExplainabilityJobDefinitions ::
+-- 'sortBy', 'listModelExplainabilityJobDefinitions_sortBy' - Whether to sort results by the @Name@ or @CreationTime@ field. The
+-- default is @CreationTime@.
+--
+-- 'creationTimeAfter', 'listModelExplainabilityJobDefinitions_creationTimeAfter' - A filter that returns only model explainability jobs created after a
+-- specified time.
+newListModelExplainabilityJobDefinitions ::
   ListModelExplainabilityJobDefinitions
-listModelExplainabilityJobDefinitions =
+newListModelExplainabilityJobDefinitions =
   ListModelExplainabilityJobDefinitions'
-    { _lmejdSortOrder =
-        Nothing,
-      _lmejdNextToken = Nothing,
-      _lmejdEndpointName = Nothing,
-      _lmejdNameContains = Nothing,
-      _lmejdMaxResults = Nothing,
-      _lmejdCreationTimeBefore = Nothing,
-      _lmejdSortBy = Nothing,
-      _lmejdCreationTimeAfter = Nothing
+    { sortOrder =
+        Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      endpointName = Prelude.Nothing,
+      nameContains = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      creationTimeBefore = Prelude.Nothing,
+      sortBy = Prelude.Nothing,
+      creationTimeAfter = Prelude.Nothing
     }
 
--- | Whether to sort the results in @Ascending@ or @Descending@ order. The default is @Descending@ .
-lmejdSortOrder :: Lens' ListModelExplainabilityJobDefinitions (Maybe SortOrder)
-lmejdSortOrder = lens _lmejdSortOrder (\s a -> s {_lmejdSortOrder = a})
+-- | Whether to sort the results in @Ascending@ or @Descending@ order. The
+-- default is @Descending@.
+listModelExplainabilityJobDefinitions_sortOrder :: Lens.Lens' ListModelExplainabilityJobDefinitions (Prelude.Maybe SortOrder)
+listModelExplainabilityJobDefinitions_sortOrder = Lens.lens (\ListModelExplainabilityJobDefinitions' {sortOrder} -> sortOrder) (\s@ListModelExplainabilityJobDefinitions' {} a -> s {sortOrder = a} :: ListModelExplainabilityJobDefinitions)
 
--- | The token returned if the response is truncated. To retrieve the next set of job executions, use it in the next request.
-lmejdNextToken :: Lens' ListModelExplainabilityJobDefinitions (Maybe Text)
-lmejdNextToken = lens _lmejdNextToken (\s a -> s {_lmejdNextToken = a})
+-- | The token returned if the response is truncated. To retrieve the next
+-- set of job executions, use it in the next request.
+listModelExplainabilityJobDefinitions_nextToken :: Lens.Lens' ListModelExplainabilityJobDefinitions (Prelude.Maybe Prelude.Text)
+listModelExplainabilityJobDefinitions_nextToken = Lens.lens (\ListModelExplainabilityJobDefinitions' {nextToken} -> nextToken) (\s@ListModelExplainabilityJobDefinitions' {} a -> s {nextToken = a} :: ListModelExplainabilityJobDefinitions)
 
 -- | Name of the endpoint to monitor for model explainability.
-lmejdEndpointName :: Lens' ListModelExplainabilityJobDefinitions (Maybe Text)
-lmejdEndpointName = lens _lmejdEndpointName (\s a -> s {_lmejdEndpointName = a})
+listModelExplainabilityJobDefinitions_endpointName :: Lens.Lens' ListModelExplainabilityJobDefinitions (Prelude.Maybe Prelude.Text)
+listModelExplainabilityJobDefinitions_endpointName = Lens.lens (\ListModelExplainabilityJobDefinitions' {endpointName} -> endpointName) (\s@ListModelExplainabilityJobDefinitions' {} a -> s {endpointName = a} :: ListModelExplainabilityJobDefinitions)
 
--- | Filter for model explainability jobs whose name contains a specified string.
-lmejdNameContains :: Lens' ListModelExplainabilityJobDefinitions (Maybe Text)
-lmejdNameContains = lens _lmejdNameContains (\s a -> s {_lmejdNameContains = a})
+-- | Filter for model explainability jobs whose name contains a specified
+-- string.
+listModelExplainabilityJobDefinitions_nameContains :: Lens.Lens' ListModelExplainabilityJobDefinitions (Prelude.Maybe Prelude.Text)
+listModelExplainabilityJobDefinitions_nameContains = Lens.lens (\ListModelExplainabilityJobDefinitions' {nameContains} -> nameContains) (\s@ListModelExplainabilityJobDefinitions' {} a -> s {nameContains = a} :: ListModelExplainabilityJobDefinitions)
 
--- | The maximum number of jobs to return in the response. The default value is 10.
-lmejdMaxResults :: Lens' ListModelExplainabilityJobDefinitions (Maybe Natural)
-lmejdMaxResults = lens _lmejdMaxResults (\s a -> s {_lmejdMaxResults = a}) . mapping _Nat
+-- | The maximum number of jobs to return in the response. The default value
+-- is 10.
+listModelExplainabilityJobDefinitions_maxResults :: Lens.Lens' ListModelExplainabilityJobDefinitions (Prelude.Maybe Prelude.Natural)
+listModelExplainabilityJobDefinitions_maxResults = Lens.lens (\ListModelExplainabilityJobDefinitions' {maxResults} -> maxResults) (\s@ListModelExplainabilityJobDefinitions' {} a -> s {maxResults = a} :: ListModelExplainabilityJobDefinitions) Prelude.. Lens.mapping Prelude._Nat
 
--- | A filter that returns only model explainability jobs created before a specified time.
-lmejdCreationTimeBefore :: Lens' ListModelExplainabilityJobDefinitions (Maybe UTCTime)
-lmejdCreationTimeBefore = lens _lmejdCreationTimeBefore (\s a -> s {_lmejdCreationTimeBefore = a}) . mapping _Time
+-- | A filter that returns only model explainability jobs created before a
+-- specified time.
+listModelExplainabilityJobDefinitions_creationTimeBefore :: Lens.Lens' ListModelExplainabilityJobDefinitions (Prelude.Maybe Prelude.UTCTime)
+listModelExplainabilityJobDefinitions_creationTimeBefore = Lens.lens (\ListModelExplainabilityJobDefinitions' {creationTimeBefore} -> creationTimeBefore) (\s@ListModelExplainabilityJobDefinitions' {} a -> s {creationTimeBefore = a} :: ListModelExplainabilityJobDefinitions) Prelude.. Lens.mapping Prelude._Time
 
--- | Whether to sort results by the @Name@ or @CreationTime@ field. The default is @CreationTime@ .
-lmejdSortBy :: Lens' ListModelExplainabilityJobDefinitions (Maybe MonitoringJobDefinitionSortKey)
-lmejdSortBy = lens _lmejdSortBy (\s a -> s {_lmejdSortBy = a})
+-- | Whether to sort results by the @Name@ or @CreationTime@ field. The
+-- default is @CreationTime@.
+listModelExplainabilityJobDefinitions_sortBy :: Lens.Lens' ListModelExplainabilityJobDefinitions (Prelude.Maybe MonitoringJobDefinitionSortKey)
+listModelExplainabilityJobDefinitions_sortBy = Lens.lens (\ListModelExplainabilityJobDefinitions' {sortBy} -> sortBy) (\s@ListModelExplainabilityJobDefinitions' {} a -> s {sortBy = a} :: ListModelExplainabilityJobDefinitions)
 
--- | A filter that returns only model explainability jobs created after a specified time.
-lmejdCreationTimeAfter :: Lens' ListModelExplainabilityJobDefinitions (Maybe UTCTime)
-lmejdCreationTimeAfter = lens _lmejdCreationTimeAfter (\s a -> s {_lmejdCreationTimeAfter = a}) . mapping _Time
+-- | A filter that returns only model explainability jobs created after a
+-- specified time.
+listModelExplainabilityJobDefinitions_creationTimeAfter :: Lens.Lens' ListModelExplainabilityJobDefinitions (Prelude.Maybe Prelude.UTCTime)
+listModelExplainabilityJobDefinitions_creationTimeAfter = Lens.lens (\ListModelExplainabilityJobDefinitions' {creationTimeAfter} -> creationTimeAfter) (\s@ListModelExplainabilityJobDefinitions' {} a -> s {creationTimeAfter = a} :: ListModelExplainabilityJobDefinitions) Prelude.. Lens.mapping Prelude._Time
 
 instance
-  AWSPager
+  Pager.AWSPager
     ListModelExplainabilityJobDefinitions
   where
   page rq rs
-    | stop (rs ^. lmejdrrsNextToken) = Nothing
-    | stop (rs ^. lmejdrrsJobDefinitionSummaries) =
-      Nothing
-    | otherwise =
-      Just $ rq & lmejdNextToken .~ rs ^. lmejdrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listModelExplainabilityJobDefinitionsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^. listModelExplainabilityJobDefinitionsResponse_jobDefinitionSummaries
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listModelExplainabilityJobDefinitions_nextToken
+          Lens..~ rs
+            Lens.^? listModelExplainabilityJobDefinitionsResponse_nextToken
+              Prelude.. Lens._Just
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     ListModelExplainabilityJobDefinitions
   where
   type
     Rs ListModelExplainabilityJobDefinitions =
       ListModelExplainabilityJobDefinitionsResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListModelExplainabilityJobDefinitionsResponse'
-            <$> (x .?> "NextToken")
-            <*> (pure (fromEnum s))
-            <*> (x .?> "JobDefinitionSummaries" .!@ mempty)
+            Prelude.<$> (x Prelude..?> "NextToken")
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+              Prelude.<*> ( x Prelude..?> "JobDefinitionSummaries"
+                              Prelude..!@ Prelude.mempty
+                          )
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     ListModelExplainabilityJobDefinitions
 
-instance NFData ListModelExplainabilityJobDefinitions
+instance
+  Prelude.NFData
+    ListModelExplainabilityJobDefinitions
 
 instance
-  ToHeaders
+  Prelude.ToHeaders
     ListModelExplainabilityJobDefinitions
   where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "SageMaker.ListModelExplainabilityJobDefinitions" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "SageMaker.ListModelExplainabilityJobDefinitions" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
-
-instance ToJSON ListModelExplainabilityJobDefinitions where
-  toJSON ListModelExplainabilityJobDefinitions' {..} =
-    object
-      ( catMaybes
-          [ ("SortOrder" .=) <$> _lmejdSortOrder,
-            ("NextToken" .=) <$> _lmejdNextToken,
-            ("EndpointName" .=) <$> _lmejdEndpointName,
-            ("NameContains" .=) <$> _lmejdNameContains,
-            ("MaxResults" .=) <$> _lmejdMaxResults,
-            ("CreationTimeBefore" .=)
-              <$> _lmejdCreationTimeBefore,
-            ("SortBy" .=) <$> _lmejdSortBy,
-            ("CreationTimeAfter" .=)
-              <$> _lmejdCreationTimeAfter
-          ]
-      )
-
-instance ToPath ListModelExplainabilityJobDefinitions where
-  toPath = const "/"
 
 instance
-  ToQuery
+  Prelude.ToJSON
     ListModelExplainabilityJobDefinitions
   where
-  toQuery = const mempty
-
--- | /See:/ 'listModelExplainabilityJobDefinitionsResponse' smart constructor.
-data ListModelExplainabilityJobDefinitionsResponse = ListModelExplainabilityJobDefinitionsResponse'
-  { _lmejdrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _lmejdrrsResponseStatus ::
-      !Int,
-    _lmejdrrsJobDefinitionSummaries ::
-      ![MonitoringJobDefinitionSummary]
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'ListModelExplainabilityJobDefinitionsResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'lmejdrrsNextToken' - If the response is truncated, Amazon SageMaker returns this token. To retrieve the next set of jobs, use it in the subsequent request.
---
--- * 'lmejdrrsResponseStatus' - -- | The response status code.
---
--- * 'lmejdrrsJobDefinitionSummaries' - A JSON array in which each element is a summary for a explainability bias jobs.
-listModelExplainabilityJobDefinitionsResponse ::
-  -- | 'lmejdrrsResponseStatus'
-  Int ->
-  ListModelExplainabilityJobDefinitionsResponse
-listModelExplainabilityJobDefinitionsResponse
-  pResponseStatus_ =
-    ListModelExplainabilityJobDefinitionsResponse'
-      { _lmejdrrsNextToken =
-          Nothing,
-        _lmejdrrsResponseStatus =
-          pResponseStatus_,
-        _lmejdrrsJobDefinitionSummaries =
-          mempty
-      }
-
--- | If the response is truncated, Amazon SageMaker returns this token. To retrieve the next set of jobs, use it in the subsequent request.
-lmejdrrsNextToken :: Lens' ListModelExplainabilityJobDefinitionsResponse (Maybe Text)
-lmejdrrsNextToken = lens _lmejdrrsNextToken (\s a -> s {_lmejdrrsNextToken = a})
-
--- | -- | The response status code.
-lmejdrrsResponseStatus :: Lens' ListModelExplainabilityJobDefinitionsResponse Int
-lmejdrrsResponseStatus = lens _lmejdrrsResponseStatus (\s a -> s {_lmejdrrsResponseStatus = a})
-
--- | A JSON array in which each element is a summary for a explainability bias jobs.
-lmejdrrsJobDefinitionSummaries :: Lens' ListModelExplainabilityJobDefinitionsResponse [MonitoringJobDefinitionSummary]
-lmejdrrsJobDefinitionSummaries = lens _lmejdrrsJobDefinitionSummaries (\s a -> s {_lmejdrrsJobDefinitionSummaries = a}) . _Coerce
+  toJSON ListModelExplainabilityJobDefinitions' {..} =
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("SortOrder" Prelude..=) Prelude.<$> sortOrder,
+            ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("EndpointName" Prelude..=) Prelude.<$> endpointName,
+            ("NameContains" Prelude..=) Prelude.<$> nameContains,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("CreationTimeBefore" Prelude..=)
+              Prelude.<$> creationTimeBefore,
+            ("SortBy" Prelude..=) Prelude.<$> sortBy,
+            ("CreationTimeAfter" Prelude..=)
+              Prelude.<$> creationTimeAfter
+          ]
+      )
 
 instance
-  NFData
+  Prelude.ToPath
+    ListModelExplainabilityJobDefinitions
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
+    ListModelExplainabilityJobDefinitions
+  where
+  toQuery = Prelude.const Prelude.mempty
+
+-- | /See:/ 'newListModelExplainabilityJobDefinitionsResponse' smart constructor.
+data ListModelExplainabilityJobDefinitionsResponse = ListModelExplainabilityJobDefinitionsResponse'
+  { -- | If the response is truncated, Amazon SageMaker returns this token. To
+    -- retrieve the next set of jobs, use it in the subsequent request.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | A JSON array in which each element is a summary for a explainability
+    -- bias jobs.
+    jobDefinitionSummaries :: [MonitoringJobDefinitionSummary]
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'ListModelExplainabilityJobDefinitionsResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'nextToken', 'listModelExplainabilityJobDefinitionsResponse_nextToken' - If the response is truncated, Amazon SageMaker returns this token. To
+-- retrieve the next set of jobs, use it in the subsequent request.
+--
+-- 'httpStatus', 'listModelExplainabilityJobDefinitionsResponse_httpStatus' - The response's http status code.
+--
+-- 'jobDefinitionSummaries', 'listModelExplainabilityJobDefinitionsResponse_jobDefinitionSummaries' - A JSON array in which each element is a summary for a explainability
+-- bias jobs.
+newListModelExplainabilityJobDefinitionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  ListModelExplainabilityJobDefinitionsResponse
+newListModelExplainabilityJobDefinitionsResponse
+  pHttpStatus_ =
+    ListModelExplainabilityJobDefinitionsResponse'
+      { nextToken =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_,
+        jobDefinitionSummaries =
+          Prelude.mempty
+      }
+
+-- | If the response is truncated, Amazon SageMaker returns this token. To
+-- retrieve the next set of jobs, use it in the subsequent request.
+listModelExplainabilityJobDefinitionsResponse_nextToken :: Lens.Lens' ListModelExplainabilityJobDefinitionsResponse (Prelude.Maybe Prelude.Text)
+listModelExplainabilityJobDefinitionsResponse_nextToken = Lens.lens (\ListModelExplainabilityJobDefinitionsResponse' {nextToken} -> nextToken) (\s@ListModelExplainabilityJobDefinitionsResponse' {} a -> s {nextToken = a} :: ListModelExplainabilityJobDefinitionsResponse)
+
+-- | The response's http status code.
+listModelExplainabilityJobDefinitionsResponse_httpStatus :: Lens.Lens' ListModelExplainabilityJobDefinitionsResponse Prelude.Int
+listModelExplainabilityJobDefinitionsResponse_httpStatus = Lens.lens (\ListModelExplainabilityJobDefinitionsResponse' {httpStatus} -> httpStatus) (\s@ListModelExplainabilityJobDefinitionsResponse' {} a -> s {httpStatus = a} :: ListModelExplainabilityJobDefinitionsResponse)
+
+-- | A JSON array in which each element is a summary for a explainability
+-- bias jobs.
+listModelExplainabilityJobDefinitionsResponse_jobDefinitionSummaries :: Lens.Lens' ListModelExplainabilityJobDefinitionsResponse [MonitoringJobDefinitionSummary]
+listModelExplainabilityJobDefinitionsResponse_jobDefinitionSummaries = Lens.lens (\ListModelExplainabilityJobDefinitionsResponse' {jobDefinitionSummaries} -> jobDefinitionSummaries) (\s@ListModelExplainabilityJobDefinitionsResponse' {} a -> s {jobDefinitionSummaries = a} :: ListModelExplainabilityJobDefinitionsResponse) Prelude.. Prelude._Coerce
+
+instance
+  Prelude.NFData
     ListModelExplainabilityJobDefinitionsResponse

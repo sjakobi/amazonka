@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,232 +24,259 @@
 -- Describes a model that you created using the @CreateModel@ API.
 module Network.AWS.SageMaker.DescribeModel
   ( -- * Creating a Request
-    describeModel,
-    DescribeModel,
+    DescribeModel (..),
+    newDescribeModel,
 
     -- * Request Lenses
-    dModelName,
+    describeModel_modelName,
 
     -- * Destructuring the Response
-    describeModelResponse,
-    DescribeModelResponse,
+    DescribeModelResponse (..),
+    newDescribeModelResponse,
 
     -- * Response Lenses
-    dmrrsVPCConfig,
-    dmrrsPrimaryContainer,
-    dmrrsEnableNetworkIsolation,
-    dmrrsContainers,
-    dmrrsInferenceExecutionConfig,
-    dmrrsResponseStatus,
-    dmrrsModelName,
-    dmrrsExecutionRoleARN,
-    dmrrsCreationTime,
-    dmrrsModelARN,
+    describeModelResponse_vpcConfig,
+    describeModelResponse_primaryContainer,
+    describeModelResponse_enableNetworkIsolation,
+    describeModelResponse_containers,
+    describeModelResponse_inferenceExecutionConfig,
+    describeModelResponse_httpStatus,
+    describeModelResponse_modelName,
+    describeModelResponse_executionRoleArn,
+    describeModelResponse_creationTime,
+    describeModelResponse_modelArn,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
+import Network.AWS.SageMaker.Types.ContainerDefinition
+import Network.AWS.SageMaker.Types.InferenceExecutionConfig
+import Network.AWS.SageMaker.Types.VpcConfig
 
--- | /See:/ 'describeModel' smart constructor.
-newtype DescribeModel = DescribeModel'
-  { _dModelName ::
-      Text
+-- | /See:/ 'newDescribeModel' smart constructor.
+data DescribeModel = DescribeModel'
+  { -- | The name of the model.
+    modelName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeModel' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeModel' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dModelName' - The name of the model.
-describeModel ::
-  -- | 'dModelName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'modelName', 'describeModel_modelName' - The name of the model.
+newDescribeModel ::
+  -- | 'modelName'
+  Prelude.Text ->
   DescribeModel
-describeModel pModelName_ =
-  DescribeModel' {_dModelName = pModelName_}
+newDescribeModel pModelName_ =
+  DescribeModel' {modelName = pModelName_}
 
 -- | The name of the model.
-dModelName :: Lens' DescribeModel Text
-dModelName = lens _dModelName (\s a -> s {_dModelName = a})
+describeModel_modelName :: Lens.Lens' DescribeModel Prelude.Text
+describeModel_modelName = Lens.lens (\DescribeModel' {modelName} -> modelName) (\s@DescribeModel' {} a -> s {modelName = a} :: DescribeModel)
 
-instance AWSRequest DescribeModel where
+instance Prelude.AWSRequest DescribeModel where
   type Rs DescribeModel = DescribeModelResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeModelResponse'
-            <$> (x .?> "VpcConfig")
-            <*> (x .?> "PrimaryContainer")
-            <*> (x .?> "EnableNetworkIsolation")
-            <*> (x .?> "Containers" .!@ mempty)
-            <*> (x .?> "InferenceExecutionConfig")
-            <*> (pure (fromEnum s))
-            <*> (x .:> "ModelName")
-            <*> (x .:> "ExecutionRoleArn")
-            <*> (x .:> "CreationTime")
-            <*> (x .:> "ModelArn")
+            Prelude.<$> (x Prelude..?> "VpcConfig")
+            Prelude.<*> (x Prelude..?> "PrimaryContainer")
+            Prelude.<*> (x Prelude..?> "EnableNetworkIsolation")
+            Prelude.<*> ( x Prelude..?> "Containers"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "InferenceExecutionConfig")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "ModelName")
+            Prelude.<*> (x Prelude..:> "ExecutionRoleArn")
+            Prelude.<*> (x Prelude..:> "CreationTime")
+            Prelude.<*> (x Prelude..:> "ModelArn")
       )
 
-instance Hashable DescribeModel
+instance Prelude.Hashable DescribeModel
 
-instance NFData DescribeModel
+instance Prelude.NFData DescribeModel
 
-instance ToHeaders DescribeModel where
+instance Prelude.ToHeaders DescribeModel where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.DescribeModel" :: ByteString),
+              Prelude.=# ("SageMaker.DescribeModel" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeModel where
+instance Prelude.ToJSON DescribeModel where
   toJSON DescribeModel' {..} =
-    object
-      (catMaybes [Just ("ModelName" .= _dModelName)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("ModelName" Prelude..= modelName)]
+      )
 
-instance ToPath DescribeModel where
-  toPath = const "/"
+instance Prelude.ToPath DescribeModel where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeModel where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeModel where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeModelResponse' smart constructor.
+-- | /See:/ 'newDescribeModelResponse' smart constructor.
 data DescribeModelResponse = DescribeModelResponse'
-  { _dmrrsVPCConfig ::
-      !(Maybe VPCConfig),
-    _dmrrsPrimaryContainer ::
-      !( Maybe
-           ContainerDefinition
-       ),
-    _dmrrsEnableNetworkIsolation ::
-      !(Maybe Bool),
-    _dmrrsContainers ::
-      !( Maybe
-           [ContainerDefinition]
-       ),
-    _dmrrsInferenceExecutionConfig ::
-      !( Maybe
-           InferenceExecutionConfig
-       ),
-    _dmrrsResponseStatus ::
-      !Int,
-    _dmrrsModelName :: !Text,
-    _dmrrsExecutionRoleARN ::
-      !Text,
-    _dmrrsCreationTime ::
-      !POSIX,
-    _dmrrsModelARN :: !Text
+  { -- | A VpcConfig object that specifies the VPC that this model has access to.
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/sagemaker/latest/dg/host-vpc.html Protect Endpoints by Using an Amazon Virtual Private Cloud>
+    vpcConfig :: Prelude.Maybe VpcConfig,
+    -- | The location of the primary inference code, associated artifacts, and
+    -- custom environment map that the inference code uses when it is deployed
+    -- in production.
+    primaryContainer :: Prelude.Maybe ContainerDefinition,
+    -- | If @True@, no inbound or outbound network calls can be made to or from
+    -- the model container.
+    enableNetworkIsolation :: Prelude.Maybe Prelude.Bool,
+    -- | The containers in the inference pipeline.
+    containers :: Prelude.Maybe [ContainerDefinition],
+    -- | Specifies details of how containers in a multi-container endpoint are
+    -- called.
+    inferenceExecutionConfig :: Prelude.Maybe InferenceExecutionConfig,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | Name of the Amazon SageMaker model.
+    modelName :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the IAM role that you specified for
+    -- the model.
+    executionRoleArn :: Prelude.Text,
+    -- | A timestamp that shows when the model was created.
+    creationTime :: Prelude.POSIX,
+    -- | The Amazon Resource Name (ARN) of the model.
+    modelArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeModelResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeModelResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dmrrsVPCConfig' - A 'VpcConfig' object that specifies the VPC that this model has access to. For more information, see <https://docs.aws.amazon.com/sagemaker/latest/dg/host-vpc.html Protect Endpoints by Using an Amazon Virtual Private Cloud>
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dmrrsPrimaryContainer' - The location of the primary inference code, associated artifacts, and custom environment map that the inference code uses when it is deployed in production.
+-- 'vpcConfig', 'describeModelResponse_vpcConfig' - A VpcConfig object that specifies the VPC that this model has access to.
+-- For more information, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/host-vpc.html Protect Endpoints by Using an Amazon Virtual Private Cloud>
 --
--- * 'dmrrsEnableNetworkIsolation' - If @True@ , no inbound or outbound network calls can be made to or from the model container.
+-- 'primaryContainer', 'describeModelResponse_primaryContainer' - The location of the primary inference code, associated artifacts, and
+-- custom environment map that the inference code uses when it is deployed
+-- in production.
 --
--- * 'dmrrsContainers' - The containers in the inference pipeline.
+-- 'enableNetworkIsolation', 'describeModelResponse_enableNetworkIsolation' - If @True@, no inbound or outbound network calls can be made to or from
+-- the model container.
 --
--- * 'dmrrsInferenceExecutionConfig' - Specifies details of how containers in a multi-container endpoint are called.
+-- 'containers', 'describeModelResponse_containers' - The containers in the inference pipeline.
 --
--- * 'dmrrsResponseStatus' - -- | The response status code.
+-- 'inferenceExecutionConfig', 'describeModelResponse_inferenceExecutionConfig' - Specifies details of how containers in a multi-container endpoint are
+-- called.
 --
--- * 'dmrrsModelName' - Name of the Amazon SageMaker model.
+-- 'httpStatus', 'describeModelResponse_httpStatus' - The response's http status code.
 --
--- * 'dmrrsExecutionRoleARN' - The Amazon Resource Name (ARN) of the IAM role that you specified for the model.
+-- 'modelName', 'describeModelResponse_modelName' - Name of the Amazon SageMaker model.
 --
--- * 'dmrrsCreationTime' - A timestamp that shows when the model was created.
+-- 'executionRoleArn', 'describeModelResponse_executionRoleArn' - The Amazon Resource Name (ARN) of the IAM role that you specified for
+-- the model.
 --
--- * 'dmrrsModelARN' - The Amazon Resource Name (ARN) of the model.
-describeModelResponse ::
-  -- | 'dmrrsResponseStatus'
-  Int ->
-  -- | 'dmrrsModelName'
-  Text ->
-  -- | 'dmrrsExecutionRoleARN'
-  Text ->
-  -- | 'dmrrsCreationTime'
-  UTCTime ->
-  -- | 'dmrrsModelARN'
-  Text ->
+-- 'creationTime', 'describeModelResponse_creationTime' - A timestamp that shows when the model was created.
+--
+-- 'modelArn', 'describeModelResponse_modelArn' - The Amazon Resource Name (ARN) of the model.
+newDescribeModelResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'modelName'
+  Prelude.Text ->
+  -- | 'executionRoleArn'
+  Prelude.Text ->
+  -- | 'creationTime'
+  Prelude.UTCTime ->
+  -- | 'modelArn'
+  Prelude.Text ->
   DescribeModelResponse
-describeModelResponse
-  pResponseStatus_
+newDescribeModelResponse
+  pHttpStatus_
   pModelName_
-  pExecutionRoleARN_
+  pExecutionRoleArn_
   pCreationTime_
-  pModelARN_ =
+  pModelArn_ =
     DescribeModelResponse'
-      { _dmrrsVPCConfig = Nothing,
-        _dmrrsPrimaryContainer = Nothing,
-        _dmrrsEnableNetworkIsolation = Nothing,
-        _dmrrsContainers = Nothing,
-        _dmrrsInferenceExecutionConfig = Nothing,
-        _dmrrsResponseStatus = pResponseStatus_,
-        _dmrrsModelName = pModelName_,
-        _dmrrsExecutionRoleARN = pExecutionRoleARN_,
-        _dmrrsCreationTime = _Time # pCreationTime_,
-        _dmrrsModelARN = pModelARN_
+      { vpcConfig = Prelude.Nothing,
+        primaryContainer = Prelude.Nothing,
+        enableNetworkIsolation = Prelude.Nothing,
+        containers = Prelude.Nothing,
+        inferenceExecutionConfig = Prelude.Nothing,
+        httpStatus = pHttpStatus_,
+        modelName = pModelName_,
+        executionRoleArn = pExecutionRoleArn_,
+        creationTime = Prelude._Time Lens.# pCreationTime_,
+        modelArn = pModelArn_
       }
 
--- | A 'VpcConfig' object that specifies the VPC that this model has access to. For more information, see <https://docs.aws.amazon.com/sagemaker/latest/dg/host-vpc.html Protect Endpoints by Using an Amazon Virtual Private Cloud>
-dmrrsVPCConfig :: Lens' DescribeModelResponse (Maybe VPCConfig)
-dmrrsVPCConfig = lens _dmrrsVPCConfig (\s a -> s {_dmrrsVPCConfig = a})
+-- | A VpcConfig object that specifies the VPC that this model has access to.
+-- For more information, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/host-vpc.html Protect Endpoints by Using an Amazon Virtual Private Cloud>
+describeModelResponse_vpcConfig :: Lens.Lens' DescribeModelResponse (Prelude.Maybe VpcConfig)
+describeModelResponse_vpcConfig = Lens.lens (\DescribeModelResponse' {vpcConfig} -> vpcConfig) (\s@DescribeModelResponse' {} a -> s {vpcConfig = a} :: DescribeModelResponse)
 
--- | The location of the primary inference code, associated artifacts, and custom environment map that the inference code uses when it is deployed in production.
-dmrrsPrimaryContainer :: Lens' DescribeModelResponse (Maybe ContainerDefinition)
-dmrrsPrimaryContainer = lens _dmrrsPrimaryContainer (\s a -> s {_dmrrsPrimaryContainer = a})
+-- | The location of the primary inference code, associated artifacts, and
+-- custom environment map that the inference code uses when it is deployed
+-- in production.
+describeModelResponse_primaryContainer :: Lens.Lens' DescribeModelResponse (Prelude.Maybe ContainerDefinition)
+describeModelResponse_primaryContainer = Lens.lens (\DescribeModelResponse' {primaryContainer} -> primaryContainer) (\s@DescribeModelResponse' {} a -> s {primaryContainer = a} :: DescribeModelResponse)
 
--- | If @True@ , no inbound or outbound network calls can be made to or from the model container.
-dmrrsEnableNetworkIsolation :: Lens' DescribeModelResponse (Maybe Bool)
-dmrrsEnableNetworkIsolation = lens _dmrrsEnableNetworkIsolation (\s a -> s {_dmrrsEnableNetworkIsolation = a})
+-- | If @True@, no inbound or outbound network calls can be made to or from
+-- the model container.
+describeModelResponse_enableNetworkIsolation :: Lens.Lens' DescribeModelResponse (Prelude.Maybe Prelude.Bool)
+describeModelResponse_enableNetworkIsolation = Lens.lens (\DescribeModelResponse' {enableNetworkIsolation} -> enableNetworkIsolation) (\s@DescribeModelResponse' {} a -> s {enableNetworkIsolation = a} :: DescribeModelResponse)
 
 -- | The containers in the inference pipeline.
-dmrrsContainers :: Lens' DescribeModelResponse [ContainerDefinition]
-dmrrsContainers = lens _dmrrsContainers (\s a -> s {_dmrrsContainers = a}) . _Default . _Coerce
+describeModelResponse_containers :: Lens.Lens' DescribeModelResponse (Prelude.Maybe [ContainerDefinition])
+describeModelResponse_containers = Lens.lens (\DescribeModelResponse' {containers} -> containers) (\s@DescribeModelResponse' {} a -> s {containers = a} :: DescribeModelResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Specifies details of how containers in a multi-container endpoint are called.
-dmrrsInferenceExecutionConfig :: Lens' DescribeModelResponse (Maybe InferenceExecutionConfig)
-dmrrsInferenceExecutionConfig = lens _dmrrsInferenceExecutionConfig (\s a -> s {_dmrrsInferenceExecutionConfig = a})
+-- | Specifies details of how containers in a multi-container endpoint are
+-- called.
+describeModelResponse_inferenceExecutionConfig :: Lens.Lens' DescribeModelResponse (Prelude.Maybe InferenceExecutionConfig)
+describeModelResponse_inferenceExecutionConfig = Lens.lens (\DescribeModelResponse' {inferenceExecutionConfig} -> inferenceExecutionConfig) (\s@DescribeModelResponse' {} a -> s {inferenceExecutionConfig = a} :: DescribeModelResponse)
 
--- | -- | The response status code.
-dmrrsResponseStatus :: Lens' DescribeModelResponse Int
-dmrrsResponseStatus = lens _dmrrsResponseStatus (\s a -> s {_dmrrsResponseStatus = a})
+-- | The response's http status code.
+describeModelResponse_httpStatus :: Lens.Lens' DescribeModelResponse Prelude.Int
+describeModelResponse_httpStatus = Lens.lens (\DescribeModelResponse' {httpStatus} -> httpStatus) (\s@DescribeModelResponse' {} a -> s {httpStatus = a} :: DescribeModelResponse)
 
 -- | Name of the Amazon SageMaker model.
-dmrrsModelName :: Lens' DescribeModelResponse Text
-dmrrsModelName = lens _dmrrsModelName (\s a -> s {_dmrrsModelName = a})
+describeModelResponse_modelName :: Lens.Lens' DescribeModelResponse Prelude.Text
+describeModelResponse_modelName = Lens.lens (\DescribeModelResponse' {modelName} -> modelName) (\s@DescribeModelResponse' {} a -> s {modelName = a} :: DescribeModelResponse)
 
--- | The Amazon Resource Name (ARN) of the IAM role that you specified for the model.
-dmrrsExecutionRoleARN :: Lens' DescribeModelResponse Text
-dmrrsExecutionRoleARN = lens _dmrrsExecutionRoleARN (\s a -> s {_dmrrsExecutionRoleARN = a})
+-- | The Amazon Resource Name (ARN) of the IAM role that you specified for
+-- the model.
+describeModelResponse_executionRoleArn :: Lens.Lens' DescribeModelResponse Prelude.Text
+describeModelResponse_executionRoleArn = Lens.lens (\DescribeModelResponse' {executionRoleArn} -> executionRoleArn) (\s@DescribeModelResponse' {} a -> s {executionRoleArn = a} :: DescribeModelResponse)
 
 -- | A timestamp that shows when the model was created.
-dmrrsCreationTime :: Lens' DescribeModelResponse UTCTime
-dmrrsCreationTime = lens _dmrrsCreationTime (\s a -> s {_dmrrsCreationTime = a}) . _Time
+describeModelResponse_creationTime :: Lens.Lens' DescribeModelResponse Prelude.UTCTime
+describeModelResponse_creationTime = Lens.lens (\DescribeModelResponse' {creationTime} -> creationTime) (\s@DescribeModelResponse' {} a -> s {creationTime = a} :: DescribeModelResponse) Prelude.. Prelude._Time
 
 -- | The Amazon Resource Name (ARN) of the model.
-dmrrsModelARN :: Lens' DescribeModelResponse Text
-dmrrsModelARN = lens _dmrrsModelARN (\s a -> s {_dmrrsModelARN = a})
+describeModelResponse_modelArn :: Lens.Lens' DescribeModelResponse Prelude.Text
+describeModelResponse_modelArn = Lens.lens (\DescribeModelResponse' {modelArn} -> modelArn) (\s@DescribeModelResponse' {} a -> s {modelArn = a} :: DescribeModelResponse)
 
-instance NFData DescribeModelResponse
+instance Prelude.NFData DescribeModelResponse

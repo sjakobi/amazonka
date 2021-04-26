@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,82 +19,83 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.ContinuousParameterRangeSpecification where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Defines the possible values for a continuous hyperparameter.
 --
---
---
--- /See:/ 'continuousParameterRangeSpecification' smart constructor.
+-- /See:/ 'newContinuousParameterRangeSpecification' smart constructor.
 data ContinuousParameterRangeSpecification = ContinuousParameterRangeSpecification'
-  { _cprsMinValue ::
-      !Text,
-    _cprsMaxValue ::
-      !Text
+  { -- | The minimum floating-point value allowed.
+    minValue :: Prelude.Text,
+    -- | The maximum floating-point value allowed.
+    maxValue :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ContinuousParameterRangeSpecification' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ContinuousParameterRangeSpecification' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cprsMinValue' - The minimum floating-point value allowed.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cprsMaxValue' - The maximum floating-point value allowed.
-continuousParameterRangeSpecification ::
-  -- | 'cprsMinValue'
-  Text ->
-  -- | 'cprsMaxValue'
-  Text ->
+-- 'minValue', 'continuousParameterRangeSpecification_minValue' - The minimum floating-point value allowed.
+--
+-- 'maxValue', 'continuousParameterRangeSpecification_maxValue' - The maximum floating-point value allowed.
+newContinuousParameterRangeSpecification ::
+  -- | 'minValue'
+  Prelude.Text ->
+  -- | 'maxValue'
+  Prelude.Text ->
   ContinuousParameterRangeSpecification
-continuousParameterRangeSpecification
+newContinuousParameterRangeSpecification
   pMinValue_
   pMaxValue_ =
     ContinuousParameterRangeSpecification'
-      { _cprsMinValue =
+      { minValue =
           pMinValue_,
-        _cprsMaxValue = pMaxValue_
+        maxValue = pMaxValue_
       }
 
 -- | The minimum floating-point value allowed.
-cprsMinValue :: Lens' ContinuousParameterRangeSpecification Text
-cprsMinValue = lens _cprsMinValue (\s a -> s {_cprsMinValue = a})
+continuousParameterRangeSpecification_minValue :: Lens.Lens' ContinuousParameterRangeSpecification Prelude.Text
+continuousParameterRangeSpecification_minValue = Lens.lens (\ContinuousParameterRangeSpecification' {minValue} -> minValue) (\s@ContinuousParameterRangeSpecification' {} a -> s {minValue = a} :: ContinuousParameterRangeSpecification)
 
 -- | The maximum floating-point value allowed.
-cprsMaxValue :: Lens' ContinuousParameterRangeSpecification Text
-cprsMaxValue = lens _cprsMaxValue (\s a -> s {_cprsMaxValue = a})
+continuousParameterRangeSpecification_maxValue :: Lens.Lens' ContinuousParameterRangeSpecification Prelude.Text
+continuousParameterRangeSpecification_maxValue = Lens.lens (\ContinuousParameterRangeSpecification' {maxValue} -> maxValue) (\s@ContinuousParameterRangeSpecification' {} a -> s {maxValue = a} :: ContinuousParameterRangeSpecification)
 
 instance
-  FromJSON
+  Prelude.FromJSON
     ContinuousParameterRangeSpecification
   where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ContinuousParameterRangeSpecification"
       ( \x ->
           ContinuousParameterRangeSpecification'
-            <$> (x .: "MinValue") <*> (x .: "MaxValue")
+            Prelude.<$> (x Prelude..: "MinValue")
+            Prelude.<*> (x Prelude..: "MaxValue")
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     ContinuousParameterRangeSpecification
 
-instance NFData ContinuousParameterRangeSpecification
+instance
+  Prelude.NFData
+    ContinuousParameterRangeSpecification
 
-instance ToJSON ContinuousParameterRangeSpecification where
+instance
+  Prelude.ToJSON
+    ContinuousParameterRangeSpecification
+  where
   toJSON ContinuousParameterRangeSpecification' {..} =
-    object
-      ( catMaybes
-          [ Just ("MinValue" .= _cprsMinValue),
-            Just ("MaxValue" .= _cprsMaxValue)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("MinValue" Prelude..= minValue),
+            Prelude.Just ("MaxValue" Prelude..= maxValue)
           ]
       )

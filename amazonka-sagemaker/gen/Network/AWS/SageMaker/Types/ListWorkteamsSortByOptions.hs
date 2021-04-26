@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.SageMaker.Types.ListWorkteamsSortByOptions
   ( ListWorkteamsSortByOptions
       ( ..,
-        LCreateDate,
-        LName
+        ListWorkteamsSortByOptionsCreateDate,
+        ListWorkteamsSortByOptionsName
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ListWorkteamsSortByOptions
-  = ListWorkteamsSortByOptions'
-      ( CI
-          Text
-      )
+newtype ListWorkteamsSortByOptions = ListWorkteamsSortByOptions'
+  { fromListWorkteamsSortByOptions ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern LCreateDate :: ListWorkteamsSortByOptions
-pattern LCreateDate = ListWorkteamsSortByOptions' "CreateDate"
+pattern ListWorkteamsSortByOptionsCreateDate :: ListWorkteamsSortByOptions
+pattern ListWorkteamsSortByOptionsCreateDate = ListWorkteamsSortByOptions' "CreateDate"
 
-pattern LName :: ListWorkteamsSortByOptions
-pattern LName = ListWorkteamsSortByOptions' "Name"
+pattern ListWorkteamsSortByOptionsName :: ListWorkteamsSortByOptions
+pattern ListWorkteamsSortByOptionsName = ListWorkteamsSortByOptions' "Name"
 
 {-# COMPLETE
-  LCreateDate,
-  LName,
+  ListWorkteamsSortByOptionsCreateDate,
+  ListWorkteamsSortByOptionsName,
   ListWorkteamsSortByOptions'
   #-}
 
-instance FromText ListWorkteamsSortByOptions where
-  parser = (ListWorkteamsSortByOptions' . mk) <$> takeText
+instance Prelude.FromText ListWorkteamsSortByOptions where
+  parser = ListWorkteamsSortByOptions' Prelude.<$> Prelude.takeText
 
-instance ToText ListWorkteamsSortByOptions where
-  toText (ListWorkteamsSortByOptions' ci) = original ci
+instance Prelude.ToText ListWorkteamsSortByOptions where
+  toText (ListWorkteamsSortByOptions' x) = x
 
-instance Hashable ListWorkteamsSortByOptions
+instance Prelude.Hashable ListWorkteamsSortByOptions
 
-instance NFData ListWorkteamsSortByOptions
+instance Prelude.NFData ListWorkteamsSortByOptions
 
-instance ToByteString ListWorkteamsSortByOptions
+instance Prelude.ToByteString ListWorkteamsSortByOptions
 
-instance ToQuery ListWorkteamsSortByOptions
+instance Prelude.ToQuery ListWorkteamsSortByOptions
 
-instance ToHeader ListWorkteamsSortByOptions
+instance Prelude.ToHeader ListWorkteamsSortByOptions
 
-instance ToJSON ListWorkteamsSortByOptions where
-  toJSON = toJSONText
+instance Prelude.ToJSON ListWorkteamsSortByOptions where
+  toJSON = Prelude.toJSONText

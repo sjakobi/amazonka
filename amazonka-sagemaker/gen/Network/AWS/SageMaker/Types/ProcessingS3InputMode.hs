@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.SageMaker.Types.ProcessingS3InputMode
   ( ProcessingS3InputMode
       ( ..,
-        PSIMFile,
-        PSIMPipe
+        ProcessingS3InputModeFile,
+        ProcessingS3InputModePipe
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ProcessingS3InputMode
-  = ProcessingS3InputMode'
-      ( CI
-          Text
-      )
+newtype ProcessingS3InputMode = ProcessingS3InputMode'
+  { fromProcessingS3InputMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PSIMFile :: ProcessingS3InputMode
-pattern PSIMFile = ProcessingS3InputMode' "File"
+pattern ProcessingS3InputModeFile :: ProcessingS3InputMode
+pattern ProcessingS3InputModeFile = ProcessingS3InputMode' "File"
 
-pattern PSIMPipe :: ProcessingS3InputMode
-pattern PSIMPipe = ProcessingS3InputMode' "Pipe"
+pattern ProcessingS3InputModePipe :: ProcessingS3InputMode
+pattern ProcessingS3InputModePipe = ProcessingS3InputMode' "Pipe"
 
 {-# COMPLETE
-  PSIMFile,
-  PSIMPipe,
+  ProcessingS3InputModeFile,
+  ProcessingS3InputModePipe,
   ProcessingS3InputMode'
   #-}
 
-instance FromText ProcessingS3InputMode where
-  parser = (ProcessingS3InputMode' . mk) <$> takeText
+instance Prelude.FromText ProcessingS3InputMode where
+  parser = ProcessingS3InputMode' Prelude.<$> Prelude.takeText
 
-instance ToText ProcessingS3InputMode where
-  toText (ProcessingS3InputMode' ci) = original ci
+instance Prelude.ToText ProcessingS3InputMode where
+  toText (ProcessingS3InputMode' x) = x
 
-instance Hashable ProcessingS3InputMode
+instance Prelude.Hashable ProcessingS3InputMode
 
-instance NFData ProcessingS3InputMode
+instance Prelude.NFData ProcessingS3InputMode
 
-instance ToByteString ProcessingS3InputMode
+instance Prelude.ToByteString ProcessingS3InputMode
 
-instance ToQuery ProcessingS3InputMode
+instance Prelude.ToQuery ProcessingS3InputMode
 
-instance ToHeader ProcessingS3InputMode
+instance Prelude.ToHeader ProcessingS3InputMode
 
-instance ToJSON ProcessingS3InputMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON ProcessingS3InputMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ProcessingS3InputMode where
-  parseJSON = parseJSONText "ProcessingS3InputMode"
+instance Prelude.FromJSON ProcessingS3InputMode where
+  parseJSON = Prelude.parseJSONText "ProcessingS3InputMode"

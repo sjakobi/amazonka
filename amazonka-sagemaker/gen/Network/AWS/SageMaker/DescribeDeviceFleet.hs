@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,236 +24,244 @@
 -- A description of the fleet the device belongs to.
 module Network.AWS.SageMaker.DescribeDeviceFleet
   ( -- * Creating a Request
-    describeDeviceFleet,
-    DescribeDeviceFleet,
+    DescribeDeviceFleet (..),
+    newDescribeDeviceFleet,
 
     -- * Request Lenses
-    dDeviceFleetName,
+    describeDeviceFleet_deviceFleetName,
 
     -- * Destructuring the Response
-    describeDeviceFleetResponse,
-    DescribeDeviceFleetResponse,
+    DescribeDeviceFleetResponse (..),
+    newDescribeDeviceFleetResponse,
 
     -- * Response Lenses
-    ddfrrsRoleARN,
-    ddfrrsIotRoleAlias,
-    ddfrrsDescription,
-    ddfrrsResponseStatus,
-    ddfrrsDeviceFleetName,
-    ddfrrsDeviceFleetARN,
-    ddfrrsOutputConfig,
-    ddfrrsCreationTime,
-    ddfrrsLastModifiedTime,
+    describeDeviceFleetResponse_roleArn,
+    describeDeviceFleetResponse_iotRoleAlias,
+    describeDeviceFleetResponse_description,
+    describeDeviceFleetResponse_httpStatus,
+    describeDeviceFleetResponse_deviceFleetName,
+    describeDeviceFleetResponse_deviceFleetArn,
+    describeDeviceFleetResponse_outputConfig,
+    describeDeviceFleetResponse_creationTime,
+    describeDeviceFleetResponse_lastModifiedTime,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
+import Network.AWS.SageMaker.Types.EdgeOutputConfig
 
--- | /See:/ 'describeDeviceFleet' smart constructor.
-newtype DescribeDeviceFleet = DescribeDeviceFleet'
-  { _dDeviceFleetName ::
-      Text
+-- | /See:/ 'newDescribeDeviceFleet' smart constructor.
+data DescribeDeviceFleet = DescribeDeviceFleet'
+  { -- | The name of the fleet.
+    deviceFleetName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeDeviceFleet' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeDeviceFleet' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dDeviceFleetName' - The name of the fleet.
-describeDeviceFleet ::
-  -- | 'dDeviceFleetName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'deviceFleetName', 'describeDeviceFleet_deviceFleetName' - The name of the fleet.
+newDescribeDeviceFleet ::
+  -- | 'deviceFleetName'
+  Prelude.Text ->
   DescribeDeviceFleet
-describeDeviceFleet pDeviceFleetName_ =
+newDescribeDeviceFleet pDeviceFleetName_ =
   DescribeDeviceFleet'
-    { _dDeviceFleetName =
+    { deviceFleetName =
         pDeviceFleetName_
     }
 
 -- | The name of the fleet.
-dDeviceFleetName :: Lens' DescribeDeviceFleet Text
-dDeviceFleetName = lens _dDeviceFleetName (\s a -> s {_dDeviceFleetName = a})
+describeDeviceFleet_deviceFleetName :: Lens.Lens' DescribeDeviceFleet Prelude.Text
+describeDeviceFleet_deviceFleetName = Lens.lens (\DescribeDeviceFleet' {deviceFleetName} -> deviceFleetName) (\s@DescribeDeviceFleet' {} a -> s {deviceFleetName = a} :: DescribeDeviceFleet)
 
-instance AWSRequest DescribeDeviceFleet where
+instance Prelude.AWSRequest DescribeDeviceFleet where
   type
     Rs DescribeDeviceFleet =
       DescribeDeviceFleetResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeDeviceFleetResponse'
-            <$> (x .?> "RoleArn")
-            <*> (x .?> "IotRoleAlias")
-            <*> (x .?> "Description")
-            <*> (pure (fromEnum s))
-            <*> (x .:> "DeviceFleetName")
-            <*> (x .:> "DeviceFleetArn")
-            <*> (x .:> "OutputConfig")
-            <*> (x .:> "CreationTime")
-            <*> (x .:> "LastModifiedTime")
+            Prelude.<$> (x Prelude..?> "RoleArn")
+            Prelude.<*> (x Prelude..?> "IotRoleAlias")
+            Prelude.<*> (x Prelude..?> "Description")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "DeviceFleetName")
+            Prelude.<*> (x Prelude..:> "DeviceFleetArn")
+            Prelude.<*> (x Prelude..:> "OutputConfig")
+            Prelude.<*> (x Prelude..:> "CreationTime")
+            Prelude.<*> (x Prelude..:> "LastModifiedTime")
       )
 
-instance Hashable DescribeDeviceFleet
+instance Prelude.Hashable DescribeDeviceFleet
 
-instance NFData DescribeDeviceFleet
+instance Prelude.NFData DescribeDeviceFleet
 
-instance ToHeaders DescribeDeviceFleet where
+instance Prelude.ToHeaders DescribeDeviceFleet where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.DescribeDeviceFleet" :: ByteString),
+              Prelude.=# ( "SageMaker.DescribeDeviceFleet" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeDeviceFleet where
+instance Prelude.ToJSON DescribeDeviceFleet where
   toJSON DescribeDeviceFleet' {..} =
-    object
-      ( catMaybes
-          [Just ("DeviceFleetName" .= _dDeviceFleetName)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("DeviceFleetName" Prelude..= deviceFleetName)
+          ]
       )
 
-instance ToPath DescribeDeviceFleet where
-  toPath = const "/"
+instance Prelude.ToPath DescribeDeviceFleet where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeDeviceFleet where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeDeviceFleet where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeDeviceFleetResponse' smart constructor.
+-- | /See:/ 'newDescribeDeviceFleetResponse' smart constructor.
 data DescribeDeviceFleetResponse = DescribeDeviceFleetResponse'
-  { _ddfrrsRoleARN ::
-      !(Maybe Text),
-    _ddfrrsIotRoleAlias ::
-      !(Maybe Text),
-    _ddfrrsDescription ::
-      !(Maybe Text),
-    _ddfrrsResponseStatus ::
-      !Int,
-    _ddfrrsDeviceFleetName ::
-      !Text,
-    _ddfrrsDeviceFleetARN ::
-      !Text,
-    _ddfrrsOutputConfig ::
-      !EdgeOutputConfig,
-    _ddfrrsCreationTime ::
-      !POSIX,
-    _ddfrrsLastModifiedTime ::
-      !POSIX
+  { -- | The Amazon Resource Name (ARN) that has access to AWS Internet of Things
+    -- (IoT).
+    roleArn :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) alias created in AWS Internet of Things
+    -- (IoT).
+    iotRoleAlias :: Prelude.Maybe Prelude.Text,
+    -- | A description of the fleet.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The name of the fleet.
+    deviceFleetName :: Prelude.Text,
+    -- | The The Amazon Resource Name (ARN) of the fleet.
+    deviceFleetArn :: Prelude.Text,
+    -- | The output configuration for storing sampled data.
+    outputConfig :: EdgeOutputConfig,
+    -- | Timestamp of when the device fleet was created.
+    creationTime :: Prelude.POSIX,
+    -- | Timestamp of when the device fleet was last updated.
+    lastModifiedTime :: Prelude.POSIX
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeDeviceFleetResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeDeviceFleetResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddfrrsRoleARN' - The Amazon Resource Name (ARN) that has access to AWS Internet of Things (IoT).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ddfrrsIotRoleAlias' - The Amazon Resource Name (ARN) alias created in AWS Internet of Things (IoT).
+-- 'roleArn', 'describeDeviceFleetResponse_roleArn' - The Amazon Resource Name (ARN) that has access to AWS Internet of Things
+-- (IoT).
 --
--- * 'ddfrrsDescription' - A description of the fleet.
+-- 'iotRoleAlias', 'describeDeviceFleetResponse_iotRoleAlias' - The Amazon Resource Name (ARN) alias created in AWS Internet of Things
+-- (IoT).
 --
--- * 'ddfrrsResponseStatus' - -- | The response status code.
+-- 'description', 'describeDeviceFleetResponse_description' - A description of the fleet.
 --
--- * 'ddfrrsDeviceFleetName' - The name of the fleet.
+-- 'httpStatus', 'describeDeviceFleetResponse_httpStatus' - The response's http status code.
 --
--- * 'ddfrrsDeviceFleetARN' - The The Amazon Resource Name (ARN) of the fleet.
+-- 'deviceFleetName', 'describeDeviceFleetResponse_deviceFleetName' - The name of the fleet.
 --
--- * 'ddfrrsOutputConfig' - The output configuration for storing sampled data.
+-- 'deviceFleetArn', 'describeDeviceFleetResponse_deviceFleetArn' - The The Amazon Resource Name (ARN) of the fleet.
 --
--- * 'ddfrrsCreationTime' - Timestamp of when the device fleet was created.
+-- 'outputConfig', 'describeDeviceFleetResponse_outputConfig' - The output configuration for storing sampled data.
 --
--- * 'ddfrrsLastModifiedTime' - Timestamp of when the device fleet was last updated.
-describeDeviceFleetResponse ::
-  -- | 'ddfrrsResponseStatus'
-  Int ->
-  -- | 'ddfrrsDeviceFleetName'
-  Text ->
-  -- | 'ddfrrsDeviceFleetARN'
-  Text ->
-  -- | 'ddfrrsOutputConfig'
+-- 'creationTime', 'describeDeviceFleetResponse_creationTime' - Timestamp of when the device fleet was created.
+--
+-- 'lastModifiedTime', 'describeDeviceFleetResponse_lastModifiedTime' - Timestamp of when the device fleet was last updated.
+newDescribeDeviceFleetResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'deviceFleetName'
+  Prelude.Text ->
+  -- | 'deviceFleetArn'
+  Prelude.Text ->
+  -- | 'outputConfig'
   EdgeOutputConfig ->
-  -- | 'ddfrrsCreationTime'
-  UTCTime ->
-  -- | 'ddfrrsLastModifiedTime'
-  UTCTime ->
+  -- | 'creationTime'
+  Prelude.UTCTime ->
+  -- | 'lastModifiedTime'
+  Prelude.UTCTime ->
   DescribeDeviceFleetResponse
-describeDeviceFleetResponse
-  pResponseStatus_
+newDescribeDeviceFleetResponse
+  pHttpStatus_
   pDeviceFleetName_
-  pDeviceFleetARN_
+  pDeviceFleetArn_
   pOutputConfig_
   pCreationTime_
   pLastModifiedTime_ =
     DescribeDeviceFleetResponse'
-      { _ddfrrsRoleARN =
-          Nothing,
-        _ddfrrsIotRoleAlias = Nothing,
-        _ddfrrsDescription = Nothing,
-        _ddfrrsResponseStatus = pResponseStatus_,
-        _ddfrrsDeviceFleetName = pDeviceFleetName_,
-        _ddfrrsDeviceFleetARN = pDeviceFleetARN_,
-        _ddfrrsOutputConfig = pOutputConfig_,
-        _ddfrrsCreationTime = _Time # pCreationTime_,
-        _ddfrrsLastModifiedTime =
-          _Time # pLastModifiedTime_
+      { roleArn =
+          Prelude.Nothing,
+        iotRoleAlias = Prelude.Nothing,
+        description = Prelude.Nothing,
+        httpStatus = pHttpStatus_,
+        deviceFleetName = pDeviceFleetName_,
+        deviceFleetArn = pDeviceFleetArn_,
+        outputConfig = pOutputConfig_,
+        creationTime =
+          Prelude._Time Lens.# pCreationTime_,
+        lastModifiedTime =
+          Prelude._Time Lens.# pLastModifiedTime_
       }
 
--- | The Amazon Resource Name (ARN) that has access to AWS Internet of Things (IoT).
-ddfrrsRoleARN :: Lens' DescribeDeviceFleetResponse (Maybe Text)
-ddfrrsRoleARN = lens _ddfrrsRoleARN (\s a -> s {_ddfrrsRoleARN = a})
+-- | The Amazon Resource Name (ARN) that has access to AWS Internet of Things
+-- (IoT).
+describeDeviceFleetResponse_roleArn :: Lens.Lens' DescribeDeviceFleetResponse (Prelude.Maybe Prelude.Text)
+describeDeviceFleetResponse_roleArn = Lens.lens (\DescribeDeviceFleetResponse' {roleArn} -> roleArn) (\s@DescribeDeviceFleetResponse' {} a -> s {roleArn = a} :: DescribeDeviceFleetResponse)
 
--- | The Amazon Resource Name (ARN) alias created in AWS Internet of Things (IoT).
-ddfrrsIotRoleAlias :: Lens' DescribeDeviceFleetResponse (Maybe Text)
-ddfrrsIotRoleAlias = lens _ddfrrsIotRoleAlias (\s a -> s {_ddfrrsIotRoleAlias = a})
+-- | The Amazon Resource Name (ARN) alias created in AWS Internet of Things
+-- (IoT).
+describeDeviceFleetResponse_iotRoleAlias :: Lens.Lens' DescribeDeviceFleetResponse (Prelude.Maybe Prelude.Text)
+describeDeviceFleetResponse_iotRoleAlias = Lens.lens (\DescribeDeviceFleetResponse' {iotRoleAlias} -> iotRoleAlias) (\s@DescribeDeviceFleetResponse' {} a -> s {iotRoleAlias = a} :: DescribeDeviceFleetResponse)
 
 -- | A description of the fleet.
-ddfrrsDescription :: Lens' DescribeDeviceFleetResponse (Maybe Text)
-ddfrrsDescription = lens _ddfrrsDescription (\s a -> s {_ddfrrsDescription = a})
+describeDeviceFleetResponse_description :: Lens.Lens' DescribeDeviceFleetResponse (Prelude.Maybe Prelude.Text)
+describeDeviceFleetResponse_description = Lens.lens (\DescribeDeviceFleetResponse' {description} -> description) (\s@DescribeDeviceFleetResponse' {} a -> s {description = a} :: DescribeDeviceFleetResponse)
 
--- | -- | The response status code.
-ddfrrsResponseStatus :: Lens' DescribeDeviceFleetResponse Int
-ddfrrsResponseStatus = lens _ddfrrsResponseStatus (\s a -> s {_ddfrrsResponseStatus = a})
+-- | The response's http status code.
+describeDeviceFleetResponse_httpStatus :: Lens.Lens' DescribeDeviceFleetResponse Prelude.Int
+describeDeviceFleetResponse_httpStatus = Lens.lens (\DescribeDeviceFleetResponse' {httpStatus} -> httpStatus) (\s@DescribeDeviceFleetResponse' {} a -> s {httpStatus = a} :: DescribeDeviceFleetResponse)
 
 -- | The name of the fleet.
-ddfrrsDeviceFleetName :: Lens' DescribeDeviceFleetResponse Text
-ddfrrsDeviceFleetName = lens _ddfrrsDeviceFleetName (\s a -> s {_ddfrrsDeviceFleetName = a})
+describeDeviceFleetResponse_deviceFleetName :: Lens.Lens' DescribeDeviceFleetResponse Prelude.Text
+describeDeviceFleetResponse_deviceFleetName = Lens.lens (\DescribeDeviceFleetResponse' {deviceFleetName} -> deviceFleetName) (\s@DescribeDeviceFleetResponse' {} a -> s {deviceFleetName = a} :: DescribeDeviceFleetResponse)
 
 -- | The The Amazon Resource Name (ARN) of the fleet.
-ddfrrsDeviceFleetARN :: Lens' DescribeDeviceFleetResponse Text
-ddfrrsDeviceFleetARN = lens _ddfrrsDeviceFleetARN (\s a -> s {_ddfrrsDeviceFleetARN = a})
+describeDeviceFleetResponse_deviceFleetArn :: Lens.Lens' DescribeDeviceFleetResponse Prelude.Text
+describeDeviceFleetResponse_deviceFleetArn = Lens.lens (\DescribeDeviceFleetResponse' {deviceFleetArn} -> deviceFleetArn) (\s@DescribeDeviceFleetResponse' {} a -> s {deviceFleetArn = a} :: DescribeDeviceFleetResponse)
 
 -- | The output configuration for storing sampled data.
-ddfrrsOutputConfig :: Lens' DescribeDeviceFleetResponse EdgeOutputConfig
-ddfrrsOutputConfig = lens _ddfrrsOutputConfig (\s a -> s {_ddfrrsOutputConfig = a})
+describeDeviceFleetResponse_outputConfig :: Lens.Lens' DescribeDeviceFleetResponse EdgeOutputConfig
+describeDeviceFleetResponse_outputConfig = Lens.lens (\DescribeDeviceFleetResponse' {outputConfig} -> outputConfig) (\s@DescribeDeviceFleetResponse' {} a -> s {outputConfig = a} :: DescribeDeviceFleetResponse)
 
 -- | Timestamp of when the device fleet was created.
-ddfrrsCreationTime :: Lens' DescribeDeviceFleetResponse UTCTime
-ddfrrsCreationTime = lens _ddfrrsCreationTime (\s a -> s {_ddfrrsCreationTime = a}) . _Time
+describeDeviceFleetResponse_creationTime :: Lens.Lens' DescribeDeviceFleetResponse Prelude.UTCTime
+describeDeviceFleetResponse_creationTime = Lens.lens (\DescribeDeviceFleetResponse' {creationTime} -> creationTime) (\s@DescribeDeviceFleetResponse' {} a -> s {creationTime = a} :: DescribeDeviceFleetResponse) Prelude.. Prelude._Time
 
 -- | Timestamp of when the device fleet was last updated.
-ddfrrsLastModifiedTime :: Lens' DescribeDeviceFleetResponse UTCTime
-ddfrrsLastModifiedTime = lens _ddfrrsLastModifiedTime (\s a -> s {_ddfrrsLastModifiedTime = a}) . _Time
+describeDeviceFleetResponse_lastModifiedTime :: Lens.Lens' DescribeDeviceFleetResponse Prelude.UTCTime
+describeDeviceFleetResponse_lastModifiedTime = Lens.lens (\DescribeDeviceFleetResponse' {lastModifiedTime} -> lastModifiedTime) (\s@DescribeDeviceFleetResponse' {} a -> s {lastModifiedTime = a} :: DescribeDeviceFleetResponse) Prelude.. Prelude._Time
 
-instance NFData DescribeDeviceFleetResponse
+instance Prelude.NFData DescribeDeviceFleetResponse

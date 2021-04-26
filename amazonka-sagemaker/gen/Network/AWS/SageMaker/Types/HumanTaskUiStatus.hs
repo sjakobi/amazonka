@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.SageMaker.Types.HumanTaskUiStatus
   ( HumanTaskUiStatus
       ( ..,
-        HTUSActive,
-        HTUSDeleting
+        HumanTaskUiStatusActive,
+        HumanTaskUiStatusDeleting
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data HumanTaskUiStatus = HumanTaskUiStatus' (CI Text)
+newtype HumanTaskUiStatus = HumanTaskUiStatus'
+  { fromHumanTaskUiStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HTUSActive :: HumanTaskUiStatus
-pattern HTUSActive = HumanTaskUiStatus' "Active"
+pattern HumanTaskUiStatusActive :: HumanTaskUiStatus
+pattern HumanTaskUiStatusActive = HumanTaskUiStatus' "Active"
 
-pattern HTUSDeleting :: HumanTaskUiStatus
-pattern HTUSDeleting = HumanTaskUiStatus' "Deleting"
+pattern HumanTaskUiStatusDeleting :: HumanTaskUiStatus
+pattern HumanTaskUiStatusDeleting = HumanTaskUiStatus' "Deleting"
 
 {-# COMPLETE
-  HTUSActive,
-  HTUSDeleting,
+  HumanTaskUiStatusActive,
+  HumanTaskUiStatusDeleting,
   HumanTaskUiStatus'
   #-}
 
-instance FromText HumanTaskUiStatus where
-  parser = (HumanTaskUiStatus' . mk) <$> takeText
+instance Prelude.FromText HumanTaskUiStatus where
+  parser = HumanTaskUiStatus' Prelude.<$> Prelude.takeText
 
-instance ToText HumanTaskUiStatus where
-  toText (HumanTaskUiStatus' ci) = original ci
+instance Prelude.ToText HumanTaskUiStatus where
+  toText (HumanTaskUiStatus' x) = x
 
-instance Hashable HumanTaskUiStatus
+instance Prelude.Hashable HumanTaskUiStatus
 
-instance NFData HumanTaskUiStatus
+instance Prelude.NFData HumanTaskUiStatus
 
-instance ToByteString HumanTaskUiStatus
+instance Prelude.ToByteString HumanTaskUiStatus
 
-instance ToQuery HumanTaskUiStatus
+instance Prelude.ToQuery HumanTaskUiStatus
 
-instance ToHeader HumanTaskUiStatus
+instance Prelude.ToHeader HumanTaskUiStatus
 
-instance FromJSON HumanTaskUiStatus where
-  parseJSON = parseJSONText "HumanTaskUiStatus"
+instance Prelude.FromJSON HumanTaskUiStatus where
+  parseJSON = Prelude.parseJSONText "HumanTaskUiStatus"

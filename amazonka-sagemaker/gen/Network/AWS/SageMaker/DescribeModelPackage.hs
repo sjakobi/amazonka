@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,382 +21,380 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns a description of the specified model package, which is used to create Amazon SageMaker models or list them on AWS Marketplace.
+-- Returns a description of the specified model package, which is used to
+-- create Amazon SageMaker models or list them on AWS Marketplace.
 --
---
--- To create models in Amazon SageMaker, buyers can subscribe to model packages listed on AWS Marketplace.
+-- To create models in Amazon SageMaker, buyers can subscribe to model
+-- packages listed on AWS Marketplace.
 module Network.AWS.SageMaker.DescribeModelPackage
   ( -- * Creating a Request
-    describeModelPackage,
-    DescribeModelPackage,
+    DescribeModelPackage (..),
+    newDescribeModelPackage,
 
     -- * Request Lenses
-    dModelPackageName,
+    describeModelPackage_modelPackageName,
 
     -- * Destructuring the Response
-    describeModelPackageResponse,
-    DescribeModelPackageResponse,
+    DescribeModelPackageResponse (..),
+    newDescribeModelPackageResponse,
 
     -- * Response Lenses
-    dmprrsSourceAlgorithmSpecification,
-    dmprrsModelPackageVersion,
-    dmprrsMetadataProperties,
-    dmprrsValidationSpecification,
-    dmprrsModelMetrics,
-    dmprrsCertifyForMarketplace,
-    dmprrsModelApprovalStatus,
-    dmprrsApprovalDescription,
-    dmprrsLastModifiedTime,
-    dmprrsInferenceSpecification,
-    dmprrsModelPackageDescription,
-    dmprrsCreatedBy,
-    dmprrsLastModifiedBy,
-    dmprrsModelPackageGroupName,
-    dmprrsResponseStatus,
-    dmprrsModelPackageName,
-    dmprrsModelPackageARN,
-    dmprrsCreationTime,
-    dmprrsModelPackageStatus,
-    dmprrsModelPackageStatusDetails,
+    describeModelPackageResponse_sourceAlgorithmSpecification,
+    describeModelPackageResponse_modelPackageVersion,
+    describeModelPackageResponse_metadataProperties,
+    describeModelPackageResponse_validationSpecification,
+    describeModelPackageResponse_modelMetrics,
+    describeModelPackageResponse_certifyForMarketplace,
+    describeModelPackageResponse_modelApprovalStatus,
+    describeModelPackageResponse_approvalDescription,
+    describeModelPackageResponse_lastModifiedTime,
+    describeModelPackageResponse_inferenceSpecification,
+    describeModelPackageResponse_modelPackageDescription,
+    describeModelPackageResponse_createdBy,
+    describeModelPackageResponse_lastModifiedBy,
+    describeModelPackageResponse_modelPackageGroupName,
+    describeModelPackageResponse_httpStatus,
+    describeModelPackageResponse_modelPackageName,
+    describeModelPackageResponse_modelPackageArn,
+    describeModelPackageResponse_creationTime,
+    describeModelPackageResponse_modelPackageStatus,
+    describeModelPackageResponse_modelPackageStatusDetails,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
+import Network.AWS.SageMaker.Types.InferenceSpecification
+import Network.AWS.SageMaker.Types.MetadataProperties
+import Network.AWS.SageMaker.Types.ModelApprovalStatus
+import Network.AWS.SageMaker.Types.ModelMetrics
+import Network.AWS.SageMaker.Types.ModelPackageStatus
+import Network.AWS.SageMaker.Types.ModelPackageStatusDetails
+import Network.AWS.SageMaker.Types.ModelPackageValidationSpecification
+import Network.AWS.SageMaker.Types.SourceAlgorithmSpecification
+import Network.AWS.SageMaker.Types.UserContext
 
--- | /See:/ 'describeModelPackage' smart constructor.
-newtype DescribeModelPackage = DescribeModelPackage'
-  { _dModelPackageName ::
-      Text
+-- | /See:/ 'newDescribeModelPackage' smart constructor.
+data DescribeModelPackage = DescribeModelPackage'
+  { -- | The name of the model package to describe.
+    modelPackageName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeModelPackage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeModelPackage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dModelPackageName' - The name of the model package to describe.
-describeModelPackage ::
-  -- | 'dModelPackageName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'modelPackageName', 'describeModelPackage_modelPackageName' - The name of the model package to describe.
+newDescribeModelPackage ::
+  -- | 'modelPackageName'
+  Prelude.Text ->
   DescribeModelPackage
-describeModelPackage pModelPackageName_ =
+newDescribeModelPackage pModelPackageName_ =
   DescribeModelPackage'
-    { _dModelPackageName =
+    { modelPackageName =
         pModelPackageName_
     }
 
 -- | The name of the model package to describe.
-dModelPackageName :: Lens' DescribeModelPackage Text
-dModelPackageName = lens _dModelPackageName (\s a -> s {_dModelPackageName = a})
+describeModelPackage_modelPackageName :: Lens.Lens' DescribeModelPackage Prelude.Text
+describeModelPackage_modelPackageName = Lens.lens (\DescribeModelPackage' {modelPackageName} -> modelPackageName) (\s@DescribeModelPackage' {} a -> s {modelPackageName = a} :: DescribeModelPackage)
 
-instance AWSRequest DescribeModelPackage where
+instance Prelude.AWSRequest DescribeModelPackage where
   type
     Rs DescribeModelPackage =
       DescribeModelPackageResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeModelPackageResponse'
-            <$> (x .?> "SourceAlgorithmSpecification")
-            <*> (x .?> "ModelPackageVersion")
-            <*> (x .?> "MetadataProperties")
-            <*> (x .?> "ValidationSpecification")
-            <*> (x .?> "ModelMetrics")
-            <*> (x .?> "CertifyForMarketplace")
-            <*> (x .?> "ModelApprovalStatus")
-            <*> (x .?> "ApprovalDescription")
-            <*> (x .?> "LastModifiedTime")
-            <*> (x .?> "InferenceSpecification")
-            <*> (x .?> "ModelPackageDescription")
-            <*> (x .?> "CreatedBy")
-            <*> (x .?> "LastModifiedBy")
-            <*> (x .?> "ModelPackageGroupName")
-            <*> (pure (fromEnum s))
-            <*> (x .:> "ModelPackageName")
-            <*> (x .:> "ModelPackageArn")
-            <*> (x .:> "CreationTime")
-            <*> (x .:> "ModelPackageStatus")
-            <*> (x .:> "ModelPackageStatusDetails")
+            Prelude.<$> (x Prelude..?> "SourceAlgorithmSpecification")
+            Prelude.<*> (x Prelude..?> "ModelPackageVersion")
+            Prelude.<*> (x Prelude..?> "MetadataProperties")
+            Prelude.<*> (x Prelude..?> "ValidationSpecification")
+            Prelude.<*> (x Prelude..?> "ModelMetrics")
+            Prelude.<*> (x Prelude..?> "CertifyForMarketplace")
+            Prelude.<*> (x Prelude..?> "ModelApprovalStatus")
+            Prelude.<*> (x Prelude..?> "ApprovalDescription")
+            Prelude.<*> (x Prelude..?> "LastModifiedTime")
+            Prelude.<*> (x Prelude..?> "InferenceSpecification")
+            Prelude.<*> (x Prelude..?> "ModelPackageDescription")
+            Prelude.<*> (x Prelude..?> "CreatedBy")
+            Prelude.<*> (x Prelude..?> "LastModifiedBy")
+            Prelude.<*> (x Prelude..?> "ModelPackageGroupName")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "ModelPackageName")
+            Prelude.<*> (x Prelude..:> "ModelPackageArn")
+            Prelude.<*> (x Prelude..:> "CreationTime")
+            Prelude.<*> (x Prelude..:> "ModelPackageStatus")
+            Prelude.<*> (x Prelude..:> "ModelPackageStatusDetails")
       )
 
-instance Hashable DescribeModelPackage
+instance Prelude.Hashable DescribeModelPackage
 
-instance NFData DescribeModelPackage
+instance Prelude.NFData DescribeModelPackage
 
-instance ToHeaders DescribeModelPackage where
+instance Prelude.ToHeaders DescribeModelPackage where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.DescribeModelPackage" :: ByteString),
+              Prelude.=# ( "SageMaker.DescribeModelPackage" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeModelPackage where
+instance Prelude.ToJSON DescribeModelPackage where
   toJSON DescribeModelPackage' {..} =
-    object
-      ( catMaybes
-          [Just ("ModelPackageName" .= _dModelPackageName)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("ModelPackageName" Prelude..= modelPackageName)
+          ]
       )
 
-instance ToPath DescribeModelPackage where
-  toPath = const "/"
+instance Prelude.ToPath DescribeModelPackage where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeModelPackage where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeModelPackage where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeModelPackageResponse' smart constructor.
+-- | /See:/ 'newDescribeModelPackageResponse' smart constructor.
 data DescribeModelPackageResponse = DescribeModelPackageResponse'
-  { _dmprrsSourceAlgorithmSpecification ::
-      !( Maybe
-           SourceAlgorithmSpecification
-       ),
-    _dmprrsModelPackageVersion ::
-      !(Maybe Nat),
-    _dmprrsMetadataProperties ::
-      !( Maybe
-           MetadataProperties
-       ),
-    _dmprrsValidationSpecification ::
-      !( Maybe
-           ModelPackageValidationSpecification
-       ),
-    _dmprrsModelMetrics ::
-      !( Maybe
-           ModelMetrics
-       ),
-    _dmprrsCertifyForMarketplace ::
-      !(Maybe Bool),
-    _dmprrsModelApprovalStatus ::
-      !( Maybe
-           ModelApprovalStatus
-       ),
-    _dmprrsApprovalDescription ::
-      !(Maybe Text),
-    _dmprrsLastModifiedTime ::
-      !( Maybe
-           POSIX
-       ),
-    _dmprrsInferenceSpecification ::
-      !( Maybe
-           InferenceSpecification
-       ),
-    _dmprrsModelPackageDescription ::
-      !(Maybe Text),
-    _dmprrsCreatedBy ::
-      !( Maybe
-           UserContext
-       ),
-    _dmprrsLastModifiedBy ::
-      !( Maybe
-           UserContext
-       ),
-    _dmprrsModelPackageGroupName ::
-      !(Maybe Text),
-    _dmprrsResponseStatus ::
-      !Int,
-    _dmprrsModelPackageName ::
-      !Text,
-    _dmprrsModelPackageARN ::
-      !Text,
-    _dmprrsCreationTime ::
-      !POSIX,
-    _dmprrsModelPackageStatus ::
-      !ModelPackageStatus,
-    _dmprrsModelPackageStatusDetails ::
-      !ModelPackageStatusDetails
+  { -- | Details about the algorithm that was used to create the model package.
+    sourceAlgorithmSpecification :: Prelude.Maybe SourceAlgorithmSpecification,
+    -- | The version of the model package.
+    modelPackageVersion :: Prelude.Maybe Prelude.Nat,
+    metadataProperties :: Prelude.Maybe MetadataProperties,
+    -- | Configurations for one or more transform jobs that Amazon SageMaker runs
+    -- to test the model package.
+    validationSpecification :: Prelude.Maybe ModelPackageValidationSpecification,
+    -- | Metrics for the model.
+    modelMetrics :: Prelude.Maybe ModelMetrics,
+    -- | Whether the model package is certified for listing on AWS Marketplace.
+    certifyForMarketplace :: Prelude.Maybe Prelude.Bool,
+    -- | The approval status of the model package.
+    modelApprovalStatus :: Prelude.Maybe ModelApprovalStatus,
+    -- | A description provided for the model approval.
+    approvalDescription :: Prelude.Maybe Prelude.Text,
+    -- | The last time the model package was modified.
+    lastModifiedTime :: Prelude.Maybe Prelude.POSIX,
+    -- | Details about inference jobs that can be run with models based on this
+    -- model package.
+    inferenceSpecification :: Prelude.Maybe InferenceSpecification,
+    -- | A brief summary of the model package.
+    modelPackageDescription :: Prelude.Maybe Prelude.Text,
+    createdBy :: Prelude.Maybe UserContext,
+    lastModifiedBy :: Prelude.Maybe UserContext,
+    -- | If the model is a versioned model, the name of the model group that the
+    -- versioned model belongs to.
+    modelPackageGroupName :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The name of the model package being described.
+    modelPackageName :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the model package.
+    modelPackageArn :: Prelude.Text,
+    -- | A timestamp specifying when the model package was created.
+    creationTime :: Prelude.POSIX,
+    -- | The current status of the model package.
+    modelPackageStatus :: ModelPackageStatus,
+    -- | Details about the current status of the model package.
+    modelPackageStatusDetails :: ModelPackageStatusDetails
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeModelPackageResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeModelPackageResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dmprrsSourceAlgorithmSpecification' - Details about the algorithm that was used to create the model package.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dmprrsModelPackageVersion' - The version of the model package.
+-- 'sourceAlgorithmSpecification', 'describeModelPackageResponse_sourceAlgorithmSpecification' - Details about the algorithm that was used to create the model package.
 --
--- * 'dmprrsMetadataProperties' - Undocumented member.
+-- 'modelPackageVersion', 'describeModelPackageResponse_modelPackageVersion' - The version of the model package.
 --
--- * 'dmprrsValidationSpecification' - Configurations for one or more transform jobs that Amazon SageMaker runs to test the model package.
+-- 'metadataProperties', 'describeModelPackageResponse_metadataProperties' - Undocumented member.
 --
--- * 'dmprrsModelMetrics' - Metrics for the model.
+-- 'validationSpecification', 'describeModelPackageResponse_validationSpecification' - Configurations for one or more transform jobs that Amazon SageMaker runs
+-- to test the model package.
 --
--- * 'dmprrsCertifyForMarketplace' - Whether the model package is certified for listing on AWS Marketplace.
+-- 'modelMetrics', 'describeModelPackageResponse_modelMetrics' - Metrics for the model.
 --
--- * 'dmprrsModelApprovalStatus' - The approval status of the model package.
+-- 'certifyForMarketplace', 'describeModelPackageResponse_certifyForMarketplace' - Whether the model package is certified for listing on AWS Marketplace.
 --
--- * 'dmprrsApprovalDescription' - A description provided for the model approval.
+-- 'modelApprovalStatus', 'describeModelPackageResponse_modelApprovalStatus' - The approval status of the model package.
 --
--- * 'dmprrsLastModifiedTime' - The last time the model package was modified.
+-- 'approvalDescription', 'describeModelPackageResponse_approvalDescription' - A description provided for the model approval.
 --
--- * 'dmprrsInferenceSpecification' - Details about inference jobs that can be run with models based on this model package.
+-- 'lastModifiedTime', 'describeModelPackageResponse_lastModifiedTime' - The last time the model package was modified.
 --
--- * 'dmprrsModelPackageDescription' - A brief summary of the model package.
+-- 'inferenceSpecification', 'describeModelPackageResponse_inferenceSpecification' - Details about inference jobs that can be run with models based on this
+-- model package.
 --
--- * 'dmprrsCreatedBy' - Undocumented member.
+-- 'modelPackageDescription', 'describeModelPackageResponse_modelPackageDescription' - A brief summary of the model package.
 --
--- * 'dmprrsLastModifiedBy' - Undocumented member.
+-- 'createdBy', 'describeModelPackageResponse_createdBy' - Undocumented member.
 --
--- * 'dmprrsModelPackageGroupName' - If the model is a versioned model, the name of the model group that the versioned model belongs to.
+-- 'lastModifiedBy', 'describeModelPackageResponse_lastModifiedBy' - Undocumented member.
 --
--- * 'dmprrsResponseStatus' - -- | The response status code.
+-- 'modelPackageGroupName', 'describeModelPackageResponse_modelPackageGroupName' - If the model is a versioned model, the name of the model group that the
+-- versioned model belongs to.
 --
--- * 'dmprrsModelPackageName' - The name of the model package being described.
+-- 'httpStatus', 'describeModelPackageResponse_httpStatus' - The response's http status code.
 --
--- * 'dmprrsModelPackageARN' - The Amazon Resource Name (ARN) of the model package.
+-- 'modelPackageName', 'describeModelPackageResponse_modelPackageName' - The name of the model package being described.
 --
--- * 'dmprrsCreationTime' - A timestamp specifying when the model package was created.
+-- 'modelPackageArn', 'describeModelPackageResponse_modelPackageArn' - The Amazon Resource Name (ARN) of the model package.
 --
--- * 'dmprrsModelPackageStatus' - The current status of the model package.
+-- 'creationTime', 'describeModelPackageResponse_creationTime' - A timestamp specifying when the model package was created.
 --
--- * 'dmprrsModelPackageStatusDetails' - Details about the current status of the model package.
-describeModelPackageResponse ::
-  -- | 'dmprrsResponseStatus'
-  Int ->
-  -- | 'dmprrsModelPackageName'
-  Text ->
-  -- | 'dmprrsModelPackageARN'
-  Text ->
-  -- | 'dmprrsCreationTime'
-  UTCTime ->
-  -- | 'dmprrsModelPackageStatus'
+-- 'modelPackageStatus', 'describeModelPackageResponse_modelPackageStatus' - The current status of the model package.
+--
+-- 'modelPackageStatusDetails', 'describeModelPackageResponse_modelPackageStatusDetails' - Details about the current status of the model package.
+newDescribeModelPackageResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'modelPackageName'
+  Prelude.Text ->
+  -- | 'modelPackageArn'
+  Prelude.Text ->
+  -- | 'creationTime'
+  Prelude.UTCTime ->
+  -- | 'modelPackageStatus'
   ModelPackageStatus ->
-  -- | 'dmprrsModelPackageStatusDetails'
+  -- | 'modelPackageStatusDetails'
   ModelPackageStatusDetails ->
   DescribeModelPackageResponse
-describeModelPackageResponse
-  pResponseStatus_
+newDescribeModelPackageResponse
+  pHttpStatus_
   pModelPackageName_
-  pModelPackageARN_
+  pModelPackageArn_
   pCreationTime_
   pModelPackageStatus_
   pModelPackageStatusDetails_ =
     DescribeModelPackageResponse'
-      { _dmprrsSourceAlgorithmSpecification =
-          Nothing,
-        _dmprrsModelPackageVersion = Nothing,
-        _dmprrsMetadataProperties = Nothing,
-        _dmprrsValidationSpecification = Nothing,
-        _dmprrsModelMetrics = Nothing,
-        _dmprrsCertifyForMarketplace = Nothing,
-        _dmprrsModelApprovalStatus = Nothing,
-        _dmprrsApprovalDescription = Nothing,
-        _dmprrsLastModifiedTime = Nothing,
-        _dmprrsInferenceSpecification = Nothing,
-        _dmprrsModelPackageDescription = Nothing,
-        _dmprrsCreatedBy = Nothing,
-        _dmprrsLastModifiedBy = Nothing,
-        _dmprrsModelPackageGroupName = Nothing,
-        _dmprrsResponseStatus = pResponseStatus_,
-        _dmprrsModelPackageName = pModelPackageName_,
-        _dmprrsModelPackageARN = pModelPackageARN_,
-        _dmprrsCreationTime = _Time # pCreationTime_,
-        _dmprrsModelPackageStatus =
-          pModelPackageStatus_,
-        _dmprrsModelPackageStatusDetails =
+      { sourceAlgorithmSpecification =
+          Prelude.Nothing,
+        modelPackageVersion = Prelude.Nothing,
+        metadataProperties = Prelude.Nothing,
+        validationSpecification = Prelude.Nothing,
+        modelMetrics = Prelude.Nothing,
+        certifyForMarketplace = Prelude.Nothing,
+        modelApprovalStatus = Prelude.Nothing,
+        approvalDescription = Prelude.Nothing,
+        lastModifiedTime = Prelude.Nothing,
+        inferenceSpecification = Prelude.Nothing,
+        modelPackageDescription = Prelude.Nothing,
+        createdBy = Prelude.Nothing,
+        lastModifiedBy = Prelude.Nothing,
+        modelPackageGroupName = Prelude.Nothing,
+        httpStatus = pHttpStatus_,
+        modelPackageName = pModelPackageName_,
+        modelPackageArn = pModelPackageArn_,
+        creationTime =
+          Prelude._Time Lens.# pCreationTime_,
+        modelPackageStatus = pModelPackageStatus_,
+        modelPackageStatusDetails =
           pModelPackageStatusDetails_
       }
 
 -- | Details about the algorithm that was used to create the model package.
-dmprrsSourceAlgorithmSpecification :: Lens' DescribeModelPackageResponse (Maybe SourceAlgorithmSpecification)
-dmprrsSourceAlgorithmSpecification = lens _dmprrsSourceAlgorithmSpecification (\s a -> s {_dmprrsSourceAlgorithmSpecification = a})
+describeModelPackageResponse_sourceAlgorithmSpecification :: Lens.Lens' DescribeModelPackageResponse (Prelude.Maybe SourceAlgorithmSpecification)
+describeModelPackageResponse_sourceAlgorithmSpecification = Lens.lens (\DescribeModelPackageResponse' {sourceAlgorithmSpecification} -> sourceAlgorithmSpecification) (\s@DescribeModelPackageResponse' {} a -> s {sourceAlgorithmSpecification = a} :: DescribeModelPackageResponse)
 
 -- | The version of the model package.
-dmprrsModelPackageVersion :: Lens' DescribeModelPackageResponse (Maybe Natural)
-dmprrsModelPackageVersion = lens _dmprrsModelPackageVersion (\s a -> s {_dmprrsModelPackageVersion = a}) . mapping _Nat
+describeModelPackageResponse_modelPackageVersion :: Lens.Lens' DescribeModelPackageResponse (Prelude.Maybe Prelude.Natural)
+describeModelPackageResponse_modelPackageVersion = Lens.lens (\DescribeModelPackageResponse' {modelPackageVersion} -> modelPackageVersion) (\s@DescribeModelPackageResponse' {} a -> s {modelPackageVersion = a} :: DescribeModelPackageResponse) Prelude.. Lens.mapping Prelude._Nat
 
 -- | Undocumented member.
-dmprrsMetadataProperties :: Lens' DescribeModelPackageResponse (Maybe MetadataProperties)
-dmprrsMetadataProperties = lens _dmprrsMetadataProperties (\s a -> s {_dmprrsMetadataProperties = a})
+describeModelPackageResponse_metadataProperties :: Lens.Lens' DescribeModelPackageResponse (Prelude.Maybe MetadataProperties)
+describeModelPackageResponse_metadataProperties = Lens.lens (\DescribeModelPackageResponse' {metadataProperties} -> metadataProperties) (\s@DescribeModelPackageResponse' {} a -> s {metadataProperties = a} :: DescribeModelPackageResponse)
 
--- | Configurations for one or more transform jobs that Amazon SageMaker runs to test the model package.
-dmprrsValidationSpecification :: Lens' DescribeModelPackageResponse (Maybe ModelPackageValidationSpecification)
-dmprrsValidationSpecification = lens _dmprrsValidationSpecification (\s a -> s {_dmprrsValidationSpecification = a})
+-- | Configurations for one or more transform jobs that Amazon SageMaker runs
+-- to test the model package.
+describeModelPackageResponse_validationSpecification :: Lens.Lens' DescribeModelPackageResponse (Prelude.Maybe ModelPackageValidationSpecification)
+describeModelPackageResponse_validationSpecification = Lens.lens (\DescribeModelPackageResponse' {validationSpecification} -> validationSpecification) (\s@DescribeModelPackageResponse' {} a -> s {validationSpecification = a} :: DescribeModelPackageResponse)
 
 -- | Metrics for the model.
-dmprrsModelMetrics :: Lens' DescribeModelPackageResponse (Maybe ModelMetrics)
-dmprrsModelMetrics = lens _dmprrsModelMetrics (\s a -> s {_dmprrsModelMetrics = a})
+describeModelPackageResponse_modelMetrics :: Lens.Lens' DescribeModelPackageResponse (Prelude.Maybe ModelMetrics)
+describeModelPackageResponse_modelMetrics = Lens.lens (\DescribeModelPackageResponse' {modelMetrics} -> modelMetrics) (\s@DescribeModelPackageResponse' {} a -> s {modelMetrics = a} :: DescribeModelPackageResponse)
 
 -- | Whether the model package is certified for listing on AWS Marketplace.
-dmprrsCertifyForMarketplace :: Lens' DescribeModelPackageResponse (Maybe Bool)
-dmprrsCertifyForMarketplace = lens _dmprrsCertifyForMarketplace (\s a -> s {_dmprrsCertifyForMarketplace = a})
+describeModelPackageResponse_certifyForMarketplace :: Lens.Lens' DescribeModelPackageResponse (Prelude.Maybe Prelude.Bool)
+describeModelPackageResponse_certifyForMarketplace = Lens.lens (\DescribeModelPackageResponse' {certifyForMarketplace} -> certifyForMarketplace) (\s@DescribeModelPackageResponse' {} a -> s {certifyForMarketplace = a} :: DescribeModelPackageResponse)
 
 -- | The approval status of the model package.
-dmprrsModelApprovalStatus :: Lens' DescribeModelPackageResponse (Maybe ModelApprovalStatus)
-dmprrsModelApprovalStatus = lens _dmprrsModelApprovalStatus (\s a -> s {_dmprrsModelApprovalStatus = a})
+describeModelPackageResponse_modelApprovalStatus :: Lens.Lens' DescribeModelPackageResponse (Prelude.Maybe ModelApprovalStatus)
+describeModelPackageResponse_modelApprovalStatus = Lens.lens (\DescribeModelPackageResponse' {modelApprovalStatus} -> modelApprovalStatus) (\s@DescribeModelPackageResponse' {} a -> s {modelApprovalStatus = a} :: DescribeModelPackageResponse)
 
 -- | A description provided for the model approval.
-dmprrsApprovalDescription :: Lens' DescribeModelPackageResponse (Maybe Text)
-dmprrsApprovalDescription = lens _dmprrsApprovalDescription (\s a -> s {_dmprrsApprovalDescription = a})
+describeModelPackageResponse_approvalDescription :: Lens.Lens' DescribeModelPackageResponse (Prelude.Maybe Prelude.Text)
+describeModelPackageResponse_approvalDescription = Lens.lens (\DescribeModelPackageResponse' {approvalDescription} -> approvalDescription) (\s@DescribeModelPackageResponse' {} a -> s {approvalDescription = a} :: DescribeModelPackageResponse)
 
 -- | The last time the model package was modified.
-dmprrsLastModifiedTime :: Lens' DescribeModelPackageResponse (Maybe UTCTime)
-dmprrsLastModifiedTime = lens _dmprrsLastModifiedTime (\s a -> s {_dmprrsLastModifiedTime = a}) . mapping _Time
+describeModelPackageResponse_lastModifiedTime :: Lens.Lens' DescribeModelPackageResponse (Prelude.Maybe Prelude.UTCTime)
+describeModelPackageResponse_lastModifiedTime = Lens.lens (\DescribeModelPackageResponse' {lastModifiedTime} -> lastModifiedTime) (\s@DescribeModelPackageResponse' {} a -> s {lastModifiedTime = a} :: DescribeModelPackageResponse) Prelude.. Lens.mapping Prelude._Time
 
--- | Details about inference jobs that can be run with models based on this model package.
-dmprrsInferenceSpecification :: Lens' DescribeModelPackageResponse (Maybe InferenceSpecification)
-dmprrsInferenceSpecification = lens _dmprrsInferenceSpecification (\s a -> s {_dmprrsInferenceSpecification = a})
+-- | Details about inference jobs that can be run with models based on this
+-- model package.
+describeModelPackageResponse_inferenceSpecification :: Lens.Lens' DescribeModelPackageResponse (Prelude.Maybe InferenceSpecification)
+describeModelPackageResponse_inferenceSpecification = Lens.lens (\DescribeModelPackageResponse' {inferenceSpecification} -> inferenceSpecification) (\s@DescribeModelPackageResponse' {} a -> s {inferenceSpecification = a} :: DescribeModelPackageResponse)
 
 -- | A brief summary of the model package.
-dmprrsModelPackageDescription :: Lens' DescribeModelPackageResponse (Maybe Text)
-dmprrsModelPackageDescription = lens _dmprrsModelPackageDescription (\s a -> s {_dmprrsModelPackageDescription = a})
+describeModelPackageResponse_modelPackageDescription :: Lens.Lens' DescribeModelPackageResponse (Prelude.Maybe Prelude.Text)
+describeModelPackageResponse_modelPackageDescription = Lens.lens (\DescribeModelPackageResponse' {modelPackageDescription} -> modelPackageDescription) (\s@DescribeModelPackageResponse' {} a -> s {modelPackageDescription = a} :: DescribeModelPackageResponse)
 
 -- | Undocumented member.
-dmprrsCreatedBy :: Lens' DescribeModelPackageResponse (Maybe UserContext)
-dmprrsCreatedBy = lens _dmprrsCreatedBy (\s a -> s {_dmprrsCreatedBy = a})
+describeModelPackageResponse_createdBy :: Lens.Lens' DescribeModelPackageResponse (Prelude.Maybe UserContext)
+describeModelPackageResponse_createdBy = Lens.lens (\DescribeModelPackageResponse' {createdBy} -> createdBy) (\s@DescribeModelPackageResponse' {} a -> s {createdBy = a} :: DescribeModelPackageResponse)
 
 -- | Undocumented member.
-dmprrsLastModifiedBy :: Lens' DescribeModelPackageResponse (Maybe UserContext)
-dmprrsLastModifiedBy = lens _dmprrsLastModifiedBy (\s a -> s {_dmprrsLastModifiedBy = a})
+describeModelPackageResponse_lastModifiedBy :: Lens.Lens' DescribeModelPackageResponse (Prelude.Maybe UserContext)
+describeModelPackageResponse_lastModifiedBy = Lens.lens (\DescribeModelPackageResponse' {lastModifiedBy} -> lastModifiedBy) (\s@DescribeModelPackageResponse' {} a -> s {lastModifiedBy = a} :: DescribeModelPackageResponse)
 
--- | If the model is a versioned model, the name of the model group that the versioned model belongs to.
-dmprrsModelPackageGroupName :: Lens' DescribeModelPackageResponse (Maybe Text)
-dmprrsModelPackageGroupName = lens _dmprrsModelPackageGroupName (\s a -> s {_dmprrsModelPackageGroupName = a})
+-- | If the model is a versioned model, the name of the model group that the
+-- versioned model belongs to.
+describeModelPackageResponse_modelPackageGroupName :: Lens.Lens' DescribeModelPackageResponse (Prelude.Maybe Prelude.Text)
+describeModelPackageResponse_modelPackageGroupName = Lens.lens (\DescribeModelPackageResponse' {modelPackageGroupName} -> modelPackageGroupName) (\s@DescribeModelPackageResponse' {} a -> s {modelPackageGroupName = a} :: DescribeModelPackageResponse)
 
--- | -- | The response status code.
-dmprrsResponseStatus :: Lens' DescribeModelPackageResponse Int
-dmprrsResponseStatus = lens _dmprrsResponseStatus (\s a -> s {_dmprrsResponseStatus = a})
+-- | The response's http status code.
+describeModelPackageResponse_httpStatus :: Lens.Lens' DescribeModelPackageResponse Prelude.Int
+describeModelPackageResponse_httpStatus = Lens.lens (\DescribeModelPackageResponse' {httpStatus} -> httpStatus) (\s@DescribeModelPackageResponse' {} a -> s {httpStatus = a} :: DescribeModelPackageResponse)
 
 -- | The name of the model package being described.
-dmprrsModelPackageName :: Lens' DescribeModelPackageResponse Text
-dmprrsModelPackageName = lens _dmprrsModelPackageName (\s a -> s {_dmprrsModelPackageName = a})
+describeModelPackageResponse_modelPackageName :: Lens.Lens' DescribeModelPackageResponse Prelude.Text
+describeModelPackageResponse_modelPackageName = Lens.lens (\DescribeModelPackageResponse' {modelPackageName} -> modelPackageName) (\s@DescribeModelPackageResponse' {} a -> s {modelPackageName = a} :: DescribeModelPackageResponse)
 
 -- | The Amazon Resource Name (ARN) of the model package.
-dmprrsModelPackageARN :: Lens' DescribeModelPackageResponse Text
-dmprrsModelPackageARN = lens _dmprrsModelPackageARN (\s a -> s {_dmprrsModelPackageARN = a})
+describeModelPackageResponse_modelPackageArn :: Lens.Lens' DescribeModelPackageResponse Prelude.Text
+describeModelPackageResponse_modelPackageArn = Lens.lens (\DescribeModelPackageResponse' {modelPackageArn} -> modelPackageArn) (\s@DescribeModelPackageResponse' {} a -> s {modelPackageArn = a} :: DescribeModelPackageResponse)
 
 -- | A timestamp specifying when the model package was created.
-dmprrsCreationTime :: Lens' DescribeModelPackageResponse UTCTime
-dmprrsCreationTime = lens _dmprrsCreationTime (\s a -> s {_dmprrsCreationTime = a}) . _Time
+describeModelPackageResponse_creationTime :: Lens.Lens' DescribeModelPackageResponse Prelude.UTCTime
+describeModelPackageResponse_creationTime = Lens.lens (\DescribeModelPackageResponse' {creationTime} -> creationTime) (\s@DescribeModelPackageResponse' {} a -> s {creationTime = a} :: DescribeModelPackageResponse) Prelude.. Prelude._Time
 
 -- | The current status of the model package.
-dmprrsModelPackageStatus :: Lens' DescribeModelPackageResponse ModelPackageStatus
-dmprrsModelPackageStatus = lens _dmprrsModelPackageStatus (\s a -> s {_dmprrsModelPackageStatus = a})
+describeModelPackageResponse_modelPackageStatus :: Lens.Lens' DescribeModelPackageResponse ModelPackageStatus
+describeModelPackageResponse_modelPackageStatus = Lens.lens (\DescribeModelPackageResponse' {modelPackageStatus} -> modelPackageStatus) (\s@DescribeModelPackageResponse' {} a -> s {modelPackageStatus = a} :: DescribeModelPackageResponse)
 
 -- | Details about the current status of the model package.
-dmprrsModelPackageStatusDetails :: Lens' DescribeModelPackageResponse ModelPackageStatusDetails
-dmprrsModelPackageStatusDetails = lens _dmprrsModelPackageStatusDetails (\s a -> s {_dmprrsModelPackageStatusDetails = a})
+describeModelPackageResponse_modelPackageStatusDetails :: Lens.Lens' DescribeModelPackageResponse ModelPackageStatusDetails
+describeModelPackageResponse_modelPackageStatusDetails = Lens.lens (\DescribeModelPackageResponse' {modelPackageStatusDetails} -> modelPackageStatusDetails) (\s@DescribeModelPackageResponse' {} a -> s {modelPackageStatusDetails = a} :: DescribeModelPackageResponse)
 
-instance NFData DescribeModelPackageResponse
+instance Prelude.NFData DescribeModelPackageResponse

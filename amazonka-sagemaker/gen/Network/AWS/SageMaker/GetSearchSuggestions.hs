@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,151 +21,165 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- An auto-complete API for the search functionality in the Amazon SageMaker console. It returns suggestions of possible matches for the property name to use in @Search@ queries. Provides suggestions for @HyperParameters@ , @Tags@ , and @Metrics@ .
+-- An auto-complete API for the search functionality in the Amazon
+-- SageMaker console. It returns suggestions of possible matches for the
+-- property name to use in @Search@ queries. Provides suggestions for
+-- @HyperParameters@, @Tags@, and @Metrics@.
 module Network.AWS.SageMaker.GetSearchSuggestions
   ( -- * Creating a Request
-    getSearchSuggestions,
-    GetSearchSuggestions,
+    GetSearchSuggestions (..),
+    newGetSearchSuggestions,
 
     -- * Request Lenses
-    gssSuggestionQuery,
-    gssResource,
+    getSearchSuggestions_suggestionQuery,
+    getSearchSuggestions_resource,
 
     -- * Destructuring the Response
-    getSearchSuggestionsResponse,
-    GetSearchSuggestionsResponse,
+    GetSearchSuggestionsResponse (..),
+    newGetSearchSuggestionsResponse,
 
     -- * Response Lenses
-    gssrrsPropertyNameSuggestions,
-    gssrrsResponseStatus,
+    getSearchSuggestionsResponse_propertyNameSuggestions,
+    getSearchSuggestionsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
+import Network.AWS.SageMaker.Types.PropertyNameSuggestion
 
--- | /See:/ 'getSearchSuggestions' smart constructor.
+-- | /See:/ 'newGetSearchSuggestions' smart constructor.
 data GetSearchSuggestions = GetSearchSuggestions'
-  { _gssSuggestionQuery ::
-      !(Maybe SuggestionQuery),
-    _gssResource :: !ResourceType
+  { -- | Limits the property names that are included in the response.
+    suggestionQuery :: Prelude.Maybe SuggestionQuery,
+    -- | The name of the Amazon SageMaker resource to search for.
+    resource :: ResourceType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetSearchSuggestions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetSearchSuggestions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gssSuggestionQuery' - Limits the property names that are included in the response.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gssResource' - The name of the Amazon SageMaker resource to search for.
-getSearchSuggestions ::
-  -- | 'gssResource'
+-- 'suggestionQuery', 'getSearchSuggestions_suggestionQuery' - Limits the property names that are included in the response.
+--
+-- 'resource', 'getSearchSuggestions_resource' - The name of the Amazon SageMaker resource to search for.
+newGetSearchSuggestions ::
+  -- | 'resource'
   ResourceType ->
   GetSearchSuggestions
-getSearchSuggestions pResource_ =
+newGetSearchSuggestions pResource_ =
   GetSearchSuggestions'
-    { _gssSuggestionQuery =
-        Nothing,
-      _gssResource = pResource_
+    { suggestionQuery =
+        Prelude.Nothing,
+      resource = pResource_
     }
 
 -- | Limits the property names that are included in the response.
-gssSuggestionQuery :: Lens' GetSearchSuggestions (Maybe SuggestionQuery)
-gssSuggestionQuery = lens _gssSuggestionQuery (\s a -> s {_gssSuggestionQuery = a})
+getSearchSuggestions_suggestionQuery :: Lens.Lens' GetSearchSuggestions (Prelude.Maybe SuggestionQuery)
+getSearchSuggestions_suggestionQuery = Lens.lens (\GetSearchSuggestions' {suggestionQuery} -> suggestionQuery) (\s@GetSearchSuggestions' {} a -> s {suggestionQuery = a} :: GetSearchSuggestions)
 
 -- | The name of the Amazon SageMaker resource to search for.
-gssResource :: Lens' GetSearchSuggestions ResourceType
-gssResource = lens _gssResource (\s a -> s {_gssResource = a})
+getSearchSuggestions_resource :: Lens.Lens' GetSearchSuggestions ResourceType
+getSearchSuggestions_resource = Lens.lens (\GetSearchSuggestions' {resource} -> resource) (\s@GetSearchSuggestions' {} a -> s {resource = a} :: GetSearchSuggestions)
 
-instance AWSRequest GetSearchSuggestions where
+instance Prelude.AWSRequest GetSearchSuggestions where
   type
     Rs GetSearchSuggestions =
       GetSearchSuggestionsResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetSearchSuggestionsResponse'
-            <$> (x .?> "PropertyNameSuggestions" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "PropertyNameSuggestions"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetSearchSuggestions
+instance Prelude.Hashable GetSearchSuggestions
 
-instance NFData GetSearchSuggestions
+instance Prelude.NFData GetSearchSuggestions
 
-instance ToHeaders GetSearchSuggestions where
+instance Prelude.ToHeaders GetSearchSuggestions where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.GetSearchSuggestions" :: ByteString),
+              Prelude.=# ( "SageMaker.GetSearchSuggestions" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetSearchSuggestions where
+instance Prelude.ToJSON GetSearchSuggestions where
   toJSON GetSearchSuggestions' {..} =
-    object
-      ( catMaybes
-          [ ("SuggestionQuery" .=) <$> _gssSuggestionQuery,
-            Just ("Resource" .= _gssResource)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("SuggestionQuery" Prelude..=)
+              Prelude.<$> suggestionQuery,
+            Prelude.Just ("Resource" Prelude..= resource)
           ]
       )
 
-instance ToPath GetSearchSuggestions where
-  toPath = const "/"
+instance Prelude.ToPath GetSearchSuggestions where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetSearchSuggestions where
-  toQuery = const mempty
+instance Prelude.ToQuery GetSearchSuggestions where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getSearchSuggestionsResponse' smart constructor.
+-- | /See:/ 'newGetSearchSuggestionsResponse' smart constructor.
 data GetSearchSuggestionsResponse = GetSearchSuggestionsResponse'
-  { _gssrrsPropertyNameSuggestions ::
-      !( Maybe
-           [PropertyNameSuggestion]
-       ),
-    _gssrrsResponseStatus ::
-      !Int
+  { -- | A list of property names for a @Resource@ that match a
+    -- @SuggestionQuery@.
+    propertyNameSuggestions :: Prelude.Maybe [PropertyNameSuggestion],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetSearchSuggestionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetSearchSuggestionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gssrrsPropertyNameSuggestions' - A list of property names for a @Resource@ that match a @SuggestionQuery@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gssrrsResponseStatus' - -- | The response status code.
-getSearchSuggestionsResponse ::
-  -- | 'gssrrsResponseStatus'
-  Int ->
+-- 'propertyNameSuggestions', 'getSearchSuggestionsResponse_propertyNameSuggestions' - A list of property names for a @Resource@ that match a
+-- @SuggestionQuery@.
+--
+-- 'httpStatus', 'getSearchSuggestionsResponse_httpStatus' - The response's http status code.
+newGetSearchSuggestionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetSearchSuggestionsResponse
-getSearchSuggestionsResponse pResponseStatus_ =
+newGetSearchSuggestionsResponse pHttpStatus_ =
   GetSearchSuggestionsResponse'
-    { _gssrrsPropertyNameSuggestions =
-        Nothing,
-      _gssrrsResponseStatus = pResponseStatus_
+    { propertyNameSuggestions =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A list of property names for a @Resource@ that match a @SuggestionQuery@ .
-gssrrsPropertyNameSuggestions :: Lens' GetSearchSuggestionsResponse [PropertyNameSuggestion]
-gssrrsPropertyNameSuggestions = lens _gssrrsPropertyNameSuggestions (\s a -> s {_gssrrsPropertyNameSuggestions = a}) . _Default . _Coerce
+-- | A list of property names for a @Resource@ that match a
+-- @SuggestionQuery@.
+getSearchSuggestionsResponse_propertyNameSuggestions :: Lens.Lens' GetSearchSuggestionsResponse (Prelude.Maybe [PropertyNameSuggestion])
+getSearchSuggestionsResponse_propertyNameSuggestions = Lens.lens (\GetSearchSuggestionsResponse' {propertyNameSuggestions} -> propertyNameSuggestions) (\s@GetSearchSuggestionsResponse' {} a -> s {propertyNameSuggestions = a} :: GetSearchSuggestionsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-gssrrsResponseStatus :: Lens' GetSearchSuggestionsResponse Int
-gssrrsResponseStatus = lens _gssrrsResponseStatus (\s a -> s {_gssrrsResponseStatus = a})
+-- | The response's http status code.
+getSearchSuggestionsResponse_httpStatus :: Lens.Lens' GetSearchSuggestionsResponse Prelude.Int
+getSearchSuggestionsResponse_httpStatus = Lens.lens (\GetSearchSuggestionsResponse' {httpStatus} -> httpStatus) (\s@GetSearchSuggestionsResponse' {} a -> s {httpStatus = a} :: GetSearchSuggestionsResponse)
 
-instance NFData GetSearchSuggestionsResponse
+instance Prelude.NFData GetSearchSuggestionsResponse

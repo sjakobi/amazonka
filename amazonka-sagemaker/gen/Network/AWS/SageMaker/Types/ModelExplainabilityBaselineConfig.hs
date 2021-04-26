@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,78 +19,79 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.ModelExplainabilityBaselineConfig where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.MonitoringConstraintsResource
 
 -- | The configuration for a baseline model explainability job.
 --
---
---
--- /See:/ 'modelExplainabilityBaselineConfig' smart constructor.
+-- /See:/ 'newModelExplainabilityBaselineConfig' smart constructor.
 data ModelExplainabilityBaselineConfig = ModelExplainabilityBaselineConfig'
-  { _mebcConstraintsResource ::
-      !( Maybe
-           MonitoringConstraintsResource
-       ),
-    _mebcBaseliningJobName ::
-      !( Maybe
-           Text
-       )
+  { constraintsResource :: Prelude.Maybe MonitoringConstraintsResource,
+    -- | The name of the baseline model explainability job.
+    baseliningJobName :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModelExplainabilityBaselineConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModelExplainabilityBaselineConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mebcConstraintsResource' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mebcBaseliningJobName' - The name of the baseline model explainability job.
-modelExplainabilityBaselineConfig ::
+-- 'constraintsResource', 'modelExplainabilityBaselineConfig_constraintsResource' - Undocumented member.
+--
+-- 'baseliningJobName', 'modelExplainabilityBaselineConfig_baseliningJobName' - The name of the baseline model explainability job.
+newModelExplainabilityBaselineConfig ::
   ModelExplainabilityBaselineConfig
-modelExplainabilityBaselineConfig =
+newModelExplainabilityBaselineConfig =
   ModelExplainabilityBaselineConfig'
-    { _mebcConstraintsResource =
-        Nothing,
-      _mebcBaseliningJobName = Nothing
+    { constraintsResource =
+        Prelude.Nothing,
+      baseliningJobName = Prelude.Nothing
     }
 
 -- | Undocumented member.
-mebcConstraintsResource :: Lens' ModelExplainabilityBaselineConfig (Maybe MonitoringConstraintsResource)
-mebcConstraintsResource = lens _mebcConstraintsResource (\s a -> s {_mebcConstraintsResource = a})
+modelExplainabilityBaselineConfig_constraintsResource :: Lens.Lens' ModelExplainabilityBaselineConfig (Prelude.Maybe MonitoringConstraintsResource)
+modelExplainabilityBaselineConfig_constraintsResource = Lens.lens (\ModelExplainabilityBaselineConfig' {constraintsResource} -> constraintsResource) (\s@ModelExplainabilityBaselineConfig' {} a -> s {constraintsResource = a} :: ModelExplainabilityBaselineConfig)
 
 -- | The name of the baseline model explainability job.
-mebcBaseliningJobName :: Lens' ModelExplainabilityBaselineConfig (Maybe Text)
-mebcBaseliningJobName = lens _mebcBaseliningJobName (\s a -> s {_mebcBaseliningJobName = a})
+modelExplainabilityBaselineConfig_baseliningJobName :: Lens.Lens' ModelExplainabilityBaselineConfig (Prelude.Maybe Prelude.Text)
+modelExplainabilityBaselineConfig_baseliningJobName = Lens.lens (\ModelExplainabilityBaselineConfig' {baseliningJobName} -> baseliningJobName) (\s@ModelExplainabilityBaselineConfig' {} a -> s {baseliningJobName = a} :: ModelExplainabilityBaselineConfig)
 
-instance FromJSON ModelExplainabilityBaselineConfig where
+instance
+  Prelude.FromJSON
+    ModelExplainabilityBaselineConfig
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ModelExplainabilityBaselineConfig"
       ( \x ->
           ModelExplainabilityBaselineConfig'
-            <$> (x .:? "ConstraintsResource")
-            <*> (x .:? "BaseliningJobName")
+            Prelude.<$> (x Prelude..:? "ConstraintsResource")
+            Prelude.<*> (x Prelude..:? "BaseliningJobName")
       )
 
-instance Hashable ModelExplainabilityBaselineConfig
+instance
+  Prelude.Hashable
+    ModelExplainabilityBaselineConfig
 
-instance NFData ModelExplainabilityBaselineConfig
+instance
+  Prelude.NFData
+    ModelExplainabilityBaselineConfig
 
-instance ToJSON ModelExplainabilityBaselineConfig where
+instance
+  Prelude.ToJSON
+    ModelExplainabilityBaselineConfig
+  where
   toJSON ModelExplainabilityBaselineConfig' {..} =
-    object
-      ( catMaybes
-          [ ("ConstraintsResource" .=)
-              <$> _mebcConstraintsResource,
-            ("BaseliningJobName" .=) <$> _mebcBaseliningJobName
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ConstraintsResource" Prelude..=)
+              Prelude.<$> constraintsResource,
+            ("BaseliningJobName" Prelude..=)
+              Prelude.<$> baseliningJobName
           ]
       )

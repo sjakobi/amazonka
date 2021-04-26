@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,94 +19,103 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.ModelExplainabilityAppSpecification where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Docker container image configuration object for the model explainability job.
+-- | Docker container image configuration object for the model explainability
+-- job.
 --
---
---
--- /See:/ 'modelExplainabilityAppSpecification' smart constructor.
+-- /See:/ 'newModelExplainabilityAppSpecification' smart constructor.
 data ModelExplainabilityAppSpecification = ModelExplainabilityAppSpecification'
-  { _measEnvironment ::
-      !( Maybe
-           ( Map
-               Text
-               Text
-           )
-       ),
-    _measImageURI ::
-      !Text,
-    _measConfigURI ::
-      !Text
+  { -- | Sets the environment variables in the Docker container.
+    environment :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The container image to be run by the model explainability job.
+    imageUri :: Prelude.Text,
+    -- | JSON formatted S3 file that defines explainability parameters. For more
+    -- information on this JSON configuration file, see
+    -- <https://docs.aws.amazon.com/sagemaker/latest/json-model-explainability-parameter-config.html Configure model explainability parameters>.
+    configUri :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModelExplainabilityAppSpecification' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModelExplainabilityAppSpecification' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'measEnvironment' - Sets the environment variables in the Docker container.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'measImageURI' - The container image to be run by the model explainability job.
+-- 'environment', 'modelExplainabilityAppSpecification_environment' - Sets the environment variables in the Docker container.
 --
--- * 'measConfigURI' - JSON formatted S3 file that defines explainability parameters. For more information on this JSON configuration file, see <https://docs.aws.amazon.com/sagemaker/latest/json-model-explainability-parameter-config.html Configure model explainability parameters> .
-modelExplainabilityAppSpecification ::
-  -- | 'measImageURI'
-  Text ->
-  -- | 'measConfigURI'
-  Text ->
+-- 'imageUri', 'modelExplainabilityAppSpecification_imageUri' - The container image to be run by the model explainability job.
+--
+-- 'configUri', 'modelExplainabilityAppSpecification_configUri' - JSON formatted S3 file that defines explainability parameters. For more
+-- information on this JSON configuration file, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/json-model-explainability-parameter-config.html Configure model explainability parameters>.
+newModelExplainabilityAppSpecification ::
+  -- | 'imageUri'
+  Prelude.Text ->
+  -- | 'configUri'
+  Prelude.Text ->
   ModelExplainabilityAppSpecification
-modelExplainabilityAppSpecification
-  pImageURI_
-  pConfigURI_ =
+newModelExplainabilityAppSpecification
+  pImageUri_
+  pConfigUri_ =
     ModelExplainabilityAppSpecification'
-      { _measEnvironment =
-          Nothing,
-        _measImageURI = pImageURI_,
-        _measConfigURI = pConfigURI_
+      { environment =
+          Prelude.Nothing,
+        imageUri = pImageUri_,
+        configUri = pConfigUri_
       }
 
 -- | Sets the environment variables in the Docker container.
-measEnvironment :: Lens' ModelExplainabilityAppSpecification (HashMap Text Text)
-measEnvironment = lens _measEnvironment (\s a -> s {_measEnvironment = a}) . _Default . _Map
+modelExplainabilityAppSpecification_environment :: Lens.Lens' ModelExplainabilityAppSpecification (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+modelExplainabilityAppSpecification_environment = Lens.lens (\ModelExplainabilityAppSpecification' {environment} -> environment) (\s@ModelExplainabilityAppSpecification' {} a -> s {environment = a} :: ModelExplainabilityAppSpecification) Prelude.. Lens.mapping Prelude._Map
 
 -- | The container image to be run by the model explainability job.
-measImageURI :: Lens' ModelExplainabilityAppSpecification Text
-measImageURI = lens _measImageURI (\s a -> s {_measImageURI = a})
+modelExplainabilityAppSpecification_imageUri :: Lens.Lens' ModelExplainabilityAppSpecification Prelude.Text
+modelExplainabilityAppSpecification_imageUri = Lens.lens (\ModelExplainabilityAppSpecification' {imageUri} -> imageUri) (\s@ModelExplainabilityAppSpecification' {} a -> s {imageUri = a} :: ModelExplainabilityAppSpecification)
 
--- | JSON formatted S3 file that defines explainability parameters. For more information on this JSON configuration file, see <https://docs.aws.amazon.com/sagemaker/latest/json-model-explainability-parameter-config.html Configure model explainability parameters> .
-measConfigURI :: Lens' ModelExplainabilityAppSpecification Text
-measConfigURI = lens _measConfigURI (\s a -> s {_measConfigURI = a})
+-- | JSON formatted S3 file that defines explainability parameters. For more
+-- information on this JSON configuration file, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/json-model-explainability-parameter-config.html Configure model explainability parameters>.
+modelExplainabilityAppSpecification_configUri :: Lens.Lens' ModelExplainabilityAppSpecification Prelude.Text
+modelExplainabilityAppSpecification_configUri = Lens.lens (\ModelExplainabilityAppSpecification' {configUri} -> configUri) (\s@ModelExplainabilityAppSpecification' {} a -> s {configUri = a} :: ModelExplainabilityAppSpecification)
 
-instance FromJSON ModelExplainabilityAppSpecification where
+instance
+  Prelude.FromJSON
+    ModelExplainabilityAppSpecification
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ModelExplainabilityAppSpecification"
       ( \x ->
           ModelExplainabilityAppSpecification'
-            <$> (x .:? "Environment" .!= mempty)
-            <*> (x .: "ImageUri")
-            <*> (x .: "ConfigUri")
+            Prelude.<$> ( x Prelude..:? "Environment"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..: "ImageUri")
+            Prelude.<*> (x Prelude..: "ConfigUri")
       )
 
-instance Hashable ModelExplainabilityAppSpecification
+instance
+  Prelude.Hashable
+    ModelExplainabilityAppSpecification
 
-instance NFData ModelExplainabilityAppSpecification
+instance
+  Prelude.NFData
+    ModelExplainabilityAppSpecification
 
-instance ToJSON ModelExplainabilityAppSpecification where
+instance
+  Prelude.ToJSON
+    ModelExplainabilityAppSpecification
+  where
   toJSON ModelExplainabilityAppSpecification' {..} =
-    object
-      ( catMaybes
-          [ ("Environment" .=) <$> _measEnvironment,
-            Just ("ImageUri" .= _measImageURI),
-            Just ("ConfigUri" .= _measConfigURI)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Environment" Prelude..=) Prelude.<$> environment,
+            Prelude.Just ("ImageUri" Prelude..= imageUri),
+            Prelude.Just ("ConfigUri" Prelude..= configUri)
           ]
       )

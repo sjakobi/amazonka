@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,78 +19,80 @@
 module Network.AWS.SageMaker.Types.DomainStatus
   ( DomainStatus
       ( ..,
-        DSDeleteFailed,
-        DSDeleting,
-        DSFailed,
-        DSInService,
-        DSPending,
-        DSUpdateFailed,
-        DSUpdating
+        DomainStatusDeleteFailed,
+        DomainStatusDeleting,
+        DomainStatusFailed,
+        DomainStatusInService,
+        DomainStatusPending,
+        DomainStatusUpdateFailed,
+        DomainStatusUpdating
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DomainStatus = DomainStatus' (CI Text)
+newtype DomainStatus = DomainStatus'
+  { fromDomainStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DSDeleteFailed :: DomainStatus
-pattern DSDeleteFailed = DomainStatus' "Delete_Failed"
+pattern DomainStatusDeleteFailed :: DomainStatus
+pattern DomainStatusDeleteFailed = DomainStatus' "Delete_Failed"
 
-pattern DSDeleting :: DomainStatus
-pattern DSDeleting = DomainStatus' "Deleting"
+pattern DomainStatusDeleting :: DomainStatus
+pattern DomainStatusDeleting = DomainStatus' "Deleting"
 
-pattern DSFailed :: DomainStatus
-pattern DSFailed = DomainStatus' "Failed"
+pattern DomainStatusFailed :: DomainStatus
+pattern DomainStatusFailed = DomainStatus' "Failed"
 
-pattern DSInService :: DomainStatus
-pattern DSInService = DomainStatus' "InService"
+pattern DomainStatusInService :: DomainStatus
+pattern DomainStatusInService = DomainStatus' "InService"
 
-pattern DSPending :: DomainStatus
-pattern DSPending = DomainStatus' "Pending"
+pattern DomainStatusPending :: DomainStatus
+pattern DomainStatusPending = DomainStatus' "Pending"
 
-pattern DSUpdateFailed :: DomainStatus
-pattern DSUpdateFailed = DomainStatus' "Update_Failed"
+pattern DomainStatusUpdateFailed :: DomainStatus
+pattern DomainStatusUpdateFailed = DomainStatus' "Update_Failed"
 
-pattern DSUpdating :: DomainStatus
-pattern DSUpdating = DomainStatus' "Updating"
+pattern DomainStatusUpdating :: DomainStatus
+pattern DomainStatusUpdating = DomainStatus' "Updating"
 
 {-# COMPLETE
-  DSDeleteFailed,
-  DSDeleting,
-  DSFailed,
-  DSInService,
-  DSPending,
-  DSUpdateFailed,
-  DSUpdating,
+  DomainStatusDeleteFailed,
+  DomainStatusDeleting,
+  DomainStatusFailed,
+  DomainStatusInService,
+  DomainStatusPending,
+  DomainStatusUpdateFailed,
+  DomainStatusUpdating,
   DomainStatus'
   #-}
 
-instance FromText DomainStatus where
-  parser = (DomainStatus' . mk) <$> takeText
+instance Prelude.FromText DomainStatus where
+  parser = DomainStatus' Prelude.<$> Prelude.takeText
 
-instance ToText DomainStatus where
-  toText (DomainStatus' ci) = original ci
+instance Prelude.ToText DomainStatus where
+  toText (DomainStatus' x) = x
 
-instance Hashable DomainStatus
+instance Prelude.Hashable DomainStatus
 
-instance NFData DomainStatus
+instance Prelude.NFData DomainStatus
 
-instance ToByteString DomainStatus
+instance Prelude.ToByteString DomainStatus
 
-instance ToQuery DomainStatus
+instance Prelude.ToQuery DomainStatus
 
-instance ToHeader DomainStatus
+instance Prelude.ToHeader DomainStatus
 
-instance FromJSON DomainStatus where
-  parseJSON = parseJSONText "DomainStatus"
+instance Prelude.FromJSON DomainStatus where
+  parseJSON = Prelude.parseJSONText "DomainStatus"

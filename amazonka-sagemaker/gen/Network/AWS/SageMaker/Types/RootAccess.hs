@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.SageMaker.Types.RootAccess
   ( RootAccess
       ( ..,
-        RADisabled,
-        RAEnabled
+        RootAccessDisabled,
+        RootAccessEnabled
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RootAccess = RootAccess' (CI Text)
+newtype RootAccess = RootAccess'
+  { fromRootAccess ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern RADisabled :: RootAccess
-pattern RADisabled = RootAccess' "Disabled"
+pattern RootAccessDisabled :: RootAccess
+pattern RootAccessDisabled = RootAccess' "Disabled"
 
-pattern RAEnabled :: RootAccess
-pattern RAEnabled = RootAccess' "Enabled"
+pattern RootAccessEnabled :: RootAccess
+pattern RootAccessEnabled = RootAccess' "Enabled"
 
 {-# COMPLETE
-  RADisabled,
-  RAEnabled,
+  RootAccessDisabled,
+  RootAccessEnabled,
   RootAccess'
   #-}
 
-instance FromText RootAccess where
-  parser = (RootAccess' . mk) <$> takeText
+instance Prelude.FromText RootAccess where
+  parser = RootAccess' Prelude.<$> Prelude.takeText
 
-instance ToText RootAccess where
-  toText (RootAccess' ci) = original ci
+instance Prelude.ToText RootAccess where
+  toText (RootAccess' x) = x
 
-instance Hashable RootAccess
+instance Prelude.Hashable RootAccess
 
-instance NFData RootAccess
+instance Prelude.NFData RootAccess
 
-instance ToByteString RootAccess
+instance Prelude.ToByteString RootAccess
 
-instance ToQuery RootAccess
+instance Prelude.ToQuery RootAccess
 
-instance ToHeader RootAccess
+instance Prelude.ToHeader RootAccess
 
-instance ToJSON RootAccess where
-  toJSON = toJSONText
+instance Prelude.ToJSON RootAccess where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON RootAccess where
-  parseJSON = parseJSONText "RootAccess"
+instance Prelude.FromJSON RootAccess where
+  parseJSON = Prelude.parseJSONText "RootAccess"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.SageMaker.Types.AppType
   ( AppType
       ( ..,
-        JupyterServer,
-        KernelGateway,
-        TensorBoard
+        AppTypeJupyterServer,
+        AppTypeKernelGateway,
+        AppTypeTensorBoard
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AppType = AppType' (CI Text)
+newtype AppType = AppType'
+  { fromAppType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern JupyterServer :: AppType
-pattern JupyterServer = AppType' "JupyterServer"
+pattern AppTypeJupyterServer :: AppType
+pattern AppTypeJupyterServer = AppType' "JupyterServer"
 
-pattern KernelGateway :: AppType
-pattern KernelGateway = AppType' "KernelGateway"
+pattern AppTypeKernelGateway :: AppType
+pattern AppTypeKernelGateway = AppType' "KernelGateway"
 
-pattern TensorBoard :: AppType
-pattern TensorBoard = AppType' "TensorBoard"
+pattern AppTypeTensorBoard :: AppType
+pattern AppTypeTensorBoard = AppType' "TensorBoard"
 
 {-# COMPLETE
-  JupyterServer,
-  KernelGateway,
-  TensorBoard,
+  AppTypeJupyterServer,
+  AppTypeKernelGateway,
+  AppTypeTensorBoard,
   AppType'
   #-}
 
-instance FromText AppType where
-  parser = (AppType' . mk) <$> takeText
+instance Prelude.FromText AppType where
+  parser = AppType' Prelude.<$> Prelude.takeText
 
-instance ToText AppType where
-  toText (AppType' ci) = original ci
+instance Prelude.ToText AppType where
+  toText (AppType' x) = x
 
-instance Hashable AppType
+instance Prelude.Hashable AppType
 
-instance NFData AppType
+instance Prelude.NFData AppType
 
-instance ToByteString AppType
+instance Prelude.ToByteString AppType
 
-instance ToQuery AppType
+instance Prelude.ToQuery AppType
 
-instance ToHeader AppType
+instance Prelude.ToHeader AppType
 
-instance ToJSON AppType where
-  toJSON = toJSONText
+instance Prelude.ToJSON AppType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AppType where
-  parseJSON = parseJSONText "AppType"
+instance Prelude.FromJSON AppType where
+  parseJSON = Prelude.parseJSONText "AppType"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.SageMaker.Types.CapacitySizeType
   ( CapacitySizeType
       ( ..,
-        CapacityPercent,
-        InstanceCount
+        CapacitySizeTypeCAPACITYPERCENT,
+        CapacitySizeTypeINSTANCECOUNT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CapacitySizeType = CapacitySizeType' (CI Text)
+newtype CapacitySizeType = CapacitySizeType'
+  { fromCapacitySizeType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CapacityPercent :: CapacitySizeType
-pattern CapacityPercent = CapacitySizeType' "CAPACITY_PERCENT"
+pattern CapacitySizeTypeCAPACITYPERCENT :: CapacitySizeType
+pattern CapacitySizeTypeCAPACITYPERCENT = CapacitySizeType' "CAPACITY_PERCENT"
 
-pattern InstanceCount :: CapacitySizeType
-pattern InstanceCount = CapacitySizeType' "INSTANCE_COUNT"
+pattern CapacitySizeTypeINSTANCECOUNT :: CapacitySizeType
+pattern CapacitySizeTypeINSTANCECOUNT = CapacitySizeType' "INSTANCE_COUNT"
 
 {-# COMPLETE
-  CapacityPercent,
-  InstanceCount,
+  CapacitySizeTypeCAPACITYPERCENT,
+  CapacitySizeTypeINSTANCECOUNT,
   CapacitySizeType'
   #-}
 
-instance FromText CapacitySizeType where
-  parser = (CapacitySizeType' . mk) <$> takeText
+instance Prelude.FromText CapacitySizeType where
+  parser = CapacitySizeType' Prelude.<$> Prelude.takeText
 
-instance ToText CapacitySizeType where
-  toText (CapacitySizeType' ci) = original ci
+instance Prelude.ToText CapacitySizeType where
+  toText (CapacitySizeType' x) = x
 
-instance Hashable CapacitySizeType
+instance Prelude.Hashable CapacitySizeType
 
-instance NFData CapacitySizeType
+instance Prelude.NFData CapacitySizeType
 
-instance ToByteString CapacitySizeType
+instance Prelude.ToByteString CapacitySizeType
 
-instance ToQuery CapacitySizeType
+instance Prelude.ToQuery CapacitySizeType
 
-instance ToHeader CapacitySizeType
+instance Prelude.ToHeader CapacitySizeType
 
-instance ToJSON CapacitySizeType where
-  toJSON = toJSONText
+instance Prelude.ToJSON CapacitySizeType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CapacitySizeType where
-  parseJSON = parseJSONText "CapacitySizeType"
+instance Prelude.FromJSON CapacitySizeType where
+  parseJSON = Prelude.parseJSONText "CapacitySizeType"

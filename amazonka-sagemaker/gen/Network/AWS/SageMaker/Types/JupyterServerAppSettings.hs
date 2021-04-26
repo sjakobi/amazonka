@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,63 +19,61 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.JupyterServerAppSettings where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.ResourceSpec
 
 -- | The JupyterServer app settings.
 --
---
---
--- /See:/ 'jupyterServerAppSettings' smart constructor.
-newtype JupyterServerAppSettings = JupyterServerAppSettings'
-  { _jsasDefaultResourceSpec ::
-      Maybe ResourceSpec
+-- /See:/ 'newJupyterServerAppSettings' smart constructor.
+data JupyterServerAppSettings = JupyterServerAppSettings'
+  { -- | The default instance type and the Amazon Resource Name (ARN) of the
+    -- default SageMaker image used by the JupyterServer app.
+    defaultResourceSpec :: Prelude.Maybe ResourceSpec
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'JupyterServerAppSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'JupyterServerAppSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'jsasDefaultResourceSpec' - The default instance type and the Amazon Resource Name (ARN) of the default SageMaker image used by the JupyterServer app.
-jupyterServerAppSettings ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'defaultResourceSpec', 'jupyterServerAppSettings_defaultResourceSpec' - The default instance type and the Amazon Resource Name (ARN) of the
+-- default SageMaker image used by the JupyterServer app.
+newJupyterServerAppSettings ::
   JupyterServerAppSettings
-jupyterServerAppSettings =
+newJupyterServerAppSettings =
   JupyterServerAppSettings'
-    { _jsasDefaultResourceSpec =
-        Nothing
+    { defaultResourceSpec =
+        Prelude.Nothing
     }
 
--- | The default instance type and the Amazon Resource Name (ARN) of the default SageMaker image used by the JupyterServer app.
-jsasDefaultResourceSpec :: Lens' JupyterServerAppSettings (Maybe ResourceSpec)
-jsasDefaultResourceSpec = lens _jsasDefaultResourceSpec (\s a -> s {_jsasDefaultResourceSpec = a})
+-- | The default instance type and the Amazon Resource Name (ARN) of the
+-- default SageMaker image used by the JupyterServer app.
+jupyterServerAppSettings_defaultResourceSpec :: Lens.Lens' JupyterServerAppSettings (Prelude.Maybe ResourceSpec)
+jupyterServerAppSettings_defaultResourceSpec = Lens.lens (\JupyterServerAppSettings' {defaultResourceSpec} -> defaultResourceSpec) (\s@JupyterServerAppSettings' {} a -> s {defaultResourceSpec = a} :: JupyterServerAppSettings)
 
-instance FromJSON JupyterServerAppSettings where
+instance Prelude.FromJSON JupyterServerAppSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "JupyterServerAppSettings"
       ( \x ->
           JupyterServerAppSettings'
-            <$> (x .:? "DefaultResourceSpec")
+            Prelude.<$> (x Prelude..:? "DefaultResourceSpec")
       )
 
-instance Hashable JupyterServerAppSettings
+instance Prelude.Hashable JupyterServerAppSettings
 
-instance NFData JupyterServerAppSettings
+instance Prelude.NFData JupyterServerAppSettings
 
-instance ToJSON JupyterServerAppSettings where
+instance Prelude.ToJSON JupyterServerAppSettings where
   toJSON JupyterServerAppSettings' {..} =
-    object
-      ( catMaybes
-          [ ("DefaultResourceSpec" .=)
-              <$> _jsasDefaultResourceSpec
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("DefaultResourceSpec" Prelude..=)
+              Prelude.<$> defaultResourceSpec
           ]
       )

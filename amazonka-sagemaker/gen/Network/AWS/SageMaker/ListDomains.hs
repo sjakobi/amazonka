@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,156 +23,185 @@
 --
 -- Lists the domains.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.SageMaker.ListDomains
   ( -- * Creating a Request
-    listDomains,
-    ListDomains,
+    ListDomains (..),
+    newListDomains,
 
     -- * Request Lenses
-    ldNextToken,
-    ldMaxResults,
+    listDomains_nextToken,
+    listDomains_maxResults,
 
     -- * Destructuring the Response
-    listDomainsResponse,
-    ListDomainsResponse,
+    ListDomainsResponse (..),
+    newListDomainsResponse,
 
     -- * Response Lenses
-    ldrrsNextToken,
-    ldrrsDomains,
-    ldrrsResponseStatus,
+    listDomainsResponse_nextToken,
+    listDomainsResponse_domains,
+    listDomainsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
+import Network.AWS.SageMaker.Types.DomainDetails
 
--- | /See:/ 'listDomains' smart constructor.
+-- | /See:/ 'newListDomains' smart constructor.
 data ListDomains = ListDomains'
-  { _ldNextToken ::
-      !(Maybe Text),
-    _ldMaxResults :: !(Maybe Nat)
+  { -- | If the previous response was truncated, you will receive this token. Use
+    -- it in your next request to receive the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Returns a list up to a specified limit.
+    maxResults :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListDomains' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListDomains' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ldNextToken' - If the previous response was truncated, you will receive this token. Use it in your next request to receive the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ldMaxResults' - Returns a list up to a specified limit.
-listDomains ::
+-- 'nextToken', 'listDomains_nextToken' - If the previous response was truncated, you will receive this token. Use
+-- it in your next request to receive the next set of results.
+--
+-- 'maxResults', 'listDomains_maxResults' - Returns a list up to a specified limit.
+newListDomains ::
   ListDomains
-listDomains =
+newListDomains =
   ListDomains'
-    { _ldNextToken = Nothing,
-      _ldMaxResults = Nothing
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing
     }
 
--- | If the previous response was truncated, you will receive this token. Use it in your next request to receive the next set of results.
-ldNextToken :: Lens' ListDomains (Maybe Text)
-ldNextToken = lens _ldNextToken (\s a -> s {_ldNextToken = a})
+-- | If the previous response was truncated, you will receive this token. Use
+-- it in your next request to receive the next set of results.
+listDomains_nextToken :: Lens.Lens' ListDomains (Prelude.Maybe Prelude.Text)
+listDomains_nextToken = Lens.lens (\ListDomains' {nextToken} -> nextToken) (\s@ListDomains' {} a -> s {nextToken = a} :: ListDomains)
 
 -- | Returns a list up to a specified limit.
-ldMaxResults :: Lens' ListDomains (Maybe Natural)
-ldMaxResults = lens _ldMaxResults (\s a -> s {_ldMaxResults = a}) . mapping _Nat
+listDomains_maxResults :: Lens.Lens' ListDomains (Prelude.Maybe Prelude.Natural)
+listDomains_maxResults = Lens.lens (\ListDomains' {maxResults} -> maxResults) (\s@ListDomains' {} a -> s {maxResults = a} :: ListDomains) Prelude.. Lens.mapping Prelude._Nat
 
-instance AWSPager ListDomains where
+instance Pager.AWSPager ListDomains where
   page rq rs
-    | stop (rs ^. ldrrsNextToken) = Nothing
-    | stop (rs ^. ldrrsDomains) = Nothing
-    | otherwise =
-      Just $ rq & ldNextToken .~ rs ^. ldrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listDomainsResponse_nextToken Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listDomainsResponse_domains Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listDomains_nextToken
+          Lens..~ rs
+          Lens.^? listDomainsResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest ListDomains where
+instance Prelude.AWSRequest ListDomains where
   type Rs ListDomains = ListDomainsResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListDomainsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "Domains" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (x Prelude..?> "Domains" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListDomains
+instance Prelude.Hashable ListDomains
 
-instance NFData ListDomains
+instance Prelude.NFData ListDomains
 
-instance ToHeaders ListDomains where
+instance Prelude.ToHeaders ListDomains where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.ListDomains" :: ByteString),
+              Prelude.=# ("SageMaker.ListDomains" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListDomains where
+instance Prelude.ToJSON ListDomains where
   toJSON ListDomains' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _ldNextToken,
-            ("MaxResults" .=) <$> _ldMaxResults
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults
           ]
       )
 
-instance ToPath ListDomains where
-  toPath = const "/"
+instance Prelude.ToPath ListDomains where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListDomains where
-  toQuery = const mempty
+instance Prelude.ToQuery ListDomains where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listDomainsResponse' smart constructor.
+-- | /See:/ 'newListDomainsResponse' smart constructor.
 data ListDomainsResponse = ListDomainsResponse'
-  { _ldrrsNextToken ::
-      !(Maybe Text),
-    _ldrrsDomains ::
-      !(Maybe [DomainDetails]),
-    _ldrrsResponseStatus :: !Int
+  { -- | If the previous response was truncated, you will receive this token. Use
+    -- it in your next request to receive the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The list of domains.
+    domains :: Prelude.Maybe [DomainDetails],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListDomainsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListDomainsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ldrrsNextToken' - If the previous response was truncated, you will receive this token. Use it in your next request to receive the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ldrrsDomains' - The list of domains.
+-- 'nextToken', 'listDomainsResponse_nextToken' - If the previous response was truncated, you will receive this token. Use
+-- it in your next request to receive the next set of results.
 --
--- * 'ldrrsResponseStatus' - -- | The response status code.
-listDomainsResponse ::
-  -- | 'ldrrsResponseStatus'
-  Int ->
+-- 'domains', 'listDomainsResponse_domains' - The list of domains.
+--
+-- 'httpStatus', 'listDomainsResponse_httpStatus' - The response's http status code.
+newListDomainsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListDomainsResponse
-listDomainsResponse pResponseStatus_ =
+newListDomainsResponse pHttpStatus_ =
   ListDomainsResponse'
-    { _ldrrsNextToken = Nothing,
-      _ldrrsDomains = Nothing,
-      _ldrrsResponseStatus = pResponseStatus_
+    { nextToken = Prelude.Nothing,
+      domains = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | If the previous response was truncated, you will receive this token. Use it in your next request to receive the next set of results.
-ldrrsNextToken :: Lens' ListDomainsResponse (Maybe Text)
-ldrrsNextToken = lens _ldrrsNextToken (\s a -> s {_ldrrsNextToken = a})
+-- | If the previous response was truncated, you will receive this token. Use
+-- it in your next request to receive the next set of results.
+listDomainsResponse_nextToken :: Lens.Lens' ListDomainsResponse (Prelude.Maybe Prelude.Text)
+listDomainsResponse_nextToken = Lens.lens (\ListDomainsResponse' {nextToken} -> nextToken) (\s@ListDomainsResponse' {} a -> s {nextToken = a} :: ListDomainsResponse)
 
 -- | The list of domains.
-ldrrsDomains :: Lens' ListDomainsResponse [DomainDetails]
-ldrrsDomains = lens _ldrrsDomains (\s a -> s {_ldrrsDomains = a}) . _Default . _Coerce
+listDomainsResponse_domains :: Lens.Lens' ListDomainsResponse (Prelude.Maybe [DomainDetails])
+listDomainsResponse_domains = Lens.lens (\ListDomainsResponse' {domains} -> domains) (\s@ListDomainsResponse' {} a -> s {domains = a} :: ListDomainsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-ldrrsResponseStatus :: Lens' ListDomainsResponse Int
-ldrrsResponseStatus = lens _ldrrsResponseStatus (\s a -> s {_ldrrsResponseStatus = a})
+-- | The response's http status code.
+listDomainsResponse_httpStatus :: Lens.Lens' ListDomainsResponse Prelude.Int
+listDomainsResponse_httpStatus = Lens.lens (\ListDomainsResponse' {httpStatus} -> httpStatus) (\s@ListDomainsResponse' {} a -> s {httpStatus = a} :: ListDomainsResponse)
 
-instance NFData ListDomainsResponse
+instance Prelude.NFData ListDomainsResponse

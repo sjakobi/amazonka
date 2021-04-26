@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,49 +19,52 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.PropertyNameSuggestion where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A property name returned from a @GetSearchSuggestions@ call that specifies a value in the @PropertyNameQuery@ field.
+-- | A property name returned from a @GetSearchSuggestions@ call that
+-- specifies a value in the @PropertyNameQuery@ field.
 --
---
---
--- /See:/ 'propertyNameSuggestion' smart constructor.
-newtype PropertyNameSuggestion = PropertyNameSuggestion'
-  { _pnsPropertyName ::
-      Maybe Text
+-- /See:/ 'newPropertyNameSuggestion' smart constructor.
+data PropertyNameSuggestion = PropertyNameSuggestion'
+  { -- | A suggested property name based on what you entered in the search
+    -- textbox in the Amazon SageMaker console.
+    propertyName :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PropertyNameSuggestion' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PropertyNameSuggestion' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pnsPropertyName' - A suggested property name based on what you entered in the search textbox in the Amazon SageMaker console.
-propertyNameSuggestion ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'propertyName', 'propertyNameSuggestion_propertyName' - A suggested property name based on what you entered in the search
+-- textbox in the Amazon SageMaker console.
+newPropertyNameSuggestion ::
   PropertyNameSuggestion
-propertyNameSuggestion =
-  PropertyNameSuggestion' {_pnsPropertyName = Nothing}
+newPropertyNameSuggestion =
+  PropertyNameSuggestion'
+    { propertyName =
+        Prelude.Nothing
+    }
 
--- | A suggested property name based on what you entered in the search textbox in the Amazon SageMaker console.
-pnsPropertyName :: Lens' PropertyNameSuggestion (Maybe Text)
-pnsPropertyName = lens _pnsPropertyName (\s a -> s {_pnsPropertyName = a})
+-- | A suggested property name based on what you entered in the search
+-- textbox in the Amazon SageMaker console.
+propertyNameSuggestion_propertyName :: Lens.Lens' PropertyNameSuggestion (Prelude.Maybe Prelude.Text)
+propertyNameSuggestion_propertyName = Lens.lens (\PropertyNameSuggestion' {propertyName} -> propertyName) (\s@PropertyNameSuggestion' {} a -> s {propertyName = a} :: PropertyNameSuggestion)
 
-instance FromJSON PropertyNameSuggestion where
+instance Prelude.FromJSON PropertyNameSuggestion where
   parseJSON =
-    withObject
+    Prelude.withObject
       "PropertyNameSuggestion"
       ( \x ->
-          PropertyNameSuggestion' <$> (x .:? "PropertyName")
+          PropertyNameSuggestion'
+            Prelude.<$> (x Prelude..:? "PropertyName")
       )
 
-instance Hashable PropertyNameSuggestion
+instance Prelude.Hashable PropertyNameSuggestion
 
-instance NFData PropertyNameSuggestion
+instance Prelude.NFData PropertyNameSuggestion

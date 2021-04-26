@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,204 +21,214 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns information about the requested human task user interface (worker task template).
+-- Returns information about the requested human task user interface
+-- (worker task template).
 module Network.AWS.SageMaker.DescribeHumanTaskUi
   ( -- * Creating a Request
-    describeHumanTaskUi,
-    DescribeHumanTaskUi,
+    DescribeHumanTaskUi (..),
+    newDescribeHumanTaskUi,
 
     -- * Request Lenses
-    dHumanTaskUiName,
+    describeHumanTaskUi_humanTaskUiName,
 
     -- * Destructuring the Response
-    describeHumanTaskUiResponse,
-    DescribeHumanTaskUiResponse,
+    DescribeHumanTaskUiResponse (..),
+    newDescribeHumanTaskUiResponse,
 
     -- * Response Lenses
-    dhturhrsHumanTaskUiStatus,
-    dhturhrsResponseStatus,
-    dhturhrsHumanTaskUiARN,
-    dhturhrsHumanTaskUiName,
-    dhturhrsCreationTime,
-    dhturhrsUiTemplate,
+    describeHumanTaskUiResponse_humanTaskUiStatus,
+    describeHumanTaskUiResponse_httpStatus,
+    describeHumanTaskUiResponse_humanTaskUiArn,
+    describeHumanTaskUiResponse_humanTaskUiName,
+    describeHumanTaskUiResponse_creationTime,
+    describeHumanTaskUiResponse_uiTemplate,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
+import Network.AWS.SageMaker.Types.HumanTaskUiStatus
+import Network.AWS.SageMaker.Types.UiTemplateInfo
 
--- | /See:/ 'describeHumanTaskUi' smart constructor.
-newtype DescribeHumanTaskUi = DescribeHumanTaskUi'
-  { _dHumanTaskUiName ::
-      Text
+-- | /See:/ 'newDescribeHumanTaskUi' smart constructor.
+data DescribeHumanTaskUi = DescribeHumanTaskUi'
+  { -- | The name of the human task user interface (worker task template) you
+    -- want information about.
+    humanTaskUiName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeHumanTaskUi' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeHumanTaskUi' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dHumanTaskUiName' - The name of the human task user interface (worker task template) you want information about.
-describeHumanTaskUi ::
-  -- | 'dHumanTaskUiName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'humanTaskUiName', 'describeHumanTaskUi_humanTaskUiName' - The name of the human task user interface (worker task template) you
+-- want information about.
+newDescribeHumanTaskUi ::
+  -- | 'humanTaskUiName'
+  Prelude.Text ->
   DescribeHumanTaskUi
-describeHumanTaskUi pHumanTaskUiName_ =
+newDescribeHumanTaskUi pHumanTaskUiName_ =
   DescribeHumanTaskUi'
-    { _dHumanTaskUiName =
+    { humanTaskUiName =
         pHumanTaskUiName_
     }
 
--- | The name of the human task user interface (worker task template) you want information about.
-dHumanTaskUiName :: Lens' DescribeHumanTaskUi Text
-dHumanTaskUiName = lens _dHumanTaskUiName (\s a -> s {_dHumanTaskUiName = a})
+-- | The name of the human task user interface (worker task template) you
+-- want information about.
+describeHumanTaskUi_humanTaskUiName :: Lens.Lens' DescribeHumanTaskUi Prelude.Text
+describeHumanTaskUi_humanTaskUiName = Lens.lens (\DescribeHumanTaskUi' {humanTaskUiName} -> humanTaskUiName) (\s@DescribeHumanTaskUi' {} a -> s {humanTaskUiName = a} :: DescribeHumanTaskUi)
 
-instance AWSRequest DescribeHumanTaskUi where
+instance Prelude.AWSRequest DescribeHumanTaskUi where
   type
     Rs DescribeHumanTaskUi =
       DescribeHumanTaskUiResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeHumanTaskUiResponse'
-            <$> (x .?> "HumanTaskUiStatus")
-            <*> (pure (fromEnum s))
-            <*> (x .:> "HumanTaskUiArn")
-            <*> (x .:> "HumanTaskUiName")
-            <*> (x .:> "CreationTime")
-            <*> (x .:> "UiTemplate")
+            Prelude.<$> (x Prelude..?> "HumanTaskUiStatus")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "HumanTaskUiArn")
+            Prelude.<*> (x Prelude..:> "HumanTaskUiName")
+            Prelude.<*> (x Prelude..:> "CreationTime")
+            Prelude.<*> (x Prelude..:> "UiTemplate")
       )
 
-instance Hashable DescribeHumanTaskUi
+instance Prelude.Hashable DescribeHumanTaskUi
 
-instance NFData DescribeHumanTaskUi
+instance Prelude.NFData DescribeHumanTaskUi
 
-instance ToHeaders DescribeHumanTaskUi where
+instance Prelude.ToHeaders DescribeHumanTaskUi where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.DescribeHumanTaskUi" :: ByteString),
+              Prelude.=# ( "SageMaker.DescribeHumanTaskUi" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeHumanTaskUi where
+instance Prelude.ToJSON DescribeHumanTaskUi where
   toJSON DescribeHumanTaskUi' {..} =
-    object
-      ( catMaybes
-          [Just ("HumanTaskUiName" .= _dHumanTaskUiName)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("HumanTaskUiName" Prelude..= humanTaskUiName)
+          ]
       )
 
-instance ToPath DescribeHumanTaskUi where
-  toPath = const "/"
+instance Prelude.ToPath DescribeHumanTaskUi where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeHumanTaskUi where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeHumanTaskUi where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeHumanTaskUiResponse' smart constructor.
+-- | /See:/ 'newDescribeHumanTaskUiResponse' smart constructor.
 data DescribeHumanTaskUiResponse = DescribeHumanTaskUiResponse'
-  { _dhturhrsHumanTaskUiStatus ::
-      !( Maybe
-           HumanTaskUiStatus
-       ),
-    _dhturhrsResponseStatus ::
-      !Int,
-    _dhturhrsHumanTaskUiARN ::
-      !Text,
-    _dhturhrsHumanTaskUiName ::
-      !Text,
-    _dhturhrsCreationTime ::
-      !POSIX,
-    _dhturhrsUiTemplate ::
-      !UiTemplateInfo
+  { -- | The status of the human task user interface (worker task template).
+    -- Valid values are listed below.
+    humanTaskUiStatus :: Prelude.Maybe HumanTaskUiStatus,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The Amazon Resource Name (ARN) of the human task user interface (worker
+    -- task template).
+    humanTaskUiArn :: Prelude.Text,
+    -- | The name of the human task user interface (worker task template).
+    humanTaskUiName :: Prelude.Text,
+    -- | The timestamp when the human task user interface was created.
+    creationTime :: Prelude.POSIX,
+    uiTemplate :: UiTemplateInfo
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeHumanTaskUiResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeHumanTaskUiResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dhturhrsHumanTaskUiStatus' - The status of the human task user interface (worker task template). Valid values are listed below.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dhturhrsResponseStatus' - -- | The response status code.
+-- 'humanTaskUiStatus', 'describeHumanTaskUiResponse_humanTaskUiStatus' - The status of the human task user interface (worker task template).
+-- Valid values are listed below.
 --
--- * 'dhturhrsHumanTaskUiARN' - The Amazon Resource Name (ARN) of the human task user interface (worker task template).
+-- 'httpStatus', 'describeHumanTaskUiResponse_httpStatus' - The response's http status code.
 --
--- * 'dhturhrsHumanTaskUiName' - The name of the human task user interface (worker task template).
+-- 'humanTaskUiArn', 'describeHumanTaskUiResponse_humanTaskUiArn' - The Amazon Resource Name (ARN) of the human task user interface (worker
+-- task template).
 --
--- * 'dhturhrsCreationTime' - The timestamp when the human task user interface was created.
+-- 'humanTaskUiName', 'describeHumanTaskUiResponse_humanTaskUiName' - The name of the human task user interface (worker task template).
 --
--- * 'dhturhrsUiTemplate' - Undocumented member.
-describeHumanTaskUiResponse ::
-  -- | 'dhturhrsResponseStatus'
-  Int ->
-  -- | 'dhturhrsHumanTaskUiARN'
-  Text ->
-  -- | 'dhturhrsHumanTaskUiName'
-  Text ->
-  -- | 'dhturhrsCreationTime'
-  UTCTime ->
-  -- | 'dhturhrsUiTemplate'
+-- 'creationTime', 'describeHumanTaskUiResponse_creationTime' - The timestamp when the human task user interface was created.
+--
+-- 'uiTemplate', 'describeHumanTaskUiResponse_uiTemplate' - Undocumented member.
+newDescribeHumanTaskUiResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'humanTaskUiArn'
+  Prelude.Text ->
+  -- | 'humanTaskUiName'
+  Prelude.Text ->
+  -- | 'creationTime'
+  Prelude.UTCTime ->
+  -- | 'uiTemplate'
   UiTemplateInfo ->
   DescribeHumanTaskUiResponse
-describeHumanTaskUiResponse
-  pResponseStatus_
-  pHumanTaskUiARN_
+newDescribeHumanTaskUiResponse
+  pHttpStatus_
+  pHumanTaskUiArn_
   pHumanTaskUiName_
   pCreationTime_
   pUiTemplate_ =
     DescribeHumanTaskUiResponse'
-      { _dhturhrsHumanTaskUiStatus =
-          Nothing,
-        _dhturhrsResponseStatus = pResponseStatus_,
-        _dhturhrsHumanTaskUiARN = pHumanTaskUiARN_,
-        _dhturhrsHumanTaskUiName = pHumanTaskUiName_,
-        _dhturhrsCreationTime = _Time # pCreationTime_,
-        _dhturhrsUiTemplate = pUiTemplate_
+      { humanTaskUiStatus =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_,
+        humanTaskUiArn = pHumanTaskUiArn_,
+        humanTaskUiName = pHumanTaskUiName_,
+        creationTime =
+          Prelude._Time Lens.# pCreationTime_,
+        uiTemplate = pUiTemplate_
       }
 
--- | The status of the human task user interface (worker task template). Valid values are listed below.
-dhturhrsHumanTaskUiStatus :: Lens' DescribeHumanTaskUiResponse (Maybe HumanTaskUiStatus)
-dhturhrsHumanTaskUiStatus = lens _dhturhrsHumanTaskUiStatus (\s a -> s {_dhturhrsHumanTaskUiStatus = a})
+-- | The status of the human task user interface (worker task template).
+-- Valid values are listed below.
+describeHumanTaskUiResponse_humanTaskUiStatus :: Lens.Lens' DescribeHumanTaskUiResponse (Prelude.Maybe HumanTaskUiStatus)
+describeHumanTaskUiResponse_humanTaskUiStatus = Lens.lens (\DescribeHumanTaskUiResponse' {humanTaskUiStatus} -> humanTaskUiStatus) (\s@DescribeHumanTaskUiResponse' {} a -> s {humanTaskUiStatus = a} :: DescribeHumanTaskUiResponse)
 
--- | -- | The response status code.
-dhturhrsResponseStatus :: Lens' DescribeHumanTaskUiResponse Int
-dhturhrsResponseStatus = lens _dhturhrsResponseStatus (\s a -> s {_dhturhrsResponseStatus = a})
+-- | The response's http status code.
+describeHumanTaskUiResponse_httpStatus :: Lens.Lens' DescribeHumanTaskUiResponse Prelude.Int
+describeHumanTaskUiResponse_httpStatus = Lens.lens (\DescribeHumanTaskUiResponse' {httpStatus} -> httpStatus) (\s@DescribeHumanTaskUiResponse' {} a -> s {httpStatus = a} :: DescribeHumanTaskUiResponse)
 
--- | The Amazon Resource Name (ARN) of the human task user interface (worker task template).
-dhturhrsHumanTaskUiARN :: Lens' DescribeHumanTaskUiResponse Text
-dhturhrsHumanTaskUiARN = lens _dhturhrsHumanTaskUiARN (\s a -> s {_dhturhrsHumanTaskUiARN = a})
+-- | The Amazon Resource Name (ARN) of the human task user interface (worker
+-- task template).
+describeHumanTaskUiResponse_humanTaskUiArn :: Lens.Lens' DescribeHumanTaskUiResponse Prelude.Text
+describeHumanTaskUiResponse_humanTaskUiArn = Lens.lens (\DescribeHumanTaskUiResponse' {humanTaskUiArn} -> humanTaskUiArn) (\s@DescribeHumanTaskUiResponse' {} a -> s {humanTaskUiArn = a} :: DescribeHumanTaskUiResponse)
 
 -- | The name of the human task user interface (worker task template).
-dhturhrsHumanTaskUiName :: Lens' DescribeHumanTaskUiResponse Text
-dhturhrsHumanTaskUiName = lens _dhturhrsHumanTaskUiName (\s a -> s {_dhturhrsHumanTaskUiName = a})
+describeHumanTaskUiResponse_humanTaskUiName :: Lens.Lens' DescribeHumanTaskUiResponse Prelude.Text
+describeHumanTaskUiResponse_humanTaskUiName = Lens.lens (\DescribeHumanTaskUiResponse' {humanTaskUiName} -> humanTaskUiName) (\s@DescribeHumanTaskUiResponse' {} a -> s {humanTaskUiName = a} :: DescribeHumanTaskUiResponse)
 
 -- | The timestamp when the human task user interface was created.
-dhturhrsCreationTime :: Lens' DescribeHumanTaskUiResponse UTCTime
-dhturhrsCreationTime = lens _dhturhrsCreationTime (\s a -> s {_dhturhrsCreationTime = a}) . _Time
+describeHumanTaskUiResponse_creationTime :: Lens.Lens' DescribeHumanTaskUiResponse Prelude.UTCTime
+describeHumanTaskUiResponse_creationTime = Lens.lens (\DescribeHumanTaskUiResponse' {creationTime} -> creationTime) (\s@DescribeHumanTaskUiResponse' {} a -> s {creationTime = a} :: DescribeHumanTaskUiResponse) Prelude.. Prelude._Time
 
 -- | Undocumented member.
-dhturhrsUiTemplate :: Lens' DescribeHumanTaskUiResponse UiTemplateInfo
-dhturhrsUiTemplate = lens _dhturhrsUiTemplate (\s a -> s {_dhturhrsUiTemplate = a})
+describeHumanTaskUiResponse_uiTemplate :: Lens.Lens' DescribeHumanTaskUiResponse UiTemplateInfo
+describeHumanTaskUiResponse_uiTemplate = Lens.lens (\DescribeHumanTaskUiResponse' {uiTemplate} -> uiTemplate) (\s@DescribeHumanTaskUiResponse' {} a -> s {uiTemplate = a} :: DescribeHumanTaskUiResponse)
 
-instance NFData DescribeHumanTaskUiResponse
+instance Prelude.NFData DescribeHumanTaskUiResponse

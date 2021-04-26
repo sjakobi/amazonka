@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.SageMaker.Types.S3DataDistribution
   ( S3DataDistribution
       ( ..,
-        FullyReplicated,
-        ShardedByS3Key
+        S3DataDistributionFullyReplicated,
+        S3DataDistributionShardedByS3Key
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data S3DataDistribution
-  = S3DataDistribution'
-      ( CI
-          Text
-      )
+newtype S3DataDistribution = S3DataDistribution'
+  { fromS3DataDistribution ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern FullyReplicated :: S3DataDistribution
-pattern FullyReplicated = S3DataDistribution' "FullyReplicated"
+pattern S3DataDistributionFullyReplicated :: S3DataDistribution
+pattern S3DataDistributionFullyReplicated = S3DataDistribution' "FullyReplicated"
 
-pattern ShardedByS3Key :: S3DataDistribution
-pattern ShardedByS3Key = S3DataDistribution' "ShardedByS3Key"
+pattern S3DataDistributionShardedByS3Key :: S3DataDistribution
+pattern S3DataDistributionShardedByS3Key = S3DataDistribution' "ShardedByS3Key"
 
 {-# COMPLETE
-  FullyReplicated,
-  ShardedByS3Key,
+  S3DataDistributionFullyReplicated,
+  S3DataDistributionShardedByS3Key,
   S3DataDistribution'
   #-}
 
-instance FromText S3DataDistribution where
-  parser = (S3DataDistribution' . mk) <$> takeText
+instance Prelude.FromText S3DataDistribution where
+  parser = S3DataDistribution' Prelude.<$> Prelude.takeText
 
-instance ToText S3DataDistribution where
-  toText (S3DataDistribution' ci) = original ci
+instance Prelude.ToText S3DataDistribution where
+  toText (S3DataDistribution' x) = x
 
-instance Hashable S3DataDistribution
+instance Prelude.Hashable S3DataDistribution
 
-instance NFData S3DataDistribution
+instance Prelude.NFData S3DataDistribution
 
-instance ToByteString S3DataDistribution
+instance Prelude.ToByteString S3DataDistribution
 
-instance ToQuery S3DataDistribution
+instance Prelude.ToQuery S3DataDistribution
 
-instance ToHeader S3DataDistribution
+instance Prelude.ToHeader S3DataDistribution
 
-instance ToJSON S3DataDistribution where
-  toJSON = toJSONText
+instance Prelude.ToJSON S3DataDistribution where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON S3DataDistribution where
-  parseJSON = parseJSONText "S3DataDistribution"
+instance Prelude.FromJSON S3DataDistribution where
+  parseJSON = Prelude.parseJSONText "S3DataDistribution"

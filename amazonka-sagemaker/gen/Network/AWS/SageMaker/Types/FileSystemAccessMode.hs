@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.SageMaker.Types.FileSystemAccessMode
   ( FileSystemAccessMode
       ( ..,
-        RO,
-        RW
+        FileSystemAccessModeRO,
+        FileSystemAccessModeRW
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data FileSystemAccessMode
-  = FileSystemAccessMode'
-      ( CI
-          Text
-      )
+newtype FileSystemAccessMode = FileSystemAccessMode'
+  { fromFileSystemAccessMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern RO :: FileSystemAccessMode
-pattern RO = FileSystemAccessMode' "ro"
+pattern FileSystemAccessModeRO :: FileSystemAccessMode
+pattern FileSystemAccessModeRO = FileSystemAccessMode' "ro"
 
-pattern RW :: FileSystemAccessMode
-pattern RW = FileSystemAccessMode' "rw"
+pattern FileSystemAccessModeRW :: FileSystemAccessMode
+pattern FileSystemAccessModeRW = FileSystemAccessMode' "rw"
 
 {-# COMPLETE
-  RO,
-  RW,
+  FileSystemAccessModeRO,
+  FileSystemAccessModeRW,
   FileSystemAccessMode'
   #-}
 
-instance FromText FileSystemAccessMode where
-  parser = (FileSystemAccessMode' . mk) <$> takeText
+instance Prelude.FromText FileSystemAccessMode where
+  parser = FileSystemAccessMode' Prelude.<$> Prelude.takeText
 
-instance ToText FileSystemAccessMode where
-  toText (FileSystemAccessMode' ci) = original ci
+instance Prelude.ToText FileSystemAccessMode where
+  toText (FileSystemAccessMode' x) = x
 
-instance Hashable FileSystemAccessMode
+instance Prelude.Hashable FileSystemAccessMode
 
-instance NFData FileSystemAccessMode
+instance Prelude.NFData FileSystemAccessMode
 
-instance ToByteString FileSystemAccessMode
+instance Prelude.ToByteString FileSystemAccessMode
 
-instance ToQuery FileSystemAccessMode
+instance Prelude.ToQuery FileSystemAccessMode
 
-instance ToHeader FileSystemAccessMode
+instance Prelude.ToHeader FileSystemAccessMode
 
-instance ToJSON FileSystemAccessMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON FileSystemAccessMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON FileSystemAccessMode where
-  parseJSON = parseJSONText "FileSystemAccessMode"
+instance Prelude.FromJSON FileSystemAccessMode where
+  parseJSON = Prelude.parseJSONText "FileSystemAccessMode"

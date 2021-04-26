@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.SageMaker.Types.AppNetworkAccessType
   ( AppNetworkAccessType
       ( ..,
-        PublicInternetOnly,
-        VPCOnly
+        AppNetworkAccessTypePublicInternetOnly,
+        AppNetworkAccessTypeVpcOnly
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AppNetworkAccessType
-  = AppNetworkAccessType'
-      ( CI
-          Text
-      )
+newtype AppNetworkAccessType = AppNetworkAccessType'
+  { fromAppNetworkAccessType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PublicInternetOnly :: AppNetworkAccessType
-pattern PublicInternetOnly = AppNetworkAccessType' "PublicInternetOnly"
+pattern AppNetworkAccessTypePublicInternetOnly :: AppNetworkAccessType
+pattern AppNetworkAccessTypePublicInternetOnly = AppNetworkAccessType' "PublicInternetOnly"
 
-pattern VPCOnly :: AppNetworkAccessType
-pattern VPCOnly = AppNetworkAccessType' "VpcOnly"
+pattern AppNetworkAccessTypeVpcOnly :: AppNetworkAccessType
+pattern AppNetworkAccessTypeVpcOnly = AppNetworkAccessType' "VpcOnly"
 
 {-# COMPLETE
-  PublicInternetOnly,
-  VPCOnly,
+  AppNetworkAccessTypePublicInternetOnly,
+  AppNetworkAccessTypeVpcOnly,
   AppNetworkAccessType'
   #-}
 
-instance FromText AppNetworkAccessType where
-  parser = (AppNetworkAccessType' . mk) <$> takeText
+instance Prelude.FromText AppNetworkAccessType where
+  parser = AppNetworkAccessType' Prelude.<$> Prelude.takeText
 
-instance ToText AppNetworkAccessType where
-  toText (AppNetworkAccessType' ci) = original ci
+instance Prelude.ToText AppNetworkAccessType where
+  toText (AppNetworkAccessType' x) = x
 
-instance Hashable AppNetworkAccessType
+instance Prelude.Hashable AppNetworkAccessType
 
-instance NFData AppNetworkAccessType
+instance Prelude.NFData AppNetworkAccessType
 
-instance ToByteString AppNetworkAccessType
+instance Prelude.ToByteString AppNetworkAccessType
 
-instance ToQuery AppNetworkAccessType
+instance Prelude.ToQuery AppNetworkAccessType
 
-instance ToHeader AppNetworkAccessType
+instance Prelude.ToHeader AppNetworkAccessType
 
-instance ToJSON AppNetworkAccessType where
-  toJSON = toJSONText
+instance Prelude.ToJSON AppNetworkAccessType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AppNetworkAccessType where
-  parseJSON = parseJSONText "AppNetworkAccessType"
+instance Prelude.FromJSON AppNetworkAccessType where
+  parseJSON = Prelude.parseJSONText "AppNetworkAccessType"

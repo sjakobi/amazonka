@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,135 +24,132 @@
 -- Deletes an Amazon SageMaker model explainability job definition.
 module Network.AWS.SageMaker.DeleteModelExplainabilityJobDefinition
   ( -- * Creating a Request
-    deleteModelExplainabilityJobDefinition,
-    DeleteModelExplainabilityJobDefinition,
+    DeleteModelExplainabilityJobDefinition (..),
+    newDeleteModelExplainabilityJobDefinition,
 
     -- * Request Lenses
-    dmejdJobDefinitionName,
+    deleteModelExplainabilityJobDefinition_jobDefinitionName,
 
     -- * Destructuring the Response
-    deleteModelExplainabilityJobDefinitionResponse,
-    DeleteModelExplainabilityJobDefinitionResponse,
+    DeleteModelExplainabilityJobDefinitionResponse (..),
+    newDeleteModelExplainabilityJobDefinitionResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'deleteModelExplainabilityJobDefinition' smart constructor.
-newtype DeleteModelExplainabilityJobDefinition = DeleteModelExplainabilityJobDefinition'
-  { _dmejdJobDefinitionName ::
-      Text
+-- | /See:/ 'newDeleteModelExplainabilityJobDefinition' smart constructor.
+data DeleteModelExplainabilityJobDefinition = DeleteModelExplainabilityJobDefinition'
+  { -- | The name of the model explainability job definition to delete.
+    jobDefinitionName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteModelExplainabilityJobDefinition' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteModelExplainabilityJobDefinition' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dmejdJobDefinitionName' - The name of the model explainability job definition to delete.
-deleteModelExplainabilityJobDefinition ::
-  -- | 'dmejdJobDefinitionName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'jobDefinitionName', 'deleteModelExplainabilityJobDefinition_jobDefinitionName' - The name of the model explainability job definition to delete.
+newDeleteModelExplainabilityJobDefinition ::
+  -- | 'jobDefinitionName'
+  Prelude.Text ->
   DeleteModelExplainabilityJobDefinition
-deleteModelExplainabilityJobDefinition
+newDeleteModelExplainabilityJobDefinition
   pJobDefinitionName_ =
     DeleteModelExplainabilityJobDefinition'
-      { _dmejdJobDefinitionName =
+      { jobDefinitionName =
           pJobDefinitionName_
       }
 
 -- | The name of the model explainability job definition to delete.
-dmejdJobDefinitionName :: Lens' DeleteModelExplainabilityJobDefinition Text
-dmejdJobDefinitionName = lens _dmejdJobDefinitionName (\s a -> s {_dmejdJobDefinitionName = a})
+deleteModelExplainabilityJobDefinition_jobDefinitionName :: Lens.Lens' DeleteModelExplainabilityJobDefinition Prelude.Text
+deleteModelExplainabilityJobDefinition_jobDefinitionName = Lens.lens (\DeleteModelExplainabilityJobDefinition' {jobDefinitionName} -> jobDefinitionName) (\s@DeleteModelExplainabilityJobDefinition' {} a -> s {jobDefinitionName = a} :: DeleteModelExplainabilityJobDefinition)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     DeleteModelExplainabilityJobDefinition
   where
   type
     Rs DeleteModelExplainabilityJobDefinition =
       DeleteModelExplainabilityJobDefinitionResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveNull
+    Response.receiveNull
       DeleteModelExplainabilityJobDefinitionResponse'
 
 instance
-  Hashable
+  Prelude.Hashable
     DeleteModelExplainabilityJobDefinition
 
 instance
-  NFData
+  Prelude.NFData
     DeleteModelExplainabilityJobDefinition
 
 instance
-  ToHeaders
+  Prelude.ToHeaders
     DeleteModelExplainabilityJobDefinition
   where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "SageMaker.DeleteModelExplainabilityJobDefinition" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "SageMaker.DeleteModelExplainabilityJobDefinition" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
 instance
-  ToJSON
+  Prelude.ToJSON
     DeleteModelExplainabilityJobDefinition
   where
   toJSON DeleteModelExplainabilityJobDefinition' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("JobDefinitionName" .= _dmejdJobDefinitionName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("JobDefinitionName" Prelude..= jobDefinitionName)
           ]
       )
 
 instance
-  ToPath
+  Prelude.ToPath
     DeleteModelExplainabilityJobDefinition
   where
-  toPath = const "/"
+  toPath = Prelude.const "/"
 
 instance
-  ToQuery
+  Prelude.ToQuery
     DeleteModelExplainabilityJobDefinition
   where
-  toQuery = const mempty
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteModelExplainabilityJobDefinitionResponse' smart constructor.
+-- | /See:/ 'newDeleteModelExplainabilityJobDefinitionResponse' smart constructor.
 data DeleteModelExplainabilityJobDefinitionResponse = DeleteModelExplainabilityJobDefinitionResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteModelExplainabilityJobDefinitionResponse' with the minimum fields required to make a request.
-deleteModelExplainabilityJobDefinitionResponse ::
+-- |
+-- Create a value of 'DeleteModelExplainabilityJobDefinitionResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteModelExplainabilityJobDefinitionResponse ::
   DeleteModelExplainabilityJobDefinitionResponse
-deleteModelExplainabilityJobDefinitionResponse =
+newDeleteModelExplainabilityJobDefinitionResponse =
   DeleteModelExplainabilityJobDefinitionResponse'
 
 instance
-  NFData
+  Prelude.NFData
     DeleteModelExplainabilityJobDefinitionResponse

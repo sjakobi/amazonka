@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.SageMaker.Types.ConditionOutcome
   ( ConditionOutcome
       ( ..,
-        False',
-        True'
+        ConditionOutcomeFalse,
+        ConditionOutcomeTrue
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ConditionOutcome = ConditionOutcome' (CI Text)
+newtype ConditionOutcome = ConditionOutcome'
+  { fromConditionOutcome ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern False' :: ConditionOutcome
-pattern False' = ConditionOutcome' "False"
+pattern ConditionOutcomeFalse :: ConditionOutcome
+pattern ConditionOutcomeFalse = ConditionOutcome' "False"
 
-pattern True' :: ConditionOutcome
-pattern True' = ConditionOutcome' "True"
+pattern ConditionOutcomeTrue :: ConditionOutcome
+pattern ConditionOutcomeTrue = ConditionOutcome' "True"
 
 {-# COMPLETE
-  False',
-  True',
+  ConditionOutcomeFalse,
+  ConditionOutcomeTrue,
   ConditionOutcome'
   #-}
 
-instance FromText ConditionOutcome where
-  parser = (ConditionOutcome' . mk) <$> takeText
+instance Prelude.FromText ConditionOutcome where
+  parser = ConditionOutcome' Prelude.<$> Prelude.takeText
 
-instance ToText ConditionOutcome where
-  toText (ConditionOutcome' ci) = original ci
+instance Prelude.ToText ConditionOutcome where
+  toText (ConditionOutcome' x) = x
 
-instance Hashable ConditionOutcome
+instance Prelude.Hashable ConditionOutcome
 
-instance NFData ConditionOutcome
+instance Prelude.NFData ConditionOutcome
 
-instance ToByteString ConditionOutcome
+instance Prelude.ToByteString ConditionOutcome
 
-instance ToQuery ConditionOutcome
+instance Prelude.ToQuery ConditionOutcome
 
-instance ToHeader ConditionOutcome
+instance Prelude.ToHeader ConditionOutcome
 
-instance FromJSON ConditionOutcome where
-  parseJSON = parseJSONText "ConditionOutcome"
+instance Prelude.FromJSON ConditionOutcome where
+  parseJSON = Prelude.parseJSONText "ConditionOutcome"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,78 +19,80 @@
 module Network.AWS.SageMaker.Types.UserProfileStatus
   ( UserProfileStatus
       ( ..,
-        UPSDeleteFailed,
-        UPSDeleting,
-        UPSFailed,
-        UPSInService,
-        UPSPending,
-        UPSUpdateFailed,
-        UPSUpdating
+        UserProfileStatusDeleteFailed,
+        UserProfileStatusDeleting,
+        UserProfileStatusFailed,
+        UserProfileStatusInService,
+        UserProfileStatusPending,
+        UserProfileStatusUpdateFailed,
+        UserProfileStatusUpdating
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data UserProfileStatus = UserProfileStatus' (CI Text)
+newtype UserProfileStatus = UserProfileStatus'
+  { fromUserProfileStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern UPSDeleteFailed :: UserProfileStatus
-pattern UPSDeleteFailed = UserProfileStatus' "Delete_Failed"
+pattern UserProfileStatusDeleteFailed :: UserProfileStatus
+pattern UserProfileStatusDeleteFailed = UserProfileStatus' "Delete_Failed"
 
-pattern UPSDeleting :: UserProfileStatus
-pattern UPSDeleting = UserProfileStatus' "Deleting"
+pattern UserProfileStatusDeleting :: UserProfileStatus
+pattern UserProfileStatusDeleting = UserProfileStatus' "Deleting"
 
-pattern UPSFailed :: UserProfileStatus
-pattern UPSFailed = UserProfileStatus' "Failed"
+pattern UserProfileStatusFailed :: UserProfileStatus
+pattern UserProfileStatusFailed = UserProfileStatus' "Failed"
 
-pattern UPSInService :: UserProfileStatus
-pattern UPSInService = UserProfileStatus' "InService"
+pattern UserProfileStatusInService :: UserProfileStatus
+pattern UserProfileStatusInService = UserProfileStatus' "InService"
 
-pattern UPSPending :: UserProfileStatus
-pattern UPSPending = UserProfileStatus' "Pending"
+pattern UserProfileStatusPending :: UserProfileStatus
+pattern UserProfileStatusPending = UserProfileStatus' "Pending"
 
-pattern UPSUpdateFailed :: UserProfileStatus
-pattern UPSUpdateFailed = UserProfileStatus' "Update_Failed"
+pattern UserProfileStatusUpdateFailed :: UserProfileStatus
+pattern UserProfileStatusUpdateFailed = UserProfileStatus' "Update_Failed"
 
-pattern UPSUpdating :: UserProfileStatus
-pattern UPSUpdating = UserProfileStatus' "Updating"
+pattern UserProfileStatusUpdating :: UserProfileStatus
+pattern UserProfileStatusUpdating = UserProfileStatus' "Updating"
 
 {-# COMPLETE
-  UPSDeleteFailed,
-  UPSDeleting,
-  UPSFailed,
-  UPSInService,
-  UPSPending,
-  UPSUpdateFailed,
-  UPSUpdating,
+  UserProfileStatusDeleteFailed,
+  UserProfileStatusDeleting,
+  UserProfileStatusFailed,
+  UserProfileStatusInService,
+  UserProfileStatusPending,
+  UserProfileStatusUpdateFailed,
+  UserProfileStatusUpdating,
   UserProfileStatus'
   #-}
 
-instance FromText UserProfileStatus where
-  parser = (UserProfileStatus' . mk) <$> takeText
+instance Prelude.FromText UserProfileStatus where
+  parser = UserProfileStatus' Prelude.<$> Prelude.takeText
 
-instance ToText UserProfileStatus where
-  toText (UserProfileStatus' ci) = original ci
+instance Prelude.ToText UserProfileStatus where
+  toText (UserProfileStatus' x) = x
 
-instance Hashable UserProfileStatus
+instance Prelude.Hashable UserProfileStatus
 
-instance NFData UserProfileStatus
+instance Prelude.NFData UserProfileStatus
 
-instance ToByteString UserProfileStatus
+instance Prelude.ToByteString UserProfileStatus
 
-instance ToQuery UserProfileStatus
+instance Prelude.ToQuery UserProfileStatus
 
-instance ToHeader UserProfileStatus
+instance Prelude.ToHeader UserProfileStatus
 
-instance FromJSON UserProfileStatus where
-  parseJSON = parseJSONText "UserProfileStatus"
+instance Prelude.FromJSON UserProfileStatus where
+  parseJSON = Prelude.parseJSONText "UserProfileStatus"

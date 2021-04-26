@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,80 +19,78 @@
 module Network.AWS.SageMaker.Types.CompilationJobStatus
   ( CompilationJobStatus
       ( ..,
-        CJSCompleted,
-        CJSFailed,
-        CJSInprogress,
-        CJSStarting,
-        CJSStopped,
-        CJSStopping
+        CompilationJobStatusCOMPLETED,
+        CompilationJobStatusFAILED,
+        CompilationJobStatusINPROGRESS,
+        CompilationJobStatusSTARTING,
+        CompilationJobStatusSTOPPED,
+        CompilationJobStatusSTOPPING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CompilationJobStatus
-  = CompilationJobStatus'
-      ( CI
-          Text
-      )
+newtype CompilationJobStatus = CompilationJobStatus'
+  { fromCompilationJobStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CJSCompleted :: CompilationJobStatus
-pattern CJSCompleted = CompilationJobStatus' "COMPLETED"
+pattern CompilationJobStatusCOMPLETED :: CompilationJobStatus
+pattern CompilationJobStatusCOMPLETED = CompilationJobStatus' "COMPLETED"
 
-pattern CJSFailed :: CompilationJobStatus
-pattern CJSFailed = CompilationJobStatus' "FAILED"
+pattern CompilationJobStatusFAILED :: CompilationJobStatus
+pattern CompilationJobStatusFAILED = CompilationJobStatus' "FAILED"
 
-pattern CJSInprogress :: CompilationJobStatus
-pattern CJSInprogress = CompilationJobStatus' "INPROGRESS"
+pattern CompilationJobStatusINPROGRESS :: CompilationJobStatus
+pattern CompilationJobStatusINPROGRESS = CompilationJobStatus' "INPROGRESS"
 
-pattern CJSStarting :: CompilationJobStatus
-pattern CJSStarting = CompilationJobStatus' "STARTING"
+pattern CompilationJobStatusSTARTING :: CompilationJobStatus
+pattern CompilationJobStatusSTARTING = CompilationJobStatus' "STARTING"
 
-pattern CJSStopped :: CompilationJobStatus
-pattern CJSStopped = CompilationJobStatus' "STOPPED"
+pattern CompilationJobStatusSTOPPED :: CompilationJobStatus
+pattern CompilationJobStatusSTOPPED = CompilationJobStatus' "STOPPED"
 
-pattern CJSStopping :: CompilationJobStatus
-pattern CJSStopping = CompilationJobStatus' "STOPPING"
+pattern CompilationJobStatusSTOPPING :: CompilationJobStatus
+pattern CompilationJobStatusSTOPPING = CompilationJobStatus' "STOPPING"
 
 {-# COMPLETE
-  CJSCompleted,
-  CJSFailed,
-  CJSInprogress,
-  CJSStarting,
-  CJSStopped,
-  CJSStopping,
+  CompilationJobStatusCOMPLETED,
+  CompilationJobStatusFAILED,
+  CompilationJobStatusINPROGRESS,
+  CompilationJobStatusSTARTING,
+  CompilationJobStatusSTOPPED,
+  CompilationJobStatusSTOPPING,
   CompilationJobStatus'
   #-}
 
-instance FromText CompilationJobStatus where
-  parser = (CompilationJobStatus' . mk) <$> takeText
+instance Prelude.FromText CompilationJobStatus where
+  parser = CompilationJobStatus' Prelude.<$> Prelude.takeText
 
-instance ToText CompilationJobStatus where
-  toText (CompilationJobStatus' ci) = original ci
+instance Prelude.ToText CompilationJobStatus where
+  toText (CompilationJobStatus' x) = x
 
-instance Hashable CompilationJobStatus
+instance Prelude.Hashable CompilationJobStatus
 
-instance NFData CompilationJobStatus
+instance Prelude.NFData CompilationJobStatus
 
-instance ToByteString CompilationJobStatus
+instance Prelude.ToByteString CompilationJobStatus
 
-instance ToQuery CompilationJobStatus
+instance Prelude.ToQuery CompilationJobStatus
 
-instance ToHeader CompilationJobStatus
+instance Prelude.ToHeader CompilationJobStatus
 
-instance ToJSON CompilationJobStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON CompilationJobStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CompilationJobStatus where
-  parseJSON = parseJSONText "CompilationJobStatus"
+instance Prelude.FromJSON CompilationJobStatus where
+  parseJSON = Prelude.parseJSONText "CompilationJobStatus"

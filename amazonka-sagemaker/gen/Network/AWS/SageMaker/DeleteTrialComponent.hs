@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,146 +21,150 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the specified trial component. A trial component must be disassociated from all trials before the trial component can be deleted. To disassociate a trial component from a trial, call the 'DisassociateTrialComponent' API.
+-- Deletes the specified trial component. A trial component must be
+-- disassociated from all trials before the trial component can be deleted.
+-- To disassociate a trial component from a trial, call the
+-- DisassociateTrialComponent API.
 module Network.AWS.SageMaker.DeleteTrialComponent
   ( -- * Creating a Request
-    deleteTrialComponent,
-    DeleteTrialComponent,
+    DeleteTrialComponent (..),
+    newDeleteTrialComponent,
 
     -- * Request Lenses
-    dTrialComponentName,
+    deleteTrialComponent_trialComponentName,
 
     -- * Destructuring the Response
-    deleteTrialComponentResponse,
-    DeleteTrialComponentResponse,
+    DeleteTrialComponentResponse (..),
+    newDeleteTrialComponentResponse,
 
     -- * Response Lenses
-    dtcrtrsTrialComponentARN,
-    dtcrtrsResponseStatus,
+    deleteTrialComponentResponse_trialComponentArn,
+    deleteTrialComponentResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'deleteTrialComponent' smart constructor.
-newtype DeleteTrialComponent = DeleteTrialComponent'
-  { _dTrialComponentName ::
-      Text
+-- | /See:/ 'newDeleteTrialComponent' smart constructor.
+data DeleteTrialComponent = DeleteTrialComponent'
+  { -- | The name of the component to delete.
+    trialComponentName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteTrialComponent' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteTrialComponent' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dTrialComponentName' - The name of the component to delete.
-deleteTrialComponent ::
-  -- | 'dTrialComponentName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'trialComponentName', 'deleteTrialComponent_trialComponentName' - The name of the component to delete.
+newDeleteTrialComponent ::
+  -- | 'trialComponentName'
+  Prelude.Text ->
   DeleteTrialComponent
-deleteTrialComponent pTrialComponentName_ =
+newDeleteTrialComponent pTrialComponentName_ =
   DeleteTrialComponent'
-    { _dTrialComponentName =
+    { trialComponentName =
         pTrialComponentName_
     }
 
 -- | The name of the component to delete.
-dTrialComponentName :: Lens' DeleteTrialComponent Text
-dTrialComponentName = lens _dTrialComponentName (\s a -> s {_dTrialComponentName = a})
+deleteTrialComponent_trialComponentName :: Lens.Lens' DeleteTrialComponent Prelude.Text
+deleteTrialComponent_trialComponentName = Lens.lens (\DeleteTrialComponent' {trialComponentName} -> trialComponentName) (\s@DeleteTrialComponent' {} a -> s {trialComponentName = a} :: DeleteTrialComponent)
 
-instance AWSRequest DeleteTrialComponent where
+instance Prelude.AWSRequest DeleteTrialComponent where
   type
     Rs DeleteTrialComponent =
       DeleteTrialComponentResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteTrialComponentResponse'
-            <$> (x .?> "TrialComponentArn") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "TrialComponentArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteTrialComponent
+instance Prelude.Hashable DeleteTrialComponent
 
-instance NFData DeleteTrialComponent
+instance Prelude.NFData DeleteTrialComponent
 
-instance ToHeaders DeleteTrialComponent where
+instance Prelude.ToHeaders DeleteTrialComponent where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.DeleteTrialComponent" :: ByteString),
+              Prelude.=# ( "SageMaker.DeleteTrialComponent" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteTrialComponent where
+instance Prelude.ToJSON DeleteTrialComponent where
   toJSON DeleteTrialComponent' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("TrialComponentName" .= _dTrialComponentName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ( "TrialComponentName"
+                  Prelude..= trialComponentName
+              )
           ]
       )
 
-instance ToPath DeleteTrialComponent where
-  toPath = const "/"
+instance Prelude.ToPath DeleteTrialComponent where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteTrialComponent where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteTrialComponent where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteTrialComponentResponse' smart constructor.
+-- | /See:/ 'newDeleteTrialComponentResponse' smart constructor.
 data DeleteTrialComponentResponse = DeleteTrialComponentResponse'
-  { _dtcrtrsTrialComponentARN ::
-      !(Maybe Text),
-    _dtcrtrsResponseStatus ::
-      !Int
+  { -- | The Amazon Resource Name (ARN) of the component is being deleted.
+    trialComponentArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteTrialComponentResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteTrialComponentResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtcrtrsTrialComponentARN' - The Amazon Resource Name (ARN) of the component is being deleted.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtcrtrsResponseStatus' - -- | The response status code.
-deleteTrialComponentResponse ::
-  -- | 'dtcrtrsResponseStatus'
-  Int ->
+-- 'trialComponentArn', 'deleteTrialComponentResponse_trialComponentArn' - The Amazon Resource Name (ARN) of the component is being deleted.
+--
+-- 'httpStatus', 'deleteTrialComponentResponse_httpStatus' - The response's http status code.
+newDeleteTrialComponentResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteTrialComponentResponse
-deleteTrialComponentResponse pResponseStatus_ =
+newDeleteTrialComponentResponse pHttpStatus_ =
   DeleteTrialComponentResponse'
-    { _dtcrtrsTrialComponentARN =
-        Nothing,
-      _dtcrtrsResponseStatus = pResponseStatus_
+    { trialComponentArn =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The Amazon Resource Name (ARN) of the component is being deleted.
-dtcrtrsTrialComponentARN :: Lens' DeleteTrialComponentResponse (Maybe Text)
-dtcrtrsTrialComponentARN = lens _dtcrtrsTrialComponentARN (\s a -> s {_dtcrtrsTrialComponentARN = a})
+deleteTrialComponentResponse_trialComponentArn :: Lens.Lens' DeleteTrialComponentResponse (Prelude.Maybe Prelude.Text)
+deleteTrialComponentResponse_trialComponentArn = Lens.lens (\DeleteTrialComponentResponse' {trialComponentArn} -> trialComponentArn) (\s@DeleteTrialComponentResponse' {} a -> s {trialComponentArn = a} :: DeleteTrialComponentResponse)
 
--- | -- | The response status code.
-dtcrtrsResponseStatus :: Lens' DeleteTrialComponentResponse Int
-dtcrtrsResponseStatus = lens _dtcrtrsResponseStatus (\s a -> s {_dtcrtrsResponseStatus = a})
+-- | The response's http status code.
+deleteTrialComponentResponse_httpStatus :: Lens.Lens' DeleteTrialComponentResponse Prelude.Int
+deleteTrialComponentResponse_httpStatus = Lens.lens (\DeleteTrialComponentResponse' {httpStatus} -> httpStatus) (\s@DeleteTrialComponentResponse' {} a -> s {httpStatus = a} :: DeleteTrialComponentResponse)
 
-instance NFData DeleteTrialComponentResponse
+instance Prelude.NFData DeleteTrialComponentResponse

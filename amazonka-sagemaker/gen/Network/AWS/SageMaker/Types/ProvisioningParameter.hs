@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,67 +19,68 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.ProvisioningParameter where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A key value pair used when you provision a project as a service catalog product. For information, see <https://docs.aws.amazon.com/servicecatalog/latest/adminguide/introduction.html What is AWS Service Catalog> .
+-- | A key value pair used when you provision a project as a service catalog
+-- product. For information, see
+-- <https://docs.aws.amazon.com/servicecatalog/latest/adminguide/introduction.html What is AWS Service Catalog>.
 --
---
---
--- /See:/ 'provisioningParameter' smart constructor.
+-- /See:/ 'newProvisioningParameter' smart constructor.
 data ProvisioningParameter = ProvisioningParameter'
-  { _ppKey ::
-      !(Maybe Text),
-    _ppValue :: !(Maybe Text)
+  { -- | The key that identifies a provisioning parameter.
+    key :: Prelude.Maybe Prelude.Text,
+    -- | The value of the provisioning parameter.
+    value :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ProvisioningParameter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ProvisioningParameter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ppKey' - The key that identifies a provisioning parameter.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ppValue' - The value of the provisioning parameter.
-provisioningParameter ::
+-- 'key', 'provisioningParameter_key' - The key that identifies a provisioning parameter.
+--
+-- 'value', 'provisioningParameter_value' - The value of the provisioning parameter.
+newProvisioningParameter ::
   ProvisioningParameter
-provisioningParameter =
+newProvisioningParameter =
   ProvisioningParameter'
-    { _ppKey = Nothing,
-      _ppValue = Nothing
+    { key = Prelude.Nothing,
+      value = Prelude.Nothing
     }
 
 -- | The key that identifies a provisioning parameter.
-ppKey :: Lens' ProvisioningParameter (Maybe Text)
-ppKey = lens _ppKey (\s a -> s {_ppKey = a})
+provisioningParameter_key :: Lens.Lens' ProvisioningParameter (Prelude.Maybe Prelude.Text)
+provisioningParameter_key = Lens.lens (\ProvisioningParameter' {key} -> key) (\s@ProvisioningParameter' {} a -> s {key = a} :: ProvisioningParameter)
 
 -- | The value of the provisioning parameter.
-ppValue :: Lens' ProvisioningParameter (Maybe Text)
-ppValue = lens _ppValue (\s a -> s {_ppValue = a})
+provisioningParameter_value :: Lens.Lens' ProvisioningParameter (Prelude.Maybe Prelude.Text)
+provisioningParameter_value = Lens.lens (\ProvisioningParameter' {value} -> value) (\s@ProvisioningParameter' {} a -> s {value = a} :: ProvisioningParameter)
 
-instance FromJSON ProvisioningParameter where
+instance Prelude.FromJSON ProvisioningParameter where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ProvisioningParameter"
       ( \x ->
           ProvisioningParameter'
-            <$> (x .:? "Key") <*> (x .:? "Value")
+            Prelude.<$> (x Prelude..:? "Key")
+            Prelude.<*> (x Prelude..:? "Value")
       )
 
-instance Hashable ProvisioningParameter
+instance Prelude.Hashable ProvisioningParameter
 
-instance NFData ProvisioningParameter
+instance Prelude.NFData ProvisioningParameter
 
-instance ToJSON ProvisioningParameter where
+instance Prelude.ToJSON ProvisioningParameter where
   toJSON ProvisioningParameter' {..} =
-    object
-      ( catMaybes
-          [("Key" .=) <$> _ppKey, ("Value" .=) <$> _ppValue]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Key" Prelude..=) Prelude.<$> key,
+            ("Value" Prelude..=) Prelude.<$> value
+          ]
       )

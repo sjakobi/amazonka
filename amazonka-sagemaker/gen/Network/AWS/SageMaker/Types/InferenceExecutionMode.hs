@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.SageMaker.Types.InferenceExecutionMode
   ( InferenceExecutionMode
       ( ..,
-        Direct,
-        Serial
+        InferenceExecutionModeDirect,
+        InferenceExecutionModeSerial
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data InferenceExecutionMode
-  = InferenceExecutionMode'
-      ( CI
-          Text
-      )
+newtype InferenceExecutionMode = InferenceExecutionMode'
+  { fromInferenceExecutionMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Direct :: InferenceExecutionMode
-pattern Direct = InferenceExecutionMode' "Direct"
+pattern InferenceExecutionModeDirect :: InferenceExecutionMode
+pattern InferenceExecutionModeDirect = InferenceExecutionMode' "Direct"
 
-pattern Serial :: InferenceExecutionMode
-pattern Serial = InferenceExecutionMode' "Serial"
+pattern InferenceExecutionModeSerial :: InferenceExecutionMode
+pattern InferenceExecutionModeSerial = InferenceExecutionMode' "Serial"
 
 {-# COMPLETE
-  Direct,
-  Serial,
+  InferenceExecutionModeDirect,
+  InferenceExecutionModeSerial,
   InferenceExecutionMode'
   #-}
 
-instance FromText InferenceExecutionMode where
-  parser = (InferenceExecutionMode' . mk) <$> takeText
+instance Prelude.FromText InferenceExecutionMode where
+  parser = InferenceExecutionMode' Prelude.<$> Prelude.takeText
 
-instance ToText InferenceExecutionMode where
-  toText (InferenceExecutionMode' ci) = original ci
+instance Prelude.ToText InferenceExecutionMode where
+  toText (InferenceExecutionMode' x) = x
 
-instance Hashable InferenceExecutionMode
+instance Prelude.Hashable InferenceExecutionMode
 
-instance NFData InferenceExecutionMode
+instance Prelude.NFData InferenceExecutionMode
 
-instance ToByteString InferenceExecutionMode
+instance Prelude.ToByteString InferenceExecutionMode
 
-instance ToQuery InferenceExecutionMode
+instance Prelude.ToQuery InferenceExecutionMode
 
-instance ToHeader InferenceExecutionMode
+instance Prelude.ToHeader InferenceExecutionMode
 
-instance ToJSON InferenceExecutionMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON InferenceExecutionMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON InferenceExecutionMode where
-  parseJSON = parseJSONText "InferenceExecutionMode"
+instance Prelude.FromJSON InferenceExecutionMode where
+  parseJSON = Prelude.parseJSONText "InferenceExecutionMode"

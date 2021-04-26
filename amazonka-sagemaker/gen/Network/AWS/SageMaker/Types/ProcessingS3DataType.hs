@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.SageMaker.Types.ProcessingS3DataType
   ( ProcessingS3DataType
       ( ..,
-        PSDTManifestFile,
-        PSDTS3Prefix
+        ProcessingS3DataTypeManifestFile,
+        ProcessingS3DataTypeS3Prefix
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ProcessingS3DataType
-  = ProcessingS3DataType'
-      ( CI
-          Text
-      )
+newtype ProcessingS3DataType = ProcessingS3DataType'
+  { fromProcessingS3DataType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PSDTManifestFile :: ProcessingS3DataType
-pattern PSDTManifestFile = ProcessingS3DataType' "ManifestFile"
+pattern ProcessingS3DataTypeManifestFile :: ProcessingS3DataType
+pattern ProcessingS3DataTypeManifestFile = ProcessingS3DataType' "ManifestFile"
 
-pattern PSDTS3Prefix :: ProcessingS3DataType
-pattern PSDTS3Prefix = ProcessingS3DataType' "S3Prefix"
+pattern ProcessingS3DataTypeS3Prefix :: ProcessingS3DataType
+pattern ProcessingS3DataTypeS3Prefix = ProcessingS3DataType' "S3Prefix"
 
 {-# COMPLETE
-  PSDTManifestFile,
-  PSDTS3Prefix,
+  ProcessingS3DataTypeManifestFile,
+  ProcessingS3DataTypeS3Prefix,
   ProcessingS3DataType'
   #-}
 
-instance FromText ProcessingS3DataType where
-  parser = (ProcessingS3DataType' . mk) <$> takeText
+instance Prelude.FromText ProcessingS3DataType where
+  parser = ProcessingS3DataType' Prelude.<$> Prelude.takeText
 
-instance ToText ProcessingS3DataType where
-  toText (ProcessingS3DataType' ci) = original ci
+instance Prelude.ToText ProcessingS3DataType where
+  toText (ProcessingS3DataType' x) = x
 
-instance Hashable ProcessingS3DataType
+instance Prelude.Hashable ProcessingS3DataType
 
-instance NFData ProcessingS3DataType
+instance Prelude.NFData ProcessingS3DataType
 
-instance ToByteString ProcessingS3DataType
+instance Prelude.ToByteString ProcessingS3DataType
 
-instance ToQuery ProcessingS3DataType
+instance Prelude.ToQuery ProcessingS3DataType
 
-instance ToHeader ProcessingS3DataType
+instance Prelude.ToHeader ProcessingS3DataType
 
-instance ToJSON ProcessingS3DataType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ProcessingS3DataType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ProcessingS3DataType where
-  parseJSON = parseJSONText "ProcessingS3DataType"
+instance Prelude.FromJSON ProcessingS3DataType where
+  parseJSON = Prelude.parseJSONText "ProcessingS3DataType"

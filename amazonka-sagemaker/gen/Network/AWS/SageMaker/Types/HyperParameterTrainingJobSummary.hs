@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,197 +19,240 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.HyperParameterTrainingJobSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.FinalHyperParameterTuningJobObjectiveMetric
 import Network.AWS.SageMaker.Types.ObjectiveStatus
 import Network.AWS.SageMaker.Types.TrainingJobStatus
 
 -- | Specifies summary information about a training job.
 --
---
---
--- /See:/ 'hyperParameterTrainingJobSummary' smart constructor.
+-- /See:/ 'newHyperParameterTrainingJobSummary' smart constructor.
 data HyperParameterTrainingJobSummary = HyperParameterTrainingJobSummary'
-  { _hptjsFinalHyperParameterTuningJobObjectiveMetric ::
-      !( Maybe
-           FinalHyperParameterTuningJobObjectiveMetric
-       ),
-    _hptjsTuningJobName ::
-      !( Maybe
-           Text
-       ),
-    _hptjsFailureReason ::
-      !( Maybe
-           Text
-       ),
-    _hptjsObjectiveStatus ::
-      !( Maybe
-           ObjectiveStatus
-       ),
-    _hptjsTrainingJobDefinitionName ::
-      !( Maybe
-           Text
-       ),
-    _hptjsTrainingStartTime ::
-      !( Maybe
-           POSIX
-       ),
-    _hptjsTrainingEndTime ::
-      !( Maybe
-           POSIX
-       ),
-    _hptjsTrainingJobName ::
-      !Text,
-    _hptjsTrainingJobARN ::
-      !Text,
-    _hptjsCreationTime ::
-      !POSIX,
-    _hptjsTrainingJobStatus ::
-      !TrainingJobStatus,
-    _hptjsTunedHyperParameters ::
-      !( Map
-           Text
-           Text
-       )
+  { -- | The FinalHyperParameterTuningJobObjectiveMetric object that specifies
+    -- the value of the objective metric of the tuning job that launched this
+    -- training job.
+    finalHyperParameterTuningJobObjectiveMetric :: Prelude.Maybe FinalHyperParameterTuningJobObjectiveMetric,
+    -- | The HyperParameter tuning job that launched the training job.
+    tuningJobName :: Prelude.Maybe Prelude.Text,
+    -- | The reason that the training job failed.
+    failureReason :: Prelude.Maybe Prelude.Text,
+    -- | The status of the objective metric for the training job:
+    --
+    -- -   Succeeded: The final objective metric for the training job was
+    --     evaluated by the hyperparameter tuning job and used in the
+    --     hyperparameter tuning process.
+    --
+    -- -   Pending: The training job is in progress and evaluation of its final
+    --     objective metric is pending.
+    --
+    -- -   Failed: The final objective metric for the training job was not
+    --     evaluated, and was not used in the hyperparameter tuning process.
+    --     This typically occurs when the training job failed or did not emit
+    --     an objective metric.
+    objectiveStatus :: Prelude.Maybe ObjectiveStatus,
+    -- | The training job definition name.
+    trainingJobDefinitionName :: Prelude.Maybe Prelude.Text,
+    -- | The date and time that the training job started.
+    trainingStartTime :: Prelude.Maybe Prelude.POSIX,
+    -- | Specifies the time when the training job ends on training instances. You
+    -- are billed for the time interval between the value of
+    -- @TrainingStartTime@ and this time. For successful jobs and stopped jobs,
+    -- this is the time after model artifacts are uploaded. For failed jobs,
+    -- this is the time when Amazon SageMaker detects a job failure.
+    trainingEndTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The name of the training job.
+    trainingJobName :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the training job.
+    trainingJobArn :: Prelude.Text,
+    -- | The date and time that the training job was created.
+    creationTime :: Prelude.POSIX,
+    -- | The status of the training job.
+    trainingJobStatus :: TrainingJobStatus,
+    -- | A list of the hyperparameters for which you specified ranges to search.
+    tunedHyperParameters :: Prelude.Map Prelude.Text Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'HyperParameterTrainingJobSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'HyperParameterTrainingJobSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'hptjsFinalHyperParameterTuningJobObjectiveMetric' - The 'FinalHyperParameterTuningJobObjectiveMetric' object that specifies the value of the objective metric of the tuning job that launched this training job.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'hptjsTuningJobName' - The HyperParameter tuning job that launched the training job.
+-- 'finalHyperParameterTuningJobObjectiveMetric', 'hyperParameterTrainingJobSummary_finalHyperParameterTuningJobObjectiveMetric' - The FinalHyperParameterTuningJobObjectiveMetric object that specifies
+-- the value of the objective metric of the tuning job that launched this
+-- training job.
 --
--- * 'hptjsFailureReason' - The reason that the training job failed.
+-- 'tuningJobName', 'hyperParameterTrainingJobSummary_tuningJobName' - The HyperParameter tuning job that launched the training job.
 --
--- * 'hptjsObjectiveStatus' - The status of the objective metric for the training job:     * Succeeded: The final objective metric for the training job was evaluated by the hyperparameter tuning job and used in the hyperparameter tuning process.     * Pending: The training job is in progress and evaluation of its final objective metric is pending.     * Failed: The final objective metric for the training job was not evaluated, and was not used in the hyperparameter tuning process. This typically occurs when the training job failed or did not emit an objective metric.
+-- 'failureReason', 'hyperParameterTrainingJobSummary_failureReason' - The reason that the training job failed.
 --
--- * 'hptjsTrainingJobDefinitionName' - The training job definition name.
+-- 'objectiveStatus', 'hyperParameterTrainingJobSummary_objectiveStatus' - The status of the objective metric for the training job:
 --
--- * 'hptjsTrainingStartTime' - The date and time that the training job started.
+-- -   Succeeded: The final objective metric for the training job was
+--     evaluated by the hyperparameter tuning job and used in the
+--     hyperparameter tuning process.
 --
--- * 'hptjsTrainingEndTime' - Specifies the time when the training job ends on training instances. You are billed for the time interval between the value of @TrainingStartTime@ and this time. For successful jobs and stopped jobs, this is the time after model artifacts are uploaded. For failed jobs, this is the time when Amazon SageMaker detects a job failure.
+-- -   Pending: The training job is in progress and evaluation of its final
+--     objective metric is pending.
 --
--- * 'hptjsTrainingJobName' - The name of the training job.
+-- -   Failed: The final objective metric for the training job was not
+--     evaluated, and was not used in the hyperparameter tuning process.
+--     This typically occurs when the training job failed or did not emit
+--     an objective metric.
 --
--- * 'hptjsTrainingJobARN' - The Amazon Resource Name (ARN) of the training job.
+-- 'trainingJobDefinitionName', 'hyperParameterTrainingJobSummary_trainingJobDefinitionName' - The training job definition name.
 --
--- * 'hptjsCreationTime' - The date and time that the training job was created.
+-- 'trainingStartTime', 'hyperParameterTrainingJobSummary_trainingStartTime' - The date and time that the training job started.
 --
--- * 'hptjsTrainingJobStatus' - The status of the training job.
+-- 'trainingEndTime', 'hyperParameterTrainingJobSummary_trainingEndTime' - Specifies the time when the training job ends on training instances. You
+-- are billed for the time interval between the value of
+-- @TrainingStartTime@ and this time. For successful jobs and stopped jobs,
+-- this is the time after model artifacts are uploaded. For failed jobs,
+-- this is the time when Amazon SageMaker detects a job failure.
 --
--- * 'hptjsTunedHyperParameters' - A list of the hyperparameters for which you specified ranges to search.
-hyperParameterTrainingJobSummary ::
-  -- | 'hptjsTrainingJobName'
-  Text ->
-  -- | 'hptjsTrainingJobARN'
-  Text ->
-  -- | 'hptjsCreationTime'
-  UTCTime ->
-  -- | 'hptjsTrainingJobStatus'
+-- 'trainingJobName', 'hyperParameterTrainingJobSummary_trainingJobName' - The name of the training job.
+--
+-- 'trainingJobArn', 'hyperParameterTrainingJobSummary_trainingJobArn' - The Amazon Resource Name (ARN) of the training job.
+--
+-- 'creationTime', 'hyperParameterTrainingJobSummary_creationTime' - The date and time that the training job was created.
+--
+-- 'trainingJobStatus', 'hyperParameterTrainingJobSummary_trainingJobStatus' - The status of the training job.
+--
+-- 'tunedHyperParameters', 'hyperParameterTrainingJobSummary_tunedHyperParameters' - A list of the hyperparameters for which you specified ranges to search.
+newHyperParameterTrainingJobSummary ::
+  -- | 'trainingJobName'
+  Prelude.Text ->
+  -- | 'trainingJobArn'
+  Prelude.Text ->
+  -- | 'creationTime'
+  Prelude.UTCTime ->
+  -- | 'trainingJobStatus'
   TrainingJobStatus ->
   HyperParameterTrainingJobSummary
-hyperParameterTrainingJobSummary
+newHyperParameterTrainingJobSummary
   pTrainingJobName_
-  pTrainingJobARN_
+  pTrainingJobArn_
   pCreationTime_
   pTrainingJobStatus_ =
     HyperParameterTrainingJobSummary'
-      { _hptjsFinalHyperParameterTuningJobObjectiveMetric =
-          Nothing,
-        _hptjsTuningJobName = Nothing,
-        _hptjsFailureReason = Nothing,
-        _hptjsObjectiveStatus = Nothing,
-        _hptjsTrainingJobDefinitionName = Nothing,
-        _hptjsTrainingStartTime = Nothing,
-        _hptjsTrainingEndTime = Nothing,
-        _hptjsTrainingJobName = pTrainingJobName_,
-        _hptjsTrainingJobARN = pTrainingJobARN_,
-        _hptjsCreationTime =
-          _Time # pCreationTime_,
-        _hptjsTrainingJobStatus =
-          pTrainingJobStatus_,
-        _hptjsTunedHyperParameters = mempty
+      { finalHyperParameterTuningJobObjectiveMetric =
+          Prelude.Nothing,
+        tuningJobName = Prelude.Nothing,
+        failureReason = Prelude.Nothing,
+        objectiveStatus = Prelude.Nothing,
+        trainingJobDefinitionName =
+          Prelude.Nothing,
+        trainingStartTime = Prelude.Nothing,
+        trainingEndTime = Prelude.Nothing,
+        trainingJobName = pTrainingJobName_,
+        trainingJobArn = pTrainingJobArn_,
+        creationTime =
+          Prelude._Time Lens.# pCreationTime_,
+        trainingJobStatus = pTrainingJobStatus_,
+        tunedHyperParameters = Prelude.mempty
       }
 
--- | The 'FinalHyperParameterTuningJobObjectiveMetric' object that specifies the value of the objective metric of the tuning job that launched this training job.
-hptjsFinalHyperParameterTuningJobObjectiveMetric :: Lens' HyperParameterTrainingJobSummary (Maybe FinalHyperParameterTuningJobObjectiveMetric)
-hptjsFinalHyperParameterTuningJobObjectiveMetric = lens _hptjsFinalHyperParameterTuningJobObjectiveMetric (\s a -> s {_hptjsFinalHyperParameterTuningJobObjectiveMetric = a})
+-- | The FinalHyperParameterTuningJobObjectiveMetric object that specifies
+-- the value of the objective metric of the tuning job that launched this
+-- training job.
+hyperParameterTrainingJobSummary_finalHyperParameterTuningJobObjectiveMetric :: Lens.Lens' HyperParameterTrainingJobSummary (Prelude.Maybe FinalHyperParameterTuningJobObjectiveMetric)
+hyperParameterTrainingJobSummary_finalHyperParameterTuningJobObjectiveMetric = Lens.lens (\HyperParameterTrainingJobSummary' {finalHyperParameterTuningJobObjectiveMetric} -> finalHyperParameterTuningJobObjectiveMetric) (\s@HyperParameterTrainingJobSummary' {} a -> s {finalHyperParameterTuningJobObjectiveMetric = a} :: HyperParameterTrainingJobSummary)
 
 -- | The HyperParameter tuning job that launched the training job.
-hptjsTuningJobName :: Lens' HyperParameterTrainingJobSummary (Maybe Text)
-hptjsTuningJobName = lens _hptjsTuningJobName (\s a -> s {_hptjsTuningJobName = a})
+hyperParameterTrainingJobSummary_tuningJobName :: Lens.Lens' HyperParameterTrainingJobSummary (Prelude.Maybe Prelude.Text)
+hyperParameterTrainingJobSummary_tuningJobName = Lens.lens (\HyperParameterTrainingJobSummary' {tuningJobName} -> tuningJobName) (\s@HyperParameterTrainingJobSummary' {} a -> s {tuningJobName = a} :: HyperParameterTrainingJobSummary)
 
 -- | The reason that the training job failed.
-hptjsFailureReason :: Lens' HyperParameterTrainingJobSummary (Maybe Text)
-hptjsFailureReason = lens _hptjsFailureReason (\s a -> s {_hptjsFailureReason = a})
+hyperParameterTrainingJobSummary_failureReason :: Lens.Lens' HyperParameterTrainingJobSummary (Prelude.Maybe Prelude.Text)
+hyperParameterTrainingJobSummary_failureReason = Lens.lens (\HyperParameterTrainingJobSummary' {failureReason} -> failureReason) (\s@HyperParameterTrainingJobSummary' {} a -> s {failureReason = a} :: HyperParameterTrainingJobSummary)
 
--- | The status of the objective metric for the training job:     * Succeeded: The final objective metric for the training job was evaluated by the hyperparameter tuning job and used in the hyperparameter tuning process.     * Pending: The training job is in progress and evaluation of its final objective metric is pending.     * Failed: The final objective metric for the training job was not evaluated, and was not used in the hyperparameter tuning process. This typically occurs when the training job failed or did not emit an objective metric.
-hptjsObjectiveStatus :: Lens' HyperParameterTrainingJobSummary (Maybe ObjectiveStatus)
-hptjsObjectiveStatus = lens _hptjsObjectiveStatus (\s a -> s {_hptjsObjectiveStatus = a})
+-- | The status of the objective metric for the training job:
+--
+-- -   Succeeded: The final objective metric for the training job was
+--     evaluated by the hyperparameter tuning job and used in the
+--     hyperparameter tuning process.
+--
+-- -   Pending: The training job is in progress and evaluation of its final
+--     objective metric is pending.
+--
+-- -   Failed: The final objective metric for the training job was not
+--     evaluated, and was not used in the hyperparameter tuning process.
+--     This typically occurs when the training job failed or did not emit
+--     an objective metric.
+hyperParameterTrainingJobSummary_objectiveStatus :: Lens.Lens' HyperParameterTrainingJobSummary (Prelude.Maybe ObjectiveStatus)
+hyperParameterTrainingJobSummary_objectiveStatus = Lens.lens (\HyperParameterTrainingJobSummary' {objectiveStatus} -> objectiveStatus) (\s@HyperParameterTrainingJobSummary' {} a -> s {objectiveStatus = a} :: HyperParameterTrainingJobSummary)
 
 -- | The training job definition name.
-hptjsTrainingJobDefinitionName :: Lens' HyperParameterTrainingJobSummary (Maybe Text)
-hptjsTrainingJobDefinitionName = lens _hptjsTrainingJobDefinitionName (\s a -> s {_hptjsTrainingJobDefinitionName = a})
+hyperParameterTrainingJobSummary_trainingJobDefinitionName :: Lens.Lens' HyperParameterTrainingJobSummary (Prelude.Maybe Prelude.Text)
+hyperParameterTrainingJobSummary_trainingJobDefinitionName = Lens.lens (\HyperParameterTrainingJobSummary' {trainingJobDefinitionName} -> trainingJobDefinitionName) (\s@HyperParameterTrainingJobSummary' {} a -> s {trainingJobDefinitionName = a} :: HyperParameterTrainingJobSummary)
 
 -- | The date and time that the training job started.
-hptjsTrainingStartTime :: Lens' HyperParameterTrainingJobSummary (Maybe UTCTime)
-hptjsTrainingStartTime = lens _hptjsTrainingStartTime (\s a -> s {_hptjsTrainingStartTime = a}) . mapping _Time
+hyperParameterTrainingJobSummary_trainingStartTime :: Lens.Lens' HyperParameterTrainingJobSummary (Prelude.Maybe Prelude.UTCTime)
+hyperParameterTrainingJobSummary_trainingStartTime = Lens.lens (\HyperParameterTrainingJobSummary' {trainingStartTime} -> trainingStartTime) (\s@HyperParameterTrainingJobSummary' {} a -> s {trainingStartTime = a} :: HyperParameterTrainingJobSummary) Prelude.. Lens.mapping Prelude._Time
 
--- | Specifies the time when the training job ends on training instances. You are billed for the time interval between the value of @TrainingStartTime@ and this time. For successful jobs and stopped jobs, this is the time after model artifacts are uploaded. For failed jobs, this is the time when Amazon SageMaker detects a job failure.
-hptjsTrainingEndTime :: Lens' HyperParameterTrainingJobSummary (Maybe UTCTime)
-hptjsTrainingEndTime = lens _hptjsTrainingEndTime (\s a -> s {_hptjsTrainingEndTime = a}) . mapping _Time
+-- | Specifies the time when the training job ends on training instances. You
+-- are billed for the time interval between the value of
+-- @TrainingStartTime@ and this time. For successful jobs and stopped jobs,
+-- this is the time after model artifacts are uploaded. For failed jobs,
+-- this is the time when Amazon SageMaker detects a job failure.
+hyperParameterTrainingJobSummary_trainingEndTime :: Lens.Lens' HyperParameterTrainingJobSummary (Prelude.Maybe Prelude.UTCTime)
+hyperParameterTrainingJobSummary_trainingEndTime = Lens.lens (\HyperParameterTrainingJobSummary' {trainingEndTime} -> trainingEndTime) (\s@HyperParameterTrainingJobSummary' {} a -> s {trainingEndTime = a} :: HyperParameterTrainingJobSummary) Prelude.. Lens.mapping Prelude._Time
 
 -- | The name of the training job.
-hptjsTrainingJobName :: Lens' HyperParameterTrainingJobSummary Text
-hptjsTrainingJobName = lens _hptjsTrainingJobName (\s a -> s {_hptjsTrainingJobName = a})
+hyperParameterTrainingJobSummary_trainingJobName :: Lens.Lens' HyperParameterTrainingJobSummary Prelude.Text
+hyperParameterTrainingJobSummary_trainingJobName = Lens.lens (\HyperParameterTrainingJobSummary' {trainingJobName} -> trainingJobName) (\s@HyperParameterTrainingJobSummary' {} a -> s {trainingJobName = a} :: HyperParameterTrainingJobSummary)
 
 -- | The Amazon Resource Name (ARN) of the training job.
-hptjsTrainingJobARN :: Lens' HyperParameterTrainingJobSummary Text
-hptjsTrainingJobARN = lens _hptjsTrainingJobARN (\s a -> s {_hptjsTrainingJobARN = a})
+hyperParameterTrainingJobSummary_trainingJobArn :: Lens.Lens' HyperParameterTrainingJobSummary Prelude.Text
+hyperParameterTrainingJobSummary_trainingJobArn = Lens.lens (\HyperParameterTrainingJobSummary' {trainingJobArn} -> trainingJobArn) (\s@HyperParameterTrainingJobSummary' {} a -> s {trainingJobArn = a} :: HyperParameterTrainingJobSummary)
 
 -- | The date and time that the training job was created.
-hptjsCreationTime :: Lens' HyperParameterTrainingJobSummary UTCTime
-hptjsCreationTime = lens _hptjsCreationTime (\s a -> s {_hptjsCreationTime = a}) . _Time
+hyperParameterTrainingJobSummary_creationTime :: Lens.Lens' HyperParameterTrainingJobSummary Prelude.UTCTime
+hyperParameterTrainingJobSummary_creationTime = Lens.lens (\HyperParameterTrainingJobSummary' {creationTime} -> creationTime) (\s@HyperParameterTrainingJobSummary' {} a -> s {creationTime = a} :: HyperParameterTrainingJobSummary) Prelude.. Prelude._Time
 
 -- | The status of the training job.
-hptjsTrainingJobStatus :: Lens' HyperParameterTrainingJobSummary TrainingJobStatus
-hptjsTrainingJobStatus = lens _hptjsTrainingJobStatus (\s a -> s {_hptjsTrainingJobStatus = a})
+hyperParameterTrainingJobSummary_trainingJobStatus :: Lens.Lens' HyperParameterTrainingJobSummary TrainingJobStatus
+hyperParameterTrainingJobSummary_trainingJobStatus = Lens.lens (\HyperParameterTrainingJobSummary' {trainingJobStatus} -> trainingJobStatus) (\s@HyperParameterTrainingJobSummary' {} a -> s {trainingJobStatus = a} :: HyperParameterTrainingJobSummary)
 
 -- | A list of the hyperparameters for which you specified ranges to search.
-hptjsTunedHyperParameters :: Lens' HyperParameterTrainingJobSummary (HashMap Text Text)
-hptjsTunedHyperParameters = lens _hptjsTunedHyperParameters (\s a -> s {_hptjsTunedHyperParameters = a}) . _Map
+hyperParameterTrainingJobSummary_tunedHyperParameters :: Lens.Lens' HyperParameterTrainingJobSummary (Prelude.HashMap Prelude.Text Prelude.Text)
+hyperParameterTrainingJobSummary_tunedHyperParameters = Lens.lens (\HyperParameterTrainingJobSummary' {tunedHyperParameters} -> tunedHyperParameters) (\s@HyperParameterTrainingJobSummary' {} a -> s {tunedHyperParameters = a} :: HyperParameterTrainingJobSummary) Prelude.. Prelude._Map
 
-instance FromJSON HyperParameterTrainingJobSummary where
+instance
+  Prelude.FromJSON
+    HyperParameterTrainingJobSummary
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "HyperParameterTrainingJobSummary"
       ( \x ->
           HyperParameterTrainingJobSummary'
-            <$> (x .:? "FinalHyperParameterTuningJobObjectiveMetric")
-            <*> (x .:? "TuningJobName")
-            <*> (x .:? "FailureReason")
-            <*> (x .:? "ObjectiveStatus")
-            <*> (x .:? "TrainingJobDefinitionName")
-            <*> (x .:? "TrainingStartTime")
-            <*> (x .:? "TrainingEndTime")
-            <*> (x .: "TrainingJobName")
-            <*> (x .: "TrainingJobArn")
-            <*> (x .: "CreationTime")
-            <*> (x .: "TrainingJobStatus")
-            <*> (x .:? "TunedHyperParameters" .!= mempty)
+            Prelude.<$> ( x
+                            Prelude..:? "FinalHyperParameterTuningJobObjectiveMetric"
+                        )
+            Prelude.<*> (x Prelude..:? "TuningJobName")
+            Prelude.<*> (x Prelude..:? "FailureReason")
+            Prelude.<*> (x Prelude..:? "ObjectiveStatus")
+            Prelude.<*> (x Prelude..:? "TrainingJobDefinitionName")
+            Prelude.<*> (x Prelude..:? "TrainingStartTime")
+            Prelude.<*> (x Prelude..:? "TrainingEndTime")
+            Prelude.<*> (x Prelude..: "TrainingJobName")
+            Prelude.<*> (x Prelude..: "TrainingJobArn")
+            Prelude.<*> (x Prelude..: "CreationTime")
+            Prelude.<*> (x Prelude..: "TrainingJobStatus")
+            Prelude.<*> ( x Prelude..:? "TunedHyperParameters"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable HyperParameterTrainingJobSummary
+instance
+  Prelude.Hashable
+    HyperParameterTrainingJobSummary
 
-instance NFData HyperParameterTrainingJobSummary
+instance
+  Prelude.NFData
+    HyperParameterTrainingJobSummary

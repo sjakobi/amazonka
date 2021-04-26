@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.SageMaker.Types.ProblemType
   ( ProblemType
       ( ..,
-        PTBinaryClassification,
-        PTMulticlassClassification,
-        PTRegression
+        ProblemTypeBinaryClassification,
+        ProblemTypeMulticlassClassification,
+        ProblemTypeRegression
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ProblemType = ProblemType' (CI Text)
+newtype ProblemType = ProblemType'
+  { fromProblemType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PTBinaryClassification :: ProblemType
-pattern PTBinaryClassification = ProblemType' "BinaryClassification"
+pattern ProblemTypeBinaryClassification :: ProblemType
+pattern ProblemTypeBinaryClassification = ProblemType' "BinaryClassification"
 
-pattern PTMulticlassClassification :: ProblemType
-pattern PTMulticlassClassification = ProblemType' "MulticlassClassification"
+pattern ProblemTypeMulticlassClassification :: ProblemType
+pattern ProblemTypeMulticlassClassification = ProblemType' "MulticlassClassification"
 
-pattern PTRegression :: ProblemType
-pattern PTRegression = ProblemType' "Regression"
+pattern ProblemTypeRegression :: ProblemType
+pattern ProblemTypeRegression = ProblemType' "Regression"
 
 {-# COMPLETE
-  PTBinaryClassification,
-  PTMulticlassClassification,
-  PTRegression,
+  ProblemTypeBinaryClassification,
+  ProblemTypeMulticlassClassification,
+  ProblemTypeRegression,
   ProblemType'
   #-}
 
-instance FromText ProblemType where
-  parser = (ProblemType' . mk) <$> takeText
+instance Prelude.FromText ProblemType where
+  parser = ProblemType' Prelude.<$> Prelude.takeText
 
-instance ToText ProblemType where
-  toText (ProblemType' ci) = original ci
+instance Prelude.ToText ProblemType where
+  toText (ProblemType' x) = x
 
-instance Hashable ProblemType
+instance Prelude.Hashable ProblemType
 
-instance NFData ProblemType
+instance Prelude.NFData ProblemType
 
-instance ToByteString ProblemType
+instance Prelude.ToByteString ProblemType
 
-instance ToQuery ProblemType
+instance Prelude.ToQuery ProblemType
 
-instance ToHeader ProblemType
+instance Prelude.ToHeader ProblemType
 
-instance ToJSON ProblemType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ProblemType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ProblemType where
-  parseJSON = parseJSONText "ProblemType"
+instance Prelude.FromJSON ProblemType where
+  parseJSON = Prelude.parseJSONText "ProblemType"

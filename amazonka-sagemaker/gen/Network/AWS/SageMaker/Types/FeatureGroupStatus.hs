@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,75 +19,73 @@
 module Network.AWS.SageMaker.Types.FeatureGroupStatus
   ( FeatureGroupStatus
       ( ..,
-        CreateFailed,
-        Created,
-        Creating,
-        DeleteFailed,
-        Deleting
+        FeatureGroupStatusCreateFailed,
+        FeatureGroupStatusCreated,
+        FeatureGroupStatusCreating,
+        FeatureGroupStatusDeleteFailed,
+        FeatureGroupStatusDeleting
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data FeatureGroupStatus
-  = FeatureGroupStatus'
-      ( CI
-          Text
-      )
+newtype FeatureGroupStatus = FeatureGroupStatus'
+  { fromFeatureGroupStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CreateFailed :: FeatureGroupStatus
-pattern CreateFailed = FeatureGroupStatus' "CreateFailed"
+pattern FeatureGroupStatusCreateFailed :: FeatureGroupStatus
+pattern FeatureGroupStatusCreateFailed = FeatureGroupStatus' "CreateFailed"
 
-pattern Created :: FeatureGroupStatus
-pattern Created = FeatureGroupStatus' "Created"
+pattern FeatureGroupStatusCreated :: FeatureGroupStatus
+pattern FeatureGroupStatusCreated = FeatureGroupStatus' "Created"
 
-pattern Creating :: FeatureGroupStatus
-pattern Creating = FeatureGroupStatus' "Creating"
+pattern FeatureGroupStatusCreating :: FeatureGroupStatus
+pattern FeatureGroupStatusCreating = FeatureGroupStatus' "Creating"
 
-pattern DeleteFailed :: FeatureGroupStatus
-pattern DeleteFailed = FeatureGroupStatus' "DeleteFailed"
+pattern FeatureGroupStatusDeleteFailed :: FeatureGroupStatus
+pattern FeatureGroupStatusDeleteFailed = FeatureGroupStatus' "DeleteFailed"
 
-pattern Deleting :: FeatureGroupStatus
-pattern Deleting = FeatureGroupStatus' "Deleting"
+pattern FeatureGroupStatusDeleting :: FeatureGroupStatus
+pattern FeatureGroupStatusDeleting = FeatureGroupStatus' "Deleting"
 
 {-# COMPLETE
-  CreateFailed,
-  Created,
-  Creating,
-  DeleteFailed,
-  Deleting,
+  FeatureGroupStatusCreateFailed,
+  FeatureGroupStatusCreated,
+  FeatureGroupStatusCreating,
+  FeatureGroupStatusDeleteFailed,
+  FeatureGroupStatusDeleting,
   FeatureGroupStatus'
   #-}
 
-instance FromText FeatureGroupStatus where
-  parser = (FeatureGroupStatus' . mk) <$> takeText
+instance Prelude.FromText FeatureGroupStatus where
+  parser = FeatureGroupStatus' Prelude.<$> Prelude.takeText
 
-instance ToText FeatureGroupStatus where
-  toText (FeatureGroupStatus' ci) = original ci
+instance Prelude.ToText FeatureGroupStatus where
+  toText (FeatureGroupStatus' x) = x
 
-instance Hashable FeatureGroupStatus
+instance Prelude.Hashable FeatureGroupStatus
 
-instance NFData FeatureGroupStatus
+instance Prelude.NFData FeatureGroupStatus
 
-instance ToByteString FeatureGroupStatus
+instance Prelude.ToByteString FeatureGroupStatus
 
-instance ToQuery FeatureGroupStatus
+instance Prelude.ToQuery FeatureGroupStatus
 
-instance ToHeader FeatureGroupStatus
+instance Prelude.ToHeader FeatureGroupStatus
 
-instance ToJSON FeatureGroupStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON FeatureGroupStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON FeatureGroupStatus where
-  parseJSON = parseJSONText "FeatureGroupStatus"
+instance Prelude.FromJSON FeatureGroupStatus where
+  parseJSON = Prelude.parseJSONText "FeatureGroupStatus"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,266 +19,263 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.PublicWorkforceTaskPrice where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.USD
 
--- | Defines the amount of money paid to an Amazon Mechanical Turk worker for each task performed.
+-- | Defines the amount of money paid to an Amazon Mechanical Turk worker for
+-- each task performed.
 --
+-- Use one of the following prices for bounding box tasks. Prices are in US
+-- dollars and should be based on the complexity of the task; the longer it
+-- takes in your initial testing, the more you should offer.
 --
--- Use one of the following prices for bounding box tasks. Prices are in US dollars and should be based on the complexity of the task; the longer it takes in your initial testing, the more you should offer.
+-- -   0.036
 --
---     * 0.036
+-- -   0.048
 --
---     * 0.048
+-- -   0.060
 --
---     * 0.060
+-- -   0.072
 --
---     * 0.072
+-- -   0.120
 --
---     * 0.120
+-- -   0.240
 --
---     * 0.240
+-- -   0.360
 --
---     * 0.360
+-- -   0.480
 --
---     * 0.480
+-- -   0.600
 --
---     * 0.600
+-- -   0.720
 --
---     * 0.720
+-- -   0.840
 --
---     * 0.840
+-- -   0.960
 --
---     * 0.960
+-- -   1.080
 --
---     * 1.080
+-- -   1.200
 --
---     * 1.200
+-- Use one of the following prices for image classification, text
+-- classification, and custom tasks. Prices are in US dollars.
 --
+-- -   0.012
 --
+-- -   0.024
 --
--- Use one of the following prices for image classification, text classification, and custom tasks. Prices are in US dollars.
+-- -   0.036
 --
---     * 0.012
+-- -   0.048
 --
---     * 0.024
+-- -   0.060
 --
---     * 0.036
+-- -   0.072
 --
---     * 0.048
+-- -   0.120
 --
---     * 0.060
+-- -   0.240
 --
---     * 0.072
+-- -   0.360
 --
---     * 0.120
+-- -   0.480
 --
---     * 0.240
+-- -   0.600
 --
---     * 0.360
+-- -   0.720
 --
---     * 0.480
+-- -   0.840
 --
---     * 0.600
+-- -   0.960
 --
---     * 0.720
+-- -   1.080
 --
---     * 0.840
+-- -   1.200
 --
---     * 0.960
+-- Use one of the following prices for semantic segmentation tasks. Prices
+-- are in US dollars.
 --
---     * 1.080
+-- -   0.840
 --
---     * 1.200
+-- -   0.960
 --
+-- -   1.080
 --
+-- -   1.200
 --
--- Use one of the following prices for semantic segmentation tasks. Prices are in US dollars.
+-- Use one of the following prices for Textract AnalyzeDocument Important
+-- Form Key Amazon Augmented AI review tasks. Prices are in US dollars.
 --
---     * 0.840
+-- -   2.400
 --
---     * 0.960
+-- -   2.280
 --
---     * 1.080
+-- -   2.160
 --
---     * 1.200
+-- -   2.040
 --
+-- -   1.920
 --
+-- -   1.800
 --
--- Use one of the following prices for Textract AnalyzeDocument Important Form Key Amazon Augmented AI review tasks. Prices are in US dollars.
+-- -   1.680
 --
---     * 2.400
+-- -   1.560
 --
---     * 2.280
+-- -   1.440
 --
---     * 2.160
+-- -   1.320
 --
---     * 2.040
+-- -   1.200
 --
---     * 1.920
+-- -   1.080
 --
---     * 1.800
+-- -   0.960
 --
---     * 1.680
+-- -   0.840
 --
---     * 1.560
+-- -   0.720
 --
---     * 1.440
+-- -   0.600
 --
---     * 1.320
+-- -   0.480
 --
---     * 1.200
+-- -   0.360
 --
---     * 1.080
+-- -   0.240
 --
---     * 0.960
+-- -   0.120
 --
---     * 0.840
+-- -   0.072
 --
---     * 0.720
+-- -   0.060
 --
---     * 0.600
+-- -   0.048
 --
---     * 0.480
+-- -   0.036
 --
---     * 0.360
+-- -   0.024
 --
---     * 0.240
+-- -   0.012
 --
---     * 0.120
+-- Use one of the following prices for Rekognition DetectModerationLabels
+-- Amazon Augmented AI review tasks. Prices are in US dollars.
 --
---     * 0.072
+-- -   1.200
 --
---     * 0.060
+-- -   1.080
 --
---     * 0.048
+-- -   0.960
 --
---     * 0.036
+-- -   0.840
 --
---     * 0.024
+-- -   0.720
 --
---     * 0.012
+-- -   0.600
 --
+-- -   0.480
 --
+-- -   0.360
 --
--- Use one of the following prices for Rekognition DetectModerationLabels Amazon Augmented AI review tasks. Prices are in US dollars.
+-- -   0.240
 --
---     * 1.200
+-- -   0.120
 --
---     * 1.080
+-- -   0.072
 --
---     * 0.960
+-- -   0.060
 --
---     * 0.840
+-- -   0.048
 --
---     * 0.720
+-- -   0.036
 --
---     * 0.600
+-- -   0.024
 --
---     * 0.480
+-- -   0.012
 --
---     * 0.360
+-- Use one of the following prices for Amazon Augmented AI custom human
+-- review tasks. Prices are in US dollars.
 --
---     * 0.240
+-- -   1.200
 --
---     * 0.120
+-- -   1.080
 --
---     * 0.072
+-- -   0.960
 --
---     * 0.060
+-- -   0.840
 --
---     * 0.048
+-- -   0.720
 --
---     * 0.036
+-- -   0.600
 --
---     * 0.024
+-- -   0.480
 --
---     * 0.012
+-- -   0.360
 --
+-- -   0.240
 --
+-- -   0.120
 --
--- Use one of the following prices for Amazon Augmented AI custom human review tasks. Prices are in US dollars.
+-- -   0.072
 --
---     * 1.200
+-- -   0.060
 --
---     * 1.080
+-- -   0.048
 --
---     * 0.960
+-- -   0.036
 --
---     * 0.840
+-- -   0.024
 --
---     * 0.720
+-- -   0.012
 --
---     * 0.600
---
---     * 0.480
---
---     * 0.360
---
---     * 0.240
---
---     * 0.120
---
---     * 0.072
---
---     * 0.060
---
---     * 0.048
---
---     * 0.036
---
---     * 0.024
---
---     * 0.012
---
---
---
---
--- /See:/ 'publicWorkforceTaskPrice' smart constructor.
-newtype PublicWorkforceTaskPrice = PublicWorkforceTaskPrice'
-  { _pwtpAmountInUsd ::
-      Maybe USD
+-- /See:/ 'newPublicWorkforceTaskPrice' smart constructor.
+data PublicWorkforceTaskPrice = PublicWorkforceTaskPrice'
+  { -- | Defines the amount of money paid to an Amazon Mechanical Turk worker in
+    -- United States dollars.
+    amountInUsd :: Prelude.Maybe USD
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PublicWorkforceTaskPrice' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PublicWorkforceTaskPrice' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pwtpAmountInUsd' - Defines the amount of money paid to an Amazon Mechanical Turk worker in United States dollars.
-publicWorkforceTaskPrice ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'amountInUsd', 'publicWorkforceTaskPrice_amountInUsd' - Defines the amount of money paid to an Amazon Mechanical Turk worker in
+-- United States dollars.
+newPublicWorkforceTaskPrice ::
   PublicWorkforceTaskPrice
-publicWorkforceTaskPrice =
+newPublicWorkforceTaskPrice =
   PublicWorkforceTaskPrice'
-    { _pwtpAmountInUsd =
-        Nothing
+    { amountInUsd =
+        Prelude.Nothing
     }
 
--- | Defines the amount of money paid to an Amazon Mechanical Turk worker in United States dollars.
-pwtpAmountInUsd :: Lens' PublicWorkforceTaskPrice (Maybe USD)
-pwtpAmountInUsd = lens _pwtpAmountInUsd (\s a -> s {_pwtpAmountInUsd = a})
+-- | Defines the amount of money paid to an Amazon Mechanical Turk worker in
+-- United States dollars.
+publicWorkforceTaskPrice_amountInUsd :: Lens.Lens' PublicWorkforceTaskPrice (Prelude.Maybe USD)
+publicWorkforceTaskPrice_amountInUsd = Lens.lens (\PublicWorkforceTaskPrice' {amountInUsd} -> amountInUsd) (\s@PublicWorkforceTaskPrice' {} a -> s {amountInUsd = a} :: PublicWorkforceTaskPrice)
 
-instance FromJSON PublicWorkforceTaskPrice where
+instance Prelude.FromJSON PublicWorkforceTaskPrice where
   parseJSON =
-    withObject
+    Prelude.withObject
       "PublicWorkforceTaskPrice"
       ( \x ->
-          PublicWorkforceTaskPrice' <$> (x .:? "AmountInUsd")
+          PublicWorkforceTaskPrice'
+            Prelude.<$> (x Prelude..:? "AmountInUsd")
       )
 
-instance Hashable PublicWorkforceTaskPrice
+instance Prelude.Hashable PublicWorkforceTaskPrice
 
-instance NFData PublicWorkforceTaskPrice
+instance Prelude.NFData PublicWorkforceTaskPrice
 
-instance ToJSON PublicWorkforceTaskPrice where
+instance Prelude.ToJSON PublicWorkforceTaskPrice where
   toJSON PublicWorkforceTaskPrice' {..} =
-    object
-      (catMaybes [("AmountInUsd" .=) <$> _pwtpAmountInUsd])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("AmountInUsd" Prelude..=) Prelude.<$> amountInUsd]
+      )

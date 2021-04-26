@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,104 +19,120 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.ProcessingClusterConfig where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.ProcessingInstanceType
 
 -- | Configuration for the cluster used to run a processing job.
 --
---
---
--- /See:/ 'processingClusterConfig' smart constructor.
+-- /See:/ 'newProcessingClusterConfig' smart constructor.
 data ProcessingClusterConfig = ProcessingClusterConfig'
-  { _pccVolumeKMSKeyId ::
-      !(Maybe Text),
-    _pccInstanceCount ::
-      !Nat,
-    _pccInstanceType ::
-      !ProcessingInstanceType,
-    _pccVolumeSizeInGB ::
-      !Nat
+  { -- | The AWS Key Management Service (AWS KMS) key that Amazon SageMaker uses
+    -- to encrypt data on the storage volume attached to the ML compute
+    -- instance(s) that run the processing job.
+    volumeKmsKeyId :: Prelude.Maybe Prelude.Text,
+    -- | The number of ML compute instances to use in the processing job. For
+    -- distributed processing jobs, specify a value greater than 1. The default
+    -- value is 1.
+    instanceCount :: Prelude.Nat,
+    -- | The ML compute instance type for the processing job.
+    instanceType :: ProcessingInstanceType,
+    -- | The size of the ML storage volume in gigabytes that you want to
+    -- provision. You must specify sufficient ML storage for your scenario.
+    volumeSizeInGB :: Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ProcessingClusterConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ProcessingClusterConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pccVolumeKMSKeyId' - The AWS Key Management Service (AWS KMS) key that Amazon SageMaker uses to encrypt data on the storage volume attached to the ML compute instance(s) that run the processing job.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pccInstanceCount' - The number of ML compute instances to use in the processing job. For distributed processing jobs, specify a value greater than 1. The default value is 1.
+-- 'volumeKmsKeyId', 'processingClusterConfig_volumeKmsKeyId' - The AWS Key Management Service (AWS KMS) key that Amazon SageMaker uses
+-- to encrypt data on the storage volume attached to the ML compute
+-- instance(s) that run the processing job.
 --
--- * 'pccInstanceType' - The ML compute instance type for the processing job.
+-- 'instanceCount', 'processingClusterConfig_instanceCount' - The number of ML compute instances to use in the processing job. For
+-- distributed processing jobs, specify a value greater than 1. The default
+-- value is 1.
 --
--- * 'pccVolumeSizeInGB' - The size of the ML storage volume in gigabytes that you want to provision. You must specify sufficient ML storage for your scenario.
-processingClusterConfig ::
-  -- | 'pccInstanceCount'
-  Natural ->
-  -- | 'pccInstanceType'
+-- 'instanceType', 'processingClusterConfig_instanceType' - The ML compute instance type for the processing job.
+--
+-- 'volumeSizeInGB', 'processingClusterConfig_volumeSizeInGB' - The size of the ML storage volume in gigabytes that you want to
+-- provision. You must specify sufficient ML storage for your scenario.
+newProcessingClusterConfig ::
+  -- | 'instanceCount'
+  Prelude.Natural ->
+  -- | 'instanceType'
   ProcessingInstanceType ->
-  -- | 'pccVolumeSizeInGB'
-  Natural ->
+  -- | 'volumeSizeInGB'
+  Prelude.Natural ->
   ProcessingClusterConfig
-processingClusterConfig
+newProcessingClusterConfig
   pInstanceCount_
   pInstanceType_
   pVolumeSizeInGB_ =
     ProcessingClusterConfig'
-      { _pccVolumeKMSKeyId =
-          Nothing,
-        _pccInstanceCount = _Nat # pInstanceCount_,
-        _pccInstanceType = pInstanceType_,
-        _pccVolumeSizeInGB = _Nat # pVolumeSizeInGB_
+      { volumeKmsKeyId =
+          Prelude.Nothing,
+        instanceCount =
+          Prelude._Nat Lens.# pInstanceCount_,
+        instanceType = pInstanceType_,
+        volumeSizeInGB =
+          Prelude._Nat Lens.# pVolumeSizeInGB_
       }
 
--- | The AWS Key Management Service (AWS KMS) key that Amazon SageMaker uses to encrypt data on the storage volume attached to the ML compute instance(s) that run the processing job.
-pccVolumeKMSKeyId :: Lens' ProcessingClusterConfig (Maybe Text)
-pccVolumeKMSKeyId = lens _pccVolumeKMSKeyId (\s a -> s {_pccVolumeKMSKeyId = a})
+-- | The AWS Key Management Service (AWS KMS) key that Amazon SageMaker uses
+-- to encrypt data on the storage volume attached to the ML compute
+-- instance(s) that run the processing job.
+processingClusterConfig_volumeKmsKeyId :: Lens.Lens' ProcessingClusterConfig (Prelude.Maybe Prelude.Text)
+processingClusterConfig_volumeKmsKeyId = Lens.lens (\ProcessingClusterConfig' {volumeKmsKeyId} -> volumeKmsKeyId) (\s@ProcessingClusterConfig' {} a -> s {volumeKmsKeyId = a} :: ProcessingClusterConfig)
 
--- | The number of ML compute instances to use in the processing job. For distributed processing jobs, specify a value greater than 1. The default value is 1.
-pccInstanceCount :: Lens' ProcessingClusterConfig Natural
-pccInstanceCount = lens _pccInstanceCount (\s a -> s {_pccInstanceCount = a}) . _Nat
+-- | The number of ML compute instances to use in the processing job. For
+-- distributed processing jobs, specify a value greater than 1. The default
+-- value is 1.
+processingClusterConfig_instanceCount :: Lens.Lens' ProcessingClusterConfig Prelude.Natural
+processingClusterConfig_instanceCount = Lens.lens (\ProcessingClusterConfig' {instanceCount} -> instanceCount) (\s@ProcessingClusterConfig' {} a -> s {instanceCount = a} :: ProcessingClusterConfig) Prelude.. Prelude._Nat
 
 -- | The ML compute instance type for the processing job.
-pccInstanceType :: Lens' ProcessingClusterConfig ProcessingInstanceType
-pccInstanceType = lens _pccInstanceType (\s a -> s {_pccInstanceType = a})
+processingClusterConfig_instanceType :: Lens.Lens' ProcessingClusterConfig ProcessingInstanceType
+processingClusterConfig_instanceType = Lens.lens (\ProcessingClusterConfig' {instanceType} -> instanceType) (\s@ProcessingClusterConfig' {} a -> s {instanceType = a} :: ProcessingClusterConfig)
 
--- | The size of the ML storage volume in gigabytes that you want to provision. You must specify sufficient ML storage for your scenario.
-pccVolumeSizeInGB :: Lens' ProcessingClusterConfig Natural
-pccVolumeSizeInGB = lens _pccVolumeSizeInGB (\s a -> s {_pccVolumeSizeInGB = a}) . _Nat
+-- | The size of the ML storage volume in gigabytes that you want to
+-- provision. You must specify sufficient ML storage for your scenario.
+processingClusterConfig_volumeSizeInGB :: Lens.Lens' ProcessingClusterConfig Prelude.Natural
+processingClusterConfig_volumeSizeInGB = Lens.lens (\ProcessingClusterConfig' {volumeSizeInGB} -> volumeSizeInGB) (\s@ProcessingClusterConfig' {} a -> s {volumeSizeInGB = a} :: ProcessingClusterConfig) Prelude.. Prelude._Nat
 
-instance FromJSON ProcessingClusterConfig where
+instance Prelude.FromJSON ProcessingClusterConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ProcessingClusterConfig"
       ( \x ->
           ProcessingClusterConfig'
-            <$> (x .:? "VolumeKmsKeyId")
-            <*> (x .: "InstanceCount")
-            <*> (x .: "InstanceType")
-            <*> (x .: "VolumeSizeInGB")
+            Prelude.<$> (x Prelude..:? "VolumeKmsKeyId")
+            Prelude.<*> (x Prelude..: "InstanceCount")
+            Prelude.<*> (x Prelude..: "InstanceType")
+            Prelude.<*> (x Prelude..: "VolumeSizeInGB")
       )
 
-instance Hashable ProcessingClusterConfig
+instance Prelude.Hashable ProcessingClusterConfig
 
-instance NFData ProcessingClusterConfig
+instance Prelude.NFData ProcessingClusterConfig
 
-instance ToJSON ProcessingClusterConfig where
+instance Prelude.ToJSON ProcessingClusterConfig where
   toJSON ProcessingClusterConfig' {..} =
-    object
-      ( catMaybes
-          [ ("VolumeKmsKeyId" .=) <$> _pccVolumeKMSKeyId,
-            Just ("InstanceCount" .= _pccInstanceCount),
-            Just ("InstanceType" .= _pccInstanceType),
-            Just ("VolumeSizeInGB" .= _pccVolumeSizeInGB)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("VolumeKmsKeyId" Prelude..=)
+              Prelude.<$> volumeKmsKeyId,
+            Prelude.Just
+              ("InstanceCount" Prelude..= instanceCount),
+            Prelude.Just
+              ("InstanceType" Prelude..= instanceType),
+            Prelude.Just
+              ("VolumeSizeInGB" Prelude..= volumeSizeInGB)
           ]
       )

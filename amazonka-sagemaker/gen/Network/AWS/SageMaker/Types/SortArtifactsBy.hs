@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,48 +19,50 @@
 module Network.AWS.SageMaker.Types.SortArtifactsBy
   ( SortArtifactsBy
       ( ..,
-        SCreationTime
+        SortArtifactsByCreationTime
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SortArtifactsBy = SortArtifactsBy' (CI Text)
+newtype SortArtifactsBy = SortArtifactsBy'
+  { fromSortArtifactsBy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SCreationTime :: SortArtifactsBy
-pattern SCreationTime = SortArtifactsBy' "CreationTime"
+pattern SortArtifactsByCreationTime :: SortArtifactsBy
+pattern SortArtifactsByCreationTime = SortArtifactsBy' "CreationTime"
 
 {-# COMPLETE
-  SCreationTime,
+  SortArtifactsByCreationTime,
   SortArtifactsBy'
   #-}
 
-instance FromText SortArtifactsBy where
-  parser = (SortArtifactsBy' . mk) <$> takeText
+instance Prelude.FromText SortArtifactsBy where
+  parser = SortArtifactsBy' Prelude.<$> Prelude.takeText
 
-instance ToText SortArtifactsBy where
-  toText (SortArtifactsBy' ci) = original ci
+instance Prelude.ToText SortArtifactsBy where
+  toText (SortArtifactsBy' x) = x
 
-instance Hashable SortArtifactsBy
+instance Prelude.Hashable SortArtifactsBy
 
-instance NFData SortArtifactsBy
+instance Prelude.NFData SortArtifactsBy
 
-instance ToByteString SortArtifactsBy
+instance Prelude.ToByteString SortArtifactsBy
 
-instance ToQuery SortArtifactsBy
+instance Prelude.ToQuery SortArtifactsBy
 
-instance ToHeader SortArtifactsBy
+instance Prelude.ToHeader SortArtifactsBy
 
-instance ToJSON SortArtifactsBy where
-  toJSON = toJSONText
+instance Prelude.ToJSON SortArtifactsBy where
+  toJSON = Prelude.toJSONText

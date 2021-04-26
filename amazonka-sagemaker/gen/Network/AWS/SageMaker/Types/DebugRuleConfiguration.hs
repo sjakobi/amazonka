@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,140 +19,157 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.DebugRuleConfiguration where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.ProcessingInstanceType
 
--- | Configuration information for SageMaker Debugger rules for debugging. To learn more about how to configure the @DebugRuleConfiguration@ parameter, see <https://docs.aws.amazon.com/sagemaker/latest/dg/debugger-createtrainingjob-api.html Use the SageMaker and Debugger Configuration API Operations to Create, Update, and Debug Your Training Job> .
+-- | Configuration information for SageMaker Debugger rules for debugging. To
+-- learn more about how to configure the @DebugRuleConfiguration@
+-- parameter, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/debugger-createtrainingjob-api.html Use the SageMaker and Debugger Configuration API Operations to Create, Update, and Debug Your Training Job>.
 --
---
---
--- /See:/ 'debugRuleConfiguration' smart constructor.
+-- /See:/ 'newDebugRuleConfiguration' smart constructor.
 data DebugRuleConfiguration = DebugRuleConfiguration'
-  { _drcRuleParameters ::
-      !(Maybe (Map Text Text)),
-    _drcInstanceType ::
-      !( Maybe
-           ProcessingInstanceType
-       ),
-    _drcS3OutputPath ::
-      !(Maybe Text),
-    _drcVolumeSizeInGB ::
-      !(Maybe Nat),
-    _drcLocalPath ::
-      !(Maybe Text),
-    _drcRuleConfigurationName ::
-      !Text,
-    _drcRuleEvaluatorImage ::
-      !Text
+  { -- | Runtime configuration for rule container.
+    ruleParameters :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The instance type to deploy a Debugger custom rule for debugging a
+    -- training job.
+    instanceType :: Prelude.Maybe ProcessingInstanceType,
+    -- | Path to Amazon S3 storage location for rules.
+    s3OutputPath :: Prelude.Maybe Prelude.Text,
+    -- | The size, in GB, of the ML storage volume attached to the processing
+    -- instance.
+    volumeSizeInGB :: Prelude.Maybe Prelude.Nat,
+    -- | Path to local storage location for output of rules. Defaults to
+    -- @\/opt\/ml\/processing\/output\/rule\/@.
+    localPath :: Prelude.Maybe Prelude.Text,
+    -- | The name of the rule configuration. It must be unique relative to other
+    -- rule configuration names.
+    ruleConfigurationName :: Prelude.Text,
+    -- | The Amazon Elastic Container (ECR) Image for the managed rule
+    -- evaluation.
+    ruleEvaluatorImage :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DebugRuleConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DebugRuleConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drcRuleParameters' - Runtime configuration for rule container.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drcInstanceType' - The instance type to deploy a Debugger custom rule for debugging a training job.
+-- 'ruleParameters', 'debugRuleConfiguration_ruleParameters' - Runtime configuration for rule container.
 --
--- * 'drcS3OutputPath' - Path to Amazon S3 storage location for rules.
+-- 'instanceType', 'debugRuleConfiguration_instanceType' - The instance type to deploy a Debugger custom rule for debugging a
+-- training job.
 --
--- * 'drcVolumeSizeInGB' - The size, in GB, of the ML storage volume attached to the processing instance.
+-- 's3OutputPath', 'debugRuleConfiguration_s3OutputPath' - Path to Amazon S3 storage location for rules.
 --
--- * 'drcLocalPath' - Path to local storage location for output of rules. Defaults to @/opt/ml/processing/output/rule/@ .
+-- 'volumeSizeInGB', 'debugRuleConfiguration_volumeSizeInGB' - The size, in GB, of the ML storage volume attached to the processing
+-- instance.
 --
--- * 'drcRuleConfigurationName' - The name of the rule configuration. It must be unique relative to other rule configuration names.
+-- 'localPath', 'debugRuleConfiguration_localPath' - Path to local storage location for output of rules. Defaults to
+-- @\/opt\/ml\/processing\/output\/rule\/@.
 --
--- * 'drcRuleEvaluatorImage' - The Amazon Elastic Container (ECR) Image for the managed rule evaluation.
-debugRuleConfiguration ::
-  -- | 'drcRuleConfigurationName'
-  Text ->
-  -- | 'drcRuleEvaluatorImage'
-  Text ->
+-- 'ruleConfigurationName', 'debugRuleConfiguration_ruleConfigurationName' - The name of the rule configuration. It must be unique relative to other
+-- rule configuration names.
+--
+-- 'ruleEvaluatorImage', 'debugRuleConfiguration_ruleEvaluatorImage' - The Amazon Elastic Container (ECR) Image for the managed rule
+-- evaluation.
+newDebugRuleConfiguration ::
+  -- | 'ruleConfigurationName'
+  Prelude.Text ->
+  -- | 'ruleEvaluatorImage'
+  Prelude.Text ->
   DebugRuleConfiguration
-debugRuleConfiguration
+newDebugRuleConfiguration
   pRuleConfigurationName_
   pRuleEvaluatorImage_ =
     DebugRuleConfiguration'
-      { _drcRuleParameters =
-          Nothing,
-        _drcInstanceType = Nothing,
-        _drcS3OutputPath = Nothing,
-        _drcVolumeSizeInGB = Nothing,
-        _drcLocalPath = Nothing,
-        _drcRuleConfigurationName = pRuleConfigurationName_,
-        _drcRuleEvaluatorImage = pRuleEvaluatorImage_
+      { ruleParameters =
+          Prelude.Nothing,
+        instanceType = Prelude.Nothing,
+        s3OutputPath = Prelude.Nothing,
+        volumeSizeInGB = Prelude.Nothing,
+        localPath = Prelude.Nothing,
+        ruleConfigurationName = pRuleConfigurationName_,
+        ruleEvaluatorImage = pRuleEvaluatorImage_
       }
 
 -- | Runtime configuration for rule container.
-drcRuleParameters :: Lens' DebugRuleConfiguration (HashMap Text Text)
-drcRuleParameters = lens _drcRuleParameters (\s a -> s {_drcRuleParameters = a}) . _Default . _Map
+debugRuleConfiguration_ruleParameters :: Lens.Lens' DebugRuleConfiguration (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+debugRuleConfiguration_ruleParameters = Lens.lens (\DebugRuleConfiguration' {ruleParameters} -> ruleParameters) (\s@DebugRuleConfiguration' {} a -> s {ruleParameters = a} :: DebugRuleConfiguration) Prelude.. Lens.mapping Prelude._Map
 
--- | The instance type to deploy a Debugger custom rule for debugging a training job.
-drcInstanceType :: Lens' DebugRuleConfiguration (Maybe ProcessingInstanceType)
-drcInstanceType = lens _drcInstanceType (\s a -> s {_drcInstanceType = a})
+-- | The instance type to deploy a Debugger custom rule for debugging a
+-- training job.
+debugRuleConfiguration_instanceType :: Lens.Lens' DebugRuleConfiguration (Prelude.Maybe ProcessingInstanceType)
+debugRuleConfiguration_instanceType = Lens.lens (\DebugRuleConfiguration' {instanceType} -> instanceType) (\s@DebugRuleConfiguration' {} a -> s {instanceType = a} :: DebugRuleConfiguration)
 
 -- | Path to Amazon S3 storage location for rules.
-drcS3OutputPath :: Lens' DebugRuleConfiguration (Maybe Text)
-drcS3OutputPath = lens _drcS3OutputPath (\s a -> s {_drcS3OutputPath = a})
+debugRuleConfiguration_s3OutputPath :: Lens.Lens' DebugRuleConfiguration (Prelude.Maybe Prelude.Text)
+debugRuleConfiguration_s3OutputPath = Lens.lens (\DebugRuleConfiguration' {s3OutputPath} -> s3OutputPath) (\s@DebugRuleConfiguration' {} a -> s {s3OutputPath = a} :: DebugRuleConfiguration)
 
--- | The size, in GB, of the ML storage volume attached to the processing instance.
-drcVolumeSizeInGB :: Lens' DebugRuleConfiguration (Maybe Natural)
-drcVolumeSizeInGB = lens _drcVolumeSizeInGB (\s a -> s {_drcVolumeSizeInGB = a}) . mapping _Nat
+-- | The size, in GB, of the ML storage volume attached to the processing
+-- instance.
+debugRuleConfiguration_volumeSizeInGB :: Lens.Lens' DebugRuleConfiguration (Prelude.Maybe Prelude.Natural)
+debugRuleConfiguration_volumeSizeInGB = Lens.lens (\DebugRuleConfiguration' {volumeSizeInGB} -> volumeSizeInGB) (\s@DebugRuleConfiguration' {} a -> s {volumeSizeInGB = a} :: DebugRuleConfiguration) Prelude.. Lens.mapping Prelude._Nat
 
--- | Path to local storage location for output of rules. Defaults to @/opt/ml/processing/output/rule/@ .
-drcLocalPath :: Lens' DebugRuleConfiguration (Maybe Text)
-drcLocalPath = lens _drcLocalPath (\s a -> s {_drcLocalPath = a})
+-- | Path to local storage location for output of rules. Defaults to
+-- @\/opt\/ml\/processing\/output\/rule\/@.
+debugRuleConfiguration_localPath :: Lens.Lens' DebugRuleConfiguration (Prelude.Maybe Prelude.Text)
+debugRuleConfiguration_localPath = Lens.lens (\DebugRuleConfiguration' {localPath} -> localPath) (\s@DebugRuleConfiguration' {} a -> s {localPath = a} :: DebugRuleConfiguration)
 
--- | The name of the rule configuration. It must be unique relative to other rule configuration names.
-drcRuleConfigurationName :: Lens' DebugRuleConfiguration Text
-drcRuleConfigurationName = lens _drcRuleConfigurationName (\s a -> s {_drcRuleConfigurationName = a})
+-- | The name of the rule configuration. It must be unique relative to other
+-- rule configuration names.
+debugRuleConfiguration_ruleConfigurationName :: Lens.Lens' DebugRuleConfiguration Prelude.Text
+debugRuleConfiguration_ruleConfigurationName = Lens.lens (\DebugRuleConfiguration' {ruleConfigurationName} -> ruleConfigurationName) (\s@DebugRuleConfiguration' {} a -> s {ruleConfigurationName = a} :: DebugRuleConfiguration)
 
--- | The Amazon Elastic Container (ECR) Image for the managed rule evaluation.
-drcRuleEvaluatorImage :: Lens' DebugRuleConfiguration Text
-drcRuleEvaluatorImage = lens _drcRuleEvaluatorImage (\s a -> s {_drcRuleEvaluatorImage = a})
+-- | The Amazon Elastic Container (ECR) Image for the managed rule
+-- evaluation.
+debugRuleConfiguration_ruleEvaluatorImage :: Lens.Lens' DebugRuleConfiguration Prelude.Text
+debugRuleConfiguration_ruleEvaluatorImage = Lens.lens (\DebugRuleConfiguration' {ruleEvaluatorImage} -> ruleEvaluatorImage) (\s@DebugRuleConfiguration' {} a -> s {ruleEvaluatorImage = a} :: DebugRuleConfiguration)
 
-instance FromJSON DebugRuleConfiguration where
+instance Prelude.FromJSON DebugRuleConfiguration where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DebugRuleConfiguration"
       ( \x ->
           DebugRuleConfiguration'
-            <$> (x .:? "RuleParameters" .!= mempty)
-            <*> (x .:? "InstanceType")
-            <*> (x .:? "S3OutputPath")
-            <*> (x .:? "VolumeSizeInGB")
-            <*> (x .:? "LocalPath")
-            <*> (x .: "RuleConfigurationName")
-            <*> (x .: "RuleEvaluatorImage")
+            Prelude.<$> ( x Prelude..:? "RuleParameters"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "InstanceType")
+            Prelude.<*> (x Prelude..:? "S3OutputPath")
+            Prelude.<*> (x Prelude..:? "VolumeSizeInGB")
+            Prelude.<*> (x Prelude..:? "LocalPath")
+            Prelude.<*> (x Prelude..: "RuleConfigurationName")
+            Prelude.<*> (x Prelude..: "RuleEvaluatorImage")
       )
 
-instance Hashable DebugRuleConfiguration
+instance Prelude.Hashable DebugRuleConfiguration
 
-instance NFData DebugRuleConfiguration
+instance Prelude.NFData DebugRuleConfiguration
 
-instance ToJSON DebugRuleConfiguration where
+instance Prelude.ToJSON DebugRuleConfiguration where
   toJSON DebugRuleConfiguration' {..} =
-    object
-      ( catMaybes
-          [ ("RuleParameters" .=) <$> _drcRuleParameters,
-            ("InstanceType" .=) <$> _drcInstanceType,
-            ("S3OutputPath" .=) <$> _drcS3OutputPath,
-            ("VolumeSizeInGB" .=) <$> _drcVolumeSizeInGB,
-            ("LocalPath" .=) <$> _drcLocalPath,
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("RuleParameters" Prelude..=)
+              Prelude.<$> ruleParameters,
+            ("InstanceType" Prelude..=) Prelude.<$> instanceType,
+            ("S3OutputPath" Prelude..=) Prelude.<$> s3OutputPath,
+            ("VolumeSizeInGB" Prelude..=)
+              Prelude.<$> volumeSizeInGB,
+            ("LocalPath" Prelude..=) Prelude.<$> localPath,
+            Prelude.Just
               ( "RuleConfigurationName"
-                  .= _drcRuleConfigurationName
+                  Prelude..= ruleConfigurationName
               ),
-            Just
-              ("RuleEvaluatorImage" .= _drcRuleEvaluatorImage)
+            Prelude.Just
+              ( "RuleEvaluatorImage"
+                  Prelude..= ruleEvaluatorImage
+              )
           ]
       )

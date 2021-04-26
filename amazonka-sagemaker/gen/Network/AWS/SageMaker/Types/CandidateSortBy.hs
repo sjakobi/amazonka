@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.SageMaker.Types.CandidateSortBy
   ( CandidateSortBy
       ( ..,
-        CSBCreationTime,
-        CSBFinalObjectiveMetricValue,
-        CSBStatus
+        CandidateSortByCreationTime,
+        CandidateSortByFinalObjectiveMetricValue,
+        CandidateSortByStatus'
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CandidateSortBy = CandidateSortBy' (CI Text)
+newtype CandidateSortBy = CandidateSortBy'
+  { fromCandidateSortBy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CSBCreationTime :: CandidateSortBy
-pattern CSBCreationTime = CandidateSortBy' "CreationTime"
+pattern CandidateSortByCreationTime :: CandidateSortBy
+pattern CandidateSortByCreationTime = CandidateSortBy' "CreationTime"
 
-pattern CSBFinalObjectiveMetricValue :: CandidateSortBy
-pattern CSBFinalObjectiveMetricValue = CandidateSortBy' "FinalObjectiveMetricValue"
+pattern CandidateSortByFinalObjectiveMetricValue :: CandidateSortBy
+pattern CandidateSortByFinalObjectiveMetricValue = CandidateSortBy' "FinalObjectiveMetricValue"
 
-pattern CSBStatus :: CandidateSortBy
-pattern CSBStatus = CandidateSortBy' "Status"
+pattern CandidateSortByStatus' :: CandidateSortBy
+pattern CandidateSortByStatus' = CandidateSortBy' "Status"
 
 {-# COMPLETE
-  CSBCreationTime,
-  CSBFinalObjectiveMetricValue,
-  CSBStatus,
+  CandidateSortByCreationTime,
+  CandidateSortByFinalObjectiveMetricValue,
+  CandidateSortByStatus',
   CandidateSortBy'
   #-}
 
-instance FromText CandidateSortBy where
-  parser = (CandidateSortBy' . mk) <$> takeText
+instance Prelude.FromText CandidateSortBy where
+  parser = CandidateSortBy' Prelude.<$> Prelude.takeText
 
-instance ToText CandidateSortBy where
-  toText (CandidateSortBy' ci) = original ci
+instance Prelude.ToText CandidateSortBy where
+  toText (CandidateSortBy' x) = x
 
-instance Hashable CandidateSortBy
+instance Prelude.Hashable CandidateSortBy
 
-instance NFData CandidateSortBy
+instance Prelude.NFData CandidateSortBy
 
-instance ToByteString CandidateSortBy
+instance Prelude.ToByteString CandidateSortBy
 
-instance ToQuery CandidateSortBy
+instance Prelude.ToQuery CandidateSortBy
 
-instance ToHeader CandidateSortBy
+instance Prelude.ToHeader CandidateSortBy
 
-instance ToJSON CandidateSortBy where
-  toJSON = toJSONText
+instance Prelude.ToJSON CandidateSortBy where
+  toJSON = Prelude.toJSONText

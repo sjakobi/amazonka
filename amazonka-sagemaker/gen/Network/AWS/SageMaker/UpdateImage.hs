@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,166 +21,190 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates the properties of a SageMaker image. To change the image's tags, use the 'AddTags' and 'DeleteTags' APIs.
+-- Updates the properties of a SageMaker image. To change the image\'s
+-- tags, use the AddTags and DeleteTags APIs.
 module Network.AWS.SageMaker.UpdateImage
   ( -- * Creating a Request
-    updateImage,
-    UpdateImage,
+    UpdateImage (..),
+    newUpdateImage,
 
     -- * Request Lenses
-    uiRoleARN,
-    uiDeleteProperties,
-    uiDescription,
-    uiDisplayName,
-    uiImageName,
+    updateImage_roleArn,
+    updateImage_deleteProperties,
+    updateImage_description,
+    updateImage_displayName,
+    updateImage_imageName,
 
     -- * Destructuring the Response
-    updateImageResponse,
-    UpdateImageResponse,
+    UpdateImageResponse (..),
+    newUpdateImageResponse,
 
     -- * Response Lenses
-    uirrsImageARN,
-    uirrsResponseStatus,
+    updateImageResponse_imageArn,
+    updateImageResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'updateImage' smart constructor.
+-- | /See:/ 'newUpdateImage' smart constructor.
 data UpdateImage = UpdateImage'
-  { _uiRoleARN ::
-      !(Maybe Text),
-    _uiDeleteProperties :: !(Maybe [Text]),
-    _uiDescription :: !(Maybe Text),
-    _uiDisplayName :: !(Maybe Text),
-    _uiImageName :: !Text
+  { -- | The new Amazon Resource Name (ARN) for the IAM role that enables Amazon
+    -- SageMaker to perform tasks on your behalf.
+    roleArn :: Prelude.Maybe Prelude.Text,
+    -- | A list of properties to delete. Only the @Description@ and @DisplayName@
+    -- properties can be deleted.
+    deleteProperties :: Prelude.Maybe [Prelude.Text],
+    -- | The new description for the image.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The new display name for the image.
+    displayName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the image to update.
+    imageName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateImage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateImage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uiRoleARN' - The new Amazon Resource Name (ARN) for the IAM role that enables Amazon SageMaker to perform tasks on your behalf.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uiDeleteProperties' - A list of properties to delete. Only the @Description@ and @DisplayName@ properties can be deleted.
+-- 'roleArn', 'updateImage_roleArn' - The new Amazon Resource Name (ARN) for the IAM role that enables Amazon
+-- SageMaker to perform tasks on your behalf.
 --
--- * 'uiDescription' - The new description for the image.
+-- 'deleteProperties', 'updateImage_deleteProperties' - A list of properties to delete. Only the @Description@ and @DisplayName@
+-- properties can be deleted.
 --
--- * 'uiDisplayName' - The new display name for the image.
+-- 'description', 'updateImage_description' - The new description for the image.
 --
--- * 'uiImageName' - The name of the image to update.
-updateImage ::
-  -- | 'uiImageName'
-  Text ->
+-- 'displayName', 'updateImage_displayName' - The new display name for the image.
+--
+-- 'imageName', 'updateImage_imageName' - The name of the image to update.
+newUpdateImage ::
+  -- | 'imageName'
+  Prelude.Text ->
   UpdateImage
-updateImage pImageName_ =
+newUpdateImage pImageName_ =
   UpdateImage'
-    { _uiRoleARN = Nothing,
-      _uiDeleteProperties = Nothing,
-      _uiDescription = Nothing,
-      _uiDisplayName = Nothing,
-      _uiImageName = pImageName_
+    { roleArn = Prelude.Nothing,
+      deleteProperties = Prelude.Nothing,
+      description = Prelude.Nothing,
+      displayName = Prelude.Nothing,
+      imageName = pImageName_
     }
 
--- | The new Amazon Resource Name (ARN) for the IAM role that enables Amazon SageMaker to perform tasks on your behalf.
-uiRoleARN :: Lens' UpdateImage (Maybe Text)
-uiRoleARN = lens _uiRoleARN (\s a -> s {_uiRoleARN = a})
+-- | The new Amazon Resource Name (ARN) for the IAM role that enables Amazon
+-- SageMaker to perform tasks on your behalf.
+updateImage_roleArn :: Lens.Lens' UpdateImage (Prelude.Maybe Prelude.Text)
+updateImage_roleArn = Lens.lens (\UpdateImage' {roleArn} -> roleArn) (\s@UpdateImage' {} a -> s {roleArn = a} :: UpdateImage)
 
--- | A list of properties to delete. Only the @Description@ and @DisplayName@ properties can be deleted.
-uiDeleteProperties :: Lens' UpdateImage [Text]
-uiDeleteProperties = lens _uiDeleteProperties (\s a -> s {_uiDeleteProperties = a}) . _Default . _Coerce
+-- | A list of properties to delete. Only the @Description@ and @DisplayName@
+-- properties can be deleted.
+updateImage_deleteProperties :: Lens.Lens' UpdateImage (Prelude.Maybe [Prelude.Text])
+updateImage_deleteProperties = Lens.lens (\UpdateImage' {deleteProperties} -> deleteProperties) (\s@UpdateImage' {} a -> s {deleteProperties = a} :: UpdateImage) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The new description for the image.
-uiDescription :: Lens' UpdateImage (Maybe Text)
-uiDescription = lens _uiDescription (\s a -> s {_uiDescription = a})
+updateImage_description :: Lens.Lens' UpdateImage (Prelude.Maybe Prelude.Text)
+updateImage_description = Lens.lens (\UpdateImage' {description} -> description) (\s@UpdateImage' {} a -> s {description = a} :: UpdateImage)
 
 -- | The new display name for the image.
-uiDisplayName :: Lens' UpdateImage (Maybe Text)
-uiDisplayName = lens _uiDisplayName (\s a -> s {_uiDisplayName = a})
+updateImage_displayName :: Lens.Lens' UpdateImage (Prelude.Maybe Prelude.Text)
+updateImage_displayName = Lens.lens (\UpdateImage' {displayName} -> displayName) (\s@UpdateImage' {} a -> s {displayName = a} :: UpdateImage)
 
 -- | The name of the image to update.
-uiImageName :: Lens' UpdateImage Text
-uiImageName = lens _uiImageName (\s a -> s {_uiImageName = a})
+updateImage_imageName :: Lens.Lens' UpdateImage Prelude.Text
+updateImage_imageName = Lens.lens (\UpdateImage' {imageName} -> imageName) (\s@UpdateImage' {} a -> s {imageName = a} :: UpdateImage)
 
-instance AWSRequest UpdateImage where
+instance Prelude.AWSRequest UpdateImage where
   type Rs UpdateImage = UpdateImageResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateImageResponse'
-            <$> (x .?> "ImageArn") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ImageArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateImage
+instance Prelude.Hashable UpdateImage
 
-instance NFData UpdateImage
+instance Prelude.NFData UpdateImage
 
-instance ToHeaders UpdateImage where
+instance Prelude.ToHeaders UpdateImage where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.UpdateImage" :: ByteString),
+              Prelude.=# ("SageMaker.UpdateImage" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateImage where
+instance Prelude.ToJSON UpdateImage where
   toJSON UpdateImage' {..} =
-    object
-      ( catMaybes
-          [ ("RoleArn" .=) <$> _uiRoleARN,
-            ("DeleteProperties" .=) <$> _uiDeleteProperties,
-            ("Description" .=) <$> _uiDescription,
-            ("DisplayName" .=) <$> _uiDisplayName,
-            Just ("ImageName" .= _uiImageName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("RoleArn" Prelude..=) Prelude.<$> roleArn,
+            ("DeleteProperties" Prelude..=)
+              Prelude.<$> deleteProperties,
+            ("Description" Prelude..=) Prelude.<$> description,
+            ("DisplayName" Prelude..=) Prelude.<$> displayName,
+            Prelude.Just ("ImageName" Prelude..= imageName)
           ]
       )
 
-instance ToPath UpdateImage where
-  toPath = const "/"
+instance Prelude.ToPath UpdateImage where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateImage where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateImage where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateImageResponse' smart constructor.
+-- | /See:/ 'newUpdateImageResponse' smart constructor.
 data UpdateImageResponse = UpdateImageResponse'
-  { _uirrsImageARN ::
-      !(Maybe Text),
-    _uirrsResponseStatus :: !Int
+  { -- | The Amazon Resource Name (ARN) of the image.
+    imageArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateImageResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateImageResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uirrsImageARN' - The Amazon Resource Name (ARN) of the image.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uirrsResponseStatus' - -- | The response status code.
-updateImageResponse ::
-  -- | 'uirrsResponseStatus'
-  Int ->
+-- 'imageArn', 'updateImageResponse_imageArn' - The Amazon Resource Name (ARN) of the image.
+--
+-- 'httpStatus', 'updateImageResponse_httpStatus' - The response's http status code.
+newUpdateImageResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateImageResponse
-updateImageResponse pResponseStatus_ =
+newUpdateImageResponse pHttpStatus_ =
   UpdateImageResponse'
-    { _uirrsImageARN = Nothing,
-      _uirrsResponseStatus = pResponseStatus_
+    { imageArn = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The Amazon Resource Name (ARN) of the image.
-uirrsImageARN :: Lens' UpdateImageResponse (Maybe Text)
-uirrsImageARN = lens _uirrsImageARN (\s a -> s {_uirrsImageARN = a})
+updateImageResponse_imageArn :: Lens.Lens' UpdateImageResponse (Prelude.Maybe Prelude.Text)
+updateImageResponse_imageArn = Lens.lens (\UpdateImageResponse' {imageArn} -> imageArn) (\s@UpdateImageResponse' {} a -> s {imageArn = a} :: UpdateImageResponse)
 
--- | -- | The response status code.
-uirrsResponseStatus :: Lens' UpdateImageResponse Int
-uirrsResponseStatus = lens _uirrsResponseStatus (\s a -> s {_uirrsResponseStatus = a})
+-- | The response's http status code.
+updateImageResponse_httpStatus :: Lens.Lens' UpdateImageResponse Prelude.Int
+updateImageResponse_httpStatus = Lens.lens (\UpdateImageResponse' {httpStatus} -> httpStatus) (\s@UpdateImageResponse' {} a -> s {httpStatus = a} :: UpdateImageResponse)
 
-instance NFData UpdateImageResponse
+instance Prelude.NFData UpdateImageResponse

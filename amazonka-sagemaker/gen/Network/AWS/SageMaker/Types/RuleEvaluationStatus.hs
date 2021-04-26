@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,77 +19,75 @@
 module Network.AWS.SageMaker.Types.RuleEvaluationStatus
   ( RuleEvaluationStatus
       ( ..,
-        RESError',
-        RESInProgress,
-        RESIssuesFound,
-        RESNoIssuesFound,
-        RESStopped,
-        RESStopping
+        RuleEvaluationStatusError,
+        RuleEvaluationStatusInProgress,
+        RuleEvaluationStatusIssuesFound,
+        RuleEvaluationStatusNoIssuesFound,
+        RuleEvaluationStatusStopped,
+        RuleEvaluationStatusStopping
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RuleEvaluationStatus
-  = RuleEvaluationStatus'
-      ( CI
-          Text
-      )
+newtype RuleEvaluationStatus = RuleEvaluationStatus'
+  { fromRuleEvaluationStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern RESError' :: RuleEvaluationStatus
-pattern RESError' = RuleEvaluationStatus' "Error"
+pattern RuleEvaluationStatusError :: RuleEvaluationStatus
+pattern RuleEvaluationStatusError = RuleEvaluationStatus' "Error"
 
-pattern RESInProgress :: RuleEvaluationStatus
-pattern RESInProgress = RuleEvaluationStatus' "InProgress"
+pattern RuleEvaluationStatusInProgress :: RuleEvaluationStatus
+pattern RuleEvaluationStatusInProgress = RuleEvaluationStatus' "InProgress"
 
-pattern RESIssuesFound :: RuleEvaluationStatus
-pattern RESIssuesFound = RuleEvaluationStatus' "IssuesFound"
+pattern RuleEvaluationStatusIssuesFound :: RuleEvaluationStatus
+pattern RuleEvaluationStatusIssuesFound = RuleEvaluationStatus' "IssuesFound"
 
-pattern RESNoIssuesFound :: RuleEvaluationStatus
-pattern RESNoIssuesFound = RuleEvaluationStatus' "NoIssuesFound"
+pattern RuleEvaluationStatusNoIssuesFound :: RuleEvaluationStatus
+pattern RuleEvaluationStatusNoIssuesFound = RuleEvaluationStatus' "NoIssuesFound"
 
-pattern RESStopped :: RuleEvaluationStatus
-pattern RESStopped = RuleEvaluationStatus' "Stopped"
+pattern RuleEvaluationStatusStopped :: RuleEvaluationStatus
+pattern RuleEvaluationStatusStopped = RuleEvaluationStatus' "Stopped"
 
-pattern RESStopping :: RuleEvaluationStatus
-pattern RESStopping = RuleEvaluationStatus' "Stopping"
+pattern RuleEvaluationStatusStopping :: RuleEvaluationStatus
+pattern RuleEvaluationStatusStopping = RuleEvaluationStatus' "Stopping"
 
 {-# COMPLETE
-  RESError',
-  RESInProgress,
-  RESIssuesFound,
-  RESNoIssuesFound,
-  RESStopped,
-  RESStopping,
+  RuleEvaluationStatusError,
+  RuleEvaluationStatusInProgress,
+  RuleEvaluationStatusIssuesFound,
+  RuleEvaluationStatusNoIssuesFound,
+  RuleEvaluationStatusStopped,
+  RuleEvaluationStatusStopping,
   RuleEvaluationStatus'
   #-}
 
-instance FromText RuleEvaluationStatus where
-  parser = (RuleEvaluationStatus' . mk) <$> takeText
+instance Prelude.FromText RuleEvaluationStatus where
+  parser = RuleEvaluationStatus' Prelude.<$> Prelude.takeText
 
-instance ToText RuleEvaluationStatus where
-  toText (RuleEvaluationStatus' ci) = original ci
+instance Prelude.ToText RuleEvaluationStatus where
+  toText (RuleEvaluationStatus' x) = x
 
-instance Hashable RuleEvaluationStatus
+instance Prelude.Hashable RuleEvaluationStatus
 
-instance NFData RuleEvaluationStatus
+instance Prelude.NFData RuleEvaluationStatus
 
-instance ToByteString RuleEvaluationStatus
+instance Prelude.ToByteString RuleEvaluationStatus
 
-instance ToQuery RuleEvaluationStatus
+instance Prelude.ToQuery RuleEvaluationStatus
 
-instance ToHeader RuleEvaluationStatus
+instance Prelude.ToHeader RuleEvaluationStatus
 
-instance FromJSON RuleEvaluationStatus where
-  parseJSON = parseJSONText "RuleEvaluationStatus"
+instance Prelude.FromJSON RuleEvaluationStatus where
+  parseJSON = Prelude.parseJSONText "RuleEvaluationStatus"

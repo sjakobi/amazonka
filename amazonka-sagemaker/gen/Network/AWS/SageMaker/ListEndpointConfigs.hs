@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,221 +23,266 @@
 --
 -- Lists endpoint configurations.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.SageMaker.ListEndpointConfigs
   ( -- * Creating a Request
-    listEndpointConfigs,
-    ListEndpointConfigs,
+    ListEndpointConfigs (..),
+    newListEndpointConfigs,
 
     -- * Request Lenses
-    lecSortOrder,
-    lecNextToken,
-    lecNameContains,
-    lecMaxResults,
-    lecCreationTimeBefore,
-    lecSortBy,
-    lecCreationTimeAfter,
+    listEndpointConfigs_sortOrder,
+    listEndpointConfigs_nextToken,
+    listEndpointConfigs_nameContains,
+    listEndpointConfigs_maxResults,
+    listEndpointConfigs_creationTimeBefore,
+    listEndpointConfigs_sortBy,
+    listEndpointConfigs_creationTimeAfter,
 
     -- * Destructuring the Response
-    listEndpointConfigsResponse,
-    ListEndpointConfigsResponse,
+    ListEndpointConfigsResponse (..),
+    newListEndpointConfigsResponse,
 
     -- * Response Lenses
-    lecrrsNextToken,
-    lecrrsResponseStatus,
-    lecrrsEndpointConfigs,
+    listEndpointConfigsResponse_nextToken,
+    listEndpointConfigsResponse_httpStatus,
+    listEndpointConfigsResponse_endpointConfigs,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
+import Network.AWS.SageMaker.Types.EndpointConfigSummary
 
--- | /See:/ 'listEndpointConfigs' smart constructor.
+-- | /See:/ 'newListEndpointConfigs' smart constructor.
 data ListEndpointConfigs = ListEndpointConfigs'
-  { _lecSortOrder ::
-      !(Maybe OrderKey),
-    _lecNextToken :: !(Maybe Text),
-    _lecNameContains ::
-      !(Maybe Text),
-    _lecMaxResults :: !(Maybe Nat),
-    _lecCreationTimeBefore ::
-      !(Maybe POSIX),
-    _lecSortBy ::
-      !(Maybe EndpointConfigSortKey),
-    _lecCreationTimeAfter ::
-      !(Maybe POSIX)
+  { -- | The sort order for results. The default is @Descending@.
+    sortOrder :: Prelude.Maybe OrderKey,
+    -- | If the result of the previous @ListEndpointConfig@ request was
+    -- truncated, the response includes a @NextToken@. To retrieve the next set
+    -- of endpoint configurations, use the token in the next request.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A string in the endpoint configuration name. This filter returns only
+    -- endpoint configurations whose name contains the specified string.
+    nameContains :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of training jobs to return in the response.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | A filter that returns only endpoint configurations created before the
+    -- specified time (timestamp).
+    creationTimeBefore :: Prelude.Maybe Prelude.POSIX,
+    -- | The field to sort results by. The default is @CreationTime@.
+    sortBy :: Prelude.Maybe EndpointConfigSortKey,
+    -- | A filter that returns only endpoint configurations with a creation time
+    -- greater than or equal to the specified time (timestamp).
+    creationTimeAfter :: Prelude.Maybe Prelude.POSIX
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListEndpointConfigs' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListEndpointConfigs' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lecSortOrder' - The sort order for results. The default is @Descending@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lecNextToken' - If the result of the previous @ListEndpointConfig@ request was truncated, the response includes a @NextToken@ . To retrieve the next set of endpoint configurations, use the token in the next request.
+-- 'sortOrder', 'listEndpointConfigs_sortOrder' - The sort order for results. The default is @Descending@.
 --
--- * 'lecNameContains' - A string in the endpoint configuration name. This filter returns only endpoint configurations whose name contains the specified string.
+-- 'nextToken', 'listEndpointConfigs_nextToken' - If the result of the previous @ListEndpointConfig@ request was
+-- truncated, the response includes a @NextToken@. To retrieve the next set
+-- of endpoint configurations, use the token in the next request.
 --
--- * 'lecMaxResults' - The maximum number of training jobs to return in the response.
+-- 'nameContains', 'listEndpointConfigs_nameContains' - A string in the endpoint configuration name. This filter returns only
+-- endpoint configurations whose name contains the specified string.
 --
--- * 'lecCreationTimeBefore' - A filter that returns only endpoint configurations created before the specified time (timestamp).
+-- 'maxResults', 'listEndpointConfigs_maxResults' - The maximum number of training jobs to return in the response.
 --
--- * 'lecSortBy' - The field to sort results by. The default is @CreationTime@ .
+-- 'creationTimeBefore', 'listEndpointConfigs_creationTimeBefore' - A filter that returns only endpoint configurations created before the
+-- specified time (timestamp).
 --
--- * 'lecCreationTimeAfter' - A filter that returns only endpoint configurations with a creation time greater than or equal to the specified time (timestamp).
-listEndpointConfigs ::
+-- 'sortBy', 'listEndpointConfigs_sortBy' - The field to sort results by. The default is @CreationTime@.
+--
+-- 'creationTimeAfter', 'listEndpointConfigs_creationTimeAfter' - A filter that returns only endpoint configurations with a creation time
+-- greater than or equal to the specified time (timestamp).
+newListEndpointConfigs ::
   ListEndpointConfigs
-listEndpointConfigs =
+newListEndpointConfigs =
   ListEndpointConfigs'
-    { _lecSortOrder = Nothing,
-      _lecNextToken = Nothing,
-      _lecNameContains = Nothing,
-      _lecMaxResults = Nothing,
-      _lecCreationTimeBefore = Nothing,
-      _lecSortBy = Nothing,
-      _lecCreationTimeAfter = Nothing
+    { sortOrder = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      nameContains = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      creationTimeBefore = Prelude.Nothing,
+      sortBy = Prelude.Nothing,
+      creationTimeAfter = Prelude.Nothing
     }
 
--- | The sort order for results. The default is @Descending@ .
-lecSortOrder :: Lens' ListEndpointConfigs (Maybe OrderKey)
-lecSortOrder = lens _lecSortOrder (\s a -> s {_lecSortOrder = a})
+-- | The sort order for results. The default is @Descending@.
+listEndpointConfigs_sortOrder :: Lens.Lens' ListEndpointConfigs (Prelude.Maybe OrderKey)
+listEndpointConfigs_sortOrder = Lens.lens (\ListEndpointConfigs' {sortOrder} -> sortOrder) (\s@ListEndpointConfigs' {} a -> s {sortOrder = a} :: ListEndpointConfigs)
 
--- | If the result of the previous @ListEndpointConfig@ request was truncated, the response includes a @NextToken@ . To retrieve the next set of endpoint configurations, use the token in the next request.
-lecNextToken :: Lens' ListEndpointConfigs (Maybe Text)
-lecNextToken = lens _lecNextToken (\s a -> s {_lecNextToken = a})
+-- | If the result of the previous @ListEndpointConfig@ request was
+-- truncated, the response includes a @NextToken@. To retrieve the next set
+-- of endpoint configurations, use the token in the next request.
+listEndpointConfigs_nextToken :: Lens.Lens' ListEndpointConfigs (Prelude.Maybe Prelude.Text)
+listEndpointConfigs_nextToken = Lens.lens (\ListEndpointConfigs' {nextToken} -> nextToken) (\s@ListEndpointConfigs' {} a -> s {nextToken = a} :: ListEndpointConfigs)
 
--- | A string in the endpoint configuration name. This filter returns only endpoint configurations whose name contains the specified string.
-lecNameContains :: Lens' ListEndpointConfigs (Maybe Text)
-lecNameContains = lens _lecNameContains (\s a -> s {_lecNameContains = a})
+-- | A string in the endpoint configuration name. This filter returns only
+-- endpoint configurations whose name contains the specified string.
+listEndpointConfigs_nameContains :: Lens.Lens' ListEndpointConfigs (Prelude.Maybe Prelude.Text)
+listEndpointConfigs_nameContains = Lens.lens (\ListEndpointConfigs' {nameContains} -> nameContains) (\s@ListEndpointConfigs' {} a -> s {nameContains = a} :: ListEndpointConfigs)
 
 -- | The maximum number of training jobs to return in the response.
-lecMaxResults :: Lens' ListEndpointConfigs (Maybe Natural)
-lecMaxResults = lens _lecMaxResults (\s a -> s {_lecMaxResults = a}) . mapping _Nat
+listEndpointConfigs_maxResults :: Lens.Lens' ListEndpointConfigs (Prelude.Maybe Prelude.Natural)
+listEndpointConfigs_maxResults = Lens.lens (\ListEndpointConfigs' {maxResults} -> maxResults) (\s@ListEndpointConfigs' {} a -> s {maxResults = a} :: ListEndpointConfigs) Prelude.. Lens.mapping Prelude._Nat
 
--- | A filter that returns only endpoint configurations created before the specified time (timestamp).
-lecCreationTimeBefore :: Lens' ListEndpointConfigs (Maybe UTCTime)
-lecCreationTimeBefore = lens _lecCreationTimeBefore (\s a -> s {_lecCreationTimeBefore = a}) . mapping _Time
+-- | A filter that returns only endpoint configurations created before the
+-- specified time (timestamp).
+listEndpointConfigs_creationTimeBefore :: Lens.Lens' ListEndpointConfigs (Prelude.Maybe Prelude.UTCTime)
+listEndpointConfigs_creationTimeBefore = Lens.lens (\ListEndpointConfigs' {creationTimeBefore} -> creationTimeBefore) (\s@ListEndpointConfigs' {} a -> s {creationTimeBefore = a} :: ListEndpointConfigs) Prelude.. Lens.mapping Prelude._Time
 
--- | The field to sort results by. The default is @CreationTime@ .
-lecSortBy :: Lens' ListEndpointConfigs (Maybe EndpointConfigSortKey)
-lecSortBy = lens _lecSortBy (\s a -> s {_lecSortBy = a})
+-- | The field to sort results by. The default is @CreationTime@.
+listEndpointConfigs_sortBy :: Lens.Lens' ListEndpointConfigs (Prelude.Maybe EndpointConfigSortKey)
+listEndpointConfigs_sortBy = Lens.lens (\ListEndpointConfigs' {sortBy} -> sortBy) (\s@ListEndpointConfigs' {} a -> s {sortBy = a} :: ListEndpointConfigs)
 
--- | A filter that returns only endpoint configurations with a creation time greater than or equal to the specified time (timestamp).
-lecCreationTimeAfter :: Lens' ListEndpointConfigs (Maybe UTCTime)
-lecCreationTimeAfter = lens _lecCreationTimeAfter (\s a -> s {_lecCreationTimeAfter = a}) . mapping _Time
+-- | A filter that returns only endpoint configurations with a creation time
+-- greater than or equal to the specified time (timestamp).
+listEndpointConfigs_creationTimeAfter :: Lens.Lens' ListEndpointConfigs (Prelude.Maybe Prelude.UTCTime)
+listEndpointConfigs_creationTimeAfter = Lens.lens (\ListEndpointConfigs' {creationTimeAfter} -> creationTimeAfter) (\s@ListEndpointConfigs' {} a -> s {creationTimeAfter = a} :: ListEndpointConfigs) Prelude.. Lens.mapping Prelude._Time
 
-instance AWSPager ListEndpointConfigs where
+instance Pager.AWSPager ListEndpointConfigs where
   page rq rs
-    | stop (rs ^. lecrrsNextToken) = Nothing
-    | stop (rs ^. lecrrsEndpointConfigs) = Nothing
-    | otherwise =
-      Just $ rq & lecNextToken .~ rs ^. lecrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listEndpointConfigsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^. listEndpointConfigsResponse_endpointConfigs
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listEndpointConfigs_nextToken
+          Lens..~ rs
+          Lens.^? listEndpointConfigsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListEndpointConfigs where
+instance Prelude.AWSRequest ListEndpointConfigs where
   type
     Rs ListEndpointConfigs =
       ListEndpointConfigsResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListEndpointConfigsResponse'
-            <$> (x .?> "NextToken")
-            <*> (pure (fromEnum s))
-            <*> (x .?> "EndpointConfigs" .!@ mempty)
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> ( x Prelude..?> "EndpointConfigs"
+                            Prelude..!@ Prelude.mempty
+                        )
       )
 
-instance Hashable ListEndpointConfigs
+instance Prelude.Hashable ListEndpointConfigs
 
-instance NFData ListEndpointConfigs
+instance Prelude.NFData ListEndpointConfigs
 
-instance ToHeaders ListEndpointConfigs where
+instance Prelude.ToHeaders ListEndpointConfigs where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.ListEndpointConfigs" :: ByteString),
+              Prelude.=# ( "SageMaker.ListEndpointConfigs" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListEndpointConfigs where
+instance Prelude.ToJSON ListEndpointConfigs where
   toJSON ListEndpointConfigs' {..} =
-    object
-      ( catMaybes
-          [ ("SortOrder" .=) <$> _lecSortOrder,
-            ("NextToken" .=) <$> _lecNextToken,
-            ("NameContains" .=) <$> _lecNameContains,
-            ("MaxResults" .=) <$> _lecMaxResults,
-            ("CreationTimeBefore" .=) <$> _lecCreationTimeBefore,
-            ("SortBy" .=) <$> _lecSortBy,
-            ("CreationTimeAfter" .=) <$> _lecCreationTimeAfter
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("SortOrder" Prelude..=) Prelude.<$> sortOrder,
+            ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("NameContains" Prelude..=) Prelude.<$> nameContains,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("CreationTimeBefore" Prelude..=)
+              Prelude.<$> creationTimeBefore,
+            ("SortBy" Prelude..=) Prelude.<$> sortBy,
+            ("CreationTimeAfter" Prelude..=)
+              Prelude.<$> creationTimeAfter
           ]
       )
 
-instance ToPath ListEndpointConfigs where
-  toPath = const "/"
+instance Prelude.ToPath ListEndpointConfigs where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListEndpointConfigs where
-  toQuery = const mempty
+instance Prelude.ToQuery ListEndpointConfigs where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listEndpointConfigsResponse' smart constructor.
+-- | /See:/ 'newListEndpointConfigsResponse' smart constructor.
 data ListEndpointConfigsResponse = ListEndpointConfigsResponse'
-  { _lecrrsNextToken ::
-      !(Maybe Text),
-    _lecrrsResponseStatus ::
-      !Int,
-    _lecrrsEndpointConfigs ::
-      ![EndpointConfigSummary]
+  { -- | If the response is truncated, Amazon SageMaker returns this token. To
+    -- retrieve the next set of endpoint configurations, use it in the
+    -- subsequent request
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | An array of endpoint configurations.
+    endpointConfigs :: [EndpointConfigSummary]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListEndpointConfigsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListEndpointConfigsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lecrrsNextToken' - If the response is truncated, Amazon SageMaker returns this token. To retrieve the next set of endpoint configurations, use it in the subsequent request
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lecrrsResponseStatus' - -- | The response status code.
+-- 'nextToken', 'listEndpointConfigsResponse_nextToken' - If the response is truncated, Amazon SageMaker returns this token. To
+-- retrieve the next set of endpoint configurations, use it in the
+-- subsequent request
 --
--- * 'lecrrsEndpointConfigs' - An array of endpoint configurations.
-listEndpointConfigsResponse ::
-  -- | 'lecrrsResponseStatus'
-  Int ->
+-- 'httpStatus', 'listEndpointConfigsResponse_httpStatus' - The response's http status code.
+--
+-- 'endpointConfigs', 'listEndpointConfigsResponse_endpointConfigs' - An array of endpoint configurations.
+newListEndpointConfigsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListEndpointConfigsResponse
-listEndpointConfigsResponse pResponseStatus_ =
+newListEndpointConfigsResponse pHttpStatus_ =
   ListEndpointConfigsResponse'
-    { _lecrrsNextToken =
-        Nothing,
-      _lecrrsResponseStatus = pResponseStatus_,
-      _lecrrsEndpointConfigs = mempty
+    { nextToken =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_,
+      endpointConfigs = Prelude.mempty
     }
 
--- | If the response is truncated, Amazon SageMaker returns this token. To retrieve the next set of endpoint configurations, use it in the subsequent request
-lecrrsNextToken :: Lens' ListEndpointConfigsResponse (Maybe Text)
-lecrrsNextToken = lens _lecrrsNextToken (\s a -> s {_lecrrsNextToken = a})
+-- | If the response is truncated, Amazon SageMaker returns this token. To
+-- retrieve the next set of endpoint configurations, use it in the
+-- subsequent request
+listEndpointConfigsResponse_nextToken :: Lens.Lens' ListEndpointConfigsResponse (Prelude.Maybe Prelude.Text)
+listEndpointConfigsResponse_nextToken = Lens.lens (\ListEndpointConfigsResponse' {nextToken} -> nextToken) (\s@ListEndpointConfigsResponse' {} a -> s {nextToken = a} :: ListEndpointConfigsResponse)
 
--- | -- | The response status code.
-lecrrsResponseStatus :: Lens' ListEndpointConfigsResponse Int
-lecrrsResponseStatus = lens _lecrrsResponseStatus (\s a -> s {_lecrrsResponseStatus = a})
+-- | The response's http status code.
+listEndpointConfigsResponse_httpStatus :: Lens.Lens' ListEndpointConfigsResponse Prelude.Int
+listEndpointConfigsResponse_httpStatus = Lens.lens (\ListEndpointConfigsResponse' {httpStatus} -> httpStatus) (\s@ListEndpointConfigsResponse' {} a -> s {httpStatus = a} :: ListEndpointConfigsResponse)
 
 -- | An array of endpoint configurations.
-lecrrsEndpointConfigs :: Lens' ListEndpointConfigsResponse [EndpointConfigSummary]
-lecrrsEndpointConfigs = lens _lecrrsEndpointConfigs (\s a -> s {_lecrrsEndpointConfigs = a}) . _Coerce
+listEndpointConfigsResponse_endpointConfigs :: Lens.Lens' ListEndpointConfigsResponse [EndpointConfigSummary]
+listEndpointConfigsResponse_endpointConfigs = Lens.lens (\ListEndpointConfigsResponse' {endpointConfigs} -> endpointConfigs) (\s@ListEndpointConfigsResponse' {} a -> s {endpointConfigs = a} :: ListEndpointConfigsResponse) Prelude.. Prelude._Coerce
 
-instance NFData ListEndpointConfigsResponse
+instance Prelude.NFData ListEndpointConfigsResponse

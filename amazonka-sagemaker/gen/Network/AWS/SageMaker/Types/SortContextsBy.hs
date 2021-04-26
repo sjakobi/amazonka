@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.SageMaker.Types.SortContextsBy
   ( SortContextsBy
       ( ..,
-        SCBCreationTime,
-        SCBName
+        SortContextsByCreationTime,
+        SortContextsByName
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SortContextsBy = SortContextsBy' (CI Text)
+newtype SortContextsBy = SortContextsBy'
+  { fromSortContextsBy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SCBCreationTime :: SortContextsBy
-pattern SCBCreationTime = SortContextsBy' "CreationTime"
+pattern SortContextsByCreationTime :: SortContextsBy
+pattern SortContextsByCreationTime = SortContextsBy' "CreationTime"
 
-pattern SCBName :: SortContextsBy
-pattern SCBName = SortContextsBy' "Name"
+pattern SortContextsByName :: SortContextsBy
+pattern SortContextsByName = SortContextsBy' "Name"
 
 {-# COMPLETE
-  SCBCreationTime,
-  SCBName,
+  SortContextsByCreationTime,
+  SortContextsByName,
   SortContextsBy'
   #-}
 
-instance FromText SortContextsBy where
-  parser = (SortContextsBy' . mk) <$> takeText
+instance Prelude.FromText SortContextsBy where
+  parser = SortContextsBy' Prelude.<$> Prelude.takeText
 
-instance ToText SortContextsBy where
-  toText (SortContextsBy' ci) = original ci
+instance Prelude.ToText SortContextsBy where
+  toText (SortContextsBy' x) = x
 
-instance Hashable SortContextsBy
+instance Prelude.Hashable SortContextsBy
 
-instance NFData SortContextsBy
+instance Prelude.NFData SortContextsBy
 
-instance ToByteString SortContextsBy
+instance Prelude.ToByteString SortContextsBy
 
-instance ToQuery SortContextsBy
+instance Prelude.ToQuery SortContextsBy
 
-instance ToHeader SortContextsBy
+instance Prelude.ToHeader SortContextsBy
 
-instance ToJSON SortContextsBy where
-  toJSON = toJSONText
+instance Prelude.ToJSON SortContextsBy where
+  toJSON = Prelude.toJSONText

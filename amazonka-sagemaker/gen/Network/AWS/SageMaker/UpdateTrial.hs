@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,133 +24,149 @@
 -- Updates the display name of a trial.
 module Network.AWS.SageMaker.UpdateTrial
   ( -- * Creating a Request
-    updateTrial,
-    UpdateTrial,
+    UpdateTrial (..),
+    newUpdateTrial,
 
     -- * Request Lenses
-    utDisplayName,
-    utTrialName,
+    updateTrial_displayName,
+    updateTrial_trialName,
 
     -- * Destructuring the Response
-    updateTrialResponse,
-    UpdateTrialResponse,
+    UpdateTrialResponse (..),
+    newUpdateTrialResponse,
 
     -- * Response Lenses
-    utrrsTrialARN,
-    utrrsResponseStatus,
+    updateTrialResponse_trialArn,
+    updateTrialResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'updateTrial' smart constructor.
+-- | /See:/ 'newUpdateTrial' smart constructor.
 data UpdateTrial = UpdateTrial'
-  { _utDisplayName ::
-      !(Maybe Text),
-    _utTrialName :: !Text
+  { -- | The name of the trial as displayed. The name doesn\'t need to be unique.
+    -- If @DisplayName@ isn\'t specified, @TrialName@ is displayed.
+    displayName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the trial to update.
+    trialName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateTrial' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateTrial' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'utDisplayName' - The name of the trial as displayed. The name doesn't need to be unique. If @DisplayName@ isn't specified, @TrialName@ is displayed.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'utTrialName' - The name of the trial to update.
-updateTrial ::
-  -- | 'utTrialName'
-  Text ->
+-- 'displayName', 'updateTrial_displayName' - The name of the trial as displayed. The name doesn\'t need to be unique.
+-- If @DisplayName@ isn\'t specified, @TrialName@ is displayed.
+--
+-- 'trialName', 'updateTrial_trialName' - The name of the trial to update.
+newUpdateTrial ::
+  -- | 'trialName'
+  Prelude.Text ->
   UpdateTrial
-updateTrial pTrialName_ =
+newUpdateTrial pTrialName_ =
   UpdateTrial'
-    { _utDisplayName = Nothing,
-      _utTrialName = pTrialName_
+    { displayName = Prelude.Nothing,
+      trialName = pTrialName_
     }
 
--- | The name of the trial as displayed. The name doesn't need to be unique. If @DisplayName@ isn't specified, @TrialName@ is displayed.
-utDisplayName :: Lens' UpdateTrial (Maybe Text)
-utDisplayName = lens _utDisplayName (\s a -> s {_utDisplayName = a})
+-- | The name of the trial as displayed. The name doesn\'t need to be unique.
+-- If @DisplayName@ isn\'t specified, @TrialName@ is displayed.
+updateTrial_displayName :: Lens.Lens' UpdateTrial (Prelude.Maybe Prelude.Text)
+updateTrial_displayName = Lens.lens (\UpdateTrial' {displayName} -> displayName) (\s@UpdateTrial' {} a -> s {displayName = a} :: UpdateTrial)
 
 -- | The name of the trial to update.
-utTrialName :: Lens' UpdateTrial Text
-utTrialName = lens _utTrialName (\s a -> s {_utTrialName = a})
+updateTrial_trialName :: Lens.Lens' UpdateTrial Prelude.Text
+updateTrial_trialName = Lens.lens (\UpdateTrial' {trialName} -> trialName) (\s@UpdateTrial' {} a -> s {trialName = a} :: UpdateTrial)
 
-instance AWSRequest UpdateTrial where
+instance Prelude.AWSRequest UpdateTrial where
   type Rs UpdateTrial = UpdateTrialResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateTrialResponse'
-            <$> (x .?> "TrialArn") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "TrialArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateTrial
+instance Prelude.Hashable UpdateTrial
 
-instance NFData UpdateTrial
+instance Prelude.NFData UpdateTrial
 
-instance ToHeaders UpdateTrial where
+instance Prelude.ToHeaders UpdateTrial where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.UpdateTrial" :: ByteString),
+              Prelude.=# ("SageMaker.UpdateTrial" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateTrial where
+instance Prelude.ToJSON UpdateTrial where
   toJSON UpdateTrial' {..} =
-    object
-      ( catMaybes
-          [ ("DisplayName" .=) <$> _utDisplayName,
-            Just ("TrialName" .= _utTrialName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("DisplayName" Prelude..=) Prelude.<$> displayName,
+            Prelude.Just ("TrialName" Prelude..= trialName)
           ]
       )
 
-instance ToPath UpdateTrial where
-  toPath = const "/"
+instance Prelude.ToPath UpdateTrial where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateTrial where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateTrial where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateTrialResponse' smart constructor.
+-- | /See:/ 'newUpdateTrialResponse' smart constructor.
 data UpdateTrialResponse = UpdateTrialResponse'
-  { _utrrsTrialARN ::
-      !(Maybe Text),
-    _utrrsResponseStatus :: !Int
+  { -- | The Amazon Resource Name (ARN) of the trial.
+    trialArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateTrialResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateTrialResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'utrrsTrialARN' - The Amazon Resource Name (ARN) of the trial.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'utrrsResponseStatus' - -- | The response status code.
-updateTrialResponse ::
-  -- | 'utrrsResponseStatus'
-  Int ->
+-- 'trialArn', 'updateTrialResponse_trialArn' - The Amazon Resource Name (ARN) of the trial.
+--
+-- 'httpStatus', 'updateTrialResponse_httpStatus' - The response's http status code.
+newUpdateTrialResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateTrialResponse
-updateTrialResponse pResponseStatus_ =
+newUpdateTrialResponse pHttpStatus_ =
   UpdateTrialResponse'
-    { _utrrsTrialARN = Nothing,
-      _utrrsResponseStatus = pResponseStatus_
+    { trialArn = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The Amazon Resource Name (ARN) of the trial.
-utrrsTrialARN :: Lens' UpdateTrialResponse (Maybe Text)
-utrrsTrialARN = lens _utrrsTrialARN (\s a -> s {_utrrsTrialARN = a})
+updateTrialResponse_trialArn :: Lens.Lens' UpdateTrialResponse (Prelude.Maybe Prelude.Text)
+updateTrialResponse_trialArn = Lens.lens (\UpdateTrialResponse' {trialArn} -> trialArn) (\s@UpdateTrialResponse' {} a -> s {trialArn = a} :: UpdateTrialResponse)
 
--- | -- | The response status code.
-utrrsResponseStatus :: Lens' UpdateTrialResponse Int
-utrrsResponseStatus = lens _utrrsResponseStatus (\s a -> s {_utrrsResponseStatus = a})
+-- | The response's http status code.
+updateTrialResponse_httpStatus :: Lens.Lens' UpdateTrialResponse Prelude.Int
+updateTrialResponse_httpStatus = Lens.lens (\UpdateTrialResponse' {httpStatus} -> httpStatus) (\s@UpdateTrialResponse' {} a -> s {httpStatus = a} :: UpdateTrialResponse)
 
-instance NFData UpdateTrialResponse
+instance Prelude.NFData UpdateTrialResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,187 +23,224 @@
 --
 -- A list of devices.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.SageMaker.ListDevices
   ( -- * Creating a Request
-    listDevices,
-    ListDevices,
+    ListDevices (..),
+    newListDevices,
 
     -- * Request Lenses
-    lLatestHeartbeatAfter,
-    lNextToken,
-    lDeviceFleetName,
-    lMaxResults,
-    lModelName,
+    listDevices_latestHeartbeatAfter,
+    listDevices_nextToken,
+    listDevices_deviceFleetName,
+    listDevices_maxResults,
+    listDevices_modelName,
 
     -- * Destructuring the Response
-    listDevicesResponse,
-    ListDevicesResponse,
+    ListDevicesResponse (..),
+    newListDevicesResponse,
 
     -- * Response Lenses
-    lisrsNextToken,
-    lisrsResponseStatus,
-    lisrsDeviceSummaries,
+    listDevicesResponse_nextToken,
+    listDevicesResponse_httpStatus,
+    listDevicesResponse_deviceSummaries,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
+import Network.AWS.SageMaker.Types.DeviceSummary
 
--- | /See:/ 'listDevices' smart constructor.
+-- | /See:/ 'newListDevices' smart constructor.
 data ListDevices = ListDevices'
-  { _lLatestHeartbeatAfter ::
-      !(Maybe POSIX),
-    _lNextToken :: !(Maybe Text),
-    _lDeviceFleetName :: !(Maybe Text),
-    _lMaxResults :: !(Maybe Int),
-    _lModelName :: !(Maybe Text)
+  { -- | Select fleets where the job was updated after X
+    latestHeartbeatAfter :: Prelude.Maybe Prelude.POSIX,
+    -- | The response from the last list when returning a list large enough to
+    -- need tokening.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Filter for fleets containing this name in their device fleet name.
+    deviceFleetName :: Prelude.Maybe Prelude.Text,
+    -- | Maximum number of results to select.
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | A filter that searches devices that contains this name in any of their
+    -- models.
+    modelName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListDevices' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListDevices' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lLatestHeartbeatAfter' - Select fleets where the job was updated after X
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lNextToken' - The response from the last list when returning a list large enough to need tokening.
+-- 'latestHeartbeatAfter', 'listDevices_latestHeartbeatAfter' - Select fleets where the job was updated after X
 --
--- * 'lDeviceFleetName' - Filter for fleets containing this name in their device fleet name.
+-- 'nextToken', 'listDevices_nextToken' - The response from the last list when returning a list large enough to
+-- need tokening.
 --
--- * 'lMaxResults' - Maximum number of results to select.
+-- 'deviceFleetName', 'listDevices_deviceFleetName' - Filter for fleets containing this name in their device fleet name.
 --
--- * 'lModelName' - A filter that searches devices that contains this name in any of their models.
-listDevices ::
+-- 'maxResults', 'listDevices_maxResults' - Maximum number of results to select.
+--
+-- 'modelName', 'listDevices_modelName' - A filter that searches devices that contains this name in any of their
+-- models.
+newListDevices ::
   ListDevices
-listDevices =
+newListDevices =
   ListDevices'
-    { _lLatestHeartbeatAfter = Nothing,
-      _lNextToken = Nothing,
-      _lDeviceFleetName = Nothing,
-      _lMaxResults = Nothing,
-      _lModelName = Nothing
+    { latestHeartbeatAfter =
+        Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      deviceFleetName = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      modelName = Prelude.Nothing
     }
 
 -- | Select fleets where the job was updated after X
-lLatestHeartbeatAfter :: Lens' ListDevices (Maybe UTCTime)
-lLatestHeartbeatAfter = lens _lLatestHeartbeatAfter (\s a -> s {_lLatestHeartbeatAfter = a}) . mapping _Time
+listDevices_latestHeartbeatAfter :: Lens.Lens' ListDevices (Prelude.Maybe Prelude.UTCTime)
+listDevices_latestHeartbeatAfter = Lens.lens (\ListDevices' {latestHeartbeatAfter} -> latestHeartbeatAfter) (\s@ListDevices' {} a -> s {latestHeartbeatAfter = a} :: ListDevices) Prelude.. Lens.mapping Prelude._Time
 
--- | The response from the last list when returning a list large enough to need tokening.
-lNextToken :: Lens' ListDevices (Maybe Text)
-lNextToken = lens _lNextToken (\s a -> s {_lNextToken = a})
+-- | The response from the last list when returning a list large enough to
+-- need tokening.
+listDevices_nextToken :: Lens.Lens' ListDevices (Prelude.Maybe Prelude.Text)
+listDevices_nextToken = Lens.lens (\ListDevices' {nextToken} -> nextToken) (\s@ListDevices' {} a -> s {nextToken = a} :: ListDevices)
 
 -- | Filter for fleets containing this name in their device fleet name.
-lDeviceFleetName :: Lens' ListDevices (Maybe Text)
-lDeviceFleetName = lens _lDeviceFleetName (\s a -> s {_lDeviceFleetName = a})
+listDevices_deviceFleetName :: Lens.Lens' ListDevices (Prelude.Maybe Prelude.Text)
+listDevices_deviceFleetName = Lens.lens (\ListDevices' {deviceFleetName} -> deviceFleetName) (\s@ListDevices' {} a -> s {deviceFleetName = a} :: ListDevices)
 
 -- | Maximum number of results to select.
-lMaxResults :: Lens' ListDevices (Maybe Int)
-lMaxResults = lens _lMaxResults (\s a -> s {_lMaxResults = a})
+listDevices_maxResults :: Lens.Lens' ListDevices (Prelude.Maybe Prelude.Int)
+listDevices_maxResults = Lens.lens (\ListDevices' {maxResults} -> maxResults) (\s@ListDevices' {} a -> s {maxResults = a} :: ListDevices)
 
--- | A filter that searches devices that contains this name in any of their models.
-lModelName :: Lens' ListDevices (Maybe Text)
-lModelName = lens _lModelName (\s a -> s {_lModelName = a})
+-- | A filter that searches devices that contains this name in any of their
+-- models.
+listDevices_modelName :: Lens.Lens' ListDevices (Prelude.Maybe Prelude.Text)
+listDevices_modelName = Lens.lens (\ListDevices' {modelName} -> modelName) (\s@ListDevices' {} a -> s {modelName = a} :: ListDevices)
 
-instance AWSPager ListDevices where
+instance Pager.AWSPager ListDevices where
   page rq rs
-    | stop (rs ^. lisrsNextToken) = Nothing
-    | stop (rs ^. lisrsDeviceSummaries) = Nothing
-    | otherwise =
-      Just $ rq & lNextToken .~ rs ^. lisrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listDevicesResponse_nextToken Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        (rs Lens.^. listDevicesResponse_deviceSummaries) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listDevices_nextToken
+          Lens..~ rs
+          Lens.^? listDevicesResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest ListDevices where
+instance Prelude.AWSRequest ListDevices where
   type Rs ListDevices = ListDevicesResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListDevicesResponse'
-            <$> (x .?> "NextToken")
-            <*> (pure (fromEnum s))
-            <*> (x .?> "DeviceSummaries" .!@ mempty)
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> ( x Prelude..?> "DeviceSummaries"
+                            Prelude..!@ Prelude.mempty
+                        )
       )
 
-instance Hashable ListDevices
+instance Prelude.Hashable ListDevices
 
-instance NFData ListDevices
+instance Prelude.NFData ListDevices
 
-instance ToHeaders ListDevices where
+instance Prelude.ToHeaders ListDevices where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.ListDevices" :: ByteString),
+              Prelude.=# ("SageMaker.ListDevices" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListDevices where
+instance Prelude.ToJSON ListDevices where
   toJSON ListDevices' {..} =
-    object
-      ( catMaybes
-          [ ("LatestHeartbeatAfter" .=)
-              <$> _lLatestHeartbeatAfter,
-            ("NextToken" .=) <$> _lNextToken,
-            ("DeviceFleetName" .=) <$> _lDeviceFleetName,
-            ("MaxResults" .=) <$> _lMaxResults,
-            ("ModelName" .=) <$> _lModelName
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("LatestHeartbeatAfter" Prelude..=)
+              Prelude.<$> latestHeartbeatAfter,
+            ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("DeviceFleetName" Prelude..=)
+              Prelude.<$> deviceFleetName,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("ModelName" Prelude..=) Prelude.<$> modelName
           ]
       )
 
-instance ToPath ListDevices where
-  toPath = const "/"
+instance Prelude.ToPath ListDevices where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListDevices where
-  toQuery = const mempty
+instance Prelude.ToQuery ListDevices where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listDevicesResponse' smart constructor.
+-- | /See:/ 'newListDevicesResponse' smart constructor.
 data ListDevicesResponse = ListDevicesResponse'
-  { _lisrsNextToken ::
-      !(Maybe Text),
-    _lisrsResponseStatus :: !Int,
-    _lisrsDeviceSummaries ::
-      ![DeviceSummary]
+  { -- | The response from the last list when returning a list large enough to
+    -- need tokening.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | Summary of devices.
+    deviceSummaries :: [DeviceSummary]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListDevicesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListDevicesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lisrsNextToken' - The response from the last list when returning a list large enough to need tokening.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lisrsResponseStatus' - -- | The response status code.
+-- 'nextToken', 'listDevicesResponse_nextToken' - The response from the last list when returning a list large enough to
+-- need tokening.
 --
--- * 'lisrsDeviceSummaries' - Summary of devices.
-listDevicesResponse ::
-  -- | 'lisrsResponseStatus'
-  Int ->
+-- 'httpStatus', 'listDevicesResponse_httpStatus' - The response's http status code.
+--
+-- 'deviceSummaries', 'listDevicesResponse_deviceSummaries' - Summary of devices.
+newListDevicesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListDevicesResponse
-listDevicesResponse pResponseStatus_ =
+newListDevicesResponse pHttpStatus_ =
   ListDevicesResponse'
-    { _lisrsNextToken = Nothing,
-      _lisrsResponseStatus = pResponseStatus_,
-      _lisrsDeviceSummaries = mempty
+    { nextToken = Prelude.Nothing,
+      httpStatus = pHttpStatus_,
+      deviceSummaries = Prelude.mempty
     }
 
--- | The response from the last list when returning a list large enough to need tokening.
-lisrsNextToken :: Lens' ListDevicesResponse (Maybe Text)
-lisrsNextToken = lens _lisrsNextToken (\s a -> s {_lisrsNextToken = a})
+-- | The response from the last list when returning a list large enough to
+-- need tokening.
+listDevicesResponse_nextToken :: Lens.Lens' ListDevicesResponse (Prelude.Maybe Prelude.Text)
+listDevicesResponse_nextToken = Lens.lens (\ListDevicesResponse' {nextToken} -> nextToken) (\s@ListDevicesResponse' {} a -> s {nextToken = a} :: ListDevicesResponse)
 
--- | -- | The response status code.
-lisrsResponseStatus :: Lens' ListDevicesResponse Int
-lisrsResponseStatus = lens _lisrsResponseStatus (\s a -> s {_lisrsResponseStatus = a})
+-- | The response's http status code.
+listDevicesResponse_httpStatus :: Lens.Lens' ListDevicesResponse Prelude.Int
+listDevicesResponse_httpStatus = Lens.lens (\ListDevicesResponse' {httpStatus} -> httpStatus) (\s@ListDevicesResponse' {} a -> s {httpStatus = a} :: ListDevicesResponse)
 
 -- | Summary of devices.
-lisrsDeviceSummaries :: Lens' ListDevicesResponse [DeviceSummary]
-lisrsDeviceSummaries = lens _lisrsDeviceSummaries (\s a -> s {_lisrsDeviceSummaries = a}) . _Coerce
+listDevicesResponse_deviceSummaries :: Lens.Lens' ListDevicesResponse [DeviceSummary]
+listDevicesResponse_deviceSummaries = Lens.lens (\ListDevicesResponse' {deviceSummaries} -> deviceSummaries) (\s@ListDevicesResponse' {} a -> s {deviceSummaries = a} :: ListDevicesResponse) Prelude.. Prelude._Coerce
 
-instance NFData ListDevicesResponse
+instance Prelude.NFData ListDevicesResponse

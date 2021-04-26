@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.SageMaker.Types.NotebookInstanceLifecycleConfigSortKey
   ( NotebookInstanceLifecycleConfigSortKey
       ( ..,
-        NILCSKCreationTime,
-        NILCSKLastModifiedTime,
-        NILCSKName
+        NotebookInstanceLifecycleConfigSortKeyCreationTime,
+        NotebookInstanceLifecycleConfigSortKeyLastModifiedTime,
+        NotebookInstanceLifecycleConfigSortKeyName
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data NotebookInstanceLifecycleConfigSortKey
-  = NotebookInstanceLifecycleConfigSortKey'
-      ( CI
-          Text
-      )
+newtype NotebookInstanceLifecycleConfigSortKey = NotebookInstanceLifecycleConfigSortKey'
+  { fromNotebookInstanceLifecycleConfigSortKey ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern NILCSKCreationTime :: NotebookInstanceLifecycleConfigSortKey
-pattern NILCSKCreationTime = NotebookInstanceLifecycleConfigSortKey' "CreationTime"
+pattern NotebookInstanceLifecycleConfigSortKeyCreationTime :: NotebookInstanceLifecycleConfigSortKey
+pattern NotebookInstanceLifecycleConfigSortKeyCreationTime = NotebookInstanceLifecycleConfigSortKey' "CreationTime"
 
-pattern NILCSKLastModifiedTime :: NotebookInstanceLifecycleConfigSortKey
-pattern NILCSKLastModifiedTime = NotebookInstanceLifecycleConfigSortKey' "LastModifiedTime"
+pattern NotebookInstanceLifecycleConfigSortKeyLastModifiedTime :: NotebookInstanceLifecycleConfigSortKey
+pattern NotebookInstanceLifecycleConfigSortKeyLastModifiedTime = NotebookInstanceLifecycleConfigSortKey' "LastModifiedTime"
 
-pattern NILCSKName :: NotebookInstanceLifecycleConfigSortKey
-pattern NILCSKName = NotebookInstanceLifecycleConfigSortKey' "Name"
+pattern NotebookInstanceLifecycleConfigSortKeyName :: NotebookInstanceLifecycleConfigSortKey
+pattern NotebookInstanceLifecycleConfigSortKeyName = NotebookInstanceLifecycleConfigSortKey' "Name"
 
 {-# COMPLETE
-  NILCSKCreationTime,
-  NILCSKLastModifiedTime,
-  NILCSKName,
+  NotebookInstanceLifecycleConfigSortKeyCreationTime,
+  NotebookInstanceLifecycleConfigSortKeyLastModifiedTime,
+  NotebookInstanceLifecycleConfigSortKeyName,
   NotebookInstanceLifecycleConfigSortKey'
   #-}
 
-instance FromText NotebookInstanceLifecycleConfigSortKey where
-  parser = (NotebookInstanceLifecycleConfigSortKey' . mk) <$> takeText
+instance Prelude.FromText NotebookInstanceLifecycleConfigSortKey where
+  parser = NotebookInstanceLifecycleConfigSortKey' Prelude.<$> Prelude.takeText
 
-instance ToText NotebookInstanceLifecycleConfigSortKey where
-  toText (NotebookInstanceLifecycleConfigSortKey' ci) = original ci
+instance Prelude.ToText NotebookInstanceLifecycleConfigSortKey where
+  toText (NotebookInstanceLifecycleConfigSortKey' x) = x
 
-instance Hashable NotebookInstanceLifecycleConfigSortKey
+instance Prelude.Hashable NotebookInstanceLifecycleConfigSortKey
 
-instance NFData NotebookInstanceLifecycleConfigSortKey
+instance Prelude.NFData NotebookInstanceLifecycleConfigSortKey
 
-instance ToByteString NotebookInstanceLifecycleConfigSortKey
+instance Prelude.ToByteString NotebookInstanceLifecycleConfigSortKey
 
-instance ToQuery NotebookInstanceLifecycleConfigSortKey
+instance Prelude.ToQuery NotebookInstanceLifecycleConfigSortKey
 
-instance ToHeader NotebookInstanceLifecycleConfigSortKey
+instance Prelude.ToHeader NotebookInstanceLifecycleConfigSortKey
 
-instance ToJSON NotebookInstanceLifecycleConfigSortKey where
-  toJSON = toJSONText
+instance Prelude.ToJSON NotebookInstanceLifecycleConfigSortKey where
+  toJSON = Prelude.toJSONText

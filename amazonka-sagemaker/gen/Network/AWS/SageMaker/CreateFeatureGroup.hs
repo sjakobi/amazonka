@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,248 +21,463 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Create a new @FeatureGroup@ . A @FeatureGroup@ is a group of @Features@ defined in the @FeatureStore@ to describe a @Record@ .
+-- Create a new @FeatureGroup@. A @FeatureGroup@ is a group of @Features@
+-- defined in the @FeatureStore@ to describe a @Record@.
 --
+-- The @FeatureGroup@ defines the schema and features contained in the
+-- FeatureGroup. A @FeatureGroup@ definition is composed of a list of
+-- @Features@, a @RecordIdentifierFeatureName@, an @EventTimeFeatureName@
+-- and configurations for its @OnlineStore@ and @OfflineStore@. Check
+-- <https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html AWS service quotas>
+-- to see the @FeatureGroup@s quota for your AWS account.
 --
--- The @FeatureGroup@ defines the schema and features contained in the FeatureGroup. A @FeatureGroup@ definition is composed of a list of @Features@ , a @RecordIdentifierFeatureName@ , an @EventTimeFeatureName@ and configurations for its @OnlineStore@ and @OfflineStore@ . Check <https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html AWS service quotas> to see the @FeatureGroup@ s quota for your AWS account.
---
--- /Important:/ You must include at least one of @OnlineStoreConfig@ and @OfflineStoreConfig@ to create a @FeatureGroup@ .
+-- You must include at least one of @OnlineStoreConfig@ and
+-- @OfflineStoreConfig@ to create a @FeatureGroup@.
 module Network.AWS.SageMaker.CreateFeatureGroup
   ( -- * Creating a Request
-    createFeatureGroup,
-    CreateFeatureGroup,
+    CreateFeatureGroup (..),
+    newCreateFeatureGroup,
 
     -- * Request Lenses
-    cfgOfflineStoreConfig,
-    cfgRoleARN,
-    cfgTags,
-    cfgDescription,
-    cfgOnlineStoreConfig,
-    cfgFeatureGroupName,
-    cfgRecordIdentifierFeatureName,
-    cfgEventTimeFeatureName,
-    cfgFeatureDefinitions,
+    createFeatureGroup_offlineStoreConfig,
+    createFeatureGroup_roleArn,
+    createFeatureGroup_tags,
+    createFeatureGroup_description,
+    createFeatureGroup_onlineStoreConfig,
+    createFeatureGroup_featureGroupName,
+    createFeatureGroup_recordIdentifierFeatureName,
+    createFeatureGroup_eventTimeFeatureName,
+    createFeatureGroup_featureDefinitions,
 
     -- * Destructuring the Response
-    createFeatureGroupResponse,
-    CreateFeatureGroupResponse,
+    CreateFeatureGroupResponse (..),
+    newCreateFeatureGroupResponse,
 
     -- * Response Lenses
-    cfgrrsResponseStatus,
-    cfgrrsFeatureGroupARN,
+    createFeatureGroupResponse_httpStatus,
+    createFeatureGroupResponse_featureGroupArn,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'createFeatureGroup' smart constructor.
+-- | /See:/ 'newCreateFeatureGroup' smart constructor.
 data CreateFeatureGroup = CreateFeatureGroup'
-  { _cfgOfflineStoreConfig ::
-      !(Maybe OfflineStoreConfig),
-    _cfgRoleARN :: !(Maybe Text),
-    _cfgTags :: !(Maybe [Tag]),
-    _cfgDescription :: !(Maybe Text),
-    _cfgOnlineStoreConfig ::
-      !(Maybe OnlineStoreConfig),
-    _cfgFeatureGroupName :: !Text,
-    _cfgRecordIdentifierFeatureName ::
-      !Text,
-    _cfgEventTimeFeatureName :: !Text,
-    _cfgFeatureDefinitions ::
-      !(List1 FeatureDefinition)
+  { -- | Use this to configure an @OfflineFeatureStore@. This parameter allows
+    -- you to specify:
+    --
+    -- -   The Amazon Simple Storage Service (Amazon S3) location of an
+    --     @OfflineStore@.
+    --
+    -- -   A configuration for an AWS Glue or AWS Hive data cataolgue.
+    --
+    -- -   An KMS encryption key to encrypt the Amazon S3 location used for
+    --     @OfflineStore@.
+    --
+    -- To learn more about this parameter, see OfflineStoreConfig.
+    offlineStoreConfig :: Prelude.Maybe OfflineStoreConfig,
+    -- | The Amazon Resource Name (ARN) of the IAM execution role used to persist
+    -- data into the @OfflineStore@ if an @OfflineStoreConfig@ is provided.
+    roleArn :: Prelude.Maybe Prelude.Text,
+    -- | Tags used to identify @Features@ in each @FeatureGroup@.
+    tags :: Prelude.Maybe [Tag],
+    -- | A free-form description of a @FeatureGroup@.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | You can turn the @OnlineStore@ on or off by specifying @True@ for the
+    -- @EnableOnlineStore@ flag in @OnlineStoreConfig@; the default value is
+    -- @False@.
+    --
+    -- You can also include an AWS KMS key ID (@KMSKeyId@) for at-rest
+    -- encryption of the @OnlineStore@.
+    onlineStoreConfig :: Prelude.Maybe OnlineStoreConfig,
+    -- | The name of the @FeatureGroup@. The name must be unique within an AWS
+    -- Region in an AWS account. The name:
+    --
+    -- -   Must start and end with an alphanumeric character.
+    --
+    -- -   Can only contain alphanumeric character and hyphens. Spaces are not
+    --     allowed.
+    featureGroupName :: Prelude.Text,
+    -- | The name of the @Feature@ whose value uniquely identifies a @Record@
+    -- defined in the @FeatureStore@. Only the latest record per identifier
+    -- value will be stored in the @OnlineStore@. @RecordIdentifierFeatureName@
+    -- must be one of feature definitions\' names.
+    --
+    -- You use the @RecordIdentifierFeatureName@ to access data in a
+    -- @FeatureStore@.
+    --
+    -- This name:
+    --
+    -- -   Must start and end with an alphanumeric character.
+    --
+    -- -   Can only contains alphanumeric characters, hyphens, underscores.
+    --     Spaces are not allowed.
+    recordIdentifierFeatureName :: Prelude.Text,
+    -- | The name of the feature that stores the @EventTime@ of a @Record@ in a
+    -- @FeatureGroup@.
+    --
+    -- An @EventTime@ is a point in time when a new event occurs that
+    -- corresponds to the creation or update of a @Record@ in a @FeatureGroup@.
+    -- All @Records@ in the @FeatureGroup@ must have a corresponding
+    -- @EventTime@.
+    --
+    -- An @EventTime@ can be a @String@ or @Fractional@.
+    --
+    -- -   @Fractional@: @EventTime@ feature values must be a Unix timestamp in
+    --     seconds.
+    --
+    -- -   @String@: @EventTime@ feature values must be an ISO-8601 string in
+    --     the format. The following formats are supported
+    --     @yyyy-MM-dd\'T\'HH:mm:ssZ@ and @yyyy-MM-dd\'T\'HH:mm:ss.SSSZ@ where
+    --     @yyyy@, @MM@, and @dd@ represent the year, month, and day
+    --     respectively and @HH@, @mm@, @ss@, and if applicable, @SSS@
+    --     represent the hour, month, second and milliseconds respsectively.
+    --     @\'T\'@ and @Z@ are constants.
+    eventTimeFeatureName :: Prelude.Text,
+    -- | A list of @Feature@ names and types. @Name@ and @Type@ is compulsory per
+    -- @Feature@.
+    --
+    -- Valid feature @FeatureType@s are @Integral@, @Fractional@ and @String@.
+    --
+    -- @FeatureName@s cannot be any of the following: @is_deleted@,
+    -- @write_time@, @api_invocation_time@
+    --
+    -- You can create up to 2,500 @FeatureDefinition@s per @FeatureGroup@.
+    featureDefinitions :: Prelude.List1 FeatureDefinition
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateFeatureGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateFeatureGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cfgOfflineStoreConfig' - Use this to configure an @OfflineFeatureStore@ . This parameter allows you to specify:     * The Amazon Simple Storage Service (Amazon S3) location of an @OfflineStore@ .     * A configuration for an AWS Glue or AWS Hive data cataolgue.      * An KMS encryption key to encrypt the Amazon S3 location used for @OfflineStore@ . To learn more about this parameter, see 'OfflineStoreConfig' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cfgRoleARN' - The Amazon Resource Name (ARN) of the IAM execution role used to persist data into the @OfflineStore@ if an @OfflineStoreConfig@ is provided.
+-- 'offlineStoreConfig', 'createFeatureGroup_offlineStoreConfig' - Use this to configure an @OfflineFeatureStore@. This parameter allows
+-- you to specify:
 --
--- * 'cfgTags' - Tags used to identify @Features@ in each @FeatureGroup@ .
+-- -   The Amazon Simple Storage Service (Amazon S3) location of an
+--     @OfflineStore@.
 --
--- * 'cfgDescription' - A free-form description of a @FeatureGroup@ .
+-- -   A configuration for an AWS Glue or AWS Hive data cataolgue.
 --
--- * 'cfgOnlineStoreConfig' - You can turn the @OnlineStore@ on or off by specifying @True@ for the @EnableOnlineStore@ flag in @OnlineStoreConfig@ ; the default value is @False@ . You can also include an AWS KMS key ID (@KMSKeyId@ ) for at-rest encryption of the @OnlineStore@ .
+-- -   An KMS encryption key to encrypt the Amazon S3 location used for
+--     @OfflineStore@.
 --
--- * 'cfgFeatureGroupName' - The name of the @FeatureGroup@ . The name must be unique within an AWS Region in an AWS account. The name:     * Must start and end with an alphanumeric character.     * Can only contain alphanumeric character and hyphens. Spaces are not allowed.
+-- To learn more about this parameter, see OfflineStoreConfig.
 --
--- * 'cfgRecordIdentifierFeatureName' - The name of the @Feature@ whose value uniquely identifies a @Record@ defined in the @FeatureStore@ . Only the latest record per identifier value will be stored in the @OnlineStore@ . @RecordIdentifierFeatureName@ must be one of feature definitions' names. You use the @RecordIdentifierFeatureName@ to access data in a @FeatureStore@ . This name:     * Must start and end with an alphanumeric character.     * Can only contains alphanumeric characters, hyphens, underscores. Spaces are not allowed.
+-- 'roleArn', 'createFeatureGroup_roleArn' - The Amazon Resource Name (ARN) of the IAM execution role used to persist
+-- data into the @OfflineStore@ if an @OfflineStoreConfig@ is provided.
 --
--- * 'cfgEventTimeFeatureName' - The name of the feature that stores the @EventTime@ of a @Record@ in a @FeatureGroup@ . An @EventTime@ is a point in time when a new event occurs that corresponds to the creation or update of a @Record@ in a @FeatureGroup@ . All @Records@ in the @FeatureGroup@ must have a corresponding @EventTime@ . An @EventTime@ can be a @String@ or @Fractional@ .      * @Fractional@ : @EventTime@ feature values must be a Unix timestamp in seconds.     * @String@ : @EventTime@ feature values must be an ISO-8601 string in the format. The following formats are supported @yyyy-MM-dd'T'HH:mm:ssZ@ and @yyyy-MM-dd'T'HH:mm:ss.SSSZ@ where @yyyy@ , @MM@ , and @dd@ represent the year, month, and day respectively and @HH@ , @mm@ , @ss@ , and if applicable, @SSS@ represent the hour, month, second and milliseconds respsectively. @'T'@ and @Z@ are constants.
+-- 'tags', 'createFeatureGroup_tags' - Tags used to identify @Features@ in each @FeatureGroup@.
 --
--- * 'cfgFeatureDefinitions' - A list of @Feature@ names and types. @Name@ and @Type@ is compulsory per @Feature@ .  Valid feature @FeatureType@ s are @Integral@ , @Fractional@ and @String@ . @FeatureName@ s cannot be any of the following: @is_deleted@ , @write_time@ , @api_invocation_time@  You can create up to 2,500 @FeatureDefinition@ s per @FeatureGroup@ .
-createFeatureGroup ::
-  -- | 'cfgFeatureGroupName'
-  Text ->
-  -- | 'cfgRecordIdentifierFeatureName'
-  Text ->
-  -- | 'cfgEventTimeFeatureName'
-  Text ->
-  -- | 'cfgFeatureDefinitions'
-  NonEmpty FeatureDefinition ->
+-- 'description', 'createFeatureGroup_description' - A free-form description of a @FeatureGroup@.
+--
+-- 'onlineStoreConfig', 'createFeatureGroup_onlineStoreConfig' - You can turn the @OnlineStore@ on or off by specifying @True@ for the
+-- @EnableOnlineStore@ flag in @OnlineStoreConfig@; the default value is
+-- @False@.
+--
+-- You can also include an AWS KMS key ID (@KMSKeyId@) for at-rest
+-- encryption of the @OnlineStore@.
+--
+-- 'featureGroupName', 'createFeatureGroup_featureGroupName' - The name of the @FeatureGroup@. The name must be unique within an AWS
+-- Region in an AWS account. The name:
+--
+-- -   Must start and end with an alphanumeric character.
+--
+-- -   Can only contain alphanumeric character and hyphens. Spaces are not
+--     allowed.
+--
+-- 'recordIdentifierFeatureName', 'createFeatureGroup_recordIdentifierFeatureName' - The name of the @Feature@ whose value uniquely identifies a @Record@
+-- defined in the @FeatureStore@. Only the latest record per identifier
+-- value will be stored in the @OnlineStore@. @RecordIdentifierFeatureName@
+-- must be one of feature definitions\' names.
+--
+-- You use the @RecordIdentifierFeatureName@ to access data in a
+-- @FeatureStore@.
+--
+-- This name:
+--
+-- -   Must start and end with an alphanumeric character.
+--
+-- -   Can only contains alphanumeric characters, hyphens, underscores.
+--     Spaces are not allowed.
+--
+-- 'eventTimeFeatureName', 'createFeatureGroup_eventTimeFeatureName' - The name of the feature that stores the @EventTime@ of a @Record@ in a
+-- @FeatureGroup@.
+--
+-- An @EventTime@ is a point in time when a new event occurs that
+-- corresponds to the creation or update of a @Record@ in a @FeatureGroup@.
+-- All @Records@ in the @FeatureGroup@ must have a corresponding
+-- @EventTime@.
+--
+-- An @EventTime@ can be a @String@ or @Fractional@.
+--
+-- -   @Fractional@: @EventTime@ feature values must be a Unix timestamp in
+--     seconds.
+--
+-- -   @String@: @EventTime@ feature values must be an ISO-8601 string in
+--     the format. The following formats are supported
+--     @yyyy-MM-dd\'T\'HH:mm:ssZ@ and @yyyy-MM-dd\'T\'HH:mm:ss.SSSZ@ where
+--     @yyyy@, @MM@, and @dd@ represent the year, month, and day
+--     respectively and @HH@, @mm@, @ss@, and if applicable, @SSS@
+--     represent the hour, month, second and milliseconds respsectively.
+--     @\'T\'@ and @Z@ are constants.
+--
+-- 'featureDefinitions', 'createFeatureGroup_featureDefinitions' - A list of @Feature@ names and types. @Name@ and @Type@ is compulsory per
+-- @Feature@.
+--
+-- Valid feature @FeatureType@s are @Integral@, @Fractional@ and @String@.
+--
+-- @FeatureName@s cannot be any of the following: @is_deleted@,
+-- @write_time@, @api_invocation_time@
+--
+-- You can create up to 2,500 @FeatureDefinition@s per @FeatureGroup@.
+newCreateFeatureGroup ::
+  -- | 'featureGroupName'
+  Prelude.Text ->
+  -- | 'recordIdentifierFeatureName'
+  Prelude.Text ->
+  -- | 'eventTimeFeatureName'
+  Prelude.Text ->
+  -- | 'featureDefinitions'
+  Prelude.NonEmpty FeatureDefinition ->
   CreateFeatureGroup
-createFeatureGroup
+newCreateFeatureGroup
   pFeatureGroupName_
   pRecordIdentifierFeatureName_
   pEventTimeFeatureName_
   pFeatureDefinitions_ =
     CreateFeatureGroup'
-      { _cfgOfflineStoreConfig =
-          Nothing,
-        _cfgRoleARN = Nothing,
-        _cfgTags = Nothing,
-        _cfgDescription = Nothing,
-        _cfgOnlineStoreConfig = Nothing,
-        _cfgFeatureGroupName = pFeatureGroupName_,
-        _cfgRecordIdentifierFeatureName =
+      { offlineStoreConfig =
+          Prelude.Nothing,
+        roleArn = Prelude.Nothing,
+        tags = Prelude.Nothing,
+        description = Prelude.Nothing,
+        onlineStoreConfig = Prelude.Nothing,
+        featureGroupName = pFeatureGroupName_,
+        recordIdentifierFeatureName =
           pRecordIdentifierFeatureName_,
-        _cfgEventTimeFeatureName = pEventTimeFeatureName_,
-        _cfgFeatureDefinitions =
-          _List1 # pFeatureDefinitions_
+        eventTimeFeatureName = pEventTimeFeatureName_,
+        featureDefinitions =
+          Prelude._List1 Lens.# pFeatureDefinitions_
       }
 
--- | Use this to configure an @OfflineFeatureStore@ . This parameter allows you to specify:     * The Amazon Simple Storage Service (Amazon S3) location of an @OfflineStore@ .     * A configuration for an AWS Glue or AWS Hive data cataolgue.      * An KMS encryption key to encrypt the Amazon S3 location used for @OfflineStore@ . To learn more about this parameter, see 'OfflineStoreConfig' .
-cfgOfflineStoreConfig :: Lens' CreateFeatureGroup (Maybe OfflineStoreConfig)
-cfgOfflineStoreConfig = lens _cfgOfflineStoreConfig (\s a -> s {_cfgOfflineStoreConfig = a})
+-- | Use this to configure an @OfflineFeatureStore@. This parameter allows
+-- you to specify:
+--
+-- -   The Amazon Simple Storage Service (Amazon S3) location of an
+--     @OfflineStore@.
+--
+-- -   A configuration for an AWS Glue or AWS Hive data cataolgue.
+--
+-- -   An KMS encryption key to encrypt the Amazon S3 location used for
+--     @OfflineStore@.
+--
+-- To learn more about this parameter, see OfflineStoreConfig.
+createFeatureGroup_offlineStoreConfig :: Lens.Lens' CreateFeatureGroup (Prelude.Maybe OfflineStoreConfig)
+createFeatureGroup_offlineStoreConfig = Lens.lens (\CreateFeatureGroup' {offlineStoreConfig} -> offlineStoreConfig) (\s@CreateFeatureGroup' {} a -> s {offlineStoreConfig = a} :: CreateFeatureGroup)
 
--- | The Amazon Resource Name (ARN) of the IAM execution role used to persist data into the @OfflineStore@ if an @OfflineStoreConfig@ is provided.
-cfgRoleARN :: Lens' CreateFeatureGroup (Maybe Text)
-cfgRoleARN = lens _cfgRoleARN (\s a -> s {_cfgRoleARN = a})
+-- | The Amazon Resource Name (ARN) of the IAM execution role used to persist
+-- data into the @OfflineStore@ if an @OfflineStoreConfig@ is provided.
+createFeatureGroup_roleArn :: Lens.Lens' CreateFeatureGroup (Prelude.Maybe Prelude.Text)
+createFeatureGroup_roleArn = Lens.lens (\CreateFeatureGroup' {roleArn} -> roleArn) (\s@CreateFeatureGroup' {} a -> s {roleArn = a} :: CreateFeatureGroup)
 
--- | Tags used to identify @Features@ in each @FeatureGroup@ .
-cfgTags :: Lens' CreateFeatureGroup [Tag]
-cfgTags = lens _cfgTags (\s a -> s {_cfgTags = a}) . _Default . _Coerce
+-- | Tags used to identify @Features@ in each @FeatureGroup@.
+createFeatureGroup_tags :: Lens.Lens' CreateFeatureGroup (Prelude.Maybe [Tag])
+createFeatureGroup_tags = Lens.lens (\CreateFeatureGroup' {tags} -> tags) (\s@CreateFeatureGroup' {} a -> s {tags = a} :: CreateFeatureGroup) Prelude.. Lens.mapping Prelude._Coerce
 
--- | A free-form description of a @FeatureGroup@ .
-cfgDescription :: Lens' CreateFeatureGroup (Maybe Text)
-cfgDescription = lens _cfgDescription (\s a -> s {_cfgDescription = a})
+-- | A free-form description of a @FeatureGroup@.
+createFeatureGroup_description :: Lens.Lens' CreateFeatureGroup (Prelude.Maybe Prelude.Text)
+createFeatureGroup_description = Lens.lens (\CreateFeatureGroup' {description} -> description) (\s@CreateFeatureGroup' {} a -> s {description = a} :: CreateFeatureGroup)
 
--- | You can turn the @OnlineStore@ on or off by specifying @True@ for the @EnableOnlineStore@ flag in @OnlineStoreConfig@ ; the default value is @False@ . You can also include an AWS KMS key ID (@KMSKeyId@ ) for at-rest encryption of the @OnlineStore@ .
-cfgOnlineStoreConfig :: Lens' CreateFeatureGroup (Maybe OnlineStoreConfig)
-cfgOnlineStoreConfig = lens _cfgOnlineStoreConfig (\s a -> s {_cfgOnlineStoreConfig = a})
+-- | You can turn the @OnlineStore@ on or off by specifying @True@ for the
+-- @EnableOnlineStore@ flag in @OnlineStoreConfig@; the default value is
+-- @False@.
+--
+-- You can also include an AWS KMS key ID (@KMSKeyId@) for at-rest
+-- encryption of the @OnlineStore@.
+createFeatureGroup_onlineStoreConfig :: Lens.Lens' CreateFeatureGroup (Prelude.Maybe OnlineStoreConfig)
+createFeatureGroup_onlineStoreConfig = Lens.lens (\CreateFeatureGroup' {onlineStoreConfig} -> onlineStoreConfig) (\s@CreateFeatureGroup' {} a -> s {onlineStoreConfig = a} :: CreateFeatureGroup)
 
--- | The name of the @FeatureGroup@ . The name must be unique within an AWS Region in an AWS account. The name:     * Must start and end with an alphanumeric character.     * Can only contain alphanumeric character and hyphens. Spaces are not allowed.
-cfgFeatureGroupName :: Lens' CreateFeatureGroup Text
-cfgFeatureGroupName = lens _cfgFeatureGroupName (\s a -> s {_cfgFeatureGroupName = a})
+-- | The name of the @FeatureGroup@. The name must be unique within an AWS
+-- Region in an AWS account. The name:
+--
+-- -   Must start and end with an alphanumeric character.
+--
+-- -   Can only contain alphanumeric character and hyphens. Spaces are not
+--     allowed.
+createFeatureGroup_featureGroupName :: Lens.Lens' CreateFeatureGroup Prelude.Text
+createFeatureGroup_featureGroupName = Lens.lens (\CreateFeatureGroup' {featureGroupName} -> featureGroupName) (\s@CreateFeatureGroup' {} a -> s {featureGroupName = a} :: CreateFeatureGroup)
 
--- | The name of the @Feature@ whose value uniquely identifies a @Record@ defined in the @FeatureStore@ . Only the latest record per identifier value will be stored in the @OnlineStore@ . @RecordIdentifierFeatureName@ must be one of feature definitions' names. You use the @RecordIdentifierFeatureName@ to access data in a @FeatureStore@ . This name:     * Must start and end with an alphanumeric character.     * Can only contains alphanumeric characters, hyphens, underscores. Spaces are not allowed.
-cfgRecordIdentifierFeatureName :: Lens' CreateFeatureGroup Text
-cfgRecordIdentifierFeatureName = lens _cfgRecordIdentifierFeatureName (\s a -> s {_cfgRecordIdentifierFeatureName = a})
+-- | The name of the @Feature@ whose value uniquely identifies a @Record@
+-- defined in the @FeatureStore@. Only the latest record per identifier
+-- value will be stored in the @OnlineStore@. @RecordIdentifierFeatureName@
+-- must be one of feature definitions\' names.
+--
+-- You use the @RecordIdentifierFeatureName@ to access data in a
+-- @FeatureStore@.
+--
+-- This name:
+--
+-- -   Must start and end with an alphanumeric character.
+--
+-- -   Can only contains alphanumeric characters, hyphens, underscores.
+--     Spaces are not allowed.
+createFeatureGroup_recordIdentifierFeatureName :: Lens.Lens' CreateFeatureGroup Prelude.Text
+createFeatureGroup_recordIdentifierFeatureName = Lens.lens (\CreateFeatureGroup' {recordIdentifierFeatureName} -> recordIdentifierFeatureName) (\s@CreateFeatureGroup' {} a -> s {recordIdentifierFeatureName = a} :: CreateFeatureGroup)
 
--- | The name of the feature that stores the @EventTime@ of a @Record@ in a @FeatureGroup@ . An @EventTime@ is a point in time when a new event occurs that corresponds to the creation or update of a @Record@ in a @FeatureGroup@ . All @Records@ in the @FeatureGroup@ must have a corresponding @EventTime@ . An @EventTime@ can be a @String@ or @Fractional@ .      * @Fractional@ : @EventTime@ feature values must be a Unix timestamp in seconds.     * @String@ : @EventTime@ feature values must be an ISO-8601 string in the format. The following formats are supported @yyyy-MM-dd'T'HH:mm:ssZ@ and @yyyy-MM-dd'T'HH:mm:ss.SSSZ@ where @yyyy@ , @MM@ , and @dd@ represent the year, month, and day respectively and @HH@ , @mm@ , @ss@ , and if applicable, @SSS@ represent the hour, month, second and milliseconds respsectively. @'T'@ and @Z@ are constants.
-cfgEventTimeFeatureName :: Lens' CreateFeatureGroup Text
-cfgEventTimeFeatureName = lens _cfgEventTimeFeatureName (\s a -> s {_cfgEventTimeFeatureName = a})
+-- | The name of the feature that stores the @EventTime@ of a @Record@ in a
+-- @FeatureGroup@.
+--
+-- An @EventTime@ is a point in time when a new event occurs that
+-- corresponds to the creation or update of a @Record@ in a @FeatureGroup@.
+-- All @Records@ in the @FeatureGroup@ must have a corresponding
+-- @EventTime@.
+--
+-- An @EventTime@ can be a @String@ or @Fractional@.
+--
+-- -   @Fractional@: @EventTime@ feature values must be a Unix timestamp in
+--     seconds.
+--
+-- -   @String@: @EventTime@ feature values must be an ISO-8601 string in
+--     the format. The following formats are supported
+--     @yyyy-MM-dd\'T\'HH:mm:ssZ@ and @yyyy-MM-dd\'T\'HH:mm:ss.SSSZ@ where
+--     @yyyy@, @MM@, and @dd@ represent the year, month, and day
+--     respectively and @HH@, @mm@, @ss@, and if applicable, @SSS@
+--     represent the hour, month, second and milliseconds respsectively.
+--     @\'T\'@ and @Z@ are constants.
+createFeatureGroup_eventTimeFeatureName :: Lens.Lens' CreateFeatureGroup Prelude.Text
+createFeatureGroup_eventTimeFeatureName = Lens.lens (\CreateFeatureGroup' {eventTimeFeatureName} -> eventTimeFeatureName) (\s@CreateFeatureGroup' {} a -> s {eventTimeFeatureName = a} :: CreateFeatureGroup)
 
--- | A list of @Feature@ names and types. @Name@ and @Type@ is compulsory per @Feature@ .  Valid feature @FeatureType@ s are @Integral@ , @Fractional@ and @String@ . @FeatureName@ s cannot be any of the following: @is_deleted@ , @write_time@ , @api_invocation_time@  You can create up to 2,500 @FeatureDefinition@ s per @FeatureGroup@ .
-cfgFeatureDefinitions :: Lens' CreateFeatureGroup (NonEmpty FeatureDefinition)
-cfgFeatureDefinitions = lens _cfgFeatureDefinitions (\s a -> s {_cfgFeatureDefinitions = a}) . _List1
+-- | A list of @Feature@ names and types. @Name@ and @Type@ is compulsory per
+-- @Feature@.
+--
+-- Valid feature @FeatureType@s are @Integral@, @Fractional@ and @String@.
+--
+-- @FeatureName@s cannot be any of the following: @is_deleted@,
+-- @write_time@, @api_invocation_time@
+--
+-- You can create up to 2,500 @FeatureDefinition@s per @FeatureGroup@.
+createFeatureGroup_featureDefinitions :: Lens.Lens' CreateFeatureGroup (Prelude.NonEmpty FeatureDefinition)
+createFeatureGroup_featureDefinitions = Lens.lens (\CreateFeatureGroup' {featureDefinitions} -> featureDefinitions) (\s@CreateFeatureGroup' {} a -> s {featureDefinitions = a} :: CreateFeatureGroup) Prelude.. Prelude._List1
 
-instance AWSRequest CreateFeatureGroup where
+instance Prelude.AWSRequest CreateFeatureGroup where
   type
     Rs CreateFeatureGroup =
       CreateFeatureGroupResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateFeatureGroupResponse'
-            <$> (pure (fromEnum s)) <*> (x .:> "FeatureGroupArn")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "FeatureGroupArn")
       )
 
-instance Hashable CreateFeatureGroup
+instance Prelude.Hashable CreateFeatureGroup
 
-instance NFData CreateFeatureGroup
+instance Prelude.NFData CreateFeatureGroup
 
-instance ToHeaders CreateFeatureGroup where
+instance Prelude.ToHeaders CreateFeatureGroup where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.CreateFeatureGroup" :: ByteString),
+              Prelude.=# ( "SageMaker.CreateFeatureGroup" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateFeatureGroup where
+instance Prelude.ToJSON CreateFeatureGroup where
   toJSON CreateFeatureGroup' {..} =
-    object
-      ( catMaybes
-          [ ("OfflineStoreConfig" .=)
-              <$> _cfgOfflineStoreConfig,
-            ("RoleArn" .=) <$> _cfgRoleARN,
-            ("Tags" .=) <$> _cfgTags,
-            ("Description" .=) <$> _cfgDescription,
-            ("OnlineStoreConfig" .=) <$> _cfgOnlineStoreConfig,
-            Just ("FeatureGroupName" .= _cfgFeatureGroupName),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("OfflineStoreConfig" Prelude..=)
+              Prelude.<$> offlineStoreConfig,
+            ("RoleArn" Prelude..=) Prelude.<$> roleArn,
+            ("Tags" Prelude..=) Prelude.<$> tags,
+            ("Description" Prelude..=) Prelude.<$> description,
+            ("OnlineStoreConfig" Prelude..=)
+              Prelude.<$> onlineStoreConfig,
+            Prelude.Just
+              ("FeatureGroupName" Prelude..= featureGroupName),
+            Prelude.Just
               ( "RecordIdentifierFeatureName"
-                  .= _cfgRecordIdentifierFeatureName
+                  Prelude..= recordIdentifierFeatureName
               ),
-            Just
-              ("EventTimeFeatureName" .= _cfgEventTimeFeatureName),
-            Just
-              ("FeatureDefinitions" .= _cfgFeatureDefinitions)
+            Prelude.Just
+              ( "EventTimeFeatureName"
+                  Prelude..= eventTimeFeatureName
+              ),
+            Prelude.Just
+              ( "FeatureDefinitions"
+                  Prelude..= featureDefinitions
+              )
           ]
       )
 
-instance ToPath CreateFeatureGroup where
-  toPath = const "/"
+instance Prelude.ToPath CreateFeatureGroup where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateFeatureGroup where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateFeatureGroup where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createFeatureGroupResponse' smart constructor.
+-- | /See:/ 'newCreateFeatureGroupResponse' smart constructor.
 data CreateFeatureGroupResponse = CreateFeatureGroupResponse'
-  { _cfgrrsResponseStatus ::
-      !Int,
-    _cfgrrsFeatureGroupARN ::
-      !Text
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The Amazon Resource Name (ARN) of the @FeatureGroup@. This is a unique
+    -- identifier for the feature group.
+    featureGroupArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateFeatureGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateFeatureGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cfgrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cfgrrsFeatureGroupARN' - The Amazon Resource Name (ARN) of the @FeatureGroup@ . This is a unique identifier for the feature group.
-createFeatureGroupResponse ::
-  -- | 'cfgrrsResponseStatus'
-  Int ->
-  -- | 'cfgrrsFeatureGroupARN'
-  Text ->
+-- 'httpStatus', 'createFeatureGroupResponse_httpStatus' - The response's http status code.
+--
+-- 'featureGroupArn', 'createFeatureGroupResponse_featureGroupArn' - The Amazon Resource Name (ARN) of the @FeatureGroup@. This is a unique
+-- identifier for the feature group.
+newCreateFeatureGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'featureGroupArn'
+  Prelude.Text ->
   CreateFeatureGroupResponse
-createFeatureGroupResponse
-  pResponseStatus_
-  pFeatureGroupARN_ =
+newCreateFeatureGroupResponse
+  pHttpStatus_
+  pFeatureGroupArn_ =
     CreateFeatureGroupResponse'
-      { _cfgrrsResponseStatus =
-          pResponseStatus_,
-        _cfgrrsFeatureGroupARN = pFeatureGroupARN_
+      { httpStatus =
+          pHttpStatus_,
+        featureGroupArn = pFeatureGroupArn_
       }
 
--- | -- | The response status code.
-cfgrrsResponseStatus :: Lens' CreateFeatureGroupResponse Int
-cfgrrsResponseStatus = lens _cfgrrsResponseStatus (\s a -> s {_cfgrrsResponseStatus = a})
+-- | The response's http status code.
+createFeatureGroupResponse_httpStatus :: Lens.Lens' CreateFeatureGroupResponse Prelude.Int
+createFeatureGroupResponse_httpStatus = Lens.lens (\CreateFeatureGroupResponse' {httpStatus} -> httpStatus) (\s@CreateFeatureGroupResponse' {} a -> s {httpStatus = a} :: CreateFeatureGroupResponse)
 
--- | The Amazon Resource Name (ARN) of the @FeatureGroup@ . This is a unique identifier for the feature group.
-cfgrrsFeatureGroupARN :: Lens' CreateFeatureGroupResponse Text
-cfgrrsFeatureGroupARN = lens _cfgrrsFeatureGroupARN (\s a -> s {_cfgrrsFeatureGroupARN = a})
+-- | The Amazon Resource Name (ARN) of the @FeatureGroup@. This is a unique
+-- identifier for the feature group.
+createFeatureGroupResponse_featureGroupArn :: Lens.Lens' CreateFeatureGroupResponse Prelude.Text
+createFeatureGroupResponse_featureGroupArn = Lens.lens (\CreateFeatureGroupResponse' {featureGroupArn} -> featureGroupArn) (\s@CreateFeatureGroupResponse' {} a -> s {featureGroupArn = a} :: CreateFeatureGroupResponse)
 
-instance NFData CreateFeatureGroupResponse
+instance Prelude.NFData CreateFeatureGroupResponse

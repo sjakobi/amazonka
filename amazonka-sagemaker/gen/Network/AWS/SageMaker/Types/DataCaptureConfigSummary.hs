@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,110 +19,100 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.DataCaptureConfigSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.CaptureStatus
 
 -- |
 --
---
---
--- /See:/ 'dataCaptureConfigSummary' smart constructor.
+-- /See:/ 'newDataCaptureConfigSummary' smart constructor.
 data DataCaptureConfigSummary = DataCaptureConfigSummary'
-  { _dccsEnableCapture ::
-      !Bool,
-    _dccsCaptureStatus ::
-      !CaptureStatus,
-    _dccsCurrentSamplingPercentage ::
-      !Nat,
-    _dccsDestinationS3URI ::
-      !Text,
-    _dccsKMSKeyId ::
-      !Text
+  { enableCapture :: Prelude.Bool,
+    captureStatus :: CaptureStatus,
+    currentSamplingPercentage :: Prelude.Nat,
+    destinationS3Uri :: Prelude.Text,
+    kmsKeyId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DataCaptureConfigSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DataCaptureConfigSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dccsEnableCapture' -
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dccsCaptureStatus' -
+-- 'enableCapture', 'dataCaptureConfigSummary_enableCapture' -
 --
--- * 'dccsCurrentSamplingPercentage' -
+-- 'captureStatus', 'dataCaptureConfigSummary_captureStatus' -
 --
--- * 'dccsDestinationS3URI' -
+-- 'currentSamplingPercentage', 'dataCaptureConfigSummary_currentSamplingPercentage' -
 --
--- * 'dccsKMSKeyId' -
-dataCaptureConfigSummary ::
-  -- | 'dccsEnableCapture'
-  Bool ->
-  -- | 'dccsCaptureStatus'
+-- 'destinationS3Uri', 'dataCaptureConfigSummary_destinationS3Uri' -
+--
+-- 'kmsKeyId', 'dataCaptureConfigSummary_kmsKeyId' -
+newDataCaptureConfigSummary ::
+  -- | 'enableCapture'
+  Prelude.Bool ->
+  -- | 'captureStatus'
   CaptureStatus ->
-  -- | 'dccsCurrentSamplingPercentage'
-  Natural ->
-  -- | 'dccsDestinationS3URI'
-  Text ->
-  -- | 'dccsKMSKeyId'
-  Text ->
+  -- | 'currentSamplingPercentage'
+  Prelude.Natural ->
+  -- | 'destinationS3Uri'
+  Prelude.Text ->
+  -- | 'kmsKeyId'
+  Prelude.Text ->
   DataCaptureConfigSummary
-dataCaptureConfigSummary
+newDataCaptureConfigSummary
   pEnableCapture_
   pCaptureStatus_
   pCurrentSamplingPercentage_
-  pDestinationS3URI_
-  pKMSKeyId_ =
+  pDestinationS3Uri_
+  pKmsKeyId_ =
     DataCaptureConfigSummary'
-      { _dccsEnableCapture =
+      { enableCapture =
           pEnableCapture_,
-        _dccsCaptureStatus = pCaptureStatus_,
-        _dccsCurrentSamplingPercentage =
-          _Nat # pCurrentSamplingPercentage_,
-        _dccsDestinationS3URI = pDestinationS3URI_,
-        _dccsKMSKeyId = pKMSKeyId_
+        captureStatus = pCaptureStatus_,
+        currentSamplingPercentage =
+          Prelude._Nat Lens.# pCurrentSamplingPercentage_,
+        destinationS3Uri = pDestinationS3Uri_,
+        kmsKeyId = pKmsKeyId_
       }
 
 -- |
-dccsEnableCapture :: Lens' DataCaptureConfigSummary Bool
-dccsEnableCapture = lens _dccsEnableCapture (\s a -> s {_dccsEnableCapture = a})
+dataCaptureConfigSummary_enableCapture :: Lens.Lens' DataCaptureConfigSummary Prelude.Bool
+dataCaptureConfigSummary_enableCapture = Lens.lens (\DataCaptureConfigSummary' {enableCapture} -> enableCapture) (\s@DataCaptureConfigSummary' {} a -> s {enableCapture = a} :: DataCaptureConfigSummary)
 
 -- |
-dccsCaptureStatus :: Lens' DataCaptureConfigSummary CaptureStatus
-dccsCaptureStatus = lens _dccsCaptureStatus (\s a -> s {_dccsCaptureStatus = a})
+dataCaptureConfigSummary_captureStatus :: Lens.Lens' DataCaptureConfigSummary CaptureStatus
+dataCaptureConfigSummary_captureStatus = Lens.lens (\DataCaptureConfigSummary' {captureStatus} -> captureStatus) (\s@DataCaptureConfigSummary' {} a -> s {captureStatus = a} :: DataCaptureConfigSummary)
 
 -- |
-dccsCurrentSamplingPercentage :: Lens' DataCaptureConfigSummary Natural
-dccsCurrentSamplingPercentage = lens _dccsCurrentSamplingPercentage (\s a -> s {_dccsCurrentSamplingPercentage = a}) . _Nat
+dataCaptureConfigSummary_currentSamplingPercentage :: Lens.Lens' DataCaptureConfigSummary Prelude.Natural
+dataCaptureConfigSummary_currentSamplingPercentage = Lens.lens (\DataCaptureConfigSummary' {currentSamplingPercentage} -> currentSamplingPercentage) (\s@DataCaptureConfigSummary' {} a -> s {currentSamplingPercentage = a} :: DataCaptureConfigSummary) Prelude.. Prelude._Nat
 
 -- |
-dccsDestinationS3URI :: Lens' DataCaptureConfigSummary Text
-dccsDestinationS3URI = lens _dccsDestinationS3URI (\s a -> s {_dccsDestinationS3URI = a})
+dataCaptureConfigSummary_destinationS3Uri :: Lens.Lens' DataCaptureConfigSummary Prelude.Text
+dataCaptureConfigSummary_destinationS3Uri = Lens.lens (\DataCaptureConfigSummary' {destinationS3Uri} -> destinationS3Uri) (\s@DataCaptureConfigSummary' {} a -> s {destinationS3Uri = a} :: DataCaptureConfigSummary)
 
 -- |
-dccsKMSKeyId :: Lens' DataCaptureConfigSummary Text
-dccsKMSKeyId = lens _dccsKMSKeyId (\s a -> s {_dccsKMSKeyId = a})
+dataCaptureConfigSummary_kmsKeyId :: Lens.Lens' DataCaptureConfigSummary Prelude.Text
+dataCaptureConfigSummary_kmsKeyId = Lens.lens (\DataCaptureConfigSummary' {kmsKeyId} -> kmsKeyId) (\s@DataCaptureConfigSummary' {} a -> s {kmsKeyId = a} :: DataCaptureConfigSummary)
 
-instance FromJSON DataCaptureConfigSummary where
+instance Prelude.FromJSON DataCaptureConfigSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DataCaptureConfigSummary"
       ( \x ->
           DataCaptureConfigSummary'
-            <$> (x .: "EnableCapture")
-            <*> (x .: "CaptureStatus")
-            <*> (x .: "CurrentSamplingPercentage")
-            <*> (x .: "DestinationS3Uri")
-            <*> (x .: "KmsKeyId")
+            Prelude.<$> (x Prelude..: "EnableCapture")
+            Prelude.<*> (x Prelude..: "CaptureStatus")
+            Prelude.<*> (x Prelude..: "CurrentSamplingPercentage")
+            Prelude.<*> (x Prelude..: "DestinationS3Uri")
+            Prelude.<*> (x Prelude..: "KmsKeyId")
       )
 
-instance Hashable DataCaptureConfigSummary
+instance Prelude.Hashable DataCaptureConfigSummary
 
-instance NFData DataCaptureConfigSummary
+instance Prelude.NFData DataCaptureConfigSummary

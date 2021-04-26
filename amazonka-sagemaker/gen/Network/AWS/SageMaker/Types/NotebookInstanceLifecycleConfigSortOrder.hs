@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.SageMaker.Types.NotebookInstanceLifecycleConfigSortOrder
   ( NotebookInstanceLifecycleConfigSortOrder
       ( ..,
-        NILCSOAscending,
-        NILCSODescending
+        NotebookInstanceLifecycleConfigSortOrderAscending,
+        NotebookInstanceLifecycleConfigSortOrderDescending
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data NotebookInstanceLifecycleConfigSortOrder
-  = NotebookInstanceLifecycleConfigSortOrder'
-      ( CI
-          Text
-      )
+newtype NotebookInstanceLifecycleConfigSortOrder = NotebookInstanceLifecycleConfigSortOrder'
+  { fromNotebookInstanceLifecycleConfigSortOrder ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern NILCSOAscending :: NotebookInstanceLifecycleConfigSortOrder
-pattern NILCSOAscending = NotebookInstanceLifecycleConfigSortOrder' "Ascending"
+pattern NotebookInstanceLifecycleConfigSortOrderAscending :: NotebookInstanceLifecycleConfigSortOrder
+pattern NotebookInstanceLifecycleConfigSortOrderAscending = NotebookInstanceLifecycleConfigSortOrder' "Ascending"
 
-pattern NILCSODescending :: NotebookInstanceLifecycleConfigSortOrder
-pattern NILCSODescending = NotebookInstanceLifecycleConfigSortOrder' "Descending"
+pattern NotebookInstanceLifecycleConfigSortOrderDescending :: NotebookInstanceLifecycleConfigSortOrder
+pattern NotebookInstanceLifecycleConfigSortOrderDescending = NotebookInstanceLifecycleConfigSortOrder' "Descending"
 
 {-# COMPLETE
-  NILCSOAscending,
-  NILCSODescending,
+  NotebookInstanceLifecycleConfigSortOrderAscending,
+  NotebookInstanceLifecycleConfigSortOrderDescending,
   NotebookInstanceLifecycleConfigSortOrder'
   #-}
 
-instance FromText NotebookInstanceLifecycleConfigSortOrder where
-  parser = (NotebookInstanceLifecycleConfigSortOrder' . mk) <$> takeText
+instance Prelude.FromText NotebookInstanceLifecycleConfigSortOrder where
+  parser = NotebookInstanceLifecycleConfigSortOrder' Prelude.<$> Prelude.takeText
 
-instance ToText NotebookInstanceLifecycleConfigSortOrder where
-  toText (NotebookInstanceLifecycleConfigSortOrder' ci) = original ci
+instance Prelude.ToText NotebookInstanceLifecycleConfigSortOrder where
+  toText (NotebookInstanceLifecycleConfigSortOrder' x) = x
 
-instance Hashable NotebookInstanceLifecycleConfigSortOrder
+instance Prelude.Hashable NotebookInstanceLifecycleConfigSortOrder
 
-instance NFData NotebookInstanceLifecycleConfigSortOrder
+instance Prelude.NFData NotebookInstanceLifecycleConfigSortOrder
 
-instance ToByteString NotebookInstanceLifecycleConfigSortOrder
+instance Prelude.ToByteString NotebookInstanceLifecycleConfigSortOrder
 
-instance ToQuery NotebookInstanceLifecycleConfigSortOrder
+instance Prelude.ToQuery NotebookInstanceLifecycleConfigSortOrder
 
-instance ToHeader NotebookInstanceLifecycleConfigSortOrder
+instance Prelude.ToHeader NotebookInstanceLifecycleConfigSortOrder
 
-instance ToJSON NotebookInstanceLifecycleConfigSortOrder where
-  toJSON = toJSONText
+instance Prelude.ToJSON NotebookInstanceLifecycleConfigSortOrder where
+  toJSON = Prelude.toJSONText

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,76 +19,69 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.ModelBiasBaselineConfig where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.MonitoringConstraintsResource
 
 -- | The configuration for a baseline model bias job.
 --
---
---
--- /See:/ 'modelBiasBaselineConfig' smart constructor.
+-- /See:/ 'newModelBiasBaselineConfig' smart constructor.
 data ModelBiasBaselineConfig = ModelBiasBaselineConfig'
-  { _mbbcConstraintsResource ::
-      !( Maybe
-           MonitoringConstraintsResource
-       ),
-    _mbbcBaseliningJobName ::
-      !(Maybe Text)
+  { constraintsResource :: Prelude.Maybe MonitoringConstraintsResource,
+    -- | The name of the baseline model bias job.
+    baseliningJobName :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModelBiasBaselineConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModelBiasBaselineConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mbbcConstraintsResource' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mbbcBaseliningJobName' - The name of the baseline model bias job.
-modelBiasBaselineConfig ::
+-- 'constraintsResource', 'modelBiasBaselineConfig_constraintsResource' - Undocumented member.
+--
+-- 'baseliningJobName', 'modelBiasBaselineConfig_baseliningJobName' - The name of the baseline model bias job.
+newModelBiasBaselineConfig ::
   ModelBiasBaselineConfig
-modelBiasBaselineConfig =
+newModelBiasBaselineConfig =
   ModelBiasBaselineConfig'
-    { _mbbcConstraintsResource =
-        Nothing,
-      _mbbcBaseliningJobName = Nothing
+    { constraintsResource =
+        Prelude.Nothing,
+      baseliningJobName = Prelude.Nothing
     }
 
 -- | Undocumented member.
-mbbcConstraintsResource :: Lens' ModelBiasBaselineConfig (Maybe MonitoringConstraintsResource)
-mbbcConstraintsResource = lens _mbbcConstraintsResource (\s a -> s {_mbbcConstraintsResource = a})
+modelBiasBaselineConfig_constraintsResource :: Lens.Lens' ModelBiasBaselineConfig (Prelude.Maybe MonitoringConstraintsResource)
+modelBiasBaselineConfig_constraintsResource = Lens.lens (\ModelBiasBaselineConfig' {constraintsResource} -> constraintsResource) (\s@ModelBiasBaselineConfig' {} a -> s {constraintsResource = a} :: ModelBiasBaselineConfig)
 
 -- | The name of the baseline model bias job.
-mbbcBaseliningJobName :: Lens' ModelBiasBaselineConfig (Maybe Text)
-mbbcBaseliningJobName = lens _mbbcBaseliningJobName (\s a -> s {_mbbcBaseliningJobName = a})
+modelBiasBaselineConfig_baseliningJobName :: Lens.Lens' ModelBiasBaselineConfig (Prelude.Maybe Prelude.Text)
+modelBiasBaselineConfig_baseliningJobName = Lens.lens (\ModelBiasBaselineConfig' {baseliningJobName} -> baseliningJobName) (\s@ModelBiasBaselineConfig' {} a -> s {baseliningJobName = a} :: ModelBiasBaselineConfig)
 
-instance FromJSON ModelBiasBaselineConfig where
+instance Prelude.FromJSON ModelBiasBaselineConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ModelBiasBaselineConfig"
       ( \x ->
           ModelBiasBaselineConfig'
-            <$> (x .:? "ConstraintsResource")
-            <*> (x .:? "BaseliningJobName")
+            Prelude.<$> (x Prelude..:? "ConstraintsResource")
+            Prelude.<*> (x Prelude..:? "BaseliningJobName")
       )
 
-instance Hashable ModelBiasBaselineConfig
+instance Prelude.Hashable ModelBiasBaselineConfig
 
-instance NFData ModelBiasBaselineConfig
+instance Prelude.NFData ModelBiasBaselineConfig
 
-instance ToJSON ModelBiasBaselineConfig where
+instance Prelude.ToJSON ModelBiasBaselineConfig where
   toJSON ModelBiasBaselineConfig' {..} =
-    object
-      ( catMaybes
-          [ ("ConstraintsResource" .=)
-              <$> _mbbcConstraintsResource,
-            ("BaseliningJobName" .=) <$> _mbbcBaseliningJobName
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ConstraintsResource" Prelude..=)
+              Prelude.<$> constraintsResource,
+            ("BaseliningJobName" Prelude..=)
+              Prelude.<$> baseliningJobName
           ]
       )

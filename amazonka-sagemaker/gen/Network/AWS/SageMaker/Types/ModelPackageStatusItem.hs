@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,77 +19,76 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.ModelPackageStatusItem where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.DetailedModelPackageStatus
 
 -- | Represents the overall status of a model package.
 --
---
---
--- /See:/ 'modelPackageStatusItem' smart constructor.
+-- /See:/ 'newModelPackageStatusItem' smart constructor.
 data ModelPackageStatusItem = ModelPackageStatusItem'
-  { _mpsiFailureReason ::
-      !(Maybe Text),
-    _mpsiName :: !Text,
-    _mpsiStatus ::
-      !DetailedModelPackageStatus
+  { -- | if the overall status is @Failed@, the reason for the failure.
+    failureReason :: Prelude.Maybe Prelude.Text,
+    -- | The name of the model package for which the overall status is being
+    -- reported.
+    name :: Prelude.Text,
+    -- | The current status.
+    status :: DetailedModelPackageStatus
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModelPackageStatusItem' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModelPackageStatusItem' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mpsiFailureReason' - if the overall status is @Failed@ , the reason for the failure.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mpsiName' - The name of the model package for which the overall status is being reported.
+-- 'failureReason', 'modelPackageStatusItem_failureReason' - if the overall status is @Failed@, the reason for the failure.
 --
--- * 'mpsiStatus' - The current status.
-modelPackageStatusItem ::
-  -- | 'mpsiName'
-  Text ->
-  -- | 'mpsiStatus'
+-- 'name', 'modelPackageStatusItem_name' - The name of the model package for which the overall status is being
+-- reported.
+--
+-- 'status', 'modelPackageStatusItem_status' - The current status.
+newModelPackageStatusItem ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'status'
   DetailedModelPackageStatus ->
   ModelPackageStatusItem
-modelPackageStatusItem pName_ pStatus_ =
+newModelPackageStatusItem pName_ pStatus_ =
   ModelPackageStatusItem'
-    { _mpsiFailureReason =
-        Nothing,
-      _mpsiName = pName_,
-      _mpsiStatus = pStatus_
+    { failureReason =
+        Prelude.Nothing,
+      name = pName_,
+      status = pStatus_
     }
 
--- | if the overall status is @Failed@ , the reason for the failure.
-mpsiFailureReason :: Lens' ModelPackageStatusItem (Maybe Text)
-mpsiFailureReason = lens _mpsiFailureReason (\s a -> s {_mpsiFailureReason = a})
+-- | if the overall status is @Failed@, the reason for the failure.
+modelPackageStatusItem_failureReason :: Lens.Lens' ModelPackageStatusItem (Prelude.Maybe Prelude.Text)
+modelPackageStatusItem_failureReason = Lens.lens (\ModelPackageStatusItem' {failureReason} -> failureReason) (\s@ModelPackageStatusItem' {} a -> s {failureReason = a} :: ModelPackageStatusItem)
 
--- | The name of the model package for which the overall status is being reported.
-mpsiName :: Lens' ModelPackageStatusItem Text
-mpsiName = lens _mpsiName (\s a -> s {_mpsiName = a})
+-- | The name of the model package for which the overall status is being
+-- reported.
+modelPackageStatusItem_name :: Lens.Lens' ModelPackageStatusItem Prelude.Text
+modelPackageStatusItem_name = Lens.lens (\ModelPackageStatusItem' {name} -> name) (\s@ModelPackageStatusItem' {} a -> s {name = a} :: ModelPackageStatusItem)
 
 -- | The current status.
-mpsiStatus :: Lens' ModelPackageStatusItem DetailedModelPackageStatus
-mpsiStatus = lens _mpsiStatus (\s a -> s {_mpsiStatus = a})
+modelPackageStatusItem_status :: Lens.Lens' ModelPackageStatusItem DetailedModelPackageStatus
+modelPackageStatusItem_status = Lens.lens (\ModelPackageStatusItem' {status} -> status) (\s@ModelPackageStatusItem' {} a -> s {status = a} :: ModelPackageStatusItem)
 
-instance FromJSON ModelPackageStatusItem where
+instance Prelude.FromJSON ModelPackageStatusItem where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ModelPackageStatusItem"
       ( \x ->
           ModelPackageStatusItem'
-            <$> (x .:? "FailureReason")
-            <*> (x .: "Name")
-            <*> (x .: "Status")
+            Prelude.<$> (x Prelude..:? "FailureReason")
+            Prelude.<*> (x Prelude..: "Name")
+            Prelude.<*> (x Prelude..: "Status")
       )
 
-instance Hashable ModelPackageStatusItem
+instance Prelude.Hashable ModelPackageStatusItem
 
-instance NFData ModelPackageStatusItem
+instance Prelude.NFData ModelPackageStatusItem

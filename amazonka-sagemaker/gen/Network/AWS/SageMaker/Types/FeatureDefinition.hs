@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,63 +19,77 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.FeatureDefinition where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.FeatureType
 
--- | A list of features. You must include @FeatureName@ and @FeatureType@ . Valid feature @FeatureType@ s are @Integral@ , @Fractional@ and @String@ .
+-- | A list of features. You must include @FeatureName@ and @FeatureType@.
+-- Valid feature @FeatureType@s are @Integral@, @Fractional@ and @String@.
 --
---
---
--- /See:/ 'featureDefinition' smart constructor.
+-- /See:/ 'newFeatureDefinition' smart constructor.
 data FeatureDefinition = FeatureDefinition'
-  { _fdFeatureType ::
-      !(Maybe FeatureType),
-    _fdFeatureName :: !(Maybe Text)
+  { -- | The value type of a feature. Valid values are Integral, Fractional, or
+    -- String.
+    featureType :: Prelude.Maybe FeatureType,
+    -- | The name of a feature. The type must be a string. @FeatureName@ cannot
+    -- be any of the following: @is_deleted@, @write_time@,
+    -- @api_invocation_time@.
+    featureName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FeatureDefinition' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FeatureDefinition' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fdFeatureType' - The value type of a feature. Valid values are Integral, Fractional, or String.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fdFeatureName' - The name of a feature. The type must be a string. @FeatureName@ cannot be any of the following: @is_deleted@ , @write_time@ , @api_invocation_time@ .
-featureDefinition ::
+-- 'featureType', 'featureDefinition_featureType' - The value type of a feature. Valid values are Integral, Fractional, or
+-- String.
+--
+-- 'featureName', 'featureDefinition_featureName' - The name of a feature. The type must be a string. @FeatureName@ cannot
+-- be any of the following: @is_deleted@, @write_time@,
+-- @api_invocation_time@.
+newFeatureDefinition ::
   FeatureDefinition
-featureDefinition =
+newFeatureDefinition =
   FeatureDefinition'
-    { _fdFeatureType = Nothing,
-      _fdFeatureName = Nothing
+    { featureType = Prelude.Nothing,
+      featureName = Prelude.Nothing
     }
 
--- | The value type of a feature. Valid values are Integral, Fractional, or String.
-fdFeatureType :: Lens' FeatureDefinition (Maybe FeatureType)
-fdFeatureType = lens _fdFeatureType (\s a -> s {_fdFeatureType = a})
+-- | The value type of a feature. Valid values are Integral, Fractional, or
+-- String.
+featureDefinition_featureType :: Lens.Lens' FeatureDefinition (Prelude.Maybe FeatureType)
+featureDefinition_featureType = Lens.lens (\FeatureDefinition' {featureType} -> featureType) (\s@FeatureDefinition' {} a -> s {featureType = a} :: FeatureDefinition)
 
--- | The name of a feature. The type must be a string. @FeatureName@ cannot be any of the following: @is_deleted@ , @write_time@ , @api_invocation_time@ .
-fdFeatureName :: Lens' FeatureDefinition (Maybe Text)
-fdFeatureName = lens _fdFeatureName (\s a -> s {_fdFeatureName = a})
+-- | The name of a feature. The type must be a string. @FeatureName@ cannot
+-- be any of the following: @is_deleted@, @write_time@,
+-- @api_invocation_time@.
+featureDefinition_featureName :: Lens.Lens' FeatureDefinition (Prelude.Maybe Prelude.Text)
+featureDefinition_featureName = Lens.lens (\FeatureDefinition' {featureName} -> featureName) (\s@FeatureDefinition' {} a -> s {featureName = a} :: FeatureDefinition)
 
-instance FromJSON FeatureDefinition where
+instance Prelude.FromJSON FeatureDefinition where
   parseJSON =
-    withObject
+    Prelude.withObject
       "FeatureDefinition"
       ( \x ->
           FeatureDefinition'
-            <$> (x .:? "FeatureType") <*> (x .:? "FeatureName")
+            Prelude.<$> (x Prelude..:? "FeatureType")
+            Prelude.<*> (x Prelude..:? "FeatureName")
       )
 
-instance Hashable FeatureDefinition
+instance Prelude.Hashable FeatureDefinition
 
-instance NFData FeatureDefinition
+instance Prelude.NFData FeatureDefinition
 
-instance ToJSON FeatureDefinition where
+instance Prelude.ToJSON FeatureDefinition where
   toJSON FeatureDefinition' {..} =
-    object
-      ( catMaybes
-          [ ("FeatureType" .=) <$> _fdFeatureType,
-            ("FeatureName" .=) <$> _fdFeatureName
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("FeatureType" Prelude..=) Prelude.<$> featureType,
+            ("FeatureName" Prelude..=) Prelude.<$> featureName
           ]
       )

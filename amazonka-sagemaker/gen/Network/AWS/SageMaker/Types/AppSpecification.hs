@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,77 +19,82 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.AppSpecification where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Configuration to run a processing job in a specified container image.
 --
---
---
--- /See:/ 'appSpecification' smart constructor.
+-- /See:/ 'newAppSpecification' smart constructor.
 data AppSpecification = AppSpecification'
-  { _asContainerArguments ::
-      !(Maybe (List1 Text)),
-    _asContainerEntrypoint ::
-      !(Maybe (List1 Text)),
-    _asImageURI :: !Text
+  { -- | The arguments for a container used to run a processing job.
+    containerArguments :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | The entrypoint for a container used to run a processing job.
+    containerEntrypoint :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | The container image to be run by the processing job.
+    imageUri :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AppSpecification' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AppSpecification' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'asContainerArguments' - The arguments for a container used to run a processing job.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'asContainerEntrypoint' - The entrypoint for a container used to run a processing job.
+-- 'containerArguments', 'appSpecification_containerArguments' - The arguments for a container used to run a processing job.
 --
--- * 'asImageURI' - The container image to be run by the processing job.
-appSpecification ::
-  -- | 'asImageURI'
-  Text ->
+-- 'containerEntrypoint', 'appSpecification_containerEntrypoint' - The entrypoint for a container used to run a processing job.
+--
+-- 'imageUri', 'appSpecification_imageUri' - The container image to be run by the processing job.
+newAppSpecification ::
+  -- | 'imageUri'
+  Prelude.Text ->
   AppSpecification
-appSpecification pImageURI_ =
+newAppSpecification pImageUri_ =
   AppSpecification'
-    { _asContainerArguments = Nothing,
-      _asContainerEntrypoint = Nothing,
-      _asImageURI = pImageURI_
+    { containerArguments =
+        Prelude.Nothing,
+      containerEntrypoint = Prelude.Nothing,
+      imageUri = pImageUri_
     }
 
 -- | The arguments for a container used to run a processing job.
-asContainerArguments :: Lens' AppSpecification (Maybe (NonEmpty Text))
-asContainerArguments = lens _asContainerArguments (\s a -> s {_asContainerArguments = a}) . mapping _List1
+appSpecification_containerArguments :: Lens.Lens' AppSpecification (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+appSpecification_containerArguments = Lens.lens (\AppSpecification' {containerArguments} -> containerArguments) (\s@AppSpecification' {} a -> s {containerArguments = a} :: AppSpecification) Prelude.. Lens.mapping Prelude._List1
 
 -- | The entrypoint for a container used to run a processing job.
-asContainerEntrypoint :: Lens' AppSpecification (Maybe (NonEmpty Text))
-asContainerEntrypoint = lens _asContainerEntrypoint (\s a -> s {_asContainerEntrypoint = a}) . mapping _List1
+appSpecification_containerEntrypoint :: Lens.Lens' AppSpecification (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+appSpecification_containerEntrypoint = Lens.lens (\AppSpecification' {containerEntrypoint} -> containerEntrypoint) (\s@AppSpecification' {} a -> s {containerEntrypoint = a} :: AppSpecification) Prelude.. Lens.mapping Prelude._List1
 
 -- | The container image to be run by the processing job.
-asImageURI :: Lens' AppSpecification Text
-asImageURI = lens _asImageURI (\s a -> s {_asImageURI = a})
+appSpecification_imageUri :: Lens.Lens' AppSpecification Prelude.Text
+appSpecification_imageUri = Lens.lens (\AppSpecification' {imageUri} -> imageUri) (\s@AppSpecification' {} a -> s {imageUri = a} :: AppSpecification)
 
-instance FromJSON AppSpecification where
+instance Prelude.FromJSON AppSpecification where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AppSpecification"
       ( \x ->
           AppSpecification'
-            <$> (x .:? "ContainerArguments")
-            <*> (x .:? "ContainerEntrypoint")
-            <*> (x .: "ImageUri")
+            Prelude.<$> (x Prelude..:? "ContainerArguments")
+            Prelude.<*> (x Prelude..:? "ContainerEntrypoint")
+            Prelude.<*> (x Prelude..: "ImageUri")
       )
 
-instance Hashable AppSpecification
+instance Prelude.Hashable AppSpecification
 
-instance NFData AppSpecification
+instance Prelude.NFData AppSpecification
 
-instance ToJSON AppSpecification where
+instance Prelude.ToJSON AppSpecification where
   toJSON AppSpecification' {..} =
-    object
-      ( catMaybes
-          [ ("ContainerArguments" .=) <$> _asContainerArguments,
-            ("ContainerEntrypoint" .=)
-              <$> _asContainerEntrypoint,
-            Just ("ImageUri" .= _asImageURI)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ContainerArguments" Prelude..=)
+              Prelude.<$> containerArguments,
+            ("ContainerEntrypoint" Prelude..=)
+              Prelude.<$> containerEntrypoint,
+            Prelude.Just ("ImageUri" Prelude..= imageUri)
           ]
       )

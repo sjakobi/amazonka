@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.SageMaker.Types.ModelCacheSetting
   ( ModelCacheSetting
       ( ..,
-        MCSDisabled,
-        MCSEnabled
+        ModelCacheSettingDisabled,
+        ModelCacheSettingEnabled
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ModelCacheSetting = ModelCacheSetting' (CI Text)
+newtype ModelCacheSetting = ModelCacheSetting'
+  { fromModelCacheSetting ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MCSDisabled :: ModelCacheSetting
-pattern MCSDisabled = ModelCacheSetting' "Disabled"
+pattern ModelCacheSettingDisabled :: ModelCacheSetting
+pattern ModelCacheSettingDisabled = ModelCacheSetting' "Disabled"
 
-pattern MCSEnabled :: ModelCacheSetting
-pattern MCSEnabled = ModelCacheSetting' "Enabled"
+pattern ModelCacheSettingEnabled :: ModelCacheSetting
+pattern ModelCacheSettingEnabled = ModelCacheSetting' "Enabled"
 
 {-# COMPLETE
-  MCSDisabled,
-  MCSEnabled,
+  ModelCacheSettingDisabled,
+  ModelCacheSettingEnabled,
   ModelCacheSetting'
   #-}
 
-instance FromText ModelCacheSetting where
-  parser = (ModelCacheSetting' . mk) <$> takeText
+instance Prelude.FromText ModelCacheSetting where
+  parser = ModelCacheSetting' Prelude.<$> Prelude.takeText
 
-instance ToText ModelCacheSetting where
-  toText (ModelCacheSetting' ci) = original ci
+instance Prelude.ToText ModelCacheSetting where
+  toText (ModelCacheSetting' x) = x
 
-instance Hashable ModelCacheSetting
+instance Prelude.Hashable ModelCacheSetting
 
-instance NFData ModelCacheSetting
+instance Prelude.NFData ModelCacheSetting
 
-instance ToByteString ModelCacheSetting
+instance Prelude.ToByteString ModelCacheSetting
 
-instance ToQuery ModelCacheSetting
+instance Prelude.ToQuery ModelCacheSetting
 
-instance ToHeader ModelCacheSetting
+instance Prelude.ToHeader ModelCacheSetting
 
-instance ToJSON ModelCacheSetting where
-  toJSON = toJSONText
+instance Prelude.ToJSON ModelCacheSetting where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ModelCacheSetting where
-  parseJSON = parseJSONText "ModelCacheSetting"
+instance Prelude.FromJSON ModelCacheSetting where
+  parseJSON = Prelude.parseJSONText "ModelCacheSetting"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,66 +19,87 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.CognitoConfig where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Use this parameter to configure your Amazon Cognito workforce. A single Cognito workforce is created using and corresponds to a single <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html Amazon Cognito user pool> .
+-- | Use this parameter to configure your Amazon Cognito workforce. A single
+-- Cognito workforce is created using and corresponds to a single
+-- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html Amazon Cognito user pool>.
 --
---
---
--- /See:/ 'cognitoConfig' smart constructor.
+-- /See:/ 'newCognitoConfig' smart constructor.
 data CognitoConfig = CognitoConfig'
-  { _ccUserPool ::
-      !Text,
-    _ccClientId :: !Text
+  { -- | A
+    -- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html user pool>
+    -- is a user directory in Amazon Cognito. With a user pool, your users can
+    -- sign in to your web or mobile app through Amazon Cognito. Your users can
+    -- also sign in through social identity providers like Google, Facebook,
+    -- Amazon, or Apple, and through SAML identity providers.
+    userPool :: Prelude.Text,
+    -- | The client ID for your Amazon Cognito user pool.
+    clientId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CognitoConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CognitoConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccUserPool' - A <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html user pool> is a user directory in Amazon Cognito. With a user pool, your users can sign in to your web or mobile app through Amazon Cognito. Your users can also sign in through social identity providers like Google, Facebook, Amazon, or Apple, and through SAML identity providers.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ccClientId' - The client ID for your Amazon Cognito user pool.
-cognitoConfig ::
-  -- | 'ccUserPool'
-  Text ->
-  -- | 'ccClientId'
-  Text ->
+-- 'userPool', 'cognitoConfig_userPool' - A
+-- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html user pool>
+-- is a user directory in Amazon Cognito. With a user pool, your users can
+-- sign in to your web or mobile app through Amazon Cognito. Your users can
+-- also sign in through social identity providers like Google, Facebook,
+-- Amazon, or Apple, and through SAML identity providers.
+--
+-- 'clientId', 'cognitoConfig_clientId' - The client ID for your Amazon Cognito user pool.
+newCognitoConfig ::
+  -- | 'userPool'
+  Prelude.Text ->
+  -- | 'clientId'
+  Prelude.Text ->
   CognitoConfig
-cognitoConfig pUserPool_ pClientId_ =
+newCognitoConfig pUserPool_ pClientId_ =
   CognitoConfig'
-    { _ccUserPool = pUserPool_,
-      _ccClientId = pClientId_
+    { userPool = pUserPool_,
+      clientId = pClientId_
     }
 
--- | A <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html user pool> is a user directory in Amazon Cognito. With a user pool, your users can sign in to your web or mobile app through Amazon Cognito. Your users can also sign in through social identity providers like Google, Facebook, Amazon, or Apple, and through SAML identity providers.
-ccUserPool :: Lens' CognitoConfig Text
-ccUserPool = lens _ccUserPool (\s a -> s {_ccUserPool = a})
+-- | A
+-- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html user pool>
+-- is a user directory in Amazon Cognito. With a user pool, your users can
+-- sign in to your web or mobile app through Amazon Cognito. Your users can
+-- also sign in through social identity providers like Google, Facebook,
+-- Amazon, or Apple, and through SAML identity providers.
+cognitoConfig_userPool :: Lens.Lens' CognitoConfig Prelude.Text
+cognitoConfig_userPool = Lens.lens (\CognitoConfig' {userPool} -> userPool) (\s@CognitoConfig' {} a -> s {userPool = a} :: CognitoConfig)
 
 -- | The client ID for your Amazon Cognito user pool.
-ccClientId :: Lens' CognitoConfig Text
-ccClientId = lens _ccClientId (\s a -> s {_ccClientId = a})
+cognitoConfig_clientId :: Lens.Lens' CognitoConfig Prelude.Text
+cognitoConfig_clientId = Lens.lens (\CognitoConfig' {clientId} -> clientId) (\s@CognitoConfig' {} a -> s {clientId = a} :: CognitoConfig)
 
-instance FromJSON CognitoConfig where
+instance Prelude.FromJSON CognitoConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CognitoConfig"
       ( \x ->
           CognitoConfig'
-            <$> (x .: "UserPool") <*> (x .: "ClientId")
+            Prelude.<$> (x Prelude..: "UserPool")
+            Prelude.<*> (x Prelude..: "ClientId")
       )
 
-instance Hashable CognitoConfig
+instance Prelude.Hashable CognitoConfig
 
-instance NFData CognitoConfig
+instance Prelude.NFData CognitoConfig
 
-instance ToJSON CognitoConfig where
+instance Prelude.ToJSON CognitoConfig where
   toJSON CognitoConfig' {..} =
-    object
-      ( catMaybes
-          [ Just ("UserPool" .= _ccUserPool),
-            Just ("ClientId" .= _ccClientId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("UserPool" Prelude..= userPool),
+            Prelude.Just ("ClientId" Prelude..= clientId)
           ]
       )

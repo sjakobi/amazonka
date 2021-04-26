@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,80 +19,78 @@
 module Network.AWS.SageMaker.Types.EdgePackagingJobStatus
   ( EdgePackagingJobStatus
       ( ..,
-        EPJSCompleted,
-        EPJSFailed,
-        EPJSInprogress,
-        EPJSStarting,
-        EPJSStopped,
-        EPJSStopping
+        EdgePackagingJobStatusCOMPLETED,
+        EdgePackagingJobStatusFAILED,
+        EdgePackagingJobStatusINPROGRESS,
+        EdgePackagingJobStatusSTARTING,
+        EdgePackagingJobStatusSTOPPED,
+        EdgePackagingJobStatusSTOPPING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data EdgePackagingJobStatus
-  = EdgePackagingJobStatus'
-      ( CI
-          Text
-      )
+newtype EdgePackagingJobStatus = EdgePackagingJobStatus'
+  { fromEdgePackagingJobStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern EPJSCompleted :: EdgePackagingJobStatus
-pattern EPJSCompleted = EdgePackagingJobStatus' "COMPLETED"
+pattern EdgePackagingJobStatusCOMPLETED :: EdgePackagingJobStatus
+pattern EdgePackagingJobStatusCOMPLETED = EdgePackagingJobStatus' "COMPLETED"
 
-pattern EPJSFailed :: EdgePackagingJobStatus
-pattern EPJSFailed = EdgePackagingJobStatus' "FAILED"
+pattern EdgePackagingJobStatusFAILED :: EdgePackagingJobStatus
+pattern EdgePackagingJobStatusFAILED = EdgePackagingJobStatus' "FAILED"
 
-pattern EPJSInprogress :: EdgePackagingJobStatus
-pattern EPJSInprogress = EdgePackagingJobStatus' "INPROGRESS"
+pattern EdgePackagingJobStatusINPROGRESS :: EdgePackagingJobStatus
+pattern EdgePackagingJobStatusINPROGRESS = EdgePackagingJobStatus' "INPROGRESS"
 
-pattern EPJSStarting :: EdgePackagingJobStatus
-pattern EPJSStarting = EdgePackagingJobStatus' "STARTING"
+pattern EdgePackagingJobStatusSTARTING :: EdgePackagingJobStatus
+pattern EdgePackagingJobStatusSTARTING = EdgePackagingJobStatus' "STARTING"
 
-pattern EPJSStopped :: EdgePackagingJobStatus
-pattern EPJSStopped = EdgePackagingJobStatus' "STOPPED"
+pattern EdgePackagingJobStatusSTOPPED :: EdgePackagingJobStatus
+pattern EdgePackagingJobStatusSTOPPED = EdgePackagingJobStatus' "STOPPED"
 
-pattern EPJSStopping :: EdgePackagingJobStatus
-pattern EPJSStopping = EdgePackagingJobStatus' "STOPPING"
+pattern EdgePackagingJobStatusSTOPPING :: EdgePackagingJobStatus
+pattern EdgePackagingJobStatusSTOPPING = EdgePackagingJobStatus' "STOPPING"
 
 {-# COMPLETE
-  EPJSCompleted,
-  EPJSFailed,
-  EPJSInprogress,
-  EPJSStarting,
-  EPJSStopped,
-  EPJSStopping,
+  EdgePackagingJobStatusCOMPLETED,
+  EdgePackagingJobStatusFAILED,
+  EdgePackagingJobStatusINPROGRESS,
+  EdgePackagingJobStatusSTARTING,
+  EdgePackagingJobStatusSTOPPED,
+  EdgePackagingJobStatusSTOPPING,
   EdgePackagingJobStatus'
   #-}
 
-instance FromText EdgePackagingJobStatus where
-  parser = (EdgePackagingJobStatus' . mk) <$> takeText
+instance Prelude.FromText EdgePackagingJobStatus where
+  parser = EdgePackagingJobStatus' Prelude.<$> Prelude.takeText
 
-instance ToText EdgePackagingJobStatus where
-  toText (EdgePackagingJobStatus' ci) = original ci
+instance Prelude.ToText EdgePackagingJobStatus where
+  toText (EdgePackagingJobStatus' x) = x
 
-instance Hashable EdgePackagingJobStatus
+instance Prelude.Hashable EdgePackagingJobStatus
 
-instance NFData EdgePackagingJobStatus
+instance Prelude.NFData EdgePackagingJobStatus
 
-instance ToByteString EdgePackagingJobStatus
+instance Prelude.ToByteString EdgePackagingJobStatus
 
-instance ToQuery EdgePackagingJobStatus
+instance Prelude.ToQuery EdgePackagingJobStatus
 
-instance ToHeader EdgePackagingJobStatus
+instance Prelude.ToHeader EdgePackagingJobStatus
 
-instance ToJSON EdgePackagingJobStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON EdgePackagingJobStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON EdgePackagingJobStatus where
-  parseJSON = parseJSONText "EdgePackagingJobStatus"
+instance Prelude.FromJSON EdgePackagingJobStatus where
+  parseJSON = Prelude.parseJSONText "EdgePackagingJobStatus"

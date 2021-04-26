@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,76 +19,78 @@
 module Network.AWS.SageMaker.Types.ActionStatus
   ( ActionStatus
       ( ..,
-        ASCompleted,
-        ASFailed,
-        ASInProgress,
-        ASStopped,
-        ASStopping,
-        ASUnknown
+        ActionStatusCompleted,
+        ActionStatusFailed,
+        ActionStatusInProgress,
+        ActionStatusStopped,
+        ActionStatusStopping,
+        ActionStatusUnknown
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ActionStatus = ActionStatus' (CI Text)
+newtype ActionStatus = ActionStatus'
+  { fromActionStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ASCompleted :: ActionStatus
-pattern ASCompleted = ActionStatus' "Completed"
+pattern ActionStatusCompleted :: ActionStatus
+pattern ActionStatusCompleted = ActionStatus' "Completed"
 
-pattern ASFailed :: ActionStatus
-pattern ASFailed = ActionStatus' "Failed"
+pattern ActionStatusFailed :: ActionStatus
+pattern ActionStatusFailed = ActionStatus' "Failed"
 
-pattern ASInProgress :: ActionStatus
-pattern ASInProgress = ActionStatus' "InProgress"
+pattern ActionStatusInProgress :: ActionStatus
+pattern ActionStatusInProgress = ActionStatus' "InProgress"
 
-pattern ASStopped :: ActionStatus
-pattern ASStopped = ActionStatus' "Stopped"
+pattern ActionStatusStopped :: ActionStatus
+pattern ActionStatusStopped = ActionStatus' "Stopped"
 
-pattern ASStopping :: ActionStatus
-pattern ASStopping = ActionStatus' "Stopping"
+pattern ActionStatusStopping :: ActionStatus
+pattern ActionStatusStopping = ActionStatus' "Stopping"
 
-pattern ASUnknown :: ActionStatus
-pattern ASUnknown = ActionStatus' "Unknown"
+pattern ActionStatusUnknown :: ActionStatus
+pattern ActionStatusUnknown = ActionStatus' "Unknown"
 
 {-# COMPLETE
-  ASCompleted,
-  ASFailed,
-  ASInProgress,
-  ASStopped,
-  ASStopping,
-  ASUnknown,
+  ActionStatusCompleted,
+  ActionStatusFailed,
+  ActionStatusInProgress,
+  ActionStatusStopped,
+  ActionStatusStopping,
+  ActionStatusUnknown,
   ActionStatus'
   #-}
 
-instance FromText ActionStatus where
-  parser = (ActionStatus' . mk) <$> takeText
+instance Prelude.FromText ActionStatus where
+  parser = ActionStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ActionStatus where
-  toText (ActionStatus' ci) = original ci
+instance Prelude.ToText ActionStatus where
+  toText (ActionStatus' x) = x
 
-instance Hashable ActionStatus
+instance Prelude.Hashable ActionStatus
 
-instance NFData ActionStatus
+instance Prelude.NFData ActionStatus
 
-instance ToByteString ActionStatus
+instance Prelude.ToByteString ActionStatus
 
-instance ToQuery ActionStatus
+instance Prelude.ToQuery ActionStatus
 
-instance ToHeader ActionStatus
+instance Prelude.ToHeader ActionStatus
 
-instance ToJSON ActionStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON ActionStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ActionStatus where
-  parseJSON = parseJSONText "ActionStatus"
+instance Prelude.FromJSON ActionStatus where
+  parseJSON = Prelude.parseJSONText "ActionStatus"

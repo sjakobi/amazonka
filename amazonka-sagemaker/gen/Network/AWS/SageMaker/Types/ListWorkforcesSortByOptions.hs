@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.SageMaker.Types.ListWorkforcesSortByOptions
   ( ListWorkforcesSortByOptions
       ( ..,
-        LWSBOCreateDate,
-        LWSBOName
+        ListWorkforcesSortByOptionsCreateDate,
+        ListWorkforcesSortByOptionsName
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ListWorkforcesSortByOptions
-  = ListWorkforcesSortByOptions'
-      ( CI
-          Text
-      )
+newtype ListWorkforcesSortByOptions = ListWorkforcesSortByOptions'
+  { fromListWorkforcesSortByOptions ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern LWSBOCreateDate :: ListWorkforcesSortByOptions
-pattern LWSBOCreateDate = ListWorkforcesSortByOptions' "CreateDate"
+pattern ListWorkforcesSortByOptionsCreateDate :: ListWorkforcesSortByOptions
+pattern ListWorkforcesSortByOptionsCreateDate = ListWorkforcesSortByOptions' "CreateDate"
 
-pattern LWSBOName :: ListWorkforcesSortByOptions
-pattern LWSBOName = ListWorkforcesSortByOptions' "Name"
+pattern ListWorkforcesSortByOptionsName :: ListWorkforcesSortByOptions
+pattern ListWorkforcesSortByOptionsName = ListWorkforcesSortByOptions' "Name"
 
 {-# COMPLETE
-  LWSBOCreateDate,
-  LWSBOName,
+  ListWorkforcesSortByOptionsCreateDate,
+  ListWorkforcesSortByOptionsName,
   ListWorkforcesSortByOptions'
   #-}
 
-instance FromText ListWorkforcesSortByOptions where
-  parser = (ListWorkforcesSortByOptions' . mk) <$> takeText
+instance Prelude.FromText ListWorkforcesSortByOptions where
+  parser = ListWorkforcesSortByOptions' Prelude.<$> Prelude.takeText
 
-instance ToText ListWorkforcesSortByOptions where
-  toText (ListWorkforcesSortByOptions' ci) = original ci
+instance Prelude.ToText ListWorkforcesSortByOptions where
+  toText (ListWorkforcesSortByOptions' x) = x
 
-instance Hashable ListWorkforcesSortByOptions
+instance Prelude.Hashable ListWorkforcesSortByOptions
 
-instance NFData ListWorkforcesSortByOptions
+instance Prelude.NFData ListWorkforcesSortByOptions
 
-instance ToByteString ListWorkforcesSortByOptions
+instance Prelude.ToByteString ListWorkforcesSortByOptions
 
-instance ToQuery ListWorkforcesSortByOptions
+instance Prelude.ToQuery ListWorkforcesSortByOptions
 
-instance ToHeader ListWorkforcesSortByOptions
+instance Prelude.ToHeader ListWorkforcesSortByOptions
 
-instance ToJSON ListWorkforcesSortByOptions where
-  toJSON = toJSONText
+instance Prelude.ToJSON ListWorkforcesSortByOptions where
+  toJSON = Prelude.toJSONText

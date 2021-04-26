@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,76 +19,74 @@
 module Network.AWS.SageMaker.Types.AthenaResultFormat
   ( AthenaResultFormat
       ( ..,
-        ARFAvro,
-        ARFJSON,
-        ARFOrc,
-        ARFParquet,
-        ARFTextfile
+        AthenaResultFormatAVRO,
+        AthenaResultFormatJSON,
+        AthenaResultFormatORC,
+        AthenaResultFormatPARQUET,
+        AthenaResultFormatTEXTFILE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The data storage format for Athena query results.
-data AthenaResultFormat
-  = AthenaResultFormat'
-      ( CI
-          Text
-      )
+newtype AthenaResultFormat = AthenaResultFormat'
+  { fromAthenaResultFormat ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ARFAvro :: AthenaResultFormat
-pattern ARFAvro = AthenaResultFormat' "AVRO"
+pattern AthenaResultFormatAVRO :: AthenaResultFormat
+pattern AthenaResultFormatAVRO = AthenaResultFormat' "AVRO"
 
-pattern ARFJSON :: AthenaResultFormat
-pattern ARFJSON = AthenaResultFormat' "JSON"
+pattern AthenaResultFormatJSON :: AthenaResultFormat
+pattern AthenaResultFormatJSON = AthenaResultFormat' "JSON"
 
-pattern ARFOrc :: AthenaResultFormat
-pattern ARFOrc = AthenaResultFormat' "ORC"
+pattern AthenaResultFormatORC :: AthenaResultFormat
+pattern AthenaResultFormatORC = AthenaResultFormat' "ORC"
 
-pattern ARFParquet :: AthenaResultFormat
-pattern ARFParquet = AthenaResultFormat' "PARQUET"
+pattern AthenaResultFormatPARQUET :: AthenaResultFormat
+pattern AthenaResultFormatPARQUET = AthenaResultFormat' "PARQUET"
 
-pattern ARFTextfile :: AthenaResultFormat
-pattern ARFTextfile = AthenaResultFormat' "TEXTFILE"
+pattern AthenaResultFormatTEXTFILE :: AthenaResultFormat
+pattern AthenaResultFormatTEXTFILE = AthenaResultFormat' "TEXTFILE"
 
 {-# COMPLETE
-  ARFAvro,
-  ARFJSON,
-  ARFOrc,
-  ARFParquet,
-  ARFTextfile,
+  AthenaResultFormatAVRO,
+  AthenaResultFormatJSON,
+  AthenaResultFormatORC,
+  AthenaResultFormatPARQUET,
+  AthenaResultFormatTEXTFILE,
   AthenaResultFormat'
   #-}
 
-instance FromText AthenaResultFormat where
-  parser = (AthenaResultFormat' . mk) <$> takeText
+instance Prelude.FromText AthenaResultFormat where
+  parser = AthenaResultFormat' Prelude.<$> Prelude.takeText
 
-instance ToText AthenaResultFormat where
-  toText (AthenaResultFormat' ci) = original ci
+instance Prelude.ToText AthenaResultFormat where
+  toText (AthenaResultFormat' x) = x
 
-instance Hashable AthenaResultFormat
+instance Prelude.Hashable AthenaResultFormat
 
-instance NFData AthenaResultFormat
+instance Prelude.NFData AthenaResultFormat
 
-instance ToByteString AthenaResultFormat
+instance Prelude.ToByteString AthenaResultFormat
 
-instance ToQuery AthenaResultFormat
+instance Prelude.ToQuery AthenaResultFormat
 
-instance ToHeader AthenaResultFormat
+instance Prelude.ToHeader AthenaResultFormat
 
-instance ToJSON AthenaResultFormat where
-  toJSON = toJSONText
+instance Prelude.ToJSON AthenaResultFormat where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AthenaResultFormat where
-  parseJSON = parseJSONText "AthenaResultFormat"
+instance Prelude.FromJSON AthenaResultFormat where
+  parseJSON = Prelude.parseJSONText "AthenaResultFormat"

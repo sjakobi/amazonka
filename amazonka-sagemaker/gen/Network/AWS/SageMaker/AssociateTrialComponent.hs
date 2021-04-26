@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,176 +21,175 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Associates a trial component with a trial. A trial component can be associated with multiple trials. To disassociate a trial component from a trial, call the 'DisassociateTrialComponent' API.
+-- Associates a trial component with a trial. A trial component can be
+-- associated with multiple trials. To disassociate a trial component from
+-- a trial, call the DisassociateTrialComponent API.
 module Network.AWS.SageMaker.AssociateTrialComponent
   ( -- * Creating a Request
-    associateTrialComponent,
-    AssociateTrialComponent,
+    AssociateTrialComponent (..),
+    newAssociateTrialComponent,
 
     -- * Request Lenses
-    atcTrialComponentName,
-    atcTrialName,
+    associateTrialComponent_trialComponentName,
+    associateTrialComponent_trialName,
 
     -- * Destructuring the Response
-    associateTrialComponentResponse,
-    AssociateTrialComponentResponse,
+    AssociateTrialComponentResponse (..),
+    newAssociateTrialComponentResponse,
 
     -- * Response Lenses
-    atcrrsTrialARN,
-    atcrrsTrialComponentARN,
-    atcrrsResponseStatus,
+    associateTrialComponentResponse_trialArn,
+    associateTrialComponentResponse_trialComponentArn,
+    associateTrialComponentResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'associateTrialComponent' smart constructor.
+-- | /See:/ 'newAssociateTrialComponent' smart constructor.
 data AssociateTrialComponent = AssociateTrialComponent'
-  { _atcTrialComponentName ::
-      !Text,
-    _atcTrialName :: !Text
+  { -- | The name of the component to associated with the trial.
+    trialComponentName :: Prelude.Text,
+    -- | The name of the trial to associate with.
+    trialName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssociateTrialComponent' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AssociateTrialComponent' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'atcTrialComponentName' - The name of the component to associated with the trial.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'atcTrialName' - The name of the trial to associate with.
-associateTrialComponent ::
-  -- | 'atcTrialComponentName'
-  Text ->
-  -- | 'atcTrialName'
-  Text ->
+-- 'trialComponentName', 'associateTrialComponent_trialComponentName' - The name of the component to associated with the trial.
+--
+-- 'trialName', 'associateTrialComponent_trialName' - The name of the trial to associate with.
+newAssociateTrialComponent ::
+  -- | 'trialComponentName'
+  Prelude.Text ->
+  -- | 'trialName'
+  Prelude.Text ->
   AssociateTrialComponent
-associateTrialComponent
+newAssociateTrialComponent
   pTrialComponentName_
   pTrialName_ =
     AssociateTrialComponent'
-      { _atcTrialComponentName =
+      { trialComponentName =
           pTrialComponentName_,
-        _atcTrialName = pTrialName_
+        trialName = pTrialName_
       }
 
 -- | The name of the component to associated with the trial.
-atcTrialComponentName :: Lens' AssociateTrialComponent Text
-atcTrialComponentName = lens _atcTrialComponentName (\s a -> s {_atcTrialComponentName = a})
+associateTrialComponent_trialComponentName :: Lens.Lens' AssociateTrialComponent Prelude.Text
+associateTrialComponent_trialComponentName = Lens.lens (\AssociateTrialComponent' {trialComponentName} -> trialComponentName) (\s@AssociateTrialComponent' {} a -> s {trialComponentName = a} :: AssociateTrialComponent)
 
 -- | The name of the trial to associate with.
-atcTrialName :: Lens' AssociateTrialComponent Text
-atcTrialName = lens _atcTrialName (\s a -> s {_atcTrialName = a})
+associateTrialComponent_trialName :: Lens.Lens' AssociateTrialComponent Prelude.Text
+associateTrialComponent_trialName = Lens.lens (\AssociateTrialComponent' {trialName} -> trialName) (\s@AssociateTrialComponent' {} a -> s {trialName = a} :: AssociateTrialComponent)
 
-instance AWSRequest AssociateTrialComponent where
+instance Prelude.AWSRequest AssociateTrialComponent where
   type
     Rs AssociateTrialComponent =
       AssociateTrialComponentResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           AssociateTrialComponentResponse'
-            <$> (x .?> "TrialArn")
-            <*> (x .?> "TrialComponentArn")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "TrialArn")
+            Prelude.<*> (x Prelude..?> "TrialComponentArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable AssociateTrialComponent
+instance Prelude.Hashable AssociateTrialComponent
 
-instance NFData AssociateTrialComponent
+instance Prelude.NFData AssociateTrialComponent
 
-instance ToHeaders AssociateTrialComponent where
+instance Prelude.ToHeaders AssociateTrialComponent where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.AssociateTrialComponent" :: ByteString),
+              Prelude.=# ( "SageMaker.AssociateTrialComponent" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON AssociateTrialComponent where
+instance Prelude.ToJSON AssociateTrialComponent where
   toJSON AssociateTrialComponent' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("TrialComponentName" .= _atcTrialComponentName),
-            Just ("TrialName" .= _atcTrialName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("TrialComponentName" Prelude..= trialComponentName),
+            Prelude.Just ("TrialName" Prelude..= trialName)
           ]
       )
 
-instance ToPath AssociateTrialComponent where
-  toPath = const "/"
+instance Prelude.ToPath AssociateTrialComponent where
+  toPath = Prelude.const "/"
 
-instance ToQuery AssociateTrialComponent where
-  toQuery = const mempty
+instance Prelude.ToQuery AssociateTrialComponent where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'associateTrialComponentResponse' smart constructor.
+-- | /See:/ 'newAssociateTrialComponentResponse' smart constructor.
 data AssociateTrialComponentResponse = AssociateTrialComponentResponse'
-  { _atcrrsTrialARN ::
-      !( Maybe
-           Text
-       ),
-    _atcrrsTrialComponentARN ::
-      !( Maybe
-           Text
-       ),
-    _atcrrsResponseStatus ::
-      !Int
+  { -- | The Amazon Resource Name (ARN) of the trial.
+    trialArn :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the trial component.
+    trialComponentArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssociateTrialComponentResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AssociateTrialComponentResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'atcrrsTrialARN' - The Amazon Resource Name (ARN) of the trial.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'atcrrsTrialComponentARN' - The ARN of the trial component.
+-- 'trialArn', 'associateTrialComponentResponse_trialArn' - The Amazon Resource Name (ARN) of the trial.
 --
--- * 'atcrrsResponseStatus' - -- | The response status code.
-associateTrialComponentResponse ::
-  -- | 'atcrrsResponseStatus'
-  Int ->
+-- 'trialComponentArn', 'associateTrialComponentResponse_trialComponentArn' - The ARN of the trial component.
+--
+-- 'httpStatus', 'associateTrialComponentResponse_httpStatus' - The response's http status code.
+newAssociateTrialComponentResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   AssociateTrialComponentResponse
-associateTrialComponentResponse pResponseStatus_ =
+newAssociateTrialComponentResponse pHttpStatus_ =
   AssociateTrialComponentResponse'
-    { _atcrrsTrialARN =
-        Nothing,
-      _atcrrsTrialComponentARN = Nothing,
-      _atcrrsResponseStatus = pResponseStatus_
+    { trialArn =
+        Prelude.Nothing,
+      trialComponentArn = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The Amazon Resource Name (ARN) of the trial.
-atcrrsTrialARN :: Lens' AssociateTrialComponentResponse (Maybe Text)
-atcrrsTrialARN = lens _atcrrsTrialARN (\s a -> s {_atcrrsTrialARN = a})
+associateTrialComponentResponse_trialArn :: Lens.Lens' AssociateTrialComponentResponse (Prelude.Maybe Prelude.Text)
+associateTrialComponentResponse_trialArn = Lens.lens (\AssociateTrialComponentResponse' {trialArn} -> trialArn) (\s@AssociateTrialComponentResponse' {} a -> s {trialArn = a} :: AssociateTrialComponentResponse)
 
 -- | The ARN of the trial component.
-atcrrsTrialComponentARN :: Lens' AssociateTrialComponentResponse (Maybe Text)
-atcrrsTrialComponentARN = lens _atcrrsTrialComponentARN (\s a -> s {_atcrrsTrialComponentARN = a})
+associateTrialComponentResponse_trialComponentArn :: Lens.Lens' AssociateTrialComponentResponse (Prelude.Maybe Prelude.Text)
+associateTrialComponentResponse_trialComponentArn = Lens.lens (\AssociateTrialComponentResponse' {trialComponentArn} -> trialComponentArn) (\s@AssociateTrialComponentResponse' {} a -> s {trialComponentArn = a} :: AssociateTrialComponentResponse)
 
--- | -- | The response status code.
-atcrrsResponseStatus :: Lens' AssociateTrialComponentResponse Int
-atcrrsResponseStatus = lens _atcrrsResponseStatus (\s a -> s {_atcrrsResponseStatus = a})
+-- | The response's http status code.
+associateTrialComponentResponse_httpStatus :: Lens.Lens' AssociateTrialComponentResponse Prelude.Int
+associateTrialComponentResponse_httpStatus = Lens.lens (\AssociateTrialComponentResponse' {httpStatus} -> httpStatus) (\s@AssociateTrialComponentResponse' {} a -> s {httpStatus = a} :: AssociateTrialComponentResponse)
 
-instance NFData AssociateTrialComponentResponse
+instance
+  Prelude.NFData
+    AssociateTrialComponentResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,56 +19,65 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.OidcMemberDefinition where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A list of user groups that exist in your OIDC Identity Provider (IdP). One to ten groups can be used to create a single private work team. When you add a user group to the list of @Groups@ , you can add that user group to one or more private work teams. If you add a user group to a private work team, all workers in that user group are added to the work team.
+-- | A list of user groups that exist in your OIDC Identity Provider (IdP).
+-- One to ten groups can be used to create a single private work team. When
+-- you add a user group to the list of @Groups@, you can add that user
+-- group to one or more private work teams. If you add a user group to a
+-- private work team, all workers in that user group are added to the work
+-- team.
 --
---
---
--- /See:/ 'oidcMemberDefinition' smart constructor.
-newtype OidcMemberDefinition = OidcMemberDefinition'
-  { _omdGroups ::
-      List1 Text
+-- /See:/ 'newOidcMemberDefinition' smart constructor.
+data OidcMemberDefinition = OidcMemberDefinition'
+  { -- | A list of comma seperated strings that identifies user groups in your
+    -- OIDC IdP. Each user group is made up of a group of private workers.
+    groups :: Prelude.List1 Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OidcMemberDefinition' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OidcMemberDefinition' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'omdGroups' - A list of comma seperated strings that identifies user groups in your OIDC IdP. Each user group is made up of a group of private workers.
-oidcMemberDefinition ::
-  -- | 'omdGroups'
-  NonEmpty Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'groups', 'oidcMemberDefinition_groups' - A list of comma seperated strings that identifies user groups in your
+-- OIDC IdP. Each user group is made up of a group of private workers.
+newOidcMemberDefinition ::
+  -- | 'groups'
+  Prelude.NonEmpty Prelude.Text ->
   OidcMemberDefinition
-oidcMemberDefinition pGroups_ =
+newOidcMemberDefinition pGroups_ =
   OidcMemberDefinition'
-    { _omdGroups =
-        _List1 # pGroups_
+    { groups =
+        Prelude._List1 Lens.# pGroups_
     }
 
--- | A list of comma seperated strings that identifies user groups in your OIDC IdP. Each user group is made up of a group of private workers.
-omdGroups :: Lens' OidcMemberDefinition (NonEmpty Text)
-omdGroups = lens _omdGroups (\s a -> s {_omdGroups = a}) . _List1
+-- | A list of comma seperated strings that identifies user groups in your
+-- OIDC IdP. Each user group is made up of a group of private workers.
+oidcMemberDefinition_groups :: Lens.Lens' OidcMemberDefinition (Prelude.NonEmpty Prelude.Text)
+oidcMemberDefinition_groups = Lens.lens (\OidcMemberDefinition' {groups} -> groups) (\s@OidcMemberDefinition' {} a -> s {groups = a} :: OidcMemberDefinition) Prelude.. Prelude._List1
 
-instance FromJSON OidcMemberDefinition where
+instance Prelude.FromJSON OidcMemberDefinition where
   parseJSON =
-    withObject
+    Prelude.withObject
       "OidcMemberDefinition"
-      (\x -> OidcMemberDefinition' <$> (x .: "Groups"))
+      ( \x ->
+          OidcMemberDefinition'
+            Prelude.<$> (x Prelude..: "Groups")
+      )
 
-instance Hashable OidcMemberDefinition
+instance Prelude.Hashable OidcMemberDefinition
 
-instance NFData OidcMemberDefinition
+instance Prelude.NFData OidcMemberDefinition
 
-instance ToJSON OidcMemberDefinition where
+instance Prelude.ToJSON OidcMemberDefinition where
   toJSON OidcMemberDefinition' {..} =
-    object (catMaybes [Just ("Groups" .= _omdGroups)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("Groups" Prelude..= groups)]
+      )

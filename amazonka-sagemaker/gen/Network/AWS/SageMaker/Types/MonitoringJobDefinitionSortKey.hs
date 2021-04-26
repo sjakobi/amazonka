@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.SageMaker.Types.MonitoringJobDefinitionSortKey
   ( MonitoringJobDefinitionSortKey
       ( ..,
-        MJDSKCreationTime,
-        MJDSKName
+        MonitoringJobDefinitionSortKeyCreationTime,
+        MonitoringJobDefinitionSortKeyName
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data MonitoringJobDefinitionSortKey
-  = MonitoringJobDefinitionSortKey'
-      ( CI
-          Text
-      )
+newtype MonitoringJobDefinitionSortKey = MonitoringJobDefinitionSortKey'
+  { fromMonitoringJobDefinitionSortKey ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MJDSKCreationTime :: MonitoringJobDefinitionSortKey
-pattern MJDSKCreationTime = MonitoringJobDefinitionSortKey' "CreationTime"
+pattern MonitoringJobDefinitionSortKeyCreationTime :: MonitoringJobDefinitionSortKey
+pattern MonitoringJobDefinitionSortKeyCreationTime = MonitoringJobDefinitionSortKey' "CreationTime"
 
-pattern MJDSKName :: MonitoringJobDefinitionSortKey
-pattern MJDSKName = MonitoringJobDefinitionSortKey' "Name"
+pattern MonitoringJobDefinitionSortKeyName :: MonitoringJobDefinitionSortKey
+pattern MonitoringJobDefinitionSortKeyName = MonitoringJobDefinitionSortKey' "Name"
 
 {-# COMPLETE
-  MJDSKCreationTime,
-  MJDSKName,
+  MonitoringJobDefinitionSortKeyCreationTime,
+  MonitoringJobDefinitionSortKeyName,
   MonitoringJobDefinitionSortKey'
   #-}
 
-instance FromText MonitoringJobDefinitionSortKey where
-  parser = (MonitoringJobDefinitionSortKey' . mk) <$> takeText
+instance Prelude.FromText MonitoringJobDefinitionSortKey where
+  parser = MonitoringJobDefinitionSortKey' Prelude.<$> Prelude.takeText
 
-instance ToText MonitoringJobDefinitionSortKey where
-  toText (MonitoringJobDefinitionSortKey' ci) = original ci
+instance Prelude.ToText MonitoringJobDefinitionSortKey where
+  toText (MonitoringJobDefinitionSortKey' x) = x
 
-instance Hashable MonitoringJobDefinitionSortKey
+instance Prelude.Hashable MonitoringJobDefinitionSortKey
 
-instance NFData MonitoringJobDefinitionSortKey
+instance Prelude.NFData MonitoringJobDefinitionSortKey
 
-instance ToByteString MonitoringJobDefinitionSortKey
+instance Prelude.ToByteString MonitoringJobDefinitionSortKey
 
-instance ToQuery MonitoringJobDefinitionSortKey
+instance Prelude.ToQuery MonitoringJobDefinitionSortKey
 
-instance ToHeader MonitoringJobDefinitionSortKey
+instance Prelude.ToHeader MonitoringJobDefinitionSortKey
 
-instance ToJSON MonitoringJobDefinitionSortKey where
-  toJSON = toJSONText
+instance Prelude.ToJSON MonitoringJobDefinitionSortKey where
+  toJSON = Prelude.toJSONText

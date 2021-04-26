@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,94 +19,101 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.AlgorithmSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.AlgorithmStatus
 
 -- | Provides summary information about an algorithm.
 --
---
---
--- /See:/ 'algorithmSummary' smart constructor.
+-- /See:/ 'newAlgorithmSummary' smart constructor.
 data AlgorithmSummary = AlgorithmSummary'
-  { _aAlgorithmDescription ::
-      !(Maybe Text),
-    _aAlgorithmName :: !Text,
-    _aAlgorithmARN :: !Text,
-    _aCreationTime :: !POSIX,
-    _aAlgorithmStatus :: !AlgorithmStatus
+  { -- | A brief description of the algorithm.
+    algorithmDescription :: Prelude.Maybe Prelude.Text,
+    -- | The name of the algorithm that is described by the summary.
+    algorithmName :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the algorithm.
+    algorithmArn :: Prelude.Text,
+    -- | A timestamp that shows when the algorithm was created.
+    creationTime :: Prelude.POSIX,
+    -- | The overall status of the algorithm.
+    algorithmStatus :: AlgorithmStatus
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AlgorithmSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AlgorithmSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aAlgorithmDescription' - A brief description of the algorithm.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aAlgorithmName' - The name of the algorithm that is described by the summary.
+-- 'algorithmDescription', 'algorithmSummary_algorithmDescription' - A brief description of the algorithm.
 --
--- * 'aAlgorithmARN' - The Amazon Resource Name (ARN) of the algorithm.
+-- 'algorithmName', 'algorithmSummary_algorithmName' - The name of the algorithm that is described by the summary.
 --
--- * 'aCreationTime' - A timestamp that shows when the algorithm was created.
+-- 'algorithmArn', 'algorithmSummary_algorithmArn' - The Amazon Resource Name (ARN) of the algorithm.
 --
--- * 'aAlgorithmStatus' - The overall status of the algorithm.
-algorithmSummary ::
-  -- | 'aAlgorithmName'
-  Text ->
-  -- | 'aAlgorithmARN'
-  Text ->
-  -- | 'aCreationTime'
-  UTCTime ->
-  -- | 'aAlgorithmStatus'
+-- 'creationTime', 'algorithmSummary_creationTime' - A timestamp that shows when the algorithm was created.
+--
+-- 'algorithmStatus', 'algorithmSummary_algorithmStatus' - The overall status of the algorithm.
+newAlgorithmSummary ::
+  -- | 'algorithmName'
+  Prelude.Text ->
+  -- | 'algorithmArn'
+  Prelude.Text ->
+  -- | 'creationTime'
+  Prelude.UTCTime ->
+  -- | 'algorithmStatus'
   AlgorithmStatus ->
   AlgorithmSummary
-algorithmSummary
+newAlgorithmSummary
   pAlgorithmName_
-  pAlgorithmARN_
+  pAlgorithmArn_
   pCreationTime_
   pAlgorithmStatus_ =
     AlgorithmSummary'
-      { _aAlgorithmDescription = Nothing,
-        _aAlgorithmName = pAlgorithmName_,
-        _aAlgorithmARN = pAlgorithmARN_,
-        _aCreationTime = _Time # pCreationTime_,
-        _aAlgorithmStatus = pAlgorithmStatus_
+      { algorithmDescription =
+          Prelude.Nothing,
+        algorithmName = pAlgorithmName_,
+        algorithmArn = pAlgorithmArn_,
+        creationTime = Prelude._Time Lens.# pCreationTime_,
+        algorithmStatus = pAlgorithmStatus_
       }
 
 -- | A brief description of the algorithm.
-aAlgorithmDescription :: Lens' AlgorithmSummary (Maybe Text)
-aAlgorithmDescription = lens _aAlgorithmDescription (\s a -> s {_aAlgorithmDescription = a})
+algorithmSummary_algorithmDescription :: Lens.Lens' AlgorithmSummary (Prelude.Maybe Prelude.Text)
+algorithmSummary_algorithmDescription = Lens.lens (\AlgorithmSummary' {algorithmDescription} -> algorithmDescription) (\s@AlgorithmSummary' {} a -> s {algorithmDescription = a} :: AlgorithmSummary)
 
 -- | The name of the algorithm that is described by the summary.
-aAlgorithmName :: Lens' AlgorithmSummary Text
-aAlgorithmName = lens _aAlgorithmName (\s a -> s {_aAlgorithmName = a})
+algorithmSummary_algorithmName :: Lens.Lens' AlgorithmSummary Prelude.Text
+algorithmSummary_algorithmName = Lens.lens (\AlgorithmSummary' {algorithmName} -> algorithmName) (\s@AlgorithmSummary' {} a -> s {algorithmName = a} :: AlgorithmSummary)
 
 -- | The Amazon Resource Name (ARN) of the algorithm.
-aAlgorithmARN :: Lens' AlgorithmSummary Text
-aAlgorithmARN = lens _aAlgorithmARN (\s a -> s {_aAlgorithmARN = a})
+algorithmSummary_algorithmArn :: Lens.Lens' AlgorithmSummary Prelude.Text
+algorithmSummary_algorithmArn = Lens.lens (\AlgorithmSummary' {algorithmArn} -> algorithmArn) (\s@AlgorithmSummary' {} a -> s {algorithmArn = a} :: AlgorithmSummary)
 
 -- | A timestamp that shows when the algorithm was created.
-aCreationTime :: Lens' AlgorithmSummary UTCTime
-aCreationTime = lens _aCreationTime (\s a -> s {_aCreationTime = a}) . _Time
+algorithmSummary_creationTime :: Lens.Lens' AlgorithmSummary Prelude.UTCTime
+algorithmSummary_creationTime = Lens.lens (\AlgorithmSummary' {creationTime} -> creationTime) (\s@AlgorithmSummary' {} a -> s {creationTime = a} :: AlgorithmSummary) Prelude.. Prelude._Time
 
 -- | The overall status of the algorithm.
-aAlgorithmStatus :: Lens' AlgorithmSummary AlgorithmStatus
-aAlgorithmStatus = lens _aAlgorithmStatus (\s a -> s {_aAlgorithmStatus = a})
+algorithmSummary_algorithmStatus :: Lens.Lens' AlgorithmSummary AlgorithmStatus
+algorithmSummary_algorithmStatus = Lens.lens (\AlgorithmSummary' {algorithmStatus} -> algorithmStatus) (\s@AlgorithmSummary' {} a -> s {algorithmStatus = a} :: AlgorithmSummary)
 
-instance FromJSON AlgorithmSummary where
+instance Prelude.FromJSON AlgorithmSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AlgorithmSummary"
       ( \x ->
           AlgorithmSummary'
-            <$> (x .:? "AlgorithmDescription")
-            <*> (x .: "AlgorithmName")
-            <*> (x .: "AlgorithmArn")
-            <*> (x .: "CreationTime")
-            <*> (x .: "AlgorithmStatus")
+            Prelude.<$> (x Prelude..:? "AlgorithmDescription")
+            Prelude.<*> (x Prelude..: "AlgorithmName")
+            Prelude.<*> (x Prelude..: "AlgorithmArn")
+            Prelude.<*> (x Prelude..: "CreationTime")
+            Prelude.<*> (x Prelude..: "AlgorithmStatus")
       )
 
-instance Hashable AlgorithmSummary
+instance Prelude.Hashable AlgorithmSummary
 
-instance NFData AlgorithmSummary
+instance Prelude.NFData AlgorithmSummary

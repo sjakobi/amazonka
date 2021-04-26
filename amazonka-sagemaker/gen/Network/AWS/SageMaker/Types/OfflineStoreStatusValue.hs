@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.SageMaker.Types.OfflineStoreStatusValue
   ( OfflineStoreStatusValue
       ( ..,
-        Active,
-        Blocked,
-        Disabled
+        OfflineStoreStatusValueActive,
+        OfflineStoreStatusValueBlocked,
+        OfflineStoreStatusValueDisabled
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data OfflineStoreStatusValue
-  = OfflineStoreStatusValue'
-      ( CI
-          Text
-      )
+newtype OfflineStoreStatusValue = OfflineStoreStatusValue'
+  { fromOfflineStoreStatusValue ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Active :: OfflineStoreStatusValue
-pattern Active = OfflineStoreStatusValue' "Active"
+pattern OfflineStoreStatusValueActive :: OfflineStoreStatusValue
+pattern OfflineStoreStatusValueActive = OfflineStoreStatusValue' "Active"
 
-pattern Blocked :: OfflineStoreStatusValue
-pattern Blocked = OfflineStoreStatusValue' "Blocked"
+pattern OfflineStoreStatusValueBlocked :: OfflineStoreStatusValue
+pattern OfflineStoreStatusValueBlocked = OfflineStoreStatusValue' "Blocked"
 
-pattern Disabled :: OfflineStoreStatusValue
-pattern Disabled = OfflineStoreStatusValue' "Disabled"
+pattern OfflineStoreStatusValueDisabled :: OfflineStoreStatusValue
+pattern OfflineStoreStatusValueDisabled = OfflineStoreStatusValue' "Disabled"
 
 {-# COMPLETE
-  Active,
-  Blocked,
-  Disabled,
+  OfflineStoreStatusValueActive,
+  OfflineStoreStatusValueBlocked,
+  OfflineStoreStatusValueDisabled,
   OfflineStoreStatusValue'
   #-}
 
-instance FromText OfflineStoreStatusValue where
-  parser = (OfflineStoreStatusValue' . mk) <$> takeText
+instance Prelude.FromText OfflineStoreStatusValue where
+  parser = OfflineStoreStatusValue' Prelude.<$> Prelude.takeText
 
-instance ToText OfflineStoreStatusValue where
-  toText (OfflineStoreStatusValue' ci) = original ci
+instance Prelude.ToText OfflineStoreStatusValue where
+  toText (OfflineStoreStatusValue' x) = x
 
-instance Hashable OfflineStoreStatusValue
+instance Prelude.Hashable OfflineStoreStatusValue
 
-instance NFData OfflineStoreStatusValue
+instance Prelude.NFData OfflineStoreStatusValue
 
-instance ToByteString OfflineStoreStatusValue
+instance Prelude.ToByteString OfflineStoreStatusValue
 
-instance ToQuery OfflineStoreStatusValue
+instance Prelude.ToQuery OfflineStoreStatusValue
 
-instance ToHeader OfflineStoreStatusValue
+instance Prelude.ToHeader OfflineStoreStatusValue
 
-instance ToJSON OfflineStoreStatusValue where
-  toJSON = toJSONText
+instance Prelude.ToJSON OfflineStoreStatusValue where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON OfflineStoreStatusValue where
-  parseJSON = parseJSONText "OfflineStoreStatusValue"
+instance Prelude.FromJSON OfflineStoreStatusValue where
+  parseJSON = Prelude.parseJSONText "OfflineStoreStatusValue"

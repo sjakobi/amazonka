@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,111 +23,117 @@
 --
 -- Deletes a model package.
 --
---
--- A model package is used to create Amazon SageMaker models or list on AWS Marketplace. Buyers can subscribe to model packages listed on AWS Marketplace to create models in Amazon SageMaker.
+-- A model package is used to create Amazon SageMaker models or list on AWS
+-- Marketplace. Buyers can subscribe to model packages listed on AWS
+-- Marketplace to create models in Amazon SageMaker.
 module Network.AWS.SageMaker.DeleteModelPackage
   ( -- * Creating a Request
-    deleteModelPackage,
-    DeleteModelPackage,
+    DeleteModelPackage (..),
+    newDeleteModelPackage,
 
     -- * Request Lenses
-    dmpModelPackageName,
+    deleteModelPackage_modelPackageName,
 
     -- * Destructuring the Response
-    deleteModelPackageResponse,
-    DeleteModelPackageResponse,
+    DeleteModelPackageResponse (..),
+    newDeleteModelPackageResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'deleteModelPackage' smart constructor.
-newtype DeleteModelPackage = DeleteModelPackage'
-  { _dmpModelPackageName ::
-      Text
+-- | /See:/ 'newDeleteModelPackage' smart constructor.
+data DeleteModelPackage = DeleteModelPackage'
+  { -- | The name of the model package. The name must have 1 to 63 characters.
+    -- Valid characters are a-z, A-Z, 0-9, and - (hyphen).
+    modelPackageName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteModelPackage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteModelPackage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dmpModelPackageName' - The name of the model package. The name must have 1 to 63 characters. Valid characters are a-z, A-Z, 0-9, and - (hyphen).
-deleteModelPackage ::
-  -- | 'dmpModelPackageName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'modelPackageName', 'deleteModelPackage_modelPackageName' - The name of the model package. The name must have 1 to 63 characters.
+-- Valid characters are a-z, A-Z, 0-9, and - (hyphen).
+newDeleteModelPackage ::
+  -- | 'modelPackageName'
+  Prelude.Text ->
   DeleteModelPackage
-deleteModelPackage pModelPackageName_ =
+newDeleteModelPackage pModelPackageName_ =
   DeleteModelPackage'
-    { _dmpModelPackageName =
+    { modelPackageName =
         pModelPackageName_
     }
 
--- | The name of the model package. The name must have 1 to 63 characters. Valid characters are a-z, A-Z, 0-9, and - (hyphen).
-dmpModelPackageName :: Lens' DeleteModelPackage Text
-dmpModelPackageName = lens _dmpModelPackageName (\s a -> s {_dmpModelPackageName = a})
+-- | The name of the model package. The name must have 1 to 63 characters.
+-- Valid characters are a-z, A-Z, 0-9, and - (hyphen).
+deleteModelPackage_modelPackageName :: Lens.Lens' DeleteModelPackage Prelude.Text
+deleteModelPackage_modelPackageName = Lens.lens (\DeleteModelPackage' {modelPackageName} -> modelPackageName) (\s@DeleteModelPackage' {} a -> s {modelPackageName = a} :: DeleteModelPackage)
 
-instance AWSRequest DeleteModelPackage where
+instance Prelude.AWSRequest DeleteModelPackage where
   type
     Rs DeleteModelPackage =
       DeleteModelPackageResponse
-  request = postJSON sageMaker
-  response = receiveNull DeleteModelPackageResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull DeleteModelPackageResponse'
 
-instance Hashable DeleteModelPackage
+instance Prelude.Hashable DeleteModelPackage
 
-instance NFData DeleteModelPackage
+instance Prelude.NFData DeleteModelPackage
 
-instance ToHeaders DeleteModelPackage where
+instance Prelude.ToHeaders DeleteModelPackage where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.DeleteModelPackage" :: ByteString),
+              Prelude.=# ( "SageMaker.DeleteModelPackage" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteModelPackage where
+instance Prelude.ToJSON DeleteModelPackage where
   toJSON DeleteModelPackage' {..} =
-    object
-      ( catMaybes
-          [Just ("ModelPackageName" .= _dmpModelPackageName)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("ModelPackageName" Prelude..= modelPackageName)
+          ]
       )
 
-instance ToPath DeleteModelPackage where
-  toPath = const "/"
+instance Prelude.ToPath DeleteModelPackage where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteModelPackage where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteModelPackage where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteModelPackageResponse' smart constructor.
+-- | /See:/ 'newDeleteModelPackageResponse' smart constructor.
 data DeleteModelPackageResponse = DeleteModelPackageResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteModelPackageResponse' with the minimum fields required to make a request.
-deleteModelPackageResponse ::
+-- |
+-- Create a value of 'DeleteModelPackageResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteModelPackageResponse ::
   DeleteModelPackageResponse
-deleteModelPackageResponse =
+newDeleteModelPackageResponse =
   DeleteModelPackageResponse'
 
-instance NFData DeleteModelPackageResponse
+instance Prelude.NFData DeleteModelPackageResponse

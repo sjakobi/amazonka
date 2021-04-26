@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,246 +23,299 @@
 --
 -- Lists endpoints.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.SageMaker.ListEndpoints
   ( -- * Creating a Request
-    listEndpoints,
-    ListEndpoints,
+    ListEndpoints (..),
+    newListEndpoints,
 
     -- * Request Lenses
-    leLastModifiedTimeBefore,
-    leSortOrder,
-    leNextToken,
-    leNameContains,
-    leMaxResults,
-    leCreationTimeBefore,
-    leLastModifiedTimeAfter,
-    leSortBy,
-    leStatusEquals,
-    leCreationTimeAfter,
+    listEndpoints_lastModifiedTimeBefore,
+    listEndpoints_sortOrder,
+    listEndpoints_nextToken,
+    listEndpoints_nameContains,
+    listEndpoints_maxResults,
+    listEndpoints_creationTimeBefore,
+    listEndpoints_lastModifiedTimeAfter,
+    listEndpoints_sortBy,
+    listEndpoints_statusEquals,
+    listEndpoints_creationTimeAfter,
 
     -- * Destructuring the Response
-    listEndpointsResponse,
-    ListEndpointsResponse,
+    ListEndpointsResponse (..),
+    newListEndpointsResponse,
 
     -- * Response Lenses
-    lerrsNextToken,
-    lerrsResponseStatus,
-    lerrsEndpoints,
+    listEndpointsResponse_nextToken,
+    listEndpointsResponse_httpStatus,
+    listEndpointsResponse_endpoints,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
+import Network.AWS.SageMaker.Types.EndpointSummary
 
--- | /See:/ 'listEndpoints' smart constructor.
+-- | /See:/ 'newListEndpoints' smart constructor.
 data ListEndpoints = ListEndpoints'
-  { _leLastModifiedTimeBefore ::
-      !(Maybe POSIX),
-    _leSortOrder :: !(Maybe OrderKey),
-    _leNextToken :: !(Maybe Text),
-    _leNameContains :: !(Maybe Text),
-    _leMaxResults :: !(Maybe Nat),
-    _leCreationTimeBefore :: !(Maybe POSIX),
-    _leLastModifiedTimeAfter :: !(Maybe POSIX),
-    _leSortBy :: !(Maybe EndpointSortKey),
-    _leStatusEquals :: !(Maybe EndpointStatus),
-    _leCreationTimeAfter :: !(Maybe POSIX)
+  { -- | A filter that returns only endpoints that were modified before the
+    -- specified timestamp.
+    lastModifiedTimeBefore :: Prelude.Maybe Prelude.POSIX,
+    -- | The sort order for results. The default is @Descending@.
+    sortOrder :: Prelude.Maybe OrderKey,
+    -- | If the result of a @ListEndpoints@ request was truncated, the response
+    -- includes a @NextToken@. To retrieve the next set of endpoints, use the
+    -- token in the next request.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A string in endpoint names. This filter returns only endpoints whose
+    -- name contains the specified string.
+    nameContains :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of endpoints to return in the response.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | A filter that returns only endpoints that were created before the
+    -- specified time (timestamp).
+    creationTimeBefore :: Prelude.Maybe Prelude.POSIX,
+    -- | A filter that returns only endpoints that were modified after the
+    -- specified timestamp.
+    lastModifiedTimeAfter :: Prelude.Maybe Prelude.POSIX,
+    -- | Sorts the list of results. The default is @CreationTime@.
+    sortBy :: Prelude.Maybe EndpointSortKey,
+    -- | A filter that returns only endpoints with the specified status.
+    statusEquals :: Prelude.Maybe EndpointStatus,
+    -- | A filter that returns only endpoints with a creation time greater than
+    -- or equal to the specified time (timestamp).
+    creationTimeAfter :: Prelude.Maybe Prelude.POSIX
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListEndpoints' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListEndpoints' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'leLastModifiedTimeBefore' - A filter that returns only endpoints that were modified before the specified timestamp.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'leSortOrder' - The sort order for results. The default is @Descending@ .
+-- 'lastModifiedTimeBefore', 'listEndpoints_lastModifiedTimeBefore' - A filter that returns only endpoints that were modified before the
+-- specified timestamp.
 --
--- * 'leNextToken' - If the result of a @ListEndpoints@ request was truncated, the response includes a @NextToken@ . To retrieve the next set of endpoints, use the token in the next request.
+-- 'sortOrder', 'listEndpoints_sortOrder' - The sort order for results. The default is @Descending@.
 --
--- * 'leNameContains' - A string in endpoint names. This filter returns only endpoints whose name contains the specified string.
+-- 'nextToken', 'listEndpoints_nextToken' - If the result of a @ListEndpoints@ request was truncated, the response
+-- includes a @NextToken@. To retrieve the next set of endpoints, use the
+-- token in the next request.
 --
--- * 'leMaxResults' - The maximum number of endpoints to return in the response.
+-- 'nameContains', 'listEndpoints_nameContains' - A string in endpoint names. This filter returns only endpoints whose
+-- name contains the specified string.
 --
--- * 'leCreationTimeBefore' - A filter that returns only endpoints that were created before the specified time (timestamp).
+-- 'maxResults', 'listEndpoints_maxResults' - The maximum number of endpoints to return in the response.
 --
--- * 'leLastModifiedTimeAfter' - A filter that returns only endpoints that were modified after the specified timestamp.
+-- 'creationTimeBefore', 'listEndpoints_creationTimeBefore' - A filter that returns only endpoints that were created before the
+-- specified time (timestamp).
 --
--- * 'leSortBy' - Sorts the list of results. The default is @CreationTime@ .
+-- 'lastModifiedTimeAfter', 'listEndpoints_lastModifiedTimeAfter' - A filter that returns only endpoints that were modified after the
+-- specified timestamp.
 --
--- * 'leStatusEquals' - A filter that returns only endpoints with the specified status.
+-- 'sortBy', 'listEndpoints_sortBy' - Sorts the list of results. The default is @CreationTime@.
 --
--- * 'leCreationTimeAfter' - A filter that returns only endpoints with a creation time greater than or equal to the specified time (timestamp).
-listEndpoints ::
+-- 'statusEquals', 'listEndpoints_statusEquals' - A filter that returns only endpoints with the specified status.
+--
+-- 'creationTimeAfter', 'listEndpoints_creationTimeAfter' - A filter that returns only endpoints with a creation time greater than
+-- or equal to the specified time (timestamp).
+newListEndpoints ::
   ListEndpoints
-listEndpoints =
+newListEndpoints =
   ListEndpoints'
-    { _leLastModifiedTimeBefore = Nothing,
-      _leSortOrder = Nothing,
-      _leNextToken = Nothing,
-      _leNameContains = Nothing,
-      _leMaxResults = Nothing,
-      _leCreationTimeBefore = Nothing,
-      _leLastModifiedTimeAfter = Nothing,
-      _leSortBy = Nothing,
-      _leStatusEquals = Nothing,
-      _leCreationTimeAfter = Nothing
+    { lastModifiedTimeBefore =
+        Prelude.Nothing,
+      sortOrder = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      nameContains = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      creationTimeBefore = Prelude.Nothing,
+      lastModifiedTimeAfter = Prelude.Nothing,
+      sortBy = Prelude.Nothing,
+      statusEquals = Prelude.Nothing,
+      creationTimeAfter = Prelude.Nothing
     }
 
--- | A filter that returns only endpoints that were modified before the specified timestamp.
-leLastModifiedTimeBefore :: Lens' ListEndpoints (Maybe UTCTime)
-leLastModifiedTimeBefore = lens _leLastModifiedTimeBefore (\s a -> s {_leLastModifiedTimeBefore = a}) . mapping _Time
+-- | A filter that returns only endpoints that were modified before the
+-- specified timestamp.
+listEndpoints_lastModifiedTimeBefore :: Lens.Lens' ListEndpoints (Prelude.Maybe Prelude.UTCTime)
+listEndpoints_lastModifiedTimeBefore = Lens.lens (\ListEndpoints' {lastModifiedTimeBefore} -> lastModifiedTimeBefore) (\s@ListEndpoints' {} a -> s {lastModifiedTimeBefore = a} :: ListEndpoints) Prelude.. Lens.mapping Prelude._Time
 
--- | The sort order for results. The default is @Descending@ .
-leSortOrder :: Lens' ListEndpoints (Maybe OrderKey)
-leSortOrder = lens _leSortOrder (\s a -> s {_leSortOrder = a})
+-- | The sort order for results. The default is @Descending@.
+listEndpoints_sortOrder :: Lens.Lens' ListEndpoints (Prelude.Maybe OrderKey)
+listEndpoints_sortOrder = Lens.lens (\ListEndpoints' {sortOrder} -> sortOrder) (\s@ListEndpoints' {} a -> s {sortOrder = a} :: ListEndpoints)
 
--- | If the result of a @ListEndpoints@ request was truncated, the response includes a @NextToken@ . To retrieve the next set of endpoints, use the token in the next request.
-leNextToken :: Lens' ListEndpoints (Maybe Text)
-leNextToken = lens _leNextToken (\s a -> s {_leNextToken = a})
+-- | If the result of a @ListEndpoints@ request was truncated, the response
+-- includes a @NextToken@. To retrieve the next set of endpoints, use the
+-- token in the next request.
+listEndpoints_nextToken :: Lens.Lens' ListEndpoints (Prelude.Maybe Prelude.Text)
+listEndpoints_nextToken = Lens.lens (\ListEndpoints' {nextToken} -> nextToken) (\s@ListEndpoints' {} a -> s {nextToken = a} :: ListEndpoints)
 
--- | A string in endpoint names. This filter returns only endpoints whose name contains the specified string.
-leNameContains :: Lens' ListEndpoints (Maybe Text)
-leNameContains = lens _leNameContains (\s a -> s {_leNameContains = a})
+-- | A string in endpoint names. This filter returns only endpoints whose
+-- name contains the specified string.
+listEndpoints_nameContains :: Lens.Lens' ListEndpoints (Prelude.Maybe Prelude.Text)
+listEndpoints_nameContains = Lens.lens (\ListEndpoints' {nameContains} -> nameContains) (\s@ListEndpoints' {} a -> s {nameContains = a} :: ListEndpoints)
 
 -- | The maximum number of endpoints to return in the response.
-leMaxResults :: Lens' ListEndpoints (Maybe Natural)
-leMaxResults = lens _leMaxResults (\s a -> s {_leMaxResults = a}) . mapping _Nat
+listEndpoints_maxResults :: Lens.Lens' ListEndpoints (Prelude.Maybe Prelude.Natural)
+listEndpoints_maxResults = Lens.lens (\ListEndpoints' {maxResults} -> maxResults) (\s@ListEndpoints' {} a -> s {maxResults = a} :: ListEndpoints) Prelude.. Lens.mapping Prelude._Nat
 
--- | A filter that returns only endpoints that were created before the specified time (timestamp).
-leCreationTimeBefore :: Lens' ListEndpoints (Maybe UTCTime)
-leCreationTimeBefore = lens _leCreationTimeBefore (\s a -> s {_leCreationTimeBefore = a}) . mapping _Time
+-- | A filter that returns only endpoints that were created before the
+-- specified time (timestamp).
+listEndpoints_creationTimeBefore :: Lens.Lens' ListEndpoints (Prelude.Maybe Prelude.UTCTime)
+listEndpoints_creationTimeBefore = Lens.lens (\ListEndpoints' {creationTimeBefore} -> creationTimeBefore) (\s@ListEndpoints' {} a -> s {creationTimeBefore = a} :: ListEndpoints) Prelude.. Lens.mapping Prelude._Time
 
--- | A filter that returns only endpoints that were modified after the specified timestamp.
-leLastModifiedTimeAfter :: Lens' ListEndpoints (Maybe UTCTime)
-leLastModifiedTimeAfter = lens _leLastModifiedTimeAfter (\s a -> s {_leLastModifiedTimeAfter = a}) . mapping _Time
+-- | A filter that returns only endpoints that were modified after the
+-- specified timestamp.
+listEndpoints_lastModifiedTimeAfter :: Lens.Lens' ListEndpoints (Prelude.Maybe Prelude.UTCTime)
+listEndpoints_lastModifiedTimeAfter = Lens.lens (\ListEndpoints' {lastModifiedTimeAfter} -> lastModifiedTimeAfter) (\s@ListEndpoints' {} a -> s {lastModifiedTimeAfter = a} :: ListEndpoints) Prelude.. Lens.mapping Prelude._Time
 
--- | Sorts the list of results. The default is @CreationTime@ .
-leSortBy :: Lens' ListEndpoints (Maybe EndpointSortKey)
-leSortBy = lens _leSortBy (\s a -> s {_leSortBy = a})
+-- | Sorts the list of results. The default is @CreationTime@.
+listEndpoints_sortBy :: Lens.Lens' ListEndpoints (Prelude.Maybe EndpointSortKey)
+listEndpoints_sortBy = Lens.lens (\ListEndpoints' {sortBy} -> sortBy) (\s@ListEndpoints' {} a -> s {sortBy = a} :: ListEndpoints)
 
 -- | A filter that returns only endpoints with the specified status.
-leStatusEquals :: Lens' ListEndpoints (Maybe EndpointStatus)
-leStatusEquals = lens _leStatusEquals (\s a -> s {_leStatusEquals = a})
+listEndpoints_statusEquals :: Lens.Lens' ListEndpoints (Prelude.Maybe EndpointStatus)
+listEndpoints_statusEquals = Lens.lens (\ListEndpoints' {statusEquals} -> statusEquals) (\s@ListEndpoints' {} a -> s {statusEquals = a} :: ListEndpoints)
 
--- | A filter that returns only endpoints with a creation time greater than or equal to the specified time (timestamp).
-leCreationTimeAfter :: Lens' ListEndpoints (Maybe UTCTime)
-leCreationTimeAfter = lens _leCreationTimeAfter (\s a -> s {_leCreationTimeAfter = a}) . mapping _Time
+-- | A filter that returns only endpoints with a creation time greater than
+-- or equal to the specified time (timestamp).
+listEndpoints_creationTimeAfter :: Lens.Lens' ListEndpoints (Prelude.Maybe Prelude.UTCTime)
+listEndpoints_creationTimeAfter = Lens.lens (\ListEndpoints' {creationTimeAfter} -> creationTimeAfter) (\s@ListEndpoints' {} a -> s {creationTimeAfter = a} :: ListEndpoints) Prelude.. Lens.mapping Prelude._Time
 
-instance AWSPager ListEndpoints where
+instance Pager.AWSPager ListEndpoints where
   page rq rs
-    | stop (rs ^. lerrsNextToken) = Nothing
-    | stop (rs ^. lerrsEndpoints) = Nothing
-    | otherwise =
-      Just $ rq & leNextToken .~ rs ^. lerrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listEndpointsResponse_nextToken Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        (rs Lens.^. listEndpointsResponse_endpoints) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listEndpoints_nextToken
+          Lens..~ rs
+          Lens.^? listEndpointsResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest ListEndpoints where
+instance Prelude.AWSRequest ListEndpoints where
   type Rs ListEndpoints = ListEndpointsResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListEndpointsResponse'
-            <$> (x .?> "NextToken")
-            <*> (pure (fromEnum s))
-            <*> (x .?> "Endpoints" .!@ mempty)
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> ( x Prelude..?> "Endpoints"
+                            Prelude..!@ Prelude.mempty
+                        )
       )
 
-instance Hashable ListEndpoints
+instance Prelude.Hashable ListEndpoints
 
-instance NFData ListEndpoints
+instance Prelude.NFData ListEndpoints
 
-instance ToHeaders ListEndpoints where
+instance Prelude.ToHeaders ListEndpoints where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.ListEndpoints" :: ByteString),
+              Prelude.=# ("SageMaker.ListEndpoints" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListEndpoints where
+instance Prelude.ToJSON ListEndpoints where
   toJSON ListEndpoints' {..} =
-    object
-      ( catMaybes
-          [ ("LastModifiedTimeBefore" .=)
-              <$> _leLastModifiedTimeBefore,
-            ("SortOrder" .=) <$> _leSortOrder,
-            ("NextToken" .=) <$> _leNextToken,
-            ("NameContains" .=) <$> _leNameContains,
-            ("MaxResults" .=) <$> _leMaxResults,
-            ("CreationTimeBefore" .=) <$> _leCreationTimeBefore,
-            ("LastModifiedTimeAfter" .=)
-              <$> _leLastModifiedTimeAfter,
-            ("SortBy" .=) <$> _leSortBy,
-            ("StatusEquals" .=) <$> _leStatusEquals,
-            ("CreationTimeAfter" .=) <$> _leCreationTimeAfter
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("LastModifiedTimeBefore" Prelude..=)
+              Prelude.<$> lastModifiedTimeBefore,
+            ("SortOrder" Prelude..=) Prelude.<$> sortOrder,
+            ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("NameContains" Prelude..=) Prelude.<$> nameContains,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("CreationTimeBefore" Prelude..=)
+              Prelude.<$> creationTimeBefore,
+            ("LastModifiedTimeAfter" Prelude..=)
+              Prelude.<$> lastModifiedTimeAfter,
+            ("SortBy" Prelude..=) Prelude.<$> sortBy,
+            ("StatusEquals" Prelude..=) Prelude.<$> statusEquals,
+            ("CreationTimeAfter" Prelude..=)
+              Prelude.<$> creationTimeAfter
           ]
       )
 
-instance ToPath ListEndpoints where
-  toPath = const "/"
+instance Prelude.ToPath ListEndpoints where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListEndpoints where
-  toQuery = const mempty
+instance Prelude.ToQuery ListEndpoints where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listEndpointsResponse' smart constructor.
+-- | /See:/ 'newListEndpointsResponse' smart constructor.
 data ListEndpointsResponse = ListEndpointsResponse'
-  { _lerrsNextToken ::
-      !(Maybe Text),
-    _lerrsResponseStatus ::
-      !Int,
-    _lerrsEndpoints ::
-      ![EndpointSummary]
+  { -- | If the response is truncated, Amazon SageMaker returns this token. To
+    -- retrieve the next set of training jobs, use it in the subsequent
+    -- request.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | An array or endpoint objects.
+    endpoints :: [EndpointSummary]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListEndpointsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListEndpointsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lerrsNextToken' - If the response is truncated, Amazon SageMaker returns this token. To retrieve the next set of training jobs, use it in the subsequent request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lerrsResponseStatus' - -- | The response status code.
+-- 'nextToken', 'listEndpointsResponse_nextToken' - If the response is truncated, Amazon SageMaker returns this token. To
+-- retrieve the next set of training jobs, use it in the subsequent
+-- request.
 --
--- * 'lerrsEndpoints' - An array or endpoint objects.
-listEndpointsResponse ::
-  -- | 'lerrsResponseStatus'
-  Int ->
+-- 'httpStatus', 'listEndpointsResponse_httpStatus' - The response's http status code.
+--
+-- 'endpoints', 'listEndpointsResponse_endpoints' - An array or endpoint objects.
+newListEndpointsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListEndpointsResponse
-listEndpointsResponse pResponseStatus_ =
+newListEndpointsResponse pHttpStatus_ =
   ListEndpointsResponse'
-    { _lerrsNextToken = Nothing,
-      _lerrsResponseStatus = pResponseStatus_,
-      _lerrsEndpoints = mempty
+    { nextToken = Prelude.Nothing,
+      httpStatus = pHttpStatus_,
+      endpoints = Prelude.mempty
     }
 
--- | If the response is truncated, Amazon SageMaker returns this token. To retrieve the next set of training jobs, use it in the subsequent request.
-lerrsNextToken :: Lens' ListEndpointsResponse (Maybe Text)
-lerrsNextToken = lens _lerrsNextToken (\s a -> s {_lerrsNextToken = a})
+-- | If the response is truncated, Amazon SageMaker returns this token. To
+-- retrieve the next set of training jobs, use it in the subsequent
+-- request.
+listEndpointsResponse_nextToken :: Lens.Lens' ListEndpointsResponse (Prelude.Maybe Prelude.Text)
+listEndpointsResponse_nextToken = Lens.lens (\ListEndpointsResponse' {nextToken} -> nextToken) (\s@ListEndpointsResponse' {} a -> s {nextToken = a} :: ListEndpointsResponse)
 
--- | -- | The response status code.
-lerrsResponseStatus :: Lens' ListEndpointsResponse Int
-lerrsResponseStatus = lens _lerrsResponseStatus (\s a -> s {_lerrsResponseStatus = a})
+-- | The response's http status code.
+listEndpointsResponse_httpStatus :: Lens.Lens' ListEndpointsResponse Prelude.Int
+listEndpointsResponse_httpStatus = Lens.lens (\ListEndpointsResponse' {httpStatus} -> httpStatus) (\s@ListEndpointsResponse' {} a -> s {httpStatus = a} :: ListEndpointsResponse)
 
 -- | An array or endpoint objects.
-lerrsEndpoints :: Lens' ListEndpointsResponse [EndpointSummary]
-lerrsEndpoints = lens _lerrsEndpoints (\s a -> s {_lerrsEndpoints = a}) . _Coerce
+listEndpointsResponse_endpoints :: Lens.Lens' ListEndpointsResponse [EndpointSummary]
+listEndpointsResponse_endpoints = Lens.lens (\ListEndpointsResponse' {endpoints} -> endpoints) (\s@ListEndpointsResponse' {} a -> s {endpoints = a} :: ListEndpointsResponse) Prelude.. Prelude._Coerce
 
-instance NFData ListEndpointsResponse
+instance Prelude.NFData ListEndpointsResponse

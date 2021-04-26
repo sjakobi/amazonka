@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,75 +19,79 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.ActionSource where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A structure describing the source of an action.
 --
---
---
--- /See:/ 'actionSource' smart constructor.
+-- /See:/ 'newActionSource' smart constructor.
 data ActionSource = ActionSource'
-  { _aSourceId ::
-      !(Maybe Text),
-    _aSourceType :: !(Maybe Text),
-    _aSourceURI :: !Text
+  { -- | The ID of the source.
+    sourceId :: Prelude.Maybe Prelude.Text,
+    -- | The type of the source.
+    sourceType :: Prelude.Maybe Prelude.Text,
+    -- | The URI of the source.
+    sourceUri :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ActionSource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ActionSource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aSourceId' - The ID of the source.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aSourceType' - The type of the source.
+-- 'sourceId', 'actionSource_sourceId' - The ID of the source.
 --
--- * 'aSourceURI' - The URI of the source.
-actionSource ::
-  -- | 'aSourceURI'
-  Text ->
+-- 'sourceType', 'actionSource_sourceType' - The type of the source.
+--
+-- 'sourceUri', 'actionSource_sourceUri' - The URI of the source.
+newActionSource ::
+  -- | 'sourceUri'
+  Prelude.Text ->
   ActionSource
-actionSource pSourceURI_ =
+newActionSource pSourceUri_ =
   ActionSource'
-    { _aSourceId = Nothing,
-      _aSourceType = Nothing,
-      _aSourceURI = pSourceURI_
+    { sourceId = Prelude.Nothing,
+      sourceType = Prelude.Nothing,
+      sourceUri = pSourceUri_
     }
 
 -- | The ID of the source.
-aSourceId :: Lens' ActionSource (Maybe Text)
-aSourceId = lens _aSourceId (\s a -> s {_aSourceId = a})
+actionSource_sourceId :: Lens.Lens' ActionSource (Prelude.Maybe Prelude.Text)
+actionSource_sourceId = Lens.lens (\ActionSource' {sourceId} -> sourceId) (\s@ActionSource' {} a -> s {sourceId = a} :: ActionSource)
 
 -- | The type of the source.
-aSourceType :: Lens' ActionSource (Maybe Text)
-aSourceType = lens _aSourceType (\s a -> s {_aSourceType = a})
+actionSource_sourceType :: Lens.Lens' ActionSource (Prelude.Maybe Prelude.Text)
+actionSource_sourceType = Lens.lens (\ActionSource' {sourceType} -> sourceType) (\s@ActionSource' {} a -> s {sourceType = a} :: ActionSource)
 
 -- | The URI of the source.
-aSourceURI :: Lens' ActionSource Text
-aSourceURI = lens _aSourceURI (\s a -> s {_aSourceURI = a})
+actionSource_sourceUri :: Lens.Lens' ActionSource Prelude.Text
+actionSource_sourceUri = Lens.lens (\ActionSource' {sourceUri} -> sourceUri) (\s@ActionSource' {} a -> s {sourceUri = a} :: ActionSource)
 
-instance FromJSON ActionSource where
+instance Prelude.FromJSON ActionSource where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ActionSource"
       ( \x ->
           ActionSource'
-            <$> (x .:? "SourceId")
-            <*> (x .:? "SourceType")
-            <*> (x .: "SourceUri")
+            Prelude.<$> (x Prelude..:? "SourceId")
+            Prelude.<*> (x Prelude..:? "SourceType")
+            Prelude.<*> (x Prelude..: "SourceUri")
       )
 
-instance Hashable ActionSource
+instance Prelude.Hashable ActionSource
 
-instance NFData ActionSource
+instance Prelude.NFData ActionSource
 
-instance ToJSON ActionSource where
+instance Prelude.ToJSON ActionSource where
   toJSON ActionSource' {..} =
-    object
-      ( catMaybes
-          [ ("SourceId" .=) <$> _aSourceId,
-            ("SourceType" .=) <$> _aSourceType,
-            Just ("SourceUri" .= _aSourceURI)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("SourceId" Prelude..=) Prelude.<$> sourceId,
+            ("SourceType" Prelude..=) Prelude.<$> sourceType,
+            Prelude.Just ("SourceUri" Prelude..= sourceUri)
           ]
       )

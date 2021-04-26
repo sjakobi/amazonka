@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,115 +19,119 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.MonitoringAppSpecification where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Container image configuration object for the monitoring job.
 --
---
---
--- /See:/ 'monitoringAppSpecification' smart constructor.
+-- /See:/ 'newMonitoringAppSpecification' smart constructor.
 data MonitoringAppSpecification = MonitoringAppSpecification'
-  { _masContainerArguments ::
-      !( Maybe
-           (List1 Text)
-       ),
-    _masContainerEntrypoint ::
-      !( Maybe
-           (List1 Text)
-       ),
-    _masPostAnalyticsProcessorSourceURI ::
-      !(Maybe Text),
-    _masRecordPreprocessorSourceURI ::
-      !(Maybe Text),
-    _masImageURI ::
-      !Text
+  { -- | An array of arguments for the container used to run the monitoring job.
+    containerArguments :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | Specifies the entrypoint for a container used to run the monitoring job.
+    containerEntrypoint :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | An Amazon S3 URI to a script that is called after analysis has been
+    -- performed. Applicable only for the built-in (first party) containers.
+    postAnalyticsProcessorSourceUri :: Prelude.Maybe Prelude.Text,
+    -- | An Amazon S3 URI to a script that is called per row prior to running
+    -- analysis. It can base64 decode the payload and convert it into a flatted
+    -- json so that the built-in container can use the converted data.
+    -- Applicable only for the built-in (first party) containers.
+    recordPreprocessorSourceUri :: Prelude.Maybe Prelude.Text,
+    -- | The container image to be run by the monitoring job.
+    imageUri :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MonitoringAppSpecification' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MonitoringAppSpecification' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'masContainerArguments' - An array of arguments for the container used to run the monitoring job.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'masContainerEntrypoint' - Specifies the entrypoint for a container used to run the monitoring job.
+-- 'containerArguments', 'monitoringAppSpecification_containerArguments' - An array of arguments for the container used to run the monitoring job.
 --
--- * 'masPostAnalyticsProcessorSourceURI' - An Amazon S3 URI to a script that is called after analysis has been performed. Applicable only for the built-in (first party) containers.
+-- 'containerEntrypoint', 'monitoringAppSpecification_containerEntrypoint' - Specifies the entrypoint for a container used to run the monitoring job.
 --
--- * 'masRecordPreprocessorSourceURI' - An Amazon S3 URI to a script that is called per row prior to running analysis. It can base64 decode the payload and convert it into a flatted json so that the built-in container can use the converted data. Applicable only for the built-in (first party) containers.
+-- 'postAnalyticsProcessorSourceUri', 'monitoringAppSpecification_postAnalyticsProcessorSourceUri' - An Amazon S3 URI to a script that is called after analysis has been
+-- performed. Applicable only for the built-in (first party) containers.
 --
--- * 'masImageURI' - The container image to be run by the monitoring job.
-monitoringAppSpecification ::
-  -- | 'masImageURI'
-  Text ->
+-- 'recordPreprocessorSourceUri', 'monitoringAppSpecification_recordPreprocessorSourceUri' - An Amazon S3 URI to a script that is called per row prior to running
+-- analysis. It can base64 decode the payload and convert it into a flatted
+-- json so that the built-in container can use the converted data.
+-- Applicable only for the built-in (first party) containers.
+--
+-- 'imageUri', 'monitoringAppSpecification_imageUri' - The container image to be run by the monitoring job.
+newMonitoringAppSpecification ::
+  -- | 'imageUri'
+  Prelude.Text ->
   MonitoringAppSpecification
-monitoringAppSpecification pImageURI_ =
+newMonitoringAppSpecification pImageUri_ =
   MonitoringAppSpecification'
-    { _masContainerArguments =
-        Nothing,
-      _masContainerEntrypoint = Nothing,
-      _masPostAnalyticsProcessorSourceURI = Nothing,
-      _masRecordPreprocessorSourceURI = Nothing,
-      _masImageURI = pImageURI_
+    { containerArguments =
+        Prelude.Nothing,
+      containerEntrypoint = Prelude.Nothing,
+      postAnalyticsProcessorSourceUri =
+        Prelude.Nothing,
+      recordPreprocessorSourceUri = Prelude.Nothing,
+      imageUri = pImageUri_
     }
 
 -- | An array of arguments for the container used to run the monitoring job.
-masContainerArguments :: Lens' MonitoringAppSpecification (Maybe (NonEmpty Text))
-masContainerArguments = lens _masContainerArguments (\s a -> s {_masContainerArguments = a}) . mapping _List1
+monitoringAppSpecification_containerArguments :: Lens.Lens' MonitoringAppSpecification (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+monitoringAppSpecification_containerArguments = Lens.lens (\MonitoringAppSpecification' {containerArguments} -> containerArguments) (\s@MonitoringAppSpecification' {} a -> s {containerArguments = a} :: MonitoringAppSpecification) Prelude.. Lens.mapping Prelude._List1
 
 -- | Specifies the entrypoint for a container used to run the monitoring job.
-masContainerEntrypoint :: Lens' MonitoringAppSpecification (Maybe (NonEmpty Text))
-masContainerEntrypoint = lens _masContainerEntrypoint (\s a -> s {_masContainerEntrypoint = a}) . mapping _List1
+monitoringAppSpecification_containerEntrypoint :: Lens.Lens' MonitoringAppSpecification (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+monitoringAppSpecification_containerEntrypoint = Lens.lens (\MonitoringAppSpecification' {containerEntrypoint} -> containerEntrypoint) (\s@MonitoringAppSpecification' {} a -> s {containerEntrypoint = a} :: MonitoringAppSpecification) Prelude.. Lens.mapping Prelude._List1
 
--- | An Amazon S3 URI to a script that is called after analysis has been performed. Applicable only for the built-in (first party) containers.
-masPostAnalyticsProcessorSourceURI :: Lens' MonitoringAppSpecification (Maybe Text)
-masPostAnalyticsProcessorSourceURI = lens _masPostAnalyticsProcessorSourceURI (\s a -> s {_masPostAnalyticsProcessorSourceURI = a})
+-- | An Amazon S3 URI to a script that is called after analysis has been
+-- performed. Applicable only for the built-in (first party) containers.
+monitoringAppSpecification_postAnalyticsProcessorSourceUri :: Lens.Lens' MonitoringAppSpecification (Prelude.Maybe Prelude.Text)
+monitoringAppSpecification_postAnalyticsProcessorSourceUri = Lens.lens (\MonitoringAppSpecification' {postAnalyticsProcessorSourceUri} -> postAnalyticsProcessorSourceUri) (\s@MonitoringAppSpecification' {} a -> s {postAnalyticsProcessorSourceUri = a} :: MonitoringAppSpecification)
 
--- | An Amazon S3 URI to a script that is called per row prior to running analysis. It can base64 decode the payload and convert it into a flatted json so that the built-in container can use the converted data. Applicable only for the built-in (first party) containers.
-masRecordPreprocessorSourceURI :: Lens' MonitoringAppSpecification (Maybe Text)
-masRecordPreprocessorSourceURI = lens _masRecordPreprocessorSourceURI (\s a -> s {_masRecordPreprocessorSourceURI = a})
+-- | An Amazon S3 URI to a script that is called per row prior to running
+-- analysis. It can base64 decode the payload and convert it into a flatted
+-- json so that the built-in container can use the converted data.
+-- Applicable only for the built-in (first party) containers.
+monitoringAppSpecification_recordPreprocessorSourceUri :: Lens.Lens' MonitoringAppSpecification (Prelude.Maybe Prelude.Text)
+monitoringAppSpecification_recordPreprocessorSourceUri = Lens.lens (\MonitoringAppSpecification' {recordPreprocessorSourceUri} -> recordPreprocessorSourceUri) (\s@MonitoringAppSpecification' {} a -> s {recordPreprocessorSourceUri = a} :: MonitoringAppSpecification)
 
 -- | The container image to be run by the monitoring job.
-masImageURI :: Lens' MonitoringAppSpecification Text
-masImageURI = lens _masImageURI (\s a -> s {_masImageURI = a})
+monitoringAppSpecification_imageUri :: Lens.Lens' MonitoringAppSpecification Prelude.Text
+monitoringAppSpecification_imageUri = Lens.lens (\MonitoringAppSpecification' {imageUri} -> imageUri) (\s@MonitoringAppSpecification' {} a -> s {imageUri = a} :: MonitoringAppSpecification)
 
-instance FromJSON MonitoringAppSpecification where
+instance Prelude.FromJSON MonitoringAppSpecification where
   parseJSON =
-    withObject
+    Prelude.withObject
       "MonitoringAppSpecification"
       ( \x ->
           MonitoringAppSpecification'
-            <$> (x .:? "ContainerArguments")
-            <*> (x .:? "ContainerEntrypoint")
-            <*> (x .:? "PostAnalyticsProcessorSourceUri")
-            <*> (x .:? "RecordPreprocessorSourceUri")
-            <*> (x .: "ImageUri")
+            Prelude.<$> (x Prelude..:? "ContainerArguments")
+            Prelude.<*> (x Prelude..:? "ContainerEntrypoint")
+            Prelude.<*> (x Prelude..:? "PostAnalyticsProcessorSourceUri")
+            Prelude.<*> (x Prelude..:? "RecordPreprocessorSourceUri")
+            Prelude.<*> (x Prelude..: "ImageUri")
       )
 
-instance Hashable MonitoringAppSpecification
+instance Prelude.Hashable MonitoringAppSpecification
 
-instance NFData MonitoringAppSpecification
+instance Prelude.NFData MonitoringAppSpecification
 
-instance ToJSON MonitoringAppSpecification where
+instance Prelude.ToJSON MonitoringAppSpecification where
   toJSON MonitoringAppSpecification' {..} =
-    object
-      ( catMaybes
-          [ ("ContainerArguments" .=)
-              <$> _masContainerArguments,
-            ("ContainerEntrypoint" .=)
-              <$> _masContainerEntrypoint,
-            ("PostAnalyticsProcessorSourceUri" .=)
-              <$> _masPostAnalyticsProcessorSourceURI,
-            ("RecordPreprocessorSourceUri" .=)
-              <$> _masRecordPreprocessorSourceURI,
-            Just ("ImageUri" .= _masImageURI)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ContainerArguments" Prelude..=)
+              Prelude.<$> containerArguments,
+            ("ContainerEntrypoint" Prelude..=)
+              Prelude.<$> containerEntrypoint,
+            ("PostAnalyticsProcessorSourceUri" Prelude..=)
+              Prelude.<$> postAnalyticsProcessorSourceUri,
+            ("RecordPreprocessorSourceUri" Prelude..=)
+              Prelude.<$> recordPreprocessorSourceUri,
+            Prelude.Just ("ImageUri" Prelude..= imageUri)
           ]
       )

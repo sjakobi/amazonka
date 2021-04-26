@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,119 +19,154 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.ChannelSpecification where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.CompressionType
 import Network.AWS.SageMaker.Types.TrainingInputMode
 
--- | Defines a named input source, called a channel, to be used by an algorithm.
+-- | Defines a named input source, called a channel, to be used by an
+-- algorithm.
 --
---
---
--- /See:/ 'channelSpecification' smart constructor.
+-- /See:/ 'newChannelSpecification' smart constructor.
 data ChannelSpecification = ChannelSpecification'
-  { _csDescription ::
-      !(Maybe Text),
-    _csIsRequired ::
-      !(Maybe Bool),
-    _csSupportedCompressionTypes ::
-      !(Maybe [CompressionType]),
-    _csName :: !Text,
-    _csSupportedContentTypes ::
-      ![Text],
-    _csSupportedInputModes ::
-      !(List1 TrainingInputMode)
+  { -- | A brief description of the channel.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | Indicates whether the channel is required by the algorithm.
+    isRequired :: Prelude.Maybe Prelude.Bool,
+    -- | The allowed compression types, if data compression is used.
+    supportedCompressionTypes :: Prelude.Maybe [CompressionType],
+    -- | The name of the channel.
+    name :: Prelude.Text,
+    -- | The supported MIME types for the data.
+    supportedContentTypes :: [Prelude.Text],
+    -- | The allowed input mode, either FILE or PIPE.
+    --
+    -- In FILE mode, Amazon SageMaker copies the data from the input source
+    -- onto the local Amazon Elastic Block Store (Amazon EBS) volumes before
+    -- starting your training algorithm. This is the most commonly used input
+    -- mode.
+    --
+    -- In PIPE mode, Amazon SageMaker streams input data from the source
+    -- directly to your algorithm without using the EBS volume.
+    supportedInputModes :: Prelude.List1 TrainingInputMode
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ChannelSpecification' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ChannelSpecification' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csDescription' - A brief description of the channel.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csIsRequired' - Indicates whether the channel is required by the algorithm.
+-- 'description', 'channelSpecification_description' - A brief description of the channel.
 --
--- * 'csSupportedCompressionTypes' - The allowed compression types, if data compression is used.
+-- 'isRequired', 'channelSpecification_isRequired' - Indicates whether the channel is required by the algorithm.
 --
--- * 'csName' - The name of the channel.
+-- 'supportedCompressionTypes', 'channelSpecification_supportedCompressionTypes' - The allowed compression types, if data compression is used.
 --
--- * 'csSupportedContentTypes' - The supported MIME types for the data.
+-- 'name', 'channelSpecification_name' - The name of the channel.
 --
--- * 'csSupportedInputModes' - The allowed input mode, either FILE or PIPE. In FILE mode, Amazon SageMaker copies the data from the input source onto the local Amazon Elastic Block Store (Amazon EBS) volumes before starting your training algorithm. This is the most commonly used input mode. In PIPE mode, Amazon SageMaker streams input data from the source directly to your algorithm without using the EBS volume.
-channelSpecification ::
-  -- | 'csName'
-  Text ->
-  -- | 'csSupportedInputModes'
-  NonEmpty TrainingInputMode ->
+-- 'supportedContentTypes', 'channelSpecification_supportedContentTypes' - The supported MIME types for the data.
+--
+-- 'supportedInputModes', 'channelSpecification_supportedInputModes' - The allowed input mode, either FILE or PIPE.
+--
+-- In FILE mode, Amazon SageMaker copies the data from the input source
+-- onto the local Amazon Elastic Block Store (Amazon EBS) volumes before
+-- starting your training algorithm. This is the most commonly used input
+-- mode.
+--
+-- In PIPE mode, Amazon SageMaker streams input data from the source
+-- directly to your algorithm without using the EBS volume.
+newChannelSpecification ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'supportedInputModes'
+  Prelude.NonEmpty TrainingInputMode ->
   ChannelSpecification
-channelSpecification pName_ pSupportedInputModes_ =
+newChannelSpecification pName_ pSupportedInputModes_ =
   ChannelSpecification'
-    { _csDescription = Nothing,
-      _csIsRequired = Nothing,
-      _csSupportedCompressionTypes = Nothing,
-      _csName = pName_,
-      _csSupportedContentTypes = mempty,
-      _csSupportedInputModes =
-        _List1 # pSupportedInputModes_
+    { description =
+        Prelude.Nothing,
+      isRequired = Prelude.Nothing,
+      supportedCompressionTypes = Prelude.Nothing,
+      name = pName_,
+      supportedContentTypes = Prelude.mempty,
+      supportedInputModes =
+        Prelude._List1 Lens.# pSupportedInputModes_
     }
 
 -- | A brief description of the channel.
-csDescription :: Lens' ChannelSpecification (Maybe Text)
-csDescription = lens _csDescription (\s a -> s {_csDescription = a})
+channelSpecification_description :: Lens.Lens' ChannelSpecification (Prelude.Maybe Prelude.Text)
+channelSpecification_description = Lens.lens (\ChannelSpecification' {description} -> description) (\s@ChannelSpecification' {} a -> s {description = a} :: ChannelSpecification)
 
 -- | Indicates whether the channel is required by the algorithm.
-csIsRequired :: Lens' ChannelSpecification (Maybe Bool)
-csIsRequired = lens _csIsRequired (\s a -> s {_csIsRequired = a})
+channelSpecification_isRequired :: Lens.Lens' ChannelSpecification (Prelude.Maybe Prelude.Bool)
+channelSpecification_isRequired = Lens.lens (\ChannelSpecification' {isRequired} -> isRequired) (\s@ChannelSpecification' {} a -> s {isRequired = a} :: ChannelSpecification)
 
 -- | The allowed compression types, if data compression is used.
-csSupportedCompressionTypes :: Lens' ChannelSpecification [CompressionType]
-csSupportedCompressionTypes = lens _csSupportedCompressionTypes (\s a -> s {_csSupportedCompressionTypes = a}) . _Default . _Coerce
+channelSpecification_supportedCompressionTypes :: Lens.Lens' ChannelSpecification (Prelude.Maybe [CompressionType])
+channelSpecification_supportedCompressionTypes = Lens.lens (\ChannelSpecification' {supportedCompressionTypes} -> supportedCompressionTypes) (\s@ChannelSpecification' {} a -> s {supportedCompressionTypes = a} :: ChannelSpecification) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The name of the channel.
-csName :: Lens' ChannelSpecification Text
-csName = lens _csName (\s a -> s {_csName = a})
+channelSpecification_name :: Lens.Lens' ChannelSpecification Prelude.Text
+channelSpecification_name = Lens.lens (\ChannelSpecification' {name} -> name) (\s@ChannelSpecification' {} a -> s {name = a} :: ChannelSpecification)
 
 -- | The supported MIME types for the data.
-csSupportedContentTypes :: Lens' ChannelSpecification [Text]
-csSupportedContentTypes = lens _csSupportedContentTypes (\s a -> s {_csSupportedContentTypes = a}) . _Coerce
+channelSpecification_supportedContentTypes :: Lens.Lens' ChannelSpecification [Prelude.Text]
+channelSpecification_supportedContentTypes = Lens.lens (\ChannelSpecification' {supportedContentTypes} -> supportedContentTypes) (\s@ChannelSpecification' {} a -> s {supportedContentTypes = a} :: ChannelSpecification) Prelude.. Prelude._Coerce
 
--- | The allowed input mode, either FILE or PIPE. In FILE mode, Amazon SageMaker copies the data from the input source onto the local Amazon Elastic Block Store (Amazon EBS) volumes before starting your training algorithm. This is the most commonly used input mode. In PIPE mode, Amazon SageMaker streams input data from the source directly to your algorithm without using the EBS volume.
-csSupportedInputModes :: Lens' ChannelSpecification (NonEmpty TrainingInputMode)
-csSupportedInputModes = lens _csSupportedInputModes (\s a -> s {_csSupportedInputModes = a}) . _List1
+-- | The allowed input mode, either FILE or PIPE.
+--
+-- In FILE mode, Amazon SageMaker copies the data from the input source
+-- onto the local Amazon Elastic Block Store (Amazon EBS) volumes before
+-- starting your training algorithm. This is the most commonly used input
+-- mode.
+--
+-- In PIPE mode, Amazon SageMaker streams input data from the source
+-- directly to your algorithm without using the EBS volume.
+channelSpecification_supportedInputModes :: Lens.Lens' ChannelSpecification (Prelude.NonEmpty TrainingInputMode)
+channelSpecification_supportedInputModes = Lens.lens (\ChannelSpecification' {supportedInputModes} -> supportedInputModes) (\s@ChannelSpecification' {} a -> s {supportedInputModes = a} :: ChannelSpecification) Prelude.. Prelude._List1
 
-instance FromJSON ChannelSpecification where
+instance Prelude.FromJSON ChannelSpecification where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ChannelSpecification"
       ( \x ->
           ChannelSpecification'
-            <$> (x .:? "Description")
-            <*> (x .:? "IsRequired")
-            <*> (x .:? "SupportedCompressionTypes" .!= mempty)
-            <*> (x .: "Name")
-            <*> (x .:? "SupportedContentTypes" .!= mempty)
-            <*> (x .: "SupportedInputModes")
+            Prelude.<$> (x Prelude..:? "Description")
+            Prelude.<*> (x Prelude..:? "IsRequired")
+            Prelude.<*> ( x Prelude..:? "SupportedCompressionTypes"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..: "Name")
+            Prelude.<*> ( x Prelude..:? "SupportedContentTypes"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..: "SupportedInputModes")
       )
 
-instance Hashable ChannelSpecification
+instance Prelude.Hashable ChannelSpecification
 
-instance NFData ChannelSpecification
+instance Prelude.NFData ChannelSpecification
 
-instance ToJSON ChannelSpecification where
+instance Prelude.ToJSON ChannelSpecification where
   toJSON ChannelSpecification' {..} =
-    object
-      ( catMaybes
-          [ ("Description" .=) <$> _csDescription,
-            ("IsRequired" .=) <$> _csIsRequired,
-            ("SupportedCompressionTypes" .=)
-              <$> _csSupportedCompressionTypes,
-            Just ("Name" .= _csName),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Description" Prelude..=) Prelude.<$> description,
+            ("IsRequired" Prelude..=) Prelude.<$> isRequired,
+            ("SupportedCompressionTypes" Prelude..=)
+              Prelude.<$> supportedCompressionTypes,
+            Prelude.Just ("Name" Prelude..= name),
+            Prelude.Just
               ( "SupportedContentTypes"
-                  .= _csSupportedContentTypes
+                  Prelude..= supportedContentTypes
               ),
-            Just
-              ("SupportedInputModes" .= _csSupportedInputModes)
+            Prelude.Just
+              ( "SupportedInputModes"
+                  Prelude..= supportedInputModes
+              )
           ]
       )

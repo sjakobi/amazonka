@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,109 +24,111 @@
 -- Deletes an AppImageConfig.
 module Network.AWS.SageMaker.DeleteAppImageConfig
   ( -- * Creating a Request
-    deleteAppImageConfig,
-    DeleteAppImageConfig,
+    DeleteAppImageConfig (..),
+    newDeleteAppImageConfig,
 
     -- * Request Lenses
-    dAppImageConfigName,
+    deleteAppImageConfig_appImageConfigName,
 
     -- * Destructuring the Response
-    deleteAppImageConfigResponse,
-    DeleteAppImageConfigResponse,
+    DeleteAppImageConfigResponse (..),
+    newDeleteAppImageConfigResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'deleteAppImageConfig' smart constructor.
-newtype DeleteAppImageConfig = DeleteAppImageConfig'
-  { _dAppImageConfigName ::
-      Text
+-- | /See:/ 'newDeleteAppImageConfig' smart constructor.
+data DeleteAppImageConfig = DeleteAppImageConfig'
+  { -- | The name of the AppImageConfig to delete.
+    appImageConfigName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteAppImageConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteAppImageConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dAppImageConfigName' - The name of the AppImageConfig to delete.
-deleteAppImageConfig ::
-  -- | 'dAppImageConfigName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'appImageConfigName', 'deleteAppImageConfig_appImageConfigName' - The name of the AppImageConfig to delete.
+newDeleteAppImageConfig ::
+  -- | 'appImageConfigName'
+  Prelude.Text ->
   DeleteAppImageConfig
-deleteAppImageConfig pAppImageConfigName_ =
+newDeleteAppImageConfig pAppImageConfigName_ =
   DeleteAppImageConfig'
-    { _dAppImageConfigName =
+    { appImageConfigName =
         pAppImageConfigName_
     }
 
 -- | The name of the AppImageConfig to delete.
-dAppImageConfigName :: Lens' DeleteAppImageConfig Text
-dAppImageConfigName = lens _dAppImageConfigName (\s a -> s {_dAppImageConfigName = a})
+deleteAppImageConfig_appImageConfigName :: Lens.Lens' DeleteAppImageConfig Prelude.Text
+deleteAppImageConfig_appImageConfigName = Lens.lens (\DeleteAppImageConfig' {appImageConfigName} -> appImageConfigName) (\s@DeleteAppImageConfig' {} a -> s {appImageConfigName = a} :: DeleteAppImageConfig)
 
-instance AWSRequest DeleteAppImageConfig where
+instance Prelude.AWSRequest DeleteAppImageConfig where
   type
     Rs DeleteAppImageConfig =
       DeleteAppImageConfigResponse
-  request = postJSON sageMaker
-  response = receiveNull DeleteAppImageConfigResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull DeleteAppImageConfigResponse'
 
-instance Hashable DeleteAppImageConfig
+instance Prelude.Hashable DeleteAppImageConfig
 
-instance NFData DeleteAppImageConfig
+instance Prelude.NFData DeleteAppImageConfig
 
-instance ToHeaders DeleteAppImageConfig where
+instance Prelude.ToHeaders DeleteAppImageConfig where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.DeleteAppImageConfig" :: ByteString),
+              Prelude.=# ( "SageMaker.DeleteAppImageConfig" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteAppImageConfig where
+instance Prelude.ToJSON DeleteAppImageConfig where
   toJSON DeleteAppImageConfig' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("AppImageConfigName" .= _dAppImageConfigName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ( "AppImageConfigName"
+                  Prelude..= appImageConfigName
+              )
           ]
       )
 
-instance ToPath DeleteAppImageConfig where
-  toPath = const "/"
+instance Prelude.ToPath DeleteAppImageConfig where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteAppImageConfig where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteAppImageConfig where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteAppImageConfigResponse' smart constructor.
+-- | /See:/ 'newDeleteAppImageConfigResponse' smart constructor.
 data DeleteAppImageConfigResponse = DeleteAppImageConfigResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteAppImageConfigResponse' with the minimum fields required to make a request.
-deleteAppImageConfigResponse ::
+-- |
+-- Create a value of 'DeleteAppImageConfigResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteAppImageConfigResponse ::
   DeleteAppImageConfigResponse
-deleteAppImageConfigResponse =
+newDeleteAppImageConfigResponse =
   DeleteAppImageConfigResponse'
 
-instance NFData DeleteAppImageConfigResponse
+instance Prelude.NFData DeleteAppImageConfigResponse

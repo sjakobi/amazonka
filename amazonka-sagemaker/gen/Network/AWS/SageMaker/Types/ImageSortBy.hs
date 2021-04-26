@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.SageMaker.Types.ImageSortBy
   ( ImageSortBy
       ( ..,
-        ISBCreationTime,
-        ISBImageName,
-        ISBLastModifiedTime
+        ImageSortByCREATIONTIME,
+        ImageSortByIMAGENAME,
+        ImageSortByLASTMODIFIEDTIME
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ImageSortBy = ImageSortBy' (CI Text)
+newtype ImageSortBy = ImageSortBy'
+  { fromImageSortBy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ISBCreationTime :: ImageSortBy
-pattern ISBCreationTime = ImageSortBy' "CREATION_TIME"
+pattern ImageSortByCREATIONTIME :: ImageSortBy
+pattern ImageSortByCREATIONTIME = ImageSortBy' "CREATION_TIME"
 
-pattern ISBImageName :: ImageSortBy
-pattern ISBImageName = ImageSortBy' "IMAGE_NAME"
+pattern ImageSortByIMAGENAME :: ImageSortBy
+pattern ImageSortByIMAGENAME = ImageSortBy' "IMAGE_NAME"
 
-pattern ISBLastModifiedTime :: ImageSortBy
-pattern ISBLastModifiedTime = ImageSortBy' "LAST_MODIFIED_TIME"
+pattern ImageSortByLASTMODIFIEDTIME :: ImageSortBy
+pattern ImageSortByLASTMODIFIEDTIME = ImageSortBy' "LAST_MODIFIED_TIME"
 
 {-# COMPLETE
-  ISBCreationTime,
-  ISBImageName,
-  ISBLastModifiedTime,
+  ImageSortByCREATIONTIME,
+  ImageSortByIMAGENAME,
+  ImageSortByLASTMODIFIEDTIME,
   ImageSortBy'
   #-}
 
-instance FromText ImageSortBy where
-  parser = (ImageSortBy' . mk) <$> takeText
+instance Prelude.FromText ImageSortBy where
+  parser = ImageSortBy' Prelude.<$> Prelude.takeText
 
-instance ToText ImageSortBy where
-  toText (ImageSortBy' ci) = original ci
+instance Prelude.ToText ImageSortBy where
+  toText (ImageSortBy' x) = x
 
-instance Hashable ImageSortBy
+instance Prelude.Hashable ImageSortBy
 
-instance NFData ImageSortBy
+instance Prelude.NFData ImageSortBy
 
-instance ToByteString ImageSortBy
+instance Prelude.ToByteString ImageSortBy
 
-instance ToQuery ImageSortBy
+instance Prelude.ToQuery ImageSortBy
 
-instance ToHeader ImageSortBy
+instance Prelude.ToHeader ImageSortBy
 
-instance ToJSON ImageSortBy where
-  toJSON = toJSONText
+instance Prelude.ToJSON ImageSortBy where
+  toJSON = Prelude.toJSONText

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.SageMaker.Types.TrainingJobEarlyStoppingType
   ( TrainingJobEarlyStoppingType
       ( ..,
-        TJESTAuto,
-        TJESTOff
+        TrainingJobEarlyStoppingTypeAuto,
+        TrainingJobEarlyStoppingTypeOff
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TrainingJobEarlyStoppingType
-  = TrainingJobEarlyStoppingType'
-      ( CI
-          Text
-      )
+newtype TrainingJobEarlyStoppingType = TrainingJobEarlyStoppingType'
+  { fromTrainingJobEarlyStoppingType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TJESTAuto :: TrainingJobEarlyStoppingType
-pattern TJESTAuto = TrainingJobEarlyStoppingType' "Auto"
+pattern TrainingJobEarlyStoppingTypeAuto :: TrainingJobEarlyStoppingType
+pattern TrainingJobEarlyStoppingTypeAuto = TrainingJobEarlyStoppingType' "Auto"
 
-pattern TJESTOff :: TrainingJobEarlyStoppingType
-pattern TJESTOff = TrainingJobEarlyStoppingType' "Off"
+pattern TrainingJobEarlyStoppingTypeOff :: TrainingJobEarlyStoppingType
+pattern TrainingJobEarlyStoppingTypeOff = TrainingJobEarlyStoppingType' "Off"
 
 {-# COMPLETE
-  TJESTAuto,
-  TJESTOff,
+  TrainingJobEarlyStoppingTypeAuto,
+  TrainingJobEarlyStoppingTypeOff,
   TrainingJobEarlyStoppingType'
   #-}
 
-instance FromText TrainingJobEarlyStoppingType where
-  parser = (TrainingJobEarlyStoppingType' . mk) <$> takeText
+instance Prelude.FromText TrainingJobEarlyStoppingType where
+  parser = TrainingJobEarlyStoppingType' Prelude.<$> Prelude.takeText
 
-instance ToText TrainingJobEarlyStoppingType where
-  toText (TrainingJobEarlyStoppingType' ci) = original ci
+instance Prelude.ToText TrainingJobEarlyStoppingType where
+  toText (TrainingJobEarlyStoppingType' x) = x
 
-instance Hashable TrainingJobEarlyStoppingType
+instance Prelude.Hashable TrainingJobEarlyStoppingType
 
-instance NFData TrainingJobEarlyStoppingType
+instance Prelude.NFData TrainingJobEarlyStoppingType
 
-instance ToByteString TrainingJobEarlyStoppingType
+instance Prelude.ToByteString TrainingJobEarlyStoppingType
 
-instance ToQuery TrainingJobEarlyStoppingType
+instance Prelude.ToQuery TrainingJobEarlyStoppingType
 
-instance ToHeader TrainingJobEarlyStoppingType
+instance Prelude.ToHeader TrainingJobEarlyStoppingType
 
-instance ToJSON TrainingJobEarlyStoppingType where
-  toJSON = toJSONText
+instance Prelude.ToJSON TrainingJobEarlyStoppingType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON TrainingJobEarlyStoppingType where
-  parseJSON = parseJSONText "TrainingJobEarlyStoppingType"
+instance Prelude.FromJSON TrainingJobEarlyStoppingType where
+  parseJSON = Prelude.parseJSONText "TrainingJobEarlyStoppingType"

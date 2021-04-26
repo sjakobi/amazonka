@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,76 +19,74 @@
 module Network.AWS.SageMaker.Types.RedshiftResultCompressionType
   ( RedshiftResultCompressionType
       ( ..,
-        RRCTBZIP2,
-        RRCTGzip,
-        RRCTNone,
-        RRCTSnappy,
-        RRCTZstd
+        RedshiftResultCompressionTypeBZIP2,
+        RedshiftResultCompressionTypeGZIP,
+        RedshiftResultCompressionTypeNone,
+        RedshiftResultCompressionTypeSNAPPY,
+        RedshiftResultCompressionTypeZSTD
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The compression used for Redshift query results.
-data RedshiftResultCompressionType
-  = RedshiftResultCompressionType'
-      ( CI
-          Text
-      )
+newtype RedshiftResultCompressionType = RedshiftResultCompressionType'
+  { fromRedshiftResultCompressionType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern RRCTBZIP2 :: RedshiftResultCompressionType
-pattern RRCTBZIP2 = RedshiftResultCompressionType' "BZIP2"
+pattern RedshiftResultCompressionTypeBZIP2 :: RedshiftResultCompressionType
+pattern RedshiftResultCompressionTypeBZIP2 = RedshiftResultCompressionType' "BZIP2"
 
-pattern RRCTGzip :: RedshiftResultCompressionType
-pattern RRCTGzip = RedshiftResultCompressionType' "GZIP"
+pattern RedshiftResultCompressionTypeGZIP :: RedshiftResultCompressionType
+pattern RedshiftResultCompressionTypeGZIP = RedshiftResultCompressionType' "GZIP"
 
-pattern RRCTNone :: RedshiftResultCompressionType
-pattern RRCTNone = RedshiftResultCompressionType' "None"
+pattern RedshiftResultCompressionTypeNone :: RedshiftResultCompressionType
+pattern RedshiftResultCompressionTypeNone = RedshiftResultCompressionType' "None"
 
-pattern RRCTSnappy :: RedshiftResultCompressionType
-pattern RRCTSnappy = RedshiftResultCompressionType' "SNAPPY"
+pattern RedshiftResultCompressionTypeSNAPPY :: RedshiftResultCompressionType
+pattern RedshiftResultCompressionTypeSNAPPY = RedshiftResultCompressionType' "SNAPPY"
 
-pattern RRCTZstd :: RedshiftResultCompressionType
-pattern RRCTZstd = RedshiftResultCompressionType' "ZSTD"
+pattern RedshiftResultCompressionTypeZSTD :: RedshiftResultCompressionType
+pattern RedshiftResultCompressionTypeZSTD = RedshiftResultCompressionType' "ZSTD"
 
 {-# COMPLETE
-  RRCTBZIP2,
-  RRCTGzip,
-  RRCTNone,
-  RRCTSnappy,
-  RRCTZstd,
+  RedshiftResultCompressionTypeBZIP2,
+  RedshiftResultCompressionTypeGZIP,
+  RedshiftResultCompressionTypeNone,
+  RedshiftResultCompressionTypeSNAPPY,
+  RedshiftResultCompressionTypeZSTD,
   RedshiftResultCompressionType'
   #-}
 
-instance FromText RedshiftResultCompressionType where
-  parser = (RedshiftResultCompressionType' . mk) <$> takeText
+instance Prelude.FromText RedshiftResultCompressionType where
+  parser = RedshiftResultCompressionType' Prelude.<$> Prelude.takeText
 
-instance ToText RedshiftResultCompressionType where
-  toText (RedshiftResultCompressionType' ci) = original ci
+instance Prelude.ToText RedshiftResultCompressionType where
+  toText (RedshiftResultCompressionType' x) = x
 
-instance Hashable RedshiftResultCompressionType
+instance Prelude.Hashable RedshiftResultCompressionType
 
-instance NFData RedshiftResultCompressionType
+instance Prelude.NFData RedshiftResultCompressionType
 
-instance ToByteString RedshiftResultCompressionType
+instance Prelude.ToByteString RedshiftResultCompressionType
 
-instance ToQuery RedshiftResultCompressionType
+instance Prelude.ToQuery RedshiftResultCompressionType
 
-instance ToHeader RedshiftResultCompressionType
+instance Prelude.ToHeader RedshiftResultCompressionType
 
-instance ToJSON RedshiftResultCompressionType where
-  toJSON = toJSONText
+instance Prelude.ToJSON RedshiftResultCompressionType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON RedshiftResultCompressionType where
-  parseJSON = parseJSONText "RedshiftResultCompressionType"
+instance Prelude.FromJSON RedshiftResultCompressionType where
+  parseJSON = Prelude.parseJSONText "RedshiftResultCompressionType"

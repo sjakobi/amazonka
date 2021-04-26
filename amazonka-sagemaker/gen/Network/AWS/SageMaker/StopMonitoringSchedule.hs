@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,112 +24,114 @@
 -- Stops a previously started monitoring schedule.
 module Network.AWS.SageMaker.StopMonitoringSchedule
   ( -- * Creating a Request
-    stopMonitoringSchedule,
-    StopMonitoringSchedule,
+    StopMonitoringSchedule (..),
+    newStopMonitoringSchedule,
 
     -- * Request Lenses
-    smsMonitoringScheduleName,
+    stopMonitoringSchedule_monitoringScheduleName,
 
     -- * Destructuring the Response
-    stopMonitoringScheduleResponse,
-    StopMonitoringScheduleResponse,
+    StopMonitoringScheduleResponse (..),
+    newStopMonitoringScheduleResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'stopMonitoringSchedule' smart constructor.
-newtype StopMonitoringSchedule = StopMonitoringSchedule'
-  { _smsMonitoringScheduleName ::
-      Text
+-- | /See:/ 'newStopMonitoringSchedule' smart constructor.
+data StopMonitoringSchedule = StopMonitoringSchedule'
+  { -- | The name of the schedule to stop.
+    monitoringScheduleName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopMonitoringSchedule' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopMonitoringSchedule' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'smsMonitoringScheduleName' - The name of the schedule to stop.
-stopMonitoringSchedule ::
-  -- | 'smsMonitoringScheduleName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'monitoringScheduleName', 'stopMonitoringSchedule_monitoringScheduleName' - The name of the schedule to stop.
+newStopMonitoringSchedule ::
+  -- | 'monitoringScheduleName'
+  Prelude.Text ->
   StopMonitoringSchedule
-stopMonitoringSchedule pMonitoringScheduleName_ =
+newStopMonitoringSchedule pMonitoringScheduleName_ =
   StopMonitoringSchedule'
-    { _smsMonitoringScheduleName =
+    { monitoringScheduleName =
         pMonitoringScheduleName_
     }
 
 -- | The name of the schedule to stop.
-smsMonitoringScheduleName :: Lens' StopMonitoringSchedule Text
-smsMonitoringScheduleName = lens _smsMonitoringScheduleName (\s a -> s {_smsMonitoringScheduleName = a})
+stopMonitoringSchedule_monitoringScheduleName :: Lens.Lens' StopMonitoringSchedule Prelude.Text
+stopMonitoringSchedule_monitoringScheduleName = Lens.lens (\StopMonitoringSchedule' {monitoringScheduleName} -> monitoringScheduleName) (\s@StopMonitoringSchedule' {} a -> s {monitoringScheduleName = a} :: StopMonitoringSchedule)
 
-instance AWSRequest StopMonitoringSchedule where
+instance Prelude.AWSRequest StopMonitoringSchedule where
   type
     Rs StopMonitoringSchedule =
       StopMonitoringScheduleResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveNull StopMonitoringScheduleResponse'
+    Response.receiveNull
+      StopMonitoringScheduleResponse'
 
-instance Hashable StopMonitoringSchedule
+instance Prelude.Hashable StopMonitoringSchedule
 
-instance NFData StopMonitoringSchedule
+instance Prelude.NFData StopMonitoringSchedule
 
-instance ToHeaders StopMonitoringSchedule where
+instance Prelude.ToHeaders StopMonitoringSchedule where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.StopMonitoringSchedule" :: ByteString),
+              Prelude.=# ( "SageMaker.StopMonitoringSchedule" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StopMonitoringSchedule where
+instance Prelude.ToJSON StopMonitoringSchedule where
   toJSON StopMonitoringSchedule' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "MonitoringScheduleName"
-                  .= _smsMonitoringScheduleName
+                  Prelude..= monitoringScheduleName
               )
           ]
       )
 
-instance ToPath StopMonitoringSchedule where
-  toPath = const "/"
+instance Prelude.ToPath StopMonitoringSchedule where
+  toPath = Prelude.const "/"
 
-instance ToQuery StopMonitoringSchedule where
-  toQuery = const mempty
+instance Prelude.ToQuery StopMonitoringSchedule where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'stopMonitoringScheduleResponse' smart constructor.
+-- | /See:/ 'newStopMonitoringScheduleResponse' smart constructor.
 data StopMonitoringScheduleResponse = StopMonitoringScheduleResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopMonitoringScheduleResponse' with the minimum fields required to make a request.
-stopMonitoringScheduleResponse ::
+-- |
+-- Create a value of 'StopMonitoringScheduleResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newStopMonitoringScheduleResponse ::
   StopMonitoringScheduleResponse
-stopMonitoringScheduleResponse =
+newStopMonitoringScheduleResponse =
   StopMonitoringScheduleResponse'
 
-instance NFData StopMonitoringScheduleResponse
+instance
+  Prelude.NFData
+    StopMonitoringScheduleResponse

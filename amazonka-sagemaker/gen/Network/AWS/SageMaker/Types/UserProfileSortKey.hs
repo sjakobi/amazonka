@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.SageMaker.Types.UserProfileSortKey
   ( UserProfileSortKey
       ( ..,
-        UPSKCreationTime,
-        UPSKLastModifiedTime
+        UserProfileSortKeyCreationTime,
+        UserProfileSortKeyLastModifiedTime
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data UserProfileSortKey
-  = UserProfileSortKey'
-      ( CI
-          Text
-      )
+newtype UserProfileSortKey = UserProfileSortKey'
+  { fromUserProfileSortKey ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern UPSKCreationTime :: UserProfileSortKey
-pattern UPSKCreationTime = UserProfileSortKey' "CreationTime"
+pattern UserProfileSortKeyCreationTime :: UserProfileSortKey
+pattern UserProfileSortKeyCreationTime = UserProfileSortKey' "CreationTime"
 
-pattern UPSKLastModifiedTime :: UserProfileSortKey
-pattern UPSKLastModifiedTime = UserProfileSortKey' "LastModifiedTime"
+pattern UserProfileSortKeyLastModifiedTime :: UserProfileSortKey
+pattern UserProfileSortKeyLastModifiedTime = UserProfileSortKey' "LastModifiedTime"
 
 {-# COMPLETE
-  UPSKCreationTime,
-  UPSKLastModifiedTime,
+  UserProfileSortKeyCreationTime,
+  UserProfileSortKeyLastModifiedTime,
   UserProfileSortKey'
   #-}
 
-instance FromText UserProfileSortKey where
-  parser = (UserProfileSortKey' . mk) <$> takeText
+instance Prelude.FromText UserProfileSortKey where
+  parser = UserProfileSortKey' Prelude.<$> Prelude.takeText
 
-instance ToText UserProfileSortKey where
-  toText (UserProfileSortKey' ci) = original ci
+instance Prelude.ToText UserProfileSortKey where
+  toText (UserProfileSortKey' x) = x
 
-instance Hashable UserProfileSortKey
+instance Prelude.Hashable UserProfileSortKey
 
-instance NFData UserProfileSortKey
+instance Prelude.NFData UserProfileSortKey
 
-instance ToByteString UserProfileSortKey
+instance Prelude.ToByteString UserProfileSortKey
 
-instance ToQuery UserProfileSortKey
+instance Prelude.ToQuery UserProfileSortKey
 
-instance ToHeader UserProfileSortKey
+instance Prelude.ToHeader UserProfileSortKey
 
-instance ToJSON UserProfileSortKey where
-  toJSON = toJSONText
+instance Prelude.ToJSON UserProfileSortKey where
+  toJSON = Prelude.toJSONText

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.SageMaker.Types.AutoMLSortBy
   ( AutoMLSortBy
       ( ..,
-        CreationTime,
-        Name,
-        Status
+        AutoMLSortByCreationTime,
+        AutoMLSortByName,
+        AutoMLSortByStatus'
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AutoMLSortBy = AutoMLSortBy' (CI Text)
+newtype AutoMLSortBy = AutoMLSortBy'
+  { fromAutoMLSortBy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CreationTime :: AutoMLSortBy
-pattern CreationTime = AutoMLSortBy' "CreationTime"
+pattern AutoMLSortByCreationTime :: AutoMLSortBy
+pattern AutoMLSortByCreationTime = AutoMLSortBy' "CreationTime"
 
-pattern Name :: AutoMLSortBy
-pattern Name = AutoMLSortBy' "Name"
+pattern AutoMLSortByName :: AutoMLSortBy
+pattern AutoMLSortByName = AutoMLSortBy' "Name"
 
-pattern Status :: AutoMLSortBy
-pattern Status = AutoMLSortBy' "Status"
+pattern AutoMLSortByStatus' :: AutoMLSortBy
+pattern AutoMLSortByStatus' = AutoMLSortBy' "Status"
 
 {-# COMPLETE
-  CreationTime,
-  Name,
-  Status,
+  AutoMLSortByCreationTime,
+  AutoMLSortByName,
+  AutoMLSortByStatus',
   AutoMLSortBy'
   #-}
 
-instance FromText AutoMLSortBy where
-  parser = (AutoMLSortBy' . mk) <$> takeText
+instance Prelude.FromText AutoMLSortBy where
+  parser = AutoMLSortBy' Prelude.<$> Prelude.takeText
 
-instance ToText AutoMLSortBy where
-  toText (AutoMLSortBy' ci) = original ci
+instance Prelude.ToText AutoMLSortBy where
+  toText (AutoMLSortBy' x) = x
 
-instance Hashable AutoMLSortBy
+instance Prelude.Hashable AutoMLSortBy
 
-instance NFData AutoMLSortBy
+instance Prelude.NFData AutoMLSortBy
 
-instance ToByteString AutoMLSortBy
+instance Prelude.ToByteString AutoMLSortBy
 
-instance ToQuery AutoMLSortBy
+instance Prelude.ToQuery AutoMLSortBy
 
-instance ToHeader AutoMLSortBy
+instance Prelude.ToHeader AutoMLSortBy
 
-instance ToJSON AutoMLSortBy where
-  toJSON = toJSONText
+instance Prelude.ToJSON AutoMLSortBy where
+  toJSON = Prelude.toJSONText

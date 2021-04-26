@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,123 +19,139 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.Image where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.ImageStatus
 
--- | A SageMaker image. A SageMaker image represents a set of container images that are derived from a common base container image. Each of these container images is represented by a SageMaker @ImageVersion@ .
+-- | A SageMaker image. A SageMaker image represents a set of container
+-- images that are derived from a common base container image. Each of
+-- these container images is represented by a SageMaker @ImageVersion@.
 --
---
---
--- /See:/ 'image' smart constructor.
+-- /See:/ 'newImage' smart constructor.
 data Image = Image'
-  { _iFailureReason :: !(Maybe Text),
-    _iDescription :: !(Maybe Text),
-    _iDisplayName :: !(Maybe Text),
-    _iCreationTime :: !POSIX,
-    _iImageARN :: !Text,
-    _iImageName :: !Text,
-    _iImageStatus :: !ImageStatus,
-    _iLastModifiedTime :: !POSIX
+  { -- | When a create, update, or delete operation fails, the reason for the
+    -- failure.
+    failureReason :: Prelude.Maybe Prelude.Text,
+    -- | The description of the image.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The name of the image as displayed.
+    displayName :: Prelude.Maybe Prelude.Text,
+    -- | When the image was created.
+    creationTime :: Prelude.POSIX,
+    -- | The Amazon Resource Name (ARN) of the image.
+    imageArn :: Prelude.Text,
+    -- | The name of the image.
+    imageName :: Prelude.Text,
+    -- | The status of the image.
+    imageStatus :: ImageStatus,
+    -- | When the image was last modified.
+    lastModifiedTime :: Prelude.POSIX
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Image' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Image' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'iFailureReason' - When a create, update, or delete operation fails, the reason for the failure.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'iDescription' - The description of the image.
+-- 'failureReason', 'image_failureReason' - When a create, update, or delete operation fails, the reason for the
+-- failure.
 --
--- * 'iDisplayName' - The name of the image as displayed.
+-- 'description', 'image_description' - The description of the image.
 --
--- * 'iCreationTime' - When the image was created.
+-- 'displayName', 'image_displayName' - The name of the image as displayed.
 --
--- * 'iImageARN' - The Amazon Resource Name (ARN) of the image.
+-- 'creationTime', 'image_creationTime' - When the image was created.
 --
--- * 'iImageName' - The name of the image.
+-- 'imageArn', 'image_imageArn' - The Amazon Resource Name (ARN) of the image.
 --
--- * 'iImageStatus' - The status of the image.
+-- 'imageName', 'image_imageName' - The name of the image.
 --
--- * 'iLastModifiedTime' - When the image was last modified.
-image ::
-  -- | 'iCreationTime'
-  UTCTime ->
-  -- | 'iImageARN'
-  Text ->
-  -- | 'iImageName'
-  Text ->
-  -- | 'iImageStatus'
+-- 'imageStatus', 'image_imageStatus' - The status of the image.
+--
+-- 'lastModifiedTime', 'image_lastModifiedTime' - When the image was last modified.
+newImage ::
+  -- | 'creationTime'
+  Prelude.UTCTime ->
+  -- | 'imageArn'
+  Prelude.Text ->
+  -- | 'imageName'
+  Prelude.Text ->
+  -- | 'imageStatus'
   ImageStatus ->
-  -- | 'iLastModifiedTime'
-  UTCTime ->
+  -- | 'lastModifiedTime'
+  Prelude.UTCTime ->
   Image
-image
+newImage
   pCreationTime_
-  pImageARN_
+  pImageArn_
   pImageName_
   pImageStatus_
   pLastModifiedTime_ =
     Image'
-      { _iFailureReason = Nothing,
-        _iDescription = Nothing,
-        _iDisplayName = Nothing,
-        _iCreationTime = _Time # pCreationTime_,
-        _iImageARN = pImageARN_,
-        _iImageName = pImageName_,
-        _iImageStatus = pImageStatus_,
-        _iLastModifiedTime = _Time # pLastModifiedTime_
+      { failureReason = Prelude.Nothing,
+        description = Prelude.Nothing,
+        displayName = Prelude.Nothing,
+        creationTime = Prelude._Time Lens.# pCreationTime_,
+        imageArn = pImageArn_,
+        imageName = pImageName_,
+        imageStatus = pImageStatus_,
+        lastModifiedTime =
+          Prelude._Time Lens.# pLastModifiedTime_
       }
 
--- | When a create, update, or delete operation fails, the reason for the failure.
-iFailureReason :: Lens' Image (Maybe Text)
-iFailureReason = lens _iFailureReason (\s a -> s {_iFailureReason = a})
+-- | When a create, update, or delete operation fails, the reason for the
+-- failure.
+image_failureReason :: Lens.Lens' Image (Prelude.Maybe Prelude.Text)
+image_failureReason = Lens.lens (\Image' {failureReason} -> failureReason) (\s@Image' {} a -> s {failureReason = a} :: Image)
 
 -- | The description of the image.
-iDescription :: Lens' Image (Maybe Text)
-iDescription = lens _iDescription (\s a -> s {_iDescription = a})
+image_description :: Lens.Lens' Image (Prelude.Maybe Prelude.Text)
+image_description = Lens.lens (\Image' {description} -> description) (\s@Image' {} a -> s {description = a} :: Image)
 
 -- | The name of the image as displayed.
-iDisplayName :: Lens' Image (Maybe Text)
-iDisplayName = lens _iDisplayName (\s a -> s {_iDisplayName = a})
+image_displayName :: Lens.Lens' Image (Prelude.Maybe Prelude.Text)
+image_displayName = Lens.lens (\Image' {displayName} -> displayName) (\s@Image' {} a -> s {displayName = a} :: Image)
 
 -- | When the image was created.
-iCreationTime :: Lens' Image UTCTime
-iCreationTime = lens _iCreationTime (\s a -> s {_iCreationTime = a}) . _Time
+image_creationTime :: Lens.Lens' Image Prelude.UTCTime
+image_creationTime = Lens.lens (\Image' {creationTime} -> creationTime) (\s@Image' {} a -> s {creationTime = a} :: Image) Prelude.. Prelude._Time
 
 -- | The Amazon Resource Name (ARN) of the image.
-iImageARN :: Lens' Image Text
-iImageARN = lens _iImageARN (\s a -> s {_iImageARN = a})
+image_imageArn :: Lens.Lens' Image Prelude.Text
+image_imageArn = Lens.lens (\Image' {imageArn} -> imageArn) (\s@Image' {} a -> s {imageArn = a} :: Image)
 
 -- | The name of the image.
-iImageName :: Lens' Image Text
-iImageName = lens _iImageName (\s a -> s {_iImageName = a})
+image_imageName :: Lens.Lens' Image Prelude.Text
+image_imageName = Lens.lens (\Image' {imageName} -> imageName) (\s@Image' {} a -> s {imageName = a} :: Image)
 
 -- | The status of the image.
-iImageStatus :: Lens' Image ImageStatus
-iImageStatus = lens _iImageStatus (\s a -> s {_iImageStatus = a})
+image_imageStatus :: Lens.Lens' Image ImageStatus
+image_imageStatus = Lens.lens (\Image' {imageStatus} -> imageStatus) (\s@Image' {} a -> s {imageStatus = a} :: Image)
 
 -- | When the image was last modified.
-iLastModifiedTime :: Lens' Image UTCTime
-iLastModifiedTime = lens _iLastModifiedTime (\s a -> s {_iLastModifiedTime = a}) . _Time
+image_lastModifiedTime :: Lens.Lens' Image Prelude.UTCTime
+image_lastModifiedTime = Lens.lens (\Image' {lastModifiedTime} -> lastModifiedTime) (\s@Image' {} a -> s {lastModifiedTime = a} :: Image) Prelude.. Prelude._Time
 
-instance FromJSON Image where
+instance Prelude.FromJSON Image where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Image"
       ( \x ->
           Image'
-            <$> (x .:? "FailureReason")
-            <*> (x .:? "Description")
-            <*> (x .:? "DisplayName")
-            <*> (x .: "CreationTime")
-            <*> (x .: "ImageArn")
-            <*> (x .: "ImageName")
-            <*> (x .: "ImageStatus")
-            <*> (x .: "LastModifiedTime")
+            Prelude.<$> (x Prelude..:? "FailureReason")
+            Prelude.<*> (x Prelude..:? "Description")
+            Prelude.<*> (x Prelude..:? "DisplayName")
+            Prelude.<*> (x Prelude..: "CreationTime")
+            Prelude.<*> (x Prelude..: "ImageArn")
+            Prelude.<*> (x Prelude..: "ImageName")
+            Prelude.<*> (x Prelude..: "ImageStatus")
+            Prelude.<*> (x Prelude..: "LastModifiedTime")
       )
 
-instance Hashable Image
+instance Prelude.Hashable Image
 
-instance NFData Image
+instance Prelude.NFData Image

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,129 +24,145 @@
 -- Used to stop and delete an app.
 module Network.AWS.SageMaker.DeleteApp
   ( -- * Creating a Request
-    deleteApp,
-    DeleteApp,
+    DeleteApp (..),
+    newDeleteApp,
 
     -- * Request Lenses
-    daaDomainId,
-    daaUserProfileName,
-    daaAppType,
-    daaAppName,
+    deleteApp_domainId,
+    deleteApp_userProfileName,
+    deleteApp_appType,
+    deleteApp_appName,
 
     -- * Destructuring the Response
-    deleteAppResponse,
-    DeleteAppResponse,
+    DeleteAppResponse (..),
+    newDeleteAppResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'deleteApp' smart constructor.
+-- | /See:/ 'newDeleteApp' smart constructor.
 data DeleteApp = DeleteApp'
-  { _daaDomainId :: !Text,
-    _daaUserProfileName :: !Text,
-    _daaAppType :: !AppType,
-    _daaAppName :: !Text
+  { -- | The domain ID.
+    domainId :: Prelude.Text,
+    -- | The user profile name.
+    userProfileName :: Prelude.Text,
+    -- | The type of app.
+    appType :: AppType,
+    -- | The name of the app.
+    appName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteApp' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteApp' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'daaDomainId' - The domain ID.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'daaUserProfileName' - The user profile name.
+-- 'domainId', 'deleteApp_domainId' - The domain ID.
 --
--- * 'daaAppType' - The type of app.
+-- 'userProfileName', 'deleteApp_userProfileName' - The user profile name.
 --
--- * 'daaAppName' - The name of the app.
-deleteApp ::
-  -- | 'daaDomainId'
-  Text ->
-  -- | 'daaUserProfileName'
-  Text ->
-  -- | 'daaAppType'
+-- 'appType', 'deleteApp_appType' - The type of app.
+--
+-- 'appName', 'deleteApp_appName' - The name of the app.
+newDeleteApp ::
+  -- | 'domainId'
+  Prelude.Text ->
+  -- | 'userProfileName'
+  Prelude.Text ->
+  -- | 'appType'
   AppType ->
-  -- | 'daaAppName'
-  Text ->
+  -- | 'appName'
+  Prelude.Text ->
   DeleteApp
-deleteApp
+newDeleteApp
   pDomainId_
   pUserProfileName_
   pAppType_
   pAppName_ =
     DeleteApp'
-      { _daaDomainId = pDomainId_,
-        _daaUserProfileName = pUserProfileName_,
-        _daaAppType = pAppType_,
-        _daaAppName = pAppName_
+      { domainId = pDomainId_,
+        userProfileName = pUserProfileName_,
+        appType = pAppType_,
+        appName = pAppName_
       }
 
 -- | The domain ID.
-daaDomainId :: Lens' DeleteApp Text
-daaDomainId = lens _daaDomainId (\s a -> s {_daaDomainId = a})
+deleteApp_domainId :: Lens.Lens' DeleteApp Prelude.Text
+deleteApp_domainId = Lens.lens (\DeleteApp' {domainId} -> domainId) (\s@DeleteApp' {} a -> s {domainId = a} :: DeleteApp)
 
 -- | The user profile name.
-daaUserProfileName :: Lens' DeleteApp Text
-daaUserProfileName = lens _daaUserProfileName (\s a -> s {_daaUserProfileName = a})
+deleteApp_userProfileName :: Lens.Lens' DeleteApp Prelude.Text
+deleteApp_userProfileName = Lens.lens (\DeleteApp' {userProfileName} -> userProfileName) (\s@DeleteApp' {} a -> s {userProfileName = a} :: DeleteApp)
 
 -- | The type of app.
-daaAppType :: Lens' DeleteApp AppType
-daaAppType = lens _daaAppType (\s a -> s {_daaAppType = a})
+deleteApp_appType :: Lens.Lens' DeleteApp AppType
+deleteApp_appType = Lens.lens (\DeleteApp' {appType} -> appType) (\s@DeleteApp' {} a -> s {appType = a} :: DeleteApp)
 
 -- | The name of the app.
-daaAppName :: Lens' DeleteApp Text
-daaAppName = lens _daaAppName (\s a -> s {_daaAppName = a})
+deleteApp_appName :: Lens.Lens' DeleteApp Prelude.Text
+deleteApp_appName = Lens.lens (\DeleteApp' {appName} -> appName) (\s@DeleteApp' {} a -> s {appName = a} :: DeleteApp)
 
-instance AWSRequest DeleteApp where
+instance Prelude.AWSRequest DeleteApp where
   type Rs DeleteApp = DeleteAppResponse
-  request = postJSON sageMaker
-  response = receiveNull DeleteAppResponse'
+  request = Request.postJSON defaultService
+  response = Response.receiveNull DeleteAppResponse'
 
-instance Hashable DeleteApp
+instance Prelude.Hashable DeleteApp
 
-instance NFData DeleteApp
+instance Prelude.NFData DeleteApp
 
-instance ToHeaders DeleteApp where
+instance Prelude.ToHeaders DeleteApp where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.DeleteApp" :: ByteString),
+              Prelude.=# ("SageMaker.DeleteApp" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteApp where
+instance Prelude.ToJSON DeleteApp where
   toJSON DeleteApp' {..} =
-    object
-      ( catMaybes
-          [ Just ("DomainId" .= _daaDomainId),
-            Just ("UserProfileName" .= _daaUserProfileName),
-            Just ("AppType" .= _daaAppType),
-            Just ("AppName" .= _daaAppName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("DomainId" Prelude..= domainId),
+            Prelude.Just
+              ("UserProfileName" Prelude..= userProfileName),
+            Prelude.Just ("AppType" Prelude..= appType),
+            Prelude.Just ("AppName" Prelude..= appName)
           ]
       )
 
-instance ToPath DeleteApp where
-  toPath = const "/"
+instance Prelude.ToPath DeleteApp where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteApp where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteApp where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteAppResponse' smart constructor.
+-- | /See:/ 'newDeleteAppResponse' smart constructor.
 data DeleteAppResponse = DeleteAppResponse'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteAppResponse' with the minimum fields required to make a request.
-deleteAppResponse ::
+-- |
+-- Create a value of 'DeleteAppResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteAppResponse ::
   DeleteAppResponse
-deleteAppResponse = DeleteAppResponse'
+newDeleteAppResponse = DeleteAppResponse'
 
-instance NFData DeleteAppResponse
+instance Prelude.NFData DeleteAppResponse

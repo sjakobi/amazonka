@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,113 +21,121 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Delete the @FeatureGroup@ and any data that was written to the @OnlineStore@ of the @FeatureGroup@ . Data cannot be accessed from the @OnlineStore@ immediately after @DeleteFeatureGroup@ is called.
+-- Delete the @FeatureGroup@ and any data that was written to the
+-- @OnlineStore@ of the @FeatureGroup@. Data cannot be accessed from the
+-- @OnlineStore@ immediately after @DeleteFeatureGroup@ is called.
 --
---
--- Data written into the @OfflineStore@ will not be deleted. The AWS Glue database and tables that are automatically created for your @OfflineStore@ are not deleted.
+-- Data written into the @OfflineStore@ will not be deleted. The AWS Glue
+-- database and tables that are automatically created for your
+-- @OfflineStore@ are not deleted.
 module Network.AWS.SageMaker.DeleteFeatureGroup
   ( -- * Creating a Request
-    deleteFeatureGroup,
-    DeleteFeatureGroup,
+    DeleteFeatureGroup (..),
+    newDeleteFeatureGroup,
 
     -- * Request Lenses
-    dFeatureGroupName,
+    deleteFeatureGroup_featureGroupName,
 
     -- * Destructuring the Response
-    deleteFeatureGroupResponse,
-    DeleteFeatureGroupResponse,
+    DeleteFeatureGroupResponse (..),
+    newDeleteFeatureGroupResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'deleteFeatureGroup' smart constructor.
-newtype DeleteFeatureGroup = DeleteFeatureGroup'
-  { _dFeatureGroupName ::
-      Text
+-- | /See:/ 'newDeleteFeatureGroup' smart constructor.
+data DeleteFeatureGroup = DeleteFeatureGroup'
+  { -- | The name of the @FeatureGroup@ you want to delete. The name must be
+    -- unique within an AWS Region in an AWS account.
+    featureGroupName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteFeatureGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteFeatureGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dFeatureGroupName' - The name of the @FeatureGroup@ you want to delete. The name must be unique within an AWS Region in an AWS account.
-deleteFeatureGroup ::
-  -- | 'dFeatureGroupName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'featureGroupName', 'deleteFeatureGroup_featureGroupName' - The name of the @FeatureGroup@ you want to delete. The name must be
+-- unique within an AWS Region in an AWS account.
+newDeleteFeatureGroup ::
+  -- | 'featureGroupName'
+  Prelude.Text ->
   DeleteFeatureGroup
-deleteFeatureGroup pFeatureGroupName_ =
+newDeleteFeatureGroup pFeatureGroupName_ =
   DeleteFeatureGroup'
-    { _dFeatureGroupName =
+    { featureGroupName =
         pFeatureGroupName_
     }
 
--- | The name of the @FeatureGroup@ you want to delete. The name must be unique within an AWS Region in an AWS account.
-dFeatureGroupName :: Lens' DeleteFeatureGroup Text
-dFeatureGroupName = lens _dFeatureGroupName (\s a -> s {_dFeatureGroupName = a})
+-- | The name of the @FeatureGroup@ you want to delete. The name must be
+-- unique within an AWS Region in an AWS account.
+deleteFeatureGroup_featureGroupName :: Lens.Lens' DeleteFeatureGroup Prelude.Text
+deleteFeatureGroup_featureGroupName = Lens.lens (\DeleteFeatureGroup' {featureGroupName} -> featureGroupName) (\s@DeleteFeatureGroup' {} a -> s {featureGroupName = a} :: DeleteFeatureGroup)
 
-instance AWSRequest DeleteFeatureGroup where
+instance Prelude.AWSRequest DeleteFeatureGroup where
   type
     Rs DeleteFeatureGroup =
       DeleteFeatureGroupResponse
-  request = postJSON sageMaker
-  response = receiveNull DeleteFeatureGroupResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull DeleteFeatureGroupResponse'
 
-instance Hashable DeleteFeatureGroup
+instance Prelude.Hashable DeleteFeatureGroup
 
-instance NFData DeleteFeatureGroup
+instance Prelude.NFData DeleteFeatureGroup
 
-instance ToHeaders DeleteFeatureGroup where
+instance Prelude.ToHeaders DeleteFeatureGroup where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.DeleteFeatureGroup" :: ByteString),
+              Prelude.=# ( "SageMaker.DeleteFeatureGroup" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteFeatureGroup where
+instance Prelude.ToJSON DeleteFeatureGroup where
   toJSON DeleteFeatureGroup' {..} =
-    object
-      ( catMaybes
-          [Just ("FeatureGroupName" .= _dFeatureGroupName)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("FeatureGroupName" Prelude..= featureGroupName)
+          ]
       )
 
-instance ToPath DeleteFeatureGroup where
-  toPath = const "/"
+instance Prelude.ToPath DeleteFeatureGroup where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteFeatureGroup where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteFeatureGroup where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteFeatureGroupResponse' smart constructor.
+-- | /See:/ 'newDeleteFeatureGroupResponse' smart constructor.
 data DeleteFeatureGroupResponse = DeleteFeatureGroupResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteFeatureGroupResponse' with the minimum fields required to make a request.
-deleteFeatureGroupResponse ::
+-- |
+-- Create a value of 'DeleteFeatureGroupResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteFeatureGroupResponse ::
   DeleteFeatureGroupResponse
-deleteFeatureGroupResponse =
+newDeleteFeatureGroupResponse =
   DeleteFeatureGroupResponse'
 
-instance NFData DeleteFeatureGroupResponse
+instance Prelude.NFData DeleteFeatureGroupResponse

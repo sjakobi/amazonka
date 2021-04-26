@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,109 +19,103 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.ModelPackageGroupSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.ModelPackageGroupStatus
 
 -- | Summary information about a model group.
 --
---
---
--- /See:/ 'modelPackageGroupSummary' smart constructor.
+-- /See:/ 'newModelPackageGroupSummary' smart constructor.
 data ModelPackageGroupSummary = ModelPackageGroupSummary'
-  { _mpgsModelPackageGroupDescription ::
-      !(Maybe Text),
-    _mpgsModelPackageGroupName ::
-      !Text,
-    _mpgsModelPackageGroupARN ::
-      !Text,
-    _mpgsCreationTime ::
-      !POSIX,
-    _mpgsModelPackageGroupStatus ::
-      !ModelPackageGroupStatus
+  { -- | A description of the model group.
+    modelPackageGroupDescription :: Prelude.Maybe Prelude.Text,
+    -- | The name of the model group.
+    modelPackageGroupName :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the model group.
+    modelPackageGroupArn :: Prelude.Text,
+    -- | The time that the model group was created.
+    creationTime :: Prelude.POSIX,
+    -- | The status of the model group.
+    modelPackageGroupStatus :: ModelPackageGroupStatus
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModelPackageGroupSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModelPackageGroupSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mpgsModelPackageGroupDescription' - A description of the model group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mpgsModelPackageGroupName' - The name of the model group.
+-- 'modelPackageGroupDescription', 'modelPackageGroupSummary_modelPackageGroupDescription' - A description of the model group.
 --
--- * 'mpgsModelPackageGroupARN' - The Amazon Resource Name (ARN) of the model group.
+-- 'modelPackageGroupName', 'modelPackageGroupSummary_modelPackageGroupName' - The name of the model group.
 --
--- * 'mpgsCreationTime' - The time that the model group was created.
+-- 'modelPackageGroupArn', 'modelPackageGroupSummary_modelPackageGroupArn' - The Amazon Resource Name (ARN) of the model group.
 --
--- * 'mpgsModelPackageGroupStatus' - The status of the model group.
-modelPackageGroupSummary ::
-  -- | 'mpgsModelPackageGroupName'
-  Text ->
-  -- | 'mpgsModelPackageGroupARN'
-  Text ->
-  -- | 'mpgsCreationTime'
-  UTCTime ->
-  -- | 'mpgsModelPackageGroupStatus'
+-- 'creationTime', 'modelPackageGroupSummary_creationTime' - The time that the model group was created.
+--
+-- 'modelPackageGroupStatus', 'modelPackageGroupSummary_modelPackageGroupStatus' - The status of the model group.
+newModelPackageGroupSummary ::
+  -- | 'modelPackageGroupName'
+  Prelude.Text ->
+  -- | 'modelPackageGroupArn'
+  Prelude.Text ->
+  -- | 'creationTime'
+  Prelude.UTCTime ->
+  -- | 'modelPackageGroupStatus'
   ModelPackageGroupStatus ->
   ModelPackageGroupSummary
-modelPackageGroupSummary
+newModelPackageGroupSummary
   pModelPackageGroupName_
-  pModelPackageGroupARN_
+  pModelPackageGroupArn_
   pCreationTime_
   pModelPackageGroupStatus_ =
     ModelPackageGroupSummary'
-      { _mpgsModelPackageGroupDescription =
-          Nothing,
-        _mpgsModelPackageGroupName =
-          pModelPackageGroupName_,
-        _mpgsModelPackageGroupARN =
-          pModelPackageGroupARN_,
-        _mpgsCreationTime = _Time # pCreationTime_,
-        _mpgsModelPackageGroupStatus =
+      { modelPackageGroupDescription =
+          Prelude.Nothing,
+        modelPackageGroupName = pModelPackageGroupName_,
+        modelPackageGroupArn = pModelPackageGroupArn_,
+        creationTime =
+          Prelude._Time Lens.# pCreationTime_,
+        modelPackageGroupStatus =
           pModelPackageGroupStatus_
       }
 
 -- | A description of the model group.
-mpgsModelPackageGroupDescription :: Lens' ModelPackageGroupSummary (Maybe Text)
-mpgsModelPackageGroupDescription = lens _mpgsModelPackageGroupDescription (\s a -> s {_mpgsModelPackageGroupDescription = a})
+modelPackageGroupSummary_modelPackageGroupDescription :: Lens.Lens' ModelPackageGroupSummary (Prelude.Maybe Prelude.Text)
+modelPackageGroupSummary_modelPackageGroupDescription = Lens.lens (\ModelPackageGroupSummary' {modelPackageGroupDescription} -> modelPackageGroupDescription) (\s@ModelPackageGroupSummary' {} a -> s {modelPackageGroupDescription = a} :: ModelPackageGroupSummary)
 
 -- | The name of the model group.
-mpgsModelPackageGroupName :: Lens' ModelPackageGroupSummary Text
-mpgsModelPackageGroupName = lens _mpgsModelPackageGroupName (\s a -> s {_mpgsModelPackageGroupName = a})
+modelPackageGroupSummary_modelPackageGroupName :: Lens.Lens' ModelPackageGroupSummary Prelude.Text
+modelPackageGroupSummary_modelPackageGroupName = Lens.lens (\ModelPackageGroupSummary' {modelPackageGroupName} -> modelPackageGroupName) (\s@ModelPackageGroupSummary' {} a -> s {modelPackageGroupName = a} :: ModelPackageGroupSummary)
 
 -- | The Amazon Resource Name (ARN) of the model group.
-mpgsModelPackageGroupARN :: Lens' ModelPackageGroupSummary Text
-mpgsModelPackageGroupARN = lens _mpgsModelPackageGroupARN (\s a -> s {_mpgsModelPackageGroupARN = a})
+modelPackageGroupSummary_modelPackageGroupArn :: Lens.Lens' ModelPackageGroupSummary Prelude.Text
+modelPackageGroupSummary_modelPackageGroupArn = Lens.lens (\ModelPackageGroupSummary' {modelPackageGroupArn} -> modelPackageGroupArn) (\s@ModelPackageGroupSummary' {} a -> s {modelPackageGroupArn = a} :: ModelPackageGroupSummary)
 
 -- | The time that the model group was created.
-mpgsCreationTime :: Lens' ModelPackageGroupSummary UTCTime
-mpgsCreationTime = lens _mpgsCreationTime (\s a -> s {_mpgsCreationTime = a}) . _Time
+modelPackageGroupSummary_creationTime :: Lens.Lens' ModelPackageGroupSummary Prelude.UTCTime
+modelPackageGroupSummary_creationTime = Lens.lens (\ModelPackageGroupSummary' {creationTime} -> creationTime) (\s@ModelPackageGroupSummary' {} a -> s {creationTime = a} :: ModelPackageGroupSummary) Prelude.. Prelude._Time
 
 -- | The status of the model group.
-mpgsModelPackageGroupStatus :: Lens' ModelPackageGroupSummary ModelPackageGroupStatus
-mpgsModelPackageGroupStatus = lens _mpgsModelPackageGroupStatus (\s a -> s {_mpgsModelPackageGroupStatus = a})
+modelPackageGroupSummary_modelPackageGroupStatus :: Lens.Lens' ModelPackageGroupSummary ModelPackageGroupStatus
+modelPackageGroupSummary_modelPackageGroupStatus = Lens.lens (\ModelPackageGroupSummary' {modelPackageGroupStatus} -> modelPackageGroupStatus) (\s@ModelPackageGroupSummary' {} a -> s {modelPackageGroupStatus = a} :: ModelPackageGroupSummary)
 
-instance FromJSON ModelPackageGroupSummary where
+instance Prelude.FromJSON ModelPackageGroupSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ModelPackageGroupSummary"
       ( \x ->
           ModelPackageGroupSummary'
-            <$> (x .:? "ModelPackageGroupDescription")
-            <*> (x .: "ModelPackageGroupName")
-            <*> (x .: "ModelPackageGroupArn")
-            <*> (x .: "CreationTime")
-            <*> (x .: "ModelPackageGroupStatus")
+            Prelude.<$> (x Prelude..:? "ModelPackageGroupDescription")
+            Prelude.<*> (x Prelude..: "ModelPackageGroupName")
+            Prelude.<*> (x Prelude..: "ModelPackageGroupArn")
+            Prelude.<*> (x Prelude..: "CreationTime")
+            Prelude.<*> (x Prelude..: "ModelPackageGroupStatus")
       )
 
-instance Hashable ModelPackageGroupSummary
+instance Prelude.Hashable ModelPackageGroupSummary
 
-instance NFData ModelPackageGroupSummary
+instance Prelude.NFData ModelPackageGroupSummary

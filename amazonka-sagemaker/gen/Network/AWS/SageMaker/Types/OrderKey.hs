@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.SageMaker.Types.OrderKey
   ( OrderKey
       ( ..,
-        OKAscending,
-        OKDescending
+        OrderKeyAscending,
+        OrderKeyDescending
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data OrderKey = OrderKey' (CI Text)
+newtype OrderKey = OrderKey'
+  { fromOrderKey ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern OKAscending :: OrderKey
-pattern OKAscending = OrderKey' "Ascending"
+pattern OrderKeyAscending :: OrderKey
+pattern OrderKeyAscending = OrderKey' "Ascending"
 
-pattern OKDescending :: OrderKey
-pattern OKDescending = OrderKey' "Descending"
+pattern OrderKeyDescending :: OrderKey
+pattern OrderKeyDescending = OrderKey' "Descending"
 
 {-# COMPLETE
-  OKAscending,
-  OKDescending,
+  OrderKeyAscending,
+  OrderKeyDescending,
   OrderKey'
   #-}
 
-instance FromText OrderKey where
-  parser = (OrderKey' . mk) <$> takeText
+instance Prelude.FromText OrderKey where
+  parser = OrderKey' Prelude.<$> Prelude.takeText
 
-instance ToText OrderKey where
-  toText (OrderKey' ci) = original ci
+instance Prelude.ToText OrderKey where
+  toText (OrderKey' x) = x
 
-instance Hashable OrderKey
+instance Prelude.Hashable OrderKey
 
-instance NFData OrderKey
+instance Prelude.NFData OrderKey
 
-instance ToByteString OrderKey
+instance Prelude.ToByteString OrderKey
 
-instance ToQuery OrderKey
+instance Prelude.ToQuery OrderKey
 
-instance ToHeader OrderKey
+instance Prelude.ToHeader OrderKey
 
-instance ToJSON OrderKey where
-  toJSON = toJSONText
+instance Prelude.ToJSON OrderKey where
+  toJSON = Prelude.toJSONText

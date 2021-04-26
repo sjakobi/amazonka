@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.SageMaker.Types.HyperParameterTuningJobWarmStartType
   ( HyperParameterTuningJobWarmStartType
       ( ..,
-        IdenticalDataAndAlgorithm,
-        TransferLearning
+        HyperParameterTuningJobWarmStartTypeIdenticalDataAndAlgorithm,
+        HyperParameterTuningJobWarmStartTypeTransferLearning
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data HyperParameterTuningJobWarmStartType
-  = HyperParameterTuningJobWarmStartType'
-      ( CI
-          Text
-      )
+newtype HyperParameterTuningJobWarmStartType = HyperParameterTuningJobWarmStartType'
+  { fromHyperParameterTuningJobWarmStartType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern IdenticalDataAndAlgorithm :: HyperParameterTuningJobWarmStartType
-pattern IdenticalDataAndAlgorithm = HyperParameterTuningJobWarmStartType' "IdenticalDataAndAlgorithm"
+pattern HyperParameterTuningJobWarmStartTypeIdenticalDataAndAlgorithm :: HyperParameterTuningJobWarmStartType
+pattern HyperParameterTuningJobWarmStartTypeIdenticalDataAndAlgorithm = HyperParameterTuningJobWarmStartType' "IdenticalDataAndAlgorithm"
 
-pattern TransferLearning :: HyperParameterTuningJobWarmStartType
-pattern TransferLearning = HyperParameterTuningJobWarmStartType' "TransferLearning"
+pattern HyperParameterTuningJobWarmStartTypeTransferLearning :: HyperParameterTuningJobWarmStartType
+pattern HyperParameterTuningJobWarmStartTypeTransferLearning = HyperParameterTuningJobWarmStartType' "TransferLearning"
 
 {-# COMPLETE
-  IdenticalDataAndAlgorithm,
-  TransferLearning,
+  HyperParameterTuningJobWarmStartTypeIdenticalDataAndAlgorithm,
+  HyperParameterTuningJobWarmStartTypeTransferLearning,
   HyperParameterTuningJobWarmStartType'
   #-}
 
-instance FromText HyperParameterTuningJobWarmStartType where
-  parser = (HyperParameterTuningJobWarmStartType' . mk) <$> takeText
+instance Prelude.FromText HyperParameterTuningJobWarmStartType where
+  parser = HyperParameterTuningJobWarmStartType' Prelude.<$> Prelude.takeText
 
-instance ToText HyperParameterTuningJobWarmStartType where
-  toText (HyperParameterTuningJobWarmStartType' ci) = original ci
+instance Prelude.ToText HyperParameterTuningJobWarmStartType where
+  toText (HyperParameterTuningJobWarmStartType' x) = x
 
-instance Hashable HyperParameterTuningJobWarmStartType
+instance Prelude.Hashable HyperParameterTuningJobWarmStartType
 
-instance NFData HyperParameterTuningJobWarmStartType
+instance Prelude.NFData HyperParameterTuningJobWarmStartType
 
-instance ToByteString HyperParameterTuningJobWarmStartType
+instance Prelude.ToByteString HyperParameterTuningJobWarmStartType
 
-instance ToQuery HyperParameterTuningJobWarmStartType
+instance Prelude.ToQuery HyperParameterTuningJobWarmStartType
 
-instance ToHeader HyperParameterTuningJobWarmStartType
+instance Prelude.ToHeader HyperParameterTuningJobWarmStartType
 
-instance ToJSON HyperParameterTuningJobWarmStartType where
-  toJSON = toJSONText
+instance Prelude.ToJSON HyperParameterTuningJobWarmStartType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON HyperParameterTuningJobWarmStartType where
-  parseJSON = parseJSONText "HyperParameterTuningJobWarmStartType"
+instance Prelude.FromJSON HyperParameterTuningJobWarmStartType where
+  parseJSON = Prelude.parseJSONText "HyperParameterTuningJobWarmStartType"

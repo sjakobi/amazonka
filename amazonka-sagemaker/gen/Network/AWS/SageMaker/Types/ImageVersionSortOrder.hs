@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.SageMaker.Types.ImageVersionSortOrder
   ( ImageVersionSortOrder
       ( ..,
-        IVSOAscending,
-        IVSODescending
+        ImageVersionSortOrderASCENDING,
+        ImageVersionSortOrderDESCENDING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ImageVersionSortOrder
-  = ImageVersionSortOrder'
-      ( CI
-          Text
-      )
+newtype ImageVersionSortOrder = ImageVersionSortOrder'
+  { fromImageVersionSortOrder ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern IVSOAscending :: ImageVersionSortOrder
-pattern IVSOAscending = ImageVersionSortOrder' "ASCENDING"
+pattern ImageVersionSortOrderASCENDING :: ImageVersionSortOrder
+pattern ImageVersionSortOrderASCENDING = ImageVersionSortOrder' "ASCENDING"
 
-pattern IVSODescending :: ImageVersionSortOrder
-pattern IVSODescending = ImageVersionSortOrder' "DESCENDING"
+pattern ImageVersionSortOrderDESCENDING :: ImageVersionSortOrder
+pattern ImageVersionSortOrderDESCENDING = ImageVersionSortOrder' "DESCENDING"
 
 {-# COMPLETE
-  IVSOAscending,
-  IVSODescending,
+  ImageVersionSortOrderASCENDING,
+  ImageVersionSortOrderDESCENDING,
   ImageVersionSortOrder'
   #-}
 
-instance FromText ImageVersionSortOrder where
-  parser = (ImageVersionSortOrder' . mk) <$> takeText
+instance Prelude.FromText ImageVersionSortOrder where
+  parser = ImageVersionSortOrder' Prelude.<$> Prelude.takeText
 
-instance ToText ImageVersionSortOrder where
-  toText (ImageVersionSortOrder' ci) = original ci
+instance Prelude.ToText ImageVersionSortOrder where
+  toText (ImageVersionSortOrder' x) = x
 
-instance Hashable ImageVersionSortOrder
+instance Prelude.Hashable ImageVersionSortOrder
 
-instance NFData ImageVersionSortOrder
+instance Prelude.NFData ImageVersionSortOrder
 
-instance ToByteString ImageVersionSortOrder
+instance Prelude.ToByteString ImageVersionSortOrder
 
-instance ToQuery ImageVersionSortOrder
+instance Prelude.ToQuery ImageVersionSortOrder
 
-instance ToHeader ImageVersionSortOrder
+instance Prelude.ToHeader ImageVersionSortOrder
 
-instance ToJSON ImageVersionSortOrder where
-  toJSON = toJSONText
+instance Prelude.ToJSON ImageVersionSortOrder where
+  toJSON = Prelude.toJSONText

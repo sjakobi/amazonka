@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.SageMaker.Types.FeatureGroupSortOrder
   ( FeatureGroupSortOrder
       ( ..,
-        FGSOAscending,
-        FGSODescending
+        FeatureGroupSortOrderAscending,
+        FeatureGroupSortOrderDescending
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data FeatureGroupSortOrder
-  = FeatureGroupSortOrder'
-      ( CI
-          Text
-      )
+newtype FeatureGroupSortOrder = FeatureGroupSortOrder'
+  { fromFeatureGroupSortOrder ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern FGSOAscending :: FeatureGroupSortOrder
-pattern FGSOAscending = FeatureGroupSortOrder' "Ascending"
+pattern FeatureGroupSortOrderAscending :: FeatureGroupSortOrder
+pattern FeatureGroupSortOrderAscending = FeatureGroupSortOrder' "Ascending"
 
-pattern FGSODescending :: FeatureGroupSortOrder
-pattern FGSODescending = FeatureGroupSortOrder' "Descending"
+pattern FeatureGroupSortOrderDescending :: FeatureGroupSortOrder
+pattern FeatureGroupSortOrderDescending = FeatureGroupSortOrder' "Descending"
 
 {-# COMPLETE
-  FGSOAscending,
-  FGSODescending,
+  FeatureGroupSortOrderAscending,
+  FeatureGroupSortOrderDescending,
   FeatureGroupSortOrder'
   #-}
 
-instance FromText FeatureGroupSortOrder where
-  parser = (FeatureGroupSortOrder' . mk) <$> takeText
+instance Prelude.FromText FeatureGroupSortOrder where
+  parser = FeatureGroupSortOrder' Prelude.<$> Prelude.takeText
 
-instance ToText FeatureGroupSortOrder where
-  toText (FeatureGroupSortOrder' ci) = original ci
+instance Prelude.ToText FeatureGroupSortOrder where
+  toText (FeatureGroupSortOrder' x) = x
 
-instance Hashable FeatureGroupSortOrder
+instance Prelude.Hashable FeatureGroupSortOrder
 
-instance NFData FeatureGroupSortOrder
+instance Prelude.NFData FeatureGroupSortOrder
 
-instance ToByteString FeatureGroupSortOrder
+instance Prelude.ToByteString FeatureGroupSortOrder
 
-instance ToQuery FeatureGroupSortOrder
+instance Prelude.ToQuery FeatureGroupSortOrder
 
-instance ToHeader FeatureGroupSortOrder
+instance Prelude.ToHeader FeatureGroupSortOrder
 
-instance ToJSON FeatureGroupSortOrder where
-  toJSON = toJSONText
+instance Prelude.ToJSON FeatureGroupSortOrder where
+  toJSON = Prelude.toJSONText

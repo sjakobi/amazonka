@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,63 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.AutoMLDataSource where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.AutoMLS3DataSource
 
 -- | The data source for the Autopilot job.
 --
---
---
--- /See:/ 'autoMLDataSource' smart constructor.
-newtype AutoMLDataSource = AutoMLDataSource'
-  { _amldsS3DataSource ::
-      AutoMLS3DataSource
+-- /See:/ 'newAutoMLDataSource' smart constructor.
+data AutoMLDataSource = AutoMLDataSource'
+  { -- | The Amazon S3 location of the input data.
+    --
+    -- The input data must be in CSV format and contain at least 500 rows.
+    s3DataSource :: AutoMLS3DataSource
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AutoMLDataSource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AutoMLDataSource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'amldsS3DataSource' - The Amazon S3 location of the input data.
-autoMLDataSource ::
-  -- | 'amldsS3DataSource'
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 's3DataSource', 'autoMLDataSource_s3DataSource' - The Amazon S3 location of the input data.
+--
+-- The input data must be in CSV format and contain at least 500 rows.
+newAutoMLDataSource ::
+  -- | 's3DataSource'
   AutoMLS3DataSource ->
   AutoMLDataSource
-autoMLDataSource pS3DataSource_ =
-  AutoMLDataSource'
-    { _amldsS3DataSource =
-        pS3DataSource_
-    }
+newAutoMLDataSource pS3DataSource_ =
+  AutoMLDataSource' {s3DataSource = pS3DataSource_}
 
 -- | The Amazon S3 location of the input data.
-amldsS3DataSource :: Lens' AutoMLDataSource AutoMLS3DataSource
-amldsS3DataSource = lens _amldsS3DataSource (\s a -> s {_amldsS3DataSource = a})
+--
+-- The input data must be in CSV format and contain at least 500 rows.
+autoMLDataSource_s3DataSource :: Lens.Lens' AutoMLDataSource AutoMLS3DataSource
+autoMLDataSource_s3DataSource = Lens.lens (\AutoMLDataSource' {s3DataSource} -> s3DataSource) (\s@AutoMLDataSource' {} a -> s {s3DataSource = a} :: AutoMLDataSource)
 
-instance FromJSON AutoMLDataSource where
+instance Prelude.FromJSON AutoMLDataSource where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AutoMLDataSource"
-      (\x -> AutoMLDataSource' <$> (x .: "S3DataSource"))
+      ( \x ->
+          AutoMLDataSource'
+            Prelude.<$> (x Prelude..: "S3DataSource")
+      )
 
-instance Hashable AutoMLDataSource
+instance Prelude.Hashable AutoMLDataSource
 
-instance NFData AutoMLDataSource
+instance Prelude.NFData AutoMLDataSource
 
-instance ToJSON AutoMLDataSource where
+instance Prelude.ToJSON AutoMLDataSource where
   toJSON AutoMLDataSource' {..} =
-    object
-      ( catMaybes
-          [Just ("S3DataSource" .= _amldsS3DataSource)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("S3DataSource" Prelude..= s3DataSource)
+          ]
       )

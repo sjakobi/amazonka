@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.SageMaker.Types.NotebookInstanceSortKey
   ( NotebookInstanceSortKey
       ( ..,
-        NISKCreationTime,
-        NISKName,
-        NISKStatus
+        NotebookInstanceSortKeyCreationTime,
+        NotebookInstanceSortKeyName,
+        NotebookInstanceSortKeyStatus'
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data NotebookInstanceSortKey
-  = NotebookInstanceSortKey'
-      ( CI
-          Text
-      )
+newtype NotebookInstanceSortKey = NotebookInstanceSortKey'
+  { fromNotebookInstanceSortKey ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern NISKCreationTime :: NotebookInstanceSortKey
-pattern NISKCreationTime = NotebookInstanceSortKey' "CreationTime"
+pattern NotebookInstanceSortKeyCreationTime :: NotebookInstanceSortKey
+pattern NotebookInstanceSortKeyCreationTime = NotebookInstanceSortKey' "CreationTime"
 
-pattern NISKName :: NotebookInstanceSortKey
-pattern NISKName = NotebookInstanceSortKey' "Name"
+pattern NotebookInstanceSortKeyName :: NotebookInstanceSortKey
+pattern NotebookInstanceSortKeyName = NotebookInstanceSortKey' "Name"
 
-pattern NISKStatus :: NotebookInstanceSortKey
-pattern NISKStatus = NotebookInstanceSortKey' "Status"
+pattern NotebookInstanceSortKeyStatus' :: NotebookInstanceSortKey
+pattern NotebookInstanceSortKeyStatus' = NotebookInstanceSortKey' "Status"
 
 {-# COMPLETE
-  NISKCreationTime,
-  NISKName,
-  NISKStatus,
+  NotebookInstanceSortKeyCreationTime,
+  NotebookInstanceSortKeyName,
+  NotebookInstanceSortKeyStatus',
   NotebookInstanceSortKey'
   #-}
 
-instance FromText NotebookInstanceSortKey where
-  parser = (NotebookInstanceSortKey' . mk) <$> takeText
+instance Prelude.FromText NotebookInstanceSortKey where
+  parser = NotebookInstanceSortKey' Prelude.<$> Prelude.takeText
 
-instance ToText NotebookInstanceSortKey where
-  toText (NotebookInstanceSortKey' ci) = original ci
+instance Prelude.ToText NotebookInstanceSortKey where
+  toText (NotebookInstanceSortKey' x) = x
 
-instance Hashable NotebookInstanceSortKey
+instance Prelude.Hashable NotebookInstanceSortKey
 
-instance NFData NotebookInstanceSortKey
+instance Prelude.NFData NotebookInstanceSortKey
 
-instance ToByteString NotebookInstanceSortKey
+instance Prelude.ToByteString NotebookInstanceSortKey
 
-instance ToQuery NotebookInstanceSortKey
+instance Prelude.ToQuery NotebookInstanceSortKey
 
-instance ToHeader NotebookInstanceSortKey
+instance Prelude.ToHeader NotebookInstanceSortKey
 
-instance ToJSON NotebookInstanceSortKey where
-  toJSON = toJSONText
+instance Prelude.ToJSON NotebookInstanceSortKey where
+  toJSON = Prelude.toJSONText

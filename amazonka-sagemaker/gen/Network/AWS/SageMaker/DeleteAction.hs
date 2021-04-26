@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,118 +24,132 @@
 -- Deletes an action.
 module Network.AWS.SageMaker.DeleteAction
   ( -- * Creating a Request
-    deleteAction,
-    DeleteAction,
+    DeleteAction (..),
+    newDeleteAction,
 
     -- * Request Lenses
-    daActionName,
+    deleteAction_actionName,
 
     -- * Destructuring the Response
-    deleteActionResponse,
-    DeleteActionResponse,
+    DeleteActionResponse (..),
+    newDeleteActionResponse,
 
     -- * Response Lenses
-    drsActionARN,
-    drsResponseStatus,
+    deleteActionResponse_actionArn,
+    deleteActionResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'deleteAction' smart constructor.
-newtype DeleteAction = DeleteAction'
-  { _daActionName ::
-      Text
+-- | /See:/ 'newDeleteAction' smart constructor.
+data DeleteAction = DeleteAction'
+  { -- | The name of the action to delete.
+    actionName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteAction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteAction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'daActionName' - The name of the action to delete.
-deleteAction ::
-  -- | 'daActionName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'actionName', 'deleteAction_actionName' - The name of the action to delete.
+newDeleteAction ::
+  -- | 'actionName'
+  Prelude.Text ->
   DeleteAction
-deleteAction pActionName_ =
-  DeleteAction' {_daActionName = pActionName_}
+newDeleteAction pActionName_ =
+  DeleteAction' {actionName = pActionName_}
 
 -- | The name of the action to delete.
-daActionName :: Lens' DeleteAction Text
-daActionName = lens _daActionName (\s a -> s {_daActionName = a})
+deleteAction_actionName :: Lens.Lens' DeleteAction Prelude.Text
+deleteAction_actionName = Lens.lens (\DeleteAction' {actionName} -> actionName) (\s@DeleteAction' {} a -> s {actionName = a} :: DeleteAction)
 
-instance AWSRequest DeleteAction where
+instance Prelude.AWSRequest DeleteAction where
   type Rs DeleteAction = DeleteActionResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteActionResponse'
-            <$> (x .?> "ActionArn") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ActionArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteAction
+instance Prelude.Hashable DeleteAction
 
-instance NFData DeleteAction
+instance Prelude.NFData DeleteAction
 
-instance ToHeaders DeleteAction where
+instance Prelude.ToHeaders DeleteAction where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.DeleteAction" :: ByteString),
+              Prelude.=# ("SageMaker.DeleteAction" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteAction where
+instance Prelude.ToJSON DeleteAction where
   toJSON DeleteAction' {..} =
-    object
-      (catMaybes [Just ("ActionName" .= _daActionName)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("ActionName" Prelude..= actionName)]
+      )
 
-instance ToPath DeleteAction where
-  toPath = const "/"
+instance Prelude.ToPath DeleteAction where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteAction where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteAction where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteActionResponse' smart constructor.
+-- | /See:/ 'newDeleteActionResponse' smart constructor.
 data DeleteActionResponse = DeleteActionResponse'
-  { _drsActionARN ::
-      !(Maybe Text),
-    _drsResponseStatus :: !Int
+  { -- | The Amazon Resource Name (ARN) of the action.
+    actionArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteActionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteActionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drsActionARN' - The Amazon Resource Name (ARN) of the action.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drsResponseStatus' - -- | The response status code.
-deleteActionResponse ::
-  -- | 'drsResponseStatus'
-  Int ->
+-- 'actionArn', 'deleteActionResponse_actionArn' - The Amazon Resource Name (ARN) of the action.
+--
+-- 'httpStatus', 'deleteActionResponse_httpStatus' - The response's http status code.
+newDeleteActionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteActionResponse
-deleteActionResponse pResponseStatus_ =
+newDeleteActionResponse pHttpStatus_ =
   DeleteActionResponse'
-    { _drsActionARN = Nothing,
-      _drsResponseStatus = pResponseStatus_
+    { actionArn = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The Amazon Resource Name (ARN) of the action.
-drsActionARN :: Lens' DeleteActionResponse (Maybe Text)
-drsActionARN = lens _drsActionARN (\s a -> s {_drsActionARN = a})
+deleteActionResponse_actionArn :: Lens.Lens' DeleteActionResponse (Prelude.Maybe Prelude.Text)
+deleteActionResponse_actionArn = Lens.lens (\DeleteActionResponse' {actionArn} -> actionArn) (\s@DeleteActionResponse' {} a -> s {actionArn = a} :: DeleteActionResponse)
 
--- | -- | The response status code.
-drsResponseStatus :: Lens' DeleteActionResponse Int
-drsResponseStatus = lens _drsResponseStatus (\s a -> s {_drsResponseStatus = a})
+-- | The response's http status code.
+deleteActionResponse_httpStatus :: Lens.Lens' DeleteActionResponse Prelude.Int
+deleteActionResponse_httpStatus = Lens.lens (\DeleteActionResponse' {httpStatus} -> httpStatus) (\s@DeleteActionResponse' {} a -> s {httpStatus = a} :: DeleteActionResponse)
 
-instance NFData DeleteActionResponse
+instance Prelude.NFData DeleteActionResponse

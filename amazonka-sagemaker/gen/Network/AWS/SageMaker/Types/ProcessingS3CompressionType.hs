@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.SageMaker.Types.ProcessingS3CompressionType
   ( ProcessingS3CompressionType
       ( ..,
-        PSCTGzip,
-        PSCTNone
+        ProcessingS3CompressionTypeGzip,
+        ProcessingS3CompressionTypeNone
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ProcessingS3CompressionType
-  = ProcessingS3CompressionType'
-      ( CI
-          Text
-      )
+newtype ProcessingS3CompressionType = ProcessingS3CompressionType'
+  { fromProcessingS3CompressionType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PSCTGzip :: ProcessingS3CompressionType
-pattern PSCTGzip = ProcessingS3CompressionType' "Gzip"
+pattern ProcessingS3CompressionTypeGzip :: ProcessingS3CompressionType
+pattern ProcessingS3CompressionTypeGzip = ProcessingS3CompressionType' "Gzip"
 
-pattern PSCTNone :: ProcessingS3CompressionType
-pattern PSCTNone = ProcessingS3CompressionType' "None"
+pattern ProcessingS3CompressionTypeNone :: ProcessingS3CompressionType
+pattern ProcessingS3CompressionTypeNone = ProcessingS3CompressionType' "None"
 
 {-# COMPLETE
-  PSCTGzip,
-  PSCTNone,
+  ProcessingS3CompressionTypeGzip,
+  ProcessingS3CompressionTypeNone,
   ProcessingS3CompressionType'
   #-}
 
-instance FromText ProcessingS3CompressionType where
-  parser = (ProcessingS3CompressionType' . mk) <$> takeText
+instance Prelude.FromText ProcessingS3CompressionType where
+  parser = ProcessingS3CompressionType' Prelude.<$> Prelude.takeText
 
-instance ToText ProcessingS3CompressionType where
-  toText (ProcessingS3CompressionType' ci) = original ci
+instance Prelude.ToText ProcessingS3CompressionType where
+  toText (ProcessingS3CompressionType' x) = x
 
-instance Hashable ProcessingS3CompressionType
+instance Prelude.Hashable ProcessingS3CompressionType
 
-instance NFData ProcessingS3CompressionType
+instance Prelude.NFData ProcessingS3CompressionType
 
-instance ToByteString ProcessingS3CompressionType
+instance Prelude.ToByteString ProcessingS3CompressionType
 
-instance ToQuery ProcessingS3CompressionType
+instance Prelude.ToQuery ProcessingS3CompressionType
 
-instance ToHeader ProcessingS3CompressionType
+instance Prelude.ToHeader ProcessingS3CompressionType
 
-instance ToJSON ProcessingS3CompressionType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ProcessingS3CompressionType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ProcessingS3CompressionType where
-  parseJSON = parseJSONText "ProcessingS3CompressionType"
+instance Prelude.FromJSON ProcessingS3CompressionType where
+  parseJSON = Prelude.parseJSONText "ProcessingS3CompressionType"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,68 @@
 module Network.AWS.SageMaker.Types.SplitType
   ( SplitType
       ( ..,
-        STLine,
-        STNone,
-        STRecordIO,
-        STTFRecord
+        SplitTypeLine,
+        SplitTypeNone,
+        SplitTypeRecordIO,
+        SplitTypeTFRecord
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SplitType = SplitType' (CI Text)
+newtype SplitType = SplitType'
+  { fromSplitType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern STLine :: SplitType
-pattern STLine = SplitType' "Line"
+pattern SplitTypeLine :: SplitType
+pattern SplitTypeLine = SplitType' "Line"
 
-pattern STNone :: SplitType
-pattern STNone = SplitType' "None"
+pattern SplitTypeNone :: SplitType
+pattern SplitTypeNone = SplitType' "None"
 
-pattern STRecordIO :: SplitType
-pattern STRecordIO = SplitType' "RecordIO"
+pattern SplitTypeRecordIO :: SplitType
+pattern SplitTypeRecordIO = SplitType' "RecordIO"
 
-pattern STTFRecord :: SplitType
-pattern STTFRecord = SplitType' "TFRecord"
+pattern SplitTypeTFRecord :: SplitType
+pattern SplitTypeTFRecord = SplitType' "TFRecord"
 
 {-# COMPLETE
-  STLine,
-  STNone,
-  STRecordIO,
-  STTFRecord,
+  SplitTypeLine,
+  SplitTypeNone,
+  SplitTypeRecordIO,
+  SplitTypeTFRecord,
   SplitType'
   #-}
 
-instance FromText SplitType where
-  parser = (SplitType' . mk) <$> takeText
+instance Prelude.FromText SplitType where
+  parser = SplitType' Prelude.<$> Prelude.takeText
 
-instance ToText SplitType where
-  toText (SplitType' ci) = original ci
+instance Prelude.ToText SplitType where
+  toText (SplitType' x) = x
 
-instance Hashable SplitType
+instance Prelude.Hashable SplitType
 
-instance NFData SplitType
+instance Prelude.NFData SplitType
 
-instance ToByteString SplitType
+instance Prelude.ToByteString SplitType
 
-instance ToQuery SplitType
+instance Prelude.ToQuery SplitType
 
-instance ToHeader SplitType
+instance Prelude.ToHeader SplitType
 
-instance ToJSON SplitType where
-  toJSON = toJSONText
+instance Prelude.ToJSON SplitType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON SplitType where
-  parseJSON = parseJSONText "SplitType"
+instance Prelude.FromJSON SplitType where
+  parseJSON = Prelude.parseJSONText "SplitType"

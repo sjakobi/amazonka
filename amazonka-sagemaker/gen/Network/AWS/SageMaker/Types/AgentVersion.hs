@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,57 +19,61 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.AgentVersion where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Edge Manager agent version.
 --
---
---
--- /See:/ 'agentVersion' smart constructor.
+-- /See:/ 'newAgentVersion' smart constructor.
 data AgentVersion = AgentVersion'
-  { _avVersion ::
-      !Text,
-    _avAgentCount :: !Integer
+  { -- | Version of the agent.
+    version :: Prelude.Text,
+    -- | The number of Edge Manager agents.
+    agentCount :: Prelude.Integer
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AgentVersion' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AgentVersion' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'avVersion' - Version of the agent.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'avAgentCount' - The number of Edge Manager agents.
-agentVersion ::
-  -- | 'avVersion'
-  Text ->
-  -- | 'avAgentCount'
-  Integer ->
+-- 'version', 'agentVersion_version' - Version of the agent.
+--
+-- 'agentCount', 'agentVersion_agentCount' - The number of Edge Manager agents.
+newAgentVersion ::
+  -- | 'version'
+  Prelude.Text ->
+  -- | 'agentCount'
+  Prelude.Integer ->
   AgentVersion
-agentVersion pVersion_ pAgentCount_ =
+newAgentVersion pVersion_ pAgentCount_ =
   AgentVersion'
-    { _avVersion = pVersion_,
-      _avAgentCount = pAgentCount_
+    { version = pVersion_,
+      agentCount = pAgentCount_
     }
 
 -- | Version of the agent.
-avVersion :: Lens' AgentVersion Text
-avVersion = lens _avVersion (\s a -> s {_avVersion = a})
+agentVersion_version :: Lens.Lens' AgentVersion Prelude.Text
+agentVersion_version = Lens.lens (\AgentVersion' {version} -> version) (\s@AgentVersion' {} a -> s {version = a} :: AgentVersion)
 
 -- | The number of Edge Manager agents.
-avAgentCount :: Lens' AgentVersion Integer
-avAgentCount = lens _avAgentCount (\s a -> s {_avAgentCount = a})
+agentVersion_agentCount :: Lens.Lens' AgentVersion Prelude.Integer
+agentVersion_agentCount = Lens.lens (\AgentVersion' {agentCount} -> agentCount) (\s@AgentVersion' {} a -> s {agentCount = a} :: AgentVersion)
 
-instance FromJSON AgentVersion where
+instance Prelude.FromJSON AgentVersion where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AgentVersion"
       ( \x ->
           AgentVersion'
-            <$> (x .: "Version") <*> (x .: "AgentCount")
+            Prelude.<$> (x Prelude..: "Version")
+            Prelude.<*> (x Prelude..: "AgentCount")
       )
 
-instance Hashable AgentVersion
+instance Prelude.Hashable AgentVersion
 
-instance NFData AgentVersion
+instance Prelude.NFData AgentVersion

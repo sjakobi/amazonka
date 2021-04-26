@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,172 +24,170 @@
 -- Updates a pipeline execution.
 module Network.AWS.SageMaker.UpdatePipelineExecution
   ( -- * Creating a Request
-    updatePipelineExecution,
-    UpdatePipelineExecution,
+    UpdatePipelineExecution (..),
+    newUpdatePipelineExecution,
 
     -- * Request Lenses
-    upePipelineExecutionDescription,
-    upePipelineExecutionDisplayName,
-    upePipelineExecutionARN,
+    updatePipelineExecution_pipelineExecutionDescription,
+    updatePipelineExecution_pipelineExecutionDisplayName,
+    updatePipelineExecution_pipelineExecutionArn,
 
     -- * Destructuring the Response
-    updatePipelineExecutionResponse,
-    UpdatePipelineExecutionResponse,
+    UpdatePipelineExecutionResponse (..),
+    newUpdatePipelineExecutionResponse,
 
     -- * Response Lenses
-    uperrsPipelineExecutionARN,
-    uperrsResponseStatus,
+    updatePipelineExecutionResponse_pipelineExecutionArn,
+    updatePipelineExecutionResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'updatePipelineExecution' smart constructor.
+-- | /See:/ 'newUpdatePipelineExecution' smart constructor.
 data UpdatePipelineExecution = UpdatePipelineExecution'
-  { _upePipelineExecutionDescription ::
-      !(Maybe Text),
-    _upePipelineExecutionDisplayName ::
-      !(Maybe Text),
-    _upePipelineExecutionARN ::
-      !Text
+  { -- | The description of the pipeline execution.
+    pipelineExecutionDescription :: Prelude.Maybe Prelude.Text,
+    -- | The display name of the pipeline execution.
+    pipelineExecutionDisplayName :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the pipeline execution.
+    pipelineExecutionArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdatePipelineExecution' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdatePipelineExecution' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'upePipelineExecutionDescription' - The description of the pipeline execution.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'upePipelineExecutionDisplayName' - The display name of the pipeline execution.
+-- 'pipelineExecutionDescription', 'updatePipelineExecution_pipelineExecutionDescription' - The description of the pipeline execution.
 --
--- * 'upePipelineExecutionARN' - The Amazon Resource Name (ARN) of the pipeline execution.
-updatePipelineExecution ::
-  -- | 'upePipelineExecutionARN'
-  Text ->
+-- 'pipelineExecutionDisplayName', 'updatePipelineExecution_pipelineExecutionDisplayName' - The display name of the pipeline execution.
+--
+-- 'pipelineExecutionArn', 'updatePipelineExecution_pipelineExecutionArn' - The Amazon Resource Name (ARN) of the pipeline execution.
+newUpdatePipelineExecution ::
+  -- | 'pipelineExecutionArn'
+  Prelude.Text ->
   UpdatePipelineExecution
-updatePipelineExecution pPipelineExecutionARN_ =
+newUpdatePipelineExecution pPipelineExecutionArn_ =
   UpdatePipelineExecution'
-    { _upePipelineExecutionDescription =
-        Nothing,
-      _upePipelineExecutionDisplayName = Nothing,
-      _upePipelineExecutionARN = pPipelineExecutionARN_
+    { pipelineExecutionDescription =
+        Prelude.Nothing,
+      pipelineExecutionDisplayName = Prelude.Nothing,
+      pipelineExecutionArn = pPipelineExecutionArn_
     }
 
 -- | The description of the pipeline execution.
-upePipelineExecutionDescription :: Lens' UpdatePipelineExecution (Maybe Text)
-upePipelineExecutionDescription = lens _upePipelineExecutionDescription (\s a -> s {_upePipelineExecutionDescription = a})
+updatePipelineExecution_pipelineExecutionDescription :: Lens.Lens' UpdatePipelineExecution (Prelude.Maybe Prelude.Text)
+updatePipelineExecution_pipelineExecutionDescription = Lens.lens (\UpdatePipelineExecution' {pipelineExecutionDescription} -> pipelineExecutionDescription) (\s@UpdatePipelineExecution' {} a -> s {pipelineExecutionDescription = a} :: UpdatePipelineExecution)
 
 -- | The display name of the pipeline execution.
-upePipelineExecutionDisplayName :: Lens' UpdatePipelineExecution (Maybe Text)
-upePipelineExecutionDisplayName = lens _upePipelineExecutionDisplayName (\s a -> s {_upePipelineExecutionDisplayName = a})
+updatePipelineExecution_pipelineExecutionDisplayName :: Lens.Lens' UpdatePipelineExecution (Prelude.Maybe Prelude.Text)
+updatePipelineExecution_pipelineExecutionDisplayName = Lens.lens (\UpdatePipelineExecution' {pipelineExecutionDisplayName} -> pipelineExecutionDisplayName) (\s@UpdatePipelineExecution' {} a -> s {pipelineExecutionDisplayName = a} :: UpdatePipelineExecution)
 
 -- | The Amazon Resource Name (ARN) of the pipeline execution.
-upePipelineExecutionARN :: Lens' UpdatePipelineExecution Text
-upePipelineExecutionARN = lens _upePipelineExecutionARN (\s a -> s {_upePipelineExecutionARN = a})
+updatePipelineExecution_pipelineExecutionArn :: Lens.Lens' UpdatePipelineExecution Prelude.Text
+updatePipelineExecution_pipelineExecutionArn = Lens.lens (\UpdatePipelineExecution' {pipelineExecutionArn} -> pipelineExecutionArn) (\s@UpdatePipelineExecution' {} a -> s {pipelineExecutionArn = a} :: UpdatePipelineExecution)
 
-instance AWSRequest UpdatePipelineExecution where
+instance Prelude.AWSRequest UpdatePipelineExecution where
   type
     Rs UpdatePipelineExecution =
       UpdatePipelineExecutionResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdatePipelineExecutionResponse'
-            <$> (x .?> "PipelineExecutionArn")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "PipelineExecutionArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdatePipelineExecution
+instance Prelude.Hashable UpdatePipelineExecution
 
-instance NFData UpdatePipelineExecution
+instance Prelude.NFData UpdatePipelineExecution
 
-instance ToHeaders UpdatePipelineExecution where
+instance Prelude.ToHeaders UpdatePipelineExecution where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.UpdatePipelineExecution" :: ByteString),
+              Prelude.=# ( "SageMaker.UpdatePipelineExecution" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdatePipelineExecution where
+instance Prelude.ToJSON UpdatePipelineExecution where
   toJSON UpdatePipelineExecution' {..} =
-    object
-      ( catMaybes
-          [ ("PipelineExecutionDescription" .=)
-              <$> _upePipelineExecutionDescription,
-            ("PipelineExecutionDisplayName" .=)
-              <$> _upePipelineExecutionDisplayName,
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("PipelineExecutionDescription" Prelude..=)
+              Prelude.<$> pipelineExecutionDescription,
+            ("PipelineExecutionDisplayName" Prelude..=)
+              Prelude.<$> pipelineExecutionDisplayName,
+            Prelude.Just
               ( "PipelineExecutionArn"
-                  .= _upePipelineExecutionARN
+                  Prelude..= pipelineExecutionArn
               )
           ]
       )
 
-instance ToPath UpdatePipelineExecution where
-  toPath = const "/"
+instance Prelude.ToPath UpdatePipelineExecution where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdatePipelineExecution where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdatePipelineExecution where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updatePipelineExecutionResponse' smart constructor.
+-- | /See:/ 'newUpdatePipelineExecutionResponse' smart constructor.
 data UpdatePipelineExecutionResponse = UpdatePipelineExecutionResponse'
-  { _uperrsPipelineExecutionARN ::
-      !( Maybe
-           Text
-       ),
-    _uperrsResponseStatus ::
-      !Int
+  { -- | The Amazon Resource Name (ARN) of the updated pipeline execution.
+    pipelineExecutionArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdatePipelineExecutionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdatePipelineExecutionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uperrsPipelineExecutionARN' - The Amazon Resource Name (ARN) of the updated pipeline execution.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uperrsResponseStatus' - -- | The response status code.
-updatePipelineExecutionResponse ::
-  -- | 'uperrsResponseStatus'
-  Int ->
+-- 'pipelineExecutionArn', 'updatePipelineExecutionResponse_pipelineExecutionArn' - The Amazon Resource Name (ARN) of the updated pipeline execution.
+--
+-- 'httpStatus', 'updatePipelineExecutionResponse_httpStatus' - The response's http status code.
+newUpdatePipelineExecutionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdatePipelineExecutionResponse
-updatePipelineExecutionResponse pResponseStatus_ =
+newUpdatePipelineExecutionResponse pHttpStatus_ =
   UpdatePipelineExecutionResponse'
-    { _uperrsPipelineExecutionARN =
-        Nothing,
-      _uperrsResponseStatus = pResponseStatus_
+    { pipelineExecutionArn =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The Amazon Resource Name (ARN) of the updated pipeline execution.
-uperrsPipelineExecutionARN :: Lens' UpdatePipelineExecutionResponse (Maybe Text)
-uperrsPipelineExecutionARN = lens _uperrsPipelineExecutionARN (\s a -> s {_uperrsPipelineExecutionARN = a})
+updatePipelineExecutionResponse_pipelineExecutionArn :: Lens.Lens' UpdatePipelineExecutionResponse (Prelude.Maybe Prelude.Text)
+updatePipelineExecutionResponse_pipelineExecutionArn = Lens.lens (\UpdatePipelineExecutionResponse' {pipelineExecutionArn} -> pipelineExecutionArn) (\s@UpdatePipelineExecutionResponse' {} a -> s {pipelineExecutionArn = a} :: UpdatePipelineExecutionResponse)
 
--- | -- | The response status code.
-uperrsResponseStatus :: Lens' UpdatePipelineExecutionResponse Int
-uperrsResponseStatus = lens _uperrsResponseStatus (\s a -> s {_uperrsResponseStatus = a})
+-- | The response's http status code.
+updatePipelineExecutionResponse_httpStatus :: Lens.Lens' UpdatePipelineExecutionResponse Prelude.Int
+updatePipelineExecutionResponse_httpStatus = Lens.lens (\UpdatePipelineExecutionResponse' {httpStatus} -> httpStatus) (\s@UpdatePipelineExecutionResponse' {} a -> s {httpStatus = a} :: UpdatePipelineExecutionResponse)
 
-instance NFData UpdatePipelineExecutionResponse
+instance
+  Prelude.NFData
+    UpdatePipelineExecutionResponse

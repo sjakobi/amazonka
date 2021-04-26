@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.SageMaker.Types.MonitoringExecutionSortKey
   ( MonitoringExecutionSortKey
       ( ..,
-        MESKCreationTime,
-        MESKScheduledTime,
-        MESKStatus
+        MonitoringExecutionSortKeyCreationTime,
+        MonitoringExecutionSortKeyScheduledTime,
+        MonitoringExecutionSortKeyStatus'
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data MonitoringExecutionSortKey
-  = MonitoringExecutionSortKey'
-      ( CI
-          Text
-      )
+newtype MonitoringExecutionSortKey = MonitoringExecutionSortKey'
+  { fromMonitoringExecutionSortKey ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MESKCreationTime :: MonitoringExecutionSortKey
-pattern MESKCreationTime = MonitoringExecutionSortKey' "CreationTime"
+pattern MonitoringExecutionSortKeyCreationTime :: MonitoringExecutionSortKey
+pattern MonitoringExecutionSortKeyCreationTime = MonitoringExecutionSortKey' "CreationTime"
 
-pattern MESKScheduledTime :: MonitoringExecutionSortKey
-pattern MESKScheduledTime = MonitoringExecutionSortKey' "ScheduledTime"
+pattern MonitoringExecutionSortKeyScheduledTime :: MonitoringExecutionSortKey
+pattern MonitoringExecutionSortKeyScheduledTime = MonitoringExecutionSortKey' "ScheduledTime"
 
-pattern MESKStatus :: MonitoringExecutionSortKey
-pattern MESKStatus = MonitoringExecutionSortKey' "Status"
+pattern MonitoringExecutionSortKeyStatus' :: MonitoringExecutionSortKey
+pattern MonitoringExecutionSortKeyStatus' = MonitoringExecutionSortKey' "Status"
 
 {-# COMPLETE
-  MESKCreationTime,
-  MESKScheduledTime,
-  MESKStatus,
+  MonitoringExecutionSortKeyCreationTime,
+  MonitoringExecutionSortKeyScheduledTime,
+  MonitoringExecutionSortKeyStatus',
   MonitoringExecutionSortKey'
   #-}
 
-instance FromText MonitoringExecutionSortKey where
-  parser = (MonitoringExecutionSortKey' . mk) <$> takeText
+instance Prelude.FromText MonitoringExecutionSortKey where
+  parser = MonitoringExecutionSortKey' Prelude.<$> Prelude.takeText
 
-instance ToText MonitoringExecutionSortKey where
-  toText (MonitoringExecutionSortKey' ci) = original ci
+instance Prelude.ToText MonitoringExecutionSortKey where
+  toText (MonitoringExecutionSortKey' x) = x
 
-instance Hashable MonitoringExecutionSortKey
+instance Prelude.Hashable MonitoringExecutionSortKey
 
-instance NFData MonitoringExecutionSortKey
+instance Prelude.NFData MonitoringExecutionSortKey
 
-instance ToByteString MonitoringExecutionSortKey
+instance Prelude.ToByteString MonitoringExecutionSortKey
 
-instance ToQuery MonitoringExecutionSortKey
+instance Prelude.ToQuery MonitoringExecutionSortKey
 
-instance ToHeader MonitoringExecutionSortKey
+instance Prelude.ToHeader MonitoringExecutionSortKey
 
-instance ToJSON MonitoringExecutionSortKey where
-  toJSON = toJSONText
+instance Prelude.ToJSON MonitoringExecutionSortKey where
+  toJSON = Prelude.toJSONText

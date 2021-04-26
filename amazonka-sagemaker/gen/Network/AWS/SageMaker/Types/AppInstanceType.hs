@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,206 +19,208 @@
 module Network.AWS.SageMaker.Types.AppInstanceType
   ( AppInstanceType
       ( ..,
-        AITMl_C5_12XLarge,
-        AITMl_C5_18XLarge,
-        AITMl_C5_24XLarge,
-        AITMl_C5_2XLarge,
-        AITMl_C5_4XLarge,
-        AITMl_C5_9XLarge,
-        AITMl_C5_Large,
-        AITMl_C5_XLarge,
-        AITMl_G4dn_12XLarge,
-        AITMl_G4dn_16XLarge,
-        AITMl_G4dn_2XLarge,
-        AITMl_G4dn_4XLarge,
-        AITMl_G4dn_8XLarge,
-        AITMl_G4dn_XLarge,
-        AITMl_M5_12XLarge,
-        AITMl_M5_16XLarge,
-        AITMl_M5_24XLarge,
-        AITMl_M5_2XLarge,
-        AITMl_M5_4XLarge,
-        AITMl_M5_8XLarge,
-        AITMl_M5_Large,
-        AITMl_M5_XLarge,
-        AITMl_P3_16XLarge,
-        AITMl_P3_2XLarge,
-        AITMl_P3_8XLarge,
-        AITMl_T3_2XLarge,
-        AITMl_T3_Large,
-        AITMl_T3_Medium,
-        AITMl_T3_Micro,
-        AITMl_T3_Small,
-        AITMl_T3_XLarge,
-        AITSystem
+        AppInstanceTypeMl_C5_12xlarge,
+        AppInstanceTypeMl_C5_18xlarge,
+        AppInstanceTypeMl_C5_24xlarge,
+        AppInstanceTypeMl_C5_2xlarge,
+        AppInstanceTypeMl_C5_4xlarge,
+        AppInstanceTypeMl_C5_9xlarge,
+        AppInstanceTypeMl_C5_Large,
+        AppInstanceTypeMl_C5_Xlarge,
+        AppInstanceTypeMl_G4dn_12xlarge,
+        AppInstanceTypeMl_G4dn_16xlarge,
+        AppInstanceTypeMl_G4dn_2xlarge,
+        AppInstanceTypeMl_G4dn_4xlarge,
+        AppInstanceTypeMl_G4dn_8xlarge,
+        AppInstanceTypeMl_G4dn_Xlarge,
+        AppInstanceTypeMl_M5_12xlarge,
+        AppInstanceTypeMl_M5_16xlarge,
+        AppInstanceTypeMl_M5_24xlarge,
+        AppInstanceTypeMl_M5_2xlarge,
+        AppInstanceTypeMl_M5_4xlarge,
+        AppInstanceTypeMl_M5_8xlarge,
+        AppInstanceTypeMl_M5_Large,
+        AppInstanceTypeMl_M5_Xlarge,
+        AppInstanceTypeMl_P3_16xlarge,
+        AppInstanceTypeMl_P3_2xlarge,
+        AppInstanceTypeMl_P3_8xlarge,
+        AppInstanceTypeMl_T3_2xlarge,
+        AppInstanceTypeMl_T3_Large,
+        AppInstanceTypeMl_T3_Medium,
+        AppInstanceTypeMl_T3_Micro,
+        AppInstanceTypeMl_T3_Small,
+        AppInstanceTypeMl_T3_Xlarge,
+        AppInstanceTypeSystem
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AppInstanceType = AppInstanceType' (CI Text)
+newtype AppInstanceType = AppInstanceType'
+  { fromAppInstanceType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AITMl_C5_12XLarge :: AppInstanceType
-pattern AITMl_C5_12XLarge = AppInstanceType' "ml.c5.12xlarge"
+pattern AppInstanceTypeMl_C5_12xlarge :: AppInstanceType
+pattern AppInstanceTypeMl_C5_12xlarge = AppInstanceType' "ml.c5.12xlarge"
 
-pattern AITMl_C5_18XLarge :: AppInstanceType
-pattern AITMl_C5_18XLarge = AppInstanceType' "ml.c5.18xlarge"
+pattern AppInstanceTypeMl_C5_18xlarge :: AppInstanceType
+pattern AppInstanceTypeMl_C5_18xlarge = AppInstanceType' "ml.c5.18xlarge"
 
-pattern AITMl_C5_24XLarge :: AppInstanceType
-pattern AITMl_C5_24XLarge = AppInstanceType' "ml.c5.24xlarge"
+pattern AppInstanceTypeMl_C5_24xlarge :: AppInstanceType
+pattern AppInstanceTypeMl_C5_24xlarge = AppInstanceType' "ml.c5.24xlarge"
 
-pattern AITMl_C5_2XLarge :: AppInstanceType
-pattern AITMl_C5_2XLarge = AppInstanceType' "ml.c5.2xlarge"
+pattern AppInstanceTypeMl_C5_2xlarge :: AppInstanceType
+pattern AppInstanceTypeMl_C5_2xlarge = AppInstanceType' "ml.c5.2xlarge"
 
-pattern AITMl_C5_4XLarge :: AppInstanceType
-pattern AITMl_C5_4XLarge = AppInstanceType' "ml.c5.4xlarge"
+pattern AppInstanceTypeMl_C5_4xlarge :: AppInstanceType
+pattern AppInstanceTypeMl_C5_4xlarge = AppInstanceType' "ml.c5.4xlarge"
 
-pattern AITMl_C5_9XLarge :: AppInstanceType
-pattern AITMl_C5_9XLarge = AppInstanceType' "ml.c5.9xlarge"
+pattern AppInstanceTypeMl_C5_9xlarge :: AppInstanceType
+pattern AppInstanceTypeMl_C5_9xlarge = AppInstanceType' "ml.c5.9xlarge"
 
-pattern AITMl_C5_Large :: AppInstanceType
-pattern AITMl_C5_Large = AppInstanceType' "ml.c5.large"
+pattern AppInstanceTypeMl_C5_Large :: AppInstanceType
+pattern AppInstanceTypeMl_C5_Large = AppInstanceType' "ml.c5.large"
 
-pattern AITMl_C5_XLarge :: AppInstanceType
-pattern AITMl_C5_XLarge = AppInstanceType' "ml.c5.xlarge"
+pattern AppInstanceTypeMl_C5_Xlarge :: AppInstanceType
+pattern AppInstanceTypeMl_C5_Xlarge = AppInstanceType' "ml.c5.xlarge"
 
-pattern AITMl_G4dn_12XLarge :: AppInstanceType
-pattern AITMl_G4dn_12XLarge = AppInstanceType' "ml.g4dn.12xlarge"
+pattern AppInstanceTypeMl_G4dn_12xlarge :: AppInstanceType
+pattern AppInstanceTypeMl_G4dn_12xlarge = AppInstanceType' "ml.g4dn.12xlarge"
 
-pattern AITMl_G4dn_16XLarge :: AppInstanceType
-pattern AITMl_G4dn_16XLarge = AppInstanceType' "ml.g4dn.16xlarge"
+pattern AppInstanceTypeMl_G4dn_16xlarge :: AppInstanceType
+pattern AppInstanceTypeMl_G4dn_16xlarge = AppInstanceType' "ml.g4dn.16xlarge"
 
-pattern AITMl_G4dn_2XLarge :: AppInstanceType
-pattern AITMl_G4dn_2XLarge = AppInstanceType' "ml.g4dn.2xlarge"
+pattern AppInstanceTypeMl_G4dn_2xlarge :: AppInstanceType
+pattern AppInstanceTypeMl_G4dn_2xlarge = AppInstanceType' "ml.g4dn.2xlarge"
 
-pattern AITMl_G4dn_4XLarge :: AppInstanceType
-pattern AITMl_G4dn_4XLarge = AppInstanceType' "ml.g4dn.4xlarge"
+pattern AppInstanceTypeMl_G4dn_4xlarge :: AppInstanceType
+pattern AppInstanceTypeMl_G4dn_4xlarge = AppInstanceType' "ml.g4dn.4xlarge"
 
-pattern AITMl_G4dn_8XLarge :: AppInstanceType
-pattern AITMl_G4dn_8XLarge = AppInstanceType' "ml.g4dn.8xlarge"
+pattern AppInstanceTypeMl_G4dn_8xlarge :: AppInstanceType
+pattern AppInstanceTypeMl_G4dn_8xlarge = AppInstanceType' "ml.g4dn.8xlarge"
 
-pattern AITMl_G4dn_XLarge :: AppInstanceType
-pattern AITMl_G4dn_XLarge = AppInstanceType' "ml.g4dn.xlarge"
+pattern AppInstanceTypeMl_G4dn_Xlarge :: AppInstanceType
+pattern AppInstanceTypeMl_G4dn_Xlarge = AppInstanceType' "ml.g4dn.xlarge"
 
-pattern AITMl_M5_12XLarge :: AppInstanceType
-pattern AITMl_M5_12XLarge = AppInstanceType' "ml.m5.12xlarge"
+pattern AppInstanceTypeMl_M5_12xlarge :: AppInstanceType
+pattern AppInstanceTypeMl_M5_12xlarge = AppInstanceType' "ml.m5.12xlarge"
 
-pattern AITMl_M5_16XLarge :: AppInstanceType
-pattern AITMl_M5_16XLarge = AppInstanceType' "ml.m5.16xlarge"
+pattern AppInstanceTypeMl_M5_16xlarge :: AppInstanceType
+pattern AppInstanceTypeMl_M5_16xlarge = AppInstanceType' "ml.m5.16xlarge"
 
-pattern AITMl_M5_24XLarge :: AppInstanceType
-pattern AITMl_M5_24XLarge = AppInstanceType' "ml.m5.24xlarge"
+pattern AppInstanceTypeMl_M5_24xlarge :: AppInstanceType
+pattern AppInstanceTypeMl_M5_24xlarge = AppInstanceType' "ml.m5.24xlarge"
 
-pattern AITMl_M5_2XLarge :: AppInstanceType
-pattern AITMl_M5_2XLarge = AppInstanceType' "ml.m5.2xlarge"
+pattern AppInstanceTypeMl_M5_2xlarge :: AppInstanceType
+pattern AppInstanceTypeMl_M5_2xlarge = AppInstanceType' "ml.m5.2xlarge"
 
-pattern AITMl_M5_4XLarge :: AppInstanceType
-pattern AITMl_M5_4XLarge = AppInstanceType' "ml.m5.4xlarge"
+pattern AppInstanceTypeMl_M5_4xlarge :: AppInstanceType
+pattern AppInstanceTypeMl_M5_4xlarge = AppInstanceType' "ml.m5.4xlarge"
 
-pattern AITMl_M5_8XLarge :: AppInstanceType
-pattern AITMl_M5_8XLarge = AppInstanceType' "ml.m5.8xlarge"
+pattern AppInstanceTypeMl_M5_8xlarge :: AppInstanceType
+pattern AppInstanceTypeMl_M5_8xlarge = AppInstanceType' "ml.m5.8xlarge"
 
-pattern AITMl_M5_Large :: AppInstanceType
-pattern AITMl_M5_Large = AppInstanceType' "ml.m5.large"
+pattern AppInstanceTypeMl_M5_Large :: AppInstanceType
+pattern AppInstanceTypeMl_M5_Large = AppInstanceType' "ml.m5.large"
 
-pattern AITMl_M5_XLarge :: AppInstanceType
-pattern AITMl_M5_XLarge = AppInstanceType' "ml.m5.xlarge"
+pattern AppInstanceTypeMl_M5_Xlarge :: AppInstanceType
+pattern AppInstanceTypeMl_M5_Xlarge = AppInstanceType' "ml.m5.xlarge"
 
-pattern AITMl_P3_16XLarge :: AppInstanceType
-pattern AITMl_P3_16XLarge = AppInstanceType' "ml.p3.16xlarge"
+pattern AppInstanceTypeMl_P3_16xlarge :: AppInstanceType
+pattern AppInstanceTypeMl_P3_16xlarge = AppInstanceType' "ml.p3.16xlarge"
 
-pattern AITMl_P3_2XLarge :: AppInstanceType
-pattern AITMl_P3_2XLarge = AppInstanceType' "ml.p3.2xlarge"
+pattern AppInstanceTypeMl_P3_2xlarge :: AppInstanceType
+pattern AppInstanceTypeMl_P3_2xlarge = AppInstanceType' "ml.p3.2xlarge"
 
-pattern AITMl_P3_8XLarge :: AppInstanceType
-pattern AITMl_P3_8XLarge = AppInstanceType' "ml.p3.8xlarge"
+pattern AppInstanceTypeMl_P3_8xlarge :: AppInstanceType
+pattern AppInstanceTypeMl_P3_8xlarge = AppInstanceType' "ml.p3.8xlarge"
 
-pattern AITMl_T3_2XLarge :: AppInstanceType
-pattern AITMl_T3_2XLarge = AppInstanceType' "ml.t3.2xlarge"
+pattern AppInstanceTypeMl_T3_2xlarge :: AppInstanceType
+pattern AppInstanceTypeMl_T3_2xlarge = AppInstanceType' "ml.t3.2xlarge"
 
-pattern AITMl_T3_Large :: AppInstanceType
-pattern AITMl_T3_Large = AppInstanceType' "ml.t3.large"
+pattern AppInstanceTypeMl_T3_Large :: AppInstanceType
+pattern AppInstanceTypeMl_T3_Large = AppInstanceType' "ml.t3.large"
 
-pattern AITMl_T3_Medium :: AppInstanceType
-pattern AITMl_T3_Medium = AppInstanceType' "ml.t3.medium"
+pattern AppInstanceTypeMl_T3_Medium :: AppInstanceType
+pattern AppInstanceTypeMl_T3_Medium = AppInstanceType' "ml.t3.medium"
 
-pattern AITMl_T3_Micro :: AppInstanceType
-pattern AITMl_T3_Micro = AppInstanceType' "ml.t3.micro"
+pattern AppInstanceTypeMl_T3_Micro :: AppInstanceType
+pattern AppInstanceTypeMl_T3_Micro = AppInstanceType' "ml.t3.micro"
 
-pattern AITMl_T3_Small :: AppInstanceType
-pattern AITMl_T3_Small = AppInstanceType' "ml.t3.small"
+pattern AppInstanceTypeMl_T3_Small :: AppInstanceType
+pattern AppInstanceTypeMl_T3_Small = AppInstanceType' "ml.t3.small"
 
-pattern AITMl_T3_XLarge :: AppInstanceType
-pattern AITMl_T3_XLarge = AppInstanceType' "ml.t3.xlarge"
+pattern AppInstanceTypeMl_T3_Xlarge :: AppInstanceType
+pattern AppInstanceTypeMl_T3_Xlarge = AppInstanceType' "ml.t3.xlarge"
 
-pattern AITSystem :: AppInstanceType
-pattern AITSystem = AppInstanceType' "system"
+pattern AppInstanceTypeSystem :: AppInstanceType
+pattern AppInstanceTypeSystem = AppInstanceType' "system"
 
 {-# COMPLETE
-  AITMl_C5_12XLarge,
-  AITMl_C5_18XLarge,
-  AITMl_C5_24XLarge,
-  AITMl_C5_2XLarge,
-  AITMl_C5_4XLarge,
-  AITMl_C5_9XLarge,
-  AITMl_C5_Large,
-  AITMl_C5_XLarge,
-  AITMl_G4dn_12XLarge,
-  AITMl_G4dn_16XLarge,
-  AITMl_G4dn_2XLarge,
-  AITMl_G4dn_4XLarge,
-  AITMl_G4dn_8XLarge,
-  AITMl_G4dn_XLarge,
-  AITMl_M5_12XLarge,
-  AITMl_M5_16XLarge,
-  AITMl_M5_24XLarge,
-  AITMl_M5_2XLarge,
-  AITMl_M5_4XLarge,
-  AITMl_M5_8XLarge,
-  AITMl_M5_Large,
-  AITMl_M5_XLarge,
-  AITMl_P3_16XLarge,
-  AITMl_P3_2XLarge,
-  AITMl_P3_8XLarge,
-  AITMl_T3_2XLarge,
-  AITMl_T3_Large,
-  AITMl_T3_Medium,
-  AITMl_T3_Micro,
-  AITMl_T3_Small,
-  AITMl_T3_XLarge,
-  AITSystem,
+  AppInstanceTypeMl_C5_12xlarge,
+  AppInstanceTypeMl_C5_18xlarge,
+  AppInstanceTypeMl_C5_24xlarge,
+  AppInstanceTypeMl_C5_2xlarge,
+  AppInstanceTypeMl_C5_4xlarge,
+  AppInstanceTypeMl_C5_9xlarge,
+  AppInstanceTypeMl_C5_Large,
+  AppInstanceTypeMl_C5_Xlarge,
+  AppInstanceTypeMl_G4dn_12xlarge,
+  AppInstanceTypeMl_G4dn_16xlarge,
+  AppInstanceTypeMl_G4dn_2xlarge,
+  AppInstanceTypeMl_G4dn_4xlarge,
+  AppInstanceTypeMl_G4dn_8xlarge,
+  AppInstanceTypeMl_G4dn_Xlarge,
+  AppInstanceTypeMl_M5_12xlarge,
+  AppInstanceTypeMl_M5_16xlarge,
+  AppInstanceTypeMl_M5_24xlarge,
+  AppInstanceTypeMl_M5_2xlarge,
+  AppInstanceTypeMl_M5_4xlarge,
+  AppInstanceTypeMl_M5_8xlarge,
+  AppInstanceTypeMl_M5_Large,
+  AppInstanceTypeMl_M5_Xlarge,
+  AppInstanceTypeMl_P3_16xlarge,
+  AppInstanceTypeMl_P3_2xlarge,
+  AppInstanceTypeMl_P3_8xlarge,
+  AppInstanceTypeMl_T3_2xlarge,
+  AppInstanceTypeMl_T3_Large,
+  AppInstanceTypeMl_T3_Medium,
+  AppInstanceTypeMl_T3_Micro,
+  AppInstanceTypeMl_T3_Small,
+  AppInstanceTypeMl_T3_Xlarge,
+  AppInstanceTypeSystem,
   AppInstanceType'
   #-}
 
-instance FromText AppInstanceType where
-  parser = (AppInstanceType' . mk) <$> takeText
+instance Prelude.FromText AppInstanceType where
+  parser = AppInstanceType' Prelude.<$> Prelude.takeText
 
-instance ToText AppInstanceType where
-  toText (AppInstanceType' ci) = original ci
+instance Prelude.ToText AppInstanceType where
+  toText (AppInstanceType' x) = x
 
-instance Hashable AppInstanceType
+instance Prelude.Hashable AppInstanceType
 
-instance NFData AppInstanceType
+instance Prelude.NFData AppInstanceType
 
-instance ToByteString AppInstanceType
+instance Prelude.ToByteString AppInstanceType
 
-instance ToQuery AppInstanceType
+instance Prelude.ToQuery AppInstanceType
 
-instance ToHeader AppInstanceType
+instance Prelude.ToHeader AppInstanceType
 
-instance ToJSON AppInstanceType where
-  toJSON = toJSONText
+instance Prelude.ToJSON AppInstanceType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AppInstanceType where
-  parseJSON = parseJSONText "AppInstanceType"
+instance Prelude.FromJSON AppInstanceType where
+  parseJSON = Prelude.parseJSONText "AppInstanceType"

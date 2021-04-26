@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.SageMaker.Types.NotebookOutputOption
   ( NotebookOutputOption
       ( ..,
-        NOOAllowed,
-        NOODisabled
+        NotebookOutputOptionAllowed,
+        NotebookOutputOptionDisabled
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data NotebookOutputOption
-  = NotebookOutputOption'
-      ( CI
-          Text
-      )
+newtype NotebookOutputOption = NotebookOutputOption'
+  { fromNotebookOutputOption ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern NOOAllowed :: NotebookOutputOption
-pattern NOOAllowed = NotebookOutputOption' "Allowed"
+pattern NotebookOutputOptionAllowed :: NotebookOutputOption
+pattern NotebookOutputOptionAllowed = NotebookOutputOption' "Allowed"
 
-pattern NOODisabled :: NotebookOutputOption
-pattern NOODisabled = NotebookOutputOption' "Disabled"
+pattern NotebookOutputOptionDisabled :: NotebookOutputOption
+pattern NotebookOutputOptionDisabled = NotebookOutputOption' "Disabled"
 
 {-# COMPLETE
-  NOOAllowed,
-  NOODisabled,
+  NotebookOutputOptionAllowed,
+  NotebookOutputOptionDisabled,
   NotebookOutputOption'
   #-}
 
-instance FromText NotebookOutputOption where
-  parser = (NotebookOutputOption' . mk) <$> takeText
+instance Prelude.FromText NotebookOutputOption where
+  parser = NotebookOutputOption' Prelude.<$> Prelude.takeText
 
-instance ToText NotebookOutputOption where
-  toText (NotebookOutputOption' ci) = original ci
+instance Prelude.ToText NotebookOutputOption where
+  toText (NotebookOutputOption' x) = x
 
-instance Hashable NotebookOutputOption
+instance Prelude.Hashable NotebookOutputOption
 
-instance NFData NotebookOutputOption
+instance Prelude.NFData NotebookOutputOption
 
-instance ToByteString NotebookOutputOption
+instance Prelude.ToByteString NotebookOutputOption
 
-instance ToQuery NotebookOutputOption
+instance Prelude.ToQuery NotebookOutputOption
 
-instance ToHeader NotebookOutputOption
+instance Prelude.ToHeader NotebookOutputOption
 
-instance ToJSON NotebookOutputOption where
-  toJSON = toJSONText
+instance Prelude.ToJSON NotebookOutputOption where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON NotebookOutputOption where
-  parseJSON = parseJSONText "NotebookOutputOption"
+instance Prelude.FromJSON NotebookOutputOption where
+  parseJSON = Prelude.parseJSONText "NotebookOutputOption"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,86 +19,88 @@
 module Network.AWS.SageMaker.Types.EndpointStatus
   ( EndpointStatus
       ( ..,
-        ECreating,
-        EDeleting,
-        EFailed,
-        EInService,
-        EOutOfService,
-        ERollingBack,
-        ESystemUpdating,
-        EUpdating
+        EndpointStatusCreating,
+        EndpointStatusDeleting,
+        EndpointStatusFailed,
+        EndpointStatusInService,
+        EndpointStatusOutOfService,
+        EndpointStatusRollingBack,
+        EndpointStatusSystemUpdating,
+        EndpointStatusUpdating
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data EndpointStatus = EndpointStatus' (CI Text)
+newtype EndpointStatus = EndpointStatus'
+  { fromEndpointStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ECreating :: EndpointStatus
-pattern ECreating = EndpointStatus' "Creating"
+pattern EndpointStatusCreating :: EndpointStatus
+pattern EndpointStatusCreating = EndpointStatus' "Creating"
 
-pattern EDeleting :: EndpointStatus
-pattern EDeleting = EndpointStatus' "Deleting"
+pattern EndpointStatusDeleting :: EndpointStatus
+pattern EndpointStatusDeleting = EndpointStatus' "Deleting"
 
-pattern EFailed :: EndpointStatus
-pattern EFailed = EndpointStatus' "Failed"
+pattern EndpointStatusFailed :: EndpointStatus
+pattern EndpointStatusFailed = EndpointStatus' "Failed"
 
-pattern EInService :: EndpointStatus
-pattern EInService = EndpointStatus' "InService"
+pattern EndpointStatusInService :: EndpointStatus
+pattern EndpointStatusInService = EndpointStatus' "InService"
 
-pattern EOutOfService :: EndpointStatus
-pattern EOutOfService = EndpointStatus' "OutOfService"
+pattern EndpointStatusOutOfService :: EndpointStatus
+pattern EndpointStatusOutOfService = EndpointStatus' "OutOfService"
 
-pattern ERollingBack :: EndpointStatus
-pattern ERollingBack = EndpointStatus' "RollingBack"
+pattern EndpointStatusRollingBack :: EndpointStatus
+pattern EndpointStatusRollingBack = EndpointStatus' "RollingBack"
 
-pattern ESystemUpdating :: EndpointStatus
-pattern ESystemUpdating = EndpointStatus' "SystemUpdating"
+pattern EndpointStatusSystemUpdating :: EndpointStatus
+pattern EndpointStatusSystemUpdating = EndpointStatus' "SystemUpdating"
 
-pattern EUpdating :: EndpointStatus
-pattern EUpdating = EndpointStatus' "Updating"
+pattern EndpointStatusUpdating :: EndpointStatus
+pattern EndpointStatusUpdating = EndpointStatus' "Updating"
 
 {-# COMPLETE
-  ECreating,
-  EDeleting,
-  EFailed,
-  EInService,
-  EOutOfService,
-  ERollingBack,
-  ESystemUpdating,
-  EUpdating,
+  EndpointStatusCreating,
+  EndpointStatusDeleting,
+  EndpointStatusFailed,
+  EndpointStatusInService,
+  EndpointStatusOutOfService,
+  EndpointStatusRollingBack,
+  EndpointStatusSystemUpdating,
+  EndpointStatusUpdating,
   EndpointStatus'
   #-}
 
-instance FromText EndpointStatus where
-  parser = (EndpointStatus' . mk) <$> takeText
+instance Prelude.FromText EndpointStatus where
+  parser = EndpointStatus' Prelude.<$> Prelude.takeText
 
-instance ToText EndpointStatus where
-  toText (EndpointStatus' ci) = original ci
+instance Prelude.ToText EndpointStatus where
+  toText (EndpointStatus' x) = x
 
-instance Hashable EndpointStatus
+instance Prelude.Hashable EndpointStatus
 
-instance NFData EndpointStatus
+instance Prelude.NFData EndpointStatus
 
-instance ToByteString EndpointStatus
+instance Prelude.ToByteString EndpointStatus
 
-instance ToQuery EndpointStatus
+instance Prelude.ToQuery EndpointStatus
 
-instance ToHeader EndpointStatus
+instance Prelude.ToHeader EndpointStatus
 
-instance ToJSON EndpointStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON EndpointStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON EndpointStatus where
-  parseJSON = parseJSONText "EndpointStatus"
+instance Prelude.FromJSON EndpointStatus where
+  parseJSON = Prelude.parseJSONText "EndpointStatus"

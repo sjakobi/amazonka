@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,127 +19,159 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.ModelPackageSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.ModelApprovalStatus
 import Network.AWS.SageMaker.Types.ModelPackageStatus
 
 -- | Provides summary information about a model package.
 --
---
---
--- /See:/ 'modelPackageSummary' smart constructor.
+-- /See:/ 'newModelPackageSummary' smart constructor.
 data ModelPackageSummary = ModelPackageSummary'
-  { _mpsModelPackageVersion ::
-      !(Maybe Nat),
-    _mpsModelApprovalStatus ::
-      !(Maybe ModelApprovalStatus),
-    _mpsModelPackageDescription ::
-      !(Maybe Text),
-    _mpsModelPackageGroupName ::
-      !(Maybe Text),
-    _mpsModelPackageName :: !Text,
-    _mpsModelPackageARN :: !Text,
-    _mpsCreationTime :: !POSIX,
-    _mpsModelPackageStatus ::
-      !ModelPackageStatus
+  { -- | If the model package is a versioned model, the version of the model.
+    modelPackageVersion :: Prelude.Maybe Prelude.Nat,
+    -- | The approval status of the model. This can be one of the following
+    -- values.
+    --
+    -- -   @APPROVED@ - The model is approved
+    --
+    -- -   @REJECTED@ - The model is rejected.
+    --
+    -- -   @PENDING_MANUAL_APPROVAL@ - The model is waiting for manual
+    --     approval.
+    modelApprovalStatus :: Prelude.Maybe ModelApprovalStatus,
+    -- | A brief description of the model package.
+    modelPackageDescription :: Prelude.Maybe Prelude.Text,
+    -- | If the model package is a versioned model, the model group that the
+    -- versioned model belongs to.
+    modelPackageGroupName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the model package.
+    modelPackageName :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the model package.
+    modelPackageArn :: Prelude.Text,
+    -- | A timestamp that shows when the model package was created.
+    creationTime :: Prelude.POSIX,
+    -- | The overall status of the model package.
+    modelPackageStatus :: ModelPackageStatus
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModelPackageSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModelPackageSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mpsModelPackageVersion' - If the model package is a versioned model, the version of the model.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mpsModelApprovalStatus' - The approval status of the model. This can be one of the following values.     * @APPROVED@ - The model is approved     * @REJECTED@ - The model is rejected.     * @PENDING_MANUAL_APPROVAL@ - The model is waiting for manual approval.
+-- 'modelPackageVersion', 'modelPackageSummary_modelPackageVersion' - If the model package is a versioned model, the version of the model.
 --
--- * 'mpsModelPackageDescription' - A brief description of the model package.
+-- 'modelApprovalStatus', 'modelPackageSummary_modelApprovalStatus' - The approval status of the model. This can be one of the following
+-- values.
 --
--- * 'mpsModelPackageGroupName' - If the model package is a versioned model, the model group that the versioned model belongs to.
+-- -   @APPROVED@ - The model is approved
 --
--- * 'mpsModelPackageName' - The name of the model package.
+-- -   @REJECTED@ - The model is rejected.
 --
--- * 'mpsModelPackageARN' - The Amazon Resource Name (ARN) of the model package.
+-- -   @PENDING_MANUAL_APPROVAL@ - The model is waiting for manual
+--     approval.
 --
--- * 'mpsCreationTime' - A timestamp that shows when the model package was created.
+-- 'modelPackageDescription', 'modelPackageSummary_modelPackageDescription' - A brief description of the model package.
 --
--- * 'mpsModelPackageStatus' - The overall status of the model package.
-modelPackageSummary ::
-  -- | 'mpsModelPackageName'
-  Text ->
-  -- | 'mpsModelPackageARN'
-  Text ->
-  -- | 'mpsCreationTime'
-  UTCTime ->
-  -- | 'mpsModelPackageStatus'
+-- 'modelPackageGroupName', 'modelPackageSummary_modelPackageGroupName' - If the model package is a versioned model, the model group that the
+-- versioned model belongs to.
+--
+-- 'modelPackageName', 'modelPackageSummary_modelPackageName' - The name of the model package.
+--
+-- 'modelPackageArn', 'modelPackageSummary_modelPackageArn' - The Amazon Resource Name (ARN) of the model package.
+--
+-- 'creationTime', 'modelPackageSummary_creationTime' - A timestamp that shows when the model package was created.
+--
+-- 'modelPackageStatus', 'modelPackageSummary_modelPackageStatus' - The overall status of the model package.
+newModelPackageSummary ::
+  -- | 'modelPackageName'
+  Prelude.Text ->
+  -- | 'modelPackageArn'
+  Prelude.Text ->
+  -- | 'creationTime'
+  Prelude.UTCTime ->
+  -- | 'modelPackageStatus'
   ModelPackageStatus ->
   ModelPackageSummary
-modelPackageSummary
+newModelPackageSummary
   pModelPackageName_
-  pModelPackageARN_
+  pModelPackageArn_
   pCreationTime_
   pModelPackageStatus_ =
     ModelPackageSummary'
-      { _mpsModelPackageVersion =
-          Nothing,
-        _mpsModelApprovalStatus = Nothing,
-        _mpsModelPackageDescription = Nothing,
-        _mpsModelPackageGroupName = Nothing,
-        _mpsModelPackageName = pModelPackageName_,
-        _mpsModelPackageARN = pModelPackageARN_,
-        _mpsCreationTime = _Time # pCreationTime_,
-        _mpsModelPackageStatus = pModelPackageStatus_
+      { modelPackageVersion =
+          Prelude.Nothing,
+        modelApprovalStatus = Prelude.Nothing,
+        modelPackageDescription = Prelude.Nothing,
+        modelPackageGroupName = Prelude.Nothing,
+        modelPackageName = pModelPackageName_,
+        modelPackageArn = pModelPackageArn_,
+        creationTime = Prelude._Time Lens.# pCreationTime_,
+        modelPackageStatus = pModelPackageStatus_
       }
 
 -- | If the model package is a versioned model, the version of the model.
-mpsModelPackageVersion :: Lens' ModelPackageSummary (Maybe Natural)
-mpsModelPackageVersion = lens _mpsModelPackageVersion (\s a -> s {_mpsModelPackageVersion = a}) . mapping _Nat
+modelPackageSummary_modelPackageVersion :: Lens.Lens' ModelPackageSummary (Prelude.Maybe Prelude.Natural)
+modelPackageSummary_modelPackageVersion = Lens.lens (\ModelPackageSummary' {modelPackageVersion} -> modelPackageVersion) (\s@ModelPackageSummary' {} a -> s {modelPackageVersion = a} :: ModelPackageSummary) Prelude.. Lens.mapping Prelude._Nat
 
--- | The approval status of the model. This can be one of the following values.     * @APPROVED@ - The model is approved     * @REJECTED@ - The model is rejected.     * @PENDING_MANUAL_APPROVAL@ - The model is waiting for manual approval.
-mpsModelApprovalStatus :: Lens' ModelPackageSummary (Maybe ModelApprovalStatus)
-mpsModelApprovalStatus = lens _mpsModelApprovalStatus (\s a -> s {_mpsModelApprovalStatus = a})
+-- | The approval status of the model. This can be one of the following
+-- values.
+--
+-- -   @APPROVED@ - The model is approved
+--
+-- -   @REJECTED@ - The model is rejected.
+--
+-- -   @PENDING_MANUAL_APPROVAL@ - The model is waiting for manual
+--     approval.
+modelPackageSummary_modelApprovalStatus :: Lens.Lens' ModelPackageSummary (Prelude.Maybe ModelApprovalStatus)
+modelPackageSummary_modelApprovalStatus = Lens.lens (\ModelPackageSummary' {modelApprovalStatus} -> modelApprovalStatus) (\s@ModelPackageSummary' {} a -> s {modelApprovalStatus = a} :: ModelPackageSummary)
 
 -- | A brief description of the model package.
-mpsModelPackageDescription :: Lens' ModelPackageSummary (Maybe Text)
-mpsModelPackageDescription = lens _mpsModelPackageDescription (\s a -> s {_mpsModelPackageDescription = a})
+modelPackageSummary_modelPackageDescription :: Lens.Lens' ModelPackageSummary (Prelude.Maybe Prelude.Text)
+modelPackageSummary_modelPackageDescription = Lens.lens (\ModelPackageSummary' {modelPackageDescription} -> modelPackageDescription) (\s@ModelPackageSummary' {} a -> s {modelPackageDescription = a} :: ModelPackageSummary)
 
--- | If the model package is a versioned model, the model group that the versioned model belongs to.
-mpsModelPackageGroupName :: Lens' ModelPackageSummary (Maybe Text)
-mpsModelPackageGroupName = lens _mpsModelPackageGroupName (\s a -> s {_mpsModelPackageGroupName = a})
+-- | If the model package is a versioned model, the model group that the
+-- versioned model belongs to.
+modelPackageSummary_modelPackageGroupName :: Lens.Lens' ModelPackageSummary (Prelude.Maybe Prelude.Text)
+modelPackageSummary_modelPackageGroupName = Lens.lens (\ModelPackageSummary' {modelPackageGroupName} -> modelPackageGroupName) (\s@ModelPackageSummary' {} a -> s {modelPackageGroupName = a} :: ModelPackageSummary)
 
 -- | The name of the model package.
-mpsModelPackageName :: Lens' ModelPackageSummary Text
-mpsModelPackageName = lens _mpsModelPackageName (\s a -> s {_mpsModelPackageName = a})
+modelPackageSummary_modelPackageName :: Lens.Lens' ModelPackageSummary Prelude.Text
+modelPackageSummary_modelPackageName = Lens.lens (\ModelPackageSummary' {modelPackageName} -> modelPackageName) (\s@ModelPackageSummary' {} a -> s {modelPackageName = a} :: ModelPackageSummary)
 
 -- | The Amazon Resource Name (ARN) of the model package.
-mpsModelPackageARN :: Lens' ModelPackageSummary Text
-mpsModelPackageARN = lens _mpsModelPackageARN (\s a -> s {_mpsModelPackageARN = a})
+modelPackageSummary_modelPackageArn :: Lens.Lens' ModelPackageSummary Prelude.Text
+modelPackageSummary_modelPackageArn = Lens.lens (\ModelPackageSummary' {modelPackageArn} -> modelPackageArn) (\s@ModelPackageSummary' {} a -> s {modelPackageArn = a} :: ModelPackageSummary)
 
 -- | A timestamp that shows when the model package was created.
-mpsCreationTime :: Lens' ModelPackageSummary UTCTime
-mpsCreationTime = lens _mpsCreationTime (\s a -> s {_mpsCreationTime = a}) . _Time
+modelPackageSummary_creationTime :: Lens.Lens' ModelPackageSummary Prelude.UTCTime
+modelPackageSummary_creationTime = Lens.lens (\ModelPackageSummary' {creationTime} -> creationTime) (\s@ModelPackageSummary' {} a -> s {creationTime = a} :: ModelPackageSummary) Prelude.. Prelude._Time
 
 -- | The overall status of the model package.
-mpsModelPackageStatus :: Lens' ModelPackageSummary ModelPackageStatus
-mpsModelPackageStatus = lens _mpsModelPackageStatus (\s a -> s {_mpsModelPackageStatus = a})
+modelPackageSummary_modelPackageStatus :: Lens.Lens' ModelPackageSummary ModelPackageStatus
+modelPackageSummary_modelPackageStatus = Lens.lens (\ModelPackageSummary' {modelPackageStatus} -> modelPackageStatus) (\s@ModelPackageSummary' {} a -> s {modelPackageStatus = a} :: ModelPackageSummary)
 
-instance FromJSON ModelPackageSummary where
+instance Prelude.FromJSON ModelPackageSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ModelPackageSummary"
       ( \x ->
           ModelPackageSummary'
-            <$> (x .:? "ModelPackageVersion")
-            <*> (x .:? "ModelApprovalStatus")
-            <*> (x .:? "ModelPackageDescription")
-            <*> (x .:? "ModelPackageGroupName")
-            <*> (x .: "ModelPackageName")
-            <*> (x .: "ModelPackageArn")
-            <*> (x .: "CreationTime")
-            <*> (x .: "ModelPackageStatus")
+            Prelude.<$> (x Prelude..:? "ModelPackageVersion")
+            Prelude.<*> (x Prelude..:? "ModelApprovalStatus")
+            Prelude.<*> (x Prelude..:? "ModelPackageDescription")
+            Prelude.<*> (x Prelude..:? "ModelPackageGroupName")
+            Prelude.<*> (x Prelude..: "ModelPackageName")
+            Prelude.<*> (x Prelude..: "ModelPackageArn")
+            Prelude.<*> (x Prelude..: "CreationTime")
+            Prelude.<*> (x Prelude..: "ModelPackageStatus")
       )
 
-instance Hashable ModelPackageSummary
+instance Prelude.Hashable ModelPackageSummary
 
-instance NFData ModelPackageSummary
+instance Prelude.NFData ModelPackageSummary

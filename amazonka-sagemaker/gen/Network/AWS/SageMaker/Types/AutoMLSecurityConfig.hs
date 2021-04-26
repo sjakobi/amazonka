@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,78 +19,83 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.AutoMLSecurityConfig where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.SageMaker.Types.VPCConfig
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import Network.AWS.SageMaker.Types.VpcConfig
 
 -- | Security options.
 --
---
---
--- /See:/ 'autoMLSecurityConfig' smart constructor.
+-- /See:/ 'newAutoMLSecurityConfig' smart constructor.
 data AutoMLSecurityConfig = AutoMLSecurityConfig'
-  { _amlscVPCConfig ::
-      !(Maybe VPCConfig),
-    _amlscEnableInterContainerTrafficEncryption ::
-      !(Maybe Bool),
-    _amlscVolumeKMSKeyId ::
-      !(Maybe Text)
+  { -- | VPC configuration.
+    vpcConfig :: Prelude.Maybe VpcConfig,
+    -- | Whether to use traffic encryption between the container layers.
+    enableInterContainerTrafficEncryption :: Prelude.Maybe Prelude.Bool,
+    -- | The key used to encrypt stored data.
+    volumeKmsKeyId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AutoMLSecurityConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AutoMLSecurityConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'amlscVPCConfig' - VPC configuration.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'amlscEnableInterContainerTrafficEncryption' - Whether to use traffic encryption between the container layers.
+-- 'vpcConfig', 'autoMLSecurityConfig_vpcConfig' - VPC configuration.
 --
--- * 'amlscVolumeKMSKeyId' - The key used to encrypt stored data.
-autoMLSecurityConfig ::
+-- 'enableInterContainerTrafficEncryption', 'autoMLSecurityConfig_enableInterContainerTrafficEncryption' - Whether to use traffic encryption between the container layers.
+--
+-- 'volumeKmsKeyId', 'autoMLSecurityConfig_volumeKmsKeyId' - The key used to encrypt stored data.
+newAutoMLSecurityConfig ::
   AutoMLSecurityConfig
-autoMLSecurityConfig =
+newAutoMLSecurityConfig =
   AutoMLSecurityConfig'
-    { _amlscVPCConfig = Nothing,
-      _amlscEnableInterContainerTrafficEncryption =
-        Nothing,
-      _amlscVolumeKMSKeyId = Nothing
+    { vpcConfig = Prelude.Nothing,
+      enableInterContainerTrafficEncryption =
+        Prelude.Nothing,
+      volumeKmsKeyId = Prelude.Nothing
     }
 
 -- | VPC configuration.
-amlscVPCConfig :: Lens' AutoMLSecurityConfig (Maybe VPCConfig)
-amlscVPCConfig = lens _amlscVPCConfig (\s a -> s {_amlscVPCConfig = a})
+autoMLSecurityConfig_vpcConfig :: Lens.Lens' AutoMLSecurityConfig (Prelude.Maybe VpcConfig)
+autoMLSecurityConfig_vpcConfig = Lens.lens (\AutoMLSecurityConfig' {vpcConfig} -> vpcConfig) (\s@AutoMLSecurityConfig' {} a -> s {vpcConfig = a} :: AutoMLSecurityConfig)
 
 -- | Whether to use traffic encryption between the container layers.
-amlscEnableInterContainerTrafficEncryption :: Lens' AutoMLSecurityConfig (Maybe Bool)
-amlscEnableInterContainerTrafficEncryption = lens _amlscEnableInterContainerTrafficEncryption (\s a -> s {_amlscEnableInterContainerTrafficEncryption = a})
+autoMLSecurityConfig_enableInterContainerTrafficEncryption :: Lens.Lens' AutoMLSecurityConfig (Prelude.Maybe Prelude.Bool)
+autoMLSecurityConfig_enableInterContainerTrafficEncryption = Lens.lens (\AutoMLSecurityConfig' {enableInterContainerTrafficEncryption} -> enableInterContainerTrafficEncryption) (\s@AutoMLSecurityConfig' {} a -> s {enableInterContainerTrafficEncryption = a} :: AutoMLSecurityConfig)
 
 -- | The key used to encrypt stored data.
-amlscVolumeKMSKeyId :: Lens' AutoMLSecurityConfig (Maybe Text)
-amlscVolumeKMSKeyId = lens _amlscVolumeKMSKeyId (\s a -> s {_amlscVolumeKMSKeyId = a})
+autoMLSecurityConfig_volumeKmsKeyId :: Lens.Lens' AutoMLSecurityConfig (Prelude.Maybe Prelude.Text)
+autoMLSecurityConfig_volumeKmsKeyId = Lens.lens (\AutoMLSecurityConfig' {volumeKmsKeyId} -> volumeKmsKeyId) (\s@AutoMLSecurityConfig' {} a -> s {volumeKmsKeyId = a} :: AutoMLSecurityConfig)
 
-instance FromJSON AutoMLSecurityConfig where
+instance Prelude.FromJSON AutoMLSecurityConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AutoMLSecurityConfig"
       ( \x ->
           AutoMLSecurityConfig'
-            <$> (x .:? "VpcConfig")
-            <*> (x .:? "EnableInterContainerTrafficEncryption")
-            <*> (x .:? "VolumeKmsKeyId")
+            Prelude.<$> (x Prelude..:? "VpcConfig")
+            Prelude.<*> ( x
+                            Prelude..:? "EnableInterContainerTrafficEncryption"
+                        )
+            Prelude.<*> (x Prelude..:? "VolumeKmsKeyId")
       )
 
-instance Hashable AutoMLSecurityConfig
+instance Prelude.Hashable AutoMLSecurityConfig
 
-instance NFData AutoMLSecurityConfig
+instance Prelude.NFData AutoMLSecurityConfig
 
-instance ToJSON AutoMLSecurityConfig where
+instance Prelude.ToJSON AutoMLSecurityConfig where
   toJSON AutoMLSecurityConfig' {..} =
-    object
-      ( catMaybes
-          [ ("VpcConfig" .=) <$> _amlscVPCConfig,
-            ("EnableInterContainerTrafficEncryption" .=)
-              <$> _amlscEnableInterContainerTrafficEncryption,
-            ("VolumeKmsKeyId" .=) <$> _amlscVolumeKMSKeyId
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("VpcConfig" Prelude..=) Prelude.<$> vpcConfig,
+            ("EnableInterContainerTrafficEncryption" Prelude..=)
+              Prelude.<$> enableInterContainerTrafficEncryption,
+            ("VolumeKmsKeyId" Prelude..=)
+              Prelude.<$> volumeKmsKeyId
           ]
       )

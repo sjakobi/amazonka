@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,72 +19,67 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.CaptureContentTypeHeader where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- |
 --
---
---
--- /See:/ 'captureContentTypeHeader' smart constructor.
+-- /See:/ 'newCaptureContentTypeHeader' smart constructor.
 data CaptureContentTypeHeader = CaptureContentTypeHeader'
-  { _ccthCSVContentTypes ::
-      !(Maybe (List1 Text)),
-    _ccthJSONContentTypes ::
-      !(Maybe (List1 Text))
+  { csvContentTypes :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    jsonContentTypes :: Prelude.Maybe (Prelude.List1 Prelude.Text)
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CaptureContentTypeHeader' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CaptureContentTypeHeader' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccthCSVContentTypes' -
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ccthJSONContentTypes' -
-captureContentTypeHeader ::
+-- 'csvContentTypes', 'captureContentTypeHeader_csvContentTypes' -
+--
+-- 'jsonContentTypes', 'captureContentTypeHeader_jsonContentTypes' -
+newCaptureContentTypeHeader ::
   CaptureContentTypeHeader
-captureContentTypeHeader =
+newCaptureContentTypeHeader =
   CaptureContentTypeHeader'
-    { _ccthCSVContentTypes =
-        Nothing,
-      _ccthJSONContentTypes = Nothing
+    { csvContentTypes =
+        Prelude.Nothing,
+      jsonContentTypes = Prelude.Nothing
     }
 
 -- |
-ccthCSVContentTypes :: Lens' CaptureContentTypeHeader (Maybe (NonEmpty Text))
-ccthCSVContentTypes = lens _ccthCSVContentTypes (\s a -> s {_ccthCSVContentTypes = a}) . mapping _List1
+captureContentTypeHeader_csvContentTypes :: Lens.Lens' CaptureContentTypeHeader (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+captureContentTypeHeader_csvContentTypes = Lens.lens (\CaptureContentTypeHeader' {csvContentTypes} -> csvContentTypes) (\s@CaptureContentTypeHeader' {} a -> s {csvContentTypes = a} :: CaptureContentTypeHeader) Prelude.. Lens.mapping Prelude._List1
 
 -- |
-ccthJSONContentTypes :: Lens' CaptureContentTypeHeader (Maybe (NonEmpty Text))
-ccthJSONContentTypes = lens _ccthJSONContentTypes (\s a -> s {_ccthJSONContentTypes = a}) . mapping _List1
+captureContentTypeHeader_jsonContentTypes :: Lens.Lens' CaptureContentTypeHeader (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+captureContentTypeHeader_jsonContentTypes = Lens.lens (\CaptureContentTypeHeader' {jsonContentTypes} -> jsonContentTypes) (\s@CaptureContentTypeHeader' {} a -> s {jsonContentTypes = a} :: CaptureContentTypeHeader) Prelude.. Lens.mapping Prelude._List1
 
-instance FromJSON CaptureContentTypeHeader where
+instance Prelude.FromJSON CaptureContentTypeHeader where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CaptureContentTypeHeader"
       ( \x ->
           CaptureContentTypeHeader'
-            <$> (x .:? "CsvContentTypes")
-            <*> (x .:? "JsonContentTypes")
+            Prelude.<$> (x Prelude..:? "CsvContentTypes")
+            Prelude.<*> (x Prelude..:? "JsonContentTypes")
       )
 
-instance Hashable CaptureContentTypeHeader
+instance Prelude.Hashable CaptureContentTypeHeader
 
-instance NFData CaptureContentTypeHeader
+instance Prelude.NFData CaptureContentTypeHeader
 
-instance ToJSON CaptureContentTypeHeader where
+instance Prelude.ToJSON CaptureContentTypeHeader where
   toJSON CaptureContentTypeHeader' {..} =
-    object
-      ( catMaybes
-          [ ("CsvContentTypes" .=) <$> _ccthCSVContentTypes,
-            ("JsonContentTypes" .=) <$> _ccthJSONContentTypes
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("CsvContentTypes" Prelude..=)
+              Prelude.<$> csvContentTypes,
+            ("JsonContentTypes" Prelude..=)
+              Prelude.<$> jsonContentTypes
           ]
       )

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,297 +24,327 @@
 -- Gets the details of a data quality monitoring job definition.
 module Network.AWS.SageMaker.DescribeDataQualityJobDefinition
   ( -- * Creating a Request
-    describeDataQualityJobDefinition,
-    DescribeDataQualityJobDefinition,
+    DescribeDataQualityJobDefinition (..),
+    newDescribeDataQualityJobDefinition,
 
     -- * Request Lenses
-    dJobDefinitionName,
+    describeDataQualityJobDefinition_jobDefinitionName,
 
     -- * Destructuring the Response
-    describeDataQualityJobDefinitionResponse,
-    DescribeDataQualityJobDefinitionResponse,
+    DescribeDataQualityJobDefinitionResponse (..),
+    newDescribeDataQualityJobDefinitionResponse,
 
     -- * Response Lenses
-    ddqjdrrsNetworkConfig,
-    ddqjdrrsDataQualityBaselineConfig,
-    ddqjdrrsStoppingCondition,
-    ddqjdrrsResponseStatus,
-    ddqjdrrsJobDefinitionARN,
-    ddqjdrrsJobDefinitionName,
-    ddqjdrrsCreationTime,
-    ddqjdrrsDataQualityAppSpecification,
-    ddqjdrrsDataQualityJobInput,
-    ddqjdrrsDataQualityJobOutputConfig,
-    ddqjdrrsJobResources,
-    ddqjdrrsRoleARN,
+    describeDataQualityJobDefinitionResponse_networkConfig,
+    describeDataQualityJobDefinitionResponse_dataQualityBaselineConfig,
+    describeDataQualityJobDefinitionResponse_stoppingCondition,
+    describeDataQualityJobDefinitionResponse_httpStatus,
+    describeDataQualityJobDefinitionResponse_jobDefinitionArn,
+    describeDataQualityJobDefinitionResponse_jobDefinitionName,
+    describeDataQualityJobDefinitionResponse_creationTime,
+    describeDataQualityJobDefinitionResponse_dataQualityAppSpecification,
+    describeDataQualityJobDefinitionResponse_dataQualityJobInput,
+    describeDataQualityJobDefinitionResponse_dataQualityJobOutputConfig,
+    describeDataQualityJobDefinitionResponse_jobResources,
+    describeDataQualityJobDefinitionResponse_roleArn,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
+import Network.AWS.SageMaker.Types.DataQualityAppSpecification
+import Network.AWS.SageMaker.Types.DataQualityBaselineConfig
+import Network.AWS.SageMaker.Types.DataQualityJobInput
+import Network.AWS.SageMaker.Types.MonitoringNetworkConfig
+import Network.AWS.SageMaker.Types.MonitoringOutputConfig
+import Network.AWS.SageMaker.Types.MonitoringResources
+import Network.AWS.SageMaker.Types.MonitoringStoppingCondition
 
--- | /See:/ 'describeDataQualityJobDefinition' smart constructor.
-newtype DescribeDataQualityJobDefinition = DescribeDataQualityJobDefinition'
-  { _dJobDefinitionName ::
-      Text
+-- | /See:/ 'newDescribeDataQualityJobDefinition' smart constructor.
+data DescribeDataQualityJobDefinition = DescribeDataQualityJobDefinition'
+  { -- | The name of the data quality monitoring job definition to describe.
+    jobDefinitionName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeDataQualityJobDefinition' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeDataQualityJobDefinition' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dJobDefinitionName' - The name of the data quality monitoring job definition to describe.
-describeDataQualityJobDefinition ::
-  -- | 'dJobDefinitionName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'jobDefinitionName', 'describeDataQualityJobDefinition_jobDefinitionName' - The name of the data quality monitoring job definition to describe.
+newDescribeDataQualityJobDefinition ::
+  -- | 'jobDefinitionName'
+  Prelude.Text ->
   DescribeDataQualityJobDefinition
-describeDataQualityJobDefinition pJobDefinitionName_ =
-  DescribeDataQualityJobDefinition'
-    { _dJobDefinitionName =
-        pJobDefinitionName_
-    }
+newDescribeDataQualityJobDefinition
+  pJobDefinitionName_ =
+    DescribeDataQualityJobDefinition'
+      { jobDefinitionName =
+          pJobDefinitionName_
+      }
 
 -- | The name of the data quality monitoring job definition to describe.
-dJobDefinitionName :: Lens' DescribeDataQualityJobDefinition Text
-dJobDefinitionName = lens _dJobDefinitionName (\s a -> s {_dJobDefinitionName = a})
+describeDataQualityJobDefinition_jobDefinitionName :: Lens.Lens' DescribeDataQualityJobDefinition Prelude.Text
+describeDataQualityJobDefinition_jobDefinitionName = Lens.lens (\DescribeDataQualityJobDefinition' {jobDefinitionName} -> jobDefinitionName) (\s@DescribeDataQualityJobDefinition' {} a -> s {jobDefinitionName = a} :: DescribeDataQualityJobDefinition)
 
-instance AWSRequest DescribeDataQualityJobDefinition where
+instance
+  Prelude.AWSRequest
+    DescribeDataQualityJobDefinition
+  where
   type
     Rs DescribeDataQualityJobDefinition =
       DescribeDataQualityJobDefinitionResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeDataQualityJobDefinitionResponse'
-            <$> (x .?> "NetworkConfig")
-            <*> (x .?> "DataQualityBaselineConfig")
-            <*> (x .?> "StoppingCondition")
-            <*> (pure (fromEnum s))
-            <*> (x .:> "JobDefinitionArn")
-            <*> (x .:> "JobDefinitionName")
-            <*> (x .:> "CreationTime")
-            <*> (x .:> "DataQualityAppSpecification")
-            <*> (x .:> "DataQualityJobInput")
-            <*> (x .:> "DataQualityJobOutputConfig")
-            <*> (x .:> "JobResources")
-            <*> (x .:> "RoleArn")
+            Prelude.<$> (x Prelude..?> "NetworkConfig")
+            Prelude.<*> (x Prelude..?> "DataQualityBaselineConfig")
+            Prelude.<*> (x Prelude..?> "StoppingCondition")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "JobDefinitionArn")
+            Prelude.<*> (x Prelude..:> "JobDefinitionName")
+            Prelude.<*> (x Prelude..:> "CreationTime")
+            Prelude.<*> (x Prelude..:> "DataQualityAppSpecification")
+            Prelude.<*> (x Prelude..:> "DataQualityJobInput")
+            Prelude.<*> (x Prelude..:> "DataQualityJobOutputConfig")
+            Prelude.<*> (x Prelude..:> "JobResources")
+            Prelude.<*> (x Prelude..:> "RoleArn")
       )
 
-instance Hashable DescribeDataQualityJobDefinition
+instance
+  Prelude.Hashable
+    DescribeDataQualityJobDefinition
 
-instance NFData DescribeDataQualityJobDefinition
+instance
+  Prelude.NFData
+    DescribeDataQualityJobDefinition
 
-instance ToHeaders DescribeDataQualityJobDefinition where
+instance
+  Prelude.ToHeaders
+    DescribeDataQualityJobDefinition
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "SageMaker.DescribeDataQualityJobDefinition" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "SageMaker.DescribeDataQualityJobDefinition" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeDataQualityJobDefinition where
+instance
+  Prelude.ToJSON
+    DescribeDataQualityJobDefinition
+  where
   toJSON DescribeDataQualityJobDefinition' {..} =
-    object
-      ( catMaybes
-          [Just ("JobDefinitionName" .= _dJobDefinitionName)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("JobDefinitionName" Prelude..= jobDefinitionName)
+          ]
       )
 
-instance ToPath DescribeDataQualityJobDefinition where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    DescribeDataQualityJobDefinition
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeDataQualityJobDefinition where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    DescribeDataQualityJobDefinition
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeDataQualityJobDefinitionResponse' smart constructor.
+-- | /See:/ 'newDescribeDataQualityJobDefinitionResponse' smart constructor.
 data DescribeDataQualityJobDefinitionResponse = DescribeDataQualityJobDefinitionResponse'
-  { _ddqjdrrsNetworkConfig ::
-      !( Maybe
-           MonitoringNetworkConfig
-       ),
-    _ddqjdrrsDataQualityBaselineConfig ::
-      !( Maybe
-           DataQualityBaselineConfig
-       ),
-    _ddqjdrrsStoppingCondition ::
-      !( Maybe
-           MonitoringStoppingCondition
-       ),
-    _ddqjdrrsResponseStatus ::
-      !Int,
-    _ddqjdrrsJobDefinitionARN ::
-      !Text,
-    _ddqjdrrsJobDefinitionName ::
-      !Text,
-    _ddqjdrrsCreationTime ::
-      !POSIX,
-    _ddqjdrrsDataQualityAppSpecification ::
-      !DataQualityAppSpecification,
-    _ddqjdrrsDataQualityJobInput ::
-      !DataQualityJobInput,
-    _ddqjdrrsDataQualityJobOutputConfig ::
-      !MonitoringOutputConfig,
-    _ddqjdrrsJobResources ::
-      !MonitoringResources,
-    _ddqjdrrsRoleARN ::
-      !Text
+  { -- | The networking configuration for the data quality monitoring job.
+    networkConfig :: Prelude.Maybe MonitoringNetworkConfig,
+    -- | The constraints and baselines for the data quality monitoring job
+    -- definition.
+    dataQualityBaselineConfig :: Prelude.Maybe DataQualityBaselineConfig,
+    stoppingCondition :: Prelude.Maybe MonitoringStoppingCondition,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The Amazon Resource Name (ARN) of the data quality monitoring job
+    -- definition.
+    jobDefinitionArn :: Prelude.Text,
+    -- | The name of the data quality monitoring job definition.
+    jobDefinitionName :: Prelude.Text,
+    -- | The time that the data quality monitoring job definition was created.
+    creationTime :: Prelude.POSIX,
+    -- | Information about the container that runs the data quality monitoring
+    -- job.
+    dataQualityAppSpecification :: DataQualityAppSpecification,
+    -- | The list of inputs for the data quality monitoring job. Currently
+    -- endpoints are supported.
+    dataQualityJobInput :: DataQualityJobInput,
+    dataQualityJobOutputConfig :: MonitoringOutputConfig,
+    jobResources :: MonitoringResources,
+    -- | The Amazon Resource Name (ARN) of an IAM role that Amazon SageMaker can
+    -- assume to perform tasks on your behalf.
+    roleArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeDataQualityJobDefinitionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeDataQualityJobDefinitionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddqjdrrsNetworkConfig' - The networking configuration for the data quality monitoring job.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ddqjdrrsDataQualityBaselineConfig' - The constraints and baselines for the data quality monitoring job definition.
+-- 'networkConfig', 'describeDataQualityJobDefinitionResponse_networkConfig' - The networking configuration for the data quality monitoring job.
 --
--- * 'ddqjdrrsStoppingCondition' - Undocumented member.
+-- 'dataQualityBaselineConfig', 'describeDataQualityJobDefinitionResponse_dataQualityBaselineConfig' - The constraints and baselines for the data quality monitoring job
+-- definition.
 --
--- * 'ddqjdrrsResponseStatus' - -- | The response status code.
+-- 'stoppingCondition', 'describeDataQualityJobDefinitionResponse_stoppingCondition' - Undocumented member.
 --
--- * 'ddqjdrrsJobDefinitionARN' - The Amazon Resource Name (ARN) of the data quality monitoring job definition.
+-- 'httpStatus', 'describeDataQualityJobDefinitionResponse_httpStatus' - The response's http status code.
 --
--- * 'ddqjdrrsJobDefinitionName' - The name of the data quality monitoring job definition.
+-- 'jobDefinitionArn', 'describeDataQualityJobDefinitionResponse_jobDefinitionArn' - The Amazon Resource Name (ARN) of the data quality monitoring job
+-- definition.
 --
--- * 'ddqjdrrsCreationTime' - The time that the data quality monitoring job definition was created.
+-- 'jobDefinitionName', 'describeDataQualityJobDefinitionResponse_jobDefinitionName' - The name of the data quality monitoring job definition.
 --
--- * 'ddqjdrrsDataQualityAppSpecification' - Information about the container that runs the data quality monitoring job.
+-- 'creationTime', 'describeDataQualityJobDefinitionResponse_creationTime' - The time that the data quality monitoring job definition was created.
 --
--- * 'ddqjdrrsDataQualityJobInput' - The list of inputs for the data quality monitoring job. Currently endpoints are supported.
+-- 'dataQualityAppSpecification', 'describeDataQualityJobDefinitionResponse_dataQualityAppSpecification' - Information about the container that runs the data quality monitoring
+-- job.
 --
--- * 'ddqjdrrsDataQualityJobOutputConfig' - Undocumented member.
+-- 'dataQualityJobInput', 'describeDataQualityJobDefinitionResponse_dataQualityJobInput' - The list of inputs for the data quality monitoring job. Currently
+-- endpoints are supported.
 --
--- * 'ddqjdrrsJobResources' - Undocumented member.
+-- 'dataQualityJobOutputConfig', 'describeDataQualityJobDefinitionResponse_dataQualityJobOutputConfig' - Undocumented member.
 --
--- * 'ddqjdrrsRoleARN' - The Amazon Resource Name (ARN) of an IAM role that Amazon SageMaker can assume to perform tasks on your behalf.
-describeDataQualityJobDefinitionResponse ::
-  -- | 'ddqjdrrsResponseStatus'
-  Int ->
-  -- | 'ddqjdrrsJobDefinitionARN'
-  Text ->
-  -- | 'ddqjdrrsJobDefinitionName'
-  Text ->
-  -- | 'ddqjdrrsCreationTime'
-  UTCTime ->
-  -- | 'ddqjdrrsDataQualityAppSpecification'
+-- 'jobResources', 'describeDataQualityJobDefinitionResponse_jobResources' - Undocumented member.
+--
+-- 'roleArn', 'describeDataQualityJobDefinitionResponse_roleArn' - The Amazon Resource Name (ARN) of an IAM role that Amazon SageMaker can
+-- assume to perform tasks on your behalf.
+newDescribeDataQualityJobDefinitionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'jobDefinitionArn'
+  Prelude.Text ->
+  -- | 'jobDefinitionName'
+  Prelude.Text ->
+  -- | 'creationTime'
+  Prelude.UTCTime ->
+  -- | 'dataQualityAppSpecification'
   DataQualityAppSpecification ->
-  -- | 'ddqjdrrsDataQualityJobInput'
+  -- | 'dataQualityJobInput'
   DataQualityJobInput ->
-  -- | 'ddqjdrrsDataQualityJobOutputConfig'
+  -- | 'dataQualityJobOutputConfig'
   MonitoringOutputConfig ->
-  -- | 'ddqjdrrsJobResources'
+  -- | 'jobResources'
   MonitoringResources ->
-  -- | 'ddqjdrrsRoleARN'
-  Text ->
+  -- | 'roleArn'
+  Prelude.Text ->
   DescribeDataQualityJobDefinitionResponse
-describeDataQualityJobDefinitionResponse
-  pResponseStatus_
-  pJobDefinitionARN_
+newDescribeDataQualityJobDefinitionResponse
+  pHttpStatus_
+  pJobDefinitionArn_
   pJobDefinitionName_
   pCreationTime_
   pDataQualityAppSpecification_
   pDataQualityJobInput_
   pDataQualityJobOutputConfig_
   pJobResources_
-  pRoleARN_ =
+  pRoleArn_ =
     DescribeDataQualityJobDefinitionResponse'
-      { _ddqjdrrsNetworkConfig =
-          Nothing,
-        _ddqjdrrsDataQualityBaselineConfig =
-          Nothing,
-        _ddqjdrrsStoppingCondition =
-          Nothing,
-        _ddqjdrrsResponseStatus =
-          pResponseStatus_,
-        _ddqjdrrsJobDefinitionARN =
-          pJobDefinitionARN_,
-        _ddqjdrrsJobDefinitionName =
+      { networkConfig =
+          Prelude.Nothing,
+        dataQualityBaselineConfig =
+          Prelude.Nothing,
+        stoppingCondition =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_,
+        jobDefinitionArn =
+          pJobDefinitionArn_,
+        jobDefinitionName =
           pJobDefinitionName_,
-        _ddqjdrrsCreationTime =
-          _Time # pCreationTime_,
-        _ddqjdrrsDataQualityAppSpecification =
+        creationTime =
+          Prelude._Time
+            Lens.# pCreationTime_,
+        dataQualityAppSpecification =
           pDataQualityAppSpecification_,
-        _ddqjdrrsDataQualityJobInput =
+        dataQualityJobInput =
           pDataQualityJobInput_,
-        _ddqjdrrsDataQualityJobOutputConfig =
+        dataQualityJobOutputConfig =
           pDataQualityJobOutputConfig_,
-        _ddqjdrrsJobResources =
-          pJobResources_,
-        _ddqjdrrsRoleARN = pRoleARN_
+        jobResources = pJobResources_,
+        roleArn = pRoleArn_
       }
 
 -- | The networking configuration for the data quality monitoring job.
-ddqjdrrsNetworkConfig :: Lens' DescribeDataQualityJobDefinitionResponse (Maybe MonitoringNetworkConfig)
-ddqjdrrsNetworkConfig = lens _ddqjdrrsNetworkConfig (\s a -> s {_ddqjdrrsNetworkConfig = a})
+describeDataQualityJobDefinitionResponse_networkConfig :: Lens.Lens' DescribeDataQualityJobDefinitionResponse (Prelude.Maybe MonitoringNetworkConfig)
+describeDataQualityJobDefinitionResponse_networkConfig = Lens.lens (\DescribeDataQualityJobDefinitionResponse' {networkConfig} -> networkConfig) (\s@DescribeDataQualityJobDefinitionResponse' {} a -> s {networkConfig = a} :: DescribeDataQualityJobDefinitionResponse)
 
--- | The constraints and baselines for the data quality monitoring job definition.
-ddqjdrrsDataQualityBaselineConfig :: Lens' DescribeDataQualityJobDefinitionResponse (Maybe DataQualityBaselineConfig)
-ddqjdrrsDataQualityBaselineConfig = lens _ddqjdrrsDataQualityBaselineConfig (\s a -> s {_ddqjdrrsDataQualityBaselineConfig = a})
+-- | The constraints and baselines for the data quality monitoring job
+-- definition.
+describeDataQualityJobDefinitionResponse_dataQualityBaselineConfig :: Lens.Lens' DescribeDataQualityJobDefinitionResponse (Prelude.Maybe DataQualityBaselineConfig)
+describeDataQualityJobDefinitionResponse_dataQualityBaselineConfig = Lens.lens (\DescribeDataQualityJobDefinitionResponse' {dataQualityBaselineConfig} -> dataQualityBaselineConfig) (\s@DescribeDataQualityJobDefinitionResponse' {} a -> s {dataQualityBaselineConfig = a} :: DescribeDataQualityJobDefinitionResponse)
 
 -- | Undocumented member.
-ddqjdrrsStoppingCondition :: Lens' DescribeDataQualityJobDefinitionResponse (Maybe MonitoringStoppingCondition)
-ddqjdrrsStoppingCondition = lens _ddqjdrrsStoppingCondition (\s a -> s {_ddqjdrrsStoppingCondition = a})
+describeDataQualityJobDefinitionResponse_stoppingCondition :: Lens.Lens' DescribeDataQualityJobDefinitionResponse (Prelude.Maybe MonitoringStoppingCondition)
+describeDataQualityJobDefinitionResponse_stoppingCondition = Lens.lens (\DescribeDataQualityJobDefinitionResponse' {stoppingCondition} -> stoppingCondition) (\s@DescribeDataQualityJobDefinitionResponse' {} a -> s {stoppingCondition = a} :: DescribeDataQualityJobDefinitionResponse)
 
--- | -- | The response status code.
-ddqjdrrsResponseStatus :: Lens' DescribeDataQualityJobDefinitionResponse Int
-ddqjdrrsResponseStatus = lens _ddqjdrrsResponseStatus (\s a -> s {_ddqjdrrsResponseStatus = a})
+-- | The response's http status code.
+describeDataQualityJobDefinitionResponse_httpStatus :: Lens.Lens' DescribeDataQualityJobDefinitionResponse Prelude.Int
+describeDataQualityJobDefinitionResponse_httpStatus = Lens.lens (\DescribeDataQualityJobDefinitionResponse' {httpStatus} -> httpStatus) (\s@DescribeDataQualityJobDefinitionResponse' {} a -> s {httpStatus = a} :: DescribeDataQualityJobDefinitionResponse)
 
--- | The Amazon Resource Name (ARN) of the data quality monitoring job definition.
-ddqjdrrsJobDefinitionARN :: Lens' DescribeDataQualityJobDefinitionResponse Text
-ddqjdrrsJobDefinitionARN = lens _ddqjdrrsJobDefinitionARN (\s a -> s {_ddqjdrrsJobDefinitionARN = a})
+-- | The Amazon Resource Name (ARN) of the data quality monitoring job
+-- definition.
+describeDataQualityJobDefinitionResponse_jobDefinitionArn :: Lens.Lens' DescribeDataQualityJobDefinitionResponse Prelude.Text
+describeDataQualityJobDefinitionResponse_jobDefinitionArn = Lens.lens (\DescribeDataQualityJobDefinitionResponse' {jobDefinitionArn} -> jobDefinitionArn) (\s@DescribeDataQualityJobDefinitionResponse' {} a -> s {jobDefinitionArn = a} :: DescribeDataQualityJobDefinitionResponse)
 
 -- | The name of the data quality monitoring job definition.
-ddqjdrrsJobDefinitionName :: Lens' DescribeDataQualityJobDefinitionResponse Text
-ddqjdrrsJobDefinitionName = lens _ddqjdrrsJobDefinitionName (\s a -> s {_ddqjdrrsJobDefinitionName = a})
+describeDataQualityJobDefinitionResponse_jobDefinitionName :: Lens.Lens' DescribeDataQualityJobDefinitionResponse Prelude.Text
+describeDataQualityJobDefinitionResponse_jobDefinitionName = Lens.lens (\DescribeDataQualityJobDefinitionResponse' {jobDefinitionName} -> jobDefinitionName) (\s@DescribeDataQualityJobDefinitionResponse' {} a -> s {jobDefinitionName = a} :: DescribeDataQualityJobDefinitionResponse)
 
 -- | The time that the data quality monitoring job definition was created.
-ddqjdrrsCreationTime :: Lens' DescribeDataQualityJobDefinitionResponse UTCTime
-ddqjdrrsCreationTime = lens _ddqjdrrsCreationTime (\s a -> s {_ddqjdrrsCreationTime = a}) . _Time
+describeDataQualityJobDefinitionResponse_creationTime :: Lens.Lens' DescribeDataQualityJobDefinitionResponse Prelude.UTCTime
+describeDataQualityJobDefinitionResponse_creationTime = Lens.lens (\DescribeDataQualityJobDefinitionResponse' {creationTime} -> creationTime) (\s@DescribeDataQualityJobDefinitionResponse' {} a -> s {creationTime = a} :: DescribeDataQualityJobDefinitionResponse) Prelude.. Prelude._Time
 
--- | Information about the container that runs the data quality monitoring job.
-ddqjdrrsDataQualityAppSpecification :: Lens' DescribeDataQualityJobDefinitionResponse DataQualityAppSpecification
-ddqjdrrsDataQualityAppSpecification = lens _ddqjdrrsDataQualityAppSpecification (\s a -> s {_ddqjdrrsDataQualityAppSpecification = a})
+-- | Information about the container that runs the data quality monitoring
+-- job.
+describeDataQualityJobDefinitionResponse_dataQualityAppSpecification :: Lens.Lens' DescribeDataQualityJobDefinitionResponse DataQualityAppSpecification
+describeDataQualityJobDefinitionResponse_dataQualityAppSpecification = Lens.lens (\DescribeDataQualityJobDefinitionResponse' {dataQualityAppSpecification} -> dataQualityAppSpecification) (\s@DescribeDataQualityJobDefinitionResponse' {} a -> s {dataQualityAppSpecification = a} :: DescribeDataQualityJobDefinitionResponse)
 
--- | The list of inputs for the data quality monitoring job. Currently endpoints are supported.
-ddqjdrrsDataQualityJobInput :: Lens' DescribeDataQualityJobDefinitionResponse DataQualityJobInput
-ddqjdrrsDataQualityJobInput = lens _ddqjdrrsDataQualityJobInput (\s a -> s {_ddqjdrrsDataQualityJobInput = a})
-
--- | Undocumented member.
-ddqjdrrsDataQualityJobOutputConfig :: Lens' DescribeDataQualityJobDefinitionResponse MonitoringOutputConfig
-ddqjdrrsDataQualityJobOutputConfig = lens _ddqjdrrsDataQualityJobOutputConfig (\s a -> s {_ddqjdrrsDataQualityJobOutputConfig = a})
+-- | The list of inputs for the data quality monitoring job. Currently
+-- endpoints are supported.
+describeDataQualityJobDefinitionResponse_dataQualityJobInput :: Lens.Lens' DescribeDataQualityJobDefinitionResponse DataQualityJobInput
+describeDataQualityJobDefinitionResponse_dataQualityJobInput = Lens.lens (\DescribeDataQualityJobDefinitionResponse' {dataQualityJobInput} -> dataQualityJobInput) (\s@DescribeDataQualityJobDefinitionResponse' {} a -> s {dataQualityJobInput = a} :: DescribeDataQualityJobDefinitionResponse)
 
 -- | Undocumented member.
-ddqjdrrsJobResources :: Lens' DescribeDataQualityJobDefinitionResponse MonitoringResources
-ddqjdrrsJobResources = lens _ddqjdrrsJobResources (\s a -> s {_ddqjdrrsJobResources = a})
+describeDataQualityJobDefinitionResponse_dataQualityJobOutputConfig :: Lens.Lens' DescribeDataQualityJobDefinitionResponse MonitoringOutputConfig
+describeDataQualityJobDefinitionResponse_dataQualityJobOutputConfig = Lens.lens (\DescribeDataQualityJobDefinitionResponse' {dataQualityJobOutputConfig} -> dataQualityJobOutputConfig) (\s@DescribeDataQualityJobDefinitionResponse' {} a -> s {dataQualityJobOutputConfig = a} :: DescribeDataQualityJobDefinitionResponse)
 
--- | The Amazon Resource Name (ARN) of an IAM role that Amazon SageMaker can assume to perform tasks on your behalf.
-ddqjdrrsRoleARN :: Lens' DescribeDataQualityJobDefinitionResponse Text
-ddqjdrrsRoleARN = lens _ddqjdrrsRoleARN (\s a -> s {_ddqjdrrsRoleARN = a})
+-- | Undocumented member.
+describeDataQualityJobDefinitionResponse_jobResources :: Lens.Lens' DescribeDataQualityJobDefinitionResponse MonitoringResources
+describeDataQualityJobDefinitionResponse_jobResources = Lens.lens (\DescribeDataQualityJobDefinitionResponse' {jobResources} -> jobResources) (\s@DescribeDataQualityJobDefinitionResponse' {} a -> s {jobResources = a} :: DescribeDataQualityJobDefinitionResponse)
+
+-- | The Amazon Resource Name (ARN) of an IAM role that Amazon SageMaker can
+-- assume to perform tasks on your behalf.
+describeDataQualityJobDefinitionResponse_roleArn :: Lens.Lens' DescribeDataQualityJobDefinitionResponse Prelude.Text
+describeDataQualityJobDefinitionResponse_roleArn = Lens.lens (\DescribeDataQualityJobDefinitionResponse' {roleArn} -> roleArn) (\s@DescribeDataQualityJobDefinitionResponse' {} a -> s {roleArn = a} :: DescribeDataQualityJobDefinitionResponse)
 
 instance
-  NFData
+  Prelude.NFData
     DescribeDataQualityJobDefinitionResponse

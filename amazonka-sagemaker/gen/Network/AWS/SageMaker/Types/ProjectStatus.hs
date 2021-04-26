@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,78 +19,80 @@
 module Network.AWS.SageMaker.Types.ProjectStatus
   ( ProjectStatus
       ( ..,
-        PSCreateCompleted,
-        PSCreateFailed,
-        PSCreateInProgress,
-        PSDeleteCompleted,
-        PSDeleteFailed,
-        PSDeleteInProgress,
-        PSPending
+        ProjectStatusCreateCompleted,
+        ProjectStatusCreateFailed,
+        ProjectStatusCreateInProgress,
+        ProjectStatusDeleteCompleted,
+        ProjectStatusDeleteFailed,
+        ProjectStatusDeleteInProgress,
+        ProjectStatusPending
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ProjectStatus = ProjectStatus' (CI Text)
+newtype ProjectStatus = ProjectStatus'
+  { fromProjectStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PSCreateCompleted :: ProjectStatus
-pattern PSCreateCompleted = ProjectStatus' "CreateCompleted"
+pattern ProjectStatusCreateCompleted :: ProjectStatus
+pattern ProjectStatusCreateCompleted = ProjectStatus' "CreateCompleted"
 
-pattern PSCreateFailed :: ProjectStatus
-pattern PSCreateFailed = ProjectStatus' "CreateFailed"
+pattern ProjectStatusCreateFailed :: ProjectStatus
+pattern ProjectStatusCreateFailed = ProjectStatus' "CreateFailed"
 
-pattern PSCreateInProgress :: ProjectStatus
-pattern PSCreateInProgress = ProjectStatus' "CreateInProgress"
+pattern ProjectStatusCreateInProgress :: ProjectStatus
+pattern ProjectStatusCreateInProgress = ProjectStatus' "CreateInProgress"
 
-pattern PSDeleteCompleted :: ProjectStatus
-pattern PSDeleteCompleted = ProjectStatus' "DeleteCompleted"
+pattern ProjectStatusDeleteCompleted :: ProjectStatus
+pattern ProjectStatusDeleteCompleted = ProjectStatus' "DeleteCompleted"
 
-pattern PSDeleteFailed :: ProjectStatus
-pattern PSDeleteFailed = ProjectStatus' "DeleteFailed"
+pattern ProjectStatusDeleteFailed :: ProjectStatus
+pattern ProjectStatusDeleteFailed = ProjectStatus' "DeleteFailed"
 
-pattern PSDeleteInProgress :: ProjectStatus
-pattern PSDeleteInProgress = ProjectStatus' "DeleteInProgress"
+pattern ProjectStatusDeleteInProgress :: ProjectStatus
+pattern ProjectStatusDeleteInProgress = ProjectStatus' "DeleteInProgress"
 
-pattern PSPending :: ProjectStatus
-pattern PSPending = ProjectStatus' "Pending"
+pattern ProjectStatusPending :: ProjectStatus
+pattern ProjectStatusPending = ProjectStatus' "Pending"
 
 {-# COMPLETE
-  PSCreateCompleted,
-  PSCreateFailed,
-  PSCreateInProgress,
-  PSDeleteCompleted,
-  PSDeleteFailed,
-  PSDeleteInProgress,
-  PSPending,
+  ProjectStatusCreateCompleted,
+  ProjectStatusCreateFailed,
+  ProjectStatusCreateInProgress,
+  ProjectStatusDeleteCompleted,
+  ProjectStatusDeleteFailed,
+  ProjectStatusDeleteInProgress,
+  ProjectStatusPending,
   ProjectStatus'
   #-}
 
-instance FromText ProjectStatus where
-  parser = (ProjectStatus' . mk) <$> takeText
+instance Prelude.FromText ProjectStatus where
+  parser = ProjectStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ProjectStatus where
-  toText (ProjectStatus' ci) = original ci
+instance Prelude.ToText ProjectStatus where
+  toText (ProjectStatus' x) = x
 
-instance Hashable ProjectStatus
+instance Prelude.Hashable ProjectStatus
 
-instance NFData ProjectStatus
+instance Prelude.NFData ProjectStatus
 
-instance ToByteString ProjectStatus
+instance Prelude.ToByteString ProjectStatus
 
-instance ToQuery ProjectStatus
+instance Prelude.ToQuery ProjectStatus
 
-instance ToHeader ProjectStatus
+instance Prelude.ToHeader ProjectStatus
 
-instance FromJSON ProjectStatus where
-  parseJSON = parseJSONText "ProjectStatus"
+instance Prelude.FromJSON ProjectStatus where
+  parseJSON = Prelude.parseJSONText "ProjectStatus"

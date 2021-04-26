@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.SageMaker.Types.SortExperimentsBy
   ( SortExperimentsBy
       ( ..,
-        SEBCreationTime,
-        SEBName
+        SortExperimentsByCreationTime,
+        SortExperimentsByName
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SortExperimentsBy = SortExperimentsBy' (CI Text)
+newtype SortExperimentsBy = SortExperimentsBy'
+  { fromSortExperimentsBy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SEBCreationTime :: SortExperimentsBy
-pattern SEBCreationTime = SortExperimentsBy' "CreationTime"
+pattern SortExperimentsByCreationTime :: SortExperimentsBy
+pattern SortExperimentsByCreationTime = SortExperimentsBy' "CreationTime"
 
-pattern SEBName :: SortExperimentsBy
-pattern SEBName = SortExperimentsBy' "Name"
+pattern SortExperimentsByName :: SortExperimentsBy
+pattern SortExperimentsByName = SortExperimentsBy' "Name"
 
 {-# COMPLETE
-  SEBCreationTime,
-  SEBName,
+  SortExperimentsByCreationTime,
+  SortExperimentsByName,
   SortExperimentsBy'
   #-}
 
-instance FromText SortExperimentsBy where
-  parser = (SortExperimentsBy' . mk) <$> takeText
+instance Prelude.FromText SortExperimentsBy where
+  parser = SortExperimentsBy' Prelude.<$> Prelude.takeText
 
-instance ToText SortExperimentsBy where
-  toText (SortExperimentsBy' ci) = original ci
+instance Prelude.ToText SortExperimentsBy where
+  toText (SortExperimentsBy' x) = x
 
-instance Hashable SortExperimentsBy
+instance Prelude.Hashable SortExperimentsBy
 
-instance NFData SortExperimentsBy
+instance Prelude.NFData SortExperimentsBy
 
-instance ToByteString SortExperimentsBy
+instance Prelude.ToByteString SortExperimentsBy
 
-instance ToQuery SortExperimentsBy
+instance Prelude.ToQuery SortExperimentsBy
 
-instance ToHeader SortExperimentsBy
+instance Prelude.ToHeader SortExperimentsBy
 
-instance ToJSON SortExperimentsBy where
-  toJSON = toJSONText
+instance Prelude.ToJSON SortExperimentsBy where
+  toJSON = Prelude.toJSONText

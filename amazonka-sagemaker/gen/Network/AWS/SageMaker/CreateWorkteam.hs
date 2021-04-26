@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,198 +21,294 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a new work team for labeling your data. A work team is defined by one or more Amazon Cognito user pools. You must first create the user pools before you can create a work team.
---
+-- Creates a new work team for labeling your data. A work team is defined
+-- by one or more Amazon Cognito user pools. You must first create the user
+-- pools before you can create a work team.
 --
 -- You cannot create more than 25 work teams in an account and region.
 module Network.AWS.SageMaker.CreateWorkteam
   ( -- * Creating a Request
-    createWorkteam,
-    CreateWorkteam,
+    CreateWorkteam (..),
+    newCreateWorkteam,
 
     -- * Request Lenses
-    cwwWorkforceName,
-    cwwNotificationConfiguration,
-    cwwTags,
-    cwwWorkteamName,
-    cwwMemberDefinitions,
-    cwwDescription,
+    createWorkteam_workforceName,
+    createWorkteam_notificationConfiguration,
+    createWorkteam_tags,
+    createWorkteam_workteamName,
+    createWorkteam_memberDefinitions,
+    createWorkteam_description,
 
     -- * Destructuring the Response
-    createWorkteamResponse,
-    CreateWorkteamResponse,
+    CreateWorkteamResponse (..),
+    newCreateWorkteamResponse,
 
     -- * Response Lenses
-    cwrwrsWorkteamARN,
-    cwrwrsResponseStatus,
+    createWorkteamResponse_workteamArn,
+    createWorkteamResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'createWorkteam' smart constructor.
+-- | /See:/ 'newCreateWorkteam' smart constructor.
 data CreateWorkteam = CreateWorkteam'
-  { _cwwWorkforceName ::
-      !(Maybe Text),
-    _cwwNotificationConfiguration ::
-      !(Maybe NotificationConfiguration),
-    _cwwTags :: !(Maybe [Tag]),
-    _cwwWorkteamName :: !Text,
-    _cwwMemberDefinitions ::
-      !(List1 MemberDefinition),
-    _cwwDescription :: !Text
+  { -- | The name of the workforce.
+    workforceName :: Prelude.Maybe Prelude.Text,
+    -- | Configures notification of workers regarding available or expiring work
+    -- items.
+    notificationConfiguration :: Prelude.Maybe NotificationConfiguration,
+    -- | An array of key-value pairs.
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html Resource Tag>
+    -- and
+    -- <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what Using Cost Allocation Tags>
+    -- in the /AWS Billing and Cost Management User Guide/.
+    tags :: Prelude.Maybe [Tag],
+    -- | The name of the work team. Use this name to identify the work team.
+    workteamName :: Prelude.Text,
+    -- | A list of @MemberDefinition@ objects that contains objects that identify
+    -- the workers that make up the work team.
+    --
+    -- Workforces can be created using Amazon Cognito or your own OIDC Identity
+    -- Provider (IdP). For private workforces created using Amazon Cognito use
+    -- @CognitoMemberDefinition@. For workforces created using your own OIDC
+    -- identity provider (IdP) use @OidcMemberDefinition@. Do not provide input
+    -- for both of these parameters in a single request.
+    --
+    -- For workforces created using Amazon Cognito, private work teams
+    -- correspond to Amazon Cognito /user groups/ within the user pool used to
+    -- create a workforce. All of the @CognitoMemberDefinition@ objects that
+    -- make up the member definition must have the same @ClientId@ and
+    -- @UserPool@ values. To add a Amazon Cognito user group to an existing
+    -- worker pool, see < Adding groups to a User Pool>. For more information
+    -- about user pools, see
+    -- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html Amazon Cognito User Pools>.
+    --
+    -- For workforces created using your own OIDC IdP, specify the user groups
+    -- that you want to include in your private work team in
+    -- @OidcMemberDefinition@ by listing those groups in @Groups@.
+    memberDefinitions :: Prelude.List1 MemberDefinition,
+    -- | A description of the work team.
+    description :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateWorkteam' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateWorkteam' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cwwWorkforceName' - The name of the workforce.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cwwNotificationConfiguration' - Configures notification of workers regarding available or expiring work items.
+-- 'workforceName', 'createWorkteam_workforceName' - The name of the workforce.
 --
--- * 'cwwTags' - An array of key-value pairs. For more information, see <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html Resource Tag> and <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what Using Cost Allocation Tags> in the /AWS Billing and Cost Management User Guide/ .
+-- 'notificationConfiguration', 'createWorkteam_notificationConfiguration' - Configures notification of workers regarding available or expiring work
+-- items.
 --
--- * 'cwwWorkteamName' - The name of the work team. Use this name to identify the work team.
+-- 'tags', 'createWorkteam_tags' - An array of key-value pairs.
 --
--- * 'cwwMemberDefinitions' - A list of @MemberDefinition@ objects that contains objects that identify the workers that make up the work team.  Workforces can be created using Amazon Cognito or your own OIDC Identity Provider (IdP). For private workforces created using Amazon Cognito use @CognitoMemberDefinition@ . For workforces created using your own OIDC identity provider (IdP) use @OidcMemberDefinition@ . Do not provide input for both of these parameters in a single request. For workforces created using Amazon Cognito, private work teams correspond to Amazon Cognito /user groups/ within the user pool used to create a workforce. All of the @CognitoMemberDefinition@ objects that make up the member definition must have the same @ClientId@ and @UserPool@ values. To add a Amazon Cognito user group to an existing worker pool, see < Adding groups to a User Pool> . For more information about user pools, see <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html Amazon Cognito User Pools> . For workforces created using your own OIDC IdP, specify the user groups that you want to include in your private work team in @OidcMemberDefinition@ by listing those groups in @Groups@ .
+-- For more information, see
+-- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html Resource Tag>
+-- and
+-- <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what Using Cost Allocation Tags>
+-- in the /AWS Billing and Cost Management User Guide/.
 --
--- * 'cwwDescription' - A description of the work team.
-createWorkteam ::
-  -- | 'cwwWorkteamName'
-  Text ->
-  -- | 'cwwMemberDefinitions'
-  NonEmpty MemberDefinition ->
-  -- | 'cwwDescription'
-  Text ->
+-- 'workteamName', 'createWorkteam_workteamName' - The name of the work team. Use this name to identify the work team.
+--
+-- 'memberDefinitions', 'createWorkteam_memberDefinitions' - A list of @MemberDefinition@ objects that contains objects that identify
+-- the workers that make up the work team.
+--
+-- Workforces can be created using Amazon Cognito or your own OIDC Identity
+-- Provider (IdP). For private workforces created using Amazon Cognito use
+-- @CognitoMemberDefinition@. For workforces created using your own OIDC
+-- identity provider (IdP) use @OidcMemberDefinition@. Do not provide input
+-- for both of these parameters in a single request.
+--
+-- For workforces created using Amazon Cognito, private work teams
+-- correspond to Amazon Cognito /user groups/ within the user pool used to
+-- create a workforce. All of the @CognitoMemberDefinition@ objects that
+-- make up the member definition must have the same @ClientId@ and
+-- @UserPool@ values. To add a Amazon Cognito user group to an existing
+-- worker pool, see < Adding groups to a User Pool>. For more information
+-- about user pools, see
+-- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html Amazon Cognito User Pools>.
+--
+-- For workforces created using your own OIDC IdP, specify the user groups
+-- that you want to include in your private work team in
+-- @OidcMemberDefinition@ by listing those groups in @Groups@.
+--
+-- 'description', 'createWorkteam_description' - A description of the work team.
+newCreateWorkteam ::
+  -- | 'workteamName'
+  Prelude.Text ->
+  -- | 'memberDefinitions'
+  Prelude.NonEmpty MemberDefinition ->
+  -- | 'description'
+  Prelude.Text ->
   CreateWorkteam
-createWorkteam
+newCreateWorkteam
   pWorkteamName_
   pMemberDefinitions_
   pDescription_ =
     CreateWorkteam'
-      { _cwwWorkforceName = Nothing,
-        _cwwNotificationConfiguration = Nothing,
-        _cwwTags = Nothing,
-        _cwwWorkteamName = pWorkteamName_,
-        _cwwMemberDefinitions = _List1 # pMemberDefinitions_,
-        _cwwDescription = pDescription_
+      { workforceName = Prelude.Nothing,
+        notificationConfiguration = Prelude.Nothing,
+        tags = Prelude.Nothing,
+        workteamName = pWorkteamName_,
+        memberDefinitions =
+          Prelude._List1 Lens.# pMemberDefinitions_,
+        description = pDescription_
       }
 
 -- | The name of the workforce.
-cwwWorkforceName :: Lens' CreateWorkteam (Maybe Text)
-cwwWorkforceName = lens _cwwWorkforceName (\s a -> s {_cwwWorkforceName = a})
+createWorkteam_workforceName :: Lens.Lens' CreateWorkteam (Prelude.Maybe Prelude.Text)
+createWorkteam_workforceName = Lens.lens (\CreateWorkteam' {workforceName} -> workforceName) (\s@CreateWorkteam' {} a -> s {workforceName = a} :: CreateWorkteam)
 
--- | Configures notification of workers regarding available or expiring work items.
-cwwNotificationConfiguration :: Lens' CreateWorkteam (Maybe NotificationConfiguration)
-cwwNotificationConfiguration = lens _cwwNotificationConfiguration (\s a -> s {_cwwNotificationConfiguration = a})
+-- | Configures notification of workers regarding available or expiring work
+-- items.
+createWorkteam_notificationConfiguration :: Lens.Lens' CreateWorkteam (Prelude.Maybe NotificationConfiguration)
+createWorkteam_notificationConfiguration = Lens.lens (\CreateWorkteam' {notificationConfiguration} -> notificationConfiguration) (\s@CreateWorkteam' {} a -> s {notificationConfiguration = a} :: CreateWorkteam)
 
--- | An array of key-value pairs. For more information, see <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html Resource Tag> and <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what Using Cost Allocation Tags> in the /AWS Billing and Cost Management User Guide/ .
-cwwTags :: Lens' CreateWorkteam [Tag]
-cwwTags = lens _cwwTags (\s a -> s {_cwwTags = a}) . _Default . _Coerce
+-- | An array of key-value pairs.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html Resource Tag>
+-- and
+-- <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what Using Cost Allocation Tags>
+-- in the /AWS Billing and Cost Management User Guide/.
+createWorkteam_tags :: Lens.Lens' CreateWorkteam (Prelude.Maybe [Tag])
+createWorkteam_tags = Lens.lens (\CreateWorkteam' {tags} -> tags) (\s@CreateWorkteam' {} a -> s {tags = a} :: CreateWorkteam) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The name of the work team. Use this name to identify the work team.
-cwwWorkteamName :: Lens' CreateWorkteam Text
-cwwWorkteamName = lens _cwwWorkteamName (\s a -> s {_cwwWorkteamName = a})
+createWorkteam_workteamName :: Lens.Lens' CreateWorkteam Prelude.Text
+createWorkteam_workteamName = Lens.lens (\CreateWorkteam' {workteamName} -> workteamName) (\s@CreateWorkteam' {} a -> s {workteamName = a} :: CreateWorkteam)
 
--- | A list of @MemberDefinition@ objects that contains objects that identify the workers that make up the work team.  Workforces can be created using Amazon Cognito or your own OIDC Identity Provider (IdP). For private workforces created using Amazon Cognito use @CognitoMemberDefinition@ . For workforces created using your own OIDC identity provider (IdP) use @OidcMemberDefinition@ . Do not provide input for both of these parameters in a single request. For workforces created using Amazon Cognito, private work teams correspond to Amazon Cognito /user groups/ within the user pool used to create a workforce. All of the @CognitoMemberDefinition@ objects that make up the member definition must have the same @ClientId@ and @UserPool@ values. To add a Amazon Cognito user group to an existing worker pool, see < Adding groups to a User Pool> . For more information about user pools, see <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html Amazon Cognito User Pools> . For workforces created using your own OIDC IdP, specify the user groups that you want to include in your private work team in @OidcMemberDefinition@ by listing those groups in @Groups@ .
-cwwMemberDefinitions :: Lens' CreateWorkteam (NonEmpty MemberDefinition)
-cwwMemberDefinitions = lens _cwwMemberDefinitions (\s a -> s {_cwwMemberDefinitions = a}) . _List1
+-- | A list of @MemberDefinition@ objects that contains objects that identify
+-- the workers that make up the work team.
+--
+-- Workforces can be created using Amazon Cognito or your own OIDC Identity
+-- Provider (IdP). For private workforces created using Amazon Cognito use
+-- @CognitoMemberDefinition@. For workforces created using your own OIDC
+-- identity provider (IdP) use @OidcMemberDefinition@. Do not provide input
+-- for both of these parameters in a single request.
+--
+-- For workforces created using Amazon Cognito, private work teams
+-- correspond to Amazon Cognito /user groups/ within the user pool used to
+-- create a workforce. All of the @CognitoMemberDefinition@ objects that
+-- make up the member definition must have the same @ClientId@ and
+-- @UserPool@ values. To add a Amazon Cognito user group to an existing
+-- worker pool, see < Adding groups to a User Pool>. For more information
+-- about user pools, see
+-- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html Amazon Cognito User Pools>.
+--
+-- For workforces created using your own OIDC IdP, specify the user groups
+-- that you want to include in your private work team in
+-- @OidcMemberDefinition@ by listing those groups in @Groups@.
+createWorkteam_memberDefinitions :: Lens.Lens' CreateWorkteam (Prelude.NonEmpty MemberDefinition)
+createWorkteam_memberDefinitions = Lens.lens (\CreateWorkteam' {memberDefinitions} -> memberDefinitions) (\s@CreateWorkteam' {} a -> s {memberDefinitions = a} :: CreateWorkteam) Prelude.. Prelude._List1
 
 -- | A description of the work team.
-cwwDescription :: Lens' CreateWorkteam Text
-cwwDescription = lens _cwwDescription (\s a -> s {_cwwDescription = a})
+createWorkteam_description :: Lens.Lens' CreateWorkteam Prelude.Text
+createWorkteam_description = Lens.lens (\CreateWorkteam' {description} -> description) (\s@CreateWorkteam' {} a -> s {description = a} :: CreateWorkteam)
 
-instance AWSRequest CreateWorkteam where
+instance Prelude.AWSRequest CreateWorkteam where
   type Rs CreateWorkteam = CreateWorkteamResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateWorkteamResponse'
-            <$> (x .?> "WorkteamArn") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "WorkteamArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateWorkteam
+instance Prelude.Hashable CreateWorkteam
 
-instance NFData CreateWorkteam
+instance Prelude.NFData CreateWorkteam
 
-instance ToHeaders CreateWorkteam where
+instance Prelude.ToHeaders CreateWorkteam where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.CreateWorkteam" :: ByteString),
+              Prelude.=# ("SageMaker.CreateWorkteam" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateWorkteam where
+instance Prelude.ToJSON CreateWorkteam where
   toJSON CreateWorkteam' {..} =
-    object
-      ( catMaybes
-          [ ("WorkforceName" .=) <$> _cwwWorkforceName,
-            ("NotificationConfiguration" .=)
-              <$> _cwwNotificationConfiguration,
-            ("Tags" .=) <$> _cwwTags,
-            Just ("WorkteamName" .= _cwwWorkteamName),
-            Just ("MemberDefinitions" .= _cwwMemberDefinitions),
-            Just ("Description" .= _cwwDescription)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("WorkforceName" Prelude..=)
+              Prelude.<$> workforceName,
+            ("NotificationConfiguration" Prelude..=)
+              Prelude.<$> notificationConfiguration,
+            ("Tags" Prelude..=) Prelude.<$> tags,
+            Prelude.Just
+              ("WorkteamName" Prelude..= workteamName),
+            Prelude.Just
+              ("MemberDefinitions" Prelude..= memberDefinitions),
+            Prelude.Just ("Description" Prelude..= description)
           ]
       )
 
-instance ToPath CreateWorkteam where
-  toPath = const "/"
+instance Prelude.ToPath CreateWorkteam where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateWorkteam where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateWorkteam where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createWorkteamResponse' smart constructor.
+-- | /See:/ 'newCreateWorkteamResponse' smart constructor.
 data CreateWorkteamResponse = CreateWorkteamResponse'
-  { _cwrwrsWorkteamARN ::
-      !(Maybe Text),
-    _cwrwrsResponseStatus ::
-      !Int
+  { -- | The Amazon Resource Name (ARN) of the work team. You can use this ARN to
+    -- identify the work team.
+    workteamArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateWorkteamResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateWorkteamResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cwrwrsWorkteamARN' - The Amazon Resource Name (ARN) of the work team. You can use this ARN to identify the work team.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cwrwrsResponseStatus' - -- | The response status code.
-createWorkteamResponse ::
-  -- | 'cwrwrsResponseStatus'
-  Int ->
+-- 'workteamArn', 'createWorkteamResponse_workteamArn' - The Amazon Resource Name (ARN) of the work team. You can use this ARN to
+-- identify the work team.
+--
+-- 'httpStatus', 'createWorkteamResponse_httpStatus' - The response's http status code.
+newCreateWorkteamResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateWorkteamResponse
-createWorkteamResponse pResponseStatus_ =
+newCreateWorkteamResponse pHttpStatus_ =
   CreateWorkteamResponse'
-    { _cwrwrsWorkteamARN =
-        Nothing,
-      _cwrwrsResponseStatus = pResponseStatus_
+    { workteamArn =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The Amazon Resource Name (ARN) of the work team. You can use this ARN to identify the work team.
-cwrwrsWorkteamARN :: Lens' CreateWorkteamResponse (Maybe Text)
-cwrwrsWorkteamARN = lens _cwrwrsWorkteamARN (\s a -> s {_cwrwrsWorkteamARN = a})
+-- | The Amazon Resource Name (ARN) of the work team. You can use this ARN to
+-- identify the work team.
+createWorkteamResponse_workteamArn :: Lens.Lens' CreateWorkteamResponse (Prelude.Maybe Prelude.Text)
+createWorkteamResponse_workteamArn = Lens.lens (\CreateWorkteamResponse' {workteamArn} -> workteamArn) (\s@CreateWorkteamResponse' {} a -> s {workteamArn = a} :: CreateWorkteamResponse)
 
--- | -- | The response status code.
-cwrwrsResponseStatus :: Lens' CreateWorkteamResponse Int
-cwrwrsResponseStatus = lens _cwrwrsResponseStatus (\s a -> s {_cwrwrsResponseStatus = a})
+-- | The response's http status code.
+createWorkteamResponse_httpStatus :: Lens.Lens' CreateWorkteamResponse Prelude.Int
+createWorkteamResponse_httpStatus = Lens.lens (\CreateWorkteamResponse' {httpStatus} -> httpStatus) (\s@CreateWorkteamResponse' {} a -> s {httpStatus = a} :: CreateWorkteamResponse)
 
-instance NFData CreateWorkteamResponse
+instance Prelude.NFData CreateWorkteamResponse

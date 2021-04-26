@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,320 +24,328 @@
 -- Returns a description of a model explainability job definition.
 module Network.AWS.SageMaker.DescribeModelExplainabilityJobDefinition
   ( -- * Creating a Request
-    describeModelExplainabilityJobDefinition,
-    DescribeModelExplainabilityJobDefinition,
+    DescribeModelExplainabilityJobDefinition (..),
+    newDescribeModelExplainabilityJobDefinition,
 
     -- * Request Lenses
-    dmejdmJobDefinitionName,
+    describeModelExplainabilityJobDefinition_jobDefinitionName,
 
     -- * Destructuring the Response
-    describeModelExplainabilityJobDefinitionResponse,
-    DescribeModelExplainabilityJobDefinitionResponse,
+    DescribeModelExplainabilityJobDefinitionResponse (..),
+    newDescribeModelExplainabilityJobDefinitionResponse,
 
     -- * Response Lenses
-    dmejdrrsNetworkConfig,
-    dmejdrrsModelExplainabilityBaselineConfig,
-    dmejdrrsStoppingCondition,
-    dmejdrrsResponseStatus,
-    dmejdrrsJobDefinitionARN,
-    dmejdrrsJobDefinitionName,
-    dmejdrrsCreationTime,
-    dmejdrrsModelExplainabilityAppSpecification,
-    dmejdrrsModelExplainabilityJobInput,
-    dmejdrrsModelExplainabilityJobOutputConfig,
-    dmejdrrsJobResources,
-    dmejdrrsRoleARN,
+    describeModelExplainabilityJobDefinitionResponse_networkConfig,
+    describeModelExplainabilityJobDefinitionResponse_modelExplainabilityBaselineConfig,
+    describeModelExplainabilityJobDefinitionResponse_stoppingCondition,
+    describeModelExplainabilityJobDefinitionResponse_httpStatus,
+    describeModelExplainabilityJobDefinitionResponse_jobDefinitionArn,
+    describeModelExplainabilityJobDefinitionResponse_jobDefinitionName,
+    describeModelExplainabilityJobDefinitionResponse_creationTime,
+    describeModelExplainabilityJobDefinitionResponse_modelExplainabilityAppSpecification,
+    describeModelExplainabilityJobDefinitionResponse_modelExplainabilityJobInput,
+    describeModelExplainabilityJobDefinitionResponse_modelExplainabilityJobOutputConfig,
+    describeModelExplainabilityJobDefinitionResponse_jobResources,
+    describeModelExplainabilityJobDefinitionResponse_roleArn,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
+import Network.AWS.SageMaker.Types.ModelExplainabilityAppSpecification
+import Network.AWS.SageMaker.Types.ModelExplainabilityBaselineConfig
+import Network.AWS.SageMaker.Types.ModelExplainabilityJobInput
+import Network.AWS.SageMaker.Types.MonitoringNetworkConfig
+import Network.AWS.SageMaker.Types.MonitoringOutputConfig
+import Network.AWS.SageMaker.Types.MonitoringResources
+import Network.AWS.SageMaker.Types.MonitoringStoppingCondition
 
--- | /See:/ 'describeModelExplainabilityJobDefinition' smart constructor.
-newtype DescribeModelExplainabilityJobDefinition = DescribeModelExplainabilityJobDefinition'
-  { _dmejdmJobDefinitionName ::
-      Text
+-- | /See:/ 'newDescribeModelExplainabilityJobDefinition' smart constructor.
+data DescribeModelExplainabilityJobDefinition = DescribeModelExplainabilityJobDefinition'
+  { -- | The name of the model explainability job definition. The name must be
+    -- unique within an AWS Region in the AWS account.
+    jobDefinitionName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeModelExplainabilityJobDefinition' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeModelExplainabilityJobDefinition' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dmejdmJobDefinitionName' - The name of the model explainability job definition. The name must be unique within an AWS Region in the AWS account.
-describeModelExplainabilityJobDefinition ::
-  -- | 'dmejdmJobDefinitionName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'jobDefinitionName', 'describeModelExplainabilityJobDefinition_jobDefinitionName' - The name of the model explainability job definition. The name must be
+-- unique within an AWS Region in the AWS account.
+newDescribeModelExplainabilityJobDefinition ::
+  -- | 'jobDefinitionName'
+  Prelude.Text ->
   DescribeModelExplainabilityJobDefinition
-describeModelExplainabilityJobDefinition
+newDescribeModelExplainabilityJobDefinition
   pJobDefinitionName_ =
     DescribeModelExplainabilityJobDefinition'
-      { _dmejdmJobDefinitionName =
+      { jobDefinitionName =
           pJobDefinitionName_
       }
 
--- | The name of the model explainability job definition. The name must be unique within an AWS Region in the AWS account.
-dmejdmJobDefinitionName :: Lens' DescribeModelExplainabilityJobDefinition Text
-dmejdmJobDefinitionName = lens _dmejdmJobDefinitionName (\s a -> s {_dmejdmJobDefinitionName = a})
+-- | The name of the model explainability job definition. The name must be
+-- unique within an AWS Region in the AWS account.
+describeModelExplainabilityJobDefinition_jobDefinitionName :: Lens.Lens' DescribeModelExplainabilityJobDefinition Prelude.Text
+describeModelExplainabilityJobDefinition_jobDefinitionName = Lens.lens (\DescribeModelExplainabilityJobDefinition' {jobDefinitionName} -> jobDefinitionName) (\s@DescribeModelExplainabilityJobDefinition' {} a -> s {jobDefinitionName = a} :: DescribeModelExplainabilityJobDefinition)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     DescribeModelExplainabilityJobDefinition
   where
   type
     Rs DescribeModelExplainabilityJobDefinition =
       DescribeModelExplainabilityJobDefinitionResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeModelExplainabilityJobDefinitionResponse'
-            <$> (x .?> "NetworkConfig")
-            <*> (x .?> "ModelExplainabilityBaselineConfig")
-            <*> (x .?> "StoppingCondition")
-            <*> (pure (fromEnum s))
-            <*> (x .:> "JobDefinitionArn")
-            <*> (x .:> "JobDefinitionName")
-            <*> (x .:> "CreationTime")
-            <*> (x .:> "ModelExplainabilityAppSpecification")
-            <*> (x .:> "ModelExplainabilityJobInput")
-            <*> (x .:> "ModelExplainabilityJobOutputConfig")
-            <*> (x .:> "JobResources")
-            <*> (x .:> "RoleArn")
+            Prelude.<$> (x Prelude..?> "NetworkConfig")
+              Prelude.<*> (x Prelude..?> "ModelExplainabilityBaselineConfig")
+              Prelude.<*> (x Prelude..?> "StoppingCondition")
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+              Prelude.<*> (x Prelude..:> "JobDefinitionArn")
+              Prelude.<*> (x Prelude..:> "JobDefinitionName")
+              Prelude.<*> (x Prelude..:> "CreationTime")
+              Prelude.<*> (x Prelude..:> "ModelExplainabilityAppSpecification")
+              Prelude.<*> (x Prelude..:> "ModelExplainabilityJobInput")
+              Prelude.<*> (x Prelude..:> "ModelExplainabilityJobOutputConfig")
+              Prelude.<*> (x Prelude..:> "JobResources")
+              Prelude.<*> (x Prelude..:> "RoleArn")
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     DescribeModelExplainabilityJobDefinition
 
 instance
-  NFData
+  Prelude.NFData
     DescribeModelExplainabilityJobDefinition
 
 instance
-  ToHeaders
+  Prelude.ToHeaders
     DescribeModelExplainabilityJobDefinition
   where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "SageMaker.DescribeModelExplainabilityJobDefinition" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "SageMaker.DescribeModelExplainabilityJobDefinition" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
 instance
-  ToJSON
+  Prelude.ToJSON
     DescribeModelExplainabilityJobDefinition
   where
   toJSON DescribeModelExplainabilityJobDefinition' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("JobDefinitionName" .= _dmejdmJobDefinitionName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("JobDefinitionName" Prelude..= jobDefinitionName)
           ]
       )
 
 instance
-  ToPath
+  Prelude.ToPath
     DescribeModelExplainabilityJobDefinition
   where
-  toPath = const "/"
+  toPath = Prelude.const "/"
 
 instance
-  ToQuery
+  Prelude.ToQuery
     DescribeModelExplainabilityJobDefinition
   where
-  toQuery = const mempty
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeModelExplainabilityJobDefinitionResponse' smart constructor.
+-- | /See:/ 'newDescribeModelExplainabilityJobDefinitionResponse' smart constructor.
 data DescribeModelExplainabilityJobDefinitionResponse = DescribeModelExplainabilityJobDefinitionResponse'
-  { _dmejdrrsNetworkConfig ::
-      !( Maybe
-           MonitoringNetworkConfig
-       ),
-    _dmejdrrsModelExplainabilityBaselineConfig ::
-      !( Maybe
-           ModelExplainabilityBaselineConfig
-       ),
-    _dmejdrrsStoppingCondition ::
-      !( Maybe
-           MonitoringStoppingCondition
-       ),
-    _dmejdrrsResponseStatus ::
-      !Int,
-    _dmejdrrsJobDefinitionARN ::
-      !Text,
-    _dmejdrrsJobDefinitionName ::
-      !Text,
-    _dmejdrrsCreationTime ::
-      !POSIX,
-    _dmejdrrsModelExplainabilityAppSpecification ::
-      !ModelExplainabilityAppSpecification,
-    _dmejdrrsModelExplainabilityJobInput ::
-      !ModelExplainabilityJobInput,
-    _dmejdrrsModelExplainabilityJobOutputConfig ::
-      !MonitoringOutputConfig,
-    _dmejdrrsJobResources ::
-      !MonitoringResources,
-    _dmejdrrsRoleARN ::
-      !Text
+  { -- | Networking options for a model explainability job.
+    networkConfig :: Prelude.Maybe MonitoringNetworkConfig,
+    -- | The baseline configuration for a model explainability job.
+    modelExplainabilityBaselineConfig :: Prelude.Maybe ModelExplainabilityBaselineConfig,
+    stoppingCondition :: Prelude.Maybe MonitoringStoppingCondition,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The Amazon Resource Name (ARN) of the model explainability job.
+    jobDefinitionArn :: Prelude.Text,
+    -- | The name of the explainability job definition. The name must be unique
+    -- within an AWS Region in the AWS account.
+    jobDefinitionName :: Prelude.Text,
+    -- | The time at which the model explainability job was created.
+    creationTime :: Prelude.POSIX,
+    -- | Configures the model explainability job to run a specified Docker
+    -- container image.
+    modelExplainabilityAppSpecification :: ModelExplainabilityAppSpecification,
+    -- | Inputs for the model explainability job.
+    modelExplainabilityJobInput :: ModelExplainabilityJobInput,
+    modelExplainabilityJobOutputConfig :: MonitoringOutputConfig,
+    jobResources :: MonitoringResources,
+    -- | The Amazon Resource Name (ARN) of the AWS Identity and Access Management
+    -- (IAM) role that has read permission to the input data location and write
+    -- permission to the output data location in Amazon S3.
+    roleArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeModelExplainabilityJobDefinitionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeModelExplainabilityJobDefinitionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dmejdrrsNetworkConfig' - Networking options for a model explainability job.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dmejdrrsModelExplainabilityBaselineConfig' - The baseline configuration for a model explainability job.
+-- 'networkConfig', 'describeModelExplainabilityJobDefinitionResponse_networkConfig' - Networking options for a model explainability job.
 --
--- * 'dmejdrrsStoppingCondition' - Undocumented member.
+-- 'modelExplainabilityBaselineConfig', 'describeModelExplainabilityJobDefinitionResponse_modelExplainabilityBaselineConfig' - The baseline configuration for a model explainability job.
 --
--- * 'dmejdrrsResponseStatus' - -- | The response status code.
+-- 'stoppingCondition', 'describeModelExplainabilityJobDefinitionResponse_stoppingCondition' - Undocumented member.
 --
--- * 'dmejdrrsJobDefinitionARN' - The Amazon Resource Name (ARN) of the model explainability job.
+-- 'httpStatus', 'describeModelExplainabilityJobDefinitionResponse_httpStatus' - The response's http status code.
 --
--- * 'dmejdrrsJobDefinitionName' - The name of the explainability job definition. The name must be unique within an AWS Region in the AWS account.
+-- 'jobDefinitionArn', 'describeModelExplainabilityJobDefinitionResponse_jobDefinitionArn' - The Amazon Resource Name (ARN) of the model explainability job.
 --
--- * 'dmejdrrsCreationTime' - The time at which the model explainability job was created.
+-- 'jobDefinitionName', 'describeModelExplainabilityJobDefinitionResponse_jobDefinitionName' - The name of the explainability job definition. The name must be unique
+-- within an AWS Region in the AWS account.
 --
--- * 'dmejdrrsModelExplainabilityAppSpecification' - Configures the model explainability job to run a specified Docker container image.
+-- 'creationTime', 'describeModelExplainabilityJobDefinitionResponse_creationTime' - The time at which the model explainability job was created.
 --
--- * 'dmejdrrsModelExplainabilityJobInput' - Inputs for the model explainability job.
+-- 'modelExplainabilityAppSpecification', 'describeModelExplainabilityJobDefinitionResponse_modelExplainabilityAppSpecification' - Configures the model explainability job to run a specified Docker
+-- container image.
 --
--- * 'dmejdrrsModelExplainabilityJobOutputConfig' - Undocumented member.
+-- 'modelExplainabilityJobInput', 'describeModelExplainabilityJobDefinitionResponse_modelExplainabilityJobInput' - Inputs for the model explainability job.
 --
--- * 'dmejdrrsJobResources' - Undocumented member.
+-- 'modelExplainabilityJobOutputConfig', 'describeModelExplainabilityJobDefinitionResponse_modelExplainabilityJobOutputConfig' - Undocumented member.
 --
--- * 'dmejdrrsRoleARN' - The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role that has read permission to the input data location and write permission to the output data location in Amazon S3.
-describeModelExplainabilityJobDefinitionResponse ::
-  -- | 'dmejdrrsResponseStatus'
-  Int ->
-  -- | 'dmejdrrsJobDefinitionARN'
-  Text ->
-  -- | 'dmejdrrsJobDefinitionName'
-  Text ->
-  -- | 'dmejdrrsCreationTime'
-  UTCTime ->
-  -- | 'dmejdrrsModelExplainabilityAppSpecification'
+-- 'jobResources', 'describeModelExplainabilityJobDefinitionResponse_jobResources' - Undocumented member.
+--
+-- 'roleArn', 'describeModelExplainabilityJobDefinitionResponse_roleArn' - The Amazon Resource Name (ARN) of the AWS Identity and Access Management
+-- (IAM) role that has read permission to the input data location and write
+-- permission to the output data location in Amazon S3.
+newDescribeModelExplainabilityJobDefinitionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'jobDefinitionArn'
+  Prelude.Text ->
+  -- | 'jobDefinitionName'
+  Prelude.Text ->
+  -- | 'creationTime'
+  Prelude.UTCTime ->
+  -- | 'modelExplainabilityAppSpecification'
   ModelExplainabilityAppSpecification ->
-  -- | 'dmejdrrsModelExplainabilityJobInput'
+  -- | 'modelExplainabilityJobInput'
   ModelExplainabilityJobInput ->
-  -- | 'dmejdrrsModelExplainabilityJobOutputConfig'
+  -- | 'modelExplainabilityJobOutputConfig'
   MonitoringOutputConfig ->
-  -- | 'dmejdrrsJobResources'
+  -- | 'jobResources'
   MonitoringResources ->
-  -- | 'dmejdrrsRoleARN'
-  Text ->
+  -- | 'roleArn'
+  Prelude.Text ->
   DescribeModelExplainabilityJobDefinitionResponse
-describeModelExplainabilityJobDefinitionResponse
-  pResponseStatus_
-  pJobDefinitionARN_
+newDescribeModelExplainabilityJobDefinitionResponse
+  pHttpStatus_
+  pJobDefinitionArn_
   pJobDefinitionName_
   pCreationTime_
   pModelExplainabilityAppSpecification_
   pModelExplainabilityJobInput_
   pModelExplainabilityJobOutputConfig_
   pJobResources_
-  pRoleARN_ =
+  pRoleArn_ =
     DescribeModelExplainabilityJobDefinitionResponse'
-      { _dmejdrrsNetworkConfig =
-          Nothing,
-        _dmejdrrsModelExplainabilityBaselineConfig =
-          Nothing,
-        _dmejdrrsStoppingCondition =
-          Nothing,
-        _dmejdrrsResponseStatus =
-          pResponseStatus_,
-        _dmejdrrsJobDefinitionARN =
-          pJobDefinitionARN_,
-        _dmejdrrsJobDefinitionName =
+      { networkConfig =
+          Prelude.Nothing,
+        modelExplainabilityBaselineConfig =
+          Prelude.Nothing,
+        stoppingCondition =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_,
+        jobDefinitionArn =
+          pJobDefinitionArn_,
+        jobDefinitionName =
           pJobDefinitionName_,
-        _dmejdrrsCreationTime =
-          _Time # pCreationTime_,
-        _dmejdrrsModelExplainabilityAppSpecification =
+        creationTime =
+          Prelude._Time
+            Lens.# pCreationTime_,
+        modelExplainabilityAppSpecification =
           pModelExplainabilityAppSpecification_,
-        _dmejdrrsModelExplainabilityJobInput =
+        modelExplainabilityJobInput =
           pModelExplainabilityJobInput_,
-        _dmejdrrsModelExplainabilityJobOutputConfig =
+        modelExplainabilityJobOutputConfig =
           pModelExplainabilityJobOutputConfig_,
-        _dmejdrrsJobResources =
+        jobResources =
           pJobResources_,
-        _dmejdrrsRoleARN =
-          pRoleARN_
+        roleArn = pRoleArn_
       }
 
 -- | Networking options for a model explainability job.
-dmejdrrsNetworkConfig :: Lens' DescribeModelExplainabilityJobDefinitionResponse (Maybe MonitoringNetworkConfig)
-dmejdrrsNetworkConfig = lens _dmejdrrsNetworkConfig (\s a -> s {_dmejdrrsNetworkConfig = a})
+describeModelExplainabilityJobDefinitionResponse_networkConfig :: Lens.Lens' DescribeModelExplainabilityJobDefinitionResponse (Prelude.Maybe MonitoringNetworkConfig)
+describeModelExplainabilityJobDefinitionResponse_networkConfig = Lens.lens (\DescribeModelExplainabilityJobDefinitionResponse' {networkConfig} -> networkConfig) (\s@DescribeModelExplainabilityJobDefinitionResponse' {} a -> s {networkConfig = a} :: DescribeModelExplainabilityJobDefinitionResponse)
 
 -- | The baseline configuration for a model explainability job.
-dmejdrrsModelExplainabilityBaselineConfig :: Lens' DescribeModelExplainabilityJobDefinitionResponse (Maybe ModelExplainabilityBaselineConfig)
-dmejdrrsModelExplainabilityBaselineConfig = lens _dmejdrrsModelExplainabilityBaselineConfig (\s a -> s {_dmejdrrsModelExplainabilityBaselineConfig = a})
+describeModelExplainabilityJobDefinitionResponse_modelExplainabilityBaselineConfig :: Lens.Lens' DescribeModelExplainabilityJobDefinitionResponse (Prelude.Maybe ModelExplainabilityBaselineConfig)
+describeModelExplainabilityJobDefinitionResponse_modelExplainabilityBaselineConfig = Lens.lens (\DescribeModelExplainabilityJobDefinitionResponse' {modelExplainabilityBaselineConfig} -> modelExplainabilityBaselineConfig) (\s@DescribeModelExplainabilityJobDefinitionResponse' {} a -> s {modelExplainabilityBaselineConfig = a} :: DescribeModelExplainabilityJobDefinitionResponse)
 
 -- | Undocumented member.
-dmejdrrsStoppingCondition :: Lens' DescribeModelExplainabilityJobDefinitionResponse (Maybe MonitoringStoppingCondition)
-dmejdrrsStoppingCondition = lens _dmejdrrsStoppingCondition (\s a -> s {_dmejdrrsStoppingCondition = a})
+describeModelExplainabilityJobDefinitionResponse_stoppingCondition :: Lens.Lens' DescribeModelExplainabilityJobDefinitionResponse (Prelude.Maybe MonitoringStoppingCondition)
+describeModelExplainabilityJobDefinitionResponse_stoppingCondition = Lens.lens (\DescribeModelExplainabilityJobDefinitionResponse' {stoppingCondition} -> stoppingCondition) (\s@DescribeModelExplainabilityJobDefinitionResponse' {} a -> s {stoppingCondition = a} :: DescribeModelExplainabilityJobDefinitionResponse)
 
--- | -- | The response status code.
-dmejdrrsResponseStatus :: Lens' DescribeModelExplainabilityJobDefinitionResponse Int
-dmejdrrsResponseStatus = lens _dmejdrrsResponseStatus (\s a -> s {_dmejdrrsResponseStatus = a})
+-- | The response's http status code.
+describeModelExplainabilityJobDefinitionResponse_httpStatus :: Lens.Lens' DescribeModelExplainabilityJobDefinitionResponse Prelude.Int
+describeModelExplainabilityJobDefinitionResponse_httpStatus = Lens.lens (\DescribeModelExplainabilityJobDefinitionResponse' {httpStatus} -> httpStatus) (\s@DescribeModelExplainabilityJobDefinitionResponse' {} a -> s {httpStatus = a} :: DescribeModelExplainabilityJobDefinitionResponse)
 
 -- | The Amazon Resource Name (ARN) of the model explainability job.
-dmejdrrsJobDefinitionARN :: Lens' DescribeModelExplainabilityJobDefinitionResponse Text
-dmejdrrsJobDefinitionARN = lens _dmejdrrsJobDefinitionARN (\s a -> s {_dmejdrrsJobDefinitionARN = a})
+describeModelExplainabilityJobDefinitionResponse_jobDefinitionArn :: Lens.Lens' DescribeModelExplainabilityJobDefinitionResponse Prelude.Text
+describeModelExplainabilityJobDefinitionResponse_jobDefinitionArn = Lens.lens (\DescribeModelExplainabilityJobDefinitionResponse' {jobDefinitionArn} -> jobDefinitionArn) (\s@DescribeModelExplainabilityJobDefinitionResponse' {} a -> s {jobDefinitionArn = a} :: DescribeModelExplainabilityJobDefinitionResponse)
 
--- | The name of the explainability job definition. The name must be unique within an AWS Region in the AWS account.
-dmejdrrsJobDefinitionName :: Lens' DescribeModelExplainabilityJobDefinitionResponse Text
-dmejdrrsJobDefinitionName = lens _dmejdrrsJobDefinitionName (\s a -> s {_dmejdrrsJobDefinitionName = a})
+-- | The name of the explainability job definition. The name must be unique
+-- within an AWS Region in the AWS account.
+describeModelExplainabilityJobDefinitionResponse_jobDefinitionName :: Lens.Lens' DescribeModelExplainabilityJobDefinitionResponse Prelude.Text
+describeModelExplainabilityJobDefinitionResponse_jobDefinitionName = Lens.lens (\DescribeModelExplainabilityJobDefinitionResponse' {jobDefinitionName} -> jobDefinitionName) (\s@DescribeModelExplainabilityJobDefinitionResponse' {} a -> s {jobDefinitionName = a} :: DescribeModelExplainabilityJobDefinitionResponse)
 
 -- | The time at which the model explainability job was created.
-dmejdrrsCreationTime :: Lens' DescribeModelExplainabilityJobDefinitionResponse UTCTime
-dmejdrrsCreationTime = lens _dmejdrrsCreationTime (\s a -> s {_dmejdrrsCreationTime = a}) . _Time
+describeModelExplainabilityJobDefinitionResponse_creationTime :: Lens.Lens' DescribeModelExplainabilityJobDefinitionResponse Prelude.UTCTime
+describeModelExplainabilityJobDefinitionResponse_creationTime = Lens.lens (\DescribeModelExplainabilityJobDefinitionResponse' {creationTime} -> creationTime) (\s@DescribeModelExplainabilityJobDefinitionResponse' {} a -> s {creationTime = a} :: DescribeModelExplainabilityJobDefinitionResponse) Prelude.. Prelude._Time
 
--- | Configures the model explainability job to run a specified Docker container image.
-dmejdrrsModelExplainabilityAppSpecification :: Lens' DescribeModelExplainabilityJobDefinitionResponse ModelExplainabilityAppSpecification
-dmejdrrsModelExplainabilityAppSpecification = lens _dmejdrrsModelExplainabilityAppSpecification (\s a -> s {_dmejdrrsModelExplainabilityAppSpecification = a})
+-- | Configures the model explainability job to run a specified Docker
+-- container image.
+describeModelExplainabilityJobDefinitionResponse_modelExplainabilityAppSpecification :: Lens.Lens' DescribeModelExplainabilityJobDefinitionResponse ModelExplainabilityAppSpecification
+describeModelExplainabilityJobDefinitionResponse_modelExplainabilityAppSpecification = Lens.lens (\DescribeModelExplainabilityJobDefinitionResponse' {modelExplainabilityAppSpecification} -> modelExplainabilityAppSpecification) (\s@DescribeModelExplainabilityJobDefinitionResponse' {} a -> s {modelExplainabilityAppSpecification = a} :: DescribeModelExplainabilityJobDefinitionResponse)
 
 -- | Inputs for the model explainability job.
-dmejdrrsModelExplainabilityJobInput :: Lens' DescribeModelExplainabilityJobDefinitionResponse ModelExplainabilityJobInput
-dmejdrrsModelExplainabilityJobInput = lens _dmejdrrsModelExplainabilityJobInput (\s a -> s {_dmejdrrsModelExplainabilityJobInput = a})
+describeModelExplainabilityJobDefinitionResponse_modelExplainabilityJobInput :: Lens.Lens' DescribeModelExplainabilityJobDefinitionResponse ModelExplainabilityJobInput
+describeModelExplainabilityJobDefinitionResponse_modelExplainabilityJobInput = Lens.lens (\DescribeModelExplainabilityJobDefinitionResponse' {modelExplainabilityJobInput} -> modelExplainabilityJobInput) (\s@DescribeModelExplainabilityJobDefinitionResponse' {} a -> s {modelExplainabilityJobInput = a} :: DescribeModelExplainabilityJobDefinitionResponse)
 
 -- | Undocumented member.
-dmejdrrsModelExplainabilityJobOutputConfig :: Lens' DescribeModelExplainabilityJobDefinitionResponse MonitoringOutputConfig
-dmejdrrsModelExplainabilityJobOutputConfig = lens _dmejdrrsModelExplainabilityJobOutputConfig (\s a -> s {_dmejdrrsModelExplainabilityJobOutputConfig = a})
+describeModelExplainabilityJobDefinitionResponse_modelExplainabilityJobOutputConfig :: Lens.Lens' DescribeModelExplainabilityJobDefinitionResponse MonitoringOutputConfig
+describeModelExplainabilityJobDefinitionResponse_modelExplainabilityJobOutputConfig = Lens.lens (\DescribeModelExplainabilityJobDefinitionResponse' {modelExplainabilityJobOutputConfig} -> modelExplainabilityJobOutputConfig) (\s@DescribeModelExplainabilityJobDefinitionResponse' {} a -> s {modelExplainabilityJobOutputConfig = a} :: DescribeModelExplainabilityJobDefinitionResponse)
 
 -- | Undocumented member.
-dmejdrrsJobResources :: Lens' DescribeModelExplainabilityJobDefinitionResponse MonitoringResources
-dmejdrrsJobResources = lens _dmejdrrsJobResources (\s a -> s {_dmejdrrsJobResources = a})
+describeModelExplainabilityJobDefinitionResponse_jobResources :: Lens.Lens' DescribeModelExplainabilityJobDefinitionResponse MonitoringResources
+describeModelExplainabilityJobDefinitionResponse_jobResources = Lens.lens (\DescribeModelExplainabilityJobDefinitionResponse' {jobResources} -> jobResources) (\s@DescribeModelExplainabilityJobDefinitionResponse' {} a -> s {jobResources = a} :: DescribeModelExplainabilityJobDefinitionResponse)
 
--- | The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role that has read permission to the input data location and write permission to the output data location in Amazon S3.
-dmejdrrsRoleARN :: Lens' DescribeModelExplainabilityJobDefinitionResponse Text
-dmejdrrsRoleARN = lens _dmejdrrsRoleARN (\s a -> s {_dmejdrrsRoleARN = a})
+-- | The Amazon Resource Name (ARN) of the AWS Identity and Access Management
+-- (IAM) role that has read permission to the input data location and write
+-- permission to the output data location in Amazon S3.
+describeModelExplainabilityJobDefinitionResponse_roleArn :: Lens.Lens' DescribeModelExplainabilityJobDefinitionResponse Prelude.Text
+describeModelExplainabilityJobDefinitionResponse_roleArn = Lens.lens (\DescribeModelExplainabilityJobDefinitionResponse' {roleArn} -> roleArn) (\s@DescribeModelExplainabilityJobDefinitionResponse' {} a -> s {roleArn = a} :: DescribeModelExplainabilityJobDefinitionResponse)
 
 instance
-  NFData
+  Prelude.NFData
     DescribeModelExplainabilityJobDefinitionResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.SageMaker.Types.VariantPropertyType
   ( VariantPropertyType
       ( ..,
-        DataCaptureConfig,
-        DesiredInstanceCount,
-        DesiredWeight
+        VariantPropertyTypeDataCaptureConfig,
+        VariantPropertyTypeDesiredInstanceCount,
+        VariantPropertyTypeDesiredWeight
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data VariantPropertyType
-  = VariantPropertyType'
-      ( CI
-          Text
-      )
+newtype VariantPropertyType = VariantPropertyType'
+  { fromVariantPropertyType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DataCaptureConfig :: VariantPropertyType
-pattern DataCaptureConfig = VariantPropertyType' "DataCaptureConfig"
+pattern VariantPropertyTypeDataCaptureConfig :: VariantPropertyType
+pattern VariantPropertyTypeDataCaptureConfig = VariantPropertyType' "DataCaptureConfig"
 
-pattern DesiredInstanceCount :: VariantPropertyType
-pattern DesiredInstanceCount = VariantPropertyType' "DesiredInstanceCount"
+pattern VariantPropertyTypeDesiredInstanceCount :: VariantPropertyType
+pattern VariantPropertyTypeDesiredInstanceCount = VariantPropertyType' "DesiredInstanceCount"
 
-pattern DesiredWeight :: VariantPropertyType
-pattern DesiredWeight = VariantPropertyType' "DesiredWeight"
+pattern VariantPropertyTypeDesiredWeight :: VariantPropertyType
+pattern VariantPropertyTypeDesiredWeight = VariantPropertyType' "DesiredWeight"
 
 {-# COMPLETE
-  DataCaptureConfig,
-  DesiredInstanceCount,
-  DesiredWeight,
+  VariantPropertyTypeDataCaptureConfig,
+  VariantPropertyTypeDesiredInstanceCount,
+  VariantPropertyTypeDesiredWeight,
   VariantPropertyType'
   #-}
 
-instance FromText VariantPropertyType where
-  parser = (VariantPropertyType' . mk) <$> takeText
+instance Prelude.FromText VariantPropertyType where
+  parser = VariantPropertyType' Prelude.<$> Prelude.takeText
 
-instance ToText VariantPropertyType where
-  toText (VariantPropertyType' ci) = original ci
+instance Prelude.ToText VariantPropertyType where
+  toText (VariantPropertyType' x) = x
 
-instance Hashable VariantPropertyType
+instance Prelude.Hashable VariantPropertyType
 
-instance NFData VariantPropertyType
+instance Prelude.NFData VariantPropertyType
 
-instance ToByteString VariantPropertyType
+instance Prelude.ToByteString VariantPropertyType
 
-instance ToQuery VariantPropertyType
+instance Prelude.ToQuery VariantPropertyType
 
-instance ToHeader VariantPropertyType
+instance Prelude.ToHeader VariantPropertyType
 
-instance ToJSON VariantPropertyType where
-  toJSON = toJSONText
+instance Prelude.ToJSON VariantPropertyType where
+  toJSON = Prelude.toJSONText

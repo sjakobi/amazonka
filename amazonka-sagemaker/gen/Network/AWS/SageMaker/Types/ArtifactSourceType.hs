@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,68 +19,72 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.ArtifactSourceType where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.ArtifactSourceIdType
 
 -- | The ID and ID type of an artifact source.
 --
---
---
--- /See:/ 'artifactSourceType' smart constructor.
+-- /See:/ 'newArtifactSourceType' smart constructor.
 data ArtifactSourceType = ArtifactSourceType'
-  { _astSourceIdType ::
-      !ArtifactSourceIdType,
-    _astValue :: !Text
+  { -- | The type of ID.
+    sourceIdType :: ArtifactSourceIdType,
+    -- | The ID.
+    value :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ArtifactSourceType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ArtifactSourceType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'astSourceIdType' - The type of ID.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'astValue' - The ID.
-artifactSourceType ::
-  -- | 'astSourceIdType'
+-- 'sourceIdType', 'artifactSourceType_sourceIdType' - The type of ID.
+--
+-- 'value', 'artifactSourceType_value' - The ID.
+newArtifactSourceType ::
+  -- | 'sourceIdType'
   ArtifactSourceIdType ->
-  -- | 'astValue'
-  Text ->
+  -- | 'value'
+  Prelude.Text ->
   ArtifactSourceType
-artifactSourceType pSourceIdType_ pValue_ =
+newArtifactSourceType pSourceIdType_ pValue_ =
   ArtifactSourceType'
-    { _astSourceIdType =
-        pSourceIdType_,
-      _astValue = pValue_
+    { sourceIdType = pSourceIdType_,
+      value = pValue_
     }
 
 -- | The type of ID.
-astSourceIdType :: Lens' ArtifactSourceType ArtifactSourceIdType
-astSourceIdType = lens _astSourceIdType (\s a -> s {_astSourceIdType = a})
+artifactSourceType_sourceIdType :: Lens.Lens' ArtifactSourceType ArtifactSourceIdType
+artifactSourceType_sourceIdType = Lens.lens (\ArtifactSourceType' {sourceIdType} -> sourceIdType) (\s@ArtifactSourceType' {} a -> s {sourceIdType = a} :: ArtifactSourceType)
 
 -- | The ID.
-astValue :: Lens' ArtifactSourceType Text
-astValue = lens _astValue (\s a -> s {_astValue = a})
+artifactSourceType_value :: Lens.Lens' ArtifactSourceType Prelude.Text
+artifactSourceType_value = Lens.lens (\ArtifactSourceType' {value} -> value) (\s@ArtifactSourceType' {} a -> s {value = a} :: ArtifactSourceType)
 
-instance FromJSON ArtifactSourceType where
+instance Prelude.FromJSON ArtifactSourceType where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ArtifactSourceType"
       ( \x ->
           ArtifactSourceType'
-            <$> (x .: "SourceIdType") <*> (x .: "Value")
+            Prelude.<$> (x Prelude..: "SourceIdType")
+            Prelude.<*> (x Prelude..: "Value")
       )
 
-instance Hashable ArtifactSourceType
+instance Prelude.Hashable ArtifactSourceType
 
-instance NFData ArtifactSourceType
+instance Prelude.NFData ArtifactSourceType
 
-instance ToJSON ArtifactSourceType where
+instance Prelude.ToJSON ArtifactSourceType where
   toJSON ArtifactSourceType' {..} =
-    object
-      ( catMaybes
-          [ Just ("SourceIdType" .= _astSourceIdType),
-            Just ("Value" .= _astValue)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("SourceIdType" Prelude..= sourceIdType),
+            Prelude.Just ("Value" Prelude..= value)
           ]
       )

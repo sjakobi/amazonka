@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,309 +24,313 @@
 -- Creates the definition for a model explainability job.
 module Network.AWS.SageMaker.CreateModelExplainabilityJobDefinition
   ( -- * Creating a Request
-    createModelExplainabilityJobDefinition,
-    CreateModelExplainabilityJobDefinition,
+    CreateModelExplainabilityJobDefinition (..),
+    newCreateModelExplainabilityJobDefinition,
 
     -- * Request Lenses
-    cmejdNetworkConfig,
-    cmejdModelExplainabilityBaselineConfig,
-    cmejdTags,
-    cmejdStoppingCondition,
-    cmejdJobDefinitionName,
-    cmejdModelExplainabilityAppSpecification,
-    cmejdModelExplainabilityJobInput,
-    cmejdModelExplainabilityJobOutputConfig,
-    cmejdJobResources,
-    cmejdRoleARN,
+    createModelExplainabilityJobDefinition_networkConfig,
+    createModelExplainabilityJobDefinition_modelExplainabilityBaselineConfig,
+    createModelExplainabilityJobDefinition_tags,
+    createModelExplainabilityJobDefinition_stoppingCondition,
+    createModelExplainabilityJobDefinition_jobDefinitionName,
+    createModelExplainabilityJobDefinition_modelExplainabilityAppSpecification,
+    createModelExplainabilityJobDefinition_modelExplainabilityJobInput,
+    createModelExplainabilityJobDefinition_modelExplainabilityJobOutputConfig,
+    createModelExplainabilityJobDefinition_jobResources,
+    createModelExplainabilityJobDefinition_roleArn,
 
     -- * Destructuring the Response
-    createModelExplainabilityJobDefinitionResponse,
-    CreateModelExplainabilityJobDefinitionResponse,
+    CreateModelExplainabilityJobDefinitionResponse (..),
+    newCreateModelExplainabilityJobDefinitionResponse,
 
     -- * Response Lenses
-    cmejdrrsResponseStatus,
-    cmejdrrsJobDefinitionARN,
+    createModelExplainabilityJobDefinitionResponse_httpStatus,
+    createModelExplainabilityJobDefinitionResponse_jobDefinitionArn,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'createModelExplainabilityJobDefinition' smart constructor.
+-- | /See:/ 'newCreateModelExplainabilityJobDefinition' smart constructor.
 data CreateModelExplainabilityJobDefinition = CreateModelExplainabilityJobDefinition'
-  { _cmejdNetworkConfig ::
-      !( Maybe
-           MonitoringNetworkConfig
-       ),
-    _cmejdModelExplainabilityBaselineConfig ::
-      !( Maybe
-           ModelExplainabilityBaselineConfig
-       ),
-    _cmejdTags ::
-      !( Maybe
-           [Tag]
-       ),
-    _cmejdStoppingCondition ::
-      !( Maybe
-           MonitoringStoppingCondition
-       ),
-    _cmejdJobDefinitionName ::
-      !Text,
-    _cmejdModelExplainabilityAppSpecification ::
-      !ModelExplainabilityAppSpecification,
-    _cmejdModelExplainabilityJobInput ::
-      !ModelExplainabilityJobInput,
-    _cmejdModelExplainabilityJobOutputConfig ::
-      !MonitoringOutputConfig,
-    _cmejdJobResources ::
-      !MonitoringResources,
-    _cmejdRoleARN ::
-      !Text
+  { -- | Networking options for a model explainability job.
+    networkConfig :: Prelude.Maybe MonitoringNetworkConfig,
+    -- | The baseline configuration for a model explainability job.
+    modelExplainabilityBaselineConfig :: Prelude.Maybe ModelExplainabilityBaselineConfig,
+    -- | (Optional) An array of key-value pairs. For more information, see
+    -- <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-whatURL Using Cost Allocation Tags>
+    -- in the /AWS Billing and Cost Management User Guide/.
+    tags :: Prelude.Maybe [Tag],
+    stoppingCondition :: Prelude.Maybe MonitoringStoppingCondition,
+    -- | The name of the model explainability job definition. The name must be
+    -- unique within an AWS Region in the AWS account.
+    jobDefinitionName :: Prelude.Text,
+    -- | Configures the model explainability job to run a specified Docker
+    -- container image.
+    modelExplainabilityAppSpecification :: ModelExplainabilityAppSpecification,
+    -- | Inputs for the model explainability job.
+    modelExplainabilityJobInput :: ModelExplainabilityJobInput,
+    modelExplainabilityJobOutputConfig :: MonitoringOutputConfig,
+    jobResources :: MonitoringResources,
+    -- | The Amazon Resource Name (ARN) of an IAM role that Amazon SageMaker can
+    -- assume to perform tasks on your behalf.
+    roleArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateModelExplainabilityJobDefinition' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateModelExplainabilityJobDefinition' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cmejdNetworkConfig' - Networking options for a model explainability job.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cmejdModelExplainabilityBaselineConfig' - The baseline configuration for a model explainability job.
+-- 'networkConfig', 'createModelExplainabilityJobDefinition_networkConfig' - Networking options for a model explainability job.
 --
--- * 'cmejdTags' - (Optional) An array of key-value pairs. For more information, see <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-whatURL Using Cost Allocation Tags> in the /AWS Billing and Cost Management User Guide/ .
+-- 'modelExplainabilityBaselineConfig', 'createModelExplainabilityJobDefinition_modelExplainabilityBaselineConfig' - The baseline configuration for a model explainability job.
 --
--- * 'cmejdStoppingCondition' - Undocumented member.
+-- 'tags', 'createModelExplainabilityJobDefinition_tags' - (Optional) An array of key-value pairs. For more information, see
+-- <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-whatURL Using Cost Allocation Tags>
+-- in the /AWS Billing and Cost Management User Guide/.
 --
--- * 'cmejdJobDefinitionName' - The name of the model explainability job definition. The name must be unique within an AWS Region in the AWS account.
+-- 'stoppingCondition', 'createModelExplainabilityJobDefinition_stoppingCondition' - Undocumented member.
 --
--- * 'cmejdModelExplainabilityAppSpecification' - Configures the model explainability job to run a specified Docker container image.
+-- 'jobDefinitionName', 'createModelExplainabilityJobDefinition_jobDefinitionName' - The name of the model explainability job definition. The name must be
+-- unique within an AWS Region in the AWS account.
 --
--- * 'cmejdModelExplainabilityJobInput' - Inputs for the model explainability job.
+-- 'modelExplainabilityAppSpecification', 'createModelExplainabilityJobDefinition_modelExplainabilityAppSpecification' - Configures the model explainability job to run a specified Docker
+-- container image.
 --
--- * 'cmejdModelExplainabilityJobOutputConfig' - Undocumented member.
+-- 'modelExplainabilityJobInput', 'createModelExplainabilityJobDefinition_modelExplainabilityJobInput' - Inputs for the model explainability job.
 --
--- * 'cmejdJobResources' - Undocumented member.
+-- 'modelExplainabilityJobOutputConfig', 'createModelExplainabilityJobDefinition_modelExplainabilityJobOutputConfig' - Undocumented member.
 --
--- * 'cmejdRoleARN' - The Amazon Resource Name (ARN) of an IAM role that Amazon SageMaker can assume to perform tasks on your behalf.
-createModelExplainabilityJobDefinition ::
-  -- | 'cmejdJobDefinitionName'
-  Text ->
-  -- | 'cmejdModelExplainabilityAppSpecification'
+-- 'jobResources', 'createModelExplainabilityJobDefinition_jobResources' - Undocumented member.
+--
+-- 'roleArn', 'createModelExplainabilityJobDefinition_roleArn' - The Amazon Resource Name (ARN) of an IAM role that Amazon SageMaker can
+-- assume to perform tasks on your behalf.
+newCreateModelExplainabilityJobDefinition ::
+  -- | 'jobDefinitionName'
+  Prelude.Text ->
+  -- | 'modelExplainabilityAppSpecification'
   ModelExplainabilityAppSpecification ->
-  -- | 'cmejdModelExplainabilityJobInput'
+  -- | 'modelExplainabilityJobInput'
   ModelExplainabilityJobInput ->
-  -- | 'cmejdModelExplainabilityJobOutputConfig'
+  -- | 'modelExplainabilityJobOutputConfig'
   MonitoringOutputConfig ->
-  -- | 'cmejdJobResources'
+  -- | 'jobResources'
   MonitoringResources ->
-  -- | 'cmejdRoleARN'
-  Text ->
+  -- | 'roleArn'
+  Prelude.Text ->
   CreateModelExplainabilityJobDefinition
-createModelExplainabilityJobDefinition
+newCreateModelExplainabilityJobDefinition
   pJobDefinitionName_
   pModelExplainabilityAppSpecification_
   pModelExplainabilityJobInput_
   pModelExplainabilityJobOutputConfig_
   pJobResources_
-  pRoleARN_ =
+  pRoleArn_ =
     CreateModelExplainabilityJobDefinition'
-      { _cmejdNetworkConfig =
-          Nothing,
-        _cmejdModelExplainabilityBaselineConfig =
-          Nothing,
-        _cmejdTags = Nothing,
-        _cmejdStoppingCondition = Nothing,
-        _cmejdJobDefinitionName =
+      { networkConfig =
+          Prelude.Nothing,
+        modelExplainabilityBaselineConfig =
+          Prelude.Nothing,
+        tags = Prelude.Nothing,
+        stoppingCondition = Prelude.Nothing,
+        jobDefinitionName =
           pJobDefinitionName_,
-        _cmejdModelExplainabilityAppSpecification =
+        modelExplainabilityAppSpecification =
           pModelExplainabilityAppSpecification_,
-        _cmejdModelExplainabilityJobInput =
+        modelExplainabilityJobInput =
           pModelExplainabilityJobInput_,
-        _cmejdModelExplainabilityJobOutputConfig =
+        modelExplainabilityJobOutputConfig =
           pModelExplainabilityJobOutputConfig_,
-        _cmejdJobResources = pJobResources_,
-        _cmejdRoleARN = pRoleARN_
+        jobResources = pJobResources_,
+        roleArn = pRoleArn_
       }
 
 -- | Networking options for a model explainability job.
-cmejdNetworkConfig :: Lens' CreateModelExplainabilityJobDefinition (Maybe MonitoringNetworkConfig)
-cmejdNetworkConfig = lens _cmejdNetworkConfig (\s a -> s {_cmejdNetworkConfig = a})
+createModelExplainabilityJobDefinition_networkConfig :: Lens.Lens' CreateModelExplainabilityJobDefinition (Prelude.Maybe MonitoringNetworkConfig)
+createModelExplainabilityJobDefinition_networkConfig = Lens.lens (\CreateModelExplainabilityJobDefinition' {networkConfig} -> networkConfig) (\s@CreateModelExplainabilityJobDefinition' {} a -> s {networkConfig = a} :: CreateModelExplainabilityJobDefinition)
 
 -- | The baseline configuration for a model explainability job.
-cmejdModelExplainabilityBaselineConfig :: Lens' CreateModelExplainabilityJobDefinition (Maybe ModelExplainabilityBaselineConfig)
-cmejdModelExplainabilityBaselineConfig = lens _cmejdModelExplainabilityBaselineConfig (\s a -> s {_cmejdModelExplainabilityBaselineConfig = a})
+createModelExplainabilityJobDefinition_modelExplainabilityBaselineConfig :: Lens.Lens' CreateModelExplainabilityJobDefinition (Prelude.Maybe ModelExplainabilityBaselineConfig)
+createModelExplainabilityJobDefinition_modelExplainabilityBaselineConfig = Lens.lens (\CreateModelExplainabilityJobDefinition' {modelExplainabilityBaselineConfig} -> modelExplainabilityBaselineConfig) (\s@CreateModelExplainabilityJobDefinition' {} a -> s {modelExplainabilityBaselineConfig = a} :: CreateModelExplainabilityJobDefinition)
 
--- | (Optional) An array of key-value pairs. For more information, see <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-whatURL Using Cost Allocation Tags> in the /AWS Billing and Cost Management User Guide/ .
-cmejdTags :: Lens' CreateModelExplainabilityJobDefinition [Tag]
-cmejdTags = lens _cmejdTags (\s a -> s {_cmejdTags = a}) . _Default . _Coerce
+-- | (Optional) An array of key-value pairs. For more information, see
+-- <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-whatURL Using Cost Allocation Tags>
+-- in the /AWS Billing and Cost Management User Guide/.
+createModelExplainabilityJobDefinition_tags :: Lens.Lens' CreateModelExplainabilityJobDefinition (Prelude.Maybe [Tag])
+createModelExplainabilityJobDefinition_tags = Lens.lens (\CreateModelExplainabilityJobDefinition' {tags} -> tags) (\s@CreateModelExplainabilityJobDefinition' {} a -> s {tags = a} :: CreateModelExplainabilityJobDefinition) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Undocumented member.
-cmejdStoppingCondition :: Lens' CreateModelExplainabilityJobDefinition (Maybe MonitoringStoppingCondition)
-cmejdStoppingCondition = lens _cmejdStoppingCondition (\s a -> s {_cmejdStoppingCondition = a})
+createModelExplainabilityJobDefinition_stoppingCondition :: Lens.Lens' CreateModelExplainabilityJobDefinition (Prelude.Maybe MonitoringStoppingCondition)
+createModelExplainabilityJobDefinition_stoppingCondition = Lens.lens (\CreateModelExplainabilityJobDefinition' {stoppingCondition} -> stoppingCondition) (\s@CreateModelExplainabilityJobDefinition' {} a -> s {stoppingCondition = a} :: CreateModelExplainabilityJobDefinition)
 
--- | The name of the model explainability job definition. The name must be unique within an AWS Region in the AWS account.
-cmejdJobDefinitionName :: Lens' CreateModelExplainabilityJobDefinition Text
-cmejdJobDefinitionName = lens _cmejdJobDefinitionName (\s a -> s {_cmejdJobDefinitionName = a})
+-- | The name of the model explainability job definition. The name must be
+-- unique within an AWS Region in the AWS account.
+createModelExplainabilityJobDefinition_jobDefinitionName :: Lens.Lens' CreateModelExplainabilityJobDefinition Prelude.Text
+createModelExplainabilityJobDefinition_jobDefinitionName = Lens.lens (\CreateModelExplainabilityJobDefinition' {jobDefinitionName} -> jobDefinitionName) (\s@CreateModelExplainabilityJobDefinition' {} a -> s {jobDefinitionName = a} :: CreateModelExplainabilityJobDefinition)
 
--- | Configures the model explainability job to run a specified Docker container image.
-cmejdModelExplainabilityAppSpecification :: Lens' CreateModelExplainabilityJobDefinition ModelExplainabilityAppSpecification
-cmejdModelExplainabilityAppSpecification = lens _cmejdModelExplainabilityAppSpecification (\s a -> s {_cmejdModelExplainabilityAppSpecification = a})
+-- | Configures the model explainability job to run a specified Docker
+-- container image.
+createModelExplainabilityJobDefinition_modelExplainabilityAppSpecification :: Lens.Lens' CreateModelExplainabilityJobDefinition ModelExplainabilityAppSpecification
+createModelExplainabilityJobDefinition_modelExplainabilityAppSpecification = Lens.lens (\CreateModelExplainabilityJobDefinition' {modelExplainabilityAppSpecification} -> modelExplainabilityAppSpecification) (\s@CreateModelExplainabilityJobDefinition' {} a -> s {modelExplainabilityAppSpecification = a} :: CreateModelExplainabilityJobDefinition)
 
 -- | Inputs for the model explainability job.
-cmejdModelExplainabilityJobInput :: Lens' CreateModelExplainabilityJobDefinition ModelExplainabilityJobInput
-cmejdModelExplainabilityJobInput = lens _cmejdModelExplainabilityJobInput (\s a -> s {_cmejdModelExplainabilityJobInput = a})
+createModelExplainabilityJobDefinition_modelExplainabilityJobInput :: Lens.Lens' CreateModelExplainabilityJobDefinition ModelExplainabilityJobInput
+createModelExplainabilityJobDefinition_modelExplainabilityJobInput = Lens.lens (\CreateModelExplainabilityJobDefinition' {modelExplainabilityJobInput} -> modelExplainabilityJobInput) (\s@CreateModelExplainabilityJobDefinition' {} a -> s {modelExplainabilityJobInput = a} :: CreateModelExplainabilityJobDefinition)
 
 -- | Undocumented member.
-cmejdModelExplainabilityJobOutputConfig :: Lens' CreateModelExplainabilityJobDefinition MonitoringOutputConfig
-cmejdModelExplainabilityJobOutputConfig = lens _cmejdModelExplainabilityJobOutputConfig (\s a -> s {_cmejdModelExplainabilityJobOutputConfig = a})
+createModelExplainabilityJobDefinition_modelExplainabilityJobOutputConfig :: Lens.Lens' CreateModelExplainabilityJobDefinition MonitoringOutputConfig
+createModelExplainabilityJobDefinition_modelExplainabilityJobOutputConfig = Lens.lens (\CreateModelExplainabilityJobDefinition' {modelExplainabilityJobOutputConfig} -> modelExplainabilityJobOutputConfig) (\s@CreateModelExplainabilityJobDefinition' {} a -> s {modelExplainabilityJobOutputConfig = a} :: CreateModelExplainabilityJobDefinition)
 
 -- | Undocumented member.
-cmejdJobResources :: Lens' CreateModelExplainabilityJobDefinition MonitoringResources
-cmejdJobResources = lens _cmejdJobResources (\s a -> s {_cmejdJobResources = a})
+createModelExplainabilityJobDefinition_jobResources :: Lens.Lens' CreateModelExplainabilityJobDefinition MonitoringResources
+createModelExplainabilityJobDefinition_jobResources = Lens.lens (\CreateModelExplainabilityJobDefinition' {jobResources} -> jobResources) (\s@CreateModelExplainabilityJobDefinition' {} a -> s {jobResources = a} :: CreateModelExplainabilityJobDefinition)
 
--- | The Amazon Resource Name (ARN) of an IAM role that Amazon SageMaker can assume to perform tasks on your behalf.
-cmejdRoleARN :: Lens' CreateModelExplainabilityJobDefinition Text
-cmejdRoleARN = lens _cmejdRoleARN (\s a -> s {_cmejdRoleARN = a})
+-- | The Amazon Resource Name (ARN) of an IAM role that Amazon SageMaker can
+-- assume to perform tasks on your behalf.
+createModelExplainabilityJobDefinition_roleArn :: Lens.Lens' CreateModelExplainabilityJobDefinition Prelude.Text
+createModelExplainabilityJobDefinition_roleArn = Lens.lens (\CreateModelExplainabilityJobDefinition' {roleArn} -> roleArn) (\s@CreateModelExplainabilityJobDefinition' {} a -> s {roleArn = a} :: CreateModelExplainabilityJobDefinition)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     CreateModelExplainabilityJobDefinition
   where
   type
     Rs CreateModelExplainabilityJobDefinition =
       CreateModelExplainabilityJobDefinitionResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateModelExplainabilityJobDefinitionResponse'
-            <$> (pure (fromEnum s)) <*> (x .:> "JobDefinitionArn")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+              Prelude.<*> (x Prelude..:> "JobDefinitionArn")
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     CreateModelExplainabilityJobDefinition
 
 instance
-  NFData
+  Prelude.NFData
     CreateModelExplainabilityJobDefinition
 
 instance
-  ToHeaders
+  Prelude.ToHeaders
     CreateModelExplainabilityJobDefinition
   where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "SageMaker.CreateModelExplainabilityJobDefinition" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "SageMaker.CreateModelExplainabilityJobDefinition" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
 instance
-  ToJSON
+  Prelude.ToJSON
     CreateModelExplainabilityJobDefinition
   where
   toJSON CreateModelExplainabilityJobDefinition' {..} =
-    object
-      ( catMaybes
-          [ ("NetworkConfig" .=) <$> _cmejdNetworkConfig,
-            ("ModelExplainabilityBaselineConfig" .=)
-              <$> _cmejdModelExplainabilityBaselineConfig,
-            ("Tags" .=) <$> _cmejdTags,
-            ("StoppingCondition" .=) <$> _cmejdStoppingCondition,
-            Just
-              ("JobDefinitionName" .= _cmejdJobDefinitionName),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NetworkConfig" Prelude..=)
+              Prelude.<$> networkConfig,
+            ("ModelExplainabilityBaselineConfig" Prelude..=)
+              Prelude.<$> modelExplainabilityBaselineConfig,
+            ("Tags" Prelude..=) Prelude.<$> tags,
+            ("StoppingCondition" Prelude..=)
+              Prelude.<$> stoppingCondition,
+            Prelude.Just
+              ("JobDefinitionName" Prelude..= jobDefinitionName),
+            Prelude.Just
               ( "ModelExplainabilityAppSpecification"
-                  .= _cmejdModelExplainabilityAppSpecification
+                  Prelude..= modelExplainabilityAppSpecification
               ),
-            Just
+            Prelude.Just
               ( "ModelExplainabilityJobInput"
-                  .= _cmejdModelExplainabilityJobInput
+                  Prelude..= modelExplainabilityJobInput
               ),
-            Just
+            Prelude.Just
               ( "ModelExplainabilityJobOutputConfig"
-                  .= _cmejdModelExplainabilityJobOutputConfig
+                  Prelude..= modelExplainabilityJobOutputConfig
               ),
-            Just ("JobResources" .= _cmejdJobResources),
-            Just ("RoleArn" .= _cmejdRoleARN)
+            Prelude.Just
+              ("JobResources" Prelude..= jobResources),
+            Prelude.Just ("RoleArn" Prelude..= roleArn)
           ]
       )
 
 instance
-  ToPath
+  Prelude.ToPath
     CreateModelExplainabilityJobDefinition
   where
-  toPath = const "/"
+  toPath = Prelude.const "/"
 
 instance
-  ToQuery
+  Prelude.ToQuery
     CreateModelExplainabilityJobDefinition
   where
-  toQuery = const mempty
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createModelExplainabilityJobDefinitionResponse' smart constructor.
+-- | /See:/ 'newCreateModelExplainabilityJobDefinitionResponse' smart constructor.
 data CreateModelExplainabilityJobDefinitionResponse = CreateModelExplainabilityJobDefinitionResponse'
-  { _cmejdrrsResponseStatus ::
-      !Int,
-    _cmejdrrsJobDefinitionARN ::
-      !Text
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The Amazon Resource Name (ARN) of the model explainability job.
+    jobDefinitionArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateModelExplainabilityJobDefinitionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateModelExplainabilityJobDefinitionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cmejdrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cmejdrrsJobDefinitionARN' - The Amazon Resource Name (ARN) of the model explainability job.
-createModelExplainabilityJobDefinitionResponse ::
-  -- | 'cmejdrrsResponseStatus'
-  Int ->
-  -- | 'cmejdrrsJobDefinitionARN'
-  Text ->
+-- 'httpStatus', 'createModelExplainabilityJobDefinitionResponse_httpStatus' - The response's http status code.
+--
+-- 'jobDefinitionArn', 'createModelExplainabilityJobDefinitionResponse_jobDefinitionArn' - The Amazon Resource Name (ARN) of the model explainability job.
+newCreateModelExplainabilityJobDefinitionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'jobDefinitionArn'
+  Prelude.Text ->
   CreateModelExplainabilityJobDefinitionResponse
-createModelExplainabilityJobDefinitionResponse
-  pResponseStatus_
-  pJobDefinitionARN_ =
+newCreateModelExplainabilityJobDefinitionResponse
+  pHttpStatus_
+  pJobDefinitionArn_ =
     CreateModelExplainabilityJobDefinitionResponse'
-      { _cmejdrrsResponseStatus =
-          pResponseStatus_,
-        _cmejdrrsJobDefinitionARN =
-          pJobDefinitionARN_
+      { httpStatus =
+          pHttpStatus_,
+        jobDefinitionArn =
+          pJobDefinitionArn_
       }
 
--- | -- | The response status code.
-cmejdrrsResponseStatus :: Lens' CreateModelExplainabilityJobDefinitionResponse Int
-cmejdrrsResponseStatus = lens _cmejdrrsResponseStatus (\s a -> s {_cmejdrrsResponseStatus = a})
+-- | The response's http status code.
+createModelExplainabilityJobDefinitionResponse_httpStatus :: Lens.Lens' CreateModelExplainabilityJobDefinitionResponse Prelude.Int
+createModelExplainabilityJobDefinitionResponse_httpStatus = Lens.lens (\CreateModelExplainabilityJobDefinitionResponse' {httpStatus} -> httpStatus) (\s@CreateModelExplainabilityJobDefinitionResponse' {} a -> s {httpStatus = a} :: CreateModelExplainabilityJobDefinitionResponse)
 
 -- | The Amazon Resource Name (ARN) of the model explainability job.
-cmejdrrsJobDefinitionARN :: Lens' CreateModelExplainabilityJobDefinitionResponse Text
-cmejdrrsJobDefinitionARN = lens _cmejdrrsJobDefinitionARN (\s a -> s {_cmejdrrsJobDefinitionARN = a})
+createModelExplainabilityJobDefinitionResponse_jobDefinitionArn :: Lens.Lens' CreateModelExplainabilityJobDefinitionResponse Prelude.Text
+createModelExplainabilityJobDefinitionResponse_jobDefinitionArn = Lens.lens (\CreateModelExplainabilityJobDefinitionResponse' {jobDefinitionArn} -> jobDefinitionArn) (\s@CreateModelExplainabilityJobDefinitionResponse' {} a -> s {jobDefinitionArn = a} :: CreateModelExplainabilityJobDefinitionResponse)
 
 instance
-  NFData
+  Prelude.NFData
     CreateModelExplainabilityJobDefinitionResponse

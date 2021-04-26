@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,73 +19,75 @@
 module Network.AWS.SageMaker.Types.StepStatus
   ( StepStatus
       ( ..,
-        SSsExecuting,
-        SSsFailed,
-        SSsStarting,
-        SSsStopped,
-        SSsStopping,
-        SSsSucceeded
+        StepStatusExecuting,
+        StepStatusFailed,
+        StepStatusStarting,
+        StepStatusStopped,
+        StepStatusStopping,
+        StepStatusSucceeded
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data StepStatus = StepStatus' (CI Text)
+newtype StepStatus = StepStatus'
+  { fromStepStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SSsExecuting :: StepStatus
-pattern SSsExecuting = StepStatus' "Executing"
+pattern StepStatusExecuting :: StepStatus
+pattern StepStatusExecuting = StepStatus' "Executing"
 
-pattern SSsFailed :: StepStatus
-pattern SSsFailed = StepStatus' "Failed"
+pattern StepStatusFailed :: StepStatus
+pattern StepStatusFailed = StepStatus' "Failed"
 
-pattern SSsStarting :: StepStatus
-pattern SSsStarting = StepStatus' "Starting"
+pattern StepStatusStarting :: StepStatus
+pattern StepStatusStarting = StepStatus' "Starting"
 
-pattern SSsStopped :: StepStatus
-pattern SSsStopped = StepStatus' "Stopped"
+pattern StepStatusStopped :: StepStatus
+pattern StepStatusStopped = StepStatus' "Stopped"
 
-pattern SSsStopping :: StepStatus
-pattern SSsStopping = StepStatus' "Stopping"
+pattern StepStatusStopping :: StepStatus
+pattern StepStatusStopping = StepStatus' "Stopping"
 
-pattern SSsSucceeded :: StepStatus
-pattern SSsSucceeded = StepStatus' "Succeeded"
+pattern StepStatusSucceeded :: StepStatus
+pattern StepStatusSucceeded = StepStatus' "Succeeded"
 
 {-# COMPLETE
-  SSsExecuting,
-  SSsFailed,
-  SSsStarting,
-  SSsStopped,
-  SSsStopping,
-  SSsSucceeded,
+  StepStatusExecuting,
+  StepStatusFailed,
+  StepStatusStarting,
+  StepStatusStopped,
+  StepStatusStopping,
+  StepStatusSucceeded,
   StepStatus'
   #-}
 
-instance FromText StepStatus where
-  parser = (StepStatus' . mk) <$> takeText
+instance Prelude.FromText StepStatus where
+  parser = StepStatus' Prelude.<$> Prelude.takeText
 
-instance ToText StepStatus where
-  toText (StepStatus' ci) = original ci
+instance Prelude.ToText StepStatus where
+  toText (StepStatus' x) = x
 
-instance Hashable StepStatus
+instance Prelude.Hashable StepStatus
 
-instance NFData StepStatus
+instance Prelude.NFData StepStatus
 
-instance ToByteString StepStatus
+instance Prelude.ToByteString StepStatus
 
-instance ToQuery StepStatus
+instance Prelude.ToQuery StepStatus
 
-instance ToHeader StepStatus
+instance Prelude.ToHeader StepStatus
 
-instance FromJSON StepStatus where
-  parseJSON = parseJSONText "StepStatus"
+instance Prelude.FromJSON StepStatus where
+  parseJSON = Prelude.parseJSONText "StepStatus"

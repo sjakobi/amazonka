@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,56 +19,166 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.ScheduleConfig where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Configuration details about the monitoring schedule.
 --
---
---
--- /See:/ 'scheduleConfig' smart constructor.
-newtype ScheduleConfig = ScheduleConfig'
-  { _scScheduleExpression ::
-      Text
+-- /See:/ 'newScheduleConfig' smart constructor.
+data ScheduleConfig = ScheduleConfig'
+  { -- | A cron expression that describes details about the monitoring schedule.
+    --
+    -- Currently the only supported cron expressions are:
+    --
+    -- -   If you want to set the job to start every hour, please use the
+    --     following:
+    --
+    --     @Hourly: cron(0 * ? * * *)@
+    --
+    -- -   If you want to start the job daily:
+    --
+    --     @cron(0 [00-23] ? * * *)@
+    --
+    -- For example, the following are valid cron expressions:
+    --
+    -- -   Daily at noon UTC: @cron(0 12 ? * * *)@
+    --
+    -- -   Daily at midnight UTC: @cron(0 0 ? * * *)@
+    --
+    -- To support running every 6, 12 hours, the following are also supported:
+    --
+    -- @cron(0 [00-23]\/[01-24] ? * * *)@
+    --
+    -- For example, the following are valid cron expressions:
+    --
+    -- -   Every 12 hours, starting at 5pm UTC: @cron(0 17\/12 ? * * *)@
+    --
+    -- -   Every two hours starting at midnight: @cron(0 0\/2 ? * * *)@
+    --
+    -- -   Even though the cron expression is set to start at 5PM UTC, note
+    --     that there could be a delay of 0-20 minutes from the actual
+    --     requested time to run the execution.
+    --
+    -- -   We recommend that if you would like a daily schedule, you do not
+    --     provide this parameter. Amazon SageMaker will pick a time for
+    --     running every day.
+    scheduleExpression :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ScheduleConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ScheduleConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'scScheduleExpression' - A cron expression that describes details about the monitoring schedule. Currently the only supported cron expressions are:     * If you want to set the job to start every hour, please use the following: @Hourly: cron(0 * ? * * *)@      * If you want to start the job daily: @cron(0 [00-23] ? * * *)@  For example, the following are valid cron expressions:     * Daily at noon UTC: @cron(0 12 ? * * *)@      * Daily at midnight UTC: @cron(0 0 ? * * *)@  To support running every 6, 12 hours, the following are also supported: @cron(0 [00-23]/[01-24] ? * * *)@  For example, the following are valid cron expressions:     * Every 12 hours, starting at 5pm UTC: @cron(0 17/12 ? * * *)@      * Every two hours starting at midnight: @cron(0 0/2 ? * * *)@
-scheduleConfig ::
-  -- | 'scScheduleExpression'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'scheduleExpression', 'scheduleConfig_scheduleExpression' - A cron expression that describes details about the monitoring schedule.
+--
+-- Currently the only supported cron expressions are:
+--
+-- -   If you want to set the job to start every hour, please use the
+--     following:
+--
+--     @Hourly: cron(0 * ? * * *)@
+--
+-- -   If you want to start the job daily:
+--
+--     @cron(0 [00-23] ? * * *)@
+--
+-- For example, the following are valid cron expressions:
+--
+-- -   Daily at noon UTC: @cron(0 12 ? * * *)@
+--
+-- -   Daily at midnight UTC: @cron(0 0 ? * * *)@
+--
+-- To support running every 6, 12 hours, the following are also supported:
+--
+-- @cron(0 [00-23]\/[01-24] ? * * *)@
+--
+-- For example, the following are valid cron expressions:
+--
+-- -   Every 12 hours, starting at 5pm UTC: @cron(0 17\/12 ? * * *)@
+--
+-- -   Every two hours starting at midnight: @cron(0 0\/2 ? * * *)@
+--
+-- -   Even though the cron expression is set to start at 5PM UTC, note
+--     that there could be a delay of 0-20 minutes from the actual
+--     requested time to run the execution.
+--
+-- -   We recommend that if you would like a daily schedule, you do not
+--     provide this parameter. Amazon SageMaker will pick a time for
+--     running every day.
+newScheduleConfig ::
+  -- | 'scheduleExpression'
+  Prelude.Text ->
   ScheduleConfig
-scheduleConfig pScheduleExpression_ =
+newScheduleConfig pScheduleExpression_ =
   ScheduleConfig'
-    { _scScheduleExpression =
+    { scheduleExpression =
         pScheduleExpression_
     }
 
--- | A cron expression that describes details about the monitoring schedule. Currently the only supported cron expressions are:     * If you want to set the job to start every hour, please use the following: @Hourly: cron(0 * ? * * *)@      * If you want to start the job daily: @cron(0 [00-23] ? * * *)@  For example, the following are valid cron expressions:     * Daily at noon UTC: @cron(0 12 ? * * *)@      * Daily at midnight UTC: @cron(0 0 ? * * *)@  To support running every 6, 12 hours, the following are also supported: @cron(0 [00-23]/[01-24] ? * * *)@  For example, the following are valid cron expressions:     * Every 12 hours, starting at 5pm UTC: @cron(0 17/12 ? * * *)@      * Every two hours starting at midnight: @cron(0 0/2 ? * * *)@
-scScheduleExpression :: Lens' ScheduleConfig Text
-scScheduleExpression = lens _scScheduleExpression (\s a -> s {_scScheduleExpression = a})
+-- | A cron expression that describes details about the monitoring schedule.
+--
+-- Currently the only supported cron expressions are:
+--
+-- -   If you want to set the job to start every hour, please use the
+--     following:
+--
+--     @Hourly: cron(0 * ? * * *)@
+--
+-- -   If you want to start the job daily:
+--
+--     @cron(0 [00-23] ? * * *)@
+--
+-- For example, the following are valid cron expressions:
+--
+-- -   Daily at noon UTC: @cron(0 12 ? * * *)@
+--
+-- -   Daily at midnight UTC: @cron(0 0 ? * * *)@
+--
+-- To support running every 6, 12 hours, the following are also supported:
+--
+-- @cron(0 [00-23]\/[01-24] ? * * *)@
+--
+-- For example, the following are valid cron expressions:
+--
+-- -   Every 12 hours, starting at 5pm UTC: @cron(0 17\/12 ? * * *)@
+--
+-- -   Every two hours starting at midnight: @cron(0 0\/2 ? * * *)@
+--
+-- -   Even though the cron expression is set to start at 5PM UTC, note
+--     that there could be a delay of 0-20 minutes from the actual
+--     requested time to run the execution.
+--
+-- -   We recommend that if you would like a daily schedule, you do not
+--     provide this parameter. Amazon SageMaker will pick a time for
+--     running every day.
+scheduleConfig_scheduleExpression :: Lens.Lens' ScheduleConfig Prelude.Text
+scheduleConfig_scheduleExpression = Lens.lens (\ScheduleConfig' {scheduleExpression} -> scheduleExpression) (\s@ScheduleConfig' {} a -> s {scheduleExpression = a} :: ScheduleConfig)
 
-instance FromJSON ScheduleConfig where
+instance Prelude.FromJSON ScheduleConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ScheduleConfig"
       ( \x ->
-          ScheduleConfig' <$> (x .: "ScheduleExpression")
+          ScheduleConfig'
+            Prelude.<$> (x Prelude..: "ScheduleExpression")
       )
 
-instance Hashable ScheduleConfig
+instance Prelude.Hashable ScheduleConfig
 
-instance NFData ScheduleConfig
+instance Prelude.NFData ScheduleConfig
 
-instance ToJSON ScheduleConfig where
+instance Prelude.ToJSON ScheduleConfig where
   toJSON ScheduleConfig' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("ScheduleExpression" .= _scScheduleExpression)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ( "ScheduleExpression"
+                  Prelude..= scheduleExpression
+              )
           ]
       )

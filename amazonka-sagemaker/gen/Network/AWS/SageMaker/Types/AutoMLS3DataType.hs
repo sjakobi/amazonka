@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.SageMaker.Types.AutoMLS3DataType
   ( AutoMLS3DataType
       ( ..,
-        AMLSDTManifestFile,
-        AMLSDTS3Prefix
+        AutoMLS3DataTypeManifestFile,
+        AutoMLS3DataTypeS3Prefix
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AutoMLS3DataType = AutoMLS3DataType' (CI Text)
+newtype AutoMLS3DataType = AutoMLS3DataType'
+  { fromAutoMLS3DataType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AMLSDTManifestFile :: AutoMLS3DataType
-pattern AMLSDTManifestFile = AutoMLS3DataType' "ManifestFile"
+pattern AutoMLS3DataTypeManifestFile :: AutoMLS3DataType
+pattern AutoMLS3DataTypeManifestFile = AutoMLS3DataType' "ManifestFile"
 
-pattern AMLSDTS3Prefix :: AutoMLS3DataType
-pattern AMLSDTS3Prefix = AutoMLS3DataType' "S3Prefix"
+pattern AutoMLS3DataTypeS3Prefix :: AutoMLS3DataType
+pattern AutoMLS3DataTypeS3Prefix = AutoMLS3DataType' "S3Prefix"
 
 {-# COMPLETE
-  AMLSDTManifestFile,
-  AMLSDTS3Prefix,
+  AutoMLS3DataTypeManifestFile,
+  AutoMLS3DataTypeS3Prefix,
   AutoMLS3DataType'
   #-}
 
-instance FromText AutoMLS3DataType where
-  parser = (AutoMLS3DataType' . mk) <$> takeText
+instance Prelude.FromText AutoMLS3DataType where
+  parser = AutoMLS3DataType' Prelude.<$> Prelude.takeText
 
-instance ToText AutoMLS3DataType where
-  toText (AutoMLS3DataType' ci) = original ci
+instance Prelude.ToText AutoMLS3DataType where
+  toText (AutoMLS3DataType' x) = x
 
-instance Hashable AutoMLS3DataType
+instance Prelude.Hashable AutoMLS3DataType
 
-instance NFData AutoMLS3DataType
+instance Prelude.NFData AutoMLS3DataType
 
-instance ToByteString AutoMLS3DataType
+instance Prelude.ToByteString AutoMLS3DataType
 
-instance ToQuery AutoMLS3DataType
+instance Prelude.ToQuery AutoMLS3DataType
 
-instance ToHeader AutoMLS3DataType
+instance Prelude.ToHeader AutoMLS3DataType
 
-instance ToJSON AutoMLS3DataType where
-  toJSON = toJSONText
+instance Prelude.ToJSON AutoMLS3DataType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AutoMLS3DataType where
-  parseJSON = parseJSONText "AutoMLS3DataType"
+instance Prelude.FromJSON AutoMLS3DataType where
+  parseJSON = Prelude.parseJSONText "AutoMLS3DataType"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,57 @@
 module Network.AWS.SageMaker.Types.SortBy
   ( SortBy
       ( ..,
-        SBCreationTime,
-        SBName,
-        SBStatus
+        SortByCreationTime,
+        SortByName,
+        SortByStatus'
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SortBy = SortBy' (CI Text)
+newtype SortBy = SortBy' {fromSortBy :: Prelude.Text}
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SBCreationTime :: SortBy
-pattern SBCreationTime = SortBy' "CreationTime"
+pattern SortByCreationTime :: SortBy
+pattern SortByCreationTime = SortBy' "CreationTime"
 
-pattern SBName :: SortBy
-pattern SBName = SortBy' "Name"
+pattern SortByName :: SortBy
+pattern SortByName = SortBy' "Name"
 
-pattern SBStatus :: SortBy
-pattern SBStatus = SortBy' "Status"
+pattern SortByStatus' :: SortBy
+pattern SortByStatus' = SortBy' "Status"
 
 {-# COMPLETE
-  SBCreationTime,
-  SBName,
-  SBStatus,
+  SortByCreationTime,
+  SortByName,
+  SortByStatus',
   SortBy'
   #-}
 
-instance FromText SortBy where
-  parser = (SortBy' . mk) <$> takeText
+instance Prelude.FromText SortBy where
+  parser = SortBy' Prelude.<$> Prelude.takeText
 
-instance ToText SortBy where
-  toText (SortBy' ci) = original ci
+instance Prelude.ToText SortBy where
+  toText (SortBy' x) = x
 
-instance Hashable SortBy
+instance Prelude.Hashable SortBy
 
-instance NFData SortBy
+instance Prelude.NFData SortBy
 
-instance ToByteString SortBy
+instance Prelude.ToByteString SortBy
 
-instance ToQuery SortBy
+instance Prelude.ToQuery SortBy
 
-instance ToHeader SortBy
+instance Prelude.ToHeader SortBy
 
-instance ToJSON SortBy where
-  toJSON = toJSONText
+instance Prelude.ToJSON SortBy where
+  toJSON = Prelude.toJSONText

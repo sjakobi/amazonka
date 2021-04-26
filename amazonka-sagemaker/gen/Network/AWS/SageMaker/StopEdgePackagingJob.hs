@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,111 +24,111 @@
 -- Request to stop an edge packaging job.
 module Network.AWS.SageMaker.StopEdgePackagingJob
   ( -- * Creating a Request
-    stopEdgePackagingJob,
-    StopEdgePackagingJob,
+    StopEdgePackagingJob (..),
+    newStopEdgePackagingJob,
 
     -- * Request Lenses
-    sepjEdgePackagingJobName,
+    stopEdgePackagingJob_edgePackagingJobName,
 
     -- * Destructuring the Response
-    stopEdgePackagingJobResponse,
-    StopEdgePackagingJobResponse,
+    StopEdgePackagingJobResponse (..),
+    newStopEdgePackagingJobResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'stopEdgePackagingJob' smart constructor.
-newtype StopEdgePackagingJob = StopEdgePackagingJob'
-  { _sepjEdgePackagingJobName ::
-      Text
+-- | /See:/ 'newStopEdgePackagingJob' smart constructor.
+data StopEdgePackagingJob = StopEdgePackagingJob'
+  { -- | The name of the edge packaging job.
+    edgePackagingJobName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopEdgePackagingJob' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopEdgePackagingJob' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sepjEdgePackagingJobName' - The name of the edge packaging job.
-stopEdgePackagingJob ::
-  -- | 'sepjEdgePackagingJobName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'edgePackagingJobName', 'stopEdgePackagingJob_edgePackagingJobName' - The name of the edge packaging job.
+newStopEdgePackagingJob ::
+  -- | 'edgePackagingJobName'
+  Prelude.Text ->
   StopEdgePackagingJob
-stopEdgePackagingJob pEdgePackagingJobName_ =
+newStopEdgePackagingJob pEdgePackagingJobName_ =
   StopEdgePackagingJob'
-    { _sepjEdgePackagingJobName =
+    { edgePackagingJobName =
         pEdgePackagingJobName_
     }
 
 -- | The name of the edge packaging job.
-sepjEdgePackagingJobName :: Lens' StopEdgePackagingJob Text
-sepjEdgePackagingJobName = lens _sepjEdgePackagingJobName (\s a -> s {_sepjEdgePackagingJobName = a})
+stopEdgePackagingJob_edgePackagingJobName :: Lens.Lens' StopEdgePackagingJob Prelude.Text
+stopEdgePackagingJob_edgePackagingJobName = Lens.lens (\StopEdgePackagingJob' {edgePackagingJobName} -> edgePackagingJobName) (\s@StopEdgePackagingJob' {} a -> s {edgePackagingJobName = a} :: StopEdgePackagingJob)
 
-instance AWSRequest StopEdgePackagingJob where
+instance Prelude.AWSRequest StopEdgePackagingJob where
   type
     Rs StopEdgePackagingJob =
       StopEdgePackagingJobResponse
-  request = postJSON sageMaker
-  response = receiveNull StopEdgePackagingJobResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull StopEdgePackagingJobResponse'
 
-instance Hashable StopEdgePackagingJob
+instance Prelude.Hashable StopEdgePackagingJob
 
-instance NFData StopEdgePackagingJob
+instance Prelude.NFData StopEdgePackagingJob
 
-instance ToHeaders StopEdgePackagingJob where
+instance Prelude.ToHeaders StopEdgePackagingJob where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.StopEdgePackagingJob" :: ByteString),
+              Prelude.=# ( "SageMaker.StopEdgePackagingJob" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StopEdgePackagingJob where
+instance Prelude.ToJSON StopEdgePackagingJob where
   toJSON StopEdgePackagingJob' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "EdgePackagingJobName"
-                  .= _sepjEdgePackagingJobName
+                  Prelude..= edgePackagingJobName
               )
           ]
       )
 
-instance ToPath StopEdgePackagingJob where
-  toPath = const "/"
+instance Prelude.ToPath StopEdgePackagingJob where
+  toPath = Prelude.const "/"
 
-instance ToQuery StopEdgePackagingJob where
-  toQuery = const mempty
+instance Prelude.ToQuery StopEdgePackagingJob where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'stopEdgePackagingJobResponse' smart constructor.
+-- | /See:/ 'newStopEdgePackagingJobResponse' smart constructor.
 data StopEdgePackagingJobResponse = StopEdgePackagingJobResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopEdgePackagingJobResponse' with the minimum fields required to make a request.
-stopEdgePackagingJobResponse ::
+-- |
+-- Create a value of 'StopEdgePackagingJobResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newStopEdgePackagingJobResponse ::
   StopEdgePackagingJobResponse
-stopEdgePackagingJobResponse =
+newStopEdgePackagingJobResponse =
   StopEdgePackagingJobResponse'
 
-instance NFData StopEdgePackagingJobResponse
+instance Prelude.NFData StopEdgePackagingJobResponse

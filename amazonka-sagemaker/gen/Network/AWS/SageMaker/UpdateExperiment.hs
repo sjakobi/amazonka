@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,155 +21,169 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Adds, updates, or removes the description of an experiment. Updates the display name of an experiment.
+-- Adds, updates, or removes the description of an experiment. Updates the
+-- display name of an experiment.
 module Network.AWS.SageMaker.UpdateExperiment
   ( -- * Creating a Request
-    updateExperiment,
-    UpdateExperiment,
+    UpdateExperiment (..),
+    newUpdateExperiment,
 
     -- * Request Lenses
-    ueDescription,
-    ueDisplayName,
-    ueExperimentName,
+    updateExperiment_description,
+    updateExperiment_displayName,
+    updateExperiment_experimentName,
 
     -- * Destructuring the Response
-    updateExperimentResponse,
-    UpdateExperimentResponse,
+    UpdateExperimentResponse (..),
+    newUpdateExperimentResponse,
 
     -- * Response Lenses
-    uerersExperimentARN,
-    uerersResponseStatus,
+    updateExperimentResponse_experimentArn,
+    updateExperimentResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'updateExperiment' smart constructor.
+-- | /See:/ 'newUpdateExperiment' smart constructor.
 data UpdateExperiment = UpdateExperiment'
-  { _ueDescription ::
-      !(Maybe Text),
-    _ueDisplayName :: !(Maybe Text),
-    _ueExperimentName :: !Text
+  { -- | The description of the experiment.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The name of the experiment as displayed. The name doesn\'t need to be
+    -- unique. If @DisplayName@ isn\'t specified, @ExperimentName@ is
+    -- displayed.
+    displayName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the experiment to update.
+    experimentName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateExperiment' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateExperiment' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ueDescription' - The description of the experiment.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ueDisplayName' - The name of the experiment as displayed. The name doesn't need to be unique. If @DisplayName@ isn't specified, @ExperimentName@ is displayed.
+-- 'description', 'updateExperiment_description' - The description of the experiment.
 --
--- * 'ueExperimentName' - The name of the experiment to update.
-updateExperiment ::
-  -- | 'ueExperimentName'
-  Text ->
+-- 'displayName', 'updateExperiment_displayName' - The name of the experiment as displayed. The name doesn\'t need to be
+-- unique. If @DisplayName@ isn\'t specified, @ExperimentName@ is
+-- displayed.
+--
+-- 'experimentName', 'updateExperiment_experimentName' - The name of the experiment to update.
+newUpdateExperiment ::
+  -- | 'experimentName'
+  Prelude.Text ->
   UpdateExperiment
-updateExperiment pExperimentName_ =
+newUpdateExperiment pExperimentName_ =
   UpdateExperiment'
-    { _ueDescription = Nothing,
-      _ueDisplayName = Nothing,
-      _ueExperimentName = pExperimentName_
+    { description = Prelude.Nothing,
+      displayName = Prelude.Nothing,
+      experimentName = pExperimentName_
     }
 
 -- | The description of the experiment.
-ueDescription :: Lens' UpdateExperiment (Maybe Text)
-ueDescription = lens _ueDescription (\s a -> s {_ueDescription = a})
+updateExperiment_description :: Lens.Lens' UpdateExperiment (Prelude.Maybe Prelude.Text)
+updateExperiment_description = Lens.lens (\UpdateExperiment' {description} -> description) (\s@UpdateExperiment' {} a -> s {description = a} :: UpdateExperiment)
 
--- | The name of the experiment as displayed. The name doesn't need to be unique. If @DisplayName@ isn't specified, @ExperimentName@ is displayed.
-ueDisplayName :: Lens' UpdateExperiment (Maybe Text)
-ueDisplayName = lens _ueDisplayName (\s a -> s {_ueDisplayName = a})
+-- | The name of the experiment as displayed. The name doesn\'t need to be
+-- unique. If @DisplayName@ isn\'t specified, @ExperimentName@ is
+-- displayed.
+updateExperiment_displayName :: Lens.Lens' UpdateExperiment (Prelude.Maybe Prelude.Text)
+updateExperiment_displayName = Lens.lens (\UpdateExperiment' {displayName} -> displayName) (\s@UpdateExperiment' {} a -> s {displayName = a} :: UpdateExperiment)
 
 -- | The name of the experiment to update.
-ueExperimentName :: Lens' UpdateExperiment Text
-ueExperimentName = lens _ueExperimentName (\s a -> s {_ueExperimentName = a})
+updateExperiment_experimentName :: Lens.Lens' UpdateExperiment Prelude.Text
+updateExperiment_experimentName = Lens.lens (\UpdateExperiment' {experimentName} -> experimentName) (\s@UpdateExperiment' {} a -> s {experimentName = a} :: UpdateExperiment)
 
-instance AWSRequest UpdateExperiment where
+instance Prelude.AWSRequest UpdateExperiment where
   type Rs UpdateExperiment = UpdateExperimentResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateExperimentResponse'
-            <$> (x .?> "ExperimentArn") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ExperimentArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateExperiment
+instance Prelude.Hashable UpdateExperiment
 
-instance NFData UpdateExperiment
+instance Prelude.NFData UpdateExperiment
 
-instance ToHeaders UpdateExperiment where
+instance Prelude.ToHeaders UpdateExperiment where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.UpdateExperiment" :: ByteString),
+              Prelude.=# ("SageMaker.UpdateExperiment" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateExperiment where
+instance Prelude.ToJSON UpdateExperiment where
   toJSON UpdateExperiment' {..} =
-    object
-      ( catMaybes
-          [ ("Description" .=) <$> _ueDescription,
-            ("DisplayName" .=) <$> _ueDisplayName,
-            Just ("ExperimentName" .= _ueExperimentName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Description" Prelude..=) Prelude.<$> description,
+            ("DisplayName" Prelude..=) Prelude.<$> displayName,
+            Prelude.Just
+              ("ExperimentName" Prelude..= experimentName)
           ]
       )
 
-instance ToPath UpdateExperiment where
-  toPath = const "/"
+instance Prelude.ToPath UpdateExperiment where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateExperiment where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateExperiment where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateExperimentResponse' smart constructor.
+-- | /See:/ 'newUpdateExperimentResponse' smart constructor.
 data UpdateExperimentResponse = UpdateExperimentResponse'
-  { _uerersExperimentARN ::
-      !(Maybe Text),
-    _uerersResponseStatus ::
-      !Int
+  { -- | The Amazon Resource Name (ARN) of the experiment.
+    experimentArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateExperimentResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateExperimentResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uerersExperimentARN' - The Amazon Resource Name (ARN) of the experiment.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uerersResponseStatus' - -- | The response status code.
-updateExperimentResponse ::
-  -- | 'uerersResponseStatus'
-  Int ->
+-- 'experimentArn', 'updateExperimentResponse_experimentArn' - The Amazon Resource Name (ARN) of the experiment.
+--
+-- 'httpStatus', 'updateExperimentResponse_httpStatus' - The response's http status code.
+newUpdateExperimentResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateExperimentResponse
-updateExperimentResponse pResponseStatus_ =
+newUpdateExperimentResponse pHttpStatus_ =
   UpdateExperimentResponse'
-    { _uerersExperimentARN =
-        Nothing,
-      _uerersResponseStatus = pResponseStatus_
+    { experimentArn =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The Amazon Resource Name (ARN) of the experiment.
-uerersExperimentARN :: Lens' UpdateExperimentResponse (Maybe Text)
-uerersExperimentARN = lens _uerersExperimentARN (\s a -> s {_uerersExperimentARN = a})
+updateExperimentResponse_experimentArn :: Lens.Lens' UpdateExperimentResponse (Prelude.Maybe Prelude.Text)
+updateExperimentResponse_experimentArn = Lens.lens (\UpdateExperimentResponse' {experimentArn} -> experimentArn) (\s@UpdateExperimentResponse' {} a -> s {experimentArn = a} :: UpdateExperimentResponse)
 
--- | -- | The response status code.
-uerersResponseStatus :: Lens' UpdateExperimentResponse Int
-uerersResponseStatus = lens _uerersResponseStatus (\s a -> s {_uerersResponseStatus = a})
+-- | The response's http status code.
+updateExperimentResponse_httpStatus :: Lens.Lens' UpdateExperimentResponse Prelude.Int
+updateExperimentResponse_httpStatus = Lens.lens (\UpdateExperimentResponse' {httpStatus} -> httpStatus) (\s@UpdateExperimentResponse' {} a -> s {httpStatus = a} :: UpdateExperimentResponse)
 
-instance NFData UpdateExperimentResponse
+instance Prelude.NFData UpdateExperimentResponse

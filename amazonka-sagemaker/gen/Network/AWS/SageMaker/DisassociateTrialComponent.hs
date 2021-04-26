@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,183 +21,185 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Disassociates a trial component from a trial. This doesn't effect other trials the component is associated with. Before you can delete a component, you must disassociate the component from all trials it is associated with. To associate a trial component with a trial, call the 'AssociateTrialComponent' API.
+-- Disassociates a trial component from a trial. This doesn\'t effect other
+-- trials the component is associated with. Before you can delete a
+-- component, you must disassociate the component from all trials it is
+-- associated with. To associate a trial component with a trial, call the
+-- AssociateTrialComponent API.
 --
---
--- To get a list of the trials a component is associated with, use the 'Search' API. Specify @ExperimentTrialComponent@ for the @Resource@ parameter. The list appears in the response under @Results.TrialComponent.Parents@ .
+-- To get a list of the trials a component is associated with, use the
+-- Search API. Specify @ExperimentTrialComponent@ for the @Resource@
+-- parameter. The list appears in the response under
+-- @Results.TrialComponent.Parents@.
 module Network.AWS.SageMaker.DisassociateTrialComponent
   ( -- * Creating a Request
-    disassociateTrialComponent,
-    DisassociateTrialComponent,
+    DisassociateTrialComponent (..),
+    newDisassociateTrialComponent,
 
     -- * Request Lenses
-    dtcTrialComponentName,
-    dtcTrialName,
+    disassociateTrialComponent_trialComponentName,
+    disassociateTrialComponent_trialName,
 
     -- * Destructuring the Response
-    disassociateTrialComponentResponse,
-    DisassociateTrialComponentResponse,
+    DisassociateTrialComponentResponse (..),
+    newDisassociateTrialComponentResponse,
 
     -- * Response Lenses
-    dtcrrsTrialARN,
-    dtcrrsTrialComponentARN,
-    dtcrrsResponseStatus,
+    disassociateTrialComponentResponse_trialArn,
+    disassociateTrialComponentResponse_trialComponentArn,
+    disassociateTrialComponentResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'disassociateTrialComponent' smart constructor.
+-- | /See:/ 'newDisassociateTrialComponent' smart constructor.
 data DisassociateTrialComponent = DisassociateTrialComponent'
-  { _dtcTrialComponentName ::
-      !Text,
-    _dtcTrialName ::
-      !Text
+  { -- | The name of the component to disassociate from the trial.
+    trialComponentName :: Prelude.Text,
+    -- | The name of the trial to disassociate from.
+    trialName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DisassociateTrialComponent' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DisassociateTrialComponent' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtcTrialComponentName' - The name of the component to disassociate from the trial.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtcTrialName' - The name of the trial to disassociate from.
-disassociateTrialComponent ::
-  -- | 'dtcTrialComponentName'
-  Text ->
-  -- | 'dtcTrialName'
-  Text ->
+-- 'trialComponentName', 'disassociateTrialComponent_trialComponentName' - The name of the component to disassociate from the trial.
+--
+-- 'trialName', 'disassociateTrialComponent_trialName' - The name of the trial to disassociate from.
+newDisassociateTrialComponent ::
+  -- | 'trialComponentName'
+  Prelude.Text ->
+  -- | 'trialName'
+  Prelude.Text ->
   DisassociateTrialComponent
-disassociateTrialComponent
+newDisassociateTrialComponent
   pTrialComponentName_
   pTrialName_ =
     DisassociateTrialComponent'
-      { _dtcTrialComponentName =
+      { trialComponentName =
           pTrialComponentName_,
-        _dtcTrialName = pTrialName_
+        trialName = pTrialName_
       }
 
 -- | The name of the component to disassociate from the trial.
-dtcTrialComponentName :: Lens' DisassociateTrialComponent Text
-dtcTrialComponentName = lens _dtcTrialComponentName (\s a -> s {_dtcTrialComponentName = a})
+disassociateTrialComponent_trialComponentName :: Lens.Lens' DisassociateTrialComponent Prelude.Text
+disassociateTrialComponent_trialComponentName = Lens.lens (\DisassociateTrialComponent' {trialComponentName} -> trialComponentName) (\s@DisassociateTrialComponent' {} a -> s {trialComponentName = a} :: DisassociateTrialComponent)
 
 -- | The name of the trial to disassociate from.
-dtcTrialName :: Lens' DisassociateTrialComponent Text
-dtcTrialName = lens _dtcTrialName (\s a -> s {_dtcTrialName = a})
+disassociateTrialComponent_trialName :: Lens.Lens' DisassociateTrialComponent Prelude.Text
+disassociateTrialComponent_trialName = Lens.lens (\DisassociateTrialComponent' {trialName} -> trialName) (\s@DisassociateTrialComponent' {} a -> s {trialName = a} :: DisassociateTrialComponent)
 
-instance AWSRequest DisassociateTrialComponent where
+instance
+  Prelude.AWSRequest
+    DisassociateTrialComponent
+  where
   type
     Rs DisassociateTrialComponent =
       DisassociateTrialComponentResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DisassociateTrialComponentResponse'
-            <$> (x .?> "TrialArn")
-            <*> (x .?> "TrialComponentArn")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "TrialArn")
+            Prelude.<*> (x Prelude..?> "TrialComponentArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DisassociateTrialComponent
+instance Prelude.Hashable DisassociateTrialComponent
 
-instance NFData DisassociateTrialComponent
+instance Prelude.NFData DisassociateTrialComponent
 
-instance ToHeaders DisassociateTrialComponent where
+instance Prelude.ToHeaders DisassociateTrialComponent where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "SageMaker.DisassociateTrialComponent" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "SageMaker.DisassociateTrialComponent" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DisassociateTrialComponent where
+instance Prelude.ToJSON DisassociateTrialComponent where
   toJSON DisassociateTrialComponent' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("TrialComponentName" .= _dtcTrialComponentName),
-            Just ("TrialName" .= _dtcTrialName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("TrialComponentName" Prelude..= trialComponentName),
+            Prelude.Just ("TrialName" Prelude..= trialName)
           ]
       )
 
-instance ToPath DisassociateTrialComponent where
-  toPath = const "/"
+instance Prelude.ToPath DisassociateTrialComponent where
+  toPath = Prelude.const "/"
 
-instance ToQuery DisassociateTrialComponent where
-  toQuery = const mempty
+instance Prelude.ToQuery DisassociateTrialComponent where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'disassociateTrialComponentResponse' smart constructor.
+-- | /See:/ 'newDisassociateTrialComponentResponse' smart constructor.
 data DisassociateTrialComponentResponse = DisassociateTrialComponentResponse'
-  { _dtcrrsTrialARN ::
-      !( Maybe
-           Text
-       ),
-    _dtcrrsTrialComponentARN ::
-      !( Maybe
-           Text
-       ),
-    _dtcrrsResponseStatus ::
-      !Int
+  { -- | The Amazon Resource Name (ARN) of the trial.
+    trialArn :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the trial component.
+    trialComponentArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DisassociateTrialComponentResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DisassociateTrialComponentResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtcrrsTrialARN' - The Amazon Resource Name (ARN) of the trial.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtcrrsTrialComponentARN' - The ARN of the trial component.
+-- 'trialArn', 'disassociateTrialComponentResponse_trialArn' - The Amazon Resource Name (ARN) of the trial.
 --
--- * 'dtcrrsResponseStatus' - -- | The response status code.
-disassociateTrialComponentResponse ::
-  -- | 'dtcrrsResponseStatus'
-  Int ->
+-- 'trialComponentArn', 'disassociateTrialComponentResponse_trialComponentArn' - The ARN of the trial component.
+--
+-- 'httpStatus', 'disassociateTrialComponentResponse_httpStatus' - The response's http status code.
+newDisassociateTrialComponentResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DisassociateTrialComponentResponse
-disassociateTrialComponentResponse pResponseStatus_ =
+newDisassociateTrialComponentResponse pHttpStatus_ =
   DisassociateTrialComponentResponse'
-    { _dtcrrsTrialARN =
-        Nothing,
-      _dtcrrsTrialComponentARN = Nothing,
-      _dtcrrsResponseStatus =
-        pResponseStatus_
+    { trialArn =
+        Prelude.Nothing,
+      trialComponentArn = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The Amazon Resource Name (ARN) of the trial.
-dtcrrsTrialARN :: Lens' DisassociateTrialComponentResponse (Maybe Text)
-dtcrrsTrialARN = lens _dtcrrsTrialARN (\s a -> s {_dtcrrsTrialARN = a})
+disassociateTrialComponentResponse_trialArn :: Lens.Lens' DisassociateTrialComponentResponse (Prelude.Maybe Prelude.Text)
+disassociateTrialComponentResponse_trialArn = Lens.lens (\DisassociateTrialComponentResponse' {trialArn} -> trialArn) (\s@DisassociateTrialComponentResponse' {} a -> s {trialArn = a} :: DisassociateTrialComponentResponse)
 
 -- | The ARN of the trial component.
-dtcrrsTrialComponentARN :: Lens' DisassociateTrialComponentResponse (Maybe Text)
-dtcrrsTrialComponentARN = lens _dtcrrsTrialComponentARN (\s a -> s {_dtcrrsTrialComponentARN = a})
+disassociateTrialComponentResponse_trialComponentArn :: Lens.Lens' DisassociateTrialComponentResponse (Prelude.Maybe Prelude.Text)
+disassociateTrialComponentResponse_trialComponentArn = Lens.lens (\DisassociateTrialComponentResponse' {trialComponentArn} -> trialComponentArn) (\s@DisassociateTrialComponentResponse' {} a -> s {trialComponentArn = a} :: DisassociateTrialComponentResponse)
 
--- | -- | The response status code.
-dtcrrsResponseStatus :: Lens' DisassociateTrialComponentResponse Int
-dtcrrsResponseStatus = lens _dtcrrsResponseStatus (\s a -> s {_dtcrrsResponseStatus = a})
+-- | The response's http status code.
+disassociateTrialComponentResponse_httpStatus :: Lens.Lens' DisassociateTrialComponentResponse Prelude.Int
+disassociateTrialComponentResponse_httpStatus = Lens.lens (\DisassociateTrialComponentResponse' {httpStatus} -> httpStatus) (\s@DisassociateTrialComponentResponse' {} a -> s {httpStatus = a} :: DisassociateTrialComponentResponse)
 
-instance NFData DisassociateTrialComponentResponse
+instance
+  Prelude.NFData
+    DisassociateTrialComponentResponse

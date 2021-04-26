@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.SageMaker.Types.HyperParameterTuningJobObjectiveType
   ( HyperParameterTuningJobObjectiveType
       ( ..,
-        Maximize,
-        Minimize
+        HyperParameterTuningJobObjectiveTypeMaximize,
+        HyperParameterTuningJobObjectiveTypeMinimize
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data HyperParameterTuningJobObjectiveType
-  = HyperParameterTuningJobObjectiveType'
-      ( CI
-          Text
-      )
+newtype HyperParameterTuningJobObjectiveType = HyperParameterTuningJobObjectiveType'
+  { fromHyperParameterTuningJobObjectiveType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Maximize :: HyperParameterTuningJobObjectiveType
-pattern Maximize = HyperParameterTuningJobObjectiveType' "Maximize"
+pattern HyperParameterTuningJobObjectiveTypeMaximize :: HyperParameterTuningJobObjectiveType
+pattern HyperParameterTuningJobObjectiveTypeMaximize = HyperParameterTuningJobObjectiveType' "Maximize"
 
-pattern Minimize :: HyperParameterTuningJobObjectiveType
-pattern Minimize = HyperParameterTuningJobObjectiveType' "Minimize"
+pattern HyperParameterTuningJobObjectiveTypeMinimize :: HyperParameterTuningJobObjectiveType
+pattern HyperParameterTuningJobObjectiveTypeMinimize = HyperParameterTuningJobObjectiveType' "Minimize"
 
 {-# COMPLETE
-  Maximize,
-  Minimize,
+  HyperParameterTuningJobObjectiveTypeMaximize,
+  HyperParameterTuningJobObjectiveTypeMinimize,
   HyperParameterTuningJobObjectiveType'
   #-}
 
-instance FromText HyperParameterTuningJobObjectiveType where
-  parser = (HyperParameterTuningJobObjectiveType' . mk) <$> takeText
+instance Prelude.FromText HyperParameterTuningJobObjectiveType where
+  parser = HyperParameterTuningJobObjectiveType' Prelude.<$> Prelude.takeText
 
-instance ToText HyperParameterTuningJobObjectiveType where
-  toText (HyperParameterTuningJobObjectiveType' ci) = original ci
+instance Prelude.ToText HyperParameterTuningJobObjectiveType where
+  toText (HyperParameterTuningJobObjectiveType' x) = x
 
-instance Hashable HyperParameterTuningJobObjectiveType
+instance Prelude.Hashable HyperParameterTuningJobObjectiveType
 
-instance NFData HyperParameterTuningJobObjectiveType
+instance Prelude.NFData HyperParameterTuningJobObjectiveType
 
-instance ToByteString HyperParameterTuningJobObjectiveType
+instance Prelude.ToByteString HyperParameterTuningJobObjectiveType
 
-instance ToQuery HyperParameterTuningJobObjectiveType
+instance Prelude.ToQuery HyperParameterTuningJobObjectiveType
 
-instance ToHeader HyperParameterTuningJobObjectiveType
+instance Prelude.ToHeader HyperParameterTuningJobObjectiveType
 
-instance ToJSON HyperParameterTuningJobObjectiveType where
-  toJSON = toJSONText
+instance Prelude.ToJSON HyperParameterTuningJobObjectiveType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON HyperParameterTuningJobObjectiveType where
-  parseJSON = parseJSONText "HyperParameterTuningJobObjectiveType"
+instance Prelude.FromJSON HyperParameterTuningJobObjectiveType where
+  parseJSON = Prelude.parseJSONText "HyperParameterTuningJobObjectiveType"

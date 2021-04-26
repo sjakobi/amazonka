@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,77 +19,87 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.ResourceLimits where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies the maximum number of training jobs and parallel training jobs that a hyperparameter tuning job can launch.
+-- | Specifies the maximum number of training jobs and parallel training jobs
+-- that a hyperparameter tuning job can launch.
 --
---
---
--- /See:/ 'resourceLimits' smart constructor.
+-- /See:/ 'newResourceLimits' smart constructor.
 data ResourceLimits = ResourceLimits'
-  { _rlMaxNumberOfTrainingJobs ::
-      !Nat,
-    _rlMaxParallelTrainingJobs :: !Nat
+  { -- | The maximum number of training jobs that a hyperparameter tuning job can
+    -- launch.
+    maxNumberOfTrainingJobs :: Prelude.Nat,
+    -- | The maximum number of concurrent training jobs that a hyperparameter
+    -- tuning job can launch.
+    maxParallelTrainingJobs :: Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResourceLimits' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResourceLimits' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rlMaxNumberOfTrainingJobs' - The maximum number of training jobs that a hyperparameter tuning job can launch.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rlMaxParallelTrainingJobs' - The maximum number of concurrent training jobs that a hyperparameter tuning job can launch.
-resourceLimits ::
-  -- | 'rlMaxNumberOfTrainingJobs'
-  Natural ->
-  -- | 'rlMaxParallelTrainingJobs'
-  Natural ->
+-- 'maxNumberOfTrainingJobs', 'resourceLimits_maxNumberOfTrainingJobs' - The maximum number of training jobs that a hyperparameter tuning job can
+-- launch.
+--
+-- 'maxParallelTrainingJobs', 'resourceLimits_maxParallelTrainingJobs' - The maximum number of concurrent training jobs that a hyperparameter
+-- tuning job can launch.
+newResourceLimits ::
+  -- | 'maxNumberOfTrainingJobs'
+  Prelude.Natural ->
+  -- | 'maxParallelTrainingJobs'
+  Prelude.Natural ->
   ResourceLimits
-resourceLimits
+newResourceLimits
   pMaxNumberOfTrainingJobs_
   pMaxParallelTrainingJobs_ =
     ResourceLimits'
-      { _rlMaxNumberOfTrainingJobs =
-          _Nat # pMaxNumberOfTrainingJobs_,
-        _rlMaxParallelTrainingJobs =
-          _Nat # pMaxParallelTrainingJobs_
+      { maxNumberOfTrainingJobs =
+          Prelude._Nat Lens.# pMaxNumberOfTrainingJobs_,
+        maxParallelTrainingJobs =
+          Prelude._Nat Lens.# pMaxParallelTrainingJobs_
       }
 
--- | The maximum number of training jobs that a hyperparameter tuning job can launch.
-rlMaxNumberOfTrainingJobs :: Lens' ResourceLimits Natural
-rlMaxNumberOfTrainingJobs = lens _rlMaxNumberOfTrainingJobs (\s a -> s {_rlMaxNumberOfTrainingJobs = a}) . _Nat
+-- | The maximum number of training jobs that a hyperparameter tuning job can
+-- launch.
+resourceLimits_maxNumberOfTrainingJobs :: Lens.Lens' ResourceLimits Prelude.Natural
+resourceLimits_maxNumberOfTrainingJobs = Lens.lens (\ResourceLimits' {maxNumberOfTrainingJobs} -> maxNumberOfTrainingJobs) (\s@ResourceLimits' {} a -> s {maxNumberOfTrainingJobs = a} :: ResourceLimits) Prelude.. Prelude._Nat
 
--- | The maximum number of concurrent training jobs that a hyperparameter tuning job can launch.
-rlMaxParallelTrainingJobs :: Lens' ResourceLimits Natural
-rlMaxParallelTrainingJobs = lens _rlMaxParallelTrainingJobs (\s a -> s {_rlMaxParallelTrainingJobs = a}) . _Nat
+-- | The maximum number of concurrent training jobs that a hyperparameter
+-- tuning job can launch.
+resourceLimits_maxParallelTrainingJobs :: Lens.Lens' ResourceLimits Prelude.Natural
+resourceLimits_maxParallelTrainingJobs = Lens.lens (\ResourceLimits' {maxParallelTrainingJobs} -> maxParallelTrainingJobs) (\s@ResourceLimits' {} a -> s {maxParallelTrainingJobs = a} :: ResourceLimits) Prelude.. Prelude._Nat
 
-instance FromJSON ResourceLimits where
+instance Prelude.FromJSON ResourceLimits where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ResourceLimits"
       ( \x ->
           ResourceLimits'
-            <$> (x .: "MaxNumberOfTrainingJobs")
-            <*> (x .: "MaxParallelTrainingJobs")
+            Prelude.<$> (x Prelude..: "MaxNumberOfTrainingJobs")
+            Prelude.<*> (x Prelude..: "MaxParallelTrainingJobs")
       )
 
-instance Hashable ResourceLimits
+instance Prelude.Hashable ResourceLimits
 
-instance NFData ResourceLimits
+instance Prelude.NFData ResourceLimits
 
-instance ToJSON ResourceLimits where
+instance Prelude.ToJSON ResourceLimits where
   toJSON ResourceLimits' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "MaxNumberOfTrainingJobs"
-                  .= _rlMaxNumberOfTrainingJobs
+                  Prelude..= maxNumberOfTrainingJobs
               ),
-            Just
+            Prelude.Just
               ( "MaxParallelTrainingJobs"
-                  .= _rlMaxParallelTrainingJobs
+                  Prelude..= maxParallelTrainingJobs
               )
           ]
       )

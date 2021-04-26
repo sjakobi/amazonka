@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,112 +19,116 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.OidcConfigForResponse where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Your OIDC IdP workforce configuration.
 --
---
---
--- /See:/ 'oidcConfigForResponse' smart constructor.
+-- /See:/ 'newOidcConfigForResponse' smart constructor.
 data OidcConfigForResponse = OidcConfigForResponse'
-  { _ocfrClientId ::
-      !(Maybe Text),
-    _ocfrTokenEndpoint ::
-      !(Maybe Text),
-    _ocfrAuthorizationEndpoint ::
-      !(Maybe Text),
-    _ocfrUserInfoEndpoint ::
-      !(Maybe Text),
-    _ocfrLogoutEndpoint ::
-      !(Maybe Text),
-    _ocfrIssuer ::
-      !(Maybe Text),
-    _ocfrJwksURI ::
-      !(Maybe Text)
+  { -- | The OIDC IdP client ID used to configure your private workforce.
+    clientId :: Prelude.Maybe Prelude.Text,
+    -- | The OIDC IdP token endpoint used to configure your private workforce.
+    tokenEndpoint :: Prelude.Maybe Prelude.Text,
+    -- | The OIDC IdP authorization endpoint used to configure your private
+    -- workforce.
+    authorizationEndpoint :: Prelude.Maybe Prelude.Text,
+    -- | The OIDC IdP user information endpoint used to configure your private
+    -- workforce.
+    userInfoEndpoint :: Prelude.Maybe Prelude.Text,
+    -- | The OIDC IdP logout endpoint used to configure your private workforce.
+    logoutEndpoint :: Prelude.Maybe Prelude.Text,
+    -- | The OIDC IdP issuer used to configure your private workforce.
+    issuer :: Prelude.Maybe Prelude.Text,
+    -- | The OIDC IdP JSON Web Key Set (Jwks) URI used to configure your private
+    -- workforce.
+    jwksUri :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OidcConfigForResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OidcConfigForResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ocfrClientId' - The OIDC IdP client ID used to configure your private workforce.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ocfrTokenEndpoint' - The OIDC IdP token endpoint used to configure your private workforce.
+-- 'clientId', 'oidcConfigForResponse_clientId' - The OIDC IdP client ID used to configure your private workforce.
 --
--- * 'ocfrAuthorizationEndpoint' - The OIDC IdP authorization endpoint used to configure your private workforce.
+-- 'tokenEndpoint', 'oidcConfigForResponse_tokenEndpoint' - The OIDC IdP token endpoint used to configure your private workforce.
 --
--- * 'ocfrUserInfoEndpoint' - The OIDC IdP user information endpoint used to configure your private workforce.
+-- 'authorizationEndpoint', 'oidcConfigForResponse_authorizationEndpoint' - The OIDC IdP authorization endpoint used to configure your private
+-- workforce.
 --
--- * 'ocfrLogoutEndpoint' - The OIDC IdP logout endpoint used to configure your private workforce.
+-- 'userInfoEndpoint', 'oidcConfigForResponse_userInfoEndpoint' - The OIDC IdP user information endpoint used to configure your private
+-- workforce.
 --
--- * 'ocfrIssuer' - The OIDC IdP issuer used to configure your private workforce.
+-- 'logoutEndpoint', 'oidcConfigForResponse_logoutEndpoint' - The OIDC IdP logout endpoint used to configure your private workforce.
 --
--- * 'ocfrJwksURI' - The OIDC IdP JSON Web Key Set (Jwks) URI used to configure your private workforce.
-oidcConfigForResponse ::
+-- 'issuer', 'oidcConfigForResponse_issuer' - The OIDC IdP issuer used to configure your private workforce.
+--
+-- 'jwksUri', 'oidcConfigForResponse_jwksUri' - The OIDC IdP JSON Web Key Set (Jwks) URI used to configure your private
+-- workforce.
+newOidcConfigForResponse ::
   OidcConfigForResponse
-oidcConfigForResponse =
+newOidcConfigForResponse =
   OidcConfigForResponse'
-    { _ocfrClientId = Nothing,
-      _ocfrTokenEndpoint = Nothing,
-      _ocfrAuthorizationEndpoint = Nothing,
-      _ocfrUserInfoEndpoint = Nothing,
-      _ocfrLogoutEndpoint = Nothing,
-      _ocfrIssuer = Nothing,
-      _ocfrJwksURI = Nothing
+    { clientId = Prelude.Nothing,
+      tokenEndpoint = Prelude.Nothing,
+      authorizationEndpoint = Prelude.Nothing,
+      userInfoEndpoint = Prelude.Nothing,
+      logoutEndpoint = Prelude.Nothing,
+      issuer = Prelude.Nothing,
+      jwksUri = Prelude.Nothing
     }
 
 -- | The OIDC IdP client ID used to configure your private workforce.
-ocfrClientId :: Lens' OidcConfigForResponse (Maybe Text)
-ocfrClientId = lens _ocfrClientId (\s a -> s {_ocfrClientId = a})
+oidcConfigForResponse_clientId :: Lens.Lens' OidcConfigForResponse (Prelude.Maybe Prelude.Text)
+oidcConfigForResponse_clientId = Lens.lens (\OidcConfigForResponse' {clientId} -> clientId) (\s@OidcConfigForResponse' {} a -> s {clientId = a} :: OidcConfigForResponse)
 
 -- | The OIDC IdP token endpoint used to configure your private workforce.
-ocfrTokenEndpoint :: Lens' OidcConfigForResponse (Maybe Text)
-ocfrTokenEndpoint = lens _ocfrTokenEndpoint (\s a -> s {_ocfrTokenEndpoint = a})
+oidcConfigForResponse_tokenEndpoint :: Lens.Lens' OidcConfigForResponse (Prelude.Maybe Prelude.Text)
+oidcConfigForResponse_tokenEndpoint = Lens.lens (\OidcConfigForResponse' {tokenEndpoint} -> tokenEndpoint) (\s@OidcConfigForResponse' {} a -> s {tokenEndpoint = a} :: OidcConfigForResponse)
 
--- | The OIDC IdP authorization endpoint used to configure your private workforce.
-ocfrAuthorizationEndpoint :: Lens' OidcConfigForResponse (Maybe Text)
-ocfrAuthorizationEndpoint = lens _ocfrAuthorizationEndpoint (\s a -> s {_ocfrAuthorizationEndpoint = a})
+-- | The OIDC IdP authorization endpoint used to configure your private
+-- workforce.
+oidcConfigForResponse_authorizationEndpoint :: Lens.Lens' OidcConfigForResponse (Prelude.Maybe Prelude.Text)
+oidcConfigForResponse_authorizationEndpoint = Lens.lens (\OidcConfigForResponse' {authorizationEndpoint} -> authorizationEndpoint) (\s@OidcConfigForResponse' {} a -> s {authorizationEndpoint = a} :: OidcConfigForResponse)
 
--- | The OIDC IdP user information endpoint used to configure your private workforce.
-ocfrUserInfoEndpoint :: Lens' OidcConfigForResponse (Maybe Text)
-ocfrUserInfoEndpoint = lens _ocfrUserInfoEndpoint (\s a -> s {_ocfrUserInfoEndpoint = a})
+-- | The OIDC IdP user information endpoint used to configure your private
+-- workforce.
+oidcConfigForResponse_userInfoEndpoint :: Lens.Lens' OidcConfigForResponse (Prelude.Maybe Prelude.Text)
+oidcConfigForResponse_userInfoEndpoint = Lens.lens (\OidcConfigForResponse' {userInfoEndpoint} -> userInfoEndpoint) (\s@OidcConfigForResponse' {} a -> s {userInfoEndpoint = a} :: OidcConfigForResponse)
 
 -- | The OIDC IdP logout endpoint used to configure your private workforce.
-ocfrLogoutEndpoint :: Lens' OidcConfigForResponse (Maybe Text)
-ocfrLogoutEndpoint = lens _ocfrLogoutEndpoint (\s a -> s {_ocfrLogoutEndpoint = a})
+oidcConfigForResponse_logoutEndpoint :: Lens.Lens' OidcConfigForResponse (Prelude.Maybe Prelude.Text)
+oidcConfigForResponse_logoutEndpoint = Lens.lens (\OidcConfigForResponse' {logoutEndpoint} -> logoutEndpoint) (\s@OidcConfigForResponse' {} a -> s {logoutEndpoint = a} :: OidcConfigForResponse)
 
 -- | The OIDC IdP issuer used to configure your private workforce.
-ocfrIssuer :: Lens' OidcConfigForResponse (Maybe Text)
-ocfrIssuer = lens _ocfrIssuer (\s a -> s {_ocfrIssuer = a})
+oidcConfigForResponse_issuer :: Lens.Lens' OidcConfigForResponse (Prelude.Maybe Prelude.Text)
+oidcConfigForResponse_issuer = Lens.lens (\OidcConfigForResponse' {issuer} -> issuer) (\s@OidcConfigForResponse' {} a -> s {issuer = a} :: OidcConfigForResponse)
 
--- | The OIDC IdP JSON Web Key Set (Jwks) URI used to configure your private workforce.
-ocfrJwksURI :: Lens' OidcConfigForResponse (Maybe Text)
-ocfrJwksURI = lens _ocfrJwksURI (\s a -> s {_ocfrJwksURI = a})
+-- | The OIDC IdP JSON Web Key Set (Jwks) URI used to configure your private
+-- workforce.
+oidcConfigForResponse_jwksUri :: Lens.Lens' OidcConfigForResponse (Prelude.Maybe Prelude.Text)
+oidcConfigForResponse_jwksUri = Lens.lens (\OidcConfigForResponse' {jwksUri} -> jwksUri) (\s@OidcConfigForResponse' {} a -> s {jwksUri = a} :: OidcConfigForResponse)
 
-instance FromJSON OidcConfigForResponse where
+instance Prelude.FromJSON OidcConfigForResponse where
   parseJSON =
-    withObject
+    Prelude.withObject
       "OidcConfigForResponse"
       ( \x ->
           OidcConfigForResponse'
-            <$> (x .:? "ClientId")
-            <*> (x .:? "TokenEndpoint")
-            <*> (x .:? "AuthorizationEndpoint")
-            <*> (x .:? "UserInfoEndpoint")
-            <*> (x .:? "LogoutEndpoint")
-            <*> (x .:? "Issuer")
-            <*> (x .:? "JwksUri")
+            Prelude.<$> (x Prelude..:? "ClientId")
+            Prelude.<*> (x Prelude..:? "TokenEndpoint")
+            Prelude.<*> (x Prelude..:? "AuthorizationEndpoint")
+            Prelude.<*> (x Prelude..:? "UserInfoEndpoint")
+            Prelude.<*> (x Prelude..:? "LogoutEndpoint")
+            Prelude.<*> (x Prelude..:? "Issuer")
+            Prelude.<*> (x Prelude..:? "JwksUri")
       )
 
-instance Hashable OidcConfigForResponse
+instance Prelude.Hashable OidcConfigForResponse
 
-instance NFData OidcConfigForResponse
+instance Prelude.NFData OidcConfigForResponse

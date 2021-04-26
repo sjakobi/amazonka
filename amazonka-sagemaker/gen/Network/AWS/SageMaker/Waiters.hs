@@ -1,5 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -13,180 +15,227 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Waiters where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.DescribeEndpoint
 import Network.AWS.SageMaker.DescribeNotebookInstance
 import Network.AWS.SageMaker.DescribeProcessingJob
 import Network.AWS.SageMaker.DescribeTrainingJob
 import Network.AWS.SageMaker.DescribeTransformJob
+import Network.AWS.SageMaker.Lens
 import Network.AWS.SageMaker.Types
-import Network.AWS.Waiter
+import qualified Network.AWS.Waiter as Waiter
 
 -- | Polls 'Network.AWS.SageMaker.DescribeNotebookInstance' every 30 seconds until a successful state is reached. An error is returned after 60 failed checks.
-notebookInstanceStopped :: Wait DescribeNotebookInstance
-notebookInstanceStopped =
-  Wait
-    { _waitName = "NotebookInstanceStopped",
-      _waitAttempts = 60,
-      _waitDelay = 30,
-      _waitAcceptors =
-        [ matchAll
+newNotebookInstanceStopped :: Waiter.Wait DescribeNotebookInstance
+newNotebookInstanceStopped =
+  Waiter.Wait
+    { Waiter._waitName =
+        "NotebookInstanceStopped",
+      Waiter._waitAttempts = 60,
+      Waiter._waitDelay = 30,
+      Waiter._waitAcceptors =
+        [ Waiter.matchAll
             "Stopped"
-            AcceptSuccess
-            (dnirrsNotebookInstanceStatus . to toTextCI),
-          matchAll
+            Waiter.AcceptSuccess
+            ( describeNotebookInstanceResponse_notebookInstanceStatus
+                Prelude.. Lens.to Prelude.toTextCI
+            ),
+          Waiter.matchAll
             "Failed"
-            AcceptFailure
-            (dnirrsNotebookInstanceStatus . to toTextCI)
+            Waiter.AcceptFailure
+            ( describeNotebookInstanceResponse_notebookInstanceStatus
+                Prelude.. Lens.to Prelude.toTextCI
+            )
         ]
     }
 
 -- | Polls 'Network.AWS.SageMaker.DescribeEndpoint' every 30 seconds until a successful state is reached. An error is returned after 60 failed checks.
-endpointDeleted :: Wait DescribeEndpoint
-endpointDeleted =
-  Wait
-    { _waitName = "EndpointDeleted",
-      _waitAttempts = 60,
-      _waitDelay = 30,
-      _waitAcceptors =
-        [ matchError "ValidationException" AcceptSuccess,
-          matchAll
+newEndpointDeleted :: Waiter.Wait DescribeEndpoint
+newEndpointDeleted =
+  Waiter.Wait
+    { Waiter._waitName = "EndpointDeleted",
+      Waiter._waitAttempts = 60,
+      Waiter._waitDelay = 30,
+      Waiter._waitAcceptors =
+        [ Waiter.matchError
+            "ValidationException"
+            Waiter.AcceptSuccess,
+          Waiter.matchAll
             "Failed"
-            AcceptFailure
-            ( describeendpointresponseersEndpointStatus
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( describeEndpointResponse_endpointStatus
+                Prelude.. Lens.to Prelude.toTextCI
             )
         ]
     }
 
 -- | Polls 'Network.AWS.SageMaker.DescribeNotebookInstance' every 30 seconds until a successful state is reached. An error is returned after 60 failed checks.
-notebookInstanceDeleted :: Wait DescribeNotebookInstance
-notebookInstanceDeleted =
-  Wait
-    { _waitName = "NotebookInstanceDeleted",
-      _waitAttempts = 60,
-      _waitDelay = 30,
-      _waitAcceptors =
-        [ matchError "ValidationException" AcceptSuccess,
-          matchAll
+newNotebookInstanceDeleted :: Waiter.Wait DescribeNotebookInstance
+newNotebookInstanceDeleted =
+  Waiter.Wait
+    { Waiter._waitName =
+        "NotebookInstanceDeleted",
+      Waiter._waitAttempts = 60,
+      Waiter._waitDelay = 30,
+      Waiter._waitAcceptors =
+        [ Waiter.matchError
+            "ValidationException"
+            Waiter.AcceptSuccess,
+          Waiter.matchAll
             "Failed"
-            AcceptFailure
-            (dnirrsNotebookInstanceStatus . to toTextCI)
+            Waiter.AcceptFailure
+            ( describeNotebookInstanceResponse_notebookInstanceStatus
+                Prelude.. Lens.to Prelude.toTextCI
+            )
         ]
     }
 
 -- | Polls 'Network.AWS.SageMaker.DescribeNotebookInstance' every 30 seconds until a successful state is reached. An error is returned after 60 failed checks.
-notebookInstanceInService :: Wait DescribeNotebookInstance
-notebookInstanceInService =
-  Wait
-    { _waitName = "NotebookInstanceInService",
-      _waitAttempts = 60,
-      _waitDelay = 30,
-      _waitAcceptors =
-        [ matchAll
+newNotebookInstanceInService :: Waiter.Wait DescribeNotebookInstance
+newNotebookInstanceInService =
+  Waiter.Wait
+    { Waiter._waitName =
+        "NotebookInstanceInService",
+      Waiter._waitAttempts = 60,
+      Waiter._waitDelay = 30,
+      Waiter._waitAcceptors =
+        [ Waiter.matchAll
             "InService"
-            AcceptSuccess
-            (dnirrsNotebookInstanceStatus . to toTextCI),
-          matchAll
+            Waiter.AcceptSuccess
+            ( describeNotebookInstanceResponse_notebookInstanceStatus
+                Prelude.. Lens.to Prelude.toTextCI
+            ),
+          Waiter.matchAll
             "Failed"
-            AcceptFailure
-            (dnirrsNotebookInstanceStatus . to toTextCI)
+            Waiter.AcceptFailure
+            ( describeNotebookInstanceResponse_notebookInstanceStatus
+                Prelude.. Lens.to Prelude.toTextCI
+            )
         ]
     }
 
 -- | Polls 'Network.AWS.SageMaker.DescribeEndpoint' every 30 seconds until a successful state is reached. An error is returned after 120 failed checks.
-endpointInService :: Wait DescribeEndpoint
-endpointInService =
-  Wait
-    { _waitName = "EndpointInService",
-      _waitAttempts = 120,
-      _waitDelay = 30,
-      _waitAcceptors =
-        [ matchAll
+newEndpointInService :: Waiter.Wait DescribeEndpoint
+newEndpointInService =
+  Waiter.Wait
+    { Waiter._waitName = "EndpointInService",
+      Waiter._waitAttempts = 120,
+      Waiter._waitDelay = 30,
+      Waiter._waitAcceptors =
+        [ Waiter.matchAll
             "InService"
-            AcceptSuccess
-            ( describeendpointresponseersEndpointStatus
-                . to toTextCI
+            Waiter.AcceptSuccess
+            ( describeEndpointResponse_endpointStatus
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAll
+          Waiter.matchAll
             "Failed"
-            AcceptFailure
-            ( describeendpointresponseersEndpointStatus
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( describeEndpointResponse_endpointStatus
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchError "ValidationException" AcceptFailure
+          Waiter.matchError
+            "ValidationException"
+            Waiter.AcceptFailure
         ]
     }
 
 -- | Polls 'Network.AWS.SageMaker.DescribeTrainingJob' every 120 seconds until a successful state is reached. An error is returned after 180 failed checks.
-trainingJobCompletedOrStopped :: Wait DescribeTrainingJob
-trainingJobCompletedOrStopped =
-  Wait
-    { _waitName = "TrainingJobCompletedOrStopped",
-      _waitAttempts = 180,
-      _waitDelay = 120,
-      _waitAcceptors =
-        [ matchAll
+newTrainingJobCompletedOrStopped :: Waiter.Wait DescribeTrainingJob
+newTrainingJobCompletedOrStopped =
+  Waiter.Wait
+    { Waiter._waitName =
+        "TrainingJobCompletedOrStopped",
+      Waiter._waitAttempts = 180,
+      Waiter._waitDelay = 120,
+      Waiter._waitAcceptors =
+        [ Waiter.matchAll
             "Completed"
-            AcceptSuccess
-            (dtjrrsTrainingJobStatus . to toTextCI),
-          matchAll
+            Waiter.AcceptSuccess
+            ( describeTrainingJobResponse_trainingJobStatus
+                Prelude.. Lens.to Prelude.toTextCI
+            ),
+          Waiter.matchAll
             "Stopped"
-            AcceptSuccess
-            (dtjrrsTrainingJobStatus . to toTextCI),
-          matchAll
+            Waiter.AcceptSuccess
+            ( describeTrainingJobResponse_trainingJobStatus
+                Prelude.. Lens.to Prelude.toTextCI
+            ),
+          Waiter.matchAll
             "Failed"
-            AcceptFailure
-            (dtjrrsTrainingJobStatus . to toTextCI),
-          matchError "ValidationException" AcceptFailure
+            Waiter.AcceptFailure
+            ( describeTrainingJobResponse_trainingJobStatus
+                Prelude.. Lens.to Prelude.toTextCI
+            ),
+          Waiter.matchError
+            "ValidationException"
+            Waiter.AcceptFailure
         ]
     }
 
 -- | Polls 'Network.AWS.SageMaker.DescribeProcessingJob' every 60 seconds until a successful state is reached. An error is returned after 60 failed checks.
-processingJobCompletedOrStopped :: Wait DescribeProcessingJob
-processingJobCompletedOrStopped =
-  Wait
-    { _waitName = "ProcessingJobCompletedOrStopped",
-      _waitAttempts = 60,
-      _waitDelay = 60,
-      _waitAcceptors =
-        [ matchAll
+newProcessingJobCompletedOrStopped :: Waiter.Wait DescribeProcessingJob
+newProcessingJobCompletedOrStopped =
+  Waiter.Wait
+    { Waiter._waitName =
+        "ProcessingJobCompletedOrStopped",
+      Waiter._waitAttempts = 60,
+      Waiter._waitDelay = 60,
+      Waiter._waitAcceptors =
+        [ Waiter.matchAll
             "Completed"
-            AcceptSuccess
-            (dpjrrsProcessingJobStatus . to toTextCI),
-          matchAll
+            Waiter.AcceptSuccess
+            ( describeProcessingJobResponse_processingJobStatus
+                Prelude.. Lens.to Prelude.toTextCI
+            ),
+          Waiter.matchAll
             "Stopped"
-            AcceptSuccess
-            (dpjrrsProcessingJobStatus . to toTextCI),
-          matchAll
+            Waiter.AcceptSuccess
+            ( describeProcessingJobResponse_processingJobStatus
+                Prelude.. Lens.to Prelude.toTextCI
+            ),
+          Waiter.matchAll
             "Failed"
-            AcceptFailure
-            (dpjrrsProcessingJobStatus . to toTextCI),
-          matchError "ValidationException" AcceptFailure
+            Waiter.AcceptFailure
+            ( describeProcessingJobResponse_processingJobStatus
+                Prelude.. Lens.to Prelude.toTextCI
+            ),
+          Waiter.matchError
+            "ValidationException"
+            Waiter.AcceptFailure
         ]
     }
 
 -- | Polls 'Network.AWS.SageMaker.DescribeTransformJob' every 60 seconds until a successful state is reached. An error is returned after 60 failed checks.
-transformJobCompletedOrStopped :: Wait DescribeTransformJob
-transformJobCompletedOrStopped =
-  Wait
-    { _waitName = "TransformJobCompletedOrStopped",
-      _waitAttempts = 60,
-      _waitDelay = 60,
-      _waitAcceptors =
-        [ matchAll
+newTransformJobCompletedOrStopped :: Waiter.Wait DescribeTransformJob
+newTransformJobCompletedOrStopped =
+  Waiter.Wait
+    { Waiter._waitName =
+        "TransformJobCompletedOrStopped",
+      Waiter._waitAttempts = 60,
+      Waiter._waitDelay = 60,
+      Waiter._waitAcceptors =
+        [ Waiter.matchAll
             "Completed"
-            AcceptSuccess
-            (dtjrtrsTransformJobStatus . to toTextCI),
-          matchAll
+            Waiter.AcceptSuccess
+            ( describeTransformJobResponse_transformJobStatus
+                Prelude.. Lens.to Prelude.toTextCI
+            ),
+          Waiter.matchAll
             "Stopped"
-            AcceptSuccess
-            (dtjrtrsTransformJobStatus . to toTextCI),
-          matchAll
+            Waiter.AcceptSuccess
+            ( describeTransformJobResponse_transformJobStatus
+                Prelude.. Lens.to Prelude.toTextCI
+            ),
+          Waiter.matchAll
             "Failed"
-            AcceptFailure
-            (dtjrtrsTransformJobStatus . to toTextCI),
-          matchError "ValidationException" AcceptFailure
+            Waiter.AcceptFailure
+            ( describeTransformJobResponse_transformJobStatus
+                Prelude.. Lens.to Prelude.toTextCI
+            ),
+          Waiter.matchError
+            "ValidationException"
+            Waiter.AcceptFailure
         ]
     }

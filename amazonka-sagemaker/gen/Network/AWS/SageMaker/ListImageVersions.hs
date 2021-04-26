@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,249 +21,295 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists the versions of a specified image and their properties. The list can be filtered by creation time or modified time.
---
---
+-- Lists the versions of a specified image and their properties. The list
+-- can be filtered by creation time or modified time.
 --
 -- This operation returns paginated results.
 module Network.AWS.SageMaker.ListImageVersions
   ( -- * Creating a Request
-    listImageVersions,
-    ListImageVersions,
+    ListImageVersions (..),
+    newListImageVersions,
 
     -- * Request Lenses
-    livLastModifiedTimeBefore,
-    livSortOrder,
-    livNextToken,
-    livMaxResults,
-    livCreationTimeBefore,
-    livLastModifiedTimeAfter,
-    livSortBy,
-    livCreationTimeAfter,
-    livImageName,
+    listImageVersions_lastModifiedTimeBefore,
+    listImageVersions_sortOrder,
+    listImageVersions_nextToken,
+    listImageVersions_maxResults,
+    listImageVersions_creationTimeBefore,
+    listImageVersions_lastModifiedTimeAfter,
+    listImageVersions_sortBy,
+    listImageVersions_creationTimeAfter,
+    listImageVersions_imageName,
 
     -- * Destructuring the Response
-    listImageVersionsResponse,
-    ListImageVersionsResponse,
+    ListImageVersionsResponse (..),
+    newListImageVersionsResponse,
 
     -- * Response Lenses
-    livrrsNextToken,
-    livrrsImageVersions,
-    livrrsResponseStatus,
+    listImageVersionsResponse_nextToken,
+    listImageVersionsResponse_imageVersions,
+    listImageVersionsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
+import Network.AWS.SageMaker.Types.ImageVersion
 
--- | /See:/ 'listImageVersions' smart constructor.
+-- | /See:/ 'newListImageVersions' smart constructor.
 data ListImageVersions = ListImageVersions'
-  { _livLastModifiedTimeBefore ::
-      !(Maybe POSIX),
-    _livSortOrder ::
-      !(Maybe ImageVersionSortOrder),
-    _livNextToken :: !(Maybe Text),
-    _livMaxResults :: !(Maybe Nat),
-    _livCreationTimeBefore ::
-      !(Maybe POSIX),
-    _livLastModifiedTimeAfter ::
-      !(Maybe POSIX),
-    _livSortBy ::
-      !(Maybe ImageVersionSortBy),
-    _livCreationTimeAfter ::
-      !(Maybe POSIX),
-    _livImageName :: !Text
+  { -- | A filter that returns only versions modified on or before the specified
+    -- time.
+    lastModifiedTimeBefore :: Prelude.Maybe Prelude.POSIX,
+    -- | The sort order. The default value is @DESCENDING@.
+    sortOrder :: Prelude.Maybe ImageVersionSortOrder,
+    -- | If the previous call to @ListImageVersions@ didn\'t return the full set
+    -- of versions, the call returns a token for getting the next set of
+    -- versions.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of versions to return in the response. The default
+    -- value is 10.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | A filter that returns only versions created on or before the specified
+    -- time.
+    creationTimeBefore :: Prelude.Maybe Prelude.POSIX,
+    -- | A filter that returns only versions modified on or after the specified
+    -- time.
+    lastModifiedTimeAfter :: Prelude.Maybe Prelude.POSIX,
+    -- | The property used to sort results. The default value is @CREATION_TIME@.
+    sortBy :: Prelude.Maybe ImageVersionSortBy,
+    -- | A filter that returns only versions created on or after the specified
+    -- time.
+    creationTimeAfter :: Prelude.Maybe Prelude.POSIX,
+    -- | The name of the image to list the versions of.
+    imageName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListImageVersions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListImageVersions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'livLastModifiedTimeBefore' - A filter that returns only versions modified on or before the specified time.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'livSortOrder' - The sort order. The default value is @DESCENDING@ .
+-- 'lastModifiedTimeBefore', 'listImageVersions_lastModifiedTimeBefore' - A filter that returns only versions modified on or before the specified
+-- time.
 --
--- * 'livNextToken' - If the previous call to @ListImageVersions@ didn't return the full set of versions, the call returns a token for getting the next set of versions.
+-- 'sortOrder', 'listImageVersions_sortOrder' - The sort order. The default value is @DESCENDING@.
 --
--- * 'livMaxResults' - The maximum number of versions to return in the response. The default value is 10.
+-- 'nextToken', 'listImageVersions_nextToken' - If the previous call to @ListImageVersions@ didn\'t return the full set
+-- of versions, the call returns a token for getting the next set of
+-- versions.
 --
--- * 'livCreationTimeBefore' - A filter that returns only versions created on or before the specified time.
+-- 'maxResults', 'listImageVersions_maxResults' - The maximum number of versions to return in the response. The default
+-- value is 10.
 --
--- * 'livLastModifiedTimeAfter' - A filter that returns only versions modified on or after the specified time.
+-- 'creationTimeBefore', 'listImageVersions_creationTimeBefore' - A filter that returns only versions created on or before the specified
+-- time.
 --
--- * 'livSortBy' - The property used to sort results. The default value is @CREATION_TIME@ .
+-- 'lastModifiedTimeAfter', 'listImageVersions_lastModifiedTimeAfter' - A filter that returns only versions modified on or after the specified
+-- time.
 --
--- * 'livCreationTimeAfter' - A filter that returns only versions created on or after the specified time.
+-- 'sortBy', 'listImageVersions_sortBy' - The property used to sort results. The default value is @CREATION_TIME@.
 --
--- * 'livImageName' - The name of the image to list the versions of.
-listImageVersions ::
-  -- | 'livImageName'
-  Text ->
+-- 'creationTimeAfter', 'listImageVersions_creationTimeAfter' - A filter that returns only versions created on or after the specified
+-- time.
+--
+-- 'imageName', 'listImageVersions_imageName' - The name of the image to list the versions of.
+newListImageVersions ::
+  -- | 'imageName'
+  Prelude.Text ->
   ListImageVersions
-listImageVersions pImageName_ =
+newListImageVersions pImageName_ =
   ListImageVersions'
-    { _livLastModifiedTimeBefore =
-        Nothing,
-      _livSortOrder = Nothing,
-      _livNextToken = Nothing,
-      _livMaxResults = Nothing,
-      _livCreationTimeBefore = Nothing,
-      _livLastModifiedTimeAfter = Nothing,
-      _livSortBy = Nothing,
-      _livCreationTimeAfter = Nothing,
-      _livImageName = pImageName_
+    { lastModifiedTimeBefore =
+        Prelude.Nothing,
+      sortOrder = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      creationTimeBefore = Prelude.Nothing,
+      lastModifiedTimeAfter = Prelude.Nothing,
+      sortBy = Prelude.Nothing,
+      creationTimeAfter = Prelude.Nothing,
+      imageName = pImageName_
     }
 
--- | A filter that returns only versions modified on or before the specified time.
-livLastModifiedTimeBefore :: Lens' ListImageVersions (Maybe UTCTime)
-livLastModifiedTimeBefore = lens _livLastModifiedTimeBefore (\s a -> s {_livLastModifiedTimeBefore = a}) . mapping _Time
+-- | A filter that returns only versions modified on or before the specified
+-- time.
+listImageVersions_lastModifiedTimeBefore :: Lens.Lens' ListImageVersions (Prelude.Maybe Prelude.UTCTime)
+listImageVersions_lastModifiedTimeBefore = Lens.lens (\ListImageVersions' {lastModifiedTimeBefore} -> lastModifiedTimeBefore) (\s@ListImageVersions' {} a -> s {lastModifiedTimeBefore = a} :: ListImageVersions) Prelude.. Lens.mapping Prelude._Time
 
--- | The sort order. The default value is @DESCENDING@ .
-livSortOrder :: Lens' ListImageVersions (Maybe ImageVersionSortOrder)
-livSortOrder = lens _livSortOrder (\s a -> s {_livSortOrder = a})
+-- | The sort order. The default value is @DESCENDING@.
+listImageVersions_sortOrder :: Lens.Lens' ListImageVersions (Prelude.Maybe ImageVersionSortOrder)
+listImageVersions_sortOrder = Lens.lens (\ListImageVersions' {sortOrder} -> sortOrder) (\s@ListImageVersions' {} a -> s {sortOrder = a} :: ListImageVersions)
 
--- | If the previous call to @ListImageVersions@ didn't return the full set of versions, the call returns a token for getting the next set of versions.
-livNextToken :: Lens' ListImageVersions (Maybe Text)
-livNextToken = lens _livNextToken (\s a -> s {_livNextToken = a})
+-- | If the previous call to @ListImageVersions@ didn\'t return the full set
+-- of versions, the call returns a token for getting the next set of
+-- versions.
+listImageVersions_nextToken :: Lens.Lens' ListImageVersions (Prelude.Maybe Prelude.Text)
+listImageVersions_nextToken = Lens.lens (\ListImageVersions' {nextToken} -> nextToken) (\s@ListImageVersions' {} a -> s {nextToken = a} :: ListImageVersions)
 
--- | The maximum number of versions to return in the response. The default value is 10.
-livMaxResults :: Lens' ListImageVersions (Maybe Natural)
-livMaxResults = lens _livMaxResults (\s a -> s {_livMaxResults = a}) . mapping _Nat
+-- | The maximum number of versions to return in the response. The default
+-- value is 10.
+listImageVersions_maxResults :: Lens.Lens' ListImageVersions (Prelude.Maybe Prelude.Natural)
+listImageVersions_maxResults = Lens.lens (\ListImageVersions' {maxResults} -> maxResults) (\s@ListImageVersions' {} a -> s {maxResults = a} :: ListImageVersions) Prelude.. Lens.mapping Prelude._Nat
 
--- | A filter that returns only versions created on or before the specified time.
-livCreationTimeBefore :: Lens' ListImageVersions (Maybe UTCTime)
-livCreationTimeBefore = lens _livCreationTimeBefore (\s a -> s {_livCreationTimeBefore = a}) . mapping _Time
+-- | A filter that returns only versions created on or before the specified
+-- time.
+listImageVersions_creationTimeBefore :: Lens.Lens' ListImageVersions (Prelude.Maybe Prelude.UTCTime)
+listImageVersions_creationTimeBefore = Lens.lens (\ListImageVersions' {creationTimeBefore} -> creationTimeBefore) (\s@ListImageVersions' {} a -> s {creationTimeBefore = a} :: ListImageVersions) Prelude.. Lens.mapping Prelude._Time
 
--- | A filter that returns only versions modified on or after the specified time.
-livLastModifiedTimeAfter :: Lens' ListImageVersions (Maybe UTCTime)
-livLastModifiedTimeAfter = lens _livLastModifiedTimeAfter (\s a -> s {_livLastModifiedTimeAfter = a}) . mapping _Time
+-- | A filter that returns only versions modified on or after the specified
+-- time.
+listImageVersions_lastModifiedTimeAfter :: Lens.Lens' ListImageVersions (Prelude.Maybe Prelude.UTCTime)
+listImageVersions_lastModifiedTimeAfter = Lens.lens (\ListImageVersions' {lastModifiedTimeAfter} -> lastModifiedTimeAfter) (\s@ListImageVersions' {} a -> s {lastModifiedTimeAfter = a} :: ListImageVersions) Prelude.. Lens.mapping Prelude._Time
 
--- | The property used to sort results. The default value is @CREATION_TIME@ .
-livSortBy :: Lens' ListImageVersions (Maybe ImageVersionSortBy)
-livSortBy = lens _livSortBy (\s a -> s {_livSortBy = a})
+-- | The property used to sort results. The default value is @CREATION_TIME@.
+listImageVersions_sortBy :: Lens.Lens' ListImageVersions (Prelude.Maybe ImageVersionSortBy)
+listImageVersions_sortBy = Lens.lens (\ListImageVersions' {sortBy} -> sortBy) (\s@ListImageVersions' {} a -> s {sortBy = a} :: ListImageVersions)
 
--- | A filter that returns only versions created on or after the specified time.
-livCreationTimeAfter :: Lens' ListImageVersions (Maybe UTCTime)
-livCreationTimeAfter = lens _livCreationTimeAfter (\s a -> s {_livCreationTimeAfter = a}) . mapping _Time
+-- | A filter that returns only versions created on or after the specified
+-- time.
+listImageVersions_creationTimeAfter :: Lens.Lens' ListImageVersions (Prelude.Maybe Prelude.UTCTime)
+listImageVersions_creationTimeAfter = Lens.lens (\ListImageVersions' {creationTimeAfter} -> creationTimeAfter) (\s@ListImageVersions' {} a -> s {creationTimeAfter = a} :: ListImageVersions) Prelude.. Lens.mapping Prelude._Time
 
 -- | The name of the image to list the versions of.
-livImageName :: Lens' ListImageVersions Text
-livImageName = lens _livImageName (\s a -> s {_livImageName = a})
+listImageVersions_imageName :: Lens.Lens' ListImageVersions Prelude.Text
+listImageVersions_imageName = Lens.lens (\ListImageVersions' {imageName} -> imageName) (\s@ListImageVersions' {} a -> s {imageName = a} :: ListImageVersions)
 
-instance AWSPager ListImageVersions where
+instance Pager.AWSPager ListImageVersions where
   page rq rs
-    | stop (rs ^. livrrsNextToken) = Nothing
-    | stop (rs ^. livrrsImageVersions) = Nothing
-    | otherwise =
-      Just $ rq & livNextToken .~ rs ^. livrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listImageVersionsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listImageVersionsResponse_imageVersions
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listImageVersions_nextToken
+          Lens..~ rs
+          Lens.^? listImageVersionsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListImageVersions where
+instance Prelude.AWSRequest ListImageVersions where
   type Rs ListImageVersions = ListImageVersionsResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListImageVersionsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "ImageVersions" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "ImageVersions"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListImageVersions
+instance Prelude.Hashable ListImageVersions
 
-instance NFData ListImageVersions
+instance Prelude.NFData ListImageVersions
 
-instance ToHeaders ListImageVersions where
+instance Prelude.ToHeaders ListImageVersions where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.ListImageVersions" :: ByteString),
+              Prelude.=# ( "SageMaker.ListImageVersions" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListImageVersions where
+instance Prelude.ToJSON ListImageVersions where
   toJSON ListImageVersions' {..} =
-    object
-      ( catMaybes
-          [ ("LastModifiedTimeBefore" .=)
-              <$> _livLastModifiedTimeBefore,
-            ("SortOrder" .=) <$> _livSortOrder,
-            ("NextToken" .=) <$> _livNextToken,
-            ("MaxResults" .=) <$> _livMaxResults,
-            ("CreationTimeBefore" .=) <$> _livCreationTimeBefore,
-            ("LastModifiedTimeAfter" .=)
-              <$> _livLastModifiedTimeAfter,
-            ("SortBy" .=) <$> _livSortBy,
-            ("CreationTimeAfter" .=) <$> _livCreationTimeAfter,
-            Just ("ImageName" .= _livImageName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("LastModifiedTimeBefore" Prelude..=)
+              Prelude.<$> lastModifiedTimeBefore,
+            ("SortOrder" Prelude..=) Prelude.<$> sortOrder,
+            ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("CreationTimeBefore" Prelude..=)
+              Prelude.<$> creationTimeBefore,
+            ("LastModifiedTimeAfter" Prelude..=)
+              Prelude.<$> lastModifiedTimeAfter,
+            ("SortBy" Prelude..=) Prelude.<$> sortBy,
+            ("CreationTimeAfter" Prelude..=)
+              Prelude.<$> creationTimeAfter,
+            Prelude.Just ("ImageName" Prelude..= imageName)
           ]
       )
 
-instance ToPath ListImageVersions where
-  toPath = const "/"
+instance Prelude.ToPath ListImageVersions where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListImageVersions where
-  toQuery = const mempty
+instance Prelude.ToQuery ListImageVersions where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listImageVersionsResponse' smart constructor.
+-- | /See:/ 'newListImageVersionsResponse' smart constructor.
 data ListImageVersionsResponse = ListImageVersionsResponse'
-  { _livrrsNextToken ::
-      !(Maybe Text),
-    _livrrsImageVersions ::
-      !( Maybe
-           [ImageVersion]
-       ),
-    _livrrsResponseStatus ::
-      !Int
+  { -- | A token for getting the next set of versions, if there are any.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of versions and their properties.
+    imageVersions :: Prelude.Maybe [ImageVersion],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListImageVersionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListImageVersionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'livrrsNextToken' - A token for getting the next set of versions, if there are any.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'livrrsImageVersions' - A list of versions and their properties.
+-- 'nextToken', 'listImageVersionsResponse_nextToken' - A token for getting the next set of versions, if there are any.
 --
--- * 'livrrsResponseStatus' - -- | The response status code.
-listImageVersionsResponse ::
-  -- | 'livrrsResponseStatus'
-  Int ->
+-- 'imageVersions', 'listImageVersionsResponse_imageVersions' - A list of versions and their properties.
+--
+-- 'httpStatus', 'listImageVersionsResponse_httpStatus' - The response's http status code.
+newListImageVersionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListImageVersionsResponse
-listImageVersionsResponse pResponseStatus_ =
+newListImageVersionsResponse pHttpStatus_ =
   ListImageVersionsResponse'
-    { _livrrsNextToken =
-        Nothing,
-      _livrrsImageVersions = Nothing,
-      _livrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      imageVersions = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A token for getting the next set of versions, if there are any.
-livrrsNextToken :: Lens' ListImageVersionsResponse (Maybe Text)
-livrrsNextToken = lens _livrrsNextToken (\s a -> s {_livrrsNextToken = a})
+listImageVersionsResponse_nextToken :: Lens.Lens' ListImageVersionsResponse (Prelude.Maybe Prelude.Text)
+listImageVersionsResponse_nextToken = Lens.lens (\ListImageVersionsResponse' {nextToken} -> nextToken) (\s@ListImageVersionsResponse' {} a -> s {nextToken = a} :: ListImageVersionsResponse)
 
 -- | A list of versions and their properties.
-livrrsImageVersions :: Lens' ListImageVersionsResponse [ImageVersion]
-livrrsImageVersions = lens _livrrsImageVersions (\s a -> s {_livrrsImageVersions = a}) . _Default . _Coerce
+listImageVersionsResponse_imageVersions :: Lens.Lens' ListImageVersionsResponse (Prelude.Maybe [ImageVersion])
+listImageVersionsResponse_imageVersions = Lens.lens (\ListImageVersionsResponse' {imageVersions} -> imageVersions) (\s@ListImageVersionsResponse' {} a -> s {imageVersions = a} :: ListImageVersionsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-livrrsResponseStatus :: Lens' ListImageVersionsResponse Int
-livrrsResponseStatus = lens _livrrsResponseStatus (\s a -> s {_livrrsResponseStatus = a})
+-- | The response's http status code.
+listImageVersionsResponse_httpStatus :: Lens.Lens' ListImageVersionsResponse Prelude.Int
+listImageVersionsResponse_httpStatus = Lens.lens (\ListImageVersionsResponse' {httpStatus} -> httpStatus) (\s@ListImageVersionsResponse' {} a -> s {httpStatus = a} :: ListImageVersionsResponse)
 
-instance NFData ListImageVersionsResponse
+instance Prelude.NFData ListImageVersionsResponse

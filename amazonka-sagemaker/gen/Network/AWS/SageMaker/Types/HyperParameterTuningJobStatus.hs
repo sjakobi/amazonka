@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,75 +19,73 @@
 module Network.AWS.SageMaker.Types.HyperParameterTuningJobStatus
   ( HyperParameterTuningJobStatus
       ( ..,
-        HPTJSCompleted,
-        HPTJSFailed,
-        HPTJSInProgress,
-        HPTJSStopped,
-        HPTJSStopping
+        HyperParameterTuningJobStatusCompleted,
+        HyperParameterTuningJobStatusFailed,
+        HyperParameterTuningJobStatusInProgress,
+        HyperParameterTuningJobStatusStopped,
+        HyperParameterTuningJobStatusStopping
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data HyperParameterTuningJobStatus
-  = HyperParameterTuningJobStatus'
-      ( CI
-          Text
-      )
+newtype HyperParameterTuningJobStatus = HyperParameterTuningJobStatus'
+  { fromHyperParameterTuningJobStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HPTJSCompleted :: HyperParameterTuningJobStatus
-pattern HPTJSCompleted = HyperParameterTuningJobStatus' "Completed"
+pattern HyperParameterTuningJobStatusCompleted :: HyperParameterTuningJobStatus
+pattern HyperParameterTuningJobStatusCompleted = HyperParameterTuningJobStatus' "Completed"
 
-pattern HPTJSFailed :: HyperParameterTuningJobStatus
-pattern HPTJSFailed = HyperParameterTuningJobStatus' "Failed"
+pattern HyperParameterTuningJobStatusFailed :: HyperParameterTuningJobStatus
+pattern HyperParameterTuningJobStatusFailed = HyperParameterTuningJobStatus' "Failed"
 
-pattern HPTJSInProgress :: HyperParameterTuningJobStatus
-pattern HPTJSInProgress = HyperParameterTuningJobStatus' "InProgress"
+pattern HyperParameterTuningJobStatusInProgress :: HyperParameterTuningJobStatus
+pattern HyperParameterTuningJobStatusInProgress = HyperParameterTuningJobStatus' "InProgress"
 
-pattern HPTJSStopped :: HyperParameterTuningJobStatus
-pattern HPTJSStopped = HyperParameterTuningJobStatus' "Stopped"
+pattern HyperParameterTuningJobStatusStopped :: HyperParameterTuningJobStatus
+pattern HyperParameterTuningJobStatusStopped = HyperParameterTuningJobStatus' "Stopped"
 
-pattern HPTJSStopping :: HyperParameterTuningJobStatus
-pattern HPTJSStopping = HyperParameterTuningJobStatus' "Stopping"
+pattern HyperParameterTuningJobStatusStopping :: HyperParameterTuningJobStatus
+pattern HyperParameterTuningJobStatusStopping = HyperParameterTuningJobStatus' "Stopping"
 
 {-# COMPLETE
-  HPTJSCompleted,
-  HPTJSFailed,
-  HPTJSInProgress,
-  HPTJSStopped,
-  HPTJSStopping,
+  HyperParameterTuningJobStatusCompleted,
+  HyperParameterTuningJobStatusFailed,
+  HyperParameterTuningJobStatusInProgress,
+  HyperParameterTuningJobStatusStopped,
+  HyperParameterTuningJobStatusStopping,
   HyperParameterTuningJobStatus'
   #-}
 
-instance FromText HyperParameterTuningJobStatus where
-  parser = (HyperParameterTuningJobStatus' . mk) <$> takeText
+instance Prelude.FromText HyperParameterTuningJobStatus where
+  parser = HyperParameterTuningJobStatus' Prelude.<$> Prelude.takeText
 
-instance ToText HyperParameterTuningJobStatus where
-  toText (HyperParameterTuningJobStatus' ci) = original ci
+instance Prelude.ToText HyperParameterTuningJobStatus where
+  toText (HyperParameterTuningJobStatus' x) = x
 
-instance Hashable HyperParameterTuningJobStatus
+instance Prelude.Hashable HyperParameterTuningJobStatus
 
-instance NFData HyperParameterTuningJobStatus
+instance Prelude.NFData HyperParameterTuningJobStatus
 
-instance ToByteString HyperParameterTuningJobStatus
+instance Prelude.ToByteString HyperParameterTuningJobStatus
 
-instance ToQuery HyperParameterTuningJobStatus
+instance Prelude.ToQuery HyperParameterTuningJobStatus
 
-instance ToHeader HyperParameterTuningJobStatus
+instance Prelude.ToHeader HyperParameterTuningJobStatus
 
-instance ToJSON HyperParameterTuningJobStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON HyperParameterTuningJobStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON HyperParameterTuningJobStatus where
-  parseJSON = parseJSONText "HyperParameterTuningJobStatus"
+instance Prelude.FromJSON HyperParameterTuningJobStatus where
+  parseJSON = Prelude.parseJSONText "HyperParameterTuningJobStatus"

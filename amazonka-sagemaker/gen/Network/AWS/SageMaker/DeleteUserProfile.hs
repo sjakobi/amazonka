@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,113 +21,124 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a user profile. When a user profile is deleted, the user loses access to their EFS volume, including data, notebooks, and other artifacts.
+-- Deletes a user profile. When a user profile is deleted, the user loses
+-- access to their EFS volume, including data, notebooks, and other
+-- artifacts.
 module Network.AWS.SageMaker.DeleteUserProfile
   ( -- * Creating a Request
-    deleteUserProfile,
-    DeleteUserProfile,
+    DeleteUserProfile (..),
+    newDeleteUserProfile,
 
     -- * Request Lenses
-    dDomainId,
-    dUserProfileName,
+    deleteUserProfile_domainId,
+    deleteUserProfile_userProfileName,
 
     -- * Destructuring the Response
-    deleteUserProfileResponse,
-    DeleteUserProfileResponse,
+    DeleteUserProfileResponse (..),
+    newDeleteUserProfileResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'deleteUserProfile' smart constructor.
+-- | /See:/ 'newDeleteUserProfile' smart constructor.
 data DeleteUserProfile = DeleteUserProfile'
-  { _dDomainId ::
-      !Text,
-    _dUserProfileName :: !Text
+  { -- | The domain ID.
+    domainId :: Prelude.Text,
+    -- | The user profile name.
+    userProfileName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteUserProfile' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteUserProfile' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dDomainId' - The domain ID.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dUserProfileName' - The user profile name.
-deleteUserProfile ::
-  -- | 'dDomainId'
-  Text ->
-  -- | 'dUserProfileName'
-  Text ->
+-- 'domainId', 'deleteUserProfile_domainId' - The domain ID.
+--
+-- 'userProfileName', 'deleteUserProfile_userProfileName' - The user profile name.
+newDeleteUserProfile ::
+  -- | 'domainId'
+  Prelude.Text ->
+  -- | 'userProfileName'
+  Prelude.Text ->
   DeleteUserProfile
-deleteUserProfile pDomainId_ pUserProfileName_ =
+newDeleteUserProfile pDomainId_ pUserProfileName_ =
   DeleteUserProfile'
-    { _dDomainId = pDomainId_,
-      _dUserProfileName = pUserProfileName_
+    { domainId = pDomainId_,
+      userProfileName = pUserProfileName_
     }
 
 -- | The domain ID.
-dDomainId :: Lens' DeleteUserProfile Text
-dDomainId = lens _dDomainId (\s a -> s {_dDomainId = a})
+deleteUserProfile_domainId :: Lens.Lens' DeleteUserProfile Prelude.Text
+deleteUserProfile_domainId = Lens.lens (\DeleteUserProfile' {domainId} -> domainId) (\s@DeleteUserProfile' {} a -> s {domainId = a} :: DeleteUserProfile)
 
 -- | The user profile name.
-dUserProfileName :: Lens' DeleteUserProfile Text
-dUserProfileName = lens _dUserProfileName (\s a -> s {_dUserProfileName = a})
+deleteUserProfile_userProfileName :: Lens.Lens' DeleteUserProfile Prelude.Text
+deleteUserProfile_userProfileName = Lens.lens (\DeleteUserProfile' {userProfileName} -> userProfileName) (\s@DeleteUserProfile' {} a -> s {userProfileName = a} :: DeleteUserProfile)
 
-instance AWSRequest DeleteUserProfile where
+instance Prelude.AWSRequest DeleteUserProfile where
   type Rs DeleteUserProfile = DeleteUserProfileResponse
-  request = postJSON sageMaker
-  response = receiveNull DeleteUserProfileResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull DeleteUserProfileResponse'
 
-instance Hashable DeleteUserProfile
+instance Prelude.Hashable DeleteUserProfile
 
-instance NFData DeleteUserProfile
+instance Prelude.NFData DeleteUserProfile
 
-instance ToHeaders DeleteUserProfile where
+instance Prelude.ToHeaders DeleteUserProfile where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.DeleteUserProfile" :: ByteString),
+              Prelude.=# ( "SageMaker.DeleteUserProfile" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteUserProfile where
+instance Prelude.ToJSON DeleteUserProfile where
   toJSON DeleteUserProfile' {..} =
-    object
-      ( catMaybes
-          [ Just ("DomainId" .= _dDomainId),
-            Just ("UserProfileName" .= _dUserProfileName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("DomainId" Prelude..= domainId),
+            Prelude.Just
+              ("UserProfileName" Prelude..= userProfileName)
           ]
       )
 
-instance ToPath DeleteUserProfile where
-  toPath = const "/"
+instance Prelude.ToPath DeleteUserProfile where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteUserProfile where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteUserProfile where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteUserProfileResponse' smart constructor.
+-- | /See:/ 'newDeleteUserProfileResponse' smart constructor.
 data DeleteUserProfileResponse = DeleteUserProfileResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteUserProfileResponse' with the minimum fields required to make a request.
-deleteUserProfileResponse ::
+-- |
+-- Create a value of 'DeleteUserProfileResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteUserProfileResponse ::
   DeleteUserProfileResponse
-deleteUserProfileResponse =
+newDeleteUserProfileResponse =
   DeleteUserProfileResponse'
 
-instance NFData DeleteUserProfileResponse
+instance Prelude.NFData DeleteUserProfileResponse

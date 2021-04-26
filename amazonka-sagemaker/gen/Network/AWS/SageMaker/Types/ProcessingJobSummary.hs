@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,127 +19,140 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.ProcessingJobSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.ProcessingJobStatus
 
 -- | Summary of information about a processing job.
 --
---
---
--- /See:/ 'processingJobSummary' smart constructor.
+-- /See:/ 'newProcessingJobSummary' smart constructor.
 data ProcessingJobSummary = ProcessingJobSummary'
-  { _pjsProcessingEndTime ::
-      !(Maybe POSIX),
-    _pjsExitMessage ::
-      !(Maybe Text),
-    _pjsFailureReason ::
-      !(Maybe Text),
-    _pjsLastModifiedTime ::
-      !(Maybe POSIX),
-    _pjsProcessingJobName ::
-      !Text,
-    _pjsProcessingJobARN :: !Text,
-    _pjsCreationTime :: !POSIX,
-    _pjsProcessingJobStatus ::
-      !ProcessingJobStatus
+  { -- | The time at which the processing job completed.
+    processingEndTime :: Prelude.Maybe Prelude.POSIX,
+    -- | An optional string, up to one KB in size, that contains metadata from
+    -- the processing container when the processing job exits.
+    exitMessage :: Prelude.Maybe Prelude.Text,
+    -- | A string, up to one KB in size, that contains the reason a processing
+    -- job failed, if it failed.
+    failureReason :: Prelude.Maybe Prelude.Text,
+    -- | A timestamp that indicates the last time the processing job was
+    -- modified.
+    lastModifiedTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The name of the processing job.
+    processingJobName :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the processing job..
+    processingJobArn :: Prelude.Text,
+    -- | The time at which the processing job was created.
+    creationTime :: Prelude.POSIX,
+    -- | The status of the processing job.
+    processingJobStatus :: ProcessingJobStatus
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ProcessingJobSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ProcessingJobSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pjsProcessingEndTime' - The time at which the processing job completed.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pjsExitMessage' - An optional string, up to one KB in size, that contains metadata from the processing container when the processing job exits.
+-- 'processingEndTime', 'processingJobSummary_processingEndTime' - The time at which the processing job completed.
 --
--- * 'pjsFailureReason' - A string, up to one KB in size, that contains the reason a processing job failed, if it failed.
+-- 'exitMessage', 'processingJobSummary_exitMessage' - An optional string, up to one KB in size, that contains metadata from
+-- the processing container when the processing job exits.
 --
--- * 'pjsLastModifiedTime' - A timestamp that indicates the last time the processing job was modified.
+-- 'failureReason', 'processingJobSummary_failureReason' - A string, up to one KB in size, that contains the reason a processing
+-- job failed, if it failed.
 --
--- * 'pjsProcessingJobName' - The name of the processing job.
+-- 'lastModifiedTime', 'processingJobSummary_lastModifiedTime' - A timestamp that indicates the last time the processing job was
+-- modified.
 --
--- * 'pjsProcessingJobARN' - The Amazon Resource Name (ARN) of the processing job..
+-- 'processingJobName', 'processingJobSummary_processingJobName' - The name of the processing job.
 --
--- * 'pjsCreationTime' - The time at which the processing job was created.
+-- 'processingJobArn', 'processingJobSummary_processingJobArn' - The Amazon Resource Name (ARN) of the processing job..
 --
--- * 'pjsProcessingJobStatus' - The status of the processing job.
-processingJobSummary ::
-  -- | 'pjsProcessingJobName'
-  Text ->
-  -- | 'pjsProcessingJobARN'
-  Text ->
-  -- | 'pjsCreationTime'
-  UTCTime ->
-  -- | 'pjsProcessingJobStatus'
+-- 'creationTime', 'processingJobSummary_creationTime' - The time at which the processing job was created.
+--
+-- 'processingJobStatus', 'processingJobSummary_processingJobStatus' - The status of the processing job.
+newProcessingJobSummary ::
+  -- | 'processingJobName'
+  Prelude.Text ->
+  -- | 'processingJobArn'
+  Prelude.Text ->
+  -- | 'creationTime'
+  Prelude.UTCTime ->
+  -- | 'processingJobStatus'
   ProcessingJobStatus ->
   ProcessingJobSummary
-processingJobSummary
+newProcessingJobSummary
   pProcessingJobName_
-  pProcessingJobARN_
+  pProcessingJobArn_
   pCreationTime_
   pProcessingJobStatus_ =
     ProcessingJobSummary'
-      { _pjsProcessingEndTime =
-          Nothing,
-        _pjsExitMessage = Nothing,
-        _pjsFailureReason = Nothing,
-        _pjsLastModifiedTime = Nothing,
-        _pjsProcessingJobName = pProcessingJobName_,
-        _pjsProcessingJobARN = pProcessingJobARN_,
-        _pjsCreationTime = _Time # pCreationTime_,
-        _pjsProcessingJobStatus = pProcessingJobStatus_
+      { processingEndTime =
+          Prelude.Nothing,
+        exitMessage = Prelude.Nothing,
+        failureReason = Prelude.Nothing,
+        lastModifiedTime = Prelude.Nothing,
+        processingJobName = pProcessingJobName_,
+        processingJobArn = pProcessingJobArn_,
+        creationTime = Prelude._Time Lens.# pCreationTime_,
+        processingJobStatus = pProcessingJobStatus_
       }
 
 -- | The time at which the processing job completed.
-pjsProcessingEndTime :: Lens' ProcessingJobSummary (Maybe UTCTime)
-pjsProcessingEndTime = lens _pjsProcessingEndTime (\s a -> s {_pjsProcessingEndTime = a}) . mapping _Time
+processingJobSummary_processingEndTime :: Lens.Lens' ProcessingJobSummary (Prelude.Maybe Prelude.UTCTime)
+processingJobSummary_processingEndTime = Lens.lens (\ProcessingJobSummary' {processingEndTime} -> processingEndTime) (\s@ProcessingJobSummary' {} a -> s {processingEndTime = a} :: ProcessingJobSummary) Prelude.. Lens.mapping Prelude._Time
 
--- | An optional string, up to one KB in size, that contains metadata from the processing container when the processing job exits.
-pjsExitMessage :: Lens' ProcessingJobSummary (Maybe Text)
-pjsExitMessage = lens _pjsExitMessage (\s a -> s {_pjsExitMessage = a})
+-- | An optional string, up to one KB in size, that contains metadata from
+-- the processing container when the processing job exits.
+processingJobSummary_exitMessage :: Lens.Lens' ProcessingJobSummary (Prelude.Maybe Prelude.Text)
+processingJobSummary_exitMessage = Lens.lens (\ProcessingJobSummary' {exitMessage} -> exitMessage) (\s@ProcessingJobSummary' {} a -> s {exitMessage = a} :: ProcessingJobSummary)
 
--- | A string, up to one KB in size, that contains the reason a processing job failed, if it failed.
-pjsFailureReason :: Lens' ProcessingJobSummary (Maybe Text)
-pjsFailureReason = lens _pjsFailureReason (\s a -> s {_pjsFailureReason = a})
+-- | A string, up to one KB in size, that contains the reason a processing
+-- job failed, if it failed.
+processingJobSummary_failureReason :: Lens.Lens' ProcessingJobSummary (Prelude.Maybe Prelude.Text)
+processingJobSummary_failureReason = Lens.lens (\ProcessingJobSummary' {failureReason} -> failureReason) (\s@ProcessingJobSummary' {} a -> s {failureReason = a} :: ProcessingJobSummary)
 
--- | A timestamp that indicates the last time the processing job was modified.
-pjsLastModifiedTime :: Lens' ProcessingJobSummary (Maybe UTCTime)
-pjsLastModifiedTime = lens _pjsLastModifiedTime (\s a -> s {_pjsLastModifiedTime = a}) . mapping _Time
+-- | A timestamp that indicates the last time the processing job was
+-- modified.
+processingJobSummary_lastModifiedTime :: Lens.Lens' ProcessingJobSummary (Prelude.Maybe Prelude.UTCTime)
+processingJobSummary_lastModifiedTime = Lens.lens (\ProcessingJobSummary' {lastModifiedTime} -> lastModifiedTime) (\s@ProcessingJobSummary' {} a -> s {lastModifiedTime = a} :: ProcessingJobSummary) Prelude.. Lens.mapping Prelude._Time
 
 -- | The name of the processing job.
-pjsProcessingJobName :: Lens' ProcessingJobSummary Text
-pjsProcessingJobName = lens _pjsProcessingJobName (\s a -> s {_pjsProcessingJobName = a})
+processingJobSummary_processingJobName :: Lens.Lens' ProcessingJobSummary Prelude.Text
+processingJobSummary_processingJobName = Lens.lens (\ProcessingJobSummary' {processingJobName} -> processingJobName) (\s@ProcessingJobSummary' {} a -> s {processingJobName = a} :: ProcessingJobSummary)
 
 -- | The Amazon Resource Name (ARN) of the processing job..
-pjsProcessingJobARN :: Lens' ProcessingJobSummary Text
-pjsProcessingJobARN = lens _pjsProcessingJobARN (\s a -> s {_pjsProcessingJobARN = a})
+processingJobSummary_processingJobArn :: Lens.Lens' ProcessingJobSummary Prelude.Text
+processingJobSummary_processingJobArn = Lens.lens (\ProcessingJobSummary' {processingJobArn} -> processingJobArn) (\s@ProcessingJobSummary' {} a -> s {processingJobArn = a} :: ProcessingJobSummary)
 
 -- | The time at which the processing job was created.
-pjsCreationTime :: Lens' ProcessingJobSummary UTCTime
-pjsCreationTime = lens _pjsCreationTime (\s a -> s {_pjsCreationTime = a}) . _Time
+processingJobSummary_creationTime :: Lens.Lens' ProcessingJobSummary Prelude.UTCTime
+processingJobSummary_creationTime = Lens.lens (\ProcessingJobSummary' {creationTime} -> creationTime) (\s@ProcessingJobSummary' {} a -> s {creationTime = a} :: ProcessingJobSummary) Prelude.. Prelude._Time
 
 -- | The status of the processing job.
-pjsProcessingJobStatus :: Lens' ProcessingJobSummary ProcessingJobStatus
-pjsProcessingJobStatus = lens _pjsProcessingJobStatus (\s a -> s {_pjsProcessingJobStatus = a})
+processingJobSummary_processingJobStatus :: Lens.Lens' ProcessingJobSummary ProcessingJobStatus
+processingJobSummary_processingJobStatus = Lens.lens (\ProcessingJobSummary' {processingJobStatus} -> processingJobStatus) (\s@ProcessingJobSummary' {} a -> s {processingJobStatus = a} :: ProcessingJobSummary)
 
-instance FromJSON ProcessingJobSummary where
+instance Prelude.FromJSON ProcessingJobSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ProcessingJobSummary"
       ( \x ->
           ProcessingJobSummary'
-            <$> (x .:? "ProcessingEndTime")
-            <*> (x .:? "ExitMessage")
-            <*> (x .:? "FailureReason")
-            <*> (x .:? "LastModifiedTime")
-            <*> (x .: "ProcessingJobName")
-            <*> (x .: "ProcessingJobArn")
-            <*> (x .: "CreationTime")
-            <*> (x .: "ProcessingJobStatus")
+            Prelude.<$> (x Prelude..:? "ProcessingEndTime")
+            Prelude.<*> (x Prelude..:? "ExitMessage")
+            Prelude.<*> (x Prelude..:? "FailureReason")
+            Prelude.<*> (x Prelude..:? "LastModifiedTime")
+            Prelude.<*> (x Prelude..: "ProcessingJobName")
+            Prelude.<*> (x Prelude..: "ProcessingJobArn")
+            Prelude.<*> (x Prelude..: "CreationTime")
+            Prelude.<*> (x Prelude..: "ProcessingJobStatus")
       )
 
-instance Hashable ProcessingJobSummary
+instance Prelude.Hashable ProcessingJobSummary
 
-instance NFData ProcessingJobSummary
+instance Prelude.NFData ProcessingJobSummary

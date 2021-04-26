@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,154 +24,164 @@
 -- Updates a user profile.
 module Network.AWS.SageMaker.UpdateUserProfile
   ( -- * Creating a Request
-    updateUserProfile,
-    UpdateUserProfile,
+    UpdateUserProfile (..),
+    newUpdateUserProfile,
 
     -- * Request Lenses
-    uupUserSettings,
-    uupDomainId,
-    uupUserProfileName,
+    updateUserProfile_userSettings,
+    updateUserProfile_domainId,
+    updateUserProfile_userProfileName,
 
     -- * Destructuring the Response
-    updateUserProfileResponse,
-    UpdateUserProfileResponse,
+    UpdateUserProfileResponse (..),
+    newUpdateUserProfileResponse,
 
     -- * Response Lenses
-    uuprrsUserProfileARN,
-    uuprrsResponseStatus,
+    updateUserProfileResponse_userProfileArn,
+    updateUserProfileResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'updateUserProfile' smart constructor.
+-- | /See:/ 'newUpdateUserProfile' smart constructor.
 data UpdateUserProfile = UpdateUserProfile'
-  { _uupUserSettings ::
-      !(Maybe UserSettings),
-    _uupDomainId :: !Text,
-    _uupUserProfileName :: !Text
+  { -- | A collection of settings.
+    userSettings :: Prelude.Maybe UserSettings,
+    -- | The domain ID.
+    domainId :: Prelude.Text,
+    -- | The user profile name.
+    userProfileName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateUserProfile' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateUserProfile' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uupUserSettings' - A collection of settings.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uupDomainId' - The domain ID.
+-- 'userSettings', 'updateUserProfile_userSettings' - A collection of settings.
 --
--- * 'uupUserProfileName' - The user profile name.
-updateUserProfile ::
-  -- | 'uupDomainId'
-  Text ->
-  -- | 'uupUserProfileName'
-  Text ->
+-- 'domainId', 'updateUserProfile_domainId' - The domain ID.
+--
+-- 'userProfileName', 'updateUserProfile_userProfileName' - The user profile name.
+newUpdateUserProfile ::
+  -- | 'domainId'
+  Prelude.Text ->
+  -- | 'userProfileName'
+  Prelude.Text ->
   UpdateUserProfile
-updateUserProfile pDomainId_ pUserProfileName_ =
+newUpdateUserProfile pDomainId_ pUserProfileName_ =
   UpdateUserProfile'
-    { _uupUserSettings = Nothing,
-      _uupDomainId = pDomainId_,
-      _uupUserProfileName = pUserProfileName_
+    { userSettings = Prelude.Nothing,
+      domainId = pDomainId_,
+      userProfileName = pUserProfileName_
     }
 
 -- | A collection of settings.
-uupUserSettings :: Lens' UpdateUserProfile (Maybe UserSettings)
-uupUserSettings = lens _uupUserSettings (\s a -> s {_uupUserSettings = a})
+updateUserProfile_userSettings :: Lens.Lens' UpdateUserProfile (Prelude.Maybe UserSettings)
+updateUserProfile_userSettings = Lens.lens (\UpdateUserProfile' {userSettings} -> userSettings) (\s@UpdateUserProfile' {} a -> s {userSettings = a} :: UpdateUserProfile)
 
 -- | The domain ID.
-uupDomainId :: Lens' UpdateUserProfile Text
-uupDomainId = lens _uupDomainId (\s a -> s {_uupDomainId = a})
+updateUserProfile_domainId :: Lens.Lens' UpdateUserProfile Prelude.Text
+updateUserProfile_domainId = Lens.lens (\UpdateUserProfile' {domainId} -> domainId) (\s@UpdateUserProfile' {} a -> s {domainId = a} :: UpdateUserProfile)
 
 -- | The user profile name.
-uupUserProfileName :: Lens' UpdateUserProfile Text
-uupUserProfileName = lens _uupUserProfileName (\s a -> s {_uupUserProfileName = a})
+updateUserProfile_userProfileName :: Lens.Lens' UpdateUserProfile Prelude.Text
+updateUserProfile_userProfileName = Lens.lens (\UpdateUserProfile' {userProfileName} -> userProfileName) (\s@UpdateUserProfile' {} a -> s {userProfileName = a} :: UpdateUserProfile)
 
-instance AWSRequest UpdateUserProfile where
+instance Prelude.AWSRequest UpdateUserProfile where
   type Rs UpdateUserProfile = UpdateUserProfileResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateUserProfileResponse'
-            <$> (x .?> "UserProfileArn") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "UserProfileArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateUserProfile
+instance Prelude.Hashable UpdateUserProfile
 
-instance NFData UpdateUserProfile
+instance Prelude.NFData UpdateUserProfile
 
-instance ToHeaders UpdateUserProfile where
+instance Prelude.ToHeaders UpdateUserProfile where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.UpdateUserProfile" :: ByteString),
+              Prelude.=# ( "SageMaker.UpdateUserProfile" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateUserProfile where
+instance Prelude.ToJSON UpdateUserProfile where
   toJSON UpdateUserProfile' {..} =
-    object
-      ( catMaybes
-          [ ("UserSettings" .=) <$> _uupUserSettings,
-            Just ("DomainId" .= _uupDomainId),
-            Just ("UserProfileName" .= _uupUserProfileName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("UserSettings" Prelude..=)
+              Prelude.<$> userSettings,
+            Prelude.Just ("DomainId" Prelude..= domainId),
+            Prelude.Just
+              ("UserProfileName" Prelude..= userProfileName)
           ]
       )
 
-instance ToPath UpdateUserProfile where
-  toPath = const "/"
+instance Prelude.ToPath UpdateUserProfile where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateUserProfile where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateUserProfile where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateUserProfileResponse' smart constructor.
+-- | /See:/ 'newUpdateUserProfileResponse' smart constructor.
 data UpdateUserProfileResponse = UpdateUserProfileResponse'
-  { _uuprrsUserProfileARN ::
-      !(Maybe Text),
-    _uuprrsResponseStatus ::
-      !Int
+  { -- | The user profile Amazon Resource Name (ARN).
+    userProfileArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateUserProfileResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateUserProfileResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uuprrsUserProfileARN' - The user profile Amazon Resource Name (ARN).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uuprrsResponseStatus' - -- | The response status code.
-updateUserProfileResponse ::
-  -- | 'uuprrsResponseStatus'
-  Int ->
+-- 'userProfileArn', 'updateUserProfileResponse_userProfileArn' - The user profile Amazon Resource Name (ARN).
+--
+-- 'httpStatus', 'updateUserProfileResponse_httpStatus' - The response's http status code.
+newUpdateUserProfileResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateUserProfileResponse
-updateUserProfileResponse pResponseStatus_ =
+newUpdateUserProfileResponse pHttpStatus_ =
   UpdateUserProfileResponse'
-    { _uuprrsUserProfileARN =
-        Nothing,
-      _uuprrsResponseStatus = pResponseStatus_
+    { userProfileArn =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The user profile Amazon Resource Name (ARN).
-uuprrsUserProfileARN :: Lens' UpdateUserProfileResponse (Maybe Text)
-uuprrsUserProfileARN = lens _uuprrsUserProfileARN (\s a -> s {_uuprrsUserProfileARN = a})
+updateUserProfileResponse_userProfileArn :: Lens.Lens' UpdateUserProfileResponse (Prelude.Maybe Prelude.Text)
+updateUserProfileResponse_userProfileArn = Lens.lens (\UpdateUserProfileResponse' {userProfileArn} -> userProfileArn) (\s@UpdateUserProfileResponse' {} a -> s {userProfileArn = a} :: UpdateUserProfileResponse)
 
--- | -- | The response status code.
-uuprrsResponseStatus :: Lens' UpdateUserProfileResponse Int
-uuprrsResponseStatus = lens _uuprrsResponseStatus (\s a -> s {_uuprrsResponseStatus = a})
+-- | The response's http status code.
+updateUserProfileResponse_httpStatus :: Lens.Lens' UpdateUserProfileResponse Prelude.Int
+updateUserProfileResponse_httpStatus = Lens.lens (\UpdateUserProfileResponse' {httpStatus} -> httpStatus) (\s@UpdateUserProfileResponse' {} a -> s {httpStatus = a} :: UpdateUserProfileResponse)
 
-instance NFData UpdateUserProfileResponse
+instance Prelude.NFData UpdateUserProfileResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.SageMaker.Types.ImageSortOrder
   ( ImageSortOrder
       ( ..,
-        ISOAscending,
-        ISODescending
+        ImageSortOrderASCENDING,
+        ImageSortOrderDESCENDING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ImageSortOrder = ImageSortOrder' (CI Text)
+newtype ImageSortOrder = ImageSortOrder'
+  { fromImageSortOrder ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ISOAscending :: ImageSortOrder
-pattern ISOAscending = ImageSortOrder' "ASCENDING"
+pattern ImageSortOrderASCENDING :: ImageSortOrder
+pattern ImageSortOrderASCENDING = ImageSortOrder' "ASCENDING"
 
-pattern ISODescending :: ImageSortOrder
-pattern ISODescending = ImageSortOrder' "DESCENDING"
+pattern ImageSortOrderDESCENDING :: ImageSortOrder
+pattern ImageSortOrderDESCENDING = ImageSortOrder' "DESCENDING"
 
 {-# COMPLETE
-  ISOAscending,
-  ISODescending,
+  ImageSortOrderASCENDING,
+  ImageSortOrderDESCENDING,
   ImageSortOrder'
   #-}
 
-instance FromText ImageSortOrder where
-  parser = (ImageSortOrder' . mk) <$> takeText
+instance Prelude.FromText ImageSortOrder where
+  parser = ImageSortOrder' Prelude.<$> Prelude.takeText
 
-instance ToText ImageSortOrder where
-  toText (ImageSortOrder' ci) = original ci
+instance Prelude.ToText ImageSortOrder where
+  toText (ImageSortOrder' x) = x
 
-instance Hashable ImageSortOrder
+instance Prelude.Hashable ImageSortOrder
 
-instance NFData ImageSortOrder
+instance Prelude.NFData ImageSortOrder
 
-instance ToByteString ImageSortOrder
+instance Prelude.ToByteString ImageSortOrder
 
-instance ToQuery ImageSortOrder
+instance Prelude.ToQuery ImageSortOrder
 
-instance ToHeader ImageSortOrder
+instance Prelude.ToHeader ImageSortOrder
 
-instance ToJSON ImageSortOrder where
-  toJSON = toJSONText
+instance Prelude.ToJSON ImageSortOrder where
+  toJSON = Prelude.toJSONText

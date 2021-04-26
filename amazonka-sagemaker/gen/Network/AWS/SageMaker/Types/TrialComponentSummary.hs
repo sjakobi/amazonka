@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,159 +19,172 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.TrialComponentSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.TrialComponentSource
 import Network.AWS.SageMaker.Types.TrialComponentStatus
 import Network.AWS.SageMaker.Types.UserContext
 
--- | A summary of the properties of a trial component. To get all the properties, call the 'DescribeTrialComponent' API and provide the @TrialComponentName@ .
+-- | A summary of the properties of a trial component. To get all the
+-- properties, call the DescribeTrialComponent API and provide the
+-- @TrialComponentName@.
 --
---
---
--- /See:/ 'trialComponentSummary' smart constructor.
+-- /See:/ 'newTrialComponentSummary' smart constructor.
 data TrialComponentSummary = TrialComponentSummary'
-  { _tcsStatus ::
-      !( Maybe
-           TrialComponentStatus
-       ),
-    _tcsCreationTime ::
-      !(Maybe POSIX),
-    _tcsTrialComponentARN ::
-      !(Maybe Text),
-    _tcsStartTime ::
-      !(Maybe POSIX),
-    _tcsEndTime ::
-      !(Maybe POSIX),
-    _tcsLastModifiedTime ::
-      !(Maybe POSIX),
-    _tcsCreatedBy ::
-      !(Maybe UserContext),
-    _tcsLastModifiedBy ::
-      !(Maybe UserContext),
-    _tcsTrialComponentSource ::
-      !( Maybe
-           TrialComponentSource
-       ),
-    _tcsDisplayName ::
-      !(Maybe Text),
-    _tcsTrialComponentName ::
-      !(Maybe Text)
+  { -- | The status of the component. States include:
+    --
+    -- -   InProgress
+    --
+    -- -   Completed
+    --
+    -- -   Failed
+    status :: Prelude.Maybe TrialComponentStatus,
+    -- | When the component was created.
+    creationTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The ARN of the trial component.
+    trialComponentArn :: Prelude.Maybe Prelude.Text,
+    -- | When the component started.
+    startTime :: Prelude.Maybe Prelude.POSIX,
+    -- | When the component ended.
+    endTime :: Prelude.Maybe Prelude.POSIX,
+    -- | When the component was last modified.
+    lastModifiedTime :: Prelude.Maybe Prelude.POSIX,
+    -- | Who created the component.
+    createdBy :: Prelude.Maybe UserContext,
+    -- | Who last modified the component.
+    lastModifiedBy :: Prelude.Maybe UserContext,
+    trialComponentSource :: Prelude.Maybe TrialComponentSource,
+    -- | The name of the component as displayed. If @DisplayName@ isn\'t
+    -- specified, @TrialComponentName@ is displayed.
+    displayName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the trial component.
+    trialComponentName :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TrialComponentSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TrialComponentSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tcsStatus' - The status of the component. States include:     * InProgress     * Completed     * Failed
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tcsCreationTime' - When the component was created.
+-- 'status', 'trialComponentSummary_status' - The status of the component. States include:
 --
--- * 'tcsTrialComponentARN' - The ARN of the trial component.
+-- -   InProgress
 --
--- * 'tcsStartTime' - When the component started.
+-- -   Completed
 --
--- * 'tcsEndTime' - When the component ended.
+-- -   Failed
 --
--- * 'tcsLastModifiedTime' - When the component was last modified.
+-- 'creationTime', 'trialComponentSummary_creationTime' - When the component was created.
 --
--- * 'tcsCreatedBy' - Who created the component.
+-- 'trialComponentArn', 'trialComponentSummary_trialComponentArn' - The ARN of the trial component.
 --
--- * 'tcsLastModifiedBy' - Who last modified the component.
+-- 'startTime', 'trialComponentSummary_startTime' - When the component started.
 --
--- * 'tcsTrialComponentSource' - Undocumented member.
+-- 'endTime', 'trialComponentSummary_endTime' - When the component ended.
 --
--- * 'tcsDisplayName' - The name of the component as displayed. If @DisplayName@ isn't specified, @TrialComponentName@ is displayed.
+-- 'lastModifiedTime', 'trialComponentSummary_lastModifiedTime' - When the component was last modified.
 --
--- * 'tcsTrialComponentName' - The name of the trial component.
-trialComponentSummary ::
+-- 'createdBy', 'trialComponentSummary_createdBy' - Who created the component.
+--
+-- 'lastModifiedBy', 'trialComponentSummary_lastModifiedBy' - Who last modified the component.
+--
+-- 'trialComponentSource', 'trialComponentSummary_trialComponentSource' - Undocumented member.
+--
+-- 'displayName', 'trialComponentSummary_displayName' - The name of the component as displayed. If @DisplayName@ isn\'t
+-- specified, @TrialComponentName@ is displayed.
+--
+-- 'trialComponentName', 'trialComponentSummary_trialComponentName' - The name of the trial component.
+newTrialComponentSummary ::
   TrialComponentSummary
-trialComponentSummary =
+newTrialComponentSummary =
   TrialComponentSummary'
-    { _tcsStatus = Nothing,
-      _tcsCreationTime = Nothing,
-      _tcsTrialComponentARN = Nothing,
-      _tcsStartTime = Nothing,
-      _tcsEndTime = Nothing,
-      _tcsLastModifiedTime = Nothing,
-      _tcsCreatedBy = Nothing,
-      _tcsLastModifiedBy = Nothing,
-      _tcsTrialComponentSource = Nothing,
-      _tcsDisplayName = Nothing,
-      _tcsTrialComponentName = Nothing
+    { status = Prelude.Nothing,
+      creationTime = Prelude.Nothing,
+      trialComponentArn = Prelude.Nothing,
+      startTime = Prelude.Nothing,
+      endTime = Prelude.Nothing,
+      lastModifiedTime = Prelude.Nothing,
+      createdBy = Prelude.Nothing,
+      lastModifiedBy = Prelude.Nothing,
+      trialComponentSource = Prelude.Nothing,
+      displayName = Prelude.Nothing,
+      trialComponentName = Prelude.Nothing
     }
 
--- | The status of the component. States include:     * InProgress     * Completed     * Failed
-tcsStatus :: Lens' TrialComponentSummary (Maybe TrialComponentStatus)
-tcsStatus = lens _tcsStatus (\s a -> s {_tcsStatus = a})
+-- | The status of the component. States include:
+--
+-- -   InProgress
+--
+-- -   Completed
+--
+-- -   Failed
+trialComponentSummary_status :: Lens.Lens' TrialComponentSummary (Prelude.Maybe TrialComponentStatus)
+trialComponentSummary_status = Lens.lens (\TrialComponentSummary' {status} -> status) (\s@TrialComponentSummary' {} a -> s {status = a} :: TrialComponentSummary)
 
 -- | When the component was created.
-tcsCreationTime :: Lens' TrialComponentSummary (Maybe UTCTime)
-tcsCreationTime = lens _tcsCreationTime (\s a -> s {_tcsCreationTime = a}) . mapping _Time
+trialComponentSummary_creationTime :: Lens.Lens' TrialComponentSummary (Prelude.Maybe Prelude.UTCTime)
+trialComponentSummary_creationTime = Lens.lens (\TrialComponentSummary' {creationTime} -> creationTime) (\s@TrialComponentSummary' {} a -> s {creationTime = a} :: TrialComponentSummary) Prelude.. Lens.mapping Prelude._Time
 
 -- | The ARN of the trial component.
-tcsTrialComponentARN :: Lens' TrialComponentSummary (Maybe Text)
-tcsTrialComponentARN = lens _tcsTrialComponentARN (\s a -> s {_tcsTrialComponentARN = a})
+trialComponentSummary_trialComponentArn :: Lens.Lens' TrialComponentSummary (Prelude.Maybe Prelude.Text)
+trialComponentSummary_trialComponentArn = Lens.lens (\TrialComponentSummary' {trialComponentArn} -> trialComponentArn) (\s@TrialComponentSummary' {} a -> s {trialComponentArn = a} :: TrialComponentSummary)
 
 -- | When the component started.
-tcsStartTime :: Lens' TrialComponentSummary (Maybe UTCTime)
-tcsStartTime = lens _tcsStartTime (\s a -> s {_tcsStartTime = a}) . mapping _Time
+trialComponentSummary_startTime :: Lens.Lens' TrialComponentSummary (Prelude.Maybe Prelude.UTCTime)
+trialComponentSummary_startTime = Lens.lens (\TrialComponentSummary' {startTime} -> startTime) (\s@TrialComponentSummary' {} a -> s {startTime = a} :: TrialComponentSummary) Prelude.. Lens.mapping Prelude._Time
 
 -- | When the component ended.
-tcsEndTime :: Lens' TrialComponentSummary (Maybe UTCTime)
-tcsEndTime = lens _tcsEndTime (\s a -> s {_tcsEndTime = a}) . mapping _Time
+trialComponentSummary_endTime :: Lens.Lens' TrialComponentSummary (Prelude.Maybe Prelude.UTCTime)
+trialComponentSummary_endTime = Lens.lens (\TrialComponentSummary' {endTime} -> endTime) (\s@TrialComponentSummary' {} a -> s {endTime = a} :: TrialComponentSummary) Prelude.. Lens.mapping Prelude._Time
 
 -- | When the component was last modified.
-tcsLastModifiedTime :: Lens' TrialComponentSummary (Maybe UTCTime)
-tcsLastModifiedTime = lens _tcsLastModifiedTime (\s a -> s {_tcsLastModifiedTime = a}) . mapping _Time
+trialComponentSummary_lastModifiedTime :: Lens.Lens' TrialComponentSummary (Prelude.Maybe Prelude.UTCTime)
+trialComponentSummary_lastModifiedTime = Lens.lens (\TrialComponentSummary' {lastModifiedTime} -> lastModifiedTime) (\s@TrialComponentSummary' {} a -> s {lastModifiedTime = a} :: TrialComponentSummary) Prelude.. Lens.mapping Prelude._Time
 
 -- | Who created the component.
-tcsCreatedBy :: Lens' TrialComponentSummary (Maybe UserContext)
-tcsCreatedBy = lens _tcsCreatedBy (\s a -> s {_tcsCreatedBy = a})
+trialComponentSummary_createdBy :: Lens.Lens' TrialComponentSummary (Prelude.Maybe UserContext)
+trialComponentSummary_createdBy = Lens.lens (\TrialComponentSummary' {createdBy} -> createdBy) (\s@TrialComponentSummary' {} a -> s {createdBy = a} :: TrialComponentSummary)
 
 -- | Who last modified the component.
-tcsLastModifiedBy :: Lens' TrialComponentSummary (Maybe UserContext)
-tcsLastModifiedBy = lens _tcsLastModifiedBy (\s a -> s {_tcsLastModifiedBy = a})
+trialComponentSummary_lastModifiedBy :: Lens.Lens' TrialComponentSummary (Prelude.Maybe UserContext)
+trialComponentSummary_lastModifiedBy = Lens.lens (\TrialComponentSummary' {lastModifiedBy} -> lastModifiedBy) (\s@TrialComponentSummary' {} a -> s {lastModifiedBy = a} :: TrialComponentSummary)
 
 -- | Undocumented member.
-tcsTrialComponentSource :: Lens' TrialComponentSummary (Maybe TrialComponentSource)
-tcsTrialComponentSource = lens _tcsTrialComponentSource (\s a -> s {_tcsTrialComponentSource = a})
+trialComponentSummary_trialComponentSource :: Lens.Lens' TrialComponentSummary (Prelude.Maybe TrialComponentSource)
+trialComponentSummary_trialComponentSource = Lens.lens (\TrialComponentSummary' {trialComponentSource} -> trialComponentSource) (\s@TrialComponentSummary' {} a -> s {trialComponentSource = a} :: TrialComponentSummary)
 
--- | The name of the component as displayed. If @DisplayName@ isn't specified, @TrialComponentName@ is displayed.
-tcsDisplayName :: Lens' TrialComponentSummary (Maybe Text)
-tcsDisplayName = lens _tcsDisplayName (\s a -> s {_tcsDisplayName = a})
+-- | The name of the component as displayed. If @DisplayName@ isn\'t
+-- specified, @TrialComponentName@ is displayed.
+trialComponentSummary_displayName :: Lens.Lens' TrialComponentSummary (Prelude.Maybe Prelude.Text)
+trialComponentSummary_displayName = Lens.lens (\TrialComponentSummary' {displayName} -> displayName) (\s@TrialComponentSummary' {} a -> s {displayName = a} :: TrialComponentSummary)
 
 -- | The name of the trial component.
-tcsTrialComponentName :: Lens' TrialComponentSummary (Maybe Text)
-tcsTrialComponentName = lens _tcsTrialComponentName (\s a -> s {_tcsTrialComponentName = a})
+trialComponentSummary_trialComponentName :: Lens.Lens' TrialComponentSummary (Prelude.Maybe Prelude.Text)
+trialComponentSummary_trialComponentName = Lens.lens (\TrialComponentSummary' {trialComponentName} -> trialComponentName) (\s@TrialComponentSummary' {} a -> s {trialComponentName = a} :: TrialComponentSummary)
 
-instance FromJSON TrialComponentSummary where
+instance Prelude.FromJSON TrialComponentSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TrialComponentSummary"
       ( \x ->
           TrialComponentSummary'
-            <$> (x .:? "Status")
-            <*> (x .:? "CreationTime")
-            <*> (x .:? "TrialComponentArn")
-            <*> (x .:? "StartTime")
-            <*> (x .:? "EndTime")
-            <*> (x .:? "LastModifiedTime")
-            <*> (x .:? "CreatedBy")
-            <*> (x .:? "LastModifiedBy")
-            <*> (x .:? "TrialComponentSource")
-            <*> (x .:? "DisplayName")
-            <*> (x .:? "TrialComponentName")
+            Prelude.<$> (x Prelude..:? "Status")
+            Prelude.<*> (x Prelude..:? "CreationTime")
+            Prelude.<*> (x Prelude..:? "TrialComponentArn")
+            Prelude.<*> (x Prelude..:? "StartTime")
+            Prelude.<*> (x Prelude..:? "EndTime")
+            Prelude.<*> (x Prelude..:? "LastModifiedTime")
+            Prelude.<*> (x Prelude..:? "CreatedBy")
+            Prelude.<*> (x Prelude..:? "LastModifiedBy")
+            Prelude.<*> (x Prelude..:? "TrialComponentSource")
+            Prelude.<*> (x Prelude..:? "DisplayName")
+            Prelude.<*> (x Prelude..:? "TrialComponentName")
       )
 
-instance Hashable TrialComponentSummary
+instance Prelude.Hashable TrialComponentSummary
 
-instance NFData TrialComponentSummary
+instance Prelude.NFData TrialComponentSummary

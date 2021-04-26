@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,64 +19,68 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.KernelSpec where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The specification of a Jupyter kernel.
 --
---
---
--- /See:/ 'kernelSpec' smart constructor.
+-- /See:/ 'newKernelSpec' smart constructor.
 data KernelSpec = KernelSpec'
-  { _ksDisplayName ::
-      !(Maybe Text),
-    _ksName :: !Text
+  { -- | The display name of the kernel.
+    displayName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the kernel.
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'KernelSpec' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'KernelSpec' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ksDisplayName' - The display name of the kernel.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ksName' - The name of the kernel.
-kernelSpec ::
-  -- | 'ksName'
-  Text ->
+-- 'displayName', 'kernelSpec_displayName' - The display name of the kernel.
+--
+-- 'name', 'kernelSpec_name' - The name of the kernel.
+newKernelSpec ::
+  -- | 'name'
+  Prelude.Text ->
   KernelSpec
-kernelSpec pName_ =
+newKernelSpec pName_ =
   KernelSpec'
-    { _ksDisplayName = Nothing,
-      _ksName = pName_
+    { displayName = Prelude.Nothing,
+      name = pName_
     }
 
 -- | The display name of the kernel.
-ksDisplayName :: Lens' KernelSpec (Maybe Text)
-ksDisplayName = lens _ksDisplayName (\s a -> s {_ksDisplayName = a})
+kernelSpec_displayName :: Lens.Lens' KernelSpec (Prelude.Maybe Prelude.Text)
+kernelSpec_displayName = Lens.lens (\KernelSpec' {displayName} -> displayName) (\s@KernelSpec' {} a -> s {displayName = a} :: KernelSpec)
 
 -- | The name of the kernel.
-ksName :: Lens' KernelSpec Text
-ksName = lens _ksName (\s a -> s {_ksName = a})
+kernelSpec_name :: Lens.Lens' KernelSpec Prelude.Text
+kernelSpec_name = Lens.lens (\KernelSpec' {name} -> name) (\s@KernelSpec' {} a -> s {name = a} :: KernelSpec)
 
-instance FromJSON KernelSpec where
+instance Prelude.FromJSON KernelSpec where
   parseJSON =
-    withObject
+    Prelude.withObject
       "KernelSpec"
       ( \x ->
           KernelSpec'
-            <$> (x .:? "DisplayName") <*> (x .: "Name")
+            Prelude.<$> (x Prelude..:? "DisplayName")
+            Prelude.<*> (x Prelude..: "Name")
       )
 
-instance Hashable KernelSpec
+instance Prelude.Hashable KernelSpec
 
-instance NFData KernelSpec
+instance Prelude.NFData KernelSpec
 
-instance ToJSON KernelSpec where
+instance Prelude.ToJSON KernelSpec where
   toJSON KernelSpec' {..} =
-    object
-      ( catMaybes
-          [ ("DisplayName" .=) <$> _ksDisplayName,
-            Just ("Name" .= _ksName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("DisplayName" Prelude..=) Prelude.<$> displayName,
+            Prelude.Just ("Name" Prelude..= name)
           ]
       )

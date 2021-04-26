@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,59 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.Parent where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The trial that a trial component is associated with and the experiment the trial is part of. A component might not be associated with a trial. A component can be associated with multiple trials.
+-- | The trial that a trial component is associated with and the experiment
+-- the trial is part of. A component might not be associated with a trial.
+-- A component can be associated with multiple trials.
 --
---
---
--- /See:/ 'parent' smart constructor.
+-- /See:/ 'newParent' smart constructor.
 data Parent = Parent'
-  { _pExperimentName ::
-      !(Maybe Text),
-    _pTrialName :: !(Maybe Text)
+  { -- | The name of the experiment.
+    experimentName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the trial.
+    trialName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Parent' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Parent' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pExperimentName' - The name of the experiment.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pTrialName' - The name of the trial.
-parent ::
+-- 'experimentName', 'parent_experimentName' - The name of the experiment.
+--
+-- 'trialName', 'parent_trialName' - The name of the trial.
+newParent ::
   Parent
-parent =
+newParent =
   Parent'
-    { _pExperimentName = Nothing,
-      _pTrialName = Nothing
+    { experimentName = Prelude.Nothing,
+      trialName = Prelude.Nothing
     }
 
 -- | The name of the experiment.
-pExperimentName :: Lens' Parent (Maybe Text)
-pExperimentName = lens _pExperimentName (\s a -> s {_pExperimentName = a})
+parent_experimentName :: Lens.Lens' Parent (Prelude.Maybe Prelude.Text)
+parent_experimentName = Lens.lens (\Parent' {experimentName} -> experimentName) (\s@Parent' {} a -> s {experimentName = a} :: Parent)
 
 -- | The name of the trial.
-pTrialName :: Lens' Parent (Maybe Text)
-pTrialName = lens _pTrialName (\s a -> s {_pTrialName = a})
+parent_trialName :: Lens.Lens' Parent (Prelude.Maybe Prelude.Text)
+parent_trialName = Lens.lens (\Parent' {trialName} -> trialName) (\s@Parent' {} a -> s {trialName = a} :: Parent)
 
-instance FromJSON Parent where
+instance Prelude.FromJSON Parent where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Parent"
       ( \x ->
           Parent'
-            <$> (x .:? "ExperimentName") <*> (x .:? "TrialName")
+            Prelude.<$> (x Prelude..:? "ExperimentName")
+            Prelude.<*> (x Prelude..:? "TrialName")
       )
 
-instance Hashable Parent
+instance Prelude.Hashable Parent
 
-instance NFData Parent
+instance Prelude.NFData Parent

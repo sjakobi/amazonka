@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,151 +19,162 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.AutoMLCandidate where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.AutoMLCandidateStep
 import Network.AWS.SageMaker.Types.AutoMLContainerDefinition
 import Network.AWS.SageMaker.Types.CandidateStatus
 import Network.AWS.SageMaker.Types.FinalAutoMLJobObjectiveMetric
 import Network.AWS.SageMaker.Types.ObjectiveStatus
 
--- | An Autopilot job returns recommendations, or candidates. Each candidate has futher details about the steps involed, and the status.
+-- | An Autopilot job returns recommendations, or candidates. Each candidate
+-- has futher details about the steps involed, and the status.
 --
---
---
--- /See:/ 'autoMLCandidate' smart constructor.
+-- /See:/ 'newAutoMLCandidate' smart constructor.
 data AutoMLCandidate = AutoMLCandidate'
-  { _amlcEndTime ::
-      !(Maybe POSIX),
-    _amlcInferenceContainers ::
-      !(Maybe [AutoMLContainerDefinition]),
-    _amlcFailureReason :: !(Maybe Text),
-    _amlcFinalAutoMLJobObjectiveMetric ::
-      !(Maybe FinalAutoMLJobObjectiveMetric),
-    _amlcCandidateName :: !Text,
-    _amlcObjectiveStatus ::
-      !ObjectiveStatus,
-    _amlcCandidateSteps ::
-      ![AutoMLCandidateStep],
-    _amlcCandidateStatus ::
-      !CandidateStatus,
-    _amlcCreationTime :: !POSIX,
-    _amlcLastModifiedTime :: !POSIX
+  { -- | The end time.
+    endTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The inference containers.
+    inferenceContainers :: Prelude.Maybe [AutoMLContainerDefinition],
+    -- | The failure reason.
+    failureReason :: Prelude.Maybe Prelude.Text,
+    finalAutoMLJobObjectiveMetric :: Prelude.Maybe FinalAutoMLJobObjectiveMetric,
+    -- | The candidate name.
+    candidateName :: Prelude.Text,
+    -- | The objective status.
+    objectiveStatus :: ObjectiveStatus,
+    -- | The candidate\'s steps.
+    candidateSteps :: [AutoMLCandidateStep],
+    -- | The candidate\'s status.
+    candidateStatus :: CandidateStatus,
+    -- | The creation time.
+    creationTime :: Prelude.POSIX,
+    -- | The last modified time.
+    lastModifiedTime :: Prelude.POSIX
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AutoMLCandidate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AutoMLCandidate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'amlcEndTime' - The end time.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'amlcInferenceContainers' - The inference containers.
+-- 'endTime', 'autoMLCandidate_endTime' - The end time.
 --
--- * 'amlcFailureReason' - The failure reason.
+-- 'inferenceContainers', 'autoMLCandidate_inferenceContainers' - The inference containers.
 --
--- * 'amlcFinalAutoMLJobObjectiveMetric' - Undocumented member.
+-- 'failureReason', 'autoMLCandidate_failureReason' - The failure reason.
 --
--- * 'amlcCandidateName' - The candidate name.
+-- 'finalAutoMLJobObjectiveMetric', 'autoMLCandidate_finalAutoMLJobObjectiveMetric' - Undocumented member.
 --
--- * 'amlcObjectiveStatus' - The objective status.
+-- 'candidateName', 'autoMLCandidate_candidateName' - The candidate name.
 --
--- * 'amlcCandidateSteps' - The candidate's steps.
+-- 'objectiveStatus', 'autoMLCandidate_objectiveStatus' - The objective status.
 --
--- * 'amlcCandidateStatus' - The candidate's status.
+-- 'candidateSteps', 'autoMLCandidate_candidateSteps' - The candidate\'s steps.
 --
--- * 'amlcCreationTime' - The creation time.
+-- 'candidateStatus', 'autoMLCandidate_candidateStatus' - The candidate\'s status.
 --
--- * 'amlcLastModifiedTime' - The last modified time.
-autoMLCandidate ::
-  -- | 'amlcCandidateName'
-  Text ->
-  -- | 'amlcObjectiveStatus'
+-- 'creationTime', 'autoMLCandidate_creationTime' - The creation time.
+--
+-- 'lastModifiedTime', 'autoMLCandidate_lastModifiedTime' - The last modified time.
+newAutoMLCandidate ::
+  -- | 'candidateName'
+  Prelude.Text ->
+  -- | 'objectiveStatus'
   ObjectiveStatus ->
-  -- | 'amlcCandidateStatus'
+  -- | 'candidateStatus'
   CandidateStatus ->
-  -- | 'amlcCreationTime'
-  UTCTime ->
-  -- | 'amlcLastModifiedTime'
-  UTCTime ->
+  -- | 'creationTime'
+  Prelude.UTCTime ->
+  -- | 'lastModifiedTime'
+  Prelude.UTCTime ->
   AutoMLCandidate
-autoMLCandidate
+newAutoMLCandidate
   pCandidateName_
   pObjectiveStatus_
   pCandidateStatus_
   pCreationTime_
   pLastModifiedTime_ =
     AutoMLCandidate'
-      { _amlcEndTime = Nothing,
-        _amlcInferenceContainers = Nothing,
-        _amlcFailureReason = Nothing,
-        _amlcFinalAutoMLJobObjectiveMetric = Nothing,
-        _amlcCandidateName = pCandidateName_,
-        _amlcObjectiveStatus = pObjectiveStatus_,
-        _amlcCandidateSteps = mempty,
-        _amlcCandidateStatus = pCandidateStatus_,
-        _amlcCreationTime = _Time # pCreationTime_,
-        _amlcLastModifiedTime = _Time # pLastModifiedTime_
+      { endTime = Prelude.Nothing,
+        inferenceContainers = Prelude.Nothing,
+        failureReason = Prelude.Nothing,
+        finalAutoMLJobObjectiveMetric = Prelude.Nothing,
+        candidateName = pCandidateName_,
+        objectiveStatus = pObjectiveStatus_,
+        candidateSteps = Prelude.mempty,
+        candidateStatus = pCandidateStatus_,
+        creationTime = Prelude._Time Lens.# pCreationTime_,
+        lastModifiedTime =
+          Prelude._Time Lens.# pLastModifiedTime_
       }
 
 -- | The end time.
-amlcEndTime :: Lens' AutoMLCandidate (Maybe UTCTime)
-amlcEndTime = lens _amlcEndTime (\s a -> s {_amlcEndTime = a}) . mapping _Time
+autoMLCandidate_endTime :: Lens.Lens' AutoMLCandidate (Prelude.Maybe Prelude.UTCTime)
+autoMLCandidate_endTime = Lens.lens (\AutoMLCandidate' {endTime} -> endTime) (\s@AutoMLCandidate' {} a -> s {endTime = a} :: AutoMLCandidate) Prelude.. Lens.mapping Prelude._Time
 
 -- | The inference containers.
-amlcInferenceContainers :: Lens' AutoMLCandidate [AutoMLContainerDefinition]
-amlcInferenceContainers = lens _amlcInferenceContainers (\s a -> s {_amlcInferenceContainers = a}) . _Default . _Coerce
+autoMLCandidate_inferenceContainers :: Lens.Lens' AutoMLCandidate (Prelude.Maybe [AutoMLContainerDefinition])
+autoMLCandidate_inferenceContainers = Lens.lens (\AutoMLCandidate' {inferenceContainers} -> inferenceContainers) (\s@AutoMLCandidate' {} a -> s {inferenceContainers = a} :: AutoMLCandidate) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The failure reason.
-amlcFailureReason :: Lens' AutoMLCandidate (Maybe Text)
-amlcFailureReason = lens _amlcFailureReason (\s a -> s {_amlcFailureReason = a})
+autoMLCandidate_failureReason :: Lens.Lens' AutoMLCandidate (Prelude.Maybe Prelude.Text)
+autoMLCandidate_failureReason = Lens.lens (\AutoMLCandidate' {failureReason} -> failureReason) (\s@AutoMLCandidate' {} a -> s {failureReason = a} :: AutoMLCandidate)
 
 -- | Undocumented member.
-amlcFinalAutoMLJobObjectiveMetric :: Lens' AutoMLCandidate (Maybe FinalAutoMLJobObjectiveMetric)
-amlcFinalAutoMLJobObjectiveMetric = lens _amlcFinalAutoMLJobObjectiveMetric (\s a -> s {_amlcFinalAutoMLJobObjectiveMetric = a})
+autoMLCandidate_finalAutoMLJobObjectiveMetric :: Lens.Lens' AutoMLCandidate (Prelude.Maybe FinalAutoMLJobObjectiveMetric)
+autoMLCandidate_finalAutoMLJobObjectiveMetric = Lens.lens (\AutoMLCandidate' {finalAutoMLJobObjectiveMetric} -> finalAutoMLJobObjectiveMetric) (\s@AutoMLCandidate' {} a -> s {finalAutoMLJobObjectiveMetric = a} :: AutoMLCandidate)
 
 -- | The candidate name.
-amlcCandidateName :: Lens' AutoMLCandidate Text
-amlcCandidateName = lens _amlcCandidateName (\s a -> s {_amlcCandidateName = a})
+autoMLCandidate_candidateName :: Lens.Lens' AutoMLCandidate Prelude.Text
+autoMLCandidate_candidateName = Lens.lens (\AutoMLCandidate' {candidateName} -> candidateName) (\s@AutoMLCandidate' {} a -> s {candidateName = a} :: AutoMLCandidate)
 
 -- | The objective status.
-amlcObjectiveStatus :: Lens' AutoMLCandidate ObjectiveStatus
-amlcObjectiveStatus = lens _amlcObjectiveStatus (\s a -> s {_amlcObjectiveStatus = a})
+autoMLCandidate_objectiveStatus :: Lens.Lens' AutoMLCandidate ObjectiveStatus
+autoMLCandidate_objectiveStatus = Lens.lens (\AutoMLCandidate' {objectiveStatus} -> objectiveStatus) (\s@AutoMLCandidate' {} a -> s {objectiveStatus = a} :: AutoMLCandidate)
 
--- | The candidate's steps.
-amlcCandidateSteps :: Lens' AutoMLCandidate [AutoMLCandidateStep]
-amlcCandidateSteps = lens _amlcCandidateSteps (\s a -> s {_amlcCandidateSteps = a}) . _Coerce
+-- | The candidate\'s steps.
+autoMLCandidate_candidateSteps :: Lens.Lens' AutoMLCandidate [AutoMLCandidateStep]
+autoMLCandidate_candidateSteps = Lens.lens (\AutoMLCandidate' {candidateSteps} -> candidateSteps) (\s@AutoMLCandidate' {} a -> s {candidateSteps = a} :: AutoMLCandidate) Prelude.. Prelude._Coerce
 
--- | The candidate's status.
-amlcCandidateStatus :: Lens' AutoMLCandidate CandidateStatus
-amlcCandidateStatus = lens _amlcCandidateStatus (\s a -> s {_amlcCandidateStatus = a})
+-- | The candidate\'s status.
+autoMLCandidate_candidateStatus :: Lens.Lens' AutoMLCandidate CandidateStatus
+autoMLCandidate_candidateStatus = Lens.lens (\AutoMLCandidate' {candidateStatus} -> candidateStatus) (\s@AutoMLCandidate' {} a -> s {candidateStatus = a} :: AutoMLCandidate)
 
 -- | The creation time.
-amlcCreationTime :: Lens' AutoMLCandidate UTCTime
-amlcCreationTime = lens _amlcCreationTime (\s a -> s {_amlcCreationTime = a}) . _Time
+autoMLCandidate_creationTime :: Lens.Lens' AutoMLCandidate Prelude.UTCTime
+autoMLCandidate_creationTime = Lens.lens (\AutoMLCandidate' {creationTime} -> creationTime) (\s@AutoMLCandidate' {} a -> s {creationTime = a} :: AutoMLCandidate) Prelude.. Prelude._Time
 
 -- | The last modified time.
-amlcLastModifiedTime :: Lens' AutoMLCandidate UTCTime
-amlcLastModifiedTime = lens _amlcLastModifiedTime (\s a -> s {_amlcLastModifiedTime = a}) . _Time
+autoMLCandidate_lastModifiedTime :: Lens.Lens' AutoMLCandidate Prelude.UTCTime
+autoMLCandidate_lastModifiedTime = Lens.lens (\AutoMLCandidate' {lastModifiedTime} -> lastModifiedTime) (\s@AutoMLCandidate' {} a -> s {lastModifiedTime = a} :: AutoMLCandidate) Prelude.. Prelude._Time
 
-instance FromJSON AutoMLCandidate where
+instance Prelude.FromJSON AutoMLCandidate where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AutoMLCandidate"
       ( \x ->
           AutoMLCandidate'
-            <$> (x .:? "EndTime")
-            <*> (x .:? "InferenceContainers" .!= mempty)
-            <*> (x .:? "FailureReason")
-            <*> (x .:? "FinalAutoMLJobObjectiveMetric")
-            <*> (x .: "CandidateName")
-            <*> (x .: "ObjectiveStatus")
-            <*> (x .:? "CandidateSteps" .!= mempty)
-            <*> (x .: "CandidateStatus")
-            <*> (x .: "CreationTime")
-            <*> (x .: "LastModifiedTime")
+            Prelude.<$> (x Prelude..:? "EndTime")
+            Prelude.<*> ( x Prelude..:? "InferenceContainers"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "FailureReason")
+            Prelude.<*> (x Prelude..:? "FinalAutoMLJobObjectiveMetric")
+            Prelude.<*> (x Prelude..: "CandidateName")
+            Prelude.<*> (x Prelude..: "ObjectiveStatus")
+            Prelude.<*> ( x Prelude..:? "CandidateSteps"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..: "CandidateStatus")
+            Prelude.<*> (x Prelude..: "CreationTime")
+            Prelude.<*> (x Prelude..: "LastModifiedTime")
       )
 
-instance Hashable AutoMLCandidate
+instance Prelude.Hashable AutoMLCandidate
 
-instance NFData AutoMLCandidate
+instance Prelude.NFData AutoMLCandidate

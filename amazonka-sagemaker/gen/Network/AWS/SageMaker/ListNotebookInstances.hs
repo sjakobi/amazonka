@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,315 +21,390 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns a list of the Amazon SageMaker notebook instances in the requester's account in an AWS Region.
---
---
+-- Returns a list of the Amazon SageMaker notebook instances in the
+-- requester\'s account in an AWS Region.
 --
 -- This operation returns paginated results.
 module Network.AWS.SageMaker.ListNotebookInstances
   ( -- * Creating a Request
-    listNotebookInstances,
-    ListNotebookInstances,
+    ListNotebookInstances (..),
+    newListNotebookInstances,
 
     -- * Request Lenses
-    lniLastModifiedTimeBefore,
-    lniSortOrder,
-    lniNextToken,
-    lniNameContains,
-    lniAdditionalCodeRepositoryEquals,
-    lniMaxResults,
-    lniCreationTimeBefore,
-    lniLastModifiedTimeAfter,
-    lniDefaultCodeRepositoryContains,
-    lniSortBy,
-    lniStatusEquals,
-    lniNotebookInstanceLifecycleConfigNameContains,
-    lniCreationTimeAfter,
+    listNotebookInstances_lastModifiedTimeBefore,
+    listNotebookInstances_sortOrder,
+    listNotebookInstances_nextToken,
+    listNotebookInstances_nameContains,
+    listNotebookInstances_additionalCodeRepositoryEquals,
+    listNotebookInstances_maxResults,
+    listNotebookInstances_creationTimeBefore,
+    listNotebookInstances_lastModifiedTimeAfter,
+    listNotebookInstances_defaultCodeRepositoryContains,
+    listNotebookInstances_sortBy,
+    listNotebookInstances_statusEquals,
+    listNotebookInstances_notebookInstanceLifecycleConfigNameContains,
+    listNotebookInstances_creationTimeAfter,
 
     -- * Destructuring the Response
-    listNotebookInstancesResponse,
-    ListNotebookInstancesResponse,
+    ListNotebookInstancesResponse (..),
+    newListNotebookInstancesResponse,
 
     -- * Response Lenses
-    lnirrsNextToken,
-    lnirrsNotebookInstances,
-    lnirrsResponseStatus,
+    listNotebookInstancesResponse_nextToken,
+    listNotebookInstancesResponse_notebookInstances,
+    listNotebookInstancesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
+import Network.AWS.SageMaker.Types.NotebookInstanceSummary
 
--- | /See:/ 'listNotebookInstances' smart constructor.
+-- | /See:/ 'newListNotebookInstances' smart constructor.
 data ListNotebookInstances = ListNotebookInstances'
-  { _lniLastModifiedTimeBefore ::
-      !(Maybe POSIX),
-    _lniSortOrder ::
-      !( Maybe
-           NotebookInstanceSortOrder
-       ),
-    _lniNextToken ::
-      !(Maybe Text),
-    _lniNameContains ::
-      !(Maybe Text),
-    _lniAdditionalCodeRepositoryEquals ::
-      !(Maybe Text),
-    _lniMaxResults ::
-      !(Maybe Nat),
-    _lniCreationTimeBefore ::
-      !(Maybe POSIX),
-    _lniLastModifiedTimeAfter ::
-      !(Maybe POSIX),
-    _lniDefaultCodeRepositoryContains ::
-      !(Maybe Text),
-    _lniSortBy ::
-      !( Maybe
-           NotebookInstanceSortKey
-       ),
-    _lniStatusEquals ::
-      !( Maybe
-           NotebookInstanceStatus
-       ),
-    _lniNotebookInstanceLifecycleConfigNameContains ::
-      !(Maybe Text),
-    _lniCreationTimeAfter ::
-      !(Maybe POSIX)
+  { -- | A filter that returns only notebook instances that were modified before
+    -- the specified time (timestamp).
+    lastModifiedTimeBefore :: Prelude.Maybe Prelude.POSIX,
+    -- | The sort order for results.
+    sortOrder :: Prelude.Maybe NotebookInstanceSortOrder,
+    -- | If the previous call to the @ListNotebookInstances@ is truncated, the
+    -- response includes a @NextToken@. You can use this token in your
+    -- subsequent @ListNotebookInstances@ request to fetch the next set of
+    -- notebook instances.
+    --
+    -- You might specify a filter or a sort order in your request. When
+    -- response is truncated, you must use the same values for the filer and
+    -- sort order in the next request.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A string in the notebook instances\' name. This filter returns only
+    -- notebook instances whose name contains the specified string.
+    nameContains :: Prelude.Maybe Prelude.Text,
+    -- | A filter that returns only notebook instances with associated with the
+    -- specified git repository.
+    additionalCodeRepositoryEquals :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of notebook instances to return.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | A filter that returns only notebook instances that were created before
+    -- the specified time (timestamp).
+    creationTimeBefore :: Prelude.Maybe Prelude.POSIX,
+    -- | A filter that returns only notebook instances that were modified after
+    -- the specified time (timestamp).
+    lastModifiedTimeAfter :: Prelude.Maybe Prelude.POSIX,
+    -- | A string in the name or URL of a Git repository associated with this
+    -- notebook instance. This filter returns only notebook instances
+    -- associated with a git repository with a name that contains the specified
+    -- string.
+    defaultCodeRepositoryContains :: Prelude.Maybe Prelude.Text,
+    -- | The field to sort results by. The default is @Name@.
+    sortBy :: Prelude.Maybe NotebookInstanceSortKey,
+    -- | A filter that returns only notebook instances with the specified status.
+    statusEquals :: Prelude.Maybe NotebookInstanceStatus,
+    -- | A string in the name of a notebook instances lifecycle configuration
+    -- associated with this notebook instance. This filter returns only
+    -- notebook instances associated with a lifecycle configuration with a name
+    -- that contains the specified string.
+    notebookInstanceLifecycleConfigNameContains :: Prelude.Maybe Prelude.Text,
+    -- | A filter that returns only notebook instances that were created after
+    -- the specified time (timestamp).
+    creationTimeAfter :: Prelude.Maybe Prelude.POSIX
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListNotebookInstances' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListNotebookInstances' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lniLastModifiedTimeBefore' - A filter that returns only notebook instances that were modified before the specified time (timestamp).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lniSortOrder' - The sort order for results.
+-- 'lastModifiedTimeBefore', 'listNotebookInstances_lastModifiedTimeBefore' - A filter that returns only notebook instances that were modified before
+-- the specified time (timestamp).
 --
--- * 'lniNextToken' - If the previous call to the @ListNotebookInstances@ is truncated, the response includes a @NextToken@ . You can use this token in your subsequent @ListNotebookInstances@ request to fetch the next set of notebook instances.
+-- 'sortOrder', 'listNotebookInstances_sortOrder' - The sort order for results.
 --
--- * 'lniNameContains' - A string in the notebook instances' name. This filter returns only notebook instances whose name contains the specified string.
+-- 'nextToken', 'listNotebookInstances_nextToken' - If the previous call to the @ListNotebookInstances@ is truncated, the
+-- response includes a @NextToken@. You can use this token in your
+-- subsequent @ListNotebookInstances@ request to fetch the next set of
+-- notebook instances.
 --
--- * 'lniAdditionalCodeRepositoryEquals' - A filter that returns only notebook instances with associated with the specified git repository.
+-- You might specify a filter or a sort order in your request. When
+-- response is truncated, you must use the same values for the filer and
+-- sort order in the next request.
 --
--- * 'lniMaxResults' - The maximum number of notebook instances to return.
+-- 'nameContains', 'listNotebookInstances_nameContains' - A string in the notebook instances\' name. This filter returns only
+-- notebook instances whose name contains the specified string.
 --
--- * 'lniCreationTimeBefore' - A filter that returns only notebook instances that were created before the specified time (timestamp).
+-- 'additionalCodeRepositoryEquals', 'listNotebookInstances_additionalCodeRepositoryEquals' - A filter that returns only notebook instances with associated with the
+-- specified git repository.
 --
--- * 'lniLastModifiedTimeAfter' - A filter that returns only notebook instances that were modified after the specified time (timestamp).
+-- 'maxResults', 'listNotebookInstances_maxResults' - The maximum number of notebook instances to return.
 --
--- * 'lniDefaultCodeRepositoryContains' - A string in the name or URL of a Git repository associated with this notebook instance. This filter returns only notebook instances associated with a git repository with a name that contains the specified string.
+-- 'creationTimeBefore', 'listNotebookInstances_creationTimeBefore' - A filter that returns only notebook instances that were created before
+-- the specified time (timestamp).
 --
--- * 'lniSortBy' - The field to sort results by. The default is @Name@ .
+-- 'lastModifiedTimeAfter', 'listNotebookInstances_lastModifiedTimeAfter' - A filter that returns only notebook instances that were modified after
+-- the specified time (timestamp).
 --
--- * 'lniStatusEquals' - A filter that returns only notebook instances with the specified status.
+-- 'defaultCodeRepositoryContains', 'listNotebookInstances_defaultCodeRepositoryContains' - A string in the name or URL of a Git repository associated with this
+-- notebook instance. This filter returns only notebook instances
+-- associated with a git repository with a name that contains the specified
+-- string.
 --
--- * 'lniNotebookInstanceLifecycleConfigNameContains' - A string in the name of a notebook instances lifecycle configuration associated with this notebook instance. This filter returns only notebook instances associated with a lifecycle configuration with a name that contains the specified string.
+-- 'sortBy', 'listNotebookInstances_sortBy' - The field to sort results by. The default is @Name@.
 --
--- * 'lniCreationTimeAfter' - A filter that returns only notebook instances that were created after the specified time (timestamp).
-listNotebookInstances ::
+-- 'statusEquals', 'listNotebookInstances_statusEquals' - A filter that returns only notebook instances with the specified status.
+--
+-- 'notebookInstanceLifecycleConfigNameContains', 'listNotebookInstances_notebookInstanceLifecycleConfigNameContains' - A string in the name of a notebook instances lifecycle configuration
+-- associated with this notebook instance. This filter returns only
+-- notebook instances associated with a lifecycle configuration with a name
+-- that contains the specified string.
+--
+-- 'creationTimeAfter', 'listNotebookInstances_creationTimeAfter' - A filter that returns only notebook instances that were created after
+-- the specified time (timestamp).
+newListNotebookInstances ::
   ListNotebookInstances
-listNotebookInstances =
+newListNotebookInstances =
   ListNotebookInstances'
-    { _lniLastModifiedTimeBefore =
-        Nothing,
-      _lniSortOrder = Nothing,
-      _lniNextToken = Nothing,
-      _lniNameContains = Nothing,
-      _lniAdditionalCodeRepositoryEquals = Nothing,
-      _lniMaxResults = Nothing,
-      _lniCreationTimeBefore = Nothing,
-      _lniLastModifiedTimeAfter = Nothing,
-      _lniDefaultCodeRepositoryContains = Nothing,
-      _lniSortBy = Nothing,
-      _lniStatusEquals = Nothing,
-      _lniNotebookInstanceLifecycleConfigNameContains =
-        Nothing,
-      _lniCreationTimeAfter = Nothing
+    { lastModifiedTimeBefore =
+        Prelude.Nothing,
+      sortOrder = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      nameContains = Prelude.Nothing,
+      additionalCodeRepositoryEquals = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      creationTimeBefore = Prelude.Nothing,
+      lastModifiedTimeAfter = Prelude.Nothing,
+      defaultCodeRepositoryContains = Prelude.Nothing,
+      sortBy = Prelude.Nothing,
+      statusEquals = Prelude.Nothing,
+      notebookInstanceLifecycleConfigNameContains =
+        Prelude.Nothing,
+      creationTimeAfter = Prelude.Nothing
     }
 
--- | A filter that returns only notebook instances that were modified before the specified time (timestamp).
-lniLastModifiedTimeBefore :: Lens' ListNotebookInstances (Maybe UTCTime)
-lniLastModifiedTimeBefore = lens _lniLastModifiedTimeBefore (\s a -> s {_lniLastModifiedTimeBefore = a}) . mapping _Time
+-- | A filter that returns only notebook instances that were modified before
+-- the specified time (timestamp).
+listNotebookInstances_lastModifiedTimeBefore :: Lens.Lens' ListNotebookInstances (Prelude.Maybe Prelude.UTCTime)
+listNotebookInstances_lastModifiedTimeBefore = Lens.lens (\ListNotebookInstances' {lastModifiedTimeBefore} -> lastModifiedTimeBefore) (\s@ListNotebookInstances' {} a -> s {lastModifiedTimeBefore = a} :: ListNotebookInstances) Prelude.. Lens.mapping Prelude._Time
 
 -- | The sort order for results.
-lniSortOrder :: Lens' ListNotebookInstances (Maybe NotebookInstanceSortOrder)
-lniSortOrder = lens _lniSortOrder (\s a -> s {_lniSortOrder = a})
+listNotebookInstances_sortOrder :: Lens.Lens' ListNotebookInstances (Prelude.Maybe NotebookInstanceSortOrder)
+listNotebookInstances_sortOrder = Lens.lens (\ListNotebookInstances' {sortOrder} -> sortOrder) (\s@ListNotebookInstances' {} a -> s {sortOrder = a} :: ListNotebookInstances)
 
--- | If the previous call to the @ListNotebookInstances@ is truncated, the response includes a @NextToken@ . You can use this token in your subsequent @ListNotebookInstances@ request to fetch the next set of notebook instances.
-lniNextToken :: Lens' ListNotebookInstances (Maybe Text)
-lniNextToken = lens _lniNextToken (\s a -> s {_lniNextToken = a})
+-- | If the previous call to the @ListNotebookInstances@ is truncated, the
+-- response includes a @NextToken@. You can use this token in your
+-- subsequent @ListNotebookInstances@ request to fetch the next set of
+-- notebook instances.
+--
+-- You might specify a filter or a sort order in your request. When
+-- response is truncated, you must use the same values for the filer and
+-- sort order in the next request.
+listNotebookInstances_nextToken :: Lens.Lens' ListNotebookInstances (Prelude.Maybe Prelude.Text)
+listNotebookInstances_nextToken = Lens.lens (\ListNotebookInstances' {nextToken} -> nextToken) (\s@ListNotebookInstances' {} a -> s {nextToken = a} :: ListNotebookInstances)
 
--- | A string in the notebook instances' name. This filter returns only notebook instances whose name contains the specified string.
-lniNameContains :: Lens' ListNotebookInstances (Maybe Text)
-lniNameContains = lens _lniNameContains (\s a -> s {_lniNameContains = a})
+-- | A string in the notebook instances\' name. This filter returns only
+-- notebook instances whose name contains the specified string.
+listNotebookInstances_nameContains :: Lens.Lens' ListNotebookInstances (Prelude.Maybe Prelude.Text)
+listNotebookInstances_nameContains = Lens.lens (\ListNotebookInstances' {nameContains} -> nameContains) (\s@ListNotebookInstances' {} a -> s {nameContains = a} :: ListNotebookInstances)
 
--- | A filter that returns only notebook instances with associated with the specified git repository.
-lniAdditionalCodeRepositoryEquals :: Lens' ListNotebookInstances (Maybe Text)
-lniAdditionalCodeRepositoryEquals = lens _lniAdditionalCodeRepositoryEquals (\s a -> s {_lniAdditionalCodeRepositoryEquals = a})
+-- | A filter that returns only notebook instances with associated with the
+-- specified git repository.
+listNotebookInstances_additionalCodeRepositoryEquals :: Lens.Lens' ListNotebookInstances (Prelude.Maybe Prelude.Text)
+listNotebookInstances_additionalCodeRepositoryEquals = Lens.lens (\ListNotebookInstances' {additionalCodeRepositoryEquals} -> additionalCodeRepositoryEquals) (\s@ListNotebookInstances' {} a -> s {additionalCodeRepositoryEquals = a} :: ListNotebookInstances)
 
 -- | The maximum number of notebook instances to return.
-lniMaxResults :: Lens' ListNotebookInstances (Maybe Natural)
-lniMaxResults = lens _lniMaxResults (\s a -> s {_lniMaxResults = a}) . mapping _Nat
+listNotebookInstances_maxResults :: Lens.Lens' ListNotebookInstances (Prelude.Maybe Prelude.Natural)
+listNotebookInstances_maxResults = Lens.lens (\ListNotebookInstances' {maxResults} -> maxResults) (\s@ListNotebookInstances' {} a -> s {maxResults = a} :: ListNotebookInstances) Prelude.. Lens.mapping Prelude._Nat
 
--- | A filter that returns only notebook instances that were created before the specified time (timestamp).
-lniCreationTimeBefore :: Lens' ListNotebookInstances (Maybe UTCTime)
-lniCreationTimeBefore = lens _lniCreationTimeBefore (\s a -> s {_lniCreationTimeBefore = a}) . mapping _Time
+-- | A filter that returns only notebook instances that were created before
+-- the specified time (timestamp).
+listNotebookInstances_creationTimeBefore :: Lens.Lens' ListNotebookInstances (Prelude.Maybe Prelude.UTCTime)
+listNotebookInstances_creationTimeBefore = Lens.lens (\ListNotebookInstances' {creationTimeBefore} -> creationTimeBefore) (\s@ListNotebookInstances' {} a -> s {creationTimeBefore = a} :: ListNotebookInstances) Prelude.. Lens.mapping Prelude._Time
 
--- | A filter that returns only notebook instances that were modified after the specified time (timestamp).
-lniLastModifiedTimeAfter :: Lens' ListNotebookInstances (Maybe UTCTime)
-lniLastModifiedTimeAfter = lens _lniLastModifiedTimeAfter (\s a -> s {_lniLastModifiedTimeAfter = a}) . mapping _Time
+-- | A filter that returns only notebook instances that were modified after
+-- the specified time (timestamp).
+listNotebookInstances_lastModifiedTimeAfter :: Lens.Lens' ListNotebookInstances (Prelude.Maybe Prelude.UTCTime)
+listNotebookInstances_lastModifiedTimeAfter = Lens.lens (\ListNotebookInstances' {lastModifiedTimeAfter} -> lastModifiedTimeAfter) (\s@ListNotebookInstances' {} a -> s {lastModifiedTimeAfter = a} :: ListNotebookInstances) Prelude.. Lens.mapping Prelude._Time
 
--- | A string in the name or URL of a Git repository associated with this notebook instance. This filter returns only notebook instances associated with a git repository with a name that contains the specified string.
-lniDefaultCodeRepositoryContains :: Lens' ListNotebookInstances (Maybe Text)
-lniDefaultCodeRepositoryContains = lens _lniDefaultCodeRepositoryContains (\s a -> s {_lniDefaultCodeRepositoryContains = a})
+-- | A string in the name or URL of a Git repository associated with this
+-- notebook instance. This filter returns only notebook instances
+-- associated with a git repository with a name that contains the specified
+-- string.
+listNotebookInstances_defaultCodeRepositoryContains :: Lens.Lens' ListNotebookInstances (Prelude.Maybe Prelude.Text)
+listNotebookInstances_defaultCodeRepositoryContains = Lens.lens (\ListNotebookInstances' {defaultCodeRepositoryContains} -> defaultCodeRepositoryContains) (\s@ListNotebookInstances' {} a -> s {defaultCodeRepositoryContains = a} :: ListNotebookInstances)
 
--- | The field to sort results by. The default is @Name@ .
-lniSortBy :: Lens' ListNotebookInstances (Maybe NotebookInstanceSortKey)
-lniSortBy = lens _lniSortBy (\s a -> s {_lniSortBy = a})
+-- | The field to sort results by. The default is @Name@.
+listNotebookInstances_sortBy :: Lens.Lens' ListNotebookInstances (Prelude.Maybe NotebookInstanceSortKey)
+listNotebookInstances_sortBy = Lens.lens (\ListNotebookInstances' {sortBy} -> sortBy) (\s@ListNotebookInstances' {} a -> s {sortBy = a} :: ListNotebookInstances)
 
 -- | A filter that returns only notebook instances with the specified status.
-lniStatusEquals :: Lens' ListNotebookInstances (Maybe NotebookInstanceStatus)
-lniStatusEquals = lens _lniStatusEquals (\s a -> s {_lniStatusEquals = a})
+listNotebookInstances_statusEquals :: Lens.Lens' ListNotebookInstances (Prelude.Maybe NotebookInstanceStatus)
+listNotebookInstances_statusEquals = Lens.lens (\ListNotebookInstances' {statusEquals} -> statusEquals) (\s@ListNotebookInstances' {} a -> s {statusEquals = a} :: ListNotebookInstances)
 
--- | A string in the name of a notebook instances lifecycle configuration associated with this notebook instance. This filter returns only notebook instances associated with a lifecycle configuration with a name that contains the specified string.
-lniNotebookInstanceLifecycleConfigNameContains :: Lens' ListNotebookInstances (Maybe Text)
-lniNotebookInstanceLifecycleConfigNameContains = lens _lniNotebookInstanceLifecycleConfigNameContains (\s a -> s {_lniNotebookInstanceLifecycleConfigNameContains = a})
+-- | A string in the name of a notebook instances lifecycle configuration
+-- associated with this notebook instance. This filter returns only
+-- notebook instances associated with a lifecycle configuration with a name
+-- that contains the specified string.
+listNotebookInstances_notebookInstanceLifecycleConfigNameContains :: Lens.Lens' ListNotebookInstances (Prelude.Maybe Prelude.Text)
+listNotebookInstances_notebookInstanceLifecycleConfigNameContains = Lens.lens (\ListNotebookInstances' {notebookInstanceLifecycleConfigNameContains} -> notebookInstanceLifecycleConfigNameContains) (\s@ListNotebookInstances' {} a -> s {notebookInstanceLifecycleConfigNameContains = a} :: ListNotebookInstances)
 
--- | A filter that returns only notebook instances that were created after the specified time (timestamp).
-lniCreationTimeAfter :: Lens' ListNotebookInstances (Maybe UTCTime)
-lniCreationTimeAfter = lens _lniCreationTimeAfter (\s a -> s {_lniCreationTimeAfter = a}) . mapping _Time
+-- | A filter that returns only notebook instances that were created after
+-- the specified time (timestamp).
+listNotebookInstances_creationTimeAfter :: Lens.Lens' ListNotebookInstances (Prelude.Maybe Prelude.UTCTime)
+listNotebookInstances_creationTimeAfter = Lens.lens (\ListNotebookInstances' {creationTimeAfter} -> creationTimeAfter) (\s@ListNotebookInstances' {} a -> s {creationTimeAfter = a} :: ListNotebookInstances) Prelude.. Lens.mapping Prelude._Time
 
-instance AWSPager ListNotebookInstances where
+instance Pager.AWSPager ListNotebookInstances where
   page rq rs
-    | stop (rs ^. lnirrsNextToken) = Nothing
-    | stop (rs ^. lnirrsNotebookInstances) = Nothing
-    | otherwise =
-      Just $ rq & lniNextToken .~ rs ^. lnirrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listNotebookInstancesResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listNotebookInstancesResponse_notebookInstances
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listNotebookInstances_nextToken
+          Lens..~ rs
+          Lens.^? listNotebookInstancesResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListNotebookInstances where
+instance Prelude.AWSRequest ListNotebookInstances where
   type
     Rs ListNotebookInstances =
       ListNotebookInstancesResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListNotebookInstancesResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "NotebookInstances" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "NotebookInstances"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListNotebookInstances
+instance Prelude.Hashable ListNotebookInstances
 
-instance NFData ListNotebookInstances
+instance Prelude.NFData ListNotebookInstances
 
-instance ToHeaders ListNotebookInstances where
+instance Prelude.ToHeaders ListNotebookInstances where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.ListNotebookInstances" :: ByteString),
+              Prelude.=# ( "SageMaker.ListNotebookInstances" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListNotebookInstances where
+instance Prelude.ToJSON ListNotebookInstances where
   toJSON ListNotebookInstances' {..} =
-    object
-      ( catMaybes
-          [ ("LastModifiedTimeBefore" .=)
-              <$> _lniLastModifiedTimeBefore,
-            ("SortOrder" .=) <$> _lniSortOrder,
-            ("NextToken" .=) <$> _lniNextToken,
-            ("NameContains" .=) <$> _lniNameContains,
-            ("AdditionalCodeRepositoryEquals" .=)
-              <$> _lniAdditionalCodeRepositoryEquals,
-            ("MaxResults" .=) <$> _lniMaxResults,
-            ("CreationTimeBefore" .=) <$> _lniCreationTimeBefore,
-            ("LastModifiedTimeAfter" .=)
-              <$> _lniLastModifiedTimeAfter,
-            ("DefaultCodeRepositoryContains" .=)
-              <$> _lniDefaultCodeRepositoryContains,
-            ("SortBy" .=) <$> _lniSortBy,
-            ("StatusEquals" .=) <$> _lniStatusEquals,
-            ("NotebookInstanceLifecycleConfigNameContains" .=)
-              <$> _lniNotebookInstanceLifecycleConfigNameContains,
-            ("CreationTimeAfter" .=) <$> _lniCreationTimeAfter
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("LastModifiedTimeBefore" Prelude..=)
+              Prelude.<$> lastModifiedTimeBefore,
+            ("SortOrder" Prelude..=) Prelude.<$> sortOrder,
+            ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("NameContains" Prelude..=) Prelude.<$> nameContains,
+            ("AdditionalCodeRepositoryEquals" Prelude..=)
+              Prelude.<$> additionalCodeRepositoryEquals,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("CreationTimeBefore" Prelude..=)
+              Prelude.<$> creationTimeBefore,
+            ("LastModifiedTimeAfter" Prelude..=)
+              Prelude.<$> lastModifiedTimeAfter,
+            ("DefaultCodeRepositoryContains" Prelude..=)
+              Prelude.<$> defaultCodeRepositoryContains,
+            ("SortBy" Prelude..=) Prelude.<$> sortBy,
+            ("StatusEquals" Prelude..=) Prelude.<$> statusEquals,
+            ( "NotebookInstanceLifecycleConfigNameContains"
+                Prelude..=
+            )
+              Prelude.<$> notebookInstanceLifecycleConfigNameContains,
+            ("CreationTimeAfter" Prelude..=)
+              Prelude.<$> creationTimeAfter
           ]
       )
 
-instance ToPath ListNotebookInstances where
-  toPath = const "/"
+instance Prelude.ToPath ListNotebookInstances where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListNotebookInstances where
-  toQuery = const mempty
+instance Prelude.ToQuery ListNotebookInstances where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listNotebookInstancesResponse' smart constructor.
+-- | /See:/ 'newListNotebookInstancesResponse' smart constructor.
 data ListNotebookInstancesResponse = ListNotebookInstancesResponse'
-  { _lnirrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _lnirrsNotebookInstances ::
-      !( Maybe
-           [NotebookInstanceSummary]
-       ),
-    _lnirrsResponseStatus ::
-      !Int
+  { -- | If the response to the previous @ListNotebookInstances@ request was
+    -- truncated, Amazon SageMaker returns this token. To retrieve the next set
+    -- of notebook instances, use the token in the next request.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | An array of @NotebookInstanceSummary@ objects, one for each notebook
+    -- instance.
+    notebookInstances :: Prelude.Maybe [NotebookInstanceSummary],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListNotebookInstancesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListNotebookInstancesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lnirrsNextToken' - If the response to the previous @ListNotebookInstances@ request was truncated, Amazon SageMaker returns this token. To retrieve the next set of notebook instances, use the token in the next request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lnirrsNotebookInstances' - An array of @NotebookInstanceSummary@ objects, one for each notebook instance.
+-- 'nextToken', 'listNotebookInstancesResponse_nextToken' - If the response to the previous @ListNotebookInstances@ request was
+-- truncated, Amazon SageMaker returns this token. To retrieve the next set
+-- of notebook instances, use the token in the next request.
 --
--- * 'lnirrsResponseStatus' - -- | The response status code.
-listNotebookInstancesResponse ::
-  -- | 'lnirrsResponseStatus'
-  Int ->
+-- 'notebookInstances', 'listNotebookInstancesResponse_notebookInstances' - An array of @NotebookInstanceSummary@ objects, one for each notebook
+-- instance.
+--
+-- 'httpStatus', 'listNotebookInstancesResponse_httpStatus' - The response's http status code.
+newListNotebookInstancesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListNotebookInstancesResponse
-listNotebookInstancesResponse pResponseStatus_ =
+newListNotebookInstancesResponse pHttpStatus_ =
   ListNotebookInstancesResponse'
-    { _lnirrsNextToken =
-        Nothing,
-      _lnirrsNotebookInstances = Nothing,
-      _lnirrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      notebookInstances = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | If the response to the previous @ListNotebookInstances@ request was truncated, Amazon SageMaker returns this token. To retrieve the next set of notebook instances, use the token in the next request.
-lnirrsNextToken :: Lens' ListNotebookInstancesResponse (Maybe Text)
-lnirrsNextToken = lens _lnirrsNextToken (\s a -> s {_lnirrsNextToken = a})
+-- | If the response to the previous @ListNotebookInstances@ request was
+-- truncated, Amazon SageMaker returns this token. To retrieve the next set
+-- of notebook instances, use the token in the next request.
+listNotebookInstancesResponse_nextToken :: Lens.Lens' ListNotebookInstancesResponse (Prelude.Maybe Prelude.Text)
+listNotebookInstancesResponse_nextToken = Lens.lens (\ListNotebookInstancesResponse' {nextToken} -> nextToken) (\s@ListNotebookInstancesResponse' {} a -> s {nextToken = a} :: ListNotebookInstancesResponse)
 
--- | An array of @NotebookInstanceSummary@ objects, one for each notebook instance.
-lnirrsNotebookInstances :: Lens' ListNotebookInstancesResponse [NotebookInstanceSummary]
-lnirrsNotebookInstances = lens _lnirrsNotebookInstances (\s a -> s {_lnirrsNotebookInstances = a}) . _Default . _Coerce
+-- | An array of @NotebookInstanceSummary@ objects, one for each notebook
+-- instance.
+listNotebookInstancesResponse_notebookInstances :: Lens.Lens' ListNotebookInstancesResponse (Prelude.Maybe [NotebookInstanceSummary])
+listNotebookInstancesResponse_notebookInstances = Lens.lens (\ListNotebookInstancesResponse' {notebookInstances} -> notebookInstances) (\s@ListNotebookInstancesResponse' {} a -> s {notebookInstances = a} :: ListNotebookInstancesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lnirrsResponseStatus :: Lens' ListNotebookInstancesResponse Int
-lnirrsResponseStatus = lens _lnirrsResponseStatus (\s a -> s {_lnirrsResponseStatus = a})
+-- | The response's http status code.
+listNotebookInstancesResponse_httpStatus :: Lens.Lens' ListNotebookInstancesResponse Prelude.Int
+listNotebookInstancesResponse_httpStatus = Lens.lens (\ListNotebookInstancesResponse' {httpStatus} -> httpStatus) (\s@ListNotebookInstancesResponse' {} a -> s {httpStatus = a} :: ListNotebookInstancesResponse)
 
-instance NFData ListNotebookInstancesResponse
+instance Prelude.NFData ListNotebookInstancesResponse

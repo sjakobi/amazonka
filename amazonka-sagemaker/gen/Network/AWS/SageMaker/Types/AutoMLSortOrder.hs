@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.SageMaker.Types.AutoMLSortOrder
   ( AutoMLSortOrder
       ( ..,
-        AMLSOAscending,
-        AMLSODescending
+        AutoMLSortOrderAscending,
+        AutoMLSortOrderDescending
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AutoMLSortOrder = AutoMLSortOrder' (CI Text)
+newtype AutoMLSortOrder = AutoMLSortOrder'
+  { fromAutoMLSortOrder ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AMLSOAscending :: AutoMLSortOrder
-pattern AMLSOAscending = AutoMLSortOrder' "Ascending"
+pattern AutoMLSortOrderAscending :: AutoMLSortOrder
+pattern AutoMLSortOrderAscending = AutoMLSortOrder' "Ascending"
 
-pattern AMLSODescending :: AutoMLSortOrder
-pattern AMLSODescending = AutoMLSortOrder' "Descending"
+pattern AutoMLSortOrderDescending :: AutoMLSortOrder
+pattern AutoMLSortOrderDescending = AutoMLSortOrder' "Descending"
 
 {-# COMPLETE
-  AMLSOAscending,
-  AMLSODescending,
+  AutoMLSortOrderAscending,
+  AutoMLSortOrderDescending,
   AutoMLSortOrder'
   #-}
 
-instance FromText AutoMLSortOrder where
-  parser = (AutoMLSortOrder' . mk) <$> takeText
+instance Prelude.FromText AutoMLSortOrder where
+  parser = AutoMLSortOrder' Prelude.<$> Prelude.takeText
 
-instance ToText AutoMLSortOrder where
-  toText (AutoMLSortOrder' ci) = original ci
+instance Prelude.ToText AutoMLSortOrder where
+  toText (AutoMLSortOrder' x) = x
 
-instance Hashable AutoMLSortOrder
+instance Prelude.Hashable AutoMLSortOrder
 
-instance NFData AutoMLSortOrder
+instance Prelude.NFData AutoMLSortOrder
 
-instance ToByteString AutoMLSortOrder
+instance Prelude.ToByteString AutoMLSortOrder
 
-instance ToQuery AutoMLSortOrder
+instance Prelude.ToQuery AutoMLSortOrder
 
-instance ToHeader AutoMLSortOrder
+instance Prelude.ToHeader AutoMLSortOrder
 
-instance ToJSON AutoMLSortOrder where
-  toJSON = toJSONText
+instance Prelude.ToJSON AutoMLSortOrder where
+  toJSON = Prelude.toJSONText

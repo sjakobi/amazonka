@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,146 +19,139 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.MonitoringScheduleSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.MonitoringType
 import Network.AWS.SageMaker.Types.ScheduleStatus
 
 -- | Summarizes the monitoring schedule.
 --
---
---
--- /See:/ 'monitoringScheduleSummary' smart constructor.
+-- /See:/ 'newMonitoringScheduleSummary' smart constructor.
 data MonitoringScheduleSummary = MonitoringScheduleSummary'
-  { _mssEndpointName ::
-      !(Maybe Text),
-    _mssMonitoringType ::
-      !( Maybe
-           MonitoringType
-       ),
-    _mssMonitoringJobDefinitionName ::
-      !(Maybe Text),
-    _mssMonitoringScheduleName ::
-      !Text,
-    _mssMonitoringScheduleARN ::
-      !Text,
-    _mssCreationTime ::
-      !POSIX,
-    _mssLastModifiedTime ::
-      !POSIX,
-    _mssMonitoringScheduleStatus ::
-      !ScheduleStatus
+  { -- | The name of the endpoint using the monitoring schedule.
+    endpointName :: Prelude.Maybe Prelude.Text,
+    -- | The type of the monitoring job definition that the schedule is for.
+    monitoringType :: Prelude.Maybe MonitoringType,
+    -- | The name of the monitoring job definition that the schedule is for.
+    monitoringJobDefinitionName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the monitoring schedule.
+    monitoringScheduleName :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the monitoring schedule.
+    monitoringScheduleArn :: Prelude.Text,
+    -- | The creation time of the monitoring schedule.
+    creationTime :: Prelude.POSIX,
+    -- | The last time the monitoring schedule was modified.
+    lastModifiedTime :: Prelude.POSIX,
+    -- | The status of the monitoring schedule.
+    monitoringScheduleStatus :: ScheduleStatus
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MonitoringScheduleSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MonitoringScheduleSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mssEndpointName' - The name of the endpoint using the monitoring schedule.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mssMonitoringType' - The type of the monitoring job definition that the schedule is for.
+-- 'endpointName', 'monitoringScheduleSummary_endpointName' - The name of the endpoint using the monitoring schedule.
 --
--- * 'mssMonitoringJobDefinitionName' - The name of the monitoring job definition that the schedule is for.
+-- 'monitoringType', 'monitoringScheduleSummary_monitoringType' - The type of the monitoring job definition that the schedule is for.
 --
--- * 'mssMonitoringScheduleName' - The name of the monitoring schedule.
+-- 'monitoringJobDefinitionName', 'monitoringScheduleSummary_monitoringJobDefinitionName' - The name of the monitoring job definition that the schedule is for.
 --
--- * 'mssMonitoringScheduleARN' - The Amazon Resource Name (ARN) of the monitoring schedule.
+-- 'monitoringScheduleName', 'monitoringScheduleSummary_monitoringScheduleName' - The name of the monitoring schedule.
 --
--- * 'mssCreationTime' - The creation time of the monitoring schedule.
+-- 'monitoringScheduleArn', 'monitoringScheduleSummary_monitoringScheduleArn' - The Amazon Resource Name (ARN) of the monitoring schedule.
 --
--- * 'mssLastModifiedTime' - The last time the monitoring schedule was modified.
+-- 'creationTime', 'monitoringScheduleSummary_creationTime' - The creation time of the monitoring schedule.
 --
--- * 'mssMonitoringScheduleStatus' - The status of the monitoring schedule.
-monitoringScheduleSummary ::
-  -- | 'mssMonitoringScheduleName'
-  Text ->
-  -- | 'mssMonitoringScheduleARN'
-  Text ->
-  -- | 'mssCreationTime'
-  UTCTime ->
-  -- | 'mssLastModifiedTime'
-  UTCTime ->
-  -- | 'mssMonitoringScheduleStatus'
+-- 'lastModifiedTime', 'monitoringScheduleSummary_lastModifiedTime' - The last time the monitoring schedule was modified.
+--
+-- 'monitoringScheduleStatus', 'monitoringScheduleSummary_monitoringScheduleStatus' - The status of the monitoring schedule.
+newMonitoringScheduleSummary ::
+  -- | 'monitoringScheduleName'
+  Prelude.Text ->
+  -- | 'monitoringScheduleArn'
+  Prelude.Text ->
+  -- | 'creationTime'
+  Prelude.UTCTime ->
+  -- | 'lastModifiedTime'
+  Prelude.UTCTime ->
+  -- | 'monitoringScheduleStatus'
   ScheduleStatus ->
   MonitoringScheduleSummary
-monitoringScheduleSummary
+newMonitoringScheduleSummary
   pMonitoringScheduleName_
-  pMonitoringScheduleARN_
+  pMonitoringScheduleArn_
   pCreationTime_
   pLastModifiedTime_
   pMonitoringScheduleStatus_ =
     MonitoringScheduleSummary'
-      { _mssEndpointName =
-          Nothing,
-        _mssMonitoringType = Nothing,
-        _mssMonitoringJobDefinitionName = Nothing,
-        _mssMonitoringScheduleName =
+      { endpointName =
+          Prelude.Nothing,
+        monitoringType = Prelude.Nothing,
+        monitoringJobDefinitionName = Prelude.Nothing,
+        monitoringScheduleName =
           pMonitoringScheduleName_,
-        _mssMonitoringScheduleARN =
-          pMonitoringScheduleARN_,
-        _mssCreationTime = _Time # pCreationTime_,
-        _mssLastModifiedTime =
-          _Time # pLastModifiedTime_,
-        _mssMonitoringScheduleStatus =
+        monitoringScheduleArn = pMonitoringScheduleArn_,
+        creationTime =
+          Prelude._Time Lens.# pCreationTime_,
+        lastModifiedTime =
+          Prelude._Time Lens.# pLastModifiedTime_,
+        monitoringScheduleStatus =
           pMonitoringScheduleStatus_
       }
 
 -- | The name of the endpoint using the monitoring schedule.
-mssEndpointName :: Lens' MonitoringScheduleSummary (Maybe Text)
-mssEndpointName = lens _mssEndpointName (\s a -> s {_mssEndpointName = a})
+monitoringScheduleSummary_endpointName :: Lens.Lens' MonitoringScheduleSummary (Prelude.Maybe Prelude.Text)
+monitoringScheduleSummary_endpointName = Lens.lens (\MonitoringScheduleSummary' {endpointName} -> endpointName) (\s@MonitoringScheduleSummary' {} a -> s {endpointName = a} :: MonitoringScheduleSummary)
 
 -- | The type of the monitoring job definition that the schedule is for.
-mssMonitoringType :: Lens' MonitoringScheduleSummary (Maybe MonitoringType)
-mssMonitoringType = lens _mssMonitoringType (\s a -> s {_mssMonitoringType = a})
+monitoringScheduleSummary_monitoringType :: Lens.Lens' MonitoringScheduleSummary (Prelude.Maybe MonitoringType)
+monitoringScheduleSummary_monitoringType = Lens.lens (\MonitoringScheduleSummary' {monitoringType} -> monitoringType) (\s@MonitoringScheduleSummary' {} a -> s {monitoringType = a} :: MonitoringScheduleSummary)
 
 -- | The name of the monitoring job definition that the schedule is for.
-mssMonitoringJobDefinitionName :: Lens' MonitoringScheduleSummary (Maybe Text)
-mssMonitoringJobDefinitionName = lens _mssMonitoringJobDefinitionName (\s a -> s {_mssMonitoringJobDefinitionName = a})
+monitoringScheduleSummary_monitoringJobDefinitionName :: Lens.Lens' MonitoringScheduleSummary (Prelude.Maybe Prelude.Text)
+monitoringScheduleSummary_monitoringJobDefinitionName = Lens.lens (\MonitoringScheduleSummary' {monitoringJobDefinitionName} -> monitoringJobDefinitionName) (\s@MonitoringScheduleSummary' {} a -> s {monitoringJobDefinitionName = a} :: MonitoringScheduleSummary)
 
 -- | The name of the monitoring schedule.
-mssMonitoringScheduleName :: Lens' MonitoringScheduleSummary Text
-mssMonitoringScheduleName = lens _mssMonitoringScheduleName (\s a -> s {_mssMonitoringScheduleName = a})
+monitoringScheduleSummary_monitoringScheduleName :: Lens.Lens' MonitoringScheduleSummary Prelude.Text
+monitoringScheduleSummary_monitoringScheduleName = Lens.lens (\MonitoringScheduleSummary' {monitoringScheduleName} -> monitoringScheduleName) (\s@MonitoringScheduleSummary' {} a -> s {monitoringScheduleName = a} :: MonitoringScheduleSummary)
 
 -- | The Amazon Resource Name (ARN) of the monitoring schedule.
-mssMonitoringScheduleARN :: Lens' MonitoringScheduleSummary Text
-mssMonitoringScheduleARN = lens _mssMonitoringScheduleARN (\s a -> s {_mssMonitoringScheduleARN = a})
+monitoringScheduleSummary_monitoringScheduleArn :: Lens.Lens' MonitoringScheduleSummary Prelude.Text
+monitoringScheduleSummary_monitoringScheduleArn = Lens.lens (\MonitoringScheduleSummary' {monitoringScheduleArn} -> monitoringScheduleArn) (\s@MonitoringScheduleSummary' {} a -> s {monitoringScheduleArn = a} :: MonitoringScheduleSummary)
 
 -- | The creation time of the monitoring schedule.
-mssCreationTime :: Lens' MonitoringScheduleSummary UTCTime
-mssCreationTime = lens _mssCreationTime (\s a -> s {_mssCreationTime = a}) . _Time
+monitoringScheduleSummary_creationTime :: Lens.Lens' MonitoringScheduleSummary Prelude.UTCTime
+monitoringScheduleSummary_creationTime = Lens.lens (\MonitoringScheduleSummary' {creationTime} -> creationTime) (\s@MonitoringScheduleSummary' {} a -> s {creationTime = a} :: MonitoringScheduleSummary) Prelude.. Prelude._Time
 
 -- | The last time the monitoring schedule was modified.
-mssLastModifiedTime :: Lens' MonitoringScheduleSummary UTCTime
-mssLastModifiedTime = lens _mssLastModifiedTime (\s a -> s {_mssLastModifiedTime = a}) . _Time
+monitoringScheduleSummary_lastModifiedTime :: Lens.Lens' MonitoringScheduleSummary Prelude.UTCTime
+monitoringScheduleSummary_lastModifiedTime = Lens.lens (\MonitoringScheduleSummary' {lastModifiedTime} -> lastModifiedTime) (\s@MonitoringScheduleSummary' {} a -> s {lastModifiedTime = a} :: MonitoringScheduleSummary) Prelude.. Prelude._Time
 
 -- | The status of the monitoring schedule.
-mssMonitoringScheduleStatus :: Lens' MonitoringScheduleSummary ScheduleStatus
-mssMonitoringScheduleStatus = lens _mssMonitoringScheduleStatus (\s a -> s {_mssMonitoringScheduleStatus = a})
+monitoringScheduleSummary_monitoringScheduleStatus :: Lens.Lens' MonitoringScheduleSummary ScheduleStatus
+monitoringScheduleSummary_monitoringScheduleStatus = Lens.lens (\MonitoringScheduleSummary' {monitoringScheduleStatus} -> monitoringScheduleStatus) (\s@MonitoringScheduleSummary' {} a -> s {monitoringScheduleStatus = a} :: MonitoringScheduleSummary)
 
-instance FromJSON MonitoringScheduleSummary where
+instance Prelude.FromJSON MonitoringScheduleSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "MonitoringScheduleSummary"
       ( \x ->
           MonitoringScheduleSummary'
-            <$> (x .:? "EndpointName")
-            <*> (x .:? "MonitoringType")
-            <*> (x .:? "MonitoringJobDefinitionName")
-            <*> (x .: "MonitoringScheduleName")
-            <*> (x .: "MonitoringScheduleArn")
-            <*> (x .: "CreationTime")
-            <*> (x .: "LastModifiedTime")
-            <*> (x .: "MonitoringScheduleStatus")
+            Prelude.<$> (x Prelude..:? "EndpointName")
+            Prelude.<*> (x Prelude..:? "MonitoringType")
+            Prelude.<*> (x Prelude..:? "MonitoringJobDefinitionName")
+            Prelude.<*> (x Prelude..: "MonitoringScheduleName")
+            Prelude.<*> (x Prelude..: "MonitoringScheduleArn")
+            Prelude.<*> (x Prelude..: "CreationTime")
+            Prelude.<*> (x Prelude..: "LastModifiedTime")
+            Prelude.<*> (x Prelude..: "MonitoringScheduleStatus")
       )
 
-instance Hashable MonitoringScheduleSummary
+instance Prelude.Hashable MonitoringScheduleSummary
 
-instance NFData MonitoringScheduleSummary
+instance Prelude.NFData MonitoringScheduleSummary

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,48 +19,68 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.ShuffleConfig where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A configuration for a shuffle option for input data in a channel. If you use @S3Prefix@ for @S3DataType@ , the results of the S3 key prefix matches are shuffled. If you use @ManifestFile@ , the order of the S3 object references in the @ManifestFile@ is shuffled. If you use @AugmentedManifestFile@ , the order of the JSON lines in the @AugmentedManifestFile@ is shuffled. The shuffling order is determined using the @Seed@ value.
+-- | A configuration for a shuffle option for input data in a channel. If you
+-- use @S3Prefix@ for @S3DataType@, the results of the S3 key prefix
+-- matches are shuffled. If you use @ManifestFile@, the order of the S3
+-- object references in the @ManifestFile@ is shuffled. If you use
+-- @AugmentedManifestFile@, the order of the JSON lines in the
+-- @AugmentedManifestFile@ is shuffled. The shuffling order is determined
+-- using the @Seed@ value.
 --
+-- For Pipe input mode, when @ShuffleConfig@ is specified shuffling is done
+-- at the start of every epoch. With large datasets, this ensures that the
+-- order of the training data is different for each epoch, and it helps
+-- reduce bias and possible overfitting. In a multi-node training job when
+-- @ShuffleConfig@ is combined with @S3DataDistributionType@ of
+-- @ShardedByS3Key@, the data is shuffled across nodes so that the content
+-- sent to a particular node on the first epoch might be sent to a
+-- different node on the second epoch.
 --
--- For Pipe input mode, when @ShuffleConfig@ is specified shuffling is done at the start of every epoch. With large datasets, this ensures that the order of the training data is different for each epoch, and it helps reduce bias and possible overfitting. In a multi-node training job when @ShuffleConfig@ is combined with @S3DataDistributionType@ of @ShardedByS3Key@ , the data is shuffled across nodes so that the content sent to a particular node on the first epoch might be sent to a different node on the second epoch.
---
---
--- /See:/ 'shuffleConfig' smart constructor.
-newtype ShuffleConfig = ShuffleConfig'
-  { _scSeed ::
-      Integer
+-- /See:/ 'newShuffleConfig' smart constructor.
+data ShuffleConfig = ShuffleConfig'
+  { -- | Determines the shuffling order in @ShuffleConfig@ value.
+    seed :: Prelude.Integer
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ShuffleConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ShuffleConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'scSeed' - Determines the shuffling order in @ShuffleConfig@ value.
-shuffleConfig ::
-  -- | 'scSeed'
-  Integer ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'seed', 'shuffleConfig_seed' - Determines the shuffling order in @ShuffleConfig@ value.
+newShuffleConfig ::
+  -- | 'seed'
+  Prelude.Integer ->
   ShuffleConfig
-shuffleConfig pSeed_ =
-  ShuffleConfig' {_scSeed = pSeed_}
+newShuffleConfig pSeed_ =
+  ShuffleConfig' {seed = pSeed_}
 
 -- | Determines the shuffling order in @ShuffleConfig@ value.
-scSeed :: Lens' ShuffleConfig Integer
-scSeed = lens _scSeed (\s a -> s {_scSeed = a})
+shuffleConfig_seed :: Lens.Lens' ShuffleConfig Prelude.Integer
+shuffleConfig_seed = Lens.lens (\ShuffleConfig' {seed} -> seed) (\s@ShuffleConfig' {} a -> s {seed = a} :: ShuffleConfig)
 
-instance FromJSON ShuffleConfig where
+instance Prelude.FromJSON ShuffleConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ShuffleConfig"
-      (\x -> ShuffleConfig' <$> (x .: "Seed"))
+      ( \x ->
+          ShuffleConfig' Prelude.<$> (x Prelude..: "Seed")
+      )
 
-instance Hashable ShuffleConfig
+instance Prelude.Hashable ShuffleConfig
 
-instance NFData ShuffleConfig
+instance Prelude.NFData ShuffleConfig
 
-instance ToJSON ShuffleConfig where
+instance Prelude.ToJSON ShuffleConfig where
   toJSON ShuffleConfig' {..} =
-    object (catMaybes [Just ("Seed" .= _scSeed)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("Seed" Prelude..= seed)]
+      )

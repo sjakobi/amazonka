@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,203 +24,227 @@
 -- Creates a pipeline using a JSON pipeline definition.
 module Network.AWS.SageMaker.CreatePipeline
   ( -- * Creating a Request
-    createPipeline,
-    CreatePipeline,
+    CreatePipeline (..),
+    newCreatePipeline,
 
     -- * Request Lenses
-    cPipelineDescription,
-    cPipelineDisplayName,
-    cTags,
-    cPipelineName,
-    cPipelineDefinition,
-    cClientRequestToken,
-    cRoleARN,
+    createPipeline_pipelineDescription,
+    createPipeline_pipelineDisplayName,
+    createPipeline_tags,
+    createPipeline_pipelineName,
+    createPipeline_pipelineDefinition,
+    createPipeline_clientRequestToken,
+    createPipeline_roleArn,
 
     -- * Destructuring the Response
-    createPipelineResponse,
-    CreatePipelineResponse,
+    CreatePipelineResponse (..),
+    newCreatePipelineResponse,
 
     -- * Response Lenses
-    cprprsPipelineARN,
-    cprprsResponseStatus,
+    createPipelineResponse_pipelineArn,
+    createPipelineResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'createPipeline' smart constructor.
+-- | /See:/ 'newCreatePipeline' smart constructor.
 data CreatePipeline = CreatePipeline'
-  { _cPipelineDescription ::
-      !(Maybe Text),
-    _cPipelineDisplayName :: !(Maybe Text),
-    _cTags :: !(Maybe [Tag]),
-    _cPipelineName :: !Text,
-    _cPipelineDefinition :: !Text,
-    _cClientRequestToken :: !Text,
-    _cRoleARN :: !Text
+  { -- | A description of the pipeline.
+    pipelineDescription :: Prelude.Maybe Prelude.Text,
+    -- | The display name of the pipeline.
+    pipelineDisplayName :: Prelude.Maybe Prelude.Text,
+    -- | A list of tags to apply to the created pipeline.
+    tags :: Prelude.Maybe [Tag],
+    -- | The name of the pipeline.
+    pipelineName :: Prelude.Text,
+    -- | The JSON pipeline definition of the pipeline.
+    pipelineDefinition :: Prelude.Text,
+    -- | A unique, case-sensitive identifier that you provide to ensure the
+    -- idempotency of the operation. An idempotent operation completes no more
+    -- than one time.
+    clientRequestToken :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the role used by the pipeline to
+    -- access and create resources.
+    roleArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreatePipeline' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreatePipeline' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cPipelineDescription' - A description of the pipeline.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cPipelineDisplayName' - The display name of the pipeline.
+-- 'pipelineDescription', 'createPipeline_pipelineDescription' - A description of the pipeline.
 --
--- * 'cTags' - A list of tags to apply to the created pipeline.
+-- 'pipelineDisplayName', 'createPipeline_pipelineDisplayName' - The display name of the pipeline.
 --
--- * 'cPipelineName' - The name of the pipeline.
+-- 'tags', 'createPipeline_tags' - A list of tags to apply to the created pipeline.
 --
--- * 'cPipelineDefinition' - The JSON pipeline definition of the pipeline.
+-- 'pipelineName', 'createPipeline_pipelineName' - The name of the pipeline.
 --
--- * 'cClientRequestToken' - A unique, case-sensitive identifier that you provide to ensure the idempotency of the operation. An idempotent operation completes no more than one time.
+-- 'pipelineDefinition', 'createPipeline_pipelineDefinition' - The JSON pipeline definition of the pipeline.
 --
--- * 'cRoleARN' - The Amazon Resource Name (ARN) of the role used by the pipeline to access and create resources.
-createPipeline ::
-  -- | 'cPipelineName'
-  Text ->
-  -- | 'cPipelineDefinition'
-  Text ->
-  -- | 'cClientRequestToken'
-  Text ->
-  -- | 'cRoleARN'
-  Text ->
+-- 'clientRequestToken', 'createPipeline_clientRequestToken' - A unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the operation. An idempotent operation completes no more
+-- than one time.
+--
+-- 'roleArn', 'createPipeline_roleArn' - The Amazon Resource Name (ARN) of the role used by the pipeline to
+-- access and create resources.
+newCreatePipeline ::
+  -- | 'pipelineName'
+  Prelude.Text ->
+  -- | 'pipelineDefinition'
+  Prelude.Text ->
+  -- | 'clientRequestToken'
+  Prelude.Text ->
+  -- | 'roleArn'
+  Prelude.Text ->
   CreatePipeline
-createPipeline
+newCreatePipeline
   pPipelineName_
   pPipelineDefinition_
   pClientRequestToken_
-  pRoleARN_ =
+  pRoleArn_ =
     CreatePipeline'
-      { _cPipelineDescription = Nothing,
-        _cPipelineDisplayName = Nothing,
-        _cTags = Nothing,
-        _cPipelineName = pPipelineName_,
-        _cPipelineDefinition = pPipelineDefinition_,
-        _cClientRequestToken = pClientRequestToken_,
-        _cRoleARN = pRoleARN_
+      { pipelineDescription =
+          Prelude.Nothing,
+        pipelineDisplayName = Prelude.Nothing,
+        tags = Prelude.Nothing,
+        pipelineName = pPipelineName_,
+        pipelineDefinition = pPipelineDefinition_,
+        clientRequestToken = pClientRequestToken_,
+        roleArn = pRoleArn_
       }
 
 -- | A description of the pipeline.
-cPipelineDescription :: Lens' CreatePipeline (Maybe Text)
-cPipelineDescription = lens _cPipelineDescription (\s a -> s {_cPipelineDescription = a})
+createPipeline_pipelineDescription :: Lens.Lens' CreatePipeline (Prelude.Maybe Prelude.Text)
+createPipeline_pipelineDescription = Lens.lens (\CreatePipeline' {pipelineDescription} -> pipelineDescription) (\s@CreatePipeline' {} a -> s {pipelineDescription = a} :: CreatePipeline)
 
 -- | The display name of the pipeline.
-cPipelineDisplayName :: Lens' CreatePipeline (Maybe Text)
-cPipelineDisplayName = lens _cPipelineDisplayName (\s a -> s {_cPipelineDisplayName = a})
+createPipeline_pipelineDisplayName :: Lens.Lens' CreatePipeline (Prelude.Maybe Prelude.Text)
+createPipeline_pipelineDisplayName = Lens.lens (\CreatePipeline' {pipelineDisplayName} -> pipelineDisplayName) (\s@CreatePipeline' {} a -> s {pipelineDisplayName = a} :: CreatePipeline)
 
 -- | A list of tags to apply to the created pipeline.
-cTags :: Lens' CreatePipeline [Tag]
-cTags = lens _cTags (\s a -> s {_cTags = a}) . _Default . _Coerce
+createPipeline_tags :: Lens.Lens' CreatePipeline (Prelude.Maybe [Tag])
+createPipeline_tags = Lens.lens (\CreatePipeline' {tags} -> tags) (\s@CreatePipeline' {} a -> s {tags = a} :: CreatePipeline) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The name of the pipeline.
-cPipelineName :: Lens' CreatePipeline Text
-cPipelineName = lens _cPipelineName (\s a -> s {_cPipelineName = a})
+createPipeline_pipelineName :: Lens.Lens' CreatePipeline Prelude.Text
+createPipeline_pipelineName = Lens.lens (\CreatePipeline' {pipelineName} -> pipelineName) (\s@CreatePipeline' {} a -> s {pipelineName = a} :: CreatePipeline)
 
 -- | The JSON pipeline definition of the pipeline.
-cPipelineDefinition :: Lens' CreatePipeline Text
-cPipelineDefinition = lens _cPipelineDefinition (\s a -> s {_cPipelineDefinition = a})
+createPipeline_pipelineDefinition :: Lens.Lens' CreatePipeline Prelude.Text
+createPipeline_pipelineDefinition = Lens.lens (\CreatePipeline' {pipelineDefinition} -> pipelineDefinition) (\s@CreatePipeline' {} a -> s {pipelineDefinition = a} :: CreatePipeline)
 
--- | A unique, case-sensitive identifier that you provide to ensure the idempotency of the operation. An idempotent operation completes no more than one time.
-cClientRequestToken :: Lens' CreatePipeline Text
-cClientRequestToken = lens _cClientRequestToken (\s a -> s {_cClientRequestToken = a})
+-- | A unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the operation. An idempotent operation completes no more
+-- than one time.
+createPipeline_clientRequestToken :: Lens.Lens' CreatePipeline Prelude.Text
+createPipeline_clientRequestToken = Lens.lens (\CreatePipeline' {clientRequestToken} -> clientRequestToken) (\s@CreatePipeline' {} a -> s {clientRequestToken = a} :: CreatePipeline)
 
--- | The Amazon Resource Name (ARN) of the role used by the pipeline to access and create resources.
-cRoleARN :: Lens' CreatePipeline Text
-cRoleARN = lens _cRoleARN (\s a -> s {_cRoleARN = a})
+-- | The Amazon Resource Name (ARN) of the role used by the pipeline to
+-- access and create resources.
+createPipeline_roleArn :: Lens.Lens' CreatePipeline Prelude.Text
+createPipeline_roleArn = Lens.lens (\CreatePipeline' {roleArn} -> roleArn) (\s@CreatePipeline' {} a -> s {roleArn = a} :: CreatePipeline)
 
-instance AWSRequest CreatePipeline where
+instance Prelude.AWSRequest CreatePipeline where
   type Rs CreatePipeline = CreatePipelineResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreatePipelineResponse'
-            <$> (x .?> "PipelineArn") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "PipelineArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreatePipeline
+instance Prelude.Hashable CreatePipeline
 
-instance NFData CreatePipeline
+instance Prelude.NFData CreatePipeline
 
-instance ToHeaders CreatePipeline where
+instance Prelude.ToHeaders CreatePipeline where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.CreatePipeline" :: ByteString),
+              Prelude.=# ("SageMaker.CreatePipeline" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreatePipeline where
+instance Prelude.ToJSON CreatePipeline where
   toJSON CreatePipeline' {..} =
-    object
-      ( catMaybes
-          [ ("PipelineDescription" .=)
-              <$> _cPipelineDescription,
-            ("PipelineDisplayName" .=) <$> _cPipelineDisplayName,
-            ("Tags" .=) <$> _cTags,
-            Just ("PipelineName" .= _cPipelineName),
-            Just ("PipelineDefinition" .= _cPipelineDefinition),
-            Just ("ClientRequestToken" .= _cClientRequestToken),
-            Just ("RoleArn" .= _cRoleARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("PipelineDescription" Prelude..=)
+              Prelude.<$> pipelineDescription,
+            ("PipelineDisplayName" Prelude..=)
+              Prelude.<$> pipelineDisplayName,
+            ("Tags" Prelude..=) Prelude.<$> tags,
+            Prelude.Just
+              ("PipelineName" Prelude..= pipelineName),
+            Prelude.Just
+              ("PipelineDefinition" Prelude..= pipelineDefinition),
+            Prelude.Just
+              ("ClientRequestToken" Prelude..= clientRequestToken),
+            Prelude.Just ("RoleArn" Prelude..= roleArn)
           ]
       )
 
-instance ToPath CreatePipeline where
-  toPath = const "/"
+instance Prelude.ToPath CreatePipeline where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreatePipeline where
-  toQuery = const mempty
+instance Prelude.ToQuery CreatePipeline where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createPipelineResponse' smart constructor.
+-- | /See:/ 'newCreatePipelineResponse' smart constructor.
 data CreatePipelineResponse = CreatePipelineResponse'
-  { _cprprsPipelineARN ::
-      !(Maybe Text),
-    _cprprsResponseStatus ::
-      !Int
+  { -- | The Amazon Resource Name (ARN) of the created pipeline.
+    pipelineArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreatePipelineResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreatePipelineResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cprprsPipelineARN' - The Amazon Resource Name (ARN) of the created pipeline.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cprprsResponseStatus' - -- | The response status code.
-createPipelineResponse ::
-  -- | 'cprprsResponseStatus'
-  Int ->
+-- 'pipelineArn', 'createPipelineResponse_pipelineArn' - The Amazon Resource Name (ARN) of the created pipeline.
+--
+-- 'httpStatus', 'createPipelineResponse_httpStatus' - The response's http status code.
+newCreatePipelineResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreatePipelineResponse
-createPipelineResponse pResponseStatus_ =
+newCreatePipelineResponse pHttpStatus_ =
   CreatePipelineResponse'
-    { _cprprsPipelineARN =
-        Nothing,
-      _cprprsResponseStatus = pResponseStatus_
+    { pipelineArn =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The Amazon Resource Name (ARN) of the created pipeline.
-cprprsPipelineARN :: Lens' CreatePipelineResponse (Maybe Text)
-cprprsPipelineARN = lens _cprprsPipelineARN (\s a -> s {_cprprsPipelineARN = a})
+createPipelineResponse_pipelineArn :: Lens.Lens' CreatePipelineResponse (Prelude.Maybe Prelude.Text)
+createPipelineResponse_pipelineArn = Lens.lens (\CreatePipelineResponse' {pipelineArn} -> pipelineArn) (\s@CreatePipelineResponse' {} a -> s {pipelineArn = a} :: CreatePipelineResponse)
 
--- | -- | The response status code.
-cprprsResponseStatus :: Lens' CreatePipelineResponse Int
-cprprsResponseStatus = lens _cprprsResponseStatus (\s a -> s {_cprprsResponseStatus = a})
+-- | The response's http status code.
+createPipelineResponse_httpStatus :: Lens.Lens' CreatePipelineResponse Prelude.Int
+createPipelineResponse_httpStatus = Lens.lens (\CreatePipelineResponse' {httpStatus} -> httpStatus) (\s@CreatePipelineResponse' {} a -> s {httpStatus = a} :: CreatePipelineResponse)
 
-instance NFData CreatePipelineResponse
+instance Prelude.NFData CreatePipelineResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,110 +19,121 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.ServiceCatalogProvisioningDetails where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.ProvisioningParameter
 
--- | Details that you specify to provision a service catalog product. For information about service catalog, see .<https://docs.aws.amazon.com/servicecatalog/latest/adminguide/introduction.html What is AWS Service Catalog> .
+-- | Details that you specify to provision a service catalog product. For
+-- information about service catalog, see
+-- .<https://docs.aws.amazon.com/servicecatalog/latest/adminguide/introduction.html What is AWS Service Catalog>.
 --
---
---
--- /See:/ 'serviceCatalogProvisioningDetails' smart constructor.
+-- /See:/ 'newServiceCatalogProvisioningDetails' smart constructor.
 data ServiceCatalogProvisioningDetails = ServiceCatalogProvisioningDetails'
-  { _scpdProvisioningParameters ::
-      !( Maybe
-           [ProvisioningParameter]
-       ),
-    _scpdPathId ::
-      !( Maybe
-           Text
-       ),
-    _scpdProductId ::
-      !Text,
-    _scpdProvisioningArtifactId ::
-      !Text
+  { -- | A list of key value pairs that you specify when you provision a product.
+    provisioningParameters :: Prelude.Maybe [ProvisioningParameter],
+    -- | The path identifier of the product. This value is optional if the
+    -- product has a default path, and required if the product has more than
+    -- one path.
+    pathId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the product to provision.
+    productId :: Prelude.Text,
+    -- | The ID of the provisioning artifact.
+    provisioningArtifactId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ServiceCatalogProvisioningDetails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ServiceCatalogProvisioningDetails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'scpdProvisioningParameters' - A list of key value pairs that you specify when you provision a product.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'scpdPathId' - The path identifier of the product. This value is optional if the product has a default path, and required if the product has more than one path.
+-- 'provisioningParameters', 'serviceCatalogProvisioningDetails_provisioningParameters' - A list of key value pairs that you specify when you provision a product.
 --
--- * 'scpdProductId' - The ID of the product to provision.
+-- 'pathId', 'serviceCatalogProvisioningDetails_pathId' - The path identifier of the product. This value is optional if the
+-- product has a default path, and required if the product has more than
+-- one path.
 --
--- * 'scpdProvisioningArtifactId' - The ID of the provisioning artifact.
-serviceCatalogProvisioningDetails ::
-  -- | 'scpdProductId'
-  Text ->
-  -- | 'scpdProvisioningArtifactId'
-  Text ->
+-- 'productId', 'serviceCatalogProvisioningDetails_productId' - The ID of the product to provision.
+--
+-- 'provisioningArtifactId', 'serviceCatalogProvisioningDetails_provisioningArtifactId' - The ID of the provisioning artifact.
+newServiceCatalogProvisioningDetails ::
+  -- | 'productId'
+  Prelude.Text ->
+  -- | 'provisioningArtifactId'
+  Prelude.Text ->
   ServiceCatalogProvisioningDetails
-serviceCatalogProvisioningDetails
+newServiceCatalogProvisioningDetails
   pProductId_
   pProvisioningArtifactId_ =
     ServiceCatalogProvisioningDetails'
-      { _scpdProvisioningParameters =
-          Nothing,
-        _scpdPathId = Nothing,
-        _scpdProductId = pProductId_,
-        _scpdProvisioningArtifactId =
+      { provisioningParameters =
+          Prelude.Nothing,
+        pathId = Prelude.Nothing,
+        productId = pProductId_,
+        provisioningArtifactId =
           pProvisioningArtifactId_
       }
 
 -- | A list of key value pairs that you specify when you provision a product.
-scpdProvisioningParameters :: Lens' ServiceCatalogProvisioningDetails [ProvisioningParameter]
-scpdProvisioningParameters = lens _scpdProvisioningParameters (\s a -> s {_scpdProvisioningParameters = a}) . _Default . _Coerce
+serviceCatalogProvisioningDetails_provisioningParameters :: Lens.Lens' ServiceCatalogProvisioningDetails (Prelude.Maybe [ProvisioningParameter])
+serviceCatalogProvisioningDetails_provisioningParameters = Lens.lens (\ServiceCatalogProvisioningDetails' {provisioningParameters} -> provisioningParameters) (\s@ServiceCatalogProvisioningDetails' {} a -> s {provisioningParameters = a} :: ServiceCatalogProvisioningDetails) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The path identifier of the product. This value is optional if the product has a default path, and required if the product has more than one path.
-scpdPathId :: Lens' ServiceCatalogProvisioningDetails (Maybe Text)
-scpdPathId = lens _scpdPathId (\s a -> s {_scpdPathId = a})
+-- | The path identifier of the product. This value is optional if the
+-- product has a default path, and required if the product has more than
+-- one path.
+serviceCatalogProvisioningDetails_pathId :: Lens.Lens' ServiceCatalogProvisioningDetails (Prelude.Maybe Prelude.Text)
+serviceCatalogProvisioningDetails_pathId = Lens.lens (\ServiceCatalogProvisioningDetails' {pathId} -> pathId) (\s@ServiceCatalogProvisioningDetails' {} a -> s {pathId = a} :: ServiceCatalogProvisioningDetails)
 
 -- | The ID of the product to provision.
-scpdProductId :: Lens' ServiceCatalogProvisioningDetails Text
-scpdProductId = lens _scpdProductId (\s a -> s {_scpdProductId = a})
+serviceCatalogProvisioningDetails_productId :: Lens.Lens' ServiceCatalogProvisioningDetails Prelude.Text
+serviceCatalogProvisioningDetails_productId = Lens.lens (\ServiceCatalogProvisioningDetails' {productId} -> productId) (\s@ServiceCatalogProvisioningDetails' {} a -> s {productId = a} :: ServiceCatalogProvisioningDetails)
 
 -- | The ID of the provisioning artifact.
-scpdProvisioningArtifactId :: Lens' ServiceCatalogProvisioningDetails Text
-scpdProvisioningArtifactId = lens _scpdProvisioningArtifactId (\s a -> s {_scpdProvisioningArtifactId = a})
+serviceCatalogProvisioningDetails_provisioningArtifactId :: Lens.Lens' ServiceCatalogProvisioningDetails Prelude.Text
+serviceCatalogProvisioningDetails_provisioningArtifactId = Lens.lens (\ServiceCatalogProvisioningDetails' {provisioningArtifactId} -> provisioningArtifactId) (\s@ServiceCatalogProvisioningDetails' {} a -> s {provisioningArtifactId = a} :: ServiceCatalogProvisioningDetails)
 
-instance FromJSON ServiceCatalogProvisioningDetails where
+instance
+  Prelude.FromJSON
+    ServiceCatalogProvisioningDetails
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ServiceCatalogProvisioningDetails"
       ( \x ->
           ServiceCatalogProvisioningDetails'
-            <$> (x .:? "ProvisioningParameters" .!= mempty)
-            <*> (x .:? "PathId")
-            <*> (x .: "ProductId")
-            <*> (x .: "ProvisioningArtifactId")
+            Prelude.<$> ( x Prelude..:? "ProvisioningParameters"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "PathId")
+            Prelude.<*> (x Prelude..: "ProductId")
+            Prelude.<*> (x Prelude..: "ProvisioningArtifactId")
       )
 
-instance Hashable ServiceCatalogProvisioningDetails
+instance
+  Prelude.Hashable
+    ServiceCatalogProvisioningDetails
 
-instance NFData ServiceCatalogProvisioningDetails
+instance
+  Prelude.NFData
+    ServiceCatalogProvisioningDetails
 
-instance ToJSON ServiceCatalogProvisioningDetails where
+instance
+  Prelude.ToJSON
+    ServiceCatalogProvisioningDetails
+  where
   toJSON ServiceCatalogProvisioningDetails' {..} =
-    object
-      ( catMaybes
-          [ ("ProvisioningParameters" .=)
-              <$> _scpdProvisioningParameters,
-            ("PathId" .=) <$> _scpdPathId,
-            Just ("ProductId" .= _scpdProductId),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ProvisioningParameters" Prelude..=)
+              Prelude.<$> provisioningParameters,
+            ("PathId" Prelude..=) Prelude.<$> pathId,
+            Prelude.Just ("ProductId" Prelude..= productId),
+            Prelude.Just
               ( "ProvisioningArtifactId"
-                  .= _scpdProvisioningArtifactId
+                  Prelude..= provisioningArtifactId
               )
           ]
       )

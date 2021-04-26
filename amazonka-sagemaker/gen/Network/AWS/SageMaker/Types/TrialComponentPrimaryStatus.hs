@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,75 +19,73 @@
 module Network.AWS.SageMaker.Types.TrialComponentPrimaryStatus
   ( TrialComponentPrimaryStatus
       ( ..,
-        TCPSCompleted,
-        TCPSFailed,
-        TCPSInProgress,
-        TCPSStopped,
-        TCPSStopping
+        TrialComponentPrimaryStatusCompleted,
+        TrialComponentPrimaryStatusFailed,
+        TrialComponentPrimaryStatusInProgress,
+        TrialComponentPrimaryStatusStopped,
+        TrialComponentPrimaryStatusStopping
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TrialComponentPrimaryStatus
-  = TrialComponentPrimaryStatus'
-      ( CI
-          Text
-      )
+newtype TrialComponentPrimaryStatus = TrialComponentPrimaryStatus'
+  { fromTrialComponentPrimaryStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TCPSCompleted :: TrialComponentPrimaryStatus
-pattern TCPSCompleted = TrialComponentPrimaryStatus' "Completed"
+pattern TrialComponentPrimaryStatusCompleted :: TrialComponentPrimaryStatus
+pattern TrialComponentPrimaryStatusCompleted = TrialComponentPrimaryStatus' "Completed"
 
-pattern TCPSFailed :: TrialComponentPrimaryStatus
-pattern TCPSFailed = TrialComponentPrimaryStatus' "Failed"
+pattern TrialComponentPrimaryStatusFailed :: TrialComponentPrimaryStatus
+pattern TrialComponentPrimaryStatusFailed = TrialComponentPrimaryStatus' "Failed"
 
-pattern TCPSInProgress :: TrialComponentPrimaryStatus
-pattern TCPSInProgress = TrialComponentPrimaryStatus' "InProgress"
+pattern TrialComponentPrimaryStatusInProgress :: TrialComponentPrimaryStatus
+pattern TrialComponentPrimaryStatusInProgress = TrialComponentPrimaryStatus' "InProgress"
 
-pattern TCPSStopped :: TrialComponentPrimaryStatus
-pattern TCPSStopped = TrialComponentPrimaryStatus' "Stopped"
+pattern TrialComponentPrimaryStatusStopped :: TrialComponentPrimaryStatus
+pattern TrialComponentPrimaryStatusStopped = TrialComponentPrimaryStatus' "Stopped"
 
-pattern TCPSStopping :: TrialComponentPrimaryStatus
-pattern TCPSStopping = TrialComponentPrimaryStatus' "Stopping"
+pattern TrialComponentPrimaryStatusStopping :: TrialComponentPrimaryStatus
+pattern TrialComponentPrimaryStatusStopping = TrialComponentPrimaryStatus' "Stopping"
 
 {-# COMPLETE
-  TCPSCompleted,
-  TCPSFailed,
-  TCPSInProgress,
-  TCPSStopped,
-  TCPSStopping,
+  TrialComponentPrimaryStatusCompleted,
+  TrialComponentPrimaryStatusFailed,
+  TrialComponentPrimaryStatusInProgress,
+  TrialComponentPrimaryStatusStopped,
+  TrialComponentPrimaryStatusStopping,
   TrialComponentPrimaryStatus'
   #-}
 
-instance FromText TrialComponentPrimaryStatus where
-  parser = (TrialComponentPrimaryStatus' . mk) <$> takeText
+instance Prelude.FromText TrialComponentPrimaryStatus where
+  parser = TrialComponentPrimaryStatus' Prelude.<$> Prelude.takeText
 
-instance ToText TrialComponentPrimaryStatus where
-  toText (TrialComponentPrimaryStatus' ci) = original ci
+instance Prelude.ToText TrialComponentPrimaryStatus where
+  toText (TrialComponentPrimaryStatus' x) = x
 
-instance Hashable TrialComponentPrimaryStatus
+instance Prelude.Hashable TrialComponentPrimaryStatus
 
-instance NFData TrialComponentPrimaryStatus
+instance Prelude.NFData TrialComponentPrimaryStatus
 
-instance ToByteString TrialComponentPrimaryStatus
+instance Prelude.ToByteString TrialComponentPrimaryStatus
 
-instance ToQuery TrialComponentPrimaryStatus
+instance Prelude.ToQuery TrialComponentPrimaryStatus
 
-instance ToHeader TrialComponentPrimaryStatus
+instance Prelude.ToHeader TrialComponentPrimaryStatus
 
-instance ToJSON TrialComponentPrimaryStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON TrialComponentPrimaryStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON TrialComponentPrimaryStatus where
-  parseJSON = parseJSONText "TrialComponentPrimaryStatus"
+instance Prelude.FromJSON TrialComponentPrimaryStatus where
+  parseJSON = Prelude.parseJSONText "TrialComponentPrimaryStatus"

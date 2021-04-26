@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,184 +21,196 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a schedule that regularly starts Amazon SageMaker Processing Jobs to monitor the data captured for an Amazon SageMaker Endoint.
+-- Creates a schedule that regularly starts Amazon SageMaker Processing
+-- Jobs to monitor the data captured for an Amazon SageMaker Endoint.
 module Network.AWS.SageMaker.CreateMonitoringSchedule
   ( -- * Creating a Request
-    createMonitoringSchedule,
-    CreateMonitoringSchedule,
+    CreateMonitoringSchedule (..),
+    newCreateMonitoringSchedule,
 
     -- * Request Lenses
-    cmsTags,
-    cmsMonitoringScheduleName,
-    cmsMonitoringScheduleConfig,
+    createMonitoringSchedule_tags,
+    createMonitoringSchedule_monitoringScheduleName,
+    createMonitoringSchedule_monitoringScheduleConfig,
 
     -- * Destructuring the Response
-    createMonitoringScheduleResponse,
-    CreateMonitoringScheduleResponse,
+    CreateMonitoringScheduleResponse (..),
+    newCreateMonitoringScheduleResponse,
 
     -- * Response Lenses
-    cmsrrsResponseStatus,
-    cmsrrsMonitoringScheduleARN,
+    createMonitoringScheduleResponse_httpStatus,
+    createMonitoringScheduleResponse_monitoringScheduleArn,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'createMonitoringSchedule' smart constructor.
+-- | /See:/ 'newCreateMonitoringSchedule' smart constructor.
 data CreateMonitoringSchedule = CreateMonitoringSchedule'
-  { _cmsTags ::
-      !(Maybe [Tag]),
-    _cmsMonitoringScheduleName ::
-      !Text,
-    _cmsMonitoringScheduleConfig ::
-      !MonitoringScheduleConfig
+  { -- | (Optional) An array of key-value pairs. For more information, see
+    -- <%20https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-whatURL Using Cost Allocation Tags>
+    -- in the /AWS Billing and Cost Management User Guide/.
+    tags :: Prelude.Maybe [Tag],
+    -- | The name of the monitoring schedule. The name must be unique within an
+    -- AWS Region within an AWS account.
+    monitoringScheduleName :: Prelude.Text,
+    -- | The configuration object that specifies the monitoring schedule and
+    -- defines the monitoring job.
+    monitoringScheduleConfig :: MonitoringScheduleConfig
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateMonitoringSchedule' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateMonitoringSchedule' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cmsTags' - (Optional) An array of key-value pairs. For more information, see < https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-whatURL Using Cost Allocation Tags> in the /AWS Billing and Cost Management User Guide/ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cmsMonitoringScheduleName' - The name of the monitoring schedule. The name must be unique within an AWS Region within an AWS account.
+-- 'tags', 'createMonitoringSchedule_tags' - (Optional) An array of key-value pairs. For more information, see
+-- <%20https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-whatURL Using Cost Allocation Tags>
+-- in the /AWS Billing and Cost Management User Guide/.
 --
--- * 'cmsMonitoringScheduleConfig' - The configuration object that specifies the monitoring schedule and defines the monitoring job.
-createMonitoringSchedule ::
-  -- | 'cmsMonitoringScheduleName'
-  Text ->
-  -- | 'cmsMonitoringScheduleConfig'
+-- 'monitoringScheduleName', 'createMonitoringSchedule_monitoringScheduleName' - The name of the monitoring schedule. The name must be unique within an
+-- AWS Region within an AWS account.
+--
+-- 'monitoringScheduleConfig', 'createMonitoringSchedule_monitoringScheduleConfig' - The configuration object that specifies the monitoring schedule and
+-- defines the monitoring job.
+newCreateMonitoringSchedule ::
+  -- | 'monitoringScheduleName'
+  Prelude.Text ->
+  -- | 'monitoringScheduleConfig'
   MonitoringScheduleConfig ->
   CreateMonitoringSchedule
-createMonitoringSchedule
+newCreateMonitoringSchedule
   pMonitoringScheduleName_
   pMonitoringScheduleConfig_ =
     CreateMonitoringSchedule'
-      { _cmsTags = Nothing,
-        _cmsMonitoringScheduleName =
-          pMonitoringScheduleName_,
-        _cmsMonitoringScheduleConfig =
+      { tags = Prelude.Nothing,
+        monitoringScheduleName = pMonitoringScheduleName_,
+        monitoringScheduleConfig =
           pMonitoringScheduleConfig_
       }
 
--- | (Optional) An array of key-value pairs. For more information, see < https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-whatURL Using Cost Allocation Tags> in the /AWS Billing and Cost Management User Guide/ .
-cmsTags :: Lens' CreateMonitoringSchedule [Tag]
-cmsTags = lens _cmsTags (\s a -> s {_cmsTags = a}) . _Default . _Coerce
+-- | (Optional) An array of key-value pairs. For more information, see
+-- <%20https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-whatURL Using Cost Allocation Tags>
+-- in the /AWS Billing and Cost Management User Guide/.
+createMonitoringSchedule_tags :: Lens.Lens' CreateMonitoringSchedule (Prelude.Maybe [Tag])
+createMonitoringSchedule_tags = Lens.lens (\CreateMonitoringSchedule' {tags} -> tags) (\s@CreateMonitoringSchedule' {} a -> s {tags = a} :: CreateMonitoringSchedule) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The name of the monitoring schedule. The name must be unique within an AWS Region within an AWS account.
-cmsMonitoringScheduleName :: Lens' CreateMonitoringSchedule Text
-cmsMonitoringScheduleName = lens _cmsMonitoringScheduleName (\s a -> s {_cmsMonitoringScheduleName = a})
+-- | The name of the monitoring schedule. The name must be unique within an
+-- AWS Region within an AWS account.
+createMonitoringSchedule_monitoringScheduleName :: Lens.Lens' CreateMonitoringSchedule Prelude.Text
+createMonitoringSchedule_monitoringScheduleName = Lens.lens (\CreateMonitoringSchedule' {monitoringScheduleName} -> monitoringScheduleName) (\s@CreateMonitoringSchedule' {} a -> s {monitoringScheduleName = a} :: CreateMonitoringSchedule)
 
--- | The configuration object that specifies the monitoring schedule and defines the monitoring job.
-cmsMonitoringScheduleConfig :: Lens' CreateMonitoringSchedule MonitoringScheduleConfig
-cmsMonitoringScheduleConfig = lens _cmsMonitoringScheduleConfig (\s a -> s {_cmsMonitoringScheduleConfig = a})
+-- | The configuration object that specifies the monitoring schedule and
+-- defines the monitoring job.
+createMonitoringSchedule_monitoringScheduleConfig :: Lens.Lens' CreateMonitoringSchedule MonitoringScheduleConfig
+createMonitoringSchedule_monitoringScheduleConfig = Lens.lens (\CreateMonitoringSchedule' {monitoringScheduleConfig} -> monitoringScheduleConfig) (\s@CreateMonitoringSchedule' {} a -> s {monitoringScheduleConfig = a} :: CreateMonitoringSchedule)
 
-instance AWSRequest CreateMonitoringSchedule where
+instance Prelude.AWSRequest CreateMonitoringSchedule where
   type
     Rs CreateMonitoringSchedule =
       CreateMonitoringScheduleResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateMonitoringScheduleResponse'
-            <$> (pure (fromEnum s))
-            <*> (x .:> "MonitoringScheduleArn")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "MonitoringScheduleArn")
       )
 
-instance Hashable CreateMonitoringSchedule
+instance Prelude.Hashable CreateMonitoringSchedule
 
-instance NFData CreateMonitoringSchedule
+instance Prelude.NFData CreateMonitoringSchedule
 
-instance ToHeaders CreateMonitoringSchedule where
+instance Prelude.ToHeaders CreateMonitoringSchedule where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.CreateMonitoringSchedule" :: ByteString),
+              Prelude.=# ( "SageMaker.CreateMonitoringSchedule" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateMonitoringSchedule where
+instance Prelude.ToJSON CreateMonitoringSchedule where
   toJSON CreateMonitoringSchedule' {..} =
-    object
-      ( catMaybes
-          [ ("Tags" .=) <$> _cmsTags,
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Tags" Prelude..=) Prelude.<$> tags,
+            Prelude.Just
               ( "MonitoringScheduleName"
-                  .= _cmsMonitoringScheduleName
+                  Prelude..= monitoringScheduleName
               ),
-            Just
+            Prelude.Just
               ( "MonitoringScheduleConfig"
-                  .= _cmsMonitoringScheduleConfig
+                  Prelude..= monitoringScheduleConfig
               )
           ]
       )
 
-instance ToPath CreateMonitoringSchedule where
-  toPath = const "/"
+instance Prelude.ToPath CreateMonitoringSchedule where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateMonitoringSchedule where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateMonitoringSchedule where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createMonitoringScheduleResponse' smart constructor.
+-- | /See:/ 'newCreateMonitoringScheduleResponse' smart constructor.
 data CreateMonitoringScheduleResponse = CreateMonitoringScheduleResponse'
-  { _cmsrrsResponseStatus ::
-      !Int,
-    _cmsrrsMonitoringScheduleARN ::
-      !Text
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The Amazon Resource Name (ARN) of the monitoring schedule.
+    monitoringScheduleArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateMonitoringScheduleResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateMonitoringScheduleResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cmsrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cmsrrsMonitoringScheduleARN' - The Amazon Resource Name (ARN) of the monitoring schedule.
-createMonitoringScheduleResponse ::
-  -- | 'cmsrrsResponseStatus'
-  Int ->
-  -- | 'cmsrrsMonitoringScheduleARN'
-  Text ->
+-- 'httpStatus', 'createMonitoringScheduleResponse_httpStatus' - The response's http status code.
+--
+-- 'monitoringScheduleArn', 'createMonitoringScheduleResponse_monitoringScheduleArn' - The Amazon Resource Name (ARN) of the monitoring schedule.
+newCreateMonitoringScheduleResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'monitoringScheduleArn'
+  Prelude.Text ->
   CreateMonitoringScheduleResponse
-createMonitoringScheduleResponse
-  pResponseStatus_
-  pMonitoringScheduleARN_ =
+newCreateMonitoringScheduleResponse
+  pHttpStatus_
+  pMonitoringScheduleArn_ =
     CreateMonitoringScheduleResponse'
-      { _cmsrrsResponseStatus =
-          pResponseStatus_,
-        _cmsrrsMonitoringScheduleARN =
-          pMonitoringScheduleARN_
+      { httpStatus =
+          pHttpStatus_,
+        monitoringScheduleArn =
+          pMonitoringScheduleArn_
       }
 
--- | -- | The response status code.
-cmsrrsResponseStatus :: Lens' CreateMonitoringScheduleResponse Int
-cmsrrsResponseStatus = lens _cmsrrsResponseStatus (\s a -> s {_cmsrrsResponseStatus = a})
+-- | The response's http status code.
+createMonitoringScheduleResponse_httpStatus :: Lens.Lens' CreateMonitoringScheduleResponse Prelude.Int
+createMonitoringScheduleResponse_httpStatus = Lens.lens (\CreateMonitoringScheduleResponse' {httpStatus} -> httpStatus) (\s@CreateMonitoringScheduleResponse' {} a -> s {httpStatus = a} :: CreateMonitoringScheduleResponse)
 
 -- | The Amazon Resource Name (ARN) of the monitoring schedule.
-cmsrrsMonitoringScheduleARN :: Lens' CreateMonitoringScheduleResponse Text
-cmsrrsMonitoringScheduleARN = lens _cmsrrsMonitoringScheduleARN (\s a -> s {_cmsrrsMonitoringScheduleARN = a})
+createMonitoringScheduleResponse_monitoringScheduleArn :: Lens.Lens' CreateMonitoringScheduleResponse Prelude.Text
+createMonitoringScheduleResponse_monitoringScheduleArn = Lens.lens (\CreateMonitoringScheduleResponse' {monitoringScheduleArn} -> monitoringScheduleArn) (\s@CreateMonitoringScheduleResponse' {} a -> s {monitoringScheduleArn = a} :: CreateMonitoringScheduleResponse)
 
-instance NFData CreateMonitoringScheduleResponse
+instance
+  Prelude.NFData
+    CreateMonitoringScheduleResponse

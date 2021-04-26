@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,299 +24,322 @@
 -- Returns a description of a model bias job definition.
 module Network.AWS.SageMaker.DescribeModelBiasJobDefinition
   ( -- * Creating a Request
-    describeModelBiasJobDefinition,
-    DescribeModelBiasJobDefinition,
+    DescribeModelBiasJobDefinition (..),
+    newDescribeModelBiasJobDefinition,
 
     -- * Request Lenses
-    desJobDefinitionName,
+    describeModelBiasJobDefinition_jobDefinitionName,
 
     -- * Destructuring the Response
-    describeModelBiasJobDefinitionResponse,
-    DescribeModelBiasJobDefinitionResponse,
+    DescribeModelBiasJobDefinitionResponse (..),
+    newDescribeModelBiasJobDefinitionResponse,
 
     -- * Response Lenses
-    dmbjdrrsNetworkConfig,
-    dmbjdrrsModelBiasBaselineConfig,
-    dmbjdrrsStoppingCondition,
-    dmbjdrrsResponseStatus,
-    dmbjdrrsJobDefinitionARN,
-    dmbjdrrsJobDefinitionName,
-    dmbjdrrsCreationTime,
-    dmbjdrrsModelBiasAppSpecification,
-    dmbjdrrsModelBiasJobInput,
-    dmbjdrrsModelBiasJobOutputConfig,
-    dmbjdrrsJobResources,
-    dmbjdrrsRoleARN,
+    describeModelBiasJobDefinitionResponse_networkConfig,
+    describeModelBiasJobDefinitionResponse_modelBiasBaselineConfig,
+    describeModelBiasJobDefinitionResponse_stoppingCondition,
+    describeModelBiasJobDefinitionResponse_httpStatus,
+    describeModelBiasJobDefinitionResponse_jobDefinitionArn,
+    describeModelBiasJobDefinitionResponse_jobDefinitionName,
+    describeModelBiasJobDefinitionResponse_creationTime,
+    describeModelBiasJobDefinitionResponse_modelBiasAppSpecification,
+    describeModelBiasJobDefinitionResponse_modelBiasJobInput,
+    describeModelBiasJobDefinitionResponse_modelBiasJobOutputConfig,
+    describeModelBiasJobDefinitionResponse_jobResources,
+    describeModelBiasJobDefinitionResponse_roleArn,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
+import Network.AWS.SageMaker.Types.ModelBiasAppSpecification
+import Network.AWS.SageMaker.Types.ModelBiasBaselineConfig
+import Network.AWS.SageMaker.Types.ModelBiasJobInput
+import Network.AWS.SageMaker.Types.MonitoringNetworkConfig
+import Network.AWS.SageMaker.Types.MonitoringOutputConfig
+import Network.AWS.SageMaker.Types.MonitoringResources
+import Network.AWS.SageMaker.Types.MonitoringStoppingCondition
 
--- | /See:/ 'describeModelBiasJobDefinition' smart constructor.
-newtype DescribeModelBiasJobDefinition = DescribeModelBiasJobDefinition'
-  { _desJobDefinitionName ::
-      Text
+-- | /See:/ 'newDescribeModelBiasJobDefinition' smart constructor.
+data DescribeModelBiasJobDefinition = DescribeModelBiasJobDefinition'
+  { -- | The name of the model bias job definition. The name must be unique
+    -- within an AWS Region in the AWS account.
+    jobDefinitionName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeModelBiasJobDefinition' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeModelBiasJobDefinition' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'desJobDefinitionName' - The name of the model bias job definition. The name must be unique within an AWS Region in the AWS account.
-describeModelBiasJobDefinition ::
-  -- | 'desJobDefinitionName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'jobDefinitionName', 'describeModelBiasJobDefinition_jobDefinitionName' - The name of the model bias job definition. The name must be unique
+-- within an AWS Region in the AWS account.
+newDescribeModelBiasJobDefinition ::
+  -- | 'jobDefinitionName'
+  Prelude.Text ->
   DescribeModelBiasJobDefinition
-describeModelBiasJobDefinition pJobDefinitionName_ =
+newDescribeModelBiasJobDefinition pJobDefinitionName_ =
   DescribeModelBiasJobDefinition'
-    { _desJobDefinitionName =
+    { jobDefinitionName =
         pJobDefinitionName_
     }
 
--- | The name of the model bias job definition. The name must be unique within an AWS Region in the AWS account.
-desJobDefinitionName :: Lens' DescribeModelBiasJobDefinition Text
-desJobDefinitionName = lens _desJobDefinitionName (\s a -> s {_desJobDefinitionName = a})
+-- | The name of the model bias job definition. The name must be unique
+-- within an AWS Region in the AWS account.
+describeModelBiasJobDefinition_jobDefinitionName :: Lens.Lens' DescribeModelBiasJobDefinition Prelude.Text
+describeModelBiasJobDefinition_jobDefinitionName = Lens.lens (\DescribeModelBiasJobDefinition' {jobDefinitionName} -> jobDefinitionName) (\s@DescribeModelBiasJobDefinition' {} a -> s {jobDefinitionName = a} :: DescribeModelBiasJobDefinition)
 
-instance AWSRequest DescribeModelBiasJobDefinition where
+instance
+  Prelude.AWSRequest
+    DescribeModelBiasJobDefinition
+  where
   type
     Rs DescribeModelBiasJobDefinition =
       DescribeModelBiasJobDefinitionResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeModelBiasJobDefinitionResponse'
-            <$> (x .?> "NetworkConfig")
-            <*> (x .?> "ModelBiasBaselineConfig")
-            <*> (x .?> "StoppingCondition")
-            <*> (pure (fromEnum s))
-            <*> (x .:> "JobDefinitionArn")
-            <*> (x .:> "JobDefinitionName")
-            <*> (x .:> "CreationTime")
-            <*> (x .:> "ModelBiasAppSpecification")
-            <*> (x .:> "ModelBiasJobInput")
-            <*> (x .:> "ModelBiasJobOutputConfig")
-            <*> (x .:> "JobResources")
-            <*> (x .:> "RoleArn")
+            Prelude.<$> (x Prelude..?> "NetworkConfig")
+            Prelude.<*> (x Prelude..?> "ModelBiasBaselineConfig")
+            Prelude.<*> (x Prelude..?> "StoppingCondition")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "JobDefinitionArn")
+            Prelude.<*> (x Prelude..:> "JobDefinitionName")
+            Prelude.<*> (x Prelude..:> "CreationTime")
+            Prelude.<*> (x Prelude..:> "ModelBiasAppSpecification")
+            Prelude.<*> (x Prelude..:> "ModelBiasJobInput")
+            Prelude.<*> (x Prelude..:> "ModelBiasJobOutputConfig")
+            Prelude.<*> (x Prelude..:> "JobResources")
+            Prelude.<*> (x Prelude..:> "RoleArn")
       )
 
-instance Hashable DescribeModelBiasJobDefinition
+instance
+  Prelude.Hashable
+    DescribeModelBiasJobDefinition
 
-instance NFData DescribeModelBiasJobDefinition
+instance
+  Prelude.NFData
+    DescribeModelBiasJobDefinition
 
-instance ToHeaders DescribeModelBiasJobDefinition where
+instance
+  Prelude.ToHeaders
+    DescribeModelBiasJobDefinition
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "SageMaker.DescribeModelBiasJobDefinition" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "SageMaker.DescribeModelBiasJobDefinition" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeModelBiasJobDefinition where
+instance
+  Prelude.ToJSON
+    DescribeModelBiasJobDefinition
+  where
   toJSON DescribeModelBiasJobDefinition' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("JobDefinitionName" .= _desJobDefinitionName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("JobDefinitionName" Prelude..= jobDefinitionName)
           ]
       )
 
-instance ToPath DescribeModelBiasJobDefinition where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    DescribeModelBiasJobDefinition
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeModelBiasJobDefinition where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    DescribeModelBiasJobDefinition
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeModelBiasJobDefinitionResponse' smart constructor.
+-- | /See:/ 'newDescribeModelBiasJobDefinitionResponse' smart constructor.
 data DescribeModelBiasJobDefinitionResponse = DescribeModelBiasJobDefinitionResponse'
-  { _dmbjdrrsNetworkConfig ::
-      !( Maybe
-           MonitoringNetworkConfig
-       ),
-    _dmbjdrrsModelBiasBaselineConfig ::
-      !( Maybe
-           ModelBiasBaselineConfig
-       ),
-    _dmbjdrrsStoppingCondition ::
-      !( Maybe
-           MonitoringStoppingCondition
-       ),
-    _dmbjdrrsResponseStatus ::
-      !Int,
-    _dmbjdrrsJobDefinitionARN ::
-      !Text,
-    _dmbjdrrsJobDefinitionName ::
-      !Text,
-    _dmbjdrrsCreationTime ::
-      !POSIX,
-    _dmbjdrrsModelBiasAppSpecification ::
-      !ModelBiasAppSpecification,
-    _dmbjdrrsModelBiasJobInput ::
-      !ModelBiasJobInput,
-    _dmbjdrrsModelBiasJobOutputConfig ::
-      !MonitoringOutputConfig,
-    _dmbjdrrsJobResources ::
-      !MonitoringResources,
-    _dmbjdrrsRoleARN ::
-      !Text
+  { -- | Networking options for a model bias job.
+    networkConfig :: Prelude.Maybe MonitoringNetworkConfig,
+    -- | The baseline configuration for a model bias job.
+    modelBiasBaselineConfig :: Prelude.Maybe ModelBiasBaselineConfig,
+    stoppingCondition :: Prelude.Maybe MonitoringStoppingCondition,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The Amazon Resource Name (ARN) of the model bias job.
+    jobDefinitionArn :: Prelude.Text,
+    -- | The name of the bias job definition. The name must be unique within an
+    -- AWS Region in the AWS account.
+    jobDefinitionName :: Prelude.Text,
+    -- | The time at which the model bias job was created.
+    creationTime :: Prelude.POSIX,
+    -- | Configures the model bias job to run a specified Docker container image.
+    modelBiasAppSpecification :: ModelBiasAppSpecification,
+    -- | Inputs for the model bias job.
+    modelBiasJobInput :: ModelBiasJobInput,
+    modelBiasJobOutputConfig :: MonitoringOutputConfig,
+    jobResources :: MonitoringResources,
+    -- | The Amazon Resource Name (ARN) of the AWS Identity and Access Management
+    -- (IAM) role that has read permission to the input data location and write
+    -- permission to the output data location in Amazon S3.
+    roleArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeModelBiasJobDefinitionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeModelBiasJobDefinitionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dmbjdrrsNetworkConfig' - Networking options for a model bias job.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dmbjdrrsModelBiasBaselineConfig' - The baseline configuration for a model bias job.
+-- 'networkConfig', 'describeModelBiasJobDefinitionResponse_networkConfig' - Networking options for a model bias job.
 --
--- * 'dmbjdrrsStoppingCondition' - Undocumented member.
+-- 'modelBiasBaselineConfig', 'describeModelBiasJobDefinitionResponse_modelBiasBaselineConfig' - The baseline configuration for a model bias job.
 --
--- * 'dmbjdrrsResponseStatus' - -- | The response status code.
+-- 'stoppingCondition', 'describeModelBiasJobDefinitionResponse_stoppingCondition' - Undocumented member.
 --
--- * 'dmbjdrrsJobDefinitionARN' - The Amazon Resource Name (ARN) of the model bias job.
+-- 'httpStatus', 'describeModelBiasJobDefinitionResponse_httpStatus' - The response's http status code.
 --
--- * 'dmbjdrrsJobDefinitionName' - The name of the bias job definition. The name must be unique within an AWS Region in the AWS account.
+-- 'jobDefinitionArn', 'describeModelBiasJobDefinitionResponse_jobDefinitionArn' - The Amazon Resource Name (ARN) of the model bias job.
 --
--- * 'dmbjdrrsCreationTime' - The time at which the model bias job was created.
+-- 'jobDefinitionName', 'describeModelBiasJobDefinitionResponse_jobDefinitionName' - The name of the bias job definition. The name must be unique within an
+-- AWS Region in the AWS account.
 --
--- * 'dmbjdrrsModelBiasAppSpecification' - Configures the model bias job to run a specified Docker container image.
+-- 'creationTime', 'describeModelBiasJobDefinitionResponse_creationTime' - The time at which the model bias job was created.
 --
--- * 'dmbjdrrsModelBiasJobInput' - Inputs for the model bias job.
+-- 'modelBiasAppSpecification', 'describeModelBiasJobDefinitionResponse_modelBiasAppSpecification' - Configures the model bias job to run a specified Docker container image.
 --
--- * 'dmbjdrrsModelBiasJobOutputConfig' - Undocumented member.
+-- 'modelBiasJobInput', 'describeModelBiasJobDefinitionResponse_modelBiasJobInput' - Inputs for the model bias job.
 --
--- * 'dmbjdrrsJobResources' - Undocumented member.
+-- 'modelBiasJobOutputConfig', 'describeModelBiasJobDefinitionResponse_modelBiasJobOutputConfig' - Undocumented member.
 --
--- * 'dmbjdrrsRoleARN' - The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role that has read permission to the input data location and write permission to the output data location in Amazon S3.
-describeModelBiasJobDefinitionResponse ::
-  -- | 'dmbjdrrsResponseStatus'
-  Int ->
-  -- | 'dmbjdrrsJobDefinitionARN'
-  Text ->
-  -- | 'dmbjdrrsJobDefinitionName'
-  Text ->
-  -- | 'dmbjdrrsCreationTime'
-  UTCTime ->
-  -- | 'dmbjdrrsModelBiasAppSpecification'
+-- 'jobResources', 'describeModelBiasJobDefinitionResponse_jobResources' - Undocumented member.
+--
+-- 'roleArn', 'describeModelBiasJobDefinitionResponse_roleArn' - The Amazon Resource Name (ARN) of the AWS Identity and Access Management
+-- (IAM) role that has read permission to the input data location and write
+-- permission to the output data location in Amazon S3.
+newDescribeModelBiasJobDefinitionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'jobDefinitionArn'
+  Prelude.Text ->
+  -- | 'jobDefinitionName'
+  Prelude.Text ->
+  -- | 'creationTime'
+  Prelude.UTCTime ->
+  -- | 'modelBiasAppSpecification'
   ModelBiasAppSpecification ->
-  -- | 'dmbjdrrsModelBiasJobInput'
+  -- | 'modelBiasJobInput'
   ModelBiasJobInput ->
-  -- | 'dmbjdrrsModelBiasJobOutputConfig'
+  -- | 'modelBiasJobOutputConfig'
   MonitoringOutputConfig ->
-  -- | 'dmbjdrrsJobResources'
+  -- | 'jobResources'
   MonitoringResources ->
-  -- | 'dmbjdrrsRoleARN'
-  Text ->
+  -- | 'roleArn'
+  Prelude.Text ->
   DescribeModelBiasJobDefinitionResponse
-describeModelBiasJobDefinitionResponse
-  pResponseStatus_
-  pJobDefinitionARN_
+newDescribeModelBiasJobDefinitionResponse
+  pHttpStatus_
+  pJobDefinitionArn_
   pJobDefinitionName_
   pCreationTime_
   pModelBiasAppSpecification_
   pModelBiasJobInput_
   pModelBiasJobOutputConfig_
   pJobResources_
-  pRoleARN_ =
+  pRoleArn_ =
     DescribeModelBiasJobDefinitionResponse'
-      { _dmbjdrrsNetworkConfig =
-          Nothing,
-        _dmbjdrrsModelBiasBaselineConfig =
-          Nothing,
-        _dmbjdrrsStoppingCondition =
-          Nothing,
-        _dmbjdrrsResponseStatus =
-          pResponseStatus_,
-        _dmbjdrrsJobDefinitionARN =
-          pJobDefinitionARN_,
-        _dmbjdrrsJobDefinitionName =
+      { networkConfig =
+          Prelude.Nothing,
+        modelBiasBaselineConfig =
+          Prelude.Nothing,
+        stoppingCondition = Prelude.Nothing,
+        httpStatus = pHttpStatus_,
+        jobDefinitionArn =
+          pJobDefinitionArn_,
+        jobDefinitionName =
           pJobDefinitionName_,
-        _dmbjdrrsCreationTime =
-          _Time # pCreationTime_,
-        _dmbjdrrsModelBiasAppSpecification =
+        creationTime =
+          Prelude._Time
+            Lens.# pCreationTime_,
+        modelBiasAppSpecification =
           pModelBiasAppSpecification_,
-        _dmbjdrrsModelBiasJobInput =
+        modelBiasJobInput =
           pModelBiasJobInput_,
-        _dmbjdrrsModelBiasJobOutputConfig =
+        modelBiasJobOutputConfig =
           pModelBiasJobOutputConfig_,
-        _dmbjdrrsJobResources =
-          pJobResources_,
-        _dmbjdrrsRoleARN = pRoleARN_
+        jobResources = pJobResources_,
+        roleArn = pRoleArn_
       }
 
 -- | Networking options for a model bias job.
-dmbjdrrsNetworkConfig :: Lens' DescribeModelBiasJobDefinitionResponse (Maybe MonitoringNetworkConfig)
-dmbjdrrsNetworkConfig = lens _dmbjdrrsNetworkConfig (\s a -> s {_dmbjdrrsNetworkConfig = a})
+describeModelBiasJobDefinitionResponse_networkConfig :: Lens.Lens' DescribeModelBiasJobDefinitionResponse (Prelude.Maybe MonitoringNetworkConfig)
+describeModelBiasJobDefinitionResponse_networkConfig = Lens.lens (\DescribeModelBiasJobDefinitionResponse' {networkConfig} -> networkConfig) (\s@DescribeModelBiasJobDefinitionResponse' {} a -> s {networkConfig = a} :: DescribeModelBiasJobDefinitionResponse)
 
 -- | The baseline configuration for a model bias job.
-dmbjdrrsModelBiasBaselineConfig :: Lens' DescribeModelBiasJobDefinitionResponse (Maybe ModelBiasBaselineConfig)
-dmbjdrrsModelBiasBaselineConfig = lens _dmbjdrrsModelBiasBaselineConfig (\s a -> s {_dmbjdrrsModelBiasBaselineConfig = a})
+describeModelBiasJobDefinitionResponse_modelBiasBaselineConfig :: Lens.Lens' DescribeModelBiasJobDefinitionResponse (Prelude.Maybe ModelBiasBaselineConfig)
+describeModelBiasJobDefinitionResponse_modelBiasBaselineConfig = Lens.lens (\DescribeModelBiasJobDefinitionResponse' {modelBiasBaselineConfig} -> modelBiasBaselineConfig) (\s@DescribeModelBiasJobDefinitionResponse' {} a -> s {modelBiasBaselineConfig = a} :: DescribeModelBiasJobDefinitionResponse)
 
 -- | Undocumented member.
-dmbjdrrsStoppingCondition :: Lens' DescribeModelBiasJobDefinitionResponse (Maybe MonitoringStoppingCondition)
-dmbjdrrsStoppingCondition = lens _dmbjdrrsStoppingCondition (\s a -> s {_dmbjdrrsStoppingCondition = a})
+describeModelBiasJobDefinitionResponse_stoppingCondition :: Lens.Lens' DescribeModelBiasJobDefinitionResponse (Prelude.Maybe MonitoringStoppingCondition)
+describeModelBiasJobDefinitionResponse_stoppingCondition = Lens.lens (\DescribeModelBiasJobDefinitionResponse' {stoppingCondition} -> stoppingCondition) (\s@DescribeModelBiasJobDefinitionResponse' {} a -> s {stoppingCondition = a} :: DescribeModelBiasJobDefinitionResponse)
 
--- | -- | The response status code.
-dmbjdrrsResponseStatus :: Lens' DescribeModelBiasJobDefinitionResponse Int
-dmbjdrrsResponseStatus = lens _dmbjdrrsResponseStatus (\s a -> s {_dmbjdrrsResponseStatus = a})
+-- | The response's http status code.
+describeModelBiasJobDefinitionResponse_httpStatus :: Lens.Lens' DescribeModelBiasJobDefinitionResponse Prelude.Int
+describeModelBiasJobDefinitionResponse_httpStatus = Lens.lens (\DescribeModelBiasJobDefinitionResponse' {httpStatus} -> httpStatus) (\s@DescribeModelBiasJobDefinitionResponse' {} a -> s {httpStatus = a} :: DescribeModelBiasJobDefinitionResponse)
 
 -- | The Amazon Resource Name (ARN) of the model bias job.
-dmbjdrrsJobDefinitionARN :: Lens' DescribeModelBiasJobDefinitionResponse Text
-dmbjdrrsJobDefinitionARN = lens _dmbjdrrsJobDefinitionARN (\s a -> s {_dmbjdrrsJobDefinitionARN = a})
+describeModelBiasJobDefinitionResponse_jobDefinitionArn :: Lens.Lens' DescribeModelBiasJobDefinitionResponse Prelude.Text
+describeModelBiasJobDefinitionResponse_jobDefinitionArn = Lens.lens (\DescribeModelBiasJobDefinitionResponse' {jobDefinitionArn} -> jobDefinitionArn) (\s@DescribeModelBiasJobDefinitionResponse' {} a -> s {jobDefinitionArn = a} :: DescribeModelBiasJobDefinitionResponse)
 
--- | The name of the bias job definition. The name must be unique within an AWS Region in the AWS account.
-dmbjdrrsJobDefinitionName :: Lens' DescribeModelBiasJobDefinitionResponse Text
-dmbjdrrsJobDefinitionName = lens _dmbjdrrsJobDefinitionName (\s a -> s {_dmbjdrrsJobDefinitionName = a})
+-- | The name of the bias job definition. The name must be unique within an
+-- AWS Region in the AWS account.
+describeModelBiasJobDefinitionResponse_jobDefinitionName :: Lens.Lens' DescribeModelBiasJobDefinitionResponse Prelude.Text
+describeModelBiasJobDefinitionResponse_jobDefinitionName = Lens.lens (\DescribeModelBiasJobDefinitionResponse' {jobDefinitionName} -> jobDefinitionName) (\s@DescribeModelBiasJobDefinitionResponse' {} a -> s {jobDefinitionName = a} :: DescribeModelBiasJobDefinitionResponse)
 
 -- | The time at which the model bias job was created.
-dmbjdrrsCreationTime :: Lens' DescribeModelBiasJobDefinitionResponse UTCTime
-dmbjdrrsCreationTime = lens _dmbjdrrsCreationTime (\s a -> s {_dmbjdrrsCreationTime = a}) . _Time
+describeModelBiasJobDefinitionResponse_creationTime :: Lens.Lens' DescribeModelBiasJobDefinitionResponse Prelude.UTCTime
+describeModelBiasJobDefinitionResponse_creationTime = Lens.lens (\DescribeModelBiasJobDefinitionResponse' {creationTime} -> creationTime) (\s@DescribeModelBiasJobDefinitionResponse' {} a -> s {creationTime = a} :: DescribeModelBiasJobDefinitionResponse) Prelude.. Prelude._Time
 
 -- | Configures the model bias job to run a specified Docker container image.
-dmbjdrrsModelBiasAppSpecification :: Lens' DescribeModelBiasJobDefinitionResponse ModelBiasAppSpecification
-dmbjdrrsModelBiasAppSpecification = lens _dmbjdrrsModelBiasAppSpecification (\s a -> s {_dmbjdrrsModelBiasAppSpecification = a})
+describeModelBiasJobDefinitionResponse_modelBiasAppSpecification :: Lens.Lens' DescribeModelBiasJobDefinitionResponse ModelBiasAppSpecification
+describeModelBiasJobDefinitionResponse_modelBiasAppSpecification = Lens.lens (\DescribeModelBiasJobDefinitionResponse' {modelBiasAppSpecification} -> modelBiasAppSpecification) (\s@DescribeModelBiasJobDefinitionResponse' {} a -> s {modelBiasAppSpecification = a} :: DescribeModelBiasJobDefinitionResponse)
 
 -- | Inputs for the model bias job.
-dmbjdrrsModelBiasJobInput :: Lens' DescribeModelBiasJobDefinitionResponse ModelBiasJobInput
-dmbjdrrsModelBiasJobInput = lens _dmbjdrrsModelBiasJobInput (\s a -> s {_dmbjdrrsModelBiasJobInput = a})
+describeModelBiasJobDefinitionResponse_modelBiasJobInput :: Lens.Lens' DescribeModelBiasJobDefinitionResponse ModelBiasJobInput
+describeModelBiasJobDefinitionResponse_modelBiasJobInput = Lens.lens (\DescribeModelBiasJobDefinitionResponse' {modelBiasJobInput} -> modelBiasJobInput) (\s@DescribeModelBiasJobDefinitionResponse' {} a -> s {modelBiasJobInput = a} :: DescribeModelBiasJobDefinitionResponse)
 
 -- | Undocumented member.
-dmbjdrrsModelBiasJobOutputConfig :: Lens' DescribeModelBiasJobDefinitionResponse MonitoringOutputConfig
-dmbjdrrsModelBiasJobOutputConfig = lens _dmbjdrrsModelBiasJobOutputConfig (\s a -> s {_dmbjdrrsModelBiasJobOutputConfig = a})
+describeModelBiasJobDefinitionResponse_modelBiasJobOutputConfig :: Lens.Lens' DescribeModelBiasJobDefinitionResponse MonitoringOutputConfig
+describeModelBiasJobDefinitionResponse_modelBiasJobOutputConfig = Lens.lens (\DescribeModelBiasJobDefinitionResponse' {modelBiasJobOutputConfig} -> modelBiasJobOutputConfig) (\s@DescribeModelBiasJobDefinitionResponse' {} a -> s {modelBiasJobOutputConfig = a} :: DescribeModelBiasJobDefinitionResponse)
 
 -- | Undocumented member.
-dmbjdrrsJobResources :: Lens' DescribeModelBiasJobDefinitionResponse MonitoringResources
-dmbjdrrsJobResources = lens _dmbjdrrsJobResources (\s a -> s {_dmbjdrrsJobResources = a})
+describeModelBiasJobDefinitionResponse_jobResources :: Lens.Lens' DescribeModelBiasJobDefinitionResponse MonitoringResources
+describeModelBiasJobDefinitionResponse_jobResources = Lens.lens (\DescribeModelBiasJobDefinitionResponse' {jobResources} -> jobResources) (\s@DescribeModelBiasJobDefinitionResponse' {} a -> s {jobResources = a} :: DescribeModelBiasJobDefinitionResponse)
 
--- | The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role that has read permission to the input data location and write permission to the output data location in Amazon S3.
-dmbjdrrsRoleARN :: Lens' DescribeModelBiasJobDefinitionResponse Text
-dmbjdrrsRoleARN = lens _dmbjdrrsRoleARN (\s a -> s {_dmbjdrrsRoleARN = a})
+-- | The Amazon Resource Name (ARN) of the AWS Identity and Access Management
+-- (IAM) role that has read permission to the input data location and write
+-- permission to the output data location in Amazon S3.
+describeModelBiasJobDefinitionResponse_roleArn :: Lens.Lens' DescribeModelBiasJobDefinitionResponse Prelude.Text
+describeModelBiasJobDefinitionResponse_roleArn = Lens.lens (\DescribeModelBiasJobDefinitionResponse' {roleArn} -> roleArn) (\s@DescribeModelBiasJobDefinitionResponse' {} a -> s {roleArn = a} :: DescribeModelBiasJobDefinitionResponse)
 
 instance
-  NFData
+  Prelude.NFData
     DescribeModelBiasJobDefinitionResponse

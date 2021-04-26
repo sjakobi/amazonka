@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,155 +21,159 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets a resource policy that manages access for a model group. For information about resource policies, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_identity-vs-resource.html Identity-based policies and resource-based policies> in the /AWS Identity and Access Management User Guide./ .
+-- Gets a resource policy that manages access for a model group. For
+-- information about resource policies, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_identity-vs-resource.html Identity-based policies and resource-based policies>
+-- in the /AWS Identity and Access Management User Guide./.
 module Network.AWS.SageMaker.GetModelPackageGroupPolicy
   ( -- * Creating a Request
-    getModelPackageGroupPolicy,
-    GetModelPackageGroupPolicy,
+    GetModelPackageGroupPolicy (..),
+    newGetModelPackageGroupPolicy,
 
     -- * Request Lenses
-    gmpgpModelPackageGroupName,
+    getModelPackageGroupPolicy_modelPackageGroupName,
 
     -- * Destructuring the Response
-    getModelPackageGroupPolicyResponse,
-    GetModelPackageGroupPolicyResponse,
+    GetModelPackageGroupPolicyResponse (..),
+    newGetModelPackageGroupPolicyResponse,
 
     -- * Response Lenses
-    gmpgprrsResponseStatus,
-    gmpgprrsResourcePolicy,
+    getModelPackageGroupPolicyResponse_httpStatus,
+    getModelPackageGroupPolicyResponse_resourcePolicy,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'getModelPackageGroupPolicy' smart constructor.
-newtype GetModelPackageGroupPolicy = GetModelPackageGroupPolicy'
-  { _gmpgpModelPackageGroupName ::
-      Text
+-- | /See:/ 'newGetModelPackageGroupPolicy' smart constructor.
+data GetModelPackageGroupPolicy = GetModelPackageGroupPolicy'
+  { -- | The name of the model group for which to get the resource policy.
+    modelPackageGroupName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetModelPackageGroupPolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetModelPackageGroupPolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gmpgpModelPackageGroupName' - The name of the model group for which to get the resource policy.
-getModelPackageGroupPolicy ::
-  -- | 'gmpgpModelPackageGroupName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'modelPackageGroupName', 'getModelPackageGroupPolicy_modelPackageGroupName' - The name of the model group for which to get the resource policy.
+newGetModelPackageGroupPolicy ::
+  -- | 'modelPackageGroupName'
+  Prelude.Text ->
   GetModelPackageGroupPolicy
-getModelPackageGroupPolicy pModelPackageGroupName_ =
+newGetModelPackageGroupPolicy pModelPackageGroupName_ =
   GetModelPackageGroupPolicy'
-    { _gmpgpModelPackageGroupName =
+    { modelPackageGroupName =
         pModelPackageGroupName_
     }
 
 -- | The name of the model group for which to get the resource policy.
-gmpgpModelPackageGroupName :: Lens' GetModelPackageGroupPolicy Text
-gmpgpModelPackageGroupName = lens _gmpgpModelPackageGroupName (\s a -> s {_gmpgpModelPackageGroupName = a})
+getModelPackageGroupPolicy_modelPackageGroupName :: Lens.Lens' GetModelPackageGroupPolicy Prelude.Text
+getModelPackageGroupPolicy_modelPackageGroupName = Lens.lens (\GetModelPackageGroupPolicy' {modelPackageGroupName} -> modelPackageGroupName) (\s@GetModelPackageGroupPolicy' {} a -> s {modelPackageGroupName = a} :: GetModelPackageGroupPolicy)
 
-instance AWSRequest GetModelPackageGroupPolicy where
+instance
+  Prelude.AWSRequest
+    GetModelPackageGroupPolicy
+  where
   type
     Rs GetModelPackageGroupPolicy =
       GetModelPackageGroupPolicyResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetModelPackageGroupPolicyResponse'
-            <$> (pure (fromEnum s)) <*> (x .:> "ResourcePolicy")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "ResourcePolicy")
       )
 
-instance Hashable GetModelPackageGroupPolicy
+instance Prelude.Hashable GetModelPackageGroupPolicy
 
-instance NFData GetModelPackageGroupPolicy
+instance Prelude.NFData GetModelPackageGroupPolicy
 
-instance ToHeaders GetModelPackageGroupPolicy where
+instance Prelude.ToHeaders GetModelPackageGroupPolicy where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "SageMaker.GetModelPackageGroupPolicy" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "SageMaker.GetModelPackageGroupPolicy" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetModelPackageGroupPolicy where
+instance Prelude.ToJSON GetModelPackageGroupPolicy where
   toJSON GetModelPackageGroupPolicy' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "ModelPackageGroupName"
-                  .= _gmpgpModelPackageGroupName
+                  Prelude..= modelPackageGroupName
               )
           ]
       )
 
-instance ToPath GetModelPackageGroupPolicy where
-  toPath = const "/"
+instance Prelude.ToPath GetModelPackageGroupPolicy where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetModelPackageGroupPolicy where
-  toQuery = const mempty
+instance Prelude.ToQuery GetModelPackageGroupPolicy where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getModelPackageGroupPolicyResponse' smart constructor.
+-- | /See:/ 'newGetModelPackageGroupPolicyResponse' smart constructor.
 data GetModelPackageGroupPolicyResponse = GetModelPackageGroupPolicyResponse'
-  { _gmpgprrsResponseStatus ::
-      !Int,
-    _gmpgprrsResourcePolicy ::
-      !Text
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The resource policy for the model group.
+    resourcePolicy :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetModelPackageGroupPolicyResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetModelPackageGroupPolicyResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gmpgprrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gmpgprrsResourcePolicy' - The resource policy for the model group.
-getModelPackageGroupPolicyResponse ::
-  -- | 'gmpgprrsResponseStatus'
-  Int ->
-  -- | 'gmpgprrsResourcePolicy'
-  Text ->
+-- 'httpStatus', 'getModelPackageGroupPolicyResponse_httpStatus' - The response's http status code.
+--
+-- 'resourcePolicy', 'getModelPackageGroupPolicyResponse_resourcePolicy' - The resource policy for the model group.
+newGetModelPackageGroupPolicyResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'resourcePolicy'
+  Prelude.Text ->
   GetModelPackageGroupPolicyResponse
-getModelPackageGroupPolicyResponse
-  pResponseStatus_
+newGetModelPackageGroupPolicyResponse
+  pHttpStatus_
   pResourcePolicy_ =
     GetModelPackageGroupPolicyResponse'
-      { _gmpgprrsResponseStatus =
-          pResponseStatus_,
-        _gmpgprrsResourcePolicy =
-          pResourcePolicy_
+      { httpStatus =
+          pHttpStatus_,
+        resourcePolicy = pResourcePolicy_
       }
 
--- | -- | The response status code.
-gmpgprrsResponseStatus :: Lens' GetModelPackageGroupPolicyResponse Int
-gmpgprrsResponseStatus = lens _gmpgprrsResponseStatus (\s a -> s {_gmpgprrsResponseStatus = a})
+-- | The response's http status code.
+getModelPackageGroupPolicyResponse_httpStatus :: Lens.Lens' GetModelPackageGroupPolicyResponse Prelude.Int
+getModelPackageGroupPolicyResponse_httpStatus = Lens.lens (\GetModelPackageGroupPolicyResponse' {httpStatus} -> httpStatus) (\s@GetModelPackageGroupPolicyResponse' {} a -> s {httpStatus = a} :: GetModelPackageGroupPolicyResponse)
 
 -- | The resource policy for the model group.
-gmpgprrsResourcePolicy :: Lens' GetModelPackageGroupPolicyResponse Text
-gmpgprrsResourcePolicy = lens _gmpgprrsResourcePolicy (\s a -> s {_gmpgprrsResourcePolicy = a})
+getModelPackageGroupPolicyResponse_resourcePolicy :: Lens.Lens' GetModelPackageGroupPolicyResponse Prelude.Text
+getModelPackageGroupPolicyResponse_resourcePolicy = Lens.lens (\GetModelPackageGroupPolicyResponse' {resourcePolicy} -> resourcePolicy) (\s@GetModelPackageGroupPolicyResponse' {} a -> s {resourcePolicy = a} :: GetModelPackageGroupPolicyResponse)
 
-instance NFData GetModelPackageGroupPolicyResponse
+instance
+  Prelude.NFData
+    GetModelPackageGroupPolicyResponse

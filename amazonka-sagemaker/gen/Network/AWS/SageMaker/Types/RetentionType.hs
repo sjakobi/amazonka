@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.SageMaker.Types.RetentionType
   ( RetentionType
       ( ..,
-        Delete,
-        Retain
+        RetentionTypeDelete,
+        RetentionTypeRetain
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RetentionType = RetentionType' (CI Text)
+newtype RetentionType = RetentionType'
+  { fromRetentionType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Delete :: RetentionType
-pattern Delete = RetentionType' "Delete"
+pattern RetentionTypeDelete :: RetentionType
+pattern RetentionTypeDelete = RetentionType' "Delete"
 
-pattern Retain :: RetentionType
-pattern Retain = RetentionType' "Retain"
+pattern RetentionTypeRetain :: RetentionType
+pattern RetentionTypeRetain = RetentionType' "Retain"
 
 {-# COMPLETE
-  Delete,
-  Retain,
+  RetentionTypeDelete,
+  RetentionTypeRetain,
   RetentionType'
   #-}
 
-instance FromText RetentionType where
-  parser = (RetentionType' . mk) <$> takeText
+instance Prelude.FromText RetentionType where
+  parser = RetentionType' Prelude.<$> Prelude.takeText
 
-instance ToText RetentionType where
-  toText (RetentionType' ci) = original ci
+instance Prelude.ToText RetentionType where
+  toText (RetentionType' x) = x
 
-instance Hashable RetentionType
+instance Prelude.Hashable RetentionType
 
-instance NFData RetentionType
+instance Prelude.NFData RetentionType
 
-instance ToByteString RetentionType
+instance Prelude.ToByteString RetentionType
 
-instance ToQuery RetentionType
+instance Prelude.ToQuery RetentionType
 
-instance ToHeader RetentionType
+instance Prelude.ToHeader RetentionType
 
-instance ToJSON RetentionType where
-  toJSON = toJSONText
+instance Prelude.ToJSON RetentionType where
+  toJSON = Prelude.toJSONText

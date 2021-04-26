@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,266 +24,354 @@
 -- Returns the description of an endpoint.
 module Network.AWS.SageMaker.DescribeEndpoint
   ( -- * Creating a Request
-    describeEndpoint,
-    DescribeEndpoint,
+    DescribeEndpoint (..),
+    newDescribeEndpoint,
 
     -- * Request Lenses
-    deEndpointName,
+    describeEndpoint_endpointName,
 
     -- * Destructuring the Response
-    describeEndpointResponse,
-    DescribeEndpointResponse,
+    DescribeEndpointResponse (..),
+    newDescribeEndpointResponse,
 
     -- * Response Lenses
-    describeendpointresponseersProductionVariants,
-    describeendpointresponseersLastDeploymentConfig,
-    describeendpointresponseersFailureReason,
-    describeendpointresponseersDataCaptureConfig,
-    describeendpointresponseersResponseStatus,
-    describeendpointresponseersEndpointName,
-    describeendpointresponseersEndpointARN,
-    describeendpointresponseersEndpointConfigName,
-    describeendpointresponseersEndpointStatus,
-    describeendpointresponseersCreationTime,
-    describeendpointresponseersLastModifiedTime,
+    describeEndpointResponse_productionVariants,
+    describeEndpointResponse_lastDeploymentConfig,
+    describeEndpointResponse_failureReason,
+    describeEndpointResponse_dataCaptureConfig,
+    describeEndpointResponse_httpStatus,
+    describeEndpointResponse_endpointName,
+    describeEndpointResponse_endpointArn,
+    describeEndpointResponse_endpointConfigName,
+    describeEndpointResponse_endpointStatus,
+    describeEndpointResponse_creationTime,
+    describeEndpointResponse_lastModifiedTime,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
+import Network.AWS.SageMaker.Types.DataCaptureConfigSummary
+import Network.AWS.SageMaker.Types.DeploymentConfig
+import Network.AWS.SageMaker.Types.EndpointStatus
+import Network.AWS.SageMaker.Types.ProductionVariantSummary
 
--- | /See:/ 'describeEndpoint' smart constructor.
-newtype DescribeEndpoint = DescribeEndpoint'
-  { _deEndpointName ::
-      Text
+-- | /See:/ 'newDescribeEndpoint' smart constructor.
+data DescribeEndpoint = DescribeEndpoint'
+  { -- | The name of the endpoint.
+    endpointName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeEndpoint' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeEndpoint' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'deEndpointName' - The name of the endpoint.
-describeEndpoint ::
-  -- | 'deEndpointName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'endpointName', 'describeEndpoint_endpointName' - The name of the endpoint.
+newDescribeEndpoint ::
+  -- | 'endpointName'
+  Prelude.Text ->
   DescribeEndpoint
-describeEndpoint pEndpointName_ =
-  DescribeEndpoint' {_deEndpointName = pEndpointName_}
+newDescribeEndpoint pEndpointName_ =
+  DescribeEndpoint' {endpointName = pEndpointName_}
 
 -- | The name of the endpoint.
-deEndpointName :: Lens' DescribeEndpoint Text
-deEndpointName = lens _deEndpointName (\s a -> s {_deEndpointName = a})
+describeEndpoint_endpointName :: Lens.Lens' DescribeEndpoint Prelude.Text
+describeEndpoint_endpointName = Lens.lens (\DescribeEndpoint' {endpointName} -> endpointName) (\s@DescribeEndpoint' {} a -> s {endpointName = a} :: DescribeEndpoint)
 
-instance AWSRequest DescribeEndpoint where
+instance Prelude.AWSRequest DescribeEndpoint where
   type Rs DescribeEndpoint = DescribeEndpointResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeEndpointResponse'
-            <$> (x .?> "ProductionVariants")
-            <*> (x .?> "LastDeploymentConfig")
-            <*> (x .?> "FailureReason")
-            <*> (x .?> "DataCaptureConfig")
-            <*> (pure (fromEnum s))
-            <*> (x .:> "EndpointName")
-            <*> (x .:> "EndpointArn")
-            <*> (x .:> "EndpointConfigName")
-            <*> (x .:> "EndpointStatus")
-            <*> (x .:> "CreationTime")
-            <*> (x .:> "LastModifiedTime")
+            Prelude.<$> (x Prelude..?> "ProductionVariants")
+            Prelude.<*> (x Prelude..?> "LastDeploymentConfig")
+            Prelude.<*> (x Prelude..?> "FailureReason")
+            Prelude.<*> (x Prelude..?> "DataCaptureConfig")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "EndpointName")
+            Prelude.<*> (x Prelude..:> "EndpointArn")
+            Prelude.<*> (x Prelude..:> "EndpointConfigName")
+            Prelude.<*> (x Prelude..:> "EndpointStatus")
+            Prelude.<*> (x Prelude..:> "CreationTime")
+            Prelude.<*> (x Prelude..:> "LastModifiedTime")
       )
 
-instance Hashable DescribeEndpoint
+instance Prelude.Hashable DescribeEndpoint
 
-instance NFData DescribeEndpoint
+instance Prelude.NFData DescribeEndpoint
 
-instance ToHeaders DescribeEndpoint where
+instance Prelude.ToHeaders DescribeEndpoint where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.DescribeEndpoint" :: ByteString),
+              Prelude.=# ("SageMaker.DescribeEndpoint" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeEndpoint where
+instance Prelude.ToJSON DescribeEndpoint where
   toJSON DescribeEndpoint' {..} =
-    object
-      ( catMaybes
-          [Just ("EndpointName" .= _deEndpointName)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("EndpointName" Prelude..= endpointName)
+          ]
       )
 
-instance ToPath DescribeEndpoint where
-  toPath = const "/"
+instance Prelude.ToPath DescribeEndpoint where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeEndpoint where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeEndpoint where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeEndpointResponse' smart constructor.
+-- | /See:/ 'newDescribeEndpointResponse' smart constructor.
 data DescribeEndpointResponse = DescribeEndpointResponse'
-  { _describeendpointresponseersProductionVariants ::
-      !( Maybe
-           ( List1
-               ProductionVariantSummary
-           )
-       ),
-    _describeendpointresponseersLastDeploymentConfig ::
-      !( Maybe
-           DeploymentConfig
-       ),
-    _describeendpointresponseersFailureReason ::
-      !(Maybe Text),
-    _describeendpointresponseersDataCaptureConfig ::
-      !( Maybe
-           DataCaptureConfigSummary
-       ),
-    _describeendpointresponseersResponseStatus ::
-      !Int,
-    _describeendpointresponseersEndpointName ::
-      !Text,
-    _describeendpointresponseersEndpointARN ::
-      !Text,
-    _describeendpointresponseersEndpointConfigName ::
-      !Text,
-    _describeendpointresponseersEndpointStatus ::
-      !EndpointStatus,
-    _describeendpointresponseersCreationTime ::
-      !POSIX,
-    _describeendpointresponseersLastModifiedTime ::
-      !POSIX
+  { -- | An array of ProductionVariantSummary objects, one for each model hosted
+    -- behind this endpoint.
+    productionVariants :: Prelude.Maybe (Prelude.List1 ProductionVariantSummary),
+    -- | The most recent deployment configuration for the endpoint.
+    lastDeploymentConfig :: Prelude.Maybe DeploymentConfig,
+    -- | If the status of the endpoint is @Failed@, the reason why it failed.
+    failureReason :: Prelude.Maybe Prelude.Text,
+    dataCaptureConfig :: Prelude.Maybe DataCaptureConfigSummary,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | Name of the endpoint.
+    endpointName :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the endpoint.
+    endpointArn :: Prelude.Text,
+    -- | The name of the endpoint configuration associated with this endpoint.
+    endpointConfigName :: Prelude.Text,
+    -- | The status of the endpoint.
+    --
+    -- -   @OutOfService@: Endpoint is not available to take incoming requests.
+    --
+    -- -   @Creating@: CreateEndpoint is executing.
+    --
+    -- -   @Updating@: UpdateEndpoint or UpdateEndpointWeightsAndCapacities is
+    --     executing.
+    --
+    -- -   @SystemUpdating@: Endpoint is undergoing maintenance and cannot be
+    --     updated or deleted or re-scaled until it has completed. This
+    --     maintenance operation does not change any customer-specified values
+    --     such as VPC config, KMS encryption, model, instance type, or
+    --     instance count.
+    --
+    -- -   @RollingBack@: Endpoint fails to scale up or down or change its
+    --     variant weight and is in the process of rolling back to its previous
+    --     configuration. Once the rollback completes, endpoint returns to an
+    --     @InService@ status. This transitional status only applies to an
+    --     endpoint that has autoscaling enabled and is undergoing variant
+    --     weight or capacity changes as part of an
+    --     UpdateEndpointWeightsAndCapacities call or when the
+    --     UpdateEndpointWeightsAndCapacities operation is called explicitly.
+    --
+    -- -   @InService@: Endpoint is available to process incoming requests.
+    --
+    -- -   @Deleting@: DeleteEndpoint is executing.
+    --
+    -- -   @Failed@: Endpoint could not be created, updated, or re-scaled. Use
+    --     DescribeEndpointOutput$FailureReason for information about the
+    --     failure. DeleteEndpoint is the only operation that can be performed
+    --     on a failed endpoint.
+    endpointStatus :: EndpointStatus,
+    -- | A timestamp that shows when the endpoint was created.
+    creationTime :: Prelude.POSIX,
+    -- | A timestamp that shows when the endpoint was last modified.
+    lastModifiedTime :: Prelude.POSIX
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeEndpointResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeEndpointResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'describeendpointresponseersProductionVariants' - An array of 'ProductionVariantSummary' objects, one for each model hosted behind this endpoint.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'describeendpointresponseersLastDeploymentConfig' - The most recent deployment configuration for the endpoint.
+-- 'productionVariants', 'describeEndpointResponse_productionVariants' - An array of ProductionVariantSummary objects, one for each model hosted
+-- behind this endpoint.
 --
--- * 'describeendpointresponseersFailureReason' - If the status of the endpoint is @Failed@ , the reason why it failed.
+-- 'lastDeploymentConfig', 'describeEndpointResponse_lastDeploymentConfig' - The most recent deployment configuration for the endpoint.
 --
--- * 'describeendpointresponseersDataCaptureConfig' - Undocumented member.
+-- 'failureReason', 'describeEndpointResponse_failureReason' - If the status of the endpoint is @Failed@, the reason why it failed.
 --
--- * 'describeendpointresponseersResponseStatus' - -- | The response status code.
+-- 'dataCaptureConfig', 'describeEndpointResponse_dataCaptureConfig' - Undocumented member.
 --
--- * 'describeendpointresponseersEndpointName' - Name of the endpoint.
+-- 'httpStatus', 'describeEndpointResponse_httpStatus' - The response's http status code.
 --
--- * 'describeendpointresponseersEndpointARN' - The Amazon Resource Name (ARN) of the endpoint.
+-- 'endpointName', 'describeEndpointResponse_endpointName' - Name of the endpoint.
 --
--- * 'describeendpointresponseersEndpointConfigName' - The name of the endpoint configuration associated with this endpoint.
+-- 'endpointArn', 'describeEndpointResponse_endpointArn' - The Amazon Resource Name (ARN) of the endpoint.
 --
--- * 'describeendpointresponseersEndpointStatus' - The status of the endpoint.     * @OutOfService@ : Endpoint is not available to take incoming requests.     * @Creating@ : 'CreateEndpoint' is executing.     * @Updating@ : 'UpdateEndpoint' or 'UpdateEndpointWeightsAndCapacities' is executing.     * @SystemUpdating@ : Endpoint is undergoing maintenance and cannot be updated or deleted or re-scaled until it has completed. This maintenance operation does not change any customer-specified values such as VPC config, KMS encryption, model, instance type, or instance count.     * @RollingBack@ : Endpoint fails to scale up or down or change its variant weight and is in the process of rolling back to its previous configuration. Once the rollback completes, endpoint returns to an @InService@ status. This transitional status only applies to an endpoint that has autoscaling enabled and is undergoing variant weight or capacity changes as part of an 'UpdateEndpointWeightsAndCapacities' call or when the 'UpdateEndpointWeightsAndCapacities' operation is called explicitly.     * @InService@ : Endpoint is available to process incoming requests.     * @Deleting@ : 'DeleteEndpoint' is executing.     * @Failed@ : Endpoint could not be created, updated, or re-scaled. Use 'DescribeEndpointOutput$FailureReason' for information about the failure. 'DeleteEndpoint' is the only operation that can be performed on a failed endpoint.
+-- 'endpointConfigName', 'describeEndpointResponse_endpointConfigName' - The name of the endpoint configuration associated with this endpoint.
 --
--- * 'describeendpointresponseersCreationTime' - A timestamp that shows when the endpoint was created.
+-- 'endpointStatus', 'describeEndpointResponse_endpointStatus' - The status of the endpoint.
 --
--- * 'describeendpointresponseersLastModifiedTime' - A timestamp that shows when the endpoint was last modified.
-describeEndpointResponse ::
-  -- | 'describeendpointresponseersResponseStatus'
-  Int ->
-  -- | 'describeendpointresponseersEndpointName'
-  Text ->
-  -- | 'describeendpointresponseersEndpointARN'
-  Text ->
-  -- | 'describeendpointresponseersEndpointConfigName'
-  Text ->
-  -- | 'describeendpointresponseersEndpointStatus'
+-- -   @OutOfService@: Endpoint is not available to take incoming requests.
+--
+-- -   @Creating@: CreateEndpoint is executing.
+--
+-- -   @Updating@: UpdateEndpoint or UpdateEndpointWeightsAndCapacities is
+--     executing.
+--
+-- -   @SystemUpdating@: Endpoint is undergoing maintenance and cannot be
+--     updated or deleted or re-scaled until it has completed. This
+--     maintenance operation does not change any customer-specified values
+--     such as VPC config, KMS encryption, model, instance type, or
+--     instance count.
+--
+-- -   @RollingBack@: Endpoint fails to scale up or down or change its
+--     variant weight and is in the process of rolling back to its previous
+--     configuration. Once the rollback completes, endpoint returns to an
+--     @InService@ status. This transitional status only applies to an
+--     endpoint that has autoscaling enabled and is undergoing variant
+--     weight or capacity changes as part of an
+--     UpdateEndpointWeightsAndCapacities call or when the
+--     UpdateEndpointWeightsAndCapacities operation is called explicitly.
+--
+-- -   @InService@: Endpoint is available to process incoming requests.
+--
+-- -   @Deleting@: DeleteEndpoint is executing.
+--
+-- -   @Failed@: Endpoint could not be created, updated, or re-scaled. Use
+--     DescribeEndpointOutput$FailureReason for information about the
+--     failure. DeleteEndpoint is the only operation that can be performed
+--     on a failed endpoint.
+--
+-- 'creationTime', 'describeEndpointResponse_creationTime' - A timestamp that shows when the endpoint was created.
+--
+-- 'lastModifiedTime', 'describeEndpointResponse_lastModifiedTime' - A timestamp that shows when the endpoint was last modified.
+newDescribeEndpointResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'endpointName'
+  Prelude.Text ->
+  -- | 'endpointArn'
+  Prelude.Text ->
+  -- | 'endpointConfigName'
+  Prelude.Text ->
+  -- | 'endpointStatus'
   EndpointStatus ->
-  -- | 'describeendpointresponseersCreationTime'
-  UTCTime ->
-  -- | 'describeendpointresponseersLastModifiedTime'
-  UTCTime ->
+  -- | 'creationTime'
+  Prelude.UTCTime ->
+  -- | 'lastModifiedTime'
+  Prelude.UTCTime ->
   DescribeEndpointResponse
-describeEndpointResponse
-  pResponseStatus_
+newDescribeEndpointResponse
+  pHttpStatus_
   pEndpointName_
-  pEndpointARN_
+  pEndpointArn_
   pEndpointConfigName_
   pEndpointStatus_
   pCreationTime_
   pLastModifiedTime_ =
     DescribeEndpointResponse'
-      { _describeendpointresponseersProductionVariants =
-          Nothing,
-        _describeendpointresponseersLastDeploymentConfig =
-          Nothing,
-        _describeendpointresponseersFailureReason =
-          Nothing,
-        _describeendpointresponseersDataCaptureConfig =
-          Nothing,
-        _describeendpointresponseersResponseStatus =
-          pResponseStatus_,
-        _describeendpointresponseersEndpointName =
-          pEndpointName_,
-        _describeendpointresponseersEndpointARN =
-          pEndpointARN_,
-        _describeendpointresponseersEndpointConfigName =
-          pEndpointConfigName_,
-        _describeendpointresponseersEndpointStatus =
-          pEndpointStatus_,
-        _describeendpointresponseersCreationTime =
-          _Time # pCreationTime_,
-        _describeendpointresponseersLastModifiedTime =
-          _Time # pLastModifiedTime_
+      { productionVariants =
+          Prelude.Nothing,
+        lastDeploymentConfig = Prelude.Nothing,
+        failureReason = Prelude.Nothing,
+        dataCaptureConfig = Prelude.Nothing,
+        httpStatus = pHttpStatus_,
+        endpointName = pEndpointName_,
+        endpointArn = pEndpointArn_,
+        endpointConfigName = pEndpointConfigName_,
+        endpointStatus = pEndpointStatus_,
+        creationTime =
+          Prelude._Time Lens.# pCreationTime_,
+        lastModifiedTime =
+          Prelude._Time Lens.# pLastModifiedTime_
       }
 
--- | An array of 'ProductionVariantSummary' objects, one for each model hosted behind this endpoint.
-describeendpointresponseersProductionVariants :: Lens' DescribeEndpointResponse (Maybe (NonEmpty ProductionVariantSummary))
-describeendpointresponseersProductionVariants = lens _describeendpointresponseersProductionVariants (\s a -> s {_describeendpointresponseersProductionVariants = a}) . mapping _List1
+-- | An array of ProductionVariantSummary objects, one for each model hosted
+-- behind this endpoint.
+describeEndpointResponse_productionVariants :: Lens.Lens' DescribeEndpointResponse (Prelude.Maybe (Prelude.NonEmpty ProductionVariantSummary))
+describeEndpointResponse_productionVariants = Lens.lens (\DescribeEndpointResponse' {productionVariants} -> productionVariants) (\s@DescribeEndpointResponse' {} a -> s {productionVariants = a} :: DescribeEndpointResponse) Prelude.. Lens.mapping Prelude._List1
 
 -- | The most recent deployment configuration for the endpoint.
-describeendpointresponseersLastDeploymentConfig :: Lens' DescribeEndpointResponse (Maybe DeploymentConfig)
-describeendpointresponseersLastDeploymentConfig = lens _describeendpointresponseersLastDeploymentConfig (\s a -> s {_describeendpointresponseersLastDeploymentConfig = a})
+describeEndpointResponse_lastDeploymentConfig :: Lens.Lens' DescribeEndpointResponse (Prelude.Maybe DeploymentConfig)
+describeEndpointResponse_lastDeploymentConfig = Lens.lens (\DescribeEndpointResponse' {lastDeploymentConfig} -> lastDeploymentConfig) (\s@DescribeEndpointResponse' {} a -> s {lastDeploymentConfig = a} :: DescribeEndpointResponse)
 
--- | If the status of the endpoint is @Failed@ , the reason why it failed.
-describeendpointresponseersFailureReason :: Lens' DescribeEndpointResponse (Maybe Text)
-describeendpointresponseersFailureReason = lens _describeendpointresponseersFailureReason (\s a -> s {_describeendpointresponseersFailureReason = a})
+-- | If the status of the endpoint is @Failed@, the reason why it failed.
+describeEndpointResponse_failureReason :: Lens.Lens' DescribeEndpointResponse (Prelude.Maybe Prelude.Text)
+describeEndpointResponse_failureReason = Lens.lens (\DescribeEndpointResponse' {failureReason} -> failureReason) (\s@DescribeEndpointResponse' {} a -> s {failureReason = a} :: DescribeEndpointResponse)
 
 -- | Undocumented member.
-describeendpointresponseersDataCaptureConfig :: Lens' DescribeEndpointResponse (Maybe DataCaptureConfigSummary)
-describeendpointresponseersDataCaptureConfig = lens _describeendpointresponseersDataCaptureConfig (\s a -> s {_describeendpointresponseersDataCaptureConfig = a})
+describeEndpointResponse_dataCaptureConfig :: Lens.Lens' DescribeEndpointResponse (Prelude.Maybe DataCaptureConfigSummary)
+describeEndpointResponse_dataCaptureConfig = Lens.lens (\DescribeEndpointResponse' {dataCaptureConfig} -> dataCaptureConfig) (\s@DescribeEndpointResponse' {} a -> s {dataCaptureConfig = a} :: DescribeEndpointResponse)
 
--- | -- | The response status code.
-describeendpointresponseersResponseStatus :: Lens' DescribeEndpointResponse Int
-describeendpointresponseersResponseStatus = lens _describeendpointresponseersResponseStatus (\s a -> s {_describeendpointresponseersResponseStatus = a})
+-- | The response's http status code.
+describeEndpointResponse_httpStatus :: Lens.Lens' DescribeEndpointResponse Prelude.Int
+describeEndpointResponse_httpStatus = Lens.lens (\DescribeEndpointResponse' {httpStatus} -> httpStatus) (\s@DescribeEndpointResponse' {} a -> s {httpStatus = a} :: DescribeEndpointResponse)
 
 -- | Name of the endpoint.
-describeendpointresponseersEndpointName :: Lens' DescribeEndpointResponse Text
-describeendpointresponseersEndpointName = lens _describeendpointresponseersEndpointName (\s a -> s {_describeendpointresponseersEndpointName = a})
+describeEndpointResponse_endpointName :: Lens.Lens' DescribeEndpointResponse Prelude.Text
+describeEndpointResponse_endpointName = Lens.lens (\DescribeEndpointResponse' {endpointName} -> endpointName) (\s@DescribeEndpointResponse' {} a -> s {endpointName = a} :: DescribeEndpointResponse)
 
 -- | The Amazon Resource Name (ARN) of the endpoint.
-describeendpointresponseersEndpointARN :: Lens' DescribeEndpointResponse Text
-describeendpointresponseersEndpointARN = lens _describeendpointresponseersEndpointARN (\s a -> s {_describeendpointresponseersEndpointARN = a})
+describeEndpointResponse_endpointArn :: Lens.Lens' DescribeEndpointResponse Prelude.Text
+describeEndpointResponse_endpointArn = Lens.lens (\DescribeEndpointResponse' {endpointArn} -> endpointArn) (\s@DescribeEndpointResponse' {} a -> s {endpointArn = a} :: DescribeEndpointResponse)
 
 -- | The name of the endpoint configuration associated with this endpoint.
-describeendpointresponseersEndpointConfigName :: Lens' DescribeEndpointResponse Text
-describeendpointresponseersEndpointConfigName = lens _describeendpointresponseersEndpointConfigName (\s a -> s {_describeendpointresponseersEndpointConfigName = a})
+describeEndpointResponse_endpointConfigName :: Lens.Lens' DescribeEndpointResponse Prelude.Text
+describeEndpointResponse_endpointConfigName = Lens.lens (\DescribeEndpointResponse' {endpointConfigName} -> endpointConfigName) (\s@DescribeEndpointResponse' {} a -> s {endpointConfigName = a} :: DescribeEndpointResponse)
 
--- | The status of the endpoint.     * @OutOfService@ : Endpoint is not available to take incoming requests.     * @Creating@ : 'CreateEndpoint' is executing.     * @Updating@ : 'UpdateEndpoint' or 'UpdateEndpointWeightsAndCapacities' is executing.     * @SystemUpdating@ : Endpoint is undergoing maintenance and cannot be updated or deleted or re-scaled until it has completed. This maintenance operation does not change any customer-specified values such as VPC config, KMS encryption, model, instance type, or instance count.     * @RollingBack@ : Endpoint fails to scale up or down or change its variant weight and is in the process of rolling back to its previous configuration. Once the rollback completes, endpoint returns to an @InService@ status. This transitional status only applies to an endpoint that has autoscaling enabled and is undergoing variant weight or capacity changes as part of an 'UpdateEndpointWeightsAndCapacities' call or when the 'UpdateEndpointWeightsAndCapacities' operation is called explicitly.     * @InService@ : Endpoint is available to process incoming requests.     * @Deleting@ : 'DeleteEndpoint' is executing.     * @Failed@ : Endpoint could not be created, updated, or re-scaled. Use 'DescribeEndpointOutput$FailureReason' for information about the failure. 'DeleteEndpoint' is the only operation that can be performed on a failed endpoint.
-describeendpointresponseersEndpointStatus :: Lens' DescribeEndpointResponse EndpointStatus
-describeendpointresponseersEndpointStatus = lens _describeendpointresponseersEndpointStatus (\s a -> s {_describeendpointresponseersEndpointStatus = a})
+-- | The status of the endpoint.
+--
+-- -   @OutOfService@: Endpoint is not available to take incoming requests.
+--
+-- -   @Creating@: CreateEndpoint is executing.
+--
+-- -   @Updating@: UpdateEndpoint or UpdateEndpointWeightsAndCapacities is
+--     executing.
+--
+-- -   @SystemUpdating@: Endpoint is undergoing maintenance and cannot be
+--     updated or deleted or re-scaled until it has completed. This
+--     maintenance operation does not change any customer-specified values
+--     such as VPC config, KMS encryption, model, instance type, or
+--     instance count.
+--
+-- -   @RollingBack@: Endpoint fails to scale up or down or change its
+--     variant weight and is in the process of rolling back to its previous
+--     configuration. Once the rollback completes, endpoint returns to an
+--     @InService@ status. This transitional status only applies to an
+--     endpoint that has autoscaling enabled and is undergoing variant
+--     weight or capacity changes as part of an
+--     UpdateEndpointWeightsAndCapacities call or when the
+--     UpdateEndpointWeightsAndCapacities operation is called explicitly.
+--
+-- -   @InService@: Endpoint is available to process incoming requests.
+--
+-- -   @Deleting@: DeleteEndpoint is executing.
+--
+-- -   @Failed@: Endpoint could not be created, updated, or re-scaled. Use
+--     DescribeEndpointOutput$FailureReason for information about the
+--     failure. DeleteEndpoint is the only operation that can be performed
+--     on a failed endpoint.
+describeEndpointResponse_endpointStatus :: Lens.Lens' DescribeEndpointResponse EndpointStatus
+describeEndpointResponse_endpointStatus = Lens.lens (\DescribeEndpointResponse' {endpointStatus} -> endpointStatus) (\s@DescribeEndpointResponse' {} a -> s {endpointStatus = a} :: DescribeEndpointResponse)
 
 -- | A timestamp that shows when the endpoint was created.
-describeendpointresponseersCreationTime :: Lens' DescribeEndpointResponse UTCTime
-describeendpointresponseersCreationTime = lens _describeendpointresponseersCreationTime (\s a -> s {_describeendpointresponseersCreationTime = a}) . _Time
+describeEndpointResponse_creationTime :: Lens.Lens' DescribeEndpointResponse Prelude.UTCTime
+describeEndpointResponse_creationTime = Lens.lens (\DescribeEndpointResponse' {creationTime} -> creationTime) (\s@DescribeEndpointResponse' {} a -> s {creationTime = a} :: DescribeEndpointResponse) Prelude.. Prelude._Time
 
 -- | A timestamp that shows when the endpoint was last modified.
-describeendpointresponseersLastModifiedTime :: Lens' DescribeEndpointResponse UTCTime
-describeendpointresponseersLastModifiedTime = lens _describeendpointresponseersLastModifiedTime (\s a -> s {_describeendpointresponseersLastModifiedTime = a}) . _Time
+describeEndpointResponse_lastModifiedTime :: Lens.Lens' DescribeEndpointResponse Prelude.UTCTime
+describeEndpointResponse_lastModifiedTime = Lens.lens (\DescribeEndpointResponse' {lastModifiedTime} -> lastModifiedTime) (\s@DescribeEndpointResponse' {} a -> s {lastModifiedTime = a} :: DescribeEndpointResponse) Prelude.. Prelude._Time
 
-instance NFData DescribeEndpointResponse
+instance Prelude.NFData DescribeEndpointResponse

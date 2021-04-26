@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.SageMaker.Types.CandidateStepType
   ( CandidateStepType
       ( ..,
-        AWSSageMakerProcessingJob,
-        AWSSageMakerTrainingJob,
-        AWSSageMakerTransformJob
+        CandidateStepTypeAWSSageMakerProcessingJob,
+        CandidateStepTypeAWSSageMakerTrainingJob,
+        CandidateStepTypeAWSSageMakerTransformJob
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CandidateStepType = CandidateStepType' (CI Text)
+newtype CandidateStepType = CandidateStepType'
+  { fromCandidateStepType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AWSSageMakerProcessingJob :: CandidateStepType
-pattern AWSSageMakerProcessingJob = CandidateStepType' "AWS::SageMaker::ProcessingJob"
+pattern CandidateStepTypeAWSSageMakerProcessingJob :: CandidateStepType
+pattern CandidateStepTypeAWSSageMakerProcessingJob = CandidateStepType' "AWS::SageMaker::ProcessingJob"
 
-pattern AWSSageMakerTrainingJob :: CandidateStepType
-pattern AWSSageMakerTrainingJob = CandidateStepType' "AWS::SageMaker::TrainingJob"
+pattern CandidateStepTypeAWSSageMakerTrainingJob :: CandidateStepType
+pattern CandidateStepTypeAWSSageMakerTrainingJob = CandidateStepType' "AWS::SageMaker::TrainingJob"
 
-pattern AWSSageMakerTransformJob :: CandidateStepType
-pattern AWSSageMakerTransformJob = CandidateStepType' "AWS::SageMaker::TransformJob"
+pattern CandidateStepTypeAWSSageMakerTransformJob :: CandidateStepType
+pattern CandidateStepTypeAWSSageMakerTransformJob = CandidateStepType' "AWS::SageMaker::TransformJob"
 
 {-# COMPLETE
-  AWSSageMakerProcessingJob,
-  AWSSageMakerTrainingJob,
-  AWSSageMakerTransformJob,
+  CandidateStepTypeAWSSageMakerProcessingJob,
+  CandidateStepTypeAWSSageMakerTrainingJob,
+  CandidateStepTypeAWSSageMakerTransformJob,
   CandidateStepType'
   #-}
 
-instance FromText CandidateStepType where
-  parser = (CandidateStepType' . mk) <$> takeText
+instance Prelude.FromText CandidateStepType where
+  parser = CandidateStepType' Prelude.<$> Prelude.takeText
 
-instance ToText CandidateStepType where
-  toText (CandidateStepType' ci) = original ci
+instance Prelude.ToText CandidateStepType where
+  toText (CandidateStepType' x) = x
 
-instance Hashable CandidateStepType
+instance Prelude.Hashable CandidateStepType
 
-instance NFData CandidateStepType
+instance Prelude.NFData CandidateStepType
 
-instance ToByteString CandidateStepType
+instance Prelude.ToByteString CandidateStepType
 
-instance ToQuery CandidateStepType
+instance Prelude.ToQuery CandidateStepType
 
-instance ToHeader CandidateStepType
+instance Prelude.ToHeader CandidateStepType
 
-instance FromJSON CandidateStepType where
-  parseJSON = parseJSONText "CandidateStepType"
+instance Prelude.FromJSON CandidateStepType where
+  parseJSON = Prelude.parseJSONText "CandidateStepType"

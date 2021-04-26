@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,78 +19,96 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.MonitoringS3Output where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.ProcessingS3UploadMode
 
--- | Information about where and how you want to store the results of a monitoring job.
+-- | Information about where and how you want to store the results of a
+-- monitoring job.
 --
---
---
--- /See:/ 'monitoringS3Output' smart constructor.
+-- /See:/ 'newMonitoringS3Output' smart constructor.
 data MonitoringS3Output = MonitoringS3Output'
-  { _msoS3UploadMode ::
-      !(Maybe ProcessingS3UploadMode),
-    _msoS3URI :: !Text,
-    _msoLocalPath :: !Text
+  { -- | Whether to upload the results of the monitoring job continuously or
+    -- after the job completes.
+    s3UploadMode :: Prelude.Maybe ProcessingS3UploadMode,
+    -- | A URI that identifies the Amazon S3 storage location where Amazon
+    -- SageMaker saves the results of a monitoring job.
+    s3Uri :: Prelude.Text,
+    -- | The local path to the Amazon S3 storage location where Amazon SageMaker
+    -- saves the results of a monitoring job. LocalPath is an absolute path for
+    -- the output data.
+    localPath :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MonitoringS3Output' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MonitoringS3Output' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'msoS3UploadMode' - Whether to upload the results of the monitoring job continuously or after the job completes.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'msoS3URI' - A URI that identifies the Amazon S3 storage location where Amazon SageMaker saves the results of a monitoring job.
+-- 's3UploadMode', 'monitoringS3Output_s3UploadMode' - Whether to upload the results of the monitoring job continuously or
+-- after the job completes.
 --
--- * 'msoLocalPath' - The local path to the Amazon S3 storage location where Amazon SageMaker saves the results of a monitoring job. LocalPath is an absolute path for the output data.
-monitoringS3Output ::
-  -- | 'msoS3URI'
-  Text ->
-  -- | 'msoLocalPath'
-  Text ->
+-- 's3Uri', 'monitoringS3Output_s3Uri' - A URI that identifies the Amazon S3 storage location where Amazon
+-- SageMaker saves the results of a monitoring job.
+--
+-- 'localPath', 'monitoringS3Output_localPath' - The local path to the Amazon S3 storage location where Amazon SageMaker
+-- saves the results of a monitoring job. LocalPath is an absolute path for
+-- the output data.
+newMonitoringS3Output ::
+  -- | 's3Uri'
+  Prelude.Text ->
+  -- | 'localPath'
+  Prelude.Text ->
   MonitoringS3Output
-monitoringS3Output pS3URI_ pLocalPath_ =
+newMonitoringS3Output pS3Uri_ pLocalPath_ =
   MonitoringS3Output'
-    { _msoS3UploadMode = Nothing,
-      _msoS3URI = pS3URI_,
-      _msoLocalPath = pLocalPath_
+    { s3UploadMode = Prelude.Nothing,
+      s3Uri = pS3Uri_,
+      localPath = pLocalPath_
     }
 
--- | Whether to upload the results of the monitoring job continuously or after the job completes.
-msoS3UploadMode :: Lens' MonitoringS3Output (Maybe ProcessingS3UploadMode)
-msoS3UploadMode = lens _msoS3UploadMode (\s a -> s {_msoS3UploadMode = a})
+-- | Whether to upload the results of the monitoring job continuously or
+-- after the job completes.
+monitoringS3Output_s3UploadMode :: Lens.Lens' MonitoringS3Output (Prelude.Maybe ProcessingS3UploadMode)
+monitoringS3Output_s3UploadMode = Lens.lens (\MonitoringS3Output' {s3UploadMode} -> s3UploadMode) (\s@MonitoringS3Output' {} a -> s {s3UploadMode = a} :: MonitoringS3Output)
 
--- | A URI that identifies the Amazon S3 storage location where Amazon SageMaker saves the results of a monitoring job.
-msoS3URI :: Lens' MonitoringS3Output Text
-msoS3URI = lens _msoS3URI (\s a -> s {_msoS3URI = a})
+-- | A URI that identifies the Amazon S3 storage location where Amazon
+-- SageMaker saves the results of a monitoring job.
+monitoringS3Output_s3Uri :: Lens.Lens' MonitoringS3Output Prelude.Text
+monitoringS3Output_s3Uri = Lens.lens (\MonitoringS3Output' {s3Uri} -> s3Uri) (\s@MonitoringS3Output' {} a -> s {s3Uri = a} :: MonitoringS3Output)
 
--- | The local path to the Amazon S3 storage location where Amazon SageMaker saves the results of a monitoring job. LocalPath is an absolute path for the output data.
-msoLocalPath :: Lens' MonitoringS3Output Text
-msoLocalPath = lens _msoLocalPath (\s a -> s {_msoLocalPath = a})
+-- | The local path to the Amazon S3 storage location where Amazon SageMaker
+-- saves the results of a monitoring job. LocalPath is an absolute path for
+-- the output data.
+monitoringS3Output_localPath :: Lens.Lens' MonitoringS3Output Prelude.Text
+monitoringS3Output_localPath = Lens.lens (\MonitoringS3Output' {localPath} -> localPath) (\s@MonitoringS3Output' {} a -> s {localPath = a} :: MonitoringS3Output)
 
-instance FromJSON MonitoringS3Output where
+instance Prelude.FromJSON MonitoringS3Output where
   parseJSON =
-    withObject
+    Prelude.withObject
       "MonitoringS3Output"
       ( \x ->
           MonitoringS3Output'
-            <$> (x .:? "S3UploadMode")
-            <*> (x .: "S3Uri")
-            <*> (x .: "LocalPath")
+            Prelude.<$> (x Prelude..:? "S3UploadMode")
+            Prelude.<*> (x Prelude..: "S3Uri")
+            Prelude.<*> (x Prelude..: "LocalPath")
       )
 
-instance Hashable MonitoringS3Output
+instance Prelude.Hashable MonitoringS3Output
 
-instance NFData MonitoringS3Output
+instance Prelude.NFData MonitoringS3Output
 
-instance ToJSON MonitoringS3Output where
+instance Prelude.ToJSON MonitoringS3Output where
   toJSON MonitoringS3Output' {..} =
-    object
-      ( catMaybes
-          [ ("S3UploadMode" .=) <$> _msoS3UploadMode,
-            Just ("S3Uri" .= _msoS3URI),
-            Just ("LocalPath" .= _msoLocalPath)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("S3UploadMode" Prelude..=)
+              Prelude.<$> s3UploadMode,
+            Prelude.Just ("S3Uri" Prelude..= s3Uri),
+            Prelude.Just ("LocalPath" Prelude..= localPath)
           ]
       )

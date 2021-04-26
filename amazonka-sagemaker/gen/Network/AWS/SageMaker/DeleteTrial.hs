@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,121 +21,137 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the specified trial. All trial components that make up the trial must be deleted first. Use the 'DescribeTrialComponent' API to get the list of trial components.
+-- Deletes the specified trial. All trial components that make up the trial
+-- must be deleted first. Use the DescribeTrialComponent API to get the
+-- list of trial components.
 module Network.AWS.SageMaker.DeleteTrial
   ( -- * Creating a Request
-    deleteTrial,
-    DeleteTrial,
+    DeleteTrial (..),
+    newDeleteTrial,
 
     -- * Request Lenses
-    dTrialName,
+    deleteTrial_trialName,
 
     -- * Destructuring the Response
-    deleteTrialResponse,
-    DeleteTrialResponse,
+    DeleteTrialResponse (..),
+    newDeleteTrialResponse,
 
     -- * Response Lenses
-    delersTrialARN,
-    delersResponseStatus,
+    deleteTrialResponse_trialArn,
+    deleteTrialResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'deleteTrial' smart constructor.
-newtype DeleteTrial = DeleteTrial'
-  { _dTrialName ::
-      Text
+-- | /See:/ 'newDeleteTrial' smart constructor.
+data DeleteTrial = DeleteTrial'
+  { -- | The name of the trial to delete.
+    trialName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteTrial' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteTrial' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dTrialName' - The name of the trial to delete.
-deleteTrial ::
-  -- | 'dTrialName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'trialName', 'deleteTrial_trialName' - The name of the trial to delete.
+newDeleteTrial ::
+  -- | 'trialName'
+  Prelude.Text ->
   DeleteTrial
-deleteTrial pTrialName_ =
-  DeleteTrial' {_dTrialName = pTrialName_}
+newDeleteTrial pTrialName_ =
+  DeleteTrial' {trialName = pTrialName_}
 
 -- | The name of the trial to delete.
-dTrialName :: Lens' DeleteTrial Text
-dTrialName = lens _dTrialName (\s a -> s {_dTrialName = a})
+deleteTrial_trialName :: Lens.Lens' DeleteTrial Prelude.Text
+deleteTrial_trialName = Lens.lens (\DeleteTrial' {trialName} -> trialName) (\s@DeleteTrial' {} a -> s {trialName = a} :: DeleteTrial)
 
-instance AWSRequest DeleteTrial where
+instance Prelude.AWSRequest DeleteTrial where
   type Rs DeleteTrial = DeleteTrialResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteTrialResponse'
-            <$> (x .?> "TrialArn") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "TrialArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteTrial
+instance Prelude.Hashable DeleteTrial
 
-instance NFData DeleteTrial
+instance Prelude.NFData DeleteTrial
 
-instance ToHeaders DeleteTrial where
+instance Prelude.ToHeaders DeleteTrial where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.DeleteTrial" :: ByteString),
+              Prelude.=# ("SageMaker.DeleteTrial" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteTrial where
+instance Prelude.ToJSON DeleteTrial where
   toJSON DeleteTrial' {..} =
-    object
-      (catMaybes [Just ("TrialName" .= _dTrialName)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("TrialName" Prelude..= trialName)]
+      )
 
-instance ToPath DeleteTrial where
-  toPath = const "/"
+instance Prelude.ToPath DeleteTrial where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteTrial where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteTrial where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteTrialResponse' smart constructor.
+-- | /See:/ 'newDeleteTrialResponse' smart constructor.
 data DeleteTrialResponse = DeleteTrialResponse'
-  { _delersTrialARN ::
-      !(Maybe Text),
-    _delersResponseStatus :: !Int
+  { -- | The Amazon Resource Name (ARN) of the trial that is being deleted.
+    trialArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteTrialResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteTrialResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'delersTrialARN' - The Amazon Resource Name (ARN) of the trial that is being deleted.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'delersResponseStatus' - -- | The response status code.
-deleteTrialResponse ::
-  -- | 'delersResponseStatus'
-  Int ->
+-- 'trialArn', 'deleteTrialResponse_trialArn' - The Amazon Resource Name (ARN) of the trial that is being deleted.
+--
+-- 'httpStatus', 'deleteTrialResponse_httpStatus' - The response's http status code.
+newDeleteTrialResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteTrialResponse
-deleteTrialResponse pResponseStatus_ =
+newDeleteTrialResponse pHttpStatus_ =
   DeleteTrialResponse'
-    { _delersTrialARN = Nothing,
-      _delersResponseStatus = pResponseStatus_
+    { trialArn = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The Amazon Resource Name (ARN) of the trial that is being deleted.
-delersTrialARN :: Lens' DeleteTrialResponse (Maybe Text)
-delersTrialARN = lens _delersTrialARN (\s a -> s {_delersTrialARN = a})
+deleteTrialResponse_trialArn :: Lens.Lens' DeleteTrialResponse (Prelude.Maybe Prelude.Text)
+deleteTrialResponse_trialArn = Lens.lens (\DeleteTrialResponse' {trialArn} -> trialArn) (\s@DeleteTrialResponse' {} a -> s {trialArn = a} :: DeleteTrialResponse)
 
--- | -- | The response status code.
-delersResponseStatus :: Lens' DeleteTrialResponse Int
-delersResponseStatus = lens _delersResponseStatus (\s a -> s {_delersResponseStatus = a})
+-- | The response's http status code.
+deleteTrialResponse_httpStatus :: Lens.Lens' DeleteTrialResponse Prelude.Int
+deleteTrialResponse_httpStatus = Lens.lens (\DeleteTrialResponse' {httpStatus} -> httpStatus) (\s@DeleteTrialResponse' {} a -> s {httpStatus = a} :: DeleteTrialResponse)
 
-instance NFData DeleteTrialResponse
+instance Prelude.NFData DeleteTrialResponse

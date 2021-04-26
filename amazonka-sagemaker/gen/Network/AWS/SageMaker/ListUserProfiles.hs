@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,210 +23,237 @@
 --
 -- Lists user profiles.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.SageMaker.ListUserProfiles
   ( -- * Creating a Request
-    listUserProfiles,
-    ListUserProfiles,
+    ListUserProfiles (..),
+    newListUserProfiles,
 
     -- * Request Lenses
-    lupSortOrder,
-    lupNextToken,
-    lupUserProfileNameContains,
-    lupMaxResults,
-    lupDomainIdEquals,
-    lupSortBy,
+    listUserProfiles_sortOrder,
+    listUserProfiles_nextToken,
+    listUserProfiles_userProfileNameContains,
+    listUserProfiles_maxResults,
+    listUserProfiles_domainIdEquals,
+    listUserProfiles_sortBy,
 
     -- * Destructuring the Response
-    listUserProfilesResponse,
-    ListUserProfilesResponse,
+    ListUserProfilesResponse (..),
+    newListUserProfilesResponse,
 
     -- * Response Lenses
-    luprrsNextToken,
-    luprrsUserProfiles,
-    luprrsResponseStatus,
+    listUserProfilesResponse_nextToken,
+    listUserProfilesResponse_userProfiles,
+    listUserProfilesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
+import Network.AWS.SageMaker.Types.UserProfileDetails
 
--- | /See:/ 'listUserProfiles' smart constructor.
+-- | /See:/ 'newListUserProfiles' smart constructor.
 data ListUserProfiles = ListUserProfiles'
-  { _lupSortOrder ::
-      !(Maybe SortOrder),
-    _lupNextToken :: !(Maybe Text),
-    _lupUserProfileNameContains ::
-      !(Maybe Text),
-    _lupMaxResults :: !(Maybe Nat),
-    _lupDomainIdEquals :: !(Maybe Text),
-    _lupSortBy ::
-      !(Maybe UserProfileSortKey)
+  { -- | The sort order for the results. The default is Ascending.
+    sortOrder :: Prelude.Maybe SortOrder,
+    -- | If the previous response was truncated, you will receive this token. Use
+    -- it in your next request to receive the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A parameter by which to filter the results.
+    userProfileNameContains :: Prelude.Maybe Prelude.Text,
+    -- | Returns a list up to a specified limit.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | A parameter by which to filter the results.
+    domainIdEquals :: Prelude.Maybe Prelude.Text,
+    -- | The parameter by which to sort the results. The default is CreationTime.
+    sortBy :: Prelude.Maybe UserProfileSortKey
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListUserProfiles' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListUserProfiles' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lupSortOrder' - The sort order for the results. The default is Ascending.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lupNextToken' - If the previous response was truncated, you will receive this token. Use it in your next request to receive the next set of results.
+-- 'sortOrder', 'listUserProfiles_sortOrder' - The sort order for the results. The default is Ascending.
 --
--- * 'lupUserProfileNameContains' - A parameter by which to filter the results.
+-- 'nextToken', 'listUserProfiles_nextToken' - If the previous response was truncated, you will receive this token. Use
+-- it in your next request to receive the next set of results.
 --
--- * 'lupMaxResults' - Returns a list up to a specified limit.
+-- 'userProfileNameContains', 'listUserProfiles_userProfileNameContains' - A parameter by which to filter the results.
 --
--- * 'lupDomainIdEquals' - A parameter by which to filter the results.
+-- 'maxResults', 'listUserProfiles_maxResults' - Returns a list up to a specified limit.
 --
--- * 'lupSortBy' - The parameter by which to sort the results. The default is CreationTime.
-listUserProfiles ::
+-- 'domainIdEquals', 'listUserProfiles_domainIdEquals' - A parameter by which to filter the results.
+--
+-- 'sortBy', 'listUserProfiles_sortBy' - The parameter by which to sort the results. The default is CreationTime.
+newListUserProfiles ::
   ListUserProfiles
-listUserProfiles =
+newListUserProfiles =
   ListUserProfiles'
-    { _lupSortOrder = Nothing,
-      _lupNextToken = Nothing,
-      _lupUserProfileNameContains = Nothing,
-      _lupMaxResults = Nothing,
-      _lupDomainIdEquals = Nothing,
-      _lupSortBy = Nothing
+    { sortOrder = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      userProfileNameContains = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      domainIdEquals = Prelude.Nothing,
+      sortBy = Prelude.Nothing
     }
 
 -- | The sort order for the results. The default is Ascending.
-lupSortOrder :: Lens' ListUserProfiles (Maybe SortOrder)
-lupSortOrder = lens _lupSortOrder (\s a -> s {_lupSortOrder = a})
+listUserProfiles_sortOrder :: Lens.Lens' ListUserProfiles (Prelude.Maybe SortOrder)
+listUserProfiles_sortOrder = Lens.lens (\ListUserProfiles' {sortOrder} -> sortOrder) (\s@ListUserProfiles' {} a -> s {sortOrder = a} :: ListUserProfiles)
 
--- | If the previous response was truncated, you will receive this token. Use it in your next request to receive the next set of results.
-lupNextToken :: Lens' ListUserProfiles (Maybe Text)
-lupNextToken = lens _lupNextToken (\s a -> s {_lupNextToken = a})
+-- | If the previous response was truncated, you will receive this token. Use
+-- it in your next request to receive the next set of results.
+listUserProfiles_nextToken :: Lens.Lens' ListUserProfiles (Prelude.Maybe Prelude.Text)
+listUserProfiles_nextToken = Lens.lens (\ListUserProfiles' {nextToken} -> nextToken) (\s@ListUserProfiles' {} a -> s {nextToken = a} :: ListUserProfiles)
 
 -- | A parameter by which to filter the results.
-lupUserProfileNameContains :: Lens' ListUserProfiles (Maybe Text)
-lupUserProfileNameContains = lens _lupUserProfileNameContains (\s a -> s {_lupUserProfileNameContains = a})
+listUserProfiles_userProfileNameContains :: Lens.Lens' ListUserProfiles (Prelude.Maybe Prelude.Text)
+listUserProfiles_userProfileNameContains = Lens.lens (\ListUserProfiles' {userProfileNameContains} -> userProfileNameContains) (\s@ListUserProfiles' {} a -> s {userProfileNameContains = a} :: ListUserProfiles)
 
 -- | Returns a list up to a specified limit.
-lupMaxResults :: Lens' ListUserProfiles (Maybe Natural)
-lupMaxResults = lens _lupMaxResults (\s a -> s {_lupMaxResults = a}) . mapping _Nat
+listUserProfiles_maxResults :: Lens.Lens' ListUserProfiles (Prelude.Maybe Prelude.Natural)
+listUserProfiles_maxResults = Lens.lens (\ListUserProfiles' {maxResults} -> maxResults) (\s@ListUserProfiles' {} a -> s {maxResults = a} :: ListUserProfiles) Prelude.. Lens.mapping Prelude._Nat
 
 -- | A parameter by which to filter the results.
-lupDomainIdEquals :: Lens' ListUserProfiles (Maybe Text)
-lupDomainIdEquals = lens _lupDomainIdEquals (\s a -> s {_lupDomainIdEquals = a})
+listUserProfiles_domainIdEquals :: Lens.Lens' ListUserProfiles (Prelude.Maybe Prelude.Text)
+listUserProfiles_domainIdEquals = Lens.lens (\ListUserProfiles' {domainIdEquals} -> domainIdEquals) (\s@ListUserProfiles' {} a -> s {domainIdEquals = a} :: ListUserProfiles)
 
 -- | The parameter by which to sort the results. The default is CreationTime.
-lupSortBy :: Lens' ListUserProfiles (Maybe UserProfileSortKey)
-lupSortBy = lens _lupSortBy (\s a -> s {_lupSortBy = a})
+listUserProfiles_sortBy :: Lens.Lens' ListUserProfiles (Prelude.Maybe UserProfileSortKey)
+listUserProfiles_sortBy = Lens.lens (\ListUserProfiles' {sortBy} -> sortBy) (\s@ListUserProfiles' {} a -> s {sortBy = a} :: ListUserProfiles)
 
-instance AWSPager ListUserProfiles where
+instance Pager.AWSPager ListUserProfiles where
   page rq rs
-    | stop (rs ^. luprrsNextToken) = Nothing
-    | stop (rs ^. luprrsUserProfiles) = Nothing
-    | otherwise =
-      Just $ rq & lupNextToken .~ rs ^. luprrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listUserProfilesResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listUserProfilesResponse_userProfiles
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listUserProfiles_nextToken
+          Lens..~ rs
+          Lens.^? listUserProfilesResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListUserProfiles where
+instance Prelude.AWSRequest ListUserProfiles where
   type Rs ListUserProfiles = ListUserProfilesResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListUserProfilesResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "UserProfiles" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "UserProfiles"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListUserProfiles
+instance Prelude.Hashable ListUserProfiles
 
-instance NFData ListUserProfiles
+instance Prelude.NFData ListUserProfiles
 
-instance ToHeaders ListUserProfiles where
+instance Prelude.ToHeaders ListUserProfiles where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.ListUserProfiles" :: ByteString),
+              Prelude.=# ("SageMaker.ListUserProfiles" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListUserProfiles where
+instance Prelude.ToJSON ListUserProfiles where
   toJSON ListUserProfiles' {..} =
-    object
-      ( catMaybes
-          [ ("SortOrder" .=) <$> _lupSortOrder,
-            ("NextToken" .=) <$> _lupNextToken,
-            ("UserProfileNameContains" .=)
-              <$> _lupUserProfileNameContains,
-            ("MaxResults" .=) <$> _lupMaxResults,
-            ("DomainIdEquals" .=) <$> _lupDomainIdEquals,
-            ("SortBy" .=) <$> _lupSortBy
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("SortOrder" Prelude..=) Prelude.<$> sortOrder,
+            ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("UserProfileNameContains" Prelude..=)
+              Prelude.<$> userProfileNameContains,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("DomainIdEquals" Prelude..=)
+              Prelude.<$> domainIdEquals,
+            ("SortBy" Prelude..=) Prelude.<$> sortBy
           ]
       )
 
-instance ToPath ListUserProfiles where
-  toPath = const "/"
+instance Prelude.ToPath ListUserProfiles where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListUserProfiles where
-  toQuery = const mempty
+instance Prelude.ToQuery ListUserProfiles where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listUserProfilesResponse' smart constructor.
+-- | /See:/ 'newListUserProfilesResponse' smart constructor.
 data ListUserProfilesResponse = ListUserProfilesResponse'
-  { _luprrsNextToken ::
-      !(Maybe Text),
-    _luprrsUserProfiles ::
-      !( Maybe
-           [UserProfileDetails]
-       ),
-    _luprrsResponseStatus ::
-      !Int
+  { -- | If the previous response was truncated, you will receive this token. Use
+    -- it in your next request to receive the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The list of user profiles.
+    userProfiles :: Prelude.Maybe [UserProfileDetails],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListUserProfilesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListUserProfilesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'luprrsNextToken' - If the previous response was truncated, you will receive this token. Use it in your next request to receive the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'luprrsUserProfiles' - The list of user profiles.
+-- 'nextToken', 'listUserProfilesResponse_nextToken' - If the previous response was truncated, you will receive this token. Use
+-- it in your next request to receive the next set of results.
 --
--- * 'luprrsResponseStatus' - -- | The response status code.
-listUserProfilesResponse ::
-  -- | 'luprrsResponseStatus'
-  Int ->
+-- 'userProfiles', 'listUserProfilesResponse_userProfiles' - The list of user profiles.
+--
+-- 'httpStatus', 'listUserProfilesResponse_httpStatus' - The response's http status code.
+newListUserProfilesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListUserProfilesResponse
-listUserProfilesResponse pResponseStatus_ =
+newListUserProfilesResponse pHttpStatus_ =
   ListUserProfilesResponse'
-    { _luprrsNextToken =
-        Nothing,
-      _luprrsUserProfiles = Nothing,
-      _luprrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      userProfiles = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | If the previous response was truncated, you will receive this token. Use it in your next request to receive the next set of results.
-luprrsNextToken :: Lens' ListUserProfilesResponse (Maybe Text)
-luprrsNextToken = lens _luprrsNextToken (\s a -> s {_luprrsNextToken = a})
+-- | If the previous response was truncated, you will receive this token. Use
+-- it in your next request to receive the next set of results.
+listUserProfilesResponse_nextToken :: Lens.Lens' ListUserProfilesResponse (Prelude.Maybe Prelude.Text)
+listUserProfilesResponse_nextToken = Lens.lens (\ListUserProfilesResponse' {nextToken} -> nextToken) (\s@ListUserProfilesResponse' {} a -> s {nextToken = a} :: ListUserProfilesResponse)
 
 -- | The list of user profiles.
-luprrsUserProfiles :: Lens' ListUserProfilesResponse [UserProfileDetails]
-luprrsUserProfiles = lens _luprrsUserProfiles (\s a -> s {_luprrsUserProfiles = a}) . _Default . _Coerce
+listUserProfilesResponse_userProfiles :: Lens.Lens' ListUserProfilesResponse (Prelude.Maybe [UserProfileDetails])
+listUserProfilesResponse_userProfiles = Lens.lens (\ListUserProfilesResponse' {userProfiles} -> userProfiles) (\s@ListUserProfilesResponse' {} a -> s {userProfiles = a} :: ListUserProfilesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-luprrsResponseStatus :: Lens' ListUserProfilesResponse Int
-luprrsResponseStatus = lens _luprrsResponseStatus (\s a -> s {_luprrsResponseStatus = a})
+-- | The response's http status code.
+listUserProfilesResponse_httpStatus :: Lens.Lens' ListUserProfilesResponse Prelude.Int
+listUserProfilesResponse_httpStatus = Lens.lens (\ListUserProfilesResponse' {httpStatus} -> httpStatus) (\s@ListUserProfilesResponse' {} a -> s {httpStatus = a} :: ListUserProfilesResponse)
 
-instance NFData ListUserProfilesResponse
+instance Prelude.NFData ListUserProfilesResponse

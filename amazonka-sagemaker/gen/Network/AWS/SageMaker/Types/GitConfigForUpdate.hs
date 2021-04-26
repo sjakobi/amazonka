@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,46 +19,59 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.GitConfigForUpdate where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies configuration details for a Git repository when the repository is updated.
+-- | Specifies configuration details for a Git repository when the repository
+-- is updated.
 --
---
---
--- /See:/ 'gitConfigForUpdate' smart constructor.
-newtype GitConfigForUpdate = GitConfigForUpdate'
-  { _gcfuSecretARN ::
-      Maybe Text
+-- /See:/ 'newGitConfigForUpdate' smart constructor.
+data GitConfigForUpdate = GitConfigForUpdate'
+  { -- | The Amazon Resource Name (ARN) of the AWS Secrets Manager secret that
+    -- contains the credentials used to access the git repository. The secret
+    -- must have a staging label of @AWSCURRENT@ and must be in the following
+    -- format:
+    --
+    -- @{\"username\": UserName, \"password\": Password}@
+    secretArn :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GitConfigForUpdate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GitConfigForUpdate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcfuSecretARN' - The Amazon Resource Name (ARN) of the AWS Secrets Manager secret that contains the credentials used to access the git repository. The secret must have a staging label of @AWSCURRENT@ and must be in the following format: @{"username": /UserName/ , "password": /Password/ }@
-gitConfigForUpdate ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'secretArn', 'gitConfigForUpdate_secretArn' - The Amazon Resource Name (ARN) of the AWS Secrets Manager secret that
+-- contains the credentials used to access the git repository. The secret
+-- must have a staging label of @AWSCURRENT@ and must be in the following
+-- format:
+--
+-- @{\"username\": UserName, \"password\": Password}@
+newGitConfigForUpdate ::
   GitConfigForUpdate
-gitConfigForUpdate =
-  GitConfigForUpdate' {_gcfuSecretARN = Nothing}
+newGitConfigForUpdate =
+  GitConfigForUpdate' {secretArn = Prelude.Nothing}
 
--- | The Amazon Resource Name (ARN) of the AWS Secrets Manager secret that contains the credentials used to access the git repository. The secret must have a staging label of @AWSCURRENT@ and must be in the following format: @{"username": /UserName/ , "password": /Password/ }@
-gcfuSecretARN :: Lens' GitConfigForUpdate (Maybe Text)
-gcfuSecretARN = lens _gcfuSecretARN (\s a -> s {_gcfuSecretARN = a})
+-- | The Amazon Resource Name (ARN) of the AWS Secrets Manager secret that
+-- contains the credentials used to access the git repository. The secret
+-- must have a staging label of @AWSCURRENT@ and must be in the following
+-- format:
+--
+-- @{\"username\": UserName, \"password\": Password}@
+gitConfigForUpdate_secretArn :: Lens.Lens' GitConfigForUpdate (Prelude.Maybe Prelude.Text)
+gitConfigForUpdate_secretArn = Lens.lens (\GitConfigForUpdate' {secretArn} -> secretArn) (\s@GitConfigForUpdate' {} a -> s {secretArn = a} :: GitConfigForUpdate)
 
-instance Hashable GitConfigForUpdate
+instance Prelude.Hashable GitConfigForUpdate
 
-instance NFData GitConfigForUpdate
+instance Prelude.NFData GitConfigForUpdate
 
-instance ToJSON GitConfigForUpdate where
+instance Prelude.ToJSON GitConfigForUpdate where
   toJSON GitConfigForUpdate' {..} =
-    object
-      (catMaybes [("SecretArn" .=) <$> _gcfuSecretARN])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("SecretArn" Prelude..=) Prelude.<$> secretArn]
+      )

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,75 +19,96 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.GitConfig where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies configuration details for a Git repository in your AWS account.
+-- | Specifies configuration details for a Git repository in your AWS
+-- account.
 --
---
---
--- /See:/ 'gitConfig' smart constructor.
+-- /See:/ 'newGitConfig' smart constructor.
 data GitConfig = GitConfig'
-  { _gcSecretARN ::
-      !(Maybe Text),
-    _gcBranch :: !(Maybe Text),
-    _gcRepositoryURL :: !Text
+  { -- | The Amazon Resource Name (ARN) of the AWS Secrets Manager secret that
+    -- contains the credentials used to access the git repository. The secret
+    -- must have a staging label of @AWSCURRENT@ and must be in the following
+    -- format:
+    --
+    -- @{\"username\": UserName, \"password\": Password}@
+    secretArn :: Prelude.Maybe Prelude.Text,
+    -- | The default branch for the Git repository.
+    branch :: Prelude.Maybe Prelude.Text,
+    -- | The URL where the Git repository is located.
+    repositoryUrl :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GitConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GitConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcSecretARN' - The Amazon Resource Name (ARN) of the AWS Secrets Manager secret that contains the credentials used to access the git repository. The secret must have a staging label of @AWSCURRENT@ and must be in the following format: @{"username": /UserName/ , "password": /Password/ }@
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcBranch' - The default branch for the Git repository.
+-- 'secretArn', 'gitConfig_secretArn' - The Amazon Resource Name (ARN) of the AWS Secrets Manager secret that
+-- contains the credentials used to access the git repository. The secret
+-- must have a staging label of @AWSCURRENT@ and must be in the following
+-- format:
 --
--- * 'gcRepositoryURL' - The URL where the Git repository is located.
-gitConfig ::
-  -- | 'gcRepositoryURL'
-  Text ->
+-- @{\"username\": UserName, \"password\": Password}@
+--
+-- 'branch', 'gitConfig_branch' - The default branch for the Git repository.
+--
+-- 'repositoryUrl', 'gitConfig_repositoryUrl' - The URL where the Git repository is located.
+newGitConfig ::
+  -- | 'repositoryUrl'
+  Prelude.Text ->
   GitConfig
-gitConfig pRepositoryURL_ =
+newGitConfig pRepositoryUrl_ =
   GitConfig'
-    { _gcSecretARN = Nothing,
-      _gcBranch = Nothing,
-      _gcRepositoryURL = pRepositoryURL_
+    { secretArn = Prelude.Nothing,
+      branch = Prelude.Nothing,
+      repositoryUrl = pRepositoryUrl_
     }
 
--- | The Amazon Resource Name (ARN) of the AWS Secrets Manager secret that contains the credentials used to access the git repository. The secret must have a staging label of @AWSCURRENT@ and must be in the following format: @{"username": /UserName/ , "password": /Password/ }@
-gcSecretARN :: Lens' GitConfig (Maybe Text)
-gcSecretARN = lens _gcSecretARN (\s a -> s {_gcSecretARN = a})
+-- | The Amazon Resource Name (ARN) of the AWS Secrets Manager secret that
+-- contains the credentials used to access the git repository. The secret
+-- must have a staging label of @AWSCURRENT@ and must be in the following
+-- format:
+--
+-- @{\"username\": UserName, \"password\": Password}@
+gitConfig_secretArn :: Lens.Lens' GitConfig (Prelude.Maybe Prelude.Text)
+gitConfig_secretArn = Lens.lens (\GitConfig' {secretArn} -> secretArn) (\s@GitConfig' {} a -> s {secretArn = a} :: GitConfig)
 
 -- | The default branch for the Git repository.
-gcBranch :: Lens' GitConfig (Maybe Text)
-gcBranch = lens _gcBranch (\s a -> s {_gcBranch = a})
+gitConfig_branch :: Lens.Lens' GitConfig (Prelude.Maybe Prelude.Text)
+gitConfig_branch = Lens.lens (\GitConfig' {branch} -> branch) (\s@GitConfig' {} a -> s {branch = a} :: GitConfig)
 
 -- | The URL where the Git repository is located.
-gcRepositoryURL :: Lens' GitConfig Text
-gcRepositoryURL = lens _gcRepositoryURL (\s a -> s {_gcRepositoryURL = a})
+gitConfig_repositoryUrl :: Lens.Lens' GitConfig Prelude.Text
+gitConfig_repositoryUrl = Lens.lens (\GitConfig' {repositoryUrl} -> repositoryUrl) (\s@GitConfig' {} a -> s {repositoryUrl = a} :: GitConfig)
 
-instance FromJSON GitConfig where
+instance Prelude.FromJSON GitConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "GitConfig"
       ( \x ->
           GitConfig'
-            <$> (x .:? "SecretArn")
-            <*> (x .:? "Branch")
-            <*> (x .: "RepositoryUrl")
+            Prelude.<$> (x Prelude..:? "SecretArn")
+            Prelude.<*> (x Prelude..:? "Branch")
+            Prelude.<*> (x Prelude..: "RepositoryUrl")
       )
 
-instance Hashable GitConfig
+instance Prelude.Hashable GitConfig
 
-instance NFData GitConfig
+instance Prelude.NFData GitConfig
 
-instance ToJSON GitConfig where
+instance Prelude.ToJSON GitConfig where
   toJSON GitConfig' {..} =
-    object
-      ( catMaybes
-          [ ("SecretArn" .=) <$> _gcSecretARN,
-            ("Branch" .=) <$> _gcBranch,
-            Just ("RepositoryUrl" .= _gcRepositoryURL)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("SecretArn" Prelude..=) Prelude.<$> secretArn,
+            ("Branch" Prelude..=) Prelude.<$> branch,
+            Prelude.Just
+              ("RepositoryUrl" Prelude..= repositoryUrl)
           ]
       )

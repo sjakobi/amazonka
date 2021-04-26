@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,64 +19,63 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.ProcessingStoppingCondition where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Configures conditions under which the processing job should be stopped, such as how long the processing job has been running. After the condition is met, the processing job is stopped.
+-- | Configures conditions under which the processing job should be stopped,
+-- such as how long the processing job has been running. After the
+-- condition is met, the processing job is stopped.
 --
---
---
--- /See:/ 'processingStoppingCondition' smart constructor.
-newtype ProcessingStoppingCondition = ProcessingStoppingCondition'
-  { _pscMaxRuntimeInSeconds ::
-      Nat
+-- /See:/ 'newProcessingStoppingCondition' smart constructor.
+data ProcessingStoppingCondition = ProcessingStoppingCondition'
+  { -- | Specifies the maximum runtime in seconds.
+    maxRuntimeInSeconds :: Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ProcessingStoppingCondition' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ProcessingStoppingCondition' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pscMaxRuntimeInSeconds' - Specifies the maximum runtime in seconds.
-processingStoppingCondition ::
-  -- | 'pscMaxRuntimeInSeconds'
-  Natural ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'maxRuntimeInSeconds', 'processingStoppingCondition_maxRuntimeInSeconds' - Specifies the maximum runtime in seconds.
+newProcessingStoppingCondition ::
+  -- | 'maxRuntimeInSeconds'
+  Prelude.Natural ->
   ProcessingStoppingCondition
-processingStoppingCondition pMaxRuntimeInSeconds_ =
+newProcessingStoppingCondition pMaxRuntimeInSeconds_ =
   ProcessingStoppingCondition'
-    { _pscMaxRuntimeInSeconds =
-        _Nat # pMaxRuntimeInSeconds_
+    { maxRuntimeInSeconds =
+        Prelude._Nat Lens.# pMaxRuntimeInSeconds_
     }
 
 -- | Specifies the maximum runtime in seconds.
-pscMaxRuntimeInSeconds :: Lens' ProcessingStoppingCondition Natural
-pscMaxRuntimeInSeconds = lens _pscMaxRuntimeInSeconds (\s a -> s {_pscMaxRuntimeInSeconds = a}) . _Nat
+processingStoppingCondition_maxRuntimeInSeconds :: Lens.Lens' ProcessingStoppingCondition Prelude.Natural
+processingStoppingCondition_maxRuntimeInSeconds = Lens.lens (\ProcessingStoppingCondition' {maxRuntimeInSeconds} -> maxRuntimeInSeconds) (\s@ProcessingStoppingCondition' {} a -> s {maxRuntimeInSeconds = a} :: ProcessingStoppingCondition) Prelude.. Prelude._Nat
 
-instance FromJSON ProcessingStoppingCondition where
+instance Prelude.FromJSON ProcessingStoppingCondition where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ProcessingStoppingCondition"
       ( \x ->
           ProcessingStoppingCondition'
-            <$> (x .: "MaxRuntimeInSeconds")
+            Prelude.<$> (x Prelude..: "MaxRuntimeInSeconds")
       )
 
-instance Hashable ProcessingStoppingCondition
+instance Prelude.Hashable ProcessingStoppingCondition
 
-instance NFData ProcessingStoppingCondition
+instance Prelude.NFData ProcessingStoppingCondition
 
-instance ToJSON ProcessingStoppingCondition where
+instance Prelude.ToJSON ProcessingStoppingCondition where
   toJSON ProcessingStoppingCondition' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("MaxRuntimeInSeconds" .= _pscMaxRuntimeInSeconds)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ( "MaxRuntimeInSeconds"
+                  Prelude..= maxRuntimeInSeconds
+              )
           ]
       )

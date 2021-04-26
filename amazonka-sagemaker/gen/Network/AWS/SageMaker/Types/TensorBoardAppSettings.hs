@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,63 +19,61 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.TensorBoardAppSettings where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.ResourceSpec
 
 -- | The TensorBoard app settings.
 --
---
---
--- /See:/ 'tensorBoardAppSettings' smart constructor.
-newtype TensorBoardAppSettings = TensorBoardAppSettings'
-  { _tbasDefaultResourceSpec ::
-      Maybe ResourceSpec
+-- /See:/ 'newTensorBoardAppSettings' smart constructor.
+data TensorBoardAppSettings = TensorBoardAppSettings'
+  { -- | The default instance type and the Amazon Resource Name (ARN) of the
+    -- SageMaker image created on the instance.
+    defaultResourceSpec :: Prelude.Maybe ResourceSpec
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TensorBoardAppSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TensorBoardAppSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tbasDefaultResourceSpec' - The default instance type and the Amazon Resource Name (ARN) of the SageMaker image created on the instance.
-tensorBoardAppSettings ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'defaultResourceSpec', 'tensorBoardAppSettings_defaultResourceSpec' - The default instance type and the Amazon Resource Name (ARN) of the
+-- SageMaker image created on the instance.
+newTensorBoardAppSettings ::
   TensorBoardAppSettings
-tensorBoardAppSettings =
+newTensorBoardAppSettings =
   TensorBoardAppSettings'
-    { _tbasDefaultResourceSpec =
-        Nothing
+    { defaultResourceSpec =
+        Prelude.Nothing
     }
 
--- | The default instance type and the Amazon Resource Name (ARN) of the SageMaker image created on the instance.
-tbasDefaultResourceSpec :: Lens' TensorBoardAppSettings (Maybe ResourceSpec)
-tbasDefaultResourceSpec = lens _tbasDefaultResourceSpec (\s a -> s {_tbasDefaultResourceSpec = a})
+-- | The default instance type and the Amazon Resource Name (ARN) of the
+-- SageMaker image created on the instance.
+tensorBoardAppSettings_defaultResourceSpec :: Lens.Lens' TensorBoardAppSettings (Prelude.Maybe ResourceSpec)
+tensorBoardAppSettings_defaultResourceSpec = Lens.lens (\TensorBoardAppSettings' {defaultResourceSpec} -> defaultResourceSpec) (\s@TensorBoardAppSettings' {} a -> s {defaultResourceSpec = a} :: TensorBoardAppSettings)
 
-instance FromJSON TensorBoardAppSettings where
+instance Prelude.FromJSON TensorBoardAppSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TensorBoardAppSettings"
       ( \x ->
           TensorBoardAppSettings'
-            <$> (x .:? "DefaultResourceSpec")
+            Prelude.<$> (x Prelude..:? "DefaultResourceSpec")
       )
 
-instance Hashable TensorBoardAppSettings
+instance Prelude.Hashable TensorBoardAppSettings
 
-instance NFData TensorBoardAppSettings
+instance Prelude.NFData TensorBoardAppSettings
 
-instance ToJSON TensorBoardAppSettings where
+instance Prelude.ToJSON TensorBoardAppSettings where
   toJSON TensorBoardAppSettings' {..} =
-    object
-      ( catMaybes
-          [ ("DefaultResourceSpec" .=)
-              <$> _tbasDefaultResourceSpec
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("DefaultResourceSpec" Prelude..=)
+              Prelude.<$> defaultResourceSpec
           ]
       )

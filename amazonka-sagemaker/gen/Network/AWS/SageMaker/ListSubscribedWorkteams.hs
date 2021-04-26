@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,190 +21,218 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets a list of the work teams that you are subscribed to in the AWS Marketplace. The list may be empty if no work team satisfies the filter specified in the @NameContains@ parameter.
---
---
+-- Gets a list of the work teams that you are subscribed to in the AWS
+-- Marketplace. The list may be empty if no work team satisfies the filter
+-- specified in the @NameContains@ parameter.
 --
 -- This operation returns paginated results.
 module Network.AWS.SageMaker.ListSubscribedWorkteams
   ( -- * Creating a Request
-    listSubscribedWorkteams,
-    ListSubscribedWorkteams,
+    ListSubscribedWorkteams (..),
+    newListSubscribedWorkteams,
 
     -- * Request Lenses
-    lswNextToken,
-    lswNameContains,
-    lswMaxResults,
+    listSubscribedWorkteams_nextToken,
+    listSubscribedWorkteams_nameContains,
+    listSubscribedWorkteams_maxResults,
 
     -- * Destructuring the Response
-    listSubscribedWorkteamsResponse,
-    ListSubscribedWorkteamsResponse,
+    ListSubscribedWorkteamsResponse (..),
+    newListSubscribedWorkteamsResponse,
 
     -- * Response Lenses
-    lswrrsNextToken,
-    lswrrsResponseStatus,
-    lswrrsSubscribedWorkteams,
+    listSubscribedWorkteamsResponse_nextToken,
+    listSubscribedWorkteamsResponse_httpStatus,
+    listSubscribedWorkteamsResponse_subscribedWorkteams,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
+import Network.AWS.SageMaker.Types.SubscribedWorkteam
 
--- | /See:/ 'listSubscribedWorkteams' smart constructor.
+-- | /See:/ 'newListSubscribedWorkteams' smart constructor.
 data ListSubscribedWorkteams = ListSubscribedWorkteams'
-  { _lswNextToken ::
-      !(Maybe Text),
-    _lswNameContains ::
-      !(Maybe Text),
-    _lswMaxResults ::
-      !(Maybe Nat)
+  { -- | If the result of the previous @ListSubscribedWorkteams@ request was
+    -- truncated, the response includes a @NextToken@. To retrieve the next set
+    -- of labeling jobs, use the token in the next request.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A string in the work team name. This filter returns only work teams
+    -- whose name contains the specified string.
+    nameContains :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of work teams to return in each page of the response.
+    maxResults :: Prelude.Maybe Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListSubscribedWorkteams' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListSubscribedWorkteams' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lswNextToken' - If the result of the previous @ListSubscribedWorkteams@ request was truncated, the response includes a @NextToken@ . To retrieve the next set of labeling jobs, use the token in the next request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lswNameContains' - A string in the work team name. This filter returns only work teams whose name contains the specified string.
+-- 'nextToken', 'listSubscribedWorkteams_nextToken' - If the result of the previous @ListSubscribedWorkteams@ request was
+-- truncated, the response includes a @NextToken@. To retrieve the next set
+-- of labeling jobs, use the token in the next request.
 --
--- * 'lswMaxResults' - The maximum number of work teams to return in each page of the response.
-listSubscribedWorkteams ::
+-- 'nameContains', 'listSubscribedWorkteams_nameContains' - A string in the work team name. This filter returns only work teams
+-- whose name contains the specified string.
+--
+-- 'maxResults', 'listSubscribedWorkteams_maxResults' - The maximum number of work teams to return in each page of the response.
+newListSubscribedWorkteams ::
   ListSubscribedWorkteams
-listSubscribedWorkteams =
+newListSubscribedWorkteams =
   ListSubscribedWorkteams'
-    { _lswNextToken = Nothing,
-      _lswNameContains = Nothing,
-      _lswMaxResults = Nothing
+    { nextToken =
+        Prelude.Nothing,
+      nameContains = Prelude.Nothing,
+      maxResults = Prelude.Nothing
     }
 
--- | If the result of the previous @ListSubscribedWorkteams@ request was truncated, the response includes a @NextToken@ . To retrieve the next set of labeling jobs, use the token in the next request.
-lswNextToken :: Lens' ListSubscribedWorkteams (Maybe Text)
-lswNextToken = lens _lswNextToken (\s a -> s {_lswNextToken = a})
+-- | If the result of the previous @ListSubscribedWorkteams@ request was
+-- truncated, the response includes a @NextToken@. To retrieve the next set
+-- of labeling jobs, use the token in the next request.
+listSubscribedWorkteams_nextToken :: Lens.Lens' ListSubscribedWorkteams (Prelude.Maybe Prelude.Text)
+listSubscribedWorkteams_nextToken = Lens.lens (\ListSubscribedWorkteams' {nextToken} -> nextToken) (\s@ListSubscribedWorkteams' {} a -> s {nextToken = a} :: ListSubscribedWorkteams)
 
--- | A string in the work team name. This filter returns only work teams whose name contains the specified string.
-lswNameContains :: Lens' ListSubscribedWorkteams (Maybe Text)
-lswNameContains = lens _lswNameContains (\s a -> s {_lswNameContains = a})
+-- | A string in the work team name. This filter returns only work teams
+-- whose name contains the specified string.
+listSubscribedWorkteams_nameContains :: Lens.Lens' ListSubscribedWorkteams (Prelude.Maybe Prelude.Text)
+listSubscribedWorkteams_nameContains = Lens.lens (\ListSubscribedWorkteams' {nameContains} -> nameContains) (\s@ListSubscribedWorkteams' {} a -> s {nameContains = a} :: ListSubscribedWorkteams)
 
 -- | The maximum number of work teams to return in each page of the response.
-lswMaxResults :: Lens' ListSubscribedWorkteams (Maybe Natural)
-lswMaxResults = lens _lswMaxResults (\s a -> s {_lswMaxResults = a}) . mapping _Nat
+listSubscribedWorkteams_maxResults :: Lens.Lens' ListSubscribedWorkteams (Prelude.Maybe Prelude.Natural)
+listSubscribedWorkteams_maxResults = Lens.lens (\ListSubscribedWorkteams' {maxResults} -> maxResults) (\s@ListSubscribedWorkteams' {} a -> s {maxResults = a} :: ListSubscribedWorkteams) Prelude.. Lens.mapping Prelude._Nat
 
-instance AWSPager ListSubscribedWorkteams where
+instance Pager.AWSPager ListSubscribedWorkteams where
   page rq rs
-    | stop (rs ^. lswrrsNextToken) = Nothing
-    | stop (rs ^. lswrrsSubscribedWorkteams) = Nothing
-    | otherwise =
-      Just $ rq & lswNextToken .~ rs ^. lswrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listSubscribedWorkteamsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^. listSubscribedWorkteamsResponse_subscribedWorkteams
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listSubscribedWorkteams_nextToken
+          Lens..~ rs
+          Lens.^? listSubscribedWorkteamsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListSubscribedWorkteams where
+instance Prelude.AWSRequest ListSubscribedWorkteams where
   type
     Rs ListSubscribedWorkteams =
       ListSubscribedWorkteamsResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListSubscribedWorkteamsResponse'
-            <$> (x .?> "NextToken")
-            <*> (pure (fromEnum s))
-            <*> (x .?> "SubscribedWorkteams" .!@ mempty)
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> ( x Prelude..?> "SubscribedWorkteams"
+                            Prelude..!@ Prelude.mempty
+                        )
       )
 
-instance Hashable ListSubscribedWorkteams
+instance Prelude.Hashable ListSubscribedWorkteams
 
-instance NFData ListSubscribedWorkteams
+instance Prelude.NFData ListSubscribedWorkteams
 
-instance ToHeaders ListSubscribedWorkteams where
+instance Prelude.ToHeaders ListSubscribedWorkteams where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.ListSubscribedWorkteams" :: ByteString),
+              Prelude.=# ( "SageMaker.ListSubscribedWorkteams" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListSubscribedWorkteams where
+instance Prelude.ToJSON ListSubscribedWorkteams where
   toJSON ListSubscribedWorkteams' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _lswNextToken,
-            ("NameContains" .=) <$> _lswNameContains,
-            ("MaxResults" .=) <$> _lswMaxResults
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("NameContains" Prelude..=) Prelude.<$> nameContains,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults
           ]
       )
 
-instance ToPath ListSubscribedWorkteams where
-  toPath = const "/"
+instance Prelude.ToPath ListSubscribedWorkteams where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListSubscribedWorkteams where
-  toQuery = const mempty
+instance Prelude.ToQuery ListSubscribedWorkteams where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listSubscribedWorkteamsResponse' smart constructor.
+-- | /See:/ 'newListSubscribedWorkteamsResponse' smart constructor.
 data ListSubscribedWorkteamsResponse = ListSubscribedWorkteamsResponse'
-  { _lswrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _lswrrsResponseStatus ::
-      !Int,
-    _lswrrsSubscribedWorkteams ::
-      ![SubscribedWorkteam]
+  { -- | If the response is truncated, Amazon SageMaker returns this token. To
+    -- retrieve the next set of work teams, use it in the subsequent request.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | An array of @Workteam@ objects, each describing a work team.
+    subscribedWorkteams :: [SubscribedWorkteam]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListSubscribedWorkteamsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListSubscribedWorkteamsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lswrrsNextToken' - If the response is truncated, Amazon SageMaker returns this token. To retrieve the next set of work teams, use it in the subsequent request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lswrrsResponseStatus' - -- | The response status code.
+-- 'nextToken', 'listSubscribedWorkteamsResponse_nextToken' - If the response is truncated, Amazon SageMaker returns this token. To
+-- retrieve the next set of work teams, use it in the subsequent request.
 --
--- * 'lswrrsSubscribedWorkteams' - An array of @Workteam@ objects, each describing a work team.
-listSubscribedWorkteamsResponse ::
-  -- | 'lswrrsResponseStatus'
-  Int ->
+-- 'httpStatus', 'listSubscribedWorkteamsResponse_httpStatus' - The response's http status code.
+--
+-- 'subscribedWorkteams', 'listSubscribedWorkteamsResponse_subscribedWorkteams' - An array of @Workteam@ objects, each describing a work team.
+newListSubscribedWorkteamsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListSubscribedWorkteamsResponse
-listSubscribedWorkteamsResponse pResponseStatus_ =
+newListSubscribedWorkteamsResponse pHttpStatus_ =
   ListSubscribedWorkteamsResponse'
-    { _lswrrsNextToken =
-        Nothing,
-      _lswrrsResponseStatus = pResponseStatus_,
-      _lswrrsSubscribedWorkteams = mempty
+    { nextToken =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_,
+      subscribedWorkteams = Prelude.mempty
     }
 
--- | If the response is truncated, Amazon SageMaker returns this token. To retrieve the next set of work teams, use it in the subsequent request.
-lswrrsNextToken :: Lens' ListSubscribedWorkteamsResponse (Maybe Text)
-lswrrsNextToken = lens _lswrrsNextToken (\s a -> s {_lswrrsNextToken = a})
+-- | If the response is truncated, Amazon SageMaker returns this token. To
+-- retrieve the next set of work teams, use it in the subsequent request.
+listSubscribedWorkteamsResponse_nextToken :: Lens.Lens' ListSubscribedWorkteamsResponse (Prelude.Maybe Prelude.Text)
+listSubscribedWorkteamsResponse_nextToken = Lens.lens (\ListSubscribedWorkteamsResponse' {nextToken} -> nextToken) (\s@ListSubscribedWorkteamsResponse' {} a -> s {nextToken = a} :: ListSubscribedWorkteamsResponse)
 
--- | -- | The response status code.
-lswrrsResponseStatus :: Lens' ListSubscribedWorkteamsResponse Int
-lswrrsResponseStatus = lens _lswrrsResponseStatus (\s a -> s {_lswrrsResponseStatus = a})
+-- | The response's http status code.
+listSubscribedWorkteamsResponse_httpStatus :: Lens.Lens' ListSubscribedWorkteamsResponse Prelude.Int
+listSubscribedWorkteamsResponse_httpStatus = Lens.lens (\ListSubscribedWorkteamsResponse' {httpStatus} -> httpStatus) (\s@ListSubscribedWorkteamsResponse' {} a -> s {httpStatus = a} :: ListSubscribedWorkteamsResponse)
 
 -- | An array of @Workteam@ objects, each describing a work team.
-lswrrsSubscribedWorkteams :: Lens' ListSubscribedWorkteamsResponse [SubscribedWorkteam]
-lswrrsSubscribedWorkteams = lens _lswrrsSubscribedWorkteams (\s a -> s {_lswrrsSubscribedWorkteams = a}) . _Coerce
+listSubscribedWorkteamsResponse_subscribedWorkteams :: Lens.Lens' ListSubscribedWorkteamsResponse [SubscribedWorkteam]
+listSubscribedWorkteamsResponse_subscribedWorkteams = Lens.lens (\ListSubscribedWorkteamsResponse' {subscribedWorkteams} -> subscribedWorkteams) (\s@ListSubscribedWorkteamsResponse' {} a -> s {subscribedWorkteams = a} :: ListSubscribedWorkteamsResponse) Prelude.. Prelude._Coerce
 
-instance NFData ListSubscribedWorkteamsResponse
+instance
+  Prelude.NFData
+    ListSubscribedWorkteamsResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.SageMaker.Types.SortPipelineExecutionsBy
   ( SortPipelineExecutionsBy
       ( ..,
-        SPEBCreationTime,
-        SPEBPipelineExecutionARN
+        SortPipelineExecutionsByCreationTime,
+        SortPipelineExecutionsByPipelineExecutionArn
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SortPipelineExecutionsBy
-  = SortPipelineExecutionsBy'
-      ( CI
-          Text
-      )
+newtype SortPipelineExecutionsBy = SortPipelineExecutionsBy'
+  { fromSortPipelineExecutionsBy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SPEBCreationTime :: SortPipelineExecutionsBy
-pattern SPEBCreationTime = SortPipelineExecutionsBy' "CreationTime"
+pattern SortPipelineExecutionsByCreationTime :: SortPipelineExecutionsBy
+pattern SortPipelineExecutionsByCreationTime = SortPipelineExecutionsBy' "CreationTime"
 
-pattern SPEBPipelineExecutionARN :: SortPipelineExecutionsBy
-pattern SPEBPipelineExecutionARN = SortPipelineExecutionsBy' "PipelineExecutionArn"
+pattern SortPipelineExecutionsByPipelineExecutionArn :: SortPipelineExecutionsBy
+pattern SortPipelineExecutionsByPipelineExecutionArn = SortPipelineExecutionsBy' "PipelineExecutionArn"
 
 {-# COMPLETE
-  SPEBCreationTime,
-  SPEBPipelineExecutionARN,
+  SortPipelineExecutionsByCreationTime,
+  SortPipelineExecutionsByPipelineExecutionArn,
   SortPipelineExecutionsBy'
   #-}
 
-instance FromText SortPipelineExecutionsBy where
-  parser = (SortPipelineExecutionsBy' . mk) <$> takeText
+instance Prelude.FromText SortPipelineExecutionsBy where
+  parser = SortPipelineExecutionsBy' Prelude.<$> Prelude.takeText
 
-instance ToText SortPipelineExecutionsBy where
-  toText (SortPipelineExecutionsBy' ci) = original ci
+instance Prelude.ToText SortPipelineExecutionsBy where
+  toText (SortPipelineExecutionsBy' x) = x
 
-instance Hashable SortPipelineExecutionsBy
+instance Prelude.Hashable SortPipelineExecutionsBy
 
-instance NFData SortPipelineExecutionsBy
+instance Prelude.NFData SortPipelineExecutionsBy
 
-instance ToByteString SortPipelineExecutionsBy
+instance Prelude.ToByteString SortPipelineExecutionsBy
 
-instance ToQuery SortPipelineExecutionsBy
+instance Prelude.ToQuery SortPipelineExecutionsBy
 
-instance ToHeader SortPipelineExecutionsBy
+instance Prelude.ToHeader SortPipelineExecutionsBy
 
-instance ToJSON SortPipelineExecutionsBy where
-  toJSON = toJSONText
+instance Prelude.ToJSON SortPipelineExecutionsBy where
+  toJSON = Prelude.toJSONText

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,141 +24,156 @@
 -- Creates a device fleet.
 module Network.AWS.SageMaker.CreateDeviceFleet
   ( -- * Creating a Request
-    createDeviceFleet,
-    CreateDeviceFleet,
+    CreateDeviceFleet (..),
+    newCreateDeviceFleet,
 
     -- * Request Lenses
-    cdfRoleARN,
-    cdfTags,
-    cdfDescription,
-    cdfDeviceFleetName,
-    cdfOutputConfig,
+    createDeviceFleet_roleArn,
+    createDeviceFleet_tags,
+    createDeviceFleet_description,
+    createDeviceFleet_deviceFleetName,
+    createDeviceFleet_outputConfig,
 
     -- * Destructuring the Response
-    createDeviceFleetResponse,
-    CreateDeviceFleetResponse,
+    CreateDeviceFleetResponse (..),
+    newCreateDeviceFleetResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'createDeviceFleet' smart constructor.
+-- | /See:/ 'newCreateDeviceFleet' smart constructor.
 data CreateDeviceFleet = CreateDeviceFleet'
-  { _cdfRoleARN ::
-      !(Maybe Text),
-    _cdfTags :: !(Maybe [Tag]),
-    _cdfDescription :: !(Maybe Text),
-    _cdfDeviceFleetName :: !Text,
-    _cdfOutputConfig ::
-      !EdgeOutputConfig
+  { -- | The Amazon Resource Name (ARN) that has access to AWS Internet of Things
+    -- (IoT).
+    roleArn :: Prelude.Maybe Prelude.Text,
+    -- | Creates tags for the specified fleet.
+    tags :: Prelude.Maybe [Tag],
+    -- | A description of the fleet.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The name of the fleet that the device belongs to.
+    deviceFleetName :: Prelude.Text,
+    -- | The output configuration for storing sample data collected by the fleet.
+    outputConfig :: EdgeOutputConfig
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateDeviceFleet' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateDeviceFleet' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cdfRoleARN' - The Amazon Resource Name (ARN) that has access to AWS Internet of Things (IoT).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cdfTags' - Creates tags for the specified fleet.
+-- 'roleArn', 'createDeviceFleet_roleArn' - The Amazon Resource Name (ARN) that has access to AWS Internet of Things
+-- (IoT).
 --
--- * 'cdfDescription' - A description of the fleet.
+-- 'tags', 'createDeviceFleet_tags' - Creates tags for the specified fleet.
 --
--- * 'cdfDeviceFleetName' - The name of the fleet that the device belongs to.
+-- 'description', 'createDeviceFleet_description' - A description of the fleet.
 --
--- * 'cdfOutputConfig' - The output configuration for storing sample data collected by the fleet.
-createDeviceFleet ::
-  -- | 'cdfDeviceFleetName'
-  Text ->
-  -- | 'cdfOutputConfig'
+-- 'deviceFleetName', 'createDeviceFleet_deviceFleetName' - The name of the fleet that the device belongs to.
+--
+-- 'outputConfig', 'createDeviceFleet_outputConfig' - The output configuration for storing sample data collected by the fleet.
+newCreateDeviceFleet ::
+  -- | 'deviceFleetName'
+  Prelude.Text ->
+  -- | 'outputConfig'
   EdgeOutputConfig ->
   CreateDeviceFleet
-createDeviceFleet pDeviceFleetName_ pOutputConfig_ =
+newCreateDeviceFleet pDeviceFleetName_ pOutputConfig_ =
   CreateDeviceFleet'
-    { _cdfRoleARN = Nothing,
-      _cdfTags = Nothing,
-      _cdfDescription = Nothing,
-      _cdfDeviceFleetName = pDeviceFleetName_,
-      _cdfOutputConfig = pOutputConfig_
+    { roleArn = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      description = Prelude.Nothing,
+      deviceFleetName = pDeviceFleetName_,
+      outputConfig = pOutputConfig_
     }
 
--- | The Amazon Resource Name (ARN) that has access to AWS Internet of Things (IoT).
-cdfRoleARN :: Lens' CreateDeviceFleet (Maybe Text)
-cdfRoleARN = lens _cdfRoleARN (\s a -> s {_cdfRoleARN = a})
+-- | The Amazon Resource Name (ARN) that has access to AWS Internet of Things
+-- (IoT).
+createDeviceFleet_roleArn :: Lens.Lens' CreateDeviceFleet (Prelude.Maybe Prelude.Text)
+createDeviceFleet_roleArn = Lens.lens (\CreateDeviceFleet' {roleArn} -> roleArn) (\s@CreateDeviceFleet' {} a -> s {roleArn = a} :: CreateDeviceFleet)
 
 -- | Creates tags for the specified fleet.
-cdfTags :: Lens' CreateDeviceFleet [Tag]
-cdfTags = lens _cdfTags (\s a -> s {_cdfTags = a}) . _Default . _Coerce
+createDeviceFleet_tags :: Lens.Lens' CreateDeviceFleet (Prelude.Maybe [Tag])
+createDeviceFleet_tags = Lens.lens (\CreateDeviceFleet' {tags} -> tags) (\s@CreateDeviceFleet' {} a -> s {tags = a} :: CreateDeviceFleet) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A description of the fleet.
-cdfDescription :: Lens' CreateDeviceFleet (Maybe Text)
-cdfDescription = lens _cdfDescription (\s a -> s {_cdfDescription = a})
+createDeviceFleet_description :: Lens.Lens' CreateDeviceFleet (Prelude.Maybe Prelude.Text)
+createDeviceFleet_description = Lens.lens (\CreateDeviceFleet' {description} -> description) (\s@CreateDeviceFleet' {} a -> s {description = a} :: CreateDeviceFleet)
 
 -- | The name of the fleet that the device belongs to.
-cdfDeviceFleetName :: Lens' CreateDeviceFleet Text
-cdfDeviceFleetName = lens _cdfDeviceFleetName (\s a -> s {_cdfDeviceFleetName = a})
+createDeviceFleet_deviceFleetName :: Lens.Lens' CreateDeviceFleet Prelude.Text
+createDeviceFleet_deviceFleetName = Lens.lens (\CreateDeviceFleet' {deviceFleetName} -> deviceFleetName) (\s@CreateDeviceFleet' {} a -> s {deviceFleetName = a} :: CreateDeviceFleet)
 
 -- | The output configuration for storing sample data collected by the fleet.
-cdfOutputConfig :: Lens' CreateDeviceFleet EdgeOutputConfig
-cdfOutputConfig = lens _cdfOutputConfig (\s a -> s {_cdfOutputConfig = a})
+createDeviceFleet_outputConfig :: Lens.Lens' CreateDeviceFleet EdgeOutputConfig
+createDeviceFleet_outputConfig = Lens.lens (\CreateDeviceFleet' {outputConfig} -> outputConfig) (\s@CreateDeviceFleet' {} a -> s {outputConfig = a} :: CreateDeviceFleet)
 
-instance AWSRequest CreateDeviceFleet where
+instance Prelude.AWSRequest CreateDeviceFleet where
   type Rs CreateDeviceFleet = CreateDeviceFleetResponse
-  request = postJSON sageMaker
-  response = receiveNull CreateDeviceFleetResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull CreateDeviceFleetResponse'
 
-instance Hashable CreateDeviceFleet
+instance Prelude.Hashable CreateDeviceFleet
 
-instance NFData CreateDeviceFleet
+instance Prelude.NFData CreateDeviceFleet
 
-instance ToHeaders CreateDeviceFleet where
+instance Prelude.ToHeaders CreateDeviceFleet where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.CreateDeviceFleet" :: ByteString),
+              Prelude.=# ( "SageMaker.CreateDeviceFleet" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateDeviceFleet where
+instance Prelude.ToJSON CreateDeviceFleet where
   toJSON CreateDeviceFleet' {..} =
-    object
-      ( catMaybes
-          [ ("RoleArn" .=) <$> _cdfRoleARN,
-            ("Tags" .=) <$> _cdfTags,
-            ("Description" .=) <$> _cdfDescription,
-            Just ("DeviceFleetName" .= _cdfDeviceFleetName),
-            Just ("OutputConfig" .= _cdfOutputConfig)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("RoleArn" Prelude..=) Prelude.<$> roleArn,
+            ("Tags" Prelude..=) Prelude.<$> tags,
+            ("Description" Prelude..=) Prelude.<$> description,
+            Prelude.Just
+              ("DeviceFleetName" Prelude..= deviceFleetName),
+            Prelude.Just
+              ("OutputConfig" Prelude..= outputConfig)
           ]
       )
 
-instance ToPath CreateDeviceFleet where
-  toPath = const "/"
+instance Prelude.ToPath CreateDeviceFleet where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateDeviceFleet where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateDeviceFleet where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createDeviceFleetResponse' smart constructor.
+-- | /See:/ 'newCreateDeviceFleetResponse' smart constructor.
 data CreateDeviceFleetResponse = CreateDeviceFleetResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateDeviceFleetResponse' with the minimum fields required to make a request.
-createDeviceFleetResponse ::
+-- |
+-- Create a value of 'CreateDeviceFleetResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newCreateDeviceFleetResponse ::
   CreateDeviceFleetResponse
-createDeviceFleetResponse =
+newCreateDeviceFleetResponse =
   CreateDeviceFleetResponse'
 
-instance NFData CreateDeviceFleetResponse
+instance Prelude.NFData CreateDeviceFleetResponse

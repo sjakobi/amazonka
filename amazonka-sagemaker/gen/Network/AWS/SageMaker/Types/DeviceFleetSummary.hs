@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,77 +19,83 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.DeviceFleetSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Summary of the device fleet.
 --
---
---
--- /See:/ 'deviceFleetSummary' smart constructor.
+-- /See:/ 'newDeviceFleetSummary' smart constructor.
 data DeviceFleetSummary = DeviceFleetSummary'
-  { _dfsCreationTime ::
-      !(Maybe POSIX),
-    _dfsLastModifiedTime ::
-      !(Maybe POSIX),
-    _dfsDeviceFleetARN :: !Text,
-    _dfsDeviceFleetName :: !Text
+  { -- | Timestamp of when the device fleet was created.
+    creationTime :: Prelude.Maybe Prelude.POSIX,
+    -- | Timestamp of when the device fleet was last updated.
+    lastModifiedTime :: Prelude.Maybe Prelude.POSIX,
+    -- | Amazon Resource Name (ARN) of the device fleet.
+    deviceFleetArn :: Prelude.Text,
+    -- | Name of the device fleet.
+    deviceFleetName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeviceFleetSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeviceFleetSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dfsCreationTime' - Timestamp of when the device fleet was created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dfsLastModifiedTime' - Timestamp of when the device fleet was last updated.
+-- 'creationTime', 'deviceFleetSummary_creationTime' - Timestamp of when the device fleet was created.
 --
--- * 'dfsDeviceFleetARN' - Amazon Resource Name (ARN) of the device fleet.
+-- 'lastModifiedTime', 'deviceFleetSummary_lastModifiedTime' - Timestamp of when the device fleet was last updated.
 --
--- * 'dfsDeviceFleetName' - Name of the device fleet.
-deviceFleetSummary ::
-  -- | 'dfsDeviceFleetARN'
-  Text ->
-  -- | 'dfsDeviceFleetName'
-  Text ->
+-- 'deviceFleetArn', 'deviceFleetSummary_deviceFleetArn' - Amazon Resource Name (ARN) of the device fleet.
+--
+-- 'deviceFleetName', 'deviceFleetSummary_deviceFleetName' - Name of the device fleet.
+newDeviceFleetSummary ::
+  -- | 'deviceFleetArn'
+  Prelude.Text ->
+  -- | 'deviceFleetName'
+  Prelude.Text ->
   DeviceFleetSummary
-deviceFleetSummary pDeviceFleetARN_ pDeviceFleetName_ =
-  DeviceFleetSummary'
-    { _dfsCreationTime = Nothing,
-      _dfsLastModifiedTime = Nothing,
-      _dfsDeviceFleetARN = pDeviceFleetARN_,
-      _dfsDeviceFleetName = pDeviceFleetName_
-    }
+newDeviceFleetSummary
+  pDeviceFleetArn_
+  pDeviceFleetName_ =
+    DeviceFleetSummary'
+      { creationTime = Prelude.Nothing,
+        lastModifiedTime = Prelude.Nothing,
+        deviceFleetArn = pDeviceFleetArn_,
+        deviceFleetName = pDeviceFleetName_
+      }
 
 -- | Timestamp of when the device fleet was created.
-dfsCreationTime :: Lens' DeviceFleetSummary (Maybe UTCTime)
-dfsCreationTime = lens _dfsCreationTime (\s a -> s {_dfsCreationTime = a}) . mapping _Time
+deviceFleetSummary_creationTime :: Lens.Lens' DeviceFleetSummary (Prelude.Maybe Prelude.UTCTime)
+deviceFleetSummary_creationTime = Lens.lens (\DeviceFleetSummary' {creationTime} -> creationTime) (\s@DeviceFleetSummary' {} a -> s {creationTime = a} :: DeviceFleetSummary) Prelude.. Lens.mapping Prelude._Time
 
 -- | Timestamp of when the device fleet was last updated.
-dfsLastModifiedTime :: Lens' DeviceFleetSummary (Maybe UTCTime)
-dfsLastModifiedTime = lens _dfsLastModifiedTime (\s a -> s {_dfsLastModifiedTime = a}) . mapping _Time
+deviceFleetSummary_lastModifiedTime :: Lens.Lens' DeviceFleetSummary (Prelude.Maybe Prelude.UTCTime)
+deviceFleetSummary_lastModifiedTime = Lens.lens (\DeviceFleetSummary' {lastModifiedTime} -> lastModifiedTime) (\s@DeviceFleetSummary' {} a -> s {lastModifiedTime = a} :: DeviceFleetSummary) Prelude.. Lens.mapping Prelude._Time
 
 -- | Amazon Resource Name (ARN) of the device fleet.
-dfsDeviceFleetARN :: Lens' DeviceFleetSummary Text
-dfsDeviceFleetARN = lens _dfsDeviceFleetARN (\s a -> s {_dfsDeviceFleetARN = a})
+deviceFleetSummary_deviceFleetArn :: Lens.Lens' DeviceFleetSummary Prelude.Text
+deviceFleetSummary_deviceFleetArn = Lens.lens (\DeviceFleetSummary' {deviceFleetArn} -> deviceFleetArn) (\s@DeviceFleetSummary' {} a -> s {deviceFleetArn = a} :: DeviceFleetSummary)
 
 -- | Name of the device fleet.
-dfsDeviceFleetName :: Lens' DeviceFleetSummary Text
-dfsDeviceFleetName = lens _dfsDeviceFleetName (\s a -> s {_dfsDeviceFleetName = a})
+deviceFleetSummary_deviceFleetName :: Lens.Lens' DeviceFleetSummary Prelude.Text
+deviceFleetSummary_deviceFleetName = Lens.lens (\DeviceFleetSummary' {deviceFleetName} -> deviceFleetName) (\s@DeviceFleetSummary' {} a -> s {deviceFleetName = a} :: DeviceFleetSummary)
 
-instance FromJSON DeviceFleetSummary where
+instance Prelude.FromJSON DeviceFleetSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DeviceFleetSummary"
       ( \x ->
           DeviceFleetSummary'
-            <$> (x .:? "CreationTime")
-            <*> (x .:? "LastModifiedTime")
-            <*> (x .: "DeviceFleetArn")
-            <*> (x .: "DeviceFleetName")
+            Prelude.<$> (x Prelude..:? "CreationTime")
+            Prelude.<*> (x Prelude..:? "LastModifiedTime")
+            Prelude.<*> (x Prelude..: "DeviceFleetArn")
+            Prelude.<*> (x Prelude..: "DeviceFleetName")
       )
 
-instance Hashable DeviceFleetSummary
+instance Prelude.Hashable DeviceFleetSummary
 
-instance NFData DeviceFleetSummary
+instance Prelude.NFData DeviceFleetSummary

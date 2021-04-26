@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,73 +19,87 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.TrialComponentArtifact where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents an input or output artifact of a trial component. You specify @TrialComponentArtifact@ as part of the @InputArtifacts@ and @OutputArtifacts@ parameters in the 'CreateTrialComponent' request.
+-- | Represents an input or output artifact of a trial component. You specify
+-- @TrialComponentArtifact@ as part of the @InputArtifacts@ and
+-- @OutputArtifacts@ parameters in the CreateTrialComponent request.
 --
+-- Examples of input artifacts are datasets, algorithms, hyperparameters,
+-- source code, and instance types. Examples of output artifacts are
+-- metrics, snapshots, logs, and images.
 --
--- Examples of input artifacts are datasets, algorithms, hyperparameters, source code, and instance types. Examples of output artifacts are metrics, snapshots, logs, and images.
---
---
--- /See:/ 'trialComponentArtifact' smart constructor.
+-- /See:/ 'newTrialComponentArtifact' smart constructor.
 data TrialComponentArtifact = TrialComponentArtifact'
-  { _tcaMediaType ::
-      !(Maybe Text),
-    _tcaValue :: !Text
+  { -- | The media type of the artifact, which indicates the type of data in the
+    -- artifact file. The media type consists of a /type/ and a /subtype/
+    -- concatenated with a slash (\/) character, for example, text\/csv,
+    -- image\/jpeg, and s3\/uri. The type specifies the category of the media.
+    -- The subtype specifies the kind of data.
+    mediaType :: Prelude.Maybe Prelude.Text,
+    -- | The location of the artifact.
+    value :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TrialComponentArtifact' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TrialComponentArtifact' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tcaMediaType' - The media type of the artifact, which indicates the type of data in the artifact file. The media type consists of a /type/ and a /subtype/ concatenated with a slash (/) character, for example, text/csv, image/jpeg, and s3/uri. The type specifies the category of the media. The subtype specifies the kind of data.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tcaValue' - The location of the artifact.
-trialComponentArtifact ::
-  -- | 'tcaValue'
-  Text ->
+-- 'mediaType', 'trialComponentArtifact_mediaType' - The media type of the artifact, which indicates the type of data in the
+-- artifact file. The media type consists of a /type/ and a /subtype/
+-- concatenated with a slash (\/) character, for example, text\/csv,
+-- image\/jpeg, and s3\/uri. The type specifies the category of the media.
+-- The subtype specifies the kind of data.
+--
+-- 'value', 'trialComponentArtifact_value' - The location of the artifact.
+newTrialComponentArtifact ::
+  -- | 'value'
+  Prelude.Text ->
   TrialComponentArtifact
-trialComponentArtifact pValue_ =
+newTrialComponentArtifact pValue_ =
   TrialComponentArtifact'
-    { _tcaMediaType = Nothing,
-      _tcaValue = pValue_
+    { mediaType =
+        Prelude.Nothing,
+      value = pValue_
     }
 
--- | The media type of the artifact, which indicates the type of data in the artifact file. The media type consists of a /type/ and a /subtype/ concatenated with a slash (/) character, for example, text/csv, image/jpeg, and s3/uri. The type specifies the category of the media. The subtype specifies the kind of data.
-tcaMediaType :: Lens' TrialComponentArtifact (Maybe Text)
-tcaMediaType = lens _tcaMediaType (\s a -> s {_tcaMediaType = a})
+-- | The media type of the artifact, which indicates the type of data in the
+-- artifact file. The media type consists of a /type/ and a /subtype/
+-- concatenated with a slash (\/) character, for example, text\/csv,
+-- image\/jpeg, and s3\/uri. The type specifies the category of the media.
+-- The subtype specifies the kind of data.
+trialComponentArtifact_mediaType :: Lens.Lens' TrialComponentArtifact (Prelude.Maybe Prelude.Text)
+trialComponentArtifact_mediaType = Lens.lens (\TrialComponentArtifact' {mediaType} -> mediaType) (\s@TrialComponentArtifact' {} a -> s {mediaType = a} :: TrialComponentArtifact)
 
 -- | The location of the artifact.
-tcaValue :: Lens' TrialComponentArtifact Text
-tcaValue = lens _tcaValue (\s a -> s {_tcaValue = a})
+trialComponentArtifact_value :: Lens.Lens' TrialComponentArtifact Prelude.Text
+trialComponentArtifact_value = Lens.lens (\TrialComponentArtifact' {value} -> value) (\s@TrialComponentArtifact' {} a -> s {value = a} :: TrialComponentArtifact)
 
-instance FromJSON TrialComponentArtifact where
+instance Prelude.FromJSON TrialComponentArtifact where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TrialComponentArtifact"
       ( \x ->
           TrialComponentArtifact'
-            <$> (x .:? "MediaType") <*> (x .: "Value")
+            Prelude.<$> (x Prelude..:? "MediaType")
+            Prelude.<*> (x Prelude..: "Value")
       )
 
-instance Hashable TrialComponentArtifact
+instance Prelude.Hashable TrialComponentArtifact
 
-instance NFData TrialComponentArtifact
+instance Prelude.NFData TrialComponentArtifact
 
-instance ToJSON TrialComponentArtifact where
+instance Prelude.ToJSON TrialComponentArtifact where
   toJSON TrialComponentArtifact' {..} =
-    object
-      ( catMaybes
-          [ ("MediaType" .=) <$> _tcaMediaType,
-            Just ("Value" .= _tcaValue)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("MediaType" Prelude..=) Prelude.<$> mediaType,
+            Prelude.Just ("Value" Prelude..= value)
           ]
       )

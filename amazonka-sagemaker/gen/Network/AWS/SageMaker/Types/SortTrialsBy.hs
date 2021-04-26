@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.SageMaker.Types.SortTrialsBy
   ( SortTrialsBy
       ( ..,
-        STBCreationTime,
-        STBName
+        SortTrialsByCreationTime,
+        SortTrialsByName
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SortTrialsBy = SortTrialsBy' (CI Text)
+newtype SortTrialsBy = SortTrialsBy'
+  { fromSortTrialsBy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern STBCreationTime :: SortTrialsBy
-pattern STBCreationTime = SortTrialsBy' "CreationTime"
+pattern SortTrialsByCreationTime :: SortTrialsBy
+pattern SortTrialsByCreationTime = SortTrialsBy' "CreationTime"
 
-pattern STBName :: SortTrialsBy
-pattern STBName = SortTrialsBy' "Name"
+pattern SortTrialsByName :: SortTrialsBy
+pattern SortTrialsByName = SortTrialsBy' "Name"
 
 {-# COMPLETE
-  STBCreationTime,
-  STBName,
+  SortTrialsByCreationTime,
+  SortTrialsByName,
   SortTrialsBy'
   #-}
 
-instance FromText SortTrialsBy where
-  parser = (SortTrialsBy' . mk) <$> takeText
+instance Prelude.FromText SortTrialsBy where
+  parser = SortTrialsBy' Prelude.<$> Prelude.takeText
 
-instance ToText SortTrialsBy where
-  toText (SortTrialsBy' ci) = original ci
+instance Prelude.ToText SortTrialsBy where
+  toText (SortTrialsBy' x) = x
 
-instance Hashable SortTrialsBy
+instance Prelude.Hashable SortTrialsBy
 
-instance NFData SortTrialsBy
+instance Prelude.NFData SortTrialsBy
 
-instance ToByteString SortTrialsBy
+instance Prelude.ToByteString SortTrialsBy
 
-instance ToQuery SortTrialsBy
+instance Prelude.ToQuery SortTrialsBy
 
-instance ToHeader SortTrialsBy
+instance Prelude.ToHeader SortTrialsBy
 
-instance ToJSON SortTrialsBy where
-  toJSON = toJSONText
+instance Prelude.ToJSON SortTrialsBy where
+  toJSON = Prelude.toJSONText

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,65 @@
 module Network.AWS.SageMaker.Types.FeatureGroupSortBy
   ( FeatureGroupSortBy
       ( ..,
-        FGSBCreationTime,
-        FGSBFeatureGroupStatus,
-        FGSBName,
-        FGSBOfflineStoreStatus
+        FeatureGroupSortByCreationTime,
+        FeatureGroupSortByFeatureGroupStatus,
+        FeatureGroupSortByName,
+        FeatureGroupSortByOfflineStoreStatus
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data FeatureGroupSortBy
-  = FeatureGroupSortBy'
-      ( CI
-          Text
-      )
+newtype FeatureGroupSortBy = FeatureGroupSortBy'
+  { fromFeatureGroupSortBy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern FGSBCreationTime :: FeatureGroupSortBy
-pattern FGSBCreationTime = FeatureGroupSortBy' "CreationTime"
+pattern FeatureGroupSortByCreationTime :: FeatureGroupSortBy
+pattern FeatureGroupSortByCreationTime = FeatureGroupSortBy' "CreationTime"
 
-pattern FGSBFeatureGroupStatus :: FeatureGroupSortBy
-pattern FGSBFeatureGroupStatus = FeatureGroupSortBy' "FeatureGroupStatus"
+pattern FeatureGroupSortByFeatureGroupStatus :: FeatureGroupSortBy
+pattern FeatureGroupSortByFeatureGroupStatus = FeatureGroupSortBy' "FeatureGroupStatus"
 
-pattern FGSBName :: FeatureGroupSortBy
-pattern FGSBName = FeatureGroupSortBy' "Name"
+pattern FeatureGroupSortByName :: FeatureGroupSortBy
+pattern FeatureGroupSortByName = FeatureGroupSortBy' "Name"
 
-pattern FGSBOfflineStoreStatus :: FeatureGroupSortBy
-pattern FGSBOfflineStoreStatus = FeatureGroupSortBy' "OfflineStoreStatus"
+pattern FeatureGroupSortByOfflineStoreStatus :: FeatureGroupSortBy
+pattern FeatureGroupSortByOfflineStoreStatus = FeatureGroupSortBy' "OfflineStoreStatus"
 
 {-# COMPLETE
-  FGSBCreationTime,
-  FGSBFeatureGroupStatus,
-  FGSBName,
-  FGSBOfflineStoreStatus,
+  FeatureGroupSortByCreationTime,
+  FeatureGroupSortByFeatureGroupStatus,
+  FeatureGroupSortByName,
+  FeatureGroupSortByOfflineStoreStatus,
   FeatureGroupSortBy'
   #-}
 
-instance FromText FeatureGroupSortBy where
-  parser = (FeatureGroupSortBy' . mk) <$> takeText
+instance Prelude.FromText FeatureGroupSortBy where
+  parser = FeatureGroupSortBy' Prelude.<$> Prelude.takeText
 
-instance ToText FeatureGroupSortBy where
-  toText (FeatureGroupSortBy' ci) = original ci
+instance Prelude.ToText FeatureGroupSortBy where
+  toText (FeatureGroupSortBy' x) = x
 
-instance Hashable FeatureGroupSortBy
+instance Prelude.Hashable FeatureGroupSortBy
 
-instance NFData FeatureGroupSortBy
+instance Prelude.NFData FeatureGroupSortBy
 
-instance ToByteString FeatureGroupSortBy
+instance Prelude.ToByteString FeatureGroupSortBy
 
-instance ToQuery FeatureGroupSortBy
+instance Prelude.ToQuery FeatureGroupSortBy
 
-instance ToHeader FeatureGroupSortBy
+instance Prelude.ToHeader FeatureGroupSortBy
 
-instance ToJSON FeatureGroupSortBy where
-  toJSON = toJSONText
+instance Prelude.ToJSON FeatureGroupSortBy where
+  toJSON = Prelude.toJSONText

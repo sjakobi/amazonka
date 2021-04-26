@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.SageMaker.Types.RedshiftResultFormat
   ( RedshiftResultFormat
       ( ..,
-        CSV,
-        Parquet
+        RedshiftResultFormatCSV,
+        RedshiftResultFormatPARQUET
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The data storage format for Redshift query results.
-data RedshiftResultFormat
-  = RedshiftResultFormat'
-      ( CI
-          Text
-      )
+newtype RedshiftResultFormat = RedshiftResultFormat'
+  { fromRedshiftResultFormat ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CSV :: RedshiftResultFormat
-pattern CSV = RedshiftResultFormat' "CSV"
+pattern RedshiftResultFormatCSV :: RedshiftResultFormat
+pattern RedshiftResultFormatCSV = RedshiftResultFormat' "CSV"
 
-pattern Parquet :: RedshiftResultFormat
-pattern Parquet = RedshiftResultFormat' "PARQUET"
+pattern RedshiftResultFormatPARQUET :: RedshiftResultFormat
+pattern RedshiftResultFormatPARQUET = RedshiftResultFormat' "PARQUET"
 
 {-# COMPLETE
-  CSV,
-  Parquet,
+  RedshiftResultFormatCSV,
+  RedshiftResultFormatPARQUET,
   RedshiftResultFormat'
   #-}
 
-instance FromText RedshiftResultFormat where
-  parser = (RedshiftResultFormat' . mk) <$> takeText
+instance Prelude.FromText RedshiftResultFormat where
+  parser = RedshiftResultFormat' Prelude.<$> Prelude.takeText
 
-instance ToText RedshiftResultFormat where
-  toText (RedshiftResultFormat' ci) = original ci
+instance Prelude.ToText RedshiftResultFormat where
+  toText (RedshiftResultFormat' x) = x
 
-instance Hashable RedshiftResultFormat
+instance Prelude.Hashable RedshiftResultFormat
 
-instance NFData RedshiftResultFormat
+instance Prelude.NFData RedshiftResultFormat
 
-instance ToByteString RedshiftResultFormat
+instance Prelude.ToByteString RedshiftResultFormat
 
-instance ToQuery RedshiftResultFormat
+instance Prelude.ToQuery RedshiftResultFormat
 
-instance ToHeader RedshiftResultFormat
+instance Prelude.ToHeader RedshiftResultFormat
 
-instance ToJSON RedshiftResultFormat where
-  toJSON = toJSONText
+instance Prelude.ToJSON RedshiftResultFormat where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON RedshiftResultFormat where
-  parseJSON = parseJSONText "RedshiftResultFormat"
+instance Prelude.FromJSON RedshiftResultFormat where
+  parseJSON = Prelude.parseJSONText "RedshiftResultFormat"

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,112 +24,120 @@
 -- Deletes an Amazon SageMaker model bias job definition.
 module Network.AWS.SageMaker.DeleteModelBiasJobDefinition
   ( -- * Creating a Request
-    deleteModelBiasJobDefinition,
-    DeleteModelBiasJobDefinition,
+    DeleteModelBiasJobDefinition (..),
+    newDeleteModelBiasJobDefinition,
 
     -- * Request Lenses
-    dmbjdJobDefinitionName,
+    deleteModelBiasJobDefinition_jobDefinitionName,
 
     -- * Destructuring the Response
-    deleteModelBiasJobDefinitionResponse,
-    DeleteModelBiasJobDefinitionResponse,
+    DeleteModelBiasJobDefinitionResponse (..),
+    newDeleteModelBiasJobDefinitionResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'deleteModelBiasJobDefinition' smart constructor.
-newtype DeleteModelBiasJobDefinition = DeleteModelBiasJobDefinition'
-  { _dmbjdJobDefinitionName ::
-      Text
+-- | /See:/ 'newDeleteModelBiasJobDefinition' smart constructor.
+data DeleteModelBiasJobDefinition = DeleteModelBiasJobDefinition'
+  { -- | The name of the model bias job definition to delete.
+    jobDefinitionName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteModelBiasJobDefinition' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteModelBiasJobDefinition' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dmbjdJobDefinitionName' - The name of the model bias job definition to delete.
-deleteModelBiasJobDefinition ::
-  -- | 'dmbjdJobDefinitionName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'jobDefinitionName', 'deleteModelBiasJobDefinition_jobDefinitionName' - The name of the model bias job definition to delete.
+newDeleteModelBiasJobDefinition ::
+  -- | 'jobDefinitionName'
+  Prelude.Text ->
   DeleteModelBiasJobDefinition
-deleteModelBiasJobDefinition pJobDefinitionName_ =
+newDeleteModelBiasJobDefinition pJobDefinitionName_ =
   DeleteModelBiasJobDefinition'
-    { _dmbjdJobDefinitionName =
+    { jobDefinitionName =
         pJobDefinitionName_
     }
 
 -- | The name of the model bias job definition to delete.
-dmbjdJobDefinitionName :: Lens' DeleteModelBiasJobDefinition Text
-dmbjdJobDefinitionName = lens _dmbjdJobDefinitionName (\s a -> s {_dmbjdJobDefinitionName = a})
+deleteModelBiasJobDefinition_jobDefinitionName :: Lens.Lens' DeleteModelBiasJobDefinition Prelude.Text
+deleteModelBiasJobDefinition_jobDefinitionName = Lens.lens (\DeleteModelBiasJobDefinition' {jobDefinitionName} -> jobDefinitionName) (\s@DeleteModelBiasJobDefinition' {} a -> s {jobDefinitionName = a} :: DeleteModelBiasJobDefinition)
 
-instance AWSRequest DeleteModelBiasJobDefinition where
+instance
+  Prelude.AWSRequest
+    DeleteModelBiasJobDefinition
+  where
   type
     Rs DeleteModelBiasJobDefinition =
       DeleteModelBiasJobDefinitionResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveNull DeleteModelBiasJobDefinitionResponse'
+    Response.receiveNull
+      DeleteModelBiasJobDefinitionResponse'
 
-instance Hashable DeleteModelBiasJobDefinition
+instance
+  Prelude.Hashable
+    DeleteModelBiasJobDefinition
 
-instance NFData DeleteModelBiasJobDefinition
+instance Prelude.NFData DeleteModelBiasJobDefinition
 
-instance ToHeaders DeleteModelBiasJobDefinition where
+instance
+  Prelude.ToHeaders
+    DeleteModelBiasJobDefinition
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "SageMaker.DeleteModelBiasJobDefinition" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "SageMaker.DeleteModelBiasJobDefinition" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteModelBiasJobDefinition where
+instance Prelude.ToJSON DeleteModelBiasJobDefinition where
   toJSON DeleteModelBiasJobDefinition' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("JobDefinitionName" .= _dmbjdJobDefinitionName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("JobDefinitionName" Prelude..= jobDefinitionName)
           ]
       )
 
-instance ToPath DeleteModelBiasJobDefinition where
-  toPath = const "/"
+instance Prelude.ToPath DeleteModelBiasJobDefinition where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteModelBiasJobDefinition where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteModelBiasJobDefinition where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteModelBiasJobDefinitionResponse' smart constructor.
+-- | /See:/ 'newDeleteModelBiasJobDefinitionResponse' smart constructor.
 data DeleteModelBiasJobDefinitionResponse = DeleteModelBiasJobDefinitionResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteModelBiasJobDefinitionResponse' with the minimum fields required to make a request.
-deleteModelBiasJobDefinitionResponse ::
+-- |
+-- Create a value of 'DeleteModelBiasJobDefinitionResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteModelBiasJobDefinitionResponse ::
   DeleteModelBiasJobDefinitionResponse
-deleteModelBiasJobDefinitionResponse =
+newDeleteModelBiasJobDefinitionResponse =
   DeleteModelBiasJobDefinitionResponse'
 
-instance NFData DeleteModelBiasJobDefinitionResponse
+instance
+  Prelude.NFData
+    DeleteModelBiasJobDefinitionResponse

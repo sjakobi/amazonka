@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.SageMaker.Types.RecordWrapper
   ( RecordWrapper
       ( ..,
-        RWNone,
-        RWRecordIO
+        RecordWrapperNone,
+        RecordWrapperRecordIO
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RecordWrapper = RecordWrapper' (CI Text)
+newtype RecordWrapper = RecordWrapper'
+  { fromRecordWrapper ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern RWNone :: RecordWrapper
-pattern RWNone = RecordWrapper' "None"
+pattern RecordWrapperNone :: RecordWrapper
+pattern RecordWrapperNone = RecordWrapper' "None"
 
-pattern RWRecordIO :: RecordWrapper
-pattern RWRecordIO = RecordWrapper' "RecordIO"
+pattern RecordWrapperRecordIO :: RecordWrapper
+pattern RecordWrapperRecordIO = RecordWrapper' "RecordIO"
 
 {-# COMPLETE
-  RWNone,
-  RWRecordIO,
+  RecordWrapperNone,
+  RecordWrapperRecordIO,
   RecordWrapper'
   #-}
 
-instance FromText RecordWrapper where
-  parser = (RecordWrapper' . mk) <$> takeText
+instance Prelude.FromText RecordWrapper where
+  parser = RecordWrapper' Prelude.<$> Prelude.takeText
 
-instance ToText RecordWrapper where
-  toText (RecordWrapper' ci) = original ci
+instance Prelude.ToText RecordWrapper where
+  toText (RecordWrapper' x) = x
 
-instance Hashable RecordWrapper
+instance Prelude.Hashable RecordWrapper
 
-instance NFData RecordWrapper
+instance Prelude.NFData RecordWrapper
 
-instance ToByteString RecordWrapper
+instance Prelude.ToByteString RecordWrapper
 
-instance ToQuery RecordWrapper
+instance Prelude.ToQuery RecordWrapper
 
-instance ToHeader RecordWrapper
+instance Prelude.ToHeader RecordWrapper
 
-instance ToJSON RecordWrapper where
-  toJSON = toJSONText
+instance Prelude.ToJSON RecordWrapper where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON RecordWrapper where
-  parseJSON = parseJSONText "RecordWrapper"
+instance Prelude.FromJSON RecordWrapper where
+  parseJSON = Prelude.parseJSONText "RecordWrapper"

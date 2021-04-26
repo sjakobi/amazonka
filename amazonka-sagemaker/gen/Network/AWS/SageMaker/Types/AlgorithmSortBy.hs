@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.SageMaker.Types.AlgorithmSortBy
   ( AlgorithmSortBy
       ( ..,
-        ASBCreationTime,
-        ASBName
+        AlgorithmSortByCreationTime,
+        AlgorithmSortByName
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AlgorithmSortBy = AlgorithmSortBy' (CI Text)
+newtype AlgorithmSortBy = AlgorithmSortBy'
+  { fromAlgorithmSortBy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ASBCreationTime :: AlgorithmSortBy
-pattern ASBCreationTime = AlgorithmSortBy' "CreationTime"
+pattern AlgorithmSortByCreationTime :: AlgorithmSortBy
+pattern AlgorithmSortByCreationTime = AlgorithmSortBy' "CreationTime"
 
-pattern ASBName :: AlgorithmSortBy
-pattern ASBName = AlgorithmSortBy' "Name"
+pattern AlgorithmSortByName :: AlgorithmSortBy
+pattern AlgorithmSortByName = AlgorithmSortBy' "Name"
 
 {-# COMPLETE
-  ASBCreationTime,
-  ASBName,
+  AlgorithmSortByCreationTime,
+  AlgorithmSortByName,
   AlgorithmSortBy'
   #-}
 
-instance FromText AlgorithmSortBy where
-  parser = (AlgorithmSortBy' . mk) <$> takeText
+instance Prelude.FromText AlgorithmSortBy where
+  parser = AlgorithmSortBy' Prelude.<$> Prelude.takeText
 
-instance ToText AlgorithmSortBy where
-  toText (AlgorithmSortBy' ci) = original ci
+instance Prelude.ToText AlgorithmSortBy where
+  toText (AlgorithmSortBy' x) = x
 
-instance Hashable AlgorithmSortBy
+instance Prelude.Hashable AlgorithmSortBy
 
-instance NFData AlgorithmSortBy
+instance Prelude.NFData AlgorithmSortBy
 
-instance ToByteString AlgorithmSortBy
+instance Prelude.ToByteString AlgorithmSortBy
 
-instance ToQuery AlgorithmSortBy
+instance Prelude.ToQuery AlgorithmSortBy
 
-instance ToHeader AlgorithmSortBy
+instance Prelude.ToHeader AlgorithmSortBy
 
-instance ToJSON AlgorithmSortBy where
-  toJSON = toJSONText
+instance Prelude.ToJSON AlgorithmSortBy where
+  toJSON = Prelude.toJSONText

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,85 +19,86 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.TrafficRoutingConfig where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.CapacitySize
 import Network.AWS.SageMaker.Types.TrafficRoutingConfigType
 
 -- | Currently, the @TrafficRoutingConfig@ API is not supported.
 --
---
---
--- /See:/ 'trafficRoutingConfig' smart constructor.
+-- /See:/ 'newTrafficRoutingConfig' smart constructor.
 data TrafficRoutingConfig = TrafficRoutingConfig'
-  { _trcCanarySize ::
-      !(Maybe CapacitySize),
-    _trcType ::
-      !TrafficRoutingConfigType,
-    _trcWaitIntervalInSeconds ::
-      !Nat
+  { canarySize :: Prelude.Maybe CapacitySize,
+    type' :: TrafficRoutingConfigType,
+    waitIntervalInSeconds :: Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TrafficRoutingConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TrafficRoutingConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'trcCanarySize' -
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'trcType' -
+-- 'canarySize', 'trafficRoutingConfig_canarySize' -
 --
--- * 'trcWaitIntervalInSeconds' -
-trafficRoutingConfig ::
-  -- | 'trcType'
+-- 'type'', 'trafficRoutingConfig_type' -
+--
+-- 'waitIntervalInSeconds', 'trafficRoutingConfig_waitIntervalInSeconds' -
+newTrafficRoutingConfig ::
+  -- | 'type''
   TrafficRoutingConfigType ->
-  -- | 'trcWaitIntervalInSeconds'
-  Natural ->
+  -- | 'waitIntervalInSeconds'
+  Prelude.Natural ->
   TrafficRoutingConfig
-trafficRoutingConfig pType_ pWaitIntervalInSeconds_ =
-  TrafficRoutingConfig'
-    { _trcCanarySize = Nothing,
-      _trcType = pType_,
-      _trcWaitIntervalInSeconds =
-        _Nat # pWaitIntervalInSeconds_
-    }
+newTrafficRoutingConfig
+  pType_
+  pWaitIntervalInSeconds_ =
+    TrafficRoutingConfig'
+      { canarySize = Prelude.Nothing,
+        type' = pType_,
+        waitIntervalInSeconds =
+          Prelude._Nat Lens.# pWaitIntervalInSeconds_
+      }
 
 -- |
-trcCanarySize :: Lens' TrafficRoutingConfig (Maybe CapacitySize)
-trcCanarySize = lens _trcCanarySize (\s a -> s {_trcCanarySize = a})
+trafficRoutingConfig_canarySize :: Lens.Lens' TrafficRoutingConfig (Prelude.Maybe CapacitySize)
+trafficRoutingConfig_canarySize = Lens.lens (\TrafficRoutingConfig' {canarySize} -> canarySize) (\s@TrafficRoutingConfig' {} a -> s {canarySize = a} :: TrafficRoutingConfig)
 
 -- |
-trcType :: Lens' TrafficRoutingConfig TrafficRoutingConfigType
-trcType = lens _trcType (\s a -> s {_trcType = a})
+trafficRoutingConfig_type :: Lens.Lens' TrafficRoutingConfig TrafficRoutingConfigType
+trafficRoutingConfig_type = Lens.lens (\TrafficRoutingConfig' {type'} -> type') (\s@TrafficRoutingConfig' {} a -> s {type' = a} :: TrafficRoutingConfig)
 
 -- |
-trcWaitIntervalInSeconds :: Lens' TrafficRoutingConfig Natural
-trcWaitIntervalInSeconds = lens _trcWaitIntervalInSeconds (\s a -> s {_trcWaitIntervalInSeconds = a}) . _Nat
+trafficRoutingConfig_waitIntervalInSeconds :: Lens.Lens' TrafficRoutingConfig Prelude.Natural
+trafficRoutingConfig_waitIntervalInSeconds = Lens.lens (\TrafficRoutingConfig' {waitIntervalInSeconds} -> waitIntervalInSeconds) (\s@TrafficRoutingConfig' {} a -> s {waitIntervalInSeconds = a} :: TrafficRoutingConfig) Prelude.. Prelude._Nat
 
-instance FromJSON TrafficRoutingConfig where
+instance Prelude.FromJSON TrafficRoutingConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TrafficRoutingConfig"
       ( \x ->
           TrafficRoutingConfig'
-            <$> (x .:? "CanarySize")
-            <*> (x .: "Type")
-            <*> (x .: "WaitIntervalInSeconds")
+            Prelude.<$> (x Prelude..:? "CanarySize")
+            Prelude.<*> (x Prelude..: "Type")
+            Prelude.<*> (x Prelude..: "WaitIntervalInSeconds")
       )
 
-instance Hashable TrafficRoutingConfig
+instance Prelude.Hashable TrafficRoutingConfig
 
-instance NFData TrafficRoutingConfig
+instance Prelude.NFData TrafficRoutingConfig
 
-instance ToJSON TrafficRoutingConfig where
+instance Prelude.ToJSON TrafficRoutingConfig where
   toJSON TrafficRoutingConfig' {..} =
-    object
-      ( catMaybes
-          [ ("CanarySize" .=) <$> _trcCanarySize,
-            Just ("Type" .= _trcType),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("CanarySize" Prelude..=) Prelude.<$> canarySize,
+            Prelude.Just ("Type" Prelude..= type'),
+            Prelude.Just
               ( "WaitIntervalInSeconds"
-                  .= _trcWaitIntervalInSeconds
+                  Prelude..= waitIntervalInSeconds
               )
           ]
       )

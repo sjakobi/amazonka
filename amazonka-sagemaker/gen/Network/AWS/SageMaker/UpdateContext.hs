@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,161 +24,171 @@
 -- Updates a context.
 module Network.AWS.SageMaker.UpdateContext
   ( -- * Creating a Request
-    updateContext,
-    UpdateContext,
+    UpdateContext (..),
+    newUpdateContext,
 
     -- * Request Lenses
-    ucPropertiesToRemove,
-    ucProperties,
-    ucDescription,
-    ucContextName,
+    updateContext_propertiesToRemove,
+    updateContext_properties,
+    updateContext_description,
+    updateContext_contextName,
 
     -- * Destructuring the Response
-    updateContextResponse,
-    UpdateContextResponse,
+    UpdateContextResponse (..),
+    newUpdateContextResponse,
 
     -- * Response Lenses
-    ucrrsContextARN,
-    ucrrsResponseStatus,
+    updateContextResponse_contextArn,
+    updateContextResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'updateContext' smart constructor.
+-- | /See:/ 'newUpdateContext' smart constructor.
 data UpdateContext = UpdateContext'
-  { _ucPropertiesToRemove ::
-      !(Maybe [Text]),
-    _ucProperties :: !(Maybe (Map Text Text)),
-    _ucDescription :: !(Maybe Text),
-    _ucContextName :: !Text
+  { -- | A list of properties to remove.
+    propertiesToRemove :: Prelude.Maybe [Prelude.Text],
+    -- | The new list of properties. Overwrites the current property list.
+    properties :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The new description for the context.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The name of the context to update.
+    contextName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateContext' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateContext' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ucPropertiesToRemove' - A list of properties to remove.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ucProperties' - The new list of properties. Overwrites the current property list.
+-- 'propertiesToRemove', 'updateContext_propertiesToRemove' - A list of properties to remove.
 --
--- * 'ucDescription' - The new description for the context.
+-- 'properties', 'updateContext_properties' - The new list of properties. Overwrites the current property list.
 --
--- * 'ucContextName' - The name of the context to update.
-updateContext ::
-  -- | 'ucContextName'
-  Text ->
+-- 'description', 'updateContext_description' - The new description for the context.
+--
+-- 'contextName', 'updateContext_contextName' - The name of the context to update.
+newUpdateContext ::
+  -- | 'contextName'
+  Prelude.Text ->
   UpdateContext
-updateContext pContextName_ =
+newUpdateContext pContextName_ =
   UpdateContext'
-    { _ucPropertiesToRemove = Nothing,
-      _ucProperties = Nothing,
-      _ucDescription = Nothing,
-      _ucContextName = pContextName_
+    { propertiesToRemove =
+        Prelude.Nothing,
+      properties = Prelude.Nothing,
+      description = Prelude.Nothing,
+      contextName = pContextName_
     }
 
 -- | A list of properties to remove.
-ucPropertiesToRemove :: Lens' UpdateContext [Text]
-ucPropertiesToRemove = lens _ucPropertiesToRemove (\s a -> s {_ucPropertiesToRemove = a}) . _Default . _Coerce
+updateContext_propertiesToRemove :: Lens.Lens' UpdateContext (Prelude.Maybe [Prelude.Text])
+updateContext_propertiesToRemove = Lens.lens (\UpdateContext' {propertiesToRemove} -> propertiesToRemove) (\s@UpdateContext' {} a -> s {propertiesToRemove = a} :: UpdateContext) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The new list of properties. Overwrites the current property list.
-ucProperties :: Lens' UpdateContext (HashMap Text Text)
-ucProperties = lens _ucProperties (\s a -> s {_ucProperties = a}) . _Default . _Map
+updateContext_properties :: Lens.Lens' UpdateContext (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+updateContext_properties = Lens.lens (\UpdateContext' {properties} -> properties) (\s@UpdateContext' {} a -> s {properties = a} :: UpdateContext) Prelude.. Lens.mapping Prelude._Map
 
 -- | The new description for the context.
-ucDescription :: Lens' UpdateContext (Maybe Text)
-ucDescription = lens _ucDescription (\s a -> s {_ucDescription = a})
+updateContext_description :: Lens.Lens' UpdateContext (Prelude.Maybe Prelude.Text)
+updateContext_description = Lens.lens (\UpdateContext' {description} -> description) (\s@UpdateContext' {} a -> s {description = a} :: UpdateContext)
 
 -- | The name of the context to update.
-ucContextName :: Lens' UpdateContext Text
-ucContextName = lens _ucContextName (\s a -> s {_ucContextName = a})
+updateContext_contextName :: Lens.Lens' UpdateContext Prelude.Text
+updateContext_contextName = Lens.lens (\UpdateContext' {contextName} -> contextName) (\s@UpdateContext' {} a -> s {contextName = a} :: UpdateContext)
 
-instance AWSRequest UpdateContext where
+instance Prelude.AWSRequest UpdateContext where
   type Rs UpdateContext = UpdateContextResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateContextResponse'
-            <$> (x .?> "ContextArn") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ContextArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateContext
+instance Prelude.Hashable UpdateContext
 
-instance NFData UpdateContext
+instance Prelude.NFData UpdateContext
 
-instance ToHeaders UpdateContext where
+instance Prelude.ToHeaders UpdateContext where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.UpdateContext" :: ByteString),
+              Prelude.=# ("SageMaker.UpdateContext" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateContext where
+instance Prelude.ToJSON UpdateContext where
   toJSON UpdateContext' {..} =
-    object
-      ( catMaybes
-          [ ("PropertiesToRemove" .=) <$> _ucPropertiesToRemove,
-            ("Properties" .=) <$> _ucProperties,
-            ("Description" .=) <$> _ucDescription,
-            Just ("ContextName" .= _ucContextName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("PropertiesToRemove" Prelude..=)
+              Prelude.<$> propertiesToRemove,
+            ("Properties" Prelude..=) Prelude.<$> properties,
+            ("Description" Prelude..=) Prelude.<$> description,
+            Prelude.Just ("ContextName" Prelude..= contextName)
           ]
       )
 
-instance ToPath UpdateContext where
-  toPath = const "/"
+instance Prelude.ToPath UpdateContext where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateContext where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateContext where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateContextResponse' smart constructor.
+-- | /See:/ 'newUpdateContextResponse' smart constructor.
 data UpdateContextResponse = UpdateContextResponse'
-  { _ucrrsContextARN ::
-      !(Maybe Text),
-    _ucrrsResponseStatus ::
-      !Int
+  { -- | The Amazon Resource Name (ARN) of the context.
+    contextArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateContextResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateContextResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ucrrsContextARN' - The Amazon Resource Name (ARN) of the context.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ucrrsResponseStatus' - -- | The response status code.
-updateContextResponse ::
-  -- | 'ucrrsResponseStatus'
-  Int ->
+-- 'contextArn', 'updateContextResponse_contextArn' - The Amazon Resource Name (ARN) of the context.
+--
+-- 'httpStatus', 'updateContextResponse_httpStatus' - The response's http status code.
+newUpdateContextResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateContextResponse
-updateContextResponse pResponseStatus_ =
+newUpdateContextResponse pHttpStatus_ =
   UpdateContextResponse'
-    { _ucrrsContextARN = Nothing,
-      _ucrrsResponseStatus = pResponseStatus_
+    { contextArn =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The Amazon Resource Name (ARN) of the context.
-ucrrsContextARN :: Lens' UpdateContextResponse (Maybe Text)
-ucrrsContextARN = lens _ucrrsContextARN (\s a -> s {_ucrrsContextARN = a})
+updateContextResponse_contextArn :: Lens.Lens' UpdateContextResponse (Prelude.Maybe Prelude.Text)
+updateContextResponse_contextArn = Lens.lens (\UpdateContextResponse' {contextArn} -> contextArn) (\s@UpdateContextResponse' {} a -> s {contextArn = a} :: UpdateContextResponse)
 
--- | -- | The response status code.
-ucrrsResponseStatus :: Lens' UpdateContextResponse Int
-ucrrsResponseStatus = lens _ucrrsResponseStatus (\s a -> s {_ucrrsResponseStatus = a})
+-- | The response's http status code.
+updateContextResponse_httpStatus :: Lens.Lens' UpdateContextResponse Prelude.Int
+updateContextResponse_httpStatus = Lens.lens (\UpdateContextResponse' {httpStatus} -> httpStatus) (\s@UpdateContextResponse' {} a -> s {httpStatus = a} :: UpdateContextResponse)
 
-instance NFData UpdateContextResponse
+instance Prelude.NFData UpdateContextResponse

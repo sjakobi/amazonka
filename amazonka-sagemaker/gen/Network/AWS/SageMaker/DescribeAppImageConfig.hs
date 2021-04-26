@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,198 +24,191 @@
 -- Describes an AppImageConfig.
 module Network.AWS.SageMaker.DescribeAppImageConfig
   ( -- * Creating a Request
-    describeAppImageConfig,
-    DescribeAppImageConfig,
+    DescribeAppImageConfig (..),
+    newDescribeAppImageConfig,
 
     -- * Request Lenses
-    daicAppImageConfigName,
+    describeAppImageConfig_appImageConfigName,
 
     -- * Destructuring the Response
-    describeAppImageConfigResponse,
-    DescribeAppImageConfigResponse,
+    DescribeAppImageConfigResponse (..),
+    newDescribeAppImageConfigResponse,
 
     -- * Response Lenses
-    daicrrsCreationTime,
-    daicrrsAppImageConfigARN,
-    daicrrsKernelGatewayImageConfig,
-    daicrrsAppImageConfigName,
-    daicrrsLastModifiedTime,
-    daicrrsResponseStatus,
+    describeAppImageConfigResponse_creationTime,
+    describeAppImageConfigResponse_appImageConfigArn,
+    describeAppImageConfigResponse_kernelGatewayImageConfig,
+    describeAppImageConfigResponse_appImageConfigName,
+    describeAppImageConfigResponse_lastModifiedTime,
+    describeAppImageConfigResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
+import Network.AWS.SageMaker.Types.KernelGatewayImageConfig
 
--- | /See:/ 'describeAppImageConfig' smart constructor.
-newtype DescribeAppImageConfig = DescribeAppImageConfig'
-  { _daicAppImageConfigName ::
-      Text
+-- | /See:/ 'newDescribeAppImageConfig' smart constructor.
+data DescribeAppImageConfig = DescribeAppImageConfig'
+  { -- | The name of the AppImageConfig to describe.
+    appImageConfigName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeAppImageConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeAppImageConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'daicAppImageConfigName' - The name of the AppImageConfig to describe.
-describeAppImageConfig ::
-  -- | 'daicAppImageConfigName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'appImageConfigName', 'describeAppImageConfig_appImageConfigName' - The name of the AppImageConfig to describe.
+newDescribeAppImageConfig ::
+  -- | 'appImageConfigName'
+  Prelude.Text ->
   DescribeAppImageConfig
-describeAppImageConfig pAppImageConfigName_ =
+newDescribeAppImageConfig pAppImageConfigName_ =
   DescribeAppImageConfig'
-    { _daicAppImageConfigName =
+    { appImageConfigName =
         pAppImageConfigName_
     }
 
 -- | The name of the AppImageConfig to describe.
-daicAppImageConfigName :: Lens' DescribeAppImageConfig Text
-daicAppImageConfigName = lens _daicAppImageConfigName (\s a -> s {_daicAppImageConfigName = a})
+describeAppImageConfig_appImageConfigName :: Lens.Lens' DescribeAppImageConfig Prelude.Text
+describeAppImageConfig_appImageConfigName = Lens.lens (\DescribeAppImageConfig' {appImageConfigName} -> appImageConfigName) (\s@DescribeAppImageConfig' {} a -> s {appImageConfigName = a} :: DescribeAppImageConfig)
 
-instance AWSRequest DescribeAppImageConfig where
+instance Prelude.AWSRequest DescribeAppImageConfig where
   type
     Rs DescribeAppImageConfig =
       DescribeAppImageConfigResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeAppImageConfigResponse'
-            <$> (x .?> "CreationTime")
-            <*> (x .?> "AppImageConfigArn")
-            <*> (x .?> "KernelGatewayImageConfig")
-            <*> (x .?> "AppImageConfigName")
-            <*> (x .?> "LastModifiedTime")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "CreationTime")
+            Prelude.<*> (x Prelude..?> "AppImageConfigArn")
+            Prelude.<*> (x Prelude..?> "KernelGatewayImageConfig")
+            Prelude.<*> (x Prelude..?> "AppImageConfigName")
+            Prelude.<*> (x Prelude..?> "LastModifiedTime")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeAppImageConfig
+instance Prelude.Hashable DescribeAppImageConfig
 
-instance NFData DescribeAppImageConfig
+instance Prelude.NFData DescribeAppImageConfig
 
-instance ToHeaders DescribeAppImageConfig where
+instance Prelude.ToHeaders DescribeAppImageConfig where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.DescribeAppImageConfig" :: ByteString),
+              Prelude.=# ( "SageMaker.DescribeAppImageConfig" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeAppImageConfig where
+instance Prelude.ToJSON DescribeAppImageConfig where
   toJSON DescribeAppImageConfig' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("AppImageConfigName" .= _daicAppImageConfigName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ( "AppImageConfigName"
+                  Prelude..= appImageConfigName
+              )
           ]
       )
 
-instance ToPath DescribeAppImageConfig where
-  toPath = const "/"
+instance Prelude.ToPath DescribeAppImageConfig where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeAppImageConfig where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeAppImageConfig where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeAppImageConfigResponse' smart constructor.
+-- | /See:/ 'newDescribeAppImageConfigResponse' smart constructor.
 data DescribeAppImageConfigResponse = DescribeAppImageConfigResponse'
-  { _daicrrsCreationTime ::
-      !( Maybe
-           POSIX
-       ),
-    _daicrrsAppImageConfigARN ::
-      !( Maybe
-           Text
-       ),
-    _daicrrsKernelGatewayImageConfig ::
-      !( Maybe
-           KernelGatewayImageConfig
-       ),
-    _daicrrsAppImageConfigName ::
-      !( Maybe
-           Text
-       ),
-    _daicrrsLastModifiedTime ::
-      !( Maybe
-           POSIX
-       ),
-    _daicrrsResponseStatus ::
-      !Int
+  { -- | When the AppImageConfig was created.
+    creationTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The Amazon Resource Name (ARN) of the AppImageConfig.
+    appImageConfigArn :: Prelude.Maybe Prelude.Text,
+    -- | The configuration of a KernelGateway app.
+    kernelGatewayImageConfig :: Prelude.Maybe KernelGatewayImageConfig,
+    -- | The name of the AppImageConfig.
+    appImageConfigName :: Prelude.Maybe Prelude.Text,
+    -- | When the AppImageConfig was last modified.
+    lastModifiedTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeAppImageConfigResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeAppImageConfigResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'daicrrsCreationTime' - When the AppImageConfig was created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'daicrrsAppImageConfigARN' - The Amazon Resource Name (ARN) of the AppImageConfig.
+-- 'creationTime', 'describeAppImageConfigResponse_creationTime' - When the AppImageConfig was created.
 --
--- * 'daicrrsKernelGatewayImageConfig' - The configuration of a KernelGateway app.
+-- 'appImageConfigArn', 'describeAppImageConfigResponse_appImageConfigArn' - The Amazon Resource Name (ARN) of the AppImageConfig.
 --
--- * 'daicrrsAppImageConfigName' - The name of the AppImageConfig.
+-- 'kernelGatewayImageConfig', 'describeAppImageConfigResponse_kernelGatewayImageConfig' - The configuration of a KernelGateway app.
 --
--- * 'daicrrsLastModifiedTime' - When the AppImageConfig was last modified.
+-- 'appImageConfigName', 'describeAppImageConfigResponse_appImageConfigName' - The name of the AppImageConfig.
 --
--- * 'daicrrsResponseStatus' - -- | The response status code.
-describeAppImageConfigResponse ::
-  -- | 'daicrrsResponseStatus'
-  Int ->
+-- 'lastModifiedTime', 'describeAppImageConfigResponse_lastModifiedTime' - When the AppImageConfig was last modified.
+--
+-- 'httpStatus', 'describeAppImageConfigResponse_httpStatus' - The response's http status code.
+newDescribeAppImageConfigResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeAppImageConfigResponse
-describeAppImageConfigResponse pResponseStatus_ =
+newDescribeAppImageConfigResponse pHttpStatus_ =
   DescribeAppImageConfigResponse'
-    { _daicrrsCreationTime =
-        Nothing,
-      _daicrrsAppImageConfigARN = Nothing,
-      _daicrrsKernelGatewayImageConfig = Nothing,
-      _daicrrsAppImageConfigName = Nothing,
-      _daicrrsLastModifiedTime = Nothing,
-      _daicrrsResponseStatus = pResponseStatus_
+    { creationTime =
+        Prelude.Nothing,
+      appImageConfigArn = Prelude.Nothing,
+      kernelGatewayImageConfig = Prelude.Nothing,
+      appImageConfigName = Prelude.Nothing,
+      lastModifiedTime = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | When the AppImageConfig was created.
-daicrrsCreationTime :: Lens' DescribeAppImageConfigResponse (Maybe UTCTime)
-daicrrsCreationTime = lens _daicrrsCreationTime (\s a -> s {_daicrrsCreationTime = a}) . mapping _Time
+describeAppImageConfigResponse_creationTime :: Lens.Lens' DescribeAppImageConfigResponse (Prelude.Maybe Prelude.UTCTime)
+describeAppImageConfigResponse_creationTime = Lens.lens (\DescribeAppImageConfigResponse' {creationTime} -> creationTime) (\s@DescribeAppImageConfigResponse' {} a -> s {creationTime = a} :: DescribeAppImageConfigResponse) Prelude.. Lens.mapping Prelude._Time
 
 -- | The Amazon Resource Name (ARN) of the AppImageConfig.
-daicrrsAppImageConfigARN :: Lens' DescribeAppImageConfigResponse (Maybe Text)
-daicrrsAppImageConfigARN = lens _daicrrsAppImageConfigARN (\s a -> s {_daicrrsAppImageConfigARN = a})
+describeAppImageConfigResponse_appImageConfigArn :: Lens.Lens' DescribeAppImageConfigResponse (Prelude.Maybe Prelude.Text)
+describeAppImageConfigResponse_appImageConfigArn = Lens.lens (\DescribeAppImageConfigResponse' {appImageConfigArn} -> appImageConfigArn) (\s@DescribeAppImageConfigResponse' {} a -> s {appImageConfigArn = a} :: DescribeAppImageConfigResponse)
 
 -- | The configuration of a KernelGateway app.
-daicrrsKernelGatewayImageConfig :: Lens' DescribeAppImageConfigResponse (Maybe KernelGatewayImageConfig)
-daicrrsKernelGatewayImageConfig = lens _daicrrsKernelGatewayImageConfig (\s a -> s {_daicrrsKernelGatewayImageConfig = a})
+describeAppImageConfigResponse_kernelGatewayImageConfig :: Lens.Lens' DescribeAppImageConfigResponse (Prelude.Maybe KernelGatewayImageConfig)
+describeAppImageConfigResponse_kernelGatewayImageConfig = Lens.lens (\DescribeAppImageConfigResponse' {kernelGatewayImageConfig} -> kernelGatewayImageConfig) (\s@DescribeAppImageConfigResponse' {} a -> s {kernelGatewayImageConfig = a} :: DescribeAppImageConfigResponse)
 
 -- | The name of the AppImageConfig.
-daicrrsAppImageConfigName :: Lens' DescribeAppImageConfigResponse (Maybe Text)
-daicrrsAppImageConfigName = lens _daicrrsAppImageConfigName (\s a -> s {_daicrrsAppImageConfigName = a})
+describeAppImageConfigResponse_appImageConfigName :: Lens.Lens' DescribeAppImageConfigResponse (Prelude.Maybe Prelude.Text)
+describeAppImageConfigResponse_appImageConfigName = Lens.lens (\DescribeAppImageConfigResponse' {appImageConfigName} -> appImageConfigName) (\s@DescribeAppImageConfigResponse' {} a -> s {appImageConfigName = a} :: DescribeAppImageConfigResponse)
 
 -- | When the AppImageConfig was last modified.
-daicrrsLastModifiedTime :: Lens' DescribeAppImageConfigResponse (Maybe UTCTime)
-daicrrsLastModifiedTime = lens _daicrrsLastModifiedTime (\s a -> s {_daicrrsLastModifiedTime = a}) . mapping _Time
+describeAppImageConfigResponse_lastModifiedTime :: Lens.Lens' DescribeAppImageConfigResponse (Prelude.Maybe Prelude.UTCTime)
+describeAppImageConfigResponse_lastModifiedTime = Lens.lens (\DescribeAppImageConfigResponse' {lastModifiedTime} -> lastModifiedTime) (\s@DescribeAppImageConfigResponse' {} a -> s {lastModifiedTime = a} :: DescribeAppImageConfigResponse) Prelude.. Lens.mapping Prelude._Time
 
--- | -- | The response status code.
-daicrrsResponseStatus :: Lens' DescribeAppImageConfigResponse Int
-daicrrsResponseStatus = lens _daicrrsResponseStatus (\s a -> s {_daicrrsResponseStatus = a})
+-- | The response's http status code.
+describeAppImageConfigResponse_httpStatus :: Lens.Lens' DescribeAppImageConfigResponse Prelude.Int
+describeAppImageConfigResponse_httpStatus = Lens.lens (\DescribeAppImageConfigResponse' {httpStatus} -> httpStatus) (\s@DescribeAppImageConfigResponse' {} a -> s {httpStatus = a} :: DescribeAppImageConfigResponse)
 
-instance NFData DescribeAppImageConfigResponse
+instance
+  Prelude.NFData
+    DescribeAppImageConfigResponse

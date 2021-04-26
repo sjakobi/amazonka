@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,182 +21,192 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates a notebook instance lifecycle configuration created with the 'CreateNotebookInstanceLifecycleConfig' API.
+-- Updates a notebook instance lifecycle configuration created with the
+-- CreateNotebookInstanceLifecycleConfig API.
 module Network.AWS.SageMaker.UpdateNotebookInstanceLifecycleConfig
   ( -- * Creating a Request
-    updateNotebookInstanceLifecycleConfig,
-    UpdateNotebookInstanceLifecycleConfig,
+    UpdateNotebookInstanceLifecycleConfig (..),
+    newUpdateNotebookInstanceLifecycleConfig,
 
     -- * Request Lenses
-    unilcOnStart,
-    unilcOnCreate,
-    unilcNotebookInstanceLifecycleConfigName,
+    updateNotebookInstanceLifecycleConfig_onStart,
+    updateNotebookInstanceLifecycleConfig_onCreate,
+    updateNotebookInstanceLifecycleConfig_notebookInstanceLifecycleConfigName,
 
     -- * Destructuring the Response
-    updateNotebookInstanceLifecycleConfigResponse,
-    UpdateNotebookInstanceLifecycleConfigResponse,
+    UpdateNotebookInstanceLifecycleConfigResponse (..),
+    newUpdateNotebookInstanceLifecycleConfigResponse,
 
     -- * Response Lenses
-    unilcrrsResponseStatus,
+    updateNotebookInstanceLifecycleConfigResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'updateNotebookInstanceLifecycleConfig' smart constructor.
+-- | /See:/ 'newUpdateNotebookInstanceLifecycleConfig' smart constructor.
 data UpdateNotebookInstanceLifecycleConfig = UpdateNotebookInstanceLifecycleConfig'
-  { _unilcOnStart ::
-      !( Maybe
-           [NotebookInstanceLifecycleHook]
-       ),
-    _unilcOnCreate ::
-      !( Maybe
-           [NotebookInstanceLifecycleHook]
-       ),
-    _unilcNotebookInstanceLifecycleConfigName ::
-      !Text
+  { -- | The shell script that runs every time you start a notebook instance,
+    -- including when you create the notebook instance. The shell script must
+    -- be a base64-encoded string.
+    onStart :: Prelude.Maybe [NotebookInstanceLifecycleHook],
+    -- | The shell script that runs only once, when you create a notebook
+    -- instance. The shell script must be a base64-encoded string.
+    onCreate :: Prelude.Maybe [NotebookInstanceLifecycleHook],
+    -- | The name of the lifecycle configuration.
+    notebookInstanceLifecycleConfigName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateNotebookInstanceLifecycleConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateNotebookInstanceLifecycleConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'unilcOnStart' - The shell script that runs every time you start a notebook instance, including when you create the notebook instance. The shell script must be a base64-encoded string.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'unilcOnCreate' - The shell script that runs only once, when you create a notebook instance. The shell script must be a base64-encoded string.
+-- 'onStart', 'updateNotebookInstanceLifecycleConfig_onStart' - The shell script that runs every time you start a notebook instance,
+-- including when you create the notebook instance. The shell script must
+-- be a base64-encoded string.
 --
--- * 'unilcNotebookInstanceLifecycleConfigName' - The name of the lifecycle configuration.
-updateNotebookInstanceLifecycleConfig ::
-  -- | 'unilcNotebookInstanceLifecycleConfigName'
-  Text ->
+-- 'onCreate', 'updateNotebookInstanceLifecycleConfig_onCreate' - The shell script that runs only once, when you create a notebook
+-- instance. The shell script must be a base64-encoded string.
+--
+-- 'notebookInstanceLifecycleConfigName', 'updateNotebookInstanceLifecycleConfig_notebookInstanceLifecycleConfigName' - The name of the lifecycle configuration.
+newUpdateNotebookInstanceLifecycleConfig ::
+  -- | 'notebookInstanceLifecycleConfigName'
+  Prelude.Text ->
   UpdateNotebookInstanceLifecycleConfig
-updateNotebookInstanceLifecycleConfig
+newUpdateNotebookInstanceLifecycleConfig
   pNotebookInstanceLifecycleConfigName_ =
     UpdateNotebookInstanceLifecycleConfig'
-      { _unilcOnStart =
-          Nothing,
-        _unilcOnCreate = Nothing,
-        _unilcNotebookInstanceLifecycleConfigName =
+      { onStart =
+          Prelude.Nothing,
+        onCreate = Prelude.Nothing,
+        notebookInstanceLifecycleConfigName =
           pNotebookInstanceLifecycleConfigName_
       }
 
--- | The shell script that runs every time you start a notebook instance, including when you create the notebook instance. The shell script must be a base64-encoded string.
-unilcOnStart :: Lens' UpdateNotebookInstanceLifecycleConfig [NotebookInstanceLifecycleHook]
-unilcOnStart = lens _unilcOnStart (\s a -> s {_unilcOnStart = a}) . _Default . _Coerce
+-- | The shell script that runs every time you start a notebook instance,
+-- including when you create the notebook instance. The shell script must
+-- be a base64-encoded string.
+updateNotebookInstanceLifecycleConfig_onStart :: Lens.Lens' UpdateNotebookInstanceLifecycleConfig (Prelude.Maybe [NotebookInstanceLifecycleHook])
+updateNotebookInstanceLifecycleConfig_onStart = Lens.lens (\UpdateNotebookInstanceLifecycleConfig' {onStart} -> onStart) (\s@UpdateNotebookInstanceLifecycleConfig' {} a -> s {onStart = a} :: UpdateNotebookInstanceLifecycleConfig) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The shell script that runs only once, when you create a notebook instance. The shell script must be a base64-encoded string.
-unilcOnCreate :: Lens' UpdateNotebookInstanceLifecycleConfig [NotebookInstanceLifecycleHook]
-unilcOnCreate = lens _unilcOnCreate (\s a -> s {_unilcOnCreate = a}) . _Default . _Coerce
+-- | The shell script that runs only once, when you create a notebook
+-- instance. The shell script must be a base64-encoded string.
+updateNotebookInstanceLifecycleConfig_onCreate :: Lens.Lens' UpdateNotebookInstanceLifecycleConfig (Prelude.Maybe [NotebookInstanceLifecycleHook])
+updateNotebookInstanceLifecycleConfig_onCreate = Lens.lens (\UpdateNotebookInstanceLifecycleConfig' {onCreate} -> onCreate) (\s@UpdateNotebookInstanceLifecycleConfig' {} a -> s {onCreate = a} :: UpdateNotebookInstanceLifecycleConfig) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The name of the lifecycle configuration.
-unilcNotebookInstanceLifecycleConfigName :: Lens' UpdateNotebookInstanceLifecycleConfig Text
-unilcNotebookInstanceLifecycleConfigName = lens _unilcNotebookInstanceLifecycleConfigName (\s a -> s {_unilcNotebookInstanceLifecycleConfigName = a})
+updateNotebookInstanceLifecycleConfig_notebookInstanceLifecycleConfigName :: Lens.Lens' UpdateNotebookInstanceLifecycleConfig Prelude.Text
+updateNotebookInstanceLifecycleConfig_notebookInstanceLifecycleConfigName = Lens.lens (\UpdateNotebookInstanceLifecycleConfig' {notebookInstanceLifecycleConfigName} -> notebookInstanceLifecycleConfigName) (\s@UpdateNotebookInstanceLifecycleConfig' {} a -> s {notebookInstanceLifecycleConfigName = a} :: UpdateNotebookInstanceLifecycleConfig)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     UpdateNotebookInstanceLifecycleConfig
   where
   type
     Rs UpdateNotebookInstanceLifecycleConfig =
       UpdateNotebookInstanceLifecycleConfigResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           UpdateNotebookInstanceLifecycleConfigResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     UpdateNotebookInstanceLifecycleConfig
 
-instance NFData UpdateNotebookInstanceLifecycleConfig
+instance
+  Prelude.NFData
+    UpdateNotebookInstanceLifecycleConfig
 
 instance
-  ToHeaders
+  Prelude.ToHeaders
     UpdateNotebookInstanceLifecycleConfig
   where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "SageMaker.UpdateNotebookInstanceLifecycleConfig" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "SageMaker.UpdateNotebookInstanceLifecycleConfig" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateNotebookInstanceLifecycleConfig where
+instance
+  Prelude.ToJSON
+    UpdateNotebookInstanceLifecycleConfig
+  where
   toJSON UpdateNotebookInstanceLifecycleConfig' {..} =
-    object
-      ( catMaybes
-          [ ("OnStart" .=) <$> _unilcOnStart,
-            ("OnCreate" .=) <$> _unilcOnCreate,
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("OnStart" Prelude..=) Prelude.<$> onStart,
+            ("OnCreate" Prelude..=) Prelude.<$> onCreate,
+            Prelude.Just
               ( "NotebookInstanceLifecycleConfigName"
-                  .= _unilcNotebookInstanceLifecycleConfigName
+                  Prelude..= notebookInstanceLifecycleConfigName
               )
           ]
       )
 
-instance ToPath UpdateNotebookInstanceLifecycleConfig where
-  toPath = const "/"
-
 instance
-  ToQuery
+  Prelude.ToPath
     UpdateNotebookInstanceLifecycleConfig
   where
-  toQuery = const mempty
-
--- | /See:/ 'updateNotebookInstanceLifecycleConfigResponse' smart constructor.
-newtype UpdateNotebookInstanceLifecycleConfigResponse = UpdateNotebookInstanceLifecycleConfigResponse'
-  { _unilcrrsResponseStatus ::
-      Int
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'UpdateNotebookInstanceLifecycleConfigResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'unilcrrsResponseStatus' - -- | The response status code.
-updateNotebookInstanceLifecycleConfigResponse ::
-  -- | 'unilcrrsResponseStatus'
-  Int ->
-  UpdateNotebookInstanceLifecycleConfigResponse
-updateNotebookInstanceLifecycleConfigResponse
-  pResponseStatus_ =
-    UpdateNotebookInstanceLifecycleConfigResponse'
-      { _unilcrrsResponseStatus =
-          pResponseStatus_
-      }
-
--- | -- | The response status code.
-unilcrrsResponseStatus :: Lens' UpdateNotebookInstanceLifecycleConfigResponse Int
-unilcrrsResponseStatus = lens _unilcrrsResponseStatus (\s a -> s {_unilcrrsResponseStatus = a})
+  toPath = Prelude.const "/"
 
 instance
-  NFData
+  Prelude.ToQuery
+    UpdateNotebookInstanceLifecycleConfig
+  where
+  toQuery = Prelude.const Prelude.mempty
+
+-- | /See:/ 'newUpdateNotebookInstanceLifecycleConfigResponse' smart constructor.
+data UpdateNotebookInstanceLifecycleConfigResponse = UpdateNotebookInstanceLifecycleConfigResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'UpdateNotebookInstanceLifecycleConfigResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'updateNotebookInstanceLifecycleConfigResponse_httpStatus' - The response's http status code.
+newUpdateNotebookInstanceLifecycleConfigResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  UpdateNotebookInstanceLifecycleConfigResponse
+newUpdateNotebookInstanceLifecycleConfigResponse
+  pHttpStatus_ =
+    UpdateNotebookInstanceLifecycleConfigResponse'
+      { httpStatus =
+          pHttpStatus_
+      }
+
+-- | The response's http status code.
+updateNotebookInstanceLifecycleConfigResponse_httpStatus :: Lens.Lens' UpdateNotebookInstanceLifecycleConfigResponse Prelude.Int
+updateNotebookInstanceLifecycleConfigResponse_httpStatus = Lens.lens (\UpdateNotebookInstanceLifecycleConfigResponse' {httpStatus} -> httpStatus) (\s@UpdateNotebookInstanceLifecycleConfigResponse' {} a -> s {httpStatus = a} :: UpdateNotebookInstanceLifecycleConfigResponse)
+
+instance
+  Prelude.NFData
     UpdateNotebookInstanceLifecycleConfigResponse

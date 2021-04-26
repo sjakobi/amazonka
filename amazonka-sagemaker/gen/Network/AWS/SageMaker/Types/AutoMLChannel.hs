@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,80 +19,88 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.AutoMLChannel where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.AutoMLDataSource
 import Network.AWS.SageMaker.Types.CompressionType
 
--- | Similar to Channel. A channel is a named input source that training algorithms can consume. Refer to Channel for detailed descriptions.
+-- | Similar to Channel. A channel is a named input source that training
+-- algorithms can consume. Refer to Channel for detailed descriptions.
 --
---
---
--- /See:/ 'autoMLChannel' smart constructor.
+-- /See:/ 'newAutoMLChannel' smart constructor.
 data AutoMLChannel = AutoMLChannel'
-  { _amlcCompressionType ::
-      !(Maybe CompressionType),
-    _amlcDataSource :: !AutoMLDataSource,
-    _amlcTargetAttributeName :: !Text
+  { -- | You can use Gzip or None. The default value is None.
+    compressionType :: Prelude.Maybe CompressionType,
+    -- | The data source.
+    dataSource :: AutoMLDataSource,
+    -- | The name of the target variable in supervised learning, a.k.a. \'y\'.
+    targetAttributeName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AutoMLChannel' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AutoMLChannel' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'amlcCompressionType' - You can use Gzip or None. The default value is None.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'amlcDataSource' - The data source.
+-- 'compressionType', 'autoMLChannel_compressionType' - You can use Gzip or None. The default value is None.
 --
--- * 'amlcTargetAttributeName' - The name of the target variable in supervised learning, a.k.a. 'y'.
-autoMLChannel ::
-  -- | 'amlcDataSource'
+-- 'dataSource', 'autoMLChannel_dataSource' - The data source.
+--
+-- 'targetAttributeName', 'autoMLChannel_targetAttributeName' - The name of the target variable in supervised learning, a.k.a. \'y\'.
+newAutoMLChannel ::
+  -- | 'dataSource'
   AutoMLDataSource ->
-  -- | 'amlcTargetAttributeName'
-  Text ->
+  -- | 'targetAttributeName'
+  Prelude.Text ->
   AutoMLChannel
-autoMLChannel pDataSource_ pTargetAttributeName_ =
+newAutoMLChannel pDataSource_ pTargetAttributeName_ =
   AutoMLChannel'
-    { _amlcCompressionType = Nothing,
-      _amlcDataSource = pDataSource_,
-      _amlcTargetAttributeName = pTargetAttributeName_
+    { compressionType = Prelude.Nothing,
+      dataSource = pDataSource_,
+      targetAttributeName = pTargetAttributeName_
     }
 
 -- | You can use Gzip or None. The default value is None.
-amlcCompressionType :: Lens' AutoMLChannel (Maybe CompressionType)
-amlcCompressionType = lens _amlcCompressionType (\s a -> s {_amlcCompressionType = a})
+autoMLChannel_compressionType :: Lens.Lens' AutoMLChannel (Prelude.Maybe CompressionType)
+autoMLChannel_compressionType = Lens.lens (\AutoMLChannel' {compressionType} -> compressionType) (\s@AutoMLChannel' {} a -> s {compressionType = a} :: AutoMLChannel)
 
 -- | The data source.
-amlcDataSource :: Lens' AutoMLChannel AutoMLDataSource
-amlcDataSource = lens _amlcDataSource (\s a -> s {_amlcDataSource = a})
+autoMLChannel_dataSource :: Lens.Lens' AutoMLChannel AutoMLDataSource
+autoMLChannel_dataSource = Lens.lens (\AutoMLChannel' {dataSource} -> dataSource) (\s@AutoMLChannel' {} a -> s {dataSource = a} :: AutoMLChannel)
 
--- | The name of the target variable in supervised learning, a.k.a. 'y'.
-amlcTargetAttributeName :: Lens' AutoMLChannel Text
-amlcTargetAttributeName = lens _amlcTargetAttributeName (\s a -> s {_amlcTargetAttributeName = a})
+-- | The name of the target variable in supervised learning, a.k.a. \'y\'.
+autoMLChannel_targetAttributeName :: Lens.Lens' AutoMLChannel Prelude.Text
+autoMLChannel_targetAttributeName = Lens.lens (\AutoMLChannel' {targetAttributeName} -> targetAttributeName) (\s@AutoMLChannel' {} a -> s {targetAttributeName = a} :: AutoMLChannel)
 
-instance FromJSON AutoMLChannel where
+instance Prelude.FromJSON AutoMLChannel where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AutoMLChannel"
       ( \x ->
           AutoMLChannel'
-            <$> (x .:? "CompressionType")
-            <*> (x .: "DataSource")
-            <*> (x .: "TargetAttributeName")
+            Prelude.<$> (x Prelude..:? "CompressionType")
+            Prelude.<*> (x Prelude..: "DataSource")
+            Prelude.<*> (x Prelude..: "TargetAttributeName")
       )
 
-instance Hashable AutoMLChannel
+instance Prelude.Hashable AutoMLChannel
 
-instance NFData AutoMLChannel
+instance Prelude.NFData AutoMLChannel
 
-instance ToJSON AutoMLChannel where
+instance Prelude.ToJSON AutoMLChannel where
   toJSON AutoMLChannel' {..} =
-    object
-      ( catMaybes
-          [ ("CompressionType" .=) <$> _amlcCompressionType,
-            Just ("DataSource" .= _amlcDataSource),
-            Just
-              ("TargetAttributeName" .= _amlcTargetAttributeName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("CompressionType" Prelude..=)
+              Prelude.<$> compressionType,
+            Prelude.Just ("DataSource" Prelude..= dataSource),
+            Prelude.Just
+              ( "TargetAttributeName"
+                  Prelude..= targetAttributeName
+              )
           ]
       )

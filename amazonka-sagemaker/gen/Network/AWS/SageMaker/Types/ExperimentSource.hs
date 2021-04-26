@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,55 +19,59 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.ExperimentSource where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The source of the experiment.
 --
---
---
--- /See:/ 'experimentSource' smart constructor.
+-- /See:/ 'newExperimentSource' smart constructor.
 data ExperimentSource = ExperimentSource'
-  { _esSourceType ::
-      !(Maybe Text),
-    _esSourceARN :: !Text
+  { -- | The source type.
+    sourceType :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the source.
+    sourceArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ExperimentSource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ExperimentSource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'esSourceType' - The source type.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'esSourceARN' - The Amazon Resource Name (ARN) of the source.
-experimentSource ::
-  -- | 'esSourceARN'
-  Text ->
+-- 'sourceType', 'experimentSource_sourceType' - The source type.
+--
+-- 'sourceArn', 'experimentSource_sourceArn' - The Amazon Resource Name (ARN) of the source.
+newExperimentSource ::
+  -- | 'sourceArn'
+  Prelude.Text ->
   ExperimentSource
-experimentSource pSourceARN_ =
+newExperimentSource pSourceArn_ =
   ExperimentSource'
-    { _esSourceType = Nothing,
-      _esSourceARN = pSourceARN_
+    { sourceType = Prelude.Nothing,
+      sourceArn = pSourceArn_
     }
 
 -- | The source type.
-esSourceType :: Lens' ExperimentSource (Maybe Text)
-esSourceType = lens _esSourceType (\s a -> s {_esSourceType = a})
+experimentSource_sourceType :: Lens.Lens' ExperimentSource (Prelude.Maybe Prelude.Text)
+experimentSource_sourceType = Lens.lens (\ExperimentSource' {sourceType} -> sourceType) (\s@ExperimentSource' {} a -> s {sourceType = a} :: ExperimentSource)
 
 -- | The Amazon Resource Name (ARN) of the source.
-esSourceARN :: Lens' ExperimentSource Text
-esSourceARN = lens _esSourceARN (\s a -> s {_esSourceARN = a})
+experimentSource_sourceArn :: Lens.Lens' ExperimentSource Prelude.Text
+experimentSource_sourceArn = Lens.lens (\ExperimentSource' {sourceArn} -> sourceArn) (\s@ExperimentSource' {} a -> s {sourceArn = a} :: ExperimentSource)
 
-instance FromJSON ExperimentSource where
+instance Prelude.FromJSON ExperimentSource where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ExperimentSource"
       ( \x ->
           ExperimentSource'
-            <$> (x .:? "SourceType") <*> (x .: "SourceArn")
+            Prelude.<$> (x Prelude..:? "SourceType")
+            Prelude.<*> (x Prelude..: "SourceArn")
       )
 
-instance Hashable ExperimentSource
+instance Prelude.Hashable ExperimentSource
 
-instance NFData ExperimentSource
+instance Prelude.NFData ExperimentSource

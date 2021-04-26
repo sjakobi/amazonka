@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,148 +21,147 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets the status of Service Catalog in SageMaker. Service Catalog is used to create SageMaker projects.
+-- Gets the status of Service Catalog in SageMaker. Service Catalog is used
+-- to create SageMaker projects.
 module Network.AWS.SageMaker.GetSagemakerServicecatalogPortfolioStatus
   ( -- * Creating a Request
-    getSagemakerServicecatalogPortfolioStatus,
-    GetSagemakerServicecatalogPortfolioStatus,
+    GetSagemakerServicecatalogPortfolioStatus (..),
+    newGetSagemakerServicecatalogPortfolioStatus,
 
     -- * Destructuring the Response
-    getSagemakerServicecatalogPortfolioStatusResponse,
-    GetSagemakerServicecatalogPortfolioStatusResponse,
+    GetSagemakerServicecatalogPortfolioStatusResponse (..),
+    newGetSagemakerServicecatalogPortfolioStatusResponse,
 
     -- * Response Lenses
-    gsspsrrsStatus,
-    gsspsrrsResponseStatus,
+    getSagemakerServicecatalogPortfolioStatusResponse_status,
+    getSagemakerServicecatalogPortfolioStatusResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
+import Network.AWS.SageMaker.Types.SagemakerServicecatalogStatus
 
--- | /See:/ 'getSagemakerServicecatalogPortfolioStatus' smart constructor.
+-- | /See:/ 'newGetSagemakerServicecatalogPortfolioStatus' smart constructor.
 data GetSagemakerServicecatalogPortfolioStatus = GetSagemakerServicecatalogPortfolioStatus'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetSagemakerServicecatalogPortfolioStatus' with the minimum fields required to make a request.
-getSagemakerServicecatalogPortfolioStatus ::
+-- |
+-- Create a value of 'GetSagemakerServicecatalogPortfolioStatus' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newGetSagemakerServicecatalogPortfolioStatus ::
   GetSagemakerServicecatalogPortfolioStatus
-getSagemakerServicecatalogPortfolioStatus =
+newGetSagemakerServicecatalogPortfolioStatus =
   GetSagemakerServicecatalogPortfolioStatus'
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     GetSagemakerServicecatalogPortfolioStatus
   where
   type
     Rs GetSagemakerServicecatalogPortfolioStatus =
       GetSagemakerServicecatalogPortfolioStatusResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetSagemakerServicecatalogPortfolioStatusResponse'
-            <$> (x .?> "Status") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Status")
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     GetSagemakerServicecatalogPortfolioStatus
 
 instance
-  NFData
+  Prelude.NFData
     GetSagemakerServicecatalogPortfolioStatus
 
 instance
-  ToHeaders
+  Prelude.ToHeaders
     GetSagemakerServicecatalogPortfolioStatus
   where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "SageMaker.GetSagemakerServicecatalogPortfolioStatus" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "SageMaker.GetSagemakerServicecatalogPortfolioStatus" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
 instance
-  ToJSON
+  Prelude.ToJSON
     GetSagemakerServicecatalogPortfolioStatus
   where
-  toJSON = const (Object mempty)
+  toJSON =
+    Prelude.const (Prelude.Object Prelude.mempty)
 
 instance
-  ToPath
+  Prelude.ToPath
     GetSagemakerServicecatalogPortfolioStatus
   where
-  toPath = const "/"
+  toPath = Prelude.const "/"
 
 instance
-  ToQuery
+  Prelude.ToQuery
     GetSagemakerServicecatalogPortfolioStatus
   where
-  toQuery = const mempty
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getSagemakerServicecatalogPortfolioStatusResponse' smart constructor.
+-- | /See:/ 'newGetSagemakerServicecatalogPortfolioStatusResponse' smart constructor.
 data GetSagemakerServicecatalogPortfolioStatusResponse = GetSagemakerServicecatalogPortfolioStatusResponse'
-  { _gsspsrrsStatus ::
-      !( Maybe
-           SagemakerServicecatalogStatus
-       ),
-    _gsspsrrsResponseStatus ::
-      !Int
+  { -- | Whether Service Catalog is enabled or disabled in SageMaker.
+    status :: Prelude.Maybe SagemakerServicecatalogStatus,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetSagemakerServicecatalogPortfolioStatusResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetSagemakerServicecatalogPortfolioStatusResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gsspsrrsStatus' - Whether Service Catalog is enabled or disabled in SageMaker.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gsspsrrsResponseStatus' - -- | The response status code.
-getSagemakerServicecatalogPortfolioStatusResponse ::
-  -- | 'gsspsrrsResponseStatus'
-  Int ->
+-- 'status', 'getSagemakerServicecatalogPortfolioStatusResponse_status' - Whether Service Catalog is enabled or disabled in SageMaker.
+--
+-- 'httpStatus', 'getSagemakerServicecatalogPortfolioStatusResponse_httpStatus' - The response's http status code.
+newGetSagemakerServicecatalogPortfolioStatusResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetSagemakerServicecatalogPortfolioStatusResponse
-getSagemakerServicecatalogPortfolioStatusResponse
-  pResponseStatus_ =
+newGetSagemakerServicecatalogPortfolioStatusResponse
+  pHttpStatus_ =
     GetSagemakerServicecatalogPortfolioStatusResponse'
-      { _gsspsrrsStatus =
-          Nothing,
-        _gsspsrrsResponseStatus =
-          pResponseStatus_
+      { status =
+          Prelude.Nothing,
+        httpStatus =
+          pHttpStatus_
       }
 
 -- | Whether Service Catalog is enabled or disabled in SageMaker.
-gsspsrrsStatus :: Lens' GetSagemakerServicecatalogPortfolioStatusResponse (Maybe SagemakerServicecatalogStatus)
-gsspsrrsStatus = lens _gsspsrrsStatus (\s a -> s {_gsspsrrsStatus = a})
+getSagemakerServicecatalogPortfolioStatusResponse_status :: Lens.Lens' GetSagemakerServicecatalogPortfolioStatusResponse (Prelude.Maybe SagemakerServicecatalogStatus)
+getSagemakerServicecatalogPortfolioStatusResponse_status = Lens.lens (\GetSagemakerServicecatalogPortfolioStatusResponse' {status} -> status) (\s@GetSagemakerServicecatalogPortfolioStatusResponse' {} a -> s {status = a} :: GetSagemakerServicecatalogPortfolioStatusResponse)
 
--- | -- | The response status code.
-gsspsrrsResponseStatus :: Lens' GetSagemakerServicecatalogPortfolioStatusResponse Int
-gsspsrrsResponseStatus = lens _gsspsrrsResponseStatus (\s a -> s {_gsspsrrsResponseStatus = a})
+-- | The response's http status code.
+getSagemakerServicecatalogPortfolioStatusResponse_httpStatus :: Lens.Lens' GetSagemakerServicecatalogPortfolioStatusResponse Prelude.Int
+getSagemakerServicecatalogPortfolioStatusResponse_httpStatus = Lens.lens (\GetSagemakerServicecatalogPortfolioStatusResponse' {httpStatus} -> httpStatus) (\s@GetSagemakerServicecatalogPortfolioStatusResponse' {} a -> s {httpStatus = a} :: GetSagemakerServicecatalogPortfolioStatusResponse)
 
 instance
-  NFData
+  Prelude.NFData
     GetSagemakerServicecatalogPortfolioStatusResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,47 +19,45 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.ProcessingJobStepMetadata where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Metadata for a processing job step.
 --
---
---
--- /See:/ 'processingJobStepMetadata' smart constructor.
-newtype ProcessingJobStepMetadata = ProcessingJobStepMetadata'
-  { _pjsmARN ::
-      Maybe Text
+-- /See:/ 'newProcessingJobStepMetadata' smart constructor.
+data ProcessingJobStepMetadata = ProcessingJobStepMetadata'
+  { -- | The Amazon Resource Name (ARN) of the processing job.
+    arn :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ProcessingJobStepMetadata' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ProcessingJobStepMetadata' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pjsmARN' - The Amazon Resource Name (ARN) of the processing job.
-processingJobStepMetadata ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'arn', 'processingJobStepMetadata_arn' - The Amazon Resource Name (ARN) of the processing job.
+newProcessingJobStepMetadata ::
   ProcessingJobStepMetadata
-processingJobStepMetadata =
-  ProcessingJobStepMetadata' {_pjsmARN = Nothing}
+newProcessingJobStepMetadata =
+  ProcessingJobStepMetadata' {arn = Prelude.Nothing}
 
 -- | The Amazon Resource Name (ARN) of the processing job.
-pjsmARN :: Lens' ProcessingJobStepMetadata (Maybe Text)
-pjsmARN = lens _pjsmARN (\s a -> s {_pjsmARN = a})
+processingJobStepMetadata_arn :: Lens.Lens' ProcessingJobStepMetadata (Prelude.Maybe Prelude.Text)
+processingJobStepMetadata_arn = Lens.lens (\ProcessingJobStepMetadata' {arn} -> arn) (\s@ProcessingJobStepMetadata' {} a -> s {arn = a} :: ProcessingJobStepMetadata)
 
-instance FromJSON ProcessingJobStepMetadata where
+instance Prelude.FromJSON ProcessingJobStepMetadata where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ProcessingJobStepMetadata"
-      (\x -> ProcessingJobStepMetadata' <$> (x .:? "Arn"))
+      ( \x ->
+          ProcessingJobStepMetadata'
+            Prelude.<$> (x Prelude..:? "Arn")
+      )
 
-instance Hashable ProcessingJobStepMetadata
+instance Prelude.Hashable ProcessingJobStepMetadata
 
-instance NFData ProcessingJobStepMetadata
+instance Prelude.NFData ProcessingJobStepMetadata

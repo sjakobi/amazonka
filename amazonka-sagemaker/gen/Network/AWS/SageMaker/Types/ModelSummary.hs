@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,69 +19,73 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.ModelSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Provides summary information about a model.
 --
---
---
--- /See:/ 'modelSummary' smart constructor.
+-- /See:/ 'newModelSummary' smart constructor.
 data ModelSummary = ModelSummary'
-  { _msModelName ::
-      !Text,
-    _msModelARN :: !Text,
-    _msCreationTime :: !POSIX
+  { -- | The name of the model that you want a summary for.
+    modelName :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the model.
+    modelArn :: Prelude.Text,
+    -- | A timestamp that indicates when the model was created.
+    creationTime :: Prelude.POSIX
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModelSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModelSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'msModelName' - The name of the model that you want a summary for.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'msModelARN' - The Amazon Resource Name (ARN) of the model.
+-- 'modelName', 'modelSummary_modelName' - The name of the model that you want a summary for.
 --
--- * 'msCreationTime' - A timestamp that indicates when the model was created.
-modelSummary ::
-  -- | 'msModelName'
-  Text ->
-  -- | 'msModelARN'
-  Text ->
-  -- | 'msCreationTime'
-  UTCTime ->
+-- 'modelArn', 'modelSummary_modelArn' - The Amazon Resource Name (ARN) of the model.
+--
+-- 'creationTime', 'modelSummary_creationTime' - A timestamp that indicates when the model was created.
+newModelSummary ::
+  -- | 'modelName'
+  Prelude.Text ->
+  -- | 'modelArn'
+  Prelude.Text ->
+  -- | 'creationTime'
+  Prelude.UTCTime ->
   ModelSummary
-modelSummary pModelName_ pModelARN_ pCreationTime_ =
+newModelSummary pModelName_ pModelArn_ pCreationTime_ =
   ModelSummary'
-    { _msModelName = pModelName_,
-      _msModelARN = pModelARN_,
-      _msCreationTime = _Time # pCreationTime_
+    { modelName = pModelName_,
+      modelArn = pModelArn_,
+      creationTime = Prelude._Time Lens.# pCreationTime_
     }
 
 -- | The name of the model that you want a summary for.
-msModelName :: Lens' ModelSummary Text
-msModelName = lens _msModelName (\s a -> s {_msModelName = a})
+modelSummary_modelName :: Lens.Lens' ModelSummary Prelude.Text
+modelSummary_modelName = Lens.lens (\ModelSummary' {modelName} -> modelName) (\s@ModelSummary' {} a -> s {modelName = a} :: ModelSummary)
 
 -- | The Amazon Resource Name (ARN) of the model.
-msModelARN :: Lens' ModelSummary Text
-msModelARN = lens _msModelARN (\s a -> s {_msModelARN = a})
+modelSummary_modelArn :: Lens.Lens' ModelSummary Prelude.Text
+modelSummary_modelArn = Lens.lens (\ModelSummary' {modelArn} -> modelArn) (\s@ModelSummary' {} a -> s {modelArn = a} :: ModelSummary)
 
 -- | A timestamp that indicates when the model was created.
-msCreationTime :: Lens' ModelSummary UTCTime
-msCreationTime = lens _msCreationTime (\s a -> s {_msCreationTime = a}) . _Time
+modelSummary_creationTime :: Lens.Lens' ModelSummary Prelude.UTCTime
+modelSummary_creationTime = Lens.lens (\ModelSummary' {creationTime} -> creationTime) (\s@ModelSummary' {} a -> s {creationTime = a} :: ModelSummary) Prelude.. Prelude._Time
 
-instance FromJSON ModelSummary where
+instance Prelude.FromJSON ModelSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ModelSummary"
       ( \x ->
           ModelSummary'
-            <$> (x .: "ModelName")
-            <*> (x .: "ModelArn")
-            <*> (x .: "CreationTime")
+            Prelude.<$> (x Prelude..: "ModelName")
+            Prelude.<*> (x Prelude..: "ModelArn")
+            Prelude.<*> (x Prelude..: "CreationTime")
       )
 
-instance Hashable ModelSummary
+instance Prelude.Hashable ModelSummary
 
-instance NFData ModelSummary
+instance Prelude.NFData ModelSummary

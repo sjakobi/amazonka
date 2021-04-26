@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.SageMaker.Types.CodeRepositorySortBy
   ( CodeRepositorySortBy
       ( ..,
-        CRSBCreationTime,
-        CRSBLastModifiedTime,
-        CRSBName
+        CodeRepositorySortByCreationTime,
+        CodeRepositorySortByLastModifiedTime,
+        CodeRepositorySortByName
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CodeRepositorySortBy
-  = CodeRepositorySortBy'
-      ( CI
-          Text
-      )
+newtype CodeRepositorySortBy = CodeRepositorySortBy'
+  { fromCodeRepositorySortBy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CRSBCreationTime :: CodeRepositorySortBy
-pattern CRSBCreationTime = CodeRepositorySortBy' "CreationTime"
+pattern CodeRepositorySortByCreationTime :: CodeRepositorySortBy
+pattern CodeRepositorySortByCreationTime = CodeRepositorySortBy' "CreationTime"
 
-pattern CRSBLastModifiedTime :: CodeRepositorySortBy
-pattern CRSBLastModifiedTime = CodeRepositorySortBy' "LastModifiedTime"
+pattern CodeRepositorySortByLastModifiedTime :: CodeRepositorySortBy
+pattern CodeRepositorySortByLastModifiedTime = CodeRepositorySortBy' "LastModifiedTime"
 
-pattern CRSBName :: CodeRepositorySortBy
-pattern CRSBName = CodeRepositorySortBy' "Name"
+pattern CodeRepositorySortByName :: CodeRepositorySortBy
+pattern CodeRepositorySortByName = CodeRepositorySortBy' "Name"
 
 {-# COMPLETE
-  CRSBCreationTime,
-  CRSBLastModifiedTime,
-  CRSBName,
+  CodeRepositorySortByCreationTime,
+  CodeRepositorySortByLastModifiedTime,
+  CodeRepositorySortByName,
   CodeRepositorySortBy'
   #-}
 
-instance FromText CodeRepositorySortBy where
-  parser = (CodeRepositorySortBy' . mk) <$> takeText
+instance Prelude.FromText CodeRepositorySortBy where
+  parser = CodeRepositorySortBy' Prelude.<$> Prelude.takeText
 
-instance ToText CodeRepositorySortBy where
-  toText (CodeRepositorySortBy' ci) = original ci
+instance Prelude.ToText CodeRepositorySortBy where
+  toText (CodeRepositorySortBy' x) = x
 
-instance Hashable CodeRepositorySortBy
+instance Prelude.Hashable CodeRepositorySortBy
 
-instance NFData CodeRepositorySortBy
+instance Prelude.NFData CodeRepositorySortBy
 
-instance ToByteString CodeRepositorySortBy
+instance Prelude.ToByteString CodeRepositorySortBy
 
-instance ToQuery CodeRepositorySortBy
+instance Prelude.ToQuery CodeRepositorySortBy
 
-instance ToHeader CodeRepositorySortBy
+instance Prelude.ToHeader CodeRepositorySortBy
 
-instance ToJSON CodeRepositorySortBy where
-  toJSON = toJSONText
+instance Prelude.ToJSON CodeRepositorySortBy where
+  toJSON = Prelude.toJSONText

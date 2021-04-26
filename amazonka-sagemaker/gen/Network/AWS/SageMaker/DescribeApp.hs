@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,271 +24,296 @@
 -- Describes the app.
 module Network.AWS.SageMaker.DescribeApp
   ( -- * Creating a Request
-    describeApp,
-    DescribeApp,
+    DescribeApp (..),
+    newDescribeApp,
 
     -- * Request Lenses
-    daDomainId,
-    daUserProfileName,
-    daAppType,
-    daAppName,
+    describeApp_domainId,
+    describeApp_userProfileName,
+    describeApp_appType,
+    describeApp_appName,
 
     -- * Destructuring the Response
-    describeAppResponse,
-    DescribeAppResponse,
+    DescribeAppResponse (..),
+    newDescribeAppResponse,
 
     -- * Response Lenses
-    desersResourceSpec,
-    desersStatus,
-    desersCreationTime,
-    desersAppType,
-    desersAppName,
-    desersUserProfileName,
-    desersDomainId,
-    desersAppARN,
-    desersFailureReason,
-    desersLastHealthCheckTimestamp,
-    desersLastUserActivityTimestamp,
-    desersResponseStatus,
+    describeAppResponse_resourceSpec,
+    describeAppResponse_status,
+    describeAppResponse_creationTime,
+    describeAppResponse_appType,
+    describeAppResponse_appName,
+    describeAppResponse_userProfileName,
+    describeAppResponse_domainId,
+    describeAppResponse_appArn,
+    describeAppResponse_failureReason,
+    describeAppResponse_lastHealthCheckTimestamp,
+    describeAppResponse_lastUserActivityTimestamp,
+    describeAppResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
+import Network.AWS.SageMaker.Types.AppStatus
+import Network.AWS.SageMaker.Types.AppType
+import Network.AWS.SageMaker.Types.ResourceSpec
 
--- | /See:/ 'describeApp' smart constructor.
+-- | /See:/ 'newDescribeApp' smart constructor.
 data DescribeApp = DescribeApp'
-  { _daDomainId :: !Text,
-    _daUserProfileName :: !Text,
-    _daAppType :: !AppType,
-    _daAppName :: !Text
+  { -- | The domain ID.
+    domainId :: Prelude.Text,
+    -- | The user profile name.
+    userProfileName :: Prelude.Text,
+    -- | The type of app.
+    appType :: AppType,
+    -- | The name of the app.
+    appName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeApp' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeApp' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'daDomainId' - The domain ID.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'daUserProfileName' - The user profile name.
+-- 'domainId', 'describeApp_domainId' - The domain ID.
 --
--- * 'daAppType' - The type of app.
+-- 'userProfileName', 'describeApp_userProfileName' - The user profile name.
 --
--- * 'daAppName' - The name of the app.
-describeApp ::
-  -- | 'daDomainId'
-  Text ->
-  -- | 'daUserProfileName'
-  Text ->
-  -- | 'daAppType'
+-- 'appType', 'describeApp_appType' - The type of app.
+--
+-- 'appName', 'describeApp_appName' - The name of the app.
+newDescribeApp ::
+  -- | 'domainId'
+  Prelude.Text ->
+  -- | 'userProfileName'
+  Prelude.Text ->
+  -- | 'appType'
   AppType ->
-  -- | 'daAppName'
-  Text ->
+  -- | 'appName'
+  Prelude.Text ->
   DescribeApp
-describeApp
+newDescribeApp
   pDomainId_
   pUserProfileName_
   pAppType_
   pAppName_ =
     DescribeApp'
-      { _daDomainId = pDomainId_,
-        _daUserProfileName = pUserProfileName_,
-        _daAppType = pAppType_,
-        _daAppName = pAppName_
+      { domainId = pDomainId_,
+        userProfileName = pUserProfileName_,
+        appType = pAppType_,
+        appName = pAppName_
       }
 
 -- | The domain ID.
-daDomainId :: Lens' DescribeApp Text
-daDomainId = lens _daDomainId (\s a -> s {_daDomainId = a})
+describeApp_domainId :: Lens.Lens' DescribeApp Prelude.Text
+describeApp_domainId = Lens.lens (\DescribeApp' {domainId} -> domainId) (\s@DescribeApp' {} a -> s {domainId = a} :: DescribeApp)
 
 -- | The user profile name.
-daUserProfileName :: Lens' DescribeApp Text
-daUserProfileName = lens _daUserProfileName (\s a -> s {_daUserProfileName = a})
+describeApp_userProfileName :: Lens.Lens' DescribeApp Prelude.Text
+describeApp_userProfileName = Lens.lens (\DescribeApp' {userProfileName} -> userProfileName) (\s@DescribeApp' {} a -> s {userProfileName = a} :: DescribeApp)
 
 -- | The type of app.
-daAppType :: Lens' DescribeApp AppType
-daAppType = lens _daAppType (\s a -> s {_daAppType = a})
+describeApp_appType :: Lens.Lens' DescribeApp AppType
+describeApp_appType = Lens.lens (\DescribeApp' {appType} -> appType) (\s@DescribeApp' {} a -> s {appType = a} :: DescribeApp)
 
 -- | The name of the app.
-daAppName :: Lens' DescribeApp Text
-daAppName = lens _daAppName (\s a -> s {_daAppName = a})
+describeApp_appName :: Lens.Lens' DescribeApp Prelude.Text
+describeApp_appName = Lens.lens (\DescribeApp' {appName} -> appName) (\s@DescribeApp' {} a -> s {appName = a} :: DescribeApp)
 
-instance AWSRequest DescribeApp where
+instance Prelude.AWSRequest DescribeApp where
   type Rs DescribeApp = DescribeAppResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeAppResponse'
-            <$> (x .?> "ResourceSpec")
-            <*> (x .?> "Status")
-            <*> (x .?> "CreationTime")
-            <*> (x .?> "AppType")
-            <*> (x .?> "AppName")
-            <*> (x .?> "UserProfileName")
-            <*> (x .?> "DomainId")
-            <*> (x .?> "AppArn")
-            <*> (x .?> "FailureReason")
-            <*> (x .?> "LastHealthCheckTimestamp")
-            <*> (x .?> "LastUserActivityTimestamp")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ResourceSpec")
+            Prelude.<*> (x Prelude..?> "Status")
+            Prelude.<*> (x Prelude..?> "CreationTime")
+            Prelude.<*> (x Prelude..?> "AppType")
+            Prelude.<*> (x Prelude..?> "AppName")
+            Prelude.<*> (x Prelude..?> "UserProfileName")
+            Prelude.<*> (x Prelude..?> "DomainId")
+            Prelude.<*> (x Prelude..?> "AppArn")
+            Prelude.<*> (x Prelude..?> "FailureReason")
+            Prelude.<*> (x Prelude..?> "LastHealthCheckTimestamp")
+            Prelude.<*> (x Prelude..?> "LastUserActivityTimestamp")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeApp
+instance Prelude.Hashable DescribeApp
 
-instance NFData DescribeApp
+instance Prelude.NFData DescribeApp
 
-instance ToHeaders DescribeApp where
+instance Prelude.ToHeaders DescribeApp where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.DescribeApp" :: ByteString),
+              Prelude.=# ("SageMaker.DescribeApp" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeApp where
+instance Prelude.ToJSON DescribeApp where
   toJSON DescribeApp' {..} =
-    object
-      ( catMaybes
-          [ Just ("DomainId" .= _daDomainId),
-            Just ("UserProfileName" .= _daUserProfileName),
-            Just ("AppType" .= _daAppType),
-            Just ("AppName" .= _daAppName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("DomainId" Prelude..= domainId),
+            Prelude.Just
+              ("UserProfileName" Prelude..= userProfileName),
+            Prelude.Just ("AppType" Prelude..= appType),
+            Prelude.Just ("AppName" Prelude..= appName)
           ]
       )
 
-instance ToPath DescribeApp where
-  toPath = const "/"
+instance Prelude.ToPath DescribeApp where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeApp where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeApp where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeAppResponse' smart constructor.
+-- | /See:/ 'newDescribeAppResponse' smart constructor.
 data DescribeAppResponse = DescribeAppResponse'
-  { _desersResourceSpec ::
-      !(Maybe ResourceSpec),
-    _desersStatus ::
-      !(Maybe AppStatus),
-    _desersCreationTime ::
-      !(Maybe POSIX),
-    _desersAppType ::
-      !(Maybe AppType),
-    _desersAppName :: !(Maybe Text),
-    _desersUserProfileName ::
-      !(Maybe Text),
-    _desersDomainId ::
-      !(Maybe Text),
-    _desersAppARN :: !(Maybe Text),
-    _desersFailureReason ::
-      !(Maybe Text),
-    _desersLastHealthCheckTimestamp ::
-      !(Maybe POSIX),
-    _desersLastUserActivityTimestamp ::
-      !(Maybe POSIX),
-    _desersResponseStatus :: !Int
+  { -- | The instance type and the Amazon Resource Name (ARN) of the SageMaker
+    -- image created on the instance.
+    resourceSpec :: Prelude.Maybe ResourceSpec,
+    -- | The status.
+    status :: Prelude.Maybe AppStatus,
+    -- | The creation time.
+    creationTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The type of app.
+    appType :: Prelude.Maybe AppType,
+    -- | The name of the app.
+    appName :: Prelude.Maybe Prelude.Text,
+    -- | The user profile name.
+    userProfileName :: Prelude.Maybe Prelude.Text,
+    -- | The domain ID.
+    domainId :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the app.
+    appArn :: Prelude.Maybe Prelude.Text,
+    -- | The failure reason.
+    failureReason :: Prelude.Maybe Prelude.Text,
+    -- | The timestamp of the last health check.
+    lastHealthCheckTimestamp :: Prelude.Maybe Prelude.POSIX,
+    -- | The timestamp of the last user\'s activity.
+    lastUserActivityTimestamp :: Prelude.Maybe Prelude.POSIX,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeAppResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeAppResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'desersResourceSpec' - The instance type and the Amazon Resource Name (ARN) of the SageMaker image created on the instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'desersStatus' - The status.
+-- 'resourceSpec', 'describeAppResponse_resourceSpec' - The instance type and the Amazon Resource Name (ARN) of the SageMaker
+-- image created on the instance.
 --
--- * 'desersCreationTime' - The creation time.
+-- 'status', 'describeAppResponse_status' - The status.
 --
--- * 'desersAppType' - The type of app.
+-- 'creationTime', 'describeAppResponse_creationTime' - The creation time.
 --
--- * 'desersAppName' - The name of the app.
+-- 'appType', 'describeAppResponse_appType' - The type of app.
 --
--- * 'desersUserProfileName' - The user profile name.
+-- 'appName', 'describeAppResponse_appName' - The name of the app.
 --
--- * 'desersDomainId' - The domain ID.
+-- 'userProfileName', 'describeAppResponse_userProfileName' - The user profile name.
 --
--- * 'desersAppARN' - The Amazon Resource Name (ARN) of the app.
+-- 'domainId', 'describeAppResponse_domainId' - The domain ID.
 --
--- * 'desersFailureReason' - The failure reason.
+-- 'appArn', 'describeAppResponse_appArn' - The Amazon Resource Name (ARN) of the app.
 --
--- * 'desersLastHealthCheckTimestamp' - The timestamp of the last health check.
+-- 'failureReason', 'describeAppResponse_failureReason' - The failure reason.
 --
--- * 'desersLastUserActivityTimestamp' - The timestamp of the last user's activity.
+-- 'lastHealthCheckTimestamp', 'describeAppResponse_lastHealthCheckTimestamp' - The timestamp of the last health check.
 --
--- * 'desersResponseStatus' - -- | The response status code.
-describeAppResponse ::
-  -- | 'desersResponseStatus'
-  Int ->
+-- 'lastUserActivityTimestamp', 'describeAppResponse_lastUserActivityTimestamp' - The timestamp of the last user\'s activity.
+--
+-- 'httpStatus', 'describeAppResponse_httpStatus' - The response's http status code.
+newDescribeAppResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeAppResponse
-describeAppResponse pResponseStatus_ =
+newDescribeAppResponse pHttpStatus_ =
   DescribeAppResponse'
-    { _desersResourceSpec = Nothing,
-      _desersStatus = Nothing,
-      _desersCreationTime = Nothing,
-      _desersAppType = Nothing,
-      _desersAppName = Nothing,
-      _desersUserProfileName = Nothing,
-      _desersDomainId = Nothing,
-      _desersAppARN = Nothing,
-      _desersFailureReason = Nothing,
-      _desersLastHealthCheckTimestamp = Nothing,
-      _desersLastUserActivityTimestamp = Nothing,
-      _desersResponseStatus = pResponseStatus_
+    { resourceSpec =
+        Prelude.Nothing,
+      status = Prelude.Nothing,
+      creationTime = Prelude.Nothing,
+      appType = Prelude.Nothing,
+      appName = Prelude.Nothing,
+      userProfileName = Prelude.Nothing,
+      domainId = Prelude.Nothing,
+      appArn = Prelude.Nothing,
+      failureReason = Prelude.Nothing,
+      lastHealthCheckTimestamp = Prelude.Nothing,
+      lastUserActivityTimestamp = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The instance type and the Amazon Resource Name (ARN) of the SageMaker image created on the instance.
-desersResourceSpec :: Lens' DescribeAppResponse (Maybe ResourceSpec)
-desersResourceSpec = lens _desersResourceSpec (\s a -> s {_desersResourceSpec = a})
+-- | The instance type and the Amazon Resource Name (ARN) of the SageMaker
+-- image created on the instance.
+describeAppResponse_resourceSpec :: Lens.Lens' DescribeAppResponse (Prelude.Maybe ResourceSpec)
+describeAppResponse_resourceSpec = Lens.lens (\DescribeAppResponse' {resourceSpec} -> resourceSpec) (\s@DescribeAppResponse' {} a -> s {resourceSpec = a} :: DescribeAppResponse)
 
 -- | The status.
-desersStatus :: Lens' DescribeAppResponse (Maybe AppStatus)
-desersStatus = lens _desersStatus (\s a -> s {_desersStatus = a})
+describeAppResponse_status :: Lens.Lens' DescribeAppResponse (Prelude.Maybe AppStatus)
+describeAppResponse_status = Lens.lens (\DescribeAppResponse' {status} -> status) (\s@DescribeAppResponse' {} a -> s {status = a} :: DescribeAppResponse)
 
 -- | The creation time.
-desersCreationTime :: Lens' DescribeAppResponse (Maybe UTCTime)
-desersCreationTime = lens _desersCreationTime (\s a -> s {_desersCreationTime = a}) . mapping _Time
+describeAppResponse_creationTime :: Lens.Lens' DescribeAppResponse (Prelude.Maybe Prelude.UTCTime)
+describeAppResponse_creationTime = Lens.lens (\DescribeAppResponse' {creationTime} -> creationTime) (\s@DescribeAppResponse' {} a -> s {creationTime = a} :: DescribeAppResponse) Prelude.. Lens.mapping Prelude._Time
 
 -- | The type of app.
-desersAppType :: Lens' DescribeAppResponse (Maybe AppType)
-desersAppType = lens _desersAppType (\s a -> s {_desersAppType = a})
+describeAppResponse_appType :: Lens.Lens' DescribeAppResponse (Prelude.Maybe AppType)
+describeAppResponse_appType = Lens.lens (\DescribeAppResponse' {appType} -> appType) (\s@DescribeAppResponse' {} a -> s {appType = a} :: DescribeAppResponse)
 
 -- | The name of the app.
-desersAppName :: Lens' DescribeAppResponse (Maybe Text)
-desersAppName = lens _desersAppName (\s a -> s {_desersAppName = a})
+describeAppResponse_appName :: Lens.Lens' DescribeAppResponse (Prelude.Maybe Prelude.Text)
+describeAppResponse_appName = Lens.lens (\DescribeAppResponse' {appName} -> appName) (\s@DescribeAppResponse' {} a -> s {appName = a} :: DescribeAppResponse)
 
 -- | The user profile name.
-desersUserProfileName :: Lens' DescribeAppResponse (Maybe Text)
-desersUserProfileName = lens _desersUserProfileName (\s a -> s {_desersUserProfileName = a})
+describeAppResponse_userProfileName :: Lens.Lens' DescribeAppResponse (Prelude.Maybe Prelude.Text)
+describeAppResponse_userProfileName = Lens.lens (\DescribeAppResponse' {userProfileName} -> userProfileName) (\s@DescribeAppResponse' {} a -> s {userProfileName = a} :: DescribeAppResponse)
 
 -- | The domain ID.
-desersDomainId :: Lens' DescribeAppResponse (Maybe Text)
-desersDomainId = lens _desersDomainId (\s a -> s {_desersDomainId = a})
+describeAppResponse_domainId :: Lens.Lens' DescribeAppResponse (Prelude.Maybe Prelude.Text)
+describeAppResponse_domainId = Lens.lens (\DescribeAppResponse' {domainId} -> domainId) (\s@DescribeAppResponse' {} a -> s {domainId = a} :: DescribeAppResponse)
 
 -- | The Amazon Resource Name (ARN) of the app.
-desersAppARN :: Lens' DescribeAppResponse (Maybe Text)
-desersAppARN = lens _desersAppARN (\s a -> s {_desersAppARN = a})
+describeAppResponse_appArn :: Lens.Lens' DescribeAppResponse (Prelude.Maybe Prelude.Text)
+describeAppResponse_appArn = Lens.lens (\DescribeAppResponse' {appArn} -> appArn) (\s@DescribeAppResponse' {} a -> s {appArn = a} :: DescribeAppResponse)
 
 -- | The failure reason.
-desersFailureReason :: Lens' DescribeAppResponse (Maybe Text)
-desersFailureReason = lens _desersFailureReason (\s a -> s {_desersFailureReason = a})
+describeAppResponse_failureReason :: Lens.Lens' DescribeAppResponse (Prelude.Maybe Prelude.Text)
+describeAppResponse_failureReason = Lens.lens (\DescribeAppResponse' {failureReason} -> failureReason) (\s@DescribeAppResponse' {} a -> s {failureReason = a} :: DescribeAppResponse)
 
 -- | The timestamp of the last health check.
-desersLastHealthCheckTimestamp :: Lens' DescribeAppResponse (Maybe UTCTime)
-desersLastHealthCheckTimestamp = lens _desersLastHealthCheckTimestamp (\s a -> s {_desersLastHealthCheckTimestamp = a}) . mapping _Time
+describeAppResponse_lastHealthCheckTimestamp :: Lens.Lens' DescribeAppResponse (Prelude.Maybe Prelude.UTCTime)
+describeAppResponse_lastHealthCheckTimestamp = Lens.lens (\DescribeAppResponse' {lastHealthCheckTimestamp} -> lastHealthCheckTimestamp) (\s@DescribeAppResponse' {} a -> s {lastHealthCheckTimestamp = a} :: DescribeAppResponse) Prelude.. Lens.mapping Prelude._Time
 
--- | The timestamp of the last user's activity.
-desersLastUserActivityTimestamp :: Lens' DescribeAppResponse (Maybe UTCTime)
-desersLastUserActivityTimestamp = lens _desersLastUserActivityTimestamp (\s a -> s {_desersLastUserActivityTimestamp = a}) . mapping _Time
+-- | The timestamp of the last user\'s activity.
+describeAppResponse_lastUserActivityTimestamp :: Lens.Lens' DescribeAppResponse (Prelude.Maybe Prelude.UTCTime)
+describeAppResponse_lastUserActivityTimestamp = Lens.lens (\DescribeAppResponse' {lastUserActivityTimestamp} -> lastUserActivityTimestamp) (\s@DescribeAppResponse' {} a -> s {lastUserActivityTimestamp = a} :: DescribeAppResponse) Prelude.. Lens.mapping Prelude._Time
 
--- | -- | The response status code.
-desersResponseStatus :: Lens' DescribeAppResponse Int
-desersResponseStatus = lens _desersResponseStatus (\s a -> s {_desersResponseStatus = a})
+-- | The response's http status code.
+describeAppResponse_httpStatus :: Lens.Lens' DescribeAppResponse Prelude.Int
+describeAppResponse_httpStatus = Lens.lens (\DescribeAppResponse' {httpStatus} -> httpStatus) (\s@DescribeAppResponse' {} a -> s {httpStatus = a} :: DescribeAppResponse)
 
-instance NFData DescribeAppResponse
+instance Prelude.NFData DescribeAppResponse

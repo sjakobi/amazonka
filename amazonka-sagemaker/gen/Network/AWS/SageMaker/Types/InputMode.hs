@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.SageMaker.Types.InputMode
   ( InputMode
       ( ..,
-        IMFile,
-        IMPipe
+        InputModeFile,
+        InputModePipe
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data InputMode = InputMode' (CI Text)
+newtype InputMode = InputMode'
+  { fromInputMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern IMFile :: InputMode
-pattern IMFile = InputMode' "File"
+pattern InputModeFile :: InputMode
+pattern InputModeFile = InputMode' "File"
 
-pattern IMPipe :: InputMode
-pattern IMPipe = InputMode' "Pipe"
+pattern InputModePipe :: InputMode
+pattern InputModePipe = InputMode' "Pipe"
 
 {-# COMPLETE
-  IMFile,
-  IMPipe,
+  InputModeFile,
+  InputModePipe,
   InputMode'
   #-}
 
-instance FromText InputMode where
-  parser = (InputMode' . mk) <$> takeText
+instance Prelude.FromText InputMode where
+  parser = InputMode' Prelude.<$> Prelude.takeText
 
-instance ToText InputMode where
-  toText (InputMode' ci) = original ci
+instance Prelude.ToText InputMode where
+  toText (InputMode' x) = x
 
-instance Hashable InputMode
+instance Prelude.Hashable InputMode
 
-instance NFData InputMode
+instance Prelude.NFData InputMode
 
-instance ToByteString InputMode
+instance Prelude.ToByteString InputMode
 
-instance ToQuery InputMode
+instance Prelude.ToQuery InputMode
 
-instance ToHeader InputMode
+instance Prelude.ToHeader InputMode
 
-instance ToJSON InputMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON InputMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON InputMode where
-  parseJSON = parseJSONText "InputMode"
+instance Prelude.FromJSON InputMode where
+  parseJSON = Prelude.parseJSONText "InputMode"

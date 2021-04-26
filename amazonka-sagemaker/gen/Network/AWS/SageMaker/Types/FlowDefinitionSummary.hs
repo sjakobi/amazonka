@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,104 +19,104 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.FlowDefinitionSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.FlowDefinitionStatus
 
 -- | Contains summary information about the flow definition.
 --
---
---
--- /See:/ 'flowDefinitionSummary' smart constructor.
+-- /See:/ 'newFlowDefinitionSummary' smart constructor.
 data FlowDefinitionSummary = FlowDefinitionSummary'
-  { _fdsFailureReason ::
-      !(Maybe Text),
-    _fdsFlowDefinitionName ::
-      !Text,
-    _fdsFlowDefinitionARN ::
-      !Text,
-    _fdsFlowDefinitionStatus ::
-      !FlowDefinitionStatus,
-    _fdsCreationTime :: !POSIX
+  { -- | The reason why the flow definition creation failed. A failure reason is
+    -- returned only when the flow definition status is @Failed@.
+    failureReason :: Prelude.Maybe Prelude.Text,
+    -- | The name of the flow definition.
+    flowDefinitionName :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the flow definition.
+    flowDefinitionArn :: Prelude.Text,
+    -- | The status of the flow definition. Valid values:
+    flowDefinitionStatus :: FlowDefinitionStatus,
+    -- | The timestamp when SageMaker created the flow definition.
+    creationTime :: Prelude.POSIX
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FlowDefinitionSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FlowDefinitionSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fdsFailureReason' - The reason why the flow definition creation failed. A failure reason is returned only when the flow definition status is @Failed@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fdsFlowDefinitionName' - The name of the flow definition.
+-- 'failureReason', 'flowDefinitionSummary_failureReason' - The reason why the flow definition creation failed. A failure reason is
+-- returned only when the flow definition status is @Failed@.
 --
--- * 'fdsFlowDefinitionARN' - The Amazon Resource Name (ARN) of the flow definition.
+-- 'flowDefinitionName', 'flowDefinitionSummary_flowDefinitionName' - The name of the flow definition.
 --
--- * 'fdsFlowDefinitionStatus' - The status of the flow definition. Valid values:
+-- 'flowDefinitionArn', 'flowDefinitionSummary_flowDefinitionArn' - The Amazon Resource Name (ARN) of the flow definition.
 --
--- * 'fdsCreationTime' - The timestamp when SageMaker created the flow definition.
-flowDefinitionSummary ::
-  -- | 'fdsFlowDefinitionName'
-  Text ->
-  -- | 'fdsFlowDefinitionARN'
-  Text ->
-  -- | 'fdsFlowDefinitionStatus'
+-- 'flowDefinitionStatus', 'flowDefinitionSummary_flowDefinitionStatus' - The status of the flow definition. Valid values:
+--
+-- 'creationTime', 'flowDefinitionSummary_creationTime' - The timestamp when SageMaker created the flow definition.
+newFlowDefinitionSummary ::
+  -- | 'flowDefinitionName'
+  Prelude.Text ->
+  -- | 'flowDefinitionArn'
+  Prelude.Text ->
+  -- | 'flowDefinitionStatus'
   FlowDefinitionStatus ->
-  -- | 'fdsCreationTime'
-  UTCTime ->
+  -- | 'creationTime'
+  Prelude.UTCTime ->
   FlowDefinitionSummary
-flowDefinitionSummary
+newFlowDefinitionSummary
   pFlowDefinitionName_
-  pFlowDefinitionARN_
+  pFlowDefinitionArn_
   pFlowDefinitionStatus_
   pCreationTime_ =
     FlowDefinitionSummary'
-      { _fdsFailureReason = Nothing,
-        _fdsFlowDefinitionName = pFlowDefinitionName_,
-        _fdsFlowDefinitionARN = pFlowDefinitionARN_,
-        _fdsFlowDefinitionStatus = pFlowDefinitionStatus_,
-        _fdsCreationTime = _Time # pCreationTime_
+      { failureReason =
+          Prelude.Nothing,
+        flowDefinitionName = pFlowDefinitionName_,
+        flowDefinitionArn = pFlowDefinitionArn_,
+        flowDefinitionStatus = pFlowDefinitionStatus_,
+        creationTime = Prelude._Time Lens.# pCreationTime_
       }
 
--- | The reason why the flow definition creation failed. A failure reason is returned only when the flow definition status is @Failed@ .
-fdsFailureReason :: Lens' FlowDefinitionSummary (Maybe Text)
-fdsFailureReason = lens _fdsFailureReason (\s a -> s {_fdsFailureReason = a})
+-- | The reason why the flow definition creation failed. A failure reason is
+-- returned only when the flow definition status is @Failed@.
+flowDefinitionSummary_failureReason :: Lens.Lens' FlowDefinitionSummary (Prelude.Maybe Prelude.Text)
+flowDefinitionSummary_failureReason = Lens.lens (\FlowDefinitionSummary' {failureReason} -> failureReason) (\s@FlowDefinitionSummary' {} a -> s {failureReason = a} :: FlowDefinitionSummary)
 
 -- | The name of the flow definition.
-fdsFlowDefinitionName :: Lens' FlowDefinitionSummary Text
-fdsFlowDefinitionName = lens _fdsFlowDefinitionName (\s a -> s {_fdsFlowDefinitionName = a})
+flowDefinitionSummary_flowDefinitionName :: Lens.Lens' FlowDefinitionSummary Prelude.Text
+flowDefinitionSummary_flowDefinitionName = Lens.lens (\FlowDefinitionSummary' {flowDefinitionName} -> flowDefinitionName) (\s@FlowDefinitionSummary' {} a -> s {flowDefinitionName = a} :: FlowDefinitionSummary)
 
 -- | The Amazon Resource Name (ARN) of the flow definition.
-fdsFlowDefinitionARN :: Lens' FlowDefinitionSummary Text
-fdsFlowDefinitionARN = lens _fdsFlowDefinitionARN (\s a -> s {_fdsFlowDefinitionARN = a})
+flowDefinitionSummary_flowDefinitionArn :: Lens.Lens' FlowDefinitionSummary Prelude.Text
+flowDefinitionSummary_flowDefinitionArn = Lens.lens (\FlowDefinitionSummary' {flowDefinitionArn} -> flowDefinitionArn) (\s@FlowDefinitionSummary' {} a -> s {flowDefinitionArn = a} :: FlowDefinitionSummary)
 
 -- | The status of the flow definition. Valid values:
-fdsFlowDefinitionStatus :: Lens' FlowDefinitionSummary FlowDefinitionStatus
-fdsFlowDefinitionStatus = lens _fdsFlowDefinitionStatus (\s a -> s {_fdsFlowDefinitionStatus = a})
+flowDefinitionSummary_flowDefinitionStatus :: Lens.Lens' FlowDefinitionSummary FlowDefinitionStatus
+flowDefinitionSummary_flowDefinitionStatus = Lens.lens (\FlowDefinitionSummary' {flowDefinitionStatus} -> flowDefinitionStatus) (\s@FlowDefinitionSummary' {} a -> s {flowDefinitionStatus = a} :: FlowDefinitionSummary)
 
 -- | The timestamp when SageMaker created the flow definition.
-fdsCreationTime :: Lens' FlowDefinitionSummary UTCTime
-fdsCreationTime = lens _fdsCreationTime (\s a -> s {_fdsCreationTime = a}) . _Time
+flowDefinitionSummary_creationTime :: Lens.Lens' FlowDefinitionSummary Prelude.UTCTime
+flowDefinitionSummary_creationTime = Lens.lens (\FlowDefinitionSummary' {creationTime} -> creationTime) (\s@FlowDefinitionSummary' {} a -> s {creationTime = a} :: FlowDefinitionSummary) Prelude.. Prelude._Time
 
-instance FromJSON FlowDefinitionSummary where
+instance Prelude.FromJSON FlowDefinitionSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "FlowDefinitionSummary"
       ( \x ->
           FlowDefinitionSummary'
-            <$> (x .:? "FailureReason")
-            <*> (x .: "FlowDefinitionName")
-            <*> (x .: "FlowDefinitionArn")
-            <*> (x .: "FlowDefinitionStatus")
-            <*> (x .: "CreationTime")
+            Prelude.<$> (x Prelude..:? "FailureReason")
+            Prelude.<*> (x Prelude..: "FlowDefinitionName")
+            Prelude.<*> (x Prelude..: "FlowDefinitionArn")
+            Prelude.<*> (x Prelude..: "FlowDefinitionStatus")
+            Prelude.<*> (x Prelude..: "CreationTime")
       )
 
-instance Hashable FlowDefinitionSummary
+instance Prelude.Hashable FlowDefinitionSummary
 
-instance NFData FlowDefinitionSummary
+instance Prelude.NFData FlowDefinitionSummary

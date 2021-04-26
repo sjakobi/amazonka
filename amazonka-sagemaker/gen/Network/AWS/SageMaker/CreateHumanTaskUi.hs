@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,161 +21,180 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Defines the settings you will use for the human review workflow user interface. Reviewers will see a three-panel interface with an instruction area, the item to review, and an input area.
+-- Defines the settings you will use for the human review workflow user
+-- interface. Reviewers will see a three-panel interface with an
+-- instruction area, the item to review, and an input area.
 module Network.AWS.SageMaker.CreateHumanTaskUi
   ( -- * Creating a Request
-    createHumanTaskUi,
-    CreateHumanTaskUi,
+    CreateHumanTaskUi (..),
+    newCreateHumanTaskUi,
 
     -- * Request Lenses
-    chtuTags,
-    chtuHumanTaskUiName,
-    chtuUiTemplate,
+    createHumanTaskUi_tags,
+    createHumanTaskUi_humanTaskUiName,
+    createHumanTaskUi_uiTemplate,
 
     -- * Destructuring the Response
-    createHumanTaskUiResponse,
-    CreateHumanTaskUiResponse,
+    CreateHumanTaskUiResponse (..),
+    newCreateHumanTaskUiResponse,
 
     -- * Response Lenses
-    chturrsResponseStatus,
-    chturrsHumanTaskUiARN,
+    createHumanTaskUiResponse_httpStatus,
+    createHumanTaskUiResponse_humanTaskUiArn,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'createHumanTaskUi' smart constructor.
+-- | /See:/ 'newCreateHumanTaskUi' smart constructor.
 data CreateHumanTaskUi = CreateHumanTaskUi'
-  { _chtuTags ::
-      !(Maybe [Tag]),
-    _chtuHumanTaskUiName :: !Text,
-    _chtuUiTemplate :: !UiTemplate
+  { -- | An array of key-value pairs that contain metadata to help you categorize
+    -- and organize a human review workflow user interface. Each tag consists
+    -- of a key and a value, both of which you define.
+    tags :: Prelude.Maybe [Tag],
+    -- | The name of the user interface you are creating.
+    humanTaskUiName :: Prelude.Text,
+    uiTemplate :: UiTemplate
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateHumanTaskUi' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateHumanTaskUi' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'chtuTags' - An array of key-value pairs that contain metadata to help you categorize and organize a human review workflow user interface. Each tag consists of a key and a value, both of which you define.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'chtuHumanTaskUiName' - The name of the user interface you are creating.
+-- 'tags', 'createHumanTaskUi_tags' - An array of key-value pairs that contain metadata to help you categorize
+-- and organize a human review workflow user interface. Each tag consists
+-- of a key and a value, both of which you define.
 --
--- * 'chtuUiTemplate' - Undocumented member.
-createHumanTaskUi ::
-  -- | 'chtuHumanTaskUiName'
-  Text ->
-  -- | 'chtuUiTemplate'
+-- 'humanTaskUiName', 'createHumanTaskUi_humanTaskUiName' - The name of the user interface you are creating.
+--
+-- 'uiTemplate', 'createHumanTaskUi_uiTemplate' - Undocumented member.
+newCreateHumanTaskUi ::
+  -- | 'humanTaskUiName'
+  Prelude.Text ->
+  -- | 'uiTemplate'
   UiTemplate ->
   CreateHumanTaskUi
-createHumanTaskUi pHumanTaskUiName_ pUiTemplate_ =
+newCreateHumanTaskUi pHumanTaskUiName_ pUiTemplate_ =
   CreateHumanTaskUi'
-    { _chtuTags = Nothing,
-      _chtuHumanTaskUiName = pHumanTaskUiName_,
-      _chtuUiTemplate = pUiTemplate_
+    { tags = Prelude.Nothing,
+      humanTaskUiName = pHumanTaskUiName_,
+      uiTemplate = pUiTemplate_
     }
 
--- | An array of key-value pairs that contain metadata to help you categorize and organize a human review workflow user interface. Each tag consists of a key and a value, both of which you define.
-chtuTags :: Lens' CreateHumanTaskUi [Tag]
-chtuTags = lens _chtuTags (\s a -> s {_chtuTags = a}) . _Default . _Coerce
+-- | An array of key-value pairs that contain metadata to help you categorize
+-- and organize a human review workflow user interface. Each tag consists
+-- of a key and a value, both of which you define.
+createHumanTaskUi_tags :: Lens.Lens' CreateHumanTaskUi (Prelude.Maybe [Tag])
+createHumanTaskUi_tags = Lens.lens (\CreateHumanTaskUi' {tags} -> tags) (\s@CreateHumanTaskUi' {} a -> s {tags = a} :: CreateHumanTaskUi) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The name of the user interface you are creating.
-chtuHumanTaskUiName :: Lens' CreateHumanTaskUi Text
-chtuHumanTaskUiName = lens _chtuHumanTaskUiName (\s a -> s {_chtuHumanTaskUiName = a})
+createHumanTaskUi_humanTaskUiName :: Lens.Lens' CreateHumanTaskUi Prelude.Text
+createHumanTaskUi_humanTaskUiName = Lens.lens (\CreateHumanTaskUi' {humanTaskUiName} -> humanTaskUiName) (\s@CreateHumanTaskUi' {} a -> s {humanTaskUiName = a} :: CreateHumanTaskUi)
 
 -- | Undocumented member.
-chtuUiTemplate :: Lens' CreateHumanTaskUi UiTemplate
-chtuUiTemplate = lens _chtuUiTemplate (\s a -> s {_chtuUiTemplate = a})
+createHumanTaskUi_uiTemplate :: Lens.Lens' CreateHumanTaskUi UiTemplate
+createHumanTaskUi_uiTemplate = Lens.lens (\CreateHumanTaskUi' {uiTemplate} -> uiTemplate) (\s@CreateHumanTaskUi' {} a -> s {uiTemplate = a} :: CreateHumanTaskUi)
 
-instance AWSRequest CreateHumanTaskUi where
+instance Prelude.AWSRequest CreateHumanTaskUi where
   type Rs CreateHumanTaskUi = CreateHumanTaskUiResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateHumanTaskUiResponse'
-            <$> (pure (fromEnum s)) <*> (x .:> "HumanTaskUiArn")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "HumanTaskUiArn")
       )
 
-instance Hashable CreateHumanTaskUi
+instance Prelude.Hashable CreateHumanTaskUi
 
-instance NFData CreateHumanTaskUi
+instance Prelude.NFData CreateHumanTaskUi
 
-instance ToHeaders CreateHumanTaskUi where
+instance Prelude.ToHeaders CreateHumanTaskUi where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.CreateHumanTaskUi" :: ByteString),
+              Prelude.=# ( "SageMaker.CreateHumanTaskUi" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateHumanTaskUi where
+instance Prelude.ToJSON CreateHumanTaskUi where
   toJSON CreateHumanTaskUi' {..} =
-    object
-      ( catMaybes
-          [ ("Tags" .=) <$> _chtuTags,
-            Just ("HumanTaskUiName" .= _chtuHumanTaskUiName),
-            Just ("UiTemplate" .= _chtuUiTemplate)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Tags" Prelude..=) Prelude.<$> tags,
+            Prelude.Just
+              ("HumanTaskUiName" Prelude..= humanTaskUiName),
+            Prelude.Just ("UiTemplate" Prelude..= uiTemplate)
           ]
       )
 
-instance ToPath CreateHumanTaskUi where
-  toPath = const "/"
+instance Prelude.ToPath CreateHumanTaskUi where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateHumanTaskUi where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateHumanTaskUi where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createHumanTaskUiResponse' smart constructor.
+-- | /See:/ 'newCreateHumanTaskUiResponse' smart constructor.
 data CreateHumanTaskUiResponse = CreateHumanTaskUiResponse'
-  { _chturrsResponseStatus ::
-      !Int,
-    _chturrsHumanTaskUiARN ::
-      !Text
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The Amazon Resource Name (ARN) of the human review workflow user
+    -- interface you create.
+    humanTaskUiArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateHumanTaskUiResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateHumanTaskUiResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'chturrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'chturrsHumanTaskUiARN' - The Amazon Resource Name (ARN) of the human review workflow user interface you create.
-createHumanTaskUiResponse ::
-  -- | 'chturrsResponseStatus'
-  Int ->
-  -- | 'chturrsHumanTaskUiARN'
-  Text ->
+-- 'httpStatus', 'createHumanTaskUiResponse_httpStatus' - The response's http status code.
+--
+-- 'humanTaskUiArn', 'createHumanTaskUiResponse_humanTaskUiArn' - The Amazon Resource Name (ARN) of the human review workflow user
+-- interface you create.
+newCreateHumanTaskUiResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'humanTaskUiArn'
+  Prelude.Text ->
   CreateHumanTaskUiResponse
-createHumanTaskUiResponse
-  pResponseStatus_
-  pHumanTaskUiARN_ =
+newCreateHumanTaskUiResponse
+  pHttpStatus_
+  pHumanTaskUiArn_ =
     CreateHumanTaskUiResponse'
-      { _chturrsResponseStatus =
-          pResponseStatus_,
-        _chturrsHumanTaskUiARN = pHumanTaskUiARN_
+      { httpStatus =
+          pHttpStatus_,
+        humanTaskUiArn = pHumanTaskUiArn_
       }
 
--- | -- | The response status code.
-chturrsResponseStatus :: Lens' CreateHumanTaskUiResponse Int
-chturrsResponseStatus = lens _chturrsResponseStatus (\s a -> s {_chturrsResponseStatus = a})
+-- | The response's http status code.
+createHumanTaskUiResponse_httpStatus :: Lens.Lens' CreateHumanTaskUiResponse Prelude.Int
+createHumanTaskUiResponse_httpStatus = Lens.lens (\CreateHumanTaskUiResponse' {httpStatus} -> httpStatus) (\s@CreateHumanTaskUiResponse' {} a -> s {httpStatus = a} :: CreateHumanTaskUiResponse)
 
--- | The Amazon Resource Name (ARN) of the human review workflow user interface you create.
-chturrsHumanTaskUiARN :: Lens' CreateHumanTaskUiResponse Text
-chturrsHumanTaskUiARN = lens _chturrsHumanTaskUiARN (\s a -> s {_chturrsHumanTaskUiARN = a})
+-- | The Amazon Resource Name (ARN) of the human review workflow user
+-- interface you create.
+createHumanTaskUiResponse_humanTaskUiArn :: Lens.Lens' CreateHumanTaskUiResponse Prelude.Text
+createHumanTaskUiResponse_humanTaskUiArn = Lens.lens (\CreateHumanTaskUiResponse' {humanTaskUiArn} -> humanTaskUiArn) (\s@CreateHumanTaskUiResponse' {} a -> s {humanTaskUiArn = a} :: CreateHumanTaskUiResponse)
 
-instance NFData CreateHumanTaskUiResponse
+instance Prelude.NFData CreateHumanTaskUiResponse

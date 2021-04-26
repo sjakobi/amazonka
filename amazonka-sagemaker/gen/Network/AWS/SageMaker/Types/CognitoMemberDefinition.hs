@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,89 +19,93 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.CognitoMemberDefinition where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Identifies a Amazon Cognito user group. A user group can be used in on or more work teams.
+-- | Identifies a Amazon Cognito user group. A user group can be used in on
+-- or more work teams.
 --
---
---
--- /See:/ 'cognitoMemberDefinition' smart constructor.
+-- /See:/ 'newCognitoMemberDefinition' smart constructor.
 data CognitoMemberDefinition = CognitoMemberDefinition'
-  { _cmdUserPool ::
-      !Text,
-    _cmdUserGroup :: !Text,
-    _cmdClientId :: !Text
+  { -- | An identifier for a user pool. The user pool must be in the same region
+    -- as the service that you are calling.
+    userPool :: Prelude.Text,
+    -- | An identifier for a user group.
+    userGroup :: Prelude.Text,
+    -- | An identifier for an application client. You must create the app client
+    -- ID using Amazon Cognito.
+    clientId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CognitoMemberDefinition' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CognitoMemberDefinition' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cmdUserPool' - An identifier for a user pool. The user pool must be in the same region as the service that you are calling.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cmdUserGroup' - An identifier for a user group.
+-- 'userPool', 'cognitoMemberDefinition_userPool' - An identifier for a user pool. The user pool must be in the same region
+-- as the service that you are calling.
 --
--- * 'cmdClientId' - An identifier for an application client. You must create the app client ID using Amazon Cognito.
-cognitoMemberDefinition ::
-  -- | 'cmdUserPool'
-  Text ->
-  -- | 'cmdUserGroup'
-  Text ->
-  -- | 'cmdClientId'
-  Text ->
+-- 'userGroup', 'cognitoMemberDefinition_userGroup' - An identifier for a user group.
+--
+-- 'clientId', 'cognitoMemberDefinition_clientId' - An identifier for an application client. You must create the app client
+-- ID using Amazon Cognito.
+newCognitoMemberDefinition ::
+  -- | 'userPool'
+  Prelude.Text ->
+  -- | 'userGroup'
+  Prelude.Text ->
+  -- | 'clientId'
+  Prelude.Text ->
   CognitoMemberDefinition
-cognitoMemberDefinition
+newCognitoMemberDefinition
   pUserPool_
   pUserGroup_
   pClientId_ =
     CognitoMemberDefinition'
-      { _cmdUserPool = pUserPool_,
-        _cmdUserGroup = pUserGroup_,
-        _cmdClientId = pClientId_
+      { userPool = pUserPool_,
+        userGroup = pUserGroup_,
+        clientId = pClientId_
       }
 
--- | An identifier for a user pool. The user pool must be in the same region as the service that you are calling.
-cmdUserPool :: Lens' CognitoMemberDefinition Text
-cmdUserPool = lens _cmdUserPool (\s a -> s {_cmdUserPool = a})
+-- | An identifier for a user pool. The user pool must be in the same region
+-- as the service that you are calling.
+cognitoMemberDefinition_userPool :: Lens.Lens' CognitoMemberDefinition Prelude.Text
+cognitoMemberDefinition_userPool = Lens.lens (\CognitoMemberDefinition' {userPool} -> userPool) (\s@CognitoMemberDefinition' {} a -> s {userPool = a} :: CognitoMemberDefinition)
 
 -- | An identifier for a user group.
-cmdUserGroup :: Lens' CognitoMemberDefinition Text
-cmdUserGroup = lens _cmdUserGroup (\s a -> s {_cmdUserGroup = a})
+cognitoMemberDefinition_userGroup :: Lens.Lens' CognitoMemberDefinition Prelude.Text
+cognitoMemberDefinition_userGroup = Lens.lens (\CognitoMemberDefinition' {userGroup} -> userGroup) (\s@CognitoMemberDefinition' {} a -> s {userGroup = a} :: CognitoMemberDefinition)
 
--- | An identifier for an application client. You must create the app client ID using Amazon Cognito.
-cmdClientId :: Lens' CognitoMemberDefinition Text
-cmdClientId = lens _cmdClientId (\s a -> s {_cmdClientId = a})
+-- | An identifier for an application client. You must create the app client
+-- ID using Amazon Cognito.
+cognitoMemberDefinition_clientId :: Lens.Lens' CognitoMemberDefinition Prelude.Text
+cognitoMemberDefinition_clientId = Lens.lens (\CognitoMemberDefinition' {clientId} -> clientId) (\s@CognitoMemberDefinition' {} a -> s {clientId = a} :: CognitoMemberDefinition)
 
-instance FromJSON CognitoMemberDefinition where
+instance Prelude.FromJSON CognitoMemberDefinition where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CognitoMemberDefinition"
       ( \x ->
           CognitoMemberDefinition'
-            <$> (x .: "UserPool")
-            <*> (x .: "UserGroup")
-            <*> (x .: "ClientId")
+            Prelude.<$> (x Prelude..: "UserPool")
+            Prelude.<*> (x Prelude..: "UserGroup")
+            Prelude.<*> (x Prelude..: "ClientId")
       )
 
-instance Hashable CognitoMemberDefinition
+instance Prelude.Hashable CognitoMemberDefinition
 
-instance NFData CognitoMemberDefinition
+instance Prelude.NFData CognitoMemberDefinition
 
-instance ToJSON CognitoMemberDefinition where
+instance Prelude.ToJSON CognitoMemberDefinition where
   toJSON CognitoMemberDefinition' {..} =
-    object
-      ( catMaybes
-          [ Just ("UserPool" .= _cmdUserPool),
-            Just ("UserGroup" .= _cmdUserGroup),
-            Just ("ClientId" .= _cmdClientId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("UserPool" Prelude..= userPool),
+            Prelude.Just ("UserGroup" Prelude..= userGroup),
+            Prelude.Just ("ClientId" Prelude..= clientId)
           ]
       )

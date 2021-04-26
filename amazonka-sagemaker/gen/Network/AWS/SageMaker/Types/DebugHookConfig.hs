@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,89 +19,111 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.DebugHookConfig where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.CollectionConfiguration
 
--- | Configuration information for the Debugger hook parameters, metric and tensor collections, and storage paths. To learn more about how to configure the @DebugHookConfig@ parameter, see <https://docs.aws.amazon.com/sagemaker/latest/dg/debugger-createtrainingjob-api.html Use the SageMaker and Debugger Configuration API Operations to Create, Update, and Debug Your Training Job> .
+-- | Configuration information for the Debugger hook parameters, metric and
+-- tensor collections, and storage paths. To learn more about how to
+-- configure the @DebugHookConfig@ parameter, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/debugger-createtrainingjob-api.html Use the SageMaker and Debugger Configuration API Operations to Create, Update, and Debug Your Training Job>.
 --
---
---
--- /See:/ 'debugHookConfig' smart constructor.
+-- /See:/ 'newDebugHookConfig' smart constructor.
 data DebugHookConfig = DebugHookConfig'
-  { _dhcCollectionConfigurations ::
-      !(Maybe [CollectionConfiguration]),
-    _dhcHookParameters ::
-      !(Maybe (Map Text Text)),
-    _dhcLocalPath :: !(Maybe Text),
-    _dhcS3OutputPath :: !Text
+  { -- | Configuration information for Debugger tensor collections. To learn more
+    -- about how to configure the @CollectionConfiguration@ parameter, see
+    -- <https://docs.aws.amazon.com/sagemaker/latest/dg/debugger-createtrainingjob-api.html Use the SageMaker and Debugger Configuration API Operations to Create, Update, and Debug Your Training Job>.
+    collectionConfigurations :: Prelude.Maybe [CollectionConfiguration],
+    -- | Configuration information for the Debugger hook parameters.
+    hookParameters :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | Path to local storage location for metrics and tensors. Defaults to
+    -- @\/opt\/ml\/output\/tensors\/@.
+    localPath :: Prelude.Maybe Prelude.Text,
+    -- | Path to Amazon S3 storage location for metrics and tensors.
+    s3OutputPath :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DebugHookConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DebugHookConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dhcCollectionConfigurations' - Configuration information for Debugger tensor collections. To learn more about how to configure the @CollectionConfiguration@ parameter, see <https://docs.aws.amazon.com/sagemaker/latest/dg/debugger-createtrainingjob-api.html Use the SageMaker and Debugger Configuration API Operations to Create, Update, and Debug Your Training Job> .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dhcHookParameters' - Configuration information for the Debugger hook parameters.
+-- 'collectionConfigurations', 'debugHookConfig_collectionConfigurations' - Configuration information for Debugger tensor collections. To learn more
+-- about how to configure the @CollectionConfiguration@ parameter, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/debugger-createtrainingjob-api.html Use the SageMaker and Debugger Configuration API Operations to Create, Update, and Debug Your Training Job>.
 --
--- * 'dhcLocalPath' - Path to local storage location for metrics and tensors. Defaults to @/opt/ml/output/tensors/@ .
+-- 'hookParameters', 'debugHookConfig_hookParameters' - Configuration information for the Debugger hook parameters.
 --
--- * 'dhcS3OutputPath' - Path to Amazon S3 storage location for metrics and tensors.
-debugHookConfig ::
-  -- | 'dhcS3OutputPath'
-  Text ->
+-- 'localPath', 'debugHookConfig_localPath' - Path to local storage location for metrics and tensors. Defaults to
+-- @\/opt\/ml\/output\/tensors\/@.
+--
+-- 's3OutputPath', 'debugHookConfig_s3OutputPath' - Path to Amazon S3 storage location for metrics and tensors.
+newDebugHookConfig ::
+  -- | 's3OutputPath'
+  Prelude.Text ->
   DebugHookConfig
-debugHookConfig pS3OutputPath_ =
+newDebugHookConfig pS3OutputPath_ =
   DebugHookConfig'
-    { _dhcCollectionConfigurations =
-        Nothing,
-      _dhcHookParameters = Nothing,
-      _dhcLocalPath = Nothing,
-      _dhcS3OutputPath = pS3OutputPath_
+    { collectionConfigurations =
+        Prelude.Nothing,
+      hookParameters = Prelude.Nothing,
+      localPath = Prelude.Nothing,
+      s3OutputPath = pS3OutputPath_
     }
 
--- | Configuration information for Debugger tensor collections. To learn more about how to configure the @CollectionConfiguration@ parameter, see <https://docs.aws.amazon.com/sagemaker/latest/dg/debugger-createtrainingjob-api.html Use the SageMaker and Debugger Configuration API Operations to Create, Update, and Debug Your Training Job> .
-dhcCollectionConfigurations :: Lens' DebugHookConfig [CollectionConfiguration]
-dhcCollectionConfigurations = lens _dhcCollectionConfigurations (\s a -> s {_dhcCollectionConfigurations = a}) . _Default . _Coerce
+-- | Configuration information for Debugger tensor collections. To learn more
+-- about how to configure the @CollectionConfiguration@ parameter, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/debugger-createtrainingjob-api.html Use the SageMaker and Debugger Configuration API Operations to Create, Update, and Debug Your Training Job>.
+debugHookConfig_collectionConfigurations :: Lens.Lens' DebugHookConfig (Prelude.Maybe [CollectionConfiguration])
+debugHookConfig_collectionConfigurations = Lens.lens (\DebugHookConfig' {collectionConfigurations} -> collectionConfigurations) (\s@DebugHookConfig' {} a -> s {collectionConfigurations = a} :: DebugHookConfig) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Configuration information for the Debugger hook parameters.
-dhcHookParameters :: Lens' DebugHookConfig (HashMap Text Text)
-dhcHookParameters = lens _dhcHookParameters (\s a -> s {_dhcHookParameters = a}) . _Default . _Map
+debugHookConfig_hookParameters :: Lens.Lens' DebugHookConfig (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+debugHookConfig_hookParameters = Lens.lens (\DebugHookConfig' {hookParameters} -> hookParameters) (\s@DebugHookConfig' {} a -> s {hookParameters = a} :: DebugHookConfig) Prelude.. Lens.mapping Prelude._Map
 
--- | Path to local storage location for metrics and tensors. Defaults to @/opt/ml/output/tensors/@ .
-dhcLocalPath :: Lens' DebugHookConfig (Maybe Text)
-dhcLocalPath = lens _dhcLocalPath (\s a -> s {_dhcLocalPath = a})
+-- | Path to local storage location for metrics and tensors. Defaults to
+-- @\/opt\/ml\/output\/tensors\/@.
+debugHookConfig_localPath :: Lens.Lens' DebugHookConfig (Prelude.Maybe Prelude.Text)
+debugHookConfig_localPath = Lens.lens (\DebugHookConfig' {localPath} -> localPath) (\s@DebugHookConfig' {} a -> s {localPath = a} :: DebugHookConfig)
 
 -- | Path to Amazon S3 storage location for metrics and tensors.
-dhcS3OutputPath :: Lens' DebugHookConfig Text
-dhcS3OutputPath = lens _dhcS3OutputPath (\s a -> s {_dhcS3OutputPath = a})
+debugHookConfig_s3OutputPath :: Lens.Lens' DebugHookConfig Prelude.Text
+debugHookConfig_s3OutputPath = Lens.lens (\DebugHookConfig' {s3OutputPath} -> s3OutputPath) (\s@DebugHookConfig' {} a -> s {s3OutputPath = a} :: DebugHookConfig)
 
-instance FromJSON DebugHookConfig where
+instance Prelude.FromJSON DebugHookConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DebugHookConfig"
       ( \x ->
           DebugHookConfig'
-            <$> (x .:? "CollectionConfigurations" .!= mempty)
-            <*> (x .:? "HookParameters" .!= mempty)
-            <*> (x .:? "LocalPath")
-            <*> (x .: "S3OutputPath")
+            Prelude.<$> ( x Prelude..:? "CollectionConfigurations"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..:? "HookParameters"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "LocalPath")
+            Prelude.<*> (x Prelude..: "S3OutputPath")
       )
 
-instance Hashable DebugHookConfig
+instance Prelude.Hashable DebugHookConfig
 
-instance NFData DebugHookConfig
+instance Prelude.NFData DebugHookConfig
 
-instance ToJSON DebugHookConfig where
+instance Prelude.ToJSON DebugHookConfig where
   toJSON DebugHookConfig' {..} =
-    object
-      ( catMaybes
-          [ ("CollectionConfigurations" .=)
-              <$> _dhcCollectionConfigurations,
-            ("HookParameters" .=) <$> _dhcHookParameters,
-            ("LocalPath" .=) <$> _dhcLocalPath,
-            Just ("S3OutputPath" .= _dhcS3OutputPath)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("CollectionConfigurations" Prelude..=)
+              Prelude.<$> collectionConfigurations,
+            ("HookParameters" Prelude..=)
+              Prelude.<$> hookParameters,
+            ("LocalPath" Prelude..=) Prelude.<$> localPath,
+            Prelude.Just
+              ("S3OutputPath" Prelude..= s3OutputPath)
           ]
       )

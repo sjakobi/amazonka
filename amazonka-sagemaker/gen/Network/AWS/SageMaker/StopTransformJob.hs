@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,101 +23,112 @@
 --
 -- Stops a transform job.
 --
---
--- When Amazon SageMaker receives a @StopTransformJob@ request, the status of the job changes to @Stopping@ . After Amazon SageMaker stops the job, the status is set to @Stopped@ . When you stop a transform job before it is completed, Amazon SageMaker doesn't store the job's output in Amazon S3.
+-- When Amazon SageMaker receives a @StopTransformJob@ request, the status
+-- of the job changes to @Stopping@. After Amazon SageMaker stops the job,
+-- the status is set to @Stopped@. When you stop a transform job before it
+-- is completed, Amazon SageMaker doesn\'t store the job\'s output in
+-- Amazon S3.
 module Network.AWS.SageMaker.StopTransformJob
   ( -- * Creating a Request
-    stopTransformJob,
-    StopTransformJob,
+    StopTransformJob (..),
+    newStopTransformJob,
 
     -- * Request Lenses
-    stjTransformJobName,
+    stopTransformJob_transformJobName,
 
     -- * Destructuring the Response
-    stopTransformJobResponse,
-    StopTransformJobResponse,
+    StopTransformJobResponse (..),
+    newStopTransformJobResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'stopTransformJob' smart constructor.
-newtype StopTransformJob = StopTransformJob'
-  { _stjTransformJobName ::
-      Text
+-- | /See:/ 'newStopTransformJob' smart constructor.
+data StopTransformJob = StopTransformJob'
+  { -- | The name of the transform job to stop.
+    transformJobName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopTransformJob' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopTransformJob' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'stjTransformJobName' - The name of the transform job to stop.
-stopTransformJob ::
-  -- | 'stjTransformJobName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'transformJobName', 'stopTransformJob_transformJobName' - The name of the transform job to stop.
+newStopTransformJob ::
+  -- | 'transformJobName'
+  Prelude.Text ->
   StopTransformJob
-stopTransformJob pTransformJobName_ =
+newStopTransformJob pTransformJobName_ =
   StopTransformJob'
-    { _stjTransformJobName =
+    { transformJobName =
         pTransformJobName_
     }
 
 -- | The name of the transform job to stop.
-stjTransformJobName :: Lens' StopTransformJob Text
-stjTransformJobName = lens _stjTransformJobName (\s a -> s {_stjTransformJobName = a})
+stopTransformJob_transformJobName :: Lens.Lens' StopTransformJob Prelude.Text
+stopTransformJob_transformJobName = Lens.lens (\StopTransformJob' {transformJobName} -> transformJobName) (\s@StopTransformJob' {} a -> s {transformJobName = a} :: StopTransformJob)
 
-instance AWSRequest StopTransformJob where
+instance Prelude.AWSRequest StopTransformJob where
   type Rs StopTransformJob = StopTransformJobResponse
-  request = postJSON sageMaker
-  response = receiveNull StopTransformJobResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull StopTransformJobResponse'
 
-instance Hashable StopTransformJob
+instance Prelude.Hashable StopTransformJob
 
-instance NFData StopTransformJob
+instance Prelude.NFData StopTransformJob
 
-instance ToHeaders StopTransformJob where
+instance Prelude.ToHeaders StopTransformJob where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.StopTransformJob" :: ByteString),
+              Prelude.=# ("SageMaker.StopTransformJob" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StopTransformJob where
+instance Prelude.ToJSON StopTransformJob where
   toJSON StopTransformJob' {..} =
-    object
-      ( catMaybes
-          [Just ("TransformJobName" .= _stjTransformJobName)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("TransformJobName" Prelude..= transformJobName)
+          ]
       )
 
-instance ToPath StopTransformJob where
-  toPath = const "/"
+instance Prelude.ToPath StopTransformJob where
+  toPath = Prelude.const "/"
 
-instance ToQuery StopTransformJob where
-  toQuery = const mempty
+instance Prelude.ToQuery StopTransformJob where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'stopTransformJobResponse' smart constructor.
+-- | /See:/ 'newStopTransformJobResponse' smart constructor.
 data StopTransformJobResponse = StopTransformJobResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopTransformJobResponse' with the minimum fields required to make a request.
-stopTransformJobResponse ::
+-- |
+-- Create a value of 'StopTransformJobResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newStopTransformJobResponse ::
   StopTransformJobResponse
-stopTransformJobResponse = StopTransformJobResponse'
+newStopTransformJobResponse =
+  StopTransformJobResponse'
 
-instance NFData StopTransformJobResponse
+instance Prelude.NFData StopTransformJobResponse

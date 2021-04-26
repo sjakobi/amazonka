@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,72 +19,70 @@
 module Network.AWS.SageMaker.Types.SortAssociationsBy
   ( SortAssociationsBy
       ( ..,
-        SorCreationTime,
-        SorDestinationARN,
-        SorDestinationType,
-        SorSourceARN,
-        SorSourceType
+        SortAssociationsByCreationTime,
+        SortAssociationsByDestinationArn,
+        SortAssociationsByDestinationType,
+        SortAssociationsBySourceArn,
+        SortAssociationsBySourceType
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SortAssociationsBy
-  = SortAssociationsBy'
-      ( CI
-          Text
-      )
+newtype SortAssociationsBy = SortAssociationsBy'
+  { fromSortAssociationsBy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SorCreationTime :: SortAssociationsBy
-pattern SorCreationTime = SortAssociationsBy' "CreationTime"
+pattern SortAssociationsByCreationTime :: SortAssociationsBy
+pattern SortAssociationsByCreationTime = SortAssociationsBy' "CreationTime"
 
-pattern SorDestinationARN :: SortAssociationsBy
-pattern SorDestinationARN = SortAssociationsBy' "DestinationArn"
+pattern SortAssociationsByDestinationArn :: SortAssociationsBy
+pattern SortAssociationsByDestinationArn = SortAssociationsBy' "DestinationArn"
 
-pattern SorDestinationType :: SortAssociationsBy
-pattern SorDestinationType = SortAssociationsBy' "DestinationType"
+pattern SortAssociationsByDestinationType :: SortAssociationsBy
+pattern SortAssociationsByDestinationType = SortAssociationsBy' "DestinationType"
 
-pattern SorSourceARN :: SortAssociationsBy
-pattern SorSourceARN = SortAssociationsBy' "SourceArn"
+pattern SortAssociationsBySourceArn :: SortAssociationsBy
+pattern SortAssociationsBySourceArn = SortAssociationsBy' "SourceArn"
 
-pattern SorSourceType :: SortAssociationsBy
-pattern SorSourceType = SortAssociationsBy' "SourceType"
+pattern SortAssociationsBySourceType :: SortAssociationsBy
+pattern SortAssociationsBySourceType = SortAssociationsBy' "SourceType"
 
 {-# COMPLETE
-  SorCreationTime,
-  SorDestinationARN,
-  SorDestinationType,
-  SorSourceARN,
-  SorSourceType,
+  SortAssociationsByCreationTime,
+  SortAssociationsByDestinationArn,
+  SortAssociationsByDestinationType,
+  SortAssociationsBySourceArn,
+  SortAssociationsBySourceType,
   SortAssociationsBy'
   #-}
 
-instance FromText SortAssociationsBy where
-  parser = (SortAssociationsBy' . mk) <$> takeText
+instance Prelude.FromText SortAssociationsBy where
+  parser = SortAssociationsBy' Prelude.<$> Prelude.takeText
 
-instance ToText SortAssociationsBy where
-  toText (SortAssociationsBy' ci) = original ci
+instance Prelude.ToText SortAssociationsBy where
+  toText (SortAssociationsBy' x) = x
 
-instance Hashable SortAssociationsBy
+instance Prelude.Hashable SortAssociationsBy
 
-instance NFData SortAssociationsBy
+instance Prelude.NFData SortAssociationsBy
 
-instance ToByteString SortAssociationsBy
+instance Prelude.ToByteString SortAssociationsBy
 
-instance ToQuery SortAssociationsBy
+instance Prelude.ToQuery SortAssociationsBy
 
-instance ToHeader SortAssociationsBy
+instance Prelude.ToHeader SortAssociationsBy
 
-instance ToJSON SortAssociationsBy where
-  toJSON = toJSONText
+instance Prelude.ToJSON SortAssociationsBy where
+  toJSON = Prelude.toJSONText

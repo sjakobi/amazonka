@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,71 +19,73 @@
 module Network.AWS.SageMaker.Types.AutoMLJobStatus
   ( AutoMLJobStatus
       ( ..,
-        AMLJSCompleted,
-        AMLJSFailed,
-        AMLJSInProgress,
-        AMLJSStopped,
-        AMLJSStopping
+        AutoMLJobStatusCompleted,
+        AutoMLJobStatusFailed,
+        AutoMLJobStatusInProgress,
+        AutoMLJobStatusStopped,
+        AutoMLJobStatusStopping
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AutoMLJobStatus = AutoMLJobStatus' (CI Text)
+newtype AutoMLJobStatus = AutoMLJobStatus'
+  { fromAutoMLJobStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AMLJSCompleted :: AutoMLJobStatus
-pattern AMLJSCompleted = AutoMLJobStatus' "Completed"
+pattern AutoMLJobStatusCompleted :: AutoMLJobStatus
+pattern AutoMLJobStatusCompleted = AutoMLJobStatus' "Completed"
 
-pattern AMLJSFailed :: AutoMLJobStatus
-pattern AMLJSFailed = AutoMLJobStatus' "Failed"
+pattern AutoMLJobStatusFailed :: AutoMLJobStatus
+pattern AutoMLJobStatusFailed = AutoMLJobStatus' "Failed"
 
-pattern AMLJSInProgress :: AutoMLJobStatus
-pattern AMLJSInProgress = AutoMLJobStatus' "InProgress"
+pattern AutoMLJobStatusInProgress :: AutoMLJobStatus
+pattern AutoMLJobStatusInProgress = AutoMLJobStatus' "InProgress"
 
-pattern AMLJSStopped :: AutoMLJobStatus
-pattern AMLJSStopped = AutoMLJobStatus' "Stopped"
+pattern AutoMLJobStatusStopped :: AutoMLJobStatus
+pattern AutoMLJobStatusStopped = AutoMLJobStatus' "Stopped"
 
-pattern AMLJSStopping :: AutoMLJobStatus
-pattern AMLJSStopping = AutoMLJobStatus' "Stopping"
+pattern AutoMLJobStatusStopping :: AutoMLJobStatus
+pattern AutoMLJobStatusStopping = AutoMLJobStatus' "Stopping"
 
 {-# COMPLETE
-  AMLJSCompleted,
-  AMLJSFailed,
-  AMLJSInProgress,
-  AMLJSStopped,
-  AMLJSStopping,
+  AutoMLJobStatusCompleted,
+  AutoMLJobStatusFailed,
+  AutoMLJobStatusInProgress,
+  AutoMLJobStatusStopped,
+  AutoMLJobStatusStopping,
   AutoMLJobStatus'
   #-}
 
-instance FromText AutoMLJobStatus where
-  parser = (AutoMLJobStatus' . mk) <$> takeText
+instance Prelude.FromText AutoMLJobStatus where
+  parser = AutoMLJobStatus' Prelude.<$> Prelude.takeText
 
-instance ToText AutoMLJobStatus where
-  toText (AutoMLJobStatus' ci) = original ci
+instance Prelude.ToText AutoMLJobStatus where
+  toText (AutoMLJobStatus' x) = x
 
-instance Hashable AutoMLJobStatus
+instance Prelude.Hashable AutoMLJobStatus
 
-instance NFData AutoMLJobStatus
+instance Prelude.NFData AutoMLJobStatus
 
-instance ToByteString AutoMLJobStatus
+instance Prelude.ToByteString AutoMLJobStatus
 
-instance ToQuery AutoMLJobStatus
+instance Prelude.ToQuery AutoMLJobStatus
 
-instance ToHeader AutoMLJobStatus
+instance Prelude.ToHeader AutoMLJobStatus
 
-instance ToJSON AutoMLJobStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON AutoMLJobStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AutoMLJobStatus where
-  parseJSON = parseJSONText "AutoMLJobStatus"
+instance Prelude.FromJSON AutoMLJobStatus where
+  parseJSON = Prelude.parseJSONText "AutoMLJobStatus"

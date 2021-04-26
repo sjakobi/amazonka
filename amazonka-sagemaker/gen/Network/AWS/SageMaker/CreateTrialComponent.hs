@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,257 +21,302 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a /trial component/ , which is a stage of a machine learning /trial/ . A trial is composed of one or more trial components. A trial component can be used in multiple trials.
+-- Creates a /trial component/, which is a stage of a machine learning
+-- /trial/. A trial is composed of one or more trial components. A trial
+-- component can be used in multiple trials.
 --
+-- Trial components include pre-processing jobs, training jobs, and batch
+-- transform jobs.
 --
--- Trial components include pre-processing jobs, training jobs, and batch transform jobs.
+-- When you use Amazon SageMaker Studio or the Amazon SageMaker Python SDK,
+-- all experiments, trials, and trial components are automatically tracked,
+-- logged, and indexed. When you use the AWS SDK for Python (Boto), you
+-- must use the logging APIs provided by the SDK.
 --
--- When you use Amazon SageMaker Studio or the Amazon SageMaker Python SDK, all experiments, trials, and trial components are automatically tracked, logged, and indexed. When you use the AWS SDK for Python (Boto), you must use the logging APIs provided by the SDK.
+-- You can add tags to a trial component and then use the Search API to
+-- search for the tags.
 --
--- You can add tags to a trial component and then use the 'Search' API to search for the tags.
+-- @CreateTrialComponent@ can only be invoked from within an Amazon
+-- SageMaker managed environment. This includes Amazon SageMaker training
+-- jobs, processing jobs, transform jobs, and Amazon SageMaker notebooks. A
+-- call to @CreateTrialComponent@ from outside one of these environments
+-- results in an error.
 module Network.AWS.SageMaker.CreateTrialComponent
   ( -- * Creating a Request
-    createTrialComponent,
-    CreateTrialComponent,
+    CreateTrialComponent (..),
+    newCreateTrialComponent,
 
     -- * Request Lenses
-    ctcStatus,
-    ctcMetadataProperties,
-    ctcStartTime,
-    ctcEndTime,
-    ctcTags,
-    ctcInputArtifacts,
-    ctcDisplayName,
-    ctcParameters,
-    ctcOutputArtifacts,
-    ctcTrialComponentName,
+    createTrialComponent_status,
+    createTrialComponent_metadataProperties,
+    createTrialComponent_startTime,
+    createTrialComponent_endTime,
+    createTrialComponent_tags,
+    createTrialComponent_inputArtifacts,
+    createTrialComponent_displayName,
+    createTrialComponent_parameters,
+    createTrialComponent_outputArtifacts,
+    createTrialComponent_trialComponentName,
 
     -- * Destructuring the Response
-    createTrialComponentResponse,
-    CreateTrialComponentResponse,
+    CreateTrialComponentResponse (..),
+    newCreateTrialComponentResponse,
 
     -- * Response Lenses
-    ctcrrsTrialComponentARN,
-    ctcrrsResponseStatus,
+    createTrialComponentResponse_trialComponentArn,
+    createTrialComponentResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'createTrialComponent' smart constructor.
+-- | /See:/ 'newCreateTrialComponent' smart constructor.
 data CreateTrialComponent = CreateTrialComponent'
-  { _ctcStatus ::
-      !(Maybe TrialComponentStatus),
-    _ctcMetadataProperties ::
-      !(Maybe MetadataProperties),
-    _ctcStartTime ::
-      !(Maybe POSIX),
-    _ctcEndTime :: !(Maybe POSIX),
-    _ctcTags :: !(Maybe [Tag]),
-    _ctcInputArtifacts ::
-      !( Maybe
-           ( Map
-               Text
-               TrialComponentArtifact
-           )
-       ),
-    _ctcDisplayName ::
-      !(Maybe Text),
-    _ctcParameters ::
-      !( Maybe
-           ( Map
-               Text
-               TrialComponentParameterValue
-           )
-       ),
-    _ctcOutputArtifacts ::
-      !( Maybe
-           ( Map
-               Text
-               TrialComponentArtifact
-           )
-       ),
-    _ctcTrialComponentName ::
-      !Text
+  { -- | The status of the component. States include:
+    --
+    -- -   InProgress
+    --
+    -- -   Completed
+    --
+    -- -   Failed
+    status :: Prelude.Maybe TrialComponentStatus,
+    metadataProperties :: Prelude.Maybe MetadataProperties,
+    -- | When the component started.
+    startTime :: Prelude.Maybe Prelude.POSIX,
+    -- | When the component ended.
+    endTime :: Prelude.Maybe Prelude.POSIX,
+    -- | A list of tags to associate with the component. You can use Search API
+    -- to search on the tags.
+    tags :: Prelude.Maybe [Tag],
+    -- | The input artifacts for the component. Examples of input artifacts are
+    -- datasets, algorithms, hyperparameters, source code, and instance types.
+    inputArtifacts :: Prelude.Maybe (Prelude.Map Prelude.Text TrialComponentArtifact),
+    -- | The name of the component as displayed. The name doesn\'t need to be
+    -- unique. If @DisplayName@ isn\'t specified, @TrialComponentName@ is
+    -- displayed.
+    displayName :: Prelude.Maybe Prelude.Text,
+    -- | The hyperparameters for the component.
+    parameters :: Prelude.Maybe (Prelude.Map Prelude.Text TrialComponentParameterValue),
+    -- | The output artifacts for the component. Examples of output artifacts are
+    -- metrics, snapshots, logs, and images.
+    outputArtifacts :: Prelude.Maybe (Prelude.Map Prelude.Text TrialComponentArtifact),
+    -- | The name of the component. The name must be unique in your AWS account
+    -- and is not case-sensitive.
+    trialComponentName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateTrialComponent' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateTrialComponent' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ctcStatus' - The status of the component. States include:     * InProgress     * Completed     * Failed
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ctcMetadataProperties' - Undocumented member.
+-- 'status', 'createTrialComponent_status' - The status of the component. States include:
 --
--- * 'ctcStartTime' - When the component started.
+-- -   InProgress
 --
--- * 'ctcEndTime' - When the component ended.
+-- -   Completed
 --
--- * 'ctcTags' - A list of tags to associate with the component. You can use 'Search' API to search on the tags.
+-- -   Failed
 --
--- * 'ctcInputArtifacts' - The input artifacts for the component. Examples of input artifacts are datasets, algorithms, hyperparameters, source code, and instance types.
+-- 'metadataProperties', 'createTrialComponent_metadataProperties' - Undocumented member.
 --
--- * 'ctcDisplayName' - The name of the component as displayed. The name doesn't need to be unique. If @DisplayName@ isn't specified, @TrialComponentName@ is displayed.
+-- 'startTime', 'createTrialComponent_startTime' - When the component started.
 --
--- * 'ctcParameters' - The hyperparameters for the component.
+-- 'endTime', 'createTrialComponent_endTime' - When the component ended.
 --
--- * 'ctcOutputArtifacts' - The output artifacts for the component. Examples of output artifacts are metrics, snapshots, logs, and images.
+-- 'tags', 'createTrialComponent_tags' - A list of tags to associate with the component. You can use Search API
+-- to search on the tags.
 --
--- * 'ctcTrialComponentName' - The name of the component. The name must be unique in your AWS account and is not case-sensitive.
-createTrialComponent ::
-  -- | 'ctcTrialComponentName'
-  Text ->
+-- 'inputArtifacts', 'createTrialComponent_inputArtifacts' - The input artifacts for the component. Examples of input artifacts are
+-- datasets, algorithms, hyperparameters, source code, and instance types.
+--
+-- 'displayName', 'createTrialComponent_displayName' - The name of the component as displayed. The name doesn\'t need to be
+-- unique. If @DisplayName@ isn\'t specified, @TrialComponentName@ is
+-- displayed.
+--
+-- 'parameters', 'createTrialComponent_parameters' - The hyperparameters for the component.
+--
+-- 'outputArtifacts', 'createTrialComponent_outputArtifacts' - The output artifacts for the component. Examples of output artifacts are
+-- metrics, snapshots, logs, and images.
+--
+-- 'trialComponentName', 'createTrialComponent_trialComponentName' - The name of the component. The name must be unique in your AWS account
+-- and is not case-sensitive.
+newCreateTrialComponent ::
+  -- | 'trialComponentName'
+  Prelude.Text ->
   CreateTrialComponent
-createTrialComponent pTrialComponentName_ =
+newCreateTrialComponent pTrialComponentName_ =
   CreateTrialComponent'
-    { _ctcStatus = Nothing,
-      _ctcMetadataProperties = Nothing,
-      _ctcStartTime = Nothing,
-      _ctcEndTime = Nothing,
-      _ctcTags = Nothing,
-      _ctcInputArtifacts = Nothing,
-      _ctcDisplayName = Nothing,
-      _ctcParameters = Nothing,
-      _ctcOutputArtifacts = Nothing,
-      _ctcTrialComponentName = pTrialComponentName_
+    { status = Prelude.Nothing,
+      metadataProperties = Prelude.Nothing,
+      startTime = Prelude.Nothing,
+      endTime = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      inputArtifacts = Prelude.Nothing,
+      displayName = Prelude.Nothing,
+      parameters = Prelude.Nothing,
+      outputArtifacts = Prelude.Nothing,
+      trialComponentName = pTrialComponentName_
     }
 
--- | The status of the component. States include:     * InProgress     * Completed     * Failed
-ctcStatus :: Lens' CreateTrialComponent (Maybe TrialComponentStatus)
-ctcStatus = lens _ctcStatus (\s a -> s {_ctcStatus = a})
+-- | The status of the component. States include:
+--
+-- -   InProgress
+--
+-- -   Completed
+--
+-- -   Failed
+createTrialComponent_status :: Lens.Lens' CreateTrialComponent (Prelude.Maybe TrialComponentStatus)
+createTrialComponent_status = Lens.lens (\CreateTrialComponent' {status} -> status) (\s@CreateTrialComponent' {} a -> s {status = a} :: CreateTrialComponent)
 
 -- | Undocumented member.
-ctcMetadataProperties :: Lens' CreateTrialComponent (Maybe MetadataProperties)
-ctcMetadataProperties = lens _ctcMetadataProperties (\s a -> s {_ctcMetadataProperties = a})
+createTrialComponent_metadataProperties :: Lens.Lens' CreateTrialComponent (Prelude.Maybe MetadataProperties)
+createTrialComponent_metadataProperties = Lens.lens (\CreateTrialComponent' {metadataProperties} -> metadataProperties) (\s@CreateTrialComponent' {} a -> s {metadataProperties = a} :: CreateTrialComponent)
 
 -- | When the component started.
-ctcStartTime :: Lens' CreateTrialComponent (Maybe UTCTime)
-ctcStartTime = lens _ctcStartTime (\s a -> s {_ctcStartTime = a}) . mapping _Time
+createTrialComponent_startTime :: Lens.Lens' CreateTrialComponent (Prelude.Maybe Prelude.UTCTime)
+createTrialComponent_startTime = Lens.lens (\CreateTrialComponent' {startTime} -> startTime) (\s@CreateTrialComponent' {} a -> s {startTime = a} :: CreateTrialComponent) Prelude.. Lens.mapping Prelude._Time
 
 -- | When the component ended.
-ctcEndTime :: Lens' CreateTrialComponent (Maybe UTCTime)
-ctcEndTime = lens _ctcEndTime (\s a -> s {_ctcEndTime = a}) . mapping _Time
+createTrialComponent_endTime :: Lens.Lens' CreateTrialComponent (Prelude.Maybe Prelude.UTCTime)
+createTrialComponent_endTime = Lens.lens (\CreateTrialComponent' {endTime} -> endTime) (\s@CreateTrialComponent' {} a -> s {endTime = a} :: CreateTrialComponent) Prelude.. Lens.mapping Prelude._Time
 
--- | A list of tags to associate with the component. You can use 'Search' API to search on the tags.
-ctcTags :: Lens' CreateTrialComponent [Tag]
-ctcTags = lens _ctcTags (\s a -> s {_ctcTags = a}) . _Default . _Coerce
+-- | A list of tags to associate with the component. You can use Search API
+-- to search on the tags.
+createTrialComponent_tags :: Lens.Lens' CreateTrialComponent (Prelude.Maybe [Tag])
+createTrialComponent_tags = Lens.lens (\CreateTrialComponent' {tags} -> tags) (\s@CreateTrialComponent' {} a -> s {tags = a} :: CreateTrialComponent) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The input artifacts for the component. Examples of input artifacts are datasets, algorithms, hyperparameters, source code, and instance types.
-ctcInputArtifacts :: Lens' CreateTrialComponent (HashMap Text TrialComponentArtifact)
-ctcInputArtifacts = lens _ctcInputArtifacts (\s a -> s {_ctcInputArtifacts = a}) . _Default . _Map
+-- | The input artifacts for the component. Examples of input artifacts are
+-- datasets, algorithms, hyperparameters, source code, and instance types.
+createTrialComponent_inputArtifacts :: Lens.Lens' CreateTrialComponent (Prelude.Maybe (Prelude.HashMap Prelude.Text TrialComponentArtifact))
+createTrialComponent_inputArtifacts = Lens.lens (\CreateTrialComponent' {inputArtifacts} -> inputArtifacts) (\s@CreateTrialComponent' {} a -> s {inputArtifacts = a} :: CreateTrialComponent) Prelude.. Lens.mapping Prelude._Map
 
--- | The name of the component as displayed. The name doesn't need to be unique. If @DisplayName@ isn't specified, @TrialComponentName@ is displayed.
-ctcDisplayName :: Lens' CreateTrialComponent (Maybe Text)
-ctcDisplayName = lens _ctcDisplayName (\s a -> s {_ctcDisplayName = a})
+-- | The name of the component as displayed. The name doesn\'t need to be
+-- unique. If @DisplayName@ isn\'t specified, @TrialComponentName@ is
+-- displayed.
+createTrialComponent_displayName :: Lens.Lens' CreateTrialComponent (Prelude.Maybe Prelude.Text)
+createTrialComponent_displayName = Lens.lens (\CreateTrialComponent' {displayName} -> displayName) (\s@CreateTrialComponent' {} a -> s {displayName = a} :: CreateTrialComponent)
 
 -- | The hyperparameters for the component.
-ctcParameters :: Lens' CreateTrialComponent (HashMap Text TrialComponentParameterValue)
-ctcParameters = lens _ctcParameters (\s a -> s {_ctcParameters = a}) . _Default . _Map
+createTrialComponent_parameters :: Lens.Lens' CreateTrialComponent (Prelude.Maybe (Prelude.HashMap Prelude.Text TrialComponentParameterValue))
+createTrialComponent_parameters = Lens.lens (\CreateTrialComponent' {parameters} -> parameters) (\s@CreateTrialComponent' {} a -> s {parameters = a} :: CreateTrialComponent) Prelude.. Lens.mapping Prelude._Map
 
--- | The output artifacts for the component. Examples of output artifacts are metrics, snapshots, logs, and images.
-ctcOutputArtifacts :: Lens' CreateTrialComponent (HashMap Text TrialComponentArtifact)
-ctcOutputArtifacts = lens _ctcOutputArtifacts (\s a -> s {_ctcOutputArtifacts = a}) . _Default . _Map
+-- | The output artifacts for the component. Examples of output artifacts are
+-- metrics, snapshots, logs, and images.
+createTrialComponent_outputArtifacts :: Lens.Lens' CreateTrialComponent (Prelude.Maybe (Prelude.HashMap Prelude.Text TrialComponentArtifact))
+createTrialComponent_outputArtifacts = Lens.lens (\CreateTrialComponent' {outputArtifacts} -> outputArtifacts) (\s@CreateTrialComponent' {} a -> s {outputArtifacts = a} :: CreateTrialComponent) Prelude.. Lens.mapping Prelude._Map
 
--- | The name of the component. The name must be unique in your AWS account and is not case-sensitive.
-ctcTrialComponentName :: Lens' CreateTrialComponent Text
-ctcTrialComponentName = lens _ctcTrialComponentName (\s a -> s {_ctcTrialComponentName = a})
+-- | The name of the component. The name must be unique in your AWS account
+-- and is not case-sensitive.
+createTrialComponent_trialComponentName :: Lens.Lens' CreateTrialComponent Prelude.Text
+createTrialComponent_trialComponentName = Lens.lens (\CreateTrialComponent' {trialComponentName} -> trialComponentName) (\s@CreateTrialComponent' {} a -> s {trialComponentName = a} :: CreateTrialComponent)
 
-instance AWSRequest CreateTrialComponent where
+instance Prelude.AWSRequest CreateTrialComponent where
   type
     Rs CreateTrialComponent =
       CreateTrialComponentResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateTrialComponentResponse'
-            <$> (x .?> "TrialComponentArn") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "TrialComponentArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateTrialComponent
+instance Prelude.Hashable CreateTrialComponent
 
-instance NFData CreateTrialComponent
+instance Prelude.NFData CreateTrialComponent
 
-instance ToHeaders CreateTrialComponent where
+instance Prelude.ToHeaders CreateTrialComponent where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.CreateTrialComponent" :: ByteString),
+              Prelude.=# ( "SageMaker.CreateTrialComponent" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateTrialComponent where
+instance Prelude.ToJSON CreateTrialComponent where
   toJSON CreateTrialComponent' {..} =
-    object
-      ( catMaybes
-          [ ("Status" .=) <$> _ctcStatus,
-            ("MetadataProperties" .=) <$> _ctcMetadataProperties,
-            ("StartTime" .=) <$> _ctcStartTime,
-            ("EndTime" .=) <$> _ctcEndTime,
-            ("Tags" .=) <$> _ctcTags,
-            ("InputArtifacts" .=) <$> _ctcInputArtifacts,
-            ("DisplayName" .=) <$> _ctcDisplayName,
-            ("Parameters" .=) <$> _ctcParameters,
-            ("OutputArtifacts" .=) <$> _ctcOutputArtifacts,
-            Just
-              ("TrialComponentName" .= _ctcTrialComponentName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Status" Prelude..=) Prelude.<$> status,
+            ("MetadataProperties" Prelude..=)
+              Prelude.<$> metadataProperties,
+            ("StartTime" Prelude..=) Prelude.<$> startTime,
+            ("EndTime" Prelude..=) Prelude.<$> endTime,
+            ("Tags" Prelude..=) Prelude.<$> tags,
+            ("InputArtifacts" Prelude..=)
+              Prelude.<$> inputArtifacts,
+            ("DisplayName" Prelude..=) Prelude.<$> displayName,
+            ("Parameters" Prelude..=) Prelude.<$> parameters,
+            ("OutputArtifacts" Prelude..=)
+              Prelude.<$> outputArtifacts,
+            Prelude.Just
+              ( "TrialComponentName"
+                  Prelude..= trialComponentName
+              )
           ]
       )
 
-instance ToPath CreateTrialComponent where
-  toPath = const "/"
+instance Prelude.ToPath CreateTrialComponent where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateTrialComponent where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateTrialComponent where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createTrialComponentResponse' smart constructor.
+-- | /See:/ 'newCreateTrialComponentResponse' smart constructor.
 data CreateTrialComponentResponse = CreateTrialComponentResponse'
-  { _ctcrrsTrialComponentARN ::
-      !(Maybe Text),
-    _ctcrrsResponseStatus ::
-      !Int
+  { -- | The Amazon Resource Name (ARN) of the trial component.
+    trialComponentArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateTrialComponentResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateTrialComponentResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ctcrrsTrialComponentARN' - The Amazon Resource Name (ARN) of the trial component.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ctcrrsResponseStatus' - -- | The response status code.
-createTrialComponentResponse ::
-  -- | 'ctcrrsResponseStatus'
-  Int ->
+-- 'trialComponentArn', 'createTrialComponentResponse_trialComponentArn' - The Amazon Resource Name (ARN) of the trial component.
+--
+-- 'httpStatus', 'createTrialComponentResponse_httpStatus' - The response's http status code.
+newCreateTrialComponentResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateTrialComponentResponse
-createTrialComponentResponse pResponseStatus_ =
+newCreateTrialComponentResponse pHttpStatus_ =
   CreateTrialComponentResponse'
-    { _ctcrrsTrialComponentARN =
-        Nothing,
-      _ctcrrsResponseStatus = pResponseStatus_
+    { trialComponentArn =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The Amazon Resource Name (ARN) of the trial component.
-ctcrrsTrialComponentARN :: Lens' CreateTrialComponentResponse (Maybe Text)
-ctcrrsTrialComponentARN = lens _ctcrrsTrialComponentARN (\s a -> s {_ctcrrsTrialComponentARN = a})
+createTrialComponentResponse_trialComponentArn :: Lens.Lens' CreateTrialComponentResponse (Prelude.Maybe Prelude.Text)
+createTrialComponentResponse_trialComponentArn = Lens.lens (\CreateTrialComponentResponse' {trialComponentArn} -> trialComponentArn) (\s@CreateTrialComponentResponse' {} a -> s {trialComponentArn = a} :: CreateTrialComponentResponse)
 
--- | -- | The response status code.
-ctcrrsResponseStatus :: Lens' CreateTrialComponentResponse Int
-ctcrrsResponseStatus = lens _ctcrrsResponseStatus (\s a -> s {_ctcrrsResponseStatus = a})
+-- | The response's http status code.
+createTrialComponentResponse_httpStatus :: Lens.Lens' CreateTrialComponentResponse Prelude.Int
+createTrialComponentResponse_httpStatus = Lens.lens (\CreateTrialComponentResponse' {httpStatus} -> httpStatus) (\s@CreateTrialComponentResponse' {} a -> s {httpStatus = a} :: CreateTrialComponentResponse)
 
-instance NFData CreateTrialComponentResponse
+instance Prelude.NFData CreateTrialComponentResponse

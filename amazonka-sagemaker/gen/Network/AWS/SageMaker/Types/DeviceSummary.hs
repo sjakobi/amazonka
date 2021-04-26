@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,113 +19,125 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.DeviceSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.EdgeModelSummary
 
 -- | Summary of the device.
 --
---
---
--- /See:/ 'deviceSummary' smart constructor.
+-- /See:/ 'newDeviceSummary' smart constructor.
 data DeviceSummary = DeviceSummary'
-  { _dsDeviceFleetName ::
-      !(Maybe Text),
-    _dsLatestHeartbeat :: !(Maybe POSIX),
-    _dsRegistrationTime :: !(Maybe POSIX),
-    _dsModels :: !(Maybe [EdgeModelSummary]),
-    _dsIotThingName :: !(Maybe Text),
-    _dsDescription :: !(Maybe Text),
-    _dsDeviceName :: !Text,
-    _dsDeviceARN :: !Text
+  { -- | The name of the fleet the device belongs to.
+    deviceFleetName :: Prelude.Maybe Prelude.Text,
+    -- | The last heartbeat received from the device.
+    latestHeartbeat :: Prelude.Maybe Prelude.POSIX,
+    -- | The timestamp of the last registration or de-reregistration.
+    registrationTime :: Prelude.Maybe Prelude.POSIX,
+    -- | Models on the device.
+    models :: Prelude.Maybe [EdgeModelSummary],
+    -- | The AWS Internet of Things (IoT) object thing name associated with the
+    -- device..
+    iotThingName :: Prelude.Maybe Prelude.Text,
+    -- | A description of the device.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier of the device.
+    deviceName :: Prelude.Text,
+    -- | Amazon Resource Name (ARN) of the device.
+    deviceArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeviceSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeviceSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsDeviceFleetName' - The name of the fleet the device belongs to.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsLatestHeartbeat' - The last heartbeat received from the device.
+-- 'deviceFleetName', 'deviceSummary_deviceFleetName' - The name of the fleet the device belongs to.
 --
--- * 'dsRegistrationTime' - The timestamp of the last registration or de-reregistration.
+-- 'latestHeartbeat', 'deviceSummary_latestHeartbeat' - The last heartbeat received from the device.
 --
--- * 'dsModels' - Models on the device.
+-- 'registrationTime', 'deviceSummary_registrationTime' - The timestamp of the last registration or de-reregistration.
 --
--- * 'dsIotThingName' - The AWS Internet of Things (IoT) object thing name associated with the device..
+-- 'models', 'deviceSummary_models' - Models on the device.
 --
--- * 'dsDescription' - A description of the device.
+-- 'iotThingName', 'deviceSummary_iotThingName' - The AWS Internet of Things (IoT) object thing name associated with the
+-- device..
 --
--- * 'dsDeviceName' - The unique identifier of the device.
+-- 'description', 'deviceSummary_description' - A description of the device.
 --
--- * 'dsDeviceARN' - Amazon Resource Name (ARN) of the device.
-deviceSummary ::
-  -- | 'dsDeviceName'
-  Text ->
-  -- | 'dsDeviceARN'
-  Text ->
+-- 'deviceName', 'deviceSummary_deviceName' - The unique identifier of the device.
+--
+-- 'deviceArn', 'deviceSummary_deviceArn' - Amazon Resource Name (ARN) of the device.
+newDeviceSummary ::
+  -- | 'deviceName'
+  Prelude.Text ->
+  -- | 'deviceArn'
+  Prelude.Text ->
   DeviceSummary
-deviceSummary pDeviceName_ pDeviceARN_ =
+newDeviceSummary pDeviceName_ pDeviceArn_ =
   DeviceSummary'
-    { _dsDeviceFleetName = Nothing,
-      _dsLatestHeartbeat = Nothing,
-      _dsRegistrationTime = Nothing,
-      _dsModels = Nothing,
-      _dsIotThingName = Nothing,
-      _dsDescription = Nothing,
-      _dsDeviceName = pDeviceName_,
-      _dsDeviceARN = pDeviceARN_
+    { deviceFleetName = Prelude.Nothing,
+      latestHeartbeat = Prelude.Nothing,
+      registrationTime = Prelude.Nothing,
+      models = Prelude.Nothing,
+      iotThingName = Prelude.Nothing,
+      description = Prelude.Nothing,
+      deviceName = pDeviceName_,
+      deviceArn = pDeviceArn_
     }
 
 -- | The name of the fleet the device belongs to.
-dsDeviceFleetName :: Lens' DeviceSummary (Maybe Text)
-dsDeviceFleetName = lens _dsDeviceFleetName (\s a -> s {_dsDeviceFleetName = a})
+deviceSummary_deviceFleetName :: Lens.Lens' DeviceSummary (Prelude.Maybe Prelude.Text)
+deviceSummary_deviceFleetName = Lens.lens (\DeviceSummary' {deviceFleetName} -> deviceFleetName) (\s@DeviceSummary' {} a -> s {deviceFleetName = a} :: DeviceSummary)
 
 -- | The last heartbeat received from the device.
-dsLatestHeartbeat :: Lens' DeviceSummary (Maybe UTCTime)
-dsLatestHeartbeat = lens _dsLatestHeartbeat (\s a -> s {_dsLatestHeartbeat = a}) . mapping _Time
+deviceSummary_latestHeartbeat :: Lens.Lens' DeviceSummary (Prelude.Maybe Prelude.UTCTime)
+deviceSummary_latestHeartbeat = Lens.lens (\DeviceSummary' {latestHeartbeat} -> latestHeartbeat) (\s@DeviceSummary' {} a -> s {latestHeartbeat = a} :: DeviceSummary) Prelude.. Lens.mapping Prelude._Time
 
 -- | The timestamp of the last registration or de-reregistration.
-dsRegistrationTime :: Lens' DeviceSummary (Maybe UTCTime)
-dsRegistrationTime = lens _dsRegistrationTime (\s a -> s {_dsRegistrationTime = a}) . mapping _Time
+deviceSummary_registrationTime :: Lens.Lens' DeviceSummary (Prelude.Maybe Prelude.UTCTime)
+deviceSummary_registrationTime = Lens.lens (\DeviceSummary' {registrationTime} -> registrationTime) (\s@DeviceSummary' {} a -> s {registrationTime = a} :: DeviceSummary) Prelude.. Lens.mapping Prelude._Time
 
 -- | Models on the device.
-dsModels :: Lens' DeviceSummary [EdgeModelSummary]
-dsModels = lens _dsModels (\s a -> s {_dsModels = a}) . _Default . _Coerce
+deviceSummary_models :: Lens.Lens' DeviceSummary (Prelude.Maybe [EdgeModelSummary])
+deviceSummary_models = Lens.lens (\DeviceSummary' {models} -> models) (\s@DeviceSummary' {} a -> s {models = a} :: DeviceSummary) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The AWS Internet of Things (IoT) object thing name associated with the device..
-dsIotThingName :: Lens' DeviceSummary (Maybe Text)
-dsIotThingName = lens _dsIotThingName (\s a -> s {_dsIotThingName = a})
+-- | The AWS Internet of Things (IoT) object thing name associated with the
+-- device..
+deviceSummary_iotThingName :: Lens.Lens' DeviceSummary (Prelude.Maybe Prelude.Text)
+deviceSummary_iotThingName = Lens.lens (\DeviceSummary' {iotThingName} -> iotThingName) (\s@DeviceSummary' {} a -> s {iotThingName = a} :: DeviceSummary)
 
 -- | A description of the device.
-dsDescription :: Lens' DeviceSummary (Maybe Text)
-dsDescription = lens _dsDescription (\s a -> s {_dsDescription = a})
+deviceSummary_description :: Lens.Lens' DeviceSummary (Prelude.Maybe Prelude.Text)
+deviceSummary_description = Lens.lens (\DeviceSummary' {description} -> description) (\s@DeviceSummary' {} a -> s {description = a} :: DeviceSummary)
 
 -- | The unique identifier of the device.
-dsDeviceName :: Lens' DeviceSummary Text
-dsDeviceName = lens _dsDeviceName (\s a -> s {_dsDeviceName = a})
+deviceSummary_deviceName :: Lens.Lens' DeviceSummary Prelude.Text
+deviceSummary_deviceName = Lens.lens (\DeviceSummary' {deviceName} -> deviceName) (\s@DeviceSummary' {} a -> s {deviceName = a} :: DeviceSummary)
 
 -- | Amazon Resource Name (ARN) of the device.
-dsDeviceARN :: Lens' DeviceSummary Text
-dsDeviceARN = lens _dsDeviceARN (\s a -> s {_dsDeviceARN = a})
+deviceSummary_deviceArn :: Lens.Lens' DeviceSummary Prelude.Text
+deviceSummary_deviceArn = Lens.lens (\DeviceSummary' {deviceArn} -> deviceArn) (\s@DeviceSummary' {} a -> s {deviceArn = a} :: DeviceSummary)
 
-instance FromJSON DeviceSummary where
+instance Prelude.FromJSON DeviceSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DeviceSummary"
       ( \x ->
           DeviceSummary'
-            <$> (x .:? "DeviceFleetName")
-            <*> (x .:? "LatestHeartbeat")
-            <*> (x .:? "RegistrationTime")
-            <*> (x .:? "Models" .!= mempty)
-            <*> (x .:? "IotThingName")
-            <*> (x .:? "Description")
-            <*> (x .: "DeviceName")
-            <*> (x .: "DeviceArn")
+            Prelude.<$> (x Prelude..:? "DeviceFleetName")
+            Prelude.<*> (x Prelude..:? "LatestHeartbeat")
+            Prelude.<*> (x Prelude..:? "RegistrationTime")
+            Prelude.<*> (x Prelude..:? "Models" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "IotThingName")
+            Prelude.<*> (x Prelude..:? "Description")
+            Prelude.<*> (x Prelude..: "DeviceName")
+            Prelude.<*> (x Prelude..: "DeviceArn")
       )
 
-instance Hashable DeviceSummary
+instance Prelude.Hashable DeviceSummary
 
-instance NFData DeviceSummary
+instance Prelude.NFData DeviceSummary

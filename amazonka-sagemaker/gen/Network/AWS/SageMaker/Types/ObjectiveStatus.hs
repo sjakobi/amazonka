@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.SageMaker.Types.ObjectiveStatus
   ( ObjectiveStatus
       ( ..,
-        OSFailed,
-        OSPending,
-        OSSucceeded
+        ObjectiveStatusFailed,
+        ObjectiveStatusPending,
+        ObjectiveStatusSucceeded
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ObjectiveStatus = ObjectiveStatus' (CI Text)
+newtype ObjectiveStatus = ObjectiveStatus'
+  { fromObjectiveStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern OSFailed :: ObjectiveStatus
-pattern OSFailed = ObjectiveStatus' "Failed"
+pattern ObjectiveStatusFailed :: ObjectiveStatus
+pattern ObjectiveStatusFailed = ObjectiveStatus' "Failed"
 
-pattern OSPending :: ObjectiveStatus
-pattern OSPending = ObjectiveStatus' "Pending"
+pattern ObjectiveStatusPending :: ObjectiveStatus
+pattern ObjectiveStatusPending = ObjectiveStatus' "Pending"
 
-pattern OSSucceeded :: ObjectiveStatus
-pattern OSSucceeded = ObjectiveStatus' "Succeeded"
+pattern ObjectiveStatusSucceeded :: ObjectiveStatus
+pattern ObjectiveStatusSucceeded = ObjectiveStatus' "Succeeded"
 
 {-# COMPLETE
-  OSFailed,
-  OSPending,
-  OSSucceeded,
+  ObjectiveStatusFailed,
+  ObjectiveStatusPending,
+  ObjectiveStatusSucceeded,
   ObjectiveStatus'
   #-}
 
-instance FromText ObjectiveStatus where
-  parser = (ObjectiveStatus' . mk) <$> takeText
+instance Prelude.FromText ObjectiveStatus where
+  parser = ObjectiveStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ObjectiveStatus where
-  toText (ObjectiveStatus' ci) = original ci
+instance Prelude.ToText ObjectiveStatus where
+  toText (ObjectiveStatus' x) = x
 
-instance Hashable ObjectiveStatus
+instance Prelude.Hashable ObjectiveStatus
 
-instance NFData ObjectiveStatus
+instance Prelude.NFData ObjectiveStatus
 
-instance ToByteString ObjectiveStatus
+instance Prelude.ToByteString ObjectiveStatus
 
-instance ToQuery ObjectiveStatus
+instance Prelude.ToQuery ObjectiveStatus
 
-instance ToHeader ObjectiveStatus
+instance Prelude.ToHeader ObjectiveStatus
 
-instance FromJSON ObjectiveStatus where
-  parseJSON = parseJSONText "ObjectiveStatus"
+instance Prelude.FromJSON ObjectiveStatus where
+  parseJSON = Prelude.parseJSONText "ObjectiveStatus"

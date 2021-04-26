@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,103 +19,115 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.FileSystemDataSource where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.FileSystemAccessMode
 import Network.AWS.SageMaker.Types.FileSystemType
 
 -- | Specifies a file system data source for a channel.
 --
---
---
--- /See:/ 'fileSystemDataSource' smart constructor.
+-- /See:/ 'newFileSystemDataSource' smart constructor.
 data FileSystemDataSource = FileSystemDataSource'
-  { _fsdsFileSystemId ::
-      !Text,
-    _fsdsFileSystemAccessMode ::
-      !FileSystemAccessMode,
-    _fsdsFileSystemType ::
-      !FileSystemType,
-    _fsdsDirectoryPath :: !Text
+  { -- | The file system id.
+    fileSystemId :: Prelude.Text,
+    -- | The access mode of the mount of the directory associated with the
+    -- channel. A directory can be mounted either in @ro@ (read-only) or @rw@
+    -- (read-write) mode.
+    fileSystemAccessMode :: FileSystemAccessMode,
+    -- | The file system type.
+    fileSystemType :: FileSystemType,
+    -- | The full path to the directory to associate with the channel.
+    directoryPath :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FileSystemDataSource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FileSystemDataSource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fsdsFileSystemId' - The file system id.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fsdsFileSystemAccessMode' - The access mode of the mount of the directory associated with the channel. A directory can be mounted either in @ro@ (read-only) or @rw@ (read-write) mode.
+-- 'fileSystemId', 'fileSystemDataSource_fileSystemId' - The file system id.
 --
--- * 'fsdsFileSystemType' - The file system type.
+-- 'fileSystemAccessMode', 'fileSystemDataSource_fileSystemAccessMode' - The access mode of the mount of the directory associated with the
+-- channel. A directory can be mounted either in @ro@ (read-only) or @rw@
+-- (read-write) mode.
 --
--- * 'fsdsDirectoryPath' - The full path to the directory to associate with the channel.
-fileSystemDataSource ::
-  -- | 'fsdsFileSystemId'
-  Text ->
-  -- | 'fsdsFileSystemAccessMode'
+-- 'fileSystemType', 'fileSystemDataSource_fileSystemType' - The file system type.
+--
+-- 'directoryPath', 'fileSystemDataSource_directoryPath' - The full path to the directory to associate with the channel.
+newFileSystemDataSource ::
+  -- | 'fileSystemId'
+  Prelude.Text ->
+  -- | 'fileSystemAccessMode'
   FileSystemAccessMode ->
-  -- | 'fsdsFileSystemType'
+  -- | 'fileSystemType'
   FileSystemType ->
-  -- | 'fsdsDirectoryPath'
-  Text ->
+  -- | 'directoryPath'
+  Prelude.Text ->
   FileSystemDataSource
-fileSystemDataSource
+newFileSystemDataSource
   pFileSystemId_
   pFileSystemAccessMode_
   pFileSystemType_
   pDirectoryPath_ =
     FileSystemDataSource'
-      { _fsdsFileSystemId =
+      { fileSystemId =
           pFileSystemId_,
-        _fsdsFileSystemAccessMode = pFileSystemAccessMode_,
-        _fsdsFileSystemType = pFileSystemType_,
-        _fsdsDirectoryPath = pDirectoryPath_
+        fileSystemAccessMode = pFileSystemAccessMode_,
+        fileSystemType = pFileSystemType_,
+        directoryPath = pDirectoryPath_
       }
 
 -- | The file system id.
-fsdsFileSystemId :: Lens' FileSystemDataSource Text
-fsdsFileSystemId = lens _fsdsFileSystemId (\s a -> s {_fsdsFileSystemId = a})
+fileSystemDataSource_fileSystemId :: Lens.Lens' FileSystemDataSource Prelude.Text
+fileSystemDataSource_fileSystemId = Lens.lens (\FileSystemDataSource' {fileSystemId} -> fileSystemId) (\s@FileSystemDataSource' {} a -> s {fileSystemId = a} :: FileSystemDataSource)
 
--- | The access mode of the mount of the directory associated with the channel. A directory can be mounted either in @ro@ (read-only) or @rw@ (read-write) mode.
-fsdsFileSystemAccessMode :: Lens' FileSystemDataSource FileSystemAccessMode
-fsdsFileSystemAccessMode = lens _fsdsFileSystemAccessMode (\s a -> s {_fsdsFileSystemAccessMode = a})
+-- | The access mode of the mount of the directory associated with the
+-- channel. A directory can be mounted either in @ro@ (read-only) or @rw@
+-- (read-write) mode.
+fileSystemDataSource_fileSystemAccessMode :: Lens.Lens' FileSystemDataSource FileSystemAccessMode
+fileSystemDataSource_fileSystemAccessMode = Lens.lens (\FileSystemDataSource' {fileSystemAccessMode} -> fileSystemAccessMode) (\s@FileSystemDataSource' {} a -> s {fileSystemAccessMode = a} :: FileSystemDataSource)
 
 -- | The file system type.
-fsdsFileSystemType :: Lens' FileSystemDataSource FileSystemType
-fsdsFileSystemType = lens _fsdsFileSystemType (\s a -> s {_fsdsFileSystemType = a})
+fileSystemDataSource_fileSystemType :: Lens.Lens' FileSystemDataSource FileSystemType
+fileSystemDataSource_fileSystemType = Lens.lens (\FileSystemDataSource' {fileSystemType} -> fileSystemType) (\s@FileSystemDataSource' {} a -> s {fileSystemType = a} :: FileSystemDataSource)
 
 -- | The full path to the directory to associate with the channel.
-fsdsDirectoryPath :: Lens' FileSystemDataSource Text
-fsdsDirectoryPath = lens _fsdsDirectoryPath (\s a -> s {_fsdsDirectoryPath = a})
+fileSystemDataSource_directoryPath :: Lens.Lens' FileSystemDataSource Prelude.Text
+fileSystemDataSource_directoryPath = Lens.lens (\FileSystemDataSource' {directoryPath} -> directoryPath) (\s@FileSystemDataSource' {} a -> s {directoryPath = a} :: FileSystemDataSource)
 
-instance FromJSON FileSystemDataSource where
+instance Prelude.FromJSON FileSystemDataSource where
   parseJSON =
-    withObject
+    Prelude.withObject
       "FileSystemDataSource"
       ( \x ->
           FileSystemDataSource'
-            <$> (x .: "FileSystemId")
-            <*> (x .: "FileSystemAccessMode")
-            <*> (x .: "FileSystemType")
-            <*> (x .: "DirectoryPath")
+            Prelude.<$> (x Prelude..: "FileSystemId")
+            Prelude.<*> (x Prelude..: "FileSystemAccessMode")
+            Prelude.<*> (x Prelude..: "FileSystemType")
+            Prelude.<*> (x Prelude..: "DirectoryPath")
       )
 
-instance Hashable FileSystemDataSource
+instance Prelude.Hashable FileSystemDataSource
 
-instance NFData FileSystemDataSource
+instance Prelude.NFData FileSystemDataSource
 
-instance ToJSON FileSystemDataSource where
+instance Prelude.ToJSON FileSystemDataSource where
   toJSON FileSystemDataSource' {..} =
-    object
-      ( catMaybes
-          [ Just ("FileSystemId" .= _fsdsFileSystemId),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("FileSystemId" Prelude..= fileSystemId),
+            Prelude.Just
               ( "FileSystemAccessMode"
-                  .= _fsdsFileSystemAccessMode
+                  Prelude..= fileSystemAccessMode
               ),
-            Just ("FileSystemType" .= _fsdsFileSystemType),
-            Just ("DirectoryPath" .= _fsdsDirectoryPath)
+            Prelude.Just
+              ("FileSystemType" Prelude..= fileSystemType),
+            Prelude.Just
+              ("DirectoryPath" Prelude..= directoryPath)
           ]
       )

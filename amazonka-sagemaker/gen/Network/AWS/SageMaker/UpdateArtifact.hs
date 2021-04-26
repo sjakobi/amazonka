@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,161 +24,171 @@
 -- Updates an artifact.
 module Network.AWS.SageMaker.UpdateArtifact
   ( -- * Creating a Request
-    updateArtifact,
-    UpdateArtifact,
+    UpdateArtifact (..),
+    newUpdateArtifact,
 
     -- * Request Lenses
-    uPropertiesToRemove,
-    uArtifactName,
-    uProperties,
-    uArtifactARN,
+    updateArtifact_propertiesToRemove,
+    updateArtifact_artifactName,
+    updateArtifact_properties,
+    updateArtifact_artifactArn,
 
     -- * Destructuring the Response
-    updateArtifactResponse,
-    UpdateArtifactResponse,
+    UpdateArtifactResponse (..),
+    newUpdateArtifactResponse,
 
     -- * Response Lenses
-    ursArtifactARN,
-    ursResponseStatus,
+    updateArtifactResponse_artifactArn,
+    updateArtifactResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'updateArtifact' smart constructor.
+-- | /See:/ 'newUpdateArtifact' smart constructor.
 data UpdateArtifact = UpdateArtifact'
-  { _uPropertiesToRemove ::
-      !(Maybe [Text]),
-    _uArtifactName :: !(Maybe Text),
-    _uProperties :: !(Maybe (Map Text Text)),
-    _uArtifactARN :: !Text
+  { -- | A list of properties to remove.
+    propertiesToRemove :: Prelude.Maybe [Prelude.Text],
+    -- | The new name for the artifact.
+    artifactName :: Prelude.Maybe Prelude.Text,
+    -- | The new list of properties. Overwrites the current property list.
+    properties :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The Amazon Resource Name (ARN) of the artifact to update.
+    artifactArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateArtifact' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateArtifact' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uPropertiesToRemove' - A list of properties to remove.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uArtifactName' - The new name for the artifact.
+-- 'propertiesToRemove', 'updateArtifact_propertiesToRemove' - A list of properties to remove.
 --
--- * 'uProperties' - The new list of properties. Overwrites the current property list.
+-- 'artifactName', 'updateArtifact_artifactName' - The new name for the artifact.
 --
--- * 'uArtifactARN' - The Amazon Resource Name (ARN) of the artifact to update.
-updateArtifact ::
-  -- | 'uArtifactARN'
-  Text ->
+-- 'properties', 'updateArtifact_properties' - The new list of properties. Overwrites the current property list.
+--
+-- 'artifactArn', 'updateArtifact_artifactArn' - The Amazon Resource Name (ARN) of the artifact to update.
+newUpdateArtifact ::
+  -- | 'artifactArn'
+  Prelude.Text ->
   UpdateArtifact
-updateArtifact pArtifactARN_ =
+newUpdateArtifact pArtifactArn_ =
   UpdateArtifact'
-    { _uPropertiesToRemove = Nothing,
-      _uArtifactName = Nothing,
-      _uProperties = Nothing,
-      _uArtifactARN = pArtifactARN_
+    { propertiesToRemove =
+        Prelude.Nothing,
+      artifactName = Prelude.Nothing,
+      properties = Prelude.Nothing,
+      artifactArn = pArtifactArn_
     }
 
 -- | A list of properties to remove.
-uPropertiesToRemove :: Lens' UpdateArtifact [Text]
-uPropertiesToRemove = lens _uPropertiesToRemove (\s a -> s {_uPropertiesToRemove = a}) . _Default . _Coerce
+updateArtifact_propertiesToRemove :: Lens.Lens' UpdateArtifact (Prelude.Maybe [Prelude.Text])
+updateArtifact_propertiesToRemove = Lens.lens (\UpdateArtifact' {propertiesToRemove} -> propertiesToRemove) (\s@UpdateArtifact' {} a -> s {propertiesToRemove = a} :: UpdateArtifact) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The new name for the artifact.
-uArtifactName :: Lens' UpdateArtifact (Maybe Text)
-uArtifactName = lens _uArtifactName (\s a -> s {_uArtifactName = a})
+updateArtifact_artifactName :: Lens.Lens' UpdateArtifact (Prelude.Maybe Prelude.Text)
+updateArtifact_artifactName = Lens.lens (\UpdateArtifact' {artifactName} -> artifactName) (\s@UpdateArtifact' {} a -> s {artifactName = a} :: UpdateArtifact)
 
 -- | The new list of properties. Overwrites the current property list.
-uProperties :: Lens' UpdateArtifact (HashMap Text Text)
-uProperties = lens _uProperties (\s a -> s {_uProperties = a}) . _Default . _Map
+updateArtifact_properties :: Lens.Lens' UpdateArtifact (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+updateArtifact_properties = Lens.lens (\UpdateArtifact' {properties} -> properties) (\s@UpdateArtifact' {} a -> s {properties = a} :: UpdateArtifact) Prelude.. Lens.mapping Prelude._Map
 
 -- | The Amazon Resource Name (ARN) of the artifact to update.
-uArtifactARN :: Lens' UpdateArtifact Text
-uArtifactARN = lens _uArtifactARN (\s a -> s {_uArtifactARN = a})
+updateArtifact_artifactArn :: Lens.Lens' UpdateArtifact Prelude.Text
+updateArtifact_artifactArn = Lens.lens (\UpdateArtifact' {artifactArn} -> artifactArn) (\s@UpdateArtifact' {} a -> s {artifactArn = a} :: UpdateArtifact)
 
-instance AWSRequest UpdateArtifact where
+instance Prelude.AWSRequest UpdateArtifact where
   type Rs UpdateArtifact = UpdateArtifactResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateArtifactResponse'
-            <$> (x .?> "ArtifactArn") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ArtifactArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateArtifact
+instance Prelude.Hashable UpdateArtifact
 
-instance NFData UpdateArtifact
+instance Prelude.NFData UpdateArtifact
 
-instance ToHeaders UpdateArtifact where
+instance Prelude.ToHeaders UpdateArtifact where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.UpdateArtifact" :: ByteString),
+              Prelude.=# ("SageMaker.UpdateArtifact" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateArtifact where
+instance Prelude.ToJSON UpdateArtifact where
   toJSON UpdateArtifact' {..} =
-    object
-      ( catMaybes
-          [ ("PropertiesToRemove" .=) <$> _uPropertiesToRemove,
-            ("ArtifactName" .=) <$> _uArtifactName,
-            ("Properties" .=) <$> _uProperties,
-            Just ("ArtifactArn" .= _uArtifactARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("PropertiesToRemove" Prelude..=)
+              Prelude.<$> propertiesToRemove,
+            ("ArtifactName" Prelude..=) Prelude.<$> artifactName,
+            ("Properties" Prelude..=) Prelude.<$> properties,
+            Prelude.Just ("ArtifactArn" Prelude..= artifactArn)
           ]
       )
 
-instance ToPath UpdateArtifact where
-  toPath = const "/"
+instance Prelude.ToPath UpdateArtifact where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateArtifact where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateArtifact where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateArtifactResponse' smart constructor.
+-- | /See:/ 'newUpdateArtifactResponse' smart constructor.
 data UpdateArtifactResponse = UpdateArtifactResponse'
-  { _ursArtifactARN ::
-      !(Maybe Text),
-    _ursResponseStatus ::
-      !Int
+  { -- | The Amazon Resource Name (ARN) of the artifact.
+    artifactArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateArtifactResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateArtifactResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ursArtifactARN' - The Amazon Resource Name (ARN) of the artifact.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ursResponseStatus' - -- | The response status code.
-updateArtifactResponse ::
-  -- | 'ursResponseStatus'
-  Int ->
+-- 'artifactArn', 'updateArtifactResponse_artifactArn' - The Amazon Resource Name (ARN) of the artifact.
+--
+-- 'httpStatus', 'updateArtifactResponse_httpStatus' - The response's http status code.
+newUpdateArtifactResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateArtifactResponse
-updateArtifactResponse pResponseStatus_ =
+newUpdateArtifactResponse pHttpStatus_ =
   UpdateArtifactResponse'
-    { _ursArtifactARN = Nothing,
-      _ursResponseStatus = pResponseStatus_
+    { artifactArn =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The Amazon Resource Name (ARN) of the artifact.
-ursArtifactARN :: Lens' UpdateArtifactResponse (Maybe Text)
-ursArtifactARN = lens _ursArtifactARN (\s a -> s {_ursArtifactARN = a})
+updateArtifactResponse_artifactArn :: Lens.Lens' UpdateArtifactResponse (Prelude.Maybe Prelude.Text)
+updateArtifactResponse_artifactArn = Lens.lens (\UpdateArtifactResponse' {artifactArn} -> artifactArn) (\s@UpdateArtifactResponse' {} a -> s {artifactArn = a} :: UpdateArtifactResponse)
 
--- | -- | The response status code.
-ursResponseStatus :: Lens' UpdateArtifactResponse Int
-ursResponseStatus = lens _ursResponseStatus (\s a -> s {_ursResponseStatus = a})
+-- | The response's http status code.
+updateArtifactResponse_httpStatus :: Lens.Lens' UpdateArtifactResponse Prelude.Int
+updateArtifactResponse_httpStatus = Lens.lens (\UpdateArtifactResponse' {httpStatus} -> httpStatus) (\s@UpdateArtifactResponse' {} a -> s {httpStatus = a} :: UpdateArtifactResponse)
 
-instance NFData UpdateArtifactResponse
+instance Prelude.NFData UpdateArtifactResponse

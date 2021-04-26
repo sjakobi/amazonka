@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,124 +19,131 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.AssociationSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.AssociationEdgeType
 import Network.AWS.SageMaker.Types.UserContext
 
--- | Lists a summary of the properties of an association. An association is an entity that links other lineage or experiment entities. An example would be an association between a training job and a model.
+-- | Lists a summary of the properties of an association. An association is
+-- an entity that links other lineage or experiment entities. An example
+-- would be an association between a training job and a model.
 --
---
---
--- /See:/ 'associationSummary' smart constructor.
+-- /See:/ 'newAssociationSummary' smart constructor.
 data AssociationSummary = AssociationSummary'
-  { _assDestinationType ::
-      !(Maybe Text),
-    _assCreationTime ::
-      !(Maybe POSIX),
-    _assDestinationARN ::
-      !(Maybe Text),
-    _assDestinationName ::
-      !(Maybe Text),
-    _assSourceName :: !(Maybe Text),
-    _assAssociationType ::
-      !(Maybe AssociationEdgeType),
-    _assCreatedBy ::
-      !(Maybe UserContext),
-    _assSourceARN :: !(Maybe Text),
-    _assSourceType :: !(Maybe Text)
+  { -- | The destination type.
+    destinationType :: Prelude.Maybe Prelude.Text,
+    -- | When the association was created.
+    creationTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The Amazon Resource Name (ARN) of the destination.
+    destinationArn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the destination.
+    destinationName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the source.
+    sourceName :: Prelude.Maybe Prelude.Text,
+    -- | The type of the association.
+    associationType :: Prelude.Maybe AssociationEdgeType,
+    createdBy :: Prelude.Maybe UserContext,
+    -- | The ARN of the source.
+    sourceArn :: Prelude.Maybe Prelude.Text,
+    -- | The source type.
+    sourceType :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssociationSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AssociationSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'assDestinationType' - The destination type.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'assCreationTime' - When the association was created.
+-- 'destinationType', 'associationSummary_destinationType' - The destination type.
 --
--- * 'assDestinationARN' - The Amazon Resource Name (ARN) of the destination.
+-- 'creationTime', 'associationSummary_creationTime' - When the association was created.
 --
--- * 'assDestinationName' - The name of the destination.
+-- 'destinationArn', 'associationSummary_destinationArn' - The Amazon Resource Name (ARN) of the destination.
 --
--- * 'assSourceName' - The name of the source.
+-- 'destinationName', 'associationSummary_destinationName' - The name of the destination.
 --
--- * 'assAssociationType' - The type of the association.
+-- 'sourceName', 'associationSummary_sourceName' - The name of the source.
 --
--- * 'assCreatedBy' - Undocumented member.
+-- 'associationType', 'associationSummary_associationType' - The type of the association.
 --
--- * 'assSourceARN' - The ARN of the source.
+-- 'createdBy', 'associationSummary_createdBy' - Undocumented member.
 --
--- * 'assSourceType' - The source type.
-associationSummary ::
+-- 'sourceArn', 'associationSummary_sourceArn' - The ARN of the source.
+--
+-- 'sourceType', 'associationSummary_sourceType' - The source type.
+newAssociationSummary ::
   AssociationSummary
-associationSummary =
+newAssociationSummary =
   AssociationSummary'
-    { _assDestinationType = Nothing,
-      _assCreationTime = Nothing,
-      _assDestinationARN = Nothing,
-      _assDestinationName = Nothing,
-      _assSourceName = Nothing,
-      _assAssociationType = Nothing,
-      _assCreatedBy = Nothing,
-      _assSourceARN = Nothing,
-      _assSourceType = Nothing
+    { destinationType =
+        Prelude.Nothing,
+      creationTime = Prelude.Nothing,
+      destinationArn = Prelude.Nothing,
+      destinationName = Prelude.Nothing,
+      sourceName = Prelude.Nothing,
+      associationType = Prelude.Nothing,
+      createdBy = Prelude.Nothing,
+      sourceArn = Prelude.Nothing,
+      sourceType = Prelude.Nothing
     }
 
 -- | The destination type.
-assDestinationType :: Lens' AssociationSummary (Maybe Text)
-assDestinationType = lens _assDestinationType (\s a -> s {_assDestinationType = a})
+associationSummary_destinationType :: Lens.Lens' AssociationSummary (Prelude.Maybe Prelude.Text)
+associationSummary_destinationType = Lens.lens (\AssociationSummary' {destinationType} -> destinationType) (\s@AssociationSummary' {} a -> s {destinationType = a} :: AssociationSummary)
 
 -- | When the association was created.
-assCreationTime :: Lens' AssociationSummary (Maybe UTCTime)
-assCreationTime = lens _assCreationTime (\s a -> s {_assCreationTime = a}) . mapping _Time
+associationSummary_creationTime :: Lens.Lens' AssociationSummary (Prelude.Maybe Prelude.UTCTime)
+associationSummary_creationTime = Lens.lens (\AssociationSummary' {creationTime} -> creationTime) (\s@AssociationSummary' {} a -> s {creationTime = a} :: AssociationSummary) Prelude.. Lens.mapping Prelude._Time
 
 -- | The Amazon Resource Name (ARN) of the destination.
-assDestinationARN :: Lens' AssociationSummary (Maybe Text)
-assDestinationARN = lens _assDestinationARN (\s a -> s {_assDestinationARN = a})
+associationSummary_destinationArn :: Lens.Lens' AssociationSummary (Prelude.Maybe Prelude.Text)
+associationSummary_destinationArn = Lens.lens (\AssociationSummary' {destinationArn} -> destinationArn) (\s@AssociationSummary' {} a -> s {destinationArn = a} :: AssociationSummary)
 
 -- | The name of the destination.
-assDestinationName :: Lens' AssociationSummary (Maybe Text)
-assDestinationName = lens _assDestinationName (\s a -> s {_assDestinationName = a})
+associationSummary_destinationName :: Lens.Lens' AssociationSummary (Prelude.Maybe Prelude.Text)
+associationSummary_destinationName = Lens.lens (\AssociationSummary' {destinationName} -> destinationName) (\s@AssociationSummary' {} a -> s {destinationName = a} :: AssociationSummary)
 
 -- | The name of the source.
-assSourceName :: Lens' AssociationSummary (Maybe Text)
-assSourceName = lens _assSourceName (\s a -> s {_assSourceName = a})
+associationSummary_sourceName :: Lens.Lens' AssociationSummary (Prelude.Maybe Prelude.Text)
+associationSummary_sourceName = Lens.lens (\AssociationSummary' {sourceName} -> sourceName) (\s@AssociationSummary' {} a -> s {sourceName = a} :: AssociationSummary)
 
 -- | The type of the association.
-assAssociationType :: Lens' AssociationSummary (Maybe AssociationEdgeType)
-assAssociationType = lens _assAssociationType (\s a -> s {_assAssociationType = a})
+associationSummary_associationType :: Lens.Lens' AssociationSummary (Prelude.Maybe AssociationEdgeType)
+associationSummary_associationType = Lens.lens (\AssociationSummary' {associationType} -> associationType) (\s@AssociationSummary' {} a -> s {associationType = a} :: AssociationSummary)
 
 -- | Undocumented member.
-assCreatedBy :: Lens' AssociationSummary (Maybe UserContext)
-assCreatedBy = lens _assCreatedBy (\s a -> s {_assCreatedBy = a})
+associationSummary_createdBy :: Lens.Lens' AssociationSummary (Prelude.Maybe UserContext)
+associationSummary_createdBy = Lens.lens (\AssociationSummary' {createdBy} -> createdBy) (\s@AssociationSummary' {} a -> s {createdBy = a} :: AssociationSummary)
 
 -- | The ARN of the source.
-assSourceARN :: Lens' AssociationSummary (Maybe Text)
-assSourceARN = lens _assSourceARN (\s a -> s {_assSourceARN = a})
+associationSummary_sourceArn :: Lens.Lens' AssociationSummary (Prelude.Maybe Prelude.Text)
+associationSummary_sourceArn = Lens.lens (\AssociationSummary' {sourceArn} -> sourceArn) (\s@AssociationSummary' {} a -> s {sourceArn = a} :: AssociationSummary)
 
 -- | The source type.
-assSourceType :: Lens' AssociationSummary (Maybe Text)
-assSourceType = lens _assSourceType (\s a -> s {_assSourceType = a})
+associationSummary_sourceType :: Lens.Lens' AssociationSummary (Prelude.Maybe Prelude.Text)
+associationSummary_sourceType = Lens.lens (\AssociationSummary' {sourceType} -> sourceType) (\s@AssociationSummary' {} a -> s {sourceType = a} :: AssociationSummary)
 
-instance FromJSON AssociationSummary where
+instance Prelude.FromJSON AssociationSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AssociationSummary"
       ( \x ->
           AssociationSummary'
-            <$> (x .:? "DestinationType")
-            <*> (x .:? "CreationTime")
-            <*> (x .:? "DestinationArn")
-            <*> (x .:? "DestinationName")
-            <*> (x .:? "SourceName")
-            <*> (x .:? "AssociationType")
-            <*> (x .:? "CreatedBy")
-            <*> (x .:? "SourceArn")
-            <*> (x .:? "SourceType")
+            Prelude.<$> (x Prelude..:? "DestinationType")
+            Prelude.<*> (x Prelude..:? "CreationTime")
+            Prelude.<*> (x Prelude..:? "DestinationArn")
+            Prelude.<*> (x Prelude..:? "DestinationName")
+            Prelude.<*> (x Prelude..:? "SourceName")
+            Prelude.<*> (x Prelude..:? "AssociationType")
+            Prelude.<*> (x Prelude..:? "CreatedBy")
+            Prelude.<*> (x Prelude..:? "SourceArn")
+            Prelude.<*> (x Prelude..:? "SourceType")
       )
 
-instance Hashable AssociationSummary
+instance Prelude.Hashable AssociationSummary
 
-instance NFData AssociationSummary
+instance Prelude.NFData AssociationSummary

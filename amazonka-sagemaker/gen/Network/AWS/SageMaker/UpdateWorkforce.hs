@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,168 +21,220 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Use this operation to update your workforce. You can use this operation to require that workers use specific IP addresses to work on tasks and to update your OpenID Connect (OIDC) Identity Provider (IdP) workforce configuration.
+-- Use this operation to update your workforce. You can use this operation
+-- to require that workers use specific IP addresses to work on tasks and
+-- to update your OpenID Connect (OIDC) Identity Provider (IdP) workforce
+-- configuration.
 --
+-- Use @SourceIpConfig@ to restrict worker access to tasks to a specific
+-- range of IP addresses. You specify allowed IP addresses by creating a
+-- list of up to ten
+-- <https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html CIDRs>.
+-- By default, a workforce isn\'t restricted to specific IP addresses. If
+-- you specify a range of IP addresses, workers who attempt to access tasks
+-- using any IP address outside the specified range are denied and get a
+-- @Not Found@ error message on the worker portal.
 --
--- Use @SourceIpConfig@ to restrict worker access to tasks to a specific range of IP addresses. You specify allowed IP addresses by creating a list of up to ten <https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html CIDRs> . By default, a workforce isn't restricted to specific IP addresses. If you specify a range of IP addresses, workers who attempt to access tasks using any IP address outside the specified range are denied and get a @Not Found@ error message on the worker portal.
+-- Use @OidcConfig@ to update the configuration of a workforce created
+-- using your own OIDC IdP.
 --
--- Use @OidcConfig@ to update the configuration of a workforce created using your own OIDC IdP.
+-- You can only update your OIDC IdP configuration when there are no work
+-- teams associated with your workforce. You can delete work teams using
+-- the operation.
 --
--- /Important:/ You can only update your OIDC IdP configuration when there are no work teams associated with your workforce. You can delete work teams using the operation.
+-- After restricting access to a range of IP addresses or updating your
+-- OIDC IdP configuration with this operation, you can view details about
+-- your update workforce using the operation.
 --
--- After restricting access to a range of IP addresses or updating your OIDC IdP configuration with this operation, you can view details about your update workforce using the operation.
---
--- /Important:/ This operation only applies to private workforces.
+-- This operation only applies to private workforces.
 module Network.AWS.SageMaker.UpdateWorkforce
   ( -- * Creating a Request
-    updateWorkforce,
-    UpdateWorkforce,
+    UpdateWorkforce (..),
+    newUpdateWorkforce,
 
     -- * Request Lenses
-    uwSourceIPConfig,
-    uwOidcConfig,
-    uwWorkforceName,
+    updateWorkforce_sourceIpConfig,
+    updateWorkforce_oidcConfig,
+    updateWorkforce_workforceName,
 
     -- * Destructuring the Response
-    updateWorkforceResponse,
-    UpdateWorkforceResponse,
+    UpdateWorkforceResponse (..),
+    newUpdateWorkforceResponse,
 
     -- * Response Lenses
-    uwrrsResponseStatus,
-    uwrrsWorkforce,
+    updateWorkforceResponse_httpStatus,
+    updateWorkforceResponse_workforce,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
+import Network.AWS.SageMaker.Types.Workforce
 
--- | /See:/ 'updateWorkforce' smart constructor.
+-- | /See:/ 'newUpdateWorkforce' smart constructor.
 data UpdateWorkforce = UpdateWorkforce'
-  { _uwSourceIPConfig ::
-      !(Maybe SourceIPConfig),
-    _uwOidcConfig :: !(Maybe OidcConfig),
-    _uwWorkforceName :: !Text
+  { -- | A list of one to ten worker IP address ranges
+    -- (<https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html CIDRs>)
+    -- that can be used to access tasks assigned to this workforce.
+    --
+    -- Maximum: Ten CIDR values
+    sourceIpConfig :: Prelude.Maybe SourceIpConfig,
+    -- | Use this parameter to update your OIDC Identity Provider (IdP)
+    -- configuration for a workforce made using your own IdP.
+    oidcConfig :: Prelude.Maybe OidcConfig,
+    -- | The name of the private workforce that you want to update. You can find
+    -- your workforce name by using the operation.
+    workforceName :: Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateWorkforce' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateWorkforce' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uwSourceIPConfig' - A list of one to ten worker IP address ranges (<https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html CIDRs> ) that can be used to access tasks assigned to this workforce. Maximum: Ten CIDR values
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uwOidcConfig' - Use this parameter to update your OIDC Identity Provider (IdP) configuration for a workforce made using your own IdP.
+-- 'sourceIpConfig', 'updateWorkforce_sourceIpConfig' - A list of one to ten worker IP address ranges
+-- (<https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html CIDRs>)
+-- that can be used to access tasks assigned to this workforce.
 --
--- * 'uwWorkforceName' - The name of the private workforce that you want to update. You can find your workforce name by using the operation.
-updateWorkforce ::
-  -- | 'uwWorkforceName'
-  Text ->
+-- Maximum: Ten CIDR values
+--
+-- 'oidcConfig', 'updateWorkforce_oidcConfig' - Use this parameter to update your OIDC Identity Provider (IdP)
+-- configuration for a workforce made using your own IdP.
+--
+-- 'workforceName', 'updateWorkforce_workforceName' - The name of the private workforce that you want to update. You can find
+-- your workforce name by using the operation.
+newUpdateWorkforce ::
+  -- | 'workforceName'
+  Prelude.Text ->
   UpdateWorkforce
-updateWorkforce pWorkforceName_ =
+newUpdateWorkforce pWorkforceName_ =
   UpdateWorkforce'
-    { _uwSourceIPConfig = Nothing,
-      _uwOidcConfig = Nothing,
-      _uwWorkforceName = pWorkforceName_
+    { sourceIpConfig = Prelude.Nothing,
+      oidcConfig = Prelude.Nothing,
+      workforceName = pWorkforceName_
     }
 
--- | A list of one to ten worker IP address ranges (<https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html CIDRs> ) that can be used to access tasks assigned to this workforce. Maximum: Ten CIDR values
-uwSourceIPConfig :: Lens' UpdateWorkforce (Maybe SourceIPConfig)
-uwSourceIPConfig = lens _uwSourceIPConfig (\s a -> s {_uwSourceIPConfig = a})
+-- | A list of one to ten worker IP address ranges
+-- (<https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html CIDRs>)
+-- that can be used to access tasks assigned to this workforce.
+--
+-- Maximum: Ten CIDR values
+updateWorkforce_sourceIpConfig :: Lens.Lens' UpdateWorkforce (Prelude.Maybe SourceIpConfig)
+updateWorkforce_sourceIpConfig = Lens.lens (\UpdateWorkforce' {sourceIpConfig} -> sourceIpConfig) (\s@UpdateWorkforce' {} a -> s {sourceIpConfig = a} :: UpdateWorkforce)
 
--- | Use this parameter to update your OIDC Identity Provider (IdP) configuration for a workforce made using your own IdP.
-uwOidcConfig :: Lens' UpdateWorkforce (Maybe OidcConfig)
-uwOidcConfig = lens _uwOidcConfig (\s a -> s {_uwOidcConfig = a})
+-- | Use this parameter to update your OIDC Identity Provider (IdP)
+-- configuration for a workforce made using your own IdP.
+updateWorkforce_oidcConfig :: Lens.Lens' UpdateWorkforce (Prelude.Maybe OidcConfig)
+updateWorkforce_oidcConfig = Lens.lens (\UpdateWorkforce' {oidcConfig} -> oidcConfig) (\s@UpdateWorkforce' {} a -> s {oidcConfig = a} :: UpdateWorkforce)
 
--- | The name of the private workforce that you want to update. You can find your workforce name by using the operation.
-uwWorkforceName :: Lens' UpdateWorkforce Text
-uwWorkforceName = lens _uwWorkforceName (\s a -> s {_uwWorkforceName = a})
+-- | The name of the private workforce that you want to update. You can find
+-- your workforce name by using the operation.
+updateWorkforce_workforceName :: Lens.Lens' UpdateWorkforce Prelude.Text
+updateWorkforce_workforceName = Lens.lens (\UpdateWorkforce' {workforceName} -> workforceName) (\s@UpdateWorkforce' {} a -> s {workforceName = a} :: UpdateWorkforce)
 
-instance AWSRequest UpdateWorkforce where
+instance Prelude.AWSRequest UpdateWorkforce where
   type Rs UpdateWorkforce = UpdateWorkforceResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateWorkforceResponse'
-            <$> (pure (fromEnum s)) <*> (x .:> "Workforce")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "Workforce")
       )
 
-instance Hashable UpdateWorkforce
+instance Prelude.Hashable UpdateWorkforce
 
-instance NFData UpdateWorkforce
+instance Prelude.NFData UpdateWorkforce
 
-instance ToHeaders UpdateWorkforce where
+instance Prelude.ToHeaders UpdateWorkforce where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.UpdateWorkforce" :: ByteString),
+              Prelude.=# ("SageMaker.UpdateWorkforce" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateWorkforce where
+instance Prelude.ToJSON UpdateWorkforce where
   toJSON UpdateWorkforce' {..} =
-    object
-      ( catMaybes
-          [ ("SourceIpConfig" .=) <$> _uwSourceIPConfig,
-            ("OidcConfig" .=) <$> _uwOidcConfig,
-            Just ("WorkforceName" .= _uwWorkforceName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("SourceIpConfig" Prelude..=)
+              Prelude.<$> sourceIpConfig,
+            ("OidcConfig" Prelude..=) Prelude.<$> oidcConfig,
+            Prelude.Just
+              ("WorkforceName" Prelude..= workforceName)
           ]
       )
 
-instance ToPath UpdateWorkforce where
-  toPath = const "/"
+instance Prelude.ToPath UpdateWorkforce where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateWorkforce where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateWorkforce where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateWorkforceResponse' smart constructor.
+-- | /See:/ 'newUpdateWorkforceResponse' smart constructor.
 data UpdateWorkforceResponse = UpdateWorkforceResponse'
-  { _uwrrsResponseStatus ::
-      !Int,
-    _uwrrsWorkforce ::
-      !Workforce
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | A single private workforce. You can create one private work force in
+    -- each AWS Region. By default, any workforce-related API operation used in
+    -- a specific region will apply to the workforce created in that region. To
+    -- learn how to create a private workforce, see
+    -- <https://docs.aws.amazon.com/sagemaker/latest/dg/sms-workforce-create-private.html Create a Private Workforce>.
+    workforce :: Workforce
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateWorkforceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateWorkforceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uwrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uwrrsWorkforce' - A single private workforce. You can create one private work force in each AWS Region. By default, any workforce-related API operation used in a specific region will apply to the workforce created in that region. To learn how to create a private workforce, see <https://docs.aws.amazon.com/sagemaker/latest/dg/sms-workforce-create-private.html Create a Private Workforce> .
-updateWorkforceResponse ::
-  -- | 'uwrrsResponseStatus'
-  Int ->
-  -- | 'uwrrsWorkforce'
+-- 'httpStatus', 'updateWorkforceResponse_httpStatus' - The response's http status code.
+--
+-- 'workforce', 'updateWorkforceResponse_workforce' - A single private workforce. You can create one private work force in
+-- each AWS Region. By default, any workforce-related API operation used in
+-- a specific region will apply to the workforce created in that region. To
+-- learn how to create a private workforce, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/sms-workforce-create-private.html Create a Private Workforce>.
+newUpdateWorkforceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'workforce'
   Workforce ->
   UpdateWorkforceResponse
-updateWorkforceResponse pResponseStatus_ pWorkforce_ =
+newUpdateWorkforceResponse pHttpStatus_ pWorkforce_ =
   UpdateWorkforceResponse'
-    { _uwrrsResponseStatus =
-        pResponseStatus_,
-      _uwrrsWorkforce = pWorkforce_
+    { httpStatus = pHttpStatus_,
+      workforce = pWorkforce_
     }
 
--- | -- | The response status code.
-uwrrsResponseStatus :: Lens' UpdateWorkforceResponse Int
-uwrrsResponseStatus = lens _uwrrsResponseStatus (\s a -> s {_uwrrsResponseStatus = a})
+-- | The response's http status code.
+updateWorkforceResponse_httpStatus :: Lens.Lens' UpdateWorkforceResponse Prelude.Int
+updateWorkforceResponse_httpStatus = Lens.lens (\UpdateWorkforceResponse' {httpStatus} -> httpStatus) (\s@UpdateWorkforceResponse' {} a -> s {httpStatus = a} :: UpdateWorkforceResponse)
 
--- | A single private workforce. You can create one private work force in each AWS Region. By default, any workforce-related API operation used in a specific region will apply to the workforce created in that region. To learn how to create a private workforce, see <https://docs.aws.amazon.com/sagemaker/latest/dg/sms-workforce-create-private.html Create a Private Workforce> .
-uwrrsWorkforce :: Lens' UpdateWorkforceResponse Workforce
-uwrrsWorkforce = lens _uwrrsWorkforce (\s a -> s {_uwrrsWorkforce = a})
+-- | A single private workforce. You can create one private work force in
+-- each AWS Region. By default, any workforce-related API operation used in
+-- a specific region will apply to the workforce created in that region. To
+-- learn how to create a private workforce, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/sms-workforce-create-private.html Create a Private Workforce>.
+updateWorkforceResponse_workforce :: Lens.Lens' UpdateWorkforceResponse Workforce
+updateWorkforceResponse_workforce = Lens.lens (\UpdateWorkforceResponse' {workforce} -> workforce) (\s@UpdateWorkforceResponse' {} a -> s {workforce = a} :: UpdateWorkforceResponse)
 
-instance NFData UpdateWorkforceResponse
+instance Prelude.NFData UpdateWorkforceResponse

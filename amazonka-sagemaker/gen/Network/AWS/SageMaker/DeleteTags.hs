@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,137 +23,145 @@
 --
 -- Deletes the specified tags from an Amazon SageMaker resource.
 --
+-- To list a resource\'s tags, use the @ListTags@ API.
 --
--- To list a resource's tags, use the @ListTags@ API.
+-- When you call this API to delete tags from a hyperparameter tuning job,
+-- the deleted tags are not removed from training jobs that the
+-- hyperparameter tuning job launched before you called this API.
 module Network.AWS.SageMaker.DeleteTags
   ( -- * Creating a Request
-    deleteTags,
-    DeleteTags,
+    DeleteTags (..),
+    newDeleteTags,
 
     -- * Request Lenses
-    dtResourceARN,
-    dtTagKeys,
+    deleteTags_resourceArn,
+    deleteTags_tagKeys,
 
     -- * Destructuring the Response
-    deleteTagsResponse,
-    DeleteTagsResponse,
+    DeleteTagsResponse (..),
+    newDeleteTagsResponse,
 
     -- * Response Lenses
-    dtrrsResponseStatus,
+    deleteTagsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'deleteTags' smart constructor.
+-- | /See:/ 'newDeleteTags' smart constructor.
 data DeleteTags = DeleteTags'
-  { _dtResourceARN ::
-      !Text,
-    _dtTagKeys :: !(List1 Text)
+  { -- | The Amazon Resource Name (ARN) of the resource whose tags you want to
+    -- delete.
+    resourceArn :: Prelude.Text,
+    -- | An array or one or more tag keys to delete.
+    tagKeys :: Prelude.List1 Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteTags' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteTags' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtResourceARN' - The Amazon Resource Name (ARN) of the resource whose tags you want to delete.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtTagKeys' - An array or one or more tag keys to delete.
-deleteTags ::
-  -- | 'dtResourceARN'
-  Text ->
-  -- | 'dtTagKeys'
-  NonEmpty Text ->
+-- 'resourceArn', 'deleteTags_resourceArn' - The Amazon Resource Name (ARN) of the resource whose tags you want to
+-- delete.
+--
+-- 'tagKeys', 'deleteTags_tagKeys' - An array or one or more tag keys to delete.
+newDeleteTags ::
+  -- | 'resourceArn'
+  Prelude.Text ->
+  -- | 'tagKeys'
+  Prelude.NonEmpty Prelude.Text ->
   DeleteTags
-deleteTags pResourceARN_ pTagKeys_ =
+newDeleteTags pResourceArn_ pTagKeys_ =
   DeleteTags'
-    { _dtResourceARN = pResourceARN_,
-      _dtTagKeys = _List1 # pTagKeys_
+    { resourceArn = pResourceArn_,
+      tagKeys = Prelude._List1 Lens.# pTagKeys_
     }
 
--- | The Amazon Resource Name (ARN) of the resource whose tags you want to delete.
-dtResourceARN :: Lens' DeleteTags Text
-dtResourceARN = lens _dtResourceARN (\s a -> s {_dtResourceARN = a})
+-- | The Amazon Resource Name (ARN) of the resource whose tags you want to
+-- delete.
+deleteTags_resourceArn :: Lens.Lens' DeleteTags Prelude.Text
+deleteTags_resourceArn = Lens.lens (\DeleteTags' {resourceArn} -> resourceArn) (\s@DeleteTags' {} a -> s {resourceArn = a} :: DeleteTags)
 
 -- | An array or one or more tag keys to delete.
-dtTagKeys :: Lens' DeleteTags (NonEmpty Text)
-dtTagKeys = lens _dtTagKeys (\s a -> s {_dtTagKeys = a}) . _List1
+deleteTags_tagKeys :: Lens.Lens' DeleteTags (Prelude.NonEmpty Prelude.Text)
+deleteTags_tagKeys = Lens.lens (\DeleteTags' {tagKeys} -> tagKeys) (\s@DeleteTags' {} a -> s {tagKeys = a} :: DeleteTags) Prelude.. Prelude._List1
 
-instance AWSRequest DeleteTags where
+instance Prelude.AWSRequest DeleteTags where
   type Rs DeleteTags = DeleteTagsResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          DeleteTagsResponse' <$> (pure (fromEnum s))
+          DeleteTagsResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteTags
+instance Prelude.Hashable DeleteTags
 
-instance NFData DeleteTags
+instance Prelude.NFData DeleteTags
 
-instance ToHeaders DeleteTags where
+instance Prelude.ToHeaders DeleteTags where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.DeleteTags" :: ByteString),
+              Prelude.=# ("SageMaker.DeleteTags" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteTags where
+instance Prelude.ToJSON DeleteTags where
   toJSON DeleteTags' {..} =
-    object
-      ( catMaybes
-          [ Just ("ResourceArn" .= _dtResourceARN),
-            Just ("TagKeys" .= _dtTagKeys)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("ResourceArn" Prelude..= resourceArn),
+            Prelude.Just ("TagKeys" Prelude..= tagKeys)
           ]
       )
 
-instance ToPath DeleteTags where
-  toPath = const "/"
+instance Prelude.ToPath DeleteTags where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteTags where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteTags where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteTagsResponse' smart constructor.
-newtype DeleteTagsResponse = DeleteTagsResponse'
-  { _dtrrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteTagsResponse' smart constructor.
+data DeleteTagsResponse = DeleteTagsResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteTagsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteTagsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtrrsResponseStatus' - -- | The response status code.
-deleteTagsResponse ::
-  -- | 'dtrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteTagsResponse_httpStatus' - The response's http status code.
+newDeleteTagsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteTagsResponse
-deleteTagsResponse pResponseStatus_ =
-  DeleteTagsResponse'
-    { _dtrrsResponseStatus =
-        pResponseStatus_
-    }
+newDeleteTagsResponse pHttpStatus_ =
+  DeleteTagsResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-dtrrsResponseStatus :: Lens' DeleteTagsResponse Int
-dtrrsResponseStatus = lens _dtrrsResponseStatus (\s a -> s {_dtrrsResponseStatus = a})
+-- | The response's http status code.
+deleteTagsResponse_httpStatus :: Lens.Lens' DeleteTagsResponse Prelude.Int
+deleteTagsResponse_httpStatus = Lens.lens (\DeleteTagsResponse' {httpStatus} -> httpStatus) (\s@DeleteTagsResponse' {} a -> s {httpStatus = a} :: DeleteTagsResponse)
 
-instance NFData DeleteTagsResponse
+instance Prelude.NFData DeleteTagsResponse

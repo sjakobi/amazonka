@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,70 +19,68 @@
 module Network.AWS.SageMaker.Types.AssociationEdgeType
   ( AssociationEdgeType
       ( ..,
-        AssociatedWith,
-        ContributedTo,
-        DerivedFrom,
-        Produced
+        AssociationEdgeTypeAssociatedWith,
+        AssociationEdgeTypeContributedTo,
+        AssociationEdgeTypeDerivedFrom,
+        AssociationEdgeTypeProduced
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AssociationEdgeType
-  = AssociationEdgeType'
-      ( CI
-          Text
-      )
+newtype AssociationEdgeType = AssociationEdgeType'
+  { fromAssociationEdgeType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AssociatedWith :: AssociationEdgeType
-pattern AssociatedWith = AssociationEdgeType' "AssociatedWith"
+pattern AssociationEdgeTypeAssociatedWith :: AssociationEdgeType
+pattern AssociationEdgeTypeAssociatedWith = AssociationEdgeType' "AssociatedWith"
 
-pattern ContributedTo :: AssociationEdgeType
-pattern ContributedTo = AssociationEdgeType' "ContributedTo"
+pattern AssociationEdgeTypeContributedTo :: AssociationEdgeType
+pattern AssociationEdgeTypeContributedTo = AssociationEdgeType' "ContributedTo"
 
-pattern DerivedFrom :: AssociationEdgeType
-pattern DerivedFrom = AssociationEdgeType' "DerivedFrom"
+pattern AssociationEdgeTypeDerivedFrom :: AssociationEdgeType
+pattern AssociationEdgeTypeDerivedFrom = AssociationEdgeType' "DerivedFrom"
 
-pattern Produced :: AssociationEdgeType
-pattern Produced = AssociationEdgeType' "Produced"
+pattern AssociationEdgeTypeProduced :: AssociationEdgeType
+pattern AssociationEdgeTypeProduced = AssociationEdgeType' "Produced"
 
 {-# COMPLETE
-  AssociatedWith,
-  ContributedTo,
-  DerivedFrom,
-  Produced,
+  AssociationEdgeTypeAssociatedWith,
+  AssociationEdgeTypeContributedTo,
+  AssociationEdgeTypeDerivedFrom,
+  AssociationEdgeTypeProduced,
   AssociationEdgeType'
   #-}
 
-instance FromText AssociationEdgeType where
-  parser = (AssociationEdgeType' . mk) <$> takeText
+instance Prelude.FromText AssociationEdgeType where
+  parser = AssociationEdgeType' Prelude.<$> Prelude.takeText
 
-instance ToText AssociationEdgeType where
-  toText (AssociationEdgeType' ci) = original ci
+instance Prelude.ToText AssociationEdgeType where
+  toText (AssociationEdgeType' x) = x
 
-instance Hashable AssociationEdgeType
+instance Prelude.Hashable AssociationEdgeType
 
-instance NFData AssociationEdgeType
+instance Prelude.NFData AssociationEdgeType
 
-instance ToByteString AssociationEdgeType
+instance Prelude.ToByteString AssociationEdgeType
 
-instance ToQuery AssociationEdgeType
+instance Prelude.ToQuery AssociationEdgeType
 
-instance ToHeader AssociationEdgeType
+instance Prelude.ToHeader AssociationEdgeType
 
-instance ToJSON AssociationEdgeType where
-  toJSON = toJSONText
+instance Prelude.ToJSON AssociationEdgeType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AssociationEdgeType where
-  parseJSON = parseJSONText "AssociationEdgeType"
+instance Prelude.FromJSON AssociationEdgeType where
+  parseJSON = Prelude.parseJSONText "AssociationEdgeType"

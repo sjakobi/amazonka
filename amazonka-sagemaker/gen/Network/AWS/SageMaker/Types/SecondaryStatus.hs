@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,118 +19,120 @@
 module Network.AWS.SageMaker.Types.SecondaryStatus
   ( SecondaryStatus
       ( ..,
-        SCompleted,
-        SDownloading,
-        SDownloadingTrainingImage,
-        SFailed,
-        SInterrupted,
-        SLaunchingMLInstances,
-        SMaxRuntimeExceeded,
-        SMaxWaitTimeExceeded,
-        SPreparingTrainingStack,
-        SStarting,
-        SStopped,
-        SStopping,
-        STraining,
-        SUpdating,
-        SUploading
+        SecondaryStatusCompleted,
+        SecondaryStatusDownloading,
+        SecondaryStatusDownloadingTrainingImage,
+        SecondaryStatusFailed,
+        SecondaryStatusInterrupted,
+        SecondaryStatusLaunchingMLInstances,
+        SecondaryStatusMaxRuntimeExceeded,
+        SecondaryStatusMaxWaitTimeExceeded,
+        SecondaryStatusPreparingTrainingStack,
+        SecondaryStatusStarting,
+        SecondaryStatusStopped,
+        SecondaryStatusStopping,
+        SecondaryStatusTraining,
+        SecondaryStatusUpdating,
+        SecondaryStatusUploading
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SecondaryStatus = SecondaryStatus' (CI Text)
+newtype SecondaryStatus = SecondaryStatus'
+  { fromSecondaryStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SCompleted :: SecondaryStatus
-pattern SCompleted = SecondaryStatus' "Completed"
+pattern SecondaryStatusCompleted :: SecondaryStatus
+pattern SecondaryStatusCompleted = SecondaryStatus' "Completed"
 
-pattern SDownloading :: SecondaryStatus
-pattern SDownloading = SecondaryStatus' "Downloading"
+pattern SecondaryStatusDownloading :: SecondaryStatus
+pattern SecondaryStatusDownloading = SecondaryStatus' "Downloading"
 
-pattern SDownloadingTrainingImage :: SecondaryStatus
-pattern SDownloadingTrainingImage = SecondaryStatus' "DownloadingTrainingImage"
+pattern SecondaryStatusDownloadingTrainingImage :: SecondaryStatus
+pattern SecondaryStatusDownloadingTrainingImage = SecondaryStatus' "DownloadingTrainingImage"
 
-pattern SFailed :: SecondaryStatus
-pattern SFailed = SecondaryStatus' "Failed"
+pattern SecondaryStatusFailed :: SecondaryStatus
+pattern SecondaryStatusFailed = SecondaryStatus' "Failed"
 
-pattern SInterrupted :: SecondaryStatus
-pattern SInterrupted = SecondaryStatus' "Interrupted"
+pattern SecondaryStatusInterrupted :: SecondaryStatus
+pattern SecondaryStatusInterrupted = SecondaryStatus' "Interrupted"
 
-pattern SLaunchingMLInstances :: SecondaryStatus
-pattern SLaunchingMLInstances = SecondaryStatus' "LaunchingMLInstances"
+pattern SecondaryStatusLaunchingMLInstances :: SecondaryStatus
+pattern SecondaryStatusLaunchingMLInstances = SecondaryStatus' "LaunchingMLInstances"
 
-pattern SMaxRuntimeExceeded :: SecondaryStatus
-pattern SMaxRuntimeExceeded = SecondaryStatus' "MaxRuntimeExceeded"
+pattern SecondaryStatusMaxRuntimeExceeded :: SecondaryStatus
+pattern SecondaryStatusMaxRuntimeExceeded = SecondaryStatus' "MaxRuntimeExceeded"
 
-pattern SMaxWaitTimeExceeded :: SecondaryStatus
-pattern SMaxWaitTimeExceeded = SecondaryStatus' "MaxWaitTimeExceeded"
+pattern SecondaryStatusMaxWaitTimeExceeded :: SecondaryStatus
+pattern SecondaryStatusMaxWaitTimeExceeded = SecondaryStatus' "MaxWaitTimeExceeded"
 
-pattern SPreparingTrainingStack :: SecondaryStatus
-pattern SPreparingTrainingStack = SecondaryStatus' "PreparingTrainingStack"
+pattern SecondaryStatusPreparingTrainingStack :: SecondaryStatus
+pattern SecondaryStatusPreparingTrainingStack = SecondaryStatus' "PreparingTrainingStack"
 
-pattern SStarting :: SecondaryStatus
-pattern SStarting = SecondaryStatus' "Starting"
+pattern SecondaryStatusStarting :: SecondaryStatus
+pattern SecondaryStatusStarting = SecondaryStatus' "Starting"
 
-pattern SStopped :: SecondaryStatus
-pattern SStopped = SecondaryStatus' "Stopped"
+pattern SecondaryStatusStopped :: SecondaryStatus
+pattern SecondaryStatusStopped = SecondaryStatus' "Stopped"
 
-pattern SStopping :: SecondaryStatus
-pattern SStopping = SecondaryStatus' "Stopping"
+pattern SecondaryStatusStopping :: SecondaryStatus
+pattern SecondaryStatusStopping = SecondaryStatus' "Stopping"
 
-pattern STraining :: SecondaryStatus
-pattern STraining = SecondaryStatus' "Training"
+pattern SecondaryStatusTraining :: SecondaryStatus
+pattern SecondaryStatusTraining = SecondaryStatus' "Training"
 
-pattern SUpdating :: SecondaryStatus
-pattern SUpdating = SecondaryStatus' "Updating"
+pattern SecondaryStatusUpdating :: SecondaryStatus
+pattern SecondaryStatusUpdating = SecondaryStatus' "Updating"
 
-pattern SUploading :: SecondaryStatus
-pattern SUploading = SecondaryStatus' "Uploading"
+pattern SecondaryStatusUploading :: SecondaryStatus
+pattern SecondaryStatusUploading = SecondaryStatus' "Uploading"
 
 {-# COMPLETE
-  SCompleted,
-  SDownloading,
-  SDownloadingTrainingImage,
-  SFailed,
-  SInterrupted,
-  SLaunchingMLInstances,
-  SMaxRuntimeExceeded,
-  SMaxWaitTimeExceeded,
-  SPreparingTrainingStack,
-  SStarting,
-  SStopped,
-  SStopping,
-  STraining,
-  SUpdating,
-  SUploading,
+  SecondaryStatusCompleted,
+  SecondaryStatusDownloading,
+  SecondaryStatusDownloadingTrainingImage,
+  SecondaryStatusFailed,
+  SecondaryStatusInterrupted,
+  SecondaryStatusLaunchingMLInstances,
+  SecondaryStatusMaxRuntimeExceeded,
+  SecondaryStatusMaxWaitTimeExceeded,
+  SecondaryStatusPreparingTrainingStack,
+  SecondaryStatusStarting,
+  SecondaryStatusStopped,
+  SecondaryStatusStopping,
+  SecondaryStatusTraining,
+  SecondaryStatusUpdating,
+  SecondaryStatusUploading,
   SecondaryStatus'
   #-}
 
-instance FromText SecondaryStatus where
-  parser = (SecondaryStatus' . mk) <$> takeText
+instance Prelude.FromText SecondaryStatus where
+  parser = SecondaryStatus' Prelude.<$> Prelude.takeText
 
-instance ToText SecondaryStatus where
-  toText (SecondaryStatus' ci) = original ci
+instance Prelude.ToText SecondaryStatus where
+  toText (SecondaryStatus' x) = x
 
-instance Hashable SecondaryStatus
+instance Prelude.Hashable SecondaryStatus
 
-instance NFData SecondaryStatus
+instance Prelude.NFData SecondaryStatus
 
-instance ToByteString SecondaryStatus
+instance Prelude.ToByteString SecondaryStatus
 
-instance ToQuery SecondaryStatus
+instance Prelude.ToQuery SecondaryStatus
 
-instance ToHeader SecondaryStatus
+instance Prelude.ToHeader SecondaryStatus
 
-instance FromJSON SecondaryStatus where
-  parseJSON = parseJSONText "SecondaryStatus"
+instance Prelude.FromJSON SecondaryStatus where
+  parseJSON = Prelude.parseJSONText "SecondaryStatus"

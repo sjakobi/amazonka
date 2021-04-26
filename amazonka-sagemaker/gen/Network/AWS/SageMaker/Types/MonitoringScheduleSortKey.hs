@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.SageMaker.Types.MonitoringScheduleSortKey
   ( MonitoringScheduleSortKey
       ( ..,
-        MSSKCreationTime,
-        MSSKName,
-        MSSKStatus
+        MonitoringScheduleSortKeyCreationTime,
+        MonitoringScheduleSortKeyName,
+        MonitoringScheduleSortKeyStatus'
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data MonitoringScheduleSortKey
-  = MonitoringScheduleSortKey'
-      ( CI
-          Text
-      )
+newtype MonitoringScheduleSortKey = MonitoringScheduleSortKey'
+  { fromMonitoringScheduleSortKey ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MSSKCreationTime :: MonitoringScheduleSortKey
-pattern MSSKCreationTime = MonitoringScheduleSortKey' "CreationTime"
+pattern MonitoringScheduleSortKeyCreationTime :: MonitoringScheduleSortKey
+pattern MonitoringScheduleSortKeyCreationTime = MonitoringScheduleSortKey' "CreationTime"
 
-pattern MSSKName :: MonitoringScheduleSortKey
-pattern MSSKName = MonitoringScheduleSortKey' "Name"
+pattern MonitoringScheduleSortKeyName :: MonitoringScheduleSortKey
+pattern MonitoringScheduleSortKeyName = MonitoringScheduleSortKey' "Name"
 
-pattern MSSKStatus :: MonitoringScheduleSortKey
-pattern MSSKStatus = MonitoringScheduleSortKey' "Status"
+pattern MonitoringScheduleSortKeyStatus' :: MonitoringScheduleSortKey
+pattern MonitoringScheduleSortKeyStatus' = MonitoringScheduleSortKey' "Status"
 
 {-# COMPLETE
-  MSSKCreationTime,
-  MSSKName,
-  MSSKStatus,
+  MonitoringScheduleSortKeyCreationTime,
+  MonitoringScheduleSortKeyName,
+  MonitoringScheduleSortKeyStatus',
   MonitoringScheduleSortKey'
   #-}
 
-instance FromText MonitoringScheduleSortKey where
-  parser = (MonitoringScheduleSortKey' . mk) <$> takeText
+instance Prelude.FromText MonitoringScheduleSortKey where
+  parser = MonitoringScheduleSortKey' Prelude.<$> Prelude.takeText
 
-instance ToText MonitoringScheduleSortKey where
-  toText (MonitoringScheduleSortKey' ci) = original ci
+instance Prelude.ToText MonitoringScheduleSortKey where
+  toText (MonitoringScheduleSortKey' x) = x
 
-instance Hashable MonitoringScheduleSortKey
+instance Prelude.Hashable MonitoringScheduleSortKey
 
-instance NFData MonitoringScheduleSortKey
+instance Prelude.NFData MonitoringScheduleSortKey
 
-instance ToByteString MonitoringScheduleSortKey
+instance Prelude.ToByteString MonitoringScheduleSortKey
 
-instance ToQuery MonitoringScheduleSortKey
+instance Prelude.ToQuery MonitoringScheduleSortKey
 
-instance ToHeader MonitoringScheduleSortKey
+instance Prelude.ToHeader MonitoringScheduleSortKey
 
-instance ToJSON MonitoringScheduleSortKey where
-  toJSON = toJSONText
+instance Prelude.ToJSON MonitoringScheduleSortKey where
+  toJSON = Prelude.toJSONText

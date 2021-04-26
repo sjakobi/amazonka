@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.SageMaker.Types.SortPipelinesBy
   ( SortPipelinesBy
       ( ..,
-        SPBCreationTime,
-        SPBName
+        SortPipelinesByCreationTime,
+        SortPipelinesByName
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SortPipelinesBy = SortPipelinesBy' (CI Text)
+newtype SortPipelinesBy = SortPipelinesBy'
+  { fromSortPipelinesBy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SPBCreationTime :: SortPipelinesBy
-pattern SPBCreationTime = SortPipelinesBy' "CreationTime"
+pattern SortPipelinesByCreationTime :: SortPipelinesBy
+pattern SortPipelinesByCreationTime = SortPipelinesBy' "CreationTime"
 
-pattern SPBName :: SortPipelinesBy
-pattern SPBName = SortPipelinesBy' "Name"
+pattern SortPipelinesByName :: SortPipelinesBy
+pattern SortPipelinesByName = SortPipelinesBy' "Name"
 
 {-# COMPLETE
-  SPBCreationTime,
-  SPBName,
+  SortPipelinesByCreationTime,
+  SortPipelinesByName,
   SortPipelinesBy'
   #-}
 
-instance FromText SortPipelinesBy where
-  parser = (SortPipelinesBy' . mk) <$> takeText
+instance Prelude.FromText SortPipelinesBy where
+  parser = SortPipelinesBy' Prelude.<$> Prelude.takeText
 
-instance ToText SortPipelinesBy where
-  toText (SortPipelinesBy' ci) = original ci
+instance Prelude.ToText SortPipelinesBy where
+  toText (SortPipelinesBy' x) = x
 
-instance Hashable SortPipelinesBy
+instance Prelude.Hashable SortPipelinesBy
 
-instance NFData SortPipelinesBy
+instance Prelude.NFData SortPipelinesBy
 
-instance ToByteString SortPipelinesBy
+instance Prelude.ToByteString SortPipelinesBy
 
-instance ToQuery SortPipelinesBy
+instance Prelude.ToQuery SortPipelinesBy
 
-instance ToHeader SortPipelinesBy
+instance Prelude.ToHeader SortPipelinesBy
 
-instance ToJSON SortPipelinesBy where
-  toJSON = toJSONText
+instance Prelude.ToJSON SortPipelinesBy where
+  toJSON = Prelude.toJSONText

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.SageMaker.Types.TrainingInputMode
   ( TrainingInputMode
       ( ..,
-        File,
-        Pipe
+        TrainingInputModeFile,
+        TrainingInputModePipe
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TrainingInputMode = TrainingInputMode' (CI Text)
+newtype TrainingInputMode = TrainingInputMode'
+  { fromTrainingInputMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern File :: TrainingInputMode
-pattern File = TrainingInputMode' "File"
+pattern TrainingInputModeFile :: TrainingInputMode
+pattern TrainingInputModeFile = TrainingInputMode' "File"
 
-pattern Pipe :: TrainingInputMode
-pattern Pipe = TrainingInputMode' "Pipe"
+pattern TrainingInputModePipe :: TrainingInputMode
+pattern TrainingInputModePipe = TrainingInputMode' "Pipe"
 
 {-# COMPLETE
-  File,
-  Pipe,
+  TrainingInputModeFile,
+  TrainingInputModePipe,
   TrainingInputMode'
   #-}
 
-instance FromText TrainingInputMode where
-  parser = (TrainingInputMode' . mk) <$> takeText
+instance Prelude.FromText TrainingInputMode where
+  parser = TrainingInputMode' Prelude.<$> Prelude.takeText
 
-instance ToText TrainingInputMode where
-  toText (TrainingInputMode' ci) = original ci
+instance Prelude.ToText TrainingInputMode where
+  toText (TrainingInputMode' x) = x
 
-instance Hashable TrainingInputMode
+instance Prelude.Hashable TrainingInputMode
 
-instance NFData TrainingInputMode
+instance Prelude.NFData TrainingInputMode
 
-instance ToByteString TrainingInputMode
+instance Prelude.ToByteString TrainingInputMode
 
-instance ToQuery TrainingInputMode
+instance Prelude.ToQuery TrainingInputMode
 
-instance ToHeader TrainingInputMode
+instance Prelude.ToHeader TrainingInputMode
 
-instance ToJSON TrainingInputMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON TrainingInputMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON TrainingInputMode where
-  parseJSON = parseJSONText "TrainingInputMode"
+instance Prelude.FromJSON TrainingInputMode where
+  parseJSON = Prelude.parseJSONText "TrainingInputMode"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,77 +19,72 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.LabelingJobInputConfig where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.LabelingJobDataAttributes
 import Network.AWS.SageMaker.Types.LabelingJobDataSource
 
 -- | Input configuration information for a labeling job.
 --
---
---
--- /See:/ 'labelingJobInputConfig' smart constructor.
+-- /See:/ 'newLabelingJobInputConfig' smart constructor.
 data LabelingJobInputConfig = LabelingJobInputConfig'
-  { _ljicDataAttributes ::
-      !( Maybe
-           LabelingJobDataAttributes
-       ),
-    _ljicDataSource ::
-      !LabelingJobDataSource
+  { -- | Attributes of the data specified by the customer.
+    dataAttributes :: Prelude.Maybe LabelingJobDataAttributes,
+    -- | The location of the input data.
+    dataSource :: LabelingJobDataSource
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LabelingJobInputConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LabelingJobInputConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ljicDataAttributes' - Attributes of the data specified by the customer.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ljicDataSource' - The location of the input data.
-labelingJobInputConfig ::
-  -- | 'ljicDataSource'
+-- 'dataAttributes', 'labelingJobInputConfig_dataAttributes' - Attributes of the data specified by the customer.
+--
+-- 'dataSource', 'labelingJobInputConfig_dataSource' - The location of the input data.
+newLabelingJobInputConfig ::
+  -- | 'dataSource'
   LabelingJobDataSource ->
   LabelingJobInputConfig
-labelingJobInputConfig pDataSource_ =
+newLabelingJobInputConfig pDataSource_ =
   LabelingJobInputConfig'
-    { _ljicDataAttributes =
-        Nothing,
-      _ljicDataSource = pDataSource_
+    { dataAttributes =
+        Prelude.Nothing,
+      dataSource = pDataSource_
     }
 
 -- | Attributes of the data specified by the customer.
-ljicDataAttributes :: Lens' LabelingJobInputConfig (Maybe LabelingJobDataAttributes)
-ljicDataAttributes = lens _ljicDataAttributes (\s a -> s {_ljicDataAttributes = a})
+labelingJobInputConfig_dataAttributes :: Lens.Lens' LabelingJobInputConfig (Prelude.Maybe LabelingJobDataAttributes)
+labelingJobInputConfig_dataAttributes = Lens.lens (\LabelingJobInputConfig' {dataAttributes} -> dataAttributes) (\s@LabelingJobInputConfig' {} a -> s {dataAttributes = a} :: LabelingJobInputConfig)
 
 -- | The location of the input data.
-ljicDataSource :: Lens' LabelingJobInputConfig LabelingJobDataSource
-ljicDataSource = lens _ljicDataSource (\s a -> s {_ljicDataSource = a})
+labelingJobInputConfig_dataSource :: Lens.Lens' LabelingJobInputConfig LabelingJobDataSource
+labelingJobInputConfig_dataSource = Lens.lens (\LabelingJobInputConfig' {dataSource} -> dataSource) (\s@LabelingJobInputConfig' {} a -> s {dataSource = a} :: LabelingJobInputConfig)
 
-instance FromJSON LabelingJobInputConfig where
+instance Prelude.FromJSON LabelingJobInputConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "LabelingJobInputConfig"
       ( \x ->
           LabelingJobInputConfig'
-            <$> (x .:? "DataAttributes") <*> (x .: "DataSource")
+            Prelude.<$> (x Prelude..:? "DataAttributes")
+            Prelude.<*> (x Prelude..: "DataSource")
       )
 
-instance Hashable LabelingJobInputConfig
+instance Prelude.Hashable LabelingJobInputConfig
 
-instance NFData LabelingJobInputConfig
+instance Prelude.NFData LabelingJobInputConfig
 
-instance ToJSON LabelingJobInputConfig where
+instance Prelude.ToJSON LabelingJobInputConfig where
   toJSON LabelingJobInputConfig' {..} =
-    object
-      ( catMaybes
-          [ ("DataAttributes" .=) <$> _ljicDataAttributes,
-            Just ("DataSource" .= _ljicDataSource)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("DataAttributes" Prelude..=)
+              Prelude.<$> dataAttributes,
+            Prelude.Just ("DataSource" Prelude..= dataSource)
           ]
       )

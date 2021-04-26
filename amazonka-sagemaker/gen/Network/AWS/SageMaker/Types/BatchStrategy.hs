@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.SageMaker.Types.BatchStrategy
   ( BatchStrategy
       ( ..,
-        MultiRecord,
-        SingleRecord
+        BatchStrategyMultiRecord,
+        BatchStrategySingleRecord
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data BatchStrategy = BatchStrategy' (CI Text)
+newtype BatchStrategy = BatchStrategy'
+  { fromBatchStrategy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MultiRecord :: BatchStrategy
-pattern MultiRecord = BatchStrategy' "MultiRecord"
+pattern BatchStrategyMultiRecord :: BatchStrategy
+pattern BatchStrategyMultiRecord = BatchStrategy' "MultiRecord"
 
-pattern SingleRecord :: BatchStrategy
-pattern SingleRecord = BatchStrategy' "SingleRecord"
+pattern BatchStrategySingleRecord :: BatchStrategy
+pattern BatchStrategySingleRecord = BatchStrategy' "SingleRecord"
 
 {-# COMPLETE
-  MultiRecord,
-  SingleRecord,
+  BatchStrategyMultiRecord,
+  BatchStrategySingleRecord,
   BatchStrategy'
   #-}
 
-instance FromText BatchStrategy where
-  parser = (BatchStrategy' . mk) <$> takeText
+instance Prelude.FromText BatchStrategy where
+  parser = BatchStrategy' Prelude.<$> Prelude.takeText
 
-instance ToText BatchStrategy where
-  toText (BatchStrategy' ci) = original ci
+instance Prelude.ToText BatchStrategy where
+  toText (BatchStrategy' x) = x
 
-instance Hashable BatchStrategy
+instance Prelude.Hashable BatchStrategy
 
-instance NFData BatchStrategy
+instance Prelude.NFData BatchStrategy
 
-instance ToByteString BatchStrategy
+instance Prelude.ToByteString BatchStrategy
 
-instance ToQuery BatchStrategy
+instance Prelude.ToQuery BatchStrategy
 
-instance ToHeader BatchStrategy
+instance Prelude.ToHeader BatchStrategy
 
-instance ToJSON BatchStrategy where
-  toJSON = toJSONText
+instance Prelude.ToJSON BatchStrategy where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON BatchStrategy where
-  parseJSON = parseJSONText "BatchStrategy"
+instance Prelude.FromJSON BatchStrategy where
+  parseJSON = Prelude.parseJSONText "BatchStrategy"

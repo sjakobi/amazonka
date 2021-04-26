@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,153 +19,209 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.NotebookInstanceSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.InstanceType
 import Network.AWS.SageMaker.Types.NotebookInstanceStatus
 
 -- | Provides summary information for an Amazon SageMaker notebook instance.
 --
---
---
--- /See:/ 'notebookInstanceSummary' smart constructor.
+-- /See:/ 'newNotebookInstanceSummary' smart constructor.
 data NotebookInstanceSummary = NotebookInstanceSummary'
-  { _nisCreationTime ::
-      !(Maybe POSIX),
-    _nisDefaultCodeRepository ::
-      !(Maybe Text),
-    _nisInstanceType ::
-      !(Maybe InstanceType),
-    _nisNotebookInstanceLifecycleConfigName ::
-      !(Maybe Text),
-    _nisAdditionalCodeRepositories ::
-      !(Maybe [Text]),
-    _nisNotebookInstanceStatus ::
-      !( Maybe
-           NotebookInstanceStatus
-       ),
-    _nisLastModifiedTime ::
-      !(Maybe POSIX),
-    _nisURL ::
-      !(Maybe Text),
-    _nisNotebookInstanceName ::
-      !Text,
-    _nisNotebookInstanceARN ::
-      !Text
+  { -- | A timestamp that shows when the notebook instance was created.
+    creationTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The Git repository associated with the notebook instance as its default
+    -- code repository. This can be either the name of a Git repository stored
+    -- as a resource in your account, or the URL of a Git repository in
+    -- <https://docs.aws.amazon.com/codecommit/latest/userguide/welcome.html AWS CodeCommit>
+    -- or in any other Git repository. When you open a notebook instance, it
+    -- opens in the directory that contains this repository. For more
+    -- information, see
+    -- <https://docs.aws.amazon.com/sagemaker/latest/dg/nbi-git-repo.html Associating Git Repositories with Amazon SageMaker Notebook Instances>.
+    defaultCodeRepository :: Prelude.Maybe Prelude.Text,
+    -- | The type of ML compute instance that the notebook instance is running
+    -- on.
+    instanceType :: Prelude.Maybe InstanceType,
+    -- | The name of a notebook instance lifecycle configuration associated with
+    -- this notebook instance.
+    --
+    -- For information about notebook instance lifestyle configurations, see
+    -- <https://docs.aws.amazon.com/sagemaker/latest/dg/notebook-lifecycle-config.html Step 2.1: (Optional) Customize a Notebook Instance>.
+    notebookInstanceLifecycleConfigName :: Prelude.Maybe Prelude.Text,
+    -- | An array of up to three Git repositories associated with the notebook
+    -- instance. These can be either the names of Git repositories stored as
+    -- resources in your account, or the URL of Git repositories in
+    -- <https://docs.aws.amazon.com/codecommit/latest/userguide/welcome.html AWS CodeCommit>
+    -- or in any other Git repository. These repositories are cloned at the
+    -- same level as the default repository of your notebook instance. For more
+    -- information, see
+    -- <https://docs.aws.amazon.com/sagemaker/latest/dg/nbi-git-repo.html Associating Git Repositories with Amazon SageMaker Notebook Instances>.
+    additionalCodeRepositories :: Prelude.Maybe [Prelude.Text],
+    -- | The status of the notebook instance.
+    notebookInstanceStatus :: Prelude.Maybe NotebookInstanceStatus,
+    -- | A timestamp that shows when the notebook instance was last modified.
+    lastModifiedTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The URL that you use to connect to the Jupyter instance running in your
+    -- notebook instance.
+    url :: Prelude.Maybe Prelude.Text,
+    -- | The name of the notebook instance that you want a summary for.
+    notebookInstanceName :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the notebook instance.
+    notebookInstanceArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'NotebookInstanceSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'NotebookInstanceSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'nisCreationTime' - A timestamp that shows when the notebook instance was created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'nisDefaultCodeRepository' - The Git repository associated with the notebook instance as its default code repository. This can be either the name of a Git repository stored as a resource in your account, or the URL of a Git repository in <https://docs.aws.amazon.com/codecommit/latest/userguide/welcome.html AWS CodeCommit> or in any other Git repository. When you open a notebook instance, it opens in the directory that contains this repository. For more information, see <https://docs.aws.amazon.com/sagemaker/latest/dg/nbi-git-repo.html Associating Git Repositories with Amazon SageMaker Notebook Instances> .
+-- 'creationTime', 'notebookInstanceSummary_creationTime' - A timestamp that shows when the notebook instance was created.
 --
--- * 'nisInstanceType' - The type of ML compute instance that the notebook instance is running on.
+-- 'defaultCodeRepository', 'notebookInstanceSummary_defaultCodeRepository' - The Git repository associated with the notebook instance as its default
+-- code repository. This can be either the name of a Git repository stored
+-- as a resource in your account, or the URL of a Git repository in
+-- <https://docs.aws.amazon.com/codecommit/latest/userguide/welcome.html AWS CodeCommit>
+-- or in any other Git repository. When you open a notebook instance, it
+-- opens in the directory that contains this repository. For more
+-- information, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/nbi-git-repo.html Associating Git Repositories with Amazon SageMaker Notebook Instances>.
 --
--- * 'nisNotebookInstanceLifecycleConfigName' - The name of a notebook instance lifecycle configuration associated with this notebook instance. For information about notebook instance lifestyle configurations, see <https://docs.aws.amazon.com/sagemaker/latest/dg/notebook-lifecycle-config.html Step 2.1: (Optional) Customize a Notebook Instance> .
+-- 'instanceType', 'notebookInstanceSummary_instanceType' - The type of ML compute instance that the notebook instance is running
+-- on.
 --
--- * 'nisAdditionalCodeRepositories' - An array of up to three Git repositories associated with the notebook instance. These can be either the names of Git repositories stored as resources in your account, or the URL of Git repositories in <https://docs.aws.amazon.com/codecommit/latest/userguide/welcome.html AWS CodeCommit> or in any other Git repository. These repositories are cloned at the same level as the default repository of your notebook instance. For more information, see <https://docs.aws.amazon.com/sagemaker/latest/dg/nbi-git-repo.html Associating Git Repositories with Amazon SageMaker Notebook Instances> .
+-- 'notebookInstanceLifecycleConfigName', 'notebookInstanceSummary_notebookInstanceLifecycleConfigName' - The name of a notebook instance lifecycle configuration associated with
+-- this notebook instance.
 --
--- * 'nisNotebookInstanceStatus' - The status of the notebook instance.
+-- For information about notebook instance lifestyle configurations, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/notebook-lifecycle-config.html Step 2.1: (Optional) Customize a Notebook Instance>.
 --
--- * 'nisLastModifiedTime' - A timestamp that shows when the notebook instance was last modified.
+-- 'additionalCodeRepositories', 'notebookInstanceSummary_additionalCodeRepositories' - An array of up to three Git repositories associated with the notebook
+-- instance. These can be either the names of Git repositories stored as
+-- resources in your account, or the URL of Git repositories in
+-- <https://docs.aws.amazon.com/codecommit/latest/userguide/welcome.html AWS CodeCommit>
+-- or in any other Git repository. These repositories are cloned at the
+-- same level as the default repository of your notebook instance. For more
+-- information, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/nbi-git-repo.html Associating Git Repositories with Amazon SageMaker Notebook Instances>.
 --
--- * 'nisURL' - The URL that you use to connect to the Jupyter instance running in your notebook instance.
+-- 'notebookInstanceStatus', 'notebookInstanceSummary_notebookInstanceStatus' - The status of the notebook instance.
 --
--- * 'nisNotebookInstanceName' - The name of the notebook instance that you want a summary for.
+-- 'lastModifiedTime', 'notebookInstanceSummary_lastModifiedTime' - A timestamp that shows when the notebook instance was last modified.
 --
--- * 'nisNotebookInstanceARN' - The Amazon Resource Name (ARN) of the notebook instance.
-notebookInstanceSummary ::
-  -- | 'nisNotebookInstanceName'
-  Text ->
-  -- | 'nisNotebookInstanceARN'
-  Text ->
+-- 'url', 'notebookInstanceSummary_url' - The URL that you use to connect to the Jupyter instance running in your
+-- notebook instance.
+--
+-- 'notebookInstanceName', 'notebookInstanceSummary_notebookInstanceName' - The name of the notebook instance that you want a summary for.
+--
+-- 'notebookInstanceArn', 'notebookInstanceSummary_notebookInstanceArn' - The Amazon Resource Name (ARN) of the notebook instance.
+newNotebookInstanceSummary ::
+  -- | 'notebookInstanceName'
+  Prelude.Text ->
+  -- | 'notebookInstanceArn'
+  Prelude.Text ->
   NotebookInstanceSummary
-notebookInstanceSummary
+newNotebookInstanceSummary
   pNotebookInstanceName_
-  pNotebookInstanceARN_ =
+  pNotebookInstanceArn_ =
     NotebookInstanceSummary'
-      { _nisCreationTime =
-          Nothing,
-        _nisDefaultCodeRepository = Nothing,
-        _nisInstanceType = Nothing,
-        _nisNotebookInstanceLifecycleConfigName = Nothing,
-        _nisAdditionalCodeRepositories = Nothing,
-        _nisNotebookInstanceStatus = Nothing,
-        _nisLastModifiedTime = Nothing,
-        _nisURL = Nothing,
-        _nisNotebookInstanceName = pNotebookInstanceName_,
-        _nisNotebookInstanceARN = pNotebookInstanceARN_
+      { creationTime =
+          Prelude.Nothing,
+        defaultCodeRepository = Prelude.Nothing,
+        instanceType = Prelude.Nothing,
+        notebookInstanceLifecycleConfigName =
+          Prelude.Nothing,
+        additionalCodeRepositories = Prelude.Nothing,
+        notebookInstanceStatus = Prelude.Nothing,
+        lastModifiedTime = Prelude.Nothing,
+        url = Prelude.Nothing,
+        notebookInstanceName = pNotebookInstanceName_,
+        notebookInstanceArn = pNotebookInstanceArn_
       }
 
 -- | A timestamp that shows when the notebook instance was created.
-nisCreationTime :: Lens' NotebookInstanceSummary (Maybe UTCTime)
-nisCreationTime = lens _nisCreationTime (\s a -> s {_nisCreationTime = a}) . mapping _Time
+notebookInstanceSummary_creationTime :: Lens.Lens' NotebookInstanceSummary (Prelude.Maybe Prelude.UTCTime)
+notebookInstanceSummary_creationTime = Lens.lens (\NotebookInstanceSummary' {creationTime} -> creationTime) (\s@NotebookInstanceSummary' {} a -> s {creationTime = a} :: NotebookInstanceSummary) Prelude.. Lens.mapping Prelude._Time
 
--- | The Git repository associated with the notebook instance as its default code repository. This can be either the name of a Git repository stored as a resource in your account, or the URL of a Git repository in <https://docs.aws.amazon.com/codecommit/latest/userguide/welcome.html AWS CodeCommit> or in any other Git repository. When you open a notebook instance, it opens in the directory that contains this repository. For more information, see <https://docs.aws.amazon.com/sagemaker/latest/dg/nbi-git-repo.html Associating Git Repositories with Amazon SageMaker Notebook Instances> .
-nisDefaultCodeRepository :: Lens' NotebookInstanceSummary (Maybe Text)
-nisDefaultCodeRepository = lens _nisDefaultCodeRepository (\s a -> s {_nisDefaultCodeRepository = a})
+-- | The Git repository associated with the notebook instance as its default
+-- code repository. This can be either the name of a Git repository stored
+-- as a resource in your account, or the URL of a Git repository in
+-- <https://docs.aws.amazon.com/codecommit/latest/userguide/welcome.html AWS CodeCommit>
+-- or in any other Git repository. When you open a notebook instance, it
+-- opens in the directory that contains this repository. For more
+-- information, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/nbi-git-repo.html Associating Git Repositories with Amazon SageMaker Notebook Instances>.
+notebookInstanceSummary_defaultCodeRepository :: Lens.Lens' NotebookInstanceSummary (Prelude.Maybe Prelude.Text)
+notebookInstanceSummary_defaultCodeRepository = Lens.lens (\NotebookInstanceSummary' {defaultCodeRepository} -> defaultCodeRepository) (\s@NotebookInstanceSummary' {} a -> s {defaultCodeRepository = a} :: NotebookInstanceSummary)
 
--- | The type of ML compute instance that the notebook instance is running on.
-nisInstanceType :: Lens' NotebookInstanceSummary (Maybe InstanceType)
-nisInstanceType = lens _nisInstanceType (\s a -> s {_nisInstanceType = a})
+-- | The type of ML compute instance that the notebook instance is running
+-- on.
+notebookInstanceSummary_instanceType :: Lens.Lens' NotebookInstanceSummary (Prelude.Maybe InstanceType)
+notebookInstanceSummary_instanceType = Lens.lens (\NotebookInstanceSummary' {instanceType} -> instanceType) (\s@NotebookInstanceSummary' {} a -> s {instanceType = a} :: NotebookInstanceSummary)
 
--- | The name of a notebook instance lifecycle configuration associated with this notebook instance. For information about notebook instance lifestyle configurations, see <https://docs.aws.amazon.com/sagemaker/latest/dg/notebook-lifecycle-config.html Step 2.1: (Optional) Customize a Notebook Instance> .
-nisNotebookInstanceLifecycleConfigName :: Lens' NotebookInstanceSummary (Maybe Text)
-nisNotebookInstanceLifecycleConfigName = lens _nisNotebookInstanceLifecycleConfigName (\s a -> s {_nisNotebookInstanceLifecycleConfigName = a})
+-- | The name of a notebook instance lifecycle configuration associated with
+-- this notebook instance.
+--
+-- For information about notebook instance lifestyle configurations, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/notebook-lifecycle-config.html Step 2.1: (Optional) Customize a Notebook Instance>.
+notebookInstanceSummary_notebookInstanceLifecycleConfigName :: Lens.Lens' NotebookInstanceSummary (Prelude.Maybe Prelude.Text)
+notebookInstanceSummary_notebookInstanceLifecycleConfigName = Lens.lens (\NotebookInstanceSummary' {notebookInstanceLifecycleConfigName} -> notebookInstanceLifecycleConfigName) (\s@NotebookInstanceSummary' {} a -> s {notebookInstanceLifecycleConfigName = a} :: NotebookInstanceSummary)
 
--- | An array of up to three Git repositories associated with the notebook instance. These can be either the names of Git repositories stored as resources in your account, or the URL of Git repositories in <https://docs.aws.amazon.com/codecommit/latest/userguide/welcome.html AWS CodeCommit> or in any other Git repository. These repositories are cloned at the same level as the default repository of your notebook instance. For more information, see <https://docs.aws.amazon.com/sagemaker/latest/dg/nbi-git-repo.html Associating Git Repositories with Amazon SageMaker Notebook Instances> .
-nisAdditionalCodeRepositories :: Lens' NotebookInstanceSummary [Text]
-nisAdditionalCodeRepositories = lens _nisAdditionalCodeRepositories (\s a -> s {_nisAdditionalCodeRepositories = a}) . _Default . _Coerce
+-- | An array of up to three Git repositories associated with the notebook
+-- instance. These can be either the names of Git repositories stored as
+-- resources in your account, or the URL of Git repositories in
+-- <https://docs.aws.amazon.com/codecommit/latest/userguide/welcome.html AWS CodeCommit>
+-- or in any other Git repository. These repositories are cloned at the
+-- same level as the default repository of your notebook instance. For more
+-- information, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/nbi-git-repo.html Associating Git Repositories with Amazon SageMaker Notebook Instances>.
+notebookInstanceSummary_additionalCodeRepositories :: Lens.Lens' NotebookInstanceSummary (Prelude.Maybe [Prelude.Text])
+notebookInstanceSummary_additionalCodeRepositories = Lens.lens (\NotebookInstanceSummary' {additionalCodeRepositories} -> additionalCodeRepositories) (\s@NotebookInstanceSummary' {} a -> s {additionalCodeRepositories = a} :: NotebookInstanceSummary) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The status of the notebook instance.
-nisNotebookInstanceStatus :: Lens' NotebookInstanceSummary (Maybe NotebookInstanceStatus)
-nisNotebookInstanceStatus = lens _nisNotebookInstanceStatus (\s a -> s {_nisNotebookInstanceStatus = a})
+notebookInstanceSummary_notebookInstanceStatus :: Lens.Lens' NotebookInstanceSummary (Prelude.Maybe NotebookInstanceStatus)
+notebookInstanceSummary_notebookInstanceStatus = Lens.lens (\NotebookInstanceSummary' {notebookInstanceStatus} -> notebookInstanceStatus) (\s@NotebookInstanceSummary' {} a -> s {notebookInstanceStatus = a} :: NotebookInstanceSummary)
 
 -- | A timestamp that shows when the notebook instance was last modified.
-nisLastModifiedTime :: Lens' NotebookInstanceSummary (Maybe UTCTime)
-nisLastModifiedTime = lens _nisLastModifiedTime (\s a -> s {_nisLastModifiedTime = a}) . mapping _Time
+notebookInstanceSummary_lastModifiedTime :: Lens.Lens' NotebookInstanceSummary (Prelude.Maybe Prelude.UTCTime)
+notebookInstanceSummary_lastModifiedTime = Lens.lens (\NotebookInstanceSummary' {lastModifiedTime} -> lastModifiedTime) (\s@NotebookInstanceSummary' {} a -> s {lastModifiedTime = a} :: NotebookInstanceSummary) Prelude.. Lens.mapping Prelude._Time
 
--- | The URL that you use to connect to the Jupyter instance running in your notebook instance.
-nisURL :: Lens' NotebookInstanceSummary (Maybe Text)
-nisURL = lens _nisURL (\s a -> s {_nisURL = a})
+-- | The URL that you use to connect to the Jupyter instance running in your
+-- notebook instance.
+notebookInstanceSummary_url :: Lens.Lens' NotebookInstanceSummary (Prelude.Maybe Prelude.Text)
+notebookInstanceSummary_url = Lens.lens (\NotebookInstanceSummary' {url} -> url) (\s@NotebookInstanceSummary' {} a -> s {url = a} :: NotebookInstanceSummary)
 
 -- | The name of the notebook instance that you want a summary for.
-nisNotebookInstanceName :: Lens' NotebookInstanceSummary Text
-nisNotebookInstanceName = lens _nisNotebookInstanceName (\s a -> s {_nisNotebookInstanceName = a})
+notebookInstanceSummary_notebookInstanceName :: Lens.Lens' NotebookInstanceSummary Prelude.Text
+notebookInstanceSummary_notebookInstanceName = Lens.lens (\NotebookInstanceSummary' {notebookInstanceName} -> notebookInstanceName) (\s@NotebookInstanceSummary' {} a -> s {notebookInstanceName = a} :: NotebookInstanceSummary)
 
 -- | The Amazon Resource Name (ARN) of the notebook instance.
-nisNotebookInstanceARN :: Lens' NotebookInstanceSummary Text
-nisNotebookInstanceARN = lens _nisNotebookInstanceARN (\s a -> s {_nisNotebookInstanceARN = a})
+notebookInstanceSummary_notebookInstanceArn :: Lens.Lens' NotebookInstanceSummary Prelude.Text
+notebookInstanceSummary_notebookInstanceArn = Lens.lens (\NotebookInstanceSummary' {notebookInstanceArn} -> notebookInstanceArn) (\s@NotebookInstanceSummary' {} a -> s {notebookInstanceArn = a} :: NotebookInstanceSummary)
 
-instance FromJSON NotebookInstanceSummary where
+instance Prelude.FromJSON NotebookInstanceSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "NotebookInstanceSummary"
       ( \x ->
           NotebookInstanceSummary'
-            <$> (x .:? "CreationTime")
-            <*> (x .:? "DefaultCodeRepository")
-            <*> (x .:? "InstanceType")
-            <*> (x .:? "NotebookInstanceLifecycleConfigName")
-            <*> (x .:? "AdditionalCodeRepositories" .!= mempty)
-            <*> (x .:? "NotebookInstanceStatus")
-            <*> (x .:? "LastModifiedTime")
-            <*> (x .:? "Url")
-            <*> (x .: "NotebookInstanceName")
-            <*> (x .: "NotebookInstanceArn")
+            Prelude.<$> (x Prelude..:? "CreationTime")
+            Prelude.<*> (x Prelude..:? "DefaultCodeRepository")
+            Prelude.<*> (x Prelude..:? "InstanceType")
+            Prelude.<*> (x Prelude..:? "NotebookInstanceLifecycleConfigName")
+            Prelude.<*> ( x Prelude..:? "AdditionalCodeRepositories"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "NotebookInstanceStatus")
+            Prelude.<*> (x Prelude..:? "LastModifiedTime")
+            Prelude.<*> (x Prelude..:? "Url")
+            Prelude.<*> (x Prelude..: "NotebookInstanceName")
+            Prelude.<*> (x Prelude..: "NotebookInstanceArn")
       )
 
-instance Hashable NotebookInstanceSummary
+instance Prelude.Hashable NotebookInstanceSummary
 
-instance NFData NotebookInstanceSummary
+instance Prelude.NFData NotebookInstanceSummary

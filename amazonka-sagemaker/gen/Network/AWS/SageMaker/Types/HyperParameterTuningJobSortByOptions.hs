@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.SageMaker.Types.HyperParameterTuningJobSortByOptions
   ( HyperParameterTuningJobSortByOptions
       ( ..,
-        HPTJSBOCreationTime,
-        HPTJSBOName,
-        HPTJSBOStatus
+        HyperParameterTuningJobSortByOptionsCreationTime,
+        HyperParameterTuningJobSortByOptionsName,
+        HyperParameterTuningJobSortByOptionsStatus'
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data HyperParameterTuningJobSortByOptions
-  = HyperParameterTuningJobSortByOptions'
-      ( CI
-          Text
-      )
+newtype HyperParameterTuningJobSortByOptions = HyperParameterTuningJobSortByOptions'
+  { fromHyperParameterTuningJobSortByOptions ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HPTJSBOCreationTime :: HyperParameterTuningJobSortByOptions
-pattern HPTJSBOCreationTime = HyperParameterTuningJobSortByOptions' "CreationTime"
+pattern HyperParameterTuningJobSortByOptionsCreationTime :: HyperParameterTuningJobSortByOptions
+pattern HyperParameterTuningJobSortByOptionsCreationTime = HyperParameterTuningJobSortByOptions' "CreationTime"
 
-pattern HPTJSBOName :: HyperParameterTuningJobSortByOptions
-pattern HPTJSBOName = HyperParameterTuningJobSortByOptions' "Name"
+pattern HyperParameterTuningJobSortByOptionsName :: HyperParameterTuningJobSortByOptions
+pattern HyperParameterTuningJobSortByOptionsName = HyperParameterTuningJobSortByOptions' "Name"
 
-pattern HPTJSBOStatus :: HyperParameterTuningJobSortByOptions
-pattern HPTJSBOStatus = HyperParameterTuningJobSortByOptions' "Status"
+pattern HyperParameterTuningJobSortByOptionsStatus' :: HyperParameterTuningJobSortByOptions
+pattern HyperParameterTuningJobSortByOptionsStatus' = HyperParameterTuningJobSortByOptions' "Status"
 
 {-# COMPLETE
-  HPTJSBOCreationTime,
-  HPTJSBOName,
-  HPTJSBOStatus,
+  HyperParameterTuningJobSortByOptionsCreationTime,
+  HyperParameterTuningJobSortByOptionsName,
+  HyperParameterTuningJobSortByOptionsStatus',
   HyperParameterTuningJobSortByOptions'
   #-}
 
-instance FromText HyperParameterTuningJobSortByOptions where
-  parser = (HyperParameterTuningJobSortByOptions' . mk) <$> takeText
+instance Prelude.FromText HyperParameterTuningJobSortByOptions where
+  parser = HyperParameterTuningJobSortByOptions' Prelude.<$> Prelude.takeText
 
-instance ToText HyperParameterTuningJobSortByOptions where
-  toText (HyperParameterTuningJobSortByOptions' ci) = original ci
+instance Prelude.ToText HyperParameterTuningJobSortByOptions where
+  toText (HyperParameterTuningJobSortByOptions' x) = x
 
-instance Hashable HyperParameterTuningJobSortByOptions
+instance Prelude.Hashable HyperParameterTuningJobSortByOptions
 
-instance NFData HyperParameterTuningJobSortByOptions
+instance Prelude.NFData HyperParameterTuningJobSortByOptions
 
-instance ToByteString HyperParameterTuningJobSortByOptions
+instance Prelude.ToByteString HyperParameterTuningJobSortByOptions
 
-instance ToQuery HyperParameterTuningJobSortByOptions
+instance Prelude.ToQuery HyperParameterTuningJobSortByOptions
 
-instance ToHeader HyperParameterTuningJobSortByOptions
+instance Prelude.ToHeader HyperParameterTuningJobSortByOptions
 
-instance ToJSON HyperParameterTuningJobSortByOptions where
-  toJSON = toJSONText
+instance Prelude.ToJSON HyperParameterTuningJobSortByOptions where
+  toJSON = Prelude.toJSONText

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -18,114 +22,119 @@
 -- Portability : non-portable (GHC extensions)
 --
 -- Starts a previously stopped monitoring schedule.
+--
+-- By default, when you successfully create a new schedule, the status of a
+-- monitoring schedule is @scheduled@.
 module Network.AWS.SageMaker.StartMonitoringSchedule
   ( -- * Creating a Request
-    startMonitoringSchedule,
-    StartMonitoringSchedule,
+    StartMonitoringSchedule (..),
+    newStartMonitoringSchedule,
 
     -- * Request Lenses
-    sMonitoringScheduleName,
+    startMonitoringSchedule_monitoringScheduleName,
 
     -- * Destructuring the Response
-    startMonitoringScheduleResponse,
-    StartMonitoringScheduleResponse,
+    StartMonitoringScheduleResponse (..),
+    newStartMonitoringScheduleResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'startMonitoringSchedule' smart constructor.
-newtype StartMonitoringSchedule = StartMonitoringSchedule'
-  { _sMonitoringScheduleName ::
-      Text
+-- | /See:/ 'newStartMonitoringSchedule' smart constructor.
+data StartMonitoringSchedule = StartMonitoringSchedule'
+  { -- | The name of the schedule to start.
+    monitoringScheduleName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartMonitoringSchedule' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartMonitoringSchedule' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sMonitoringScheduleName' - The name of the schedule to start.
-startMonitoringSchedule ::
-  -- | 'sMonitoringScheduleName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'monitoringScheduleName', 'startMonitoringSchedule_monitoringScheduleName' - The name of the schedule to start.
+newStartMonitoringSchedule ::
+  -- | 'monitoringScheduleName'
+  Prelude.Text ->
   StartMonitoringSchedule
-startMonitoringSchedule pMonitoringScheduleName_ =
+newStartMonitoringSchedule pMonitoringScheduleName_ =
   StartMonitoringSchedule'
-    { _sMonitoringScheduleName =
+    { monitoringScheduleName =
         pMonitoringScheduleName_
     }
 
 -- | The name of the schedule to start.
-sMonitoringScheduleName :: Lens' StartMonitoringSchedule Text
-sMonitoringScheduleName = lens _sMonitoringScheduleName (\s a -> s {_sMonitoringScheduleName = a})
+startMonitoringSchedule_monitoringScheduleName :: Lens.Lens' StartMonitoringSchedule Prelude.Text
+startMonitoringSchedule_monitoringScheduleName = Lens.lens (\StartMonitoringSchedule' {monitoringScheduleName} -> monitoringScheduleName) (\s@StartMonitoringSchedule' {} a -> s {monitoringScheduleName = a} :: StartMonitoringSchedule)
 
-instance AWSRequest StartMonitoringSchedule where
+instance Prelude.AWSRequest StartMonitoringSchedule where
   type
     Rs StartMonitoringSchedule =
       StartMonitoringScheduleResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveNull StartMonitoringScheduleResponse'
+    Response.receiveNull
+      StartMonitoringScheduleResponse'
 
-instance Hashable StartMonitoringSchedule
+instance Prelude.Hashable StartMonitoringSchedule
 
-instance NFData StartMonitoringSchedule
+instance Prelude.NFData StartMonitoringSchedule
 
-instance ToHeaders StartMonitoringSchedule where
+instance Prelude.ToHeaders StartMonitoringSchedule where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.StartMonitoringSchedule" :: ByteString),
+              Prelude.=# ( "SageMaker.StartMonitoringSchedule" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StartMonitoringSchedule where
+instance Prelude.ToJSON StartMonitoringSchedule where
   toJSON StartMonitoringSchedule' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "MonitoringScheduleName"
-                  .= _sMonitoringScheduleName
+                  Prelude..= monitoringScheduleName
               )
           ]
       )
 
-instance ToPath StartMonitoringSchedule where
-  toPath = const "/"
+instance Prelude.ToPath StartMonitoringSchedule where
+  toPath = Prelude.const "/"
 
-instance ToQuery StartMonitoringSchedule where
-  toQuery = const mempty
+instance Prelude.ToQuery StartMonitoringSchedule where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'startMonitoringScheduleResponse' smart constructor.
+-- | /See:/ 'newStartMonitoringScheduleResponse' smart constructor.
 data StartMonitoringScheduleResponse = StartMonitoringScheduleResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartMonitoringScheduleResponse' with the minimum fields required to make a request.
-startMonitoringScheduleResponse ::
+-- |
+-- Create a value of 'StartMonitoringScheduleResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newStartMonitoringScheduleResponse ::
   StartMonitoringScheduleResponse
-startMonitoringScheduleResponse =
+newStartMonitoringScheduleResponse =
   StartMonitoringScheduleResponse'
 
-instance NFData StartMonitoringScheduleResponse
+instance
+  Prelude.NFData
+    StartMonitoringScheduleResponse

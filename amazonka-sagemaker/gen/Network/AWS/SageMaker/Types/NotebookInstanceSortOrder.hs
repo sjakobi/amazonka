@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.SageMaker.Types.NotebookInstanceSortOrder
   ( NotebookInstanceSortOrder
       ( ..,
-        NISOAscending,
-        NISODescending
+        NotebookInstanceSortOrderAscending,
+        NotebookInstanceSortOrderDescending
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data NotebookInstanceSortOrder
-  = NotebookInstanceSortOrder'
-      ( CI
-          Text
-      )
+newtype NotebookInstanceSortOrder = NotebookInstanceSortOrder'
+  { fromNotebookInstanceSortOrder ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern NISOAscending :: NotebookInstanceSortOrder
-pattern NISOAscending = NotebookInstanceSortOrder' "Ascending"
+pattern NotebookInstanceSortOrderAscending :: NotebookInstanceSortOrder
+pattern NotebookInstanceSortOrderAscending = NotebookInstanceSortOrder' "Ascending"
 
-pattern NISODescending :: NotebookInstanceSortOrder
-pattern NISODescending = NotebookInstanceSortOrder' "Descending"
+pattern NotebookInstanceSortOrderDescending :: NotebookInstanceSortOrder
+pattern NotebookInstanceSortOrderDescending = NotebookInstanceSortOrder' "Descending"
 
 {-# COMPLETE
-  NISOAscending,
-  NISODescending,
+  NotebookInstanceSortOrderAscending,
+  NotebookInstanceSortOrderDescending,
   NotebookInstanceSortOrder'
   #-}
 
-instance FromText NotebookInstanceSortOrder where
-  parser = (NotebookInstanceSortOrder' . mk) <$> takeText
+instance Prelude.FromText NotebookInstanceSortOrder where
+  parser = NotebookInstanceSortOrder' Prelude.<$> Prelude.takeText
 
-instance ToText NotebookInstanceSortOrder where
-  toText (NotebookInstanceSortOrder' ci) = original ci
+instance Prelude.ToText NotebookInstanceSortOrder where
+  toText (NotebookInstanceSortOrder' x) = x
 
-instance Hashable NotebookInstanceSortOrder
+instance Prelude.Hashable NotebookInstanceSortOrder
 
-instance NFData NotebookInstanceSortOrder
+instance Prelude.NFData NotebookInstanceSortOrder
 
-instance ToByteString NotebookInstanceSortOrder
+instance Prelude.ToByteString NotebookInstanceSortOrder
 
-instance ToQuery NotebookInstanceSortOrder
+instance Prelude.ToQuery NotebookInstanceSortOrder
 
-instance ToHeader NotebookInstanceSortOrder
+instance Prelude.ToHeader NotebookInstanceSortOrder
 
-instance ToJSON NotebookInstanceSortOrder where
-  toJSON = toJSONText
+instance Prelude.ToJSON NotebookInstanceSortOrder where
+  toJSON = Prelude.toJSONText

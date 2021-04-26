@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,65 @@
 module Network.AWS.SageMaker.Types.DetailedAlgorithmStatus
   ( DetailedAlgorithmStatus
       ( ..,
-        DASCompleted,
-        DASFailed,
-        DASInProgress,
-        DASNotStarted
+        DetailedAlgorithmStatusCompleted,
+        DetailedAlgorithmStatusFailed,
+        DetailedAlgorithmStatusInProgress,
+        DetailedAlgorithmStatusNotStarted
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DetailedAlgorithmStatus
-  = DetailedAlgorithmStatus'
-      ( CI
-          Text
-      )
+newtype DetailedAlgorithmStatus = DetailedAlgorithmStatus'
+  { fromDetailedAlgorithmStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DASCompleted :: DetailedAlgorithmStatus
-pattern DASCompleted = DetailedAlgorithmStatus' "Completed"
+pattern DetailedAlgorithmStatusCompleted :: DetailedAlgorithmStatus
+pattern DetailedAlgorithmStatusCompleted = DetailedAlgorithmStatus' "Completed"
 
-pattern DASFailed :: DetailedAlgorithmStatus
-pattern DASFailed = DetailedAlgorithmStatus' "Failed"
+pattern DetailedAlgorithmStatusFailed :: DetailedAlgorithmStatus
+pattern DetailedAlgorithmStatusFailed = DetailedAlgorithmStatus' "Failed"
 
-pattern DASInProgress :: DetailedAlgorithmStatus
-pattern DASInProgress = DetailedAlgorithmStatus' "InProgress"
+pattern DetailedAlgorithmStatusInProgress :: DetailedAlgorithmStatus
+pattern DetailedAlgorithmStatusInProgress = DetailedAlgorithmStatus' "InProgress"
 
-pattern DASNotStarted :: DetailedAlgorithmStatus
-pattern DASNotStarted = DetailedAlgorithmStatus' "NotStarted"
+pattern DetailedAlgorithmStatusNotStarted :: DetailedAlgorithmStatus
+pattern DetailedAlgorithmStatusNotStarted = DetailedAlgorithmStatus' "NotStarted"
 
 {-# COMPLETE
-  DASCompleted,
-  DASFailed,
-  DASInProgress,
-  DASNotStarted,
+  DetailedAlgorithmStatusCompleted,
+  DetailedAlgorithmStatusFailed,
+  DetailedAlgorithmStatusInProgress,
+  DetailedAlgorithmStatusNotStarted,
   DetailedAlgorithmStatus'
   #-}
 
-instance FromText DetailedAlgorithmStatus where
-  parser = (DetailedAlgorithmStatus' . mk) <$> takeText
+instance Prelude.FromText DetailedAlgorithmStatus where
+  parser = DetailedAlgorithmStatus' Prelude.<$> Prelude.takeText
 
-instance ToText DetailedAlgorithmStatus where
-  toText (DetailedAlgorithmStatus' ci) = original ci
+instance Prelude.ToText DetailedAlgorithmStatus where
+  toText (DetailedAlgorithmStatus' x) = x
 
-instance Hashable DetailedAlgorithmStatus
+instance Prelude.Hashable DetailedAlgorithmStatus
 
-instance NFData DetailedAlgorithmStatus
+instance Prelude.NFData DetailedAlgorithmStatus
 
-instance ToByteString DetailedAlgorithmStatus
+instance Prelude.ToByteString DetailedAlgorithmStatus
 
-instance ToQuery DetailedAlgorithmStatus
+instance Prelude.ToQuery DetailedAlgorithmStatus
 
-instance ToHeader DetailedAlgorithmStatus
+instance Prelude.ToHeader DetailedAlgorithmStatus
 
-instance FromJSON DetailedAlgorithmStatus where
-  parseJSON = parseJSONText "DetailedAlgorithmStatus"
+instance Prelude.FromJSON DetailedAlgorithmStatus where
+  parseJSON = Prelude.parseJSONText "DetailedAlgorithmStatus"

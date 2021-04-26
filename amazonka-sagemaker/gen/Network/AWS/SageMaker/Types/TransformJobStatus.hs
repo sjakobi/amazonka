@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,75 +19,73 @@
 module Network.AWS.SageMaker.Types.TransformJobStatus
   ( TransformJobStatus
       ( ..,
-        TCompleted,
-        TFailed,
-        TInProgress,
-        TStopped,
-        TStopping
+        TransformJobStatusCompleted,
+        TransformJobStatusFailed,
+        TransformJobStatusInProgress,
+        TransformJobStatusStopped,
+        TransformJobStatusStopping
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TransformJobStatus
-  = TransformJobStatus'
-      ( CI
-          Text
-      )
+newtype TransformJobStatus = TransformJobStatus'
+  { fromTransformJobStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TCompleted :: TransformJobStatus
-pattern TCompleted = TransformJobStatus' "Completed"
+pattern TransformJobStatusCompleted :: TransformJobStatus
+pattern TransformJobStatusCompleted = TransformJobStatus' "Completed"
 
-pattern TFailed :: TransformJobStatus
-pattern TFailed = TransformJobStatus' "Failed"
+pattern TransformJobStatusFailed :: TransformJobStatus
+pattern TransformJobStatusFailed = TransformJobStatus' "Failed"
 
-pattern TInProgress :: TransformJobStatus
-pattern TInProgress = TransformJobStatus' "InProgress"
+pattern TransformJobStatusInProgress :: TransformJobStatus
+pattern TransformJobStatusInProgress = TransformJobStatus' "InProgress"
 
-pattern TStopped :: TransformJobStatus
-pattern TStopped = TransformJobStatus' "Stopped"
+pattern TransformJobStatusStopped :: TransformJobStatus
+pattern TransformJobStatusStopped = TransformJobStatus' "Stopped"
 
-pattern TStopping :: TransformJobStatus
-pattern TStopping = TransformJobStatus' "Stopping"
+pattern TransformJobStatusStopping :: TransformJobStatus
+pattern TransformJobStatusStopping = TransformJobStatus' "Stopping"
 
 {-# COMPLETE
-  TCompleted,
-  TFailed,
-  TInProgress,
-  TStopped,
-  TStopping,
+  TransformJobStatusCompleted,
+  TransformJobStatusFailed,
+  TransformJobStatusInProgress,
+  TransformJobStatusStopped,
+  TransformJobStatusStopping,
   TransformJobStatus'
   #-}
 
-instance FromText TransformJobStatus where
-  parser = (TransformJobStatus' . mk) <$> takeText
+instance Prelude.FromText TransformJobStatus where
+  parser = TransformJobStatus' Prelude.<$> Prelude.takeText
 
-instance ToText TransformJobStatus where
-  toText (TransformJobStatus' ci) = original ci
+instance Prelude.ToText TransformJobStatus where
+  toText (TransformJobStatus' x) = x
 
-instance Hashable TransformJobStatus
+instance Prelude.Hashable TransformJobStatus
 
-instance NFData TransformJobStatus
+instance Prelude.NFData TransformJobStatus
 
-instance ToByteString TransformJobStatus
+instance Prelude.ToByteString TransformJobStatus
 
-instance ToQuery TransformJobStatus
+instance Prelude.ToQuery TransformJobStatus
 
-instance ToHeader TransformJobStatus
+instance Prelude.ToHeader TransformJobStatus
 
-instance ToJSON TransformJobStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON TransformJobStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON TransformJobStatus where
-  parseJSON = parseJSONText "TransformJobStatus"
+instance Prelude.FromJSON TransformJobStatus where
+  parseJSON = Prelude.parseJSONText "TransformJobStatus"

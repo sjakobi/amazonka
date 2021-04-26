@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.SageMaker.Types.ModelPackageType
   ( ModelPackageType
       ( ..,
-        Both,
-        Unversioned,
-        Versioned
+        ModelPackageTypeBoth,
+        ModelPackageTypeUnversioned,
+        ModelPackageTypeVersioned
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ModelPackageType = ModelPackageType' (CI Text)
+newtype ModelPackageType = ModelPackageType'
+  { fromModelPackageType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Both :: ModelPackageType
-pattern Both = ModelPackageType' "Both"
+pattern ModelPackageTypeBoth :: ModelPackageType
+pattern ModelPackageTypeBoth = ModelPackageType' "Both"
 
-pattern Unversioned :: ModelPackageType
-pattern Unversioned = ModelPackageType' "Unversioned"
+pattern ModelPackageTypeUnversioned :: ModelPackageType
+pattern ModelPackageTypeUnversioned = ModelPackageType' "Unversioned"
 
-pattern Versioned :: ModelPackageType
-pattern Versioned = ModelPackageType' "Versioned"
+pattern ModelPackageTypeVersioned :: ModelPackageType
+pattern ModelPackageTypeVersioned = ModelPackageType' "Versioned"
 
 {-# COMPLETE
-  Both,
-  Unversioned,
-  Versioned,
+  ModelPackageTypeBoth,
+  ModelPackageTypeUnversioned,
+  ModelPackageTypeVersioned,
   ModelPackageType'
   #-}
 
-instance FromText ModelPackageType where
-  parser = (ModelPackageType' . mk) <$> takeText
+instance Prelude.FromText ModelPackageType where
+  parser = ModelPackageType' Prelude.<$> Prelude.takeText
 
-instance ToText ModelPackageType where
-  toText (ModelPackageType' ci) = original ci
+instance Prelude.ToText ModelPackageType where
+  toText (ModelPackageType' x) = x
 
-instance Hashable ModelPackageType
+instance Prelude.Hashable ModelPackageType
 
-instance NFData ModelPackageType
+instance Prelude.NFData ModelPackageType
 
-instance ToByteString ModelPackageType
+instance Prelude.ToByteString ModelPackageType
 
-instance ToQuery ModelPackageType
+instance Prelude.ToQuery ModelPackageType
 
-instance ToHeader ModelPackageType
+instance Prelude.ToHeader ModelPackageType
 
-instance ToJSON ModelPackageType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ModelPackageType where
+  toJSON = Prelude.toJSONText

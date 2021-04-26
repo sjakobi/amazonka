@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,73 +19,84 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.FileSystemConfig where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The Amazon Elastic File System (EFS) storage configuration for a SageMaker image.
+-- | The Amazon Elastic File System (EFS) storage configuration for a
+-- SageMaker image.
 --
---
---
--- /See:/ 'fileSystemConfig' smart constructor.
+-- /See:/ 'newFileSystemConfig' smart constructor.
 data FileSystemConfig = FileSystemConfig'
-  { _fscDefaultGid ::
-      !(Maybe Nat),
-    _fscMountPath :: !(Maybe Text),
-    _fscDefaultUid :: !(Maybe Nat)
+  { -- | The default POSIX group ID (GID). If not specified, defaults to @100@.
+    defaultGid :: Prelude.Maybe Prelude.Nat,
+    -- | The path within the image to mount the user\'s EFS home directory. The
+    -- directory should be empty. If not specified, defaults to
+    -- /\/home\/sagemaker-user/.
+    mountPath :: Prelude.Maybe Prelude.Text,
+    -- | The default POSIX user ID (UID). If not specified, defaults to @1000@.
+    defaultUid :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FileSystemConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FileSystemConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fscDefaultGid' - The default POSIX group ID (GID). If not specified, defaults to @100@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fscMountPath' - The path within the image to mount the user's EFS home directory. The directory should be empty. If not specified, defaults to /\/home\/sagemaker-user/ .
+-- 'defaultGid', 'fileSystemConfig_defaultGid' - The default POSIX group ID (GID). If not specified, defaults to @100@.
 --
--- * 'fscDefaultUid' - The default POSIX user ID (UID). If not specified, defaults to @1000@ .
-fileSystemConfig ::
+-- 'mountPath', 'fileSystemConfig_mountPath' - The path within the image to mount the user\'s EFS home directory. The
+-- directory should be empty. If not specified, defaults to
+-- /\/home\/sagemaker-user/.
+--
+-- 'defaultUid', 'fileSystemConfig_defaultUid' - The default POSIX user ID (UID). If not specified, defaults to @1000@.
+newFileSystemConfig ::
   FileSystemConfig
-fileSystemConfig =
+newFileSystemConfig =
   FileSystemConfig'
-    { _fscDefaultGid = Nothing,
-      _fscMountPath = Nothing,
-      _fscDefaultUid = Nothing
+    { defaultGid = Prelude.Nothing,
+      mountPath = Prelude.Nothing,
+      defaultUid = Prelude.Nothing
     }
 
--- | The default POSIX group ID (GID). If not specified, defaults to @100@ .
-fscDefaultGid :: Lens' FileSystemConfig (Maybe Natural)
-fscDefaultGid = lens _fscDefaultGid (\s a -> s {_fscDefaultGid = a}) . mapping _Nat
+-- | The default POSIX group ID (GID). If not specified, defaults to @100@.
+fileSystemConfig_defaultGid :: Lens.Lens' FileSystemConfig (Prelude.Maybe Prelude.Natural)
+fileSystemConfig_defaultGid = Lens.lens (\FileSystemConfig' {defaultGid} -> defaultGid) (\s@FileSystemConfig' {} a -> s {defaultGid = a} :: FileSystemConfig) Prelude.. Lens.mapping Prelude._Nat
 
--- | The path within the image to mount the user's EFS home directory. The directory should be empty. If not specified, defaults to /\/home\/sagemaker-user/ .
-fscMountPath :: Lens' FileSystemConfig (Maybe Text)
-fscMountPath = lens _fscMountPath (\s a -> s {_fscMountPath = a})
+-- | The path within the image to mount the user\'s EFS home directory. The
+-- directory should be empty. If not specified, defaults to
+-- /\/home\/sagemaker-user/.
+fileSystemConfig_mountPath :: Lens.Lens' FileSystemConfig (Prelude.Maybe Prelude.Text)
+fileSystemConfig_mountPath = Lens.lens (\FileSystemConfig' {mountPath} -> mountPath) (\s@FileSystemConfig' {} a -> s {mountPath = a} :: FileSystemConfig)
 
--- | The default POSIX user ID (UID). If not specified, defaults to @1000@ .
-fscDefaultUid :: Lens' FileSystemConfig (Maybe Natural)
-fscDefaultUid = lens _fscDefaultUid (\s a -> s {_fscDefaultUid = a}) . mapping _Nat
+-- | The default POSIX user ID (UID). If not specified, defaults to @1000@.
+fileSystemConfig_defaultUid :: Lens.Lens' FileSystemConfig (Prelude.Maybe Prelude.Natural)
+fileSystemConfig_defaultUid = Lens.lens (\FileSystemConfig' {defaultUid} -> defaultUid) (\s@FileSystemConfig' {} a -> s {defaultUid = a} :: FileSystemConfig) Prelude.. Lens.mapping Prelude._Nat
 
-instance FromJSON FileSystemConfig where
+instance Prelude.FromJSON FileSystemConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "FileSystemConfig"
       ( \x ->
           FileSystemConfig'
-            <$> (x .:? "DefaultGid")
-            <*> (x .:? "MountPath")
-            <*> (x .:? "DefaultUid")
+            Prelude.<$> (x Prelude..:? "DefaultGid")
+            Prelude.<*> (x Prelude..:? "MountPath")
+            Prelude.<*> (x Prelude..:? "DefaultUid")
       )
 
-instance Hashable FileSystemConfig
+instance Prelude.Hashable FileSystemConfig
 
-instance NFData FileSystemConfig
+instance Prelude.NFData FileSystemConfig
 
-instance ToJSON FileSystemConfig where
+instance Prelude.ToJSON FileSystemConfig where
   toJSON FileSystemConfig' {..} =
-    object
-      ( catMaybes
-          [ ("DefaultGid" .=) <$> _fscDefaultGid,
-            ("MountPath" .=) <$> _fscMountPath,
-            ("DefaultUid" .=) <$> _fscDefaultUid
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("DefaultGid" Prelude..=) Prelude.<$> defaultGid,
+            ("MountPath" Prelude..=) Prelude.<$> mountPath,
+            ("DefaultUid" Prelude..=) Prelude.<$> defaultUid
           ]
       )

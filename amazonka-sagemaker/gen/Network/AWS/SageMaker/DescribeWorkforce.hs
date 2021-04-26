@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,143 +21,170 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists private workforce information, including workforce name, Amazon Resource Name (ARN), and, if applicable, allowed IP address ranges (<https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html CIDRs> ). Allowable IP address ranges are the IP addresses that workers can use to access tasks.
+-- Lists private workforce information, including workforce name, Amazon
+-- Resource Name (ARN), and, if applicable, allowed IP address ranges
+-- (<https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html CIDRs>).
+-- Allowable IP address ranges are the IP addresses that workers can use to
+-- access tasks.
 --
---
--- /Important:/ This operation applies only to private workforces.
+-- This operation applies only to private workforces.
 module Network.AWS.SageMaker.DescribeWorkforce
   ( -- * Creating a Request
-    describeWorkforce,
-    DescribeWorkforce,
+    DescribeWorkforce (..),
+    newDescribeWorkforce,
 
     -- * Request Lenses
-    dWorkforceName,
+    describeWorkforce_workforceName,
 
     -- * Destructuring the Response
-    describeWorkforceResponse,
-    DescribeWorkforceResponse,
+    DescribeWorkforceResponse (..),
+    newDescribeWorkforceResponse,
 
     -- * Response Lenses
-    describeworkforceresponseersResponseStatus,
-    describeworkforceresponseersWorkforce,
+    describeWorkforceResponse_httpStatus,
+    describeWorkforceResponse_workforce,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
+import Network.AWS.SageMaker.Types.Workforce
 
--- | /See:/ 'describeWorkforce' smart constructor.
-newtype DescribeWorkforce = DescribeWorkforce'
-  { _dWorkforceName ::
-      Text
+-- | /See:/ 'newDescribeWorkforce' smart constructor.
+data DescribeWorkforce = DescribeWorkforce'
+  { -- | The name of the private workforce whose access you want to restrict.
+    -- @WorkforceName@ is automatically set to @default@ when a workforce is
+    -- created and cannot be modified.
+    workforceName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeWorkforce' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeWorkforce' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dWorkforceName' - The name of the private workforce whose access you want to restrict. @WorkforceName@ is automatically set to @default@ when a workforce is created and cannot be modified.
-describeWorkforce ::
-  -- | 'dWorkforceName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'workforceName', 'describeWorkforce_workforceName' - The name of the private workforce whose access you want to restrict.
+-- @WorkforceName@ is automatically set to @default@ when a workforce is
+-- created and cannot be modified.
+newDescribeWorkforce ::
+  -- | 'workforceName'
+  Prelude.Text ->
   DescribeWorkforce
-describeWorkforce pWorkforceName_ =
-  DescribeWorkforce'
-    { _dWorkforceName =
-        pWorkforceName_
-    }
+newDescribeWorkforce pWorkforceName_ =
+  DescribeWorkforce' {workforceName = pWorkforceName_}
 
--- | The name of the private workforce whose access you want to restrict. @WorkforceName@ is automatically set to @default@ when a workforce is created and cannot be modified.
-dWorkforceName :: Lens' DescribeWorkforce Text
-dWorkforceName = lens _dWorkforceName (\s a -> s {_dWorkforceName = a})
+-- | The name of the private workforce whose access you want to restrict.
+-- @WorkforceName@ is automatically set to @default@ when a workforce is
+-- created and cannot be modified.
+describeWorkforce_workforceName :: Lens.Lens' DescribeWorkforce Prelude.Text
+describeWorkforce_workforceName = Lens.lens (\DescribeWorkforce' {workforceName} -> workforceName) (\s@DescribeWorkforce' {} a -> s {workforceName = a} :: DescribeWorkforce)
 
-instance AWSRequest DescribeWorkforce where
+instance Prelude.AWSRequest DescribeWorkforce where
   type Rs DescribeWorkforce = DescribeWorkforceResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeWorkforceResponse'
-            <$> (pure (fromEnum s)) <*> (x .:> "Workforce")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "Workforce")
       )
 
-instance Hashable DescribeWorkforce
+instance Prelude.Hashable DescribeWorkforce
 
-instance NFData DescribeWorkforce
+instance Prelude.NFData DescribeWorkforce
 
-instance ToHeaders DescribeWorkforce where
+instance Prelude.ToHeaders DescribeWorkforce where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.DescribeWorkforce" :: ByteString),
+              Prelude.=# ( "SageMaker.DescribeWorkforce" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeWorkforce where
+instance Prelude.ToJSON DescribeWorkforce where
   toJSON DescribeWorkforce' {..} =
-    object
-      ( catMaybes
-          [Just ("WorkforceName" .= _dWorkforceName)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("WorkforceName" Prelude..= workforceName)
+          ]
       )
 
-instance ToPath DescribeWorkforce where
-  toPath = const "/"
+instance Prelude.ToPath DescribeWorkforce where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeWorkforce where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeWorkforce where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeWorkforceResponse' smart constructor.
+-- | /See:/ 'newDescribeWorkforceResponse' smart constructor.
 data DescribeWorkforceResponse = DescribeWorkforceResponse'
-  { _describeworkforceresponseersResponseStatus ::
-      !Int,
-    _describeworkforceresponseersWorkforce ::
-      !Workforce
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | A single private workforce, which is automatically created when you
+    -- create your first private work team. You can create one private work
+    -- force in each AWS Region. By default, any workforce-related API
+    -- operation used in a specific region will apply to the workforce created
+    -- in that region. To learn how to create a private workforce, see
+    -- <https://docs.aws.amazon.com/sagemaker/latest/dg/sms-workforce-create-private.html Create a Private Workforce>.
+    workforce :: Workforce
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeWorkforceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeWorkforceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'describeworkforceresponseersResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'describeworkforceresponseersWorkforce' - A single private workforce, which is automatically created when you create your first private work team. You can create one private work force in each AWS Region. By default, any workforce-related API operation used in a specific region will apply to the workforce created in that region. To learn how to create a private workforce, see <https://docs.aws.amazon.com/sagemaker/latest/dg/sms-workforce-create-private.html Create a Private Workforce> .
-describeWorkforceResponse ::
-  -- | 'describeworkforceresponseersResponseStatus'
-  Int ->
-  -- | 'describeworkforceresponseersWorkforce'
+-- 'httpStatus', 'describeWorkforceResponse_httpStatus' - The response's http status code.
+--
+-- 'workforce', 'describeWorkforceResponse_workforce' - A single private workforce, which is automatically created when you
+-- create your first private work team. You can create one private work
+-- force in each AWS Region. By default, any workforce-related API
+-- operation used in a specific region will apply to the workforce created
+-- in that region. To learn how to create a private workforce, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/sms-workforce-create-private.html Create a Private Workforce>.
+newDescribeWorkforceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'workforce'
   Workforce ->
   DescribeWorkforceResponse
-describeWorkforceResponse
-  pResponseStatus_
-  pWorkforce_ =
-    DescribeWorkforceResponse'
-      { _describeworkforceresponseersResponseStatus =
-          pResponseStatus_,
-        _describeworkforceresponseersWorkforce =
-          pWorkforce_
-      }
+newDescribeWorkforceResponse pHttpStatus_ pWorkforce_ =
+  DescribeWorkforceResponse'
+    { httpStatus =
+        pHttpStatus_,
+      workforce = pWorkforce_
+    }
 
--- | -- | The response status code.
-describeworkforceresponseersResponseStatus :: Lens' DescribeWorkforceResponse Int
-describeworkforceresponseersResponseStatus = lens _describeworkforceresponseersResponseStatus (\s a -> s {_describeworkforceresponseersResponseStatus = a})
+-- | The response's http status code.
+describeWorkforceResponse_httpStatus :: Lens.Lens' DescribeWorkforceResponse Prelude.Int
+describeWorkforceResponse_httpStatus = Lens.lens (\DescribeWorkforceResponse' {httpStatus} -> httpStatus) (\s@DescribeWorkforceResponse' {} a -> s {httpStatus = a} :: DescribeWorkforceResponse)
 
--- | A single private workforce, which is automatically created when you create your first private work team. You can create one private work force in each AWS Region. By default, any workforce-related API operation used in a specific region will apply to the workforce created in that region. To learn how to create a private workforce, see <https://docs.aws.amazon.com/sagemaker/latest/dg/sms-workforce-create-private.html Create a Private Workforce> .
-describeworkforceresponseersWorkforce :: Lens' DescribeWorkforceResponse Workforce
-describeworkforceresponseersWorkforce = lens _describeworkforceresponseersWorkforce (\s a -> s {_describeworkforceresponseersWorkforce = a})
+-- | A single private workforce, which is automatically created when you
+-- create your first private work team. You can create one private work
+-- force in each AWS Region. By default, any workforce-related API
+-- operation used in a specific region will apply to the workforce created
+-- in that region. To learn how to create a private workforce, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/sms-workforce-create-private.html Create a Private Workforce>.
+describeWorkforceResponse_workforce :: Lens.Lens' DescribeWorkforceResponse Workforce
+describeWorkforceResponse_workforce = Lens.lens (\DescribeWorkforceResponse' {workforce} -> workforce) (\s@DescribeWorkforceResponse' {} a -> s {workforce = a} :: DescribeWorkforceResponse)
 
-instance NFData DescribeWorkforceResponse
+instance Prelude.NFData DescribeWorkforceResponse

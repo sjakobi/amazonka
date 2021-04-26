@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,112 +24,114 @@
 -- Deletes the specified model group.
 module Network.AWS.SageMaker.DeleteModelPackageGroup
   ( -- * Creating a Request
-    deleteModelPackageGroup,
-    DeleteModelPackageGroup,
+    DeleteModelPackageGroup (..),
+    newDeleteModelPackageGroup,
 
     -- * Request Lenses
-    dModelPackageGroupName,
+    deleteModelPackageGroup_modelPackageGroupName,
 
     -- * Destructuring the Response
-    deleteModelPackageGroupResponse,
-    DeleteModelPackageGroupResponse,
+    DeleteModelPackageGroupResponse (..),
+    newDeleteModelPackageGroupResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'deleteModelPackageGroup' smart constructor.
-newtype DeleteModelPackageGroup = DeleteModelPackageGroup'
-  { _dModelPackageGroupName ::
-      Text
+-- | /See:/ 'newDeleteModelPackageGroup' smart constructor.
+data DeleteModelPackageGroup = DeleteModelPackageGroup'
+  { -- | The name of the model group to delete.
+    modelPackageGroupName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteModelPackageGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteModelPackageGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dModelPackageGroupName' - The name of the model group to delete.
-deleteModelPackageGroup ::
-  -- | 'dModelPackageGroupName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'modelPackageGroupName', 'deleteModelPackageGroup_modelPackageGroupName' - The name of the model group to delete.
+newDeleteModelPackageGroup ::
+  -- | 'modelPackageGroupName'
+  Prelude.Text ->
   DeleteModelPackageGroup
-deleteModelPackageGroup pModelPackageGroupName_ =
+newDeleteModelPackageGroup pModelPackageGroupName_ =
   DeleteModelPackageGroup'
-    { _dModelPackageGroupName =
+    { modelPackageGroupName =
         pModelPackageGroupName_
     }
 
 -- | The name of the model group to delete.
-dModelPackageGroupName :: Lens' DeleteModelPackageGroup Text
-dModelPackageGroupName = lens _dModelPackageGroupName (\s a -> s {_dModelPackageGroupName = a})
+deleteModelPackageGroup_modelPackageGroupName :: Lens.Lens' DeleteModelPackageGroup Prelude.Text
+deleteModelPackageGroup_modelPackageGroupName = Lens.lens (\DeleteModelPackageGroup' {modelPackageGroupName} -> modelPackageGroupName) (\s@DeleteModelPackageGroup' {} a -> s {modelPackageGroupName = a} :: DeleteModelPackageGroup)
 
-instance AWSRequest DeleteModelPackageGroup where
+instance Prelude.AWSRequest DeleteModelPackageGroup where
   type
     Rs DeleteModelPackageGroup =
       DeleteModelPackageGroupResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveNull DeleteModelPackageGroupResponse'
+    Response.receiveNull
+      DeleteModelPackageGroupResponse'
 
-instance Hashable DeleteModelPackageGroup
+instance Prelude.Hashable DeleteModelPackageGroup
 
-instance NFData DeleteModelPackageGroup
+instance Prelude.NFData DeleteModelPackageGroup
 
-instance ToHeaders DeleteModelPackageGroup where
+instance Prelude.ToHeaders DeleteModelPackageGroup where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.DeleteModelPackageGroup" :: ByteString),
+              Prelude.=# ( "SageMaker.DeleteModelPackageGroup" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteModelPackageGroup where
+instance Prelude.ToJSON DeleteModelPackageGroup where
   toJSON DeleteModelPackageGroup' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "ModelPackageGroupName"
-                  .= _dModelPackageGroupName
+                  Prelude..= modelPackageGroupName
               )
           ]
       )
 
-instance ToPath DeleteModelPackageGroup where
-  toPath = const "/"
+instance Prelude.ToPath DeleteModelPackageGroup where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteModelPackageGroup where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteModelPackageGroup where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteModelPackageGroupResponse' smart constructor.
+-- | /See:/ 'newDeleteModelPackageGroupResponse' smart constructor.
 data DeleteModelPackageGroupResponse = DeleteModelPackageGroupResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteModelPackageGroupResponse' with the minimum fields required to make a request.
-deleteModelPackageGroupResponse ::
+-- |
+-- Create a value of 'DeleteModelPackageGroupResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteModelPackageGroupResponse ::
   DeleteModelPackageGroupResponse
-deleteModelPackageGroupResponse =
+newDeleteModelPackageGroupResponse =
   DeleteModelPackageGroupResponse'
 
-instance NFData DeleteModelPackageGroupResponse
+instance
+  Prelude.NFData
+    DeleteModelPackageGroupResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,61 @@
 module Network.AWS.SageMaker.Types.HyperParameterTuningJobStrategyType
   ( HyperParameterTuningJobStrategyType
       ( ..,
-        Bayesian,
-        Random
+        HyperParameterTuningJobStrategyTypeBayesian,
+        HyperParameterTuningJobStrategyTypeRandom
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | The strategy hyperparameter tuning uses to find the best combination of hyperparameters for your model. Currently, the only supported value is @Bayesian@ .
-data HyperParameterTuningJobStrategyType
-  = HyperParameterTuningJobStrategyType'
-      ( CI
-          Text
-      )
+-- | The strategy hyperparameter tuning uses to find the best combination of
+-- hyperparameters for your model. Currently, the only supported value is
+-- @Bayesian@.
+newtype HyperParameterTuningJobStrategyType = HyperParameterTuningJobStrategyType'
+  { fromHyperParameterTuningJobStrategyType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Bayesian :: HyperParameterTuningJobStrategyType
-pattern Bayesian = HyperParameterTuningJobStrategyType' "Bayesian"
+pattern HyperParameterTuningJobStrategyTypeBayesian :: HyperParameterTuningJobStrategyType
+pattern HyperParameterTuningJobStrategyTypeBayesian = HyperParameterTuningJobStrategyType' "Bayesian"
 
-pattern Random :: HyperParameterTuningJobStrategyType
-pattern Random = HyperParameterTuningJobStrategyType' "Random"
+pattern HyperParameterTuningJobStrategyTypeRandom :: HyperParameterTuningJobStrategyType
+pattern HyperParameterTuningJobStrategyTypeRandom = HyperParameterTuningJobStrategyType' "Random"
 
 {-# COMPLETE
-  Bayesian,
-  Random,
+  HyperParameterTuningJobStrategyTypeBayesian,
+  HyperParameterTuningJobStrategyTypeRandom,
   HyperParameterTuningJobStrategyType'
   #-}
 
-instance FromText HyperParameterTuningJobStrategyType where
-  parser = (HyperParameterTuningJobStrategyType' . mk) <$> takeText
+instance Prelude.FromText HyperParameterTuningJobStrategyType where
+  parser = HyperParameterTuningJobStrategyType' Prelude.<$> Prelude.takeText
 
-instance ToText HyperParameterTuningJobStrategyType where
-  toText (HyperParameterTuningJobStrategyType' ci) = original ci
+instance Prelude.ToText HyperParameterTuningJobStrategyType where
+  toText (HyperParameterTuningJobStrategyType' x) = x
 
-instance Hashable HyperParameterTuningJobStrategyType
+instance Prelude.Hashable HyperParameterTuningJobStrategyType
 
-instance NFData HyperParameterTuningJobStrategyType
+instance Prelude.NFData HyperParameterTuningJobStrategyType
 
-instance ToByteString HyperParameterTuningJobStrategyType
+instance Prelude.ToByteString HyperParameterTuningJobStrategyType
 
-instance ToQuery HyperParameterTuningJobStrategyType
+instance Prelude.ToQuery HyperParameterTuningJobStrategyType
 
-instance ToHeader HyperParameterTuningJobStrategyType
+instance Prelude.ToHeader HyperParameterTuningJobStrategyType
 
-instance ToJSON HyperParameterTuningJobStrategyType where
-  toJSON = toJSONText
+instance Prelude.ToJSON HyperParameterTuningJobStrategyType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON HyperParameterTuningJobStrategyType where
-  parseJSON = parseJSONText "HyperParameterTuningJobStrategyType"
+instance Prelude.FromJSON HyperParameterTuningJobStrategyType where
+  parseJSON = Prelude.parseJSONText "HyperParameterTuningJobStrategyType"

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,255 +21,332 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a @Domain@ used by Amazon SageMaker Studio. A domain consists of an associated Amazon Elastic File System (EFS) volume, a list of authorized users, and a variety of security, application, policy, and Amazon Virtual Private Cloud (VPC) configurations. An AWS account is limited to one domain per region. Users within a domain can share notebook files and other artifacts with each other.
---
+-- Creates a @Domain@ used by Amazon SageMaker Studio. A domain consists of
+-- an associated Amazon Elastic File System (EFS) volume, a list of
+-- authorized users, and a variety of security, application, policy, and
+-- Amazon Virtual Private Cloud (VPC) configurations. An AWS account is
+-- limited to one domain per region. Users within a domain can share
+-- notebook files and other artifacts with each other.
 --
 -- __EFS storage__
 --
--- When a domain is created, an EFS volume is created for use by all of the users within the domain. Each user receives a private home directory within the EFS volume for notebooks, Git repositories, and data files.
+-- When a domain is created, an EFS volume is created for use by all of the
+-- users within the domain. Each user receives a private home directory
+-- within the EFS volume for notebooks, Git repositories, and data files.
 --
--- SageMaker uses the AWS Key Management Service (AWS KMS) to encrypt the EFS volume attached to the domain with an AWS managed customer master key (CMK) by default. For more control, you can specify a customer managed CMK. For more information, see <https://docs.aws.amazon.com/sagemaker/latest/dg/encryption-at-rest.html Protect Data at Rest Using Encryption> .
+-- SageMaker uses the AWS Key Management Service (AWS KMS) to encrypt the
+-- EFS volume attached to the domain with an AWS managed customer master
+-- key (CMK) by default. For more control, you can specify a customer
+-- managed CMK. For more information, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/encryption-at-rest.html Protect Data at Rest Using Encryption>.
 --
 -- __VPC configuration__
 --
--- All SageMaker Studio traffic between the domain and the EFS volume is through the specified VPC and subnets. For other Studio traffic, you can specify the @AppNetworkAccessType@ parameter. @AppNetworkAccessType@ corresponds to the network access type that you choose when you onboard to Studio. The following options are available:
+-- All SageMaker Studio traffic between the domain and the EFS volume is
+-- through the specified VPC and subnets. For other Studio traffic, you can
+-- specify the @AppNetworkAccessType@ parameter. @AppNetworkAccessType@
+-- corresponds to the network access type that you choose when you onboard
+-- to Studio. The following options are available:
 --
---     * @PublicInternetOnly@ - Non-EFS traffic goes through a VPC managed by Amazon SageMaker, which allows internet access. This is the default value.
+-- -   @PublicInternetOnly@ - Non-EFS traffic goes through a VPC managed by
+--     Amazon SageMaker, which allows internet access. This is the default
+--     value.
 --
---     * @VpcOnly@ - All Studio traffic is through the specified VPC and subnets. Internet access is disabled by default. To allow internet access, you must specify a NAT gateway.
+-- -   @VpcOnly@ - All Studio traffic is through the specified VPC and
+--     subnets. Internet access is disabled by default. To allow internet
+--     access, you must specify a NAT gateway.
 --
--- When internet access is disabled, you won't be able to run a Studio notebook or to train or host models unless your VPC has an interface endpoint to the SageMaker API and runtime or a NAT gateway and your security groups allow outbound connections.
+--     When internet access is disabled, you won\'t be able to run a Studio
+--     notebook or to train or host models unless your VPC has an interface
+--     endpoint to the SageMaker API and runtime or a NAT gateway and your
+--     security groups allow outbound connections.
 --
---
---
--- For more information, see <https://docs.aws.amazon.com/sagemaker/latest/dg/studio-notebooks-and-internet-access.html Connect SageMaker Studio Notebooks to Resources in a VPC> .
+-- For more information, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/studio-notebooks-and-internet-access.html Connect SageMaker Studio Notebooks to Resources in a VPC>.
 module Network.AWS.SageMaker.CreateDomain
   ( -- * Creating a Request
-    createDomain,
-    CreateDomain,
+    CreateDomain (..),
+    newCreateDomain,
 
     -- * Request Lenses
-    cdKMSKeyId,
-    cdTags,
-    cdAppNetworkAccessType,
-    cdHomeEfsFileSystemKMSKeyId,
-    cdDomainName,
-    cdAuthMode,
-    cdDefaultUserSettings,
-    cdSubnetIds,
-    cdVPCId,
+    createDomain_kmsKeyId,
+    createDomain_tags,
+    createDomain_appNetworkAccessType,
+    createDomain_homeEfsFileSystemKmsKeyId,
+    createDomain_domainName,
+    createDomain_authMode,
+    createDomain_defaultUserSettings,
+    createDomain_subnetIds,
+    createDomain_vpcId,
 
     -- * Destructuring the Response
-    createDomainResponse,
-    CreateDomainResponse,
+    CreateDomainResponse (..),
+    newCreateDomainResponse,
 
     -- * Response Lenses
-    cdrrsDomainARN,
-    cdrrsURL,
-    cdrrsResponseStatus,
+    createDomainResponse_domainArn,
+    createDomainResponse_url,
+    createDomainResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SageMaker.Types
 
--- | /See:/ 'createDomain' smart constructor.
+-- | /See:/ 'newCreateDomain' smart constructor.
 data CreateDomain = CreateDomain'
-  { _cdKMSKeyId ::
-      !(Maybe Text),
-    _cdTags :: !(Maybe [Tag]),
-    _cdAppNetworkAccessType ::
-      !(Maybe AppNetworkAccessType),
-    _cdHomeEfsFileSystemKMSKeyId :: !(Maybe Text),
-    _cdDomainName :: !Text,
-    _cdAuthMode :: !AuthMode,
-    _cdDefaultUserSettings :: !UserSettings,
-    _cdSubnetIds :: !(List1 Text),
-    _cdVPCId :: !Text
+  { -- | SageMaker uses AWS KMS to encrypt the EFS volume attached to the domain
+    -- with an AWS managed customer master key (CMK) by default. For more
+    -- control, specify a customer managed CMK.
+    kmsKeyId :: Prelude.Maybe Prelude.Text,
+    -- | Tags to associated with the Domain. Each tag consists of a key and an
+    -- optional value. Tag keys must be unique per resource. Tags are
+    -- searchable using the Search API.
+    tags :: Prelude.Maybe [Tag],
+    -- | Specifies the VPC used for non-EFS traffic. The default value is
+    -- @PublicInternetOnly@.
+    --
+    -- -   @PublicInternetOnly@ - Non-EFS traffic is through a VPC managed by
+    --     Amazon SageMaker, which allows direct internet access
+    --
+    -- -   @VpcOnly@ - All Studio traffic is through the specified VPC and
+    --     subnets
+    appNetworkAccessType :: Prelude.Maybe AppNetworkAccessType,
+    -- | This member is deprecated and replaced with @KmsKeyId@.
+    homeEfsFileSystemKmsKeyId :: Prelude.Maybe Prelude.Text,
+    -- | A name for the domain.
+    domainName :: Prelude.Text,
+    -- | The mode of authentication that members use to access the domain.
+    authMode :: AuthMode,
+    -- | The default user settings.
+    defaultUserSettings :: UserSettings,
+    -- | The VPC subnets that Studio uses for communication.
+    subnetIds :: Prelude.List1 Prelude.Text,
+    -- | The ID of the Amazon Virtual Private Cloud (VPC) that Studio uses for
+    -- communication.
+    vpcId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateDomain' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateDomain' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cdKMSKeyId' - SageMaker uses AWS KMS to encrypt the EFS volume attached to the domain with an AWS managed customer master key (CMK) by default. For more control, specify a customer managed CMK.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cdTags' - Tags to associated with the Domain. Each tag consists of a key and an optional value. Tag keys must be unique per resource. Tags are searchable using the 'Search' API.
+-- 'kmsKeyId', 'createDomain_kmsKeyId' - SageMaker uses AWS KMS to encrypt the EFS volume attached to the domain
+-- with an AWS managed customer master key (CMK) by default. For more
+-- control, specify a customer managed CMK.
 --
--- * 'cdAppNetworkAccessType' - Specifies the VPC used for non-EFS traffic. The default value is @PublicInternetOnly@ .     * @PublicInternetOnly@ - Non-EFS traffic is through a VPC managed by Amazon SageMaker, which allows direct internet access     * @VpcOnly@ - All Studio traffic is through the specified VPC and subnets
+-- 'tags', 'createDomain_tags' - Tags to associated with the Domain. Each tag consists of a key and an
+-- optional value. Tag keys must be unique per resource. Tags are
+-- searchable using the Search API.
 --
--- * 'cdHomeEfsFileSystemKMSKeyId' - This member is deprecated and replaced with @KmsKeyId@ .
+-- 'appNetworkAccessType', 'createDomain_appNetworkAccessType' - Specifies the VPC used for non-EFS traffic. The default value is
+-- @PublicInternetOnly@.
 --
--- * 'cdDomainName' - A name for the domain.
+-- -   @PublicInternetOnly@ - Non-EFS traffic is through a VPC managed by
+--     Amazon SageMaker, which allows direct internet access
 --
--- * 'cdAuthMode' - The mode of authentication that members use to access the domain.
+-- -   @VpcOnly@ - All Studio traffic is through the specified VPC and
+--     subnets
 --
--- * 'cdDefaultUserSettings' - The default user settings.
+-- 'homeEfsFileSystemKmsKeyId', 'createDomain_homeEfsFileSystemKmsKeyId' - This member is deprecated and replaced with @KmsKeyId@.
 --
--- * 'cdSubnetIds' - The VPC subnets that Studio uses for communication.
+-- 'domainName', 'createDomain_domainName' - A name for the domain.
 --
--- * 'cdVPCId' - The ID of the Amazon Virtual Private Cloud (VPC) that Studio uses for communication.
-createDomain ::
-  -- | 'cdDomainName'
-  Text ->
-  -- | 'cdAuthMode'
+-- 'authMode', 'createDomain_authMode' - The mode of authentication that members use to access the domain.
+--
+-- 'defaultUserSettings', 'createDomain_defaultUserSettings' - The default user settings.
+--
+-- 'subnetIds', 'createDomain_subnetIds' - The VPC subnets that Studio uses for communication.
+--
+-- 'vpcId', 'createDomain_vpcId' - The ID of the Amazon Virtual Private Cloud (VPC) that Studio uses for
+-- communication.
+newCreateDomain ::
+  -- | 'domainName'
+  Prelude.Text ->
+  -- | 'authMode'
   AuthMode ->
-  -- | 'cdDefaultUserSettings'
+  -- | 'defaultUserSettings'
   UserSettings ->
-  -- | 'cdSubnetIds'
-  NonEmpty Text ->
-  -- | 'cdVPCId'
-  Text ->
+  -- | 'subnetIds'
+  Prelude.NonEmpty Prelude.Text ->
+  -- | 'vpcId'
+  Prelude.Text ->
   CreateDomain
-createDomain
+newCreateDomain
   pDomainName_
   pAuthMode_
   pDefaultUserSettings_
   pSubnetIds_
-  pVPCId_ =
+  pVpcId_ =
     CreateDomain'
-      { _cdKMSKeyId = Nothing,
-        _cdTags = Nothing,
-        _cdAppNetworkAccessType = Nothing,
-        _cdHomeEfsFileSystemKMSKeyId = Nothing,
-        _cdDomainName = pDomainName_,
-        _cdAuthMode = pAuthMode_,
-        _cdDefaultUserSettings = pDefaultUserSettings_,
-        _cdSubnetIds = _List1 # pSubnetIds_,
-        _cdVPCId = pVPCId_
+      { kmsKeyId = Prelude.Nothing,
+        tags = Prelude.Nothing,
+        appNetworkAccessType = Prelude.Nothing,
+        homeEfsFileSystemKmsKeyId = Prelude.Nothing,
+        domainName = pDomainName_,
+        authMode = pAuthMode_,
+        defaultUserSettings = pDefaultUserSettings_,
+        subnetIds = Prelude._List1 Lens.# pSubnetIds_,
+        vpcId = pVpcId_
       }
 
--- | SageMaker uses AWS KMS to encrypt the EFS volume attached to the domain with an AWS managed customer master key (CMK) by default. For more control, specify a customer managed CMK.
-cdKMSKeyId :: Lens' CreateDomain (Maybe Text)
-cdKMSKeyId = lens _cdKMSKeyId (\s a -> s {_cdKMSKeyId = a})
+-- | SageMaker uses AWS KMS to encrypt the EFS volume attached to the domain
+-- with an AWS managed customer master key (CMK) by default. For more
+-- control, specify a customer managed CMK.
+createDomain_kmsKeyId :: Lens.Lens' CreateDomain (Prelude.Maybe Prelude.Text)
+createDomain_kmsKeyId = Lens.lens (\CreateDomain' {kmsKeyId} -> kmsKeyId) (\s@CreateDomain' {} a -> s {kmsKeyId = a} :: CreateDomain)
 
--- | Tags to associated with the Domain. Each tag consists of a key and an optional value. Tag keys must be unique per resource. Tags are searchable using the 'Search' API.
-cdTags :: Lens' CreateDomain [Tag]
-cdTags = lens _cdTags (\s a -> s {_cdTags = a}) . _Default . _Coerce
+-- | Tags to associated with the Domain. Each tag consists of a key and an
+-- optional value. Tag keys must be unique per resource. Tags are
+-- searchable using the Search API.
+createDomain_tags :: Lens.Lens' CreateDomain (Prelude.Maybe [Tag])
+createDomain_tags = Lens.lens (\CreateDomain' {tags} -> tags) (\s@CreateDomain' {} a -> s {tags = a} :: CreateDomain) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Specifies the VPC used for non-EFS traffic. The default value is @PublicInternetOnly@ .     * @PublicInternetOnly@ - Non-EFS traffic is through a VPC managed by Amazon SageMaker, which allows direct internet access     * @VpcOnly@ - All Studio traffic is through the specified VPC and subnets
-cdAppNetworkAccessType :: Lens' CreateDomain (Maybe AppNetworkAccessType)
-cdAppNetworkAccessType = lens _cdAppNetworkAccessType (\s a -> s {_cdAppNetworkAccessType = a})
+-- | Specifies the VPC used for non-EFS traffic. The default value is
+-- @PublicInternetOnly@.
+--
+-- -   @PublicInternetOnly@ - Non-EFS traffic is through a VPC managed by
+--     Amazon SageMaker, which allows direct internet access
+--
+-- -   @VpcOnly@ - All Studio traffic is through the specified VPC and
+--     subnets
+createDomain_appNetworkAccessType :: Lens.Lens' CreateDomain (Prelude.Maybe AppNetworkAccessType)
+createDomain_appNetworkAccessType = Lens.lens (\CreateDomain' {appNetworkAccessType} -> appNetworkAccessType) (\s@CreateDomain' {} a -> s {appNetworkAccessType = a} :: CreateDomain)
 
--- | This member is deprecated and replaced with @KmsKeyId@ .
-cdHomeEfsFileSystemKMSKeyId :: Lens' CreateDomain (Maybe Text)
-cdHomeEfsFileSystemKMSKeyId = lens _cdHomeEfsFileSystemKMSKeyId (\s a -> s {_cdHomeEfsFileSystemKMSKeyId = a})
+-- | This member is deprecated and replaced with @KmsKeyId@.
+createDomain_homeEfsFileSystemKmsKeyId :: Lens.Lens' CreateDomain (Prelude.Maybe Prelude.Text)
+createDomain_homeEfsFileSystemKmsKeyId = Lens.lens (\CreateDomain' {homeEfsFileSystemKmsKeyId} -> homeEfsFileSystemKmsKeyId) (\s@CreateDomain' {} a -> s {homeEfsFileSystemKmsKeyId = a} :: CreateDomain)
 
 -- | A name for the domain.
-cdDomainName :: Lens' CreateDomain Text
-cdDomainName = lens _cdDomainName (\s a -> s {_cdDomainName = a})
+createDomain_domainName :: Lens.Lens' CreateDomain Prelude.Text
+createDomain_domainName = Lens.lens (\CreateDomain' {domainName} -> domainName) (\s@CreateDomain' {} a -> s {domainName = a} :: CreateDomain)
 
 -- | The mode of authentication that members use to access the domain.
-cdAuthMode :: Lens' CreateDomain AuthMode
-cdAuthMode = lens _cdAuthMode (\s a -> s {_cdAuthMode = a})
+createDomain_authMode :: Lens.Lens' CreateDomain AuthMode
+createDomain_authMode = Lens.lens (\CreateDomain' {authMode} -> authMode) (\s@CreateDomain' {} a -> s {authMode = a} :: CreateDomain)
 
 -- | The default user settings.
-cdDefaultUserSettings :: Lens' CreateDomain UserSettings
-cdDefaultUserSettings = lens _cdDefaultUserSettings (\s a -> s {_cdDefaultUserSettings = a})
+createDomain_defaultUserSettings :: Lens.Lens' CreateDomain UserSettings
+createDomain_defaultUserSettings = Lens.lens (\CreateDomain' {defaultUserSettings} -> defaultUserSettings) (\s@CreateDomain' {} a -> s {defaultUserSettings = a} :: CreateDomain)
 
 -- | The VPC subnets that Studio uses for communication.
-cdSubnetIds :: Lens' CreateDomain (NonEmpty Text)
-cdSubnetIds = lens _cdSubnetIds (\s a -> s {_cdSubnetIds = a}) . _List1
+createDomain_subnetIds :: Lens.Lens' CreateDomain (Prelude.NonEmpty Prelude.Text)
+createDomain_subnetIds = Lens.lens (\CreateDomain' {subnetIds} -> subnetIds) (\s@CreateDomain' {} a -> s {subnetIds = a} :: CreateDomain) Prelude.. Prelude._List1
 
--- | The ID of the Amazon Virtual Private Cloud (VPC) that Studio uses for communication.
-cdVPCId :: Lens' CreateDomain Text
-cdVPCId = lens _cdVPCId (\s a -> s {_cdVPCId = a})
+-- | The ID of the Amazon Virtual Private Cloud (VPC) that Studio uses for
+-- communication.
+createDomain_vpcId :: Lens.Lens' CreateDomain Prelude.Text
+createDomain_vpcId = Lens.lens (\CreateDomain' {vpcId} -> vpcId) (\s@CreateDomain' {} a -> s {vpcId = a} :: CreateDomain)
 
-instance AWSRequest CreateDomain where
+instance Prelude.AWSRequest CreateDomain where
   type Rs CreateDomain = CreateDomainResponse
-  request = postJSON sageMaker
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateDomainResponse'
-            <$> (x .?> "DomainArn")
-            <*> (x .?> "Url")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "DomainArn")
+            Prelude.<*> (x Prelude..?> "Url")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateDomain
+instance Prelude.Hashable CreateDomain
 
-instance NFData CreateDomain
+instance Prelude.NFData CreateDomain
 
-instance ToHeaders CreateDomain where
+instance Prelude.ToHeaders CreateDomain where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("SageMaker.CreateDomain" :: ByteString),
+              Prelude.=# ("SageMaker.CreateDomain" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateDomain where
+instance Prelude.ToJSON CreateDomain where
   toJSON CreateDomain' {..} =
-    object
-      ( catMaybes
-          [ ("KmsKeyId" .=) <$> _cdKMSKeyId,
-            ("Tags" .=) <$> _cdTags,
-            ("AppNetworkAccessType" .=)
-              <$> _cdAppNetworkAccessType,
-            ("HomeEfsFileSystemKmsKeyId" .=)
-              <$> _cdHomeEfsFileSystemKMSKeyId,
-            Just ("DomainName" .= _cdDomainName),
-            Just ("AuthMode" .= _cdAuthMode),
-            Just
-              ("DefaultUserSettings" .= _cdDefaultUserSettings),
-            Just ("SubnetIds" .= _cdSubnetIds),
-            Just ("VpcId" .= _cdVPCId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("KmsKeyId" Prelude..=) Prelude.<$> kmsKeyId,
+            ("Tags" Prelude..=) Prelude.<$> tags,
+            ("AppNetworkAccessType" Prelude..=)
+              Prelude.<$> appNetworkAccessType,
+            ("HomeEfsFileSystemKmsKeyId" Prelude..=)
+              Prelude.<$> homeEfsFileSystemKmsKeyId,
+            Prelude.Just ("DomainName" Prelude..= domainName),
+            Prelude.Just ("AuthMode" Prelude..= authMode),
+            Prelude.Just
+              ( "DefaultUserSettings"
+                  Prelude..= defaultUserSettings
+              ),
+            Prelude.Just ("SubnetIds" Prelude..= subnetIds),
+            Prelude.Just ("VpcId" Prelude..= vpcId)
           ]
       )
 
-instance ToPath CreateDomain where
-  toPath = const "/"
+instance Prelude.ToPath CreateDomain where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateDomain where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateDomain where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createDomainResponse' smart constructor.
+-- | /See:/ 'newCreateDomainResponse' smart constructor.
 data CreateDomainResponse = CreateDomainResponse'
-  { _cdrrsDomainARN ::
-      !(Maybe Text),
-    _cdrrsURL :: !(Maybe Text),
-    _cdrrsResponseStatus :: !Int
+  { -- | The Amazon Resource Name (ARN) of the created domain.
+    domainArn :: Prelude.Maybe Prelude.Text,
+    -- | The URL to the created domain.
+    url :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateDomainResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateDomainResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cdrrsDomainARN' - The Amazon Resource Name (ARN) of the created domain.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cdrrsURL' - The URL to the created domain.
+-- 'domainArn', 'createDomainResponse_domainArn' - The Amazon Resource Name (ARN) of the created domain.
 --
--- * 'cdrrsResponseStatus' - -- | The response status code.
-createDomainResponse ::
-  -- | 'cdrrsResponseStatus'
-  Int ->
+-- 'url', 'createDomainResponse_url' - The URL to the created domain.
+--
+-- 'httpStatus', 'createDomainResponse_httpStatus' - The response's http status code.
+newCreateDomainResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateDomainResponse
-createDomainResponse pResponseStatus_ =
+newCreateDomainResponse pHttpStatus_ =
   CreateDomainResponse'
-    { _cdrrsDomainARN = Nothing,
-      _cdrrsURL = Nothing,
-      _cdrrsResponseStatus = pResponseStatus_
+    { domainArn = Prelude.Nothing,
+      url = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The Amazon Resource Name (ARN) of the created domain.
-cdrrsDomainARN :: Lens' CreateDomainResponse (Maybe Text)
-cdrrsDomainARN = lens _cdrrsDomainARN (\s a -> s {_cdrrsDomainARN = a})
+createDomainResponse_domainArn :: Lens.Lens' CreateDomainResponse (Prelude.Maybe Prelude.Text)
+createDomainResponse_domainArn = Lens.lens (\CreateDomainResponse' {domainArn} -> domainArn) (\s@CreateDomainResponse' {} a -> s {domainArn = a} :: CreateDomainResponse)
 
 -- | The URL to the created domain.
-cdrrsURL :: Lens' CreateDomainResponse (Maybe Text)
-cdrrsURL = lens _cdrrsURL (\s a -> s {_cdrrsURL = a})
+createDomainResponse_url :: Lens.Lens' CreateDomainResponse (Prelude.Maybe Prelude.Text)
+createDomainResponse_url = Lens.lens (\CreateDomainResponse' {url} -> url) (\s@CreateDomainResponse' {} a -> s {url = a} :: CreateDomainResponse)
 
--- | -- | The response status code.
-cdrrsResponseStatus :: Lens' CreateDomainResponse Int
-cdrrsResponseStatus = lens _cdrrsResponseStatus (\s a -> s {_cdrrsResponseStatus = a})
+-- | The response's http status code.
+createDomainResponse_httpStatus :: Lens.Lens' CreateDomainResponse Prelude.Int
+createDomainResponse_httpStatus = Lens.lens (\CreateDomainResponse' {httpStatus} -> httpStatus) (\s@CreateDomainResponse' {} a -> s {httpStatus = a} :: CreateDomainResponse)
 
-instance NFData CreateDomainResponse
+instance Prelude.NFData CreateDomainResponse

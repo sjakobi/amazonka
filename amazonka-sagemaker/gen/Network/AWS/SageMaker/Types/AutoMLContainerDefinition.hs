@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,82 +19,85 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.AutoMLContainerDefinition where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A list of container definitions that describe the different containers that make up one AutoML candidate. Refer to ContainerDefinition for more details.
+-- | A list of container definitions that describe the different containers
+-- that make up one AutoML candidate. Refer to ContainerDefinition for more
+-- details.
 --
---
---
--- /See:/ 'autoMLContainerDefinition' smart constructor.
+-- /See:/ 'newAutoMLContainerDefinition' smart constructor.
 data AutoMLContainerDefinition = AutoMLContainerDefinition'
-  { _amlcdEnvironment ::
-      !( Maybe
-           ( Map
-               Text
-               Text
-           )
-       ),
-    _amlcdImage ::
-      !Text,
-    _amlcdModelDataURL ::
-      !Text
+  { -- | Environment variables to set in the container. Refer to
+    -- ContainerDefinition for more details.
+    environment :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The ECR path of the container. Refer to ContainerDefinition for more
+    -- details.
+    image :: Prelude.Text,
+    -- | The location of the model artifacts. Refer to ContainerDefinition for
+    -- more details.
+    modelDataUrl :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AutoMLContainerDefinition' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AutoMLContainerDefinition' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'amlcdEnvironment' - Environment variables to set in the container. Refer to ContainerDefinition for more details.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'amlcdImage' - The ECR path of the container. Refer to ContainerDefinition for more details.
+-- 'environment', 'autoMLContainerDefinition_environment' - Environment variables to set in the container. Refer to
+-- ContainerDefinition for more details.
 --
--- * 'amlcdModelDataURL' - The location of the model artifacts. Refer to ContainerDefinition for more details.
-autoMLContainerDefinition ::
-  -- | 'amlcdImage'
-  Text ->
-  -- | 'amlcdModelDataURL'
-  Text ->
+-- 'image', 'autoMLContainerDefinition_image' - The ECR path of the container. Refer to ContainerDefinition for more
+-- details.
+--
+-- 'modelDataUrl', 'autoMLContainerDefinition_modelDataUrl' - The location of the model artifacts. Refer to ContainerDefinition for
+-- more details.
+newAutoMLContainerDefinition ::
+  -- | 'image'
+  Prelude.Text ->
+  -- | 'modelDataUrl'
+  Prelude.Text ->
   AutoMLContainerDefinition
-autoMLContainerDefinition pImage_ pModelDataURL_ =
+newAutoMLContainerDefinition pImage_ pModelDataUrl_ =
   AutoMLContainerDefinition'
-    { _amlcdEnvironment =
-        Nothing,
-      _amlcdImage = pImage_,
-      _amlcdModelDataURL = pModelDataURL_
+    { environment =
+        Prelude.Nothing,
+      image = pImage_,
+      modelDataUrl = pModelDataUrl_
     }
 
--- | Environment variables to set in the container. Refer to ContainerDefinition for more details.
-amlcdEnvironment :: Lens' AutoMLContainerDefinition (HashMap Text Text)
-amlcdEnvironment = lens _amlcdEnvironment (\s a -> s {_amlcdEnvironment = a}) . _Default . _Map
+-- | Environment variables to set in the container. Refer to
+-- ContainerDefinition for more details.
+autoMLContainerDefinition_environment :: Lens.Lens' AutoMLContainerDefinition (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+autoMLContainerDefinition_environment = Lens.lens (\AutoMLContainerDefinition' {environment} -> environment) (\s@AutoMLContainerDefinition' {} a -> s {environment = a} :: AutoMLContainerDefinition) Prelude.. Lens.mapping Prelude._Map
 
--- | The ECR path of the container. Refer to ContainerDefinition for more details.
-amlcdImage :: Lens' AutoMLContainerDefinition Text
-amlcdImage = lens _amlcdImage (\s a -> s {_amlcdImage = a})
+-- | The ECR path of the container. Refer to ContainerDefinition for more
+-- details.
+autoMLContainerDefinition_image :: Lens.Lens' AutoMLContainerDefinition Prelude.Text
+autoMLContainerDefinition_image = Lens.lens (\AutoMLContainerDefinition' {image} -> image) (\s@AutoMLContainerDefinition' {} a -> s {image = a} :: AutoMLContainerDefinition)
 
--- | The location of the model artifacts. Refer to ContainerDefinition for more details.
-amlcdModelDataURL :: Lens' AutoMLContainerDefinition Text
-amlcdModelDataURL = lens _amlcdModelDataURL (\s a -> s {_amlcdModelDataURL = a})
+-- | The location of the model artifacts. Refer to ContainerDefinition for
+-- more details.
+autoMLContainerDefinition_modelDataUrl :: Lens.Lens' AutoMLContainerDefinition Prelude.Text
+autoMLContainerDefinition_modelDataUrl = Lens.lens (\AutoMLContainerDefinition' {modelDataUrl} -> modelDataUrl) (\s@AutoMLContainerDefinition' {} a -> s {modelDataUrl = a} :: AutoMLContainerDefinition)
 
-instance FromJSON AutoMLContainerDefinition where
+instance Prelude.FromJSON AutoMLContainerDefinition where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AutoMLContainerDefinition"
       ( \x ->
           AutoMLContainerDefinition'
-            <$> (x .:? "Environment" .!= mempty)
-            <*> (x .: "Image")
-            <*> (x .: "ModelDataUrl")
+            Prelude.<$> ( x Prelude..:? "Environment"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..: "Image")
+            Prelude.<*> (x Prelude..: "ModelDataUrl")
       )
 
-instance Hashable AutoMLContainerDefinition
+instance Prelude.Hashable AutoMLContainerDefinition
 
-instance NFData AutoMLContainerDefinition
+instance Prelude.NFData AutoMLContainerDefinition

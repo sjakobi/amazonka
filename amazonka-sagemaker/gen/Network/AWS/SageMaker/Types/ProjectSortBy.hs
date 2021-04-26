@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.SageMaker.Types.ProjectSortBy
   ( ProjectSortBy
       ( ..,
-        PSBCreationTime,
-        PSBName
+        ProjectSortByCreationTime,
+        ProjectSortByName
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ProjectSortBy = ProjectSortBy' (CI Text)
+newtype ProjectSortBy = ProjectSortBy'
+  { fromProjectSortBy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PSBCreationTime :: ProjectSortBy
-pattern PSBCreationTime = ProjectSortBy' "CreationTime"
+pattern ProjectSortByCreationTime :: ProjectSortBy
+pattern ProjectSortByCreationTime = ProjectSortBy' "CreationTime"
 
-pattern PSBName :: ProjectSortBy
-pattern PSBName = ProjectSortBy' "Name"
+pattern ProjectSortByName :: ProjectSortBy
+pattern ProjectSortByName = ProjectSortBy' "Name"
 
 {-# COMPLETE
-  PSBCreationTime,
-  PSBName,
+  ProjectSortByCreationTime,
+  ProjectSortByName,
   ProjectSortBy'
   #-}
 
-instance FromText ProjectSortBy where
-  parser = (ProjectSortBy' . mk) <$> takeText
+instance Prelude.FromText ProjectSortBy where
+  parser = ProjectSortBy' Prelude.<$> Prelude.takeText
 
-instance ToText ProjectSortBy where
-  toText (ProjectSortBy' ci) = original ci
+instance Prelude.ToText ProjectSortBy where
+  toText (ProjectSortBy' x) = x
 
-instance Hashable ProjectSortBy
+instance Prelude.Hashable ProjectSortBy
 
-instance NFData ProjectSortBy
+instance Prelude.NFData ProjectSortBy
 
-instance ToByteString ProjectSortBy
+instance Prelude.ToByteString ProjectSortBy
 
-instance ToQuery ProjectSortBy
+instance Prelude.ToQuery ProjectSortBy
 
-instance ToHeader ProjectSortBy
+instance Prelude.ToHeader ProjectSortBy
 
-instance ToJSON ProjectSortBy where
-  toJSON = toJSONText
+instance Prelude.ToJSON ProjectSortBy where
+  toJSON = Prelude.toJSONText

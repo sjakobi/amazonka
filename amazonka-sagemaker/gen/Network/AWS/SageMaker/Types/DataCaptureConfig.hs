@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,122 +19,125 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SageMaker.Types.DataCaptureConfig where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SageMaker.Types.CaptureContentTypeHeader
 import Network.AWS.SageMaker.Types.CaptureOption
 
 -- |
 --
---
---
--- /See:/ 'dataCaptureConfig' smart constructor.
+-- /See:/ 'newDataCaptureConfig' smart constructor.
 data DataCaptureConfig = DataCaptureConfig'
-  { _dccCaptureContentTypeHeader ::
-      !(Maybe CaptureContentTypeHeader),
-    _dccKMSKeyId :: !(Maybe Text),
-    _dccEnableCapture :: !(Maybe Bool),
-    _dccInitialSamplingPercentage ::
-      !Nat,
-    _dccDestinationS3URI :: !Text,
-    _dccCaptureOptions ::
-      !(List1 CaptureOption)
+  { captureContentTypeHeader :: Prelude.Maybe CaptureContentTypeHeader,
+    kmsKeyId :: Prelude.Maybe Prelude.Text,
+    enableCapture :: Prelude.Maybe Prelude.Bool,
+    initialSamplingPercentage :: Prelude.Nat,
+    destinationS3Uri :: Prelude.Text,
+    captureOptions :: Prelude.List1 CaptureOption
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DataCaptureConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DataCaptureConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dccCaptureContentTypeHeader' -
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dccKMSKeyId' -
+-- 'captureContentTypeHeader', 'dataCaptureConfig_captureContentTypeHeader' -
 --
--- * 'dccEnableCapture' -
+-- 'kmsKeyId', 'dataCaptureConfig_kmsKeyId' -
 --
--- * 'dccInitialSamplingPercentage' -
+-- 'enableCapture', 'dataCaptureConfig_enableCapture' -
 --
--- * 'dccDestinationS3URI' -
+-- 'initialSamplingPercentage', 'dataCaptureConfig_initialSamplingPercentage' -
 --
--- * 'dccCaptureOptions' -
-dataCaptureConfig ::
-  -- | 'dccInitialSamplingPercentage'
-  Natural ->
-  -- | 'dccDestinationS3URI'
-  Text ->
-  -- | 'dccCaptureOptions'
-  NonEmpty CaptureOption ->
+-- 'destinationS3Uri', 'dataCaptureConfig_destinationS3Uri' -
+--
+-- 'captureOptions', 'dataCaptureConfig_captureOptions' -
+newDataCaptureConfig ::
+  -- | 'initialSamplingPercentage'
+  Prelude.Natural ->
+  -- | 'destinationS3Uri'
+  Prelude.Text ->
+  -- | 'captureOptions'
+  Prelude.NonEmpty CaptureOption ->
   DataCaptureConfig
-dataCaptureConfig
+newDataCaptureConfig
   pInitialSamplingPercentage_
-  pDestinationS3URI_
+  pDestinationS3Uri_
   pCaptureOptions_ =
     DataCaptureConfig'
-      { _dccCaptureContentTypeHeader =
-          Nothing,
-        _dccKMSKeyId = Nothing,
-        _dccEnableCapture = Nothing,
-        _dccInitialSamplingPercentage =
-          _Nat # pInitialSamplingPercentage_,
-        _dccDestinationS3URI = pDestinationS3URI_,
-        _dccCaptureOptions = _List1 # pCaptureOptions_
+      { captureContentTypeHeader =
+          Prelude.Nothing,
+        kmsKeyId = Prelude.Nothing,
+        enableCapture = Prelude.Nothing,
+        initialSamplingPercentage =
+          Prelude._Nat Lens.# pInitialSamplingPercentage_,
+        destinationS3Uri = pDestinationS3Uri_,
+        captureOptions =
+          Prelude._List1 Lens.# pCaptureOptions_
       }
 
 -- |
-dccCaptureContentTypeHeader :: Lens' DataCaptureConfig (Maybe CaptureContentTypeHeader)
-dccCaptureContentTypeHeader = lens _dccCaptureContentTypeHeader (\s a -> s {_dccCaptureContentTypeHeader = a})
+dataCaptureConfig_captureContentTypeHeader :: Lens.Lens' DataCaptureConfig (Prelude.Maybe CaptureContentTypeHeader)
+dataCaptureConfig_captureContentTypeHeader = Lens.lens (\DataCaptureConfig' {captureContentTypeHeader} -> captureContentTypeHeader) (\s@DataCaptureConfig' {} a -> s {captureContentTypeHeader = a} :: DataCaptureConfig)
 
 -- |
-dccKMSKeyId :: Lens' DataCaptureConfig (Maybe Text)
-dccKMSKeyId = lens _dccKMSKeyId (\s a -> s {_dccKMSKeyId = a})
+dataCaptureConfig_kmsKeyId :: Lens.Lens' DataCaptureConfig (Prelude.Maybe Prelude.Text)
+dataCaptureConfig_kmsKeyId = Lens.lens (\DataCaptureConfig' {kmsKeyId} -> kmsKeyId) (\s@DataCaptureConfig' {} a -> s {kmsKeyId = a} :: DataCaptureConfig)
 
 -- |
-dccEnableCapture :: Lens' DataCaptureConfig (Maybe Bool)
-dccEnableCapture = lens _dccEnableCapture (\s a -> s {_dccEnableCapture = a})
+dataCaptureConfig_enableCapture :: Lens.Lens' DataCaptureConfig (Prelude.Maybe Prelude.Bool)
+dataCaptureConfig_enableCapture = Lens.lens (\DataCaptureConfig' {enableCapture} -> enableCapture) (\s@DataCaptureConfig' {} a -> s {enableCapture = a} :: DataCaptureConfig)
 
 -- |
-dccInitialSamplingPercentage :: Lens' DataCaptureConfig Natural
-dccInitialSamplingPercentage = lens _dccInitialSamplingPercentage (\s a -> s {_dccInitialSamplingPercentage = a}) . _Nat
+dataCaptureConfig_initialSamplingPercentage :: Lens.Lens' DataCaptureConfig Prelude.Natural
+dataCaptureConfig_initialSamplingPercentage = Lens.lens (\DataCaptureConfig' {initialSamplingPercentage} -> initialSamplingPercentage) (\s@DataCaptureConfig' {} a -> s {initialSamplingPercentage = a} :: DataCaptureConfig) Prelude.. Prelude._Nat
 
 -- |
-dccDestinationS3URI :: Lens' DataCaptureConfig Text
-dccDestinationS3URI = lens _dccDestinationS3URI (\s a -> s {_dccDestinationS3URI = a})
+dataCaptureConfig_destinationS3Uri :: Lens.Lens' DataCaptureConfig Prelude.Text
+dataCaptureConfig_destinationS3Uri = Lens.lens (\DataCaptureConfig' {destinationS3Uri} -> destinationS3Uri) (\s@DataCaptureConfig' {} a -> s {destinationS3Uri = a} :: DataCaptureConfig)
 
 -- |
-dccCaptureOptions :: Lens' DataCaptureConfig (NonEmpty CaptureOption)
-dccCaptureOptions = lens _dccCaptureOptions (\s a -> s {_dccCaptureOptions = a}) . _List1
+dataCaptureConfig_captureOptions :: Lens.Lens' DataCaptureConfig (Prelude.NonEmpty CaptureOption)
+dataCaptureConfig_captureOptions = Lens.lens (\DataCaptureConfig' {captureOptions} -> captureOptions) (\s@DataCaptureConfig' {} a -> s {captureOptions = a} :: DataCaptureConfig) Prelude.. Prelude._List1
 
-instance FromJSON DataCaptureConfig where
+instance Prelude.FromJSON DataCaptureConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DataCaptureConfig"
       ( \x ->
           DataCaptureConfig'
-            <$> (x .:? "CaptureContentTypeHeader")
-            <*> (x .:? "KmsKeyId")
-            <*> (x .:? "EnableCapture")
-            <*> (x .: "InitialSamplingPercentage")
-            <*> (x .: "DestinationS3Uri")
-            <*> (x .: "CaptureOptions")
+            Prelude.<$> (x Prelude..:? "CaptureContentTypeHeader")
+            Prelude.<*> (x Prelude..:? "KmsKeyId")
+            Prelude.<*> (x Prelude..:? "EnableCapture")
+            Prelude.<*> (x Prelude..: "InitialSamplingPercentage")
+            Prelude.<*> (x Prelude..: "DestinationS3Uri")
+            Prelude.<*> (x Prelude..: "CaptureOptions")
       )
 
-instance Hashable DataCaptureConfig
+instance Prelude.Hashable DataCaptureConfig
 
-instance NFData DataCaptureConfig
+instance Prelude.NFData DataCaptureConfig
 
-instance ToJSON DataCaptureConfig where
+instance Prelude.ToJSON DataCaptureConfig where
   toJSON DataCaptureConfig' {..} =
-    object
-      ( catMaybes
-          [ ("CaptureContentTypeHeader" .=)
-              <$> _dccCaptureContentTypeHeader,
-            ("KmsKeyId" .=) <$> _dccKMSKeyId,
-            ("EnableCapture" .=) <$> _dccEnableCapture,
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("CaptureContentTypeHeader" Prelude..=)
+              Prelude.<$> captureContentTypeHeader,
+            ("KmsKeyId" Prelude..=) Prelude.<$> kmsKeyId,
+            ("EnableCapture" Prelude..=)
+              Prelude.<$> enableCapture,
+            Prelude.Just
               ( "InitialSamplingPercentage"
-                  .= _dccInitialSamplingPercentage
+                  Prelude..= initialSamplingPercentage
               ),
-            Just ("DestinationS3Uri" .= _dccDestinationS3URI),
-            Just ("CaptureOptions" .= _dccCaptureOptions)
+            Prelude.Just
+              ("DestinationS3Uri" Prelude..= destinationS3Uri),
+            Prelude.Just
+              ("CaptureOptions" Prelude..= captureOptions)
           ]
       )
