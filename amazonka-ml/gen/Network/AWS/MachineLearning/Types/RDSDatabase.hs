@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,69 +19,72 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MachineLearning.Types.RDSDatabase where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The database details of an Amazon RDS database.
 --
---
---
--- /See:/ 'rdsDatabase' smart constructor.
+-- /See:/ 'newRDSDatabase' smart constructor.
 data RDSDatabase = RDSDatabase'
-  { _rdsdInstanceIdentifier ::
-      !Text,
-    _rdsdDatabaseName :: !Text
+  { -- | The ID of an RDS DB instance.
+    instanceIdentifier :: Prelude.Text,
+    databaseName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RDSDatabase' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RDSDatabase' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rdsdInstanceIdentifier' - The ID of an RDS DB instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rdsdDatabaseName' - Undocumented member.
-rdsDatabase ::
-  -- | 'rdsdInstanceIdentifier'
-  Text ->
-  -- | 'rdsdDatabaseName'
-  Text ->
+-- 'instanceIdentifier', 'rDSDatabase_instanceIdentifier' - The ID of an RDS DB instance.
+--
+-- 'databaseName', 'rDSDatabase_databaseName' - Undocumented member.
+newRDSDatabase ::
+  -- | 'instanceIdentifier'
+  Prelude.Text ->
+  -- | 'databaseName'
+  Prelude.Text ->
   RDSDatabase
-rdsDatabase pInstanceIdentifier_ pDatabaseName_ =
+newRDSDatabase pInstanceIdentifier_ pDatabaseName_ =
   RDSDatabase'
-    { _rdsdInstanceIdentifier =
+    { instanceIdentifier =
         pInstanceIdentifier_,
-      _rdsdDatabaseName = pDatabaseName_
+      databaseName = pDatabaseName_
     }
 
 -- | The ID of an RDS DB instance.
-rdsdInstanceIdentifier :: Lens' RDSDatabase Text
-rdsdInstanceIdentifier = lens _rdsdInstanceIdentifier (\s a -> s {_rdsdInstanceIdentifier = a})
+rDSDatabase_instanceIdentifier :: Lens.Lens' RDSDatabase Prelude.Text
+rDSDatabase_instanceIdentifier = Lens.lens (\RDSDatabase' {instanceIdentifier} -> instanceIdentifier) (\s@RDSDatabase' {} a -> s {instanceIdentifier = a} :: RDSDatabase)
 
 -- | Undocumented member.
-rdsdDatabaseName :: Lens' RDSDatabase Text
-rdsdDatabaseName = lens _rdsdDatabaseName (\s a -> s {_rdsdDatabaseName = a})
+rDSDatabase_databaseName :: Lens.Lens' RDSDatabase Prelude.Text
+rDSDatabase_databaseName = Lens.lens (\RDSDatabase' {databaseName} -> databaseName) (\s@RDSDatabase' {} a -> s {databaseName = a} :: RDSDatabase)
 
-instance FromJSON RDSDatabase where
+instance Prelude.FromJSON RDSDatabase where
   parseJSON =
-    withObject
+    Prelude.withObject
       "RDSDatabase"
       ( \x ->
           RDSDatabase'
-            <$> (x .: "InstanceIdentifier")
-            <*> (x .: "DatabaseName")
+            Prelude.<$> (x Prelude..: "InstanceIdentifier")
+            Prelude.<*> (x Prelude..: "DatabaseName")
       )
 
-instance Hashable RDSDatabase
+instance Prelude.Hashable RDSDatabase
 
-instance NFData RDSDatabase
+instance Prelude.NFData RDSDatabase
 
-instance ToJSON RDSDatabase where
+instance Prelude.ToJSON RDSDatabase where
   toJSON RDSDatabase' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("InstanceIdentifier" .= _rdsdInstanceIdentifier),
-            Just ("DatabaseName" .= _rdsdDatabaseName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("InstanceIdentifier" Prelude..= instanceIdentifier),
+            Prelude.Just
+              ("DatabaseName" Prelude..= databaseName)
           ]
       )

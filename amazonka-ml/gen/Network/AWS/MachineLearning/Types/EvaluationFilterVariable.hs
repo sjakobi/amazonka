@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,91 +19,101 @@
 module Network.AWS.MachineLearning.Types.EvaluationFilterVariable
   ( EvaluationFilterVariable
       ( ..,
-        EvalCreatedAt,
-        EvalDataSourceId,
-        EvalDataURI,
-        EvalIAMUser,
-        EvalLastUpdatedAt,
-        EvalMLModelId,
-        EvalName,
-        EvalStatus
+        EvaluationFilterVariableEvalCreatedAt,
+        EvaluationFilterVariableEvalDataSourceId,
+        EvaluationFilterVariableEvalDataURI,
+        EvaluationFilterVariableEvalIAMUser,
+        EvaluationFilterVariableEvalLastUpdatedAt,
+        EvaluationFilterVariableEvalMLModelId,
+        EvaluationFilterVariableEvalName,
+        EvaluationFilterVariableEvalStatus'
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | A list of the variables to use in searching or filtering @Evaluation@ .
+-- | A list of the variables to use in searching or filtering @Evaluation@.
 --
---
---     * @CreatedAt@ - Sets the search criteria to @Evaluation@ creation date.    * @Status@ - Sets the search criteria to @Evaluation@ status.    * @Name@ - Sets the search criteria to the contents of @Evaluation@ ____ @Name@ .    * @IAMUser@ - Sets the search criteria to the user account that invoked an evaluation.    * @MLModelId@ - Sets the search criteria to the @Predictor@ that was evaluated.    * @DataSourceId@ - Sets the search criteria to the @DataSource@ used in evaluation.    * @DataUri@ - Sets the search criteria to the data file(s) used in evaluation. The URL can identify either a file or an Amazon Simple Storage Service (Amazon S3) bucket or directory.
-data EvaluationFilterVariable
-  = EvaluationFilterVariable'
-      ( CI
-          Text
-      )
+-- -   @CreatedAt@ - Sets the search criteria to @Evaluation@ creation
+--     date.
+-- -   @Status@ - Sets the search criteria to @Evaluation@ status.
+-- -   @Name@ - Sets the search criteria to the contents of @Evaluation@
+--     ____ @Name@.
+-- -   @IAMUser@ - Sets the search criteria to the user account that
+--     invoked an evaluation.
+-- -   @MLModelId@ - Sets the search criteria to the @Predictor@ that was
+--     evaluated.
+-- -   @DataSourceId@ - Sets the search criteria to the @DataSource@ used
+--     in evaluation.
+-- -   @DataUri@ - Sets the search criteria to the data file(s) used in
+--     evaluation. The URL can identify either a file or an Amazon Simple
+--     Storage Service (Amazon S3) bucket or directory.
+newtype EvaluationFilterVariable = EvaluationFilterVariable'
+  { fromEvaluationFilterVariable ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern EvalCreatedAt :: EvaluationFilterVariable
-pattern EvalCreatedAt = EvaluationFilterVariable' "CreatedAt"
+pattern EvaluationFilterVariableEvalCreatedAt :: EvaluationFilterVariable
+pattern EvaluationFilterVariableEvalCreatedAt = EvaluationFilterVariable' "CreatedAt"
 
-pattern EvalDataSourceId :: EvaluationFilterVariable
-pattern EvalDataSourceId = EvaluationFilterVariable' "DataSourceId"
+pattern EvaluationFilterVariableEvalDataSourceId :: EvaluationFilterVariable
+pattern EvaluationFilterVariableEvalDataSourceId = EvaluationFilterVariable' "DataSourceId"
 
-pattern EvalDataURI :: EvaluationFilterVariable
-pattern EvalDataURI = EvaluationFilterVariable' "DataURI"
+pattern EvaluationFilterVariableEvalDataURI :: EvaluationFilterVariable
+pattern EvaluationFilterVariableEvalDataURI = EvaluationFilterVariable' "DataURI"
 
-pattern EvalIAMUser :: EvaluationFilterVariable
-pattern EvalIAMUser = EvaluationFilterVariable' "IAMUser"
+pattern EvaluationFilterVariableEvalIAMUser :: EvaluationFilterVariable
+pattern EvaluationFilterVariableEvalIAMUser = EvaluationFilterVariable' "IAMUser"
 
-pattern EvalLastUpdatedAt :: EvaluationFilterVariable
-pattern EvalLastUpdatedAt = EvaluationFilterVariable' "LastUpdatedAt"
+pattern EvaluationFilterVariableEvalLastUpdatedAt :: EvaluationFilterVariable
+pattern EvaluationFilterVariableEvalLastUpdatedAt = EvaluationFilterVariable' "LastUpdatedAt"
 
-pattern EvalMLModelId :: EvaluationFilterVariable
-pattern EvalMLModelId = EvaluationFilterVariable' "MLModelId"
+pattern EvaluationFilterVariableEvalMLModelId :: EvaluationFilterVariable
+pattern EvaluationFilterVariableEvalMLModelId = EvaluationFilterVariable' "MLModelId"
 
-pattern EvalName :: EvaluationFilterVariable
-pattern EvalName = EvaluationFilterVariable' "Name"
+pattern EvaluationFilterVariableEvalName :: EvaluationFilterVariable
+pattern EvaluationFilterVariableEvalName = EvaluationFilterVariable' "Name"
 
-pattern EvalStatus :: EvaluationFilterVariable
-pattern EvalStatus = EvaluationFilterVariable' "Status"
+pattern EvaluationFilterVariableEvalStatus' :: EvaluationFilterVariable
+pattern EvaluationFilterVariableEvalStatus' = EvaluationFilterVariable' "Status"
 
 {-# COMPLETE
-  EvalCreatedAt,
-  EvalDataSourceId,
-  EvalDataURI,
-  EvalIAMUser,
-  EvalLastUpdatedAt,
-  EvalMLModelId,
-  EvalName,
-  EvalStatus,
+  EvaluationFilterVariableEvalCreatedAt,
+  EvaluationFilterVariableEvalDataSourceId,
+  EvaluationFilterVariableEvalDataURI,
+  EvaluationFilterVariableEvalIAMUser,
+  EvaluationFilterVariableEvalLastUpdatedAt,
+  EvaluationFilterVariableEvalMLModelId,
+  EvaluationFilterVariableEvalName,
+  EvaluationFilterVariableEvalStatus',
   EvaluationFilterVariable'
   #-}
 
-instance FromText EvaluationFilterVariable where
-  parser = (EvaluationFilterVariable' . mk) <$> takeText
+instance Prelude.FromText EvaluationFilterVariable where
+  parser = EvaluationFilterVariable' Prelude.<$> Prelude.takeText
 
-instance ToText EvaluationFilterVariable where
-  toText (EvaluationFilterVariable' ci) = original ci
+instance Prelude.ToText EvaluationFilterVariable where
+  toText (EvaluationFilterVariable' x) = x
 
-instance Hashable EvaluationFilterVariable
+instance Prelude.Hashable EvaluationFilterVariable
 
-instance NFData EvaluationFilterVariable
+instance Prelude.NFData EvaluationFilterVariable
 
-instance ToByteString EvaluationFilterVariable
+instance Prelude.ToByteString EvaluationFilterVariable
 
-instance ToQuery EvaluationFilterVariable
+instance Prelude.ToQuery EvaluationFilterVariable
 
-instance ToHeader EvaluationFilterVariable
+instance Prelude.ToHeader EvaluationFilterVariable
 
-instance ToJSON EvaluationFilterVariable where
-  toJSON = toJSONText
+instance Prelude.ToJSON EvaluationFilterVariable where
+  toJSON = Prelude.toJSONText

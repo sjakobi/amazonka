@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,54 +19,58 @@
 module Network.AWS.MachineLearning.Types.DetailsAttributes
   ( DetailsAttributes
       ( ..,
-        Algorithm,
-        PredictiveModelType
+        DetailsAttributesAlgorithm,
+        DetailsAttributesPredictiveModelType
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains the key values of @DetailsMap@ : @PredictiveModelType@ - Indicates the type of the @MLModel@ . @Algorithm@ - Indicates the algorithm that was used for the @MLModel@ .
-data DetailsAttributes = DetailsAttributes' (CI Text)
+-- | Contains the key values of @DetailsMap@: @PredictiveModelType@ -
+-- Indicates the type of the @MLModel@. @Algorithm@ - Indicates the
+-- algorithm that was used for the @MLModel@.
+newtype DetailsAttributes = DetailsAttributes'
+  { fromDetailsAttributes ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Algorithm :: DetailsAttributes
-pattern Algorithm = DetailsAttributes' "Algorithm"
+pattern DetailsAttributesAlgorithm :: DetailsAttributes
+pattern DetailsAttributesAlgorithm = DetailsAttributes' "Algorithm"
 
-pattern PredictiveModelType :: DetailsAttributes
-pattern PredictiveModelType = DetailsAttributes' "PredictiveModelType"
+pattern DetailsAttributesPredictiveModelType :: DetailsAttributes
+pattern DetailsAttributesPredictiveModelType = DetailsAttributes' "PredictiveModelType"
 
 {-# COMPLETE
-  Algorithm,
-  PredictiveModelType,
+  DetailsAttributesAlgorithm,
+  DetailsAttributesPredictiveModelType,
   DetailsAttributes'
   #-}
 
-instance FromText DetailsAttributes where
-  parser = (DetailsAttributes' . mk) <$> takeText
+instance Prelude.FromText DetailsAttributes where
+  parser = DetailsAttributes' Prelude.<$> Prelude.takeText
 
-instance ToText DetailsAttributes where
-  toText (DetailsAttributes' ci) = original ci
+instance Prelude.ToText DetailsAttributes where
+  toText (DetailsAttributes' x) = x
 
-instance Hashable DetailsAttributes
+instance Prelude.Hashable DetailsAttributes
 
-instance NFData DetailsAttributes
+instance Prelude.NFData DetailsAttributes
 
-instance ToByteString DetailsAttributes
+instance Prelude.ToByteString DetailsAttributes
 
-instance ToQuery DetailsAttributes
+instance Prelude.ToQuery DetailsAttributes
 
-instance ToHeader DetailsAttributes
+instance Prelude.ToHeader DetailsAttributes
 
-instance FromJSON DetailsAttributes where
-  parseJSON = parseJSONText "DetailsAttributes"
+instance Prelude.FromJSON DetailsAttributes where
+  parseJSON = Prelude.parseJSONText "DetailsAttributes"

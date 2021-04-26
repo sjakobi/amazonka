@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,52 +19,55 @@
 module Network.AWS.MachineLearning.Types.Algorithm
   ( Algorithm
       ( ..,
-        SGD
+        AlgorithmSgd
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | The function used to train an @MLModel@ . Training choices supported by Amazon ML include the following:
+-- | The function used to train an @MLModel@. Training choices supported by
+-- Amazon ML include the following:
 --
---
---     * @SGD@ - Stochastic Gradient Descent.    * @RandomForest@ - Random forest of decision trees.
-data Algorithm = Algorithm' (CI Text)
+-- -   @SGD@ - Stochastic Gradient Descent.
+-- -   @RandomForest@ - Random forest of decision trees.
+newtype Algorithm = Algorithm'
+  { fromAlgorithm ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SGD :: Algorithm
-pattern SGD = Algorithm' "sgd"
+pattern AlgorithmSgd :: Algorithm
+pattern AlgorithmSgd = Algorithm' "sgd"
 
 {-# COMPLETE
-  SGD,
+  AlgorithmSgd,
   Algorithm'
   #-}
 
-instance FromText Algorithm where
-  parser = (Algorithm' . mk) <$> takeText
+instance Prelude.FromText Algorithm where
+  parser = Algorithm' Prelude.<$> Prelude.takeText
 
-instance ToText Algorithm where
-  toText (Algorithm' ci) = original ci
+instance Prelude.ToText Algorithm where
+  toText (Algorithm' x) = x
 
-instance Hashable Algorithm
+instance Prelude.Hashable Algorithm
 
-instance NFData Algorithm
+instance Prelude.NFData Algorithm
 
-instance ToByteString Algorithm
+instance Prelude.ToByteString Algorithm
 
-instance ToQuery Algorithm
+instance Prelude.ToQuery Algorithm
 
-instance ToHeader Algorithm
+instance Prelude.ToHeader Algorithm
 
-instance FromJSON Algorithm where
-  parseJSON = parseJSONText "Algorithm"
+instance Prelude.FromJSON Algorithm where
+  parseJSON = Prelude.parseJSONText "Algorithm"

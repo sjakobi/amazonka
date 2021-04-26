@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,144 +21,152 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Assigns the DELETED status to a @DataSource@ , rendering it unusable.
+-- Assigns the DELETED status to a @DataSource@, rendering it unusable.
 --
+-- After using the @DeleteDataSource@ operation, you can use the
+-- GetDataSource operation to verify that the status of the @DataSource@
+-- changed to DELETED.
 --
--- After using the @DeleteDataSource@ operation, you can use the 'GetDataSource' operation to verify that the status of the @DataSource@ changed to DELETED.
---
--- __Caution:__ The results of the @DeleteDataSource@ operation are irreversible.
+-- __Caution:__ The results of the @DeleteDataSource@ operation are
+-- irreversible.
 module Network.AWS.MachineLearning.DeleteDataSource
   ( -- * Creating a Request
-    deleteDataSource,
-    DeleteDataSource,
+    DeleteDataSource (..),
+    newDeleteDataSource,
 
     -- * Request Lenses
-    ddsDataSourceId,
+    deleteDataSource_dataSourceId,
 
     -- * Destructuring the Response
-    deleteDataSourceResponse,
-    DeleteDataSourceResponse,
+    DeleteDataSourceResponse (..),
+    newDeleteDataSourceResponse,
 
     -- * Response Lenses
-    ddsrrsDataSourceId,
-    ddsrrsResponseStatus,
+    deleteDataSourceResponse_dataSourceId,
+    deleteDataSourceResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MachineLearning.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteDataSource' smart constructor.
-newtype DeleteDataSource = DeleteDataSource'
-  { _ddsDataSourceId ::
-      Text
+-- | /See:/ 'newDeleteDataSource' smart constructor.
+data DeleteDataSource = DeleteDataSource'
+  { -- | A user-supplied ID that uniquely identifies the @DataSource@.
+    dataSourceId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteDataSource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteDataSource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddsDataSourceId' - A user-supplied ID that uniquely identifies the @DataSource@ .
-deleteDataSource ::
-  -- | 'ddsDataSourceId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'dataSourceId', 'deleteDataSource_dataSourceId' - A user-supplied ID that uniquely identifies the @DataSource@.
+newDeleteDataSource ::
+  -- | 'dataSourceId'
+  Prelude.Text ->
   DeleteDataSource
-deleteDataSource pDataSourceId_ =
-  DeleteDataSource'
-    { _ddsDataSourceId =
-        pDataSourceId_
-    }
+newDeleteDataSource pDataSourceId_ =
+  DeleteDataSource' {dataSourceId = pDataSourceId_}
 
--- | A user-supplied ID that uniquely identifies the @DataSource@ .
-ddsDataSourceId :: Lens' DeleteDataSource Text
-ddsDataSourceId = lens _ddsDataSourceId (\s a -> s {_ddsDataSourceId = a})
+-- | A user-supplied ID that uniquely identifies the @DataSource@.
+deleteDataSource_dataSourceId :: Lens.Lens' DeleteDataSource Prelude.Text
+deleteDataSource_dataSourceId = Lens.lens (\DeleteDataSource' {dataSourceId} -> dataSourceId) (\s@DeleteDataSource' {} a -> s {dataSourceId = a} :: DeleteDataSource)
 
-instance AWSRequest DeleteDataSource where
+instance Prelude.AWSRequest DeleteDataSource where
   type Rs DeleteDataSource = DeleteDataSourceResponse
-  request = postJSON machineLearning
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteDataSourceResponse'
-            <$> (x .?> "DataSourceId") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "DataSourceId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteDataSource
+instance Prelude.Hashable DeleteDataSource
 
-instance NFData DeleteDataSource
+instance Prelude.NFData DeleteDataSource
 
-instance ToHeaders DeleteDataSource where
+instance Prelude.ToHeaders DeleteDataSource where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AmazonML_20141212.DeleteDataSource" :: ByteString),
+              Prelude.=# ( "AmazonML_20141212.DeleteDataSource" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteDataSource where
+instance Prelude.ToJSON DeleteDataSource where
   toJSON DeleteDataSource' {..} =
-    object
-      ( catMaybes
-          [Just ("DataSourceId" .= _ddsDataSourceId)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("DataSourceId" Prelude..= dataSourceId)
+          ]
       )
 
-instance ToPath DeleteDataSource where
-  toPath = const "/"
+instance Prelude.ToPath DeleteDataSource where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteDataSource where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteDataSource where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a @DeleteDataSource@ operation.
 --
---
---
--- /See:/ 'deleteDataSourceResponse' smart constructor.
+-- /See:/ 'newDeleteDataSourceResponse' smart constructor.
 data DeleteDataSourceResponse = DeleteDataSourceResponse'
-  { _ddsrrsDataSourceId ::
-      !(Maybe Text),
-    _ddsrrsResponseStatus ::
-      !Int
+  { -- | A user-supplied ID that uniquely identifies the @DataSource@. This value
+    -- should be identical to the value of the @DataSourceID@ in the request.
+    dataSourceId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteDataSourceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteDataSourceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddsrrsDataSourceId' - A user-supplied ID that uniquely identifies the @DataSource@ . This value should be identical to the value of the @DataSourceID@ in the request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ddsrrsResponseStatus' - -- | The response status code.
-deleteDataSourceResponse ::
-  -- | 'ddsrrsResponseStatus'
-  Int ->
+-- 'dataSourceId', 'deleteDataSourceResponse_dataSourceId' - A user-supplied ID that uniquely identifies the @DataSource@. This value
+-- should be identical to the value of the @DataSourceID@ in the request.
+--
+-- 'httpStatus', 'deleteDataSourceResponse_httpStatus' - The response's http status code.
+newDeleteDataSourceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteDataSourceResponse
-deleteDataSourceResponse pResponseStatus_ =
+newDeleteDataSourceResponse pHttpStatus_ =
   DeleteDataSourceResponse'
-    { _ddsrrsDataSourceId =
-        Nothing,
-      _ddsrrsResponseStatus = pResponseStatus_
+    { dataSourceId =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A user-supplied ID that uniquely identifies the @DataSource@ . This value should be identical to the value of the @DataSourceID@ in the request.
-ddsrrsDataSourceId :: Lens' DeleteDataSourceResponse (Maybe Text)
-ddsrrsDataSourceId = lens _ddsrrsDataSourceId (\s a -> s {_ddsrrsDataSourceId = a})
+-- | A user-supplied ID that uniquely identifies the @DataSource@. This value
+-- should be identical to the value of the @DataSourceID@ in the request.
+deleteDataSourceResponse_dataSourceId :: Lens.Lens' DeleteDataSourceResponse (Prelude.Maybe Prelude.Text)
+deleteDataSourceResponse_dataSourceId = Lens.lens (\DeleteDataSourceResponse' {dataSourceId} -> dataSourceId) (\s@DeleteDataSourceResponse' {} a -> s {dataSourceId = a} :: DeleteDataSourceResponse)
 
--- | -- | The response status code.
-ddsrrsResponseStatus :: Lens' DeleteDataSourceResponse Int
-ddsrrsResponseStatus = lens _ddsrrsResponseStatus (\s a -> s {_ddsrrsResponseStatus = a})
+-- | The response's http status code.
+deleteDataSourceResponse_httpStatus :: Lens.Lens' DeleteDataSourceResponse Prelude.Int
+deleteDataSourceResponse_httpStatus = Lens.lens (\DeleteDataSourceResponse' {httpStatus} -> httpStatus) (\s@DeleteDataSourceResponse' {} a -> s {httpStatus = a} :: DeleteDataSourceResponse)
 
-instance NFData DeleteDataSourceResponse
+instance Prelude.NFData DeleteDataSourceResponse

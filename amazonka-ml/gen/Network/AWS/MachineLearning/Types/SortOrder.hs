@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,60 @@
 module Network.AWS.MachineLearning.Types.SortOrder
   ( SortOrder
       ( ..,
-        Asc,
-        Dsc
+        SortOrderAsc,
+        SortOrderDsc
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | The sort order specified in a listing condition. Possible values include the following:
+-- | The sort order specified in a listing condition. Possible values include
+-- the following:
 --
---
---     * @asc@ - Present the information in ascending order (from A-Z).    * @dsc@ - Present the information in descending order (from Z-A).
-data SortOrder = SortOrder' (CI Text)
+-- -   @asc@ - Present the information in ascending order (from A-Z).
+-- -   @dsc@ - Present the information in descending order (from Z-A).
+newtype SortOrder = SortOrder'
+  { fromSortOrder ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Asc :: SortOrder
-pattern Asc = SortOrder' "asc"
+pattern SortOrderAsc :: SortOrder
+pattern SortOrderAsc = SortOrder' "asc"
 
-pattern Dsc :: SortOrder
-pattern Dsc = SortOrder' "dsc"
+pattern SortOrderDsc :: SortOrder
+pattern SortOrderDsc = SortOrder' "dsc"
 
 {-# COMPLETE
-  Asc,
-  Dsc,
+  SortOrderAsc,
+  SortOrderDsc,
   SortOrder'
   #-}
 
-instance FromText SortOrder where
-  parser = (SortOrder' . mk) <$> takeText
+instance Prelude.FromText SortOrder where
+  parser = SortOrder' Prelude.<$> Prelude.takeText
 
-instance ToText SortOrder where
-  toText (SortOrder' ci) = original ci
+instance Prelude.ToText SortOrder where
+  toText (SortOrder' x) = x
 
-instance Hashable SortOrder
+instance Prelude.Hashable SortOrder
 
-instance NFData SortOrder
+instance Prelude.NFData SortOrder
 
-instance ToByteString SortOrder
+instance Prelude.ToByteString SortOrder
 
-instance ToQuery SortOrder
+instance Prelude.ToQuery SortOrder
 
-instance ToHeader SortOrder
+instance Prelude.ToHeader SortOrder
 
-instance ToJSON SortOrder where
-  toJSON = toJSONText
+instance Prelude.ToJSON SortOrder where
+  toJSON = Prelude.toJSONText

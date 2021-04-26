@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,147 +21,167 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Generates a prediction for the observation using the specified @ML Model@ .
+-- Generates a prediction for the observation using the specified
+-- @ML Model@.
+--
+-- Note
+--
+-- Not all response parameters will be populated. Whether a response
+-- parameter is populated depends on the type of model requested.
 module Network.AWS.MachineLearning.Predict
   ( -- * Creating a Request
-    predict,
-    Predict,
+    Predict (..),
+    newPredict,
 
     -- * Request Lenses
-    pMLModelId,
-    pRecord,
-    pPredictEndpoint,
+    predict_mLModelId,
+    predict_record,
+    predict_predictEndpoint,
 
     -- * Destructuring the Response
-    predictResponse,
-    PredictResponse,
+    PredictResponse (..),
+    newPredictResponse,
 
     -- * Response Lenses
-    prrsPrediction,
-    prrsResponseStatus,
+    predictResponse_prediction,
+    predictResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MachineLearning.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.MachineLearning.Types.Prediction
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'predict' smart constructor.
+-- | /See:/ 'newPredict' smart constructor.
 data Predict = Predict'
-  { _pMLModelId :: !Text,
-    _pRecord :: !(Map Text Text),
-    _pPredictEndpoint :: !Text
+  { -- | A unique identifier of the @MLModel@.
+    mLModelId :: Prelude.Text,
+    record :: Prelude.Map Prelude.Text Prelude.Text,
+    predictEndpoint :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Predict' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Predict' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pMLModelId' - A unique identifier of the @MLModel@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pRecord' - Undocumented member.
+-- 'mLModelId', 'predict_mLModelId' - A unique identifier of the @MLModel@.
 --
--- * 'pPredictEndpoint' - Undocumented member.
-predict ::
-  -- | 'pMLModelId'
-  Text ->
-  -- | 'pPredictEndpoint'
-  Text ->
+-- 'record', 'predict_record' - Undocumented member.
+--
+-- 'predictEndpoint', 'predict_predictEndpoint' - Undocumented member.
+newPredict ::
+  -- | 'mLModelId'
+  Prelude.Text ->
+  -- | 'predictEndpoint'
+  Prelude.Text ->
   Predict
-predict pMLModelId_ pPredictEndpoint_ =
+newPredict pMLModelId_ pPredictEndpoint_ =
   Predict'
-    { _pMLModelId = pMLModelId_,
-      _pRecord = mempty,
-      _pPredictEndpoint = pPredictEndpoint_
+    { mLModelId = pMLModelId_,
+      record = Prelude.mempty,
+      predictEndpoint = pPredictEndpoint_
     }
 
--- | A unique identifier of the @MLModel@ .
-pMLModelId :: Lens' Predict Text
-pMLModelId = lens _pMLModelId (\s a -> s {_pMLModelId = a})
+-- | A unique identifier of the @MLModel@.
+predict_mLModelId :: Lens.Lens' Predict Prelude.Text
+predict_mLModelId = Lens.lens (\Predict' {mLModelId} -> mLModelId) (\s@Predict' {} a -> s {mLModelId = a} :: Predict)
 
 -- | Undocumented member.
-pRecord :: Lens' Predict (HashMap Text Text)
-pRecord = lens _pRecord (\s a -> s {_pRecord = a}) . _Map
+predict_record :: Lens.Lens' Predict (Prelude.HashMap Prelude.Text Prelude.Text)
+predict_record = Lens.lens (\Predict' {record} -> record) (\s@Predict' {} a -> s {record = a} :: Predict) Prelude.. Prelude._Map
 
 -- | Undocumented member.
-pPredictEndpoint :: Lens' Predict Text
-pPredictEndpoint = lens _pPredictEndpoint (\s a -> s {_pPredictEndpoint = a})
+predict_predictEndpoint :: Lens.Lens' Predict Prelude.Text
+predict_predictEndpoint = Lens.lens (\Predict' {predictEndpoint} -> predictEndpoint) (\s@Predict' {} a -> s {predictEndpoint = a} :: Predict)
 
-instance AWSRequest Predict where
+instance Prelude.AWSRequest Predict where
   type Rs Predict = PredictResponse
-  request = postJSON machineLearning
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           PredictResponse'
-            <$> (x .?> "Prediction") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Prediction")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable Predict
+instance Prelude.Hashable Predict
 
-instance NFData Predict
+instance Prelude.NFData Predict
 
-instance ToHeaders Predict where
+instance Prelude.ToHeaders Predict where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AmazonML_20141212.Predict" :: ByteString),
+              Prelude.=# ("AmazonML_20141212.Predict" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON Predict where
+instance Prelude.ToJSON Predict where
   toJSON Predict' {..} =
-    object
-      ( catMaybes
-          [ Just ("MLModelId" .= _pMLModelId),
-            Just ("Record" .= _pRecord),
-            Just ("PredictEndpoint" .= _pPredictEndpoint)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("MLModelId" Prelude..= mLModelId),
+            Prelude.Just ("Record" Prelude..= record),
+            Prelude.Just
+              ("PredictEndpoint" Prelude..= predictEndpoint)
           ]
       )
 
-instance ToPath Predict where
-  toPath = const "/"
+instance Prelude.ToPath Predict where
+  toPath = Prelude.const "/"
 
-instance ToQuery Predict where
-  toQuery = const mempty
+instance Prelude.ToQuery Predict where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'predictResponse' smart constructor.
+-- | /See:/ 'newPredictResponse' smart constructor.
 data PredictResponse = PredictResponse'
-  { _prrsPrediction ::
-      !(Maybe Prediction),
-    _prrsResponseStatus :: !Int
+  { prediction :: Prelude.Maybe Prediction,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PredictResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PredictResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'prrsPrediction' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'prrsResponseStatus' - -- | The response status code.
-predictResponse ::
-  -- | 'prrsResponseStatus'
-  Int ->
+-- 'prediction', 'predictResponse_prediction' - Undocumented member.
+--
+-- 'httpStatus', 'predictResponse_httpStatus' - The response's http status code.
+newPredictResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   PredictResponse
-predictResponse pResponseStatus_ =
+newPredictResponse pHttpStatus_ =
   PredictResponse'
-    { _prrsPrediction = Nothing,
-      _prrsResponseStatus = pResponseStatus_
+    { prediction = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-prrsPrediction :: Lens' PredictResponse (Maybe Prediction)
-prrsPrediction = lens _prrsPrediction (\s a -> s {_prrsPrediction = a})
+predictResponse_prediction :: Lens.Lens' PredictResponse (Prelude.Maybe Prediction)
+predictResponse_prediction = Lens.lens (\PredictResponse' {prediction} -> prediction) (\s@PredictResponse' {} a -> s {prediction = a} :: PredictResponse)
 
--- | -- | The response status code.
-prrsResponseStatus :: Lens' PredictResponse Int
-prrsResponseStatus = lens _prrsResponseStatus (\s a -> s {_prrsResponseStatus = a})
+-- | The response's http status code.
+predictResponse_httpStatus :: Lens.Lens' PredictResponse Prelude.Int
+predictResponse_httpStatus = Lens.lens (\PredictResponse' {httpStatus} -> httpStatus) (\s@PredictResponse' {} a -> s {httpStatus = a} :: PredictResponse)
 
-instance NFData PredictResponse
+instance Prelude.NFData PredictResponse

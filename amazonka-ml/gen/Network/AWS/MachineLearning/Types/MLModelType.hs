@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.MachineLearning.Types.MLModelType
   ( MLModelType
       ( ..,
-        Binary,
-        Multiclass,
-        Regression
+        MLModelTypeBINARY,
+        MLModelTypeMULTICLASS,
+        MLModelTypeREGRESSION
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data MLModelType = MLModelType' (CI Text)
+newtype MLModelType = MLModelType'
+  { fromMLModelType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Binary :: MLModelType
-pattern Binary = MLModelType' "BINARY"
+pattern MLModelTypeBINARY :: MLModelType
+pattern MLModelTypeBINARY = MLModelType' "BINARY"
 
-pattern Multiclass :: MLModelType
-pattern Multiclass = MLModelType' "MULTICLASS"
+pattern MLModelTypeMULTICLASS :: MLModelType
+pattern MLModelTypeMULTICLASS = MLModelType' "MULTICLASS"
 
-pattern Regression :: MLModelType
-pattern Regression = MLModelType' "REGRESSION"
+pattern MLModelTypeREGRESSION :: MLModelType
+pattern MLModelTypeREGRESSION = MLModelType' "REGRESSION"
 
 {-# COMPLETE
-  Binary,
-  Multiclass,
-  Regression,
+  MLModelTypeBINARY,
+  MLModelTypeMULTICLASS,
+  MLModelTypeREGRESSION,
   MLModelType'
   #-}
 
-instance FromText MLModelType where
-  parser = (MLModelType' . mk) <$> takeText
+instance Prelude.FromText MLModelType where
+  parser = MLModelType' Prelude.<$> Prelude.takeText
 
-instance ToText MLModelType where
-  toText (MLModelType' ci) = original ci
+instance Prelude.ToText MLModelType where
+  toText (MLModelType' x) = x
 
-instance Hashable MLModelType
+instance Prelude.Hashable MLModelType
 
-instance NFData MLModelType
+instance Prelude.NFData MLModelType
 
-instance ToByteString MLModelType
+instance Prelude.ToByteString MLModelType
 
-instance ToQuery MLModelType
+instance Prelude.ToQuery MLModelType
 
-instance ToHeader MLModelType
+instance Prelude.ToHeader MLModelType
 
-instance ToJSON MLModelType where
-  toJSON = toJSONText
+instance Prelude.ToJSON MLModelType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON MLModelType where
-  parseJSON = parseJSONText "MLModelType"
+instance Prelude.FromJSON MLModelType where
+  parseJSON = Prelude.parseJSONText "MLModelType"

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,146 +21,158 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Assigns the @DELETED@ status to an @Evaluation@ , rendering it unusable.
+-- Assigns the @DELETED@ status to an @Evaluation@, rendering it unusable.
 --
+-- After invoking the @DeleteEvaluation@ operation, you can use the
+-- @GetEvaluation@ operation to verify that the status of the @Evaluation@
+-- changed to @DELETED@.
 --
--- After invoking the @DeleteEvaluation@ operation, you can use the @GetEvaluation@ operation to verify that the status of the @Evaluation@ changed to @DELETED@ .
+-- Caution
 --
--- ____Caution__
 -- The results of the @DeleteEvaluation@ operation are irreversible.
---
--- __
 module Network.AWS.MachineLearning.DeleteEvaluation
   ( -- * Creating a Request
-    deleteEvaluation,
-    DeleteEvaluation,
+    DeleteEvaluation (..),
+    newDeleteEvaluation,
 
     -- * Request Lenses
-    deEvaluationId,
+    deleteEvaluation_evaluationId,
 
     -- * Destructuring the Response
-    deleteEvaluationResponse,
-    DeleteEvaluationResponse,
+    DeleteEvaluationResponse (..),
+    newDeleteEvaluationResponse,
 
     -- * Response Lenses
-    delrsEvaluationId,
-    delrsResponseStatus,
+    deleteEvaluationResponse_evaluationId,
+    deleteEvaluationResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MachineLearning.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteEvaluation' smart constructor.
-newtype DeleteEvaluation = DeleteEvaluation'
-  { _deEvaluationId ::
-      Text
+-- | /See:/ 'newDeleteEvaluation' smart constructor.
+data DeleteEvaluation = DeleteEvaluation'
+  { -- | A user-supplied ID that uniquely identifies the @Evaluation@ to delete.
+    evaluationId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteEvaluation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteEvaluation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'deEvaluationId' - A user-supplied ID that uniquely identifies the @Evaluation@ to delete.
-deleteEvaluation ::
-  -- | 'deEvaluationId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'evaluationId', 'deleteEvaluation_evaluationId' - A user-supplied ID that uniquely identifies the @Evaluation@ to delete.
+newDeleteEvaluation ::
+  -- | 'evaluationId'
+  Prelude.Text ->
   DeleteEvaluation
-deleteEvaluation pEvaluationId_ =
-  DeleteEvaluation' {_deEvaluationId = pEvaluationId_}
+newDeleteEvaluation pEvaluationId_ =
+  DeleteEvaluation' {evaluationId = pEvaluationId_}
 
 -- | A user-supplied ID that uniquely identifies the @Evaluation@ to delete.
-deEvaluationId :: Lens' DeleteEvaluation Text
-deEvaluationId = lens _deEvaluationId (\s a -> s {_deEvaluationId = a})
+deleteEvaluation_evaluationId :: Lens.Lens' DeleteEvaluation Prelude.Text
+deleteEvaluation_evaluationId = Lens.lens (\DeleteEvaluation' {evaluationId} -> evaluationId) (\s@DeleteEvaluation' {} a -> s {evaluationId = a} :: DeleteEvaluation)
 
-instance AWSRequest DeleteEvaluation where
+instance Prelude.AWSRequest DeleteEvaluation where
   type Rs DeleteEvaluation = DeleteEvaluationResponse
-  request = postJSON machineLearning
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteEvaluationResponse'
-            <$> (x .?> "EvaluationId") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "EvaluationId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteEvaluation
+instance Prelude.Hashable DeleteEvaluation
 
-instance NFData DeleteEvaluation
+instance Prelude.NFData DeleteEvaluation
 
-instance ToHeaders DeleteEvaluation where
+instance Prelude.ToHeaders DeleteEvaluation where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AmazonML_20141212.DeleteEvaluation" :: ByteString),
+              Prelude.=# ( "AmazonML_20141212.DeleteEvaluation" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteEvaluation where
+instance Prelude.ToJSON DeleteEvaluation where
   toJSON DeleteEvaluation' {..} =
-    object
-      ( catMaybes
-          [Just ("EvaluationId" .= _deEvaluationId)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("EvaluationId" Prelude..= evaluationId)
+          ]
       )
 
-instance ToPath DeleteEvaluation where
-  toPath = const "/"
+instance Prelude.ToPath DeleteEvaluation where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteEvaluation where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteEvaluation where
+  toQuery = Prelude.const Prelude.mempty
 
--- | Represents the output of a @DeleteEvaluation@ operation. The output indicates that Amazon Machine Learning (Amazon ML) received the request.
+-- | Represents the output of a @DeleteEvaluation@ operation. The output
+-- indicates that Amazon Machine Learning (Amazon ML) received the request.
 --
+-- You can use the @GetEvaluation@ operation and check the value of the
+-- @Status@ parameter to see whether an @Evaluation@ is marked as
+-- @DELETED@.
 --
--- You can use the @GetEvaluation@ operation and check the value of the @Status@ parameter to see whether an @Evaluation@ is marked as @DELETED@ .
---
---
--- /See:/ 'deleteEvaluationResponse' smart constructor.
+-- /See:/ 'newDeleteEvaluationResponse' smart constructor.
 data DeleteEvaluationResponse = DeleteEvaluationResponse'
-  { _delrsEvaluationId ::
-      !(Maybe Text),
-    _delrsResponseStatus ::
-      !Int
+  { -- | A user-supplied ID that uniquely identifies the @Evaluation@. This value
+    -- should be identical to the value of the @EvaluationId@ in the request.
+    evaluationId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteEvaluationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteEvaluationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'delrsEvaluationId' - A user-supplied ID that uniquely identifies the @Evaluation@ . This value should be identical to the value of the @EvaluationId@ in the request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'delrsResponseStatus' - -- | The response status code.
-deleteEvaluationResponse ::
-  -- | 'delrsResponseStatus'
-  Int ->
+-- 'evaluationId', 'deleteEvaluationResponse_evaluationId' - A user-supplied ID that uniquely identifies the @Evaluation@. This value
+-- should be identical to the value of the @EvaluationId@ in the request.
+--
+-- 'httpStatus', 'deleteEvaluationResponse_httpStatus' - The response's http status code.
+newDeleteEvaluationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteEvaluationResponse
-deleteEvaluationResponse pResponseStatus_ =
+newDeleteEvaluationResponse pHttpStatus_ =
   DeleteEvaluationResponse'
-    { _delrsEvaluationId =
-        Nothing,
-      _delrsResponseStatus = pResponseStatus_
+    { evaluationId =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A user-supplied ID that uniquely identifies the @Evaluation@ . This value should be identical to the value of the @EvaluationId@ in the request.
-delrsEvaluationId :: Lens' DeleteEvaluationResponse (Maybe Text)
-delrsEvaluationId = lens _delrsEvaluationId (\s a -> s {_delrsEvaluationId = a})
+-- | A user-supplied ID that uniquely identifies the @Evaluation@. This value
+-- should be identical to the value of the @EvaluationId@ in the request.
+deleteEvaluationResponse_evaluationId :: Lens.Lens' DeleteEvaluationResponse (Prelude.Maybe Prelude.Text)
+deleteEvaluationResponse_evaluationId = Lens.lens (\DeleteEvaluationResponse' {evaluationId} -> evaluationId) (\s@DeleteEvaluationResponse' {} a -> s {evaluationId = a} :: DeleteEvaluationResponse)
 
--- | -- | The response status code.
-delrsResponseStatus :: Lens' DeleteEvaluationResponse Int
-delrsResponseStatus = lens _delrsResponseStatus (\s a -> s {_delrsResponseStatus = a})
+-- | The response's http status code.
+deleteEvaluationResponse_httpStatus :: Lens.Lens' DeleteEvaluationResponse Prelude.Int
+deleteEvaluationResponse_httpStatus = Lens.lens (\DeleteEvaluationResponse' {httpStatus} -> httpStatus) (\s@DeleteEvaluationResponse' {} a -> s {httpStatus = a} :: DeleteEvaluationResponse)
 
-instance NFData DeleteEvaluationResponse
+instance Prelude.NFData DeleteEvaluationResponse

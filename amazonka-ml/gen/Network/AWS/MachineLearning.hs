@@ -14,7 +14,7 @@
 -- Definition of the public APIs exposed by Amazon Machine Learning
 module Network.AWS.MachineLearning
   ( -- * Service Configuration
-    machineLearning,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -47,103 +47,187 @@ module Network.AWS.MachineLearning
     -- $waiters
 
     -- ** MLModelAvailable
-    mLModelAvailable,
+    newMLModelAvailable,
 
     -- ** EvaluationAvailable
-    evaluationAvailable,
+    newEvaluationAvailable,
 
     -- ** DataSourceAvailable
-    dataSourceAvailable,
+    newDataSourceAvailable,
 
     -- ** BatchPredictionAvailable
-    batchPredictionAvailable,
+    newBatchPredictionAvailable,
 
     -- * Operations
     -- $operations
 
     -- ** DeleteMLModel
-    module Network.AWS.MachineLearning.DeleteMLModel,
+    DeleteMLModel (DeleteMLModel'),
+    newDeleteMLModel,
+    DeleteMLModelResponse (DeleteMLModelResponse'),
+    newDeleteMLModelResponse,
 
     -- ** UpdateMLModel
-    module Network.AWS.MachineLearning.UpdateMLModel,
+    UpdateMLModel (UpdateMLModel'),
+    newUpdateMLModel,
+    UpdateMLModelResponse (UpdateMLModelResponse'),
+    newUpdateMLModelResponse,
 
-    -- ** CreateDataSourceFromS3
-    module Network.AWS.MachineLearning.CreateDataSourceFromS3,
+    -- ** CreateDataSourceFromS
+    CreateDataSourceFromS (CreateDataSourceFromS'),
+    newCreateDataSourceFromS,
+    CreateDataSourceFromSResponse (CreateDataSourceFromSResponse'),
+    newCreateDataSourceFromSResponse,
 
     -- ** CreateDataSourceFromRedshift
-    module Network.AWS.MachineLearning.CreateDataSourceFromRedshift,
+    CreateDataSourceFromRedshift (CreateDataSourceFromRedshift'),
+    newCreateDataSourceFromRedshift,
+    CreateDataSourceFromRedshiftResponse (CreateDataSourceFromRedshiftResponse'),
+    newCreateDataSourceFromRedshiftResponse,
 
     -- ** UpdateDataSource
-    module Network.AWS.MachineLearning.UpdateDataSource,
+    UpdateDataSource (UpdateDataSource'),
+    newUpdateDataSource,
+    UpdateDataSourceResponse (UpdateDataSourceResponse'),
+    newUpdateDataSourceResponse,
 
     -- ** DescribeTags
-    module Network.AWS.MachineLearning.DescribeTags,
+    DescribeTags (DescribeTags'),
+    newDescribeTags,
+    DescribeTagsResponse (DescribeTagsResponse'),
+    newDescribeTagsResponse,
 
     -- ** DeleteDataSource
-    module Network.AWS.MachineLearning.DeleteDataSource,
+    DeleteDataSource (DeleteDataSource'),
+    newDeleteDataSource,
+    DeleteDataSourceResponse (DeleteDataSourceResponse'),
+    newDeleteDataSourceResponse,
 
     -- ** DescribeDataSources (Paginated)
-    module Network.AWS.MachineLearning.DescribeDataSources,
+    DescribeDataSources (DescribeDataSources'),
+    newDescribeDataSources,
+    DescribeDataSourcesResponse (DescribeDataSourcesResponse'),
+    newDescribeDataSourcesResponse,
 
     -- ** DescribeEvaluations (Paginated)
-    module Network.AWS.MachineLearning.DescribeEvaluations,
+    DescribeEvaluations (DescribeEvaluations'),
+    newDescribeEvaluations,
+    DescribeEvaluationsResponse (DescribeEvaluationsResponse'),
+    newDescribeEvaluationsResponse,
 
     -- ** AddTags
-    module Network.AWS.MachineLearning.AddTags,
+    AddTags (AddTags'),
+    newAddTags,
+    AddTagsResponse (AddTagsResponse'),
+    newAddTagsResponse,
 
     -- ** GetMLModel
-    module Network.AWS.MachineLearning.GetMLModel,
+    GetMLModel (GetMLModel'),
+    newGetMLModel,
+    GetMLModelResponse (GetMLModelResponse'),
+    newGetMLModelResponse,
 
     -- ** GetEvaluation
-    module Network.AWS.MachineLearning.GetEvaluation,
+    GetEvaluation (GetEvaluation'),
+    newGetEvaluation,
+    GetEvaluationResponse (GetEvaluationResponse'),
+    newGetEvaluationResponse,
 
     -- ** DeleteTags
-    module Network.AWS.MachineLearning.DeleteTags,
+    DeleteTags (DeleteTags'),
+    newDeleteTags,
+    DeleteTagsResponse (DeleteTagsResponse'),
+    newDeleteTagsResponse,
 
     -- ** DeleteRealtimeEndpoint
-    module Network.AWS.MachineLearning.DeleteRealtimeEndpoint,
+    DeleteRealtimeEndpoint (DeleteRealtimeEndpoint'),
+    newDeleteRealtimeEndpoint,
+    DeleteRealtimeEndpointResponse (DeleteRealtimeEndpointResponse'),
+    newDeleteRealtimeEndpointResponse,
 
     -- ** CreateDataSourceFromRDS
-    module Network.AWS.MachineLearning.CreateDataSourceFromRDS,
+    CreateDataSourceFromRDS (CreateDataSourceFromRDS'),
+    newCreateDataSourceFromRDS,
+    CreateDataSourceFromRDSResponse (CreateDataSourceFromRDSResponse'),
+    newCreateDataSourceFromRDSResponse,
 
     -- ** GetBatchPrediction
-    module Network.AWS.MachineLearning.GetBatchPrediction,
+    GetBatchPrediction (GetBatchPrediction'),
+    newGetBatchPrediction,
+    GetBatchPredictionResponse (GetBatchPredictionResponse'),
+    newGetBatchPredictionResponse,
 
     -- ** DescribeBatchPredictions (Paginated)
-    module Network.AWS.MachineLearning.DescribeBatchPredictions,
+    DescribeBatchPredictions (DescribeBatchPredictions'),
+    newDescribeBatchPredictions,
+    DescribeBatchPredictionsResponse (DescribeBatchPredictionsResponse'),
+    newDescribeBatchPredictionsResponse,
 
     -- ** DeleteEvaluation
-    module Network.AWS.MachineLearning.DeleteEvaluation,
+    DeleteEvaluation (DeleteEvaluation'),
+    newDeleteEvaluation,
+    DeleteEvaluationResponse (DeleteEvaluationResponse'),
+    newDeleteEvaluationResponse,
 
     -- ** UpdateEvaluation
-    module Network.AWS.MachineLearning.UpdateEvaluation,
+    UpdateEvaluation (UpdateEvaluation'),
+    newUpdateEvaluation,
+    UpdateEvaluationResponse (UpdateEvaluationResponse'),
+    newUpdateEvaluationResponse,
 
     -- ** GetDataSource
-    module Network.AWS.MachineLearning.GetDataSource,
+    GetDataSource (GetDataSource'),
+    newGetDataSource,
+    GetDataSourceResponse (GetDataSourceResponse'),
+    newGetDataSourceResponse,
 
     -- ** CreateRealtimeEndpoint
-    module Network.AWS.MachineLearning.CreateRealtimeEndpoint,
+    CreateRealtimeEndpoint (CreateRealtimeEndpoint'),
+    newCreateRealtimeEndpoint,
+    CreateRealtimeEndpointResponse (CreateRealtimeEndpointResponse'),
+    newCreateRealtimeEndpointResponse,
 
     -- ** UpdateBatchPrediction
-    module Network.AWS.MachineLearning.UpdateBatchPrediction,
+    UpdateBatchPrediction (UpdateBatchPrediction'),
+    newUpdateBatchPrediction,
+    UpdateBatchPredictionResponse (UpdateBatchPredictionResponse'),
+    newUpdateBatchPredictionResponse,
 
     -- ** DeleteBatchPrediction
-    module Network.AWS.MachineLearning.DeleteBatchPrediction,
+    DeleteBatchPrediction (DeleteBatchPrediction'),
+    newDeleteBatchPrediction,
+    DeleteBatchPredictionResponse (DeleteBatchPredictionResponse'),
+    newDeleteBatchPredictionResponse,
 
     -- ** DescribeMLModels (Paginated)
-    module Network.AWS.MachineLearning.DescribeMLModels,
+    DescribeMLModels (DescribeMLModels'),
+    newDescribeMLModels,
+    DescribeMLModelsResponse (DescribeMLModelsResponse'),
+    newDescribeMLModelsResponse,
 
     -- ** CreateBatchPrediction
-    module Network.AWS.MachineLearning.CreateBatchPrediction,
+    CreateBatchPrediction (CreateBatchPrediction'),
+    newCreateBatchPrediction,
+    CreateBatchPredictionResponse (CreateBatchPredictionResponse'),
+    newCreateBatchPredictionResponse,
 
     -- ** Predict
-    module Network.AWS.MachineLearning.Predict,
+    Predict (Predict'),
+    newPredict,
+    PredictResponse (PredictResponse'),
+    newPredictResponse,
 
     -- ** CreateMLModel
-    module Network.AWS.MachineLearning.CreateMLModel,
+    CreateMLModel (CreateMLModel'),
+    newCreateMLModel,
+    CreateMLModelResponse (CreateMLModelResponse'),
+    newCreateMLModelResponse,
 
     -- ** CreateEvaluation
-    module Network.AWS.MachineLearning.CreateEvaluation,
+    CreateEvaluation (CreateEvaluation'),
+    newCreateEvaluation,
+    CreateEvaluationResponse (CreateEvaluationResponse'),
+    newCreateEvaluationResponse,
 
     -- * Types
 
@@ -181,189 +265,72 @@ module Network.AWS.MachineLearning
     TaggableResourceType (..),
 
     -- ** BatchPrediction
-    BatchPrediction,
-    batchPrediction,
-    bpBatchPredictionId,
-    bpStatus,
-    bpStartedAt,
-    bpOutputURI,
-    bpMessage,
-    bpCreatedAt,
-    bpFinishedAt,
-    bpCreatedByIAMUser,
-    bpName,
-    bpInvalidRecordCount,
-    bpTotalRecordCount,
-    bpBatchPredictionDataSourceId,
-    bpMLModelId,
-    bpInputDataLocationS3,
-    bpComputeTime,
-    bpLastUpdatedAt,
+    BatchPrediction (BatchPrediction'),
+    newBatchPrediction,
 
     -- ** DataSource
-    DataSource,
-    dataSource,
-    dsStatus,
-    dsStartedAt,
-    dsDataRearrangement,
-    dsRoleARN,
-    dsRedshiftMetadata,
-    dsMessage,
-    dsDataSourceId,
-    dsComputeStatistics,
-    dsDataLocationS3,
-    dsCreatedAt,
-    dsNumberOfFiles,
-    dsFinishedAt,
-    dsCreatedByIAMUser,
-    dsName,
-    dsDataSizeInBytes,
-    dsComputeTime,
-    dsRDSMetadata,
-    dsLastUpdatedAt,
+    DataSource (DataSource'),
+    newDataSource,
 
     -- ** Evaluation
-    Evaluation,
-    evaluation,
-    ePerformanceMetrics,
-    eStatus,
-    eStartedAt,
-    eEvaluationDataSourceId,
-    eMessage,
-    eCreatedAt,
-    eFinishedAt,
-    eCreatedByIAMUser,
-    eName,
-    eEvaluationId,
-    eMLModelId,
-    eInputDataLocationS3,
-    eComputeTime,
-    eLastUpdatedAt,
+    Evaluation (Evaluation'),
+    newEvaluation,
 
     -- ** MLModel
-    MLModel,
-    mLModel,
-    mlmAlgorithm,
-    mlmStatus,
-    mlmStartedAt,
-    mlmMessage,
-    mlmEndpointInfo,
-    mlmScoreThresholdLastUpdatedAt,
-    mlmCreatedAt,
-    mlmTrainingParameters,
-    mlmFinishedAt,
-    mlmScoreThreshold,
-    mlmCreatedByIAMUser,
-    mlmName,
-    mlmMLModelType,
-    mlmMLModelId,
-    mlmSizeInBytes,
-    mlmInputDataLocationS3,
-    mlmComputeTime,
-    mlmTrainingDataSourceId,
-    mlmLastUpdatedAt,
+    MLModel (MLModel'),
+    newMLModel,
 
     -- ** PerformanceMetrics
-    PerformanceMetrics,
-    performanceMetrics,
-    pmProperties,
+    PerformanceMetrics (PerformanceMetrics'),
+    newPerformanceMetrics,
 
     -- ** Prediction
-    Prediction,
-    prediction,
-    pPredictedValue,
-    pPredictedScores,
-    pPredictedLabel,
-    pDetails,
+    Prediction (Prediction'),
+    newPrediction,
 
     -- ** RDSDataSpec
-    RDSDataSpec,
-    rdsDataSpec,
-    rdsdsDataRearrangement,
-    rdsdsDataSchema,
-    rdsdsDataSchemaURI,
-    rdsdsDatabaseInformation,
-    rdsdsSelectSqlQuery,
-    rdsdsDatabaseCredentials,
-    rdsdsS3StagingLocation,
-    rdsdsResourceRole,
-    rdsdsServiceRole,
-    rdsdsSubnetId,
-    rdsdsSecurityGroupIds,
+    RDSDataSpec (RDSDataSpec'),
+    newRDSDataSpec,
 
     -- ** RDSDatabase
-    RDSDatabase,
-    rdsDatabase,
-    rdsdInstanceIdentifier,
-    rdsdDatabaseName,
+    RDSDatabase (RDSDatabase'),
+    newRDSDatabase,
 
     -- ** RDSDatabaseCredentials
-    RDSDatabaseCredentials,
-    rdsDatabaseCredentials,
-    rdsdcUsername,
-    rdsdcPassword,
+    RDSDatabaseCredentials (RDSDatabaseCredentials'),
+    newRDSDatabaseCredentials,
 
     -- ** RDSMetadata
-    RDSMetadata,
-    rdsMetadata,
-    rdsmDataPipelineId,
-    rdsmSelectSqlQuery,
-    rdsmServiceRole,
-    rdsmResourceRole,
-    rdsmDatabaseUserName,
-    rdsmDatabase,
+    RDSMetadata (RDSMetadata'),
+    newRDSMetadata,
 
     -- ** RealtimeEndpointInfo
-    RealtimeEndpointInfo,
-    realtimeEndpointInfo,
-    reiCreatedAt,
-    reiPeakRequestsPerSecond,
-    reiEndpointStatus,
-    reiEndpointURL,
+    RealtimeEndpointInfo (RealtimeEndpointInfo'),
+    newRealtimeEndpointInfo,
 
     -- ** RedshiftDataSpec
-    RedshiftDataSpec,
-    redshiftDataSpec,
-    rDataRearrangement,
-    rDataSchema,
-    rDataSchemaURI,
-    rDatabaseInformation,
-    rSelectSqlQuery,
-    rDatabaseCredentials,
-    rS3StagingLocation,
+    RedshiftDataSpec (RedshiftDataSpec'),
+    newRedshiftDataSpec,
 
     -- ** RedshiftDatabase
-    RedshiftDatabase,
-    redshiftDatabase,
-    rdDatabaseName,
-    rdClusterIdentifier,
+    RedshiftDatabase (RedshiftDatabase'),
+    newRedshiftDatabase,
 
     -- ** RedshiftDatabaseCredentials
-    RedshiftDatabaseCredentials,
-    redshiftDatabaseCredentials,
-    rdcUsername,
-    rdcPassword,
+    RedshiftDatabaseCredentials (RedshiftDatabaseCredentials'),
+    newRedshiftDatabaseCredentials,
 
     -- ** RedshiftMetadata
-    RedshiftMetadata,
-    redshiftMetadata,
-    rmSelectSqlQuery,
-    rmRedshiftDatabase,
-    rmDatabaseUserName,
+    RedshiftMetadata (RedshiftMetadata'),
+    newRedshiftMetadata,
 
     -- ** S3DataSpec
-    S3DataSpec,
-    s3DataSpec,
-    sdsDataRearrangement,
-    sdsDataSchema,
-    sdsDataSchemaLocationS3,
-    sdsDataLocationS3,
+    S3DataSpec (S3DataSpec'),
+    newS3DataSpec,
 
     -- ** Tag
-    Tag,
-    tag,
-    tagKey,
-    tagValue,
+    Tag (Tag'),
+    newTag,
   )
 where
 
@@ -371,7 +338,7 @@ import Network.AWS.MachineLearning.AddTags
 import Network.AWS.MachineLearning.CreateBatchPrediction
 import Network.AWS.MachineLearning.CreateDataSourceFromRDS
 import Network.AWS.MachineLearning.CreateDataSourceFromRedshift
-import Network.AWS.MachineLearning.CreateDataSourceFromS3
+import Network.AWS.MachineLearning.CreateDataSourceFromS
 import Network.AWS.MachineLearning.CreateEvaluation
 import Network.AWS.MachineLearning.CreateMLModel
 import Network.AWS.MachineLearning.CreateRealtimeEndpoint
@@ -390,6 +357,7 @@ import Network.AWS.MachineLearning.GetBatchPrediction
 import Network.AWS.MachineLearning.GetDataSource
 import Network.AWS.MachineLearning.GetEvaluation
 import Network.AWS.MachineLearning.GetMLModel
+import Network.AWS.MachineLearning.Lens
 import Network.AWS.MachineLearning.Predict
 import Network.AWS.MachineLearning.Types
 import Network.AWS.MachineLearning.UpdateBatchPrediction

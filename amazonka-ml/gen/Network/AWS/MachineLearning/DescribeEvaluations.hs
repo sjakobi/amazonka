@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,270 +21,431 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns a list of @DescribeEvaluations@ that match the search criteria in the request.
---
---
+-- Returns a list of @DescribeEvaluations@ that match the search criteria
+-- in the request.
 --
 -- This operation returns paginated results.
 module Network.AWS.MachineLearning.DescribeEvaluations
   ( -- * Creating a Request
-    describeEvaluations,
-    DescribeEvaluations,
+    DescribeEvaluations (..),
+    newDescribeEvaluations,
 
     -- * Request Lenses
-    deSortOrder,
-    deEQ,
-    deNextToken,
-    deFilterVariable,
-    deGT,
-    deNE,
-    dePrefix,
-    deGE,
-    deLE,
-    deLT,
-    deLimit,
+    describeEvaluations_sortOrder,
+    describeEvaluations_eQ,
+    describeEvaluations_nextToken,
+    describeEvaluations_filterVariable,
+    describeEvaluations_gT,
+    describeEvaluations_nE,
+    describeEvaluations_prefix,
+    describeEvaluations_gE,
+    describeEvaluations_lE,
+    describeEvaluations_lT,
+    describeEvaluations_limit,
 
     -- * Destructuring the Response
-    describeEvaluationsResponse,
-    DescribeEvaluationsResponse,
+    DescribeEvaluationsResponse (..),
+    newDescribeEvaluationsResponse,
 
     -- * Response Lenses
-    derrsNextToken,
-    derrsResults,
-    derrsResponseStatus,
+    describeEvaluationsResponse_nextToken,
+    describeEvaluationsResponse_results,
+    describeEvaluationsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MachineLearning.Types
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.MachineLearning.Types.Evaluation
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeEvaluations' smart constructor.
+-- | /See:/ 'newDescribeEvaluations' smart constructor.
 data DescribeEvaluations = DescribeEvaluations'
-  { _deSortOrder ::
-      !(Maybe SortOrder),
-    _deEQ :: !(Maybe Text),
-    _deNextToken :: !(Maybe Text),
-    _deFilterVariable ::
-      !( Maybe
-           EvaluationFilterVariable
-       ),
-    _deGT :: !(Maybe Text),
-    _deNE :: !(Maybe Text),
-    _dePrefix :: !(Maybe Text),
-    _deGE :: !(Maybe Text),
-    _deLE :: !(Maybe Text),
-    _deLT :: !(Maybe Text),
-    _deLimit :: !(Maybe Nat)
+  { -- | A two-value parameter that determines the sequence of the resulting list
+    -- of @Evaluation@.
+    --
+    -- -   @asc@ - Arranges the list in ascending order (A-Z, 0-9).
+    -- -   @dsc@ - Arranges the list in descending order (Z-A, 9-0).
+    --
+    -- Results are sorted by @FilterVariable@.
+    sortOrder :: Prelude.Maybe SortOrder,
+    -- | The equal to operator. The @Evaluation@ results will have
+    -- @FilterVariable@ values that exactly match the value specified with
+    -- @EQ@.
+    eQ :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the page in the paginated results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Use one of the following variable to filter a list of @Evaluation@
+    -- objects:
+    --
+    -- -   @CreatedAt@ - Sets the search criteria to the @Evaluation@ creation
+    --     date.
+    -- -   @Status@ - Sets the search criteria to the @Evaluation@ status.
+    -- -   @Name@ - Sets the search criteria to the contents of @Evaluation@
+    --     ____ @Name@.
+    -- -   @IAMUser@ - Sets the search criteria to the user account that
+    --     invoked an @Evaluation@.
+    -- -   @MLModelId@ - Sets the search criteria to the @MLModel@ that was
+    --     evaluated.
+    -- -   @DataSourceId@ - Sets the search criteria to the @DataSource@ used
+    --     in @Evaluation@.
+    -- -   @DataUri@ - Sets the search criteria to the data file(s) used in
+    --     @Evaluation@. The URL can identify either a file or an Amazon Simple
+    --     Storage Solution (Amazon S3) bucket or directory.
+    filterVariable :: Prelude.Maybe EvaluationFilterVariable,
+    -- | The greater than operator. The @Evaluation@ results will have
+    -- @FilterVariable@ values that are greater than the value specified with
+    -- @GT@.
+    gT :: Prelude.Maybe Prelude.Text,
+    -- | The not equal to operator. The @Evaluation@ results will have
+    -- @FilterVariable@ values not equal to the value specified with @NE@.
+    nE :: Prelude.Maybe Prelude.Text,
+    -- | A string that is found at the beginning of a variable, such as @Name@ or
+    -- @Id@.
+    --
+    -- For example, an @Evaluation@ could have the @Name@
+    -- @2014-09-09-HolidayGiftMailer@. To search for this @Evaluation@, select
+    -- @Name@ for the @FilterVariable@ and any of the following strings for the
+    -- @Prefix@:
+    --
+    -- -   2014-09
+    --
+    -- -   2014-09-09
+    --
+    -- -   2014-09-09-Holiday
+    prefix :: Prelude.Maybe Prelude.Text,
+    -- | The greater than or equal to operator. The @Evaluation@ results will
+    -- have @FilterVariable@ values that are greater than or equal to the value
+    -- specified with @GE@.
+    gE :: Prelude.Maybe Prelude.Text,
+    -- | The less than or equal to operator. The @Evaluation@ results will have
+    -- @FilterVariable@ values that are less than or equal to the value
+    -- specified with @LE@.
+    lE :: Prelude.Maybe Prelude.Text,
+    -- | The less than operator. The @Evaluation@ results will have
+    -- @FilterVariable@ values that are less than the value specified with
+    -- @LT@.
+    lT :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of @Evaluation@ to include in the result.
+    limit :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeEvaluations' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeEvaluations' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'deSortOrder' - A two-value parameter that determines the sequence of the resulting list of @Evaluation@ .     * @asc@ - Arranges the list in ascending order (A-Z, 0-9).    * @dsc@ - Arranges the list in descending order (Z-A, 9-0). Results are sorted by @FilterVariable@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'deEQ' - The equal to operator. The @Evaluation@ results will have @FilterVariable@ values that exactly match the value specified with @EQ@ .
+-- 'sortOrder', 'describeEvaluations_sortOrder' - A two-value parameter that determines the sequence of the resulting list
+-- of @Evaluation@.
 --
--- * 'deNextToken' - The ID of the page in the paginated results.
+-- -   @asc@ - Arranges the list in ascending order (A-Z, 0-9).
+-- -   @dsc@ - Arranges the list in descending order (Z-A, 9-0).
 --
--- * 'deFilterVariable' - Use one of the following variable to filter a list of @Evaluation@ objects:     * @CreatedAt@ - Sets the search criteria to the @Evaluation@ creation date.    * @Status@ - Sets the search criteria to the @Evaluation@ status.    * @Name@ - Sets the search criteria to the contents of @Evaluation@ ____ @Name@ .    * @IAMUser@ - Sets the search criteria to the user account that invoked an @Evaluation@ .    * @MLModelId@ - Sets the search criteria to the @MLModel@ that was evaluated.    * @DataSourceId@ - Sets the search criteria to the @DataSource@ used in @Evaluation@ .    * @DataUri@ - Sets the search criteria to the data file(s) used in @Evaluation@ . The URL can identify either a file or an Amazon Simple Storage Solution (Amazon S3) bucket or directory.
+-- Results are sorted by @FilterVariable@.
 --
--- * 'deGT' - The greater than operator. The @Evaluation@ results will have @FilterVariable@ values that are greater than the value specified with @GT@ .
+-- 'eQ', 'describeEvaluations_eQ' - The equal to operator. The @Evaluation@ results will have
+-- @FilterVariable@ values that exactly match the value specified with
+-- @EQ@.
 --
--- * 'deNE' - The not equal to operator. The @Evaluation@ results will have @FilterVariable@ values not equal to the value specified with @NE@ .
+-- 'nextToken', 'describeEvaluations_nextToken' - The ID of the page in the paginated results.
 --
--- * 'dePrefix' - A string that is found at the beginning of a variable, such as @Name@ or @Id@ . For example, an @Evaluation@ could have the @Name@ @2014-09-09-HolidayGiftMailer@ . To search for this @Evaluation@ , select @Name@ for the @FilterVariable@ and any of the following strings for the @Prefix@ :      * 2014-09     * 2014-09-09     * 2014-09-09-Holiday
+-- 'filterVariable', 'describeEvaluations_filterVariable' - Use one of the following variable to filter a list of @Evaluation@
+-- objects:
 --
--- * 'deGE' - The greater than or equal to operator. The @Evaluation@ results will have @FilterVariable@ values that are greater than or equal to the value specified with @GE@ .
+-- -   @CreatedAt@ - Sets the search criteria to the @Evaluation@ creation
+--     date.
+-- -   @Status@ - Sets the search criteria to the @Evaluation@ status.
+-- -   @Name@ - Sets the search criteria to the contents of @Evaluation@
+--     ____ @Name@.
+-- -   @IAMUser@ - Sets the search criteria to the user account that
+--     invoked an @Evaluation@.
+-- -   @MLModelId@ - Sets the search criteria to the @MLModel@ that was
+--     evaluated.
+-- -   @DataSourceId@ - Sets the search criteria to the @DataSource@ used
+--     in @Evaluation@.
+-- -   @DataUri@ - Sets the search criteria to the data file(s) used in
+--     @Evaluation@. The URL can identify either a file or an Amazon Simple
+--     Storage Solution (Amazon S3) bucket or directory.
 --
--- * 'deLE' - The less than or equal to operator. The @Evaluation@ results will have @FilterVariable@ values that are less than or equal to the value specified with @LE@ .
+-- 'gT', 'describeEvaluations_gT' - The greater than operator. The @Evaluation@ results will have
+-- @FilterVariable@ values that are greater than the value specified with
+-- @GT@.
 --
--- * 'deLT' - The less than operator. The @Evaluation@ results will have @FilterVariable@ values that are less than the value specified with @LT@ .
+-- 'nE', 'describeEvaluations_nE' - The not equal to operator. The @Evaluation@ results will have
+-- @FilterVariable@ values not equal to the value specified with @NE@.
 --
--- * 'deLimit' - The maximum number of @Evaluation@ to include in the result.
-describeEvaluations ::
+-- 'prefix', 'describeEvaluations_prefix' - A string that is found at the beginning of a variable, such as @Name@ or
+-- @Id@.
+--
+-- For example, an @Evaluation@ could have the @Name@
+-- @2014-09-09-HolidayGiftMailer@. To search for this @Evaluation@, select
+-- @Name@ for the @FilterVariable@ and any of the following strings for the
+-- @Prefix@:
+--
+-- -   2014-09
+--
+-- -   2014-09-09
+--
+-- -   2014-09-09-Holiday
+--
+-- 'gE', 'describeEvaluations_gE' - The greater than or equal to operator. The @Evaluation@ results will
+-- have @FilterVariable@ values that are greater than or equal to the value
+-- specified with @GE@.
+--
+-- 'lE', 'describeEvaluations_lE' - The less than or equal to operator. The @Evaluation@ results will have
+-- @FilterVariable@ values that are less than or equal to the value
+-- specified with @LE@.
+--
+-- 'lT', 'describeEvaluations_lT' - The less than operator. The @Evaluation@ results will have
+-- @FilterVariable@ values that are less than the value specified with
+-- @LT@.
+--
+-- 'limit', 'describeEvaluations_limit' - The maximum number of @Evaluation@ to include in the result.
+newDescribeEvaluations ::
   DescribeEvaluations
-describeEvaluations =
+newDescribeEvaluations =
   DescribeEvaluations'
-    { _deSortOrder = Nothing,
-      _deEQ = Nothing,
-      _deNextToken = Nothing,
-      _deFilterVariable = Nothing,
-      _deGT = Nothing,
-      _deNE = Nothing,
-      _dePrefix = Nothing,
-      _deGE = Nothing,
-      _deLE = Nothing,
-      _deLT = Nothing,
-      _deLimit = Nothing
+    { sortOrder = Prelude.Nothing,
+      eQ = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      filterVariable = Prelude.Nothing,
+      gT = Prelude.Nothing,
+      nE = Prelude.Nothing,
+      prefix = Prelude.Nothing,
+      gE = Prelude.Nothing,
+      lE = Prelude.Nothing,
+      lT = Prelude.Nothing,
+      limit = Prelude.Nothing
     }
 
--- | A two-value parameter that determines the sequence of the resulting list of @Evaluation@ .     * @asc@ - Arranges the list in ascending order (A-Z, 0-9).    * @dsc@ - Arranges the list in descending order (Z-A, 9-0). Results are sorted by @FilterVariable@ .
-deSortOrder :: Lens' DescribeEvaluations (Maybe SortOrder)
-deSortOrder = lens _deSortOrder (\s a -> s {_deSortOrder = a})
+-- | A two-value parameter that determines the sequence of the resulting list
+-- of @Evaluation@.
+--
+-- -   @asc@ - Arranges the list in ascending order (A-Z, 0-9).
+-- -   @dsc@ - Arranges the list in descending order (Z-A, 9-0).
+--
+-- Results are sorted by @FilterVariable@.
+describeEvaluations_sortOrder :: Lens.Lens' DescribeEvaluations (Prelude.Maybe SortOrder)
+describeEvaluations_sortOrder = Lens.lens (\DescribeEvaluations' {sortOrder} -> sortOrder) (\s@DescribeEvaluations' {} a -> s {sortOrder = a} :: DescribeEvaluations)
 
--- | The equal to operator. The @Evaluation@ results will have @FilterVariable@ values that exactly match the value specified with @EQ@ .
-deEQ :: Lens' DescribeEvaluations (Maybe Text)
-deEQ = lens _deEQ (\s a -> s {_deEQ = a})
+-- | The equal to operator. The @Evaluation@ results will have
+-- @FilterVariable@ values that exactly match the value specified with
+-- @EQ@.
+describeEvaluations_eQ :: Lens.Lens' DescribeEvaluations (Prelude.Maybe Prelude.Text)
+describeEvaluations_eQ = Lens.lens (\DescribeEvaluations' {eQ} -> eQ) (\s@DescribeEvaluations' {} a -> s {eQ = a} :: DescribeEvaluations)
 
 -- | The ID of the page in the paginated results.
-deNextToken :: Lens' DescribeEvaluations (Maybe Text)
-deNextToken = lens _deNextToken (\s a -> s {_deNextToken = a})
+describeEvaluations_nextToken :: Lens.Lens' DescribeEvaluations (Prelude.Maybe Prelude.Text)
+describeEvaluations_nextToken = Lens.lens (\DescribeEvaluations' {nextToken} -> nextToken) (\s@DescribeEvaluations' {} a -> s {nextToken = a} :: DescribeEvaluations)
 
--- | Use one of the following variable to filter a list of @Evaluation@ objects:     * @CreatedAt@ - Sets the search criteria to the @Evaluation@ creation date.    * @Status@ - Sets the search criteria to the @Evaluation@ status.    * @Name@ - Sets the search criteria to the contents of @Evaluation@ ____ @Name@ .    * @IAMUser@ - Sets the search criteria to the user account that invoked an @Evaluation@ .    * @MLModelId@ - Sets the search criteria to the @MLModel@ that was evaluated.    * @DataSourceId@ - Sets the search criteria to the @DataSource@ used in @Evaluation@ .    * @DataUri@ - Sets the search criteria to the data file(s) used in @Evaluation@ . The URL can identify either a file or an Amazon Simple Storage Solution (Amazon S3) bucket or directory.
-deFilterVariable :: Lens' DescribeEvaluations (Maybe EvaluationFilterVariable)
-deFilterVariable = lens _deFilterVariable (\s a -> s {_deFilterVariable = a})
+-- | Use one of the following variable to filter a list of @Evaluation@
+-- objects:
+--
+-- -   @CreatedAt@ - Sets the search criteria to the @Evaluation@ creation
+--     date.
+-- -   @Status@ - Sets the search criteria to the @Evaluation@ status.
+-- -   @Name@ - Sets the search criteria to the contents of @Evaluation@
+--     ____ @Name@.
+-- -   @IAMUser@ - Sets the search criteria to the user account that
+--     invoked an @Evaluation@.
+-- -   @MLModelId@ - Sets the search criteria to the @MLModel@ that was
+--     evaluated.
+-- -   @DataSourceId@ - Sets the search criteria to the @DataSource@ used
+--     in @Evaluation@.
+-- -   @DataUri@ - Sets the search criteria to the data file(s) used in
+--     @Evaluation@. The URL can identify either a file or an Amazon Simple
+--     Storage Solution (Amazon S3) bucket or directory.
+describeEvaluations_filterVariable :: Lens.Lens' DescribeEvaluations (Prelude.Maybe EvaluationFilterVariable)
+describeEvaluations_filterVariable = Lens.lens (\DescribeEvaluations' {filterVariable} -> filterVariable) (\s@DescribeEvaluations' {} a -> s {filterVariable = a} :: DescribeEvaluations)
 
--- | The greater than operator. The @Evaluation@ results will have @FilterVariable@ values that are greater than the value specified with @GT@ .
-deGT :: Lens' DescribeEvaluations (Maybe Text)
-deGT = lens _deGT (\s a -> s {_deGT = a})
+-- | The greater than operator. The @Evaluation@ results will have
+-- @FilterVariable@ values that are greater than the value specified with
+-- @GT@.
+describeEvaluations_gT :: Lens.Lens' DescribeEvaluations (Prelude.Maybe Prelude.Text)
+describeEvaluations_gT = Lens.lens (\DescribeEvaluations' {gT} -> gT) (\s@DescribeEvaluations' {} a -> s {gT = a} :: DescribeEvaluations)
 
--- | The not equal to operator. The @Evaluation@ results will have @FilterVariable@ values not equal to the value specified with @NE@ .
-deNE :: Lens' DescribeEvaluations (Maybe Text)
-deNE = lens _deNE (\s a -> s {_deNE = a})
+-- | The not equal to operator. The @Evaluation@ results will have
+-- @FilterVariable@ values not equal to the value specified with @NE@.
+describeEvaluations_nE :: Lens.Lens' DescribeEvaluations (Prelude.Maybe Prelude.Text)
+describeEvaluations_nE = Lens.lens (\DescribeEvaluations' {nE} -> nE) (\s@DescribeEvaluations' {} a -> s {nE = a} :: DescribeEvaluations)
 
--- | A string that is found at the beginning of a variable, such as @Name@ or @Id@ . For example, an @Evaluation@ could have the @Name@ @2014-09-09-HolidayGiftMailer@ . To search for this @Evaluation@ , select @Name@ for the @FilterVariable@ and any of the following strings for the @Prefix@ :      * 2014-09     * 2014-09-09     * 2014-09-09-Holiday
-dePrefix :: Lens' DescribeEvaluations (Maybe Text)
-dePrefix = lens _dePrefix (\s a -> s {_dePrefix = a})
+-- | A string that is found at the beginning of a variable, such as @Name@ or
+-- @Id@.
+--
+-- For example, an @Evaluation@ could have the @Name@
+-- @2014-09-09-HolidayGiftMailer@. To search for this @Evaluation@, select
+-- @Name@ for the @FilterVariable@ and any of the following strings for the
+-- @Prefix@:
+--
+-- -   2014-09
+--
+-- -   2014-09-09
+--
+-- -   2014-09-09-Holiday
+describeEvaluations_prefix :: Lens.Lens' DescribeEvaluations (Prelude.Maybe Prelude.Text)
+describeEvaluations_prefix = Lens.lens (\DescribeEvaluations' {prefix} -> prefix) (\s@DescribeEvaluations' {} a -> s {prefix = a} :: DescribeEvaluations)
 
--- | The greater than or equal to operator. The @Evaluation@ results will have @FilterVariable@ values that are greater than or equal to the value specified with @GE@ .
-deGE :: Lens' DescribeEvaluations (Maybe Text)
-deGE = lens _deGE (\s a -> s {_deGE = a})
+-- | The greater than or equal to operator. The @Evaluation@ results will
+-- have @FilterVariable@ values that are greater than or equal to the value
+-- specified with @GE@.
+describeEvaluations_gE :: Lens.Lens' DescribeEvaluations (Prelude.Maybe Prelude.Text)
+describeEvaluations_gE = Lens.lens (\DescribeEvaluations' {gE} -> gE) (\s@DescribeEvaluations' {} a -> s {gE = a} :: DescribeEvaluations)
 
--- | The less than or equal to operator. The @Evaluation@ results will have @FilterVariable@ values that are less than or equal to the value specified with @LE@ .
-deLE :: Lens' DescribeEvaluations (Maybe Text)
-deLE = lens _deLE (\s a -> s {_deLE = a})
+-- | The less than or equal to operator. The @Evaluation@ results will have
+-- @FilterVariable@ values that are less than or equal to the value
+-- specified with @LE@.
+describeEvaluations_lE :: Lens.Lens' DescribeEvaluations (Prelude.Maybe Prelude.Text)
+describeEvaluations_lE = Lens.lens (\DescribeEvaluations' {lE} -> lE) (\s@DescribeEvaluations' {} a -> s {lE = a} :: DescribeEvaluations)
 
--- | The less than operator. The @Evaluation@ results will have @FilterVariable@ values that are less than the value specified with @LT@ .
-deLT :: Lens' DescribeEvaluations (Maybe Text)
-deLT = lens _deLT (\s a -> s {_deLT = a})
+-- | The less than operator. The @Evaluation@ results will have
+-- @FilterVariable@ values that are less than the value specified with
+-- @LT@.
+describeEvaluations_lT :: Lens.Lens' DescribeEvaluations (Prelude.Maybe Prelude.Text)
+describeEvaluations_lT = Lens.lens (\DescribeEvaluations' {lT} -> lT) (\s@DescribeEvaluations' {} a -> s {lT = a} :: DescribeEvaluations)
 
 -- | The maximum number of @Evaluation@ to include in the result.
-deLimit :: Lens' DescribeEvaluations (Maybe Natural)
-deLimit = lens _deLimit (\s a -> s {_deLimit = a}) . mapping _Nat
+describeEvaluations_limit :: Lens.Lens' DescribeEvaluations (Prelude.Maybe Prelude.Natural)
+describeEvaluations_limit = Lens.lens (\DescribeEvaluations' {limit} -> limit) (\s@DescribeEvaluations' {} a -> s {limit = a} :: DescribeEvaluations) Prelude.. Lens.mapping Prelude._Nat
 
-instance AWSPager DescribeEvaluations where
+instance Pager.AWSPager DescribeEvaluations where
   page rq rs
-    | stop (rs ^. derrsNextToken) = Nothing
-    | stop (rs ^. derrsResults) = Nothing
-    | otherwise =
-      Just $ rq & deNextToken .~ rs ^. derrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeEvaluationsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeEvaluationsResponse_results
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeEvaluations_nextToken
+          Lens..~ rs
+          Lens.^? describeEvaluationsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeEvaluations where
+instance Prelude.AWSRequest DescribeEvaluations where
   type
     Rs DescribeEvaluations =
       DescribeEvaluationsResponse
-  request = postJSON machineLearning
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeEvaluationsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "Results" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (x Prelude..?> "Results" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeEvaluations
+instance Prelude.Hashable DescribeEvaluations
 
-instance NFData DescribeEvaluations
+instance Prelude.NFData DescribeEvaluations
 
-instance ToHeaders DescribeEvaluations where
+instance Prelude.ToHeaders DescribeEvaluations where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AmazonML_20141212.DescribeEvaluations" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AmazonML_20141212.DescribeEvaluations" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeEvaluations where
+instance Prelude.ToJSON DescribeEvaluations where
   toJSON DescribeEvaluations' {..} =
-    object
-      ( catMaybes
-          [ ("SortOrder" .=) <$> _deSortOrder,
-            ("EQ" .=) <$> _deEQ,
-            ("NextToken" .=) <$> _deNextToken,
-            ("FilterVariable" .=) <$> _deFilterVariable,
-            ("GT" .=) <$> _deGT,
-            ("NE" .=) <$> _deNE,
-            ("Prefix" .=) <$> _dePrefix,
-            ("GE" .=) <$> _deGE,
-            ("LE" .=) <$> _deLE,
-            ("LT" .=) <$> _deLT,
-            ("Limit" .=) <$> _deLimit
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("SortOrder" Prelude..=) Prelude.<$> sortOrder,
+            ("EQ" Prelude..=) Prelude.<$> eQ,
+            ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("FilterVariable" Prelude..=)
+              Prelude.<$> filterVariable,
+            ("GT" Prelude..=) Prelude.<$> gT,
+            ("NE" Prelude..=) Prelude.<$> nE,
+            ("Prefix" Prelude..=) Prelude.<$> prefix,
+            ("GE" Prelude..=) Prelude.<$> gE,
+            ("LE" Prelude..=) Prelude.<$> lE,
+            ("LT" Prelude..=) Prelude.<$> lT,
+            ("Limit" Prelude..=) Prelude.<$> limit
           ]
       )
 
-instance ToPath DescribeEvaluations where
-  toPath = const "/"
+instance Prelude.ToPath DescribeEvaluations where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeEvaluations where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeEvaluations where
+  toQuery = Prelude.const Prelude.mempty
 
--- | Represents the query results from a @DescribeEvaluations@ operation. The content is essentially a list of @Evaluation@ .
+-- | Represents the query results from a @DescribeEvaluations@ operation. The
+-- content is essentially a list of @Evaluation@.
 --
---
---
--- /See:/ 'describeEvaluationsResponse' smart constructor.
+-- /See:/ 'newDescribeEvaluationsResponse' smart constructor.
 data DescribeEvaluationsResponse = DescribeEvaluationsResponse'
-  { _derrsNextToken ::
-      !(Maybe Text),
-    _derrsResults ::
-      !( Maybe
-           [Evaluation]
-       ),
-    _derrsResponseStatus ::
-      !Int
+  { -- | The ID of the next page in the paginated results that indicates at least
+    -- one more page follows.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of @Evaluation@ that meet the search criteria.
+    results :: Prelude.Maybe [Evaluation],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeEvaluationsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeEvaluationsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'derrsNextToken' - The ID of the next page in the paginated results that indicates at least one more page follows.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'derrsResults' - A list of @Evaluation@ that meet the search criteria.
+-- 'nextToken', 'describeEvaluationsResponse_nextToken' - The ID of the next page in the paginated results that indicates at least
+-- one more page follows.
 --
--- * 'derrsResponseStatus' - -- | The response status code.
-describeEvaluationsResponse ::
-  -- | 'derrsResponseStatus'
-  Int ->
+-- 'results', 'describeEvaluationsResponse_results' - A list of @Evaluation@ that meet the search criteria.
+--
+-- 'httpStatus', 'describeEvaluationsResponse_httpStatus' - The response's http status code.
+newDescribeEvaluationsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeEvaluationsResponse
-describeEvaluationsResponse pResponseStatus_ =
+newDescribeEvaluationsResponse pHttpStatus_ =
   DescribeEvaluationsResponse'
-    { _derrsNextToken =
-        Nothing,
-      _derrsResults = Nothing,
-      _derrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      results = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The ID of the next page in the paginated results that indicates at least one more page follows.
-derrsNextToken :: Lens' DescribeEvaluationsResponse (Maybe Text)
-derrsNextToken = lens _derrsNextToken (\s a -> s {_derrsNextToken = a})
+-- | The ID of the next page in the paginated results that indicates at least
+-- one more page follows.
+describeEvaluationsResponse_nextToken :: Lens.Lens' DescribeEvaluationsResponse (Prelude.Maybe Prelude.Text)
+describeEvaluationsResponse_nextToken = Lens.lens (\DescribeEvaluationsResponse' {nextToken} -> nextToken) (\s@DescribeEvaluationsResponse' {} a -> s {nextToken = a} :: DescribeEvaluationsResponse)
 
 -- | A list of @Evaluation@ that meet the search criteria.
-derrsResults :: Lens' DescribeEvaluationsResponse [Evaluation]
-derrsResults = lens _derrsResults (\s a -> s {_derrsResults = a}) . _Default . _Coerce
+describeEvaluationsResponse_results :: Lens.Lens' DescribeEvaluationsResponse (Prelude.Maybe [Evaluation])
+describeEvaluationsResponse_results = Lens.lens (\DescribeEvaluationsResponse' {results} -> results) (\s@DescribeEvaluationsResponse' {} a -> s {results = a} :: DescribeEvaluationsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-derrsResponseStatus :: Lens' DescribeEvaluationsResponse Int
-derrsResponseStatus = lens _derrsResponseStatus (\s a -> s {_derrsResponseStatus = a})
+-- | The response's http status code.
+describeEvaluationsResponse_httpStatus :: Lens.Lens' DescribeEvaluationsResponse Prelude.Int
+describeEvaluationsResponse_httpStatus = Lens.lens (\DescribeEvaluationsResponse' {httpStatus} -> httpStatus) (\s@DescribeEvaluationsResponse' {} a -> s {httpStatus = a} :: DescribeEvaluationsResponse)
 
-instance NFData DescribeEvaluationsResponse
+instance Prelude.NFData DescribeEvaluationsResponse

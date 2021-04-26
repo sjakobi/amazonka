@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,174 +21,177 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates the @BatchPredictionName@ of a @BatchPrediction@ .
+-- Updates the @BatchPredictionName@ of a @BatchPrediction@.
 --
---
--- You can use the @GetBatchPrediction@ operation to view the contents of the updated data element.
+-- You can use the @GetBatchPrediction@ operation to view the contents of
+-- the updated data element.
 module Network.AWS.MachineLearning.UpdateBatchPrediction
   ( -- * Creating a Request
-    updateBatchPrediction,
-    UpdateBatchPrediction,
+    UpdateBatchPrediction (..),
+    newUpdateBatchPrediction,
 
     -- * Request Lenses
-    ubpBatchPredictionId,
-    ubpBatchPredictionName,
+    updateBatchPrediction_batchPredictionId,
+    updateBatchPrediction_batchPredictionName,
 
     -- * Destructuring the Response
-    updateBatchPredictionResponse,
-    UpdateBatchPredictionResponse,
+    UpdateBatchPredictionResponse (..),
+    newUpdateBatchPredictionResponse,
 
     -- * Response Lenses
-    ubprrsBatchPredictionId,
-    ubprrsResponseStatus,
+    updateBatchPredictionResponse_batchPredictionId,
+    updateBatchPredictionResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MachineLearning.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateBatchPrediction' smart constructor.
+-- | /See:/ 'newUpdateBatchPrediction' smart constructor.
 data UpdateBatchPrediction = UpdateBatchPrediction'
-  { _ubpBatchPredictionId ::
-      !Text,
-    _ubpBatchPredictionName ::
-      !Text
+  { -- | The ID assigned to the @BatchPrediction@ during creation.
+    batchPredictionId :: Prelude.Text,
+    -- | A new user-supplied name or description of the @BatchPrediction@.
+    batchPredictionName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateBatchPrediction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateBatchPrediction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ubpBatchPredictionId' - The ID assigned to the @BatchPrediction@ during creation.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ubpBatchPredictionName' - A new user-supplied name or description of the @BatchPrediction@ .
-updateBatchPrediction ::
-  -- | 'ubpBatchPredictionId'
-  Text ->
-  -- | 'ubpBatchPredictionName'
-  Text ->
+-- 'batchPredictionId', 'updateBatchPrediction_batchPredictionId' - The ID assigned to the @BatchPrediction@ during creation.
+--
+-- 'batchPredictionName', 'updateBatchPrediction_batchPredictionName' - A new user-supplied name or description of the @BatchPrediction@.
+newUpdateBatchPrediction ::
+  -- | 'batchPredictionId'
+  Prelude.Text ->
+  -- | 'batchPredictionName'
+  Prelude.Text ->
   UpdateBatchPrediction
-updateBatchPrediction
+newUpdateBatchPrediction
   pBatchPredictionId_
   pBatchPredictionName_ =
     UpdateBatchPrediction'
-      { _ubpBatchPredictionId =
+      { batchPredictionId =
           pBatchPredictionId_,
-        _ubpBatchPredictionName = pBatchPredictionName_
+        batchPredictionName = pBatchPredictionName_
       }
 
 -- | The ID assigned to the @BatchPrediction@ during creation.
-ubpBatchPredictionId :: Lens' UpdateBatchPrediction Text
-ubpBatchPredictionId = lens _ubpBatchPredictionId (\s a -> s {_ubpBatchPredictionId = a})
+updateBatchPrediction_batchPredictionId :: Lens.Lens' UpdateBatchPrediction Prelude.Text
+updateBatchPrediction_batchPredictionId = Lens.lens (\UpdateBatchPrediction' {batchPredictionId} -> batchPredictionId) (\s@UpdateBatchPrediction' {} a -> s {batchPredictionId = a} :: UpdateBatchPrediction)
 
--- | A new user-supplied name or description of the @BatchPrediction@ .
-ubpBatchPredictionName :: Lens' UpdateBatchPrediction Text
-ubpBatchPredictionName = lens _ubpBatchPredictionName (\s a -> s {_ubpBatchPredictionName = a})
+-- | A new user-supplied name or description of the @BatchPrediction@.
+updateBatchPrediction_batchPredictionName :: Lens.Lens' UpdateBatchPrediction Prelude.Text
+updateBatchPrediction_batchPredictionName = Lens.lens (\UpdateBatchPrediction' {batchPredictionName} -> batchPredictionName) (\s@UpdateBatchPrediction' {} a -> s {batchPredictionName = a} :: UpdateBatchPrediction)
 
-instance AWSRequest UpdateBatchPrediction where
+instance Prelude.AWSRequest UpdateBatchPrediction where
   type
     Rs UpdateBatchPrediction =
       UpdateBatchPredictionResponse
-  request = postJSON machineLearning
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateBatchPredictionResponse'
-            <$> (x .?> "BatchPredictionId") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "BatchPredictionId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateBatchPrediction
+instance Prelude.Hashable UpdateBatchPrediction
 
-instance NFData UpdateBatchPrediction
+instance Prelude.NFData UpdateBatchPrediction
 
-instance ToHeaders UpdateBatchPrediction where
+instance Prelude.ToHeaders UpdateBatchPrediction where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AmazonML_20141212.UpdateBatchPrediction" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AmazonML_20141212.UpdateBatchPrediction" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateBatchPrediction where
+instance Prelude.ToJSON UpdateBatchPrediction where
   toJSON UpdateBatchPrediction' {..} =
-    object
-      ( catMaybes
-          [ Just ("BatchPredictionId" .= _ubpBatchPredictionId),
-            Just
-              ("BatchPredictionName" .= _ubpBatchPredictionName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("BatchPredictionId" Prelude..= batchPredictionId),
+            Prelude.Just
+              ( "BatchPredictionName"
+                  Prelude..= batchPredictionName
+              )
           ]
       )
 
-instance ToPath UpdateBatchPrediction where
-  toPath = const "/"
+instance Prelude.ToPath UpdateBatchPrediction where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateBatchPrediction where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateBatchPrediction where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of an @UpdateBatchPrediction@ operation.
 --
+-- You can see the updated content by using the @GetBatchPrediction@
+-- operation.
 --
--- You can see the updated content by using the @GetBatchPrediction@ operation.
---
---
--- /See:/ 'updateBatchPredictionResponse' smart constructor.
+-- /See:/ 'newUpdateBatchPredictionResponse' smart constructor.
 data UpdateBatchPredictionResponse = UpdateBatchPredictionResponse'
-  { _ubprrsBatchPredictionId ::
-      !( Maybe
-           Text
-       ),
-    _ubprrsResponseStatus ::
-      !Int
+  { -- | The ID assigned to the @BatchPrediction@ during creation. This value
+    -- should be identical to the value of the @BatchPredictionId@ in the
+    -- request.
+    batchPredictionId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateBatchPredictionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateBatchPredictionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ubprrsBatchPredictionId' - The ID assigned to the @BatchPrediction@ during creation. This value should be identical to the value of the @BatchPredictionId@ in the request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ubprrsResponseStatus' - -- | The response status code.
-updateBatchPredictionResponse ::
-  -- | 'ubprrsResponseStatus'
-  Int ->
+-- 'batchPredictionId', 'updateBatchPredictionResponse_batchPredictionId' - The ID assigned to the @BatchPrediction@ during creation. This value
+-- should be identical to the value of the @BatchPredictionId@ in the
+-- request.
+--
+-- 'httpStatus', 'updateBatchPredictionResponse_httpStatus' - The response's http status code.
+newUpdateBatchPredictionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateBatchPredictionResponse
-updateBatchPredictionResponse pResponseStatus_ =
+newUpdateBatchPredictionResponse pHttpStatus_ =
   UpdateBatchPredictionResponse'
-    { _ubprrsBatchPredictionId =
-        Nothing,
-      _ubprrsResponseStatus = pResponseStatus_
+    { batchPredictionId =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The ID assigned to the @BatchPrediction@ during creation. This value should be identical to the value of the @BatchPredictionId@ in the request.
-ubprrsBatchPredictionId :: Lens' UpdateBatchPredictionResponse (Maybe Text)
-ubprrsBatchPredictionId = lens _ubprrsBatchPredictionId (\s a -> s {_ubprrsBatchPredictionId = a})
+-- | The ID assigned to the @BatchPrediction@ during creation. This value
+-- should be identical to the value of the @BatchPredictionId@ in the
+-- request.
+updateBatchPredictionResponse_batchPredictionId :: Lens.Lens' UpdateBatchPredictionResponse (Prelude.Maybe Prelude.Text)
+updateBatchPredictionResponse_batchPredictionId = Lens.lens (\UpdateBatchPredictionResponse' {batchPredictionId} -> batchPredictionId) (\s@UpdateBatchPredictionResponse' {} a -> s {batchPredictionId = a} :: UpdateBatchPredictionResponse)
 
--- | -- | The response status code.
-ubprrsResponseStatus :: Lens' UpdateBatchPredictionResponse Int
-ubprrsResponseStatus = lens _ubprrsResponseStatus (\s a -> s {_ubprrsResponseStatus = a})
+-- | The response's http status code.
+updateBatchPredictionResponse_httpStatus :: Lens.Lens' UpdateBatchPredictionResponse Prelude.Int
+updateBatchPredictionResponse_httpStatus = Lens.lens (\UpdateBatchPredictionResponse' {httpStatus} -> httpStatus) (\s@UpdateBatchPredictionResponse' {} a -> s {httpStatus = a} :: UpdateBatchPredictionResponse)
 
-instance NFData UpdateBatchPredictionResponse
+instance Prelude.NFData UpdateBatchPredictionResponse

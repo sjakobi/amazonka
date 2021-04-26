@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,72 +19,77 @@
 module Network.AWS.MachineLearning.Types.EntityStatus
   ( EntityStatus
       ( ..,
-        Completed,
-        Deleted,
-        Failed,
-        Inprogress,
-        Pending
+        EntityStatusCOMPLETED,
+        EntityStatusDELETED,
+        EntityStatusFAILED,
+        EntityStatusINPROGRESS,
+        EntityStatusPENDING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Object status with the following possible values:
 --
---
---     * @PENDING@     * @INPROGRESS@     * @FAILED@     * @COMPLETED@     * @DELETED@
-data EntityStatus = EntityStatus' (CI Text)
+-- -   @PENDING@
+-- -   @INPROGRESS@
+-- -   @FAILED@
+-- -   @COMPLETED@
+-- -   @DELETED@
+newtype EntityStatus = EntityStatus'
+  { fromEntityStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Completed :: EntityStatus
-pattern Completed = EntityStatus' "COMPLETED"
+pattern EntityStatusCOMPLETED :: EntityStatus
+pattern EntityStatusCOMPLETED = EntityStatus' "COMPLETED"
 
-pattern Deleted :: EntityStatus
-pattern Deleted = EntityStatus' "DELETED"
+pattern EntityStatusDELETED :: EntityStatus
+pattern EntityStatusDELETED = EntityStatus' "DELETED"
 
-pattern Failed :: EntityStatus
-pattern Failed = EntityStatus' "FAILED"
+pattern EntityStatusFAILED :: EntityStatus
+pattern EntityStatusFAILED = EntityStatus' "FAILED"
 
-pattern Inprogress :: EntityStatus
-pattern Inprogress = EntityStatus' "INPROGRESS"
+pattern EntityStatusINPROGRESS :: EntityStatus
+pattern EntityStatusINPROGRESS = EntityStatus' "INPROGRESS"
 
-pattern Pending :: EntityStatus
-pattern Pending = EntityStatus' "PENDING"
+pattern EntityStatusPENDING :: EntityStatus
+pattern EntityStatusPENDING = EntityStatus' "PENDING"
 
 {-# COMPLETE
-  Completed,
-  Deleted,
-  Failed,
-  Inprogress,
-  Pending,
+  EntityStatusCOMPLETED,
+  EntityStatusDELETED,
+  EntityStatusFAILED,
+  EntityStatusINPROGRESS,
+  EntityStatusPENDING,
   EntityStatus'
   #-}
 
-instance FromText EntityStatus where
-  parser = (EntityStatus' . mk) <$> takeText
+instance Prelude.FromText EntityStatus where
+  parser = EntityStatus' Prelude.<$> Prelude.takeText
 
-instance ToText EntityStatus where
-  toText (EntityStatus' ci) = original ci
+instance Prelude.ToText EntityStatus where
+  toText (EntityStatus' x) = x
 
-instance Hashable EntityStatus
+instance Prelude.Hashable EntityStatus
 
-instance NFData EntityStatus
+instance Prelude.NFData EntityStatus
 
-instance ToByteString EntityStatus
+instance Prelude.ToByteString EntityStatus
 
-instance ToQuery EntityStatus
+instance Prelude.ToQuery EntityStatus
 
-instance ToHeader EntityStatus
+instance Prelude.ToHeader EntityStatus
 
-instance FromJSON EntityStatus where
-  parseJSON = parseJSONText "EntityStatus"
+instance Prelude.FromJSON EntityStatus where
+  parseJSON = Prelude.parseJSONText "EntityStatus"

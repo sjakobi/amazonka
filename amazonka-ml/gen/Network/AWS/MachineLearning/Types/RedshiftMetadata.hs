@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,65 +19,69 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MachineLearning.Types.RedshiftMetadata where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MachineLearning.Types.RedshiftDatabase
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the @DataSource@ details specific to Amazon Redshift.
 --
---
---
--- /See:/ 'redshiftMetadata' smart constructor.
+-- /See:/ 'newRedshiftMetadata' smart constructor.
 data RedshiftMetadata = RedshiftMetadata'
-  { _rmSelectSqlQuery ::
-      !(Maybe Text),
-    _rmRedshiftDatabase ::
-      !(Maybe RedshiftDatabase),
-    _rmDatabaseUserName :: !(Maybe Text)
+  { -- | The SQL query that is specified during CreateDataSourceFromRedshift.
+    -- Returns only if @Verbose@ is true in GetDataSourceInput.
+    selectSqlQuery :: Prelude.Maybe Prelude.Text,
+    redshiftDatabase :: Prelude.Maybe RedshiftDatabase,
+    databaseUserName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RedshiftMetadata' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RedshiftMetadata' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rmSelectSqlQuery' - The SQL query that is specified during 'CreateDataSourceFromRedshift' . Returns only if @Verbose@ is true in GetDataSourceInput.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rmRedshiftDatabase' - Undocumented member.
+-- 'selectSqlQuery', 'redshiftMetadata_selectSqlQuery' - The SQL query that is specified during CreateDataSourceFromRedshift.
+-- Returns only if @Verbose@ is true in GetDataSourceInput.
 --
--- * 'rmDatabaseUserName' - Undocumented member.
-redshiftMetadata ::
+-- 'redshiftDatabase', 'redshiftMetadata_redshiftDatabase' - Undocumented member.
+--
+-- 'databaseUserName', 'redshiftMetadata_databaseUserName' - Undocumented member.
+newRedshiftMetadata ::
   RedshiftMetadata
-redshiftMetadata =
+newRedshiftMetadata =
   RedshiftMetadata'
-    { _rmSelectSqlQuery = Nothing,
-      _rmRedshiftDatabase = Nothing,
-      _rmDatabaseUserName = Nothing
+    { selectSqlQuery = Prelude.Nothing,
+      redshiftDatabase = Prelude.Nothing,
+      databaseUserName = Prelude.Nothing
     }
 
--- | The SQL query that is specified during 'CreateDataSourceFromRedshift' . Returns only if @Verbose@ is true in GetDataSourceInput.
-rmSelectSqlQuery :: Lens' RedshiftMetadata (Maybe Text)
-rmSelectSqlQuery = lens _rmSelectSqlQuery (\s a -> s {_rmSelectSqlQuery = a})
+-- | The SQL query that is specified during CreateDataSourceFromRedshift.
+-- Returns only if @Verbose@ is true in GetDataSourceInput.
+redshiftMetadata_selectSqlQuery :: Lens.Lens' RedshiftMetadata (Prelude.Maybe Prelude.Text)
+redshiftMetadata_selectSqlQuery = Lens.lens (\RedshiftMetadata' {selectSqlQuery} -> selectSqlQuery) (\s@RedshiftMetadata' {} a -> s {selectSqlQuery = a} :: RedshiftMetadata)
 
 -- | Undocumented member.
-rmRedshiftDatabase :: Lens' RedshiftMetadata (Maybe RedshiftDatabase)
-rmRedshiftDatabase = lens _rmRedshiftDatabase (\s a -> s {_rmRedshiftDatabase = a})
+redshiftMetadata_redshiftDatabase :: Lens.Lens' RedshiftMetadata (Prelude.Maybe RedshiftDatabase)
+redshiftMetadata_redshiftDatabase = Lens.lens (\RedshiftMetadata' {redshiftDatabase} -> redshiftDatabase) (\s@RedshiftMetadata' {} a -> s {redshiftDatabase = a} :: RedshiftMetadata)
 
 -- | Undocumented member.
-rmDatabaseUserName :: Lens' RedshiftMetadata (Maybe Text)
-rmDatabaseUserName = lens _rmDatabaseUserName (\s a -> s {_rmDatabaseUserName = a})
+redshiftMetadata_databaseUserName :: Lens.Lens' RedshiftMetadata (Prelude.Maybe Prelude.Text)
+redshiftMetadata_databaseUserName = Lens.lens (\RedshiftMetadata' {databaseUserName} -> databaseUserName) (\s@RedshiftMetadata' {} a -> s {databaseUserName = a} :: RedshiftMetadata)
 
-instance FromJSON RedshiftMetadata where
+instance Prelude.FromJSON RedshiftMetadata where
   parseJSON =
-    withObject
+    Prelude.withObject
       "RedshiftMetadata"
       ( \x ->
           RedshiftMetadata'
-            <$> (x .:? "SelectSqlQuery")
-            <*> (x .:? "RedshiftDatabase")
-            <*> (x .:? "DatabaseUserName")
+            Prelude.<$> (x Prelude..:? "SelectSqlQuery")
+            Prelude.<*> (x Prelude..:? "RedshiftDatabase")
+            Prelude.<*> (x Prelude..:? "DatabaseUserName")
       )
 
-instance Hashable RedshiftMetadata
+instance Prelude.Hashable RedshiftMetadata
 
-instance NFData RedshiftMetadata
+instance Prelude.NFData RedshiftMetadata

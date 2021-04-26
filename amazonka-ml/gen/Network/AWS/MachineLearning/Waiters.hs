@@ -1,5 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -13,107 +15,163 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MachineLearning.Waiters where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MachineLearning.DescribeBatchPredictions
 import Network.AWS.MachineLearning.DescribeDataSources
 import Network.AWS.MachineLearning.DescribeEvaluations
 import Network.AWS.MachineLearning.DescribeMLModels
+import Network.AWS.MachineLearning.Lens
 import Network.AWS.MachineLearning.Types
-import Network.AWS.Prelude
-import Network.AWS.Waiter
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Waiter as Waiter
 
 -- | Polls 'Network.AWS.MachineLearning.DescribeMLModels' every 30 seconds until a successful state is reached. An error is returned after 60 failed checks.
-mLModelAvailable :: Wait DescribeMLModels
-mLModelAvailable =
-  Wait
-    { _waitName = "MLModelAvailable",
-      _waitAttempts = 60,
-      _waitDelay = 30,
-      _waitAcceptors =
-        [ matchAll
+newMLModelAvailable :: Waiter.Wait DescribeMLModels
+newMLModelAvailable =
+  Waiter.Wait
+    { Waiter._waitName = "MLModelAvailable",
+      Waiter._waitAttempts = 60,
+      Waiter._waitDelay = 30,
+      Waiter._waitAcceptors =
+        [ Waiter.matchAll
             "COMPLETED"
-            AcceptSuccess
-            ( folding (concatOf dmlmrmrsResults)
-                . mlmStatus
-                . _Just
-                . to toTextCI
+            Waiter.AcceptSuccess
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeMLModelsResponse_results
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. mLModel_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "FAILED"
-            AcceptFailure
-            ( folding (concatOf dmlmrmrsResults)
-                . mlmStatus
-                . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeMLModelsResponse_results
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. mLModel_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             )
         ]
     }
 
 -- | Polls 'Network.AWS.MachineLearning.DescribeEvaluations' every 30 seconds until a successful state is reached. An error is returned after 60 failed checks.
-evaluationAvailable :: Wait DescribeEvaluations
-evaluationAvailable =
-  Wait
-    { _waitName = "EvaluationAvailable",
-      _waitAttempts = 60,
-      _waitDelay = 30,
-      _waitAcceptors =
-        [ matchAll
+newEvaluationAvailable :: Waiter.Wait DescribeEvaluations
+newEvaluationAvailable =
+  Waiter.Wait
+    { Waiter._waitName =
+        "EvaluationAvailable",
+      Waiter._waitAttempts = 60,
+      Waiter._waitDelay = 30,
+      Waiter._waitAcceptors =
+        [ Waiter.matchAll
             "COMPLETED"
-            AcceptSuccess
-            ( folding (concatOf derrsResults) . eStatus . _Just
-                . to toTextCI
+            Waiter.AcceptSuccess
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeEvaluationsResponse_results
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. evaluation_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "FAILED"
-            AcceptFailure
-            ( folding (concatOf derrsResults) . eStatus . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeEvaluationsResponse_results
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. evaluation_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             )
         ]
     }
 
 -- | Polls 'Network.AWS.MachineLearning.DescribeDataSources' every 30 seconds until a successful state is reached. An error is returned after 60 failed checks.
-dataSourceAvailable :: Wait DescribeDataSources
-dataSourceAvailable =
-  Wait
-    { _waitName = "DataSourceAvailable",
-      _waitAttempts = 60,
-      _waitDelay = 30,
-      _waitAcceptors =
-        [ matchAll
+newDataSourceAvailable :: Waiter.Wait DescribeDataSources
+newDataSourceAvailable =
+  Waiter.Wait
+    { Waiter._waitName =
+        "DataSourceAvailable",
+      Waiter._waitAttempts = 60,
+      Waiter._waitDelay = 30,
+      Waiter._waitAcceptors =
+        [ Waiter.matchAll
             "COMPLETED"
-            AcceptSuccess
-            ( folding (concatOf desrsResults) . dsStatus . _Just
-                . to toTextCI
+            Waiter.AcceptSuccess
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeDataSourcesResponse_results
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. dataSource_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "FAILED"
-            AcceptFailure
-            ( folding (concatOf desrsResults) . dsStatus . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeDataSourcesResponse_results
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. dataSource_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             )
         ]
     }
 
 -- | Polls 'Network.AWS.MachineLearning.DescribeBatchPredictions' every 30 seconds until a successful state is reached. An error is returned after 60 failed checks.
-batchPredictionAvailable :: Wait DescribeBatchPredictions
-batchPredictionAvailable =
-  Wait
-    { _waitName = "BatchPredictionAvailable",
-      _waitAttempts = 60,
-      _waitDelay = 30,
-      _waitAcceptors =
-        [ matchAll
+newBatchPredictionAvailable :: Waiter.Wait DescribeBatchPredictions
+newBatchPredictionAvailable =
+  Waiter.Wait
+    { Waiter._waitName =
+        "BatchPredictionAvailable",
+      Waiter._waitAttempts = 60,
+      Waiter._waitDelay = 30,
+      Waiter._waitAcceptors =
+        [ Waiter.matchAll
             "COMPLETED"
-            AcceptSuccess
-            ( folding (concatOf dbprrsResults) . bpStatus . _Just
-                . to toTextCI
+            Waiter.AcceptSuccess
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeBatchPredictionsResponse_results
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. batchPrediction_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "FAILED"
-            AcceptFailure
-            ( folding (concatOf dbprrsResults) . bpStatus . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeBatchPredictionsResponse_results
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. batchPrediction_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             )
         ]
     }

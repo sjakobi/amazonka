@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,81 +19,91 @@
 module Network.AWS.MachineLearning.Types.DataSourceFilterVariable
   ( DataSourceFilterVariable
       ( ..,
-        DataCreatedAt,
-        DataDATALOCATIONS3,
-        DataIAMUser,
-        DataLastUpdatedAt,
-        DataName,
-        DataStatus
+        DataSourceFilterVariableDataCreatedAt,
+        DataSourceFilterVariableDataDATALOCATIONS3,
+        DataSourceFilterVariableDataIAMUser,
+        DataSourceFilterVariableDataLastUpdatedAt,
+        DataSourceFilterVariableDataName,
+        DataSourceFilterVariableDataStatus'
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | A list of the variables to use in searching or filtering @DataSource@ .
+-- | A list of the variables to use in searching or filtering @DataSource@.
 --
+-- -   @CreatedAt@ - Sets the search criteria to @DataSource@ creation
+--     date.
+-- -   @Status@ - Sets the search criteria to @DataSource@ status.
+-- -   @Name@ - Sets the search criteria to the contents of @DataSource@
+--     ____ @Name@.
+-- -   @DataUri@ - Sets the search criteria to the URI of data files used
+--     to create the @DataSource@. The URI can identify either a file or an
+--     Amazon Simple Storage Service (Amazon S3) bucket or directory.
+-- -   @IAMUser@ - Sets the search criteria to the user account that
+--     invoked the @DataSource@ creation.
 --
---     * @CreatedAt@ - Sets the search criteria to @DataSource@ creation date.    * @Status@ - Sets the search criteria to @DataSource@ status.    * @Name@ - Sets the search criteria to the contents of @DataSource@ ____ @Name@ .    * @DataUri@ - Sets the search criteria to the URI of data files used to create the @DataSource@ . The URI can identify either a file or an Amazon Simple Storage Service (Amazon S3) bucket or directory.    * @IAMUser@ - Sets the search criteria to the user account that invoked the @DataSource@ creation.
-data DataSourceFilterVariable
-  = DataSourceFilterVariable'
-      ( CI
-          Text
-      )
+-- Note
+--
+-- The variable names should match the variable names in the @DataSource@.
+newtype DataSourceFilterVariable = DataSourceFilterVariable'
+  { fromDataSourceFilterVariable ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DataCreatedAt :: DataSourceFilterVariable
-pattern DataCreatedAt = DataSourceFilterVariable' "CreatedAt"
+pattern DataSourceFilterVariableDataCreatedAt :: DataSourceFilterVariable
+pattern DataSourceFilterVariableDataCreatedAt = DataSourceFilterVariable' "CreatedAt"
 
-pattern DataDATALOCATIONS3 :: DataSourceFilterVariable
-pattern DataDATALOCATIONS3 = DataSourceFilterVariable' "DataLocationS3"
+pattern DataSourceFilterVariableDataDATALOCATIONS3 :: DataSourceFilterVariable
+pattern DataSourceFilterVariableDataDATALOCATIONS3 = DataSourceFilterVariable' "DataLocationS3"
 
-pattern DataIAMUser :: DataSourceFilterVariable
-pattern DataIAMUser = DataSourceFilterVariable' "IAMUser"
+pattern DataSourceFilterVariableDataIAMUser :: DataSourceFilterVariable
+pattern DataSourceFilterVariableDataIAMUser = DataSourceFilterVariable' "IAMUser"
 
-pattern DataLastUpdatedAt :: DataSourceFilterVariable
-pattern DataLastUpdatedAt = DataSourceFilterVariable' "LastUpdatedAt"
+pattern DataSourceFilterVariableDataLastUpdatedAt :: DataSourceFilterVariable
+pattern DataSourceFilterVariableDataLastUpdatedAt = DataSourceFilterVariable' "LastUpdatedAt"
 
-pattern DataName :: DataSourceFilterVariable
-pattern DataName = DataSourceFilterVariable' "Name"
+pattern DataSourceFilterVariableDataName :: DataSourceFilterVariable
+pattern DataSourceFilterVariableDataName = DataSourceFilterVariable' "Name"
 
-pattern DataStatus :: DataSourceFilterVariable
-pattern DataStatus = DataSourceFilterVariable' "Status"
+pattern DataSourceFilterVariableDataStatus' :: DataSourceFilterVariable
+pattern DataSourceFilterVariableDataStatus' = DataSourceFilterVariable' "Status"
 
 {-# COMPLETE
-  DataCreatedAt,
-  DataDATALOCATIONS3,
-  DataIAMUser,
-  DataLastUpdatedAt,
-  DataName,
-  DataStatus,
+  DataSourceFilterVariableDataCreatedAt,
+  DataSourceFilterVariableDataDATALOCATIONS3,
+  DataSourceFilterVariableDataIAMUser,
+  DataSourceFilterVariableDataLastUpdatedAt,
+  DataSourceFilterVariableDataName,
+  DataSourceFilterVariableDataStatus',
   DataSourceFilterVariable'
   #-}
 
-instance FromText DataSourceFilterVariable where
-  parser = (DataSourceFilterVariable' . mk) <$> takeText
+instance Prelude.FromText DataSourceFilterVariable where
+  parser = DataSourceFilterVariable' Prelude.<$> Prelude.takeText
 
-instance ToText DataSourceFilterVariable where
-  toText (DataSourceFilterVariable' ci) = original ci
+instance Prelude.ToText DataSourceFilterVariable where
+  toText (DataSourceFilterVariable' x) = x
 
-instance Hashable DataSourceFilterVariable
+instance Prelude.Hashable DataSourceFilterVariable
 
-instance NFData DataSourceFilterVariable
+instance Prelude.NFData DataSourceFilterVariable
 
-instance ToByteString DataSourceFilterVariable
+instance Prelude.ToByteString DataSourceFilterVariable
 
-instance ToQuery DataSourceFilterVariable
+instance Prelude.ToQuery DataSourceFilterVariable
 
-instance ToHeader DataSourceFilterVariable
+instance Prelude.ToHeader DataSourceFilterVariable
 
-instance ToJSON DataSourceFilterVariable where
-  toJSON = toJSONText
+instance Prelude.ToJSON DataSourceFilterVariable where
+  toJSON = Prelude.toJSONText

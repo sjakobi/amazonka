@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,97 +19,95 @@
 module Network.AWS.MachineLearning.Types.MLModelFilterVariable
   ( MLModelFilterVariable
       ( ..,
-        MLMFVAlgorithm,
-        MLMFVCreatedAt,
-        MLMFVIAMUser,
-        MLMFVLastUpdatedAt,
-        MLMFVMLModelType,
-        MLMFVName,
-        MLMFVRealtimeEndpointStatus,
-        MLMFVStatus,
-        MLMFVTrainingDataSourceId,
-        MLMFVTrainingDataURI
+        MLModelFilterVariableAlgorithm,
+        MLModelFilterVariableCreatedAt,
+        MLModelFilterVariableIAMUser,
+        MLModelFilterVariableLastUpdatedAt,
+        MLModelFilterVariableMLModelType,
+        MLModelFilterVariableName,
+        MLModelFilterVariableRealtimeEndpointStatus,
+        MLModelFilterVariableStatus',
+        MLModelFilterVariableTrainingDataSourceId,
+        MLModelFilterVariableTrainingDataURI
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data MLModelFilterVariable
-  = MLModelFilterVariable'
-      ( CI
-          Text
-      )
+newtype MLModelFilterVariable = MLModelFilterVariable'
+  { fromMLModelFilterVariable ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MLMFVAlgorithm :: MLModelFilterVariable
-pattern MLMFVAlgorithm = MLModelFilterVariable' "Algorithm"
+pattern MLModelFilterVariableAlgorithm :: MLModelFilterVariable
+pattern MLModelFilterVariableAlgorithm = MLModelFilterVariable' "Algorithm"
 
-pattern MLMFVCreatedAt :: MLModelFilterVariable
-pattern MLMFVCreatedAt = MLModelFilterVariable' "CreatedAt"
+pattern MLModelFilterVariableCreatedAt :: MLModelFilterVariable
+pattern MLModelFilterVariableCreatedAt = MLModelFilterVariable' "CreatedAt"
 
-pattern MLMFVIAMUser :: MLModelFilterVariable
-pattern MLMFVIAMUser = MLModelFilterVariable' "IAMUser"
+pattern MLModelFilterVariableIAMUser :: MLModelFilterVariable
+pattern MLModelFilterVariableIAMUser = MLModelFilterVariable' "IAMUser"
 
-pattern MLMFVLastUpdatedAt :: MLModelFilterVariable
-pattern MLMFVLastUpdatedAt = MLModelFilterVariable' "LastUpdatedAt"
+pattern MLModelFilterVariableLastUpdatedAt :: MLModelFilterVariable
+pattern MLModelFilterVariableLastUpdatedAt = MLModelFilterVariable' "LastUpdatedAt"
 
-pattern MLMFVMLModelType :: MLModelFilterVariable
-pattern MLMFVMLModelType = MLModelFilterVariable' "MLModelType"
+pattern MLModelFilterVariableMLModelType :: MLModelFilterVariable
+pattern MLModelFilterVariableMLModelType = MLModelFilterVariable' "MLModelType"
 
-pattern MLMFVName :: MLModelFilterVariable
-pattern MLMFVName = MLModelFilterVariable' "Name"
+pattern MLModelFilterVariableName :: MLModelFilterVariable
+pattern MLModelFilterVariableName = MLModelFilterVariable' "Name"
 
-pattern MLMFVRealtimeEndpointStatus :: MLModelFilterVariable
-pattern MLMFVRealtimeEndpointStatus = MLModelFilterVariable' "RealtimeEndpointStatus"
+pattern MLModelFilterVariableRealtimeEndpointStatus :: MLModelFilterVariable
+pattern MLModelFilterVariableRealtimeEndpointStatus = MLModelFilterVariable' "RealtimeEndpointStatus"
 
-pattern MLMFVStatus :: MLModelFilterVariable
-pattern MLMFVStatus = MLModelFilterVariable' "Status"
+pattern MLModelFilterVariableStatus' :: MLModelFilterVariable
+pattern MLModelFilterVariableStatus' = MLModelFilterVariable' "Status"
 
-pattern MLMFVTrainingDataSourceId :: MLModelFilterVariable
-pattern MLMFVTrainingDataSourceId = MLModelFilterVariable' "TrainingDataSourceId"
+pattern MLModelFilterVariableTrainingDataSourceId :: MLModelFilterVariable
+pattern MLModelFilterVariableTrainingDataSourceId = MLModelFilterVariable' "TrainingDataSourceId"
 
-pattern MLMFVTrainingDataURI :: MLModelFilterVariable
-pattern MLMFVTrainingDataURI = MLModelFilterVariable' "TrainingDataURI"
+pattern MLModelFilterVariableTrainingDataURI :: MLModelFilterVariable
+pattern MLModelFilterVariableTrainingDataURI = MLModelFilterVariable' "TrainingDataURI"
 
 {-# COMPLETE
-  MLMFVAlgorithm,
-  MLMFVCreatedAt,
-  MLMFVIAMUser,
-  MLMFVLastUpdatedAt,
-  MLMFVMLModelType,
-  MLMFVName,
-  MLMFVRealtimeEndpointStatus,
-  MLMFVStatus,
-  MLMFVTrainingDataSourceId,
-  MLMFVTrainingDataURI,
+  MLModelFilterVariableAlgorithm,
+  MLModelFilterVariableCreatedAt,
+  MLModelFilterVariableIAMUser,
+  MLModelFilterVariableLastUpdatedAt,
+  MLModelFilterVariableMLModelType,
+  MLModelFilterVariableName,
+  MLModelFilterVariableRealtimeEndpointStatus,
+  MLModelFilterVariableStatus',
+  MLModelFilterVariableTrainingDataSourceId,
+  MLModelFilterVariableTrainingDataURI,
   MLModelFilterVariable'
   #-}
 
-instance FromText MLModelFilterVariable where
-  parser = (MLModelFilterVariable' . mk) <$> takeText
+instance Prelude.FromText MLModelFilterVariable where
+  parser = MLModelFilterVariable' Prelude.<$> Prelude.takeText
 
-instance ToText MLModelFilterVariable where
-  toText (MLModelFilterVariable' ci) = original ci
+instance Prelude.ToText MLModelFilterVariable where
+  toText (MLModelFilterVariable' x) = x
 
-instance Hashable MLModelFilterVariable
+instance Prelude.Hashable MLModelFilterVariable
 
-instance NFData MLModelFilterVariable
+instance Prelude.NFData MLModelFilterVariable
 
-instance ToByteString MLModelFilterVariable
+instance Prelude.ToByteString MLModelFilterVariable
 
-instance ToQuery MLModelFilterVariable
+instance Prelude.ToQuery MLModelFilterVariable
 
-instance ToHeader MLModelFilterVariable
+instance Prelude.ToHeader MLModelFilterVariable
 
-instance ToJSON MLModelFilterVariable where
-  toJSON = toJSONText
+instance Prelude.ToJSON MLModelFilterVariable where
+  toJSON = Prelude.toJSONText

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,203 +19,271 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MachineLearning.Types.DataSource where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MachineLearning.Types.EntityStatus
 import Network.AWS.MachineLearning.Types.RDSMetadata
 import Network.AWS.MachineLearning.Types.RedshiftMetadata
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents the output of the @GetDataSource@ operation.
 --
+-- The content consists of the detailed metadata and data file information
+-- and the current status of the @DataSource@.
 --
--- The content consists of the detailed metadata and data file information and the current status of the @DataSource@ .
---
---
--- /See:/ 'dataSource' smart constructor.
+-- /See:/ 'newDataSource' smart constructor.
 data DataSource = DataSource'
-  { _dsStatus ::
-      !(Maybe EntityStatus),
-    _dsStartedAt :: !(Maybe POSIX),
-    _dsDataRearrangement :: !(Maybe Text),
-    _dsRoleARN :: !(Maybe Text),
-    _dsRedshiftMetadata :: !(Maybe RedshiftMetadata),
-    _dsMessage :: !(Maybe Text),
-    _dsDataSourceId :: !(Maybe Text),
-    _dsComputeStatistics :: !(Maybe Bool),
-    _dsDataLocationS3 :: !(Maybe Text),
-    _dsCreatedAt :: !(Maybe POSIX),
-    _dsNumberOfFiles :: !(Maybe Integer),
-    _dsFinishedAt :: !(Maybe POSIX),
-    _dsCreatedByIAMUser :: !(Maybe Text),
-    _dsName :: !(Maybe Text),
-    _dsDataSizeInBytes :: !(Maybe Integer),
-    _dsComputeTime :: !(Maybe Integer),
-    _dsRDSMetadata :: !(Maybe RDSMetadata),
-    _dsLastUpdatedAt :: !(Maybe POSIX)
+  { -- | The current status of the @DataSource@. This element can have one of the
+    -- following values:
+    --
+    -- -   PENDING - Amazon Machine Learning (Amazon ML) submitted a request to
+    --     create a @DataSource@.
+    -- -   INPROGRESS - The creation process is underway.
+    -- -   FAILED - The request to create a @DataSource@ did not run to
+    --     completion. It is not usable.
+    -- -   COMPLETED - The creation process completed successfully.
+    -- -   DELETED - The @DataSource@ is marked as deleted. It is not usable.
+    status :: Prelude.Maybe EntityStatus,
+    startedAt :: Prelude.Maybe Prelude.POSIX,
+    -- | A JSON string that represents the splitting and rearrangement
+    -- requirement used when this @DataSource@ was created.
+    dataRearrangement :: Prelude.Maybe Prelude.Text,
+    roleARN :: Prelude.Maybe Prelude.Text,
+    redshiftMetadata :: Prelude.Maybe RedshiftMetadata,
+    -- | A description of the most recent details about creating the
+    -- @DataSource@.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The ID that is assigned to the @DataSource@ during creation.
+    dataSourceId :: Prelude.Maybe Prelude.Text,
+    -- | The parameter is @true@ if statistics need to be generated from the
+    -- observation data.
+    computeStatistics :: Prelude.Maybe Prelude.Bool,
+    -- | The location and name of the data in Amazon Simple Storage Service
+    -- (Amazon S3) that is used by a @DataSource@.
+    dataLocationS3 :: Prelude.Maybe Prelude.Text,
+    -- | The time that the @DataSource@ was created. The time is expressed in
+    -- epoch time.
+    createdAt :: Prelude.Maybe Prelude.POSIX,
+    -- | The number of data files referenced by the @DataSource@.
+    numberOfFiles :: Prelude.Maybe Prelude.Integer,
+    finishedAt :: Prelude.Maybe Prelude.POSIX,
+    -- | The AWS user account from which the @DataSource@ was created. The
+    -- account type can be either an AWS root account or an AWS Identity and
+    -- Access Management (IAM) user account.
+    createdByIamUser :: Prelude.Maybe Prelude.Text,
+    -- | A user-supplied name or description of the @DataSource@.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The total number of observations contained in the data files that the
+    -- @DataSource@ references.
+    dataSizeInBytes :: Prelude.Maybe Prelude.Integer,
+    computeTime :: Prelude.Maybe Prelude.Integer,
+    rDSMetadata :: Prelude.Maybe RDSMetadata,
+    -- | The time of the most recent edit to the @BatchPrediction@. The time is
+    -- expressed in epoch time.
+    lastUpdatedAt :: Prelude.Maybe Prelude.POSIX
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DataSource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DataSource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsStatus' - The current status of the @DataSource@ . This element can have one of the following values:      * PENDING - Amazon Machine Learning (Amazon ML) submitted a request to create a @DataSource@ .    * INPROGRESS - The creation process is underway.    * FAILED - The request to create a @DataSource@ did not run to completion. It is not usable.    * COMPLETED - The creation process completed successfully.    * DELETED - The @DataSource@ is marked as deleted. It is not usable.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsStartedAt' - Undocumented member.
+-- 'status', 'dataSource_status' - The current status of the @DataSource@. This element can have one of the
+-- following values:
 --
--- * 'dsDataRearrangement' - A JSON string that represents the splitting and rearrangement requirement used when this @DataSource@ was created.
+-- -   PENDING - Amazon Machine Learning (Amazon ML) submitted a request to
+--     create a @DataSource@.
+-- -   INPROGRESS - The creation process is underway.
+-- -   FAILED - The request to create a @DataSource@ did not run to
+--     completion. It is not usable.
+-- -   COMPLETED - The creation process completed successfully.
+-- -   DELETED - The @DataSource@ is marked as deleted. It is not usable.
 --
--- * 'dsRoleARN' - Undocumented member.
+-- 'startedAt', 'dataSource_startedAt' - Undocumented member.
 --
--- * 'dsRedshiftMetadata' - Undocumented member.
+-- 'dataRearrangement', 'dataSource_dataRearrangement' - A JSON string that represents the splitting and rearrangement
+-- requirement used when this @DataSource@ was created.
 --
--- * 'dsMessage' - A description of the most recent details about creating the @DataSource@ .
+-- 'roleARN', 'dataSource_roleARN' - Undocumented member.
 --
--- * 'dsDataSourceId' - The ID that is assigned to the @DataSource@ during creation.
+-- 'redshiftMetadata', 'dataSource_redshiftMetadata' - Undocumented member.
 --
--- * 'dsComputeStatistics' - The parameter is @true@ if statistics need to be generated from the observation data.
+-- 'message', 'dataSource_message' - A description of the most recent details about creating the
+-- @DataSource@.
 --
--- * 'dsDataLocationS3' - The location and name of the data in Amazon Simple Storage Service (Amazon S3) that is used by a @DataSource@ .
+-- 'dataSourceId', 'dataSource_dataSourceId' - The ID that is assigned to the @DataSource@ during creation.
 --
--- * 'dsCreatedAt' - The time that the @DataSource@ was created. The time is expressed in epoch time.
+-- 'computeStatistics', 'dataSource_computeStatistics' - The parameter is @true@ if statistics need to be generated from the
+-- observation data.
 --
--- * 'dsNumberOfFiles' - The number of data files referenced by the @DataSource@ .
+-- 'dataLocationS3', 'dataSource_dataLocationS3' - The location and name of the data in Amazon Simple Storage Service
+-- (Amazon S3) that is used by a @DataSource@.
 --
--- * 'dsFinishedAt' - Undocumented member.
+-- 'createdAt', 'dataSource_createdAt' - The time that the @DataSource@ was created. The time is expressed in
+-- epoch time.
 --
--- * 'dsCreatedByIAMUser' - The AWS user account from which the @DataSource@ was created. The account type can be either an AWS root account or an AWS Identity and Access Management (IAM) user account.
+-- 'numberOfFiles', 'dataSource_numberOfFiles' - The number of data files referenced by the @DataSource@.
 --
--- * 'dsName' - A user-supplied name or description of the @DataSource@ .
+-- 'finishedAt', 'dataSource_finishedAt' - Undocumented member.
 --
--- * 'dsDataSizeInBytes' - The total number of observations contained in the data files that the @DataSource@ references.
+-- 'createdByIamUser', 'dataSource_createdByIamUser' - The AWS user account from which the @DataSource@ was created. The
+-- account type can be either an AWS root account or an AWS Identity and
+-- Access Management (IAM) user account.
 --
--- * 'dsComputeTime' - Undocumented member.
+-- 'name', 'dataSource_name' - A user-supplied name or description of the @DataSource@.
 --
--- * 'dsRDSMetadata' - Undocumented member.
+-- 'dataSizeInBytes', 'dataSource_dataSizeInBytes' - The total number of observations contained in the data files that the
+-- @DataSource@ references.
 --
--- * 'dsLastUpdatedAt' - The time of the most recent edit to the @BatchPrediction@ . The time is expressed in epoch time.
-dataSource ::
+-- 'computeTime', 'dataSource_computeTime' - Undocumented member.
+--
+-- 'rDSMetadata', 'dataSource_rDSMetadata' - Undocumented member.
+--
+-- 'lastUpdatedAt', 'dataSource_lastUpdatedAt' - The time of the most recent edit to the @BatchPrediction@. The time is
+-- expressed in epoch time.
+newDataSource ::
   DataSource
-dataSource =
+newDataSource =
   DataSource'
-    { _dsStatus = Nothing,
-      _dsStartedAt = Nothing,
-      _dsDataRearrangement = Nothing,
-      _dsRoleARN = Nothing,
-      _dsRedshiftMetadata = Nothing,
-      _dsMessage = Nothing,
-      _dsDataSourceId = Nothing,
-      _dsComputeStatistics = Nothing,
-      _dsDataLocationS3 = Nothing,
-      _dsCreatedAt = Nothing,
-      _dsNumberOfFiles = Nothing,
-      _dsFinishedAt = Nothing,
-      _dsCreatedByIAMUser = Nothing,
-      _dsName = Nothing,
-      _dsDataSizeInBytes = Nothing,
-      _dsComputeTime = Nothing,
-      _dsRDSMetadata = Nothing,
-      _dsLastUpdatedAt = Nothing
+    { status = Prelude.Nothing,
+      startedAt = Prelude.Nothing,
+      dataRearrangement = Prelude.Nothing,
+      roleARN = Prelude.Nothing,
+      redshiftMetadata = Prelude.Nothing,
+      message = Prelude.Nothing,
+      dataSourceId = Prelude.Nothing,
+      computeStatistics = Prelude.Nothing,
+      dataLocationS3 = Prelude.Nothing,
+      createdAt = Prelude.Nothing,
+      numberOfFiles = Prelude.Nothing,
+      finishedAt = Prelude.Nothing,
+      createdByIamUser = Prelude.Nothing,
+      name = Prelude.Nothing,
+      dataSizeInBytes = Prelude.Nothing,
+      computeTime = Prelude.Nothing,
+      rDSMetadata = Prelude.Nothing,
+      lastUpdatedAt = Prelude.Nothing
     }
 
--- | The current status of the @DataSource@ . This element can have one of the following values:      * PENDING - Amazon Machine Learning (Amazon ML) submitted a request to create a @DataSource@ .    * INPROGRESS - The creation process is underway.    * FAILED - The request to create a @DataSource@ did not run to completion. It is not usable.    * COMPLETED - The creation process completed successfully.    * DELETED - The @DataSource@ is marked as deleted. It is not usable.
-dsStatus :: Lens' DataSource (Maybe EntityStatus)
-dsStatus = lens _dsStatus (\s a -> s {_dsStatus = a})
+-- | The current status of the @DataSource@. This element can have one of the
+-- following values:
+--
+-- -   PENDING - Amazon Machine Learning (Amazon ML) submitted a request to
+--     create a @DataSource@.
+-- -   INPROGRESS - The creation process is underway.
+-- -   FAILED - The request to create a @DataSource@ did not run to
+--     completion. It is not usable.
+-- -   COMPLETED - The creation process completed successfully.
+-- -   DELETED - The @DataSource@ is marked as deleted. It is not usable.
+dataSource_status :: Lens.Lens' DataSource (Prelude.Maybe EntityStatus)
+dataSource_status = Lens.lens (\DataSource' {status} -> status) (\s@DataSource' {} a -> s {status = a} :: DataSource)
 
 -- | Undocumented member.
-dsStartedAt :: Lens' DataSource (Maybe UTCTime)
-dsStartedAt = lens _dsStartedAt (\s a -> s {_dsStartedAt = a}) . mapping _Time
+dataSource_startedAt :: Lens.Lens' DataSource (Prelude.Maybe Prelude.UTCTime)
+dataSource_startedAt = Lens.lens (\DataSource' {startedAt} -> startedAt) (\s@DataSource' {} a -> s {startedAt = a} :: DataSource) Prelude.. Lens.mapping Prelude._Time
 
--- | A JSON string that represents the splitting and rearrangement requirement used when this @DataSource@ was created.
-dsDataRearrangement :: Lens' DataSource (Maybe Text)
-dsDataRearrangement = lens _dsDataRearrangement (\s a -> s {_dsDataRearrangement = a})
-
--- | Undocumented member.
-dsRoleARN :: Lens' DataSource (Maybe Text)
-dsRoleARN = lens _dsRoleARN (\s a -> s {_dsRoleARN = a})
+-- | A JSON string that represents the splitting and rearrangement
+-- requirement used when this @DataSource@ was created.
+dataSource_dataRearrangement :: Lens.Lens' DataSource (Prelude.Maybe Prelude.Text)
+dataSource_dataRearrangement = Lens.lens (\DataSource' {dataRearrangement} -> dataRearrangement) (\s@DataSource' {} a -> s {dataRearrangement = a} :: DataSource)
 
 -- | Undocumented member.
-dsRedshiftMetadata :: Lens' DataSource (Maybe RedshiftMetadata)
-dsRedshiftMetadata = lens _dsRedshiftMetadata (\s a -> s {_dsRedshiftMetadata = a})
+dataSource_roleARN :: Lens.Lens' DataSource (Prelude.Maybe Prelude.Text)
+dataSource_roleARN = Lens.lens (\DataSource' {roleARN} -> roleARN) (\s@DataSource' {} a -> s {roleARN = a} :: DataSource)
 
--- | A description of the most recent details about creating the @DataSource@ .
-dsMessage :: Lens' DataSource (Maybe Text)
-dsMessage = lens _dsMessage (\s a -> s {_dsMessage = a})
+-- | Undocumented member.
+dataSource_redshiftMetadata :: Lens.Lens' DataSource (Prelude.Maybe RedshiftMetadata)
+dataSource_redshiftMetadata = Lens.lens (\DataSource' {redshiftMetadata} -> redshiftMetadata) (\s@DataSource' {} a -> s {redshiftMetadata = a} :: DataSource)
+
+-- | A description of the most recent details about creating the
+-- @DataSource@.
+dataSource_message :: Lens.Lens' DataSource (Prelude.Maybe Prelude.Text)
+dataSource_message = Lens.lens (\DataSource' {message} -> message) (\s@DataSource' {} a -> s {message = a} :: DataSource)
 
 -- | The ID that is assigned to the @DataSource@ during creation.
-dsDataSourceId :: Lens' DataSource (Maybe Text)
-dsDataSourceId = lens _dsDataSourceId (\s a -> s {_dsDataSourceId = a})
+dataSource_dataSourceId :: Lens.Lens' DataSource (Prelude.Maybe Prelude.Text)
+dataSource_dataSourceId = Lens.lens (\DataSource' {dataSourceId} -> dataSourceId) (\s@DataSource' {} a -> s {dataSourceId = a} :: DataSource)
 
--- | The parameter is @true@ if statistics need to be generated from the observation data.
-dsComputeStatistics :: Lens' DataSource (Maybe Bool)
-dsComputeStatistics = lens _dsComputeStatistics (\s a -> s {_dsComputeStatistics = a})
+-- | The parameter is @true@ if statistics need to be generated from the
+-- observation data.
+dataSource_computeStatistics :: Lens.Lens' DataSource (Prelude.Maybe Prelude.Bool)
+dataSource_computeStatistics = Lens.lens (\DataSource' {computeStatistics} -> computeStatistics) (\s@DataSource' {} a -> s {computeStatistics = a} :: DataSource)
 
--- | The location and name of the data in Amazon Simple Storage Service (Amazon S3) that is used by a @DataSource@ .
-dsDataLocationS3 :: Lens' DataSource (Maybe Text)
-dsDataLocationS3 = lens _dsDataLocationS3 (\s a -> s {_dsDataLocationS3 = a})
+-- | The location and name of the data in Amazon Simple Storage Service
+-- (Amazon S3) that is used by a @DataSource@.
+dataSource_dataLocationS3 :: Lens.Lens' DataSource (Prelude.Maybe Prelude.Text)
+dataSource_dataLocationS3 = Lens.lens (\DataSource' {dataLocationS3} -> dataLocationS3) (\s@DataSource' {} a -> s {dataLocationS3 = a} :: DataSource)
 
--- | The time that the @DataSource@ was created. The time is expressed in epoch time.
-dsCreatedAt :: Lens' DataSource (Maybe UTCTime)
-dsCreatedAt = lens _dsCreatedAt (\s a -> s {_dsCreatedAt = a}) . mapping _Time
+-- | The time that the @DataSource@ was created. The time is expressed in
+-- epoch time.
+dataSource_createdAt :: Lens.Lens' DataSource (Prelude.Maybe Prelude.UTCTime)
+dataSource_createdAt = Lens.lens (\DataSource' {createdAt} -> createdAt) (\s@DataSource' {} a -> s {createdAt = a} :: DataSource) Prelude.. Lens.mapping Prelude._Time
 
--- | The number of data files referenced by the @DataSource@ .
-dsNumberOfFiles :: Lens' DataSource (Maybe Integer)
-dsNumberOfFiles = lens _dsNumberOfFiles (\s a -> s {_dsNumberOfFiles = a})
-
--- | Undocumented member.
-dsFinishedAt :: Lens' DataSource (Maybe UTCTime)
-dsFinishedAt = lens _dsFinishedAt (\s a -> s {_dsFinishedAt = a}) . mapping _Time
-
--- | The AWS user account from which the @DataSource@ was created. The account type can be either an AWS root account or an AWS Identity and Access Management (IAM) user account.
-dsCreatedByIAMUser :: Lens' DataSource (Maybe Text)
-dsCreatedByIAMUser = lens _dsCreatedByIAMUser (\s a -> s {_dsCreatedByIAMUser = a})
-
--- | A user-supplied name or description of the @DataSource@ .
-dsName :: Lens' DataSource (Maybe Text)
-dsName = lens _dsName (\s a -> s {_dsName = a})
-
--- | The total number of observations contained in the data files that the @DataSource@ references.
-dsDataSizeInBytes :: Lens' DataSource (Maybe Integer)
-dsDataSizeInBytes = lens _dsDataSizeInBytes (\s a -> s {_dsDataSizeInBytes = a})
+-- | The number of data files referenced by the @DataSource@.
+dataSource_numberOfFiles :: Lens.Lens' DataSource (Prelude.Maybe Prelude.Integer)
+dataSource_numberOfFiles = Lens.lens (\DataSource' {numberOfFiles} -> numberOfFiles) (\s@DataSource' {} a -> s {numberOfFiles = a} :: DataSource)
 
 -- | Undocumented member.
-dsComputeTime :: Lens' DataSource (Maybe Integer)
-dsComputeTime = lens _dsComputeTime (\s a -> s {_dsComputeTime = a})
+dataSource_finishedAt :: Lens.Lens' DataSource (Prelude.Maybe Prelude.UTCTime)
+dataSource_finishedAt = Lens.lens (\DataSource' {finishedAt} -> finishedAt) (\s@DataSource' {} a -> s {finishedAt = a} :: DataSource) Prelude.. Lens.mapping Prelude._Time
+
+-- | The AWS user account from which the @DataSource@ was created. The
+-- account type can be either an AWS root account or an AWS Identity and
+-- Access Management (IAM) user account.
+dataSource_createdByIamUser :: Lens.Lens' DataSource (Prelude.Maybe Prelude.Text)
+dataSource_createdByIamUser = Lens.lens (\DataSource' {createdByIamUser} -> createdByIamUser) (\s@DataSource' {} a -> s {createdByIamUser = a} :: DataSource)
+
+-- | A user-supplied name or description of the @DataSource@.
+dataSource_name :: Lens.Lens' DataSource (Prelude.Maybe Prelude.Text)
+dataSource_name = Lens.lens (\DataSource' {name} -> name) (\s@DataSource' {} a -> s {name = a} :: DataSource)
+
+-- | The total number of observations contained in the data files that the
+-- @DataSource@ references.
+dataSource_dataSizeInBytes :: Lens.Lens' DataSource (Prelude.Maybe Prelude.Integer)
+dataSource_dataSizeInBytes = Lens.lens (\DataSource' {dataSizeInBytes} -> dataSizeInBytes) (\s@DataSource' {} a -> s {dataSizeInBytes = a} :: DataSource)
 
 -- | Undocumented member.
-dsRDSMetadata :: Lens' DataSource (Maybe RDSMetadata)
-dsRDSMetadata = lens _dsRDSMetadata (\s a -> s {_dsRDSMetadata = a})
+dataSource_computeTime :: Lens.Lens' DataSource (Prelude.Maybe Prelude.Integer)
+dataSource_computeTime = Lens.lens (\DataSource' {computeTime} -> computeTime) (\s@DataSource' {} a -> s {computeTime = a} :: DataSource)
 
--- | The time of the most recent edit to the @BatchPrediction@ . The time is expressed in epoch time.
-dsLastUpdatedAt :: Lens' DataSource (Maybe UTCTime)
-dsLastUpdatedAt = lens _dsLastUpdatedAt (\s a -> s {_dsLastUpdatedAt = a}) . mapping _Time
+-- | Undocumented member.
+dataSource_rDSMetadata :: Lens.Lens' DataSource (Prelude.Maybe RDSMetadata)
+dataSource_rDSMetadata = Lens.lens (\DataSource' {rDSMetadata} -> rDSMetadata) (\s@DataSource' {} a -> s {rDSMetadata = a} :: DataSource)
 
-instance FromJSON DataSource where
+-- | The time of the most recent edit to the @BatchPrediction@. The time is
+-- expressed in epoch time.
+dataSource_lastUpdatedAt :: Lens.Lens' DataSource (Prelude.Maybe Prelude.UTCTime)
+dataSource_lastUpdatedAt = Lens.lens (\DataSource' {lastUpdatedAt} -> lastUpdatedAt) (\s@DataSource' {} a -> s {lastUpdatedAt = a} :: DataSource) Prelude.. Lens.mapping Prelude._Time
+
+instance Prelude.FromJSON DataSource where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DataSource"
       ( \x ->
           DataSource'
-            <$> (x .:? "Status")
-            <*> (x .:? "StartedAt")
-            <*> (x .:? "DataRearrangement")
-            <*> (x .:? "RoleARN")
-            <*> (x .:? "RedshiftMetadata")
-            <*> (x .:? "Message")
-            <*> (x .:? "DataSourceId")
-            <*> (x .:? "ComputeStatistics")
-            <*> (x .:? "DataLocationS3")
-            <*> (x .:? "CreatedAt")
-            <*> (x .:? "NumberOfFiles")
-            <*> (x .:? "FinishedAt")
-            <*> (x .:? "CreatedByIamUser")
-            <*> (x .:? "Name")
-            <*> (x .:? "DataSizeInBytes")
-            <*> (x .:? "ComputeTime")
-            <*> (x .:? "RDSMetadata")
-            <*> (x .:? "LastUpdatedAt")
+            Prelude.<$> (x Prelude..:? "Status")
+            Prelude.<*> (x Prelude..:? "StartedAt")
+            Prelude.<*> (x Prelude..:? "DataRearrangement")
+            Prelude.<*> (x Prelude..:? "RoleARN")
+            Prelude.<*> (x Prelude..:? "RedshiftMetadata")
+            Prelude.<*> (x Prelude..:? "Message")
+            Prelude.<*> (x Prelude..:? "DataSourceId")
+            Prelude.<*> (x Prelude..:? "ComputeStatistics")
+            Prelude.<*> (x Prelude..:? "DataLocationS3")
+            Prelude.<*> (x Prelude..:? "CreatedAt")
+            Prelude.<*> (x Prelude..:? "NumberOfFiles")
+            Prelude.<*> (x Prelude..:? "FinishedAt")
+            Prelude.<*> (x Prelude..:? "CreatedByIamUser")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "DataSizeInBytes")
+            Prelude.<*> (x Prelude..:? "ComputeTime")
+            Prelude.<*> (x Prelude..:? "RDSMetadata")
+            Prelude.<*> (x Prelude..:? "LastUpdatedAt")
       )
 
-instance Hashable DataSource
+instance Prelude.Hashable DataSource
 
-instance NFData DataSource
+instance Prelude.NFData DataSource

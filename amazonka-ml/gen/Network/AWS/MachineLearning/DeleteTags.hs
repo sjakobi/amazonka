@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,166 +21,182 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the specified tags associated with an ML object. After this operation is complete, you can't recover deleted tags.
+-- Deletes the specified tags associated with an ML object. After this
+-- operation is complete, you can\'t recover deleted tags.
 --
---
--- If you specify a tag that doesn't exist, Amazon ML ignores it.
+-- If you specify a tag that doesn\'t exist, Amazon ML ignores it.
 module Network.AWS.MachineLearning.DeleteTags
   ( -- * Creating a Request
-    deleteTags,
-    DeleteTags,
+    DeleteTags (..),
+    newDeleteTags,
 
     -- * Request Lenses
-    dTagKeys,
-    dResourceId,
-    dResourceType,
+    deleteTags_tagKeys,
+    deleteTags_resourceId,
+    deleteTags_resourceType,
 
     -- * Destructuring the Response
-    deleteTagsResponse,
-    DeleteTagsResponse,
+    DeleteTagsResponse (..),
+    newDeleteTagsResponse,
 
     -- * Response Lenses
-    drsResourceId,
-    drsResourceType,
-    drsResponseStatus,
+    deleteTagsResponse_resourceId,
+    deleteTagsResponse_resourceType,
+    deleteTagsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MachineLearning.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.MachineLearning.Types.TaggableResourceType
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteTags' smart constructor.
+-- | /See:/ 'newDeleteTags' smart constructor.
 data DeleteTags = DeleteTags'
-  { _dTagKeys :: ![Text],
-    _dResourceId :: !Text,
-    _dResourceType :: !TaggableResourceType
+  { -- | One or more tags to delete.
+    tagKeys :: [Prelude.Text],
+    -- | The ID of the tagged ML object. For example, @exampleModelId@.
+    resourceId :: Prelude.Text,
+    -- | The type of the tagged ML object.
+    resourceType :: TaggableResourceType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteTags' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteTags' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dTagKeys' - One or more tags to delete.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dResourceId' - The ID of the tagged ML object. For example, @exampleModelId@ .
+-- 'tagKeys', 'deleteTags_tagKeys' - One or more tags to delete.
 --
--- * 'dResourceType' - The type of the tagged ML object.
-deleteTags ::
-  -- | 'dResourceId'
-  Text ->
-  -- | 'dResourceType'
+-- 'resourceId', 'deleteTags_resourceId' - The ID of the tagged ML object. For example, @exampleModelId@.
+--
+-- 'resourceType', 'deleteTags_resourceType' - The type of the tagged ML object.
+newDeleteTags ::
+  -- | 'resourceId'
+  Prelude.Text ->
+  -- | 'resourceType'
   TaggableResourceType ->
   DeleteTags
-deleteTags pResourceId_ pResourceType_ =
+newDeleteTags pResourceId_ pResourceType_ =
   DeleteTags'
-    { _dTagKeys = mempty,
-      _dResourceId = pResourceId_,
-      _dResourceType = pResourceType_
+    { tagKeys = Prelude.mempty,
+      resourceId = pResourceId_,
+      resourceType = pResourceType_
     }
 
 -- | One or more tags to delete.
-dTagKeys :: Lens' DeleteTags [Text]
-dTagKeys = lens _dTagKeys (\s a -> s {_dTagKeys = a}) . _Coerce
+deleteTags_tagKeys :: Lens.Lens' DeleteTags [Prelude.Text]
+deleteTags_tagKeys = Lens.lens (\DeleteTags' {tagKeys} -> tagKeys) (\s@DeleteTags' {} a -> s {tagKeys = a} :: DeleteTags) Prelude.. Prelude._Coerce
 
--- | The ID of the tagged ML object. For example, @exampleModelId@ .
-dResourceId :: Lens' DeleteTags Text
-dResourceId = lens _dResourceId (\s a -> s {_dResourceId = a})
+-- | The ID of the tagged ML object. For example, @exampleModelId@.
+deleteTags_resourceId :: Lens.Lens' DeleteTags Prelude.Text
+deleteTags_resourceId = Lens.lens (\DeleteTags' {resourceId} -> resourceId) (\s@DeleteTags' {} a -> s {resourceId = a} :: DeleteTags)
 
 -- | The type of the tagged ML object.
-dResourceType :: Lens' DeleteTags TaggableResourceType
-dResourceType = lens _dResourceType (\s a -> s {_dResourceType = a})
+deleteTags_resourceType :: Lens.Lens' DeleteTags TaggableResourceType
+deleteTags_resourceType = Lens.lens (\DeleteTags' {resourceType} -> resourceType) (\s@DeleteTags' {} a -> s {resourceType = a} :: DeleteTags)
 
-instance AWSRequest DeleteTags where
+instance Prelude.AWSRequest DeleteTags where
   type Rs DeleteTags = DeleteTagsResponse
-  request = postJSON machineLearning
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteTagsResponse'
-            <$> (x .?> "ResourceId")
-            <*> (x .?> "ResourceType")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ResourceId")
+            Prelude.<*> (x Prelude..?> "ResourceType")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteTags
+instance Prelude.Hashable DeleteTags
 
-instance NFData DeleteTags
+instance Prelude.NFData DeleteTags
 
-instance ToHeaders DeleteTags where
+instance Prelude.ToHeaders DeleteTags where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AmazonML_20141212.DeleteTags" :: ByteString),
+              Prelude.=# ( "AmazonML_20141212.DeleteTags" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteTags where
+instance Prelude.ToJSON DeleteTags where
   toJSON DeleteTags' {..} =
-    object
-      ( catMaybes
-          [ Just ("TagKeys" .= _dTagKeys),
-            Just ("ResourceId" .= _dResourceId),
-            Just ("ResourceType" .= _dResourceType)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("TagKeys" Prelude..= tagKeys),
+            Prelude.Just ("ResourceId" Prelude..= resourceId),
+            Prelude.Just
+              ("ResourceType" Prelude..= resourceType)
           ]
       )
 
-instance ToPath DeleteTags where
-  toPath = const "/"
+instance Prelude.ToPath DeleteTags where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteTags where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteTags where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Amazon ML returns the following elements.
 --
---
---
--- /See:/ 'deleteTagsResponse' smart constructor.
+-- /See:/ 'newDeleteTagsResponse' smart constructor.
 data DeleteTagsResponse = DeleteTagsResponse'
-  { _drsResourceId ::
-      !(Maybe Text),
-    _drsResourceType ::
-      !(Maybe TaggableResourceType),
-    _drsResponseStatus :: !Int
+  { -- | The ID of the ML object from which tags were deleted.
+    resourceId :: Prelude.Maybe Prelude.Text,
+    -- | The type of the ML object from which tags were deleted.
+    resourceType :: Prelude.Maybe TaggableResourceType,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteTagsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteTagsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drsResourceId' - The ID of the ML object from which tags were deleted.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drsResourceType' - The type of the ML object from which tags were deleted.
+-- 'resourceId', 'deleteTagsResponse_resourceId' - The ID of the ML object from which tags were deleted.
 --
--- * 'drsResponseStatus' - -- | The response status code.
-deleteTagsResponse ::
-  -- | 'drsResponseStatus'
-  Int ->
+-- 'resourceType', 'deleteTagsResponse_resourceType' - The type of the ML object from which tags were deleted.
+--
+-- 'httpStatus', 'deleteTagsResponse_httpStatus' - The response's http status code.
+newDeleteTagsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteTagsResponse
-deleteTagsResponse pResponseStatus_ =
+newDeleteTagsResponse pHttpStatus_ =
   DeleteTagsResponse'
-    { _drsResourceId = Nothing,
-      _drsResourceType = Nothing,
-      _drsResponseStatus = pResponseStatus_
+    { resourceId = Prelude.Nothing,
+      resourceType = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The ID of the ML object from which tags were deleted.
-drsResourceId :: Lens' DeleteTagsResponse (Maybe Text)
-drsResourceId = lens _drsResourceId (\s a -> s {_drsResourceId = a})
+deleteTagsResponse_resourceId :: Lens.Lens' DeleteTagsResponse (Prelude.Maybe Prelude.Text)
+deleteTagsResponse_resourceId = Lens.lens (\DeleteTagsResponse' {resourceId} -> resourceId) (\s@DeleteTagsResponse' {} a -> s {resourceId = a} :: DeleteTagsResponse)
 
 -- | The type of the ML object from which tags were deleted.
-drsResourceType :: Lens' DeleteTagsResponse (Maybe TaggableResourceType)
-drsResourceType = lens _drsResourceType (\s a -> s {_drsResourceType = a})
+deleteTagsResponse_resourceType :: Lens.Lens' DeleteTagsResponse (Prelude.Maybe TaggableResourceType)
+deleteTagsResponse_resourceType = Lens.lens (\DeleteTagsResponse' {resourceType} -> resourceType) (\s@DeleteTagsResponse' {} a -> s {resourceType = a} :: DeleteTagsResponse)
 
--- | -- | The response status code.
-drsResponseStatus :: Lens' DeleteTagsResponse Int
-drsResponseStatus = lens _drsResponseStatus (\s a -> s {_drsResponseStatus = a})
+-- | The response's http status code.
+deleteTagsResponse_httpStatus :: Lens.Lens' DeleteTagsResponse Prelude.Int
+deleteTagsResponse_httpStatus = Lens.lens (\DeleteTagsResponse' {httpStatus} -> httpStatus) (\s@DeleteTagsResponse' {} a -> s {httpStatus = a} :: DeleteTagsResponse)
 
-instance NFData DeleteTagsResponse
+instance Prelude.NFData DeleteTagsResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,84 +19,90 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MachineLearning.Types.Prediction where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MachineLearning.Types.DetailsAttributes
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The output from a @Predict@ operation:
 --
+-- -   @Details@ - Contains the following attributes:
+--     @DetailsAttributes.PREDICTIVE_MODEL_TYPE - REGRESSION | BINARY | MULTICLASS@
+--     @DetailsAttributes.ALGORITHM - SGD@
 --
---     * @Details@ - Contains the following attributes: @DetailsAttributes.PREDICTIVE_MODEL_TYPE - REGRESSION | BINARY | MULTICLASS@ @DetailsAttributes.ALGORITHM - SGD@
+-- -   @PredictedLabel@ - Present for either a @BINARY@ or @MULTICLASS@
+--     @MLModel@ request.
 --
---     * @PredictedLabel@ - Present for either a @BINARY@ or @MULTICLASS@ @MLModel@ request.
+-- -   @PredictedScores@ - Contains the raw classification score
+--     corresponding to each label.
 --
---     * @PredictedScores@ - Contains the raw classification score corresponding to each label.
+-- -   @PredictedValue@ - Present for a @REGRESSION@ @MLModel@ request.
 --
---     * @PredictedValue@ - Present for a @REGRESSION@ @MLModel@ request.
---
---
---
---
--- /See:/ 'prediction' smart constructor.
+-- /See:/ 'newPrediction' smart constructor.
 data Prediction = Prediction'
-  { _pPredictedValue ::
-      !(Maybe Double),
-    _pPredictedScores :: !(Maybe (Map Text Double)),
-    _pPredictedLabel :: !(Maybe Text),
-    _pDetails ::
-      !(Maybe (Map DetailsAttributes Text))
+  { -- | The prediction value for @REGRESSION@ @MLModel@.
+    predictedValue :: Prelude.Maybe Prelude.Double,
+    predictedScores :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Double),
+    -- | The prediction label for either a @BINARY@ or @MULTICLASS@ @MLModel@.
+    predictedLabel :: Prelude.Maybe Prelude.Text,
+    details :: Prelude.Maybe (Prelude.Map DetailsAttributes Prelude.Text)
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Prediction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Prediction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pPredictedValue' - The prediction value for @REGRESSION@ @MLModel@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pPredictedScores' - Undocumented member.
+-- 'predictedValue', 'prediction_predictedValue' - The prediction value for @REGRESSION@ @MLModel@.
 --
--- * 'pPredictedLabel' - The prediction label for either a @BINARY@ or @MULTICLASS@ @MLModel@ .
+-- 'predictedScores', 'prediction_predictedScores' - Undocumented member.
 --
--- * 'pDetails' - Undocumented member.
-prediction ::
+-- 'predictedLabel', 'prediction_predictedLabel' - The prediction label for either a @BINARY@ or @MULTICLASS@ @MLModel@.
+--
+-- 'details', 'prediction_details' - Undocumented member.
+newPrediction ::
   Prediction
-prediction =
+newPrediction =
   Prediction'
-    { _pPredictedValue = Nothing,
-      _pPredictedScores = Nothing,
-      _pPredictedLabel = Nothing,
-      _pDetails = Nothing
+    { predictedValue = Prelude.Nothing,
+      predictedScores = Prelude.Nothing,
+      predictedLabel = Prelude.Nothing,
+      details = Prelude.Nothing
     }
 
--- | The prediction value for @REGRESSION@ @MLModel@ .
-pPredictedValue :: Lens' Prediction (Maybe Double)
-pPredictedValue = lens _pPredictedValue (\s a -> s {_pPredictedValue = a})
+-- | The prediction value for @REGRESSION@ @MLModel@.
+prediction_predictedValue :: Lens.Lens' Prediction (Prelude.Maybe Prelude.Double)
+prediction_predictedValue = Lens.lens (\Prediction' {predictedValue} -> predictedValue) (\s@Prediction' {} a -> s {predictedValue = a} :: Prediction)
 
 -- | Undocumented member.
-pPredictedScores :: Lens' Prediction (HashMap Text Double)
-pPredictedScores = lens _pPredictedScores (\s a -> s {_pPredictedScores = a}) . _Default . _Map
+prediction_predictedScores :: Lens.Lens' Prediction (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Double))
+prediction_predictedScores = Lens.lens (\Prediction' {predictedScores} -> predictedScores) (\s@Prediction' {} a -> s {predictedScores = a} :: Prediction) Prelude.. Lens.mapping Prelude._Map
 
--- | The prediction label for either a @BINARY@ or @MULTICLASS@ @MLModel@ .
-pPredictedLabel :: Lens' Prediction (Maybe Text)
-pPredictedLabel = lens _pPredictedLabel (\s a -> s {_pPredictedLabel = a})
+-- | The prediction label for either a @BINARY@ or @MULTICLASS@ @MLModel@.
+prediction_predictedLabel :: Lens.Lens' Prediction (Prelude.Maybe Prelude.Text)
+prediction_predictedLabel = Lens.lens (\Prediction' {predictedLabel} -> predictedLabel) (\s@Prediction' {} a -> s {predictedLabel = a} :: Prediction)
 
 -- | Undocumented member.
-pDetails :: Lens' Prediction (HashMap DetailsAttributes Text)
-pDetails = lens _pDetails (\s a -> s {_pDetails = a}) . _Default . _Map
+prediction_details :: Lens.Lens' Prediction (Prelude.Maybe (Prelude.HashMap DetailsAttributes Prelude.Text))
+prediction_details = Lens.lens (\Prediction' {details} -> details) (\s@Prediction' {} a -> s {details = a} :: Prediction) Prelude.. Lens.mapping Prelude._Map
 
-instance FromJSON Prediction where
+instance Prelude.FromJSON Prediction where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Prediction"
       ( \x ->
           Prediction'
-            <$> (x .:? "predictedValue")
-            <*> (x .:? "predictedScores" .!= mempty)
-            <*> (x .:? "predictedLabel")
-            <*> (x .:? "details" .!= mempty)
+            Prelude.<$> (x Prelude..:? "predictedValue")
+            Prelude.<*> ( x Prelude..:? "predictedScores"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "predictedLabel")
+            Prelude.<*> (x Prelude..:? "details" Prelude..!= Prelude.mempty)
       )
 
-instance Hashable Prediction
+instance Prelude.Hashable Prediction
 
-instance NFData Prediction
+instance Prelude.NFData Prediction

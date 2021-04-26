@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,166 +21,162 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a real time endpoint of an @MLModel@ .
+-- Deletes a real time endpoint of an @MLModel@.
 module Network.AWS.MachineLearning.DeleteRealtimeEndpoint
   ( -- * Creating a Request
-    deleteRealtimeEndpoint,
-    DeleteRealtimeEndpoint,
+    DeleteRealtimeEndpoint (..),
+    newDeleteRealtimeEndpoint,
 
     -- * Request Lenses
-    dreMLModelId,
+    deleteRealtimeEndpoint_mLModelId,
 
     -- * Destructuring the Response
-    deleteRealtimeEndpointResponse,
-    DeleteRealtimeEndpointResponse,
+    DeleteRealtimeEndpointResponse (..),
+    newDeleteRealtimeEndpointResponse,
 
     -- * Response Lenses
-    drerrsRealtimeEndpointInfo,
-    drerrsMLModelId,
-    drerrsResponseStatus,
+    deleteRealtimeEndpointResponse_realtimeEndpointInfo,
+    deleteRealtimeEndpointResponse_mLModelId,
+    deleteRealtimeEndpointResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MachineLearning.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.MachineLearning.Types.RealtimeEndpointInfo
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteRealtimeEndpoint' smart constructor.
-newtype DeleteRealtimeEndpoint = DeleteRealtimeEndpoint'
-  { _dreMLModelId ::
-      Text
+-- | /See:/ 'newDeleteRealtimeEndpoint' smart constructor.
+data DeleteRealtimeEndpoint = DeleteRealtimeEndpoint'
+  { -- | The ID assigned to the @MLModel@ during creation.
+    mLModelId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteRealtimeEndpoint' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteRealtimeEndpoint' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dreMLModelId' - The ID assigned to the @MLModel@ during creation.
-deleteRealtimeEndpoint ::
-  -- | 'dreMLModelId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'mLModelId', 'deleteRealtimeEndpoint_mLModelId' - The ID assigned to the @MLModel@ during creation.
+newDeleteRealtimeEndpoint ::
+  -- | 'mLModelId'
+  Prelude.Text ->
   DeleteRealtimeEndpoint
-deleteRealtimeEndpoint pMLModelId_ =
-  DeleteRealtimeEndpoint'
-    { _dreMLModelId =
-        pMLModelId_
-    }
+newDeleteRealtimeEndpoint pMLModelId_ =
+  DeleteRealtimeEndpoint' {mLModelId = pMLModelId_}
 
 -- | The ID assigned to the @MLModel@ during creation.
-dreMLModelId :: Lens' DeleteRealtimeEndpoint Text
-dreMLModelId = lens _dreMLModelId (\s a -> s {_dreMLModelId = a})
+deleteRealtimeEndpoint_mLModelId :: Lens.Lens' DeleteRealtimeEndpoint Prelude.Text
+deleteRealtimeEndpoint_mLModelId = Lens.lens (\DeleteRealtimeEndpoint' {mLModelId} -> mLModelId) (\s@DeleteRealtimeEndpoint' {} a -> s {mLModelId = a} :: DeleteRealtimeEndpoint)
 
-instance AWSRequest DeleteRealtimeEndpoint where
+instance Prelude.AWSRequest DeleteRealtimeEndpoint where
   type
     Rs DeleteRealtimeEndpoint =
       DeleteRealtimeEndpointResponse
-  request = postJSON machineLearning
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteRealtimeEndpointResponse'
-            <$> (x .?> "RealtimeEndpointInfo")
-            <*> (x .?> "MLModelId")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "RealtimeEndpointInfo")
+            Prelude.<*> (x Prelude..?> "MLModelId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteRealtimeEndpoint
+instance Prelude.Hashable DeleteRealtimeEndpoint
 
-instance NFData DeleteRealtimeEndpoint
+instance Prelude.NFData DeleteRealtimeEndpoint
 
-instance ToHeaders DeleteRealtimeEndpoint where
+instance Prelude.ToHeaders DeleteRealtimeEndpoint where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AmazonML_20141212.DeleteRealtimeEndpoint" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AmazonML_20141212.DeleteRealtimeEndpoint" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteRealtimeEndpoint where
+instance Prelude.ToJSON DeleteRealtimeEndpoint where
   toJSON DeleteRealtimeEndpoint' {..} =
-    object
-      (catMaybes [Just ("MLModelId" .= _dreMLModelId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("MLModelId" Prelude..= mLModelId)]
+      )
 
-instance ToPath DeleteRealtimeEndpoint where
-  toPath = const "/"
+instance Prelude.ToPath DeleteRealtimeEndpoint where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteRealtimeEndpoint where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteRealtimeEndpoint where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of an @DeleteRealtimeEndpoint@ operation.
 --
+-- The result contains the @MLModelId@ and the endpoint information for the
+-- @MLModel@.
 --
--- The result contains the @MLModelId@ and the endpoint information for the @MLModel@ .
---
---
--- /See:/ 'deleteRealtimeEndpointResponse' smart constructor.
+-- /See:/ 'newDeleteRealtimeEndpointResponse' smart constructor.
 data DeleteRealtimeEndpointResponse = DeleteRealtimeEndpointResponse'
-  { _drerrsRealtimeEndpointInfo ::
-      !( Maybe
-           RealtimeEndpointInfo
-       ),
-    _drerrsMLModelId ::
-      !( Maybe
-           Text
-       ),
-    _drerrsResponseStatus ::
-      !Int
+  { -- | The endpoint information of the @MLModel@
+    realtimeEndpointInfo :: Prelude.Maybe RealtimeEndpointInfo,
+    -- | A user-supplied ID that uniquely identifies the @MLModel@. This value
+    -- should be identical to the value of the @MLModelId@ in the request.
+    mLModelId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteRealtimeEndpointResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteRealtimeEndpointResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drerrsRealtimeEndpointInfo' - The endpoint information of the @MLModel@
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drerrsMLModelId' - A user-supplied ID that uniquely identifies the @MLModel@ . This value should be identical to the value of the @MLModelId@ in the request.
+-- 'realtimeEndpointInfo', 'deleteRealtimeEndpointResponse_realtimeEndpointInfo' - The endpoint information of the @MLModel@
 --
--- * 'drerrsResponseStatus' - -- | The response status code.
-deleteRealtimeEndpointResponse ::
-  -- | 'drerrsResponseStatus'
-  Int ->
+-- 'mLModelId', 'deleteRealtimeEndpointResponse_mLModelId' - A user-supplied ID that uniquely identifies the @MLModel@. This value
+-- should be identical to the value of the @MLModelId@ in the request.
+--
+-- 'httpStatus', 'deleteRealtimeEndpointResponse_httpStatus' - The response's http status code.
+newDeleteRealtimeEndpointResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteRealtimeEndpointResponse
-deleteRealtimeEndpointResponse pResponseStatus_ =
+newDeleteRealtimeEndpointResponse pHttpStatus_ =
   DeleteRealtimeEndpointResponse'
-    { _drerrsRealtimeEndpointInfo =
-        Nothing,
-      _drerrsMLModelId = Nothing,
-      _drerrsResponseStatus = pResponseStatus_
+    { realtimeEndpointInfo =
+        Prelude.Nothing,
+      mLModelId = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The endpoint information of the @MLModel@
-drerrsRealtimeEndpointInfo :: Lens' DeleteRealtimeEndpointResponse (Maybe RealtimeEndpointInfo)
-drerrsRealtimeEndpointInfo = lens _drerrsRealtimeEndpointInfo (\s a -> s {_drerrsRealtimeEndpointInfo = a})
+deleteRealtimeEndpointResponse_realtimeEndpointInfo :: Lens.Lens' DeleteRealtimeEndpointResponse (Prelude.Maybe RealtimeEndpointInfo)
+deleteRealtimeEndpointResponse_realtimeEndpointInfo = Lens.lens (\DeleteRealtimeEndpointResponse' {realtimeEndpointInfo} -> realtimeEndpointInfo) (\s@DeleteRealtimeEndpointResponse' {} a -> s {realtimeEndpointInfo = a} :: DeleteRealtimeEndpointResponse)
 
--- | A user-supplied ID that uniquely identifies the @MLModel@ . This value should be identical to the value of the @MLModelId@ in the request.
-drerrsMLModelId :: Lens' DeleteRealtimeEndpointResponse (Maybe Text)
-drerrsMLModelId = lens _drerrsMLModelId (\s a -> s {_drerrsMLModelId = a})
+-- | A user-supplied ID that uniquely identifies the @MLModel@. This value
+-- should be identical to the value of the @MLModelId@ in the request.
+deleteRealtimeEndpointResponse_mLModelId :: Lens.Lens' DeleteRealtimeEndpointResponse (Prelude.Maybe Prelude.Text)
+deleteRealtimeEndpointResponse_mLModelId = Lens.lens (\DeleteRealtimeEndpointResponse' {mLModelId} -> mLModelId) (\s@DeleteRealtimeEndpointResponse' {} a -> s {mLModelId = a} :: DeleteRealtimeEndpointResponse)
 
--- | -- | The response status code.
-drerrsResponseStatus :: Lens' DeleteRealtimeEndpointResponse Int
-drerrsResponseStatus = lens _drerrsResponseStatus (\s a -> s {_drerrsResponseStatus = a})
+-- | The response's http status code.
+deleteRealtimeEndpointResponse_httpStatus :: Lens.Lens' DeleteRealtimeEndpointResponse Prelude.Int
+deleteRealtimeEndpointResponse_httpStatus = Lens.lens (\DeleteRealtimeEndpointResponse' {httpStatus} -> httpStatus) (\s@DeleteRealtimeEndpointResponse' {} a -> s {httpStatus = a} :: DeleteRealtimeEndpointResponse)
 
-instance NFData DeleteRealtimeEndpointResponse
+instance
+  Prelude.NFData
+    DeleteRealtimeEndpointResponse

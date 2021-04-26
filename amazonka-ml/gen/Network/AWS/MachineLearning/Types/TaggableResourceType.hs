@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,70 +19,68 @@
 module Network.AWS.MachineLearning.Types.TaggableResourceType
   ( TaggableResourceType
       ( ..,
-        BatchPrediction,
-        DataSource,
-        Evaluation,
-        MLModel
+        TaggableResourceTypeBatchPrediction,
+        TaggableResourceTypeDataSource,
+        TaggableResourceTypeEvaluation,
+        TaggableResourceTypeMLModel
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TaggableResourceType
-  = TaggableResourceType'
-      ( CI
-          Text
-      )
+newtype TaggableResourceType = TaggableResourceType'
+  { fromTaggableResourceType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern BatchPrediction :: TaggableResourceType
-pattern BatchPrediction = TaggableResourceType' "BatchPrediction"
+pattern TaggableResourceTypeBatchPrediction :: TaggableResourceType
+pattern TaggableResourceTypeBatchPrediction = TaggableResourceType' "BatchPrediction"
 
-pattern DataSource :: TaggableResourceType
-pattern DataSource = TaggableResourceType' "DataSource"
+pattern TaggableResourceTypeDataSource :: TaggableResourceType
+pattern TaggableResourceTypeDataSource = TaggableResourceType' "DataSource"
 
-pattern Evaluation :: TaggableResourceType
-pattern Evaluation = TaggableResourceType' "Evaluation"
+pattern TaggableResourceTypeEvaluation :: TaggableResourceType
+pattern TaggableResourceTypeEvaluation = TaggableResourceType' "Evaluation"
 
-pattern MLModel :: TaggableResourceType
-pattern MLModel = TaggableResourceType' "MLModel"
+pattern TaggableResourceTypeMLModel :: TaggableResourceType
+pattern TaggableResourceTypeMLModel = TaggableResourceType' "MLModel"
 
 {-# COMPLETE
-  BatchPrediction,
-  DataSource,
-  Evaluation,
-  MLModel,
+  TaggableResourceTypeBatchPrediction,
+  TaggableResourceTypeDataSource,
+  TaggableResourceTypeEvaluation,
+  TaggableResourceTypeMLModel,
   TaggableResourceType'
   #-}
 
-instance FromText TaggableResourceType where
-  parser = (TaggableResourceType' . mk) <$> takeText
+instance Prelude.FromText TaggableResourceType where
+  parser = TaggableResourceType' Prelude.<$> Prelude.takeText
 
-instance ToText TaggableResourceType where
-  toText (TaggableResourceType' ci) = original ci
+instance Prelude.ToText TaggableResourceType where
+  toText (TaggableResourceType' x) = x
 
-instance Hashable TaggableResourceType
+instance Prelude.Hashable TaggableResourceType
 
-instance NFData TaggableResourceType
+instance Prelude.NFData TaggableResourceType
 
-instance ToByteString TaggableResourceType
+instance Prelude.ToByteString TaggableResourceType
 
-instance ToQuery TaggableResourceType
+instance Prelude.ToQuery TaggableResourceType
 
-instance ToHeader TaggableResourceType
+instance Prelude.ToHeader TaggableResourceType
 
-instance ToJSON TaggableResourceType where
-  toJSON = toJSONText
+instance Prelude.ToJSON TaggableResourceType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON TaggableResourceType where
-  parseJSON = parseJSONText "TaggableResourceType"
+instance Prelude.FromJSON TaggableResourceType where
+  parseJSON = Prelude.parseJSONText "TaggableResourceType"

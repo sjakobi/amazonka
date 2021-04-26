@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,66 +19,59 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MachineLearning.Types.RedshiftDatabaseCredentials where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes the database credentials for connecting to a database on an Amazon Redshift cluster.
+-- | Describes the database credentials for connecting to a database on an
+-- Amazon Redshift cluster.
 --
---
---
--- /See:/ 'redshiftDatabaseCredentials' smart constructor.
+-- /See:/ 'newRedshiftDatabaseCredentials' smart constructor.
 data RedshiftDatabaseCredentials = RedshiftDatabaseCredentials'
-  { _rdcUsername ::
-      !Text,
-    _rdcPassword ::
-      !Text
+  { username :: Prelude.Text,
+    password :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RedshiftDatabaseCredentials' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RedshiftDatabaseCredentials' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rdcUsername' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rdcPassword' - Undocumented member.
-redshiftDatabaseCredentials ::
-  -- | 'rdcUsername'
-  Text ->
-  -- | 'rdcPassword'
-  Text ->
+-- 'username', 'redshiftDatabaseCredentials_username' - Undocumented member.
+--
+-- 'password', 'redshiftDatabaseCredentials_password' - Undocumented member.
+newRedshiftDatabaseCredentials ::
+  -- | 'username'
+  Prelude.Text ->
+  -- | 'password'
+  Prelude.Text ->
   RedshiftDatabaseCredentials
-redshiftDatabaseCredentials pUsername_ pPassword_ =
+newRedshiftDatabaseCredentials pUsername_ pPassword_ =
   RedshiftDatabaseCredentials'
-    { _rdcUsername =
-        pUsername_,
-      _rdcPassword = pPassword_
+    { username = pUsername_,
+      password = pPassword_
     }
 
 -- | Undocumented member.
-rdcUsername :: Lens' RedshiftDatabaseCredentials Text
-rdcUsername = lens _rdcUsername (\s a -> s {_rdcUsername = a})
+redshiftDatabaseCredentials_username :: Lens.Lens' RedshiftDatabaseCredentials Prelude.Text
+redshiftDatabaseCredentials_username = Lens.lens (\RedshiftDatabaseCredentials' {username} -> username) (\s@RedshiftDatabaseCredentials' {} a -> s {username = a} :: RedshiftDatabaseCredentials)
 
 -- | Undocumented member.
-rdcPassword :: Lens' RedshiftDatabaseCredentials Text
-rdcPassword = lens _rdcPassword (\s a -> s {_rdcPassword = a})
+redshiftDatabaseCredentials_password :: Lens.Lens' RedshiftDatabaseCredentials Prelude.Text
+redshiftDatabaseCredentials_password = Lens.lens (\RedshiftDatabaseCredentials' {password} -> password) (\s@RedshiftDatabaseCredentials' {} a -> s {password = a} :: RedshiftDatabaseCredentials)
 
-instance Hashable RedshiftDatabaseCredentials
+instance Prelude.Hashable RedshiftDatabaseCredentials
 
-instance NFData RedshiftDatabaseCredentials
+instance Prelude.NFData RedshiftDatabaseCredentials
 
-instance ToJSON RedshiftDatabaseCredentials where
+instance Prelude.ToJSON RedshiftDatabaseCredentials where
   toJSON RedshiftDatabaseCredentials' {..} =
-    object
-      ( catMaybes
-          [ Just ("Username" .= _rdcUsername),
-            Just ("Password" .= _rdcPassword)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("Username" Prelude..= username),
+            Prelude.Just ("Password" Prelude..= password)
           ]
       )

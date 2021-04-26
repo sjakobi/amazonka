@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,52 +19,76 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MachineLearning.Types.Tag where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A custom key-value pair associated with an ML object, such as an ML model.
+-- | A custom key-value pair associated with an ML object, such as an ML
+-- model.
 --
---
---
--- /See:/ 'tag' smart constructor.
+-- /See:/ 'newTag' smart constructor.
 data Tag = Tag'
-  { _tagKey :: !(Maybe Text),
-    _tagValue :: !(Maybe Text)
+  { -- | A unique identifier for the tag. Valid characters include Unicode
+    -- letters, digits, white space, _, ., \/, =, +, -, %, and \@.
+    key :: Prelude.Maybe Prelude.Text,
+    -- | An optional string, typically used to describe or define the tag. Valid
+    -- characters include Unicode letters, digits, white space, _, ., \/, =, +,
+    -- -, %, and \@.
+    value :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Tag' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Tag' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tagKey' - A unique identifier for the tag. Valid characters include Unicode letters, digits, white space, _, ., /, =, +, -, %, and @.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tagValue' - An optional string, typically used to describe or define the tag. Valid characters include Unicode letters, digits, white space, _, ., /, =, +, -, %, and @.
-tag ::
+-- 'key', 'tag_key' - A unique identifier for the tag. Valid characters include Unicode
+-- letters, digits, white space, _, ., \/, =, +, -, %, and \@.
+--
+-- 'value', 'tag_value' - An optional string, typically used to describe or define the tag. Valid
+-- characters include Unicode letters, digits, white space, _, ., \/, =, +,
+-- -, %, and \@.
+newTag ::
   Tag
-tag = Tag' {_tagKey = Nothing, _tagValue = Nothing}
+newTag =
+  Tag'
+    { key = Prelude.Nothing,
+      value = Prelude.Nothing
+    }
 
--- | A unique identifier for the tag. Valid characters include Unicode letters, digits, white space, _, ., /, =, +, -, %, and @.
-tagKey :: Lens' Tag (Maybe Text)
-tagKey = lens _tagKey (\s a -> s {_tagKey = a})
+-- | A unique identifier for the tag. Valid characters include Unicode
+-- letters, digits, white space, _, ., \/, =, +, -, %, and \@.
+tag_key :: Lens.Lens' Tag (Prelude.Maybe Prelude.Text)
+tag_key = Lens.lens (\Tag' {key} -> key) (\s@Tag' {} a -> s {key = a} :: Tag)
 
--- | An optional string, typically used to describe or define the tag. Valid characters include Unicode letters, digits, white space, _, ., /, =, +, -, %, and @.
-tagValue :: Lens' Tag (Maybe Text)
-tagValue = lens _tagValue (\s a -> s {_tagValue = a})
+-- | An optional string, typically used to describe or define the tag. Valid
+-- characters include Unicode letters, digits, white space, _, ., \/, =, +,
+-- -, %, and \@.
+tag_value :: Lens.Lens' Tag (Prelude.Maybe Prelude.Text)
+tag_value = Lens.lens (\Tag' {value} -> value) (\s@Tag' {} a -> s {value = a} :: Tag)
 
-instance FromJSON Tag where
+instance Prelude.FromJSON Tag where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Tag"
-      (\x -> Tag' <$> (x .:? "Key") <*> (x .:? "Value"))
+      ( \x ->
+          Tag'
+            Prelude.<$> (x Prelude..:? "Key")
+            Prelude.<*> (x Prelude..:? "Value")
+      )
 
-instance Hashable Tag
+instance Prelude.Hashable Tag
 
-instance NFData Tag
+instance Prelude.NFData Tag
 
-instance ToJSON Tag where
+instance Prelude.ToJSON Tag where
   toJSON Tag' {..} =
-    object
-      ( catMaybes
-          [("Key" .=) <$> _tagKey, ("Value" .=) <$> _tagValue]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Key" Prelude..=) Prelude.<$> key,
+            ("Value" Prelude..=) Prelude.<$> value
+          ]
       )

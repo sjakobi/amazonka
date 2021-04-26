@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,65 @@
 module Network.AWS.MachineLearning.Types.RealtimeEndpointStatus
   ( RealtimeEndpointStatus
       ( ..,
-        RESFailed,
-        RESNone,
-        RESReady,
-        RESUpdating
+        RealtimeEndpointStatusFAILED,
+        RealtimeEndpointStatusNONE,
+        RealtimeEndpointStatusREADY,
+        RealtimeEndpointStatusUPDATING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RealtimeEndpointStatus
-  = RealtimeEndpointStatus'
-      ( CI
-          Text
-      )
+newtype RealtimeEndpointStatus = RealtimeEndpointStatus'
+  { fromRealtimeEndpointStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern RESFailed :: RealtimeEndpointStatus
-pattern RESFailed = RealtimeEndpointStatus' "FAILED"
+pattern RealtimeEndpointStatusFAILED :: RealtimeEndpointStatus
+pattern RealtimeEndpointStatusFAILED = RealtimeEndpointStatus' "FAILED"
 
-pattern RESNone :: RealtimeEndpointStatus
-pattern RESNone = RealtimeEndpointStatus' "NONE"
+pattern RealtimeEndpointStatusNONE :: RealtimeEndpointStatus
+pattern RealtimeEndpointStatusNONE = RealtimeEndpointStatus' "NONE"
 
-pattern RESReady :: RealtimeEndpointStatus
-pattern RESReady = RealtimeEndpointStatus' "READY"
+pattern RealtimeEndpointStatusREADY :: RealtimeEndpointStatus
+pattern RealtimeEndpointStatusREADY = RealtimeEndpointStatus' "READY"
 
-pattern RESUpdating :: RealtimeEndpointStatus
-pattern RESUpdating = RealtimeEndpointStatus' "UPDATING"
+pattern RealtimeEndpointStatusUPDATING :: RealtimeEndpointStatus
+pattern RealtimeEndpointStatusUPDATING = RealtimeEndpointStatus' "UPDATING"
 
 {-# COMPLETE
-  RESFailed,
-  RESNone,
-  RESReady,
-  RESUpdating,
+  RealtimeEndpointStatusFAILED,
+  RealtimeEndpointStatusNONE,
+  RealtimeEndpointStatusREADY,
+  RealtimeEndpointStatusUPDATING,
   RealtimeEndpointStatus'
   #-}
 
-instance FromText RealtimeEndpointStatus where
-  parser = (RealtimeEndpointStatus' . mk) <$> takeText
+instance Prelude.FromText RealtimeEndpointStatus where
+  parser = RealtimeEndpointStatus' Prelude.<$> Prelude.takeText
 
-instance ToText RealtimeEndpointStatus where
-  toText (RealtimeEndpointStatus' ci) = original ci
+instance Prelude.ToText RealtimeEndpointStatus where
+  toText (RealtimeEndpointStatus' x) = x
 
-instance Hashable RealtimeEndpointStatus
+instance Prelude.Hashable RealtimeEndpointStatus
 
-instance NFData RealtimeEndpointStatus
+instance Prelude.NFData RealtimeEndpointStatus
 
-instance ToByteString RealtimeEndpointStatus
+instance Prelude.ToByteString RealtimeEndpointStatus
 
-instance ToQuery RealtimeEndpointStatus
+instance Prelude.ToQuery RealtimeEndpointStatus
 
-instance ToHeader RealtimeEndpointStatus
+instance Prelude.ToHeader RealtimeEndpointStatus
 
-instance FromJSON RealtimeEndpointStatus where
-  parseJSON = parseJSONText "RealtimeEndpointStatus"
+instance Prelude.FromJSON RealtimeEndpointStatus where
+  parseJSON = Prelude.parseJSONText "RealtimeEndpointStatus"
