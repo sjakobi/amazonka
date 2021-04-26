@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,131 +19,133 @@
 module Network.AWS.ApplicationAutoScaling.Types.MetricType
   ( MetricType
       ( ..,
-        ALBRequestCountPerTarget,
-        AppStreamAverageCapacityUtilization,
-        CassandraReadCapacityUtilization,
-        CassandraWriteCapacityUtilization,
-        ComprehendInferenceUtilization,
-        DynamoDBReadCapacityUtilization,
-        DynamoDBWriteCapacityUtilization,
-        EC2SpotFleetRequestAverageCPUUtilization,
-        EC2SpotFleetRequestAverageNetworkIn,
-        EC2SpotFleetRequestAverageNetworkOut,
-        ECSServiceAverageCPUUtilization,
-        ECSServiceAverageMemoryUtilization,
-        KafkaBrokerStorageUtilization,
-        LambdaProvisionedConcurrencyUtilization,
-        RDSReaderAverageCPUUtilization,
-        RDSReaderAverageDatabaseConnections,
-        SageMakerVariantInvocationsPerInstance
+        MetricTypeALBRequestCountPerTarget,
+        MetricTypeAppStreamAverageCapacityUtilization,
+        MetricTypeCassandraReadCapacityUtilization,
+        MetricTypeCassandraWriteCapacityUtilization,
+        MetricTypeComprehendInferenceUtilization,
+        MetricTypeDynamoDBReadCapacityUtilization,
+        MetricTypeDynamoDBWriteCapacityUtilization,
+        MetricTypeEC2SpotFleetRequestAverageCPUUtilization,
+        MetricTypeEC2SpotFleetRequestAverageNetworkIn,
+        MetricTypeEC2SpotFleetRequestAverageNetworkOut,
+        MetricTypeECSServiceAverageCPUUtilization,
+        MetricTypeECSServiceAverageMemoryUtilization,
+        MetricTypeKafkaBrokerStorageUtilization,
+        MetricTypeLambdaProvisionedConcurrencyUtilization,
+        MetricTypeRDSReaderAverageCPUUtilization,
+        MetricTypeRDSReaderAverageDatabaseConnections,
+        MetricTypeSageMakerVariantInvocationsPerInstance
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data MetricType = MetricType' (CI Text)
+newtype MetricType = MetricType'
+  { fromMetricType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ALBRequestCountPerTarget :: MetricType
-pattern ALBRequestCountPerTarget = MetricType' "ALBRequestCountPerTarget"
+pattern MetricTypeALBRequestCountPerTarget :: MetricType
+pattern MetricTypeALBRequestCountPerTarget = MetricType' "ALBRequestCountPerTarget"
 
-pattern AppStreamAverageCapacityUtilization :: MetricType
-pattern AppStreamAverageCapacityUtilization = MetricType' "AppStreamAverageCapacityUtilization"
+pattern MetricTypeAppStreamAverageCapacityUtilization :: MetricType
+pattern MetricTypeAppStreamAverageCapacityUtilization = MetricType' "AppStreamAverageCapacityUtilization"
 
-pattern CassandraReadCapacityUtilization :: MetricType
-pattern CassandraReadCapacityUtilization = MetricType' "CassandraReadCapacityUtilization"
+pattern MetricTypeCassandraReadCapacityUtilization :: MetricType
+pattern MetricTypeCassandraReadCapacityUtilization = MetricType' "CassandraReadCapacityUtilization"
 
-pattern CassandraWriteCapacityUtilization :: MetricType
-pattern CassandraWriteCapacityUtilization = MetricType' "CassandraWriteCapacityUtilization"
+pattern MetricTypeCassandraWriteCapacityUtilization :: MetricType
+pattern MetricTypeCassandraWriteCapacityUtilization = MetricType' "CassandraWriteCapacityUtilization"
 
-pattern ComprehendInferenceUtilization :: MetricType
-pattern ComprehendInferenceUtilization = MetricType' "ComprehendInferenceUtilization"
+pattern MetricTypeComprehendInferenceUtilization :: MetricType
+pattern MetricTypeComprehendInferenceUtilization = MetricType' "ComprehendInferenceUtilization"
 
-pattern DynamoDBReadCapacityUtilization :: MetricType
-pattern DynamoDBReadCapacityUtilization = MetricType' "DynamoDBReadCapacityUtilization"
+pattern MetricTypeDynamoDBReadCapacityUtilization :: MetricType
+pattern MetricTypeDynamoDBReadCapacityUtilization = MetricType' "DynamoDBReadCapacityUtilization"
 
-pattern DynamoDBWriteCapacityUtilization :: MetricType
-pattern DynamoDBWriteCapacityUtilization = MetricType' "DynamoDBWriteCapacityUtilization"
+pattern MetricTypeDynamoDBWriteCapacityUtilization :: MetricType
+pattern MetricTypeDynamoDBWriteCapacityUtilization = MetricType' "DynamoDBWriteCapacityUtilization"
 
-pattern EC2SpotFleetRequestAverageCPUUtilization :: MetricType
-pattern EC2SpotFleetRequestAverageCPUUtilization = MetricType' "EC2SpotFleetRequestAverageCPUUtilization"
+pattern MetricTypeEC2SpotFleetRequestAverageCPUUtilization :: MetricType
+pattern MetricTypeEC2SpotFleetRequestAverageCPUUtilization = MetricType' "EC2SpotFleetRequestAverageCPUUtilization"
 
-pattern EC2SpotFleetRequestAverageNetworkIn :: MetricType
-pattern EC2SpotFleetRequestAverageNetworkIn = MetricType' "EC2SpotFleetRequestAverageNetworkIn"
+pattern MetricTypeEC2SpotFleetRequestAverageNetworkIn :: MetricType
+pattern MetricTypeEC2SpotFleetRequestAverageNetworkIn = MetricType' "EC2SpotFleetRequestAverageNetworkIn"
 
-pattern EC2SpotFleetRequestAverageNetworkOut :: MetricType
-pattern EC2SpotFleetRequestAverageNetworkOut = MetricType' "EC2SpotFleetRequestAverageNetworkOut"
+pattern MetricTypeEC2SpotFleetRequestAverageNetworkOut :: MetricType
+pattern MetricTypeEC2SpotFleetRequestAverageNetworkOut = MetricType' "EC2SpotFleetRequestAverageNetworkOut"
 
-pattern ECSServiceAverageCPUUtilization :: MetricType
-pattern ECSServiceAverageCPUUtilization = MetricType' "ECSServiceAverageCPUUtilization"
+pattern MetricTypeECSServiceAverageCPUUtilization :: MetricType
+pattern MetricTypeECSServiceAverageCPUUtilization = MetricType' "ECSServiceAverageCPUUtilization"
 
-pattern ECSServiceAverageMemoryUtilization :: MetricType
-pattern ECSServiceAverageMemoryUtilization = MetricType' "ECSServiceAverageMemoryUtilization"
+pattern MetricTypeECSServiceAverageMemoryUtilization :: MetricType
+pattern MetricTypeECSServiceAverageMemoryUtilization = MetricType' "ECSServiceAverageMemoryUtilization"
 
-pattern KafkaBrokerStorageUtilization :: MetricType
-pattern KafkaBrokerStorageUtilization = MetricType' "KafkaBrokerStorageUtilization"
+pattern MetricTypeKafkaBrokerStorageUtilization :: MetricType
+pattern MetricTypeKafkaBrokerStorageUtilization = MetricType' "KafkaBrokerStorageUtilization"
 
-pattern LambdaProvisionedConcurrencyUtilization :: MetricType
-pattern LambdaProvisionedConcurrencyUtilization = MetricType' "LambdaProvisionedConcurrencyUtilization"
+pattern MetricTypeLambdaProvisionedConcurrencyUtilization :: MetricType
+pattern MetricTypeLambdaProvisionedConcurrencyUtilization = MetricType' "LambdaProvisionedConcurrencyUtilization"
 
-pattern RDSReaderAverageCPUUtilization :: MetricType
-pattern RDSReaderAverageCPUUtilization = MetricType' "RDSReaderAverageCPUUtilization"
+pattern MetricTypeRDSReaderAverageCPUUtilization :: MetricType
+pattern MetricTypeRDSReaderAverageCPUUtilization = MetricType' "RDSReaderAverageCPUUtilization"
 
-pattern RDSReaderAverageDatabaseConnections :: MetricType
-pattern RDSReaderAverageDatabaseConnections = MetricType' "RDSReaderAverageDatabaseConnections"
+pattern MetricTypeRDSReaderAverageDatabaseConnections :: MetricType
+pattern MetricTypeRDSReaderAverageDatabaseConnections = MetricType' "RDSReaderAverageDatabaseConnections"
 
-pattern SageMakerVariantInvocationsPerInstance :: MetricType
-pattern SageMakerVariantInvocationsPerInstance = MetricType' "SageMakerVariantInvocationsPerInstance"
+pattern MetricTypeSageMakerVariantInvocationsPerInstance :: MetricType
+pattern MetricTypeSageMakerVariantInvocationsPerInstance = MetricType' "SageMakerVariantInvocationsPerInstance"
 
 {-# COMPLETE
-  ALBRequestCountPerTarget,
-  AppStreamAverageCapacityUtilization,
-  CassandraReadCapacityUtilization,
-  CassandraWriteCapacityUtilization,
-  ComprehendInferenceUtilization,
-  DynamoDBReadCapacityUtilization,
-  DynamoDBWriteCapacityUtilization,
-  EC2SpotFleetRequestAverageCPUUtilization,
-  EC2SpotFleetRequestAverageNetworkIn,
-  EC2SpotFleetRequestAverageNetworkOut,
-  ECSServiceAverageCPUUtilization,
-  ECSServiceAverageMemoryUtilization,
-  KafkaBrokerStorageUtilization,
-  LambdaProvisionedConcurrencyUtilization,
-  RDSReaderAverageCPUUtilization,
-  RDSReaderAverageDatabaseConnections,
-  SageMakerVariantInvocationsPerInstance,
+  MetricTypeALBRequestCountPerTarget,
+  MetricTypeAppStreamAverageCapacityUtilization,
+  MetricTypeCassandraReadCapacityUtilization,
+  MetricTypeCassandraWriteCapacityUtilization,
+  MetricTypeComprehendInferenceUtilization,
+  MetricTypeDynamoDBReadCapacityUtilization,
+  MetricTypeDynamoDBWriteCapacityUtilization,
+  MetricTypeEC2SpotFleetRequestAverageCPUUtilization,
+  MetricTypeEC2SpotFleetRequestAverageNetworkIn,
+  MetricTypeEC2SpotFleetRequestAverageNetworkOut,
+  MetricTypeECSServiceAverageCPUUtilization,
+  MetricTypeECSServiceAverageMemoryUtilization,
+  MetricTypeKafkaBrokerStorageUtilization,
+  MetricTypeLambdaProvisionedConcurrencyUtilization,
+  MetricTypeRDSReaderAverageCPUUtilization,
+  MetricTypeRDSReaderAverageDatabaseConnections,
+  MetricTypeSageMakerVariantInvocationsPerInstance,
   MetricType'
   #-}
 
-instance FromText MetricType where
-  parser = (MetricType' . mk) <$> takeText
+instance Prelude.FromText MetricType where
+  parser = MetricType' Prelude.<$> Prelude.takeText
 
-instance ToText MetricType where
-  toText (MetricType' ci) = original ci
+instance Prelude.ToText MetricType where
+  toText (MetricType' x) = x
 
-instance Hashable MetricType
+instance Prelude.Hashable MetricType
 
-instance NFData MetricType
+instance Prelude.NFData MetricType
 
-instance ToByteString MetricType
+instance Prelude.ToByteString MetricType
 
-instance ToQuery MetricType
+instance Prelude.ToQuery MetricType
 
-instance ToHeader MetricType
+instance Prelude.ToHeader MetricType
 
-instance ToJSON MetricType where
-  toJSON = toJSONText
+instance Prelude.ToJSON MetricType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON MetricType where
-  parseJSON = parseJSONText "MetricType"
+instance Prelude.FromJSON MetricType where
+  parseJSON = Prelude.parseJSONText "MetricType"

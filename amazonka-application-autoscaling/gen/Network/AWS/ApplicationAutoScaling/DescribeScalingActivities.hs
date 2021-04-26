@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,223 +21,609 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Provides descriptive information about the scaling activities in the specified namespace from the previous six weeks.
+-- Provides descriptive information about the scaling activities in the
+-- specified namespace from the previous six weeks.
 --
---
--- You can filter the results using @ResourceId@ and @ScalableDimension@ .
---
+-- You can filter the results using @ResourceId@ and @ScalableDimension@.
 --
 -- This operation returns paginated results.
 module Network.AWS.ApplicationAutoScaling.DescribeScalingActivities
   ( -- * Creating a Request
-    describeScalingActivities,
-    DescribeScalingActivities,
+    DescribeScalingActivities (..),
+    newDescribeScalingActivities,
 
     -- * Request Lenses
-    dsasResourceId,
-    dsasNextToken,
-    dsasMaxResults,
-    dsasScalableDimension,
-    dsasServiceNamespace,
+    describeScalingActivities_resourceId,
+    describeScalingActivities_nextToken,
+    describeScalingActivities_maxResults,
+    describeScalingActivities_scalableDimension,
+    describeScalingActivities_serviceNamespace,
 
     -- * Destructuring the Response
-    describeScalingActivitiesResponse,
-    DescribeScalingActivitiesResponse,
+    DescribeScalingActivitiesResponse (..),
+    newDescribeScalingActivitiesResponse,
 
     -- * Response Lenses
-    dsarrsNextToken,
-    dsarrsScalingActivities,
-    dsarrsResponseStatus,
+    describeScalingActivitiesResponse_nextToken,
+    describeScalingActivitiesResponse_scalingActivities,
+    describeScalingActivitiesResponse_httpStatus,
   )
 where
 
 import Network.AWS.ApplicationAutoScaling.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ApplicationAutoScaling.Types.ScalingActivity
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeScalingActivities' smart constructor.
+-- | /See:/ 'newDescribeScalingActivities' smart constructor.
 data DescribeScalingActivities = DescribeScalingActivities'
-  { _dsasResourceId ::
-      !(Maybe Text),
-    _dsasNextToken ::
-      !(Maybe Text),
-    _dsasMaxResults ::
-      !(Maybe Int),
-    _dsasScalableDimension ::
-      !( Maybe
-           ScalableDimension
-       ),
-    _dsasServiceNamespace ::
-      !ServiceNamespace
+  { -- | The identifier of the resource associated with the scaling activity.
+    -- This string consists of the resource type and unique identifier.
+    --
+    -- -   ECS service - The resource type is @service@ and the unique
+    --     identifier is the cluster name and service name. Example:
+    --     @service\/default\/sample-webapp@.
+    --
+    -- -   Spot Fleet request - The resource type is @spot-fleet-request@ and
+    --     the unique identifier is the Spot Fleet request ID. Example:
+    --     @spot-fleet-request\/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE@.
+    --
+    -- -   EMR cluster - The resource type is @instancegroup@ and the unique
+    --     identifier is the cluster ID and instance group ID. Example:
+    --     @instancegroup\/j-2EEZNYKUA1NTV\/ig-1791Y4E1L8YI0@.
+    --
+    -- -   AppStream 2.0 fleet - The resource type is @fleet@ and the unique
+    --     identifier is the fleet name. Example: @fleet\/sample-fleet@.
+    --
+    -- -   DynamoDB table - The resource type is @table@ and the unique
+    --     identifier is the table name. Example: @table\/my-table@.
+    --
+    -- -   DynamoDB global secondary index - The resource type is @index@ and
+    --     the unique identifier is the index name. Example:
+    --     @table\/my-table\/index\/my-table-index@.
+    --
+    -- -   Aurora DB cluster - The resource type is @cluster@ and the unique
+    --     identifier is the cluster name. Example: @cluster:my-db-cluster@.
+    --
+    -- -   Amazon SageMaker endpoint variant - The resource type is @variant@
+    --     and the unique identifier is the resource ID. Example:
+    --     @endpoint\/my-end-point\/variant\/KMeansClustering@.
+    --
+    -- -   Custom resources are not supported with a resource type. This
+    --     parameter must specify the @OutputValue@ from the CloudFormation
+    --     template stack used to access the resources. The unique identifier
+    --     is defined by the service provider. More information is available in
+    --     our
+    --     <https://github.com/aws/aws-auto-scaling-custom-resource GitHub repository>.
+    --
+    -- -   Amazon Comprehend document classification endpoint - The resource
+    --     type and unique identifier are specified using the endpoint ARN.
+    --     Example:
+    --     @arn:aws:comprehend:us-west-2:123456789012:document-classifier-endpoint\/EXAMPLE@.
+    --
+    -- -   Amazon Comprehend entity recognizer endpoint - The resource type and
+    --     unique identifier are specified using the endpoint ARN. Example:
+    --     @arn:aws:comprehend:us-west-2:123456789012:entity-recognizer-endpoint\/EXAMPLE@.
+    --
+    -- -   Lambda provisioned concurrency - The resource type is @function@ and
+    --     the unique identifier is the function name with a function version
+    --     or alias name suffix that is not @$LATEST@. Example:
+    --     @function:my-function:prod@ or @function:my-function:1@.
+    --
+    -- -   Amazon Keyspaces table - The resource type is @table@ and the unique
+    --     identifier is the table name. Example:
+    --     @keyspace\/mykeyspace\/table\/mytable@.
+    --
+    -- -   Amazon MSK cluster - The resource type and unique identifier are
+    --     specified using the cluster ARN. Example:
+    --     @arn:aws:kafka:us-east-1:123456789012:cluster\/demo-cluster-1\/6357e0b2-0e6a-4b86-a0b4-70df934c2e31-5@.
+    resourceId :: Prelude.Maybe Prelude.Text,
+    -- | The token for the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of scalable targets. This value can be between 1 and
+    -- 50. The default value is 50.
+    --
+    -- If this parameter is used, the operation returns up to @MaxResults@
+    -- results at a time, along with a @NextToken@ value. To get the next set
+    -- of results, include the @NextToken@ value in a subsequent call. If this
+    -- parameter is not used, the operation returns up to 50 results and a
+    -- @NextToken@ value, if applicable.
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | The scalable dimension. This string consists of the service namespace,
+    -- resource type, and scaling property. If you specify a scalable
+    -- dimension, you must also specify a resource ID.
+    --
+    -- -   @ecs:service:DesiredCount@ - The desired task count of an ECS
+    --     service.
+    --
+    -- -   @ec2:spot-fleet-request:TargetCapacity@ - The target capacity of a
+    --     Spot Fleet request.
+    --
+    -- -   @elasticmapreduce:instancegroup:InstanceCount@ - The instance count
+    --     of an EMR Instance Group.
+    --
+    -- -   @appstream:fleet:DesiredCapacity@ - The desired capacity of an
+    --     AppStream 2.0 fleet.
+    --
+    -- -   @dynamodb:table:ReadCapacityUnits@ - The provisioned read capacity
+    --     for a DynamoDB table.
+    --
+    -- -   @dynamodb:table:WriteCapacityUnits@ - The provisioned write capacity
+    --     for a DynamoDB table.
+    --
+    -- -   @dynamodb:index:ReadCapacityUnits@ - The provisioned read capacity
+    --     for a DynamoDB global secondary index.
+    --
+    -- -   @dynamodb:index:WriteCapacityUnits@ - The provisioned write capacity
+    --     for a DynamoDB global secondary index.
+    --
+    -- -   @rds:cluster:ReadReplicaCount@ - The count of Aurora Replicas in an
+    --     Aurora DB cluster. Available for Aurora MySQL-compatible edition and
+    --     Aurora PostgreSQL-compatible edition.
+    --
+    -- -   @sagemaker:variant:DesiredInstanceCount@ - The number of EC2
+    --     instances for an Amazon SageMaker model endpoint variant.
+    --
+    -- -   @custom-resource:ResourceType:Property@ - The scalable dimension for
+    --     a custom resource provided by your own application or service.
+    --
+    -- -   @comprehend:document-classifier-endpoint:DesiredInferenceUnits@ -
+    --     The number of inference units for an Amazon Comprehend document
+    --     classification endpoint.
+    --
+    -- -   @comprehend:entity-recognizer-endpoint:DesiredInferenceUnits@ - The
+    --     number of inference units for an Amazon Comprehend entity recognizer
+    --     endpoint.
+    --
+    -- -   @lambda:function:ProvisionedConcurrency@ - The provisioned
+    --     concurrency for a Lambda function.
+    --
+    -- -   @cassandra:table:ReadCapacityUnits@ - The provisioned read capacity
+    --     for an Amazon Keyspaces table.
+    --
+    -- -   @cassandra:table:WriteCapacityUnits@ - The provisioned write
+    --     capacity for an Amazon Keyspaces table.
+    --
+    -- -   @kafka:broker-storage:VolumeSize@ - The provisioned volume size (in
+    --     GiB) for brokers in an Amazon MSK cluster.
+    scalableDimension :: Prelude.Maybe ScalableDimension,
+    -- | The namespace of the AWS service that provides the resource. For a
+    -- resource provided by your own application or service, use
+    -- @custom-resource@ instead.
+    serviceNamespace :: ServiceNamespace
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeScalingActivities' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeScalingActivities' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsasResourceId' - The identifier of the resource associated with the scaling activity. This string consists of the resource type and unique identifier.     * ECS service - The resource type is @service@ and the unique identifier is the cluster name and service name. Example: @service/default/sample-webapp@ .     * Spot Fleet request - The resource type is @spot-fleet-request@ and the unique identifier is the Spot Fleet request ID. Example: @spot-fleet-request/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE@ .     * EMR cluster - The resource type is @instancegroup@ and the unique identifier is the cluster ID and instance group ID. Example: @instancegroup/j-2EEZNYKUA1NTV/ig-1791Y4E1L8YI0@ .     * AppStream 2.0 fleet - The resource type is @fleet@ and the unique identifier is the fleet name. Example: @fleet/sample-fleet@ .     * DynamoDB table - The resource type is @table@ and the unique identifier is the table name. Example: @table/my-table@ .     * DynamoDB global secondary index - The resource type is @index@ and the unique identifier is the index name. Example: @table/my-table/index/my-table-index@ .     * Aurora DB cluster - The resource type is @cluster@ and the unique identifier is the cluster name. Example: @cluster:my-db-cluster@ .     * Amazon SageMaker endpoint variant - The resource type is @variant@ and the unique identifier is the resource ID. Example: @endpoint/my-end-point/variant/KMeansClustering@ .     * Custom resources are not supported with a resource type. This parameter must specify the @OutputValue@ from the CloudFormation template stack used to access the resources. The unique identifier is defined by the service provider. More information is available in our <https://github.com/aws/aws-auto-scaling-custom-resource GitHub repository> .     * Amazon Comprehend document classification endpoint - The resource type and unique identifier are specified using the endpoint ARN. Example: @arn:aws:comprehend:us-west-2:123456789012:document-classifier-endpoint/EXAMPLE@ .     * Amazon Comprehend entity recognizer endpoint - The resource type and unique identifier are specified using the endpoint ARN. Example: @arn:aws:comprehend:us-west-2:123456789012:entity-recognizer-endpoint/EXAMPLE@ .     * Lambda provisioned concurrency - The resource type is @function@ and the unique identifier is the function name with a function version or alias name suffix that is not @> LATEST@ . Example: @function:my-function:prod@ or @function:my-function:1@ .     * Amazon Keyspaces table - The resource type is @table@ and the unique identifier is the table name. Example: @keyspace/mykeyspace/table/mytable@ .     * Amazon MSK cluster - The resource type and unique identifier are specified using the cluster ARN. Example: @arn:aws:kafka:us-east-1:123456789012:cluster/demo-cluster-1/6357e0b2-0e6a-4b86-a0b4-70df934c2e31-5@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsasNextToken' - The token for the next set of results.
+-- 'resourceId', 'describeScalingActivities_resourceId' - The identifier of the resource associated with the scaling activity.
+-- This string consists of the resource type and unique identifier.
 --
--- * 'dsasMaxResults' - The maximum number of scalable targets. This value can be between 1 and 50. The default value is 50. If this parameter is used, the operation returns up to @MaxResults@ results at a time, along with a @NextToken@ value. To get the next set of results, include the @NextToken@ value in a subsequent call. If this parameter is not used, the operation returns up to 50 results and a @NextToken@ value, if applicable.
+-- -   ECS service - The resource type is @service@ and the unique
+--     identifier is the cluster name and service name. Example:
+--     @service\/default\/sample-webapp@.
 --
--- * 'dsasScalableDimension' - The scalable dimension. This string consists of the service namespace, resource type, and scaling property. If you specify a scalable dimension, you must also specify a resource ID.     * @ecs:service:DesiredCount@ - The desired task count of an ECS service.     * @ec2:spot-fleet-request:TargetCapacity@ - The target capacity of a Spot Fleet request.     * @elasticmapreduce:instancegroup:InstanceCount@ - The instance count of an EMR Instance Group.     * @appstream:fleet:DesiredCapacity@ - The desired capacity of an AppStream 2.0 fleet.     * @dynamodb:table:ReadCapacityUnits@ - The provisioned read capacity for a DynamoDB table.     * @dynamodb:table:WriteCapacityUnits@ - The provisioned write capacity for a DynamoDB table.     * @dynamodb:index:ReadCapacityUnits@ - The provisioned read capacity for a DynamoDB global secondary index.     * @dynamodb:index:WriteCapacityUnits@ - The provisioned write capacity for a DynamoDB global secondary index.     * @rds:cluster:ReadReplicaCount@ - The count of Aurora Replicas in an Aurora DB cluster. Available for Aurora MySQL-compatible edition and Aurora PostgreSQL-compatible edition.     * @sagemaker:variant:DesiredInstanceCount@ - The number of EC2 instances for an Amazon SageMaker model endpoint variant.     * @custom-resource:ResourceType:Property@ - The scalable dimension for a custom resource provided by your own application or service.     * @comprehend:document-classifier-endpoint:DesiredInferenceUnits@ - The number of inference units for an Amazon Comprehend document classification endpoint.     * @comprehend:entity-recognizer-endpoint:DesiredInferenceUnits@ - The number of inference units for an Amazon Comprehend entity recognizer endpoint.     * @lambda:function:ProvisionedConcurrency@ - The provisioned concurrency for a Lambda function.     * @cassandra:table:ReadCapacityUnits@ - The provisioned read capacity for an Amazon Keyspaces table.     * @cassandra:table:WriteCapacityUnits@ - The provisioned write capacity for an Amazon Keyspaces table.     * @kafka:broker-storage:VolumeSize@ - The provisioned volume size (in GiB) for brokers in an Amazon MSK cluster.
+-- -   Spot Fleet request - The resource type is @spot-fleet-request@ and
+--     the unique identifier is the Spot Fleet request ID. Example:
+--     @spot-fleet-request\/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE@.
 --
--- * 'dsasServiceNamespace' - The namespace of the AWS service that provides the resource. For a resource provided by your own application or service, use @custom-resource@ instead.
-describeScalingActivities ::
-  -- | 'dsasServiceNamespace'
+-- -   EMR cluster - The resource type is @instancegroup@ and the unique
+--     identifier is the cluster ID and instance group ID. Example:
+--     @instancegroup\/j-2EEZNYKUA1NTV\/ig-1791Y4E1L8YI0@.
+--
+-- -   AppStream 2.0 fleet - The resource type is @fleet@ and the unique
+--     identifier is the fleet name. Example: @fleet\/sample-fleet@.
+--
+-- -   DynamoDB table - The resource type is @table@ and the unique
+--     identifier is the table name. Example: @table\/my-table@.
+--
+-- -   DynamoDB global secondary index - The resource type is @index@ and
+--     the unique identifier is the index name. Example:
+--     @table\/my-table\/index\/my-table-index@.
+--
+-- -   Aurora DB cluster - The resource type is @cluster@ and the unique
+--     identifier is the cluster name. Example: @cluster:my-db-cluster@.
+--
+-- -   Amazon SageMaker endpoint variant - The resource type is @variant@
+--     and the unique identifier is the resource ID. Example:
+--     @endpoint\/my-end-point\/variant\/KMeansClustering@.
+--
+-- -   Custom resources are not supported with a resource type. This
+--     parameter must specify the @OutputValue@ from the CloudFormation
+--     template stack used to access the resources. The unique identifier
+--     is defined by the service provider. More information is available in
+--     our
+--     <https://github.com/aws/aws-auto-scaling-custom-resource GitHub repository>.
+--
+-- -   Amazon Comprehend document classification endpoint - The resource
+--     type and unique identifier are specified using the endpoint ARN.
+--     Example:
+--     @arn:aws:comprehend:us-west-2:123456789012:document-classifier-endpoint\/EXAMPLE@.
+--
+-- -   Amazon Comprehend entity recognizer endpoint - The resource type and
+--     unique identifier are specified using the endpoint ARN. Example:
+--     @arn:aws:comprehend:us-west-2:123456789012:entity-recognizer-endpoint\/EXAMPLE@.
+--
+-- -   Lambda provisioned concurrency - The resource type is @function@ and
+--     the unique identifier is the function name with a function version
+--     or alias name suffix that is not @$LATEST@. Example:
+--     @function:my-function:prod@ or @function:my-function:1@.
+--
+-- -   Amazon Keyspaces table - The resource type is @table@ and the unique
+--     identifier is the table name. Example:
+--     @keyspace\/mykeyspace\/table\/mytable@.
+--
+-- -   Amazon MSK cluster - The resource type and unique identifier are
+--     specified using the cluster ARN. Example:
+--     @arn:aws:kafka:us-east-1:123456789012:cluster\/demo-cluster-1\/6357e0b2-0e6a-4b86-a0b4-70df934c2e31-5@.
+--
+-- 'nextToken', 'describeScalingActivities_nextToken' - The token for the next set of results.
+--
+-- 'maxResults', 'describeScalingActivities_maxResults' - The maximum number of scalable targets. This value can be between 1 and
+-- 50. The default value is 50.
+--
+-- If this parameter is used, the operation returns up to @MaxResults@
+-- results at a time, along with a @NextToken@ value. To get the next set
+-- of results, include the @NextToken@ value in a subsequent call. If this
+-- parameter is not used, the operation returns up to 50 results and a
+-- @NextToken@ value, if applicable.
+--
+-- 'scalableDimension', 'describeScalingActivities_scalableDimension' - The scalable dimension. This string consists of the service namespace,
+-- resource type, and scaling property. If you specify a scalable
+-- dimension, you must also specify a resource ID.
+--
+-- -   @ecs:service:DesiredCount@ - The desired task count of an ECS
+--     service.
+--
+-- -   @ec2:spot-fleet-request:TargetCapacity@ - The target capacity of a
+--     Spot Fleet request.
+--
+-- -   @elasticmapreduce:instancegroup:InstanceCount@ - The instance count
+--     of an EMR Instance Group.
+--
+-- -   @appstream:fleet:DesiredCapacity@ - The desired capacity of an
+--     AppStream 2.0 fleet.
+--
+-- -   @dynamodb:table:ReadCapacityUnits@ - The provisioned read capacity
+--     for a DynamoDB table.
+--
+-- -   @dynamodb:table:WriteCapacityUnits@ - The provisioned write capacity
+--     for a DynamoDB table.
+--
+-- -   @dynamodb:index:ReadCapacityUnits@ - The provisioned read capacity
+--     for a DynamoDB global secondary index.
+--
+-- -   @dynamodb:index:WriteCapacityUnits@ - The provisioned write capacity
+--     for a DynamoDB global secondary index.
+--
+-- -   @rds:cluster:ReadReplicaCount@ - The count of Aurora Replicas in an
+--     Aurora DB cluster. Available for Aurora MySQL-compatible edition and
+--     Aurora PostgreSQL-compatible edition.
+--
+-- -   @sagemaker:variant:DesiredInstanceCount@ - The number of EC2
+--     instances for an Amazon SageMaker model endpoint variant.
+--
+-- -   @custom-resource:ResourceType:Property@ - The scalable dimension for
+--     a custom resource provided by your own application or service.
+--
+-- -   @comprehend:document-classifier-endpoint:DesiredInferenceUnits@ -
+--     The number of inference units for an Amazon Comprehend document
+--     classification endpoint.
+--
+-- -   @comprehend:entity-recognizer-endpoint:DesiredInferenceUnits@ - The
+--     number of inference units for an Amazon Comprehend entity recognizer
+--     endpoint.
+--
+-- -   @lambda:function:ProvisionedConcurrency@ - The provisioned
+--     concurrency for a Lambda function.
+--
+-- -   @cassandra:table:ReadCapacityUnits@ - The provisioned read capacity
+--     for an Amazon Keyspaces table.
+--
+-- -   @cassandra:table:WriteCapacityUnits@ - The provisioned write
+--     capacity for an Amazon Keyspaces table.
+--
+-- -   @kafka:broker-storage:VolumeSize@ - The provisioned volume size (in
+--     GiB) for brokers in an Amazon MSK cluster.
+--
+-- 'serviceNamespace', 'describeScalingActivities_serviceNamespace' - The namespace of the AWS service that provides the resource. For a
+-- resource provided by your own application or service, use
+-- @custom-resource@ instead.
+newDescribeScalingActivities ::
+  -- | 'serviceNamespace'
   ServiceNamespace ->
   DescribeScalingActivities
-describeScalingActivities pServiceNamespace_ =
+newDescribeScalingActivities pServiceNamespace_ =
   DescribeScalingActivities'
-    { _dsasResourceId =
-        Nothing,
-      _dsasNextToken = Nothing,
-      _dsasMaxResults = Nothing,
-      _dsasScalableDimension = Nothing,
-      _dsasServiceNamespace = pServiceNamespace_
+    { resourceId =
+        Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      scalableDimension = Prelude.Nothing,
+      serviceNamespace = pServiceNamespace_
     }
 
--- | The identifier of the resource associated with the scaling activity. This string consists of the resource type and unique identifier.     * ECS service - The resource type is @service@ and the unique identifier is the cluster name and service name. Example: @service/default/sample-webapp@ .     * Spot Fleet request - The resource type is @spot-fleet-request@ and the unique identifier is the Spot Fleet request ID. Example: @spot-fleet-request/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE@ .     * EMR cluster - The resource type is @instancegroup@ and the unique identifier is the cluster ID and instance group ID. Example: @instancegroup/j-2EEZNYKUA1NTV/ig-1791Y4E1L8YI0@ .     * AppStream 2.0 fleet - The resource type is @fleet@ and the unique identifier is the fleet name. Example: @fleet/sample-fleet@ .     * DynamoDB table - The resource type is @table@ and the unique identifier is the table name. Example: @table/my-table@ .     * DynamoDB global secondary index - The resource type is @index@ and the unique identifier is the index name. Example: @table/my-table/index/my-table-index@ .     * Aurora DB cluster - The resource type is @cluster@ and the unique identifier is the cluster name. Example: @cluster:my-db-cluster@ .     * Amazon SageMaker endpoint variant - The resource type is @variant@ and the unique identifier is the resource ID. Example: @endpoint/my-end-point/variant/KMeansClustering@ .     * Custom resources are not supported with a resource type. This parameter must specify the @OutputValue@ from the CloudFormation template stack used to access the resources. The unique identifier is defined by the service provider. More information is available in our <https://github.com/aws/aws-auto-scaling-custom-resource GitHub repository> .     * Amazon Comprehend document classification endpoint - The resource type and unique identifier are specified using the endpoint ARN. Example: @arn:aws:comprehend:us-west-2:123456789012:document-classifier-endpoint/EXAMPLE@ .     * Amazon Comprehend entity recognizer endpoint - The resource type and unique identifier are specified using the endpoint ARN. Example: @arn:aws:comprehend:us-west-2:123456789012:entity-recognizer-endpoint/EXAMPLE@ .     * Lambda provisioned concurrency - The resource type is @function@ and the unique identifier is the function name with a function version or alias name suffix that is not @> LATEST@ . Example: @function:my-function:prod@ or @function:my-function:1@ .     * Amazon Keyspaces table - The resource type is @table@ and the unique identifier is the table name. Example: @keyspace/mykeyspace/table/mytable@ .     * Amazon MSK cluster - The resource type and unique identifier are specified using the cluster ARN. Example: @arn:aws:kafka:us-east-1:123456789012:cluster/demo-cluster-1/6357e0b2-0e6a-4b86-a0b4-70df934c2e31-5@ .
-dsasResourceId :: Lens' DescribeScalingActivities (Maybe Text)
-dsasResourceId = lens _dsasResourceId (\s a -> s {_dsasResourceId = a})
+-- | The identifier of the resource associated with the scaling activity.
+-- This string consists of the resource type and unique identifier.
+--
+-- -   ECS service - The resource type is @service@ and the unique
+--     identifier is the cluster name and service name. Example:
+--     @service\/default\/sample-webapp@.
+--
+-- -   Spot Fleet request - The resource type is @spot-fleet-request@ and
+--     the unique identifier is the Spot Fleet request ID. Example:
+--     @spot-fleet-request\/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE@.
+--
+-- -   EMR cluster - The resource type is @instancegroup@ and the unique
+--     identifier is the cluster ID and instance group ID. Example:
+--     @instancegroup\/j-2EEZNYKUA1NTV\/ig-1791Y4E1L8YI0@.
+--
+-- -   AppStream 2.0 fleet - The resource type is @fleet@ and the unique
+--     identifier is the fleet name. Example: @fleet\/sample-fleet@.
+--
+-- -   DynamoDB table - The resource type is @table@ and the unique
+--     identifier is the table name. Example: @table\/my-table@.
+--
+-- -   DynamoDB global secondary index - The resource type is @index@ and
+--     the unique identifier is the index name. Example:
+--     @table\/my-table\/index\/my-table-index@.
+--
+-- -   Aurora DB cluster - The resource type is @cluster@ and the unique
+--     identifier is the cluster name. Example: @cluster:my-db-cluster@.
+--
+-- -   Amazon SageMaker endpoint variant - The resource type is @variant@
+--     and the unique identifier is the resource ID. Example:
+--     @endpoint\/my-end-point\/variant\/KMeansClustering@.
+--
+-- -   Custom resources are not supported with a resource type. This
+--     parameter must specify the @OutputValue@ from the CloudFormation
+--     template stack used to access the resources. The unique identifier
+--     is defined by the service provider. More information is available in
+--     our
+--     <https://github.com/aws/aws-auto-scaling-custom-resource GitHub repository>.
+--
+-- -   Amazon Comprehend document classification endpoint - The resource
+--     type and unique identifier are specified using the endpoint ARN.
+--     Example:
+--     @arn:aws:comprehend:us-west-2:123456789012:document-classifier-endpoint\/EXAMPLE@.
+--
+-- -   Amazon Comprehend entity recognizer endpoint - The resource type and
+--     unique identifier are specified using the endpoint ARN. Example:
+--     @arn:aws:comprehend:us-west-2:123456789012:entity-recognizer-endpoint\/EXAMPLE@.
+--
+-- -   Lambda provisioned concurrency - The resource type is @function@ and
+--     the unique identifier is the function name with a function version
+--     or alias name suffix that is not @$LATEST@. Example:
+--     @function:my-function:prod@ or @function:my-function:1@.
+--
+-- -   Amazon Keyspaces table - The resource type is @table@ and the unique
+--     identifier is the table name. Example:
+--     @keyspace\/mykeyspace\/table\/mytable@.
+--
+-- -   Amazon MSK cluster - The resource type and unique identifier are
+--     specified using the cluster ARN. Example:
+--     @arn:aws:kafka:us-east-1:123456789012:cluster\/demo-cluster-1\/6357e0b2-0e6a-4b86-a0b4-70df934c2e31-5@.
+describeScalingActivities_resourceId :: Lens.Lens' DescribeScalingActivities (Prelude.Maybe Prelude.Text)
+describeScalingActivities_resourceId = Lens.lens (\DescribeScalingActivities' {resourceId} -> resourceId) (\s@DescribeScalingActivities' {} a -> s {resourceId = a} :: DescribeScalingActivities)
 
 -- | The token for the next set of results.
-dsasNextToken :: Lens' DescribeScalingActivities (Maybe Text)
-dsasNextToken = lens _dsasNextToken (\s a -> s {_dsasNextToken = a})
+describeScalingActivities_nextToken :: Lens.Lens' DescribeScalingActivities (Prelude.Maybe Prelude.Text)
+describeScalingActivities_nextToken = Lens.lens (\DescribeScalingActivities' {nextToken} -> nextToken) (\s@DescribeScalingActivities' {} a -> s {nextToken = a} :: DescribeScalingActivities)
 
--- | The maximum number of scalable targets. This value can be between 1 and 50. The default value is 50. If this parameter is used, the operation returns up to @MaxResults@ results at a time, along with a @NextToken@ value. To get the next set of results, include the @NextToken@ value in a subsequent call. If this parameter is not used, the operation returns up to 50 results and a @NextToken@ value, if applicable.
-dsasMaxResults :: Lens' DescribeScalingActivities (Maybe Int)
-dsasMaxResults = lens _dsasMaxResults (\s a -> s {_dsasMaxResults = a})
+-- | The maximum number of scalable targets. This value can be between 1 and
+-- 50. The default value is 50.
+--
+-- If this parameter is used, the operation returns up to @MaxResults@
+-- results at a time, along with a @NextToken@ value. To get the next set
+-- of results, include the @NextToken@ value in a subsequent call. If this
+-- parameter is not used, the operation returns up to 50 results and a
+-- @NextToken@ value, if applicable.
+describeScalingActivities_maxResults :: Lens.Lens' DescribeScalingActivities (Prelude.Maybe Prelude.Int)
+describeScalingActivities_maxResults = Lens.lens (\DescribeScalingActivities' {maxResults} -> maxResults) (\s@DescribeScalingActivities' {} a -> s {maxResults = a} :: DescribeScalingActivities)
 
--- | The scalable dimension. This string consists of the service namespace, resource type, and scaling property. If you specify a scalable dimension, you must also specify a resource ID.     * @ecs:service:DesiredCount@ - The desired task count of an ECS service.     * @ec2:spot-fleet-request:TargetCapacity@ - The target capacity of a Spot Fleet request.     * @elasticmapreduce:instancegroup:InstanceCount@ - The instance count of an EMR Instance Group.     * @appstream:fleet:DesiredCapacity@ - The desired capacity of an AppStream 2.0 fleet.     * @dynamodb:table:ReadCapacityUnits@ - The provisioned read capacity for a DynamoDB table.     * @dynamodb:table:WriteCapacityUnits@ - The provisioned write capacity for a DynamoDB table.     * @dynamodb:index:ReadCapacityUnits@ - The provisioned read capacity for a DynamoDB global secondary index.     * @dynamodb:index:WriteCapacityUnits@ - The provisioned write capacity for a DynamoDB global secondary index.     * @rds:cluster:ReadReplicaCount@ - The count of Aurora Replicas in an Aurora DB cluster. Available for Aurora MySQL-compatible edition and Aurora PostgreSQL-compatible edition.     * @sagemaker:variant:DesiredInstanceCount@ - The number of EC2 instances for an Amazon SageMaker model endpoint variant.     * @custom-resource:ResourceType:Property@ - The scalable dimension for a custom resource provided by your own application or service.     * @comprehend:document-classifier-endpoint:DesiredInferenceUnits@ - The number of inference units for an Amazon Comprehend document classification endpoint.     * @comprehend:entity-recognizer-endpoint:DesiredInferenceUnits@ - The number of inference units for an Amazon Comprehend entity recognizer endpoint.     * @lambda:function:ProvisionedConcurrency@ - The provisioned concurrency for a Lambda function.     * @cassandra:table:ReadCapacityUnits@ - The provisioned read capacity for an Amazon Keyspaces table.     * @cassandra:table:WriteCapacityUnits@ - The provisioned write capacity for an Amazon Keyspaces table.     * @kafka:broker-storage:VolumeSize@ - The provisioned volume size (in GiB) for brokers in an Amazon MSK cluster.
-dsasScalableDimension :: Lens' DescribeScalingActivities (Maybe ScalableDimension)
-dsasScalableDimension = lens _dsasScalableDimension (\s a -> s {_dsasScalableDimension = a})
+-- | The scalable dimension. This string consists of the service namespace,
+-- resource type, and scaling property. If you specify a scalable
+-- dimension, you must also specify a resource ID.
+--
+-- -   @ecs:service:DesiredCount@ - The desired task count of an ECS
+--     service.
+--
+-- -   @ec2:spot-fleet-request:TargetCapacity@ - The target capacity of a
+--     Spot Fleet request.
+--
+-- -   @elasticmapreduce:instancegroup:InstanceCount@ - The instance count
+--     of an EMR Instance Group.
+--
+-- -   @appstream:fleet:DesiredCapacity@ - The desired capacity of an
+--     AppStream 2.0 fleet.
+--
+-- -   @dynamodb:table:ReadCapacityUnits@ - The provisioned read capacity
+--     for a DynamoDB table.
+--
+-- -   @dynamodb:table:WriteCapacityUnits@ - The provisioned write capacity
+--     for a DynamoDB table.
+--
+-- -   @dynamodb:index:ReadCapacityUnits@ - The provisioned read capacity
+--     for a DynamoDB global secondary index.
+--
+-- -   @dynamodb:index:WriteCapacityUnits@ - The provisioned write capacity
+--     for a DynamoDB global secondary index.
+--
+-- -   @rds:cluster:ReadReplicaCount@ - The count of Aurora Replicas in an
+--     Aurora DB cluster. Available for Aurora MySQL-compatible edition and
+--     Aurora PostgreSQL-compatible edition.
+--
+-- -   @sagemaker:variant:DesiredInstanceCount@ - The number of EC2
+--     instances for an Amazon SageMaker model endpoint variant.
+--
+-- -   @custom-resource:ResourceType:Property@ - The scalable dimension for
+--     a custom resource provided by your own application or service.
+--
+-- -   @comprehend:document-classifier-endpoint:DesiredInferenceUnits@ -
+--     The number of inference units for an Amazon Comprehend document
+--     classification endpoint.
+--
+-- -   @comprehend:entity-recognizer-endpoint:DesiredInferenceUnits@ - The
+--     number of inference units for an Amazon Comprehend entity recognizer
+--     endpoint.
+--
+-- -   @lambda:function:ProvisionedConcurrency@ - The provisioned
+--     concurrency for a Lambda function.
+--
+-- -   @cassandra:table:ReadCapacityUnits@ - The provisioned read capacity
+--     for an Amazon Keyspaces table.
+--
+-- -   @cassandra:table:WriteCapacityUnits@ - The provisioned write
+--     capacity for an Amazon Keyspaces table.
+--
+-- -   @kafka:broker-storage:VolumeSize@ - The provisioned volume size (in
+--     GiB) for brokers in an Amazon MSK cluster.
+describeScalingActivities_scalableDimension :: Lens.Lens' DescribeScalingActivities (Prelude.Maybe ScalableDimension)
+describeScalingActivities_scalableDimension = Lens.lens (\DescribeScalingActivities' {scalableDimension} -> scalableDimension) (\s@DescribeScalingActivities' {} a -> s {scalableDimension = a} :: DescribeScalingActivities)
 
--- | The namespace of the AWS service that provides the resource. For a resource provided by your own application or service, use @custom-resource@ instead.
-dsasServiceNamespace :: Lens' DescribeScalingActivities ServiceNamespace
-dsasServiceNamespace = lens _dsasServiceNamespace (\s a -> s {_dsasServiceNamespace = a})
+-- | The namespace of the AWS service that provides the resource. For a
+-- resource provided by your own application or service, use
+-- @custom-resource@ instead.
+describeScalingActivities_serviceNamespace :: Lens.Lens' DescribeScalingActivities ServiceNamespace
+describeScalingActivities_serviceNamespace = Lens.lens (\DescribeScalingActivities' {serviceNamespace} -> serviceNamespace) (\s@DescribeScalingActivities' {} a -> s {serviceNamespace = a} :: DescribeScalingActivities)
 
-instance AWSPager DescribeScalingActivities where
+instance Pager.AWSPager DescribeScalingActivities where
   page rq rs
-    | stop (rs ^. dsarrsNextToken) = Nothing
-    | stop (rs ^. dsarrsScalingActivities) = Nothing
-    | otherwise =
-      Just $ rq & dsasNextToken .~ rs ^. dsarrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeScalingActivitiesResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeScalingActivitiesResponse_scalingActivities
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeScalingActivities_nextToken
+          Lens..~ rs
+          Lens.^? describeScalingActivitiesResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeScalingActivities where
+instance Prelude.AWSRequest DescribeScalingActivities where
   type
     Rs DescribeScalingActivities =
       DescribeScalingActivitiesResponse
-  request = postJSON applicationAutoScaling
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeScalingActivitiesResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "ScalingActivities" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "ScalingActivities"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeScalingActivities
+instance Prelude.Hashable DescribeScalingActivities
 
-instance NFData DescribeScalingActivities
+instance Prelude.NFData DescribeScalingActivities
 
-instance ToHeaders DescribeScalingActivities where
+instance Prelude.ToHeaders DescribeScalingActivities where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AnyScaleFrontendService.DescribeScalingActivities" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AnyScaleFrontendService.DescribeScalingActivities" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeScalingActivities where
+instance Prelude.ToJSON DescribeScalingActivities where
   toJSON DescribeScalingActivities' {..} =
-    object
-      ( catMaybes
-          [ ("ResourceId" .=) <$> _dsasResourceId,
-            ("NextToken" .=) <$> _dsasNextToken,
-            ("MaxResults" .=) <$> _dsasMaxResults,
-            ("ScalableDimension" .=) <$> _dsasScalableDimension,
-            Just ("ServiceNamespace" .= _dsasServiceNamespace)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ResourceId" Prelude..=) Prelude.<$> resourceId,
+            ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("ScalableDimension" Prelude..=)
+              Prelude.<$> scalableDimension,
+            Prelude.Just
+              ("ServiceNamespace" Prelude..= serviceNamespace)
           ]
       )
 
-instance ToPath DescribeScalingActivities where
-  toPath = const "/"
+instance Prelude.ToPath DescribeScalingActivities where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeScalingActivities where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeScalingActivities where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeScalingActivitiesResponse' smart constructor.
+-- | /See:/ 'newDescribeScalingActivitiesResponse' smart constructor.
 data DescribeScalingActivitiesResponse = DescribeScalingActivitiesResponse'
-  { _dsarrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dsarrsScalingActivities ::
-      !( Maybe
-           [ScalingActivity]
-       ),
-    _dsarrsResponseStatus ::
-      !Int
+  { -- | The token required to get the next set of results. This value is @null@
+    -- if there are no more results to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of scaling activity objects.
+    scalingActivities :: Prelude.Maybe [ScalingActivity],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeScalingActivitiesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeScalingActivitiesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsarrsNextToken' - The token required to get the next set of results. This value is @null@ if there are no more results to return.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsarrsScalingActivities' - A list of scaling activity objects.
+-- 'nextToken', 'describeScalingActivitiesResponse_nextToken' - The token required to get the next set of results. This value is @null@
+-- if there are no more results to return.
 --
--- * 'dsarrsResponseStatus' - -- | The response status code.
-describeScalingActivitiesResponse ::
-  -- | 'dsarrsResponseStatus'
-  Int ->
+-- 'scalingActivities', 'describeScalingActivitiesResponse_scalingActivities' - A list of scaling activity objects.
+--
+-- 'httpStatus', 'describeScalingActivitiesResponse_httpStatus' - The response's http status code.
+newDescribeScalingActivitiesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeScalingActivitiesResponse
-describeScalingActivitiesResponse pResponseStatus_ =
+newDescribeScalingActivitiesResponse pHttpStatus_ =
   DescribeScalingActivitiesResponse'
-    { _dsarrsNextToken =
-        Nothing,
-      _dsarrsScalingActivities = Nothing,
-      _dsarrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      scalingActivities = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The token required to get the next set of results. This value is @null@ if there are no more results to return.
-dsarrsNextToken :: Lens' DescribeScalingActivitiesResponse (Maybe Text)
-dsarrsNextToken = lens _dsarrsNextToken (\s a -> s {_dsarrsNextToken = a})
+-- | The token required to get the next set of results. This value is @null@
+-- if there are no more results to return.
+describeScalingActivitiesResponse_nextToken :: Lens.Lens' DescribeScalingActivitiesResponse (Prelude.Maybe Prelude.Text)
+describeScalingActivitiesResponse_nextToken = Lens.lens (\DescribeScalingActivitiesResponse' {nextToken} -> nextToken) (\s@DescribeScalingActivitiesResponse' {} a -> s {nextToken = a} :: DescribeScalingActivitiesResponse)
 
 -- | A list of scaling activity objects.
-dsarrsScalingActivities :: Lens' DescribeScalingActivitiesResponse [ScalingActivity]
-dsarrsScalingActivities = lens _dsarrsScalingActivities (\s a -> s {_dsarrsScalingActivities = a}) . _Default . _Coerce
+describeScalingActivitiesResponse_scalingActivities :: Lens.Lens' DescribeScalingActivitiesResponse (Prelude.Maybe [ScalingActivity])
+describeScalingActivitiesResponse_scalingActivities = Lens.lens (\DescribeScalingActivitiesResponse' {scalingActivities} -> scalingActivities) (\s@DescribeScalingActivitiesResponse' {} a -> s {scalingActivities = a} :: DescribeScalingActivitiesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dsarrsResponseStatus :: Lens' DescribeScalingActivitiesResponse Int
-dsarrsResponseStatus = lens _dsarrsResponseStatus (\s a -> s {_dsarrsResponseStatus = a})
+-- | The response's http status code.
+describeScalingActivitiesResponse_httpStatus :: Lens.Lens' DescribeScalingActivitiesResponse Prelude.Int
+describeScalingActivitiesResponse_httpStatus = Lens.lens (\DescribeScalingActivitiesResponse' {httpStatus} -> httpStatus) (\s@DescribeScalingActivitiesResponse' {} a -> s {httpStatus = a} :: DescribeScalingActivitiesResponse)
 
-instance NFData DescribeScalingActivitiesResponse
+instance
+  Prelude.NFData
+    DescribeScalingActivitiesResponse

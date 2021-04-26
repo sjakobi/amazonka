@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.ApplicationAutoScaling.Types.MetricAggregationType
   ( MetricAggregationType
       ( ..,
-        MATAverage,
-        MATMaximum,
-        MATMinimum
+        MetricAggregationTypeAverage,
+        MetricAggregationTypeMaximum,
+        MetricAggregationTypeMinimum
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data MetricAggregationType
-  = MetricAggregationType'
-      ( CI
-          Text
-      )
+newtype MetricAggregationType = MetricAggregationType'
+  { fromMetricAggregationType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MATAverage :: MetricAggregationType
-pattern MATAverage = MetricAggregationType' "Average"
+pattern MetricAggregationTypeAverage :: MetricAggregationType
+pattern MetricAggregationTypeAverage = MetricAggregationType' "Average"
 
-pattern MATMaximum :: MetricAggregationType
-pattern MATMaximum = MetricAggregationType' "Maximum"
+pattern MetricAggregationTypeMaximum :: MetricAggregationType
+pattern MetricAggregationTypeMaximum = MetricAggregationType' "Maximum"
 
-pattern MATMinimum :: MetricAggregationType
-pattern MATMinimum = MetricAggregationType' "Minimum"
+pattern MetricAggregationTypeMinimum :: MetricAggregationType
+pattern MetricAggregationTypeMinimum = MetricAggregationType' "Minimum"
 
 {-# COMPLETE
-  MATAverage,
-  MATMaximum,
-  MATMinimum,
+  MetricAggregationTypeAverage,
+  MetricAggregationTypeMaximum,
+  MetricAggregationTypeMinimum,
   MetricAggregationType'
   #-}
 
-instance FromText MetricAggregationType where
-  parser = (MetricAggregationType' . mk) <$> takeText
+instance Prelude.FromText MetricAggregationType where
+  parser = MetricAggregationType' Prelude.<$> Prelude.takeText
 
-instance ToText MetricAggregationType where
-  toText (MetricAggregationType' ci) = original ci
+instance Prelude.ToText MetricAggregationType where
+  toText (MetricAggregationType' x) = x
 
-instance Hashable MetricAggregationType
+instance Prelude.Hashable MetricAggregationType
 
-instance NFData MetricAggregationType
+instance Prelude.NFData MetricAggregationType
 
-instance ToByteString MetricAggregationType
+instance Prelude.ToByteString MetricAggregationType
 
-instance ToQuery MetricAggregationType
+instance Prelude.ToQuery MetricAggregationType
 
-instance ToHeader MetricAggregationType
+instance Prelude.ToHeader MetricAggregationType
 
-instance ToJSON MetricAggregationType where
-  toJSON = toJSONText
+instance Prelude.ToJSON MetricAggregationType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON MetricAggregationType where
-  parseJSON = parseJSONText "MetricAggregationType"
+instance Prelude.FromJSON MetricAggregationType where
+  parseJSON = Prelude.parseJSONText "MetricAggregationType"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.ApplicationAutoScaling.Types.AdjustmentType
   ( AdjustmentType
       ( ..,
-        ChangeInCapacity,
-        ExactCapacity,
-        PercentChangeInCapacity
+        AdjustmentTypeChangeInCapacity,
+        AdjustmentTypeExactCapacity,
+        AdjustmentTypePercentChangeInCapacity
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AdjustmentType = AdjustmentType' (CI Text)
+newtype AdjustmentType = AdjustmentType'
+  { fromAdjustmentType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ChangeInCapacity :: AdjustmentType
-pattern ChangeInCapacity = AdjustmentType' "ChangeInCapacity"
+pattern AdjustmentTypeChangeInCapacity :: AdjustmentType
+pattern AdjustmentTypeChangeInCapacity = AdjustmentType' "ChangeInCapacity"
 
-pattern ExactCapacity :: AdjustmentType
-pattern ExactCapacity = AdjustmentType' "ExactCapacity"
+pattern AdjustmentTypeExactCapacity :: AdjustmentType
+pattern AdjustmentTypeExactCapacity = AdjustmentType' "ExactCapacity"
 
-pattern PercentChangeInCapacity :: AdjustmentType
-pattern PercentChangeInCapacity = AdjustmentType' "PercentChangeInCapacity"
+pattern AdjustmentTypePercentChangeInCapacity :: AdjustmentType
+pattern AdjustmentTypePercentChangeInCapacity = AdjustmentType' "PercentChangeInCapacity"
 
 {-# COMPLETE
-  ChangeInCapacity,
-  ExactCapacity,
-  PercentChangeInCapacity,
+  AdjustmentTypeChangeInCapacity,
+  AdjustmentTypeExactCapacity,
+  AdjustmentTypePercentChangeInCapacity,
   AdjustmentType'
   #-}
 
-instance FromText AdjustmentType where
-  parser = (AdjustmentType' . mk) <$> takeText
+instance Prelude.FromText AdjustmentType where
+  parser = AdjustmentType' Prelude.<$> Prelude.takeText
 
-instance ToText AdjustmentType where
-  toText (AdjustmentType' ci) = original ci
+instance Prelude.ToText AdjustmentType where
+  toText (AdjustmentType' x) = x
 
-instance Hashable AdjustmentType
+instance Prelude.Hashable AdjustmentType
 
-instance NFData AdjustmentType
+instance Prelude.NFData AdjustmentType
 
-instance ToByteString AdjustmentType
+instance Prelude.ToByteString AdjustmentType
 
-instance ToQuery AdjustmentType
+instance Prelude.ToQuery AdjustmentType
 
-instance ToHeader AdjustmentType
+instance Prelude.ToHeader AdjustmentType
 
-instance ToJSON AdjustmentType where
-  toJSON = toJSONText
+instance Prelude.ToJSON AdjustmentType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AdjustmentType where
-  parseJSON = parseJSONText "AdjustmentType"
+instance Prelude.FromJSON AdjustmentType where
+  parseJSON = Prelude.parseJSONText "AdjustmentType"

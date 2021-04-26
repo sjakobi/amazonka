@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.ApplicationAutoScaling.Types.PolicyType
   ( PolicyType
       ( ..,
-        StepScaling,
-        TargetTrackingScaling
+        PolicyTypeStepScaling,
+        PolicyTypeTargetTrackingScaling
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PolicyType = PolicyType' (CI Text)
+newtype PolicyType = PolicyType'
+  { fromPolicyType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern StepScaling :: PolicyType
-pattern StepScaling = PolicyType' "StepScaling"
+pattern PolicyTypeStepScaling :: PolicyType
+pattern PolicyTypeStepScaling = PolicyType' "StepScaling"
 
-pattern TargetTrackingScaling :: PolicyType
-pattern TargetTrackingScaling = PolicyType' "TargetTrackingScaling"
+pattern PolicyTypeTargetTrackingScaling :: PolicyType
+pattern PolicyTypeTargetTrackingScaling = PolicyType' "TargetTrackingScaling"
 
 {-# COMPLETE
-  StepScaling,
-  TargetTrackingScaling,
+  PolicyTypeStepScaling,
+  PolicyTypeTargetTrackingScaling,
   PolicyType'
   #-}
 
-instance FromText PolicyType where
-  parser = (PolicyType' . mk) <$> takeText
+instance Prelude.FromText PolicyType where
+  parser = PolicyType' Prelude.<$> Prelude.takeText
 
-instance ToText PolicyType where
-  toText (PolicyType' ci) = original ci
+instance Prelude.ToText PolicyType where
+  toText (PolicyType' x) = x
 
-instance Hashable PolicyType
+instance Prelude.Hashable PolicyType
 
-instance NFData PolicyType
+instance Prelude.NFData PolicyType
 
-instance ToByteString PolicyType
+instance Prelude.ToByteString PolicyType
 
-instance ToQuery PolicyType
+instance Prelude.ToQuery PolicyType
 
-instance ToHeader PolicyType
+instance Prelude.ToHeader PolicyType
 
-instance ToJSON PolicyType where
-  toJSON = toJSONText
+instance Prelude.ToJSON PolicyType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON PolicyType where
-  parseJSON = parseJSONText "PolicyType"
+instance Prelude.FromJSON PolicyType where
+  parseJSON = Prelude.parseJSONText "PolicyType"

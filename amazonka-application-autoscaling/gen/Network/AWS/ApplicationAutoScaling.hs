@@ -11,51 +11,66 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- With Application Auto Scaling, you can configure automatic scaling for the following resources:
+-- With Application Auto Scaling, you can configure automatic scaling for
+-- the following resources:
 --
+-- -   Amazon ECS services
 --
---     * Amazon ECS services
+-- -   Amazon EC2 Spot Fleet requests
 --
---     * Amazon EC2 Spot Fleet requests
+-- -   Amazon EMR clusters
 --
---     * Amazon EMR clusters
+-- -   Amazon AppStream 2.0 fleets
 --
---     * Amazon AppStream 2.0 fleets
+-- -   Amazon DynamoDB tables and global secondary indexes throughput
+--     capacity
 --
---     * Amazon DynamoDB tables and global secondary indexes throughput capacity
+-- -   Amazon Aurora Replicas
 --
---     * Amazon Aurora Replicas
+-- -   Amazon SageMaker endpoint variants
 --
---     * Amazon SageMaker endpoint variants
+-- -   Custom resources provided by your own applications or services
 --
---     * Custom resources provided by your own applications or services
+-- -   Amazon Comprehend document classification and entity recognizer
+--     endpoints
 --
---     * Amazon Comprehend document classification and entity recognizer endpoints
+-- -   AWS Lambda function provisioned concurrency
 --
---     * AWS Lambda function provisioned concurrency
+-- -   Amazon Keyspaces (for Apache Cassandra) tables
 --
---     * Amazon Keyspaces (for Apache Cassandra) tables
---
---     * Amazon Managed Streaming for Apache Kafka broker storage
---
---
+-- -   Amazon Managed Streaming for Apache Kafka broker storage
 --
 -- __API Summary__
 --
--- The Application Auto Scaling service API includes three key sets of actions:
+-- The Application Auto Scaling service API includes three key sets of
+-- actions:
 --
---     * Register and manage scalable targets - Register AWS or custom resources as scalable targets (a resource that Application Auto Scaling can scale), set minimum and maximum capacity limits, and retrieve information on existing scalable targets.
+-- -   Register and manage scalable targets - Register AWS or custom
+--     resources as scalable targets (a resource that Application Auto
+--     Scaling can scale), set minimum and maximum capacity limits, and
+--     retrieve information on existing scalable targets.
 --
---     * Configure and manage automatic scaling - Define scaling policies to dynamically scale your resources in response to CloudWatch alarms, schedule one-time or recurring scaling actions, and retrieve your recent scaling activity history.
+-- -   Configure and manage automatic scaling - Define scaling policies to
+--     dynamically scale your resources in response to CloudWatch alarms,
+--     schedule one-time or recurring scaling actions, and retrieve your
+--     recent scaling activity history.
 --
---     * Suspend and resume scaling - Temporarily suspend and later resume automatic scaling by calling the <https://docs.aws.amazon.com/autoscaling/application/APIReference/API_RegisterScalableTarget.html RegisterScalableTarget> API action for any Application Auto Scaling scalable target. You can suspend and resume (individually or in combination) scale-out activities that are triggered by a scaling policy, scale-in activities that are triggered by a scaling policy, and scheduled scaling.
+-- -   Suspend and resume scaling - Temporarily suspend and later resume
+--     automatic scaling by calling the
+--     <https://docs.aws.amazon.com/autoscaling/application/APIReference/API_RegisterScalableTarget.html RegisterScalableTarget>
+--     API action for any Application Auto Scaling scalable target. You can
+--     suspend and resume (individually or in combination) scale-out
+--     activities that are triggered by a scaling policy, scale-in
+--     activities that are triggered by a scaling policy, and scheduled
+--     scaling.
 --
---
---
--- To learn more about Application Auto Scaling, including information about granting IAM users required permissions for Application Auto Scaling actions, see the <https://docs.aws.amazon.com/autoscaling/application/userguide/what-is-application-auto-scaling.html Application Auto Scaling User Guide> .
+-- To learn more about Application Auto Scaling, including information
+-- about granting IAM users required permissions for Application Auto
+-- Scaling actions, see the
+-- <https://docs.aws.amazon.com/autoscaling/application/userguide/what-is-application-auto-scaling.html Application Auto Scaling User Guide>.
 module Network.AWS.ApplicationAutoScaling
   ( -- * Service Configuration
-    applicationAutoScaling,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -88,34 +103,64 @@ module Network.AWS.ApplicationAutoScaling
     -- $operations
 
     -- ** RegisterScalableTarget
-    module Network.AWS.ApplicationAutoScaling.RegisterScalableTarget,
+    RegisterScalableTarget (RegisterScalableTarget'),
+    newRegisterScalableTarget,
+    RegisterScalableTargetResponse (RegisterScalableTargetResponse'),
+    newRegisterScalableTargetResponse,
 
     -- ** PutScalingPolicy
-    module Network.AWS.ApplicationAutoScaling.PutScalingPolicy,
+    PutScalingPolicy (PutScalingPolicy'),
+    newPutScalingPolicy,
+    PutScalingPolicyResponse (PutScalingPolicyResponse'),
+    newPutScalingPolicyResponse,
 
     -- ** DescribeScheduledActions (Paginated)
-    module Network.AWS.ApplicationAutoScaling.DescribeScheduledActions,
+    DescribeScheduledActions (DescribeScheduledActions'),
+    newDescribeScheduledActions,
+    DescribeScheduledActionsResponse (DescribeScheduledActionsResponse'),
+    newDescribeScheduledActionsResponse,
 
     -- ** DescribeScalingPolicies (Paginated)
-    module Network.AWS.ApplicationAutoScaling.DescribeScalingPolicies,
+    DescribeScalingPolicies (DescribeScalingPolicies'),
+    newDescribeScalingPolicies,
+    DescribeScalingPoliciesResponse (DescribeScalingPoliciesResponse'),
+    newDescribeScalingPoliciesResponse,
 
     -- ** DeregisterScalableTarget
-    module Network.AWS.ApplicationAutoScaling.DeregisterScalableTarget,
+    DeregisterScalableTarget (DeregisterScalableTarget'),
+    newDeregisterScalableTarget,
+    DeregisterScalableTargetResponse (DeregisterScalableTargetResponse'),
+    newDeregisterScalableTargetResponse,
 
     -- ** DeleteScheduledAction
-    module Network.AWS.ApplicationAutoScaling.DeleteScheduledAction,
+    DeleteScheduledAction (DeleteScheduledAction'),
+    newDeleteScheduledAction,
+    DeleteScheduledActionResponse (DeleteScheduledActionResponse'),
+    newDeleteScheduledActionResponse,
 
     -- ** DescribeScalingActivities (Paginated)
-    module Network.AWS.ApplicationAutoScaling.DescribeScalingActivities,
+    DescribeScalingActivities (DescribeScalingActivities'),
+    newDescribeScalingActivities,
+    DescribeScalingActivitiesResponse (DescribeScalingActivitiesResponse'),
+    newDescribeScalingActivitiesResponse,
 
     -- ** DescribeScalableTargets (Paginated)
-    module Network.AWS.ApplicationAutoScaling.DescribeScalableTargets,
+    DescribeScalableTargets (DescribeScalableTargets'),
+    newDescribeScalableTargets,
+    DescribeScalableTargetsResponse (DescribeScalableTargetsResponse'),
+    newDescribeScalableTargetsResponse,
 
     -- ** DeleteScalingPolicy
-    module Network.AWS.ApplicationAutoScaling.DeleteScalingPolicy,
+    DeleteScalingPolicy (DeleteScalingPolicy'),
+    newDeleteScalingPolicy,
+    DeleteScalingPolicyResponse (DeleteScalingPolicyResponse'),
+    newDeleteScalingPolicyResponse,
 
     -- ** PutScheduledAction
-    module Network.AWS.ApplicationAutoScaling.PutScheduledAction,
+    PutScheduledAction (PutScheduledAction'),
+    newPutScheduledAction,
+    PutScheduledActionResponse (PutScheduledActionResponse'),
+    newPutScheduledActionResponse,
 
     -- * Types
 
@@ -144,126 +189,56 @@ module Network.AWS.ApplicationAutoScaling
     ServiceNamespace (..),
 
     -- ** Alarm
-    Alarm,
-    alarm,
-    aAlarmName,
-    aAlarmARN,
+    Alarm (Alarm'),
+    newAlarm,
 
     -- ** CustomizedMetricSpecification
-    CustomizedMetricSpecification,
-    customizedMetricSpecification,
-    cmsUnit,
-    cmsDimensions,
-    cmsMetricName,
-    cmsNamespace,
-    cmsStatistic,
+    CustomizedMetricSpecification (CustomizedMetricSpecification'),
+    newCustomizedMetricSpecification,
 
     -- ** MetricDimension
-    MetricDimension,
-    metricDimension,
-    mdName,
-    mdValue,
+    MetricDimension (MetricDimension'),
+    newMetricDimension,
 
     -- ** PredefinedMetricSpecification
-    PredefinedMetricSpecification,
-    predefinedMetricSpecification,
-    pmsResourceLabel,
-    pmsPredefinedMetricType,
+    PredefinedMetricSpecification (PredefinedMetricSpecification'),
+    newPredefinedMetricSpecification,
 
     -- ** ScalableTarget
-    ScalableTarget,
-    scalableTarget,
-    stSuspendedState,
-    stServiceNamespace,
-    stResourceId,
-    stScalableDimension,
-    stMinCapacity,
-    stMaxCapacity,
-    stRoleARN,
-    stCreationTime,
+    ScalableTarget (ScalableTarget'),
+    newScalableTarget,
 
     -- ** ScalableTargetAction
-    ScalableTargetAction,
-    scalableTargetAction,
-    staMaxCapacity,
-    staMinCapacity,
+    ScalableTargetAction (ScalableTargetAction'),
+    newScalableTargetAction,
 
     -- ** ScalingActivity
-    ScalingActivity,
-    scalingActivity,
-    sStatusMessage,
-    sDetails,
-    sEndTime,
-    sActivityId,
-    sServiceNamespace,
-    sResourceId,
-    sScalableDimension,
-    sDescription,
-    sCause,
-    sStartTime,
-    sStatusCode,
+    ScalingActivity (ScalingActivity'),
+    newScalingActivity,
 
     -- ** ScalingPolicy
-    ScalingPolicy,
-    scalingPolicy,
-    spTargetTrackingScalingPolicyConfiguration,
-    spStepScalingPolicyConfiguration,
-    spAlarms,
-    spPolicyARN,
-    spPolicyName,
-    spServiceNamespace,
-    spResourceId,
-    spScalableDimension,
-    spPolicyType,
-    spCreationTime,
+    ScalingPolicy (ScalingPolicy'),
+    newScalingPolicy,
 
     -- ** ScheduledAction
-    ScheduledAction,
-    scheduledAction,
-    saStartTime,
-    saEndTime,
-    saScalableDimension,
-    saTimezone,
-    saScalableTargetAction,
-    saScheduledActionName,
-    saScheduledActionARN,
-    saServiceNamespace,
-    saSchedule,
-    saResourceId,
-    saCreationTime,
+    ScheduledAction (ScheduledAction'),
+    newScheduledAction,
 
     -- ** StepAdjustment
-    StepAdjustment,
-    stepAdjustment,
-    saMetricIntervalUpperBound,
-    saMetricIntervalLowerBound,
-    saScalingAdjustment,
+    StepAdjustment (StepAdjustment'),
+    newStepAdjustment,
 
     -- ** StepScalingPolicyConfiguration
-    StepScalingPolicyConfiguration,
-    stepScalingPolicyConfiguration,
-    sspcStepAdjustments,
-    sspcMetricAggregationType,
-    sspcCooldown,
-    sspcAdjustmentType,
-    sspcMinAdjustmentMagnitude,
+    StepScalingPolicyConfiguration (StepScalingPolicyConfiguration'),
+    newStepScalingPolicyConfiguration,
 
     -- ** SuspendedState
-    SuspendedState,
-    suspendedState,
-    ssScheduledScalingSuspended,
-    ssDynamicScalingInSuspended,
-    ssDynamicScalingOutSuspended,
+    SuspendedState (SuspendedState'),
+    newSuspendedState,
 
     -- ** TargetTrackingScalingPolicyConfiguration
-    TargetTrackingScalingPolicyConfiguration,
-    targetTrackingScalingPolicyConfiguration,
-    ttspcDisableScaleIn,
-    ttspcPredefinedMetricSpecification,
-    ttspcScaleOutCooldown,
-    ttspcCustomizedMetricSpecification,
-    ttspcScaleInCooldown,
-    ttspcTargetValue,
+    TargetTrackingScalingPolicyConfiguration (TargetTrackingScalingPolicyConfiguration'),
+    newTargetTrackingScalingPolicyConfiguration,
   )
 where
 
@@ -274,6 +249,7 @@ import Network.AWS.ApplicationAutoScaling.DescribeScalableTargets
 import Network.AWS.ApplicationAutoScaling.DescribeScalingActivities
 import Network.AWS.ApplicationAutoScaling.DescribeScalingPolicies
 import Network.AWS.ApplicationAutoScaling.DescribeScheduledActions
+import Network.AWS.ApplicationAutoScaling.Lens
 import Network.AWS.ApplicationAutoScaling.PutScalingPolicy
 import Network.AWS.ApplicationAutoScaling.PutScheduledAction
 import Network.AWS.ApplicationAutoScaling.RegisterScalableTarget

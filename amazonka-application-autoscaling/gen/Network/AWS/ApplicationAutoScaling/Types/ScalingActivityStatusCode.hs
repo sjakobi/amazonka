@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,77 +19,75 @@
 module Network.AWS.ApplicationAutoScaling.Types.ScalingActivityStatusCode
   ( ScalingActivityStatusCode
       ( ..,
-        Failed,
-        InProgress,
-        Overridden,
-        Pending,
-        Successful,
-        Unfulfilled
+        ScalingActivityStatusCodeFailed,
+        ScalingActivityStatusCodeInProgress,
+        ScalingActivityStatusCodeOverridden,
+        ScalingActivityStatusCodePending,
+        ScalingActivityStatusCodeSuccessful,
+        ScalingActivityStatusCodeUnfulfilled
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ScalingActivityStatusCode
-  = ScalingActivityStatusCode'
-      ( CI
-          Text
-      )
+newtype ScalingActivityStatusCode = ScalingActivityStatusCode'
+  { fromScalingActivityStatusCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Failed :: ScalingActivityStatusCode
-pattern Failed = ScalingActivityStatusCode' "Failed"
+pattern ScalingActivityStatusCodeFailed :: ScalingActivityStatusCode
+pattern ScalingActivityStatusCodeFailed = ScalingActivityStatusCode' "Failed"
 
-pattern InProgress :: ScalingActivityStatusCode
-pattern InProgress = ScalingActivityStatusCode' "InProgress"
+pattern ScalingActivityStatusCodeInProgress :: ScalingActivityStatusCode
+pattern ScalingActivityStatusCodeInProgress = ScalingActivityStatusCode' "InProgress"
 
-pattern Overridden :: ScalingActivityStatusCode
-pattern Overridden = ScalingActivityStatusCode' "Overridden"
+pattern ScalingActivityStatusCodeOverridden :: ScalingActivityStatusCode
+pattern ScalingActivityStatusCodeOverridden = ScalingActivityStatusCode' "Overridden"
 
-pattern Pending :: ScalingActivityStatusCode
-pattern Pending = ScalingActivityStatusCode' "Pending"
+pattern ScalingActivityStatusCodePending :: ScalingActivityStatusCode
+pattern ScalingActivityStatusCodePending = ScalingActivityStatusCode' "Pending"
 
-pattern Successful :: ScalingActivityStatusCode
-pattern Successful = ScalingActivityStatusCode' "Successful"
+pattern ScalingActivityStatusCodeSuccessful :: ScalingActivityStatusCode
+pattern ScalingActivityStatusCodeSuccessful = ScalingActivityStatusCode' "Successful"
 
-pattern Unfulfilled :: ScalingActivityStatusCode
-pattern Unfulfilled = ScalingActivityStatusCode' "Unfulfilled"
+pattern ScalingActivityStatusCodeUnfulfilled :: ScalingActivityStatusCode
+pattern ScalingActivityStatusCodeUnfulfilled = ScalingActivityStatusCode' "Unfulfilled"
 
 {-# COMPLETE
-  Failed,
-  InProgress,
-  Overridden,
-  Pending,
-  Successful,
-  Unfulfilled,
+  ScalingActivityStatusCodeFailed,
+  ScalingActivityStatusCodeInProgress,
+  ScalingActivityStatusCodeOverridden,
+  ScalingActivityStatusCodePending,
+  ScalingActivityStatusCodeSuccessful,
+  ScalingActivityStatusCodeUnfulfilled,
   ScalingActivityStatusCode'
   #-}
 
-instance FromText ScalingActivityStatusCode where
-  parser = (ScalingActivityStatusCode' . mk) <$> takeText
+instance Prelude.FromText ScalingActivityStatusCode where
+  parser = ScalingActivityStatusCode' Prelude.<$> Prelude.takeText
 
-instance ToText ScalingActivityStatusCode where
-  toText (ScalingActivityStatusCode' ci) = original ci
+instance Prelude.ToText ScalingActivityStatusCode where
+  toText (ScalingActivityStatusCode' x) = x
 
-instance Hashable ScalingActivityStatusCode
+instance Prelude.Hashable ScalingActivityStatusCode
 
-instance NFData ScalingActivityStatusCode
+instance Prelude.NFData ScalingActivityStatusCode
 
-instance ToByteString ScalingActivityStatusCode
+instance Prelude.ToByteString ScalingActivityStatusCode
 
-instance ToQuery ScalingActivityStatusCode
+instance Prelude.ToQuery ScalingActivityStatusCode
 
-instance ToHeader ScalingActivityStatusCode
+instance Prelude.ToHeader ScalingActivityStatusCode
 
-instance FromJSON ScalingActivityStatusCode where
-  parseJSON = parseJSONText "ScalingActivityStatusCode"
+instance Prelude.FromJSON ScalingActivityStatusCode where
+  parseJSON = Prelude.parseJSONText "ScalingActivityStatusCode"
