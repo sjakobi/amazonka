@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,162 +21,181 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Obtains information about which SNS topics receive status messages from the specified directory.
+-- Obtains information about which SNS topics receive status messages from
+-- the specified directory.
 --
---
--- If no input parameters are provided, such as DirectoryId or TopicName, this request describes all of the associations in the account.
+-- If no input parameters are provided, such as DirectoryId or TopicName,
+-- this request describes all of the associations in the account.
 module Network.AWS.DirectoryService.DescribeEventTopics
   ( -- * Creating a Request
-    describeEventTopics,
-    DescribeEventTopics,
+    DescribeEventTopics (..),
+    newDescribeEventTopics,
 
     -- * Request Lenses
-    detDirectoryId,
-    detTopicNames,
+    describeEventTopics_directoryId,
+    describeEventTopics_topicNames,
 
     -- * Destructuring the Response
-    describeEventTopicsResponse,
-    DescribeEventTopicsResponse,
+    DescribeEventTopicsResponse (..),
+    newDescribeEventTopicsResponse,
 
     -- * Response Lenses
-    detrersEventTopics,
-    detrersResponseStatus,
+    describeEventTopicsResponse_eventTopics,
+    describeEventTopicsResponse_httpStatus,
   )
 where
 
 import Network.AWS.DirectoryService.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DirectoryService.Types.EventTopic
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Describes event topics.
 --
---
---
--- /See:/ 'describeEventTopics' smart constructor.
+-- /See:/ 'newDescribeEventTopics' smart constructor.
 data DescribeEventTopics = DescribeEventTopics'
-  { _detDirectoryId ::
-      !(Maybe Text),
-    _detTopicNames ::
-      !(Maybe [Text])
+  { -- | The Directory ID for which to get the list of associated SNS topics. If
+    -- this member is null, associations for all Directory IDs are returned.
+    directoryId :: Prelude.Maybe Prelude.Text,
+    -- | A list of SNS topic names for which to obtain the information. If this
+    -- member is null, all associations for the specified Directory ID are
+    -- returned.
+    --
+    -- An empty list results in an @InvalidParameterException@ being thrown.
+    topicNames :: Prelude.Maybe [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeEventTopics' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeEventTopics' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'detDirectoryId' - The Directory ID for which to get the list of associated SNS topics. If this member is null, associations for all Directory IDs are returned.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'detTopicNames' - A list of SNS topic names for which to obtain the information. If this member is null, all associations for the specified Directory ID are returned. An empty list results in an @InvalidParameterException@ being thrown.
-describeEventTopics ::
+-- 'directoryId', 'describeEventTopics_directoryId' - The Directory ID for which to get the list of associated SNS topics. If
+-- this member is null, associations for all Directory IDs are returned.
+--
+-- 'topicNames', 'describeEventTopics_topicNames' - A list of SNS topic names for which to obtain the information. If this
+-- member is null, all associations for the specified Directory ID are
+-- returned.
+--
+-- An empty list results in an @InvalidParameterException@ being thrown.
+newDescribeEventTopics ::
   DescribeEventTopics
-describeEventTopics =
+newDescribeEventTopics =
   DescribeEventTopics'
-    { _detDirectoryId = Nothing,
-      _detTopicNames = Nothing
+    { directoryId = Prelude.Nothing,
+      topicNames = Prelude.Nothing
     }
 
--- | The Directory ID for which to get the list of associated SNS topics. If this member is null, associations for all Directory IDs are returned.
-detDirectoryId :: Lens' DescribeEventTopics (Maybe Text)
-detDirectoryId = lens _detDirectoryId (\s a -> s {_detDirectoryId = a})
+-- | The Directory ID for which to get the list of associated SNS topics. If
+-- this member is null, associations for all Directory IDs are returned.
+describeEventTopics_directoryId :: Lens.Lens' DescribeEventTopics (Prelude.Maybe Prelude.Text)
+describeEventTopics_directoryId = Lens.lens (\DescribeEventTopics' {directoryId} -> directoryId) (\s@DescribeEventTopics' {} a -> s {directoryId = a} :: DescribeEventTopics)
 
--- | A list of SNS topic names for which to obtain the information. If this member is null, all associations for the specified Directory ID are returned. An empty list results in an @InvalidParameterException@ being thrown.
-detTopicNames :: Lens' DescribeEventTopics [Text]
-detTopicNames = lens _detTopicNames (\s a -> s {_detTopicNames = a}) . _Default . _Coerce
+-- | A list of SNS topic names for which to obtain the information. If this
+-- member is null, all associations for the specified Directory ID are
+-- returned.
+--
+-- An empty list results in an @InvalidParameterException@ being thrown.
+describeEventTopics_topicNames :: Lens.Lens' DescribeEventTopics (Prelude.Maybe [Prelude.Text])
+describeEventTopics_topicNames = Lens.lens (\DescribeEventTopics' {topicNames} -> topicNames) (\s@DescribeEventTopics' {} a -> s {topicNames = a} :: DescribeEventTopics) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSRequest DescribeEventTopics where
+instance Prelude.AWSRequest DescribeEventTopics where
   type
     Rs DescribeEventTopics =
       DescribeEventTopicsResponse
-  request = postJSON directoryService
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeEventTopicsResponse'
-            <$> (x .?> "EventTopics" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "EventTopics"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeEventTopics
+instance Prelude.Hashable DescribeEventTopics
 
-instance NFData DescribeEventTopics
+instance Prelude.NFData DescribeEventTopics
 
-instance ToHeaders DescribeEventTopics where
+instance Prelude.ToHeaders DescribeEventTopics where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "DirectoryService_20150416.DescribeEventTopics" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "DirectoryService_20150416.DescribeEventTopics" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeEventTopics where
+instance Prelude.ToJSON DescribeEventTopics where
   toJSON DescribeEventTopics' {..} =
-    object
-      ( catMaybes
-          [ ("DirectoryId" .=) <$> _detDirectoryId,
-            ("TopicNames" .=) <$> _detTopicNames
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("DirectoryId" Prelude..=) Prelude.<$> directoryId,
+            ("TopicNames" Prelude..=) Prelude.<$> topicNames
           ]
       )
 
-instance ToPath DescribeEventTopics where
-  toPath = const "/"
+instance Prelude.ToPath DescribeEventTopics where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeEventTopics where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeEventTopics where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | The result of a DescribeEventTopic request.
 --
---
---
--- /See:/ 'describeEventTopicsResponse' smart constructor.
+-- /See:/ 'newDescribeEventTopicsResponse' smart constructor.
 data DescribeEventTopicsResponse = DescribeEventTopicsResponse'
-  { _detrersEventTopics ::
-      !( Maybe
-           [EventTopic]
-       ),
-    _detrersResponseStatus ::
-      !Int
+  { -- | A list of SNS topic names that receive status messages from the
+    -- specified Directory ID.
+    eventTopics :: Prelude.Maybe [EventTopic],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeEventTopicsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeEventTopicsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'detrersEventTopics' - A list of SNS topic names that receive status messages from the specified Directory ID.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'detrersResponseStatus' - -- | The response status code.
-describeEventTopicsResponse ::
-  -- | 'detrersResponseStatus'
-  Int ->
+-- 'eventTopics', 'describeEventTopicsResponse_eventTopics' - A list of SNS topic names that receive status messages from the
+-- specified Directory ID.
+--
+-- 'httpStatus', 'describeEventTopicsResponse_httpStatus' - The response's http status code.
+newDescribeEventTopicsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeEventTopicsResponse
-describeEventTopicsResponse pResponseStatus_ =
+newDescribeEventTopicsResponse pHttpStatus_ =
   DescribeEventTopicsResponse'
-    { _detrersEventTopics =
-        Nothing,
-      _detrersResponseStatus = pResponseStatus_
+    { eventTopics =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A list of SNS topic names that receive status messages from the specified Directory ID.
-detrersEventTopics :: Lens' DescribeEventTopicsResponse [EventTopic]
-detrersEventTopics = lens _detrersEventTopics (\s a -> s {_detrersEventTopics = a}) . _Default . _Coerce
+-- | A list of SNS topic names that receive status messages from the
+-- specified Directory ID.
+describeEventTopicsResponse_eventTopics :: Lens.Lens' DescribeEventTopicsResponse (Prelude.Maybe [EventTopic])
+describeEventTopicsResponse_eventTopics = Lens.lens (\DescribeEventTopicsResponse' {eventTopics} -> eventTopics) (\s@DescribeEventTopicsResponse' {} a -> s {eventTopics = a} :: DescribeEventTopicsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-detrersResponseStatus :: Lens' DescribeEventTopicsResponse Int
-detrersResponseStatus = lens _detrersResponseStatus (\s a -> s {_detrersResponseStatus = a})
+-- | The response's http status code.
+describeEventTopicsResponse_httpStatus :: Lens.Lens' DescribeEventTopicsResponse Prelude.Int
+describeEventTopicsResponse_httpStatus = Lens.lens (\DescribeEventTopicsResponse' {httpStatus} -> httpStatus) (\s@DescribeEventTopicsResponse' {} a -> s {httpStatus = a} :: DescribeEventTopicsResponse)
 
-instance NFData DescribeEventTopicsResponse
+instance Prelude.NFData DescribeEventTopicsResponse

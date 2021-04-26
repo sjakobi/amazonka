@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -20,294 +24,369 @@ import Network.AWS.DirectoryService.Types.DirectoryEdition
 import Network.AWS.DirectoryService.Types.DirectorySize
 import Network.AWS.DirectoryService.Types.DirectoryStage
 import Network.AWS.DirectoryService.Types.DirectoryType
-import Network.AWS.DirectoryService.Types.DirectoryVPCSettingsDescription
+import Network.AWS.DirectoryService.Types.DirectoryVpcSettingsDescription
 import Network.AWS.DirectoryService.Types.OwnerDirectoryDescription
 import Network.AWS.DirectoryService.Types.RadiusSettings
 import Network.AWS.DirectoryService.Types.RadiusStatus
 import Network.AWS.DirectoryService.Types.RegionsInfo
 import Network.AWS.DirectoryService.Types.ShareMethod
 import Network.AWS.DirectoryService.Types.ShareStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains information about an AWS Directory Service directory.
 --
---
---
--- /See:/ 'directoryDescription' smart constructor.
+-- /See:/ 'newDirectoryDescription' smart constructor.
 data DirectoryDescription = DirectoryDescription'
-  { _ddRadiusStatus ::
-      !(Maybe RadiusStatus),
-    _ddAlias :: !(Maybe Text),
-    _ddShareNotes ::
-      !(Maybe (Sensitive Text)),
-    _ddConnectSettings ::
-      !( Maybe
-           DirectoryConnectSettingsDescription
-       ),
-    _ddVPCSettings ::
-      !( Maybe
-           DirectoryVPCSettingsDescription
-       ),
-    _ddStageReason ::
-      !(Maybe Text),
-    _ddLaunchTime ::
-      !(Maybe POSIX),
-    _ddRegionsInfo ::
-      !(Maybe RegionsInfo),
-    _ddShortName :: !(Maybe Text),
-    _ddShareMethod ::
-      !(Maybe ShareMethod),
-    _ddAccessURL :: !(Maybe Text),
-    _ddName :: !(Maybe Text),
-    _ddStage ::
-      !(Maybe DirectoryStage),
-    _ddEdition ::
-      !(Maybe DirectoryEdition),
-    _ddDirectoryId ::
-      !(Maybe Text),
-    _ddShareStatus ::
-      !(Maybe ShareStatus),
-    _ddOwnerDirectoryDescription ::
-      !( Maybe
-           OwnerDirectoryDescription
-       ),
-    _ddDescription ::
-      !(Maybe Text),
-    _ddType ::
-      !(Maybe DirectoryType),
-    _ddDNSIPAddrs ::
-      !(Maybe [Text]),
-    _ddRadiusSettings ::
-      !(Maybe RadiusSettings),
-    _ddDesiredNumberOfDomainControllers ::
-      !(Maybe Nat),
-    _ddSize ::
-      !(Maybe DirectorySize),
-    _ddStageLastUpdatedDateTime ::
-      !(Maybe POSIX),
-    _ddSSOEnabled ::
-      !(Maybe Bool)
+  { -- | The status of the RADIUS MFA server connection.
+    radiusStatus :: Prelude.Maybe RadiusStatus,
+    -- | The alias for the directory. If no alias has been created for the
+    -- directory, the alias is the directory identifier, such as
+    -- @d-XXXXXXXXXX@.
+    alias :: Prelude.Maybe Prelude.Text,
+    -- | A directory share request that is sent by the directory owner to the
+    -- directory consumer. The request includes a typed message to help the
+    -- directory consumer administrator determine whether to approve or reject
+    -- the share invitation.
+    shareNotes :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | A DirectoryConnectSettingsDescription object that contains additional
+    -- information about an AD Connector directory. This member is only present
+    -- if the directory is an AD Connector directory.
+    connectSettings :: Prelude.Maybe DirectoryConnectSettingsDescription,
+    -- | A DirectoryVpcSettingsDescription object that contains additional
+    -- information about a directory. This member is only present if the
+    -- directory is a Simple AD or Managed AD directory.
+    vpcSettings :: Prelude.Maybe DirectoryVpcSettingsDescription,
+    -- | Additional information about the directory stage.
+    stageReason :: Prelude.Maybe Prelude.Text,
+    -- | Specifies when the directory was created.
+    launchTime :: Prelude.Maybe Prelude.POSIX,
+    -- | Lists the Regions where the directory has replicated.
+    regionsInfo :: Prelude.Maybe RegionsInfo,
+    -- | The short name of the directory.
+    shortName :: Prelude.Maybe Prelude.Text,
+    -- | The method used when sharing a directory to determine whether the
+    -- directory should be shared within your AWS organization
+    -- (@ORGANIZATIONS@) or with any AWS account by sending a shared directory
+    -- request (@HANDSHAKE@).
+    shareMethod :: Prelude.Maybe ShareMethod,
+    -- | The access URL for the directory, such as
+    -- @http:\/\/\<alias>.awsapps.com@. If no alias has been created for the
+    -- directory, @\<alias>@ is the directory identifier, such as
+    -- @d-XXXXXXXXXX@.
+    accessUrl :: Prelude.Maybe Prelude.Text,
+    -- | The fully qualified name of the directory.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The current stage of the directory.
+    stage :: Prelude.Maybe DirectoryStage,
+    -- | The edition associated with this directory.
+    edition :: Prelude.Maybe DirectoryEdition,
+    -- | The directory identifier.
+    directoryId :: Prelude.Maybe Prelude.Text,
+    -- | Current directory status of the shared AWS Managed Microsoft AD
+    -- directory.
+    shareStatus :: Prelude.Maybe ShareStatus,
+    -- | Describes the AWS Managed Microsoft AD directory in the directory owner
+    -- account.
+    ownerDirectoryDescription :: Prelude.Maybe OwnerDirectoryDescription,
+    -- | The description for the directory.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The directory size.
+    type' :: Prelude.Maybe DirectoryType,
+    -- | The IP addresses of the DNS servers for the directory. For a Simple AD
+    -- or Microsoft AD directory, these are the IP addresses of the Simple AD
+    -- or Microsoft AD directory servers. For an AD Connector directory, these
+    -- are the IP addresses of the DNS servers or domain controllers in the
+    -- on-premises directory to which the AD Connector is connected.
+    dnsIpAddrs :: Prelude.Maybe [Prelude.Text],
+    -- | A RadiusSettings object that contains information about the RADIUS
+    -- server configured for this directory.
+    radiusSettings :: Prelude.Maybe RadiusSettings,
+    -- | The desired number of domain controllers in the directory if the
+    -- directory is Microsoft AD.
+    desiredNumberOfDomainControllers :: Prelude.Maybe Prelude.Nat,
+    -- | The directory size.
+    size :: Prelude.Maybe DirectorySize,
+    -- | The date and time that the stage was last updated.
+    stageLastUpdatedDateTime :: Prelude.Maybe Prelude.POSIX,
+    -- | Indicates if single sign-on is enabled for the directory. For more
+    -- information, see EnableSso and DisableSso.
+    ssoEnabled :: Prelude.Maybe Prelude.Bool
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DirectoryDescription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DirectoryDescription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddRadiusStatus' - The status of the RADIUS MFA server connection.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ddAlias' - The alias for the directory. If no alias has been created for the directory, the alias is the directory identifier, such as @d-XXXXXXXXXX@ .
+-- 'radiusStatus', 'directoryDescription_radiusStatus' - The status of the RADIUS MFA server connection.
 --
--- * 'ddShareNotes' - A directory share request that is sent by the directory owner to the directory consumer. The request includes a typed message to help the directory consumer administrator determine whether to approve or reject the share invitation.
+-- 'alias', 'directoryDescription_alias' - The alias for the directory. If no alias has been created for the
+-- directory, the alias is the directory identifier, such as
+-- @d-XXXXXXXXXX@.
 --
--- * 'ddConnectSettings' - A 'DirectoryConnectSettingsDescription' object that contains additional information about an AD Connector directory. This member is only present if the directory is an AD Connector directory.
+-- 'shareNotes', 'directoryDescription_shareNotes' - A directory share request that is sent by the directory owner to the
+-- directory consumer. The request includes a typed message to help the
+-- directory consumer administrator determine whether to approve or reject
+-- the share invitation.
 --
--- * 'ddVPCSettings' - A 'DirectoryVpcSettingsDescription' object that contains additional information about a directory. This member is only present if the directory is a Simple AD or Managed AD directory.
+-- 'connectSettings', 'directoryDescription_connectSettings' - A DirectoryConnectSettingsDescription object that contains additional
+-- information about an AD Connector directory. This member is only present
+-- if the directory is an AD Connector directory.
 --
--- * 'ddStageReason' - Additional information about the directory stage.
+-- 'vpcSettings', 'directoryDescription_vpcSettings' - A DirectoryVpcSettingsDescription object that contains additional
+-- information about a directory. This member is only present if the
+-- directory is a Simple AD or Managed AD directory.
 --
--- * 'ddLaunchTime' - Specifies when the directory was created.
+-- 'stageReason', 'directoryDescription_stageReason' - Additional information about the directory stage.
 --
--- * 'ddRegionsInfo' - Lists the Regions where the directory has replicated.
+-- 'launchTime', 'directoryDescription_launchTime' - Specifies when the directory was created.
 --
--- * 'ddShortName' - The short name of the directory.
+-- 'regionsInfo', 'directoryDescription_regionsInfo' - Lists the Regions where the directory has replicated.
 --
--- * 'ddShareMethod' - The method used when sharing a directory to determine whether the directory should be shared within your AWS organization (@ORGANIZATIONS@ ) or with any AWS account by sending a shared directory request (@HANDSHAKE@ ).
+-- 'shortName', 'directoryDescription_shortName' - The short name of the directory.
 --
--- * 'ddAccessURL' - The access URL for the directory, such as @http://<alias>.awsapps.com@ . If no alias has been created for the directory, @<alias>@ is the directory identifier, such as @d-XXXXXXXXXX@ .
+-- 'shareMethod', 'directoryDescription_shareMethod' - The method used when sharing a directory to determine whether the
+-- directory should be shared within your AWS organization
+-- (@ORGANIZATIONS@) or with any AWS account by sending a shared directory
+-- request (@HANDSHAKE@).
 --
--- * 'ddName' - The fully qualified name of the directory.
+-- 'accessUrl', 'directoryDescription_accessUrl' - The access URL for the directory, such as
+-- @http:\/\/\<alias>.awsapps.com@. If no alias has been created for the
+-- directory, @\<alias>@ is the directory identifier, such as
+-- @d-XXXXXXXXXX@.
 --
--- * 'ddStage' - The current stage of the directory.
+-- 'name', 'directoryDescription_name' - The fully qualified name of the directory.
 --
--- * 'ddEdition' - The edition associated with this directory.
+-- 'stage', 'directoryDescription_stage' - The current stage of the directory.
 --
--- * 'ddDirectoryId' - The directory identifier.
+-- 'edition', 'directoryDescription_edition' - The edition associated with this directory.
 --
--- * 'ddShareStatus' - Current directory status of the shared AWS Managed Microsoft AD directory.
+-- 'directoryId', 'directoryDescription_directoryId' - The directory identifier.
 --
--- * 'ddOwnerDirectoryDescription' - Describes the AWS Managed Microsoft AD directory in the directory owner account.
+-- 'shareStatus', 'directoryDescription_shareStatus' - Current directory status of the shared AWS Managed Microsoft AD
+-- directory.
 --
--- * 'ddDescription' - The description for the directory.
+-- 'ownerDirectoryDescription', 'directoryDescription_ownerDirectoryDescription' - Describes the AWS Managed Microsoft AD directory in the directory owner
+-- account.
 --
--- * 'ddType' - The directory size.
+-- 'description', 'directoryDescription_description' - The description for the directory.
 --
--- * 'ddDNSIPAddrs' - The IP addresses of the DNS servers for the directory. For a Simple AD or Microsoft AD directory, these are the IP addresses of the Simple AD or Microsoft AD directory servers. For an AD Connector directory, these are the IP addresses of the DNS servers or domain controllers in the on-premises directory to which the AD Connector is connected.
+-- 'type'', 'directoryDescription_type' - The directory size.
 --
--- * 'ddRadiusSettings' - A 'RadiusSettings' object that contains information about the RADIUS server configured for this directory.
+-- 'dnsIpAddrs', 'directoryDescription_dnsIpAddrs' - The IP addresses of the DNS servers for the directory. For a Simple AD
+-- or Microsoft AD directory, these are the IP addresses of the Simple AD
+-- or Microsoft AD directory servers. For an AD Connector directory, these
+-- are the IP addresses of the DNS servers or domain controllers in the
+-- on-premises directory to which the AD Connector is connected.
 --
--- * 'ddDesiredNumberOfDomainControllers' - The desired number of domain controllers in the directory if the directory is Microsoft AD.
+-- 'radiusSettings', 'directoryDescription_radiusSettings' - A RadiusSettings object that contains information about the RADIUS
+-- server configured for this directory.
 --
--- * 'ddSize' - The directory size.
+-- 'desiredNumberOfDomainControllers', 'directoryDescription_desiredNumberOfDomainControllers' - The desired number of domain controllers in the directory if the
+-- directory is Microsoft AD.
 --
--- * 'ddStageLastUpdatedDateTime' - The date and time that the stage was last updated.
+-- 'size', 'directoryDescription_size' - The directory size.
 --
--- * 'ddSSOEnabled' - Indicates if single sign-on is enabled for the directory. For more information, see 'EnableSso' and 'DisableSso' .
-directoryDescription ::
+-- 'stageLastUpdatedDateTime', 'directoryDescription_stageLastUpdatedDateTime' - The date and time that the stage was last updated.
+--
+-- 'ssoEnabled', 'directoryDescription_ssoEnabled' - Indicates if single sign-on is enabled for the directory. For more
+-- information, see EnableSso and DisableSso.
+newDirectoryDescription ::
   DirectoryDescription
-directoryDescription =
+newDirectoryDescription =
   DirectoryDescription'
-    { _ddRadiusStatus = Nothing,
-      _ddAlias = Nothing,
-      _ddShareNotes = Nothing,
-      _ddConnectSettings = Nothing,
-      _ddVPCSettings = Nothing,
-      _ddStageReason = Nothing,
-      _ddLaunchTime = Nothing,
-      _ddRegionsInfo = Nothing,
-      _ddShortName = Nothing,
-      _ddShareMethod = Nothing,
-      _ddAccessURL = Nothing,
-      _ddName = Nothing,
-      _ddStage = Nothing,
-      _ddEdition = Nothing,
-      _ddDirectoryId = Nothing,
-      _ddShareStatus = Nothing,
-      _ddOwnerDirectoryDescription = Nothing,
-      _ddDescription = Nothing,
-      _ddType = Nothing,
-      _ddDNSIPAddrs = Nothing,
-      _ddRadiusSettings = Nothing,
-      _ddDesiredNumberOfDomainControllers = Nothing,
-      _ddSize = Nothing,
-      _ddStageLastUpdatedDateTime = Nothing,
-      _ddSSOEnabled = Nothing
+    { radiusStatus =
+        Prelude.Nothing,
+      alias = Prelude.Nothing,
+      shareNotes = Prelude.Nothing,
+      connectSettings = Prelude.Nothing,
+      vpcSettings = Prelude.Nothing,
+      stageReason = Prelude.Nothing,
+      launchTime = Prelude.Nothing,
+      regionsInfo = Prelude.Nothing,
+      shortName = Prelude.Nothing,
+      shareMethod = Prelude.Nothing,
+      accessUrl = Prelude.Nothing,
+      name = Prelude.Nothing,
+      stage = Prelude.Nothing,
+      edition = Prelude.Nothing,
+      directoryId = Prelude.Nothing,
+      shareStatus = Prelude.Nothing,
+      ownerDirectoryDescription = Prelude.Nothing,
+      description = Prelude.Nothing,
+      type' = Prelude.Nothing,
+      dnsIpAddrs = Prelude.Nothing,
+      radiusSettings = Prelude.Nothing,
+      desiredNumberOfDomainControllers = Prelude.Nothing,
+      size = Prelude.Nothing,
+      stageLastUpdatedDateTime = Prelude.Nothing,
+      ssoEnabled = Prelude.Nothing
     }
 
 -- | The status of the RADIUS MFA server connection.
-ddRadiusStatus :: Lens' DirectoryDescription (Maybe RadiusStatus)
-ddRadiusStatus = lens _ddRadiusStatus (\s a -> s {_ddRadiusStatus = a})
+directoryDescription_radiusStatus :: Lens.Lens' DirectoryDescription (Prelude.Maybe RadiusStatus)
+directoryDescription_radiusStatus = Lens.lens (\DirectoryDescription' {radiusStatus} -> radiusStatus) (\s@DirectoryDescription' {} a -> s {radiusStatus = a} :: DirectoryDescription)
 
--- | The alias for the directory. If no alias has been created for the directory, the alias is the directory identifier, such as @d-XXXXXXXXXX@ .
-ddAlias :: Lens' DirectoryDescription (Maybe Text)
-ddAlias = lens _ddAlias (\s a -> s {_ddAlias = a})
+-- | The alias for the directory. If no alias has been created for the
+-- directory, the alias is the directory identifier, such as
+-- @d-XXXXXXXXXX@.
+directoryDescription_alias :: Lens.Lens' DirectoryDescription (Prelude.Maybe Prelude.Text)
+directoryDescription_alias = Lens.lens (\DirectoryDescription' {alias} -> alias) (\s@DirectoryDescription' {} a -> s {alias = a} :: DirectoryDescription)
 
--- | A directory share request that is sent by the directory owner to the directory consumer. The request includes a typed message to help the directory consumer administrator determine whether to approve or reject the share invitation.
-ddShareNotes :: Lens' DirectoryDescription (Maybe Text)
-ddShareNotes = lens _ddShareNotes (\s a -> s {_ddShareNotes = a}) . mapping _Sensitive
+-- | A directory share request that is sent by the directory owner to the
+-- directory consumer. The request includes a typed message to help the
+-- directory consumer administrator determine whether to approve or reject
+-- the share invitation.
+directoryDescription_shareNotes :: Lens.Lens' DirectoryDescription (Prelude.Maybe Prelude.Text)
+directoryDescription_shareNotes = Lens.lens (\DirectoryDescription' {shareNotes} -> shareNotes) (\s@DirectoryDescription' {} a -> s {shareNotes = a} :: DirectoryDescription) Prelude.. Lens.mapping Prelude._Sensitive
 
--- | A 'DirectoryConnectSettingsDescription' object that contains additional information about an AD Connector directory. This member is only present if the directory is an AD Connector directory.
-ddConnectSettings :: Lens' DirectoryDescription (Maybe DirectoryConnectSettingsDescription)
-ddConnectSettings = lens _ddConnectSettings (\s a -> s {_ddConnectSettings = a})
+-- | A DirectoryConnectSettingsDescription object that contains additional
+-- information about an AD Connector directory. This member is only present
+-- if the directory is an AD Connector directory.
+directoryDescription_connectSettings :: Lens.Lens' DirectoryDescription (Prelude.Maybe DirectoryConnectSettingsDescription)
+directoryDescription_connectSettings = Lens.lens (\DirectoryDescription' {connectSettings} -> connectSettings) (\s@DirectoryDescription' {} a -> s {connectSettings = a} :: DirectoryDescription)
 
--- | A 'DirectoryVpcSettingsDescription' object that contains additional information about a directory. This member is only present if the directory is a Simple AD or Managed AD directory.
-ddVPCSettings :: Lens' DirectoryDescription (Maybe DirectoryVPCSettingsDescription)
-ddVPCSettings = lens _ddVPCSettings (\s a -> s {_ddVPCSettings = a})
+-- | A DirectoryVpcSettingsDescription object that contains additional
+-- information about a directory. This member is only present if the
+-- directory is a Simple AD or Managed AD directory.
+directoryDescription_vpcSettings :: Lens.Lens' DirectoryDescription (Prelude.Maybe DirectoryVpcSettingsDescription)
+directoryDescription_vpcSettings = Lens.lens (\DirectoryDescription' {vpcSettings} -> vpcSettings) (\s@DirectoryDescription' {} a -> s {vpcSettings = a} :: DirectoryDescription)
 
 -- | Additional information about the directory stage.
-ddStageReason :: Lens' DirectoryDescription (Maybe Text)
-ddStageReason = lens _ddStageReason (\s a -> s {_ddStageReason = a})
+directoryDescription_stageReason :: Lens.Lens' DirectoryDescription (Prelude.Maybe Prelude.Text)
+directoryDescription_stageReason = Lens.lens (\DirectoryDescription' {stageReason} -> stageReason) (\s@DirectoryDescription' {} a -> s {stageReason = a} :: DirectoryDescription)
 
 -- | Specifies when the directory was created.
-ddLaunchTime :: Lens' DirectoryDescription (Maybe UTCTime)
-ddLaunchTime = lens _ddLaunchTime (\s a -> s {_ddLaunchTime = a}) . mapping _Time
+directoryDescription_launchTime :: Lens.Lens' DirectoryDescription (Prelude.Maybe Prelude.UTCTime)
+directoryDescription_launchTime = Lens.lens (\DirectoryDescription' {launchTime} -> launchTime) (\s@DirectoryDescription' {} a -> s {launchTime = a} :: DirectoryDescription) Prelude.. Lens.mapping Prelude._Time
 
 -- | Lists the Regions where the directory has replicated.
-ddRegionsInfo :: Lens' DirectoryDescription (Maybe RegionsInfo)
-ddRegionsInfo = lens _ddRegionsInfo (\s a -> s {_ddRegionsInfo = a})
+directoryDescription_regionsInfo :: Lens.Lens' DirectoryDescription (Prelude.Maybe RegionsInfo)
+directoryDescription_regionsInfo = Lens.lens (\DirectoryDescription' {regionsInfo} -> regionsInfo) (\s@DirectoryDescription' {} a -> s {regionsInfo = a} :: DirectoryDescription)
 
 -- | The short name of the directory.
-ddShortName :: Lens' DirectoryDescription (Maybe Text)
-ddShortName = lens _ddShortName (\s a -> s {_ddShortName = a})
+directoryDescription_shortName :: Lens.Lens' DirectoryDescription (Prelude.Maybe Prelude.Text)
+directoryDescription_shortName = Lens.lens (\DirectoryDescription' {shortName} -> shortName) (\s@DirectoryDescription' {} a -> s {shortName = a} :: DirectoryDescription)
 
--- | The method used when sharing a directory to determine whether the directory should be shared within your AWS organization (@ORGANIZATIONS@ ) or with any AWS account by sending a shared directory request (@HANDSHAKE@ ).
-ddShareMethod :: Lens' DirectoryDescription (Maybe ShareMethod)
-ddShareMethod = lens _ddShareMethod (\s a -> s {_ddShareMethod = a})
+-- | The method used when sharing a directory to determine whether the
+-- directory should be shared within your AWS organization
+-- (@ORGANIZATIONS@) or with any AWS account by sending a shared directory
+-- request (@HANDSHAKE@).
+directoryDescription_shareMethod :: Lens.Lens' DirectoryDescription (Prelude.Maybe ShareMethod)
+directoryDescription_shareMethod = Lens.lens (\DirectoryDescription' {shareMethod} -> shareMethod) (\s@DirectoryDescription' {} a -> s {shareMethod = a} :: DirectoryDescription)
 
--- | The access URL for the directory, such as @http://<alias>.awsapps.com@ . If no alias has been created for the directory, @<alias>@ is the directory identifier, such as @d-XXXXXXXXXX@ .
-ddAccessURL :: Lens' DirectoryDescription (Maybe Text)
-ddAccessURL = lens _ddAccessURL (\s a -> s {_ddAccessURL = a})
+-- | The access URL for the directory, such as
+-- @http:\/\/\<alias>.awsapps.com@. If no alias has been created for the
+-- directory, @\<alias>@ is the directory identifier, such as
+-- @d-XXXXXXXXXX@.
+directoryDescription_accessUrl :: Lens.Lens' DirectoryDescription (Prelude.Maybe Prelude.Text)
+directoryDescription_accessUrl = Lens.lens (\DirectoryDescription' {accessUrl} -> accessUrl) (\s@DirectoryDescription' {} a -> s {accessUrl = a} :: DirectoryDescription)
 
 -- | The fully qualified name of the directory.
-ddName :: Lens' DirectoryDescription (Maybe Text)
-ddName = lens _ddName (\s a -> s {_ddName = a})
+directoryDescription_name :: Lens.Lens' DirectoryDescription (Prelude.Maybe Prelude.Text)
+directoryDescription_name = Lens.lens (\DirectoryDescription' {name} -> name) (\s@DirectoryDescription' {} a -> s {name = a} :: DirectoryDescription)
 
 -- | The current stage of the directory.
-ddStage :: Lens' DirectoryDescription (Maybe DirectoryStage)
-ddStage = lens _ddStage (\s a -> s {_ddStage = a})
+directoryDescription_stage :: Lens.Lens' DirectoryDescription (Prelude.Maybe DirectoryStage)
+directoryDescription_stage = Lens.lens (\DirectoryDescription' {stage} -> stage) (\s@DirectoryDescription' {} a -> s {stage = a} :: DirectoryDescription)
 
 -- | The edition associated with this directory.
-ddEdition :: Lens' DirectoryDescription (Maybe DirectoryEdition)
-ddEdition = lens _ddEdition (\s a -> s {_ddEdition = a})
+directoryDescription_edition :: Lens.Lens' DirectoryDescription (Prelude.Maybe DirectoryEdition)
+directoryDescription_edition = Lens.lens (\DirectoryDescription' {edition} -> edition) (\s@DirectoryDescription' {} a -> s {edition = a} :: DirectoryDescription)
 
 -- | The directory identifier.
-ddDirectoryId :: Lens' DirectoryDescription (Maybe Text)
-ddDirectoryId = lens _ddDirectoryId (\s a -> s {_ddDirectoryId = a})
+directoryDescription_directoryId :: Lens.Lens' DirectoryDescription (Prelude.Maybe Prelude.Text)
+directoryDescription_directoryId = Lens.lens (\DirectoryDescription' {directoryId} -> directoryId) (\s@DirectoryDescription' {} a -> s {directoryId = a} :: DirectoryDescription)
 
--- | Current directory status of the shared AWS Managed Microsoft AD directory.
-ddShareStatus :: Lens' DirectoryDescription (Maybe ShareStatus)
-ddShareStatus = lens _ddShareStatus (\s a -> s {_ddShareStatus = a})
+-- | Current directory status of the shared AWS Managed Microsoft AD
+-- directory.
+directoryDescription_shareStatus :: Lens.Lens' DirectoryDescription (Prelude.Maybe ShareStatus)
+directoryDescription_shareStatus = Lens.lens (\DirectoryDescription' {shareStatus} -> shareStatus) (\s@DirectoryDescription' {} a -> s {shareStatus = a} :: DirectoryDescription)
 
--- | Describes the AWS Managed Microsoft AD directory in the directory owner account.
-ddOwnerDirectoryDescription :: Lens' DirectoryDescription (Maybe OwnerDirectoryDescription)
-ddOwnerDirectoryDescription = lens _ddOwnerDirectoryDescription (\s a -> s {_ddOwnerDirectoryDescription = a})
+-- | Describes the AWS Managed Microsoft AD directory in the directory owner
+-- account.
+directoryDescription_ownerDirectoryDescription :: Lens.Lens' DirectoryDescription (Prelude.Maybe OwnerDirectoryDescription)
+directoryDescription_ownerDirectoryDescription = Lens.lens (\DirectoryDescription' {ownerDirectoryDescription} -> ownerDirectoryDescription) (\s@DirectoryDescription' {} a -> s {ownerDirectoryDescription = a} :: DirectoryDescription)
 
 -- | The description for the directory.
-ddDescription :: Lens' DirectoryDescription (Maybe Text)
-ddDescription = lens _ddDescription (\s a -> s {_ddDescription = a})
+directoryDescription_description :: Lens.Lens' DirectoryDescription (Prelude.Maybe Prelude.Text)
+directoryDescription_description = Lens.lens (\DirectoryDescription' {description} -> description) (\s@DirectoryDescription' {} a -> s {description = a} :: DirectoryDescription)
 
 -- | The directory size.
-ddType :: Lens' DirectoryDescription (Maybe DirectoryType)
-ddType = lens _ddType (\s a -> s {_ddType = a})
+directoryDescription_type :: Lens.Lens' DirectoryDescription (Prelude.Maybe DirectoryType)
+directoryDescription_type = Lens.lens (\DirectoryDescription' {type'} -> type') (\s@DirectoryDescription' {} a -> s {type' = a} :: DirectoryDescription)
 
--- | The IP addresses of the DNS servers for the directory. For a Simple AD or Microsoft AD directory, these are the IP addresses of the Simple AD or Microsoft AD directory servers. For an AD Connector directory, these are the IP addresses of the DNS servers or domain controllers in the on-premises directory to which the AD Connector is connected.
-ddDNSIPAddrs :: Lens' DirectoryDescription [Text]
-ddDNSIPAddrs = lens _ddDNSIPAddrs (\s a -> s {_ddDNSIPAddrs = a}) . _Default . _Coerce
+-- | The IP addresses of the DNS servers for the directory. For a Simple AD
+-- or Microsoft AD directory, these are the IP addresses of the Simple AD
+-- or Microsoft AD directory servers. For an AD Connector directory, these
+-- are the IP addresses of the DNS servers or domain controllers in the
+-- on-premises directory to which the AD Connector is connected.
+directoryDescription_dnsIpAddrs :: Lens.Lens' DirectoryDescription (Prelude.Maybe [Prelude.Text])
+directoryDescription_dnsIpAddrs = Lens.lens (\DirectoryDescription' {dnsIpAddrs} -> dnsIpAddrs) (\s@DirectoryDescription' {} a -> s {dnsIpAddrs = a} :: DirectoryDescription) Prelude.. Lens.mapping Prelude._Coerce
 
--- | A 'RadiusSettings' object that contains information about the RADIUS server configured for this directory.
-ddRadiusSettings :: Lens' DirectoryDescription (Maybe RadiusSettings)
-ddRadiusSettings = lens _ddRadiusSettings (\s a -> s {_ddRadiusSettings = a})
+-- | A RadiusSettings object that contains information about the RADIUS
+-- server configured for this directory.
+directoryDescription_radiusSettings :: Lens.Lens' DirectoryDescription (Prelude.Maybe RadiusSettings)
+directoryDescription_radiusSettings = Lens.lens (\DirectoryDescription' {radiusSettings} -> radiusSettings) (\s@DirectoryDescription' {} a -> s {radiusSettings = a} :: DirectoryDescription)
 
--- | The desired number of domain controllers in the directory if the directory is Microsoft AD.
-ddDesiredNumberOfDomainControllers :: Lens' DirectoryDescription (Maybe Natural)
-ddDesiredNumberOfDomainControllers = lens _ddDesiredNumberOfDomainControllers (\s a -> s {_ddDesiredNumberOfDomainControllers = a}) . mapping _Nat
+-- | The desired number of domain controllers in the directory if the
+-- directory is Microsoft AD.
+directoryDescription_desiredNumberOfDomainControllers :: Lens.Lens' DirectoryDescription (Prelude.Maybe Prelude.Natural)
+directoryDescription_desiredNumberOfDomainControllers = Lens.lens (\DirectoryDescription' {desiredNumberOfDomainControllers} -> desiredNumberOfDomainControllers) (\s@DirectoryDescription' {} a -> s {desiredNumberOfDomainControllers = a} :: DirectoryDescription) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The directory size.
-ddSize :: Lens' DirectoryDescription (Maybe DirectorySize)
-ddSize = lens _ddSize (\s a -> s {_ddSize = a})
+directoryDescription_size :: Lens.Lens' DirectoryDescription (Prelude.Maybe DirectorySize)
+directoryDescription_size = Lens.lens (\DirectoryDescription' {size} -> size) (\s@DirectoryDescription' {} a -> s {size = a} :: DirectoryDescription)
 
 -- | The date and time that the stage was last updated.
-ddStageLastUpdatedDateTime :: Lens' DirectoryDescription (Maybe UTCTime)
-ddStageLastUpdatedDateTime = lens _ddStageLastUpdatedDateTime (\s a -> s {_ddStageLastUpdatedDateTime = a}) . mapping _Time
+directoryDescription_stageLastUpdatedDateTime :: Lens.Lens' DirectoryDescription (Prelude.Maybe Prelude.UTCTime)
+directoryDescription_stageLastUpdatedDateTime = Lens.lens (\DirectoryDescription' {stageLastUpdatedDateTime} -> stageLastUpdatedDateTime) (\s@DirectoryDescription' {} a -> s {stageLastUpdatedDateTime = a} :: DirectoryDescription) Prelude.. Lens.mapping Prelude._Time
 
--- | Indicates if single sign-on is enabled for the directory. For more information, see 'EnableSso' and 'DisableSso' .
-ddSSOEnabled :: Lens' DirectoryDescription (Maybe Bool)
-ddSSOEnabled = lens _ddSSOEnabled (\s a -> s {_ddSSOEnabled = a})
+-- | Indicates if single sign-on is enabled for the directory. For more
+-- information, see EnableSso and DisableSso.
+directoryDescription_ssoEnabled :: Lens.Lens' DirectoryDescription (Prelude.Maybe Prelude.Bool)
+directoryDescription_ssoEnabled = Lens.lens (\DirectoryDescription' {ssoEnabled} -> ssoEnabled) (\s@DirectoryDescription' {} a -> s {ssoEnabled = a} :: DirectoryDescription)
 
-instance FromJSON DirectoryDescription where
+instance Prelude.FromJSON DirectoryDescription where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DirectoryDescription"
       ( \x ->
           DirectoryDescription'
-            <$> (x .:? "RadiusStatus")
-            <*> (x .:? "Alias")
-            <*> (x .:? "ShareNotes")
-            <*> (x .:? "ConnectSettings")
-            <*> (x .:? "VpcSettings")
-            <*> (x .:? "StageReason")
-            <*> (x .:? "LaunchTime")
-            <*> (x .:? "RegionsInfo")
-            <*> (x .:? "ShortName")
-            <*> (x .:? "ShareMethod")
-            <*> (x .:? "AccessUrl")
-            <*> (x .:? "Name")
-            <*> (x .:? "Stage")
-            <*> (x .:? "Edition")
-            <*> (x .:? "DirectoryId")
-            <*> (x .:? "ShareStatus")
-            <*> (x .:? "OwnerDirectoryDescription")
-            <*> (x .:? "Description")
-            <*> (x .:? "Type")
-            <*> (x .:? "DnsIpAddrs" .!= mempty)
-            <*> (x .:? "RadiusSettings")
-            <*> (x .:? "DesiredNumberOfDomainControllers")
-            <*> (x .:? "Size")
-            <*> (x .:? "StageLastUpdatedDateTime")
-            <*> (x .:? "SsoEnabled")
+            Prelude.<$> (x Prelude..:? "RadiusStatus")
+            Prelude.<*> (x Prelude..:? "Alias")
+            Prelude.<*> (x Prelude..:? "ShareNotes")
+            Prelude.<*> (x Prelude..:? "ConnectSettings")
+            Prelude.<*> (x Prelude..:? "VpcSettings")
+            Prelude.<*> (x Prelude..:? "StageReason")
+            Prelude.<*> (x Prelude..:? "LaunchTime")
+            Prelude.<*> (x Prelude..:? "RegionsInfo")
+            Prelude.<*> (x Prelude..:? "ShortName")
+            Prelude.<*> (x Prelude..:? "ShareMethod")
+            Prelude.<*> (x Prelude..:? "AccessUrl")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "Stage")
+            Prelude.<*> (x Prelude..:? "Edition")
+            Prelude.<*> (x Prelude..:? "DirectoryId")
+            Prelude.<*> (x Prelude..:? "ShareStatus")
+            Prelude.<*> (x Prelude..:? "OwnerDirectoryDescription")
+            Prelude.<*> (x Prelude..:? "Description")
+            Prelude.<*> (x Prelude..:? "Type")
+            Prelude.<*> ( x Prelude..:? "DnsIpAddrs"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "RadiusSettings")
+            Prelude.<*> (x Prelude..:? "DesiredNumberOfDomainControllers")
+            Prelude.<*> (x Prelude..:? "Size")
+            Prelude.<*> (x Prelude..:? "StageLastUpdatedDateTime")
+            Prelude.<*> (x Prelude..:? "SsoEnabled")
       )
 
-instance Hashable DirectoryDescription
+instance Prelude.Hashable DirectoryDescription
 
-instance NFData DirectoryDescription
+instance Prelude.NFData DirectoryDescription

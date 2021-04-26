@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.DirectoryService.Types.SelectiveAuth
   ( SelectiveAuth
       ( ..,
-        Disabled,
-        Enabled
+        SelectiveAuthDisabled,
+        SelectiveAuthEnabled
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SelectiveAuth = SelectiveAuth' (CI Text)
+newtype SelectiveAuth = SelectiveAuth'
+  { fromSelectiveAuth ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Disabled :: SelectiveAuth
-pattern Disabled = SelectiveAuth' "Disabled"
+pattern SelectiveAuthDisabled :: SelectiveAuth
+pattern SelectiveAuthDisabled = SelectiveAuth' "Disabled"
 
-pattern Enabled :: SelectiveAuth
-pattern Enabled = SelectiveAuth' "Enabled"
+pattern SelectiveAuthEnabled :: SelectiveAuth
+pattern SelectiveAuthEnabled = SelectiveAuth' "Enabled"
 
 {-# COMPLETE
-  Disabled,
-  Enabled,
+  SelectiveAuthDisabled,
+  SelectiveAuthEnabled,
   SelectiveAuth'
   #-}
 
-instance FromText SelectiveAuth where
-  parser = (SelectiveAuth' . mk) <$> takeText
+instance Prelude.FromText SelectiveAuth where
+  parser = SelectiveAuth' Prelude.<$> Prelude.takeText
 
-instance ToText SelectiveAuth where
-  toText (SelectiveAuth' ci) = original ci
+instance Prelude.ToText SelectiveAuth where
+  toText (SelectiveAuth' x) = x
 
-instance Hashable SelectiveAuth
+instance Prelude.Hashable SelectiveAuth
 
-instance NFData SelectiveAuth
+instance Prelude.NFData SelectiveAuth
 
-instance ToByteString SelectiveAuth
+instance Prelude.ToByteString SelectiveAuth
 
-instance ToQuery SelectiveAuth
+instance Prelude.ToQuery SelectiveAuth
 
-instance ToHeader SelectiveAuth
+instance Prelude.ToHeader SelectiveAuth
 
-instance ToJSON SelectiveAuth where
-  toJSON = toJSONText
+instance Prelude.ToJSON SelectiveAuth where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON SelectiveAuth where
-  parseJSON = parseJSONText "SelectiveAuth"
+instance Prelude.FromJSON SelectiveAuth where
+  parseJSON = Prelude.parseJSONText "SelectiveAuth"

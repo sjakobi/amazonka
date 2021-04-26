@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,131 +24,128 @@
 -- Deletes the specified log subscription.
 module Network.AWS.DirectoryService.DeleteLogSubscription
   ( -- * Creating a Request
-    deleteLogSubscription,
-    DeleteLogSubscription,
+    DeleteLogSubscription (..),
+    newDeleteLogSubscription,
 
     -- * Request Lenses
-    dlsDirectoryId,
+    deleteLogSubscription_directoryId,
 
     -- * Destructuring the Response
-    deleteLogSubscriptionResponse,
-    DeleteLogSubscriptionResponse,
+    DeleteLogSubscriptionResponse (..),
+    newDeleteLogSubscriptionResponse,
 
     -- * Response Lenses
-    dlsrrsResponseStatus,
+    deleteLogSubscriptionResponse_httpStatus,
   )
 where
 
 import Network.AWS.DirectoryService.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteLogSubscription' smart constructor.
-newtype DeleteLogSubscription = DeleteLogSubscription'
-  { _dlsDirectoryId ::
-      Text
+-- | /See:/ 'newDeleteLogSubscription' smart constructor.
+data DeleteLogSubscription = DeleteLogSubscription'
+  { -- | Identifier of the directory whose log subscription you want to delete.
+    directoryId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteLogSubscription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteLogSubscription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dlsDirectoryId' - Identifier of the directory whose log subscription you want to delete.
-deleteLogSubscription ::
-  -- | 'dlsDirectoryId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'directoryId', 'deleteLogSubscription_directoryId' - Identifier of the directory whose log subscription you want to delete.
+newDeleteLogSubscription ::
+  -- | 'directoryId'
+  Prelude.Text ->
   DeleteLogSubscription
-deleteLogSubscription pDirectoryId_ =
-  DeleteLogSubscription'
-    { _dlsDirectoryId =
-        pDirectoryId_
-    }
+newDeleteLogSubscription pDirectoryId_ =
+  DeleteLogSubscription' {directoryId = pDirectoryId_}
 
 -- | Identifier of the directory whose log subscription you want to delete.
-dlsDirectoryId :: Lens' DeleteLogSubscription Text
-dlsDirectoryId = lens _dlsDirectoryId (\s a -> s {_dlsDirectoryId = a})
+deleteLogSubscription_directoryId :: Lens.Lens' DeleteLogSubscription Prelude.Text
+deleteLogSubscription_directoryId = Lens.lens (\DeleteLogSubscription' {directoryId} -> directoryId) (\s@DeleteLogSubscription' {} a -> s {directoryId = a} :: DeleteLogSubscription)
 
-instance AWSRequest DeleteLogSubscription where
+instance Prelude.AWSRequest DeleteLogSubscription where
   type
     Rs DeleteLogSubscription =
       DeleteLogSubscriptionResponse
-  request = postJSON directoryService
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           DeleteLogSubscriptionResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteLogSubscription
+instance Prelude.Hashable DeleteLogSubscription
 
-instance NFData DeleteLogSubscription
+instance Prelude.NFData DeleteLogSubscription
 
-instance ToHeaders DeleteLogSubscription where
+instance Prelude.ToHeaders DeleteLogSubscription where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "DirectoryService_20150416.DeleteLogSubscription" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "DirectoryService_20150416.DeleteLogSubscription" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteLogSubscription where
+instance Prelude.ToJSON DeleteLogSubscription where
   toJSON DeleteLogSubscription' {..} =
-    object
-      (catMaybes [Just ("DirectoryId" .= _dlsDirectoryId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("DirectoryId" Prelude..= directoryId)
+          ]
+      )
 
-instance ToPath DeleteLogSubscription where
-  toPath = const "/"
+instance Prelude.ToPath DeleteLogSubscription where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteLogSubscription where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteLogSubscription where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteLogSubscriptionResponse' smart constructor.
-newtype DeleteLogSubscriptionResponse = DeleteLogSubscriptionResponse'
-  { _dlsrrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteLogSubscriptionResponse' smart constructor.
+data DeleteLogSubscriptionResponse = DeleteLogSubscriptionResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteLogSubscriptionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteLogSubscriptionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dlsrrsResponseStatus' - -- | The response status code.
-deleteLogSubscriptionResponse ::
-  -- | 'dlsrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteLogSubscriptionResponse_httpStatus' - The response's http status code.
+newDeleteLogSubscriptionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteLogSubscriptionResponse
-deleteLogSubscriptionResponse pResponseStatus_ =
+newDeleteLogSubscriptionResponse pHttpStatus_ =
   DeleteLogSubscriptionResponse'
-    { _dlsrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-dlsrrsResponseStatus :: Lens' DeleteLogSubscriptionResponse Int
-dlsrrsResponseStatus = lens _dlsrrsResponseStatus (\s a -> s {_dlsrrsResponseStatus = a})
+-- | The response's http status code.
+deleteLogSubscriptionResponse_httpStatus :: Lens.Lens' DeleteLogSubscriptionResponse Prelude.Int
+deleteLogSubscriptionResponse_httpStatus = Lens.lens (\DeleteLogSubscriptionResponse' {httpStatus} -> httpStatus) (\s@DeleteLogSubscriptionResponse' {} a -> s {httpStatus = a} :: DeleteLogSubscriptionResponse)
 
-instance NFData DeleteLogSubscriptionResponse
+instance Prelude.NFData DeleteLogSubscriptionResponse

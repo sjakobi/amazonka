@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,128 +20,138 @@
 module Network.AWS.DirectoryService.Types.DomainController where
 
 import Network.AWS.DirectoryService.Types.DomainControllerStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains information about the domain controllers for a specified directory.
+-- | Contains information about the domain controllers for a specified
+-- directory.
 --
---
---
--- /See:/ 'domainController' smart constructor.
+-- /See:/ 'newDomainController' smart constructor.
 data DomainController = DomainController'
-  { _dcStatus ::
-      !(Maybe DomainControllerStatus),
-    _dcDNSIPAddr :: !(Maybe Text),
-    _dcLaunchTime :: !(Maybe POSIX),
-    _dcStatusLastUpdatedDateTime ::
-      !(Maybe POSIX),
-    _dcAvailabilityZone :: !(Maybe Text),
-    _dcDirectoryId :: !(Maybe Text),
-    _dcDomainControllerId ::
-      !(Maybe Text),
-    _dcSubnetId :: !(Maybe Text),
-    _dcVPCId :: !(Maybe Text),
-    _dcStatusReason :: !(Maybe Text)
+  { -- | The status of the domain controller.
+    status :: Prelude.Maybe DomainControllerStatus,
+    -- | The IP address of the domain controller.
+    dnsIpAddr :: Prelude.Maybe Prelude.Text,
+    -- | Specifies when the domain controller was created.
+    launchTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The date and time that the status was last updated.
+    statusLastUpdatedDateTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The Availability Zone where the domain controller is located.
+    availabilityZone :: Prelude.Maybe Prelude.Text,
+    -- | Identifier of the directory where the domain controller resides.
+    directoryId :: Prelude.Maybe Prelude.Text,
+    -- | Identifies a specific domain controller in the directory.
+    domainControllerId :: Prelude.Maybe Prelude.Text,
+    -- | Identifier of the subnet in the VPC that contains the domain controller.
+    subnetId :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the VPC that contains the domain controller.
+    vpcId :: Prelude.Maybe Prelude.Text,
+    -- | A description of the domain controller state.
+    statusReason :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DomainController' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DomainController' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcStatus' - The status of the domain controller.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcDNSIPAddr' - The IP address of the domain controller.
+-- 'status', 'domainController_status' - The status of the domain controller.
 --
--- * 'dcLaunchTime' - Specifies when the domain controller was created.
+-- 'dnsIpAddr', 'domainController_dnsIpAddr' - The IP address of the domain controller.
 --
--- * 'dcStatusLastUpdatedDateTime' - The date and time that the status was last updated.
+-- 'launchTime', 'domainController_launchTime' - Specifies when the domain controller was created.
 --
--- * 'dcAvailabilityZone' - The Availability Zone where the domain controller is located.
+-- 'statusLastUpdatedDateTime', 'domainController_statusLastUpdatedDateTime' - The date and time that the status was last updated.
 --
--- * 'dcDirectoryId' - Identifier of the directory where the domain controller resides.
+-- 'availabilityZone', 'domainController_availabilityZone' - The Availability Zone where the domain controller is located.
 --
--- * 'dcDomainControllerId' - Identifies a specific domain controller in the directory.
+-- 'directoryId', 'domainController_directoryId' - Identifier of the directory where the domain controller resides.
 --
--- * 'dcSubnetId' - Identifier of the subnet in the VPC that contains the domain controller.
+-- 'domainControllerId', 'domainController_domainControllerId' - Identifies a specific domain controller in the directory.
 --
--- * 'dcVPCId' - The identifier of the VPC that contains the domain controller.
+-- 'subnetId', 'domainController_subnetId' - Identifier of the subnet in the VPC that contains the domain controller.
 --
--- * 'dcStatusReason' - A description of the domain controller state.
-domainController ::
+-- 'vpcId', 'domainController_vpcId' - The identifier of the VPC that contains the domain controller.
+--
+-- 'statusReason', 'domainController_statusReason' - A description of the domain controller state.
+newDomainController ::
   DomainController
-domainController =
+newDomainController =
   DomainController'
-    { _dcStatus = Nothing,
-      _dcDNSIPAddr = Nothing,
-      _dcLaunchTime = Nothing,
-      _dcStatusLastUpdatedDateTime = Nothing,
-      _dcAvailabilityZone = Nothing,
-      _dcDirectoryId = Nothing,
-      _dcDomainControllerId = Nothing,
-      _dcSubnetId = Nothing,
-      _dcVPCId = Nothing,
-      _dcStatusReason = Nothing
+    { status = Prelude.Nothing,
+      dnsIpAddr = Prelude.Nothing,
+      launchTime = Prelude.Nothing,
+      statusLastUpdatedDateTime = Prelude.Nothing,
+      availabilityZone = Prelude.Nothing,
+      directoryId = Prelude.Nothing,
+      domainControllerId = Prelude.Nothing,
+      subnetId = Prelude.Nothing,
+      vpcId = Prelude.Nothing,
+      statusReason = Prelude.Nothing
     }
 
 -- | The status of the domain controller.
-dcStatus :: Lens' DomainController (Maybe DomainControllerStatus)
-dcStatus = lens _dcStatus (\s a -> s {_dcStatus = a})
+domainController_status :: Lens.Lens' DomainController (Prelude.Maybe DomainControllerStatus)
+domainController_status = Lens.lens (\DomainController' {status} -> status) (\s@DomainController' {} a -> s {status = a} :: DomainController)
 
 -- | The IP address of the domain controller.
-dcDNSIPAddr :: Lens' DomainController (Maybe Text)
-dcDNSIPAddr = lens _dcDNSIPAddr (\s a -> s {_dcDNSIPAddr = a})
+domainController_dnsIpAddr :: Lens.Lens' DomainController (Prelude.Maybe Prelude.Text)
+domainController_dnsIpAddr = Lens.lens (\DomainController' {dnsIpAddr} -> dnsIpAddr) (\s@DomainController' {} a -> s {dnsIpAddr = a} :: DomainController)
 
 -- | Specifies when the domain controller was created.
-dcLaunchTime :: Lens' DomainController (Maybe UTCTime)
-dcLaunchTime = lens _dcLaunchTime (\s a -> s {_dcLaunchTime = a}) . mapping _Time
+domainController_launchTime :: Lens.Lens' DomainController (Prelude.Maybe Prelude.UTCTime)
+domainController_launchTime = Lens.lens (\DomainController' {launchTime} -> launchTime) (\s@DomainController' {} a -> s {launchTime = a} :: DomainController) Prelude.. Lens.mapping Prelude._Time
 
 -- | The date and time that the status was last updated.
-dcStatusLastUpdatedDateTime :: Lens' DomainController (Maybe UTCTime)
-dcStatusLastUpdatedDateTime = lens _dcStatusLastUpdatedDateTime (\s a -> s {_dcStatusLastUpdatedDateTime = a}) . mapping _Time
+domainController_statusLastUpdatedDateTime :: Lens.Lens' DomainController (Prelude.Maybe Prelude.UTCTime)
+domainController_statusLastUpdatedDateTime = Lens.lens (\DomainController' {statusLastUpdatedDateTime} -> statusLastUpdatedDateTime) (\s@DomainController' {} a -> s {statusLastUpdatedDateTime = a} :: DomainController) Prelude.. Lens.mapping Prelude._Time
 
 -- | The Availability Zone where the domain controller is located.
-dcAvailabilityZone :: Lens' DomainController (Maybe Text)
-dcAvailabilityZone = lens _dcAvailabilityZone (\s a -> s {_dcAvailabilityZone = a})
+domainController_availabilityZone :: Lens.Lens' DomainController (Prelude.Maybe Prelude.Text)
+domainController_availabilityZone = Lens.lens (\DomainController' {availabilityZone} -> availabilityZone) (\s@DomainController' {} a -> s {availabilityZone = a} :: DomainController)
 
 -- | Identifier of the directory where the domain controller resides.
-dcDirectoryId :: Lens' DomainController (Maybe Text)
-dcDirectoryId = lens _dcDirectoryId (\s a -> s {_dcDirectoryId = a})
+domainController_directoryId :: Lens.Lens' DomainController (Prelude.Maybe Prelude.Text)
+domainController_directoryId = Lens.lens (\DomainController' {directoryId} -> directoryId) (\s@DomainController' {} a -> s {directoryId = a} :: DomainController)
 
 -- | Identifies a specific domain controller in the directory.
-dcDomainControllerId :: Lens' DomainController (Maybe Text)
-dcDomainControllerId = lens _dcDomainControllerId (\s a -> s {_dcDomainControllerId = a})
+domainController_domainControllerId :: Lens.Lens' DomainController (Prelude.Maybe Prelude.Text)
+domainController_domainControllerId = Lens.lens (\DomainController' {domainControllerId} -> domainControllerId) (\s@DomainController' {} a -> s {domainControllerId = a} :: DomainController)
 
 -- | Identifier of the subnet in the VPC that contains the domain controller.
-dcSubnetId :: Lens' DomainController (Maybe Text)
-dcSubnetId = lens _dcSubnetId (\s a -> s {_dcSubnetId = a})
+domainController_subnetId :: Lens.Lens' DomainController (Prelude.Maybe Prelude.Text)
+domainController_subnetId = Lens.lens (\DomainController' {subnetId} -> subnetId) (\s@DomainController' {} a -> s {subnetId = a} :: DomainController)
 
 -- | The identifier of the VPC that contains the domain controller.
-dcVPCId :: Lens' DomainController (Maybe Text)
-dcVPCId = lens _dcVPCId (\s a -> s {_dcVPCId = a})
+domainController_vpcId :: Lens.Lens' DomainController (Prelude.Maybe Prelude.Text)
+domainController_vpcId = Lens.lens (\DomainController' {vpcId} -> vpcId) (\s@DomainController' {} a -> s {vpcId = a} :: DomainController)
 
 -- | A description of the domain controller state.
-dcStatusReason :: Lens' DomainController (Maybe Text)
-dcStatusReason = lens _dcStatusReason (\s a -> s {_dcStatusReason = a})
+domainController_statusReason :: Lens.Lens' DomainController (Prelude.Maybe Prelude.Text)
+domainController_statusReason = Lens.lens (\DomainController' {statusReason} -> statusReason) (\s@DomainController' {} a -> s {statusReason = a} :: DomainController)
 
-instance FromJSON DomainController where
+instance Prelude.FromJSON DomainController where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DomainController"
       ( \x ->
           DomainController'
-            <$> (x .:? "Status")
-            <*> (x .:? "DnsIpAddr")
-            <*> (x .:? "LaunchTime")
-            <*> (x .:? "StatusLastUpdatedDateTime")
-            <*> (x .:? "AvailabilityZone")
-            <*> (x .:? "DirectoryId")
-            <*> (x .:? "DomainControllerId")
-            <*> (x .:? "SubnetId")
-            <*> (x .:? "VpcId")
-            <*> (x .:? "StatusReason")
+            Prelude.<$> (x Prelude..:? "Status")
+            Prelude.<*> (x Prelude..:? "DnsIpAddr")
+            Prelude.<*> (x Prelude..:? "LaunchTime")
+            Prelude.<*> (x Prelude..:? "StatusLastUpdatedDateTime")
+            Prelude.<*> (x Prelude..:? "AvailabilityZone")
+            Prelude.<*> (x Prelude..:? "DirectoryId")
+            Prelude.<*> (x Prelude..:? "DomainControllerId")
+            Prelude.<*> (x Prelude..:? "SubnetId")
+            Prelude.<*> (x Prelude..:? "VpcId")
+            Prelude.<*> (x Prelude..:? "StatusReason")
       )
 
-instance Hashable DomainController
+instance Prelude.Hashable DomainController
 
-instance NFData DomainController
+instance Prelude.NFData DomainController

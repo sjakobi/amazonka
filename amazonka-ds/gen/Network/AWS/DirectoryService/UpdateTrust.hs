@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,150 +21,163 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates the trust that has been set up between your AWS Managed Microsoft AD directory and an on-premises Active Directory.
+-- Updates the trust that has been set up between your AWS Managed
+-- Microsoft AD directory and an on-premises Active Directory.
 module Network.AWS.DirectoryService.UpdateTrust
   ( -- * Creating a Request
-    updateTrust,
-    UpdateTrust,
+    UpdateTrust (..),
+    newUpdateTrust,
 
     -- * Request Lenses
-    utSelectiveAuth,
-    utTrustId,
+    updateTrust_selectiveAuth,
+    updateTrust_trustId,
 
     -- * Destructuring the Response
-    updateTrustResponse,
-    UpdateTrustResponse,
+    UpdateTrustResponse (..),
+    newUpdateTrustResponse,
 
     -- * Response Lenses
-    utrrsTrustId,
-    utrrsRequestId,
-    utrrsResponseStatus,
+    updateTrustResponse_trustId,
+    updateTrustResponse_requestId,
+    updateTrustResponse_httpStatus,
   )
 where
 
 import Network.AWS.DirectoryService.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateTrust' smart constructor.
+-- | /See:/ 'newUpdateTrust' smart constructor.
 data UpdateTrust = UpdateTrust'
-  { _utSelectiveAuth ::
-      !(Maybe SelectiveAuth),
-    _utTrustId :: !Text
+  { -- | Updates selective authentication for the trust.
+    selectiveAuth :: Prelude.Maybe SelectiveAuth,
+    -- | Identifier of the trust relationship.
+    trustId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateTrust' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateTrust' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'utSelectiveAuth' - Updates selective authentication for the trust.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'utTrustId' - Identifier of the trust relationship.
-updateTrust ::
-  -- | 'utTrustId'
-  Text ->
+-- 'selectiveAuth', 'updateTrust_selectiveAuth' - Updates selective authentication for the trust.
+--
+-- 'trustId', 'updateTrust_trustId' - Identifier of the trust relationship.
+newUpdateTrust ::
+  -- | 'trustId'
+  Prelude.Text ->
   UpdateTrust
-updateTrust pTrustId_ =
+newUpdateTrust pTrustId_ =
   UpdateTrust'
-    { _utSelectiveAuth = Nothing,
-      _utTrustId = pTrustId_
+    { selectiveAuth = Prelude.Nothing,
+      trustId = pTrustId_
     }
 
 -- | Updates selective authentication for the trust.
-utSelectiveAuth :: Lens' UpdateTrust (Maybe SelectiveAuth)
-utSelectiveAuth = lens _utSelectiveAuth (\s a -> s {_utSelectiveAuth = a})
+updateTrust_selectiveAuth :: Lens.Lens' UpdateTrust (Prelude.Maybe SelectiveAuth)
+updateTrust_selectiveAuth = Lens.lens (\UpdateTrust' {selectiveAuth} -> selectiveAuth) (\s@UpdateTrust' {} a -> s {selectiveAuth = a} :: UpdateTrust)
 
 -- | Identifier of the trust relationship.
-utTrustId :: Lens' UpdateTrust Text
-utTrustId = lens _utTrustId (\s a -> s {_utTrustId = a})
+updateTrust_trustId :: Lens.Lens' UpdateTrust Prelude.Text
+updateTrust_trustId = Lens.lens (\UpdateTrust' {trustId} -> trustId) (\s@UpdateTrust' {} a -> s {trustId = a} :: UpdateTrust)
 
-instance AWSRequest UpdateTrust where
+instance Prelude.AWSRequest UpdateTrust where
   type Rs UpdateTrust = UpdateTrustResponse
-  request = postJSON directoryService
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateTrustResponse'
-            <$> (x .?> "TrustId")
-            <*> (x .?> "RequestId")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "TrustId")
+            Prelude.<*> (x Prelude..?> "RequestId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateTrust
+instance Prelude.Hashable UpdateTrust
 
-instance NFData UpdateTrust
+instance Prelude.NFData UpdateTrust
 
-instance ToHeaders UpdateTrust where
+instance Prelude.ToHeaders UpdateTrust where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "DirectoryService_20150416.UpdateTrust" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "DirectoryService_20150416.UpdateTrust" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateTrust where
+instance Prelude.ToJSON UpdateTrust where
   toJSON UpdateTrust' {..} =
-    object
-      ( catMaybes
-          [ ("SelectiveAuth" .=) <$> _utSelectiveAuth,
-            Just ("TrustId" .= _utTrustId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("SelectiveAuth" Prelude..=)
+              Prelude.<$> selectiveAuth,
+            Prelude.Just ("TrustId" Prelude..= trustId)
           ]
       )
 
-instance ToPath UpdateTrust where
-  toPath = const "/"
+instance Prelude.ToPath UpdateTrust where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateTrust where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateTrust where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateTrustResponse' smart constructor.
+-- | /See:/ 'newUpdateTrustResponse' smart constructor.
 data UpdateTrustResponse = UpdateTrustResponse'
-  { _utrrsTrustId ::
-      !(Maybe Text),
-    _utrrsRequestId ::
-      !(Maybe Text),
-    _utrrsResponseStatus :: !Int
+  { -- | Identifier of the trust relationship.
+    trustId :: Prelude.Maybe Prelude.Text,
+    requestId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateTrustResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateTrustResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'utrrsTrustId' - Identifier of the trust relationship.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'utrrsRequestId' - Undocumented member.
+-- 'trustId', 'updateTrustResponse_trustId' - Identifier of the trust relationship.
 --
--- * 'utrrsResponseStatus' - -- | The response status code.
-updateTrustResponse ::
-  -- | 'utrrsResponseStatus'
-  Int ->
+-- 'requestId', 'updateTrustResponse_requestId' - Undocumented member.
+--
+-- 'httpStatus', 'updateTrustResponse_httpStatus' - The response's http status code.
+newUpdateTrustResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateTrustResponse
-updateTrustResponse pResponseStatus_ =
+newUpdateTrustResponse pHttpStatus_ =
   UpdateTrustResponse'
-    { _utrrsTrustId = Nothing,
-      _utrrsRequestId = Nothing,
-      _utrrsResponseStatus = pResponseStatus_
+    { trustId = Prelude.Nothing,
+      requestId = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Identifier of the trust relationship.
-utrrsTrustId :: Lens' UpdateTrustResponse (Maybe Text)
-utrrsTrustId = lens _utrrsTrustId (\s a -> s {_utrrsTrustId = a})
+updateTrustResponse_trustId :: Lens.Lens' UpdateTrustResponse (Prelude.Maybe Prelude.Text)
+updateTrustResponse_trustId = Lens.lens (\UpdateTrustResponse' {trustId} -> trustId) (\s@UpdateTrustResponse' {} a -> s {trustId = a} :: UpdateTrustResponse)
 
 -- | Undocumented member.
-utrrsRequestId :: Lens' UpdateTrustResponse (Maybe Text)
-utrrsRequestId = lens _utrrsRequestId (\s a -> s {_utrrsRequestId = a})
+updateTrustResponse_requestId :: Lens.Lens' UpdateTrustResponse (Prelude.Maybe Prelude.Text)
+updateTrustResponse_requestId = Lens.lens (\UpdateTrustResponse' {requestId} -> requestId) (\s@UpdateTrustResponse' {} a -> s {requestId = a} :: UpdateTrustResponse)
 
--- | -- | The response status code.
-utrrsResponseStatus :: Lens' UpdateTrustResponse Int
-utrrsResponseStatus = lens _utrrsResponseStatus (\s a -> s {_utrrsResponseStatus = a})
+-- | The response's http status code.
+updateTrustResponse_httpStatus :: Lens.Lens' UpdateTrustResponse Prelude.Int
+updateTrustResponse_httpStatus = Lens.lens (\UpdateTrustResponse' {httpStatus} -> httpStatus) (\s@UpdateTrustResponse' {} a -> s {httpStatus = a} :: UpdateTrustResponse)
 
-instance NFData UpdateTrustResponse
+instance Prelude.NFData UpdateTrustResponse

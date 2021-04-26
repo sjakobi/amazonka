@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,48 +19,50 @@
 module Network.AWS.DirectoryService.Types.ReplicationScope
   ( ReplicationScope
       ( ..,
-        Domain
+        ReplicationScopeDomain
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ReplicationScope = ReplicationScope' (CI Text)
+newtype ReplicationScope = ReplicationScope'
+  { fromReplicationScope ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Domain :: ReplicationScope
-pattern Domain = ReplicationScope' "Domain"
+pattern ReplicationScopeDomain :: ReplicationScope
+pattern ReplicationScopeDomain = ReplicationScope' "Domain"
 
 {-# COMPLETE
-  Domain,
+  ReplicationScopeDomain,
   ReplicationScope'
   #-}
 
-instance FromText ReplicationScope where
-  parser = (ReplicationScope' . mk) <$> takeText
+instance Prelude.FromText ReplicationScope where
+  parser = ReplicationScope' Prelude.<$> Prelude.takeText
 
-instance ToText ReplicationScope where
-  toText (ReplicationScope' ci) = original ci
+instance Prelude.ToText ReplicationScope where
+  toText (ReplicationScope' x) = x
 
-instance Hashable ReplicationScope
+instance Prelude.Hashable ReplicationScope
 
-instance NFData ReplicationScope
+instance Prelude.NFData ReplicationScope
 
-instance ToByteString ReplicationScope
+instance Prelude.ToByteString ReplicationScope
 
-instance ToQuery ReplicationScope
+instance Prelude.ToQuery ReplicationScope
 
-instance ToHeader ReplicationScope
+instance Prelude.ToHeader ReplicationScope
 
-instance FromJSON ReplicationScope where
-  parseJSON = parseJSONText "ReplicationScope"
+instance Prelude.FromJSON ReplicationScope where
+  parseJSON = Prelude.parseJSONText "ReplicationScope"

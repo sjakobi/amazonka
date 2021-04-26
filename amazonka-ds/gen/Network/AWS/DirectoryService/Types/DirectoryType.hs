@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,63 +19,65 @@
 module Network.AWS.DirectoryService.Types.DirectoryType
   ( DirectoryType
       ( ..,
-        ADConnector,
-        MicrosoftAD,
-        SharedMicrosoftAD,
-        SimpleAD
+        DirectoryTypeADConnector,
+        DirectoryTypeMicrosoftAD,
+        DirectoryTypeSharedMicrosoftAD,
+        DirectoryTypeSimpleAD
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DirectoryType = DirectoryType' (CI Text)
+newtype DirectoryType = DirectoryType'
+  { fromDirectoryType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ADConnector :: DirectoryType
-pattern ADConnector = DirectoryType' "ADConnector"
+pattern DirectoryTypeADConnector :: DirectoryType
+pattern DirectoryTypeADConnector = DirectoryType' "ADConnector"
 
-pattern MicrosoftAD :: DirectoryType
-pattern MicrosoftAD = DirectoryType' "MicrosoftAD"
+pattern DirectoryTypeMicrosoftAD :: DirectoryType
+pattern DirectoryTypeMicrosoftAD = DirectoryType' "MicrosoftAD"
 
-pattern SharedMicrosoftAD :: DirectoryType
-pattern SharedMicrosoftAD = DirectoryType' "SharedMicrosoftAD"
+pattern DirectoryTypeSharedMicrosoftAD :: DirectoryType
+pattern DirectoryTypeSharedMicrosoftAD = DirectoryType' "SharedMicrosoftAD"
 
-pattern SimpleAD :: DirectoryType
-pattern SimpleAD = DirectoryType' "SimpleAD"
+pattern DirectoryTypeSimpleAD :: DirectoryType
+pattern DirectoryTypeSimpleAD = DirectoryType' "SimpleAD"
 
 {-# COMPLETE
-  ADConnector,
-  MicrosoftAD,
-  SharedMicrosoftAD,
-  SimpleAD,
+  DirectoryTypeADConnector,
+  DirectoryTypeMicrosoftAD,
+  DirectoryTypeSharedMicrosoftAD,
+  DirectoryTypeSimpleAD,
   DirectoryType'
   #-}
 
-instance FromText DirectoryType where
-  parser = (DirectoryType' . mk) <$> takeText
+instance Prelude.FromText DirectoryType where
+  parser = DirectoryType' Prelude.<$> Prelude.takeText
 
-instance ToText DirectoryType where
-  toText (DirectoryType' ci) = original ci
+instance Prelude.ToText DirectoryType where
+  toText (DirectoryType' x) = x
 
-instance Hashable DirectoryType
+instance Prelude.Hashable DirectoryType
 
-instance NFData DirectoryType
+instance Prelude.NFData DirectoryType
 
-instance ToByteString DirectoryType
+instance Prelude.ToByteString DirectoryType
 
-instance ToQuery DirectoryType
+instance Prelude.ToQuery DirectoryType
 
-instance ToHeader DirectoryType
+instance Prelude.ToHeader DirectoryType
 
-instance FromJSON DirectoryType where
-  parseJSON = parseJSONText "DirectoryType"
+instance Prelude.FromJSON DirectoryType where
+  parseJSON = Prelude.parseJSONText "DirectoryType"

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,183 +23,214 @@
 --
 -- Lists all schema extensions applied to a Microsoft AD Directory.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.DirectoryService.ListSchemaExtensions
   ( -- * Creating a Request
-    listSchemaExtensions,
-    ListSchemaExtensions,
+    ListSchemaExtensions (..),
+    newListSchemaExtensions,
 
     -- * Request Lenses
-    lseNextToken,
-    lseLimit,
-    lseDirectoryId,
+    listSchemaExtensions_nextToken,
+    listSchemaExtensions_limit,
+    listSchemaExtensions_directoryId,
 
     -- * Destructuring the Response
-    listSchemaExtensionsResponse,
-    ListSchemaExtensionsResponse,
+    ListSchemaExtensionsResponse (..),
+    newListSchemaExtensionsResponse,
 
     -- * Response Lenses
-    lserrsNextToken,
-    lserrsSchemaExtensionsInfo,
-    lserrsResponseStatus,
+    listSchemaExtensionsResponse_nextToken,
+    listSchemaExtensionsResponse_schemaExtensionsInfo,
+    listSchemaExtensionsResponse_httpStatus,
   )
 where
 
 import Network.AWS.DirectoryService.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DirectoryService.Types.SchemaExtensionInfo
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listSchemaExtensions' smart constructor.
+-- | /See:/ 'newListSchemaExtensions' smart constructor.
 data ListSchemaExtensions = ListSchemaExtensions'
-  { _lseNextToken ::
-      !(Maybe Text),
-    _lseLimit :: !(Maybe Nat),
-    _lseDirectoryId :: !Text
+  { -- | The @ListSchemaExtensions.NextToken@ value from a previous call to
+    -- @ListSchemaExtensions@. Pass null if this is the first call.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of items to return.
+    limit :: Prelude.Maybe Prelude.Nat,
+    -- | The identifier of the directory from which to retrieve the schema
+    -- extension information.
+    directoryId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListSchemaExtensions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListSchemaExtensions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lseNextToken' - The @ListSchemaExtensions.NextToken@ value from a previous call to @ListSchemaExtensions@ . Pass null if this is the first call.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lseLimit' - The maximum number of items to return.
+-- 'nextToken', 'listSchemaExtensions_nextToken' - The @ListSchemaExtensions.NextToken@ value from a previous call to
+-- @ListSchemaExtensions@. Pass null if this is the first call.
 --
--- * 'lseDirectoryId' - The identifier of the directory from which to retrieve the schema extension information.
-listSchemaExtensions ::
-  -- | 'lseDirectoryId'
-  Text ->
+-- 'limit', 'listSchemaExtensions_limit' - The maximum number of items to return.
+--
+-- 'directoryId', 'listSchemaExtensions_directoryId' - The identifier of the directory from which to retrieve the schema
+-- extension information.
+newListSchemaExtensions ::
+  -- | 'directoryId'
+  Prelude.Text ->
   ListSchemaExtensions
-listSchemaExtensions pDirectoryId_ =
+newListSchemaExtensions pDirectoryId_ =
   ListSchemaExtensions'
-    { _lseNextToken = Nothing,
-      _lseLimit = Nothing,
-      _lseDirectoryId = pDirectoryId_
+    { nextToken = Prelude.Nothing,
+      limit = Prelude.Nothing,
+      directoryId = pDirectoryId_
     }
 
--- | The @ListSchemaExtensions.NextToken@ value from a previous call to @ListSchemaExtensions@ . Pass null if this is the first call.
-lseNextToken :: Lens' ListSchemaExtensions (Maybe Text)
-lseNextToken = lens _lseNextToken (\s a -> s {_lseNextToken = a})
+-- | The @ListSchemaExtensions.NextToken@ value from a previous call to
+-- @ListSchemaExtensions@. Pass null if this is the first call.
+listSchemaExtensions_nextToken :: Lens.Lens' ListSchemaExtensions (Prelude.Maybe Prelude.Text)
+listSchemaExtensions_nextToken = Lens.lens (\ListSchemaExtensions' {nextToken} -> nextToken) (\s@ListSchemaExtensions' {} a -> s {nextToken = a} :: ListSchemaExtensions)
 
 -- | The maximum number of items to return.
-lseLimit :: Lens' ListSchemaExtensions (Maybe Natural)
-lseLimit = lens _lseLimit (\s a -> s {_lseLimit = a}) . mapping _Nat
+listSchemaExtensions_limit :: Lens.Lens' ListSchemaExtensions (Prelude.Maybe Prelude.Natural)
+listSchemaExtensions_limit = Lens.lens (\ListSchemaExtensions' {limit} -> limit) (\s@ListSchemaExtensions' {} a -> s {limit = a} :: ListSchemaExtensions) Prelude.. Lens.mapping Prelude._Nat
 
--- | The identifier of the directory from which to retrieve the schema extension information.
-lseDirectoryId :: Lens' ListSchemaExtensions Text
-lseDirectoryId = lens _lseDirectoryId (\s a -> s {_lseDirectoryId = a})
+-- | The identifier of the directory from which to retrieve the schema
+-- extension information.
+listSchemaExtensions_directoryId :: Lens.Lens' ListSchemaExtensions Prelude.Text
+listSchemaExtensions_directoryId = Lens.lens (\ListSchemaExtensions' {directoryId} -> directoryId) (\s@ListSchemaExtensions' {} a -> s {directoryId = a} :: ListSchemaExtensions)
 
-instance AWSPager ListSchemaExtensions where
+instance Pager.AWSPager ListSchemaExtensions where
   page rq rs
-    | stop (rs ^. lserrsNextToken) = Nothing
-    | stop (rs ^. lserrsSchemaExtensionsInfo) = Nothing
-    | otherwise =
-      Just $ rq & lseNextToken .~ rs ^. lserrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listSchemaExtensionsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listSchemaExtensionsResponse_schemaExtensionsInfo
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listSchemaExtensions_nextToken
+          Lens..~ rs
+          Lens.^? listSchemaExtensionsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListSchemaExtensions where
+instance Prelude.AWSRequest ListSchemaExtensions where
   type
     Rs ListSchemaExtensions =
       ListSchemaExtensionsResponse
-  request = postJSON directoryService
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListSchemaExtensionsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "SchemaExtensionsInfo" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "SchemaExtensionsInfo"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListSchemaExtensions
+instance Prelude.Hashable ListSchemaExtensions
 
-instance NFData ListSchemaExtensions
+instance Prelude.NFData ListSchemaExtensions
 
-instance ToHeaders ListSchemaExtensions where
+instance Prelude.ToHeaders ListSchemaExtensions where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "DirectoryService_20150416.ListSchemaExtensions" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "DirectoryService_20150416.ListSchemaExtensions" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListSchemaExtensions where
+instance Prelude.ToJSON ListSchemaExtensions where
   toJSON ListSchemaExtensions' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _lseNextToken,
-            ("Limit" .=) <$> _lseLimit,
-            Just ("DirectoryId" .= _lseDirectoryId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("Limit" Prelude..=) Prelude.<$> limit,
+            Prelude.Just ("DirectoryId" Prelude..= directoryId)
           ]
       )
 
-instance ToPath ListSchemaExtensions where
-  toPath = const "/"
+instance Prelude.ToPath ListSchemaExtensions where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListSchemaExtensions where
-  toQuery = const mempty
+instance Prelude.ToQuery ListSchemaExtensions where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listSchemaExtensionsResponse' smart constructor.
+-- | /See:/ 'newListSchemaExtensionsResponse' smart constructor.
 data ListSchemaExtensionsResponse = ListSchemaExtensionsResponse'
-  { _lserrsNextToken ::
-      !(Maybe Text),
-    _lserrsSchemaExtensionsInfo ::
-      !( Maybe
-           [SchemaExtensionInfo]
-       ),
-    _lserrsResponseStatus ::
-      !Int
+  { -- | If not null, more results are available. Pass this value for the
+    -- @NextToken@ parameter in a subsequent call to @ListSchemaExtensions@ to
+    -- retrieve the next set of items.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about the schema extensions applied to the directory.
+    schemaExtensionsInfo :: Prelude.Maybe [SchemaExtensionInfo],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListSchemaExtensionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListSchemaExtensionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lserrsNextToken' - If not null, more results are available. Pass this value for the @NextToken@ parameter in a subsequent call to @ListSchemaExtensions@ to retrieve the next set of items.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lserrsSchemaExtensionsInfo' - Information about the schema extensions applied to the directory.
+-- 'nextToken', 'listSchemaExtensionsResponse_nextToken' - If not null, more results are available. Pass this value for the
+-- @NextToken@ parameter in a subsequent call to @ListSchemaExtensions@ to
+-- retrieve the next set of items.
 --
--- * 'lserrsResponseStatus' - -- | The response status code.
-listSchemaExtensionsResponse ::
-  -- | 'lserrsResponseStatus'
-  Int ->
+-- 'schemaExtensionsInfo', 'listSchemaExtensionsResponse_schemaExtensionsInfo' - Information about the schema extensions applied to the directory.
+--
+-- 'httpStatus', 'listSchemaExtensionsResponse_httpStatus' - The response's http status code.
+newListSchemaExtensionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListSchemaExtensionsResponse
-listSchemaExtensionsResponse pResponseStatus_ =
+newListSchemaExtensionsResponse pHttpStatus_ =
   ListSchemaExtensionsResponse'
-    { _lserrsNextToken =
-        Nothing,
-      _lserrsSchemaExtensionsInfo = Nothing,
-      _lserrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      schemaExtensionsInfo = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | If not null, more results are available. Pass this value for the @NextToken@ parameter in a subsequent call to @ListSchemaExtensions@ to retrieve the next set of items.
-lserrsNextToken :: Lens' ListSchemaExtensionsResponse (Maybe Text)
-lserrsNextToken = lens _lserrsNextToken (\s a -> s {_lserrsNextToken = a})
+-- | If not null, more results are available. Pass this value for the
+-- @NextToken@ parameter in a subsequent call to @ListSchemaExtensions@ to
+-- retrieve the next set of items.
+listSchemaExtensionsResponse_nextToken :: Lens.Lens' ListSchemaExtensionsResponse (Prelude.Maybe Prelude.Text)
+listSchemaExtensionsResponse_nextToken = Lens.lens (\ListSchemaExtensionsResponse' {nextToken} -> nextToken) (\s@ListSchemaExtensionsResponse' {} a -> s {nextToken = a} :: ListSchemaExtensionsResponse)
 
 -- | Information about the schema extensions applied to the directory.
-lserrsSchemaExtensionsInfo :: Lens' ListSchemaExtensionsResponse [SchemaExtensionInfo]
-lserrsSchemaExtensionsInfo = lens _lserrsSchemaExtensionsInfo (\s a -> s {_lserrsSchemaExtensionsInfo = a}) . _Default . _Coerce
+listSchemaExtensionsResponse_schemaExtensionsInfo :: Lens.Lens' ListSchemaExtensionsResponse (Prelude.Maybe [SchemaExtensionInfo])
+listSchemaExtensionsResponse_schemaExtensionsInfo = Lens.lens (\ListSchemaExtensionsResponse' {schemaExtensionsInfo} -> schemaExtensionsInfo) (\s@ListSchemaExtensionsResponse' {} a -> s {schemaExtensionsInfo = a} :: ListSchemaExtensionsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lserrsResponseStatus :: Lens' ListSchemaExtensionsResponse Int
-lserrsResponseStatus = lens _lserrsResponseStatus (\s a -> s {_lserrsResponseStatus = a})
+-- | The response's http status code.
+listSchemaExtensionsResponse_httpStatus :: Lens.Lens' ListSchemaExtensionsResponse Prelude.Int
+listSchemaExtensionsResponse_httpStatus = Lens.lens (\ListSchemaExtensionsResponse' {httpStatus} -> httpStatus) (\s@ListSchemaExtensionsResponse' {} a -> s {httpStatus = a} :: ListSchemaExtensionsResponse)
 
-instance NFData ListSchemaExtensionsResponse
+instance Prelude.NFData ListSchemaExtensionsResponse

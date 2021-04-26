@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,66 +20,68 @@
 module Network.AWS.DirectoryService.Types.LDAPSSettingInfo where
 
 import Network.AWS.DirectoryService.Types.LDAPSStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains general information about the LDAPS settings.
 --
---
---
--- /See:/ 'lDAPSSettingInfo' smart constructor.
+-- /See:/ 'newLDAPSSettingInfo' smart constructor.
 data LDAPSSettingInfo = LDAPSSettingInfo'
-  { _ldapssiLastUpdatedDateTime ::
-      !(Maybe POSIX),
-    _ldapssiLDAPSStatusReason ::
-      !(Maybe Text),
-    _ldapssiLDAPSStatus ::
-      !(Maybe LDAPSStatus)
+  { -- | The date and time when the LDAPS settings were last updated.
+    lastUpdatedDateTime :: Prelude.Maybe Prelude.POSIX,
+    -- | Describes a state change for LDAPS.
+    lDAPSStatusReason :: Prelude.Maybe Prelude.Text,
+    -- | The state of the LDAPS settings.
+    lDAPSStatus :: Prelude.Maybe LDAPSStatus
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LDAPSSettingInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LDAPSSettingInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ldapssiLastUpdatedDateTime' - The date and time when the LDAPS settings were last updated.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ldapssiLDAPSStatusReason' - Describes a state change for LDAPS.
+-- 'lastUpdatedDateTime', 'lDAPSSettingInfo_lastUpdatedDateTime' - The date and time when the LDAPS settings were last updated.
 --
--- * 'ldapssiLDAPSStatus' - The state of the LDAPS settings.
-lDAPSSettingInfo ::
+-- 'lDAPSStatusReason', 'lDAPSSettingInfo_lDAPSStatusReason' - Describes a state change for LDAPS.
+--
+-- 'lDAPSStatus', 'lDAPSSettingInfo_lDAPSStatus' - The state of the LDAPS settings.
+newLDAPSSettingInfo ::
   LDAPSSettingInfo
-lDAPSSettingInfo =
+newLDAPSSettingInfo =
   LDAPSSettingInfo'
-    { _ldapssiLastUpdatedDateTime =
-        Nothing,
-      _ldapssiLDAPSStatusReason = Nothing,
-      _ldapssiLDAPSStatus = Nothing
+    { lastUpdatedDateTime =
+        Prelude.Nothing,
+      lDAPSStatusReason = Prelude.Nothing,
+      lDAPSStatus = Prelude.Nothing
     }
 
 -- | The date and time when the LDAPS settings were last updated.
-ldapssiLastUpdatedDateTime :: Lens' LDAPSSettingInfo (Maybe UTCTime)
-ldapssiLastUpdatedDateTime = lens _ldapssiLastUpdatedDateTime (\s a -> s {_ldapssiLastUpdatedDateTime = a}) . mapping _Time
+lDAPSSettingInfo_lastUpdatedDateTime :: Lens.Lens' LDAPSSettingInfo (Prelude.Maybe Prelude.UTCTime)
+lDAPSSettingInfo_lastUpdatedDateTime = Lens.lens (\LDAPSSettingInfo' {lastUpdatedDateTime} -> lastUpdatedDateTime) (\s@LDAPSSettingInfo' {} a -> s {lastUpdatedDateTime = a} :: LDAPSSettingInfo) Prelude.. Lens.mapping Prelude._Time
 
 -- | Describes a state change for LDAPS.
-ldapssiLDAPSStatusReason :: Lens' LDAPSSettingInfo (Maybe Text)
-ldapssiLDAPSStatusReason = lens _ldapssiLDAPSStatusReason (\s a -> s {_ldapssiLDAPSStatusReason = a})
+lDAPSSettingInfo_lDAPSStatusReason :: Lens.Lens' LDAPSSettingInfo (Prelude.Maybe Prelude.Text)
+lDAPSSettingInfo_lDAPSStatusReason = Lens.lens (\LDAPSSettingInfo' {lDAPSStatusReason} -> lDAPSStatusReason) (\s@LDAPSSettingInfo' {} a -> s {lDAPSStatusReason = a} :: LDAPSSettingInfo)
 
 -- | The state of the LDAPS settings.
-ldapssiLDAPSStatus :: Lens' LDAPSSettingInfo (Maybe LDAPSStatus)
-ldapssiLDAPSStatus = lens _ldapssiLDAPSStatus (\s a -> s {_ldapssiLDAPSStatus = a})
+lDAPSSettingInfo_lDAPSStatus :: Lens.Lens' LDAPSSettingInfo (Prelude.Maybe LDAPSStatus)
+lDAPSSettingInfo_lDAPSStatus = Lens.lens (\LDAPSSettingInfo' {lDAPSStatus} -> lDAPSStatus) (\s@LDAPSSettingInfo' {} a -> s {lDAPSStatus = a} :: LDAPSSettingInfo)
 
-instance FromJSON LDAPSSettingInfo where
+instance Prelude.FromJSON LDAPSSettingInfo where
   parseJSON =
-    withObject
+    Prelude.withObject
       "LDAPSSettingInfo"
       ( \x ->
           LDAPSSettingInfo'
-            <$> (x .:? "LastUpdatedDateTime")
-            <*> (x .:? "LDAPSStatusReason")
-            <*> (x .:? "LDAPSStatus")
+            Prelude.<$> (x Prelude..:? "LastUpdatedDateTime")
+            Prelude.<*> (x Prelude..:? "LDAPSStatusReason")
+            Prelude.<*> (x Prelude..:? "LDAPSStatus")
       )
 
-instance Hashable LDAPSSettingInfo
+instance Prelude.Hashable LDAPSSettingInfo
 
-instance NFData LDAPSSettingInfo
+instance Prelude.NFData LDAPSSettingInfo

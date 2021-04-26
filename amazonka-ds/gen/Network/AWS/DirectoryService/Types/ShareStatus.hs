@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,88 +19,90 @@
 module Network.AWS.DirectoryService.Types.ShareStatus
   ( ShareStatus
       ( ..,
-        Deleted,
-        Deleting,
-        PendingAcceptance,
-        RejectFailed,
-        Rejected,
-        Rejecting,
-        ShareFailed,
-        Shared,
-        Sharing
+        ShareStatusDeleted,
+        ShareStatusDeleting,
+        ShareStatusPendingAcceptance,
+        ShareStatusRejectFailed,
+        ShareStatusRejected,
+        ShareStatusRejecting,
+        ShareStatusShareFailed,
+        ShareStatusShared,
+        ShareStatusSharing
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ShareStatus = ShareStatus' (CI Text)
+newtype ShareStatus = ShareStatus'
+  { fromShareStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Deleted :: ShareStatus
-pattern Deleted = ShareStatus' "Deleted"
+pattern ShareStatusDeleted :: ShareStatus
+pattern ShareStatusDeleted = ShareStatus' "Deleted"
 
-pattern Deleting :: ShareStatus
-pattern Deleting = ShareStatus' "Deleting"
+pattern ShareStatusDeleting :: ShareStatus
+pattern ShareStatusDeleting = ShareStatus' "Deleting"
 
-pattern PendingAcceptance :: ShareStatus
-pattern PendingAcceptance = ShareStatus' "PendingAcceptance"
+pattern ShareStatusPendingAcceptance :: ShareStatus
+pattern ShareStatusPendingAcceptance = ShareStatus' "PendingAcceptance"
 
-pattern RejectFailed :: ShareStatus
-pattern RejectFailed = ShareStatus' "RejectFailed"
+pattern ShareStatusRejectFailed :: ShareStatus
+pattern ShareStatusRejectFailed = ShareStatus' "RejectFailed"
 
-pattern Rejected :: ShareStatus
-pattern Rejected = ShareStatus' "Rejected"
+pattern ShareStatusRejected :: ShareStatus
+pattern ShareStatusRejected = ShareStatus' "Rejected"
 
-pattern Rejecting :: ShareStatus
-pattern Rejecting = ShareStatus' "Rejecting"
+pattern ShareStatusRejecting :: ShareStatus
+pattern ShareStatusRejecting = ShareStatus' "Rejecting"
 
-pattern ShareFailed :: ShareStatus
-pattern ShareFailed = ShareStatus' "ShareFailed"
+pattern ShareStatusShareFailed :: ShareStatus
+pattern ShareStatusShareFailed = ShareStatus' "ShareFailed"
 
-pattern Shared :: ShareStatus
-pattern Shared = ShareStatus' "Shared"
+pattern ShareStatusShared :: ShareStatus
+pattern ShareStatusShared = ShareStatus' "Shared"
 
-pattern Sharing :: ShareStatus
-pattern Sharing = ShareStatus' "Sharing"
+pattern ShareStatusSharing :: ShareStatus
+pattern ShareStatusSharing = ShareStatus' "Sharing"
 
 {-# COMPLETE
-  Deleted,
-  Deleting,
-  PendingAcceptance,
-  RejectFailed,
-  Rejected,
-  Rejecting,
-  ShareFailed,
-  Shared,
-  Sharing,
+  ShareStatusDeleted,
+  ShareStatusDeleting,
+  ShareStatusPendingAcceptance,
+  ShareStatusRejectFailed,
+  ShareStatusRejected,
+  ShareStatusRejecting,
+  ShareStatusShareFailed,
+  ShareStatusShared,
+  ShareStatusSharing,
   ShareStatus'
   #-}
 
-instance FromText ShareStatus where
-  parser = (ShareStatus' . mk) <$> takeText
+instance Prelude.FromText ShareStatus where
+  parser = ShareStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ShareStatus where
-  toText (ShareStatus' ci) = original ci
+instance Prelude.ToText ShareStatus where
+  toText (ShareStatus' x) = x
 
-instance Hashable ShareStatus
+instance Prelude.Hashable ShareStatus
 
-instance NFData ShareStatus
+instance Prelude.NFData ShareStatus
 
-instance ToByteString ShareStatus
+instance Prelude.ToByteString ShareStatus
 
-instance ToQuery ShareStatus
+instance Prelude.ToQuery ShareStatus
 
-instance ToHeader ShareStatus
+instance Prelude.ToHeader ShareStatus
 
-instance FromJSON ShareStatus where
-  parseJSON = parseJSONText "ShareStatus"
+instance Prelude.FromJSON ShareStatus where
+  parseJSON = Prelude.parseJSONText "ShareStatus"

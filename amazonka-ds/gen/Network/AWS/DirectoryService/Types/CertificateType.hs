@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.DirectoryService.Types.CertificateType
   ( CertificateType
       ( ..,
-        ClientCertAuth,
-        ClientLDAPS
+        CertificateTypeClientCertAuth,
+        CertificateTypeClientLDAPS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CertificateType = CertificateType' (CI Text)
+newtype CertificateType = CertificateType'
+  { fromCertificateType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ClientCertAuth :: CertificateType
-pattern ClientCertAuth = CertificateType' "ClientCertAuth"
+pattern CertificateTypeClientCertAuth :: CertificateType
+pattern CertificateTypeClientCertAuth = CertificateType' "ClientCertAuth"
 
-pattern ClientLDAPS :: CertificateType
-pattern ClientLDAPS = CertificateType' "ClientLDAPS"
+pattern CertificateTypeClientLDAPS :: CertificateType
+pattern CertificateTypeClientLDAPS = CertificateType' "ClientLDAPS"
 
 {-# COMPLETE
-  ClientCertAuth,
-  ClientLDAPS,
+  CertificateTypeClientCertAuth,
+  CertificateTypeClientLDAPS,
   CertificateType'
   #-}
 
-instance FromText CertificateType where
-  parser = (CertificateType' . mk) <$> takeText
+instance Prelude.FromText CertificateType where
+  parser = CertificateType' Prelude.<$> Prelude.takeText
 
-instance ToText CertificateType where
-  toText (CertificateType' ci) = original ci
+instance Prelude.ToText CertificateType where
+  toText (CertificateType' x) = x
 
-instance Hashable CertificateType
+instance Prelude.Hashable CertificateType
 
-instance NFData CertificateType
+instance Prelude.NFData CertificateType
 
-instance ToByteString CertificateType
+instance Prelude.ToByteString CertificateType
 
-instance ToQuery CertificateType
+instance Prelude.ToQuery CertificateType
 
-instance ToHeader CertificateType
+instance Prelude.ToHeader CertificateType
 
-instance ToJSON CertificateType where
-  toJSON = toJSONText
+instance Prelude.ToJSON CertificateType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CertificateType where
-  parseJSON = parseJSONText "CertificateType"
+instance Prelude.FromJSON CertificateType where
+  parseJSON = Prelude.parseJSONText "CertificateType"

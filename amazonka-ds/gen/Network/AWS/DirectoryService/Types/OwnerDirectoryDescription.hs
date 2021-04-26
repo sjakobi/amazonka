@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,105 +19,110 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.DirectoryService.Types.OwnerDirectoryDescription where
 
-import Network.AWS.DirectoryService.Types.DirectoryVPCSettingsDescription
+import Network.AWS.DirectoryService.Types.DirectoryVpcSettingsDescription
 import Network.AWS.DirectoryService.Types.RadiusSettings
 import Network.AWS.DirectoryService.Types.RadiusStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes the directory owner account details that have been shared to the directory consumer account.
+-- | Describes the directory owner account details that have been shared to
+-- the directory consumer account.
 --
---
---
--- /See:/ 'ownerDirectoryDescription' smart constructor.
+-- /See:/ 'newOwnerDirectoryDescription' smart constructor.
 data OwnerDirectoryDescription = OwnerDirectoryDescription'
-  { _oddRadiusStatus ::
-      !( Maybe
-           RadiusStatus
-       ),
-    _oddAccountId ::
-      !(Maybe Text),
-    _oddVPCSettings ::
-      !( Maybe
-           DirectoryVPCSettingsDescription
-       ),
-    _oddDirectoryId ::
-      !(Maybe Text),
-    _oddDNSIPAddrs ::
-      !(Maybe [Text]),
-    _oddRadiusSettings ::
-      !( Maybe
-           RadiusSettings
-       )
+  { -- | Information about the status of the RADIUS server.
+    radiusStatus :: Prelude.Maybe RadiusStatus,
+    -- | Identifier of the directory owner account.
+    accountId :: Prelude.Maybe Prelude.Text,
+    -- | Information about the VPC settings for the directory.
+    vpcSettings :: Prelude.Maybe DirectoryVpcSettingsDescription,
+    -- | Identifier of the AWS Managed Microsoft AD directory in the directory
+    -- owner account.
+    directoryId :: Prelude.Maybe Prelude.Text,
+    -- | IP address of the directory’s domain controllers.
+    dnsIpAddrs :: Prelude.Maybe [Prelude.Text],
+    -- | A RadiusSettings object that contains information about the RADIUS
+    -- server.
+    radiusSettings :: Prelude.Maybe RadiusSettings
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OwnerDirectoryDescription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OwnerDirectoryDescription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'oddRadiusStatus' - Information about the status of the RADIUS server.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'oddAccountId' - Identifier of the directory owner account.
+-- 'radiusStatus', 'ownerDirectoryDescription_radiusStatus' - Information about the status of the RADIUS server.
 --
--- * 'oddVPCSettings' - Information about the VPC settings for the directory.
+-- 'accountId', 'ownerDirectoryDescription_accountId' - Identifier of the directory owner account.
 --
--- * 'oddDirectoryId' - Identifier of the AWS Managed Microsoft AD directory in the directory owner account.
+-- 'vpcSettings', 'ownerDirectoryDescription_vpcSettings' - Information about the VPC settings for the directory.
 --
--- * 'oddDNSIPAddrs' - IP address of the directory’s domain controllers.
+-- 'directoryId', 'ownerDirectoryDescription_directoryId' - Identifier of the AWS Managed Microsoft AD directory in the directory
+-- owner account.
 --
--- * 'oddRadiusSettings' - A 'RadiusSettings' object that contains information about the RADIUS server.
-ownerDirectoryDescription ::
+-- 'dnsIpAddrs', 'ownerDirectoryDescription_dnsIpAddrs' - IP address of the directory’s domain controllers.
+--
+-- 'radiusSettings', 'ownerDirectoryDescription_radiusSettings' - A RadiusSettings object that contains information about the RADIUS
+-- server.
+newOwnerDirectoryDescription ::
   OwnerDirectoryDescription
-ownerDirectoryDescription =
+newOwnerDirectoryDescription =
   OwnerDirectoryDescription'
-    { _oddRadiusStatus =
-        Nothing,
-      _oddAccountId = Nothing,
-      _oddVPCSettings = Nothing,
-      _oddDirectoryId = Nothing,
-      _oddDNSIPAddrs = Nothing,
-      _oddRadiusSettings = Nothing
+    { radiusStatus =
+        Prelude.Nothing,
+      accountId = Prelude.Nothing,
+      vpcSettings = Prelude.Nothing,
+      directoryId = Prelude.Nothing,
+      dnsIpAddrs = Prelude.Nothing,
+      radiusSettings = Prelude.Nothing
     }
 
 -- | Information about the status of the RADIUS server.
-oddRadiusStatus :: Lens' OwnerDirectoryDescription (Maybe RadiusStatus)
-oddRadiusStatus = lens _oddRadiusStatus (\s a -> s {_oddRadiusStatus = a})
+ownerDirectoryDescription_radiusStatus :: Lens.Lens' OwnerDirectoryDescription (Prelude.Maybe RadiusStatus)
+ownerDirectoryDescription_radiusStatus = Lens.lens (\OwnerDirectoryDescription' {radiusStatus} -> radiusStatus) (\s@OwnerDirectoryDescription' {} a -> s {radiusStatus = a} :: OwnerDirectoryDescription)
 
 -- | Identifier of the directory owner account.
-oddAccountId :: Lens' OwnerDirectoryDescription (Maybe Text)
-oddAccountId = lens _oddAccountId (\s a -> s {_oddAccountId = a})
+ownerDirectoryDescription_accountId :: Lens.Lens' OwnerDirectoryDescription (Prelude.Maybe Prelude.Text)
+ownerDirectoryDescription_accountId = Lens.lens (\OwnerDirectoryDescription' {accountId} -> accountId) (\s@OwnerDirectoryDescription' {} a -> s {accountId = a} :: OwnerDirectoryDescription)
 
 -- | Information about the VPC settings for the directory.
-oddVPCSettings :: Lens' OwnerDirectoryDescription (Maybe DirectoryVPCSettingsDescription)
-oddVPCSettings = lens _oddVPCSettings (\s a -> s {_oddVPCSettings = a})
+ownerDirectoryDescription_vpcSettings :: Lens.Lens' OwnerDirectoryDescription (Prelude.Maybe DirectoryVpcSettingsDescription)
+ownerDirectoryDescription_vpcSettings = Lens.lens (\OwnerDirectoryDescription' {vpcSettings} -> vpcSettings) (\s@OwnerDirectoryDescription' {} a -> s {vpcSettings = a} :: OwnerDirectoryDescription)
 
--- | Identifier of the AWS Managed Microsoft AD directory in the directory owner account.
-oddDirectoryId :: Lens' OwnerDirectoryDescription (Maybe Text)
-oddDirectoryId = lens _oddDirectoryId (\s a -> s {_oddDirectoryId = a})
+-- | Identifier of the AWS Managed Microsoft AD directory in the directory
+-- owner account.
+ownerDirectoryDescription_directoryId :: Lens.Lens' OwnerDirectoryDescription (Prelude.Maybe Prelude.Text)
+ownerDirectoryDescription_directoryId = Lens.lens (\OwnerDirectoryDescription' {directoryId} -> directoryId) (\s@OwnerDirectoryDescription' {} a -> s {directoryId = a} :: OwnerDirectoryDescription)
 
 -- | IP address of the directory’s domain controllers.
-oddDNSIPAddrs :: Lens' OwnerDirectoryDescription [Text]
-oddDNSIPAddrs = lens _oddDNSIPAddrs (\s a -> s {_oddDNSIPAddrs = a}) . _Default . _Coerce
+ownerDirectoryDescription_dnsIpAddrs :: Lens.Lens' OwnerDirectoryDescription (Prelude.Maybe [Prelude.Text])
+ownerDirectoryDescription_dnsIpAddrs = Lens.lens (\OwnerDirectoryDescription' {dnsIpAddrs} -> dnsIpAddrs) (\s@OwnerDirectoryDescription' {} a -> s {dnsIpAddrs = a} :: OwnerDirectoryDescription) Prelude.. Lens.mapping Prelude._Coerce
 
--- | A 'RadiusSettings' object that contains information about the RADIUS server.
-oddRadiusSettings :: Lens' OwnerDirectoryDescription (Maybe RadiusSettings)
-oddRadiusSettings = lens _oddRadiusSettings (\s a -> s {_oddRadiusSettings = a})
+-- | A RadiusSettings object that contains information about the RADIUS
+-- server.
+ownerDirectoryDescription_radiusSettings :: Lens.Lens' OwnerDirectoryDescription (Prelude.Maybe RadiusSettings)
+ownerDirectoryDescription_radiusSettings = Lens.lens (\OwnerDirectoryDescription' {radiusSettings} -> radiusSettings) (\s@OwnerDirectoryDescription' {} a -> s {radiusSettings = a} :: OwnerDirectoryDescription)
 
-instance FromJSON OwnerDirectoryDescription where
+instance Prelude.FromJSON OwnerDirectoryDescription where
   parseJSON =
-    withObject
+    Prelude.withObject
       "OwnerDirectoryDescription"
       ( \x ->
           OwnerDirectoryDescription'
-            <$> (x .:? "RadiusStatus")
-            <*> (x .:? "AccountId")
-            <*> (x .:? "VpcSettings")
-            <*> (x .:? "DirectoryId")
-            <*> (x .:? "DnsIpAddrs" .!= mempty)
-            <*> (x .:? "RadiusSettings")
+            Prelude.<$> (x Prelude..:? "RadiusStatus")
+            Prelude.<*> (x Prelude..:? "AccountId")
+            Prelude.<*> (x Prelude..:? "VpcSettings")
+            Prelude.<*> (x Prelude..:? "DirectoryId")
+            Prelude.<*> ( x Prelude..:? "DnsIpAddrs"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "RadiusSettings")
       )
 
-instance Hashable OwnerDirectoryDescription
+instance Prelude.Hashable OwnerDirectoryDescription
 
-instance NFData OwnerDirectoryDescription
+instance Prelude.NFData OwnerDirectoryDescription

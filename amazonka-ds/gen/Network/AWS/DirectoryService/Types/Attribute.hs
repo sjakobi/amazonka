@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,55 +19,66 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.DirectoryService.Types.Attribute where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents a named directory attribute.
 --
---
---
--- /See:/ 'attribute' smart constructor.
+-- /See:/ 'newAttribute' smart constructor.
 data Attribute = Attribute'
-  { _aName :: !(Maybe Text),
-    _aValue :: !(Maybe Text)
+  { -- | The name of the attribute.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The value of the attribute.
+    value :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Attribute' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Attribute' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aName' - The name of the attribute.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aValue' - The value of the attribute.
-attribute ::
+-- 'name', 'attribute_name' - The name of the attribute.
+--
+-- 'value', 'attribute_value' - The value of the attribute.
+newAttribute ::
   Attribute
-attribute =
-  Attribute' {_aName = Nothing, _aValue = Nothing}
+newAttribute =
+  Attribute'
+    { name = Prelude.Nothing,
+      value = Prelude.Nothing
+    }
 
 -- | The name of the attribute.
-aName :: Lens' Attribute (Maybe Text)
-aName = lens _aName (\s a -> s {_aName = a})
+attribute_name :: Lens.Lens' Attribute (Prelude.Maybe Prelude.Text)
+attribute_name = Lens.lens (\Attribute' {name} -> name) (\s@Attribute' {} a -> s {name = a} :: Attribute)
 
 -- | The value of the attribute.
-aValue :: Lens' Attribute (Maybe Text)
-aValue = lens _aValue (\s a -> s {_aValue = a})
+attribute_value :: Lens.Lens' Attribute (Prelude.Maybe Prelude.Text)
+attribute_value = Lens.lens (\Attribute' {value} -> value) (\s@Attribute' {} a -> s {value = a} :: Attribute)
 
-instance FromJSON Attribute where
+instance Prelude.FromJSON Attribute where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Attribute"
       ( \x ->
-          Attribute' <$> (x .:? "Name") <*> (x .:? "Value")
+          Attribute'
+            Prelude.<$> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "Value")
       )
 
-instance Hashable Attribute
+instance Prelude.Hashable Attribute
 
-instance NFData Attribute
+instance Prelude.NFData Attribute
 
-instance ToJSON Attribute where
+instance Prelude.ToJSON Attribute where
   toJSON Attribute' {..} =
-    object
-      ( catMaybes
-          [("Name" .=) <$> _aName, ("Value" .=) <$> _aValue]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Name" Prelude..=) Prelude.<$> name,
+            ("Value" Prelude..=) Prelude.<$> value
+          ]
       )

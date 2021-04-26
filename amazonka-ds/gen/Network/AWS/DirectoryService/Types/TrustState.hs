@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,98 +19,100 @@
 module Network.AWS.DirectoryService.Types.TrustState
   ( TrustState
       ( ..,
-        TSCreated,
-        TSCreating,
-        TSDeleted,
-        TSDeleting,
-        TSFailed,
-        TSUpdateFailed,
-        TSUpdated,
-        TSUpdating,
-        TSVerified,
-        TSVerifyFailed,
-        TSVerifying
+        TrustStateCreated,
+        TrustStateCreating,
+        TrustStateDeleted,
+        TrustStateDeleting,
+        TrustStateFailed,
+        TrustStateUpdateFailed,
+        TrustStateUpdated,
+        TrustStateUpdating,
+        TrustStateVerified,
+        TrustStateVerifyFailed,
+        TrustStateVerifying
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TrustState = TrustState' (CI Text)
+newtype TrustState = TrustState'
+  { fromTrustState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TSCreated :: TrustState
-pattern TSCreated = TrustState' "Created"
+pattern TrustStateCreated :: TrustState
+pattern TrustStateCreated = TrustState' "Created"
 
-pattern TSCreating :: TrustState
-pattern TSCreating = TrustState' "Creating"
+pattern TrustStateCreating :: TrustState
+pattern TrustStateCreating = TrustState' "Creating"
 
-pattern TSDeleted :: TrustState
-pattern TSDeleted = TrustState' "Deleted"
+pattern TrustStateDeleted :: TrustState
+pattern TrustStateDeleted = TrustState' "Deleted"
 
-pattern TSDeleting :: TrustState
-pattern TSDeleting = TrustState' "Deleting"
+pattern TrustStateDeleting :: TrustState
+pattern TrustStateDeleting = TrustState' "Deleting"
 
-pattern TSFailed :: TrustState
-pattern TSFailed = TrustState' "Failed"
+pattern TrustStateFailed :: TrustState
+pattern TrustStateFailed = TrustState' "Failed"
 
-pattern TSUpdateFailed :: TrustState
-pattern TSUpdateFailed = TrustState' "UpdateFailed"
+pattern TrustStateUpdateFailed :: TrustState
+pattern TrustStateUpdateFailed = TrustState' "UpdateFailed"
 
-pattern TSUpdated :: TrustState
-pattern TSUpdated = TrustState' "Updated"
+pattern TrustStateUpdated :: TrustState
+pattern TrustStateUpdated = TrustState' "Updated"
 
-pattern TSUpdating :: TrustState
-pattern TSUpdating = TrustState' "Updating"
+pattern TrustStateUpdating :: TrustState
+pattern TrustStateUpdating = TrustState' "Updating"
 
-pattern TSVerified :: TrustState
-pattern TSVerified = TrustState' "Verified"
+pattern TrustStateVerified :: TrustState
+pattern TrustStateVerified = TrustState' "Verified"
 
-pattern TSVerifyFailed :: TrustState
-pattern TSVerifyFailed = TrustState' "VerifyFailed"
+pattern TrustStateVerifyFailed :: TrustState
+pattern TrustStateVerifyFailed = TrustState' "VerifyFailed"
 
-pattern TSVerifying :: TrustState
-pattern TSVerifying = TrustState' "Verifying"
+pattern TrustStateVerifying :: TrustState
+pattern TrustStateVerifying = TrustState' "Verifying"
 
 {-# COMPLETE
-  TSCreated,
-  TSCreating,
-  TSDeleted,
-  TSDeleting,
-  TSFailed,
-  TSUpdateFailed,
-  TSUpdated,
-  TSUpdating,
-  TSVerified,
-  TSVerifyFailed,
-  TSVerifying,
+  TrustStateCreated,
+  TrustStateCreating,
+  TrustStateDeleted,
+  TrustStateDeleting,
+  TrustStateFailed,
+  TrustStateUpdateFailed,
+  TrustStateUpdated,
+  TrustStateUpdating,
+  TrustStateVerified,
+  TrustStateVerifyFailed,
+  TrustStateVerifying,
   TrustState'
   #-}
 
-instance FromText TrustState where
-  parser = (TrustState' . mk) <$> takeText
+instance Prelude.FromText TrustState where
+  parser = TrustState' Prelude.<$> Prelude.takeText
 
-instance ToText TrustState where
-  toText (TrustState' ci) = original ci
+instance Prelude.ToText TrustState where
+  toText (TrustState' x) = x
 
-instance Hashable TrustState
+instance Prelude.Hashable TrustState
 
-instance NFData TrustState
+instance Prelude.NFData TrustState
 
-instance ToByteString TrustState
+instance Prelude.ToByteString TrustState
 
-instance ToQuery TrustState
+instance Prelude.ToQuery TrustState
 
-instance ToHeader TrustState
+instance Prelude.ToHeader TrustState
 
-instance FromJSON TrustState where
-  parseJSON = parseJSONText "TrustState"
+instance Prelude.FromJSON TrustState where
+  parseJSON = Prelude.parseJSONText "TrustState"

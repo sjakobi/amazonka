@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,48 +19,50 @@
 module Network.AWS.DirectoryService.Types.LDAPSType
   ( LDAPSType
       ( ..,
-        Client
+        LDAPSTypeClient
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data LDAPSType = LDAPSType' (CI Text)
+newtype LDAPSType = LDAPSType'
+  { fromLDAPSType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Client :: LDAPSType
-pattern Client = LDAPSType' "Client"
+pattern LDAPSTypeClient :: LDAPSType
+pattern LDAPSTypeClient = LDAPSType' "Client"
 
 {-# COMPLETE
-  Client,
+  LDAPSTypeClient,
   LDAPSType'
   #-}
 
-instance FromText LDAPSType where
-  parser = (LDAPSType' . mk) <$> takeText
+instance Prelude.FromText LDAPSType where
+  parser = LDAPSType' Prelude.<$> Prelude.takeText
 
-instance ToText LDAPSType where
-  toText (LDAPSType' ci) = original ci
+instance Prelude.ToText LDAPSType where
+  toText (LDAPSType' x) = x
 
-instance Hashable LDAPSType
+instance Prelude.Hashable LDAPSType
 
-instance NFData LDAPSType
+instance Prelude.NFData LDAPSType
 
-instance ToByteString LDAPSType
+instance Prelude.ToByteString LDAPSType
 
-instance ToQuery LDAPSType
+instance Prelude.ToQuery LDAPSType
 
-instance ToHeader LDAPSType
+instance Prelude.ToHeader LDAPSType
 
-instance ToJSON LDAPSType where
-  toJSON = toJSONText
+instance Prelude.ToJSON LDAPSType where
+  toJSON = Prelude.toJSONText

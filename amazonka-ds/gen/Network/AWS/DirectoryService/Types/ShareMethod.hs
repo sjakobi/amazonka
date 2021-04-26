@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.DirectoryService.Types.ShareMethod
   ( ShareMethod
       ( ..,
-        Handshake,
-        Organizations
+        ShareMethodHANDSHAKE,
+        ShareMethodORGANIZATIONS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ShareMethod = ShareMethod' (CI Text)
+newtype ShareMethod = ShareMethod'
+  { fromShareMethod ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Handshake :: ShareMethod
-pattern Handshake = ShareMethod' "HANDSHAKE"
+pattern ShareMethodHANDSHAKE :: ShareMethod
+pattern ShareMethodHANDSHAKE = ShareMethod' "HANDSHAKE"
 
-pattern Organizations :: ShareMethod
-pattern Organizations = ShareMethod' "ORGANIZATIONS"
+pattern ShareMethodORGANIZATIONS :: ShareMethod
+pattern ShareMethodORGANIZATIONS = ShareMethod' "ORGANIZATIONS"
 
 {-# COMPLETE
-  Handshake,
-  Organizations,
+  ShareMethodHANDSHAKE,
+  ShareMethodORGANIZATIONS,
   ShareMethod'
   #-}
 
-instance FromText ShareMethod where
-  parser = (ShareMethod' . mk) <$> takeText
+instance Prelude.FromText ShareMethod where
+  parser = ShareMethod' Prelude.<$> Prelude.takeText
 
-instance ToText ShareMethod where
-  toText (ShareMethod' ci) = original ci
+instance Prelude.ToText ShareMethod where
+  toText (ShareMethod' x) = x
 
-instance Hashable ShareMethod
+instance Prelude.Hashable ShareMethod
 
-instance NFData ShareMethod
+instance Prelude.NFData ShareMethod
 
-instance ToByteString ShareMethod
+instance Prelude.ToByteString ShareMethod
 
-instance ToQuery ShareMethod
+instance Prelude.ToQuery ShareMethod
 
-instance ToHeader ShareMethod
+instance Prelude.ToHeader ShareMethod
 
-instance ToJSON ShareMethod where
-  toJSON = toJSONText
+instance Prelude.ToJSON ShareMethod where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ShareMethod where
-  parseJSON = parseJSONText "ShareMethod"
+instance Prelude.FromJSON ShareMethod where
+  parseJSON = Prelude.parseJSONText "ShareMethod"

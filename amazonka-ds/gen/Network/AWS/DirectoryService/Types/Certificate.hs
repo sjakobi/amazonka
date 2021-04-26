@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,108 +22,127 @@ module Network.AWS.DirectoryService.Types.Certificate where
 import Network.AWS.DirectoryService.Types.CertificateState
 import Network.AWS.DirectoryService.Types.CertificateType
 import Network.AWS.DirectoryService.Types.ClientCertAuthSettings
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about the certificate.
 --
---
---
--- /See:/ 'certificate' smart constructor.
+-- /See:/ 'newCertificate' smart constructor.
 data Certificate = Certificate'
-  { _cClientCertAuthSettings ::
-      !(Maybe ClientCertAuthSettings),
-    _cRegisteredDateTime :: !(Maybe POSIX),
-    _cStateReason :: !(Maybe Text),
-    _cCommonName :: !(Maybe Text),
-    _cState :: !(Maybe CertificateState),
-    _cExpiryDateTime :: !(Maybe POSIX),
-    _cType :: !(Maybe CertificateType),
-    _cCertificateId :: !(Maybe Text)
+  { -- | A @ClientCertAuthSettings@ object that contains client certificate
+    -- authentication settings.
+    clientCertAuthSettings :: Prelude.Maybe ClientCertAuthSettings,
+    -- | The date and time that the certificate was registered.
+    registeredDateTime :: Prelude.Maybe Prelude.POSIX,
+    -- | Describes a state change for the certificate.
+    stateReason :: Prelude.Maybe Prelude.Text,
+    -- | The common name for the certificate.
+    commonName :: Prelude.Maybe Prelude.Text,
+    -- | The state of the certificate.
+    state :: Prelude.Maybe CertificateState,
+    -- | The date and time when the certificate will expire.
+    expiryDateTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The function that the registered certificate performs. Valid values
+    -- include @ClientLDAPS@ or @ClientCertAuth@. The default value is
+    -- @ClientLDAPS@.
+    type' :: Prelude.Maybe CertificateType,
+    -- | The identifier of the certificate.
+    certificateId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Certificate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Certificate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cClientCertAuthSettings' - A @ClientCertAuthSettings@ object that contains client certificate authentication settings.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cRegisteredDateTime' - The date and time that the certificate was registered.
+-- 'clientCertAuthSettings', 'certificate_clientCertAuthSettings' - A @ClientCertAuthSettings@ object that contains client certificate
+-- authentication settings.
 --
--- * 'cStateReason' - Describes a state change for the certificate.
+-- 'registeredDateTime', 'certificate_registeredDateTime' - The date and time that the certificate was registered.
 --
--- * 'cCommonName' - The common name for the certificate.
+-- 'stateReason', 'certificate_stateReason' - Describes a state change for the certificate.
 --
--- * 'cState' - The state of the certificate.
+-- 'commonName', 'certificate_commonName' - The common name for the certificate.
 --
--- * 'cExpiryDateTime' - The date and time when the certificate will expire.
+-- 'state', 'certificate_state' - The state of the certificate.
 --
--- * 'cType' - The function that the registered certificate performs. Valid values include @ClientLDAPS@ or @ClientCertAuth@ . The default value is @ClientLDAPS@ .
+-- 'expiryDateTime', 'certificate_expiryDateTime' - The date and time when the certificate will expire.
 --
--- * 'cCertificateId' - The identifier of the certificate.
-certificate ::
+-- 'type'', 'certificate_type' - The function that the registered certificate performs. Valid values
+-- include @ClientLDAPS@ or @ClientCertAuth@. The default value is
+-- @ClientLDAPS@.
+--
+-- 'certificateId', 'certificate_certificateId' - The identifier of the certificate.
+newCertificate ::
   Certificate
-certificate =
+newCertificate =
   Certificate'
-    { _cClientCertAuthSettings = Nothing,
-      _cRegisteredDateTime = Nothing,
-      _cStateReason = Nothing,
-      _cCommonName = Nothing,
-      _cState = Nothing,
-      _cExpiryDateTime = Nothing,
-      _cType = Nothing,
-      _cCertificateId = Nothing
+    { clientCertAuthSettings =
+        Prelude.Nothing,
+      registeredDateTime = Prelude.Nothing,
+      stateReason = Prelude.Nothing,
+      commonName = Prelude.Nothing,
+      state = Prelude.Nothing,
+      expiryDateTime = Prelude.Nothing,
+      type' = Prelude.Nothing,
+      certificateId = Prelude.Nothing
     }
 
--- | A @ClientCertAuthSettings@ object that contains client certificate authentication settings.
-cClientCertAuthSettings :: Lens' Certificate (Maybe ClientCertAuthSettings)
-cClientCertAuthSettings = lens _cClientCertAuthSettings (\s a -> s {_cClientCertAuthSettings = a})
+-- | A @ClientCertAuthSettings@ object that contains client certificate
+-- authentication settings.
+certificate_clientCertAuthSettings :: Lens.Lens' Certificate (Prelude.Maybe ClientCertAuthSettings)
+certificate_clientCertAuthSettings = Lens.lens (\Certificate' {clientCertAuthSettings} -> clientCertAuthSettings) (\s@Certificate' {} a -> s {clientCertAuthSettings = a} :: Certificate)
 
 -- | The date and time that the certificate was registered.
-cRegisteredDateTime :: Lens' Certificate (Maybe UTCTime)
-cRegisteredDateTime = lens _cRegisteredDateTime (\s a -> s {_cRegisteredDateTime = a}) . mapping _Time
+certificate_registeredDateTime :: Lens.Lens' Certificate (Prelude.Maybe Prelude.UTCTime)
+certificate_registeredDateTime = Lens.lens (\Certificate' {registeredDateTime} -> registeredDateTime) (\s@Certificate' {} a -> s {registeredDateTime = a} :: Certificate) Prelude.. Lens.mapping Prelude._Time
 
 -- | Describes a state change for the certificate.
-cStateReason :: Lens' Certificate (Maybe Text)
-cStateReason = lens _cStateReason (\s a -> s {_cStateReason = a})
+certificate_stateReason :: Lens.Lens' Certificate (Prelude.Maybe Prelude.Text)
+certificate_stateReason = Lens.lens (\Certificate' {stateReason} -> stateReason) (\s@Certificate' {} a -> s {stateReason = a} :: Certificate)
 
 -- | The common name for the certificate.
-cCommonName :: Lens' Certificate (Maybe Text)
-cCommonName = lens _cCommonName (\s a -> s {_cCommonName = a})
+certificate_commonName :: Lens.Lens' Certificate (Prelude.Maybe Prelude.Text)
+certificate_commonName = Lens.lens (\Certificate' {commonName} -> commonName) (\s@Certificate' {} a -> s {commonName = a} :: Certificate)
 
 -- | The state of the certificate.
-cState :: Lens' Certificate (Maybe CertificateState)
-cState = lens _cState (\s a -> s {_cState = a})
+certificate_state :: Lens.Lens' Certificate (Prelude.Maybe CertificateState)
+certificate_state = Lens.lens (\Certificate' {state} -> state) (\s@Certificate' {} a -> s {state = a} :: Certificate)
 
 -- | The date and time when the certificate will expire.
-cExpiryDateTime :: Lens' Certificate (Maybe UTCTime)
-cExpiryDateTime = lens _cExpiryDateTime (\s a -> s {_cExpiryDateTime = a}) . mapping _Time
+certificate_expiryDateTime :: Lens.Lens' Certificate (Prelude.Maybe Prelude.UTCTime)
+certificate_expiryDateTime = Lens.lens (\Certificate' {expiryDateTime} -> expiryDateTime) (\s@Certificate' {} a -> s {expiryDateTime = a} :: Certificate) Prelude.. Lens.mapping Prelude._Time
 
--- | The function that the registered certificate performs. Valid values include @ClientLDAPS@ or @ClientCertAuth@ . The default value is @ClientLDAPS@ .
-cType :: Lens' Certificate (Maybe CertificateType)
-cType = lens _cType (\s a -> s {_cType = a})
+-- | The function that the registered certificate performs. Valid values
+-- include @ClientLDAPS@ or @ClientCertAuth@. The default value is
+-- @ClientLDAPS@.
+certificate_type :: Lens.Lens' Certificate (Prelude.Maybe CertificateType)
+certificate_type = Lens.lens (\Certificate' {type'} -> type') (\s@Certificate' {} a -> s {type' = a} :: Certificate)
 
 -- | The identifier of the certificate.
-cCertificateId :: Lens' Certificate (Maybe Text)
-cCertificateId = lens _cCertificateId (\s a -> s {_cCertificateId = a})
+certificate_certificateId :: Lens.Lens' Certificate (Prelude.Maybe Prelude.Text)
+certificate_certificateId = Lens.lens (\Certificate' {certificateId} -> certificateId) (\s@Certificate' {} a -> s {certificateId = a} :: Certificate)
 
-instance FromJSON Certificate where
+instance Prelude.FromJSON Certificate where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Certificate"
       ( \x ->
           Certificate'
-            <$> (x .:? "ClientCertAuthSettings")
-            <*> (x .:? "RegisteredDateTime")
-            <*> (x .:? "StateReason")
-            <*> (x .:? "CommonName")
-            <*> (x .:? "State")
-            <*> (x .:? "ExpiryDateTime")
-            <*> (x .:? "Type")
-            <*> (x .:? "CertificateId")
+            Prelude.<$> (x Prelude..:? "ClientCertAuthSettings")
+            Prelude.<*> (x Prelude..:? "RegisteredDateTime")
+            Prelude.<*> (x Prelude..:? "StateReason")
+            Prelude.<*> (x Prelude..:? "CommonName")
+            Prelude.<*> (x Prelude..:? "State")
+            Prelude.<*> (x Prelude..:? "ExpiryDateTime")
+            Prelude.<*> (x Prelude..:? "Type")
+            Prelude.<*> (x Prelude..:? "CertificateId")
       )
 
-instance Hashable Certificate
+instance Prelude.Hashable Certificate
 
-instance NFData Certificate
+instance Prelude.NFData Certificate

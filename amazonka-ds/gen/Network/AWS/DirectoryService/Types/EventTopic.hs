@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,81 +20,97 @@
 module Network.AWS.DirectoryService.Types.EventTopic where
 
 import Network.AWS.DirectoryService.Types.TopicStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Information about SNS topic and AWS Directory Service directory associations.
+-- | Information about SNS topic and AWS Directory Service directory
+-- associations.
 --
---
---
--- /See:/ 'eventTopic' smart constructor.
+-- /See:/ 'newEventTopic' smart constructor.
 data EventTopic = EventTopic'
-  { _etStatus ::
-      !(Maybe TopicStatus),
-    _etCreatedDateTime :: !(Maybe POSIX),
-    _etTopicName :: !(Maybe Text),
-    _etTopicARN :: !(Maybe Text),
-    _etDirectoryId :: !(Maybe Text)
+  { -- | The topic registration status.
+    status :: Prelude.Maybe TopicStatus,
+    -- | The date and time of when you associated your directory with the SNS
+    -- topic.
+    createdDateTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The name of an AWS SNS topic the receives status messages from the
+    -- directory.
+    topicName :: Prelude.Maybe Prelude.Text,
+    -- | The SNS topic ARN (Amazon Resource Name).
+    topicArn :: Prelude.Maybe Prelude.Text,
+    -- | The Directory ID of an AWS Directory Service directory that will publish
+    -- status messages to an SNS topic.
+    directoryId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EventTopic' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EventTopic' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'etStatus' - The topic registration status.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'etCreatedDateTime' - The date and time of when you associated your directory with the SNS topic.
+-- 'status', 'eventTopic_status' - The topic registration status.
 --
--- * 'etTopicName' - The name of an AWS SNS topic the receives status messages from the directory.
+-- 'createdDateTime', 'eventTopic_createdDateTime' - The date and time of when you associated your directory with the SNS
+-- topic.
 --
--- * 'etTopicARN' - The SNS topic ARN (Amazon Resource Name).
+-- 'topicName', 'eventTopic_topicName' - The name of an AWS SNS topic the receives status messages from the
+-- directory.
 --
--- * 'etDirectoryId' - The Directory ID of an AWS Directory Service directory that will publish status messages to an SNS topic.
-eventTopic ::
+-- 'topicArn', 'eventTopic_topicArn' - The SNS topic ARN (Amazon Resource Name).
+--
+-- 'directoryId', 'eventTopic_directoryId' - The Directory ID of an AWS Directory Service directory that will publish
+-- status messages to an SNS topic.
+newEventTopic ::
   EventTopic
-eventTopic =
+newEventTopic =
   EventTopic'
-    { _etStatus = Nothing,
-      _etCreatedDateTime = Nothing,
-      _etTopicName = Nothing,
-      _etTopicARN = Nothing,
-      _etDirectoryId = Nothing
+    { status = Prelude.Nothing,
+      createdDateTime = Prelude.Nothing,
+      topicName = Prelude.Nothing,
+      topicArn = Prelude.Nothing,
+      directoryId = Prelude.Nothing
     }
 
 -- | The topic registration status.
-etStatus :: Lens' EventTopic (Maybe TopicStatus)
-etStatus = lens _etStatus (\s a -> s {_etStatus = a})
+eventTopic_status :: Lens.Lens' EventTopic (Prelude.Maybe TopicStatus)
+eventTopic_status = Lens.lens (\EventTopic' {status} -> status) (\s@EventTopic' {} a -> s {status = a} :: EventTopic)
 
--- | The date and time of when you associated your directory with the SNS topic.
-etCreatedDateTime :: Lens' EventTopic (Maybe UTCTime)
-etCreatedDateTime = lens _etCreatedDateTime (\s a -> s {_etCreatedDateTime = a}) . mapping _Time
+-- | The date and time of when you associated your directory with the SNS
+-- topic.
+eventTopic_createdDateTime :: Lens.Lens' EventTopic (Prelude.Maybe Prelude.UTCTime)
+eventTopic_createdDateTime = Lens.lens (\EventTopic' {createdDateTime} -> createdDateTime) (\s@EventTopic' {} a -> s {createdDateTime = a} :: EventTopic) Prelude.. Lens.mapping Prelude._Time
 
--- | The name of an AWS SNS topic the receives status messages from the directory.
-etTopicName :: Lens' EventTopic (Maybe Text)
-etTopicName = lens _etTopicName (\s a -> s {_etTopicName = a})
+-- | The name of an AWS SNS topic the receives status messages from the
+-- directory.
+eventTopic_topicName :: Lens.Lens' EventTopic (Prelude.Maybe Prelude.Text)
+eventTopic_topicName = Lens.lens (\EventTopic' {topicName} -> topicName) (\s@EventTopic' {} a -> s {topicName = a} :: EventTopic)
 
 -- | The SNS topic ARN (Amazon Resource Name).
-etTopicARN :: Lens' EventTopic (Maybe Text)
-etTopicARN = lens _etTopicARN (\s a -> s {_etTopicARN = a})
+eventTopic_topicArn :: Lens.Lens' EventTopic (Prelude.Maybe Prelude.Text)
+eventTopic_topicArn = Lens.lens (\EventTopic' {topicArn} -> topicArn) (\s@EventTopic' {} a -> s {topicArn = a} :: EventTopic)
 
--- | The Directory ID of an AWS Directory Service directory that will publish status messages to an SNS topic.
-etDirectoryId :: Lens' EventTopic (Maybe Text)
-etDirectoryId = lens _etDirectoryId (\s a -> s {_etDirectoryId = a})
+-- | The Directory ID of an AWS Directory Service directory that will publish
+-- status messages to an SNS topic.
+eventTopic_directoryId :: Lens.Lens' EventTopic (Prelude.Maybe Prelude.Text)
+eventTopic_directoryId = Lens.lens (\EventTopic' {directoryId} -> directoryId) (\s@EventTopic' {} a -> s {directoryId = a} :: EventTopic)
 
-instance FromJSON EventTopic where
+instance Prelude.FromJSON EventTopic where
   parseJSON =
-    withObject
+    Prelude.withObject
       "EventTopic"
       ( \x ->
           EventTopic'
-            <$> (x .:? "Status")
-            <*> (x .:? "CreatedDateTime")
-            <*> (x .:? "TopicName")
-            <*> (x .:? "TopicArn")
-            <*> (x .:? "DirectoryId")
+            Prelude.<$> (x Prelude..:? "Status")
+            Prelude.<*> (x Prelude..:? "CreatedDateTime")
+            Prelude.<*> (x Prelude..:? "TopicName")
+            Prelude.<*> (x Prelude..:? "TopicArn")
+            Prelude.<*> (x Prelude..:? "DirectoryId")
       )
 
-instance Hashable EventTopic
+instance Prelude.Hashable EventTopic
 
-instance NFData EventTopic
+instance Prelude.NFData EventTopic

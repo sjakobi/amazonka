@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,150 +21,157 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Removes the specified directory as a publisher to the specified SNS topic.
+-- Removes the specified directory as a publisher to the specified SNS
+-- topic.
 module Network.AWS.DirectoryService.DeregisterEventTopic
   ( -- * Creating a Request
-    deregisterEventTopic,
-    DeregisterEventTopic,
+    DeregisterEventTopic (..),
+    newDeregisterEventTopic,
 
     -- * Request Lenses
-    derDirectoryId,
-    derTopicName,
+    deregisterEventTopic_directoryId,
+    deregisterEventTopic_topicName,
 
     -- * Destructuring the Response
-    deregisterEventTopicResponse,
-    DeregisterEventTopicResponse,
+    DeregisterEventTopicResponse (..),
+    newDeregisterEventTopicResponse,
 
     -- * Response Lenses
-    detrrsResponseStatus,
+    deregisterEventTopicResponse_httpStatus,
   )
 where
 
 import Network.AWS.DirectoryService.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Removes the specified directory as a publisher to the specified SNS topic.
+-- | Removes the specified directory as a publisher to the specified SNS
+-- topic.
 --
---
---
--- /See:/ 'deregisterEventTopic' smart constructor.
+-- /See:/ 'newDeregisterEventTopic' smart constructor.
 data DeregisterEventTopic = DeregisterEventTopic'
-  { _derDirectoryId ::
-      !Text,
-    _derTopicName :: !Text
+  { -- | The Directory ID to remove as a publisher. This directory will no longer
+    -- send messages to the specified SNS topic.
+    directoryId :: Prelude.Text,
+    -- | The name of the SNS topic from which to remove the directory as a
+    -- publisher.
+    topicName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeregisterEventTopic' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeregisterEventTopic' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'derDirectoryId' - The Directory ID to remove as a publisher. This directory will no longer send messages to the specified SNS topic.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'derTopicName' - The name of the SNS topic from which to remove the directory as a publisher.
-deregisterEventTopic ::
-  -- | 'derDirectoryId'
-  Text ->
-  -- | 'derTopicName'
-  Text ->
+-- 'directoryId', 'deregisterEventTopic_directoryId' - The Directory ID to remove as a publisher. This directory will no longer
+-- send messages to the specified SNS topic.
+--
+-- 'topicName', 'deregisterEventTopic_topicName' - The name of the SNS topic from which to remove the directory as a
+-- publisher.
+newDeregisterEventTopic ::
+  -- | 'directoryId'
+  Prelude.Text ->
+  -- | 'topicName'
+  Prelude.Text ->
   DeregisterEventTopic
-deregisterEventTopic pDirectoryId_ pTopicName_ =
+newDeregisterEventTopic pDirectoryId_ pTopicName_ =
   DeregisterEventTopic'
-    { _derDirectoryId =
-        pDirectoryId_,
-      _derTopicName = pTopicName_
+    { directoryId = pDirectoryId_,
+      topicName = pTopicName_
     }
 
--- | The Directory ID to remove as a publisher. This directory will no longer send messages to the specified SNS topic.
-derDirectoryId :: Lens' DeregisterEventTopic Text
-derDirectoryId = lens _derDirectoryId (\s a -> s {_derDirectoryId = a})
+-- | The Directory ID to remove as a publisher. This directory will no longer
+-- send messages to the specified SNS topic.
+deregisterEventTopic_directoryId :: Lens.Lens' DeregisterEventTopic Prelude.Text
+deregisterEventTopic_directoryId = Lens.lens (\DeregisterEventTopic' {directoryId} -> directoryId) (\s@DeregisterEventTopic' {} a -> s {directoryId = a} :: DeregisterEventTopic)
 
--- | The name of the SNS topic from which to remove the directory as a publisher.
-derTopicName :: Lens' DeregisterEventTopic Text
-derTopicName = lens _derTopicName (\s a -> s {_derTopicName = a})
+-- | The name of the SNS topic from which to remove the directory as a
+-- publisher.
+deregisterEventTopic_topicName :: Lens.Lens' DeregisterEventTopic Prelude.Text
+deregisterEventTopic_topicName = Lens.lens (\DeregisterEventTopic' {topicName} -> topicName) (\s@DeregisterEventTopic' {} a -> s {topicName = a} :: DeregisterEventTopic)
 
-instance AWSRequest DeregisterEventTopic where
+instance Prelude.AWSRequest DeregisterEventTopic where
   type
     Rs DeregisterEventTopic =
       DeregisterEventTopicResponse
-  request = postJSON directoryService
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           DeregisterEventTopicResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeregisterEventTopic
+instance Prelude.Hashable DeregisterEventTopic
 
-instance NFData DeregisterEventTopic
+instance Prelude.NFData DeregisterEventTopic
 
-instance ToHeaders DeregisterEventTopic where
+instance Prelude.ToHeaders DeregisterEventTopic where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "DirectoryService_20150416.DeregisterEventTopic" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "DirectoryService_20150416.DeregisterEventTopic" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeregisterEventTopic where
+instance Prelude.ToJSON DeregisterEventTopic where
   toJSON DeregisterEventTopic' {..} =
-    object
-      ( catMaybes
-          [ Just ("DirectoryId" .= _derDirectoryId),
-            Just ("TopicName" .= _derTopicName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("DirectoryId" Prelude..= directoryId),
+            Prelude.Just ("TopicName" Prelude..= topicName)
           ]
       )
 
-instance ToPath DeregisterEventTopic where
-  toPath = const "/"
+instance Prelude.ToPath DeregisterEventTopic where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeregisterEventTopic where
-  toQuery = const mempty
+instance Prelude.ToQuery DeregisterEventTopic where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | The result of a DeregisterEventTopic request.
 --
---
---
--- /See:/ 'deregisterEventTopicResponse' smart constructor.
-newtype DeregisterEventTopicResponse = DeregisterEventTopicResponse'
-  { _detrrsResponseStatus ::
-      Int
+-- /See:/ 'newDeregisterEventTopicResponse' smart constructor.
+data DeregisterEventTopicResponse = DeregisterEventTopicResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeregisterEventTopicResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeregisterEventTopicResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'detrrsResponseStatus' - -- | The response status code.
-deregisterEventTopicResponse ::
-  -- | 'detrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deregisterEventTopicResponse_httpStatus' - The response's http status code.
+newDeregisterEventTopicResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeregisterEventTopicResponse
-deregisterEventTopicResponse pResponseStatus_ =
+newDeregisterEventTopicResponse pHttpStatus_ =
   DeregisterEventTopicResponse'
-    { _detrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-detrrsResponseStatus :: Lens' DeregisterEventTopicResponse Int
-detrrsResponseStatus = lens _detrrsResponseStatus (\s a -> s {_detrrsResponseStatus = a})
+-- | The response's http status code.
+deregisterEventTopicResponse_httpStatus :: Lens.Lens' DeregisterEventTopicResponse Prelude.Int
+deregisterEventTopicResponse_httpStatus = Lens.lens (\DeregisterEventTopicResponse' {httpStatus} -> httpStatus) (\s@DeregisterEventTopicResponse' {} a -> s {httpStatus = a} :: DeregisterEventTopicResponse)
 
-instance NFData DeregisterEventTopicResponse
+instance Prelude.NFData DeregisterEventTopicResponse

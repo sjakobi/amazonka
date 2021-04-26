@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.DirectoryService.Types.SnapshotType
   ( SnapshotType
       ( ..,
-        Auto,
-        Manual
+        SnapshotTypeAuto,
+        SnapshotTypeManual
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SnapshotType = SnapshotType' (CI Text)
+newtype SnapshotType = SnapshotType'
+  { fromSnapshotType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Auto :: SnapshotType
-pattern Auto = SnapshotType' "Auto"
+pattern SnapshotTypeAuto :: SnapshotType
+pattern SnapshotTypeAuto = SnapshotType' "Auto"
 
-pattern Manual :: SnapshotType
-pattern Manual = SnapshotType' "Manual"
+pattern SnapshotTypeManual :: SnapshotType
+pattern SnapshotTypeManual = SnapshotType' "Manual"
 
 {-# COMPLETE
-  Auto,
-  Manual,
+  SnapshotTypeAuto,
+  SnapshotTypeManual,
   SnapshotType'
   #-}
 
-instance FromText SnapshotType where
-  parser = (SnapshotType' . mk) <$> takeText
+instance Prelude.FromText SnapshotType where
+  parser = SnapshotType' Prelude.<$> Prelude.takeText
 
-instance ToText SnapshotType where
-  toText (SnapshotType' ci) = original ci
+instance Prelude.ToText SnapshotType where
+  toText (SnapshotType' x) = x
 
-instance Hashable SnapshotType
+instance Prelude.Hashable SnapshotType
 
-instance NFData SnapshotType
+instance Prelude.NFData SnapshotType
 
-instance ToByteString SnapshotType
+instance Prelude.ToByteString SnapshotType
 
-instance ToQuery SnapshotType
+instance Prelude.ToQuery SnapshotType
 
-instance ToHeader SnapshotType
+instance Prelude.ToHeader SnapshotType
 
-instance FromJSON SnapshotType where
-  parseJSON = parseJSONText "SnapshotType"
+instance Prelude.FromJSON SnapshotType where
+  parseJSON = Prelude.parseJSONText "SnapshotType"

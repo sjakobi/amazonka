@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,63 +19,65 @@
 module Network.AWS.DirectoryService.Types.LDAPSStatus
   ( LDAPSStatus
       ( ..,
-        LDAPSSDisabled,
-        LDAPSSEnableFailed,
-        LDAPSSEnabled,
-        LDAPSSEnabling
+        LDAPSStatusDisabled,
+        LDAPSStatusEnableFailed,
+        LDAPSStatusEnabled,
+        LDAPSStatusEnabling
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data LDAPSStatus = LDAPSStatus' (CI Text)
+newtype LDAPSStatus = LDAPSStatus'
+  { fromLDAPSStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern LDAPSSDisabled :: LDAPSStatus
-pattern LDAPSSDisabled = LDAPSStatus' "Disabled"
+pattern LDAPSStatusDisabled :: LDAPSStatus
+pattern LDAPSStatusDisabled = LDAPSStatus' "Disabled"
 
-pattern LDAPSSEnableFailed :: LDAPSStatus
-pattern LDAPSSEnableFailed = LDAPSStatus' "EnableFailed"
+pattern LDAPSStatusEnableFailed :: LDAPSStatus
+pattern LDAPSStatusEnableFailed = LDAPSStatus' "EnableFailed"
 
-pattern LDAPSSEnabled :: LDAPSStatus
-pattern LDAPSSEnabled = LDAPSStatus' "Enabled"
+pattern LDAPSStatusEnabled :: LDAPSStatus
+pattern LDAPSStatusEnabled = LDAPSStatus' "Enabled"
 
-pattern LDAPSSEnabling :: LDAPSStatus
-pattern LDAPSSEnabling = LDAPSStatus' "Enabling"
+pattern LDAPSStatusEnabling :: LDAPSStatus
+pattern LDAPSStatusEnabling = LDAPSStatus' "Enabling"
 
 {-# COMPLETE
-  LDAPSSDisabled,
-  LDAPSSEnableFailed,
-  LDAPSSEnabled,
-  LDAPSSEnabling,
+  LDAPSStatusDisabled,
+  LDAPSStatusEnableFailed,
+  LDAPSStatusEnabled,
+  LDAPSStatusEnabling,
   LDAPSStatus'
   #-}
 
-instance FromText LDAPSStatus where
-  parser = (LDAPSStatus' . mk) <$> takeText
+instance Prelude.FromText LDAPSStatus where
+  parser = LDAPSStatus' Prelude.<$> Prelude.takeText
 
-instance ToText LDAPSStatus where
-  toText (LDAPSStatus' ci) = original ci
+instance Prelude.ToText LDAPSStatus where
+  toText (LDAPSStatus' x) = x
 
-instance Hashable LDAPSStatus
+instance Prelude.Hashable LDAPSStatus
 
-instance NFData LDAPSStatus
+instance Prelude.NFData LDAPSStatus
 
-instance ToByteString LDAPSStatus
+instance Prelude.ToByteString LDAPSStatus
 
-instance ToQuery LDAPSStatus
+instance Prelude.ToQuery LDAPSStatus
 
-instance ToHeader LDAPSStatus
+instance Prelude.ToHeader LDAPSStatus
 
-instance FromJSON LDAPSStatus where
-  parseJSON = parseJSONText "LDAPSStatus"
+instance Prelude.FromJSON LDAPSStatus where
+  parseJSON = Prelude.parseJSONText "LDAPSStatus"

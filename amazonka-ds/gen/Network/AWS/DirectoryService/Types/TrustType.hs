@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.DirectoryService.Types.TrustType
   ( TrustType
       ( ..,
-        External,
-        Forest
+        TrustTypeExternal,
+        TrustTypeForest
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TrustType = TrustType' (CI Text)
+newtype TrustType = TrustType'
+  { fromTrustType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern External :: TrustType
-pattern External = TrustType' "External"
+pattern TrustTypeExternal :: TrustType
+pattern TrustTypeExternal = TrustType' "External"
 
-pattern Forest :: TrustType
-pattern Forest = TrustType' "Forest"
+pattern TrustTypeForest :: TrustType
+pattern TrustTypeForest = TrustType' "Forest"
 
 {-# COMPLETE
-  External,
-  Forest,
+  TrustTypeExternal,
+  TrustTypeForest,
   TrustType'
   #-}
 
-instance FromText TrustType where
-  parser = (TrustType' . mk) <$> takeText
+instance Prelude.FromText TrustType where
+  parser = TrustType' Prelude.<$> Prelude.takeText
 
-instance ToText TrustType where
-  toText (TrustType' ci) = original ci
+instance Prelude.ToText TrustType where
+  toText (TrustType' x) = x
 
-instance Hashable TrustType
+instance Prelude.Hashable TrustType
 
-instance NFData TrustType
+instance Prelude.NFData TrustType
 
-instance ToByteString TrustType
+instance Prelude.ToByteString TrustType
 
-instance ToQuery TrustType
+instance Prelude.ToQuery TrustType
 
-instance ToHeader TrustType
+instance Prelude.ToHeader TrustType
 
-instance ToJSON TrustType where
-  toJSON = toJSONText
+instance Prelude.ToJSON TrustType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON TrustType where
-  parseJSON = parseJSONText "TrustType"
+instance Prelude.FromJSON TrustType where
+  parseJSON = Prelude.parseJSONText "TrustType"

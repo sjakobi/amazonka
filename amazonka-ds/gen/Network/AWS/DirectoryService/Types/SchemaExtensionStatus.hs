@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,92 +19,90 @@
 module Network.AWS.DirectoryService.Types.SchemaExtensionStatus
   ( SchemaExtensionStatus
       ( ..,
-        SESCancelInProgress,
-        SESCancelled,
-        SESCompleted,
-        SESCreatingSnapshot,
-        SESFailed,
-        SESInitializing,
-        SESReplicating,
-        SESRollbackInProgress,
-        SESUpdatingSchema
+        SchemaExtensionStatusCancelInProgress,
+        SchemaExtensionStatusCancelled,
+        SchemaExtensionStatusCompleted,
+        SchemaExtensionStatusCreatingSnapshot,
+        SchemaExtensionStatusFailed,
+        SchemaExtensionStatusInitializing,
+        SchemaExtensionStatusReplicating,
+        SchemaExtensionStatusRollbackInProgress,
+        SchemaExtensionStatusUpdatingSchema
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SchemaExtensionStatus
-  = SchemaExtensionStatus'
-      ( CI
-          Text
-      )
+newtype SchemaExtensionStatus = SchemaExtensionStatus'
+  { fromSchemaExtensionStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SESCancelInProgress :: SchemaExtensionStatus
-pattern SESCancelInProgress = SchemaExtensionStatus' "CancelInProgress"
+pattern SchemaExtensionStatusCancelInProgress :: SchemaExtensionStatus
+pattern SchemaExtensionStatusCancelInProgress = SchemaExtensionStatus' "CancelInProgress"
 
-pattern SESCancelled :: SchemaExtensionStatus
-pattern SESCancelled = SchemaExtensionStatus' "Cancelled"
+pattern SchemaExtensionStatusCancelled :: SchemaExtensionStatus
+pattern SchemaExtensionStatusCancelled = SchemaExtensionStatus' "Cancelled"
 
-pattern SESCompleted :: SchemaExtensionStatus
-pattern SESCompleted = SchemaExtensionStatus' "Completed"
+pattern SchemaExtensionStatusCompleted :: SchemaExtensionStatus
+pattern SchemaExtensionStatusCompleted = SchemaExtensionStatus' "Completed"
 
-pattern SESCreatingSnapshot :: SchemaExtensionStatus
-pattern SESCreatingSnapshot = SchemaExtensionStatus' "CreatingSnapshot"
+pattern SchemaExtensionStatusCreatingSnapshot :: SchemaExtensionStatus
+pattern SchemaExtensionStatusCreatingSnapshot = SchemaExtensionStatus' "CreatingSnapshot"
 
-pattern SESFailed :: SchemaExtensionStatus
-pattern SESFailed = SchemaExtensionStatus' "Failed"
+pattern SchemaExtensionStatusFailed :: SchemaExtensionStatus
+pattern SchemaExtensionStatusFailed = SchemaExtensionStatus' "Failed"
 
-pattern SESInitializing :: SchemaExtensionStatus
-pattern SESInitializing = SchemaExtensionStatus' "Initializing"
+pattern SchemaExtensionStatusInitializing :: SchemaExtensionStatus
+pattern SchemaExtensionStatusInitializing = SchemaExtensionStatus' "Initializing"
 
-pattern SESReplicating :: SchemaExtensionStatus
-pattern SESReplicating = SchemaExtensionStatus' "Replicating"
+pattern SchemaExtensionStatusReplicating :: SchemaExtensionStatus
+pattern SchemaExtensionStatusReplicating = SchemaExtensionStatus' "Replicating"
 
-pattern SESRollbackInProgress :: SchemaExtensionStatus
-pattern SESRollbackInProgress = SchemaExtensionStatus' "RollbackInProgress"
+pattern SchemaExtensionStatusRollbackInProgress :: SchemaExtensionStatus
+pattern SchemaExtensionStatusRollbackInProgress = SchemaExtensionStatus' "RollbackInProgress"
 
-pattern SESUpdatingSchema :: SchemaExtensionStatus
-pattern SESUpdatingSchema = SchemaExtensionStatus' "UpdatingSchema"
+pattern SchemaExtensionStatusUpdatingSchema :: SchemaExtensionStatus
+pattern SchemaExtensionStatusUpdatingSchema = SchemaExtensionStatus' "UpdatingSchema"
 
 {-# COMPLETE
-  SESCancelInProgress,
-  SESCancelled,
-  SESCompleted,
-  SESCreatingSnapshot,
-  SESFailed,
-  SESInitializing,
-  SESReplicating,
-  SESRollbackInProgress,
-  SESUpdatingSchema,
+  SchemaExtensionStatusCancelInProgress,
+  SchemaExtensionStatusCancelled,
+  SchemaExtensionStatusCompleted,
+  SchemaExtensionStatusCreatingSnapshot,
+  SchemaExtensionStatusFailed,
+  SchemaExtensionStatusInitializing,
+  SchemaExtensionStatusReplicating,
+  SchemaExtensionStatusRollbackInProgress,
+  SchemaExtensionStatusUpdatingSchema,
   SchemaExtensionStatus'
   #-}
 
-instance FromText SchemaExtensionStatus where
-  parser = (SchemaExtensionStatus' . mk) <$> takeText
+instance Prelude.FromText SchemaExtensionStatus where
+  parser = SchemaExtensionStatus' Prelude.<$> Prelude.takeText
 
-instance ToText SchemaExtensionStatus where
-  toText (SchemaExtensionStatus' ci) = original ci
+instance Prelude.ToText SchemaExtensionStatus where
+  toText (SchemaExtensionStatus' x) = x
 
-instance Hashable SchemaExtensionStatus
+instance Prelude.Hashable SchemaExtensionStatus
 
-instance NFData SchemaExtensionStatus
+instance Prelude.NFData SchemaExtensionStatus
 
-instance ToByteString SchemaExtensionStatus
+instance Prelude.ToByteString SchemaExtensionStatus
 
-instance ToQuery SchemaExtensionStatus
+instance Prelude.ToQuery SchemaExtensionStatus
 
-instance ToHeader SchemaExtensionStatus
+instance Prelude.ToHeader SchemaExtensionStatus
 
-instance FromJSON SchemaExtensionStatus where
-  parseJSON = parseJSONText "SchemaExtensionStatus"
+instance Prelude.FromJSON SchemaExtensionStatus where
+  parseJSON = Prelude.parseJSONText "SchemaExtensionStatus"

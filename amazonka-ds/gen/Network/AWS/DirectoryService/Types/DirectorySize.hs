@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.DirectoryService.Types.DirectorySize
   ( DirectorySize
       ( ..,
-        Large,
-        Small
+        DirectorySizeLarge,
+        DirectorySizeSmall
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DirectorySize = DirectorySize' (CI Text)
+newtype DirectorySize = DirectorySize'
+  { fromDirectorySize ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Large :: DirectorySize
-pattern Large = DirectorySize' "Large"
+pattern DirectorySizeLarge :: DirectorySize
+pattern DirectorySizeLarge = DirectorySize' "Large"
 
-pattern Small :: DirectorySize
-pattern Small = DirectorySize' "Small"
+pattern DirectorySizeSmall :: DirectorySize
+pattern DirectorySizeSmall = DirectorySize' "Small"
 
 {-# COMPLETE
-  Large,
-  Small,
+  DirectorySizeLarge,
+  DirectorySizeSmall,
   DirectorySize'
   #-}
 
-instance FromText DirectorySize where
-  parser = (DirectorySize' . mk) <$> takeText
+instance Prelude.FromText DirectorySize where
+  parser = DirectorySize' Prelude.<$> Prelude.takeText
 
-instance ToText DirectorySize where
-  toText (DirectorySize' ci) = original ci
+instance Prelude.ToText DirectorySize where
+  toText (DirectorySize' x) = x
 
-instance Hashable DirectorySize
+instance Prelude.Hashable DirectorySize
 
-instance NFData DirectorySize
+instance Prelude.NFData DirectorySize
 
-instance ToByteString DirectorySize
+instance Prelude.ToByteString DirectorySize
 
-instance ToQuery DirectorySize
+instance Prelude.ToQuery DirectorySize
 
-instance ToHeader DirectorySize
+instance Prelude.ToHeader DirectorySize
 
-instance ToJSON DirectorySize where
-  toJSON = toJSONText
+instance Prelude.ToJSON DirectorySize where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DirectorySize where
-  parseJSON = parseJSONText "DirectorySize"
+instance Prelude.FromJSON DirectorySize where
+  parseJSON = Prelude.parseJSONText "DirectorySize"

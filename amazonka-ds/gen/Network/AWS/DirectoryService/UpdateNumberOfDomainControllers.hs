@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,156 +21,180 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Adds or removes domain controllers to or from the directory. Based on the difference between current value and new value (provided through this API call), domain controllers will be added or removed. It may take up to 45 minutes for any new domain controllers to become fully active once the requested number of domain controllers is updated. During this time, you cannot make another update request.
+-- Adds or removes domain controllers to or from the directory. Based on
+-- the difference between current value and new value (provided through
+-- this API call), domain controllers will be added or removed. It may take
+-- up to 45 minutes for any new domain controllers to become fully active
+-- once the requested number of domain controllers is updated. During this
+-- time, you cannot make another update request.
 module Network.AWS.DirectoryService.UpdateNumberOfDomainControllers
   ( -- * Creating a Request
-    updateNumberOfDomainControllers,
-    UpdateNumberOfDomainControllers,
+    UpdateNumberOfDomainControllers (..),
+    newUpdateNumberOfDomainControllers,
 
     -- * Request Lenses
-    unodcDirectoryId,
-    unodcDesiredNumber,
+    updateNumberOfDomainControllers_directoryId,
+    updateNumberOfDomainControllers_desiredNumber,
 
     -- * Destructuring the Response
-    updateNumberOfDomainControllersResponse,
-    UpdateNumberOfDomainControllersResponse,
+    UpdateNumberOfDomainControllersResponse (..),
+    newUpdateNumberOfDomainControllersResponse,
 
     -- * Response Lenses
-    unodcrrsResponseStatus,
+    updateNumberOfDomainControllersResponse_httpStatus,
   )
 where
 
 import Network.AWS.DirectoryService.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateNumberOfDomainControllers' smart constructor.
+-- | /See:/ 'newUpdateNumberOfDomainControllers' smart constructor.
 data UpdateNumberOfDomainControllers = UpdateNumberOfDomainControllers'
-  { _unodcDirectoryId ::
-      !Text,
-    _unodcDesiredNumber ::
-      !Nat
+  { -- | Identifier of the directory to which the domain controllers will be
+    -- added or removed.
+    directoryId :: Prelude.Text,
+    -- | The number of domain controllers desired in the directory.
+    desiredNumber :: Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateNumberOfDomainControllers' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateNumberOfDomainControllers' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'unodcDirectoryId' - Identifier of the directory to which the domain controllers will be added or removed.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'unodcDesiredNumber' - The number of domain controllers desired in the directory.
-updateNumberOfDomainControllers ::
-  -- | 'unodcDirectoryId'
-  Text ->
-  -- | 'unodcDesiredNumber'
-  Natural ->
+-- 'directoryId', 'updateNumberOfDomainControllers_directoryId' - Identifier of the directory to which the domain controllers will be
+-- added or removed.
+--
+-- 'desiredNumber', 'updateNumberOfDomainControllers_desiredNumber' - The number of domain controllers desired in the directory.
+newUpdateNumberOfDomainControllers ::
+  -- | 'directoryId'
+  Prelude.Text ->
+  -- | 'desiredNumber'
+  Prelude.Natural ->
   UpdateNumberOfDomainControllers
-updateNumberOfDomainControllers
+newUpdateNumberOfDomainControllers
   pDirectoryId_
   pDesiredNumber_ =
     UpdateNumberOfDomainControllers'
-      { _unodcDirectoryId =
+      { directoryId =
           pDirectoryId_,
-        _unodcDesiredNumber =
-          _Nat # pDesiredNumber_
+        desiredNumber =
+          Prelude._Nat Lens.# pDesiredNumber_
       }
 
--- | Identifier of the directory to which the domain controllers will be added or removed.
-unodcDirectoryId :: Lens' UpdateNumberOfDomainControllers Text
-unodcDirectoryId = lens _unodcDirectoryId (\s a -> s {_unodcDirectoryId = a})
+-- | Identifier of the directory to which the domain controllers will be
+-- added or removed.
+updateNumberOfDomainControllers_directoryId :: Lens.Lens' UpdateNumberOfDomainControllers Prelude.Text
+updateNumberOfDomainControllers_directoryId = Lens.lens (\UpdateNumberOfDomainControllers' {directoryId} -> directoryId) (\s@UpdateNumberOfDomainControllers' {} a -> s {directoryId = a} :: UpdateNumberOfDomainControllers)
 
 -- | The number of domain controllers desired in the directory.
-unodcDesiredNumber :: Lens' UpdateNumberOfDomainControllers Natural
-unodcDesiredNumber = lens _unodcDesiredNumber (\s a -> s {_unodcDesiredNumber = a}) . _Nat
+updateNumberOfDomainControllers_desiredNumber :: Lens.Lens' UpdateNumberOfDomainControllers Prelude.Natural
+updateNumberOfDomainControllers_desiredNumber = Lens.lens (\UpdateNumberOfDomainControllers' {desiredNumber} -> desiredNumber) (\s@UpdateNumberOfDomainControllers' {} a -> s {desiredNumber = a} :: UpdateNumberOfDomainControllers) Prelude.. Prelude._Nat
 
-instance AWSRequest UpdateNumberOfDomainControllers where
+instance
+  Prelude.AWSRequest
+    UpdateNumberOfDomainControllers
+  where
   type
     Rs UpdateNumberOfDomainControllers =
       UpdateNumberOfDomainControllersResponse
-  request = postJSON directoryService
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           UpdateNumberOfDomainControllersResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
-
-instance Hashable UpdateNumberOfDomainControllers
-
-instance NFData UpdateNumberOfDomainControllers
-
-instance ToHeaders UpdateNumberOfDomainControllers where
-  toHeaders =
-    const
-      ( mconcat
-          [ "X-Amz-Target"
-              =# ( "DirectoryService_20150416.UpdateNumberOfDomainControllers" ::
-                     ByteString
-                 ),
-            "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
-          ]
-      )
-
-instance ToJSON UpdateNumberOfDomainControllers where
-  toJSON UpdateNumberOfDomainControllers' {..} =
-    object
-      ( catMaybes
-          [ Just ("DirectoryId" .= _unodcDirectoryId),
-            Just ("DesiredNumber" .= _unodcDesiredNumber)
-          ]
-      )
-
-instance ToPath UpdateNumberOfDomainControllers where
-  toPath = const "/"
-
-instance ToQuery UpdateNumberOfDomainControllers where
-  toQuery = const mempty
-
--- | /See:/ 'updateNumberOfDomainControllersResponse' smart constructor.
-newtype UpdateNumberOfDomainControllersResponse = UpdateNumberOfDomainControllersResponse'
-  { _unodcrrsResponseStatus ::
-      Int
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'UpdateNumberOfDomainControllersResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'unodcrrsResponseStatus' - -- | The response status code.
-updateNumberOfDomainControllersResponse ::
-  -- | 'unodcrrsResponseStatus'
-  Int ->
-  UpdateNumberOfDomainControllersResponse
-updateNumberOfDomainControllersResponse
-  pResponseStatus_ =
-    UpdateNumberOfDomainControllersResponse'
-      { _unodcrrsResponseStatus =
-          pResponseStatus_
-      }
-
--- | -- | The response status code.
-unodcrrsResponseStatus :: Lens' UpdateNumberOfDomainControllersResponse Int
-unodcrrsResponseStatus = lens _unodcrrsResponseStatus (\s a -> s {_unodcrrsResponseStatus = a})
 
 instance
-  NFData
+  Prelude.Hashable
+    UpdateNumberOfDomainControllers
+
+instance
+  Prelude.NFData
+    UpdateNumberOfDomainControllers
+
+instance
+  Prelude.ToHeaders
+    UpdateNumberOfDomainControllers
+  where
+  toHeaders =
+    Prelude.const
+      ( Prelude.mconcat
+          [ "X-Amz-Target"
+              Prelude.=# ( "DirectoryService_20150416.UpdateNumberOfDomainControllers" ::
+                             Prelude.ByteString
+                         ),
+            "Content-Type"
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
+          ]
+      )
+
+instance
+  Prelude.ToJSON
+    UpdateNumberOfDomainControllers
+  where
+  toJSON UpdateNumberOfDomainControllers' {..} =
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("DirectoryId" Prelude..= directoryId),
+            Prelude.Just
+              ("DesiredNumber" Prelude..= desiredNumber)
+          ]
+      )
+
+instance
+  Prelude.ToPath
+    UpdateNumberOfDomainControllers
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
+    UpdateNumberOfDomainControllers
+  where
+  toQuery = Prelude.const Prelude.mempty
+
+-- | /See:/ 'newUpdateNumberOfDomainControllersResponse' smart constructor.
+data UpdateNumberOfDomainControllersResponse = UpdateNumberOfDomainControllersResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'UpdateNumberOfDomainControllersResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'updateNumberOfDomainControllersResponse_httpStatus' - The response's http status code.
+newUpdateNumberOfDomainControllersResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  UpdateNumberOfDomainControllersResponse
+newUpdateNumberOfDomainControllersResponse
+  pHttpStatus_ =
+    UpdateNumberOfDomainControllersResponse'
+      { httpStatus =
+          pHttpStatus_
+      }
+
+-- | The response's http status code.
+updateNumberOfDomainControllersResponse_httpStatus :: Lens.Lens' UpdateNumberOfDomainControllersResponse Prelude.Int
+updateNumberOfDomainControllersResponse_httpStatus = Lens.lens (\UpdateNumberOfDomainControllersResponse' {httpStatus} -> httpStatus) (\s@UpdateNumberOfDomainControllersResponse' {} a -> s {httpStatus = a} :: UpdateNumberOfDomainControllersResponse)
+
+instance
+  Prelude.NFData
     UpdateNumberOfDomainControllersResponse

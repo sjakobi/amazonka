@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,133 +21,146 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- AWS Directory Service for Microsoft Active Directory allows you to configure and verify trust relationships.
+-- AWS Directory Service for Microsoft Active Directory allows you to
+-- configure and verify trust relationships.
 --
---
--- This action verifies a trust relationship between your AWS Managed Microsoft AD directory and an external domain.
+-- This action verifies a trust relationship between your AWS Managed
+-- Microsoft AD directory and an external domain.
 module Network.AWS.DirectoryService.VerifyTrust
   ( -- * Creating a Request
-    verifyTrust,
-    VerifyTrust,
+    VerifyTrust (..),
+    newVerifyTrust,
 
     -- * Request Lenses
-    vtTrustId,
+    verifyTrust_trustId,
 
     -- * Destructuring the Response
-    verifyTrustResponse,
-    VerifyTrustResponse,
+    VerifyTrustResponse (..),
+    newVerifyTrustResponse,
 
     -- * Response Lenses
-    vtrrsTrustId,
-    vtrrsResponseStatus,
+    verifyTrustResponse_trustId,
+    verifyTrustResponse_httpStatus,
   )
 where
 
 import Network.AWS.DirectoryService.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Initiates the verification of an existing trust relationship between an AWS Managed Microsoft AD directory and an external domain.
+-- | Initiates the verification of an existing trust relationship between an
+-- AWS Managed Microsoft AD directory and an external domain.
 --
---
---
--- /See:/ 'verifyTrust' smart constructor.
-newtype VerifyTrust = VerifyTrust'
-  { _vtTrustId ::
-      Text
+-- /See:/ 'newVerifyTrust' smart constructor.
+data VerifyTrust = VerifyTrust'
+  { -- | The unique Trust ID of the trust relationship to verify.
+    trustId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'VerifyTrust' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'VerifyTrust' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'vtTrustId' - The unique Trust ID of the trust relationship to verify.
-verifyTrust ::
-  -- | 'vtTrustId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'trustId', 'verifyTrust_trustId' - The unique Trust ID of the trust relationship to verify.
+newVerifyTrust ::
+  -- | 'trustId'
+  Prelude.Text ->
   VerifyTrust
-verifyTrust pTrustId_ =
-  VerifyTrust' {_vtTrustId = pTrustId_}
+newVerifyTrust pTrustId_ =
+  VerifyTrust' {trustId = pTrustId_}
 
 -- | The unique Trust ID of the trust relationship to verify.
-vtTrustId :: Lens' VerifyTrust Text
-vtTrustId = lens _vtTrustId (\s a -> s {_vtTrustId = a})
+verifyTrust_trustId :: Lens.Lens' VerifyTrust Prelude.Text
+verifyTrust_trustId = Lens.lens (\VerifyTrust' {trustId} -> trustId) (\s@VerifyTrust' {} a -> s {trustId = a} :: VerifyTrust)
 
-instance AWSRequest VerifyTrust where
+instance Prelude.AWSRequest VerifyTrust where
   type Rs VerifyTrust = VerifyTrustResponse
-  request = postJSON directoryService
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           VerifyTrustResponse'
-            <$> (x .?> "TrustId") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "TrustId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable VerifyTrust
+instance Prelude.Hashable VerifyTrust
 
-instance NFData VerifyTrust
+instance Prelude.NFData VerifyTrust
 
-instance ToHeaders VerifyTrust where
+instance Prelude.ToHeaders VerifyTrust where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "DirectoryService_20150416.VerifyTrust" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "DirectoryService_20150416.VerifyTrust" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON VerifyTrust where
+instance Prelude.ToJSON VerifyTrust where
   toJSON VerifyTrust' {..} =
-    object (catMaybes [Just ("TrustId" .= _vtTrustId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("TrustId" Prelude..= trustId)]
+      )
 
-instance ToPath VerifyTrust where
-  toPath = const "/"
+instance Prelude.ToPath VerifyTrust where
+  toPath = Prelude.const "/"
 
-instance ToQuery VerifyTrust where
-  toQuery = const mempty
+instance Prelude.ToQuery VerifyTrust where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Result of a VerifyTrust request.
 --
---
---
--- /See:/ 'verifyTrustResponse' smart constructor.
+-- /See:/ 'newVerifyTrustResponse' smart constructor.
 data VerifyTrustResponse = VerifyTrustResponse'
-  { _vtrrsTrustId ::
-      !(Maybe Text),
-    _vtrrsResponseStatus :: !Int
+  { -- | The unique Trust ID of the trust relationship that was verified.
+    trustId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'VerifyTrustResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'VerifyTrustResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'vtrrsTrustId' - The unique Trust ID of the trust relationship that was verified.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'vtrrsResponseStatus' - -- | The response status code.
-verifyTrustResponse ::
-  -- | 'vtrrsResponseStatus'
-  Int ->
+-- 'trustId', 'verifyTrustResponse_trustId' - The unique Trust ID of the trust relationship that was verified.
+--
+-- 'httpStatus', 'verifyTrustResponse_httpStatus' - The response's http status code.
+newVerifyTrustResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   VerifyTrustResponse
-verifyTrustResponse pResponseStatus_ =
+newVerifyTrustResponse pHttpStatus_ =
   VerifyTrustResponse'
-    { _vtrrsTrustId = Nothing,
-      _vtrrsResponseStatus = pResponseStatus_
+    { trustId = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The unique Trust ID of the trust relationship that was verified.
-vtrrsTrustId :: Lens' VerifyTrustResponse (Maybe Text)
-vtrrsTrustId = lens _vtrrsTrustId (\s a -> s {_vtrrsTrustId = a})
+verifyTrustResponse_trustId :: Lens.Lens' VerifyTrustResponse (Prelude.Maybe Prelude.Text)
+verifyTrustResponse_trustId = Lens.lens (\VerifyTrustResponse' {trustId} -> trustId) (\s@VerifyTrustResponse' {} a -> s {trustId = a} :: VerifyTrustResponse)
 
--- | -- | The response status code.
-vtrrsResponseStatus :: Lens' VerifyTrustResponse Int
-vtrrsResponseStatus = lens _vtrrsResponseStatus (\s a -> s {_vtrrsResponseStatus = a})
+-- | The response's http status code.
+verifyTrustResponse_httpStatus :: Lens.Lens' VerifyTrustResponse Prelude.Int
+verifyTrustResponse_httpStatus = Lens.lens (\VerifyTrustResponse' {httpStatus} -> httpStatus) (\s@VerifyTrustResponse' {} a -> s {httpStatus = a} :: VerifyTrustResponse)
 
-instance NFData VerifyTrustResponse
+instance Prelude.NFData VerifyTrustResponse

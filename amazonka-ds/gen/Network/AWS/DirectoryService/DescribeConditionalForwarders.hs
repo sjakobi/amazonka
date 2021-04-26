@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,174 +23,186 @@
 --
 -- Obtains information about the conditional forwarders for this account.
 --
---
--- If no input parameters are provided for RemoteDomainNames, this request describes all conditional forwarders for the specified directory ID.
+-- If no input parameters are provided for RemoteDomainNames, this request
+-- describes all conditional forwarders for the specified directory ID.
 module Network.AWS.DirectoryService.DescribeConditionalForwarders
   ( -- * Creating a Request
-    describeConditionalForwarders,
-    DescribeConditionalForwarders,
+    DescribeConditionalForwarders (..),
+    newDescribeConditionalForwarders,
 
     -- * Request Lenses
-    dcfsRemoteDomainNames,
-    dcfsDirectoryId,
+    describeConditionalForwarders_remoteDomainNames,
+    describeConditionalForwarders_directoryId,
 
     -- * Destructuring the Response
-    describeConditionalForwardersResponse,
-    DescribeConditionalForwardersResponse,
+    DescribeConditionalForwardersResponse (..),
+    newDescribeConditionalForwardersResponse,
 
     -- * Response Lenses
-    dcfrcrsConditionalForwarders,
-    dcfrcrsResponseStatus,
+    describeConditionalForwardersResponse_conditionalForwarders,
+    describeConditionalForwardersResponse_httpStatus,
   )
 where
 
 import Network.AWS.DirectoryService.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DirectoryService.Types.ConditionalForwarder
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Describes a conditional forwarder.
 --
---
---
--- /See:/ 'describeConditionalForwarders' smart constructor.
+-- /See:/ 'newDescribeConditionalForwarders' smart constructor.
 data DescribeConditionalForwarders = DescribeConditionalForwarders'
-  { _dcfsRemoteDomainNames ::
-      !( Maybe
-           [Text]
-       ),
-    _dcfsDirectoryId ::
-      !Text
+  { -- | The fully qualified domain names (FQDN) of the remote domains for which
+    -- to get the list of associated conditional forwarders. If this member is
+    -- null, all conditional forwarders are returned.
+    remoteDomainNames :: Prelude.Maybe [Prelude.Text],
+    -- | The directory ID for which to get the list of associated conditional
+    -- forwarders.
+    directoryId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeConditionalForwarders' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeConditionalForwarders' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcfsRemoteDomainNames' - The fully qualified domain names (FQDN) of the remote domains for which to get the list of associated conditional forwarders. If this member is null, all conditional forwarders are returned.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcfsDirectoryId' - The directory ID for which to get the list of associated conditional forwarders.
-describeConditionalForwarders ::
-  -- | 'dcfsDirectoryId'
-  Text ->
+-- 'remoteDomainNames', 'describeConditionalForwarders_remoteDomainNames' - The fully qualified domain names (FQDN) of the remote domains for which
+-- to get the list of associated conditional forwarders. If this member is
+-- null, all conditional forwarders are returned.
+--
+-- 'directoryId', 'describeConditionalForwarders_directoryId' - The directory ID for which to get the list of associated conditional
+-- forwarders.
+newDescribeConditionalForwarders ::
+  -- | 'directoryId'
+  Prelude.Text ->
   DescribeConditionalForwarders
-describeConditionalForwarders pDirectoryId_ =
+newDescribeConditionalForwarders pDirectoryId_ =
   DescribeConditionalForwarders'
-    { _dcfsRemoteDomainNames =
-        Nothing,
-      _dcfsDirectoryId = pDirectoryId_
+    { remoteDomainNames =
+        Prelude.Nothing,
+      directoryId = pDirectoryId_
     }
 
--- | The fully qualified domain names (FQDN) of the remote domains for which to get the list of associated conditional forwarders. If this member is null, all conditional forwarders are returned.
-dcfsRemoteDomainNames :: Lens' DescribeConditionalForwarders [Text]
-dcfsRemoteDomainNames = lens _dcfsRemoteDomainNames (\s a -> s {_dcfsRemoteDomainNames = a}) . _Default . _Coerce
+-- | The fully qualified domain names (FQDN) of the remote domains for which
+-- to get the list of associated conditional forwarders. If this member is
+-- null, all conditional forwarders are returned.
+describeConditionalForwarders_remoteDomainNames :: Lens.Lens' DescribeConditionalForwarders (Prelude.Maybe [Prelude.Text])
+describeConditionalForwarders_remoteDomainNames = Lens.lens (\DescribeConditionalForwarders' {remoteDomainNames} -> remoteDomainNames) (\s@DescribeConditionalForwarders' {} a -> s {remoteDomainNames = a} :: DescribeConditionalForwarders) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The directory ID for which to get the list of associated conditional forwarders.
-dcfsDirectoryId :: Lens' DescribeConditionalForwarders Text
-dcfsDirectoryId = lens _dcfsDirectoryId (\s a -> s {_dcfsDirectoryId = a})
+-- | The directory ID for which to get the list of associated conditional
+-- forwarders.
+describeConditionalForwarders_directoryId :: Lens.Lens' DescribeConditionalForwarders Prelude.Text
+describeConditionalForwarders_directoryId = Lens.lens (\DescribeConditionalForwarders' {directoryId} -> directoryId) (\s@DescribeConditionalForwarders' {} a -> s {directoryId = a} :: DescribeConditionalForwarders)
 
-instance AWSRequest DescribeConditionalForwarders where
+instance
+  Prelude.AWSRequest
+    DescribeConditionalForwarders
+  where
   type
     Rs DescribeConditionalForwarders =
       DescribeConditionalForwardersResponse
-  request = postJSON directoryService
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeConditionalForwardersResponse'
-            <$> (x .?> "ConditionalForwarders" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "ConditionalForwarders"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeConditionalForwarders
+instance
+  Prelude.Hashable
+    DescribeConditionalForwarders
 
-instance NFData DescribeConditionalForwarders
+instance Prelude.NFData DescribeConditionalForwarders
 
-instance ToHeaders DescribeConditionalForwarders where
+instance
+  Prelude.ToHeaders
+    DescribeConditionalForwarders
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "DirectoryService_20150416.DescribeConditionalForwarders" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "DirectoryService_20150416.DescribeConditionalForwarders" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeConditionalForwarders where
+instance Prelude.ToJSON DescribeConditionalForwarders where
   toJSON DescribeConditionalForwarders' {..} =
-    object
-      ( catMaybes
-          [ ("RemoteDomainNames" .=) <$> _dcfsRemoteDomainNames,
-            Just ("DirectoryId" .= _dcfsDirectoryId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("RemoteDomainNames" Prelude..=)
+              Prelude.<$> remoteDomainNames,
+            Prelude.Just ("DirectoryId" Prelude..= directoryId)
           ]
       )
 
-instance ToPath DescribeConditionalForwarders where
-  toPath = const "/"
+instance Prelude.ToPath DescribeConditionalForwarders where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeConditionalForwarders where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    DescribeConditionalForwarders
+  where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | The result of a DescribeConditionalForwarder request.
 --
---
---
--- /See:/ 'describeConditionalForwardersResponse' smart constructor.
+-- /See:/ 'newDescribeConditionalForwardersResponse' smart constructor.
 data DescribeConditionalForwardersResponse = DescribeConditionalForwardersResponse'
-  { _dcfrcrsConditionalForwarders ::
-      !( Maybe
-           [ConditionalForwarder]
-       ),
-    _dcfrcrsResponseStatus ::
-      !Int
+  { -- | The list of conditional forwarders that have been created.
+    conditionalForwarders :: Prelude.Maybe [ConditionalForwarder],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeConditionalForwardersResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeConditionalForwardersResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcfrcrsConditionalForwarders' - The list of conditional forwarders that have been created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcfrcrsResponseStatus' - -- | The response status code.
-describeConditionalForwardersResponse ::
-  -- | 'dcfrcrsResponseStatus'
-  Int ->
+-- 'conditionalForwarders', 'describeConditionalForwardersResponse_conditionalForwarders' - The list of conditional forwarders that have been created.
+--
+-- 'httpStatus', 'describeConditionalForwardersResponse_httpStatus' - The response's http status code.
+newDescribeConditionalForwardersResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeConditionalForwardersResponse
-describeConditionalForwardersResponse
-  pResponseStatus_ =
-    DescribeConditionalForwardersResponse'
-      { _dcfrcrsConditionalForwarders =
-          Nothing,
-        _dcfrcrsResponseStatus =
-          pResponseStatus_
-      }
+newDescribeConditionalForwardersResponse pHttpStatus_ =
+  DescribeConditionalForwardersResponse'
+    { conditionalForwarders =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
+    }
 
 -- | The list of conditional forwarders that have been created.
-dcfrcrsConditionalForwarders :: Lens' DescribeConditionalForwardersResponse [ConditionalForwarder]
-dcfrcrsConditionalForwarders = lens _dcfrcrsConditionalForwarders (\s a -> s {_dcfrcrsConditionalForwarders = a}) . _Default . _Coerce
+describeConditionalForwardersResponse_conditionalForwarders :: Lens.Lens' DescribeConditionalForwardersResponse (Prelude.Maybe [ConditionalForwarder])
+describeConditionalForwardersResponse_conditionalForwarders = Lens.lens (\DescribeConditionalForwardersResponse' {conditionalForwarders} -> conditionalForwarders) (\s@DescribeConditionalForwardersResponse' {} a -> s {conditionalForwarders = a} :: DescribeConditionalForwardersResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dcfrcrsResponseStatus :: Lens' DescribeConditionalForwardersResponse Int
-dcfrcrsResponseStatus = lens _dcfrcrsResponseStatus (\s a -> s {_dcfrcrsResponseStatus = a})
+-- | The response's http status code.
+describeConditionalForwardersResponse_httpStatus :: Lens.Lens' DescribeConditionalForwardersResponse Prelude.Int
+describeConditionalForwardersResponse_httpStatus = Lens.lens (\DescribeConditionalForwardersResponse' {httpStatus} -> httpStatus) (\s@DescribeConditionalForwardersResponse' {} a -> s {httpStatus = a} :: DescribeConditionalForwardersResponse)
 
-instance NFData DescribeConditionalForwardersResponse
+instance
+  Prelude.NFData
+    DescribeConditionalForwardersResponse

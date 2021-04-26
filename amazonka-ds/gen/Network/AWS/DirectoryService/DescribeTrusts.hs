@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,196 +23,254 @@
 --
 -- Obtains information about the trust relationships for this account.
 --
---
--- If no input parameters are provided, such as DirectoryId or TrustIds, this request describes all the trust relationships belonging to the account.
---
+-- If no input parameters are provided, such as DirectoryId or TrustIds,
+-- this request describes all the trust relationships belonging to the
+-- account.
 --
 -- This operation returns paginated results.
 module Network.AWS.DirectoryService.DescribeTrusts
   ( -- * Creating a Request
-    describeTrusts,
-    DescribeTrusts,
+    DescribeTrusts (..),
+    newDescribeTrusts,
 
     -- * Request Lenses
-    dtNextToken,
-    dtDirectoryId,
-    dtLimit,
-    dtTrustIds,
+    describeTrusts_nextToken,
+    describeTrusts_directoryId,
+    describeTrusts_limit,
+    describeTrusts_trustIds,
 
     -- * Destructuring the Response
-    describeTrustsResponse,
-    DescribeTrustsResponse,
+    DescribeTrustsResponse (..),
+    newDescribeTrustsResponse,
 
     -- * Response Lenses
-    dtrrsNextToken,
-    dtrrsTrusts,
-    dtrrsResponseStatus,
+    describeTrustsResponse_nextToken,
+    describeTrustsResponse_trusts,
+    describeTrustsResponse_httpStatus,
   )
 where
 
 import Network.AWS.DirectoryService.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DirectoryService.Types.Trust
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Describes the trust relationships for a particular AWS Managed Microsoft AD directory. If no input parameters are are provided, such as directory ID or trust ID, this request describes all the trust relationships.
+-- | Describes the trust relationships for a particular AWS Managed Microsoft
+-- AD directory. If no input parameters are are provided, such as directory
+-- ID or trust ID, this request describes all the trust relationships.
 --
---
---
--- /See:/ 'describeTrusts' smart constructor.
+-- /See:/ 'newDescribeTrusts' smart constructor.
 data DescribeTrusts = DescribeTrusts'
-  { _dtNextToken ::
-      !(Maybe Text),
-    _dtDirectoryId :: !(Maybe Text),
-    _dtLimit :: !(Maybe Nat),
-    _dtTrustIds :: !(Maybe [Text])
+  { -- | The /DescribeTrustsResult.NextToken/ value from a previous call to
+    -- DescribeTrusts. Pass null if this is the first call.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The Directory ID of the AWS directory that is a part of the requested
+    -- trust relationship.
+    directoryId :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of objects to return.
+    limit :: Prelude.Maybe Prelude.Nat,
+    -- | A list of identifiers of the trust relationships for which to obtain the
+    -- information. If this member is null, all trust relationships that belong
+    -- to the current account are returned.
+    --
+    -- An empty list results in an @InvalidParameterException@ being thrown.
+    trustIds :: Prelude.Maybe [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeTrusts' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeTrusts' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtNextToken' - The /DescribeTrustsResult.NextToken/ value from a previous call to 'DescribeTrusts' . Pass null if this is the first call.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtDirectoryId' - The Directory ID of the AWS directory that is a part of the requested trust relationship.
+-- 'nextToken', 'describeTrusts_nextToken' - The /DescribeTrustsResult.NextToken/ value from a previous call to
+-- DescribeTrusts. Pass null if this is the first call.
 --
--- * 'dtLimit' - The maximum number of objects to return.
+-- 'directoryId', 'describeTrusts_directoryId' - The Directory ID of the AWS directory that is a part of the requested
+-- trust relationship.
 --
--- * 'dtTrustIds' - A list of identifiers of the trust relationships for which to obtain the information. If this member is null, all trust relationships that belong to the current account are returned. An empty list results in an @InvalidParameterException@ being thrown.
-describeTrusts ::
+-- 'limit', 'describeTrusts_limit' - The maximum number of objects to return.
+--
+-- 'trustIds', 'describeTrusts_trustIds' - A list of identifiers of the trust relationships for which to obtain the
+-- information. If this member is null, all trust relationships that belong
+-- to the current account are returned.
+--
+-- An empty list results in an @InvalidParameterException@ being thrown.
+newDescribeTrusts ::
   DescribeTrusts
-describeTrusts =
+newDescribeTrusts =
   DescribeTrusts'
-    { _dtNextToken = Nothing,
-      _dtDirectoryId = Nothing,
-      _dtLimit = Nothing,
-      _dtTrustIds = Nothing
+    { nextToken = Prelude.Nothing,
+      directoryId = Prelude.Nothing,
+      limit = Prelude.Nothing,
+      trustIds = Prelude.Nothing
     }
 
--- | The /DescribeTrustsResult.NextToken/ value from a previous call to 'DescribeTrusts' . Pass null if this is the first call.
-dtNextToken :: Lens' DescribeTrusts (Maybe Text)
-dtNextToken = lens _dtNextToken (\s a -> s {_dtNextToken = a})
+-- | The /DescribeTrustsResult.NextToken/ value from a previous call to
+-- DescribeTrusts. Pass null if this is the first call.
+describeTrusts_nextToken :: Lens.Lens' DescribeTrusts (Prelude.Maybe Prelude.Text)
+describeTrusts_nextToken = Lens.lens (\DescribeTrusts' {nextToken} -> nextToken) (\s@DescribeTrusts' {} a -> s {nextToken = a} :: DescribeTrusts)
 
--- | The Directory ID of the AWS directory that is a part of the requested trust relationship.
-dtDirectoryId :: Lens' DescribeTrusts (Maybe Text)
-dtDirectoryId = lens _dtDirectoryId (\s a -> s {_dtDirectoryId = a})
+-- | The Directory ID of the AWS directory that is a part of the requested
+-- trust relationship.
+describeTrusts_directoryId :: Lens.Lens' DescribeTrusts (Prelude.Maybe Prelude.Text)
+describeTrusts_directoryId = Lens.lens (\DescribeTrusts' {directoryId} -> directoryId) (\s@DescribeTrusts' {} a -> s {directoryId = a} :: DescribeTrusts)
 
 -- | The maximum number of objects to return.
-dtLimit :: Lens' DescribeTrusts (Maybe Natural)
-dtLimit = lens _dtLimit (\s a -> s {_dtLimit = a}) . mapping _Nat
+describeTrusts_limit :: Lens.Lens' DescribeTrusts (Prelude.Maybe Prelude.Natural)
+describeTrusts_limit = Lens.lens (\DescribeTrusts' {limit} -> limit) (\s@DescribeTrusts' {} a -> s {limit = a} :: DescribeTrusts) Prelude.. Lens.mapping Prelude._Nat
 
--- | A list of identifiers of the trust relationships for which to obtain the information. If this member is null, all trust relationships that belong to the current account are returned. An empty list results in an @InvalidParameterException@ being thrown.
-dtTrustIds :: Lens' DescribeTrusts [Text]
-dtTrustIds = lens _dtTrustIds (\s a -> s {_dtTrustIds = a}) . _Default . _Coerce
+-- | A list of identifiers of the trust relationships for which to obtain the
+-- information. If this member is null, all trust relationships that belong
+-- to the current account are returned.
+--
+-- An empty list results in an @InvalidParameterException@ being thrown.
+describeTrusts_trustIds :: Lens.Lens' DescribeTrusts (Prelude.Maybe [Prelude.Text])
+describeTrusts_trustIds = Lens.lens (\DescribeTrusts' {trustIds} -> trustIds) (\s@DescribeTrusts' {} a -> s {trustIds = a} :: DescribeTrusts) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSPager DescribeTrusts where
+instance Pager.AWSPager DescribeTrusts where
   page rq rs
-    | stop (rs ^. dtrrsNextToken) = Nothing
-    | stop (rs ^. dtrrsTrusts) = Nothing
-    | otherwise =
-      Just $ rq & dtNextToken .~ rs ^. dtrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeTrustsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeTrustsResponse_trusts Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeTrusts_nextToken
+          Lens..~ rs
+          Lens.^? describeTrustsResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest DescribeTrusts where
+instance Prelude.AWSRequest DescribeTrusts where
   type Rs DescribeTrusts = DescribeTrustsResponse
-  request = postJSON directoryService
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeTrustsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "Trusts" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (x Prelude..?> "Trusts" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeTrusts
+instance Prelude.Hashable DescribeTrusts
 
-instance NFData DescribeTrusts
+instance Prelude.NFData DescribeTrusts
 
-instance ToHeaders DescribeTrusts where
+instance Prelude.ToHeaders DescribeTrusts where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "DirectoryService_20150416.DescribeTrusts" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "DirectoryService_20150416.DescribeTrusts" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeTrusts where
+instance Prelude.ToJSON DescribeTrusts where
   toJSON DescribeTrusts' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _dtNextToken,
-            ("DirectoryId" .=) <$> _dtDirectoryId,
-            ("Limit" .=) <$> _dtLimit,
-            ("TrustIds" .=) <$> _dtTrustIds
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("DirectoryId" Prelude..=) Prelude.<$> directoryId,
+            ("Limit" Prelude..=) Prelude.<$> limit,
+            ("TrustIds" Prelude..=) Prelude.<$> trustIds
           ]
       )
 
-instance ToPath DescribeTrusts where
-  toPath = const "/"
+instance Prelude.ToPath DescribeTrusts where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeTrusts where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeTrusts where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | The result of a DescribeTrust request.
 --
---
---
--- /See:/ 'describeTrustsResponse' smart constructor.
+-- /See:/ 'newDescribeTrustsResponse' smart constructor.
 data DescribeTrustsResponse = DescribeTrustsResponse'
-  { _dtrrsNextToken ::
-      !(Maybe Text),
-    _dtrrsTrusts ::
-      !(Maybe [Trust]),
-    _dtrrsResponseStatus ::
-      !Int
+  { -- | If not null, more results are available. Pass this value for the
+    -- /NextToken/ parameter in a subsequent call to DescribeTrusts to retrieve
+    -- the next set of items.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The list of Trust objects that were retrieved.
+    --
+    -- It is possible that this list contains less than the number of items
+    -- specified in the /Limit/ member of the request. This occurs if there are
+    -- less than the requested number of items left to retrieve, or if the
+    -- limitations of the operation have been exceeded.
+    trusts :: Prelude.Maybe [Trust],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeTrustsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeTrustsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtrrsNextToken' - If not null, more results are available. Pass this value for the /NextToken/ parameter in a subsequent call to 'DescribeTrusts' to retrieve the next set of items.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtrrsTrusts' - The list of Trust objects that were retrieved. It is possible that this list contains less than the number of items specified in the /Limit/ member of the request. This occurs if there are less than the requested number of items left to retrieve, or if the limitations of the operation have been exceeded.
+-- 'nextToken', 'describeTrustsResponse_nextToken' - If not null, more results are available. Pass this value for the
+-- /NextToken/ parameter in a subsequent call to DescribeTrusts to retrieve
+-- the next set of items.
 --
--- * 'dtrrsResponseStatus' - -- | The response status code.
-describeTrustsResponse ::
-  -- | 'dtrrsResponseStatus'
-  Int ->
+-- 'trusts', 'describeTrustsResponse_trusts' - The list of Trust objects that were retrieved.
+--
+-- It is possible that this list contains less than the number of items
+-- specified in the /Limit/ member of the request. This occurs if there are
+-- less than the requested number of items left to retrieve, or if the
+-- limitations of the operation have been exceeded.
+--
+-- 'httpStatus', 'describeTrustsResponse_httpStatus' - The response's http status code.
+newDescribeTrustsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeTrustsResponse
-describeTrustsResponse pResponseStatus_ =
+newDescribeTrustsResponse pHttpStatus_ =
   DescribeTrustsResponse'
-    { _dtrrsNextToken = Nothing,
-      _dtrrsTrusts = Nothing,
-      _dtrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      trusts = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | If not null, more results are available. Pass this value for the /NextToken/ parameter in a subsequent call to 'DescribeTrusts' to retrieve the next set of items.
-dtrrsNextToken :: Lens' DescribeTrustsResponse (Maybe Text)
-dtrrsNextToken = lens _dtrrsNextToken (\s a -> s {_dtrrsNextToken = a})
+-- | If not null, more results are available. Pass this value for the
+-- /NextToken/ parameter in a subsequent call to DescribeTrusts to retrieve
+-- the next set of items.
+describeTrustsResponse_nextToken :: Lens.Lens' DescribeTrustsResponse (Prelude.Maybe Prelude.Text)
+describeTrustsResponse_nextToken = Lens.lens (\DescribeTrustsResponse' {nextToken} -> nextToken) (\s@DescribeTrustsResponse' {} a -> s {nextToken = a} :: DescribeTrustsResponse)
 
--- | The list of Trust objects that were retrieved. It is possible that this list contains less than the number of items specified in the /Limit/ member of the request. This occurs if there are less than the requested number of items left to retrieve, or if the limitations of the operation have been exceeded.
-dtrrsTrusts :: Lens' DescribeTrustsResponse [Trust]
-dtrrsTrusts = lens _dtrrsTrusts (\s a -> s {_dtrrsTrusts = a}) . _Default . _Coerce
+-- | The list of Trust objects that were retrieved.
+--
+-- It is possible that this list contains less than the number of items
+-- specified in the /Limit/ member of the request. This occurs if there are
+-- less than the requested number of items left to retrieve, or if the
+-- limitations of the operation have been exceeded.
+describeTrustsResponse_trusts :: Lens.Lens' DescribeTrustsResponse (Prelude.Maybe [Trust])
+describeTrustsResponse_trusts = Lens.lens (\DescribeTrustsResponse' {trusts} -> trusts) (\s@DescribeTrustsResponse' {} a -> s {trusts = a} :: DescribeTrustsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dtrrsResponseStatus :: Lens' DescribeTrustsResponse Int
-dtrrsResponseStatus = lens _dtrrsResponseStatus (\s a -> s {_dtrrsResponseStatus = a})
+-- | The response's http status code.
+describeTrustsResponse_httpStatus :: Lens.Lens' DescribeTrustsResponse Prelude.Int
+describeTrustsResponse_httpStatus = Lens.lens (\DescribeTrustsResponse' {httpStatus} -> httpStatus) (\s@DescribeTrustsResponse' {} a -> s {httpStatus = a} :: DescribeTrustsResponse)
 
-instance NFData DescribeTrustsResponse
+instance Prelude.NFData DescribeTrustsResponse

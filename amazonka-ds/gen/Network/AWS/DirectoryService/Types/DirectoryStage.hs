@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,98 +19,100 @@
 module Network.AWS.DirectoryService.Types.DirectoryStage
   ( DirectoryStage
       ( ..,
-        DSActive,
-        DSCreated,
-        DSCreating,
-        DSDeleted,
-        DSDeleting,
-        DSFailed,
-        DSImpaired,
-        DSInoperable,
-        DSRequested,
-        DSRestoreFailed,
-        DSRestoring
+        DirectoryStageActive,
+        DirectoryStageCreated,
+        DirectoryStageCreating,
+        DirectoryStageDeleted,
+        DirectoryStageDeleting,
+        DirectoryStageFailed,
+        DirectoryStageImpaired,
+        DirectoryStageInoperable,
+        DirectoryStageRequested,
+        DirectoryStageRestoreFailed,
+        DirectoryStageRestoring
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DirectoryStage = DirectoryStage' (CI Text)
+newtype DirectoryStage = DirectoryStage'
+  { fromDirectoryStage ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DSActive :: DirectoryStage
-pattern DSActive = DirectoryStage' "Active"
+pattern DirectoryStageActive :: DirectoryStage
+pattern DirectoryStageActive = DirectoryStage' "Active"
 
-pattern DSCreated :: DirectoryStage
-pattern DSCreated = DirectoryStage' "Created"
+pattern DirectoryStageCreated :: DirectoryStage
+pattern DirectoryStageCreated = DirectoryStage' "Created"
 
-pattern DSCreating :: DirectoryStage
-pattern DSCreating = DirectoryStage' "Creating"
+pattern DirectoryStageCreating :: DirectoryStage
+pattern DirectoryStageCreating = DirectoryStage' "Creating"
 
-pattern DSDeleted :: DirectoryStage
-pattern DSDeleted = DirectoryStage' "Deleted"
+pattern DirectoryStageDeleted :: DirectoryStage
+pattern DirectoryStageDeleted = DirectoryStage' "Deleted"
 
-pattern DSDeleting :: DirectoryStage
-pattern DSDeleting = DirectoryStage' "Deleting"
+pattern DirectoryStageDeleting :: DirectoryStage
+pattern DirectoryStageDeleting = DirectoryStage' "Deleting"
 
-pattern DSFailed :: DirectoryStage
-pattern DSFailed = DirectoryStage' "Failed"
+pattern DirectoryStageFailed :: DirectoryStage
+pattern DirectoryStageFailed = DirectoryStage' "Failed"
 
-pattern DSImpaired :: DirectoryStage
-pattern DSImpaired = DirectoryStage' "Impaired"
+pattern DirectoryStageImpaired :: DirectoryStage
+pattern DirectoryStageImpaired = DirectoryStage' "Impaired"
 
-pattern DSInoperable :: DirectoryStage
-pattern DSInoperable = DirectoryStage' "Inoperable"
+pattern DirectoryStageInoperable :: DirectoryStage
+pattern DirectoryStageInoperable = DirectoryStage' "Inoperable"
 
-pattern DSRequested :: DirectoryStage
-pattern DSRequested = DirectoryStage' "Requested"
+pattern DirectoryStageRequested :: DirectoryStage
+pattern DirectoryStageRequested = DirectoryStage' "Requested"
 
-pattern DSRestoreFailed :: DirectoryStage
-pattern DSRestoreFailed = DirectoryStage' "RestoreFailed"
+pattern DirectoryStageRestoreFailed :: DirectoryStage
+pattern DirectoryStageRestoreFailed = DirectoryStage' "RestoreFailed"
 
-pattern DSRestoring :: DirectoryStage
-pattern DSRestoring = DirectoryStage' "Restoring"
+pattern DirectoryStageRestoring :: DirectoryStage
+pattern DirectoryStageRestoring = DirectoryStage' "Restoring"
 
 {-# COMPLETE
-  DSActive,
-  DSCreated,
-  DSCreating,
-  DSDeleted,
-  DSDeleting,
-  DSFailed,
-  DSImpaired,
-  DSInoperable,
-  DSRequested,
-  DSRestoreFailed,
-  DSRestoring,
+  DirectoryStageActive,
+  DirectoryStageCreated,
+  DirectoryStageCreating,
+  DirectoryStageDeleted,
+  DirectoryStageDeleting,
+  DirectoryStageFailed,
+  DirectoryStageImpaired,
+  DirectoryStageInoperable,
+  DirectoryStageRequested,
+  DirectoryStageRestoreFailed,
+  DirectoryStageRestoring,
   DirectoryStage'
   #-}
 
-instance FromText DirectoryStage where
-  parser = (DirectoryStage' . mk) <$> takeText
+instance Prelude.FromText DirectoryStage where
+  parser = DirectoryStage' Prelude.<$> Prelude.takeText
 
-instance ToText DirectoryStage where
-  toText (DirectoryStage' ci) = original ci
+instance Prelude.ToText DirectoryStage where
+  toText (DirectoryStage' x) = x
 
-instance Hashable DirectoryStage
+instance Prelude.Hashable DirectoryStage
 
-instance NFData DirectoryStage
+instance Prelude.NFData DirectoryStage
 
-instance ToByteString DirectoryStage
+instance Prelude.ToByteString DirectoryStage
 
-instance ToQuery DirectoryStage
+instance Prelude.ToQuery DirectoryStage
 
-instance ToHeader DirectoryStage
+instance Prelude.ToHeader DirectoryStage
 
-instance FromJSON DirectoryStage where
-  parseJSON = parseJSONText "DirectoryStage"
+instance Prelude.FromJSON DirectoryStage where
+  parseJSON = Prelude.parseJSONText "DirectoryStage"

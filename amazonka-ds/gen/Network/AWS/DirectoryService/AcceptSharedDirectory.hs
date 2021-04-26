@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,149 +21,150 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Accepts a directory sharing request that was sent from the directory owner account.
+-- Accepts a directory sharing request that was sent from the directory
+-- owner account.
 module Network.AWS.DirectoryService.AcceptSharedDirectory
   ( -- * Creating a Request
-    acceptSharedDirectory,
-    AcceptSharedDirectory,
+    AcceptSharedDirectory (..),
+    newAcceptSharedDirectory,
 
     -- * Request Lenses
-    asdSharedDirectoryId,
+    acceptSharedDirectory_sharedDirectoryId,
 
     -- * Destructuring the Response
-    acceptSharedDirectoryResponse,
-    AcceptSharedDirectoryResponse,
+    AcceptSharedDirectoryResponse (..),
+    newAcceptSharedDirectoryResponse,
 
     -- * Response Lenses
-    asdrrsSharedDirectory,
-    asdrrsResponseStatus,
+    acceptSharedDirectoryResponse_sharedDirectory,
+    acceptSharedDirectoryResponse_httpStatus,
   )
 where
 
 import Network.AWS.DirectoryService.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DirectoryService.Types.SharedDirectory
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'acceptSharedDirectory' smart constructor.
-newtype AcceptSharedDirectory = AcceptSharedDirectory'
-  { _asdSharedDirectoryId ::
-      Text
+-- | /See:/ 'newAcceptSharedDirectory' smart constructor.
+data AcceptSharedDirectory = AcceptSharedDirectory'
+  { -- | Identifier of the shared directory in the directory consumer account.
+    -- This identifier is different for each directory owner account.
+    sharedDirectoryId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AcceptSharedDirectory' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AcceptSharedDirectory' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'asdSharedDirectoryId' - Identifier of the shared directory in the directory consumer account. This identifier is different for each directory owner account.
-acceptSharedDirectory ::
-  -- | 'asdSharedDirectoryId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'sharedDirectoryId', 'acceptSharedDirectory_sharedDirectoryId' - Identifier of the shared directory in the directory consumer account.
+-- This identifier is different for each directory owner account.
+newAcceptSharedDirectory ::
+  -- | 'sharedDirectoryId'
+  Prelude.Text ->
   AcceptSharedDirectory
-acceptSharedDirectory pSharedDirectoryId_ =
+newAcceptSharedDirectory pSharedDirectoryId_ =
   AcceptSharedDirectory'
-    { _asdSharedDirectoryId =
+    { sharedDirectoryId =
         pSharedDirectoryId_
     }
 
--- | Identifier of the shared directory in the directory consumer account. This identifier is different for each directory owner account.
-asdSharedDirectoryId :: Lens' AcceptSharedDirectory Text
-asdSharedDirectoryId = lens _asdSharedDirectoryId (\s a -> s {_asdSharedDirectoryId = a})
+-- | Identifier of the shared directory in the directory consumer account.
+-- This identifier is different for each directory owner account.
+acceptSharedDirectory_sharedDirectoryId :: Lens.Lens' AcceptSharedDirectory Prelude.Text
+acceptSharedDirectory_sharedDirectoryId = Lens.lens (\AcceptSharedDirectory' {sharedDirectoryId} -> sharedDirectoryId) (\s@AcceptSharedDirectory' {} a -> s {sharedDirectoryId = a} :: AcceptSharedDirectory)
 
-instance AWSRequest AcceptSharedDirectory where
+instance Prelude.AWSRequest AcceptSharedDirectory where
   type
     Rs AcceptSharedDirectory =
       AcceptSharedDirectoryResponse
-  request = postJSON directoryService
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           AcceptSharedDirectoryResponse'
-            <$> (x .?> "SharedDirectory") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "SharedDirectory")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable AcceptSharedDirectory
+instance Prelude.Hashable AcceptSharedDirectory
 
-instance NFData AcceptSharedDirectory
+instance Prelude.NFData AcceptSharedDirectory
 
-instance ToHeaders AcceptSharedDirectory where
+instance Prelude.ToHeaders AcceptSharedDirectory where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "DirectoryService_20150416.AcceptSharedDirectory" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "DirectoryService_20150416.AcceptSharedDirectory" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON AcceptSharedDirectory where
+instance Prelude.ToJSON AcceptSharedDirectory where
   toJSON AcceptSharedDirectory' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("SharedDirectoryId" .= _asdSharedDirectoryId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("SharedDirectoryId" Prelude..= sharedDirectoryId)
           ]
       )
 
-instance ToPath AcceptSharedDirectory where
-  toPath = const "/"
+instance Prelude.ToPath AcceptSharedDirectory where
+  toPath = Prelude.const "/"
 
-instance ToQuery AcceptSharedDirectory where
-  toQuery = const mempty
+instance Prelude.ToQuery AcceptSharedDirectory where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'acceptSharedDirectoryResponse' smart constructor.
+-- | /See:/ 'newAcceptSharedDirectoryResponse' smart constructor.
 data AcceptSharedDirectoryResponse = AcceptSharedDirectoryResponse'
-  { _asdrrsSharedDirectory ::
-      !( Maybe
-           SharedDirectory
-       ),
-    _asdrrsResponseStatus ::
-      !Int
+  { -- | The shared directory in the directory consumer account.
+    sharedDirectory :: Prelude.Maybe SharedDirectory,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AcceptSharedDirectoryResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AcceptSharedDirectoryResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'asdrrsSharedDirectory' - The shared directory in the directory consumer account.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'asdrrsResponseStatus' - -- | The response status code.
-acceptSharedDirectoryResponse ::
-  -- | 'asdrrsResponseStatus'
-  Int ->
+-- 'sharedDirectory', 'acceptSharedDirectoryResponse_sharedDirectory' - The shared directory in the directory consumer account.
+--
+-- 'httpStatus', 'acceptSharedDirectoryResponse_httpStatus' - The response's http status code.
+newAcceptSharedDirectoryResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   AcceptSharedDirectoryResponse
-acceptSharedDirectoryResponse pResponseStatus_ =
+newAcceptSharedDirectoryResponse pHttpStatus_ =
   AcceptSharedDirectoryResponse'
-    { _asdrrsSharedDirectory =
-        Nothing,
-      _asdrrsResponseStatus = pResponseStatus_
+    { sharedDirectory =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The shared directory in the directory consumer account.
-asdrrsSharedDirectory :: Lens' AcceptSharedDirectoryResponse (Maybe SharedDirectory)
-asdrrsSharedDirectory = lens _asdrrsSharedDirectory (\s a -> s {_asdrrsSharedDirectory = a})
+acceptSharedDirectoryResponse_sharedDirectory :: Lens.Lens' AcceptSharedDirectoryResponse (Prelude.Maybe SharedDirectory)
+acceptSharedDirectoryResponse_sharedDirectory = Lens.lens (\AcceptSharedDirectoryResponse' {sharedDirectory} -> sharedDirectory) (\s@AcceptSharedDirectoryResponse' {} a -> s {sharedDirectory = a} :: AcceptSharedDirectoryResponse)
 
--- | -- | The response status code.
-asdrrsResponseStatus :: Lens' AcceptSharedDirectoryResponse Int
-asdrrsResponseStatus = lens _asdrrsResponseStatus (\s a -> s {_asdrrsResponseStatus = a})
+-- | The response's http status code.
+acceptSharedDirectoryResponse_httpStatus :: Lens.Lens' AcceptSharedDirectoryResponse Prelude.Int
+acceptSharedDirectoryResponse_httpStatus = Lens.lens (\AcceptSharedDirectoryResponse' {httpStatus} -> httpStatus) (\s@AcceptSharedDirectoryResponse' {} a -> s {httpStatus = a} :: AcceptSharedDirectoryResponse)
 
-instance NFData AcceptSharedDirectoryResponse
+instance Prelude.NFData AcceptSharedDirectoryResponse

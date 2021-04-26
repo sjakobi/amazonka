@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,149 +21,149 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes from the system the certificate that was registered for secure LDAP or client certificate authentication.
+-- Deletes from the system the certificate that was registered for secure
+-- LDAP or client certificate authentication.
 module Network.AWS.DirectoryService.DeregisterCertificate
   ( -- * Creating a Request
-    deregisterCertificate,
-    DeregisterCertificate,
+    DeregisterCertificate (..),
+    newDeregisterCertificate,
 
     -- * Request Lenses
-    dccDirectoryId,
-    dccCertificateId,
+    deregisterCertificate_directoryId,
+    deregisterCertificate_certificateId,
 
     -- * Destructuring the Response
-    deregisterCertificateResponse,
-    DeregisterCertificateResponse,
+    DeregisterCertificateResponse (..),
+    newDeregisterCertificateResponse,
 
     -- * Response Lenses
-    dcrrsResponseStatus,
+    deregisterCertificateResponse_httpStatus,
   )
 where
 
 import Network.AWS.DirectoryService.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deregisterCertificate' smart constructor.
+-- | /See:/ 'newDeregisterCertificate' smart constructor.
 data DeregisterCertificate = DeregisterCertificate'
-  { _dccDirectoryId ::
-      !Text,
-    _dccCertificateId :: !Text
+  { -- | The identifier of the directory.
+    directoryId :: Prelude.Text,
+    -- | The identifier of the certificate.
+    certificateId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeregisterCertificate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeregisterCertificate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dccDirectoryId' - The identifier of the directory.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dccCertificateId' - The identifier of the certificate.
-deregisterCertificate ::
-  -- | 'dccDirectoryId'
-  Text ->
-  -- | 'dccCertificateId'
-  Text ->
+-- 'directoryId', 'deregisterCertificate_directoryId' - The identifier of the directory.
+--
+-- 'certificateId', 'deregisterCertificate_certificateId' - The identifier of the certificate.
+newDeregisterCertificate ::
+  -- | 'directoryId'
+  Prelude.Text ->
+  -- | 'certificateId'
+  Prelude.Text ->
   DeregisterCertificate
-deregisterCertificate pDirectoryId_ pCertificateId_ =
-  DeregisterCertificate'
-    { _dccDirectoryId =
-        pDirectoryId_,
-      _dccCertificateId = pCertificateId_
-    }
+newDeregisterCertificate
+  pDirectoryId_
+  pCertificateId_ =
+    DeregisterCertificate'
+      { directoryId = pDirectoryId_,
+        certificateId = pCertificateId_
+      }
 
 -- | The identifier of the directory.
-dccDirectoryId :: Lens' DeregisterCertificate Text
-dccDirectoryId = lens _dccDirectoryId (\s a -> s {_dccDirectoryId = a})
+deregisterCertificate_directoryId :: Lens.Lens' DeregisterCertificate Prelude.Text
+deregisterCertificate_directoryId = Lens.lens (\DeregisterCertificate' {directoryId} -> directoryId) (\s@DeregisterCertificate' {} a -> s {directoryId = a} :: DeregisterCertificate)
 
 -- | The identifier of the certificate.
-dccCertificateId :: Lens' DeregisterCertificate Text
-dccCertificateId = lens _dccCertificateId (\s a -> s {_dccCertificateId = a})
+deregisterCertificate_certificateId :: Lens.Lens' DeregisterCertificate Prelude.Text
+deregisterCertificate_certificateId = Lens.lens (\DeregisterCertificate' {certificateId} -> certificateId) (\s@DeregisterCertificate' {} a -> s {certificateId = a} :: DeregisterCertificate)
 
-instance AWSRequest DeregisterCertificate where
+instance Prelude.AWSRequest DeregisterCertificate where
   type
     Rs DeregisterCertificate =
       DeregisterCertificateResponse
-  request = postJSON directoryService
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           DeregisterCertificateResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeregisterCertificate
+instance Prelude.Hashable DeregisterCertificate
 
-instance NFData DeregisterCertificate
+instance Prelude.NFData DeregisterCertificate
 
-instance ToHeaders DeregisterCertificate where
+instance Prelude.ToHeaders DeregisterCertificate where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "DirectoryService_20150416.DeregisterCertificate" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "DirectoryService_20150416.DeregisterCertificate" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeregisterCertificate where
+instance Prelude.ToJSON DeregisterCertificate where
   toJSON DeregisterCertificate' {..} =
-    object
-      ( catMaybes
-          [ Just ("DirectoryId" .= _dccDirectoryId),
-            Just ("CertificateId" .= _dccCertificateId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("DirectoryId" Prelude..= directoryId),
+            Prelude.Just
+              ("CertificateId" Prelude..= certificateId)
           ]
       )
 
-instance ToPath DeregisterCertificate where
-  toPath = const "/"
+instance Prelude.ToPath DeregisterCertificate where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeregisterCertificate where
-  toQuery = const mempty
+instance Prelude.ToQuery DeregisterCertificate where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deregisterCertificateResponse' smart constructor.
-newtype DeregisterCertificateResponse = DeregisterCertificateResponse'
-  { _dcrrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeregisterCertificateResponse' smart constructor.
+data DeregisterCertificateResponse = DeregisterCertificateResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeregisterCertificateResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeregisterCertificateResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcrrsResponseStatus' - -- | The response status code.
-deregisterCertificateResponse ::
-  -- | 'dcrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deregisterCertificateResponse_httpStatus' - The response's http status code.
+newDeregisterCertificateResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeregisterCertificateResponse
-deregisterCertificateResponse pResponseStatus_ =
+newDeregisterCertificateResponse pHttpStatus_ =
   DeregisterCertificateResponse'
-    { _dcrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-dcrrsResponseStatus :: Lens' DeregisterCertificateResponse Int
-dcrrsResponseStatus = lens _dcrrsResponseStatus (\s a -> s {_dcrrsResponseStatus = a})
+-- | The response's http status code.
+deregisterCertificateResponse_httpStatus :: Lens.Lens' DeregisterCertificateResponse Prelude.Int
+deregisterCertificateResponse_httpStatus = Lens.lens (\DeregisterCertificateResponse' {httpStatus} -> httpStatus) (\s@DeregisterCertificateResponse' {} a -> s {httpStatus = a} :: DeregisterCertificateResponse)
 
-instance NFData DeregisterCertificateResponse
+instance Prelude.NFData DeregisterCertificateResponse

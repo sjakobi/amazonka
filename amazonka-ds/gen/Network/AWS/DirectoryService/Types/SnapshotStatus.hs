@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.DirectoryService.Types.SnapshotStatus
   ( SnapshotStatus
       ( ..,
-        SSCompleted,
-        SSCreating,
-        SSFailed
+        SnapshotStatusCompleted,
+        SnapshotStatusCreating,
+        SnapshotStatusFailed
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SnapshotStatus = SnapshotStatus' (CI Text)
+newtype SnapshotStatus = SnapshotStatus'
+  { fromSnapshotStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SSCompleted :: SnapshotStatus
-pattern SSCompleted = SnapshotStatus' "Completed"
+pattern SnapshotStatusCompleted :: SnapshotStatus
+pattern SnapshotStatusCompleted = SnapshotStatus' "Completed"
 
-pattern SSCreating :: SnapshotStatus
-pattern SSCreating = SnapshotStatus' "Creating"
+pattern SnapshotStatusCreating :: SnapshotStatus
+pattern SnapshotStatusCreating = SnapshotStatus' "Creating"
 
-pattern SSFailed :: SnapshotStatus
-pattern SSFailed = SnapshotStatus' "Failed"
+pattern SnapshotStatusFailed :: SnapshotStatus
+pattern SnapshotStatusFailed = SnapshotStatus' "Failed"
 
 {-# COMPLETE
-  SSCompleted,
-  SSCreating,
-  SSFailed,
+  SnapshotStatusCompleted,
+  SnapshotStatusCreating,
+  SnapshotStatusFailed,
   SnapshotStatus'
   #-}
 
-instance FromText SnapshotStatus where
-  parser = (SnapshotStatus' . mk) <$> takeText
+instance Prelude.FromText SnapshotStatus where
+  parser = SnapshotStatus' Prelude.<$> Prelude.takeText
 
-instance ToText SnapshotStatus where
-  toText (SnapshotStatus' ci) = original ci
+instance Prelude.ToText SnapshotStatus where
+  toText (SnapshotStatus' x) = x
 
-instance Hashable SnapshotStatus
+instance Prelude.Hashable SnapshotStatus
 
-instance NFData SnapshotStatus
+instance Prelude.NFData SnapshotStatus
 
-instance ToByteString SnapshotStatus
+instance Prelude.ToByteString SnapshotStatus
 
-instance ToQuery SnapshotStatus
+instance Prelude.ToQuery SnapshotStatus
 
-instance ToHeader SnapshotStatus
+instance Prelude.ToHeader SnapshotStatus
 
-instance FromJSON SnapshotStatus where
-  parseJSON = parseJSONText "SnapshotStatus"
+instance Prelude.FromJSON SnapshotStatus where
+  parseJSON = Prelude.parseJSONText "SnapshotStatus"

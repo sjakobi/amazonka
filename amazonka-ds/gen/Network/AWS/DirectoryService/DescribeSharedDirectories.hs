@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,204 +23,227 @@
 --
 -- Returns the shared directories in your account.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.DirectoryService.DescribeSharedDirectories
   ( -- * Creating a Request
-    describeSharedDirectories,
-    DescribeSharedDirectories,
+    DescribeSharedDirectories (..),
+    newDescribeSharedDirectories,
 
     -- * Request Lenses
-    dsdNextToken,
-    dsdSharedDirectoryIds,
-    dsdLimit,
-    dsdOwnerDirectoryId,
+    describeSharedDirectories_nextToken,
+    describeSharedDirectories_sharedDirectoryIds,
+    describeSharedDirectories_limit,
+    describeSharedDirectories_ownerDirectoryId,
 
     -- * Destructuring the Response
-    describeSharedDirectoriesResponse,
-    DescribeSharedDirectoriesResponse,
+    DescribeSharedDirectoriesResponse (..),
+    newDescribeSharedDirectoriesResponse,
 
     -- * Response Lenses
-    dsdrrsNextToken,
-    dsdrrsSharedDirectories,
-    dsdrrsResponseStatus,
+    describeSharedDirectoriesResponse_nextToken,
+    describeSharedDirectoriesResponse_sharedDirectories,
+    describeSharedDirectoriesResponse_httpStatus,
   )
 where
 
 import Network.AWS.DirectoryService.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DirectoryService.Types.SharedDirectory
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeSharedDirectories' smart constructor.
+-- | /See:/ 'newDescribeSharedDirectories' smart constructor.
 data DescribeSharedDirectories = DescribeSharedDirectories'
-  { _dsdNextToken ::
-      !(Maybe Text),
-    _dsdSharedDirectoryIds ::
-      !(Maybe [Text]),
-    _dsdLimit ::
-      !(Maybe Nat),
-    _dsdOwnerDirectoryId ::
-      !Text
+  { -- | The @DescribeSharedDirectoriesResult.NextToken@ value from a previous
+    -- call to DescribeSharedDirectories. Pass null if this is the first call.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of identifiers of all shared directories in your account.
+    sharedDirectoryIds :: Prelude.Maybe [Prelude.Text],
+    -- | The number of shared directories to return in the response object.
+    limit :: Prelude.Maybe Prelude.Nat,
+    -- | Returns the identifier of the directory in the directory owner account.
+    ownerDirectoryId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeSharedDirectories' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeSharedDirectories' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsdNextToken' - The @DescribeSharedDirectoriesResult.NextToken@ value from a previous call to 'DescribeSharedDirectories' . Pass null if this is the first call.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsdSharedDirectoryIds' - A list of identifiers of all shared directories in your account.
+-- 'nextToken', 'describeSharedDirectories_nextToken' - The @DescribeSharedDirectoriesResult.NextToken@ value from a previous
+-- call to DescribeSharedDirectories. Pass null if this is the first call.
 --
--- * 'dsdLimit' - The number of shared directories to return in the response object.
+-- 'sharedDirectoryIds', 'describeSharedDirectories_sharedDirectoryIds' - A list of identifiers of all shared directories in your account.
 --
--- * 'dsdOwnerDirectoryId' - Returns the identifier of the directory in the directory owner account.
-describeSharedDirectories ::
-  -- | 'dsdOwnerDirectoryId'
-  Text ->
+-- 'limit', 'describeSharedDirectories_limit' - The number of shared directories to return in the response object.
+--
+-- 'ownerDirectoryId', 'describeSharedDirectories_ownerDirectoryId' - Returns the identifier of the directory in the directory owner account.
+newDescribeSharedDirectories ::
+  -- | 'ownerDirectoryId'
+  Prelude.Text ->
   DescribeSharedDirectories
-describeSharedDirectories pOwnerDirectoryId_ =
+newDescribeSharedDirectories pOwnerDirectoryId_ =
   DescribeSharedDirectories'
-    { _dsdNextToken = Nothing,
-      _dsdSharedDirectoryIds = Nothing,
-      _dsdLimit = Nothing,
-      _dsdOwnerDirectoryId = pOwnerDirectoryId_
+    { nextToken =
+        Prelude.Nothing,
+      sharedDirectoryIds = Prelude.Nothing,
+      limit = Prelude.Nothing,
+      ownerDirectoryId = pOwnerDirectoryId_
     }
 
--- | The @DescribeSharedDirectoriesResult.NextToken@ value from a previous call to 'DescribeSharedDirectories' . Pass null if this is the first call.
-dsdNextToken :: Lens' DescribeSharedDirectories (Maybe Text)
-dsdNextToken = lens _dsdNextToken (\s a -> s {_dsdNextToken = a})
+-- | The @DescribeSharedDirectoriesResult.NextToken@ value from a previous
+-- call to DescribeSharedDirectories. Pass null if this is the first call.
+describeSharedDirectories_nextToken :: Lens.Lens' DescribeSharedDirectories (Prelude.Maybe Prelude.Text)
+describeSharedDirectories_nextToken = Lens.lens (\DescribeSharedDirectories' {nextToken} -> nextToken) (\s@DescribeSharedDirectories' {} a -> s {nextToken = a} :: DescribeSharedDirectories)
 
 -- | A list of identifiers of all shared directories in your account.
-dsdSharedDirectoryIds :: Lens' DescribeSharedDirectories [Text]
-dsdSharedDirectoryIds = lens _dsdSharedDirectoryIds (\s a -> s {_dsdSharedDirectoryIds = a}) . _Default . _Coerce
+describeSharedDirectories_sharedDirectoryIds :: Lens.Lens' DescribeSharedDirectories (Prelude.Maybe [Prelude.Text])
+describeSharedDirectories_sharedDirectoryIds = Lens.lens (\DescribeSharedDirectories' {sharedDirectoryIds} -> sharedDirectoryIds) (\s@DescribeSharedDirectories' {} a -> s {sharedDirectoryIds = a} :: DescribeSharedDirectories) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The number of shared directories to return in the response object.
-dsdLimit :: Lens' DescribeSharedDirectories (Maybe Natural)
-dsdLimit = lens _dsdLimit (\s a -> s {_dsdLimit = a}) . mapping _Nat
+describeSharedDirectories_limit :: Lens.Lens' DescribeSharedDirectories (Prelude.Maybe Prelude.Natural)
+describeSharedDirectories_limit = Lens.lens (\DescribeSharedDirectories' {limit} -> limit) (\s@DescribeSharedDirectories' {} a -> s {limit = a} :: DescribeSharedDirectories) Prelude.. Lens.mapping Prelude._Nat
 
 -- | Returns the identifier of the directory in the directory owner account.
-dsdOwnerDirectoryId :: Lens' DescribeSharedDirectories Text
-dsdOwnerDirectoryId = lens _dsdOwnerDirectoryId (\s a -> s {_dsdOwnerDirectoryId = a})
+describeSharedDirectories_ownerDirectoryId :: Lens.Lens' DescribeSharedDirectories Prelude.Text
+describeSharedDirectories_ownerDirectoryId = Lens.lens (\DescribeSharedDirectories' {ownerDirectoryId} -> ownerDirectoryId) (\s@DescribeSharedDirectories' {} a -> s {ownerDirectoryId = a} :: DescribeSharedDirectories)
 
-instance AWSPager DescribeSharedDirectories where
+instance Pager.AWSPager DescribeSharedDirectories where
   page rq rs
-    | stop (rs ^. dsdrrsNextToken) = Nothing
-    | stop (rs ^. dsdrrsSharedDirectories) = Nothing
-    | otherwise =
-      Just $ rq & dsdNextToken .~ rs ^. dsdrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeSharedDirectoriesResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeSharedDirectoriesResponse_sharedDirectories
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeSharedDirectories_nextToken
+          Lens..~ rs
+          Lens.^? describeSharedDirectoriesResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeSharedDirectories where
+instance Prelude.AWSRequest DescribeSharedDirectories where
   type
     Rs DescribeSharedDirectories =
       DescribeSharedDirectoriesResponse
-  request = postJSON directoryService
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeSharedDirectoriesResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "SharedDirectories" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "SharedDirectories"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeSharedDirectories
+instance Prelude.Hashable DescribeSharedDirectories
 
-instance NFData DescribeSharedDirectories
+instance Prelude.NFData DescribeSharedDirectories
 
-instance ToHeaders DescribeSharedDirectories where
+instance Prelude.ToHeaders DescribeSharedDirectories where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "DirectoryService_20150416.DescribeSharedDirectories" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "DirectoryService_20150416.DescribeSharedDirectories" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeSharedDirectories where
+instance Prelude.ToJSON DescribeSharedDirectories where
   toJSON DescribeSharedDirectories' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _dsdNextToken,
-            ("SharedDirectoryIds" .=) <$> _dsdSharedDirectoryIds,
-            ("Limit" .=) <$> _dsdLimit,
-            Just ("OwnerDirectoryId" .= _dsdOwnerDirectoryId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("SharedDirectoryIds" Prelude..=)
+              Prelude.<$> sharedDirectoryIds,
+            ("Limit" Prelude..=) Prelude.<$> limit,
+            Prelude.Just
+              ("OwnerDirectoryId" Prelude..= ownerDirectoryId)
           ]
       )
 
-instance ToPath DescribeSharedDirectories where
-  toPath = const "/"
+instance Prelude.ToPath DescribeSharedDirectories where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeSharedDirectories where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeSharedDirectories where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeSharedDirectoriesResponse' smart constructor.
+-- | /See:/ 'newDescribeSharedDirectoriesResponse' smart constructor.
 data DescribeSharedDirectoriesResponse = DescribeSharedDirectoriesResponse'
-  { _dsdrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dsdrrsSharedDirectories ::
-      !( Maybe
-           [SharedDirectory]
-       ),
-    _dsdrrsResponseStatus ::
-      !Int
+  { -- | If not null, token that indicates that more results are available. Pass
+    -- this value for the @NextToken@ parameter in a subsequent call to
+    -- DescribeSharedDirectories to retrieve the next set of items.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of all shared directories in your account.
+    sharedDirectories :: Prelude.Maybe [SharedDirectory],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeSharedDirectoriesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeSharedDirectoriesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsdrrsNextToken' - If not null, token that indicates that more results are available. Pass this value for the @NextToken@ parameter in a subsequent call to 'DescribeSharedDirectories' to retrieve the next set of items.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsdrrsSharedDirectories' - A list of all shared directories in your account.
+-- 'nextToken', 'describeSharedDirectoriesResponse_nextToken' - If not null, token that indicates that more results are available. Pass
+-- this value for the @NextToken@ parameter in a subsequent call to
+-- DescribeSharedDirectories to retrieve the next set of items.
 --
--- * 'dsdrrsResponseStatus' - -- | The response status code.
-describeSharedDirectoriesResponse ::
-  -- | 'dsdrrsResponseStatus'
-  Int ->
+-- 'sharedDirectories', 'describeSharedDirectoriesResponse_sharedDirectories' - A list of all shared directories in your account.
+--
+-- 'httpStatus', 'describeSharedDirectoriesResponse_httpStatus' - The response's http status code.
+newDescribeSharedDirectoriesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeSharedDirectoriesResponse
-describeSharedDirectoriesResponse pResponseStatus_ =
+newDescribeSharedDirectoriesResponse pHttpStatus_ =
   DescribeSharedDirectoriesResponse'
-    { _dsdrrsNextToken =
-        Nothing,
-      _dsdrrsSharedDirectories = Nothing,
-      _dsdrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      sharedDirectories = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | If not null, token that indicates that more results are available. Pass this value for the @NextToken@ parameter in a subsequent call to 'DescribeSharedDirectories' to retrieve the next set of items.
-dsdrrsNextToken :: Lens' DescribeSharedDirectoriesResponse (Maybe Text)
-dsdrrsNextToken = lens _dsdrrsNextToken (\s a -> s {_dsdrrsNextToken = a})
+-- | If not null, token that indicates that more results are available. Pass
+-- this value for the @NextToken@ parameter in a subsequent call to
+-- DescribeSharedDirectories to retrieve the next set of items.
+describeSharedDirectoriesResponse_nextToken :: Lens.Lens' DescribeSharedDirectoriesResponse (Prelude.Maybe Prelude.Text)
+describeSharedDirectoriesResponse_nextToken = Lens.lens (\DescribeSharedDirectoriesResponse' {nextToken} -> nextToken) (\s@DescribeSharedDirectoriesResponse' {} a -> s {nextToken = a} :: DescribeSharedDirectoriesResponse)
 
 -- | A list of all shared directories in your account.
-dsdrrsSharedDirectories :: Lens' DescribeSharedDirectoriesResponse [SharedDirectory]
-dsdrrsSharedDirectories = lens _dsdrrsSharedDirectories (\s a -> s {_dsdrrsSharedDirectories = a}) . _Default . _Coerce
+describeSharedDirectoriesResponse_sharedDirectories :: Lens.Lens' DescribeSharedDirectoriesResponse (Prelude.Maybe [SharedDirectory])
+describeSharedDirectoriesResponse_sharedDirectories = Lens.lens (\DescribeSharedDirectoriesResponse' {sharedDirectories} -> sharedDirectories) (\s@DescribeSharedDirectoriesResponse' {} a -> s {sharedDirectories = a} :: DescribeSharedDirectoriesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dsdrrsResponseStatus :: Lens' DescribeSharedDirectoriesResponse Int
-dsdrrsResponseStatus = lens _dsdrrsResponseStatus (\s a -> s {_dsdrrsResponseStatus = a})
+-- | The response's http status code.
+describeSharedDirectoriesResponse_httpStatus :: Lens.Lens' DescribeSharedDirectoriesResponse Prelude.Int
+describeSharedDirectoriesResponse_httpStatus = Lens.lens (\DescribeSharedDirectoriesResponse' {httpStatus} -> httpStatus) (\s@DescribeSharedDirectoriesResponse' {} a -> s {httpStatus = a} :: DescribeSharedDirectoriesResponse)
 
-instance NFData DescribeSharedDirectoriesResponse
+instance
+  Prelude.NFData
+    DescribeSharedDirectoriesResponse

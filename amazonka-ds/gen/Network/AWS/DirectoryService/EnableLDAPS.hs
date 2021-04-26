@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,138 +21,144 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Activates the switch for the specific directory to always use LDAP secure calls.
+-- Activates the switch for the specific directory to always use LDAP
+-- secure calls.
 module Network.AWS.DirectoryService.EnableLDAPS
   ( -- * Creating a Request
-    enableLDAPS,
-    EnableLDAPS,
+    EnableLDAPS (..),
+    newEnableLDAPS,
 
     -- * Request Lenses
-    eldapsDirectoryId,
-    eldapsType,
+    enableLDAPS_directoryId,
+    enableLDAPS_type,
 
     -- * Destructuring the Response
-    enableLDAPSResponse,
-    EnableLDAPSResponse,
+    EnableLDAPSResponse (..),
+    newEnableLDAPSResponse,
 
     -- * Response Lenses
-    eldapsrrsResponseStatus,
+    enableLDAPSResponse_httpStatus,
   )
 where
 
 import Network.AWS.DirectoryService.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'enableLDAPS' smart constructor.
+-- | /See:/ 'newEnableLDAPS' smart constructor.
 data EnableLDAPS = EnableLDAPS'
-  { _eldapsDirectoryId ::
-      !Text,
-    _eldapsType :: !LDAPSType
+  { -- | The identifier of the directory.
+    directoryId :: Prelude.Text,
+    -- | The type of LDAP security to enable. Currently only the value @Client@
+    -- is supported.
+    type' :: LDAPSType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EnableLDAPS' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EnableLDAPS' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eldapsDirectoryId' - The identifier of the directory.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'eldapsType' - The type of LDAP security to enable. Currently only the value @Client@ is supported.
-enableLDAPS ::
-  -- | 'eldapsDirectoryId'
-  Text ->
-  -- | 'eldapsType'
+-- 'directoryId', 'enableLDAPS_directoryId' - The identifier of the directory.
+--
+-- 'type'', 'enableLDAPS_type' - The type of LDAP security to enable. Currently only the value @Client@
+-- is supported.
+newEnableLDAPS ::
+  -- | 'directoryId'
+  Prelude.Text ->
+  -- | 'type''
   LDAPSType ->
   EnableLDAPS
-enableLDAPS pDirectoryId_ pType_ =
+newEnableLDAPS pDirectoryId_ pType_ =
   EnableLDAPS'
-    { _eldapsDirectoryId = pDirectoryId_,
-      _eldapsType = pType_
+    { directoryId = pDirectoryId_,
+      type' = pType_
     }
 
 -- | The identifier of the directory.
-eldapsDirectoryId :: Lens' EnableLDAPS Text
-eldapsDirectoryId = lens _eldapsDirectoryId (\s a -> s {_eldapsDirectoryId = a})
+enableLDAPS_directoryId :: Lens.Lens' EnableLDAPS Prelude.Text
+enableLDAPS_directoryId = Lens.lens (\EnableLDAPS' {directoryId} -> directoryId) (\s@EnableLDAPS' {} a -> s {directoryId = a} :: EnableLDAPS)
 
--- | The type of LDAP security to enable. Currently only the value @Client@ is supported.
-eldapsType :: Lens' EnableLDAPS LDAPSType
-eldapsType = lens _eldapsType (\s a -> s {_eldapsType = a})
+-- | The type of LDAP security to enable. Currently only the value @Client@
+-- is supported.
+enableLDAPS_type :: Lens.Lens' EnableLDAPS LDAPSType
+enableLDAPS_type = Lens.lens (\EnableLDAPS' {type'} -> type') (\s@EnableLDAPS' {} a -> s {type' = a} :: EnableLDAPS)
 
-instance AWSRequest EnableLDAPS where
+instance Prelude.AWSRequest EnableLDAPS where
   type Rs EnableLDAPS = EnableLDAPSResponse
-  request = postJSON directoryService
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          EnableLDAPSResponse' <$> (pure (fromEnum s))
+          EnableLDAPSResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable EnableLDAPS
+instance Prelude.Hashable EnableLDAPS
 
-instance NFData EnableLDAPS
+instance Prelude.NFData EnableLDAPS
 
-instance ToHeaders EnableLDAPS where
+instance Prelude.ToHeaders EnableLDAPS where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "DirectoryService_20150416.EnableLDAPS" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "DirectoryService_20150416.EnableLDAPS" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON EnableLDAPS where
+instance Prelude.ToJSON EnableLDAPS where
   toJSON EnableLDAPS' {..} =
-    object
-      ( catMaybes
-          [ Just ("DirectoryId" .= _eldapsDirectoryId),
-            Just ("Type" .= _eldapsType)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("DirectoryId" Prelude..= directoryId),
+            Prelude.Just ("Type" Prelude..= type')
           ]
       )
 
-instance ToPath EnableLDAPS where
-  toPath = const "/"
+instance Prelude.ToPath EnableLDAPS where
+  toPath = Prelude.const "/"
 
-instance ToQuery EnableLDAPS where
-  toQuery = const mempty
+instance Prelude.ToQuery EnableLDAPS where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'enableLDAPSResponse' smart constructor.
-newtype EnableLDAPSResponse = EnableLDAPSResponse'
-  { _eldapsrrsResponseStatus ::
-      Int
+-- | /See:/ 'newEnableLDAPSResponse' smart constructor.
+data EnableLDAPSResponse = EnableLDAPSResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EnableLDAPSResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EnableLDAPSResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eldapsrrsResponseStatus' - -- | The response status code.
-enableLDAPSResponse ::
-  -- | 'eldapsrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'enableLDAPSResponse_httpStatus' - The response's http status code.
+newEnableLDAPSResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   EnableLDAPSResponse
-enableLDAPSResponse pResponseStatus_ =
-  EnableLDAPSResponse'
-    { _eldapsrrsResponseStatus =
-        pResponseStatus_
-    }
+newEnableLDAPSResponse pHttpStatus_ =
+  EnableLDAPSResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-eldapsrrsResponseStatus :: Lens' EnableLDAPSResponse Int
-eldapsrrsResponseStatus = lens _eldapsrrsResponseStatus (\s a -> s {_eldapsrrsResponseStatus = a})
+-- | The response's http status code.
+enableLDAPSResponse_httpStatus :: Lens.Lens' EnableLDAPSResponse Prelude.Int
+enableLDAPSResponse_httpStatus = Lens.lens (\EnableLDAPSResponse' {httpStatus} -> httpStatus) (\s@EnableLDAPSResponse' {} a -> s {httpStatus = a} :: EnableLDAPSResponse)
 
-instance NFData EnableLDAPSResponse
+instance Prelude.NFData EnableLDAPSResponse

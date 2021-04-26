@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,163 +21,185 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates an alias for a directory and assigns the alias to the directory. The alias is used to construct the access URL for the directory, such as @http://<alias>.awsapps.com@ .
+-- Creates an alias for a directory and assigns the alias to the directory.
+-- The alias is used to construct the access URL for the directory, such as
+-- @http:\/\/\<alias>.awsapps.com@.
 --
---
--- /Important:/ After an alias has been created, it cannot be deleted or reused, so this operation should only be used when absolutely necessary.
+-- After an alias has been created, it cannot be deleted or reused, so this
+-- operation should only be used when absolutely necessary.
 module Network.AWS.DirectoryService.CreateAlias
   ( -- * Creating a Request
-    createAlias,
-    CreateAlias,
+    CreateAlias (..),
+    newCreateAlias,
 
     -- * Request Lenses
-    caDirectoryId,
-    caAlias,
+    createAlias_directoryId,
+    createAlias_alias,
 
     -- * Destructuring the Response
-    createAliasResponse,
-    CreateAliasResponse,
+    CreateAliasResponse (..),
+    newCreateAliasResponse,
 
     -- * Response Lenses
-    carrsAlias,
-    carrsDirectoryId,
-    carrsResponseStatus,
+    createAliasResponse_alias,
+    createAliasResponse_directoryId,
+    createAliasResponse_httpStatus,
   )
 where
 
 import Network.AWS.DirectoryService.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Contains the inputs for the 'CreateAlias' operation.
+-- | Contains the inputs for the CreateAlias operation.
 --
---
---
--- /See:/ 'createAlias' smart constructor.
+-- /See:/ 'newCreateAlias' smart constructor.
 data CreateAlias = CreateAlias'
-  { _caDirectoryId ::
-      !Text,
-    _caAlias :: !Text
+  { -- | The identifier of the directory for which to create the alias.
+    directoryId :: Prelude.Text,
+    -- | The requested alias.
+    --
+    -- The alias must be unique amongst all aliases in AWS. This operation
+    -- throws an @EntityAlreadyExistsException@ error if the alias already
+    -- exists.
+    alias :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateAlias' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateAlias' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'caDirectoryId' - The identifier of the directory for which to create the alias.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'caAlias' - The requested alias. The alias must be unique amongst all aliases in AWS. This operation throws an @EntityAlreadyExistsException@ error if the alias already exists.
-createAlias ::
-  -- | 'caDirectoryId'
-  Text ->
-  -- | 'caAlias'
-  Text ->
+-- 'directoryId', 'createAlias_directoryId' - The identifier of the directory for which to create the alias.
+--
+-- 'alias', 'createAlias_alias' - The requested alias.
+--
+-- The alias must be unique amongst all aliases in AWS. This operation
+-- throws an @EntityAlreadyExistsException@ error if the alias already
+-- exists.
+newCreateAlias ::
+  -- | 'directoryId'
+  Prelude.Text ->
+  -- | 'alias'
+  Prelude.Text ->
   CreateAlias
-createAlias pDirectoryId_ pAlias_ =
+newCreateAlias pDirectoryId_ pAlias_ =
   CreateAlias'
-    { _caDirectoryId = pDirectoryId_,
-      _caAlias = pAlias_
+    { directoryId = pDirectoryId_,
+      alias = pAlias_
     }
 
 -- | The identifier of the directory for which to create the alias.
-caDirectoryId :: Lens' CreateAlias Text
-caDirectoryId = lens _caDirectoryId (\s a -> s {_caDirectoryId = a})
+createAlias_directoryId :: Lens.Lens' CreateAlias Prelude.Text
+createAlias_directoryId = Lens.lens (\CreateAlias' {directoryId} -> directoryId) (\s@CreateAlias' {} a -> s {directoryId = a} :: CreateAlias)
 
--- | The requested alias. The alias must be unique amongst all aliases in AWS. This operation throws an @EntityAlreadyExistsException@ error if the alias already exists.
-caAlias :: Lens' CreateAlias Text
-caAlias = lens _caAlias (\s a -> s {_caAlias = a})
+-- | The requested alias.
+--
+-- The alias must be unique amongst all aliases in AWS. This operation
+-- throws an @EntityAlreadyExistsException@ error if the alias already
+-- exists.
+createAlias_alias :: Lens.Lens' CreateAlias Prelude.Text
+createAlias_alias = Lens.lens (\CreateAlias' {alias} -> alias) (\s@CreateAlias' {} a -> s {alias = a} :: CreateAlias)
 
-instance AWSRequest CreateAlias where
+instance Prelude.AWSRequest CreateAlias where
   type Rs CreateAlias = CreateAliasResponse
-  request = postJSON directoryService
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateAliasResponse'
-            <$> (x .?> "Alias")
-            <*> (x .?> "DirectoryId")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Alias")
+            Prelude.<*> (x Prelude..?> "DirectoryId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateAlias
+instance Prelude.Hashable CreateAlias
 
-instance NFData CreateAlias
+instance Prelude.NFData CreateAlias
 
-instance ToHeaders CreateAlias where
+instance Prelude.ToHeaders CreateAlias where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "DirectoryService_20150416.CreateAlias" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "DirectoryService_20150416.CreateAlias" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateAlias where
+instance Prelude.ToJSON CreateAlias where
   toJSON CreateAlias' {..} =
-    object
-      ( catMaybes
-          [ Just ("DirectoryId" .= _caDirectoryId),
-            Just ("Alias" .= _caAlias)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("DirectoryId" Prelude..= directoryId),
+            Prelude.Just ("Alias" Prelude..= alias)
           ]
       )
 
-instance ToPath CreateAlias where
-  toPath = const "/"
+instance Prelude.ToPath CreateAlias where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateAlias where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateAlias where
+  toQuery = Prelude.const Prelude.mempty
 
--- | Contains the results of the 'CreateAlias' operation.
+-- | Contains the results of the CreateAlias operation.
 --
---
---
--- /See:/ 'createAliasResponse' smart constructor.
+-- /See:/ 'newCreateAliasResponse' smart constructor.
 data CreateAliasResponse = CreateAliasResponse'
-  { _carrsAlias ::
-      !(Maybe Text),
-    _carrsDirectoryId ::
-      !(Maybe Text),
-    _carrsResponseStatus :: !Int
+  { -- | The alias for the directory.
+    alias :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the directory.
+    directoryId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateAliasResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateAliasResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'carrsAlias' - The alias for the directory.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'carrsDirectoryId' - The identifier of the directory.
+-- 'alias', 'createAliasResponse_alias' - The alias for the directory.
 --
--- * 'carrsResponseStatus' - -- | The response status code.
-createAliasResponse ::
-  -- | 'carrsResponseStatus'
-  Int ->
+-- 'directoryId', 'createAliasResponse_directoryId' - The identifier of the directory.
+--
+-- 'httpStatus', 'createAliasResponse_httpStatus' - The response's http status code.
+newCreateAliasResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateAliasResponse
-createAliasResponse pResponseStatus_ =
+newCreateAliasResponse pHttpStatus_ =
   CreateAliasResponse'
-    { _carrsAlias = Nothing,
-      _carrsDirectoryId = Nothing,
-      _carrsResponseStatus = pResponseStatus_
+    { alias = Prelude.Nothing,
+      directoryId = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The alias for the directory.
-carrsAlias :: Lens' CreateAliasResponse (Maybe Text)
-carrsAlias = lens _carrsAlias (\s a -> s {_carrsAlias = a})
+createAliasResponse_alias :: Lens.Lens' CreateAliasResponse (Prelude.Maybe Prelude.Text)
+createAliasResponse_alias = Lens.lens (\CreateAliasResponse' {alias} -> alias) (\s@CreateAliasResponse' {} a -> s {alias = a} :: CreateAliasResponse)
 
 -- | The identifier of the directory.
-carrsDirectoryId :: Lens' CreateAliasResponse (Maybe Text)
-carrsDirectoryId = lens _carrsDirectoryId (\s a -> s {_carrsDirectoryId = a})
+createAliasResponse_directoryId :: Lens.Lens' CreateAliasResponse (Prelude.Maybe Prelude.Text)
+createAliasResponse_directoryId = Lens.lens (\CreateAliasResponse' {directoryId} -> directoryId) (\s@CreateAliasResponse' {} a -> s {directoryId = a} :: CreateAliasResponse)
 
--- | -- | The response status code.
-carrsResponseStatus :: Lens' CreateAliasResponse Int
-carrsResponseStatus = lens _carrsResponseStatus (\s a -> s {_carrsResponseStatus = a})
+-- | The response's http status code.
+createAliasResponse_httpStatus :: Lens.Lens' CreateAliasResponse Prelude.Int
+createAliasResponse_httpStatus = Lens.lens (\CreateAliasResponse' {httpStatus} -> httpStatus) (\s@CreateAliasResponse' {} a -> s {httpStatus = a} :: CreateAliasResponse)
 
-instance NFData CreateAliasResponse
+instance Prelude.NFData CreateAliasResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,63 +19,65 @@
 module Network.AWS.DirectoryService.Types.TopicStatus
   ( TopicStatus
       ( ..,
-        TDeleted,
-        TFailed,
-        TRegistered,
-        TTopicNotFound
+        TopicStatusDeleted,
+        TopicStatusFailed,
+        TopicStatusRegistered,
+        TopicStatusTopicNotFound
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TopicStatus = TopicStatus' (CI Text)
+newtype TopicStatus = TopicStatus'
+  { fromTopicStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TDeleted :: TopicStatus
-pattern TDeleted = TopicStatus' "Deleted"
+pattern TopicStatusDeleted :: TopicStatus
+pattern TopicStatusDeleted = TopicStatus' "Deleted"
 
-pattern TFailed :: TopicStatus
-pattern TFailed = TopicStatus' "Failed"
+pattern TopicStatusFailed :: TopicStatus
+pattern TopicStatusFailed = TopicStatus' "Failed"
 
-pattern TRegistered :: TopicStatus
-pattern TRegistered = TopicStatus' "Registered"
+pattern TopicStatusRegistered :: TopicStatus
+pattern TopicStatusRegistered = TopicStatus' "Registered"
 
-pattern TTopicNotFound :: TopicStatus
-pattern TTopicNotFound = TopicStatus' "Topic not found"
+pattern TopicStatusTopicNotFound :: TopicStatus
+pattern TopicStatusTopicNotFound = TopicStatus' "Topic not found"
 
 {-# COMPLETE
-  TDeleted,
-  TFailed,
-  TRegistered,
-  TTopicNotFound,
+  TopicStatusDeleted,
+  TopicStatusFailed,
+  TopicStatusRegistered,
+  TopicStatusTopicNotFound,
   TopicStatus'
   #-}
 
-instance FromText TopicStatus where
-  parser = (TopicStatus' . mk) <$> takeText
+instance Prelude.FromText TopicStatus where
+  parser = TopicStatus' Prelude.<$> Prelude.takeText
 
-instance ToText TopicStatus where
-  toText (TopicStatus' ci) = original ci
+instance Prelude.ToText TopicStatus where
+  toText (TopicStatus' x) = x
 
-instance Hashable TopicStatus
+instance Prelude.Hashable TopicStatus
 
-instance NFData TopicStatus
+instance Prelude.NFData TopicStatus
 
-instance ToByteString TopicStatus
+instance Prelude.ToByteString TopicStatus
 
-instance ToQuery TopicStatus
+instance Prelude.ToQuery TopicStatus
 
-instance ToHeader TopicStatus
+instance Prelude.ToHeader TopicStatus
 
-instance FromJSON TopicStatus where
-  parseJSON = parseJSONText "TopicStatus"
+instance Prelude.FromJSON TopicStatus where
+  parseJSON = Prelude.parseJSONText "TopicStatus"

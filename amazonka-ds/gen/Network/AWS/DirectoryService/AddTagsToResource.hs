@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,136 +21,143 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Adds or overwrites one or more tags for the specified directory. Each directory can have a maximum of 50 tags. Each tag consists of a key and optional value. Tag keys must be unique to each resource.
+-- Adds or overwrites one or more tags for the specified directory. Each
+-- directory can have a maximum of 50 tags. Each tag consists of a key and
+-- optional value. Tag keys must be unique to each resource.
 module Network.AWS.DirectoryService.AddTagsToResource
   ( -- * Creating a Request
-    addTagsToResource,
-    AddTagsToResource,
+    AddTagsToResource (..),
+    newAddTagsToResource,
 
     -- * Request Lenses
-    attrResourceId,
-    attrTags,
+    addTagsToResource_resourceId,
+    addTagsToResource_tags,
 
     -- * Destructuring the Response
-    addTagsToResourceResponse,
-    AddTagsToResourceResponse,
+    AddTagsToResourceResponse (..),
+    newAddTagsToResourceResponse,
 
     -- * Response Lenses
-    attrrrsResponseStatus,
+    addTagsToResourceResponse_httpStatus,
   )
 where
 
 import Network.AWS.DirectoryService.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'addTagsToResource' smart constructor.
+-- | /See:/ 'newAddTagsToResource' smart constructor.
 data AddTagsToResource = AddTagsToResource'
-  { _attrResourceId ::
-      !Text,
-    _attrTags :: ![Tag]
+  { -- | Identifier (ID) for the directory to which to add the tag.
+    resourceId :: Prelude.Text,
+    -- | The tags to be assigned to the directory.
+    tags :: [Tag]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AddTagsToResource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AddTagsToResource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'attrResourceId' - Identifier (ID) for the directory to which to add the tag.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'attrTags' - The tags to be assigned to the directory.
-addTagsToResource ::
-  -- | 'attrResourceId'
-  Text ->
+-- 'resourceId', 'addTagsToResource_resourceId' - Identifier (ID) for the directory to which to add the tag.
+--
+-- 'tags', 'addTagsToResource_tags' - The tags to be assigned to the directory.
+newAddTagsToResource ::
+  -- | 'resourceId'
+  Prelude.Text ->
   AddTagsToResource
-addTagsToResource pResourceId_ =
+newAddTagsToResource pResourceId_ =
   AddTagsToResource'
-    { _attrResourceId = pResourceId_,
-      _attrTags = mempty
+    { resourceId = pResourceId_,
+      tags = Prelude.mempty
     }
 
 -- | Identifier (ID) for the directory to which to add the tag.
-attrResourceId :: Lens' AddTagsToResource Text
-attrResourceId = lens _attrResourceId (\s a -> s {_attrResourceId = a})
+addTagsToResource_resourceId :: Lens.Lens' AddTagsToResource Prelude.Text
+addTagsToResource_resourceId = Lens.lens (\AddTagsToResource' {resourceId} -> resourceId) (\s@AddTagsToResource' {} a -> s {resourceId = a} :: AddTagsToResource)
 
 -- | The tags to be assigned to the directory.
-attrTags :: Lens' AddTagsToResource [Tag]
-attrTags = lens _attrTags (\s a -> s {_attrTags = a}) . _Coerce
+addTagsToResource_tags :: Lens.Lens' AddTagsToResource [Tag]
+addTagsToResource_tags = Lens.lens (\AddTagsToResource' {tags} -> tags) (\s@AddTagsToResource' {} a -> s {tags = a} :: AddTagsToResource) Prelude.. Prelude._Coerce
 
-instance AWSRequest AddTagsToResource where
+instance Prelude.AWSRequest AddTagsToResource where
   type Rs AddTagsToResource = AddTagsToResourceResponse
-  request = postJSON directoryService
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          AddTagsToResourceResponse' <$> (pure (fromEnum s))
+          AddTagsToResourceResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable AddTagsToResource
+instance Prelude.Hashable AddTagsToResource
 
-instance NFData AddTagsToResource
+instance Prelude.NFData AddTagsToResource
 
-instance ToHeaders AddTagsToResource where
+instance Prelude.ToHeaders AddTagsToResource where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "DirectoryService_20150416.AddTagsToResource" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "DirectoryService_20150416.AddTagsToResource" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON AddTagsToResource where
+instance Prelude.ToJSON AddTagsToResource where
   toJSON AddTagsToResource' {..} =
-    object
-      ( catMaybes
-          [ Just ("ResourceId" .= _attrResourceId),
-            Just ("Tags" .= _attrTags)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("ResourceId" Prelude..= resourceId),
+            Prelude.Just ("Tags" Prelude..= tags)
           ]
       )
 
-instance ToPath AddTagsToResource where
-  toPath = const "/"
+instance Prelude.ToPath AddTagsToResource where
+  toPath = Prelude.const "/"
 
-instance ToQuery AddTagsToResource where
-  toQuery = const mempty
+instance Prelude.ToQuery AddTagsToResource where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'addTagsToResourceResponse' smart constructor.
-newtype AddTagsToResourceResponse = AddTagsToResourceResponse'
-  { _attrrrsResponseStatus ::
-      Int
+-- | /See:/ 'newAddTagsToResourceResponse' smart constructor.
+data AddTagsToResourceResponse = AddTagsToResourceResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AddTagsToResourceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AddTagsToResourceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'attrrrsResponseStatus' - -- | The response status code.
-addTagsToResourceResponse ::
-  -- | 'attrrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'addTagsToResourceResponse_httpStatus' - The response's http status code.
+newAddTagsToResourceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   AddTagsToResourceResponse
-addTagsToResourceResponse pResponseStatus_ =
+newAddTagsToResourceResponse pHttpStatus_ =
   AddTagsToResourceResponse'
-    { _attrrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-attrrrsResponseStatus :: Lens' AddTagsToResourceResponse Int
-attrrrsResponseStatus = lens _attrrrsResponseStatus (\s a -> s {_attrrrsResponseStatus = a})
+-- | The response's http status code.
+addTagsToResourceResponse_httpStatus :: Lens.Lens' AddTagsToResourceResponse Prelude.Int
+addTagsToResourceResponse_httpStatus = Lens.lens (\AddTagsToResourceResponse' {httpStatus} -> httpStatus) (\s@AddTagsToResourceResponse' {} a -> s {httpStatus = a} :: AddTagsToResourceResponse)
 
-instance NFData AddTagsToResourceResponse
+instance Prelude.NFData AddTagsToResourceResponse

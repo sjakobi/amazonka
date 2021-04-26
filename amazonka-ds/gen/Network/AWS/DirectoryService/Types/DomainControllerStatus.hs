@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,82 +19,80 @@
 module Network.AWS.DirectoryService.Types.DomainControllerStatus
   ( DomainControllerStatus
       ( ..,
-        DCSActive,
-        DCSCreating,
-        DCSDeleted,
-        DCSDeleting,
-        DCSFailed,
-        DCSImpaired,
-        DCSRestoring
+        DomainControllerStatusActive,
+        DomainControllerStatusCreating,
+        DomainControllerStatusDeleted,
+        DomainControllerStatusDeleting,
+        DomainControllerStatusFailed,
+        DomainControllerStatusImpaired,
+        DomainControllerStatusRestoring
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DomainControllerStatus
-  = DomainControllerStatus'
-      ( CI
-          Text
-      )
+newtype DomainControllerStatus = DomainControllerStatus'
+  { fromDomainControllerStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DCSActive :: DomainControllerStatus
-pattern DCSActive = DomainControllerStatus' "Active"
+pattern DomainControllerStatusActive :: DomainControllerStatus
+pattern DomainControllerStatusActive = DomainControllerStatus' "Active"
 
-pattern DCSCreating :: DomainControllerStatus
-pattern DCSCreating = DomainControllerStatus' "Creating"
+pattern DomainControllerStatusCreating :: DomainControllerStatus
+pattern DomainControllerStatusCreating = DomainControllerStatus' "Creating"
 
-pattern DCSDeleted :: DomainControllerStatus
-pattern DCSDeleted = DomainControllerStatus' "Deleted"
+pattern DomainControllerStatusDeleted :: DomainControllerStatus
+pattern DomainControllerStatusDeleted = DomainControllerStatus' "Deleted"
 
-pattern DCSDeleting :: DomainControllerStatus
-pattern DCSDeleting = DomainControllerStatus' "Deleting"
+pattern DomainControllerStatusDeleting :: DomainControllerStatus
+pattern DomainControllerStatusDeleting = DomainControllerStatus' "Deleting"
 
-pattern DCSFailed :: DomainControllerStatus
-pattern DCSFailed = DomainControllerStatus' "Failed"
+pattern DomainControllerStatusFailed :: DomainControllerStatus
+pattern DomainControllerStatusFailed = DomainControllerStatus' "Failed"
 
-pattern DCSImpaired :: DomainControllerStatus
-pattern DCSImpaired = DomainControllerStatus' "Impaired"
+pattern DomainControllerStatusImpaired :: DomainControllerStatus
+pattern DomainControllerStatusImpaired = DomainControllerStatus' "Impaired"
 
-pattern DCSRestoring :: DomainControllerStatus
-pattern DCSRestoring = DomainControllerStatus' "Restoring"
+pattern DomainControllerStatusRestoring :: DomainControllerStatus
+pattern DomainControllerStatusRestoring = DomainControllerStatus' "Restoring"
 
 {-# COMPLETE
-  DCSActive,
-  DCSCreating,
-  DCSDeleted,
-  DCSDeleting,
-  DCSFailed,
-  DCSImpaired,
-  DCSRestoring,
+  DomainControllerStatusActive,
+  DomainControllerStatusCreating,
+  DomainControllerStatusDeleted,
+  DomainControllerStatusDeleting,
+  DomainControllerStatusFailed,
+  DomainControllerStatusImpaired,
+  DomainControllerStatusRestoring,
   DomainControllerStatus'
   #-}
 
-instance FromText DomainControllerStatus where
-  parser = (DomainControllerStatus' . mk) <$> takeText
+instance Prelude.FromText DomainControllerStatus where
+  parser = DomainControllerStatus' Prelude.<$> Prelude.takeText
 
-instance ToText DomainControllerStatus where
-  toText (DomainControllerStatus' ci) = original ci
+instance Prelude.ToText DomainControllerStatus where
+  toText (DomainControllerStatus' x) = x
 
-instance Hashable DomainControllerStatus
+instance Prelude.Hashable DomainControllerStatus
 
-instance NFData DomainControllerStatus
+instance Prelude.NFData DomainControllerStatus
 
-instance ToByteString DomainControllerStatus
+instance Prelude.ToByteString DomainControllerStatus
 
-instance ToQuery DomainControllerStatus
+instance Prelude.ToQuery DomainControllerStatus
 
-instance ToHeader DomainControllerStatus
+instance Prelude.ToHeader DomainControllerStatus
 
-instance FromJSON DomainControllerStatus where
-  parseJSON = parseJSONText "DomainControllerStatus"
+instance Prelude.FromJSON DomainControllerStatus where
+  parseJSON = Prelude.parseJSONText "DomainControllerStatus"

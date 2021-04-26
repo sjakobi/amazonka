@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,121 +21,131 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Stops all replication and removes the domain controllers from the specified Region. You cannot remove the primary Region with this operation. Instead, use the @DeleteDirectory@ API.
+-- Stops all replication and removes the domain controllers from the
+-- specified Region. You cannot remove the primary Region with this
+-- operation. Instead, use the @DeleteDirectory@ API.
 module Network.AWS.DirectoryService.RemoveRegion
   ( -- * Creating a Request
-    removeRegion,
-    RemoveRegion,
+    RemoveRegion (..),
+    newRemoveRegion,
 
     -- * Request Lenses
-    rrDirectoryId,
+    removeRegion_directoryId,
 
     -- * Destructuring the Response
-    removeRegionResponse,
-    RemoveRegionResponse,
+    RemoveRegionResponse (..),
+    newRemoveRegionResponse,
 
     -- * Response Lenses
-    rrrrsResponseStatus,
+    removeRegionResponse_httpStatus,
   )
 where
 
 import Network.AWS.DirectoryService.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'removeRegion' smart constructor.
-newtype RemoveRegion = RemoveRegion'
-  { _rrDirectoryId ::
-      Text
+-- | /See:/ 'newRemoveRegion' smart constructor.
+data RemoveRegion = RemoveRegion'
+  { -- | The identifier of the directory for which you want to remove Region
+    -- replication.
+    directoryId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RemoveRegion' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RemoveRegion' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rrDirectoryId' - The identifier of the directory for which you want to remove Region replication.
-removeRegion ::
-  -- | 'rrDirectoryId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'directoryId', 'removeRegion_directoryId' - The identifier of the directory for which you want to remove Region
+-- replication.
+newRemoveRegion ::
+  -- | 'directoryId'
+  Prelude.Text ->
   RemoveRegion
-removeRegion pDirectoryId_ =
-  RemoveRegion' {_rrDirectoryId = pDirectoryId_}
+newRemoveRegion pDirectoryId_ =
+  RemoveRegion' {directoryId = pDirectoryId_}
 
--- | The identifier of the directory for which you want to remove Region replication.
-rrDirectoryId :: Lens' RemoveRegion Text
-rrDirectoryId = lens _rrDirectoryId (\s a -> s {_rrDirectoryId = a})
+-- | The identifier of the directory for which you want to remove Region
+-- replication.
+removeRegion_directoryId :: Lens.Lens' RemoveRegion Prelude.Text
+removeRegion_directoryId = Lens.lens (\RemoveRegion' {directoryId} -> directoryId) (\s@RemoveRegion' {} a -> s {directoryId = a} :: RemoveRegion)
 
-instance AWSRequest RemoveRegion where
+instance Prelude.AWSRequest RemoveRegion where
   type Rs RemoveRegion = RemoveRegionResponse
-  request = postJSON directoryService
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          RemoveRegionResponse' <$> (pure (fromEnum s))
+          RemoveRegionResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable RemoveRegion
+instance Prelude.Hashable RemoveRegion
 
-instance NFData RemoveRegion
+instance Prelude.NFData RemoveRegion
 
-instance ToHeaders RemoveRegion where
+instance Prelude.ToHeaders RemoveRegion where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "DirectoryService_20150416.RemoveRegion" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "DirectoryService_20150416.RemoveRegion" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON RemoveRegion where
+instance Prelude.ToJSON RemoveRegion where
   toJSON RemoveRegion' {..} =
-    object
-      (catMaybes [Just ("DirectoryId" .= _rrDirectoryId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("DirectoryId" Prelude..= directoryId)
+          ]
+      )
 
-instance ToPath RemoveRegion where
-  toPath = const "/"
+instance Prelude.ToPath RemoveRegion where
+  toPath = Prelude.const "/"
 
-instance ToQuery RemoveRegion where
-  toQuery = const mempty
+instance Prelude.ToQuery RemoveRegion where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'removeRegionResponse' smart constructor.
-newtype RemoveRegionResponse = RemoveRegionResponse'
-  { _rrrrsResponseStatus ::
-      Int
+-- | /See:/ 'newRemoveRegionResponse' smart constructor.
+data RemoveRegionResponse = RemoveRegionResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RemoveRegionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RemoveRegionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rrrrsResponseStatus' - -- | The response status code.
-removeRegionResponse ::
-  -- | 'rrrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'removeRegionResponse_httpStatus' - The response's http status code.
+newRemoveRegionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   RemoveRegionResponse
-removeRegionResponse pResponseStatus_ =
-  RemoveRegionResponse'
-    { _rrrrsResponseStatus =
-        pResponseStatus_
-    }
+newRemoveRegionResponse pHttpStatus_ =
+  RemoveRegionResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-rrrrsResponseStatus :: Lens' RemoveRegionResponse Int
-rrrrsResponseStatus = lens _rrrrsResponseStatus (\s a -> s {_rrrrsResponseStatus = a})
+-- | The response's http status code.
+removeRegionResponse_httpStatus :: Lens.Lens' RemoveRegionResponse Prelude.Int
+removeRegionResponse_httpStatus = Lens.lens (\RemoveRegionResponse' {httpStatus} -> httpStatus) (\s@RemoveRegionResponse' {} a -> s {httpStatus = a} :: RemoveRegionResponse)
 
-instance NFData RemoveRegionResponse
+instance Prelude.NFData RemoveRegionResponse

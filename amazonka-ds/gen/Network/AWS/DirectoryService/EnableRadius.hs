@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,146 +21,150 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Enables multi-factor authentication (MFA) with the Remote Authentication Dial In User Service (RADIUS) server for an AD Connector or Microsoft AD directory.
+-- Enables multi-factor authentication (MFA) with the Remote Authentication
+-- Dial In User Service (RADIUS) server for an AD Connector or Microsoft AD
+-- directory.
 module Network.AWS.DirectoryService.EnableRadius
   ( -- * Creating a Request
-    enableRadius,
-    EnableRadius,
+    EnableRadius (..),
+    newEnableRadius,
 
     -- * Request Lenses
-    erDirectoryId,
-    erRadiusSettings,
+    enableRadius_directoryId,
+    enableRadius_radiusSettings,
 
     -- * Destructuring the Response
-    enableRadiusResponse,
-    EnableRadiusResponse,
+    EnableRadiusResponse (..),
+    newEnableRadiusResponse,
 
     -- * Response Lenses
-    errrsResponseStatus,
+    enableRadiusResponse_httpStatus,
   )
 where
 
 import Network.AWS.DirectoryService.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Contains the inputs for the 'EnableRadius' operation.
+-- | Contains the inputs for the EnableRadius operation.
 --
---
---
--- /See:/ 'enableRadius' smart constructor.
+-- /See:/ 'newEnableRadius' smart constructor.
 data EnableRadius = EnableRadius'
-  { _erDirectoryId ::
-      !Text,
-    _erRadiusSettings :: !RadiusSettings
+  { -- | The identifier of the directory for which to enable MFA.
+    directoryId :: Prelude.Text,
+    -- | A RadiusSettings object that contains information about the RADIUS
+    -- server.
+    radiusSettings :: RadiusSettings
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EnableRadius' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EnableRadius' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'erDirectoryId' - The identifier of the directory for which to enable MFA.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'erRadiusSettings' - A 'RadiusSettings' object that contains information about the RADIUS server.
-enableRadius ::
-  -- | 'erDirectoryId'
-  Text ->
-  -- | 'erRadiusSettings'
+-- 'directoryId', 'enableRadius_directoryId' - The identifier of the directory for which to enable MFA.
+--
+-- 'radiusSettings', 'enableRadius_radiusSettings' - A RadiusSettings object that contains information about the RADIUS
+-- server.
+newEnableRadius ::
+  -- | 'directoryId'
+  Prelude.Text ->
+  -- | 'radiusSettings'
   RadiusSettings ->
   EnableRadius
-enableRadius pDirectoryId_ pRadiusSettings_ =
+newEnableRadius pDirectoryId_ pRadiusSettings_ =
   EnableRadius'
-    { _erDirectoryId = pDirectoryId_,
-      _erRadiusSettings = pRadiusSettings_
+    { directoryId = pDirectoryId_,
+      radiusSettings = pRadiusSettings_
     }
 
 -- | The identifier of the directory for which to enable MFA.
-erDirectoryId :: Lens' EnableRadius Text
-erDirectoryId = lens _erDirectoryId (\s a -> s {_erDirectoryId = a})
+enableRadius_directoryId :: Lens.Lens' EnableRadius Prelude.Text
+enableRadius_directoryId = Lens.lens (\EnableRadius' {directoryId} -> directoryId) (\s@EnableRadius' {} a -> s {directoryId = a} :: EnableRadius)
 
--- | A 'RadiusSettings' object that contains information about the RADIUS server.
-erRadiusSettings :: Lens' EnableRadius RadiusSettings
-erRadiusSettings = lens _erRadiusSettings (\s a -> s {_erRadiusSettings = a})
+-- | A RadiusSettings object that contains information about the RADIUS
+-- server.
+enableRadius_radiusSettings :: Lens.Lens' EnableRadius RadiusSettings
+enableRadius_radiusSettings = Lens.lens (\EnableRadius' {radiusSettings} -> radiusSettings) (\s@EnableRadius' {} a -> s {radiusSettings = a} :: EnableRadius)
 
-instance AWSRequest EnableRadius where
+instance Prelude.AWSRequest EnableRadius where
   type Rs EnableRadius = EnableRadiusResponse
-  request = postJSON directoryService
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          EnableRadiusResponse' <$> (pure (fromEnum s))
+          EnableRadiusResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable EnableRadius
+instance Prelude.Hashable EnableRadius
 
-instance NFData EnableRadius
+instance Prelude.NFData EnableRadius
 
-instance ToHeaders EnableRadius where
+instance Prelude.ToHeaders EnableRadius where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "DirectoryService_20150416.EnableRadius" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "DirectoryService_20150416.EnableRadius" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON EnableRadius where
+instance Prelude.ToJSON EnableRadius where
   toJSON EnableRadius' {..} =
-    object
-      ( catMaybes
-          [ Just ("DirectoryId" .= _erDirectoryId),
-            Just ("RadiusSettings" .= _erRadiusSettings)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("DirectoryId" Prelude..= directoryId),
+            Prelude.Just
+              ("RadiusSettings" Prelude..= radiusSettings)
           ]
       )
 
-instance ToPath EnableRadius where
-  toPath = const "/"
+instance Prelude.ToPath EnableRadius where
+  toPath = Prelude.const "/"
 
-instance ToQuery EnableRadius where
-  toQuery = const mempty
+instance Prelude.ToQuery EnableRadius where
+  toQuery = Prelude.const Prelude.mempty
 
--- | Contains the results of the 'EnableRadius' operation.
+-- | Contains the results of the EnableRadius operation.
 --
---
---
--- /See:/ 'enableRadiusResponse' smart constructor.
-newtype EnableRadiusResponse = EnableRadiusResponse'
-  { _errrsResponseStatus ::
-      Int
+-- /See:/ 'newEnableRadiusResponse' smart constructor.
+data EnableRadiusResponse = EnableRadiusResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EnableRadiusResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EnableRadiusResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'errrsResponseStatus' - -- | The response status code.
-enableRadiusResponse ::
-  -- | 'errrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'enableRadiusResponse_httpStatus' - The response's http status code.
+newEnableRadiusResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   EnableRadiusResponse
-enableRadiusResponse pResponseStatus_ =
-  EnableRadiusResponse'
-    { _errrsResponseStatus =
-        pResponseStatus_
-    }
+newEnableRadiusResponse pHttpStatus_ =
+  EnableRadiusResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-errrsResponseStatus :: Lens' EnableRadiusResponse Int
-errrsResponseStatus = lens _errrsResponseStatus (\s a -> s {_errrsResponseStatus = a})
+-- | The response's http status code.
+enableRadiusResponse_httpStatus :: Lens.Lens' EnableRadiusResponse Prelude.Int
+enableRadiusResponse_httpStatus = Lens.lens (\EnableRadiusResponse' {httpStatus} -> httpStatus) (\s@EnableRadiusResponse' {} a -> s {httpStatus = a} :: EnableRadiusResponse)
 
-instance NFData EnableRadiusResponse
+instance Prelude.NFData EnableRadiusResponse

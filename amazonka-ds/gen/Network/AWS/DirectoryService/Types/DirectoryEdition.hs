@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.DirectoryService.Types.DirectoryEdition
   ( DirectoryEdition
       ( ..,
-        Enterprise,
-        Standard
+        DirectoryEditionEnterprise,
+        DirectoryEditionStandard
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DirectoryEdition = DirectoryEdition' (CI Text)
+newtype DirectoryEdition = DirectoryEdition'
+  { fromDirectoryEdition ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Enterprise :: DirectoryEdition
-pattern Enterprise = DirectoryEdition' "Enterprise"
+pattern DirectoryEditionEnterprise :: DirectoryEdition
+pattern DirectoryEditionEnterprise = DirectoryEdition' "Enterprise"
 
-pattern Standard :: DirectoryEdition
-pattern Standard = DirectoryEdition' "Standard"
+pattern DirectoryEditionStandard :: DirectoryEdition
+pattern DirectoryEditionStandard = DirectoryEdition' "Standard"
 
 {-# COMPLETE
-  Enterprise,
-  Standard,
+  DirectoryEditionEnterprise,
+  DirectoryEditionStandard,
   DirectoryEdition'
   #-}
 
-instance FromText DirectoryEdition where
-  parser = (DirectoryEdition' . mk) <$> takeText
+instance Prelude.FromText DirectoryEdition where
+  parser = DirectoryEdition' Prelude.<$> Prelude.takeText
 
-instance ToText DirectoryEdition where
-  toText (DirectoryEdition' ci) = original ci
+instance Prelude.ToText DirectoryEdition where
+  toText (DirectoryEdition' x) = x
 
-instance Hashable DirectoryEdition
+instance Prelude.Hashable DirectoryEdition
 
-instance NFData DirectoryEdition
+instance Prelude.NFData DirectoryEdition
 
-instance ToByteString DirectoryEdition
+instance Prelude.ToByteString DirectoryEdition
 
-instance ToQuery DirectoryEdition
+instance Prelude.ToQuery DirectoryEdition
 
-instance ToHeader DirectoryEdition
+instance Prelude.ToHeader DirectoryEdition
 
-instance ToJSON DirectoryEdition where
-  toJSON = toJSONText
+instance Prelude.ToJSON DirectoryEdition where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DirectoryEdition where
-  parseJSON = parseJSONText "DirectoryEdition"
+instance Prelude.FromJSON DirectoryEdition where
+  parseJSON = Prelude.parseJSONText "DirectoryEdition"

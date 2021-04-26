@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.DirectoryService.Types.RadiusStatus
   ( RadiusStatus
       ( ..,
-        Completed,
-        Creating,
-        Failed
+        RadiusStatusCompleted,
+        RadiusStatusCreating,
+        RadiusStatusFailed
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RadiusStatus = RadiusStatus' (CI Text)
+newtype RadiusStatus = RadiusStatus'
+  { fromRadiusStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Completed :: RadiusStatus
-pattern Completed = RadiusStatus' "Completed"
+pattern RadiusStatusCompleted :: RadiusStatus
+pattern RadiusStatusCompleted = RadiusStatus' "Completed"
 
-pattern Creating :: RadiusStatus
-pattern Creating = RadiusStatus' "Creating"
+pattern RadiusStatusCreating :: RadiusStatus
+pattern RadiusStatusCreating = RadiusStatus' "Creating"
 
-pattern Failed :: RadiusStatus
-pattern Failed = RadiusStatus' "Failed"
+pattern RadiusStatusFailed :: RadiusStatus
+pattern RadiusStatusFailed = RadiusStatus' "Failed"
 
 {-# COMPLETE
-  Completed,
-  Creating,
-  Failed,
+  RadiusStatusCompleted,
+  RadiusStatusCreating,
+  RadiusStatusFailed,
   RadiusStatus'
   #-}
 
-instance FromText RadiusStatus where
-  parser = (RadiusStatus' . mk) <$> takeText
+instance Prelude.FromText RadiusStatus where
+  parser = RadiusStatus' Prelude.<$> Prelude.takeText
 
-instance ToText RadiusStatus where
-  toText (RadiusStatus' ci) = original ci
+instance Prelude.ToText RadiusStatus where
+  toText (RadiusStatus' x) = x
 
-instance Hashable RadiusStatus
+instance Prelude.Hashable RadiusStatus
 
-instance NFData RadiusStatus
+instance Prelude.NFData RadiusStatus
 
-instance ToByteString RadiusStatus
+instance Prelude.ToByteString RadiusStatus
 
-instance ToQuery RadiusStatus
+instance Prelude.ToQuery RadiusStatus
 
-instance ToHeader RadiusStatus
+instance Prelude.ToHeader RadiusStatus
 
-instance FromJSON RadiusStatus where
-  parseJSON = parseJSONText "RadiusStatus"
+instance Prelude.FromJSON RadiusStatus where
+  parseJSON = Prelude.parseJSONText "RadiusStatus"

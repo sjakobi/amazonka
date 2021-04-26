@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,182 +23,212 @@
 --
 -- Lists the active log subscriptions for the AWS account.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.DirectoryService.ListLogSubscriptions
   ( -- * Creating a Request
-    listLogSubscriptions,
-    ListLogSubscriptions,
+    ListLogSubscriptions (..),
+    newListLogSubscriptions,
 
     -- * Request Lenses
-    llsNextToken,
-    llsDirectoryId,
-    llsLimit,
+    listLogSubscriptions_nextToken,
+    listLogSubscriptions_directoryId,
+    listLogSubscriptions_limit,
 
     -- * Destructuring the Response
-    listLogSubscriptionsResponse,
-    ListLogSubscriptionsResponse,
+    ListLogSubscriptionsResponse (..),
+    newListLogSubscriptionsResponse,
 
     -- * Response Lenses
-    llsrrsNextToken,
-    llsrrsLogSubscriptions,
-    llsrrsResponseStatus,
+    listLogSubscriptionsResponse_nextToken,
+    listLogSubscriptionsResponse_logSubscriptions,
+    listLogSubscriptionsResponse_httpStatus,
   )
 where
 
 import Network.AWS.DirectoryService.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DirectoryService.Types.LogSubscription
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listLogSubscriptions' smart constructor.
+-- | /See:/ 'newListLogSubscriptions' smart constructor.
 data ListLogSubscriptions = ListLogSubscriptions'
-  { _llsNextToken ::
-      !(Maybe Text),
-    _llsDirectoryId ::
-      !(Maybe Text),
-    _llsLimit :: !(Maybe Nat)
+  { -- | The token for the next set of items to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | If a /DirectoryID/ is provided, lists only the log subscription
+    -- associated with that directory. If no /DirectoryId/ is provided, lists
+    -- all log subscriptions associated with your AWS account. If there are no
+    -- log subscriptions for the AWS account or the directory, an empty list
+    -- will be returned.
+    directoryId :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of items returned.
+    limit :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListLogSubscriptions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListLogSubscriptions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'llsNextToken' - The token for the next set of items to return.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'llsDirectoryId' - If a /DirectoryID/ is provided, lists only the log subscription associated with that directory. If no /DirectoryId/ is provided, lists all log subscriptions associated with your AWS account. If there are no log subscriptions for the AWS account or the directory, an empty list will be returned.
+-- 'nextToken', 'listLogSubscriptions_nextToken' - The token for the next set of items to return.
 --
--- * 'llsLimit' - The maximum number of items returned.
-listLogSubscriptions ::
+-- 'directoryId', 'listLogSubscriptions_directoryId' - If a /DirectoryID/ is provided, lists only the log subscription
+-- associated with that directory. If no /DirectoryId/ is provided, lists
+-- all log subscriptions associated with your AWS account. If there are no
+-- log subscriptions for the AWS account or the directory, an empty list
+-- will be returned.
+--
+-- 'limit', 'listLogSubscriptions_limit' - The maximum number of items returned.
+newListLogSubscriptions ::
   ListLogSubscriptions
-listLogSubscriptions =
+newListLogSubscriptions =
   ListLogSubscriptions'
-    { _llsNextToken = Nothing,
-      _llsDirectoryId = Nothing,
-      _llsLimit = Nothing
+    { nextToken = Prelude.Nothing,
+      directoryId = Prelude.Nothing,
+      limit = Prelude.Nothing
     }
 
 -- | The token for the next set of items to return.
-llsNextToken :: Lens' ListLogSubscriptions (Maybe Text)
-llsNextToken = lens _llsNextToken (\s a -> s {_llsNextToken = a})
+listLogSubscriptions_nextToken :: Lens.Lens' ListLogSubscriptions (Prelude.Maybe Prelude.Text)
+listLogSubscriptions_nextToken = Lens.lens (\ListLogSubscriptions' {nextToken} -> nextToken) (\s@ListLogSubscriptions' {} a -> s {nextToken = a} :: ListLogSubscriptions)
 
--- | If a /DirectoryID/ is provided, lists only the log subscription associated with that directory. If no /DirectoryId/ is provided, lists all log subscriptions associated with your AWS account. If there are no log subscriptions for the AWS account or the directory, an empty list will be returned.
-llsDirectoryId :: Lens' ListLogSubscriptions (Maybe Text)
-llsDirectoryId = lens _llsDirectoryId (\s a -> s {_llsDirectoryId = a})
+-- | If a /DirectoryID/ is provided, lists only the log subscription
+-- associated with that directory. If no /DirectoryId/ is provided, lists
+-- all log subscriptions associated with your AWS account. If there are no
+-- log subscriptions for the AWS account or the directory, an empty list
+-- will be returned.
+listLogSubscriptions_directoryId :: Lens.Lens' ListLogSubscriptions (Prelude.Maybe Prelude.Text)
+listLogSubscriptions_directoryId = Lens.lens (\ListLogSubscriptions' {directoryId} -> directoryId) (\s@ListLogSubscriptions' {} a -> s {directoryId = a} :: ListLogSubscriptions)
 
 -- | The maximum number of items returned.
-llsLimit :: Lens' ListLogSubscriptions (Maybe Natural)
-llsLimit = lens _llsLimit (\s a -> s {_llsLimit = a}) . mapping _Nat
+listLogSubscriptions_limit :: Lens.Lens' ListLogSubscriptions (Prelude.Maybe Prelude.Natural)
+listLogSubscriptions_limit = Lens.lens (\ListLogSubscriptions' {limit} -> limit) (\s@ListLogSubscriptions' {} a -> s {limit = a} :: ListLogSubscriptions) Prelude.. Lens.mapping Prelude._Nat
 
-instance AWSPager ListLogSubscriptions where
+instance Pager.AWSPager ListLogSubscriptions where
   page rq rs
-    | stop (rs ^. llsrrsNextToken) = Nothing
-    | stop (rs ^. llsrrsLogSubscriptions) = Nothing
-    | otherwise =
-      Just $ rq & llsNextToken .~ rs ^. llsrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listLogSubscriptionsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listLogSubscriptionsResponse_logSubscriptions
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listLogSubscriptions_nextToken
+          Lens..~ rs
+          Lens.^? listLogSubscriptionsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListLogSubscriptions where
+instance Prelude.AWSRequest ListLogSubscriptions where
   type
     Rs ListLogSubscriptions =
       ListLogSubscriptionsResponse
-  request = postJSON directoryService
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListLogSubscriptionsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "LogSubscriptions" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "LogSubscriptions"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListLogSubscriptions
+instance Prelude.Hashable ListLogSubscriptions
 
-instance NFData ListLogSubscriptions
+instance Prelude.NFData ListLogSubscriptions
 
-instance ToHeaders ListLogSubscriptions where
+instance Prelude.ToHeaders ListLogSubscriptions where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "DirectoryService_20150416.ListLogSubscriptions" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "DirectoryService_20150416.ListLogSubscriptions" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListLogSubscriptions where
+instance Prelude.ToJSON ListLogSubscriptions where
   toJSON ListLogSubscriptions' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _llsNextToken,
-            ("DirectoryId" .=) <$> _llsDirectoryId,
-            ("Limit" .=) <$> _llsLimit
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("DirectoryId" Prelude..=) Prelude.<$> directoryId,
+            ("Limit" Prelude..=) Prelude.<$> limit
           ]
       )
 
-instance ToPath ListLogSubscriptions where
-  toPath = const "/"
+instance Prelude.ToPath ListLogSubscriptions where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListLogSubscriptions where
-  toQuery = const mempty
+instance Prelude.ToQuery ListLogSubscriptions where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listLogSubscriptionsResponse' smart constructor.
+-- | /See:/ 'newListLogSubscriptionsResponse' smart constructor.
 data ListLogSubscriptionsResponse = ListLogSubscriptionsResponse'
-  { _llsrrsNextToken ::
-      !(Maybe Text),
-    _llsrrsLogSubscriptions ::
-      !( Maybe
-           [LogSubscription]
-       ),
-    _llsrrsResponseStatus ::
-      !Int
+  { -- | The token for the next set of items to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of active LogSubscription objects for calling the AWS account.
+    logSubscriptions :: Prelude.Maybe [LogSubscription],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListLogSubscriptionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListLogSubscriptionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'llsrrsNextToken' - The token for the next set of items to return.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'llsrrsLogSubscriptions' - A list of active 'LogSubscription' objects for calling the AWS account.
+-- 'nextToken', 'listLogSubscriptionsResponse_nextToken' - The token for the next set of items to return.
 --
--- * 'llsrrsResponseStatus' - -- | The response status code.
-listLogSubscriptionsResponse ::
-  -- | 'llsrrsResponseStatus'
-  Int ->
+-- 'logSubscriptions', 'listLogSubscriptionsResponse_logSubscriptions' - A list of active LogSubscription objects for calling the AWS account.
+--
+-- 'httpStatus', 'listLogSubscriptionsResponse_httpStatus' - The response's http status code.
+newListLogSubscriptionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListLogSubscriptionsResponse
-listLogSubscriptionsResponse pResponseStatus_ =
+newListLogSubscriptionsResponse pHttpStatus_ =
   ListLogSubscriptionsResponse'
-    { _llsrrsNextToken =
-        Nothing,
-      _llsrrsLogSubscriptions = Nothing,
-      _llsrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      logSubscriptions = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The token for the next set of items to return.
-llsrrsNextToken :: Lens' ListLogSubscriptionsResponse (Maybe Text)
-llsrrsNextToken = lens _llsrrsNextToken (\s a -> s {_llsrrsNextToken = a})
+listLogSubscriptionsResponse_nextToken :: Lens.Lens' ListLogSubscriptionsResponse (Prelude.Maybe Prelude.Text)
+listLogSubscriptionsResponse_nextToken = Lens.lens (\ListLogSubscriptionsResponse' {nextToken} -> nextToken) (\s@ListLogSubscriptionsResponse' {} a -> s {nextToken = a} :: ListLogSubscriptionsResponse)
 
--- | A list of active 'LogSubscription' objects for calling the AWS account.
-llsrrsLogSubscriptions :: Lens' ListLogSubscriptionsResponse [LogSubscription]
-llsrrsLogSubscriptions = lens _llsrrsLogSubscriptions (\s a -> s {_llsrrsLogSubscriptions = a}) . _Default . _Coerce
+-- | A list of active LogSubscription objects for calling the AWS account.
+listLogSubscriptionsResponse_logSubscriptions :: Lens.Lens' ListLogSubscriptionsResponse (Prelude.Maybe [LogSubscription])
+listLogSubscriptionsResponse_logSubscriptions = Lens.lens (\ListLogSubscriptionsResponse' {logSubscriptions} -> logSubscriptions) (\s@ListLogSubscriptionsResponse' {} a -> s {logSubscriptions = a} :: ListLogSubscriptionsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-llsrrsResponseStatus :: Lens' ListLogSubscriptionsResponse Int
-llsrrsResponseStatus = lens _llsrrsResponseStatus (\s a -> s {_llsrrsResponseStatus = a})
+-- | The response's http status code.
+listLogSubscriptionsResponse_httpStatus :: Lens.Lens' ListLogSubscriptionsResponse Prelude.Int
+listLogSubscriptionsResponse_httpStatus = Lens.lens (\ListLogSubscriptionsResponse' {httpStatus} -> httpStatus) (\s@ListLogSubscriptionsResponse' {} a -> s {httpStatus = a} :: ListLogSubscriptionsResponse)
 
-instance NFData ListLogSubscriptionsResponse
+instance Prelude.NFData ListLogSubscriptionsResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,148 +21,159 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes an existing trust relationship between your AWS Managed Microsoft AD directory and an external domain.
+-- Deletes an existing trust relationship between your AWS Managed
+-- Microsoft AD directory and an external domain.
 module Network.AWS.DirectoryService.DeleteTrust
   ( -- * Creating a Request
-    deleteTrust,
-    DeleteTrust,
+    DeleteTrust (..),
+    newDeleteTrust,
 
     -- * Request Lenses
-    dtDeleteAssociatedConditionalForwarder,
-    dtTrustId,
+    deleteTrust_deleteAssociatedConditionalForwarder,
+    deleteTrust_trustId,
 
     -- * Destructuring the Response
-    deleteTrustResponse,
-    DeleteTrustResponse,
+    DeleteTrustResponse (..),
+    newDeleteTrustResponse,
 
     -- * Response Lenses
-    delrsTrustId,
-    delrsResponseStatus,
+    deleteTrustResponse_trustId,
+    deleteTrustResponse_httpStatus,
   )
 where
 
 import Network.AWS.DirectoryService.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Deletes the local side of an existing trust relationship between the AWS Managed Microsoft AD directory and the external domain.
+-- | Deletes the local side of an existing trust relationship between the AWS
+-- Managed Microsoft AD directory and the external domain.
 --
---
---
--- /See:/ 'deleteTrust' smart constructor.
+-- /See:/ 'newDeleteTrust' smart constructor.
 data DeleteTrust = DeleteTrust'
-  { _dtDeleteAssociatedConditionalForwarder ::
-      !(Maybe Bool),
-    _dtTrustId :: !Text
+  { -- | Delete a conditional forwarder as part of a DeleteTrustRequest.
+    deleteAssociatedConditionalForwarder :: Prelude.Maybe Prelude.Bool,
+    -- | The Trust ID of the trust relationship to be deleted.
+    trustId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteTrust' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteTrust' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtDeleteAssociatedConditionalForwarder' - Delete a conditional forwarder as part of a DeleteTrustRequest.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtTrustId' - The Trust ID of the trust relationship to be deleted.
-deleteTrust ::
-  -- | 'dtTrustId'
-  Text ->
+-- 'deleteAssociatedConditionalForwarder', 'deleteTrust_deleteAssociatedConditionalForwarder' - Delete a conditional forwarder as part of a DeleteTrustRequest.
+--
+-- 'trustId', 'deleteTrust_trustId' - The Trust ID of the trust relationship to be deleted.
+newDeleteTrust ::
+  -- | 'trustId'
+  Prelude.Text ->
   DeleteTrust
-deleteTrust pTrustId_ =
+newDeleteTrust pTrustId_ =
   DeleteTrust'
-    { _dtDeleteAssociatedConditionalForwarder =
-        Nothing,
-      _dtTrustId = pTrustId_
+    { deleteAssociatedConditionalForwarder =
+        Prelude.Nothing,
+      trustId = pTrustId_
     }
 
 -- | Delete a conditional forwarder as part of a DeleteTrustRequest.
-dtDeleteAssociatedConditionalForwarder :: Lens' DeleteTrust (Maybe Bool)
-dtDeleteAssociatedConditionalForwarder = lens _dtDeleteAssociatedConditionalForwarder (\s a -> s {_dtDeleteAssociatedConditionalForwarder = a})
+deleteTrust_deleteAssociatedConditionalForwarder :: Lens.Lens' DeleteTrust (Prelude.Maybe Prelude.Bool)
+deleteTrust_deleteAssociatedConditionalForwarder = Lens.lens (\DeleteTrust' {deleteAssociatedConditionalForwarder} -> deleteAssociatedConditionalForwarder) (\s@DeleteTrust' {} a -> s {deleteAssociatedConditionalForwarder = a} :: DeleteTrust)
 
 -- | The Trust ID of the trust relationship to be deleted.
-dtTrustId :: Lens' DeleteTrust Text
-dtTrustId = lens _dtTrustId (\s a -> s {_dtTrustId = a})
+deleteTrust_trustId :: Lens.Lens' DeleteTrust Prelude.Text
+deleteTrust_trustId = Lens.lens (\DeleteTrust' {trustId} -> trustId) (\s@DeleteTrust' {} a -> s {trustId = a} :: DeleteTrust)
 
-instance AWSRequest DeleteTrust where
+instance Prelude.AWSRequest DeleteTrust where
   type Rs DeleteTrust = DeleteTrustResponse
-  request = postJSON directoryService
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteTrustResponse'
-            <$> (x .?> "TrustId") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "TrustId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteTrust
+instance Prelude.Hashable DeleteTrust
 
-instance NFData DeleteTrust
+instance Prelude.NFData DeleteTrust
 
-instance ToHeaders DeleteTrust where
+instance Prelude.ToHeaders DeleteTrust where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "DirectoryService_20150416.DeleteTrust" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "DirectoryService_20150416.DeleteTrust" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteTrust where
+instance Prelude.ToJSON DeleteTrust where
   toJSON DeleteTrust' {..} =
-    object
-      ( catMaybes
-          [ ("DeleteAssociatedConditionalForwarder" .=)
-              <$> _dtDeleteAssociatedConditionalForwarder,
-            Just ("TrustId" .= _dtTrustId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("DeleteAssociatedConditionalForwarder" Prelude..=)
+              Prelude.<$> deleteAssociatedConditionalForwarder,
+            Prelude.Just ("TrustId" Prelude..= trustId)
           ]
       )
 
-instance ToPath DeleteTrust where
-  toPath = const "/"
+instance Prelude.ToPath DeleteTrust where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteTrust where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteTrust where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | The result of a DeleteTrust request.
 --
---
---
--- /See:/ 'deleteTrustResponse' smart constructor.
+-- /See:/ 'newDeleteTrustResponse' smart constructor.
 data DeleteTrustResponse = DeleteTrustResponse'
-  { _delrsTrustId ::
-      !(Maybe Text),
-    _delrsResponseStatus :: !Int
+  { -- | The Trust ID of the trust relationship that was deleted.
+    trustId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteTrustResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteTrustResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'delrsTrustId' - The Trust ID of the trust relationship that was deleted.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'delrsResponseStatus' - -- | The response status code.
-deleteTrustResponse ::
-  -- | 'delrsResponseStatus'
-  Int ->
+-- 'trustId', 'deleteTrustResponse_trustId' - The Trust ID of the trust relationship that was deleted.
+--
+-- 'httpStatus', 'deleteTrustResponse_httpStatus' - The response's http status code.
+newDeleteTrustResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteTrustResponse
-deleteTrustResponse pResponseStatus_ =
+newDeleteTrustResponse pHttpStatus_ =
   DeleteTrustResponse'
-    { _delrsTrustId = Nothing,
-      _delrsResponseStatus = pResponseStatus_
+    { trustId = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The Trust ID of the trust relationship that was deleted.
-delrsTrustId :: Lens' DeleteTrustResponse (Maybe Text)
-delrsTrustId = lens _delrsTrustId (\s a -> s {_delrsTrustId = a})
+deleteTrustResponse_trustId :: Lens.Lens' DeleteTrustResponse (Prelude.Maybe Prelude.Text)
+deleteTrustResponse_trustId = Lens.lens (\DeleteTrustResponse' {trustId} -> trustId) (\s@DeleteTrustResponse' {} a -> s {trustId = a} :: DeleteTrustResponse)
 
--- | -- | The response status code.
-delrsResponseStatus :: Lens' DeleteTrustResponse Int
-delrsResponseStatus = lens _delrsResponseStatus (\s a -> s {_delrsResponseStatus = a})
+-- | The response's http status code.
+deleteTrustResponse_httpStatus :: Lens.Lens' DeleteTrustResponse Prelude.Int
+deleteTrustResponse_httpStatus = Lens.lens (\DeleteTrustResponse' {httpStatus} -> httpStatus) (\s@DeleteTrustResponse' {} a -> s {httpStatus = a} :: DeleteTrustResponse)
 
-instance NFData DeleteTrustResponse
+instance Prelude.NFData DeleteTrustResponse

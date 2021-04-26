@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,141 +23,148 @@
 --
 -- Deletes an AWS Directory Service directory.
 --
---
--- Before you call @DeleteDirectory@ , ensure that all of the required permissions have been explicitly granted through a policy. For details about what permissions are required to run the @DeleteDirectory@ operation, see <http://docs.aws.amazon.com/directoryservice/latest/admin-guide/UsingWithDS_IAM_ResourcePermissions.html AWS Directory Service API Permissions: Actions, Resources, and Conditions Reference> .
+-- Before you call @DeleteDirectory@, ensure that all of the required
+-- permissions have been explicitly granted through a policy. For details
+-- about what permissions are required to run the @DeleteDirectory@
+-- operation, see
+-- <http://docs.aws.amazon.com/directoryservice/latest/admin-guide/UsingWithDS_IAM_ResourcePermissions.html AWS Directory Service API Permissions: Actions, Resources, and Conditions Reference>.
 module Network.AWS.DirectoryService.DeleteDirectory
   ( -- * Creating a Request
-    deleteDirectory,
-    DeleteDirectory,
+    DeleteDirectory (..),
+    newDeleteDirectory,
 
     -- * Request Lenses
-    delDirectoryId,
+    deleteDirectory_directoryId,
 
     -- * Destructuring the Response
-    deleteDirectoryResponse,
-    DeleteDirectoryResponse,
+    DeleteDirectoryResponse (..),
+    newDeleteDirectoryResponse,
 
     -- * Response Lenses
-    ddrrsDirectoryId,
-    ddrrsResponseStatus,
+    deleteDirectoryResponse_directoryId,
+    deleteDirectoryResponse_httpStatus,
   )
 where
 
 import Network.AWS.DirectoryService.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Contains the inputs for the 'DeleteDirectory' operation.
+-- | Contains the inputs for the DeleteDirectory operation.
 --
---
---
--- /See:/ 'deleteDirectory' smart constructor.
-newtype DeleteDirectory = DeleteDirectory'
-  { _delDirectoryId ::
-      Text
+-- /See:/ 'newDeleteDirectory' smart constructor.
+data DeleteDirectory = DeleteDirectory'
+  { -- | The identifier of the directory to delete.
+    directoryId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteDirectory' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteDirectory' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'delDirectoryId' - The identifier of the directory to delete.
-deleteDirectory ::
-  -- | 'delDirectoryId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'directoryId', 'deleteDirectory_directoryId' - The identifier of the directory to delete.
+newDeleteDirectory ::
+  -- | 'directoryId'
+  Prelude.Text ->
   DeleteDirectory
-deleteDirectory pDirectoryId_ =
-  DeleteDirectory' {_delDirectoryId = pDirectoryId_}
+newDeleteDirectory pDirectoryId_ =
+  DeleteDirectory' {directoryId = pDirectoryId_}
 
 -- | The identifier of the directory to delete.
-delDirectoryId :: Lens' DeleteDirectory Text
-delDirectoryId = lens _delDirectoryId (\s a -> s {_delDirectoryId = a})
+deleteDirectory_directoryId :: Lens.Lens' DeleteDirectory Prelude.Text
+deleteDirectory_directoryId = Lens.lens (\DeleteDirectory' {directoryId} -> directoryId) (\s@DeleteDirectory' {} a -> s {directoryId = a} :: DeleteDirectory)
 
-instance AWSRequest DeleteDirectory where
+instance Prelude.AWSRequest DeleteDirectory where
   type Rs DeleteDirectory = DeleteDirectoryResponse
-  request = postJSON directoryService
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteDirectoryResponse'
-            <$> (x .?> "DirectoryId") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "DirectoryId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteDirectory
+instance Prelude.Hashable DeleteDirectory
 
-instance NFData DeleteDirectory
+instance Prelude.NFData DeleteDirectory
 
-instance ToHeaders DeleteDirectory where
+instance Prelude.ToHeaders DeleteDirectory where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "DirectoryService_20150416.DeleteDirectory" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "DirectoryService_20150416.DeleteDirectory" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteDirectory where
+instance Prelude.ToJSON DeleteDirectory where
   toJSON DeleteDirectory' {..} =
-    object
-      (catMaybes [Just ("DirectoryId" .= _delDirectoryId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("DirectoryId" Prelude..= directoryId)
+          ]
+      )
 
-instance ToPath DeleteDirectory where
-  toPath = const "/"
+instance Prelude.ToPath DeleteDirectory where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteDirectory where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteDirectory where
+  toQuery = Prelude.const Prelude.mempty
 
--- | Contains the results of the 'DeleteDirectory' operation.
+-- | Contains the results of the DeleteDirectory operation.
 --
---
---
--- /See:/ 'deleteDirectoryResponse' smart constructor.
+-- /See:/ 'newDeleteDirectoryResponse' smart constructor.
 data DeleteDirectoryResponse = DeleteDirectoryResponse'
-  { _ddrrsDirectoryId ::
-      !(Maybe Text),
-    _ddrrsResponseStatus ::
-      !Int
+  { -- | The directory identifier.
+    directoryId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteDirectoryResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteDirectoryResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddrrsDirectoryId' - The directory identifier.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ddrrsResponseStatus' - -- | The response status code.
-deleteDirectoryResponse ::
-  -- | 'ddrrsResponseStatus'
-  Int ->
+-- 'directoryId', 'deleteDirectoryResponse_directoryId' - The directory identifier.
+--
+-- 'httpStatus', 'deleteDirectoryResponse_httpStatus' - The response's http status code.
+newDeleteDirectoryResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteDirectoryResponse
-deleteDirectoryResponse pResponseStatus_ =
+newDeleteDirectoryResponse pHttpStatus_ =
   DeleteDirectoryResponse'
-    { _ddrrsDirectoryId =
-        Nothing,
-      _ddrrsResponseStatus = pResponseStatus_
+    { directoryId =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The directory identifier.
-ddrrsDirectoryId :: Lens' DeleteDirectoryResponse (Maybe Text)
-ddrrsDirectoryId = lens _ddrrsDirectoryId (\s a -> s {_ddrrsDirectoryId = a})
+deleteDirectoryResponse_directoryId :: Lens.Lens' DeleteDirectoryResponse (Prelude.Maybe Prelude.Text)
+deleteDirectoryResponse_directoryId = Lens.lens (\DeleteDirectoryResponse' {directoryId} -> directoryId) (\s@DeleteDirectoryResponse' {} a -> s {directoryId = a} :: DeleteDirectoryResponse)
 
--- | -- | The response status code.
-ddrrsResponseStatus :: Lens' DeleteDirectoryResponse Int
-ddrrsResponseStatus = lens _ddrrsResponseStatus (\s a -> s {_ddrrsResponseStatus = a})
+-- | The response's http status code.
+deleteDirectoryResponse_httpStatus :: Lens.Lens' DeleteDirectoryResponse Prelude.Int
+deleteDirectoryResponse_httpStatus = Lens.lens (\DeleteDirectoryResponse' {httpStatus} -> httpStatus) (\s@DeleteDirectoryResponse' {} a -> s {httpStatus = a} :: DeleteDirectoryResponse)
 
-instance NFData DeleteDirectoryResponse
+instance Prelude.NFData DeleteDirectoryResponse

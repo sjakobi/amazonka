@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,150 +21,149 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Rejects a directory sharing request that was sent from the directory owner account.
+-- Rejects a directory sharing request that was sent from the directory
+-- owner account.
 module Network.AWS.DirectoryService.RejectSharedDirectory
   ( -- * Creating a Request
-    rejectSharedDirectory,
-    RejectSharedDirectory,
+    RejectSharedDirectory (..),
+    newRejectSharedDirectory,
 
     -- * Request Lenses
-    rsdSharedDirectoryId,
+    rejectSharedDirectory_sharedDirectoryId,
 
     -- * Destructuring the Response
-    rejectSharedDirectoryResponse,
-    RejectSharedDirectoryResponse,
+    RejectSharedDirectoryResponse (..),
+    newRejectSharedDirectoryResponse,
 
     -- * Response Lenses
-    rsdrrsSharedDirectoryId,
-    rsdrrsResponseStatus,
+    rejectSharedDirectoryResponse_sharedDirectoryId,
+    rejectSharedDirectoryResponse_httpStatus,
   )
 where
 
 import Network.AWS.DirectoryService.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'rejectSharedDirectory' smart constructor.
-newtype RejectSharedDirectory = RejectSharedDirectory'
-  { _rsdSharedDirectoryId ::
-      Text
+-- | /See:/ 'newRejectSharedDirectory' smart constructor.
+data RejectSharedDirectory = RejectSharedDirectory'
+  { -- | Identifier of the shared directory in the directory consumer account.
+    -- This identifier is different for each directory owner account.
+    sharedDirectoryId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RejectSharedDirectory' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RejectSharedDirectory' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rsdSharedDirectoryId' - Identifier of the shared directory in the directory consumer account. This identifier is different for each directory owner account.
-rejectSharedDirectory ::
-  -- | 'rsdSharedDirectoryId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'sharedDirectoryId', 'rejectSharedDirectory_sharedDirectoryId' - Identifier of the shared directory in the directory consumer account.
+-- This identifier is different for each directory owner account.
+newRejectSharedDirectory ::
+  -- | 'sharedDirectoryId'
+  Prelude.Text ->
   RejectSharedDirectory
-rejectSharedDirectory pSharedDirectoryId_ =
+newRejectSharedDirectory pSharedDirectoryId_ =
   RejectSharedDirectory'
-    { _rsdSharedDirectoryId =
+    { sharedDirectoryId =
         pSharedDirectoryId_
     }
 
--- | Identifier of the shared directory in the directory consumer account. This identifier is different for each directory owner account.
-rsdSharedDirectoryId :: Lens' RejectSharedDirectory Text
-rsdSharedDirectoryId = lens _rsdSharedDirectoryId (\s a -> s {_rsdSharedDirectoryId = a})
+-- | Identifier of the shared directory in the directory consumer account.
+-- This identifier is different for each directory owner account.
+rejectSharedDirectory_sharedDirectoryId :: Lens.Lens' RejectSharedDirectory Prelude.Text
+rejectSharedDirectory_sharedDirectoryId = Lens.lens (\RejectSharedDirectory' {sharedDirectoryId} -> sharedDirectoryId) (\s@RejectSharedDirectory' {} a -> s {sharedDirectoryId = a} :: RejectSharedDirectory)
 
-instance AWSRequest RejectSharedDirectory where
+instance Prelude.AWSRequest RejectSharedDirectory where
   type
     Rs RejectSharedDirectory =
       RejectSharedDirectoryResponse
-  request = postJSON directoryService
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           RejectSharedDirectoryResponse'
-            <$> (x .?> "SharedDirectoryId") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "SharedDirectoryId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable RejectSharedDirectory
+instance Prelude.Hashable RejectSharedDirectory
 
-instance NFData RejectSharedDirectory
+instance Prelude.NFData RejectSharedDirectory
 
-instance ToHeaders RejectSharedDirectory where
+instance Prelude.ToHeaders RejectSharedDirectory where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "DirectoryService_20150416.RejectSharedDirectory" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "DirectoryService_20150416.RejectSharedDirectory" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON RejectSharedDirectory where
+instance Prelude.ToJSON RejectSharedDirectory where
   toJSON RejectSharedDirectory' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("SharedDirectoryId" .= _rsdSharedDirectoryId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("SharedDirectoryId" Prelude..= sharedDirectoryId)
           ]
       )
 
-instance ToPath RejectSharedDirectory where
-  toPath = const "/"
+instance Prelude.ToPath RejectSharedDirectory where
+  toPath = Prelude.const "/"
 
-instance ToQuery RejectSharedDirectory where
-  toQuery = const mempty
+instance Prelude.ToQuery RejectSharedDirectory where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'rejectSharedDirectoryResponse' smart constructor.
+-- | /See:/ 'newRejectSharedDirectoryResponse' smart constructor.
 data RejectSharedDirectoryResponse = RejectSharedDirectoryResponse'
-  { _rsdrrsSharedDirectoryId ::
-      !( Maybe
-           Text
-       ),
-    _rsdrrsResponseStatus ::
-      !Int
+  { -- | Identifier of the shared directory in the directory consumer account.
+    sharedDirectoryId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RejectSharedDirectoryResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RejectSharedDirectoryResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rsdrrsSharedDirectoryId' - Identifier of the shared directory in the directory consumer account.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rsdrrsResponseStatus' - -- | The response status code.
-rejectSharedDirectoryResponse ::
-  -- | 'rsdrrsResponseStatus'
-  Int ->
+-- 'sharedDirectoryId', 'rejectSharedDirectoryResponse_sharedDirectoryId' - Identifier of the shared directory in the directory consumer account.
+--
+-- 'httpStatus', 'rejectSharedDirectoryResponse_httpStatus' - The response's http status code.
+newRejectSharedDirectoryResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   RejectSharedDirectoryResponse
-rejectSharedDirectoryResponse pResponseStatus_ =
+newRejectSharedDirectoryResponse pHttpStatus_ =
   RejectSharedDirectoryResponse'
-    { _rsdrrsSharedDirectoryId =
-        Nothing,
-      _rsdrrsResponseStatus = pResponseStatus_
+    { sharedDirectoryId =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Identifier of the shared directory in the directory consumer account.
-rsdrrsSharedDirectoryId :: Lens' RejectSharedDirectoryResponse (Maybe Text)
-rsdrrsSharedDirectoryId = lens _rsdrrsSharedDirectoryId (\s a -> s {_rsdrrsSharedDirectoryId = a})
+rejectSharedDirectoryResponse_sharedDirectoryId :: Lens.Lens' RejectSharedDirectoryResponse (Prelude.Maybe Prelude.Text)
+rejectSharedDirectoryResponse_sharedDirectoryId = Lens.lens (\RejectSharedDirectoryResponse' {sharedDirectoryId} -> sharedDirectoryId) (\s@RejectSharedDirectoryResponse' {} a -> s {sharedDirectoryId = a} :: RejectSharedDirectoryResponse)
 
--- | -- | The response status code.
-rsdrrsResponseStatus :: Lens' RejectSharedDirectoryResponse Int
-rsdrrsResponseStatus = lens _rsdrrsResponseStatus (\s a -> s {_rsdrrsResponseStatus = a})
+-- | The response's http status code.
+rejectSharedDirectoryResponse_httpStatus :: Lens.Lens' RejectSharedDirectoryResponse Prelude.Int
+rejectSharedDirectoryResponse_httpStatus = Lens.lens (\RejectSharedDirectoryResponse' {httpStatus} -> httpStatus) (\s@RejectSharedDirectoryResponse' {} a -> s {httpStatus = a} :: RejectSharedDirectoryResponse)
 
-instance NFData RejectSharedDirectoryResponse
+instance Prelude.NFData RejectSharedDirectoryResponse

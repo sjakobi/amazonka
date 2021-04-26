@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.DirectoryService.Types.TrustDirection
   ( TrustDirection
       ( ..,
-        OneWayIncoming,
-        OneWayOutgoing,
-        TwoWay
+        TrustDirectionOneWayIncoming,
+        TrustDirectionOneWayOutgoing,
+        TrustDirectionTwoWay
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TrustDirection = TrustDirection' (CI Text)
+newtype TrustDirection = TrustDirection'
+  { fromTrustDirection ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern OneWayIncoming :: TrustDirection
-pattern OneWayIncoming = TrustDirection' "One-Way: Incoming"
+pattern TrustDirectionOneWayIncoming :: TrustDirection
+pattern TrustDirectionOneWayIncoming = TrustDirection' "One-Way: Incoming"
 
-pattern OneWayOutgoing :: TrustDirection
-pattern OneWayOutgoing = TrustDirection' "One-Way: Outgoing"
+pattern TrustDirectionOneWayOutgoing :: TrustDirection
+pattern TrustDirectionOneWayOutgoing = TrustDirection' "One-Way: Outgoing"
 
-pattern TwoWay :: TrustDirection
-pattern TwoWay = TrustDirection' "Two-Way"
+pattern TrustDirectionTwoWay :: TrustDirection
+pattern TrustDirectionTwoWay = TrustDirection' "Two-Way"
 
 {-# COMPLETE
-  OneWayIncoming,
-  OneWayOutgoing,
-  TwoWay,
+  TrustDirectionOneWayIncoming,
+  TrustDirectionOneWayOutgoing,
+  TrustDirectionTwoWay,
   TrustDirection'
   #-}
 
-instance FromText TrustDirection where
-  parser = (TrustDirection' . mk) <$> takeText
+instance Prelude.FromText TrustDirection where
+  parser = TrustDirection' Prelude.<$> Prelude.takeText
 
-instance ToText TrustDirection where
-  toText (TrustDirection' ci) = original ci
+instance Prelude.ToText TrustDirection where
+  toText (TrustDirection' x) = x
 
-instance Hashable TrustDirection
+instance Prelude.Hashable TrustDirection
 
-instance NFData TrustDirection
+instance Prelude.NFData TrustDirection
 
-instance ToByteString TrustDirection
+instance Prelude.ToByteString TrustDirection
 
-instance ToQuery TrustDirection
+instance Prelude.ToQuery TrustDirection
 
-instance ToHeader TrustDirection
+instance Prelude.ToHeader TrustDirection
 
-instance ToJSON TrustDirection where
-  toJSON = toJSONText
+instance Prelude.ToJSON TrustDirection where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON TrustDirection where
-  parseJSON = parseJSONText "TrustDirection"
+instance Prelude.FromJSON TrustDirection where
+  parseJSON = Prelude.parseJSONText "TrustDirection"

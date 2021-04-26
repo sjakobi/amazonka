@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,154 +21,159 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a snapshot of a Simple AD or Microsoft AD directory in the AWS cloud.
+-- Creates a snapshot of a Simple AD or Microsoft AD directory in the AWS
+-- cloud.
+--
+-- You cannot take snapshots of AD Connector directories.
 module Network.AWS.DirectoryService.CreateSnapshot
   ( -- * Creating a Request
-    createSnapshot,
-    CreateSnapshot,
+    CreateSnapshot (..),
+    newCreateSnapshot,
 
     -- * Request Lenses
-    csName,
-    csDirectoryId,
+    createSnapshot_name,
+    createSnapshot_directoryId,
 
     -- * Destructuring the Response
-    createSnapshotResponse,
-    CreateSnapshotResponse,
+    CreateSnapshotResponse (..),
+    newCreateSnapshotResponse,
 
     -- * Response Lenses
-    csrrsSnapshotId,
-    csrrsResponseStatus,
+    createSnapshotResponse_snapshotId,
+    createSnapshotResponse_httpStatus,
   )
 where
 
 import Network.AWS.DirectoryService.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Contains the inputs for the 'CreateSnapshot' operation.
+-- | Contains the inputs for the CreateSnapshot operation.
 --
---
---
--- /See:/ 'createSnapshot' smart constructor.
+-- /See:/ 'newCreateSnapshot' smart constructor.
 data CreateSnapshot = CreateSnapshot'
-  { _csName ::
-      !(Maybe Text),
-    _csDirectoryId :: !Text
+  { -- | The descriptive name to apply to the snapshot.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the directory of which to take a snapshot.
+    directoryId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateSnapshot' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateSnapshot' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csName' - The descriptive name to apply to the snapshot.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csDirectoryId' - The identifier of the directory of which to take a snapshot.
-createSnapshot ::
-  -- | 'csDirectoryId'
-  Text ->
+-- 'name', 'createSnapshot_name' - The descriptive name to apply to the snapshot.
+--
+-- 'directoryId', 'createSnapshot_directoryId' - The identifier of the directory of which to take a snapshot.
+newCreateSnapshot ::
+  -- | 'directoryId'
+  Prelude.Text ->
   CreateSnapshot
-createSnapshot pDirectoryId_ =
+newCreateSnapshot pDirectoryId_ =
   CreateSnapshot'
-    { _csName = Nothing,
-      _csDirectoryId = pDirectoryId_
+    { name = Prelude.Nothing,
+      directoryId = pDirectoryId_
     }
 
 -- | The descriptive name to apply to the snapshot.
-csName :: Lens' CreateSnapshot (Maybe Text)
-csName = lens _csName (\s a -> s {_csName = a})
+createSnapshot_name :: Lens.Lens' CreateSnapshot (Prelude.Maybe Prelude.Text)
+createSnapshot_name = Lens.lens (\CreateSnapshot' {name} -> name) (\s@CreateSnapshot' {} a -> s {name = a} :: CreateSnapshot)
 
 -- | The identifier of the directory of which to take a snapshot.
-csDirectoryId :: Lens' CreateSnapshot Text
-csDirectoryId = lens _csDirectoryId (\s a -> s {_csDirectoryId = a})
+createSnapshot_directoryId :: Lens.Lens' CreateSnapshot Prelude.Text
+createSnapshot_directoryId = Lens.lens (\CreateSnapshot' {directoryId} -> directoryId) (\s@CreateSnapshot' {} a -> s {directoryId = a} :: CreateSnapshot)
 
-instance AWSRequest CreateSnapshot where
+instance Prelude.AWSRequest CreateSnapshot where
   type Rs CreateSnapshot = CreateSnapshotResponse
-  request = postJSON directoryService
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateSnapshotResponse'
-            <$> (x .?> "SnapshotId") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "SnapshotId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateSnapshot
+instance Prelude.Hashable CreateSnapshot
 
-instance NFData CreateSnapshot
+instance Prelude.NFData CreateSnapshot
 
-instance ToHeaders CreateSnapshot where
+instance Prelude.ToHeaders CreateSnapshot where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "DirectoryService_20150416.CreateSnapshot" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "DirectoryService_20150416.CreateSnapshot" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateSnapshot where
+instance Prelude.ToJSON CreateSnapshot where
   toJSON CreateSnapshot' {..} =
-    object
-      ( catMaybes
-          [ ("Name" .=) <$> _csName,
-            Just ("DirectoryId" .= _csDirectoryId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Name" Prelude..=) Prelude.<$> name,
+            Prelude.Just ("DirectoryId" Prelude..= directoryId)
           ]
       )
 
-instance ToPath CreateSnapshot where
-  toPath = const "/"
+instance Prelude.ToPath CreateSnapshot where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateSnapshot where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateSnapshot where
+  toQuery = Prelude.const Prelude.mempty
 
--- | Contains the results of the 'CreateSnapshot' operation.
+-- | Contains the results of the CreateSnapshot operation.
 --
---
---
--- /See:/ 'createSnapshotResponse' smart constructor.
+-- /See:/ 'newCreateSnapshotResponse' smart constructor.
 data CreateSnapshotResponse = CreateSnapshotResponse'
-  { _csrrsSnapshotId ::
-      !(Maybe Text),
-    _csrrsResponseStatus ::
-      !Int
+  { -- | The identifier of the snapshot that was created.
+    snapshotId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateSnapshotResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateSnapshotResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csrrsSnapshotId' - The identifier of the snapshot that was created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csrrsResponseStatus' - -- | The response status code.
-createSnapshotResponse ::
-  -- | 'csrrsResponseStatus'
-  Int ->
+-- 'snapshotId', 'createSnapshotResponse_snapshotId' - The identifier of the snapshot that was created.
+--
+-- 'httpStatus', 'createSnapshotResponse_httpStatus' - The response's http status code.
+newCreateSnapshotResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateSnapshotResponse
-createSnapshotResponse pResponseStatus_ =
+newCreateSnapshotResponse pHttpStatus_ =
   CreateSnapshotResponse'
-    { _csrrsSnapshotId = Nothing,
-      _csrrsResponseStatus = pResponseStatus_
+    { snapshotId =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The identifier of the snapshot that was created.
-csrrsSnapshotId :: Lens' CreateSnapshotResponse (Maybe Text)
-csrrsSnapshotId = lens _csrrsSnapshotId (\s a -> s {_csrrsSnapshotId = a})
+createSnapshotResponse_snapshotId :: Lens.Lens' CreateSnapshotResponse (Prelude.Maybe Prelude.Text)
+createSnapshotResponse_snapshotId = Lens.lens (\CreateSnapshotResponse' {snapshotId} -> snapshotId) (\s@CreateSnapshotResponse' {} a -> s {snapshotId = a} :: CreateSnapshotResponse)
 
--- | -- | The response status code.
-csrrsResponseStatus :: Lens' CreateSnapshotResponse Int
-csrrsResponseStatus = lens _csrrsResponseStatus (\s a -> s {_csrrsResponseStatus = a})
+-- | The response's http status code.
+createSnapshotResponse_httpStatus :: Lens.Lens' CreateSnapshotResponse Prelude.Int
+createSnapshotResponse_httpStatus = Lens.lens (\CreateSnapshotResponse' {httpStatus} -> httpStatus) (\s@CreateSnapshotResponse' {} a -> s {httpStatus = a} :: CreateSnapshotResponse)
 
-instance NFData CreateSnapshotResponse
+instance Prelude.NFData CreateSnapshotResponse

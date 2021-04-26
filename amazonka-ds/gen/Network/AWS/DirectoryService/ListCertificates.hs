@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,171 +21,193 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- For the specified directory, lists all the certificates registered for a secure LDAP or client certificate authentication.
+-- For the specified directory, lists all the certificates registered for a
+-- secure LDAP or client certificate authentication.
 module Network.AWS.DirectoryService.ListCertificates
   ( -- * Creating a Request
-    listCertificates,
-    ListCertificates,
+    ListCertificates (..),
+    newListCertificates,
 
     -- * Request Lenses
-    lcNextToken,
-    lcLimit,
-    lcDirectoryId,
+    listCertificates_nextToken,
+    listCertificates_limit,
+    listCertificates_directoryId,
 
     -- * Destructuring the Response
-    listCertificatesResponse,
-    ListCertificatesResponse,
+    ListCertificatesResponse (..),
+    newListCertificatesResponse,
 
     -- * Response Lenses
-    lcrrsNextToken,
-    lcrrsCertificatesInfo,
-    lcrrsResponseStatus,
+    listCertificatesResponse_nextToken,
+    listCertificatesResponse_certificatesInfo,
+    listCertificatesResponse_httpStatus,
   )
 where
 
 import Network.AWS.DirectoryService.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DirectoryService.Types.CertificateInfo
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listCertificates' smart constructor.
+-- | /See:/ 'newListCertificates' smart constructor.
 data ListCertificates = ListCertificates'
-  { _lcNextToken ::
-      !(Maybe Text),
-    _lcLimit :: !(Maybe Nat),
-    _lcDirectoryId :: !Text
+  { -- | A token for requesting another page of certificates if the @NextToken@
+    -- response element indicates that more certificates are available. Use the
+    -- value of the returned @NextToken@ element in your request until the
+    -- token comes back as @null@. Pass @null@ if this is the first call.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The number of items that should show up on one page
+    limit :: Prelude.Maybe Prelude.Nat,
+    -- | The identifier of the directory.
+    directoryId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListCertificates' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListCertificates' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lcNextToken' - A token for requesting another page of certificates if the @NextToken@ response element indicates that more certificates are available. Use the value of the returned @NextToken@ element in your request until the token comes back as @null@ . Pass @null@ if this is the first call.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lcLimit' - The number of items that should show up on one page
+-- 'nextToken', 'listCertificates_nextToken' - A token for requesting another page of certificates if the @NextToken@
+-- response element indicates that more certificates are available. Use the
+-- value of the returned @NextToken@ element in your request until the
+-- token comes back as @null@. Pass @null@ if this is the first call.
 --
--- * 'lcDirectoryId' - The identifier of the directory.
-listCertificates ::
-  -- | 'lcDirectoryId'
-  Text ->
+-- 'limit', 'listCertificates_limit' - The number of items that should show up on one page
+--
+-- 'directoryId', 'listCertificates_directoryId' - The identifier of the directory.
+newListCertificates ::
+  -- | 'directoryId'
+  Prelude.Text ->
   ListCertificates
-listCertificates pDirectoryId_ =
+newListCertificates pDirectoryId_ =
   ListCertificates'
-    { _lcNextToken = Nothing,
-      _lcLimit = Nothing,
-      _lcDirectoryId = pDirectoryId_
+    { nextToken = Prelude.Nothing,
+      limit = Prelude.Nothing,
+      directoryId = pDirectoryId_
     }
 
--- | A token for requesting another page of certificates if the @NextToken@ response element indicates that more certificates are available. Use the value of the returned @NextToken@ element in your request until the token comes back as @null@ . Pass @null@ if this is the first call.
-lcNextToken :: Lens' ListCertificates (Maybe Text)
-lcNextToken = lens _lcNextToken (\s a -> s {_lcNextToken = a})
+-- | A token for requesting another page of certificates if the @NextToken@
+-- response element indicates that more certificates are available. Use the
+-- value of the returned @NextToken@ element in your request until the
+-- token comes back as @null@. Pass @null@ if this is the first call.
+listCertificates_nextToken :: Lens.Lens' ListCertificates (Prelude.Maybe Prelude.Text)
+listCertificates_nextToken = Lens.lens (\ListCertificates' {nextToken} -> nextToken) (\s@ListCertificates' {} a -> s {nextToken = a} :: ListCertificates)
 
 -- | The number of items that should show up on one page
-lcLimit :: Lens' ListCertificates (Maybe Natural)
-lcLimit = lens _lcLimit (\s a -> s {_lcLimit = a}) . mapping _Nat
+listCertificates_limit :: Lens.Lens' ListCertificates (Prelude.Maybe Prelude.Natural)
+listCertificates_limit = Lens.lens (\ListCertificates' {limit} -> limit) (\s@ListCertificates' {} a -> s {limit = a} :: ListCertificates) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The identifier of the directory.
-lcDirectoryId :: Lens' ListCertificates Text
-lcDirectoryId = lens _lcDirectoryId (\s a -> s {_lcDirectoryId = a})
+listCertificates_directoryId :: Lens.Lens' ListCertificates Prelude.Text
+listCertificates_directoryId = Lens.lens (\ListCertificates' {directoryId} -> directoryId) (\s@ListCertificates' {} a -> s {directoryId = a} :: ListCertificates)
 
-instance AWSRequest ListCertificates where
+instance Prelude.AWSRequest ListCertificates where
   type Rs ListCertificates = ListCertificatesResponse
-  request = postJSON directoryService
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListCertificatesResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "CertificatesInfo" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "CertificatesInfo"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListCertificates
+instance Prelude.Hashable ListCertificates
 
-instance NFData ListCertificates
+instance Prelude.NFData ListCertificates
 
-instance ToHeaders ListCertificates where
+instance Prelude.ToHeaders ListCertificates where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "DirectoryService_20150416.ListCertificates" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "DirectoryService_20150416.ListCertificates" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListCertificates where
+instance Prelude.ToJSON ListCertificates where
   toJSON ListCertificates' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _lcNextToken,
-            ("Limit" .=) <$> _lcLimit,
-            Just ("DirectoryId" .= _lcDirectoryId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("Limit" Prelude..=) Prelude.<$> limit,
+            Prelude.Just ("DirectoryId" Prelude..= directoryId)
           ]
       )
 
-instance ToPath ListCertificates where
-  toPath = const "/"
+instance Prelude.ToPath ListCertificates where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListCertificates where
-  toQuery = const mempty
+instance Prelude.ToQuery ListCertificates where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listCertificatesResponse' smart constructor.
+-- | /See:/ 'newListCertificatesResponse' smart constructor.
 data ListCertificatesResponse = ListCertificatesResponse'
-  { _lcrrsNextToken ::
-      !(Maybe Text),
-    _lcrrsCertificatesInfo ::
-      !( Maybe
-           [CertificateInfo]
-       ),
-    _lcrrsResponseStatus ::
-      !Int
+  { -- | Indicates whether another page of certificates is available when the
+    -- number of available certificates exceeds the page limit.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of certificates with basic details including certificate ID,
+    -- certificate common name, certificate state.
+    certificatesInfo :: Prelude.Maybe [CertificateInfo],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListCertificatesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListCertificatesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lcrrsNextToken' - Indicates whether another page of certificates is available when the number of available certificates exceeds the page limit.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lcrrsCertificatesInfo' - A list of certificates with basic details including certificate ID, certificate common name, certificate state.
+-- 'nextToken', 'listCertificatesResponse_nextToken' - Indicates whether another page of certificates is available when the
+-- number of available certificates exceeds the page limit.
 --
--- * 'lcrrsResponseStatus' - -- | The response status code.
-listCertificatesResponse ::
-  -- | 'lcrrsResponseStatus'
-  Int ->
+-- 'certificatesInfo', 'listCertificatesResponse_certificatesInfo' - A list of certificates with basic details including certificate ID,
+-- certificate common name, certificate state.
+--
+-- 'httpStatus', 'listCertificatesResponse_httpStatus' - The response's http status code.
+newListCertificatesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListCertificatesResponse
-listCertificatesResponse pResponseStatus_ =
+newListCertificatesResponse pHttpStatus_ =
   ListCertificatesResponse'
-    { _lcrrsNextToken =
-        Nothing,
-      _lcrrsCertificatesInfo = Nothing,
-      _lcrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      certificatesInfo = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Indicates whether another page of certificates is available when the number of available certificates exceeds the page limit.
-lcrrsNextToken :: Lens' ListCertificatesResponse (Maybe Text)
-lcrrsNextToken = lens _lcrrsNextToken (\s a -> s {_lcrrsNextToken = a})
+-- | Indicates whether another page of certificates is available when the
+-- number of available certificates exceeds the page limit.
+listCertificatesResponse_nextToken :: Lens.Lens' ListCertificatesResponse (Prelude.Maybe Prelude.Text)
+listCertificatesResponse_nextToken = Lens.lens (\ListCertificatesResponse' {nextToken} -> nextToken) (\s@ListCertificatesResponse' {} a -> s {nextToken = a} :: ListCertificatesResponse)
 
--- | A list of certificates with basic details including certificate ID, certificate common name, certificate state.
-lcrrsCertificatesInfo :: Lens' ListCertificatesResponse [CertificateInfo]
-lcrrsCertificatesInfo = lens _lcrrsCertificatesInfo (\s a -> s {_lcrrsCertificatesInfo = a}) . _Default . _Coerce
+-- | A list of certificates with basic details including certificate ID,
+-- certificate common name, certificate state.
+listCertificatesResponse_certificatesInfo :: Lens.Lens' ListCertificatesResponse (Prelude.Maybe [CertificateInfo])
+listCertificatesResponse_certificatesInfo = Lens.lens (\ListCertificatesResponse' {certificatesInfo} -> certificatesInfo) (\s@ListCertificatesResponse' {} a -> s {certificatesInfo = a} :: ListCertificatesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lcrrsResponseStatus :: Lens' ListCertificatesResponse Int
-lcrrsResponseStatus = lens _lcrrsResponseStatus (\s a -> s {_lcrrsResponseStatus = a})
+-- | The response's http status code.
+listCertificatesResponse_httpStatus :: Lens.Lens' ListCertificatesResponse Prelude.Int
+listCertificatesResponse_httpStatus = Lens.lens (\ListCertificatesResponse' {httpStatus} -> httpStatus) (\s@ListCertificatesResponse' {} a -> s {httpStatus = a} :: ListCertificatesResponse)
 
-instance NFData ListCertificatesResponse
+instance Prelude.NFData ListCertificatesResponse

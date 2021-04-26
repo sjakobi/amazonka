@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,54 +19,60 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.DirectoryService.Types.ClientCertAuthSettings where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains information about the client certificate authentication settings for the @RegisterCertificate@ and @DescribeCertificate@ operations.
+-- | Contains information about the client certificate authentication
+-- settings for the @RegisterCertificate@ and @DescribeCertificate@
+-- operations.
 --
---
---
--- /See:/ 'clientCertAuthSettings' smart constructor.
-newtype ClientCertAuthSettings = ClientCertAuthSettings'
-  { _ccasOCSPURL ::
-      Maybe Text
+-- /See:/ 'newClientCertAuthSettings' smart constructor.
+data ClientCertAuthSettings = ClientCertAuthSettings'
+  { -- | Specifies the URL of the default OCSP server used to check for
+    -- revocation status. A secondary value to any OCSP address found in the
+    -- AIA extension of the user certificate.
+    oCSPUrl :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ClientCertAuthSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ClientCertAuthSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccasOCSPURL' - Specifies the URL of the default OCSP server used to check for revocation status. A secondary value to any OCSP address found in the AIA extension of the user certificate.
-clientCertAuthSettings ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'oCSPUrl', 'clientCertAuthSettings_oCSPUrl' - Specifies the URL of the default OCSP server used to check for
+-- revocation status. A secondary value to any OCSP address found in the
+-- AIA extension of the user certificate.
+newClientCertAuthSettings ::
   ClientCertAuthSettings
-clientCertAuthSettings =
-  ClientCertAuthSettings' {_ccasOCSPURL = Nothing}
+newClientCertAuthSettings =
+  ClientCertAuthSettings' {oCSPUrl = Prelude.Nothing}
 
--- | Specifies the URL of the default OCSP server used to check for revocation status. A secondary value to any OCSP address found in the AIA extension of the user certificate.
-ccasOCSPURL :: Lens' ClientCertAuthSettings (Maybe Text)
-ccasOCSPURL = lens _ccasOCSPURL (\s a -> s {_ccasOCSPURL = a})
+-- | Specifies the URL of the default OCSP server used to check for
+-- revocation status. A secondary value to any OCSP address found in the
+-- AIA extension of the user certificate.
+clientCertAuthSettings_oCSPUrl :: Lens.Lens' ClientCertAuthSettings (Prelude.Maybe Prelude.Text)
+clientCertAuthSettings_oCSPUrl = Lens.lens (\ClientCertAuthSettings' {oCSPUrl} -> oCSPUrl) (\s@ClientCertAuthSettings' {} a -> s {oCSPUrl = a} :: ClientCertAuthSettings)
 
-instance FromJSON ClientCertAuthSettings where
+instance Prelude.FromJSON ClientCertAuthSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ClientCertAuthSettings"
       ( \x ->
-          ClientCertAuthSettings' <$> (x .:? "OCSPUrl")
+          ClientCertAuthSettings'
+            Prelude.<$> (x Prelude..:? "OCSPUrl")
       )
 
-instance Hashable ClientCertAuthSettings
+instance Prelude.Hashable ClientCertAuthSettings
 
-instance NFData ClientCertAuthSettings
+instance Prelude.NFData ClientCertAuthSettings
 
-instance ToJSON ClientCertAuthSettings where
+instance Prelude.ToJSON ClientCertAuthSettings where
   toJSON ClientCertAuthSettings' {..} =
-    object
-      (catMaybes [("OCSPUrl" .=) <$> _ccasOCSPURL])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("OCSPUrl" Prelude..=) Prelude.<$> oCSPUrl]
+      )

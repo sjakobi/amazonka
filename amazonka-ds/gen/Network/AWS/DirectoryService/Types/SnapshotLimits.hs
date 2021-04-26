@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,65 +19,68 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.DirectoryService.Types.SnapshotLimits where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains manual snapshot limit information for a directory.
 --
---
---
--- /See:/ 'snapshotLimits' smart constructor.
+-- /See:/ 'newSnapshotLimits' smart constructor.
 data SnapshotLimits = SnapshotLimits'
-  { _slManualSnapshotsCurrentCount ::
-      !(Maybe Nat),
-    _slManualSnapshotsLimitReached ::
-      !(Maybe Bool),
-    _slManualSnapshotsLimit :: !(Maybe Nat)
+  { -- | The current number of manual snapshots of the directory.
+    manualSnapshotsCurrentCount :: Prelude.Maybe Prelude.Nat,
+    -- | Indicates if the manual snapshot limit has been reached.
+    manualSnapshotsLimitReached :: Prelude.Maybe Prelude.Bool,
+    -- | The maximum number of manual snapshots allowed.
+    manualSnapshotsLimit :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SnapshotLimits' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SnapshotLimits' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'slManualSnapshotsCurrentCount' - The current number of manual snapshots of the directory.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'slManualSnapshotsLimitReached' - Indicates if the manual snapshot limit has been reached.
+-- 'manualSnapshotsCurrentCount', 'snapshotLimits_manualSnapshotsCurrentCount' - The current number of manual snapshots of the directory.
 --
--- * 'slManualSnapshotsLimit' - The maximum number of manual snapshots allowed.
-snapshotLimits ::
+-- 'manualSnapshotsLimitReached', 'snapshotLimits_manualSnapshotsLimitReached' - Indicates if the manual snapshot limit has been reached.
+--
+-- 'manualSnapshotsLimit', 'snapshotLimits_manualSnapshotsLimit' - The maximum number of manual snapshots allowed.
+newSnapshotLimits ::
   SnapshotLimits
-snapshotLimits =
+newSnapshotLimits =
   SnapshotLimits'
-    { _slManualSnapshotsCurrentCount =
-        Nothing,
-      _slManualSnapshotsLimitReached = Nothing,
-      _slManualSnapshotsLimit = Nothing
+    { manualSnapshotsCurrentCount =
+        Prelude.Nothing,
+      manualSnapshotsLimitReached = Prelude.Nothing,
+      manualSnapshotsLimit = Prelude.Nothing
     }
 
 -- | The current number of manual snapshots of the directory.
-slManualSnapshotsCurrentCount :: Lens' SnapshotLimits (Maybe Natural)
-slManualSnapshotsCurrentCount = lens _slManualSnapshotsCurrentCount (\s a -> s {_slManualSnapshotsCurrentCount = a}) . mapping _Nat
+snapshotLimits_manualSnapshotsCurrentCount :: Lens.Lens' SnapshotLimits (Prelude.Maybe Prelude.Natural)
+snapshotLimits_manualSnapshotsCurrentCount = Lens.lens (\SnapshotLimits' {manualSnapshotsCurrentCount} -> manualSnapshotsCurrentCount) (\s@SnapshotLimits' {} a -> s {manualSnapshotsCurrentCount = a} :: SnapshotLimits) Prelude.. Lens.mapping Prelude._Nat
 
 -- | Indicates if the manual snapshot limit has been reached.
-slManualSnapshotsLimitReached :: Lens' SnapshotLimits (Maybe Bool)
-slManualSnapshotsLimitReached = lens _slManualSnapshotsLimitReached (\s a -> s {_slManualSnapshotsLimitReached = a})
+snapshotLimits_manualSnapshotsLimitReached :: Lens.Lens' SnapshotLimits (Prelude.Maybe Prelude.Bool)
+snapshotLimits_manualSnapshotsLimitReached = Lens.lens (\SnapshotLimits' {manualSnapshotsLimitReached} -> manualSnapshotsLimitReached) (\s@SnapshotLimits' {} a -> s {manualSnapshotsLimitReached = a} :: SnapshotLimits)
 
 -- | The maximum number of manual snapshots allowed.
-slManualSnapshotsLimit :: Lens' SnapshotLimits (Maybe Natural)
-slManualSnapshotsLimit = lens _slManualSnapshotsLimit (\s a -> s {_slManualSnapshotsLimit = a}) . mapping _Nat
+snapshotLimits_manualSnapshotsLimit :: Lens.Lens' SnapshotLimits (Prelude.Maybe Prelude.Natural)
+snapshotLimits_manualSnapshotsLimit = Lens.lens (\SnapshotLimits' {manualSnapshotsLimit} -> manualSnapshotsLimit) (\s@SnapshotLimits' {} a -> s {manualSnapshotsLimit = a} :: SnapshotLimits) Prelude.. Lens.mapping Prelude._Nat
 
-instance FromJSON SnapshotLimits where
+instance Prelude.FromJSON SnapshotLimits where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SnapshotLimits"
       ( \x ->
           SnapshotLimits'
-            <$> (x .:? "ManualSnapshotsCurrentCount")
-            <*> (x .:? "ManualSnapshotsLimitReached")
-            <*> (x .:? "ManualSnapshotsLimit")
+            Prelude.<$> (x Prelude..:? "ManualSnapshotsCurrentCount")
+            Prelude.<*> (x Prelude..:? "ManualSnapshotsLimitReached")
+            Prelude.<*> (x Prelude..:? "ManualSnapshotsLimit")
       )
 
-instance Hashable SnapshotLimits
+instance Prelude.Hashable SnapshotLimits
 
-instance NFData SnapshotLimits
+instance Prelude.NFData SnapshotLimits

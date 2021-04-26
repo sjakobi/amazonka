@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,170 +21,190 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Provides information about the Regions that are configured for multi-Region replication.
+-- Provides information about the Regions that are configured for
+-- multi-Region replication.
 module Network.AWS.DirectoryService.DescribeRegions
   ( -- * Creating a Request
-    describeRegions,
-    DescribeRegions,
+    DescribeRegions (..),
+    newDescribeRegions,
 
     -- * Request Lenses
-    drsRegionName,
-    drsNextToken,
-    drsDirectoryId,
+    describeRegions_regionName,
+    describeRegions_nextToken,
+    describeRegions_directoryId,
 
     -- * Destructuring the Response
-    describeRegionsResponse,
-    DescribeRegionsResponse,
+    DescribeRegionsResponse (..),
+    newDescribeRegionsResponse,
 
     -- * Response Lenses
-    desrsNextToken,
-    desrsRegionsDescription,
-    desrsResponseStatus,
+    describeRegionsResponse_nextToken,
+    describeRegionsResponse_regionsDescription,
+    describeRegionsResponse_httpStatus,
   )
 where
 
 import Network.AWS.DirectoryService.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DirectoryService.Types.RegionDescription
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeRegions' smart constructor.
+-- | /See:/ 'newDescribeRegions' smart constructor.
 data DescribeRegions = DescribeRegions'
-  { _drsRegionName ::
-      !(Maybe Text),
-    _drsNextToken :: !(Maybe Text),
-    _drsDirectoryId :: !Text
+  { -- | The name of the Region. For example, @us-east-1@.
+    regionName :: Prelude.Maybe Prelude.Text,
+    -- | The @DescribeRegionsResult.NextToken@ value from a previous call to
+    -- DescribeRegions. Pass null if this is the first call.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the directory.
+    directoryId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeRegions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeRegions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drsRegionName' - The name of the Region. For example, @us-east-1@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drsNextToken' - The @DescribeRegionsResult.NextToken@ value from a previous call to 'DescribeRegions' . Pass null if this is the first call.
+-- 'regionName', 'describeRegions_regionName' - The name of the Region. For example, @us-east-1@.
 --
--- * 'drsDirectoryId' - The identifier of the directory.
-describeRegions ::
-  -- | 'drsDirectoryId'
-  Text ->
+-- 'nextToken', 'describeRegions_nextToken' - The @DescribeRegionsResult.NextToken@ value from a previous call to
+-- DescribeRegions. Pass null if this is the first call.
+--
+-- 'directoryId', 'describeRegions_directoryId' - The identifier of the directory.
+newDescribeRegions ::
+  -- | 'directoryId'
+  Prelude.Text ->
   DescribeRegions
-describeRegions pDirectoryId_ =
+newDescribeRegions pDirectoryId_ =
   DescribeRegions'
-    { _drsRegionName = Nothing,
-      _drsNextToken = Nothing,
-      _drsDirectoryId = pDirectoryId_
+    { regionName = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      directoryId = pDirectoryId_
     }
 
--- | The name of the Region. For example, @us-east-1@ .
-drsRegionName :: Lens' DescribeRegions (Maybe Text)
-drsRegionName = lens _drsRegionName (\s a -> s {_drsRegionName = a})
+-- | The name of the Region. For example, @us-east-1@.
+describeRegions_regionName :: Lens.Lens' DescribeRegions (Prelude.Maybe Prelude.Text)
+describeRegions_regionName = Lens.lens (\DescribeRegions' {regionName} -> regionName) (\s@DescribeRegions' {} a -> s {regionName = a} :: DescribeRegions)
 
--- | The @DescribeRegionsResult.NextToken@ value from a previous call to 'DescribeRegions' . Pass null if this is the first call.
-drsNextToken :: Lens' DescribeRegions (Maybe Text)
-drsNextToken = lens _drsNextToken (\s a -> s {_drsNextToken = a})
+-- | The @DescribeRegionsResult.NextToken@ value from a previous call to
+-- DescribeRegions. Pass null if this is the first call.
+describeRegions_nextToken :: Lens.Lens' DescribeRegions (Prelude.Maybe Prelude.Text)
+describeRegions_nextToken = Lens.lens (\DescribeRegions' {nextToken} -> nextToken) (\s@DescribeRegions' {} a -> s {nextToken = a} :: DescribeRegions)
 
 -- | The identifier of the directory.
-drsDirectoryId :: Lens' DescribeRegions Text
-drsDirectoryId = lens _drsDirectoryId (\s a -> s {_drsDirectoryId = a})
+describeRegions_directoryId :: Lens.Lens' DescribeRegions Prelude.Text
+describeRegions_directoryId = Lens.lens (\DescribeRegions' {directoryId} -> directoryId) (\s@DescribeRegions' {} a -> s {directoryId = a} :: DescribeRegions)
 
-instance AWSRequest DescribeRegions where
+instance Prelude.AWSRequest DescribeRegions where
   type Rs DescribeRegions = DescribeRegionsResponse
-  request = postJSON directoryService
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeRegionsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "RegionsDescription" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "RegionsDescription"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeRegions
+instance Prelude.Hashable DescribeRegions
 
-instance NFData DescribeRegions
+instance Prelude.NFData DescribeRegions
 
-instance ToHeaders DescribeRegions where
+instance Prelude.ToHeaders DescribeRegions where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "DirectoryService_20150416.DescribeRegions" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "DirectoryService_20150416.DescribeRegions" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeRegions where
+instance Prelude.ToJSON DescribeRegions where
   toJSON DescribeRegions' {..} =
-    object
-      ( catMaybes
-          [ ("RegionName" .=) <$> _drsRegionName,
-            ("NextToken" .=) <$> _drsNextToken,
-            Just ("DirectoryId" .= _drsDirectoryId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("RegionName" Prelude..=) Prelude.<$> regionName,
+            ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            Prelude.Just ("DirectoryId" Prelude..= directoryId)
           ]
       )
 
-instance ToPath DescribeRegions where
-  toPath = const "/"
+instance Prelude.ToPath DescribeRegions where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeRegions where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeRegions where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeRegionsResponse' smart constructor.
+-- | /See:/ 'newDescribeRegionsResponse' smart constructor.
 data DescribeRegionsResponse = DescribeRegionsResponse'
-  { _desrsNextToken ::
-      !(Maybe Text),
-    _desrsRegionsDescription ::
-      !( Maybe
-           [RegionDescription]
-       ),
-    _desrsResponseStatus ::
-      !Int
+  { -- | If not null, more results are available. Pass this value for the
+    -- @NextToken@ parameter in a subsequent call to DescribeRegions to
+    -- retrieve the next set of items.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | List of Region information related to the directory for each replicated
+    -- Region.
+    regionsDescription :: Prelude.Maybe [RegionDescription],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeRegionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeRegionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'desrsNextToken' - If not null, more results are available. Pass this value for the @NextToken@ parameter in a subsequent call to 'DescribeRegions' to retrieve the next set of items.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'desrsRegionsDescription' - List of Region information related to the directory for each replicated Region.
+-- 'nextToken', 'describeRegionsResponse_nextToken' - If not null, more results are available. Pass this value for the
+-- @NextToken@ parameter in a subsequent call to DescribeRegions to
+-- retrieve the next set of items.
 --
--- * 'desrsResponseStatus' - -- | The response status code.
-describeRegionsResponse ::
-  -- | 'desrsResponseStatus'
-  Int ->
+-- 'regionsDescription', 'describeRegionsResponse_regionsDescription' - List of Region information related to the directory for each replicated
+-- Region.
+--
+-- 'httpStatus', 'describeRegionsResponse_httpStatus' - The response's http status code.
+newDescribeRegionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeRegionsResponse
-describeRegionsResponse pResponseStatus_ =
+newDescribeRegionsResponse pHttpStatus_ =
   DescribeRegionsResponse'
-    { _desrsNextToken = Nothing,
-      _desrsRegionsDescription = Nothing,
-      _desrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      regionsDescription = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | If not null, more results are available. Pass this value for the @NextToken@ parameter in a subsequent call to 'DescribeRegions' to retrieve the next set of items.
-desrsNextToken :: Lens' DescribeRegionsResponse (Maybe Text)
-desrsNextToken = lens _desrsNextToken (\s a -> s {_desrsNextToken = a})
+-- | If not null, more results are available. Pass this value for the
+-- @NextToken@ parameter in a subsequent call to DescribeRegions to
+-- retrieve the next set of items.
+describeRegionsResponse_nextToken :: Lens.Lens' DescribeRegionsResponse (Prelude.Maybe Prelude.Text)
+describeRegionsResponse_nextToken = Lens.lens (\DescribeRegionsResponse' {nextToken} -> nextToken) (\s@DescribeRegionsResponse' {} a -> s {nextToken = a} :: DescribeRegionsResponse)
 
--- | List of Region information related to the directory for each replicated Region.
-desrsRegionsDescription :: Lens' DescribeRegionsResponse [RegionDescription]
-desrsRegionsDescription = lens _desrsRegionsDescription (\s a -> s {_desrsRegionsDescription = a}) . _Default . _Coerce
+-- | List of Region information related to the directory for each replicated
+-- Region.
+describeRegionsResponse_regionsDescription :: Lens.Lens' DescribeRegionsResponse (Prelude.Maybe [RegionDescription])
+describeRegionsResponse_regionsDescription = Lens.lens (\DescribeRegionsResponse' {regionsDescription} -> regionsDescription) (\s@DescribeRegionsResponse' {} a -> s {regionsDescription = a} :: DescribeRegionsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-desrsResponseStatus :: Lens' DescribeRegionsResponse Int
-desrsResponseStatus = lens _desrsResponseStatus (\s a -> s {_desrsResponseStatus = a})
+-- | The response's http status code.
+describeRegionsResponse_httpStatus :: Lens.Lens' DescribeRegionsResponse Prelude.Int
+describeRegionsResponse_httpStatus = Lens.lens (\DescribeRegionsResponse' {httpStatus} -> httpStatus) (\s@DescribeRegionsResponse' {} a -> s {httpStatus = a} :: DescribeRegionsResponse)
 
-instance NFData DescribeRegionsResponse
+instance Prelude.NFData DescribeRegionsResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,52 +19,50 @@
 module Network.AWS.DirectoryService.Types.ClientAuthenticationType
   ( ClientAuthenticationType
       ( ..,
-        SmartCard
+        ClientAuthenticationTypeSmartCard
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ClientAuthenticationType
-  = ClientAuthenticationType'
-      ( CI
-          Text
-      )
+newtype ClientAuthenticationType = ClientAuthenticationType'
+  { fromClientAuthenticationType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SmartCard :: ClientAuthenticationType
-pattern SmartCard = ClientAuthenticationType' "SmartCard"
+pattern ClientAuthenticationTypeSmartCard :: ClientAuthenticationType
+pattern ClientAuthenticationTypeSmartCard = ClientAuthenticationType' "SmartCard"
 
 {-# COMPLETE
-  SmartCard,
+  ClientAuthenticationTypeSmartCard,
   ClientAuthenticationType'
   #-}
 
-instance FromText ClientAuthenticationType where
-  parser = (ClientAuthenticationType' . mk) <$> takeText
+instance Prelude.FromText ClientAuthenticationType where
+  parser = ClientAuthenticationType' Prelude.<$> Prelude.takeText
 
-instance ToText ClientAuthenticationType where
-  toText (ClientAuthenticationType' ci) = original ci
+instance Prelude.ToText ClientAuthenticationType where
+  toText (ClientAuthenticationType' x) = x
 
-instance Hashable ClientAuthenticationType
+instance Prelude.Hashable ClientAuthenticationType
 
-instance NFData ClientAuthenticationType
+instance Prelude.NFData ClientAuthenticationType
 
-instance ToByteString ClientAuthenticationType
+instance Prelude.ToByteString ClientAuthenticationType
 
-instance ToQuery ClientAuthenticationType
+instance Prelude.ToQuery ClientAuthenticationType
 
-instance ToHeader ClientAuthenticationType
+instance Prelude.ToHeader ClientAuthenticationType
 
-instance ToJSON ClientAuthenticationType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ClientAuthenticationType where
+  toJSON = Prelude.toJSONText

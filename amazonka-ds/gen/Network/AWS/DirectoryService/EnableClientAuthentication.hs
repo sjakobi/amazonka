@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,150 +21,161 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Enables alternative client authentication methods for the specified directory.
+-- Enables alternative client authentication methods for the specified
+-- directory.
 module Network.AWS.DirectoryService.EnableClientAuthentication
   ( -- * Creating a Request
-    enableClientAuthentication,
-    EnableClientAuthentication,
+    EnableClientAuthentication (..),
+    newEnableClientAuthentication,
 
     -- * Request Lenses
-    ecaDirectoryId,
-    ecaType,
+    enableClientAuthentication_directoryId,
+    enableClientAuthentication_type,
 
     -- * Destructuring the Response
-    enableClientAuthenticationResponse,
-    EnableClientAuthenticationResponse,
+    EnableClientAuthenticationResponse (..),
+    newEnableClientAuthenticationResponse,
 
     -- * Response Lenses
-    ecarrsResponseStatus,
+    enableClientAuthenticationResponse_httpStatus,
   )
 where
 
 import Network.AWS.DirectoryService.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'enableClientAuthentication' smart constructor.
+-- | /See:/ 'newEnableClientAuthentication' smart constructor.
 data EnableClientAuthentication = EnableClientAuthentication'
-  { _ecaDirectoryId ::
-      !Text,
-    _ecaType ::
-      !ClientAuthenticationType
+  { -- | The identifier of the specified directory.
+    directoryId :: Prelude.Text,
+    -- | The type of client authentication to enable. Currently only the value
+    -- @SmartCard@ is supported. Smart card authentication in AD Connector
+    -- requires that you enable Kerberos Constrained Delegation for the Service
+    -- User to the LDAP service in the on-premises AD.
+    type' :: ClientAuthenticationType
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EnableClientAuthentication' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EnableClientAuthentication' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ecaDirectoryId' - The identifier of the specified directory.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ecaType' - The type of client authentication to enable. Currently only the value @SmartCard@ is supported. Smart card authentication in AD Connector requires that you enable Kerberos Constrained Delegation for the Service User to the LDAP service in the on-premises AD.
-enableClientAuthentication ::
-  -- | 'ecaDirectoryId'
-  Text ->
-  -- | 'ecaType'
+-- 'directoryId', 'enableClientAuthentication_directoryId' - The identifier of the specified directory.
+--
+-- 'type'', 'enableClientAuthentication_type' - The type of client authentication to enable. Currently only the value
+-- @SmartCard@ is supported. Smart card authentication in AD Connector
+-- requires that you enable Kerberos Constrained Delegation for the Service
+-- User to the LDAP service in the on-premises AD.
+newEnableClientAuthentication ::
+  -- | 'directoryId'
+  Prelude.Text ->
+  -- | 'type''
   ClientAuthenticationType ->
   EnableClientAuthentication
-enableClientAuthentication pDirectoryId_ pType_ =
+newEnableClientAuthentication pDirectoryId_ pType_ =
   EnableClientAuthentication'
-    { _ecaDirectoryId =
+    { directoryId =
         pDirectoryId_,
-      _ecaType = pType_
+      type' = pType_
     }
 
 -- | The identifier of the specified directory.
-ecaDirectoryId :: Lens' EnableClientAuthentication Text
-ecaDirectoryId = lens _ecaDirectoryId (\s a -> s {_ecaDirectoryId = a})
+enableClientAuthentication_directoryId :: Lens.Lens' EnableClientAuthentication Prelude.Text
+enableClientAuthentication_directoryId = Lens.lens (\EnableClientAuthentication' {directoryId} -> directoryId) (\s@EnableClientAuthentication' {} a -> s {directoryId = a} :: EnableClientAuthentication)
 
--- | The type of client authentication to enable. Currently only the value @SmartCard@ is supported. Smart card authentication in AD Connector requires that you enable Kerberos Constrained Delegation for the Service User to the LDAP service in the on-premises AD.
-ecaType :: Lens' EnableClientAuthentication ClientAuthenticationType
-ecaType = lens _ecaType (\s a -> s {_ecaType = a})
+-- | The type of client authentication to enable. Currently only the value
+-- @SmartCard@ is supported. Smart card authentication in AD Connector
+-- requires that you enable Kerberos Constrained Delegation for the Service
+-- User to the LDAP service in the on-premises AD.
+enableClientAuthentication_type :: Lens.Lens' EnableClientAuthentication ClientAuthenticationType
+enableClientAuthentication_type = Lens.lens (\EnableClientAuthentication' {type'} -> type') (\s@EnableClientAuthentication' {} a -> s {type' = a} :: EnableClientAuthentication)
 
-instance AWSRequest EnableClientAuthentication where
+instance
+  Prelude.AWSRequest
+    EnableClientAuthentication
+  where
   type
     Rs EnableClientAuthentication =
       EnableClientAuthenticationResponse
-  request = postJSON directoryService
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           EnableClientAuthenticationResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable EnableClientAuthentication
+instance Prelude.Hashable EnableClientAuthentication
 
-instance NFData EnableClientAuthentication
+instance Prelude.NFData EnableClientAuthentication
 
-instance ToHeaders EnableClientAuthentication where
+instance Prelude.ToHeaders EnableClientAuthentication where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "DirectoryService_20150416.EnableClientAuthentication" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "DirectoryService_20150416.EnableClientAuthentication" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON EnableClientAuthentication where
+instance Prelude.ToJSON EnableClientAuthentication where
   toJSON EnableClientAuthentication' {..} =
-    object
-      ( catMaybes
-          [ Just ("DirectoryId" .= _ecaDirectoryId),
-            Just ("Type" .= _ecaType)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("DirectoryId" Prelude..= directoryId),
+            Prelude.Just ("Type" Prelude..= type')
           ]
       )
 
-instance ToPath EnableClientAuthentication where
-  toPath = const "/"
+instance Prelude.ToPath EnableClientAuthentication where
+  toPath = Prelude.const "/"
 
-instance ToQuery EnableClientAuthentication where
-  toQuery = const mempty
+instance Prelude.ToQuery EnableClientAuthentication where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'enableClientAuthenticationResponse' smart constructor.
-newtype EnableClientAuthenticationResponse = EnableClientAuthenticationResponse'
-  { _ecarrsResponseStatus ::
-      Int
+-- | /See:/ 'newEnableClientAuthenticationResponse' smart constructor.
+data EnableClientAuthenticationResponse = EnableClientAuthenticationResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EnableClientAuthenticationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EnableClientAuthenticationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ecarrsResponseStatus' - -- | The response status code.
-enableClientAuthenticationResponse ::
-  -- | 'ecarrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'enableClientAuthenticationResponse_httpStatus' - The response's http status code.
+newEnableClientAuthenticationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   EnableClientAuthenticationResponse
-enableClientAuthenticationResponse pResponseStatus_ =
+newEnableClientAuthenticationResponse pHttpStatus_ =
   EnableClientAuthenticationResponse'
-    { _ecarrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-ecarrsResponseStatus :: Lens' EnableClientAuthenticationResponse Int
-ecarrsResponseStatus = lens _ecarrsResponseStatus (\s a -> s {_ecarrsResponseStatus = a})
+-- | The response's http status code.
+enableClientAuthenticationResponse_httpStatus :: Lens.Lens' EnableClientAuthenticationResponse Prelude.Int
+enableClientAuthenticationResponse_httpStatus = Lens.lens (\EnableClientAuthenticationResponse' {httpStatus} -> httpStatus) (\s@EnableClientAuthenticationResponse' {} a -> s {httpStatus = a} :: EnableClientAuthenticationResponse)
 
-instance NFData EnableClientAuthenticationResponse
+instance
+  Prelude.NFData
+    EnableClientAuthenticationResponse

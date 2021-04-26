@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,174 +21,193 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Registers a certificate for a secure LDAP or client certificate authentication.
+-- Registers a certificate for a secure LDAP or client certificate
+-- authentication.
 module Network.AWS.DirectoryService.RegisterCertificate
   ( -- * Creating a Request
-    registerCertificate,
-    RegisterCertificate,
+    RegisterCertificate (..),
+    newRegisterCertificate,
 
     -- * Request Lenses
-    rcClientCertAuthSettings,
-    rcType,
-    rcDirectoryId,
-    rcCertificateData,
+    registerCertificate_clientCertAuthSettings,
+    registerCertificate_type,
+    registerCertificate_directoryId,
+    registerCertificate_certificateData,
 
     -- * Destructuring the Response
-    registerCertificateResponse,
-    RegisterCertificateResponse,
+    RegisterCertificateResponse (..),
+    newRegisterCertificateResponse,
 
     -- * Response Lenses
-    rcrrsCertificateId,
-    rcrrsResponseStatus,
+    registerCertificateResponse_certificateId,
+    registerCertificateResponse_httpStatus,
   )
 where
 
 import Network.AWS.DirectoryService.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'registerCertificate' smart constructor.
+-- | /See:/ 'newRegisterCertificate' smart constructor.
 data RegisterCertificate = RegisterCertificate'
-  { _rcClientCertAuthSettings ::
-      !(Maybe ClientCertAuthSettings),
-    _rcType ::
-      !(Maybe CertificateType),
-    _rcDirectoryId :: !Text,
-    _rcCertificateData :: !Text
+  { -- | A @ClientCertAuthSettings@ object that contains client certificate
+    -- authentication settings.
+    clientCertAuthSettings :: Prelude.Maybe ClientCertAuthSettings,
+    -- | The function that the registered certificate performs. Valid values
+    -- include @ClientLDAPS@ or @ClientCertAuth@. The default value is
+    -- @ClientLDAPS@.
+    type' :: Prelude.Maybe CertificateType,
+    -- | The identifier of the directory.
+    directoryId :: Prelude.Text,
+    -- | The certificate PEM string that needs to be registered.
+    certificateData :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RegisterCertificate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RegisterCertificate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rcClientCertAuthSettings' - A @ClientCertAuthSettings@ object that contains client certificate authentication settings.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rcType' - The function that the registered certificate performs. Valid values include @ClientLDAPS@ or @ClientCertAuth@ . The default value is @ClientLDAPS@ .
+-- 'clientCertAuthSettings', 'registerCertificate_clientCertAuthSettings' - A @ClientCertAuthSettings@ object that contains client certificate
+-- authentication settings.
 --
--- * 'rcDirectoryId' - The identifier of the directory.
+-- 'type'', 'registerCertificate_type' - The function that the registered certificate performs. Valid values
+-- include @ClientLDAPS@ or @ClientCertAuth@. The default value is
+-- @ClientLDAPS@.
 --
--- * 'rcCertificateData' - The certificate PEM string that needs to be registered.
-registerCertificate ::
-  -- | 'rcDirectoryId'
-  Text ->
-  -- | 'rcCertificateData'
-  Text ->
+-- 'directoryId', 'registerCertificate_directoryId' - The identifier of the directory.
+--
+-- 'certificateData', 'registerCertificate_certificateData' - The certificate PEM string that needs to be registered.
+newRegisterCertificate ::
+  -- | 'directoryId'
+  Prelude.Text ->
+  -- | 'certificateData'
+  Prelude.Text ->
   RegisterCertificate
-registerCertificate pDirectoryId_ pCertificateData_ =
-  RegisterCertificate'
-    { _rcClientCertAuthSettings =
-        Nothing,
-      _rcType = Nothing,
-      _rcDirectoryId = pDirectoryId_,
-      _rcCertificateData = pCertificateData_
-    }
+newRegisterCertificate
+  pDirectoryId_
+  pCertificateData_ =
+    RegisterCertificate'
+      { clientCertAuthSettings =
+          Prelude.Nothing,
+        type' = Prelude.Nothing,
+        directoryId = pDirectoryId_,
+        certificateData = pCertificateData_
+      }
 
--- | A @ClientCertAuthSettings@ object that contains client certificate authentication settings.
-rcClientCertAuthSettings :: Lens' RegisterCertificate (Maybe ClientCertAuthSettings)
-rcClientCertAuthSettings = lens _rcClientCertAuthSettings (\s a -> s {_rcClientCertAuthSettings = a})
+-- | A @ClientCertAuthSettings@ object that contains client certificate
+-- authentication settings.
+registerCertificate_clientCertAuthSettings :: Lens.Lens' RegisterCertificate (Prelude.Maybe ClientCertAuthSettings)
+registerCertificate_clientCertAuthSettings = Lens.lens (\RegisterCertificate' {clientCertAuthSettings} -> clientCertAuthSettings) (\s@RegisterCertificate' {} a -> s {clientCertAuthSettings = a} :: RegisterCertificate)
 
--- | The function that the registered certificate performs. Valid values include @ClientLDAPS@ or @ClientCertAuth@ . The default value is @ClientLDAPS@ .
-rcType :: Lens' RegisterCertificate (Maybe CertificateType)
-rcType = lens _rcType (\s a -> s {_rcType = a})
+-- | The function that the registered certificate performs. Valid values
+-- include @ClientLDAPS@ or @ClientCertAuth@. The default value is
+-- @ClientLDAPS@.
+registerCertificate_type :: Lens.Lens' RegisterCertificate (Prelude.Maybe CertificateType)
+registerCertificate_type = Lens.lens (\RegisterCertificate' {type'} -> type') (\s@RegisterCertificate' {} a -> s {type' = a} :: RegisterCertificate)
 
 -- | The identifier of the directory.
-rcDirectoryId :: Lens' RegisterCertificate Text
-rcDirectoryId = lens _rcDirectoryId (\s a -> s {_rcDirectoryId = a})
+registerCertificate_directoryId :: Lens.Lens' RegisterCertificate Prelude.Text
+registerCertificate_directoryId = Lens.lens (\RegisterCertificate' {directoryId} -> directoryId) (\s@RegisterCertificate' {} a -> s {directoryId = a} :: RegisterCertificate)
 
 -- | The certificate PEM string that needs to be registered.
-rcCertificateData :: Lens' RegisterCertificate Text
-rcCertificateData = lens _rcCertificateData (\s a -> s {_rcCertificateData = a})
+registerCertificate_certificateData :: Lens.Lens' RegisterCertificate Prelude.Text
+registerCertificate_certificateData = Lens.lens (\RegisterCertificate' {certificateData} -> certificateData) (\s@RegisterCertificate' {} a -> s {certificateData = a} :: RegisterCertificate)
 
-instance AWSRequest RegisterCertificate where
+instance Prelude.AWSRequest RegisterCertificate where
   type
     Rs RegisterCertificate =
       RegisterCertificateResponse
-  request = postJSON directoryService
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           RegisterCertificateResponse'
-            <$> (x .?> "CertificateId") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "CertificateId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable RegisterCertificate
+instance Prelude.Hashable RegisterCertificate
 
-instance NFData RegisterCertificate
+instance Prelude.NFData RegisterCertificate
 
-instance ToHeaders RegisterCertificate where
+instance Prelude.ToHeaders RegisterCertificate where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "DirectoryService_20150416.RegisterCertificate" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "DirectoryService_20150416.RegisterCertificate" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON RegisterCertificate where
+instance Prelude.ToJSON RegisterCertificate where
   toJSON RegisterCertificate' {..} =
-    object
-      ( catMaybes
-          [ ("ClientCertAuthSettings" .=)
-              <$> _rcClientCertAuthSettings,
-            ("Type" .=) <$> _rcType,
-            Just ("DirectoryId" .= _rcDirectoryId),
-            Just ("CertificateData" .= _rcCertificateData)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ClientCertAuthSettings" Prelude..=)
+              Prelude.<$> clientCertAuthSettings,
+            ("Type" Prelude..=) Prelude.<$> type',
+            Prelude.Just ("DirectoryId" Prelude..= directoryId),
+            Prelude.Just
+              ("CertificateData" Prelude..= certificateData)
           ]
       )
 
-instance ToPath RegisterCertificate where
-  toPath = const "/"
+instance Prelude.ToPath RegisterCertificate where
+  toPath = Prelude.const "/"
 
-instance ToQuery RegisterCertificate where
-  toQuery = const mempty
+instance Prelude.ToQuery RegisterCertificate where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'registerCertificateResponse' smart constructor.
+-- | /See:/ 'newRegisterCertificateResponse' smart constructor.
 data RegisterCertificateResponse = RegisterCertificateResponse'
-  { _rcrrsCertificateId ::
-      !(Maybe Text),
-    _rcrrsResponseStatus ::
-      !Int
+  { -- | The identifier of the certificate.
+    certificateId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RegisterCertificateResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RegisterCertificateResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rcrrsCertificateId' - The identifier of the certificate.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rcrrsResponseStatus' - -- | The response status code.
-registerCertificateResponse ::
-  -- | 'rcrrsResponseStatus'
-  Int ->
+-- 'certificateId', 'registerCertificateResponse_certificateId' - The identifier of the certificate.
+--
+-- 'httpStatus', 'registerCertificateResponse_httpStatus' - The response's http status code.
+newRegisterCertificateResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   RegisterCertificateResponse
-registerCertificateResponse pResponseStatus_ =
+newRegisterCertificateResponse pHttpStatus_ =
   RegisterCertificateResponse'
-    { _rcrrsCertificateId =
-        Nothing,
-      _rcrrsResponseStatus = pResponseStatus_
+    { certificateId =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The identifier of the certificate.
-rcrrsCertificateId :: Lens' RegisterCertificateResponse (Maybe Text)
-rcrrsCertificateId = lens _rcrrsCertificateId (\s a -> s {_rcrrsCertificateId = a})
+registerCertificateResponse_certificateId :: Lens.Lens' RegisterCertificateResponse (Prelude.Maybe Prelude.Text)
+registerCertificateResponse_certificateId = Lens.lens (\RegisterCertificateResponse' {certificateId} -> certificateId) (\s@RegisterCertificateResponse' {} a -> s {certificateId = a} :: RegisterCertificateResponse)
 
--- | -- | The response status code.
-rcrrsResponseStatus :: Lens' RegisterCertificateResponse Int
-rcrrsResponseStatus = lens _rcrrsResponseStatus (\s a -> s {_rcrrsResponseStatus = a})
+-- | The response's http status code.
+registerCertificateResponse_httpStatus :: Lens.Lens' RegisterCertificateResponse Prelude.Int
+registerCertificateResponse_httpStatus = Lens.lens (\RegisterCertificateResponse' {httpStatus} -> httpStatus) (\s@RegisterCertificateResponse' {} a -> s {httpStatus = a} :: RegisterCertificateResponse)
 
-instance NFData RegisterCertificateResponse
+instance Prelude.NFData RegisterCertificateResponse

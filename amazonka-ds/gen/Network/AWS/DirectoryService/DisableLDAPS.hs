@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,135 +24,140 @@
 -- Deactivates LDAP secure calls for the specified directory.
 module Network.AWS.DirectoryService.DisableLDAPS
   ( -- * Creating a Request
-    disableLDAPS,
-    DisableLDAPS,
+    DisableLDAPS (..),
+    newDisableLDAPS,
 
     -- * Request Lenses
-    dldapsDirectoryId,
-    dldapsType,
+    disableLDAPS_directoryId,
+    disableLDAPS_type,
 
     -- * Destructuring the Response
-    disableLDAPSResponse,
-    DisableLDAPSResponse,
+    DisableLDAPSResponse (..),
+    newDisableLDAPSResponse,
 
     -- * Response Lenses
-    dldapsrrsResponseStatus,
+    disableLDAPSResponse_httpStatus,
   )
 where
 
 import Network.AWS.DirectoryService.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'disableLDAPS' smart constructor.
+-- | /See:/ 'newDisableLDAPS' smart constructor.
 data DisableLDAPS = DisableLDAPS'
-  { _dldapsDirectoryId ::
-      !Text,
-    _dldapsType :: !LDAPSType
+  { -- | The identifier of the directory.
+    directoryId :: Prelude.Text,
+    -- | The type of LDAP security to enable. Currently only the value @Client@
+    -- is supported.
+    type' :: LDAPSType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DisableLDAPS' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DisableLDAPS' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dldapsDirectoryId' - The identifier of the directory.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dldapsType' - The type of LDAP security to enable. Currently only the value @Client@ is supported.
-disableLDAPS ::
-  -- | 'dldapsDirectoryId'
-  Text ->
-  -- | 'dldapsType'
+-- 'directoryId', 'disableLDAPS_directoryId' - The identifier of the directory.
+--
+-- 'type'', 'disableLDAPS_type' - The type of LDAP security to enable. Currently only the value @Client@
+-- is supported.
+newDisableLDAPS ::
+  -- | 'directoryId'
+  Prelude.Text ->
+  -- | 'type''
   LDAPSType ->
   DisableLDAPS
-disableLDAPS pDirectoryId_ pType_ =
+newDisableLDAPS pDirectoryId_ pType_ =
   DisableLDAPS'
-    { _dldapsDirectoryId = pDirectoryId_,
-      _dldapsType = pType_
+    { directoryId = pDirectoryId_,
+      type' = pType_
     }
 
 -- | The identifier of the directory.
-dldapsDirectoryId :: Lens' DisableLDAPS Text
-dldapsDirectoryId = lens _dldapsDirectoryId (\s a -> s {_dldapsDirectoryId = a})
+disableLDAPS_directoryId :: Lens.Lens' DisableLDAPS Prelude.Text
+disableLDAPS_directoryId = Lens.lens (\DisableLDAPS' {directoryId} -> directoryId) (\s@DisableLDAPS' {} a -> s {directoryId = a} :: DisableLDAPS)
 
--- | The type of LDAP security to enable. Currently only the value @Client@ is supported.
-dldapsType :: Lens' DisableLDAPS LDAPSType
-dldapsType = lens _dldapsType (\s a -> s {_dldapsType = a})
+-- | The type of LDAP security to enable. Currently only the value @Client@
+-- is supported.
+disableLDAPS_type :: Lens.Lens' DisableLDAPS LDAPSType
+disableLDAPS_type = Lens.lens (\DisableLDAPS' {type'} -> type') (\s@DisableLDAPS' {} a -> s {type' = a} :: DisableLDAPS)
 
-instance AWSRequest DisableLDAPS where
+instance Prelude.AWSRequest DisableLDAPS where
   type Rs DisableLDAPS = DisableLDAPSResponse
-  request = postJSON directoryService
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          DisableLDAPSResponse' <$> (pure (fromEnum s))
+          DisableLDAPSResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DisableLDAPS
+instance Prelude.Hashable DisableLDAPS
 
-instance NFData DisableLDAPS
+instance Prelude.NFData DisableLDAPS
 
-instance ToHeaders DisableLDAPS where
+instance Prelude.ToHeaders DisableLDAPS where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "DirectoryService_20150416.DisableLDAPS" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "DirectoryService_20150416.DisableLDAPS" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DisableLDAPS where
+instance Prelude.ToJSON DisableLDAPS where
   toJSON DisableLDAPS' {..} =
-    object
-      ( catMaybes
-          [ Just ("DirectoryId" .= _dldapsDirectoryId),
-            Just ("Type" .= _dldapsType)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("DirectoryId" Prelude..= directoryId),
+            Prelude.Just ("Type" Prelude..= type')
           ]
       )
 
-instance ToPath DisableLDAPS where
-  toPath = const "/"
+instance Prelude.ToPath DisableLDAPS where
+  toPath = Prelude.const "/"
 
-instance ToQuery DisableLDAPS where
-  toQuery = const mempty
+instance Prelude.ToQuery DisableLDAPS where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'disableLDAPSResponse' smart constructor.
-newtype DisableLDAPSResponse = DisableLDAPSResponse'
-  { _dldapsrrsResponseStatus ::
-      Int
+-- | /See:/ 'newDisableLDAPSResponse' smart constructor.
+data DisableLDAPSResponse = DisableLDAPSResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DisableLDAPSResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DisableLDAPSResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dldapsrrsResponseStatus' - -- | The response status code.
-disableLDAPSResponse ::
-  -- | 'dldapsrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'disableLDAPSResponse_httpStatus' - The response's http status code.
+newDisableLDAPSResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DisableLDAPSResponse
-disableLDAPSResponse pResponseStatus_ =
-  DisableLDAPSResponse'
-    { _dldapsrrsResponseStatus =
-        pResponseStatus_
-    }
+newDisableLDAPSResponse pHttpStatus_ =
+  DisableLDAPSResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-dldapsrrsResponseStatus :: Lens' DisableLDAPSResponse Int
-dldapsrrsResponseStatus = lens _dldapsrrsResponseStatus (\s a -> s {_dldapsrrsResponseStatus = a})
+-- | The response's http status code.
+disableLDAPSResponse_httpStatus :: Lens.Lens' DisableLDAPSResponse Prelude.Int
+disableLDAPSResponse_httpStatus = Lens.lens (\DisableLDAPSResponse' {httpStatus} -> httpStatus) (\s@DisableLDAPSResponse' {} a -> s {httpStatus = a} :: DisableLDAPSResponse)
 
-instance NFData DisableLDAPSResponse
+instance Prelude.NFData DisableLDAPSResponse

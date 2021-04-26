@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,70 +19,68 @@
 module Network.AWS.DirectoryService.Types.RadiusAuthenticationProtocol
   ( RadiusAuthenticationProtocol
       ( ..,
-        Chap,
-        MsCHAPV1,
-        MsCHAPV2,
-        Pap
+        RadiusAuthenticationProtocolCHAP,
+        RadiusAuthenticationProtocolMSCHAPV1,
+        RadiusAuthenticationProtocolMSCHAPV2,
+        RadiusAuthenticationProtocolPAP
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RadiusAuthenticationProtocol
-  = RadiusAuthenticationProtocol'
-      ( CI
-          Text
-      )
+newtype RadiusAuthenticationProtocol = RadiusAuthenticationProtocol'
+  { fromRadiusAuthenticationProtocol ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Chap :: RadiusAuthenticationProtocol
-pattern Chap = RadiusAuthenticationProtocol' "CHAP"
+pattern RadiusAuthenticationProtocolCHAP :: RadiusAuthenticationProtocol
+pattern RadiusAuthenticationProtocolCHAP = RadiusAuthenticationProtocol' "CHAP"
 
-pattern MsCHAPV1 :: RadiusAuthenticationProtocol
-pattern MsCHAPV1 = RadiusAuthenticationProtocol' "MS-CHAPv1"
+pattern RadiusAuthenticationProtocolMSCHAPV1 :: RadiusAuthenticationProtocol
+pattern RadiusAuthenticationProtocolMSCHAPV1 = RadiusAuthenticationProtocol' "MS-CHAPv1"
 
-pattern MsCHAPV2 :: RadiusAuthenticationProtocol
-pattern MsCHAPV2 = RadiusAuthenticationProtocol' "MS-CHAPv2"
+pattern RadiusAuthenticationProtocolMSCHAPV2 :: RadiusAuthenticationProtocol
+pattern RadiusAuthenticationProtocolMSCHAPV2 = RadiusAuthenticationProtocol' "MS-CHAPv2"
 
-pattern Pap :: RadiusAuthenticationProtocol
-pattern Pap = RadiusAuthenticationProtocol' "PAP"
+pattern RadiusAuthenticationProtocolPAP :: RadiusAuthenticationProtocol
+pattern RadiusAuthenticationProtocolPAP = RadiusAuthenticationProtocol' "PAP"
 
 {-# COMPLETE
-  Chap,
-  MsCHAPV1,
-  MsCHAPV2,
-  Pap,
+  RadiusAuthenticationProtocolCHAP,
+  RadiusAuthenticationProtocolMSCHAPV1,
+  RadiusAuthenticationProtocolMSCHAPV2,
+  RadiusAuthenticationProtocolPAP,
   RadiusAuthenticationProtocol'
   #-}
 
-instance FromText RadiusAuthenticationProtocol where
-  parser = (RadiusAuthenticationProtocol' . mk) <$> takeText
+instance Prelude.FromText RadiusAuthenticationProtocol where
+  parser = RadiusAuthenticationProtocol' Prelude.<$> Prelude.takeText
 
-instance ToText RadiusAuthenticationProtocol where
-  toText (RadiusAuthenticationProtocol' ci) = original ci
+instance Prelude.ToText RadiusAuthenticationProtocol where
+  toText (RadiusAuthenticationProtocol' x) = x
 
-instance Hashable RadiusAuthenticationProtocol
+instance Prelude.Hashable RadiusAuthenticationProtocol
 
-instance NFData RadiusAuthenticationProtocol
+instance Prelude.NFData RadiusAuthenticationProtocol
 
-instance ToByteString RadiusAuthenticationProtocol
+instance Prelude.ToByteString RadiusAuthenticationProtocol
 
-instance ToQuery RadiusAuthenticationProtocol
+instance Prelude.ToQuery RadiusAuthenticationProtocol
 
-instance ToHeader RadiusAuthenticationProtocol
+instance Prelude.ToHeader RadiusAuthenticationProtocol
 
-instance ToJSON RadiusAuthenticationProtocol where
-  toJSON = toJSONText
+instance Prelude.ToJSON RadiusAuthenticationProtocol where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON RadiusAuthenticationProtocol where
-  parseJSON = parseJSONText "RadiusAuthenticationProtocol"
+instance Prelude.FromJSON RadiusAuthenticationProtocol where
+  parseJSON = Prelude.parseJSONText "RadiusAuthenticationProtocol"

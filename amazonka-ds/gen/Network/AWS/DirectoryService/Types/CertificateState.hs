@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,73 +19,75 @@
 module Network.AWS.DirectoryService.Types.CertificateState
   ( CertificateState
       ( ..,
-        DeregisterFailed,
-        Deregistered,
-        Deregistering,
-        RegisterFailed,
-        Registered,
-        Registering
+        CertificateStateDeregisterFailed,
+        CertificateStateDeregistered,
+        CertificateStateDeregistering,
+        CertificateStateRegisterFailed,
+        CertificateStateRegistered,
+        CertificateStateRegistering
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CertificateState = CertificateState' (CI Text)
+newtype CertificateState = CertificateState'
+  { fromCertificateState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DeregisterFailed :: CertificateState
-pattern DeregisterFailed = CertificateState' "DeregisterFailed"
+pattern CertificateStateDeregisterFailed :: CertificateState
+pattern CertificateStateDeregisterFailed = CertificateState' "DeregisterFailed"
 
-pattern Deregistered :: CertificateState
-pattern Deregistered = CertificateState' "Deregistered"
+pattern CertificateStateDeregistered :: CertificateState
+pattern CertificateStateDeregistered = CertificateState' "Deregistered"
 
-pattern Deregistering :: CertificateState
-pattern Deregistering = CertificateState' "Deregistering"
+pattern CertificateStateDeregistering :: CertificateState
+pattern CertificateStateDeregistering = CertificateState' "Deregistering"
 
-pattern RegisterFailed :: CertificateState
-pattern RegisterFailed = CertificateState' "RegisterFailed"
+pattern CertificateStateRegisterFailed :: CertificateState
+pattern CertificateStateRegisterFailed = CertificateState' "RegisterFailed"
 
-pattern Registered :: CertificateState
-pattern Registered = CertificateState' "Registered"
+pattern CertificateStateRegistered :: CertificateState
+pattern CertificateStateRegistered = CertificateState' "Registered"
 
-pattern Registering :: CertificateState
-pattern Registering = CertificateState' "Registering"
+pattern CertificateStateRegistering :: CertificateState
+pattern CertificateStateRegistering = CertificateState' "Registering"
 
 {-# COMPLETE
-  DeregisterFailed,
-  Deregistered,
-  Deregistering,
-  RegisterFailed,
-  Registered,
-  Registering,
+  CertificateStateDeregisterFailed,
+  CertificateStateDeregistered,
+  CertificateStateDeregistering,
+  CertificateStateRegisterFailed,
+  CertificateStateRegistered,
+  CertificateStateRegistering,
   CertificateState'
   #-}
 
-instance FromText CertificateState where
-  parser = (CertificateState' . mk) <$> takeText
+instance Prelude.FromText CertificateState where
+  parser = CertificateState' Prelude.<$> Prelude.takeText
 
-instance ToText CertificateState where
-  toText (CertificateState' ci) = original ci
+instance Prelude.ToText CertificateState where
+  toText (CertificateState' x) = x
 
-instance Hashable CertificateState
+instance Prelude.Hashable CertificateState
 
-instance NFData CertificateState
+instance Prelude.NFData CertificateState
 
-instance ToByteString CertificateState
+instance Prelude.ToByteString CertificateState
 
-instance ToQuery CertificateState
+instance Prelude.ToQuery CertificateState
 
-instance ToHeader CertificateState
+instance Prelude.ToHeader CertificateState
 
-instance FromJSON CertificateState where
-  parseJSON = parseJSONText "CertificateState"
+instance Prelude.FromJSON CertificateState where
+  parseJSON = Prelude.parseJSONText "CertificateState"

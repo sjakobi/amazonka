@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,51 +20,58 @@
 module Network.AWS.DirectoryService.Types.UnshareTarget where
 
 import Network.AWS.DirectoryService.Types.TargetType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Identifier that contains details about the directory consumer account with whom the directory is being unshared.
+-- | Identifier that contains details about the directory consumer account
+-- with whom the directory is being unshared.
 --
---
---
--- /See:/ 'unshareTarget' smart constructor.
+-- /See:/ 'newUnshareTarget' smart constructor.
 data UnshareTarget = UnshareTarget'
-  { _utId :: !Text,
-    _utType :: !TargetType
+  { -- | Identifier of the directory consumer account.
+    id :: Prelude.Text,
+    -- | Type of identifier to be used in the /Id/ field.
+    type' :: TargetType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UnshareTarget' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UnshareTarget' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'utId' - Identifier of the directory consumer account.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'utType' - Type of identifier to be used in the /Id/ field.
-unshareTarget ::
-  -- | 'utId'
-  Text ->
-  -- | 'utType'
+-- 'id', 'unshareTarget_id' - Identifier of the directory consumer account.
+--
+-- 'type'', 'unshareTarget_type' - Type of identifier to be used in the /Id/ field.
+newUnshareTarget ::
+  -- | 'id'
+  Prelude.Text ->
+  -- | 'type''
   TargetType ->
   UnshareTarget
-unshareTarget pId_ pType_ =
-  UnshareTarget' {_utId = pId_, _utType = pType_}
+newUnshareTarget pId_ pType_ =
+  UnshareTarget' {id = pId_, type' = pType_}
 
 -- | Identifier of the directory consumer account.
-utId :: Lens' UnshareTarget Text
-utId = lens _utId (\s a -> s {_utId = a})
+unshareTarget_id :: Lens.Lens' UnshareTarget Prelude.Text
+unshareTarget_id = Lens.lens (\UnshareTarget' {id} -> id) (\s@UnshareTarget' {} a -> s {id = a} :: UnshareTarget)
 
 -- | Type of identifier to be used in the /Id/ field.
-utType :: Lens' UnshareTarget TargetType
-utType = lens _utType (\s a -> s {_utType = a})
+unshareTarget_type :: Lens.Lens' UnshareTarget TargetType
+unshareTarget_type = Lens.lens (\UnshareTarget' {type'} -> type') (\s@UnshareTarget' {} a -> s {type' = a} :: UnshareTarget)
 
-instance Hashable UnshareTarget
+instance Prelude.Hashable UnshareTarget
 
-instance NFData UnshareTarget
+instance Prelude.NFData UnshareTarget
 
-instance ToJSON UnshareTarget where
+instance Prelude.ToJSON UnshareTarget where
   toJSON UnshareTarget' {..} =
-    object
-      ( catMaybes
-          [Just ("Id" .= _utId), Just ("Type" .= _utType)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("Id" Prelude..= id),
+            Prelude.Just ("Type" Prelude..= type')
+          ]
       )
