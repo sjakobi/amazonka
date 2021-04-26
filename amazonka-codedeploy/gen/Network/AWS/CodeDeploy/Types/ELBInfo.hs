@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,40 +19,65 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CodeDeploy.Types.ELBInfo where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Information about a load balancer in Elastic Load Balancing to use in a deployment. Instances are registered directly with a load balancer, and traffic is routed to the load balancer.
+-- | Information about a load balancer in Elastic Load Balancing to use in a
+-- deployment. Instances are registered directly with a load balancer, and
+-- traffic is routed to the load balancer.
 --
---
---
--- /See:/ 'eLBInfo' smart constructor.
-newtype ELBInfo = ELBInfo' {_elbiName :: Maybe Text}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- /See:/ 'newELBInfo' smart constructor.
+data ELBInfo = ELBInfo'
+  { -- | For blue\/green deployments, the name of the load balancer that is used
+    -- to route traffic from original instances to replacement instances in a
+    -- blue\/green deployment. For in-place deployments, the name of the load
+    -- balancer that instances are deregistered from so they are not serving
+    -- traffic during a deployment, and then re-registered with after the
+    -- deployment is complete.
+    name :: Prelude.Maybe Prelude.Text
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ELBInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ELBInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'elbiName' - For blue/green deployments, the name of the load balancer that is used to route traffic from original instances to replacement instances in a blue/green deployment. For in-place deployments, the name of the load balancer that instances are deregistered from so they are not serving traffic during a deployment, and then re-registered with after the deployment is complete.
-eLBInfo ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'name', 'eLBInfo_name' - For blue\/green deployments, the name of the load balancer that is used
+-- to route traffic from original instances to replacement instances in a
+-- blue\/green deployment. For in-place deployments, the name of the load
+-- balancer that instances are deregistered from so they are not serving
+-- traffic during a deployment, and then re-registered with after the
+-- deployment is complete.
+newELBInfo ::
   ELBInfo
-eLBInfo = ELBInfo' {_elbiName = Nothing}
+newELBInfo = ELBInfo' {name = Prelude.Nothing}
 
--- | For blue/green deployments, the name of the load balancer that is used to route traffic from original instances to replacement instances in a blue/green deployment. For in-place deployments, the name of the load balancer that instances are deregistered from so they are not serving traffic during a deployment, and then re-registered with after the deployment is complete.
-elbiName :: Lens' ELBInfo (Maybe Text)
-elbiName = lens _elbiName (\s a -> s {_elbiName = a})
+-- | For blue\/green deployments, the name of the load balancer that is used
+-- to route traffic from original instances to replacement instances in a
+-- blue\/green deployment. For in-place deployments, the name of the load
+-- balancer that instances are deregistered from so they are not serving
+-- traffic during a deployment, and then re-registered with after the
+-- deployment is complete.
+eLBInfo_name :: Lens.Lens' ELBInfo (Prelude.Maybe Prelude.Text)
+eLBInfo_name = Lens.lens (\ELBInfo' {name} -> name) (\s@ELBInfo' {} a -> s {name = a} :: ELBInfo)
 
-instance FromJSON ELBInfo where
+instance Prelude.FromJSON ELBInfo where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ELBInfo"
-      (\x -> ELBInfo' <$> (x .:? "name"))
+      (\x -> ELBInfo' Prelude.<$> (x Prelude..:? "name"))
 
-instance Hashable ELBInfo
+instance Prelude.Hashable ELBInfo
 
-instance NFData ELBInfo
+instance Prelude.NFData ELBInfo
 
-instance ToJSON ELBInfo where
+instance Prelude.ToJSON ELBInfo where
   toJSON ELBInfo' {..} =
-    object (catMaybes [("name" .=) <$> _elbiName])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("name" Prelude..=) Prelude.<$> name]
+      )

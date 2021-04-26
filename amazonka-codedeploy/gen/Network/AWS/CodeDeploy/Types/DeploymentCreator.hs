@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,73 +19,75 @@
 module Network.AWS.CodeDeploy.Types.DeploymentCreator
   ( DeploymentCreator
       ( ..,
-        Autoscaling,
-        CloudFormation,
-        CloudFormationRollback,
-        CodeDeploy,
-        CodeDeployRollback,
-        User
+        DeploymentCreatorAutoscaling,
+        DeploymentCreatorCloudFormation,
+        DeploymentCreatorCloudFormationRollback,
+        DeploymentCreatorCodeDeploy,
+        DeploymentCreatorCodeDeployRollback,
+        DeploymentCreatorUser
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DeploymentCreator = DeploymentCreator' (CI Text)
+newtype DeploymentCreator = DeploymentCreator'
+  { fromDeploymentCreator ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Autoscaling :: DeploymentCreator
-pattern Autoscaling = DeploymentCreator' "autoscaling"
+pattern DeploymentCreatorAutoscaling :: DeploymentCreator
+pattern DeploymentCreatorAutoscaling = DeploymentCreator' "autoscaling"
 
-pattern CloudFormation :: DeploymentCreator
-pattern CloudFormation = DeploymentCreator' "CloudFormation"
+pattern DeploymentCreatorCloudFormation :: DeploymentCreator
+pattern DeploymentCreatorCloudFormation = DeploymentCreator' "CloudFormation"
 
-pattern CloudFormationRollback :: DeploymentCreator
-pattern CloudFormationRollback = DeploymentCreator' "CloudFormationRollback"
+pattern DeploymentCreatorCloudFormationRollback :: DeploymentCreator
+pattern DeploymentCreatorCloudFormationRollback = DeploymentCreator' "CloudFormationRollback"
 
-pattern CodeDeploy :: DeploymentCreator
-pattern CodeDeploy = DeploymentCreator' "CodeDeploy"
+pattern DeploymentCreatorCodeDeploy :: DeploymentCreator
+pattern DeploymentCreatorCodeDeploy = DeploymentCreator' "CodeDeploy"
 
-pattern CodeDeployRollback :: DeploymentCreator
-pattern CodeDeployRollback = DeploymentCreator' "codeDeployRollback"
+pattern DeploymentCreatorCodeDeployRollback :: DeploymentCreator
+pattern DeploymentCreatorCodeDeployRollback = DeploymentCreator' "codeDeployRollback"
 
-pattern User :: DeploymentCreator
-pattern User = DeploymentCreator' "user"
+pattern DeploymentCreatorUser :: DeploymentCreator
+pattern DeploymentCreatorUser = DeploymentCreator' "user"
 
 {-# COMPLETE
-  Autoscaling,
-  CloudFormation,
-  CloudFormationRollback,
-  CodeDeploy,
-  CodeDeployRollback,
-  User,
+  DeploymentCreatorAutoscaling,
+  DeploymentCreatorCloudFormation,
+  DeploymentCreatorCloudFormationRollback,
+  DeploymentCreatorCodeDeploy,
+  DeploymentCreatorCodeDeployRollback,
+  DeploymentCreatorUser,
   DeploymentCreator'
   #-}
 
-instance FromText DeploymentCreator where
-  parser = (DeploymentCreator' . mk) <$> takeText
+instance Prelude.FromText DeploymentCreator where
+  parser = DeploymentCreator' Prelude.<$> Prelude.takeText
 
-instance ToText DeploymentCreator where
-  toText (DeploymentCreator' ci) = original ci
+instance Prelude.ToText DeploymentCreator where
+  toText (DeploymentCreator' x) = x
 
-instance Hashable DeploymentCreator
+instance Prelude.Hashable DeploymentCreator
 
-instance NFData DeploymentCreator
+instance Prelude.NFData DeploymentCreator
 
-instance ToByteString DeploymentCreator
+instance Prelude.ToByteString DeploymentCreator
 
-instance ToQuery DeploymentCreator
+instance Prelude.ToQuery DeploymentCreator
 
-instance ToHeader DeploymentCreator
+instance Prelude.ToHeader DeploymentCreator
 
-instance FromJSON DeploymentCreator where
-  parseJSON = parseJSONText "DeploymentCreator"
+instance Prelude.FromJSON DeploymentCreator where
+  parseJSON = Prelude.parseJSONText "DeploymentCreator"

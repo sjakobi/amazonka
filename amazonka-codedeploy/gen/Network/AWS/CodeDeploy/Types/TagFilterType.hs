@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.CodeDeploy.Types.TagFilterType
   ( TagFilterType
       ( ..,
-        KeyAndValue,
-        KeyOnly,
-        ValueOnly
+        TagFilterTypeKEYANDVALUE,
+        TagFilterTypeKEYONLY,
+        TagFilterTypeVALUEONLY
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TagFilterType = TagFilterType' (CI Text)
+newtype TagFilterType = TagFilterType'
+  { fromTagFilterType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern KeyAndValue :: TagFilterType
-pattern KeyAndValue = TagFilterType' "KEY_AND_VALUE"
+pattern TagFilterTypeKEYANDVALUE :: TagFilterType
+pattern TagFilterTypeKEYANDVALUE = TagFilterType' "KEY_AND_VALUE"
 
-pattern KeyOnly :: TagFilterType
-pattern KeyOnly = TagFilterType' "KEY_ONLY"
+pattern TagFilterTypeKEYONLY :: TagFilterType
+pattern TagFilterTypeKEYONLY = TagFilterType' "KEY_ONLY"
 
-pattern ValueOnly :: TagFilterType
-pattern ValueOnly = TagFilterType' "VALUE_ONLY"
+pattern TagFilterTypeVALUEONLY :: TagFilterType
+pattern TagFilterTypeVALUEONLY = TagFilterType' "VALUE_ONLY"
 
 {-# COMPLETE
-  KeyAndValue,
-  KeyOnly,
-  ValueOnly,
+  TagFilterTypeKEYANDVALUE,
+  TagFilterTypeKEYONLY,
+  TagFilterTypeVALUEONLY,
   TagFilterType'
   #-}
 
-instance FromText TagFilterType where
-  parser = (TagFilterType' . mk) <$> takeText
+instance Prelude.FromText TagFilterType where
+  parser = TagFilterType' Prelude.<$> Prelude.takeText
 
-instance ToText TagFilterType where
-  toText (TagFilterType' ci) = original ci
+instance Prelude.ToText TagFilterType where
+  toText (TagFilterType' x) = x
 
-instance Hashable TagFilterType
+instance Prelude.Hashable TagFilterType
 
-instance NFData TagFilterType
+instance Prelude.NFData TagFilterType
 
-instance ToByteString TagFilterType
+instance Prelude.ToByteString TagFilterType
 
-instance ToQuery TagFilterType
+instance Prelude.ToQuery TagFilterType
 
-instance ToHeader TagFilterType
+instance Prelude.ToHeader TagFilterType
 
-instance ToJSON TagFilterType where
-  toJSON = toJSONText
+instance Prelude.ToJSON TagFilterType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON TagFilterType where
-  parseJSON = parseJSONText "TagFilterType"
+instance Prelude.FromJSON TagFilterType where
+  parseJSON = Prelude.parseJSONText "TagFilterType"

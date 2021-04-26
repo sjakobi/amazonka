@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,80 +19,78 @@
 module Network.AWS.CodeDeploy.Types.LifecycleEventStatus
   ( LifecycleEventStatus
       ( ..,
-        LESFailed,
-        LESInProgress,
-        LESPending,
-        LESSkipped,
-        LESSucceeded,
-        LESUnknown
+        LifecycleEventStatusFailed,
+        LifecycleEventStatusInProgress,
+        LifecycleEventStatusPending,
+        LifecycleEventStatusSkipped,
+        LifecycleEventStatusSucceeded,
+        LifecycleEventStatusUnknown
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data LifecycleEventStatus
-  = LifecycleEventStatus'
-      ( CI
-          Text
-      )
+newtype LifecycleEventStatus = LifecycleEventStatus'
+  { fromLifecycleEventStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern LESFailed :: LifecycleEventStatus
-pattern LESFailed = LifecycleEventStatus' "Failed"
+pattern LifecycleEventStatusFailed :: LifecycleEventStatus
+pattern LifecycleEventStatusFailed = LifecycleEventStatus' "Failed"
 
-pattern LESInProgress :: LifecycleEventStatus
-pattern LESInProgress = LifecycleEventStatus' "InProgress"
+pattern LifecycleEventStatusInProgress :: LifecycleEventStatus
+pattern LifecycleEventStatusInProgress = LifecycleEventStatus' "InProgress"
 
-pattern LESPending :: LifecycleEventStatus
-pattern LESPending = LifecycleEventStatus' "Pending"
+pattern LifecycleEventStatusPending :: LifecycleEventStatus
+pattern LifecycleEventStatusPending = LifecycleEventStatus' "Pending"
 
-pattern LESSkipped :: LifecycleEventStatus
-pattern LESSkipped = LifecycleEventStatus' "Skipped"
+pattern LifecycleEventStatusSkipped :: LifecycleEventStatus
+pattern LifecycleEventStatusSkipped = LifecycleEventStatus' "Skipped"
 
-pattern LESSucceeded :: LifecycleEventStatus
-pattern LESSucceeded = LifecycleEventStatus' "Succeeded"
+pattern LifecycleEventStatusSucceeded :: LifecycleEventStatus
+pattern LifecycleEventStatusSucceeded = LifecycleEventStatus' "Succeeded"
 
-pattern LESUnknown :: LifecycleEventStatus
-pattern LESUnknown = LifecycleEventStatus' "Unknown"
+pattern LifecycleEventStatusUnknown :: LifecycleEventStatus
+pattern LifecycleEventStatusUnknown = LifecycleEventStatus' "Unknown"
 
 {-# COMPLETE
-  LESFailed,
-  LESInProgress,
-  LESPending,
-  LESSkipped,
-  LESSucceeded,
-  LESUnknown,
+  LifecycleEventStatusFailed,
+  LifecycleEventStatusInProgress,
+  LifecycleEventStatusPending,
+  LifecycleEventStatusSkipped,
+  LifecycleEventStatusSucceeded,
+  LifecycleEventStatusUnknown,
   LifecycleEventStatus'
   #-}
 
-instance FromText LifecycleEventStatus where
-  parser = (LifecycleEventStatus' . mk) <$> takeText
+instance Prelude.FromText LifecycleEventStatus where
+  parser = LifecycleEventStatus' Prelude.<$> Prelude.takeText
 
-instance ToText LifecycleEventStatus where
-  toText (LifecycleEventStatus' ci) = original ci
+instance Prelude.ToText LifecycleEventStatus where
+  toText (LifecycleEventStatus' x) = x
 
-instance Hashable LifecycleEventStatus
+instance Prelude.Hashable LifecycleEventStatus
 
-instance NFData LifecycleEventStatus
+instance Prelude.NFData LifecycleEventStatus
 
-instance ToByteString LifecycleEventStatus
+instance Prelude.ToByteString LifecycleEventStatus
 
-instance ToQuery LifecycleEventStatus
+instance Prelude.ToQuery LifecycleEventStatus
 
-instance ToHeader LifecycleEventStatus
+instance Prelude.ToHeader LifecycleEventStatus
 
-instance ToJSON LifecycleEventStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON LifecycleEventStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON LifecycleEventStatus where
-  parseJSON = parseJSONText "LifecycleEventStatus"
+instance Prelude.FromJSON LifecycleEventStatus where
+  parseJSON = Prelude.parseJSONText "LifecycleEventStatus"

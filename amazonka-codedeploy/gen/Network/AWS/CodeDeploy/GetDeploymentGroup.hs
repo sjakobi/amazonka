@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,163 +24,168 @@
 -- Gets information about a deployment group.
 module Network.AWS.CodeDeploy.GetDeploymentGroup
   ( -- * Creating a Request
-    getDeploymentGroup,
-    GetDeploymentGroup,
+    GetDeploymentGroup (..),
+    newGetDeploymentGroup,
 
     -- * Request Lenses
-    gdgApplicationName,
-    gdgDeploymentGroupName,
+    getDeploymentGroup_applicationName,
+    getDeploymentGroup_deploymentGroupName,
 
     -- * Destructuring the Response
-    getDeploymentGroupResponse,
-    GetDeploymentGroupResponse,
+    GetDeploymentGroupResponse (..),
+    newGetDeploymentGroupResponse,
 
     -- * Response Lenses
-    gdgrrsDeploymentGroupInfo,
-    gdgrrsResponseStatus,
+    getDeploymentGroupResponse_deploymentGroupInfo,
+    getDeploymentGroupResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodeDeploy.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CodeDeploy.Types.DeploymentGroupInfo
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input of a @GetDeploymentGroup@ operation.
 --
---
---
--- /See:/ 'getDeploymentGroup' smart constructor.
+-- /See:/ 'newGetDeploymentGroup' smart constructor.
 data GetDeploymentGroup = GetDeploymentGroup'
-  { _gdgApplicationName ::
-      !Text,
-    _gdgDeploymentGroupName :: !Text
+  { -- | The name of an AWS CodeDeploy application associated with the IAM user
+    -- or AWS account.
+    applicationName :: Prelude.Text,
+    -- | The name of a deployment group for the specified application.
+    deploymentGroupName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDeploymentGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDeploymentGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdgApplicationName' - The name of an AWS CodeDeploy application associated with the IAM user or AWS account.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gdgDeploymentGroupName' - The name of a deployment group for the specified application.
-getDeploymentGroup ::
-  -- | 'gdgApplicationName'
-  Text ->
-  -- | 'gdgDeploymentGroupName'
-  Text ->
+-- 'applicationName', 'getDeploymentGroup_applicationName' - The name of an AWS CodeDeploy application associated with the IAM user
+-- or AWS account.
+--
+-- 'deploymentGroupName', 'getDeploymentGroup_deploymentGroupName' - The name of a deployment group for the specified application.
+newGetDeploymentGroup ::
+  -- | 'applicationName'
+  Prelude.Text ->
+  -- | 'deploymentGroupName'
+  Prelude.Text ->
   GetDeploymentGroup
-getDeploymentGroup
+newGetDeploymentGroup
   pApplicationName_
   pDeploymentGroupName_ =
     GetDeploymentGroup'
-      { _gdgApplicationName =
+      { applicationName =
           pApplicationName_,
-        _gdgDeploymentGroupName = pDeploymentGroupName_
+        deploymentGroupName = pDeploymentGroupName_
       }
 
--- | The name of an AWS CodeDeploy application associated with the IAM user or AWS account.
-gdgApplicationName :: Lens' GetDeploymentGroup Text
-gdgApplicationName = lens _gdgApplicationName (\s a -> s {_gdgApplicationName = a})
+-- | The name of an AWS CodeDeploy application associated with the IAM user
+-- or AWS account.
+getDeploymentGroup_applicationName :: Lens.Lens' GetDeploymentGroup Prelude.Text
+getDeploymentGroup_applicationName = Lens.lens (\GetDeploymentGroup' {applicationName} -> applicationName) (\s@GetDeploymentGroup' {} a -> s {applicationName = a} :: GetDeploymentGroup)
 
 -- | The name of a deployment group for the specified application.
-gdgDeploymentGroupName :: Lens' GetDeploymentGroup Text
-gdgDeploymentGroupName = lens _gdgDeploymentGroupName (\s a -> s {_gdgDeploymentGroupName = a})
+getDeploymentGroup_deploymentGroupName :: Lens.Lens' GetDeploymentGroup Prelude.Text
+getDeploymentGroup_deploymentGroupName = Lens.lens (\GetDeploymentGroup' {deploymentGroupName} -> deploymentGroupName) (\s@GetDeploymentGroup' {} a -> s {deploymentGroupName = a} :: GetDeploymentGroup)
 
-instance AWSRequest GetDeploymentGroup where
+instance Prelude.AWSRequest GetDeploymentGroup where
   type
     Rs GetDeploymentGroup =
       GetDeploymentGroupResponse
-  request = postJSON codeDeploy
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetDeploymentGroupResponse'
-            <$> (x .?> "deploymentGroupInfo")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "deploymentGroupInfo")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetDeploymentGroup
+instance Prelude.Hashable GetDeploymentGroup
 
-instance NFData GetDeploymentGroup
+instance Prelude.NFData GetDeploymentGroup
 
-instance ToHeaders GetDeploymentGroup where
+instance Prelude.ToHeaders GetDeploymentGroup where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodeDeploy_20141006.GetDeploymentGroup" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodeDeploy_20141006.GetDeploymentGroup" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetDeploymentGroup where
+instance Prelude.ToJSON GetDeploymentGroup where
   toJSON GetDeploymentGroup' {..} =
-    object
-      ( catMaybes
-          [ Just ("applicationName" .= _gdgApplicationName),
-            Just
-              ("deploymentGroupName" .= _gdgDeploymentGroupName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("applicationName" Prelude..= applicationName),
+            Prelude.Just
+              ( "deploymentGroupName"
+                  Prelude..= deploymentGroupName
+              )
           ]
       )
 
-instance ToPath GetDeploymentGroup where
-  toPath = const "/"
+instance Prelude.ToPath GetDeploymentGroup where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetDeploymentGroup where
-  toQuery = const mempty
+instance Prelude.ToQuery GetDeploymentGroup where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a @GetDeploymentGroup@ operation.
 --
---
---
--- /See:/ 'getDeploymentGroupResponse' smart constructor.
+-- /See:/ 'newGetDeploymentGroupResponse' smart constructor.
 data GetDeploymentGroupResponse = GetDeploymentGroupResponse'
-  { _gdgrrsDeploymentGroupInfo ::
-      !( Maybe
-           DeploymentGroupInfo
-       ),
-    _gdgrrsResponseStatus ::
-      !Int
+  { -- | Information about the deployment group.
+    deploymentGroupInfo :: Prelude.Maybe DeploymentGroupInfo,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDeploymentGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDeploymentGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdgrrsDeploymentGroupInfo' - Information about the deployment group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gdgrrsResponseStatus' - -- | The response status code.
-getDeploymentGroupResponse ::
-  -- | 'gdgrrsResponseStatus'
-  Int ->
+-- 'deploymentGroupInfo', 'getDeploymentGroupResponse_deploymentGroupInfo' - Information about the deployment group.
+--
+-- 'httpStatus', 'getDeploymentGroupResponse_httpStatus' - The response's http status code.
+newGetDeploymentGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetDeploymentGroupResponse
-getDeploymentGroupResponse pResponseStatus_ =
+newGetDeploymentGroupResponse pHttpStatus_ =
   GetDeploymentGroupResponse'
-    { _gdgrrsDeploymentGroupInfo =
-        Nothing,
-      _gdgrrsResponseStatus = pResponseStatus_
+    { deploymentGroupInfo =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the deployment group.
-gdgrrsDeploymentGroupInfo :: Lens' GetDeploymentGroupResponse (Maybe DeploymentGroupInfo)
-gdgrrsDeploymentGroupInfo = lens _gdgrrsDeploymentGroupInfo (\s a -> s {_gdgrrsDeploymentGroupInfo = a})
+getDeploymentGroupResponse_deploymentGroupInfo :: Lens.Lens' GetDeploymentGroupResponse (Prelude.Maybe DeploymentGroupInfo)
+getDeploymentGroupResponse_deploymentGroupInfo = Lens.lens (\GetDeploymentGroupResponse' {deploymentGroupInfo} -> deploymentGroupInfo) (\s@GetDeploymentGroupResponse' {} a -> s {deploymentGroupInfo = a} :: GetDeploymentGroupResponse)
 
--- | -- | The response status code.
-gdgrrsResponseStatus :: Lens' GetDeploymentGroupResponse Int
-gdgrrsResponseStatus = lens _gdgrrsResponseStatus (\s a -> s {_gdgrrsResponseStatus = a})
+-- | The response's http status code.
+getDeploymentGroupResponse_httpStatus :: Lens.Lens' GetDeploymentGroupResponse Prelude.Int
+getDeploymentGroupResponse_httpStatus = Lens.lens (\GetDeploymentGroupResponse' {httpStatus} -> httpStatus) (\s@GetDeploymentGroupResponse' {} a -> s {httpStatus = a} :: GetDeploymentGroupResponse)
 
-instance NFData GetDeploymentGroupResponse
+instance Prelude.NFData GetDeploymentGroupResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.CodeDeploy.Types.ApplicationRevisionSortBy
   ( ApplicationRevisionSortBy
       ( ..,
-        FirstUsedTime,
-        LastUsedTime,
-        RegisterTime
+        ApplicationRevisionSortByFirstUsedTime,
+        ApplicationRevisionSortByLastUsedTime,
+        ApplicationRevisionSortByRegisterTime
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ApplicationRevisionSortBy
-  = ApplicationRevisionSortBy'
-      ( CI
-          Text
-      )
+newtype ApplicationRevisionSortBy = ApplicationRevisionSortBy'
+  { fromApplicationRevisionSortBy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern FirstUsedTime :: ApplicationRevisionSortBy
-pattern FirstUsedTime = ApplicationRevisionSortBy' "firstUsedTime"
+pattern ApplicationRevisionSortByFirstUsedTime :: ApplicationRevisionSortBy
+pattern ApplicationRevisionSortByFirstUsedTime = ApplicationRevisionSortBy' "firstUsedTime"
 
-pattern LastUsedTime :: ApplicationRevisionSortBy
-pattern LastUsedTime = ApplicationRevisionSortBy' "lastUsedTime"
+pattern ApplicationRevisionSortByLastUsedTime :: ApplicationRevisionSortBy
+pattern ApplicationRevisionSortByLastUsedTime = ApplicationRevisionSortBy' "lastUsedTime"
 
-pattern RegisterTime :: ApplicationRevisionSortBy
-pattern RegisterTime = ApplicationRevisionSortBy' "registerTime"
+pattern ApplicationRevisionSortByRegisterTime :: ApplicationRevisionSortBy
+pattern ApplicationRevisionSortByRegisterTime = ApplicationRevisionSortBy' "registerTime"
 
 {-# COMPLETE
-  FirstUsedTime,
-  LastUsedTime,
-  RegisterTime,
+  ApplicationRevisionSortByFirstUsedTime,
+  ApplicationRevisionSortByLastUsedTime,
+  ApplicationRevisionSortByRegisterTime,
   ApplicationRevisionSortBy'
   #-}
 
-instance FromText ApplicationRevisionSortBy where
-  parser = (ApplicationRevisionSortBy' . mk) <$> takeText
+instance Prelude.FromText ApplicationRevisionSortBy where
+  parser = ApplicationRevisionSortBy' Prelude.<$> Prelude.takeText
 
-instance ToText ApplicationRevisionSortBy where
-  toText (ApplicationRevisionSortBy' ci) = original ci
+instance Prelude.ToText ApplicationRevisionSortBy where
+  toText (ApplicationRevisionSortBy' x) = x
 
-instance Hashable ApplicationRevisionSortBy
+instance Prelude.Hashable ApplicationRevisionSortBy
 
-instance NFData ApplicationRevisionSortBy
+instance Prelude.NFData ApplicationRevisionSortBy
 
-instance ToByteString ApplicationRevisionSortBy
+instance Prelude.ToByteString ApplicationRevisionSortBy
 
-instance ToQuery ApplicationRevisionSortBy
+instance Prelude.ToQuery ApplicationRevisionSortBy
 
-instance ToHeader ApplicationRevisionSortBy
+instance Prelude.ToHeader ApplicationRevisionSortBy
 
-instance ToJSON ApplicationRevisionSortBy where
-  toJSON = toJSONText
+instance Prelude.ToJSON ApplicationRevisionSortBy where
+  toJSON = Prelude.toJSONText

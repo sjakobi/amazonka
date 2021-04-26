@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,152 +21,154 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets information about one or more deployments. The maximum number of deployments that can be returned is 25.
+-- Gets information about one or more deployments. The maximum number of
+-- deployments that can be returned is 25.
 module Network.AWS.CodeDeploy.BatchGetDeployments
   ( -- * Creating a Request
-    batchGetDeployments,
-    BatchGetDeployments,
+    BatchGetDeployments (..),
+    newBatchGetDeployments,
 
     -- * Request Lenses
-    bgdDeploymentIds,
+    batchGetDeployments_deploymentIds,
 
     -- * Destructuring the Response
-    batchGetDeploymentsResponse,
-    BatchGetDeploymentsResponse,
+    BatchGetDeploymentsResponse (..),
+    newBatchGetDeploymentsResponse,
 
     -- * Response Lenses
-    bgdrrsDeploymentsInfo,
-    bgdrrsResponseStatus,
+    batchGetDeploymentsResponse_deploymentsInfo,
+    batchGetDeploymentsResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodeDeploy.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CodeDeploy.Types.DeploymentInfo
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input of a @BatchGetDeployments@ operation.
 --
---
---
--- /See:/ 'batchGetDeployments' smart constructor.
-newtype BatchGetDeployments = BatchGetDeployments'
-  { _bgdDeploymentIds ::
-      [Text]
+-- /See:/ 'newBatchGetDeployments' smart constructor.
+data BatchGetDeployments = BatchGetDeployments'
+  { -- | A list of deployment IDs, separated by spaces. The maximum number of
+    -- deployment IDs you can specify is 25.
+    deploymentIds :: [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchGetDeployments' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchGetDeployments' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bgdDeploymentIds' - A list of deployment IDs, separated by spaces. The maximum number of deployment IDs you can specify is 25.
-batchGetDeployments ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'deploymentIds', 'batchGetDeployments_deploymentIds' - A list of deployment IDs, separated by spaces. The maximum number of
+-- deployment IDs you can specify is 25.
+newBatchGetDeployments ::
   BatchGetDeployments
-batchGetDeployments =
-  BatchGetDeployments' {_bgdDeploymentIds = mempty}
+newBatchGetDeployments =
+  BatchGetDeployments'
+    { deploymentIds =
+        Prelude.mempty
+    }
 
--- | A list of deployment IDs, separated by spaces. The maximum number of deployment IDs you can specify is 25.
-bgdDeploymentIds :: Lens' BatchGetDeployments [Text]
-bgdDeploymentIds = lens _bgdDeploymentIds (\s a -> s {_bgdDeploymentIds = a}) . _Coerce
+-- | A list of deployment IDs, separated by spaces. The maximum number of
+-- deployment IDs you can specify is 25.
+batchGetDeployments_deploymentIds :: Lens.Lens' BatchGetDeployments [Prelude.Text]
+batchGetDeployments_deploymentIds = Lens.lens (\BatchGetDeployments' {deploymentIds} -> deploymentIds) (\s@BatchGetDeployments' {} a -> s {deploymentIds = a} :: BatchGetDeployments) Prelude.. Prelude._Coerce
 
-instance AWSRequest BatchGetDeployments where
+instance Prelude.AWSRequest BatchGetDeployments where
   type
     Rs BatchGetDeployments =
       BatchGetDeploymentsResponse
-  request = postJSON codeDeploy
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           BatchGetDeploymentsResponse'
-            <$> (x .?> "deploymentsInfo" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "deploymentsInfo"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable BatchGetDeployments
+instance Prelude.Hashable BatchGetDeployments
 
-instance NFData BatchGetDeployments
+instance Prelude.NFData BatchGetDeployments
 
-instance ToHeaders BatchGetDeployments where
+instance Prelude.ToHeaders BatchGetDeployments where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodeDeploy_20141006.BatchGetDeployments" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodeDeploy_20141006.BatchGetDeployments" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON BatchGetDeployments where
+instance Prelude.ToJSON BatchGetDeployments where
   toJSON BatchGetDeployments' {..} =
-    object
-      ( catMaybes
-          [Just ("deploymentIds" .= _bgdDeploymentIds)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("deploymentIds" Prelude..= deploymentIds)
+          ]
       )
 
-instance ToPath BatchGetDeployments where
-  toPath = const "/"
+instance Prelude.ToPath BatchGetDeployments where
+  toPath = Prelude.const "/"
 
-instance ToQuery BatchGetDeployments where
-  toQuery = const mempty
+instance Prelude.ToQuery BatchGetDeployments where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a @BatchGetDeployments@ operation.
 --
---
---
--- /See:/ 'batchGetDeploymentsResponse' smart constructor.
+-- /See:/ 'newBatchGetDeploymentsResponse' smart constructor.
 data BatchGetDeploymentsResponse = BatchGetDeploymentsResponse'
-  { _bgdrrsDeploymentsInfo ::
-      !( Maybe
-           [DeploymentInfo]
-       ),
-    _bgdrrsResponseStatus ::
-      !Int
+  { -- | Information about the deployments.
+    deploymentsInfo :: Prelude.Maybe [DeploymentInfo],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchGetDeploymentsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchGetDeploymentsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bgdrrsDeploymentsInfo' - Information about the deployments.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bgdrrsResponseStatus' - -- | The response status code.
-batchGetDeploymentsResponse ::
-  -- | 'bgdrrsResponseStatus'
-  Int ->
+-- 'deploymentsInfo', 'batchGetDeploymentsResponse_deploymentsInfo' - Information about the deployments.
+--
+-- 'httpStatus', 'batchGetDeploymentsResponse_httpStatus' - The response's http status code.
+newBatchGetDeploymentsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   BatchGetDeploymentsResponse
-batchGetDeploymentsResponse pResponseStatus_ =
+newBatchGetDeploymentsResponse pHttpStatus_ =
   BatchGetDeploymentsResponse'
-    { _bgdrrsDeploymentsInfo =
-        Nothing,
-      _bgdrrsResponseStatus = pResponseStatus_
+    { deploymentsInfo =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the deployments.
-bgdrrsDeploymentsInfo :: Lens' BatchGetDeploymentsResponse [DeploymentInfo]
-bgdrrsDeploymentsInfo = lens _bgdrrsDeploymentsInfo (\s a -> s {_bgdrrsDeploymentsInfo = a}) . _Default . _Coerce
+batchGetDeploymentsResponse_deploymentsInfo :: Lens.Lens' BatchGetDeploymentsResponse (Prelude.Maybe [DeploymentInfo])
+batchGetDeploymentsResponse_deploymentsInfo = Lens.lens (\BatchGetDeploymentsResponse' {deploymentsInfo} -> deploymentsInfo) (\s@BatchGetDeploymentsResponse' {} a -> s {deploymentsInfo = a} :: BatchGetDeploymentsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-bgdrrsResponseStatus :: Lens' BatchGetDeploymentsResponse Int
-bgdrrsResponseStatus = lens _bgdrrsResponseStatus (\s a -> s {_bgdrrsResponseStatus = a})
+-- | The response's http status code.
+batchGetDeploymentsResponse_httpStatus :: Lens.Lens' BatchGetDeploymentsResponse Prelude.Int
+batchGetDeploymentsResponse_httpStatus = Lens.lens (\BatchGetDeploymentsResponse' {httpStatus} -> httpStatus) (\s@BatchGetDeploymentsResponse' {} a -> s {httpStatus = a} :: BatchGetDeploymentsResponse)
 
-instance NFData BatchGetDeploymentsResponse
+instance Prelude.NFData BatchGetDeploymentsResponse

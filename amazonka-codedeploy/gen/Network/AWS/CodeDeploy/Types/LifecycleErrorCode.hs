@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,77 +19,75 @@
 module Network.AWS.CodeDeploy.Types.LifecycleErrorCode
   ( LifecycleErrorCode
       ( ..,
-        ScriptFailed,
-        ScriptMissing,
-        ScriptNotExecutable,
-        ScriptTimedOut,
-        Success,
-        UnknownError
+        LifecycleErrorCodeScriptFailed,
+        LifecycleErrorCodeScriptMissing,
+        LifecycleErrorCodeScriptNotExecutable,
+        LifecycleErrorCodeScriptTimedOut,
+        LifecycleErrorCodeSuccess,
+        LifecycleErrorCodeUnknownError
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data LifecycleErrorCode
-  = LifecycleErrorCode'
-      ( CI
-          Text
-      )
+newtype LifecycleErrorCode = LifecycleErrorCode'
+  { fromLifecycleErrorCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ScriptFailed :: LifecycleErrorCode
-pattern ScriptFailed = LifecycleErrorCode' "ScriptFailed"
+pattern LifecycleErrorCodeScriptFailed :: LifecycleErrorCode
+pattern LifecycleErrorCodeScriptFailed = LifecycleErrorCode' "ScriptFailed"
 
-pattern ScriptMissing :: LifecycleErrorCode
-pattern ScriptMissing = LifecycleErrorCode' "ScriptMissing"
+pattern LifecycleErrorCodeScriptMissing :: LifecycleErrorCode
+pattern LifecycleErrorCodeScriptMissing = LifecycleErrorCode' "ScriptMissing"
 
-pattern ScriptNotExecutable :: LifecycleErrorCode
-pattern ScriptNotExecutable = LifecycleErrorCode' "ScriptNotExecutable"
+pattern LifecycleErrorCodeScriptNotExecutable :: LifecycleErrorCode
+pattern LifecycleErrorCodeScriptNotExecutable = LifecycleErrorCode' "ScriptNotExecutable"
 
-pattern ScriptTimedOut :: LifecycleErrorCode
-pattern ScriptTimedOut = LifecycleErrorCode' "ScriptTimedOut"
+pattern LifecycleErrorCodeScriptTimedOut :: LifecycleErrorCode
+pattern LifecycleErrorCodeScriptTimedOut = LifecycleErrorCode' "ScriptTimedOut"
 
-pattern Success :: LifecycleErrorCode
-pattern Success = LifecycleErrorCode' "Success"
+pattern LifecycleErrorCodeSuccess :: LifecycleErrorCode
+pattern LifecycleErrorCodeSuccess = LifecycleErrorCode' "Success"
 
-pattern UnknownError :: LifecycleErrorCode
-pattern UnknownError = LifecycleErrorCode' "UnknownError"
+pattern LifecycleErrorCodeUnknownError :: LifecycleErrorCode
+pattern LifecycleErrorCodeUnknownError = LifecycleErrorCode' "UnknownError"
 
 {-# COMPLETE
-  ScriptFailed,
-  ScriptMissing,
-  ScriptNotExecutable,
-  ScriptTimedOut,
-  Success,
-  UnknownError,
+  LifecycleErrorCodeScriptFailed,
+  LifecycleErrorCodeScriptMissing,
+  LifecycleErrorCodeScriptNotExecutable,
+  LifecycleErrorCodeScriptTimedOut,
+  LifecycleErrorCodeSuccess,
+  LifecycleErrorCodeUnknownError,
   LifecycleErrorCode'
   #-}
 
-instance FromText LifecycleErrorCode where
-  parser = (LifecycleErrorCode' . mk) <$> takeText
+instance Prelude.FromText LifecycleErrorCode where
+  parser = LifecycleErrorCode' Prelude.<$> Prelude.takeText
 
-instance ToText LifecycleErrorCode where
-  toText (LifecycleErrorCode' ci) = original ci
+instance Prelude.ToText LifecycleErrorCode where
+  toText (LifecycleErrorCode' x) = x
 
-instance Hashable LifecycleErrorCode
+instance Prelude.Hashable LifecycleErrorCode
 
-instance NFData LifecycleErrorCode
+instance Prelude.NFData LifecycleErrorCode
 
-instance ToByteString LifecycleErrorCode
+instance Prelude.ToByteString LifecycleErrorCode
 
-instance ToQuery LifecycleErrorCode
+instance Prelude.ToQuery LifecycleErrorCode
 
-instance ToHeader LifecycleErrorCode
+instance Prelude.ToHeader LifecycleErrorCode
 
-instance FromJSON LifecycleErrorCode where
-  parseJSON = parseJSONText "LifecycleErrorCode"
+instance Prelude.FromJSON LifecycleErrorCode where
+  parseJSON = Prelude.parseJSONText "LifecycleErrorCode"

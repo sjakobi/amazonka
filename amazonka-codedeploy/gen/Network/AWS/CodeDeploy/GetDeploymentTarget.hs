@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,146 +24,164 @@
 -- Returns information about a deployment target.
 module Network.AWS.CodeDeploy.GetDeploymentTarget
   ( -- * Creating a Request
-    getDeploymentTarget,
-    GetDeploymentTarget,
+    GetDeploymentTarget (..),
+    newGetDeploymentTarget,
 
     -- * Request Lenses
-    gdtDeploymentId,
-    gdtTargetId,
+    getDeploymentTarget_deploymentId,
+    getDeploymentTarget_targetId,
 
     -- * Destructuring the Response
-    getDeploymentTargetResponse,
-    GetDeploymentTargetResponse,
+    GetDeploymentTargetResponse (..),
+    newGetDeploymentTargetResponse,
 
     -- * Response Lenses
-    gdtrrsDeploymentTarget,
-    gdtrrsResponseStatus,
+    getDeploymentTargetResponse_deploymentTarget,
+    getDeploymentTargetResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodeDeploy.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CodeDeploy.Types.DeploymentTarget
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getDeploymentTarget' smart constructor.
+-- | /See:/ 'newGetDeploymentTarget' smart constructor.
 data GetDeploymentTarget = GetDeploymentTarget'
-  { _gdtDeploymentId ::
-      !(Maybe Text),
-    _gdtTargetId :: !(Maybe Text)
+  { -- | The unique ID of a deployment.
+    deploymentId :: Prelude.Maybe Prelude.Text,
+    -- | The unique ID of a deployment target.
+    targetId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDeploymentTarget' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDeploymentTarget' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdtDeploymentId' - The unique ID of a deployment.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gdtTargetId' - The unique ID of a deployment target.
-getDeploymentTarget ::
+-- 'deploymentId', 'getDeploymentTarget_deploymentId' - The unique ID of a deployment.
+--
+-- 'targetId', 'getDeploymentTarget_targetId' - The unique ID of a deployment target.
+newGetDeploymentTarget ::
   GetDeploymentTarget
-getDeploymentTarget =
+newGetDeploymentTarget =
   GetDeploymentTarget'
-    { _gdtDeploymentId = Nothing,
-      _gdtTargetId = Nothing
+    { deploymentId =
+        Prelude.Nothing,
+      targetId = Prelude.Nothing
     }
 
 -- | The unique ID of a deployment.
-gdtDeploymentId :: Lens' GetDeploymentTarget (Maybe Text)
-gdtDeploymentId = lens _gdtDeploymentId (\s a -> s {_gdtDeploymentId = a})
+getDeploymentTarget_deploymentId :: Lens.Lens' GetDeploymentTarget (Prelude.Maybe Prelude.Text)
+getDeploymentTarget_deploymentId = Lens.lens (\GetDeploymentTarget' {deploymentId} -> deploymentId) (\s@GetDeploymentTarget' {} a -> s {deploymentId = a} :: GetDeploymentTarget)
 
 -- | The unique ID of a deployment target.
-gdtTargetId :: Lens' GetDeploymentTarget (Maybe Text)
-gdtTargetId = lens _gdtTargetId (\s a -> s {_gdtTargetId = a})
+getDeploymentTarget_targetId :: Lens.Lens' GetDeploymentTarget (Prelude.Maybe Prelude.Text)
+getDeploymentTarget_targetId = Lens.lens (\GetDeploymentTarget' {targetId} -> targetId) (\s@GetDeploymentTarget' {} a -> s {targetId = a} :: GetDeploymentTarget)
 
-instance AWSRequest GetDeploymentTarget where
+instance Prelude.AWSRequest GetDeploymentTarget where
   type
     Rs GetDeploymentTarget =
       GetDeploymentTargetResponse
-  request = postJSON codeDeploy
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetDeploymentTargetResponse'
-            <$> (x .?> "deploymentTarget") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "deploymentTarget")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetDeploymentTarget
+instance Prelude.Hashable GetDeploymentTarget
 
-instance NFData GetDeploymentTarget
+instance Prelude.NFData GetDeploymentTarget
 
-instance ToHeaders GetDeploymentTarget where
+instance Prelude.ToHeaders GetDeploymentTarget where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodeDeploy_20141006.GetDeploymentTarget" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodeDeploy_20141006.GetDeploymentTarget" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetDeploymentTarget where
+instance Prelude.ToJSON GetDeploymentTarget where
   toJSON GetDeploymentTarget' {..} =
-    object
-      ( catMaybes
-          [ ("deploymentId" .=) <$> _gdtDeploymentId,
-            ("targetId" .=) <$> _gdtTargetId
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("deploymentId" Prelude..=)
+              Prelude.<$> deploymentId,
+            ("targetId" Prelude..=) Prelude.<$> targetId
           ]
       )
 
-instance ToPath GetDeploymentTarget where
-  toPath = const "/"
+instance Prelude.ToPath GetDeploymentTarget where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetDeploymentTarget where
-  toQuery = const mempty
+instance Prelude.ToQuery GetDeploymentTarget where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getDeploymentTargetResponse' smart constructor.
+-- | /See:/ 'newGetDeploymentTargetResponse' smart constructor.
 data GetDeploymentTargetResponse = GetDeploymentTargetResponse'
-  { _gdtrrsDeploymentTarget ::
-      !( Maybe
-           DeploymentTarget
-       ),
-    _gdtrrsResponseStatus ::
-      !Int
+  { -- | A deployment target that contains information about a deployment such as
+    -- its status, lifecycle events, and when it was last updated. It also
+    -- contains metadata about the deployment target. The deployment target
+    -- metadata depends on the deployment target\'s type (@instanceTarget@,
+    -- @lambdaTarget@, or @ecsTarget@).
+    deploymentTarget :: Prelude.Maybe DeploymentTarget,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDeploymentTargetResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDeploymentTargetResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdtrrsDeploymentTarget' - A deployment target that contains information about a deployment such as its status, lifecycle events, and when it was last updated. It also contains metadata about the deployment target. The deployment target metadata depends on the deployment target's type (@instanceTarget@ , @lambdaTarget@ , or @ecsTarget@ ).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gdtrrsResponseStatus' - -- | The response status code.
-getDeploymentTargetResponse ::
-  -- | 'gdtrrsResponseStatus'
-  Int ->
+-- 'deploymentTarget', 'getDeploymentTargetResponse_deploymentTarget' - A deployment target that contains information about a deployment such as
+-- its status, lifecycle events, and when it was last updated. It also
+-- contains metadata about the deployment target. The deployment target
+-- metadata depends on the deployment target\'s type (@instanceTarget@,
+-- @lambdaTarget@, or @ecsTarget@).
+--
+-- 'httpStatus', 'getDeploymentTargetResponse_httpStatus' - The response's http status code.
+newGetDeploymentTargetResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetDeploymentTargetResponse
-getDeploymentTargetResponse pResponseStatus_ =
+newGetDeploymentTargetResponse pHttpStatus_ =
   GetDeploymentTargetResponse'
-    { _gdtrrsDeploymentTarget =
-        Nothing,
-      _gdtrrsResponseStatus = pResponseStatus_
+    { deploymentTarget =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A deployment target that contains information about a deployment such as its status, lifecycle events, and when it was last updated. It also contains metadata about the deployment target. The deployment target metadata depends on the deployment target's type (@instanceTarget@ , @lambdaTarget@ , or @ecsTarget@ ).
-gdtrrsDeploymentTarget :: Lens' GetDeploymentTargetResponse (Maybe DeploymentTarget)
-gdtrrsDeploymentTarget = lens _gdtrrsDeploymentTarget (\s a -> s {_gdtrrsDeploymentTarget = a})
+-- | A deployment target that contains information about a deployment such as
+-- its status, lifecycle events, and when it was last updated. It also
+-- contains metadata about the deployment target. The deployment target
+-- metadata depends on the deployment target\'s type (@instanceTarget@,
+-- @lambdaTarget@, or @ecsTarget@).
+getDeploymentTargetResponse_deploymentTarget :: Lens.Lens' GetDeploymentTargetResponse (Prelude.Maybe DeploymentTarget)
+getDeploymentTargetResponse_deploymentTarget = Lens.lens (\GetDeploymentTargetResponse' {deploymentTarget} -> deploymentTarget) (\s@GetDeploymentTargetResponse' {} a -> s {deploymentTarget = a} :: GetDeploymentTargetResponse)
 
--- | -- | The response status code.
-gdtrrsResponseStatus :: Lens' GetDeploymentTargetResponse Int
-gdtrrsResponseStatus = lens _gdtrrsResponseStatus (\s a -> s {_gdtrrsResponseStatus = a})
+-- | The response's http status code.
+getDeploymentTargetResponse_httpStatus :: Lens.Lens' GetDeploymentTargetResponse Prelude.Int
+getDeploymentTargetResponse_httpStatus = Lens.lens (\GetDeploymentTargetResponse' {httpStatus} -> httpStatus) (\s@GetDeploymentTargetResponse' {} a -> s {httpStatus = a} :: GetDeploymentTargetResponse)
 
-instance NFData GetDeploymentTargetResponse
+instance Prelude.NFData GetDeploymentTargetResponse

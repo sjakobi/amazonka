@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,72 +20,72 @@
 module Network.AWS.CodeDeploy.Types.AutoRollbackConfiguration where
 
 import Network.AWS.CodeDeploy.Types.AutoRollbackEvent
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Information about a configuration for automatically rolling back to a previous version of an application revision when a deployment is not completed successfully.
+-- | Information about a configuration for automatically rolling back to a
+-- previous version of an application revision when a deployment is not
+-- completed successfully.
 --
---
---
--- /See:/ 'autoRollbackConfiguration' smart constructor.
+-- /See:/ 'newAutoRollbackConfiguration' smart constructor.
 data AutoRollbackConfiguration = AutoRollbackConfiguration'
-  { _arcEnabled ::
-      !(Maybe Bool),
-    _arcEvents ::
-      !( Maybe
-           [AutoRollbackEvent]
-       )
+  { -- | Indicates whether a defined automatic rollback configuration is
+    -- currently enabled.
+    enabled :: Prelude.Maybe Prelude.Bool,
+    -- | The event type or types that trigger a rollback.
+    events :: Prelude.Maybe [AutoRollbackEvent]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AutoRollbackConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AutoRollbackConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'arcEnabled' - Indicates whether a defined automatic rollback configuration is currently enabled.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'arcEvents' - The event type or types that trigger a rollback.
-autoRollbackConfiguration ::
+-- 'enabled', 'autoRollbackConfiguration_enabled' - Indicates whether a defined automatic rollback configuration is
+-- currently enabled.
+--
+-- 'events', 'autoRollbackConfiguration_events' - The event type or types that trigger a rollback.
+newAutoRollbackConfiguration ::
   AutoRollbackConfiguration
-autoRollbackConfiguration =
+newAutoRollbackConfiguration =
   AutoRollbackConfiguration'
-    { _arcEnabled = Nothing,
-      _arcEvents = Nothing
+    { enabled =
+        Prelude.Nothing,
+      events = Prelude.Nothing
     }
 
--- | Indicates whether a defined automatic rollback configuration is currently enabled.
-arcEnabled :: Lens' AutoRollbackConfiguration (Maybe Bool)
-arcEnabled = lens _arcEnabled (\s a -> s {_arcEnabled = a})
+-- | Indicates whether a defined automatic rollback configuration is
+-- currently enabled.
+autoRollbackConfiguration_enabled :: Lens.Lens' AutoRollbackConfiguration (Prelude.Maybe Prelude.Bool)
+autoRollbackConfiguration_enabled = Lens.lens (\AutoRollbackConfiguration' {enabled} -> enabled) (\s@AutoRollbackConfiguration' {} a -> s {enabled = a} :: AutoRollbackConfiguration)
 
 -- | The event type or types that trigger a rollback.
-arcEvents :: Lens' AutoRollbackConfiguration [AutoRollbackEvent]
-arcEvents = lens _arcEvents (\s a -> s {_arcEvents = a}) . _Default . _Coerce
+autoRollbackConfiguration_events :: Lens.Lens' AutoRollbackConfiguration (Prelude.Maybe [AutoRollbackEvent])
+autoRollbackConfiguration_events = Lens.lens (\AutoRollbackConfiguration' {events} -> events) (\s@AutoRollbackConfiguration' {} a -> s {events = a} :: AutoRollbackConfiguration) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON AutoRollbackConfiguration where
+instance Prelude.FromJSON AutoRollbackConfiguration where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AutoRollbackConfiguration"
       ( \x ->
           AutoRollbackConfiguration'
-            <$> (x .:? "enabled") <*> (x .:? "events" .!= mempty)
+            Prelude.<$> (x Prelude..:? "enabled")
+            Prelude.<*> (x Prelude..:? "events" Prelude..!= Prelude.mempty)
       )
 
-instance Hashable AutoRollbackConfiguration
+instance Prelude.Hashable AutoRollbackConfiguration
 
-instance NFData AutoRollbackConfiguration
+instance Prelude.NFData AutoRollbackConfiguration
 
-instance ToJSON AutoRollbackConfiguration where
+instance Prelude.ToJSON AutoRollbackConfiguration where
   toJSON AutoRollbackConfiguration' {..} =
-    object
-      ( catMaybes
-          [ ("enabled" .=) <$> _arcEnabled,
-            ("events" .=) <$> _arcEvents
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("enabled" Prelude..=) Prelude.<$> enabled,
+            ("events" Prelude..=) Prelude.<$> events
           ]
       )

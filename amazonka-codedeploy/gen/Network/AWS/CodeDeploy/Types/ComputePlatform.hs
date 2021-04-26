@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.CodeDeploy.Types.ComputePlatform
   ( ComputePlatform
       ( ..,
-        Ecs,
-        Lambda,
-        Server
+        ComputePlatformECS,
+        ComputePlatformLambda,
+        ComputePlatformServer
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ComputePlatform = ComputePlatform' (CI Text)
+newtype ComputePlatform = ComputePlatform'
+  { fromComputePlatform ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Ecs :: ComputePlatform
-pattern Ecs = ComputePlatform' "ECS"
+pattern ComputePlatformECS :: ComputePlatform
+pattern ComputePlatformECS = ComputePlatform' "ECS"
 
-pattern Lambda :: ComputePlatform
-pattern Lambda = ComputePlatform' "Lambda"
+pattern ComputePlatformLambda :: ComputePlatform
+pattern ComputePlatformLambda = ComputePlatform' "Lambda"
 
-pattern Server :: ComputePlatform
-pattern Server = ComputePlatform' "Server"
+pattern ComputePlatformServer :: ComputePlatform
+pattern ComputePlatformServer = ComputePlatform' "Server"
 
 {-# COMPLETE
-  Ecs,
-  Lambda,
-  Server,
+  ComputePlatformECS,
+  ComputePlatformLambda,
+  ComputePlatformServer,
   ComputePlatform'
   #-}
 
-instance FromText ComputePlatform where
-  parser = (ComputePlatform' . mk) <$> takeText
+instance Prelude.FromText ComputePlatform where
+  parser = ComputePlatform' Prelude.<$> Prelude.takeText
 
-instance ToText ComputePlatform where
-  toText (ComputePlatform' ci) = original ci
+instance Prelude.ToText ComputePlatform where
+  toText (ComputePlatform' x) = x
 
-instance Hashable ComputePlatform
+instance Prelude.Hashable ComputePlatform
 
-instance NFData ComputePlatform
+instance Prelude.NFData ComputePlatform
 
-instance ToByteString ComputePlatform
+instance Prelude.ToByteString ComputePlatform
 
-instance ToQuery ComputePlatform
+instance Prelude.ToQuery ComputePlatform
 
-instance ToHeader ComputePlatform
+instance Prelude.ToHeader ComputePlatform
 
-instance ToJSON ComputePlatform where
-  toJSON = toJSONText
+instance Prelude.ToJSON ComputePlatform where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ComputePlatform where
-  parseJSON = parseJSONText "ComputePlatform"
+instance Prelude.FromJSON ComputePlatform where
+  parseJSON = Prelude.parseJSONText "ComputePlatform"

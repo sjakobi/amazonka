@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,196 +21,208 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets information about one or more application revisions. The maximum number of application revisions that can be returned is 25.
+-- Gets information about one or more application revisions. The maximum
+-- number of application revisions that can be returned is 25.
 module Network.AWS.CodeDeploy.BatchGetApplicationRevisions
   ( -- * Creating a Request
-    batchGetApplicationRevisions,
-    BatchGetApplicationRevisions,
+    BatchGetApplicationRevisions (..),
+    newBatchGetApplicationRevisions,
 
     -- * Request Lenses
-    bgarApplicationName,
-    bgarRevisions,
+    batchGetApplicationRevisions_applicationName,
+    batchGetApplicationRevisions_revisions,
 
     -- * Destructuring the Response
-    batchGetApplicationRevisionsResponse,
-    BatchGetApplicationRevisionsResponse,
+    BatchGetApplicationRevisionsResponse (..),
+    newBatchGetApplicationRevisionsResponse,
 
     -- * Response Lenses
-    bgarrrsRevisions,
-    bgarrrsErrorMessage,
-    bgarrrsApplicationName,
-    bgarrrsResponseStatus,
+    batchGetApplicationRevisionsResponse_revisions,
+    batchGetApplicationRevisionsResponse_errorMessage,
+    batchGetApplicationRevisionsResponse_applicationName,
+    batchGetApplicationRevisionsResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodeDeploy.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CodeDeploy.Types.RevisionInfo
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input of a @BatchGetApplicationRevisions@ operation.
 --
---
---
--- /See:/ 'batchGetApplicationRevisions' smart constructor.
+-- /See:/ 'newBatchGetApplicationRevisions' smart constructor.
 data BatchGetApplicationRevisions = BatchGetApplicationRevisions'
-  { _bgarApplicationName ::
-      !Text,
-    _bgarRevisions ::
-      ![RevisionLocation]
+  { -- | The name of an AWS CodeDeploy application about which to get revision
+    -- information.
+    applicationName :: Prelude.Text,
+    -- | An array of @RevisionLocation@ objects that specify information to get
+    -- about the application revisions, including type and location. The
+    -- maximum number of @RevisionLocation@ objects you can specify is 25.
+    revisions :: [RevisionLocation]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchGetApplicationRevisions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchGetApplicationRevisions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bgarApplicationName' - The name of an AWS CodeDeploy application about which to get revision information.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bgarRevisions' - An array of @RevisionLocation@ objects that specify information to get about the application revisions, including type and location. The maximum number of @RevisionLocation@ objects you can specify is 25.
-batchGetApplicationRevisions ::
-  -- | 'bgarApplicationName'
-  Text ->
+-- 'applicationName', 'batchGetApplicationRevisions_applicationName' - The name of an AWS CodeDeploy application about which to get revision
+-- information.
+--
+-- 'revisions', 'batchGetApplicationRevisions_revisions' - An array of @RevisionLocation@ objects that specify information to get
+-- about the application revisions, including type and location. The
+-- maximum number of @RevisionLocation@ objects you can specify is 25.
+newBatchGetApplicationRevisions ::
+  -- | 'applicationName'
+  Prelude.Text ->
   BatchGetApplicationRevisions
-batchGetApplicationRevisions pApplicationName_ =
+newBatchGetApplicationRevisions pApplicationName_ =
   BatchGetApplicationRevisions'
-    { _bgarApplicationName =
+    { applicationName =
         pApplicationName_,
-      _bgarRevisions = mempty
+      revisions = Prelude.mempty
     }
 
--- | The name of an AWS CodeDeploy application about which to get revision information.
-bgarApplicationName :: Lens' BatchGetApplicationRevisions Text
-bgarApplicationName = lens _bgarApplicationName (\s a -> s {_bgarApplicationName = a})
+-- | The name of an AWS CodeDeploy application about which to get revision
+-- information.
+batchGetApplicationRevisions_applicationName :: Lens.Lens' BatchGetApplicationRevisions Prelude.Text
+batchGetApplicationRevisions_applicationName = Lens.lens (\BatchGetApplicationRevisions' {applicationName} -> applicationName) (\s@BatchGetApplicationRevisions' {} a -> s {applicationName = a} :: BatchGetApplicationRevisions)
 
--- | An array of @RevisionLocation@ objects that specify information to get about the application revisions, including type and location. The maximum number of @RevisionLocation@ objects you can specify is 25.
-bgarRevisions :: Lens' BatchGetApplicationRevisions [RevisionLocation]
-bgarRevisions = lens _bgarRevisions (\s a -> s {_bgarRevisions = a}) . _Coerce
+-- | An array of @RevisionLocation@ objects that specify information to get
+-- about the application revisions, including type and location. The
+-- maximum number of @RevisionLocation@ objects you can specify is 25.
+batchGetApplicationRevisions_revisions :: Lens.Lens' BatchGetApplicationRevisions [RevisionLocation]
+batchGetApplicationRevisions_revisions = Lens.lens (\BatchGetApplicationRevisions' {revisions} -> revisions) (\s@BatchGetApplicationRevisions' {} a -> s {revisions = a} :: BatchGetApplicationRevisions) Prelude.. Prelude._Coerce
 
-instance AWSRequest BatchGetApplicationRevisions where
+instance
+  Prelude.AWSRequest
+    BatchGetApplicationRevisions
+  where
   type
     Rs BatchGetApplicationRevisions =
       BatchGetApplicationRevisionsResponse
-  request = postJSON codeDeploy
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           BatchGetApplicationRevisionsResponse'
-            <$> (x .?> "revisions" .!@ mempty)
-            <*> (x .?> "errorMessage")
-            <*> (x .?> "applicationName")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "revisions"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "errorMessage")
+            Prelude.<*> (x Prelude..?> "applicationName")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable BatchGetApplicationRevisions
+instance
+  Prelude.Hashable
+    BatchGetApplicationRevisions
 
-instance NFData BatchGetApplicationRevisions
+instance Prelude.NFData BatchGetApplicationRevisions
 
-instance ToHeaders BatchGetApplicationRevisions where
+instance
+  Prelude.ToHeaders
+    BatchGetApplicationRevisions
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodeDeploy_20141006.BatchGetApplicationRevisions" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodeDeploy_20141006.BatchGetApplicationRevisions" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON BatchGetApplicationRevisions where
+instance Prelude.ToJSON BatchGetApplicationRevisions where
   toJSON BatchGetApplicationRevisions' {..} =
-    object
-      ( catMaybes
-          [ Just ("applicationName" .= _bgarApplicationName),
-            Just ("revisions" .= _bgarRevisions)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("applicationName" Prelude..= applicationName),
+            Prelude.Just ("revisions" Prelude..= revisions)
           ]
       )
 
-instance ToPath BatchGetApplicationRevisions where
-  toPath = const "/"
+instance Prelude.ToPath BatchGetApplicationRevisions where
+  toPath = Prelude.const "/"
 
-instance ToQuery BatchGetApplicationRevisions where
-  toQuery = const mempty
+instance Prelude.ToQuery BatchGetApplicationRevisions where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a @BatchGetApplicationRevisions@ operation.
 --
---
---
--- /See:/ 'batchGetApplicationRevisionsResponse' smart constructor.
+-- /See:/ 'newBatchGetApplicationRevisionsResponse' smart constructor.
 data BatchGetApplicationRevisionsResponse = BatchGetApplicationRevisionsResponse'
-  { _bgarrrsRevisions ::
-      !( Maybe
-           [RevisionInfo]
-       ),
-    _bgarrrsErrorMessage ::
-      !( Maybe
-           Text
-       ),
-    _bgarrrsApplicationName ::
-      !( Maybe
-           Text
-       ),
-    _bgarrrsResponseStatus ::
-      !Int
+  { -- | Additional information about the revisions, including the type and
+    -- location.
+    revisions :: Prelude.Maybe [RevisionInfo],
+    -- | Information about errors that might have occurred during the API call.
+    errorMessage :: Prelude.Maybe Prelude.Text,
+    -- | The name of the application that corresponds to the revisions.
+    applicationName :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchGetApplicationRevisionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchGetApplicationRevisionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bgarrrsRevisions' - Additional information about the revisions, including the type and location.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bgarrrsErrorMessage' - Information about errors that might have occurred during the API call.
+-- 'revisions', 'batchGetApplicationRevisionsResponse_revisions' - Additional information about the revisions, including the type and
+-- location.
 --
--- * 'bgarrrsApplicationName' - The name of the application that corresponds to the revisions.
+-- 'errorMessage', 'batchGetApplicationRevisionsResponse_errorMessage' - Information about errors that might have occurred during the API call.
 --
--- * 'bgarrrsResponseStatus' - -- | The response status code.
-batchGetApplicationRevisionsResponse ::
-  -- | 'bgarrrsResponseStatus'
-  Int ->
+-- 'applicationName', 'batchGetApplicationRevisionsResponse_applicationName' - The name of the application that corresponds to the revisions.
+--
+-- 'httpStatus', 'batchGetApplicationRevisionsResponse_httpStatus' - The response's http status code.
+newBatchGetApplicationRevisionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   BatchGetApplicationRevisionsResponse
-batchGetApplicationRevisionsResponse pResponseStatus_ =
+newBatchGetApplicationRevisionsResponse pHttpStatus_ =
   BatchGetApplicationRevisionsResponse'
-    { _bgarrrsRevisions =
-        Nothing,
-      _bgarrrsErrorMessage = Nothing,
-      _bgarrrsApplicationName = Nothing,
-      _bgarrrsResponseStatus =
-        pResponseStatus_
+    { revisions =
+        Prelude.Nothing,
+      errorMessage = Prelude.Nothing,
+      applicationName = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Additional information about the revisions, including the type and location.
-bgarrrsRevisions :: Lens' BatchGetApplicationRevisionsResponse [RevisionInfo]
-bgarrrsRevisions = lens _bgarrrsRevisions (\s a -> s {_bgarrrsRevisions = a}) . _Default . _Coerce
+-- | Additional information about the revisions, including the type and
+-- location.
+batchGetApplicationRevisionsResponse_revisions :: Lens.Lens' BatchGetApplicationRevisionsResponse (Prelude.Maybe [RevisionInfo])
+batchGetApplicationRevisionsResponse_revisions = Lens.lens (\BatchGetApplicationRevisionsResponse' {revisions} -> revisions) (\s@BatchGetApplicationRevisionsResponse' {} a -> s {revisions = a} :: BatchGetApplicationRevisionsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Information about errors that might have occurred during the API call.
-bgarrrsErrorMessage :: Lens' BatchGetApplicationRevisionsResponse (Maybe Text)
-bgarrrsErrorMessage = lens _bgarrrsErrorMessage (\s a -> s {_bgarrrsErrorMessage = a})
+batchGetApplicationRevisionsResponse_errorMessage :: Lens.Lens' BatchGetApplicationRevisionsResponse (Prelude.Maybe Prelude.Text)
+batchGetApplicationRevisionsResponse_errorMessage = Lens.lens (\BatchGetApplicationRevisionsResponse' {errorMessage} -> errorMessage) (\s@BatchGetApplicationRevisionsResponse' {} a -> s {errorMessage = a} :: BatchGetApplicationRevisionsResponse)
 
 -- | The name of the application that corresponds to the revisions.
-bgarrrsApplicationName :: Lens' BatchGetApplicationRevisionsResponse (Maybe Text)
-bgarrrsApplicationName = lens _bgarrrsApplicationName (\s a -> s {_bgarrrsApplicationName = a})
+batchGetApplicationRevisionsResponse_applicationName :: Lens.Lens' BatchGetApplicationRevisionsResponse (Prelude.Maybe Prelude.Text)
+batchGetApplicationRevisionsResponse_applicationName = Lens.lens (\BatchGetApplicationRevisionsResponse' {applicationName} -> applicationName) (\s@BatchGetApplicationRevisionsResponse' {} a -> s {applicationName = a} :: BatchGetApplicationRevisionsResponse)
 
--- | -- | The response status code.
-bgarrrsResponseStatus :: Lens' BatchGetApplicationRevisionsResponse Int
-bgarrrsResponseStatus = lens _bgarrrsResponseStatus (\s a -> s {_bgarrrsResponseStatus = a})
+-- | The response's http status code.
+batchGetApplicationRevisionsResponse_httpStatus :: Lens.Lens' BatchGetApplicationRevisionsResponse Prelude.Int
+batchGetApplicationRevisionsResponse_httpStatus = Lens.lens (\BatchGetApplicationRevisionsResponse' {httpStatus} -> httpStatus) (\s@BatchGetApplicationRevisionsResponse' {} a -> s {httpStatus = a} :: BatchGetApplicationRevisionsResponse)
 
-instance NFData BatchGetApplicationRevisionsResponse
+instance
+  Prelude.NFData
+    BatchGetApplicationRevisionsResponse

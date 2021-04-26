@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.CodeDeploy.Types.EC2TagFilterType
   ( EC2TagFilterType
       ( ..,
-        ETFTKeyAndValue,
-        ETFTKeyOnly,
-        ETFTValueOnly
+        EC2TagFilterTypeKEYANDVALUE,
+        EC2TagFilterTypeKEYONLY,
+        EC2TagFilterTypeVALUEONLY
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data EC2TagFilterType = EC2TagFilterType' (CI Text)
+newtype EC2TagFilterType = EC2TagFilterType'
+  { fromEC2TagFilterType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ETFTKeyAndValue :: EC2TagFilterType
-pattern ETFTKeyAndValue = EC2TagFilterType' "KEY_AND_VALUE"
+pattern EC2TagFilterTypeKEYANDVALUE :: EC2TagFilterType
+pattern EC2TagFilterTypeKEYANDVALUE = EC2TagFilterType' "KEY_AND_VALUE"
 
-pattern ETFTKeyOnly :: EC2TagFilterType
-pattern ETFTKeyOnly = EC2TagFilterType' "KEY_ONLY"
+pattern EC2TagFilterTypeKEYONLY :: EC2TagFilterType
+pattern EC2TagFilterTypeKEYONLY = EC2TagFilterType' "KEY_ONLY"
 
-pattern ETFTValueOnly :: EC2TagFilterType
-pattern ETFTValueOnly = EC2TagFilterType' "VALUE_ONLY"
+pattern EC2TagFilterTypeVALUEONLY :: EC2TagFilterType
+pattern EC2TagFilterTypeVALUEONLY = EC2TagFilterType' "VALUE_ONLY"
 
 {-# COMPLETE
-  ETFTKeyAndValue,
-  ETFTKeyOnly,
-  ETFTValueOnly,
+  EC2TagFilterTypeKEYANDVALUE,
+  EC2TagFilterTypeKEYONLY,
+  EC2TagFilterTypeVALUEONLY,
   EC2TagFilterType'
   #-}
 
-instance FromText EC2TagFilterType where
-  parser = (EC2TagFilterType' . mk) <$> takeText
+instance Prelude.FromText EC2TagFilterType where
+  parser = EC2TagFilterType' Prelude.<$> Prelude.takeText
 
-instance ToText EC2TagFilterType where
-  toText (EC2TagFilterType' ci) = original ci
+instance Prelude.ToText EC2TagFilterType where
+  toText (EC2TagFilterType' x) = x
 
-instance Hashable EC2TagFilterType
+instance Prelude.Hashable EC2TagFilterType
 
-instance NFData EC2TagFilterType
+instance Prelude.NFData EC2TagFilterType
 
-instance ToByteString EC2TagFilterType
+instance Prelude.ToByteString EC2TagFilterType
 
-instance ToQuery EC2TagFilterType
+instance Prelude.ToQuery EC2TagFilterType
 
-instance ToHeader EC2TagFilterType
+instance Prelude.ToHeader EC2TagFilterType
 
-instance ToJSON EC2TagFilterType where
-  toJSON = toJSONText
+instance Prelude.ToJSON EC2TagFilterType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON EC2TagFilterType where
-  parseJSON = parseJSONText "EC2TagFilterType"
+instance Prelude.FromJSON EC2TagFilterType where
+  parseJSON = Prelude.parseJSONText "EC2TagFilterType"

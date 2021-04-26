@@ -1,5 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -14,36 +16,47 @@
 module Network.AWS.CodeDeploy.Waiters where
 
 import Network.AWS.CodeDeploy.GetDeployment
+import Network.AWS.CodeDeploy.Lens
 import Network.AWS.CodeDeploy.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Waiter
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Waiter as Waiter
 
 -- | Polls 'Network.AWS.CodeDeploy.GetDeployment' every 15 seconds until a successful state is reached. An error is returned after 120 failed checks.
-deploymentSuccessful :: Wait GetDeployment
-deploymentSuccessful =
-  Wait
-    { _waitName = "DeploymentSuccessful",
-      _waitAttempts = 120,
-      _waitDelay = 15,
-      _waitAcceptors =
-        [ matchAll
+newDeploymentSuccessful :: Waiter.Wait GetDeployment
+newDeploymentSuccessful =
+  Waiter.Wait
+    { Waiter._waitName =
+        "DeploymentSuccessful",
+      Waiter._waitAttempts = 120,
+      Waiter._waitDelay = 15,
+      Waiter._waitAcceptors =
+        [ Waiter.matchAll
             "Succeeded"
-            AcceptSuccess
-            ( gdrrsDeploymentInfo . _Just . diStatus . _Just
-                . to toTextCI
+            Waiter.AcceptSuccess
+            ( getDeploymentResponse_deploymentInfo
+                Prelude.. Lens._Just
+                Prelude.. deploymentInfo_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAll
+          Waiter.matchAll
             "Failed"
-            AcceptFailure
-            ( gdrrsDeploymentInfo . _Just . diStatus . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( getDeploymentResponse_deploymentInfo
+                Prelude.. Lens._Just
+                Prelude.. deploymentInfo_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAll
+          Waiter.matchAll
             "Stopped"
-            AcceptFailure
-            ( gdrrsDeploymentInfo . _Just . diStatus . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( getDeploymentResponse_deploymentInfo
+                Prelude.. Lens._Just
+                Prelude.. deploymentInfo_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             )
         ]
     }

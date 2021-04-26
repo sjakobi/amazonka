@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.CodeDeploy.Types.AutoRollbackEvent
   ( AutoRollbackEvent
       ( ..,
-        DeploymentFailure,
-        DeploymentStopOnAlarm,
-        DeploymentStopOnRequest
+        AutoRollbackEventDEPLOYMENTFAILURE,
+        AutoRollbackEventDEPLOYMENTSTOPONALARM,
+        AutoRollbackEventDEPLOYMENTSTOPONREQUEST
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AutoRollbackEvent = AutoRollbackEvent' (CI Text)
+newtype AutoRollbackEvent = AutoRollbackEvent'
+  { fromAutoRollbackEvent ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DeploymentFailure :: AutoRollbackEvent
-pattern DeploymentFailure = AutoRollbackEvent' "DEPLOYMENT_FAILURE"
+pattern AutoRollbackEventDEPLOYMENTFAILURE :: AutoRollbackEvent
+pattern AutoRollbackEventDEPLOYMENTFAILURE = AutoRollbackEvent' "DEPLOYMENT_FAILURE"
 
-pattern DeploymentStopOnAlarm :: AutoRollbackEvent
-pattern DeploymentStopOnAlarm = AutoRollbackEvent' "DEPLOYMENT_STOP_ON_ALARM"
+pattern AutoRollbackEventDEPLOYMENTSTOPONALARM :: AutoRollbackEvent
+pattern AutoRollbackEventDEPLOYMENTSTOPONALARM = AutoRollbackEvent' "DEPLOYMENT_STOP_ON_ALARM"
 
-pattern DeploymentStopOnRequest :: AutoRollbackEvent
-pattern DeploymentStopOnRequest = AutoRollbackEvent' "DEPLOYMENT_STOP_ON_REQUEST"
+pattern AutoRollbackEventDEPLOYMENTSTOPONREQUEST :: AutoRollbackEvent
+pattern AutoRollbackEventDEPLOYMENTSTOPONREQUEST = AutoRollbackEvent' "DEPLOYMENT_STOP_ON_REQUEST"
 
 {-# COMPLETE
-  DeploymentFailure,
-  DeploymentStopOnAlarm,
-  DeploymentStopOnRequest,
+  AutoRollbackEventDEPLOYMENTFAILURE,
+  AutoRollbackEventDEPLOYMENTSTOPONALARM,
+  AutoRollbackEventDEPLOYMENTSTOPONREQUEST,
   AutoRollbackEvent'
   #-}
 
-instance FromText AutoRollbackEvent where
-  parser = (AutoRollbackEvent' . mk) <$> takeText
+instance Prelude.FromText AutoRollbackEvent where
+  parser = AutoRollbackEvent' Prelude.<$> Prelude.takeText
 
-instance ToText AutoRollbackEvent where
-  toText (AutoRollbackEvent' ci) = original ci
+instance Prelude.ToText AutoRollbackEvent where
+  toText (AutoRollbackEvent' x) = x
 
-instance Hashable AutoRollbackEvent
+instance Prelude.Hashable AutoRollbackEvent
 
-instance NFData AutoRollbackEvent
+instance Prelude.NFData AutoRollbackEvent
 
-instance ToByteString AutoRollbackEvent
+instance Prelude.ToByteString AutoRollbackEvent
 
-instance ToQuery AutoRollbackEvent
+instance Prelude.ToQuery AutoRollbackEvent
 
-instance ToHeader AutoRollbackEvent
+instance Prelude.ToHeader AutoRollbackEvent
 
-instance ToJSON AutoRollbackEvent where
-  toJSON = toJSONText
+instance Prelude.ToJSON AutoRollbackEvent where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AutoRollbackEvent where
-  parseJSON = parseJSONText "AutoRollbackEvent"
+instance Prelude.FromJSON AutoRollbackEvent where
+  parseJSON = Prelude.parseJSONText "AutoRollbackEvent"

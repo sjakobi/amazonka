@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,74 +20,106 @@
 module Network.AWS.CodeDeploy.Types.DeploymentReadyOption where
 
 import Network.AWS.CodeDeploy.Types.DeploymentReadyAction
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Information about how traffic is rerouted to instances in a replacement environment in a blue/green deployment.
+-- | Information about how traffic is rerouted to instances in a replacement
+-- environment in a blue\/green deployment.
 --
---
---
--- /See:/ 'deploymentReadyOption' smart constructor.
+-- /See:/ 'newDeploymentReadyOption' smart constructor.
 data DeploymentReadyOption = DeploymentReadyOption'
-  { _droWaitTimeInMinutes ::
-      !(Maybe Int),
-    _droActionOnTimeout ::
-      !( Maybe
-           DeploymentReadyAction
-       )
+  { -- | The number of minutes to wait before the status of a blue\/green
+    -- deployment is changed to Stopped if rerouting is not started manually.
+    -- Applies only to the @STOP_DEPLOYMENT@ option for @actionOnTimeout@.
+    waitTimeInMinutes :: Prelude.Maybe Prelude.Int,
+    -- | Information about when to reroute traffic from an original environment
+    -- to a replacement environment in a blue\/green deployment.
+    --
+    -- -   CONTINUE_DEPLOYMENT: Register new instances with the load balancer
+    --     immediately after the new application revision is installed on the
+    --     instances in the replacement environment.
+    --
+    -- -   STOP_DEPLOYMENT: Do not register new instances with a load balancer
+    --     unless traffic rerouting is started using ContinueDeployment. If
+    --     traffic rerouting is not started before the end of the specified
+    --     wait period, the deployment status is changed to Stopped.
+    actionOnTimeout :: Prelude.Maybe DeploymentReadyAction
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeploymentReadyOption' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeploymentReadyOption' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'droWaitTimeInMinutes' - The number of minutes to wait before the status of a blue/green deployment is changed to Stopped if rerouting is not started manually. Applies only to the @STOP_DEPLOYMENT@ option for @actionOnTimeout@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'droActionOnTimeout' - Information about when to reroute traffic from an original environment to a replacement environment in a blue/green deployment.     * CONTINUE_DEPLOYMENT: Register new instances with the load balancer immediately after the new application revision is installed on the instances in the replacement environment.     * STOP_DEPLOYMENT: Do not register new instances with a load balancer unless traffic rerouting is started using 'ContinueDeployment' . If traffic rerouting is not started before the end of the specified wait period, the deployment status is changed to Stopped.
-deploymentReadyOption ::
+-- 'waitTimeInMinutes', 'deploymentReadyOption_waitTimeInMinutes' - The number of minutes to wait before the status of a blue\/green
+-- deployment is changed to Stopped if rerouting is not started manually.
+-- Applies only to the @STOP_DEPLOYMENT@ option for @actionOnTimeout@.
+--
+-- 'actionOnTimeout', 'deploymentReadyOption_actionOnTimeout' - Information about when to reroute traffic from an original environment
+-- to a replacement environment in a blue\/green deployment.
+--
+-- -   CONTINUE_DEPLOYMENT: Register new instances with the load balancer
+--     immediately after the new application revision is installed on the
+--     instances in the replacement environment.
+--
+-- -   STOP_DEPLOYMENT: Do not register new instances with a load balancer
+--     unless traffic rerouting is started using ContinueDeployment. If
+--     traffic rerouting is not started before the end of the specified
+--     wait period, the deployment status is changed to Stopped.
+newDeploymentReadyOption ::
   DeploymentReadyOption
-deploymentReadyOption =
+newDeploymentReadyOption =
   DeploymentReadyOption'
-    { _droWaitTimeInMinutes =
-        Nothing,
-      _droActionOnTimeout = Nothing
+    { waitTimeInMinutes =
+        Prelude.Nothing,
+      actionOnTimeout = Prelude.Nothing
     }
 
--- | The number of minutes to wait before the status of a blue/green deployment is changed to Stopped if rerouting is not started manually. Applies only to the @STOP_DEPLOYMENT@ option for @actionOnTimeout@ .
-droWaitTimeInMinutes :: Lens' DeploymentReadyOption (Maybe Int)
-droWaitTimeInMinutes = lens _droWaitTimeInMinutes (\s a -> s {_droWaitTimeInMinutes = a})
+-- | The number of minutes to wait before the status of a blue\/green
+-- deployment is changed to Stopped if rerouting is not started manually.
+-- Applies only to the @STOP_DEPLOYMENT@ option for @actionOnTimeout@.
+deploymentReadyOption_waitTimeInMinutes :: Lens.Lens' DeploymentReadyOption (Prelude.Maybe Prelude.Int)
+deploymentReadyOption_waitTimeInMinutes = Lens.lens (\DeploymentReadyOption' {waitTimeInMinutes} -> waitTimeInMinutes) (\s@DeploymentReadyOption' {} a -> s {waitTimeInMinutes = a} :: DeploymentReadyOption)
 
--- | Information about when to reroute traffic from an original environment to a replacement environment in a blue/green deployment.     * CONTINUE_DEPLOYMENT: Register new instances with the load balancer immediately after the new application revision is installed on the instances in the replacement environment.     * STOP_DEPLOYMENT: Do not register new instances with a load balancer unless traffic rerouting is started using 'ContinueDeployment' . If traffic rerouting is not started before the end of the specified wait period, the deployment status is changed to Stopped.
-droActionOnTimeout :: Lens' DeploymentReadyOption (Maybe DeploymentReadyAction)
-droActionOnTimeout = lens _droActionOnTimeout (\s a -> s {_droActionOnTimeout = a})
+-- | Information about when to reroute traffic from an original environment
+-- to a replacement environment in a blue\/green deployment.
+--
+-- -   CONTINUE_DEPLOYMENT: Register new instances with the load balancer
+--     immediately after the new application revision is installed on the
+--     instances in the replacement environment.
+--
+-- -   STOP_DEPLOYMENT: Do not register new instances with a load balancer
+--     unless traffic rerouting is started using ContinueDeployment. If
+--     traffic rerouting is not started before the end of the specified
+--     wait period, the deployment status is changed to Stopped.
+deploymentReadyOption_actionOnTimeout :: Lens.Lens' DeploymentReadyOption (Prelude.Maybe DeploymentReadyAction)
+deploymentReadyOption_actionOnTimeout = Lens.lens (\DeploymentReadyOption' {actionOnTimeout} -> actionOnTimeout) (\s@DeploymentReadyOption' {} a -> s {actionOnTimeout = a} :: DeploymentReadyOption)
 
-instance FromJSON DeploymentReadyOption where
+instance Prelude.FromJSON DeploymentReadyOption where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DeploymentReadyOption"
       ( \x ->
           DeploymentReadyOption'
-            <$> (x .:? "waitTimeInMinutes")
-            <*> (x .:? "actionOnTimeout")
+            Prelude.<$> (x Prelude..:? "waitTimeInMinutes")
+            Prelude.<*> (x Prelude..:? "actionOnTimeout")
       )
 
-instance Hashable DeploymentReadyOption
+instance Prelude.Hashable DeploymentReadyOption
 
-instance NFData DeploymentReadyOption
+instance Prelude.NFData DeploymentReadyOption
 
-instance ToJSON DeploymentReadyOption where
+instance Prelude.ToJSON DeploymentReadyOption where
   toJSON DeploymentReadyOption' {..} =
-    object
-      ( catMaybes
-          [ ("waitTimeInMinutes" .=) <$> _droWaitTimeInMinutes,
-            ("actionOnTimeout" .=) <$> _droActionOnTimeout
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("waitTimeInMinutes" Prelude..=)
+              Prelude.<$> waitTimeInMinutes,
+            ("actionOnTimeout" Prelude..=)
+              Prelude.<$> actionOnTimeout
           ]
       )

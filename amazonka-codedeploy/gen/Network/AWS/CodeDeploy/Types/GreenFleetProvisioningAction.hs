@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.CodeDeploy.Types.GreenFleetProvisioningAction
   ( GreenFleetProvisioningAction
       ( ..,
-        CopyAutoScalingGroup,
-        DiscoverExisting
+        GreenFleetProvisioningActionCOPYAUTOSCALINGGROUP,
+        GreenFleetProvisioningActionDISCOVEREXISTING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data GreenFleetProvisioningAction
-  = GreenFleetProvisioningAction'
-      ( CI
-          Text
-      )
+newtype GreenFleetProvisioningAction = GreenFleetProvisioningAction'
+  { fromGreenFleetProvisioningAction ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CopyAutoScalingGroup :: GreenFleetProvisioningAction
-pattern CopyAutoScalingGroup = GreenFleetProvisioningAction' "COPY_AUTO_SCALING_GROUP"
+pattern GreenFleetProvisioningActionCOPYAUTOSCALINGGROUP :: GreenFleetProvisioningAction
+pattern GreenFleetProvisioningActionCOPYAUTOSCALINGGROUP = GreenFleetProvisioningAction' "COPY_AUTO_SCALING_GROUP"
 
-pattern DiscoverExisting :: GreenFleetProvisioningAction
-pattern DiscoverExisting = GreenFleetProvisioningAction' "DISCOVER_EXISTING"
+pattern GreenFleetProvisioningActionDISCOVEREXISTING :: GreenFleetProvisioningAction
+pattern GreenFleetProvisioningActionDISCOVEREXISTING = GreenFleetProvisioningAction' "DISCOVER_EXISTING"
 
 {-# COMPLETE
-  CopyAutoScalingGroup,
-  DiscoverExisting,
+  GreenFleetProvisioningActionCOPYAUTOSCALINGGROUP,
+  GreenFleetProvisioningActionDISCOVEREXISTING,
   GreenFleetProvisioningAction'
   #-}
 
-instance FromText GreenFleetProvisioningAction where
-  parser = (GreenFleetProvisioningAction' . mk) <$> takeText
+instance Prelude.FromText GreenFleetProvisioningAction where
+  parser = GreenFleetProvisioningAction' Prelude.<$> Prelude.takeText
 
-instance ToText GreenFleetProvisioningAction where
-  toText (GreenFleetProvisioningAction' ci) = original ci
+instance Prelude.ToText GreenFleetProvisioningAction where
+  toText (GreenFleetProvisioningAction' x) = x
 
-instance Hashable GreenFleetProvisioningAction
+instance Prelude.Hashable GreenFleetProvisioningAction
 
-instance NFData GreenFleetProvisioningAction
+instance Prelude.NFData GreenFleetProvisioningAction
 
-instance ToByteString GreenFleetProvisioningAction
+instance Prelude.ToByteString GreenFleetProvisioningAction
 
-instance ToQuery GreenFleetProvisioningAction
+instance Prelude.ToQuery GreenFleetProvisioningAction
 
-instance ToHeader GreenFleetProvisioningAction
+instance Prelude.ToHeader GreenFleetProvisioningAction
 
-instance ToJSON GreenFleetProvisioningAction where
-  toJSON = toJSONText
+instance Prelude.ToJSON GreenFleetProvisioningAction where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON GreenFleetProvisioningAction where
-  parseJSON = parseJSONText "GreenFleetProvisioningAction"
+instance Prelude.FromJSON GreenFleetProvisioningAction where
+  parseJSON = Prelude.parseJSONText "GreenFleetProvisioningAction"

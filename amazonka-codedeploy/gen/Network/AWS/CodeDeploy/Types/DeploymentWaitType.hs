@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.CodeDeploy.Types.DeploymentWaitType
   ( DeploymentWaitType
       ( ..,
-        ReadyWait,
-        TerminationWait
+        DeploymentWaitTypeREADYWAIT,
+        DeploymentWaitTypeTERMINATIONWAIT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DeploymentWaitType
-  = DeploymentWaitType'
-      ( CI
-          Text
-      )
+newtype DeploymentWaitType = DeploymentWaitType'
+  { fromDeploymentWaitType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ReadyWait :: DeploymentWaitType
-pattern ReadyWait = DeploymentWaitType' "READY_WAIT"
+pattern DeploymentWaitTypeREADYWAIT :: DeploymentWaitType
+pattern DeploymentWaitTypeREADYWAIT = DeploymentWaitType' "READY_WAIT"
 
-pattern TerminationWait :: DeploymentWaitType
-pattern TerminationWait = DeploymentWaitType' "TERMINATION_WAIT"
+pattern DeploymentWaitTypeTERMINATIONWAIT :: DeploymentWaitType
+pattern DeploymentWaitTypeTERMINATIONWAIT = DeploymentWaitType' "TERMINATION_WAIT"
 
 {-# COMPLETE
-  ReadyWait,
-  TerminationWait,
+  DeploymentWaitTypeREADYWAIT,
+  DeploymentWaitTypeTERMINATIONWAIT,
   DeploymentWaitType'
   #-}
 
-instance FromText DeploymentWaitType where
-  parser = (DeploymentWaitType' . mk) <$> takeText
+instance Prelude.FromText DeploymentWaitType where
+  parser = DeploymentWaitType' Prelude.<$> Prelude.takeText
 
-instance ToText DeploymentWaitType where
-  toText (DeploymentWaitType' ci) = original ci
+instance Prelude.ToText DeploymentWaitType where
+  toText (DeploymentWaitType' x) = x
 
-instance Hashable DeploymentWaitType
+instance Prelude.Hashable DeploymentWaitType
 
-instance NFData DeploymentWaitType
+instance Prelude.NFData DeploymentWaitType
 
-instance ToByteString DeploymentWaitType
+instance Prelude.ToByteString DeploymentWaitType
 
-instance ToQuery DeploymentWaitType
+instance Prelude.ToQuery DeploymentWaitType
 
-instance ToHeader DeploymentWaitType
+instance Prelude.ToHeader DeploymentWaitType
 
-instance ToJSON DeploymentWaitType where
-  toJSON = toJSONText
+instance Prelude.ToJSON DeploymentWaitType where
+  toJSON = Prelude.toJSONText

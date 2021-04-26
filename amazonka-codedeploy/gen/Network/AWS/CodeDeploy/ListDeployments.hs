@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,220 +21,322 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists the deployments in a deployment group for an application registered with the IAM user or AWS account.
---
---
+-- Lists the deployments in a deployment group for an application
+-- registered with the IAM user or AWS account.
 --
 -- This operation returns paginated results.
 module Network.AWS.CodeDeploy.ListDeployments
   ( -- * Creating a Request
-    listDeployments,
-    ListDeployments,
+    ListDeployments (..),
+    newListDeployments,
 
     -- * Request Lenses
-    ldNextToken,
-    ldDeploymentGroupName,
-    ldCreateTimeRange,
-    ldIncludeOnlyStatuses,
-    ldExternalId,
-    ldApplicationName,
+    listDeployments_nextToken,
+    listDeployments_deploymentGroupName,
+    listDeployments_createTimeRange,
+    listDeployments_includeOnlyStatuses,
+    listDeployments_externalId,
+    listDeployments_applicationName,
 
     -- * Destructuring the Response
-    listDeploymentsResponse,
-    ListDeploymentsResponse,
+    ListDeploymentsResponse (..),
+    newListDeploymentsResponse,
 
     -- * Response Lenses
-    ldrrsNextToken,
-    ldrrsDeployments,
-    ldrrsResponseStatus,
+    listDeploymentsResponse_nextToken,
+    listDeploymentsResponse_deployments,
+    listDeploymentsResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodeDeploy.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input of a @ListDeployments@ operation.
 --
---
---
--- /See:/ 'listDeployments' smart constructor.
+-- /See:/ 'newListDeployments' smart constructor.
 data ListDeployments = ListDeployments'
-  { _ldNextToken ::
-      !(Maybe Text),
-    _ldDeploymentGroupName :: !(Maybe Text),
-    _ldCreateTimeRange ::
-      !(Maybe TimeRange),
-    _ldIncludeOnlyStatuses ::
-      !(Maybe [DeploymentStatus]),
-    _ldExternalId :: !(Maybe Text),
-    _ldApplicationName :: !(Maybe Text)
+  { -- | An identifier returned from the previous list deployments call. It can
+    -- be used to return the next set of deployments in the list.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The name of a deployment group for the specified application.
+    --
+    -- If @deploymentGroupName@ is specified, then @applicationName@ must be
+    -- specified. If it is not specified, then @applicationName@ must not be
+    -- specified.
+    deploymentGroupName :: Prelude.Maybe Prelude.Text,
+    -- | A time range (start and end) for returning a subset of the list of
+    -- deployments.
+    createTimeRange :: Prelude.Maybe TimeRange,
+    -- | A subset of deployments to list by status:
+    --
+    -- -   @Created@: Include created deployments in the resulting list.
+    --
+    -- -   @Queued@: Include queued deployments in the resulting list.
+    --
+    -- -   @In Progress@: Include in-progress deployments in the resulting
+    --     list.
+    --
+    -- -   @Succeeded@: Include successful deployments in the resulting list.
+    --
+    -- -   @Failed@: Include failed deployments in the resulting list.
+    --
+    -- -   @Stopped@: Include stopped deployments in the resulting list.
+    includeOnlyStatuses :: Prelude.Maybe [DeploymentStatus],
+    -- | The unique ID of an external resource for returning deployments linked
+    -- to the external resource.
+    externalId :: Prelude.Maybe Prelude.Text,
+    -- | The name of an AWS CodeDeploy application associated with the IAM user
+    -- or AWS account.
+    --
+    -- If @applicationName@ is specified, then @deploymentGroupName@ must be
+    -- specified. If it is not specified, then @deploymentGroupName@ must not
+    -- be specified.
+    applicationName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListDeployments' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListDeployments' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ldNextToken' - An identifier returned from the previous list deployments call. It can be used to return the next set of deployments in the list.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ldDeploymentGroupName' - The name of a deployment group for the specified application.
+-- 'nextToken', 'listDeployments_nextToken' - An identifier returned from the previous list deployments call. It can
+-- be used to return the next set of deployments in the list.
 --
--- * 'ldCreateTimeRange' - A time range (start and end) for returning a subset of the list of deployments.
+-- 'deploymentGroupName', 'listDeployments_deploymentGroupName' - The name of a deployment group for the specified application.
 --
--- * 'ldIncludeOnlyStatuses' - A subset of deployments to list by status:     * @Created@ : Include created deployments in the resulting list.     * @Queued@ : Include queued deployments in the resulting list.     * @In Progress@ : Include in-progress deployments in the resulting list.     * @Succeeded@ : Include successful deployments in the resulting list.     * @Failed@ : Include failed deployments in the resulting list.     * @Stopped@ : Include stopped deployments in the resulting list.
+-- If @deploymentGroupName@ is specified, then @applicationName@ must be
+-- specified. If it is not specified, then @applicationName@ must not be
+-- specified.
 --
--- * 'ldExternalId' - The unique ID of an external resource for returning deployments linked to the external resource.
+-- 'createTimeRange', 'listDeployments_createTimeRange' - A time range (start and end) for returning a subset of the list of
+-- deployments.
 --
--- * 'ldApplicationName' - The name of an AWS CodeDeploy application associated with the IAM user or AWS account.
-listDeployments ::
+-- 'includeOnlyStatuses', 'listDeployments_includeOnlyStatuses' - A subset of deployments to list by status:
+--
+-- -   @Created@: Include created deployments in the resulting list.
+--
+-- -   @Queued@: Include queued deployments in the resulting list.
+--
+-- -   @In Progress@: Include in-progress deployments in the resulting
+--     list.
+--
+-- -   @Succeeded@: Include successful deployments in the resulting list.
+--
+-- -   @Failed@: Include failed deployments in the resulting list.
+--
+-- -   @Stopped@: Include stopped deployments in the resulting list.
+--
+-- 'externalId', 'listDeployments_externalId' - The unique ID of an external resource for returning deployments linked
+-- to the external resource.
+--
+-- 'applicationName', 'listDeployments_applicationName' - The name of an AWS CodeDeploy application associated with the IAM user
+-- or AWS account.
+--
+-- If @applicationName@ is specified, then @deploymentGroupName@ must be
+-- specified. If it is not specified, then @deploymentGroupName@ must not
+-- be specified.
+newListDeployments ::
   ListDeployments
-listDeployments =
+newListDeployments =
   ListDeployments'
-    { _ldNextToken = Nothing,
-      _ldDeploymentGroupName = Nothing,
-      _ldCreateTimeRange = Nothing,
-      _ldIncludeOnlyStatuses = Nothing,
-      _ldExternalId = Nothing,
-      _ldApplicationName = Nothing
+    { nextToken = Prelude.Nothing,
+      deploymentGroupName = Prelude.Nothing,
+      createTimeRange = Prelude.Nothing,
+      includeOnlyStatuses = Prelude.Nothing,
+      externalId = Prelude.Nothing,
+      applicationName = Prelude.Nothing
     }
 
--- | An identifier returned from the previous list deployments call. It can be used to return the next set of deployments in the list.
-ldNextToken :: Lens' ListDeployments (Maybe Text)
-ldNextToken = lens _ldNextToken (\s a -> s {_ldNextToken = a})
+-- | An identifier returned from the previous list deployments call. It can
+-- be used to return the next set of deployments in the list.
+listDeployments_nextToken :: Lens.Lens' ListDeployments (Prelude.Maybe Prelude.Text)
+listDeployments_nextToken = Lens.lens (\ListDeployments' {nextToken} -> nextToken) (\s@ListDeployments' {} a -> s {nextToken = a} :: ListDeployments)
 
 -- | The name of a deployment group for the specified application.
-ldDeploymentGroupName :: Lens' ListDeployments (Maybe Text)
-ldDeploymentGroupName = lens _ldDeploymentGroupName (\s a -> s {_ldDeploymentGroupName = a})
+--
+-- If @deploymentGroupName@ is specified, then @applicationName@ must be
+-- specified. If it is not specified, then @applicationName@ must not be
+-- specified.
+listDeployments_deploymentGroupName :: Lens.Lens' ListDeployments (Prelude.Maybe Prelude.Text)
+listDeployments_deploymentGroupName = Lens.lens (\ListDeployments' {deploymentGroupName} -> deploymentGroupName) (\s@ListDeployments' {} a -> s {deploymentGroupName = a} :: ListDeployments)
 
--- | A time range (start and end) for returning a subset of the list of deployments.
-ldCreateTimeRange :: Lens' ListDeployments (Maybe TimeRange)
-ldCreateTimeRange = lens _ldCreateTimeRange (\s a -> s {_ldCreateTimeRange = a})
+-- | A time range (start and end) for returning a subset of the list of
+-- deployments.
+listDeployments_createTimeRange :: Lens.Lens' ListDeployments (Prelude.Maybe TimeRange)
+listDeployments_createTimeRange = Lens.lens (\ListDeployments' {createTimeRange} -> createTimeRange) (\s@ListDeployments' {} a -> s {createTimeRange = a} :: ListDeployments)
 
--- | A subset of deployments to list by status:     * @Created@ : Include created deployments in the resulting list.     * @Queued@ : Include queued deployments in the resulting list.     * @In Progress@ : Include in-progress deployments in the resulting list.     * @Succeeded@ : Include successful deployments in the resulting list.     * @Failed@ : Include failed deployments in the resulting list.     * @Stopped@ : Include stopped deployments in the resulting list.
-ldIncludeOnlyStatuses :: Lens' ListDeployments [DeploymentStatus]
-ldIncludeOnlyStatuses = lens _ldIncludeOnlyStatuses (\s a -> s {_ldIncludeOnlyStatuses = a}) . _Default . _Coerce
+-- | A subset of deployments to list by status:
+--
+-- -   @Created@: Include created deployments in the resulting list.
+--
+-- -   @Queued@: Include queued deployments in the resulting list.
+--
+-- -   @In Progress@: Include in-progress deployments in the resulting
+--     list.
+--
+-- -   @Succeeded@: Include successful deployments in the resulting list.
+--
+-- -   @Failed@: Include failed deployments in the resulting list.
+--
+-- -   @Stopped@: Include stopped deployments in the resulting list.
+listDeployments_includeOnlyStatuses :: Lens.Lens' ListDeployments (Prelude.Maybe [DeploymentStatus])
+listDeployments_includeOnlyStatuses = Lens.lens (\ListDeployments' {includeOnlyStatuses} -> includeOnlyStatuses) (\s@ListDeployments' {} a -> s {includeOnlyStatuses = a} :: ListDeployments) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The unique ID of an external resource for returning deployments linked to the external resource.
-ldExternalId :: Lens' ListDeployments (Maybe Text)
-ldExternalId = lens _ldExternalId (\s a -> s {_ldExternalId = a})
+-- | The unique ID of an external resource for returning deployments linked
+-- to the external resource.
+listDeployments_externalId :: Lens.Lens' ListDeployments (Prelude.Maybe Prelude.Text)
+listDeployments_externalId = Lens.lens (\ListDeployments' {externalId} -> externalId) (\s@ListDeployments' {} a -> s {externalId = a} :: ListDeployments)
 
--- | The name of an AWS CodeDeploy application associated with the IAM user or AWS account.
-ldApplicationName :: Lens' ListDeployments (Maybe Text)
-ldApplicationName = lens _ldApplicationName (\s a -> s {_ldApplicationName = a})
+-- | The name of an AWS CodeDeploy application associated with the IAM user
+-- or AWS account.
+--
+-- If @applicationName@ is specified, then @deploymentGroupName@ must be
+-- specified. If it is not specified, then @deploymentGroupName@ must not
+-- be specified.
+listDeployments_applicationName :: Lens.Lens' ListDeployments (Prelude.Maybe Prelude.Text)
+listDeployments_applicationName = Lens.lens (\ListDeployments' {applicationName} -> applicationName) (\s@ListDeployments' {} a -> s {applicationName = a} :: ListDeployments)
 
-instance AWSPager ListDeployments where
+instance Pager.AWSPager ListDeployments where
   page rq rs
-    | stop (rs ^. ldrrsNextToken) = Nothing
-    | stop (rs ^. ldrrsDeployments) = Nothing
-    | otherwise =
-      Just $ rq & ldNextToken .~ rs ^. ldrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listDeploymentsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listDeploymentsResponse_deployments
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listDeployments_nextToken
+          Lens..~ rs
+          Lens.^? listDeploymentsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListDeployments where
+instance Prelude.AWSRequest ListDeployments where
   type Rs ListDeployments = ListDeploymentsResponse
-  request = postJSON codeDeploy
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListDeploymentsResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "deployments" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> ( x Prelude..?> "deployments"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListDeployments
+instance Prelude.Hashable ListDeployments
 
-instance NFData ListDeployments
+instance Prelude.NFData ListDeployments
 
-instance ToHeaders ListDeployments where
+instance Prelude.ToHeaders ListDeployments where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodeDeploy_20141006.ListDeployments" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodeDeploy_20141006.ListDeployments" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListDeployments where
+instance Prelude.ToJSON ListDeployments where
   toJSON ListDeployments' {..} =
-    object
-      ( catMaybes
-          [ ("nextToken" .=) <$> _ldNextToken,
-            ("deploymentGroupName" .=)
-              <$> _ldDeploymentGroupName,
-            ("createTimeRange" .=) <$> _ldCreateTimeRange,
-            ("includeOnlyStatuses" .=)
-              <$> _ldIncludeOnlyStatuses,
-            ("externalId" .=) <$> _ldExternalId,
-            ("applicationName" .=) <$> _ldApplicationName
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("nextToken" Prelude..=) Prelude.<$> nextToken,
+            ("deploymentGroupName" Prelude..=)
+              Prelude.<$> deploymentGroupName,
+            ("createTimeRange" Prelude..=)
+              Prelude.<$> createTimeRange,
+            ("includeOnlyStatuses" Prelude..=)
+              Prelude.<$> includeOnlyStatuses,
+            ("externalId" Prelude..=) Prelude.<$> externalId,
+            ("applicationName" Prelude..=)
+              Prelude.<$> applicationName
           ]
       )
 
-instance ToPath ListDeployments where
-  toPath = const "/"
+instance Prelude.ToPath ListDeployments where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListDeployments where
-  toQuery = const mempty
+instance Prelude.ToQuery ListDeployments where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a @ListDeployments@ operation.
 --
---
---
--- /See:/ 'listDeploymentsResponse' smart constructor.
+-- /See:/ 'newListDeploymentsResponse' smart constructor.
 data ListDeploymentsResponse = ListDeploymentsResponse'
-  { _ldrrsNextToken ::
-      !(Maybe Text),
-    _ldrrsDeployments ::
-      !(Maybe [Text]),
-    _ldrrsResponseStatus ::
-      !Int
+  { -- | If a large amount of information is returned, an identifier is also
+    -- returned. It can be used in a subsequent list deployments call to return
+    -- the next set of deployments in the list.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of deployment IDs.
+    deployments :: Prelude.Maybe [Prelude.Text],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListDeploymentsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListDeploymentsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ldrrsNextToken' - If a large amount of information is returned, an identifier is also returned. It can be used in a subsequent list deployments call to return the next set of deployments in the list.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ldrrsDeployments' - A list of deployment IDs.
+-- 'nextToken', 'listDeploymentsResponse_nextToken' - If a large amount of information is returned, an identifier is also
+-- returned. It can be used in a subsequent list deployments call to return
+-- the next set of deployments in the list.
 --
--- * 'ldrrsResponseStatus' - -- | The response status code.
-listDeploymentsResponse ::
-  -- | 'ldrrsResponseStatus'
-  Int ->
+-- 'deployments', 'listDeploymentsResponse_deployments' - A list of deployment IDs.
+--
+-- 'httpStatus', 'listDeploymentsResponse_httpStatus' - The response's http status code.
+newListDeploymentsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListDeploymentsResponse
-listDeploymentsResponse pResponseStatus_ =
+newListDeploymentsResponse pHttpStatus_ =
   ListDeploymentsResponse'
-    { _ldrrsNextToken = Nothing,
-      _ldrrsDeployments = Nothing,
-      _ldrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      deployments = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | If a large amount of information is returned, an identifier is also returned. It can be used in a subsequent list deployments call to return the next set of deployments in the list.
-ldrrsNextToken :: Lens' ListDeploymentsResponse (Maybe Text)
-ldrrsNextToken = lens _ldrrsNextToken (\s a -> s {_ldrrsNextToken = a})
+-- | If a large amount of information is returned, an identifier is also
+-- returned. It can be used in a subsequent list deployments call to return
+-- the next set of deployments in the list.
+listDeploymentsResponse_nextToken :: Lens.Lens' ListDeploymentsResponse (Prelude.Maybe Prelude.Text)
+listDeploymentsResponse_nextToken = Lens.lens (\ListDeploymentsResponse' {nextToken} -> nextToken) (\s@ListDeploymentsResponse' {} a -> s {nextToken = a} :: ListDeploymentsResponse)
 
 -- | A list of deployment IDs.
-ldrrsDeployments :: Lens' ListDeploymentsResponse [Text]
-ldrrsDeployments = lens _ldrrsDeployments (\s a -> s {_ldrrsDeployments = a}) . _Default . _Coerce
+listDeploymentsResponse_deployments :: Lens.Lens' ListDeploymentsResponse (Prelude.Maybe [Prelude.Text])
+listDeploymentsResponse_deployments = Lens.lens (\ListDeploymentsResponse' {deployments} -> deployments) (\s@ListDeploymentsResponse' {} a -> s {deployments = a} :: ListDeploymentsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-ldrrsResponseStatus :: Lens' ListDeploymentsResponse Int
-ldrrsResponseStatus = lens _ldrrsResponseStatus (\s a -> s {_ldrrsResponseStatus = a})
+-- | The response's http status code.
+listDeploymentsResponse_httpStatus :: Lens.Lens' ListDeploymentsResponse Prelude.Int
+listDeploymentsResponse_httpStatus = Lens.lens (\ListDeploymentsResponse' {httpStatus} -> httpStatus) (\s@ListDeploymentsResponse' {} a -> s {httpStatus = a} :: ListDeploymentsResponse)
 
-instance NFData ListDeploymentsResponse
+instance Prelude.NFData ListDeploymentsResponse

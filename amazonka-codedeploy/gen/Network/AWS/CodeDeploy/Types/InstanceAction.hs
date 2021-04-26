@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.CodeDeploy.Types.InstanceAction
   ( InstanceAction
       ( ..,
-        KeepAlive,
-        Terminate
+        InstanceActionKEEPALIVE,
+        InstanceActionTERMINATE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data InstanceAction = InstanceAction' (CI Text)
+newtype InstanceAction = InstanceAction'
+  { fromInstanceAction ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern KeepAlive :: InstanceAction
-pattern KeepAlive = InstanceAction' "KEEP_ALIVE"
+pattern InstanceActionKEEPALIVE :: InstanceAction
+pattern InstanceActionKEEPALIVE = InstanceAction' "KEEP_ALIVE"
 
-pattern Terminate :: InstanceAction
-pattern Terminate = InstanceAction' "TERMINATE"
+pattern InstanceActionTERMINATE :: InstanceAction
+pattern InstanceActionTERMINATE = InstanceAction' "TERMINATE"
 
 {-# COMPLETE
-  KeepAlive,
-  Terminate,
+  InstanceActionKEEPALIVE,
+  InstanceActionTERMINATE,
   InstanceAction'
   #-}
 
-instance FromText InstanceAction where
-  parser = (InstanceAction' . mk) <$> takeText
+instance Prelude.FromText InstanceAction where
+  parser = InstanceAction' Prelude.<$> Prelude.takeText
 
-instance ToText InstanceAction where
-  toText (InstanceAction' ci) = original ci
+instance Prelude.ToText InstanceAction where
+  toText (InstanceAction' x) = x
 
-instance Hashable InstanceAction
+instance Prelude.Hashable InstanceAction
 
-instance NFData InstanceAction
+instance Prelude.NFData InstanceAction
 
-instance ToByteString InstanceAction
+instance Prelude.ToByteString InstanceAction
 
-instance ToQuery InstanceAction
+instance Prelude.ToQuery InstanceAction
 
-instance ToHeader InstanceAction
+instance Prelude.ToHeader InstanceAction
 
-instance ToJSON InstanceAction where
-  toJSON = toJSONText
+instance Prelude.ToJSON InstanceAction where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON InstanceAction where
-  parseJSON = parseJSONText "InstanceAction"
+instance Prelude.FromJSON InstanceAction where
+  parseJSON = Prelude.parseJSONText "InstanceAction"

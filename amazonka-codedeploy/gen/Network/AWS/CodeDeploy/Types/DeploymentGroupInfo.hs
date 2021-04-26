@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -30,250 +34,321 @@ import Network.AWS.CodeDeploy.Types.OnPremisesTagSet
 import Network.AWS.CodeDeploy.Types.RevisionLocation
 import Network.AWS.CodeDeploy.Types.TagFilter
 import Network.AWS.CodeDeploy.Types.TriggerConfig
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about a deployment group.
 --
---
---
--- /See:/ 'deploymentGroupInfo' smart constructor.
+-- /See:/ 'newDeploymentGroupInfo' smart constructor.
 data DeploymentGroupInfo = DeploymentGroupInfo'
-  { _dgiOnPremisesTagSet ::
-      !(Maybe OnPremisesTagSet),
-    _dgiServiceRoleARN ::
-      !(Maybe Text),
-    _dgiDeploymentConfigName ::
-      !(Maybe Text),
-    _dgiAutoRollbackConfiguration ::
-      !( Maybe
-           AutoRollbackConfiguration
-       ),
-    _dgiDeploymentGroupName ::
-      !(Maybe Text),
-    _dgiTriggerConfigurations ::
-      !(Maybe [TriggerConfig]),
-    _dgiDeploymentGroupId ::
-      !(Maybe Text),
-    _dgiEc2TagFilters ::
-      !(Maybe [EC2TagFilter]),
-    _dgiTargetRevision ::
-      !(Maybe RevisionLocation),
-    _dgiLastSuccessfulDeployment ::
-      !(Maybe LastDeploymentInfo),
-    _dgiLastAttemptedDeployment ::
-      !(Maybe LastDeploymentInfo),
-    _dgiOnPremisesInstanceTagFilters ::
-      !(Maybe [TagFilter]),
-    _dgiLoadBalancerInfo ::
-      !(Maybe LoadBalancerInfo),
-    _dgiEc2TagSet ::
-      !(Maybe EC2TagSet),
-    _dgiBlueGreenDeploymentConfiguration ::
-      !( Maybe
-           BlueGreenDeploymentConfiguration
-       ),
-    _dgiAutoScalingGroups ::
-      !(Maybe [AutoScalingGroup]),
-    _dgiDeploymentStyle ::
-      !(Maybe DeploymentStyle),
-    _dgiAlarmConfiguration ::
-      !(Maybe AlarmConfiguration),
-    _dgiEcsServices ::
-      !(Maybe [ECSService]),
-    _dgiApplicationName ::
-      !(Maybe Text),
-    _dgiComputePlatform ::
-      !(Maybe ComputePlatform)
+  { -- | Information about groups of tags applied to an on-premises instance. The
+    -- deployment group includes only on-premises instances identified by all
+    -- the tag groups. Cannot be used in the same call as
+    -- onPremisesInstanceTagFilters.
+    onPremisesTagSet :: Prelude.Maybe OnPremisesTagSet,
+    -- | A service role Amazon Resource Name (ARN) that grants CodeDeploy
+    -- permission to make calls to AWS services on your behalf. For more
+    -- information, see
+    -- <https://docs.aws.amazon.com/codedeploy/latest/userguide/getting-started-create-service-role.html Create a Service Role for AWS CodeDeploy>
+    -- in the /AWS CodeDeploy User Guide/.
+    serviceRoleArn :: Prelude.Maybe Prelude.Text,
+    -- | The deployment configuration name.
+    deploymentConfigName :: Prelude.Maybe Prelude.Text,
+    -- | Information about the automatic rollback configuration associated with
+    -- the deployment group.
+    autoRollbackConfiguration :: Prelude.Maybe AutoRollbackConfiguration,
+    -- | The deployment group name.
+    deploymentGroupName :: Prelude.Maybe Prelude.Text,
+    -- | Information about triggers associated with the deployment group.
+    triggerConfigurations :: Prelude.Maybe [TriggerConfig],
+    -- | The deployment group ID.
+    deploymentGroupId :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon EC2 tags on which to filter. The deployment group includes
+    -- EC2 instances with any of the specified tags.
+    ec2TagFilters :: Prelude.Maybe [EC2TagFilter],
+    -- | Information about the deployment group\'s target revision, including
+    -- type and location.
+    targetRevision :: Prelude.Maybe RevisionLocation,
+    -- | Information about the most recent successful deployment to the
+    -- deployment group.
+    lastSuccessfulDeployment :: Prelude.Maybe LastDeploymentInfo,
+    -- | Information about the most recent attempted deployment to the deployment
+    -- group.
+    lastAttemptedDeployment :: Prelude.Maybe LastDeploymentInfo,
+    -- | The on-premises instance tags on which to filter. The deployment group
+    -- includes on-premises instances with any of the specified tags.
+    onPremisesInstanceTagFilters :: Prelude.Maybe [TagFilter],
+    -- | Information about the load balancer to use in a deployment.
+    loadBalancerInfo :: Prelude.Maybe LoadBalancerInfo,
+    -- | Information about groups of tags applied to an EC2 instance. The
+    -- deployment group includes only EC2 instances identified by all of the
+    -- tag groups. Cannot be used in the same call as ec2TagFilters.
+    ec2TagSet :: Prelude.Maybe EC2TagSet,
+    -- | Information about blue\/green deployment options for a deployment group.
+    blueGreenDeploymentConfiguration :: Prelude.Maybe BlueGreenDeploymentConfiguration,
+    -- | A list of associated Auto Scaling groups.
+    autoScalingGroups :: Prelude.Maybe [AutoScalingGroup],
+    -- | Information about the type of deployment, either in-place or
+    -- blue\/green, you want to run and whether to route deployment traffic
+    -- behind a load balancer.
+    deploymentStyle :: Prelude.Maybe DeploymentStyle,
+    -- | A list of alarms associated with the deployment group.
+    alarmConfiguration :: Prelude.Maybe AlarmConfiguration,
+    -- | The target Amazon ECS services in the deployment group. This applies
+    -- only to deployment groups that use the Amazon ECS compute platform. A
+    -- target Amazon ECS service is specified as an Amazon ECS cluster and
+    -- service name pair using the format @\<clustername>:\<servicename>@.
+    ecsServices :: Prelude.Maybe [ECSService],
+    -- | The application name.
+    applicationName :: Prelude.Maybe Prelude.Text,
+    -- | The destination platform type for the deployment (@Lambda@, @Server@, or
+    -- @ECS@).
+    computePlatform :: Prelude.Maybe ComputePlatform
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeploymentGroupInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeploymentGroupInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dgiOnPremisesTagSet' - Information about groups of tags applied to an on-premises instance. The deployment group includes only on-premises instances identified by all the tag groups. Cannot be used in the same call as onPremisesInstanceTagFilters.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dgiServiceRoleARN' - A service role Amazon Resource Name (ARN) that grants CodeDeploy permission to make calls to AWS services on your behalf. For more information, see <https://docs.aws.amazon.com/codedeploy/latest/userguide/getting-started-create-service-role.html Create a Service Role for AWS CodeDeploy> in the /AWS CodeDeploy User Guide/ .
+-- 'onPremisesTagSet', 'deploymentGroupInfo_onPremisesTagSet' - Information about groups of tags applied to an on-premises instance. The
+-- deployment group includes only on-premises instances identified by all
+-- the tag groups. Cannot be used in the same call as
+-- onPremisesInstanceTagFilters.
 --
--- * 'dgiDeploymentConfigName' - The deployment configuration name.
+-- 'serviceRoleArn', 'deploymentGroupInfo_serviceRoleArn' - A service role Amazon Resource Name (ARN) that grants CodeDeploy
+-- permission to make calls to AWS services on your behalf. For more
+-- information, see
+-- <https://docs.aws.amazon.com/codedeploy/latest/userguide/getting-started-create-service-role.html Create a Service Role for AWS CodeDeploy>
+-- in the /AWS CodeDeploy User Guide/.
 --
--- * 'dgiAutoRollbackConfiguration' - Information about the automatic rollback configuration associated with the deployment group.
+-- 'deploymentConfigName', 'deploymentGroupInfo_deploymentConfigName' - The deployment configuration name.
 --
--- * 'dgiDeploymentGroupName' - The deployment group name.
+-- 'autoRollbackConfiguration', 'deploymentGroupInfo_autoRollbackConfiguration' - Information about the automatic rollback configuration associated with
+-- the deployment group.
 --
--- * 'dgiTriggerConfigurations' - Information about triggers associated with the deployment group.
+-- 'deploymentGroupName', 'deploymentGroupInfo_deploymentGroupName' - The deployment group name.
 --
--- * 'dgiDeploymentGroupId' - The deployment group ID.
+-- 'triggerConfigurations', 'deploymentGroupInfo_triggerConfigurations' - Information about triggers associated with the deployment group.
 --
--- * 'dgiEc2TagFilters' - The Amazon EC2 tags on which to filter. The deployment group includes EC2 instances with any of the specified tags.
+-- 'deploymentGroupId', 'deploymentGroupInfo_deploymentGroupId' - The deployment group ID.
 --
--- * 'dgiTargetRevision' - Information about the deployment group's target revision, including type and location.
+-- 'ec2TagFilters', 'deploymentGroupInfo_ec2TagFilters' - The Amazon EC2 tags on which to filter. The deployment group includes
+-- EC2 instances with any of the specified tags.
 --
--- * 'dgiLastSuccessfulDeployment' - Information about the most recent successful deployment to the deployment group.
+-- 'targetRevision', 'deploymentGroupInfo_targetRevision' - Information about the deployment group\'s target revision, including
+-- type and location.
 --
--- * 'dgiLastAttemptedDeployment' - Information about the most recent attempted deployment to the deployment group.
+-- 'lastSuccessfulDeployment', 'deploymentGroupInfo_lastSuccessfulDeployment' - Information about the most recent successful deployment to the
+-- deployment group.
 --
--- * 'dgiOnPremisesInstanceTagFilters' - The on-premises instance tags on which to filter. The deployment group includes on-premises instances with any of the specified tags.
+-- 'lastAttemptedDeployment', 'deploymentGroupInfo_lastAttemptedDeployment' - Information about the most recent attempted deployment to the deployment
+-- group.
 --
--- * 'dgiLoadBalancerInfo' - Information about the load balancer to use in a deployment.
+-- 'onPremisesInstanceTagFilters', 'deploymentGroupInfo_onPremisesInstanceTagFilters' - The on-premises instance tags on which to filter. The deployment group
+-- includes on-premises instances with any of the specified tags.
 --
--- * 'dgiEc2TagSet' - Information about groups of tags applied to an EC2 instance. The deployment group includes only EC2 instances identified by all of the tag groups. Cannot be used in the same call as ec2TagFilters.
+-- 'loadBalancerInfo', 'deploymentGroupInfo_loadBalancerInfo' - Information about the load balancer to use in a deployment.
 --
--- * 'dgiBlueGreenDeploymentConfiguration' - Information about blue/green deployment options for a deployment group.
+-- 'ec2TagSet', 'deploymentGroupInfo_ec2TagSet' - Information about groups of tags applied to an EC2 instance. The
+-- deployment group includes only EC2 instances identified by all of the
+-- tag groups. Cannot be used in the same call as ec2TagFilters.
 --
--- * 'dgiAutoScalingGroups' - A list of associated Auto Scaling groups.
+-- 'blueGreenDeploymentConfiguration', 'deploymentGroupInfo_blueGreenDeploymentConfiguration' - Information about blue\/green deployment options for a deployment group.
 --
--- * 'dgiDeploymentStyle' - Information about the type of deployment, either in-place or blue/green, you want to run and whether to route deployment traffic behind a load balancer.
+-- 'autoScalingGroups', 'deploymentGroupInfo_autoScalingGroups' - A list of associated Auto Scaling groups.
 --
--- * 'dgiAlarmConfiguration' - A list of alarms associated with the deployment group.
+-- 'deploymentStyle', 'deploymentGroupInfo_deploymentStyle' - Information about the type of deployment, either in-place or
+-- blue\/green, you want to run and whether to route deployment traffic
+-- behind a load balancer.
 --
--- * 'dgiEcsServices' - The target Amazon ECS services in the deployment group. This applies only to deployment groups that use the Amazon ECS compute platform. A target Amazon ECS service is specified as an Amazon ECS cluster and service name pair using the format @<clustername>:<servicename>@ .
+-- 'alarmConfiguration', 'deploymentGroupInfo_alarmConfiguration' - A list of alarms associated with the deployment group.
 --
--- * 'dgiApplicationName' - The application name.
+-- 'ecsServices', 'deploymentGroupInfo_ecsServices' - The target Amazon ECS services in the deployment group. This applies
+-- only to deployment groups that use the Amazon ECS compute platform. A
+-- target Amazon ECS service is specified as an Amazon ECS cluster and
+-- service name pair using the format @\<clustername>:\<servicename>@.
 --
--- * 'dgiComputePlatform' - The destination platform type for the deployment (@Lambda@ , @Server@ , or @ECS@ ).
-deploymentGroupInfo ::
+-- 'applicationName', 'deploymentGroupInfo_applicationName' - The application name.
+--
+-- 'computePlatform', 'deploymentGroupInfo_computePlatform' - The destination platform type for the deployment (@Lambda@, @Server@, or
+-- @ECS@).
+newDeploymentGroupInfo ::
   DeploymentGroupInfo
-deploymentGroupInfo =
+newDeploymentGroupInfo =
   DeploymentGroupInfo'
-    { _dgiOnPremisesTagSet =
-        Nothing,
-      _dgiServiceRoleARN = Nothing,
-      _dgiDeploymentConfigName = Nothing,
-      _dgiAutoRollbackConfiguration = Nothing,
-      _dgiDeploymentGroupName = Nothing,
-      _dgiTriggerConfigurations = Nothing,
-      _dgiDeploymentGroupId = Nothing,
-      _dgiEc2TagFilters = Nothing,
-      _dgiTargetRevision = Nothing,
-      _dgiLastSuccessfulDeployment = Nothing,
-      _dgiLastAttemptedDeployment = Nothing,
-      _dgiOnPremisesInstanceTagFilters = Nothing,
-      _dgiLoadBalancerInfo = Nothing,
-      _dgiEc2TagSet = Nothing,
-      _dgiBlueGreenDeploymentConfiguration = Nothing,
-      _dgiAutoScalingGroups = Nothing,
-      _dgiDeploymentStyle = Nothing,
-      _dgiAlarmConfiguration = Nothing,
-      _dgiEcsServices = Nothing,
-      _dgiApplicationName = Nothing,
-      _dgiComputePlatform = Nothing
+    { onPremisesTagSet =
+        Prelude.Nothing,
+      serviceRoleArn = Prelude.Nothing,
+      deploymentConfigName = Prelude.Nothing,
+      autoRollbackConfiguration = Prelude.Nothing,
+      deploymentGroupName = Prelude.Nothing,
+      triggerConfigurations = Prelude.Nothing,
+      deploymentGroupId = Prelude.Nothing,
+      ec2TagFilters = Prelude.Nothing,
+      targetRevision = Prelude.Nothing,
+      lastSuccessfulDeployment = Prelude.Nothing,
+      lastAttemptedDeployment = Prelude.Nothing,
+      onPremisesInstanceTagFilters = Prelude.Nothing,
+      loadBalancerInfo = Prelude.Nothing,
+      ec2TagSet = Prelude.Nothing,
+      blueGreenDeploymentConfiguration = Prelude.Nothing,
+      autoScalingGroups = Prelude.Nothing,
+      deploymentStyle = Prelude.Nothing,
+      alarmConfiguration = Prelude.Nothing,
+      ecsServices = Prelude.Nothing,
+      applicationName = Prelude.Nothing,
+      computePlatform = Prelude.Nothing
     }
 
--- | Information about groups of tags applied to an on-premises instance. The deployment group includes only on-premises instances identified by all the tag groups. Cannot be used in the same call as onPremisesInstanceTagFilters.
-dgiOnPremisesTagSet :: Lens' DeploymentGroupInfo (Maybe OnPremisesTagSet)
-dgiOnPremisesTagSet = lens _dgiOnPremisesTagSet (\s a -> s {_dgiOnPremisesTagSet = a})
+-- | Information about groups of tags applied to an on-premises instance. The
+-- deployment group includes only on-premises instances identified by all
+-- the tag groups. Cannot be used in the same call as
+-- onPremisesInstanceTagFilters.
+deploymentGroupInfo_onPremisesTagSet :: Lens.Lens' DeploymentGroupInfo (Prelude.Maybe OnPremisesTagSet)
+deploymentGroupInfo_onPremisesTagSet = Lens.lens (\DeploymentGroupInfo' {onPremisesTagSet} -> onPremisesTagSet) (\s@DeploymentGroupInfo' {} a -> s {onPremisesTagSet = a} :: DeploymentGroupInfo)
 
--- | A service role Amazon Resource Name (ARN) that grants CodeDeploy permission to make calls to AWS services on your behalf. For more information, see <https://docs.aws.amazon.com/codedeploy/latest/userguide/getting-started-create-service-role.html Create a Service Role for AWS CodeDeploy> in the /AWS CodeDeploy User Guide/ .
-dgiServiceRoleARN :: Lens' DeploymentGroupInfo (Maybe Text)
-dgiServiceRoleARN = lens _dgiServiceRoleARN (\s a -> s {_dgiServiceRoleARN = a})
+-- | A service role Amazon Resource Name (ARN) that grants CodeDeploy
+-- permission to make calls to AWS services on your behalf. For more
+-- information, see
+-- <https://docs.aws.amazon.com/codedeploy/latest/userguide/getting-started-create-service-role.html Create a Service Role for AWS CodeDeploy>
+-- in the /AWS CodeDeploy User Guide/.
+deploymentGroupInfo_serviceRoleArn :: Lens.Lens' DeploymentGroupInfo (Prelude.Maybe Prelude.Text)
+deploymentGroupInfo_serviceRoleArn = Lens.lens (\DeploymentGroupInfo' {serviceRoleArn} -> serviceRoleArn) (\s@DeploymentGroupInfo' {} a -> s {serviceRoleArn = a} :: DeploymentGroupInfo)
 
 -- | The deployment configuration name.
-dgiDeploymentConfigName :: Lens' DeploymentGroupInfo (Maybe Text)
-dgiDeploymentConfigName = lens _dgiDeploymentConfigName (\s a -> s {_dgiDeploymentConfigName = a})
+deploymentGroupInfo_deploymentConfigName :: Lens.Lens' DeploymentGroupInfo (Prelude.Maybe Prelude.Text)
+deploymentGroupInfo_deploymentConfigName = Lens.lens (\DeploymentGroupInfo' {deploymentConfigName} -> deploymentConfigName) (\s@DeploymentGroupInfo' {} a -> s {deploymentConfigName = a} :: DeploymentGroupInfo)
 
--- | Information about the automatic rollback configuration associated with the deployment group.
-dgiAutoRollbackConfiguration :: Lens' DeploymentGroupInfo (Maybe AutoRollbackConfiguration)
-dgiAutoRollbackConfiguration = lens _dgiAutoRollbackConfiguration (\s a -> s {_dgiAutoRollbackConfiguration = a})
+-- | Information about the automatic rollback configuration associated with
+-- the deployment group.
+deploymentGroupInfo_autoRollbackConfiguration :: Lens.Lens' DeploymentGroupInfo (Prelude.Maybe AutoRollbackConfiguration)
+deploymentGroupInfo_autoRollbackConfiguration = Lens.lens (\DeploymentGroupInfo' {autoRollbackConfiguration} -> autoRollbackConfiguration) (\s@DeploymentGroupInfo' {} a -> s {autoRollbackConfiguration = a} :: DeploymentGroupInfo)
 
 -- | The deployment group name.
-dgiDeploymentGroupName :: Lens' DeploymentGroupInfo (Maybe Text)
-dgiDeploymentGroupName = lens _dgiDeploymentGroupName (\s a -> s {_dgiDeploymentGroupName = a})
+deploymentGroupInfo_deploymentGroupName :: Lens.Lens' DeploymentGroupInfo (Prelude.Maybe Prelude.Text)
+deploymentGroupInfo_deploymentGroupName = Lens.lens (\DeploymentGroupInfo' {deploymentGroupName} -> deploymentGroupName) (\s@DeploymentGroupInfo' {} a -> s {deploymentGroupName = a} :: DeploymentGroupInfo)
 
 -- | Information about triggers associated with the deployment group.
-dgiTriggerConfigurations :: Lens' DeploymentGroupInfo [TriggerConfig]
-dgiTriggerConfigurations = lens _dgiTriggerConfigurations (\s a -> s {_dgiTriggerConfigurations = a}) . _Default . _Coerce
+deploymentGroupInfo_triggerConfigurations :: Lens.Lens' DeploymentGroupInfo (Prelude.Maybe [TriggerConfig])
+deploymentGroupInfo_triggerConfigurations = Lens.lens (\DeploymentGroupInfo' {triggerConfigurations} -> triggerConfigurations) (\s@DeploymentGroupInfo' {} a -> s {triggerConfigurations = a} :: DeploymentGroupInfo) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The deployment group ID.
-dgiDeploymentGroupId :: Lens' DeploymentGroupInfo (Maybe Text)
-dgiDeploymentGroupId = lens _dgiDeploymentGroupId (\s a -> s {_dgiDeploymentGroupId = a})
+deploymentGroupInfo_deploymentGroupId :: Lens.Lens' DeploymentGroupInfo (Prelude.Maybe Prelude.Text)
+deploymentGroupInfo_deploymentGroupId = Lens.lens (\DeploymentGroupInfo' {deploymentGroupId} -> deploymentGroupId) (\s@DeploymentGroupInfo' {} a -> s {deploymentGroupId = a} :: DeploymentGroupInfo)
 
--- | The Amazon EC2 tags on which to filter. The deployment group includes EC2 instances with any of the specified tags.
-dgiEc2TagFilters :: Lens' DeploymentGroupInfo [EC2TagFilter]
-dgiEc2TagFilters = lens _dgiEc2TagFilters (\s a -> s {_dgiEc2TagFilters = a}) . _Default . _Coerce
+-- | The Amazon EC2 tags on which to filter. The deployment group includes
+-- EC2 instances with any of the specified tags.
+deploymentGroupInfo_ec2TagFilters :: Lens.Lens' DeploymentGroupInfo (Prelude.Maybe [EC2TagFilter])
+deploymentGroupInfo_ec2TagFilters = Lens.lens (\DeploymentGroupInfo' {ec2TagFilters} -> ec2TagFilters) (\s@DeploymentGroupInfo' {} a -> s {ec2TagFilters = a} :: DeploymentGroupInfo) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Information about the deployment group's target revision, including type and location.
-dgiTargetRevision :: Lens' DeploymentGroupInfo (Maybe RevisionLocation)
-dgiTargetRevision = lens _dgiTargetRevision (\s a -> s {_dgiTargetRevision = a})
+-- | Information about the deployment group\'s target revision, including
+-- type and location.
+deploymentGroupInfo_targetRevision :: Lens.Lens' DeploymentGroupInfo (Prelude.Maybe RevisionLocation)
+deploymentGroupInfo_targetRevision = Lens.lens (\DeploymentGroupInfo' {targetRevision} -> targetRevision) (\s@DeploymentGroupInfo' {} a -> s {targetRevision = a} :: DeploymentGroupInfo)
 
--- | Information about the most recent successful deployment to the deployment group.
-dgiLastSuccessfulDeployment :: Lens' DeploymentGroupInfo (Maybe LastDeploymentInfo)
-dgiLastSuccessfulDeployment = lens _dgiLastSuccessfulDeployment (\s a -> s {_dgiLastSuccessfulDeployment = a})
+-- | Information about the most recent successful deployment to the
+-- deployment group.
+deploymentGroupInfo_lastSuccessfulDeployment :: Lens.Lens' DeploymentGroupInfo (Prelude.Maybe LastDeploymentInfo)
+deploymentGroupInfo_lastSuccessfulDeployment = Lens.lens (\DeploymentGroupInfo' {lastSuccessfulDeployment} -> lastSuccessfulDeployment) (\s@DeploymentGroupInfo' {} a -> s {lastSuccessfulDeployment = a} :: DeploymentGroupInfo)
 
--- | Information about the most recent attempted deployment to the deployment group.
-dgiLastAttemptedDeployment :: Lens' DeploymentGroupInfo (Maybe LastDeploymentInfo)
-dgiLastAttemptedDeployment = lens _dgiLastAttemptedDeployment (\s a -> s {_dgiLastAttemptedDeployment = a})
+-- | Information about the most recent attempted deployment to the deployment
+-- group.
+deploymentGroupInfo_lastAttemptedDeployment :: Lens.Lens' DeploymentGroupInfo (Prelude.Maybe LastDeploymentInfo)
+deploymentGroupInfo_lastAttemptedDeployment = Lens.lens (\DeploymentGroupInfo' {lastAttemptedDeployment} -> lastAttemptedDeployment) (\s@DeploymentGroupInfo' {} a -> s {lastAttemptedDeployment = a} :: DeploymentGroupInfo)
 
--- | The on-premises instance tags on which to filter. The deployment group includes on-premises instances with any of the specified tags.
-dgiOnPremisesInstanceTagFilters :: Lens' DeploymentGroupInfo [TagFilter]
-dgiOnPremisesInstanceTagFilters = lens _dgiOnPremisesInstanceTagFilters (\s a -> s {_dgiOnPremisesInstanceTagFilters = a}) . _Default . _Coerce
+-- | The on-premises instance tags on which to filter. The deployment group
+-- includes on-premises instances with any of the specified tags.
+deploymentGroupInfo_onPremisesInstanceTagFilters :: Lens.Lens' DeploymentGroupInfo (Prelude.Maybe [TagFilter])
+deploymentGroupInfo_onPremisesInstanceTagFilters = Lens.lens (\DeploymentGroupInfo' {onPremisesInstanceTagFilters} -> onPremisesInstanceTagFilters) (\s@DeploymentGroupInfo' {} a -> s {onPremisesInstanceTagFilters = a} :: DeploymentGroupInfo) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Information about the load balancer to use in a deployment.
-dgiLoadBalancerInfo :: Lens' DeploymentGroupInfo (Maybe LoadBalancerInfo)
-dgiLoadBalancerInfo = lens _dgiLoadBalancerInfo (\s a -> s {_dgiLoadBalancerInfo = a})
+deploymentGroupInfo_loadBalancerInfo :: Lens.Lens' DeploymentGroupInfo (Prelude.Maybe LoadBalancerInfo)
+deploymentGroupInfo_loadBalancerInfo = Lens.lens (\DeploymentGroupInfo' {loadBalancerInfo} -> loadBalancerInfo) (\s@DeploymentGroupInfo' {} a -> s {loadBalancerInfo = a} :: DeploymentGroupInfo)
 
--- | Information about groups of tags applied to an EC2 instance. The deployment group includes only EC2 instances identified by all of the tag groups. Cannot be used in the same call as ec2TagFilters.
-dgiEc2TagSet :: Lens' DeploymentGroupInfo (Maybe EC2TagSet)
-dgiEc2TagSet = lens _dgiEc2TagSet (\s a -> s {_dgiEc2TagSet = a})
+-- | Information about groups of tags applied to an EC2 instance. The
+-- deployment group includes only EC2 instances identified by all of the
+-- tag groups. Cannot be used in the same call as ec2TagFilters.
+deploymentGroupInfo_ec2TagSet :: Lens.Lens' DeploymentGroupInfo (Prelude.Maybe EC2TagSet)
+deploymentGroupInfo_ec2TagSet = Lens.lens (\DeploymentGroupInfo' {ec2TagSet} -> ec2TagSet) (\s@DeploymentGroupInfo' {} a -> s {ec2TagSet = a} :: DeploymentGroupInfo)
 
--- | Information about blue/green deployment options for a deployment group.
-dgiBlueGreenDeploymentConfiguration :: Lens' DeploymentGroupInfo (Maybe BlueGreenDeploymentConfiguration)
-dgiBlueGreenDeploymentConfiguration = lens _dgiBlueGreenDeploymentConfiguration (\s a -> s {_dgiBlueGreenDeploymentConfiguration = a})
+-- | Information about blue\/green deployment options for a deployment group.
+deploymentGroupInfo_blueGreenDeploymentConfiguration :: Lens.Lens' DeploymentGroupInfo (Prelude.Maybe BlueGreenDeploymentConfiguration)
+deploymentGroupInfo_blueGreenDeploymentConfiguration = Lens.lens (\DeploymentGroupInfo' {blueGreenDeploymentConfiguration} -> blueGreenDeploymentConfiguration) (\s@DeploymentGroupInfo' {} a -> s {blueGreenDeploymentConfiguration = a} :: DeploymentGroupInfo)
 
 -- | A list of associated Auto Scaling groups.
-dgiAutoScalingGroups :: Lens' DeploymentGroupInfo [AutoScalingGroup]
-dgiAutoScalingGroups = lens _dgiAutoScalingGroups (\s a -> s {_dgiAutoScalingGroups = a}) . _Default . _Coerce
+deploymentGroupInfo_autoScalingGroups :: Lens.Lens' DeploymentGroupInfo (Prelude.Maybe [AutoScalingGroup])
+deploymentGroupInfo_autoScalingGroups = Lens.lens (\DeploymentGroupInfo' {autoScalingGroups} -> autoScalingGroups) (\s@DeploymentGroupInfo' {} a -> s {autoScalingGroups = a} :: DeploymentGroupInfo) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Information about the type of deployment, either in-place or blue/green, you want to run and whether to route deployment traffic behind a load balancer.
-dgiDeploymentStyle :: Lens' DeploymentGroupInfo (Maybe DeploymentStyle)
-dgiDeploymentStyle = lens _dgiDeploymentStyle (\s a -> s {_dgiDeploymentStyle = a})
+-- | Information about the type of deployment, either in-place or
+-- blue\/green, you want to run and whether to route deployment traffic
+-- behind a load balancer.
+deploymentGroupInfo_deploymentStyle :: Lens.Lens' DeploymentGroupInfo (Prelude.Maybe DeploymentStyle)
+deploymentGroupInfo_deploymentStyle = Lens.lens (\DeploymentGroupInfo' {deploymentStyle} -> deploymentStyle) (\s@DeploymentGroupInfo' {} a -> s {deploymentStyle = a} :: DeploymentGroupInfo)
 
 -- | A list of alarms associated with the deployment group.
-dgiAlarmConfiguration :: Lens' DeploymentGroupInfo (Maybe AlarmConfiguration)
-dgiAlarmConfiguration = lens _dgiAlarmConfiguration (\s a -> s {_dgiAlarmConfiguration = a})
+deploymentGroupInfo_alarmConfiguration :: Lens.Lens' DeploymentGroupInfo (Prelude.Maybe AlarmConfiguration)
+deploymentGroupInfo_alarmConfiguration = Lens.lens (\DeploymentGroupInfo' {alarmConfiguration} -> alarmConfiguration) (\s@DeploymentGroupInfo' {} a -> s {alarmConfiguration = a} :: DeploymentGroupInfo)
 
--- | The target Amazon ECS services in the deployment group. This applies only to deployment groups that use the Amazon ECS compute platform. A target Amazon ECS service is specified as an Amazon ECS cluster and service name pair using the format @<clustername>:<servicename>@ .
-dgiEcsServices :: Lens' DeploymentGroupInfo [ECSService]
-dgiEcsServices = lens _dgiEcsServices (\s a -> s {_dgiEcsServices = a}) . _Default . _Coerce
+-- | The target Amazon ECS services in the deployment group. This applies
+-- only to deployment groups that use the Amazon ECS compute platform. A
+-- target Amazon ECS service is specified as an Amazon ECS cluster and
+-- service name pair using the format @\<clustername>:\<servicename>@.
+deploymentGroupInfo_ecsServices :: Lens.Lens' DeploymentGroupInfo (Prelude.Maybe [ECSService])
+deploymentGroupInfo_ecsServices = Lens.lens (\DeploymentGroupInfo' {ecsServices} -> ecsServices) (\s@DeploymentGroupInfo' {} a -> s {ecsServices = a} :: DeploymentGroupInfo) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The application name.
-dgiApplicationName :: Lens' DeploymentGroupInfo (Maybe Text)
-dgiApplicationName = lens _dgiApplicationName (\s a -> s {_dgiApplicationName = a})
+deploymentGroupInfo_applicationName :: Lens.Lens' DeploymentGroupInfo (Prelude.Maybe Prelude.Text)
+deploymentGroupInfo_applicationName = Lens.lens (\DeploymentGroupInfo' {applicationName} -> applicationName) (\s@DeploymentGroupInfo' {} a -> s {applicationName = a} :: DeploymentGroupInfo)
 
--- | The destination platform type for the deployment (@Lambda@ , @Server@ , or @ECS@ ).
-dgiComputePlatform :: Lens' DeploymentGroupInfo (Maybe ComputePlatform)
-dgiComputePlatform = lens _dgiComputePlatform (\s a -> s {_dgiComputePlatform = a})
+-- | The destination platform type for the deployment (@Lambda@, @Server@, or
+-- @ECS@).
+deploymentGroupInfo_computePlatform :: Lens.Lens' DeploymentGroupInfo (Prelude.Maybe ComputePlatform)
+deploymentGroupInfo_computePlatform = Lens.lens (\DeploymentGroupInfo' {computePlatform} -> computePlatform) (\s@DeploymentGroupInfo' {} a -> s {computePlatform = a} :: DeploymentGroupInfo)
 
-instance FromJSON DeploymentGroupInfo where
+instance Prelude.FromJSON DeploymentGroupInfo where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DeploymentGroupInfo"
       ( \x ->
           DeploymentGroupInfo'
-            <$> (x .:? "onPremisesTagSet")
-            <*> (x .:? "serviceRoleArn")
-            <*> (x .:? "deploymentConfigName")
-            <*> (x .:? "autoRollbackConfiguration")
-            <*> (x .:? "deploymentGroupName")
-            <*> (x .:? "triggerConfigurations" .!= mempty)
-            <*> (x .:? "deploymentGroupId")
-            <*> (x .:? "ec2TagFilters" .!= mempty)
-            <*> (x .:? "targetRevision")
-            <*> (x .:? "lastSuccessfulDeployment")
-            <*> (x .:? "lastAttemptedDeployment")
-            <*> (x .:? "onPremisesInstanceTagFilters" .!= mempty)
-            <*> (x .:? "loadBalancerInfo")
-            <*> (x .:? "ec2TagSet")
-            <*> (x .:? "blueGreenDeploymentConfiguration")
-            <*> (x .:? "autoScalingGroups" .!= mempty)
-            <*> (x .:? "deploymentStyle")
-            <*> (x .:? "alarmConfiguration")
-            <*> (x .:? "ecsServices" .!= mempty)
-            <*> (x .:? "applicationName")
-            <*> (x .:? "computePlatform")
+            Prelude.<$> (x Prelude..:? "onPremisesTagSet")
+            Prelude.<*> (x Prelude..:? "serviceRoleArn")
+            Prelude.<*> (x Prelude..:? "deploymentConfigName")
+            Prelude.<*> (x Prelude..:? "autoRollbackConfiguration")
+            Prelude.<*> (x Prelude..:? "deploymentGroupName")
+            Prelude.<*> ( x Prelude..:? "triggerConfigurations"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "deploymentGroupId")
+            Prelude.<*> ( x Prelude..:? "ec2TagFilters"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "targetRevision")
+            Prelude.<*> (x Prelude..:? "lastSuccessfulDeployment")
+            Prelude.<*> (x Prelude..:? "lastAttemptedDeployment")
+            Prelude.<*> ( x Prelude..:? "onPremisesInstanceTagFilters"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "loadBalancerInfo")
+            Prelude.<*> (x Prelude..:? "ec2TagSet")
+            Prelude.<*> (x Prelude..:? "blueGreenDeploymentConfiguration")
+            Prelude.<*> ( x Prelude..:? "autoScalingGroups"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "deploymentStyle")
+            Prelude.<*> (x Prelude..:? "alarmConfiguration")
+            Prelude.<*> ( x Prelude..:? "ecsServices"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "applicationName")
+            Prelude.<*> (x Prelude..:? "computePlatform")
       )
 
-instance Hashable DeploymentGroupInfo
+instance Prelude.Hashable DeploymentGroupInfo
 
-instance NFData DeploymentGroupInfo
+instance Prelude.NFData DeploymentGroupInfo

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,100 +22,116 @@ module Network.AWS.CodeDeploy.Types.InstanceTarget where
 import Network.AWS.CodeDeploy.Types.LifecycleEvent
 import Network.AWS.CodeDeploy.Types.TargetLabel
 import Network.AWS.CodeDeploy.Types.TargetStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A target Amazon EC2 or on-premises instance during a deployment that uses the EC2/On-premises compute platform.
+-- | A target Amazon EC2 or on-premises instance during a deployment that
+-- uses the EC2\/On-premises compute platform.
 --
---
---
--- /See:/ 'instanceTarget' smart constructor.
+-- /See:/ 'newInstanceTarget' smart constructor.
 data InstanceTarget = InstanceTarget'
-  { _itDeploymentId ::
-      !(Maybe Text),
-    _itStatus :: !(Maybe TargetStatus),
-    _itTargetId :: !(Maybe Text),
-    _itInstanceLabel :: !(Maybe TargetLabel),
-    _itTargetARN :: !(Maybe Text),
-    _itLifecycleEvents ::
-      !(Maybe [LifecycleEvent]),
-    _itLastUpdatedAt :: !(Maybe POSIX)
+  { -- | The unique ID of a deployment.
+    deploymentId :: Prelude.Maybe Prelude.Text,
+    -- | The status an EC2\/On-premises deployment\'s target instance.
+    status :: Prelude.Maybe TargetStatus,
+    -- | The unique ID of a deployment target that has a type of
+    -- @instanceTarget@.
+    targetId :: Prelude.Maybe Prelude.Text,
+    -- | A label that identifies whether the instance is an original target
+    -- (@BLUE@) or a replacement target (@GREEN@).
+    instanceLabel :: Prelude.Maybe TargetLabel,
+    -- | The Amazon Resource Name (ARN) of the target.
+    targetArn :: Prelude.Maybe Prelude.Text,
+    -- | The lifecycle events of the deployment to this target instance.
+    lifecycleEvents :: Prelude.Maybe [LifecycleEvent],
+    -- | The date and time when the target instance was updated by a deployment.
+    lastUpdatedAt :: Prelude.Maybe Prelude.POSIX
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InstanceTarget' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InstanceTarget' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'itDeploymentId' - The unique ID of a deployment.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'itStatus' - The status an EC2/On-premises deployment's target instance.
+-- 'deploymentId', 'instanceTarget_deploymentId' - The unique ID of a deployment.
 --
--- * 'itTargetId' - The unique ID of a deployment target that has a type of @instanceTarget@ .
+-- 'status', 'instanceTarget_status' - The status an EC2\/On-premises deployment\'s target instance.
 --
--- * 'itInstanceLabel' - A label that identifies whether the instance is an original target (@BLUE@ ) or a replacement target (@GREEN@ ).
+-- 'targetId', 'instanceTarget_targetId' - The unique ID of a deployment target that has a type of
+-- @instanceTarget@.
 --
--- * 'itTargetARN' - The Amazon Resource Name (ARN) of the target.
+-- 'instanceLabel', 'instanceTarget_instanceLabel' - A label that identifies whether the instance is an original target
+-- (@BLUE@) or a replacement target (@GREEN@).
 --
--- * 'itLifecycleEvents' - The lifecycle events of the deployment to this target instance.
+-- 'targetArn', 'instanceTarget_targetArn' - The Amazon Resource Name (ARN) of the target.
 --
--- * 'itLastUpdatedAt' - The date and time when the target instance was updated by a deployment.
-instanceTarget ::
+-- 'lifecycleEvents', 'instanceTarget_lifecycleEvents' - The lifecycle events of the deployment to this target instance.
+--
+-- 'lastUpdatedAt', 'instanceTarget_lastUpdatedAt' - The date and time when the target instance was updated by a deployment.
+newInstanceTarget ::
   InstanceTarget
-instanceTarget =
+newInstanceTarget =
   InstanceTarget'
-    { _itDeploymentId = Nothing,
-      _itStatus = Nothing,
-      _itTargetId = Nothing,
-      _itInstanceLabel = Nothing,
-      _itTargetARN = Nothing,
-      _itLifecycleEvents = Nothing,
-      _itLastUpdatedAt = Nothing
+    { deploymentId = Prelude.Nothing,
+      status = Prelude.Nothing,
+      targetId = Prelude.Nothing,
+      instanceLabel = Prelude.Nothing,
+      targetArn = Prelude.Nothing,
+      lifecycleEvents = Prelude.Nothing,
+      lastUpdatedAt = Prelude.Nothing
     }
 
 -- | The unique ID of a deployment.
-itDeploymentId :: Lens' InstanceTarget (Maybe Text)
-itDeploymentId = lens _itDeploymentId (\s a -> s {_itDeploymentId = a})
+instanceTarget_deploymentId :: Lens.Lens' InstanceTarget (Prelude.Maybe Prelude.Text)
+instanceTarget_deploymentId = Lens.lens (\InstanceTarget' {deploymentId} -> deploymentId) (\s@InstanceTarget' {} a -> s {deploymentId = a} :: InstanceTarget)
 
--- | The status an EC2/On-premises deployment's target instance.
-itStatus :: Lens' InstanceTarget (Maybe TargetStatus)
-itStatus = lens _itStatus (\s a -> s {_itStatus = a})
+-- | The status an EC2\/On-premises deployment\'s target instance.
+instanceTarget_status :: Lens.Lens' InstanceTarget (Prelude.Maybe TargetStatus)
+instanceTarget_status = Lens.lens (\InstanceTarget' {status} -> status) (\s@InstanceTarget' {} a -> s {status = a} :: InstanceTarget)
 
--- | The unique ID of a deployment target that has a type of @instanceTarget@ .
-itTargetId :: Lens' InstanceTarget (Maybe Text)
-itTargetId = lens _itTargetId (\s a -> s {_itTargetId = a})
+-- | The unique ID of a deployment target that has a type of
+-- @instanceTarget@.
+instanceTarget_targetId :: Lens.Lens' InstanceTarget (Prelude.Maybe Prelude.Text)
+instanceTarget_targetId = Lens.lens (\InstanceTarget' {targetId} -> targetId) (\s@InstanceTarget' {} a -> s {targetId = a} :: InstanceTarget)
 
--- | A label that identifies whether the instance is an original target (@BLUE@ ) or a replacement target (@GREEN@ ).
-itInstanceLabel :: Lens' InstanceTarget (Maybe TargetLabel)
-itInstanceLabel = lens _itInstanceLabel (\s a -> s {_itInstanceLabel = a})
+-- | A label that identifies whether the instance is an original target
+-- (@BLUE@) or a replacement target (@GREEN@).
+instanceTarget_instanceLabel :: Lens.Lens' InstanceTarget (Prelude.Maybe TargetLabel)
+instanceTarget_instanceLabel = Lens.lens (\InstanceTarget' {instanceLabel} -> instanceLabel) (\s@InstanceTarget' {} a -> s {instanceLabel = a} :: InstanceTarget)
 
 -- | The Amazon Resource Name (ARN) of the target.
-itTargetARN :: Lens' InstanceTarget (Maybe Text)
-itTargetARN = lens _itTargetARN (\s a -> s {_itTargetARN = a})
+instanceTarget_targetArn :: Lens.Lens' InstanceTarget (Prelude.Maybe Prelude.Text)
+instanceTarget_targetArn = Lens.lens (\InstanceTarget' {targetArn} -> targetArn) (\s@InstanceTarget' {} a -> s {targetArn = a} :: InstanceTarget)
 
 -- | The lifecycle events of the deployment to this target instance.
-itLifecycleEvents :: Lens' InstanceTarget [LifecycleEvent]
-itLifecycleEvents = lens _itLifecycleEvents (\s a -> s {_itLifecycleEvents = a}) . _Default . _Coerce
+instanceTarget_lifecycleEvents :: Lens.Lens' InstanceTarget (Prelude.Maybe [LifecycleEvent])
+instanceTarget_lifecycleEvents = Lens.lens (\InstanceTarget' {lifecycleEvents} -> lifecycleEvents) (\s@InstanceTarget' {} a -> s {lifecycleEvents = a} :: InstanceTarget) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The date and time when the target instance was updated by a deployment.
-itLastUpdatedAt :: Lens' InstanceTarget (Maybe UTCTime)
-itLastUpdatedAt = lens _itLastUpdatedAt (\s a -> s {_itLastUpdatedAt = a}) . mapping _Time
+instanceTarget_lastUpdatedAt :: Lens.Lens' InstanceTarget (Prelude.Maybe Prelude.UTCTime)
+instanceTarget_lastUpdatedAt = Lens.lens (\InstanceTarget' {lastUpdatedAt} -> lastUpdatedAt) (\s@InstanceTarget' {} a -> s {lastUpdatedAt = a} :: InstanceTarget) Prelude.. Lens.mapping Prelude._Time
 
-instance FromJSON InstanceTarget where
+instance Prelude.FromJSON InstanceTarget where
   parseJSON =
-    withObject
+    Prelude.withObject
       "InstanceTarget"
       ( \x ->
           InstanceTarget'
-            <$> (x .:? "deploymentId")
-            <*> (x .:? "status")
-            <*> (x .:? "targetId")
-            <*> (x .:? "instanceLabel")
-            <*> (x .:? "targetArn")
-            <*> (x .:? "lifecycleEvents" .!= mempty)
-            <*> (x .:? "lastUpdatedAt")
+            Prelude.<$> (x Prelude..:? "deploymentId")
+            Prelude.<*> (x Prelude..:? "status")
+            Prelude.<*> (x Prelude..:? "targetId")
+            Prelude.<*> (x Prelude..:? "instanceLabel")
+            Prelude.<*> (x Prelude..:? "targetArn")
+            Prelude.<*> ( x Prelude..:? "lifecycleEvents"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "lastUpdatedAt")
       )
 
-instance Hashable InstanceTarget
+instance Prelude.Hashable InstanceTarget
 
-instance NFData InstanceTarget
+instance Prelude.NFData InstanceTarget

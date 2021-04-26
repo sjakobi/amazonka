@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,205 +23,244 @@
 --
 -- Gets a list of names for one or more on-premises instances.
 --
---
--- Unless otherwise specified, both registered and deregistered on-premises instance names are listed. To list only registered or deregistered on-premises instance names, use the registration status parameter.
---
+-- Unless otherwise specified, both registered and deregistered on-premises
+-- instance names are listed. To list only registered or deregistered
+-- on-premises instance names, use the registration status parameter.
 --
 -- This operation returns paginated results.
 module Network.AWS.CodeDeploy.ListOnPremisesInstances
   ( -- * Creating a Request
-    listOnPremisesInstances,
-    ListOnPremisesInstances,
+    ListOnPremisesInstances (..),
+    newListOnPremisesInstances,
 
     -- * Request Lenses
-    lopiNextToken,
-    lopiTagFilters,
-    lopiRegistrationStatus,
+    listOnPremisesInstances_nextToken,
+    listOnPremisesInstances_tagFilters,
+    listOnPremisesInstances_registrationStatus,
 
     -- * Destructuring the Response
-    listOnPremisesInstancesResponse,
-    ListOnPremisesInstancesResponse,
+    ListOnPremisesInstancesResponse (..),
+    newListOnPremisesInstancesResponse,
 
     -- * Response Lenses
-    lopirrsNextToken,
-    lopirrsInstanceNames,
-    lopirrsResponseStatus,
+    listOnPremisesInstancesResponse_nextToken,
+    listOnPremisesInstancesResponse_instanceNames,
+    listOnPremisesInstancesResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodeDeploy.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input of a @ListOnPremisesInstances@ operation.
 --
---
---
--- /See:/ 'listOnPremisesInstances' smart constructor.
+-- /See:/ 'newListOnPremisesInstances' smart constructor.
 data ListOnPremisesInstances = ListOnPremisesInstances'
-  { _lopiNextToken ::
-      !(Maybe Text),
-    _lopiTagFilters ::
-      !(Maybe [TagFilter]),
-    _lopiRegistrationStatus ::
-      !( Maybe
-           RegistrationStatus
-       )
+  { -- | An identifier returned from the previous list on-premises instances
+    -- call. It can be used to return the next set of on-premises instances in
+    -- the list.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The on-premises instance tags that are used to restrict the on-premises
+    -- instance names returned.
+    tagFilters :: Prelude.Maybe [TagFilter],
+    -- | The registration status of the on-premises instances:
+    --
+    -- -   @Deregistered@: Include deregistered on-premises instances in the
+    --     resulting list.
+    --
+    -- -   @Registered@: Include registered on-premises instances in the
+    --     resulting list.
+    registrationStatus :: Prelude.Maybe RegistrationStatus
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListOnPremisesInstances' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListOnPremisesInstances' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lopiNextToken' - An identifier returned from the previous list on-premises instances call. It can be used to return the next set of on-premises instances in the list.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lopiTagFilters' - The on-premises instance tags that are used to restrict the on-premises instance names returned.
+-- 'nextToken', 'listOnPremisesInstances_nextToken' - An identifier returned from the previous list on-premises instances
+-- call. It can be used to return the next set of on-premises instances in
+-- the list.
 --
--- * 'lopiRegistrationStatus' - The registration status of the on-premises instances:     * @Deregistered@ : Include deregistered on-premises instances in the resulting list.     * @Registered@ : Include registered on-premises instances in the resulting list.
-listOnPremisesInstances ::
+-- 'tagFilters', 'listOnPremisesInstances_tagFilters' - The on-premises instance tags that are used to restrict the on-premises
+-- instance names returned.
+--
+-- 'registrationStatus', 'listOnPremisesInstances_registrationStatus' - The registration status of the on-premises instances:
+--
+-- -   @Deregistered@: Include deregistered on-premises instances in the
+--     resulting list.
+--
+-- -   @Registered@: Include registered on-premises instances in the
+--     resulting list.
+newListOnPremisesInstances ::
   ListOnPremisesInstances
-listOnPremisesInstances =
+newListOnPremisesInstances =
   ListOnPremisesInstances'
-    { _lopiNextToken = Nothing,
-      _lopiTagFilters = Nothing,
-      _lopiRegistrationStatus = Nothing
+    { nextToken =
+        Prelude.Nothing,
+      tagFilters = Prelude.Nothing,
+      registrationStatus = Prelude.Nothing
     }
 
--- | An identifier returned from the previous list on-premises instances call. It can be used to return the next set of on-premises instances in the list.
-lopiNextToken :: Lens' ListOnPremisesInstances (Maybe Text)
-lopiNextToken = lens _lopiNextToken (\s a -> s {_lopiNextToken = a})
+-- | An identifier returned from the previous list on-premises instances
+-- call. It can be used to return the next set of on-premises instances in
+-- the list.
+listOnPremisesInstances_nextToken :: Lens.Lens' ListOnPremisesInstances (Prelude.Maybe Prelude.Text)
+listOnPremisesInstances_nextToken = Lens.lens (\ListOnPremisesInstances' {nextToken} -> nextToken) (\s@ListOnPremisesInstances' {} a -> s {nextToken = a} :: ListOnPremisesInstances)
 
--- | The on-premises instance tags that are used to restrict the on-premises instance names returned.
-lopiTagFilters :: Lens' ListOnPremisesInstances [TagFilter]
-lopiTagFilters = lens _lopiTagFilters (\s a -> s {_lopiTagFilters = a}) . _Default . _Coerce
+-- | The on-premises instance tags that are used to restrict the on-premises
+-- instance names returned.
+listOnPremisesInstances_tagFilters :: Lens.Lens' ListOnPremisesInstances (Prelude.Maybe [TagFilter])
+listOnPremisesInstances_tagFilters = Lens.lens (\ListOnPremisesInstances' {tagFilters} -> tagFilters) (\s@ListOnPremisesInstances' {} a -> s {tagFilters = a} :: ListOnPremisesInstances) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The registration status of the on-premises instances:     * @Deregistered@ : Include deregistered on-premises instances in the resulting list.     * @Registered@ : Include registered on-premises instances in the resulting list.
-lopiRegistrationStatus :: Lens' ListOnPremisesInstances (Maybe RegistrationStatus)
-lopiRegistrationStatus = lens _lopiRegistrationStatus (\s a -> s {_lopiRegistrationStatus = a})
+-- | The registration status of the on-premises instances:
+--
+-- -   @Deregistered@: Include deregistered on-premises instances in the
+--     resulting list.
+--
+-- -   @Registered@: Include registered on-premises instances in the
+--     resulting list.
+listOnPremisesInstances_registrationStatus :: Lens.Lens' ListOnPremisesInstances (Prelude.Maybe RegistrationStatus)
+listOnPremisesInstances_registrationStatus = Lens.lens (\ListOnPremisesInstances' {registrationStatus} -> registrationStatus) (\s@ListOnPremisesInstances' {} a -> s {registrationStatus = a} :: ListOnPremisesInstances)
 
-instance AWSPager ListOnPremisesInstances where
+instance Pager.AWSPager ListOnPremisesInstances where
   page rq rs
-    | stop (rs ^. lopirrsNextToken) = Nothing
-    | stop (rs ^. lopirrsInstanceNames) = Nothing
-    | otherwise =
-      Just $ rq & lopiNextToken .~ rs ^. lopirrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listOnPremisesInstancesResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listOnPremisesInstancesResponse_instanceNames
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listOnPremisesInstances_nextToken
+          Lens..~ rs
+          Lens.^? listOnPremisesInstancesResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListOnPremisesInstances where
+instance Prelude.AWSRequest ListOnPremisesInstances where
   type
     Rs ListOnPremisesInstances =
       ListOnPremisesInstancesResponse
-  request = postJSON codeDeploy
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListOnPremisesInstancesResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "instanceNames" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> ( x Prelude..?> "instanceNames"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListOnPremisesInstances
+instance Prelude.Hashable ListOnPremisesInstances
 
-instance NFData ListOnPremisesInstances
+instance Prelude.NFData ListOnPremisesInstances
 
-instance ToHeaders ListOnPremisesInstances where
+instance Prelude.ToHeaders ListOnPremisesInstances where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodeDeploy_20141006.ListOnPremisesInstances" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodeDeploy_20141006.ListOnPremisesInstances" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListOnPremisesInstances where
+instance Prelude.ToJSON ListOnPremisesInstances where
   toJSON ListOnPremisesInstances' {..} =
-    object
-      ( catMaybes
-          [ ("nextToken" .=) <$> _lopiNextToken,
-            ("tagFilters" .=) <$> _lopiTagFilters,
-            ("registrationStatus" .=)
-              <$> _lopiRegistrationStatus
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("nextToken" Prelude..=) Prelude.<$> nextToken,
+            ("tagFilters" Prelude..=) Prelude.<$> tagFilters,
+            ("registrationStatus" Prelude..=)
+              Prelude.<$> registrationStatus
           ]
       )
 
-instance ToPath ListOnPremisesInstances where
-  toPath = const "/"
+instance Prelude.ToPath ListOnPremisesInstances where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListOnPremisesInstances where
-  toQuery = const mempty
+instance Prelude.ToQuery ListOnPremisesInstances where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of the list on-premises instances operation.
 --
---
---
--- /See:/ 'listOnPremisesInstancesResponse' smart constructor.
+-- /See:/ 'newListOnPremisesInstancesResponse' smart constructor.
 data ListOnPremisesInstancesResponse = ListOnPremisesInstancesResponse'
-  { _lopirrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _lopirrsInstanceNames ::
-      !( Maybe
-           [Text]
-       ),
-    _lopirrsResponseStatus ::
-      !Int
+  { -- | If a large amount of information is returned, an identifier is also
+    -- returned. It can be used in a subsequent list on-premises instances call
+    -- to return the next set of on-premises instances in the list.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The list of matching on-premises instance names.
+    instanceNames :: Prelude.Maybe [Prelude.Text],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListOnPremisesInstancesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListOnPremisesInstancesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lopirrsNextToken' - If a large amount of information is returned, an identifier is also returned. It can be used in a subsequent list on-premises instances call to return the next set of on-premises instances in the list.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lopirrsInstanceNames' - The list of matching on-premises instance names.
+-- 'nextToken', 'listOnPremisesInstancesResponse_nextToken' - If a large amount of information is returned, an identifier is also
+-- returned. It can be used in a subsequent list on-premises instances call
+-- to return the next set of on-premises instances in the list.
 --
--- * 'lopirrsResponseStatus' - -- | The response status code.
-listOnPremisesInstancesResponse ::
-  -- | 'lopirrsResponseStatus'
-  Int ->
+-- 'instanceNames', 'listOnPremisesInstancesResponse_instanceNames' - The list of matching on-premises instance names.
+--
+-- 'httpStatus', 'listOnPremisesInstancesResponse_httpStatus' - The response's http status code.
+newListOnPremisesInstancesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListOnPremisesInstancesResponse
-listOnPremisesInstancesResponse pResponseStatus_ =
+newListOnPremisesInstancesResponse pHttpStatus_ =
   ListOnPremisesInstancesResponse'
-    { _lopirrsNextToken =
-        Nothing,
-      _lopirrsInstanceNames = Nothing,
-      _lopirrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      instanceNames = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | If a large amount of information is returned, an identifier is also returned. It can be used in a subsequent list on-premises instances call to return the next set of on-premises instances in the list.
-lopirrsNextToken :: Lens' ListOnPremisesInstancesResponse (Maybe Text)
-lopirrsNextToken = lens _lopirrsNextToken (\s a -> s {_lopirrsNextToken = a})
+-- | If a large amount of information is returned, an identifier is also
+-- returned. It can be used in a subsequent list on-premises instances call
+-- to return the next set of on-premises instances in the list.
+listOnPremisesInstancesResponse_nextToken :: Lens.Lens' ListOnPremisesInstancesResponse (Prelude.Maybe Prelude.Text)
+listOnPremisesInstancesResponse_nextToken = Lens.lens (\ListOnPremisesInstancesResponse' {nextToken} -> nextToken) (\s@ListOnPremisesInstancesResponse' {} a -> s {nextToken = a} :: ListOnPremisesInstancesResponse)
 
 -- | The list of matching on-premises instance names.
-lopirrsInstanceNames :: Lens' ListOnPremisesInstancesResponse [Text]
-lopirrsInstanceNames = lens _lopirrsInstanceNames (\s a -> s {_lopirrsInstanceNames = a}) . _Default . _Coerce
+listOnPremisesInstancesResponse_instanceNames :: Lens.Lens' ListOnPremisesInstancesResponse (Prelude.Maybe [Prelude.Text])
+listOnPremisesInstancesResponse_instanceNames = Lens.lens (\ListOnPremisesInstancesResponse' {instanceNames} -> instanceNames) (\s@ListOnPremisesInstancesResponse' {} a -> s {instanceNames = a} :: ListOnPremisesInstancesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lopirrsResponseStatus :: Lens' ListOnPremisesInstancesResponse Int
-lopirrsResponseStatus = lens _lopirrsResponseStatus (\s a -> s {_lopirrsResponseStatus = a})
+-- | The response's http status code.
+listOnPremisesInstancesResponse_httpStatus :: Lens.Lens' ListOnPremisesInstancesResponse Prelude.Int
+listOnPremisesInstancesResponse_httpStatus = Lens.lens (\ListOnPremisesInstancesResponse' {httpStatus} -> httpStatus) (\s@ListOnPremisesInstancesResponse' {} a -> s {httpStatus = a} :: ListOnPremisesInstancesResponse)
 
-instance NFData ListOnPremisesInstancesResponse
+instance
+  Prelude.NFData
+    ListOnPremisesInstancesResponse

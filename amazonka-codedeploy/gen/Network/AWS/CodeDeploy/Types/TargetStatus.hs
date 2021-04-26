@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,78 +19,80 @@
 module Network.AWS.CodeDeploy.Types.TargetStatus
   ( TargetStatus
       ( ..,
-        TSFailed,
-        TSInProgress,
-        TSPending,
-        TSReady,
-        TSSkipped,
-        TSSucceeded,
-        TSUnknown
+        TargetStatusFailed,
+        TargetStatusInProgress,
+        TargetStatusPending,
+        TargetStatusReady,
+        TargetStatusSkipped,
+        TargetStatusSucceeded,
+        TargetStatusUnknown
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TargetStatus = TargetStatus' (CI Text)
+newtype TargetStatus = TargetStatus'
+  { fromTargetStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TSFailed :: TargetStatus
-pattern TSFailed = TargetStatus' "Failed"
+pattern TargetStatusFailed :: TargetStatus
+pattern TargetStatusFailed = TargetStatus' "Failed"
 
-pattern TSInProgress :: TargetStatus
-pattern TSInProgress = TargetStatus' "InProgress"
+pattern TargetStatusInProgress :: TargetStatus
+pattern TargetStatusInProgress = TargetStatus' "InProgress"
 
-pattern TSPending :: TargetStatus
-pattern TSPending = TargetStatus' "Pending"
+pattern TargetStatusPending :: TargetStatus
+pattern TargetStatusPending = TargetStatus' "Pending"
 
-pattern TSReady :: TargetStatus
-pattern TSReady = TargetStatus' "Ready"
+pattern TargetStatusReady :: TargetStatus
+pattern TargetStatusReady = TargetStatus' "Ready"
 
-pattern TSSkipped :: TargetStatus
-pattern TSSkipped = TargetStatus' "Skipped"
+pattern TargetStatusSkipped :: TargetStatus
+pattern TargetStatusSkipped = TargetStatus' "Skipped"
 
-pattern TSSucceeded :: TargetStatus
-pattern TSSucceeded = TargetStatus' "Succeeded"
+pattern TargetStatusSucceeded :: TargetStatus
+pattern TargetStatusSucceeded = TargetStatus' "Succeeded"
 
-pattern TSUnknown :: TargetStatus
-pattern TSUnknown = TargetStatus' "Unknown"
+pattern TargetStatusUnknown :: TargetStatus
+pattern TargetStatusUnknown = TargetStatus' "Unknown"
 
 {-# COMPLETE
-  TSFailed,
-  TSInProgress,
-  TSPending,
-  TSReady,
-  TSSkipped,
-  TSSucceeded,
-  TSUnknown,
+  TargetStatusFailed,
+  TargetStatusInProgress,
+  TargetStatusPending,
+  TargetStatusReady,
+  TargetStatusSkipped,
+  TargetStatusSucceeded,
+  TargetStatusUnknown,
   TargetStatus'
   #-}
 
-instance FromText TargetStatus where
-  parser = (TargetStatus' . mk) <$> takeText
+instance Prelude.FromText TargetStatus where
+  parser = TargetStatus' Prelude.<$> Prelude.takeText
 
-instance ToText TargetStatus where
-  toText (TargetStatus' ci) = original ci
+instance Prelude.ToText TargetStatus where
+  toText (TargetStatus' x) = x
 
-instance Hashable TargetStatus
+instance Prelude.Hashable TargetStatus
 
-instance NFData TargetStatus
+instance Prelude.NFData TargetStatus
 
-instance ToByteString TargetStatus
+instance Prelude.ToByteString TargetStatus
 
-instance ToQuery TargetStatus
+instance Prelude.ToQuery TargetStatus
 
-instance ToHeader TargetStatus
+instance Prelude.ToHeader TargetStatus
 
-instance FromJSON TargetStatus where
-  parseJSON = parseJSONText "TargetStatus"
+instance Prelude.FromJSON TargetStatus where
+  parseJSON = Prelude.parseJSONText "TargetStatus"

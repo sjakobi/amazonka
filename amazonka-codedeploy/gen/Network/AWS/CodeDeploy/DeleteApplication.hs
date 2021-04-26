@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,104 +24,112 @@
 -- Deletes an application.
 module Network.AWS.CodeDeploy.DeleteApplication
   ( -- * Creating a Request
-    deleteApplication,
-    DeleteApplication,
+    DeleteApplication (..),
+    newDeleteApplication,
 
     -- * Request Lenses
-    daApplicationName,
+    deleteApplication_applicationName,
 
     -- * Destructuring the Response
-    deleteApplicationResponse,
-    DeleteApplicationResponse,
+    DeleteApplicationResponse (..),
+    newDeleteApplicationResponse,
   )
 where
 
 import Network.AWS.CodeDeploy.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input of a @DeleteApplication@ operation.
 --
---
---
--- /See:/ 'deleteApplication' smart constructor.
-newtype DeleteApplication = DeleteApplication'
-  { _daApplicationName ::
-      Text
+-- /See:/ 'newDeleteApplication' smart constructor.
+data DeleteApplication = DeleteApplication'
+  { -- | The name of an AWS CodeDeploy application associated with the IAM user
+    -- or AWS account.
+    applicationName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteApplication' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteApplication' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'daApplicationName' - The name of an AWS CodeDeploy application associated with the IAM user or AWS account.
-deleteApplication ::
-  -- | 'daApplicationName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'applicationName', 'deleteApplication_applicationName' - The name of an AWS CodeDeploy application associated with the IAM user
+-- or AWS account.
+newDeleteApplication ::
+  -- | 'applicationName'
+  Prelude.Text ->
   DeleteApplication
-deleteApplication pApplicationName_ =
+newDeleteApplication pApplicationName_ =
   DeleteApplication'
-    { _daApplicationName =
+    { applicationName =
         pApplicationName_
     }
 
--- | The name of an AWS CodeDeploy application associated with the IAM user or AWS account.
-daApplicationName :: Lens' DeleteApplication Text
-daApplicationName = lens _daApplicationName (\s a -> s {_daApplicationName = a})
+-- | The name of an AWS CodeDeploy application associated with the IAM user
+-- or AWS account.
+deleteApplication_applicationName :: Lens.Lens' DeleteApplication Prelude.Text
+deleteApplication_applicationName = Lens.lens (\DeleteApplication' {applicationName} -> applicationName) (\s@DeleteApplication' {} a -> s {applicationName = a} :: DeleteApplication)
 
-instance AWSRequest DeleteApplication where
+instance Prelude.AWSRequest DeleteApplication where
   type Rs DeleteApplication = DeleteApplicationResponse
-  request = postJSON codeDeploy
-  response = receiveNull DeleteApplicationResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull DeleteApplicationResponse'
 
-instance Hashable DeleteApplication
+instance Prelude.Hashable DeleteApplication
 
-instance NFData DeleteApplication
+instance Prelude.NFData DeleteApplication
 
-instance ToHeaders DeleteApplication where
+instance Prelude.ToHeaders DeleteApplication where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodeDeploy_20141006.DeleteApplication" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodeDeploy_20141006.DeleteApplication" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteApplication where
+instance Prelude.ToJSON DeleteApplication where
   toJSON DeleteApplication' {..} =
-    object
-      ( catMaybes
-          [Just ("applicationName" .= _daApplicationName)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("applicationName" Prelude..= applicationName)
+          ]
       )
 
-instance ToPath DeleteApplication where
-  toPath = const "/"
+instance Prelude.ToPath DeleteApplication where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteApplication where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteApplication where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteApplicationResponse' smart constructor.
+-- | /See:/ 'newDeleteApplicationResponse' smart constructor.
 data DeleteApplicationResponse = DeleteApplicationResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteApplicationResponse' with the minimum fields required to make a request.
-deleteApplicationResponse ::
+-- |
+-- Create a value of 'DeleteApplicationResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteApplicationResponse ::
   DeleteApplicationResponse
-deleteApplicationResponse =
+newDeleteApplicationResponse =
   DeleteApplicationResponse'
 
-instance NFData DeleteApplicationResponse
+instance Prelude.NFData DeleteApplicationResponse

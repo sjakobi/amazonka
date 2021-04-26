@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,182 +24,179 @@
 -- Gets information about one or more deployment groups.
 module Network.AWS.CodeDeploy.BatchGetDeploymentGroups
   ( -- * Creating a Request
-    batchGetDeploymentGroups,
-    BatchGetDeploymentGroups,
+    BatchGetDeploymentGroups (..),
+    newBatchGetDeploymentGroups,
 
     -- * Request Lenses
-    bgdgApplicationName,
-    bgdgDeploymentGroupNames,
+    batchGetDeploymentGroups_applicationName,
+    batchGetDeploymentGroups_deploymentGroupNames,
 
     -- * Destructuring the Response
-    batchGetDeploymentGroupsResponse,
-    BatchGetDeploymentGroupsResponse,
+    BatchGetDeploymentGroupsResponse (..),
+    newBatchGetDeploymentGroupsResponse,
 
     -- * Response Lenses
-    bgdgrrsDeploymentGroupsInfo,
-    bgdgrrsErrorMessage,
-    bgdgrrsResponseStatus,
+    batchGetDeploymentGroupsResponse_deploymentGroupsInfo,
+    batchGetDeploymentGroupsResponse_errorMessage,
+    batchGetDeploymentGroupsResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodeDeploy.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CodeDeploy.Types.DeploymentGroupInfo
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input of a @BatchGetDeploymentGroups@ operation.
 --
---
---
--- /See:/ 'batchGetDeploymentGroups' smart constructor.
+-- /See:/ 'newBatchGetDeploymentGroups' smart constructor.
 data BatchGetDeploymentGroups = BatchGetDeploymentGroups'
-  { _bgdgApplicationName ::
-      !Text,
-    _bgdgDeploymentGroupNames ::
-      ![Text]
+  { -- | The name of an AWS CodeDeploy application associated with the applicable
+    -- IAM user or AWS account.
+    applicationName :: Prelude.Text,
+    -- | The names of the deployment groups.
+    deploymentGroupNames :: [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchGetDeploymentGroups' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchGetDeploymentGroups' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bgdgApplicationName' - The name of an AWS CodeDeploy application associated with the applicable IAM user or AWS account.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bgdgDeploymentGroupNames' - The names of the deployment groups.
-batchGetDeploymentGroups ::
-  -- | 'bgdgApplicationName'
-  Text ->
+-- 'applicationName', 'batchGetDeploymentGroups_applicationName' - The name of an AWS CodeDeploy application associated with the applicable
+-- IAM user or AWS account.
+--
+-- 'deploymentGroupNames', 'batchGetDeploymentGroups_deploymentGroupNames' - The names of the deployment groups.
+newBatchGetDeploymentGroups ::
+  -- | 'applicationName'
+  Prelude.Text ->
   BatchGetDeploymentGroups
-batchGetDeploymentGroups pApplicationName_ =
+newBatchGetDeploymentGroups pApplicationName_ =
   BatchGetDeploymentGroups'
-    { _bgdgApplicationName =
+    { applicationName =
         pApplicationName_,
-      _bgdgDeploymentGroupNames = mempty
+      deploymentGroupNames = Prelude.mempty
     }
 
--- | The name of an AWS CodeDeploy application associated with the applicable IAM user or AWS account.
-bgdgApplicationName :: Lens' BatchGetDeploymentGroups Text
-bgdgApplicationName = lens _bgdgApplicationName (\s a -> s {_bgdgApplicationName = a})
+-- | The name of an AWS CodeDeploy application associated with the applicable
+-- IAM user or AWS account.
+batchGetDeploymentGroups_applicationName :: Lens.Lens' BatchGetDeploymentGroups Prelude.Text
+batchGetDeploymentGroups_applicationName = Lens.lens (\BatchGetDeploymentGroups' {applicationName} -> applicationName) (\s@BatchGetDeploymentGroups' {} a -> s {applicationName = a} :: BatchGetDeploymentGroups)
 
 -- | The names of the deployment groups.
-bgdgDeploymentGroupNames :: Lens' BatchGetDeploymentGroups [Text]
-bgdgDeploymentGroupNames = lens _bgdgDeploymentGroupNames (\s a -> s {_bgdgDeploymentGroupNames = a}) . _Coerce
+batchGetDeploymentGroups_deploymentGroupNames :: Lens.Lens' BatchGetDeploymentGroups [Prelude.Text]
+batchGetDeploymentGroups_deploymentGroupNames = Lens.lens (\BatchGetDeploymentGroups' {deploymentGroupNames} -> deploymentGroupNames) (\s@BatchGetDeploymentGroups' {} a -> s {deploymentGroupNames = a} :: BatchGetDeploymentGroups) Prelude.. Prelude._Coerce
 
-instance AWSRequest BatchGetDeploymentGroups where
+instance Prelude.AWSRequest BatchGetDeploymentGroups where
   type
     Rs BatchGetDeploymentGroups =
       BatchGetDeploymentGroupsResponse
-  request = postJSON codeDeploy
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           BatchGetDeploymentGroupsResponse'
-            <$> (x .?> "deploymentGroupsInfo" .!@ mempty)
-            <*> (x .?> "errorMessage")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "deploymentGroupsInfo"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "errorMessage")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable BatchGetDeploymentGroups
+instance Prelude.Hashable BatchGetDeploymentGroups
 
-instance NFData BatchGetDeploymentGroups
+instance Prelude.NFData BatchGetDeploymentGroups
 
-instance ToHeaders BatchGetDeploymentGroups where
+instance Prelude.ToHeaders BatchGetDeploymentGroups where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodeDeploy_20141006.BatchGetDeploymentGroups" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodeDeploy_20141006.BatchGetDeploymentGroups" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON BatchGetDeploymentGroups where
+instance Prelude.ToJSON BatchGetDeploymentGroups where
   toJSON BatchGetDeploymentGroups' {..} =
-    object
-      ( catMaybes
-          [ Just ("applicationName" .= _bgdgApplicationName),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("applicationName" Prelude..= applicationName),
+            Prelude.Just
               ( "deploymentGroupNames"
-                  .= _bgdgDeploymentGroupNames
+                  Prelude..= deploymentGroupNames
               )
           ]
       )
 
-instance ToPath BatchGetDeploymentGroups where
-  toPath = const "/"
+instance Prelude.ToPath BatchGetDeploymentGroups where
+  toPath = Prelude.const "/"
 
-instance ToQuery BatchGetDeploymentGroups where
-  toQuery = const mempty
+instance Prelude.ToQuery BatchGetDeploymentGroups where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a @BatchGetDeploymentGroups@ operation.
 --
---
---
--- /See:/ 'batchGetDeploymentGroupsResponse' smart constructor.
+-- /See:/ 'newBatchGetDeploymentGroupsResponse' smart constructor.
 data BatchGetDeploymentGroupsResponse = BatchGetDeploymentGroupsResponse'
-  { _bgdgrrsDeploymentGroupsInfo ::
-      !( Maybe
-           [DeploymentGroupInfo]
-       ),
-    _bgdgrrsErrorMessage ::
-      !( Maybe
-           Text
-       ),
-    _bgdgrrsResponseStatus ::
-      !Int
+  { -- | Information about the deployment groups.
+    deploymentGroupsInfo :: Prelude.Maybe [DeploymentGroupInfo],
+    -- | Information about errors that might have occurred during the API call.
+    errorMessage :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchGetDeploymentGroupsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchGetDeploymentGroupsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bgdgrrsDeploymentGroupsInfo' - Information about the deployment groups.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bgdgrrsErrorMessage' - Information about errors that might have occurred during the API call.
+-- 'deploymentGroupsInfo', 'batchGetDeploymentGroupsResponse_deploymentGroupsInfo' - Information about the deployment groups.
 --
--- * 'bgdgrrsResponseStatus' - -- | The response status code.
-batchGetDeploymentGroupsResponse ::
-  -- | 'bgdgrrsResponseStatus'
-  Int ->
+-- 'errorMessage', 'batchGetDeploymentGroupsResponse_errorMessage' - Information about errors that might have occurred during the API call.
+--
+-- 'httpStatus', 'batchGetDeploymentGroupsResponse_httpStatus' - The response's http status code.
+newBatchGetDeploymentGroupsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   BatchGetDeploymentGroupsResponse
-batchGetDeploymentGroupsResponse pResponseStatus_ =
+newBatchGetDeploymentGroupsResponse pHttpStatus_ =
   BatchGetDeploymentGroupsResponse'
-    { _bgdgrrsDeploymentGroupsInfo =
-        Nothing,
-      _bgdgrrsErrorMessage = Nothing,
-      _bgdgrrsResponseStatus = pResponseStatus_
+    { deploymentGroupsInfo =
+        Prelude.Nothing,
+      errorMessage = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the deployment groups.
-bgdgrrsDeploymentGroupsInfo :: Lens' BatchGetDeploymentGroupsResponse [DeploymentGroupInfo]
-bgdgrrsDeploymentGroupsInfo = lens _bgdgrrsDeploymentGroupsInfo (\s a -> s {_bgdgrrsDeploymentGroupsInfo = a}) . _Default . _Coerce
+batchGetDeploymentGroupsResponse_deploymentGroupsInfo :: Lens.Lens' BatchGetDeploymentGroupsResponse (Prelude.Maybe [DeploymentGroupInfo])
+batchGetDeploymentGroupsResponse_deploymentGroupsInfo = Lens.lens (\BatchGetDeploymentGroupsResponse' {deploymentGroupsInfo} -> deploymentGroupsInfo) (\s@BatchGetDeploymentGroupsResponse' {} a -> s {deploymentGroupsInfo = a} :: BatchGetDeploymentGroupsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Information about errors that might have occurred during the API call.
-bgdgrrsErrorMessage :: Lens' BatchGetDeploymentGroupsResponse (Maybe Text)
-bgdgrrsErrorMessage = lens _bgdgrrsErrorMessage (\s a -> s {_bgdgrrsErrorMessage = a})
+batchGetDeploymentGroupsResponse_errorMessage :: Lens.Lens' BatchGetDeploymentGroupsResponse (Prelude.Maybe Prelude.Text)
+batchGetDeploymentGroupsResponse_errorMessage = Lens.lens (\BatchGetDeploymentGroupsResponse' {errorMessage} -> errorMessage) (\s@BatchGetDeploymentGroupsResponse' {} a -> s {errorMessage = a} :: BatchGetDeploymentGroupsResponse)
 
--- | -- | The response status code.
-bgdgrrsResponseStatus :: Lens' BatchGetDeploymentGroupsResponse Int
-bgdgrrsResponseStatus = lens _bgdgrrsResponseStatus (\s a -> s {_bgdgrrsResponseStatus = a})
+-- | The response's http status code.
+batchGetDeploymentGroupsResponse_httpStatus :: Lens.Lens' BatchGetDeploymentGroupsResponse Prelude.Int
+batchGetDeploymentGroupsResponse_httpStatus = Lens.lens (\BatchGetDeploymentGroupsResponse' {httpStatus} -> httpStatus) (\s@BatchGetDeploymentGroupsResponse' {} a -> s {httpStatus = a} :: BatchGetDeploymentGroupsResponse)
 
-instance NFData BatchGetDeploymentGroupsResponse
+instance
+  Prelude.NFData
+    BatchGetDeploymentGroupsResponse

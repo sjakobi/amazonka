@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,73 +20,87 @@
 module Network.AWS.CodeDeploy.Types.TriggerConfig where
 
 import Network.AWS.CodeDeploy.Types.TriggerEventType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about notification triggers for the deployment group.
 --
---
---
--- /See:/ 'triggerConfig' smart constructor.
+-- /See:/ 'newTriggerConfig' smart constructor.
 data TriggerConfig = TriggerConfig'
-  { _tcTriggerEvents ::
-      !(Maybe [TriggerEventType]),
-    _tcTriggerName :: !(Maybe Text),
-    _tcTriggerTargetARN :: !(Maybe Text)
+  { -- | The event type or types for which notifications are triggered.
+    triggerEvents :: Prelude.Maybe [TriggerEventType],
+    -- | The name of the notification trigger.
+    triggerName :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the Amazon Simple Notification Service
+    -- topic through which notifications about deployment or instance events
+    -- are sent.
+    triggerTargetArn :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TriggerConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TriggerConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tcTriggerEvents' - The event type or types for which notifications are triggered.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tcTriggerName' - The name of the notification trigger.
+-- 'triggerEvents', 'triggerConfig_triggerEvents' - The event type or types for which notifications are triggered.
 --
--- * 'tcTriggerTargetARN' - The Amazon Resource Name (ARN) of the Amazon Simple Notification Service topic through which notifications about deployment or instance events are sent.
-triggerConfig ::
+-- 'triggerName', 'triggerConfig_triggerName' - The name of the notification trigger.
+--
+-- 'triggerTargetArn', 'triggerConfig_triggerTargetArn' - The Amazon Resource Name (ARN) of the Amazon Simple Notification Service
+-- topic through which notifications about deployment or instance events
+-- are sent.
+newTriggerConfig ::
   TriggerConfig
-triggerConfig =
+newTriggerConfig =
   TriggerConfig'
-    { _tcTriggerEvents = Nothing,
-      _tcTriggerName = Nothing,
-      _tcTriggerTargetARN = Nothing
+    { triggerEvents = Prelude.Nothing,
+      triggerName = Prelude.Nothing,
+      triggerTargetArn = Prelude.Nothing
     }
 
 -- | The event type or types for which notifications are triggered.
-tcTriggerEvents :: Lens' TriggerConfig [TriggerEventType]
-tcTriggerEvents = lens _tcTriggerEvents (\s a -> s {_tcTriggerEvents = a}) . _Default . _Coerce
+triggerConfig_triggerEvents :: Lens.Lens' TriggerConfig (Prelude.Maybe [TriggerEventType])
+triggerConfig_triggerEvents = Lens.lens (\TriggerConfig' {triggerEvents} -> triggerEvents) (\s@TriggerConfig' {} a -> s {triggerEvents = a} :: TriggerConfig) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The name of the notification trigger.
-tcTriggerName :: Lens' TriggerConfig (Maybe Text)
-tcTriggerName = lens _tcTriggerName (\s a -> s {_tcTriggerName = a})
+triggerConfig_triggerName :: Lens.Lens' TriggerConfig (Prelude.Maybe Prelude.Text)
+triggerConfig_triggerName = Lens.lens (\TriggerConfig' {triggerName} -> triggerName) (\s@TriggerConfig' {} a -> s {triggerName = a} :: TriggerConfig)
 
--- | The Amazon Resource Name (ARN) of the Amazon Simple Notification Service topic through which notifications about deployment or instance events are sent.
-tcTriggerTargetARN :: Lens' TriggerConfig (Maybe Text)
-tcTriggerTargetARN = lens _tcTriggerTargetARN (\s a -> s {_tcTriggerTargetARN = a})
+-- | The Amazon Resource Name (ARN) of the Amazon Simple Notification Service
+-- topic through which notifications about deployment or instance events
+-- are sent.
+triggerConfig_triggerTargetArn :: Lens.Lens' TriggerConfig (Prelude.Maybe Prelude.Text)
+triggerConfig_triggerTargetArn = Lens.lens (\TriggerConfig' {triggerTargetArn} -> triggerTargetArn) (\s@TriggerConfig' {} a -> s {triggerTargetArn = a} :: TriggerConfig)
 
-instance FromJSON TriggerConfig where
+instance Prelude.FromJSON TriggerConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TriggerConfig"
       ( \x ->
           TriggerConfig'
-            <$> (x .:? "triggerEvents" .!= mempty)
-            <*> (x .:? "triggerName")
-            <*> (x .:? "triggerTargetArn")
+            Prelude.<$> ( x Prelude..:? "triggerEvents"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "triggerName")
+            Prelude.<*> (x Prelude..:? "triggerTargetArn")
       )
 
-instance Hashable TriggerConfig
+instance Prelude.Hashable TriggerConfig
 
-instance NFData TriggerConfig
+instance Prelude.NFData TriggerConfig
 
-instance ToJSON TriggerConfig where
+instance Prelude.ToJSON TriggerConfig where
   toJSON TriggerConfig' {..} =
-    object
-      ( catMaybes
-          [ ("triggerEvents" .=) <$> _tcTriggerEvents,
-            ("triggerName" .=) <$> _tcTriggerName,
-            ("triggerTargetArn" .=) <$> _tcTriggerTargetARN
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("triggerEvents" Prelude..=)
+              Prelude.<$> triggerEvents,
+            ("triggerName" Prelude..=) Prelude.<$> triggerName,
+            ("triggerTargetArn" Prelude..=)
+              Prelude.<$> triggerTargetArn
           ]
       )

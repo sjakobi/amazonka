@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.CodeDeploy.Types.TrafficRoutingType
   ( TrafficRoutingType
       ( ..,
-        AllAtOnce,
-        TimeBasedCanary,
-        TimeBasedLinear
+        TrafficRoutingTypeAllAtOnce,
+        TrafficRoutingTypeTimeBasedCanary,
+        TrafficRoutingTypeTimeBasedLinear
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TrafficRoutingType
-  = TrafficRoutingType'
-      ( CI
-          Text
-      )
+newtype TrafficRoutingType = TrafficRoutingType'
+  { fromTrafficRoutingType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AllAtOnce :: TrafficRoutingType
-pattern AllAtOnce = TrafficRoutingType' "AllAtOnce"
+pattern TrafficRoutingTypeAllAtOnce :: TrafficRoutingType
+pattern TrafficRoutingTypeAllAtOnce = TrafficRoutingType' "AllAtOnce"
 
-pattern TimeBasedCanary :: TrafficRoutingType
-pattern TimeBasedCanary = TrafficRoutingType' "TimeBasedCanary"
+pattern TrafficRoutingTypeTimeBasedCanary :: TrafficRoutingType
+pattern TrafficRoutingTypeTimeBasedCanary = TrafficRoutingType' "TimeBasedCanary"
 
-pattern TimeBasedLinear :: TrafficRoutingType
-pattern TimeBasedLinear = TrafficRoutingType' "TimeBasedLinear"
+pattern TrafficRoutingTypeTimeBasedLinear :: TrafficRoutingType
+pattern TrafficRoutingTypeTimeBasedLinear = TrafficRoutingType' "TimeBasedLinear"
 
 {-# COMPLETE
-  AllAtOnce,
-  TimeBasedCanary,
-  TimeBasedLinear,
+  TrafficRoutingTypeAllAtOnce,
+  TrafficRoutingTypeTimeBasedCanary,
+  TrafficRoutingTypeTimeBasedLinear,
   TrafficRoutingType'
   #-}
 
-instance FromText TrafficRoutingType where
-  parser = (TrafficRoutingType' . mk) <$> takeText
+instance Prelude.FromText TrafficRoutingType where
+  parser = TrafficRoutingType' Prelude.<$> Prelude.takeText
 
-instance ToText TrafficRoutingType where
-  toText (TrafficRoutingType' ci) = original ci
+instance Prelude.ToText TrafficRoutingType where
+  toText (TrafficRoutingType' x) = x
 
-instance Hashable TrafficRoutingType
+instance Prelude.Hashable TrafficRoutingType
 
-instance NFData TrafficRoutingType
+instance Prelude.NFData TrafficRoutingType
 
-instance ToByteString TrafficRoutingType
+instance Prelude.ToByteString TrafficRoutingType
 
-instance ToQuery TrafficRoutingType
+instance Prelude.ToQuery TrafficRoutingType
 
-instance ToHeader TrafficRoutingType
+instance Prelude.ToHeader TrafficRoutingType
 
-instance ToJSON TrafficRoutingType where
-  toJSON = toJSONText
+instance Prelude.ToJSON TrafficRoutingType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON TrafficRoutingType where
-  parseJSON = parseJSONText "TrafficRoutingType"
+instance Prelude.FromJSON TrafficRoutingType where
+  parseJSON = Prelude.parseJSONText "TrafficRoutingType"

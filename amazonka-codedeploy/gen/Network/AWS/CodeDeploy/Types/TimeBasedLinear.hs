@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,63 +19,78 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CodeDeploy.Types.TimeBasedLinear where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A configuration that shifts traffic from one version of a Lambda function or ECS task set to another in equal increments, with an equal number of minutes between each increment. The original and target Lambda function versions or ECS task sets are specified in the deployment's AppSpec file.
+-- | A configuration that shifts traffic from one version of a Lambda
+-- function or ECS task set to another in equal increments, with an equal
+-- number of minutes between each increment. The original and target Lambda
+-- function versions or ECS task sets are specified in the deployment\'s
+-- AppSpec file.
 --
---
---
--- /See:/ 'timeBasedLinear' smart constructor.
+-- /See:/ 'newTimeBasedLinear' smart constructor.
 data TimeBasedLinear = TimeBasedLinear'
-  { _tblLinearInterval ::
-      !(Maybe Int),
-    _tblLinearPercentage :: !(Maybe Int)
+  { -- | The number of minutes between each incremental traffic shift of a
+    -- @TimeBasedLinear@ deployment.
+    linearInterval :: Prelude.Maybe Prelude.Int,
+    -- | The percentage of traffic that is shifted at the start of each increment
+    -- of a @TimeBasedLinear@ deployment.
+    linearPercentage :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TimeBasedLinear' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TimeBasedLinear' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tblLinearInterval' - The number of minutes between each incremental traffic shift of a @TimeBasedLinear@ deployment.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tblLinearPercentage' - The percentage of traffic that is shifted at the start of each increment of a @TimeBasedLinear@ deployment.
-timeBasedLinear ::
+-- 'linearInterval', 'timeBasedLinear_linearInterval' - The number of minutes between each incremental traffic shift of a
+-- @TimeBasedLinear@ deployment.
+--
+-- 'linearPercentage', 'timeBasedLinear_linearPercentage' - The percentage of traffic that is shifted at the start of each increment
+-- of a @TimeBasedLinear@ deployment.
+newTimeBasedLinear ::
   TimeBasedLinear
-timeBasedLinear =
+newTimeBasedLinear =
   TimeBasedLinear'
-    { _tblLinearInterval = Nothing,
-      _tblLinearPercentage = Nothing
+    { linearInterval = Prelude.Nothing,
+      linearPercentage = Prelude.Nothing
     }
 
--- | The number of minutes between each incremental traffic shift of a @TimeBasedLinear@ deployment.
-tblLinearInterval :: Lens' TimeBasedLinear (Maybe Int)
-tblLinearInterval = lens _tblLinearInterval (\s a -> s {_tblLinearInterval = a})
+-- | The number of minutes between each incremental traffic shift of a
+-- @TimeBasedLinear@ deployment.
+timeBasedLinear_linearInterval :: Lens.Lens' TimeBasedLinear (Prelude.Maybe Prelude.Int)
+timeBasedLinear_linearInterval = Lens.lens (\TimeBasedLinear' {linearInterval} -> linearInterval) (\s@TimeBasedLinear' {} a -> s {linearInterval = a} :: TimeBasedLinear)
 
--- | The percentage of traffic that is shifted at the start of each increment of a @TimeBasedLinear@ deployment.
-tblLinearPercentage :: Lens' TimeBasedLinear (Maybe Int)
-tblLinearPercentage = lens _tblLinearPercentage (\s a -> s {_tblLinearPercentage = a})
+-- | The percentage of traffic that is shifted at the start of each increment
+-- of a @TimeBasedLinear@ deployment.
+timeBasedLinear_linearPercentage :: Lens.Lens' TimeBasedLinear (Prelude.Maybe Prelude.Int)
+timeBasedLinear_linearPercentage = Lens.lens (\TimeBasedLinear' {linearPercentage} -> linearPercentage) (\s@TimeBasedLinear' {} a -> s {linearPercentage = a} :: TimeBasedLinear)
 
-instance FromJSON TimeBasedLinear where
+instance Prelude.FromJSON TimeBasedLinear where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TimeBasedLinear"
       ( \x ->
           TimeBasedLinear'
-            <$> (x .:? "linearInterval")
-            <*> (x .:? "linearPercentage")
+            Prelude.<$> (x Prelude..:? "linearInterval")
+            Prelude.<*> (x Prelude..:? "linearPercentage")
       )
 
-instance Hashable TimeBasedLinear
+instance Prelude.Hashable TimeBasedLinear
 
-instance NFData TimeBasedLinear
+instance Prelude.NFData TimeBasedLinear
 
-instance ToJSON TimeBasedLinear where
+instance Prelude.ToJSON TimeBasedLinear where
   toJSON TimeBasedLinear' {..} =
-    object
-      ( catMaybes
-          [ ("linearInterval" .=) <$> _tblLinearInterval,
-            ("linearPercentage" .=) <$> _tblLinearPercentage
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("linearInterval" Prelude..=)
+              Prelude.<$> linearInterval,
+            ("linearPercentage" Prelude..=)
+              Prelude.<$> linearPercentage
           ]
       )

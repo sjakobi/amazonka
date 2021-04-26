@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,55 +21,61 @@ module Network.AWS.CodeDeploy.Types.RevisionInfo where
 
 import Network.AWS.CodeDeploy.Types.GenericRevisionInfo
 import Network.AWS.CodeDeploy.Types.RevisionLocation
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about an application revision.
 --
---
---
--- /See:/ 'revisionInfo' smart constructor.
+-- /See:/ 'newRevisionInfo' smart constructor.
 data RevisionInfo = RevisionInfo'
-  { _riGenericRevisionInfo ::
-      !(Maybe GenericRevisionInfo),
-    _riRevisionLocation ::
-      !(Maybe RevisionLocation)
+  { -- | Information about an application revision, including usage details and
+    -- associated deployment groups.
+    genericRevisionInfo :: Prelude.Maybe GenericRevisionInfo,
+    -- | Information about the location and type of an application revision.
+    revisionLocation :: Prelude.Maybe RevisionLocation
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RevisionInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RevisionInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'riGenericRevisionInfo' - Information about an application revision, including usage details and associated deployment groups.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'riRevisionLocation' - Information about the location and type of an application revision.
-revisionInfo ::
+-- 'genericRevisionInfo', 'revisionInfo_genericRevisionInfo' - Information about an application revision, including usage details and
+-- associated deployment groups.
+--
+-- 'revisionLocation', 'revisionInfo_revisionLocation' - Information about the location and type of an application revision.
+newRevisionInfo ::
   RevisionInfo
-revisionInfo =
+newRevisionInfo =
   RevisionInfo'
-    { _riGenericRevisionInfo = Nothing,
-      _riRevisionLocation = Nothing
+    { genericRevisionInfo =
+        Prelude.Nothing,
+      revisionLocation = Prelude.Nothing
     }
 
--- | Information about an application revision, including usage details and associated deployment groups.
-riGenericRevisionInfo :: Lens' RevisionInfo (Maybe GenericRevisionInfo)
-riGenericRevisionInfo = lens _riGenericRevisionInfo (\s a -> s {_riGenericRevisionInfo = a})
+-- | Information about an application revision, including usage details and
+-- associated deployment groups.
+revisionInfo_genericRevisionInfo :: Lens.Lens' RevisionInfo (Prelude.Maybe GenericRevisionInfo)
+revisionInfo_genericRevisionInfo = Lens.lens (\RevisionInfo' {genericRevisionInfo} -> genericRevisionInfo) (\s@RevisionInfo' {} a -> s {genericRevisionInfo = a} :: RevisionInfo)
 
 -- | Information about the location and type of an application revision.
-riRevisionLocation :: Lens' RevisionInfo (Maybe RevisionLocation)
-riRevisionLocation = lens _riRevisionLocation (\s a -> s {_riRevisionLocation = a})
+revisionInfo_revisionLocation :: Lens.Lens' RevisionInfo (Prelude.Maybe RevisionLocation)
+revisionInfo_revisionLocation = Lens.lens (\RevisionInfo' {revisionLocation} -> revisionLocation) (\s@RevisionInfo' {} a -> s {revisionLocation = a} :: RevisionInfo)
 
-instance FromJSON RevisionInfo where
+instance Prelude.FromJSON RevisionInfo where
   parseJSON =
-    withObject
+    Prelude.withObject
       "RevisionInfo"
       ( \x ->
           RevisionInfo'
-            <$> (x .:? "genericRevisionInfo")
-            <*> (x .:? "revisionLocation")
+            Prelude.<$> (x Prelude..:? "genericRevisionInfo")
+            Prelude.<*> (x Prelude..:? "revisionLocation")
       )
 
-instance Hashable RevisionInfo
+instance Prelude.Hashable RevisionInfo
 
-instance NFData RevisionInfo
+instance Prelude.NFData RevisionInfo

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,70 +20,95 @@
 module Network.AWS.CodeDeploy.Types.TagFilter where
 
 import Network.AWS.CodeDeploy.Types.TagFilterType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about an on-premises instance tag filter.
 --
---
---
--- /See:/ 'tagFilter' smart constructor.
+-- /See:/ 'newTagFilter' smart constructor.
 data TagFilter = TagFilter'
-  { _tfKey :: !(Maybe Text),
-    _tfValue :: !(Maybe Text),
-    _tfType :: !(Maybe TagFilterType)
+  { -- | The on-premises instance tag filter key.
+    key :: Prelude.Maybe Prelude.Text,
+    -- | The on-premises instance tag filter value.
+    value :: Prelude.Maybe Prelude.Text,
+    -- | The on-premises instance tag filter type:
+    --
+    -- -   KEY_ONLY: Key only.
+    --
+    -- -   VALUE_ONLY: Value only.
+    --
+    -- -   KEY_AND_VALUE: Key and value.
+    type' :: Prelude.Maybe TagFilterType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TagFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TagFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tfKey' - The on-premises instance tag filter key.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tfValue' - The on-premises instance tag filter value.
+-- 'key', 'tagFilter_key' - The on-premises instance tag filter key.
 --
--- * 'tfType' - The on-premises instance tag filter type:     * KEY_ONLY: Key only.     * VALUE_ONLY: Value only.     * KEY_AND_VALUE: Key and value.
-tagFilter ::
+-- 'value', 'tagFilter_value' - The on-premises instance tag filter value.
+--
+-- 'type'', 'tagFilter_type' - The on-premises instance tag filter type:
+--
+-- -   KEY_ONLY: Key only.
+--
+-- -   VALUE_ONLY: Value only.
+--
+-- -   KEY_AND_VALUE: Key and value.
+newTagFilter ::
   TagFilter
-tagFilter =
+newTagFilter =
   TagFilter'
-    { _tfKey = Nothing,
-      _tfValue = Nothing,
-      _tfType = Nothing
+    { key = Prelude.Nothing,
+      value = Prelude.Nothing,
+      type' = Prelude.Nothing
     }
 
 -- | The on-premises instance tag filter key.
-tfKey :: Lens' TagFilter (Maybe Text)
-tfKey = lens _tfKey (\s a -> s {_tfKey = a})
+tagFilter_key :: Lens.Lens' TagFilter (Prelude.Maybe Prelude.Text)
+tagFilter_key = Lens.lens (\TagFilter' {key} -> key) (\s@TagFilter' {} a -> s {key = a} :: TagFilter)
 
 -- | The on-premises instance tag filter value.
-tfValue :: Lens' TagFilter (Maybe Text)
-tfValue = lens _tfValue (\s a -> s {_tfValue = a})
+tagFilter_value :: Lens.Lens' TagFilter (Prelude.Maybe Prelude.Text)
+tagFilter_value = Lens.lens (\TagFilter' {value} -> value) (\s@TagFilter' {} a -> s {value = a} :: TagFilter)
 
--- | The on-premises instance tag filter type:     * KEY_ONLY: Key only.     * VALUE_ONLY: Value only.     * KEY_AND_VALUE: Key and value.
-tfType :: Lens' TagFilter (Maybe TagFilterType)
-tfType = lens _tfType (\s a -> s {_tfType = a})
+-- | The on-premises instance tag filter type:
+--
+-- -   KEY_ONLY: Key only.
+--
+-- -   VALUE_ONLY: Value only.
+--
+-- -   KEY_AND_VALUE: Key and value.
+tagFilter_type :: Lens.Lens' TagFilter (Prelude.Maybe TagFilterType)
+tagFilter_type = Lens.lens (\TagFilter' {type'} -> type') (\s@TagFilter' {} a -> s {type' = a} :: TagFilter)
 
-instance FromJSON TagFilter where
+instance Prelude.FromJSON TagFilter where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TagFilter"
       ( \x ->
           TagFilter'
-            <$> (x .:? "Key") <*> (x .:? "Value") <*> (x .:? "Type")
+            Prelude.<$> (x Prelude..:? "Key")
+            Prelude.<*> (x Prelude..:? "Value")
+            Prelude.<*> (x Prelude..:? "Type")
       )
 
-instance Hashable TagFilter
+instance Prelude.Hashable TagFilter
 
-instance NFData TagFilter
+instance Prelude.NFData TagFilter
 
-instance ToJSON TagFilter where
+instance Prelude.ToJSON TagFilter where
   toJSON TagFilter' {..} =
-    object
-      ( catMaybes
-          [ ("Key" .=) <$> _tfKey,
-            ("Value" .=) <$> _tfValue,
-            ("Type" .=) <$> _tfType
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Key" Prelude..=) Prelude.<$> key,
+            ("Value" Prelude..=) Prelude.<$> value,
+            ("Type" Prelude..=) Prelude.<$> type'
           ]
       )

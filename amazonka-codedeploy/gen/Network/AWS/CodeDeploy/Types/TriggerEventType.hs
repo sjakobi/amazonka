@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,96 +19,98 @@
 module Network.AWS.CodeDeploy.Types.TriggerEventType
   ( TriggerEventType
       ( ..,
-        TETDeploymentFailure,
-        TETDeploymentReady,
-        TETDeploymentRollback,
-        TETDeploymentStart,
-        TETDeploymentStop,
-        TETDeploymentSuccess,
-        TETInstanceFailure,
-        TETInstanceReady,
-        TETInstanceStart,
-        TETInstanceSuccess
+        TriggerEventTypeDeploymentFailure,
+        TriggerEventTypeDeploymentReady,
+        TriggerEventTypeDeploymentRollback,
+        TriggerEventTypeDeploymentStart,
+        TriggerEventTypeDeploymentStop,
+        TriggerEventTypeDeploymentSuccess,
+        TriggerEventTypeInstanceFailure,
+        TriggerEventTypeInstanceReady,
+        TriggerEventTypeInstanceStart,
+        TriggerEventTypeInstanceSuccess
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TriggerEventType = TriggerEventType' (CI Text)
+newtype TriggerEventType = TriggerEventType'
+  { fromTriggerEventType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TETDeploymentFailure :: TriggerEventType
-pattern TETDeploymentFailure = TriggerEventType' "DeploymentFailure"
+pattern TriggerEventTypeDeploymentFailure :: TriggerEventType
+pattern TriggerEventTypeDeploymentFailure = TriggerEventType' "DeploymentFailure"
 
-pattern TETDeploymentReady :: TriggerEventType
-pattern TETDeploymentReady = TriggerEventType' "DeploymentReady"
+pattern TriggerEventTypeDeploymentReady :: TriggerEventType
+pattern TriggerEventTypeDeploymentReady = TriggerEventType' "DeploymentReady"
 
-pattern TETDeploymentRollback :: TriggerEventType
-pattern TETDeploymentRollback = TriggerEventType' "DeploymentRollback"
+pattern TriggerEventTypeDeploymentRollback :: TriggerEventType
+pattern TriggerEventTypeDeploymentRollback = TriggerEventType' "DeploymentRollback"
 
-pattern TETDeploymentStart :: TriggerEventType
-pattern TETDeploymentStart = TriggerEventType' "DeploymentStart"
+pattern TriggerEventTypeDeploymentStart :: TriggerEventType
+pattern TriggerEventTypeDeploymentStart = TriggerEventType' "DeploymentStart"
 
-pattern TETDeploymentStop :: TriggerEventType
-pattern TETDeploymentStop = TriggerEventType' "DeploymentStop"
+pattern TriggerEventTypeDeploymentStop :: TriggerEventType
+pattern TriggerEventTypeDeploymentStop = TriggerEventType' "DeploymentStop"
 
-pattern TETDeploymentSuccess :: TriggerEventType
-pattern TETDeploymentSuccess = TriggerEventType' "DeploymentSuccess"
+pattern TriggerEventTypeDeploymentSuccess :: TriggerEventType
+pattern TriggerEventTypeDeploymentSuccess = TriggerEventType' "DeploymentSuccess"
 
-pattern TETInstanceFailure :: TriggerEventType
-pattern TETInstanceFailure = TriggerEventType' "InstanceFailure"
+pattern TriggerEventTypeInstanceFailure :: TriggerEventType
+pattern TriggerEventTypeInstanceFailure = TriggerEventType' "InstanceFailure"
 
-pattern TETInstanceReady :: TriggerEventType
-pattern TETInstanceReady = TriggerEventType' "InstanceReady"
+pattern TriggerEventTypeInstanceReady :: TriggerEventType
+pattern TriggerEventTypeInstanceReady = TriggerEventType' "InstanceReady"
 
-pattern TETInstanceStart :: TriggerEventType
-pattern TETInstanceStart = TriggerEventType' "InstanceStart"
+pattern TriggerEventTypeInstanceStart :: TriggerEventType
+pattern TriggerEventTypeInstanceStart = TriggerEventType' "InstanceStart"
 
-pattern TETInstanceSuccess :: TriggerEventType
-pattern TETInstanceSuccess = TriggerEventType' "InstanceSuccess"
+pattern TriggerEventTypeInstanceSuccess :: TriggerEventType
+pattern TriggerEventTypeInstanceSuccess = TriggerEventType' "InstanceSuccess"
 
 {-# COMPLETE
-  TETDeploymentFailure,
-  TETDeploymentReady,
-  TETDeploymentRollback,
-  TETDeploymentStart,
-  TETDeploymentStop,
-  TETDeploymentSuccess,
-  TETInstanceFailure,
-  TETInstanceReady,
-  TETInstanceStart,
-  TETInstanceSuccess,
+  TriggerEventTypeDeploymentFailure,
+  TriggerEventTypeDeploymentReady,
+  TriggerEventTypeDeploymentRollback,
+  TriggerEventTypeDeploymentStart,
+  TriggerEventTypeDeploymentStop,
+  TriggerEventTypeDeploymentSuccess,
+  TriggerEventTypeInstanceFailure,
+  TriggerEventTypeInstanceReady,
+  TriggerEventTypeInstanceStart,
+  TriggerEventTypeInstanceSuccess,
   TriggerEventType'
   #-}
 
-instance FromText TriggerEventType where
-  parser = (TriggerEventType' . mk) <$> takeText
+instance Prelude.FromText TriggerEventType where
+  parser = TriggerEventType' Prelude.<$> Prelude.takeText
 
-instance ToText TriggerEventType where
-  toText (TriggerEventType' ci) = original ci
+instance Prelude.ToText TriggerEventType where
+  toText (TriggerEventType' x) = x
 
-instance Hashable TriggerEventType
+instance Prelude.Hashable TriggerEventType
 
-instance NFData TriggerEventType
+instance Prelude.NFData TriggerEventType
 
-instance ToByteString TriggerEventType
+instance Prelude.ToByteString TriggerEventType
 
-instance ToQuery TriggerEventType
+instance Prelude.ToQuery TriggerEventType
 
-instance ToHeader TriggerEventType
+instance Prelude.ToHeader TriggerEventType
 
-instance ToJSON TriggerEventType where
-  toJSON = toJSONText
+instance Prelude.ToJSON TriggerEventType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON TriggerEventType where
-  parseJSON = parseJSONText "TriggerEventType"
+instance Prelude.FromJSON TriggerEventType where
+  parseJSON = Prelude.parseJSONText "TriggerEventType"

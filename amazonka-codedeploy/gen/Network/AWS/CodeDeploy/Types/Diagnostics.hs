@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,72 +20,135 @@
 module Network.AWS.CodeDeploy.Types.Diagnostics where
 
 import Network.AWS.CodeDeploy.Types.LifecycleErrorCode
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Diagnostic information about executable scripts that are part of a deployment.
+-- | Diagnostic information about executable scripts that are part of a
+-- deployment.
 --
---
---
--- /See:/ 'diagnostics' smart constructor.
+-- /See:/ 'newDiagnostics' smart constructor.
 data Diagnostics = Diagnostics'
-  { _dLogTail ::
-      !(Maybe Text),
-    _dMessage :: !(Maybe Text),
-    _dScriptName :: !(Maybe Text),
-    _dErrorCode :: !(Maybe LifecycleErrorCode)
+  { -- | The last portion of the diagnostic log.
+    --
+    -- If available, AWS CodeDeploy returns up to the last 4 KB of the
+    -- diagnostic log.
+    logTail :: Prelude.Maybe Prelude.Text,
+    -- | The message associated with the error.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The name of the script.
+    scriptName :: Prelude.Maybe Prelude.Text,
+    -- | The associated error code:
+    --
+    -- -   Success: The specified script ran.
+    --
+    -- -   ScriptMissing: The specified script was not found in the specified
+    --     location.
+    --
+    -- -   ScriptNotExecutable: The specified script is not a recognized
+    --     executable file type.
+    --
+    -- -   ScriptTimedOut: The specified script did not finish running in the
+    --     specified time period.
+    --
+    -- -   ScriptFailed: The specified script failed to run as expected.
+    --
+    -- -   UnknownError: The specified script did not run for an unknown
+    --     reason.
+    errorCode :: Prelude.Maybe LifecycleErrorCode
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Diagnostics' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Diagnostics' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dLogTail' - The last portion of the diagnostic log. If available, AWS CodeDeploy returns up to the last 4 KB of the diagnostic log.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dMessage' - The message associated with the error.
+-- 'logTail', 'diagnostics_logTail' - The last portion of the diagnostic log.
 --
--- * 'dScriptName' - The name of the script.
+-- If available, AWS CodeDeploy returns up to the last 4 KB of the
+-- diagnostic log.
 --
--- * 'dErrorCode' - The associated error code:     * Success: The specified script ran.     * ScriptMissing: The specified script was not found in the specified location.     * ScriptNotExecutable: The specified script is not a recognized executable file type.     * ScriptTimedOut: The specified script did not finish running in the specified time period.     * ScriptFailed: The specified script failed to run as expected.     * UnknownError: The specified script did not run for an unknown reason.
-diagnostics ::
+-- 'message', 'diagnostics_message' - The message associated with the error.
+--
+-- 'scriptName', 'diagnostics_scriptName' - The name of the script.
+--
+-- 'errorCode', 'diagnostics_errorCode' - The associated error code:
+--
+-- -   Success: The specified script ran.
+--
+-- -   ScriptMissing: The specified script was not found in the specified
+--     location.
+--
+-- -   ScriptNotExecutable: The specified script is not a recognized
+--     executable file type.
+--
+-- -   ScriptTimedOut: The specified script did not finish running in the
+--     specified time period.
+--
+-- -   ScriptFailed: The specified script failed to run as expected.
+--
+-- -   UnknownError: The specified script did not run for an unknown
+--     reason.
+newDiagnostics ::
   Diagnostics
-diagnostics =
+newDiagnostics =
   Diagnostics'
-    { _dLogTail = Nothing,
-      _dMessage = Nothing,
-      _dScriptName = Nothing,
-      _dErrorCode = Nothing
+    { logTail = Prelude.Nothing,
+      message = Prelude.Nothing,
+      scriptName = Prelude.Nothing,
+      errorCode = Prelude.Nothing
     }
 
--- | The last portion of the diagnostic log. If available, AWS CodeDeploy returns up to the last 4 KB of the diagnostic log.
-dLogTail :: Lens' Diagnostics (Maybe Text)
-dLogTail = lens _dLogTail (\s a -> s {_dLogTail = a})
+-- | The last portion of the diagnostic log.
+--
+-- If available, AWS CodeDeploy returns up to the last 4 KB of the
+-- diagnostic log.
+diagnostics_logTail :: Lens.Lens' Diagnostics (Prelude.Maybe Prelude.Text)
+diagnostics_logTail = Lens.lens (\Diagnostics' {logTail} -> logTail) (\s@Diagnostics' {} a -> s {logTail = a} :: Diagnostics)
 
 -- | The message associated with the error.
-dMessage :: Lens' Diagnostics (Maybe Text)
-dMessage = lens _dMessage (\s a -> s {_dMessage = a})
+diagnostics_message :: Lens.Lens' Diagnostics (Prelude.Maybe Prelude.Text)
+diagnostics_message = Lens.lens (\Diagnostics' {message} -> message) (\s@Diagnostics' {} a -> s {message = a} :: Diagnostics)
 
 -- | The name of the script.
-dScriptName :: Lens' Diagnostics (Maybe Text)
-dScriptName = lens _dScriptName (\s a -> s {_dScriptName = a})
+diagnostics_scriptName :: Lens.Lens' Diagnostics (Prelude.Maybe Prelude.Text)
+diagnostics_scriptName = Lens.lens (\Diagnostics' {scriptName} -> scriptName) (\s@Diagnostics' {} a -> s {scriptName = a} :: Diagnostics)
 
--- | The associated error code:     * Success: The specified script ran.     * ScriptMissing: The specified script was not found in the specified location.     * ScriptNotExecutable: The specified script is not a recognized executable file type.     * ScriptTimedOut: The specified script did not finish running in the specified time period.     * ScriptFailed: The specified script failed to run as expected.     * UnknownError: The specified script did not run for an unknown reason.
-dErrorCode :: Lens' Diagnostics (Maybe LifecycleErrorCode)
-dErrorCode = lens _dErrorCode (\s a -> s {_dErrorCode = a})
+-- | The associated error code:
+--
+-- -   Success: The specified script ran.
+--
+-- -   ScriptMissing: The specified script was not found in the specified
+--     location.
+--
+-- -   ScriptNotExecutable: The specified script is not a recognized
+--     executable file type.
+--
+-- -   ScriptTimedOut: The specified script did not finish running in the
+--     specified time period.
+--
+-- -   ScriptFailed: The specified script failed to run as expected.
+--
+-- -   UnknownError: The specified script did not run for an unknown
+--     reason.
+diagnostics_errorCode :: Lens.Lens' Diagnostics (Prelude.Maybe LifecycleErrorCode)
+diagnostics_errorCode = Lens.lens (\Diagnostics' {errorCode} -> errorCode) (\s@Diagnostics' {} a -> s {errorCode = a} :: Diagnostics)
 
-instance FromJSON Diagnostics where
+instance Prelude.FromJSON Diagnostics where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Diagnostics"
       ( \x ->
           Diagnostics'
-            <$> (x .:? "logTail")
-            <*> (x .:? "message")
-            <*> (x .:? "scriptName")
-            <*> (x .:? "errorCode")
+            Prelude.<$> (x Prelude..:? "logTail")
+            Prelude.<*> (x Prelude..:? "message")
+            Prelude.<*> (x Prelude..:? "scriptName")
+            Prelude.<*> (x Prelude..:? "errorCode")
       )
 
-instance Hashable Diagnostics
+instance Prelude.Hashable Diagnostics
 
-instance NFData Diagnostics
+instance Prelude.NFData Diagnostics

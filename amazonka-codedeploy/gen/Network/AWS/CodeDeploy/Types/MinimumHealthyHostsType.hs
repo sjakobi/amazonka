@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.CodeDeploy.Types.MinimumHealthyHostsType
   ( MinimumHealthyHostsType
       ( ..,
-        FleetPercent,
-        HostCount
+        MinimumHealthyHostsTypeFLEETPERCENT,
+        MinimumHealthyHostsTypeHOSTCOUNT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data MinimumHealthyHostsType
-  = MinimumHealthyHostsType'
-      ( CI
-          Text
-      )
+newtype MinimumHealthyHostsType = MinimumHealthyHostsType'
+  { fromMinimumHealthyHostsType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern FleetPercent :: MinimumHealthyHostsType
-pattern FleetPercent = MinimumHealthyHostsType' "FLEET_PERCENT"
+pattern MinimumHealthyHostsTypeFLEETPERCENT :: MinimumHealthyHostsType
+pattern MinimumHealthyHostsTypeFLEETPERCENT = MinimumHealthyHostsType' "FLEET_PERCENT"
 
-pattern HostCount :: MinimumHealthyHostsType
-pattern HostCount = MinimumHealthyHostsType' "HOST_COUNT"
+pattern MinimumHealthyHostsTypeHOSTCOUNT :: MinimumHealthyHostsType
+pattern MinimumHealthyHostsTypeHOSTCOUNT = MinimumHealthyHostsType' "HOST_COUNT"
 
 {-# COMPLETE
-  FleetPercent,
-  HostCount,
+  MinimumHealthyHostsTypeFLEETPERCENT,
+  MinimumHealthyHostsTypeHOSTCOUNT,
   MinimumHealthyHostsType'
   #-}
 
-instance FromText MinimumHealthyHostsType where
-  parser = (MinimumHealthyHostsType' . mk) <$> takeText
+instance Prelude.FromText MinimumHealthyHostsType where
+  parser = MinimumHealthyHostsType' Prelude.<$> Prelude.takeText
 
-instance ToText MinimumHealthyHostsType where
-  toText (MinimumHealthyHostsType' ci) = original ci
+instance Prelude.ToText MinimumHealthyHostsType where
+  toText (MinimumHealthyHostsType' x) = x
 
-instance Hashable MinimumHealthyHostsType
+instance Prelude.Hashable MinimumHealthyHostsType
 
-instance NFData MinimumHealthyHostsType
+instance Prelude.NFData MinimumHealthyHostsType
 
-instance ToByteString MinimumHealthyHostsType
+instance Prelude.ToByteString MinimumHealthyHostsType
 
-instance ToQuery MinimumHealthyHostsType
+instance Prelude.ToQuery MinimumHealthyHostsType
 
-instance ToHeader MinimumHealthyHostsType
+instance Prelude.ToHeader MinimumHealthyHostsType
 
-instance ToJSON MinimumHealthyHostsType where
-  toJSON = toJSONText
+instance Prelude.ToJSON MinimumHealthyHostsType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON MinimumHealthyHostsType where
-  parseJSON = parseJSONText "MinimumHealthyHostsType"
+instance Prelude.FromJSON MinimumHealthyHostsType where
+  parseJSON = Prelude.parseJSONText "MinimumHealthyHostsType"

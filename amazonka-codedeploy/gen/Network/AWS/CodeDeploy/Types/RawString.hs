@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,62 +19,74 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CodeDeploy.Types.RawString where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A revision for an AWS Lambda deployment that is a YAML-formatted or JSON-formatted string. For AWS Lambda deployments, the revision is the same as the AppSpec file.
+-- | A revision for an AWS Lambda deployment that is a YAML-formatted or
+-- JSON-formatted string. For AWS Lambda deployments, the revision is the
+-- same as the AppSpec file.
 --
---
---
--- /See:/ 'rawString' smart constructor.
+-- /See:/ 'newRawString' smart constructor.
 data RawString = RawString'
-  { _rsContent ::
-      !(Maybe Text),
-    _rsSha256 :: !(Maybe Text)
+  { -- | The YAML-formatted or JSON-formatted revision string. It includes
+    -- information about which Lambda function to update and optional Lambda
+    -- functions that validate deployment lifecycle events.
+    content :: Prelude.Maybe Prelude.Text,
+    -- | The SHA256 hash value of the revision content.
+    sha256 :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RawString' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RawString' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rsContent' - The YAML-formatted or JSON-formatted revision string. It includes information about which Lambda function to update and optional Lambda functions that validate deployment lifecycle events.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rsSha256' - The SHA256 hash value of the revision content.
-rawString ::
+-- 'content', 'rawString_content' - The YAML-formatted or JSON-formatted revision string. It includes
+-- information about which Lambda function to update and optional Lambda
+-- functions that validate deployment lifecycle events.
+--
+-- 'sha256', 'rawString_sha256' - The SHA256 hash value of the revision content.
+newRawString ::
   RawString
-rawString =
+newRawString =
   RawString'
-    { _rsContent = Nothing,
-      _rsSha256 = Nothing
+    { content = Prelude.Nothing,
+      sha256 = Prelude.Nothing
     }
 
--- | The YAML-formatted or JSON-formatted revision string. It includes information about which Lambda function to update and optional Lambda functions that validate deployment lifecycle events.
-rsContent :: Lens' RawString (Maybe Text)
-rsContent = lens _rsContent (\s a -> s {_rsContent = a})
+-- | The YAML-formatted or JSON-formatted revision string. It includes
+-- information about which Lambda function to update and optional Lambda
+-- functions that validate deployment lifecycle events.
+rawString_content :: Lens.Lens' RawString (Prelude.Maybe Prelude.Text)
+rawString_content = Lens.lens (\RawString' {content} -> content) (\s@RawString' {} a -> s {content = a} :: RawString)
 
 -- | The SHA256 hash value of the revision content.
-rsSha256 :: Lens' RawString (Maybe Text)
-rsSha256 = lens _rsSha256 (\s a -> s {_rsSha256 = a})
+rawString_sha256 :: Lens.Lens' RawString (Prelude.Maybe Prelude.Text)
+rawString_sha256 = Lens.lens (\RawString' {sha256} -> sha256) (\s@RawString' {} a -> s {sha256 = a} :: RawString)
 
-instance FromJSON RawString where
+instance Prelude.FromJSON RawString where
   parseJSON =
-    withObject
+    Prelude.withObject
       "RawString"
       ( \x ->
           RawString'
-            <$> (x .:? "content") <*> (x .:? "sha256")
+            Prelude.<$> (x Prelude..:? "content")
+            Prelude.<*> (x Prelude..:? "sha256")
       )
 
-instance Hashable RawString
+instance Prelude.Hashable RawString
 
-instance NFData RawString
+instance Prelude.NFData RawString
 
-instance ToJSON RawString where
+instance Prelude.ToJSON RawString where
   toJSON RawString' {..} =
-    object
-      ( catMaybes
-          [ ("content" .=) <$> _rsContent,
-            ("sha256" .=) <$> _rsSha256
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("content" Prelude..=) Prelude.<$> content,
+            ("sha256" Prelude..=) Prelude.<$> sha256
           ]
       )

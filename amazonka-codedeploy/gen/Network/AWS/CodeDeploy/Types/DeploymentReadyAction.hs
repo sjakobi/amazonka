@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.CodeDeploy.Types.DeploymentReadyAction
   ( DeploymentReadyAction
       ( ..,
-        ContinueDeployment,
-        StopDeployment
+        DeploymentReadyActionCONTINUEDEPLOYMENT,
+        DeploymentReadyActionSTOPDEPLOYMENT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DeploymentReadyAction
-  = DeploymentReadyAction'
-      ( CI
-          Text
-      )
+newtype DeploymentReadyAction = DeploymentReadyAction'
+  { fromDeploymentReadyAction ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ContinueDeployment :: DeploymentReadyAction
-pattern ContinueDeployment = DeploymentReadyAction' "CONTINUE_DEPLOYMENT"
+pattern DeploymentReadyActionCONTINUEDEPLOYMENT :: DeploymentReadyAction
+pattern DeploymentReadyActionCONTINUEDEPLOYMENT = DeploymentReadyAction' "CONTINUE_DEPLOYMENT"
 
-pattern StopDeployment :: DeploymentReadyAction
-pattern StopDeployment = DeploymentReadyAction' "STOP_DEPLOYMENT"
+pattern DeploymentReadyActionSTOPDEPLOYMENT :: DeploymentReadyAction
+pattern DeploymentReadyActionSTOPDEPLOYMENT = DeploymentReadyAction' "STOP_DEPLOYMENT"
 
 {-# COMPLETE
-  ContinueDeployment,
-  StopDeployment,
+  DeploymentReadyActionCONTINUEDEPLOYMENT,
+  DeploymentReadyActionSTOPDEPLOYMENT,
   DeploymentReadyAction'
   #-}
 
-instance FromText DeploymentReadyAction where
-  parser = (DeploymentReadyAction' . mk) <$> takeText
+instance Prelude.FromText DeploymentReadyAction where
+  parser = DeploymentReadyAction' Prelude.<$> Prelude.takeText
 
-instance ToText DeploymentReadyAction where
-  toText (DeploymentReadyAction' ci) = original ci
+instance Prelude.ToText DeploymentReadyAction where
+  toText (DeploymentReadyAction' x) = x
 
-instance Hashable DeploymentReadyAction
+instance Prelude.Hashable DeploymentReadyAction
 
-instance NFData DeploymentReadyAction
+instance Prelude.NFData DeploymentReadyAction
 
-instance ToByteString DeploymentReadyAction
+instance Prelude.ToByteString DeploymentReadyAction
 
-instance ToQuery DeploymentReadyAction
+instance Prelude.ToQuery DeploymentReadyAction
 
-instance ToHeader DeploymentReadyAction
+instance Prelude.ToHeader DeploymentReadyAction
 
-instance ToJSON DeploymentReadyAction where
-  toJSON = toJSONText
+instance Prelude.ToJSON DeploymentReadyAction where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DeploymentReadyAction where
-  parseJSON = parseJSONText "DeploymentReadyAction"
+instance Prelude.FromJSON DeploymentReadyAction where
+  parseJSON = Prelude.parseJSONText "DeploymentReadyAction"

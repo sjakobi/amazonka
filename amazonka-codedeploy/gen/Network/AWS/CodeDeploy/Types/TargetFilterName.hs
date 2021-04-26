@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.CodeDeploy.Types.TargetFilterName
   ( TargetFilterName
       ( ..,
-        ServerInstanceLabel,
-        TargetStatus
+        TargetFilterNameServerInstanceLabel,
+        TargetFilterNameTargetStatus
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TargetFilterName = TargetFilterName' (CI Text)
+newtype TargetFilterName = TargetFilterName'
+  { fromTargetFilterName ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ServerInstanceLabel :: TargetFilterName
-pattern ServerInstanceLabel = TargetFilterName' "ServerInstanceLabel"
+pattern TargetFilterNameServerInstanceLabel :: TargetFilterName
+pattern TargetFilterNameServerInstanceLabel = TargetFilterName' "ServerInstanceLabel"
 
-pattern TargetStatus :: TargetFilterName
-pattern TargetStatus = TargetFilterName' "TargetStatus"
+pattern TargetFilterNameTargetStatus :: TargetFilterName
+pattern TargetFilterNameTargetStatus = TargetFilterName' "TargetStatus"
 
 {-# COMPLETE
-  ServerInstanceLabel,
-  TargetStatus,
+  TargetFilterNameServerInstanceLabel,
+  TargetFilterNameTargetStatus,
   TargetFilterName'
   #-}
 
-instance FromText TargetFilterName where
-  parser = (TargetFilterName' . mk) <$> takeText
+instance Prelude.FromText TargetFilterName where
+  parser = TargetFilterName' Prelude.<$> Prelude.takeText
 
-instance ToText TargetFilterName where
-  toText (TargetFilterName' ci) = original ci
+instance Prelude.ToText TargetFilterName where
+  toText (TargetFilterName' x) = x
 
-instance Hashable TargetFilterName
+instance Prelude.Hashable TargetFilterName
 
-instance NFData TargetFilterName
+instance Prelude.NFData TargetFilterName
 
-instance ToByteString TargetFilterName
+instance Prelude.ToByteString TargetFilterName
 
-instance ToQuery TargetFilterName
+instance Prelude.ToQuery TargetFilterName
 
-instance ToHeader TargetFilterName
+instance Prelude.ToHeader TargetFilterName
 
-instance ToJSON TargetFilterName where
-  toJSON = toJSONText
+instance Prelude.ToJSON TargetFilterName where
+  toJSON = Prelude.toJSONText

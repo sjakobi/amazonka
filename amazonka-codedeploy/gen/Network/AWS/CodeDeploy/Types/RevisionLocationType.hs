@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,70 +19,68 @@
 module Network.AWS.CodeDeploy.Types.RevisionLocationType
   ( RevisionLocationType
       ( ..,
-        AppSpecContent,
-        GitHub,
-        S3,
-        String
+        RevisionLocationTypeAppSpecContent,
+        RevisionLocationTypeGitHub,
+        RevisionLocationTypeS3,
+        RevisionLocationTypeString
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RevisionLocationType
-  = RevisionLocationType'
-      ( CI
-          Text
-      )
+newtype RevisionLocationType = RevisionLocationType'
+  { fromRevisionLocationType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AppSpecContent :: RevisionLocationType
-pattern AppSpecContent = RevisionLocationType' "AppSpecContent"
+pattern RevisionLocationTypeAppSpecContent :: RevisionLocationType
+pattern RevisionLocationTypeAppSpecContent = RevisionLocationType' "AppSpecContent"
 
-pattern GitHub :: RevisionLocationType
-pattern GitHub = RevisionLocationType' "GitHub"
+pattern RevisionLocationTypeGitHub :: RevisionLocationType
+pattern RevisionLocationTypeGitHub = RevisionLocationType' "GitHub"
 
-pattern S3 :: RevisionLocationType
-pattern S3 = RevisionLocationType' "S3"
+pattern RevisionLocationTypeS3 :: RevisionLocationType
+pattern RevisionLocationTypeS3 = RevisionLocationType' "S3"
 
-pattern String :: RevisionLocationType
-pattern String = RevisionLocationType' "String"
+pattern RevisionLocationTypeString :: RevisionLocationType
+pattern RevisionLocationTypeString = RevisionLocationType' "String"
 
 {-# COMPLETE
-  AppSpecContent,
-  GitHub,
-  S3,
-  String,
+  RevisionLocationTypeAppSpecContent,
+  RevisionLocationTypeGitHub,
+  RevisionLocationTypeS3,
+  RevisionLocationTypeString,
   RevisionLocationType'
   #-}
 
-instance FromText RevisionLocationType where
-  parser = (RevisionLocationType' . mk) <$> takeText
+instance Prelude.FromText RevisionLocationType where
+  parser = RevisionLocationType' Prelude.<$> Prelude.takeText
 
-instance ToText RevisionLocationType where
-  toText (RevisionLocationType' ci) = original ci
+instance Prelude.ToText RevisionLocationType where
+  toText (RevisionLocationType' x) = x
 
-instance Hashable RevisionLocationType
+instance Prelude.Hashable RevisionLocationType
 
-instance NFData RevisionLocationType
+instance Prelude.NFData RevisionLocationType
 
-instance ToByteString RevisionLocationType
+instance Prelude.ToByteString RevisionLocationType
 
-instance ToQuery RevisionLocationType
+instance Prelude.ToQuery RevisionLocationType
 
-instance ToHeader RevisionLocationType
+instance Prelude.ToHeader RevisionLocationType
 
-instance ToJSON RevisionLocationType where
-  toJSON = toJSONText
+instance Prelude.ToJSON RevisionLocationType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON RevisionLocationType where
-  parseJSON = parseJSONText "RevisionLocationType"
+instance Prelude.FromJSON RevisionLocationType where
+  parseJSON = Prelude.parseJSONText "RevisionLocationType"

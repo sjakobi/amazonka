@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.CodeDeploy.Types.TargetLabel
   ( TargetLabel
       ( ..,
-        Blue,
-        Green
+        TargetLabelBlue,
+        TargetLabelGreen
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TargetLabel = TargetLabel' (CI Text)
+newtype TargetLabel = TargetLabel'
+  { fromTargetLabel ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Blue :: TargetLabel
-pattern Blue = TargetLabel' "Blue"
+pattern TargetLabelBlue :: TargetLabel
+pattern TargetLabelBlue = TargetLabel' "Blue"
 
-pattern Green :: TargetLabel
-pattern Green = TargetLabel' "Green"
+pattern TargetLabelGreen :: TargetLabel
+pattern TargetLabelGreen = TargetLabel' "Green"
 
 {-# COMPLETE
-  Blue,
-  Green,
+  TargetLabelBlue,
+  TargetLabelGreen,
   TargetLabel'
   #-}
 
-instance FromText TargetLabel where
-  parser = (TargetLabel' . mk) <$> takeText
+instance Prelude.FromText TargetLabel where
+  parser = TargetLabel' Prelude.<$> Prelude.takeText
 
-instance ToText TargetLabel where
-  toText (TargetLabel' ci) = original ci
+instance Prelude.ToText TargetLabel where
+  toText (TargetLabel' x) = x
 
-instance Hashable TargetLabel
+instance Prelude.Hashable TargetLabel
 
-instance NFData TargetLabel
+instance Prelude.NFData TargetLabel
 
-instance ToByteString TargetLabel
+instance Prelude.ToByteString TargetLabel
 
-instance ToQuery TargetLabel
+instance Prelude.ToQuery TargetLabel
 
-instance ToHeader TargetLabel
+instance Prelude.ToHeader TargetLabel
 
-instance FromJSON TargetLabel where
-  parseJSON = parseJSONText "TargetLabel"
+instance Prelude.FromJSON TargetLabel where
+  parseJSON = Prelude.parseJSONText "TargetLabel"

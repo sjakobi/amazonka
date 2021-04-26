@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,213 +19,215 @@
 module Network.AWS.CodeDeploy.Types.DeployErrorCode
   ( DeployErrorCode
       ( ..,
-        AgentIssue,
-        AlarmActive,
-        ApplicationMissing,
-        AutoScalingConfiguration,
-        AutoScalingIAMRolePermissions,
-        AutoscalingValidationError,
-        CloudformationStackFailure,
-        CodedeployResourceCannotBeFound,
-        CustomerApplicationUnhealthy,
-        DeploymentGroupMissing,
-        EcsUpdateError,
-        ElasticLoadBalancingInvalid,
-        ElbInvalidInstance,
-        HealthConstraints,
-        HealthConstraintsInvalid,
-        HookExecutionFailure,
-        IAMRoleMissing,
-        IAMRolePermissions,
-        InternalError,
-        InvalidEcsService,
-        InvalidLambdaConfiguration,
-        InvalidLambdaFunction,
-        InvalidRevision,
-        ManualStop,
-        MissingBlueGreenDeploymentConfiguration,
-        MissingElbInformation,
-        MissingGithubToken,
-        NoEC2Subscription,
-        NoInstances,
-        OverMaxInstances,
-        ResourceLimitExceeded,
-        RevisionMissing,
-        Throttled,
-        Timeout
+        DeployErrorCodeAGENTISSUE,
+        DeployErrorCodeALARMACTIVE,
+        DeployErrorCodeAPPLICATIONMISSING,
+        DeployErrorCodeAUTOSCALINGCONFIGURATION,
+        DeployErrorCodeAUTOSCALINGIAMROLEPERMISSIONS,
+        DeployErrorCodeAUTOSCALINGVALIDATIONERROR,
+        DeployErrorCodeCLOUDFORMATIONSTACKFAILURE,
+        DeployErrorCodeCODEDEPLOYRESOURCECANNOTBEFOUND,
+        DeployErrorCodeCUSTOMERAPPLICATIONUNHEALTHY,
+        DeployErrorCodeDEPLOYMENTGROUPMISSING,
+        DeployErrorCodeECSUPDATEERROR,
+        DeployErrorCodeELASTICLOADBALANCINGINVALID,
+        DeployErrorCodeELBINVALIDINSTANCE,
+        DeployErrorCodeHEALTHCONSTRAINTS,
+        DeployErrorCodeHEALTHCONSTRAINTSINVALID,
+        DeployErrorCodeHOOKEXECUTIONFAILURE,
+        DeployErrorCodeIAMROLEMISSING,
+        DeployErrorCodeIAMROLEPERMISSIONS,
+        DeployErrorCodeINTERNALERROR,
+        DeployErrorCodeINVALIDECSSERVICE,
+        DeployErrorCodeINVALIDLAMBDACONFIGURATION,
+        DeployErrorCodeINVALIDLAMBDAFUNCTION,
+        DeployErrorCodeINVALIDREVISION,
+        DeployErrorCodeMANUALSTOP,
+        DeployErrorCodeMISSINGBLUEGREENDEPLOYMENTCONFIGURATION,
+        DeployErrorCodeMISSINGELBINFORMATION,
+        DeployErrorCodeMISSINGGITHUBTOKEN,
+        DeployErrorCodeNOEC2SUBSCRIPTION,
+        DeployErrorCodeNOINSTANCES,
+        DeployErrorCodeOVERMAXINSTANCES,
+        DeployErrorCodeRESOURCELIMITEXCEEDED,
+        DeployErrorCodeREVISIONMISSING,
+        DeployErrorCodeTHROTTLED,
+        DeployErrorCodeTIMEOUT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DeployErrorCode = DeployErrorCode' (CI Text)
+newtype DeployErrorCode = DeployErrorCode'
+  { fromDeployErrorCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AgentIssue :: DeployErrorCode
-pattern AgentIssue = DeployErrorCode' "AGENT_ISSUE"
+pattern DeployErrorCodeAGENTISSUE :: DeployErrorCode
+pattern DeployErrorCodeAGENTISSUE = DeployErrorCode' "AGENT_ISSUE"
 
-pattern AlarmActive :: DeployErrorCode
-pattern AlarmActive = DeployErrorCode' "ALARM_ACTIVE"
+pattern DeployErrorCodeALARMACTIVE :: DeployErrorCode
+pattern DeployErrorCodeALARMACTIVE = DeployErrorCode' "ALARM_ACTIVE"
 
-pattern ApplicationMissing :: DeployErrorCode
-pattern ApplicationMissing = DeployErrorCode' "APPLICATION_MISSING"
+pattern DeployErrorCodeAPPLICATIONMISSING :: DeployErrorCode
+pattern DeployErrorCodeAPPLICATIONMISSING = DeployErrorCode' "APPLICATION_MISSING"
 
-pattern AutoScalingConfiguration :: DeployErrorCode
-pattern AutoScalingConfiguration = DeployErrorCode' "AUTO_SCALING_CONFIGURATION"
+pattern DeployErrorCodeAUTOSCALINGCONFIGURATION :: DeployErrorCode
+pattern DeployErrorCodeAUTOSCALINGCONFIGURATION = DeployErrorCode' "AUTO_SCALING_CONFIGURATION"
 
-pattern AutoScalingIAMRolePermissions :: DeployErrorCode
-pattern AutoScalingIAMRolePermissions = DeployErrorCode' "AUTO_SCALING_IAM_ROLE_PERMISSIONS"
+pattern DeployErrorCodeAUTOSCALINGIAMROLEPERMISSIONS :: DeployErrorCode
+pattern DeployErrorCodeAUTOSCALINGIAMROLEPERMISSIONS = DeployErrorCode' "AUTO_SCALING_IAM_ROLE_PERMISSIONS"
 
-pattern AutoscalingValidationError :: DeployErrorCode
-pattern AutoscalingValidationError = DeployErrorCode' "AUTOSCALING_VALIDATION_ERROR"
+pattern DeployErrorCodeAUTOSCALINGVALIDATIONERROR :: DeployErrorCode
+pattern DeployErrorCodeAUTOSCALINGVALIDATIONERROR = DeployErrorCode' "AUTOSCALING_VALIDATION_ERROR"
 
-pattern CloudformationStackFailure :: DeployErrorCode
-pattern CloudformationStackFailure = DeployErrorCode' "CLOUDFORMATION_STACK_FAILURE"
+pattern DeployErrorCodeCLOUDFORMATIONSTACKFAILURE :: DeployErrorCode
+pattern DeployErrorCodeCLOUDFORMATIONSTACKFAILURE = DeployErrorCode' "CLOUDFORMATION_STACK_FAILURE"
 
-pattern CodedeployResourceCannotBeFound :: DeployErrorCode
-pattern CodedeployResourceCannotBeFound = DeployErrorCode' "CODEDEPLOY_RESOURCE_CANNOT_BE_FOUND"
+pattern DeployErrorCodeCODEDEPLOYRESOURCECANNOTBEFOUND :: DeployErrorCode
+pattern DeployErrorCodeCODEDEPLOYRESOURCECANNOTBEFOUND = DeployErrorCode' "CODEDEPLOY_RESOURCE_CANNOT_BE_FOUND"
 
-pattern CustomerApplicationUnhealthy :: DeployErrorCode
-pattern CustomerApplicationUnhealthy = DeployErrorCode' "CUSTOMER_APPLICATION_UNHEALTHY"
+pattern DeployErrorCodeCUSTOMERAPPLICATIONUNHEALTHY :: DeployErrorCode
+pattern DeployErrorCodeCUSTOMERAPPLICATIONUNHEALTHY = DeployErrorCode' "CUSTOMER_APPLICATION_UNHEALTHY"
 
-pattern DeploymentGroupMissing :: DeployErrorCode
-pattern DeploymentGroupMissing = DeployErrorCode' "DEPLOYMENT_GROUP_MISSING"
+pattern DeployErrorCodeDEPLOYMENTGROUPMISSING :: DeployErrorCode
+pattern DeployErrorCodeDEPLOYMENTGROUPMISSING = DeployErrorCode' "DEPLOYMENT_GROUP_MISSING"
 
-pattern EcsUpdateError :: DeployErrorCode
-pattern EcsUpdateError = DeployErrorCode' "ECS_UPDATE_ERROR"
+pattern DeployErrorCodeECSUPDATEERROR :: DeployErrorCode
+pattern DeployErrorCodeECSUPDATEERROR = DeployErrorCode' "ECS_UPDATE_ERROR"
 
-pattern ElasticLoadBalancingInvalid :: DeployErrorCode
-pattern ElasticLoadBalancingInvalid = DeployErrorCode' "ELASTIC_LOAD_BALANCING_INVALID"
+pattern DeployErrorCodeELASTICLOADBALANCINGINVALID :: DeployErrorCode
+pattern DeployErrorCodeELASTICLOADBALANCINGINVALID = DeployErrorCode' "ELASTIC_LOAD_BALANCING_INVALID"
 
-pattern ElbInvalidInstance :: DeployErrorCode
-pattern ElbInvalidInstance = DeployErrorCode' "ELB_INVALID_INSTANCE"
+pattern DeployErrorCodeELBINVALIDINSTANCE :: DeployErrorCode
+pattern DeployErrorCodeELBINVALIDINSTANCE = DeployErrorCode' "ELB_INVALID_INSTANCE"
 
-pattern HealthConstraints :: DeployErrorCode
-pattern HealthConstraints = DeployErrorCode' "HEALTH_CONSTRAINTS"
+pattern DeployErrorCodeHEALTHCONSTRAINTS :: DeployErrorCode
+pattern DeployErrorCodeHEALTHCONSTRAINTS = DeployErrorCode' "HEALTH_CONSTRAINTS"
 
-pattern HealthConstraintsInvalid :: DeployErrorCode
-pattern HealthConstraintsInvalid = DeployErrorCode' "HEALTH_CONSTRAINTS_INVALID"
+pattern DeployErrorCodeHEALTHCONSTRAINTSINVALID :: DeployErrorCode
+pattern DeployErrorCodeHEALTHCONSTRAINTSINVALID = DeployErrorCode' "HEALTH_CONSTRAINTS_INVALID"
 
-pattern HookExecutionFailure :: DeployErrorCode
-pattern HookExecutionFailure = DeployErrorCode' "HOOK_EXECUTION_FAILURE"
+pattern DeployErrorCodeHOOKEXECUTIONFAILURE :: DeployErrorCode
+pattern DeployErrorCodeHOOKEXECUTIONFAILURE = DeployErrorCode' "HOOK_EXECUTION_FAILURE"
 
-pattern IAMRoleMissing :: DeployErrorCode
-pattern IAMRoleMissing = DeployErrorCode' "IAM_ROLE_MISSING"
+pattern DeployErrorCodeIAMROLEMISSING :: DeployErrorCode
+pattern DeployErrorCodeIAMROLEMISSING = DeployErrorCode' "IAM_ROLE_MISSING"
 
-pattern IAMRolePermissions :: DeployErrorCode
-pattern IAMRolePermissions = DeployErrorCode' "IAM_ROLE_PERMISSIONS"
+pattern DeployErrorCodeIAMROLEPERMISSIONS :: DeployErrorCode
+pattern DeployErrorCodeIAMROLEPERMISSIONS = DeployErrorCode' "IAM_ROLE_PERMISSIONS"
 
-pattern InternalError :: DeployErrorCode
-pattern InternalError = DeployErrorCode' "INTERNAL_ERROR"
+pattern DeployErrorCodeINTERNALERROR :: DeployErrorCode
+pattern DeployErrorCodeINTERNALERROR = DeployErrorCode' "INTERNAL_ERROR"
 
-pattern InvalidEcsService :: DeployErrorCode
-pattern InvalidEcsService = DeployErrorCode' "INVALID_ECS_SERVICE"
+pattern DeployErrorCodeINVALIDECSSERVICE :: DeployErrorCode
+pattern DeployErrorCodeINVALIDECSSERVICE = DeployErrorCode' "INVALID_ECS_SERVICE"
 
-pattern InvalidLambdaConfiguration :: DeployErrorCode
-pattern InvalidLambdaConfiguration = DeployErrorCode' "INVALID_LAMBDA_CONFIGURATION"
+pattern DeployErrorCodeINVALIDLAMBDACONFIGURATION :: DeployErrorCode
+pattern DeployErrorCodeINVALIDLAMBDACONFIGURATION = DeployErrorCode' "INVALID_LAMBDA_CONFIGURATION"
 
-pattern InvalidLambdaFunction :: DeployErrorCode
-pattern InvalidLambdaFunction = DeployErrorCode' "INVALID_LAMBDA_FUNCTION"
+pattern DeployErrorCodeINVALIDLAMBDAFUNCTION :: DeployErrorCode
+pattern DeployErrorCodeINVALIDLAMBDAFUNCTION = DeployErrorCode' "INVALID_LAMBDA_FUNCTION"
 
-pattern InvalidRevision :: DeployErrorCode
-pattern InvalidRevision = DeployErrorCode' "INVALID_REVISION"
+pattern DeployErrorCodeINVALIDREVISION :: DeployErrorCode
+pattern DeployErrorCodeINVALIDREVISION = DeployErrorCode' "INVALID_REVISION"
 
-pattern ManualStop :: DeployErrorCode
-pattern ManualStop = DeployErrorCode' "MANUAL_STOP"
+pattern DeployErrorCodeMANUALSTOP :: DeployErrorCode
+pattern DeployErrorCodeMANUALSTOP = DeployErrorCode' "MANUAL_STOP"
 
-pattern MissingBlueGreenDeploymentConfiguration :: DeployErrorCode
-pattern MissingBlueGreenDeploymentConfiguration = DeployErrorCode' "MISSING_BLUE_GREEN_DEPLOYMENT_CONFIGURATION"
+pattern DeployErrorCodeMISSINGBLUEGREENDEPLOYMENTCONFIGURATION :: DeployErrorCode
+pattern DeployErrorCodeMISSINGBLUEGREENDEPLOYMENTCONFIGURATION = DeployErrorCode' "MISSING_BLUE_GREEN_DEPLOYMENT_CONFIGURATION"
 
-pattern MissingElbInformation :: DeployErrorCode
-pattern MissingElbInformation = DeployErrorCode' "MISSING_ELB_INFORMATION"
+pattern DeployErrorCodeMISSINGELBINFORMATION :: DeployErrorCode
+pattern DeployErrorCodeMISSINGELBINFORMATION = DeployErrorCode' "MISSING_ELB_INFORMATION"
 
-pattern MissingGithubToken :: DeployErrorCode
-pattern MissingGithubToken = DeployErrorCode' "MISSING_GITHUB_TOKEN"
+pattern DeployErrorCodeMISSINGGITHUBTOKEN :: DeployErrorCode
+pattern DeployErrorCodeMISSINGGITHUBTOKEN = DeployErrorCode' "MISSING_GITHUB_TOKEN"
 
-pattern NoEC2Subscription :: DeployErrorCode
-pattern NoEC2Subscription = DeployErrorCode' "NO_EC2_SUBSCRIPTION"
+pattern DeployErrorCodeNOEC2SUBSCRIPTION :: DeployErrorCode
+pattern DeployErrorCodeNOEC2SUBSCRIPTION = DeployErrorCode' "NO_EC2_SUBSCRIPTION"
 
-pattern NoInstances :: DeployErrorCode
-pattern NoInstances = DeployErrorCode' "NO_INSTANCES"
+pattern DeployErrorCodeNOINSTANCES :: DeployErrorCode
+pattern DeployErrorCodeNOINSTANCES = DeployErrorCode' "NO_INSTANCES"
 
-pattern OverMaxInstances :: DeployErrorCode
-pattern OverMaxInstances = DeployErrorCode' "OVER_MAX_INSTANCES"
+pattern DeployErrorCodeOVERMAXINSTANCES :: DeployErrorCode
+pattern DeployErrorCodeOVERMAXINSTANCES = DeployErrorCode' "OVER_MAX_INSTANCES"
 
-pattern ResourceLimitExceeded :: DeployErrorCode
-pattern ResourceLimitExceeded = DeployErrorCode' "RESOURCE_LIMIT_EXCEEDED"
+pattern DeployErrorCodeRESOURCELIMITEXCEEDED :: DeployErrorCode
+pattern DeployErrorCodeRESOURCELIMITEXCEEDED = DeployErrorCode' "RESOURCE_LIMIT_EXCEEDED"
 
-pattern RevisionMissing :: DeployErrorCode
-pattern RevisionMissing = DeployErrorCode' "REVISION_MISSING"
+pattern DeployErrorCodeREVISIONMISSING :: DeployErrorCode
+pattern DeployErrorCodeREVISIONMISSING = DeployErrorCode' "REVISION_MISSING"
 
-pattern Throttled :: DeployErrorCode
-pattern Throttled = DeployErrorCode' "THROTTLED"
+pattern DeployErrorCodeTHROTTLED :: DeployErrorCode
+pattern DeployErrorCodeTHROTTLED = DeployErrorCode' "THROTTLED"
 
-pattern Timeout :: DeployErrorCode
-pattern Timeout = DeployErrorCode' "TIMEOUT"
+pattern DeployErrorCodeTIMEOUT :: DeployErrorCode
+pattern DeployErrorCodeTIMEOUT = DeployErrorCode' "TIMEOUT"
 
 {-# COMPLETE
-  AgentIssue,
-  AlarmActive,
-  ApplicationMissing,
-  AutoScalingConfiguration,
-  AutoScalingIAMRolePermissions,
-  AutoscalingValidationError,
-  CloudformationStackFailure,
-  CodedeployResourceCannotBeFound,
-  CustomerApplicationUnhealthy,
-  DeploymentGroupMissing,
-  EcsUpdateError,
-  ElasticLoadBalancingInvalid,
-  ElbInvalidInstance,
-  HealthConstraints,
-  HealthConstraintsInvalid,
-  HookExecutionFailure,
-  IAMRoleMissing,
-  IAMRolePermissions,
-  InternalError,
-  InvalidEcsService,
-  InvalidLambdaConfiguration,
-  InvalidLambdaFunction,
-  InvalidRevision,
-  ManualStop,
-  MissingBlueGreenDeploymentConfiguration,
-  MissingElbInformation,
-  MissingGithubToken,
-  NoEC2Subscription,
-  NoInstances,
-  OverMaxInstances,
-  ResourceLimitExceeded,
-  RevisionMissing,
-  Throttled,
-  Timeout,
+  DeployErrorCodeAGENTISSUE,
+  DeployErrorCodeALARMACTIVE,
+  DeployErrorCodeAPPLICATIONMISSING,
+  DeployErrorCodeAUTOSCALINGCONFIGURATION,
+  DeployErrorCodeAUTOSCALINGIAMROLEPERMISSIONS,
+  DeployErrorCodeAUTOSCALINGVALIDATIONERROR,
+  DeployErrorCodeCLOUDFORMATIONSTACKFAILURE,
+  DeployErrorCodeCODEDEPLOYRESOURCECANNOTBEFOUND,
+  DeployErrorCodeCUSTOMERAPPLICATIONUNHEALTHY,
+  DeployErrorCodeDEPLOYMENTGROUPMISSING,
+  DeployErrorCodeECSUPDATEERROR,
+  DeployErrorCodeELASTICLOADBALANCINGINVALID,
+  DeployErrorCodeELBINVALIDINSTANCE,
+  DeployErrorCodeHEALTHCONSTRAINTS,
+  DeployErrorCodeHEALTHCONSTRAINTSINVALID,
+  DeployErrorCodeHOOKEXECUTIONFAILURE,
+  DeployErrorCodeIAMROLEMISSING,
+  DeployErrorCodeIAMROLEPERMISSIONS,
+  DeployErrorCodeINTERNALERROR,
+  DeployErrorCodeINVALIDECSSERVICE,
+  DeployErrorCodeINVALIDLAMBDACONFIGURATION,
+  DeployErrorCodeINVALIDLAMBDAFUNCTION,
+  DeployErrorCodeINVALIDREVISION,
+  DeployErrorCodeMANUALSTOP,
+  DeployErrorCodeMISSINGBLUEGREENDEPLOYMENTCONFIGURATION,
+  DeployErrorCodeMISSINGELBINFORMATION,
+  DeployErrorCodeMISSINGGITHUBTOKEN,
+  DeployErrorCodeNOEC2SUBSCRIPTION,
+  DeployErrorCodeNOINSTANCES,
+  DeployErrorCodeOVERMAXINSTANCES,
+  DeployErrorCodeRESOURCELIMITEXCEEDED,
+  DeployErrorCodeREVISIONMISSING,
+  DeployErrorCodeTHROTTLED,
+  DeployErrorCodeTIMEOUT,
   DeployErrorCode'
   #-}
 
-instance FromText DeployErrorCode where
-  parser = (DeployErrorCode' . mk) <$> takeText
+instance Prelude.FromText DeployErrorCode where
+  parser = DeployErrorCode' Prelude.<$> Prelude.takeText
 
-instance ToText DeployErrorCode where
-  toText (DeployErrorCode' ci) = original ci
+instance Prelude.ToText DeployErrorCode where
+  toText (DeployErrorCode' x) = x
 
-instance Hashable DeployErrorCode
+instance Prelude.Hashable DeployErrorCode
 
-instance NFData DeployErrorCode
+instance Prelude.NFData DeployErrorCode
 
-instance ToByteString DeployErrorCode
+instance Prelude.ToByteString DeployErrorCode
 
-instance ToQuery DeployErrorCode
+instance Prelude.ToQuery DeployErrorCode
 
-instance ToHeader DeployErrorCode
+instance Prelude.ToHeader DeployErrorCode
 
-instance FromJSON DeployErrorCode where
-  parseJSON = parseJSONText "DeployErrorCode"
+instance Prelude.FromJSON DeployErrorCode where
+  parseJSON = Prelude.parseJSONText "DeployErrorCode"

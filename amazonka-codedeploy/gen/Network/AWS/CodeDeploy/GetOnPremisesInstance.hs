@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,153 +24,147 @@
 -- Gets information about an on-premises instance.
 module Network.AWS.CodeDeploy.GetOnPremisesInstance
   ( -- * Creating a Request
-    getOnPremisesInstance,
-    GetOnPremisesInstance,
+    GetOnPremisesInstance (..),
+    newGetOnPremisesInstance,
 
     -- * Request Lenses
-    gopiInstanceName,
+    getOnPremisesInstance_instanceName,
 
     -- * Destructuring the Response
-    getOnPremisesInstanceResponse,
-    GetOnPremisesInstanceResponse,
+    GetOnPremisesInstanceResponse (..),
+    newGetOnPremisesInstanceResponse,
 
     -- * Response Lenses
-    gopirrsInstanceInfo,
-    gopirrsResponseStatus,
+    getOnPremisesInstanceResponse_instanceInfo,
+    getOnPremisesInstanceResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodeDeploy.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CodeDeploy.Types.InstanceInfo
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input of a @GetOnPremisesInstance@ operation.
 --
---
---
--- /See:/ 'getOnPremisesInstance' smart constructor.
-newtype GetOnPremisesInstance = GetOnPremisesInstance'
-  { _gopiInstanceName ::
-      Text
+-- /See:/ 'newGetOnPremisesInstance' smart constructor.
+data GetOnPremisesInstance = GetOnPremisesInstance'
+  { -- | The name of the on-premises instance about which to get information.
+    instanceName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetOnPremisesInstance' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetOnPremisesInstance' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gopiInstanceName' - The name of the on-premises instance about which to get information.
-getOnPremisesInstance ::
-  -- | 'gopiInstanceName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'instanceName', 'getOnPremisesInstance_instanceName' - The name of the on-premises instance about which to get information.
+newGetOnPremisesInstance ::
+  -- | 'instanceName'
+  Prelude.Text ->
   GetOnPremisesInstance
-getOnPremisesInstance pInstanceName_ =
+newGetOnPremisesInstance pInstanceName_ =
   GetOnPremisesInstance'
-    { _gopiInstanceName =
+    { instanceName =
         pInstanceName_
     }
 
 -- | The name of the on-premises instance about which to get information.
-gopiInstanceName :: Lens' GetOnPremisesInstance Text
-gopiInstanceName = lens _gopiInstanceName (\s a -> s {_gopiInstanceName = a})
+getOnPremisesInstance_instanceName :: Lens.Lens' GetOnPremisesInstance Prelude.Text
+getOnPremisesInstance_instanceName = Lens.lens (\GetOnPremisesInstance' {instanceName} -> instanceName) (\s@GetOnPremisesInstance' {} a -> s {instanceName = a} :: GetOnPremisesInstance)
 
-instance AWSRequest GetOnPremisesInstance where
+instance Prelude.AWSRequest GetOnPremisesInstance where
   type
     Rs GetOnPremisesInstance =
       GetOnPremisesInstanceResponse
-  request = postJSON codeDeploy
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetOnPremisesInstanceResponse'
-            <$> (x .?> "instanceInfo") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "instanceInfo")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetOnPremisesInstance
+instance Prelude.Hashable GetOnPremisesInstance
 
-instance NFData GetOnPremisesInstance
+instance Prelude.NFData GetOnPremisesInstance
 
-instance ToHeaders GetOnPremisesInstance where
+instance Prelude.ToHeaders GetOnPremisesInstance where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodeDeploy_20141006.GetOnPremisesInstance" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodeDeploy_20141006.GetOnPremisesInstance" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetOnPremisesInstance where
+instance Prelude.ToJSON GetOnPremisesInstance where
   toJSON GetOnPremisesInstance' {..} =
-    object
-      ( catMaybes
-          [Just ("instanceName" .= _gopiInstanceName)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("instanceName" Prelude..= instanceName)
+          ]
       )
 
-instance ToPath GetOnPremisesInstance where
-  toPath = const "/"
+instance Prelude.ToPath GetOnPremisesInstance where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetOnPremisesInstance where
-  toQuery = const mempty
+instance Prelude.ToQuery GetOnPremisesInstance where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a @GetOnPremisesInstance@ operation.
 --
---
---
--- /See:/ 'getOnPremisesInstanceResponse' smart constructor.
+-- /See:/ 'newGetOnPremisesInstanceResponse' smart constructor.
 data GetOnPremisesInstanceResponse = GetOnPremisesInstanceResponse'
-  { _gopirrsInstanceInfo ::
-      !( Maybe
-           InstanceInfo
-       ),
-    _gopirrsResponseStatus ::
-      !Int
+  { -- | Information about the on-premises instance.
+    instanceInfo :: Prelude.Maybe InstanceInfo,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetOnPremisesInstanceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetOnPremisesInstanceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gopirrsInstanceInfo' - Information about the on-premises instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gopirrsResponseStatus' - -- | The response status code.
-getOnPremisesInstanceResponse ::
-  -- | 'gopirrsResponseStatus'
-  Int ->
+-- 'instanceInfo', 'getOnPremisesInstanceResponse_instanceInfo' - Information about the on-premises instance.
+--
+-- 'httpStatus', 'getOnPremisesInstanceResponse_httpStatus' - The response's http status code.
+newGetOnPremisesInstanceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetOnPremisesInstanceResponse
-getOnPremisesInstanceResponse pResponseStatus_ =
+newGetOnPremisesInstanceResponse pHttpStatus_ =
   GetOnPremisesInstanceResponse'
-    { _gopirrsInstanceInfo =
-        Nothing,
-      _gopirrsResponseStatus = pResponseStatus_
+    { instanceInfo =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the on-premises instance.
-gopirrsInstanceInfo :: Lens' GetOnPremisesInstanceResponse (Maybe InstanceInfo)
-gopirrsInstanceInfo = lens _gopirrsInstanceInfo (\s a -> s {_gopirrsInstanceInfo = a})
+getOnPremisesInstanceResponse_instanceInfo :: Lens.Lens' GetOnPremisesInstanceResponse (Prelude.Maybe InstanceInfo)
+getOnPremisesInstanceResponse_instanceInfo = Lens.lens (\GetOnPremisesInstanceResponse' {instanceInfo} -> instanceInfo) (\s@GetOnPremisesInstanceResponse' {} a -> s {instanceInfo = a} :: GetOnPremisesInstanceResponse)
 
--- | -- | The response status code.
-gopirrsResponseStatus :: Lens' GetOnPremisesInstanceResponse Int
-gopirrsResponseStatus = lens _gopirrsResponseStatus (\s a -> s {_gopirrsResponseStatus = a})
+-- | The response's http status code.
+getOnPremisesInstanceResponse_httpStatus :: Lens.Lens' GetOnPremisesInstanceResponse Prelude.Int
+getOnPremisesInstanceResponse_httpStatus = Lens.lens (\GetOnPremisesInstanceResponse' {httpStatus} -> httpStatus) (\s@GetOnPremisesInstanceResponse' {} a -> s {httpStatus = a} :: GetOnPremisesInstanceResponse)
 
-instance NFData GetOnPremisesInstanceResponse
+instance Prelude.NFData GetOnPremisesInstanceResponse

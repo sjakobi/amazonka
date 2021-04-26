@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,85 +19,90 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CodeDeploy.Types.GenericRevisionInfo where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about an application revision.
 --
---
---
--- /See:/ 'genericRevisionInfo' smart constructor.
+-- /See:/ 'newGenericRevisionInfo' smart constructor.
 data GenericRevisionInfo = GenericRevisionInfo'
-  { _griRegisterTime ::
-      !(Maybe POSIX),
-    _griDeploymentGroups ::
-      !(Maybe [Text]),
-    _griDescription ::
-      !(Maybe Text),
-    _griFirstUsedTime ::
-      !(Maybe POSIX),
-    _griLastUsedTime ::
-      !(Maybe POSIX)
+  { -- | When the revision was registered with AWS CodeDeploy.
+    registerTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The deployment groups for which this is the current target revision.
+    deploymentGroups :: Prelude.Maybe [Prelude.Text],
+    -- | A comment about the revision.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | When the revision was first used by AWS CodeDeploy.
+    firstUsedTime :: Prelude.Maybe Prelude.POSIX,
+    -- | When the revision was last used by AWS CodeDeploy.
+    lastUsedTime :: Prelude.Maybe Prelude.POSIX
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GenericRevisionInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GenericRevisionInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'griRegisterTime' - When the revision was registered with AWS CodeDeploy.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'griDeploymentGroups' - The deployment groups for which this is the current target revision.
+-- 'registerTime', 'genericRevisionInfo_registerTime' - When the revision was registered with AWS CodeDeploy.
 --
--- * 'griDescription' - A comment about the revision.
+-- 'deploymentGroups', 'genericRevisionInfo_deploymentGroups' - The deployment groups for which this is the current target revision.
 --
--- * 'griFirstUsedTime' - When the revision was first used by AWS CodeDeploy.
+-- 'description', 'genericRevisionInfo_description' - A comment about the revision.
 --
--- * 'griLastUsedTime' - When the revision was last used by AWS CodeDeploy.
-genericRevisionInfo ::
+-- 'firstUsedTime', 'genericRevisionInfo_firstUsedTime' - When the revision was first used by AWS CodeDeploy.
+--
+-- 'lastUsedTime', 'genericRevisionInfo_lastUsedTime' - When the revision was last used by AWS CodeDeploy.
+newGenericRevisionInfo ::
   GenericRevisionInfo
-genericRevisionInfo =
+newGenericRevisionInfo =
   GenericRevisionInfo'
-    { _griRegisterTime = Nothing,
-      _griDeploymentGroups = Nothing,
-      _griDescription = Nothing,
-      _griFirstUsedTime = Nothing,
-      _griLastUsedTime = Nothing
+    { registerTime =
+        Prelude.Nothing,
+      deploymentGroups = Prelude.Nothing,
+      description = Prelude.Nothing,
+      firstUsedTime = Prelude.Nothing,
+      lastUsedTime = Prelude.Nothing
     }
 
 -- | When the revision was registered with AWS CodeDeploy.
-griRegisterTime :: Lens' GenericRevisionInfo (Maybe UTCTime)
-griRegisterTime = lens _griRegisterTime (\s a -> s {_griRegisterTime = a}) . mapping _Time
+genericRevisionInfo_registerTime :: Lens.Lens' GenericRevisionInfo (Prelude.Maybe Prelude.UTCTime)
+genericRevisionInfo_registerTime = Lens.lens (\GenericRevisionInfo' {registerTime} -> registerTime) (\s@GenericRevisionInfo' {} a -> s {registerTime = a} :: GenericRevisionInfo) Prelude.. Lens.mapping Prelude._Time
 
 -- | The deployment groups for which this is the current target revision.
-griDeploymentGroups :: Lens' GenericRevisionInfo [Text]
-griDeploymentGroups = lens _griDeploymentGroups (\s a -> s {_griDeploymentGroups = a}) . _Default . _Coerce
+genericRevisionInfo_deploymentGroups :: Lens.Lens' GenericRevisionInfo (Prelude.Maybe [Prelude.Text])
+genericRevisionInfo_deploymentGroups = Lens.lens (\GenericRevisionInfo' {deploymentGroups} -> deploymentGroups) (\s@GenericRevisionInfo' {} a -> s {deploymentGroups = a} :: GenericRevisionInfo) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A comment about the revision.
-griDescription :: Lens' GenericRevisionInfo (Maybe Text)
-griDescription = lens _griDescription (\s a -> s {_griDescription = a})
+genericRevisionInfo_description :: Lens.Lens' GenericRevisionInfo (Prelude.Maybe Prelude.Text)
+genericRevisionInfo_description = Lens.lens (\GenericRevisionInfo' {description} -> description) (\s@GenericRevisionInfo' {} a -> s {description = a} :: GenericRevisionInfo)
 
 -- | When the revision was first used by AWS CodeDeploy.
-griFirstUsedTime :: Lens' GenericRevisionInfo (Maybe UTCTime)
-griFirstUsedTime = lens _griFirstUsedTime (\s a -> s {_griFirstUsedTime = a}) . mapping _Time
+genericRevisionInfo_firstUsedTime :: Lens.Lens' GenericRevisionInfo (Prelude.Maybe Prelude.UTCTime)
+genericRevisionInfo_firstUsedTime = Lens.lens (\GenericRevisionInfo' {firstUsedTime} -> firstUsedTime) (\s@GenericRevisionInfo' {} a -> s {firstUsedTime = a} :: GenericRevisionInfo) Prelude.. Lens.mapping Prelude._Time
 
 -- | When the revision was last used by AWS CodeDeploy.
-griLastUsedTime :: Lens' GenericRevisionInfo (Maybe UTCTime)
-griLastUsedTime = lens _griLastUsedTime (\s a -> s {_griLastUsedTime = a}) . mapping _Time
+genericRevisionInfo_lastUsedTime :: Lens.Lens' GenericRevisionInfo (Prelude.Maybe Prelude.UTCTime)
+genericRevisionInfo_lastUsedTime = Lens.lens (\GenericRevisionInfo' {lastUsedTime} -> lastUsedTime) (\s@GenericRevisionInfo' {} a -> s {lastUsedTime = a} :: GenericRevisionInfo) Prelude.. Lens.mapping Prelude._Time
 
-instance FromJSON GenericRevisionInfo where
+instance Prelude.FromJSON GenericRevisionInfo where
   parseJSON =
-    withObject
+    Prelude.withObject
       "GenericRevisionInfo"
       ( \x ->
           GenericRevisionInfo'
-            <$> (x .:? "registerTime")
-            <*> (x .:? "deploymentGroups" .!= mempty)
-            <*> (x .:? "description")
-            <*> (x .:? "firstUsedTime")
-            <*> (x .:? "lastUsedTime")
+            Prelude.<$> (x Prelude..:? "registerTime")
+            Prelude.<*> ( x Prelude..:? "deploymentGroups"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "description")
+            Prelude.<*> (x Prelude..:? "firstUsedTime")
+            Prelude.<*> (x Prelude..:? "lastUsedTime")
       )
 
-instance Hashable GenericRevisionInfo
+instance Prelude.Hashable GenericRevisionInfo
 
-instance NFData GenericRevisionInfo
+instance Prelude.NFData GenericRevisionInfo

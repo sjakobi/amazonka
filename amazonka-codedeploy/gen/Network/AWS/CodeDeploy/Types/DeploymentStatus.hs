@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,86 +19,88 @@
 module Network.AWS.CodeDeploy.Types.DeploymentStatus
   ( DeploymentStatus
       ( ..,
-        Baking,
-        Created,
-        Failed,
-        InProgress,
-        Queued,
-        Ready,
-        Stopped,
-        Succeeded
+        DeploymentStatusBaking,
+        DeploymentStatusCreated,
+        DeploymentStatusFailed,
+        DeploymentStatusInProgress,
+        DeploymentStatusQueued,
+        DeploymentStatusReady,
+        DeploymentStatusStopped,
+        DeploymentStatusSucceeded
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DeploymentStatus = DeploymentStatus' (CI Text)
+newtype DeploymentStatus = DeploymentStatus'
+  { fromDeploymentStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Baking :: DeploymentStatus
-pattern Baking = DeploymentStatus' "Baking"
+pattern DeploymentStatusBaking :: DeploymentStatus
+pattern DeploymentStatusBaking = DeploymentStatus' "Baking"
 
-pattern Created :: DeploymentStatus
-pattern Created = DeploymentStatus' "Created"
+pattern DeploymentStatusCreated :: DeploymentStatus
+pattern DeploymentStatusCreated = DeploymentStatus' "Created"
 
-pattern Failed :: DeploymentStatus
-pattern Failed = DeploymentStatus' "Failed"
+pattern DeploymentStatusFailed :: DeploymentStatus
+pattern DeploymentStatusFailed = DeploymentStatus' "Failed"
 
-pattern InProgress :: DeploymentStatus
-pattern InProgress = DeploymentStatus' "InProgress"
+pattern DeploymentStatusInProgress :: DeploymentStatus
+pattern DeploymentStatusInProgress = DeploymentStatus' "InProgress"
 
-pattern Queued :: DeploymentStatus
-pattern Queued = DeploymentStatus' "Queued"
+pattern DeploymentStatusQueued :: DeploymentStatus
+pattern DeploymentStatusQueued = DeploymentStatus' "Queued"
 
-pattern Ready :: DeploymentStatus
-pattern Ready = DeploymentStatus' "Ready"
+pattern DeploymentStatusReady :: DeploymentStatus
+pattern DeploymentStatusReady = DeploymentStatus' "Ready"
 
-pattern Stopped :: DeploymentStatus
-pattern Stopped = DeploymentStatus' "Stopped"
+pattern DeploymentStatusStopped :: DeploymentStatus
+pattern DeploymentStatusStopped = DeploymentStatus' "Stopped"
 
-pattern Succeeded :: DeploymentStatus
-pattern Succeeded = DeploymentStatus' "Succeeded"
+pattern DeploymentStatusSucceeded :: DeploymentStatus
+pattern DeploymentStatusSucceeded = DeploymentStatus' "Succeeded"
 
 {-# COMPLETE
-  Baking,
-  Created,
-  Failed,
-  InProgress,
-  Queued,
-  Ready,
-  Stopped,
-  Succeeded,
+  DeploymentStatusBaking,
+  DeploymentStatusCreated,
+  DeploymentStatusFailed,
+  DeploymentStatusInProgress,
+  DeploymentStatusQueued,
+  DeploymentStatusReady,
+  DeploymentStatusStopped,
+  DeploymentStatusSucceeded,
   DeploymentStatus'
   #-}
 
-instance FromText DeploymentStatus where
-  parser = (DeploymentStatus' . mk) <$> takeText
+instance Prelude.FromText DeploymentStatus where
+  parser = DeploymentStatus' Prelude.<$> Prelude.takeText
 
-instance ToText DeploymentStatus where
-  toText (DeploymentStatus' ci) = original ci
+instance Prelude.ToText DeploymentStatus where
+  toText (DeploymentStatus' x) = x
 
-instance Hashable DeploymentStatus
+instance Prelude.Hashable DeploymentStatus
 
-instance NFData DeploymentStatus
+instance Prelude.NFData DeploymentStatus
 
-instance ToByteString DeploymentStatus
+instance Prelude.ToByteString DeploymentStatus
 
-instance ToQuery DeploymentStatus
+instance Prelude.ToQuery DeploymentStatus
 
-instance ToHeader DeploymentStatus
+instance Prelude.ToHeader DeploymentStatus
 
-instance ToJSON DeploymentStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON DeploymentStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DeploymentStatus where
-  parseJSON = parseJSONText "DeploymentStatus"
+instance Prelude.FromJSON DeploymentStatus where
+  parseJSON = Prelude.parseJSONText "DeploymentStatus"

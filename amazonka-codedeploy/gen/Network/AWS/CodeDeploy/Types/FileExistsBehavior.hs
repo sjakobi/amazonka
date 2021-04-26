@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.CodeDeploy.Types.FileExistsBehavior
   ( FileExistsBehavior
       ( ..,
-        Disallow,
-        Overwrite,
-        Retain
+        FileExistsBehaviorDISALLOW,
+        FileExistsBehaviorOVERWRITE,
+        FileExistsBehaviorRETAIN
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data FileExistsBehavior
-  = FileExistsBehavior'
-      ( CI
-          Text
-      )
+newtype FileExistsBehavior = FileExistsBehavior'
+  { fromFileExistsBehavior ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Disallow :: FileExistsBehavior
-pattern Disallow = FileExistsBehavior' "DISALLOW"
+pattern FileExistsBehaviorDISALLOW :: FileExistsBehavior
+pattern FileExistsBehaviorDISALLOW = FileExistsBehavior' "DISALLOW"
 
-pattern Overwrite :: FileExistsBehavior
-pattern Overwrite = FileExistsBehavior' "OVERWRITE"
+pattern FileExistsBehaviorOVERWRITE :: FileExistsBehavior
+pattern FileExistsBehaviorOVERWRITE = FileExistsBehavior' "OVERWRITE"
 
-pattern Retain :: FileExistsBehavior
-pattern Retain = FileExistsBehavior' "RETAIN"
+pattern FileExistsBehaviorRETAIN :: FileExistsBehavior
+pattern FileExistsBehaviorRETAIN = FileExistsBehavior' "RETAIN"
 
 {-# COMPLETE
-  Disallow,
-  Overwrite,
-  Retain,
+  FileExistsBehaviorDISALLOW,
+  FileExistsBehaviorOVERWRITE,
+  FileExistsBehaviorRETAIN,
   FileExistsBehavior'
   #-}
 
-instance FromText FileExistsBehavior where
-  parser = (FileExistsBehavior' . mk) <$> takeText
+instance Prelude.FromText FileExistsBehavior where
+  parser = FileExistsBehavior' Prelude.<$> Prelude.takeText
 
-instance ToText FileExistsBehavior where
-  toText (FileExistsBehavior' ci) = original ci
+instance Prelude.ToText FileExistsBehavior where
+  toText (FileExistsBehavior' x) = x
 
-instance Hashable FileExistsBehavior
+instance Prelude.Hashable FileExistsBehavior
 
-instance NFData FileExistsBehavior
+instance Prelude.NFData FileExistsBehavior
 
-instance ToByteString FileExistsBehavior
+instance Prelude.ToByteString FileExistsBehavior
 
-instance ToQuery FileExistsBehavior
+instance Prelude.ToQuery FileExistsBehavior
 
-instance ToHeader FileExistsBehavior
+instance Prelude.ToHeader FileExistsBehavior
 
-instance ToJSON FileExistsBehavior where
-  toJSON = toJSONText
+instance Prelude.ToJSON FileExistsBehavior where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON FileExistsBehavior where
-  parseJSON = parseJSONText "FileExistsBehavior"
+instance Prelude.FromJSON FileExistsBehavior where
+  parseJSON = Prelude.parseJSONText "FileExistsBehavior"

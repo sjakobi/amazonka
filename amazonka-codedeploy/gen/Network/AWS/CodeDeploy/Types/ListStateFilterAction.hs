@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.CodeDeploy.Types.ListStateFilterAction
   ( ListStateFilterAction
       ( ..,
-        Exclude,
-        Ignore,
-        Include
+        ListStateFilterActionExclude,
+        ListStateFilterActionIgnore,
+        ListStateFilterActionInclude
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ListStateFilterAction
-  = ListStateFilterAction'
-      ( CI
-          Text
-      )
+newtype ListStateFilterAction = ListStateFilterAction'
+  { fromListStateFilterAction ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Exclude :: ListStateFilterAction
-pattern Exclude = ListStateFilterAction' "exclude"
+pattern ListStateFilterActionExclude :: ListStateFilterAction
+pattern ListStateFilterActionExclude = ListStateFilterAction' "exclude"
 
-pattern Ignore :: ListStateFilterAction
-pattern Ignore = ListStateFilterAction' "ignore"
+pattern ListStateFilterActionIgnore :: ListStateFilterAction
+pattern ListStateFilterActionIgnore = ListStateFilterAction' "ignore"
 
-pattern Include :: ListStateFilterAction
-pattern Include = ListStateFilterAction' "include"
+pattern ListStateFilterActionInclude :: ListStateFilterAction
+pattern ListStateFilterActionInclude = ListStateFilterAction' "include"
 
 {-# COMPLETE
-  Exclude,
-  Ignore,
-  Include,
+  ListStateFilterActionExclude,
+  ListStateFilterActionIgnore,
+  ListStateFilterActionInclude,
   ListStateFilterAction'
   #-}
 
-instance FromText ListStateFilterAction where
-  parser = (ListStateFilterAction' . mk) <$> takeText
+instance Prelude.FromText ListStateFilterAction where
+  parser = ListStateFilterAction' Prelude.<$> Prelude.takeText
 
-instance ToText ListStateFilterAction where
-  toText (ListStateFilterAction' ci) = original ci
+instance Prelude.ToText ListStateFilterAction where
+  toText (ListStateFilterAction' x) = x
 
-instance Hashable ListStateFilterAction
+instance Prelude.Hashable ListStateFilterAction
 
-instance NFData ListStateFilterAction
+instance Prelude.NFData ListStateFilterAction
 
-instance ToByteString ListStateFilterAction
+instance Prelude.ToByteString ListStateFilterAction
 
-instance ToQuery ListStateFilterAction
+instance Prelude.ToQuery ListStateFilterAction
 
-instance ToHeader ListStateFilterAction
+instance Prelude.ToHeader ListStateFilterAction
 
-instance ToJSON ListStateFilterAction where
-  toJSON = toJSONText
+instance Prelude.ToJSON ListStateFilterAction where
+  toJSON = Prelude.toJSONText

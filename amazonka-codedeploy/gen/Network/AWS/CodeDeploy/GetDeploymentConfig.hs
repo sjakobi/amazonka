@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,158 +24,152 @@
 -- Gets information about a deployment configuration.
 module Network.AWS.CodeDeploy.GetDeploymentConfig
   ( -- * Creating a Request
-    getDeploymentConfig,
-    GetDeploymentConfig,
+    GetDeploymentConfig (..),
+    newGetDeploymentConfig,
 
     -- * Request Lenses
-    gdcDeploymentConfigName,
+    getDeploymentConfig_deploymentConfigName,
 
     -- * Destructuring the Response
-    getDeploymentConfigResponse,
-    GetDeploymentConfigResponse,
+    GetDeploymentConfigResponse (..),
+    newGetDeploymentConfigResponse,
 
     -- * Response Lenses
-    gdcrrsDeploymentConfigInfo,
-    gdcrrsResponseStatus,
+    getDeploymentConfigResponse_deploymentConfigInfo,
+    getDeploymentConfigResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodeDeploy.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CodeDeploy.Types.DeploymentConfigInfo
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input of a @GetDeploymentConfig@ operation.
 --
---
---
--- /See:/ 'getDeploymentConfig' smart constructor.
-newtype GetDeploymentConfig = GetDeploymentConfig'
-  { _gdcDeploymentConfigName ::
-      Text
+-- /See:/ 'newGetDeploymentConfig' smart constructor.
+data GetDeploymentConfig = GetDeploymentConfig'
+  { -- | The name of a deployment configuration associated with the IAM user or
+    -- AWS account.
+    deploymentConfigName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDeploymentConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDeploymentConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdcDeploymentConfigName' - The name of a deployment configuration associated with the IAM user or AWS account.
-getDeploymentConfig ::
-  -- | 'gdcDeploymentConfigName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'deploymentConfigName', 'getDeploymentConfig_deploymentConfigName' - The name of a deployment configuration associated with the IAM user or
+-- AWS account.
+newGetDeploymentConfig ::
+  -- | 'deploymentConfigName'
+  Prelude.Text ->
   GetDeploymentConfig
-getDeploymentConfig pDeploymentConfigName_ =
+newGetDeploymentConfig pDeploymentConfigName_ =
   GetDeploymentConfig'
-    { _gdcDeploymentConfigName =
+    { deploymentConfigName =
         pDeploymentConfigName_
     }
 
--- | The name of a deployment configuration associated with the IAM user or AWS account.
-gdcDeploymentConfigName :: Lens' GetDeploymentConfig Text
-gdcDeploymentConfigName = lens _gdcDeploymentConfigName (\s a -> s {_gdcDeploymentConfigName = a})
+-- | The name of a deployment configuration associated with the IAM user or
+-- AWS account.
+getDeploymentConfig_deploymentConfigName :: Lens.Lens' GetDeploymentConfig Prelude.Text
+getDeploymentConfig_deploymentConfigName = Lens.lens (\GetDeploymentConfig' {deploymentConfigName} -> deploymentConfigName) (\s@GetDeploymentConfig' {} a -> s {deploymentConfigName = a} :: GetDeploymentConfig)
 
-instance AWSRequest GetDeploymentConfig where
+instance Prelude.AWSRequest GetDeploymentConfig where
   type
     Rs GetDeploymentConfig =
       GetDeploymentConfigResponse
-  request = postJSON codeDeploy
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetDeploymentConfigResponse'
-            <$> (x .?> "deploymentConfigInfo")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "deploymentConfigInfo")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetDeploymentConfig
+instance Prelude.Hashable GetDeploymentConfig
 
-instance NFData GetDeploymentConfig
+instance Prelude.NFData GetDeploymentConfig
 
-instance ToHeaders GetDeploymentConfig where
+instance Prelude.ToHeaders GetDeploymentConfig where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodeDeploy_20141006.GetDeploymentConfig" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodeDeploy_20141006.GetDeploymentConfig" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetDeploymentConfig where
+instance Prelude.ToJSON GetDeploymentConfig where
   toJSON GetDeploymentConfig' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "deploymentConfigName"
-                  .= _gdcDeploymentConfigName
+                  Prelude..= deploymentConfigName
               )
           ]
       )
 
-instance ToPath GetDeploymentConfig where
-  toPath = const "/"
+instance Prelude.ToPath GetDeploymentConfig where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetDeploymentConfig where
-  toQuery = const mempty
+instance Prelude.ToQuery GetDeploymentConfig where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a @GetDeploymentConfig@ operation.
 --
---
---
--- /See:/ 'getDeploymentConfigResponse' smart constructor.
+-- /See:/ 'newGetDeploymentConfigResponse' smart constructor.
 data GetDeploymentConfigResponse = GetDeploymentConfigResponse'
-  { _gdcrrsDeploymentConfigInfo ::
-      !( Maybe
-           DeploymentConfigInfo
-       ),
-    _gdcrrsResponseStatus ::
-      !Int
+  { -- | Information about the deployment configuration.
+    deploymentConfigInfo :: Prelude.Maybe DeploymentConfigInfo,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDeploymentConfigResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDeploymentConfigResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdcrrsDeploymentConfigInfo' - Information about the deployment configuration.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gdcrrsResponseStatus' - -- | The response status code.
-getDeploymentConfigResponse ::
-  -- | 'gdcrrsResponseStatus'
-  Int ->
+-- 'deploymentConfigInfo', 'getDeploymentConfigResponse_deploymentConfigInfo' - Information about the deployment configuration.
+--
+-- 'httpStatus', 'getDeploymentConfigResponse_httpStatus' - The response's http status code.
+newGetDeploymentConfigResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetDeploymentConfigResponse
-getDeploymentConfigResponse pResponseStatus_ =
+newGetDeploymentConfigResponse pHttpStatus_ =
   GetDeploymentConfigResponse'
-    { _gdcrrsDeploymentConfigInfo =
-        Nothing,
-      _gdcrrsResponseStatus = pResponseStatus_
+    { deploymentConfigInfo =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the deployment configuration.
-gdcrrsDeploymentConfigInfo :: Lens' GetDeploymentConfigResponse (Maybe DeploymentConfigInfo)
-gdcrrsDeploymentConfigInfo = lens _gdcrrsDeploymentConfigInfo (\s a -> s {_gdcrrsDeploymentConfigInfo = a})
+getDeploymentConfigResponse_deploymentConfigInfo :: Lens.Lens' GetDeploymentConfigResponse (Prelude.Maybe DeploymentConfigInfo)
+getDeploymentConfigResponse_deploymentConfigInfo = Lens.lens (\GetDeploymentConfigResponse' {deploymentConfigInfo} -> deploymentConfigInfo) (\s@GetDeploymentConfigResponse' {} a -> s {deploymentConfigInfo = a} :: GetDeploymentConfigResponse)
 
--- | -- | The response status code.
-gdcrrsResponseStatus :: Lens' GetDeploymentConfigResponse Int
-gdcrrsResponseStatus = lens _gdcrrsResponseStatus (\s a -> s {_gdcrrsResponseStatus = a})
+-- | The response's http status code.
+getDeploymentConfigResponse_httpStatus :: Lens.Lens' GetDeploymentConfigResponse Prelude.Int
+getDeploymentConfigResponse_httpStatus = Lens.lens (\GetDeploymentConfigResponse' {httpStatus} -> httpStatus) (\s@GetDeploymentConfigResponse' {} a -> s {httpStatus = a} :: GetDeploymentConfigResponse)
 
-instance NFData GetDeploymentConfigResponse
+instance Prelude.NFData GetDeploymentConfigResponse

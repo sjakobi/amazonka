@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.CodeDeploy.Types.DeploymentType
   ( DeploymentType
       ( ..,
-        BlueGreen,
-        InPlace
+        DeploymentTypeBLUEGREEN,
+        DeploymentTypeINPLACE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DeploymentType = DeploymentType' (CI Text)
+newtype DeploymentType = DeploymentType'
+  { fromDeploymentType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern BlueGreen :: DeploymentType
-pattern BlueGreen = DeploymentType' "BLUE_GREEN"
+pattern DeploymentTypeBLUEGREEN :: DeploymentType
+pattern DeploymentTypeBLUEGREEN = DeploymentType' "BLUE_GREEN"
 
-pattern InPlace :: DeploymentType
-pattern InPlace = DeploymentType' "IN_PLACE"
+pattern DeploymentTypeINPLACE :: DeploymentType
+pattern DeploymentTypeINPLACE = DeploymentType' "IN_PLACE"
 
 {-# COMPLETE
-  BlueGreen,
-  InPlace,
+  DeploymentTypeBLUEGREEN,
+  DeploymentTypeINPLACE,
   DeploymentType'
   #-}
 
-instance FromText DeploymentType where
-  parser = (DeploymentType' . mk) <$> takeText
+instance Prelude.FromText DeploymentType where
+  parser = DeploymentType' Prelude.<$> Prelude.takeText
 
-instance ToText DeploymentType where
-  toText (DeploymentType' ci) = original ci
+instance Prelude.ToText DeploymentType where
+  toText (DeploymentType' x) = x
 
-instance Hashable DeploymentType
+instance Prelude.Hashable DeploymentType
 
-instance NFData DeploymentType
+instance Prelude.NFData DeploymentType
 
-instance ToByteString DeploymentType
+instance Prelude.ToByteString DeploymentType
 
-instance ToQuery DeploymentType
+instance Prelude.ToQuery DeploymentType
 
-instance ToHeader DeploymentType
+instance Prelude.ToHeader DeploymentType
 
-instance ToJSON DeploymentType where
-  toJSON = toJSONText
+instance Prelude.ToJSON DeploymentType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DeploymentType where
-  parseJSON = parseJSONText "DeploymentType"
+instance Prelude.FromJSON DeploymentType where
+  parseJSON = Prelude.parseJSONText "DeploymentType"

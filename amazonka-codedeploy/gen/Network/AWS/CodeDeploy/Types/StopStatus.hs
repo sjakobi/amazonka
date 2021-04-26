@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.CodeDeploy.Types.StopStatus
   ( StopStatus
       ( ..,
-        SSPending,
-        SSSucceeded
+        StopStatusPending,
+        StopStatusSucceeded
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data StopStatus = StopStatus' (CI Text)
+newtype StopStatus = StopStatus'
+  { fromStopStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SSPending :: StopStatus
-pattern SSPending = StopStatus' "Pending"
+pattern StopStatusPending :: StopStatus
+pattern StopStatusPending = StopStatus' "Pending"
 
-pattern SSSucceeded :: StopStatus
-pattern SSSucceeded = StopStatus' "Succeeded"
+pattern StopStatusSucceeded :: StopStatus
+pattern StopStatusSucceeded = StopStatus' "Succeeded"
 
 {-# COMPLETE
-  SSPending,
-  SSSucceeded,
+  StopStatusPending,
+  StopStatusSucceeded,
   StopStatus'
   #-}
 
-instance FromText StopStatus where
-  parser = (StopStatus' . mk) <$> takeText
+instance Prelude.FromText StopStatus where
+  parser = StopStatus' Prelude.<$> Prelude.takeText
 
-instance ToText StopStatus where
-  toText (StopStatus' ci) = original ci
+instance Prelude.ToText StopStatus where
+  toText (StopStatus' x) = x
 
-instance Hashable StopStatus
+instance Prelude.Hashable StopStatus
 
-instance NFData StopStatus
+instance Prelude.NFData StopStatus
 
-instance ToByteString StopStatus
+instance Prelude.ToByteString StopStatus
 
-instance ToQuery StopStatus
+instance Prelude.ToQuery StopStatus
 
-instance ToHeader StopStatus
+instance Prelude.ToHeader StopStatus
 
-instance FromJSON StopStatus where
-  parseJSON = parseJSONText "StopStatus"
+instance Prelude.FromJSON StopStatus where
+  parseJSON = Prelude.parseJSONText "StopStatus"

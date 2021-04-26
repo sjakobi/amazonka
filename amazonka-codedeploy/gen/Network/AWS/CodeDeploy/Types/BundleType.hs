@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,71 +19,73 @@
 module Network.AWS.CodeDeploy.Types.BundleType
   ( BundleType
       ( ..,
-        JSON,
-        TAR,
-        TGZ,
-        Yaml,
-        Zip
+        BundleTypeJSON,
+        BundleTypeTar,
+        BundleTypeTgz,
+        BundleTypeYAML,
+        BundleTypeZip
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data BundleType = BundleType' (CI Text)
+newtype BundleType = BundleType'
+  { fromBundleType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern JSON :: BundleType
-pattern JSON = BundleType' "JSON"
+pattern BundleTypeJSON :: BundleType
+pattern BundleTypeJSON = BundleType' "JSON"
 
-pattern TAR :: BundleType
-pattern TAR = BundleType' "tar"
+pattern BundleTypeTar :: BundleType
+pattern BundleTypeTar = BundleType' "tar"
 
-pattern TGZ :: BundleType
-pattern TGZ = BundleType' "tgz"
+pattern BundleTypeTgz :: BundleType
+pattern BundleTypeTgz = BundleType' "tgz"
 
-pattern Yaml :: BundleType
-pattern Yaml = BundleType' "YAML"
+pattern BundleTypeYAML :: BundleType
+pattern BundleTypeYAML = BundleType' "YAML"
 
-pattern Zip :: BundleType
-pattern Zip = BundleType' "zip"
+pattern BundleTypeZip :: BundleType
+pattern BundleTypeZip = BundleType' "zip"
 
 {-# COMPLETE
-  JSON,
-  TAR,
-  TGZ,
-  Yaml,
-  Zip,
+  BundleTypeJSON,
+  BundleTypeTar,
+  BundleTypeTgz,
+  BundleTypeYAML,
+  BundleTypeZip,
   BundleType'
   #-}
 
-instance FromText BundleType where
-  parser = (BundleType' . mk) <$> takeText
+instance Prelude.FromText BundleType where
+  parser = BundleType' Prelude.<$> Prelude.takeText
 
-instance ToText BundleType where
-  toText (BundleType' ci) = original ci
+instance Prelude.ToText BundleType where
+  toText (BundleType' x) = x
 
-instance Hashable BundleType
+instance Prelude.Hashable BundleType
 
-instance NFData BundleType
+instance Prelude.NFData BundleType
 
-instance ToByteString BundleType
+instance Prelude.ToByteString BundleType
 
-instance ToQuery BundleType
+instance Prelude.ToQuery BundleType
 
-instance ToHeader BundleType
+instance Prelude.ToHeader BundleType
 
-instance ToJSON BundleType where
-  toJSON = toJSONText
+instance Prelude.ToJSON BundleType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON BundleType where
-  parseJSON = parseJSONText "BundleType"
+instance Prelude.FromJSON BundleType where
+  parseJSON = Prelude.parseJSONText "BundleType"

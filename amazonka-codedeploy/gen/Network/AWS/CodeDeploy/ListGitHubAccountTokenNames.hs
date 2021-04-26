@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,179 +23,198 @@
 --
 -- Lists the names of stored connections to GitHub accounts.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.CodeDeploy.ListGitHubAccountTokenNames
   ( -- * Creating a Request
-    listGitHubAccountTokenNames,
-    ListGitHubAccountTokenNames,
+    ListGitHubAccountTokenNames (..),
+    newListGitHubAccountTokenNames,
 
     -- * Request Lenses
-    lghatnNextToken,
+    listGitHubAccountTokenNames_nextToken,
 
     -- * Destructuring the Response
-    listGitHubAccountTokenNamesResponse,
-    ListGitHubAccountTokenNamesResponse,
+    ListGitHubAccountTokenNamesResponse (..),
+    newListGitHubAccountTokenNamesResponse,
 
     -- * Response Lenses
-    lghatnrrsNextToken,
-    lghatnrrsTokenNameList,
-    lghatnrrsResponseStatus,
+    listGitHubAccountTokenNamesResponse_nextToken,
+    listGitHubAccountTokenNamesResponse_tokenNameList,
+    listGitHubAccountTokenNamesResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodeDeploy.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents the input of a @ListGitHubAccountTokenNames@ operation.
 --
---
---
--- /See:/ 'listGitHubAccountTokenNames' smart constructor.
-newtype ListGitHubAccountTokenNames = ListGitHubAccountTokenNames'
-  { _lghatnNextToken ::
-      Maybe Text
+-- /See:/ 'newListGitHubAccountTokenNames' smart constructor.
+data ListGitHubAccountTokenNames = ListGitHubAccountTokenNames'
+  { -- | An identifier returned from the previous @ListGitHubAccountTokenNames@
+    -- call. It can be used to return the next set of names in the list.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListGitHubAccountTokenNames' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListGitHubAccountTokenNames' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lghatnNextToken' - An identifier returned from the previous @ListGitHubAccountTokenNames@ call. It can be used to return the next set of names in the list.
-listGitHubAccountTokenNames ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'nextToken', 'listGitHubAccountTokenNames_nextToken' - An identifier returned from the previous @ListGitHubAccountTokenNames@
+-- call. It can be used to return the next set of names in the list.
+newListGitHubAccountTokenNames ::
   ListGitHubAccountTokenNames
-listGitHubAccountTokenNames =
+newListGitHubAccountTokenNames =
   ListGitHubAccountTokenNames'
-    { _lghatnNextToken =
-        Nothing
+    { nextToken =
+        Prelude.Nothing
     }
 
--- | An identifier returned from the previous @ListGitHubAccountTokenNames@ call. It can be used to return the next set of names in the list.
-lghatnNextToken :: Lens' ListGitHubAccountTokenNames (Maybe Text)
-lghatnNextToken = lens _lghatnNextToken (\s a -> s {_lghatnNextToken = a})
+-- | An identifier returned from the previous @ListGitHubAccountTokenNames@
+-- call. It can be used to return the next set of names in the list.
+listGitHubAccountTokenNames_nextToken :: Lens.Lens' ListGitHubAccountTokenNames (Prelude.Maybe Prelude.Text)
+listGitHubAccountTokenNames_nextToken = Lens.lens (\ListGitHubAccountTokenNames' {nextToken} -> nextToken) (\s@ListGitHubAccountTokenNames' {} a -> s {nextToken = a} :: ListGitHubAccountTokenNames)
 
-instance AWSPager ListGitHubAccountTokenNames where
+instance Pager.AWSPager ListGitHubAccountTokenNames where
   page rq rs
-    | stop (rs ^. lghatnrrsNextToken) = Nothing
-    | stop (rs ^. lghatnrrsTokenNameList) = Nothing
-    | otherwise =
-      Just $
+    | Pager.stop
+        ( rs
+            Lens.^? listGitHubAccountTokenNamesResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listGitHubAccountTokenNamesResponse_tokenNameList
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
         rq
-          & lghatnNextToken .~ rs ^. lghatnrrsNextToken
+          Lens.& listGitHubAccountTokenNames_nextToken
+          Lens..~ rs
+          Lens.^? listGitHubAccountTokenNamesResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListGitHubAccountTokenNames where
+instance
+  Prelude.AWSRequest
+    ListGitHubAccountTokenNames
+  where
   type
     Rs ListGitHubAccountTokenNames =
       ListGitHubAccountTokenNamesResponse
-  request = postJSON codeDeploy
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListGitHubAccountTokenNamesResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "tokenNameList" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> ( x Prelude..?> "tokenNameList"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListGitHubAccountTokenNames
+instance Prelude.Hashable ListGitHubAccountTokenNames
 
-instance NFData ListGitHubAccountTokenNames
+instance Prelude.NFData ListGitHubAccountTokenNames
 
-instance ToHeaders ListGitHubAccountTokenNames where
+instance
+  Prelude.ToHeaders
+    ListGitHubAccountTokenNames
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodeDeploy_20141006.ListGitHubAccountTokenNames" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodeDeploy_20141006.ListGitHubAccountTokenNames" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListGitHubAccountTokenNames where
+instance Prelude.ToJSON ListGitHubAccountTokenNames where
   toJSON ListGitHubAccountTokenNames' {..} =
-    object
-      (catMaybes [("nextToken" .=) <$> _lghatnNextToken])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("nextToken" Prelude..=) Prelude.<$> nextToken]
+      )
 
-instance ToPath ListGitHubAccountTokenNames where
-  toPath = const "/"
+instance Prelude.ToPath ListGitHubAccountTokenNames where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListGitHubAccountTokenNames where
-  toQuery = const mempty
+instance Prelude.ToQuery ListGitHubAccountTokenNames where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a @ListGitHubAccountTokenNames@ operation.
 --
---
---
--- /See:/ 'listGitHubAccountTokenNamesResponse' smart constructor.
+-- /See:/ 'newListGitHubAccountTokenNamesResponse' smart constructor.
 data ListGitHubAccountTokenNamesResponse = ListGitHubAccountTokenNamesResponse'
-  { _lghatnrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _lghatnrrsTokenNameList ::
-      !( Maybe
-           [Text]
-       ),
-    _lghatnrrsResponseStatus ::
-      !Int
+  { -- | If a large amount of information is returned, an identifier is also
+    -- returned. It can be used in a subsequent @ListGitHubAccountTokenNames@
+    -- call to return the next set of names in the list.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of names of connections to GitHub accounts.
+    tokenNameList :: Prelude.Maybe [Prelude.Text],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListGitHubAccountTokenNamesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListGitHubAccountTokenNamesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lghatnrrsNextToken' - If a large amount of information is returned, an identifier is also returned. It can be used in a subsequent @ListGitHubAccountTokenNames@ call to return the next set of names in the list.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lghatnrrsTokenNameList' - A list of names of connections to GitHub accounts.
+-- 'nextToken', 'listGitHubAccountTokenNamesResponse_nextToken' - If a large amount of information is returned, an identifier is also
+-- returned. It can be used in a subsequent @ListGitHubAccountTokenNames@
+-- call to return the next set of names in the list.
 --
--- * 'lghatnrrsResponseStatus' - -- | The response status code.
-listGitHubAccountTokenNamesResponse ::
-  -- | 'lghatnrrsResponseStatus'
-  Int ->
+-- 'tokenNameList', 'listGitHubAccountTokenNamesResponse_tokenNameList' - A list of names of connections to GitHub accounts.
+--
+-- 'httpStatus', 'listGitHubAccountTokenNamesResponse_httpStatus' - The response's http status code.
+newListGitHubAccountTokenNamesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListGitHubAccountTokenNamesResponse
-listGitHubAccountTokenNamesResponse pResponseStatus_ =
+newListGitHubAccountTokenNamesResponse pHttpStatus_ =
   ListGitHubAccountTokenNamesResponse'
-    { _lghatnrrsNextToken =
-        Nothing,
-      _lghatnrrsTokenNameList = Nothing,
-      _lghatnrrsResponseStatus =
-        pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      tokenNameList = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | If a large amount of information is returned, an identifier is also returned. It can be used in a subsequent @ListGitHubAccountTokenNames@ call to return the next set of names in the list.
-lghatnrrsNextToken :: Lens' ListGitHubAccountTokenNamesResponse (Maybe Text)
-lghatnrrsNextToken = lens _lghatnrrsNextToken (\s a -> s {_lghatnrrsNextToken = a})
+-- | If a large amount of information is returned, an identifier is also
+-- returned. It can be used in a subsequent @ListGitHubAccountTokenNames@
+-- call to return the next set of names in the list.
+listGitHubAccountTokenNamesResponse_nextToken :: Lens.Lens' ListGitHubAccountTokenNamesResponse (Prelude.Maybe Prelude.Text)
+listGitHubAccountTokenNamesResponse_nextToken = Lens.lens (\ListGitHubAccountTokenNamesResponse' {nextToken} -> nextToken) (\s@ListGitHubAccountTokenNamesResponse' {} a -> s {nextToken = a} :: ListGitHubAccountTokenNamesResponse)
 
 -- | A list of names of connections to GitHub accounts.
-lghatnrrsTokenNameList :: Lens' ListGitHubAccountTokenNamesResponse [Text]
-lghatnrrsTokenNameList = lens _lghatnrrsTokenNameList (\s a -> s {_lghatnrrsTokenNameList = a}) . _Default . _Coerce
+listGitHubAccountTokenNamesResponse_tokenNameList :: Lens.Lens' ListGitHubAccountTokenNamesResponse (Prelude.Maybe [Prelude.Text])
+listGitHubAccountTokenNamesResponse_tokenNameList = Lens.lens (\ListGitHubAccountTokenNamesResponse' {tokenNameList} -> tokenNameList) (\s@ListGitHubAccountTokenNamesResponse' {} a -> s {tokenNameList = a} :: ListGitHubAccountTokenNamesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lghatnrrsResponseStatus :: Lens' ListGitHubAccountTokenNamesResponse Int
-lghatnrrsResponseStatus = lens _lghatnrrsResponseStatus (\s a -> s {_lghatnrrsResponseStatus = a})
+-- | The response's http status code.
+listGitHubAccountTokenNamesResponse_httpStatus :: Lens.Lens' ListGitHubAccountTokenNamesResponse Prelude.Int
+listGitHubAccountTokenNamesResponse_httpStatus = Lens.lens (\ListGitHubAccountTokenNamesResponse' {httpStatus} -> httpStatus) (\s@ListGitHubAccountTokenNamesResponse' {} a -> s {httpStatus = a} :: ListGitHubAccountTokenNamesResponse)
 
-instance NFData ListGitHubAccountTokenNamesResponse
+instance
+  Prelude.NFData
+    ListGitHubAccountTokenNamesResponse
