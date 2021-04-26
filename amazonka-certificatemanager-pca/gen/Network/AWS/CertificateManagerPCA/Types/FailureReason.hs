@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.CertificateManagerPCA.Types.FailureReason
   ( FailureReason
       ( ..,
-        Other,
-        RequestTimedOut,
-        UnsupportedAlgorithm
+        FailureReasonOTHER,
+        FailureReasonREQUESTTIMEDOUT,
+        FailureReasonUNSUPPORTEDALGORITHM
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data FailureReason = FailureReason' (CI Text)
+newtype FailureReason = FailureReason'
+  { fromFailureReason ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Other :: FailureReason
-pattern Other = FailureReason' "OTHER"
+pattern FailureReasonOTHER :: FailureReason
+pattern FailureReasonOTHER = FailureReason' "OTHER"
 
-pattern RequestTimedOut :: FailureReason
-pattern RequestTimedOut = FailureReason' "REQUEST_TIMED_OUT"
+pattern FailureReasonREQUESTTIMEDOUT :: FailureReason
+pattern FailureReasonREQUESTTIMEDOUT = FailureReason' "REQUEST_TIMED_OUT"
 
-pattern UnsupportedAlgorithm :: FailureReason
-pattern UnsupportedAlgorithm = FailureReason' "UNSUPPORTED_ALGORITHM"
+pattern FailureReasonUNSUPPORTEDALGORITHM :: FailureReason
+pattern FailureReasonUNSUPPORTEDALGORITHM = FailureReason' "UNSUPPORTED_ALGORITHM"
 
 {-# COMPLETE
-  Other,
-  RequestTimedOut,
-  UnsupportedAlgorithm,
+  FailureReasonOTHER,
+  FailureReasonREQUESTTIMEDOUT,
+  FailureReasonUNSUPPORTEDALGORITHM,
   FailureReason'
   #-}
 
-instance FromText FailureReason where
-  parser = (FailureReason' . mk) <$> takeText
+instance Prelude.FromText FailureReason where
+  parser = FailureReason' Prelude.<$> Prelude.takeText
 
-instance ToText FailureReason where
-  toText (FailureReason' ci) = original ci
+instance Prelude.ToText FailureReason where
+  toText (FailureReason' x) = x
 
-instance Hashable FailureReason
+instance Prelude.Hashable FailureReason
 
-instance NFData FailureReason
+instance Prelude.NFData FailureReason
 
-instance ToByteString FailureReason
+instance Prelude.ToByteString FailureReason
 
-instance ToQuery FailureReason
+instance Prelude.ToQuery FailureReason
 
-instance ToHeader FailureReason
+instance Prelude.ToHeader FailureReason
 
-instance FromJSON FailureReason where
-  parseJSON = parseJSONText "FailureReason"
+instance Prelude.FromJSON FailureReason where
+  parseJSON = Prelude.parseJSONText "FailureReason"

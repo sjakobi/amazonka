@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,85 +19,83 @@
 module Network.AWS.CertificateManagerPCA.Types.CertificateAuthorityStatus
   ( CertificateAuthorityStatus
       ( ..,
-        CASActive,
-        CASCreating,
-        CASDeleted,
-        CASDisabled,
-        CASExpired,
-        CASFailed,
-        CASPendingCertificate
+        CertificateAuthorityStatusACTIVE,
+        CertificateAuthorityStatusCREATING,
+        CertificateAuthorityStatusDELETED,
+        CertificateAuthorityStatusDISABLED,
+        CertificateAuthorityStatusEXPIRED,
+        CertificateAuthorityStatusFAILED,
+        CertificateAuthorityStatusPENDINGCERTIFICATE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CertificateAuthorityStatus
-  = CertificateAuthorityStatus'
-      ( CI
-          Text
-      )
+newtype CertificateAuthorityStatus = CertificateAuthorityStatus'
+  { fromCertificateAuthorityStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CASActive :: CertificateAuthorityStatus
-pattern CASActive = CertificateAuthorityStatus' "ACTIVE"
+pattern CertificateAuthorityStatusACTIVE :: CertificateAuthorityStatus
+pattern CertificateAuthorityStatusACTIVE = CertificateAuthorityStatus' "ACTIVE"
 
-pattern CASCreating :: CertificateAuthorityStatus
-pattern CASCreating = CertificateAuthorityStatus' "CREATING"
+pattern CertificateAuthorityStatusCREATING :: CertificateAuthorityStatus
+pattern CertificateAuthorityStatusCREATING = CertificateAuthorityStatus' "CREATING"
 
-pattern CASDeleted :: CertificateAuthorityStatus
-pattern CASDeleted = CertificateAuthorityStatus' "DELETED"
+pattern CertificateAuthorityStatusDELETED :: CertificateAuthorityStatus
+pattern CertificateAuthorityStatusDELETED = CertificateAuthorityStatus' "DELETED"
 
-pattern CASDisabled :: CertificateAuthorityStatus
-pattern CASDisabled = CertificateAuthorityStatus' "DISABLED"
+pattern CertificateAuthorityStatusDISABLED :: CertificateAuthorityStatus
+pattern CertificateAuthorityStatusDISABLED = CertificateAuthorityStatus' "DISABLED"
 
-pattern CASExpired :: CertificateAuthorityStatus
-pattern CASExpired = CertificateAuthorityStatus' "EXPIRED"
+pattern CertificateAuthorityStatusEXPIRED :: CertificateAuthorityStatus
+pattern CertificateAuthorityStatusEXPIRED = CertificateAuthorityStatus' "EXPIRED"
 
-pattern CASFailed :: CertificateAuthorityStatus
-pattern CASFailed = CertificateAuthorityStatus' "FAILED"
+pattern CertificateAuthorityStatusFAILED :: CertificateAuthorityStatus
+pattern CertificateAuthorityStatusFAILED = CertificateAuthorityStatus' "FAILED"
 
-pattern CASPendingCertificate :: CertificateAuthorityStatus
-pattern CASPendingCertificate = CertificateAuthorityStatus' "PENDING_CERTIFICATE"
+pattern CertificateAuthorityStatusPENDINGCERTIFICATE :: CertificateAuthorityStatus
+pattern CertificateAuthorityStatusPENDINGCERTIFICATE = CertificateAuthorityStatus' "PENDING_CERTIFICATE"
 
 {-# COMPLETE
-  CASActive,
-  CASCreating,
-  CASDeleted,
-  CASDisabled,
-  CASExpired,
-  CASFailed,
-  CASPendingCertificate,
+  CertificateAuthorityStatusACTIVE,
+  CertificateAuthorityStatusCREATING,
+  CertificateAuthorityStatusDELETED,
+  CertificateAuthorityStatusDISABLED,
+  CertificateAuthorityStatusEXPIRED,
+  CertificateAuthorityStatusFAILED,
+  CertificateAuthorityStatusPENDINGCERTIFICATE,
   CertificateAuthorityStatus'
   #-}
 
-instance FromText CertificateAuthorityStatus where
-  parser = (CertificateAuthorityStatus' . mk) <$> takeText
+instance Prelude.FromText CertificateAuthorityStatus where
+  parser = CertificateAuthorityStatus' Prelude.<$> Prelude.takeText
 
-instance ToText CertificateAuthorityStatus where
-  toText (CertificateAuthorityStatus' ci) = original ci
+instance Prelude.ToText CertificateAuthorityStatus where
+  toText (CertificateAuthorityStatus' x) = x
 
-instance Hashable CertificateAuthorityStatus
+instance Prelude.Hashable CertificateAuthorityStatus
 
-instance NFData CertificateAuthorityStatus
+instance Prelude.NFData CertificateAuthorityStatus
 
-instance ToByteString CertificateAuthorityStatus
+instance Prelude.ToByteString CertificateAuthorityStatus
 
-instance ToQuery CertificateAuthorityStatus
+instance Prelude.ToQuery CertificateAuthorityStatus
 
-instance ToHeader CertificateAuthorityStatus
+instance Prelude.ToHeader CertificateAuthorityStatus
 
-instance ToJSON CertificateAuthorityStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON CertificateAuthorityStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CertificateAuthorityStatus where
-  parseJSON = parseJSONText "CertificateAuthorityStatus"
+instance Prelude.FromJSON CertificateAuthorityStatus where
+  parseJSON = Prelude.parseJSONText "CertificateAuthorityStatus"

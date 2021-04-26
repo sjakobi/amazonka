@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,233 +21,247 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists information about a specific audit report created by calling the <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_CreateCertificateAuthorityAuditReport.html CreateCertificateAuthorityAuditReport> action. Audit information is created every time the certificate authority (CA) private key is used. The private key is used when you call the <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_IssueCertificate.html IssueCertificate> action or the <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_RevokeCertificate.html RevokeCertificate> action.
+-- Lists information about a specific audit report created by calling the
+-- <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_CreateCertificateAuthorityAuditReport.html CreateCertificateAuthorityAuditReport>
+-- action. Audit information is created every time the certificate
+-- authority (CA) private key is used. The private key is used when you
+-- call the
+-- <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_IssueCertificate.html IssueCertificate>
+-- action or the
+-- <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_RevokeCertificate.html RevokeCertificate>
+-- action.
 module Network.AWS.CertificateManagerPCA.DescribeCertificateAuthorityAuditReport
   ( -- * Creating a Request
-    describeCertificateAuthorityAuditReport,
-    DescribeCertificateAuthorityAuditReport,
+    DescribeCertificateAuthorityAuditReport (..),
+    newDescribeCertificateAuthorityAuditReport,
 
     -- * Request Lenses
-    dcaarCertificateAuthorityARN,
-    dcaarAuditReportId,
+    describeCertificateAuthorityAuditReport_certificateAuthorityArn,
+    describeCertificateAuthorityAuditReport_auditReportId,
 
     -- * Destructuring the Response
-    describeCertificateAuthorityAuditReportResponse,
-    DescribeCertificateAuthorityAuditReportResponse,
+    DescribeCertificateAuthorityAuditReportResponse (..),
+    newDescribeCertificateAuthorityAuditReportResponse,
 
     -- * Response Lenses
-    dcaarrrsAuditReportStatus,
-    dcaarrrsCreatedAt,
-    dcaarrrsS3Key,
-    dcaarrrsS3BucketName,
-    dcaarrrsResponseStatus,
+    describeCertificateAuthorityAuditReportResponse_auditReportStatus,
+    describeCertificateAuthorityAuditReportResponse_createdAt,
+    describeCertificateAuthorityAuditReportResponse_s3Key,
+    describeCertificateAuthorityAuditReportResponse_s3BucketName,
+    describeCertificateAuthorityAuditReportResponse_httpStatus,
   )
 where
 
 import Network.AWS.CertificateManagerPCA.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CertificateManagerPCA.Types.AuditReportStatus
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeCertificateAuthorityAuditReport' smart constructor.
+-- | /See:/ 'newDescribeCertificateAuthorityAuditReport' smart constructor.
 data DescribeCertificateAuthorityAuditReport = DescribeCertificateAuthorityAuditReport'
-  { _dcaarCertificateAuthorityARN ::
-      !Text,
-    _dcaarAuditReportId ::
-      !Text
+  { -- | The Amazon Resource Name (ARN) of the private CA. This must be of the
+    -- form:
+    --
+    -- @arn:aws:acm-pca:region:account:certificate-authority\/12345678-1234-1234-1234-123456789012 @.
+    certificateAuthorityArn :: Prelude.Text,
+    -- | The report ID returned by calling the
+    -- <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_CreateCertificateAuthorityAuditReport.html CreateCertificateAuthorityAuditReport>
+    -- action.
+    auditReportId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeCertificateAuthorityAuditReport' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeCertificateAuthorityAuditReport' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcaarCertificateAuthorityARN' - The Amazon Resource Name (ARN) of the private CA. This must be of the form: @arn:aws:acm-pca:/region/ :/account/ :certificate-authority//12345678-1234-1234-1234-123456789012/ @ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcaarAuditReportId' - The report ID returned by calling the <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_CreateCertificateAuthorityAuditReport.html CreateCertificateAuthorityAuditReport> action.
-describeCertificateAuthorityAuditReport ::
-  -- | 'dcaarCertificateAuthorityARN'
-  Text ->
-  -- | 'dcaarAuditReportId'
-  Text ->
+-- 'certificateAuthorityArn', 'describeCertificateAuthorityAuditReport_certificateAuthorityArn' - The Amazon Resource Name (ARN) of the private CA. This must be of the
+-- form:
+--
+-- @arn:aws:acm-pca:region:account:certificate-authority\/12345678-1234-1234-1234-123456789012 @.
+--
+-- 'auditReportId', 'describeCertificateAuthorityAuditReport_auditReportId' - The report ID returned by calling the
+-- <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_CreateCertificateAuthorityAuditReport.html CreateCertificateAuthorityAuditReport>
+-- action.
+newDescribeCertificateAuthorityAuditReport ::
+  -- | 'certificateAuthorityArn'
+  Prelude.Text ->
+  -- | 'auditReportId'
+  Prelude.Text ->
   DescribeCertificateAuthorityAuditReport
-describeCertificateAuthorityAuditReport
-  pCertificateAuthorityARN_
+newDescribeCertificateAuthorityAuditReport
+  pCertificateAuthorityArn_
   pAuditReportId_ =
     DescribeCertificateAuthorityAuditReport'
-      { _dcaarCertificateAuthorityARN =
-          pCertificateAuthorityARN_,
-        _dcaarAuditReportId =
-          pAuditReportId_
+      { certificateAuthorityArn =
+          pCertificateAuthorityArn_,
+        auditReportId = pAuditReportId_
       }
 
--- | The Amazon Resource Name (ARN) of the private CA. This must be of the form: @arn:aws:acm-pca:/region/ :/account/ :certificate-authority//12345678-1234-1234-1234-123456789012/ @ .
-dcaarCertificateAuthorityARN :: Lens' DescribeCertificateAuthorityAuditReport Text
-dcaarCertificateAuthorityARN = lens _dcaarCertificateAuthorityARN (\s a -> s {_dcaarCertificateAuthorityARN = a})
+-- | The Amazon Resource Name (ARN) of the private CA. This must be of the
+-- form:
+--
+-- @arn:aws:acm-pca:region:account:certificate-authority\/12345678-1234-1234-1234-123456789012 @.
+describeCertificateAuthorityAuditReport_certificateAuthorityArn :: Lens.Lens' DescribeCertificateAuthorityAuditReport Prelude.Text
+describeCertificateAuthorityAuditReport_certificateAuthorityArn = Lens.lens (\DescribeCertificateAuthorityAuditReport' {certificateAuthorityArn} -> certificateAuthorityArn) (\s@DescribeCertificateAuthorityAuditReport' {} a -> s {certificateAuthorityArn = a} :: DescribeCertificateAuthorityAuditReport)
 
--- | The report ID returned by calling the <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_CreateCertificateAuthorityAuditReport.html CreateCertificateAuthorityAuditReport> action.
-dcaarAuditReportId :: Lens' DescribeCertificateAuthorityAuditReport Text
-dcaarAuditReportId = lens _dcaarAuditReportId (\s a -> s {_dcaarAuditReportId = a})
+-- | The report ID returned by calling the
+-- <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_CreateCertificateAuthorityAuditReport.html CreateCertificateAuthorityAuditReport>
+-- action.
+describeCertificateAuthorityAuditReport_auditReportId :: Lens.Lens' DescribeCertificateAuthorityAuditReport Prelude.Text
+describeCertificateAuthorityAuditReport_auditReportId = Lens.lens (\DescribeCertificateAuthorityAuditReport' {auditReportId} -> auditReportId) (\s@DescribeCertificateAuthorityAuditReport' {} a -> s {auditReportId = a} :: DescribeCertificateAuthorityAuditReport)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     DescribeCertificateAuthorityAuditReport
   where
   type
     Rs DescribeCertificateAuthorityAuditReport =
       DescribeCertificateAuthorityAuditReportResponse
-  request = postJSON certificateManagerPCA
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeCertificateAuthorityAuditReportResponse'
-            <$> (x .?> "AuditReportStatus")
-            <*> (x .?> "CreatedAt")
-            <*> (x .?> "S3Key")
-            <*> (x .?> "S3BucketName")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "AuditReportStatus")
+              Prelude.<*> (x Prelude..?> "CreatedAt")
+              Prelude.<*> (x Prelude..?> "S3Key")
+              Prelude.<*> (x Prelude..?> "S3BucketName")
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     DescribeCertificateAuthorityAuditReport
 
 instance
-  NFData
+  Prelude.NFData
     DescribeCertificateAuthorityAuditReport
 
 instance
-  ToHeaders
+  Prelude.ToHeaders
     DescribeCertificateAuthorityAuditReport
   where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "ACMPrivateCA.DescribeCertificateAuthorityAuditReport" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "ACMPrivateCA.DescribeCertificateAuthorityAuditReport" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
 instance
-  ToJSON
+  Prelude.ToJSON
     DescribeCertificateAuthorityAuditReport
   where
   toJSON DescribeCertificateAuthorityAuditReport' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "CertificateAuthorityArn"
-                  .= _dcaarCertificateAuthorityARN
+                  Prelude..= certificateAuthorityArn
               ),
-            Just ("AuditReportId" .= _dcaarAuditReportId)
+            Prelude.Just
+              ("AuditReportId" Prelude..= auditReportId)
           ]
       )
 
 instance
-  ToPath
+  Prelude.ToPath
     DescribeCertificateAuthorityAuditReport
   where
-  toPath = const "/"
+  toPath = Prelude.const "/"
 
 instance
-  ToQuery
+  Prelude.ToQuery
     DescribeCertificateAuthorityAuditReport
   where
-  toQuery = const mempty
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeCertificateAuthorityAuditReportResponse' smart constructor.
+-- | /See:/ 'newDescribeCertificateAuthorityAuditReportResponse' smart constructor.
 data DescribeCertificateAuthorityAuditReportResponse = DescribeCertificateAuthorityAuditReportResponse'
-  { _dcaarrrsAuditReportStatus ::
-      !( Maybe
-           AuditReportStatus
-       ),
-    _dcaarrrsCreatedAt ::
-      !( Maybe
-           POSIX
-       ),
-    _dcaarrrsS3Key ::
-      !( Maybe
-           Text
-       ),
-    _dcaarrrsS3BucketName ::
-      !( Maybe
-           Text
-       ),
-    _dcaarrrsResponseStatus ::
-      !Int
+  { -- | Specifies whether report creation is in progress, has succeeded, or has
+    -- failed.
+    auditReportStatus :: Prelude.Maybe AuditReportStatus,
+    -- | The date and time at which the report was created.
+    createdAt :: Prelude.Maybe Prelude.POSIX,
+    -- | S3 __key__ that uniquely identifies the report file in your S3 bucket.
+    s3Key :: Prelude.Maybe Prelude.Text,
+    -- | Name of the S3 bucket that contains the report.
+    s3BucketName :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeCertificateAuthorityAuditReportResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeCertificateAuthorityAuditReportResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcaarrrsAuditReportStatus' - Specifies whether report creation is in progress, has succeeded, or has failed.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcaarrrsCreatedAt' - The date and time at which the report was created.
+-- 'auditReportStatus', 'describeCertificateAuthorityAuditReportResponse_auditReportStatus' - Specifies whether report creation is in progress, has succeeded, or has
+-- failed.
 --
--- * 'dcaarrrsS3Key' - S3 __key__ that uniquely identifies the report file in your S3 bucket.
+-- 'createdAt', 'describeCertificateAuthorityAuditReportResponse_createdAt' - The date and time at which the report was created.
 --
--- * 'dcaarrrsS3BucketName' - Name of the S3 bucket that contains the report.
+-- 's3Key', 'describeCertificateAuthorityAuditReportResponse_s3Key' - S3 __key__ that uniquely identifies the report file in your S3 bucket.
 --
--- * 'dcaarrrsResponseStatus' - -- | The response status code.
-describeCertificateAuthorityAuditReportResponse ::
-  -- | 'dcaarrrsResponseStatus'
-  Int ->
+-- 's3BucketName', 'describeCertificateAuthorityAuditReportResponse_s3BucketName' - Name of the S3 bucket that contains the report.
+--
+-- 'httpStatus', 'describeCertificateAuthorityAuditReportResponse_httpStatus' - The response's http status code.
+newDescribeCertificateAuthorityAuditReportResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeCertificateAuthorityAuditReportResponse
-describeCertificateAuthorityAuditReportResponse
-  pResponseStatus_ =
+newDescribeCertificateAuthorityAuditReportResponse
+  pHttpStatus_ =
     DescribeCertificateAuthorityAuditReportResponse'
-      { _dcaarrrsAuditReportStatus =
-          Nothing,
-        _dcaarrrsCreatedAt =
-          Nothing,
-        _dcaarrrsS3Key = Nothing,
-        _dcaarrrsS3BucketName =
-          Nothing,
-        _dcaarrrsResponseStatus =
-          pResponseStatus_
+      { auditReportStatus =
+          Prelude.Nothing,
+        createdAt =
+          Prelude.Nothing,
+        s3Key = Prelude.Nothing,
+        s3BucketName =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
--- | Specifies whether report creation is in progress, has succeeded, or has failed.
-dcaarrrsAuditReportStatus :: Lens' DescribeCertificateAuthorityAuditReportResponse (Maybe AuditReportStatus)
-dcaarrrsAuditReportStatus = lens _dcaarrrsAuditReportStatus (\s a -> s {_dcaarrrsAuditReportStatus = a})
+-- | Specifies whether report creation is in progress, has succeeded, or has
+-- failed.
+describeCertificateAuthorityAuditReportResponse_auditReportStatus :: Lens.Lens' DescribeCertificateAuthorityAuditReportResponse (Prelude.Maybe AuditReportStatus)
+describeCertificateAuthorityAuditReportResponse_auditReportStatus = Lens.lens (\DescribeCertificateAuthorityAuditReportResponse' {auditReportStatus} -> auditReportStatus) (\s@DescribeCertificateAuthorityAuditReportResponse' {} a -> s {auditReportStatus = a} :: DescribeCertificateAuthorityAuditReportResponse)
 
 -- | The date and time at which the report was created.
-dcaarrrsCreatedAt :: Lens' DescribeCertificateAuthorityAuditReportResponse (Maybe UTCTime)
-dcaarrrsCreatedAt = lens _dcaarrrsCreatedAt (\s a -> s {_dcaarrrsCreatedAt = a}) . mapping _Time
+describeCertificateAuthorityAuditReportResponse_createdAt :: Lens.Lens' DescribeCertificateAuthorityAuditReportResponse (Prelude.Maybe Prelude.UTCTime)
+describeCertificateAuthorityAuditReportResponse_createdAt = Lens.lens (\DescribeCertificateAuthorityAuditReportResponse' {createdAt} -> createdAt) (\s@DescribeCertificateAuthorityAuditReportResponse' {} a -> s {createdAt = a} :: DescribeCertificateAuthorityAuditReportResponse) Prelude.. Lens.mapping Prelude._Time
 
 -- | S3 __key__ that uniquely identifies the report file in your S3 bucket.
-dcaarrrsS3Key :: Lens' DescribeCertificateAuthorityAuditReportResponse (Maybe Text)
-dcaarrrsS3Key = lens _dcaarrrsS3Key (\s a -> s {_dcaarrrsS3Key = a})
+describeCertificateAuthorityAuditReportResponse_s3Key :: Lens.Lens' DescribeCertificateAuthorityAuditReportResponse (Prelude.Maybe Prelude.Text)
+describeCertificateAuthorityAuditReportResponse_s3Key = Lens.lens (\DescribeCertificateAuthorityAuditReportResponse' {s3Key} -> s3Key) (\s@DescribeCertificateAuthorityAuditReportResponse' {} a -> s {s3Key = a} :: DescribeCertificateAuthorityAuditReportResponse)
 
 -- | Name of the S3 bucket that contains the report.
-dcaarrrsS3BucketName :: Lens' DescribeCertificateAuthorityAuditReportResponse (Maybe Text)
-dcaarrrsS3BucketName = lens _dcaarrrsS3BucketName (\s a -> s {_dcaarrrsS3BucketName = a})
+describeCertificateAuthorityAuditReportResponse_s3BucketName :: Lens.Lens' DescribeCertificateAuthorityAuditReportResponse (Prelude.Maybe Prelude.Text)
+describeCertificateAuthorityAuditReportResponse_s3BucketName = Lens.lens (\DescribeCertificateAuthorityAuditReportResponse' {s3BucketName} -> s3BucketName) (\s@DescribeCertificateAuthorityAuditReportResponse' {} a -> s {s3BucketName = a} :: DescribeCertificateAuthorityAuditReportResponse)
 
--- | -- | The response status code.
-dcaarrrsResponseStatus :: Lens' DescribeCertificateAuthorityAuditReportResponse Int
-dcaarrrsResponseStatus = lens _dcaarrrsResponseStatus (\s a -> s {_dcaarrrsResponseStatus = a})
+-- | The response's http status code.
+describeCertificateAuthorityAuditReportResponse_httpStatus :: Lens.Lens' DescribeCertificateAuthorityAuditReportResponse Prelude.Int
+describeCertificateAuthorityAuditReportResponse_httpStatus = Lens.lens (\DescribeCertificateAuthorityAuditReportResponse' {httpStatus} -> httpStatus) (\s@DescribeCertificateAuthorityAuditReportResponse' {} a -> s {httpStatus = a} :: DescribeCertificateAuthorityAuditReportResponse)
 
 instance
-  NFData
+  Prelude.NFData
     DescribeCertificateAuthorityAuditReportResponse

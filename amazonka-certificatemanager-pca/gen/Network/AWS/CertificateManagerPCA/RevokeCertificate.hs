@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,136 +21,212 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Revokes a certificate that was issued inside ACM Private CA. If you enable a certificate revocation list (CRL) when you create or update your private CA, information about the revoked certificates will be included in the CRL. ACM Private CA writes the CRL to an S3 bucket that you specify. A CRL is typically updated approximately 30 minutes after a certificate is revoked. If for any reason the CRL update fails, ACM Private CA attempts makes further attempts every 15 minutes. With Amazon CloudWatch, you can create alarms for the metrics @CRLGenerated@ and @MisconfiguredCRLBucket@ . For more information, see <https://docs.aws.amazon.com/acm-pca/latest/userguide/PcaCloudWatch.html Supported CloudWatch Metrics> .
+-- Revokes a certificate that was issued inside ACM Private CA. If you
+-- enable a certificate revocation list (CRL) when you create or update
+-- your private CA, information about the revoked certificates will be
+-- included in the CRL. ACM Private CA writes the CRL to an S3 bucket that
+-- you specify. A CRL is typically updated approximately 30 minutes after a
+-- certificate is revoked. If for any reason the CRL update fails, ACM
+-- Private CA attempts makes further attempts every 15 minutes. With Amazon
+-- CloudWatch, you can create alarms for the metrics @CRLGenerated@ and
+-- @MisconfiguredCRLBucket@. For more information, see
+-- <https://docs.aws.amazon.com/acm-pca/latest/userguide/PcaCloudWatch.html Supported CloudWatch Metrics>.
 --
+-- Both PCA and the IAM principal must have permission to write to the S3
+-- bucket that you specify. If the IAM principal making the call does not
+-- have permission to write to the bucket, then an exception is thrown. For
+-- more information, see
+-- <https://docs.aws.amazon.com/acm-pca/latest/userguide/PcaAuthAccess.html Configure Access to ACM Private CA>.
 --
--- ACM Private CA also writes revocation information to the audit report. For more information, see <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_CreateCertificateAuthorityAuditReport.html CreateCertificateAuthorityAuditReport> .
+-- ACM Private CA also writes revocation information to the audit report.
+-- For more information, see
+-- <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_CreateCertificateAuthorityAuditReport.html CreateCertificateAuthorityAuditReport>.
+--
+-- You cannot revoke a root CA self-signed certificate.
 module Network.AWS.CertificateManagerPCA.RevokeCertificate
   ( -- * Creating a Request
-    revokeCertificate,
-    RevokeCertificate,
+    RevokeCertificate (..),
+    newRevokeCertificate,
 
     -- * Request Lenses
-    rcCertificateAuthorityARN,
-    rcCertificateSerial,
-    rcRevocationReason,
+    revokeCertificate_certificateAuthorityArn,
+    revokeCertificate_certificateSerial,
+    revokeCertificate_revocationReason,
 
     -- * Destructuring the Response
-    revokeCertificateResponse,
-    RevokeCertificateResponse,
+    RevokeCertificateResponse (..),
+    newRevokeCertificateResponse,
   )
 where
 
 import Network.AWS.CertificateManagerPCA.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'revokeCertificate' smart constructor.
+-- | /See:/ 'newRevokeCertificate' smart constructor.
 data RevokeCertificate = RevokeCertificate'
-  { _rcCertificateAuthorityARN ::
-      !Text,
-    _rcCertificateSerial :: !Text,
-    _rcRevocationReason ::
-      !RevocationReason
+  { -- | Amazon Resource Name (ARN) of the private CA that issued the certificate
+    -- to be revoked. This must be of the form:
+    --
+    -- @arn:aws:acm-pca:region:account:certificate-authority\/12345678-1234-1234-1234-123456789012 @
+    certificateAuthorityArn :: Prelude.Text,
+    -- | Serial number of the certificate to be revoked. This must be in
+    -- hexadecimal format. You can retrieve the serial number by calling
+    -- <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_GetCertificate.html GetCertificate>
+    -- with the Amazon Resource Name (ARN) of the certificate you want and the
+    -- ARN of your private CA. The __GetCertificate__ action retrieves the
+    -- certificate in the PEM format. You can use the following OpenSSL command
+    -- to list the certificate in text format and copy the hexadecimal serial
+    -- number.
+    --
+    -- @openssl x509 -in file_path -text -noout@
+    --
+    -- You can also copy the serial number from the console or use the
+    -- <https://docs.aws.amazon.com/acm/latest/APIReference/API_DescribeCertificate.html DescribeCertificate>
+    -- action in the /AWS Certificate Manager API Reference/.
+    certificateSerial :: Prelude.Text,
+    -- | Specifies why you revoked the certificate.
+    revocationReason :: RevocationReason
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RevokeCertificate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RevokeCertificate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rcCertificateAuthorityARN' - Amazon Resource Name (ARN) of the private CA that issued the certificate to be revoked. This must be of the form: @arn:aws:acm-pca:/region/ :/account/ :certificate-authority//12345678-1234-1234-1234-123456789012/ @
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rcCertificateSerial' - Serial number of the certificate to be revoked. This must be in hexadecimal format. You can retrieve the serial number by calling <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_GetCertificate.html GetCertificate> with the Amazon Resource Name (ARN) of the certificate you want and the ARN of your private CA. The __GetCertificate__ action retrieves the certificate in the PEM format. You can use the following OpenSSL command to list the certificate in text format and copy the hexadecimal serial number.  @openssl x509 -in /file_path/ -text -noout@  You can also copy the serial number from the console or use the <https://docs.aws.amazon.com/acm/latest/APIReference/API_DescribeCertificate.html DescribeCertificate> action in the /AWS Certificate Manager API Reference/ .
+-- 'certificateAuthorityArn', 'revokeCertificate_certificateAuthorityArn' - Amazon Resource Name (ARN) of the private CA that issued the certificate
+-- to be revoked. This must be of the form:
 --
--- * 'rcRevocationReason' - Specifies why you revoked the certificate.
-revokeCertificate ::
-  -- | 'rcCertificateAuthorityARN'
-  Text ->
-  -- | 'rcCertificateSerial'
-  Text ->
-  -- | 'rcRevocationReason'
+-- @arn:aws:acm-pca:region:account:certificate-authority\/12345678-1234-1234-1234-123456789012 @
+--
+-- 'certificateSerial', 'revokeCertificate_certificateSerial' - Serial number of the certificate to be revoked. This must be in
+-- hexadecimal format. You can retrieve the serial number by calling
+-- <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_GetCertificate.html GetCertificate>
+-- with the Amazon Resource Name (ARN) of the certificate you want and the
+-- ARN of your private CA. The __GetCertificate__ action retrieves the
+-- certificate in the PEM format. You can use the following OpenSSL command
+-- to list the certificate in text format and copy the hexadecimal serial
+-- number.
+--
+-- @openssl x509 -in file_path -text -noout@
+--
+-- You can also copy the serial number from the console or use the
+-- <https://docs.aws.amazon.com/acm/latest/APIReference/API_DescribeCertificate.html DescribeCertificate>
+-- action in the /AWS Certificate Manager API Reference/.
+--
+-- 'revocationReason', 'revokeCertificate_revocationReason' - Specifies why you revoked the certificate.
+newRevokeCertificate ::
+  -- | 'certificateAuthorityArn'
+  Prelude.Text ->
+  -- | 'certificateSerial'
+  Prelude.Text ->
+  -- | 'revocationReason'
   RevocationReason ->
   RevokeCertificate
-revokeCertificate
-  pCertificateAuthorityARN_
+newRevokeCertificate
+  pCertificateAuthorityArn_
   pCertificateSerial_
   pRevocationReason_ =
     RevokeCertificate'
-      { _rcCertificateAuthorityARN =
-          pCertificateAuthorityARN_,
-        _rcCertificateSerial = pCertificateSerial_,
-        _rcRevocationReason = pRevocationReason_
+      { certificateAuthorityArn =
+          pCertificateAuthorityArn_,
+        certificateSerial = pCertificateSerial_,
+        revocationReason = pRevocationReason_
       }
 
--- | Amazon Resource Name (ARN) of the private CA that issued the certificate to be revoked. This must be of the form: @arn:aws:acm-pca:/region/ :/account/ :certificate-authority//12345678-1234-1234-1234-123456789012/ @
-rcCertificateAuthorityARN :: Lens' RevokeCertificate Text
-rcCertificateAuthorityARN = lens _rcCertificateAuthorityARN (\s a -> s {_rcCertificateAuthorityARN = a})
+-- | Amazon Resource Name (ARN) of the private CA that issued the certificate
+-- to be revoked. This must be of the form:
+--
+-- @arn:aws:acm-pca:region:account:certificate-authority\/12345678-1234-1234-1234-123456789012 @
+revokeCertificate_certificateAuthorityArn :: Lens.Lens' RevokeCertificate Prelude.Text
+revokeCertificate_certificateAuthorityArn = Lens.lens (\RevokeCertificate' {certificateAuthorityArn} -> certificateAuthorityArn) (\s@RevokeCertificate' {} a -> s {certificateAuthorityArn = a} :: RevokeCertificate)
 
--- | Serial number of the certificate to be revoked. This must be in hexadecimal format. You can retrieve the serial number by calling <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_GetCertificate.html GetCertificate> with the Amazon Resource Name (ARN) of the certificate you want and the ARN of your private CA. The __GetCertificate__ action retrieves the certificate in the PEM format. You can use the following OpenSSL command to list the certificate in text format and copy the hexadecimal serial number.  @openssl x509 -in /file_path/ -text -noout@  You can also copy the serial number from the console or use the <https://docs.aws.amazon.com/acm/latest/APIReference/API_DescribeCertificate.html DescribeCertificate> action in the /AWS Certificate Manager API Reference/ .
-rcCertificateSerial :: Lens' RevokeCertificate Text
-rcCertificateSerial = lens _rcCertificateSerial (\s a -> s {_rcCertificateSerial = a})
+-- | Serial number of the certificate to be revoked. This must be in
+-- hexadecimal format. You can retrieve the serial number by calling
+-- <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_GetCertificate.html GetCertificate>
+-- with the Amazon Resource Name (ARN) of the certificate you want and the
+-- ARN of your private CA. The __GetCertificate__ action retrieves the
+-- certificate in the PEM format. You can use the following OpenSSL command
+-- to list the certificate in text format and copy the hexadecimal serial
+-- number.
+--
+-- @openssl x509 -in file_path -text -noout@
+--
+-- You can also copy the serial number from the console or use the
+-- <https://docs.aws.amazon.com/acm/latest/APIReference/API_DescribeCertificate.html DescribeCertificate>
+-- action in the /AWS Certificate Manager API Reference/.
+revokeCertificate_certificateSerial :: Lens.Lens' RevokeCertificate Prelude.Text
+revokeCertificate_certificateSerial = Lens.lens (\RevokeCertificate' {certificateSerial} -> certificateSerial) (\s@RevokeCertificate' {} a -> s {certificateSerial = a} :: RevokeCertificate)
 
 -- | Specifies why you revoked the certificate.
-rcRevocationReason :: Lens' RevokeCertificate RevocationReason
-rcRevocationReason = lens _rcRevocationReason (\s a -> s {_rcRevocationReason = a})
+revokeCertificate_revocationReason :: Lens.Lens' RevokeCertificate RevocationReason
+revokeCertificate_revocationReason = Lens.lens (\RevokeCertificate' {revocationReason} -> revocationReason) (\s@RevokeCertificate' {} a -> s {revocationReason = a} :: RevokeCertificate)
 
-instance AWSRequest RevokeCertificate where
+instance Prelude.AWSRequest RevokeCertificate where
   type Rs RevokeCertificate = RevokeCertificateResponse
-  request = postJSON certificateManagerPCA
-  response = receiveNull RevokeCertificateResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull RevokeCertificateResponse'
 
-instance Hashable RevokeCertificate
+instance Prelude.Hashable RevokeCertificate
 
-instance NFData RevokeCertificate
+instance Prelude.NFData RevokeCertificate
 
-instance ToHeaders RevokeCertificate where
+instance Prelude.ToHeaders RevokeCertificate where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("ACMPrivateCA.RevokeCertificate" :: ByteString),
+              Prelude.=# ( "ACMPrivateCA.RevokeCertificate" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON RevokeCertificate where
+instance Prelude.ToJSON RevokeCertificate where
   toJSON RevokeCertificate' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "CertificateAuthorityArn"
-                  .= _rcCertificateAuthorityARN
+                  Prelude..= certificateAuthorityArn
               ),
-            Just ("CertificateSerial" .= _rcCertificateSerial),
-            Just ("RevocationReason" .= _rcRevocationReason)
+            Prelude.Just
+              ("CertificateSerial" Prelude..= certificateSerial),
+            Prelude.Just
+              ("RevocationReason" Prelude..= revocationReason)
           ]
       )
 
-instance ToPath RevokeCertificate where
-  toPath = const "/"
+instance Prelude.ToPath RevokeCertificate where
+  toPath = Prelude.const "/"
 
-instance ToQuery RevokeCertificate where
-  toQuery = const mempty
+instance Prelude.ToQuery RevokeCertificate where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'revokeCertificateResponse' smart constructor.
+-- | /See:/ 'newRevokeCertificateResponse' smart constructor.
 data RevokeCertificateResponse = RevokeCertificateResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RevokeCertificateResponse' with the minimum fields required to make a request.
-revokeCertificateResponse ::
+-- |
+-- Create a value of 'RevokeCertificateResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newRevokeCertificateResponse ::
   RevokeCertificateResponse
-revokeCertificateResponse =
+newRevokeCertificateResponse =
   RevokeCertificateResponse'
 
-instance NFData RevokeCertificateResponse
+instance Prelude.NFData RevokeCertificateResponse

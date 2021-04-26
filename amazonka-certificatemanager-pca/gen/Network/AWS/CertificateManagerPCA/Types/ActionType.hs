@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.CertificateManagerPCA.Types.ActionType
   ( ActionType
       ( ..,
-        GetCertificate,
-        IssueCertificate,
-        ListPermissions
+        ActionTypeGetCertificate,
+        ActionTypeIssueCertificate,
+        ActionTypeListPermissions
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ActionType = ActionType' (CI Text)
+newtype ActionType = ActionType'
+  { fromActionType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern GetCertificate :: ActionType
-pattern GetCertificate = ActionType' "GetCertificate"
+pattern ActionTypeGetCertificate :: ActionType
+pattern ActionTypeGetCertificate = ActionType' "GetCertificate"
 
-pattern IssueCertificate :: ActionType
-pattern IssueCertificate = ActionType' "IssueCertificate"
+pattern ActionTypeIssueCertificate :: ActionType
+pattern ActionTypeIssueCertificate = ActionType' "IssueCertificate"
 
-pattern ListPermissions :: ActionType
-pattern ListPermissions = ActionType' "ListPermissions"
+pattern ActionTypeListPermissions :: ActionType
+pattern ActionTypeListPermissions = ActionType' "ListPermissions"
 
 {-# COMPLETE
-  GetCertificate,
-  IssueCertificate,
-  ListPermissions,
+  ActionTypeGetCertificate,
+  ActionTypeIssueCertificate,
+  ActionTypeListPermissions,
   ActionType'
   #-}
 
-instance FromText ActionType where
-  parser = (ActionType' . mk) <$> takeText
+instance Prelude.FromText ActionType where
+  parser = ActionType' Prelude.<$> Prelude.takeText
 
-instance ToText ActionType where
-  toText (ActionType' ci) = original ci
+instance Prelude.ToText ActionType where
+  toText (ActionType' x) = x
 
-instance Hashable ActionType
+instance Prelude.Hashable ActionType
 
-instance NFData ActionType
+instance Prelude.NFData ActionType
 
-instance ToByteString ActionType
+instance Prelude.ToByteString ActionType
 
-instance ToQuery ActionType
+instance Prelude.ToQuery ActionType
 
-instance ToHeader ActionType
+instance Prelude.ToHeader ActionType
 
-instance ToJSON ActionType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ActionType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ActionType where
-  parseJSON = parseJSONText "ActionType"
+instance Prelude.FromJSON ActionType where
+  parseJSON = Prelude.parseJSONText "ActionType"

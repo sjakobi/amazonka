@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.CertificateManagerPCA.Types.AuditReportResponseFormat
   ( AuditReportResponseFormat
       ( ..,
-        CSV,
-        JSON
+        AuditReportResponseFormatCSV,
+        AuditReportResponseFormatJSON
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AuditReportResponseFormat
-  = AuditReportResponseFormat'
-      ( CI
-          Text
-      )
+newtype AuditReportResponseFormat = AuditReportResponseFormat'
+  { fromAuditReportResponseFormat ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CSV :: AuditReportResponseFormat
-pattern CSV = AuditReportResponseFormat' "CSV"
+pattern AuditReportResponseFormatCSV :: AuditReportResponseFormat
+pattern AuditReportResponseFormatCSV = AuditReportResponseFormat' "CSV"
 
-pattern JSON :: AuditReportResponseFormat
-pattern JSON = AuditReportResponseFormat' "JSON"
+pattern AuditReportResponseFormatJSON :: AuditReportResponseFormat
+pattern AuditReportResponseFormatJSON = AuditReportResponseFormat' "JSON"
 
 {-# COMPLETE
-  CSV,
-  JSON,
+  AuditReportResponseFormatCSV,
+  AuditReportResponseFormatJSON,
   AuditReportResponseFormat'
   #-}
 
-instance FromText AuditReportResponseFormat where
-  parser = (AuditReportResponseFormat' . mk) <$> takeText
+instance Prelude.FromText AuditReportResponseFormat where
+  parser = AuditReportResponseFormat' Prelude.<$> Prelude.takeText
 
-instance ToText AuditReportResponseFormat where
-  toText (AuditReportResponseFormat' ci) = original ci
+instance Prelude.ToText AuditReportResponseFormat where
+  toText (AuditReportResponseFormat' x) = x
 
-instance Hashable AuditReportResponseFormat
+instance Prelude.Hashable AuditReportResponseFormat
 
-instance NFData AuditReportResponseFormat
+instance Prelude.NFData AuditReportResponseFormat
 
-instance ToByteString AuditReportResponseFormat
+instance Prelude.ToByteString AuditReportResponseFormat
 
-instance ToQuery AuditReportResponseFormat
+instance Prelude.ToQuery AuditReportResponseFormat
 
-instance ToHeader AuditReportResponseFormat
+instance Prelude.ToHeader AuditReportResponseFormat
 
-instance ToJSON AuditReportResponseFormat where
-  toJSON = toJSONText
+instance Prelude.ToJSON AuditReportResponseFormat where
+  toJSON = Prelude.toJSONText

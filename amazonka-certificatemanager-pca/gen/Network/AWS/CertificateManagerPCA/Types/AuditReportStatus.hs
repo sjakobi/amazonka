@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.CertificateManagerPCA.Types.AuditReportStatus
   ( AuditReportStatus
       ( ..,
-        Creating,
-        Failed,
-        Success
+        AuditReportStatusCREATING,
+        AuditReportStatusFAILED,
+        AuditReportStatusSUCCESS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AuditReportStatus = AuditReportStatus' (CI Text)
+newtype AuditReportStatus = AuditReportStatus'
+  { fromAuditReportStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Creating :: AuditReportStatus
-pattern Creating = AuditReportStatus' "CREATING"
+pattern AuditReportStatusCREATING :: AuditReportStatus
+pattern AuditReportStatusCREATING = AuditReportStatus' "CREATING"
 
-pattern Failed :: AuditReportStatus
-pattern Failed = AuditReportStatus' "FAILED"
+pattern AuditReportStatusFAILED :: AuditReportStatus
+pattern AuditReportStatusFAILED = AuditReportStatus' "FAILED"
 
-pattern Success :: AuditReportStatus
-pattern Success = AuditReportStatus' "SUCCESS"
+pattern AuditReportStatusSUCCESS :: AuditReportStatus
+pattern AuditReportStatusSUCCESS = AuditReportStatus' "SUCCESS"
 
 {-# COMPLETE
-  Creating,
-  Failed,
-  Success,
+  AuditReportStatusCREATING,
+  AuditReportStatusFAILED,
+  AuditReportStatusSUCCESS,
   AuditReportStatus'
   #-}
 
-instance FromText AuditReportStatus where
-  parser = (AuditReportStatus' . mk) <$> takeText
+instance Prelude.FromText AuditReportStatus where
+  parser = AuditReportStatus' Prelude.<$> Prelude.takeText
 
-instance ToText AuditReportStatus where
-  toText (AuditReportStatus' ci) = original ci
+instance Prelude.ToText AuditReportStatus where
+  toText (AuditReportStatus' x) = x
 
-instance Hashable AuditReportStatus
+instance Prelude.Hashable AuditReportStatus
 
-instance NFData AuditReportStatus
+instance Prelude.NFData AuditReportStatus
 
-instance ToByteString AuditReportStatus
+instance Prelude.ToByteString AuditReportStatus
 
-instance ToQuery AuditReportStatus
+instance Prelude.ToQuery AuditReportStatus
 
-instance ToHeader AuditReportStatus
+instance Prelude.ToHeader AuditReportStatus
 
-instance FromJSON AuditReportStatus where
-  parseJSON = parseJSONText "AuditReportStatus"
+instance Prelude.FromJSON AuditReportStatus where
+  parseJSON = Prelude.parseJSONText "AuditReportStatus"

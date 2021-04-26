@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +21,69 @@ module Network.AWS.CertificateManagerPCA.Types.PolicyQualifierInfo where
 
 import Network.AWS.CertificateManagerPCA.Types.PolicyQualifierId
 import Network.AWS.CertificateManagerPCA.Types.Qualifier
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Modifies the @CertPolicyId@ of a @PolicyInformation@ object with a qualifier. ACM Private CA supports the certification practice statement (CPS) qualifier.
+-- | Modifies the @CertPolicyId@ of a @PolicyInformation@ object with a
+-- qualifier. ACM Private CA supports the certification practice statement
+-- (CPS) qualifier.
 --
---
---
--- /See:/ 'policyQualifierInfo' smart constructor.
+-- /See:/ 'newPolicyQualifierInfo' smart constructor.
 data PolicyQualifierInfo = PolicyQualifierInfo'
-  { _pqiPolicyQualifierId ::
-      !PolicyQualifierId,
-    _pqiQualifier :: !Qualifier
+  { -- | Identifies the qualifier modifying a @CertPolicyId@.
+    policyQualifierId :: PolicyQualifierId,
+    -- | Defines the qualifier type. ACM Private CA supports the use of a URI for
+    -- a CPS qualifier in this field.
+    qualifier :: Qualifier
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PolicyQualifierInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PolicyQualifierInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pqiPolicyQualifierId' - Identifies the qualifier modifying a @CertPolicyId@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pqiQualifier' - Defines the qualifier type. ACM Private CA supports the use of a URI for a CPS qualifier in this field.
-policyQualifierInfo ::
-  -- | 'pqiPolicyQualifierId'
+-- 'policyQualifierId', 'policyQualifierInfo_policyQualifierId' - Identifies the qualifier modifying a @CertPolicyId@.
+--
+-- 'qualifier', 'policyQualifierInfo_qualifier' - Defines the qualifier type. ACM Private CA supports the use of a URI for
+-- a CPS qualifier in this field.
+newPolicyQualifierInfo ::
+  -- | 'policyQualifierId'
   PolicyQualifierId ->
-  -- | 'pqiQualifier'
+  -- | 'qualifier'
   Qualifier ->
   PolicyQualifierInfo
-policyQualifierInfo pPolicyQualifierId_ pQualifier_ =
-  PolicyQualifierInfo'
-    { _pqiPolicyQualifierId =
-        pPolicyQualifierId_,
-      _pqiQualifier = pQualifier_
-    }
+newPolicyQualifierInfo
+  pPolicyQualifierId_
+  pQualifier_ =
+    PolicyQualifierInfo'
+      { policyQualifierId =
+          pPolicyQualifierId_,
+        qualifier = pQualifier_
+      }
 
--- | Identifies the qualifier modifying a @CertPolicyId@ .
-pqiPolicyQualifierId :: Lens' PolicyQualifierInfo PolicyQualifierId
-pqiPolicyQualifierId = lens _pqiPolicyQualifierId (\s a -> s {_pqiPolicyQualifierId = a})
+-- | Identifies the qualifier modifying a @CertPolicyId@.
+policyQualifierInfo_policyQualifierId :: Lens.Lens' PolicyQualifierInfo PolicyQualifierId
+policyQualifierInfo_policyQualifierId = Lens.lens (\PolicyQualifierInfo' {policyQualifierId} -> policyQualifierId) (\s@PolicyQualifierInfo' {} a -> s {policyQualifierId = a} :: PolicyQualifierInfo)
 
--- | Defines the qualifier type. ACM Private CA supports the use of a URI for a CPS qualifier in this field.
-pqiQualifier :: Lens' PolicyQualifierInfo Qualifier
-pqiQualifier = lens _pqiQualifier (\s a -> s {_pqiQualifier = a})
+-- | Defines the qualifier type. ACM Private CA supports the use of a URI for
+-- a CPS qualifier in this field.
+policyQualifierInfo_qualifier :: Lens.Lens' PolicyQualifierInfo Qualifier
+policyQualifierInfo_qualifier = Lens.lens (\PolicyQualifierInfo' {qualifier} -> qualifier) (\s@PolicyQualifierInfo' {} a -> s {qualifier = a} :: PolicyQualifierInfo)
 
-instance Hashable PolicyQualifierInfo
+instance Prelude.Hashable PolicyQualifierInfo
 
-instance NFData PolicyQualifierInfo
+instance Prelude.NFData PolicyQualifierInfo
 
-instance ToJSON PolicyQualifierInfo where
+instance Prelude.ToJSON PolicyQualifierInfo where
   toJSON PolicyQualifierInfo' {..} =
-    object
-      ( catMaybes
-          [ Just ("PolicyQualifierId" .= _pqiPolicyQualifierId),
-            Just ("Qualifier" .= _pqiQualifier)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("PolicyQualifierId" Prelude..= policyQualifierId),
+            Prelude.Just ("Qualifier" Prelude..= qualifier)
           ]
       )

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,215 +21,287 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a root or subordinate private certificate authority (CA). You must specify the CA configuration, the certificate revocation list (CRL) configuration, the CA type, and an optional idempotency token to avoid accidental creation of multiple CAs. The CA configuration specifies the name of the algorithm and key size to be used to create the CA private key, the type of signing algorithm that the CA uses, and X.500 subject information. The CRL configuration specifies the CRL expiration period in days (the validity period of the CRL), the Amazon S3 bucket that will contain the CRL, and a CNAME alias for the S3 bucket that is included in certificates issued by the CA. If successful, this action returns the Amazon Resource Name (ARN) of the CA.
+-- Creates a root or subordinate private certificate authority (CA). You
+-- must specify the CA configuration, the certificate revocation list (CRL)
+-- configuration, the CA type, and an optional idempotency token to avoid
+-- accidental creation of multiple CAs. The CA configuration specifies the
+-- name of the algorithm and key size to be used to create the CA private
+-- key, the type of signing algorithm that the CA uses, and X.500 subject
+-- information. The CRL configuration specifies the CRL expiration period
+-- in days (the validity period of the CRL), the Amazon S3 bucket that will
+-- contain the CRL, and a CNAME alias for the S3 bucket that is included in
+-- certificates issued by the CA. If successful, this action returns the
+-- Amazon Resource Name (ARN) of the CA.
 --
+-- ACM Private CAA assets that are stored in Amazon S3 can be protected
+-- with encryption. For more information, see
+-- <https://docs.aws.amazon.com/acm-pca/latest/userguide/PcaCreateCa.html#crl-encryption Encrypting Your CRLs>.
 --
--- ACM Private CAA assets that are stored in Amazon S3 can be protected with encryption. For more information, see <https://docs.aws.amazon.com/acm-pca/latest/userguide/PcaCreateCa.html#crl-encryption Encrypting Your CRLs> .
+-- Both PCA and the IAM principal must have permission to write to the S3
+-- bucket that you specify. If the IAM principal making the call does not
+-- have permission to write to the bucket, then an exception is thrown. For
+-- more information, see
+-- <https://docs.aws.amazon.com/acm-pca/latest/userguide/PcaAuthAccess.html Configure Access to ACM Private CA>.
 module Network.AWS.CertificateManagerPCA.CreateCertificateAuthority
   ( -- * Creating a Request
-    createCertificateAuthority,
-    CreateCertificateAuthority,
+    CreateCertificateAuthority (..),
+    newCreateCertificateAuthority,
 
     -- * Request Lenses
-    ccaIdempotencyToken,
-    ccaRevocationConfiguration,
-    ccaTags,
-    ccaCertificateAuthorityConfiguration,
-    ccaCertificateAuthorityType,
+    createCertificateAuthority_idempotencyToken,
+    createCertificateAuthority_revocationConfiguration,
+    createCertificateAuthority_tags,
+    createCertificateAuthority_certificateAuthorityConfiguration,
+    createCertificateAuthority_certificateAuthorityType,
 
     -- * Destructuring the Response
-    createCertificateAuthorityResponse,
-    CreateCertificateAuthorityResponse,
+    CreateCertificateAuthorityResponse (..),
+    newCreateCertificateAuthorityResponse,
 
     -- * Response Lenses
-    ccarrsCertificateAuthorityARN,
-    ccarrsResponseStatus,
+    createCertificateAuthorityResponse_certificateAuthorityArn,
+    createCertificateAuthorityResponse_httpStatus,
   )
 where
 
 import Network.AWS.CertificateManagerPCA.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createCertificateAuthority' smart constructor.
+-- | /See:/ 'newCreateCertificateAuthority' smart constructor.
 data CreateCertificateAuthority = CreateCertificateAuthority'
-  { _ccaIdempotencyToken ::
-      !(Maybe Text),
-    _ccaRevocationConfiguration ::
-      !( Maybe
-           RevocationConfiguration
-       ),
-    _ccaTags ::
-      !( Maybe
-           (List1 Tag)
-       ),
-    _ccaCertificateAuthorityConfiguration ::
-      !CertificateAuthorityConfiguration,
-    _ccaCertificateAuthorityType ::
-      !CertificateAuthorityType
+  { -- | Custom string that can be used to distinguish between calls to the
+    -- __CreateCertificateAuthority__ action. Idempotency tokens for
+    -- __CreateCertificateAuthority__ time out after five minutes. Therefore,
+    -- if you call __CreateCertificateAuthority__ multiple times with the same
+    -- idempotency token within five minutes, ACM Private CA recognizes that
+    -- you are requesting only certificate authority and will issue only one.
+    -- If you change the idempotency token for each call, PCA recognizes that
+    -- you are requesting multiple certificate authorities.
+    idempotencyToken :: Prelude.Maybe Prelude.Text,
+    -- | Contains a Boolean value that you can use to enable a certification
+    -- revocation list (CRL) for the CA, the name of the S3 bucket to which ACM
+    -- Private CA will write the CRL, and an optional CNAME alias that you can
+    -- use to hide the name of your bucket in the __CRL Distribution Points__
+    -- extension of your CA certificate. For more information, see the
+    -- <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_CrlConfiguration.html CrlConfiguration>
+    -- structure.
+    revocationConfiguration :: Prelude.Maybe RevocationConfiguration,
+    -- | Key-value pairs that will be attached to the new private CA. You can
+    -- associate up to 50 tags with a private CA. For information using tags
+    -- with IAM to manage permissions, see
+    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_iam-tags.html Controlling Access Using IAM Tags>.
+    tags :: Prelude.Maybe (Prelude.List1 Tag),
+    -- | Name and bit size of the private key algorithm, the name of the signing
+    -- algorithm, and X.500 certificate subject information.
+    certificateAuthorityConfiguration :: CertificateAuthorityConfiguration,
+    -- | The type of the certificate authority.
+    certificateAuthorityType :: CertificateAuthorityType
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateCertificateAuthority' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateCertificateAuthority' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccaIdempotencyToken' - Custom string that can be used to distinguish between calls to the __CreateCertificateAuthority__ action. Idempotency tokens for __CreateCertificateAuthority__ time out after five minutes. Therefore, if you call __CreateCertificateAuthority__ multiple times with the same idempotency token within five minutes, ACM Private CA recognizes that you are requesting only certificate authority and will issue only one. If you change the idempotency token for each call, PCA recognizes that you are requesting multiple certificate authorities.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ccaRevocationConfiguration' - Contains a Boolean value that you can use to enable a certification revocation list (CRL) for the CA, the name of the S3 bucket to which ACM Private CA will write the CRL, and an optional CNAME alias that you can use to hide the name of your bucket in the __CRL Distribution Points__ extension of your CA certificate. For more information, see the <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_CrlConfiguration.html CrlConfiguration> structure.
+-- 'idempotencyToken', 'createCertificateAuthority_idempotencyToken' - Custom string that can be used to distinguish between calls to the
+-- __CreateCertificateAuthority__ action. Idempotency tokens for
+-- __CreateCertificateAuthority__ time out after five minutes. Therefore,
+-- if you call __CreateCertificateAuthority__ multiple times with the same
+-- idempotency token within five minutes, ACM Private CA recognizes that
+-- you are requesting only certificate authority and will issue only one.
+-- If you change the idempotency token for each call, PCA recognizes that
+-- you are requesting multiple certificate authorities.
 --
--- * 'ccaTags' - Key-value pairs that will be attached to the new private CA. You can associate up to 50 tags with a private CA. For information using tags with IAM to manage permissions, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_iam-tags.html Controlling Access Using IAM Tags> .
+-- 'revocationConfiguration', 'createCertificateAuthority_revocationConfiguration' - Contains a Boolean value that you can use to enable a certification
+-- revocation list (CRL) for the CA, the name of the S3 bucket to which ACM
+-- Private CA will write the CRL, and an optional CNAME alias that you can
+-- use to hide the name of your bucket in the __CRL Distribution Points__
+-- extension of your CA certificate. For more information, see the
+-- <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_CrlConfiguration.html CrlConfiguration>
+-- structure.
 --
--- * 'ccaCertificateAuthorityConfiguration' - Name and bit size of the private key algorithm, the name of the signing algorithm, and X.500 certificate subject information.
+-- 'tags', 'createCertificateAuthority_tags' - Key-value pairs that will be attached to the new private CA. You can
+-- associate up to 50 tags with a private CA. For information using tags
+-- with IAM to manage permissions, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_iam-tags.html Controlling Access Using IAM Tags>.
 --
--- * 'ccaCertificateAuthorityType' - The type of the certificate authority.
-createCertificateAuthority ::
-  -- | 'ccaCertificateAuthorityConfiguration'
+-- 'certificateAuthorityConfiguration', 'createCertificateAuthority_certificateAuthorityConfiguration' - Name and bit size of the private key algorithm, the name of the signing
+-- algorithm, and X.500 certificate subject information.
+--
+-- 'certificateAuthorityType', 'createCertificateAuthority_certificateAuthorityType' - The type of the certificate authority.
+newCreateCertificateAuthority ::
+  -- | 'certificateAuthorityConfiguration'
   CertificateAuthorityConfiguration ->
-  -- | 'ccaCertificateAuthorityType'
+  -- | 'certificateAuthorityType'
   CertificateAuthorityType ->
   CreateCertificateAuthority
-createCertificateAuthority
+newCreateCertificateAuthority
   pCertificateAuthorityConfiguration_
   pCertificateAuthorityType_ =
     CreateCertificateAuthority'
-      { _ccaIdempotencyToken =
-          Nothing,
-        _ccaRevocationConfiguration = Nothing,
-        _ccaTags = Nothing,
-        _ccaCertificateAuthorityConfiguration =
+      { idempotencyToken =
+          Prelude.Nothing,
+        revocationConfiguration = Prelude.Nothing,
+        tags = Prelude.Nothing,
+        certificateAuthorityConfiguration =
           pCertificateAuthorityConfiguration_,
-        _ccaCertificateAuthorityType =
+        certificateAuthorityType =
           pCertificateAuthorityType_
       }
 
--- | Custom string that can be used to distinguish between calls to the __CreateCertificateAuthority__ action. Idempotency tokens for __CreateCertificateAuthority__ time out after five minutes. Therefore, if you call __CreateCertificateAuthority__ multiple times with the same idempotency token within five minutes, ACM Private CA recognizes that you are requesting only certificate authority and will issue only one. If you change the idempotency token for each call, PCA recognizes that you are requesting multiple certificate authorities.
-ccaIdempotencyToken :: Lens' CreateCertificateAuthority (Maybe Text)
-ccaIdempotencyToken = lens _ccaIdempotencyToken (\s a -> s {_ccaIdempotencyToken = a})
+-- | Custom string that can be used to distinguish between calls to the
+-- __CreateCertificateAuthority__ action. Idempotency tokens for
+-- __CreateCertificateAuthority__ time out after five minutes. Therefore,
+-- if you call __CreateCertificateAuthority__ multiple times with the same
+-- idempotency token within five minutes, ACM Private CA recognizes that
+-- you are requesting only certificate authority and will issue only one.
+-- If you change the idempotency token for each call, PCA recognizes that
+-- you are requesting multiple certificate authorities.
+createCertificateAuthority_idempotencyToken :: Lens.Lens' CreateCertificateAuthority (Prelude.Maybe Prelude.Text)
+createCertificateAuthority_idempotencyToken = Lens.lens (\CreateCertificateAuthority' {idempotencyToken} -> idempotencyToken) (\s@CreateCertificateAuthority' {} a -> s {idempotencyToken = a} :: CreateCertificateAuthority)
 
--- | Contains a Boolean value that you can use to enable a certification revocation list (CRL) for the CA, the name of the S3 bucket to which ACM Private CA will write the CRL, and an optional CNAME alias that you can use to hide the name of your bucket in the __CRL Distribution Points__ extension of your CA certificate. For more information, see the <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_CrlConfiguration.html CrlConfiguration> structure.
-ccaRevocationConfiguration :: Lens' CreateCertificateAuthority (Maybe RevocationConfiguration)
-ccaRevocationConfiguration = lens _ccaRevocationConfiguration (\s a -> s {_ccaRevocationConfiguration = a})
+-- | Contains a Boolean value that you can use to enable a certification
+-- revocation list (CRL) for the CA, the name of the S3 bucket to which ACM
+-- Private CA will write the CRL, and an optional CNAME alias that you can
+-- use to hide the name of your bucket in the __CRL Distribution Points__
+-- extension of your CA certificate. For more information, see the
+-- <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_CrlConfiguration.html CrlConfiguration>
+-- structure.
+createCertificateAuthority_revocationConfiguration :: Lens.Lens' CreateCertificateAuthority (Prelude.Maybe RevocationConfiguration)
+createCertificateAuthority_revocationConfiguration = Lens.lens (\CreateCertificateAuthority' {revocationConfiguration} -> revocationConfiguration) (\s@CreateCertificateAuthority' {} a -> s {revocationConfiguration = a} :: CreateCertificateAuthority)
 
--- | Key-value pairs that will be attached to the new private CA. You can associate up to 50 tags with a private CA. For information using tags with IAM to manage permissions, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_iam-tags.html Controlling Access Using IAM Tags> .
-ccaTags :: Lens' CreateCertificateAuthority (Maybe (NonEmpty Tag))
-ccaTags = lens _ccaTags (\s a -> s {_ccaTags = a}) . mapping _List1
+-- | Key-value pairs that will be attached to the new private CA. You can
+-- associate up to 50 tags with a private CA. For information using tags
+-- with IAM to manage permissions, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_iam-tags.html Controlling Access Using IAM Tags>.
+createCertificateAuthority_tags :: Lens.Lens' CreateCertificateAuthority (Prelude.Maybe (Prelude.NonEmpty Tag))
+createCertificateAuthority_tags = Lens.lens (\CreateCertificateAuthority' {tags} -> tags) (\s@CreateCertificateAuthority' {} a -> s {tags = a} :: CreateCertificateAuthority) Prelude.. Lens.mapping Prelude._List1
 
--- | Name and bit size of the private key algorithm, the name of the signing algorithm, and X.500 certificate subject information.
-ccaCertificateAuthorityConfiguration :: Lens' CreateCertificateAuthority CertificateAuthorityConfiguration
-ccaCertificateAuthorityConfiguration = lens _ccaCertificateAuthorityConfiguration (\s a -> s {_ccaCertificateAuthorityConfiguration = a})
+-- | Name and bit size of the private key algorithm, the name of the signing
+-- algorithm, and X.500 certificate subject information.
+createCertificateAuthority_certificateAuthorityConfiguration :: Lens.Lens' CreateCertificateAuthority CertificateAuthorityConfiguration
+createCertificateAuthority_certificateAuthorityConfiguration = Lens.lens (\CreateCertificateAuthority' {certificateAuthorityConfiguration} -> certificateAuthorityConfiguration) (\s@CreateCertificateAuthority' {} a -> s {certificateAuthorityConfiguration = a} :: CreateCertificateAuthority)
 
 -- | The type of the certificate authority.
-ccaCertificateAuthorityType :: Lens' CreateCertificateAuthority CertificateAuthorityType
-ccaCertificateAuthorityType = lens _ccaCertificateAuthorityType (\s a -> s {_ccaCertificateAuthorityType = a})
+createCertificateAuthority_certificateAuthorityType :: Lens.Lens' CreateCertificateAuthority CertificateAuthorityType
+createCertificateAuthority_certificateAuthorityType = Lens.lens (\CreateCertificateAuthority' {certificateAuthorityType} -> certificateAuthorityType) (\s@CreateCertificateAuthority' {} a -> s {certificateAuthorityType = a} :: CreateCertificateAuthority)
 
-instance AWSRequest CreateCertificateAuthority where
+instance
+  Prelude.AWSRequest
+    CreateCertificateAuthority
+  where
   type
     Rs CreateCertificateAuthority =
       CreateCertificateAuthorityResponse
-  request = postJSON certificateManagerPCA
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateCertificateAuthorityResponse'
-            <$> (x .?> "CertificateAuthorityArn")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "CertificateAuthorityArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateCertificateAuthority
+instance Prelude.Hashable CreateCertificateAuthority
 
-instance NFData CreateCertificateAuthority
+instance Prelude.NFData CreateCertificateAuthority
 
-instance ToHeaders CreateCertificateAuthority where
+instance Prelude.ToHeaders CreateCertificateAuthority where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "ACMPrivateCA.CreateCertificateAuthority" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "ACMPrivateCA.CreateCertificateAuthority" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateCertificateAuthority where
+instance Prelude.ToJSON CreateCertificateAuthority where
   toJSON CreateCertificateAuthority' {..} =
-    object
-      ( catMaybes
-          [ ("IdempotencyToken" .=) <$> _ccaIdempotencyToken,
-            ("RevocationConfiguration" .=)
-              <$> _ccaRevocationConfiguration,
-            ("Tags" .=) <$> _ccaTags,
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("IdempotencyToken" Prelude..=)
+              Prelude.<$> idempotencyToken,
+            ("RevocationConfiguration" Prelude..=)
+              Prelude.<$> revocationConfiguration,
+            ("Tags" Prelude..=) Prelude.<$> tags,
+            Prelude.Just
               ( "CertificateAuthorityConfiguration"
-                  .= _ccaCertificateAuthorityConfiguration
+                  Prelude..= certificateAuthorityConfiguration
               ),
-            Just
+            Prelude.Just
               ( "CertificateAuthorityType"
-                  .= _ccaCertificateAuthorityType
+                  Prelude..= certificateAuthorityType
               )
           ]
       )
 
-instance ToPath CreateCertificateAuthority where
-  toPath = const "/"
+instance Prelude.ToPath CreateCertificateAuthority where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateCertificateAuthority where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateCertificateAuthority where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createCertificateAuthorityResponse' smart constructor.
+-- | /See:/ 'newCreateCertificateAuthorityResponse' smart constructor.
 data CreateCertificateAuthorityResponse = CreateCertificateAuthorityResponse'
-  { _ccarrsCertificateAuthorityARN ::
-      !( Maybe
-           Text
-       ),
-    _ccarrsResponseStatus ::
-      !Int
+  { -- | If successful, the Amazon Resource Name (ARN) of the certificate
+    -- authority (CA). This is of the form:
+    --
+    -- @arn:aws:acm-pca:region:account:certificate-authority\/12345678-1234-1234-1234-123456789012 @.
+    certificateAuthorityArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateCertificateAuthorityResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateCertificateAuthorityResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccarrsCertificateAuthorityARN' - If successful, the Amazon Resource Name (ARN) of the certificate authority (CA). This is of the form:  @arn:aws:acm-pca:/region/ :/account/ :certificate-authority//12345678-1234-1234-1234-123456789012/ @ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ccarrsResponseStatus' - -- | The response status code.
-createCertificateAuthorityResponse ::
-  -- | 'ccarrsResponseStatus'
-  Int ->
+-- 'certificateAuthorityArn', 'createCertificateAuthorityResponse_certificateAuthorityArn' - If successful, the Amazon Resource Name (ARN) of the certificate
+-- authority (CA). This is of the form:
+--
+-- @arn:aws:acm-pca:region:account:certificate-authority\/12345678-1234-1234-1234-123456789012 @.
+--
+-- 'httpStatus', 'createCertificateAuthorityResponse_httpStatus' - The response's http status code.
+newCreateCertificateAuthorityResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateCertificateAuthorityResponse
-createCertificateAuthorityResponse pResponseStatus_ =
+newCreateCertificateAuthorityResponse pHttpStatus_ =
   CreateCertificateAuthorityResponse'
-    { _ccarrsCertificateAuthorityARN =
-        Nothing,
-      _ccarrsResponseStatus =
-        pResponseStatus_
+    { certificateAuthorityArn =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | If successful, the Amazon Resource Name (ARN) of the certificate authority (CA). This is of the form:  @arn:aws:acm-pca:/region/ :/account/ :certificate-authority//12345678-1234-1234-1234-123456789012/ @ .
-ccarrsCertificateAuthorityARN :: Lens' CreateCertificateAuthorityResponse (Maybe Text)
-ccarrsCertificateAuthorityARN = lens _ccarrsCertificateAuthorityARN (\s a -> s {_ccarrsCertificateAuthorityARN = a})
+-- | If successful, the Amazon Resource Name (ARN) of the certificate
+-- authority (CA). This is of the form:
+--
+-- @arn:aws:acm-pca:region:account:certificate-authority\/12345678-1234-1234-1234-123456789012 @.
+createCertificateAuthorityResponse_certificateAuthorityArn :: Lens.Lens' CreateCertificateAuthorityResponse (Prelude.Maybe Prelude.Text)
+createCertificateAuthorityResponse_certificateAuthorityArn = Lens.lens (\CreateCertificateAuthorityResponse' {certificateAuthorityArn} -> certificateAuthorityArn) (\s@CreateCertificateAuthorityResponse' {} a -> s {certificateAuthorityArn = a} :: CreateCertificateAuthorityResponse)
 
--- | -- | The response status code.
-ccarrsResponseStatus :: Lens' CreateCertificateAuthorityResponse Int
-ccarrsResponseStatus = lens _ccarrsResponseStatus (\s a -> s {_ccarrsResponseStatus = a})
+-- | The response's http status code.
+createCertificateAuthorityResponse_httpStatus :: Lens.Lens' CreateCertificateAuthorityResponse Prelude.Int
+createCertificateAuthorityResponse_httpStatus = Lens.lens (\CreateCertificateAuthorityResponse' {httpStatus} -> httpStatus) (\s@CreateCertificateAuthorityResponse' {} a -> s {httpStatus = a} :: CreateCertificateAuthorityResponse)
 
-instance NFData CreateCertificateAuthorityResponse
+instance
+  Prelude.NFData
+    CreateCertificateAuthorityResponse

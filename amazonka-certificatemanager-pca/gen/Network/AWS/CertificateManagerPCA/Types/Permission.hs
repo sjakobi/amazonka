@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,90 +20,117 @@
 module Network.AWS.CertificateManagerPCA.Types.Permission where
 
 import Network.AWS.CertificateManagerPCA.Types.ActionType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Permissions designate which private CA actions can be performed by an AWS service or entity. In order for ACM to automatically renew private certificates, you must give the ACM service principal all available permissions (@IssueCertificate@ , @GetCertificate@ , and @ListPermissions@ ). Permissions can be assigned with the <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_CreatePermission.html CreatePermission> action, removed with the <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_DeletePermission.html DeletePermission> action, and listed with the <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_ListPermissions.html ListPermissions> action.
+-- | Permissions designate which private CA actions can be performed by an
+-- AWS service or entity. In order for ACM to automatically renew private
+-- certificates, you must give the ACM service principal all available
+-- permissions (@IssueCertificate@, @GetCertificate@, and
+-- @ListPermissions@). Permissions can be assigned with the
+-- <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_CreatePermission.html CreatePermission>
+-- action, removed with the
+-- <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_DeletePermission.html DeletePermission>
+-- action, and listed with the
+-- <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_ListPermissions.html ListPermissions>
+-- action.
 --
---
---
--- /See:/ 'permission' smart constructor.
+-- /See:/ 'newPermission' smart constructor.
 data Permission = Permission'
-  { _pCertificateAuthorityARN ::
-      !(Maybe Text),
-    _pCreatedAt :: !(Maybe POSIX),
-    _pActions :: !(Maybe (List1 ActionType)),
-    _pPrincipal :: !(Maybe Text),
-    _pSourceAccount :: !(Maybe Text),
-    _pPolicy :: !(Maybe Text)
+  { -- | The Amazon Resource Number (ARN) of the private CA from which the
+    -- permission was issued.
+    certificateAuthorityArn :: Prelude.Maybe Prelude.Text,
+    -- | The time at which the permission was created.
+    createdAt :: Prelude.Maybe Prelude.POSIX,
+    -- | The private CA actions that can be performed by the designated AWS
+    -- service.
+    actions :: Prelude.Maybe (Prelude.List1 ActionType),
+    -- | The AWS service or entity that holds the permission. At this time, the
+    -- only valid principal is @acm.amazonaws.com@.
+    principal :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the account that assigned the permission.
+    sourceAccount :: Prelude.Maybe Prelude.Text,
+    -- | The name of the policy that is associated with the permission.
+    policy :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Permission' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Permission' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pCertificateAuthorityARN' - The Amazon Resource Number (ARN) of the private CA from which the permission was issued.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pCreatedAt' - The time at which the permission was created.
+-- 'certificateAuthorityArn', 'permission_certificateAuthorityArn' - The Amazon Resource Number (ARN) of the private CA from which the
+-- permission was issued.
 --
--- * 'pActions' - The private CA actions that can be performed by the designated AWS service.
+-- 'createdAt', 'permission_createdAt' - The time at which the permission was created.
 --
--- * 'pPrincipal' - The AWS service or entity that holds the permission. At this time, the only valid principal is @acm.amazonaws.com@ .
+-- 'actions', 'permission_actions' - The private CA actions that can be performed by the designated AWS
+-- service.
 --
--- * 'pSourceAccount' - The ID of the account that assigned the permission.
+-- 'principal', 'permission_principal' - The AWS service or entity that holds the permission. At this time, the
+-- only valid principal is @acm.amazonaws.com@.
 --
--- * 'pPolicy' - The name of the policy that is associated with the permission.
-permission ::
+-- 'sourceAccount', 'permission_sourceAccount' - The ID of the account that assigned the permission.
+--
+-- 'policy', 'permission_policy' - The name of the policy that is associated with the permission.
+newPermission ::
   Permission
-permission =
+newPermission =
   Permission'
-    { _pCertificateAuthorityARN = Nothing,
-      _pCreatedAt = Nothing,
-      _pActions = Nothing,
-      _pPrincipal = Nothing,
-      _pSourceAccount = Nothing,
-      _pPolicy = Nothing
+    { certificateAuthorityArn =
+        Prelude.Nothing,
+      createdAt = Prelude.Nothing,
+      actions = Prelude.Nothing,
+      principal = Prelude.Nothing,
+      sourceAccount = Prelude.Nothing,
+      policy = Prelude.Nothing
     }
 
--- | The Amazon Resource Number (ARN) of the private CA from which the permission was issued.
-pCertificateAuthorityARN :: Lens' Permission (Maybe Text)
-pCertificateAuthorityARN = lens _pCertificateAuthorityARN (\s a -> s {_pCertificateAuthorityARN = a})
+-- | The Amazon Resource Number (ARN) of the private CA from which the
+-- permission was issued.
+permission_certificateAuthorityArn :: Lens.Lens' Permission (Prelude.Maybe Prelude.Text)
+permission_certificateAuthorityArn = Lens.lens (\Permission' {certificateAuthorityArn} -> certificateAuthorityArn) (\s@Permission' {} a -> s {certificateAuthorityArn = a} :: Permission)
 
 -- | The time at which the permission was created.
-pCreatedAt :: Lens' Permission (Maybe UTCTime)
-pCreatedAt = lens _pCreatedAt (\s a -> s {_pCreatedAt = a}) . mapping _Time
+permission_createdAt :: Lens.Lens' Permission (Prelude.Maybe Prelude.UTCTime)
+permission_createdAt = Lens.lens (\Permission' {createdAt} -> createdAt) (\s@Permission' {} a -> s {createdAt = a} :: Permission) Prelude.. Lens.mapping Prelude._Time
 
--- | The private CA actions that can be performed by the designated AWS service.
-pActions :: Lens' Permission (Maybe (NonEmpty ActionType))
-pActions = lens _pActions (\s a -> s {_pActions = a}) . mapping _List1
+-- | The private CA actions that can be performed by the designated AWS
+-- service.
+permission_actions :: Lens.Lens' Permission (Prelude.Maybe (Prelude.NonEmpty ActionType))
+permission_actions = Lens.lens (\Permission' {actions} -> actions) (\s@Permission' {} a -> s {actions = a} :: Permission) Prelude.. Lens.mapping Prelude._List1
 
--- | The AWS service or entity that holds the permission. At this time, the only valid principal is @acm.amazonaws.com@ .
-pPrincipal :: Lens' Permission (Maybe Text)
-pPrincipal = lens _pPrincipal (\s a -> s {_pPrincipal = a})
+-- | The AWS service or entity that holds the permission. At this time, the
+-- only valid principal is @acm.amazonaws.com@.
+permission_principal :: Lens.Lens' Permission (Prelude.Maybe Prelude.Text)
+permission_principal = Lens.lens (\Permission' {principal} -> principal) (\s@Permission' {} a -> s {principal = a} :: Permission)
 
 -- | The ID of the account that assigned the permission.
-pSourceAccount :: Lens' Permission (Maybe Text)
-pSourceAccount = lens _pSourceAccount (\s a -> s {_pSourceAccount = a})
+permission_sourceAccount :: Lens.Lens' Permission (Prelude.Maybe Prelude.Text)
+permission_sourceAccount = Lens.lens (\Permission' {sourceAccount} -> sourceAccount) (\s@Permission' {} a -> s {sourceAccount = a} :: Permission)
 
 -- | The name of the policy that is associated with the permission.
-pPolicy :: Lens' Permission (Maybe Text)
-pPolicy = lens _pPolicy (\s a -> s {_pPolicy = a})
+permission_policy :: Lens.Lens' Permission (Prelude.Maybe Prelude.Text)
+permission_policy = Lens.lens (\Permission' {policy} -> policy) (\s@Permission' {} a -> s {policy = a} :: Permission)
 
-instance FromJSON Permission where
+instance Prelude.FromJSON Permission where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Permission"
       ( \x ->
           Permission'
-            <$> (x .:? "CertificateAuthorityArn")
-            <*> (x .:? "CreatedAt")
-            <*> (x .:? "Actions")
-            <*> (x .:? "Principal")
-            <*> (x .:? "SourceAccount")
-            <*> (x .:? "Policy")
+            Prelude.<$> (x Prelude..:? "CertificateAuthorityArn")
+            Prelude.<*> (x Prelude..:? "CreatedAt")
+            Prelude.<*> (x Prelude..:? "Actions")
+            Prelude.<*> (x Prelude..:? "Principal")
+            Prelude.<*> (x Prelude..:? "SourceAccount")
+            Prelude.<*> (x Prelude..:? "Policy")
       )
 
-instance Hashable Permission
+instance Prelude.Hashable Permission
 
-instance NFData Permission
+instance Prelude.NFData Permission

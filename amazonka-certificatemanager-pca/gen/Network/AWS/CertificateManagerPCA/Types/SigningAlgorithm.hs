@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,76 +19,78 @@
 module Network.AWS.CertificateManagerPCA.Types.SigningAlgorithm
   ( SigningAlgorithm
       ( ..,
-        SHA256WITHECDSA,
-        SHA256WITHRSA,
-        SHA384WITHECDSA,
-        SHA384WITHRSA,
-        SHA512WITHECDSA,
-        SHA512WITHRSA
+        SigningAlgorithmSHA256WITHECDSA,
+        SigningAlgorithmSHA256WITHRSA,
+        SigningAlgorithmSHA384WITHECDSA,
+        SigningAlgorithmSHA384WITHRSA,
+        SigningAlgorithmSHA512WITHECDSA,
+        SigningAlgorithmSHA512WITHRSA
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SigningAlgorithm = SigningAlgorithm' (CI Text)
+newtype SigningAlgorithm = SigningAlgorithm'
+  { fromSigningAlgorithm ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SHA256WITHECDSA :: SigningAlgorithm
-pattern SHA256WITHECDSA = SigningAlgorithm' "SHA256WITHECDSA"
+pattern SigningAlgorithmSHA256WITHECDSA :: SigningAlgorithm
+pattern SigningAlgorithmSHA256WITHECDSA = SigningAlgorithm' "SHA256WITHECDSA"
 
-pattern SHA256WITHRSA :: SigningAlgorithm
-pattern SHA256WITHRSA = SigningAlgorithm' "SHA256WITHRSA"
+pattern SigningAlgorithmSHA256WITHRSA :: SigningAlgorithm
+pattern SigningAlgorithmSHA256WITHRSA = SigningAlgorithm' "SHA256WITHRSA"
 
-pattern SHA384WITHECDSA :: SigningAlgorithm
-pattern SHA384WITHECDSA = SigningAlgorithm' "SHA384WITHECDSA"
+pattern SigningAlgorithmSHA384WITHECDSA :: SigningAlgorithm
+pattern SigningAlgorithmSHA384WITHECDSA = SigningAlgorithm' "SHA384WITHECDSA"
 
-pattern SHA384WITHRSA :: SigningAlgorithm
-pattern SHA384WITHRSA = SigningAlgorithm' "SHA384WITHRSA"
+pattern SigningAlgorithmSHA384WITHRSA :: SigningAlgorithm
+pattern SigningAlgorithmSHA384WITHRSA = SigningAlgorithm' "SHA384WITHRSA"
 
-pattern SHA512WITHECDSA :: SigningAlgorithm
-pattern SHA512WITHECDSA = SigningAlgorithm' "SHA512WITHECDSA"
+pattern SigningAlgorithmSHA512WITHECDSA :: SigningAlgorithm
+pattern SigningAlgorithmSHA512WITHECDSA = SigningAlgorithm' "SHA512WITHECDSA"
 
-pattern SHA512WITHRSA :: SigningAlgorithm
-pattern SHA512WITHRSA = SigningAlgorithm' "SHA512WITHRSA"
+pattern SigningAlgorithmSHA512WITHRSA :: SigningAlgorithm
+pattern SigningAlgorithmSHA512WITHRSA = SigningAlgorithm' "SHA512WITHRSA"
 
 {-# COMPLETE
-  SHA256WITHECDSA,
-  SHA256WITHRSA,
-  SHA384WITHECDSA,
-  SHA384WITHRSA,
-  SHA512WITHECDSA,
-  SHA512WITHRSA,
+  SigningAlgorithmSHA256WITHECDSA,
+  SigningAlgorithmSHA256WITHRSA,
+  SigningAlgorithmSHA384WITHECDSA,
+  SigningAlgorithmSHA384WITHRSA,
+  SigningAlgorithmSHA512WITHECDSA,
+  SigningAlgorithmSHA512WITHRSA,
   SigningAlgorithm'
   #-}
 
-instance FromText SigningAlgorithm where
-  parser = (SigningAlgorithm' . mk) <$> takeText
+instance Prelude.FromText SigningAlgorithm where
+  parser = SigningAlgorithm' Prelude.<$> Prelude.takeText
 
-instance ToText SigningAlgorithm where
-  toText (SigningAlgorithm' ci) = original ci
+instance Prelude.ToText SigningAlgorithm where
+  toText (SigningAlgorithm' x) = x
 
-instance Hashable SigningAlgorithm
+instance Prelude.Hashable SigningAlgorithm
 
-instance NFData SigningAlgorithm
+instance Prelude.NFData SigningAlgorithm
 
-instance ToByteString SigningAlgorithm
+instance Prelude.ToByteString SigningAlgorithm
 
-instance ToQuery SigningAlgorithm
+instance Prelude.ToQuery SigningAlgorithm
 
-instance ToHeader SigningAlgorithm
+instance Prelude.ToHeader SigningAlgorithm
 
-instance ToJSON SigningAlgorithm where
-  toJSON = toJSONText
+instance Prelude.ToJSON SigningAlgorithm where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON SigningAlgorithm where
-  parseJSON = parseJSONText "SigningAlgorithm"
+instance Prelude.FromJSON SigningAlgorithm where
+  parseJSON = Prelude.parseJSONText "SigningAlgorithm"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +21,86 @@ module Network.AWS.CertificateManagerPCA.Types.CsrExtensions where
 
 import Network.AWS.CertificateManagerPCA.Types.AccessDescription
 import Network.AWS.CertificateManagerPCA.Types.KeyUsage
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes the certificate extensions to be added to the certificate signing request (CSR).
+-- | Describes the certificate extensions to be added to the certificate
+-- signing request (CSR).
 --
---
---
--- /See:/ 'csrExtensions' smart constructor.
+-- /See:/ 'newCsrExtensions' smart constructor.
 data CsrExtensions = CsrExtensions'
-  { _ceSubjectInformationAccess ::
-      !(Maybe [AccessDescription]),
-    _ceKeyUsage :: !(Maybe KeyUsage)
+  { -- | For CA certificates, provides a path to additional information
+    -- pertaining to the CA, such as revocation and policy. For more
+    -- information, see
+    -- <https://tools.ietf.org/html/rfc5280#section-4.2.2.2 Subject Information Access>
+    -- in RFC 5280.
+    subjectInformationAccess :: Prelude.Maybe [AccessDescription],
+    -- | Indicates the purpose of the certificate and of the key contained in the
+    -- certificate.
+    keyUsage :: Prelude.Maybe KeyUsage
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CsrExtensions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CsrExtensions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ceSubjectInformationAccess' - For CA certificates, provides a path to additional information pertaining to the CA, such as revocation and policy. For more information, see <https://tools.ietf.org/html/rfc5280#section-4.2.2.2 Subject Information Access> in RFC 5280.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ceKeyUsage' - Indicates the purpose of the certificate and of the key contained in the certificate.
-csrExtensions ::
+-- 'subjectInformationAccess', 'csrExtensions_subjectInformationAccess' - For CA certificates, provides a path to additional information
+-- pertaining to the CA, such as revocation and policy. For more
+-- information, see
+-- <https://tools.ietf.org/html/rfc5280#section-4.2.2.2 Subject Information Access>
+-- in RFC 5280.
+--
+-- 'keyUsage', 'csrExtensions_keyUsage' - Indicates the purpose of the certificate and of the key contained in the
+-- certificate.
+newCsrExtensions ::
   CsrExtensions
-csrExtensions =
+newCsrExtensions =
   CsrExtensions'
-    { _ceSubjectInformationAccess =
-        Nothing,
-      _ceKeyUsage = Nothing
+    { subjectInformationAccess =
+        Prelude.Nothing,
+      keyUsage = Prelude.Nothing
     }
 
--- | For CA certificates, provides a path to additional information pertaining to the CA, such as revocation and policy. For more information, see <https://tools.ietf.org/html/rfc5280#section-4.2.2.2 Subject Information Access> in RFC 5280.
-ceSubjectInformationAccess :: Lens' CsrExtensions [AccessDescription]
-ceSubjectInformationAccess = lens _ceSubjectInformationAccess (\s a -> s {_ceSubjectInformationAccess = a}) . _Default . _Coerce
+-- | For CA certificates, provides a path to additional information
+-- pertaining to the CA, such as revocation and policy. For more
+-- information, see
+-- <https://tools.ietf.org/html/rfc5280#section-4.2.2.2 Subject Information Access>
+-- in RFC 5280.
+csrExtensions_subjectInformationAccess :: Lens.Lens' CsrExtensions (Prelude.Maybe [AccessDescription])
+csrExtensions_subjectInformationAccess = Lens.lens (\CsrExtensions' {subjectInformationAccess} -> subjectInformationAccess) (\s@CsrExtensions' {} a -> s {subjectInformationAccess = a} :: CsrExtensions) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Indicates the purpose of the certificate and of the key contained in the certificate.
-ceKeyUsage :: Lens' CsrExtensions (Maybe KeyUsage)
-ceKeyUsage = lens _ceKeyUsage (\s a -> s {_ceKeyUsage = a})
+-- | Indicates the purpose of the certificate and of the key contained in the
+-- certificate.
+csrExtensions_keyUsage :: Lens.Lens' CsrExtensions (Prelude.Maybe KeyUsage)
+csrExtensions_keyUsage = Lens.lens (\CsrExtensions' {keyUsage} -> keyUsage) (\s@CsrExtensions' {} a -> s {keyUsage = a} :: CsrExtensions)
 
-instance FromJSON CsrExtensions where
+instance Prelude.FromJSON CsrExtensions where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CsrExtensions"
       ( \x ->
           CsrExtensions'
-            <$> (x .:? "SubjectInformationAccess" .!= mempty)
-            <*> (x .:? "KeyUsage")
+            Prelude.<$> ( x Prelude..:? "SubjectInformationAccess"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "KeyUsage")
       )
 
-instance Hashable CsrExtensions
+instance Prelude.Hashable CsrExtensions
 
-instance NFData CsrExtensions
+instance Prelude.NFData CsrExtensions
 
-instance ToJSON CsrExtensions where
+instance Prelude.ToJSON CsrExtensions where
   toJSON CsrExtensions' {..} =
-    object
-      ( catMaybes
-          [ ("SubjectInformationAccess" .=)
-              <$> _ceSubjectInformationAccess,
-            ("KeyUsage" .=) <$> _ceKeyUsage
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("SubjectInformationAccess" Prelude..=)
+              Prelude.<$> subjectInformationAccess,
+            ("KeyUsage" Prelude..=) Prelude.<$> keyUsage
           ]
       )

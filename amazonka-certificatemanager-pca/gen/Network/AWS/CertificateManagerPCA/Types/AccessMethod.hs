@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,64 +20,79 @@
 module Network.AWS.CertificateManagerPCA.Types.AccessMethod where
 
 import Network.AWS.CertificateManagerPCA.Types.AccessMethodType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes the type and format of extension access. Only one of @CustomObjectIdentifier@ or @AccessMethodType@ may be provided. Providing both results in @InvalidArgsException@ .
+-- | Describes the type and format of extension access. Only one of
+-- @CustomObjectIdentifier@ or @AccessMethodType@ may be provided.
+-- Providing both results in @InvalidArgsException@.
 --
---
---
--- /See:/ 'accessMethod' smart constructor.
+-- /See:/ 'newAccessMethod' smart constructor.
 data AccessMethod = AccessMethod'
-  { _amAccessMethodType ::
-      !(Maybe AccessMethodType),
-    _amCustomObjectIdentifier :: !(Maybe Text)
+  { -- | Specifies the @AccessMethod@.
+    accessMethodType :: Prelude.Maybe AccessMethodType,
+    -- | An object identifier (OID) specifying the @AccessMethod@. The OID must
+    -- satisfy the regular expression shown below. For more information, see
+    -- NIST\'s definition of
+    -- <https://csrc.nist.gov/glossary/term/Object_Identifier Object Identifier (OID)>.
+    customObjectIdentifier :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AccessMethod' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AccessMethod' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'amAccessMethodType' - Specifies the @AccessMethod@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'amCustomObjectIdentifier' - An object identifier (OID) specifying the @AccessMethod@ . The OID must satisfy the regular expression shown below. For more information, see NIST's definition of <https://csrc.nist.gov/glossary/term/Object_Identifier Object Identifier (OID)> .
-accessMethod ::
+-- 'accessMethodType', 'accessMethod_accessMethodType' - Specifies the @AccessMethod@.
+--
+-- 'customObjectIdentifier', 'accessMethod_customObjectIdentifier' - An object identifier (OID) specifying the @AccessMethod@. The OID must
+-- satisfy the regular expression shown below. For more information, see
+-- NIST\'s definition of
+-- <https://csrc.nist.gov/glossary/term/Object_Identifier Object Identifier (OID)>.
+newAccessMethod ::
   AccessMethod
-accessMethod =
+newAccessMethod =
   AccessMethod'
-    { _amAccessMethodType = Nothing,
-      _amCustomObjectIdentifier = Nothing
+    { accessMethodType = Prelude.Nothing,
+      customObjectIdentifier = Prelude.Nothing
     }
 
--- | Specifies the @AccessMethod@ .
-amAccessMethodType :: Lens' AccessMethod (Maybe AccessMethodType)
-amAccessMethodType = lens _amAccessMethodType (\s a -> s {_amAccessMethodType = a})
+-- | Specifies the @AccessMethod@.
+accessMethod_accessMethodType :: Lens.Lens' AccessMethod (Prelude.Maybe AccessMethodType)
+accessMethod_accessMethodType = Lens.lens (\AccessMethod' {accessMethodType} -> accessMethodType) (\s@AccessMethod' {} a -> s {accessMethodType = a} :: AccessMethod)
 
--- | An object identifier (OID) specifying the @AccessMethod@ . The OID must satisfy the regular expression shown below. For more information, see NIST's definition of <https://csrc.nist.gov/glossary/term/Object_Identifier Object Identifier (OID)> .
-amCustomObjectIdentifier :: Lens' AccessMethod (Maybe Text)
-amCustomObjectIdentifier = lens _amCustomObjectIdentifier (\s a -> s {_amCustomObjectIdentifier = a})
+-- | An object identifier (OID) specifying the @AccessMethod@. The OID must
+-- satisfy the regular expression shown below. For more information, see
+-- NIST\'s definition of
+-- <https://csrc.nist.gov/glossary/term/Object_Identifier Object Identifier (OID)>.
+accessMethod_customObjectIdentifier :: Lens.Lens' AccessMethod (Prelude.Maybe Prelude.Text)
+accessMethod_customObjectIdentifier = Lens.lens (\AccessMethod' {customObjectIdentifier} -> customObjectIdentifier) (\s@AccessMethod' {} a -> s {customObjectIdentifier = a} :: AccessMethod)
 
-instance FromJSON AccessMethod where
+instance Prelude.FromJSON AccessMethod where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AccessMethod"
       ( \x ->
           AccessMethod'
-            <$> (x .:? "AccessMethodType")
-            <*> (x .:? "CustomObjectIdentifier")
+            Prelude.<$> (x Prelude..:? "AccessMethodType")
+            Prelude.<*> (x Prelude..:? "CustomObjectIdentifier")
       )
 
-instance Hashable AccessMethod
+instance Prelude.Hashable AccessMethod
 
-instance NFData AccessMethod
+instance Prelude.NFData AccessMethod
 
-instance ToJSON AccessMethod where
+instance Prelude.ToJSON AccessMethod where
   toJSON AccessMethod' {..} =
-    object
-      ( catMaybes
-          [ ("AccessMethodType" .=) <$> _amAccessMethodType,
-            ("CustomObjectIdentifier" .=)
-              <$> _amCustomObjectIdentifier
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("AccessMethodType" Prelude..=)
+              Prelude.<$> accessMethodType,
+            ("CustomObjectIdentifier" Prelude..=)
+              Prelude.<$> customObjectIdentifier
           ]
       )

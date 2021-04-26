@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.CertificateManagerPCA.Types.ResourceOwner
   ( ResourceOwner
       ( ..,
-        OtherAccounts,
-        Self
+        ResourceOwnerOTHERACCOUNTS,
+        ResourceOwnerSELF
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ResourceOwner = ResourceOwner' (CI Text)
+newtype ResourceOwner = ResourceOwner'
+  { fromResourceOwner ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern OtherAccounts :: ResourceOwner
-pattern OtherAccounts = ResourceOwner' "OTHER_ACCOUNTS"
+pattern ResourceOwnerOTHERACCOUNTS :: ResourceOwner
+pattern ResourceOwnerOTHERACCOUNTS = ResourceOwner' "OTHER_ACCOUNTS"
 
-pattern Self :: ResourceOwner
-pattern Self = ResourceOwner' "SELF"
+pattern ResourceOwnerSELF :: ResourceOwner
+pattern ResourceOwnerSELF = ResourceOwner' "SELF"
 
 {-# COMPLETE
-  OtherAccounts,
-  Self,
+  ResourceOwnerOTHERACCOUNTS,
+  ResourceOwnerSELF,
   ResourceOwner'
   #-}
 
-instance FromText ResourceOwner where
-  parser = (ResourceOwner' . mk) <$> takeText
+instance Prelude.FromText ResourceOwner where
+  parser = ResourceOwner' Prelude.<$> Prelude.takeText
 
-instance ToText ResourceOwner where
-  toText (ResourceOwner' ci) = original ci
+instance Prelude.ToText ResourceOwner where
+  toText (ResourceOwner' x) = x
 
-instance Hashable ResourceOwner
+instance Prelude.Hashable ResourceOwner
 
-instance NFData ResourceOwner
+instance Prelude.NFData ResourceOwner
 
-instance ToByteString ResourceOwner
+instance Prelude.ToByteString ResourceOwner
 
-instance ToQuery ResourceOwner
+instance Prelude.ToQuery ResourceOwner
 
-instance ToHeader ResourceOwner
+instance Prelude.ToHeader ResourceOwner
 
-instance ToJSON ResourceOwner where
-  toJSON = toJSONText
+instance Prelude.ToJSON ResourceOwner where
+  toJSON = Prelude.toJSONText

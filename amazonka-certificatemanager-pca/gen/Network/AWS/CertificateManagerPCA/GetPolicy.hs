@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,134 +21,171 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves the resource-based policy attached to a private CA. If either the private CA resource or the policy cannot be found, this action returns a @ResourceNotFoundException@ .
+-- Retrieves the resource-based policy attached to a private CA. If either
+-- the private CA resource or the policy cannot be found, this action
+-- returns a @ResourceNotFoundException@.
 --
---
--- The policy can be attached or updated with <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_PutPolicy.html PutPolicy> and removed with <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_DeletePolicy.html DeletePolicy> .
+-- The policy can be attached or updated with
+-- <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_PutPolicy.html PutPolicy>
+-- and removed with
+-- <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_DeletePolicy.html DeletePolicy>.
 --
 -- __About Policies__
 --
---     * A policy grants access on a private CA to an AWS customer account, to AWS Organizations, or to an AWS Organizations unit. Policies are under the control of a CA administrator. For more information, see <https://docs.aws.amazon.com/acm-pca/latest/userguide/pca-rbp.html Using a Resource Based Policy with ACM Private CA> .
+-- -   A policy grants access on a private CA to an AWS customer account,
+--     to AWS Organizations, or to an AWS Organizations unit. Policies are
+--     under the control of a CA administrator. For more information, see
+--     <https://docs.aws.amazon.com/acm-pca/latest/userguide/pca-rbp.html Using a Resource Based Policy with ACM Private CA>.
 --
---     * A policy permits a user of AWS Certificate Manager (ACM) to issue ACM certificates signed by a CA in another account.
+-- -   A policy permits a user of AWS Certificate Manager (ACM) to issue
+--     ACM certificates signed by a CA in another account.
 --
---     * For ACM to manage automatic renewal of these certificates, the ACM user must configure a Service Linked Role (SLR). The SLR allows the ACM service to assume the identity of the user, subject to confirmation against the ACM Private CA policy. For more information, see <https://docs.aws.amazon.com/acm/latest/userguide/acm-slr.html Using a Service Linked Role with ACM> .
+-- -   For ACM to manage automatic renewal of these certificates, the ACM
+--     user must configure a Service Linked Role (SLR). The SLR allows the
+--     ACM service to assume the identity of the user, subject to
+--     confirmation against the ACM Private CA policy. For more
+--     information, see
+--     <https://docs.aws.amazon.com/acm/latest/userguide/acm-slr.html Using a Service Linked Role with ACM>.
 --
---     * Updates made in AWS Resource Manager (RAM) are reflected in policies. For more information, see <https://docs.aws.amazon.com/acm-pca/latest/userguide/pca-ram.html Attach a Policy for Cross-Account Access> .
+-- -   Updates made in AWS Resource Manager (RAM) are reflected in
+--     policies. For more information, see
+--     <https://docs.aws.amazon.com/acm-pca/latest/userguide/pca-ram.html Attach a Policy for Cross-Account Access>.
 module Network.AWS.CertificateManagerPCA.GetPolicy
   ( -- * Creating a Request
-    getPolicy,
-    GetPolicy,
+    GetPolicy (..),
+    newGetPolicy,
 
     -- * Request Lenses
-    gpResourceARN,
+    getPolicy_resourceArn,
 
     -- * Destructuring the Response
-    getPolicyResponse,
-    GetPolicyResponse,
+    GetPolicyResponse (..),
+    newGetPolicyResponse,
 
     -- * Response Lenses
-    gprrsPolicy,
-    gprrsResponseStatus,
+    getPolicyResponse_policy,
+    getPolicyResponse_httpStatus,
   )
 where
 
 import Network.AWS.CertificateManagerPCA.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getPolicy' smart constructor.
-newtype GetPolicy = GetPolicy'
-  { _gpResourceARN ::
-      Text
+-- | /See:/ 'newGetPolicy' smart constructor.
+data GetPolicy = GetPolicy'
+  { -- | The Amazon Resource Number (ARN) of the private CA that will have its
+    -- policy retrieved. You can find the CA\'s ARN by calling the
+    -- ListCertificateAuthorities action.
+    resourceArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetPolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetPolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gpResourceARN' - The Amazon Resource Number (ARN) of the private CA that will have its policy retrieved. You can find the CA's ARN by calling the ListCertificateAuthorities action.
-getPolicy ::
-  -- | 'gpResourceARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'resourceArn', 'getPolicy_resourceArn' - The Amazon Resource Number (ARN) of the private CA that will have its
+-- policy retrieved. You can find the CA\'s ARN by calling the
+-- ListCertificateAuthorities action.
+newGetPolicy ::
+  -- | 'resourceArn'
+  Prelude.Text ->
   GetPolicy
-getPolicy pResourceARN_ =
-  GetPolicy' {_gpResourceARN = pResourceARN_}
+newGetPolicy pResourceArn_ =
+  GetPolicy' {resourceArn = pResourceArn_}
 
--- | The Amazon Resource Number (ARN) of the private CA that will have its policy retrieved. You can find the CA's ARN by calling the ListCertificateAuthorities action.
-gpResourceARN :: Lens' GetPolicy Text
-gpResourceARN = lens _gpResourceARN (\s a -> s {_gpResourceARN = a})
+-- | The Amazon Resource Number (ARN) of the private CA that will have its
+-- policy retrieved. You can find the CA\'s ARN by calling the
+-- ListCertificateAuthorities action.
+getPolicy_resourceArn :: Lens.Lens' GetPolicy Prelude.Text
+getPolicy_resourceArn = Lens.lens (\GetPolicy' {resourceArn} -> resourceArn) (\s@GetPolicy' {} a -> s {resourceArn = a} :: GetPolicy)
 
-instance AWSRequest GetPolicy where
+instance Prelude.AWSRequest GetPolicy where
   type Rs GetPolicy = GetPolicyResponse
-  request = postJSON certificateManagerPCA
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetPolicyResponse'
-            <$> (x .?> "Policy") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Policy")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetPolicy
+instance Prelude.Hashable GetPolicy
 
-instance NFData GetPolicy
+instance Prelude.NFData GetPolicy
 
-instance ToHeaders GetPolicy where
+instance Prelude.ToHeaders GetPolicy where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("ACMPrivateCA.GetPolicy" :: ByteString),
+              Prelude.=# ("ACMPrivateCA.GetPolicy" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetPolicy where
+instance Prelude.ToJSON GetPolicy where
   toJSON GetPolicy' {..} =
-    object
-      (catMaybes [Just ("ResourceArn" .= _gpResourceARN)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("ResourceArn" Prelude..= resourceArn)
+          ]
+      )
 
-instance ToPath GetPolicy where
-  toPath = const "/"
+instance Prelude.ToPath GetPolicy where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetPolicy where
-  toQuery = const mempty
+instance Prelude.ToQuery GetPolicy where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getPolicyResponse' smart constructor.
+-- | /See:/ 'newGetPolicyResponse' smart constructor.
 data GetPolicyResponse = GetPolicyResponse'
-  { _gprrsPolicy ::
-      !(Maybe Text),
-    _gprrsResponseStatus :: !Int
+  { -- | The policy attached to the private CA as a JSON document.
+    policy :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetPolicyResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetPolicyResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gprrsPolicy' - The policy attached to the private CA as a JSON document.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gprrsResponseStatus' - -- | The response status code.
-getPolicyResponse ::
-  -- | 'gprrsResponseStatus'
-  Int ->
+-- 'policy', 'getPolicyResponse_policy' - The policy attached to the private CA as a JSON document.
+--
+-- 'httpStatus', 'getPolicyResponse_httpStatus' - The response's http status code.
+newGetPolicyResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetPolicyResponse
-getPolicyResponse pResponseStatus_ =
+newGetPolicyResponse pHttpStatus_ =
   GetPolicyResponse'
-    { _gprrsPolicy = Nothing,
-      _gprrsResponseStatus = pResponseStatus_
+    { policy = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The policy attached to the private CA as a JSON document.
-gprrsPolicy :: Lens' GetPolicyResponse (Maybe Text)
-gprrsPolicy = lens _gprrsPolicy (\s a -> s {_gprrsPolicy = a})
+getPolicyResponse_policy :: Lens.Lens' GetPolicyResponse (Prelude.Maybe Prelude.Text)
+getPolicyResponse_policy = Lens.lens (\GetPolicyResponse' {policy} -> policy) (\s@GetPolicyResponse' {} a -> s {policy = a} :: GetPolicyResponse)
 
--- | -- | The response status code.
-gprrsResponseStatus :: Lens' GetPolicyResponse Int
-gprrsResponseStatus = lens _gprrsResponseStatus (\s a -> s {_gprrsResponseStatus = a})
+-- | The response's http status code.
+getPolicyResponse_httpStatus :: Lens.Lens' GetPolicyResponse Prelude.Int
+getPolicyResponse_httpStatus = Lens.lens (\GetPolicyResponse' {httpStatus} -> httpStatus) (\s@GetPolicyResponse' {} a -> s {httpStatus = a} :: GetPolicyResponse)
 
-instance NFData GetPolicyResponse
+instance Prelude.NFData GetPolicyResponse

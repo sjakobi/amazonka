@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.CertificateManagerPCA.Types.CertificateAuthorityType
   ( CertificateAuthorityType
       ( ..,
-        Root,
-        Subordinate
+        CertificateAuthorityTypeROOT,
+        CertificateAuthorityTypeSUBORDINATE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CertificateAuthorityType
-  = CertificateAuthorityType'
-      ( CI
-          Text
-      )
+newtype CertificateAuthorityType = CertificateAuthorityType'
+  { fromCertificateAuthorityType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Root :: CertificateAuthorityType
-pattern Root = CertificateAuthorityType' "ROOT"
+pattern CertificateAuthorityTypeROOT :: CertificateAuthorityType
+pattern CertificateAuthorityTypeROOT = CertificateAuthorityType' "ROOT"
 
-pattern Subordinate :: CertificateAuthorityType
-pattern Subordinate = CertificateAuthorityType' "SUBORDINATE"
+pattern CertificateAuthorityTypeSUBORDINATE :: CertificateAuthorityType
+pattern CertificateAuthorityTypeSUBORDINATE = CertificateAuthorityType' "SUBORDINATE"
 
 {-# COMPLETE
-  Root,
-  Subordinate,
+  CertificateAuthorityTypeROOT,
+  CertificateAuthorityTypeSUBORDINATE,
   CertificateAuthorityType'
   #-}
 
-instance FromText CertificateAuthorityType where
-  parser = (CertificateAuthorityType' . mk) <$> takeText
+instance Prelude.FromText CertificateAuthorityType where
+  parser = CertificateAuthorityType' Prelude.<$> Prelude.takeText
 
-instance ToText CertificateAuthorityType where
-  toText (CertificateAuthorityType' ci) = original ci
+instance Prelude.ToText CertificateAuthorityType where
+  toText (CertificateAuthorityType' x) = x
 
-instance Hashable CertificateAuthorityType
+instance Prelude.Hashable CertificateAuthorityType
 
-instance NFData CertificateAuthorityType
+instance Prelude.NFData CertificateAuthorityType
 
-instance ToByteString CertificateAuthorityType
+instance Prelude.ToByteString CertificateAuthorityType
 
-instance ToQuery CertificateAuthorityType
+instance Prelude.ToQuery CertificateAuthorityType
 
-instance ToHeader CertificateAuthorityType
+instance Prelude.ToHeader CertificateAuthorityType
 
-instance ToJSON CertificateAuthorityType where
-  toJSON = toJSONText
+instance Prelude.ToJSON CertificateAuthorityType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CertificateAuthorityType where
-  parseJSON = parseJSONText "CertificateAuthorityType"
+instance Prelude.FromJSON CertificateAuthorityType where
+  parseJSON = Prelude.parseJSONText "CertificateAuthorityType"

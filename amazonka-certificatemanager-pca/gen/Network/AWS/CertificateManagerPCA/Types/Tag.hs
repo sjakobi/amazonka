@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,57 +19,72 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CertificateManagerPCA.Types.Tag where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Tags are labels that you can use to identify and organize your private CAs. Each tag consists of a key and an optional value. You can associate up to 50 tags with a private CA. To add one or more tags to a private CA, call the <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_TagCertificateAuthority.html TagCertificateAuthority> action. To remove a tag, call the <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_UntagCertificateAuthority.html UntagCertificateAuthority> action.
+-- | Tags are labels that you can use to identify and organize your private
+-- CAs. Each tag consists of a key and an optional value. You can associate
+-- up to 50 tags with a private CA. To add one or more tags to a private
+-- CA, call the
+-- <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_TagCertificateAuthority.html TagCertificateAuthority>
+-- action. To remove a tag, call the
+-- <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_UntagCertificateAuthority.html UntagCertificateAuthority>
+-- action.
 --
---
---
--- /See:/ 'tag' smart constructor.
+-- /See:/ 'newTag' smart constructor.
 data Tag = Tag'
-  { _tagValue :: !(Maybe Text),
-    _tagKey :: !Text
+  { -- | Value of the tag.
+    value :: Prelude.Maybe Prelude.Text,
+    -- | Key (name) of the tag.
+    key :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Tag' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Tag' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tagValue' - Value of the tag.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tagKey' - Key (name) of the tag.
-tag ::
-  -- | 'tagKey'
-  Text ->
+-- 'value', 'tag_value' - Value of the tag.
+--
+-- 'key', 'tag_key' - Key (name) of the tag.
+newTag ::
+  -- | 'key'
+  Prelude.Text ->
   Tag
-tag pKey_ =
-  Tag' {_tagValue = Nothing, _tagKey = pKey_}
+newTag pKey_ =
+  Tag' {value = Prelude.Nothing, key = pKey_}
 
 -- | Value of the tag.
-tagValue :: Lens' Tag (Maybe Text)
-tagValue = lens _tagValue (\s a -> s {_tagValue = a})
+tag_value :: Lens.Lens' Tag (Prelude.Maybe Prelude.Text)
+tag_value = Lens.lens (\Tag' {value} -> value) (\s@Tag' {} a -> s {value = a} :: Tag)
 
 -- | Key (name) of the tag.
-tagKey :: Lens' Tag Text
-tagKey = lens _tagKey (\s a -> s {_tagKey = a})
+tag_key :: Lens.Lens' Tag Prelude.Text
+tag_key = Lens.lens (\Tag' {key} -> key) (\s@Tag' {} a -> s {key = a} :: Tag)
 
-instance FromJSON Tag where
+instance Prelude.FromJSON Tag where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Tag"
-      (\x -> Tag' <$> (x .:? "Value") <*> (x .: "Key"))
+      ( \x ->
+          Tag'
+            Prelude.<$> (x Prelude..:? "Value")
+            Prelude.<*> (x Prelude..: "Key")
+      )
 
-instance Hashable Tag
+instance Prelude.Hashable Tag
 
-instance NFData Tag
+instance Prelude.NFData Tag
 
-instance ToJSON Tag where
+instance Prelude.ToJSON Tag where
   toJSON Tag' {..} =
-    object
-      ( catMaybes
-          [ ("Value" .=) <$> _tagValue,
-            Just ("Key" .= _tagKey)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Value" Prelude..=) Prelude.<$> value,
+            Prelude.Just ("Key" Prelude..= key)
           ]
       )

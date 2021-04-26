@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,92 +19,90 @@
 module Network.AWS.CertificateManagerPCA.Types.ExtendedKeyUsageType
   ( ExtendedKeyUsageType
       ( ..,
-        CertificateTransparency,
-        ClientAuth,
-        CodeSigning,
-        DocumentSigning,
-        EmailProtection,
-        OcspSigning,
-        ServerAuth,
-        SmartCardLogin,
-        TimeStamping
+        ExtendedKeyUsageTypeCERTIFICATETRANSPARENCY,
+        ExtendedKeyUsageTypeCLIENTAUTH,
+        ExtendedKeyUsageTypeCODESIGNING,
+        ExtendedKeyUsageTypeDOCUMENTSIGNING,
+        ExtendedKeyUsageTypeEMAILPROTECTION,
+        ExtendedKeyUsageTypeOCSPSIGNING,
+        ExtendedKeyUsageTypeSERVERAUTH,
+        ExtendedKeyUsageTypeSMARTCARDLOGIN,
+        ExtendedKeyUsageTypeTIMESTAMPING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ExtendedKeyUsageType
-  = ExtendedKeyUsageType'
-      ( CI
-          Text
-      )
+newtype ExtendedKeyUsageType = ExtendedKeyUsageType'
+  { fromExtendedKeyUsageType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CertificateTransparency :: ExtendedKeyUsageType
-pattern CertificateTransparency = ExtendedKeyUsageType' "CERTIFICATE_TRANSPARENCY"
+pattern ExtendedKeyUsageTypeCERTIFICATETRANSPARENCY :: ExtendedKeyUsageType
+pattern ExtendedKeyUsageTypeCERTIFICATETRANSPARENCY = ExtendedKeyUsageType' "CERTIFICATE_TRANSPARENCY"
 
-pattern ClientAuth :: ExtendedKeyUsageType
-pattern ClientAuth = ExtendedKeyUsageType' "CLIENT_AUTH"
+pattern ExtendedKeyUsageTypeCLIENTAUTH :: ExtendedKeyUsageType
+pattern ExtendedKeyUsageTypeCLIENTAUTH = ExtendedKeyUsageType' "CLIENT_AUTH"
 
-pattern CodeSigning :: ExtendedKeyUsageType
-pattern CodeSigning = ExtendedKeyUsageType' "CODE_SIGNING"
+pattern ExtendedKeyUsageTypeCODESIGNING :: ExtendedKeyUsageType
+pattern ExtendedKeyUsageTypeCODESIGNING = ExtendedKeyUsageType' "CODE_SIGNING"
 
-pattern DocumentSigning :: ExtendedKeyUsageType
-pattern DocumentSigning = ExtendedKeyUsageType' "DOCUMENT_SIGNING"
+pattern ExtendedKeyUsageTypeDOCUMENTSIGNING :: ExtendedKeyUsageType
+pattern ExtendedKeyUsageTypeDOCUMENTSIGNING = ExtendedKeyUsageType' "DOCUMENT_SIGNING"
 
-pattern EmailProtection :: ExtendedKeyUsageType
-pattern EmailProtection = ExtendedKeyUsageType' "EMAIL_PROTECTION"
+pattern ExtendedKeyUsageTypeEMAILPROTECTION :: ExtendedKeyUsageType
+pattern ExtendedKeyUsageTypeEMAILPROTECTION = ExtendedKeyUsageType' "EMAIL_PROTECTION"
 
-pattern OcspSigning :: ExtendedKeyUsageType
-pattern OcspSigning = ExtendedKeyUsageType' "OCSP_SIGNING"
+pattern ExtendedKeyUsageTypeOCSPSIGNING :: ExtendedKeyUsageType
+pattern ExtendedKeyUsageTypeOCSPSIGNING = ExtendedKeyUsageType' "OCSP_SIGNING"
 
-pattern ServerAuth :: ExtendedKeyUsageType
-pattern ServerAuth = ExtendedKeyUsageType' "SERVER_AUTH"
+pattern ExtendedKeyUsageTypeSERVERAUTH :: ExtendedKeyUsageType
+pattern ExtendedKeyUsageTypeSERVERAUTH = ExtendedKeyUsageType' "SERVER_AUTH"
 
-pattern SmartCardLogin :: ExtendedKeyUsageType
-pattern SmartCardLogin = ExtendedKeyUsageType' "SMART_CARD_LOGIN"
+pattern ExtendedKeyUsageTypeSMARTCARDLOGIN :: ExtendedKeyUsageType
+pattern ExtendedKeyUsageTypeSMARTCARDLOGIN = ExtendedKeyUsageType' "SMART_CARD_LOGIN"
 
-pattern TimeStamping :: ExtendedKeyUsageType
-pattern TimeStamping = ExtendedKeyUsageType' "TIME_STAMPING"
+pattern ExtendedKeyUsageTypeTIMESTAMPING :: ExtendedKeyUsageType
+pattern ExtendedKeyUsageTypeTIMESTAMPING = ExtendedKeyUsageType' "TIME_STAMPING"
 
 {-# COMPLETE
-  CertificateTransparency,
-  ClientAuth,
-  CodeSigning,
-  DocumentSigning,
-  EmailProtection,
-  OcspSigning,
-  ServerAuth,
-  SmartCardLogin,
-  TimeStamping,
+  ExtendedKeyUsageTypeCERTIFICATETRANSPARENCY,
+  ExtendedKeyUsageTypeCLIENTAUTH,
+  ExtendedKeyUsageTypeCODESIGNING,
+  ExtendedKeyUsageTypeDOCUMENTSIGNING,
+  ExtendedKeyUsageTypeEMAILPROTECTION,
+  ExtendedKeyUsageTypeOCSPSIGNING,
+  ExtendedKeyUsageTypeSERVERAUTH,
+  ExtendedKeyUsageTypeSMARTCARDLOGIN,
+  ExtendedKeyUsageTypeTIMESTAMPING,
   ExtendedKeyUsageType'
   #-}
 
-instance FromText ExtendedKeyUsageType where
-  parser = (ExtendedKeyUsageType' . mk) <$> takeText
+instance Prelude.FromText ExtendedKeyUsageType where
+  parser = ExtendedKeyUsageType' Prelude.<$> Prelude.takeText
 
-instance ToText ExtendedKeyUsageType where
-  toText (ExtendedKeyUsageType' ci) = original ci
+instance Prelude.ToText ExtendedKeyUsageType where
+  toText (ExtendedKeyUsageType' x) = x
 
-instance Hashable ExtendedKeyUsageType
+instance Prelude.Hashable ExtendedKeyUsageType
 
-instance NFData ExtendedKeyUsageType
+instance Prelude.NFData ExtendedKeyUsageType
 
-instance ToByteString ExtendedKeyUsageType
+instance Prelude.ToByteString ExtendedKeyUsageType
 
-instance ToQuery ExtendedKeyUsageType
+instance Prelude.ToQuery ExtendedKeyUsageType
 
-instance ToHeader ExtendedKeyUsageType
+instance Prelude.ToHeader ExtendedKeyUsageType
 
-instance ToJSON ExtendedKeyUsageType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ExtendedKeyUsageType where
+  toJSON = Prelude.toJSONText

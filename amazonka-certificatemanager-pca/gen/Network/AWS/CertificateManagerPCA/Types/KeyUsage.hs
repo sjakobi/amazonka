@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,133 +19,148 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CertificateManagerPCA.Types.KeyUsage where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Defines one or more purposes for which the key contained in the certificate can be used. Default value for each option is false.
+-- | Defines one or more purposes for which the key contained in the
+-- certificate can be used. Default value for each option is false.
 --
---
---
--- /See:/ 'keyUsage' smart constructor.
+-- /See:/ 'newKeyUsage' smart constructor.
 data KeyUsage = KeyUsage'
-  { _kuDataEncipherment ::
-      !(Maybe Bool),
-    _kuKeyCertSign :: !(Maybe Bool),
-    _kuCRLSign :: !(Maybe Bool),
-    _kuKeyEncipherment :: !(Maybe Bool),
-    _kuEncipherOnly :: !(Maybe Bool),
-    _kuKeyAgreement :: !(Maybe Bool),
-    _kuDigitalSignature :: !(Maybe Bool),
-    _kuDecipherOnly :: !(Maybe Bool),
-    _kuNonRepudiation :: !(Maybe Bool)
+  { -- | Key can be used to decipher data.
+    dataEncipherment :: Prelude.Maybe Prelude.Bool,
+    -- | Key can be used to sign certificates.
+    keyCertSign :: Prelude.Maybe Prelude.Bool,
+    -- | Key can be used to sign CRLs.
+    cRLSign :: Prelude.Maybe Prelude.Bool,
+    -- | Key can be used to encipher data.
+    keyEncipherment :: Prelude.Maybe Prelude.Bool,
+    -- | Key can be used only to encipher data.
+    encipherOnly :: Prelude.Maybe Prelude.Bool,
+    -- | Key can be used in a key-agreement protocol.
+    keyAgreement :: Prelude.Maybe Prelude.Bool,
+    -- | Key can be used for digital signing.
+    digitalSignature :: Prelude.Maybe Prelude.Bool,
+    -- | Key can be used only to decipher data.
+    decipherOnly :: Prelude.Maybe Prelude.Bool,
+    -- | Key can be used for non-repudiation.
+    nonRepudiation :: Prelude.Maybe Prelude.Bool
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'KeyUsage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'KeyUsage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'kuDataEncipherment' - Key can be used to decipher data.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'kuKeyCertSign' - Key can be used to sign certificates.
+-- 'dataEncipherment', 'keyUsage_dataEncipherment' - Key can be used to decipher data.
 --
--- * 'kuCRLSign' - Key can be used to sign CRLs.
+-- 'keyCertSign', 'keyUsage_keyCertSign' - Key can be used to sign certificates.
 --
--- * 'kuKeyEncipherment' - Key can be used to encipher data.
+-- 'cRLSign', 'keyUsage_cRLSign' - Key can be used to sign CRLs.
 --
--- * 'kuEncipherOnly' - Key can be used only to encipher data.
+-- 'keyEncipherment', 'keyUsage_keyEncipherment' - Key can be used to encipher data.
 --
--- * 'kuKeyAgreement' - Key can be used in a key-agreement protocol.
+-- 'encipherOnly', 'keyUsage_encipherOnly' - Key can be used only to encipher data.
 --
--- * 'kuDigitalSignature' - Key can be used for digital signing.
+-- 'keyAgreement', 'keyUsage_keyAgreement' - Key can be used in a key-agreement protocol.
 --
--- * 'kuDecipherOnly' - Key can be used only to decipher data.
+-- 'digitalSignature', 'keyUsage_digitalSignature' - Key can be used for digital signing.
 --
--- * 'kuNonRepudiation' - Key can be used for non-repudiation.
-keyUsage ::
+-- 'decipherOnly', 'keyUsage_decipherOnly' - Key can be used only to decipher data.
+--
+-- 'nonRepudiation', 'keyUsage_nonRepudiation' - Key can be used for non-repudiation.
+newKeyUsage ::
   KeyUsage
-keyUsage =
+newKeyUsage =
   KeyUsage'
-    { _kuDataEncipherment = Nothing,
-      _kuKeyCertSign = Nothing,
-      _kuCRLSign = Nothing,
-      _kuKeyEncipherment = Nothing,
-      _kuEncipherOnly = Nothing,
-      _kuKeyAgreement = Nothing,
-      _kuDigitalSignature = Nothing,
-      _kuDecipherOnly = Nothing,
-      _kuNonRepudiation = Nothing
+    { dataEncipherment = Prelude.Nothing,
+      keyCertSign = Prelude.Nothing,
+      cRLSign = Prelude.Nothing,
+      keyEncipherment = Prelude.Nothing,
+      encipherOnly = Prelude.Nothing,
+      keyAgreement = Prelude.Nothing,
+      digitalSignature = Prelude.Nothing,
+      decipherOnly = Prelude.Nothing,
+      nonRepudiation = Prelude.Nothing
     }
 
 -- | Key can be used to decipher data.
-kuDataEncipherment :: Lens' KeyUsage (Maybe Bool)
-kuDataEncipherment = lens _kuDataEncipherment (\s a -> s {_kuDataEncipherment = a})
+keyUsage_dataEncipherment :: Lens.Lens' KeyUsage (Prelude.Maybe Prelude.Bool)
+keyUsage_dataEncipherment = Lens.lens (\KeyUsage' {dataEncipherment} -> dataEncipherment) (\s@KeyUsage' {} a -> s {dataEncipherment = a} :: KeyUsage)
 
 -- | Key can be used to sign certificates.
-kuKeyCertSign :: Lens' KeyUsage (Maybe Bool)
-kuKeyCertSign = lens _kuKeyCertSign (\s a -> s {_kuKeyCertSign = a})
+keyUsage_keyCertSign :: Lens.Lens' KeyUsage (Prelude.Maybe Prelude.Bool)
+keyUsage_keyCertSign = Lens.lens (\KeyUsage' {keyCertSign} -> keyCertSign) (\s@KeyUsage' {} a -> s {keyCertSign = a} :: KeyUsage)
 
 -- | Key can be used to sign CRLs.
-kuCRLSign :: Lens' KeyUsage (Maybe Bool)
-kuCRLSign = lens _kuCRLSign (\s a -> s {_kuCRLSign = a})
+keyUsage_cRLSign :: Lens.Lens' KeyUsage (Prelude.Maybe Prelude.Bool)
+keyUsage_cRLSign = Lens.lens (\KeyUsage' {cRLSign} -> cRLSign) (\s@KeyUsage' {} a -> s {cRLSign = a} :: KeyUsage)
 
 -- | Key can be used to encipher data.
-kuKeyEncipherment :: Lens' KeyUsage (Maybe Bool)
-kuKeyEncipherment = lens _kuKeyEncipherment (\s a -> s {_kuKeyEncipherment = a})
+keyUsage_keyEncipherment :: Lens.Lens' KeyUsage (Prelude.Maybe Prelude.Bool)
+keyUsage_keyEncipherment = Lens.lens (\KeyUsage' {keyEncipherment} -> keyEncipherment) (\s@KeyUsage' {} a -> s {keyEncipherment = a} :: KeyUsage)
 
 -- | Key can be used only to encipher data.
-kuEncipherOnly :: Lens' KeyUsage (Maybe Bool)
-kuEncipherOnly = lens _kuEncipherOnly (\s a -> s {_kuEncipherOnly = a})
+keyUsage_encipherOnly :: Lens.Lens' KeyUsage (Prelude.Maybe Prelude.Bool)
+keyUsage_encipherOnly = Lens.lens (\KeyUsage' {encipherOnly} -> encipherOnly) (\s@KeyUsage' {} a -> s {encipherOnly = a} :: KeyUsage)
 
 -- | Key can be used in a key-agreement protocol.
-kuKeyAgreement :: Lens' KeyUsage (Maybe Bool)
-kuKeyAgreement = lens _kuKeyAgreement (\s a -> s {_kuKeyAgreement = a})
+keyUsage_keyAgreement :: Lens.Lens' KeyUsage (Prelude.Maybe Prelude.Bool)
+keyUsage_keyAgreement = Lens.lens (\KeyUsage' {keyAgreement} -> keyAgreement) (\s@KeyUsage' {} a -> s {keyAgreement = a} :: KeyUsage)
 
 -- | Key can be used for digital signing.
-kuDigitalSignature :: Lens' KeyUsage (Maybe Bool)
-kuDigitalSignature = lens _kuDigitalSignature (\s a -> s {_kuDigitalSignature = a})
+keyUsage_digitalSignature :: Lens.Lens' KeyUsage (Prelude.Maybe Prelude.Bool)
+keyUsage_digitalSignature = Lens.lens (\KeyUsage' {digitalSignature} -> digitalSignature) (\s@KeyUsage' {} a -> s {digitalSignature = a} :: KeyUsage)
 
 -- | Key can be used only to decipher data.
-kuDecipherOnly :: Lens' KeyUsage (Maybe Bool)
-kuDecipherOnly = lens _kuDecipherOnly (\s a -> s {_kuDecipherOnly = a})
+keyUsage_decipherOnly :: Lens.Lens' KeyUsage (Prelude.Maybe Prelude.Bool)
+keyUsage_decipherOnly = Lens.lens (\KeyUsage' {decipherOnly} -> decipherOnly) (\s@KeyUsage' {} a -> s {decipherOnly = a} :: KeyUsage)
 
 -- | Key can be used for non-repudiation.
-kuNonRepudiation :: Lens' KeyUsage (Maybe Bool)
-kuNonRepudiation = lens _kuNonRepudiation (\s a -> s {_kuNonRepudiation = a})
+keyUsage_nonRepudiation :: Lens.Lens' KeyUsage (Prelude.Maybe Prelude.Bool)
+keyUsage_nonRepudiation = Lens.lens (\KeyUsage' {nonRepudiation} -> nonRepudiation) (\s@KeyUsage' {} a -> s {nonRepudiation = a} :: KeyUsage)
 
-instance FromJSON KeyUsage where
+instance Prelude.FromJSON KeyUsage where
   parseJSON =
-    withObject
+    Prelude.withObject
       "KeyUsage"
       ( \x ->
           KeyUsage'
-            <$> (x .:? "DataEncipherment")
-            <*> (x .:? "KeyCertSign")
-            <*> (x .:? "CRLSign")
-            <*> (x .:? "KeyEncipherment")
-            <*> (x .:? "EncipherOnly")
-            <*> (x .:? "KeyAgreement")
-            <*> (x .:? "DigitalSignature")
-            <*> (x .:? "DecipherOnly")
-            <*> (x .:? "NonRepudiation")
+            Prelude.<$> (x Prelude..:? "DataEncipherment")
+            Prelude.<*> (x Prelude..:? "KeyCertSign")
+            Prelude.<*> (x Prelude..:? "CRLSign")
+            Prelude.<*> (x Prelude..:? "KeyEncipherment")
+            Prelude.<*> (x Prelude..:? "EncipherOnly")
+            Prelude.<*> (x Prelude..:? "KeyAgreement")
+            Prelude.<*> (x Prelude..:? "DigitalSignature")
+            Prelude.<*> (x Prelude..:? "DecipherOnly")
+            Prelude.<*> (x Prelude..:? "NonRepudiation")
       )
 
-instance Hashable KeyUsage
+instance Prelude.Hashable KeyUsage
 
-instance NFData KeyUsage
+instance Prelude.NFData KeyUsage
 
-instance ToJSON KeyUsage where
+instance Prelude.ToJSON KeyUsage where
   toJSON KeyUsage' {..} =
-    object
-      ( catMaybes
-          [ ("DataEncipherment" .=) <$> _kuDataEncipherment,
-            ("KeyCertSign" .=) <$> _kuKeyCertSign,
-            ("CRLSign" .=) <$> _kuCRLSign,
-            ("KeyEncipherment" .=) <$> _kuKeyEncipherment,
-            ("EncipherOnly" .=) <$> _kuEncipherOnly,
-            ("KeyAgreement" .=) <$> _kuKeyAgreement,
-            ("DigitalSignature" .=) <$> _kuDigitalSignature,
-            ("DecipherOnly" .=) <$> _kuDecipherOnly,
-            ("NonRepudiation" .=) <$> _kuNonRepudiation
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("DataEncipherment" Prelude..=)
+              Prelude.<$> dataEncipherment,
+            ("KeyCertSign" Prelude..=) Prelude.<$> keyCertSign,
+            ("CRLSign" Prelude..=) Prelude.<$> cRLSign,
+            ("KeyEncipherment" Prelude..=)
+              Prelude.<$> keyEncipherment,
+            ("EncipherOnly" Prelude..=) Prelude.<$> encipherOnly,
+            ("KeyAgreement" Prelude..=) Prelude.<$> keyAgreement,
+            ("DigitalSignature" Prelude..=)
+              Prelude.<$> digitalSignature,
+            ("DecipherOnly" Prelude..=) Prelude.<$> decipherOnly,
+            ("NonRepudiation" Prelude..=)
+              Prelude.<$> nonRepudiation
           ]
       )

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,132 +21,155 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Adds one or more tags to your private CA. Tags are labels that you can use to identify and organize your AWS resources. Each tag consists of a key and an optional value. You specify the private CA on input by its Amazon Resource Name (ARN). You specify the tag by using a key-value pair. You can apply a tag to just one private CA if you want to identify a specific characteristic of that CA, or you can apply the same tag to multiple private CAs if you want to filter for a common relationship among those CAs. To remove one or more tags, use the <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_UntagCertificateAuthority.html UntagCertificateAuthority> action. Call the <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_ListTags.html ListTags> action to see what tags are associated with your CA.
+-- Adds one or more tags to your private CA. Tags are labels that you can
+-- use to identify and organize your AWS resources. Each tag consists of a
+-- key and an optional value. You specify the private CA on input by its
+-- Amazon Resource Name (ARN). You specify the tag by using a key-value
+-- pair. You can apply a tag to just one private CA if you want to identify
+-- a specific characteristic of that CA, or you can apply the same tag to
+-- multiple private CAs if you want to filter for a common relationship
+-- among those CAs. To remove one or more tags, use the
+-- <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_UntagCertificateAuthority.html UntagCertificateAuthority>
+-- action. Call the
+-- <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_ListTags.html ListTags>
+-- action to see what tags are associated with your CA.
 module Network.AWS.CertificateManagerPCA.TagCertificateAuthority
   ( -- * Creating a Request
-    tagCertificateAuthority,
-    TagCertificateAuthority,
+    TagCertificateAuthority (..),
+    newTagCertificateAuthority,
 
     -- * Request Lenses
-    tcaCertificateAuthorityARN,
-    tcaTags,
+    tagCertificateAuthority_certificateAuthorityArn,
+    tagCertificateAuthority_tags,
 
     -- * Destructuring the Response
-    tagCertificateAuthorityResponse,
-    TagCertificateAuthorityResponse,
+    TagCertificateAuthorityResponse (..),
+    newTagCertificateAuthorityResponse,
   )
 where
 
 import Network.AWS.CertificateManagerPCA.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'tagCertificateAuthority' smart constructor.
+-- | /See:/ 'newTagCertificateAuthority' smart constructor.
 data TagCertificateAuthority = TagCertificateAuthority'
-  { _tcaCertificateAuthorityARN ::
-      !Text,
-    _tcaTags ::
-      !(List1 Tag)
+  { -- | The Amazon Resource Name (ARN) that was returned when you called
+    -- <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_CreateCertificateAuthority.html CreateCertificateAuthority>.
+    -- This must be of the form:
+    --
+    -- @arn:aws:acm-pca:region:account:certificate-authority\/12345678-1234-1234-1234-123456789012 @
+    certificateAuthorityArn :: Prelude.Text,
+    -- | List of tags to be associated with the CA.
+    tags :: Prelude.List1 Tag
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TagCertificateAuthority' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TagCertificateAuthority' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tcaCertificateAuthorityARN' - The Amazon Resource Name (ARN) that was returned when you called <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_CreateCertificateAuthority.html CreateCertificateAuthority> . This must be of the form:  @arn:aws:acm-pca:/region/ :/account/ :certificate-authority//12345678-1234-1234-1234-123456789012/ @
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tcaTags' - List of tags to be associated with the CA.
-tagCertificateAuthority ::
-  -- | 'tcaCertificateAuthorityARN'
-  Text ->
-  -- | 'tcaTags'
-  NonEmpty Tag ->
+-- 'certificateAuthorityArn', 'tagCertificateAuthority_certificateAuthorityArn' - The Amazon Resource Name (ARN) that was returned when you called
+-- <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_CreateCertificateAuthority.html CreateCertificateAuthority>.
+-- This must be of the form:
+--
+-- @arn:aws:acm-pca:region:account:certificate-authority\/12345678-1234-1234-1234-123456789012 @
+--
+-- 'tags', 'tagCertificateAuthority_tags' - List of tags to be associated with the CA.
+newTagCertificateAuthority ::
+  -- | 'certificateAuthorityArn'
+  Prelude.Text ->
+  -- | 'tags'
+  Prelude.NonEmpty Tag ->
   TagCertificateAuthority
-tagCertificateAuthority
-  pCertificateAuthorityARN_
+newTagCertificateAuthority
+  pCertificateAuthorityArn_
   pTags_ =
     TagCertificateAuthority'
-      { _tcaCertificateAuthorityARN =
-          pCertificateAuthorityARN_,
-        _tcaTags = _List1 # pTags_
+      { certificateAuthorityArn =
+          pCertificateAuthorityArn_,
+        tags = Prelude._List1 Lens.# pTags_
       }
 
--- | The Amazon Resource Name (ARN) that was returned when you called <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_CreateCertificateAuthority.html CreateCertificateAuthority> . This must be of the form:  @arn:aws:acm-pca:/region/ :/account/ :certificate-authority//12345678-1234-1234-1234-123456789012/ @
-tcaCertificateAuthorityARN :: Lens' TagCertificateAuthority Text
-tcaCertificateAuthorityARN = lens _tcaCertificateAuthorityARN (\s a -> s {_tcaCertificateAuthorityARN = a})
+-- | The Amazon Resource Name (ARN) that was returned when you called
+-- <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_CreateCertificateAuthority.html CreateCertificateAuthority>.
+-- This must be of the form:
+--
+-- @arn:aws:acm-pca:region:account:certificate-authority\/12345678-1234-1234-1234-123456789012 @
+tagCertificateAuthority_certificateAuthorityArn :: Lens.Lens' TagCertificateAuthority Prelude.Text
+tagCertificateAuthority_certificateAuthorityArn = Lens.lens (\TagCertificateAuthority' {certificateAuthorityArn} -> certificateAuthorityArn) (\s@TagCertificateAuthority' {} a -> s {certificateAuthorityArn = a} :: TagCertificateAuthority)
 
 -- | List of tags to be associated with the CA.
-tcaTags :: Lens' TagCertificateAuthority (NonEmpty Tag)
-tcaTags = lens _tcaTags (\s a -> s {_tcaTags = a}) . _List1
+tagCertificateAuthority_tags :: Lens.Lens' TagCertificateAuthority (Prelude.NonEmpty Tag)
+tagCertificateAuthority_tags = Lens.lens (\TagCertificateAuthority' {tags} -> tags) (\s@TagCertificateAuthority' {} a -> s {tags = a} :: TagCertificateAuthority) Prelude.. Prelude._List1
 
-instance AWSRequest TagCertificateAuthority where
+instance Prelude.AWSRequest TagCertificateAuthority where
   type
     Rs TagCertificateAuthority =
       TagCertificateAuthorityResponse
-  request = postJSON certificateManagerPCA
+  request = Request.postJSON defaultService
   response =
-    receiveNull TagCertificateAuthorityResponse'
+    Response.receiveNull
+      TagCertificateAuthorityResponse'
 
-instance Hashable TagCertificateAuthority
+instance Prelude.Hashable TagCertificateAuthority
 
-instance NFData TagCertificateAuthority
+instance Prelude.NFData TagCertificateAuthority
 
-instance ToHeaders TagCertificateAuthority where
+instance Prelude.ToHeaders TagCertificateAuthority where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "ACMPrivateCA.TagCertificateAuthority" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "ACMPrivateCA.TagCertificateAuthority" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON TagCertificateAuthority where
+instance Prelude.ToJSON TagCertificateAuthority where
   toJSON TagCertificateAuthority' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "CertificateAuthorityArn"
-                  .= _tcaCertificateAuthorityARN
+                  Prelude..= certificateAuthorityArn
               ),
-            Just ("Tags" .= _tcaTags)
+            Prelude.Just ("Tags" Prelude..= tags)
           ]
       )
 
-instance ToPath TagCertificateAuthority where
-  toPath = const "/"
+instance Prelude.ToPath TagCertificateAuthority where
+  toPath = Prelude.const "/"
 
-instance ToQuery TagCertificateAuthority where
-  toQuery = const mempty
+instance Prelude.ToQuery TagCertificateAuthority where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'tagCertificateAuthorityResponse' smart constructor.
+-- | /See:/ 'newTagCertificateAuthorityResponse' smart constructor.
 data TagCertificateAuthorityResponse = TagCertificateAuthorityResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TagCertificateAuthorityResponse' with the minimum fields required to make a request.
-tagCertificateAuthorityResponse ::
+-- |
+-- Create a value of 'TagCertificateAuthorityResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newTagCertificateAuthorityResponse ::
   TagCertificateAuthorityResponse
-tagCertificateAuthorityResponse =
+newTagCertificateAuthorityResponse =
   TagCertificateAuthorityResponse'
 
-instance NFData TagCertificateAuthorityResponse
+instance
+  Prelude.NFData
+    TagCertificateAuthorityResponse

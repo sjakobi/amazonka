@@ -11,13 +11,24 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- This is the /ACM Private CA API Reference/ . It provides descriptions, syntax, and usage examples for each of the actions and data types involved in creating and managing private certificate authorities (CA) for your organization.
+-- This is the /ACM Private CA API Reference/. It provides descriptions,
+-- syntax, and usage examples for each of the actions and data types
+-- involved in creating and managing private certificate authorities (CA)
+-- for your organization.
 --
+-- The documentation for each action shows the Query API request parameters
+-- and the XML response. Alternatively, you can use one of the AWS SDKs to
+-- access an API that\'s tailored to the programming language or platform
+-- that you\'re using. For more information, see
+-- <https://aws.amazon.com/tools/#SDKs AWS SDKs>.
 --
--- The documentation for each action shows the Query API request parameters and the XML response. Alternatively, you can use one of the AWS SDKs to access an API that's tailored to the programming language or platform that you're using. For more information, see <https://aws.amazon.com/tools/#SDKs AWS SDKs> .
+-- Each ACM Private CA API action has a quota that determines the number of
+-- times the action can be called per second. For more information, see
+-- <https://docs.aws.amazon.com/acm-pca/latest/userguide/PcaLimits.html#PcaLimits-api API Rate Quotas in ACM Private CA>
+-- in the ACM Private CA user guide.
 module Network.AWS.CertificateManagerPCA
   ( -- * Service Configuration
-    certificateManagerPCA,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -34,8 +45,8 @@ module Network.AWS.CertificateManagerPCA
     -- ** InvalidPolicyException
     _InvalidPolicyException,
 
-    -- ** InvalidARNException
-    _InvalidARNException,
+    -- ** InvalidArnException
+    _InvalidArnException,
 
     -- ** MalformedCertificateException
     _MalformedCertificateException,
@@ -83,85 +94,154 @@ module Network.AWS.CertificateManagerPCA
     -- $waiters
 
     -- ** AuditReportCreated
-    auditReportCreated,
+    newAuditReportCreated,
 
     -- ** CertificateAuthorityCSRCreated
-    certificateAuthorityCSRCreated,
+    newCertificateAuthorityCSRCreated,
 
     -- ** CertificateIssued
-    certificateIssued,
+    newCertificateIssued,
 
     -- * Operations
     -- $operations
 
     -- ** CreatePermission
-    module Network.AWS.CertificateManagerPCA.CreatePermission,
+    CreatePermission (CreatePermission'),
+    newCreatePermission,
+    CreatePermissionResponse (CreatePermissionResponse'),
+    newCreatePermissionResponse,
 
     -- ** RestoreCertificateAuthority
-    module Network.AWS.CertificateManagerPCA.RestoreCertificateAuthority,
+    RestoreCertificateAuthority (RestoreCertificateAuthority'),
+    newRestoreCertificateAuthority,
+    RestoreCertificateAuthorityResponse (RestoreCertificateAuthorityResponse'),
+    newRestoreCertificateAuthorityResponse,
 
     -- ** DeletePolicy
-    module Network.AWS.CertificateManagerPCA.DeletePolicy,
+    DeletePolicy (DeletePolicy'),
+    newDeletePolicy,
+    DeletePolicyResponse (DeletePolicyResponse'),
+    newDeletePolicyResponse,
 
     -- ** DescribeCertificateAuthority
-    module Network.AWS.CertificateManagerPCA.DescribeCertificateAuthority,
+    DescribeCertificateAuthority (DescribeCertificateAuthority'),
+    newDescribeCertificateAuthority,
+    DescribeCertificateAuthorityResponse (DescribeCertificateAuthorityResponse'),
+    newDescribeCertificateAuthorityResponse,
 
     -- ** TagCertificateAuthority
-    module Network.AWS.CertificateManagerPCA.TagCertificateAuthority,
+    TagCertificateAuthority (TagCertificateAuthority'),
+    newTagCertificateAuthority,
+    TagCertificateAuthorityResponse (TagCertificateAuthorityResponse'),
+    newTagCertificateAuthorityResponse,
 
     -- ** CreateCertificateAuthorityAuditReport
-    module Network.AWS.CertificateManagerPCA.CreateCertificateAuthorityAuditReport,
+    CreateCertificateAuthorityAuditReport (CreateCertificateAuthorityAuditReport'),
+    newCreateCertificateAuthorityAuditReport,
+    CreateCertificateAuthorityAuditReportResponse (CreateCertificateAuthorityAuditReportResponse'),
+    newCreateCertificateAuthorityAuditReportResponse,
 
     -- ** GetCertificate
-    module Network.AWS.CertificateManagerPCA.GetCertificate,
+    GetCertificate (GetCertificate'),
+    newGetCertificate,
+    GetCertificateResponse (GetCertificateResponse'),
+    newGetCertificateResponse,
 
     -- ** CreateCertificateAuthority
-    module Network.AWS.CertificateManagerPCA.CreateCertificateAuthority,
+    CreateCertificateAuthority (CreateCertificateAuthority'),
+    newCreateCertificateAuthority,
+    CreateCertificateAuthorityResponse (CreateCertificateAuthorityResponse'),
+    newCreateCertificateAuthorityResponse,
 
-    -- ** GetCertificateAuthorityCSR
-    module Network.AWS.CertificateManagerPCA.GetCertificateAuthorityCSR,
+    -- ** GetCertificateAuthorityCsr
+    GetCertificateAuthorityCsr (GetCertificateAuthorityCsr'),
+    newGetCertificateAuthorityCsr,
+    GetCertificateAuthorityCsrResponse (GetCertificateAuthorityCsrResponse'),
+    newGetCertificateAuthorityCsrResponse,
 
     -- ** ListCertificateAuthorities (Paginated)
-    module Network.AWS.CertificateManagerPCA.ListCertificateAuthorities,
+    ListCertificateAuthorities (ListCertificateAuthorities'),
+    newListCertificateAuthorities,
+    ListCertificateAuthoritiesResponse (ListCertificateAuthoritiesResponse'),
+    newListCertificateAuthoritiesResponse,
 
     -- ** RevokeCertificate
-    module Network.AWS.CertificateManagerPCA.RevokeCertificate,
+    RevokeCertificate (RevokeCertificate'),
+    newRevokeCertificate,
+    RevokeCertificateResponse (RevokeCertificateResponse'),
+    newRevokeCertificateResponse,
 
     -- ** DeletePermission
-    module Network.AWS.CertificateManagerPCA.DeletePermission,
+    DeletePermission (DeletePermission'),
+    newDeletePermission,
+    DeletePermissionResponse (DeletePermissionResponse'),
+    newDeletePermissionResponse,
 
     -- ** ListPermissions (Paginated)
-    module Network.AWS.CertificateManagerPCA.ListPermissions,
+    ListPermissions (ListPermissions'),
+    newListPermissions,
+    ListPermissionsResponse (ListPermissionsResponse'),
+    newListPermissionsResponse,
 
     -- ** GetCertificateAuthorityCertificate
-    module Network.AWS.CertificateManagerPCA.GetCertificateAuthorityCertificate,
+    GetCertificateAuthorityCertificate (GetCertificateAuthorityCertificate'),
+    newGetCertificateAuthorityCertificate,
+    GetCertificateAuthorityCertificateResponse (GetCertificateAuthorityCertificateResponse'),
+    newGetCertificateAuthorityCertificateResponse,
 
     -- ** IssueCertificate
-    module Network.AWS.CertificateManagerPCA.IssueCertificate,
+    IssueCertificate (IssueCertificate'),
+    newIssueCertificate,
+    IssueCertificateResponse (IssueCertificateResponse'),
+    newIssueCertificateResponse,
 
     -- ** ImportCertificateAuthorityCertificate
-    module Network.AWS.CertificateManagerPCA.ImportCertificateAuthorityCertificate,
+    ImportCertificateAuthorityCertificate (ImportCertificateAuthorityCertificate'),
+    newImportCertificateAuthorityCertificate,
+    ImportCertificateAuthorityCertificateResponse (ImportCertificateAuthorityCertificateResponse'),
+    newImportCertificateAuthorityCertificateResponse,
 
     -- ** PutPolicy
-    module Network.AWS.CertificateManagerPCA.PutPolicy,
+    PutPolicy (PutPolicy'),
+    newPutPolicy,
+    PutPolicyResponse (PutPolicyResponse'),
+    newPutPolicyResponse,
 
     -- ** GetPolicy
-    module Network.AWS.CertificateManagerPCA.GetPolicy,
+    GetPolicy (GetPolicy'),
+    newGetPolicy,
+    GetPolicyResponse (GetPolicyResponse'),
+    newGetPolicyResponse,
 
     -- ** ListTags (Paginated)
-    module Network.AWS.CertificateManagerPCA.ListTags,
+    ListTags (ListTags'),
+    newListTags,
+    ListTagsResponse (ListTagsResponse'),
+    newListTagsResponse,
 
     -- ** DeleteCertificateAuthority
-    module Network.AWS.CertificateManagerPCA.DeleteCertificateAuthority,
+    DeleteCertificateAuthority (DeleteCertificateAuthority'),
+    newDeleteCertificateAuthority,
+    DeleteCertificateAuthorityResponse (DeleteCertificateAuthorityResponse'),
+    newDeleteCertificateAuthorityResponse,
 
     -- ** UpdateCertificateAuthority
-    module Network.AWS.CertificateManagerPCA.UpdateCertificateAuthority,
+    UpdateCertificateAuthority (UpdateCertificateAuthority'),
+    newUpdateCertificateAuthority,
+    UpdateCertificateAuthorityResponse (UpdateCertificateAuthorityResponse'),
+    newUpdateCertificateAuthorityResponse,
 
     -- ** UntagCertificateAuthority
-    module Network.AWS.CertificateManagerPCA.UntagCertificateAuthority,
+    UntagCertificateAuthority (UntagCertificateAuthority'),
+    newUntagCertificateAuthority,
+    UntagCertificateAuthorityResponse (UntagCertificateAuthorityResponse'),
+    newUntagCertificateAuthorityResponse,
 
     -- ** DescribeCertificateAuthorityAuditReport
-    module Network.AWS.CertificateManagerPCA.DescribeCertificateAuthorityAuditReport,
+    DescribeCertificateAuthorityAuditReport (DescribeCertificateAuthorityAuditReport'),
+    newDescribeCertificateAuthorityAuditReport,
+    DescribeCertificateAuthorityAuditReportResponse (DescribeCertificateAuthorityAuditReportResponse'),
+    newDescribeCertificateAuthorityAuditReportResponse,
 
     -- * Types
 
@@ -207,175 +287,89 @@ module Network.AWS.CertificateManagerPCA
     -- ** ValidityPeriodType
     ValidityPeriodType (..),
 
-    -- ** APIPassthrough
-    APIPassthrough,
-    apiPassthrough,
-    apExtensions,
-    apSubject,
-
     -- ** ASN1Subject
-    ASN1Subject,
-    asn1Subject,
-    asLocality,
-    asGenerationQualifier,
-    asSurname,
-    asTitle,
-    asOrganizationalUnit,
-    asInitials,
-    asPseudonym,
-    asCommonName,
-    asState,
-    asGivenName,
-    asOrganization,
-    asDistinguishedNameQualifier,
-    asSerialNumber,
-    asCountry,
+    ASN1Subject (ASN1Subject'),
+    newASN1Subject,
 
     -- ** AccessDescription
-    AccessDescription,
-    accessDescription,
-    adAccessMethod,
-    adAccessLocation,
+    AccessDescription (AccessDescription'),
+    newAccessDescription,
 
     -- ** AccessMethod
-    AccessMethod,
-    accessMethod,
-    amAccessMethodType,
-    amCustomObjectIdentifier,
+    AccessMethod (AccessMethod'),
+    newAccessMethod,
+
+    -- ** ApiPassthrough
+    ApiPassthrough (ApiPassthrough'),
+    newApiPassthrough,
 
     -- ** CertificateAuthority
-    CertificateAuthority,
-    certificateAuthority,
-    caStatus,
-    caNotBefore,
-    caRevocationConfiguration,
-    caSerial,
-    caARN,
-    caCreatedAt,
-    caCertificateAuthorityConfiguration,
-    caFailureReason,
-    caNotAfter,
-    caLastStateChangeAt,
-    caType,
-    caOwnerAccount,
-    caRestorableUntil,
+    CertificateAuthority (CertificateAuthority'),
+    newCertificateAuthority,
 
     -- ** CertificateAuthorityConfiguration
-    CertificateAuthorityConfiguration,
-    certificateAuthorityConfiguration,
-    cacCsrExtensions,
-    cacKeyAlgorithm,
-    cacSigningAlgorithm,
-    cacSubject,
+    CertificateAuthorityConfiguration (CertificateAuthorityConfiguration'),
+    newCertificateAuthorityConfiguration,
 
     -- ** CrlConfiguration
-    CrlConfiguration,
-    crlConfiguration,
-    ccCustomCname,
-    ccS3BucketName,
-    ccExpirationInDays,
-    ccEnabled,
+    CrlConfiguration (CrlConfiguration'),
+    newCrlConfiguration,
 
     -- ** CsrExtensions
-    CsrExtensions,
-    csrExtensions,
-    ceSubjectInformationAccess,
-    ceKeyUsage,
+    CsrExtensions (CsrExtensions'),
+    newCsrExtensions,
 
     -- ** EdiPartyName
-    EdiPartyName,
-    ediPartyName,
-    epnNameAssigner,
-    epnPartyName,
+    EdiPartyName (EdiPartyName'),
+    newEdiPartyName,
 
     -- ** ExtendedKeyUsage
-    ExtendedKeyUsage,
-    extendedKeyUsage,
-    ekuExtendedKeyUsageObjectIdentifier,
-    ekuExtendedKeyUsageType,
+    ExtendedKeyUsage (ExtendedKeyUsage'),
+    newExtendedKeyUsage,
 
     -- ** Extensions
-    Extensions,
-    extensions,
-    eCertificatePolicies,
-    eExtendedKeyUsage,
-    eSubjectAlternativeNames,
-    eKeyUsage,
+    Extensions (Extensions'),
+    newExtensions,
 
     -- ** GeneralName
-    GeneralName,
-    generalName,
-    gnEdiPartyName,
-    gnOtherName,
-    gnUniformResourceIdentifier,
-    gnIPAddress,
-    gnDNSName,
-    gnDirectoryName,
-    gnRfc822Name,
-    gnRegisteredId,
+    GeneralName (GeneralName'),
+    newGeneralName,
 
     -- ** KeyUsage
-    KeyUsage,
-    keyUsage,
-    kuDataEncipherment,
-    kuKeyCertSign,
-    kuCRLSign,
-    kuKeyEncipherment,
-    kuEncipherOnly,
-    kuKeyAgreement,
-    kuDigitalSignature,
-    kuDecipherOnly,
-    kuNonRepudiation,
+    KeyUsage (KeyUsage'),
+    newKeyUsage,
 
     -- ** OtherName
-    OtherName,
-    otherName,
-    onTypeId,
-    onValue,
+    OtherName (OtherName'),
+    newOtherName,
 
     -- ** Permission
-    Permission,
-    permission,
-    pCertificateAuthorityARN,
-    pCreatedAt,
-    pActions,
-    pPrincipal,
-    pSourceAccount,
-    pPolicy,
+    Permission (Permission'),
+    newPermission,
 
     -- ** PolicyInformation
-    PolicyInformation,
-    policyInformation,
-    piPolicyQualifiers,
-    piCertPolicyId,
+    PolicyInformation (PolicyInformation'),
+    newPolicyInformation,
 
     -- ** PolicyQualifierInfo
-    PolicyQualifierInfo,
-    policyQualifierInfo,
-    pqiPolicyQualifierId,
-    pqiQualifier,
+    PolicyQualifierInfo (PolicyQualifierInfo'),
+    newPolicyQualifierInfo,
 
     -- ** Qualifier
-    Qualifier,
-    qualifier,
-    qCpsURI,
+    Qualifier (Qualifier'),
+    newQualifier,
 
     -- ** RevocationConfiguration
-    RevocationConfiguration,
-    revocationConfiguration,
-    rcCrlConfiguration,
+    RevocationConfiguration (RevocationConfiguration'),
+    newRevocationConfiguration,
 
     -- ** Tag
-    Tag,
-    tag,
-    tagValue,
-    tagKey,
+    Tag (Tag'),
+    newTag,
 
     -- ** Validity
-    Validity,
-    validity,
-    vValue,
-    vType,
+    Validity (Validity'),
+    newValidity,
   )
 where
 
@@ -388,11 +382,12 @@ import Network.AWS.CertificateManagerPCA.DeletePolicy
 import Network.AWS.CertificateManagerPCA.DescribeCertificateAuthority
 import Network.AWS.CertificateManagerPCA.DescribeCertificateAuthorityAuditReport
 import Network.AWS.CertificateManagerPCA.GetCertificate
-import Network.AWS.CertificateManagerPCA.GetCertificateAuthorityCSR
 import Network.AWS.CertificateManagerPCA.GetCertificateAuthorityCertificate
+import Network.AWS.CertificateManagerPCA.GetCertificateAuthorityCsr
 import Network.AWS.CertificateManagerPCA.GetPolicy
 import Network.AWS.CertificateManagerPCA.ImportCertificateAuthorityCertificate
 import Network.AWS.CertificateManagerPCA.IssueCertificate
+import Network.AWS.CertificateManagerPCA.Lens
 import Network.AWS.CertificateManagerPCA.ListCertificateAuthorities
 import Network.AWS.CertificateManagerPCA.ListPermissions
 import Network.AWS.CertificateManagerPCA.ListTags

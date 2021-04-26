@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,48 +19,50 @@
 module Network.AWS.CertificateManagerPCA.Types.PolicyQualifierId
   ( PolicyQualifierId
       ( ..,
-        Cps
+        PolicyQualifierIdCPS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PolicyQualifierId = PolicyQualifierId' (CI Text)
+newtype PolicyQualifierId = PolicyQualifierId'
+  { fromPolicyQualifierId ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Cps :: PolicyQualifierId
-pattern Cps = PolicyQualifierId' "CPS"
+pattern PolicyQualifierIdCPS :: PolicyQualifierId
+pattern PolicyQualifierIdCPS = PolicyQualifierId' "CPS"
 
 {-# COMPLETE
-  Cps,
+  PolicyQualifierIdCPS,
   PolicyQualifierId'
   #-}
 
-instance FromText PolicyQualifierId where
-  parser = (PolicyQualifierId' . mk) <$> takeText
+instance Prelude.FromText PolicyQualifierId where
+  parser = PolicyQualifierId' Prelude.<$> Prelude.takeText
 
-instance ToText PolicyQualifierId where
-  toText (PolicyQualifierId' ci) = original ci
+instance Prelude.ToText PolicyQualifierId where
+  toText (PolicyQualifierId' x) = x
 
-instance Hashable PolicyQualifierId
+instance Prelude.Hashable PolicyQualifierId
 
-instance NFData PolicyQualifierId
+instance Prelude.NFData PolicyQualifierId
 
-instance ToByteString PolicyQualifierId
+instance Prelude.ToByteString PolicyQualifierId
 
-instance ToQuery PolicyQualifierId
+instance Prelude.ToQuery PolicyQualifierId
 
-instance ToHeader PolicyQualifierId
+instance Prelude.ToHeader PolicyQualifierId
 
-instance ToJSON PolicyQualifierId where
-  toJSON = toJSONText
+instance Prelude.ToJSON PolicyQualifierId where
+  toJSON = Prelude.toJSONText

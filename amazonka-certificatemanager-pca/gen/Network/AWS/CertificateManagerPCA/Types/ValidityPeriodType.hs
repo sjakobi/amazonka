@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,72 +19,70 @@
 module Network.AWS.CertificateManagerPCA.Types.ValidityPeriodType
   ( ValidityPeriodType
       ( ..,
-        Absolute,
-        Days,
-        EndDate,
-        Months,
-        Years
+        ValidityPeriodTypeABSOLUTE,
+        ValidityPeriodTypeDAYS,
+        ValidityPeriodTypeENDDATE,
+        ValidityPeriodTypeMONTHS,
+        ValidityPeriodTypeYEARS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ValidityPeriodType
-  = ValidityPeriodType'
-      ( CI
-          Text
-      )
+newtype ValidityPeriodType = ValidityPeriodType'
+  { fromValidityPeriodType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Absolute :: ValidityPeriodType
-pattern Absolute = ValidityPeriodType' "ABSOLUTE"
+pattern ValidityPeriodTypeABSOLUTE :: ValidityPeriodType
+pattern ValidityPeriodTypeABSOLUTE = ValidityPeriodType' "ABSOLUTE"
 
-pattern Days :: ValidityPeriodType
-pattern Days = ValidityPeriodType' "DAYS"
+pattern ValidityPeriodTypeDAYS :: ValidityPeriodType
+pattern ValidityPeriodTypeDAYS = ValidityPeriodType' "DAYS"
 
-pattern EndDate :: ValidityPeriodType
-pattern EndDate = ValidityPeriodType' "END_DATE"
+pattern ValidityPeriodTypeENDDATE :: ValidityPeriodType
+pattern ValidityPeriodTypeENDDATE = ValidityPeriodType' "END_DATE"
 
-pattern Months :: ValidityPeriodType
-pattern Months = ValidityPeriodType' "MONTHS"
+pattern ValidityPeriodTypeMONTHS :: ValidityPeriodType
+pattern ValidityPeriodTypeMONTHS = ValidityPeriodType' "MONTHS"
 
-pattern Years :: ValidityPeriodType
-pattern Years = ValidityPeriodType' "YEARS"
+pattern ValidityPeriodTypeYEARS :: ValidityPeriodType
+pattern ValidityPeriodTypeYEARS = ValidityPeriodType' "YEARS"
 
 {-# COMPLETE
-  Absolute,
-  Days,
-  EndDate,
-  Months,
-  Years,
+  ValidityPeriodTypeABSOLUTE,
+  ValidityPeriodTypeDAYS,
+  ValidityPeriodTypeENDDATE,
+  ValidityPeriodTypeMONTHS,
+  ValidityPeriodTypeYEARS,
   ValidityPeriodType'
   #-}
 
-instance FromText ValidityPeriodType where
-  parser = (ValidityPeriodType' . mk) <$> takeText
+instance Prelude.FromText ValidityPeriodType where
+  parser = ValidityPeriodType' Prelude.<$> Prelude.takeText
 
-instance ToText ValidityPeriodType where
-  toText (ValidityPeriodType' ci) = original ci
+instance Prelude.ToText ValidityPeriodType where
+  toText (ValidityPeriodType' x) = x
 
-instance Hashable ValidityPeriodType
+instance Prelude.Hashable ValidityPeriodType
 
-instance NFData ValidityPeriodType
+instance Prelude.NFData ValidityPeriodType
 
-instance ToByteString ValidityPeriodType
+instance Prelude.ToByteString ValidityPeriodType
 
-instance ToQuery ValidityPeriodType
+instance Prelude.ToQuery ValidityPeriodType
 
-instance ToHeader ValidityPeriodType
+instance Prelude.ToHeader ValidityPeriodType
 
-instance ToJSON ValidityPeriodType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ValidityPeriodType where
+  toJSON = Prelude.toJSONText

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,117 +21,157 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Restores a certificate authority (CA) that is in the @DELETED@ state. You can restore a CA during the period that you defined in the __PermanentDeletionTimeInDays__ parameter of the <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_DeleteCertificateAuthority.html DeleteCertificateAuthority> action. Currently, you can specify 7 to 30 days. If you did not specify a __PermanentDeletionTimeInDays__ value, by default you can restore the CA at any time in a 30 day period. You can check the time remaining in the restoration period of a private CA in the @DELETED@ state by calling the <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_DescribeCertificateAuthority.html DescribeCertificateAuthority> or <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_ListCertificateAuthorities.html ListCertificateAuthorities> actions. The status of a restored CA is set to its pre-deletion status when the __RestoreCertificateAuthority__ action returns. To change its status to @ACTIVE@ , call the <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_UpdateCertificateAuthority.html UpdateCertificateAuthority> action. If the private CA was in the @PENDING_CERTIFICATE@ state at deletion, you must use the <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_ImportCertificateAuthorityCertificate.html ImportCertificateAuthorityCertificate> action to import a certificate authority into the private CA before it can be activated. You cannot restore a CA after the restoration period has ended.
+-- Restores a certificate authority (CA) that is in the @DELETED@ state.
+-- You can restore a CA during the period that you defined in the
+-- __PermanentDeletionTimeInDays__ parameter of the
+-- <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_DeleteCertificateAuthority.html DeleteCertificateAuthority>
+-- action. Currently, you can specify 7 to 30 days. If you did not specify
+-- a __PermanentDeletionTimeInDays__ value, by default you can restore the
+-- CA at any time in a 30 day period. You can check the time remaining in
+-- the restoration period of a private CA in the @DELETED@ state by calling
+-- the
+-- <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_DescribeCertificateAuthority.html DescribeCertificateAuthority>
+-- or
+-- <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_ListCertificateAuthorities.html ListCertificateAuthorities>
+-- actions. The status of a restored CA is set to its pre-deletion status
+-- when the __RestoreCertificateAuthority__ action returns. To change its
+-- status to @ACTIVE@, call the
+-- <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_UpdateCertificateAuthority.html UpdateCertificateAuthority>
+-- action. If the private CA was in the @PENDING_CERTIFICATE@ state at
+-- deletion, you must use the
+-- <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_ImportCertificateAuthorityCertificate.html ImportCertificateAuthorityCertificate>
+-- action to import a certificate authority into the private CA before it
+-- can be activated. You cannot restore a CA after the restoration period
+-- has ended.
 module Network.AWS.CertificateManagerPCA.RestoreCertificateAuthority
   ( -- * Creating a Request
-    restoreCertificateAuthority,
-    RestoreCertificateAuthority,
+    RestoreCertificateAuthority (..),
+    newRestoreCertificateAuthority,
 
     -- * Request Lenses
-    rcaCertificateAuthorityARN,
+    restoreCertificateAuthority_certificateAuthorityArn,
 
     -- * Destructuring the Response
-    restoreCertificateAuthorityResponse,
-    RestoreCertificateAuthorityResponse,
+    RestoreCertificateAuthorityResponse (..),
+    newRestoreCertificateAuthorityResponse,
   )
 where
 
 import Network.AWS.CertificateManagerPCA.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'restoreCertificateAuthority' smart constructor.
-newtype RestoreCertificateAuthority = RestoreCertificateAuthority'
-  { _rcaCertificateAuthorityARN ::
-      Text
+-- | /See:/ 'newRestoreCertificateAuthority' smart constructor.
+data RestoreCertificateAuthority = RestoreCertificateAuthority'
+  { -- | The Amazon Resource Name (ARN) that was returned when you called the
+    -- <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_CreateCertificateAuthority.html CreateCertificateAuthority>
+    -- action. This must be of the form:
+    --
+    -- @arn:aws:acm-pca:region:account:certificate-authority\/12345678-1234-1234-1234-123456789012 @
+    certificateAuthorityArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RestoreCertificateAuthority' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RestoreCertificateAuthority' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rcaCertificateAuthorityARN' - The Amazon Resource Name (ARN) that was returned when you called the <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_CreateCertificateAuthority.html CreateCertificateAuthority> action. This must be of the form:  @arn:aws:acm-pca:/region/ :/account/ :certificate-authority//12345678-1234-1234-1234-123456789012/ @
-restoreCertificateAuthority ::
-  -- | 'rcaCertificateAuthorityARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'certificateAuthorityArn', 'restoreCertificateAuthority_certificateAuthorityArn' - The Amazon Resource Name (ARN) that was returned when you called the
+-- <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_CreateCertificateAuthority.html CreateCertificateAuthority>
+-- action. This must be of the form:
+--
+-- @arn:aws:acm-pca:region:account:certificate-authority\/12345678-1234-1234-1234-123456789012 @
+newRestoreCertificateAuthority ::
+  -- | 'certificateAuthorityArn'
+  Prelude.Text ->
   RestoreCertificateAuthority
-restoreCertificateAuthority pCertificateAuthorityARN_ =
-  RestoreCertificateAuthority'
-    { _rcaCertificateAuthorityARN =
-        pCertificateAuthorityARN_
-    }
+newRestoreCertificateAuthority
+  pCertificateAuthorityArn_ =
+    RestoreCertificateAuthority'
+      { certificateAuthorityArn =
+          pCertificateAuthorityArn_
+      }
 
--- | The Amazon Resource Name (ARN) that was returned when you called the <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_CreateCertificateAuthority.html CreateCertificateAuthority> action. This must be of the form:  @arn:aws:acm-pca:/region/ :/account/ :certificate-authority//12345678-1234-1234-1234-123456789012/ @
-rcaCertificateAuthorityARN :: Lens' RestoreCertificateAuthority Text
-rcaCertificateAuthorityARN = lens _rcaCertificateAuthorityARN (\s a -> s {_rcaCertificateAuthorityARN = a})
+-- | The Amazon Resource Name (ARN) that was returned when you called the
+-- <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_CreateCertificateAuthority.html CreateCertificateAuthority>
+-- action. This must be of the form:
+--
+-- @arn:aws:acm-pca:region:account:certificate-authority\/12345678-1234-1234-1234-123456789012 @
+restoreCertificateAuthority_certificateAuthorityArn :: Lens.Lens' RestoreCertificateAuthority Prelude.Text
+restoreCertificateAuthority_certificateAuthorityArn = Lens.lens (\RestoreCertificateAuthority' {certificateAuthorityArn} -> certificateAuthorityArn) (\s@RestoreCertificateAuthority' {} a -> s {certificateAuthorityArn = a} :: RestoreCertificateAuthority)
 
-instance AWSRequest RestoreCertificateAuthority where
+instance
+  Prelude.AWSRequest
+    RestoreCertificateAuthority
+  where
   type
     Rs RestoreCertificateAuthority =
       RestoreCertificateAuthorityResponse
-  request = postJSON certificateManagerPCA
+  request = Request.postJSON defaultService
   response =
-    receiveNull RestoreCertificateAuthorityResponse'
+    Response.receiveNull
+      RestoreCertificateAuthorityResponse'
 
-instance Hashable RestoreCertificateAuthority
+instance Prelude.Hashable RestoreCertificateAuthority
 
-instance NFData RestoreCertificateAuthority
+instance Prelude.NFData RestoreCertificateAuthority
 
-instance ToHeaders RestoreCertificateAuthority where
+instance
+  Prelude.ToHeaders
+    RestoreCertificateAuthority
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "ACMPrivateCA.RestoreCertificateAuthority" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "ACMPrivateCA.RestoreCertificateAuthority" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON RestoreCertificateAuthority where
+instance Prelude.ToJSON RestoreCertificateAuthority where
   toJSON RestoreCertificateAuthority' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "CertificateAuthorityArn"
-                  .= _rcaCertificateAuthorityARN
+                  Prelude..= certificateAuthorityArn
               )
           ]
       )
 
-instance ToPath RestoreCertificateAuthority where
-  toPath = const "/"
+instance Prelude.ToPath RestoreCertificateAuthority where
+  toPath = Prelude.const "/"
 
-instance ToQuery RestoreCertificateAuthority where
-  toQuery = const mempty
+instance Prelude.ToQuery RestoreCertificateAuthority where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'restoreCertificateAuthorityResponse' smart constructor.
+-- | /See:/ 'newRestoreCertificateAuthorityResponse' smart constructor.
 data RestoreCertificateAuthorityResponse = RestoreCertificateAuthorityResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RestoreCertificateAuthorityResponse' with the minimum fields required to make a request.
-restoreCertificateAuthorityResponse ::
+-- |
+-- Create a value of 'RestoreCertificateAuthorityResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newRestoreCertificateAuthorityResponse ::
   RestoreCertificateAuthorityResponse
-restoreCertificateAuthorityResponse =
+newRestoreCertificateAuthorityResponse =
   RestoreCertificateAuthorityResponse'
 
-instance NFData RestoreCertificateAuthorityResponse
+instance
+  Prelude.NFData
+    RestoreCertificateAuthorityResponse
