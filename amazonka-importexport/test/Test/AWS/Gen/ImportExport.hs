@@ -28,43 +28,43 @@ import Test.Tasty
 -- fixtures =
 --     [ testGroup "request"
 --         [ requestCancelJob $
---             cancelJob
+--             newCancelJob
 --
 --         , requestUpdateJob $
---             updateJob
+--             newUpdateJob
 --
 --         , requestGetShippingLabel $
---             getShippingLabel
+--             newGetShippingLabel
 --
 --         , requestGetStatus $
---             getStatus
+--             newGetStatus
 --
 --         , requestListJobs $
---             listJobs
+--             newListJobs
 --
 --         , requestCreateJob $
---             createJob
+--             newCreateJob
 --
 --           ]
 
 --     , testGroup "response"
 --         [ responseCancelJob $
---             cancelJobResponse
+--             newCancelJobResponse
 --
 --         , responseUpdateJob $
---             updateJobResponse
+--             newUpdateJobResponse
 --
 --         , responseGetShippingLabel $
---             getShippingLabelResponse
+--             newGetShippingLabelResponse
 --
 --         , responseGetStatus $
---             getStatusResponse
+--             newGetStatusResponse
 --
 --         , responseListJobs $
---             listJobsResponse
+--             newListJobsResponse
 --
 --         , responseCreateJob $
---             createJobResponse
+--             newCreateJobResponse
 --
 --           ]
 --     ]
@@ -114,7 +114,7 @@ responseCancelJob =
   res
     "CancelJobResponse"
     "fixture/CancelJobResponse.proto"
-    importExport
+    defaultService
     (Proxy :: Proxy CancelJob)
 
 responseUpdateJob :: UpdateJobResponse -> TestTree
@@ -122,7 +122,7 @@ responseUpdateJob =
   res
     "UpdateJobResponse"
     "fixture/UpdateJobResponse.proto"
-    importExport
+    defaultService
     (Proxy :: Proxy UpdateJob)
 
 responseGetShippingLabel :: GetShippingLabelResponse -> TestTree
@@ -130,7 +130,7 @@ responseGetShippingLabel =
   res
     "GetShippingLabelResponse"
     "fixture/GetShippingLabelResponse.proto"
-    importExport
+    defaultService
     (Proxy :: Proxy GetShippingLabel)
 
 responseGetStatus :: GetStatusResponse -> TestTree
@@ -138,7 +138,7 @@ responseGetStatus =
   res
     "GetStatusResponse"
     "fixture/GetStatusResponse.proto"
-    importExport
+    defaultService
     (Proxy :: Proxy GetStatus)
 
 responseListJobs :: ListJobsResponse -> TestTree
@@ -146,7 +146,7 @@ responseListJobs =
   res
     "ListJobsResponse"
     "fixture/ListJobsResponse.proto"
-    importExport
+    defaultService
     (Proxy :: Proxy ListJobs)
 
 responseCreateJob :: CreateJobResponse -> TestTree
@@ -154,5 +154,5 @@ responseCreateJob =
   res
     "CreateJobResponse"
     "fixture/CreateJobResponse.proto"
-    importExport
+    defaultService
     (Proxy :: Proxy CreateJob)

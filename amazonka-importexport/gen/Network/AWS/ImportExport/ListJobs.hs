@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,164 +21,192 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- This operation returns the jobs associated with the requester. AWS Import/Export lists the jobs in reverse chronological order based on the date of creation. For example if Job Test1 was created 2009Dec30 and Test2 was created 2010Feb05, the ListJobs operation would return Test2 followed by Test1.
+-- This operation returns the jobs associated with the requester. AWS
+-- Import\/Export lists the jobs in reverse chronological order based on
+-- the date of creation. For example if Job Test1 was created 2009Dec30 and
+-- Test2 was created 2010Feb05, the ListJobs operation would return Test2
+-- followed by Test1.
 --
 -- This operation returns paginated results.
 module Network.AWS.ImportExport.ListJobs
   ( -- * Creating a Request
-    listJobs,
-    ListJobs,
+    ListJobs (..),
+    newListJobs,
 
     -- * Request Lenses
-    ljMaxJobs,
-    ljAPIVersion,
-    ljMarker,
+    listJobs_maxJobs,
+    listJobs_aPIVersion,
+    listJobs_marker,
 
     -- * Destructuring the Response
-    listJobsResponse,
-    ListJobsResponse,
+    ListJobsResponse (..),
+    newListJobsResponse,
 
     -- * Response Lenses
-    ljrrsIsTruncated,
-    ljrrsJobs,
-    ljrrsResponseStatus,
+    listJobsResponse_isTruncated,
+    listJobsResponse_jobs,
+    listJobsResponse_httpStatus,
   )
 where
 
 import Network.AWS.ImportExport.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ImportExport.Types.Job
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Input structure for the ListJobs operation.
 --
--- /See:/ 'listJobs' smart constructor.
+-- /See:/ 'newListJobs' smart constructor.
 data ListJobs = ListJobs'
-  { _ljMaxJobs :: !(Maybe Int),
-    _ljAPIVersion :: !(Maybe Text),
-    _ljMarker :: !(Maybe Text)
+  { maxJobs :: Prelude.Maybe Prelude.Int,
+    aPIVersion :: Prelude.Maybe Prelude.Text,
+    marker :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListJobs' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListJobs' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ljMaxJobs' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ljAPIVersion' - Undocumented member.
+-- 'maxJobs', 'listJobs_maxJobs' - Undocumented member.
 --
--- * 'ljMarker' - Undocumented member.
-listJobs ::
+-- 'aPIVersion', 'listJobs_aPIVersion' - Undocumented member.
+--
+-- 'marker', 'listJobs_marker' - Undocumented member.
+newListJobs ::
   ListJobs
-listJobs =
+newListJobs =
   ListJobs'
-    { _ljMaxJobs = Nothing,
-      _ljAPIVersion = Nothing,
-      _ljMarker = Nothing
+    { maxJobs = Prelude.Nothing,
+      aPIVersion = Prelude.Nothing,
+      marker = Prelude.Nothing
     }
 
 -- | Undocumented member.
-ljMaxJobs :: Lens' ListJobs (Maybe Int)
-ljMaxJobs = lens _ljMaxJobs (\s a -> s {_ljMaxJobs = a})
+listJobs_maxJobs :: Lens.Lens' ListJobs (Prelude.Maybe Prelude.Int)
+listJobs_maxJobs = Lens.lens (\ListJobs' {maxJobs} -> maxJobs) (\s@ListJobs' {} a -> s {maxJobs = a} :: ListJobs)
 
 -- | Undocumented member.
-ljAPIVersion :: Lens' ListJobs (Maybe Text)
-ljAPIVersion = lens _ljAPIVersion (\s a -> s {_ljAPIVersion = a})
+listJobs_aPIVersion :: Lens.Lens' ListJobs (Prelude.Maybe Prelude.Text)
+listJobs_aPIVersion = Lens.lens (\ListJobs' {aPIVersion} -> aPIVersion) (\s@ListJobs' {} a -> s {aPIVersion = a} :: ListJobs)
 
 -- | Undocumented member.
-ljMarker :: Lens' ListJobs (Maybe Text)
-ljMarker = lens _ljMarker (\s a -> s {_ljMarker = a})
+listJobs_marker :: Lens.Lens' ListJobs (Prelude.Maybe Prelude.Text)
+listJobs_marker = Lens.lens (\ListJobs' {marker} -> marker) (\s@ListJobs' {} a -> s {marker = a} :: ListJobs)
 
-instance AWSPager ListJobs where
+instance Pager.AWSPager ListJobs where
   page rq rs
-    | stop (rs ^. ljrrsIsTruncated) = Nothing
-    | isNothing (rs ^? ljrrsJobs . _last . jobJobId) =
-      Nothing
-    | otherwise =
-      Just $
+    | Pager.stop
+        ( rs
+            Lens.^? listJobsResponse_isTruncated Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.isNothing
+        ( rs
+            Lens.^? listJobsResponse_jobs Prelude.. Lens._Just
+              Prelude.. Lens._last
+              Prelude.. job_jobId
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
         rq
-          & ljMarker .~ rs ^? ljrrsJobs . _last . jobJobId
+          Lens.& listJobs_marker
+          Lens..~ rs
+          Lens.^? listJobsResponse_jobs Prelude.. Lens._Just
+            Prelude.. Lens._last
+            Prelude.. job_jobId
 
-instance AWSRequest ListJobs where
+instance Prelude.AWSRequest ListJobs where
   type Rs ListJobs = ListJobsResponse
-  request = postQuery importExport
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "ListJobsResult"
       ( \s h x ->
           ListJobsResponse'
-            <$> (x .@? "IsTruncated")
-            <*> ( x .@? "Jobs" .!@ mempty
-                    >>= may (parseXMLList "member")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "IsTruncated")
+            Prelude.<*> ( x Prelude..@? "Jobs" Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListJobs
+instance Prelude.Hashable ListJobs
 
-instance NFData ListJobs
+instance Prelude.NFData ListJobs
 
-instance ToHeaders ListJobs where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListJobs where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListJobs where
-  toPath = const "/"
+instance Prelude.ToPath ListJobs where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListJobs where
+instance Prelude.ToQuery ListJobs where
   toQuery ListJobs' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Operation=ListJobs",
-        "Action" =: ("ListJobs" :: ByteString),
-        "Version" =: ("2010-06-01" :: ByteString),
-        "MaxJobs" =: _ljMaxJobs,
-        "APIVersion" =: _ljAPIVersion,
-        "Marker" =: _ljMarker
+        "Action"
+          Prelude.=: ("ListJobs" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-06-01" :: Prelude.ByteString),
+        "MaxJobs" Prelude.=: maxJobs,
+        "APIVersion" Prelude.=: aPIVersion,
+        "Marker" Prelude.=: marker
       ]
 
 -- | Output structure for the ListJobs operation.
 --
--- /See:/ 'listJobsResponse' smart constructor.
+-- /See:/ 'newListJobsResponse' smart constructor.
 data ListJobsResponse = ListJobsResponse'
-  { _ljrrsIsTruncated ::
-      !(Maybe Bool),
-    _ljrrsJobs :: !(Maybe [Job]),
-    _ljrrsResponseStatus :: !Int
+  { isTruncated :: Prelude.Maybe Prelude.Bool,
+    jobs :: Prelude.Maybe [Job],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListJobsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListJobsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ljrrsIsTruncated' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ljrrsJobs' - Undocumented member.
+-- 'isTruncated', 'listJobsResponse_isTruncated' - Undocumented member.
 --
--- * 'ljrrsResponseStatus' - -- | The response status code.
-listJobsResponse ::
-  -- | 'ljrrsResponseStatus'
-  Int ->
+-- 'jobs', 'listJobsResponse_jobs' - Undocumented member.
+--
+-- 'httpStatus', 'listJobsResponse_httpStatus' - The response's http status code.
+newListJobsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListJobsResponse
-listJobsResponse pResponseStatus_ =
+newListJobsResponse pHttpStatus_ =
   ListJobsResponse'
-    { _ljrrsIsTruncated = Nothing,
-      _ljrrsJobs = Nothing,
-      _ljrrsResponseStatus = pResponseStatus_
+    { isTruncated = Prelude.Nothing,
+      jobs = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-ljrrsIsTruncated :: Lens' ListJobsResponse (Maybe Bool)
-ljrrsIsTruncated = lens _ljrrsIsTruncated (\s a -> s {_ljrrsIsTruncated = a})
+listJobsResponse_isTruncated :: Lens.Lens' ListJobsResponse (Prelude.Maybe Prelude.Bool)
+listJobsResponse_isTruncated = Lens.lens (\ListJobsResponse' {isTruncated} -> isTruncated) (\s@ListJobsResponse' {} a -> s {isTruncated = a} :: ListJobsResponse)
 
 -- | Undocumented member.
-ljrrsJobs :: Lens' ListJobsResponse [Job]
-ljrrsJobs = lens _ljrrsJobs (\s a -> s {_ljrrsJobs = a}) . _Default . _Coerce
+listJobsResponse_jobs :: Lens.Lens' ListJobsResponse (Prelude.Maybe [Job])
+listJobsResponse_jobs = Lens.lens (\ListJobsResponse' {jobs} -> jobs) (\s@ListJobsResponse' {} a -> s {jobs = a} :: ListJobsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-ljrrsResponseStatus :: Lens' ListJobsResponse Int
-ljrrsResponseStatus = lens _ljrrsResponseStatus (\s a -> s {_ljrrsResponseStatus = a})
+-- | The response's http status code.
+listJobsResponse_httpStatus :: Lens.Lens' ListJobsResponse Prelude.Int
+listJobsResponse_httpStatus = Lens.lens (\ListJobsResponse' {httpStatus} -> httpStatus) (\s@ListJobsResponse' {} a -> s {httpStatus = a} :: ListJobsResponse)
 
-instance NFData ListJobsResponse
+instance Prelude.NFData ListJobsResponse

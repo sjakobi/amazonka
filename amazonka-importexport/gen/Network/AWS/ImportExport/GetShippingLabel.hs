@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,245 +21,248 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- This operation generates a pre-paid UPS shipping label that you will use to ship your device to AWS for processing.
+-- This operation generates a pre-paid UPS shipping label that you will use
+-- to ship your device to AWS for processing.
 module Network.AWS.ImportExport.GetShippingLabel
   ( -- * Creating a Request
-    getShippingLabel,
-    GetShippingLabel,
+    GetShippingLabel (..),
+    newGetShippingLabel,
 
     -- * Request Lenses
-    gslCompany,
-    gslPhoneNumber,
-    gslPostalCode,
-    gslStreet1,
-    gslAPIVersion,
-    gslName,
-    gslCity,
-    gslStreet2,
-    gslStateOrProvince,
-    gslCountry,
-    gslStreet3,
-    gslJobIds,
+    getShippingLabel_company,
+    getShippingLabel_phoneNumber,
+    getShippingLabel_postalCode,
+    getShippingLabel_street1,
+    getShippingLabel_aPIVersion,
+    getShippingLabel_name,
+    getShippingLabel_city,
+    getShippingLabel_street2,
+    getShippingLabel_stateOrProvince,
+    getShippingLabel_country,
+    getShippingLabel_street3,
+    getShippingLabel_jobIds,
 
     -- * Destructuring the Response
-    getShippingLabelResponse,
-    GetShippingLabelResponse,
+    GetShippingLabelResponse (..),
+    newGetShippingLabelResponse,
 
     -- * Response Lenses
-    gslrrsWarning,
-    gslrrsShippingLabelURL,
-    gslrrsResponseStatus,
+    getShippingLabelResponse_warning,
+    getShippingLabelResponse_shippingLabelURL,
+    getShippingLabelResponse_httpStatus,
   )
 where
 
 import Network.AWS.ImportExport.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getShippingLabel' smart constructor.
+-- | /See:/ 'newGetShippingLabel' smart constructor.
 data GetShippingLabel = GetShippingLabel'
-  { _gslCompany ::
-      !(Maybe Text),
-    _gslPhoneNumber :: !(Maybe Text),
-    _gslPostalCode :: !(Maybe Text),
-    _gslStreet1 :: !(Maybe Text),
-    _gslAPIVersion :: !(Maybe Text),
-    _gslName :: !(Maybe Text),
-    _gslCity :: !(Maybe Text),
-    _gslStreet2 :: !(Maybe Text),
-    _gslStateOrProvince :: !(Maybe Text),
-    _gslCountry :: !(Maybe Text),
-    _gslStreet3 :: !(Maybe Text),
-    _gslJobIds :: ![Text]
+  { company :: Prelude.Maybe Prelude.Text,
+    phoneNumber :: Prelude.Maybe Prelude.Text,
+    postalCode :: Prelude.Maybe Prelude.Text,
+    street1 :: Prelude.Maybe Prelude.Text,
+    aPIVersion :: Prelude.Maybe Prelude.Text,
+    name :: Prelude.Maybe Prelude.Text,
+    city :: Prelude.Maybe Prelude.Text,
+    street2 :: Prelude.Maybe Prelude.Text,
+    stateOrProvince :: Prelude.Maybe Prelude.Text,
+    country :: Prelude.Maybe Prelude.Text,
+    street3 :: Prelude.Maybe Prelude.Text,
+    jobIds :: [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetShippingLabel' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetShippingLabel' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gslCompany' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gslPhoneNumber' - Undocumented member.
+-- 'company', 'getShippingLabel_company' - Undocumented member.
 --
--- * 'gslPostalCode' - Undocumented member.
+-- 'phoneNumber', 'getShippingLabel_phoneNumber' - Undocumented member.
 --
--- * 'gslStreet1' - Undocumented member.
+-- 'postalCode', 'getShippingLabel_postalCode' - Undocumented member.
 --
--- * 'gslAPIVersion' - Undocumented member.
+-- 'street1', 'getShippingLabel_street1' - Undocumented member.
 --
--- * 'gslName' - Undocumented member.
+-- 'aPIVersion', 'getShippingLabel_aPIVersion' - Undocumented member.
 --
--- * 'gslCity' - Undocumented member.
+-- 'name', 'getShippingLabel_name' - Undocumented member.
 --
--- * 'gslStreet2' - Undocumented member.
+-- 'city', 'getShippingLabel_city' - Undocumented member.
 --
--- * 'gslStateOrProvince' - Undocumented member.
+-- 'street2', 'getShippingLabel_street2' - Undocumented member.
 --
--- * 'gslCountry' - Undocumented member.
+-- 'stateOrProvince', 'getShippingLabel_stateOrProvince' - Undocumented member.
 --
--- * 'gslStreet3' - Undocumented member.
+-- 'country', 'getShippingLabel_country' - Undocumented member.
 --
--- * 'gslJobIds' - Undocumented member.
-getShippingLabel ::
+-- 'street3', 'getShippingLabel_street3' - Undocumented member.
+--
+-- 'jobIds', 'getShippingLabel_jobIds' - Undocumented member.
+newGetShippingLabel ::
   GetShippingLabel
-getShippingLabel =
+newGetShippingLabel =
   GetShippingLabel'
-    { _gslCompany = Nothing,
-      _gslPhoneNumber = Nothing,
-      _gslPostalCode = Nothing,
-      _gslStreet1 = Nothing,
-      _gslAPIVersion = Nothing,
-      _gslName = Nothing,
-      _gslCity = Nothing,
-      _gslStreet2 = Nothing,
-      _gslStateOrProvince = Nothing,
-      _gslCountry = Nothing,
-      _gslStreet3 = Nothing,
-      _gslJobIds = mempty
+    { company = Prelude.Nothing,
+      phoneNumber = Prelude.Nothing,
+      postalCode = Prelude.Nothing,
+      street1 = Prelude.Nothing,
+      aPIVersion = Prelude.Nothing,
+      name = Prelude.Nothing,
+      city = Prelude.Nothing,
+      street2 = Prelude.Nothing,
+      stateOrProvince = Prelude.Nothing,
+      country = Prelude.Nothing,
+      street3 = Prelude.Nothing,
+      jobIds = Prelude.mempty
     }
 
 -- | Undocumented member.
-gslCompany :: Lens' GetShippingLabel (Maybe Text)
-gslCompany = lens _gslCompany (\s a -> s {_gslCompany = a})
+getShippingLabel_company :: Lens.Lens' GetShippingLabel (Prelude.Maybe Prelude.Text)
+getShippingLabel_company = Lens.lens (\GetShippingLabel' {company} -> company) (\s@GetShippingLabel' {} a -> s {company = a} :: GetShippingLabel)
 
 -- | Undocumented member.
-gslPhoneNumber :: Lens' GetShippingLabel (Maybe Text)
-gslPhoneNumber = lens _gslPhoneNumber (\s a -> s {_gslPhoneNumber = a})
+getShippingLabel_phoneNumber :: Lens.Lens' GetShippingLabel (Prelude.Maybe Prelude.Text)
+getShippingLabel_phoneNumber = Lens.lens (\GetShippingLabel' {phoneNumber} -> phoneNumber) (\s@GetShippingLabel' {} a -> s {phoneNumber = a} :: GetShippingLabel)
 
 -- | Undocumented member.
-gslPostalCode :: Lens' GetShippingLabel (Maybe Text)
-gslPostalCode = lens _gslPostalCode (\s a -> s {_gslPostalCode = a})
+getShippingLabel_postalCode :: Lens.Lens' GetShippingLabel (Prelude.Maybe Prelude.Text)
+getShippingLabel_postalCode = Lens.lens (\GetShippingLabel' {postalCode} -> postalCode) (\s@GetShippingLabel' {} a -> s {postalCode = a} :: GetShippingLabel)
 
 -- | Undocumented member.
-gslStreet1 :: Lens' GetShippingLabel (Maybe Text)
-gslStreet1 = lens _gslStreet1 (\s a -> s {_gslStreet1 = a})
+getShippingLabel_street1 :: Lens.Lens' GetShippingLabel (Prelude.Maybe Prelude.Text)
+getShippingLabel_street1 = Lens.lens (\GetShippingLabel' {street1} -> street1) (\s@GetShippingLabel' {} a -> s {street1 = a} :: GetShippingLabel)
 
 -- | Undocumented member.
-gslAPIVersion :: Lens' GetShippingLabel (Maybe Text)
-gslAPIVersion = lens _gslAPIVersion (\s a -> s {_gslAPIVersion = a})
+getShippingLabel_aPIVersion :: Lens.Lens' GetShippingLabel (Prelude.Maybe Prelude.Text)
+getShippingLabel_aPIVersion = Lens.lens (\GetShippingLabel' {aPIVersion} -> aPIVersion) (\s@GetShippingLabel' {} a -> s {aPIVersion = a} :: GetShippingLabel)
 
 -- | Undocumented member.
-gslName :: Lens' GetShippingLabel (Maybe Text)
-gslName = lens _gslName (\s a -> s {_gslName = a})
+getShippingLabel_name :: Lens.Lens' GetShippingLabel (Prelude.Maybe Prelude.Text)
+getShippingLabel_name = Lens.lens (\GetShippingLabel' {name} -> name) (\s@GetShippingLabel' {} a -> s {name = a} :: GetShippingLabel)
 
 -- | Undocumented member.
-gslCity :: Lens' GetShippingLabel (Maybe Text)
-gslCity = lens _gslCity (\s a -> s {_gslCity = a})
+getShippingLabel_city :: Lens.Lens' GetShippingLabel (Prelude.Maybe Prelude.Text)
+getShippingLabel_city = Lens.lens (\GetShippingLabel' {city} -> city) (\s@GetShippingLabel' {} a -> s {city = a} :: GetShippingLabel)
 
 -- | Undocumented member.
-gslStreet2 :: Lens' GetShippingLabel (Maybe Text)
-gslStreet2 = lens _gslStreet2 (\s a -> s {_gslStreet2 = a})
+getShippingLabel_street2 :: Lens.Lens' GetShippingLabel (Prelude.Maybe Prelude.Text)
+getShippingLabel_street2 = Lens.lens (\GetShippingLabel' {street2} -> street2) (\s@GetShippingLabel' {} a -> s {street2 = a} :: GetShippingLabel)
 
 -- | Undocumented member.
-gslStateOrProvince :: Lens' GetShippingLabel (Maybe Text)
-gslStateOrProvince = lens _gslStateOrProvince (\s a -> s {_gslStateOrProvince = a})
+getShippingLabel_stateOrProvince :: Lens.Lens' GetShippingLabel (Prelude.Maybe Prelude.Text)
+getShippingLabel_stateOrProvince = Lens.lens (\GetShippingLabel' {stateOrProvince} -> stateOrProvince) (\s@GetShippingLabel' {} a -> s {stateOrProvince = a} :: GetShippingLabel)
 
 -- | Undocumented member.
-gslCountry :: Lens' GetShippingLabel (Maybe Text)
-gslCountry = lens _gslCountry (\s a -> s {_gslCountry = a})
+getShippingLabel_country :: Lens.Lens' GetShippingLabel (Prelude.Maybe Prelude.Text)
+getShippingLabel_country = Lens.lens (\GetShippingLabel' {country} -> country) (\s@GetShippingLabel' {} a -> s {country = a} :: GetShippingLabel)
 
 -- | Undocumented member.
-gslStreet3 :: Lens' GetShippingLabel (Maybe Text)
-gslStreet3 = lens _gslStreet3 (\s a -> s {_gslStreet3 = a})
+getShippingLabel_street3 :: Lens.Lens' GetShippingLabel (Prelude.Maybe Prelude.Text)
+getShippingLabel_street3 = Lens.lens (\GetShippingLabel' {street3} -> street3) (\s@GetShippingLabel' {} a -> s {street3 = a} :: GetShippingLabel)
 
 -- | Undocumented member.
-gslJobIds :: Lens' GetShippingLabel [Text]
-gslJobIds = lens _gslJobIds (\s a -> s {_gslJobIds = a}) . _Coerce
+getShippingLabel_jobIds :: Lens.Lens' GetShippingLabel [Prelude.Text]
+getShippingLabel_jobIds = Lens.lens (\GetShippingLabel' {jobIds} -> jobIds) (\s@GetShippingLabel' {} a -> s {jobIds = a} :: GetShippingLabel) Prelude.. Prelude._Coerce
 
-instance AWSRequest GetShippingLabel where
+instance Prelude.AWSRequest GetShippingLabel where
   type Rs GetShippingLabel = GetShippingLabelResponse
-  request = postQuery importExport
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "GetShippingLabelResult"
       ( \s h x ->
           GetShippingLabelResponse'
-            <$> (x .@? "Warning")
-            <*> (x .@? "ShippingLabelURL")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "Warning")
+            Prelude.<*> (x Prelude..@? "ShippingLabelURL")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetShippingLabel
+instance Prelude.Hashable GetShippingLabel
 
-instance NFData GetShippingLabel
+instance Prelude.NFData GetShippingLabel
 
-instance ToHeaders GetShippingLabel where
-  toHeaders = const mempty
+instance Prelude.ToHeaders GetShippingLabel where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath GetShippingLabel where
-  toPath = const "/"
+instance Prelude.ToPath GetShippingLabel where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetShippingLabel where
+instance Prelude.ToQuery GetShippingLabel where
   toQuery GetShippingLabel' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Operation=GetShippingLabel",
-        "Action" =: ("GetShippingLabel" :: ByteString),
-        "Version" =: ("2010-06-01" :: ByteString),
-        "company" =: _gslCompany,
-        "phoneNumber" =: _gslPhoneNumber,
-        "postalCode" =: _gslPostalCode,
-        "street1" =: _gslStreet1,
-        "APIVersion" =: _gslAPIVersion,
-        "name" =: _gslName,
-        "city" =: _gslCity,
-        "street2" =: _gslStreet2,
-        "stateOrProvince" =: _gslStateOrProvince,
-        "country" =: _gslCountry,
-        "street3" =: _gslStreet3,
-        "jobIds" =: toQueryList "member" _gslJobIds
+        "Action"
+          Prelude.=: ("GetShippingLabel" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-06-01" :: Prelude.ByteString),
+        "company" Prelude.=: company,
+        "phoneNumber" Prelude.=: phoneNumber,
+        "postalCode" Prelude.=: postalCode,
+        "street1" Prelude.=: street1,
+        "APIVersion" Prelude.=: aPIVersion,
+        "name" Prelude.=: name,
+        "city" Prelude.=: city,
+        "street2" Prelude.=: street2,
+        "stateOrProvince" Prelude.=: stateOrProvince,
+        "country" Prelude.=: country,
+        "street3" Prelude.=: street3,
+        "jobIds"
+          Prelude.=: Prelude.toQueryList "member" jobIds
       ]
 
--- | /See:/ 'getShippingLabelResponse' smart constructor.
+-- | /See:/ 'newGetShippingLabelResponse' smart constructor.
 data GetShippingLabelResponse = GetShippingLabelResponse'
-  { _gslrrsWarning ::
-      !(Maybe Text),
-    _gslrrsShippingLabelURL ::
-      !(Maybe Text),
-    _gslrrsResponseStatus ::
-      !Int
+  { warning :: Prelude.Maybe Prelude.Text,
+    shippingLabelURL :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetShippingLabelResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetShippingLabelResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gslrrsWarning' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gslrrsShippingLabelURL' - Undocumented member.
+-- 'warning', 'getShippingLabelResponse_warning' - Undocumented member.
 --
--- * 'gslrrsResponseStatus' - -- | The response status code.
-getShippingLabelResponse ::
-  -- | 'gslrrsResponseStatus'
-  Int ->
+-- 'shippingLabelURL', 'getShippingLabelResponse_shippingLabelURL' - Undocumented member.
+--
+-- 'httpStatus', 'getShippingLabelResponse_httpStatus' - The response's http status code.
+newGetShippingLabelResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetShippingLabelResponse
-getShippingLabelResponse pResponseStatus_ =
+newGetShippingLabelResponse pHttpStatus_ =
   GetShippingLabelResponse'
-    { _gslrrsWarning = Nothing,
-      _gslrrsShippingLabelURL = Nothing,
-      _gslrrsResponseStatus = pResponseStatus_
+    { warning =
+        Prelude.Nothing,
+      shippingLabelURL = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-gslrrsWarning :: Lens' GetShippingLabelResponse (Maybe Text)
-gslrrsWarning = lens _gslrrsWarning (\s a -> s {_gslrrsWarning = a})
+getShippingLabelResponse_warning :: Lens.Lens' GetShippingLabelResponse (Prelude.Maybe Prelude.Text)
+getShippingLabelResponse_warning = Lens.lens (\GetShippingLabelResponse' {warning} -> warning) (\s@GetShippingLabelResponse' {} a -> s {warning = a} :: GetShippingLabelResponse)
 
 -- | Undocumented member.
-gslrrsShippingLabelURL :: Lens' GetShippingLabelResponse (Maybe Text)
-gslrrsShippingLabelURL = lens _gslrrsShippingLabelURL (\s a -> s {_gslrrsShippingLabelURL = a})
+getShippingLabelResponse_shippingLabelURL :: Lens.Lens' GetShippingLabelResponse (Prelude.Maybe Prelude.Text)
+getShippingLabelResponse_shippingLabelURL = Lens.lens (\GetShippingLabelResponse' {shippingLabelURL} -> shippingLabelURL) (\s@GetShippingLabelResponse' {} a -> s {shippingLabelURL = a} :: GetShippingLabelResponse)
 
--- | -- | The response status code.
-gslrrsResponseStatus :: Lens' GetShippingLabelResponse Int
-gslrrsResponseStatus = lens _gslrrsResponseStatus (\s a -> s {_gslrrsResponseStatus = a})
+-- | The response's http status code.
+getShippingLabelResponse_httpStatus :: Lens.Lens' GetShippingLabelResponse Prelude.Int
+getShippingLabelResponse_httpStatus = Lens.lens (\GetShippingLabelResponse' {httpStatus} -> httpStatus) (\s@GetShippingLabelResponse' {} a -> s {httpStatus = a} :: GetShippingLabelResponse)
 
-instance NFData GetShippingLabelResponse
+instance Prelude.NFData GetShippingLabelResponse

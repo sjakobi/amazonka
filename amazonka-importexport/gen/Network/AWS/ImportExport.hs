@@ -11,10 +11,16 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- __AWS Import/Export Service__
+-- AWS Import\/Export Service AWS Import\/Export accelerates transferring
+-- large amounts of data between the AWS cloud and portable storage devices
+-- that you mail to us. AWS Import\/Export transfers data directly onto and
+-- off of your storage devices using Amazon\'s high-speed internal network
+-- and bypassing the Internet. For large data sets, AWS Import\/Export is
+-- often faster than Internet transfer and more cost effective than
+-- upgrading your connectivity.
 module Network.AWS.ImportExport
   ( -- * Service Configuration
-    importExport,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -86,22 +92,40 @@ module Network.AWS.ImportExport
     -- $operations
 
     -- ** CancelJob
-    module Network.AWS.ImportExport.CancelJob,
+    CancelJob (CancelJob'),
+    newCancelJob,
+    CancelJobResponse (CancelJobResponse'),
+    newCancelJobResponse,
 
     -- ** UpdateJob
-    module Network.AWS.ImportExport.UpdateJob,
+    UpdateJob (UpdateJob'),
+    newUpdateJob,
+    UpdateJobResponse (UpdateJobResponse'),
+    newUpdateJobResponse,
 
     -- ** GetShippingLabel
-    module Network.AWS.ImportExport.GetShippingLabel,
+    GetShippingLabel (GetShippingLabel'),
+    newGetShippingLabel,
+    GetShippingLabelResponse (GetShippingLabelResponse'),
+    newGetShippingLabelResponse,
 
     -- ** GetStatus
-    module Network.AWS.ImportExport.GetStatus,
+    GetStatus (GetStatus'),
+    newGetStatus,
+    GetStatusResponse (GetStatusResponse'),
+    newGetStatusResponse,
 
     -- ** ListJobs (Paginated)
-    module Network.AWS.ImportExport.ListJobs,
+    ListJobs (ListJobs'),
+    newListJobs,
+    ListJobsResponse (ListJobsResponse'),
+    newListJobsResponse,
 
     -- ** CreateJob
-    module Network.AWS.ImportExport.CreateJob,
+    CreateJob (CreateJob'),
+    newCreateJob,
+    CreateJobResponse (CreateJobResponse'),
+    newCreateJobResponse,
 
     -- * Types
 
@@ -109,18 +133,12 @@ module Network.AWS.ImportExport
     JobType (..),
 
     -- ** Artifact
-    Artifact,
-    artifact,
-    aDescription,
-    aURL,
+    Artifact (Artifact'),
+    newArtifact,
 
     -- ** Job
-    Job,
-    job,
-    jobJobType,
-    jobJobId,
-    jobIsCanceled,
-    jobCreationDate,
+    Job (Job'),
+    newJob,
   )
 where
 
@@ -128,6 +146,7 @@ import Network.AWS.ImportExport.CancelJob
 import Network.AWS.ImportExport.CreateJob
 import Network.AWS.ImportExport.GetShippingLabel
 import Network.AWS.ImportExport.GetStatus
+import Network.AWS.ImportExport.Lens
 import Network.AWS.ImportExport.ListJobs
 import Network.AWS.ImportExport.Types
 import Network.AWS.ImportExport.UpdateJob
