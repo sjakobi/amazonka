@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,164 +24,171 @@
 -- Updates a package for use with Amazon ES domains.
 module Network.AWS.ElasticSearch.UpdatePackage
   ( -- * Creating a Request
-    updatePackage,
-    UpdatePackage,
+    UpdatePackage (..),
+    newUpdatePackage,
 
     -- * Request Lenses
-    upCommitMessage,
-    upPackageDescription,
-    upPackageId,
-    upPackageSource,
+    updatePackage_commitMessage,
+    updatePackage_packageDescription,
+    updatePackage_packageID,
+    updatePackage_packageSource,
 
     -- * Destructuring the Response
-    updatePackageResponse,
-    UpdatePackageResponse,
+    UpdatePackageResponse (..),
+    newUpdatePackageResponse,
 
     -- * Response Lenses
-    uprrsPackageDetails,
-    uprrsResponseStatus,
+    updatePackageResponse_packageDetails,
+    updatePackageResponse_httpStatus,
   )
 where
 
 import Network.AWS.ElasticSearch.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ElasticSearch.Types.PackageDetails
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Container for request parameters to @'UpdatePackage' @ operation.
+-- | Container for request parameters to @ UpdatePackage @ operation.
 --
---
---
--- /See:/ 'updatePackage' smart constructor.
+-- /See:/ 'newUpdatePackage' smart constructor.
 data UpdatePackage = UpdatePackage'
-  { _upCommitMessage ::
-      !(Maybe Text),
-    _upPackageDescription :: !(Maybe Text),
-    _upPackageId :: !Text,
-    _upPackageSource :: !PackageSource
+  { -- | An info message for the new version which will be shown as part of
+    -- @GetPackageVersionHistoryResponse@.
+    commitMessage :: Prelude.Maybe Prelude.Text,
+    -- | New description of the package.
+    packageDescription :: Prelude.Maybe Prelude.Text,
+    -- | Unique identifier for the package.
+    packageID :: Prelude.Text,
+    packageSource :: PackageSource
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdatePackage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdatePackage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'upCommitMessage' - An info message for the new version which will be shown as part of @GetPackageVersionHistoryResponse@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'upPackageDescription' - New description of the package.
+-- 'commitMessage', 'updatePackage_commitMessage' - An info message for the new version which will be shown as part of
+-- @GetPackageVersionHistoryResponse@.
 --
--- * 'upPackageId' - Unique identifier for the package.
+-- 'packageDescription', 'updatePackage_packageDescription' - New description of the package.
 --
--- * 'upPackageSource' - Undocumented member.
-updatePackage ::
-  -- | 'upPackageId'
-  Text ->
-  -- | 'upPackageSource'
+-- 'packageID', 'updatePackage_packageID' - Unique identifier for the package.
+--
+-- 'packageSource', 'updatePackage_packageSource' - Undocumented member.
+newUpdatePackage ::
+  -- | 'packageID'
+  Prelude.Text ->
+  -- | 'packageSource'
   PackageSource ->
   UpdatePackage
-updatePackage pPackageId_ pPackageSource_ =
+newUpdatePackage pPackageID_ pPackageSource_ =
   UpdatePackage'
-    { _upCommitMessage = Nothing,
-      _upPackageDescription = Nothing,
-      _upPackageId = pPackageId_,
-      _upPackageSource = pPackageSource_
+    { commitMessage = Prelude.Nothing,
+      packageDescription = Prelude.Nothing,
+      packageID = pPackageID_,
+      packageSource = pPackageSource_
     }
 
--- | An info message for the new version which will be shown as part of @GetPackageVersionHistoryResponse@ .
-upCommitMessage :: Lens' UpdatePackage (Maybe Text)
-upCommitMessage = lens _upCommitMessage (\s a -> s {_upCommitMessage = a})
+-- | An info message for the new version which will be shown as part of
+-- @GetPackageVersionHistoryResponse@.
+updatePackage_commitMessage :: Lens.Lens' UpdatePackage (Prelude.Maybe Prelude.Text)
+updatePackage_commitMessage = Lens.lens (\UpdatePackage' {commitMessage} -> commitMessage) (\s@UpdatePackage' {} a -> s {commitMessage = a} :: UpdatePackage)
 
 -- | New description of the package.
-upPackageDescription :: Lens' UpdatePackage (Maybe Text)
-upPackageDescription = lens _upPackageDescription (\s a -> s {_upPackageDescription = a})
+updatePackage_packageDescription :: Lens.Lens' UpdatePackage (Prelude.Maybe Prelude.Text)
+updatePackage_packageDescription = Lens.lens (\UpdatePackage' {packageDescription} -> packageDescription) (\s@UpdatePackage' {} a -> s {packageDescription = a} :: UpdatePackage)
 
 -- | Unique identifier for the package.
-upPackageId :: Lens' UpdatePackage Text
-upPackageId = lens _upPackageId (\s a -> s {_upPackageId = a})
+updatePackage_packageID :: Lens.Lens' UpdatePackage Prelude.Text
+updatePackage_packageID = Lens.lens (\UpdatePackage' {packageID} -> packageID) (\s@UpdatePackage' {} a -> s {packageID = a} :: UpdatePackage)
 
 -- | Undocumented member.
-upPackageSource :: Lens' UpdatePackage PackageSource
-upPackageSource = lens _upPackageSource (\s a -> s {_upPackageSource = a})
+updatePackage_packageSource :: Lens.Lens' UpdatePackage PackageSource
+updatePackage_packageSource = Lens.lens (\UpdatePackage' {packageSource} -> packageSource) (\s@UpdatePackage' {} a -> s {packageSource = a} :: UpdatePackage)
 
-instance AWSRequest UpdatePackage where
+instance Prelude.AWSRequest UpdatePackage where
   type Rs UpdatePackage = UpdatePackageResponse
-  request = postJSON elasticSearch
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdatePackageResponse'
-            <$> (x .?> "PackageDetails") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "PackageDetails")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdatePackage
+instance Prelude.Hashable UpdatePackage
 
-instance NFData UpdatePackage
+instance Prelude.NFData UpdatePackage
 
-instance ToHeaders UpdatePackage where
-  toHeaders = const mempty
+instance Prelude.ToHeaders UpdatePackage where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON UpdatePackage where
+instance Prelude.ToJSON UpdatePackage where
   toJSON UpdatePackage' {..} =
-    object
-      ( catMaybes
-          [ ("CommitMessage" .=) <$> _upCommitMessage,
-            ("PackageDescription" .=) <$> _upPackageDescription,
-            Just ("PackageID" .= _upPackageId),
-            Just ("PackageSource" .= _upPackageSource)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("CommitMessage" Prelude..=)
+              Prelude.<$> commitMessage,
+            ("PackageDescription" Prelude..=)
+              Prelude.<$> packageDescription,
+            Prelude.Just ("PackageID" Prelude..= packageID),
+            Prelude.Just
+              ("PackageSource" Prelude..= packageSource)
           ]
       )
 
-instance ToPath UpdatePackage where
-  toPath = const "/2015-01-01/packages/update"
+instance Prelude.ToPath UpdatePackage where
+  toPath = Prelude.const "/2015-01-01/packages/update"
 
-instance ToQuery UpdatePackage where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdatePackage where
+  toQuery = Prelude.const Prelude.mempty
 
--- | Container for response returned by @'UpdatePackage' @ operation.
+-- | Container for response returned by @ UpdatePackage @ operation.
 --
---
---
--- /See:/ 'updatePackageResponse' smart constructor.
+-- /See:/ 'newUpdatePackageResponse' smart constructor.
 data UpdatePackageResponse = UpdatePackageResponse'
-  { _uprrsPackageDetails ::
-      !(Maybe PackageDetails),
-    _uprrsResponseStatus ::
-      !Int
+  { -- | Information about the package @PackageDetails@.
+    packageDetails :: Prelude.Maybe PackageDetails,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdatePackageResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdatePackageResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uprrsPackageDetails' - Information about the package @PackageDetails@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uprrsResponseStatus' - -- | The response status code.
-updatePackageResponse ::
-  -- | 'uprrsResponseStatus'
-  Int ->
+-- 'packageDetails', 'updatePackageResponse_packageDetails' - Information about the package @PackageDetails@.
+--
+-- 'httpStatus', 'updatePackageResponse_httpStatus' - The response's http status code.
+newUpdatePackageResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdatePackageResponse
-updatePackageResponse pResponseStatus_ =
+newUpdatePackageResponse pHttpStatus_ =
   UpdatePackageResponse'
-    { _uprrsPackageDetails =
-        Nothing,
-      _uprrsResponseStatus = pResponseStatus_
+    { packageDetails =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Information about the package @PackageDetails@ .
-uprrsPackageDetails :: Lens' UpdatePackageResponse (Maybe PackageDetails)
-uprrsPackageDetails = lens _uprrsPackageDetails (\s a -> s {_uprrsPackageDetails = a})
+-- | Information about the package @PackageDetails@.
+updatePackageResponse_packageDetails :: Lens.Lens' UpdatePackageResponse (Prelude.Maybe PackageDetails)
+updatePackageResponse_packageDetails = Lens.lens (\UpdatePackageResponse' {packageDetails} -> packageDetails) (\s@UpdatePackageResponse' {} a -> s {packageDetails = a} :: UpdatePackageResponse)
 
--- | -- | The response status code.
-uprrsResponseStatus :: Lens' UpdatePackageResponse Int
-uprrsResponseStatus = lens _uprrsResponseStatus (\s a -> s {_uprrsResponseStatus = a})
+-- | The response's http status code.
+updatePackageResponse_httpStatus :: Lens.Lens' UpdatePackageResponse Prelude.Int
+updatePackageResponse_httpStatus = Lens.lens (\UpdatePackageResponse' {httpStatus} -> httpStatus) (\s@UpdatePackageResponse' {} a -> s {httpStatus = a} :: UpdatePackageResponse)
 
-instance NFData UpdatePackageResponse
+instance Prelude.NFData UpdatePackageResponse

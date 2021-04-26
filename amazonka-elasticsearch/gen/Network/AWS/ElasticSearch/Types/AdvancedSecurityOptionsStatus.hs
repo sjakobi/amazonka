@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +21,73 @@ module Network.AWS.ElasticSearch.Types.AdvancedSecurityOptionsStatus where
 
 import Network.AWS.ElasticSearch.Types.AdvancedSecurityOptions
 import Network.AWS.ElasticSearch.Types.OptionStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies the status of advanced security options for the specified Elasticsearch domain.
+-- | Specifies the status of advanced security options for the specified
+-- Elasticsearch domain.
 --
---
---
--- /See:/ 'advancedSecurityOptionsStatus' smart constructor.
+-- /See:/ 'newAdvancedSecurityOptionsStatus' smart constructor.
 data AdvancedSecurityOptionsStatus = AdvancedSecurityOptionsStatus'
-  { _asosOptions ::
-      !AdvancedSecurityOptions,
-    _asosStatus ::
-      !OptionStatus
+  { -- | Specifies advanced security options for the specified Elasticsearch
+    -- domain.
+    options :: AdvancedSecurityOptions,
+    -- | Status of the advanced security options for the specified Elasticsearch
+    -- domain.
+    status :: OptionStatus
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AdvancedSecurityOptionsStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AdvancedSecurityOptionsStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'asosOptions' - Specifies advanced security options for the specified Elasticsearch domain.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'asosStatus' - Status of the advanced security options for the specified Elasticsearch domain.
-advancedSecurityOptionsStatus ::
-  -- | 'asosOptions'
+-- 'options', 'advancedSecurityOptionsStatus_options' - Specifies advanced security options for the specified Elasticsearch
+-- domain.
+--
+-- 'status', 'advancedSecurityOptionsStatus_status' - Status of the advanced security options for the specified Elasticsearch
+-- domain.
+newAdvancedSecurityOptionsStatus ::
+  -- | 'options'
   AdvancedSecurityOptions ->
-  -- | 'asosStatus'
+  -- | 'status'
   OptionStatus ->
   AdvancedSecurityOptionsStatus
-advancedSecurityOptionsStatus pOptions_ pStatus_ =
+newAdvancedSecurityOptionsStatus pOptions_ pStatus_ =
   AdvancedSecurityOptionsStatus'
-    { _asosOptions =
-        pOptions_,
-      _asosStatus = pStatus_
+    { options = pOptions_,
+      status = pStatus_
     }
 
--- | Specifies advanced security options for the specified Elasticsearch domain.
-asosOptions :: Lens' AdvancedSecurityOptionsStatus AdvancedSecurityOptions
-asosOptions = lens _asosOptions (\s a -> s {_asosOptions = a})
+-- | Specifies advanced security options for the specified Elasticsearch
+-- domain.
+advancedSecurityOptionsStatus_options :: Lens.Lens' AdvancedSecurityOptionsStatus AdvancedSecurityOptions
+advancedSecurityOptionsStatus_options = Lens.lens (\AdvancedSecurityOptionsStatus' {options} -> options) (\s@AdvancedSecurityOptionsStatus' {} a -> s {options = a} :: AdvancedSecurityOptionsStatus)
 
--- | Status of the advanced security options for the specified Elasticsearch domain.
-asosStatus :: Lens' AdvancedSecurityOptionsStatus OptionStatus
-asosStatus = lens _asosStatus (\s a -> s {_asosStatus = a})
+-- | Status of the advanced security options for the specified Elasticsearch
+-- domain.
+advancedSecurityOptionsStatus_status :: Lens.Lens' AdvancedSecurityOptionsStatus OptionStatus
+advancedSecurityOptionsStatus_status = Lens.lens (\AdvancedSecurityOptionsStatus' {status} -> status) (\s@AdvancedSecurityOptionsStatus' {} a -> s {status = a} :: AdvancedSecurityOptionsStatus)
 
-instance FromJSON AdvancedSecurityOptionsStatus where
+instance
+  Prelude.FromJSON
+    AdvancedSecurityOptionsStatus
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AdvancedSecurityOptionsStatus"
       ( \x ->
           AdvancedSecurityOptionsStatus'
-            <$> (x .: "Options") <*> (x .: "Status")
+            Prelude.<$> (x Prelude..: "Options")
+            Prelude.<*> (x Prelude..: "Status")
       )
 
-instance Hashable AdvancedSecurityOptionsStatus
+instance
+  Prelude.Hashable
+    AdvancedSecurityOptionsStatus
 
-instance NFData AdvancedSecurityOptionsStatus
+instance Prelude.NFData AdvancedSecurityOptionsStatus

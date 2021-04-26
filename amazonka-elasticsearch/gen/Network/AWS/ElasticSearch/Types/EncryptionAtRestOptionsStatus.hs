@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +21,73 @@ module Network.AWS.ElasticSearch.Types.EncryptionAtRestOptionsStatus where
 
 import Network.AWS.ElasticSearch.Types.EncryptionAtRestOptions
 import Network.AWS.ElasticSearch.Types.OptionStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Status of the Encryption At Rest options for the specified Elasticsearch domain.
+-- | Status of the Encryption At Rest options for the specified Elasticsearch
+-- domain.
 --
---
---
--- /See:/ 'encryptionAtRestOptionsStatus' smart constructor.
+-- /See:/ 'newEncryptionAtRestOptionsStatus' smart constructor.
 data EncryptionAtRestOptionsStatus = EncryptionAtRestOptionsStatus'
-  { _earosOptions ::
-      !EncryptionAtRestOptions,
-    _earosStatus ::
-      !OptionStatus
+  { -- | Specifies the Encryption At Rest options for the specified Elasticsearch
+    -- domain.
+    options :: EncryptionAtRestOptions,
+    -- | Specifies the status of the Encryption At Rest options for the specified
+    -- Elasticsearch domain.
+    status :: OptionStatus
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EncryptionAtRestOptionsStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EncryptionAtRestOptionsStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'earosOptions' - Specifies the Encryption At Rest options for the specified Elasticsearch domain.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'earosStatus' - Specifies the status of the Encryption At Rest options for the specified Elasticsearch domain.
-encryptionAtRestOptionsStatus ::
-  -- | 'earosOptions'
+-- 'options', 'encryptionAtRestOptionsStatus_options' - Specifies the Encryption At Rest options for the specified Elasticsearch
+-- domain.
+--
+-- 'status', 'encryptionAtRestOptionsStatus_status' - Specifies the status of the Encryption At Rest options for the specified
+-- Elasticsearch domain.
+newEncryptionAtRestOptionsStatus ::
+  -- | 'options'
   EncryptionAtRestOptions ->
-  -- | 'earosStatus'
+  -- | 'status'
   OptionStatus ->
   EncryptionAtRestOptionsStatus
-encryptionAtRestOptionsStatus pOptions_ pStatus_ =
+newEncryptionAtRestOptionsStatus pOptions_ pStatus_ =
   EncryptionAtRestOptionsStatus'
-    { _earosOptions =
-        pOptions_,
-      _earosStatus = pStatus_
+    { options = pOptions_,
+      status = pStatus_
     }
 
--- | Specifies the Encryption At Rest options for the specified Elasticsearch domain.
-earosOptions :: Lens' EncryptionAtRestOptionsStatus EncryptionAtRestOptions
-earosOptions = lens _earosOptions (\s a -> s {_earosOptions = a})
+-- | Specifies the Encryption At Rest options for the specified Elasticsearch
+-- domain.
+encryptionAtRestOptionsStatus_options :: Lens.Lens' EncryptionAtRestOptionsStatus EncryptionAtRestOptions
+encryptionAtRestOptionsStatus_options = Lens.lens (\EncryptionAtRestOptionsStatus' {options} -> options) (\s@EncryptionAtRestOptionsStatus' {} a -> s {options = a} :: EncryptionAtRestOptionsStatus)
 
--- | Specifies the status of the Encryption At Rest options for the specified Elasticsearch domain.
-earosStatus :: Lens' EncryptionAtRestOptionsStatus OptionStatus
-earosStatus = lens _earosStatus (\s a -> s {_earosStatus = a})
+-- | Specifies the status of the Encryption At Rest options for the specified
+-- Elasticsearch domain.
+encryptionAtRestOptionsStatus_status :: Lens.Lens' EncryptionAtRestOptionsStatus OptionStatus
+encryptionAtRestOptionsStatus_status = Lens.lens (\EncryptionAtRestOptionsStatus' {status} -> status) (\s@EncryptionAtRestOptionsStatus' {} a -> s {status = a} :: EncryptionAtRestOptionsStatus)
 
-instance FromJSON EncryptionAtRestOptionsStatus where
+instance
+  Prelude.FromJSON
+    EncryptionAtRestOptionsStatus
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "EncryptionAtRestOptionsStatus"
       ( \x ->
           EncryptionAtRestOptionsStatus'
-            <$> (x .: "Options") <*> (x .: "Status")
+            Prelude.<$> (x Prelude..: "Options")
+            Prelude.<*> (x Prelude..: "Status")
       )
 
-instance Hashable EncryptionAtRestOptionsStatus
+instance
+  Prelude.Hashable
+    EncryptionAtRestOptionsStatus
 
-instance NFData EncryptionAtRestOptionsStatus
+instance Prelude.NFData EncryptionAtRestOptionsStatus

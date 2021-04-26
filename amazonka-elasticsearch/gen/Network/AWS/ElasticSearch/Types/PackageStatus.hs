@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,83 +19,85 @@
 module Network.AWS.ElasticSearch.Types.PackageStatus
   ( PackageStatus
       ( ..,
-        PSAvailable,
-        PSCopyFailed,
-        PSCopying,
-        PSDeleteFailed,
-        PSDeleted,
-        PSDeleting,
-        PSValidating,
-        PSValidationFailed
+        PackageStatusAVAILABLE,
+        PackageStatusCOPYFAILED,
+        PackageStatusCOPYING,
+        PackageStatusDELETED,
+        PackageStatusDELETEFAILED,
+        PackageStatusDELETING,
+        PackageStatusVALIDATING,
+        PackageStatusVALIDATIONFAILED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PackageStatus = PackageStatus' (CI Text)
+newtype PackageStatus = PackageStatus'
+  { fromPackageStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PSAvailable :: PackageStatus
-pattern PSAvailable = PackageStatus' "AVAILABLE"
+pattern PackageStatusAVAILABLE :: PackageStatus
+pattern PackageStatusAVAILABLE = PackageStatus' "AVAILABLE"
 
-pattern PSCopyFailed :: PackageStatus
-pattern PSCopyFailed = PackageStatus' "COPY_FAILED"
+pattern PackageStatusCOPYFAILED :: PackageStatus
+pattern PackageStatusCOPYFAILED = PackageStatus' "COPY_FAILED"
 
-pattern PSCopying :: PackageStatus
-pattern PSCopying = PackageStatus' "COPYING"
+pattern PackageStatusCOPYING :: PackageStatus
+pattern PackageStatusCOPYING = PackageStatus' "COPYING"
 
-pattern PSDeleteFailed :: PackageStatus
-pattern PSDeleteFailed = PackageStatus' "DELETE_FAILED"
+pattern PackageStatusDELETED :: PackageStatus
+pattern PackageStatusDELETED = PackageStatus' "DELETED"
 
-pattern PSDeleted :: PackageStatus
-pattern PSDeleted = PackageStatus' "DELETED"
+pattern PackageStatusDELETEFAILED :: PackageStatus
+pattern PackageStatusDELETEFAILED = PackageStatus' "DELETE_FAILED"
 
-pattern PSDeleting :: PackageStatus
-pattern PSDeleting = PackageStatus' "DELETING"
+pattern PackageStatusDELETING :: PackageStatus
+pattern PackageStatusDELETING = PackageStatus' "DELETING"
 
-pattern PSValidating :: PackageStatus
-pattern PSValidating = PackageStatus' "VALIDATING"
+pattern PackageStatusVALIDATING :: PackageStatus
+pattern PackageStatusVALIDATING = PackageStatus' "VALIDATING"
 
-pattern PSValidationFailed :: PackageStatus
-pattern PSValidationFailed = PackageStatus' "VALIDATION_FAILED"
+pattern PackageStatusVALIDATIONFAILED :: PackageStatus
+pattern PackageStatusVALIDATIONFAILED = PackageStatus' "VALIDATION_FAILED"
 
 {-# COMPLETE
-  PSAvailable,
-  PSCopyFailed,
-  PSCopying,
-  PSDeleteFailed,
-  PSDeleted,
-  PSDeleting,
-  PSValidating,
-  PSValidationFailed,
+  PackageStatusAVAILABLE,
+  PackageStatusCOPYFAILED,
+  PackageStatusCOPYING,
+  PackageStatusDELETED,
+  PackageStatusDELETEFAILED,
+  PackageStatusDELETING,
+  PackageStatusVALIDATING,
+  PackageStatusVALIDATIONFAILED,
   PackageStatus'
   #-}
 
-instance FromText PackageStatus where
-  parser = (PackageStatus' . mk) <$> takeText
+instance Prelude.FromText PackageStatus where
+  parser = PackageStatus' Prelude.<$> Prelude.takeText
 
-instance ToText PackageStatus where
-  toText (PackageStatus' ci) = original ci
+instance Prelude.ToText PackageStatus where
+  toText (PackageStatus' x) = x
 
-instance Hashable PackageStatus
+instance Prelude.Hashable PackageStatus
 
-instance NFData PackageStatus
+instance Prelude.NFData PackageStatus
 
-instance ToByteString PackageStatus
+instance Prelude.ToByteString PackageStatus
 
-instance ToQuery PackageStatus
+instance Prelude.ToQuery PackageStatus
 
-instance ToHeader PackageStatus
+instance Prelude.ToHeader PackageStatus
 
-instance FromJSON PackageStatus where
-  parseJSON = parseJSONText "PackageStatus"
+instance Prelude.FromJSON PackageStatus where
+  parseJSON = Prelude.parseJSONText "PackageStatus"

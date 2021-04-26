@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,155 +21,188 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves the latest status of the last upgrade or upgrade eligibility check that was performed on the domain.
+-- Retrieves the latest status of the last upgrade or upgrade eligibility
+-- check that was performed on the domain.
 module Network.AWS.ElasticSearch.GetUpgradeStatus
   ( -- * Creating a Request
-    getUpgradeStatus,
-    GetUpgradeStatus,
+    GetUpgradeStatus (..),
+    newGetUpgradeStatus,
 
     -- * Request Lenses
-    gusDomainName,
+    getUpgradeStatus_domainName,
 
     -- * Destructuring the Response
-    getUpgradeStatusResponse,
-    GetUpgradeStatusResponse,
+    GetUpgradeStatusResponse (..),
+    newGetUpgradeStatusResponse,
 
     -- * Response Lenses
-    gusrrsUpgradeName,
-    gusrrsUpgradeStep,
-    gusrrsStepStatus,
-    gusrrsResponseStatus,
+    getUpgradeStatusResponse_upgradeName,
+    getUpgradeStatusResponse_upgradeStep,
+    getUpgradeStatusResponse_stepStatus,
+    getUpgradeStatusResponse_httpStatus,
   )
 where
 
 import Network.AWS.ElasticSearch.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ElasticSearch.Types.UpgradeStatus
+import Network.AWS.ElasticSearch.Types.UpgradeStep
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Container for request parameters to @'GetUpgradeStatus' @ operation.
+-- | Container for request parameters to @ GetUpgradeStatus @ operation.
 --
---
---
--- /See:/ 'getUpgradeStatus' smart constructor.
-newtype GetUpgradeStatus = GetUpgradeStatus'
-  { _gusDomainName ::
-      Text
+-- /See:/ 'newGetUpgradeStatus' smart constructor.
+data GetUpgradeStatus = GetUpgradeStatus'
+  { domainName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetUpgradeStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetUpgradeStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gusDomainName' - Undocumented member.
-getUpgradeStatus ::
-  -- | 'gusDomainName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'domainName', 'getUpgradeStatus_domainName' - Undocumented member.
+newGetUpgradeStatus ::
+  -- | 'domainName'
+  Prelude.Text ->
   GetUpgradeStatus
-getUpgradeStatus pDomainName_ =
-  GetUpgradeStatus' {_gusDomainName = pDomainName_}
+newGetUpgradeStatus pDomainName_ =
+  GetUpgradeStatus' {domainName = pDomainName_}
 
 -- | Undocumented member.
-gusDomainName :: Lens' GetUpgradeStatus Text
-gusDomainName = lens _gusDomainName (\s a -> s {_gusDomainName = a})
+getUpgradeStatus_domainName :: Lens.Lens' GetUpgradeStatus Prelude.Text
+getUpgradeStatus_domainName = Lens.lens (\GetUpgradeStatus' {domainName} -> domainName) (\s@GetUpgradeStatus' {} a -> s {domainName = a} :: GetUpgradeStatus)
 
-instance AWSRequest GetUpgradeStatus where
+instance Prelude.AWSRequest GetUpgradeStatus where
   type Rs GetUpgradeStatus = GetUpgradeStatusResponse
-  request = get elasticSearch
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetUpgradeStatusResponse'
-            <$> (x .?> "UpgradeName")
-            <*> (x .?> "UpgradeStep")
-            <*> (x .?> "StepStatus")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "UpgradeName")
+            Prelude.<*> (x Prelude..?> "UpgradeStep")
+            Prelude.<*> (x Prelude..?> "StepStatus")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetUpgradeStatus
+instance Prelude.Hashable GetUpgradeStatus
 
-instance NFData GetUpgradeStatus
+instance Prelude.NFData GetUpgradeStatus
 
-instance ToHeaders GetUpgradeStatus where
-  toHeaders = const mempty
+instance Prelude.ToHeaders GetUpgradeStatus where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath GetUpgradeStatus where
+instance Prelude.ToPath GetUpgradeStatus where
   toPath GetUpgradeStatus' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/2015-01-01/es/upgradeDomain/",
-        toBS _gusDomainName,
+        Prelude.toBS domainName,
         "/status"
       ]
 
-instance ToQuery GetUpgradeStatus where
-  toQuery = const mempty
+instance Prelude.ToQuery GetUpgradeStatus where
+  toQuery = Prelude.const Prelude.mempty
 
--- | Container for response returned by @'GetUpgradeStatus' @ operation.
+-- | Container for response returned by @ GetUpgradeStatus @ operation.
 --
---
---
--- /See:/ 'getUpgradeStatusResponse' smart constructor.
+-- /See:/ 'newGetUpgradeStatusResponse' smart constructor.
 data GetUpgradeStatusResponse = GetUpgradeStatusResponse'
-  { _gusrrsUpgradeName ::
-      !(Maybe Text),
-    _gusrrsUpgradeStep ::
-      !(Maybe UpgradeStep),
-    _gusrrsStepStatus ::
-      !( Maybe
-           UpgradeStatus
-       ),
-    _gusrrsResponseStatus ::
-      !Int
+  { -- | A string that describes the update briefly
+    upgradeName :: Prelude.Maybe Prelude.Text,
+    -- | Represents one of 3 steps that an Upgrade or Upgrade Eligibility Check
+    -- does through:
+    --
+    -- -   PreUpgradeCheck
+    -- -   Snapshot
+    -- -   Upgrade
+    upgradeStep :: Prelude.Maybe UpgradeStep,
+    -- | One of 4 statuses that a step can go through returned as part of the
+    -- @ GetUpgradeStatusResponse @ object. The status can take one of the
+    -- following values:
+    --
+    -- -   In Progress
+    -- -   Succeeded
+    -- -   Succeeded with Issues
+    -- -   Failed
+    stepStatus :: Prelude.Maybe UpgradeStatus,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetUpgradeStatusResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetUpgradeStatusResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gusrrsUpgradeName' - A string that describes the update briefly
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gusrrsUpgradeStep' - Represents one of 3 steps that an Upgrade or Upgrade Eligibility Check does through:     * PreUpgradeCheck    * Snapshot    * Upgrade
+-- 'upgradeName', 'getUpgradeStatusResponse_upgradeName' - A string that describes the update briefly
 --
--- * 'gusrrsStepStatus' - One of 4 statuses that a step can go through returned as part of the @'GetUpgradeStatusResponse' @ object. The status can take one of the following values:     * In Progress    * Succeeded    * Succeeded with Issues    * Failed
+-- 'upgradeStep', 'getUpgradeStatusResponse_upgradeStep' - Represents one of 3 steps that an Upgrade or Upgrade Eligibility Check
+-- does through:
 --
--- * 'gusrrsResponseStatus' - -- | The response status code.
-getUpgradeStatusResponse ::
-  -- | 'gusrrsResponseStatus'
-  Int ->
+-- -   PreUpgradeCheck
+-- -   Snapshot
+-- -   Upgrade
+--
+-- 'stepStatus', 'getUpgradeStatusResponse_stepStatus' - One of 4 statuses that a step can go through returned as part of the
+-- @ GetUpgradeStatusResponse @ object. The status can take one of the
+-- following values:
+--
+-- -   In Progress
+-- -   Succeeded
+-- -   Succeeded with Issues
+-- -   Failed
+--
+-- 'httpStatus', 'getUpgradeStatusResponse_httpStatus' - The response's http status code.
+newGetUpgradeStatusResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetUpgradeStatusResponse
-getUpgradeStatusResponse pResponseStatus_ =
+newGetUpgradeStatusResponse pHttpStatus_ =
   GetUpgradeStatusResponse'
-    { _gusrrsUpgradeName =
-        Nothing,
-      _gusrrsUpgradeStep = Nothing,
-      _gusrrsStepStatus = Nothing,
-      _gusrrsResponseStatus = pResponseStatus_
+    { upgradeName =
+        Prelude.Nothing,
+      upgradeStep = Prelude.Nothing,
+      stepStatus = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A string that describes the update briefly
-gusrrsUpgradeName :: Lens' GetUpgradeStatusResponse (Maybe Text)
-gusrrsUpgradeName = lens _gusrrsUpgradeName (\s a -> s {_gusrrsUpgradeName = a})
+getUpgradeStatusResponse_upgradeName :: Lens.Lens' GetUpgradeStatusResponse (Prelude.Maybe Prelude.Text)
+getUpgradeStatusResponse_upgradeName = Lens.lens (\GetUpgradeStatusResponse' {upgradeName} -> upgradeName) (\s@GetUpgradeStatusResponse' {} a -> s {upgradeName = a} :: GetUpgradeStatusResponse)
 
--- | Represents one of 3 steps that an Upgrade or Upgrade Eligibility Check does through:     * PreUpgradeCheck    * Snapshot    * Upgrade
-gusrrsUpgradeStep :: Lens' GetUpgradeStatusResponse (Maybe UpgradeStep)
-gusrrsUpgradeStep = lens _gusrrsUpgradeStep (\s a -> s {_gusrrsUpgradeStep = a})
+-- | Represents one of 3 steps that an Upgrade or Upgrade Eligibility Check
+-- does through:
+--
+-- -   PreUpgradeCheck
+-- -   Snapshot
+-- -   Upgrade
+getUpgradeStatusResponse_upgradeStep :: Lens.Lens' GetUpgradeStatusResponse (Prelude.Maybe UpgradeStep)
+getUpgradeStatusResponse_upgradeStep = Lens.lens (\GetUpgradeStatusResponse' {upgradeStep} -> upgradeStep) (\s@GetUpgradeStatusResponse' {} a -> s {upgradeStep = a} :: GetUpgradeStatusResponse)
 
--- | One of 4 statuses that a step can go through returned as part of the @'GetUpgradeStatusResponse' @ object. The status can take one of the following values:     * In Progress    * Succeeded    * Succeeded with Issues    * Failed
-gusrrsStepStatus :: Lens' GetUpgradeStatusResponse (Maybe UpgradeStatus)
-gusrrsStepStatus = lens _gusrrsStepStatus (\s a -> s {_gusrrsStepStatus = a})
+-- | One of 4 statuses that a step can go through returned as part of the
+-- @ GetUpgradeStatusResponse @ object. The status can take one of the
+-- following values:
+--
+-- -   In Progress
+-- -   Succeeded
+-- -   Succeeded with Issues
+-- -   Failed
+getUpgradeStatusResponse_stepStatus :: Lens.Lens' GetUpgradeStatusResponse (Prelude.Maybe UpgradeStatus)
+getUpgradeStatusResponse_stepStatus = Lens.lens (\GetUpgradeStatusResponse' {stepStatus} -> stepStatus) (\s@GetUpgradeStatusResponse' {} a -> s {stepStatus = a} :: GetUpgradeStatusResponse)
 
--- | -- | The response status code.
-gusrrsResponseStatus :: Lens' GetUpgradeStatusResponse Int
-gusrrsResponseStatus = lens _gusrrsResponseStatus (\s a -> s {_gusrrsResponseStatus = a})
+-- | The response's http status code.
+getUpgradeStatusResponse_httpStatus :: Lens.Lens' GetUpgradeStatusResponse Prelude.Int
+getUpgradeStatusResponse_httpStatus = Lens.lens (\GetUpgradeStatusResponse' {httpStatus} -> httpStatus) (\s@GetUpgradeStatusResponse' {} a -> s {httpStatus = a} :: GetUpgradeStatusResponse)
 
-instance NFData GetUpgradeStatusResponse
+instance Prelude.NFData GetUpgradeStatusResponse

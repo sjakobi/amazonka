@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,79 +21,97 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the service-linked role that Elasticsearch Service uses to manage and maintain VPC domains. Role deletion will fail if any existing VPC domains use the role. You must delete any such Elasticsearch domains before deleting the role. See <http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-vpc.html#es-enabling-slr Deleting Elasticsearch Service Role> in /VPC Endpoints for Amazon Elasticsearch Service Domains/ .
+-- Deletes the service-linked role that Elasticsearch Service uses to
+-- manage and maintain VPC domains. Role deletion will fail if any existing
+-- VPC domains use the role. You must delete any such Elasticsearch domains
+-- before deleting the role. See
+-- <http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-vpc.html#es-enabling-slr Deleting Elasticsearch Service Role>
+-- in /VPC Endpoints for Amazon Elasticsearch Service Domains/.
 module Network.AWS.ElasticSearch.DeleteElasticsearchServiceRole
   ( -- * Creating a Request
-    deleteElasticsearchServiceRole,
-    DeleteElasticsearchServiceRole,
+    DeleteElasticsearchServiceRole (..),
+    newDeleteElasticsearchServiceRole,
 
     -- * Destructuring the Response
-    deleteElasticsearchServiceRoleResponse,
-    DeleteElasticsearchServiceRoleResponse,
+    DeleteElasticsearchServiceRoleResponse (..),
+    newDeleteElasticsearchServiceRoleResponse,
   )
 where
 
 import Network.AWS.ElasticSearch.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteElasticsearchServiceRole' smart constructor.
+-- | /See:/ 'newDeleteElasticsearchServiceRole' smart constructor.
 data DeleteElasticsearchServiceRole = DeleteElasticsearchServiceRole'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteElasticsearchServiceRole' with the minimum fields required to make a request.
-deleteElasticsearchServiceRole ::
+-- |
+-- Create a value of 'DeleteElasticsearchServiceRole' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteElasticsearchServiceRole ::
   DeleteElasticsearchServiceRole
-deleteElasticsearchServiceRole =
+newDeleteElasticsearchServiceRole =
   DeleteElasticsearchServiceRole'
 
-instance AWSRequest DeleteElasticsearchServiceRole where
+instance
+  Prelude.AWSRequest
+    DeleteElasticsearchServiceRole
+  where
   type
     Rs DeleteElasticsearchServiceRole =
       DeleteElasticsearchServiceRoleResponse
-  request = delete elasticSearch
+  request = Request.delete defaultService
   response =
-    receiveNull DeleteElasticsearchServiceRoleResponse'
+    Response.receiveNull
+      DeleteElasticsearchServiceRoleResponse'
 
-instance Hashable DeleteElasticsearchServiceRole
+instance
+  Prelude.Hashable
+    DeleteElasticsearchServiceRole
 
-instance NFData DeleteElasticsearchServiceRole
+instance
+  Prelude.NFData
+    DeleteElasticsearchServiceRole
 
-instance ToHeaders DeleteElasticsearchServiceRole where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    DeleteElasticsearchServiceRole
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteElasticsearchServiceRole where
-  toPath = const "/2015-01-01/es/role"
+instance
+  Prelude.ToPath
+    DeleteElasticsearchServiceRole
+  where
+  toPath = Prelude.const "/2015-01-01/es/role"
 
-instance ToQuery DeleteElasticsearchServiceRole where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    DeleteElasticsearchServiceRole
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteElasticsearchServiceRoleResponse' smart constructor.
+-- | /See:/ 'newDeleteElasticsearchServiceRoleResponse' smart constructor.
 data DeleteElasticsearchServiceRoleResponse = DeleteElasticsearchServiceRoleResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteElasticsearchServiceRoleResponse' with the minimum fields required to make a request.
-deleteElasticsearchServiceRoleResponse ::
+-- |
+-- Create a value of 'DeleteElasticsearchServiceRoleResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteElasticsearchServiceRoleResponse ::
   DeleteElasticsearchServiceRoleResponse
-deleteElasticsearchServiceRoleResponse =
+newDeleteElasticsearchServiceRoleResponse =
   DeleteElasticsearchServiceRoleResponse'
 
 instance
-  NFData
+  Prelude.NFData
     DeleteElasticsearchServiceRoleResponse

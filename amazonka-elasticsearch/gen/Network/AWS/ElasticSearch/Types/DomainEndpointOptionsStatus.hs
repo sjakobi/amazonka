@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +21,64 @@ module Network.AWS.ElasticSearch.Types.DomainEndpointOptionsStatus where
 
 import Network.AWS.ElasticSearch.Types.DomainEndpointOptions
 import Network.AWS.ElasticSearch.Types.OptionStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The configured endpoint options for the domain and their current status.
 --
---
---
--- /See:/ 'domainEndpointOptionsStatus' smart constructor.
+-- /See:/ 'newDomainEndpointOptionsStatus' smart constructor.
 data DomainEndpointOptionsStatus = DomainEndpointOptionsStatus'
-  { _deosOptions ::
-      !DomainEndpointOptions,
-    _deosStatus ::
-      !OptionStatus
+  { -- | Options to configure endpoint for the Elasticsearch domain.
+    options :: DomainEndpointOptions,
+    -- | The status of the endpoint options for the Elasticsearch domain. See
+    -- @OptionStatus@ for the status information that\'s included.
+    status :: OptionStatus
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DomainEndpointOptionsStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DomainEndpointOptionsStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'deosOptions' - Options to configure endpoint for the Elasticsearch domain.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'deosStatus' - The status of the endpoint options for the Elasticsearch domain. See @OptionStatus@ for the status information that's included.
-domainEndpointOptionsStatus ::
-  -- | 'deosOptions'
+-- 'options', 'domainEndpointOptionsStatus_options' - Options to configure endpoint for the Elasticsearch domain.
+--
+-- 'status', 'domainEndpointOptionsStatus_status' - The status of the endpoint options for the Elasticsearch domain. See
+-- @OptionStatus@ for the status information that\'s included.
+newDomainEndpointOptionsStatus ::
+  -- | 'options'
   DomainEndpointOptions ->
-  -- | 'deosStatus'
+  -- | 'status'
   OptionStatus ->
   DomainEndpointOptionsStatus
-domainEndpointOptionsStatus pOptions_ pStatus_ =
+newDomainEndpointOptionsStatus pOptions_ pStatus_ =
   DomainEndpointOptionsStatus'
-    { _deosOptions =
-        pOptions_,
-      _deosStatus = pStatus_
+    { options = pOptions_,
+      status = pStatus_
     }
 
 -- | Options to configure endpoint for the Elasticsearch domain.
-deosOptions :: Lens' DomainEndpointOptionsStatus DomainEndpointOptions
-deosOptions = lens _deosOptions (\s a -> s {_deosOptions = a})
+domainEndpointOptionsStatus_options :: Lens.Lens' DomainEndpointOptionsStatus DomainEndpointOptions
+domainEndpointOptionsStatus_options = Lens.lens (\DomainEndpointOptionsStatus' {options} -> options) (\s@DomainEndpointOptionsStatus' {} a -> s {options = a} :: DomainEndpointOptionsStatus)
 
--- | The status of the endpoint options for the Elasticsearch domain. See @OptionStatus@ for the status information that's included.
-deosStatus :: Lens' DomainEndpointOptionsStatus OptionStatus
-deosStatus = lens _deosStatus (\s a -> s {_deosStatus = a})
+-- | The status of the endpoint options for the Elasticsearch domain. See
+-- @OptionStatus@ for the status information that\'s included.
+domainEndpointOptionsStatus_status :: Lens.Lens' DomainEndpointOptionsStatus OptionStatus
+domainEndpointOptionsStatus_status = Lens.lens (\DomainEndpointOptionsStatus' {status} -> status) (\s@DomainEndpointOptionsStatus' {} a -> s {status = a} :: DomainEndpointOptionsStatus)
 
-instance FromJSON DomainEndpointOptionsStatus where
+instance Prelude.FromJSON DomainEndpointOptionsStatus where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DomainEndpointOptionsStatus"
       ( \x ->
           DomainEndpointOptionsStatus'
-            <$> (x .: "Options") <*> (x .: "Status")
+            Prelude.<$> (x Prelude..: "Options")
+            Prelude.<*> (x Prelude..: "Status")
       )
 
-instance Hashable DomainEndpointOptionsStatus
+instance Prelude.Hashable DomainEndpointOptionsStatus
 
-instance NFData DomainEndpointOptionsStatus
+instance Prelude.NFData DomainEndpointOptionsStatus

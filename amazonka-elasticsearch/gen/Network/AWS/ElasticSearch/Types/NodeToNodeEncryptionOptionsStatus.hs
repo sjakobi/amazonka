@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +21,78 @@ module Network.AWS.ElasticSearch.Types.NodeToNodeEncryptionOptionsStatus where
 
 import Network.AWS.ElasticSearch.Types.NodeToNodeEncryptionOptions
 import Network.AWS.ElasticSearch.Types.OptionStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Status of the node-to-node encryption options for the specified Elasticsearch domain.
+-- | Status of the node-to-node encryption options for the specified
+-- Elasticsearch domain.
 --
---
---
--- /See:/ 'nodeToNodeEncryptionOptionsStatus' smart constructor.
+-- /See:/ 'newNodeToNodeEncryptionOptionsStatus' smart constructor.
 data NodeToNodeEncryptionOptionsStatus = NodeToNodeEncryptionOptionsStatus'
-  { _ntneosOptions ::
-      !NodeToNodeEncryptionOptions,
-    _ntneosStatus ::
-      !OptionStatus
+  { -- | Specifies the node-to-node encryption options for the specified
+    -- Elasticsearch domain.
+    options :: NodeToNodeEncryptionOptions,
+    -- | Specifies the status of the node-to-node encryption options for the
+    -- specified Elasticsearch domain.
+    status :: OptionStatus
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'NodeToNodeEncryptionOptionsStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'NodeToNodeEncryptionOptionsStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ntneosOptions' - Specifies the node-to-node encryption options for the specified Elasticsearch domain.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ntneosStatus' - Specifies the status of the node-to-node encryption options for the specified Elasticsearch domain.
-nodeToNodeEncryptionOptionsStatus ::
-  -- | 'ntneosOptions'
+-- 'options', 'nodeToNodeEncryptionOptionsStatus_options' - Specifies the node-to-node encryption options for the specified
+-- Elasticsearch domain.
+--
+-- 'status', 'nodeToNodeEncryptionOptionsStatus_status' - Specifies the status of the node-to-node encryption options for the
+-- specified Elasticsearch domain.
+newNodeToNodeEncryptionOptionsStatus ::
+  -- | 'options'
   NodeToNodeEncryptionOptions ->
-  -- | 'ntneosStatus'
+  -- | 'status'
   OptionStatus ->
   NodeToNodeEncryptionOptionsStatus
-nodeToNodeEncryptionOptionsStatus pOptions_ pStatus_ =
-  NodeToNodeEncryptionOptionsStatus'
-    { _ntneosOptions =
-        pOptions_,
-      _ntneosStatus = pStatus_
-    }
+newNodeToNodeEncryptionOptionsStatus
+  pOptions_
+  pStatus_ =
+    NodeToNodeEncryptionOptionsStatus'
+      { options =
+          pOptions_,
+        status = pStatus_
+      }
 
--- | Specifies the node-to-node encryption options for the specified Elasticsearch domain.
-ntneosOptions :: Lens' NodeToNodeEncryptionOptionsStatus NodeToNodeEncryptionOptions
-ntneosOptions = lens _ntneosOptions (\s a -> s {_ntneosOptions = a})
+-- | Specifies the node-to-node encryption options for the specified
+-- Elasticsearch domain.
+nodeToNodeEncryptionOptionsStatus_options :: Lens.Lens' NodeToNodeEncryptionOptionsStatus NodeToNodeEncryptionOptions
+nodeToNodeEncryptionOptionsStatus_options = Lens.lens (\NodeToNodeEncryptionOptionsStatus' {options} -> options) (\s@NodeToNodeEncryptionOptionsStatus' {} a -> s {options = a} :: NodeToNodeEncryptionOptionsStatus)
 
--- | Specifies the status of the node-to-node encryption options for the specified Elasticsearch domain.
-ntneosStatus :: Lens' NodeToNodeEncryptionOptionsStatus OptionStatus
-ntneosStatus = lens _ntneosStatus (\s a -> s {_ntneosStatus = a})
+-- | Specifies the status of the node-to-node encryption options for the
+-- specified Elasticsearch domain.
+nodeToNodeEncryptionOptionsStatus_status :: Lens.Lens' NodeToNodeEncryptionOptionsStatus OptionStatus
+nodeToNodeEncryptionOptionsStatus_status = Lens.lens (\NodeToNodeEncryptionOptionsStatus' {status} -> status) (\s@NodeToNodeEncryptionOptionsStatus' {} a -> s {status = a} :: NodeToNodeEncryptionOptionsStatus)
 
-instance FromJSON NodeToNodeEncryptionOptionsStatus where
+instance
+  Prelude.FromJSON
+    NodeToNodeEncryptionOptionsStatus
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "NodeToNodeEncryptionOptionsStatus"
       ( \x ->
           NodeToNodeEncryptionOptionsStatus'
-            <$> (x .: "Options") <*> (x .: "Status")
+            Prelude.<$> (x Prelude..: "Options")
+            Prelude.<*> (x Prelude..: "Status")
       )
 
-instance Hashable NodeToNodeEncryptionOptionsStatus
+instance
+  Prelude.Hashable
+    NodeToNodeEncryptionOptionsStatus
 
-instance NFData NodeToNodeEncryptionOptionsStatus
+instance
+  Prelude.NFData
+    NodeToNodeEncryptionOptionsStatus

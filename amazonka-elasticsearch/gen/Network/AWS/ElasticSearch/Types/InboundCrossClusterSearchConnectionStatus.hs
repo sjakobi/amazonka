@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,73 +20,93 @@
 module Network.AWS.ElasticSearch.Types.InboundCrossClusterSearchConnectionStatus where
 
 import Network.AWS.ElasticSearch.Types.InboundCrossClusterSearchConnectionStatusCode
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies the coonection status of an inbound cross-cluster search connection.
+-- | Specifies the coonection status of an inbound cross-cluster search
+-- connection.
 --
---
---
--- /See:/ 'inboundCrossClusterSearchConnectionStatus' smart constructor.
+-- /See:/ 'newInboundCrossClusterSearchConnectionStatus' smart constructor.
 data InboundCrossClusterSearchConnectionStatus = InboundCrossClusterSearchConnectionStatus'
-  { _iccscsMessage ::
-      !( Maybe
-           Text
-       ),
-    _iccscsStatusCode ::
-      !( Maybe
-           InboundCrossClusterSearchConnectionStatusCode
-       )
+  { -- | Specifies verbose information for the inbound connection status.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The state code for inbound connection. This can be one of the following:
+    --
+    -- -   PENDING_ACCEPTANCE: Inbound connection is not yet accepted by
+    --     destination domain owner.
+    -- -   APPROVED: Inbound connection is pending acceptance by destination
+    --     domain owner.
+    -- -   REJECTING: Inbound connection rejection is in process.
+    -- -   REJECTED: Inbound connection is rejected.
+    -- -   DELETING: Inbound connection deletion is in progress.
+    -- -   DELETED: Inbound connection is deleted and cannot be used further.
+    statusCode :: Prelude.Maybe InboundCrossClusterSearchConnectionStatusCode
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InboundCrossClusterSearchConnectionStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InboundCrossClusterSearchConnectionStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'iccscsMessage' - Specifies verbose information for the inbound connection status.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'iccscsStatusCode' - The state code for inbound connection. This can be one of the following:     * PENDING_ACCEPTANCE: Inbound connection is not yet accepted by destination domain owner.    * APPROVED: Inbound connection is pending acceptance by destination domain owner.    * REJECTING: Inbound connection rejection is in process.    * REJECTED: Inbound connection is rejected.    * DELETING: Inbound connection deletion is in progress.    * DELETED: Inbound connection is deleted and cannot be used further.
-inboundCrossClusterSearchConnectionStatus ::
+-- 'message', 'inboundCrossClusterSearchConnectionStatus_message' - Specifies verbose information for the inbound connection status.
+--
+-- 'statusCode', 'inboundCrossClusterSearchConnectionStatus_statusCode' - The state code for inbound connection. This can be one of the following:
+--
+-- -   PENDING_ACCEPTANCE: Inbound connection is not yet accepted by
+--     destination domain owner.
+-- -   APPROVED: Inbound connection is pending acceptance by destination
+--     domain owner.
+-- -   REJECTING: Inbound connection rejection is in process.
+-- -   REJECTED: Inbound connection is rejected.
+-- -   DELETING: Inbound connection deletion is in progress.
+-- -   DELETED: Inbound connection is deleted and cannot be used further.
+newInboundCrossClusterSearchConnectionStatus ::
   InboundCrossClusterSearchConnectionStatus
-inboundCrossClusterSearchConnectionStatus =
+newInboundCrossClusterSearchConnectionStatus =
   InboundCrossClusterSearchConnectionStatus'
-    { _iccscsMessage =
-        Nothing,
-      _iccscsStatusCode = Nothing
+    { message =
+        Prelude.Nothing,
+      statusCode = Prelude.Nothing
     }
 
 -- | Specifies verbose information for the inbound connection status.
-iccscsMessage :: Lens' InboundCrossClusterSearchConnectionStatus (Maybe Text)
-iccscsMessage = lens _iccscsMessage (\s a -> s {_iccscsMessage = a})
+inboundCrossClusterSearchConnectionStatus_message :: Lens.Lens' InboundCrossClusterSearchConnectionStatus (Prelude.Maybe Prelude.Text)
+inboundCrossClusterSearchConnectionStatus_message = Lens.lens (\InboundCrossClusterSearchConnectionStatus' {message} -> message) (\s@InboundCrossClusterSearchConnectionStatus' {} a -> s {message = a} :: InboundCrossClusterSearchConnectionStatus)
 
--- | The state code for inbound connection. This can be one of the following:     * PENDING_ACCEPTANCE: Inbound connection is not yet accepted by destination domain owner.    * APPROVED: Inbound connection is pending acceptance by destination domain owner.    * REJECTING: Inbound connection rejection is in process.    * REJECTED: Inbound connection is rejected.    * DELETING: Inbound connection deletion is in progress.    * DELETED: Inbound connection is deleted and cannot be used further.
-iccscsStatusCode :: Lens' InboundCrossClusterSearchConnectionStatus (Maybe InboundCrossClusterSearchConnectionStatusCode)
-iccscsStatusCode = lens _iccscsStatusCode (\s a -> s {_iccscsStatusCode = a})
+-- | The state code for inbound connection. This can be one of the following:
+--
+-- -   PENDING_ACCEPTANCE: Inbound connection is not yet accepted by
+--     destination domain owner.
+-- -   APPROVED: Inbound connection is pending acceptance by destination
+--     domain owner.
+-- -   REJECTING: Inbound connection rejection is in process.
+-- -   REJECTED: Inbound connection is rejected.
+-- -   DELETING: Inbound connection deletion is in progress.
+-- -   DELETED: Inbound connection is deleted and cannot be used further.
+inboundCrossClusterSearchConnectionStatus_statusCode :: Lens.Lens' InboundCrossClusterSearchConnectionStatus (Prelude.Maybe InboundCrossClusterSearchConnectionStatusCode)
+inboundCrossClusterSearchConnectionStatus_statusCode = Lens.lens (\InboundCrossClusterSearchConnectionStatus' {statusCode} -> statusCode) (\s@InboundCrossClusterSearchConnectionStatus' {} a -> s {statusCode = a} :: InboundCrossClusterSearchConnectionStatus)
 
 instance
-  FromJSON
+  Prelude.FromJSON
     InboundCrossClusterSearchConnectionStatus
   where
   parseJSON =
-    withObject
+    Prelude.withObject
       "InboundCrossClusterSearchConnectionStatus"
       ( \x ->
           InboundCrossClusterSearchConnectionStatus'
-            <$> (x .:? "Message") <*> (x .:? "StatusCode")
+            Prelude.<$> (x Prelude..:? "Message")
+              Prelude.<*> (x Prelude..:? "StatusCode")
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     InboundCrossClusterSearchConnectionStatus
 
 instance
-  NFData
+  Prelude.NFData
     InboundCrossClusterSearchConnectionStatus

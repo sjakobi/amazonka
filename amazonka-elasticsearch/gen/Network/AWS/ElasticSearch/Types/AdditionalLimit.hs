@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,54 +19,75 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ElasticSearch.Types.AdditionalLimit where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | List of limits that are specific to a given InstanceType and for each of it's @'InstanceRole' @ .
+-- | List of limits that are specific to a given InstanceType and for each of
+-- it\'s @ InstanceRole @ .
 --
---
---
--- /See:/ 'additionalLimit' smart constructor.
+-- /See:/ 'newAdditionalLimit' smart constructor.
 data AdditionalLimit = AdditionalLimit'
-  { _alLimitValues ::
-      !(Maybe [Text]),
-    _alLimitName :: !(Maybe Text)
+  { -- | Value for given @ AdditionalLimit$LimitName @ .
+    limitValues :: Prelude.Maybe [Prelude.Text],
+    -- | Name of Additional Limit is specific to a given InstanceType and for
+    -- each of it\'s @ InstanceRole @ etc.
+    -- Attributes and their details:
+    --
+    -- -   MaximumNumberOfDataNodesSupported
+    -- -   MaximumNumberOfDataNodesWithoutMasterNode
+    limitName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AdditionalLimit' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AdditionalLimit' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'alLimitValues' - Value for given @'AdditionalLimit$LimitName' @ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'alLimitName' - Name of Additional Limit is specific to a given InstanceType and for each of it's @'InstanceRole' @ etc.  Attributes and their details:      * MaximumNumberOfDataNodesSupportedThis attribute will be present in Master node only to specify how much data nodes upto which given @'ESPartitionInstanceType' @ can support as master node.     * MaximumNumberOfDataNodesWithoutMasterNodeThis attribute will be present in Data node only to specify how much data nodes of given @'ESPartitionInstanceType' @ upto which you don't need any master nodes to govern them.
-additionalLimit ::
+-- 'limitValues', 'additionalLimit_limitValues' - Value for given @ AdditionalLimit$LimitName @ .
+--
+-- 'limitName', 'additionalLimit_limitName' - Name of Additional Limit is specific to a given InstanceType and for
+-- each of it\'s @ InstanceRole @ etc.
+-- Attributes and their details:
+--
+-- -   MaximumNumberOfDataNodesSupported
+-- -   MaximumNumberOfDataNodesWithoutMasterNode
+newAdditionalLimit ::
   AdditionalLimit
-additionalLimit =
+newAdditionalLimit =
   AdditionalLimit'
-    { _alLimitValues = Nothing,
-      _alLimitName = Nothing
+    { limitValues = Prelude.Nothing,
+      limitName = Prelude.Nothing
     }
 
--- | Value for given @'AdditionalLimit$LimitName' @ .
-alLimitValues :: Lens' AdditionalLimit [Text]
-alLimitValues = lens _alLimitValues (\s a -> s {_alLimitValues = a}) . _Default . _Coerce
+-- | Value for given @ AdditionalLimit$LimitName @ .
+additionalLimit_limitValues :: Lens.Lens' AdditionalLimit (Prelude.Maybe [Prelude.Text])
+additionalLimit_limitValues = Lens.lens (\AdditionalLimit' {limitValues} -> limitValues) (\s@AdditionalLimit' {} a -> s {limitValues = a} :: AdditionalLimit) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Name of Additional Limit is specific to a given InstanceType and for each of it's @'InstanceRole' @ etc.  Attributes and their details:      * MaximumNumberOfDataNodesSupportedThis attribute will be present in Master node only to specify how much data nodes upto which given @'ESPartitionInstanceType' @ can support as master node.     * MaximumNumberOfDataNodesWithoutMasterNodeThis attribute will be present in Data node only to specify how much data nodes of given @'ESPartitionInstanceType' @ upto which you don't need any master nodes to govern them.
-alLimitName :: Lens' AdditionalLimit (Maybe Text)
-alLimitName = lens _alLimitName (\s a -> s {_alLimitName = a})
+-- | Name of Additional Limit is specific to a given InstanceType and for
+-- each of it\'s @ InstanceRole @ etc.
+-- Attributes and their details:
+--
+-- -   MaximumNumberOfDataNodesSupported
+-- -   MaximumNumberOfDataNodesWithoutMasterNode
+additionalLimit_limitName :: Lens.Lens' AdditionalLimit (Prelude.Maybe Prelude.Text)
+additionalLimit_limitName = Lens.lens (\AdditionalLimit' {limitName} -> limitName) (\s@AdditionalLimit' {} a -> s {limitName = a} :: AdditionalLimit)
 
-instance FromJSON AdditionalLimit where
+instance Prelude.FromJSON AdditionalLimit where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AdditionalLimit"
       ( \x ->
           AdditionalLimit'
-            <$> (x .:? "LimitValues" .!= mempty)
-            <*> (x .:? "LimitName")
+            Prelude.<$> ( x Prelude..:? "LimitValues"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "LimitName")
       )
 
-instance Hashable AdditionalLimit
+instance Prelude.Hashable AdditionalLimit
 
-instance NFData AdditionalLimit
+instance Prelude.NFData AdditionalLimit

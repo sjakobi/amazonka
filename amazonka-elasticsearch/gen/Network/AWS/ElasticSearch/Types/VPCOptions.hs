@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,59 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ElasticSearch.Types.VPCOptions where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Options to specify the subnets and security groups for VPC endpoint. For more information, see <http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-vpc.html VPC Endpoints for Amazon Elasticsearch Service Domains> .
+-- | Options to specify the subnets and security groups for VPC endpoint. For
+-- more information, see
+-- <http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-vpc.html VPC Endpoints for Amazon Elasticsearch Service Domains>.
 --
---
---
--- /See:/ 'vpcOptions' smart constructor.
+-- /See:/ 'newVPCOptions' smart constructor.
 data VPCOptions = VPCOptions'
-  { _voSecurityGroupIds ::
-      !(Maybe [Text]),
-    _voSubnetIds :: !(Maybe [Text])
+  { -- | Specifies the security groups for VPC endpoint.
+    securityGroupIds :: Prelude.Maybe [Prelude.Text],
+    -- | Specifies the subnets for VPC endpoint.
+    subnetIds :: Prelude.Maybe [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'VPCOptions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'VPCOptions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'voSecurityGroupIds' - Specifies the security groups for VPC endpoint.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'voSubnetIds' - Specifies the subnets for VPC endpoint.
-vpcOptions ::
+-- 'securityGroupIds', 'vPCOptions_securityGroupIds' - Specifies the security groups for VPC endpoint.
+--
+-- 'subnetIds', 'vPCOptions_subnetIds' - Specifies the subnets for VPC endpoint.
+newVPCOptions ::
   VPCOptions
-vpcOptions =
+newVPCOptions =
   VPCOptions'
-    { _voSecurityGroupIds = Nothing,
-      _voSubnetIds = Nothing
+    { securityGroupIds = Prelude.Nothing,
+      subnetIds = Prelude.Nothing
     }
 
 -- | Specifies the security groups for VPC endpoint.
-voSecurityGroupIds :: Lens' VPCOptions [Text]
-voSecurityGroupIds = lens _voSecurityGroupIds (\s a -> s {_voSecurityGroupIds = a}) . _Default . _Coerce
+vPCOptions_securityGroupIds :: Lens.Lens' VPCOptions (Prelude.Maybe [Prelude.Text])
+vPCOptions_securityGroupIds = Lens.lens (\VPCOptions' {securityGroupIds} -> securityGroupIds) (\s@VPCOptions' {} a -> s {securityGroupIds = a} :: VPCOptions) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Specifies the subnets for VPC endpoint.
-voSubnetIds :: Lens' VPCOptions [Text]
-voSubnetIds = lens _voSubnetIds (\s a -> s {_voSubnetIds = a}) . _Default . _Coerce
+vPCOptions_subnetIds :: Lens.Lens' VPCOptions (Prelude.Maybe [Prelude.Text])
+vPCOptions_subnetIds = Lens.lens (\VPCOptions' {subnetIds} -> subnetIds) (\s@VPCOptions' {} a -> s {subnetIds = a} :: VPCOptions) Prelude.. Lens.mapping Prelude._Coerce
 
-instance Hashable VPCOptions
+instance Prelude.Hashable VPCOptions
 
-instance NFData VPCOptions
+instance Prelude.NFData VPCOptions
 
-instance ToJSON VPCOptions where
+instance Prelude.ToJSON VPCOptions where
   toJSON VPCOptions' {..} =
-    object
-      ( catMaybes
-          [ ("SecurityGroupIds" .=) <$> _voSecurityGroupIds,
-            ("SubnetIds" .=) <$> _voSubnetIds
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("SecurityGroupIds" Prelude..=)
+              Prelude.<$> securityGroupIds,
+            ("SubnetIds" Prelude..=) Prelude.<$> subnetIds
           ]
       )

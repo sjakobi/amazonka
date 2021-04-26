@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,70 @@
 module Network.AWS.ElasticSearch.Types.DeploymentStatus
   ( DeploymentStatus
       ( ..,
-        Completed,
-        Eligible,
-        InProgress,
-        NotEligible,
-        PendingUpdate
+        DeploymentStatusCOMPLETED,
+        DeploymentStatusELIGIBLE,
+        DeploymentStatusINPROGRESS,
+        DeploymentStatusNOTELIGIBLE,
+        DeploymentStatusPENDINGUPDATE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DeploymentStatus = DeploymentStatus' (CI Text)
+newtype DeploymentStatus = DeploymentStatus'
+  { fromDeploymentStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Completed :: DeploymentStatus
-pattern Completed = DeploymentStatus' "COMPLETED"
+pattern DeploymentStatusCOMPLETED :: DeploymentStatus
+pattern DeploymentStatusCOMPLETED = DeploymentStatus' "COMPLETED"
 
-pattern Eligible :: DeploymentStatus
-pattern Eligible = DeploymentStatus' "ELIGIBLE"
+pattern DeploymentStatusELIGIBLE :: DeploymentStatus
+pattern DeploymentStatusELIGIBLE = DeploymentStatus' "ELIGIBLE"
 
-pattern InProgress :: DeploymentStatus
-pattern InProgress = DeploymentStatus' "IN_PROGRESS"
+pattern DeploymentStatusINPROGRESS :: DeploymentStatus
+pattern DeploymentStatusINPROGRESS = DeploymentStatus' "IN_PROGRESS"
 
-pattern NotEligible :: DeploymentStatus
-pattern NotEligible = DeploymentStatus' "NOT_ELIGIBLE"
+pattern DeploymentStatusNOTELIGIBLE :: DeploymentStatus
+pattern DeploymentStatusNOTELIGIBLE = DeploymentStatus' "NOT_ELIGIBLE"
 
-pattern PendingUpdate :: DeploymentStatus
-pattern PendingUpdate = DeploymentStatus' "PENDING_UPDATE"
+pattern DeploymentStatusPENDINGUPDATE :: DeploymentStatus
+pattern DeploymentStatusPENDINGUPDATE = DeploymentStatus' "PENDING_UPDATE"
 
 {-# COMPLETE
-  Completed,
-  Eligible,
-  InProgress,
-  NotEligible,
-  PendingUpdate,
+  DeploymentStatusCOMPLETED,
+  DeploymentStatusELIGIBLE,
+  DeploymentStatusINPROGRESS,
+  DeploymentStatusNOTELIGIBLE,
+  DeploymentStatusPENDINGUPDATE,
   DeploymentStatus'
   #-}
 
-instance FromText DeploymentStatus where
-  parser = (DeploymentStatus' . mk) <$> takeText
+instance Prelude.FromText DeploymentStatus where
+  parser = DeploymentStatus' Prelude.<$> Prelude.takeText
 
-instance ToText DeploymentStatus where
-  toText (DeploymentStatus' ci) = original ci
+instance Prelude.ToText DeploymentStatus where
+  toText (DeploymentStatus' x) = x
 
-instance Hashable DeploymentStatus
+instance Prelude.Hashable DeploymentStatus
 
-instance NFData DeploymentStatus
+instance Prelude.NFData DeploymentStatus
 
-instance ToByteString DeploymentStatus
+instance Prelude.ToByteString DeploymentStatus
 
-instance ToQuery DeploymentStatus
+instance Prelude.ToQuery DeploymentStatus
 
-instance ToHeader DeploymentStatus
+instance Prelude.ToHeader DeploymentStatus
 
-instance FromJSON DeploymentStatus where
-  parseJSON = parseJSONText "DeploymentStatus"
+instance Prelude.FromJSON DeploymentStatus where
+  parseJSON = Prelude.parseJSONText "DeploymentStatus"

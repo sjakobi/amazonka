@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +21,64 @@ module Network.AWS.ElasticSearch.Types.CognitoOptionsStatus where
 
 import Network.AWS.ElasticSearch.Types.CognitoOptions
 import Network.AWS.ElasticSearch.Types.OptionStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Status of the Cognito options for the specified Elasticsearch domain.
 --
---
---
--- /See:/ 'cognitoOptionsStatus' smart constructor.
+-- /See:/ 'newCognitoOptionsStatus' smart constructor.
 data CognitoOptionsStatus = CognitoOptionsStatus'
-  { _cosOptions ::
-      !CognitoOptions,
-    _cosStatus :: !OptionStatus
+  { -- | Specifies the Cognito options for the specified Elasticsearch domain.
+    options :: CognitoOptions,
+    -- | Specifies the status of the Cognito options for the specified
+    -- Elasticsearch domain.
+    status :: OptionStatus
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CognitoOptionsStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CognitoOptionsStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cosOptions' - Specifies the Cognito options for the specified Elasticsearch domain.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cosStatus' - Specifies the status of the Cognito options for the specified Elasticsearch domain.
-cognitoOptionsStatus ::
-  -- | 'cosOptions'
+-- 'options', 'cognitoOptionsStatus_options' - Specifies the Cognito options for the specified Elasticsearch domain.
+--
+-- 'status', 'cognitoOptionsStatus_status' - Specifies the status of the Cognito options for the specified
+-- Elasticsearch domain.
+newCognitoOptionsStatus ::
+  -- | 'options'
   CognitoOptions ->
-  -- | 'cosStatus'
+  -- | 'status'
   OptionStatus ->
   CognitoOptionsStatus
-cognitoOptionsStatus pOptions_ pStatus_ =
+newCognitoOptionsStatus pOptions_ pStatus_ =
   CognitoOptionsStatus'
-    { _cosOptions = pOptions_,
-      _cosStatus = pStatus_
+    { options = pOptions_,
+      status = pStatus_
     }
 
 -- | Specifies the Cognito options for the specified Elasticsearch domain.
-cosOptions :: Lens' CognitoOptionsStatus CognitoOptions
-cosOptions = lens _cosOptions (\s a -> s {_cosOptions = a})
+cognitoOptionsStatus_options :: Lens.Lens' CognitoOptionsStatus CognitoOptions
+cognitoOptionsStatus_options = Lens.lens (\CognitoOptionsStatus' {options} -> options) (\s@CognitoOptionsStatus' {} a -> s {options = a} :: CognitoOptionsStatus)
 
--- | Specifies the status of the Cognito options for the specified Elasticsearch domain.
-cosStatus :: Lens' CognitoOptionsStatus OptionStatus
-cosStatus = lens _cosStatus (\s a -> s {_cosStatus = a})
+-- | Specifies the status of the Cognito options for the specified
+-- Elasticsearch domain.
+cognitoOptionsStatus_status :: Lens.Lens' CognitoOptionsStatus OptionStatus
+cognitoOptionsStatus_status = Lens.lens (\CognitoOptionsStatus' {status} -> status) (\s@CognitoOptionsStatus' {} a -> s {status = a} :: CognitoOptionsStatus)
 
-instance FromJSON CognitoOptionsStatus where
+instance Prelude.FromJSON CognitoOptionsStatus where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CognitoOptionsStatus"
       ( \x ->
           CognitoOptionsStatus'
-            <$> (x .: "Options") <*> (x .: "Status")
+            Prelude.<$> (x Prelude..: "Options")
+            Prelude.<*> (x Prelude..: "Status")
       )
 
-instance Hashable CognitoOptionsStatus
+instance Prelude.Hashable CognitoOptionsStatus
 
-instance NFData CognitoOptionsStatus
+instance Prelude.NFData CognitoOptionsStatus

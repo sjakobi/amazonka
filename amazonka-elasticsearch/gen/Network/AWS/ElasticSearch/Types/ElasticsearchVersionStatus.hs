@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,66 +20,68 @@
 module Network.AWS.ElasticSearch.Types.ElasticsearchVersionStatus where
 
 import Network.AWS.ElasticSearch.Types.OptionStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Status of the Elasticsearch version options for the specified Elasticsearch domain.
+-- | Status of the Elasticsearch version options for the specified
+-- Elasticsearch domain.
 --
---
---
--- /See:/ 'elasticsearchVersionStatus' smart constructor.
+-- /See:/ 'newElasticsearchVersionStatus' smart constructor.
 data ElasticsearchVersionStatus = ElasticsearchVersionStatus'
-  { _evsOptions ::
-      !Text,
-    _evsStatus ::
-      !OptionStatus
+  { -- | Specifies the Elasticsearch version for the specified Elasticsearch
+    -- domain.
+    options :: Prelude.Text,
+    -- | Specifies the status of the Elasticsearch version options for the
+    -- specified Elasticsearch domain.
+    status :: OptionStatus
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ElasticsearchVersionStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ElasticsearchVersionStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'evsOptions' - Specifies the Elasticsearch version for the specified Elasticsearch domain.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'evsStatus' - Specifies the status of the Elasticsearch version options for the specified Elasticsearch domain.
-elasticsearchVersionStatus ::
-  -- | 'evsOptions'
-  Text ->
-  -- | 'evsStatus'
+-- 'options', 'elasticsearchVersionStatus_options' - Specifies the Elasticsearch version for the specified Elasticsearch
+-- domain.
+--
+-- 'status', 'elasticsearchVersionStatus_status' - Specifies the status of the Elasticsearch version options for the
+-- specified Elasticsearch domain.
+newElasticsearchVersionStatus ::
+  -- | 'options'
+  Prelude.Text ->
+  -- | 'status'
   OptionStatus ->
   ElasticsearchVersionStatus
-elasticsearchVersionStatus pOptions_ pStatus_ =
+newElasticsearchVersionStatus pOptions_ pStatus_ =
   ElasticsearchVersionStatus'
-    { _evsOptions =
-        pOptions_,
-      _evsStatus = pStatus_
+    { options = pOptions_,
+      status = pStatus_
     }
 
--- | Specifies the Elasticsearch version for the specified Elasticsearch domain.
-evsOptions :: Lens' ElasticsearchVersionStatus Text
-evsOptions = lens _evsOptions (\s a -> s {_evsOptions = a})
+-- | Specifies the Elasticsearch version for the specified Elasticsearch
+-- domain.
+elasticsearchVersionStatus_options :: Lens.Lens' ElasticsearchVersionStatus Prelude.Text
+elasticsearchVersionStatus_options = Lens.lens (\ElasticsearchVersionStatus' {options} -> options) (\s@ElasticsearchVersionStatus' {} a -> s {options = a} :: ElasticsearchVersionStatus)
 
--- | Specifies the status of the Elasticsearch version options for the specified Elasticsearch domain.
-evsStatus :: Lens' ElasticsearchVersionStatus OptionStatus
-evsStatus = lens _evsStatus (\s a -> s {_evsStatus = a})
+-- | Specifies the status of the Elasticsearch version options for the
+-- specified Elasticsearch domain.
+elasticsearchVersionStatus_status :: Lens.Lens' ElasticsearchVersionStatus OptionStatus
+elasticsearchVersionStatus_status = Lens.lens (\ElasticsearchVersionStatus' {status} -> status) (\s@ElasticsearchVersionStatus' {} a -> s {status = a} :: ElasticsearchVersionStatus)
 
-instance FromJSON ElasticsearchVersionStatus where
+instance Prelude.FromJSON ElasticsearchVersionStatus where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ElasticsearchVersionStatus"
       ( \x ->
           ElasticsearchVersionStatus'
-            <$> (x .: "Options") <*> (x .: "Status")
+            Prelude.<$> (x Prelude..: "Options")
+            Prelude.<*> (x Prelude..: "Status")
       )
 
-instance Hashable ElasticsearchVersionStatus
+instance Prelude.Hashable ElasticsearchVersionStatus
 
-instance NFData ElasticsearchVersionStatus
+instance Prelude.NFData ElasticsearchVersionStatus

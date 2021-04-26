@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,119 +22,132 @@ module Network.AWS.ElasticSearch.Types.PackageDetails where
 import Network.AWS.ElasticSearch.Types.ErrorDetails
 import Network.AWS.ElasticSearch.Types.PackageStatus
 import Network.AWS.ElasticSearch.Types.PackageType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Basic information about a package.
 --
---
---
--- /See:/ 'packageDetails' smart constructor.
+-- /See:/ 'newPackageDetails' smart constructor.
 data PackageDetails = PackageDetails'
-  { _pdAvailablePackageVersion ::
-      !(Maybe Text),
-    _pdPackageStatus ::
-      !(Maybe PackageStatus),
-    _pdPackageName :: !(Maybe Text),
-    _pdCreatedAt :: !(Maybe POSIX),
-    _pdPackageId :: !(Maybe Text),
-    _pdPackageDescription :: !(Maybe Text),
-    _pdLastUpdatedAt :: !(Maybe POSIX),
-    _pdPackageType :: !(Maybe PackageType),
-    _pdErrorDetails :: !(Maybe ErrorDetails)
+  { availablePackageVersion :: Prelude.Maybe Prelude.Text,
+    -- | Current state of the package. Values are
+    -- COPYING\/COPY_FAILED\/AVAILABLE\/DELETING\/DELETE_FAILED
+    packageStatus :: Prelude.Maybe PackageStatus,
+    -- | User specified name of the package.
+    packageName :: Prelude.Maybe Prelude.Text,
+    -- | Timestamp which tells creation date of the package.
+    createdAt :: Prelude.Maybe Prelude.POSIX,
+    -- | Internal ID of the package.
+    packageID :: Prelude.Maybe Prelude.Text,
+    -- | User-specified description of the package.
+    packageDescription :: Prelude.Maybe Prelude.Text,
+    lastUpdatedAt :: Prelude.Maybe Prelude.POSIX,
+    -- | Currently supports only TXT-DICTIONARY.
+    packageType :: Prelude.Maybe PackageType,
+    -- | Additional information if the package is in an error state. Null
+    -- otherwise.
+    errorDetails :: Prelude.Maybe ErrorDetails
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PackageDetails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PackageDetails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pdAvailablePackageVersion' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pdPackageStatus' - Current state of the package. Values are COPYING/COPY_FAILED/AVAILABLE/DELETING/DELETE_FAILED
+-- 'availablePackageVersion', 'packageDetails_availablePackageVersion' - Undocumented member.
 --
--- * 'pdPackageName' - User specified name of the package.
+-- 'packageStatus', 'packageDetails_packageStatus' - Current state of the package. Values are
+-- COPYING\/COPY_FAILED\/AVAILABLE\/DELETING\/DELETE_FAILED
 --
--- * 'pdCreatedAt' - Timestamp which tells creation date of the package.
+-- 'packageName', 'packageDetails_packageName' - User specified name of the package.
 --
--- * 'pdPackageId' - Internal ID of the package.
+-- 'createdAt', 'packageDetails_createdAt' - Timestamp which tells creation date of the package.
 --
--- * 'pdPackageDescription' - User-specified description of the package.
+-- 'packageID', 'packageDetails_packageID' - Internal ID of the package.
 --
--- * 'pdLastUpdatedAt' - Undocumented member.
+-- 'packageDescription', 'packageDetails_packageDescription' - User-specified description of the package.
 --
--- * 'pdPackageType' - Currently supports only TXT-DICTIONARY.
+-- 'lastUpdatedAt', 'packageDetails_lastUpdatedAt' - Undocumented member.
 --
--- * 'pdErrorDetails' - Additional information if the package is in an error state. Null otherwise.
-packageDetails ::
+-- 'packageType', 'packageDetails_packageType' - Currently supports only TXT-DICTIONARY.
+--
+-- 'errorDetails', 'packageDetails_errorDetails' - Additional information if the package is in an error state. Null
+-- otherwise.
+newPackageDetails ::
   PackageDetails
-packageDetails =
+newPackageDetails =
   PackageDetails'
-    { _pdAvailablePackageVersion =
-        Nothing,
-      _pdPackageStatus = Nothing,
-      _pdPackageName = Nothing,
-      _pdCreatedAt = Nothing,
-      _pdPackageId = Nothing,
-      _pdPackageDescription = Nothing,
-      _pdLastUpdatedAt = Nothing,
-      _pdPackageType = Nothing,
-      _pdErrorDetails = Nothing
+    { availablePackageVersion =
+        Prelude.Nothing,
+      packageStatus = Prelude.Nothing,
+      packageName = Prelude.Nothing,
+      createdAt = Prelude.Nothing,
+      packageID = Prelude.Nothing,
+      packageDescription = Prelude.Nothing,
+      lastUpdatedAt = Prelude.Nothing,
+      packageType = Prelude.Nothing,
+      errorDetails = Prelude.Nothing
     }
 
 -- | Undocumented member.
-pdAvailablePackageVersion :: Lens' PackageDetails (Maybe Text)
-pdAvailablePackageVersion = lens _pdAvailablePackageVersion (\s a -> s {_pdAvailablePackageVersion = a})
+packageDetails_availablePackageVersion :: Lens.Lens' PackageDetails (Prelude.Maybe Prelude.Text)
+packageDetails_availablePackageVersion = Lens.lens (\PackageDetails' {availablePackageVersion} -> availablePackageVersion) (\s@PackageDetails' {} a -> s {availablePackageVersion = a} :: PackageDetails)
 
--- | Current state of the package. Values are COPYING/COPY_FAILED/AVAILABLE/DELETING/DELETE_FAILED
-pdPackageStatus :: Lens' PackageDetails (Maybe PackageStatus)
-pdPackageStatus = lens _pdPackageStatus (\s a -> s {_pdPackageStatus = a})
+-- | Current state of the package. Values are
+-- COPYING\/COPY_FAILED\/AVAILABLE\/DELETING\/DELETE_FAILED
+packageDetails_packageStatus :: Lens.Lens' PackageDetails (Prelude.Maybe PackageStatus)
+packageDetails_packageStatus = Lens.lens (\PackageDetails' {packageStatus} -> packageStatus) (\s@PackageDetails' {} a -> s {packageStatus = a} :: PackageDetails)
 
 -- | User specified name of the package.
-pdPackageName :: Lens' PackageDetails (Maybe Text)
-pdPackageName = lens _pdPackageName (\s a -> s {_pdPackageName = a})
+packageDetails_packageName :: Lens.Lens' PackageDetails (Prelude.Maybe Prelude.Text)
+packageDetails_packageName = Lens.lens (\PackageDetails' {packageName} -> packageName) (\s@PackageDetails' {} a -> s {packageName = a} :: PackageDetails)
 
 -- | Timestamp which tells creation date of the package.
-pdCreatedAt :: Lens' PackageDetails (Maybe UTCTime)
-pdCreatedAt = lens _pdCreatedAt (\s a -> s {_pdCreatedAt = a}) . mapping _Time
+packageDetails_createdAt :: Lens.Lens' PackageDetails (Prelude.Maybe Prelude.UTCTime)
+packageDetails_createdAt = Lens.lens (\PackageDetails' {createdAt} -> createdAt) (\s@PackageDetails' {} a -> s {createdAt = a} :: PackageDetails) Prelude.. Lens.mapping Prelude._Time
 
 -- | Internal ID of the package.
-pdPackageId :: Lens' PackageDetails (Maybe Text)
-pdPackageId = lens _pdPackageId (\s a -> s {_pdPackageId = a})
+packageDetails_packageID :: Lens.Lens' PackageDetails (Prelude.Maybe Prelude.Text)
+packageDetails_packageID = Lens.lens (\PackageDetails' {packageID} -> packageID) (\s@PackageDetails' {} a -> s {packageID = a} :: PackageDetails)
 
 -- | User-specified description of the package.
-pdPackageDescription :: Lens' PackageDetails (Maybe Text)
-pdPackageDescription = lens _pdPackageDescription (\s a -> s {_pdPackageDescription = a})
+packageDetails_packageDescription :: Lens.Lens' PackageDetails (Prelude.Maybe Prelude.Text)
+packageDetails_packageDescription = Lens.lens (\PackageDetails' {packageDescription} -> packageDescription) (\s@PackageDetails' {} a -> s {packageDescription = a} :: PackageDetails)
 
 -- | Undocumented member.
-pdLastUpdatedAt :: Lens' PackageDetails (Maybe UTCTime)
-pdLastUpdatedAt = lens _pdLastUpdatedAt (\s a -> s {_pdLastUpdatedAt = a}) . mapping _Time
+packageDetails_lastUpdatedAt :: Lens.Lens' PackageDetails (Prelude.Maybe Prelude.UTCTime)
+packageDetails_lastUpdatedAt = Lens.lens (\PackageDetails' {lastUpdatedAt} -> lastUpdatedAt) (\s@PackageDetails' {} a -> s {lastUpdatedAt = a} :: PackageDetails) Prelude.. Lens.mapping Prelude._Time
 
 -- | Currently supports only TXT-DICTIONARY.
-pdPackageType :: Lens' PackageDetails (Maybe PackageType)
-pdPackageType = lens _pdPackageType (\s a -> s {_pdPackageType = a})
+packageDetails_packageType :: Lens.Lens' PackageDetails (Prelude.Maybe PackageType)
+packageDetails_packageType = Lens.lens (\PackageDetails' {packageType} -> packageType) (\s@PackageDetails' {} a -> s {packageType = a} :: PackageDetails)
 
--- | Additional information if the package is in an error state. Null otherwise.
-pdErrorDetails :: Lens' PackageDetails (Maybe ErrorDetails)
-pdErrorDetails = lens _pdErrorDetails (\s a -> s {_pdErrorDetails = a})
+-- | Additional information if the package is in an error state. Null
+-- otherwise.
+packageDetails_errorDetails :: Lens.Lens' PackageDetails (Prelude.Maybe ErrorDetails)
+packageDetails_errorDetails = Lens.lens (\PackageDetails' {errorDetails} -> errorDetails) (\s@PackageDetails' {} a -> s {errorDetails = a} :: PackageDetails)
 
-instance FromJSON PackageDetails where
+instance Prelude.FromJSON PackageDetails where
   parseJSON =
-    withObject
+    Prelude.withObject
       "PackageDetails"
       ( \x ->
           PackageDetails'
-            <$> (x .:? "AvailablePackageVersion")
-            <*> (x .:? "PackageStatus")
-            <*> (x .:? "PackageName")
-            <*> (x .:? "CreatedAt")
-            <*> (x .:? "PackageID")
-            <*> (x .:? "PackageDescription")
-            <*> (x .:? "LastUpdatedAt")
-            <*> (x .:? "PackageType")
-            <*> (x .:? "ErrorDetails")
+            Prelude.<$> (x Prelude..:? "AvailablePackageVersion")
+            Prelude.<*> (x Prelude..:? "PackageStatus")
+            Prelude.<*> (x Prelude..:? "PackageName")
+            Prelude.<*> (x Prelude..:? "CreatedAt")
+            Prelude.<*> (x Prelude..:? "PackageID")
+            Prelude.<*> (x Prelude..:? "PackageDescription")
+            Prelude.<*> (x Prelude..:? "LastUpdatedAt")
+            Prelude.<*> (x Prelude..:? "PackageType")
+            Prelude.<*> (x Prelude..:? "ErrorDetails")
       )
 
-instance Hashable PackageDetails
+instance Prelude.Hashable PackageDetails
 
-instance NFData PackageDetails
+instance Prelude.NFData PackageDetails

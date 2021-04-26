@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,177 +24,177 @@
 -- Lists all packages associated with the Amazon ES domain.
 module Network.AWS.ElasticSearch.ListPackagesForDomain
   ( -- * Creating a Request
-    listPackagesForDomain,
-    ListPackagesForDomain,
+    ListPackagesForDomain (..),
+    newListPackagesForDomain,
 
     -- * Request Lenses
-    lpfdNextToken,
-    lpfdMaxResults,
-    lpfdDomainName,
+    listPackagesForDomain_nextToken,
+    listPackagesForDomain_maxResults,
+    listPackagesForDomain_domainName,
 
     -- * Destructuring the Response
-    listPackagesForDomainResponse,
-    ListPackagesForDomainResponse,
+    ListPackagesForDomainResponse (..),
+    newListPackagesForDomainResponse,
 
     -- * Response Lenses
-    lpfdrrsNextToken,
-    lpfdrrsDomainPackageDetailsList,
-    lpfdrrsResponseStatus,
+    listPackagesForDomainResponse_nextToken,
+    listPackagesForDomainResponse_domainPackageDetailsList,
+    listPackagesForDomainResponse_httpStatus,
   )
 where
 
 import Network.AWS.ElasticSearch.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ElasticSearch.Types.DomainPackageDetails
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Container for request parameters to @'ListPackagesForDomain' @ operation.
+-- | Container for request parameters to @ ListPackagesForDomain @ operation.
 --
---
---
--- /See:/ 'listPackagesForDomain' smart constructor.
+-- /See:/ 'newListPackagesForDomain' smart constructor.
 data ListPackagesForDomain = ListPackagesForDomain'
-  { _lpfdNextToken ::
-      !(Maybe Text),
-    _lpfdMaxResults ::
-      !(Maybe Int),
-    _lpfdDomainName :: !Text
+  { -- | Used for pagination. Only necessary if a previous API call includes a
+    -- non-null NextToken value. If provided, returns results for the next
+    -- page.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Limits results to a maximum number of packages.
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | The name of the domain for which you want to list associated packages.
+    domainName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListPackagesForDomain' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListPackagesForDomain' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lpfdNextToken' - Used for pagination. Only necessary if a previous API call includes a non-null NextToken value. If provided, returns results for the next page.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lpfdMaxResults' - Limits results to a maximum number of packages.
+-- 'nextToken', 'listPackagesForDomain_nextToken' - Used for pagination. Only necessary if a previous API call includes a
+-- non-null NextToken value. If provided, returns results for the next
+-- page.
 --
--- * 'lpfdDomainName' - The name of the domain for which you want to list associated packages.
-listPackagesForDomain ::
-  -- | 'lpfdDomainName'
-  Text ->
+-- 'maxResults', 'listPackagesForDomain_maxResults' - Limits results to a maximum number of packages.
+--
+-- 'domainName', 'listPackagesForDomain_domainName' - The name of the domain for which you want to list associated packages.
+newListPackagesForDomain ::
+  -- | 'domainName'
+  Prelude.Text ->
   ListPackagesForDomain
-listPackagesForDomain pDomainName_ =
+newListPackagesForDomain pDomainName_ =
   ListPackagesForDomain'
-    { _lpfdNextToken = Nothing,
-      _lpfdMaxResults = Nothing,
-      _lpfdDomainName = pDomainName_
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      domainName = pDomainName_
     }
 
--- | Used for pagination. Only necessary if a previous API call includes a non-null NextToken value. If provided, returns results for the next page.
-lpfdNextToken :: Lens' ListPackagesForDomain (Maybe Text)
-lpfdNextToken = lens _lpfdNextToken (\s a -> s {_lpfdNextToken = a})
+-- | Used for pagination. Only necessary if a previous API call includes a
+-- non-null NextToken value. If provided, returns results for the next
+-- page.
+listPackagesForDomain_nextToken :: Lens.Lens' ListPackagesForDomain (Prelude.Maybe Prelude.Text)
+listPackagesForDomain_nextToken = Lens.lens (\ListPackagesForDomain' {nextToken} -> nextToken) (\s@ListPackagesForDomain' {} a -> s {nextToken = a} :: ListPackagesForDomain)
 
 -- | Limits results to a maximum number of packages.
-lpfdMaxResults :: Lens' ListPackagesForDomain (Maybe Int)
-lpfdMaxResults = lens _lpfdMaxResults (\s a -> s {_lpfdMaxResults = a})
+listPackagesForDomain_maxResults :: Lens.Lens' ListPackagesForDomain (Prelude.Maybe Prelude.Int)
+listPackagesForDomain_maxResults = Lens.lens (\ListPackagesForDomain' {maxResults} -> maxResults) (\s@ListPackagesForDomain' {} a -> s {maxResults = a} :: ListPackagesForDomain)
 
 -- | The name of the domain for which you want to list associated packages.
-lpfdDomainName :: Lens' ListPackagesForDomain Text
-lpfdDomainName = lens _lpfdDomainName (\s a -> s {_lpfdDomainName = a})
+listPackagesForDomain_domainName :: Lens.Lens' ListPackagesForDomain Prelude.Text
+listPackagesForDomain_domainName = Lens.lens (\ListPackagesForDomain' {domainName} -> domainName) (\s@ListPackagesForDomain' {} a -> s {domainName = a} :: ListPackagesForDomain)
 
-instance AWSRequest ListPackagesForDomain where
+instance Prelude.AWSRequest ListPackagesForDomain where
   type
     Rs ListPackagesForDomain =
       ListPackagesForDomainResponse
-  request = get elasticSearch
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListPackagesForDomainResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "DomainPackageDetailsList" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "DomainPackageDetailsList"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListPackagesForDomain
+instance Prelude.Hashable ListPackagesForDomain
 
-instance NFData ListPackagesForDomain
+instance Prelude.NFData ListPackagesForDomain
 
-instance ToHeaders ListPackagesForDomain where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListPackagesForDomain where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListPackagesForDomain where
+instance Prelude.ToPath ListPackagesForDomain where
   toPath ListPackagesForDomain' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/2015-01-01/domain/",
-        toBS _lpfdDomainName,
+        Prelude.toBS domainName,
         "/packages"
       ]
 
-instance ToQuery ListPackagesForDomain where
+instance Prelude.ToQuery ListPackagesForDomain where
   toQuery ListPackagesForDomain' {..} =
-    mconcat
-      [ "nextToken" =: _lpfdNextToken,
-        "maxResults" =: _lpfdMaxResults
+    Prelude.mconcat
+      [ "nextToken" Prelude.=: nextToken,
+        "maxResults" Prelude.=: maxResults
       ]
 
--- | Container for response parameters to @'ListPackagesForDomain' @ operation.
+-- | Container for response parameters to @ ListPackagesForDomain @
+-- operation.
 --
---
---
--- /See:/ 'listPackagesForDomainResponse' smart constructor.
+-- /See:/ 'newListPackagesForDomainResponse' smart constructor.
 data ListPackagesForDomainResponse = ListPackagesForDomainResponse'
-  { _lpfdrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _lpfdrrsDomainPackageDetailsList ::
-      !( Maybe
-           [DomainPackageDetails]
-       ),
-    _lpfdrrsResponseStatus ::
-      !Int
+  { -- | Pagination token that needs to be supplied to the next call to get the
+    -- next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | List of @DomainPackageDetails@ objects.
+    domainPackageDetailsList :: Prelude.Maybe [DomainPackageDetails],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListPackagesForDomainResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListPackagesForDomainResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lpfdrrsNextToken' - Pagination token that needs to be supplied to the next call to get the next page of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lpfdrrsDomainPackageDetailsList' - List of @DomainPackageDetails@ objects.
+-- 'nextToken', 'listPackagesForDomainResponse_nextToken' - Pagination token that needs to be supplied to the next call to get the
+-- next page of results.
 --
--- * 'lpfdrrsResponseStatus' - -- | The response status code.
-listPackagesForDomainResponse ::
-  -- | 'lpfdrrsResponseStatus'
-  Int ->
+-- 'domainPackageDetailsList', 'listPackagesForDomainResponse_domainPackageDetailsList' - List of @DomainPackageDetails@ objects.
+--
+-- 'httpStatus', 'listPackagesForDomainResponse_httpStatus' - The response's http status code.
+newListPackagesForDomainResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListPackagesForDomainResponse
-listPackagesForDomainResponse pResponseStatus_ =
+newListPackagesForDomainResponse pHttpStatus_ =
   ListPackagesForDomainResponse'
-    { _lpfdrrsNextToken =
-        Nothing,
-      _lpfdrrsDomainPackageDetailsList = Nothing,
-      _lpfdrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      domainPackageDetailsList = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Pagination token that needs to be supplied to the next call to get the next page of results.
-lpfdrrsNextToken :: Lens' ListPackagesForDomainResponse (Maybe Text)
-lpfdrrsNextToken = lens _lpfdrrsNextToken (\s a -> s {_lpfdrrsNextToken = a})
+-- | Pagination token that needs to be supplied to the next call to get the
+-- next page of results.
+listPackagesForDomainResponse_nextToken :: Lens.Lens' ListPackagesForDomainResponse (Prelude.Maybe Prelude.Text)
+listPackagesForDomainResponse_nextToken = Lens.lens (\ListPackagesForDomainResponse' {nextToken} -> nextToken) (\s@ListPackagesForDomainResponse' {} a -> s {nextToken = a} :: ListPackagesForDomainResponse)
 
 -- | List of @DomainPackageDetails@ objects.
-lpfdrrsDomainPackageDetailsList :: Lens' ListPackagesForDomainResponse [DomainPackageDetails]
-lpfdrrsDomainPackageDetailsList = lens _lpfdrrsDomainPackageDetailsList (\s a -> s {_lpfdrrsDomainPackageDetailsList = a}) . _Default . _Coerce
+listPackagesForDomainResponse_domainPackageDetailsList :: Lens.Lens' ListPackagesForDomainResponse (Prelude.Maybe [DomainPackageDetails])
+listPackagesForDomainResponse_domainPackageDetailsList = Lens.lens (\ListPackagesForDomainResponse' {domainPackageDetailsList} -> domainPackageDetailsList) (\s@ListPackagesForDomainResponse' {} a -> s {domainPackageDetailsList = a} :: ListPackagesForDomainResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lpfdrrsResponseStatus :: Lens' ListPackagesForDomainResponse Int
-lpfdrrsResponseStatus = lens _lpfdrrsResponseStatus (\s a -> s {_lpfdrrsResponseStatus = a})
+-- | The response's http status code.
+listPackagesForDomainResponse_httpStatus :: Lens.Lens' ListPackagesForDomainResponse Prelude.Int
+listPackagesForDomainResponse_httpStatus = Lens.lens (\ListPackagesForDomainResponse' {httpStatus} -> httpStatus) (\s@ListPackagesForDomainResponse' {} a -> s {httpStatus = a} :: ListPackagesForDomainResponse)
 
-instance NFData ListPackagesForDomainResponse
+instance Prelude.NFData ListPackagesForDomainResponse

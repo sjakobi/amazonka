@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,54 +19,77 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ElasticSearch.Types.StorageTypeLimit where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Limits that are applicable for given storage type.
 --
---
---
--- /See:/ 'storageTypeLimit' smart constructor.
+-- /See:/ 'newStorageTypeLimit' smart constructor.
 data StorageTypeLimit = StorageTypeLimit'
-  { _stlLimitValues ::
-      !(Maybe [Text]),
-    _stlLimitName :: !(Maybe Text)
+  { -- | Values for the @ StorageTypeLimit$LimitName @ .
+    limitValues :: Prelude.Maybe [Prelude.Text],
+    -- | Name of storage limits that are applicable for given storage type. If
+    -- @ StorageType @ is ebs, following storage options are applicable
+    --
+    -- 1.  MinimumVolumeSize
+    -- 2.  MaximumVolumeSize
+    -- 3.  MaximumIops
+    -- 4.  MinimumIops
+    limitName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StorageTypeLimit' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StorageTypeLimit' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'stlLimitValues' - Values for the @'StorageTypeLimit$LimitName' @ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'stlLimitName' - Name of storage limits that are applicable for given storage type. If @'StorageType' @ is ebs, following storage options are applicable     * MinimumVolumeSizeMinimum amount of volume size that is applicable for given storage type.It can be empty if it is not applicable.     * MaximumVolumeSizeMaximum amount of volume size that is applicable for given storage type.It can be empty if it is not applicable.     * MaximumIopsMaximum amount of Iops that is applicable for given storage type.It can be empty if it is not applicable.     * MinimumIopsMinimum amount of Iops that is applicable for given storage type.It can be empty if it is not applicable.
-storageTypeLimit ::
+-- 'limitValues', 'storageTypeLimit_limitValues' - Values for the @ StorageTypeLimit$LimitName @ .
+--
+-- 'limitName', 'storageTypeLimit_limitName' - Name of storage limits that are applicable for given storage type. If
+-- @ StorageType @ is ebs, following storage options are applicable
+--
+-- 1.  MinimumVolumeSize
+-- 2.  MaximumVolumeSize
+-- 3.  MaximumIops
+-- 4.  MinimumIops
+newStorageTypeLimit ::
   StorageTypeLimit
-storageTypeLimit =
+newStorageTypeLimit =
   StorageTypeLimit'
-    { _stlLimitValues = Nothing,
-      _stlLimitName = Nothing
+    { limitValues = Prelude.Nothing,
+      limitName = Prelude.Nothing
     }
 
--- | Values for the @'StorageTypeLimit$LimitName' @ .
-stlLimitValues :: Lens' StorageTypeLimit [Text]
-stlLimitValues = lens _stlLimitValues (\s a -> s {_stlLimitValues = a}) . _Default . _Coerce
+-- | Values for the @ StorageTypeLimit$LimitName @ .
+storageTypeLimit_limitValues :: Lens.Lens' StorageTypeLimit (Prelude.Maybe [Prelude.Text])
+storageTypeLimit_limitValues = Lens.lens (\StorageTypeLimit' {limitValues} -> limitValues) (\s@StorageTypeLimit' {} a -> s {limitValues = a} :: StorageTypeLimit) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Name of storage limits that are applicable for given storage type. If @'StorageType' @ is ebs, following storage options are applicable     * MinimumVolumeSizeMinimum amount of volume size that is applicable for given storage type.It can be empty if it is not applicable.     * MaximumVolumeSizeMaximum amount of volume size that is applicable for given storage type.It can be empty if it is not applicable.     * MaximumIopsMaximum amount of Iops that is applicable for given storage type.It can be empty if it is not applicable.     * MinimumIopsMinimum amount of Iops that is applicable for given storage type.It can be empty if it is not applicable.
-stlLimitName :: Lens' StorageTypeLimit (Maybe Text)
-stlLimitName = lens _stlLimitName (\s a -> s {_stlLimitName = a})
+-- | Name of storage limits that are applicable for given storage type. If
+-- @ StorageType @ is ebs, following storage options are applicable
+--
+-- 1.  MinimumVolumeSize
+-- 2.  MaximumVolumeSize
+-- 3.  MaximumIops
+-- 4.  MinimumIops
+storageTypeLimit_limitName :: Lens.Lens' StorageTypeLimit (Prelude.Maybe Prelude.Text)
+storageTypeLimit_limitName = Lens.lens (\StorageTypeLimit' {limitName} -> limitName) (\s@StorageTypeLimit' {} a -> s {limitName = a} :: StorageTypeLimit)
 
-instance FromJSON StorageTypeLimit where
+instance Prelude.FromJSON StorageTypeLimit where
   parseJSON =
-    withObject
+    Prelude.withObject
       "StorageTypeLimit"
       ( \x ->
           StorageTypeLimit'
-            <$> (x .:? "LimitValues" .!= mempty)
-            <*> (x .:? "LimitName")
+            Prelude.<$> ( x Prelude..:? "LimitValues"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "LimitName")
       )
 
-instance Hashable StorageTypeLimit
+instance Prelude.Hashable StorageTypeLimit
 
-instance NFData StorageTypeLimit
+instance Prelude.NFData StorageTypeLimit

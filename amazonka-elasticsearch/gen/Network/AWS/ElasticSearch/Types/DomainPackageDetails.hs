@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,126 +22,136 @@ module Network.AWS.ElasticSearch.Types.DomainPackageDetails where
 import Network.AWS.ElasticSearch.Types.DomainPackageStatus
 import Network.AWS.ElasticSearch.Types.ErrorDetails
 import Network.AWS.ElasticSearch.Types.PackageType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information on a package that is associated with a domain.
 --
---
---
--- /See:/ 'domainPackageDetails' smart constructor.
+-- /See:/ 'newDomainPackageDetails' smart constructor.
 data DomainPackageDetails = DomainPackageDetails'
-  { _dpdDomainPackageStatus ::
-      !(Maybe DomainPackageStatus),
-    _dpdPackageVersion ::
-      !(Maybe Text),
-    _dpdPackageName ::
-      !(Maybe Text),
-    _dpdLastUpdated ::
-      !(Maybe POSIX),
-    _dpdPackageId ::
-      !(Maybe Text),
-    _dpdDomainName ::
-      !(Maybe Text),
-    _dpdReferencePath ::
-      !(Maybe Text),
-    _dpdPackageType ::
-      !(Maybe PackageType),
-    _dpdErrorDetails ::
-      !(Maybe ErrorDetails)
+  { -- | State of the association. Values are
+    -- ASSOCIATING\/ASSOCIATION_FAILED\/ACTIVE\/DISSOCIATING\/DISSOCIATION_FAILED.
+    domainPackageStatus :: Prelude.Maybe DomainPackageStatus,
+    packageVersion :: Prelude.Maybe Prelude.Text,
+    -- | User specified name of the package.
+    packageName :: Prelude.Maybe Prelude.Text,
+    -- | Timestamp of the most-recent update to the association status.
+    lastUpdated :: Prelude.Maybe Prelude.POSIX,
+    -- | Internal ID of the package.
+    packageID :: Prelude.Maybe Prelude.Text,
+    -- | Name of the domain you\'ve associated a package with.
+    domainName :: Prelude.Maybe Prelude.Text,
+    -- | The relative path on Amazon ES nodes, which can be used as synonym_path
+    -- when the package is synonym file.
+    referencePath :: Prelude.Maybe Prelude.Text,
+    -- | Currently supports only TXT-DICTIONARY.
+    packageType :: Prelude.Maybe PackageType,
+    -- | Additional information if the package is in an error state. Null
+    -- otherwise.
+    errorDetails :: Prelude.Maybe ErrorDetails
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DomainPackageDetails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DomainPackageDetails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dpdDomainPackageStatus' - State of the association. Values are ASSOCIATING/ASSOCIATION_FAILED/ACTIVE/DISSOCIATING/DISSOCIATION_FAILED.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dpdPackageVersion' - Undocumented member.
+-- 'domainPackageStatus', 'domainPackageDetails_domainPackageStatus' - State of the association. Values are
+-- ASSOCIATING\/ASSOCIATION_FAILED\/ACTIVE\/DISSOCIATING\/DISSOCIATION_FAILED.
 --
--- * 'dpdPackageName' - User specified name of the package.
+-- 'packageVersion', 'domainPackageDetails_packageVersion' - Undocumented member.
 --
--- * 'dpdLastUpdated' - Timestamp of the most-recent update to the association status.
+-- 'packageName', 'domainPackageDetails_packageName' - User specified name of the package.
 --
--- * 'dpdPackageId' - Internal ID of the package.
+-- 'lastUpdated', 'domainPackageDetails_lastUpdated' - Timestamp of the most-recent update to the association status.
 --
--- * 'dpdDomainName' - Name of the domain you've associated a package with.
+-- 'packageID', 'domainPackageDetails_packageID' - Internal ID of the package.
 --
--- * 'dpdReferencePath' - The relative path on Amazon ES nodes, which can be used as synonym_path when the package is synonym file.
+-- 'domainName', 'domainPackageDetails_domainName' - Name of the domain you\'ve associated a package with.
 --
--- * 'dpdPackageType' - Currently supports only TXT-DICTIONARY.
+-- 'referencePath', 'domainPackageDetails_referencePath' - The relative path on Amazon ES nodes, which can be used as synonym_path
+-- when the package is synonym file.
 --
--- * 'dpdErrorDetails' - Additional information if the package is in an error state. Null otherwise.
-domainPackageDetails ::
+-- 'packageType', 'domainPackageDetails_packageType' - Currently supports only TXT-DICTIONARY.
+--
+-- 'errorDetails', 'domainPackageDetails_errorDetails' - Additional information if the package is in an error state. Null
+-- otherwise.
+newDomainPackageDetails ::
   DomainPackageDetails
-domainPackageDetails =
+newDomainPackageDetails =
   DomainPackageDetails'
-    { _dpdDomainPackageStatus =
-        Nothing,
-      _dpdPackageVersion = Nothing,
-      _dpdPackageName = Nothing,
-      _dpdLastUpdated = Nothing,
-      _dpdPackageId = Nothing,
-      _dpdDomainName = Nothing,
-      _dpdReferencePath = Nothing,
-      _dpdPackageType = Nothing,
-      _dpdErrorDetails = Nothing
+    { domainPackageStatus =
+        Prelude.Nothing,
+      packageVersion = Prelude.Nothing,
+      packageName = Prelude.Nothing,
+      lastUpdated = Prelude.Nothing,
+      packageID = Prelude.Nothing,
+      domainName = Prelude.Nothing,
+      referencePath = Prelude.Nothing,
+      packageType = Prelude.Nothing,
+      errorDetails = Prelude.Nothing
     }
 
--- | State of the association. Values are ASSOCIATING/ASSOCIATION_FAILED/ACTIVE/DISSOCIATING/DISSOCIATION_FAILED.
-dpdDomainPackageStatus :: Lens' DomainPackageDetails (Maybe DomainPackageStatus)
-dpdDomainPackageStatus = lens _dpdDomainPackageStatus (\s a -> s {_dpdDomainPackageStatus = a})
+-- | State of the association. Values are
+-- ASSOCIATING\/ASSOCIATION_FAILED\/ACTIVE\/DISSOCIATING\/DISSOCIATION_FAILED.
+domainPackageDetails_domainPackageStatus :: Lens.Lens' DomainPackageDetails (Prelude.Maybe DomainPackageStatus)
+domainPackageDetails_domainPackageStatus = Lens.lens (\DomainPackageDetails' {domainPackageStatus} -> domainPackageStatus) (\s@DomainPackageDetails' {} a -> s {domainPackageStatus = a} :: DomainPackageDetails)
 
 -- | Undocumented member.
-dpdPackageVersion :: Lens' DomainPackageDetails (Maybe Text)
-dpdPackageVersion = lens _dpdPackageVersion (\s a -> s {_dpdPackageVersion = a})
+domainPackageDetails_packageVersion :: Lens.Lens' DomainPackageDetails (Prelude.Maybe Prelude.Text)
+domainPackageDetails_packageVersion = Lens.lens (\DomainPackageDetails' {packageVersion} -> packageVersion) (\s@DomainPackageDetails' {} a -> s {packageVersion = a} :: DomainPackageDetails)
 
 -- | User specified name of the package.
-dpdPackageName :: Lens' DomainPackageDetails (Maybe Text)
-dpdPackageName = lens _dpdPackageName (\s a -> s {_dpdPackageName = a})
+domainPackageDetails_packageName :: Lens.Lens' DomainPackageDetails (Prelude.Maybe Prelude.Text)
+domainPackageDetails_packageName = Lens.lens (\DomainPackageDetails' {packageName} -> packageName) (\s@DomainPackageDetails' {} a -> s {packageName = a} :: DomainPackageDetails)
 
 -- | Timestamp of the most-recent update to the association status.
-dpdLastUpdated :: Lens' DomainPackageDetails (Maybe UTCTime)
-dpdLastUpdated = lens _dpdLastUpdated (\s a -> s {_dpdLastUpdated = a}) . mapping _Time
+domainPackageDetails_lastUpdated :: Lens.Lens' DomainPackageDetails (Prelude.Maybe Prelude.UTCTime)
+domainPackageDetails_lastUpdated = Lens.lens (\DomainPackageDetails' {lastUpdated} -> lastUpdated) (\s@DomainPackageDetails' {} a -> s {lastUpdated = a} :: DomainPackageDetails) Prelude.. Lens.mapping Prelude._Time
 
 -- | Internal ID of the package.
-dpdPackageId :: Lens' DomainPackageDetails (Maybe Text)
-dpdPackageId = lens _dpdPackageId (\s a -> s {_dpdPackageId = a})
+domainPackageDetails_packageID :: Lens.Lens' DomainPackageDetails (Prelude.Maybe Prelude.Text)
+domainPackageDetails_packageID = Lens.lens (\DomainPackageDetails' {packageID} -> packageID) (\s@DomainPackageDetails' {} a -> s {packageID = a} :: DomainPackageDetails)
 
--- | Name of the domain you've associated a package with.
-dpdDomainName :: Lens' DomainPackageDetails (Maybe Text)
-dpdDomainName = lens _dpdDomainName (\s a -> s {_dpdDomainName = a})
+-- | Name of the domain you\'ve associated a package with.
+domainPackageDetails_domainName :: Lens.Lens' DomainPackageDetails (Prelude.Maybe Prelude.Text)
+domainPackageDetails_domainName = Lens.lens (\DomainPackageDetails' {domainName} -> domainName) (\s@DomainPackageDetails' {} a -> s {domainName = a} :: DomainPackageDetails)
 
--- | The relative path on Amazon ES nodes, which can be used as synonym_path when the package is synonym file.
-dpdReferencePath :: Lens' DomainPackageDetails (Maybe Text)
-dpdReferencePath = lens _dpdReferencePath (\s a -> s {_dpdReferencePath = a})
+-- | The relative path on Amazon ES nodes, which can be used as synonym_path
+-- when the package is synonym file.
+domainPackageDetails_referencePath :: Lens.Lens' DomainPackageDetails (Prelude.Maybe Prelude.Text)
+domainPackageDetails_referencePath = Lens.lens (\DomainPackageDetails' {referencePath} -> referencePath) (\s@DomainPackageDetails' {} a -> s {referencePath = a} :: DomainPackageDetails)
 
 -- | Currently supports only TXT-DICTIONARY.
-dpdPackageType :: Lens' DomainPackageDetails (Maybe PackageType)
-dpdPackageType = lens _dpdPackageType (\s a -> s {_dpdPackageType = a})
+domainPackageDetails_packageType :: Lens.Lens' DomainPackageDetails (Prelude.Maybe PackageType)
+domainPackageDetails_packageType = Lens.lens (\DomainPackageDetails' {packageType} -> packageType) (\s@DomainPackageDetails' {} a -> s {packageType = a} :: DomainPackageDetails)
 
--- | Additional information if the package is in an error state. Null otherwise.
-dpdErrorDetails :: Lens' DomainPackageDetails (Maybe ErrorDetails)
-dpdErrorDetails = lens _dpdErrorDetails (\s a -> s {_dpdErrorDetails = a})
+-- | Additional information if the package is in an error state. Null
+-- otherwise.
+domainPackageDetails_errorDetails :: Lens.Lens' DomainPackageDetails (Prelude.Maybe ErrorDetails)
+domainPackageDetails_errorDetails = Lens.lens (\DomainPackageDetails' {errorDetails} -> errorDetails) (\s@DomainPackageDetails' {} a -> s {errorDetails = a} :: DomainPackageDetails)
 
-instance FromJSON DomainPackageDetails where
+instance Prelude.FromJSON DomainPackageDetails where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DomainPackageDetails"
       ( \x ->
           DomainPackageDetails'
-            <$> (x .:? "DomainPackageStatus")
-            <*> (x .:? "PackageVersion")
-            <*> (x .:? "PackageName")
-            <*> (x .:? "LastUpdated")
-            <*> (x .:? "PackageID")
-            <*> (x .:? "DomainName")
-            <*> (x .:? "ReferencePath")
-            <*> (x .:? "PackageType")
-            <*> (x .:? "ErrorDetails")
+            Prelude.<$> (x Prelude..:? "DomainPackageStatus")
+            Prelude.<*> (x Prelude..:? "PackageVersion")
+            Prelude.<*> (x Prelude..:? "PackageName")
+            Prelude.<*> (x Prelude..:? "LastUpdated")
+            Prelude.<*> (x Prelude..:? "PackageID")
+            Prelude.<*> (x Prelude..:? "DomainName")
+            Prelude.<*> (x Prelude..:? "ReferencePath")
+            Prelude.<*> (x Prelude..:? "PackageType")
+            Prelude.<*> (x Prelude..:? "ErrorDetails")
       )
 
-instance Hashable DomainPackageDetails
+instance Prelude.Hashable DomainPackageDetails
 
-instance NFData DomainPackageDetails
+instance Prelude.NFData DomainPackageDetails

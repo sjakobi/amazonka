@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,124 +24,126 @@
 -- Delete the package.
 module Network.AWS.ElasticSearch.DeletePackage
   ( -- * Creating a Request
-    deletePackage,
-    DeletePackage,
+    DeletePackage (..),
+    newDeletePackage,
 
     -- * Request Lenses
-    dpPackageId,
+    deletePackage_packageID,
 
     -- * Destructuring the Response
-    deletePackageResponse,
-    DeletePackageResponse,
+    DeletePackageResponse (..),
+    newDeletePackageResponse,
 
     -- * Response Lenses
-    dprprsPackageDetails,
-    dprprsResponseStatus,
+    deletePackageResponse_packageDetails,
+    deletePackageResponse_httpStatus,
   )
 where
 
 import Network.AWS.ElasticSearch.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ElasticSearch.Types.PackageDetails
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Container for request parameters to @'DeletePackage' @ operation.
+-- | Container for request parameters to @ DeletePackage @ operation.
 --
---
---
--- /See:/ 'deletePackage' smart constructor.
-newtype DeletePackage = DeletePackage'
-  { _dpPackageId ::
-      Text
+-- /See:/ 'newDeletePackage' smart constructor.
+data DeletePackage = DeletePackage'
+  { -- | Internal ID of the package that you want to delete. Use
+    -- @DescribePackages@ to find this value.
+    packageID :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeletePackage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeletePackage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dpPackageId' - Internal ID of the package that you want to delete. Use @DescribePackages@ to find this value.
-deletePackage ::
-  -- | 'dpPackageId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'packageID', 'deletePackage_packageID' - Internal ID of the package that you want to delete. Use
+-- @DescribePackages@ to find this value.
+newDeletePackage ::
+  -- | 'packageID'
+  Prelude.Text ->
   DeletePackage
-deletePackage pPackageId_ =
-  DeletePackage' {_dpPackageId = pPackageId_}
+newDeletePackage pPackageID_ =
+  DeletePackage' {packageID = pPackageID_}
 
--- | Internal ID of the package that you want to delete. Use @DescribePackages@ to find this value.
-dpPackageId :: Lens' DeletePackage Text
-dpPackageId = lens _dpPackageId (\s a -> s {_dpPackageId = a})
+-- | Internal ID of the package that you want to delete. Use
+-- @DescribePackages@ to find this value.
+deletePackage_packageID :: Lens.Lens' DeletePackage Prelude.Text
+deletePackage_packageID = Lens.lens (\DeletePackage' {packageID} -> packageID) (\s@DeletePackage' {} a -> s {packageID = a} :: DeletePackage)
 
-instance AWSRequest DeletePackage where
+instance Prelude.AWSRequest DeletePackage where
   type Rs DeletePackage = DeletePackageResponse
-  request = delete elasticSearch
+  request = Request.delete defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeletePackageResponse'
-            <$> (x .?> "PackageDetails") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "PackageDetails")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeletePackage
+instance Prelude.Hashable DeletePackage
 
-instance NFData DeletePackage
+instance Prelude.NFData DeletePackage
 
-instance ToHeaders DeletePackage where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeletePackage where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeletePackage where
+instance Prelude.ToPath DeletePackage where
   toPath DeletePackage' {..} =
-    mconcat
-      ["/2015-01-01/packages/", toBS _dpPackageId]
+    Prelude.mconcat
+      ["/2015-01-01/packages/", Prelude.toBS packageID]
 
-instance ToQuery DeletePackage where
-  toQuery = const mempty
+instance Prelude.ToQuery DeletePackage where
+  toQuery = Prelude.const Prelude.mempty
 
--- | Container for response parameters to @'DeletePackage' @ operation.
+-- | Container for response parameters to @ DeletePackage @ operation.
 --
---
---
--- /See:/ 'deletePackageResponse' smart constructor.
+-- /See:/ 'newDeletePackageResponse' smart constructor.
 data DeletePackageResponse = DeletePackageResponse'
-  { _dprprsPackageDetails ::
-      !(Maybe PackageDetails),
-    _dprprsResponseStatus ::
-      !Int
+  { -- | @PackageDetails@
+    packageDetails :: Prelude.Maybe PackageDetails,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeletePackageResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeletePackageResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dprprsPackageDetails' - @PackageDetails@
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dprprsResponseStatus' - -- | The response status code.
-deletePackageResponse ::
-  -- | 'dprprsResponseStatus'
-  Int ->
+-- 'packageDetails', 'deletePackageResponse_packageDetails' - @PackageDetails@
+--
+-- 'httpStatus', 'deletePackageResponse_httpStatus' - The response's http status code.
+newDeletePackageResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeletePackageResponse
-deletePackageResponse pResponseStatus_ =
+newDeletePackageResponse pHttpStatus_ =
   DeletePackageResponse'
-    { _dprprsPackageDetails =
-        Nothing,
-      _dprprsResponseStatus = pResponseStatus_
+    { packageDetails =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | @PackageDetails@
-dprprsPackageDetails :: Lens' DeletePackageResponse (Maybe PackageDetails)
-dprprsPackageDetails = lens _dprprsPackageDetails (\s a -> s {_dprprsPackageDetails = a})
+deletePackageResponse_packageDetails :: Lens.Lens' DeletePackageResponse (Prelude.Maybe PackageDetails)
+deletePackageResponse_packageDetails = Lens.lens (\DeletePackageResponse' {packageDetails} -> packageDetails) (\s@DeletePackageResponse' {} a -> s {packageDetails = a} :: DeletePackageResponse)
 
--- | -- | The response status code.
-dprprsResponseStatus :: Lens' DeletePackageResponse Int
-dprprsResponseStatus = lens _dprprsResponseStatus (\s a -> s {_dprprsResponseStatus = a})
+-- | The response's http status code.
+deletePackageResponse_httpStatus :: Lens.Lens' DeletePackageResponse Prelude.Int
+deletePackageResponse_httpStatus = Lens.lens (\DeletePackageResponse' {httpStatus} -> httpStatus) (\s@DeletePackageResponse' {} a -> s {httpStatus = a} :: DeletePackageResponse)
 
-instance NFData DeletePackageResponse
+instance Prelude.NFData DeletePackageResponse

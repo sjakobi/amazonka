@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,60 @@
 module Network.AWS.ElasticSearch.Types.AutoTuneDesiredState
   ( AutoTuneDesiredState
       ( ..,
-        ATDSDisabled,
-        ATDSEnabled
+        AutoTuneDesiredStateDISABLED,
+        AutoTuneDesiredStateENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies the Auto-Tune desired state. Valid values are ENABLED, DISABLED.
-data AutoTuneDesiredState
-  = AutoTuneDesiredState'
-      ( CI
-          Text
-      )
+-- | Specifies the Auto-Tune desired state. Valid values are ENABLED,
+-- DISABLED.
+newtype AutoTuneDesiredState = AutoTuneDesiredState'
+  { fromAutoTuneDesiredState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ATDSDisabled :: AutoTuneDesiredState
-pattern ATDSDisabled = AutoTuneDesiredState' "DISABLED"
+pattern AutoTuneDesiredStateDISABLED :: AutoTuneDesiredState
+pattern AutoTuneDesiredStateDISABLED = AutoTuneDesiredState' "DISABLED"
 
-pattern ATDSEnabled :: AutoTuneDesiredState
-pattern ATDSEnabled = AutoTuneDesiredState' "ENABLED"
+pattern AutoTuneDesiredStateENABLED :: AutoTuneDesiredState
+pattern AutoTuneDesiredStateENABLED = AutoTuneDesiredState' "ENABLED"
 
 {-# COMPLETE
-  ATDSDisabled,
-  ATDSEnabled,
+  AutoTuneDesiredStateDISABLED,
+  AutoTuneDesiredStateENABLED,
   AutoTuneDesiredState'
   #-}
 
-instance FromText AutoTuneDesiredState where
-  parser = (AutoTuneDesiredState' . mk) <$> takeText
+instance Prelude.FromText AutoTuneDesiredState where
+  parser = AutoTuneDesiredState' Prelude.<$> Prelude.takeText
 
-instance ToText AutoTuneDesiredState where
-  toText (AutoTuneDesiredState' ci) = original ci
+instance Prelude.ToText AutoTuneDesiredState where
+  toText (AutoTuneDesiredState' x) = x
 
-instance Hashable AutoTuneDesiredState
+instance Prelude.Hashable AutoTuneDesiredState
 
-instance NFData AutoTuneDesiredState
+instance Prelude.NFData AutoTuneDesiredState
 
-instance ToByteString AutoTuneDesiredState
+instance Prelude.ToByteString AutoTuneDesiredState
 
-instance ToQuery AutoTuneDesiredState
+instance Prelude.ToQuery AutoTuneDesiredState
 
-instance ToHeader AutoTuneDesiredState
+instance Prelude.ToHeader AutoTuneDesiredState
 
-instance ToJSON AutoTuneDesiredState where
-  toJSON = toJSONText
+instance Prelude.ToJSON AutoTuneDesiredState where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AutoTuneDesiredState where
-  parseJSON = parseJSONText "AutoTuneDesiredState"
+instance Prelude.FromJSON AutoTuneDesiredState where
+  parseJSON = Prelude.parseJSONText "AutoTuneDesiredState"

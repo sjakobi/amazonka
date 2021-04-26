@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,62 +19,64 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ElasticSearch.Types.ZoneAwarenessConfig where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies the zone awareness configuration for the domain cluster, such as the number of availability zones.
+-- | Specifies the zone awareness configuration for the domain cluster, such
+-- as the number of availability zones.
 --
---
---
--- /See:/ 'zoneAwarenessConfig' smart constructor.
-newtype ZoneAwarenessConfig = ZoneAwarenessConfig'
-  { _zacAvailabilityZoneCount ::
-      Maybe Int
+-- /See:/ 'newZoneAwarenessConfig' smart constructor.
+data ZoneAwarenessConfig = ZoneAwarenessConfig'
+  { -- | An integer value to indicate the number of availability zones for a
+    -- domain when zone awareness is enabled. This should be equal to number of
+    -- subnets if VPC endpoints is enabled
+    availabilityZoneCount :: Prelude.Maybe Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ZoneAwarenessConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ZoneAwarenessConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'zacAvailabilityZoneCount' - An integer value to indicate the number of availability zones for a domain when zone awareness is enabled. This should be equal to number of subnets if VPC endpoints is enabled
-zoneAwarenessConfig ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'availabilityZoneCount', 'zoneAwarenessConfig_availabilityZoneCount' - An integer value to indicate the number of availability zones for a
+-- domain when zone awareness is enabled. This should be equal to number of
+-- subnets if VPC endpoints is enabled
+newZoneAwarenessConfig ::
   ZoneAwarenessConfig
-zoneAwarenessConfig =
+newZoneAwarenessConfig =
   ZoneAwarenessConfig'
-    { _zacAvailabilityZoneCount =
-        Nothing
+    { availabilityZoneCount =
+        Prelude.Nothing
     }
 
--- | An integer value to indicate the number of availability zones for a domain when zone awareness is enabled. This should be equal to number of subnets if VPC endpoints is enabled
-zacAvailabilityZoneCount :: Lens' ZoneAwarenessConfig (Maybe Int)
-zacAvailabilityZoneCount = lens _zacAvailabilityZoneCount (\s a -> s {_zacAvailabilityZoneCount = a})
+-- | An integer value to indicate the number of availability zones for a
+-- domain when zone awareness is enabled. This should be equal to number of
+-- subnets if VPC endpoints is enabled
+zoneAwarenessConfig_availabilityZoneCount :: Lens.Lens' ZoneAwarenessConfig (Prelude.Maybe Prelude.Int)
+zoneAwarenessConfig_availabilityZoneCount = Lens.lens (\ZoneAwarenessConfig' {availabilityZoneCount} -> availabilityZoneCount) (\s@ZoneAwarenessConfig' {} a -> s {availabilityZoneCount = a} :: ZoneAwarenessConfig)
 
-instance FromJSON ZoneAwarenessConfig where
+instance Prelude.FromJSON ZoneAwarenessConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ZoneAwarenessConfig"
       ( \x ->
           ZoneAwarenessConfig'
-            <$> (x .:? "AvailabilityZoneCount")
+            Prelude.<$> (x Prelude..:? "AvailabilityZoneCount")
       )
 
-instance Hashable ZoneAwarenessConfig
+instance Prelude.Hashable ZoneAwarenessConfig
 
-instance NFData ZoneAwarenessConfig
+instance Prelude.NFData ZoneAwarenessConfig
 
-instance ToJSON ZoneAwarenessConfig where
+instance Prelude.ToJSON ZoneAwarenessConfig where
   toJSON ZoneAwarenessConfig' {..} =
-    object
-      ( catMaybes
-          [ ("AvailabilityZoneCount" .=)
-              <$> _zacAvailabilityZoneCount
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("AvailabilityZoneCount" Prelude..=)
+              Prelude.<$> availabilityZoneCount
           ]
       )

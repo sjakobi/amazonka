@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,105 +21,110 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the name of all Elasticsearch domains owned by the current user's account.
+-- Returns the name of all Elasticsearch domains owned by the current
+-- user\'s account.
 module Network.AWS.ElasticSearch.ListDomainNames
   ( -- * Creating a Request
-    listDomainNames,
-    ListDomainNames,
+    ListDomainNames (..),
+    newListDomainNames,
 
     -- * Destructuring the Response
-    listDomainNamesResponse,
-    ListDomainNamesResponse,
+    ListDomainNamesResponse (..),
+    newListDomainNamesResponse,
 
     -- * Response Lenses
-    ldnrrsDomainNames,
-    ldnrrsResponseStatus,
+    listDomainNamesResponse_domainNames,
+    listDomainNamesResponse_httpStatus,
   )
 where
 
 import Network.AWS.ElasticSearch.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ElasticSearch.Types.DomainInfo
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listDomainNames' smart constructor.
+-- | /See:/ 'newListDomainNames' smart constructor.
 data ListDomainNames = ListDomainNames'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListDomainNames' with the minimum fields required to make a request.
-listDomainNames ::
+-- |
+-- Create a value of 'ListDomainNames' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newListDomainNames ::
   ListDomainNames
-listDomainNames = ListDomainNames'
+newListDomainNames = ListDomainNames'
 
-instance AWSRequest ListDomainNames where
+instance Prelude.AWSRequest ListDomainNames where
   type Rs ListDomainNames = ListDomainNamesResponse
-  request = get elasticSearch
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListDomainNamesResponse'
-            <$> (x .?> "DomainNames" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "DomainNames"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListDomainNames
+instance Prelude.Hashable ListDomainNames
 
-instance NFData ListDomainNames
+instance Prelude.NFData ListDomainNames
 
-instance ToHeaders ListDomainNames where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListDomainNames where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListDomainNames where
-  toPath = const "/2015-01-01/domain"
+instance Prelude.ToPath ListDomainNames where
+  toPath = Prelude.const "/2015-01-01/domain"
 
-instance ToQuery ListDomainNames where
-  toQuery = const mempty
+instance Prelude.ToQuery ListDomainNames where
+  toQuery = Prelude.const Prelude.mempty
 
--- | The result of a @ListDomainNames@ operation. Contains the names of all Elasticsearch domains owned by this account.
+-- | The result of a @ListDomainNames@ operation. Contains the names of all
+-- Elasticsearch domains owned by this account.
 --
---
---
--- /See:/ 'listDomainNamesResponse' smart constructor.
+-- /See:/ 'newListDomainNamesResponse' smart constructor.
 data ListDomainNamesResponse = ListDomainNamesResponse'
-  { _ldnrrsDomainNames ::
-      !(Maybe [DomainInfo]),
-    _ldnrrsResponseStatus ::
-      !Int
+  { -- | List of Elasticsearch domain names.
+    domainNames :: Prelude.Maybe [DomainInfo],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListDomainNamesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListDomainNamesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ldnrrsDomainNames' - List of Elasticsearch domain names.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ldnrrsResponseStatus' - -- | The response status code.
-listDomainNamesResponse ::
-  -- | 'ldnrrsResponseStatus'
-  Int ->
+-- 'domainNames', 'listDomainNamesResponse_domainNames' - List of Elasticsearch domain names.
+--
+-- 'httpStatus', 'listDomainNamesResponse_httpStatus' - The response's http status code.
+newListDomainNamesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListDomainNamesResponse
-listDomainNamesResponse pResponseStatus_ =
+newListDomainNamesResponse pHttpStatus_ =
   ListDomainNamesResponse'
-    { _ldnrrsDomainNames =
-        Nothing,
-      _ldnrrsResponseStatus = pResponseStatus_
+    { domainNames =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | List of Elasticsearch domain names.
-ldnrrsDomainNames :: Lens' ListDomainNamesResponse [DomainInfo]
-ldnrrsDomainNames = lens _ldnrrsDomainNames (\s a -> s {_ldnrrsDomainNames = a}) . _Default . _Coerce
+listDomainNamesResponse_domainNames :: Lens.Lens' ListDomainNamesResponse (Prelude.Maybe [DomainInfo])
+listDomainNamesResponse_domainNames = Lens.lens (\ListDomainNamesResponse' {domainNames} -> domainNames) (\s@ListDomainNamesResponse' {} a -> s {domainNames = a} :: ListDomainNamesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-ldnrrsResponseStatus :: Lens' ListDomainNamesResponse Int
-ldnrrsResponseStatus = lens _ldnrrsResponseStatus (\s a -> s {_ldnrrsResponseStatus = a})
+-- | The response's http status code.
+listDomainNamesResponse_httpStatus :: Lens.Lens' ListDomainNamesResponse Prelude.Int
+listDomainNamesResponse_httpStatus = Lens.lens (\ListDomainNamesResponse' {httpStatus} -> httpStatus) (\s@ListDomainNamesResponse' {} a -> s {httpStatus = a} :: ListDomainNamesResponse)
 
-instance NFData ListDomainNamesResponse
+instance Prelude.NFData ListDomainNamesResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,166 +24,165 @@
 -- Schedules a service software update for an Amazon ES domain.
 module Network.AWS.ElasticSearch.StartElasticsearchServiceSoftwareUpdate
   ( -- * Creating a Request
-    startElasticsearchServiceSoftwareUpdate,
-    StartElasticsearchServiceSoftwareUpdate,
+    StartElasticsearchServiceSoftwareUpdate (..),
+    newStartElasticsearchServiceSoftwareUpdate,
 
     -- * Request Lenses
-    sessuDomainName,
+    startElasticsearchServiceSoftwareUpdate_domainName,
 
     -- * Destructuring the Response
-    startElasticsearchServiceSoftwareUpdateResponse,
-    StartElasticsearchServiceSoftwareUpdateResponse,
+    StartElasticsearchServiceSoftwareUpdateResponse (..),
+    newStartElasticsearchServiceSoftwareUpdateResponse,
 
     -- * Response Lenses
-    sessurrsServiceSoftwareOptions,
-    sessurrsResponseStatus,
+    startElasticsearchServiceSoftwareUpdateResponse_serviceSoftwareOptions,
+    startElasticsearchServiceSoftwareUpdateResponse_httpStatus,
   )
 where
 
 import Network.AWS.ElasticSearch.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ElasticSearch.Types.ServiceSoftwareOptions
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Container for the parameters to the @'StartElasticsearchServiceSoftwareUpdate' @ operation. Specifies the name of the Elasticsearch domain that you wish to schedule a service software update on.
+-- | Container for the parameters to the
+-- @StartElasticsearchServiceSoftwareUpdate@ operation. Specifies the name
+-- of the Elasticsearch domain that you wish to schedule a service software
+-- update on.
 --
---
---
--- /See:/ 'startElasticsearchServiceSoftwareUpdate' smart constructor.
-newtype StartElasticsearchServiceSoftwareUpdate = StartElasticsearchServiceSoftwareUpdate'
-  { _sessuDomainName ::
-      Text
+-- /See:/ 'newStartElasticsearchServiceSoftwareUpdate' smart constructor.
+data StartElasticsearchServiceSoftwareUpdate = StartElasticsearchServiceSoftwareUpdate'
+  { -- | The name of the domain that you want to update to the latest service
+    -- software.
+    domainName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartElasticsearchServiceSoftwareUpdate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartElasticsearchServiceSoftwareUpdate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sessuDomainName' - The name of the domain that you want to update to the latest service software.
-startElasticsearchServiceSoftwareUpdate ::
-  -- | 'sessuDomainName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'domainName', 'startElasticsearchServiceSoftwareUpdate_domainName' - The name of the domain that you want to update to the latest service
+-- software.
+newStartElasticsearchServiceSoftwareUpdate ::
+  -- | 'domainName'
+  Prelude.Text ->
   StartElasticsearchServiceSoftwareUpdate
-startElasticsearchServiceSoftwareUpdate pDomainName_ =
-  StartElasticsearchServiceSoftwareUpdate'
-    { _sessuDomainName =
-        pDomainName_
-    }
+newStartElasticsearchServiceSoftwareUpdate
+  pDomainName_ =
+    StartElasticsearchServiceSoftwareUpdate'
+      { domainName =
+          pDomainName_
+      }
 
--- | The name of the domain that you want to update to the latest service software.
-sessuDomainName :: Lens' StartElasticsearchServiceSoftwareUpdate Text
-sessuDomainName = lens _sessuDomainName (\s a -> s {_sessuDomainName = a})
+-- | The name of the domain that you want to update to the latest service
+-- software.
+startElasticsearchServiceSoftwareUpdate_domainName :: Lens.Lens' StartElasticsearchServiceSoftwareUpdate Prelude.Text
+startElasticsearchServiceSoftwareUpdate_domainName = Lens.lens (\StartElasticsearchServiceSoftwareUpdate' {domainName} -> domainName) (\s@StartElasticsearchServiceSoftwareUpdate' {} a -> s {domainName = a} :: StartElasticsearchServiceSoftwareUpdate)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     StartElasticsearchServiceSoftwareUpdate
   where
   type
     Rs StartElasticsearchServiceSoftwareUpdate =
       StartElasticsearchServiceSoftwareUpdateResponse
-  request = postJSON elasticSearch
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           StartElasticsearchServiceSoftwareUpdateResponse'
-            <$> (x .?> "ServiceSoftwareOptions")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ServiceSoftwareOptions")
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     StartElasticsearchServiceSoftwareUpdate
 
 instance
-  NFData
+  Prelude.NFData
     StartElasticsearchServiceSoftwareUpdate
 
 instance
-  ToHeaders
+  Prelude.ToHeaders
     StartElasticsearchServiceSoftwareUpdate
   where
-  toHeaders = const mempty
+  toHeaders = Prelude.const Prelude.mempty
 
 instance
-  ToJSON
+  Prelude.ToJSON
     StartElasticsearchServiceSoftwareUpdate
   where
   toJSON StartElasticsearchServiceSoftwareUpdate' {..} =
-    object
-      (catMaybes [Just ("DomainName" .= _sessuDomainName)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("DomainName" Prelude..= domainName)]
+      )
 
 instance
-  ToPath
+  Prelude.ToPath
     StartElasticsearchServiceSoftwareUpdate
   where
   toPath =
-    const "/2015-01-01/es/serviceSoftwareUpdate/start"
+    Prelude.const
+      "/2015-01-01/es/serviceSoftwareUpdate/start"
 
 instance
-  ToQuery
+  Prelude.ToQuery
     StartElasticsearchServiceSoftwareUpdate
   where
-  toQuery = const mempty
+  toQuery = Prelude.const Prelude.mempty
 
--- | The result of a @StartElasticsearchServiceSoftwareUpdate@ operation. Contains the status of the update.
+-- | The result of a @StartElasticsearchServiceSoftwareUpdate@ operation.
+-- Contains the status of the update.
 --
---
---
--- /See:/ 'startElasticsearchServiceSoftwareUpdateResponse' smart constructor.
+-- /See:/ 'newStartElasticsearchServiceSoftwareUpdateResponse' smart constructor.
 data StartElasticsearchServiceSoftwareUpdateResponse = StartElasticsearchServiceSoftwareUpdateResponse'
-  { _sessurrsServiceSoftwareOptions ::
-      !( Maybe
-           ServiceSoftwareOptions
-       ),
-    _sessurrsResponseStatus ::
-      !Int
+  { -- | The current status of the Elasticsearch service software update.
+    serviceSoftwareOptions :: Prelude.Maybe ServiceSoftwareOptions,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartElasticsearchServiceSoftwareUpdateResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartElasticsearchServiceSoftwareUpdateResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sessurrsServiceSoftwareOptions' - The current status of the Elasticsearch service software update.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sessurrsResponseStatus' - -- | The response status code.
-startElasticsearchServiceSoftwareUpdateResponse ::
-  -- | 'sessurrsResponseStatus'
-  Int ->
+-- 'serviceSoftwareOptions', 'startElasticsearchServiceSoftwareUpdateResponse_serviceSoftwareOptions' - The current status of the Elasticsearch service software update.
+--
+-- 'httpStatus', 'startElasticsearchServiceSoftwareUpdateResponse_httpStatus' - The response's http status code.
+newStartElasticsearchServiceSoftwareUpdateResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StartElasticsearchServiceSoftwareUpdateResponse
-startElasticsearchServiceSoftwareUpdateResponse
-  pResponseStatus_ =
+newStartElasticsearchServiceSoftwareUpdateResponse
+  pHttpStatus_ =
     StartElasticsearchServiceSoftwareUpdateResponse'
-      { _sessurrsServiceSoftwareOptions =
-          Nothing,
-        _sessurrsResponseStatus =
-          pResponseStatus_
+      { serviceSoftwareOptions =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | The current status of the Elasticsearch service software update.
-sessurrsServiceSoftwareOptions :: Lens' StartElasticsearchServiceSoftwareUpdateResponse (Maybe ServiceSoftwareOptions)
-sessurrsServiceSoftwareOptions = lens _sessurrsServiceSoftwareOptions (\s a -> s {_sessurrsServiceSoftwareOptions = a})
+startElasticsearchServiceSoftwareUpdateResponse_serviceSoftwareOptions :: Lens.Lens' StartElasticsearchServiceSoftwareUpdateResponse (Prelude.Maybe ServiceSoftwareOptions)
+startElasticsearchServiceSoftwareUpdateResponse_serviceSoftwareOptions = Lens.lens (\StartElasticsearchServiceSoftwareUpdateResponse' {serviceSoftwareOptions} -> serviceSoftwareOptions) (\s@StartElasticsearchServiceSoftwareUpdateResponse' {} a -> s {serviceSoftwareOptions = a} :: StartElasticsearchServiceSoftwareUpdateResponse)
 
--- | -- | The response status code.
-sessurrsResponseStatus :: Lens' StartElasticsearchServiceSoftwareUpdateResponse Int
-sessurrsResponseStatus = lens _sessurrsResponseStatus (\s a -> s {_sessurrsResponseStatus = a})
+-- | The response's http status code.
+startElasticsearchServiceSoftwareUpdateResponse_httpStatus :: Lens.Lens' StartElasticsearchServiceSoftwareUpdateResponse Prelude.Int
+startElasticsearchServiceSoftwareUpdateResponse_httpStatus = Lens.lens (\StartElasticsearchServiceSoftwareUpdateResponse' {httpStatus} -> httpStatus) (\s@StartElasticsearchServiceSoftwareUpdateResponse' {} a -> s {httpStatus = a} :: StartElasticsearchServiceSoftwareUpdateResponse)
 
 instance
-  NFData
+  Prelude.NFData
     StartElasticsearchServiceSoftwareUpdateResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,73 +19,68 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ElasticSearch.Types.PackageVersionHistory where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Details of a package version.
 --
---
---
--- /See:/ 'packageVersionHistory' smart constructor.
+-- /See:/ 'newPackageVersionHistory' smart constructor.
 data PackageVersionHistory = PackageVersionHistory'
-  { _pvhPackageVersion ::
-      !(Maybe Text),
-    _pvhCreatedAt ::
-      !(Maybe POSIX),
-    _pvhCommitMessage ::
-      !(Maybe Text)
+  { -- | Version of the package.
+    packageVersion :: Prelude.Maybe Prelude.Text,
+    -- | Timestamp which tells creation time of the package version.
+    createdAt :: Prelude.Maybe Prelude.POSIX,
+    -- | A message associated with the version.
+    commitMessage :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PackageVersionHistory' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PackageVersionHistory' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pvhPackageVersion' - Version of the package.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pvhCreatedAt' - Timestamp which tells creation time of the package version.
+-- 'packageVersion', 'packageVersionHistory_packageVersion' - Version of the package.
 --
--- * 'pvhCommitMessage' - A message associated with the version.
-packageVersionHistory ::
+-- 'createdAt', 'packageVersionHistory_createdAt' - Timestamp which tells creation time of the package version.
+--
+-- 'commitMessage', 'packageVersionHistory_commitMessage' - A message associated with the version.
+newPackageVersionHistory ::
   PackageVersionHistory
-packageVersionHistory =
+newPackageVersionHistory =
   PackageVersionHistory'
-    { _pvhPackageVersion =
-        Nothing,
-      _pvhCreatedAt = Nothing,
-      _pvhCommitMessage = Nothing
+    { packageVersion =
+        Prelude.Nothing,
+      createdAt = Prelude.Nothing,
+      commitMessage = Prelude.Nothing
     }
 
 -- | Version of the package.
-pvhPackageVersion :: Lens' PackageVersionHistory (Maybe Text)
-pvhPackageVersion = lens _pvhPackageVersion (\s a -> s {_pvhPackageVersion = a})
+packageVersionHistory_packageVersion :: Lens.Lens' PackageVersionHistory (Prelude.Maybe Prelude.Text)
+packageVersionHistory_packageVersion = Lens.lens (\PackageVersionHistory' {packageVersion} -> packageVersion) (\s@PackageVersionHistory' {} a -> s {packageVersion = a} :: PackageVersionHistory)
 
 -- | Timestamp which tells creation time of the package version.
-pvhCreatedAt :: Lens' PackageVersionHistory (Maybe UTCTime)
-pvhCreatedAt = lens _pvhCreatedAt (\s a -> s {_pvhCreatedAt = a}) . mapping _Time
+packageVersionHistory_createdAt :: Lens.Lens' PackageVersionHistory (Prelude.Maybe Prelude.UTCTime)
+packageVersionHistory_createdAt = Lens.lens (\PackageVersionHistory' {createdAt} -> createdAt) (\s@PackageVersionHistory' {} a -> s {createdAt = a} :: PackageVersionHistory) Prelude.. Lens.mapping Prelude._Time
 
 -- | A message associated with the version.
-pvhCommitMessage :: Lens' PackageVersionHistory (Maybe Text)
-pvhCommitMessage = lens _pvhCommitMessage (\s a -> s {_pvhCommitMessage = a})
+packageVersionHistory_commitMessage :: Lens.Lens' PackageVersionHistory (Prelude.Maybe Prelude.Text)
+packageVersionHistory_commitMessage = Lens.lens (\PackageVersionHistory' {commitMessage} -> commitMessage) (\s@PackageVersionHistory' {} a -> s {commitMessage = a} :: PackageVersionHistory)
 
-instance FromJSON PackageVersionHistory where
+instance Prelude.FromJSON PackageVersionHistory where
   parseJSON =
-    withObject
+    Prelude.withObject
       "PackageVersionHistory"
       ( \x ->
           PackageVersionHistory'
-            <$> (x .:? "PackageVersion")
-            <*> (x .:? "CreatedAt")
-            <*> (x .:? "CommitMessage")
+            Prelude.<$> (x Prelude..:? "PackageVersion")
+            Prelude.<*> (x Prelude..:? "CreatedAt")
+            Prelude.<*> (x Prelude..:? "CommitMessage")
       )
 
-instance Hashable PackageVersionHistory
+instance Prelude.Hashable PackageVersionHistory
 
-instance NFData PackageVersionHistory
+instance Prelude.NFData PackageVersionHistory

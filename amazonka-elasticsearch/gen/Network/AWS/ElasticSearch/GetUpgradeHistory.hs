@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,180 +21,200 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves the complete history of the last 10 upgrades that were performed on the domain.
---
---
+-- Retrieves the complete history of the last 10 upgrades that were
+-- performed on the domain.
 --
 -- This operation returns paginated results.
 module Network.AWS.ElasticSearch.GetUpgradeHistory
   ( -- * Creating a Request
-    getUpgradeHistory,
-    GetUpgradeHistory,
+    GetUpgradeHistory (..),
+    newGetUpgradeHistory,
 
     -- * Request Lenses
-    guhNextToken,
-    guhMaxResults,
-    guhDomainName,
+    getUpgradeHistory_nextToken,
+    getUpgradeHistory_maxResults,
+    getUpgradeHistory_domainName,
 
     -- * Destructuring the Response
-    getUpgradeHistoryResponse,
-    GetUpgradeHistoryResponse,
+    GetUpgradeHistoryResponse (..),
+    newGetUpgradeHistoryResponse,
 
     -- * Response Lenses
-    guhrrsNextToken,
-    guhrrsUpgradeHistories,
-    guhrrsResponseStatus,
+    getUpgradeHistoryResponse_nextToken,
+    getUpgradeHistoryResponse_upgradeHistories,
+    getUpgradeHistoryResponse_httpStatus,
   )
 where
 
 import Network.AWS.ElasticSearch.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ElasticSearch.Types.UpgradeHistory
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Container for request parameters to @'GetUpgradeHistory' @ operation.
+-- | Container for request parameters to @ GetUpgradeHistory @ operation.
 --
---
---
--- /See:/ 'getUpgradeHistory' smart constructor.
+-- /See:/ 'newGetUpgradeHistory' smart constructor.
 data GetUpgradeHistory = GetUpgradeHistory'
-  { _guhNextToken ::
-      !(Maybe Text),
-    _guhMaxResults :: !(Maybe Int),
-    _guhDomainName :: !Text
+  { nextToken :: Prelude.Maybe Prelude.Text,
+    maxResults :: Prelude.Maybe Prelude.Int,
+    domainName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetUpgradeHistory' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetUpgradeHistory' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'guhNextToken' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'guhMaxResults' - Undocumented member.
+-- 'nextToken', 'getUpgradeHistory_nextToken' - Undocumented member.
 --
--- * 'guhDomainName' - Undocumented member.
-getUpgradeHistory ::
-  -- | 'guhDomainName'
-  Text ->
+-- 'maxResults', 'getUpgradeHistory_maxResults' - Undocumented member.
+--
+-- 'domainName', 'getUpgradeHistory_domainName' - Undocumented member.
+newGetUpgradeHistory ::
+  -- | 'domainName'
+  Prelude.Text ->
   GetUpgradeHistory
-getUpgradeHistory pDomainName_ =
+newGetUpgradeHistory pDomainName_ =
   GetUpgradeHistory'
-    { _guhNextToken = Nothing,
-      _guhMaxResults = Nothing,
-      _guhDomainName = pDomainName_
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      domainName = pDomainName_
     }
 
 -- | Undocumented member.
-guhNextToken :: Lens' GetUpgradeHistory (Maybe Text)
-guhNextToken = lens _guhNextToken (\s a -> s {_guhNextToken = a})
+getUpgradeHistory_nextToken :: Lens.Lens' GetUpgradeHistory (Prelude.Maybe Prelude.Text)
+getUpgradeHistory_nextToken = Lens.lens (\GetUpgradeHistory' {nextToken} -> nextToken) (\s@GetUpgradeHistory' {} a -> s {nextToken = a} :: GetUpgradeHistory)
 
 -- | Undocumented member.
-guhMaxResults :: Lens' GetUpgradeHistory (Maybe Int)
-guhMaxResults = lens _guhMaxResults (\s a -> s {_guhMaxResults = a})
+getUpgradeHistory_maxResults :: Lens.Lens' GetUpgradeHistory (Prelude.Maybe Prelude.Int)
+getUpgradeHistory_maxResults = Lens.lens (\GetUpgradeHistory' {maxResults} -> maxResults) (\s@GetUpgradeHistory' {} a -> s {maxResults = a} :: GetUpgradeHistory)
 
 -- | Undocumented member.
-guhDomainName :: Lens' GetUpgradeHistory Text
-guhDomainName = lens _guhDomainName (\s a -> s {_guhDomainName = a})
+getUpgradeHistory_domainName :: Lens.Lens' GetUpgradeHistory Prelude.Text
+getUpgradeHistory_domainName = Lens.lens (\GetUpgradeHistory' {domainName} -> domainName) (\s@GetUpgradeHistory' {} a -> s {domainName = a} :: GetUpgradeHistory)
 
-instance AWSPager GetUpgradeHistory where
+instance Pager.AWSPager GetUpgradeHistory where
   page rq rs
-    | stop (rs ^. guhrrsNextToken) = Nothing
-    | stop (rs ^. guhrrsUpgradeHistories) = Nothing
-    | otherwise =
-      Just $ rq & guhNextToken .~ rs ^. guhrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? getUpgradeHistoryResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? getUpgradeHistoryResponse_upgradeHistories
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& getUpgradeHistory_nextToken
+          Lens..~ rs
+          Lens.^? getUpgradeHistoryResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest GetUpgradeHistory where
+instance Prelude.AWSRequest GetUpgradeHistory where
   type Rs GetUpgradeHistory = GetUpgradeHistoryResponse
-  request = get elasticSearch
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetUpgradeHistoryResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "UpgradeHistories" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "UpgradeHistories"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetUpgradeHistory
+instance Prelude.Hashable GetUpgradeHistory
 
-instance NFData GetUpgradeHistory
+instance Prelude.NFData GetUpgradeHistory
 
-instance ToHeaders GetUpgradeHistory where
-  toHeaders = const mempty
+instance Prelude.ToHeaders GetUpgradeHistory where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath GetUpgradeHistory where
+instance Prelude.ToPath GetUpgradeHistory where
   toPath GetUpgradeHistory' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/2015-01-01/es/upgradeDomain/",
-        toBS _guhDomainName,
+        Prelude.toBS domainName,
         "/history"
       ]
 
-instance ToQuery GetUpgradeHistory where
+instance Prelude.ToQuery GetUpgradeHistory where
   toQuery GetUpgradeHistory' {..} =
-    mconcat
-      [ "nextToken" =: _guhNextToken,
-        "maxResults" =: _guhMaxResults
+    Prelude.mconcat
+      [ "nextToken" Prelude.=: nextToken,
+        "maxResults" Prelude.=: maxResults
       ]
 
--- | Container for response returned by @'GetUpgradeHistory' @ operation.
+-- | Container for response returned by @ GetUpgradeHistory @ operation.
 --
---
---
--- /See:/ 'getUpgradeHistoryResponse' smart constructor.
+-- /See:/ 'newGetUpgradeHistoryResponse' smart constructor.
 data GetUpgradeHistoryResponse = GetUpgradeHistoryResponse'
-  { _guhrrsNextToken ::
-      !(Maybe Text),
-    _guhrrsUpgradeHistories ::
-      !( Maybe
-           [UpgradeHistory]
-       ),
-    _guhrrsResponseStatus ::
-      !Int
+  { -- | Pagination token that needs to be supplied to the next call to get the
+    -- next page of results
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of @ UpgradeHistory @ objects corresponding to each Upgrade or
+    -- Upgrade Eligibility Check performed on a domain returned as part of
+    -- @ GetUpgradeHistoryResponse @ object.
+    upgradeHistories :: Prelude.Maybe [UpgradeHistory],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetUpgradeHistoryResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetUpgradeHistoryResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'guhrrsNextToken' - Pagination token that needs to be supplied to the next call to get the next page of results
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'guhrrsUpgradeHistories' - A list of @'UpgradeHistory' @ objects corresponding to each Upgrade or Upgrade Eligibility Check performed on a domain returned as part of @'GetUpgradeHistoryResponse' @ object.
+-- 'nextToken', 'getUpgradeHistoryResponse_nextToken' - Pagination token that needs to be supplied to the next call to get the
+-- next page of results
 --
--- * 'guhrrsResponseStatus' - -- | The response status code.
-getUpgradeHistoryResponse ::
-  -- | 'guhrrsResponseStatus'
-  Int ->
+-- 'upgradeHistories', 'getUpgradeHistoryResponse_upgradeHistories' - A list of @ UpgradeHistory @ objects corresponding to each Upgrade or
+-- Upgrade Eligibility Check performed on a domain returned as part of
+-- @ GetUpgradeHistoryResponse @ object.
+--
+-- 'httpStatus', 'getUpgradeHistoryResponse_httpStatus' - The response's http status code.
+newGetUpgradeHistoryResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetUpgradeHistoryResponse
-getUpgradeHistoryResponse pResponseStatus_ =
+newGetUpgradeHistoryResponse pHttpStatus_ =
   GetUpgradeHistoryResponse'
-    { _guhrrsNextToken =
-        Nothing,
-      _guhrrsUpgradeHistories = Nothing,
-      _guhrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      upgradeHistories = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Pagination token that needs to be supplied to the next call to get the next page of results
-guhrrsNextToken :: Lens' GetUpgradeHistoryResponse (Maybe Text)
-guhrrsNextToken = lens _guhrrsNextToken (\s a -> s {_guhrrsNextToken = a})
+-- | Pagination token that needs to be supplied to the next call to get the
+-- next page of results
+getUpgradeHistoryResponse_nextToken :: Lens.Lens' GetUpgradeHistoryResponse (Prelude.Maybe Prelude.Text)
+getUpgradeHistoryResponse_nextToken = Lens.lens (\GetUpgradeHistoryResponse' {nextToken} -> nextToken) (\s@GetUpgradeHistoryResponse' {} a -> s {nextToken = a} :: GetUpgradeHistoryResponse)
 
--- | A list of @'UpgradeHistory' @ objects corresponding to each Upgrade or Upgrade Eligibility Check performed on a domain returned as part of @'GetUpgradeHistoryResponse' @ object.
-guhrrsUpgradeHistories :: Lens' GetUpgradeHistoryResponse [UpgradeHistory]
-guhrrsUpgradeHistories = lens _guhrrsUpgradeHistories (\s a -> s {_guhrrsUpgradeHistories = a}) . _Default . _Coerce
+-- | A list of @ UpgradeHistory @ objects corresponding to each Upgrade or
+-- Upgrade Eligibility Check performed on a domain returned as part of
+-- @ GetUpgradeHistoryResponse @ object.
+getUpgradeHistoryResponse_upgradeHistories :: Lens.Lens' GetUpgradeHistoryResponse (Prelude.Maybe [UpgradeHistory])
+getUpgradeHistoryResponse_upgradeHistories = Lens.lens (\GetUpgradeHistoryResponse' {upgradeHistories} -> upgradeHistories) (\s@GetUpgradeHistoryResponse' {} a -> s {upgradeHistories = a} :: GetUpgradeHistoryResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-guhrrsResponseStatus :: Lens' GetUpgradeHistoryResponse Int
-guhrrsResponseStatus = lens _guhrrsResponseStatus (\s a -> s {_guhrrsResponseStatus = a})
+-- | The response's http status code.
+getUpgradeHistoryResponse_httpStatus :: Lens.Lens' GetUpgradeHistoryResponse Prelude.Int
+getUpgradeHistoryResponse_httpStatus = Lens.lens (\GetUpgradeHistoryResponse' {httpStatus} -> httpStatus) (\s@GetUpgradeHistoryResponse' {} a -> s {httpStatus = a} :: GetUpgradeHistoryResponse)
 
-instance NFData GetUpgradeHistoryResponse
+instance Prelude.NFData GetUpgradeHistoryResponse

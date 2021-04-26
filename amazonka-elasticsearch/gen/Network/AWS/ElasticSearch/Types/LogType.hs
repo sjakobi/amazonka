@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,79 @@
 module Network.AWS.ElasticSearch.Types.LogType
   ( LogType
       ( ..,
-        AuditLogs,
-        EsApplicationLogs,
-        IndexSlowLogs,
-        SearchSlowLogs
+        LogTypeAUDITLOGS,
+        LogTypeESAPPLICATIONLOGS,
+        LogTypeINDEXSLOWLOGS,
+        LogTypeSEARCHSLOWLOGS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Type of Log File, it can be one of the following:     * INDEX_SLOW_LOGS: Index slow logs contain insert requests that took more time than configured index query log threshold to execute.    * SEARCH_SLOW_LOGS: Search slow logs contain search queries that took more time than configured search query log threshold to execute.    * ES_APPLICATION_LOGS: Elasticsearch application logs contain information about errors and warnings raised during the operation of the service and can be useful for troubleshooting.    * AUDIT_LOGS: Audit logs contain records of user requests for access from the domain.
-data LogType = LogType' (CI Text)
+-- | Type of Log File, it can be one of the following:
+--
+-- -   INDEX_SLOW_LOGS: Index slow logs contain insert requests that took
+--     more time than configured index query log threshold to execute.
+-- -   SEARCH_SLOW_LOGS: Search slow logs contain search queries that took
+--     more time than configured search query log threshold to execute.
+-- -   ES_APPLICATION_LOGS: Elasticsearch application logs contain
+--     information about errors and warnings raised during the operation of
+--     the service and can be useful for troubleshooting.
+-- -   AUDIT_LOGS: Audit logs contain records of user requests for access
+--     from the domain.
+newtype LogType = LogType'
+  { fromLogType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AuditLogs :: LogType
-pattern AuditLogs = LogType' "AUDIT_LOGS"
+pattern LogTypeAUDITLOGS :: LogType
+pattern LogTypeAUDITLOGS = LogType' "AUDIT_LOGS"
 
-pattern EsApplicationLogs :: LogType
-pattern EsApplicationLogs = LogType' "ES_APPLICATION_LOGS"
+pattern LogTypeESAPPLICATIONLOGS :: LogType
+pattern LogTypeESAPPLICATIONLOGS = LogType' "ES_APPLICATION_LOGS"
 
-pattern IndexSlowLogs :: LogType
-pattern IndexSlowLogs = LogType' "INDEX_SLOW_LOGS"
+pattern LogTypeINDEXSLOWLOGS :: LogType
+pattern LogTypeINDEXSLOWLOGS = LogType' "INDEX_SLOW_LOGS"
 
-pattern SearchSlowLogs :: LogType
-pattern SearchSlowLogs = LogType' "SEARCH_SLOW_LOGS"
+pattern LogTypeSEARCHSLOWLOGS :: LogType
+pattern LogTypeSEARCHSLOWLOGS = LogType' "SEARCH_SLOW_LOGS"
 
 {-# COMPLETE
-  AuditLogs,
-  EsApplicationLogs,
-  IndexSlowLogs,
-  SearchSlowLogs,
+  LogTypeAUDITLOGS,
+  LogTypeESAPPLICATIONLOGS,
+  LogTypeINDEXSLOWLOGS,
+  LogTypeSEARCHSLOWLOGS,
   LogType'
   #-}
 
-instance FromText LogType where
-  parser = (LogType' . mk) <$> takeText
+instance Prelude.FromText LogType where
+  parser = LogType' Prelude.<$> Prelude.takeText
 
-instance ToText LogType where
-  toText (LogType' ci) = original ci
+instance Prelude.ToText LogType where
+  toText (LogType' x) = x
 
-instance Hashable LogType
+instance Prelude.Hashable LogType
 
-instance NFData LogType
+instance Prelude.NFData LogType
 
-instance ToByteString LogType
+instance Prelude.ToByteString LogType
 
-instance ToQuery LogType
+instance Prelude.ToQuery LogType
 
-instance ToHeader LogType
+instance Prelude.ToHeader LogType
 
-instance ToJSON LogType where
-  toJSON = toJSONText
+instance Prelude.ToJSON LogType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON LogType where
-  parseJSON = parseJSONText "LogType"
+instance Prelude.FromJSON LogType where
+  parseJSON = Prelude.parseJSONText "LogType"

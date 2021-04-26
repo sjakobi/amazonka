@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +21,78 @@ module Network.AWS.ElasticSearch.Types.ElasticsearchClusterConfigStatus where
 
 import Network.AWS.ElasticSearch.Types.ElasticsearchClusterConfig
 import Network.AWS.ElasticSearch.Types.OptionStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies the configuration status for the specified Elasticsearch domain.
+-- | Specifies the configuration status for the specified Elasticsearch
+-- domain.
 --
---
---
--- /See:/ 'elasticsearchClusterConfigStatus' smart constructor.
+-- /See:/ 'newElasticsearchClusterConfigStatus' smart constructor.
 data ElasticsearchClusterConfigStatus = ElasticsearchClusterConfigStatus'
-  { _eccsOptions ::
-      !ElasticsearchClusterConfig,
-    _eccsStatus ::
-      !OptionStatus
+  { -- | Specifies the cluster configuration for the specified Elasticsearch
+    -- domain.
+    options :: ElasticsearchClusterConfig,
+    -- | Specifies the status of the configuration for the specified
+    -- Elasticsearch domain.
+    status :: OptionStatus
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ElasticsearchClusterConfigStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ElasticsearchClusterConfigStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eccsOptions' - Specifies the cluster configuration for the specified Elasticsearch domain.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'eccsStatus' - Specifies the status of the configuration for the specified Elasticsearch domain.
-elasticsearchClusterConfigStatus ::
-  -- | 'eccsOptions'
+-- 'options', 'elasticsearchClusterConfigStatus_options' - Specifies the cluster configuration for the specified Elasticsearch
+-- domain.
+--
+-- 'status', 'elasticsearchClusterConfigStatus_status' - Specifies the status of the configuration for the specified
+-- Elasticsearch domain.
+newElasticsearchClusterConfigStatus ::
+  -- | 'options'
   ElasticsearchClusterConfig ->
-  -- | 'eccsStatus'
+  -- | 'status'
   OptionStatus ->
   ElasticsearchClusterConfigStatus
-elasticsearchClusterConfigStatus pOptions_ pStatus_ =
-  ElasticsearchClusterConfigStatus'
-    { _eccsOptions =
-        pOptions_,
-      _eccsStatus = pStatus_
-    }
+newElasticsearchClusterConfigStatus
+  pOptions_
+  pStatus_ =
+    ElasticsearchClusterConfigStatus'
+      { options =
+          pOptions_,
+        status = pStatus_
+      }
 
--- | Specifies the cluster configuration for the specified Elasticsearch domain.
-eccsOptions :: Lens' ElasticsearchClusterConfigStatus ElasticsearchClusterConfig
-eccsOptions = lens _eccsOptions (\s a -> s {_eccsOptions = a})
+-- | Specifies the cluster configuration for the specified Elasticsearch
+-- domain.
+elasticsearchClusterConfigStatus_options :: Lens.Lens' ElasticsearchClusterConfigStatus ElasticsearchClusterConfig
+elasticsearchClusterConfigStatus_options = Lens.lens (\ElasticsearchClusterConfigStatus' {options} -> options) (\s@ElasticsearchClusterConfigStatus' {} a -> s {options = a} :: ElasticsearchClusterConfigStatus)
 
--- | Specifies the status of the configuration for the specified Elasticsearch domain.
-eccsStatus :: Lens' ElasticsearchClusterConfigStatus OptionStatus
-eccsStatus = lens _eccsStatus (\s a -> s {_eccsStatus = a})
+-- | Specifies the status of the configuration for the specified
+-- Elasticsearch domain.
+elasticsearchClusterConfigStatus_status :: Lens.Lens' ElasticsearchClusterConfigStatus OptionStatus
+elasticsearchClusterConfigStatus_status = Lens.lens (\ElasticsearchClusterConfigStatus' {status} -> status) (\s@ElasticsearchClusterConfigStatus' {} a -> s {status = a} :: ElasticsearchClusterConfigStatus)
 
-instance FromJSON ElasticsearchClusterConfigStatus where
+instance
+  Prelude.FromJSON
+    ElasticsearchClusterConfigStatus
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ElasticsearchClusterConfigStatus"
       ( \x ->
           ElasticsearchClusterConfigStatus'
-            <$> (x .: "Options") <*> (x .: "Status")
+            Prelude.<$> (x Prelude..: "Options")
+            Prelude.<*> (x Prelude..: "Status")
       )
 
-instance Hashable ElasticsearchClusterConfigStatus
+instance
+  Prelude.Hashable
+    ElasticsearchClusterConfigStatus
 
-instance NFData ElasticsearchClusterConfigStatus
+instance
+  Prelude.NFData
+    ElasticsearchClusterConfigStatus

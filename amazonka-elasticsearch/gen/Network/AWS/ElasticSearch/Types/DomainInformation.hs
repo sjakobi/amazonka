@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,71 +19,74 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ElasticSearch.Types.DomainInformation where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | /See:/ 'domainInformation' smart constructor.
+-- | /See:/ 'newDomainInformation' smart constructor.
 data DomainInformation = DomainInformation'
-  { _diOwnerId ::
-      !(Maybe Text),
-    _diRegion :: !(Maybe Text),
-    _diDomainName :: !Text
+  { ownerId :: Prelude.Maybe Prelude.Text,
+    region :: Prelude.Maybe Prelude.Text,
+    domainName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DomainInformation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DomainInformation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'diOwnerId' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'diRegion' - Undocumented member.
+-- 'ownerId', 'domainInformation_ownerId' - Undocumented member.
 --
--- * 'diDomainName' - Undocumented member.
-domainInformation ::
-  -- | 'diDomainName'
-  Text ->
+-- 'region', 'domainInformation_region' - Undocumented member.
+--
+-- 'domainName', 'domainInformation_domainName' - Undocumented member.
+newDomainInformation ::
+  -- | 'domainName'
+  Prelude.Text ->
   DomainInformation
-domainInformation pDomainName_ =
+newDomainInformation pDomainName_ =
   DomainInformation'
-    { _diOwnerId = Nothing,
-      _diRegion = Nothing,
-      _diDomainName = pDomainName_
+    { ownerId = Prelude.Nothing,
+      region = Prelude.Nothing,
+      domainName = pDomainName_
     }
 
 -- | Undocumented member.
-diOwnerId :: Lens' DomainInformation (Maybe Text)
-diOwnerId = lens _diOwnerId (\s a -> s {_diOwnerId = a})
+domainInformation_ownerId :: Lens.Lens' DomainInformation (Prelude.Maybe Prelude.Text)
+domainInformation_ownerId = Lens.lens (\DomainInformation' {ownerId} -> ownerId) (\s@DomainInformation' {} a -> s {ownerId = a} :: DomainInformation)
 
 -- | Undocumented member.
-diRegion :: Lens' DomainInformation (Maybe Text)
-diRegion = lens _diRegion (\s a -> s {_diRegion = a})
+domainInformation_region :: Lens.Lens' DomainInformation (Prelude.Maybe Prelude.Text)
+domainInformation_region = Lens.lens (\DomainInformation' {region} -> region) (\s@DomainInformation' {} a -> s {region = a} :: DomainInformation)
 
 -- | Undocumented member.
-diDomainName :: Lens' DomainInformation Text
-diDomainName = lens _diDomainName (\s a -> s {_diDomainName = a})
+domainInformation_domainName :: Lens.Lens' DomainInformation Prelude.Text
+domainInformation_domainName = Lens.lens (\DomainInformation' {domainName} -> domainName) (\s@DomainInformation' {} a -> s {domainName = a} :: DomainInformation)
 
-instance FromJSON DomainInformation where
+instance Prelude.FromJSON DomainInformation where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DomainInformation"
       ( \x ->
           DomainInformation'
-            <$> (x .:? "OwnerId")
-            <*> (x .:? "Region")
-            <*> (x .: "DomainName")
+            Prelude.<$> (x Prelude..:? "OwnerId")
+            Prelude.<*> (x Prelude..:? "Region")
+            Prelude.<*> (x Prelude..: "DomainName")
       )
 
-instance Hashable DomainInformation
+instance Prelude.Hashable DomainInformation
 
-instance NFData DomainInformation
+instance Prelude.NFData DomainInformation
 
-instance ToJSON DomainInformation where
+instance Prelude.ToJSON DomainInformation where
   toJSON DomainInformation' {..} =
-    object
-      ( catMaybes
-          [ ("OwnerId" .=) <$> _diOwnerId,
-            ("Region" .=) <$> _diRegion,
-            Just ("DomainName" .= _diDomainName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("OwnerId" Prelude..=) Prelude.<$> ownerId,
+            ("Region" Prelude..=) Prelude.<$> region,
+            Prelude.Just ("DomainName" Prelude..= domainName)
           ]
       )

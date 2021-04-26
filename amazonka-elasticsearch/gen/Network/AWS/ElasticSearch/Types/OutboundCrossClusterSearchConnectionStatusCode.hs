@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,87 +19,85 @@
 module Network.AWS.ElasticSearch.Types.OutboundCrossClusterSearchConnectionStatusCode
   ( OutboundCrossClusterSearchConnectionStatusCode
       ( ..,
-        OCCSCSCActive,
-        OCCSCSCDeleted,
-        OCCSCSCDeleting,
-        OCCSCSCPendingAcceptance,
-        OCCSCSCProvisioning,
-        OCCSCSCRejected,
-        OCCSCSCValidating,
-        OCCSCSCValidationFailed
+        OutboundCrossClusterSearchConnectionStatusCodeACTIVE,
+        OutboundCrossClusterSearchConnectionStatusCodeDELETED,
+        OutboundCrossClusterSearchConnectionStatusCodeDELETING,
+        OutboundCrossClusterSearchConnectionStatusCodePENDINGACCEPTANCE,
+        OutboundCrossClusterSearchConnectionStatusCodePROVISIONING,
+        OutboundCrossClusterSearchConnectionStatusCodeREJECTED,
+        OutboundCrossClusterSearchConnectionStatusCodeVALIDATING,
+        OutboundCrossClusterSearchConnectionStatusCodeVALIDATIONFAILED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data OutboundCrossClusterSearchConnectionStatusCode
-  = OutboundCrossClusterSearchConnectionStatusCode'
-      ( CI
-          Text
-      )
+newtype OutboundCrossClusterSearchConnectionStatusCode = OutboundCrossClusterSearchConnectionStatusCode'
+  { fromOutboundCrossClusterSearchConnectionStatusCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern OCCSCSCActive :: OutboundCrossClusterSearchConnectionStatusCode
-pattern OCCSCSCActive = OutboundCrossClusterSearchConnectionStatusCode' "ACTIVE"
+pattern OutboundCrossClusterSearchConnectionStatusCodeACTIVE :: OutboundCrossClusterSearchConnectionStatusCode
+pattern OutboundCrossClusterSearchConnectionStatusCodeACTIVE = OutboundCrossClusterSearchConnectionStatusCode' "ACTIVE"
 
-pattern OCCSCSCDeleted :: OutboundCrossClusterSearchConnectionStatusCode
-pattern OCCSCSCDeleted = OutboundCrossClusterSearchConnectionStatusCode' "DELETED"
+pattern OutboundCrossClusterSearchConnectionStatusCodeDELETED :: OutboundCrossClusterSearchConnectionStatusCode
+pattern OutboundCrossClusterSearchConnectionStatusCodeDELETED = OutboundCrossClusterSearchConnectionStatusCode' "DELETED"
 
-pattern OCCSCSCDeleting :: OutboundCrossClusterSearchConnectionStatusCode
-pattern OCCSCSCDeleting = OutboundCrossClusterSearchConnectionStatusCode' "DELETING"
+pattern OutboundCrossClusterSearchConnectionStatusCodeDELETING :: OutboundCrossClusterSearchConnectionStatusCode
+pattern OutboundCrossClusterSearchConnectionStatusCodeDELETING = OutboundCrossClusterSearchConnectionStatusCode' "DELETING"
 
-pattern OCCSCSCPendingAcceptance :: OutboundCrossClusterSearchConnectionStatusCode
-pattern OCCSCSCPendingAcceptance = OutboundCrossClusterSearchConnectionStatusCode' "PENDING_ACCEPTANCE"
+pattern OutboundCrossClusterSearchConnectionStatusCodePENDINGACCEPTANCE :: OutboundCrossClusterSearchConnectionStatusCode
+pattern OutboundCrossClusterSearchConnectionStatusCodePENDINGACCEPTANCE = OutboundCrossClusterSearchConnectionStatusCode' "PENDING_ACCEPTANCE"
 
-pattern OCCSCSCProvisioning :: OutboundCrossClusterSearchConnectionStatusCode
-pattern OCCSCSCProvisioning = OutboundCrossClusterSearchConnectionStatusCode' "PROVISIONING"
+pattern OutboundCrossClusterSearchConnectionStatusCodePROVISIONING :: OutboundCrossClusterSearchConnectionStatusCode
+pattern OutboundCrossClusterSearchConnectionStatusCodePROVISIONING = OutboundCrossClusterSearchConnectionStatusCode' "PROVISIONING"
 
-pattern OCCSCSCRejected :: OutboundCrossClusterSearchConnectionStatusCode
-pattern OCCSCSCRejected = OutboundCrossClusterSearchConnectionStatusCode' "REJECTED"
+pattern OutboundCrossClusterSearchConnectionStatusCodeREJECTED :: OutboundCrossClusterSearchConnectionStatusCode
+pattern OutboundCrossClusterSearchConnectionStatusCodeREJECTED = OutboundCrossClusterSearchConnectionStatusCode' "REJECTED"
 
-pattern OCCSCSCValidating :: OutboundCrossClusterSearchConnectionStatusCode
-pattern OCCSCSCValidating = OutboundCrossClusterSearchConnectionStatusCode' "VALIDATING"
+pattern OutboundCrossClusterSearchConnectionStatusCodeVALIDATING :: OutboundCrossClusterSearchConnectionStatusCode
+pattern OutboundCrossClusterSearchConnectionStatusCodeVALIDATING = OutboundCrossClusterSearchConnectionStatusCode' "VALIDATING"
 
-pattern OCCSCSCValidationFailed :: OutboundCrossClusterSearchConnectionStatusCode
-pattern OCCSCSCValidationFailed = OutboundCrossClusterSearchConnectionStatusCode' "VALIDATION_FAILED"
+pattern OutboundCrossClusterSearchConnectionStatusCodeVALIDATIONFAILED :: OutboundCrossClusterSearchConnectionStatusCode
+pattern OutboundCrossClusterSearchConnectionStatusCodeVALIDATIONFAILED = OutboundCrossClusterSearchConnectionStatusCode' "VALIDATION_FAILED"
 
 {-# COMPLETE
-  OCCSCSCActive,
-  OCCSCSCDeleted,
-  OCCSCSCDeleting,
-  OCCSCSCPendingAcceptance,
-  OCCSCSCProvisioning,
-  OCCSCSCRejected,
-  OCCSCSCValidating,
-  OCCSCSCValidationFailed,
+  OutboundCrossClusterSearchConnectionStatusCodeACTIVE,
+  OutboundCrossClusterSearchConnectionStatusCodeDELETED,
+  OutboundCrossClusterSearchConnectionStatusCodeDELETING,
+  OutboundCrossClusterSearchConnectionStatusCodePENDINGACCEPTANCE,
+  OutboundCrossClusterSearchConnectionStatusCodePROVISIONING,
+  OutboundCrossClusterSearchConnectionStatusCodeREJECTED,
+  OutboundCrossClusterSearchConnectionStatusCodeVALIDATING,
+  OutboundCrossClusterSearchConnectionStatusCodeVALIDATIONFAILED,
   OutboundCrossClusterSearchConnectionStatusCode'
   #-}
 
-instance FromText OutboundCrossClusterSearchConnectionStatusCode where
-  parser = (OutboundCrossClusterSearchConnectionStatusCode' . mk) <$> takeText
+instance Prelude.FromText OutboundCrossClusterSearchConnectionStatusCode where
+  parser = OutboundCrossClusterSearchConnectionStatusCode' Prelude.<$> Prelude.takeText
 
-instance ToText OutboundCrossClusterSearchConnectionStatusCode where
-  toText (OutboundCrossClusterSearchConnectionStatusCode' ci) = original ci
+instance Prelude.ToText OutboundCrossClusterSearchConnectionStatusCode where
+  toText (OutboundCrossClusterSearchConnectionStatusCode' x) = x
 
-instance Hashable OutboundCrossClusterSearchConnectionStatusCode
+instance Prelude.Hashable OutboundCrossClusterSearchConnectionStatusCode
 
-instance NFData OutboundCrossClusterSearchConnectionStatusCode
+instance Prelude.NFData OutboundCrossClusterSearchConnectionStatusCode
 
-instance ToByteString OutboundCrossClusterSearchConnectionStatusCode
+instance Prelude.ToByteString OutboundCrossClusterSearchConnectionStatusCode
 
-instance ToQuery OutboundCrossClusterSearchConnectionStatusCode
+instance Prelude.ToQuery OutboundCrossClusterSearchConnectionStatusCode
 
-instance ToHeader OutboundCrossClusterSearchConnectionStatusCode
+instance Prelude.ToHeader OutboundCrossClusterSearchConnectionStatusCode
 
-instance FromJSON OutboundCrossClusterSearchConnectionStatusCode where
-  parseJSON = parseJSONText "OutboundCrossClusterSearchConnectionStatusCode"
+instance Prelude.FromJSON OutboundCrossClusterSearchConnectionStatusCode where
+  parseJSON = Prelude.parseJSONText "OutboundCrossClusterSearchConnectionStatusCode"

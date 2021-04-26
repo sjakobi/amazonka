@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,48 +19,59 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ElasticSearch.Types.Filter where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A filter used to limit results when describing inbound or outbound cross-cluster search connections. Multiple values can be specified per filter. A cross-cluster search connection must match at least one of the specified values for it to be returned from an operation.
+-- | A filter used to limit results when describing inbound or outbound
+-- cross-cluster search connections. Multiple values can be specified per
+-- filter. A cross-cluster search connection must match at least one of the
+-- specified values for it to be returned from an operation.
 --
---
---
--- /See:/ 'filter'' smart constructor.
+-- /See:/ 'newFilter' smart constructor.
 data Filter = Filter'
-  { _fValues ::
-      !(Maybe (List1 Text)),
-    _fName :: !(Maybe Text)
+  { -- | Contains one or more values for the filter.
+    values :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | Specifies the name of the filter.
+    name :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Filter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Filter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fValues' - Contains one or more values for the filter.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fName' - Specifies the name of the filter.
-filter' ::
+-- 'values', 'filter_values' - Contains one or more values for the filter.
+--
+-- 'name', 'filter_name' - Specifies the name of the filter.
+newFilter ::
   Filter
-filter' =
-  Filter' {_fValues = Nothing, _fName = Nothing}
+newFilter =
+  Filter'
+    { values = Prelude.Nothing,
+      name = Prelude.Nothing
+    }
 
 -- | Contains one or more values for the filter.
-fValues :: Lens' Filter (Maybe (NonEmpty Text))
-fValues = lens _fValues (\s a -> s {_fValues = a}) . mapping _List1
+filter_values :: Lens.Lens' Filter (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+filter_values = Lens.lens (\Filter' {values} -> values) (\s@Filter' {} a -> s {values = a} :: Filter) Prelude.. Lens.mapping Prelude._List1
 
 -- | Specifies the name of the filter.
-fName :: Lens' Filter (Maybe Text)
-fName = lens _fName (\s a -> s {_fName = a})
+filter_name :: Lens.Lens' Filter (Prelude.Maybe Prelude.Text)
+filter_name = Lens.lens (\Filter' {name} -> name) (\s@Filter' {} a -> s {name = a} :: Filter)
 
-instance Hashable Filter
+instance Prelude.Hashable Filter
 
-instance NFData Filter
+instance Prelude.NFData Filter
 
-instance ToJSON Filter where
+instance Prelude.ToJSON Filter where
   toJSON Filter' {..} =
-    object
-      ( catMaybes
-          [("Values" .=) <$> _fValues, ("Name" .=) <$> _fName]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Values" Prelude..=) Prelude.<$> values,
+            ("Name" Prelude..=) Prelude.<$> name
+          ]
       )

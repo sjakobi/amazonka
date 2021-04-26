@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,103 +20,116 @@
 module Network.AWS.ElasticSearch.Types.SAMLOptionsInput where
 
 import Network.AWS.ElasticSearch.Types.SAMLIdp
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Specifies the SAML application configuration for the domain.
 --
---
---
--- /See:/ 'sAMLOptionsInput' smart constructor.
+-- /See:/ 'newSAMLOptionsInput' smart constructor.
 data SAMLOptionsInput = SAMLOptionsInput'
-  { _samloiMasterBackendRole ::
-      !(Maybe Text),
-    _samloiRolesKey :: !(Maybe Text),
-    _samloiSessionTimeoutMinutes ::
-      !(Maybe Int),
-    _samloiIdp :: !(Maybe SAMLIdp),
-    _samloiEnabled :: !(Maybe Bool),
-    _samloiMasterUserName ::
-      !(Maybe (Sensitive Text)),
-    _samloiSubjectKey :: !(Maybe Text)
+  { -- | The backend role to which the SAML master user is mapped to.
+    masterBackendRole :: Prelude.Maybe Prelude.Text,
+    -- | The key to use for matching the SAML Roles attribute.
+    rolesKey :: Prelude.Maybe Prelude.Text,
+    -- | The duration, in minutes, after which a user session becomes inactive.
+    -- Acceptable values are between 1 and 1440, and the default value is 60.
+    sessionTimeoutMinutes :: Prelude.Maybe Prelude.Int,
+    -- | Specifies the SAML Identity Provider\'s information.
+    idp :: Prelude.Maybe SAMLIdp,
+    -- | True if SAML is enabled.
+    enabled :: Prelude.Maybe Prelude.Bool,
+    -- | The SAML master username, which is stored in the Amazon Elasticsearch
+    -- Service domain\'s internal database.
+    masterUserName :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The key to use for matching the SAML Subject attribute.
+    subjectKey :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SAMLOptionsInput' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SAMLOptionsInput' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'samloiMasterBackendRole' - The backend role to which the SAML master user is mapped to.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'samloiRolesKey' - The key to use for matching the SAML Roles attribute.
+-- 'masterBackendRole', 'sAMLOptionsInput_masterBackendRole' - The backend role to which the SAML master user is mapped to.
 --
--- * 'samloiSessionTimeoutMinutes' - The duration, in minutes, after which a user session becomes inactive. Acceptable values are between 1 and 1440, and the default value is 60.
+-- 'rolesKey', 'sAMLOptionsInput_rolesKey' - The key to use for matching the SAML Roles attribute.
 --
--- * 'samloiIdp' - Specifies the SAML Identity Provider's information.
+-- 'sessionTimeoutMinutes', 'sAMLOptionsInput_sessionTimeoutMinutes' - The duration, in minutes, after which a user session becomes inactive.
+-- Acceptable values are between 1 and 1440, and the default value is 60.
 --
--- * 'samloiEnabled' - True if SAML is enabled.
+-- 'idp', 'sAMLOptionsInput_idp' - Specifies the SAML Identity Provider\'s information.
 --
--- * 'samloiMasterUserName' - The SAML master username, which is stored in the Amazon Elasticsearch Service domain's internal database.
+-- 'enabled', 'sAMLOptionsInput_enabled' - True if SAML is enabled.
 --
--- * 'samloiSubjectKey' - The key to use for matching the SAML Subject attribute.
-sAMLOptionsInput ::
+-- 'masterUserName', 'sAMLOptionsInput_masterUserName' - The SAML master username, which is stored in the Amazon Elasticsearch
+-- Service domain\'s internal database.
+--
+-- 'subjectKey', 'sAMLOptionsInput_subjectKey' - The key to use for matching the SAML Subject attribute.
+newSAMLOptionsInput ::
   SAMLOptionsInput
-sAMLOptionsInput =
+newSAMLOptionsInput =
   SAMLOptionsInput'
-    { _samloiMasterBackendRole =
-        Nothing,
-      _samloiRolesKey = Nothing,
-      _samloiSessionTimeoutMinutes = Nothing,
-      _samloiIdp = Nothing,
-      _samloiEnabled = Nothing,
-      _samloiMasterUserName = Nothing,
-      _samloiSubjectKey = Nothing
+    { masterBackendRole =
+        Prelude.Nothing,
+      rolesKey = Prelude.Nothing,
+      sessionTimeoutMinutes = Prelude.Nothing,
+      idp = Prelude.Nothing,
+      enabled = Prelude.Nothing,
+      masterUserName = Prelude.Nothing,
+      subjectKey = Prelude.Nothing
     }
 
 -- | The backend role to which the SAML master user is mapped to.
-samloiMasterBackendRole :: Lens' SAMLOptionsInput (Maybe Text)
-samloiMasterBackendRole = lens _samloiMasterBackendRole (\s a -> s {_samloiMasterBackendRole = a})
+sAMLOptionsInput_masterBackendRole :: Lens.Lens' SAMLOptionsInput (Prelude.Maybe Prelude.Text)
+sAMLOptionsInput_masterBackendRole = Lens.lens (\SAMLOptionsInput' {masterBackendRole} -> masterBackendRole) (\s@SAMLOptionsInput' {} a -> s {masterBackendRole = a} :: SAMLOptionsInput)
 
 -- | The key to use for matching the SAML Roles attribute.
-samloiRolesKey :: Lens' SAMLOptionsInput (Maybe Text)
-samloiRolesKey = lens _samloiRolesKey (\s a -> s {_samloiRolesKey = a})
+sAMLOptionsInput_rolesKey :: Lens.Lens' SAMLOptionsInput (Prelude.Maybe Prelude.Text)
+sAMLOptionsInput_rolesKey = Lens.lens (\SAMLOptionsInput' {rolesKey} -> rolesKey) (\s@SAMLOptionsInput' {} a -> s {rolesKey = a} :: SAMLOptionsInput)
 
--- | The duration, in minutes, after which a user session becomes inactive. Acceptable values are between 1 and 1440, and the default value is 60.
-samloiSessionTimeoutMinutes :: Lens' SAMLOptionsInput (Maybe Int)
-samloiSessionTimeoutMinutes = lens _samloiSessionTimeoutMinutes (\s a -> s {_samloiSessionTimeoutMinutes = a})
+-- | The duration, in minutes, after which a user session becomes inactive.
+-- Acceptable values are between 1 and 1440, and the default value is 60.
+sAMLOptionsInput_sessionTimeoutMinutes :: Lens.Lens' SAMLOptionsInput (Prelude.Maybe Prelude.Int)
+sAMLOptionsInput_sessionTimeoutMinutes = Lens.lens (\SAMLOptionsInput' {sessionTimeoutMinutes} -> sessionTimeoutMinutes) (\s@SAMLOptionsInput' {} a -> s {sessionTimeoutMinutes = a} :: SAMLOptionsInput)
 
--- | Specifies the SAML Identity Provider's information.
-samloiIdp :: Lens' SAMLOptionsInput (Maybe SAMLIdp)
-samloiIdp = lens _samloiIdp (\s a -> s {_samloiIdp = a})
+-- | Specifies the SAML Identity Provider\'s information.
+sAMLOptionsInput_idp :: Lens.Lens' SAMLOptionsInput (Prelude.Maybe SAMLIdp)
+sAMLOptionsInput_idp = Lens.lens (\SAMLOptionsInput' {idp} -> idp) (\s@SAMLOptionsInput' {} a -> s {idp = a} :: SAMLOptionsInput)
 
 -- | True if SAML is enabled.
-samloiEnabled :: Lens' SAMLOptionsInput (Maybe Bool)
-samloiEnabled = lens _samloiEnabled (\s a -> s {_samloiEnabled = a})
+sAMLOptionsInput_enabled :: Lens.Lens' SAMLOptionsInput (Prelude.Maybe Prelude.Bool)
+sAMLOptionsInput_enabled = Lens.lens (\SAMLOptionsInput' {enabled} -> enabled) (\s@SAMLOptionsInput' {} a -> s {enabled = a} :: SAMLOptionsInput)
 
--- | The SAML master username, which is stored in the Amazon Elasticsearch Service domain's internal database.
-samloiMasterUserName :: Lens' SAMLOptionsInput (Maybe Text)
-samloiMasterUserName = lens _samloiMasterUserName (\s a -> s {_samloiMasterUserName = a}) . mapping _Sensitive
+-- | The SAML master username, which is stored in the Amazon Elasticsearch
+-- Service domain\'s internal database.
+sAMLOptionsInput_masterUserName :: Lens.Lens' SAMLOptionsInput (Prelude.Maybe Prelude.Text)
+sAMLOptionsInput_masterUserName = Lens.lens (\SAMLOptionsInput' {masterUserName} -> masterUserName) (\s@SAMLOptionsInput' {} a -> s {masterUserName = a} :: SAMLOptionsInput) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | The key to use for matching the SAML Subject attribute.
-samloiSubjectKey :: Lens' SAMLOptionsInput (Maybe Text)
-samloiSubjectKey = lens _samloiSubjectKey (\s a -> s {_samloiSubjectKey = a})
+sAMLOptionsInput_subjectKey :: Lens.Lens' SAMLOptionsInput (Prelude.Maybe Prelude.Text)
+sAMLOptionsInput_subjectKey = Lens.lens (\SAMLOptionsInput' {subjectKey} -> subjectKey) (\s@SAMLOptionsInput' {} a -> s {subjectKey = a} :: SAMLOptionsInput)
 
-instance Hashable SAMLOptionsInput
+instance Prelude.Hashable SAMLOptionsInput
 
-instance NFData SAMLOptionsInput
+instance Prelude.NFData SAMLOptionsInput
 
-instance ToJSON SAMLOptionsInput where
+instance Prelude.ToJSON SAMLOptionsInput where
   toJSON SAMLOptionsInput' {..} =
-    object
-      ( catMaybes
-          [ ("MasterBackendRole" .=)
-              <$> _samloiMasterBackendRole,
-            ("RolesKey" .=) <$> _samloiRolesKey,
-            ("SessionTimeoutMinutes" .=)
-              <$> _samloiSessionTimeoutMinutes,
-            ("Idp" .=) <$> _samloiIdp,
-            ("Enabled" .=) <$> _samloiEnabled,
-            ("MasterUserName" .=) <$> _samloiMasterUserName,
-            ("SubjectKey" .=) <$> _samloiSubjectKey
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("MasterBackendRole" Prelude..=)
+              Prelude.<$> masterBackendRole,
+            ("RolesKey" Prelude..=) Prelude.<$> rolesKey,
+            ("SessionTimeoutMinutes" Prelude..=)
+              Prelude.<$> sessionTimeoutMinutes,
+            ("Idp" Prelude..=) Prelude.<$> idp,
+            ("Enabled" Prelude..=) Prelude.<$> enabled,
+            ("MasterUserName" Prelude..=)
+              Prelude.<$> masterUserName,
+            ("SubjectKey" Prelude..=) Prelude.<$> subjectKey
           ]
       )

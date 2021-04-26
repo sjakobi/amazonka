@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -29,211 +33,193 @@ import Network.AWS.ElasticSearch.Types.LogPublishingOptionsStatus
 import Network.AWS.ElasticSearch.Types.NodeToNodeEncryptionOptionsStatus
 import Network.AWS.ElasticSearch.Types.SnapshotOptionsStatus
 import Network.AWS.ElasticSearch.Types.VPCDerivedInfoStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The configuration of an Elasticsearch domain.
 --
---
---
--- /See:/ 'elasticsearchDomainConfig' smart constructor.
+-- /See:/ 'newElasticsearchDomainConfig' smart constructor.
 data ElasticsearchDomainConfig = ElasticsearchDomainConfig'
-  { _edcEBSOptions ::
-      !( Maybe
-           EBSOptionsStatus
-       ),
-    _edcSnapshotOptions ::
-      !( Maybe
-           SnapshotOptionsStatus
-       ),
-    _edcElasticsearchClusterConfig ::
-      !( Maybe
-           ElasticsearchClusterConfigStatus
-       ),
-    _edcDomainEndpointOptions ::
-      !( Maybe
-           DomainEndpointOptionsStatus
-       ),
-    _edcVPCOptions ::
-      !( Maybe
-           VPCDerivedInfoStatus
-       ),
-    _edcAutoTuneOptions ::
-      !( Maybe
-           AutoTuneOptionsStatus
-       ),
-    _edcAccessPolicies ::
-      !( Maybe
-           AccessPoliciesStatus
-       ),
-    _edcEncryptionAtRestOptions ::
-      !( Maybe
-           EncryptionAtRestOptionsStatus
-       ),
-    _edcCognitoOptions ::
-      !( Maybe
-           CognitoOptionsStatus
-       ),
-    _edcNodeToNodeEncryptionOptions ::
-      !( Maybe
-           NodeToNodeEncryptionOptionsStatus
-       ),
-    _edcElasticsearchVersion ::
-      !( Maybe
-           ElasticsearchVersionStatus
-       ),
-    _edcAdvancedOptions ::
-      !( Maybe
-           AdvancedOptionsStatus
-       ),
-    _edcAdvancedSecurityOptions ::
-      !( Maybe
-           AdvancedSecurityOptionsStatus
-       ),
-    _edcLogPublishingOptions ::
-      !( Maybe
-           LogPublishingOptionsStatus
-       )
+  { -- | Specifies the @EBSOptions@ for the Elasticsearch domain.
+    eBSOptions :: Prelude.Maybe EBSOptionsStatus,
+    -- | Specifies the @SnapshotOptions@ for the Elasticsearch domain.
+    snapshotOptions :: Prelude.Maybe SnapshotOptionsStatus,
+    -- | Specifies the @ElasticsearchClusterConfig@ for the Elasticsearch domain.
+    elasticsearchClusterConfig :: Prelude.Maybe ElasticsearchClusterConfigStatus,
+    -- | Specifies the @DomainEndpointOptions@ for the Elasticsearch domain.
+    domainEndpointOptions :: Prelude.Maybe DomainEndpointOptionsStatus,
+    -- | The @VPCOptions@ for the specified domain. For more information, see
+    -- <http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-vpc.html VPC Endpoints for Amazon Elasticsearch Service Domains>.
+    vPCOptions :: Prelude.Maybe VPCDerivedInfoStatus,
+    -- | Specifies @AutoTuneOptions@ for the domain.
+    autoTuneOptions :: Prelude.Maybe AutoTuneOptionsStatus,
+    -- | IAM access policy as a JSON-formatted string.
+    accessPolicies :: Prelude.Maybe AccessPoliciesStatus,
+    -- | Specifies the @EncryptionAtRestOptions@ for the Elasticsearch domain.
+    encryptionAtRestOptions :: Prelude.Maybe EncryptionAtRestOptionsStatus,
+    -- | The @CognitoOptions@ for the specified domain. For more information, see
+    -- <http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-cognito-auth.html Amazon Cognito Authentication for Kibana>.
+    cognitoOptions :: Prelude.Maybe CognitoOptionsStatus,
+    -- | Specifies the @NodeToNodeEncryptionOptions@ for the Elasticsearch
+    -- domain.
+    nodeToNodeEncryptionOptions :: Prelude.Maybe NodeToNodeEncryptionOptionsStatus,
+    -- | String of format X.Y to specify version for the Elasticsearch domain.
+    elasticsearchVersion :: Prelude.Maybe ElasticsearchVersionStatus,
+    -- | Specifies the @AdvancedOptions@ for the domain. See
+    -- <http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-createupdatedomains.html#es-createdomain-configure-advanced-options Configuring Advanced Options>
+    -- for more information.
+    advancedOptions :: Prelude.Maybe AdvancedOptionsStatus,
+    -- | Specifies @AdvancedSecurityOptions@ for the domain.
+    advancedSecurityOptions :: Prelude.Maybe AdvancedSecurityOptionsStatus,
+    -- | Log publishing options for the given domain.
+    logPublishingOptions :: Prelude.Maybe LogPublishingOptionsStatus
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ElasticsearchDomainConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ElasticsearchDomainConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'edcEBSOptions' - Specifies the @EBSOptions@ for the Elasticsearch domain.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'edcSnapshotOptions' - Specifies the @SnapshotOptions@ for the Elasticsearch domain.
+-- 'eBSOptions', 'elasticsearchDomainConfig_eBSOptions' - Specifies the @EBSOptions@ for the Elasticsearch domain.
 --
--- * 'edcElasticsearchClusterConfig' - Specifies the @ElasticsearchClusterConfig@ for the Elasticsearch domain.
+-- 'snapshotOptions', 'elasticsearchDomainConfig_snapshotOptions' - Specifies the @SnapshotOptions@ for the Elasticsearch domain.
 --
--- * 'edcDomainEndpointOptions' - Specifies the @DomainEndpointOptions@ for the Elasticsearch domain.
+-- 'elasticsearchClusterConfig', 'elasticsearchDomainConfig_elasticsearchClusterConfig' - Specifies the @ElasticsearchClusterConfig@ for the Elasticsearch domain.
 --
--- * 'edcVPCOptions' - The @VPCOptions@ for the specified domain. For more information, see <http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-vpc.html VPC Endpoints for Amazon Elasticsearch Service Domains> .
+-- 'domainEndpointOptions', 'elasticsearchDomainConfig_domainEndpointOptions' - Specifies the @DomainEndpointOptions@ for the Elasticsearch domain.
 --
--- * 'edcAutoTuneOptions' - Specifies @AutoTuneOptions@ for the domain.
+-- 'vPCOptions', 'elasticsearchDomainConfig_vPCOptions' - The @VPCOptions@ for the specified domain. For more information, see
+-- <http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-vpc.html VPC Endpoints for Amazon Elasticsearch Service Domains>.
 --
--- * 'edcAccessPolicies' - IAM access policy as a JSON-formatted string.
+-- 'autoTuneOptions', 'elasticsearchDomainConfig_autoTuneOptions' - Specifies @AutoTuneOptions@ for the domain.
 --
--- * 'edcEncryptionAtRestOptions' - Specifies the @EncryptionAtRestOptions@ for the Elasticsearch domain.
+-- 'accessPolicies', 'elasticsearchDomainConfig_accessPolicies' - IAM access policy as a JSON-formatted string.
 --
--- * 'edcCognitoOptions' - The @CognitoOptions@ for the specified domain. For more information, see <http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-cognito-auth.html Amazon Cognito Authentication for Kibana> .
+-- 'encryptionAtRestOptions', 'elasticsearchDomainConfig_encryptionAtRestOptions' - Specifies the @EncryptionAtRestOptions@ for the Elasticsearch domain.
 --
--- * 'edcNodeToNodeEncryptionOptions' - Specifies the @NodeToNodeEncryptionOptions@ for the Elasticsearch domain.
+-- 'cognitoOptions', 'elasticsearchDomainConfig_cognitoOptions' - The @CognitoOptions@ for the specified domain. For more information, see
+-- <http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-cognito-auth.html Amazon Cognito Authentication for Kibana>.
 --
--- * 'edcElasticsearchVersion' - String of format X.Y to specify version for the Elasticsearch domain.
+-- 'nodeToNodeEncryptionOptions', 'elasticsearchDomainConfig_nodeToNodeEncryptionOptions' - Specifies the @NodeToNodeEncryptionOptions@ for the Elasticsearch
+-- domain.
 --
--- * 'edcAdvancedOptions' - Specifies the @AdvancedOptions@ for the domain. See <http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-createupdatedomains.html#es-createdomain-configure-advanced-options Configuring Advanced Options> for more information.
+-- 'elasticsearchVersion', 'elasticsearchDomainConfig_elasticsearchVersion' - String of format X.Y to specify version for the Elasticsearch domain.
 --
--- * 'edcAdvancedSecurityOptions' - Specifies @AdvancedSecurityOptions@ for the domain.
+-- 'advancedOptions', 'elasticsearchDomainConfig_advancedOptions' - Specifies the @AdvancedOptions@ for the domain. See
+-- <http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-createupdatedomains.html#es-createdomain-configure-advanced-options Configuring Advanced Options>
+-- for more information.
 --
--- * 'edcLogPublishingOptions' - Log publishing options for the given domain.
-elasticsearchDomainConfig ::
+-- 'advancedSecurityOptions', 'elasticsearchDomainConfig_advancedSecurityOptions' - Specifies @AdvancedSecurityOptions@ for the domain.
+--
+-- 'logPublishingOptions', 'elasticsearchDomainConfig_logPublishingOptions' - Log publishing options for the given domain.
+newElasticsearchDomainConfig ::
   ElasticsearchDomainConfig
-elasticsearchDomainConfig =
+newElasticsearchDomainConfig =
   ElasticsearchDomainConfig'
-    { _edcEBSOptions =
-        Nothing,
-      _edcSnapshotOptions = Nothing,
-      _edcElasticsearchClusterConfig = Nothing,
-      _edcDomainEndpointOptions = Nothing,
-      _edcVPCOptions = Nothing,
-      _edcAutoTuneOptions = Nothing,
-      _edcAccessPolicies = Nothing,
-      _edcEncryptionAtRestOptions = Nothing,
-      _edcCognitoOptions = Nothing,
-      _edcNodeToNodeEncryptionOptions = Nothing,
-      _edcElasticsearchVersion = Nothing,
-      _edcAdvancedOptions = Nothing,
-      _edcAdvancedSecurityOptions = Nothing,
-      _edcLogPublishingOptions = Nothing
+    { eBSOptions =
+        Prelude.Nothing,
+      snapshotOptions = Prelude.Nothing,
+      elasticsearchClusterConfig = Prelude.Nothing,
+      domainEndpointOptions = Prelude.Nothing,
+      vPCOptions = Prelude.Nothing,
+      autoTuneOptions = Prelude.Nothing,
+      accessPolicies = Prelude.Nothing,
+      encryptionAtRestOptions = Prelude.Nothing,
+      cognitoOptions = Prelude.Nothing,
+      nodeToNodeEncryptionOptions = Prelude.Nothing,
+      elasticsearchVersion = Prelude.Nothing,
+      advancedOptions = Prelude.Nothing,
+      advancedSecurityOptions = Prelude.Nothing,
+      logPublishingOptions = Prelude.Nothing
     }
 
 -- | Specifies the @EBSOptions@ for the Elasticsearch domain.
-edcEBSOptions :: Lens' ElasticsearchDomainConfig (Maybe EBSOptionsStatus)
-edcEBSOptions = lens _edcEBSOptions (\s a -> s {_edcEBSOptions = a})
+elasticsearchDomainConfig_eBSOptions :: Lens.Lens' ElasticsearchDomainConfig (Prelude.Maybe EBSOptionsStatus)
+elasticsearchDomainConfig_eBSOptions = Lens.lens (\ElasticsearchDomainConfig' {eBSOptions} -> eBSOptions) (\s@ElasticsearchDomainConfig' {} a -> s {eBSOptions = a} :: ElasticsearchDomainConfig)
 
 -- | Specifies the @SnapshotOptions@ for the Elasticsearch domain.
-edcSnapshotOptions :: Lens' ElasticsearchDomainConfig (Maybe SnapshotOptionsStatus)
-edcSnapshotOptions = lens _edcSnapshotOptions (\s a -> s {_edcSnapshotOptions = a})
+elasticsearchDomainConfig_snapshotOptions :: Lens.Lens' ElasticsearchDomainConfig (Prelude.Maybe SnapshotOptionsStatus)
+elasticsearchDomainConfig_snapshotOptions = Lens.lens (\ElasticsearchDomainConfig' {snapshotOptions} -> snapshotOptions) (\s@ElasticsearchDomainConfig' {} a -> s {snapshotOptions = a} :: ElasticsearchDomainConfig)
 
 -- | Specifies the @ElasticsearchClusterConfig@ for the Elasticsearch domain.
-edcElasticsearchClusterConfig :: Lens' ElasticsearchDomainConfig (Maybe ElasticsearchClusterConfigStatus)
-edcElasticsearchClusterConfig = lens _edcElasticsearchClusterConfig (\s a -> s {_edcElasticsearchClusterConfig = a})
+elasticsearchDomainConfig_elasticsearchClusterConfig :: Lens.Lens' ElasticsearchDomainConfig (Prelude.Maybe ElasticsearchClusterConfigStatus)
+elasticsearchDomainConfig_elasticsearchClusterConfig = Lens.lens (\ElasticsearchDomainConfig' {elasticsearchClusterConfig} -> elasticsearchClusterConfig) (\s@ElasticsearchDomainConfig' {} a -> s {elasticsearchClusterConfig = a} :: ElasticsearchDomainConfig)
 
 -- | Specifies the @DomainEndpointOptions@ for the Elasticsearch domain.
-edcDomainEndpointOptions :: Lens' ElasticsearchDomainConfig (Maybe DomainEndpointOptionsStatus)
-edcDomainEndpointOptions = lens _edcDomainEndpointOptions (\s a -> s {_edcDomainEndpointOptions = a})
+elasticsearchDomainConfig_domainEndpointOptions :: Lens.Lens' ElasticsearchDomainConfig (Prelude.Maybe DomainEndpointOptionsStatus)
+elasticsearchDomainConfig_domainEndpointOptions = Lens.lens (\ElasticsearchDomainConfig' {domainEndpointOptions} -> domainEndpointOptions) (\s@ElasticsearchDomainConfig' {} a -> s {domainEndpointOptions = a} :: ElasticsearchDomainConfig)
 
--- | The @VPCOptions@ for the specified domain. For more information, see <http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-vpc.html VPC Endpoints for Amazon Elasticsearch Service Domains> .
-edcVPCOptions :: Lens' ElasticsearchDomainConfig (Maybe VPCDerivedInfoStatus)
-edcVPCOptions = lens _edcVPCOptions (\s a -> s {_edcVPCOptions = a})
+-- | The @VPCOptions@ for the specified domain. For more information, see
+-- <http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-vpc.html VPC Endpoints for Amazon Elasticsearch Service Domains>.
+elasticsearchDomainConfig_vPCOptions :: Lens.Lens' ElasticsearchDomainConfig (Prelude.Maybe VPCDerivedInfoStatus)
+elasticsearchDomainConfig_vPCOptions = Lens.lens (\ElasticsearchDomainConfig' {vPCOptions} -> vPCOptions) (\s@ElasticsearchDomainConfig' {} a -> s {vPCOptions = a} :: ElasticsearchDomainConfig)
 
 -- | Specifies @AutoTuneOptions@ for the domain.
-edcAutoTuneOptions :: Lens' ElasticsearchDomainConfig (Maybe AutoTuneOptionsStatus)
-edcAutoTuneOptions = lens _edcAutoTuneOptions (\s a -> s {_edcAutoTuneOptions = a})
+elasticsearchDomainConfig_autoTuneOptions :: Lens.Lens' ElasticsearchDomainConfig (Prelude.Maybe AutoTuneOptionsStatus)
+elasticsearchDomainConfig_autoTuneOptions = Lens.lens (\ElasticsearchDomainConfig' {autoTuneOptions} -> autoTuneOptions) (\s@ElasticsearchDomainConfig' {} a -> s {autoTuneOptions = a} :: ElasticsearchDomainConfig)
 
 -- | IAM access policy as a JSON-formatted string.
-edcAccessPolicies :: Lens' ElasticsearchDomainConfig (Maybe AccessPoliciesStatus)
-edcAccessPolicies = lens _edcAccessPolicies (\s a -> s {_edcAccessPolicies = a})
+elasticsearchDomainConfig_accessPolicies :: Lens.Lens' ElasticsearchDomainConfig (Prelude.Maybe AccessPoliciesStatus)
+elasticsearchDomainConfig_accessPolicies = Lens.lens (\ElasticsearchDomainConfig' {accessPolicies} -> accessPolicies) (\s@ElasticsearchDomainConfig' {} a -> s {accessPolicies = a} :: ElasticsearchDomainConfig)
 
 -- | Specifies the @EncryptionAtRestOptions@ for the Elasticsearch domain.
-edcEncryptionAtRestOptions :: Lens' ElasticsearchDomainConfig (Maybe EncryptionAtRestOptionsStatus)
-edcEncryptionAtRestOptions = lens _edcEncryptionAtRestOptions (\s a -> s {_edcEncryptionAtRestOptions = a})
+elasticsearchDomainConfig_encryptionAtRestOptions :: Lens.Lens' ElasticsearchDomainConfig (Prelude.Maybe EncryptionAtRestOptionsStatus)
+elasticsearchDomainConfig_encryptionAtRestOptions = Lens.lens (\ElasticsearchDomainConfig' {encryptionAtRestOptions} -> encryptionAtRestOptions) (\s@ElasticsearchDomainConfig' {} a -> s {encryptionAtRestOptions = a} :: ElasticsearchDomainConfig)
 
--- | The @CognitoOptions@ for the specified domain. For more information, see <http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-cognito-auth.html Amazon Cognito Authentication for Kibana> .
-edcCognitoOptions :: Lens' ElasticsearchDomainConfig (Maybe CognitoOptionsStatus)
-edcCognitoOptions = lens _edcCognitoOptions (\s a -> s {_edcCognitoOptions = a})
+-- | The @CognitoOptions@ for the specified domain. For more information, see
+-- <http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-cognito-auth.html Amazon Cognito Authentication for Kibana>.
+elasticsearchDomainConfig_cognitoOptions :: Lens.Lens' ElasticsearchDomainConfig (Prelude.Maybe CognitoOptionsStatus)
+elasticsearchDomainConfig_cognitoOptions = Lens.lens (\ElasticsearchDomainConfig' {cognitoOptions} -> cognitoOptions) (\s@ElasticsearchDomainConfig' {} a -> s {cognitoOptions = a} :: ElasticsearchDomainConfig)
 
--- | Specifies the @NodeToNodeEncryptionOptions@ for the Elasticsearch domain.
-edcNodeToNodeEncryptionOptions :: Lens' ElasticsearchDomainConfig (Maybe NodeToNodeEncryptionOptionsStatus)
-edcNodeToNodeEncryptionOptions = lens _edcNodeToNodeEncryptionOptions (\s a -> s {_edcNodeToNodeEncryptionOptions = a})
+-- | Specifies the @NodeToNodeEncryptionOptions@ for the Elasticsearch
+-- domain.
+elasticsearchDomainConfig_nodeToNodeEncryptionOptions :: Lens.Lens' ElasticsearchDomainConfig (Prelude.Maybe NodeToNodeEncryptionOptionsStatus)
+elasticsearchDomainConfig_nodeToNodeEncryptionOptions = Lens.lens (\ElasticsearchDomainConfig' {nodeToNodeEncryptionOptions} -> nodeToNodeEncryptionOptions) (\s@ElasticsearchDomainConfig' {} a -> s {nodeToNodeEncryptionOptions = a} :: ElasticsearchDomainConfig)
 
 -- | String of format X.Y to specify version for the Elasticsearch domain.
-edcElasticsearchVersion :: Lens' ElasticsearchDomainConfig (Maybe ElasticsearchVersionStatus)
-edcElasticsearchVersion = lens _edcElasticsearchVersion (\s a -> s {_edcElasticsearchVersion = a})
+elasticsearchDomainConfig_elasticsearchVersion :: Lens.Lens' ElasticsearchDomainConfig (Prelude.Maybe ElasticsearchVersionStatus)
+elasticsearchDomainConfig_elasticsearchVersion = Lens.lens (\ElasticsearchDomainConfig' {elasticsearchVersion} -> elasticsearchVersion) (\s@ElasticsearchDomainConfig' {} a -> s {elasticsearchVersion = a} :: ElasticsearchDomainConfig)
 
--- | Specifies the @AdvancedOptions@ for the domain. See <http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-createupdatedomains.html#es-createdomain-configure-advanced-options Configuring Advanced Options> for more information.
-edcAdvancedOptions :: Lens' ElasticsearchDomainConfig (Maybe AdvancedOptionsStatus)
-edcAdvancedOptions = lens _edcAdvancedOptions (\s a -> s {_edcAdvancedOptions = a})
+-- | Specifies the @AdvancedOptions@ for the domain. See
+-- <http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-createupdatedomains.html#es-createdomain-configure-advanced-options Configuring Advanced Options>
+-- for more information.
+elasticsearchDomainConfig_advancedOptions :: Lens.Lens' ElasticsearchDomainConfig (Prelude.Maybe AdvancedOptionsStatus)
+elasticsearchDomainConfig_advancedOptions = Lens.lens (\ElasticsearchDomainConfig' {advancedOptions} -> advancedOptions) (\s@ElasticsearchDomainConfig' {} a -> s {advancedOptions = a} :: ElasticsearchDomainConfig)
 
 -- | Specifies @AdvancedSecurityOptions@ for the domain.
-edcAdvancedSecurityOptions :: Lens' ElasticsearchDomainConfig (Maybe AdvancedSecurityOptionsStatus)
-edcAdvancedSecurityOptions = lens _edcAdvancedSecurityOptions (\s a -> s {_edcAdvancedSecurityOptions = a})
+elasticsearchDomainConfig_advancedSecurityOptions :: Lens.Lens' ElasticsearchDomainConfig (Prelude.Maybe AdvancedSecurityOptionsStatus)
+elasticsearchDomainConfig_advancedSecurityOptions = Lens.lens (\ElasticsearchDomainConfig' {advancedSecurityOptions} -> advancedSecurityOptions) (\s@ElasticsearchDomainConfig' {} a -> s {advancedSecurityOptions = a} :: ElasticsearchDomainConfig)
 
 -- | Log publishing options for the given domain.
-edcLogPublishingOptions :: Lens' ElasticsearchDomainConfig (Maybe LogPublishingOptionsStatus)
-edcLogPublishingOptions = lens _edcLogPublishingOptions (\s a -> s {_edcLogPublishingOptions = a})
+elasticsearchDomainConfig_logPublishingOptions :: Lens.Lens' ElasticsearchDomainConfig (Prelude.Maybe LogPublishingOptionsStatus)
+elasticsearchDomainConfig_logPublishingOptions = Lens.lens (\ElasticsearchDomainConfig' {logPublishingOptions} -> logPublishingOptions) (\s@ElasticsearchDomainConfig' {} a -> s {logPublishingOptions = a} :: ElasticsearchDomainConfig)
 
-instance FromJSON ElasticsearchDomainConfig where
+instance Prelude.FromJSON ElasticsearchDomainConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ElasticsearchDomainConfig"
       ( \x ->
           ElasticsearchDomainConfig'
-            <$> (x .:? "EBSOptions")
-            <*> (x .:? "SnapshotOptions")
-            <*> (x .:? "ElasticsearchClusterConfig")
-            <*> (x .:? "DomainEndpointOptions")
-            <*> (x .:? "VPCOptions")
-            <*> (x .:? "AutoTuneOptions")
-            <*> (x .:? "AccessPolicies")
-            <*> (x .:? "EncryptionAtRestOptions")
-            <*> (x .:? "CognitoOptions")
-            <*> (x .:? "NodeToNodeEncryptionOptions")
-            <*> (x .:? "ElasticsearchVersion")
-            <*> (x .:? "AdvancedOptions")
-            <*> (x .:? "AdvancedSecurityOptions")
-            <*> (x .:? "LogPublishingOptions")
+            Prelude.<$> (x Prelude..:? "EBSOptions")
+            Prelude.<*> (x Prelude..:? "SnapshotOptions")
+            Prelude.<*> (x Prelude..:? "ElasticsearchClusterConfig")
+            Prelude.<*> (x Prelude..:? "DomainEndpointOptions")
+            Prelude.<*> (x Prelude..:? "VPCOptions")
+            Prelude.<*> (x Prelude..:? "AutoTuneOptions")
+            Prelude.<*> (x Prelude..:? "AccessPolicies")
+            Prelude.<*> (x Prelude..:? "EncryptionAtRestOptions")
+            Prelude.<*> (x Prelude..:? "CognitoOptions")
+            Prelude.<*> (x Prelude..:? "NodeToNodeEncryptionOptions")
+            Prelude.<*> (x Prelude..:? "ElasticsearchVersion")
+            Prelude.<*> (x Prelude..:? "AdvancedOptions")
+            Prelude.<*> (x Prelude..:? "AdvancedSecurityOptions")
+            Prelude.<*> (x Prelude..:? "LogPublishingOptions")
       )
 
-instance Hashable ElasticsearchDomainConfig
+instance Prelude.Hashable ElasticsearchDomainConfig
 
-instance NFData ElasticsearchDomainConfig
+instance Prelude.NFData ElasticsearchDomainConfig

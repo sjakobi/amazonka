@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,72 +19,70 @@
 module Network.AWS.ElasticSearch.Types.DomainPackageStatus
   ( DomainPackageStatus
       ( ..,
-        DPSActive,
-        DPSAssociating,
-        DPSAssociationFailed,
-        DPSDissociating,
-        DPSDissociationFailed
+        DomainPackageStatusACTIVE,
+        DomainPackageStatusASSOCIATING,
+        DomainPackageStatusASSOCIATIONFAILED,
+        DomainPackageStatusDISSOCIATING,
+        DomainPackageStatusDISSOCIATIONFAILED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DomainPackageStatus
-  = DomainPackageStatus'
-      ( CI
-          Text
-      )
+newtype DomainPackageStatus = DomainPackageStatus'
+  { fromDomainPackageStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DPSActive :: DomainPackageStatus
-pattern DPSActive = DomainPackageStatus' "ACTIVE"
+pattern DomainPackageStatusACTIVE :: DomainPackageStatus
+pattern DomainPackageStatusACTIVE = DomainPackageStatus' "ACTIVE"
 
-pattern DPSAssociating :: DomainPackageStatus
-pattern DPSAssociating = DomainPackageStatus' "ASSOCIATING"
+pattern DomainPackageStatusASSOCIATING :: DomainPackageStatus
+pattern DomainPackageStatusASSOCIATING = DomainPackageStatus' "ASSOCIATING"
 
-pattern DPSAssociationFailed :: DomainPackageStatus
-pattern DPSAssociationFailed = DomainPackageStatus' "ASSOCIATION_FAILED"
+pattern DomainPackageStatusASSOCIATIONFAILED :: DomainPackageStatus
+pattern DomainPackageStatusASSOCIATIONFAILED = DomainPackageStatus' "ASSOCIATION_FAILED"
 
-pattern DPSDissociating :: DomainPackageStatus
-pattern DPSDissociating = DomainPackageStatus' "DISSOCIATING"
+pattern DomainPackageStatusDISSOCIATING :: DomainPackageStatus
+pattern DomainPackageStatusDISSOCIATING = DomainPackageStatus' "DISSOCIATING"
 
-pattern DPSDissociationFailed :: DomainPackageStatus
-pattern DPSDissociationFailed = DomainPackageStatus' "DISSOCIATION_FAILED"
+pattern DomainPackageStatusDISSOCIATIONFAILED :: DomainPackageStatus
+pattern DomainPackageStatusDISSOCIATIONFAILED = DomainPackageStatus' "DISSOCIATION_FAILED"
 
 {-# COMPLETE
-  DPSActive,
-  DPSAssociating,
-  DPSAssociationFailed,
-  DPSDissociating,
-  DPSDissociationFailed,
+  DomainPackageStatusACTIVE,
+  DomainPackageStatusASSOCIATING,
+  DomainPackageStatusASSOCIATIONFAILED,
+  DomainPackageStatusDISSOCIATING,
+  DomainPackageStatusDISSOCIATIONFAILED,
   DomainPackageStatus'
   #-}
 
-instance FromText DomainPackageStatus where
-  parser = (DomainPackageStatus' . mk) <$> takeText
+instance Prelude.FromText DomainPackageStatus where
+  parser = DomainPackageStatus' Prelude.<$> Prelude.takeText
 
-instance ToText DomainPackageStatus where
-  toText (DomainPackageStatus' ci) = original ci
+instance Prelude.ToText DomainPackageStatus where
+  toText (DomainPackageStatus' x) = x
 
-instance Hashable DomainPackageStatus
+instance Prelude.Hashable DomainPackageStatus
 
-instance NFData DomainPackageStatus
+instance Prelude.NFData DomainPackageStatus
 
-instance ToByteString DomainPackageStatus
+instance Prelude.ToByteString DomainPackageStatus
 
-instance ToQuery DomainPackageStatus
+instance Prelude.ToQuery DomainPackageStatus
 
-instance ToHeader DomainPackageStatus
+instance Prelude.ToHeader DomainPackageStatus
 
-instance FromJSON DomainPackageStatus where
-  parseJSON = parseJSONText "DomainPackageStatus"
+instance Prelude.FromJSON DomainPackageStatus where
+  parseJSON = Prelude.parseJSONText "DomainPackageStatus"

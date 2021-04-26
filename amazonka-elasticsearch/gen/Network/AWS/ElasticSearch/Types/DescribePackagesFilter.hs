@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,63 +20,56 @@
 module Network.AWS.ElasticSearch.Types.DescribePackagesFilter where
 
 import Network.AWS.ElasticSearch.Types.DescribePackagesFilterName
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Filter to apply in @DescribePackage@ response.
 --
---
---
--- /See:/ 'describePackagesFilter' smart constructor.
+-- /See:/ 'newDescribePackagesFilter' smart constructor.
 data DescribePackagesFilter = DescribePackagesFilter'
-  { _dpfName ::
-      !( Maybe
-           DescribePackagesFilterName
-       ),
-    _dpfValue ::
-      !(Maybe [Text])
+  { -- | Any field from @PackageDetails@.
+    name :: Prelude.Maybe DescribePackagesFilterName,
+    -- | A list of values for the specified field.
+    value :: Prelude.Maybe [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribePackagesFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribePackagesFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dpfName' - Any field from @PackageDetails@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dpfValue' - A list of values for the specified field.
-describePackagesFilter ::
+-- 'name', 'describePackagesFilter_name' - Any field from @PackageDetails@.
+--
+-- 'value', 'describePackagesFilter_value' - A list of values for the specified field.
+newDescribePackagesFilter ::
   DescribePackagesFilter
-describePackagesFilter =
+newDescribePackagesFilter =
   DescribePackagesFilter'
-    { _dpfName = Nothing,
-      _dpfValue = Nothing
+    { name = Prelude.Nothing,
+      value = Prelude.Nothing
     }
 
--- | Any field from @PackageDetails@ .
-dpfName :: Lens' DescribePackagesFilter (Maybe DescribePackagesFilterName)
-dpfName = lens _dpfName (\s a -> s {_dpfName = a})
+-- | Any field from @PackageDetails@.
+describePackagesFilter_name :: Lens.Lens' DescribePackagesFilter (Prelude.Maybe DescribePackagesFilterName)
+describePackagesFilter_name = Lens.lens (\DescribePackagesFilter' {name} -> name) (\s@DescribePackagesFilter' {} a -> s {name = a} :: DescribePackagesFilter)
 
 -- | A list of values for the specified field.
-dpfValue :: Lens' DescribePackagesFilter [Text]
-dpfValue = lens _dpfValue (\s a -> s {_dpfValue = a}) . _Default . _Coerce
+describePackagesFilter_value :: Lens.Lens' DescribePackagesFilter (Prelude.Maybe [Prelude.Text])
+describePackagesFilter_value = Lens.lens (\DescribePackagesFilter' {value} -> value) (\s@DescribePackagesFilter' {} a -> s {value = a} :: DescribePackagesFilter) Prelude.. Lens.mapping Prelude._Coerce
 
-instance Hashable DescribePackagesFilter
+instance Prelude.Hashable DescribePackagesFilter
 
-instance NFData DescribePackagesFilter
+instance Prelude.NFData DescribePackagesFilter
 
-instance ToJSON DescribePackagesFilter where
+instance Prelude.ToJSON DescribePackagesFilter where
   toJSON DescribePackagesFilter' {..} =
-    object
-      ( catMaybes
-          [ ("Name" .=) <$> _dpfName,
-            ("Value" .=) <$> _dpfValue
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Name" Prelude..=) Prelude.<$> name,
+            ("Value" Prelude..=) Prelude.<$> value
           ]
       )

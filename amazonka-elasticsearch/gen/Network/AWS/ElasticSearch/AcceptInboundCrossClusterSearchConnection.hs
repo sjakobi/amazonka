@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,172 +21,168 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Allows the destination domain owner to accept an inbound cross-cluster search connection request.
+-- Allows the destination domain owner to accept an inbound cross-cluster
+-- search connection request.
 module Network.AWS.ElasticSearch.AcceptInboundCrossClusterSearchConnection
   ( -- * Creating a Request
-    acceptInboundCrossClusterSearchConnection,
-    AcceptInboundCrossClusterSearchConnection,
+    AcceptInboundCrossClusterSearchConnection (..),
+    newAcceptInboundCrossClusterSearchConnection,
 
     -- * Request Lenses
-    aiccscCrossClusterSearchConnectionId,
+    acceptInboundCrossClusterSearchConnection_crossClusterSearchConnectionId,
 
     -- * Destructuring the Response
-    acceptInboundCrossClusterSearchConnectionResponse,
-    AcceptInboundCrossClusterSearchConnectionResponse,
+    AcceptInboundCrossClusterSearchConnectionResponse (..),
+    newAcceptInboundCrossClusterSearchConnectionResponse,
 
     -- * Response Lenses
-    aiccscrrsCrossClusterSearchConnection,
-    aiccscrrsResponseStatus,
+    acceptInboundCrossClusterSearchConnectionResponse_crossClusterSearchConnection,
+    acceptInboundCrossClusterSearchConnectionResponse_httpStatus,
   )
 where
 
 import Network.AWS.ElasticSearch.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ElasticSearch.Types.InboundCrossClusterSearchConnection
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Container for the parameters to the @'AcceptInboundCrossClusterSearchConnection' @ operation.
+-- | Container for the parameters to the
+-- @AcceptInboundCrossClusterSearchConnection@ operation.
 --
---
---
--- /See:/ 'acceptInboundCrossClusterSearchConnection' smart constructor.
-newtype AcceptInboundCrossClusterSearchConnection = AcceptInboundCrossClusterSearchConnection'
-  { _aiccscCrossClusterSearchConnectionId ::
-      Text
+-- /See:/ 'newAcceptInboundCrossClusterSearchConnection' smart constructor.
+data AcceptInboundCrossClusterSearchConnection = AcceptInboundCrossClusterSearchConnection'
+  { -- | The id of the inbound connection that you want to accept.
+    crossClusterSearchConnectionId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AcceptInboundCrossClusterSearchConnection' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AcceptInboundCrossClusterSearchConnection' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aiccscCrossClusterSearchConnectionId' - The id of the inbound connection that you want to accept.
-acceptInboundCrossClusterSearchConnection ::
-  -- | 'aiccscCrossClusterSearchConnectionId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'crossClusterSearchConnectionId', 'acceptInboundCrossClusterSearchConnection_crossClusterSearchConnectionId' - The id of the inbound connection that you want to accept.
+newAcceptInboundCrossClusterSearchConnection ::
+  -- | 'crossClusterSearchConnectionId'
+  Prelude.Text ->
   AcceptInboundCrossClusterSearchConnection
-acceptInboundCrossClusterSearchConnection
+newAcceptInboundCrossClusterSearchConnection
   pCrossClusterSearchConnectionId_ =
     AcceptInboundCrossClusterSearchConnection'
-      { _aiccscCrossClusterSearchConnectionId =
+      { crossClusterSearchConnectionId =
           pCrossClusterSearchConnectionId_
       }
 
 -- | The id of the inbound connection that you want to accept.
-aiccscCrossClusterSearchConnectionId :: Lens' AcceptInboundCrossClusterSearchConnection Text
-aiccscCrossClusterSearchConnectionId = lens _aiccscCrossClusterSearchConnectionId (\s a -> s {_aiccscCrossClusterSearchConnectionId = a})
+acceptInboundCrossClusterSearchConnection_crossClusterSearchConnectionId :: Lens.Lens' AcceptInboundCrossClusterSearchConnection Prelude.Text
+acceptInboundCrossClusterSearchConnection_crossClusterSearchConnectionId = Lens.lens (\AcceptInboundCrossClusterSearchConnection' {crossClusterSearchConnectionId} -> crossClusterSearchConnectionId) (\s@AcceptInboundCrossClusterSearchConnection' {} a -> s {crossClusterSearchConnectionId = a} :: AcceptInboundCrossClusterSearchConnection)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     AcceptInboundCrossClusterSearchConnection
   where
   type
     Rs AcceptInboundCrossClusterSearchConnection =
       AcceptInboundCrossClusterSearchConnectionResponse
-  request = putJSON elasticSearch
+  request = Request.putJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           AcceptInboundCrossClusterSearchConnectionResponse'
-            <$> (x .?> "CrossClusterSearchConnection")
-              <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "CrossClusterSearchConnection")
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     AcceptInboundCrossClusterSearchConnection
 
 instance
-  NFData
+  Prelude.NFData
     AcceptInboundCrossClusterSearchConnection
 
 instance
-  ToHeaders
-    AcceptInboundCrossClusterSearchConnection
-  where
-  toHeaders = const mempty
-
-instance
-  ToJSON
+  Prelude.ToHeaders
     AcceptInboundCrossClusterSearchConnection
   where
-  toJSON = const (Object mempty)
+  toHeaders = Prelude.const Prelude.mempty
 
 instance
-  ToPath
+  Prelude.ToJSON
+    AcceptInboundCrossClusterSearchConnection
+  where
+  toJSON =
+    Prelude.const (Prelude.Object Prelude.mempty)
+
+instance
+  Prelude.ToPath
     AcceptInboundCrossClusterSearchConnection
   where
   toPath AcceptInboundCrossClusterSearchConnection' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/2015-01-01/es/ccs/inboundConnection/",
-        toBS _aiccscCrossClusterSearchConnectionId,
+        Prelude.toBS crossClusterSearchConnectionId,
         "/accept"
       ]
 
 instance
-  ToQuery
+  Prelude.ToQuery
     AcceptInboundCrossClusterSearchConnection
   where
-  toQuery = const mempty
+  toQuery = Prelude.const Prelude.mempty
 
--- | The result of a @'AcceptInboundCrossClusterSearchConnection' @ operation. Contains details of accepted inbound connection.
+-- | The result of a @AcceptInboundCrossClusterSearchConnection@ operation.
+-- Contains details of accepted inbound connection.
 --
---
---
--- /See:/ 'acceptInboundCrossClusterSearchConnectionResponse' smart constructor.
+-- /See:/ 'newAcceptInboundCrossClusterSearchConnectionResponse' smart constructor.
 data AcceptInboundCrossClusterSearchConnectionResponse = AcceptInboundCrossClusterSearchConnectionResponse'
-  { _aiccscrrsCrossClusterSearchConnection ::
-      !( Maybe
-           InboundCrossClusterSearchConnection
-       ),
-    _aiccscrrsResponseStatus ::
-      !Int
+  { -- | Specifies the @InboundCrossClusterSearchConnection@ of accepted inbound
+    -- connection.
+    crossClusterSearchConnection :: Prelude.Maybe InboundCrossClusterSearchConnection,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AcceptInboundCrossClusterSearchConnectionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AcceptInboundCrossClusterSearchConnectionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aiccscrrsCrossClusterSearchConnection' - Specifies the @'InboundCrossClusterSearchConnection' @ of accepted inbound connection.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aiccscrrsResponseStatus' - -- | The response status code.
-acceptInboundCrossClusterSearchConnectionResponse ::
-  -- | 'aiccscrrsResponseStatus'
-  Int ->
+-- 'crossClusterSearchConnection', 'acceptInboundCrossClusterSearchConnectionResponse_crossClusterSearchConnection' - Specifies the @InboundCrossClusterSearchConnection@ of accepted inbound
+-- connection.
+--
+-- 'httpStatus', 'acceptInboundCrossClusterSearchConnectionResponse_httpStatus' - The response's http status code.
+newAcceptInboundCrossClusterSearchConnectionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   AcceptInboundCrossClusterSearchConnectionResponse
-acceptInboundCrossClusterSearchConnectionResponse
-  pResponseStatus_ =
+newAcceptInboundCrossClusterSearchConnectionResponse
+  pHttpStatus_ =
     AcceptInboundCrossClusterSearchConnectionResponse'
-      { _aiccscrrsCrossClusterSearchConnection =
-          Nothing,
-        _aiccscrrsResponseStatus =
-          pResponseStatus_
+      { crossClusterSearchConnection =
+          Prelude.Nothing,
+        httpStatus =
+          pHttpStatus_
       }
 
--- | Specifies the @'InboundCrossClusterSearchConnection' @ of accepted inbound connection.
-aiccscrrsCrossClusterSearchConnection :: Lens' AcceptInboundCrossClusterSearchConnectionResponse (Maybe InboundCrossClusterSearchConnection)
-aiccscrrsCrossClusterSearchConnection = lens _aiccscrrsCrossClusterSearchConnection (\s a -> s {_aiccscrrsCrossClusterSearchConnection = a})
+-- | Specifies the @InboundCrossClusterSearchConnection@ of accepted inbound
+-- connection.
+acceptInboundCrossClusterSearchConnectionResponse_crossClusterSearchConnection :: Lens.Lens' AcceptInboundCrossClusterSearchConnectionResponse (Prelude.Maybe InboundCrossClusterSearchConnection)
+acceptInboundCrossClusterSearchConnectionResponse_crossClusterSearchConnection = Lens.lens (\AcceptInboundCrossClusterSearchConnectionResponse' {crossClusterSearchConnection} -> crossClusterSearchConnection) (\s@AcceptInboundCrossClusterSearchConnectionResponse' {} a -> s {crossClusterSearchConnection = a} :: AcceptInboundCrossClusterSearchConnectionResponse)
 
--- | -- | The response status code.
-aiccscrrsResponseStatus :: Lens' AcceptInboundCrossClusterSearchConnectionResponse Int
-aiccscrrsResponseStatus = lens _aiccscrrsResponseStatus (\s a -> s {_aiccscrrsResponseStatus = a})
+-- | The response's http status code.
+acceptInboundCrossClusterSearchConnectionResponse_httpStatus :: Lens.Lens' AcceptInboundCrossClusterSearchConnectionResponse Prelude.Int
+acceptInboundCrossClusterSearchConnectionResponse_httpStatus = Lens.lens (\AcceptInboundCrossClusterSearchConnectionResponse' {httpStatus} -> httpStatus) (\s@AcceptInboundCrossClusterSearchConnectionResponse' {} a -> s {httpStatus = a} :: AcceptInboundCrossClusterSearchConnectionResponse)
 
 instance
-  NFData
+  Prelude.NFData
     AcceptInboundCrossClusterSearchConnectionResponse

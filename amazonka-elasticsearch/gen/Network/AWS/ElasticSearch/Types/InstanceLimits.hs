@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,42 +20,48 @@
 module Network.AWS.ElasticSearch.Types.InstanceLimits where
 
 import Network.AWS.ElasticSearch.Types.InstanceCountLimits
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | InstanceLimits represents the list of instance related attributes that are available for given InstanceType.
+-- | InstanceLimits represents the list of instance related attributes that
+-- are available for given InstanceType.
 --
---
---
--- /See:/ 'instanceLimits' smart constructor.
-newtype InstanceLimits = InstanceLimits'
-  { _ilInstanceCountLimits ::
-      Maybe InstanceCountLimits
+-- /See:/ 'newInstanceLimits' smart constructor.
+data InstanceLimits = InstanceLimits'
+  { instanceCountLimits :: Prelude.Maybe InstanceCountLimits
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InstanceLimits' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InstanceLimits' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ilInstanceCountLimits' - Undocumented member.
-instanceLimits ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'instanceCountLimits', 'instanceLimits_instanceCountLimits' - Undocumented member.
+newInstanceLimits ::
   InstanceLimits
-instanceLimits =
-  InstanceLimits' {_ilInstanceCountLimits = Nothing}
+newInstanceLimits =
+  InstanceLimits'
+    { instanceCountLimits =
+        Prelude.Nothing
+    }
 
 -- | Undocumented member.
-ilInstanceCountLimits :: Lens' InstanceLimits (Maybe InstanceCountLimits)
-ilInstanceCountLimits = lens _ilInstanceCountLimits (\s a -> s {_ilInstanceCountLimits = a})
+instanceLimits_instanceCountLimits :: Lens.Lens' InstanceLimits (Prelude.Maybe InstanceCountLimits)
+instanceLimits_instanceCountLimits = Lens.lens (\InstanceLimits' {instanceCountLimits} -> instanceCountLimits) (\s@InstanceLimits' {} a -> s {instanceCountLimits = a} :: InstanceLimits)
 
-instance FromJSON InstanceLimits where
+instance Prelude.FromJSON InstanceLimits where
   parseJSON =
-    withObject
+    Prelude.withObject
       "InstanceLimits"
       ( \x ->
-          InstanceLimits' <$> (x .:? "InstanceCountLimits")
+          InstanceLimits'
+            Prelude.<$> (x Prelude..:? "InstanceCountLimits")
       )
 
-instance Hashable InstanceLimits
+instance Prelude.Hashable InstanceLimits
 
-instance NFData InstanceLimits
+instance Prelude.NFData InstanceLimits

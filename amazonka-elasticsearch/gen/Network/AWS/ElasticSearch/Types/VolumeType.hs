@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,66 @@
 module Network.AWS.ElasticSearch.Types.VolumeType
   ( VolumeType
       ( ..,
-        GP2,
-        IO1,
-        Standard
+        VolumeTypeGP2,
+        VolumeTypeIO1,
+        VolumeTypeStandard
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | The type of EBS volume, standard, gp2, or io1. See <http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-createupdatedomains.html#es-createdomain-configure-ebs Configuring EBS-based Storage> for more information.
-data VolumeType = VolumeType' (CI Text)
+-- | The type of EBS volume, standard, gp2, or io1. See
+-- <http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-createupdatedomains.html#es-createdomain-configure-ebs Configuring EBS-based Storage>for
+-- more information.
+newtype VolumeType = VolumeType'
+  { fromVolumeType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern GP2 :: VolumeType
-pattern GP2 = VolumeType' "gp2"
+pattern VolumeTypeGP2 :: VolumeType
+pattern VolumeTypeGP2 = VolumeType' "gp2"
 
-pattern IO1 :: VolumeType
-pattern IO1 = VolumeType' "io1"
+pattern VolumeTypeIO1 :: VolumeType
+pattern VolumeTypeIO1 = VolumeType' "io1"
 
-pattern Standard :: VolumeType
-pattern Standard = VolumeType' "standard"
+pattern VolumeTypeStandard :: VolumeType
+pattern VolumeTypeStandard = VolumeType' "standard"
 
 {-# COMPLETE
-  GP2,
-  IO1,
-  Standard,
+  VolumeTypeGP2,
+  VolumeTypeIO1,
+  VolumeTypeStandard,
   VolumeType'
   #-}
 
-instance FromText VolumeType where
-  parser = (VolumeType' . mk) <$> takeText
+instance Prelude.FromText VolumeType where
+  parser = VolumeType' Prelude.<$> Prelude.takeText
 
-instance ToText VolumeType where
-  toText (VolumeType' ci) = original ci
+instance Prelude.ToText VolumeType where
+  toText (VolumeType' x) = x
 
-instance Hashable VolumeType
+instance Prelude.Hashable VolumeType
 
-instance NFData VolumeType
+instance Prelude.NFData VolumeType
 
-instance ToByteString VolumeType
+instance Prelude.ToByteString VolumeType
 
-instance ToQuery VolumeType
+instance Prelude.ToQuery VolumeType
 
-instance ToHeader VolumeType
+instance Prelude.ToHeader VolumeType
 
-instance ToJSON VolumeType where
-  toJSON = toJSONText
+instance Prelude.ToJSON VolumeType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON VolumeType where
-  parseJSON = parseJSONText "VolumeType"
+instance Prelude.FromJSON VolumeType where
+  parseJSON = Prelude.parseJSONText "VolumeType"

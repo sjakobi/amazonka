@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,63 +19,65 @@
 module Network.AWS.ElasticSearch.Types.UpgradeStatus
   ( UpgradeStatus
       ( ..,
-        USFailed,
-        USInProgress,
-        USSucceeded,
-        USSucceededWithIssues
+        UpgradeStatusFAILED,
+        UpgradeStatusINPROGRESS,
+        UpgradeStatusSUCCEEDED,
+        UpgradeStatusSUCCEEDEDWITHISSUES
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data UpgradeStatus = UpgradeStatus' (CI Text)
+newtype UpgradeStatus = UpgradeStatus'
+  { fromUpgradeStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern USFailed :: UpgradeStatus
-pattern USFailed = UpgradeStatus' "FAILED"
+pattern UpgradeStatusFAILED :: UpgradeStatus
+pattern UpgradeStatusFAILED = UpgradeStatus' "FAILED"
 
-pattern USInProgress :: UpgradeStatus
-pattern USInProgress = UpgradeStatus' "IN_PROGRESS"
+pattern UpgradeStatusINPROGRESS :: UpgradeStatus
+pattern UpgradeStatusINPROGRESS = UpgradeStatus' "IN_PROGRESS"
 
-pattern USSucceeded :: UpgradeStatus
-pattern USSucceeded = UpgradeStatus' "SUCCEEDED"
+pattern UpgradeStatusSUCCEEDED :: UpgradeStatus
+pattern UpgradeStatusSUCCEEDED = UpgradeStatus' "SUCCEEDED"
 
-pattern USSucceededWithIssues :: UpgradeStatus
-pattern USSucceededWithIssues = UpgradeStatus' "SUCCEEDED_WITH_ISSUES"
+pattern UpgradeStatusSUCCEEDEDWITHISSUES :: UpgradeStatus
+pattern UpgradeStatusSUCCEEDEDWITHISSUES = UpgradeStatus' "SUCCEEDED_WITH_ISSUES"
 
 {-# COMPLETE
-  USFailed,
-  USInProgress,
-  USSucceeded,
-  USSucceededWithIssues,
+  UpgradeStatusFAILED,
+  UpgradeStatusINPROGRESS,
+  UpgradeStatusSUCCEEDED,
+  UpgradeStatusSUCCEEDEDWITHISSUES,
   UpgradeStatus'
   #-}
 
-instance FromText UpgradeStatus where
-  parser = (UpgradeStatus' . mk) <$> takeText
+instance Prelude.FromText UpgradeStatus where
+  parser = UpgradeStatus' Prelude.<$> Prelude.takeText
 
-instance ToText UpgradeStatus where
-  toText (UpgradeStatus' ci) = original ci
+instance Prelude.ToText UpgradeStatus where
+  toText (UpgradeStatus' x) = x
 
-instance Hashable UpgradeStatus
+instance Prelude.Hashable UpgradeStatus
 
-instance NFData UpgradeStatus
+instance Prelude.NFData UpgradeStatus
 
-instance ToByteString UpgradeStatus
+instance Prelude.ToByteString UpgradeStatus
 
-instance ToQuery UpgradeStatus
+instance Prelude.ToQuery UpgradeStatus
 
-instance ToHeader UpgradeStatus
+instance Prelude.ToHeader UpgradeStatus
 
-instance FromJSON UpgradeStatus where
-  parseJSON = parseJSONText "UpgradeStatus"
+instance Prelude.FromJSON UpgradeStatus where
+  parseJSON = Prelude.parseJSONText "UpgradeStatus"

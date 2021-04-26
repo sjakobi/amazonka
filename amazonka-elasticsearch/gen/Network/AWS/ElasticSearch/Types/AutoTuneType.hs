@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,49 +19,51 @@
 module Network.AWS.ElasticSearch.Types.AutoTuneType
   ( AutoTuneType
       ( ..,
-        ScheduledAction
+        AutoTuneTypeSCHEDULEDACTION
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Specifies Auto-Tune type. Valid value is SCHEDULED_ACTION.
-data AutoTuneType = AutoTuneType' (CI Text)
+newtype AutoTuneType = AutoTuneType'
+  { fromAutoTuneType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ScheduledAction :: AutoTuneType
-pattern ScheduledAction = AutoTuneType' "SCHEDULED_ACTION"
+pattern AutoTuneTypeSCHEDULEDACTION :: AutoTuneType
+pattern AutoTuneTypeSCHEDULEDACTION = AutoTuneType' "SCHEDULED_ACTION"
 
 {-# COMPLETE
-  ScheduledAction,
+  AutoTuneTypeSCHEDULEDACTION,
   AutoTuneType'
   #-}
 
-instance FromText AutoTuneType where
-  parser = (AutoTuneType' . mk) <$> takeText
+instance Prelude.FromText AutoTuneType where
+  parser = AutoTuneType' Prelude.<$> Prelude.takeText
 
-instance ToText AutoTuneType where
-  toText (AutoTuneType' ci) = original ci
+instance Prelude.ToText AutoTuneType where
+  toText (AutoTuneType' x) = x
 
-instance Hashable AutoTuneType
+instance Prelude.Hashable AutoTuneType
 
-instance NFData AutoTuneType
+instance Prelude.NFData AutoTuneType
 
-instance ToByteString AutoTuneType
+instance Prelude.ToByteString AutoTuneType
 
-instance ToQuery AutoTuneType
+instance Prelude.ToQuery AutoTuneType
 
-instance ToHeader AutoTuneType
+instance Prelude.ToHeader AutoTuneType
 
-instance FromJSON AutoTuneType where
-  parseJSON = parseJSONText "AutoTuneType"
+instance Prelude.FromJSON AutoTuneType where
+  parseJSON = Prelude.parseJSONText "AutoTuneType"

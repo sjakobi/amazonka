@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,63 +19,62 @@
 module Network.AWS.ElasticSearch.Types.ScheduledAutoTuneSeverityType
   ( ScheduledAutoTuneSeverityType
       ( ..,
-        High,
-        Low,
-        Medium
+        ScheduledAutoTuneSeverityTypeHIGH,
+        ScheduledAutoTuneSeverityTypeLOW,
+        ScheduledAutoTuneSeverityTypeMEDIUM
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies Auto-Tune action severity. Valid values are LOW, MEDIUM and HIGH.
-data ScheduledAutoTuneSeverityType
-  = ScheduledAutoTuneSeverityType'
-      ( CI
-          Text
-      )
+-- | Specifies Auto-Tune action severity. Valid values are LOW, MEDIUM and
+-- HIGH.
+newtype ScheduledAutoTuneSeverityType = ScheduledAutoTuneSeverityType'
+  { fromScheduledAutoTuneSeverityType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern High :: ScheduledAutoTuneSeverityType
-pattern High = ScheduledAutoTuneSeverityType' "HIGH"
+pattern ScheduledAutoTuneSeverityTypeHIGH :: ScheduledAutoTuneSeverityType
+pattern ScheduledAutoTuneSeverityTypeHIGH = ScheduledAutoTuneSeverityType' "HIGH"
 
-pattern Low :: ScheduledAutoTuneSeverityType
-pattern Low = ScheduledAutoTuneSeverityType' "LOW"
+pattern ScheduledAutoTuneSeverityTypeLOW :: ScheduledAutoTuneSeverityType
+pattern ScheduledAutoTuneSeverityTypeLOW = ScheduledAutoTuneSeverityType' "LOW"
 
-pattern Medium :: ScheduledAutoTuneSeverityType
-pattern Medium = ScheduledAutoTuneSeverityType' "MEDIUM"
+pattern ScheduledAutoTuneSeverityTypeMEDIUM :: ScheduledAutoTuneSeverityType
+pattern ScheduledAutoTuneSeverityTypeMEDIUM = ScheduledAutoTuneSeverityType' "MEDIUM"
 
 {-# COMPLETE
-  High,
-  Low,
-  Medium,
+  ScheduledAutoTuneSeverityTypeHIGH,
+  ScheduledAutoTuneSeverityTypeLOW,
+  ScheduledAutoTuneSeverityTypeMEDIUM,
   ScheduledAutoTuneSeverityType'
   #-}
 
-instance FromText ScheduledAutoTuneSeverityType where
-  parser = (ScheduledAutoTuneSeverityType' . mk) <$> takeText
+instance Prelude.FromText ScheduledAutoTuneSeverityType where
+  parser = ScheduledAutoTuneSeverityType' Prelude.<$> Prelude.takeText
 
-instance ToText ScheduledAutoTuneSeverityType where
-  toText (ScheduledAutoTuneSeverityType' ci) = original ci
+instance Prelude.ToText ScheduledAutoTuneSeverityType where
+  toText (ScheduledAutoTuneSeverityType' x) = x
 
-instance Hashable ScheduledAutoTuneSeverityType
+instance Prelude.Hashable ScheduledAutoTuneSeverityType
 
-instance NFData ScheduledAutoTuneSeverityType
+instance Prelude.NFData ScheduledAutoTuneSeverityType
 
-instance ToByteString ScheduledAutoTuneSeverityType
+instance Prelude.ToByteString ScheduledAutoTuneSeverityType
 
-instance ToQuery ScheduledAutoTuneSeverityType
+instance Prelude.ToQuery ScheduledAutoTuneSeverityType
 
-instance ToHeader ScheduledAutoTuneSeverityType
+instance Prelude.ToHeader ScheduledAutoTuneSeverityType
 
-instance FromJSON ScheduledAutoTuneSeverityType where
-  parseJSON = parseJSONText "ScheduledAutoTuneSeverityType"
+instance Prelude.FromJSON ScheduledAutoTuneSeverityType where
+  parseJSON = Prelude.parseJSONText "ScheduledAutoTuneSeverityType"

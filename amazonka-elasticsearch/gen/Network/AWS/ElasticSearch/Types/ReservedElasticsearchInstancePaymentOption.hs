@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.ElasticSearch.Types.ReservedElasticsearchInstancePaymentOption
   ( ReservedElasticsearchInstancePaymentOption
       ( ..,
-        AllUpfront,
-        NoUpfront,
-        PartialUpfront
+        ReservedElasticsearchInstancePaymentOptionALLUPFRONT,
+        ReservedElasticsearchInstancePaymentOptionNOUPFRONT,
+        ReservedElasticsearchInstancePaymentOptionPARTIALUPFRONT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ReservedElasticsearchInstancePaymentOption
-  = ReservedElasticsearchInstancePaymentOption'
-      ( CI
-          Text
-      )
+newtype ReservedElasticsearchInstancePaymentOption = ReservedElasticsearchInstancePaymentOption'
+  { fromReservedElasticsearchInstancePaymentOption ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AllUpfront :: ReservedElasticsearchInstancePaymentOption
-pattern AllUpfront = ReservedElasticsearchInstancePaymentOption' "ALL_UPFRONT"
+pattern ReservedElasticsearchInstancePaymentOptionALLUPFRONT :: ReservedElasticsearchInstancePaymentOption
+pattern ReservedElasticsearchInstancePaymentOptionALLUPFRONT = ReservedElasticsearchInstancePaymentOption' "ALL_UPFRONT"
 
-pattern NoUpfront :: ReservedElasticsearchInstancePaymentOption
-pattern NoUpfront = ReservedElasticsearchInstancePaymentOption' "NO_UPFRONT"
+pattern ReservedElasticsearchInstancePaymentOptionNOUPFRONT :: ReservedElasticsearchInstancePaymentOption
+pattern ReservedElasticsearchInstancePaymentOptionNOUPFRONT = ReservedElasticsearchInstancePaymentOption' "NO_UPFRONT"
 
-pattern PartialUpfront :: ReservedElasticsearchInstancePaymentOption
-pattern PartialUpfront = ReservedElasticsearchInstancePaymentOption' "PARTIAL_UPFRONT"
+pattern ReservedElasticsearchInstancePaymentOptionPARTIALUPFRONT :: ReservedElasticsearchInstancePaymentOption
+pattern ReservedElasticsearchInstancePaymentOptionPARTIALUPFRONT = ReservedElasticsearchInstancePaymentOption' "PARTIAL_UPFRONT"
 
 {-# COMPLETE
-  AllUpfront,
-  NoUpfront,
-  PartialUpfront,
+  ReservedElasticsearchInstancePaymentOptionALLUPFRONT,
+  ReservedElasticsearchInstancePaymentOptionNOUPFRONT,
+  ReservedElasticsearchInstancePaymentOptionPARTIALUPFRONT,
   ReservedElasticsearchInstancePaymentOption'
   #-}
 
-instance FromText ReservedElasticsearchInstancePaymentOption where
-  parser = (ReservedElasticsearchInstancePaymentOption' . mk) <$> takeText
+instance Prelude.FromText ReservedElasticsearchInstancePaymentOption where
+  parser = ReservedElasticsearchInstancePaymentOption' Prelude.<$> Prelude.takeText
 
-instance ToText ReservedElasticsearchInstancePaymentOption where
-  toText (ReservedElasticsearchInstancePaymentOption' ci) = original ci
+instance Prelude.ToText ReservedElasticsearchInstancePaymentOption where
+  toText (ReservedElasticsearchInstancePaymentOption' x) = x
 
-instance Hashable ReservedElasticsearchInstancePaymentOption
+instance Prelude.Hashable ReservedElasticsearchInstancePaymentOption
 
-instance NFData ReservedElasticsearchInstancePaymentOption
+instance Prelude.NFData ReservedElasticsearchInstancePaymentOption
 
-instance ToByteString ReservedElasticsearchInstancePaymentOption
+instance Prelude.ToByteString ReservedElasticsearchInstancePaymentOption
 
-instance ToQuery ReservedElasticsearchInstancePaymentOption
+instance Prelude.ToQuery ReservedElasticsearchInstancePaymentOption
 
-instance ToHeader ReservedElasticsearchInstancePaymentOption
+instance Prelude.ToHeader ReservedElasticsearchInstancePaymentOption
 
-instance FromJSON ReservedElasticsearchInstancePaymentOption where
-  parseJSON = parseJSONText "ReservedElasticsearchInstancePaymentOption"
+instance Prelude.FromJSON ReservedElasticsearchInstancePaymentOption where
+  parseJSON = Prelude.parseJSONText "ReservedElasticsearchInstancePaymentOption"

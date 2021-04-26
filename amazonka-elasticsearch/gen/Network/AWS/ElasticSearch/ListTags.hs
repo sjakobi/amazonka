@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,109 +24,126 @@
 -- Returns all tags for the given Elasticsearch domain.
 module Network.AWS.ElasticSearch.ListTags
   ( -- * Creating a Request
-    listTags,
-    ListTags,
+    ListTags (..),
+    newListTags,
 
     -- * Request Lenses
-    ltARN,
+    listTags_aRN,
 
     -- * Destructuring the Response
-    listTagsResponse,
-    ListTagsResponse,
+    ListTagsResponse (..),
+    newListTagsResponse,
 
     -- * Response Lenses
-    ltrrsTagList,
-    ltrrsResponseStatus,
+    listTagsResponse_tagList,
+    listTagsResponse_httpStatus,
   )
 where
 
 import Network.AWS.ElasticSearch.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ElasticSearch.Types.Tag
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Container for the parameters to the @'ListTags' @ operation. Specify the @ARN@ for the Elasticsearch domain to which the tags are attached that you want to view are attached.
+-- | Container for the parameters to the @ListTags@ operation. Specify the
+-- @ARN@ for the Elasticsearch domain to which the tags are attached that
+-- you want to view are attached.
 --
---
---
--- /See:/ 'listTags' smart constructor.
-newtype ListTags = ListTags' {_ltARN :: Text}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- /See:/ 'newListTags' smart constructor.
+data ListTags = ListTags'
+  { -- | Specify the @ARN@ for the Elasticsearch domain to which the tags are
+    -- attached that you want to view.
+    aRN :: Prelude.Text
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListTags' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListTags' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltARN' - Specify the @ARN@ for the Elasticsearch domain to which the tags are attached that you want to view.
-listTags ::
-  -- | 'ltARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'aRN', 'listTags_aRN' - Specify the @ARN@ for the Elasticsearch domain to which the tags are
+-- attached that you want to view.
+newListTags ::
+  -- | 'aRN'
+  Prelude.Text ->
   ListTags
-listTags pARN_ = ListTags' {_ltARN = pARN_}
+newListTags pARN_ = ListTags' {aRN = pARN_}
 
--- | Specify the @ARN@ for the Elasticsearch domain to which the tags are attached that you want to view.
-ltARN :: Lens' ListTags Text
-ltARN = lens _ltARN (\s a -> s {_ltARN = a})
+-- | Specify the @ARN@ for the Elasticsearch domain to which the tags are
+-- attached that you want to view.
+listTags_aRN :: Lens.Lens' ListTags Prelude.Text
+listTags_aRN = Lens.lens (\ListTags' {aRN} -> aRN) (\s@ListTags' {} a -> s {aRN = a} :: ListTags)
 
-instance AWSRequest ListTags where
+instance Prelude.AWSRequest ListTags where
   type Rs ListTags = ListTagsResponse
-  request = get elasticSearch
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListTagsResponse'
-            <$> (x .?> "TagList" .!@ mempty) <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "TagList" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListTags
+instance Prelude.Hashable ListTags
 
-instance NFData ListTags
+instance Prelude.NFData ListTags
 
-instance ToHeaders ListTags where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListTags where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListTags where
-  toPath = const "/2015-01-01/tags/"
+instance Prelude.ToPath ListTags where
+  toPath = Prelude.const "/2015-01-01/tags/"
 
-instance ToQuery ListTags where
-  toQuery ListTags' {..} = mconcat ["arn" =: _ltARN]
+instance Prelude.ToQuery ListTags where
+  toQuery ListTags' {..} =
+    Prelude.mconcat ["arn" Prelude.=: aRN]
 
--- | The result of a @ListTags@ operation. Contains tags for all requested Elasticsearch domains.
+-- | The result of a @ListTags@ operation. Contains tags for all requested
+-- Elasticsearch domains.
 --
---
---
--- /See:/ 'listTagsResponse' smart constructor.
+-- /See:/ 'newListTagsResponse' smart constructor.
 data ListTagsResponse = ListTagsResponse'
-  { _ltrrsTagList ::
-      !(Maybe [Tag]),
-    _ltrrsResponseStatus :: !Int
+  { -- | List of @Tag@ for the requested Elasticsearch domain.
+    tagList :: Prelude.Maybe [Tag],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListTagsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListTagsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltrrsTagList' - List of @Tag@ for the requested Elasticsearch domain.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltrrsResponseStatus' - -- | The response status code.
-listTagsResponse ::
-  -- | 'ltrrsResponseStatus'
-  Int ->
+-- 'tagList', 'listTagsResponse_tagList' - List of @Tag@ for the requested Elasticsearch domain.
+--
+-- 'httpStatus', 'listTagsResponse_httpStatus' - The response's http status code.
+newListTagsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListTagsResponse
-listTagsResponse pResponseStatus_ =
+newListTagsResponse pHttpStatus_ =
   ListTagsResponse'
-    { _ltrrsTagList = Nothing,
-      _ltrrsResponseStatus = pResponseStatus_
+    { tagList = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | List of @Tag@ for the requested Elasticsearch domain.
-ltrrsTagList :: Lens' ListTagsResponse [Tag]
-ltrrsTagList = lens _ltrrsTagList (\s a -> s {_ltrrsTagList = a}) . _Default . _Coerce
+listTagsResponse_tagList :: Lens.Lens' ListTagsResponse (Prelude.Maybe [Tag])
+listTagsResponse_tagList = Lens.lens (\ListTagsResponse' {tagList} -> tagList) (\s@ListTagsResponse' {} a -> s {tagList = a} :: ListTagsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-ltrrsResponseStatus :: Lens' ListTagsResponse Int
-ltrrsResponseStatus = lens _ltrrsResponseStatus (\s a -> s {_ltrrsResponseStatus = a})
+-- | The response's http status code.
+listTagsResponse_httpStatus :: Lens.Lens' ListTagsResponse Prelude.Int
+listTagsResponse_httpStatus = Lens.lens (\ListTagsResponse' {httpStatus} -> httpStatus) (\s@ListTagsResponse' {} a -> s {httpStatus = a} :: ListTagsResponse)
 
-instance NFData ListTagsResponse
+instance Prelude.NFData ListTagsResponse

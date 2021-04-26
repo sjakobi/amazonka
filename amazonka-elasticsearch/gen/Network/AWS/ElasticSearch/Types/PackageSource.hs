@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,58 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ElasticSearch.Types.PackageSource where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The S3 location for importing the package specified as @S3BucketName@ and @S3Key@
+-- | The S3 location for importing the package specified as @S3BucketName@
+-- and @S3Key@
 --
---
---
--- /See:/ 'packageSource' smart constructor.
+-- /See:/ 'newPackageSource' smart constructor.
 data PackageSource = PackageSource'
-  { _psS3Key ::
-      !(Maybe Text),
-    _psS3BucketName :: !(Maybe Text)
+  { -- | Key (file name) of the package.
+    s3Key :: Prelude.Maybe Prelude.Text,
+    -- | Name of the bucket containing the package.
+    s3BucketName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PackageSource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PackageSource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'psS3Key' - Key (file name) of the package.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'psS3BucketName' - Name of the bucket containing the package.
-packageSource ::
+-- 's3Key', 'packageSource_s3Key' - Key (file name) of the package.
+--
+-- 's3BucketName', 'packageSource_s3BucketName' - Name of the bucket containing the package.
+newPackageSource ::
   PackageSource
-packageSource =
+newPackageSource =
   PackageSource'
-    { _psS3Key = Nothing,
-      _psS3BucketName = Nothing
+    { s3Key = Prelude.Nothing,
+      s3BucketName = Prelude.Nothing
     }
 
 -- | Key (file name) of the package.
-psS3Key :: Lens' PackageSource (Maybe Text)
-psS3Key = lens _psS3Key (\s a -> s {_psS3Key = a})
+packageSource_s3Key :: Lens.Lens' PackageSource (Prelude.Maybe Prelude.Text)
+packageSource_s3Key = Lens.lens (\PackageSource' {s3Key} -> s3Key) (\s@PackageSource' {} a -> s {s3Key = a} :: PackageSource)
 
 -- | Name of the bucket containing the package.
-psS3BucketName :: Lens' PackageSource (Maybe Text)
-psS3BucketName = lens _psS3BucketName (\s a -> s {_psS3BucketName = a})
+packageSource_s3BucketName :: Lens.Lens' PackageSource (Prelude.Maybe Prelude.Text)
+packageSource_s3BucketName = Lens.lens (\PackageSource' {s3BucketName} -> s3BucketName) (\s@PackageSource' {} a -> s {s3BucketName = a} :: PackageSource)
 
-instance Hashable PackageSource
+instance Prelude.Hashable PackageSource
 
-instance NFData PackageSource
+instance Prelude.NFData PackageSource
 
-instance ToJSON PackageSource where
+instance Prelude.ToJSON PackageSource where
   toJSON PackageSource' {..} =
-    object
-      ( catMaybes
-          [ ("S3Key" .=) <$> _psS3Key,
-            ("S3BucketName" .=) <$> _psS3BucketName
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("S3Key" Prelude..=) Prelude.<$> s3Key,
+            ("S3BucketName" Prelude..=)
+              Prelude.<$> s3BucketName
           ]
       )

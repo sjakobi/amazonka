@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,63 +20,68 @@
 module Network.AWS.ElasticSearch.Types.StorageType where
 
 import Network.AWS.ElasticSearch.Types.StorageTypeLimit
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | StorageTypes represents the list of storage related types and their attributes that are available for given InstanceType.
+-- | StorageTypes represents the list of storage related types and their
+-- attributes that are available for given InstanceType.
 --
---
---
--- /See:/ 'storageType' smart constructor.
+-- /See:/ 'newStorageType' smart constructor.
 data StorageType = StorageType'
-  { _stStorageTypeLimits ::
-      !(Maybe [StorageTypeLimit]),
-    _stStorageTypeName :: !(Maybe Text),
-    _stStorageSubTypeName :: !(Maybe Text)
+  { -- | List of limits that are applicable for given storage type.
+    storageTypeLimits :: Prelude.Maybe [StorageTypeLimit],
+    storageTypeName :: Prelude.Maybe Prelude.Text,
+    storageSubTypeName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StorageType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StorageType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'stStorageTypeLimits' - List of limits that are applicable for given storage type.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'stStorageTypeName' - Undocumented member.
+-- 'storageTypeLimits', 'storageType_storageTypeLimits' - List of limits that are applicable for given storage type.
 --
--- * 'stStorageSubTypeName' - Undocumented member.
-storageType ::
+-- 'storageTypeName', 'storageType_storageTypeName' - Undocumented member.
+--
+-- 'storageSubTypeName', 'storageType_storageSubTypeName' - Undocumented member.
+newStorageType ::
   StorageType
-storageType =
+newStorageType =
   StorageType'
-    { _stStorageTypeLimits = Nothing,
-      _stStorageTypeName = Nothing,
-      _stStorageSubTypeName = Nothing
+    { storageTypeLimits = Prelude.Nothing,
+      storageTypeName = Prelude.Nothing,
+      storageSubTypeName = Prelude.Nothing
     }
 
 -- | List of limits that are applicable for given storage type.
-stStorageTypeLimits :: Lens' StorageType [StorageTypeLimit]
-stStorageTypeLimits = lens _stStorageTypeLimits (\s a -> s {_stStorageTypeLimits = a}) . _Default . _Coerce
+storageType_storageTypeLimits :: Lens.Lens' StorageType (Prelude.Maybe [StorageTypeLimit])
+storageType_storageTypeLimits = Lens.lens (\StorageType' {storageTypeLimits} -> storageTypeLimits) (\s@StorageType' {} a -> s {storageTypeLimits = a} :: StorageType) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Undocumented member.
-stStorageTypeName :: Lens' StorageType (Maybe Text)
-stStorageTypeName = lens _stStorageTypeName (\s a -> s {_stStorageTypeName = a})
+storageType_storageTypeName :: Lens.Lens' StorageType (Prelude.Maybe Prelude.Text)
+storageType_storageTypeName = Lens.lens (\StorageType' {storageTypeName} -> storageTypeName) (\s@StorageType' {} a -> s {storageTypeName = a} :: StorageType)
 
 -- | Undocumented member.
-stStorageSubTypeName :: Lens' StorageType (Maybe Text)
-stStorageSubTypeName = lens _stStorageSubTypeName (\s a -> s {_stStorageSubTypeName = a})
+storageType_storageSubTypeName :: Lens.Lens' StorageType (Prelude.Maybe Prelude.Text)
+storageType_storageSubTypeName = Lens.lens (\StorageType' {storageSubTypeName} -> storageSubTypeName) (\s@StorageType' {} a -> s {storageSubTypeName = a} :: StorageType)
 
-instance FromJSON StorageType where
+instance Prelude.FromJSON StorageType where
   parseJSON =
-    withObject
+    Prelude.withObject
       "StorageType"
       ( \x ->
           StorageType'
-            <$> (x .:? "StorageTypeLimits" .!= mempty)
-            <*> (x .:? "StorageTypeName")
-            <*> (x .:? "StorageSubTypeName")
+            Prelude.<$> ( x Prelude..:? "StorageTypeLimits"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "StorageTypeName")
+            Prelude.<*> (x Prelude..:? "StorageSubTypeName")
       )
 
-instance Hashable StorageType
+instance Prelude.Hashable StorageType
 
-instance NFData StorageType
+instance Prelude.NFData StorageType

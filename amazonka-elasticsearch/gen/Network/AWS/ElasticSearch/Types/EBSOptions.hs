@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,83 +20,90 @@
 module Network.AWS.ElasticSearch.Types.EBSOptions where
 
 import Network.AWS.ElasticSearch.Types.VolumeType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Options to enable, disable, and specify the properties of EBS storage volumes. For more information, see <http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-createupdatedomains.html#es-createdomain-configure-ebs Configuring EBS-based Storage> .
+-- | Options to enable, disable, and specify the properties of EBS storage
+-- volumes. For more information, see
+-- <http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-createupdatedomains.html#es-createdomain-configure-ebs Configuring EBS-based Storage>.
 --
---
---
--- /See:/ 'ebsOptions' smart constructor.
+-- /See:/ 'newEBSOptions' smart constructor.
 data EBSOptions = EBSOptions'
-  { _eoEBSEnabled ::
-      !(Maybe Bool),
-    _eoVolumeType :: !(Maybe VolumeType),
-    _eoVolumeSize :: !(Maybe Int),
-    _eoIOPS :: !(Maybe Int)
+  { -- | Specifies whether EBS-based storage is enabled.
+    eBSEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | Specifies the volume type for EBS-based storage.
+    volumeType :: Prelude.Maybe VolumeType,
+    -- | Integer to specify the size of an EBS volume.
+    volumeSize :: Prelude.Maybe Prelude.Int,
+    -- | Specifies the IOPD for a Provisioned IOPS EBS volume (SSD).
+    iops :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EBSOptions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EBSOptions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eoEBSEnabled' - Specifies whether EBS-based storage is enabled.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'eoVolumeType' - Specifies the volume type for EBS-based storage.
+-- 'eBSEnabled', 'eBSOptions_eBSEnabled' - Specifies whether EBS-based storage is enabled.
 --
--- * 'eoVolumeSize' - Integer to specify the size of an EBS volume.
+-- 'volumeType', 'eBSOptions_volumeType' - Specifies the volume type for EBS-based storage.
 --
--- * 'eoIOPS' - Specifies the IOPD for a Provisioned IOPS EBS volume (SSD).
-ebsOptions ::
+-- 'volumeSize', 'eBSOptions_volumeSize' - Integer to specify the size of an EBS volume.
+--
+-- 'iops', 'eBSOptions_iops' - Specifies the IOPD for a Provisioned IOPS EBS volume (SSD).
+newEBSOptions ::
   EBSOptions
-ebsOptions =
+newEBSOptions =
   EBSOptions'
-    { _eoEBSEnabled = Nothing,
-      _eoVolumeType = Nothing,
-      _eoVolumeSize = Nothing,
-      _eoIOPS = Nothing
+    { eBSEnabled = Prelude.Nothing,
+      volumeType = Prelude.Nothing,
+      volumeSize = Prelude.Nothing,
+      iops = Prelude.Nothing
     }
 
 -- | Specifies whether EBS-based storage is enabled.
-eoEBSEnabled :: Lens' EBSOptions (Maybe Bool)
-eoEBSEnabled = lens _eoEBSEnabled (\s a -> s {_eoEBSEnabled = a})
+eBSOptions_eBSEnabled :: Lens.Lens' EBSOptions (Prelude.Maybe Prelude.Bool)
+eBSOptions_eBSEnabled = Lens.lens (\EBSOptions' {eBSEnabled} -> eBSEnabled) (\s@EBSOptions' {} a -> s {eBSEnabled = a} :: EBSOptions)
 
 -- | Specifies the volume type for EBS-based storage.
-eoVolumeType :: Lens' EBSOptions (Maybe VolumeType)
-eoVolumeType = lens _eoVolumeType (\s a -> s {_eoVolumeType = a})
+eBSOptions_volumeType :: Lens.Lens' EBSOptions (Prelude.Maybe VolumeType)
+eBSOptions_volumeType = Lens.lens (\EBSOptions' {volumeType} -> volumeType) (\s@EBSOptions' {} a -> s {volumeType = a} :: EBSOptions)
 
 -- | Integer to specify the size of an EBS volume.
-eoVolumeSize :: Lens' EBSOptions (Maybe Int)
-eoVolumeSize = lens _eoVolumeSize (\s a -> s {_eoVolumeSize = a})
+eBSOptions_volumeSize :: Lens.Lens' EBSOptions (Prelude.Maybe Prelude.Int)
+eBSOptions_volumeSize = Lens.lens (\EBSOptions' {volumeSize} -> volumeSize) (\s@EBSOptions' {} a -> s {volumeSize = a} :: EBSOptions)
 
 -- | Specifies the IOPD for a Provisioned IOPS EBS volume (SSD).
-eoIOPS :: Lens' EBSOptions (Maybe Int)
-eoIOPS = lens _eoIOPS (\s a -> s {_eoIOPS = a})
+eBSOptions_iops :: Lens.Lens' EBSOptions (Prelude.Maybe Prelude.Int)
+eBSOptions_iops = Lens.lens (\EBSOptions' {iops} -> iops) (\s@EBSOptions' {} a -> s {iops = a} :: EBSOptions)
 
-instance FromJSON EBSOptions where
+instance Prelude.FromJSON EBSOptions where
   parseJSON =
-    withObject
+    Prelude.withObject
       "EBSOptions"
       ( \x ->
           EBSOptions'
-            <$> (x .:? "EBSEnabled")
-            <*> (x .:? "VolumeType")
-            <*> (x .:? "VolumeSize")
-            <*> (x .:? "Iops")
+            Prelude.<$> (x Prelude..:? "EBSEnabled")
+            Prelude.<*> (x Prelude..:? "VolumeType")
+            Prelude.<*> (x Prelude..:? "VolumeSize")
+            Prelude.<*> (x Prelude..:? "Iops")
       )
 
-instance Hashable EBSOptions
+instance Prelude.Hashable EBSOptions
 
-instance NFData EBSOptions
+instance Prelude.NFData EBSOptions
 
-instance ToJSON EBSOptions where
+instance Prelude.ToJSON EBSOptions where
   toJSON EBSOptions' {..} =
-    object
-      ( catMaybes
-          [ ("EBSEnabled" .=) <$> _eoEBSEnabled,
-            ("VolumeType" .=) <$> _eoVolumeType,
-            ("VolumeSize" .=) <$> _eoVolumeSize,
-            ("Iops" .=) <$> _eoIOPS
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("EBSEnabled" Prelude..=) Prelude.<$> eBSEnabled,
+            ("VolumeType" Prelude..=) Prelude.<$> volumeType,
+            ("VolumeSize" Prelude..=) Prelude.<$> volumeSize,
+            ("Iops" Prelude..=) Prelude.<$> iops
           ]
       )

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.ElasticSearch.Types.ESWarmPartitionInstanceType
   ( ESWarmPartitionInstanceType
       ( ..,
-        ESWPITULTRAWARM1_Large_Elasticsearch,
-        ESWPITULTRAWARM1_Medium_Elasticsearch
+        ESWarmPartitionInstanceTypeULTRAWARM1_Large_Elasticsearch,
+        ESWarmPartitionInstanceTypeULTRAWARM1_Medium_Elasticsearch
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ESWarmPartitionInstanceType
-  = ESWarmPartitionInstanceType'
-      ( CI
-          Text
-      )
+newtype ESWarmPartitionInstanceType = ESWarmPartitionInstanceType'
+  { fromESWarmPartitionInstanceType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ESWPITULTRAWARM1_Large_Elasticsearch :: ESWarmPartitionInstanceType
-pattern ESWPITULTRAWARM1_Large_Elasticsearch = ESWarmPartitionInstanceType' "ultrawarm1.large.elasticsearch"
+pattern ESWarmPartitionInstanceTypeULTRAWARM1_Large_Elasticsearch :: ESWarmPartitionInstanceType
+pattern ESWarmPartitionInstanceTypeULTRAWARM1_Large_Elasticsearch = ESWarmPartitionInstanceType' "ultrawarm1.large.elasticsearch"
 
-pattern ESWPITULTRAWARM1_Medium_Elasticsearch :: ESWarmPartitionInstanceType
-pattern ESWPITULTRAWARM1_Medium_Elasticsearch = ESWarmPartitionInstanceType' "ultrawarm1.medium.elasticsearch"
+pattern ESWarmPartitionInstanceTypeULTRAWARM1_Medium_Elasticsearch :: ESWarmPartitionInstanceType
+pattern ESWarmPartitionInstanceTypeULTRAWARM1_Medium_Elasticsearch = ESWarmPartitionInstanceType' "ultrawarm1.medium.elasticsearch"
 
 {-# COMPLETE
-  ESWPITULTRAWARM1_Large_Elasticsearch,
-  ESWPITULTRAWARM1_Medium_Elasticsearch,
+  ESWarmPartitionInstanceTypeULTRAWARM1_Large_Elasticsearch,
+  ESWarmPartitionInstanceTypeULTRAWARM1_Medium_Elasticsearch,
   ESWarmPartitionInstanceType'
   #-}
 
-instance FromText ESWarmPartitionInstanceType where
-  parser = (ESWarmPartitionInstanceType' . mk) <$> takeText
+instance Prelude.FromText ESWarmPartitionInstanceType where
+  parser = ESWarmPartitionInstanceType' Prelude.<$> Prelude.takeText
 
-instance ToText ESWarmPartitionInstanceType where
-  toText (ESWarmPartitionInstanceType' ci) = original ci
+instance Prelude.ToText ESWarmPartitionInstanceType where
+  toText (ESWarmPartitionInstanceType' x) = x
 
-instance Hashable ESWarmPartitionInstanceType
+instance Prelude.Hashable ESWarmPartitionInstanceType
 
-instance NFData ESWarmPartitionInstanceType
+instance Prelude.NFData ESWarmPartitionInstanceType
 
-instance ToByteString ESWarmPartitionInstanceType
+instance Prelude.ToByteString ESWarmPartitionInstanceType
 
-instance ToQuery ESWarmPartitionInstanceType
+instance Prelude.ToQuery ESWarmPartitionInstanceType
 
-instance ToHeader ESWarmPartitionInstanceType
+instance Prelude.ToHeader ESWarmPartitionInstanceType
 
-instance ToJSON ESWarmPartitionInstanceType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ESWarmPartitionInstanceType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ESWarmPartitionInstanceType where
-  parseJSON = parseJSONText "ESWarmPartitionInstanceType"
+instance Prelude.FromJSON ESWarmPartitionInstanceType where
+  parseJSON = Prelude.parseJSONText "ESWarmPartitionInstanceType"

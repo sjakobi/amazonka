@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,66 +20,77 @@
 module Network.AWS.ElasticSearch.Types.AdvancedOptionsStatus where
 
 import Network.AWS.ElasticSearch.Types.OptionStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Status of the advanced options for the specified Elasticsearch domain. Currently, the following advanced options are available:
+-- | Status of the advanced options for the specified Elasticsearch domain.
+-- Currently, the following advanced options are available:
 --
+-- -   Option to allow references to indices in an HTTP request body. Must
+--     be @false@ when configuring access to individual sub-resources. By
+--     default, the value is @true@. See
+--     <http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-createupdatedomains.html#es-createdomain-configure-advanced-options Configuration Advanced Options>
+--     for more information.
+-- -   Option to specify the percentage of heap space that is allocated to
+--     field data. By default, this setting is unbounded.
 --
---     * Option to allow references to indices in an HTTP request body. Must be @false@ when configuring access to individual sub-resources. By default, the value is @true@ . See <http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-createupdatedomains.html#es-createdomain-configure-advanced-options Configuration Advanced Options> for more information.    * Option to specify the percentage of heap space that is allocated to field data. By default, this setting is unbounded.
+-- For more information, see
+-- <http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-createupdatedomains.html#es-createdomain-configure-advanced-options Configuring Advanced Options>.
 --
--- For more information, see <http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-createupdatedomains.html#es-createdomain-configure-advanced-options Configuring Advanced Options> .
---
---
--- /See:/ 'advancedOptionsStatus' smart constructor.
+-- /See:/ 'newAdvancedOptionsStatus' smart constructor.
 data AdvancedOptionsStatus = AdvancedOptionsStatus'
-  { _aosOptions ::
-      !(Map Text Text),
-    _aosStatus :: !OptionStatus
+  { -- | Specifies the status of advanced options for the specified Elasticsearch
+    -- domain.
+    options :: Prelude.Map Prelude.Text Prelude.Text,
+    -- | Specifies the status of @OptionStatus@ for advanced options for the
+    -- specified Elasticsearch domain.
+    status :: OptionStatus
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AdvancedOptionsStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AdvancedOptionsStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aosOptions' - Specifies the status of advanced options for the specified Elasticsearch domain.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aosStatus' - Specifies the status of @OptionStatus@ for advanced options for the specified Elasticsearch domain.
-advancedOptionsStatus ::
-  -- | 'aosStatus'
+-- 'options', 'advancedOptionsStatus_options' - Specifies the status of advanced options for the specified Elasticsearch
+-- domain.
+--
+-- 'status', 'advancedOptionsStatus_status' - Specifies the status of @OptionStatus@ for advanced options for the
+-- specified Elasticsearch domain.
+newAdvancedOptionsStatus ::
+  -- | 'status'
   OptionStatus ->
   AdvancedOptionsStatus
-advancedOptionsStatus pStatus_ =
+newAdvancedOptionsStatus pStatus_ =
   AdvancedOptionsStatus'
-    { _aosOptions = mempty,
-      _aosStatus = pStatus_
+    { options = Prelude.mempty,
+      status = pStatus_
     }
 
--- | Specifies the status of advanced options for the specified Elasticsearch domain.
-aosOptions :: Lens' AdvancedOptionsStatus (HashMap Text Text)
-aosOptions = lens _aosOptions (\s a -> s {_aosOptions = a}) . _Map
+-- | Specifies the status of advanced options for the specified Elasticsearch
+-- domain.
+advancedOptionsStatus_options :: Lens.Lens' AdvancedOptionsStatus (Prelude.HashMap Prelude.Text Prelude.Text)
+advancedOptionsStatus_options = Lens.lens (\AdvancedOptionsStatus' {options} -> options) (\s@AdvancedOptionsStatus' {} a -> s {options = a} :: AdvancedOptionsStatus) Prelude.. Prelude._Map
 
--- | Specifies the status of @OptionStatus@ for advanced options for the specified Elasticsearch domain.
-aosStatus :: Lens' AdvancedOptionsStatus OptionStatus
-aosStatus = lens _aosStatus (\s a -> s {_aosStatus = a})
+-- | Specifies the status of @OptionStatus@ for advanced options for the
+-- specified Elasticsearch domain.
+advancedOptionsStatus_status :: Lens.Lens' AdvancedOptionsStatus OptionStatus
+advancedOptionsStatus_status = Lens.lens (\AdvancedOptionsStatus' {status} -> status) (\s@AdvancedOptionsStatus' {} a -> s {status = a} :: AdvancedOptionsStatus)
 
-instance FromJSON AdvancedOptionsStatus where
+instance Prelude.FromJSON AdvancedOptionsStatus where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AdvancedOptionsStatus"
       ( \x ->
           AdvancedOptionsStatus'
-            <$> (x .:? "Options" .!= mempty) <*> (x .: "Status")
+            Prelude.<$> (x Prelude..:? "Options" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..: "Status")
       )
 
-instance Hashable AdvancedOptionsStatus
+instance Prelude.Hashable AdvancedOptionsStatus
 
-instance NFData AdvancedOptionsStatus
+instance Prelude.NFData AdvancedOptionsStatus

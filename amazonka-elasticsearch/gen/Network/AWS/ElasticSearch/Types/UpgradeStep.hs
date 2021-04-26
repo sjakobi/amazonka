@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.ElasticSearch.Types.UpgradeStep
   ( UpgradeStep
       ( ..,
-        PreUpgradeCheck,
-        Snapshot,
-        Upgrade
+        UpgradeStepPREUPGRADECHECK,
+        UpgradeStepSNAPSHOT,
+        UpgradeStepUPGRADE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data UpgradeStep = UpgradeStep' (CI Text)
+newtype UpgradeStep = UpgradeStep'
+  { fromUpgradeStep ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PreUpgradeCheck :: UpgradeStep
-pattern PreUpgradeCheck = UpgradeStep' "PRE_UPGRADE_CHECK"
+pattern UpgradeStepPREUPGRADECHECK :: UpgradeStep
+pattern UpgradeStepPREUPGRADECHECK = UpgradeStep' "PRE_UPGRADE_CHECK"
 
-pattern Snapshot :: UpgradeStep
-pattern Snapshot = UpgradeStep' "SNAPSHOT"
+pattern UpgradeStepSNAPSHOT :: UpgradeStep
+pattern UpgradeStepSNAPSHOT = UpgradeStep' "SNAPSHOT"
 
-pattern Upgrade :: UpgradeStep
-pattern Upgrade = UpgradeStep' "UPGRADE"
+pattern UpgradeStepUPGRADE :: UpgradeStep
+pattern UpgradeStepUPGRADE = UpgradeStep' "UPGRADE"
 
 {-# COMPLETE
-  PreUpgradeCheck,
-  Snapshot,
-  Upgrade,
+  UpgradeStepPREUPGRADECHECK,
+  UpgradeStepSNAPSHOT,
+  UpgradeStepUPGRADE,
   UpgradeStep'
   #-}
 
-instance FromText UpgradeStep where
-  parser = (UpgradeStep' . mk) <$> takeText
+instance Prelude.FromText UpgradeStep where
+  parser = UpgradeStep' Prelude.<$> Prelude.takeText
 
-instance ToText UpgradeStep where
-  toText (UpgradeStep' ci) = original ci
+instance Prelude.ToText UpgradeStep where
+  toText (UpgradeStep' x) = x
 
-instance Hashable UpgradeStep
+instance Prelude.Hashable UpgradeStep
 
-instance NFData UpgradeStep
+instance Prelude.NFData UpgradeStep
 
-instance ToByteString UpgradeStep
+instance Prelude.ToByteString UpgradeStep
 
-instance ToQuery UpgradeStep
+instance Prelude.ToQuery UpgradeStep
 
-instance ToHeader UpgradeStep
+instance Prelude.ToHeader UpgradeStep
 
-instance FromJSON UpgradeStep where
-  parseJSON = parseJSONText "UpgradeStep"
+instance Prelude.FromJSON UpgradeStep where
+  parseJSON = Prelude.parseJSONText "UpgradeStep"

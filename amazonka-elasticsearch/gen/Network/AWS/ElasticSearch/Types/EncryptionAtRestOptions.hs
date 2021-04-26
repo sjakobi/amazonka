@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,70 +19,66 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ElasticSearch.Types.EncryptionAtRestOptions where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Specifies the Encryption At Rest Options.
 --
---
---
--- /See:/ 'encryptionAtRestOptions' smart constructor.
+-- /See:/ 'newEncryptionAtRestOptions' smart constructor.
 data EncryptionAtRestOptions = EncryptionAtRestOptions'
-  { _earoEnabled ::
-      !(Maybe Bool),
-    _earoKMSKeyId ::
-      !(Maybe Text)
+  { -- | Specifies the option to enable Encryption At Rest.
+    enabled :: Prelude.Maybe Prelude.Bool,
+    -- | Specifies the KMS Key ID for Encryption At Rest options.
+    kmsKeyId :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EncryptionAtRestOptions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EncryptionAtRestOptions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'earoEnabled' - Specifies the option to enable Encryption At Rest.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'earoKMSKeyId' - Specifies the KMS Key ID for Encryption At Rest options.
-encryptionAtRestOptions ::
+-- 'enabled', 'encryptionAtRestOptions_enabled' - Specifies the option to enable Encryption At Rest.
+--
+-- 'kmsKeyId', 'encryptionAtRestOptions_kmsKeyId' - Specifies the KMS Key ID for Encryption At Rest options.
+newEncryptionAtRestOptions ::
   EncryptionAtRestOptions
-encryptionAtRestOptions =
+newEncryptionAtRestOptions =
   EncryptionAtRestOptions'
-    { _earoEnabled = Nothing,
-      _earoKMSKeyId = Nothing
+    { enabled = Prelude.Nothing,
+      kmsKeyId = Prelude.Nothing
     }
 
 -- | Specifies the option to enable Encryption At Rest.
-earoEnabled :: Lens' EncryptionAtRestOptions (Maybe Bool)
-earoEnabled = lens _earoEnabled (\s a -> s {_earoEnabled = a})
+encryptionAtRestOptions_enabled :: Lens.Lens' EncryptionAtRestOptions (Prelude.Maybe Prelude.Bool)
+encryptionAtRestOptions_enabled = Lens.lens (\EncryptionAtRestOptions' {enabled} -> enabled) (\s@EncryptionAtRestOptions' {} a -> s {enabled = a} :: EncryptionAtRestOptions)
 
 -- | Specifies the KMS Key ID for Encryption At Rest options.
-earoKMSKeyId :: Lens' EncryptionAtRestOptions (Maybe Text)
-earoKMSKeyId = lens _earoKMSKeyId (\s a -> s {_earoKMSKeyId = a})
+encryptionAtRestOptions_kmsKeyId :: Lens.Lens' EncryptionAtRestOptions (Prelude.Maybe Prelude.Text)
+encryptionAtRestOptions_kmsKeyId = Lens.lens (\EncryptionAtRestOptions' {kmsKeyId} -> kmsKeyId) (\s@EncryptionAtRestOptions' {} a -> s {kmsKeyId = a} :: EncryptionAtRestOptions)
 
-instance FromJSON EncryptionAtRestOptions where
+instance Prelude.FromJSON EncryptionAtRestOptions where
   parseJSON =
-    withObject
+    Prelude.withObject
       "EncryptionAtRestOptions"
       ( \x ->
           EncryptionAtRestOptions'
-            <$> (x .:? "Enabled") <*> (x .:? "KmsKeyId")
+            Prelude.<$> (x Prelude..:? "Enabled")
+            Prelude.<*> (x Prelude..:? "KmsKeyId")
       )
 
-instance Hashable EncryptionAtRestOptions
+instance Prelude.Hashable EncryptionAtRestOptions
 
-instance NFData EncryptionAtRestOptions
+instance Prelude.NFData EncryptionAtRestOptions
 
-instance ToJSON EncryptionAtRestOptions where
+instance Prelude.ToJSON EncryptionAtRestOptions where
   toJSON EncryptionAtRestOptions' {..} =
-    object
-      ( catMaybes
-          [ ("Enabled" .=) <$> _earoEnabled,
-            ("KmsKeyId" .=) <$> _earoKMSKeyId
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Enabled" Prelude..=) Prelude.<$> enabled,
+            ("KmsKeyId" Prelude..=) Prelude.<$> kmsKeyId
           ]
       )

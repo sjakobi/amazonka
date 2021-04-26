@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.ElasticSearch.Types.DescribePackagesFilterName
   ( DescribePackagesFilterName
       ( ..,
-        PackageId,
-        PackageName,
-        PackageStatus
+        DescribePackagesFilterNamePackageID,
+        DescribePackagesFilterNamePackageName,
+        DescribePackagesFilterNamePackageStatus
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DescribePackagesFilterName
-  = DescribePackagesFilterName'
-      ( CI
-          Text
-      )
+newtype DescribePackagesFilterName = DescribePackagesFilterName'
+  { fromDescribePackagesFilterName ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PackageId :: DescribePackagesFilterName
-pattern PackageId = DescribePackagesFilterName' "PackageID"
+pattern DescribePackagesFilterNamePackageID :: DescribePackagesFilterName
+pattern DescribePackagesFilterNamePackageID = DescribePackagesFilterName' "PackageID"
 
-pattern PackageName :: DescribePackagesFilterName
-pattern PackageName = DescribePackagesFilterName' "PackageName"
+pattern DescribePackagesFilterNamePackageName :: DescribePackagesFilterName
+pattern DescribePackagesFilterNamePackageName = DescribePackagesFilterName' "PackageName"
 
-pattern PackageStatus :: DescribePackagesFilterName
-pattern PackageStatus = DescribePackagesFilterName' "PackageStatus"
+pattern DescribePackagesFilterNamePackageStatus :: DescribePackagesFilterName
+pattern DescribePackagesFilterNamePackageStatus = DescribePackagesFilterName' "PackageStatus"
 
 {-# COMPLETE
-  PackageId,
-  PackageName,
-  PackageStatus,
+  DescribePackagesFilterNamePackageID,
+  DescribePackagesFilterNamePackageName,
+  DescribePackagesFilterNamePackageStatus,
   DescribePackagesFilterName'
   #-}
 
-instance FromText DescribePackagesFilterName where
-  parser = (DescribePackagesFilterName' . mk) <$> takeText
+instance Prelude.FromText DescribePackagesFilterName where
+  parser = DescribePackagesFilterName' Prelude.<$> Prelude.takeText
 
-instance ToText DescribePackagesFilterName where
-  toText (DescribePackagesFilterName' ci) = original ci
+instance Prelude.ToText DescribePackagesFilterName where
+  toText (DescribePackagesFilterName' x) = x
 
-instance Hashable DescribePackagesFilterName
+instance Prelude.Hashable DescribePackagesFilterName
 
-instance NFData DescribePackagesFilterName
+instance Prelude.NFData DescribePackagesFilterName
 
-instance ToByteString DescribePackagesFilterName
+instance Prelude.ToByteString DescribePackagesFilterName
 
-instance ToQuery DescribePackagesFilterName
+instance Prelude.ToQuery DescribePackagesFilterName
 
-instance ToHeader DescribePackagesFilterName
+instance Prelude.ToHeader DescribePackagesFilterName
 
-instance ToJSON DescribePackagesFilterName where
-  toJSON = toJSONText
+instance Prelude.ToJSON DescribePackagesFilterName where
+  toJSON = Prelude.toJSONText

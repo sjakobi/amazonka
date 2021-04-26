@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,65 +19,76 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ElasticSearch.Types.MasterUserOptions where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Credentials for the master user: username and password, ARN, or both.
 --
---
---
--- /See:/ 'masterUserOptions' smart constructor.
+-- /See:/ 'newMasterUserOptions' smart constructor.
 data MasterUserOptions = MasterUserOptions'
-  { _muoMasterUserPassword ::
-      !(Maybe (Sensitive Text)),
-    _muoMasterUserName ::
-      !(Maybe (Sensitive Text)),
-    _muoMasterUserARN :: !(Maybe Text)
+  { -- | The master user\'s password, which is stored in the Amazon Elasticsearch
+    -- Service domain\'s internal database.
+    masterUserPassword :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The master user\'s username, which is stored in the Amazon Elasticsearch
+    -- Service domain\'s internal database.
+    masterUserName :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | ARN for the master user (if IAM is enabled).
+    masterUserARN :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MasterUserOptions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MasterUserOptions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'muoMasterUserPassword' - The master user's password, which is stored in the Amazon Elasticsearch Service domain's internal database.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'muoMasterUserName' - The master user's username, which is stored in the Amazon Elasticsearch Service domain's internal database.
+-- 'masterUserPassword', 'masterUserOptions_masterUserPassword' - The master user\'s password, which is stored in the Amazon Elasticsearch
+-- Service domain\'s internal database.
 --
--- * 'muoMasterUserARN' - ARN for the master user (if IAM is enabled).
-masterUserOptions ::
+-- 'masterUserName', 'masterUserOptions_masterUserName' - The master user\'s username, which is stored in the Amazon Elasticsearch
+-- Service domain\'s internal database.
+--
+-- 'masterUserARN', 'masterUserOptions_masterUserARN' - ARN for the master user (if IAM is enabled).
+newMasterUserOptions ::
   MasterUserOptions
-masterUserOptions =
+newMasterUserOptions =
   MasterUserOptions'
-    { _muoMasterUserPassword =
-        Nothing,
-      _muoMasterUserName = Nothing,
-      _muoMasterUserARN = Nothing
+    { masterUserPassword =
+        Prelude.Nothing,
+      masterUserName = Prelude.Nothing,
+      masterUserARN = Prelude.Nothing
     }
 
--- | The master user's password, which is stored in the Amazon Elasticsearch Service domain's internal database.
-muoMasterUserPassword :: Lens' MasterUserOptions (Maybe Text)
-muoMasterUserPassword = lens _muoMasterUserPassword (\s a -> s {_muoMasterUserPassword = a}) . mapping _Sensitive
+-- | The master user\'s password, which is stored in the Amazon Elasticsearch
+-- Service domain\'s internal database.
+masterUserOptions_masterUserPassword :: Lens.Lens' MasterUserOptions (Prelude.Maybe Prelude.Text)
+masterUserOptions_masterUserPassword = Lens.lens (\MasterUserOptions' {masterUserPassword} -> masterUserPassword) (\s@MasterUserOptions' {} a -> s {masterUserPassword = a} :: MasterUserOptions) Prelude.. Lens.mapping Prelude._Sensitive
 
--- | The master user's username, which is stored in the Amazon Elasticsearch Service domain's internal database.
-muoMasterUserName :: Lens' MasterUserOptions (Maybe Text)
-muoMasterUserName = lens _muoMasterUserName (\s a -> s {_muoMasterUserName = a}) . mapping _Sensitive
+-- | The master user\'s username, which is stored in the Amazon Elasticsearch
+-- Service domain\'s internal database.
+masterUserOptions_masterUserName :: Lens.Lens' MasterUserOptions (Prelude.Maybe Prelude.Text)
+masterUserOptions_masterUserName = Lens.lens (\MasterUserOptions' {masterUserName} -> masterUserName) (\s@MasterUserOptions' {} a -> s {masterUserName = a} :: MasterUserOptions) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | ARN for the master user (if IAM is enabled).
-muoMasterUserARN :: Lens' MasterUserOptions (Maybe Text)
-muoMasterUserARN = lens _muoMasterUserARN (\s a -> s {_muoMasterUserARN = a})
+masterUserOptions_masterUserARN :: Lens.Lens' MasterUserOptions (Prelude.Maybe Prelude.Text)
+masterUserOptions_masterUserARN = Lens.lens (\MasterUserOptions' {masterUserARN} -> masterUserARN) (\s@MasterUserOptions' {} a -> s {masterUserARN = a} :: MasterUserOptions)
 
-instance Hashable MasterUserOptions
+instance Prelude.Hashable MasterUserOptions
 
-instance NFData MasterUserOptions
+instance Prelude.NFData MasterUserOptions
 
-instance ToJSON MasterUserOptions where
+instance Prelude.ToJSON MasterUserOptions where
   toJSON MasterUserOptions' {..} =
-    object
-      ( catMaybes
-          [ ("MasterUserPassword" .=)
-              <$> _muoMasterUserPassword,
-            ("MasterUserName" .=) <$> _muoMasterUserName,
-            ("MasterUserARN" .=) <$> _muoMasterUserARN
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("MasterUserPassword" Prelude..=)
+              Prelude.<$> masterUserPassword,
+            ("MasterUserName" Prelude..=)
+              Prelude.<$> masterUserName,
+            ("MasterUserARN" Prelude..=)
+              Prelude.<$> masterUserARN
           ]
       )

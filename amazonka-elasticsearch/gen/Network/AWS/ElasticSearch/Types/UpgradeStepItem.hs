@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,72 +21,118 @@ module Network.AWS.ElasticSearch.Types.UpgradeStepItem where
 
 import Network.AWS.ElasticSearch.Types.UpgradeStatus
 import Network.AWS.ElasticSearch.Types.UpgradeStep
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents a single step of the Upgrade or Upgrade Eligibility Check workflow.
+-- | Represents a single step of the Upgrade or Upgrade Eligibility Check
+-- workflow.
 --
---
---
--- /See:/ 'upgradeStepItem' smart constructor.
+-- /See:/ 'newUpgradeStepItem' smart constructor.
 data UpgradeStepItem = UpgradeStepItem'
-  { _usiUpgradeStepStatus ::
-      !(Maybe UpgradeStatus),
-    _usiProgressPercent :: !(Maybe Double),
-    _usiUpgradeStep :: !(Maybe UpgradeStep),
-    _usiIssues :: !(Maybe [Text])
+  { -- | The status of a particular step during an upgrade. The status can take
+    -- one of the following values:
+    --
+    -- -   In Progress
+    -- -   Succeeded
+    -- -   Succeeded with Issues
+    -- -   Failed
+    upgradeStepStatus :: Prelude.Maybe UpgradeStatus,
+    -- | The Floating point value representing progress percentage of a
+    -- particular step.
+    progressPercent :: Prelude.Maybe Prelude.Double,
+    -- | Represents one of 3 steps that an Upgrade or Upgrade Eligibility Check
+    -- does through:
+    --
+    -- -   PreUpgradeCheck
+    -- -   Snapshot
+    -- -   Upgrade
+    upgradeStep :: Prelude.Maybe UpgradeStep,
+    -- | A list of strings containing detailed information about the errors
+    -- encountered in a particular step.
+    issues :: Prelude.Maybe [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpgradeStepItem' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpgradeStepItem' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'usiUpgradeStepStatus' - The status of a particular step during an upgrade. The status can take one of the following values:     * In Progress    * Succeeded    * Succeeded with Issues    * Failed
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'usiProgressPercent' - The Floating point value representing progress percentage of a particular step.
+-- 'upgradeStepStatus', 'upgradeStepItem_upgradeStepStatus' - The status of a particular step during an upgrade. The status can take
+-- one of the following values:
 --
--- * 'usiUpgradeStep' - Represents one of 3 steps that an Upgrade or Upgrade Eligibility Check does through:     * PreUpgradeCheck    * Snapshot    * Upgrade
+-- -   In Progress
+-- -   Succeeded
+-- -   Succeeded with Issues
+-- -   Failed
 --
--- * 'usiIssues' - A list of strings containing detailed information about the errors encountered in a particular step.
-upgradeStepItem ::
+-- 'progressPercent', 'upgradeStepItem_progressPercent' - The Floating point value representing progress percentage of a
+-- particular step.
+--
+-- 'upgradeStep', 'upgradeStepItem_upgradeStep' - Represents one of 3 steps that an Upgrade or Upgrade Eligibility Check
+-- does through:
+--
+-- -   PreUpgradeCheck
+-- -   Snapshot
+-- -   Upgrade
+--
+-- 'issues', 'upgradeStepItem_issues' - A list of strings containing detailed information about the errors
+-- encountered in a particular step.
+newUpgradeStepItem ::
   UpgradeStepItem
-upgradeStepItem =
+newUpgradeStepItem =
   UpgradeStepItem'
-    { _usiUpgradeStepStatus = Nothing,
-      _usiProgressPercent = Nothing,
-      _usiUpgradeStep = Nothing,
-      _usiIssues = Nothing
+    { upgradeStepStatus =
+        Prelude.Nothing,
+      progressPercent = Prelude.Nothing,
+      upgradeStep = Prelude.Nothing,
+      issues = Prelude.Nothing
     }
 
--- | The status of a particular step during an upgrade. The status can take one of the following values:     * In Progress    * Succeeded    * Succeeded with Issues    * Failed
-usiUpgradeStepStatus :: Lens' UpgradeStepItem (Maybe UpgradeStatus)
-usiUpgradeStepStatus = lens _usiUpgradeStepStatus (\s a -> s {_usiUpgradeStepStatus = a})
+-- | The status of a particular step during an upgrade. The status can take
+-- one of the following values:
+--
+-- -   In Progress
+-- -   Succeeded
+-- -   Succeeded with Issues
+-- -   Failed
+upgradeStepItem_upgradeStepStatus :: Lens.Lens' UpgradeStepItem (Prelude.Maybe UpgradeStatus)
+upgradeStepItem_upgradeStepStatus = Lens.lens (\UpgradeStepItem' {upgradeStepStatus} -> upgradeStepStatus) (\s@UpgradeStepItem' {} a -> s {upgradeStepStatus = a} :: UpgradeStepItem)
 
--- | The Floating point value representing progress percentage of a particular step.
-usiProgressPercent :: Lens' UpgradeStepItem (Maybe Double)
-usiProgressPercent = lens _usiProgressPercent (\s a -> s {_usiProgressPercent = a})
+-- | The Floating point value representing progress percentage of a
+-- particular step.
+upgradeStepItem_progressPercent :: Lens.Lens' UpgradeStepItem (Prelude.Maybe Prelude.Double)
+upgradeStepItem_progressPercent = Lens.lens (\UpgradeStepItem' {progressPercent} -> progressPercent) (\s@UpgradeStepItem' {} a -> s {progressPercent = a} :: UpgradeStepItem)
 
--- | Represents one of 3 steps that an Upgrade or Upgrade Eligibility Check does through:     * PreUpgradeCheck    * Snapshot    * Upgrade
-usiUpgradeStep :: Lens' UpgradeStepItem (Maybe UpgradeStep)
-usiUpgradeStep = lens _usiUpgradeStep (\s a -> s {_usiUpgradeStep = a})
+-- | Represents one of 3 steps that an Upgrade or Upgrade Eligibility Check
+-- does through:
+--
+-- -   PreUpgradeCheck
+-- -   Snapshot
+-- -   Upgrade
+upgradeStepItem_upgradeStep :: Lens.Lens' UpgradeStepItem (Prelude.Maybe UpgradeStep)
+upgradeStepItem_upgradeStep = Lens.lens (\UpgradeStepItem' {upgradeStep} -> upgradeStep) (\s@UpgradeStepItem' {} a -> s {upgradeStep = a} :: UpgradeStepItem)
 
--- | A list of strings containing detailed information about the errors encountered in a particular step.
-usiIssues :: Lens' UpgradeStepItem [Text]
-usiIssues = lens _usiIssues (\s a -> s {_usiIssues = a}) . _Default . _Coerce
+-- | A list of strings containing detailed information about the errors
+-- encountered in a particular step.
+upgradeStepItem_issues :: Lens.Lens' UpgradeStepItem (Prelude.Maybe [Prelude.Text])
+upgradeStepItem_issues = Lens.lens (\UpgradeStepItem' {issues} -> issues) (\s@UpgradeStepItem' {} a -> s {issues = a} :: UpgradeStepItem) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON UpgradeStepItem where
+instance Prelude.FromJSON UpgradeStepItem where
   parseJSON =
-    withObject
+    Prelude.withObject
       "UpgradeStepItem"
       ( \x ->
           UpgradeStepItem'
-            <$> (x .:? "UpgradeStepStatus")
-            <*> (x .:? "ProgressPercent")
-            <*> (x .:? "UpgradeStep")
-            <*> (x .:? "Issues" .!= mempty)
+            Prelude.<$> (x Prelude..:? "UpgradeStepStatus")
+            Prelude.<*> (x Prelude..:? "ProgressPercent")
+            Prelude.<*> (x Prelude..:? "UpgradeStep")
+            Prelude.<*> (x Prelude..:? "Issues" Prelude..!= Prelude.mempty)
       )
 
-instance Hashable UpgradeStepItem
+instance Prelude.Hashable UpgradeStepItem
 
-instance NFData UpgradeStepItem
+instance Prelude.NFData UpgradeStepItem

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,77 +19,75 @@
 module Network.AWS.ElasticSearch.Types.InboundCrossClusterSearchConnectionStatusCode
   ( InboundCrossClusterSearchConnectionStatusCode
       ( ..,
-        Approved,
-        Deleted,
-        Deleting,
-        PendingAcceptance,
-        Rejected,
-        Rejecting
+        InboundCrossClusterSearchConnectionStatusCodeAPPROVED,
+        InboundCrossClusterSearchConnectionStatusCodeDELETED,
+        InboundCrossClusterSearchConnectionStatusCodeDELETING,
+        InboundCrossClusterSearchConnectionStatusCodePENDINGACCEPTANCE,
+        InboundCrossClusterSearchConnectionStatusCodeREJECTED,
+        InboundCrossClusterSearchConnectionStatusCodeREJECTING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data InboundCrossClusterSearchConnectionStatusCode
-  = InboundCrossClusterSearchConnectionStatusCode'
-      ( CI
-          Text
-      )
+newtype InboundCrossClusterSearchConnectionStatusCode = InboundCrossClusterSearchConnectionStatusCode'
+  { fromInboundCrossClusterSearchConnectionStatusCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Approved :: InboundCrossClusterSearchConnectionStatusCode
-pattern Approved = InboundCrossClusterSearchConnectionStatusCode' "APPROVED"
+pattern InboundCrossClusterSearchConnectionStatusCodeAPPROVED :: InboundCrossClusterSearchConnectionStatusCode
+pattern InboundCrossClusterSearchConnectionStatusCodeAPPROVED = InboundCrossClusterSearchConnectionStatusCode' "APPROVED"
 
-pattern Deleted :: InboundCrossClusterSearchConnectionStatusCode
-pattern Deleted = InboundCrossClusterSearchConnectionStatusCode' "DELETED"
+pattern InboundCrossClusterSearchConnectionStatusCodeDELETED :: InboundCrossClusterSearchConnectionStatusCode
+pattern InboundCrossClusterSearchConnectionStatusCodeDELETED = InboundCrossClusterSearchConnectionStatusCode' "DELETED"
 
-pattern Deleting :: InboundCrossClusterSearchConnectionStatusCode
-pattern Deleting = InboundCrossClusterSearchConnectionStatusCode' "DELETING"
+pattern InboundCrossClusterSearchConnectionStatusCodeDELETING :: InboundCrossClusterSearchConnectionStatusCode
+pattern InboundCrossClusterSearchConnectionStatusCodeDELETING = InboundCrossClusterSearchConnectionStatusCode' "DELETING"
 
-pattern PendingAcceptance :: InboundCrossClusterSearchConnectionStatusCode
-pattern PendingAcceptance = InboundCrossClusterSearchConnectionStatusCode' "PENDING_ACCEPTANCE"
+pattern InboundCrossClusterSearchConnectionStatusCodePENDINGACCEPTANCE :: InboundCrossClusterSearchConnectionStatusCode
+pattern InboundCrossClusterSearchConnectionStatusCodePENDINGACCEPTANCE = InboundCrossClusterSearchConnectionStatusCode' "PENDING_ACCEPTANCE"
 
-pattern Rejected :: InboundCrossClusterSearchConnectionStatusCode
-pattern Rejected = InboundCrossClusterSearchConnectionStatusCode' "REJECTED"
+pattern InboundCrossClusterSearchConnectionStatusCodeREJECTED :: InboundCrossClusterSearchConnectionStatusCode
+pattern InboundCrossClusterSearchConnectionStatusCodeREJECTED = InboundCrossClusterSearchConnectionStatusCode' "REJECTED"
 
-pattern Rejecting :: InboundCrossClusterSearchConnectionStatusCode
-pattern Rejecting = InboundCrossClusterSearchConnectionStatusCode' "REJECTING"
+pattern InboundCrossClusterSearchConnectionStatusCodeREJECTING :: InboundCrossClusterSearchConnectionStatusCode
+pattern InboundCrossClusterSearchConnectionStatusCodeREJECTING = InboundCrossClusterSearchConnectionStatusCode' "REJECTING"
 
 {-# COMPLETE
-  Approved,
-  Deleted,
-  Deleting,
-  PendingAcceptance,
-  Rejected,
-  Rejecting,
+  InboundCrossClusterSearchConnectionStatusCodeAPPROVED,
+  InboundCrossClusterSearchConnectionStatusCodeDELETED,
+  InboundCrossClusterSearchConnectionStatusCodeDELETING,
+  InboundCrossClusterSearchConnectionStatusCodePENDINGACCEPTANCE,
+  InboundCrossClusterSearchConnectionStatusCodeREJECTED,
+  InboundCrossClusterSearchConnectionStatusCodeREJECTING,
   InboundCrossClusterSearchConnectionStatusCode'
   #-}
 
-instance FromText InboundCrossClusterSearchConnectionStatusCode where
-  parser = (InboundCrossClusterSearchConnectionStatusCode' . mk) <$> takeText
+instance Prelude.FromText InboundCrossClusterSearchConnectionStatusCode where
+  parser = InboundCrossClusterSearchConnectionStatusCode' Prelude.<$> Prelude.takeText
 
-instance ToText InboundCrossClusterSearchConnectionStatusCode where
-  toText (InboundCrossClusterSearchConnectionStatusCode' ci) = original ci
+instance Prelude.ToText InboundCrossClusterSearchConnectionStatusCode where
+  toText (InboundCrossClusterSearchConnectionStatusCode' x) = x
 
-instance Hashable InboundCrossClusterSearchConnectionStatusCode
+instance Prelude.Hashable InboundCrossClusterSearchConnectionStatusCode
 
-instance NFData InboundCrossClusterSearchConnectionStatusCode
+instance Prelude.NFData InboundCrossClusterSearchConnectionStatusCode
 
-instance ToByteString InboundCrossClusterSearchConnectionStatusCode
+instance Prelude.ToByteString InboundCrossClusterSearchConnectionStatusCode
 
-instance ToQuery InboundCrossClusterSearchConnectionStatusCode
+instance Prelude.ToQuery InboundCrossClusterSearchConnectionStatusCode
 
-instance ToHeader InboundCrossClusterSearchConnectionStatusCode
+instance Prelude.ToHeader InboundCrossClusterSearchConnectionStatusCode
 
-instance FromJSON InboundCrossClusterSearchConnectionStatusCode where
-  parseJSON = parseJSONText "InboundCrossClusterSearchConnectionStatusCode"
+instance Prelude.FromJSON InboundCrossClusterSearchConnectionStatusCode where
+  parseJSON = Prelude.parseJSONText "InboundCrossClusterSearchConnectionStatusCode"

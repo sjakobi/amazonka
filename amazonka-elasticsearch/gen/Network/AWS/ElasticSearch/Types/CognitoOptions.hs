@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,83 +19,94 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ElasticSearch.Types.CognitoOptions where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Options to specify the Cognito user and identity pools for Kibana authentication. For more information, see <http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-cognito-auth.html Amazon Cognito Authentication for Kibana> .
+-- | Options to specify the Cognito user and identity pools for Kibana
+-- authentication. For more information, see
+-- <http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-cognito-auth.html Amazon Cognito Authentication for Kibana>.
 --
---
---
--- /See:/ 'cognitoOptions' smart constructor.
+-- /See:/ 'newCognitoOptions' smart constructor.
 data CognitoOptions = CognitoOptions'
-  { _coIdentityPoolId ::
-      !(Maybe Text),
-    _coRoleARN :: !(Maybe Text),
-    _coUserPoolId :: !(Maybe Text),
-    _coEnabled :: !(Maybe Bool)
+  { -- | Specifies the Cognito identity pool ID for Kibana authentication.
+    identityPoolId :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the role ARN that provides Elasticsearch permissions for
+    -- accessing Cognito resources.
+    roleArn :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the Cognito user pool ID for Kibana authentication.
+    userPoolId :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the option to enable Cognito for Kibana authentication.
+    enabled :: Prelude.Maybe Prelude.Bool
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CognitoOptions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CognitoOptions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'coIdentityPoolId' - Specifies the Cognito identity pool ID for Kibana authentication.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'coRoleARN' - Specifies the role ARN that provides Elasticsearch permissions for accessing Cognito resources.
+-- 'identityPoolId', 'cognitoOptions_identityPoolId' - Specifies the Cognito identity pool ID for Kibana authentication.
 --
--- * 'coUserPoolId' - Specifies the Cognito user pool ID for Kibana authentication.
+-- 'roleArn', 'cognitoOptions_roleArn' - Specifies the role ARN that provides Elasticsearch permissions for
+-- accessing Cognito resources.
 --
--- * 'coEnabled' - Specifies the option to enable Cognito for Kibana authentication.
-cognitoOptions ::
+-- 'userPoolId', 'cognitoOptions_userPoolId' - Specifies the Cognito user pool ID for Kibana authentication.
+--
+-- 'enabled', 'cognitoOptions_enabled' - Specifies the option to enable Cognito for Kibana authentication.
+newCognitoOptions ::
   CognitoOptions
-cognitoOptions =
+newCognitoOptions =
   CognitoOptions'
-    { _coIdentityPoolId = Nothing,
-      _coRoleARN = Nothing,
-      _coUserPoolId = Nothing,
-      _coEnabled = Nothing
+    { identityPoolId = Prelude.Nothing,
+      roleArn = Prelude.Nothing,
+      userPoolId = Prelude.Nothing,
+      enabled = Prelude.Nothing
     }
 
 -- | Specifies the Cognito identity pool ID for Kibana authentication.
-coIdentityPoolId :: Lens' CognitoOptions (Maybe Text)
-coIdentityPoolId = lens _coIdentityPoolId (\s a -> s {_coIdentityPoolId = a})
+cognitoOptions_identityPoolId :: Lens.Lens' CognitoOptions (Prelude.Maybe Prelude.Text)
+cognitoOptions_identityPoolId = Lens.lens (\CognitoOptions' {identityPoolId} -> identityPoolId) (\s@CognitoOptions' {} a -> s {identityPoolId = a} :: CognitoOptions)
 
--- | Specifies the role ARN that provides Elasticsearch permissions for accessing Cognito resources.
-coRoleARN :: Lens' CognitoOptions (Maybe Text)
-coRoleARN = lens _coRoleARN (\s a -> s {_coRoleARN = a})
+-- | Specifies the role ARN that provides Elasticsearch permissions for
+-- accessing Cognito resources.
+cognitoOptions_roleArn :: Lens.Lens' CognitoOptions (Prelude.Maybe Prelude.Text)
+cognitoOptions_roleArn = Lens.lens (\CognitoOptions' {roleArn} -> roleArn) (\s@CognitoOptions' {} a -> s {roleArn = a} :: CognitoOptions)
 
 -- | Specifies the Cognito user pool ID for Kibana authentication.
-coUserPoolId :: Lens' CognitoOptions (Maybe Text)
-coUserPoolId = lens _coUserPoolId (\s a -> s {_coUserPoolId = a})
+cognitoOptions_userPoolId :: Lens.Lens' CognitoOptions (Prelude.Maybe Prelude.Text)
+cognitoOptions_userPoolId = Lens.lens (\CognitoOptions' {userPoolId} -> userPoolId) (\s@CognitoOptions' {} a -> s {userPoolId = a} :: CognitoOptions)
 
 -- | Specifies the option to enable Cognito for Kibana authentication.
-coEnabled :: Lens' CognitoOptions (Maybe Bool)
-coEnabled = lens _coEnabled (\s a -> s {_coEnabled = a})
+cognitoOptions_enabled :: Lens.Lens' CognitoOptions (Prelude.Maybe Prelude.Bool)
+cognitoOptions_enabled = Lens.lens (\CognitoOptions' {enabled} -> enabled) (\s@CognitoOptions' {} a -> s {enabled = a} :: CognitoOptions)
 
-instance FromJSON CognitoOptions where
+instance Prelude.FromJSON CognitoOptions where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CognitoOptions"
       ( \x ->
           CognitoOptions'
-            <$> (x .:? "IdentityPoolId")
-            <*> (x .:? "RoleArn")
-            <*> (x .:? "UserPoolId")
-            <*> (x .:? "Enabled")
+            Prelude.<$> (x Prelude..:? "IdentityPoolId")
+            Prelude.<*> (x Prelude..:? "RoleArn")
+            Prelude.<*> (x Prelude..:? "UserPoolId")
+            Prelude.<*> (x Prelude..:? "Enabled")
       )
 
-instance Hashable CognitoOptions
+instance Prelude.Hashable CognitoOptions
 
-instance NFData CognitoOptions
+instance Prelude.NFData CognitoOptions
 
-instance ToJSON CognitoOptions where
+instance Prelude.ToJSON CognitoOptions where
   toJSON CognitoOptions' {..} =
-    object
-      ( catMaybes
-          [ ("IdentityPoolId" .=) <$> _coIdentityPoolId,
-            ("RoleArn" .=) <$> _coRoleARN,
-            ("UserPoolId" .=) <$> _coUserPoolId,
-            ("Enabled" .=) <$> _coEnabled
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("IdentityPoolId" Prelude..=)
+              Prelude.<$> identityPoolId,
+            ("RoleArn" Prelude..=) Prelude.<$> roleArn,
+            ("UserPoolId" Prelude..=) Prelude.<$> userPoolId,
+            ("Enabled" Prelude..=) Prelude.<$> enabled
           ]
       )

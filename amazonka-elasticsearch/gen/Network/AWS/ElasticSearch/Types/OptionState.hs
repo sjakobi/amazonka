@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,65 @@
 module Network.AWS.ElasticSearch.Types.OptionState
   ( OptionState
       ( ..,
-        Active,
-        Processing,
-        RequiresIndexDocuments
+        OptionStateActive,
+        OptionStateProcessing,
+        OptionStateRequiresIndexDocuments
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The state of a requested change. One of the following:
 --
---
---     * Processing: The request change is still in-process.    * Active: The request change is processed and deployed to the Elasticsearch domain.
-data OptionState = OptionState' (CI Text)
+-- -   Processing: The request change is still in-process.
+-- -   Active: The request change is processed and deployed to the
+--     Elasticsearch domain.
+newtype OptionState = OptionState'
+  { fromOptionState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Active :: OptionState
-pattern Active = OptionState' "Active"
+pattern OptionStateActive :: OptionState
+pattern OptionStateActive = OptionState' "Active"
 
-pattern Processing :: OptionState
-pattern Processing = OptionState' "Processing"
+pattern OptionStateProcessing :: OptionState
+pattern OptionStateProcessing = OptionState' "Processing"
 
-pattern RequiresIndexDocuments :: OptionState
-pattern RequiresIndexDocuments = OptionState' "RequiresIndexDocuments"
+pattern OptionStateRequiresIndexDocuments :: OptionState
+pattern OptionStateRequiresIndexDocuments = OptionState' "RequiresIndexDocuments"
 
 {-# COMPLETE
-  Active,
-  Processing,
-  RequiresIndexDocuments,
+  OptionStateActive,
+  OptionStateProcessing,
+  OptionStateRequiresIndexDocuments,
   OptionState'
   #-}
 
-instance FromText OptionState where
-  parser = (OptionState' . mk) <$> takeText
+instance Prelude.FromText OptionState where
+  parser = OptionState' Prelude.<$> Prelude.takeText
 
-instance ToText OptionState where
-  toText (OptionState' ci) = original ci
+instance Prelude.ToText OptionState where
+  toText (OptionState' x) = x
 
-instance Hashable OptionState
+instance Prelude.Hashable OptionState
 
-instance NFData OptionState
+instance Prelude.NFData OptionState
 
-instance ToByteString OptionState
+instance Prelude.ToByteString OptionState
 
-instance ToQuery OptionState
+instance Prelude.ToQuery OptionState
 
-instance ToHeader OptionState
+instance Prelude.ToHeader OptionState
 
-instance FromJSON OptionState where
-  parseJSON = parseJSONText "OptionState"
+instance Prelude.FromJSON OptionState where
+  parseJSON = Prelude.parseJSONText "OptionState"

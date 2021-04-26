@@ -28,247 +28,247 @@ import Test.Tasty
 -- fixtures =
 --     [ testGroup "request"
 --         [ requestDescribeInboundCrossClusterSearchConnections $
---             describeInboundCrossClusterSearchConnections
+--             newDescribeInboundCrossClusterSearchConnections
 --
 --         , requestRemoveTags $
---             removeTags
+--             newRemoveTags
 --
 --         , requestCreateOutboundCrossClusterSearchConnection $
---             createOutboundCrossClusterSearchConnection
+--             newCreateOutboundCrossClusterSearchConnection
 --
 --         , requestGetUpgradeHistory $
---             getUpgradeHistory
+--             newGetUpgradeHistory
 --
 --         , requestDescribeElasticsearchDomainConfig $
---             describeElasticsearchDomainConfig
+--             newDescribeElasticsearchDomainConfig
 --
 --         , requestAcceptInboundCrossClusterSearchConnection $
---             acceptInboundCrossClusterSearchConnection
+--             newAcceptInboundCrossClusterSearchConnection
 --
 --         , requestDeleteOutboundCrossClusterSearchConnection $
---             deleteOutboundCrossClusterSearchConnection
+--             newDeleteOutboundCrossClusterSearchConnection
 --
 --         , requestListDomainNames $
---             listDomainNames
+--             newListDomainNames
 --
 --         , requestCancelElasticsearchServiceSoftwareUpdate $
---             cancelElasticsearchServiceSoftwareUpdate
+--             newCancelElasticsearchServiceSoftwareUpdate
 --
 --         , requestDescribeElasticsearchDomain $
---             describeElasticsearchDomain
+--             newDescribeElasticsearchDomain
 --
 --         , requestDeleteElasticsearchServiceRole $
---             deleteElasticsearchServiceRole
+--             newDeleteElasticsearchServiceRole
 --
 --         , requestListElasticsearchInstanceTypes $
---             listElasticsearchInstanceTypes
+--             newListElasticsearchInstanceTypes
 --
 --         , requestUpdatePackage $
---             updatePackage
+--             newUpdatePackage
 --
 --         , requestDeletePackage $
---             deletePackage
+--             newDeletePackage
 --
 --         , requestAddTags $
---             addTags
+--             newAddTags
 --
 --         , requestDeleteInboundCrossClusterSearchConnection $
---             deleteInboundCrossClusterSearchConnection
+--             newDeleteInboundCrossClusterSearchConnection
 --
 --         , requestUpdateElasticsearchDomainConfig $
---             updateElasticsearchDomainConfig
+--             newUpdateElasticsearchDomainConfig
 --
 --         , requestListElasticsearchVersions $
---             listElasticsearchVersions
+--             newListElasticsearchVersions
 --
 --         , requestDeleteElasticsearchDomain $
---             deleteElasticsearchDomain
+--             newDeleteElasticsearchDomain
 --
 --         , requestGetCompatibleElasticsearchVersions $
---             getCompatibleElasticsearchVersions
+--             newGetCompatibleElasticsearchVersions
 --
 --         , requestDissociatePackage $
---             dissociatePackage
+--             newDissociatePackage
 --
 --         , requestCreateElasticsearchDomain $
---             createElasticsearchDomain
+--             newCreateElasticsearchDomain
 --
 --         , requestDescribePackages $
---             describePackages
+--             newDescribePackages
 --
 --         , requestGetPackageVersionHistory $
---             getPackageVersionHistory
+--             newGetPackageVersionHistory
 --
 --         , requestDescribeElasticsearchInstanceTypeLimits $
---             describeElasticsearchInstanceTypeLimits
+--             newDescribeElasticsearchInstanceTypeLimits
 --
 --         , requestDescribeOutboundCrossClusterSearchConnections $
---             describeOutboundCrossClusterSearchConnections
+--             newDescribeOutboundCrossClusterSearchConnections
 --
 --         , requestAssociatePackage $
---             associatePackage
+--             newAssociatePackage
 --
 --         , requestCreatePackage $
---             createPackage
+--             newCreatePackage
 --
 --         , requestRejectInboundCrossClusterSearchConnection $
---             rejectInboundCrossClusterSearchConnection
+--             newRejectInboundCrossClusterSearchConnection
 --
 --         , requestDescribeDomainAutoTunes $
---             describeDomainAutoTunes
+--             newDescribeDomainAutoTunes
 --
 --         , requestListTags $
---             listTags
+--             newListTags
 --
 --         , requestUpgradeElasticsearchDomain $
---             upgradeElasticsearchDomain
+--             newUpgradeElasticsearchDomain
 --
 --         , requestListPackagesForDomain $
---             listPackagesForDomain
+--             newListPackagesForDomain
 --
 --         , requestDescribeReservedElasticsearchInstances $
---             describeReservedElasticsearchInstances
+--             newDescribeReservedElasticsearchInstances
 --
 --         , requestDescribeReservedElasticsearchInstanceOfferings $
---             describeReservedElasticsearchInstanceOfferings
+--             newDescribeReservedElasticsearchInstanceOfferings
 --
 --         , requestStartElasticsearchServiceSoftwareUpdate $
---             startElasticsearchServiceSoftwareUpdate
+--             newStartElasticsearchServiceSoftwareUpdate
 --
 --         , requestListDomainsForPackage $
---             listDomainsForPackage
+--             newListDomainsForPackage
 --
 --         , requestDescribeElasticsearchDomains $
---             describeElasticsearchDomains
+--             newDescribeElasticsearchDomains
 --
 --         , requestPurchaseReservedElasticsearchInstanceOffering $
---             purchaseReservedElasticsearchInstanceOffering
+--             newPurchaseReservedElasticsearchInstanceOffering
 --
 --         , requestGetUpgradeStatus $
---             getUpgradeStatus
+--             newGetUpgradeStatus
 --
 --           ]
 
 --     , testGroup "response"
 --         [ responseDescribeInboundCrossClusterSearchConnections $
---             describeInboundCrossClusterSearchConnectionsResponse
+--             newDescribeInboundCrossClusterSearchConnectionsResponse
 --
 --         , responseRemoveTags $
---             removeTagsResponse
+--             newRemoveTagsResponse
 --
 --         , responseCreateOutboundCrossClusterSearchConnection $
---             createOutboundCrossClusterSearchConnectionResponse
+--             newCreateOutboundCrossClusterSearchConnectionResponse
 --
 --         , responseGetUpgradeHistory $
---             getUpgradeHistoryResponse
+--             newGetUpgradeHistoryResponse
 --
 --         , responseDescribeElasticsearchDomainConfig $
---             describeElasticsearchDomainConfigResponse
+--             newDescribeElasticsearchDomainConfigResponse
 --
 --         , responseAcceptInboundCrossClusterSearchConnection $
---             acceptInboundCrossClusterSearchConnectionResponse
+--             newAcceptInboundCrossClusterSearchConnectionResponse
 --
 --         , responseDeleteOutboundCrossClusterSearchConnection $
---             deleteOutboundCrossClusterSearchConnectionResponse
+--             newDeleteOutboundCrossClusterSearchConnectionResponse
 --
 --         , responseListDomainNames $
---             listDomainNamesResponse
+--             newListDomainNamesResponse
 --
 --         , responseCancelElasticsearchServiceSoftwareUpdate $
---             cancelElasticsearchServiceSoftwareUpdateResponse
+--             newCancelElasticsearchServiceSoftwareUpdateResponse
 --
 --         , responseDescribeElasticsearchDomain $
---             describeElasticsearchDomainResponse
+--             newDescribeElasticsearchDomainResponse
 --
 --         , responseDeleteElasticsearchServiceRole $
---             deleteElasticsearchServiceRoleResponse
+--             newDeleteElasticsearchServiceRoleResponse
 --
 --         , responseListElasticsearchInstanceTypes $
---             listElasticsearchInstanceTypesResponse
+--             newListElasticsearchInstanceTypesResponse
 --
 --         , responseUpdatePackage $
---             updatePackageResponse
+--             newUpdatePackageResponse
 --
 --         , responseDeletePackage $
---             deletePackageResponse
+--             newDeletePackageResponse
 --
 --         , responseAddTags $
---             addTagsResponse
+--             newAddTagsResponse
 --
 --         , responseDeleteInboundCrossClusterSearchConnection $
---             deleteInboundCrossClusterSearchConnectionResponse
+--             newDeleteInboundCrossClusterSearchConnectionResponse
 --
 --         , responseUpdateElasticsearchDomainConfig $
---             updateElasticsearchDomainConfigResponse
+--             newUpdateElasticsearchDomainConfigResponse
 --
 --         , responseListElasticsearchVersions $
---             listElasticsearchVersionsResponse
+--             newListElasticsearchVersionsResponse
 --
 --         , responseDeleteElasticsearchDomain $
---             deleteElasticsearchDomainResponse
+--             newDeleteElasticsearchDomainResponse
 --
 --         , responseGetCompatibleElasticsearchVersions $
---             getCompatibleElasticsearchVersionsResponse
+--             newGetCompatibleElasticsearchVersionsResponse
 --
 --         , responseDissociatePackage $
---             dissociatePackageResponse
+--             newDissociatePackageResponse
 --
 --         , responseCreateElasticsearchDomain $
---             createElasticsearchDomainResponse
+--             newCreateElasticsearchDomainResponse
 --
 --         , responseDescribePackages $
---             describePackagesResponse
+--             newDescribePackagesResponse
 --
 --         , responseGetPackageVersionHistory $
---             getPackageVersionHistoryResponse
+--             newGetPackageVersionHistoryResponse
 --
 --         , responseDescribeElasticsearchInstanceTypeLimits $
---             describeElasticsearchInstanceTypeLimitsResponse
+--             newDescribeElasticsearchInstanceTypeLimitsResponse
 --
 --         , responseDescribeOutboundCrossClusterSearchConnections $
---             describeOutboundCrossClusterSearchConnectionsResponse
+--             newDescribeOutboundCrossClusterSearchConnectionsResponse
 --
 --         , responseAssociatePackage $
---             associatePackageResponse
+--             newAssociatePackageResponse
 --
 --         , responseCreatePackage $
---             createPackageResponse
+--             newCreatePackageResponse
 --
 --         , responseRejectInboundCrossClusterSearchConnection $
---             rejectInboundCrossClusterSearchConnectionResponse
+--             newRejectInboundCrossClusterSearchConnectionResponse
 --
 --         , responseDescribeDomainAutoTunes $
---             describeDomainAutoTunesResponse
+--             newDescribeDomainAutoTunesResponse
 --
 --         , responseListTags $
---             listTagsResponse
+--             newListTagsResponse
 --
 --         , responseUpgradeElasticsearchDomain $
---             upgradeElasticsearchDomainResponse
+--             newUpgradeElasticsearchDomainResponse
 --
 --         , responseListPackagesForDomain $
---             listPackagesForDomainResponse
+--             newListPackagesForDomainResponse
 --
 --         , responseDescribeReservedElasticsearchInstances $
---             describeReservedElasticsearchInstancesResponse
+--             newDescribeReservedElasticsearchInstancesResponse
 --
 --         , responseDescribeReservedElasticsearchInstanceOfferings $
---             describeReservedElasticsearchInstanceOfferingsResponse
+--             newDescribeReservedElasticsearchInstanceOfferingsResponse
 --
 --         , responseStartElasticsearchServiceSoftwareUpdate $
---             startElasticsearchServiceSoftwareUpdateResponse
+--             newStartElasticsearchServiceSoftwareUpdateResponse
 --
 --         , responseListDomainsForPackage $
---             listDomainsForPackageResponse
+--             newListDomainsForPackageResponse
 --
 --         , responseDescribeElasticsearchDomains $
---             describeElasticsearchDomainsResponse
+--             newDescribeElasticsearchDomainsResponse
 --
 --         , responsePurchaseReservedElasticsearchInstanceOffering $
---             purchaseReservedElasticsearchInstanceOfferingResponse
+--             newPurchaseReservedElasticsearchInstanceOfferingResponse
 --
 --         , responseGetUpgradeStatus $
---             getUpgradeStatusResponse
+--             newGetUpgradeStatusResponse
 --
 --           ]
 --     ]
@@ -522,7 +522,7 @@ responseDescribeInboundCrossClusterSearchConnections =
   res
     "DescribeInboundCrossClusterSearchConnectionsResponse"
     "fixture/DescribeInboundCrossClusterSearchConnectionsResponse.proto"
-    elasticSearch
+    defaultService
     (Proxy :: Proxy DescribeInboundCrossClusterSearchConnections)
 
 responseRemoveTags :: RemoveTagsResponse -> TestTree
@@ -530,7 +530,7 @@ responseRemoveTags =
   res
     "RemoveTagsResponse"
     "fixture/RemoveTagsResponse.proto"
-    elasticSearch
+    defaultService
     (Proxy :: Proxy RemoveTags)
 
 responseCreateOutboundCrossClusterSearchConnection :: CreateOutboundCrossClusterSearchConnectionResponse -> TestTree
@@ -538,7 +538,7 @@ responseCreateOutboundCrossClusterSearchConnection =
   res
     "CreateOutboundCrossClusterSearchConnectionResponse"
     "fixture/CreateOutboundCrossClusterSearchConnectionResponse.proto"
-    elasticSearch
+    defaultService
     (Proxy :: Proxy CreateOutboundCrossClusterSearchConnection)
 
 responseGetUpgradeHistory :: GetUpgradeHistoryResponse -> TestTree
@@ -546,7 +546,7 @@ responseGetUpgradeHistory =
   res
     "GetUpgradeHistoryResponse"
     "fixture/GetUpgradeHistoryResponse.proto"
-    elasticSearch
+    defaultService
     (Proxy :: Proxy GetUpgradeHistory)
 
 responseDescribeElasticsearchDomainConfig :: DescribeElasticsearchDomainConfigResponse -> TestTree
@@ -554,7 +554,7 @@ responseDescribeElasticsearchDomainConfig =
   res
     "DescribeElasticsearchDomainConfigResponse"
     "fixture/DescribeElasticsearchDomainConfigResponse.proto"
-    elasticSearch
+    defaultService
     (Proxy :: Proxy DescribeElasticsearchDomainConfig)
 
 responseAcceptInboundCrossClusterSearchConnection :: AcceptInboundCrossClusterSearchConnectionResponse -> TestTree
@@ -562,7 +562,7 @@ responseAcceptInboundCrossClusterSearchConnection =
   res
     "AcceptInboundCrossClusterSearchConnectionResponse"
     "fixture/AcceptInboundCrossClusterSearchConnectionResponse.proto"
-    elasticSearch
+    defaultService
     (Proxy :: Proxy AcceptInboundCrossClusterSearchConnection)
 
 responseDeleteOutboundCrossClusterSearchConnection :: DeleteOutboundCrossClusterSearchConnectionResponse -> TestTree
@@ -570,7 +570,7 @@ responseDeleteOutboundCrossClusterSearchConnection =
   res
     "DeleteOutboundCrossClusterSearchConnectionResponse"
     "fixture/DeleteOutboundCrossClusterSearchConnectionResponse.proto"
-    elasticSearch
+    defaultService
     (Proxy :: Proxy DeleteOutboundCrossClusterSearchConnection)
 
 responseListDomainNames :: ListDomainNamesResponse -> TestTree
@@ -578,7 +578,7 @@ responseListDomainNames =
   res
     "ListDomainNamesResponse"
     "fixture/ListDomainNamesResponse.proto"
-    elasticSearch
+    defaultService
     (Proxy :: Proxy ListDomainNames)
 
 responseCancelElasticsearchServiceSoftwareUpdate :: CancelElasticsearchServiceSoftwareUpdateResponse -> TestTree
@@ -586,7 +586,7 @@ responseCancelElasticsearchServiceSoftwareUpdate =
   res
     "CancelElasticsearchServiceSoftwareUpdateResponse"
     "fixture/CancelElasticsearchServiceSoftwareUpdateResponse.proto"
-    elasticSearch
+    defaultService
     (Proxy :: Proxy CancelElasticsearchServiceSoftwareUpdate)
 
 responseDescribeElasticsearchDomain :: DescribeElasticsearchDomainResponse -> TestTree
@@ -594,7 +594,7 @@ responseDescribeElasticsearchDomain =
   res
     "DescribeElasticsearchDomainResponse"
     "fixture/DescribeElasticsearchDomainResponse.proto"
-    elasticSearch
+    defaultService
     (Proxy :: Proxy DescribeElasticsearchDomain)
 
 responseDeleteElasticsearchServiceRole :: DeleteElasticsearchServiceRoleResponse -> TestTree
@@ -602,7 +602,7 @@ responseDeleteElasticsearchServiceRole =
   res
     "DeleteElasticsearchServiceRoleResponse"
     "fixture/DeleteElasticsearchServiceRoleResponse.proto"
-    elasticSearch
+    defaultService
     (Proxy :: Proxy DeleteElasticsearchServiceRole)
 
 responseListElasticsearchInstanceTypes :: ListElasticsearchInstanceTypesResponse -> TestTree
@@ -610,7 +610,7 @@ responseListElasticsearchInstanceTypes =
   res
     "ListElasticsearchInstanceTypesResponse"
     "fixture/ListElasticsearchInstanceTypesResponse.proto"
-    elasticSearch
+    defaultService
     (Proxy :: Proxy ListElasticsearchInstanceTypes)
 
 responseUpdatePackage :: UpdatePackageResponse -> TestTree
@@ -618,7 +618,7 @@ responseUpdatePackage =
   res
     "UpdatePackageResponse"
     "fixture/UpdatePackageResponse.proto"
-    elasticSearch
+    defaultService
     (Proxy :: Proxy UpdatePackage)
 
 responseDeletePackage :: DeletePackageResponse -> TestTree
@@ -626,7 +626,7 @@ responseDeletePackage =
   res
     "DeletePackageResponse"
     "fixture/DeletePackageResponse.proto"
-    elasticSearch
+    defaultService
     (Proxy :: Proxy DeletePackage)
 
 responseAddTags :: AddTagsResponse -> TestTree
@@ -634,7 +634,7 @@ responseAddTags =
   res
     "AddTagsResponse"
     "fixture/AddTagsResponse.proto"
-    elasticSearch
+    defaultService
     (Proxy :: Proxy AddTags)
 
 responseDeleteInboundCrossClusterSearchConnection :: DeleteInboundCrossClusterSearchConnectionResponse -> TestTree
@@ -642,7 +642,7 @@ responseDeleteInboundCrossClusterSearchConnection =
   res
     "DeleteInboundCrossClusterSearchConnectionResponse"
     "fixture/DeleteInboundCrossClusterSearchConnectionResponse.proto"
-    elasticSearch
+    defaultService
     (Proxy :: Proxy DeleteInboundCrossClusterSearchConnection)
 
 responseUpdateElasticsearchDomainConfig :: UpdateElasticsearchDomainConfigResponse -> TestTree
@@ -650,7 +650,7 @@ responseUpdateElasticsearchDomainConfig =
   res
     "UpdateElasticsearchDomainConfigResponse"
     "fixture/UpdateElasticsearchDomainConfigResponse.proto"
-    elasticSearch
+    defaultService
     (Proxy :: Proxy UpdateElasticsearchDomainConfig)
 
 responseListElasticsearchVersions :: ListElasticsearchVersionsResponse -> TestTree
@@ -658,7 +658,7 @@ responseListElasticsearchVersions =
   res
     "ListElasticsearchVersionsResponse"
     "fixture/ListElasticsearchVersionsResponse.proto"
-    elasticSearch
+    defaultService
     (Proxy :: Proxy ListElasticsearchVersions)
 
 responseDeleteElasticsearchDomain :: DeleteElasticsearchDomainResponse -> TestTree
@@ -666,7 +666,7 @@ responseDeleteElasticsearchDomain =
   res
     "DeleteElasticsearchDomainResponse"
     "fixture/DeleteElasticsearchDomainResponse.proto"
-    elasticSearch
+    defaultService
     (Proxy :: Proxy DeleteElasticsearchDomain)
 
 responseGetCompatibleElasticsearchVersions :: GetCompatibleElasticsearchVersionsResponse -> TestTree
@@ -674,7 +674,7 @@ responseGetCompatibleElasticsearchVersions =
   res
     "GetCompatibleElasticsearchVersionsResponse"
     "fixture/GetCompatibleElasticsearchVersionsResponse.proto"
-    elasticSearch
+    defaultService
     (Proxy :: Proxy GetCompatibleElasticsearchVersions)
 
 responseDissociatePackage :: DissociatePackageResponse -> TestTree
@@ -682,7 +682,7 @@ responseDissociatePackage =
   res
     "DissociatePackageResponse"
     "fixture/DissociatePackageResponse.proto"
-    elasticSearch
+    defaultService
     (Proxy :: Proxy DissociatePackage)
 
 responseCreateElasticsearchDomain :: CreateElasticsearchDomainResponse -> TestTree
@@ -690,7 +690,7 @@ responseCreateElasticsearchDomain =
   res
     "CreateElasticsearchDomainResponse"
     "fixture/CreateElasticsearchDomainResponse.proto"
-    elasticSearch
+    defaultService
     (Proxy :: Proxy CreateElasticsearchDomain)
 
 responseDescribePackages :: DescribePackagesResponse -> TestTree
@@ -698,7 +698,7 @@ responseDescribePackages =
   res
     "DescribePackagesResponse"
     "fixture/DescribePackagesResponse.proto"
-    elasticSearch
+    defaultService
     (Proxy :: Proxy DescribePackages)
 
 responseGetPackageVersionHistory :: GetPackageVersionHistoryResponse -> TestTree
@@ -706,7 +706,7 @@ responseGetPackageVersionHistory =
   res
     "GetPackageVersionHistoryResponse"
     "fixture/GetPackageVersionHistoryResponse.proto"
-    elasticSearch
+    defaultService
     (Proxy :: Proxy GetPackageVersionHistory)
 
 responseDescribeElasticsearchInstanceTypeLimits :: DescribeElasticsearchInstanceTypeLimitsResponse -> TestTree
@@ -714,7 +714,7 @@ responseDescribeElasticsearchInstanceTypeLimits =
   res
     "DescribeElasticsearchInstanceTypeLimitsResponse"
     "fixture/DescribeElasticsearchInstanceTypeLimitsResponse.proto"
-    elasticSearch
+    defaultService
     (Proxy :: Proxy DescribeElasticsearchInstanceTypeLimits)
 
 responseDescribeOutboundCrossClusterSearchConnections :: DescribeOutboundCrossClusterSearchConnectionsResponse -> TestTree
@@ -722,7 +722,7 @@ responseDescribeOutboundCrossClusterSearchConnections =
   res
     "DescribeOutboundCrossClusterSearchConnectionsResponse"
     "fixture/DescribeOutboundCrossClusterSearchConnectionsResponse.proto"
-    elasticSearch
+    defaultService
     (Proxy :: Proxy DescribeOutboundCrossClusterSearchConnections)
 
 responseAssociatePackage :: AssociatePackageResponse -> TestTree
@@ -730,7 +730,7 @@ responseAssociatePackage =
   res
     "AssociatePackageResponse"
     "fixture/AssociatePackageResponse.proto"
-    elasticSearch
+    defaultService
     (Proxy :: Proxy AssociatePackage)
 
 responseCreatePackage :: CreatePackageResponse -> TestTree
@@ -738,7 +738,7 @@ responseCreatePackage =
   res
     "CreatePackageResponse"
     "fixture/CreatePackageResponse.proto"
-    elasticSearch
+    defaultService
     (Proxy :: Proxy CreatePackage)
 
 responseRejectInboundCrossClusterSearchConnection :: RejectInboundCrossClusterSearchConnectionResponse -> TestTree
@@ -746,7 +746,7 @@ responseRejectInboundCrossClusterSearchConnection =
   res
     "RejectInboundCrossClusterSearchConnectionResponse"
     "fixture/RejectInboundCrossClusterSearchConnectionResponse.proto"
-    elasticSearch
+    defaultService
     (Proxy :: Proxy RejectInboundCrossClusterSearchConnection)
 
 responseDescribeDomainAutoTunes :: DescribeDomainAutoTunesResponse -> TestTree
@@ -754,7 +754,7 @@ responseDescribeDomainAutoTunes =
   res
     "DescribeDomainAutoTunesResponse"
     "fixture/DescribeDomainAutoTunesResponse.proto"
-    elasticSearch
+    defaultService
     (Proxy :: Proxy DescribeDomainAutoTunes)
 
 responseListTags :: ListTagsResponse -> TestTree
@@ -762,7 +762,7 @@ responseListTags =
   res
     "ListTagsResponse"
     "fixture/ListTagsResponse.proto"
-    elasticSearch
+    defaultService
     (Proxy :: Proxy ListTags)
 
 responseUpgradeElasticsearchDomain :: UpgradeElasticsearchDomainResponse -> TestTree
@@ -770,7 +770,7 @@ responseUpgradeElasticsearchDomain =
   res
     "UpgradeElasticsearchDomainResponse"
     "fixture/UpgradeElasticsearchDomainResponse.proto"
-    elasticSearch
+    defaultService
     (Proxy :: Proxy UpgradeElasticsearchDomain)
 
 responseListPackagesForDomain :: ListPackagesForDomainResponse -> TestTree
@@ -778,7 +778,7 @@ responseListPackagesForDomain =
   res
     "ListPackagesForDomainResponse"
     "fixture/ListPackagesForDomainResponse.proto"
-    elasticSearch
+    defaultService
     (Proxy :: Proxy ListPackagesForDomain)
 
 responseDescribeReservedElasticsearchInstances :: DescribeReservedElasticsearchInstancesResponse -> TestTree
@@ -786,7 +786,7 @@ responseDescribeReservedElasticsearchInstances =
   res
     "DescribeReservedElasticsearchInstancesResponse"
     "fixture/DescribeReservedElasticsearchInstancesResponse.proto"
-    elasticSearch
+    defaultService
     (Proxy :: Proxy DescribeReservedElasticsearchInstances)
 
 responseDescribeReservedElasticsearchInstanceOfferings :: DescribeReservedElasticsearchInstanceOfferingsResponse -> TestTree
@@ -794,7 +794,7 @@ responseDescribeReservedElasticsearchInstanceOfferings =
   res
     "DescribeReservedElasticsearchInstanceOfferingsResponse"
     "fixture/DescribeReservedElasticsearchInstanceOfferingsResponse.proto"
-    elasticSearch
+    defaultService
     (Proxy :: Proxy DescribeReservedElasticsearchInstanceOfferings)
 
 responseStartElasticsearchServiceSoftwareUpdate :: StartElasticsearchServiceSoftwareUpdateResponse -> TestTree
@@ -802,7 +802,7 @@ responseStartElasticsearchServiceSoftwareUpdate =
   res
     "StartElasticsearchServiceSoftwareUpdateResponse"
     "fixture/StartElasticsearchServiceSoftwareUpdateResponse.proto"
-    elasticSearch
+    defaultService
     (Proxy :: Proxy StartElasticsearchServiceSoftwareUpdate)
 
 responseListDomainsForPackage :: ListDomainsForPackageResponse -> TestTree
@@ -810,7 +810,7 @@ responseListDomainsForPackage =
   res
     "ListDomainsForPackageResponse"
     "fixture/ListDomainsForPackageResponse.proto"
-    elasticSearch
+    defaultService
     (Proxy :: Proxy ListDomainsForPackage)
 
 responseDescribeElasticsearchDomains :: DescribeElasticsearchDomainsResponse -> TestTree
@@ -818,7 +818,7 @@ responseDescribeElasticsearchDomains =
   res
     "DescribeElasticsearchDomainsResponse"
     "fixture/DescribeElasticsearchDomainsResponse.proto"
-    elasticSearch
+    defaultService
     (Proxy :: Proxy DescribeElasticsearchDomains)
 
 responsePurchaseReservedElasticsearchInstanceOffering :: PurchaseReservedElasticsearchInstanceOfferingResponse -> TestTree
@@ -826,7 +826,7 @@ responsePurchaseReservedElasticsearchInstanceOffering =
   res
     "PurchaseReservedElasticsearchInstanceOfferingResponse"
     "fixture/PurchaseReservedElasticsearchInstanceOfferingResponse.proto"
-    elasticSearch
+    defaultService
     (Proxy :: Proxy PurchaseReservedElasticsearchInstanceOffering)
 
 responseGetUpgradeStatus :: GetUpgradeStatusResponse -> TestTree
@@ -834,5 +834,5 @@ responseGetUpgradeStatus =
   res
     "GetUpgradeStatusResponse"
     "fixture/GetUpgradeStatusResponse.proto"
-    elasticSearch
+    defaultService
     (Proxy :: Proxy GetUpgradeStatus)

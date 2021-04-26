@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,147 +21,157 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns a list of upgrade compatible Elastisearch versions. You can optionally pass a @'DomainName' @ to get all upgrade compatible Elasticsearch versions for that specific domain.
+-- Returns a list of upgrade compatible Elastisearch versions. You can
+-- optionally pass a @ DomainName @ to get all upgrade compatible
+-- Elasticsearch versions for that specific domain.
 module Network.AWS.ElasticSearch.GetCompatibleElasticsearchVersions
   ( -- * Creating a Request
-    getCompatibleElasticsearchVersions,
-    GetCompatibleElasticsearchVersions,
+    GetCompatibleElasticsearchVersions (..),
+    newGetCompatibleElasticsearchVersions,
 
     -- * Request Lenses
-    gcevDomainName,
+    getCompatibleElasticsearchVersions_domainName,
 
     -- * Destructuring the Response
-    getCompatibleElasticsearchVersionsResponse,
-    GetCompatibleElasticsearchVersionsResponse,
+    GetCompatibleElasticsearchVersionsResponse (..),
+    newGetCompatibleElasticsearchVersionsResponse,
 
     -- * Response Lenses
-    gcevrrsCompatibleElasticsearchVersions,
-    gcevrrsResponseStatus,
+    getCompatibleElasticsearchVersionsResponse_compatibleElasticsearchVersions,
+    getCompatibleElasticsearchVersionsResponse_httpStatus,
   )
 where
 
 import Network.AWS.ElasticSearch.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ElasticSearch.Types.CompatibleVersionsMap
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Container for request parameters to @'GetCompatibleElasticsearchVersions' @ operation.
+-- | Container for request parameters to
+-- @ GetCompatibleElasticsearchVersions @ operation.
 --
---
---
--- /See:/ 'getCompatibleElasticsearchVersions' smart constructor.
-newtype GetCompatibleElasticsearchVersions = GetCompatibleElasticsearchVersions'
-  { _gcevDomainName ::
-      Maybe
-        Text
+-- /See:/ 'newGetCompatibleElasticsearchVersions' smart constructor.
+data GetCompatibleElasticsearchVersions = GetCompatibleElasticsearchVersions'
+  { domainName :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetCompatibleElasticsearchVersions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetCompatibleElasticsearchVersions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcevDomainName' - Undocumented member.
-getCompatibleElasticsearchVersions ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'domainName', 'getCompatibleElasticsearchVersions_domainName' - Undocumented member.
+newGetCompatibleElasticsearchVersions ::
   GetCompatibleElasticsearchVersions
-getCompatibleElasticsearchVersions =
+newGetCompatibleElasticsearchVersions =
   GetCompatibleElasticsearchVersions'
-    { _gcevDomainName =
-        Nothing
+    { domainName =
+        Prelude.Nothing
     }
 
 -- | Undocumented member.
-gcevDomainName :: Lens' GetCompatibleElasticsearchVersions (Maybe Text)
-gcevDomainName = lens _gcevDomainName (\s a -> s {_gcevDomainName = a})
+getCompatibleElasticsearchVersions_domainName :: Lens.Lens' GetCompatibleElasticsearchVersions (Prelude.Maybe Prelude.Text)
+getCompatibleElasticsearchVersions_domainName = Lens.lens (\GetCompatibleElasticsearchVersions' {domainName} -> domainName) (\s@GetCompatibleElasticsearchVersions' {} a -> s {domainName = a} :: GetCompatibleElasticsearchVersions)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     GetCompatibleElasticsearchVersions
   where
   type
     Rs GetCompatibleElasticsearchVersions =
       GetCompatibleElasticsearchVersionsResponse
-  request = get elasticSearch
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetCompatibleElasticsearchVersionsResponse'
-            <$> (x .?> "CompatibleElasticsearchVersions" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "CompatibleElasticsearchVersions"
+                            Prelude..!@ Prelude.mempty
+                        )
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetCompatibleElasticsearchVersions
-
-instance NFData GetCompatibleElasticsearchVersions
-
-instance ToHeaders GetCompatibleElasticsearchVersions where
-  toHeaders = const mempty
-
-instance ToPath GetCompatibleElasticsearchVersions where
-  toPath = const "/2015-01-01/es/compatibleVersions"
-
-instance ToQuery GetCompatibleElasticsearchVersions where
-  toQuery GetCompatibleElasticsearchVersions' {..} =
-    mconcat ["domainName" =: _gcevDomainName]
-
--- | Container for response returned by @'GetCompatibleElasticsearchVersions' @ operation.
---
---
---
--- /See:/ 'getCompatibleElasticsearchVersionsResponse' smart constructor.
-data GetCompatibleElasticsearchVersionsResponse = GetCompatibleElasticsearchVersionsResponse'
-  { _gcevrrsCompatibleElasticsearchVersions ::
-      !( Maybe
-           [CompatibleVersionsMap]
-       ),
-    _gcevrrsResponseStatus ::
-      !Int
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'GetCompatibleElasticsearchVersionsResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'gcevrrsCompatibleElasticsearchVersions' - A map of compatible Elasticsearch versions returned as part of the @'GetCompatibleElasticsearchVersions' @ operation.
---
--- * 'gcevrrsResponseStatus' - -- | The response status code.
-getCompatibleElasticsearchVersionsResponse ::
-  -- | 'gcevrrsResponseStatus'
-  Int ->
-  GetCompatibleElasticsearchVersionsResponse
-getCompatibleElasticsearchVersionsResponse
-  pResponseStatus_ =
-    GetCompatibleElasticsearchVersionsResponse'
-      { _gcevrrsCompatibleElasticsearchVersions =
-          Nothing,
-        _gcevrrsResponseStatus =
-          pResponseStatus_
-      }
-
--- | A map of compatible Elasticsearch versions returned as part of the @'GetCompatibleElasticsearchVersions' @ operation.
-gcevrrsCompatibleElasticsearchVersions :: Lens' GetCompatibleElasticsearchVersionsResponse [CompatibleVersionsMap]
-gcevrrsCompatibleElasticsearchVersions = lens _gcevrrsCompatibleElasticsearchVersions (\s a -> s {_gcevrrsCompatibleElasticsearchVersions = a}) . _Default . _Coerce
-
--- | -- | The response status code.
-gcevrrsResponseStatus :: Lens' GetCompatibleElasticsearchVersionsResponse Int
-gcevrrsResponseStatus = lens _gcevrrsResponseStatus (\s a -> s {_gcevrrsResponseStatus = a})
+instance
+  Prelude.Hashable
+    GetCompatibleElasticsearchVersions
 
 instance
-  NFData
+  Prelude.NFData
+    GetCompatibleElasticsearchVersions
+
+instance
+  Prelude.ToHeaders
+    GetCompatibleElasticsearchVersions
+  where
+  toHeaders = Prelude.const Prelude.mempty
+
+instance
+  Prelude.ToPath
+    GetCompatibleElasticsearchVersions
+  where
+  toPath =
+    Prelude.const "/2015-01-01/es/compatibleVersions"
+
+instance
+  Prelude.ToQuery
+    GetCompatibleElasticsearchVersions
+  where
+  toQuery GetCompatibleElasticsearchVersions' {..} =
+    Prelude.mconcat
+      ["domainName" Prelude.=: domainName]
+
+-- | Container for response returned by
+-- @ GetCompatibleElasticsearchVersions @ operation.
+--
+-- /See:/ 'newGetCompatibleElasticsearchVersionsResponse' smart constructor.
+data GetCompatibleElasticsearchVersionsResponse = GetCompatibleElasticsearchVersionsResponse'
+  { -- | A map of compatible Elasticsearch versions returned as part of the
+    -- @ GetCompatibleElasticsearchVersions @ operation.
+    compatibleElasticsearchVersions :: Prelude.Maybe [CompatibleVersionsMap],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'GetCompatibleElasticsearchVersionsResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'compatibleElasticsearchVersions', 'getCompatibleElasticsearchVersionsResponse_compatibleElasticsearchVersions' - A map of compatible Elasticsearch versions returned as part of the
+-- @ GetCompatibleElasticsearchVersions @ operation.
+--
+-- 'httpStatus', 'getCompatibleElasticsearchVersionsResponse_httpStatus' - The response's http status code.
+newGetCompatibleElasticsearchVersionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  GetCompatibleElasticsearchVersionsResponse
+newGetCompatibleElasticsearchVersionsResponse
+  pHttpStatus_ =
+    GetCompatibleElasticsearchVersionsResponse'
+      { compatibleElasticsearchVersions =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
+      }
+
+-- | A map of compatible Elasticsearch versions returned as part of the
+-- @ GetCompatibleElasticsearchVersions @ operation.
+getCompatibleElasticsearchVersionsResponse_compatibleElasticsearchVersions :: Lens.Lens' GetCompatibleElasticsearchVersionsResponse (Prelude.Maybe [CompatibleVersionsMap])
+getCompatibleElasticsearchVersionsResponse_compatibleElasticsearchVersions = Lens.lens (\GetCompatibleElasticsearchVersionsResponse' {compatibleElasticsearchVersions} -> compatibleElasticsearchVersions) (\s@GetCompatibleElasticsearchVersionsResponse' {} a -> s {compatibleElasticsearchVersions = a} :: GetCompatibleElasticsearchVersionsResponse) Prelude.. Lens.mapping Prelude._Coerce
+
+-- | The response's http status code.
+getCompatibleElasticsearchVersionsResponse_httpStatus :: Lens.Lens' GetCompatibleElasticsearchVersionsResponse Prelude.Int
+getCompatibleElasticsearchVersionsResponse_httpStatus = Lens.lens (\GetCompatibleElasticsearchVersionsResponse' {httpStatus} -> httpStatus) (\s@GetCompatibleElasticsearchVersionsResponse' {} a -> s {httpStatus = a} :: GetCompatibleElasticsearchVersionsResponse)
+
+instance
+  Prelude.NFData
     GetCompatibleElasticsearchVersionsResponse

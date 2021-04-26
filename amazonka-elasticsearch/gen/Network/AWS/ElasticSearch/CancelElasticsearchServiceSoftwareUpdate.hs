@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,169 +21,170 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Cancels a scheduled service software update for an Amazon ES domain. You can only perform this operation before the @AutomatedUpdateDate@ and when the @UpdateStatus@ is in the @PENDING_UPDATE@ state.
+-- Cancels a scheduled service software update for an Amazon ES domain. You
+-- can only perform this operation before the @AutomatedUpdateDate@ and
+-- when the @UpdateStatus@ is in the @PENDING_UPDATE@ state.
 module Network.AWS.ElasticSearch.CancelElasticsearchServiceSoftwareUpdate
   ( -- * Creating a Request
-    cancelElasticsearchServiceSoftwareUpdate,
-    CancelElasticsearchServiceSoftwareUpdate,
+    CancelElasticsearchServiceSoftwareUpdate (..),
+    newCancelElasticsearchServiceSoftwareUpdate,
 
     -- * Request Lenses
-    cessuDomainName,
+    cancelElasticsearchServiceSoftwareUpdate_domainName,
 
     -- * Destructuring the Response
-    cancelElasticsearchServiceSoftwareUpdateResponse,
-    CancelElasticsearchServiceSoftwareUpdateResponse,
+    CancelElasticsearchServiceSoftwareUpdateResponse (..),
+    newCancelElasticsearchServiceSoftwareUpdateResponse,
 
     -- * Response Lenses
-    cessurrsServiceSoftwareOptions,
-    cessurrsResponseStatus,
+    cancelElasticsearchServiceSoftwareUpdateResponse_serviceSoftwareOptions,
+    cancelElasticsearchServiceSoftwareUpdateResponse_httpStatus,
   )
 where
 
 import Network.AWS.ElasticSearch.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ElasticSearch.Types.ServiceSoftwareOptions
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Container for the parameters to the @'CancelElasticsearchServiceSoftwareUpdate' @ operation. Specifies the name of the Elasticsearch domain that you wish to cancel a service software update on.
+-- | Container for the parameters to the
+-- @CancelElasticsearchServiceSoftwareUpdate@ operation. Specifies the name
+-- of the Elasticsearch domain that you wish to cancel a service software
+-- update on.
 --
---
---
--- /See:/ 'cancelElasticsearchServiceSoftwareUpdate' smart constructor.
-newtype CancelElasticsearchServiceSoftwareUpdate = CancelElasticsearchServiceSoftwareUpdate'
-  { _cessuDomainName ::
-      Text
+-- /See:/ 'newCancelElasticsearchServiceSoftwareUpdate' smart constructor.
+data CancelElasticsearchServiceSoftwareUpdate = CancelElasticsearchServiceSoftwareUpdate'
+  { -- | The name of the domain that you want to stop the latest service software
+    -- update on.
+    domainName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CancelElasticsearchServiceSoftwareUpdate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CancelElasticsearchServiceSoftwareUpdate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cessuDomainName' - The name of the domain that you want to stop the latest service software update on.
-cancelElasticsearchServiceSoftwareUpdate ::
-  -- | 'cessuDomainName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'domainName', 'cancelElasticsearchServiceSoftwareUpdate_domainName' - The name of the domain that you want to stop the latest service software
+-- update on.
+newCancelElasticsearchServiceSoftwareUpdate ::
+  -- | 'domainName'
+  Prelude.Text ->
   CancelElasticsearchServiceSoftwareUpdate
-cancelElasticsearchServiceSoftwareUpdate pDomainName_ =
-  CancelElasticsearchServiceSoftwareUpdate'
-    { _cessuDomainName =
-        pDomainName_
-    }
+newCancelElasticsearchServiceSoftwareUpdate
+  pDomainName_ =
+    CancelElasticsearchServiceSoftwareUpdate'
+      { domainName =
+          pDomainName_
+      }
 
--- | The name of the domain that you want to stop the latest service software update on.
-cessuDomainName :: Lens' CancelElasticsearchServiceSoftwareUpdate Text
-cessuDomainName = lens _cessuDomainName (\s a -> s {_cessuDomainName = a})
+-- | The name of the domain that you want to stop the latest service software
+-- update on.
+cancelElasticsearchServiceSoftwareUpdate_domainName :: Lens.Lens' CancelElasticsearchServiceSoftwareUpdate Prelude.Text
+cancelElasticsearchServiceSoftwareUpdate_domainName = Lens.lens (\CancelElasticsearchServiceSoftwareUpdate' {domainName} -> domainName) (\s@CancelElasticsearchServiceSoftwareUpdate' {} a -> s {domainName = a} :: CancelElasticsearchServiceSoftwareUpdate)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     CancelElasticsearchServiceSoftwareUpdate
   where
   type
     Rs CancelElasticsearchServiceSoftwareUpdate =
       CancelElasticsearchServiceSoftwareUpdateResponse
-  request = postJSON elasticSearch
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CancelElasticsearchServiceSoftwareUpdateResponse'
-            <$> (x .?> "ServiceSoftwareOptions")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ServiceSoftwareOptions")
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     CancelElasticsearchServiceSoftwareUpdate
 
 instance
-  NFData
+  Prelude.NFData
     CancelElasticsearchServiceSoftwareUpdate
 
 instance
-  ToHeaders
+  Prelude.ToHeaders
     CancelElasticsearchServiceSoftwareUpdate
   where
-  toHeaders = const mempty
+  toHeaders = Prelude.const Prelude.mempty
 
 instance
-  ToJSON
+  Prelude.ToJSON
     CancelElasticsearchServiceSoftwareUpdate
   where
   toJSON CancelElasticsearchServiceSoftwareUpdate' {..} =
-    object
-      (catMaybes [Just ("DomainName" .= _cessuDomainName)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("DomainName" Prelude..= domainName)]
+      )
 
 instance
-  ToPath
+  Prelude.ToPath
     CancelElasticsearchServiceSoftwareUpdate
   where
   toPath =
-    const "/2015-01-01/es/serviceSoftwareUpdate/cancel"
+    Prelude.const
+      "/2015-01-01/es/serviceSoftwareUpdate/cancel"
 
 instance
-  ToQuery
+  Prelude.ToQuery
     CancelElasticsearchServiceSoftwareUpdate
   where
-  toQuery = const mempty
+  toQuery = Prelude.const Prelude.mempty
 
--- | The result of a @CancelElasticsearchServiceSoftwareUpdate@ operation. Contains the status of the update.
+-- | The result of a @CancelElasticsearchServiceSoftwareUpdate@ operation.
+-- Contains the status of the update.
 --
---
---
--- /See:/ 'cancelElasticsearchServiceSoftwareUpdateResponse' smart constructor.
+-- /See:/ 'newCancelElasticsearchServiceSoftwareUpdateResponse' smart constructor.
 data CancelElasticsearchServiceSoftwareUpdateResponse = CancelElasticsearchServiceSoftwareUpdateResponse'
-  { _cessurrsServiceSoftwareOptions ::
-      !( Maybe
-           ServiceSoftwareOptions
-       ),
-    _cessurrsResponseStatus ::
-      !Int
+  { -- | The current status of the Elasticsearch service software update.
+    serviceSoftwareOptions :: Prelude.Maybe ServiceSoftwareOptions,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CancelElasticsearchServiceSoftwareUpdateResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CancelElasticsearchServiceSoftwareUpdateResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cessurrsServiceSoftwareOptions' - The current status of the Elasticsearch service software update.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cessurrsResponseStatus' - -- | The response status code.
-cancelElasticsearchServiceSoftwareUpdateResponse ::
-  -- | 'cessurrsResponseStatus'
-  Int ->
+-- 'serviceSoftwareOptions', 'cancelElasticsearchServiceSoftwareUpdateResponse_serviceSoftwareOptions' - The current status of the Elasticsearch service software update.
+--
+-- 'httpStatus', 'cancelElasticsearchServiceSoftwareUpdateResponse_httpStatus' - The response's http status code.
+newCancelElasticsearchServiceSoftwareUpdateResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CancelElasticsearchServiceSoftwareUpdateResponse
-cancelElasticsearchServiceSoftwareUpdateResponse
-  pResponseStatus_ =
+newCancelElasticsearchServiceSoftwareUpdateResponse
+  pHttpStatus_ =
     CancelElasticsearchServiceSoftwareUpdateResponse'
-      { _cessurrsServiceSoftwareOptions =
-          Nothing,
-        _cessurrsResponseStatus =
-          pResponseStatus_
+      { serviceSoftwareOptions =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | The current status of the Elasticsearch service software update.
-cessurrsServiceSoftwareOptions :: Lens' CancelElasticsearchServiceSoftwareUpdateResponse (Maybe ServiceSoftwareOptions)
-cessurrsServiceSoftwareOptions = lens _cessurrsServiceSoftwareOptions (\s a -> s {_cessurrsServiceSoftwareOptions = a})
+cancelElasticsearchServiceSoftwareUpdateResponse_serviceSoftwareOptions :: Lens.Lens' CancelElasticsearchServiceSoftwareUpdateResponse (Prelude.Maybe ServiceSoftwareOptions)
+cancelElasticsearchServiceSoftwareUpdateResponse_serviceSoftwareOptions = Lens.lens (\CancelElasticsearchServiceSoftwareUpdateResponse' {serviceSoftwareOptions} -> serviceSoftwareOptions) (\s@CancelElasticsearchServiceSoftwareUpdateResponse' {} a -> s {serviceSoftwareOptions = a} :: CancelElasticsearchServiceSoftwareUpdateResponse)
 
--- | -- | The response status code.
-cessurrsResponseStatus :: Lens' CancelElasticsearchServiceSoftwareUpdateResponse Int
-cessurrsResponseStatus = lens _cessurrsResponseStatus (\s a -> s {_cessurrsResponseStatus = a})
+-- | The response's http status code.
+cancelElasticsearchServiceSoftwareUpdateResponse_httpStatus :: Lens.Lens' CancelElasticsearchServiceSoftwareUpdateResponse Prelude.Int
+cancelElasticsearchServiceSoftwareUpdateResponse_httpStatus = Lens.lens (\CancelElasticsearchServiceSoftwareUpdateResponse' {httpStatus} -> httpStatus) (\s@CancelElasticsearchServiceSoftwareUpdateResponse' {} a -> s {httpStatus = a} :: CancelElasticsearchServiceSoftwareUpdateResponse)
 
 instance
-  NFData
+  Prelude.NFData
     CancelElasticsearchServiceSoftwareUpdateResponse

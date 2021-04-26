@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,57 @@
 module Network.AWS.ElasticSearch.Types.ScheduledAutoTuneActionType
   ( ScheduledAutoTuneActionType
       ( ..,
-        JVMHeapSizeTuning,
-        JVMYoungGenTuning
+        ScheduledAutoTuneActionTypeJVMHEAPSIZETUNING,
+        ScheduledAutoTuneActionTypeJVMYOUNGGENTUNING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies Auto-Tune action type. Valid values are JVM_HEAP_SIZE_TUNING and JVM_YOUNG_GEN_TUNING.
-data ScheduledAutoTuneActionType
-  = ScheduledAutoTuneActionType'
-      ( CI
-          Text
-      )
+-- | Specifies Auto-Tune action type. Valid values are JVM_HEAP_SIZE_TUNING
+-- and JVM_YOUNG_GEN_TUNING.
+newtype ScheduledAutoTuneActionType = ScheduledAutoTuneActionType'
+  { fromScheduledAutoTuneActionType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern JVMHeapSizeTuning :: ScheduledAutoTuneActionType
-pattern JVMHeapSizeTuning = ScheduledAutoTuneActionType' "JVM_HEAP_SIZE_TUNING"
+pattern ScheduledAutoTuneActionTypeJVMHEAPSIZETUNING :: ScheduledAutoTuneActionType
+pattern ScheduledAutoTuneActionTypeJVMHEAPSIZETUNING = ScheduledAutoTuneActionType' "JVM_HEAP_SIZE_TUNING"
 
-pattern JVMYoungGenTuning :: ScheduledAutoTuneActionType
-pattern JVMYoungGenTuning = ScheduledAutoTuneActionType' "JVM_YOUNG_GEN_TUNING"
+pattern ScheduledAutoTuneActionTypeJVMYOUNGGENTUNING :: ScheduledAutoTuneActionType
+pattern ScheduledAutoTuneActionTypeJVMYOUNGGENTUNING = ScheduledAutoTuneActionType' "JVM_YOUNG_GEN_TUNING"
 
 {-# COMPLETE
-  JVMHeapSizeTuning,
-  JVMYoungGenTuning,
+  ScheduledAutoTuneActionTypeJVMHEAPSIZETUNING,
+  ScheduledAutoTuneActionTypeJVMYOUNGGENTUNING,
   ScheduledAutoTuneActionType'
   #-}
 
-instance FromText ScheduledAutoTuneActionType where
-  parser = (ScheduledAutoTuneActionType' . mk) <$> takeText
+instance Prelude.FromText ScheduledAutoTuneActionType where
+  parser = ScheduledAutoTuneActionType' Prelude.<$> Prelude.takeText
 
-instance ToText ScheduledAutoTuneActionType where
-  toText (ScheduledAutoTuneActionType' ci) = original ci
+instance Prelude.ToText ScheduledAutoTuneActionType where
+  toText (ScheduledAutoTuneActionType' x) = x
 
-instance Hashable ScheduledAutoTuneActionType
+instance Prelude.Hashable ScheduledAutoTuneActionType
 
-instance NFData ScheduledAutoTuneActionType
+instance Prelude.NFData ScheduledAutoTuneActionType
 
-instance ToByteString ScheduledAutoTuneActionType
+instance Prelude.ToByteString ScheduledAutoTuneActionType
 
-instance ToQuery ScheduledAutoTuneActionType
+instance Prelude.ToQuery ScheduledAutoTuneActionType
 
-instance ToHeader ScheduledAutoTuneActionType
+instance Prelude.ToHeader ScheduledAutoTuneActionType
 
-instance FromJSON ScheduledAutoTuneActionType where
-  parseJSON = parseJSONText "ScheduledAutoTuneActionType"
+instance Prelude.FromJSON ScheduledAutoTuneActionType where
+  parseJSON = Prelude.parseJSONText "ScheduledAutoTuneActionType"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,62 +19,60 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ElasticSearch.Types.CompatibleVersionsMap where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A map from an @'ElasticsearchVersion' @ to a list of compatible @'ElasticsearchVersion' @ s to which the domain can be upgraded.
+-- | A map from an @ ElasticsearchVersion @ to a list of compatible
+-- @ ElasticsearchVersion @ s to which the domain can be upgraded.
 --
---
---
--- /See:/ 'compatibleVersionsMap' smart constructor.
+-- /See:/ 'newCompatibleVersionsMap' smart constructor.
 data CompatibleVersionsMap = CompatibleVersionsMap'
-  { _cvmSourceVersion ::
-      !(Maybe Text),
-    _cvmTargetVersions ::
-      !(Maybe [Text])
+  { -- | The current version of Elasticsearch on which a domain is.
+    sourceVersion :: Prelude.Maybe Prelude.Text,
+    targetVersions :: Prelude.Maybe [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CompatibleVersionsMap' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CompatibleVersionsMap' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cvmSourceVersion' - The current version of Elasticsearch on which a domain is.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cvmTargetVersions' - Undocumented member.
-compatibleVersionsMap ::
+-- 'sourceVersion', 'compatibleVersionsMap_sourceVersion' - The current version of Elasticsearch on which a domain is.
+--
+-- 'targetVersions', 'compatibleVersionsMap_targetVersions' - Undocumented member.
+newCompatibleVersionsMap ::
   CompatibleVersionsMap
-compatibleVersionsMap =
+newCompatibleVersionsMap =
   CompatibleVersionsMap'
-    { _cvmSourceVersion = Nothing,
-      _cvmTargetVersions = Nothing
+    { sourceVersion =
+        Prelude.Nothing,
+      targetVersions = Prelude.Nothing
     }
 
 -- | The current version of Elasticsearch on which a domain is.
-cvmSourceVersion :: Lens' CompatibleVersionsMap (Maybe Text)
-cvmSourceVersion = lens _cvmSourceVersion (\s a -> s {_cvmSourceVersion = a})
+compatibleVersionsMap_sourceVersion :: Lens.Lens' CompatibleVersionsMap (Prelude.Maybe Prelude.Text)
+compatibleVersionsMap_sourceVersion = Lens.lens (\CompatibleVersionsMap' {sourceVersion} -> sourceVersion) (\s@CompatibleVersionsMap' {} a -> s {sourceVersion = a} :: CompatibleVersionsMap)
 
 -- | Undocumented member.
-cvmTargetVersions :: Lens' CompatibleVersionsMap [Text]
-cvmTargetVersions = lens _cvmTargetVersions (\s a -> s {_cvmTargetVersions = a}) . _Default . _Coerce
+compatibleVersionsMap_targetVersions :: Lens.Lens' CompatibleVersionsMap (Prelude.Maybe [Prelude.Text])
+compatibleVersionsMap_targetVersions = Lens.lens (\CompatibleVersionsMap' {targetVersions} -> targetVersions) (\s@CompatibleVersionsMap' {} a -> s {targetVersions = a} :: CompatibleVersionsMap) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON CompatibleVersionsMap where
+instance Prelude.FromJSON CompatibleVersionsMap where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CompatibleVersionsMap"
       ( \x ->
           CompatibleVersionsMap'
-            <$> (x .:? "SourceVersion")
-            <*> (x .:? "TargetVersions" .!= mempty)
+            Prelude.<$> (x Prelude..:? "SourceVersion")
+            Prelude.<*> ( x Prelude..:? "TargetVersions"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable CompatibleVersionsMap
+instance Prelude.Hashable CompatibleVersionsMap
 
-instance NFData CompatibleVersionsMap
+instance Prelude.NFData CompatibleVersionsMap

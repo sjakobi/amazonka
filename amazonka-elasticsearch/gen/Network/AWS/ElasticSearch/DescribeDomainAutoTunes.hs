@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,177 +21,188 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Provides scheduled Auto-Tune action details for the Elasticsearch domain, such as Auto-Tune action type, description, severity, and scheduled date.
+-- Provides scheduled Auto-Tune action details for the Elasticsearch
+-- domain, such as Auto-Tune action type, description, severity, and
+-- scheduled date.
 module Network.AWS.ElasticSearch.DescribeDomainAutoTunes
   ( -- * Creating a Request
-    describeDomainAutoTunes,
-    DescribeDomainAutoTunes,
+    DescribeDomainAutoTunes (..),
+    newDescribeDomainAutoTunes,
 
     -- * Request Lenses
-    ddatNextToken,
-    ddatMaxResults,
-    ddatDomainName,
+    describeDomainAutoTunes_nextToken,
+    describeDomainAutoTunes_maxResults,
+    describeDomainAutoTunes_domainName,
 
     -- * Destructuring the Response
-    describeDomainAutoTunesResponse,
-    DescribeDomainAutoTunesResponse,
+    DescribeDomainAutoTunesResponse (..),
+    newDescribeDomainAutoTunesResponse,
 
     -- * Response Lenses
-    ddatrrsNextToken,
-    ddatrrsAutoTunes,
-    ddatrrsResponseStatus,
+    describeDomainAutoTunesResponse_nextToken,
+    describeDomainAutoTunesResponse_autoTunes,
+    describeDomainAutoTunesResponse_httpStatus,
   )
 where
 
 import Network.AWS.ElasticSearch.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ElasticSearch.Types.AutoTune
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Container for the parameters to the @DescribeDomainAutoTunes@ operation.
 --
---
---
--- /See:/ 'describeDomainAutoTunes' smart constructor.
+-- /See:/ 'newDescribeDomainAutoTunes' smart constructor.
 data DescribeDomainAutoTunes = DescribeDomainAutoTunes'
-  { _ddatNextToken ::
-      !(Maybe Text),
-    _ddatMaxResults ::
-      !(Maybe Int),
-    _ddatDomainName ::
-      !Text
+  { -- | NextToken is sent in case the earlier API call results contain the
+    -- NextToken. It is used for pagination.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Set this value to limit the number of results returned. If not
+    -- specified, defaults to 100.
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | Specifies the domain name for which you want Auto-Tune action details.
+    domainName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeDomainAutoTunes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeDomainAutoTunes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddatNextToken' - NextToken is sent in case the earlier API call results contain the NextToken. It is used for pagination.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ddatMaxResults' - Set this value to limit the number of results returned. If not specified, defaults to 100.
+-- 'nextToken', 'describeDomainAutoTunes_nextToken' - NextToken is sent in case the earlier API call results contain the
+-- NextToken. It is used for pagination.
 --
--- * 'ddatDomainName' - Specifies the domain name for which you want Auto-Tune action details.
-describeDomainAutoTunes ::
-  -- | 'ddatDomainName'
-  Text ->
+-- 'maxResults', 'describeDomainAutoTunes_maxResults' - Set this value to limit the number of results returned. If not
+-- specified, defaults to 100.
+--
+-- 'domainName', 'describeDomainAutoTunes_domainName' - Specifies the domain name for which you want Auto-Tune action details.
+newDescribeDomainAutoTunes ::
+  -- | 'domainName'
+  Prelude.Text ->
   DescribeDomainAutoTunes
-describeDomainAutoTunes pDomainName_ =
+newDescribeDomainAutoTunes pDomainName_ =
   DescribeDomainAutoTunes'
-    { _ddatNextToken = Nothing,
-      _ddatMaxResults = Nothing,
-      _ddatDomainName = pDomainName_
+    { nextToken =
+        Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      domainName = pDomainName_
     }
 
--- | NextToken is sent in case the earlier API call results contain the NextToken. It is used for pagination.
-ddatNextToken :: Lens' DescribeDomainAutoTunes (Maybe Text)
-ddatNextToken = lens _ddatNextToken (\s a -> s {_ddatNextToken = a})
+-- | NextToken is sent in case the earlier API call results contain the
+-- NextToken. It is used for pagination.
+describeDomainAutoTunes_nextToken :: Lens.Lens' DescribeDomainAutoTunes (Prelude.Maybe Prelude.Text)
+describeDomainAutoTunes_nextToken = Lens.lens (\DescribeDomainAutoTunes' {nextToken} -> nextToken) (\s@DescribeDomainAutoTunes' {} a -> s {nextToken = a} :: DescribeDomainAutoTunes)
 
--- | Set this value to limit the number of results returned. If not specified, defaults to 100.
-ddatMaxResults :: Lens' DescribeDomainAutoTunes (Maybe Int)
-ddatMaxResults = lens _ddatMaxResults (\s a -> s {_ddatMaxResults = a})
+-- | Set this value to limit the number of results returned. If not
+-- specified, defaults to 100.
+describeDomainAutoTunes_maxResults :: Lens.Lens' DescribeDomainAutoTunes (Prelude.Maybe Prelude.Int)
+describeDomainAutoTunes_maxResults = Lens.lens (\DescribeDomainAutoTunes' {maxResults} -> maxResults) (\s@DescribeDomainAutoTunes' {} a -> s {maxResults = a} :: DescribeDomainAutoTunes)
 
 -- | Specifies the domain name for which you want Auto-Tune action details.
-ddatDomainName :: Lens' DescribeDomainAutoTunes Text
-ddatDomainName = lens _ddatDomainName (\s a -> s {_ddatDomainName = a})
+describeDomainAutoTunes_domainName :: Lens.Lens' DescribeDomainAutoTunes Prelude.Text
+describeDomainAutoTunes_domainName = Lens.lens (\DescribeDomainAutoTunes' {domainName} -> domainName) (\s@DescribeDomainAutoTunes' {} a -> s {domainName = a} :: DescribeDomainAutoTunes)
 
-instance AWSRequest DescribeDomainAutoTunes where
+instance Prelude.AWSRequest DescribeDomainAutoTunes where
   type
     Rs DescribeDomainAutoTunes =
       DescribeDomainAutoTunesResponse
-  request = get elasticSearch
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeDomainAutoTunesResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "AutoTunes" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "AutoTunes"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeDomainAutoTunes
+instance Prelude.Hashable DescribeDomainAutoTunes
 
-instance NFData DescribeDomainAutoTunes
+instance Prelude.NFData DescribeDomainAutoTunes
 
-instance ToHeaders DescribeDomainAutoTunes where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeDomainAutoTunes where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeDomainAutoTunes where
+instance Prelude.ToPath DescribeDomainAutoTunes where
   toPath DescribeDomainAutoTunes' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/2015-01-01/es/domain/",
-        toBS _ddatDomainName,
+        Prelude.toBS domainName,
         "/autoTunes"
       ]
 
-instance ToQuery DescribeDomainAutoTunes where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeDomainAutoTunes where
+  toQuery = Prelude.const Prelude.mempty
 
--- | The result of @DescribeDomainAutoTunes@ request. See the <https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/auto-tune.html Developer Guide> for more information.
+-- | The result of @DescribeDomainAutoTunes@ request. See the
+-- <https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/auto-tune.html Developer Guide>
+-- for more information.
 --
---
---
--- /See:/ 'describeDomainAutoTunesResponse' smart constructor.
+-- /See:/ 'newDescribeDomainAutoTunesResponse' smart constructor.
 data DescribeDomainAutoTunesResponse = DescribeDomainAutoTunesResponse'
-  { _ddatrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _ddatrrsAutoTunes ::
-      !( Maybe
-           [AutoTune]
-       ),
-    _ddatrrsResponseStatus ::
-      !Int
+  { -- | Specifies an identifier to allow retrieval of paginated results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the list of setting adjustments that Auto-Tune has made to the
+    -- domain. See the
+    -- <https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/auto-tune.html Developer Guide>
+    -- for more information.
+    autoTunes :: Prelude.Maybe [AutoTune],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeDomainAutoTunesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeDomainAutoTunesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddatrrsNextToken' - Specifies an identifier to allow retrieval of paginated results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ddatrrsAutoTunes' - Specifies the list of setting adjustments that Auto-Tune has made to the domain. See the <https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/auto-tune.html Developer Guide> for more information.
+-- 'nextToken', 'describeDomainAutoTunesResponse_nextToken' - Specifies an identifier to allow retrieval of paginated results.
 --
--- * 'ddatrrsResponseStatus' - -- | The response status code.
-describeDomainAutoTunesResponse ::
-  -- | 'ddatrrsResponseStatus'
-  Int ->
+-- 'autoTunes', 'describeDomainAutoTunesResponse_autoTunes' - Specifies the list of setting adjustments that Auto-Tune has made to the
+-- domain. See the
+-- <https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/auto-tune.html Developer Guide>
+-- for more information.
+--
+-- 'httpStatus', 'describeDomainAutoTunesResponse_httpStatus' - The response's http status code.
+newDescribeDomainAutoTunesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeDomainAutoTunesResponse
-describeDomainAutoTunesResponse pResponseStatus_ =
+newDescribeDomainAutoTunesResponse pHttpStatus_ =
   DescribeDomainAutoTunesResponse'
-    { _ddatrrsNextToken =
-        Nothing,
-      _ddatrrsAutoTunes = Nothing,
-      _ddatrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      autoTunes = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Specifies an identifier to allow retrieval of paginated results.
-ddatrrsNextToken :: Lens' DescribeDomainAutoTunesResponse (Maybe Text)
-ddatrrsNextToken = lens _ddatrrsNextToken (\s a -> s {_ddatrrsNextToken = a})
+describeDomainAutoTunesResponse_nextToken :: Lens.Lens' DescribeDomainAutoTunesResponse (Prelude.Maybe Prelude.Text)
+describeDomainAutoTunesResponse_nextToken = Lens.lens (\DescribeDomainAutoTunesResponse' {nextToken} -> nextToken) (\s@DescribeDomainAutoTunesResponse' {} a -> s {nextToken = a} :: DescribeDomainAutoTunesResponse)
 
--- | Specifies the list of setting adjustments that Auto-Tune has made to the domain. See the <https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/auto-tune.html Developer Guide> for more information.
-ddatrrsAutoTunes :: Lens' DescribeDomainAutoTunesResponse [AutoTune]
-ddatrrsAutoTunes = lens _ddatrrsAutoTunes (\s a -> s {_ddatrrsAutoTunes = a}) . _Default . _Coerce
+-- | Specifies the list of setting adjustments that Auto-Tune has made to the
+-- domain. See the
+-- <https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/auto-tune.html Developer Guide>
+-- for more information.
+describeDomainAutoTunesResponse_autoTunes :: Lens.Lens' DescribeDomainAutoTunesResponse (Prelude.Maybe [AutoTune])
+describeDomainAutoTunesResponse_autoTunes = Lens.lens (\DescribeDomainAutoTunesResponse' {autoTunes} -> autoTunes) (\s@DescribeDomainAutoTunesResponse' {} a -> s {autoTunes = a} :: DescribeDomainAutoTunesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-ddatrrsResponseStatus :: Lens' DescribeDomainAutoTunesResponse Int
-ddatrrsResponseStatus = lens _ddatrrsResponseStatus (\s a -> s {_ddatrrsResponseStatus = a})
+-- | The response's http status code.
+describeDomainAutoTunesResponse_httpStatus :: Lens.Lens' DescribeDomainAutoTunesResponse Prelude.Int
+describeDomainAutoTunesResponse_httpStatus = Lens.lens (\DescribeDomainAutoTunesResponse' {httpStatus} -> httpStatus) (\s@DescribeDomainAutoTunesResponse' {} a -> s {httpStatus = a} :: DescribeDomainAutoTunesResponse)
 
-instance NFData DescribeDomainAutoTunesResponse
+instance
+  Prelude.NFData
+    DescribeDomainAutoTunesResponse

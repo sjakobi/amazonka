@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,72 +19,91 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ElasticSearch.Types.VPCDerivedInfo where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Options to specify the subnets and security groups for VPC endpoint. For more information, see <http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-vpc.html VPC Endpoints for Amazon Elasticsearch Service Domains> .
+-- | Options to specify the subnets and security groups for VPC endpoint. For
+-- more information, see
+-- <http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-vpc.html VPC Endpoints for Amazon Elasticsearch Service Domains>.
 --
---
---
--- /See:/ 'vpcDerivedInfo' smart constructor.
+-- /See:/ 'newVPCDerivedInfo' smart constructor.
 data VPCDerivedInfo = VPCDerivedInfo'
-  { _vdiSecurityGroupIds ::
-      !(Maybe [Text]),
-    _vdiAvailabilityZones :: !(Maybe [Text]),
-    _vdiSubnetIds :: !(Maybe [Text]),
-    _vdiVPCId :: !(Maybe Text)
+  { -- | Specifies the security groups for VPC endpoint.
+    securityGroupIds :: Prelude.Maybe [Prelude.Text],
+    -- | The availability zones for the Elasticsearch domain. Exists only if the
+    -- domain was created with VPCOptions.
+    availabilityZones :: Prelude.Maybe [Prelude.Text],
+    -- | Specifies the subnets for VPC endpoint.
+    subnetIds :: Prelude.Maybe [Prelude.Text],
+    -- | The VPC Id for the Elasticsearch domain. Exists only if the domain was
+    -- created with VPCOptions.
+    vPCId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'VPCDerivedInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'VPCDerivedInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'vdiSecurityGroupIds' - Specifies the security groups for VPC endpoint.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'vdiAvailabilityZones' - The availability zones for the Elasticsearch domain. Exists only if the domain was created with VPCOptions.
+-- 'securityGroupIds', 'vPCDerivedInfo_securityGroupIds' - Specifies the security groups for VPC endpoint.
 --
--- * 'vdiSubnetIds' - Specifies the subnets for VPC endpoint.
+-- 'availabilityZones', 'vPCDerivedInfo_availabilityZones' - The availability zones for the Elasticsearch domain. Exists only if the
+-- domain was created with VPCOptions.
 --
--- * 'vdiVPCId' - The VPC Id for the Elasticsearch domain. Exists only if the domain was created with VPCOptions.
-vpcDerivedInfo ::
+-- 'subnetIds', 'vPCDerivedInfo_subnetIds' - Specifies the subnets for VPC endpoint.
+--
+-- 'vPCId', 'vPCDerivedInfo_vPCId' - The VPC Id for the Elasticsearch domain. Exists only if the domain was
+-- created with VPCOptions.
+newVPCDerivedInfo ::
   VPCDerivedInfo
-vpcDerivedInfo =
+newVPCDerivedInfo =
   VPCDerivedInfo'
-    { _vdiSecurityGroupIds = Nothing,
-      _vdiAvailabilityZones = Nothing,
-      _vdiSubnetIds = Nothing,
-      _vdiVPCId = Nothing
+    { securityGroupIds = Prelude.Nothing,
+      availabilityZones = Prelude.Nothing,
+      subnetIds = Prelude.Nothing,
+      vPCId = Prelude.Nothing
     }
 
 -- | Specifies the security groups for VPC endpoint.
-vdiSecurityGroupIds :: Lens' VPCDerivedInfo [Text]
-vdiSecurityGroupIds = lens _vdiSecurityGroupIds (\s a -> s {_vdiSecurityGroupIds = a}) . _Default . _Coerce
+vPCDerivedInfo_securityGroupIds :: Lens.Lens' VPCDerivedInfo (Prelude.Maybe [Prelude.Text])
+vPCDerivedInfo_securityGroupIds = Lens.lens (\VPCDerivedInfo' {securityGroupIds} -> securityGroupIds) (\s@VPCDerivedInfo' {} a -> s {securityGroupIds = a} :: VPCDerivedInfo) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The availability zones for the Elasticsearch domain. Exists only if the domain was created with VPCOptions.
-vdiAvailabilityZones :: Lens' VPCDerivedInfo [Text]
-vdiAvailabilityZones = lens _vdiAvailabilityZones (\s a -> s {_vdiAvailabilityZones = a}) . _Default . _Coerce
+-- | The availability zones for the Elasticsearch domain. Exists only if the
+-- domain was created with VPCOptions.
+vPCDerivedInfo_availabilityZones :: Lens.Lens' VPCDerivedInfo (Prelude.Maybe [Prelude.Text])
+vPCDerivedInfo_availabilityZones = Lens.lens (\VPCDerivedInfo' {availabilityZones} -> availabilityZones) (\s@VPCDerivedInfo' {} a -> s {availabilityZones = a} :: VPCDerivedInfo) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Specifies the subnets for VPC endpoint.
-vdiSubnetIds :: Lens' VPCDerivedInfo [Text]
-vdiSubnetIds = lens _vdiSubnetIds (\s a -> s {_vdiSubnetIds = a}) . _Default . _Coerce
+vPCDerivedInfo_subnetIds :: Lens.Lens' VPCDerivedInfo (Prelude.Maybe [Prelude.Text])
+vPCDerivedInfo_subnetIds = Lens.lens (\VPCDerivedInfo' {subnetIds} -> subnetIds) (\s@VPCDerivedInfo' {} a -> s {subnetIds = a} :: VPCDerivedInfo) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The VPC Id for the Elasticsearch domain. Exists only if the domain was created with VPCOptions.
-vdiVPCId :: Lens' VPCDerivedInfo (Maybe Text)
-vdiVPCId = lens _vdiVPCId (\s a -> s {_vdiVPCId = a})
+-- | The VPC Id for the Elasticsearch domain. Exists only if the domain was
+-- created with VPCOptions.
+vPCDerivedInfo_vPCId :: Lens.Lens' VPCDerivedInfo (Prelude.Maybe Prelude.Text)
+vPCDerivedInfo_vPCId = Lens.lens (\VPCDerivedInfo' {vPCId} -> vPCId) (\s@VPCDerivedInfo' {} a -> s {vPCId = a} :: VPCDerivedInfo)
 
-instance FromJSON VPCDerivedInfo where
+instance Prelude.FromJSON VPCDerivedInfo where
   parseJSON =
-    withObject
+    Prelude.withObject
       "VPCDerivedInfo"
       ( \x ->
           VPCDerivedInfo'
-            <$> (x .:? "SecurityGroupIds" .!= mempty)
-            <*> (x .:? "AvailabilityZones" .!= mempty)
-            <*> (x .:? "SubnetIds" .!= mempty)
-            <*> (x .:? "VPCId")
+            Prelude.<$> ( x Prelude..:? "SecurityGroupIds"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..:? "AvailabilityZones"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..:? "SubnetIds"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "VPCId")
       )
 
-instance Hashable VPCDerivedInfo
+instance Prelude.Hashable VPCDerivedInfo
 
-instance NFData VPCDerivedInfo
+instance Prelude.NFData VPCDerivedInfo

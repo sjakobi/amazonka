@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,60 @@
 module Network.AWS.ElasticSearch.Types.RollbackOnDisable
   ( RollbackOnDisable
       ( ..,
-        DefaultRollback,
-        NoRollback
+        RollbackOnDisableDEFAULTROLLBACK,
+        RollbackOnDisableNOROLLBACK
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies the rollback state while disabling Auto-Tune for the domain. Valid values are NO_ROLLBACK, DEFAULT_ROLLBACK.
-data RollbackOnDisable = RollbackOnDisable' (CI Text)
+-- | Specifies the rollback state while disabling Auto-Tune for the domain.
+-- Valid values are NO_ROLLBACK, DEFAULT_ROLLBACK.
+newtype RollbackOnDisable = RollbackOnDisable'
+  { fromRollbackOnDisable ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DefaultRollback :: RollbackOnDisable
-pattern DefaultRollback = RollbackOnDisable' "DEFAULT_ROLLBACK"
+pattern RollbackOnDisableDEFAULTROLLBACK :: RollbackOnDisable
+pattern RollbackOnDisableDEFAULTROLLBACK = RollbackOnDisable' "DEFAULT_ROLLBACK"
 
-pattern NoRollback :: RollbackOnDisable
-pattern NoRollback = RollbackOnDisable' "NO_ROLLBACK"
+pattern RollbackOnDisableNOROLLBACK :: RollbackOnDisable
+pattern RollbackOnDisableNOROLLBACK = RollbackOnDisable' "NO_ROLLBACK"
 
 {-# COMPLETE
-  DefaultRollback,
-  NoRollback,
+  RollbackOnDisableDEFAULTROLLBACK,
+  RollbackOnDisableNOROLLBACK,
   RollbackOnDisable'
   #-}
 
-instance FromText RollbackOnDisable where
-  parser = (RollbackOnDisable' . mk) <$> takeText
+instance Prelude.FromText RollbackOnDisable where
+  parser = RollbackOnDisable' Prelude.<$> Prelude.takeText
 
-instance ToText RollbackOnDisable where
-  toText (RollbackOnDisable' ci) = original ci
+instance Prelude.ToText RollbackOnDisable where
+  toText (RollbackOnDisable' x) = x
 
-instance Hashable RollbackOnDisable
+instance Prelude.Hashable RollbackOnDisable
 
-instance NFData RollbackOnDisable
+instance Prelude.NFData RollbackOnDisable
 
-instance ToByteString RollbackOnDisable
+instance Prelude.ToByteString RollbackOnDisable
 
-instance ToQuery RollbackOnDisable
+instance Prelude.ToQuery RollbackOnDisable
 
-instance ToHeader RollbackOnDisable
+instance Prelude.ToHeader RollbackOnDisable
 
-instance ToJSON RollbackOnDisable where
-  toJSON = toJSONText
+instance Prelude.ToJSON RollbackOnDisable where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON RollbackOnDisable where
-  parseJSON = parseJSONText "RollbackOnDisable"
+instance Prelude.FromJSON RollbackOnDisable where
+  parseJSON = Prelude.parseJSONText "RollbackOnDisable"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,108 +21,108 @@ module Network.AWS.ElasticSearch.Types.OutboundCrossClusterSearchConnection wher
 
 import Network.AWS.ElasticSearch.Types.DomainInformation
 import Network.AWS.ElasticSearch.Types.OutboundCrossClusterSearchConnectionStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Specifies details of an outbound connection.
 --
---
---
--- /See:/ 'outboundCrossClusterSearchConnection' smart constructor.
+-- /See:/ 'newOutboundCrossClusterSearchConnection' smart constructor.
 data OutboundCrossClusterSearchConnection = OutboundCrossClusterSearchConnection'
-  { _occscCrossClusterSearchConnectionId ::
-      !( Maybe
-           Text
-       ),
-    _occscSourceDomainInfo ::
-      !( Maybe
-           DomainInformation
-       ),
-    _occscConnectionAlias ::
-      !( Maybe
-           Text
-       ),
-    _occscDestinationDomainInfo ::
-      !( Maybe
-           DomainInformation
-       ),
-    _occscConnectionStatus ::
-      !( Maybe
-           OutboundCrossClusterSearchConnectionStatus
-       )
+  { -- | Specifies the connection id for the outbound cross-cluster search
+    -- connection.
+    crossClusterSearchConnectionId :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the @DomainInformation@ for the source Elasticsearch domain.
+    sourceDomainInfo :: Prelude.Maybe DomainInformation,
+    -- | Specifies the connection alias for the outbound cross-cluster search
+    -- connection.
+    connectionAlias :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the @DomainInformation@ for the destination Elasticsearch
+    -- domain.
+    destinationDomainInfo :: Prelude.Maybe DomainInformation,
+    -- | Specifies the @OutboundCrossClusterSearchConnectionStatus@ for the
+    -- outbound connection.
+    connectionStatus :: Prelude.Maybe OutboundCrossClusterSearchConnectionStatus
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OutboundCrossClusterSearchConnection' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OutboundCrossClusterSearchConnection' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'occscCrossClusterSearchConnectionId' - Specifies the connection id for the outbound cross-cluster search connection.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'occscSourceDomainInfo' - Specifies the @'DomainInformation' @ for the source Elasticsearch domain.
+-- 'crossClusterSearchConnectionId', 'outboundCrossClusterSearchConnection_crossClusterSearchConnectionId' - Specifies the connection id for the outbound cross-cluster search
+-- connection.
 --
--- * 'occscConnectionAlias' - Specifies the connection alias for the outbound cross-cluster search connection.
+-- 'sourceDomainInfo', 'outboundCrossClusterSearchConnection_sourceDomainInfo' - Specifies the @DomainInformation@ for the source Elasticsearch domain.
 --
--- * 'occscDestinationDomainInfo' - Specifies the @'DomainInformation' @ for the destination Elasticsearch domain.
+-- 'connectionAlias', 'outboundCrossClusterSearchConnection_connectionAlias' - Specifies the connection alias for the outbound cross-cluster search
+-- connection.
 --
--- * 'occscConnectionStatus' - Specifies the @'OutboundCrossClusterSearchConnectionStatus' @ for the outbound connection.
-outboundCrossClusterSearchConnection ::
+-- 'destinationDomainInfo', 'outboundCrossClusterSearchConnection_destinationDomainInfo' - Specifies the @DomainInformation@ for the destination Elasticsearch
+-- domain.
+--
+-- 'connectionStatus', 'outboundCrossClusterSearchConnection_connectionStatus' - Specifies the @OutboundCrossClusterSearchConnectionStatus@ for the
+-- outbound connection.
+newOutboundCrossClusterSearchConnection ::
   OutboundCrossClusterSearchConnection
-outboundCrossClusterSearchConnection =
+newOutboundCrossClusterSearchConnection =
   OutboundCrossClusterSearchConnection'
-    { _occscCrossClusterSearchConnectionId =
-        Nothing,
-      _occscSourceDomainInfo = Nothing,
-      _occscConnectionAlias = Nothing,
-      _occscDestinationDomainInfo = Nothing,
-      _occscConnectionStatus = Nothing
+    { crossClusterSearchConnectionId =
+        Prelude.Nothing,
+      sourceDomainInfo = Prelude.Nothing,
+      connectionAlias = Prelude.Nothing,
+      destinationDomainInfo =
+        Prelude.Nothing,
+      connectionStatus = Prelude.Nothing
     }
 
--- | Specifies the connection id for the outbound cross-cluster search connection.
-occscCrossClusterSearchConnectionId :: Lens' OutboundCrossClusterSearchConnection (Maybe Text)
-occscCrossClusterSearchConnectionId = lens _occscCrossClusterSearchConnectionId (\s a -> s {_occscCrossClusterSearchConnectionId = a})
+-- | Specifies the connection id for the outbound cross-cluster search
+-- connection.
+outboundCrossClusterSearchConnection_crossClusterSearchConnectionId :: Lens.Lens' OutboundCrossClusterSearchConnection (Prelude.Maybe Prelude.Text)
+outboundCrossClusterSearchConnection_crossClusterSearchConnectionId = Lens.lens (\OutboundCrossClusterSearchConnection' {crossClusterSearchConnectionId} -> crossClusterSearchConnectionId) (\s@OutboundCrossClusterSearchConnection' {} a -> s {crossClusterSearchConnectionId = a} :: OutboundCrossClusterSearchConnection)
 
--- | Specifies the @'DomainInformation' @ for the source Elasticsearch domain.
-occscSourceDomainInfo :: Lens' OutboundCrossClusterSearchConnection (Maybe DomainInformation)
-occscSourceDomainInfo = lens _occscSourceDomainInfo (\s a -> s {_occscSourceDomainInfo = a})
+-- | Specifies the @DomainInformation@ for the source Elasticsearch domain.
+outboundCrossClusterSearchConnection_sourceDomainInfo :: Lens.Lens' OutboundCrossClusterSearchConnection (Prelude.Maybe DomainInformation)
+outboundCrossClusterSearchConnection_sourceDomainInfo = Lens.lens (\OutboundCrossClusterSearchConnection' {sourceDomainInfo} -> sourceDomainInfo) (\s@OutboundCrossClusterSearchConnection' {} a -> s {sourceDomainInfo = a} :: OutboundCrossClusterSearchConnection)
 
--- | Specifies the connection alias for the outbound cross-cluster search connection.
-occscConnectionAlias :: Lens' OutboundCrossClusterSearchConnection (Maybe Text)
-occscConnectionAlias = lens _occscConnectionAlias (\s a -> s {_occscConnectionAlias = a})
+-- | Specifies the connection alias for the outbound cross-cluster search
+-- connection.
+outboundCrossClusterSearchConnection_connectionAlias :: Lens.Lens' OutboundCrossClusterSearchConnection (Prelude.Maybe Prelude.Text)
+outboundCrossClusterSearchConnection_connectionAlias = Lens.lens (\OutboundCrossClusterSearchConnection' {connectionAlias} -> connectionAlias) (\s@OutboundCrossClusterSearchConnection' {} a -> s {connectionAlias = a} :: OutboundCrossClusterSearchConnection)
 
--- | Specifies the @'DomainInformation' @ for the destination Elasticsearch domain.
-occscDestinationDomainInfo :: Lens' OutboundCrossClusterSearchConnection (Maybe DomainInformation)
-occscDestinationDomainInfo = lens _occscDestinationDomainInfo (\s a -> s {_occscDestinationDomainInfo = a})
+-- | Specifies the @DomainInformation@ for the destination Elasticsearch
+-- domain.
+outboundCrossClusterSearchConnection_destinationDomainInfo :: Lens.Lens' OutboundCrossClusterSearchConnection (Prelude.Maybe DomainInformation)
+outboundCrossClusterSearchConnection_destinationDomainInfo = Lens.lens (\OutboundCrossClusterSearchConnection' {destinationDomainInfo} -> destinationDomainInfo) (\s@OutboundCrossClusterSearchConnection' {} a -> s {destinationDomainInfo = a} :: OutboundCrossClusterSearchConnection)
 
--- | Specifies the @'OutboundCrossClusterSearchConnectionStatus' @ for the outbound connection.
-occscConnectionStatus :: Lens' OutboundCrossClusterSearchConnection (Maybe OutboundCrossClusterSearchConnectionStatus)
-occscConnectionStatus = lens _occscConnectionStatus (\s a -> s {_occscConnectionStatus = a})
+-- | Specifies the @OutboundCrossClusterSearchConnectionStatus@ for the
+-- outbound connection.
+outboundCrossClusterSearchConnection_connectionStatus :: Lens.Lens' OutboundCrossClusterSearchConnection (Prelude.Maybe OutboundCrossClusterSearchConnectionStatus)
+outboundCrossClusterSearchConnection_connectionStatus = Lens.lens (\OutboundCrossClusterSearchConnection' {connectionStatus} -> connectionStatus) (\s@OutboundCrossClusterSearchConnection' {} a -> s {connectionStatus = a} :: OutboundCrossClusterSearchConnection)
 
 instance
-  FromJSON
+  Prelude.FromJSON
     OutboundCrossClusterSearchConnection
   where
   parseJSON =
-    withObject
+    Prelude.withObject
       "OutboundCrossClusterSearchConnection"
       ( \x ->
           OutboundCrossClusterSearchConnection'
-            <$> (x .:? "CrossClusterSearchConnectionId")
-            <*> (x .:? "SourceDomainInfo")
-            <*> (x .:? "ConnectionAlias")
-            <*> (x .:? "DestinationDomainInfo")
-            <*> (x .:? "ConnectionStatus")
+            Prelude.<$> (x Prelude..:? "CrossClusterSearchConnectionId")
+            Prelude.<*> (x Prelude..:? "SourceDomainInfo")
+            Prelude.<*> (x Prelude..:? "ConnectionAlias")
+            Prelude.<*> (x Prelude..:? "DestinationDomainInfo")
+            Prelude.<*> (x Prelude..:? "ConnectionStatus")
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     OutboundCrossClusterSearchConnection
 
-instance NFData OutboundCrossClusterSearchConnection
+instance
+  Prelude.NFData
+    OutboundCrossClusterSearchConnection

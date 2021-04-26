@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,89 +19,93 @@
 module Network.AWS.ElasticSearch.Types.AutoTuneState
   ( AutoTuneState
       ( ..,
-        DisableInProgress,
-        Disabled,
-        DisabledAndRollbackComplete,
-        DisabledAndRollbackError,
-        DisabledAndRollbackInProgress,
-        DisabledAndRollbackScheduled,
-        EnableInProgress,
-        Enabled,
-        Error'
+        AutoTuneStateDISABLED,
+        AutoTuneStateDISABLEDANDROLLBACKCOMPLETE,
+        AutoTuneStateDISABLEDANDROLLBACKERROR,
+        AutoTuneStateDISABLEDANDROLLBACKINPROGRESS,
+        AutoTuneStateDISABLEDANDROLLBACKSCHEDULED,
+        AutoTuneStateDISABLEINPROGRESS,
+        AutoTuneStateENABLED,
+        AutoTuneStateENABLEINPROGRESS,
+        AutoTuneStateERROR
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies the Auto-Tune state for the Elasticsearch domain. For valid states see the <https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/auto-tune.html Developer Guide> .
-data AutoTuneState = AutoTuneState' (CI Text)
+-- | Specifies the Auto-Tune state for the Elasticsearch domain. For valid
+-- states see the
+-- <https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/auto-tune.html Developer Guide>.
+newtype AutoTuneState = AutoTuneState'
+  { fromAutoTuneState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DisableInProgress :: AutoTuneState
-pattern DisableInProgress = AutoTuneState' "DISABLE_IN_PROGRESS"
+pattern AutoTuneStateDISABLED :: AutoTuneState
+pattern AutoTuneStateDISABLED = AutoTuneState' "DISABLED"
 
-pattern Disabled :: AutoTuneState
-pattern Disabled = AutoTuneState' "DISABLED"
+pattern AutoTuneStateDISABLEDANDROLLBACKCOMPLETE :: AutoTuneState
+pattern AutoTuneStateDISABLEDANDROLLBACKCOMPLETE = AutoTuneState' "DISABLED_AND_ROLLBACK_COMPLETE"
 
-pattern DisabledAndRollbackComplete :: AutoTuneState
-pattern DisabledAndRollbackComplete = AutoTuneState' "DISABLED_AND_ROLLBACK_COMPLETE"
+pattern AutoTuneStateDISABLEDANDROLLBACKERROR :: AutoTuneState
+pattern AutoTuneStateDISABLEDANDROLLBACKERROR = AutoTuneState' "DISABLED_AND_ROLLBACK_ERROR"
 
-pattern DisabledAndRollbackError :: AutoTuneState
-pattern DisabledAndRollbackError = AutoTuneState' "DISABLED_AND_ROLLBACK_ERROR"
+pattern AutoTuneStateDISABLEDANDROLLBACKINPROGRESS :: AutoTuneState
+pattern AutoTuneStateDISABLEDANDROLLBACKINPROGRESS = AutoTuneState' "DISABLED_AND_ROLLBACK_IN_PROGRESS"
 
-pattern DisabledAndRollbackInProgress :: AutoTuneState
-pattern DisabledAndRollbackInProgress = AutoTuneState' "DISABLED_AND_ROLLBACK_IN_PROGRESS"
+pattern AutoTuneStateDISABLEDANDROLLBACKSCHEDULED :: AutoTuneState
+pattern AutoTuneStateDISABLEDANDROLLBACKSCHEDULED = AutoTuneState' "DISABLED_AND_ROLLBACK_SCHEDULED"
 
-pattern DisabledAndRollbackScheduled :: AutoTuneState
-pattern DisabledAndRollbackScheduled = AutoTuneState' "DISABLED_AND_ROLLBACK_SCHEDULED"
+pattern AutoTuneStateDISABLEINPROGRESS :: AutoTuneState
+pattern AutoTuneStateDISABLEINPROGRESS = AutoTuneState' "DISABLE_IN_PROGRESS"
 
-pattern EnableInProgress :: AutoTuneState
-pattern EnableInProgress = AutoTuneState' "ENABLE_IN_PROGRESS"
+pattern AutoTuneStateENABLED :: AutoTuneState
+pattern AutoTuneStateENABLED = AutoTuneState' "ENABLED"
 
-pattern Enabled :: AutoTuneState
-pattern Enabled = AutoTuneState' "ENABLED"
+pattern AutoTuneStateENABLEINPROGRESS :: AutoTuneState
+pattern AutoTuneStateENABLEINPROGRESS = AutoTuneState' "ENABLE_IN_PROGRESS"
 
-pattern Error' :: AutoTuneState
-pattern Error' = AutoTuneState' "ERROR"
+pattern AutoTuneStateERROR :: AutoTuneState
+pattern AutoTuneStateERROR = AutoTuneState' "ERROR"
 
 {-# COMPLETE
-  DisableInProgress,
-  Disabled,
-  DisabledAndRollbackComplete,
-  DisabledAndRollbackError,
-  DisabledAndRollbackInProgress,
-  DisabledAndRollbackScheduled,
-  EnableInProgress,
-  Enabled,
-  Error',
+  AutoTuneStateDISABLED,
+  AutoTuneStateDISABLEDANDROLLBACKCOMPLETE,
+  AutoTuneStateDISABLEDANDROLLBACKERROR,
+  AutoTuneStateDISABLEDANDROLLBACKINPROGRESS,
+  AutoTuneStateDISABLEDANDROLLBACKSCHEDULED,
+  AutoTuneStateDISABLEINPROGRESS,
+  AutoTuneStateENABLED,
+  AutoTuneStateENABLEINPROGRESS,
+  AutoTuneStateERROR,
   AutoTuneState'
   #-}
 
-instance FromText AutoTuneState where
-  parser = (AutoTuneState' . mk) <$> takeText
+instance Prelude.FromText AutoTuneState where
+  parser = AutoTuneState' Prelude.<$> Prelude.takeText
 
-instance ToText AutoTuneState where
-  toText (AutoTuneState' ci) = original ci
+instance Prelude.ToText AutoTuneState where
+  toText (AutoTuneState' x) = x
 
-instance Hashable AutoTuneState
+instance Prelude.Hashable AutoTuneState
 
-instance NFData AutoTuneState
+instance Prelude.NFData AutoTuneState
 
-instance ToByteString AutoTuneState
+instance Prelude.ToByteString AutoTuneState
 
-instance ToQuery AutoTuneState
+instance Prelude.ToQuery AutoTuneState
 
-instance ToHeader AutoTuneState
+instance Prelude.ToHeader AutoTuneState
 
-instance FromJSON AutoTuneState where
-  parseJSON = parseJSONText "AutoTuneState"
+instance Prelude.FromJSON AutoTuneState where
+  parseJSON = Prelude.parseJSONText "AutoTuneState"

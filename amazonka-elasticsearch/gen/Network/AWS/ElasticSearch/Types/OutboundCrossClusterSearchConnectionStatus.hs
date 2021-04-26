@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,73 +20,102 @@
 module Network.AWS.ElasticSearch.Types.OutboundCrossClusterSearchConnectionStatus where
 
 import Network.AWS.ElasticSearch.Types.OutboundCrossClusterSearchConnectionStatusCode
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies the connection status of an outbound cross-cluster search connection.
+-- | Specifies the connection status of an outbound cross-cluster search
+-- connection.
 --
---
---
--- /See:/ 'outboundCrossClusterSearchConnectionStatus' smart constructor.
+-- /See:/ 'newOutboundCrossClusterSearchConnectionStatus' smart constructor.
 data OutboundCrossClusterSearchConnectionStatus = OutboundCrossClusterSearchConnectionStatus'
-  { _occscsMessage ::
-      !( Maybe
-           Text
-       ),
-    _occscsStatusCode ::
-      !( Maybe
-           OutboundCrossClusterSearchConnectionStatusCode
-       )
+  { -- | Specifies verbose information for the outbound connection status.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The state code for outbound connection. This can be one of the
+    -- following:
+    --
+    -- -   VALIDATING: The outbound connection request is being validated.
+    -- -   VALIDATION_FAILED: Validation failed for the connection request.
+    -- -   PENDING_ACCEPTANCE: Outbound connection request is validated and is
+    --     not yet accepted by destination domain owner.
+    -- -   PROVISIONING: Outbound connection request is in process.
+    -- -   ACTIVE: Outbound connection is active and ready to use.
+    -- -   REJECTED: Outbound connection request is rejected by destination
+    --     domain owner.
+    -- -   DELETING: Outbound connection deletion is in progress.
+    -- -   DELETED: Outbound connection is deleted and cannot be used further.
+    statusCode :: Prelude.Maybe OutboundCrossClusterSearchConnectionStatusCode
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OutboundCrossClusterSearchConnectionStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OutboundCrossClusterSearchConnectionStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'occscsMessage' - Specifies verbose information for the outbound connection status.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'occscsStatusCode' - The state code for outbound connection. This can be one of the following:     * VALIDATING: The outbound connection request is being validated.    * VALIDATION_FAILED: Validation failed for the connection request.    * PENDING_ACCEPTANCE: Outbound connection request is validated and is not yet accepted by destination domain owner.    * PROVISIONING: Outbound connection request is in process.    * ACTIVE: Outbound connection is active and ready to use.    * REJECTED: Outbound connection request is rejected by destination domain owner.    * DELETING: Outbound connection deletion is in progress.    * DELETED: Outbound connection is deleted and cannot be used further.
-outboundCrossClusterSearchConnectionStatus ::
+-- 'message', 'outboundCrossClusterSearchConnectionStatus_message' - Specifies verbose information for the outbound connection status.
+--
+-- 'statusCode', 'outboundCrossClusterSearchConnectionStatus_statusCode' - The state code for outbound connection. This can be one of the
+-- following:
+--
+-- -   VALIDATING: The outbound connection request is being validated.
+-- -   VALIDATION_FAILED: Validation failed for the connection request.
+-- -   PENDING_ACCEPTANCE: Outbound connection request is validated and is
+--     not yet accepted by destination domain owner.
+-- -   PROVISIONING: Outbound connection request is in process.
+-- -   ACTIVE: Outbound connection is active and ready to use.
+-- -   REJECTED: Outbound connection request is rejected by destination
+--     domain owner.
+-- -   DELETING: Outbound connection deletion is in progress.
+-- -   DELETED: Outbound connection is deleted and cannot be used further.
+newOutboundCrossClusterSearchConnectionStatus ::
   OutboundCrossClusterSearchConnectionStatus
-outboundCrossClusterSearchConnectionStatus =
+newOutboundCrossClusterSearchConnectionStatus =
   OutboundCrossClusterSearchConnectionStatus'
-    { _occscsMessage =
-        Nothing,
-      _occscsStatusCode = Nothing
+    { message =
+        Prelude.Nothing,
+      statusCode = Prelude.Nothing
     }
 
 -- | Specifies verbose information for the outbound connection status.
-occscsMessage :: Lens' OutboundCrossClusterSearchConnectionStatus (Maybe Text)
-occscsMessage = lens _occscsMessage (\s a -> s {_occscsMessage = a})
+outboundCrossClusterSearchConnectionStatus_message :: Lens.Lens' OutboundCrossClusterSearchConnectionStatus (Prelude.Maybe Prelude.Text)
+outboundCrossClusterSearchConnectionStatus_message = Lens.lens (\OutboundCrossClusterSearchConnectionStatus' {message} -> message) (\s@OutboundCrossClusterSearchConnectionStatus' {} a -> s {message = a} :: OutboundCrossClusterSearchConnectionStatus)
 
--- | The state code for outbound connection. This can be one of the following:     * VALIDATING: The outbound connection request is being validated.    * VALIDATION_FAILED: Validation failed for the connection request.    * PENDING_ACCEPTANCE: Outbound connection request is validated and is not yet accepted by destination domain owner.    * PROVISIONING: Outbound connection request is in process.    * ACTIVE: Outbound connection is active and ready to use.    * REJECTED: Outbound connection request is rejected by destination domain owner.    * DELETING: Outbound connection deletion is in progress.    * DELETED: Outbound connection is deleted and cannot be used further.
-occscsStatusCode :: Lens' OutboundCrossClusterSearchConnectionStatus (Maybe OutboundCrossClusterSearchConnectionStatusCode)
-occscsStatusCode = lens _occscsStatusCode (\s a -> s {_occscsStatusCode = a})
+-- | The state code for outbound connection. This can be one of the
+-- following:
+--
+-- -   VALIDATING: The outbound connection request is being validated.
+-- -   VALIDATION_FAILED: Validation failed for the connection request.
+-- -   PENDING_ACCEPTANCE: Outbound connection request is validated and is
+--     not yet accepted by destination domain owner.
+-- -   PROVISIONING: Outbound connection request is in process.
+-- -   ACTIVE: Outbound connection is active and ready to use.
+-- -   REJECTED: Outbound connection request is rejected by destination
+--     domain owner.
+-- -   DELETING: Outbound connection deletion is in progress.
+-- -   DELETED: Outbound connection is deleted and cannot be used further.
+outboundCrossClusterSearchConnectionStatus_statusCode :: Lens.Lens' OutboundCrossClusterSearchConnectionStatus (Prelude.Maybe OutboundCrossClusterSearchConnectionStatusCode)
+outboundCrossClusterSearchConnectionStatus_statusCode = Lens.lens (\OutboundCrossClusterSearchConnectionStatus' {statusCode} -> statusCode) (\s@OutboundCrossClusterSearchConnectionStatus' {} a -> s {statusCode = a} :: OutboundCrossClusterSearchConnectionStatus)
 
 instance
-  FromJSON
+  Prelude.FromJSON
     OutboundCrossClusterSearchConnectionStatus
   where
   parseJSON =
-    withObject
+    Prelude.withObject
       "OutboundCrossClusterSearchConnectionStatus"
       ( \x ->
           OutboundCrossClusterSearchConnectionStatus'
-            <$> (x .:? "Message") <*> (x .:? "StatusCode")
+            Prelude.<$> (x Prelude..:? "Message")
+              Prelude.<*> (x Prelude..:? "StatusCode")
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     OutboundCrossClusterSearchConnectionStatus
 
 instance
-  NFData
+  Prelude.NFData
     OutboundCrossClusterSearchConnectionStatus

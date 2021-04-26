@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,169 +24,174 @@
 -- Create a package for use with Amazon ES domains.
 module Network.AWS.ElasticSearch.CreatePackage
   ( -- * Creating a Request
-    createPackage,
-    CreatePackage,
+    CreatePackage (..),
+    newCreatePackage,
 
     -- * Request Lenses
-    cpPackageDescription,
-    cpPackageName,
-    cpPackageType,
-    cpPackageSource,
+    createPackage_packageDescription,
+    createPackage_packageName,
+    createPackage_packageType,
+    createPackage_packageSource,
 
     -- * Destructuring the Response
-    createPackageResponse,
-    CreatePackageResponse,
+    CreatePackageResponse (..),
+    newCreatePackageResponse,
 
     -- * Response Lenses
-    cprrsPackageDetails,
-    cprrsResponseStatus,
+    createPackageResponse_packageDetails,
+    createPackageResponse_httpStatus,
   )
 where
 
 import Network.AWS.ElasticSearch.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ElasticSearch.Types.PackageDetails
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Container for request parameters to @'CreatePackage' @ operation.
+-- | Container for request parameters to @ CreatePackage @ operation.
 --
---
---
--- /See:/ 'createPackage' smart constructor.
+-- /See:/ 'newCreatePackage' smart constructor.
 data CreatePackage = CreatePackage'
-  { _cpPackageDescription ::
-      !(Maybe Text),
-    _cpPackageName :: !Text,
-    _cpPackageType :: !PackageType,
-    _cpPackageSource :: !PackageSource
+  { -- | Description of the package.
+    packageDescription :: Prelude.Maybe Prelude.Text,
+    -- | Unique identifier for the package.
+    packageName :: Prelude.Text,
+    -- | Type of package. Currently supports only TXT-DICTIONARY.
+    packageType :: PackageType,
+    -- | The customer S3 location @PackageSource@ for importing the package.
+    packageSource :: PackageSource
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreatePackage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreatePackage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cpPackageDescription' - Description of the package.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cpPackageName' - Unique identifier for the package.
+-- 'packageDescription', 'createPackage_packageDescription' - Description of the package.
 --
--- * 'cpPackageType' - Type of package. Currently supports only TXT-DICTIONARY.
+-- 'packageName', 'createPackage_packageName' - Unique identifier for the package.
 --
--- * 'cpPackageSource' - The customer S3 location @PackageSource@ for importing the package.
-createPackage ::
-  -- | 'cpPackageName'
-  Text ->
-  -- | 'cpPackageType'
+-- 'packageType', 'createPackage_packageType' - Type of package. Currently supports only TXT-DICTIONARY.
+--
+-- 'packageSource', 'createPackage_packageSource' - The customer S3 location @PackageSource@ for importing the package.
+newCreatePackage ::
+  -- | 'packageName'
+  Prelude.Text ->
+  -- | 'packageType'
   PackageType ->
-  -- | 'cpPackageSource'
+  -- | 'packageSource'
   PackageSource ->
   CreatePackage
-createPackage
+newCreatePackage
   pPackageName_
   pPackageType_
   pPackageSource_ =
     CreatePackage'
-      { _cpPackageDescription = Nothing,
-        _cpPackageName = pPackageName_,
-        _cpPackageType = pPackageType_,
-        _cpPackageSource = pPackageSource_
+      { packageDescription =
+          Prelude.Nothing,
+        packageName = pPackageName_,
+        packageType = pPackageType_,
+        packageSource = pPackageSource_
       }
 
 -- | Description of the package.
-cpPackageDescription :: Lens' CreatePackage (Maybe Text)
-cpPackageDescription = lens _cpPackageDescription (\s a -> s {_cpPackageDescription = a})
+createPackage_packageDescription :: Lens.Lens' CreatePackage (Prelude.Maybe Prelude.Text)
+createPackage_packageDescription = Lens.lens (\CreatePackage' {packageDescription} -> packageDescription) (\s@CreatePackage' {} a -> s {packageDescription = a} :: CreatePackage)
 
 -- | Unique identifier for the package.
-cpPackageName :: Lens' CreatePackage Text
-cpPackageName = lens _cpPackageName (\s a -> s {_cpPackageName = a})
+createPackage_packageName :: Lens.Lens' CreatePackage Prelude.Text
+createPackage_packageName = Lens.lens (\CreatePackage' {packageName} -> packageName) (\s@CreatePackage' {} a -> s {packageName = a} :: CreatePackage)
 
 -- | Type of package. Currently supports only TXT-DICTIONARY.
-cpPackageType :: Lens' CreatePackage PackageType
-cpPackageType = lens _cpPackageType (\s a -> s {_cpPackageType = a})
+createPackage_packageType :: Lens.Lens' CreatePackage PackageType
+createPackage_packageType = Lens.lens (\CreatePackage' {packageType} -> packageType) (\s@CreatePackage' {} a -> s {packageType = a} :: CreatePackage)
 
 -- | The customer S3 location @PackageSource@ for importing the package.
-cpPackageSource :: Lens' CreatePackage PackageSource
-cpPackageSource = lens _cpPackageSource (\s a -> s {_cpPackageSource = a})
+createPackage_packageSource :: Lens.Lens' CreatePackage PackageSource
+createPackage_packageSource = Lens.lens (\CreatePackage' {packageSource} -> packageSource) (\s@CreatePackage' {} a -> s {packageSource = a} :: CreatePackage)
 
-instance AWSRequest CreatePackage where
+instance Prelude.AWSRequest CreatePackage where
   type Rs CreatePackage = CreatePackageResponse
-  request = postJSON elasticSearch
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreatePackageResponse'
-            <$> (x .?> "PackageDetails") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "PackageDetails")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreatePackage
+instance Prelude.Hashable CreatePackage
 
-instance NFData CreatePackage
+instance Prelude.NFData CreatePackage
 
-instance ToHeaders CreatePackage where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreatePackage where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON CreatePackage where
+instance Prelude.ToJSON CreatePackage where
   toJSON CreatePackage' {..} =
-    object
-      ( catMaybes
-          [ ("PackageDescription" .=) <$> _cpPackageDescription,
-            Just ("PackageName" .= _cpPackageName),
-            Just ("PackageType" .= _cpPackageType),
-            Just ("PackageSource" .= _cpPackageSource)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("PackageDescription" Prelude..=)
+              Prelude.<$> packageDescription,
+            Prelude.Just ("PackageName" Prelude..= packageName),
+            Prelude.Just ("PackageType" Prelude..= packageType),
+            Prelude.Just
+              ("PackageSource" Prelude..= packageSource)
           ]
       )
 
-instance ToPath CreatePackage where
-  toPath = const "/2015-01-01/packages"
+instance Prelude.ToPath CreatePackage where
+  toPath = Prelude.const "/2015-01-01/packages"
 
-instance ToQuery CreatePackage where
-  toQuery = const mempty
+instance Prelude.ToQuery CreatePackage where
+  toQuery = Prelude.const Prelude.mempty
 
--- | Container for response returned by @'CreatePackage' @ operation.
+-- | Container for response returned by @ CreatePackage @ operation.
 --
---
---
--- /See:/ 'createPackageResponse' smart constructor.
+-- /See:/ 'newCreatePackageResponse' smart constructor.
 data CreatePackageResponse = CreatePackageResponse'
-  { _cprrsPackageDetails ::
-      !(Maybe PackageDetails),
-    _cprrsResponseStatus ::
-      !Int
+  { -- | Information about the package @PackageDetails@.
+    packageDetails :: Prelude.Maybe PackageDetails,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreatePackageResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreatePackageResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cprrsPackageDetails' - Information about the package @PackageDetails@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cprrsResponseStatus' - -- | The response status code.
-createPackageResponse ::
-  -- | 'cprrsResponseStatus'
-  Int ->
+-- 'packageDetails', 'createPackageResponse_packageDetails' - Information about the package @PackageDetails@.
+--
+-- 'httpStatus', 'createPackageResponse_httpStatus' - The response's http status code.
+newCreatePackageResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreatePackageResponse
-createPackageResponse pResponseStatus_ =
+newCreatePackageResponse pHttpStatus_ =
   CreatePackageResponse'
-    { _cprrsPackageDetails =
-        Nothing,
-      _cprrsResponseStatus = pResponseStatus_
+    { packageDetails =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Information about the package @PackageDetails@ .
-cprrsPackageDetails :: Lens' CreatePackageResponse (Maybe PackageDetails)
-cprrsPackageDetails = lens _cprrsPackageDetails (\s a -> s {_cprrsPackageDetails = a})
+-- | Information about the package @PackageDetails@.
+createPackageResponse_packageDetails :: Lens.Lens' CreatePackageResponse (Prelude.Maybe PackageDetails)
+createPackageResponse_packageDetails = Lens.lens (\CreatePackageResponse' {packageDetails} -> packageDetails) (\s@CreatePackageResponse' {} a -> s {packageDetails = a} :: CreatePackageResponse)
 
--- | -- | The response status code.
-cprrsResponseStatus :: Lens' CreatePackageResponse Int
-cprrsResponseStatus = lens _cprrsResponseStatus (\s a -> s {_cprrsResponseStatus = a})
+-- | The response's http status code.
+createPackageResponse_httpStatus :: Lens.Lens' CreatePackageResponse Prelude.Int
+createPackageResponse_httpStatus = Lens.lens (\CreatePackageResponse' {httpStatus} -> httpStatus) (\s@CreatePackageResponse' {} a -> s {httpStatus = a} :: CreatePackageResponse)
 
-instance NFData CreatePackageResponse
+instance Prelude.NFData CreatePackageResponse
