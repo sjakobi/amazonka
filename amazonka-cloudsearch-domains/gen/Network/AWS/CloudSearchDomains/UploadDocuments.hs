@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,178 +21,212 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Posts a batch of documents to a search domain for indexing. A document batch is a collection of add and delete operations that represent the documents you want to add, update, or delete from your domain. Batches can be described in either JSON or XML. Each item that you want Amazon CloudSearch to return as a search result (such as a product) is represented as a document. Every document has a unique ID and one or more fields that contain the data that you want to search and return in results. Individual documents cannot contain more than 1 MB of data. The entire batch cannot exceed 5 MB. To get the best possible upload performance, group add and delete operations in batches that are close the 5 MB limit. Submitting a large volume of single-document batches can overload a domain's document service.
+-- Posts a batch of documents to a search domain for indexing. A document
+-- batch is a collection of add and delete operations that represent the
+-- documents you want to add, update, or delete from your domain. Batches
+-- can be described in either JSON or XML. Each item that you want Amazon
+-- CloudSearch to return as a search result (such as a product) is
+-- represented as a document. Every document has a unique ID and one or
+-- more fields that contain the data that you want to search and return in
+-- results. Individual documents cannot contain more than 1 MB of data. The
+-- entire batch cannot exceed 5 MB. To get the best possible upload
+-- performance, group add and delete operations in batches that are close
+-- the 5 MB limit. Submitting a large volume of single-document batches can
+-- overload a domain\'s document service.
 --
+-- The endpoint for submitting @UploadDocuments@ requests is
+-- domain-specific. To get the document endpoint for your domain, use the
+-- Amazon CloudSearch configuration service @DescribeDomains@ action. A
+-- domain\'s endpoints are also displayed on the domain dashboard in the
+-- Amazon CloudSearch console.
 --
--- The endpoint for submitting @UploadDocuments@ requests is domain-specific. To get the document endpoint for your domain, use the Amazon CloudSearch configuration service @DescribeDomains@ action. A domain's endpoints are also displayed on the domain dashboard in the Amazon CloudSearch console.
---
--- For more information about formatting your data for Amazon CloudSearch, see <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/preparing-data.html Preparing Your Data> in the /Amazon CloudSearch Developer Guide/ . For more information about uploading data for indexing, see <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/uploading-data.html Uploading Data> in the /Amazon CloudSearch Developer Guide/ .
+-- For more information about formatting your data for Amazon CloudSearch,
+-- see
+-- <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/preparing-data.html Preparing Your Data>
+-- in the /Amazon CloudSearch Developer Guide/. For more information about
+-- uploading data for indexing, see
+-- <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/uploading-data.html Uploading Data>
+-- in the /Amazon CloudSearch Developer Guide/.
 module Network.AWS.CloudSearchDomains.UploadDocuments
   ( -- * Creating a Request
-    uploadDocuments,
-    UploadDocuments,
+    UploadDocuments (..),
+    newUploadDocuments,
 
     -- * Request Lenses
-    udContentType,
-    udDocuments,
+    uploadDocuments_contentType,
+    uploadDocuments_documents,
 
     -- * Destructuring the Response
-    uploadDocumentsResponse,
-    UploadDocumentsResponse,
+    UploadDocumentsResponse (..),
+    newUploadDocumentsResponse,
 
     -- * Response Lenses
-    udrrsStatus,
-    udrrsWarnings,
-    udrrsDeletes,
-    udrrsAdds,
-    udrrsResponseStatus,
+    uploadDocumentsResponse_status,
+    uploadDocumentsResponse_warnings,
+    uploadDocumentsResponse_deletes,
+    uploadDocumentsResponse_adds,
+    uploadDocumentsResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudSearchDomains.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudSearchDomains.Types.DocumentServiceWarning
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Container for the parameters to the @UploadDocuments@ request.
 --
---
---
--- /See:/ 'uploadDocuments' smart constructor.
+-- /See:/ 'newUploadDocuments' smart constructor.
 data UploadDocuments = UploadDocuments'
-  { _udContentType ::
-      !ContentType,
-    _udDocuments :: !HashedBody
+  { -- | The format of the batch you are uploading. Amazon CloudSearch supports
+    -- two document batch formats:
+    --
+    -- -   application\/json
+    -- -   application\/xml
+    contentType :: ContentType,
+    -- | A batch of documents formatted in JSON or HTML.
+    documents :: Prelude.HashedBody
   }
-  deriving (Show, Generic)
+  deriving (Prelude.Show, Prelude.Generic)
 
--- | Creates a value of 'UploadDocuments' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UploadDocuments' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'udContentType' - The format of the batch you are uploading. Amazon CloudSearch supports two document batch formats:     * application/json    * application/xml
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'udDocuments' - A batch of documents formatted in JSON or HTML.
-uploadDocuments ::
-  -- | 'udContentType'
+-- 'contentType', 'uploadDocuments_contentType' - The format of the batch you are uploading. Amazon CloudSearch supports
+-- two document batch formats:
+--
+-- -   application\/json
+-- -   application\/xml
+--
+-- 'documents', 'uploadDocuments_documents' - A batch of documents formatted in JSON or HTML.
+newUploadDocuments ::
+  -- | 'contentType'
   ContentType ->
-  -- | 'udDocuments'
-  HashedBody ->
+  -- | 'documents'
+  Prelude.HashedBody ->
   UploadDocuments
-uploadDocuments pContentType_ pDocuments_ =
+newUploadDocuments pContentType_ pDocuments_ =
   UploadDocuments'
-    { _udContentType = pContentType_,
-      _udDocuments = pDocuments_
+    { contentType = pContentType_,
+      documents = pDocuments_
     }
 
--- | The format of the batch you are uploading. Amazon CloudSearch supports two document batch formats:     * application/json    * application/xml
-udContentType :: Lens' UploadDocuments ContentType
-udContentType = lens _udContentType (\s a -> s {_udContentType = a})
+-- | The format of the batch you are uploading. Amazon CloudSearch supports
+-- two document batch formats:
+--
+-- -   application\/json
+-- -   application\/xml
+uploadDocuments_contentType :: Lens.Lens' UploadDocuments ContentType
+uploadDocuments_contentType = Lens.lens (\UploadDocuments' {contentType} -> contentType) (\s@UploadDocuments' {} a -> s {contentType = a} :: UploadDocuments)
 
 -- | A batch of documents formatted in JSON or HTML.
-udDocuments :: Lens' UploadDocuments HashedBody
-udDocuments = lens _udDocuments (\s a -> s {_udDocuments = a})
+uploadDocuments_documents :: Lens.Lens' UploadDocuments Prelude.HashedBody
+uploadDocuments_documents = Lens.lens (\UploadDocuments' {documents} -> documents) (\s@UploadDocuments' {} a -> s {documents = a} :: UploadDocuments)
 
-instance AWSRequest UploadDocuments where
+instance Prelude.AWSRequest UploadDocuments where
   type Rs UploadDocuments = UploadDocumentsResponse
-  request = postBody cloudSearchDomains
+  request = Request.postBody defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UploadDocumentsResponse'
-            <$> (x .?> "status")
-            <*> (x .?> "warnings" .!@ mempty)
-            <*> (x .?> "deletes")
-            <*> (x .?> "adds")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "status")
+            Prelude.<*> (x Prelude..?> "warnings" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (x Prelude..?> "deletes")
+            Prelude.<*> (x Prelude..?> "adds")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance ToBody UploadDocuments where
-  toBody = toBody . _udDocuments
+instance Prelude.ToBody UploadDocuments where
+  toBody = Prelude.toBody Prelude.. documents
 
-instance ToHeaders UploadDocuments where
+instance Prelude.ToHeaders UploadDocuments where
   toHeaders UploadDocuments' {..} =
-    mconcat ["Content-Type" =# _udContentType]
+    Prelude.mconcat
+      ["Content-Type" Prelude.=# contentType]
 
-instance ToPath UploadDocuments where
-  toPath = const "/2013-01-01/documents/batch"
+instance Prelude.ToPath UploadDocuments where
+  toPath = Prelude.const "/2013-01-01/documents/batch"
 
-instance ToQuery UploadDocuments where
-  toQuery = const (mconcat ["format=sdk"])
+instance Prelude.ToQuery UploadDocuments where
+  toQuery =
+    Prelude.const (Prelude.mconcat ["format=sdk"])
 
 -- | Contains the response to an @UploadDocuments@ request.
 --
---
---
--- /See:/ 'uploadDocumentsResponse' smart constructor.
+-- /See:/ 'newUploadDocumentsResponse' smart constructor.
 data UploadDocumentsResponse = UploadDocumentsResponse'
-  { _udrrsStatus ::
-      !(Maybe Text),
-    _udrrsWarnings ::
-      !( Maybe
-           [DocumentServiceWarning]
-       ),
-    _udrrsDeletes ::
-      !(Maybe Integer),
-    _udrrsAdds ::
-      !(Maybe Integer),
-    _udrrsResponseStatus ::
-      !Int
+  { -- | The status of an @UploadDocumentsRequest@.
+    status :: Prelude.Maybe Prelude.Text,
+    -- | Any warnings returned by the document service about the documents being
+    -- uploaded.
+    warnings :: Prelude.Maybe [DocumentServiceWarning],
+    -- | The number of documents that were deleted from the search domain.
+    deletes :: Prelude.Maybe Prelude.Integer,
+    -- | The number of documents that were added to the search domain.
+    adds :: Prelude.Maybe Prelude.Integer,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UploadDocumentsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UploadDocumentsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'udrrsStatus' - The status of an @UploadDocumentsRequest@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'udrrsWarnings' - Any warnings returned by the document service about the documents being uploaded.
+-- 'status', 'uploadDocumentsResponse_status' - The status of an @UploadDocumentsRequest@.
 --
--- * 'udrrsDeletes' - The number of documents that were deleted from the search domain.
+-- 'warnings', 'uploadDocumentsResponse_warnings' - Any warnings returned by the document service about the documents being
+-- uploaded.
 --
--- * 'udrrsAdds' - The number of documents that were added to the search domain.
+-- 'deletes', 'uploadDocumentsResponse_deletes' - The number of documents that were deleted from the search domain.
 --
--- * 'udrrsResponseStatus' - -- | The response status code.
-uploadDocumentsResponse ::
-  -- | 'udrrsResponseStatus'
-  Int ->
+-- 'adds', 'uploadDocumentsResponse_adds' - The number of documents that were added to the search domain.
+--
+-- 'httpStatus', 'uploadDocumentsResponse_httpStatus' - The response's http status code.
+newUploadDocumentsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UploadDocumentsResponse
-uploadDocumentsResponse pResponseStatus_ =
+newUploadDocumentsResponse pHttpStatus_ =
   UploadDocumentsResponse'
-    { _udrrsStatus = Nothing,
-      _udrrsWarnings = Nothing,
-      _udrrsDeletes = Nothing,
-      _udrrsAdds = Nothing,
-      _udrrsResponseStatus = pResponseStatus_
+    { status = Prelude.Nothing,
+      warnings = Prelude.Nothing,
+      deletes = Prelude.Nothing,
+      adds = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The status of an @UploadDocumentsRequest@ .
-udrrsStatus :: Lens' UploadDocumentsResponse (Maybe Text)
-udrrsStatus = lens _udrrsStatus (\s a -> s {_udrrsStatus = a})
+-- | The status of an @UploadDocumentsRequest@.
+uploadDocumentsResponse_status :: Lens.Lens' UploadDocumentsResponse (Prelude.Maybe Prelude.Text)
+uploadDocumentsResponse_status = Lens.lens (\UploadDocumentsResponse' {status} -> status) (\s@UploadDocumentsResponse' {} a -> s {status = a} :: UploadDocumentsResponse)
 
--- | Any warnings returned by the document service about the documents being uploaded.
-udrrsWarnings :: Lens' UploadDocumentsResponse [DocumentServiceWarning]
-udrrsWarnings = lens _udrrsWarnings (\s a -> s {_udrrsWarnings = a}) . _Default . _Coerce
+-- | Any warnings returned by the document service about the documents being
+-- uploaded.
+uploadDocumentsResponse_warnings :: Lens.Lens' UploadDocumentsResponse (Prelude.Maybe [DocumentServiceWarning])
+uploadDocumentsResponse_warnings = Lens.lens (\UploadDocumentsResponse' {warnings} -> warnings) (\s@UploadDocumentsResponse' {} a -> s {warnings = a} :: UploadDocumentsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The number of documents that were deleted from the search domain.
-udrrsDeletes :: Lens' UploadDocumentsResponse (Maybe Integer)
-udrrsDeletes = lens _udrrsDeletes (\s a -> s {_udrrsDeletes = a})
+uploadDocumentsResponse_deletes :: Lens.Lens' UploadDocumentsResponse (Prelude.Maybe Prelude.Integer)
+uploadDocumentsResponse_deletes = Lens.lens (\UploadDocumentsResponse' {deletes} -> deletes) (\s@UploadDocumentsResponse' {} a -> s {deletes = a} :: UploadDocumentsResponse)
 
 -- | The number of documents that were added to the search domain.
-udrrsAdds :: Lens' UploadDocumentsResponse (Maybe Integer)
-udrrsAdds = lens _udrrsAdds (\s a -> s {_udrrsAdds = a})
+uploadDocumentsResponse_adds :: Lens.Lens' UploadDocumentsResponse (Prelude.Maybe Prelude.Integer)
+uploadDocumentsResponse_adds = Lens.lens (\UploadDocumentsResponse' {adds} -> adds) (\s@UploadDocumentsResponse' {} a -> s {adds = a} :: UploadDocumentsResponse)
 
--- | -- | The response status code.
-udrrsResponseStatus :: Lens' UploadDocumentsResponse Int
-udrrsResponseStatus = lens _udrrsResponseStatus (\s a -> s {_udrrsResponseStatus = a})
+-- | The response's http status code.
+uploadDocumentsResponse_httpStatus :: Lens.Lens' UploadDocumentsResponse Prelude.Int
+uploadDocumentsResponse_httpStatus = Lens.lens (\UploadDocumentsResponse' {httpStatus} -> httpStatus) (\s@UploadDocumentsResponse' {} a -> s {httpStatus = a} :: UploadDocumentsResponse)
 
-instance NFData UploadDocumentsResponse
+instance Prelude.NFData UploadDocumentsResponse

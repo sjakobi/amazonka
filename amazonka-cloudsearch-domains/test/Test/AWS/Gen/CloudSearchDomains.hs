@@ -28,25 +28,25 @@ import Test.Tasty
 -- fixtures =
 --     [ testGroup "request"
 --         [ requestUploadDocuments $
---             uploadDocuments
+--             newUploadDocuments
 --
 --         , requestSearch $
---             search
+--             newSearch
 --
 --         , requestSuggest $
---             suggest
+--             newSuggest
 --
 --           ]
 
 --     , testGroup "response"
 --         [ responseUploadDocuments $
---             uploadDocumentsResponse
+--             newUploadDocumentsResponse
 --
 --         , responseSearch $
---             searchResponse
+--             newSearchResponse
 --
 --         , responseSuggest $
---             suggestResponse
+--             newSuggestResponse
 --
 --           ]
 --     ]
@@ -72,7 +72,7 @@ responseUploadDocuments =
   res
     "UploadDocumentsResponse"
     "fixture/UploadDocumentsResponse.proto"
-    cloudSearchDomains
+    defaultService
     (Proxy :: Proxy UploadDocuments)
 
 responseSearch :: SearchResponse -> TestTree
@@ -80,7 +80,7 @@ responseSearch =
   res
     "SearchResponse"
     "fixture/SearchResponse.proto"
-    cloudSearchDomains
+    defaultService
     (Proxy :: Proxy Search)
 
 responseSuggest :: SuggestResponse -> TestTree
@@ -88,5 +88,5 @@ responseSuggest =
   res
     "SuggestResponse"
     "fixture/SuggestResponse.proto"
-    cloudSearchDomains
+    defaultService
     (Proxy :: Proxy Suggest)

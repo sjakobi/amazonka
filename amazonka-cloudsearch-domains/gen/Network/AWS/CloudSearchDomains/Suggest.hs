@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,165 +21,194 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves autocomplete suggestions for a partial query string. You can use suggestions enable you to display likely matches before users finish typing. In Amazon CloudSearch, suggestions are based on the contents of a particular text field. When you request suggestions, Amazon CloudSearch finds all of the documents whose values in the suggester field start with the specified query string. The beginning of the field must match the query string to be considered a match.
+-- Retrieves autocomplete suggestions for a partial query string. You can
+-- use suggestions enable you to display likely matches before users finish
+-- typing. In Amazon CloudSearch, suggestions are based on the contents of
+-- a particular text field. When you request suggestions, Amazon
+-- CloudSearch finds all of the documents whose values in the suggester
+-- field start with the specified query string. The beginning of the field
+-- must match the query string to be considered a match.
 --
+-- For more information about configuring suggesters and retrieving
+-- suggestions, see
+-- <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/getting-suggestions.html Getting Suggestions>
+-- in the /Amazon CloudSearch Developer Guide/.
 --
--- For more information about configuring suggesters and retrieving suggestions, see <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/getting-suggestions.html Getting Suggestions> in the /Amazon CloudSearch Developer Guide/ .
---
--- The endpoint for submitting @Suggest@ requests is domain-specific. You submit suggest requests to a domain's search endpoint. To get the search endpoint for your domain, use the Amazon CloudSearch configuration service @DescribeDomains@ action. A domain's endpoints are also displayed on the domain dashboard in the Amazon CloudSearch console.
+-- The endpoint for submitting @Suggest@ requests is domain-specific. You
+-- submit suggest requests to a domain\'s search endpoint. To get the
+-- search endpoint for your domain, use the Amazon CloudSearch
+-- configuration service @DescribeDomains@ action. A domain\'s endpoints
+-- are also displayed on the domain dashboard in the Amazon CloudSearch
+-- console.
 module Network.AWS.CloudSearchDomains.Suggest
   ( -- * Creating a Request
-    suggest,
-    Suggest,
+    Suggest (..),
+    newSuggest,
 
     -- * Request Lenses
-    sugSize,
-    sugQuery,
-    sugSuggester,
+    suggest_size,
+    suggest_query,
+    suggest_suggester,
 
     -- * Destructuring the Response
-    suggestResponse,
-    SuggestResponse,
+    SuggestResponse (..),
+    newSuggestResponse,
 
     -- * Response Lenses
-    srrsStatus,
-    srrsSuggest,
-    srrsResponseStatus,
+    suggestResponse_status,
+    suggestResponse_suggest,
+    suggestResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudSearchDomains.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudSearchDomains.Types.SuggestModel
+import Network.AWS.CloudSearchDomains.Types.SuggestStatus
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Container for the parameters to the @Suggest@ request.
 --
---
---
--- /See:/ 'suggest' smart constructor.
+-- /See:/ 'newSuggest' smart constructor.
 data Suggest = Suggest'
-  { _sugSize :: !(Maybe Integer),
-    _sugQuery :: !Text,
-    _sugSuggester :: !Text
+  { -- | Specifies the maximum number of suggestions to return.
+    size :: Prelude.Maybe Prelude.Integer,
+    -- | Specifies the string for which you want to get suggestions.
+    query :: Prelude.Text,
+    -- | Specifies the name of the suggester to use to find suggested matches.
+    suggester :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Suggest' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Suggest' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sugSize' - Specifies the maximum number of suggestions to return.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sugQuery' - Specifies the string for which you want to get suggestions.
+-- 'size', 'suggest_size' - Specifies the maximum number of suggestions to return.
 --
--- * 'sugSuggester' - Specifies the name of the suggester to use to find suggested matches.
-suggest ::
-  -- | 'sugQuery'
-  Text ->
-  -- | 'sugSuggester'
-  Text ->
+-- 'query', 'suggest_query' - Specifies the string for which you want to get suggestions.
+--
+-- 'suggester', 'suggest_suggester' - Specifies the name of the suggester to use to find suggested matches.
+newSuggest ::
+  -- | 'query'
+  Prelude.Text ->
+  -- | 'suggester'
+  Prelude.Text ->
   Suggest
-suggest pQuery_ pSuggester_ =
+newSuggest pQuery_ pSuggester_ =
   Suggest'
-    { _sugSize = Nothing,
-      _sugQuery = pQuery_,
-      _sugSuggester = pSuggester_
+    { size = Prelude.Nothing,
+      query = pQuery_,
+      suggester = pSuggester_
     }
 
 -- | Specifies the maximum number of suggestions to return.
-sugSize :: Lens' Suggest (Maybe Integer)
-sugSize = lens _sugSize (\s a -> s {_sugSize = a})
+suggest_size :: Lens.Lens' Suggest (Prelude.Maybe Prelude.Integer)
+suggest_size = Lens.lens (\Suggest' {size} -> size) (\s@Suggest' {} a -> s {size = a} :: Suggest)
 
 -- | Specifies the string for which you want to get suggestions.
-sugQuery :: Lens' Suggest Text
-sugQuery = lens _sugQuery (\s a -> s {_sugQuery = a})
+suggest_query :: Lens.Lens' Suggest Prelude.Text
+suggest_query = Lens.lens (\Suggest' {query} -> query) (\s@Suggest' {} a -> s {query = a} :: Suggest)
 
 -- | Specifies the name of the suggester to use to find suggested matches.
-sugSuggester :: Lens' Suggest Text
-sugSuggester = lens _sugSuggester (\s a -> s {_sugSuggester = a})
+suggest_suggester :: Lens.Lens' Suggest Prelude.Text
+suggest_suggester = Lens.lens (\Suggest' {suggester} -> suggester) (\s@Suggest' {} a -> s {suggester = a} :: Suggest)
 
-instance AWSRequest Suggest where
+instance Prelude.AWSRequest Suggest where
   type Rs Suggest = SuggestResponse
-  request = get cloudSearchDomains
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           SuggestResponse'
-            <$> (x .?> "status")
-            <*> (x .?> "suggest")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "status")
+            Prelude.<*> (x Prelude..?> "suggest")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable Suggest
+instance Prelude.Hashable Suggest
 
-instance NFData Suggest
+instance Prelude.NFData Suggest
 
-instance ToHeaders Suggest where
+instance Prelude.ToHeaders Suggest where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath Suggest where
-  toPath = const "/2013-01-01/suggest"
+instance Prelude.ToPath Suggest where
+  toPath = Prelude.const "/2013-01-01/suggest"
 
-instance ToQuery Suggest where
+instance Prelude.ToQuery Suggest where
   toQuery Suggest' {..} =
-    mconcat
-      [ "size" =: _sugSize,
-        "q" =: _sugQuery,
-        "suggester" =: _sugSuggester,
+    Prelude.mconcat
+      [ "size" Prelude.=: size,
+        "q" Prelude.=: query,
+        "suggester" Prelude.=: suggester,
         "format=sdk&pretty=true"
       ]
 
 -- | Contains the response to a @Suggest@ request.
 --
---
---
--- /See:/ 'suggestResponse' smart constructor.
+-- /See:/ 'newSuggestResponse' smart constructor.
 data SuggestResponse = SuggestResponse'
-  { _srrsStatus ::
-      !(Maybe SuggestStatus),
-    _srrsSuggest :: !(Maybe SuggestModel),
-    _srrsResponseStatus :: !Int
+  { -- | The status of a @SuggestRequest@. Contains the resource ID (@rid@) and
+    -- how long it took to process the request (@timems@).
+    status :: Prelude.Maybe SuggestStatus,
+    -- | Container for the matching search suggestion information.
+    suggest :: Prelude.Maybe SuggestModel,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SuggestResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SuggestResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'srrsStatus' - The status of a @SuggestRequest@ . Contains the resource ID (@rid@ ) and how long it took to process the request (@timems@ ).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'srrsSuggest' - Container for the matching search suggestion information.
+-- 'status', 'suggestResponse_status' - The status of a @SuggestRequest@. Contains the resource ID (@rid@) and
+-- how long it took to process the request (@timems@).
 --
--- * 'srrsResponseStatus' - -- | The response status code.
-suggestResponse ::
-  -- | 'srrsResponseStatus'
-  Int ->
+-- 'suggest', 'suggestResponse_suggest' - Container for the matching search suggestion information.
+--
+-- 'httpStatus', 'suggestResponse_httpStatus' - The response's http status code.
+newSuggestResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   SuggestResponse
-suggestResponse pResponseStatus_ =
+newSuggestResponse pHttpStatus_ =
   SuggestResponse'
-    { _srrsStatus = Nothing,
-      _srrsSuggest = Nothing,
-      _srrsResponseStatus = pResponseStatus_
+    { status = Prelude.Nothing,
+      suggest = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The status of a @SuggestRequest@ . Contains the resource ID (@rid@ ) and how long it took to process the request (@timems@ ).
-srrsStatus :: Lens' SuggestResponse (Maybe SuggestStatus)
-srrsStatus = lens _srrsStatus (\s a -> s {_srrsStatus = a})
+-- | The status of a @SuggestRequest@. Contains the resource ID (@rid@) and
+-- how long it took to process the request (@timems@).
+suggestResponse_status :: Lens.Lens' SuggestResponse (Prelude.Maybe SuggestStatus)
+suggestResponse_status = Lens.lens (\SuggestResponse' {status} -> status) (\s@SuggestResponse' {} a -> s {status = a} :: SuggestResponse)
 
 -- | Container for the matching search suggestion information.
-srrsSuggest :: Lens' SuggestResponse (Maybe SuggestModel)
-srrsSuggest = lens _srrsSuggest (\s a -> s {_srrsSuggest = a})
+suggestResponse_suggest :: Lens.Lens' SuggestResponse (Prelude.Maybe SuggestModel)
+suggestResponse_suggest = Lens.lens (\SuggestResponse' {suggest} -> suggest) (\s@SuggestResponse' {} a -> s {suggest = a} :: SuggestResponse)
 
--- | -- | The response status code.
-srrsResponseStatus :: Lens' SuggestResponse Int
-srrsResponseStatus = lens _srrsResponseStatus (\s a -> s {_srrsResponseStatus = a})
+-- | The response's http status code.
+suggestResponse_httpStatus :: Lens.Lens' SuggestResponse Prelude.Int
+suggestResponse_httpStatus = Lens.lens (\SuggestResponse' {httpStatus} -> httpStatus) (\s@SuggestResponse' {} a -> s {httpStatus = a} :: SuggestResponse)
 
-instance NFData SuggestResponse
+instance Prelude.NFData SuggestResponse

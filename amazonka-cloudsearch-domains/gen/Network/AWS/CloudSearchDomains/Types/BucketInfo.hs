@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,39 +20,45 @@
 module Network.AWS.CloudSearchDomains.Types.BucketInfo where
 
 import Network.AWS.CloudSearchDomains.Types.Bucket
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A container for the calculated facet values and counts.
 --
---
---
--- /See:/ 'bucketInfo' smart constructor.
-newtype BucketInfo = BucketInfo'
-  { _biBuckets ::
-      Maybe [Bucket]
+-- /See:/ 'newBucketInfo' smart constructor.
+data BucketInfo = BucketInfo'
+  { -- | A list of the calculated facet values and counts.
+    buckets :: Prelude.Maybe [Bucket]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BucketInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BucketInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'biBuckets' - A list of the calculated facet values and counts.
-bucketInfo ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'buckets', 'bucketInfo_buckets' - A list of the calculated facet values and counts.
+newBucketInfo ::
   BucketInfo
-bucketInfo = BucketInfo' {_biBuckets = Nothing}
+newBucketInfo =
+  BucketInfo' {buckets = Prelude.Nothing}
 
 -- | A list of the calculated facet values and counts.
-biBuckets :: Lens' BucketInfo [Bucket]
-biBuckets = lens _biBuckets (\s a -> s {_biBuckets = a}) . _Default . _Coerce
+bucketInfo_buckets :: Lens.Lens' BucketInfo (Prelude.Maybe [Bucket])
+bucketInfo_buckets = Lens.lens (\BucketInfo' {buckets} -> buckets) (\s@BucketInfo' {} a -> s {buckets = a} :: BucketInfo) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON BucketInfo where
+instance Prelude.FromJSON BucketInfo where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BucketInfo"
-      (\x -> BucketInfo' <$> (x .:? "buckets" .!= mempty))
+      ( \x ->
+          BucketInfo'
+            Prelude.<$> (x Prelude..:? "buckets" Prelude..!= Prelude.mempty)
+      )
 
-instance Hashable BucketInfo
+instance Prelude.Hashable BucketInfo
 
-instance NFData BucketInfo
+instance Prelude.NFData BucketInfo

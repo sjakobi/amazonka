@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,71 +19,82 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudSearchDomains.Types.Hit where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about a document that matches the search request.
 --
---
---
--- /See:/ 'hit' smart constructor.
+-- /See:/ 'newHit' smart constructor.
 data Hit = Hit'
-  { _hitId :: !(Maybe Text),
-    _hitExprs :: !(Maybe (Map Text Text)),
-    _hitFields :: !(Maybe (Map Text [Text])),
-    _hitHighlights :: !(Maybe (Map Text Text))
+  { -- | The document ID of a document that matches the search request.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The expressions returned from a document that matches the search
+    -- request.
+    exprs :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The fields returned from a document that matches the search request.
+    fields :: Prelude.Maybe (Prelude.Map Prelude.Text [Prelude.Text]),
+    -- | The highlights returned from a document that matches the search request.
+    highlights :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text)
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Hit' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Hit' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'hitId' - The document ID of a document that matches the search request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'hitExprs' - The expressions returned from a document that matches the search request.
+-- 'id', 'hit_id' - The document ID of a document that matches the search request.
 --
--- * 'hitFields' - The fields returned from a document that matches the search request.
+-- 'exprs', 'hit_exprs' - The expressions returned from a document that matches the search
+-- request.
 --
--- * 'hitHighlights' - The highlights returned from a document that matches the search request.
-hit ::
+-- 'fields', 'hit_fields' - The fields returned from a document that matches the search request.
+--
+-- 'highlights', 'hit_highlights' - The highlights returned from a document that matches the search request.
+newHit ::
   Hit
-hit =
+newHit =
   Hit'
-    { _hitId = Nothing,
-      _hitExprs = Nothing,
-      _hitFields = Nothing,
-      _hitHighlights = Nothing
+    { id = Prelude.Nothing,
+      exprs = Prelude.Nothing,
+      fields = Prelude.Nothing,
+      highlights = Prelude.Nothing
     }
 
 -- | The document ID of a document that matches the search request.
-hitId :: Lens' Hit (Maybe Text)
-hitId = lens _hitId (\s a -> s {_hitId = a})
+hit_id :: Lens.Lens' Hit (Prelude.Maybe Prelude.Text)
+hit_id = Lens.lens (\Hit' {id} -> id) (\s@Hit' {} a -> s {id = a} :: Hit)
 
--- | The expressions returned from a document that matches the search request.
-hitExprs :: Lens' Hit (HashMap Text Text)
-hitExprs = lens _hitExprs (\s a -> s {_hitExprs = a}) . _Default . _Map
+-- | The expressions returned from a document that matches the search
+-- request.
+hit_exprs :: Lens.Lens' Hit (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+hit_exprs = Lens.lens (\Hit' {exprs} -> exprs) (\s@Hit' {} a -> s {exprs = a} :: Hit) Prelude.. Lens.mapping Prelude._Map
 
 -- | The fields returned from a document that matches the search request.
-hitFields :: Lens' Hit (HashMap Text [Text])
-hitFields = lens _hitFields (\s a -> s {_hitFields = a}) . _Default . _Map
+hit_fields :: Lens.Lens' Hit (Prelude.Maybe (Prelude.HashMap Prelude.Text [Prelude.Text]))
+hit_fields = Lens.lens (\Hit' {fields} -> fields) (\s@Hit' {} a -> s {fields = a} :: Hit) Prelude.. Lens.mapping Prelude._Map
 
 -- | The highlights returned from a document that matches the search request.
-hitHighlights :: Lens' Hit (HashMap Text Text)
-hitHighlights = lens _hitHighlights (\s a -> s {_hitHighlights = a}) . _Default . _Map
+hit_highlights :: Lens.Lens' Hit (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+hit_highlights = Lens.lens (\Hit' {highlights} -> highlights) (\s@Hit' {} a -> s {highlights = a} :: Hit) Prelude.. Lens.mapping Prelude._Map
 
-instance FromJSON Hit where
+instance Prelude.FromJSON Hit where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Hit"
       ( \x ->
           Hit'
-            <$> (x .:? "id")
-            <*> (x .:? "exprs" .!= mempty)
-            <*> (x .:? "fields" .!= mempty)
-            <*> (x .:? "highlights" .!= mempty)
+            Prelude.<$> (x Prelude..:? "id")
+            Prelude.<*> (x Prelude..:? "exprs" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "fields" Prelude..!= Prelude.mempty)
+            Prelude.<*> ( x Prelude..:? "highlights"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable Hit
+instance Prelude.Hashable Hit
 
-instance NFData Hit
+instance Prelude.NFData Hit

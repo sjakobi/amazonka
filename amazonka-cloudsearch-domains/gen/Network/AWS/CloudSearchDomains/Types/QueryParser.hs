@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,63 +19,65 @@
 module Network.AWS.CloudSearchDomains.Types.QueryParser
   ( QueryParser
       ( ..,
-        Dismax,
-        Lucene,
-        Simple,
-        Structured
+        QueryParserDismax,
+        QueryParserLucene,
+        QueryParserSimple,
+        QueryParserStructured
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data QueryParser = QueryParser' (CI Text)
+newtype QueryParser = QueryParser'
+  { fromQueryParser ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Dismax :: QueryParser
-pattern Dismax = QueryParser' "dismax"
+pattern QueryParserDismax :: QueryParser
+pattern QueryParserDismax = QueryParser' "dismax"
 
-pattern Lucene :: QueryParser
-pattern Lucene = QueryParser' "lucene"
+pattern QueryParserLucene :: QueryParser
+pattern QueryParserLucene = QueryParser' "lucene"
 
-pattern Simple :: QueryParser
-pattern Simple = QueryParser' "simple"
+pattern QueryParserSimple :: QueryParser
+pattern QueryParserSimple = QueryParser' "simple"
 
-pattern Structured :: QueryParser
-pattern Structured = QueryParser' "structured"
+pattern QueryParserStructured :: QueryParser
+pattern QueryParserStructured = QueryParser' "structured"
 
 {-# COMPLETE
-  Dismax,
-  Lucene,
-  Simple,
-  Structured,
+  QueryParserDismax,
+  QueryParserLucene,
+  QueryParserSimple,
+  QueryParserStructured,
   QueryParser'
   #-}
 
-instance FromText QueryParser where
-  parser = (QueryParser' . mk) <$> takeText
+instance Prelude.FromText QueryParser where
+  parser = QueryParser' Prelude.<$> Prelude.takeText
 
-instance ToText QueryParser where
-  toText (QueryParser' ci) = original ci
+instance Prelude.ToText QueryParser where
+  toText (QueryParser' x) = x
 
-instance Hashable QueryParser
+instance Prelude.Hashable QueryParser
 
-instance NFData QueryParser
+instance Prelude.NFData QueryParser
 
-instance ToByteString QueryParser
+instance Prelude.ToByteString QueryParser
 
-instance ToQuery QueryParser
+instance Prelude.ToQuery QueryParser
 
-instance ToHeader QueryParser
+instance Prelude.ToHeader QueryParser
 
-instance ToJSON QueryParser where
-  toJSON = toJSONText
+instance Prelude.ToJSON QueryParser where
+  toJSON = Prelude.toJSONText

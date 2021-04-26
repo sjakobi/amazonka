@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,52 +19,58 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudSearchDomains.Types.SearchStatus where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains the resource id (@rid@ ) and the time it took to process the request (@timems@ ).
+-- | Contains the resource id (@rid@) and the time it took to process the
+-- request (@timems@).
 --
---
---
--- /See:/ 'searchStatus' smart constructor.
+-- /See:/ 'newSearchStatus' smart constructor.
 data SearchStatus = SearchStatus'
-  { _ssTimems ::
-      !(Maybe Integer),
-    _ssRid :: !(Maybe Text)
+  { -- | How long it took to process the request, in milliseconds.
+    timems :: Prelude.Maybe Prelude.Integer,
+    -- | The encrypted resource ID for the request.
+    rid :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SearchStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SearchStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ssTimems' - How long it took to process the request, in milliseconds.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ssRid' - The encrypted resource ID for the request.
-searchStatus ::
+-- 'timems', 'searchStatus_timems' - How long it took to process the request, in milliseconds.
+--
+-- 'rid', 'searchStatus_rid' - The encrypted resource ID for the request.
+newSearchStatus ::
   SearchStatus
-searchStatus =
+newSearchStatus =
   SearchStatus'
-    { _ssTimems = Nothing,
-      _ssRid = Nothing
+    { timems = Prelude.Nothing,
+      rid = Prelude.Nothing
     }
 
 -- | How long it took to process the request, in milliseconds.
-ssTimems :: Lens' SearchStatus (Maybe Integer)
-ssTimems = lens _ssTimems (\s a -> s {_ssTimems = a})
+searchStatus_timems :: Lens.Lens' SearchStatus (Prelude.Maybe Prelude.Integer)
+searchStatus_timems = Lens.lens (\SearchStatus' {timems} -> timems) (\s@SearchStatus' {} a -> s {timems = a} :: SearchStatus)
 
 -- | The encrypted resource ID for the request.
-ssRid :: Lens' SearchStatus (Maybe Text)
-ssRid = lens _ssRid (\s a -> s {_ssRid = a})
+searchStatus_rid :: Lens.Lens' SearchStatus (Prelude.Maybe Prelude.Text)
+searchStatus_rid = Lens.lens (\SearchStatus' {rid} -> rid) (\s@SearchStatus' {} a -> s {rid = a} :: SearchStatus)
 
-instance FromJSON SearchStatus where
+instance Prelude.FromJSON SearchStatus where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SearchStatus"
       ( \x ->
-          SearchStatus' <$> (x .:? "timems") <*> (x .:? "rid")
+          SearchStatus'
+            Prelude.<$> (x Prelude..:? "timems")
+            Prelude.<*> (x Prelude..:? "rid")
       )
 
-instance Hashable SearchStatus
+instance Prelude.Hashable SearchStatus
 
-instance NFData SearchStatus
+instance Prelude.NFData SearchStatus

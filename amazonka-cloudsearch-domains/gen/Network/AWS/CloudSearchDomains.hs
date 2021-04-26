@@ -11,15 +11,21 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- You use the AmazonCloudSearch2013 API to upload documents to a search domain and search those documents.
+-- You use the AmazonCloudSearch2013 API to upload documents to a search
+-- domain and search those documents.
 --
+-- The endpoints for submitting @UploadDocuments@, @Search@, and @Suggest@
+-- requests are domain-specific. To get the endpoints for your domain, use
+-- the Amazon CloudSearch configuration service @DescribeDomains@ action.
+-- The domain endpoints are also displayed on the domain dashboard in the
+-- Amazon CloudSearch console. You submit suggest requests to the search
+-- endpoint.
 --
--- The endpoints for submitting @UploadDocuments@ , @Search@ , and @Suggest@ requests are domain-specific. To get the endpoints for your domain, use the Amazon CloudSearch configuration service @DescribeDomains@ action. The domain endpoints are also displayed on the domain dashboard in the Amazon CloudSearch console. You submit suggest requests to the search endpoint.
---
--- For more information, see the <http://docs.aws.amazon.com/cloudsearch/latest/developerguide Amazon CloudSearch Developer Guide> .
+-- For more information, see the
+-- <http://docs.aws.amazon.com/cloudsearch/latest/developerguide Amazon CloudSearch Developer Guide>.
 module Network.AWS.CloudSearchDomains
   ( -- * Service Configuration
-    cloudSearchDomains,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -37,13 +43,22 @@ module Network.AWS.CloudSearchDomains
     -- $operations
 
     -- ** UploadDocuments
-    module Network.AWS.CloudSearchDomains.UploadDocuments,
+    UploadDocuments (UploadDocuments'),
+    newUploadDocuments,
+    UploadDocumentsResponse (UploadDocumentsResponse'),
+    newUploadDocumentsResponse,
 
     -- ** Search
-    module Network.AWS.CloudSearchDomains.Search,
+    Search (Search'),
+    newSearch,
+    SearchResponse (SearchResponse'),
+    newSearchResponse,
 
     -- ** Suggest
-    module Network.AWS.CloudSearchDomains.Suggest,
+    Suggest (Suggest'),
+    newSuggest,
+    SuggestResponse (SuggestResponse'),
+    newSuggestResponse,
 
     -- * Types
 
@@ -54,77 +69,48 @@ module Network.AWS.CloudSearchDomains
     QueryParser (..),
 
     -- ** Bucket
-    Bucket,
-    bucket,
-    bValue,
-    bCount,
+    Bucket (Bucket'),
+    newBucket,
 
     -- ** BucketInfo
-    BucketInfo,
-    bucketInfo,
-    biBuckets,
+    BucketInfo (BucketInfo'),
+    newBucketInfo,
 
     -- ** DocumentServiceWarning
-    DocumentServiceWarning,
-    documentServiceWarning,
-    dswMessage,
+    DocumentServiceWarning (DocumentServiceWarning'),
+    newDocumentServiceWarning,
 
     -- ** FieldStats
-    FieldStats,
-    fieldStats,
-    fsMean,
-    fsMissing,
-    fsSum,
-    fsMin,
-    fsMax,
-    fsStddev,
-    fsCount,
-    fsSumOfSquares,
+    FieldStats (FieldStats'),
+    newFieldStats,
 
     -- ** Hit
-    Hit,
-    hit,
-    hitId,
-    hitExprs,
-    hitFields,
-    hitHighlights,
+    Hit (Hit'),
+    newHit,
 
     -- ** Hits
-    Hits,
-    hits,
-    hFound,
-    hHit,
-    hCursor,
-    hStart,
+    Hits (Hits'),
+    newHits,
 
     -- ** SearchStatus
-    SearchStatus,
-    searchStatus,
-    ssTimems,
-    ssRid,
+    SearchStatus (SearchStatus'),
+    newSearchStatus,
 
     -- ** SuggestModel
-    SuggestModel,
-    suggestModel,
-    smSuggestions,
-    smFound,
-    smQuery,
+    SuggestModel (SuggestModel'),
+    newSuggestModel,
 
     -- ** SuggestStatus
-    SuggestStatus,
-    suggestStatus,
-    sTimems,
-    sRid,
+    SuggestStatus (SuggestStatus'),
+    newSuggestStatus,
 
     -- ** SuggestionMatch
-    SuggestionMatch,
-    suggestionMatch,
-    smSuggestion,
-    smId,
-    smScore,
+    SuggestionMatch (SuggestionMatch'),
+    newSuggestionMatch,
   )
 where
 
+import Network.AWS.CloudSearchDomains.Lens
 import Network.AWS.CloudSearchDomains.Search
 import Network.AWS.CloudSearchDomains.Suggest
 import Network.AWS.CloudSearchDomains.Types

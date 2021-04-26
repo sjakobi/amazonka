@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,50 +19,58 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudSearchDomains.Types.SuggestStatus where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains the resource id (@rid@ ) and the time it took to process the request (@timems@ ).
+-- | Contains the resource id (@rid@) and the time it took to process the
+-- request (@timems@).
 --
---
---
--- /See:/ 'suggestStatus' smart constructor.
+-- /See:/ 'newSuggestStatus' smart constructor.
 data SuggestStatus = SuggestStatus'
-  { _sTimems ::
-      !(Maybe Integer),
-    _sRid :: !(Maybe Text)
+  { -- | How long it took to process the request, in milliseconds.
+    timems :: Prelude.Maybe Prelude.Integer,
+    -- | The encrypted resource ID for the request.
+    rid :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SuggestStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SuggestStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sTimems' - How long it took to process the request, in milliseconds.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sRid' - The encrypted resource ID for the request.
-suggestStatus ::
+-- 'timems', 'suggestStatus_timems' - How long it took to process the request, in milliseconds.
+--
+-- 'rid', 'suggestStatus_rid' - The encrypted resource ID for the request.
+newSuggestStatus ::
   SuggestStatus
-suggestStatus =
-  SuggestStatus' {_sTimems = Nothing, _sRid = Nothing}
+newSuggestStatus =
+  SuggestStatus'
+    { timems = Prelude.Nothing,
+      rid = Prelude.Nothing
+    }
 
 -- | How long it took to process the request, in milliseconds.
-sTimems :: Lens' SuggestStatus (Maybe Integer)
-sTimems = lens _sTimems (\s a -> s {_sTimems = a})
+suggestStatus_timems :: Lens.Lens' SuggestStatus (Prelude.Maybe Prelude.Integer)
+suggestStatus_timems = Lens.lens (\SuggestStatus' {timems} -> timems) (\s@SuggestStatus' {} a -> s {timems = a} :: SuggestStatus)
 
 -- | The encrypted resource ID for the request.
-sRid :: Lens' SuggestStatus (Maybe Text)
-sRid = lens _sRid (\s a -> s {_sRid = a})
+suggestStatus_rid :: Lens.Lens' SuggestStatus (Prelude.Maybe Prelude.Text)
+suggestStatus_rid = Lens.lens (\SuggestStatus' {rid} -> rid) (\s@SuggestStatus' {} a -> s {rid = a} :: SuggestStatus)
 
-instance FromJSON SuggestStatus where
+instance Prelude.FromJSON SuggestStatus where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SuggestStatus"
       ( \x ->
           SuggestStatus'
-            <$> (x .:? "timems") <*> (x .:? "rid")
+            Prelude.<$> (x Prelude..:? "timems")
+            Prelude.<*> (x Prelude..:? "rid")
       )
 
-instance Hashable SuggestStatus
+instance Prelude.Hashable SuggestStatus
 
-instance NFData SuggestStatus
+instance Prelude.NFData SuggestStatus

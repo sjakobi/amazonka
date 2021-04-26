@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.CloudSearchDomains.Types.ContentType
   ( ContentType
       ( ..,
-        ApplicationJSON,
-        ApplicationXML
+        ContentTypeApplicationJson,
+        ContentTypeApplicationXml
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ContentType = ContentType' (CI Text)
+newtype ContentType = ContentType'
+  { fromContentType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ApplicationJSON :: ContentType
-pattern ApplicationJSON = ContentType' "application/json"
+pattern ContentTypeApplicationJson :: ContentType
+pattern ContentTypeApplicationJson = ContentType' "application/json"
 
-pattern ApplicationXML :: ContentType
-pattern ApplicationXML = ContentType' "application/xml"
+pattern ContentTypeApplicationXml :: ContentType
+pattern ContentTypeApplicationXml = ContentType' "application/xml"
 
 {-# COMPLETE
-  ApplicationJSON,
-  ApplicationXML,
+  ContentTypeApplicationJson,
+  ContentTypeApplicationXml,
   ContentType'
   #-}
 
-instance FromText ContentType where
-  parser = (ContentType' . mk) <$> takeText
+instance Prelude.FromText ContentType where
+  parser = ContentType' Prelude.<$> Prelude.takeText
 
-instance ToText ContentType where
-  toText (ContentType' ci) = original ci
+instance Prelude.ToText ContentType where
+  toText (ContentType' x) = x
 
-instance Hashable ContentType
+instance Prelude.Hashable ContentType
 
-instance NFData ContentType
+instance Prelude.NFData ContentType
 
-instance ToByteString ContentType
+instance Prelude.ToByteString ContentType
 
-instance ToQuery ContentType
+instance Prelude.ToQuery ContentType
 
-instance ToHeader ContentType
+instance Prelude.ToHeader ContentType
 
-instance ToJSON ContentType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ContentType where
+  toJSON = Prelude.toJSONText

@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudSearchDomains.Types
   ( -- * Service Configuration
-    cloudSearchDomains,
+    defaultService,
 
     -- * Errors
     _SearchException,
@@ -25,73 +28,43 @@ module Network.AWS.CloudSearchDomains.Types
 
     -- * Bucket
     Bucket (..),
-    bucket,
-    bValue,
-    bCount,
+    newBucket,
 
     -- * BucketInfo
     BucketInfo (..),
-    bucketInfo,
-    biBuckets,
+    newBucketInfo,
 
     -- * DocumentServiceWarning
     DocumentServiceWarning (..),
-    documentServiceWarning,
-    dswMessage,
+    newDocumentServiceWarning,
 
     -- * FieldStats
     FieldStats (..),
-    fieldStats,
-    fsMean,
-    fsMissing,
-    fsSum,
-    fsMin,
-    fsMax,
-    fsStddev,
-    fsCount,
-    fsSumOfSquares,
+    newFieldStats,
 
     -- * Hit
     Hit (..),
-    hit,
-    hitId,
-    hitExprs,
-    hitFields,
-    hitHighlights,
+    newHit,
 
     -- * Hits
     Hits (..),
-    hits,
-    hFound,
-    hHit,
-    hCursor,
-    hStart,
+    newHits,
 
     -- * SearchStatus
     SearchStatus (..),
-    searchStatus,
-    ssTimems,
-    ssRid,
+    newSearchStatus,
 
     -- * SuggestModel
     SuggestModel (..),
-    suggestModel,
-    smSuggestions,
-    smFound,
-    smQuery,
+    newSuggestModel,
 
     -- * SuggestStatus
     SuggestStatus (..),
-    suggestStatus,
-    sTimems,
-    sRid,
+    newSuggestStatus,
 
     -- * SuggestionMatch
     SuggestionMatch (..),
-    suggestionMatch,
-    smSuggestion,
-    smId,
-    smScore,
+    newSuggestionMatch,
   )
 where
 
@@ -107,71 +80,93 @@ import Network.AWS.CloudSearchDomains.Types.SearchStatus
 import Network.AWS.CloudSearchDomains.Types.SuggestModel
 import Network.AWS.CloudSearchDomains.Types.SuggestStatus
 import Network.AWS.CloudSearchDomains.Types.SuggestionMatch
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Sign.V4
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Sign.V4 as Sign
 
 -- | API version @2013-01-01@ of the Amazon CloudSearch Domain SDK configuration.
-cloudSearchDomains :: Service
-cloudSearchDomains =
-  Service
-    { _svcAbbrev = "CloudSearchDomains",
-      _svcSigner = v4,
-      _svcPrefix = "cloudsearchdomain",
-      _svcVersion = "2013-01-01",
-      _svcEndpoint = defaultEndpoint cloudSearchDomains,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseJSONError "CloudSearchDomains",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev =
+        "CloudSearchDomains",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "cloudsearchdomain",
+      Prelude._svcVersion = "2013-01-01",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError =
+        Prelude.parseJSONError "CloudSearchDomains",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
--- | Information about any problems encountered while processing a search request.
-_SearchException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Information about any problems encountered while processing a search
+-- request.
+_SearchException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _SearchException =
-  _MatchServiceError
-    cloudSearchDomains
+  Prelude._MatchServiceError
+    defaultService
     "SearchException"
 
--- | Information about any problems encountered while processing an upload request.
-_DocumentServiceException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Information about any problems encountered while processing an upload
+-- request.
+_DocumentServiceException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DocumentServiceException =
-  _MatchServiceError
-    cloudSearchDomains
+  Prelude._MatchServiceError
+    defaultService
     "DocumentServiceException"

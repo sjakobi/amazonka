@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,63 +20,70 @@
 module Network.AWS.CloudSearchDomains.Types.SuggestModel where
 
 import Network.AWS.CloudSearchDomains.Types.SuggestionMatch
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Container for the suggestion information returned in a @SuggestResponse@ .
+-- | Container for the suggestion information returned in a
+-- @SuggestResponse@.
 --
---
---
--- /See:/ 'suggestModel' smart constructor.
+-- /See:/ 'newSuggestModel' smart constructor.
 data SuggestModel = SuggestModel'
-  { _smSuggestions ::
-      !(Maybe [SuggestionMatch]),
-    _smFound :: !(Maybe Integer),
-    _smQuery :: !(Maybe Text)
+  { -- | The documents that match the query string.
+    suggestions :: Prelude.Maybe [SuggestionMatch],
+    -- | The number of documents that were found to match the query string.
+    found :: Prelude.Maybe Prelude.Integer,
+    -- | The query string specified in the suggest request.
+    query :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SuggestModel' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SuggestModel' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'smSuggestions' - The documents that match the query string.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'smFound' - The number of documents that were found to match the query string.
+-- 'suggestions', 'suggestModel_suggestions' - The documents that match the query string.
 --
--- * 'smQuery' - The query string specified in the suggest request.
-suggestModel ::
+-- 'found', 'suggestModel_found' - The number of documents that were found to match the query string.
+--
+-- 'query', 'suggestModel_query' - The query string specified in the suggest request.
+newSuggestModel ::
   SuggestModel
-suggestModel =
+newSuggestModel =
   SuggestModel'
-    { _smSuggestions = Nothing,
-      _smFound = Nothing,
-      _smQuery = Nothing
+    { suggestions = Prelude.Nothing,
+      found = Prelude.Nothing,
+      query = Prelude.Nothing
     }
 
 -- | The documents that match the query string.
-smSuggestions :: Lens' SuggestModel [SuggestionMatch]
-smSuggestions = lens _smSuggestions (\s a -> s {_smSuggestions = a}) . _Default . _Coerce
+suggestModel_suggestions :: Lens.Lens' SuggestModel (Prelude.Maybe [SuggestionMatch])
+suggestModel_suggestions = Lens.lens (\SuggestModel' {suggestions} -> suggestions) (\s@SuggestModel' {} a -> s {suggestions = a} :: SuggestModel) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The number of documents that were found to match the query string.
-smFound :: Lens' SuggestModel (Maybe Integer)
-smFound = lens _smFound (\s a -> s {_smFound = a})
+suggestModel_found :: Lens.Lens' SuggestModel (Prelude.Maybe Prelude.Integer)
+suggestModel_found = Lens.lens (\SuggestModel' {found} -> found) (\s@SuggestModel' {} a -> s {found = a} :: SuggestModel)
 
 -- | The query string specified in the suggest request.
-smQuery :: Lens' SuggestModel (Maybe Text)
-smQuery = lens _smQuery (\s a -> s {_smQuery = a})
+suggestModel_query :: Lens.Lens' SuggestModel (Prelude.Maybe Prelude.Text)
+suggestModel_query = Lens.lens (\SuggestModel' {query} -> query) (\s@SuggestModel' {} a -> s {query = a} :: SuggestModel)
 
-instance FromJSON SuggestModel where
+instance Prelude.FromJSON SuggestModel where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SuggestModel"
       ( \x ->
           SuggestModel'
-            <$> (x .:? "suggestions" .!= mempty)
-            <*> (x .:? "found")
-            <*> (x .:? "query")
+            Prelude.<$> ( x Prelude..:? "suggestions"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "found")
+            Prelude.<*> (x Prelude..:? "query")
       )
 
-instance Hashable SuggestModel
+instance Prelude.Hashable SuggestModel
 
-instance NFData SuggestModel
+instance Prelude.NFData SuggestModel

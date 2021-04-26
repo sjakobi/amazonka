@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,71 +20,80 @@
 module Network.AWS.CloudSearchDomains.Types.Hits where
 
 import Network.AWS.CloudSearchDomains.Types.Hit
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The collection of documents that match the search request.
 --
---
---
--- /See:/ 'hits' smart constructor.
+-- /See:/ 'newHits' smart constructor.
 data Hits = Hits'
-  { _hFound :: !(Maybe Integer),
-    _hHit :: !(Maybe [Hit]),
-    _hCursor :: !(Maybe Text),
-    _hStart :: !(Maybe Integer)
+  { -- | The total number of documents that match the search request.
+    found :: Prelude.Maybe Prelude.Integer,
+    -- | A document that matches the search request.
+    hit :: Prelude.Maybe [Hit],
+    -- | A cursor that can be used to retrieve the next set of matching documents
+    -- when you want to page through a large result set.
+    cursor :: Prelude.Maybe Prelude.Text,
+    -- | The index of the first matching document.
+    start :: Prelude.Maybe Prelude.Integer
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Hits' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Hits' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'hFound' - The total number of documents that match the search request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'hHit' - A document that matches the search request.
+-- 'found', 'hits_found' - The total number of documents that match the search request.
 --
--- * 'hCursor' - A cursor that can be used to retrieve the next set of matching documents when you want to page through a large result set.
+-- 'hit', 'hits_hit' - A document that matches the search request.
 --
--- * 'hStart' - The index of the first matching document.
-hits ::
+-- 'cursor', 'hits_cursor' - A cursor that can be used to retrieve the next set of matching documents
+-- when you want to page through a large result set.
+--
+-- 'start', 'hits_start' - The index of the first matching document.
+newHits ::
   Hits
-hits =
+newHits =
   Hits'
-    { _hFound = Nothing,
-      _hHit = Nothing,
-      _hCursor = Nothing,
-      _hStart = Nothing
+    { found = Prelude.Nothing,
+      hit = Prelude.Nothing,
+      cursor = Prelude.Nothing,
+      start = Prelude.Nothing
     }
 
 -- | The total number of documents that match the search request.
-hFound :: Lens' Hits (Maybe Integer)
-hFound = lens _hFound (\s a -> s {_hFound = a})
+hits_found :: Lens.Lens' Hits (Prelude.Maybe Prelude.Integer)
+hits_found = Lens.lens (\Hits' {found} -> found) (\s@Hits' {} a -> s {found = a} :: Hits)
 
 -- | A document that matches the search request.
-hHit :: Lens' Hits [Hit]
-hHit = lens _hHit (\s a -> s {_hHit = a}) . _Default . _Coerce
+hits_hit :: Lens.Lens' Hits (Prelude.Maybe [Hit])
+hits_hit = Lens.lens (\Hits' {hit} -> hit) (\s@Hits' {} a -> s {hit = a} :: Hits) Prelude.. Lens.mapping Prelude._Coerce
 
--- | A cursor that can be used to retrieve the next set of matching documents when you want to page through a large result set.
-hCursor :: Lens' Hits (Maybe Text)
-hCursor = lens _hCursor (\s a -> s {_hCursor = a})
+-- | A cursor that can be used to retrieve the next set of matching documents
+-- when you want to page through a large result set.
+hits_cursor :: Lens.Lens' Hits (Prelude.Maybe Prelude.Text)
+hits_cursor = Lens.lens (\Hits' {cursor} -> cursor) (\s@Hits' {} a -> s {cursor = a} :: Hits)
 
 -- | The index of the first matching document.
-hStart :: Lens' Hits (Maybe Integer)
-hStart = lens _hStart (\s a -> s {_hStart = a})
+hits_start :: Lens.Lens' Hits (Prelude.Maybe Prelude.Integer)
+hits_start = Lens.lens (\Hits' {start} -> start) (\s@Hits' {} a -> s {start = a} :: Hits)
 
-instance FromJSON Hits where
+instance Prelude.FromJSON Hits where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Hits"
       ( \x ->
           Hits'
-            <$> (x .:? "found")
-            <*> (x .:? "hit" .!= mempty)
-            <*> (x .:? "cursor")
-            <*> (x .:? "start")
+            Prelude.<$> (x Prelude..:? "found")
+            Prelude.<*> (x Prelude..:? "hit" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "cursor")
+            Prelude.<*> (x Prelude..:? "start")
       )
 
-instance Hashable Hits
+instance Prelude.Hashable Hits
 
-instance NFData Hits
+instance Prelude.NFData Hits
