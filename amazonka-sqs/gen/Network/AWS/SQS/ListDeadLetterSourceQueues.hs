@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,197 +21,233 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns a list of your queues that have the @RedrivePolicy@ queue attribute configured with a dead-letter queue.
+-- Returns a list of your queues that have the @RedrivePolicy@ queue
+-- attribute configured with a dead-letter queue.
 --
+-- The @ListDeadLetterSourceQueues@ methods supports pagination. Set
+-- parameter @MaxResults@ in the request to specify the maximum number of
+-- results to be returned in the response. If you do not set @MaxResults@,
+-- the response includes a maximum of 1,000 results. If you set
+-- @MaxResults@ and there are additional results to display, the response
+-- includes a value for @NextToken@. Use @NextToken@ as a parameter in your
+-- next request to @ListDeadLetterSourceQueues@ to receive the next page of
+-- results.
 --
--- The @ListDeadLetterSourceQueues@ methods supports pagination. Set parameter @MaxResults@ in the request to specify the maximum number of results to be returned in the response. If you do not set @MaxResults@ , the response includes a maximum of 1,000 results. If you set @MaxResults@ and there are additional results to display, the response includes a value for @NextToken@ . Use @NextToken@ as a parameter in your next request to @ListDeadLetterSourceQueues@ to receive the next page of results.
---
--- For more information about using dead-letter queues, see <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html Using Amazon SQS Dead-Letter Queues> in the /Amazon Simple Queue Service Developer Guide/ .
---
+-- For more information about using dead-letter queues, see
+-- <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html Using Amazon SQS Dead-Letter Queues>
+-- in the /Amazon Simple Queue Service Developer Guide/.
 --
 -- This operation returns paginated results.
 module Network.AWS.SQS.ListDeadLetterSourceQueues
   ( -- * Creating a Request
-    listDeadLetterSourceQueues,
-    ListDeadLetterSourceQueues,
+    ListDeadLetterSourceQueues (..),
+    newListDeadLetterSourceQueues,
 
     -- * Request Lenses
-    ldlsqNextToken,
-    ldlsqMaxResults,
-    ldlsqQueueURL,
+    listDeadLetterSourceQueues_nextToken,
+    listDeadLetterSourceQueues_maxResults,
+    listDeadLetterSourceQueues_queueUrl,
 
     -- * Destructuring the Response
-    listDeadLetterSourceQueuesResponse,
-    ListDeadLetterSourceQueuesResponse,
+    ListDeadLetterSourceQueuesResponse (..),
+    newListDeadLetterSourceQueuesResponse,
 
     -- * Response Lenses
-    ldlsqrrsNextToken,
-    ldlsqrrsResponseStatus,
-    ldlsqrrsQueueURLs,
+    listDeadLetterSourceQueuesResponse_nextToken,
+    listDeadLetterSourceQueuesResponse_httpStatus,
+    listDeadLetterSourceQueuesResponse_queueUrls,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SQS.Types
 
 -- |
 --
---
---
--- /See:/ 'listDeadLetterSourceQueues' smart constructor.
+-- /See:/ 'newListDeadLetterSourceQueues' smart constructor.
 data ListDeadLetterSourceQueues = ListDeadLetterSourceQueues'
-  { _ldlsqNextToken ::
-      !(Maybe Text),
-    _ldlsqMaxResults ::
-      !(Maybe Int),
-    _ldlsqQueueURL ::
-      !Text
+  { -- | Pagination token to request the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Maximum number of results to include in the response. Value range is 1
+    -- to 1000. You must set @MaxResults@ to receive a value for @NextToken@ in
+    -- the response.
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | The URL of a dead-letter queue.
+    --
+    -- Queue URLs and names are case-sensitive.
+    queueUrl :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListDeadLetterSourceQueues' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListDeadLetterSourceQueues' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ldlsqNextToken' - Pagination token to request the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ldlsqMaxResults' - Maximum number of results to include in the response. Value range is 1 to 1000. You must set @MaxResults@ to receive a value for @NextToken@ in the response.
+-- 'nextToken', 'listDeadLetterSourceQueues_nextToken' - Pagination token to request the next set of results.
 --
--- * 'ldlsqQueueURL' - The URL of a dead-letter queue. Queue URLs and names are case-sensitive.
-listDeadLetterSourceQueues ::
-  -- | 'ldlsqQueueURL'
-  Text ->
+-- 'maxResults', 'listDeadLetterSourceQueues_maxResults' - Maximum number of results to include in the response. Value range is 1
+-- to 1000. You must set @MaxResults@ to receive a value for @NextToken@ in
+-- the response.
+--
+-- 'queueUrl', 'listDeadLetterSourceQueues_queueUrl' - The URL of a dead-letter queue.
+--
+-- Queue URLs and names are case-sensitive.
+newListDeadLetterSourceQueues ::
+  -- | 'queueUrl'
+  Prelude.Text ->
   ListDeadLetterSourceQueues
-listDeadLetterSourceQueues pQueueURL_ =
+newListDeadLetterSourceQueues pQueueUrl_ =
   ListDeadLetterSourceQueues'
-    { _ldlsqNextToken =
-        Nothing,
-      _ldlsqMaxResults = Nothing,
-      _ldlsqQueueURL = pQueueURL_
+    { nextToken =
+        Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      queueUrl = pQueueUrl_
     }
 
 -- | Pagination token to request the next set of results.
-ldlsqNextToken :: Lens' ListDeadLetterSourceQueues (Maybe Text)
-ldlsqNextToken = lens _ldlsqNextToken (\s a -> s {_ldlsqNextToken = a})
+listDeadLetterSourceQueues_nextToken :: Lens.Lens' ListDeadLetterSourceQueues (Prelude.Maybe Prelude.Text)
+listDeadLetterSourceQueues_nextToken = Lens.lens (\ListDeadLetterSourceQueues' {nextToken} -> nextToken) (\s@ListDeadLetterSourceQueues' {} a -> s {nextToken = a} :: ListDeadLetterSourceQueues)
 
--- | Maximum number of results to include in the response. Value range is 1 to 1000. You must set @MaxResults@ to receive a value for @NextToken@ in the response.
-ldlsqMaxResults :: Lens' ListDeadLetterSourceQueues (Maybe Int)
-ldlsqMaxResults = lens _ldlsqMaxResults (\s a -> s {_ldlsqMaxResults = a})
+-- | Maximum number of results to include in the response. Value range is 1
+-- to 1000. You must set @MaxResults@ to receive a value for @NextToken@ in
+-- the response.
+listDeadLetterSourceQueues_maxResults :: Lens.Lens' ListDeadLetterSourceQueues (Prelude.Maybe Prelude.Int)
+listDeadLetterSourceQueues_maxResults = Lens.lens (\ListDeadLetterSourceQueues' {maxResults} -> maxResults) (\s@ListDeadLetterSourceQueues' {} a -> s {maxResults = a} :: ListDeadLetterSourceQueues)
 
--- | The URL of a dead-letter queue. Queue URLs and names are case-sensitive.
-ldlsqQueueURL :: Lens' ListDeadLetterSourceQueues Text
-ldlsqQueueURL = lens _ldlsqQueueURL (\s a -> s {_ldlsqQueueURL = a})
+-- | The URL of a dead-letter queue.
+--
+-- Queue URLs and names are case-sensitive.
+listDeadLetterSourceQueues_queueUrl :: Lens.Lens' ListDeadLetterSourceQueues Prelude.Text
+listDeadLetterSourceQueues_queueUrl = Lens.lens (\ListDeadLetterSourceQueues' {queueUrl} -> queueUrl) (\s@ListDeadLetterSourceQueues' {} a -> s {queueUrl = a} :: ListDeadLetterSourceQueues)
 
-instance AWSPager ListDeadLetterSourceQueues where
+instance Pager.AWSPager ListDeadLetterSourceQueues where
   page rq rs
-    | stop (rs ^. ldlsqrrsNextToken) = Nothing
-    | stop (rs ^. ldlsqrrsQueueURLs) = Nothing
-    | otherwise =
-      Just $ rq & ldlsqNextToken .~ rs ^. ldlsqrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listDeadLetterSourceQueuesResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^. listDeadLetterSourceQueuesResponse_queueUrls
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listDeadLetterSourceQueues_nextToken
+          Lens..~ rs
+          Lens.^? listDeadLetterSourceQueuesResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListDeadLetterSourceQueues where
+instance
+  Prelude.AWSRequest
+    ListDeadLetterSourceQueues
+  where
   type
     Rs ListDeadLetterSourceQueues =
       ListDeadLetterSourceQueuesResponse
-  request = postQuery sqs
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "ListDeadLetterSourceQueuesResult"
       ( \s h x ->
           ListDeadLetterSourceQueuesResponse'
-            <$> (x .@? "NextToken")
-            <*> (pure (fromEnum s))
-            <*> (parseXMLList "QueueUrl" x)
+            Prelude.<$> (x Prelude..@? "NextToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (Prelude.parseXMLList "QueueUrl" x)
       )
 
-instance Hashable ListDeadLetterSourceQueues
+instance Prelude.Hashable ListDeadLetterSourceQueues
 
-instance NFData ListDeadLetterSourceQueues
+instance Prelude.NFData ListDeadLetterSourceQueues
 
-instance ToHeaders ListDeadLetterSourceQueues where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListDeadLetterSourceQueues where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListDeadLetterSourceQueues where
-  toPath = const "/"
+instance Prelude.ToPath ListDeadLetterSourceQueues where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListDeadLetterSourceQueues where
+instance Prelude.ToQuery ListDeadLetterSourceQueues where
   toQuery ListDeadLetterSourceQueues' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("ListDeadLetterSourceQueues" :: ByteString),
-        "Version" =: ("2012-11-05" :: ByteString),
-        "NextToken" =: _ldlsqNextToken,
-        "MaxResults" =: _ldlsqMaxResults,
-        "QueueUrl" =: _ldlsqQueueURL
+          Prelude.=: ("ListDeadLetterSourceQueues" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2012-11-05" :: Prelude.ByteString),
+        "NextToken" Prelude.=: nextToken,
+        "MaxResults" Prelude.=: maxResults,
+        "QueueUrl" Prelude.=: queueUrl
       ]
 
 -- | A list of your dead letter source queues.
 --
---
---
--- /See:/ 'listDeadLetterSourceQueuesResponse' smart constructor.
+-- /See:/ 'newListDeadLetterSourceQueuesResponse' smart constructor.
 data ListDeadLetterSourceQueuesResponse = ListDeadLetterSourceQueuesResponse'
-  { _ldlsqrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _ldlsqrrsResponseStatus ::
-      !Int,
-    _ldlsqrrsQueueURLs ::
-      ![Text]
+  { -- | Pagination token to include in the next request. Token value is @null@
+    -- if there are no additional results to request, or if you did not set
+    -- @MaxResults@ in the request.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | A list of source queue URLs that have the @RedrivePolicy@ queue
+    -- attribute configured with a dead-letter queue.
+    queueUrls :: [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListDeadLetterSourceQueuesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListDeadLetterSourceQueuesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ldlsqrrsNextToken' - Pagination token to include in the next request. Token value is @null@ if there are no additional results to request, or if you did not set @MaxResults@ in the request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ldlsqrrsResponseStatus' - -- | The response status code.
+-- 'nextToken', 'listDeadLetterSourceQueuesResponse_nextToken' - Pagination token to include in the next request. Token value is @null@
+-- if there are no additional results to request, or if you did not set
+-- @MaxResults@ in the request.
 --
--- * 'ldlsqrrsQueueURLs' - A list of source queue URLs that have the @RedrivePolicy@ queue attribute configured with a dead-letter queue.
-listDeadLetterSourceQueuesResponse ::
-  -- | 'ldlsqrrsResponseStatus'
-  Int ->
+-- 'httpStatus', 'listDeadLetterSourceQueuesResponse_httpStatus' - The response's http status code.
+--
+-- 'queueUrls', 'listDeadLetterSourceQueuesResponse_queueUrls' - A list of source queue URLs that have the @RedrivePolicy@ queue
+-- attribute configured with a dead-letter queue.
+newListDeadLetterSourceQueuesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListDeadLetterSourceQueuesResponse
-listDeadLetterSourceQueuesResponse pResponseStatus_ =
+newListDeadLetterSourceQueuesResponse pHttpStatus_ =
   ListDeadLetterSourceQueuesResponse'
-    { _ldlsqrrsNextToken =
-        Nothing,
-      _ldlsqrrsResponseStatus =
-        pResponseStatus_,
-      _ldlsqrrsQueueURLs = mempty
+    { nextToken =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_,
+      queueUrls = Prelude.mempty
     }
 
--- | Pagination token to include in the next request. Token value is @null@ if there are no additional results to request, or if you did not set @MaxResults@ in the request.
-ldlsqrrsNextToken :: Lens' ListDeadLetterSourceQueuesResponse (Maybe Text)
-ldlsqrrsNextToken = lens _ldlsqrrsNextToken (\s a -> s {_ldlsqrrsNextToken = a})
+-- | Pagination token to include in the next request. Token value is @null@
+-- if there are no additional results to request, or if you did not set
+-- @MaxResults@ in the request.
+listDeadLetterSourceQueuesResponse_nextToken :: Lens.Lens' ListDeadLetterSourceQueuesResponse (Prelude.Maybe Prelude.Text)
+listDeadLetterSourceQueuesResponse_nextToken = Lens.lens (\ListDeadLetterSourceQueuesResponse' {nextToken} -> nextToken) (\s@ListDeadLetterSourceQueuesResponse' {} a -> s {nextToken = a} :: ListDeadLetterSourceQueuesResponse)
 
--- | -- | The response status code.
-ldlsqrrsResponseStatus :: Lens' ListDeadLetterSourceQueuesResponse Int
-ldlsqrrsResponseStatus = lens _ldlsqrrsResponseStatus (\s a -> s {_ldlsqrrsResponseStatus = a})
+-- | The response's http status code.
+listDeadLetterSourceQueuesResponse_httpStatus :: Lens.Lens' ListDeadLetterSourceQueuesResponse Prelude.Int
+listDeadLetterSourceQueuesResponse_httpStatus = Lens.lens (\ListDeadLetterSourceQueuesResponse' {httpStatus} -> httpStatus) (\s@ListDeadLetterSourceQueuesResponse' {} a -> s {httpStatus = a} :: ListDeadLetterSourceQueuesResponse)
 
--- | A list of source queue URLs that have the @RedrivePolicy@ queue attribute configured with a dead-letter queue.
-ldlsqrrsQueueURLs :: Lens' ListDeadLetterSourceQueuesResponse [Text]
-ldlsqrrsQueueURLs = lens _ldlsqrrsQueueURLs (\s a -> s {_ldlsqrrsQueueURLs = a}) . _Coerce
+-- | A list of source queue URLs that have the @RedrivePolicy@ queue
+-- attribute configured with a dead-letter queue.
+listDeadLetterSourceQueuesResponse_queueUrls :: Lens.Lens' ListDeadLetterSourceQueuesResponse [Prelude.Text]
+listDeadLetterSourceQueuesResponse_queueUrls = Lens.lens (\ListDeadLetterSourceQueuesResponse' {queueUrls} -> queueUrls) (\s@ListDeadLetterSourceQueuesResponse' {} a -> s {queueUrls = a} :: ListDeadLetterSourceQueuesResponse) Prelude.. Prelude._Coerce
 
-instance NFData ListDeadLetterSourceQueuesResponse
+instance
+  Prelude.NFData
+    ListDeadLetterSourceQueuesResponse

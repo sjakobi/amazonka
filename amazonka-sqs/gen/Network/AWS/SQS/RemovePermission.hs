@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,105 +21,131 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Revokes any permissions in the queue policy that matches the specified @Label@ parameter.
+-- Revokes any permissions in the queue policy that matches the specified
+-- @Label@ parameter.
+--
+-- -   Only the owner of a queue can remove permissions from it.
+--
+-- -   Cross-account permissions don\'t apply to this action. For more
+--     information, see
+--     <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-customer-managed-policy-examples.html#grant-cross-account-permissions-to-role-and-user-name Grant cross-account permissions to a role and a user name>
+--     in the /Amazon Simple Queue Service Developer Guide/.
+--
+-- -   To remove the ability to change queue permissions, you must deny
+--     permission to the @AddPermission@, @RemovePermission@, and
+--     @SetQueueAttributes@ actions in your IAM policy.
 module Network.AWS.SQS.RemovePermission
   ( -- * Creating a Request
-    removePermission,
-    RemovePermission,
+    RemovePermission (..),
+    newRemovePermission,
 
     -- * Request Lenses
-    rpQueueURL,
-    rpLabel,
+    removePermission_queueUrl,
+    removePermission_label,
 
     -- * Destructuring the Response
-    removePermissionResponse,
-    RemovePermissionResponse,
+    RemovePermissionResponse (..),
+    newRemovePermissionResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SQS.Types
 
 -- |
 --
---
---
--- /See:/ 'removePermission' smart constructor.
+-- /See:/ 'newRemovePermission' smart constructor.
 data RemovePermission = RemovePermission'
-  { _rpQueueURL ::
-      !Text,
-    _rpLabel :: !Text
+  { -- | The URL of the Amazon SQS queue from which permissions are removed.
+    --
+    -- Queue URLs and names are case-sensitive.
+    queueUrl :: Prelude.Text,
+    -- | The identification of the permission to remove. This is the label added
+    -- using the @ AddPermission @ action.
+    label :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RemovePermission' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RemovePermission' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rpQueueURL' - The URL of the Amazon SQS queue from which permissions are removed. Queue URLs and names are case-sensitive.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rpLabel' - The identification of the permission to remove. This is the label added using the @'AddPermission' @ action.
-removePermission ::
-  -- | 'rpQueueURL'
-  Text ->
-  -- | 'rpLabel'
-  Text ->
+-- 'queueUrl', 'removePermission_queueUrl' - The URL of the Amazon SQS queue from which permissions are removed.
+--
+-- Queue URLs and names are case-sensitive.
+--
+-- 'label', 'removePermission_label' - The identification of the permission to remove. This is the label added
+-- using the @ AddPermission @ action.
+newRemovePermission ::
+  -- | 'queueUrl'
+  Prelude.Text ->
+  -- | 'label'
+  Prelude.Text ->
   RemovePermission
-removePermission pQueueURL_ pLabel_ =
+newRemovePermission pQueueUrl_ pLabel_ =
   RemovePermission'
-    { _rpQueueURL = pQueueURL_,
-      _rpLabel = pLabel_
+    { queueUrl = pQueueUrl_,
+      label = pLabel_
     }
 
--- | The URL of the Amazon SQS queue from which permissions are removed. Queue URLs and names are case-sensitive.
-rpQueueURL :: Lens' RemovePermission Text
-rpQueueURL = lens _rpQueueURL (\s a -> s {_rpQueueURL = a})
+-- | The URL of the Amazon SQS queue from which permissions are removed.
+--
+-- Queue URLs and names are case-sensitive.
+removePermission_queueUrl :: Lens.Lens' RemovePermission Prelude.Text
+removePermission_queueUrl = Lens.lens (\RemovePermission' {queueUrl} -> queueUrl) (\s@RemovePermission' {} a -> s {queueUrl = a} :: RemovePermission)
 
--- | The identification of the permission to remove. This is the label added using the @'AddPermission' @ action.
-rpLabel :: Lens' RemovePermission Text
-rpLabel = lens _rpLabel (\s a -> s {_rpLabel = a})
+-- | The identification of the permission to remove. This is the label added
+-- using the @ AddPermission @ action.
+removePermission_label :: Lens.Lens' RemovePermission Prelude.Text
+removePermission_label = Lens.lens (\RemovePermission' {label} -> label) (\s@RemovePermission' {} a -> s {label = a} :: RemovePermission)
 
-instance AWSRequest RemovePermission where
+instance Prelude.AWSRequest RemovePermission where
   type Rs RemovePermission = RemovePermissionResponse
-  request = postQuery sqs
-  response = receiveNull RemovePermissionResponse'
+  request = Request.postQuery defaultService
+  response =
+    Response.receiveNull RemovePermissionResponse'
 
-instance Hashable RemovePermission
+instance Prelude.Hashable RemovePermission
 
-instance NFData RemovePermission
+instance Prelude.NFData RemovePermission
 
-instance ToHeaders RemovePermission where
-  toHeaders = const mempty
+instance Prelude.ToHeaders RemovePermission where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath RemovePermission where
-  toPath = const "/"
+instance Prelude.ToPath RemovePermission where
+  toPath = Prelude.const "/"
 
-instance ToQuery RemovePermission where
+instance Prelude.ToQuery RemovePermission where
   toQuery RemovePermission' {..} =
-    mconcat
-      [ "Action" =: ("RemovePermission" :: ByteString),
-        "Version" =: ("2012-11-05" :: ByteString),
-        "QueueUrl" =: _rpQueueURL,
-        "Label" =: _rpLabel
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("RemovePermission" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2012-11-05" :: Prelude.ByteString),
+        "QueueUrl" Prelude.=: queueUrl,
+        "Label" Prelude.=: label
       ]
 
--- | /See:/ 'removePermissionResponse' smart constructor.
+-- | /See:/ 'newRemovePermissionResponse' smart constructor.
 data RemovePermissionResponse = RemovePermissionResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RemovePermissionResponse' with the minimum fields required to make a request.
-removePermissionResponse ::
+-- |
+-- Create a value of 'RemovePermissionResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newRemovePermissionResponse ::
   RemovePermissionResponse
-removePermissionResponse = RemovePermissionResponse'
+newRemovePermissionResponse =
+  RemovePermissionResponse'
 
-instance NFData RemovePermissionResponse
+instance Prelude.NFData RemovePermissionResponse

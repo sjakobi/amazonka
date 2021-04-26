@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,13 +19,16 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SQS.Types.ChangeMessageVisibilityBatchRequestEntry where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Encloses a receipt handle and an entry id for each message in @'ChangeMessageVisibilityBatch' .@
+-- | Encloses a receipt handle and an entry id for each message in
+-- @ ChangeMessageVisibilityBatch.@
 --
---
--- /Important:/ All of the following list parameters must be prefixed with @ChangeMessageVisibilityBatchRequestEntry.n@ , where @n@ is an integer value starting with @1@ . For example, a parameter list for this action might look like this:
+-- All of the following list parameters must be prefixed with
+-- @ChangeMessageVisibilityBatchRequestEntry.n@, where @n@ is an integer
+-- value starting with @1@. For example, a parameter list for this action
+-- might look like this:
 --
 -- @&ChangeMessageVisibilityBatchRequestEntry.1.Id=change_visibility_msg_2@
 --
@@ -29,80 +36,91 @@ import Network.AWS.Prelude
 --
 -- @&ChangeMessageVisibilityBatchRequestEntry.1.VisibilityTimeout=45@
 --
---
--- /See:/ 'changeMessageVisibilityBatchRequestEntry' smart constructor.
+-- /See:/ 'newChangeMessageVisibilityBatchRequestEntry' smart constructor.
 data ChangeMessageVisibilityBatchRequestEntry = ChangeMessageVisibilityBatchRequestEntry'
-  { _cmvbreVisibilityTimeout ::
-      !( Maybe
-           Int
-       ),
-    _cmvbreId ::
-      !Text,
-    _cmvbreReceiptHandle ::
-      !Text
+  { -- | The new value (in seconds) for the message\'s visibility timeout.
+    visibilityTimeout :: Prelude.Maybe Prelude.Int,
+    -- | An identifier for this particular receipt handle used to communicate the
+    -- result.
+    --
+    -- The @Id@s of a batch request need to be unique within a request.
+    --
+    -- This identifier can have up to 80 characters. The following characters
+    -- are accepted: alphanumeric characters, hyphens(-), and underscores (_).
+    id :: Prelude.Text,
+    -- | A receipt handle.
+    receiptHandle :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ChangeMessageVisibilityBatchRequestEntry' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ChangeMessageVisibilityBatchRequestEntry' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cmvbreVisibilityTimeout' - The new value (in seconds) for the message's visibility timeout.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cmvbreId' - An identifier for this particular receipt handle used to communicate the result.
+-- 'visibilityTimeout', 'changeMessageVisibilityBatchRequestEntry_visibilityTimeout' - The new value (in seconds) for the message\'s visibility timeout.
 --
--- * 'cmvbreReceiptHandle' - A receipt handle.
-changeMessageVisibilityBatchRequestEntry ::
-  -- | 'cmvbreId'
-  Text ->
-  -- | 'cmvbreReceiptHandle'
-  Text ->
+-- 'id', 'changeMessageVisibilityBatchRequestEntry_id' - An identifier for this particular receipt handle used to communicate the
+-- result.
+--
+-- The @Id@s of a batch request need to be unique within a request.
+--
+-- This identifier can have up to 80 characters. The following characters
+-- are accepted: alphanumeric characters, hyphens(-), and underscores (_).
+--
+-- 'receiptHandle', 'changeMessageVisibilityBatchRequestEntry_receiptHandle' - A receipt handle.
+newChangeMessageVisibilityBatchRequestEntry ::
+  -- | 'id'
+  Prelude.Text ->
+  -- | 'receiptHandle'
+  Prelude.Text ->
   ChangeMessageVisibilityBatchRequestEntry
-changeMessageVisibilityBatchRequestEntry
+newChangeMessageVisibilityBatchRequestEntry
   pId_
   pReceiptHandle_ =
     ChangeMessageVisibilityBatchRequestEntry'
-      { _cmvbreVisibilityTimeout =
-          Nothing,
-        _cmvbreId = pId_,
-        _cmvbreReceiptHandle =
-          pReceiptHandle_
+      { visibilityTimeout =
+          Prelude.Nothing,
+        id = pId_,
+        receiptHandle = pReceiptHandle_
       }
 
--- | The new value (in seconds) for the message's visibility timeout.
-cmvbreVisibilityTimeout :: Lens' ChangeMessageVisibilityBatchRequestEntry (Maybe Int)
-cmvbreVisibilityTimeout = lens _cmvbreVisibilityTimeout (\s a -> s {_cmvbreVisibilityTimeout = a})
+-- | The new value (in seconds) for the message\'s visibility timeout.
+changeMessageVisibilityBatchRequestEntry_visibilityTimeout :: Lens.Lens' ChangeMessageVisibilityBatchRequestEntry (Prelude.Maybe Prelude.Int)
+changeMessageVisibilityBatchRequestEntry_visibilityTimeout = Lens.lens (\ChangeMessageVisibilityBatchRequestEntry' {visibilityTimeout} -> visibilityTimeout) (\s@ChangeMessageVisibilityBatchRequestEntry' {} a -> s {visibilityTimeout = a} :: ChangeMessageVisibilityBatchRequestEntry)
 
--- | An identifier for this particular receipt handle used to communicate the result.
-cmvbreId :: Lens' ChangeMessageVisibilityBatchRequestEntry Text
-cmvbreId = lens _cmvbreId (\s a -> s {_cmvbreId = a})
+-- | An identifier for this particular receipt handle used to communicate the
+-- result.
+--
+-- The @Id@s of a batch request need to be unique within a request.
+--
+-- This identifier can have up to 80 characters. The following characters
+-- are accepted: alphanumeric characters, hyphens(-), and underscores (_).
+changeMessageVisibilityBatchRequestEntry_id :: Lens.Lens' ChangeMessageVisibilityBatchRequestEntry Prelude.Text
+changeMessageVisibilityBatchRequestEntry_id = Lens.lens (\ChangeMessageVisibilityBatchRequestEntry' {id} -> id) (\s@ChangeMessageVisibilityBatchRequestEntry' {} a -> s {id = a} :: ChangeMessageVisibilityBatchRequestEntry)
 
 -- | A receipt handle.
-cmvbreReceiptHandle :: Lens' ChangeMessageVisibilityBatchRequestEntry Text
-cmvbreReceiptHandle = lens _cmvbreReceiptHandle (\s a -> s {_cmvbreReceiptHandle = a})
+changeMessageVisibilityBatchRequestEntry_receiptHandle :: Lens.Lens' ChangeMessageVisibilityBatchRequestEntry Prelude.Text
+changeMessageVisibilityBatchRequestEntry_receiptHandle = Lens.lens (\ChangeMessageVisibilityBatchRequestEntry' {receiptHandle} -> receiptHandle) (\s@ChangeMessageVisibilityBatchRequestEntry' {} a -> s {receiptHandle = a} :: ChangeMessageVisibilityBatchRequestEntry)
 
 instance
-  Hashable
+  Prelude.Hashable
     ChangeMessageVisibilityBatchRequestEntry
 
 instance
-  NFData
+  Prelude.NFData
     ChangeMessageVisibilityBatchRequestEntry
 
 instance
-  ToQuery
+  Prelude.ToQuery
     ChangeMessageVisibilityBatchRequestEntry
   where
   toQuery ChangeMessageVisibilityBatchRequestEntry' {..} =
-    mconcat
-      [ "VisibilityTimeout" =: _cmvbreVisibilityTimeout,
-        "Id" =: _cmvbreId,
-        "ReceiptHandle" =: _cmvbreReceiptHandle
+    Prelude.mconcat
+      [ "VisibilityTimeout" Prelude.=: visibilityTimeout,
+        "Id" Prelude.=: id,
+        "ReceiptHandle" Prelude.=: receiptHandle
       ]

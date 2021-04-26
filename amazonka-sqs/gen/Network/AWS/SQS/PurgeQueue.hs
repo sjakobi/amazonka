@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,88 +23,112 @@
 --
 -- Deletes the messages in a queue specified by the @QueueURL@ parameter.
 --
+-- When you use the @PurgeQueue@ action, you can\'t retrieve any messages
+-- deleted from a queue.
 --
--- /Important:/ When you use the @PurgeQueue@ action, you can't retrieve any messages deleted from a queue.
+-- The message deletion process takes up to 60 seconds. We recommend
+-- waiting for 60 seconds regardless of your queue\'s size.
 --
--- The message deletion process takes up to 60 seconds. We recommend waiting for 60 seconds regardless of your queue's size.
+-- Messages sent to the queue /before/ you call @PurgeQueue@ might be
+-- received but are deleted within the next minute.
 --
--- Messages sent to the queue /before/ you call @PurgeQueue@ might be received but are deleted within the next minute.
---
--- Messages sent to the queue /after/ you call @PurgeQueue@ might be deleted while the queue is being purged.
+-- Messages sent to the queue /after/ you call @PurgeQueue@ might be
+-- deleted while the queue is being purged.
 module Network.AWS.SQS.PurgeQueue
   ( -- * Creating a Request
-    purgeQueue,
-    PurgeQueue,
+    PurgeQueue (..),
+    newPurgeQueue,
 
     -- * Request Lenses
-    pqQueueURL,
+    purgeQueue_queueUrl,
 
     -- * Destructuring the Response
-    purgeQueueResponse,
-    PurgeQueueResponse,
+    PurgeQueueResponse (..),
+    newPurgeQueueResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SQS.Types
 
 -- |
 --
---
---
--- /See:/ 'purgeQueue' smart constructor.
-newtype PurgeQueue = PurgeQueue' {_pqQueueURL :: Text}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- /See:/ 'newPurgeQueue' smart constructor.
+data PurgeQueue = PurgeQueue'
+  { -- | The URL of the queue from which the @PurgeQueue@ action deletes
+    -- messages.
+    --
+    -- Queue URLs and names are case-sensitive.
+    queueUrl :: Prelude.Text
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PurgeQueue' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PurgeQueue' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pqQueueURL' - The URL of the queue from which the @PurgeQueue@ action deletes messages. Queue URLs and names are case-sensitive.
-purgeQueue ::
-  -- | 'pqQueueURL'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'queueUrl', 'purgeQueue_queueUrl' - The URL of the queue from which the @PurgeQueue@ action deletes
+-- messages.
+--
+-- Queue URLs and names are case-sensitive.
+newPurgeQueue ::
+  -- | 'queueUrl'
+  Prelude.Text ->
   PurgeQueue
-purgeQueue pQueueURL_ =
-  PurgeQueue' {_pqQueueURL = pQueueURL_}
+newPurgeQueue pQueueUrl_ =
+  PurgeQueue' {queueUrl = pQueueUrl_}
 
--- | The URL of the queue from which the @PurgeQueue@ action deletes messages. Queue URLs and names are case-sensitive.
-pqQueueURL :: Lens' PurgeQueue Text
-pqQueueURL = lens _pqQueueURL (\s a -> s {_pqQueueURL = a})
+-- | The URL of the queue from which the @PurgeQueue@ action deletes
+-- messages.
+--
+-- Queue URLs and names are case-sensitive.
+purgeQueue_queueUrl :: Lens.Lens' PurgeQueue Prelude.Text
+purgeQueue_queueUrl = Lens.lens (\PurgeQueue' {queueUrl} -> queueUrl) (\s@PurgeQueue' {} a -> s {queueUrl = a} :: PurgeQueue)
 
-instance AWSRequest PurgeQueue where
+instance Prelude.AWSRequest PurgeQueue where
   type Rs PurgeQueue = PurgeQueueResponse
-  request = postQuery sqs
-  response = receiveNull PurgeQueueResponse'
+  request = Request.postQuery defaultService
+  response = Response.receiveNull PurgeQueueResponse'
 
-instance Hashable PurgeQueue
+instance Prelude.Hashable PurgeQueue
 
-instance NFData PurgeQueue
+instance Prelude.NFData PurgeQueue
 
-instance ToHeaders PurgeQueue where
-  toHeaders = const mempty
+instance Prelude.ToHeaders PurgeQueue where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath PurgeQueue where
-  toPath = const "/"
+instance Prelude.ToPath PurgeQueue where
+  toPath = Prelude.const "/"
 
-instance ToQuery PurgeQueue where
+instance Prelude.ToQuery PurgeQueue where
   toQuery PurgeQueue' {..} =
-    mconcat
-      [ "Action" =: ("PurgeQueue" :: ByteString),
-        "Version" =: ("2012-11-05" :: ByteString),
-        "QueueUrl" =: _pqQueueURL
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("PurgeQueue" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2012-11-05" :: Prelude.ByteString),
+        "QueueUrl" Prelude.=: queueUrl
       ]
 
--- | /See:/ 'purgeQueueResponse' smart constructor.
+-- | /See:/ 'newPurgeQueueResponse' smart constructor.
 data PurgeQueueResponse = PurgeQueueResponse'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PurgeQueueResponse' with the minimum fields required to make a request.
-purgeQueueResponse ::
+-- |
+-- Create a value of 'PurgeQueueResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newPurgeQueueResponse ::
   PurgeQueueResponse
-purgeQueueResponse = PurgeQueueResponse'
+newPurgeQueueResponse = PurgeQueueResponse'
 
-instance NFData PurgeQueueResponse
+instance Prelude.NFData PurgeQueueResponse

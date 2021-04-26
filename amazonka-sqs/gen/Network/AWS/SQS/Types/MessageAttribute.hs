@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,70 @@
 module Network.AWS.SQS.Types.MessageAttribute
   ( MessageAttribute
       ( ..,
-        All,
-        ApproximateFirstReceiveTimestamp,
-        ApproximateReceiveCount,
-        SenderId,
-        SentTimestamp
+        MessageAttributeAll,
+        MessageAttributeApproximateFirstReceiveTimestamp,
+        MessageAttributeApproximateReceiveCount,
+        MessageAttributeSenderId,
+        MessageAttributeSentTimestamp
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data MessageAttribute = MessageAttribute' (CI Text)
+newtype MessageAttribute = MessageAttribute'
+  { fromMessageAttribute ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern All :: MessageAttribute
-pattern All = MessageAttribute' "All"
+pattern MessageAttributeAll :: MessageAttribute
+pattern MessageAttributeAll = MessageAttribute' "All"
 
-pattern ApproximateFirstReceiveTimestamp :: MessageAttribute
-pattern ApproximateFirstReceiveTimestamp = MessageAttribute' "ApproximateFirstReceiveTimestamp"
+pattern MessageAttributeApproximateFirstReceiveTimestamp :: MessageAttribute
+pattern MessageAttributeApproximateFirstReceiveTimestamp = MessageAttribute' "ApproximateFirstReceiveTimestamp"
 
-pattern ApproximateReceiveCount :: MessageAttribute
-pattern ApproximateReceiveCount = MessageAttribute' "ApproximateReceiveCount"
+pattern MessageAttributeApproximateReceiveCount :: MessageAttribute
+pattern MessageAttributeApproximateReceiveCount = MessageAttribute' "ApproximateReceiveCount"
 
-pattern SenderId :: MessageAttribute
-pattern SenderId = MessageAttribute' "SenderId"
+pattern MessageAttributeSenderId :: MessageAttribute
+pattern MessageAttributeSenderId = MessageAttribute' "SenderId"
 
-pattern SentTimestamp :: MessageAttribute
-pattern SentTimestamp = MessageAttribute' "SentTimestamp"
+pattern MessageAttributeSentTimestamp :: MessageAttribute
+pattern MessageAttributeSentTimestamp = MessageAttribute' "SentTimestamp"
 
 {-# COMPLETE
-  All,
-  ApproximateFirstReceiveTimestamp,
-  ApproximateReceiveCount,
-  SenderId,
-  SentTimestamp,
+  MessageAttributeAll,
+  MessageAttributeApproximateFirstReceiveTimestamp,
+  MessageAttributeApproximateReceiveCount,
+  MessageAttributeSenderId,
+  MessageAttributeSentTimestamp,
   MessageAttribute'
   #-}
 
-instance FromText MessageAttribute where
-  parser = (MessageAttribute' . mk) <$> takeText
+instance Prelude.FromText MessageAttribute where
+  parser = MessageAttribute' Prelude.<$> Prelude.takeText
 
-instance ToText MessageAttribute where
-  toText (MessageAttribute' ci) = original ci
+instance Prelude.ToText MessageAttribute where
+  toText (MessageAttribute' x) = x
 
-instance Hashable MessageAttribute
+instance Prelude.Hashable MessageAttribute
 
-instance NFData MessageAttribute
+instance Prelude.NFData MessageAttribute
 
-instance ToByteString MessageAttribute
+instance Prelude.ToByteString MessageAttribute
 
-instance ToQuery MessageAttribute
+instance Prelude.ToQuery MessageAttribute
 
-instance ToHeader MessageAttribute
+instance Prelude.ToHeader MessageAttribute
 
-instance FromXML MessageAttribute where
-  parseXML = parseXMLText "MessageAttribute"
+instance Prelude.FromXML MessageAttribute where
+  parseXML = Prelude.parseXMLText "MessageAttribute"

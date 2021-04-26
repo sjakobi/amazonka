@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,81 +19,83 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SQS.Types.BatchResultErrorEntry where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Gives a detailed description of the result of an action on each entry in the request.
+-- | Gives a detailed description of the result of an action on each entry in
+-- the request.
 --
---
---
--- /See:/ 'batchResultErrorEntry' smart constructor.
+-- /See:/ 'newBatchResultErrorEntry' smart constructor.
 data BatchResultErrorEntry = BatchResultErrorEntry'
-  { _breeMessage ::
-      !(Maybe Text),
-    _breeId :: !Text,
-    _breeSenderFault :: !Bool,
-    _breeCode :: !Text
+  { -- | A message explaining why the action failed on this entry.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The @Id@ of an entry in a batch request.
+    id :: Prelude.Text,
+    -- | Specifies whether the error happened due to the caller of the batch API
+    -- action.
+    senderFault :: Prelude.Bool,
+    -- | An error code representing why the action failed on this entry.
+    code :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchResultErrorEntry' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchResultErrorEntry' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'breeMessage' - A message explaining why the action failed on this entry.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'breeId' - The @Id@ of an entry in a batch request.
+-- 'message', 'batchResultErrorEntry_message' - A message explaining why the action failed on this entry.
 --
--- * 'breeSenderFault' - Specifies whether the error happened due to the caller of the batch API action.
+-- 'id', 'batchResultErrorEntry_id' - The @Id@ of an entry in a batch request.
 --
--- * 'breeCode' - An error code representing why the action failed on this entry.
-batchResultErrorEntry ::
-  -- | 'breeId'
-  Text ->
-  -- | 'breeSenderFault'
-  Bool ->
-  -- | 'breeCode'
-  Text ->
+-- 'senderFault', 'batchResultErrorEntry_senderFault' - Specifies whether the error happened due to the caller of the batch API
+-- action.
+--
+-- 'code', 'batchResultErrorEntry_code' - An error code representing why the action failed on this entry.
+newBatchResultErrorEntry ::
+  -- | 'id'
+  Prelude.Text ->
+  -- | 'senderFault'
+  Prelude.Bool ->
+  -- | 'code'
+  Prelude.Text ->
   BatchResultErrorEntry
-batchResultErrorEntry pId_ pSenderFault_ pCode_ =
+newBatchResultErrorEntry pId_ pSenderFault_ pCode_ =
   BatchResultErrorEntry'
-    { _breeMessage = Nothing,
-      _breeId = pId_,
-      _breeSenderFault = pSenderFault_,
-      _breeCode = pCode_
+    { message = Prelude.Nothing,
+      id = pId_,
+      senderFault = pSenderFault_,
+      code = pCode_
     }
 
 -- | A message explaining why the action failed on this entry.
-breeMessage :: Lens' BatchResultErrorEntry (Maybe Text)
-breeMessage = lens _breeMessage (\s a -> s {_breeMessage = a})
+batchResultErrorEntry_message :: Lens.Lens' BatchResultErrorEntry (Prelude.Maybe Prelude.Text)
+batchResultErrorEntry_message = Lens.lens (\BatchResultErrorEntry' {message} -> message) (\s@BatchResultErrorEntry' {} a -> s {message = a} :: BatchResultErrorEntry)
 
 -- | The @Id@ of an entry in a batch request.
-breeId :: Lens' BatchResultErrorEntry Text
-breeId = lens _breeId (\s a -> s {_breeId = a})
+batchResultErrorEntry_id :: Lens.Lens' BatchResultErrorEntry Prelude.Text
+batchResultErrorEntry_id = Lens.lens (\BatchResultErrorEntry' {id} -> id) (\s@BatchResultErrorEntry' {} a -> s {id = a} :: BatchResultErrorEntry)
 
--- | Specifies whether the error happened due to the caller of the batch API action.
-breeSenderFault :: Lens' BatchResultErrorEntry Bool
-breeSenderFault = lens _breeSenderFault (\s a -> s {_breeSenderFault = a})
+-- | Specifies whether the error happened due to the caller of the batch API
+-- action.
+batchResultErrorEntry_senderFault :: Lens.Lens' BatchResultErrorEntry Prelude.Bool
+batchResultErrorEntry_senderFault = Lens.lens (\BatchResultErrorEntry' {senderFault} -> senderFault) (\s@BatchResultErrorEntry' {} a -> s {senderFault = a} :: BatchResultErrorEntry)
 
 -- | An error code representing why the action failed on this entry.
-breeCode :: Lens' BatchResultErrorEntry Text
-breeCode = lens _breeCode (\s a -> s {_breeCode = a})
+batchResultErrorEntry_code :: Lens.Lens' BatchResultErrorEntry Prelude.Text
+batchResultErrorEntry_code = Lens.lens (\BatchResultErrorEntry' {code} -> code) (\s@BatchResultErrorEntry' {} a -> s {code = a} :: BatchResultErrorEntry)
 
-instance FromXML BatchResultErrorEntry where
+instance Prelude.FromXML BatchResultErrorEntry where
   parseXML x =
     BatchResultErrorEntry'
-      <$> (x .@? "Message")
-      <*> (x .@ "Id")
-      <*> (x .@ "SenderFault")
-      <*> (x .@ "Code")
+      Prelude.<$> (x Prelude..@? "Message")
+      Prelude.<*> (x Prelude..@ "Id")
+      Prelude.<*> (x Prelude..@ "SenderFault")
+      Prelude.<*> (x Prelude..@ "Code")
 
-instance Hashable BatchResultErrorEntry
+instance Prelude.Hashable BatchResultErrorEntry
 
-instance NFData BatchResultErrorEntry
+instance Prelude.NFData BatchResultErrorEntry

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,123 +21,137 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- List all cost allocation tags added to the specified Amazon SQS queue. For an overview, see <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-queue-tags.html Tagging Your Amazon SQS Queues> in the /Amazon Simple Queue Service Developer Guide/ .
+-- List all cost allocation tags added to the specified Amazon SQS queue.
+-- For an overview, see
+-- <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-queue-tags.html Tagging Your Amazon SQS Queues>
+-- in the /Amazon Simple Queue Service Developer Guide/.
+--
+-- Cross-account permissions don\'t apply to this action. For more
+-- information, see
+-- <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-customer-managed-policy-examples.html#grant-cross-account-permissions-to-role-and-user-name Grant cross-account permissions to a role and a user name>
+-- in the /Amazon Simple Queue Service Developer Guide/.
 module Network.AWS.SQS.ListQueueTags
   ( -- * Creating a Request
-    listQueueTags,
-    ListQueueTags,
+    ListQueueTags (..),
+    newListQueueTags,
 
     -- * Request Lenses
-    lqtQueueURL,
+    listQueueTags_queueUrl,
 
     -- * Destructuring the Response
-    listQueueTagsResponse,
-    ListQueueTagsResponse,
+    ListQueueTagsResponse (..),
+    newListQueueTagsResponse,
 
     -- * Response Lenses
-    lqtrrsTags,
-    lqtrrsResponseStatus,
+    listQueueTagsResponse_tags,
+    listQueueTagsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SQS.Types
 
--- | /See:/ 'listQueueTags' smart constructor.
-newtype ListQueueTags = ListQueueTags'
-  { _lqtQueueURL ::
-      Text
+-- | /See:/ 'newListQueueTags' smart constructor.
+data ListQueueTags = ListQueueTags'
+  { -- | The URL of the queue.
+    queueUrl :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListQueueTags' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListQueueTags' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lqtQueueURL' - The URL of the queue.
-listQueueTags ::
-  -- | 'lqtQueueURL'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'queueUrl', 'listQueueTags_queueUrl' - The URL of the queue.
+newListQueueTags ::
+  -- | 'queueUrl'
+  Prelude.Text ->
   ListQueueTags
-listQueueTags pQueueURL_ =
-  ListQueueTags' {_lqtQueueURL = pQueueURL_}
+newListQueueTags pQueueUrl_ =
+  ListQueueTags' {queueUrl = pQueueUrl_}
 
 -- | The URL of the queue.
-lqtQueueURL :: Lens' ListQueueTags Text
-lqtQueueURL = lens _lqtQueueURL (\s a -> s {_lqtQueueURL = a})
+listQueueTags_queueUrl :: Lens.Lens' ListQueueTags Prelude.Text
+listQueueTags_queueUrl = Lens.lens (\ListQueueTags' {queueUrl} -> queueUrl) (\s@ListQueueTags' {} a -> s {queueUrl = a} :: ListQueueTags)
 
-instance AWSRequest ListQueueTags where
+instance Prelude.AWSRequest ListQueueTags where
   type Rs ListQueueTags = ListQueueTagsResponse
-  request = postQuery sqs
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "ListQueueTagsResult"
       ( \s h x ->
           ListQueueTagsResponse'
-            <$> (may (parseXMLMap "Tag" "Key" "Value") x)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( Prelude.may
+                            (Prelude.parseXMLMap "Tag" "Key" "Value")
+                            x
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListQueueTags
+instance Prelude.Hashable ListQueueTags
 
-instance NFData ListQueueTags
+instance Prelude.NFData ListQueueTags
 
-instance ToHeaders ListQueueTags where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListQueueTags where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListQueueTags where
-  toPath = const "/"
+instance Prelude.ToPath ListQueueTags where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListQueueTags where
+instance Prelude.ToQuery ListQueueTags where
   toQuery ListQueueTags' {..} =
-    mconcat
-      [ "Action" =: ("ListQueueTags" :: ByteString),
-        "Version" =: ("2012-11-05" :: ByteString),
-        "QueueUrl" =: _lqtQueueURL
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("ListQueueTags" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2012-11-05" :: Prelude.ByteString),
+        "QueueUrl" Prelude.=: queueUrl
       ]
 
--- | /See:/ 'listQueueTagsResponse' smart constructor.
+-- | /See:/ 'newListQueueTagsResponse' smart constructor.
 data ListQueueTagsResponse = ListQueueTagsResponse'
-  { _lqtrrsTags ::
-      !(Maybe (Map Text Text)),
-    _lqtrrsResponseStatus ::
-      !Int
+  { -- | The list of all tags added to the specified queue.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListQueueTagsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListQueueTagsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lqtrrsTags' - The list of all tags added to the specified queue.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lqtrrsResponseStatus' - -- | The response status code.
-listQueueTagsResponse ::
-  -- | 'lqtrrsResponseStatus'
-  Int ->
+-- 'tags', 'listQueueTagsResponse_tags' - The list of all tags added to the specified queue.
+--
+-- 'httpStatus', 'listQueueTagsResponse_httpStatus' - The response's http status code.
+newListQueueTagsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListQueueTagsResponse
-listQueueTagsResponse pResponseStatus_ =
+newListQueueTagsResponse pHttpStatus_ =
   ListQueueTagsResponse'
-    { _lqtrrsTags = Nothing,
-      _lqtrrsResponseStatus = pResponseStatus_
+    { tags = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The list of all tags added to the specified queue.
-lqtrrsTags :: Lens' ListQueueTagsResponse (HashMap Text Text)
-lqtrrsTags = lens _lqtrrsTags (\s a -> s {_lqtrrsTags = a}) . _Default . _Map
+listQueueTagsResponse_tags :: Lens.Lens' ListQueueTagsResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+listQueueTagsResponse_tags = Lens.lens (\ListQueueTagsResponse' {tags} -> tags) (\s@ListQueueTagsResponse' {} a -> s {tags = a} :: ListQueueTagsResponse) Prelude.. Lens.mapping Prelude._Map
 
--- | -- | The response status code.
-lqtrrsResponseStatus :: Lens' ListQueueTagsResponse Int
-lqtrrsResponseStatus = lens _lqtrrsResponseStatus (\s a -> s {_lqtrrsResponseStatus = a})
+-- | The response's http status code.
+listQueueTagsResponse_httpStatus :: Lens.Lens' ListQueueTagsResponse Prelude.Int
+listQueueTagsResponse_httpStatus = Lens.lens (\ListQueueTagsResponse' {httpStatus} -> httpStatus) (\s@ListQueueTagsResponse' {} a -> s {httpStatus = a} :: ListQueueTagsResponse)
 
-instance NFData ListQueueTagsResponse
+instance Prelude.NFData ListQueueTagsResponse

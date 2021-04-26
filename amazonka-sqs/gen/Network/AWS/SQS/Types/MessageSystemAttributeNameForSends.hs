@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,49 +19,47 @@
 module Network.AWS.SQS.Types.MessageSystemAttributeNameForSends
   ( MessageSystemAttributeNameForSends
       ( ..,
-        AWSTraceHeader
+        MessageSystemAttributeNameForSendsAWSTraceHeader
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data MessageSystemAttributeNameForSends
-  = MessageSystemAttributeNameForSends'
-      ( CI
-          Text
-      )
+newtype MessageSystemAttributeNameForSends = MessageSystemAttributeNameForSends'
+  { fromMessageSystemAttributeNameForSends ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AWSTraceHeader :: MessageSystemAttributeNameForSends
-pattern AWSTraceHeader = MessageSystemAttributeNameForSends' "AWSTraceHeader"
+pattern MessageSystemAttributeNameForSendsAWSTraceHeader :: MessageSystemAttributeNameForSends
+pattern MessageSystemAttributeNameForSendsAWSTraceHeader = MessageSystemAttributeNameForSends' "AWSTraceHeader"
 
 {-# COMPLETE
-  AWSTraceHeader,
+  MessageSystemAttributeNameForSendsAWSTraceHeader,
   MessageSystemAttributeNameForSends'
   #-}
 
-instance FromText MessageSystemAttributeNameForSends where
-  parser = (MessageSystemAttributeNameForSends' . mk) <$> takeText
+instance Prelude.FromText MessageSystemAttributeNameForSends where
+  parser = MessageSystemAttributeNameForSends' Prelude.<$> Prelude.takeText
 
-instance ToText MessageSystemAttributeNameForSends where
-  toText (MessageSystemAttributeNameForSends' ci) = original ci
+instance Prelude.ToText MessageSystemAttributeNameForSends where
+  toText (MessageSystemAttributeNameForSends' x) = x
 
-instance Hashable MessageSystemAttributeNameForSends
+instance Prelude.Hashable MessageSystemAttributeNameForSends
 
-instance NFData MessageSystemAttributeNameForSends
+instance Prelude.NFData MessageSystemAttributeNameForSends
 
-instance ToByteString MessageSystemAttributeNameForSends
+instance Prelude.ToByteString MessageSystemAttributeNameForSends
 
-instance ToQuery MessageSystemAttributeNameForSends
+instance Prelude.ToQuery MessageSystemAttributeNameForSends
 
-instance ToHeader MessageSystemAttributeNameForSends
+instance Prelude.ToHeader MessageSystemAttributeNameForSends

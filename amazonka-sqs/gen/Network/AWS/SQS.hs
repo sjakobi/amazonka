@@ -11,45 +11,47 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Welcome to the /Amazon Simple Queue Service API Reference/ .
+-- Welcome to the /Amazon Simple Queue Service API Reference/.
 --
+-- Amazon Simple Queue Service (Amazon SQS) is a reliable, highly-scalable
+-- hosted queue for storing messages as they travel between applications or
+-- microservices. Amazon SQS moves data between distributed application
+-- components and helps you decouple these components.
 --
--- Amazon Simple Queue Service (Amazon SQS) is a reliable, highly-scalable hosted queue for storing messages as they travel between applications or microservices. Amazon SQS moves data between distributed application components and helps you decouple these components.
+-- For information on the permissions you need to use this API, see
+-- <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-authentication-and-access-control.html Identity and access management>
+-- in the /Amazon Simple Queue Service Developer Guide./
 --
--- For information on the permissions you need to use this API, see <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-authentication-and-access-control.html Identity and access management> in the /Amazon Simple Queue Service Developer Guide./
+-- You can use <http://aws.amazon.com/tools/#sdk AWS SDKs> to access Amazon
+-- SQS using your favorite programming language. The SDKs perform tasks
+-- such as the following automatically:
 --
--- You can use <http://aws.amazon.com/tools/#sdk AWS SDKs> to access Amazon SQS using your favorite programming language. The SDKs perform tasks such as the following automatically:
+-- -   Cryptographically sign your service requests
 --
---     * Cryptographically sign your service requests
+-- -   Retry requests
 --
---     * Retry requests
---
---     * Handle error responses
---
---
+-- -   Handle error responses
 --
 -- __Additional Information__
 --
---     * <http://aws.amazon.com/sqs/ Amazon SQS Product Page>
+-- -   <http://aws.amazon.com/sqs/ Amazon SQS Product Page>
 --
---     * /Amazon Simple Queue Service Developer Guide/
+-- -   /Amazon Simple Queue Service Developer Guide/
 --
---     * <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-making-api-requests.html Making API Requests>
+--     -   <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-making-api-requests.html Making API Requests>
 --
---     * <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-message-metadata.html#sqs-message-attributes Amazon SQS Message Attributes>
+--     -   <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-message-metadata.html#sqs-message-attributes Amazon SQS Message Attributes>
 --
---     * <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html Amazon SQS Dead-Letter Queues>
+--     -   <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html Amazon SQS Dead-Letter Queues>
 --
+-- -   <http://docs.aws.amazon.com/cli/latest/reference/sqs/index.html Amazon SQS in the AWS CLI Command Reference>
 --
+-- -   /Amazon Web Services General Reference/
 --
---     * <http://docs.aws.amazon.com/cli/latest/reference/sqs/index.html Amazon SQS in the /AWS CLI Command Reference/ >
---
---     * /Amazon Web Services General Reference/
---
---     * <https://docs.aws.amazon.com/general/latest/gr/rande.html#sqs_region Regions and Endpoints>
+--     -   <https://docs.aws.amazon.com/general/latest/gr/rande.html#sqs_region Regions and Endpoints>
 module Network.AWS.SQS
   ( -- * Service Configuration
-    sqs,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -109,64 +111,124 @@ module Network.AWS.SQS
     -- $operations
 
     -- ** ChangeMessageVisibilityBatch
-    module Network.AWS.SQS.ChangeMessageVisibilityBatch,
+    ChangeMessageVisibilityBatch (ChangeMessageVisibilityBatch'),
+    newChangeMessageVisibilityBatch,
+    ChangeMessageVisibilityBatchResponse (ChangeMessageVisibilityBatchResponse'),
+    newChangeMessageVisibilityBatchResponse,
 
     -- ** PurgeQueue
-    module Network.AWS.SQS.PurgeQueue,
+    PurgeQueue (PurgeQueue'),
+    newPurgeQueue,
+    PurgeQueueResponse (PurgeQueueResponse'),
+    newPurgeQueueResponse,
 
     -- ** ChangeMessageVisibility
-    module Network.AWS.SQS.ChangeMessageVisibility,
+    ChangeMessageVisibility (ChangeMessageVisibility'),
+    newChangeMessageVisibility,
+    ChangeMessageVisibilityResponse (ChangeMessageVisibilityResponse'),
+    newChangeMessageVisibilityResponse,
 
     -- ** TagQueue
-    module Network.AWS.SQS.TagQueue,
+    TagQueue (TagQueue'),
+    newTagQueue,
+    TagQueueResponse (TagQueueResponse'),
+    newTagQueueResponse,
 
     -- ** ListQueues (Paginated)
-    module Network.AWS.SQS.ListQueues,
+    ListQueues (ListQueues'),
+    newListQueues,
+    ListQueuesResponse (ListQueuesResponse'),
+    newListQueuesResponse,
 
     -- ** ReceiveMessage
-    module Network.AWS.SQS.ReceiveMessage,
+    ReceiveMessage (ReceiveMessage'),
+    newReceiveMessage,
+    ReceiveMessageResponse (ReceiveMessageResponse'),
+    newReceiveMessageResponse,
 
     -- ** GetQueueAttributes
-    module Network.AWS.SQS.GetQueueAttributes,
+    GetQueueAttributes (GetQueueAttributes'),
+    newGetQueueAttributes,
+    GetQueueAttributesResponse (GetQueueAttributesResponse'),
+    newGetQueueAttributesResponse,
 
     -- ** DeleteMessage
-    module Network.AWS.SQS.DeleteMessage,
+    DeleteMessage (DeleteMessage'),
+    newDeleteMessage,
+    DeleteMessageResponse (DeleteMessageResponse'),
+    newDeleteMessageResponse,
 
     -- ** AddPermission
-    module Network.AWS.SQS.AddPermission,
+    AddPermission (AddPermission'),
+    newAddPermission,
+    AddPermissionResponse (AddPermissionResponse'),
+    newAddPermissionResponse,
 
     -- ** ListQueueTags
-    module Network.AWS.SQS.ListQueueTags,
+    ListQueueTags (ListQueueTags'),
+    newListQueueTags,
+    ListQueueTagsResponse (ListQueueTagsResponse'),
+    newListQueueTagsResponse,
 
     -- ** SendMessage
-    module Network.AWS.SQS.SendMessage,
+    SendMessage (SendMessage'),
+    newSendMessage,
+    SendMessageResponse (SendMessageResponse'),
+    newSendMessageResponse,
 
     -- ** ListDeadLetterSourceQueues (Paginated)
-    module Network.AWS.SQS.ListDeadLetterSourceQueues,
+    ListDeadLetterSourceQueues (ListDeadLetterSourceQueues'),
+    newListDeadLetterSourceQueues,
+    ListDeadLetterSourceQueuesResponse (ListDeadLetterSourceQueuesResponse'),
+    newListDeadLetterSourceQueuesResponse,
 
-    -- ** GetQueueURL
-    module Network.AWS.SQS.GetQueueURL,
+    -- ** GetQueueUrl
+    GetQueueUrl (GetQueueUrl'),
+    newGetQueueUrl,
+    GetQueueUrlResponse (GetQueueUrlResponse'),
+    newGetQueueUrlResponse,
 
     -- ** SetQueueAttributes
-    module Network.AWS.SQS.SetQueueAttributes,
+    SetQueueAttributes (SetQueueAttributes'),
+    newSetQueueAttributes,
+    SetQueueAttributesResponse (SetQueueAttributesResponse'),
+    newSetQueueAttributesResponse,
 
     -- ** DeleteMessageBatch
-    module Network.AWS.SQS.DeleteMessageBatch,
+    DeleteMessageBatch (DeleteMessageBatch'),
+    newDeleteMessageBatch,
+    DeleteMessageBatchResponse (DeleteMessageBatchResponse'),
+    newDeleteMessageBatchResponse,
 
     -- ** SendMessageBatch
-    module Network.AWS.SQS.SendMessageBatch,
+    SendMessageBatch (SendMessageBatch'),
+    newSendMessageBatch,
+    SendMessageBatchResponse (SendMessageBatchResponse'),
+    newSendMessageBatchResponse,
 
     -- ** UntagQueue
-    module Network.AWS.SQS.UntagQueue,
+    UntagQueue (UntagQueue'),
+    newUntagQueue,
+    UntagQueueResponse (UntagQueueResponse'),
+    newUntagQueueResponse,
 
     -- ** DeleteQueue
-    module Network.AWS.SQS.DeleteQueue,
+    DeleteQueue (DeleteQueue'),
+    newDeleteQueue,
+    DeleteQueueResponse (DeleteQueueResponse'),
+    newDeleteQueueResponse,
 
     -- ** CreateQueue
-    module Network.AWS.SQS.CreateQueue,
+    CreateQueue (CreateQueue'),
+    newCreateQueue,
+    CreateQueueResponse (CreateQueueResponse'),
+    newCreateQueueResponse,
 
     -- ** RemovePermission
-    module Network.AWS.SQS.RemovePermission,
+    RemovePermission (RemovePermission'),
+    newRemovePermission,
+    RemovePermissionResponse (RemovePermissionResponse'),
+    newRemovePermissionResponse,
 
     -- * Types
 
@@ -180,85 +242,44 @@ module Network.AWS.SQS
     QueueAttributeName (..),
 
     -- ** BatchResultErrorEntry
-    BatchResultErrorEntry,
-    batchResultErrorEntry,
-    breeMessage,
-    breeId,
-    breeSenderFault,
-    breeCode,
+    BatchResultErrorEntry (BatchResultErrorEntry'),
+    newBatchResultErrorEntry,
 
     -- ** ChangeMessageVisibilityBatchRequestEntry
-    ChangeMessageVisibilityBatchRequestEntry,
-    changeMessageVisibilityBatchRequestEntry,
-    cmvbreVisibilityTimeout,
-    cmvbreId,
-    cmvbreReceiptHandle,
+    ChangeMessageVisibilityBatchRequestEntry (ChangeMessageVisibilityBatchRequestEntry'),
+    newChangeMessageVisibilityBatchRequestEntry,
 
     -- ** ChangeMessageVisibilityBatchResultEntry
-    ChangeMessageVisibilityBatchResultEntry,
-    changeMessageVisibilityBatchResultEntry,
-    cId,
+    ChangeMessageVisibilityBatchResultEntry (ChangeMessageVisibilityBatchResultEntry'),
+    newChangeMessageVisibilityBatchResultEntry,
 
     -- ** DeleteMessageBatchRequestEntry
-    DeleteMessageBatchRequestEntry,
-    deleteMessageBatchRequestEntry,
-    dmbreId,
-    dmbreReceiptHandle,
+    DeleteMessageBatchRequestEntry (DeleteMessageBatchRequestEntry'),
+    newDeleteMessageBatchRequestEntry,
 
     -- ** DeleteMessageBatchResultEntry
-    DeleteMessageBatchResultEntry,
-    deleteMessageBatchResultEntry,
-    dId,
+    DeleteMessageBatchResultEntry (DeleteMessageBatchResultEntry'),
+    newDeleteMessageBatchResultEntry,
 
     -- ** Message
-    Message,
-    message,
-    mBody,
-    mMD5OfBody,
-    mAttributes,
-    mMessageAttributes,
-    mMD5OfMessageAttributes,
-    mReceiptHandle,
-    mMessageId,
+    Message (Message'),
+    newMessage,
 
     -- ** MessageAttributeValue
-    MessageAttributeValue,
-    messageAttributeValue,
-    mavStringListValues,
-    mavStringValue,
-    mavBinaryListValues,
-    mavBinaryValue,
-    mavDataType,
+    MessageAttributeValue (MessageAttributeValue'),
+    newMessageAttributeValue,
 
     -- ** MessageSystemAttributeValue
-    MessageSystemAttributeValue,
-    messageSystemAttributeValue,
-    msavStringListValues,
-    msavStringValue,
-    msavBinaryListValues,
-    msavBinaryValue,
-    msavDataType,
+    MessageSystemAttributeValue (MessageSystemAttributeValue'),
+    newMessageSystemAttributeValue,
 
     -- ** SendMessageBatchRequestEntry
-    SendMessageBatchRequestEntry,
-    sendMessageBatchRequestEntry,
-    smbreMessageDeduplicationId,
-    smbreMessageAttributes,
-    smbreMessageSystemAttributes,
-    smbreMessageGroupId,
-    smbreDelaySeconds,
-    smbreId,
-    smbreMessageBody,
+    SendMessageBatchRequestEntry (SendMessageBatchRequestEntry'),
+    newSendMessageBatchRequestEntry,
 
     -- ** SendMessageBatchResultEntry
-    SendMessageBatchResultEntry,
-    sendMessageBatchResultEntry,
-    sSequenceNumber,
-    sMD5OfMessageSystemAttributes,
-    sMD5OfMessageAttributes,
-    sId,
-    sMessageId,
-    sMD5OfMessageBody,
+    SendMessageBatchResultEntry (SendMessageBatchResultEntry'),
+    newSendMessageBatchResultEntry,
   )
 where
 
@@ -270,7 +291,8 @@ import Network.AWS.SQS.DeleteMessage
 import Network.AWS.SQS.DeleteMessageBatch
 import Network.AWS.SQS.DeleteQueue
 import Network.AWS.SQS.GetQueueAttributes
-import Network.AWS.SQS.GetQueueURL
+import Network.AWS.SQS.GetQueueUrl
+import Network.AWS.SQS.Lens
 import Network.AWS.SQS.ListDeadLetterSourceQueues
 import Network.AWS.SQS.ListQueueTags
 import Network.AWS.SQS.ListQueues

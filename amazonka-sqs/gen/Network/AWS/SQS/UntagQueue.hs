@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,91 +21,112 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Remove cost allocation tags from the specified Amazon SQS queue. For an overview, see <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-queue-tags.html Tagging Your Amazon SQS Queues> in the /Amazon Simple Queue Service Developer Guide/ .
+-- Remove cost allocation tags from the specified Amazon SQS queue. For an
+-- overview, see
+-- <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-queue-tags.html Tagging Your Amazon SQS Queues>
+-- in the /Amazon Simple Queue Service Developer Guide/.
+--
+-- Cross-account permissions don\'t apply to this action. For more
+-- information, see
+-- <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-customer-managed-policy-examples.html#grant-cross-account-permissions-to-role-and-user-name Grant cross-account permissions to a role and a user name>
+-- in the /Amazon Simple Queue Service Developer Guide/.
 module Network.AWS.SQS.UntagQueue
   ( -- * Creating a Request
-    untagQueue,
-    UntagQueue,
+    UntagQueue (..),
+    newUntagQueue,
 
     -- * Request Lenses
-    uqQueueURL,
-    uqTagKeys,
+    untagQueue_queueUrl,
+    untagQueue_tagKeys,
 
     -- * Destructuring the Response
-    untagQueueResponse,
-    UntagQueueResponse,
+    UntagQueueResponse (..),
+    newUntagQueueResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SQS.Types
 
--- | /See:/ 'untagQueue' smart constructor.
+-- | /See:/ 'newUntagQueue' smart constructor.
 data UntagQueue = UntagQueue'
-  { _uqQueueURL :: !Text,
-    _uqTagKeys :: ![Text]
+  { -- | The URL of the queue.
+    queueUrl :: Prelude.Text,
+    -- | The list of tags to be removed from the specified queue.
+    tagKeys :: [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UntagQueue' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UntagQueue' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uqQueueURL' - The URL of the queue.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uqTagKeys' - The list of tags to be removed from the specified queue.
-untagQueue ::
-  -- | 'uqQueueURL'
-  Text ->
+-- 'queueUrl', 'untagQueue_queueUrl' - The URL of the queue.
+--
+-- 'tagKeys', 'untagQueue_tagKeys' - The list of tags to be removed from the specified queue.
+newUntagQueue ::
+  -- | 'queueUrl'
+  Prelude.Text ->
   UntagQueue
-untagQueue pQueueURL_ =
+newUntagQueue pQueueUrl_ =
   UntagQueue'
-    { _uqQueueURL = pQueueURL_,
-      _uqTagKeys = mempty
+    { queueUrl = pQueueUrl_,
+      tagKeys = Prelude.mempty
     }
 
 -- | The URL of the queue.
-uqQueueURL :: Lens' UntagQueue Text
-uqQueueURL = lens _uqQueueURL (\s a -> s {_uqQueueURL = a})
+untagQueue_queueUrl :: Lens.Lens' UntagQueue Prelude.Text
+untagQueue_queueUrl = Lens.lens (\UntagQueue' {queueUrl} -> queueUrl) (\s@UntagQueue' {} a -> s {queueUrl = a} :: UntagQueue)
 
 -- | The list of tags to be removed from the specified queue.
-uqTagKeys :: Lens' UntagQueue [Text]
-uqTagKeys = lens _uqTagKeys (\s a -> s {_uqTagKeys = a}) . _Coerce
+untagQueue_tagKeys :: Lens.Lens' UntagQueue [Prelude.Text]
+untagQueue_tagKeys = Lens.lens (\UntagQueue' {tagKeys} -> tagKeys) (\s@UntagQueue' {} a -> s {tagKeys = a} :: UntagQueue) Prelude.. Prelude._Coerce
 
-instance AWSRequest UntagQueue where
+instance Prelude.AWSRequest UntagQueue where
   type Rs UntagQueue = UntagQueueResponse
-  request = postQuery sqs
-  response = receiveNull UntagQueueResponse'
+  request = Request.postQuery defaultService
+  response = Response.receiveNull UntagQueueResponse'
 
-instance Hashable UntagQueue
+instance Prelude.Hashable UntagQueue
 
-instance NFData UntagQueue
+instance Prelude.NFData UntagQueue
 
-instance ToHeaders UntagQueue where
-  toHeaders = const mempty
+instance Prelude.ToHeaders UntagQueue where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath UntagQueue where
-  toPath = const "/"
+instance Prelude.ToPath UntagQueue where
+  toPath = Prelude.const "/"
 
-instance ToQuery UntagQueue where
+instance Prelude.ToQuery UntagQueue where
   toQuery UntagQueue' {..} =
-    mconcat
-      [ "Action" =: ("UntagQueue" :: ByteString),
-        "Version" =: ("2012-11-05" :: ByteString),
-        "QueueUrl" =: _uqQueueURL,
-        toQueryList "TagKey" _uqTagKeys
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("UntagQueue" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2012-11-05" :: Prelude.ByteString),
+        "QueueUrl" Prelude.=: queueUrl,
+        Prelude.toQueryList "TagKey" tagKeys
       ]
 
--- | /See:/ 'untagQueueResponse' smart constructor.
+-- | /See:/ 'newUntagQueueResponse' smart constructor.
 data UntagQueueResponse = UntagQueueResponse'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UntagQueueResponse' with the minimum fields required to make a request.
-untagQueueResponse ::
+-- |
+-- Create a value of 'UntagQueueResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newUntagQueueResponse ::
   UntagQueueResponse
-untagQueueResponse = UntagQueueResponse'
+newUntagQueueResponse = UntagQueueResponse'
 
-instance NFData UntagQueueResponse
+instance Prelude.NFData UntagQueueResponse
