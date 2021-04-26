@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,60 +19,66 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.OpsWorksCM.Types.EngineAttribute where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A name and value pair that is specific to the engine of the server.
 --
---
---
--- /See:/ 'engineAttribute' smart constructor.
+-- /See:/ 'newEngineAttribute' smart constructor.
 data EngineAttribute = EngineAttribute'
-  { _eaName ::
-      !(Maybe Text),
-    _eaValue :: !(Maybe (Sensitive Text))
+  { -- | The name of the engine attribute.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The value of the engine attribute.
+    value :: Prelude.Maybe (Prelude.Sensitive Prelude.Text)
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EngineAttribute' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EngineAttribute' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eaName' - The name of the engine attribute.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'eaValue' - The value of the engine attribute.
-engineAttribute ::
+-- 'name', 'engineAttribute_name' - The name of the engine attribute.
+--
+-- 'value', 'engineAttribute_value' - The value of the engine attribute.
+newEngineAttribute ::
   EngineAttribute
-engineAttribute =
+newEngineAttribute =
   EngineAttribute'
-    { _eaName = Nothing,
-      _eaValue = Nothing
+    { name = Prelude.Nothing,
+      value = Prelude.Nothing
     }
 
 -- | The name of the engine attribute.
-eaName :: Lens' EngineAttribute (Maybe Text)
-eaName = lens _eaName (\s a -> s {_eaName = a})
+engineAttribute_name :: Lens.Lens' EngineAttribute (Prelude.Maybe Prelude.Text)
+engineAttribute_name = Lens.lens (\EngineAttribute' {name} -> name) (\s@EngineAttribute' {} a -> s {name = a} :: EngineAttribute)
 
 -- | The value of the engine attribute.
-eaValue :: Lens' EngineAttribute (Maybe Text)
-eaValue = lens _eaValue (\s a -> s {_eaValue = a}) . mapping _Sensitive
+engineAttribute_value :: Lens.Lens' EngineAttribute (Prelude.Maybe Prelude.Text)
+engineAttribute_value = Lens.lens (\EngineAttribute' {value} -> value) (\s@EngineAttribute' {} a -> s {value = a} :: EngineAttribute) Prelude.. Lens.mapping Prelude._Sensitive
 
-instance FromJSON EngineAttribute where
+instance Prelude.FromJSON EngineAttribute where
   parseJSON =
-    withObject
+    Prelude.withObject
       "EngineAttribute"
       ( \x ->
           EngineAttribute'
-            <$> (x .:? "Name") <*> (x .:? "Value")
+            Prelude.<$> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "Value")
       )
 
-instance Hashable EngineAttribute
+instance Prelude.Hashable EngineAttribute
 
-instance NFData EngineAttribute
+instance Prelude.NFData EngineAttribute
 
-instance ToJSON EngineAttribute where
+instance Prelude.ToJSON EngineAttribute where
   toJSON EngineAttribute' {..} =
-    object
-      ( catMaybes
-          [("Name" .=) <$> _eaName, ("Value" .=) <$> _eaValue]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Name" Prelude..=) Prelude.<$> name,
+            ("Value" Prelude..=) Prelude.<$> value
+          ]
       )

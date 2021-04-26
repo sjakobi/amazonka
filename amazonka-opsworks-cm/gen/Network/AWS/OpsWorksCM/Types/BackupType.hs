@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.OpsWorksCM.Types.BackupType
   ( BackupType
       ( ..,
-        Automated,
-        Manual
+        BackupTypeAUTOMATED,
+        BackupTypeMANUAL
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data BackupType = BackupType' (CI Text)
+newtype BackupType = BackupType'
+  { fromBackupType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Automated :: BackupType
-pattern Automated = BackupType' "AUTOMATED"
+pattern BackupTypeAUTOMATED :: BackupType
+pattern BackupTypeAUTOMATED = BackupType' "AUTOMATED"
 
-pattern Manual :: BackupType
-pattern Manual = BackupType' "MANUAL"
+pattern BackupTypeMANUAL :: BackupType
+pattern BackupTypeMANUAL = BackupType' "MANUAL"
 
 {-# COMPLETE
-  Automated,
-  Manual,
+  BackupTypeAUTOMATED,
+  BackupTypeMANUAL,
   BackupType'
   #-}
 
-instance FromText BackupType where
-  parser = (BackupType' . mk) <$> takeText
+instance Prelude.FromText BackupType where
+  parser = BackupType' Prelude.<$> Prelude.takeText
 
-instance ToText BackupType where
-  toText (BackupType' ci) = original ci
+instance Prelude.ToText BackupType where
+  toText (BackupType' x) = x
 
-instance Hashable BackupType
+instance Prelude.Hashable BackupType
 
-instance NFData BackupType
+instance Prelude.NFData BackupType
 
-instance ToByteString BackupType
+instance Prelude.ToByteString BackupType
 
-instance ToQuery BackupType
+instance Prelude.ToQuery BackupType
 
-instance ToHeader BackupType
+instance Prelude.ToHeader BackupType
 
-instance FromJSON BackupType where
-  parseJSON = parseJSONText "BackupType"
+instance Prelude.FromJSON BackupType where
+  parseJSON = Prelude.parseJSONText "BackupType"

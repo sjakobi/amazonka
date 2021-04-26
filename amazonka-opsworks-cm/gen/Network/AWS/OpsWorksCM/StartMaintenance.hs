@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,142 +21,190 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Manually starts server maintenance. This command can be useful if an earlier maintenance attempt failed, and the underlying cause of maintenance failure has been resolved. The server is in an @UNDER_MAINTENANCE@ state while maintenance is in progress.
+-- Manually starts server maintenance. This command can be useful if an
+-- earlier maintenance attempt failed, and the underlying cause of
+-- maintenance failure has been resolved. The server is in an
+-- @UNDER_MAINTENANCE@ state while maintenance is in progress.
 --
---
--- Maintenance can only be started on servers in @HEALTHY@ and @UNHEALTHY@ states. Otherwise, an @InvalidStateException@ is thrown. A @ResourceNotFoundException@ is thrown when the server does not exist. A @ValidationException@ is raised when parameters of the request are not valid.
+-- Maintenance can only be started on servers in @HEALTHY@ and @UNHEALTHY@
+-- states. Otherwise, an @InvalidStateException@ is thrown. A
+-- @ResourceNotFoundException@ is thrown when the server does not exist. A
+-- @ValidationException@ is raised when parameters of the request are not
+-- valid.
 module Network.AWS.OpsWorksCM.StartMaintenance
   ( -- * Creating a Request
-    startMaintenance,
-    StartMaintenance,
+    StartMaintenance (..),
+    newStartMaintenance,
 
     -- * Request Lenses
-    smEngineAttributes,
-    smServerName,
+    startMaintenance_engineAttributes,
+    startMaintenance_serverName,
 
     -- * Destructuring the Response
-    startMaintenanceResponse,
-    StartMaintenanceResponse,
+    StartMaintenanceResponse (..),
+    newStartMaintenanceResponse,
 
     -- * Response Lenses
-    smrrsServer,
-    smrrsResponseStatus,
+    startMaintenanceResponse_server,
+    startMaintenanceResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.OpsWorksCM.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.OpsWorksCM.Types.Server
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'startMaintenance' smart constructor.
+-- | /See:/ 'newStartMaintenance' smart constructor.
 data StartMaintenance = StartMaintenance'
-  { _smEngineAttributes ::
-      !(Maybe [EngineAttribute]),
-    _smServerName :: !Text
+  { -- | Engine attributes that are specific to the server on which you want to
+    -- run maintenance.
+    --
+    -- __Attributes accepted in a StartMaintenance request for Chef__
+    --
+    -- -   @CHEF_MAJOR_UPGRADE@: If a Chef Automate server is eligible for
+    --     upgrade to Chef Automate 2, add this engine attribute to a
+    --     @StartMaintenance@ request and set the value to @true@ to upgrade
+    --     the server to Chef Automate 2. For more information, see
+    --     <https://docs.aws.amazon.com/opsworks/latest/userguide/opscm-a2upgrade.html Upgrade an AWS OpsWorks for Chef Automate Server to Chef Automate 2>.
+    engineAttributes :: Prelude.Maybe [EngineAttribute],
+    -- | The name of the server on which to run maintenance.
+    serverName :: Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartMaintenance' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartMaintenance' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'smEngineAttributes' - Engine attributes that are specific to the server on which you want to run maintenance. __Attributes accepted in a StartMaintenance request for Chef__      * @CHEF_MAJOR_UPGRADE@ : If a Chef Automate server is eligible for upgrade to Chef Automate 2, add this engine attribute to a @StartMaintenance@ request and set the value to @true@ to upgrade the server to Chef Automate 2. For more information, see <https://docs.aws.amazon.com/opsworks/latest/userguide/opscm-a2upgrade.html Upgrade an AWS OpsWorks for Chef Automate Server to Chef Automate 2> .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'smServerName' - The name of the server on which to run maintenance.
-startMaintenance ::
-  -- | 'smServerName'
-  Text ->
+-- 'engineAttributes', 'startMaintenance_engineAttributes' - Engine attributes that are specific to the server on which you want to
+-- run maintenance.
+--
+-- __Attributes accepted in a StartMaintenance request for Chef__
+--
+-- -   @CHEF_MAJOR_UPGRADE@: If a Chef Automate server is eligible for
+--     upgrade to Chef Automate 2, add this engine attribute to a
+--     @StartMaintenance@ request and set the value to @true@ to upgrade
+--     the server to Chef Automate 2. For more information, see
+--     <https://docs.aws.amazon.com/opsworks/latest/userguide/opscm-a2upgrade.html Upgrade an AWS OpsWorks for Chef Automate Server to Chef Automate 2>.
+--
+-- 'serverName', 'startMaintenance_serverName' - The name of the server on which to run maintenance.
+newStartMaintenance ::
+  -- | 'serverName'
+  Prelude.Text ->
   StartMaintenance
-startMaintenance pServerName_ =
+newStartMaintenance pServerName_ =
   StartMaintenance'
-    { _smEngineAttributes = Nothing,
-      _smServerName = pServerName_
+    { engineAttributes =
+        Prelude.Nothing,
+      serverName = pServerName_
     }
 
--- | Engine attributes that are specific to the server on which you want to run maintenance. __Attributes accepted in a StartMaintenance request for Chef__      * @CHEF_MAJOR_UPGRADE@ : If a Chef Automate server is eligible for upgrade to Chef Automate 2, add this engine attribute to a @StartMaintenance@ request and set the value to @true@ to upgrade the server to Chef Automate 2. For more information, see <https://docs.aws.amazon.com/opsworks/latest/userguide/opscm-a2upgrade.html Upgrade an AWS OpsWorks for Chef Automate Server to Chef Automate 2> .
-smEngineAttributes :: Lens' StartMaintenance [EngineAttribute]
-smEngineAttributes = lens _smEngineAttributes (\s a -> s {_smEngineAttributes = a}) . _Default . _Coerce
+-- | Engine attributes that are specific to the server on which you want to
+-- run maintenance.
+--
+-- __Attributes accepted in a StartMaintenance request for Chef__
+--
+-- -   @CHEF_MAJOR_UPGRADE@: If a Chef Automate server is eligible for
+--     upgrade to Chef Automate 2, add this engine attribute to a
+--     @StartMaintenance@ request and set the value to @true@ to upgrade
+--     the server to Chef Automate 2. For more information, see
+--     <https://docs.aws.amazon.com/opsworks/latest/userguide/opscm-a2upgrade.html Upgrade an AWS OpsWorks for Chef Automate Server to Chef Automate 2>.
+startMaintenance_engineAttributes :: Lens.Lens' StartMaintenance (Prelude.Maybe [EngineAttribute])
+startMaintenance_engineAttributes = Lens.lens (\StartMaintenance' {engineAttributes} -> engineAttributes) (\s@StartMaintenance' {} a -> s {engineAttributes = a} :: StartMaintenance) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The name of the server on which to run maintenance.
-smServerName :: Lens' StartMaintenance Text
-smServerName = lens _smServerName (\s a -> s {_smServerName = a})
+startMaintenance_serverName :: Lens.Lens' StartMaintenance Prelude.Text
+startMaintenance_serverName = Lens.lens (\StartMaintenance' {serverName} -> serverName) (\s@StartMaintenance' {} a -> s {serverName = a} :: StartMaintenance)
 
-instance AWSRequest StartMaintenance where
+instance Prelude.AWSRequest StartMaintenance where
   type Rs StartMaintenance = StartMaintenanceResponse
-  request = postJSON opsWorksCM
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           StartMaintenanceResponse'
-            <$> (x .?> "Server") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Server")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StartMaintenance
+instance Prelude.Hashable StartMaintenance
 
-instance NFData StartMaintenance
+instance Prelude.NFData StartMaintenance
 
-instance ToHeaders StartMaintenance where
+instance Prelude.ToHeaders StartMaintenance where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "OpsWorksCM_V2016_11_01.StartMaintenance" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "OpsWorksCM_V2016_11_01.StartMaintenance" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StartMaintenance where
+instance Prelude.ToJSON StartMaintenance where
   toJSON StartMaintenance' {..} =
-    object
-      ( catMaybes
-          [ ("EngineAttributes" .=) <$> _smEngineAttributes,
-            Just ("ServerName" .= _smServerName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("EngineAttributes" Prelude..=)
+              Prelude.<$> engineAttributes,
+            Prelude.Just ("ServerName" Prelude..= serverName)
           ]
       )
 
-instance ToPath StartMaintenance where
-  toPath = const "/"
+instance Prelude.ToPath StartMaintenance where
+  toPath = Prelude.const "/"
 
-instance ToQuery StartMaintenance where
-  toQuery = const mempty
+instance Prelude.ToQuery StartMaintenance where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'startMaintenanceResponse' smart constructor.
+-- | /See:/ 'newStartMaintenanceResponse' smart constructor.
 data StartMaintenanceResponse = StartMaintenanceResponse'
-  { _smrrsServer ::
-      !(Maybe Server),
-    _smrrsResponseStatus ::
-      !Int
+  { -- | Contains the response to a @StartMaintenance@ request.
+    server :: Prelude.Maybe Server,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartMaintenanceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartMaintenanceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'smrrsServer' - Contains the response to a @StartMaintenance@ request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'smrrsResponseStatus' - -- | The response status code.
-startMaintenanceResponse ::
-  -- | 'smrrsResponseStatus'
-  Int ->
+-- 'server', 'startMaintenanceResponse_server' - Contains the response to a @StartMaintenance@ request.
+--
+-- 'httpStatus', 'startMaintenanceResponse_httpStatus' - The response's http status code.
+newStartMaintenanceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StartMaintenanceResponse
-startMaintenanceResponse pResponseStatus_ =
+newStartMaintenanceResponse pHttpStatus_ =
   StartMaintenanceResponse'
-    { _smrrsServer = Nothing,
-      _smrrsResponseStatus = pResponseStatus_
+    { server = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Contains the response to a @StartMaintenance@ request.
-smrrsServer :: Lens' StartMaintenanceResponse (Maybe Server)
-smrrsServer = lens _smrrsServer (\s a -> s {_smrrsServer = a})
+startMaintenanceResponse_server :: Lens.Lens' StartMaintenanceResponse (Prelude.Maybe Server)
+startMaintenanceResponse_server = Lens.lens (\StartMaintenanceResponse' {server} -> server) (\s@StartMaintenanceResponse' {} a -> s {server = a} :: StartMaintenanceResponse)
 
--- | -- | The response status code.
-smrrsResponseStatus :: Lens' StartMaintenanceResponse Int
-smrrsResponseStatus = lens _smrrsResponseStatus (\s a -> s {_smrrsResponseStatus = a})
+-- | The response's http status code.
+startMaintenanceResponse_httpStatus :: Lens.Lens' StartMaintenanceResponse Prelude.Int
+startMaintenanceResponse_httpStatus = Lens.lens (\StartMaintenanceResponse' {httpStatus} -> httpStatus) (\s@StartMaintenanceResponse' {} a -> s {httpStatus = a} :: StartMaintenanceResponse)
 
-instance NFData StartMaintenanceResponse
+instance Prelude.NFData StartMaintenanceResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,187 +21,237 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the current status of an existing association or disassociation request.
+-- Returns the current status of an existing association or disassociation
+-- request.
 --
---
--- A @ResourceNotFoundException@ is thrown when no recent association or disassociation request with the specified token is found, or when the server does not exist. A @ValidationException@ is raised when parameters of the request are not valid.
+-- A @ResourceNotFoundException@ is thrown when no recent association or
+-- disassociation request with the specified token is found, or when the
+-- server does not exist. A @ValidationException@ is raised when parameters
+-- of the request are not valid.
 module Network.AWS.OpsWorksCM.DescribeNodeAssociationStatus
   ( -- * Creating a Request
-    describeNodeAssociationStatus,
-    DescribeNodeAssociationStatus,
+    DescribeNodeAssociationStatus (..),
+    newDescribeNodeAssociationStatus,
 
     -- * Request Lenses
-    dnasNodeAssociationStatusToken,
-    dnasServerName,
+    describeNodeAssociationStatus_nodeAssociationStatusToken,
+    describeNodeAssociationStatus_serverName,
 
     -- * Destructuring the Response
-    describeNodeAssociationStatusResponse,
-    DescribeNodeAssociationStatusResponse,
+    DescribeNodeAssociationStatusResponse (..),
+    newDescribeNodeAssociationStatusResponse,
 
     -- * Response Lenses
-    dnasrrsEngineAttributes,
-    dnasrrsResponseStatus,
-    dnasrrsNodeAssociationStatus,
+    describeNodeAssociationStatusResponse_engineAttributes,
+    describeNodeAssociationStatusResponse_httpStatus,
+    describeNodeAssociationStatusResponse_nodeAssociationStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.OpsWorksCM.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.OpsWorksCM.Types.EngineAttribute
+import Network.AWS.OpsWorksCM.Types.NodeAssociationStatus
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeNodeAssociationStatus' smart constructor.
+-- | /See:/ 'newDescribeNodeAssociationStatus' smart constructor.
 data DescribeNodeAssociationStatus = DescribeNodeAssociationStatus'
-  { _dnasNodeAssociationStatusToken ::
-      !Text,
-    _dnasServerName ::
-      !Text
+  { -- | The token returned in either the AssociateNodeResponse or the
+    -- DisassociateNodeResponse.
+    nodeAssociationStatusToken :: Prelude.Text,
+    -- | The name of the server from which to disassociate the node.
+    serverName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeNodeAssociationStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeNodeAssociationStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dnasNodeAssociationStatusToken' - The token returned in either the AssociateNodeResponse or the DisassociateNodeResponse.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dnasServerName' - The name of the server from which to disassociate the node.
-describeNodeAssociationStatus ::
-  -- | 'dnasNodeAssociationStatusToken'
-  Text ->
-  -- | 'dnasServerName'
-  Text ->
+-- 'nodeAssociationStatusToken', 'describeNodeAssociationStatus_nodeAssociationStatusToken' - The token returned in either the AssociateNodeResponse or the
+-- DisassociateNodeResponse.
+--
+-- 'serverName', 'describeNodeAssociationStatus_serverName' - The name of the server from which to disassociate the node.
+newDescribeNodeAssociationStatus ::
+  -- | 'nodeAssociationStatusToken'
+  Prelude.Text ->
+  -- | 'serverName'
+  Prelude.Text ->
   DescribeNodeAssociationStatus
-describeNodeAssociationStatus
+newDescribeNodeAssociationStatus
   pNodeAssociationStatusToken_
   pServerName_ =
     DescribeNodeAssociationStatus'
-      { _dnasNodeAssociationStatusToken =
+      { nodeAssociationStatusToken =
           pNodeAssociationStatusToken_,
-        _dnasServerName = pServerName_
+        serverName = pServerName_
       }
 
--- | The token returned in either the AssociateNodeResponse or the DisassociateNodeResponse.
-dnasNodeAssociationStatusToken :: Lens' DescribeNodeAssociationStatus Text
-dnasNodeAssociationStatusToken = lens _dnasNodeAssociationStatusToken (\s a -> s {_dnasNodeAssociationStatusToken = a})
+-- | The token returned in either the AssociateNodeResponse or the
+-- DisassociateNodeResponse.
+describeNodeAssociationStatus_nodeAssociationStatusToken :: Lens.Lens' DescribeNodeAssociationStatus Prelude.Text
+describeNodeAssociationStatus_nodeAssociationStatusToken = Lens.lens (\DescribeNodeAssociationStatus' {nodeAssociationStatusToken} -> nodeAssociationStatusToken) (\s@DescribeNodeAssociationStatus' {} a -> s {nodeAssociationStatusToken = a} :: DescribeNodeAssociationStatus)
 
 -- | The name of the server from which to disassociate the node.
-dnasServerName :: Lens' DescribeNodeAssociationStatus Text
-dnasServerName = lens _dnasServerName (\s a -> s {_dnasServerName = a})
+describeNodeAssociationStatus_serverName :: Lens.Lens' DescribeNodeAssociationStatus Prelude.Text
+describeNodeAssociationStatus_serverName = Lens.lens (\DescribeNodeAssociationStatus' {serverName} -> serverName) (\s@DescribeNodeAssociationStatus' {} a -> s {serverName = a} :: DescribeNodeAssociationStatus)
 
-instance AWSRequest DescribeNodeAssociationStatus where
+instance
+  Prelude.AWSRequest
+    DescribeNodeAssociationStatus
+  where
   type
     Rs DescribeNodeAssociationStatus =
       DescribeNodeAssociationStatusResponse
-  request = postJSON opsWorksCM
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeNodeAssociationStatusResponse'
-            <$> (x .?> "EngineAttributes" .!@ mempty)
-            <*> (pure (fromEnum s))
-            <*> (x .:> "NodeAssociationStatus")
+            Prelude.<$> ( x Prelude..?> "EngineAttributes"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "NodeAssociationStatus")
       )
 
-instance Hashable DescribeNodeAssociationStatus
+instance
+  Prelude.Hashable
+    DescribeNodeAssociationStatus
 
-instance NFData DescribeNodeAssociationStatus
+instance Prelude.NFData DescribeNodeAssociationStatus
 
-instance ToHeaders DescribeNodeAssociationStatus where
+instance
+  Prelude.ToHeaders
+    DescribeNodeAssociationStatus
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "OpsWorksCM_V2016_11_01.DescribeNodeAssociationStatus" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "OpsWorksCM_V2016_11_01.DescribeNodeAssociationStatus" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeNodeAssociationStatus where
+instance Prelude.ToJSON DescribeNodeAssociationStatus where
   toJSON DescribeNodeAssociationStatus' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "NodeAssociationStatusToken"
-                  .= _dnasNodeAssociationStatusToken
+                  Prelude..= nodeAssociationStatusToken
               ),
-            Just ("ServerName" .= _dnasServerName)
+            Prelude.Just ("ServerName" Prelude..= serverName)
           ]
       )
 
-instance ToPath DescribeNodeAssociationStatus where
-  toPath = const "/"
+instance Prelude.ToPath DescribeNodeAssociationStatus where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeNodeAssociationStatus where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    DescribeNodeAssociationStatus
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeNodeAssociationStatusResponse' smart constructor.
+-- | /See:/ 'newDescribeNodeAssociationStatusResponse' smart constructor.
 data DescribeNodeAssociationStatusResponse = DescribeNodeAssociationStatusResponse'
-  { _dnasrrsEngineAttributes ::
-      !( Maybe
-           [EngineAttribute]
-       ),
-    _dnasrrsResponseStatus ::
-      !Int,
-    _dnasrrsNodeAssociationStatus ::
-      !NodeAssociationStatus
+  { -- | Attributes specific to the node association. In Puppet, the attibute
+    -- PUPPET_NODE_CERT contains the signed certificate (the result of the
+    -- CSR).
+    engineAttributes :: Prelude.Maybe [EngineAttribute],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The status of the association or disassociation request.
+    --
+    -- __Possible values:__
+    --
+    -- -   @SUCCESS@: The association or disassociation succeeded.
+    --
+    -- -   @FAILED@: The association or disassociation failed.
+    --
+    -- -   @IN_PROGRESS@: The association or disassociation is still in
+    --     progress.
+    nodeAssociationStatus :: NodeAssociationStatus
   }
-  deriving
-    ( Eq,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeNodeAssociationStatusResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeNodeAssociationStatusResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dnasrrsEngineAttributes' - Attributes specific to the node association. In Puppet, the attibute PUPPET_NODE_CERT contains the signed certificate (the result of the CSR).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dnasrrsResponseStatus' - -- | The response status code.
+-- 'engineAttributes', 'describeNodeAssociationStatusResponse_engineAttributes' - Attributes specific to the node association. In Puppet, the attibute
+-- PUPPET_NODE_CERT contains the signed certificate (the result of the
+-- CSR).
 --
--- * 'dnasrrsNodeAssociationStatus' - The status of the association or disassociation request.  __Possible values:__      * @SUCCESS@ : The association or disassociation succeeded.      * @FAILED@ : The association or disassociation failed.      * @IN_PROGRESS@ : The association or disassociation is still in progress.
-describeNodeAssociationStatusResponse ::
-  -- | 'dnasrrsResponseStatus'
-  Int ->
-  -- | 'dnasrrsNodeAssociationStatus'
+-- 'httpStatus', 'describeNodeAssociationStatusResponse_httpStatus' - The response's http status code.
+--
+-- 'nodeAssociationStatus', 'describeNodeAssociationStatusResponse_nodeAssociationStatus' - The status of the association or disassociation request.
+--
+-- __Possible values:__
+--
+-- -   @SUCCESS@: The association or disassociation succeeded.
+--
+-- -   @FAILED@: The association or disassociation failed.
+--
+-- -   @IN_PROGRESS@: The association or disassociation is still in
+--     progress.
+newDescribeNodeAssociationStatusResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'nodeAssociationStatus'
   NodeAssociationStatus ->
   DescribeNodeAssociationStatusResponse
-describeNodeAssociationStatusResponse
-  pResponseStatus_
+newDescribeNodeAssociationStatusResponse
+  pHttpStatus_
   pNodeAssociationStatus_ =
     DescribeNodeAssociationStatusResponse'
-      { _dnasrrsEngineAttributes =
-          Nothing,
-        _dnasrrsResponseStatus =
-          pResponseStatus_,
-        _dnasrrsNodeAssociationStatus =
+      { engineAttributes =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_,
+        nodeAssociationStatus =
           pNodeAssociationStatus_
       }
 
--- | Attributes specific to the node association. In Puppet, the attibute PUPPET_NODE_CERT contains the signed certificate (the result of the CSR).
-dnasrrsEngineAttributes :: Lens' DescribeNodeAssociationStatusResponse [EngineAttribute]
-dnasrrsEngineAttributes = lens _dnasrrsEngineAttributes (\s a -> s {_dnasrrsEngineAttributes = a}) . _Default . _Coerce
+-- | Attributes specific to the node association. In Puppet, the attibute
+-- PUPPET_NODE_CERT contains the signed certificate (the result of the
+-- CSR).
+describeNodeAssociationStatusResponse_engineAttributes :: Lens.Lens' DescribeNodeAssociationStatusResponse (Prelude.Maybe [EngineAttribute])
+describeNodeAssociationStatusResponse_engineAttributes = Lens.lens (\DescribeNodeAssociationStatusResponse' {engineAttributes} -> engineAttributes) (\s@DescribeNodeAssociationStatusResponse' {} a -> s {engineAttributes = a} :: DescribeNodeAssociationStatusResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dnasrrsResponseStatus :: Lens' DescribeNodeAssociationStatusResponse Int
-dnasrrsResponseStatus = lens _dnasrrsResponseStatus (\s a -> s {_dnasrrsResponseStatus = a})
+-- | The response's http status code.
+describeNodeAssociationStatusResponse_httpStatus :: Lens.Lens' DescribeNodeAssociationStatusResponse Prelude.Int
+describeNodeAssociationStatusResponse_httpStatus = Lens.lens (\DescribeNodeAssociationStatusResponse' {httpStatus} -> httpStatus) (\s@DescribeNodeAssociationStatusResponse' {} a -> s {httpStatus = a} :: DescribeNodeAssociationStatusResponse)
 
--- | The status of the association or disassociation request.  __Possible values:__      * @SUCCESS@ : The association or disassociation succeeded.      * @FAILED@ : The association or disassociation failed.      * @IN_PROGRESS@ : The association or disassociation is still in progress.
-dnasrrsNodeAssociationStatus :: Lens' DescribeNodeAssociationStatusResponse NodeAssociationStatus
-dnasrrsNodeAssociationStatus = lens _dnasrrsNodeAssociationStatus (\s a -> s {_dnasrrsNodeAssociationStatus = a})
+-- | The status of the association or disassociation request.
+--
+-- __Possible values:__
+--
+-- -   @SUCCESS@: The association or disassociation succeeded.
+--
+-- -   @FAILED@: The association or disassociation failed.
+--
+-- -   @IN_PROGRESS@: The association or disassociation is still in
+--     progress.
+describeNodeAssociationStatusResponse_nodeAssociationStatus :: Lens.Lens' DescribeNodeAssociationStatusResponse NodeAssociationStatus
+describeNodeAssociationStatusResponse_nodeAssociationStatus = Lens.lens (\DescribeNodeAssociationStatusResponse' {nodeAssociationStatus} -> nodeAssociationStatus) (\s@DescribeNodeAssociationStatusResponse' {} a -> s {nodeAssociationStatus = a} :: DescribeNodeAssociationStatusResponse)
 
-instance NFData DescribeNodeAssociationStatusResponse
+instance
+  Prelude.NFData
+    DescribeNodeAssociationStatusResponse

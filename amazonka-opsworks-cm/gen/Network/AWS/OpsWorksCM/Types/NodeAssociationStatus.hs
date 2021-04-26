@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,72 +19,70 @@
 module Network.AWS.OpsWorksCM.Types.NodeAssociationStatus
   ( NodeAssociationStatus
       ( ..,
-        NASFailed,
-        NASInProgress,
-        NASSuccess
+        NodeAssociationStatusFAILED,
+        NodeAssociationStatusINPROGRESS,
+        NodeAssociationStatusSUCCESS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The status of the association or disassociation request.
 --
---
 -- __Possible values:__
 --
---     * @SUCCESS@ : The association or disassociation succeeded.
+-- -   @SUCCESS@: The association or disassociation succeeded.
 --
---     * @FAILED@ : The association or disassociation failed.
+-- -   @FAILED@: The association or disassociation failed.
 --
---     * @IN_PROGRESS@ : The association or disassociation is still in progress.
-data NodeAssociationStatus
-  = NodeAssociationStatus'
-      ( CI
-          Text
-      )
+-- -   @IN_PROGRESS@: The association or disassociation is still in
+--     progress.
+newtype NodeAssociationStatus = NodeAssociationStatus'
+  { fromNodeAssociationStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern NASFailed :: NodeAssociationStatus
-pattern NASFailed = NodeAssociationStatus' "FAILED"
+pattern NodeAssociationStatusFAILED :: NodeAssociationStatus
+pattern NodeAssociationStatusFAILED = NodeAssociationStatus' "FAILED"
 
-pattern NASInProgress :: NodeAssociationStatus
-pattern NASInProgress = NodeAssociationStatus' "IN_PROGRESS"
+pattern NodeAssociationStatusINPROGRESS :: NodeAssociationStatus
+pattern NodeAssociationStatusINPROGRESS = NodeAssociationStatus' "IN_PROGRESS"
 
-pattern NASSuccess :: NodeAssociationStatus
-pattern NASSuccess = NodeAssociationStatus' "SUCCESS"
+pattern NodeAssociationStatusSUCCESS :: NodeAssociationStatus
+pattern NodeAssociationStatusSUCCESS = NodeAssociationStatus' "SUCCESS"
 
 {-# COMPLETE
-  NASFailed,
-  NASInProgress,
-  NASSuccess,
+  NodeAssociationStatusFAILED,
+  NodeAssociationStatusINPROGRESS,
+  NodeAssociationStatusSUCCESS,
   NodeAssociationStatus'
   #-}
 
-instance FromText NodeAssociationStatus where
-  parser = (NodeAssociationStatus' . mk) <$> takeText
+instance Prelude.FromText NodeAssociationStatus where
+  parser = NodeAssociationStatus' Prelude.<$> Prelude.takeText
 
-instance ToText NodeAssociationStatus where
-  toText (NodeAssociationStatus' ci) = original ci
+instance Prelude.ToText NodeAssociationStatus where
+  toText (NodeAssociationStatus' x) = x
 
-instance Hashable NodeAssociationStatus
+instance Prelude.Hashable NodeAssociationStatus
 
-instance NFData NodeAssociationStatus
+instance Prelude.NFData NodeAssociationStatus
 
-instance ToByteString NodeAssociationStatus
+instance Prelude.ToByteString NodeAssociationStatus
 
-instance ToQuery NodeAssociationStatus
+instance Prelude.ToQuery NodeAssociationStatus
 
-instance ToHeader NodeAssociationStatus
+instance Prelude.ToHeader NodeAssociationStatus
 
-instance FromJSON NodeAssociationStatus where
-  parseJSON = parseJSONText "NodeAssociationStatus"
+instance Prelude.FromJSON NodeAssociationStatus where
+  parseJSON = Prelude.parseJSONText "NodeAssociationStatus"

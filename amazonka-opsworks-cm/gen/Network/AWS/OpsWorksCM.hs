@@ -11,56 +11,80 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- __AWS OpsWorks CM__
+-- AWS OpsWorks CM
 --
--- AWS OpsWorks for configuration management (CM) is a service that runs and manages configuration management servers. You can use AWS OpsWorks CM to create and manage AWS OpsWorks for Chef Automate and AWS OpsWorks for Puppet Enterprise servers, and add or remove nodes for the servers to manage.
+-- AWS OpsWorks for configuration management (CM) is a service that runs
+-- and manages configuration management servers. You can use AWS OpsWorks
+-- CM to create and manage AWS OpsWorks for Chef Automate and AWS OpsWorks
+-- for Puppet Enterprise servers, and add or remove nodes for the servers
+-- to manage.
 --
 -- __Glossary of terms__
 --
---     * __Server__ : A configuration management server that can be highly-available. The configuration management server runs on an Amazon Elastic Compute Cloud (EC2) instance, and may use various other AWS services, such as Amazon Relational Database Service (RDS) and Elastic Load Balancing. A server is a generic abstraction over the configuration manager that you want to use, much like Amazon RDS. In AWS OpsWorks CM, you do not start or stop servers. After you create servers, they continue to run until they are deleted.
+-- -   __Server__: A configuration management server that can be
+--     highly-available. The configuration management server runs on an
+--     Amazon Elastic Compute Cloud (EC2) instance, and may use various
+--     other AWS services, such as Amazon Relational Database Service (RDS)
+--     and Elastic Load Balancing. A server is a generic abstraction over
+--     the configuration manager that you want to use, much like Amazon
+--     RDS. In AWS OpsWorks CM, you do not start or stop servers. After you
+--     create servers, they continue to run until they are deleted.
 --
---     * __Engine__ : The engine is the specific configuration manager that you want to use. Valid values in this release include @ChefAutomate@ and @Puppet@ .
+-- -   __Engine__: The engine is the specific configuration manager that
+--     you want to use. Valid values in this release include @ChefAutomate@
+--     and @Puppet@.
 --
---     * __Backup__ : This is an application-level backup of the data that the configuration manager stores. AWS OpsWorks CM creates an S3 bucket for backups when you launch the first server. A backup maintains a snapshot of a server's configuration-related attributes at the time the backup starts.
+-- -   __Backup__: This is an application-level backup of the data that the
+--     configuration manager stores. AWS OpsWorks CM creates an S3 bucket
+--     for backups when you launch the first server. A backup maintains a
+--     snapshot of a server\'s configuration-related attributes at the time
+--     the backup starts.
 --
---     * __Events__ : Events are always related to a server. Events are written during server creation, when health checks run, when backups are created, when system maintenance is performed, etc. When you delete a server, the server's events are also deleted.
+-- -   __Events__: Events are always related to a server. Events are
+--     written during server creation, when health checks run, when backups
+--     are created, when system maintenance is performed, etc. When you
+--     delete a server, the server\'s events are also deleted.
 --
---     * __Account attributes__ : Every account has attributes that are assigned in the AWS OpsWorks CM database. These attributes store information about configuration limits (servers, backups, etc.) and your customer account.
---
---
+-- -   __Account attributes__: Every account has attributes that are
+--     assigned in the AWS OpsWorks CM database. These attributes store
+--     information about configuration limits (servers, backups, etc.) and
+--     your customer account.
 --
 -- __Endpoints__
 --
--- AWS OpsWorks CM supports the following endpoints, all HTTPS. You must connect to one of the following endpoints. Your servers can only be accessed or managed within the endpoint in which they are created.
+-- AWS OpsWorks CM supports the following endpoints, all HTTPS. You must
+-- connect to one of the following endpoints. Your servers can only be
+-- accessed or managed within the endpoint in which they are created.
 --
---     * opsworks-cm.us-east-1.amazonaws.com
+-- -   opsworks-cm.us-east-1.amazonaws.com
 --
---     * opsworks-cm.us-east-2.amazonaws.com
+-- -   opsworks-cm.us-east-2.amazonaws.com
 --
---     * opsworks-cm.us-west-1.amazonaws.com
+-- -   opsworks-cm.us-west-1.amazonaws.com
 --
---     * opsworks-cm.us-west-2.amazonaws.com
+-- -   opsworks-cm.us-west-2.amazonaws.com
 --
---     * opsworks-cm.ap-northeast-1.amazonaws.com
+-- -   opsworks-cm.ap-northeast-1.amazonaws.com
 --
---     * opsworks-cm.ap-southeast-1.amazonaws.com
+-- -   opsworks-cm.ap-southeast-1.amazonaws.com
 --
---     * opsworks-cm.ap-southeast-2.amazonaws.com
+-- -   opsworks-cm.ap-southeast-2.amazonaws.com
 --
---     * opsworks-cm.eu-central-1.amazonaws.com
+-- -   opsworks-cm.eu-central-1.amazonaws.com
 --
---     * opsworks-cm.eu-west-1.amazonaws.com
+-- -   opsworks-cm.eu-west-1.amazonaws.com
 --
---
---
--- For more information, see <https://docs.aws.amazon.com/general/latest/gr/opsworks-service.html AWS OpsWorks endpoints and quotas> in the AWS General Reference.
+-- For more information, see
+-- <https://docs.aws.amazon.com/general/latest/gr/opsworks-service.html AWS OpsWorks endpoints and quotas>
+-- in the AWS General Reference.
 --
 -- __Throttling limits__
 --
--- All API operations allow for five requests per second with a burst of 10 requests per second.
+-- All API operations allow for five requests per second with a burst of 10
+-- requests per second.
 module Network.AWS.OpsWorksCM
   ( -- * Service Configuration
-    opsWorksCM,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -87,67 +111,124 @@ module Network.AWS.OpsWorksCM
     -- $waiters
 
     -- ** NodeAssociated
-    nodeAssociated,
+    newNodeAssociated,
 
     -- * Operations
     -- $operations
 
     -- ** DeleteBackup
-    module Network.AWS.OpsWorksCM.DeleteBackup,
+    DeleteBackup (DeleteBackup'),
+    newDeleteBackup,
+    DeleteBackupResponse (DeleteBackupResponse'),
+    newDeleteBackupResponse,
 
     -- ** UpdateServer
-    module Network.AWS.OpsWorksCM.UpdateServer,
+    UpdateServer (UpdateServer'),
+    newUpdateServer,
+    UpdateServerResponse (UpdateServerResponse'),
+    newUpdateServerResponse,
 
     -- ** DeleteServer
-    module Network.AWS.OpsWorksCM.DeleteServer,
+    DeleteServer (DeleteServer'),
+    newDeleteServer,
+    DeleteServerResponse (DeleteServerResponse'),
+    newDeleteServerResponse,
 
     -- ** CreateServer
-    module Network.AWS.OpsWorksCM.CreateServer,
+    CreateServer (CreateServer'),
+    newCreateServer,
+    CreateServerResponse (CreateServerResponse'),
+    newCreateServerResponse,
 
     -- ** DescribeAccountAttributes
-    module Network.AWS.OpsWorksCM.DescribeAccountAttributes,
+    DescribeAccountAttributes (DescribeAccountAttributes'),
+    newDescribeAccountAttributes,
+    DescribeAccountAttributesResponse (DescribeAccountAttributesResponse'),
+    newDescribeAccountAttributesResponse,
 
     -- ** ExportServerEngineAttribute
-    module Network.AWS.OpsWorksCM.ExportServerEngineAttribute,
+    ExportServerEngineAttribute (ExportServerEngineAttribute'),
+    newExportServerEngineAttribute,
+    ExportServerEngineAttributeResponse (ExportServerEngineAttributeResponse'),
+    newExportServerEngineAttributeResponse,
 
     -- ** DescribeServers (Paginated)
-    module Network.AWS.OpsWorksCM.DescribeServers,
+    DescribeServers (DescribeServers'),
+    newDescribeServers,
+    DescribeServersResponse (DescribeServersResponse'),
+    newDescribeServersResponse,
 
     -- ** UntagResource
-    module Network.AWS.OpsWorksCM.UntagResource,
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
 
     -- ** DescribeNodeAssociationStatus
-    module Network.AWS.OpsWorksCM.DescribeNodeAssociationStatus,
+    DescribeNodeAssociationStatus (DescribeNodeAssociationStatus'),
+    newDescribeNodeAssociationStatus,
+    DescribeNodeAssociationStatusResponse (DescribeNodeAssociationStatusResponse'),
+    newDescribeNodeAssociationStatusResponse,
 
     -- ** TagResource
-    module Network.AWS.OpsWorksCM.TagResource,
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
 
     -- ** DisassociateNode
-    module Network.AWS.OpsWorksCM.DisassociateNode,
+    DisassociateNode (DisassociateNode'),
+    newDisassociateNode,
+    DisassociateNodeResponse (DisassociateNodeResponse'),
+    newDisassociateNodeResponse,
 
     -- ** DescribeEvents (Paginated)
-    module Network.AWS.OpsWorksCM.DescribeEvents,
+    DescribeEvents (DescribeEvents'),
+    newDescribeEvents,
+    DescribeEventsResponse (DescribeEventsResponse'),
+    newDescribeEventsResponse,
 
     -- ** CreateBackup
-    module Network.AWS.OpsWorksCM.CreateBackup,
+    CreateBackup (CreateBackup'),
+    newCreateBackup,
+    CreateBackupResponse (CreateBackupResponse'),
+    newCreateBackupResponse,
 
     -- ** AssociateNode
-    module Network.AWS.OpsWorksCM.AssociateNode,
+    AssociateNode (AssociateNode'),
+    newAssociateNode,
+    AssociateNodeResponse (AssociateNodeResponse'),
+    newAssociateNodeResponse,
 
     -- ** DescribeBackups (Paginated)
-    module Network.AWS.OpsWorksCM.DescribeBackups,
+    DescribeBackups (DescribeBackups'),
+    newDescribeBackups,
+    DescribeBackupsResponse (DescribeBackupsResponse'),
+    newDescribeBackupsResponse,
 
     -- ** UpdateServerEngineAttributes
-    module Network.AWS.OpsWorksCM.UpdateServerEngineAttributes,
+    UpdateServerEngineAttributes (UpdateServerEngineAttributes'),
+    newUpdateServerEngineAttributes,
+    UpdateServerEngineAttributesResponse (UpdateServerEngineAttributesResponse'),
+    newUpdateServerEngineAttributesResponse,
 
     -- ** StartMaintenance
-    module Network.AWS.OpsWorksCM.StartMaintenance,
+    StartMaintenance (StartMaintenance'),
+    newStartMaintenance,
+    StartMaintenanceResponse (StartMaintenanceResponse'),
+    newStartMaintenanceResponse,
 
     -- ** RestoreServer
-    module Network.AWS.OpsWorksCM.RestoreServer,
+    RestoreServer (RestoreServer'),
+    newRestoreServer,
+    RestoreServerResponse (RestoreServerResponse'),
+    newRestoreServerResponse,
 
     -- ** ListTagsForResource (Paginated)
-    module Network.AWS.OpsWorksCM.ListTagsForResource,
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
 
     -- * Types
 
@@ -167,87 +248,28 @@ module Network.AWS.OpsWorksCM
     ServerStatus (..),
 
     -- ** AccountAttribute
-    AccountAttribute,
-    accountAttribute,
-    aaUsed,
-    aaName,
-    aaMaximum,
+    AccountAttribute (AccountAttribute'),
+    newAccountAttribute,
 
     -- ** Backup
-    Backup,
-    backup,
-    bSecurityGroupIds,
-    bInstanceProfileARN,
-    bPreferredBackupWindow,
-    bStatus,
-    bServiceRoleARN,
-    bUserARN,
-    bInstanceType,
-    bBackupType,
-    bBackupId,
-    bS3DataURL,
-    bBackupARN,
-    bSubnetIds,
-    bKeyPair,
-    bS3DataSize,
-    bCreatedAt,
-    bServerName,
-    bS3LogURL,
-    bEngineVersion,
-    bPreferredMaintenanceWindow,
-    bToolsVersion,
-    bEngineModel,
-    bEngine,
-    bDescription,
-    bStatusDescription,
+    Backup (Backup'),
+    newBackup,
 
     -- ** EngineAttribute
-    EngineAttribute,
-    engineAttribute,
-    eaName,
-    eaValue,
+    EngineAttribute (EngineAttribute'),
+    newEngineAttribute,
 
     -- ** Server
-    Server,
-    server,
-    sSecurityGroupIds,
-    sInstanceProfileARN,
-    sPreferredBackupWindow,
-    sStatus,
-    sDisableAutomatedBackup,
-    sServiceRoleARN,
-    sInstanceType,
-    sEngineAttributes,
-    sCustomDomain,
-    sSubnetIds,
-    sKeyPair,
-    sCreatedAt,
-    sServerName,
-    sAssociatePublicIPAddress,
-    sEngineVersion,
-    sPreferredMaintenanceWindow,
-    sBackupRetentionCount,
-    sMaintenanceStatus,
-    sCloudFormationStackARN,
-    sEngineModel,
-    sEngine,
-    sEndpoint,
-    sServerARN,
-    sStatusReason,
+    Server (Server'),
+    newServer,
 
     -- ** ServerEvent
-    ServerEvent,
-    serverEvent,
-    seLogURL,
-    seMessage,
-    seCreatedAt,
-    seServerName,
+    ServerEvent (ServerEvent'),
+    newServerEvent,
 
     -- ** Tag
-    Tag,
-    tag,
-    tagKey,
-    tagValue,
+    Tag (Tag'),
+    newTag,
   )
 where
 
@@ -263,6 +285,7 @@ import Network.AWS.OpsWorksCM.DescribeNodeAssociationStatus
 import Network.AWS.OpsWorksCM.DescribeServers
 import Network.AWS.OpsWorksCM.DisassociateNode
 import Network.AWS.OpsWorksCM.ExportServerEngineAttribute
+import Network.AWS.OpsWorksCM.Lens
 import Network.AWS.OpsWorksCM.ListTagsForResource
 import Network.AWS.OpsWorksCM.RestoreServer
 import Network.AWS.OpsWorksCM.StartMaintenance

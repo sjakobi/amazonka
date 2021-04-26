@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,63 +19,91 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.OpsWorksCM.Types.AccountAttribute where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Stores account attributes.
 --
---
---
--- /See:/ 'accountAttribute' smart constructor.
+-- /See:/ 'newAccountAttribute' smart constructor.
 data AccountAttribute = AccountAttribute'
-  { _aaUsed ::
-      !(Maybe Int),
-    _aaName :: !(Maybe Text),
-    _aaMaximum :: !(Maybe Int)
+  { -- | The current usage, such as the current number of servers that are
+    -- associated with the account.
+    used :: Prelude.Maybe Prelude.Int,
+    -- | The attribute name. The following are supported attribute names.
+    --
+    -- -   /ServerLimit:/ The number of current servers\/maximum number of
+    --     servers allowed. By default, you can have a maximum of 10 servers.
+    --
+    -- -   /ManualBackupLimit:/ The number of current manual backups\/maximum
+    --     number of backups allowed. By default, you can have a maximum of 50
+    --     manual backups saved.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The maximum allowed value.
+    maximum :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AccountAttribute' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AccountAttribute' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aaUsed' - The current usage, such as the current number of servers that are associated with the account.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aaName' - The attribute name. The following are supported attribute names.      * /ServerLimit:/ The number of current servers/maximum number of servers allowed. By default, you can have a maximum of 10 servers.      * /ManualBackupLimit:/ The number of current manual backups/maximum number of backups allowed. By default, you can have a maximum of 50 manual backups saved.
+-- 'used', 'accountAttribute_used' - The current usage, such as the current number of servers that are
+-- associated with the account.
 --
--- * 'aaMaximum' - The maximum allowed value.
-accountAttribute ::
+-- 'name', 'accountAttribute_name' - The attribute name. The following are supported attribute names.
+--
+-- -   /ServerLimit:/ The number of current servers\/maximum number of
+--     servers allowed. By default, you can have a maximum of 10 servers.
+--
+-- -   /ManualBackupLimit:/ The number of current manual backups\/maximum
+--     number of backups allowed. By default, you can have a maximum of 50
+--     manual backups saved.
+--
+-- 'maximum', 'accountAttribute_maximum' - The maximum allowed value.
+newAccountAttribute ::
   AccountAttribute
-accountAttribute =
+newAccountAttribute =
   AccountAttribute'
-    { _aaUsed = Nothing,
-      _aaName = Nothing,
-      _aaMaximum = Nothing
+    { used = Prelude.Nothing,
+      name = Prelude.Nothing,
+      maximum = Prelude.Nothing
     }
 
--- | The current usage, such as the current number of servers that are associated with the account.
-aaUsed :: Lens' AccountAttribute (Maybe Int)
-aaUsed = lens _aaUsed (\s a -> s {_aaUsed = a})
+-- | The current usage, such as the current number of servers that are
+-- associated with the account.
+accountAttribute_used :: Lens.Lens' AccountAttribute (Prelude.Maybe Prelude.Int)
+accountAttribute_used = Lens.lens (\AccountAttribute' {used} -> used) (\s@AccountAttribute' {} a -> s {used = a} :: AccountAttribute)
 
--- | The attribute name. The following are supported attribute names.      * /ServerLimit:/ The number of current servers/maximum number of servers allowed. By default, you can have a maximum of 10 servers.      * /ManualBackupLimit:/ The number of current manual backups/maximum number of backups allowed. By default, you can have a maximum of 50 manual backups saved.
-aaName :: Lens' AccountAttribute (Maybe Text)
-aaName = lens _aaName (\s a -> s {_aaName = a})
+-- | The attribute name. The following are supported attribute names.
+--
+-- -   /ServerLimit:/ The number of current servers\/maximum number of
+--     servers allowed. By default, you can have a maximum of 10 servers.
+--
+-- -   /ManualBackupLimit:/ The number of current manual backups\/maximum
+--     number of backups allowed. By default, you can have a maximum of 50
+--     manual backups saved.
+accountAttribute_name :: Lens.Lens' AccountAttribute (Prelude.Maybe Prelude.Text)
+accountAttribute_name = Lens.lens (\AccountAttribute' {name} -> name) (\s@AccountAttribute' {} a -> s {name = a} :: AccountAttribute)
 
 -- | The maximum allowed value.
-aaMaximum :: Lens' AccountAttribute (Maybe Int)
-aaMaximum = lens _aaMaximum (\s a -> s {_aaMaximum = a})
+accountAttribute_maximum :: Lens.Lens' AccountAttribute (Prelude.Maybe Prelude.Int)
+accountAttribute_maximum = Lens.lens (\AccountAttribute' {maximum} -> maximum) (\s@AccountAttribute' {} a -> s {maximum = a} :: AccountAttribute)
 
-instance FromJSON AccountAttribute where
+instance Prelude.FromJSON AccountAttribute where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AccountAttribute"
       ( \x ->
           AccountAttribute'
-            <$> (x .:? "Used")
-            <*> (x .:? "Name")
-            <*> (x .:? "Maximum")
+            Prelude.<$> (x Prelude..:? "Used")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "Maximum")
       )
 
-instance Hashable AccountAttribute
+instance Prelude.Hashable AccountAttribute
 
-instance NFData AccountAttribute
+instance Prelude.NFData AccountAttribute

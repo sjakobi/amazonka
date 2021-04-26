@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,127 +23,127 @@
 --
 -- Describes your OpsWorks-CM account attributes.
 --
---
 -- This operation is synchronous.
 module Network.AWS.OpsWorksCM.DescribeAccountAttributes
   ( -- * Creating a Request
-    describeAccountAttributes,
-    DescribeAccountAttributes,
+    DescribeAccountAttributes (..),
+    newDescribeAccountAttributes,
 
     -- * Destructuring the Response
-    describeAccountAttributesResponse,
-    DescribeAccountAttributesResponse,
+    DescribeAccountAttributesResponse (..),
+    newDescribeAccountAttributesResponse,
 
     -- * Response Lenses
-    daarrsAttributes,
-    daarrsResponseStatus,
+    describeAccountAttributesResponse_attributes,
+    describeAccountAttributesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.OpsWorksCM.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.OpsWorksCM.Types.AccountAttribute
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeAccountAttributes' smart constructor.
+-- | /See:/ 'newDescribeAccountAttributes' smart constructor.
 data DescribeAccountAttributes = DescribeAccountAttributes'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeAccountAttributes' with the minimum fields required to make a request.
-describeAccountAttributes ::
+-- |
+-- Create a value of 'DescribeAccountAttributes' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDescribeAccountAttributes ::
   DescribeAccountAttributes
-describeAccountAttributes =
+newDescribeAccountAttributes =
   DescribeAccountAttributes'
 
-instance AWSRequest DescribeAccountAttributes where
+instance Prelude.AWSRequest DescribeAccountAttributes where
   type
     Rs DescribeAccountAttributes =
       DescribeAccountAttributesResponse
-  request = postJSON opsWorksCM
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeAccountAttributesResponse'
-            <$> (x .?> "Attributes" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "Attributes"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeAccountAttributes
+instance Prelude.Hashable DescribeAccountAttributes
 
-instance NFData DescribeAccountAttributes
+instance Prelude.NFData DescribeAccountAttributes
 
-instance ToHeaders DescribeAccountAttributes where
+instance Prelude.ToHeaders DescribeAccountAttributes where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "OpsWorksCM_V2016_11_01.DescribeAccountAttributes" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "OpsWorksCM_V2016_11_01.DescribeAccountAttributes" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeAccountAttributes where
-  toJSON = const (Object mempty)
+instance Prelude.ToJSON DescribeAccountAttributes where
+  toJSON =
+    Prelude.const (Prelude.Object Prelude.mempty)
 
-instance ToPath DescribeAccountAttributes where
-  toPath = const "/"
+instance Prelude.ToPath DescribeAccountAttributes where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeAccountAttributes where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeAccountAttributes where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeAccountAttributesResponse' smart constructor.
+-- | /See:/ 'newDescribeAccountAttributesResponse' smart constructor.
 data DescribeAccountAttributesResponse = DescribeAccountAttributesResponse'
-  { _daarrsAttributes ::
-      !( Maybe
-           [AccountAttribute]
-       ),
-    _daarrsResponseStatus ::
-      !Int
+  { -- | The attributes that are currently set for the account.
+    attributes :: Prelude.Maybe [AccountAttribute],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeAccountAttributesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeAccountAttributesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'daarrsAttributes' - The attributes that are currently set for the account.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'daarrsResponseStatus' - -- | The response status code.
-describeAccountAttributesResponse ::
-  -- | 'daarrsResponseStatus'
-  Int ->
+-- 'attributes', 'describeAccountAttributesResponse_attributes' - The attributes that are currently set for the account.
+--
+-- 'httpStatus', 'describeAccountAttributesResponse_httpStatus' - The response's http status code.
+newDescribeAccountAttributesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeAccountAttributesResponse
-describeAccountAttributesResponse pResponseStatus_ =
+newDescribeAccountAttributesResponse pHttpStatus_ =
   DescribeAccountAttributesResponse'
-    { _daarrsAttributes =
-        Nothing,
-      _daarrsResponseStatus = pResponseStatus_
+    { attributes =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The attributes that are currently set for the account.
-daarrsAttributes :: Lens' DescribeAccountAttributesResponse [AccountAttribute]
-daarrsAttributes = lens _daarrsAttributes (\s a -> s {_daarrsAttributes = a}) . _Default . _Coerce
+describeAccountAttributesResponse_attributes :: Lens.Lens' DescribeAccountAttributesResponse (Prelude.Maybe [AccountAttribute])
+describeAccountAttributesResponse_attributes = Lens.lens (\DescribeAccountAttributesResponse' {attributes} -> attributes) (\s@DescribeAccountAttributesResponse' {} a -> s {attributes = a} :: DescribeAccountAttributesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-daarrsResponseStatus :: Lens' DescribeAccountAttributesResponse Int
-daarrsResponseStatus = lens _daarrsResponseStatus (\s a -> s {_daarrsResponseStatus = a})
+-- | The response's http status code.
+describeAccountAttributesResponse_httpStatus :: Lens.Lens' DescribeAccountAttributesResponse Prelude.Int
+describeAccountAttributesResponse_httpStatus = Lens.lens (\DescribeAccountAttributesResponse' {httpStatus} -> httpStatus) (\s@DescribeAccountAttributesResponse' {} a -> s {httpStatus = a} :: DescribeAccountAttributesResponse)
 
-instance NFData DescribeAccountAttributesResponse
+instance
+  Prelude.NFData
+    DescribeAccountAttributesResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,72 +19,78 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.OpsWorksCM.Types.ServerEvent where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | An event that is related to the server, such as the start of maintenance or backup.
+-- | An event that is related to the server, such as the start of maintenance
+-- or backup.
 --
---
---
--- /See:/ 'serverEvent' smart constructor.
+-- /See:/ 'newServerEvent' smart constructor.
 data ServerEvent = ServerEvent'
-  { _seLogURL ::
-      !(Maybe Text),
-    _seMessage :: !(Maybe Text),
-    _seCreatedAt :: !(Maybe POSIX),
-    _seServerName :: !(Maybe Text)
+  { -- | The Amazon S3 URL of the event\'s log file.
+    logUrl :: Prelude.Maybe Prelude.Text,
+    -- | A human-readable informational or status message.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The time when the event occurred.
+    createdAt :: Prelude.Maybe Prelude.POSIX,
+    -- | The name of the server on or for which the event occurred.
+    serverName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ServerEvent' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ServerEvent' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'seLogURL' - The Amazon S3 URL of the event's log file.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'seMessage' - A human-readable informational or status message.
+-- 'logUrl', 'serverEvent_logUrl' - The Amazon S3 URL of the event\'s log file.
 --
--- * 'seCreatedAt' - The time when the event occurred.
+-- 'message', 'serverEvent_message' - A human-readable informational or status message.
 --
--- * 'seServerName' - The name of the server on or for which the event occurred.
-serverEvent ::
+-- 'createdAt', 'serverEvent_createdAt' - The time when the event occurred.
+--
+-- 'serverName', 'serverEvent_serverName' - The name of the server on or for which the event occurred.
+newServerEvent ::
   ServerEvent
-serverEvent =
+newServerEvent =
   ServerEvent'
-    { _seLogURL = Nothing,
-      _seMessage = Nothing,
-      _seCreatedAt = Nothing,
-      _seServerName = Nothing
+    { logUrl = Prelude.Nothing,
+      message = Prelude.Nothing,
+      createdAt = Prelude.Nothing,
+      serverName = Prelude.Nothing
     }
 
--- | The Amazon S3 URL of the event's log file.
-seLogURL :: Lens' ServerEvent (Maybe Text)
-seLogURL = lens _seLogURL (\s a -> s {_seLogURL = a})
+-- | The Amazon S3 URL of the event\'s log file.
+serverEvent_logUrl :: Lens.Lens' ServerEvent (Prelude.Maybe Prelude.Text)
+serverEvent_logUrl = Lens.lens (\ServerEvent' {logUrl} -> logUrl) (\s@ServerEvent' {} a -> s {logUrl = a} :: ServerEvent)
 
 -- | A human-readable informational or status message.
-seMessage :: Lens' ServerEvent (Maybe Text)
-seMessage = lens _seMessage (\s a -> s {_seMessage = a})
+serverEvent_message :: Lens.Lens' ServerEvent (Prelude.Maybe Prelude.Text)
+serverEvent_message = Lens.lens (\ServerEvent' {message} -> message) (\s@ServerEvent' {} a -> s {message = a} :: ServerEvent)
 
 -- | The time when the event occurred.
-seCreatedAt :: Lens' ServerEvent (Maybe UTCTime)
-seCreatedAt = lens _seCreatedAt (\s a -> s {_seCreatedAt = a}) . mapping _Time
+serverEvent_createdAt :: Lens.Lens' ServerEvent (Prelude.Maybe Prelude.UTCTime)
+serverEvent_createdAt = Lens.lens (\ServerEvent' {createdAt} -> createdAt) (\s@ServerEvent' {} a -> s {createdAt = a} :: ServerEvent) Prelude.. Lens.mapping Prelude._Time
 
 -- | The name of the server on or for which the event occurred.
-seServerName :: Lens' ServerEvent (Maybe Text)
-seServerName = lens _seServerName (\s a -> s {_seServerName = a})
+serverEvent_serverName :: Lens.Lens' ServerEvent (Prelude.Maybe Prelude.Text)
+serverEvent_serverName = Lens.lens (\ServerEvent' {serverName} -> serverName) (\s@ServerEvent' {} a -> s {serverName = a} :: ServerEvent)
 
-instance FromJSON ServerEvent where
+instance Prelude.FromJSON ServerEvent where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ServerEvent"
       ( \x ->
           ServerEvent'
-            <$> (x .:? "LogUrl")
-            <*> (x .:? "Message")
-            <*> (x .:? "CreatedAt")
-            <*> (x .:? "ServerName")
+            Prelude.<$> (x Prelude..:? "LogUrl")
+            Prelude.<*> (x Prelude..:? "Message")
+            Prelude.<*> (x Prelude..:? "CreatedAt")
+            Prelude.<*> (x Prelude..:? "ServerName")
       )
 
-instance Hashable ServerEvent
+instance Prelude.Hashable ServerEvent
 
-instance NFData ServerEvent
+instance Prelude.NFData ServerEvent

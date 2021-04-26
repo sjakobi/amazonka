@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,175 +21,241 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists all configuration management servers that are identified with your account. Only the stored results from Amazon DynamoDB are returned. AWS OpsWorks CM does not query other services.
---
+-- Lists all configuration management servers that are identified with your
+-- account. Only the stored results from Amazon DynamoDB are returned. AWS
+-- OpsWorks CM does not query other services.
 --
 -- This operation is synchronous.
 --
--- A @ResourceNotFoundException@ is thrown when the server does not exist. A @ValidationException@ is raised when parameters of the request are not valid.
---
+-- A @ResourceNotFoundException@ is thrown when the server does not exist.
+-- A @ValidationException@ is raised when parameters of the request are not
+-- valid.
 --
 -- This operation returns paginated results.
 module Network.AWS.OpsWorksCM.DescribeServers
   ( -- * Creating a Request
-    describeServers,
-    DescribeServers,
+    DescribeServers (..),
+    newDescribeServers,
 
     -- * Request Lenses
-    dNextToken,
-    dMaxResults,
-    dServerName,
+    describeServers_nextToken,
+    describeServers_maxResults,
+    describeServers_serverName,
 
     -- * Destructuring the Response
-    describeServersResponse,
-    DescribeServersResponse,
+    DescribeServersResponse (..),
+    newDescribeServersResponse,
 
     -- * Response Lenses
-    drsNextToken,
-    drsServers,
-    drsResponseStatus,
+    describeServersResponse_nextToken,
+    describeServersResponse_servers,
+    describeServersResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.OpsWorksCM.Types
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.OpsWorksCM.Types.Server
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeServers' smart constructor.
+-- | /See:/ 'newDescribeServers' smart constructor.
 data DescribeServers = DescribeServers'
-  { _dNextToken ::
-      !(Maybe Text),
-    _dMaxResults :: !(Maybe Nat),
-    _dServerName :: !(Maybe Text)
+  { -- | This is not currently implemented for @DescribeServers@ requests.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | This is not currently implemented for @DescribeServers@ requests.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | Describes the server with the specified ServerName.
+    serverName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeServers' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeServers' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dNextToken' - This is not currently implemented for @DescribeServers@ requests.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dMaxResults' - This is not currently implemented for @DescribeServers@ requests.
+-- 'nextToken', 'describeServers_nextToken' - This is not currently implemented for @DescribeServers@ requests.
 --
--- * 'dServerName' - Describes the server with the specified ServerName.
-describeServers ::
+-- 'maxResults', 'describeServers_maxResults' - This is not currently implemented for @DescribeServers@ requests.
+--
+-- 'serverName', 'describeServers_serverName' - Describes the server with the specified ServerName.
+newDescribeServers ::
   DescribeServers
-describeServers =
+newDescribeServers =
   DescribeServers'
-    { _dNextToken = Nothing,
-      _dMaxResults = Nothing,
-      _dServerName = Nothing
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      serverName = Prelude.Nothing
     }
 
 -- | This is not currently implemented for @DescribeServers@ requests.
-dNextToken :: Lens' DescribeServers (Maybe Text)
-dNextToken = lens _dNextToken (\s a -> s {_dNextToken = a})
+describeServers_nextToken :: Lens.Lens' DescribeServers (Prelude.Maybe Prelude.Text)
+describeServers_nextToken = Lens.lens (\DescribeServers' {nextToken} -> nextToken) (\s@DescribeServers' {} a -> s {nextToken = a} :: DescribeServers)
 
 -- | This is not currently implemented for @DescribeServers@ requests.
-dMaxResults :: Lens' DescribeServers (Maybe Natural)
-dMaxResults = lens _dMaxResults (\s a -> s {_dMaxResults = a}) . mapping _Nat
+describeServers_maxResults :: Lens.Lens' DescribeServers (Prelude.Maybe Prelude.Natural)
+describeServers_maxResults = Lens.lens (\DescribeServers' {maxResults} -> maxResults) (\s@DescribeServers' {} a -> s {maxResults = a} :: DescribeServers) Prelude.. Lens.mapping Prelude._Nat
 
 -- | Describes the server with the specified ServerName.
-dServerName :: Lens' DescribeServers (Maybe Text)
-dServerName = lens _dServerName (\s a -> s {_dServerName = a})
+describeServers_serverName :: Lens.Lens' DescribeServers (Prelude.Maybe Prelude.Text)
+describeServers_serverName = Lens.lens (\DescribeServers' {serverName} -> serverName) (\s@DescribeServers' {} a -> s {serverName = a} :: DescribeServers)
 
-instance AWSPager DescribeServers where
+instance Pager.AWSPager DescribeServers where
   page rq rs
-    | stop (rs ^. drsNextToken) = Nothing
-    | stop (rs ^. drsServers) = Nothing
-    | otherwise =
-      Just $ rq & dNextToken .~ rs ^. drsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeServersResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeServersResponse_servers Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeServers_nextToken
+          Lens..~ rs
+          Lens.^? describeServersResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeServers where
+instance Prelude.AWSRequest DescribeServers where
   type Rs DescribeServers = DescribeServersResponse
-  request = postJSON opsWorksCM
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeServersResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "Servers" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (x Prelude..?> "Servers" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeServers
+instance Prelude.Hashable DescribeServers
 
-instance NFData DescribeServers
+instance Prelude.NFData DescribeServers
 
-instance ToHeaders DescribeServers where
+instance Prelude.ToHeaders DescribeServers where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "OpsWorksCM_V2016_11_01.DescribeServers" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "OpsWorksCM_V2016_11_01.DescribeServers" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeServers where
+instance Prelude.ToJSON DescribeServers where
   toJSON DescribeServers' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _dNextToken,
-            ("MaxResults" .=) <$> _dMaxResults,
-            ("ServerName" .=) <$> _dServerName
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("ServerName" Prelude..=) Prelude.<$> serverName
           ]
       )
 
-instance ToPath DescribeServers where
-  toPath = const "/"
+instance Prelude.ToPath DescribeServers where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeServers where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeServers where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeServersResponse' smart constructor.
+-- | /See:/ 'newDescribeServersResponse' smart constructor.
 data DescribeServersResponse = DescribeServersResponse'
-  { _drsNextToken ::
-      !(Maybe Text),
-    _drsServers ::
-      !(Maybe [Server]),
-    _drsResponseStatus ::
-      !Int
+  { -- | This is not currently implemented for @DescribeServers@ requests.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Contains the response to a @DescribeServers@ request.
+    --
+    -- /For Chef Automate servers:/ If
+    -- @DescribeServersResponse$Servers$EngineAttributes@ includes
+    -- CHEF_MAJOR_UPGRADE_AVAILABLE, you can upgrade the Chef Automate server
+    -- to Chef Automate 2. To be eligible for upgrade, a server running Chef
+    -- Automate 1 must have had at least one successful maintenance run after
+    -- November 1, 2019.
+    --
+    -- /For Puppet Server:/ @DescribeServersResponse$Servers$EngineAttributes@
+    -- contains PUPPET_API_CA_CERT. This is the PEM-encoded CA certificate that
+    -- is used by the Puppet API over TCP port number 8140. The CA certificate
+    -- is also used to sign node certificates.
+    servers :: Prelude.Maybe [Server],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeServersResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeServersResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drsNextToken' - This is not currently implemented for @DescribeServers@ requests.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drsServers' - Contains the response to a @DescribeServers@ request. /For Chef Automate servers:/ If @DescribeServersResponse$Servers$EngineAttributes@ includes CHEF_MAJOR_UPGRADE_AVAILABLE, you can upgrade the Chef Automate server to Chef Automate 2. To be eligible for upgrade, a server running Chef Automate 1 must have had at least one successful maintenance run after November 1, 2019. /For Puppet Server:/ @DescribeServersResponse$Servers$EngineAttributes@ contains PUPPET_API_CA_CERT. This is the PEM-encoded CA certificate that is used by the Puppet API over TCP port number 8140. The CA certificate is also used to sign node certificates.
+-- 'nextToken', 'describeServersResponse_nextToken' - This is not currently implemented for @DescribeServers@ requests.
 --
--- * 'drsResponseStatus' - -- | The response status code.
-describeServersResponse ::
-  -- | 'drsResponseStatus'
-  Int ->
+-- 'servers', 'describeServersResponse_servers' - Contains the response to a @DescribeServers@ request.
+--
+-- /For Chef Automate servers:/ If
+-- @DescribeServersResponse$Servers$EngineAttributes@ includes
+-- CHEF_MAJOR_UPGRADE_AVAILABLE, you can upgrade the Chef Automate server
+-- to Chef Automate 2. To be eligible for upgrade, a server running Chef
+-- Automate 1 must have had at least one successful maintenance run after
+-- November 1, 2019.
+--
+-- /For Puppet Server:/ @DescribeServersResponse$Servers$EngineAttributes@
+-- contains PUPPET_API_CA_CERT. This is the PEM-encoded CA certificate that
+-- is used by the Puppet API over TCP port number 8140. The CA certificate
+-- is also used to sign node certificates.
+--
+-- 'httpStatus', 'describeServersResponse_httpStatus' - The response's http status code.
+newDescribeServersResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeServersResponse
-describeServersResponse pResponseStatus_ =
+newDescribeServersResponse pHttpStatus_ =
   DescribeServersResponse'
-    { _drsNextToken = Nothing,
-      _drsServers = Nothing,
-      _drsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      servers = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | This is not currently implemented for @DescribeServers@ requests.
-drsNextToken :: Lens' DescribeServersResponse (Maybe Text)
-drsNextToken = lens _drsNextToken (\s a -> s {_drsNextToken = a})
+describeServersResponse_nextToken :: Lens.Lens' DescribeServersResponse (Prelude.Maybe Prelude.Text)
+describeServersResponse_nextToken = Lens.lens (\DescribeServersResponse' {nextToken} -> nextToken) (\s@DescribeServersResponse' {} a -> s {nextToken = a} :: DescribeServersResponse)
 
--- | Contains the response to a @DescribeServers@ request. /For Chef Automate servers:/ If @DescribeServersResponse$Servers$EngineAttributes@ includes CHEF_MAJOR_UPGRADE_AVAILABLE, you can upgrade the Chef Automate server to Chef Automate 2. To be eligible for upgrade, a server running Chef Automate 1 must have had at least one successful maintenance run after November 1, 2019. /For Puppet Server:/ @DescribeServersResponse$Servers$EngineAttributes@ contains PUPPET_API_CA_CERT. This is the PEM-encoded CA certificate that is used by the Puppet API over TCP port number 8140. The CA certificate is also used to sign node certificates.
-drsServers :: Lens' DescribeServersResponse [Server]
-drsServers = lens _drsServers (\s a -> s {_drsServers = a}) . _Default . _Coerce
+-- | Contains the response to a @DescribeServers@ request.
+--
+-- /For Chef Automate servers:/ If
+-- @DescribeServersResponse$Servers$EngineAttributes@ includes
+-- CHEF_MAJOR_UPGRADE_AVAILABLE, you can upgrade the Chef Automate server
+-- to Chef Automate 2. To be eligible for upgrade, a server running Chef
+-- Automate 1 must have had at least one successful maintenance run after
+-- November 1, 2019.
+--
+-- /For Puppet Server:/ @DescribeServersResponse$Servers$EngineAttributes@
+-- contains PUPPET_API_CA_CERT. This is the PEM-encoded CA certificate that
+-- is used by the Puppet API over TCP port number 8140. The CA certificate
+-- is also used to sign node certificates.
+describeServersResponse_servers :: Lens.Lens' DescribeServersResponse (Prelude.Maybe [Server])
+describeServersResponse_servers = Lens.lens (\DescribeServersResponse' {servers} -> servers) (\s@DescribeServersResponse' {} a -> s {servers = a} :: DescribeServersResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-drsResponseStatus :: Lens' DescribeServersResponse Int
-drsResponseStatus = lens _drsResponseStatus (\s a -> s {_drsResponseStatus = a})
+-- | The response's http status code.
+describeServersResponse_httpStatus :: Lens.Lens' DescribeServersResponse Prelude.Int
+describeServersResponse_httpStatus = Lens.lens (\DescribeServersResponse' {httpStatus} -> httpStatus) (\s@DescribeServersResponse' {} a -> s {httpStatus = a} :: DescribeServersResponse)
 
-instance NFData DescribeServersResponse
+instance Prelude.NFData DescribeServersResponse

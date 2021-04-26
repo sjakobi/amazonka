@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,174 +23,191 @@
 --
 -- Updates settings for a server.
 --
---
 -- This operation is synchronous.
 module Network.AWS.OpsWorksCM.UpdateServer
   ( -- * Creating a Request
-    updateServer,
-    UpdateServer,
+    UpdateServer (..),
+    newUpdateServer,
 
     -- * Request Lenses
-    usPreferredBackupWindow,
-    usDisableAutomatedBackup,
-    usPreferredMaintenanceWindow,
-    usBackupRetentionCount,
-    usServerName,
+    updateServer_preferredBackupWindow,
+    updateServer_disableAutomatedBackup,
+    updateServer_preferredMaintenanceWindow,
+    updateServer_backupRetentionCount,
+    updateServer_serverName,
 
     -- * Destructuring the Response
-    updateServerResponse,
-    UpdateServerResponse,
+    UpdateServerResponse (..),
+    newUpdateServerResponse,
 
     -- * Response Lenses
-    usrrsServer,
-    usrrsResponseStatus,
+    updateServerResponse_server,
+    updateServerResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.OpsWorksCM.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.OpsWorksCM.Types.Server
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateServer' smart constructor.
+-- | /See:/ 'newUpdateServer' smart constructor.
 data UpdateServer = UpdateServer'
-  { _usPreferredBackupWindow ::
-      !(Maybe Text),
-    _usDisableAutomatedBackup :: !(Maybe Bool),
-    _usPreferredMaintenanceWindow ::
-      !(Maybe Text),
-    _usBackupRetentionCount :: !(Maybe Int),
-    _usServerName :: !Text
+  { preferredBackupWindow :: Prelude.Maybe Prelude.Text,
+    -- | Setting DisableAutomatedBackup to @true@ disables automated or scheduled
+    -- backups. Automated backups are enabled by default.
+    disableAutomatedBackup :: Prelude.Maybe Prelude.Bool,
+    preferredMaintenanceWindow :: Prelude.Maybe Prelude.Text,
+    -- | Sets the number of automated backups that you want to keep.
+    backupRetentionCount :: Prelude.Maybe Prelude.Int,
+    -- | The name of the server to update.
+    serverName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateServer' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateServer' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'usPreferredBackupWindow' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'usDisableAutomatedBackup' - Setting DisableAutomatedBackup to @true@ disables automated or scheduled backups. Automated backups are enabled by default.
+-- 'preferredBackupWindow', 'updateServer_preferredBackupWindow' - Undocumented member.
 --
--- * 'usPreferredMaintenanceWindow' - Undocumented member.
+-- 'disableAutomatedBackup', 'updateServer_disableAutomatedBackup' - Setting DisableAutomatedBackup to @true@ disables automated or scheduled
+-- backups. Automated backups are enabled by default.
 --
--- * 'usBackupRetentionCount' - Sets the number of automated backups that you want to keep.
+-- 'preferredMaintenanceWindow', 'updateServer_preferredMaintenanceWindow' - Undocumented member.
 --
--- * 'usServerName' - The name of the server to update.
-updateServer ::
-  -- | 'usServerName'
-  Text ->
+-- 'backupRetentionCount', 'updateServer_backupRetentionCount' - Sets the number of automated backups that you want to keep.
+--
+-- 'serverName', 'updateServer_serverName' - The name of the server to update.
+newUpdateServer ::
+  -- | 'serverName'
+  Prelude.Text ->
   UpdateServer
-updateServer pServerName_ =
+newUpdateServer pServerName_ =
   UpdateServer'
-    { _usPreferredBackupWindow = Nothing,
-      _usDisableAutomatedBackup = Nothing,
-      _usPreferredMaintenanceWindow = Nothing,
-      _usBackupRetentionCount = Nothing,
-      _usServerName = pServerName_
+    { preferredBackupWindow =
+        Prelude.Nothing,
+      disableAutomatedBackup = Prelude.Nothing,
+      preferredMaintenanceWindow = Prelude.Nothing,
+      backupRetentionCount = Prelude.Nothing,
+      serverName = pServerName_
     }
 
 -- | Undocumented member.
-usPreferredBackupWindow :: Lens' UpdateServer (Maybe Text)
-usPreferredBackupWindow = lens _usPreferredBackupWindow (\s a -> s {_usPreferredBackupWindow = a})
+updateServer_preferredBackupWindow :: Lens.Lens' UpdateServer (Prelude.Maybe Prelude.Text)
+updateServer_preferredBackupWindow = Lens.lens (\UpdateServer' {preferredBackupWindow} -> preferredBackupWindow) (\s@UpdateServer' {} a -> s {preferredBackupWindow = a} :: UpdateServer)
 
--- | Setting DisableAutomatedBackup to @true@ disables automated or scheduled backups. Automated backups are enabled by default.
-usDisableAutomatedBackup :: Lens' UpdateServer (Maybe Bool)
-usDisableAutomatedBackup = lens _usDisableAutomatedBackup (\s a -> s {_usDisableAutomatedBackup = a})
+-- | Setting DisableAutomatedBackup to @true@ disables automated or scheduled
+-- backups. Automated backups are enabled by default.
+updateServer_disableAutomatedBackup :: Lens.Lens' UpdateServer (Prelude.Maybe Prelude.Bool)
+updateServer_disableAutomatedBackup = Lens.lens (\UpdateServer' {disableAutomatedBackup} -> disableAutomatedBackup) (\s@UpdateServer' {} a -> s {disableAutomatedBackup = a} :: UpdateServer)
 
 -- | Undocumented member.
-usPreferredMaintenanceWindow :: Lens' UpdateServer (Maybe Text)
-usPreferredMaintenanceWindow = lens _usPreferredMaintenanceWindow (\s a -> s {_usPreferredMaintenanceWindow = a})
+updateServer_preferredMaintenanceWindow :: Lens.Lens' UpdateServer (Prelude.Maybe Prelude.Text)
+updateServer_preferredMaintenanceWindow = Lens.lens (\UpdateServer' {preferredMaintenanceWindow} -> preferredMaintenanceWindow) (\s@UpdateServer' {} a -> s {preferredMaintenanceWindow = a} :: UpdateServer)
 
 -- | Sets the number of automated backups that you want to keep.
-usBackupRetentionCount :: Lens' UpdateServer (Maybe Int)
-usBackupRetentionCount = lens _usBackupRetentionCount (\s a -> s {_usBackupRetentionCount = a})
+updateServer_backupRetentionCount :: Lens.Lens' UpdateServer (Prelude.Maybe Prelude.Int)
+updateServer_backupRetentionCount = Lens.lens (\UpdateServer' {backupRetentionCount} -> backupRetentionCount) (\s@UpdateServer' {} a -> s {backupRetentionCount = a} :: UpdateServer)
 
 -- | The name of the server to update.
-usServerName :: Lens' UpdateServer Text
-usServerName = lens _usServerName (\s a -> s {_usServerName = a})
+updateServer_serverName :: Lens.Lens' UpdateServer Prelude.Text
+updateServer_serverName = Lens.lens (\UpdateServer' {serverName} -> serverName) (\s@UpdateServer' {} a -> s {serverName = a} :: UpdateServer)
 
-instance AWSRequest UpdateServer where
+instance Prelude.AWSRequest UpdateServer where
   type Rs UpdateServer = UpdateServerResponse
-  request = postJSON opsWorksCM
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateServerResponse'
-            <$> (x .?> "Server") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Server")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateServer
+instance Prelude.Hashable UpdateServer
 
-instance NFData UpdateServer
+instance Prelude.NFData UpdateServer
 
-instance ToHeaders UpdateServer where
+instance Prelude.ToHeaders UpdateServer where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "OpsWorksCM_V2016_11_01.UpdateServer" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "OpsWorksCM_V2016_11_01.UpdateServer" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateServer where
+instance Prelude.ToJSON UpdateServer where
   toJSON UpdateServer' {..} =
-    object
-      ( catMaybes
-          [ ("PreferredBackupWindow" .=)
-              <$> _usPreferredBackupWindow,
-            ("DisableAutomatedBackup" .=)
-              <$> _usDisableAutomatedBackup,
-            ("PreferredMaintenanceWindow" .=)
-              <$> _usPreferredMaintenanceWindow,
-            ("BackupRetentionCount" .=)
-              <$> _usBackupRetentionCount,
-            Just ("ServerName" .= _usServerName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("PreferredBackupWindow" Prelude..=)
+              Prelude.<$> preferredBackupWindow,
+            ("DisableAutomatedBackup" Prelude..=)
+              Prelude.<$> disableAutomatedBackup,
+            ("PreferredMaintenanceWindow" Prelude..=)
+              Prelude.<$> preferredMaintenanceWindow,
+            ("BackupRetentionCount" Prelude..=)
+              Prelude.<$> backupRetentionCount,
+            Prelude.Just ("ServerName" Prelude..= serverName)
           ]
       )
 
-instance ToPath UpdateServer where
-  toPath = const "/"
+instance Prelude.ToPath UpdateServer where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateServer where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateServer where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateServerResponse' smart constructor.
+-- | /See:/ 'newUpdateServerResponse' smart constructor.
 data UpdateServerResponse = UpdateServerResponse'
-  { _usrrsServer ::
-      !(Maybe Server),
-    _usrrsResponseStatus :: !Int
+  { -- | Contains the response to a @UpdateServer@ request.
+    server :: Prelude.Maybe Server,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateServerResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateServerResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'usrrsServer' - Contains the response to a @UpdateServer@ request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'usrrsResponseStatus' - -- | The response status code.
-updateServerResponse ::
-  -- | 'usrrsResponseStatus'
-  Int ->
+-- 'server', 'updateServerResponse_server' - Contains the response to a @UpdateServer@ request.
+--
+-- 'httpStatus', 'updateServerResponse_httpStatus' - The response's http status code.
+newUpdateServerResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateServerResponse
-updateServerResponse pResponseStatus_ =
+newUpdateServerResponse pHttpStatus_ =
   UpdateServerResponse'
-    { _usrrsServer = Nothing,
-      _usrrsResponseStatus = pResponseStatus_
+    { server = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Contains the response to a @UpdateServer@ request.
-usrrsServer :: Lens' UpdateServerResponse (Maybe Server)
-usrrsServer = lens _usrrsServer (\s a -> s {_usrrsServer = a})
+updateServerResponse_server :: Lens.Lens' UpdateServerResponse (Prelude.Maybe Server)
+updateServerResponse_server = Lens.lens (\UpdateServerResponse' {server} -> server) (\s@UpdateServerResponse' {} a -> s {server = a} :: UpdateServerResponse)
 
--- | -- | The response status code.
-usrrsResponseStatus :: Lens' UpdateServerResponse Int
-usrrsResponseStatus = lens _usrrsResponseStatus (\s a -> s {_usrrsResponseStatus = a})
+-- | The response's http status code.
+updateServerResponse_httpStatus :: Lens.Lens' UpdateServerResponse Prelude.Int
+updateServerResponse_httpStatus = Lens.lens (\UpdateServerResponse' {httpStatus} -> httpStatus) (\s@UpdateServerResponse' {} a -> s {httpStatus = a} :: UpdateServerResponse)
 
-instance NFData UpdateServerResponse
+instance Prelude.NFData UpdateServerResponse

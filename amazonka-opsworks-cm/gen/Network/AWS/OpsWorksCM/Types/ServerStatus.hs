@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,108 +19,110 @@
 module Network.AWS.OpsWorksCM.Types.ServerStatus
   ( ServerStatus
       ( ..,
-        BackingUp,
-        ConnectionLost,
-        Creating,
-        Deleting,
-        Failed,
-        Healthy,
-        Modifying,
-        Restoring,
-        Running,
-        Setup,
-        Terminated,
-        UnderMaintenance,
-        Unhealthy
+        ServerStatusBACKINGUP,
+        ServerStatusCONNECTIONLOST,
+        ServerStatusCREATING,
+        ServerStatusDELETING,
+        ServerStatusFAILED,
+        ServerStatusHEALTHY,
+        ServerStatusMODIFYING,
+        ServerStatusRESTORING,
+        ServerStatusRUNNING,
+        ServerStatusSETUP,
+        ServerStatusTERMINATED,
+        ServerStatusUNDERMAINTENANCE,
+        ServerStatusUNHEALTHY
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ServerStatus = ServerStatus' (CI Text)
+newtype ServerStatus = ServerStatus'
+  { fromServerStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern BackingUp :: ServerStatus
-pattern BackingUp = ServerStatus' "BACKING_UP"
+pattern ServerStatusBACKINGUP :: ServerStatus
+pattern ServerStatusBACKINGUP = ServerStatus' "BACKING_UP"
 
-pattern ConnectionLost :: ServerStatus
-pattern ConnectionLost = ServerStatus' "CONNECTION_LOST"
+pattern ServerStatusCONNECTIONLOST :: ServerStatus
+pattern ServerStatusCONNECTIONLOST = ServerStatus' "CONNECTION_LOST"
 
-pattern Creating :: ServerStatus
-pattern Creating = ServerStatus' "CREATING"
+pattern ServerStatusCREATING :: ServerStatus
+pattern ServerStatusCREATING = ServerStatus' "CREATING"
 
-pattern Deleting :: ServerStatus
-pattern Deleting = ServerStatus' "DELETING"
+pattern ServerStatusDELETING :: ServerStatus
+pattern ServerStatusDELETING = ServerStatus' "DELETING"
 
-pattern Failed :: ServerStatus
-pattern Failed = ServerStatus' "FAILED"
+pattern ServerStatusFAILED :: ServerStatus
+pattern ServerStatusFAILED = ServerStatus' "FAILED"
 
-pattern Healthy :: ServerStatus
-pattern Healthy = ServerStatus' "HEALTHY"
+pattern ServerStatusHEALTHY :: ServerStatus
+pattern ServerStatusHEALTHY = ServerStatus' "HEALTHY"
 
-pattern Modifying :: ServerStatus
-pattern Modifying = ServerStatus' "MODIFYING"
+pattern ServerStatusMODIFYING :: ServerStatus
+pattern ServerStatusMODIFYING = ServerStatus' "MODIFYING"
 
-pattern Restoring :: ServerStatus
-pattern Restoring = ServerStatus' "RESTORING"
+pattern ServerStatusRESTORING :: ServerStatus
+pattern ServerStatusRESTORING = ServerStatus' "RESTORING"
 
-pattern Running :: ServerStatus
-pattern Running = ServerStatus' "RUNNING"
+pattern ServerStatusRUNNING :: ServerStatus
+pattern ServerStatusRUNNING = ServerStatus' "RUNNING"
 
-pattern Setup :: ServerStatus
-pattern Setup = ServerStatus' "SETUP"
+pattern ServerStatusSETUP :: ServerStatus
+pattern ServerStatusSETUP = ServerStatus' "SETUP"
 
-pattern Terminated :: ServerStatus
-pattern Terminated = ServerStatus' "TERMINATED"
+pattern ServerStatusTERMINATED :: ServerStatus
+pattern ServerStatusTERMINATED = ServerStatus' "TERMINATED"
 
-pattern UnderMaintenance :: ServerStatus
-pattern UnderMaintenance = ServerStatus' "UNDER_MAINTENANCE"
+pattern ServerStatusUNDERMAINTENANCE :: ServerStatus
+pattern ServerStatusUNDERMAINTENANCE = ServerStatus' "UNDER_MAINTENANCE"
 
-pattern Unhealthy :: ServerStatus
-pattern Unhealthy = ServerStatus' "UNHEALTHY"
+pattern ServerStatusUNHEALTHY :: ServerStatus
+pattern ServerStatusUNHEALTHY = ServerStatus' "UNHEALTHY"
 
 {-# COMPLETE
-  BackingUp,
-  ConnectionLost,
-  Creating,
-  Deleting,
-  Failed,
-  Healthy,
-  Modifying,
-  Restoring,
-  Running,
-  Setup,
-  Terminated,
-  UnderMaintenance,
-  Unhealthy,
+  ServerStatusBACKINGUP,
+  ServerStatusCONNECTIONLOST,
+  ServerStatusCREATING,
+  ServerStatusDELETING,
+  ServerStatusFAILED,
+  ServerStatusHEALTHY,
+  ServerStatusMODIFYING,
+  ServerStatusRESTORING,
+  ServerStatusRUNNING,
+  ServerStatusSETUP,
+  ServerStatusTERMINATED,
+  ServerStatusUNDERMAINTENANCE,
+  ServerStatusUNHEALTHY,
   ServerStatus'
   #-}
 
-instance FromText ServerStatus where
-  parser = (ServerStatus' . mk) <$> takeText
+instance Prelude.FromText ServerStatus where
+  parser = ServerStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ServerStatus where
-  toText (ServerStatus' ci) = original ci
+instance Prelude.ToText ServerStatus where
+  toText (ServerStatus' x) = x
 
-instance Hashable ServerStatus
+instance Prelude.Hashable ServerStatus
 
-instance NFData ServerStatus
+instance Prelude.NFData ServerStatus
 
-instance ToByteString ServerStatus
+instance Prelude.ToByteString ServerStatus
 
-instance ToQuery ServerStatus
+instance Prelude.ToQuery ServerStatus
 
-instance ToHeader ServerStatus
+instance Prelude.ToHeader ServerStatus
 
-instance FromJSON ServerStatus where
-  parseJSON = parseJSONText "ServerStatus"
+instance Prelude.FromJSON ServerStatus where
+  parseJSON = Prelude.parseJSONText "ServerStatus"
