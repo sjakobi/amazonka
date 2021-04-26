@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,137 +21,147 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Add tags to the specified Amazon SNS topic. For an overview, see <https://docs.aws.amazon.com/sns/latest/dg/sns-tags.html Amazon SNS Tags> in the /Amazon SNS Developer Guide/ .
---
+-- Add tags to the specified Amazon SNS topic. For an overview, see
+-- <https://docs.aws.amazon.com/sns/latest/dg/sns-tags.html Amazon SNS Tags>
+-- in the /Amazon SNS Developer Guide/.
 --
 -- When you use topic tags, keep the following guidelines in mind:
 --
---     * Adding more than 50 tags to a topic isn't recommended.
+-- -   Adding more than 50 tags to a topic isn\'t recommended.
 --
---     * Tags don't have any semantic meaning. Amazon SNS interprets tags as character strings.
+-- -   Tags don\'t have any semantic meaning. Amazon SNS interprets tags as
+--     character strings.
 --
---     * Tags are case-sensitive.
+-- -   Tags are case-sensitive.
 --
---     * A new tag with a key identical to that of an existing tag overwrites the existing tag.
+-- -   A new tag with a key identical to that of an existing tag overwrites
+--     the existing tag.
 --
---     * Tagging actions are limited to 10 TPS per AWS account, per AWS region. If your application requires a higher throughput, file a <https://console.aws.amazon.com/support/home#/case/create?issueType=technical technical support request> .
+-- -   Tagging actions are limited to 10 TPS per AWS account, per AWS
+--     region. If your application requires a higher throughput, file a
+--     <https://console.aws.amazon.com/support/home#/case/create?issueType=technical technical support request>.
 module Network.AWS.SNS.TagResource
   ( -- * Creating a Request
-    tagResource,
-    TagResource,
+    TagResource (..),
+    newTagResource,
 
     -- * Request Lenses
-    trResourceARN,
-    trTags,
+    tagResource_resourceArn,
+    tagResource_tags,
 
     -- * Destructuring the Response
-    tagResourceResponse,
-    TagResourceResponse,
+    TagResourceResponse (..),
+    newTagResourceResponse,
 
     -- * Response Lenses
-    trrrsResponseStatus,
+    tagResourceResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SNS.Types
 
--- | /See:/ 'tagResource' smart constructor.
+-- | /See:/ 'newTagResource' smart constructor.
 data TagResource = TagResource'
-  { _trResourceARN ::
-      !Text,
-    _trTags :: ![Tag]
+  { -- | The ARN of the topic to which to add tags.
+    resourceArn :: Prelude.Text,
+    -- | The tags to be added to the specified topic. A tag consists of a
+    -- required key and an optional value.
+    tags :: [Tag]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TagResource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TagResource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'trResourceARN' - The ARN of the topic to which to add tags.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'trTags' - The tags to be added to the specified topic. A tag consists of a required key and an optional value.
-tagResource ::
-  -- | 'trResourceARN'
-  Text ->
+-- 'resourceArn', 'tagResource_resourceArn' - The ARN of the topic to which to add tags.
+--
+-- 'tags', 'tagResource_tags' - The tags to be added to the specified topic. A tag consists of a
+-- required key and an optional value.
+newTagResource ::
+  -- | 'resourceArn'
+  Prelude.Text ->
   TagResource
-tagResource pResourceARN_ =
+newTagResource pResourceArn_ =
   TagResource'
-    { _trResourceARN = pResourceARN_,
-      _trTags = mempty
+    { resourceArn = pResourceArn_,
+      tags = Prelude.mempty
     }
 
 -- | The ARN of the topic to which to add tags.
-trResourceARN :: Lens' TagResource Text
-trResourceARN = lens _trResourceARN (\s a -> s {_trResourceARN = a})
+tagResource_resourceArn :: Lens.Lens' TagResource Prelude.Text
+tagResource_resourceArn = Lens.lens (\TagResource' {resourceArn} -> resourceArn) (\s@TagResource' {} a -> s {resourceArn = a} :: TagResource)
 
--- | The tags to be added to the specified topic. A tag consists of a required key and an optional value.
-trTags :: Lens' TagResource [Tag]
-trTags = lens _trTags (\s a -> s {_trTags = a}) . _Coerce
+-- | The tags to be added to the specified topic. A tag consists of a
+-- required key and an optional value.
+tagResource_tags :: Lens.Lens' TagResource [Tag]
+tagResource_tags = Lens.lens (\TagResource' {tags} -> tags) (\s@TagResource' {} a -> s {tags = a} :: TagResource) Prelude.. Prelude._Coerce
 
-instance AWSRequest TagResource where
+instance Prelude.AWSRequest TagResource where
   type Rs TagResource = TagResourceResponse
-  request = postQuery sns
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "TagResourceResult"
       ( \s h x ->
-          TagResourceResponse' <$> (pure (fromEnum s))
+          TagResourceResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable TagResource
+instance Prelude.Hashable TagResource
 
-instance NFData TagResource
+instance Prelude.NFData TagResource
 
-instance ToHeaders TagResource where
-  toHeaders = const mempty
+instance Prelude.ToHeaders TagResource where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath TagResource where
-  toPath = const "/"
+instance Prelude.ToPath TagResource where
+  toPath = Prelude.const "/"
 
-instance ToQuery TagResource where
+instance Prelude.ToQuery TagResource where
   toQuery TagResource' {..} =
-    mconcat
-      [ "Action" =: ("TagResource" :: ByteString),
-        "Version" =: ("2010-03-31" :: ByteString),
-        "ResourceArn" =: _trResourceARN,
-        "Tags" =: toQueryList "member" _trTags
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("TagResource" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-03-31" :: Prelude.ByteString),
+        "ResourceArn" Prelude.=: resourceArn,
+        "Tags" Prelude.=: Prelude.toQueryList "member" tags
       ]
 
--- | /See:/ 'tagResourceResponse' smart constructor.
-newtype TagResourceResponse = TagResourceResponse'
-  { _trrrsResponseStatus ::
-      Int
+-- | /See:/ 'newTagResourceResponse' smart constructor.
+data TagResourceResponse = TagResourceResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TagResourceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TagResourceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'trrrsResponseStatus' - -- | The response status code.
-tagResourceResponse ::
-  -- | 'trrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'tagResourceResponse_httpStatus' - The response's http status code.
+newTagResourceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   TagResourceResponse
-tagResourceResponse pResponseStatus_ =
-  TagResourceResponse'
-    { _trrrsResponseStatus =
-        pResponseStatus_
-    }
+newTagResourceResponse pHttpStatus_ =
+  TagResourceResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-trrrsResponseStatus :: Lens' TagResourceResponse Int
-trrrsResponseStatus = lens _trrrsResponseStatus (\s a -> s {_trrrsResponseStatus = a})
+-- | The response's http status code.
+tagResourceResponse_httpStatus :: Lens.Lens' TagResourceResponse Prelude.Int
+tagResourceResponse_httpStatus = Lens.lens (\TagResourceResponse' {httpStatus} -> httpStatus) (\s@TagResourceResponse' {} a -> s {httpStatus = a} :: TagResourceResponse)
 
-instance NFData TagResourceResponse
+instance Prelude.NFData TagResourceResponse

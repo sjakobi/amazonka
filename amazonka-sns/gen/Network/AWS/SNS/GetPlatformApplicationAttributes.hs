@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,158 +21,205 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves the attributes of the platform application object for the supported push notification services, such as APNS and GCM (Firebase Cloud Messaging). For more information, see <https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html Using Amazon SNS Mobile Push Notifications> .
+-- Retrieves the attributes of the platform application object for the
+-- supported push notification services, such as APNS and GCM (Firebase
+-- Cloud Messaging). For more information, see
+-- <https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html Using Amazon SNS Mobile Push Notifications>.
 module Network.AWS.SNS.GetPlatformApplicationAttributes
   ( -- * Creating a Request
-    getPlatformApplicationAttributes,
-    GetPlatformApplicationAttributes,
+    GetPlatformApplicationAttributes (..),
+    newGetPlatformApplicationAttributes,
 
     -- * Request Lenses
-    gpaaPlatformApplicationARN,
+    getPlatformApplicationAttributes_platformApplicationArn,
 
     -- * Destructuring the Response
-    getPlatformApplicationAttributesResponse,
-    GetPlatformApplicationAttributesResponse,
+    GetPlatformApplicationAttributesResponse (..),
+    newGetPlatformApplicationAttributesResponse,
 
     -- * Response Lenses
-    gpaarrsAttributes,
-    gpaarrsResponseStatus,
+    getPlatformApplicationAttributesResponse_attributes,
+    getPlatformApplicationAttributesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SNS.Types
 
 -- | Input for GetPlatformApplicationAttributes action.
 --
---
---
--- /See:/ 'getPlatformApplicationAttributes' smart constructor.
-newtype GetPlatformApplicationAttributes = GetPlatformApplicationAttributes'
-  { _gpaaPlatformApplicationARN ::
-      Text
+-- /See:/ 'newGetPlatformApplicationAttributes' smart constructor.
+data GetPlatformApplicationAttributes = GetPlatformApplicationAttributes'
+  { -- | PlatformApplicationArn for GetPlatformApplicationAttributesInput.
+    platformApplicationArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetPlatformApplicationAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetPlatformApplicationAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gpaaPlatformApplicationARN' - PlatformApplicationArn for GetPlatformApplicationAttributesInput.
-getPlatformApplicationAttributes ::
-  -- | 'gpaaPlatformApplicationARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'platformApplicationArn', 'getPlatformApplicationAttributes_platformApplicationArn' - PlatformApplicationArn for GetPlatformApplicationAttributesInput.
+newGetPlatformApplicationAttributes ::
+  -- | 'platformApplicationArn'
+  Prelude.Text ->
   GetPlatformApplicationAttributes
-getPlatformApplicationAttributes
-  pPlatformApplicationARN_ =
+newGetPlatformApplicationAttributes
+  pPlatformApplicationArn_ =
     GetPlatformApplicationAttributes'
-      { _gpaaPlatformApplicationARN =
-          pPlatformApplicationARN_
+      { platformApplicationArn =
+          pPlatformApplicationArn_
       }
 
 -- | PlatformApplicationArn for GetPlatformApplicationAttributesInput.
-gpaaPlatformApplicationARN :: Lens' GetPlatformApplicationAttributes Text
-gpaaPlatformApplicationARN = lens _gpaaPlatformApplicationARN (\s a -> s {_gpaaPlatformApplicationARN = a})
+getPlatformApplicationAttributes_platformApplicationArn :: Lens.Lens' GetPlatformApplicationAttributes Prelude.Text
+getPlatformApplicationAttributes_platformApplicationArn = Lens.lens (\GetPlatformApplicationAttributes' {platformApplicationArn} -> platformApplicationArn) (\s@GetPlatformApplicationAttributes' {} a -> s {platformApplicationArn = a} :: GetPlatformApplicationAttributes)
 
-instance AWSRequest GetPlatformApplicationAttributes where
+instance
+  Prelude.AWSRequest
+    GetPlatformApplicationAttributes
+  where
   type
     Rs GetPlatformApplicationAttributes =
       GetPlatformApplicationAttributesResponse
-  request = postQuery sns
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "GetPlatformApplicationAttributesResult"
       ( \s h x ->
           GetPlatformApplicationAttributesResponse'
-            <$> ( x .@? "Attributes" .!@ mempty
-                    >>= may (parseXMLMap "entry" "key" "value")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "Attributes"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may
+                              (Prelude.parseXMLMap "entry" "key" "value")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetPlatformApplicationAttributes
+instance
+  Prelude.Hashable
+    GetPlatformApplicationAttributes
 
-instance NFData GetPlatformApplicationAttributes
+instance
+  Prelude.NFData
+    GetPlatformApplicationAttributes
 
-instance ToHeaders GetPlatformApplicationAttributes where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    GetPlatformApplicationAttributes
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath GetPlatformApplicationAttributes where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    GetPlatformApplicationAttributes
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetPlatformApplicationAttributes where
+instance
+  Prelude.ToQuery
+    GetPlatformApplicationAttributes
+  where
   toQuery GetPlatformApplicationAttributes' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("GetPlatformApplicationAttributes" :: ByteString),
-        "Version" =: ("2010-03-31" :: ByteString),
+          Prelude.=: ( "GetPlatformApplicationAttributes" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2010-03-31" :: Prelude.ByteString),
         "PlatformApplicationArn"
-          =: _gpaaPlatformApplicationARN
+          Prelude.=: platformApplicationArn
       ]
 
 -- | Response for GetPlatformApplicationAttributes action.
 --
---
---
--- /See:/ 'getPlatformApplicationAttributesResponse' smart constructor.
+-- /See:/ 'newGetPlatformApplicationAttributesResponse' smart constructor.
 data GetPlatformApplicationAttributesResponse = GetPlatformApplicationAttributesResponse'
-  { _gpaarrsAttributes ::
-      !( Maybe
-           ( Map
-               Text
-               Text
-           )
-       ),
-    _gpaarrsResponseStatus ::
-      !Int
+  { -- | Attributes include the following:
+    --
+    -- -   @EventEndpointCreated@ – Topic ARN to which EndpointCreated event
+    --     notifications should be sent.
+    --
+    -- -   @EventEndpointDeleted@ – Topic ARN to which EndpointDeleted event
+    --     notifications should be sent.
+    --
+    -- -   @EventEndpointUpdated@ – Topic ARN to which EndpointUpdate event
+    --     notifications should be sent.
+    --
+    -- -   @EventDeliveryFailure@ – Topic ARN to which DeliveryFailure event
+    --     notifications should be sent upon Direct Publish delivery failure
+    --     (permanent) to one of the application\'s endpoints.
+    attributes :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetPlatformApplicationAttributesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetPlatformApplicationAttributesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gpaarrsAttributes' - Attributes include the following:     * @EventEndpointCreated@ – Topic ARN to which EndpointCreated event notifications should be sent.     * @EventEndpointDeleted@ – Topic ARN to which EndpointDeleted event notifications should be sent.     * @EventEndpointUpdated@ – Topic ARN to which EndpointUpdate event notifications should be sent.     * @EventDeliveryFailure@ – Topic ARN to which DeliveryFailure event notifications should be sent upon Direct Publish delivery failure (permanent) to one of the application's endpoints.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gpaarrsResponseStatus' - -- | The response status code.
-getPlatformApplicationAttributesResponse ::
-  -- | 'gpaarrsResponseStatus'
-  Int ->
+-- 'attributes', 'getPlatformApplicationAttributesResponse_attributes' - Attributes include the following:
+--
+-- -   @EventEndpointCreated@ – Topic ARN to which EndpointCreated event
+--     notifications should be sent.
+--
+-- -   @EventEndpointDeleted@ – Topic ARN to which EndpointDeleted event
+--     notifications should be sent.
+--
+-- -   @EventEndpointUpdated@ – Topic ARN to which EndpointUpdate event
+--     notifications should be sent.
+--
+-- -   @EventDeliveryFailure@ – Topic ARN to which DeliveryFailure event
+--     notifications should be sent upon Direct Publish delivery failure
+--     (permanent) to one of the application\'s endpoints.
+--
+-- 'httpStatus', 'getPlatformApplicationAttributesResponse_httpStatus' - The response's http status code.
+newGetPlatformApplicationAttributesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetPlatformApplicationAttributesResponse
-getPlatformApplicationAttributesResponse
-  pResponseStatus_ =
+newGetPlatformApplicationAttributesResponse
+  pHttpStatus_ =
     GetPlatformApplicationAttributesResponse'
-      { _gpaarrsAttributes =
-          Nothing,
-        _gpaarrsResponseStatus =
-          pResponseStatus_
+      { attributes =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
--- | Attributes include the following:     * @EventEndpointCreated@ – Topic ARN to which EndpointCreated event notifications should be sent.     * @EventEndpointDeleted@ – Topic ARN to which EndpointDeleted event notifications should be sent.     * @EventEndpointUpdated@ – Topic ARN to which EndpointUpdate event notifications should be sent.     * @EventDeliveryFailure@ – Topic ARN to which DeliveryFailure event notifications should be sent upon Direct Publish delivery failure (permanent) to one of the application's endpoints.
-gpaarrsAttributes :: Lens' GetPlatformApplicationAttributesResponse (HashMap Text Text)
-gpaarrsAttributes = lens _gpaarrsAttributes (\s a -> s {_gpaarrsAttributes = a}) . _Default . _Map
+-- | Attributes include the following:
+--
+-- -   @EventEndpointCreated@ – Topic ARN to which EndpointCreated event
+--     notifications should be sent.
+--
+-- -   @EventEndpointDeleted@ – Topic ARN to which EndpointDeleted event
+--     notifications should be sent.
+--
+-- -   @EventEndpointUpdated@ – Topic ARN to which EndpointUpdate event
+--     notifications should be sent.
+--
+-- -   @EventDeliveryFailure@ – Topic ARN to which DeliveryFailure event
+--     notifications should be sent upon Direct Publish delivery failure
+--     (permanent) to one of the application\'s endpoints.
+getPlatformApplicationAttributesResponse_attributes :: Lens.Lens' GetPlatformApplicationAttributesResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+getPlatformApplicationAttributesResponse_attributes = Lens.lens (\GetPlatformApplicationAttributesResponse' {attributes} -> attributes) (\s@GetPlatformApplicationAttributesResponse' {} a -> s {attributes = a} :: GetPlatformApplicationAttributesResponse) Prelude.. Lens.mapping Prelude._Map
 
--- | -- | The response status code.
-gpaarrsResponseStatus :: Lens' GetPlatformApplicationAttributesResponse Int
-gpaarrsResponseStatus = lens _gpaarrsResponseStatus (\s a -> s {_gpaarrsResponseStatus = a})
+-- | The response's http status code.
+getPlatformApplicationAttributesResponse_httpStatus :: Lens.Lens' GetPlatformApplicationAttributesResponse Prelude.Int
+getPlatformApplicationAttributesResponse_httpStatus = Lens.lens (\GetPlatformApplicationAttributesResponse' {httpStatus} -> httpStatus) (\s@GetPlatformApplicationAttributesResponse' {} a -> s {httpStatus = a} :: GetPlatformApplicationAttributesResponse)
 
 instance
-  NFData
+  Prelude.NFData
     GetPlatformApplicationAttributesResponse

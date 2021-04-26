@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,116 +21,159 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Sets the attributes for an endpoint for a device on one of the supported push notification services, such as GCM (Firebase Cloud Messaging) and APNS. For more information, see <https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html Using Amazon SNS Mobile Push Notifications> .
+-- Sets the attributes for an endpoint for a device on one of the supported
+-- push notification services, such as GCM (Firebase Cloud Messaging) and
+-- APNS. For more information, see
+-- <https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html Using Amazon SNS Mobile Push Notifications>.
 module Network.AWS.SNS.SetEndpointAttributes
   ( -- * Creating a Request
-    setEndpointAttributes,
-    SetEndpointAttributes,
+    SetEndpointAttributes (..),
+    newSetEndpointAttributes,
 
     -- * Request Lenses
-    seaEndpointARN,
-    seaAttributes,
+    setEndpointAttributes_endpointArn,
+    setEndpointAttributes_attributes,
 
     -- * Destructuring the Response
-    setEndpointAttributesResponse,
-    SetEndpointAttributesResponse,
+    SetEndpointAttributesResponse (..),
+    newSetEndpointAttributesResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SNS.Types
 
 -- | Input for SetEndpointAttributes action.
 --
---
---
--- /See:/ 'setEndpointAttributes' smart constructor.
+-- /See:/ 'newSetEndpointAttributes' smart constructor.
 data SetEndpointAttributes = SetEndpointAttributes'
-  { _seaEndpointARN ::
-      !Text,
-    _seaAttributes ::
-      !(Map Text Text)
+  { -- | EndpointArn used for SetEndpointAttributes action.
+    endpointArn :: Prelude.Text,
+    -- | A map of the endpoint attributes. Attributes in this map include the
+    -- following:
+    --
+    -- -   @CustomUserData@ – arbitrary user data to associate with the
+    --     endpoint. Amazon SNS does not use this data. The data must be in
+    --     UTF-8 format and less than 2KB.
+    --
+    -- -   @Enabled@ – flag that enables\/disables delivery to the endpoint.
+    --     Amazon SNS will set this to false when a notification service
+    --     indicates to Amazon SNS that the endpoint is invalid. Users can set
+    --     it back to true, typically after updating Token.
+    --
+    -- -   @Token@ – device token, also referred to as a registration id, for
+    --     an app and mobile device. This is returned from the notification
+    --     service when an app and mobile device are registered with the
+    --     notification service.
+    attributes :: Prelude.Map Prelude.Text Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SetEndpointAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SetEndpointAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'seaEndpointARN' - EndpointArn used for SetEndpointAttributes action.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'seaAttributes' - A map of the endpoint attributes. Attributes in this map include the following:     * @CustomUserData@ – arbitrary user data to associate with the endpoint. Amazon SNS does not use this data. The data must be in UTF-8 format and less than 2KB.     * @Enabled@ – flag that enables/disables delivery to the endpoint. Amazon SNS will set this to false when a notification service indicates to Amazon SNS that the endpoint is invalid. Users can set it back to true, typically after updating Token.     * @Token@ – device token, also referred to as a registration id, for an app and mobile device. This is returned from the notification service when an app and mobile device are registered with the notification service.
-setEndpointAttributes ::
-  -- | 'seaEndpointARN'
-  Text ->
+-- 'endpointArn', 'setEndpointAttributes_endpointArn' - EndpointArn used for SetEndpointAttributes action.
+--
+-- 'attributes', 'setEndpointAttributes_attributes' - A map of the endpoint attributes. Attributes in this map include the
+-- following:
+--
+-- -   @CustomUserData@ – arbitrary user data to associate with the
+--     endpoint. Amazon SNS does not use this data. The data must be in
+--     UTF-8 format and less than 2KB.
+--
+-- -   @Enabled@ – flag that enables\/disables delivery to the endpoint.
+--     Amazon SNS will set this to false when a notification service
+--     indicates to Amazon SNS that the endpoint is invalid. Users can set
+--     it back to true, typically after updating Token.
+--
+-- -   @Token@ – device token, also referred to as a registration id, for
+--     an app and mobile device. This is returned from the notification
+--     service when an app and mobile device are registered with the
+--     notification service.
+newSetEndpointAttributes ::
+  -- | 'endpointArn'
+  Prelude.Text ->
   SetEndpointAttributes
-setEndpointAttributes pEndpointARN_ =
+newSetEndpointAttributes pEndpointArn_ =
   SetEndpointAttributes'
-    { _seaEndpointARN =
-        pEndpointARN_,
-      _seaAttributes = mempty
+    { endpointArn = pEndpointArn_,
+      attributes = Prelude.mempty
     }
 
 -- | EndpointArn used for SetEndpointAttributes action.
-seaEndpointARN :: Lens' SetEndpointAttributes Text
-seaEndpointARN = lens _seaEndpointARN (\s a -> s {_seaEndpointARN = a})
+setEndpointAttributes_endpointArn :: Lens.Lens' SetEndpointAttributes Prelude.Text
+setEndpointAttributes_endpointArn = Lens.lens (\SetEndpointAttributes' {endpointArn} -> endpointArn) (\s@SetEndpointAttributes' {} a -> s {endpointArn = a} :: SetEndpointAttributes)
 
--- | A map of the endpoint attributes. Attributes in this map include the following:     * @CustomUserData@ – arbitrary user data to associate with the endpoint. Amazon SNS does not use this data. The data must be in UTF-8 format and less than 2KB.     * @Enabled@ – flag that enables/disables delivery to the endpoint. Amazon SNS will set this to false when a notification service indicates to Amazon SNS that the endpoint is invalid. Users can set it back to true, typically after updating Token.     * @Token@ – device token, also referred to as a registration id, for an app and mobile device. This is returned from the notification service when an app and mobile device are registered with the notification service.
-seaAttributes :: Lens' SetEndpointAttributes (HashMap Text Text)
-seaAttributes = lens _seaAttributes (\s a -> s {_seaAttributes = a}) . _Map
+-- | A map of the endpoint attributes. Attributes in this map include the
+-- following:
+--
+-- -   @CustomUserData@ – arbitrary user data to associate with the
+--     endpoint. Amazon SNS does not use this data. The data must be in
+--     UTF-8 format and less than 2KB.
+--
+-- -   @Enabled@ – flag that enables\/disables delivery to the endpoint.
+--     Amazon SNS will set this to false when a notification service
+--     indicates to Amazon SNS that the endpoint is invalid. Users can set
+--     it back to true, typically after updating Token.
+--
+-- -   @Token@ – device token, also referred to as a registration id, for
+--     an app and mobile device. This is returned from the notification
+--     service when an app and mobile device are registered with the
+--     notification service.
+setEndpointAttributes_attributes :: Lens.Lens' SetEndpointAttributes (Prelude.HashMap Prelude.Text Prelude.Text)
+setEndpointAttributes_attributes = Lens.lens (\SetEndpointAttributes' {attributes} -> attributes) (\s@SetEndpointAttributes' {} a -> s {attributes = a} :: SetEndpointAttributes) Prelude.. Prelude._Map
 
-instance AWSRequest SetEndpointAttributes where
+instance Prelude.AWSRequest SetEndpointAttributes where
   type
     Rs SetEndpointAttributes =
       SetEndpointAttributesResponse
-  request = postQuery sns
-  response = receiveNull SetEndpointAttributesResponse'
+  request = Request.postQuery defaultService
+  response =
+    Response.receiveNull SetEndpointAttributesResponse'
 
-instance Hashable SetEndpointAttributes
+instance Prelude.Hashable SetEndpointAttributes
 
-instance NFData SetEndpointAttributes
+instance Prelude.NFData SetEndpointAttributes
 
-instance ToHeaders SetEndpointAttributes where
-  toHeaders = const mempty
+instance Prelude.ToHeaders SetEndpointAttributes where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath SetEndpointAttributes where
-  toPath = const "/"
+instance Prelude.ToPath SetEndpointAttributes where
+  toPath = Prelude.const "/"
 
-instance ToQuery SetEndpointAttributes where
+instance Prelude.ToQuery SetEndpointAttributes where
   toQuery SetEndpointAttributes' {..} =
-    mconcat
-      [ "Action" =: ("SetEndpointAttributes" :: ByteString),
-        "Version" =: ("2010-03-31" :: ByteString),
-        "EndpointArn" =: _seaEndpointARN,
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("SetEndpointAttributes" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-03-31" :: Prelude.ByteString),
+        "EndpointArn" Prelude.=: endpointArn,
         "Attributes"
-          =: toQueryMap "entry" "key" "value" _seaAttributes
+          Prelude.=: Prelude.toQueryMap "entry" "key" "value" attributes
       ]
 
--- | /See:/ 'setEndpointAttributesResponse' smart constructor.
+-- | /See:/ 'newSetEndpointAttributesResponse' smart constructor.
 data SetEndpointAttributesResponse = SetEndpointAttributesResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SetEndpointAttributesResponse' with the minimum fields required to make a request.
-setEndpointAttributesResponse ::
+-- |
+-- Create a value of 'SetEndpointAttributesResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newSetEndpointAttributesResponse ::
   SetEndpointAttributesResponse
-setEndpointAttributesResponse =
+newSetEndpointAttributesResponse =
   SetEndpointAttributesResponse'
 
-instance NFData SetEndpointAttributesResponse
+instance Prelude.NFData SetEndpointAttributesResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,132 +21,244 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Allows a subscription owner to set an attribute of the subscription to a new value.
+-- Allows a subscription owner to set an attribute of the subscription to a
+-- new value.
 module Network.AWS.SNS.SetSubscriptionAttributes
   ( -- * Creating a Request
-    setSubscriptionAttributes,
-    SetSubscriptionAttributes,
+    SetSubscriptionAttributes (..),
+    newSetSubscriptionAttributes,
 
     -- * Request Lenses
-    ssaAttributeValue,
-    ssaSubscriptionARN,
-    ssaAttributeName,
+    setSubscriptionAttributes_attributeValue,
+    setSubscriptionAttributes_subscriptionArn,
+    setSubscriptionAttributes_attributeName,
 
     -- * Destructuring the Response
-    setSubscriptionAttributesResponse,
-    SetSubscriptionAttributesResponse,
+    SetSubscriptionAttributesResponse (..),
+    newSetSubscriptionAttributesResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SNS.Types
 
 -- | Input for SetSubscriptionAttributes action.
 --
---
---
--- /See:/ 'setSubscriptionAttributes' smart constructor.
+-- /See:/ 'newSetSubscriptionAttributes' smart constructor.
 data SetSubscriptionAttributes = SetSubscriptionAttributes'
-  { _ssaAttributeValue ::
-      !(Maybe Text),
-    _ssaSubscriptionARN ::
-      !Text,
-    _ssaAttributeName ::
-      !Text
+  { -- | The new value for the attribute in JSON format.
+    attributeValue :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the subscription to modify.
+    subscriptionArn :: Prelude.Text,
+    -- | A map of attributes with their corresponding values.
+    --
+    -- The following lists the names, descriptions, and values of the special
+    -- request parameters that this action uses:
+    --
+    -- -   @DeliveryPolicy@ – The policy that defines how Amazon SNS retries
+    --     failed deliveries to HTTP\/S endpoints.
+    --
+    -- -   @FilterPolicy@ – The simple JSON object that lets your subscriber
+    --     receive only a subset of messages, rather than receiving every
+    --     message published to the topic.
+    --
+    -- -   @RawMessageDelivery@ – When set to @true@, enables raw message
+    --     delivery to Amazon SQS or HTTP\/S endpoints. This eliminates the
+    --     need for the endpoints to process JSON formatting, which is
+    --     otherwise created for Amazon SNS metadata.
+    --
+    -- -   @RedrivePolicy@ – When specified, sends undeliverable messages to
+    --     the specified Amazon SQS dead-letter queue. Messages that can\'t be
+    --     delivered due to client errors (for example, when the subscribed
+    --     endpoint is unreachable) or server errors (for example, when the
+    --     service that powers the subscribed endpoint becomes unavailable) are
+    --     held in the dead-letter queue for further analysis or reprocessing.
+    --
+    -- The following attribute applies only to Amazon Kinesis Data Firehose
+    -- delivery stream subscriptions:
+    --
+    -- -   @SubscriptionRoleArn@ – The ARN of the IAM role that has the
+    --     following:
+    --
+    --     -   Permission to write to the Kinesis Data Firehose delivery stream
+    --
+    --     -   Amazon SNS listed as a trusted entity
+    --
+    --     Specifying a valid ARN for this attribute is required for Kinesis
+    --     Data Firehose delivery stream subscriptions. For more information,
+    --     see
+    --     <https://docs.aws.amazon.com/sns/latest/dg/sns-kinesis-subscriber.html Fanout to Kinesis Data Firehose delivery streams>
+    --     in the /Amazon SNS Developer Guide/.
+    attributeName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SetSubscriptionAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SetSubscriptionAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ssaAttributeValue' - The new value for the attribute in JSON format.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ssaSubscriptionARN' - The ARN of the subscription to modify.
+-- 'attributeValue', 'setSubscriptionAttributes_attributeValue' - The new value for the attribute in JSON format.
 --
--- * 'ssaAttributeName' - A map of attributes with their corresponding values. The following lists the names, descriptions, and values of the special request parameters that this action uses:     * @DeliveryPolicy@ – The policy that defines how Amazon SNS retries failed deliveries to HTTP/S endpoints.     * @FilterPolicy@ – The simple JSON object that lets your subscriber receive only a subset of messages, rather than receiving every message published to the topic.     * @RawMessageDelivery@ – When set to @true@ , enables raw message delivery to Amazon SQS or HTTP/S endpoints. This eliminates the need for the endpoints to process JSON formatting, which is otherwise created for Amazon SNS metadata.     * @RedrivePolicy@ – When specified, sends undeliverable messages to the specified Amazon SQS dead-letter queue. Messages that can't be delivered due to client errors (for example, when the subscribed endpoint is unreachable) or server errors (for example, when the service that powers the subscribed endpoint becomes unavailable) are held in the dead-letter queue for further analysis or reprocessing. The following attribute applies only to Amazon Kinesis Data Firehose delivery stream subscriptions:     * @SubscriptionRoleArn@ – The ARN of the IAM role that has the following:     * Permission to write to the Kinesis Data Firehose delivery stream     * Amazon SNS listed as a trusted entity Specifying a valid ARN for this attribute is required for Kinesis Data Firehose delivery stream subscriptions. For more information, see <https://docs.aws.amazon.com/sns/latest/dg/sns-kinesis-subscriber.html Fanout to Kinesis Data Firehose delivery streams> in the /Amazon SNS Developer Guide/ .
-setSubscriptionAttributes ::
-  -- | 'ssaSubscriptionARN'
-  Text ->
-  -- | 'ssaAttributeName'
-  Text ->
+-- 'subscriptionArn', 'setSubscriptionAttributes_subscriptionArn' - The ARN of the subscription to modify.
+--
+-- 'attributeName', 'setSubscriptionAttributes_attributeName' - A map of attributes with their corresponding values.
+--
+-- The following lists the names, descriptions, and values of the special
+-- request parameters that this action uses:
+--
+-- -   @DeliveryPolicy@ – The policy that defines how Amazon SNS retries
+--     failed deliveries to HTTP\/S endpoints.
+--
+-- -   @FilterPolicy@ – The simple JSON object that lets your subscriber
+--     receive only a subset of messages, rather than receiving every
+--     message published to the topic.
+--
+-- -   @RawMessageDelivery@ – When set to @true@, enables raw message
+--     delivery to Amazon SQS or HTTP\/S endpoints. This eliminates the
+--     need for the endpoints to process JSON formatting, which is
+--     otherwise created for Amazon SNS metadata.
+--
+-- -   @RedrivePolicy@ – When specified, sends undeliverable messages to
+--     the specified Amazon SQS dead-letter queue. Messages that can\'t be
+--     delivered due to client errors (for example, when the subscribed
+--     endpoint is unreachable) or server errors (for example, when the
+--     service that powers the subscribed endpoint becomes unavailable) are
+--     held in the dead-letter queue for further analysis or reprocessing.
+--
+-- The following attribute applies only to Amazon Kinesis Data Firehose
+-- delivery stream subscriptions:
+--
+-- -   @SubscriptionRoleArn@ – The ARN of the IAM role that has the
+--     following:
+--
+--     -   Permission to write to the Kinesis Data Firehose delivery stream
+--
+--     -   Amazon SNS listed as a trusted entity
+--
+--     Specifying a valid ARN for this attribute is required for Kinesis
+--     Data Firehose delivery stream subscriptions. For more information,
+--     see
+--     <https://docs.aws.amazon.com/sns/latest/dg/sns-kinesis-subscriber.html Fanout to Kinesis Data Firehose delivery streams>
+--     in the /Amazon SNS Developer Guide/.
+newSetSubscriptionAttributes ::
+  -- | 'subscriptionArn'
+  Prelude.Text ->
+  -- | 'attributeName'
+  Prelude.Text ->
   SetSubscriptionAttributes
-setSubscriptionAttributes
-  pSubscriptionARN_
+newSetSubscriptionAttributes
+  pSubscriptionArn_
   pAttributeName_ =
     SetSubscriptionAttributes'
-      { _ssaAttributeValue =
-          Nothing,
-        _ssaSubscriptionARN = pSubscriptionARN_,
-        _ssaAttributeName = pAttributeName_
+      { attributeValue =
+          Prelude.Nothing,
+        subscriptionArn = pSubscriptionArn_,
+        attributeName = pAttributeName_
       }
 
 -- | The new value for the attribute in JSON format.
-ssaAttributeValue :: Lens' SetSubscriptionAttributes (Maybe Text)
-ssaAttributeValue = lens _ssaAttributeValue (\s a -> s {_ssaAttributeValue = a})
+setSubscriptionAttributes_attributeValue :: Lens.Lens' SetSubscriptionAttributes (Prelude.Maybe Prelude.Text)
+setSubscriptionAttributes_attributeValue = Lens.lens (\SetSubscriptionAttributes' {attributeValue} -> attributeValue) (\s@SetSubscriptionAttributes' {} a -> s {attributeValue = a} :: SetSubscriptionAttributes)
 
 -- | The ARN of the subscription to modify.
-ssaSubscriptionARN :: Lens' SetSubscriptionAttributes Text
-ssaSubscriptionARN = lens _ssaSubscriptionARN (\s a -> s {_ssaSubscriptionARN = a})
+setSubscriptionAttributes_subscriptionArn :: Lens.Lens' SetSubscriptionAttributes Prelude.Text
+setSubscriptionAttributes_subscriptionArn = Lens.lens (\SetSubscriptionAttributes' {subscriptionArn} -> subscriptionArn) (\s@SetSubscriptionAttributes' {} a -> s {subscriptionArn = a} :: SetSubscriptionAttributes)
 
--- | A map of attributes with their corresponding values. The following lists the names, descriptions, and values of the special request parameters that this action uses:     * @DeliveryPolicy@ – The policy that defines how Amazon SNS retries failed deliveries to HTTP/S endpoints.     * @FilterPolicy@ – The simple JSON object that lets your subscriber receive only a subset of messages, rather than receiving every message published to the topic.     * @RawMessageDelivery@ – When set to @true@ , enables raw message delivery to Amazon SQS or HTTP/S endpoints. This eliminates the need for the endpoints to process JSON formatting, which is otherwise created for Amazon SNS metadata.     * @RedrivePolicy@ – When specified, sends undeliverable messages to the specified Amazon SQS dead-letter queue. Messages that can't be delivered due to client errors (for example, when the subscribed endpoint is unreachable) or server errors (for example, when the service that powers the subscribed endpoint becomes unavailable) are held in the dead-letter queue for further analysis or reprocessing. The following attribute applies only to Amazon Kinesis Data Firehose delivery stream subscriptions:     * @SubscriptionRoleArn@ – The ARN of the IAM role that has the following:     * Permission to write to the Kinesis Data Firehose delivery stream     * Amazon SNS listed as a trusted entity Specifying a valid ARN for this attribute is required for Kinesis Data Firehose delivery stream subscriptions. For more information, see <https://docs.aws.amazon.com/sns/latest/dg/sns-kinesis-subscriber.html Fanout to Kinesis Data Firehose delivery streams> in the /Amazon SNS Developer Guide/ .
-ssaAttributeName :: Lens' SetSubscriptionAttributes Text
-ssaAttributeName = lens _ssaAttributeName (\s a -> s {_ssaAttributeName = a})
+-- | A map of attributes with their corresponding values.
+--
+-- The following lists the names, descriptions, and values of the special
+-- request parameters that this action uses:
+--
+-- -   @DeliveryPolicy@ – The policy that defines how Amazon SNS retries
+--     failed deliveries to HTTP\/S endpoints.
+--
+-- -   @FilterPolicy@ – The simple JSON object that lets your subscriber
+--     receive only a subset of messages, rather than receiving every
+--     message published to the topic.
+--
+-- -   @RawMessageDelivery@ – When set to @true@, enables raw message
+--     delivery to Amazon SQS or HTTP\/S endpoints. This eliminates the
+--     need for the endpoints to process JSON formatting, which is
+--     otherwise created for Amazon SNS metadata.
+--
+-- -   @RedrivePolicy@ – When specified, sends undeliverable messages to
+--     the specified Amazon SQS dead-letter queue. Messages that can\'t be
+--     delivered due to client errors (for example, when the subscribed
+--     endpoint is unreachable) or server errors (for example, when the
+--     service that powers the subscribed endpoint becomes unavailable) are
+--     held in the dead-letter queue for further analysis or reprocessing.
+--
+-- The following attribute applies only to Amazon Kinesis Data Firehose
+-- delivery stream subscriptions:
+--
+-- -   @SubscriptionRoleArn@ – The ARN of the IAM role that has the
+--     following:
+--
+--     -   Permission to write to the Kinesis Data Firehose delivery stream
+--
+--     -   Amazon SNS listed as a trusted entity
+--
+--     Specifying a valid ARN for this attribute is required for Kinesis
+--     Data Firehose delivery stream subscriptions. For more information,
+--     see
+--     <https://docs.aws.amazon.com/sns/latest/dg/sns-kinesis-subscriber.html Fanout to Kinesis Data Firehose delivery streams>
+--     in the /Amazon SNS Developer Guide/.
+setSubscriptionAttributes_attributeName :: Lens.Lens' SetSubscriptionAttributes Prelude.Text
+setSubscriptionAttributes_attributeName = Lens.lens (\SetSubscriptionAttributes' {attributeName} -> attributeName) (\s@SetSubscriptionAttributes' {} a -> s {attributeName = a} :: SetSubscriptionAttributes)
 
-instance AWSRequest SetSubscriptionAttributes where
+instance Prelude.AWSRequest SetSubscriptionAttributes where
   type
     Rs SetSubscriptionAttributes =
       SetSubscriptionAttributesResponse
-  request = postQuery sns
+  request = Request.postQuery defaultService
   response =
-    receiveNull SetSubscriptionAttributesResponse'
+    Response.receiveNull
+      SetSubscriptionAttributesResponse'
 
-instance Hashable SetSubscriptionAttributes
+instance Prelude.Hashable SetSubscriptionAttributes
 
-instance NFData SetSubscriptionAttributes
+instance Prelude.NFData SetSubscriptionAttributes
 
-instance ToHeaders SetSubscriptionAttributes where
-  toHeaders = const mempty
+instance Prelude.ToHeaders SetSubscriptionAttributes where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath SetSubscriptionAttributes where
-  toPath = const "/"
+instance Prelude.ToPath SetSubscriptionAttributes where
+  toPath = Prelude.const "/"
 
-instance ToQuery SetSubscriptionAttributes where
+instance Prelude.ToQuery SetSubscriptionAttributes where
   toQuery SetSubscriptionAttributes' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("SetSubscriptionAttributes" :: ByteString),
-        "Version" =: ("2010-03-31" :: ByteString),
-        "AttributeValue" =: _ssaAttributeValue,
-        "SubscriptionArn" =: _ssaSubscriptionARN,
-        "AttributeName" =: _ssaAttributeName
+          Prelude.=: ("SetSubscriptionAttributes" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-03-31" :: Prelude.ByteString),
+        "AttributeValue" Prelude.=: attributeValue,
+        "SubscriptionArn" Prelude.=: subscriptionArn,
+        "AttributeName" Prelude.=: attributeName
       ]
 
--- | /See:/ 'setSubscriptionAttributesResponse' smart constructor.
+-- | /See:/ 'newSetSubscriptionAttributesResponse' smart constructor.
 data SetSubscriptionAttributesResponse = SetSubscriptionAttributesResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SetSubscriptionAttributesResponse' with the minimum fields required to make a request.
-setSubscriptionAttributesResponse ::
+-- |
+-- Create a value of 'SetSubscriptionAttributesResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newSetSubscriptionAttributesResponse ::
   SetSubscriptionAttributesResponse
-setSubscriptionAttributesResponse =
+newSetSubscriptionAttributesResponse =
   SetSubscriptionAttributesResponse'
 
-instance NFData SetSubscriptionAttributesResponse
+instance
+  Prelude.NFData
+    SetSubscriptionAttributesResponse

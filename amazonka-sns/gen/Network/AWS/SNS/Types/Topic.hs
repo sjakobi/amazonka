@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,33 +19,40 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SNS.Types.Topic where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A wrapper type for the topic's Amazon Resource Name (ARN). To retrieve a topic's attributes, use @GetTopicAttributes@ .
+-- | A wrapper type for the topic\'s Amazon Resource Name (ARN). To retrieve
+-- a topic\'s attributes, use @GetTopicAttributes@.
 --
---
---
--- /See:/ 'topic' smart constructor.
-newtype Topic = Topic' {_tTopicARN :: Maybe Text}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- /See:/ 'newTopic' smart constructor.
+data Topic = Topic'
+  { -- | The topic\'s ARN.
+    topicArn :: Prelude.Maybe Prelude.Text
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Topic' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Topic' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tTopicARN' - The topic's ARN.
-topic ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'topicArn', 'topic_topicArn' - The topic\'s ARN.
+newTopic ::
   Topic
-topic = Topic' {_tTopicARN = Nothing}
+newTopic = Topic' {topicArn = Prelude.Nothing}
 
--- | The topic's ARN.
-tTopicARN :: Lens' Topic (Maybe Text)
-tTopicARN = lens _tTopicARN (\s a -> s {_tTopicARN = a})
+-- | The topic\'s ARN.
+topic_topicArn :: Lens.Lens' Topic (Prelude.Maybe Prelude.Text)
+topic_topicArn = Lens.lens (\Topic' {topicArn} -> topicArn) (\s@Topic' {} a -> s {topicArn = a} :: Topic)
 
-instance FromXML Topic where
-  parseXML x = Topic' <$> (x .@? "TopicArn")
+instance Prelude.FromXML Topic where
+  parseXML x =
+    Topic' Prelude.<$> (x Prelude..@? "TopicArn")
 
-instance Hashable Topic
+instance Prelude.Hashable Topic
 
-instance NFData Topic
+instance Prelude.NFData Topic

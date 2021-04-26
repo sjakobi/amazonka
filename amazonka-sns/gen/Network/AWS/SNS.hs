@@ -11,16 +11,31 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- __Amazon Simple Notification Service__
+-- Amazon Simple Notification Service
 --
--- Amazon Simple Notification Service (Amazon SNS) is a web service that enables you to build distributed web-enabled applications. Applications can use Amazon SNS to easily push real-time notification messages to interested subscribers over multiple delivery protocols. For more information about this product see the <http://aws.amazon.com/sns/ Amazon SNS product page> . For detailed information about Amazon SNS features and their associated API calls, see the <https://docs.aws.amazon.com/sns/latest/dg/ Amazon SNS Developer Guide> .
+-- Amazon Simple Notification Service (Amazon SNS) is a web service that
+-- enables you to build distributed web-enabled applications. Applications
+-- can use Amazon SNS to easily push real-time notification messages to
+-- interested subscribers over multiple delivery protocols. For more
+-- information about this product see the
+-- <http://aws.amazon.com/sns/ Amazon SNS product page>. For detailed
+-- information about Amazon SNS features and their associated API calls,
+-- see the
+-- <https://docs.aws.amazon.com/sns/latest/dg/ Amazon SNS Developer Guide>.
 --
--- For information on the permissions you need to use this API, see <https://docs.aws.amazon.com/sns/latest/dg/sns-authentication-and-access-control.html Identity and access management in Amazon SNS> in the /Amazon SNS Developer Guide./
+-- For information on the permissions you need to use this API, see
+-- <https://docs.aws.amazon.com/sns/latest/dg/sns-authentication-and-access-control.html Identity and access management in Amazon SNS>
+-- in the /Amazon SNS Developer Guide./
 --
--- We also provide SDKs that enable you to access Amazon SNS from your preferred programming language. The SDKs contain functionality that automatically takes care of tasks such as: cryptographically signing your service requests, retrying requests, and handling error responses. For a list of available SDKs, go to <http://aws.amazon.com/tools/ Tools for Amazon Web Services> .
+-- We also provide SDKs that enable you to access Amazon SNS from your
+-- preferred programming language. The SDKs contain functionality that
+-- automatically takes care of tasks such as: cryptographically signing
+-- your service requests, retrying requests, and handling error responses.
+-- For a list of available SDKs, go to
+-- <http://aws.amazon.com/tools/ Tools for Amazon Web Services>.
 module Network.AWS.SNS
   ( -- * Service Configuration
-    sns,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -101,144 +116,228 @@ module Network.AWS.SNS
     -- $operations
 
     -- ** DeletePlatformApplication
-    module Network.AWS.SNS.DeletePlatformApplication,
+    DeletePlatformApplication (DeletePlatformApplication'),
+    newDeletePlatformApplication,
+    DeletePlatformApplicationResponse (DeletePlatformApplicationResponse'),
+    newDeletePlatformApplicationResponse,
 
     -- ** ConfirmSubscription
-    module Network.AWS.SNS.ConfirmSubscription,
+    ConfirmSubscription (ConfirmSubscription'),
+    newConfirmSubscription,
+    ConfirmSubscriptionResponse (ConfirmSubscriptionResponse'),
+    newConfirmSubscriptionResponse,
 
     -- ** Publish
-    module Network.AWS.SNS.Publish,
+    Publish (Publish'),
+    newPublish,
+    PublishResponse (PublishResponse'),
+    newPublishResponse,
 
     -- ** OptInPhoneNumber
-    module Network.AWS.SNS.OptInPhoneNumber,
+    OptInPhoneNumber (OptInPhoneNumber'),
+    newOptInPhoneNumber,
+    OptInPhoneNumberResponse (OptInPhoneNumberResponse'),
+    newOptInPhoneNumberResponse,
 
     -- ** UntagResource
-    module Network.AWS.SNS.UntagResource,
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
 
     -- ** Unsubscribe
-    module Network.AWS.SNS.Unsubscribe,
+    Unsubscribe (Unsubscribe'),
+    newUnsubscribe,
+    UnsubscribeResponse (UnsubscribeResponse'),
+    newUnsubscribeResponse,
 
     -- ** ListSubscriptionsByTopic (Paginated)
-    module Network.AWS.SNS.ListSubscriptionsByTopic,
+    ListSubscriptionsByTopic (ListSubscriptionsByTopic'),
+    newListSubscriptionsByTopic,
+    ListSubscriptionsByTopicResponse (ListSubscriptionsByTopicResponse'),
+    newListSubscriptionsByTopicResponse,
 
     -- ** GetTopicAttributes
-    module Network.AWS.SNS.GetTopicAttributes,
+    GetTopicAttributes (GetTopicAttributes'),
+    newGetTopicAttributes,
+    GetTopicAttributesResponse (GetTopicAttributesResponse'),
+    newGetTopicAttributesResponse,
 
     -- ** SetSMSAttributes
-    module Network.AWS.SNS.SetSMSAttributes,
+    SetSMSAttributes (SetSMSAttributes'),
+    newSetSMSAttributes,
+    SetSMSAttributesResponse (SetSMSAttributesResponse'),
+    newSetSMSAttributesResponse,
 
     -- ** SetPlatformApplicationAttributes
-    module Network.AWS.SNS.SetPlatformApplicationAttributes,
+    SetPlatformApplicationAttributes (SetPlatformApplicationAttributes'),
+    newSetPlatformApplicationAttributes,
+    SetPlatformApplicationAttributesResponse (SetPlatformApplicationAttributesResponse'),
+    newSetPlatformApplicationAttributesResponse,
 
     -- ** TagResource
-    module Network.AWS.SNS.TagResource,
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
 
     -- ** CreatePlatformEndpoint
-    module Network.AWS.SNS.CreatePlatformEndpoint,
+    CreatePlatformEndpoint (CreatePlatformEndpoint'),
+    newCreatePlatformEndpoint,
+    CreatePlatformEndpointResponse (CreatePlatformEndpointResponse'),
+    newCreatePlatformEndpointResponse,
 
     -- ** Subscribe
-    module Network.AWS.SNS.Subscribe,
+    Subscribe (Subscribe'),
+    newSubscribe,
+    SubscribeResponse (SubscribeResponse'),
+    newSubscribeResponse,
 
     -- ** ListTopics (Paginated)
-    module Network.AWS.SNS.ListTopics,
+    ListTopics (ListTopics'),
+    newListTopics,
+    ListTopicsResponse (ListTopicsResponse'),
+    newListTopicsResponse,
 
     -- ** ListSubscriptions (Paginated)
-    module Network.AWS.SNS.ListSubscriptions,
+    ListSubscriptions (ListSubscriptions'),
+    newListSubscriptions,
+    ListSubscriptionsResponse (ListSubscriptionsResponse'),
+    newListSubscriptionsResponse,
 
     -- ** GetSubscriptionAttributes
-    module Network.AWS.SNS.GetSubscriptionAttributes,
+    GetSubscriptionAttributes (GetSubscriptionAttributes'),
+    newGetSubscriptionAttributes,
+    GetSubscriptionAttributesResponse (GetSubscriptionAttributesResponse'),
+    newGetSubscriptionAttributesResponse,
 
     -- ** DeleteEndpoint
-    module Network.AWS.SNS.DeleteEndpoint,
+    DeleteEndpoint (DeleteEndpoint'),
+    newDeleteEndpoint,
+    DeleteEndpointResponse (DeleteEndpointResponse'),
+    newDeleteEndpointResponse,
 
     -- ** AddPermission
-    module Network.AWS.SNS.AddPermission,
+    AddPermission (AddPermission'),
+    newAddPermission,
+    AddPermissionResponse (AddPermissionResponse'),
+    newAddPermissionResponse,
 
     -- ** ListPhoneNumbersOptedOut (Paginated)
-    module Network.AWS.SNS.ListPhoneNumbersOptedOut,
+    ListPhoneNumbersOptedOut (ListPhoneNumbersOptedOut'),
+    newListPhoneNumbersOptedOut,
+    ListPhoneNumbersOptedOutResponse (ListPhoneNumbersOptedOutResponse'),
+    newListPhoneNumbersOptedOutResponse,
 
     -- ** GetEndpointAttributes
-    module Network.AWS.SNS.GetEndpointAttributes,
+    GetEndpointAttributes (GetEndpointAttributes'),
+    newGetEndpointAttributes,
+    GetEndpointAttributesResponse (GetEndpointAttributesResponse'),
+    newGetEndpointAttributesResponse,
 
     -- ** GetPlatformApplicationAttributes
-    module Network.AWS.SNS.GetPlatformApplicationAttributes,
+    GetPlatformApplicationAttributes (GetPlatformApplicationAttributes'),
+    newGetPlatformApplicationAttributes,
+    GetPlatformApplicationAttributesResponse (GetPlatformApplicationAttributesResponse'),
+    newGetPlatformApplicationAttributesResponse,
 
     -- ** SetTopicAttributes
-    module Network.AWS.SNS.SetTopicAttributes,
+    SetTopicAttributes (SetTopicAttributes'),
+    newSetTopicAttributes,
+    SetTopicAttributesResponse (SetTopicAttributesResponse'),
+    newSetTopicAttributesResponse,
 
     -- ** ListEndpointsByPlatformApplication (Paginated)
-    module Network.AWS.SNS.ListEndpointsByPlatformApplication,
+    ListEndpointsByPlatformApplication (ListEndpointsByPlatformApplication'),
+    newListEndpointsByPlatformApplication,
+    ListEndpointsByPlatformApplicationResponse (ListEndpointsByPlatformApplicationResponse'),
+    newListEndpointsByPlatformApplicationResponse,
 
     -- ** GetSMSAttributes
-    module Network.AWS.SNS.GetSMSAttributes,
+    GetSMSAttributes (GetSMSAttributes'),
+    newGetSMSAttributes,
+    GetSMSAttributesResponse (GetSMSAttributesResponse'),
+    newGetSMSAttributesResponse,
 
     -- ** ListPlatformApplications (Paginated)
-    module Network.AWS.SNS.ListPlatformApplications,
+    ListPlatformApplications (ListPlatformApplications'),
+    newListPlatformApplications,
+    ListPlatformApplicationsResponse (ListPlatformApplicationsResponse'),
+    newListPlatformApplicationsResponse,
 
     -- ** CreatePlatformApplication
-    module Network.AWS.SNS.CreatePlatformApplication,
+    CreatePlatformApplication (CreatePlatformApplication'),
+    newCreatePlatformApplication,
+    CreatePlatformApplicationResponse (CreatePlatformApplicationResponse'),
+    newCreatePlatformApplicationResponse,
 
     -- ** SetEndpointAttributes
-    module Network.AWS.SNS.SetEndpointAttributes,
+    SetEndpointAttributes (SetEndpointAttributes'),
+    newSetEndpointAttributes,
+    SetEndpointAttributesResponse (SetEndpointAttributesResponse'),
+    newSetEndpointAttributesResponse,
 
     -- ** SetSubscriptionAttributes
-    module Network.AWS.SNS.SetSubscriptionAttributes,
+    SetSubscriptionAttributes (SetSubscriptionAttributes'),
+    newSetSubscriptionAttributes,
+    SetSubscriptionAttributesResponse (SetSubscriptionAttributesResponse'),
+    newSetSubscriptionAttributesResponse,
 
     -- ** CheckIfPhoneNumberIsOptedOut
-    module Network.AWS.SNS.CheckIfPhoneNumberIsOptedOut,
+    CheckIfPhoneNumberIsOptedOut (CheckIfPhoneNumberIsOptedOut'),
+    newCheckIfPhoneNumberIsOptedOut,
+    CheckIfPhoneNumberIsOptedOutResponse (CheckIfPhoneNumberIsOptedOutResponse'),
+    newCheckIfPhoneNumberIsOptedOutResponse,
 
     -- ** DeleteTopic
-    module Network.AWS.SNS.DeleteTopic,
+    DeleteTopic (DeleteTopic'),
+    newDeleteTopic,
+    DeleteTopicResponse (DeleteTopicResponse'),
+    newDeleteTopicResponse,
 
     -- ** CreateTopic
-    module Network.AWS.SNS.CreateTopic,
+    CreateTopic (CreateTopic'),
+    newCreateTopic,
+    CreateTopicResponse (CreateTopicResponse'),
+    newCreateTopicResponse,
 
     -- ** RemovePermission
-    module Network.AWS.SNS.RemovePermission,
+    RemovePermission (RemovePermission'),
+    newRemovePermission,
+    RemovePermissionResponse (RemovePermissionResponse'),
+    newRemovePermissionResponse,
 
     -- ** ListTagsForResource
-    module Network.AWS.SNS.ListTagsForResource,
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
 
     -- * Types
 
     -- ** Endpoint
-    Endpoint,
-    endpoint,
-    eAttributes,
-    eEndpointARN,
+    Endpoint (Endpoint'),
+    newEndpoint,
 
     -- ** MessageAttributeValue
-    MessageAttributeValue,
-    messageAttributeValue,
-    mavStringValue,
-    mavBinaryValue,
-    mavDataType,
+    MessageAttributeValue (MessageAttributeValue'),
+    newMessageAttributeValue,
 
     -- ** PlatformApplication
-    PlatformApplication,
-    platformApplication,
-    paPlatformApplicationARN,
-    paAttributes,
+    PlatformApplication (PlatformApplication'),
+    newPlatformApplication,
 
     -- ** Subscription
-    Subscription,
-    subscription,
-    sTopicARN,
-    sOwner,
-    sSubscriptionARN,
-    sProtocol,
-    sEndpoint,
+    Subscription (Subscription'),
+    newSubscription,
 
     -- ** Tag
-    Tag,
-    tag,
-    tagKey,
-    tagValue,
+    Tag (Tag'),
+    newTag,
 
     -- ** Topic
-    Topic,
-    topic,
-    tTopicARN,
+    Topic (Topic'),
+    newTopic,
   )
 where
 
@@ -256,6 +355,7 @@ import Network.AWS.SNS.GetPlatformApplicationAttributes
 import Network.AWS.SNS.GetSMSAttributes
 import Network.AWS.SNS.GetSubscriptionAttributes
 import Network.AWS.SNS.GetTopicAttributes
+import Network.AWS.SNS.Lens
 import Network.AWS.SNS.ListEndpointsByPlatformApplication
 import Network.AWS.SNS.ListPhoneNumbersOptedOut
 import Network.AWS.SNS.ListPlatformApplications

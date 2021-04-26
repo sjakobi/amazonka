@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,136 +23,155 @@
 --
 -- Returns the settings for sending SMS messages from your account.
 --
---
 -- These settings are set with the @SetSMSAttributes@ action.
 module Network.AWS.SNS.GetSMSAttributes
   ( -- * Creating a Request
-    getSMSAttributes,
-    GetSMSAttributes,
+    GetSMSAttributes (..),
+    newGetSMSAttributes,
 
     -- * Request Lenses
-    gsmsaAttributes,
+    getSMSAttributes_attributes,
 
     -- * Destructuring the Response
-    getSMSAttributesResponse,
-    GetSMSAttributesResponse,
+    GetSMSAttributesResponse (..),
+    newGetSMSAttributesResponse,
 
     -- * Response Lenses
-    gsmsarrsAttributes,
-    gsmsarrsResponseStatus,
+    getSMSAttributesResponse_attributes,
+    getSMSAttributesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SNS.Types
 
 -- | The input for the @GetSMSAttributes@ request.
 --
---
---
--- /See:/ 'getSMSAttributes' smart constructor.
-newtype GetSMSAttributes = GetSMSAttributes'
-  { _gsmsaAttributes ::
-      Maybe [Text]
+-- /See:/ 'newGetSMSAttributes' smart constructor.
+data GetSMSAttributes = GetSMSAttributes'
+  { -- | A list of the individual attribute names, such as @MonthlySpendLimit@,
+    -- for which you want values.
+    --
+    -- For all attribute names, see
+    -- <https://docs.aws.amazon.com/sns/latest/api/API_SetSMSAttributes.html SetSMSAttributes>.
+    --
+    -- If you don\'t use this parameter, Amazon SNS returns all SMS attributes.
+    attributes :: Prelude.Maybe [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetSMSAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetSMSAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gsmsaAttributes' - A list of the individual attribute names, such as @MonthlySpendLimit@ , for which you want values. For all attribute names, see <https://docs.aws.amazon.com/sns/latest/api/API_SetSMSAttributes.html SetSMSAttributes> . If you don't use this parameter, Amazon SNS returns all SMS attributes.
-getSMSAttributes ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'attributes', 'getSMSAttributes_attributes' - A list of the individual attribute names, such as @MonthlySpendLimit@,
+-- for which you want values.
+--
+-- For all attribute names, see
+-- <https://docs.aws.amazon.com/sns/latest/api/API_SetSMSAttributes.html SetSMSAttributes>.
+--
+-- If you don\'t use this parameter, Amazon SNS returns all SMS attributes.
+newGetSMSAttributes ::
   GetSMSAttributes
-getSMSAttributes =
-  GetSMSAttributes' {_gsmsaAttributes = Nothing}
+newGetSMSAttributes =
+  GetSMSAttributes' {attributes = Prelude.Nothing}
 
--- | A list of the individual attribute names, such as @MonthlySpendLimit@ , for which you want values. For all attribute names, see <https://docs.aws.amazon.com/sns/latest/api/API_SetSMSAttributes.html SetSMSAttributes> . If you don't use this parameter, Amazon SNS returns all SMS attributes.
-gsmsaAttributes :: Lens' GetSMSAttributes [Text]
-gsmsaAttributes = lens _gsmsaAttributes (\s a -> s {_gsmsaAttributes = a}) . _Default . _Coerce
+-- | A list of the individual attribute names, such as @MonthlySpendLimit@,
+-- for which you want values.
+--
+-- For all attribute names, see
+-- <https://docs.aws.amazon.com/sns/latest/api/API_SetSMSAttributes.html SetSMSAttributes>.
+--
+-- If you don\'t use this parameter, Amazon SNS returns all SMS attributes.
+getSMSAttributes_attributes :: Lens.Lens' GetSMSAttributes (Prelude.Maybe [Prelude.Text])
+getSMSAttributes_attributes = Lens.lens (\GetSMSAttributes' {attributes} -> attributes) (\s@GetSMSAttributes' {} a -> s {attributes = a} :: GetSMSAttributes) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSRequest GetSMSAttributes where
+instance Prelude.AWSRequest GetSMSAttributes where
   type Rs GetSMSAttributes = GetSMSAttributesResponse
-  request = postQuery sns
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "GetSMSAttributesResult"
       ( \s h x ->
           GetSMSAttributesResponse'
-            <$> ( x .@? "attributes" .!@ mempty
-                    >>= may (parseXMLMap "entry" "key" "value")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "attributes"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may
+                              (Prelude.parseXMLMap "entry" "key" "value")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetSMSAttributes
+instance Prelude.Hashable GetSMSAttributes
 
-instance NFData GetSMSAttributes
+instance Prelude.NFData GetSMSAttributes
 
-instance ToHeaders GetSMSAttributes where
-  toHeaders = const mempty
+instance Prelude.ToHeaders GetSMSAttributes where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath GetSMSAttributes where
-  toPath = const "/"
+instance Prelude.ToPath GetSMSAttributes where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetSMSAttributes where
+instance Prelude.ToQuery GetSMSAttributes where
   toQuery GetSMSAttributes' {..} =
-    mconcat
-      [ "Action" =: ("GetSMSAttributes" :: ByteString),
-        "Version" =: ("2010-03-31" :: ByteString),
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("GetSMSAttributes" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-03-31" :: Prelude.ByteString),
         "attributes"
-          =: toQuery (toQueryList "member" <$> _gsmsaAttributes)
+          Prelude.=: Prelude.toQuery
+            ( Prelude.toQueryList "member"
+                Prelude.<$> attributes
+            )
       ]
 
 -- | The response from the @GetSMSAttributes@ request.
 --
---
---
--- /See:/ 'getSMSAttributesResponse' smart constructor.
+-- /See:/ 'newGetSMSAttributesResponse' smart constructor.
 data GetSMSAttributesResponse = GetSMSAttributesResponse'
-  { _gsmsarrsAttributes ::
-      !( Maybe
-           (Map Text Text)
-       ),
-    _gsmsarrsResponseStatus ::
-      !Int
+  { -- | The SMS attribute names and their values.
+    attributes :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetSMSAttributesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetSMSAttributesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gsmsarrsAttributes' - The SMS attribute names and their values.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gsmsarrsResponseStatus' - -- | The response status code.
-getSMSAttributesResponse ::
-  -- | 'gsmsarrsResponseStatus'
-  Int ->
+-- 'attributes', 'getSMSAttributesResponse_attributes' - The SMS attribute names and their values.
+--
+-- 'httpStatus', 'getSMSAttributesResponse_httpStatus' - The response's http status code.
+newGetSMSAttributesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetSMSAttributesResponse
-getSMSAttributesResponse pResponseStatus_ =
+newGetSMSAttributesResponse pHttpStatus_ =
   GetSMSAttributesResponse'
-    { _gsmsarrsAttributes =
-        Nothing,
-      _gsmsarrsResponseStatus = pResponseStatus_
+    { attributes =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The SMS attribute names and their values.
-gsmsarrsAttributes :: Lens' GetSMSAttributesResponse (HashMap Text Text)
-gsmsarrsAttributes = lens _gsmsarrsAttributes (\s a -> s {_gsmsarrsAttributes = a}) . _Default . _Map
+getSMSAttributesResponse_attributes :: Lens.Lens' GetSMSAttributesResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+getSMSAttributesResponse_attributes = Lens.lens (\GetSMSAttributesResponse' {attributes} -> attributes) (\s@GetSMSAttributesResponse' {} a -> s {attributes = a} :: GetSMSAttributesResponse) Prelude.. Lens.mapping Prelude._Map
 
--- | -- | The response status code.
-gsmsarrsResponseStatus :: Lens' GetSMSAttributesResponse Int
-gsmsarrsResponseStatus = lens _gsmsarrsResponseStatus (\s a -> s {_gsmsarrsResponseStatus = a})
+-- | The response's http status code.
+getSMSAttributesResponse_httpStatus :: Lens.Lens' GetSMSAttributesResponse Prelude.Int
+getSMSAttributesResponse_httpStatus = Lens.lens (\GetSMSAttributesResponse' {httpStatus} -> httpStatus) (\s@GetSMSAttributesResponse' {} a -> s {httpStatus = a} :: GetSMSAttributesResponse)
 
-instance NFData GetSMSAttributesResponse
+instance Prelude.NFData GetSMSAttributesResponse

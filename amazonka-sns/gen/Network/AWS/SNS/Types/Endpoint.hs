@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,52 +19,57 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SNS.Types.Endpoint where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Endpoint for mobile app and device.
 --
---
---
--- /See:/ 'endpoint' smart constructor.
+-- /See:/ 'newEndpoint' smart constructor.
 data Endpoint = Endpoint'
-  { _eAttributes ::
-      !(Maybe (Map Text Text)),
-    _eEndpointARN :: !(Maybe Text)
+  { -- | Attributes for endpoint.
+    attributes :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | EndpointArn for mobile app and device.
+    endpointArn :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Endpoint' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Endpoint' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eAttributes' - Attributes for endpoint.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'eEndpointARN' - EndpointArn for mobile app and device.
-endpoint ::
+-- 'attributes', 'endpoint_attributes' - Attributes for endpoint.
+--
+-- 'endpointArn', 'endpoint_endpointArn' - EndpointArn for mobile app and device.
+newEndpoint ::
   Endpoint
-endpoint =
+newEndpoint =
   Endpoint'
-    { _eAttributes = Nothing,
-      _eEndpointARN = Nothing
+    { attributes = Prelude.Nothing,
+      endpointArn = Prelude.Nothing
     }
 
 -- | Attributes for endpoint.
-eAttributes :: Lens' Endpoint (HashMap Text Text)
-eAttributes = lens _eAttributes (\s a -> s {_eAttributes = a}) . _Default . _Map
+endpoint_attributes :: Lens.Lens' Endpoint (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+endpoint_attributes = Lens.lens (\Endpoint' {attributes} -> attributes) (\s@Endpoint' {} a -> s {attributes = a} :: Endpoint) Prelude.. Lens.mapping Prelude._Map
 
 -- | EndpointArn for mobile app and device.
-eEndpointARN :: Lens' Endpoint (Maybe Text)
-eEndpointARN = lens _eEndpointARN (\s a -> s {_eEndpointARN = a})
+endpoint_endpointArn :: Lens.Lens' Endpoint (Prelude.Maybe Prelude.Text)
+endpoint_endpointArn = Lens.lens (\Endpoint' {endpointArn} -> endpointArn) (\s@Endpoint' {} a -> s {endpointArn = a} :: Endpoint)
 
-instance FromXML Endpoint where
+instance Prelude.FromXML Endpoint where
   parseXML x =
     Endpoint'
-      <$> ( x .@? "Attributes" .!@ mempty
-              >>= may (parseXMLMap "entry" "key" "value")
-          )
-      <*> (x .@? "EndpointArn")
+      Prelude.<$> ( x Prelude..@? "Attributes"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may
+                        (Prelude.parseXMLMap "entry" "key" "value")
+                  )
+      Prelude.<*> (x Prelude..@? "EndpointArn")
 
-instance Hashable Endpoint
+instance Prelude.Hashable Endpoint
 
-instance NFData Endpoint
+instance Prelude.NFData Endpoint

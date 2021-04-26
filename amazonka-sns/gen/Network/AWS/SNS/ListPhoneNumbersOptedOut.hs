@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,175 +21,202 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns a list of phone numbers that are opted out, meaning you cannot send SMS messages to them.
+-- Returns a list of phone numbers that are opted out, meaning you cannot
+-- send SMS messages to them.
 --
---
--- The results for @ListPhoneNumbersOptedOut@ are paginated, and each page returns up to 100 phone numbers. If additional phone numbers are available after the first page of results, then a @NextToken@ string will be returned. To receive the next page, you call @ListPhoneNumbersOptedOut@ again using the @NextToken@ string received from the previous call. When there are no more records to return, @NextToken@ will be null.
---
+-- The results for @ListPhoneNumbersOptedOut@ are paginated, and each page
+-- returns up to 100 phone numbers. If additional phone numbers are
+-- available after the first page of results, then a @NextToken@ string
+-- will be returned. To receive the next page, you call
+-- @ListPhoneNumbersOptedOut@ again using the @NextToken@ string received
+-- from the previous call. When there are no more records to return,
+-- @NextToken@ will be null.
 --
 -- This operation returns paginated results.
 module Network.AWS.SNS.ListPhoneNumbersOptedOut
   ( -- * Creating a Request
-    listPhoneNumbersOptedOut,
-    ListPhoneNumbersOptedOut,
+    ListPhoneNumbersOptedOut (..),
+    newListPhoneNumbersOptedOut,
 
     -- * Request Lenses
-    lpnooNextToken,
+    listPhoneNumbersOptedOut_nextToken,
 
     -- * Destructuring the Response
-    listPhoneNumbersOptedOutResponse,
-    ListPhoneNumbersOptedOutResponse,
+    ListPhoneNumbersOptedOutResponse (..),
+    newListPhoneNumbersOptedOutResponse,
 
     -- * Response Lenses
-    lpnoorrsNextToken,
-    lpnoorrsPhoneNumbers,
-    lpnoorrsResponseStatus,
+    listPhoneNumbersOptedOutResponse_nextToken,
+    listPhoneNumbersOptedOutResponse_phoneNumbers,
+    listPhoneNumbersOptedOutResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SNS.Types
 
 -- | The input for the @ListPhoneNumbersOptedOut@ action.
 --
---
---
--- /See:/ 'listPhoneNumbersOptedOut' smart constructor.
-newtype ListPhoneNumbersOptedOut = ListPhoneNumbersOptedOut'
-  { _lpnooNextToken ::
-      Maybe Text
+-- /See:/ 'newListPhoneNumbersOptedOut' smart constructor.
+data ListPhoneNumbersOptedOut = ListPhoneNumbersOptedOut'
+  { -- | A @NextToken@ string is used when you call the
+    -- @ListPhoneNumbersOptedOut@ action to retrieve additional records that
+    -- are available after the first page of results.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListPhoneNumbersOptedOut' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListPhoneNumbersOptedOut' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lpnooNextToken' - A @NextToken@ string is used when you call the @ListPhoneNumbersOptedOut@ action to retrieve additional records that are available after the first page of results.
-listPhoneNumbersOptedOut ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'nextToken', 'listPhoneNumbersOptedOut_nextToken' - A @NextToken@ string is used when you call the
+-- @ListPhoneNumbersOptedOut@ action to retrieve additional records that
+-- are available after the first page of results.
+newListPhoneNumbersOptedOut ::
   ListPhoneNumbersOptedOut
-listPhoneNumbersOptedOut =
+newListPhoneNumbersOptedOut =
   ListPhoneNumbersOptedOut'
-    { _lpnooNextToken =
-        Nothing
+    { nextToken =
+        Prelude.Nothing
     }
 
--- | A @NextToken@ string is used when you call the @ListPhoneNumbersOptedOut@ action to retrieve additional records that are available after the first page of results.
-lpnooNextToken :: Lens' ListPhoneNumbersOptedOut (Maybe Text)
-lpnooNextToken = lens _lpnooNextToken (\s a -> s {_lpnooNextToken = a})
+-- | A @NextToken@ string is used when you call the
+-- @ListPhoneNumbersOptedOut@ action to retrieve additional records that
+-- are available after the first page of results.
+listPhoneNumbersOptedOut_nextToken :: Lens.Lens' ListPhoneNumbersOptedOut (Prelude.Maybe Prelude.Text)
+listPhoneNumbersOptedOut_nextToken = Lens.lens (\ListPhoneNumbersOptedOut' {nextToken} -> nextToken) (\s@ListPhoneNumbersOptedOut' {} a -> s {nextToken = a} :: ListPhoneNumbersOptedOut)
 
-instance AWSPager ListPhoneNumbersOptedOut where
+instance Pager.AWSPager ListPhoneNumbersOptedOut where
   page rq rs
-    | stop (rs ^. lpnoorrsNextToken) = Nothing
-    | stop (rs ^. lpnoorrsPhoneNumbers) = Nothing
-    | otherwise =
-      Just $ rq & lpnooNextToken .~ rs ^. lpnoorrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listPhoneNumbersOptedOutResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listPhoneNumbersOptedOutResponse_phoneNumbers
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listPhoneNumbersOptedOut_nextToken
+          Lens..~ rs
+          Lens.^? listPhoneNumbersOptedOutResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListPhoneNumbersOptedOut where
+instance Prelude.AWSRequest ListPhoneNumbersOptedOut where
   type
     Rs ListPhoneNumbersOptedOut =
       ListPhoneNumbersOptedOutResponse
-  request = postQuery sns
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "ListPhoneNumbersOptedOutResult"
       ( \s h x ->
           ListPhoneNumbersOptedOutResponse'
-            <$> (x .@? "nextToken")
-            <*> ( x .@? "phoneNumbers" .!@ mempty
-                    >>= may (parseXMLList "member")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "nextToken")
+            Prelude.<*> ( x Prelude..@? "phoneNumbers"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListPhoneNumbersOptedOut
+instance Prelude.Hashable ListPhoneNumbersOptedOut
 
-instance NFData ListPhoneNumbersOptedOut
+instance Prelude.NFData ListPhoneNumbersOptedOut
 
-instance ToHeaders ListPhoneNumbersOptedOut where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListPhoneNumbersOptedOut where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListPhoneNumbersOptedOut where
-  toPath = const "/"
+instance Prelude.ToPath ListPhoneNumbersOptedOut where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListPhoneNumbersOptedOut where
+instance Prelude.ToQuery ListPhoneNumbersOptedOut where
   toQuery ListPhoneNumbersOptedOut' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("ListPhoneNumbersOptedOut" :: ByteString),
-        "Version" =: ("2010-03-31" :: ByteString),
-        "nextToken" =: _lpnooNextToken
+          Prelude.=: ("ListPhoneNumbersOptedOut" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-03-31" :: Prelude.ByteString),
+        "nextToken" Prelude.=: nextToken
       ]
 
 -- | The response from the @ListPhoneNumbersOptedOut@ action.
 --
---
---
--- /See:/ 'listPhoneNumbersOptedOutResponse' smart constructor.
+-- /See:/ 'newListPhoneNumbersOptedOutResponse' smart constructor.
 data ListPhoneNumbersOptedOutResponse = ListPhoneNumbersOptedOutResponse'
-  { _lpnoorrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _lpnoorrsPhoneNumbers ::
-      !( Maybe
-           [Text]
-       ),
-    _lpnoorrsResponseStatus ::
-      !Int
+  { -- | A @NextToken@ string is returned when you call the
+    -- @ListPhoneNumbersOptedOut@ action if additional records are available
+    -- after the first page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of phone numbers that are opted out of receiving SMS messages.
+    -- The list is paginated, and each page can contain up to 100 phone
+    -- numbers.
+    phoneNumbers :: Prelude.Maybe [Prelude.Text],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListPhoneNumbersOptedOutResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListPhoneNumbersOptedOutResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lpnoorrsNextToken' - A @NextToken@ string is returned when you call the @ListPhoneNumbersOptedOut@ action if additional records are available after the first page of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lpnoorrsPhoneNumbers' - A list of phone numbers that are opted out of receiving SMS messages. The list is paginated, and each page can contain up to 100 phone numbers.
+-- 'nextToken', 'listPhoneNumbersOptedOutResponse_nextToken' - A @NextToken@ string is returned when you call the
+-- @ListPhoneNumbersOptedOut@ action if additional records are available
+-- after the first page of results.
 --
--- * 'lpnoorrsResponseStatus' - -- | The response status code.
-listPhoneNumbersOptedOutResponse ::
-  -- | 'lpnoorrsResponseStatus'
-  Int ->
+-- 'phoneNumbers', 'listPhoneNumbersOptedOutResponse_phoneNumbers' - A list of phone numbers that are opted out of receiving SMS messages.
+-- The list is paginated, and each page can contain up to 100 phone
+-- numbers.
+--
+-- 'httpStatus', 'listPhoneNumbersOptedOutResponse_httpStatus' - The response's http status code.
+newListPhoneNumbersOptedOutResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListPhoneNumbersOptedOutResponse
-listPhoneNumbersOptedOutResponse pResponseStatus_ =
+newListPhoneNumbersOptedOutResponse pHttpStatus_ =
   ListPhoneNumbersOptedOutResponse'
-    { _lpnoorrsNextToken =
-        Nothing,
-      _lpnoorrsPhoneNumbers = Nothing,
-      _lpnoorrsResponseStatus =
-        pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      phoneNumbers = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A @NextToken@ string is returned when you call the @ListPhoneNumbersOptedOut@ action if additional records are available after the first page of results.
-lpnoorrsNextToken :: Lens' ListPhoneNumbersOptedOutResponse (Maybe Text)
-lpnoorrsNextToken = lens _lpnoorrsNextToken (\s a -> s {_lpnoorrsNextToken = a})
+-- | A @NextToken@ string is returned when you call the
+-- @ListPhoneNumbersOptedOut@ action if additional records are available
+-- after the first page of results.
+listPhoneNumbersOptedOutResponse_nextToken :: Lens.Lens' ListPhoneNumbersOptedOutResponse (Prelude.Maybe Prelude.Text)
+listPhoneNumbersOptedOutResponse_nextToken = Lens.lens (\ListPhoneNumbersOptedOutResponse' {nextToken} -> nextToken) (\s@ListPhoneNumbersOptedOutResponse' {} a -> s {nextToken = a} :: ListPhoneNumbersOptedOutResponse)
 
--- | A list of phone numbers that are opted out of receiving SMS messages. The list is paginated, and each page can contain up to 100 phone numbers.
-lpnoorrsPhoneNumbers :: Lens' ListPhoneNumbersOptedOutResponse [Text]
-lpnoorrsPhoneNumbers = lens _lpnoorrsPhoneNumbers (\s a -> s {_lpnoorrsPhoneNumbers = a}) . _Default . _Coerce
+-- | A list of phone numbers that are opted out of receiving SMS messages.
+-- The list is paginated, and each page can contain up to 100 phone
+-- numbers.
+listPhoneNumbersOptedOutResponse_phoneNumbers :: Lens.Lens' ListPhoneNumbersOptedOutResponse (Prelude.Maybe [Prelude.Text])
+listPhoneNumbersOptedOutResponse_phoneNumbers = Lens.lens (\ListPhoneNumbersOptedOutResponse' {phoneNumbers} -> phoneNumbers) (\s@ListPhoneNumbersOptedOutResponse' {} a -> s {phoneNumbers = a} :: ListPhoneNumbersOptedOutResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lpnoorrsResponseStatus :: Lens' ListPhoneNumbersOptedOutResponse Int
-lpnoorrsResponseStatus = lens _lpnoorrsResponseStatus (\s a -> s {_lpnoorrsResponseStatus = a})
+-- | The response's http status code.
+listPhoneNumbersOptedOutResponse_httpStatus :: Lens.Lens' ListPhoneNumbersOptedOutResponse Prelude.Int
+listPhoneNumbersOptedOutResponse_httpStatus = Lens.lens (\ListPhoneNumbersOptedOutResponse' {httpStatus} -> httpStatus) (\s@ListPhoneNumbersOptedOutResponse' {} a -> s {httpStatus = a} :: ListPhoneNumbersOptedOutResponse)
 
-instance NFData ListPhoneNumbersOptedOutResponse
+instance
+  Prelude.NFData
+    ListPhoneNumbersOptedOutResponse

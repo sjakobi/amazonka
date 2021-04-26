@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,80 +21,94 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a topic and all its subscriptions. Deleting a topic might prevent some messages previously sent to the topic from being delivered to subscribers. This action is idempotent, so deleting a topic that does not exist does not result in an error.
+-- Deletes a topic and all its subscriptions. Deleting a topic might
+-- prevent some messages previously sent to the topic from being delivered
+-- to subscribers. This action is idempotent, so deleting a topic that does
+-- not exist does not result in an error.
 module Network.AWS.SNS.DeleteTopic
   ( -- * Creating a Request
-    deleteTopic,
-    DeleteTopic,
+    DeleteTopic (..),
+    newDeleteTopic,
 
     -- * Request Lenses
-    dtTopicARN,
+    deleteTopic_topicArn,
 
     -- * Destructuring the Response
-    deleteTopicResponse,
-    DeleteTopicResponse,
+    DeleteTopicResponse (..),
+    newDeleteTopicResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SNS.Types
 
--- | /See:/ 'deleteTopic' smart constructor.
-newtype DeleteTopic = DeleteTopic'
-  { _dtTopicARN ::
-      Text
+-- | /See:/ 'newDeleteTopic' smart constructor.
+data DeleteTopic = DeleteTopic'
+  { -- | The ARN of the topic you want to delete.
+    topicArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteTopic' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteTopic' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtTopicARN' - The ARN of the topic you want to delete.
-deleteTopic ::
-  -- | 'dtTopicARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'topicArn', 'deleteTopic_topicArn' - The ARN of the topic you want to delete.
+newDeleteTopic ::
+  -- | 'topicArn'
+  Prelude.Text ->
   DeleteTopic
-deleteTopic pTopicARN_ =
-  DeleteTopic' {_dtTopicARN = pTopicARN_}
+newDeleteTopic pTopicArn_ =
+  DeleteTopic' {topicArn = pTopicArn_}
 
 -- | The ARN of the topic you want to delete.
-dtTopicARN :: Lens' DeleteTopic Text
-dtTopicARN = lens _dtTopicARN (\s a -> s {_dtTopicARN = a})
+deleteTopic_topicArn :: Lens.Lens' DeleteTopic Prelude.Text
+deleteTopic_topicArn = Lens.lens (\DeleteTopic' {topicArn} -> topicArn) (\s@DeleteTopic' {} a -> s {topicArn = a} :: DeleteTopic)
 
-instance AWSRequest DeleteTopic where
+instance Prelude.AWSRequest DeleteTopic where
   type Rs DeleteTopic = DeleteTopicResponse
-  request = postQuery sns
-  response = receiveNull DeleteTopicResponse'
+  request = Request.postQuery defaultService
+  response = Response.receiveNull DeleteTopicResponse'
 
-instance Hashable DeleteTopic
+instance Prelude.Hashable DeleteTopic
 
-instance NFData DeleteTopic
+instance Prelude.NFData DeleteTopic
 
-instance ToHeaders DeleteTopic where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteTopic where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteTopic where
-  toPath = const "/"
+instance Prelude.ToPath DeleteTopic where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteTopic where
+instance Prelude.ToQuery DeleteTopic where
   toQuery DeleteTopic' {..} =
-    mconcat
-      [ "Action" =: ("DeleteTopic" :: ByteString),
-        "Version" =: ("2010-03-31" :: ByteString),
-        "TopicArn" =: _dtTopicARN
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DeleteTopic" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-03-31" :: Prelude.ByteString),
+        "TopicArn" Prelude.=: topicArn
       ]
 
--- | /See:/ 'deleteTopicResponse' smart constructor.
+-- | /See:/ 'newDeleteTopicResponse' smart constructor.
 data DeleteTopicResponse = DeleteTopicResponse'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteTopicResponse' with the minimum fields required to make a request.
-deleteTopicResponse ::
+-- |
+-- Create a value of 'DeleteTopicResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteTopicResponse ::
   DeleteTopicResponse
-deleteTopicResponse = DeleteTopicResponse'
+newDeleteTopicResponse = DeleteTopicResponse'
 
-instance NFData DeleteTopicResponse
+instance Prelude.NFData DeleteTopicResponse

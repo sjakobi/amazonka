@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,151 +21,188 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves the endpoint attributes for a device on one of the supported push notification services, such as GCM (Firebase Cloud Messaging) and APNS. For more information, see <https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html Using Amazon SNS Mobile Push Notifications> .
+-- Retrieves the endpoint attributes for a device on one of the supported
+-- push notification services, such as GCM (Firebase Cloud Messaging) and
+-- APNS. For more information, see
+-- <https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html Using Amazon SNS Mobile Push Notifications>.
 module Network.AWS.SNS.GetEndpointAttributes
   ( -- * Creating a Request
-    getEndpointAttributes,
-    GetEndpointAttributes,
+    GetEndpointAttributes (..),
+    newGetEndpointAttributes,
 
     -- * Request Lenses
-    geaEndpointARN,
+    getEndpointAttributes_endpointArn,
 
     -- * Destructuring the Response
-    getEndpointAttributesResponse,
-    GetEndpointAttributesResponse,
+    GetEndpointAttributesResponse (..),
+    newGetEndpointAttributesResponse,
 
     -- * Response Lenses
-    gearrsAttributes,
-    gearrsResponseStatus,
+    getEndpointAttributesResponse_attributes,
+    getEndpointAttributesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SNS.Types
 
 -- | Input for GetEndpointAttributes action.
 --
---
---
--- /See:/ 'getEndpointAttributes' smart constructor.
-newtype GetEndpointAttributes = GetEndpointAttributes'
-  { _geaEndpointARN ::
-      Text
+-- /See:/ 'newGetEndpointAttributes' smart constructor.
+data GetEndpointAttributes = GetEndpointAttributes'
+  { -- | EndpointArn for GetEndpointAttributes input.
+    endpointArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetEndpointAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetEndpointAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'geaEndpointARN' - EndpointArn for GetEndpointAttributes input.
-getEndpointAttributes ::
-  -- | 'geaEndpointARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'endpointArn', 'getEndpointAttributes_endpointArn' - EndpointArn for GetEndpointAttributes input.
+newGetEndpointAttributes ::
+  -- | 'endpointArn'
+  Prelude.Text ->
   GetEndpointAttributes
-getEndpointAttributes pEndpointARN_ =
-  GetEndpointAttributes'
-    { _geaEndpointARN =
-        pEndpointARN_
-    }
+newGetEndpointAttributes pEndpointArn_ =
+  GetEndpointAttributes' {endpointArn = pEndpointArn_}
 
 -- | EndpointArn for GetEndpointAttributes input.
-geaEndpointARN :: Lens' GetEndpointAttributes Text
-geaEndpointARN = lens _geaEndpointARN (\s a -> s {_geaEndpointARN = a})
+getEndpointAttributes_endpointArn :: Lens.Lens' GetEndpointAttributes Prelude.Text
+getEndpointAttributes_endpointArn = Lens.lens (\GetEndpointAttributes' {endpointArn} -> endpointArn) (\s@GetEndpointAttributes' {} a -> s {endpointArn = a} :: GetEndpointAttributes)
 
-instance AWSRequest GetEndpointAttributes where
+instance Prelude.AWSRequest GetEndpointAttributes where
   type
     Rs GetEndpointAttributes =
       GetEndpointAttributesResponse
-  request = postQuery sns
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "GetEndpointAttributesResult"
       ( \s h x ->
           GetEndpointAttributesResponse'
-            <$> ( x .@? "Attributes" .!@ mempty
-                    >>= may (parseXMLMap "entry" "key" "value")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "Attributes"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may
+                              (Prelude.parseXMLMap "entry" "key" "value")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetEndpointAttributes
+instance Prelude.Hashable GetEndpointAttributes
 
-instance NFData GetEndpointAttributes
+instance Prelude.NFData GetEndpointAttributes
 
-instance ToHeaders GetEndpointAttributes where
-  toHeaders = const mempty
+instance Prelude.ToHeaders GetEndpointAttributes where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath GetEndpointAttributes where
-  toPath = const "/"
+instance Prelude.ToPath GetEndpointAttributes where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetEndpointAttributes where
+instance Prelude.ToQuery GetEndpointAttributes where
   toQuery GetEndpointAttributes' {..} =
-    mconcat
-      [ "Action" =: ("GetEndpointAttributes" :: ByteString),
-        "Version" =: ("2010-03-31" :: ByteString),
-        "EndpointArn" =: _geaEndpointARN
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("GetEndpointAttributes" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-03-31" :: Prelude.ByteString),
+        "EndpointArn" Prelude.=: endpointArn
       ]
 
 -- | Response from GetEndpointAttributes of the EndpointArn.
 --
---
---
--- /See:/ 'getEndpointAttributesResponse' smart constructor.
+-- /See:/ 'newGetEndpointAttributesResponse' smart constructor.
 data GetEndpointAttributesResponse = GetEndpointAttributesResponse'
-  { _gearrsAttributes ::
-      !( Maybe
-           ( Map
-               Text
-               Text
-           )
-       ),
-    _gearrsResponseStatus ::
-      !Int
+  { -- | Attributes include the following:
+    --
+    -- -   @CustomUserData@ – arbitrary user data to associate with the
+    --     endpoint. Amazon SNS does not use this data. The data must be in
+    --     UTF-8 format and less than 2KB.
+    --
+    -- -   @Enabled@ – flag that enables\/disables delivery to the endpoint.
+    --     Amazon SNS will set this to false when a notification service
+    --     indicates to Amazon SNS that the endpoint is invalid. Users can set
+    --     it back to true, typically after updating Token.
+    --
+    -- -   @Token@ – device token, also referred to as a registration id, for
+    --     an app and mobile device. This is returned from the notification
+    --     service when an app and mobile device are registered with the
+    --     notification service.
+    --
+    --     The device token for the iOS platform is returned in lowercase.
+    attributes :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetEndpointAttributesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetEndpointAttributesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gearrsAttributes' - Attributes include the following:     * @CustomUserData@ – arbitrary user data to associate with the endpoint. Amazon SNS does not use this data. The data must be in UTF-8 format and less than 2KB.     * @Enabled@ – flag that enables/disables delivery to the endpoint. Amazon SNS will set this to false when a notification service indicates to Amazon SNS that the endpoint is invalid. Users can set it back to true, typically after updating Token.     * @Token@ – device token, also referred to as a registration id, for an app and mobile device. This is returned from the notification service when an app and mobile device are registered with the notification service.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gearrsResponseStatus' - -- | The response status code.
-getEndpointAttributesResponse ::
-  -- | 'gearrsResponseStatus'
-  Int ->
+-- 'attributes', 'getEndpointAttributesResponse_attributes' - Attributes include the following:
+--
+-- -   @CustomUserData@ – arbitrary user data to associate with the
+--     endpoint. Amazon SNS does not use this data. The data must be in
+--     UTF-8 format and less than 2KB.
+--
+-- -   @Enabled@ – flag that enables\/disables delivery to the endpoint.
+--     Amazon SNS will set this to false when a notification service
+--     indicates to Amazon SNS that the endpoint is invalid. Users can set
+--     it back to true, typically after updating Token.
+--
+-- -   @Token@ – device token, also referred to as a registration id, for
+--     an app and mobile device. This is returned from the notification
+--     service when an app and mobile device are registered with the
+--     notification service.
+--
+--     The device token for the iOS platform is returned in lowercase.
+--
+-- 'httpStatus', 'getEndpointAttributesResponse_httpStatus' - The response's http status code.
+newGetEndpointAttributesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetEndpointAttributesResponse
-getEndpointAttributesResponse pResponseStatus_ =
+newGetEndpointAttributesResponse pHttpStatus_ =
   GetEndpointAttributesResponse'
-    { _gearrsAttributes =
-        Nothing,
-      _gearrsResponseStatus = pResponseStatus_
+    { attributes =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Attributes include the following:     * @CustomUserData@ – arbitrary user data to associate with the endpoint. Amazon SNS does not use this data. The data must be in UTF-8 format and less than 2KB.     * @Enabled@ – flag that enables/disables delivery to the endpoint. Amazon SNS will set this to false when a notification service indicates to Amazon SNS that the endpoint is invalid. Users can set it back to true, typically after updating Token.     * @Token@ – device token, also referred to as a registration id, for an app and mobile device. This is returned from the notification service when an app and mobile device are registered with the notification service.
-gearrsAttributes :: Lens' GetEndpointAttributesResponse (HashMap Text Text)
-gearrsAttributes = lens _gearrsAttributes (\s a -> s {_gearrsAttributes = a}) . _Default . _Map
+-- | Attributes include the following:
+--
+-- -   @CustomUserData@ – arbitrary user data to associate with the
+--     endpoint. Amazon SNS does not use this data. The data must be in
+--     UTF-8 format and less than 2KB.
+--
+-- -   @Enabled@ – flag that enables\/disables delivery to the endpoint.
+--     Amazon SNS will set this to false when a notification service
+--     indicates to Amazon SNS that the endpoint is invalid. Users can set
+--     it back to true, typically after updating Token.
+--
+-- -   @Token@ – device token, also referred to as a registration id, for
+--     an app and mobile device. This is returned from the notification
+--     service when an app and mobile device are registered with the
+--     notification service.
+--
+--     The device token for the iOS platform is returned in lowercase.
+getEndpointAttributesResponse_attributes :: Lens.Lens' GetEndpointAttributesResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+getEndpointAttributesResponse_attributes = Lens.lens (\GetEndpointAttributesResponse' {attributes} -> attributes) (\s@GetEndpointAttributesResponse' {} a -> s {attributes = a} :: GetEndpointAttributesResponse) Prelude.. Lens.mapping Prelude._Map
 
--- | -- | The response status code.
-gearrsResponseStatus :: Lens' GetEndpointAttributesResponse Int
-gearrsResponseStatus = lens _gearrsResponseStatus (\s a -> s {_gearrsResponseStatus = a})
+-- | The response's http status code.
+getEndpointAttributesResponse_httpStatus :: Lens.Lens' GetEndpointAttributesResponse Prelude.Int
+getEndpointAttributesResponse_httpStatus = Lens.lens (\GetEndpointAttributesResponse' {httpStatus} -> httpStatus) (\s@GetEndpointAttributesResponse' {} a -> s {httpStatus = a} :: GetEndpointAttributesResponse)
 
-instance NFData GetEndpointAttributesResponse
+instance Prelude.NFData GetEndpointAttributesResponse

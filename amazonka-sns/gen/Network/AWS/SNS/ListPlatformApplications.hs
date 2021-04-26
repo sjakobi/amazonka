@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,171 +21,199 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists the platform application objects for the supported push notification services, such as APNS and GCM (Firebase Cloud Messaging). The results for @ListPlatformApplications@ are paginated and return a limited list of applications, up to 100. If additional records are available after the first page results, then a NextToken string will be returned. To receive the next page, you call @ListPlatformApplications@ using the NextToken string received from the previous call. When there are no more records to return, @NextToken@ will be null. For more information, see <https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html Using Amazon SNS Mobile Push Notifications> .
---
+-- Lists the platform application objects for the supported push
+-- notification services, such as APNS and GCM (Firebase Cloud Messaging).
+-- The results for @ListPlatformApplications@ are paginated and return a
+-- limited list of applications, up to 100. If additional records are
+-- available after the first page results, then a NextToken string will be
+-- returned. To receive the next page, you call @ListPlatformApplications@
+-- using the NextToken string received from the previous call. When there
+-- are no more records to return, @NextToken@ will be null. For more
+-- information, see
+-- <https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html Using Amazon SNS Mobile Push Notifications>.
 --
 -- This action is throttled at 15 transactions per second (TPS).
---
 --
 -- This operation returns paginated results.
 module Network.AWS.SNS.ListPlatformApplications
   ( -- * Creating a Request
-    listPlatformApplications,
-    ListPlatformApplications,
+    ListPlatformApplications (..),
+    newListPlatformApplications,
 
     -- * Request Lenses
-    lpaNextToken,
+    listPlatformApplications_nextToken,
 
     -- * Destructuring the Response
-    listPlatformApplicationsResponse,
-    ListPlatformApplicationsResponse,
+    ListPlatformApplicationsResponse (..),
+    newListPlatformApplicationsResponse,
 
     -- * Response Lenses
-    lparrsNextToken,
-    lparrsPlatformApplications,
-    lparrsResponseStatus,
+    listPlatformApplicationsResponse_nextToken,
+    listPlatformApplicationsResponse_platformApplications,
+    listPlatformApplicationsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SNS.Types
+import Network.AWS.SNS.Types.PlatformApplication
 
 -- | Input for ListPlatformApplications action.
 --
---
---
--- /See:/ 'listPlatformApplications' smart constructor.
-newtype ListPlatformApplications = ListPlatformApplications'
-  { _lpaNextToken ::
-      Maybe Text
+-- /See:/ 'newListPlatformApplications' smart constructor.
+data ListPlatformApplications = ListPlatformApplications'
+  { -- | NextToken string is used when calling ListPlatformApplications action to
+    -- retrieve additional records that are available after the first page
+    -- results.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListPlatformApplications' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListPlatformApplications' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lpaNextToken' - NextToken string is used when calling ListPlatformApplications action to retrieve additional records that are available after the first page results.
-listPlatformApplications ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'nextToken', 'listPlatformApplications_nextToken' - NextToken string is used when calling ListPlatformApplications action to
+-- retrieve additional records that are available after the first page
+-- results.
+newListPlatformApplications ::
   ListPlatformApplications
-listPlatformApplications =
-  ListPlatformApplications' {_lpaNextToken = Nothing}
+newListPlatformApplications =
+  ListPlatformApplications'
+    { nextToken =
+        Prelude.Nothing
+    }
 
--- | NextToken string is used when calling ListPlatformApplications action to retrieve additional records that are available after the first page results.
-lpaNextToken :: Lens' ListPlatformApplications (Maybe Text)
-lpaNextToken = lens _lpaNextToken (\s a -> s {_lpaNextToken = a})
+-- | NextToken string is used when calling ListPlatformApplications action to
+-- retrieve additional records that are available after the first page
+-- results.
+listPlatformApplications_nextToken :: Lens.Lens' ListPlatformApplications (Prelude.Maybe Prelude.Text)
+listPlatformApplications_nextToken = Lens.lens (\ListPlatformApplications' {nextToken} -> nextToken) (\s@ListPlatformApplications' {} a -> s {nextToken = a} :: ListPlatformApplications)
 
-instance AWSPager ListPlatformApplications where
+instance Pager.AWSPager ListPlatformApplications where
   page rq rs
-    | stop (rs ^. lparrsNextToken) = Nothing
-    | stop (rs ^. lparrsPlatformApplications) = Nothing
-    | otherwise =
-      Just $ rq & lpaNextToken .~ rs ^. lparrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listPlatformApplicationsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listPlatformApplicationsResponse_platformApplications
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listPlatformApplications_nextToken
+          Lens..~ rs
+          Lens.^? listPlatformApplicationsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListPlatformApplications where
+instance Prelude.AWSRequest ListPlatformApplications where
   type
     Rs ListPlatformApplications =
       ListPlatformApplicationsResponse
-  request = postQuery sns
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "ListPlatformApplicationsResult"
       ( \s h x ->
           ListPlatformApplicationsResponse'
-            <$> (x .@? "NextToken")
-            <*> ( x .@? "PlatformApplications" .!@ mempty
-                    >>= may (parseXMLList "member")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "NextToken")
+            Prelude.<*> ( x Prelude..@? "PlatformApplications"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListPlatformApplications
+instance Prelude.Hashable ListPlatformApplications
 
-instance NFData ListPlatformApplications
+instance Prelude.NFData ListPlatformApplications
 
-instance ToHeaders ListPlatformApplications where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListPlatformApplications where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListPlatformApplications where
-  toPath = const "/"
+instance Prelude.ToPath ListPlatformApplications where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListPlatformApplications where
+instance Prelude.ToQuery ListPlatformApplications where
   toQuery ListPlatformApplications' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("ListPlatformApplications" :: ByteString),
-        "Version" =: ("2010-03-31" :: ByteString),
-        "NextToken" =: _lpaNextToken
+          Prelude.=: ("ListPlatformApplications" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-03-31" :: Prelude.ByteString),
+        "NextToken" Prelude.=: nextToken
       ]
 
 -- | Response for ListPlatformApplications action.
 --
---
---
--- /See:/ 'listPlatformApplicationsResponse' smart constructor.
+-- /See:/ 'newListPlatformApplicationsResponse' smart constructor.
 data ListPlatformApplicationsResponse = ListPlatformApplicationsResponse'
-  { _lparrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _lparrsPlatformApplications ::
-      !( Maybe
-           [PlatformApplication]
-       ),
-    _lparrsResponseStatus ::
-      !Int
+  { -- | NextToken string is returned when calling ListPlatformApplications
+    -- action if additional records are available after the first page results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Platform applications returned when calling ListPlatformApplications
+    -- action.
+    platformApplications :: Prelude.Maybe [PlatformApplication],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListPlatformApplicationsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListPlatformApplicationsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lparrsNextToken' - NextToken string is returned when calling ListPlatformApplications action if additional records are available after the first page results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lparrsPlatformApplications' - Platform applications returned when calling ListPlatformApplications action.
+-- 'nextToken', 'listPlatformApplicationsResponse_nextToken' - NextToken string is returned when calling ListPlatformApplications
+-- action if additional records are available after the first page results.
 --
--- * 'lparrsResponseStatus' - -- | The response status code.
-listPlatformApplicationsResponse ::
-  -- | 'lparrsResponseStatus'
-  Int ->
+-- 'platformApplications', 'listPlatformApplicationsResponse_platformApplications' - Platform applications returned when calling ListPlatformApplications
+-- action.
+--
+-- 'httpStatus', 'listPlatformApplicationsResponse_httpStatus' - The response's http status code.
+newListPlatformApplicationsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListPlatformApplicationsResponse
-listPlatformApplicationsResponse pResponseStatus_ =
+newListPlatformApplicationsResponse pHttpStatus_ =
   ListPlatformApplicationsResponse'
-    { _lparrsNextToken =
-        Nothing,
-      _lparrsPlatformApplications = Nothing,
-      _lparrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      platformApplications = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | NextToken string is returned when calling ListPlatformApplications action if additional records are available after the first page results.
-lparrsNextToken :: Lens' ListPlatformApplicationsResponse (Maybe Text)
-lparrsNextToken = lens _lparrsNextToken (\s a -> s {_lparrsNextToken = a})
+-- | NextToken string is returned when calling ListPlatformApplications
+-- action if additional records are available after the first page results.
+listPlatformApplicationsResponse_nextToken :: Lens.Lens' ListPlatformApplicationsResponse (Prelude.Maybe Prelude.Text)
+listPlatformApplicationsResponse_nextToken = Lens.lens (\ListPlatformApplicationsResponse' {nextToken} -> nextToken) (\s@ListPlatformApplicationsResponse' {} a -> s {nextToken = a} :: ListPlatformApplicationsResponse)
 
--- | Platform applications returned when calling ListPlatformApplications action.
-lparrsPlatformApplications :: Lens' ListPlatformApplicationsResponse [PlatformApplication]
-lparrsPlatformApplications = lens _lparrsPlatformApplications (\s a -> s {_lparrsPlatformApplications = a}) . _Default . _Coerce
+-- | Platform applications returned when calling ListPlatformApplications
+-- action.
+listPlatformApplicationsResponse_platformApplications :: Lens.Lens' ListPlatformApplicationsResponse (Prelude.Maybe [PlatformApplication])
+listPlatformApplicationsResponse_platformApplications = Lens.lens (\ListPlatformApplicationsResponse' {platformApplications} -> platformApplications) (\s@ListPlatformApplicationsResponse' {} a -> s {platformApplications = a} :: ListPlatformApplicationsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lparrsResponseStatus :: Lens' ListPlatformApplicationsResponse Int
-lparrsResponseStatus = lens _lparrsResponseStatus (\s a -> s {_lparrsResponseStatus = a})
+-- | The response's http status code.
+listPlatformApplicationsResponse_httpStatus :: Lens.Lens' ListPlatformApplicationsResponse Prelude.Int
+listPlatformApplicationsResponse_httpStatus = Lens.lens (\ListPlatformApplicationsResponse' {httpStatus} -> httpStatus) (\s@ListPlatformApplicationsResponse' {} a -> s {httpStatus = a} :: ListPlatformApplicationsResponse)
 
-instance NFData ListPlatformApplicationsResponse
+instance
+  Prelude.NFData
+    ListPlatformApplicationsResponse

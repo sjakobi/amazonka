@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,107 +21,107 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a platform application object for one of the supported push notification services, such as APNS and GCM (Firebase Cloud Messaging). For more information, see <https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html Using Amazon SNS Mobile Push Notifications> .
+-- Deletes a platform application object for one of the supported push
+-- notification services, such as APNS and GCM (Firebase Cloud Messaging).
+-- For more information, see
+-- <https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html Using Amazon SNS Mobile Push Notifications>.
 module Network.AWS.SNS.DeletePlatformApplication
   ( -- * Creating a Request
-    deletePlatformApplication,
-    DeletePlatformApplication,
+    DeletePlatformApplication (..),
+    newDeletePlatformApplication,
 
     -- * Request Lenses
-    dpaPlatformApplicationARN,
+    deletePlatformApplication_platformApplicationArn,
 
     -- * Destructuring the Response
-    deletePlatformApplicationResponse,
-    DeletePlatformApplicationResponse,
+    DeletePlatformApplicationResponse (..),
+    newDeletePlatformApplicationResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SNS.Types
 
 -- | Input for DeletePlatformApplication action.
 --
---
---
--- /See:/ 'deletePlatformApplication' smart constructor.
-newtype DeletePlatformApplication = DeletePlatformApplication'
-  { _dpaPlatformApplicationARN ::
-      Text
+-- /See:/ 'newDeletePlatformApplication' smart constructor.
+data DeletePlatformApplication = DeletePlatformApplication'
+  { -- | PlatformApplicationArn of platform application object to delete.
+    platformApplicationArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeletePlatformApplication' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeletePlatformApplication' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dpaPlatformApplicationARN' - PlatformApplicationArn of platform application object to delete.
-deletePlatformApplication ::
-  -- | 'dpaPlatformApplicationARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'platformApplicationArn', 'deletePlatformApplication_platformApplicationArn' - PlatformApplicationArn of platform application object to delete.
+newDeletePlatformApplication ::
+  -- | 'platformApplicationArn'
+  Prelude.Text ->
   DeletePlatformApplication
-deletePlatformApplication pPlatformApplicationARN_ =
+newDeletePlatformApplication pPlatformApplicationArn_ =
   DeletePlatformApplication'
-    { _dpaPlatformApplicationARN =
-        pPlatformApplicationARN_
+    { platformApplicationArn =
+        pPlatformApplicationArn_
     }
 
 -- | PlatformApplicationArn of platform application object to delete.
-dpaPlatformApplicationARN :: Lens' DeletePlatformApplication Text
-dpaPlatformApplicationARN = lens _dpaPlatformApplicationARN (\s a -> s {_dpaPlatformApplicationARN = a})
+deletePlatformApplication_platformApplicationArn :: Lens.Lens' DeletePlatformApplication Prelude.Text
+deletePlatformApplication_platformApplicationArn = Lens.lens (\DeletePlatformApplication' {platformApplicationArn} -> platformApplicationArn) (\s@DeletePlatformApplication' {} a -> s {platformApplicationArn = a} :: DeletePlatformApplication)
 
-instance AWSRequest DeletePlatformApplication where
+instance Prelude.AWSRequest DeletePlatformApplication where
   type
     Rs DeletePlatformApplication =
       DeletePlatformApplicationResponse
-  request = postQuery sns
+  request = Request.postQuery defaultService
   response =
-    receiveNull DeletePlatformApplicationResponse'
+    Response.receiveNull
+      DeletePlatformApplicationResponse'
 
-instance Hashable DeletePlatformApplication
+instance Prelude.Hashable DeletePlatformApplication
 
-instance NFData DeletePlatformApplication
+instance Prelude.NFData DeletePlatformApplication
 
-instance ToHeaders DeletePlatformApplication where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeletePlatformApplication where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeletePlatformApplication where
-  toPath = const "/"
+instance Prelude.ToPath DeletePlatformApplication where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeletePlatformApplication where
+instance Prelude.ToQuery DeletePlatformApplication where
   toQuery DeletePlatformApplication' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DeletePlatformApplication" :: ByteString),
-        "Version" =: ("2010-03-31" :: ByteString),
+          Prelude.=: ("DeletePlatformApplication" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-03-31" :: Prelude.ByteString),
         "PlatformApplicationArn"
-          =: _dpaPlatformApplicationARN
+          Prelude.=: platformApplicationArn
       ]
 
--- | /See:/ 'deletePlatformApplicationResponse' smart constructor.
+-- | /See:/ 'newDeletePlatformApplicationResponse' smart constructor.
 data DeletePlatformApplicationResponse = DeletePlatformApplicationResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeletePlatformApplicationResponse' with the minimum fields required to make a request.
-deletePlatformApplicationResponse ::
+-- |
+-- Create a value of 'DeletePlatformApplicationResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeletePlatformApplicationResponse ::
   DeletePlatformApplicationResponse
-deletePlatformApplicationResponse =
+newDeletePlatformApplicationResponse =
   DeletePlatformApplicationResponse'
 
-instance NFData DeletePlatformApplicationResponse
+instance
+  Prelude.NFData
+    DeletePlatformApplicationResponse

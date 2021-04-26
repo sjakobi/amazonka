@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,72 +19,103 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SNS.Types.MessageAttributeValue where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The user-specified message attribute value. For string data types, the value attribute has the same restrictions on the content as the message body. For more information, see <https://docs.aws.amazon.com/sns/latest/api/API_Publish.html Publish> .
+-- | The user-specified message attribute value. For string data types, the
+-- value attribute has the same restrictions on the content as the message
+-- body. For more information, see
+-- <https://docs.aws.amazon.com/sns/latest/api/API_Publish.html Publish>.
 --
+-- Name, type, and value must not be empty or null. In addition, the
+-- message body should not be empty or null. All parts of the message
+-- attribute, including name, type, and value, are included in the message
+-- size restriction, which is currently 256 KB (262,144 bytes). For more
+-- information, see
+-- <https://docs.aws.amazon.com/sns/latest/dg/SNSMessageAttributes.html Amazon SNS message attributes>
+-- and
+-- <https://docs.aws.amazon.com/sns/latest/dg/sms_publish-to-phone.html Publishing to a mobile phone>
+-- in the /Amazon SNS Developer Guide./
 --
--- Name, type, and value must not be empty or null. In addition, the message body should not be empty or null. All parts of the message attribute, including name, type, and value, are included in the message size restriction, which is currently 256 KB (262,144 bytes). For more information, see <https://docs.aws.amazon.com/sns/latest/dg/SNSMessageAttributes.html Amazon SNS message attributes> and <https://docs.aws.amazon.com/sns/latest/dg/sms_publish-to-phone.html Publishing to a mobile phone> in the /Amazon SNS Developer Guide./
---
---
--- /See:/ 'messageAttributeValue' smart constructor.
+-- /See:/ 'newMessageAttributeValue' smart constructor.
 data MessageAttributeValue = MessageAttributeValue'
-  { _mavStringValue ::
-      !(Maybe Text),
-    _mavBinaryValue ::
-      !(Maybe Base64),
-    _mavDataType :: !Text
+  { -- | Strings are Unicode with UTF8 binary encoding. For a list of code
+    -- values, see
+    -- <https://en.wikipedia.org/wiki/ASCII#ASCII_printable_characters ASCII Printable Characters>.
+    stringValue :: Prelude.Maybe Prelude.Text,
+    -- | Binary type attributes can store any binary data, for example,
+    -- compressed data, encrypted data, or images.
+    binaryValue :: Prelude.Maybe Prelude.Base64,
+    -- | Amazon SNS supports the following logical data types: String,
+    -- String.Array, Number, and Binary. For more information, see
+    -- <https://docs.aws.amazon.com/sns/latest/dg/SNSMessageAttributes.html#SNSMessageAttributes.DataTypes Message Attribute Data Types>.
+    dataType :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MessageAttributeValue' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MessageAttributeValue' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mavStringValue' - Strings are Unicode with UTF8 binary encoding. For a list of code values, see <https://en.wikipedia.org/wiki/ASCII#ASCII_printable_characters ASCII Printable Characters> .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mavBinaryValue' - Binary type attributes can store any binary data, for example, compressed data, encrypted data, or images.-- /Note:/ This 'Lens' automatically encodes and decodes Base64 data. The underlying isomorphism will encode to Base64 representation during serialisation, and decode from Base64 representation during deserialisation. This 'Lens' accepts and returns only raw unencoded data.
+-- 'stringValue', 'messageAttributeValue_stringValue' - Strings are Unicode with UTF8 binary encoding. For a list of code
+-- values, see
+-- <https://en.wikipedia.org/wiki/ASCII#ASCII_printable_characters ASCII Printable Characters>.
 --
--- * 'mavDataType' - Amazon SNS supports the following logical data types: String, String.Array, Number, and Binary. For more information, see <https://docs.aws.amazon.com/sns/latest/dg/SNSMessageAttributes.html#SNSMessageAttributes.DataTypes Message Attribute Data Types> .
-messageAttributeValue ::
-  -- | 'mavDataType'
-  Text ->
+-- 'binaryValue', 'messageAttributeValue_binaryValue' - Binary type attributes can store any binary data, for example,
+-- compressed data, encrypted data, or images.--
+-- -- /Note:/ This 'Lens' automatically encodes and decodes Base64 data.
+-- -- The underlying isomorphism will encode to Base64 representation during
+-- -- serialisation, and decode from Base64 representation during deserialisation.
+-- -- This 'Lens' accepts and returns only raw unencoded data.
+--
+-- 'dataType', 'messageAttributeValue_dataType' - Amazon SNS supports the following logical data types: String,
+-- String.Array, Number, and Binary. For more information, see
+-- <https://docs.aws.amazon.com/sns/latest/dg/SNSMessageAttributes.html#SNSMessageAttributes.DataTypes Message Attribute Data Types>.
+newMessageAttributeValue ::
+  -- | 'dataType'
+  Prelude.Text ->
   MessageAttributeValue
-messageAttributeValue pDataType_ =
+newMessageAttributeValue pDataType_ =
   MessageAttributeValue'
-    { _mavStringValue = Nothing,
-      _mavBinaryValue = Nothing,
-      _mavDataType = pDataType_
+    { stringValue =
+        Prelude.Nothing,
+      binaryValue = Prelude.Nothing,
+      dataType = pDataType_
     }
 
--- | Strings are Unicode with UTF8 binary encoding. For a list of code values, see <https://en.wikipedia.org/wiki/ASCII#ASCII_printable_characters ASCII Printable Characters> .
-mavStringValue :: Lens' MessageAttributeValue (Maybe Text)
-mavStringValue = lens _mavStringValue (\s a -> s {_mavStringValue = a})
+-- | Strings are Unicode with UTF8 binary encoding. For a list of code
+-- values, see
+-- <https://en.wikipedia.org/wiki/ASCII#ASCII_printable_characters ASCII Printable Characters>.
+messageAttributeValue_stringValue :: Lens.Lens' MessageAttributeValue (Prelude.Maybe Prelude.Text)
+messageAttributeValue_stringValue = Lens.lens (\MessageAttributeValue' {stringValue} -> stringValue) (\s@MessageAttributeValue' {} a -> s {stringValue = a} :: MessageAttributeValue)
 
--- | Binary type attributes can store any binary data, for example, compressed data, encrypted data, or images.-- /Note:/ This 'Lens' automatically encodes and decodes Base64 data. The underlying isomorphism will encode to Base64 representation during serialisation, and decode from Base64 representation during deserialisation. This 'Lens' accepts and returns only raw unencoded data.
-mavBinaryValue :: Lens' MessageAttributeValue (Maybe ByteString)
-mavBinaryValue = lens _mavBinaryValue (\s a -> s {_mavBinaryValue = a}) . mapping _Base64
+-- | Binary type attributes can store any binary data, for example,
+-- compressed data, encrypted data, or images.--
+-- -- /Note:/ This 'Lens' automatically encodes and decodes Base64 data.
+-- -- The underlying isomorphism will encode to Base64 representation during
+-- -- serialisation, and decode from Base64 representation during deserialisation.
+-- -- This 'Lens' accepts and returns only raw unencoded data.
+messageAttributeValue_binaryValue :: Lens.Lens' MessageAttributeValue (Prelude.Maybe Prelude.ByteString)
+messageAttributeValue_binaryValue = Lens.lens (\MessageAttributeValue' {binaryValue} -> binaryValue) (\s@MessageAttributeValue' {} a -> s {binaryValue = a} :: MessageAttributeValue) Prelude.. Lens.mapping Prelude._Base64
 
--- | Amazon SNS supports the following logical data types: String, String.Array, Number, and Binary. For more information, see <https://docs.aws.amazon.com/sns/latest/dg/SNSMessageAttributes.html#SNSMessageAttributes.DataTypes Message Attribute Data Types> .
-mavDataType :: Lens' MessageAttributeValue Text
-mavDataType = lens _mavDataType (\s a -> s {_mavDataType = a})
+-- | Amazon SNS supports the following logical data types: String,
+-- String.Array, Number, and Binary. For more information, see
+-- <https://docs.aws.amazon.com/sns/latest/dg/SNSMessageAttributes.html#SNSMessageAttributes.DataTypes Message Attribute Data Types>.
+messageAttributeValue_dataType :: Lens.Lens' MessageAttributeValue Prelude.Text
+messageAttributeValue_dataType = Lens.lens (\MessageAttributeValue' {dataType} -> dataType) (\s@MessageAttributeValue' {} a -> s {dataType = a} :: MessageAttributeValue)
 
-instance Hashable MessageAttributeValue
+instance Prelude.Hashable MessageAttributeValue
 
-instance NFData MessageAttributeValue
+instance Prelude.NFData MessageAttributeValue
 
-instance ToQuery MessageAttributeValue where
+instance Prelude.ToQuery MessageAttributeValue where
   toQuery MessageAttributeValue' {..} =
-    mconcat
-      [ "StringValue" =: _mavStringValue,
-        "BinaryValue" =: _mavBinaryValue,
-        "DataType" =: _mavDataType
+    Prelude.mconcat
+      [ "StringValue" Prelude.=: stringValue,
+        "BinaryValue" Prelude.=: binaryValue,
+        "DataType" Prelude.=: dataType
       ]

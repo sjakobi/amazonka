@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,146 +21,340 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a topic to which notifications can be published. Users can create at most 100,000 standard topics (at most 1,000 FIFO topics). For more information, see <http://aws.amazon.com/sns/ https://aws.amazon.com/sns> . This action is idempotent, so if the requester already owns a topic with the specified name, that topic's ARN is returned without creating a new topic.
+-- Creates a topic to which notifications can be published. Users can
+-- create at most 100,000 standard topics (at most 1,000 FIFO topics). For
+-- more information, see
+-- <http://aws.amazon.com/sns/ https:\/\/aws.amazon.com\/sns>. This action
+-- is idempotent, so if the requester already owns a topic with the
+-- specified name, that topic\'s ARN is returned without creating a new
+-- topic.
 module Network.AWS.SNS.CreateTopic
   ( -- * Creating a Request
-    createTopic,
-    CreateTopic,
+    CreateTopic (..),
+    newCreateTopic,
 
     -- * Request Lenses
-    ctAttributes,
-    ctTags,
-    ctName,
+    createTopic_attributes,
+    createTopic_tags,
+    createTopic_name,
 
     -- * Destructuring the Response
-    createTopicResponse,
-    CreateTopicResponse,
+    CreateTopicResponse (..),
+    newCreateTopicResponse,
 
     -- * Response Lenses
-    ctrrsTopicARN,
-    ctrrsResponseStatus,
+    createTopicResponse_topicArn,
+    createTopicResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SNS.Types
 
 -- | Input for CreateTopic action.
 --
---
---
--- /See:/ 'createTopic' smart constructor.
+-- /See:/ 'newCreateTopic' smart constructor.
 data CreateTopic = CreateTopic'
-  { _ctAttributes ::
-      !(Maybe (Map Text Text)),
-    _ctTags :: !(Maybe [Tag]),
-    _ctName :: !Text
+  { -- | A map of attributes with their corresponding values.
+    --
+    -- The following lists the names, descriptions, and values of the special
+    -- request parameters that the @CreateTopic@ action uses:
+    --
+    -- -   @DeliveryPolicy@ – The policy that defines how Amazon SNS retries
+    --     failed deliveries to HTTP\/S endpoints.
+    --
+    -- -   @DisplayName@ – The display name to use for a topic with SMS
+    --     subscriptions.
+    --
+    -- -   @FifoTopic@ – Set to true to create a FIFO topic.
+    --
+    -- -   @Policy@ – The policy that defines who can access your topic. By
+    --     default, only the topic owner can publish or subscribe to the topic.
+    --
+    -- The following attribute applies only to
+    -- <https://docs.aws.amazon.com/sns/latest/dg/sns-server-side-encryption.html server-side-encryption>:
+    --
+    -- -   @KmsMasterKeyId@ – The ID of an AWS-managed customer master key
+    --     (CMK) for Amazon SNS or a custom CMK. For more information, see
+    --     <https://docs.aws.amazon.com/sns/latest/dg/sns-server-side-encryption.html#sse-key-terms Key Terms>.
+    --     For more examples, see
+    --     <https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html#API_DescribeKey_RequestParameters KeyId>
+    --     in the /AWS Key Management Service API Reference/.
+    --
+    -- The following attributes apply only to
+    -- <https://docs.aws.amazon.com/sns/latest/dg/sns-fifo-topics.html FIFO topics>:
+    --
+    -- -   @FifoTopic@ – When this is set to @true@, a FIFO topic is created.
+    --
+    -- -   @ContentBasedDeduplication@ – Enables content-based deduplication
+    --     for FIFO topics.
+    --
+    --     -   By default, @ContentBasedDeduplication@ is set to @false@. If
+    --         you create a FIFO topic and this attribute is @false@, you must
+    --         specify a value for the @MessageDeduplicationId@ parameter for
+    --         the
+    --         <https://docs.aws.amazon.com/sns/latest/api/API_Publish.html Publish>
+    --         action.
+    --
+    --     -   When you set @ContentBasedDeduplication@ to @true@, Amazon SNS
+    --         uses a SHA-256 hash to generate the @MessageDeduplicationId@
+    --         using the body of the message (but not the attributes of the
+    --         message).
+    --
+    --         (Optional) To override the generated value, you can specify a
+    --         value for the the @MessageDeduplicationId@ parameter for the
+    --         @Publish@ action.
+    attributes :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The list of tags to add to a new topic.
+    --
+    -- To be able to tag a topic on creation, you must have the
+    -- @sns:CreateTopic@ and @sns:TagResource@ permissions.
+    tags :: Prelude.Maybe [Tag],
+    -- | The name of the topic you want to create.
+    --
+    -- Constraints: Topic names must be made up of only uppercase and lowercase
+    -- ASCII letters, numbers, underscores, and hyphens, and must be between 1
+    -- and 256 characters long.
+    --
+    -- For a FIFO (first-in-first-out) topic, the name must end with the
+    -- @.fifo@ suffix.
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateTopic' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateTopic' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ctAttributes' - A map of attributes with their corresponding values. The following lists the names, descriptions, and values of the special request parameters that the @CreateTopic@ action uses:     * @DeliveryPolicy@ – The policy that defines how Amazon SNS retries failed deliveries to HTTP/S endpoints.     * @DisplayName@ – The display name to use for a topic with SMS subscriptions.     * @FifoTopic@ – Set to true to create a FIFO topic.     * @Policy@ – The policy that defines who can access your topic. By default, only the topic owner can publish or subscribe to the topic. The following attribute applies only to <https://docs.aws.amazon.com/sns/latest/dg/sns-server-side-encryption.html server-side-encryption> :     * @KmsMasterKeyId@ – The ID of an AWS-managed customer master key (CMK) for Amazon SNS or a custom CMK. For more information, see <https://docs.aws.amazon.com/sns/latest/dg/sns-server-side-encryption.html#sse-key-terms Key Terms> . For more examples, see <https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html#API_DescribeKey_RequestParameters KeyId> in the /AWS Key Management Service API Reference/ .  The following attributes apply only to <https://docs.aws.amazon.com/sns/latest/dg/sns-fifo-topics.html FIFO topics> :     * @FifoTopic@ – When this is set to @true@ , a FIFO topic is created.     * @ContentBasedDeduplication@ – Enables content-based deduplication for FIFO topics.      * By default, @ContentBasedDeduplication@ is set to @false@ . If you create a FIFO topic and this attribute is @false@ , you must specify a value for the @MessageDeduplicationId@ parameter for the <https://docs.aws.amazon.com/sns/latest/api/API_Publish.html Publish> action.      * When you set @ContentBasedDeduplication@ to @true@ , Amazon SNS uses a SHA-256 hash to generate the @MessageDeduplicationId@ using the body of the message (but not the attributes of the message). (Optional) To override the generated value, you can specify a value for the the @MessageDeduplicationId@ parameter for the @Publish@ action.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ctTags' - The list of tags to add to a new topic.
+-- 'attributes', 'createTopic_attributes' - A map of attributes with their corresponding values.
 --
--- * 'ctName' - The name of the topic you want to create. Constraints: Topic names must be made up of only uppercase and lowercase ASCII letters, numbers, underscores, and hyphens, and must be between 1 and 256 characters long. For a FIFO (first-in-first-out) topic, the name must end with the @.fifo@ suffix.
-createTopic ::
-  -- | 'ctName'
-  Text ->
+-- The following lists the names, descriptions, and values of the special
+-- request parameters that the @CreateTopic@ action uses:
+--
+-- -   @DeliveryPolicy@ – The policy that defines how Amazon SNS retries
+--     failed deliveries to HTTP\/S endpoints.
+--
+-- -   @DisplayName@ – The display name to use for a topic with SMS
+--     subscriptions.
+--
+-- -   @FifoTopic@ – Set to true to create a FIFO topic.
+--
+-- -   @Policy@ – The policy that defines who can access your topic. By
+--     default, only the topic owner can publish or subscribe to the topic.
+--
+-- The following attribute applies only to
+-- <https://docs.aws.amazon.com/sns/latest/dg/sns-server-side-encryption.html server-side-encryption>:
+--
+-- -   @KmsMasterKeyId@ – The ID of an AWS-managed customer master key
+--     (CMK) for Amazon SNS or a custom CMK. For more information, see
+--     <https://docs.aws.amazon.com/sns/latest/dg/sns-server-side-encryption.html#sse-key-terms Key Terms>.
+--     For more examples, see
+--     <https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html#API_DescribeKey_RequestParameters KeyId>
+--     in the /AWS Key Management Service API Reference/.
+--
+-- The following attributes apply only to
+-- <https://docs.aws.amazon.com/sns/latest/dg/sns-fifo-topics.html FIFO topics>:
+--
+-- -   @FifoTopic@ – When this is set to @true@, a FIFO topic is created.
+--
+-- -   @ContentBasedDeduplication@ – Enables content-based deduplication
+--     for FIFO topics.
+--
+--     -   By default, @ContentBasedDeduplication@ is set to @false@. If
+--         you create a FIFO topic and this attribute is @false@, you must
+--         specify a value for the @MessageDeduplicationId@ parameter for
+--         the
+--         <https://docs.aws.amazon.com/sns/latest/api/API_Publish.html Publish>
+--         action.
+--
+--     -   When you set @ContentBasedDeduplication@ to @true@, Amazon SNS
+--         uses a SHA-256 hash to generate the @MessageDeduplicationId@
+--         using the body of the message (but not the attributes of the
+--         message).
+--
+--         (Optional) To override the generated value, you can specify a
+--         value for the the @MessageDeduplicationId@ parameter for the
+--         @Publish@ action.
+--
+-- 'tags', 'createTopic_tags' - The list of tags to add to a new topic.
+--
+-- To be able to tag a topic on creation, you must have the
+-- @sns:CreateTopic@ and @sns:TagResource@ permissions.
+--
+-- 'name', 'createTopic_name' - The name of the topic you want to create.
+--
+-- Constraints: Topic names must be made up of only uppercase and lowercase
+-- ASCII letters, numbers, underscores, and hyphens, and must be between 1
+-- and 256 characters long.
+--
+-- For a FIFO (first-in-first-out) topic, the name must end with the
+-- @.fifo@ suffix.
+newCreateTopic ::
+  -- | 'name'
+  Prelude.Text ->
   CreateTopic
-createTopic pName_ =
+newCreateTopic pName_ =
   CreateTopic'
-    { _ctAttributes = Nothing,
-      _ctTags = Nothing,
-      _ctName = pName_
+    { attributes = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      name = pName_
     }
 
--- | A map of attributes with their corresponding values. The following lists the names, descriptions, and values of the special request parameters that the @CreateTopic@ action uses:     * @DeliveryPolicy@ – The policy that defines how Amazon SNS retries failed deliveries to HTTP/S endpoints.     * @DisplayName@ – The display name to use for a topic with SMS subscriptions.     * @FifoTopic@ – Set to true to create a FIFO topic.     * @Policy@ – The policy that defines who can access your topic. By default, only the topic owner can publish or subscribe to the topic. The following attribute applies only to <https://docs.aws.amazon.com/sns/latest/dg/sns-server-side-encryption.html server-side-encryption> :     * @KmsMasterKeyId@ – The ID of an AWS-managed customer master key (CMK) for Amazon SNS or a custom CMK. For more information, see <https://docs.aws.amazon.com/sns/latest/dg/sns-server-side-encryption.html#sse-key-terms Key Terms> . For more examples, see <https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html#API_DescribeKey_RequestParameters KeyId> in the /AWS Key Management Service API Reference/ .  The following attributes apply only to <https://docs.aws.amazon.com/sns/latest/dg/sns-fifo-topics.html FIFO topics> :     * @FifoTopic@ – When this is set to @true@ , a FIFO topic is created.     * @ContentBasedDeduplication@ – Enables content-based deduplication for FIFO topics.      * By default, @ContentBasedDeduplication@ is set to @false@ . If you create a FIFO topic and this attribute is @false@ , you must specify a value for the @MessageDeduplicationId@ parameter for the <https://docs.aws.amazon.com/sns/latest/api/API_Publish.html Publish> action.      * When you set @ContentBasedDeduplication@ to @true@ , Amazon SNS uses a SHA-256 hash to generate the @MessageDeduplicationId@ using the body of the message (but not the attributes of the message). (Optional) To override the generated value, you can specify a value for the the @MessageDeduplicationId@ parameter for the @Publish@ action.
-ctAttributes :: Lens' CreateTopic (HashMap Text Text)
-ctAttributes = lens _ctAttributes (\s a -> s {_ctAttributes = a}) . _Default . _Map
+-- | A map of attributes with their corresponding values.
+--
+-- The following lists the names, descriptions, and values of the special
+-- request parameters that the @CreateTopic@ action uses:
+--
+-- -   @DeliveryPolicy@ – The policy that defines how Amazon SNS retries
+--     failed deliveries to HTTP\/S endpoints.
+--
+-- -   @DisplayName@ – The display name to use for a topic with SMS
+--     subscriptions.
+--
+-- -   @FifoTopic@ – Set to true to create a FIFO topic.
+--
+-- -   @Policy@ – The policy that defines who can access your topic. By
+--     default, only the topic owner can publish or subscribe to the topic.
+--
+-- The following attribute applies only to
+-- <https://docs.aws.amazon.com/sns/latest/dg/sns-server-side-encryption.html server-side-encryption>:
+--
+-- -   @KmsMasterKeyId@ – The ID of an AWS-managed customer master key
+--     (CMK) for Amazon SNS or a custom CMK. For more information, see
+--     <https://docs.aws.amazon.com/sns/latest/dg/sns-server-side-encryption.html#sse-key-terms Key Terms>.
+--     For more examples, see
+--     <https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html#API_DescribeKey_RequestParameters KeyId>
+--     in the /AWS Key Management Service API Reference/.
+--
+-- The following attributes apply only to
+-- <https://docs.aws.amazon.com/sns/latest/dg/sns-fifo-topics.html FIFO topics>:
+--
+-- -   @FifoTopic@ – When this is set to @true@, a FIFO topic is created.
+--
+-- -   @ContentBasedDeduplication@ – Enables content-based deduplication
+--     for FIFO topics.
+--
+--     -   By default, @ContentBasedDeduplication@ is set to @false@. If
+--         you create a FIFO topic and this attribute is @false@, you must
+--         specify a value for the @MessageDeduplicationId@ parameter for
+--         the
+--         <https://docs.aws.amazon.com/sns/latest/api/API_Publish.html Publish>
+--         action.
+--
+--     -   When you set @ContentBasedDeduplication@ to @true@, Amazon SNS
+--         uses a SHA-256 hash to generate the @MessageDeduplicationId@
+--         using the body of the message (but not the attributes of the
+--         message).
+--
+--         (Optional) To override the generated value, you can specify a
+--         value for the the @MessageDeduplicationId@ parameter for the
+--         @Publish@ action.
+createTopic_attributes :: Lens.Lens' CreateTopic (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+createTopic_attributes = Lens.lens (\CreateTopic' {attributes} -> attributes) (\s@CreateTopic' {} a -> s {attributes = a} :: CreateTopic) Prelude.. Lens.mapping Prelude._Map
 
 -- | The list of tags to add to a new topic.
-ctTags :: Lens' CreateTopic [Tag]
-ctTags = lens _ctTags (\s a -> s {_ctTags = a}) . _Default . _Coerce
+--
+-- To be able to tag a topic on creation, you must have the
+-- @sns:CreateTopic@ and @sns:TagResource@ permissions.
+createTopic_tags :: Lens.Lens' CreateTopic (Prelude.Maybe [Tag])
+createTopic_tags = Lens.lens (\CreateTopic' {tags} -> tags) (\s@CreateTopic' {} a -> s {tags = a} :: CreateTopic) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The name of the topic you want to create. Constraints: Topic names must be made up of only uppercase and lowercase ASCII letters, numbers, underscores, and hyphens, and must be between 1 and 256 characters long. For a FIFO (first-in-first-out) topic, the name must end with the @.fifo@ suffix.
-ctName :: Lens' CreateTopic Text
-ctName = lens _ctName (\s a -> s {_ctName = a})
+-- | The name of the topic you want to create.
+--
+-- Constraints: Topic names must be made up of only uppercase and lowercase
+-- ASCII letters, numbers, underscores, and hyphens, and must be between 1
+-- and 256 characters long.
+--
+-- For a FIFO (first-in-first-out) topic, the name must end with the
+-- @.fifo@ suffix.
+createTopic_name :: Lens.Lens' CreateTopic Prelude.Text
+createTopic_name = Lens.lens (\CreateTopic' {name} -> name) (\s@CreateTopic' {} a -> s {name = a} :: CreateTopic)
 
-instance AWSRequest CreateTopic where
+instance Prelude.AWSRequest CreateTopic where
   type Rs CreateTopic = CreateTopicResponse
-  request = postQuery sns
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "CreateTopicResult"
       ( \s h x ->
           CreateTopicResponse'
-            <$> (x .@? "TopicArn") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "TopicArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateTopic
+instance Prelude.Hashable CreateTopic
 
-instance NFData CreateTopic
+instance Prelude.NFData CreateTopic
 
-instance ToHeaders CreateTopic where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateTopic where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CreateTopic where
-  toPath = const "/"
+instance Prelude.ToPath CreateTopic where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateTopic where
+instance Prelude.ToQuery CreateTopic where
   toQuery CreateTopic' {..} =
-    mconcat
-      [ "Action" =: ("CreateTopic" :: ByteString),
-        "Version" =: ("2010-03-31" :: ByteString),
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("CreateTopic" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-03-31" :: Prelude.ByteString),
         "Attributes"
-          =: toQuery
-            (toQueryMap "entry" "key" "value" <$> _ctAttributes),
-        "Tags" =: toQuery (toQueryList "member" <$> _ctTags),
-        "Name" =: _ctName
+          Prelude.=: Prelude.toQuery
+            ( Prelude.toQueryMap "entry" "key" "value"
+                Prelude.<$> attributes
+            ),
+        "Tags"
+          Prelude.=: Prelude.toQuery
+            (Prelude.toQueryList "member" Prelude.<$> tags),
+        "Name" Prelude.=: name
       ]
 
 -- | Response from CreateTopic action.
 --
---
---
--- /See:/ 'createTopicResponse' smart constructor.
+-- /See:/ 'newCreateTopicResponse' smart constructor.
 data CreateTopicResponse = CreateTopicResponse'
-  { _ctrrsTopicARN ::
-      !(Maybe Text),
-    _ctrrsResponseStatus :: !Int
+  { -- | The Amazon Resource Name (ARN) assigned to the created topic.
+    topicArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateTopicResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateTopicResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ctrrsTopicARN' - The Amazon Resource Name (ARN) assigned to the created topic.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ctrrsResponseStatus' - -- | The response status code.
-createTopicResponse ::
-  -- | 'ctrrsResponseStatus'
-  Int ->
+-- 'topicArn', 'createTopicResponse_topicArn' - The Amazon Resource Name (ARN) assigned to the created topic.
+--
+-- 'httpStatus', 'createTopicResponse_httpStatus' - The response's http status code.
+newCreateTopicResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateTopicResponse
-createTopicResponse pResponseStatus_ =
+newCreateTopicResponse pHttpStatus_ =
   CreateTopicResponse'
-    { _ctrrsTopicARN = Nothing,
-      _ctrrsResponseStatus = pResponseStatus_
+    { topicArn = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The Amazon Resource Name (ARN) assigned to the created topic.
-ctrrsTopicARN :: Lens' CreateTopicResponse (Maybe Text)
-ctrrsTopicARN = lens _ctrrsTopicARN (\s a -> s {_ctrrsTopicARN = a})
+createTopicResponse_topicArn :: Lens.Lens' CreateTopicResponse (Prelude.Maybe Prelude.Text)
+createTopicResponse_topicArn = Lens.lens (\CreateTopicResponse' {topicArn} -> topicArn) (\s@CreateTopicResponse' {} a -> s {topicArn = a} :: CreateTopicResponse)
 
--- | -- | The response status code.
-ctrrsResponseStatus :: Lens' CreateTopicResponse Int
-ctrrsResponseStatus = lens _ctrrsResponseStatus (\s a -> s {_ctrrsResponseStatus = a})
+-- | The response's http status code.
+createTopicResponse_httpStatus :: Lens.Lens' CreateTopicResponse Prelude.Int
+createTopicResponse_httpStatus = Lens.lens (\CreateTopicResponse' {httpStatus} -> httpStatus) (\s@CreateTopicResponse' {} a -> s {httpStatus = a} :: CreateTopicResponse)
 
-instance NFData CreateTopicResponse
+instance Prelude.NFData CreateTopicResponse
