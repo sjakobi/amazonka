@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,84 +20,134 @@
 module Network.AWS.ElasticBeanstalk.Types.BuildConfiguration where
 
 import Network.AWS.ElasticBeanstalk.Types.ComputeType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Settings for an AWS CodeBuild build.
 --
---
---
--- /See:/ 'buildConfiguration' smart constructor.
+-- /See:/ 'newBuildConfiguration' smart constructor.
 data BuildConfiguration = BuildConfiguration'
-  { _bcArtifactName ::
-      !(Maybe Text),
-    _bcTimeoutInMinutes ::
-      !(Maybe Int),
-    _bcComputeType ::
-      !(Maybe ComputeType),
-    _bcCodeBuildServiceRole :: !Text,
-    _bcImage :: !Text
+  { -- | The name of the artifact of the CodeBuild build. If provided, Elastic
+    -- Beanstalk stores the build artifact in the S3 location
+    -- /S3-bucket/\/resources\//application-name/\/codebuild\/codebuild-/version-label/-/artifact-name/.zip.
+    -- If not provided, Elastic Beanstalk stores the build artifact in the S3
+    -- location
+    -- /S3-bucket/\/resources\//application-name/\/codebuild\/codebuild-/version-label/.zip.
+    artifactName :: Prelude.Maybe Prelude.Text,
+    -- | How long in minutes, from 5 to 480 (8 hours), for AWS CodeBuild to wait
+    -- until timing out any related build that does not get marked as
+    -- completed. The default is 60 minutes.
+    timeoutInMinutes :: Prelude.Maybe Prelude.Int,
+    -- | Information about the compute resources the build project will use.
+    --
+    -- -   @BUILD_GENERAL1_SMALL: Use up to 3 GB memory and 2 vCPUs for builds@
+    --
+    -- -   @BUILD_GENERAL1_MEDIUM: Use up to 7 GB memory and 4 vCPUs for builds@
+    --
+    -- -   @BUILD_GENERAL1_LARGE: Use up to 15 GB memory and 8 vCPUs for builds@
+    computeType :: Prelude.Maybe ComputeType,
+    -- | The Amazon Resource Name (ARN) of the AWS Identity and Access Management
+    -- (IAM) role that enables AWS CodeBuild to interact with dependent AWS
+    -- services on behalf of the AWS account.
+    codeBuildServiceRole :: Prelude.Text,
+    -- | The ID of the Docker image to use for this build project.
+    image :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BuildConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BuildConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bcArtifactName' - The name of the artifact of the CodeBuild build. If provided, Elastic Beanstalk stores the build artifact in the S3 location /S3-bucket/ /resources//application-name/ /codebuild/codebuild-/version-label/ -/artifact-name/ .zip. If not provided, Elastic Beanstalk stores the build artifact in the S3 location /S3-bucket/ /resources//application-name/ /codebuild/codebuild-/version-label/ .zip.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bcTimeoutInMinutes' - How long in minutes, from 5 to 480 (8 hours), for AWS CodeBuild to wait until timing out any related build that does not get marked as completed. The default is 60 minutes.
+-- 'artifactName', 'buildConfiguration_artifactName' - The name of the artifact of the CodeBuild build. If provided, Elastic
+-- Beanstalk stores the build artifact in the S3 location
+-- /S3-bucket/\/resources\//application-name/\/codebuild\/codebuild-/version-label/-/artifact-name/.zip.
+-- If not provided, Elastic Beanstalk stores the build artifact in the S3
+-- location
+-- /S3-bucket/\/resources\//application-name/\/codebuild\/codebuild-/version-label/.zip.
 --
--- * 'bcComputeType' - Information about the compute resources the build project will use.     * @BUILD_GENERAL1_SMALL: Use up to 3 GB memory and 2 vCPUs for builds@      * @BUILD_GENERAL1_MEDIUM: Use up to 7 GB memory and 4 vCPUs for builds@      * @BUILD_GENERAL1_LARGE: Use up to 15 GB memory and 8 vCPUs for builds@
+-- 'timeoutInMinutes', 'buildConfiguration_timeoutInMinutes' - How long in minutes, from 5 to 480 (8 hours), for AWS CodeBuild to wait
+-- until timing out any related build that does not get marked as
+-- completed. The default is 60 minutes.
 --
--- * 'bcCodeBuildServiceRole' - The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role that enables AWS CodeBuild to interact with dependent AWS services on behalf of the AWS account.
+-- 'computeType', 'buildConfiguration_computeType' - Information about the compute resources the build project will use.
 --
--- * 'bcImage' - The ID of the Docker image to use for this build project.
-buildConfiguration ::
-  -- | 'bcCodeBuildServiceRole'
-  Text ->
-  -- | 'bcImage'
-  Text ->
+-- -   @BUILD_GENERAL1_SMALL: Use up to 3 GB memory and 2 vCPUs for builds@
+--
+-- -   @BUILD_GENERAL1_MEDIUM: Use up to 7 GB memory and 4 vCPUs for builds@
+--
+-- -   @BUILD_GENERAL1_LARGE: Use up to 15 GB memory and 8 vCPUs for builds@
+--
+-- 'codeBuildServiceRole', 'buildConfiguration_codeBuildServiceRole' - The Amazon Resource Name (ARN) of the AWS Identity and Access Management
+-- (IAM) role that enables AWS CodeBuild to interact with dependent AWS
+-- services on behalf of the AWS account.
+--
+-- 'image', 'buildConfiguration_image' - The ID of the Docker image to use for this build project.
+newBuildConfiguration ::
+  -- | 'codeBuildServiceRole'
+  Prelude.Text ->
+  -- | 'image'
+  Prelude.Text ->
   BuildConfiguration
-buildConfiguration pCodeBuildServiceRole_ pImage_ =
+newBuildConfiguration pCodeBuildServiceRole_ pImage_ =
   BuildConfiguration'
-    { _bcArtifactName = Nothing,
-      _bcTimeoutInMinutes = Nothing,
-      _bcComputeType = Nothing,
-      _bcCodeBuildServiceRole = pCodeBuildServiceRole_,
-      _bcImage = pImage_
+    { artifactName = Prelude.Nothing,
+      timeoutInMinutes = Prelude.Nothing,
+      computeType = Prelude.Nothing,
+      codeBuildServiceRole = pCodeBuildServiceRole_,
+      image = pImage_
     }
 
--- | The name of the artifact of the CodeBuild build. If provided, Elastic Beanstalk stores the build artifact in the S3 location /S3-bucket/ /resources//application-name/ /codebuild/codebuild-/version-label/ -/artifact-name/ .zip. If not provided, Elastic Beanstalk stores the build artifact in the S3 location /S3-bucket/ /resources//application-name/ /codebuild/codebuild-/version-label/ .zip.
-bcArtifactName :: Lens' BuildConfiguration (Maybe Text)
-bcArtifactName = lens _bcArtifactName (\s a -> s {_bcArtifactName = a})
+-- | The name of the artifact of the CodeBuild build. If provided, Elastic
+-- Beanstalk stores the build artifact in the S3 location
+-- /S3-bucket/\/resources\//application-name/\/codebuild\/codebuild-/version-label/-/artifact-name/.zip.
+-- If not provided, Elastic Beanstalk stores the build artifact in the S3
+-- location
+-- /S3-bucket/\/resources\//application-name/\/codebuild\/codebuild-/version-label/.zip.
+buildConfiguration_artifactName :: Lens.Lens' BuildConfiguration (Prelude.Maybe Prelude.Text)
+buildConfiguration_artifactName = Lens.lens (\BuildConfiguration' {artifactName} -> artifactName) (\s@BuildConfiguration' {} a -> s {artifactName = a} :: BuildConfiguration)
 
--- | How long in minutes, from 5 to 480 (8 hours), for AWS CodeBuild to wait until timing out any related build that does not get marked as completed. The default is 60 minutes.
-bcTimeoutInMinutes :: Lens' BuildConfiguration (Maybe Int)
-bcTimeoutInMinutes = lens _bcTimeoutInMinutes (\s a -> s {_bcTimeoutInMinutes = a})
+-- | How long in minutes, from 5 to 480 (8 hours), for AWS CodeBuild to wait
+-- until timing out any related build that does not get marked as
+-- completed. The default is 60 minutes.
+buildConfiguration_timeoutInMinutes :: Lens.Lens' BuildConfiguration (Prelude.Maybe Prelude.Int)
+buildConfiguration_timeoutInMinutes = Lens.lens (\BuildConfiguration' {timeoutInMinutes} -> timeoutInMinutes) (\s@BuildConfiguration' {} a -> s {timeoutInMinutes = a} :: BuildConfiguration)
 
--- | Information about the compute resources the build project will use.     * @BUILD_GENERAL1_SMALL: Use up to 3 GB memory and 2 vCPUs for builds@      * @BUILD_GENERAL1_MEDIUM: Use up to 7 GB memory and 4 vCPUs for builds@      * @BUILD_GENERAL1_LARGE: Use up to 15 GB memory and 8 vCPUs for builds@
-bcComputeType :: Lens' BuildConfiguration (Maybe ComputeType)
-bcComputeType = lens _bcComputeType (\s a -> s {_bcComputeType = a})
+-- | Information about the compute resources the build project will use.
+--
+-- -   @BUILD_GENERAL1_SMALL: Use up to 3 GB memory and 2 vCPUs for builds@
+--
+-- -   @BUILD_GENERAL1_MEDIUM: Use up to 7 GB memory and 4 vCPUs for builds@
+--
+-- -   @BUILD_GENERAL1_LARGE: Use up to 15 GB memory and 8 vCPUs for builds@
+buildConfiguration_computeType :: Lens.Lens' BuildConfiguration (Prelude.Maybe ComputeType)
+buildConfiguration_computeType = Lens.lens (\BuildConfiguration' {computeType} -> computeType) (\s@BuildConfiguration' {} a -> s {computeType = a} :: BuildConfiguration)
 
--- | The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role that enables AWS CodeBuild to interact with dependent AWS services on behalf of the AWS account.
-bcCodeBuildServiceRole :: Lens' BuildConfiguration Text
-bcCodeBuildServiceRole = lens _bcCodeBuildServiceRole (\s a -> s {_bcCodeBuildServiceRole = a})
+-- | The Amazon Resource Name (ARN) of the AWS Identity and Access Management
+-- (IAM) role that enables AWS CodeBuild to interact with dependent AWS
+-- services on behalf of the AWS account.
+buildConfiguration_codeBuildServiceRole :: Lens.Lens' BuildConfiguration Prelude.Text
+buildConfiguration_codeBuildServiceRole = Lens.lens (\BuildConfiguration' {codeBuildServiceRole} -> codeBuildServiceRole) (\s@BuildConfiguration' {} a -> s {codeBuildServiceRole = a} :: BuildConfiguration)
 
 -- | The ID of the Docker image to use for this build project.
-bcImage :: Lens' BuildConfiguration Text
-bcImage = lens _bcImage (\s a -> s {_bcImage = a})
+buildConfiguration_image :: Lens.Lens' BuildConfiguration Prelude.Text
+buildConfiguration_image = Lens.lens (\BuildConfiguration' {image} -> image) (\s@BuildConfiguration' {} a -> s {image = a} :: BuildConfiguration)
 
-instance Hashable BuildConfiguration
+instance Prelude.Hashable BuildConfiguration
 
-instance NFData BuildConfiguration
+instance Prelude.NFData BuildConfiguration
 
-instance ToQuery BuildConfiguration where
+instance Prelude.ToQuery BuildConfiguration where
   toQuery BuildConfiguration' {..} =
-    mconcat
-      [ "ArtifactName" =: _bcArtifactName,
-        "TimeoutInMinutes" =: _bcTimeoutInMinutes,
-        "ComputeType" =: _bcComputeType,
-        "CodeBuildServiceRole" =: _bcCodeBuildServiceRole,
-        "Image" =: _bcImage
+    Prelude.mconcat
+      [ "ArtifactName" Prelude.=: artifactName,
+        "TimeoutInMinutes" Prelude.=: timeoutInMinutes,
+        "ComputeType" Prelude.=: computeType,
+        "CodeBuildServiceRole"
+          Prelude.=: codeBuildServiceRole,
+        "Image" Prelude.=: image
       ]

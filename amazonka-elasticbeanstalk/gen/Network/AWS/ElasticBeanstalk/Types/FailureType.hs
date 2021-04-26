@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,78 +19,80 @@
 module Network.AWS.ElasticBeanstalk.Types.FailureType
   ( FailureType
       ( ..,
-        CancellationFailed,
-        InternalFailure,
-        InvalidEnvironmentState,
-        PermissionsError,
-        RollbackFailed,
-        RollbackSuccessful,
-        UpdateCancelled
+        FailureTypeCancellationFailed,
+        FailureTypeInternalFailure,
+        FailureTypeInvalidEnvironmentState,
+        FailureTypePermissionsError,
+        FailureTypeRollbackFailed,
+        FailureTypeRollbackSuccessful,
+        FailureTypeUpdateCancelled
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data FailureType = FailureType' (CI Text)
+newtype FailureType = FailureType'
+  { fromFailureType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CancellationFailed :: FailureType
-pattern CancellationFailed = FailureType' "CancellationFailed"
+pattern FailureTypeCancellationFailed :: FailureType
+pattern FailureTypeCancellationFailed = FailureType' "CancellationFailed"
 
-pattern InternalFailure :: FailureType
-pattern InternalFailure = FailureType' "InternalFailure"
+pattern FailureTypeInternalFailure :: FailureType
+pattern FailureTypeInternalFailure = FailureType' "InternalFailure"
 
-pattern InvalidEnvironmentState :: FailureType
-pattern InvalidEnvironmentState = FailureType' "InvalidEnvironmentState"
+pattern FailureTypeInvalidEnvironmentState :: FailureType
+pattern FailureTypeInvalidEnvironmentState = FailureType' "InvalidEnvironmentState"
 
-pattern PermissionsError :: FailureType
-pattern PermissionsError = FailureType' "PermissionsError"
+pattern FailureTypePermissionsError :: FailureType
+pattern FailureTypePermissionsError = FailureType' "PermissionsError"
 
-pattern RollbackFailed :: FailureType
-pattern RollbackFailed = FailureType' "RollbackFailed"
+pattern FailureTypeRollbackFailed :: FailureType
+pattern FailureTypeRollbackFailed = FailureType' "RollbackFailed"
 
-pattern RollbackSuccessful :: FailureType
-pattern RollbackSuccessful = FailureType' "RollbackSuccessful"
+pattern FailureTypeRollbackSuccessful :: FailureType
+pattern FailureTypeRollbackSuccessful = FailureType' "RollbackSuccessful"
 
-pattern UpdateCancelled :: FailureType
-pattern UpdateCancelled = FailureType' "UpdateCancelled"
+pattern FailureTypeUpdateCancelled :: FailureType
+pattern FailureTypeUpdateCancelled = FailureType' "UpdateCancelled"
 
 {-# COMPLETE
-  CancellationFailed,
-  InternalFailure,
-  InvalidEnvironmentState,
-  PermissionsError,
-  RollbackFailed,
-  RollbackSuccessful,
-  UpdateCancelled,
+  FailureTypeCancellationFailed,
+  FailureTypeInternalFailure,
+  FailureTypeInvalidEnvironmentState,
+  FailureTypePermissionsError,
+  FailureTypeRollbackFailed,
+  FailureTypeRollbackSuccessful,
+  FailureTypeUpdateCancelled,
   FailureType'
   #-}
 
-instance FromText FailureType where
-  parser = (FailureType' . mk) <$> takeText
+instance Prelude.FromText FailureType where
+  parser = FailureType' Prelude.<$> Prelude.takeText
 
-instance ToText FailureType where
-  toText (FailureType' ci) = original ci
+instance Prelude.ToText FailureType where
+  toText (FailureType' x) = x
 
-instance Hashable FailureType
+instance Prelude.Hashable FailureType
 
-instance NFData FailureType
+instance Prelude.NFData FailureType
 
-instance ToByteString FailureType
+instance Prelude.ToByteString FailureType
 
-instance ToQuery FailureType
+instance Prelude.ToQuery FailureType
 
-instance ToHeader FailureType
+instance Prelude.ToHeader FailureType
 
-instance FromXML FailureType where
-  parseXML = parseXMLText "FailureType"
+instance Prelude.FromXML FailureType where
+  parseXML = Prelude.parseXMLText "FailureType"

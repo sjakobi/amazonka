@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.ElasticBeanstalk.Types.ActionHistoryStatus
   ( ActionHistoryStatus
       ( ..,
-        AHSCompleted,
-        AHSFailed,
-        AHSUnknown
+        ActionHistoryStatusCompleted,
+        ActionHistoryStatusFailed,
+        ActionHistoryStatusUnknown
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ActionHistoryStatus
-  = ActionHistoryStatus'
-      ( CI
-          Text
-      )
+newtype ActionHistoryStatus = ActionHistoryStatus'
+  { fromActionHistoryStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AHSCompleted :: ActionHistoryStatus
-pattern AHSCompleted = ActionHistoryStatus' "Completed"
+pattern ActionHistoryStatusCompleted :: ActionHistoryStatus
+pattern ActionHistoryStatusCompleted = ActionHistoryStatus' "Completed"
 
-pattern AHSFailed :: ActionHistoryStatus
-pattern AHSFailed = ActionHistoryStatus' "Failed"
+pattern ActionHistoryStatusFailed :: ActionHistoryStatus
+pattern ActionHistoryStatusFailed = ActionHistoryStatus' "Failed"
 
-pattern AHSUnknown :: ActionHistoryStatus
-pattern AHSUnknown = ActionHistoryStatus' "Unknown"
+pattern ActionHistoryStatusUnknown :: ActionHistoryStatus
+pattern ActionHistoryStatusUnknown = ActionHistoryStatus' "Unknown"
 
 {-# COMPLETE
-  AHSCompleted,
-  AHSFailed,
-  AHSUnknown,
+  ActionHistoryStatusCompleted,
+  ActionHistoryStatusFailed,
+  ActionHistoryStatusUnknown,
   ActionHistoryStatus'
   #-}
 
-instance FromText ActionHistoryStatus where
-  parser = (ActionHistoryStatus' . mk) <$> takeText
+instance Prelude.FromText ActionHistoryStatus where
+  parser = ActionHistoryStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ActionHistoryStatus where
-  toText (ActionHistoryStatus' ci) = original ci
+instance Prelude.ToText ActionHistoryStatus where
+  toText (ActionHistoryStatus' x) = x
 
-instance Hashable ActionHistoryStatus
+instance Prelude.Hashable ActionHistoryStatus
 
-instance NFData ActionHistoryStatus
+instance Prelude.NFData ActionHistoryStatus
 
-instance ToByteString ActionHistoryStatus
+instance Prelude.ToByteString ActionHistoryStatus
 
-instance ToQuery ActionHistoryStatus
+instance Prelude.ToQuery ActionHistoryStatus
 
-instance ToHeader ActionHistoryStatus
+instance Prelude.ToHeader ActionHistoryStatus
 
-instance FromXML ActionHistoryStatus where
-  parseXML = parseXMLText "ActionHistoryStatus"
+instance Prelude.FromXML ActionHistoryStatus where
+  parseXML = Prelude.parseXMLText "ActionHistoryStatus"

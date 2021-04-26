@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,138 +21,183 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Initiates a request to compile the specified type of information of the deployed environment.
+-- Initiates a request to compile the specified type of information of the
+-- deployed environment.
 --
+-- Setting the @InfoType@ to @tail@ compiles the last lines from the
+-- application server log files of every Amazon EC2 instance in your
+-- environment.
 --
--- Setting the @InfoType@ to @tail@ compiles the last lines from the application server log files of every Amazon EC2 instance in your environment.
+-- Setting the @InfoType@ to @bundle@ compresses the application server log
+-- files for every Amazon EC2 instance into a @.zip@ file. Legacy and .NET
+-- containers do not support bundle logs.
 --
--- Setting the @InfoType@ to @bundle@ compresses the application server log files for every Amazon EC2 instance into a @.zip@ file. Legacy and .NET containers do not support bundle logs.
---
--- Use 'RetrieveEnvironmentInfo' to obtain the set of logs.
+-- Use RetrieveEnvironmentInfo to obtain the set of logs.
 --
 -- Related Topics
 --
---     * 'RetrieveEnvironmentInfo'
+-- -   RetrieveEnvironmentInfo
 module Network.AWS.ElasticBeanstalk.RequestEnvironmentInfo
   ( -- * Creating a Request
-    requestEnvironmentInfo,
-    RequestEnvironmentInfo,
+    RequestEnvironmentInfo (..),
+    newRequestEnvironmentInfo,
 
     -- * Request Lenses
-    rEnvironmentId,
-    rEnvironmentName,
-    rInfoType,
+    requestEnvironmentInfo_environmentId,
+    requestEnvironmentInfo_environmentName,
+    requestEnvironmentInfo_infoType,
 
     -- * Destructuring the Response
-    requestEnvironmentInfoResponse,
-    RequestEnvironmentInfoResponse,
+    RequestEnvironmentInfoResponse (..),
+    newRequestEnvironmentInfoResponse,
   )
 where
 
 import Network.AWS.ElasticBeanstalk.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Request to retrieve logs from an environment and store them in your Elastic Beanstalk storage bucket.
+-- | Request to retrieve logs from an environment and store them in your
+-- Elastic Beanstalk storage bucket.
 --
---
---
--- /See:/ 'requestEnvironmentInfo' smart constructor.
+-- /See:/ 'newRequestEnvironmentInfo' smart constructor.
 data RequestEnvironmentInfo = RequestEnvironmentInfo'
-  { _rEnvironmentId ::
-      !(Maybe Text),
-    _rEnvironmentName ::
-      !(Maybe Text),
-    _rInfoType ::
-      !EnvironmentInfoType
+  { -- | The ID of the environment of the requested data.
+    --
+    -- If no such environment is found, @RequestEnvironmentInfo@ returns an
+    -- @InvalidParameterValue@ error.
+    --
+    -- Condition: You must specify either this or an EnvironmentName, or both.
+    -- If you do not specify either, AWS Elastic Beanstalk returns
+    -- @MissingRequiredParameter@ error.
+    environmentId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the environment of the requested data.
+    --
+    -- If no such environment is found, @RequestEnvironmentInfo@ returns an
+    -- @InvalidParameterValue@ error.
+    --
+    -- Condition: You must specify either this or an EnvironmentId, or both. If
+    -- you do not specify either, AWS Elastic Beanstalk returns
+    -- @MissingRequiredParameter@ error.
+    environmentName :: Prelude.Maybe Prelude.Text,
+    -- | The type of information to request.
+    infoType :: EnvironmentInfoType
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RequestEnvironmentInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RequestEnvironmentInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rEnvironmentId' - The ID of the environment of the requested data. If no such environment is found, @RequestEnvironmentInfo@ returns an @InvalidParameterValue@ error.  Condition: You must specify either this or an EnvironmentName, or both. If you do not specify either, AWS Elastic Beanstalk returns @MissingRequiredParameter@ error.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rEnvironmentName' - The name of the environment of the requested data. If no such environment is found, @RequestEnvironmentInfo@ returns an @InvalidParameterValue@ error.  Condition: You must specify either this or an EnvironmentId, or both. If you do not specify either, AWS Elastic Beanstalk returns @MissingRequiredParameter@ error.
+-- 'environmentId', 'requestEnvironmentInfo_environmentId' - The ID of the environment of the requested data.
 --
--- * 'rInfoType' - The type of information to request.
-requestEnvironmentInfo ::
-  -- | 'rInfoType'
+-- If no such environment is found, @RequestEnvironmentInfo@ returns an
+-- @InvalidParameterValue@ error.
+--
+-- Condition: You must specify either this or an EnvironmentName, or both.
+-- If you do not specify either, AWS Elastic Beanstalk returns
+-- @MissingRequiredParameter@ error.
+--
+-- 'environmentName', 'requestEnvironmentInfo_environmentName' - The name of the environment of the requested data.
+--
+-- If no such environment is found, @RequestEnvironmentInfo@ returns an
+-- @InvalidParameterValue@ error.
+--
+-- Condition: You must specify either this or an EnvironmentId, or both. If
+-- you do not specify either, AWS Elastic Beanstalk returns
+-- @MissingRequiredParameter@ error.
+--
+-- 'infoType', 'requestEnvironmentInfo_infoType' - The type of information to request.
+newRequestEnvironmentInfo ::
+  -- | 'infoType'
   EnvironmentInfoType ->
   RequestEnvironmentInfo
-requestEnvironmentInfo pInfoType_ =
+newRequestEnvironmentInfo pInfoType_ =
   RequestEnvironmentInfo'
-    { _rEnvironmentId = Nothing,
-      _rEnvironmentName = Nothing,
-      _rInfoType = pInfoType_
+    { environmentId =
+        Prelude.Nothing,
+      environmentName = Prelude.Nothing,
+      infoType = pInfoType_
     }
 
--- | The ID of the environment of the requested data. If no such environment is found, @RequestEnvironmentInfo@ returns an @InvalidParameterValue@ error.  Condition: You must specify either this or an EnvironmentName, or both. If you do not specify either, AWS Elastic Beanstalk returns @MissingRequiredParameter@ error.
-rEnvironmentId :: Lens' RequestEnvironmentInfo (Maybe Text)
-rEnvironmentId = lens _rEnvironmentId (\s a -> s {_rEnvironmentId = a})
+-- | The ID of the environment of the requested data.
+--
+-- If no such environment is found, @RequestEnvironmentInfo@ returns an
+-- @InvalidParameterValue@ error.
+--
+-- Condition: You must specify either this or an EnvironmentName, or both.
+-- If you do not specify either, AWS Elastic Beanstalk returns
+-- @MissingRequiredParameter@ error.
+requestEnvironmentInfo_environmentId :: Lens.Lens' RequestEnvironmentInfo (Prelude.Maybe Prelude.Text)
+requestEnvironmentInfo_environmentId = Lens.lens (\RequestEnvironmentInfo' {environmentId} -> environmentId) (\s@RequestEnvironmentInfo' {} a -> s {environmentId = a} :: RequestEnvironmentInfo)
 
--- | The name of the environment of the requested data. If no such environment is found, @RequestEnvironmentInfo@ returns an @InvalidParameterValue@ error.  Condition: You must specify either this or an EnvironmentId, or both. If you do not specify either, AWS Elastic Beanstalk returns @MissingRequiredParameter@ error.
-rEnvironmentName :: Lens' RequestEnvironmentInfo (Maybe Text)
-rEnvironmentName = lens _rEnvironmentName (\s a -> s {_rEnvironmentName = a})
+-- | The name of the environment of the requested data.
+--
+-- If no such environment is found, @RequestEnvironmentInfo@ returns an
+-- @InvalidParameterValue@ error.
+--
+-- Condition: You must specify either this or an EnvironmentId, or both. If
+-- you do not specify either, AWS Elastic Beanstalk returns
+-- @MissingRequiredParameter@ error.
+requestEnvironmentInfo_environmentName :: Lens.Lens' RequestEnvironmentInfo (Prelude.Maybe Prelude.Text)
+requestEnvironmentInfo_environmentName = Lens.lens (\RequestEnvironmentInfo' {environmentName} -> environmentName) (\s@RequestEnvironmentInfo' {} a -> s {environmentName = a} :: RequestEnvironmentInfo)
 
 -- | The type of information to request.
-rInfoType :: Lens' RequestEnvironmentInfo EnvironmentInfoType
-rInfoType = lens _rInfoType (\s a -> s {_rInfoType = a})
+requestEnvironmentInfo_infoType :: Lens.Lens' RequestEnvironmentInfo EnvironmentInfoType
+requestEnvironmentInfo_infoType = Lens.lens (\RequestEnvironmentInfo' {infoType} -> infoType) (\s@RequestEnvironmentInfo' {} a -> s {infoType = a} :: RequestEnvironmentInfo)
 
-instance AWSRequest RequestEnvironmentInfo where
+instance Prelude.AWSRequest RequestEnvironmentInfo where
   type
     Rs RequestEnvironmentInfo =
       RequestEnvironmentInfoResponse
-  request = postQuery elasticBeanstalk
+  request = Request.postQuery defaultService
   response =
-    receiveNull RequestEnvironmentInfoResponse'
+    Response.receiveNull
+      RequestEnvironmentInfoResponse'
 
-instance Hashable RequestEnvironmentInfo
+instance Prelude.Hashable RequestEnvironmentInfo
 
-instance NFData RequestEnvironmentInfo
+instance Prelude.NFData RequestEnvironmentInfo
 
-instance ToHeaders RequestEnvironmentInfo where
-  toHeaders = const mempty
+instance Prelude.ToHeaders RequestEnvironmentInfo where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath RequestEnvironmentInfo where
-  toPath = const "/"
+instance Prelude.ToPath RequestEnvironmentInfo where
+  toPath = Prelude.const "/"
 
-instance ToQuery RequestEnvironmentInfo where
+instance Prelude.ToQuery RequestEnvironmentInfo where
   toQuery RequestEnvironmentInfo' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("RequestEnvironmentInfo" :: ByteString),
-        "Version" =: ("2010-12-01" :: ByteString),
-        "EnvironmentId" =: _rEnvironmentId,
-        "EnvironmentName" =: _rEnvironmentName,
-        "InfoType" =: _rInfoType
+          Prelude.=: ("RequestEnvironmentInfo" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-12-01" :: Prelude.ByteString),
+        "EnvironmentId" Prelude.=: environmentId,
+        "EnvironmentName" Prelude.=: environmentName,
+        "InfoType" Prelude.=: infoType
       ]
 
--- | /See:/ 'requestEnvironmentInfoResponse' smart constructor.
+-- | /See:/ 'newRequestEnvironmentInfoResponse' smart constructor.
 data RequestEnvironmentInfoResponse = RequestEnvironmentInfoResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RequestEnvironmentInfoResponse' with the minimum fields required to make a request.
-requestEnvironmentInfoResponse ::
+-- |
+-- Create a value of 'RequestEnvironmentInfoResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newRequestEnvironmentInfoResponse ::
   RequestEnvironmentInfoResponse
-requestEnvironmentInfoResponse =
+newRequestEnvironmentInfoResponse =
   RequestEnvironmentInfoResponse'
 
-instance NFData RequestEnvironmentInfoResponse
+instance
+  Prelude.NFData
+    RequestEnvironmentInfoResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.ElasticBeanstalk.Types.SourceRepository
   ( SourceRepository
       ( ..,
-        CodeCommit,
-        S3
+        SourceRepositoryCodeCommit,
+        SourceRepositoryS3
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SourceRepository = SourceRepository' (CI Text)
+newtype SourceRepository = SourceRepository'
+  { fromSourceRepository ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CodeCommit :: SourceRepository
-pattern CodeCommit = SourceRepository' "CodeCommit"
+pattern SourceRepositoryCodeCommit :: SourceRepository
+pattern SourceRepositoryCodeCommit = SourceRepository' "CodeCommit"
 
-pattern S3 :: SourceRepository
-pattern S3 = SourceRepository' "S3"
+pattern SourceRepositoryS3 :: SourceRepository
+pattern SourceRepositoryS3 = SourceRepository' "S3"
 
 {-# COMPLETE
-  CodeCommit,
-  S3,
+  SourceRepositoryCodeCommit,
+  SourceRepositoryS3,
   SourceRepository'
   #-}
 
-instance FromText SourceRepository where
-  parser = (SourceRepository' . mk) <$> takeText
+instance Prelude.FromText SourceRepository where
+  parser = SourceRepository' Prelude.<$> Prelude.takeText
 
-instance ToText SourceRepository where
-  toText (SourceRepository' ci) = original ci
+instance Prelude.ToText SourceRepository where
+  toText (SourceRepository' x) = x
 
-instance Hashable SourceRepository
+instance Prelude.Hashable SourceRepository
 
-instance NFData SourceRepository
+instance Prelude.NFData SourceRepository
 
-instance ToByteString SourceRepository
+instance Prelude.ToByteString SourceRepository
 
-instance ToQuery SourceRepository
+instance Prelude.ToQuery SourceRepository
 
-instance ToHeader SourceRepository
+instance Prelude.ToHeader SourceRepository
 
-instance FromXML SourceRepository where
-  parseXML = parseXMLText "SourceRepository"
+instance Prelude.FromXML SourceRepository where
+  parseXML = Prelude.parseXMLText "SourceRepository"

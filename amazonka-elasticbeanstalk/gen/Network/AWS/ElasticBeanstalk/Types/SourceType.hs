@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.ElasticBeanstalk.Types.SourceType
   ( SourceType
       ( ..,
-        Git,
-        Zip
+        SourceTypeGit,
+        SourceTypeZip
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SourceType = SourceType' (CI Text)
+newtype SourceType = SourceType'
+  { fromSourceType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Git :: SourceType
-pattern Git = SourceType' "Git"
+pattern SourceTypeGit :: SourceType
+pattern SourceTypeGit = SourceType' "Git"
 
-pattern Zip :: SourceType
-pattern Zip = SourceType' "Zip"
+pattern SourceTypeZip :: SourceType
+pattern SourceTypeZip = SourceType' "Zip"
 
 {-# COMPLETE
-  Git,
-  Zip,
+  SourceTypeGit,
+  SourceTypeZip,
   SourceType'
   #-}
 
-instance FromText SourceType where
-  parser = (SourceType' . mk) <$> takeText
+instance Prelude.FromText SourceType where
+  parser = SourceType' Prelude.<$> Prelude.takeText
 
-instance ToText SourceType where
-  toText (SourceType' ci) = original ci
+instance Prelude.ToText SourceType where
+  toText (SourceType' x) = x
 
-instance Hashable SourceType
+instance Prelude.Hashable SourceType
 
-instance NFData SourceType
+instance Prelude.NFData SourceType
 
-instance ToByteString SourceType
+instance Prelude.ToByteString SourceType
 
-instance ToQuery SourceType
+instance Prelude.ToQuery SourceType
 
-instance ToHeader SourceType
+instance Prelude.ToHeader SourceType
 
-instance FromXML SourceType where
-  parseXML = parseXMLText "SourceType"
+instance Prelude.FromXML SourceType where
+  parseXML = Prelude.parseXMLText "SourceType"

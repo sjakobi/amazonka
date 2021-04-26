@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,192 +21,210 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Takes a set of configuration settings and either a configuration template or environment, and determines whether those values are valid.
+-- Takes a set of configuration settings and either a configuration
+-- template or environment, and determines whether those values are valid.
 --
---
--- This action returns a list of messages indicating any errors or warnings associated with the selection of option values.
+-- This action returns a list of messages indicating any errors or warnings
+-- associated with the selection of option values.
 module Network.AWS.ElasticBeanstalk.ValidateConfigurationSettings
   ( -- * Creating a Request
-    validateConfigurationSettings,
-    ValidateConfigurationSettings,
+    ValidateConfigurationSettings (..),
+    newValidateConfigurationSettings,
 
     -- * Request Lenses
-    vcsTemplateName,
-    vcsEnvironmentName,
-    vcsApplicationName,
-    vcsOptionSettings,
+    validateConfigurationSettings_templateName,
+    validateConfigurationSettings_environmentName,
+    validateConfigurationSettings_applicationName,
+    validateConfigurationSettings_optionSettings,
 
     -- * Destructuring the Response
-    validateConfigurationSettingsResponse,
-    ValidateConfigurationSettingsResponse,
+    ValidateConfigurationSettingsResponse (..),
+    newValidateConfigurationSettingsResponse,
 
     -- * Response Lenses
-    vcsrrsMessages,
-    vcsrrsResponseStatus,
+    validateConfigurationSettingsResponse_messages,
+    validateConfigurationSettingsResponse_httpStatus,
   )
 where
 
 import Network.AWS.ElasticBeanstalk.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ElasticBeanstalk.Types.ValidationMessage
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | A list of validation messages for a specified configuration template.
 --
---
---
--- /See:/ 'validateConfigurationSettings' smart constructor.
+-- /See:/ 'newValidateConfigurationSettings' smart constructor.
 data ValidateConfigurationSettings = ValidateConfigurationSettings'
-  { _vcsTemplateName ::
-      !( Maybe
-           Text
-       ),
-    _vcsEnvironmentName ::
-      !( Maybe
-           Text
-       ),
-    _vcsApplicationName ::
-      !Text,
-    _vcsOptionSettings ::
-      ![ConfigurationOptionSetting]
+  { -- | The name of the configuration template to validate the settings against.
+    --
+    -- Condition: You cannot specify both this and an environment name.
+    templateName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the environment to validate the settings against.
+    --
+    -- Condition: You cannot specify both this and a configuration template
+    -- name.
+    environmentName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the application that the configuration template or
+    -- environment belongs to.
+    applicationName :: Prelude.Text,
+    -- | A list of the options and desired values to evaluate.
+    optionSettings :: [ConfigurationOptionSetting]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ValidateConfigurationSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ValidateConfigurationSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'vcsTemplateName' - The name of the configuration template to validate the settings against. Condition: You cannot specify both this and an environment name.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'vcsEnvironmentName' - The name of the environment to validate the settings against. Condition: You cannot specify both this and a configuration template name.
+-- 'templateName', 'validateConfigurationSettings_templateName' - The name of the configuration template to validate the settings against.
 --
--- * 'vcsApplicationName' - The name of the application that the configuration template or environment belongs to.
+-- Condition: You cannot specify both this and an environment name.
 --
--- * 'vcsOptionSettings' - A list of the options and desired values to evaluate.
-validateConfigurationSettings ::
-  -- | 'vcsApplicationName'
-  Text ->
+-- 'environmentName', 'validateConfigurationSettings_environmentName' - The name of the environment to validate the settings against.
+--
+-- Condition: You cannot specify both this and a configuration template
+-- name.
+--
+-- 'applicationName', 'validateConfigurationSettings_applicationName' - The name of the application that the configuration template or
+-- environment belongs to.
+--
+-- 'optionSettings', 'validateConfigurationSettings_optionSettings' - A list of the options and desired values to evaluate.
+newValidateConfigurationSettings ::
+  -- | 'applicationName'
+  Prelude.Text ->
   ValidateConfigurationSettings
-validateConfigurationSettings pApplicationName_ =
+newValidateConfigurationSettings pApplicationName_ =
   ValidateConfigurationSettings'
-    { _vcsTemplateName =
-        Nothing,
-      _vcsEnvironmentName = Nothing,
-      _vcsApplicationName = pApplicationName_,
-      _vcsOptionSettings = mempty
+    { templateName =
+        Prelude.Nothing,
+      environmentName = Prelude.Nothing,
+      applicationName = pApplicationName_,
+      optionSettings = Prelude.mempty
     }
 
--- | The name of the configuration template to validate the settings against. Condition: You cannot specify both this and an environment name.
-vcsTemplateName :: Lens' ValidateConfigurationSettings (Maybe Text)
-vcsTemplateName = lens _vcsTemplateName (\s a -> s {_vcsTemplateName = a})
+-- | The name of the configuration template to validate the settings against.
+--
+-- Condition: You cannot specify both this and an environment name.
+validateConfigurationSettings_templateName :: Lens.Lens' ValidateConfigurationSettings (Prelude.Maybe Prelude.Text)
+validateConfigurationSettings_templateName = Lens.lens (\ValidateConfigurationSettings' {templateName} -> templateName) (\s@ValidateConfigurationSettings' {} a -> s {templateName = a} :: ValidateConfigurationSettings)
 
--- | The name of the environment to validate the settings against. Condition: You cannot specify both this and a configuration template name.
-vcsEnvironmentName :: Lens' ValidateConfigurationSettings (Maybe Text)
-vcsEnvironmentName = lens _vcsEnvironmentName (\s a -> s {_vcsEnvironmentName = a})
+-- | The name of the environment to validate the settings against.
+--
+-- Condition: You cannot specify both this and a configuration template
+-- name.
+validateConfigurationSettings_environmentName :: Lens.Lens' ValidateConfigurationSettings (Prelude.Maybe Prelude.Text)
+validateConfigurationSettings_environmentName = Lens.lens (\ValidateConfigurationSettings' {environmentName} -> environmentName) (\s@ValidateConfigurationSettings' {} a -> s {environmentName = a} :: ValidateConfigurationSettings)
 
--- | The name of the application that the configuration template or environment belongs to.
-vcsApplicationName :: Lens' ValidateConfigurationSettings Text
-vcsApplicationName = lens _vcsApplicationName (\s a -> s {_vcsApplicationName = a})
+-- | The name of the application that the configuration template or
+-- environment belongs to.
+validateConfigurationSettings_applicationName :: Lens.Lens' ValidateConfigurationSettings Prelude.Text
+validateConfigurationSettings_applicationName = Lens.lens (\ValidateConfigurationSettings' {applicationName} -> applicationName) (\s@ValidateConfigurationSettings' {} a -> s {applicationName = a} :: ValidateConfigurationSettings)
 
 -- | A list of the options and desired values to evaluate.
-vcsOptionSettings :: Lens' ValidateConfigurationSettings [ConfigurationOptionSetting]
-vcsOptionSettings = lens _vcsOptionSettings (\s a -> s {_vcsOptionSettings = a}) . _Coerce
+validateConfigurationSettings_optionSettings :: Lens.Lens' ValidateConfigurationSettings [ConfigurationOptionSetting]
+validateConfigurationSettings_optionSettings = Lens.lens (\ValidateConfigurationSettings' {optionSettings} -> optionSettings) (\s@ValidateConfigurationSettings' {} a -> s {optionSettings = a} :: ValidateConfigurationSettings) Prelude.. Prelude._Coerce
 
-instance AWSRequest ValidateConfigurationSettings where
+instance
+  Prelude.AWSRequest
+    ValidateConfigurationSettings
+  where
   type
     Rs ValidateConfigurationSettings =
       ValidateConfigurationSettingsResponse
-  request = postQuery elasticBeanstalk
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "ValidateConfigurationSettingsResult"
       ( \s h x ->
           ValidateConfigurationSettingsResponse'
-            <$> ( x .@? "Messages" .!@ mempty
-                    >>= may (parseXMLList "member")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "Messages" Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ValidateConfigurationSettings
+instance
+  Prelude.Hashable
+    ValidateConfigurationSettings
 
-instance NFData ValidateConfigurationSettings
+instance Prelude.NFData ValidateConfigurationSettings
 
-instance ToHeaders ValidateConfigurationSettings where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    ValidateConfigurationSettings
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ValidateConfigurationSettings where
-  toPath = const "/"
+instance Prelude.ToPath ValidateConfigurationSettings where
+  toPath = Prelude.const "/"
 
-instance ToQuery ValidateConfigurationSettings where
+instance
+  Prelude.ToQuery
+    ValidateConfigurationSettings
+  where
   toQuery ValidateConfigurationSettings' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("ValidateConfigurationSettings" :: ByteString),
-        "Version" =: ("2010-12-01" :: ByteString),
-        "TemplateName" =: _vcsTemplateName,
-        "EnvironmentName" =: _vcsEnvironmentName,
-        "ApplicationName" =: _vcsApplicationName,
+          Prelude.=: ( "ValidateConfigurationSettings" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2010-12-01" :: Prelude.ByteString),
+        "TemplateName" Prelude.=: templateName,
+        "EnvironmentName" Prelude.=: environmentName,
+        "ApplicationName" Prelude.=: applicationName,
         "OptionSettings"
-          =: toQueryList "member" _vcsOptionSettings
+          Prelude.=: Prelude.toQueryList "member" optionSettings
       ]
 
 -- | Provides a list of validation messages.
 --
---
---
--- /See:/ 'validateConfigurationSettingsResponse' smart constructor.
+-- /See:/ 'newValidateConfigurationSettingsResponse' smart constructor.
 data ValidateConfigurationSettingsResponse = ValidateConfigurationSettingsResponse'
-  { _vcsrrsMessages ::
-      !( Maybe
-           [ValidationMessage]
-       ),
-    _vcsrrsResponseStatus ::
-      !Int
+  { -- | A list of ValidationMessage.
+    messages :: Prelude.Maybe [ValidationMessage],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ValidateConfigurationSettingsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ValidateConfigurationSettingsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'vcsrrsMessages' - A list of 'ValidationMessage' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'vcsrrsResponseStatus' - -- | The response status code.
-validateConfigurationSettingsResponse ::
-  -- | 'vcsrrsResponseStatus'
-  Int ->
+-- 'messages', 'validateConfigurationSettingsResponse_messages' - A list of ValidationMessage.
+--
+-- 'httpStatus', 'validateConfigurationSettingsResponse_httpStatus' - The response's http status code.
+newValidateConfigurationSettingsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ValidateConfigurationSettingsResponse
-validateConfigurationSettingsResponse
-  pResponseStatus_ =
-    ValidateConfigurationSettingsResponse'
-      { _vcsrrsMessages =
-          Nothing,
-        _vcsrrsResponseStatus =
-          pResponseStatus_
-      }
+newValidateConfigurationSettingsResponse pHttpStatus_ =
+  ValidateConfigurationSettingsResponse'
+    { messages =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
+    }
 
--- | A list of 'ValidationMessage' .
-vcsrrsMessages :: Lens' ValidateConfigurationSettingsResponse [ValidationMessage]
-vcsrrsMessages = lens _vcsrrsMessages (\s a -> s {_vcsrrsMessages = a}) . _Default . _Coerce
+-- | A list of ValidationMessage.
+validateConfigurationSettingsResponse_messages :: Lens.Lens' ValidateConfigurationSettingsResponse (Prelude.Maybe [ValidationMessage])
+validateConfigurationSettingsResponse_messages = Lens.lens (\ValidateConfigurationSettingsResponse' {messages} -> messages) (\s@ValidateConfigurationSettingsResponse' {} a -> s {messages = a} :: ValidateConfigurationSettingsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-vcsrrsResponseStatus :: Lens' ValidateConfigurationSettingsResponse Int
-vcsrrsResponseStatus = lens _vcsrrsResponseStatus (\s a -> s {_vcsrrsResponseStatus = a})
+-- | The response's http status code.
+validateConfigurationSettingsResponse_httpStatus :: Lens.Lens' ValidateConfigurationSettingsResponse Prelude.Int
+validateConfigurationSettingsResponse_httpStatus = Lens.lens (\ValidateConfigurationSettingsResponse' {httpStatus} -> httpStatus) (\s@ValidateConfigurationSettingsResponse' {} a -> s {httpStatus = a} :: ValidateConfigurationSettingsResponse)
 
-instance NFData ValidateConfigurationSettingsResponse
+instance
+  Prelude.NFData
+    ValidateConfigurationSettingsResponse

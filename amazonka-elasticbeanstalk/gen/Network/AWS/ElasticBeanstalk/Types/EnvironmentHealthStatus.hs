@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,92 +19,90 @@
 module Network.AWS.ElasticBeanstalk.Types.EnvironmentHealthStatus
   ( EnvironmentHealthStatus
       ( ..,
-        EHSDegraded,
-        EHSInfo,
-        EHSNoData,
-        EHSOK,
-        EHSPending,
-        EHSSevere,
-        EHSSuspended,
-        EHSUnknown,
-        EHSWarning
+        EnvironmentHealthStatusDegraded,
+        EnvironmentHealthStatusInfo,
+        EnvironmentHealthStatusNoData,
+        EnvironmentHealthStatusOK,
+        EnvironmentHealthStatusPending,
+        EnvironmentHealthStatusSevere,
+        EnvironmentHealthStatusSuspended,
+        EnvironmentHealthStatusUnknown,
+        EnvironmentHealthStatusWarning
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data EnvironmentHealthStatus
-  = EnvironmentHealthStatus'
-      ( CI
-          Text
-      )
+newtype EnvironmentHealthStatus = EnvironmentHealthStatus'
+  { fromEnvironmentHealthStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern EHSDegraded :: EnvironmentHealthStatus
-pattern EHSDegraded = EnvironmentHealthStatus' "Degraded"
+pattern EnvironmentHealthStatusDegraded :: EnvironmentHealthStatus
+pattern EnvironmentHealthStatusDegraded = EnvironmentHealthStatus' "Degraded"
 
-pattern EHSInfo :: EnvironmentHealthStatus
-pattern EHSInfo = EnvironmentHealthStatus' "Info"
+pattern EnvironmentHealthStatusInfo :: EnvironmentHealthStatus
+pattern EnvironmentHealthStatusInfo = EnvironmentHealthStatus' "Info"
 
-pattern EHSNoData :: EnvironmentHealthStatus
-pattern EHSNoData = EnvironmentHealthStatus' "NoData"
+pattern EnvironmentHealthStatusNoData :: EnvironmentHealthStatus
+pattern EnvironmentHealthStatusNoData = EnvironmentHealthStatus' "NoData"
 
-pattern EHSOK :: EnvironmentHealthStatus
-pattern EHSOK = EnvironmentHealthStatus' "Ok"
+pattern EnvironmentHealthStatusOK :: EnvironmentHealthStatus
+pattern EnvironmentHealthStatusOK = EnvironmentHealthStatus' "Ok"
 
-pattern EHSPending :: EnvironmentHealthStatus
-pattern EHSPending = EnvironmentHealthStatus' "Pending"
+pattern EnvironmentHealthStatusPending :: EnvironmentHealthStatus
+pattern EnvironmentHealthStatusPending = EnvironmentHealthStatus' "Pending"
 
-pattern EHSSevere :: EnvironmentHealthStatus
-pattern EHSSevere = EnvironmentHealthStatus' "Severe"
+pattern EnvironmentHealthStatusSevere :: EnvironmentHealthStatus
+pattern EnvironmentHealthStatusSevere = EnvironmentHealthStatus' "Severe"
 
-pattern EHSSuspended :: EnvironmentHealthStatus
-pattern EHSSuspended = EnvironmentHealthStatus' "Suspended"
+pattern EnvironmentHealthStatusSuspended :: EnvironmentHealthStatus
+pattern EnvironmentHealthStatusSuspended = EnvironmentHealthStatus' "Suspended"
 
-pattern EHSUnknown :: EnvironmentHealthStatus
-pattern EHSUnknown = EnvironmentHealthStatus' "Unknown"
+pattern EnvironmentHealthStatusUnknown :: EnvironmentHealthStatus
+pattern EnvironmentHealthStatusUnknown = EnvironmentHealthStatus' "Unknown"
 
-pattern EHSWarning :: EnvironmentHealthStatus
-pattern EHSWarning = EnvironmentHealthStatus' "Warning"
+pattern EnvironmentHealthStatusWarning :: EnvironmentHealthStatus
+pattern EnvironmentHealthStatusWarning = EnvironmentHealthStatus' "Warning"
 
 {-# COMPLETE
-  EHSDegraded,
-  EHSInfo,
-  EHSNoData,
-  EHSOK,
-  EHSPending,
-  EHSSevere,
-  EHSSuspended,
-  EHSUnknown,
-  EHSWarning,
+  EnvironmentHealthStatusDegraded,
+  EnvironmentHealthStatusInfo,
+  EnvironmentHealthStatusNoData,
+  EnvironmentHealthStatusOK,
+  EnvironmentHealthStatusPending,
+  EnvironmentHealthStatusSevere,
+  EnvironmentHealthStatusSuspended,
+  EnvironmentHealthStatusUnknown,
+  EnvironmentHealthStatusWarning,
   EnvironmentHealthStatus'
   #-}
 
-instance FromText EnvironmentHealthStatus where
-  parser = (EnvironmentHealthStatus' . mk) <$> takeText
+instance Prelude.FromText EnvironmentHealthStatus where
+  parser = EnvironmentHealthStatus' Prelude.<$> Prelude.takeText
 
-instance ToText EnvironmentHealthStatus where
-  toText (EnvironmentHealthStatus' ci) = original ci
+instance Prelude.ToText EnvironmentHealthStatus where
+  toText (EnvironmentHealthStatus' x) = x
 
-instance Hashable EnvironmentHealthStatus
+instance Prelude.Hashable EnvironmentHealthStatus
 
-instance NFData EnvironmentHealthStatus
+instance Prelude.NFData EnvironmentHealthStatus
 
-instance ToByteString EnvironmentHealthStatus
+instance Prelude.ToByteString EnvironmentHealthStatus
 
-instance ToQuery EnvironmentHealthStatus
+instance Prelude.ToQuery EnvironmentHealthStatus
 
-instance ToHeader EnvironmentHealthStatus
+instance Prelude.ToHeader EnvironmentHealthStatus
 
-instance FromXML EnvironmentHealthStatus where
-  parseXML = parseXMLText "EnvironmentHealthStatus"
+instance Prelude.FromXML EnvironmentHealthStatus where
+  parseXML = Prelude.parseXMLText "EnvironmentHealthStatus"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,43 +19,53 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ElasticBeanstalk.Types.Queue where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a queue.
 --
---
---
--- /See:/ 'queue' smart constructor.
+-- /See:/ 'newQueue' smart constructor.
 data Queue = Queue'
-  { _qName :: !(Maybe Text),
-    _qURL :: !(Maybe Text)
+  { -- | The name of the queue.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The URL of the queue.
+    uRL :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Queue' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Queue' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'qName' - The name of the queue.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'qURL' - The URL of the queue.
-queue ::
+-- 'name', 'queue_name' - The name of the queue.
+--
+-- 'uRL', 'queue_uRL' - The URL of the queue.
+newQueue ::
   Queue
-queue = Queue' {_qName = Nothing, _qURL = Nothing}
+newQueue =
+  Queue'
+    { name = Prelude.Nothing,
+      uRL = Prelude.Nothing
+    }
 
 -- | The name of the queue.
-qName :: Lens' Queue (Maybe Text)
-qName = lens _qName (\s a -> s {_qName = a})
+queue_name :: Lens.Lens' Queue (Prelude.Maybe Prelude.Text)
+queue_name = Lens.lens (\Queue' {name} -> name) (\s@Queue' {} a -> s {name = a} :: Queue)
 
 -- | The URL of the queue.
-qURL :: Lens' Queue (Maybe Text)
-qURL = lens _qURL (\s a -> s {_qURL = a})
+queue_uRL :: Lens.Lens' Queue (Prelude.Maybe Prelude.Text)
+queue_uRL = Lens.lens (\Queue' {uRL} -> uRL) (\s@Queue' {} a -> s {uRL = a} :: Queue)
 
-instance FromXML Queue where
+instance Prelude.FromXML Queue where
   parseXML x =
-    Queue' <$> (x .@? "Name") <*> (x .@? "URL")
+    Queue'
+      Prelude.<$> (x Prelude..@? "Name")
+      Prelude.<*> (x Prelude..@? "URL")
 
-instance Hashable Queue
+instance Prelude.Hashable Queue
 
-instance NFData Queue
+instance Prelude.NFData Queue

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,67 +19,119 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ElasticBeanstalk.Types.EnvironmentTier where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the properties of an environment tier
 --
---
---
--- /See:/ 'environmentTier' smart constructor.
+-- /See:/ 'newEnvironmentTier' smart constructor.
 data EnvironmentTier = EnvironmentTier'
-  { _etVersion ::
-      !(Maybe Text),
-    _etName :: !(Maybe Text),
-    _etType :: !(Maybe Text)
+  { -- | The version of this environment tier. When you don\'t set a value to it,
+    -- Elastic Beanstalk uses the latest compatible worker tier version.
+    --
+    -- This member is deprecated. Any specific version that you set may become
+    -- out of date. We recommend leaving it unspecified.
+    version :: Prelude.Maybe Prelude.Text,
+    -- | The name of this environment tier.
+    --
+    -- Valid values:
+    --
+    -- -   For /Web server tier/ – @WebServer@
+    --
+    -- -   For /Worker tier/ – @Worker@
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The type of this environment tier.
+    --
+    -- Valid values:
+    --
+    -- -   For /Web server tier/ – @Standard@
+    --
+    -- -   For /Worker tier/ – @SQS\/HTTP@
+    type' :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EnvironmentTier' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EnvironmentTier' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'etVersion' - The version of this environment tier. When you don't set a value to it, Elastic Beanstalk uses the latest compatible worker tier version.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'etName' - The name of this environment tier. Valid values:     * For /Web server tier/ – @WebServer@      * For /Worker tier/ – @Worker@
+-- 'version', 'environmentTier_version' - The version of this environment tier. When you don\'t set a value to it,
+-- Elastic Beanstalk uses the latest compatible worker tier version.
 --
--- * 'etType' - The type of this environment tier. Valid values:     * For /Web server tier/ – @Standard@      * For /Worker tier/ – @SQS/HTTP@
-environmentTier ::
+-- This member is deprecated. Any specific version that you set may become
+-- out of date. We recommend leaving it unspecified.
+--
+-- 'name', 'environmentTier_name' - The name of this environment tier.
+--
+-- Valid values:
+--
+-- -   For /Web server tier/ – @WebServer@
+--
+-- -   For /Worker tier/ – @Worker@
+--
+-- 'type'', 'environmentTier_type' - The type of this environment tier.
+--
+-- Valid values:
+--
+-- -   For /Web server tier/ – @Standard@
+--
+-- -   For /Worker tier/ – @SQS\/HTTP@
+newEnvironmentTier ::
   EnvironmentTier
-environmentTier =
+newEnvironmentTier =
   EnvironmentTier'
-    { _etVersion = Nothing,
-      _etName = Nothing,
-      _etType = Nothing
+    { version = Prelude.Nothing,
+      name = Prelude.Nothing,
+      type' = Prelude.Nothing
     }
 
--- | The version of this environment tier. When you don't set a value to it, Elastic Beanstalk uses the latest compatible worker tier version.
-etVersion :: Lens' EnvironmentTier (Maybe Text)
-etVersion = lens _etVersion (\s a -> s {_etVersion = a})
+-- | The version of this environment tier. When you don\'t set a value to it,
+-- Elastic Beanstalk uses the latest compatible worker tier version.
+--
+-- This member is deprecated. Any specific version that you set may become
+-- out of date. We recommend leaving it unspecified.
+environmentTier_version :: Lens.Lens' EnvironmentTier (Prelude.Maybe Prelude.Text)
+environmentTier_version = Lens.lens (\EnvironmentTier' {version} -> version) (\s@EnvironmentTier' {} a -> s {version = a} :: EnvironmentTier)
 
--- | The name of this environment tier. Valid values:     * For /Web server tier/ – @WebServer@      * For /Worker tier/ – @Worker@
-etName :: Lens' EnvironmentTier (Maybe Text)
-etName = lens _etName (\s a -> s {_etName = a})
+-- | The name of this environment tier.
+--
+-- Valid values:
+--
+-- -   For /Web server tier/ – @WebServer@
+--
+-- -   For /Worker tier/ – @Worker@
+environmentTier_name :: Lens.Lens' EnvironmentTier (Prelude.Maybe Prelude.Text)
+environmentTier_name = Lens.lens (\EnvironmentTier' {name} -> name) (\s@EnvironmentTier' {} a -> s {name = a} :: EnvironmentTier)
 
--- | The type of this environment tier. Valid values:     * For /Web server tier/ – @Standard@      * For /Worker tier/ – @SQS/HTTP@
-etType :: Lens' EnvironmentTier (Maybe Text)
-etType = lens _etType (\s a -> s {_etType = a})
+-- | The type of this environment tier.
+--
+-- Valid values:
+--
+-- -   For /Web server tier/ – @Standard@
+--
+-- -   For /Worker tier/ – @SQS\/HTTP@
+environmentTier_type :: Lens.Lens' EnvironmentTier (Prelude.Maybe Prelude.Text)
+environmentTier_type = Lens.lens (\EnvironmentTier' {type'} -> type') (\s@EnvironmentTier' {} a -> s {type' = a} :: EnvironmentTier)
 
-instance FromXML EnvironmentTier where
+instance Prelude.FromXML EnvironmentTier where
   parseXML x =
     EnvironmentTier'
-      <$> (x .@? "Version")
-      <*> (x .@? "Name")
-      <*> (x .@? "Type")
+      Prelude.<$> (x Prelude..@? "Version")
+      Prelude.<*> (x Prelude..@? "Name")
+      Prelude.<*> (x Prelude..@? "Type")
 
-instance Hashable EnvironmentTier
+instance Prelude.Hashable EnvironmentTier
 
-instance NFData EnvironmentTier
+instance Prelude.NFData EnvironmentTier
 
-instance ToQuery EnvironmentTier where
+instance Prelude.ToQuery EnvironmentTier where
   toQuery EnvironmentTier' {..} =
-    mconcat
-      [ "Version" =: _etVersion,
-        "Name" =: _etName,
-        "Type" =: _etType
+    Prelude.mconcat
+      [ "Version" Prelude.=: version,
+        "Name" Prelude.=: name,
+        "Type" Prelude.=: type'
       ]

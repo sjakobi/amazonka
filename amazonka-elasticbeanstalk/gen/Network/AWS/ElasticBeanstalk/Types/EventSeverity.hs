@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,73 +19,75 @@
 module Network.AWS.ElasticBeanstalk.Types.EventSeverity
   ( EventSeverity
       ( ..,
-        LevelDebug,
-        LevelError',
-        LevelFatal,
-        LevelInfo,
-        LevelTrace,
-        LevelWarn
+        EventSeverityLevelDEBUG,
+        EventSeverityLevelERROR,
+        EventSeverityLevelFATAL,
+        EventSeverityLevelINFO,
+        EventSeverityLevelTRACE,
+        EventSeverityLevelWARN
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data EventSeverity = EventSeverity' (CI Text)
+newtype EventSeverity = EventSeverity'
+  { fromEventSeverity ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern LevelDebug :: EventSeverity
-pattern LevelDebug = EventSeverity' "DEBUG"
+pattern EventSeverityLevelDEBUG :: EventSeverity
+pattern EventSeverityLevelDEBUG = EventSeverity' "DEBUG"
 
-pattern LevelError' :: EventSeverity
-pattern LevelError' = EventSeverity' "ERROR"
+pattern EventSeverityLevelERROR :: EventSeverity
+pattern EventSeverityLevelERROR = EventSeverity' "ERROR"
 
-pattern LevelFatal :: EventSeverity
-pattern LevelFatal = EventSeverity' "FATAL"
+pattern EventSeverityLevelFATAL :: EventSeverity
+pattern EventSeverityLevelFATAL = EventSeverity' "FATAL"
 
-pattern LevelInfo :: EventSeverity
-pattern LevelInfo = EventSeverity' "INFO"
+pattern EventSeverityLevelINFO :: EventSeverity
+pattern EventSeverityLevelINFO = EventSeverity' "INFO"
 
-pattern LevelTrace :: EventSeverity
-pattern LevelTrace = EventSeverity' "TRACE"
+pattern EventSeverityLevelTRACE :: EventSeverity
+pattern EventSeverityLevelTRACE = EventSeverity' "TRACE"
 
-pattern LevelWarn :: EventSeverity
-pattern LevelWarn = EventSeverity' "WARN"
+pattern EventSeverityLevelWARN :: EventSeverity
+pattern EventSeverityLevelWARN = EventSeverity' "WARN"
 
 {-# COMPLETE
-  LevelDebug,
-  LevelError',
-  LevelFatal,
-  LevelInfo,
-  LevelTrace,
-  LevelWarn,
+  EventSeverityLevelDEBUG,
+  EventSeverityLevelERROR,
+  EventSeverityLevelFATAL,
+  EventSeverityLevelINFO,
+  EventSeverityLevelTRACE,
+  EventSeverityLevelWARN,
   EventSeverity'
   #-}
 
-instance FromText EventSeverity where
-  parser = (EventSeverity' . mk) <$> takeText
+instance Prelude.FromText EventSeverity where
+  parser = EventSeverity' Prelude.<$> Prelude.takeText
 
-instance ToText EventSeverity where
-  toText (EventSeverity' ci) = original ci
+instance Prelude.ToText EventSeverity where
+  toText (EventSeverity' x) = x
 
-instance Hashable EventSeverity
+instance Prelude.Hashable EventSeverity
 
-instance NFData EventSeverity
+instance Prelude.NFData EventSeverity
 
-instance ToByteString EventSeverity
+instance Prelude.ToByteString EventSeverity
 
-instance ToQuery EventSeverity
+instance Prelude.ToQuery EventSeverity
 
-instance ToHeader EventSeverity
+instance Prelude.ToHeader EventSeverity
 
-instance FromXML EventSeverity where
-  parseXML = parseXMLText "EventSeverity"
+instance Prelude.FromXML EventSeverity where
+  parseXML = Prelude.parseXMLText "EventSeverity"

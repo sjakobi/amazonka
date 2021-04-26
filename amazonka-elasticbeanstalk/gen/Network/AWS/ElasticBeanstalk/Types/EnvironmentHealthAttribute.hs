@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,84 +19,82 @@
 module Network.AWS.ElasticBeanstalk.Types.EnvironmentHealthAttribute
   ( EnvironmentHealthAttribute
       ( ..,
-        All,
-        ApplicationMetrics,
-        Causes,
-        Color,
-        HealthStatus,
-        InstancesHealth,
-        RefreshedAt,
-        Status
+        EnvironmentHealthAttributeAll,
+        EnvironmentHealthAttributeApplicationMetrics,
+        EnvironmentHealthAttributeCauses,
+        EnvironmentHealthAttributeColor,
+        EnvironmentHealthAttributeHealthStatus,
+        EnvironmentHealthAttributeInstancesHealth,
+        EnvironmentHealthAttributeRefreshedAt,
+        EnvironmentHealthAttributeStatus'
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data EnvironmentHealthAttribute
-  = EnvironmentHealthAttribute'
-      ( CI
-          Text
-      )
+newtype EnvironmentHealthAttribute = EnvironmentHealthAttribute'
+  { fromEnvironmentHealthAttribute ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern All :: EnvironmentHealthAttribute
-pattern All = EnvironmentHealthAttribute' "All"
+pattern EnvironmentHealthAttributeAll :: EnvironmentHealthAttribute
+pattern EnvironmentHealthAttributeAll = EnvironmentHealthAttribute' "All"
 
-pattern ApplicationMetrics :: EnvironmentHealthAttribute
-pattern ApplicationMetrics = EnvironmentHealthAttribute' "ApplicationMetrics"
+pattern EnvironmentHealthAttributeApplicationMetrics :: EnvironmentHealthAttribute
+pattern EnvironmentHealthAttributeApplicationMetrics = EnvironmentHealthAttribute' "ApplicationMetrics"
 
-pattern Causes :: EnvironmentHealthAttribute
-pattern Causes = EnvironmentHealthAttribute' "Causes"
+pattern EnvironmentHealthAttributeCauses :: EnvironmentHealthAttribute
+pattern EnvironmentHealthAttributeCauses = EnvironmentHealthAttribute' "Causes"
 
-pattern Color :: EnvironmentHealthAttribute
-pattern Color = EnvironmentHealthAttribute' "Color"
+pattern EnvironmentHealthAttributeColor :: EnvironmentHealthAttribute
+pattern EnvironmentHealthAttributeColor = EnvironmentHealthAttribute' "Color"
 
-pattern HealthStatus :: EnvironmentHealthAttribute
-pattern HealthStatus = EnvironmentHealthAttribute' "HealthStatus"
+pattern EnvironmentHealthAttributeHealthStatus :: EnvironmentHealthAttribute
+pattern EnvironmentHealthAttributeHealthStatus = EnvironmentHealthAttribute' "HealthStatus"
 
-pattern InstancesHealth :: EnvironmentHealthAttribute
-pattern InstancesHealth = EnvironmentHealthAttribute' "InstancesHealth"
+pattern EnvironmentHealthAttributeInstancesHealth :: EnvironmentHealthAttribute
+pattern EnvironmentHealthAttributeInstancesHealth = EnvironmentHealthAttribute' "InstancesHealth"
 
-pattern RefreshedAt :: EnvironmentHealthAttribute
-pattern RefreshedAt = EnvironmentHealthAttribute' "RefreshedAt"
+pattern EnvironmentHealthAttributeRefreshedAt :: EnvironmentHealthAttribute
+pattern EnvironmentHealthAttributeRefreshedAt = EnvironmentHealthAttribute' "RefreshedAt"
 
-pattern Status :: EnvironmentHealthAttribute
-pattern Status = EnvironmentHealthAttribute' "Status"
+pattern EnvironmentHealthAttributeStatus' :: EnvironmentHealthAttribute
+pattern EnvironmentHealthAttributeStatus' = EnvironmentHealthAttribute' "Status"
 
 {-# COMPLETE
-  All,
-  ApplicationMetrics,
-  Causes,
-  Color,
-  HealthStatus,
-  InstancesHealth,
-  RefreshedAt,
-  Status,
+  EnvironmentHealthAttributeAll,
+  EnvironmentHealthAttributeApplicationMetrics,
+  EnvironmentHealthAttributeCauses,
+  EnvironmentHealthAttributeColor,
+  EnvironmentHealthAttributeHealthStatus,
+  EnvironmentHealthAttributeInstancesHealth,
+  EnvironmentHealthAttributeRefreshedAt,
+  EnvironmentHealthAttributeStatus',
   EnvironmentHealthAttribute'
   #-}
 
-instance FromText EnvironmentHealthAttribute where
-  parser = (EnvironmentHealthAttribute' . mk) <$> takeText
+instance Prelude.FromText EnvironmentHealthAttribute where
+  parser = EnvironmentHealthAttribute' Prelude.<$> Prelude.takeText
 
-instance ToText EnvironmentHealthAttribute where
-  toText (EnvironmentHealthAttribute' ci) = original ci
+instance Prelude.ToText EnvironmentHealthAttribute where
+  toText (EnvironmentHealthAttribute' x) = x
 
-instance Hashable EnvironmentHealthAttribute
+instance Prelude.Hashable EnvironmentHealthAttribute
 
-instance NFData EnvironmentHealthAttribute
+instance Prelude.NFData EnvironmentHealthAttribute
 
-instance ToByteString EnvironmentHealthAttribute
+instance Prelude.ToByteString EnvironmentHealthAttribute
 
-instance ToQuery EnvironmentHealthAttribute
+instance Prelude.ToQuery EnvironmentHealthAttribute
 
-instance ToHeader EnvironmentHealthAttribute
+instance Prelude.ToHeader EnvironmentHealthAttribute

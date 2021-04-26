@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,173 +21,280 @@ module Network.AWS.ElasticBeanstalk.Types.ConfigurationOptionDescription where
 
 import Network.AWS.ElasticBeanstalk.Types.ConfigurationOptionValueType
 import Network.AWS.ElasticBeanstalk.Types.OptionRestrictionRegex
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the possible values for a configuration option.
 --
---
---
--- /See:/ 'configurationOptionDescription' smart constructor.
+-- /See:/ 'newConfigurationOptionDescription' smart constructor.
 data ConfigurationOptionDescription = ConfigurationOptionDescription'
-  { _codMaxValue ::
-      !( Maybe
-           Int
-       ),
-    _codValueOptions ::
-      !( Maybe
-           [Text]
-       ),
-    _codValueType ::
-      !( Maybe
-           ConfigurationOptionValueType
-       ),
-    _codChangeSeverity ::
-      !( Maybe
-           Text
-       ),
-    _codRegex ::
-      !( Maybe
-           OptionRestrictionRegex
-       ),
-    _codName ::
-      !( Maybe
-           Text
-       ),
-    _codMinValue ::
-      !( Maybe
-           Int
-       ),
-    _codNamespace ::
-      !( Maybe
-           Text
-       ),
-    _codUserDefined ::
-      !( Maybe
-           Bool
-       ),
-    _codMaxLength ::
-      !( Maybe
-           Int
-       ),
-    _codDefaultValue ::
-      !( Maybe
-           Text
-       )
+  { -- | If specified, the configuration option must be a numeric value less than
+    -- this value.
+    maxValue :: Prelude.Maybe Prelude.Int,
+    -- | If specified, values for the configuration option are selected from this
+    -- list.
+    valueOptions :: Prelude.Maybe [Prelude.Text],
+    -- | An indication of which type of values this option has and whether it is
+    -- allowable to select one or more than one of the possible values:
+    --
+    -- -   @Scalar@ : Values for this option are a single selection from the
+    --     possible values, or an unformatted string, or numeric value governed
+    --     by the @MIN\/MAX\/Regex@ constraints.
+    --
+    -- -   @List@ : Values for this option are multiple selections from the
+    --     possible values.
+    --
+    -- -   @Boolean@ : Values for this option are either @true@ or @false@ .
+    --
+    -- -   @Json@ : Values for this option are a JSON representation of a
+    --     @ConfigDocument@.
+    valueType :: Prelude.Maybe ConfigurationOptionValueType,
+    -- | An indication of which action is required if the value for this
+    -- configuration option changes:
+    --
+    -- -   @NoInterruption@ : There is no interruption to the environment or
+    --     application availability.
+    --
+    -- -   @RestartEnvironment@ : The environment is entirely restarted, all
+    --     AWS resources are deleted and recreated, and the environment is
+    --     unavailable during the process.
+    --
+    -- -   @RestartApplicationServer@ : The environment is available the entire
+    --     time. However, a short application outage occurs when the
+    --     application servers on the running Amazon EC2 instances are
+    --     restarted.
+    changeSeverity :: Prelude.Maybe Prelude.Text,
+    -- | If specified, the configuration option must be a string value that
+    -- satisfies this regular expression.
+    regex :: Prelude.Maybe OptionRestrictionRegex,
+    -- | The name of the configuration option.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | If specified, the configuration option must be a numeric value greater
+    -- than this value.
+    minValue :: Prelude.Maybe Prelude.Int,
+    -- | A unique namespace identifying the option\'s associated AWS resource.
+    namespace :: Prelude.Maybe Prelude.Text,
+    -- | An indication of whether the user defined this configuration option:
+    --
+    -- -   @true@ : This configuration option was defined by the user. It is a
+    --     valid choice for specifying if this as an @Option to Remove@ when
+    --     updating configuration settings.
+    --
+    -- -   @false@ : This configuration was not defined by the user.
+    --
+    -- Constraint: You can remove only @UserDefined@ options from a
+    -- configuration.
+    --
+    -- Valid Values: @true@ | @false@
+    userDefined :: Prelude.Maybe Prelude.Bool,
+    -- | If specified, the configuration option must be a string value no longer
+    -- than this value.
+    maxLength :: Prelude.Maybe Prelude.Int,
+    -- | The default value for this configuration option.
+    defaultValue :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ConfigurationOptionDescription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ConfigurationOptionDescription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'codMaxValue' - If specified, the configuration option must be a numeric value less than this value.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'codValueOptions' - If specified, values for the configuration option are selected from this list.
+-- 'maxValue', 'configurationOptionDescription_maxValue' - If specified, the configuration option must be a numeric value less than
+-- this value.
 --
--- * 'codValueType' - An indication of which type of values this option has and whether it is allowable to select one or more than one of the possible values:     * @Scalar@ : Values for this option are a single selection from the possible values, or an unformatted string, or numeric value governed by the @MIN/MAX/Regex@ constraints.     * @List@ : Values for this option are multiple selections from the possible values.     * @Boolean@ : Values for this option are either @true@ or @false@ .     * @Json@ : Values for this option are a JSON representation of a @ConfigDocument@ .
+-- 'valueOptions', 'configurationOptionDescription_valueOptions' - If specified, values for the configuration option are selected from this
+-- list.
 --
--- * 'codChangeSeverity' - An indication of which action is required if the value for this configuration option changes:     * @NoInterruption@ : There is no interruption to the environment or application availability.     * @RestartEnvironment@ : The environment is entirely restarted, all AWS resources are deleted and recreated, and the environment is unavailable during the process.     * @RestartApplicationServer@ : The environment is available the entire time. However, a short application outage occurs when the application servers on the running Amazon EC2 instances are restarted.
+-- 'valueType', 'configurationOptionDescription_valueType' - An indication of which type of values this option has and whether it is
+-- allowable to select one or more than one of the possible values:
 --
--- * 'codRegex' - If specified, the configuration option must be a string value that satisfies this regular expression.
+-- -   @Scalar@ : Values for this option are a single selection from the
+--     possible values, or an unformatted string, or numeric value governed
+--     by the @MIN\/MAX\/Regex@ constraints.
 --
--- * 'codName' - The name of the configuration option.
+-- -   @List@ : Values for this option are multiple selections from the
+--     possible values.
 --
--- * 'codMinValue' - If specified, the configuration option must be a numeric value greater than this value.
+-- -   @Boolean@ : Values for this option are either @true@ or @false@ .
 --
--- * 'codNamespace' - A unique namespace identifying the option's associated AWS resource.
+-- -   @Json@ : Values for this option are a JSON representation of a
+--     @ConfigDocument@.
 --
--- * 'codUserDefined' - An indication of whether the user defined this configuration option:     * @true@ : This configuration option was defined by the user. It is a valid choice for specifying if this as an @Option to Remove@ when updating configuration settings.      * @false@ : This configuration was not defined by the user. Constraint: You can remove only @UserDefined@ options from a configuration.  Valid Values: @true@ | @false@
+-- 'changeSeverity', 'configurationOptionDescription_changeSeverity' - An indication of which action is required if the value for this
+-- configuration option changes:
 --
--- * 'codMaxLength' - If specified, the configuration option must be a string value no longer than this value.
+-- -   @NoInterruption@ : There is no interruption to the environment or
+--     application availability.
 --
--- * 'codDefaultValue' - The default value for this configuration option.
-configurationOptionDescription ::
+-- -   @RestartEnvironment@ : The environment is entirely restarted, all
+--     AWS resources are deleted and recreated, and the environment is
+--     unavailable during the process.
+--
+-- -   @RestartApplicationServer@ : The environment is available the entire
+--     time. However, a short application outage occurs when the
+--     application servers on the running Amazon EC2 instances are
+--     restarted.
+--
+-- 'regex', 'configurationOptionDescription_regex' - If specified, the configuration option must be a string value that
+-- satisfies this regular expression.
+--
+-- 'name', 'configurationOptionDescription_name' - The name of the configuration option.
+--
+-- 'minValue', 'configurationOptionDescription_minValue' - If specified, the configuration option must be a numeric value greater
+-- than this value.
+--
+-- 'namespace', 'configurationOptionDescription_namespace' - A unique namespace identifying the option\'s associated AWS resource.
+--
+-- 'userDefined', 'configurationOptionDescription_userDefined' - An indication of whether the user defined this configuration option:
+--
+-- -   @true@ : This configuration option was defined by the user. It is a
+--     valid choice for specifying if this as an @Option to Remove@ when
+--     updating configuration settings.
+--
+-- -   @false@ : This configuration was not defined by the user.
+--
+-- Constraint: You can remove only @UserDefined@ options from a
+-- configuration.
+--
+-- Valid Values: @true@ | @false@
+--
+-- 'maxLength', 'configurationOptionDescription_maxLength' - If specified, the configuration option must be a string value no longer
+-- than this value.
+--
+-- 'defaultValue', 'configurationOptionDescription_defaultValue' - The default value for this configuration option.
+newConfigurationOptionDescription ::
   ConfigurationOptionDescription
-configurationOptionDescription =
+newConfigurationOptionDescription =
   ConfigurationOptionDescription'
-    { _codMaxValue =
-        Nothing,
-      _codValueOptions = Nothing,
-      _codValueType = Nothing,
-      _codChangeSeverity = Nothing,
-      _codRegex = Nothing,
-      _codName = Nothing,
-      _codMinValue = Nothing,
-      _codNamespace = Nothing,
-      _codUserDefined = Nothing,
-      _codMaxLength = Nothing,
-      _codDefaultValue = Nothing
+    { maxValue =
+        Prelude.Nothing,
+      valueOptions = Prelude.Nothing,
+      valueType = Prelude.Nothing,
+      changeSeverity = Prelude.Nothing,
+      regex = Prelude.Nothing,
+      name = Prelude.Nothing,
+      minValue = Prelude.Nothing,
+      namespace = Prelude.Nothing,
+      userDefined = Prelude.Nothing,
+      maxLength = Prelude.Nothing,
+      defaultValue = Prelude.Nothing
     }
 
--- | If specified, the configuration option must be a numeric value less than this value.
-codMaxValue :: Lens' ConfigurationOptionDescription (Maybe Int)
-codMaxValue = lens _codMaxValue (\s a -> s {_codMaxValue = a})
+-- | If specified, the configuration option must be a numeric value less than
+-- this value.
+configurationOptionDescription_maxValue :: Lens.Lens' ConfigurationOptionDescription (Prelude.Maybe Prelude.Int)
+configurationOptionDescription_maxValue = Lens.lens (\ConfigurationOptionDescription' {maxValue} -> maxValue) (\s@ConfigurationOptionDescription' {} a -> s {maxValue = a} :: ConfigurationOptionDescription)
 
--- | If specified, values for the configuration option are selected from this list.
-codValueOptions :: Lens' ConfigurationOptionDescription [Text]
-codValueOptions = lens _codValueOptions (\s a -> s {_codValueOptions = a}) . _Default . _Coerce
+-- | If specified, values for the configuration option are selected from this
+-- list.
+configurationOptionDescription_valueOptions :: Lens.Lens' ConfigurationOptionDescription (Prelude.Maybe [Prelude.Text])
+configurationOptionDescription_valueOptions = Lens.lens (\ConfigurationOptionDescription' {valueOptions} -> valueOptions) (\s@ConfigurationOptionDescription' {} a -> s {valueOptions = a} :: ConfigurationOptionDescription) Prelude.. Lens.mapping Prelude._Coerce
 
--- | An indication of which type of values this option has and whether it is allowable to select one or more than one of the possible values:     * @Scalar@ : Values for this option are a single selection from the possible values, or an unformatted string, or numeric value governed by the @MIN/MAX/Regex@ constraints.     * @List@ : Values for this option are multiple selections from the possible values.     * @Boolean@ : Values for this option are either @true@ or @false@ .     * @Json@ : Values for this option are a JSON representation of a @ConfigDocument@ .
-codValueType :: Lens' ConfigurationOptionDescription (Maybe ConfigurationOptionValueType)
-codValueType = lens _codValueType (\s a -> s {_codValueType = a})
+-- | An indication of which type of values this option has and whether it is
+-- allowable to select one or more than one of the possible values:
+--
+-- -   @Scalar@ : Values for this option are a single selection from the
+--     possible values, or an unformatted string, or numeric value governed
+--     by the @MIN\/MAX\/Regex@ constraints.
+--
+-- -   @List@ : Values for this option are multiple selections from the
+--     possible values.
+--
+-- -   @Boolean@ : Values for this option are either @true@ or @false@ .
+--
+-- -   @Json@ : Values for this option are a JSON representation of a
+--     @ConfigDocument@.
+configurationOptionDescription_valueType :: Lens.Lens' ConfigurationOptionDescription (Prelude.Maybe ConfigurationOptionValueType)
+configurationOptionDescription_valueType = Lens.lens (\ConfigurationOptionDescription' {valueType} -> valueType) (\s@ConfigurationOptionDescription' {} a -> s {valueType = a} :: ConfigurationOptionDescription)
 
--- | An indication of which action is required if the value for this configuration option changes:     * @NoInterruption@ : There is no interruption to the environment or application availability.     * @RestartEnvironment@ : The environment is entirely restarted, all AWS resources are deleted and recreated, and the environment is unavailable during the process.     * @RestartApplicationServer@ : The environment is available the entire time. However, a short application outage occurs when the application servers on the running Amazon EC2 instances are restarted.
-codChangeSeverity :: Lens' ConfigurationOptionDescription (Maybe Text)
-codChangeSeverity = lens _codChangeSeverity (\s a -> s {_codChangeSeverity = a})
+-- | An indication of which action is required if the value for this
+-- configuration option changes:
+--
+-- -   @NoInterruption@ : There is no interruption to the environment or
+--     application availability.
+--
+-- -   @RestartEnvironment@ : The environment is entirely restarted, all
+--     AWS resources are deleted and recreated, and the environment is
+--     unavailable during the process.
+--
+-- -   @RestartApplicationServer@ : The environment is available the entire
+--     time. However, a short application outage occurs when the
+--     application servers on the running Amazon EC2 instances are
+--     restarted.
+configurationOptionDescription_changeSeverity :: Lens.Lens' ConfigurationOptionDescription (Prelude.Maybe Prelude.Text)
+configurationOptionDescription_changeSeverity = Lens.lens (\ConfigurationOptionDescription' {changeSeverity} -> changeSeverity) (\s@ConfigurationOptionDescription' {} a -> s {changeSeverity = a} :: ConfigurationOptionDescription)
 
--- | If specified, the configuration option must be a string value that satisfies this regular expression.
-codRegex :: Lens' ConfigurationOptionDescription (Maybe OptionRestrictionRegex)
-codRegex = lens _codRegex (\s a -> s {_codRegex = a})
+-- | If specified, the configuration option must be a string value that
+-- satisfies this regular expression.
+configurationOptionDescription_regex :: Lens.Lens' ConfigurationOptionDescription (Prelude.Maybe OptionRestrictionRegex)
+configurationOptionDescription_regex = Lens.lens (\ConfigurationOptionDescription' {regex} -> regex) (\s@ConfigurationOptionDescription' {} a -> s {regex = a} :: ConfigurationOptionDescription)
 
 -- | The name of the configuration option.
-codName :: Lens' ConfigurationOptionDescription (Maybe Text)
-codName = lens _codName (\s a -> s {_codName = a})
+configurationOptionDescription_name :: Lens.Lens' ConfigurationOptionDescription (Prelude.Maybe Prelude.Text)
+configurationOptionDescription_name = Lens.lens (\ConfigurationOptionDescription' {name} -> name) (\s@ConfigurationOptionDescription' {} a -> s {name = a} :: ConfigurationOptionDescription)
 
--- | If specified, the configuration option must be a numeric value greater than this value.
-codMinValue :: Lens' ConfigurationOptionDescription (Maybe Int)
-codMinValue = lens _codMinValue (\s a -> s {_codMinValue = a})
+-- | If specified, the configuration option must be a numeric value greater
+-- than this value.
+configurationOptionDescription_minValue :: Lens.Lens' ConfigurationOptionDescription (Prelude.Maybe Prelude.Int)
+configurationOptionDescription_minValue = Lens.lens (\ConfigurationOptionDescription' {minValue} -> minValue) (\s@ConfigurationOptionDescription' {} a -> s {minValue = a} :: ConfigurationOptionDescription)
 
--- | A unique namespace identifying the option's associated AWS resource.
-codNamespace :: Lens' ConfigurationOptionDescription (Maybe Text)
-codNamespace = lens _codNamespace (\s a -> s {_codNamespace = a})
+-- | A unique namespace identifying the option\'s associated AWS resource.
+configurationOptionDescription_namespace :: Lens.Lens' ConfigurationOptionDescription (Prelude.Maybe Prelude.Text)
+configurationOptionDescription_namespace = Lens.lens (\ConfigurationOptionDescription' {namespace} -> namespace) (\s@ConfigurationOptionDescription' {} a -> s {namespace = a} :: ConfigurationOptionDescription)
 
--- | An indication of whether the user defined this configuration option:     * @true@ : This configuration option was defined by the user. It is a valid choice for specifying if this as an @Option to Remove@ when updating configuration settings.      * @false@ : This configuration was not defined by the user. Constraint: You can remove only @UserDefined@ options from a configuration.  Valid Values: @true@ | @false@
-codUserDefined :: Lens' ConfigurationOptionDescription (Maybe Bool)
-codUserDefined = lens _codUserDefined (\s a -> s {_codUserDefined = a})
+-- | An indication of whether the user defined this configuration option:
+--
+-- -   @true@ : This configuration option was defined by the user. It is a
+--     valid choice for specifying if this as an @Option to Remove@ when
+--     updating configuration settings.
+--
+-- -   @false@ : This configuration was not defined by the user.
+--
+-- Constraint: You can remove only @UserDefined@ options from a
+-- configuration.
+--
+-- Valid Values: @true@ | @false@
+configurationOptionDescription_userDefined :: Lens.Lens' ConfigurationOptionDescription (Prelude.Maybe Prelude.Bool)
+configurationOptionDescription_userDefined = Lens.lens (\ConfigurationOptionDescription' {userDefined} -> userDefined) (\s@ConfigurationOptionDescription' {} a -> s {userDefined = a} :: ConfigurationOptionDescription)
 
--- | If specified, the configuration option must be a string value no longer than this value.
-codMaxLength :: Lens' ConfigurationOptionDescription (Maybe Int)
-codMaxLength = lens _codMaxLength (\s a -> s {_codMaxLength = a})
+-- | If specified, the configuration option must be a string value no longer
+-- than this value.
+configurationOptionDescription_maxLength :: Lens.Lens' ConfigurationOptionDescription (Prelude.Maybe Prelude.Int)
+configurationOptionDescription_maxLength = Lens.lens (\ConfigurationOptionDescription' {maxLength} -> maxLength) (\s@ConfigurationOptionDescription' {} a -> s {maxLength = a} :: ConfigurationOptionDescription)
 
 -- | The default value for this configuration option.
-codDefaultValue :: Lens' ConfigurationOptionDescription (Maybe Text)
-codDefaultValue = lens _codDefaultValue (\s a -> s {_codDefaultValue = a})
+configurationOptionDescription_defaultValue :: Lens.Lens' ConfigurationOptionDescription (Prelude.Maybe Prelude.Text)
+configurationOptionDescription_defaultValue = Lens.lens (\ConfigurationOptionDescription' {defaultValue} -> defaultValue) (\s@ConfigurationOptionDescription' {} a -> s {defaultValue = a} :: ConfigurationOptionDescription)
 
-instance FromXML ConfigurationOptionDescription where
+instance
+  Prelude.FromXML
+    ConfigurationOptionDescription
+  where
   parseXML x =
     ConfigurationOptionDescription'
-      <$> (x .@? "MaxValue")
-      <*> ( x .@? "ValueOptions" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> (x .@? "ValueType")
-      <*> (x .@? "ChangeSeverity")
-      <*> (x .@? "Regex")
-      <*> (x .@? "Name")
-      <*> (x .@? "MinValue")
-      <*> (x .@? "Namespace")
-      <*> (x .@? "UserDefined")
-      <*> (x .@? "MaxLength")
-      <*> (x .@? "DefaultValue")
+      Prelude.<$> (x Prelude..@? "MaxValue")
+      Prelude.<*> ( x Prelude..@? "ValueOptions"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> (x Prelude..@? "ValueType")
+      Prelude.<*> (x Prelude..@? "ChangeSeverity")
+      Prelude.<*> (x Prelude..@? "Regex")
+      Prelude.<*> (x Prelude..@? "Name")
+      Prelude.<*> (x Prelude..@? "MinValue")
+      Prelude.<*> (x Prelude..@? "Namespace")
+      Prelude.<*> (x Prelude..@? "UserDefined")
+      Prelude.<*> (x Prelude..@? "MaxLength")
+      Prelude.<*> (x Prelude..@? "DefaultValue")
 
-instance Hashable ConfigurationOptionDescription
+instance
+  Prelude.Hashable
+    ConfigurationOptionDescription
 
-instance NFData ConfigurationOptionDescription
+instance
+  Prelude.NFData
+    ConfigurationOptionDescription

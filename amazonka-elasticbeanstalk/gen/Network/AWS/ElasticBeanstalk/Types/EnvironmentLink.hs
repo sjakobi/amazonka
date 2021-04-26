@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,49 +19,57 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ElasticBeanstalk.Types.EnvironmentLink where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A link to another environment, defined in the environment's manifest. Links provide connection information in system properties that can be used to connect to another environment in the same group. See <https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environment-cfg-manifest.html Environment Manifest (env.yaml)> for details.
+-- | A link to another environment, defined in the environment\'s manifest.
+-- Links provide connection information in system properties that can be
+-- used to connect to another environment in the same group. See
+-- <https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environment-cfg-manifest.html Environment Manifest (env.yaml)>
+-- for details.
 --
---
---
--- /See:/ 'environmentLink' smart constructor.
+-- /See:/ 'newEnvironmentLink' smart constructor.
 data EnvironmentLink = EnvironmentLink'
-  { _elEnvironmentName ::
-      !(Maybe Text),
-    _elLinkName :: !(Maybe Text)
+  { -- | The name of the linked environment (the dependency).
+    environmentName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the link.
+    linkName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EnvironmentLink' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EnvironmentLink' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'elEnvironmentName' - The name of the linked environment (the dependency).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'elLinkName' - The name of the link.
-environmentLink ::
+-- 'environmentName', 'environmentLink_environmentName' - The name of the linked environment (the dependency).
+--
+-- 'linkName', 'environmentLink_linkName' - The name of the link.
+newEnvironmentLink ::
   EnvironmentLink
-environmentLink =
+newEnvironmentLink =
   EnvironmentLink'
-    { _elEnvironmentName = Nothing,
-      _elLinkName = Nothing
+    { environmentName = Prelude.Nothing,
+      linkName = Prelude.Nothing
     }
 
 -- | The name of the linked environment (the dependency).
-elEnvironmentName :: Lens' EnvironmentLink (Maybe Text)
-elEnvironmentName = lens _elEnvironmentName (\s a -> s {_elEnvironmentName = a})
+environmentLink_environmentName :: Lens.Lens' EnvironmentLink (Prelude.Maybe Prelude.Text)
+environmentLink_environmentName = Lens.lens (\EnvironmentLink' {environmentName} -> environmentName) (\s@EnvironmentLink' {} a -> s {environmentName = a} :: EnvironmentLink)
 
 -- | The name of the link.
-elLinkName :: Lens' EnvironmentLink (Maybe Text)
-elLinkName = lens _elLinkName (\s a -> s {_elLinkName = a})
+environmentLink_linkName :: Lens.Lens' EnvironmentLink (Prelude.Maybe Prelude.Text)
+environmentLink_linkName = Lens.lens (\EnvironmentLink' {linkName} -> linkName) (\s@EnvironmentLink' {} a -> s {linkName = a} :: EnvironmentLink)
 
-instance FromXML EnvironmentLink where
+instance Prelude.FromXML EnvironmentLink where
   parseXML x =
     EnvironmentLink'
-      <$> (x .@? "EnvironmentName") <*> (x .@? "LinkName")
+      Prelude.<$> (x Prelude..@? "EnvironmentName")
+      Prelude.<*> (x Prelude..@? "LinkName")
 
-instance Hashable EnvironmentLink
+instance Prelude.Hashable EnvironmentLink
 
-instance NFData EnvironmentLink
+instance Prelude.NFData EnvironmentLink

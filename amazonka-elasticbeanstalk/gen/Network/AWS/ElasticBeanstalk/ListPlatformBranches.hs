@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,167 +21,286 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists the platform branches available for your account in an AWS Region. Provides summary information about each platform branch.
+-- Lists the platform branches available for your account in an AWS Region.
+-- Provides summary information about each platform branch.
 --
---
--- For definitions of platform branch and other platform-related terms, see <https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/platforms-glossary.html AWS Elastic Beanstalk Platforms Glossary> .
+-- For definitions of platform branch and other platform-related terms, see
+-- <https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/platforms-glossary.html AWS Elastic Beanstalk Platforms Glossary>.
 module Network.AWS.ElasticBeanstalk.ListPlatformBranches
   ( -- * Creating a Request
-    listPlatformBranches,
-    ListPlatformBranches,
+    ListPlatformBranches (..),
+    newListPlatformBranches,
 
     -- * Request Lenses
-    lpbNextToken,
-    lpbFilters,
-    lpbMaxRecords,
+    listPlatformBranches_nextToken,
+    listPlatformBranches_filters,
+    listPlatformBranches_maxRecords,
 
     -- * Destructuring the Response
-    listPlatformBranchesResponse,
-    ListPlatformBranchesResponse,
+    ListPlatformBranchesResponse (..),
+    newListPlatformBranchesResponse,
 
     -- * Response Lenses
-    lpbrrsNextToken,
-    lpbrrsPlatformBranchSummaryList,
-    lpbrrsResponseStatus,
+    listPlatformBranchesResponse_nextToken,
+    listPlatformBranchesResponse_platformBranchSummaryList,
+    listPlatformBranchesResponse_httpStatus,
   )
 where
 
 import Network.AWS.ElasticBeanstalk.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ElasticBeanstalk.Types.PlatformBranchSummary
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listPlatformBranches' smart constructor.
+-- | /See:/ 'newListPlatformBranches' smart constructor.
 data ListPlatformBranches = ListPlatformBranches'
-  { _lpbNextToken ::
-      !(Maybe Text),
-    _lpbFilters ::
-      !(Maybe [SearchFilter]),
-    _lpbMaxRecords ::
-      !(Maybe Nat)
+  { -- | For a paginated request. Specify a token from a previous response page
+    -- to retrieve the next response page. All other parameter values must be
+    -- identical to the ones specified in the initial request.
+    --
+    -- If no @NextToken@ is specified, the first page is retrieved.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Criteria for restricting the resulting list of platform branches. The
+    -- filter is evaluated as a logical conjunction (AND) of the separate
+    -- @SearchFilter@ terms.
+    --
+    -- The following list shows valid attribute values for each of the
+    -- @SearchFilter@ terms. Most operators take a single value. The @in@ and
+    -- @not_in@ operators can take multiple values.
+    --
+    -- -   @Attribute = BranchName@:
+    --
+    --     -   @Operator@: @=@ | @!=@ | @begins_with@ | @ends_with@ |
+    --         @contains@ | @in@ | @not_in@
+    --
+    -- -   @Attribute = LifecycleState@:
+    --
+    --     -   @Operator@: @=@ | @!=@ | @in@ | @not_in@
+    --
+    --     -   @Values@: @beta@ | @supported@ | @deprecated@ | @retired@
+    --
+    -- -   @Attribute = PlatformName@:
+    --
+    --     -   @Operator@: @=@ | @!=@ | @begins_with@ | @ends_with@ |
+    --         @contains@ | @in@ | @not_in@
+    --
+    -- -   @Attribute = TierType@:
+    --
+    --     -   @Operator@: @=@ | @!=@
+    --
+    --     -   @Values@: @WebServer\/Standard@ | @Worker\/SQS\/HTTP@
+    --
+    -- Array size: limited to 10 @SearchFilter@ objects.
+    --
+    -- Within each @SearchFilter@ item, the @Values@ array is limited to 10
+    -- items.
+    filters :: Prelude.Maybe [SearchFilter],
+    -- | The maximum number of platform branch values returned in one call.
+    maxRecords :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListPlatformBranches' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListPlatformBranches' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lpbNextToken' - For a paginated request. Specify a token from a previous response page to retrieve the next response page. All other parameter values must be identical to the ones specified in the initial request. If no @NextToken@ is specified, the first page is retrieved.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lpbFilters' - Criteria for restricting the resulting list of platform branches. The filter is evaluated as a logical conjunction (AND) of the separate @SearchFilter@ terms. The following list shows valid attribute values for each of the @SearchFilter@ terms. Most operators take a single value. The @in@ and @not_in@ operators can take multiple values.     * @Attribute = BranchName@ :     * @Operator@ : @=@ | @!=@ | @begins_with@ | @ends_with@ | @contains@ | @in@ | @not_in@      * @Attribute = LifecycleState@ :     * @Operator@ : @=@ | @!=@ | @in@ | @not_in@      * @Values@ : @beta@ | @supported@ | @deprecated@ | @retired@      * @Attribute = PlatformName@ :     * @Operator@ : @=@ | @!=@ | @begins_with@ | @ends_with@ | @contains@ | @in@ | @not_in@      * @Attribute = TierType@ :     * @Operator@ : @=@ | @!=@      * @Values@ : @WebServer/Standard@ | @Worker/SQS/HTTP@  Array size: limited to 10 @SearchFilter@ objects. Within each @SearchFilter@ item, the @Values@ array is limited to 10 items.
+-- 'nextToken', 'listPlatformBranches_nextToken' - For a paginated request. Specify a token from a previous response page
+-- to retrieve the next response page. All other parameter values must be
+-- identical to the ones specified in the initial request.
 --
--- * 'lpbMaxRecords' - The maximum number of platform branch values returned in one call.
-listPlatformBranches ::
+-- If no @NextToken@ is specified, the first page is retrieved.
+--
+-- 'filters', 'listPlatformBranches_filters' - Criteria for restricting the resulting list of platform branches. The
+-- filter is evaluated as a logical conjunction (AND) of the separate
+-- @SearchFilter@ terms.
+--
+-- The following list shows valid attribute values for each of the
+-- @SearchFilter@ terms. Most operators take a single value. The @in@ and
+-- @not_in@ operators can take multiple values.
+--
+-- -   @Attribute = BranchName@:
+--
+--     -   @Operator@: @=@ | @!=@ | @begins_with@ | @ends_with@ |
+--         @contains@ | @in@ | @not_in@
+--
+-- -   @Attribute = LifecycleState@:
+--
+--     -   @Operator@: @=@ | @!=@ | @in@ | @not_in@
+--
+--     -   @Values@: @beta@ | @supported@ | @deprecated@ | @retired@
+--
+-- -   @Attribute = PlatformName@:
+--
+--     -   @Operator@: @=@ | @!=@ | @begins_with@ | @ends_with@ |
+--         @contains@ | @in@ | @not_in@
+--
+-- -   @Attribute = TierType@:
+--
+--     -   @Operator@: @=@ | @!=@
+--
+--     -   @Values@: @WebServer\/Standard@ | @Worker\/SQS\/HTTP@
+--
+-- Array size: limited to 10 @SearchFilter@ objects.
+--
+-- Within each @SearchFilter@ item, the @Values@ array is limited to 10
+-- items.
+--
+-- 'maxRecords', 'listPlatformBranches_maxRecords' - The maximum number of platform branch values returned in one call.
+newListPlatformBranches ::
   ListPlatformBranches
-listPlatformBranches =
+newListPlatformBranches =
   ListPlatformBranches'
-    { _lpbNextToken = Nothing,
-      _lpbFilters = Nothing,
-      _lpbMaxRecords = Nothing
+    { nextToken = Prelude.Nothing,
+      filters = Prelude.Nothing,
+      maxRecords = Prelude.Nothing
     }
 
--- | For a paginated request. Specify a token from a previous response page to retrieve the next response page. All other parameter values must be identical to the ones specified in the initial request. If no @NextToken@ is specified, the first page is retrieved.
-lpbNextToken :: Lens' ListPlatformBranches (Maybe Text)
-lpbNextToken = lens _lpbNextToken (\s a -> s {_lpbNextToken = a})
+-- | For a paginated request. Specify a token from a previous response page
+-- to retrieve the next response page. All other parameter values must be
+-- identical to the ones specified in the initial request.
+--
+-- If no @NextToken@ is specified, the first page is retrieved.
+listPlatformBranches_nextToken :: Lens.Lens' ListPlatformBranches (Prelude.Maybe Prelude.Text)
+listPlatformBranches_nextToken = Lens.lens (\ListPlatformBranches' {nextToken} -> nextToken) (\s@ListPlatformBranches' {} a -> s {nextToken = a} :: ListPlatformBranches)
 
--- | Criteria for restricting the resulting list of platform branches. The filter is evaluated as a logical conjunction (AND) of the separate @SearchFilter@ terms. The following list shows valid attribute values for each of the @SearchFilter@ terms. Most operators take a single value. The @in@ and @not_in@ operators can take multiple values.     * @Attribute = BranchName@ :     * @Operator@ : @=@ | @!=@ | @begins_with@ | @ends_with@ | @contains@ | @in@ | @not_in@      * @Attribute = LifecycleState@ :     * @Operator@ : @=@ | @!=@ | @in@ | @not_in@      * @Values@ : @beta@ | @supported@ | @deprecated@ | @retired@      * @Attribute = PlatformName@ :     * @Operator@ : @=@ | @!=@ | @begins_with@ | @ends_with@ | @contains@ | @in@ | @not_in@      * @Attribute = TierType@ :     * @Operator@ : @=@ | @!=@      * @Values@ : @WebServer/Standard@ | @Worker/SQS/HTTP@  Array size: limited to 10 @SearchFilter@ objects. Within each @SearchFilter@ item, the @Values@ array is limited to 10 items.
-lpbFilters :: Lens' ListPlatformBranches [SearchFilter]
-lpbFilters = lens _lpbFilters (\s a -> s {_lpbFilters = a}) . _Default . _Coerce
+-- | Criteria for restricting the resulting list of platform branches. The
+-- filter is evaluated as a logical conjunction (AND) of the separate
+-- @SearchFilter@ terms.
+--
+-- The following list shows valid attribute values for each of the
+-- @SearchFilter@ terms. Most operators take a single value. The @in@ and
+-- @not_in@ operators can take multiple values.
+--
+-- -   @Attribute = BranchName@:
+--
+--     -   @Operator@: @=@ | @!=@ | @begins_with@ | @ends_with@ |
+--         @contains@ | @in@ | @not_in@
+--
+-- -   @Attribute = LifecycleState@:
+--
+--     -   @Operator@: @=@ | @!=@ | @in@ | @not_in@
+--
+--     -   @Values@: @beta@ | @supported@ | @deprecated@ | @retired@
+--
+-- -   @Attribute = PlatformName@:
+--
+--     -   @Operator@: @=@ | @!=@ | @begins_with@ | @ends_with@ |
+--         @contains@ | @in@ | @not_in@
+--
+-- -   @Attribute = TierType@:
+--
+--     -   @Operator@: @=@ | @!=@
+--
+--     -   @Values@: @WebServer\/Standard@ | @Worker\/SQS\/HTTP@
+--
+-- Array size: limited to 10 @SearchFilter@ objects.
+--
+-- Within each @SearchFilter@ item, the @Values@ array is limited to 10
+-- items.
+listPlatformBranches_filters :: Lens.Lens' ListPlatformBranches (Prelude.Maybe [SearchFilter])
+listPlatformBranches_filters = Lens.lens (\ListPlatformBranches' {filters} -> filters) (\s@ListPlatformBranches' {} a -> s {filters = a} :: ListPlatformBranches) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The maximum number of platform branch values returned in one call.
-lpbMaxRecords :: Lens' ListPlatformBranches (Maybe Natural)
-lpbMaxRecords = lens _lpbMaxRecords (\s a -> s {_lpbMaxRecords = a}) . mapping _Nat
+listPlatformBranches_maxRecords :: Lens.Lens' ListPlatformBranches (Prelude.Maybe Prelude.Natural)
+listPlatformBranches_maxRecords = Lens.lens (\ListPlatformBranches' {maxRecords} -> maxRecords) (\s@ListPlatformBranches' {} a -> s {maxRecords = a} :: ListPlatformBranches) Prelude.. Lens.mapping Prelude._Nat
 
-instance AWSRequest ListPlatformBranches where
+instance Prelude.AWSRequest ListPlatformBranches where
   type
     Rs ListPlatformBranches =
       ListPlatformBranchesResponse
-  request = postQuery elasticBeanstalk
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "ListPlatformBranchesResult"
       ( \s h x ->
           ListPlatformBranchesResponse'
-            <$> (x .@? "NextToken")
-            <*> ( x .@? "PlatformBranchSummaryList" .!@ mempty
-                    >>= may (parseXMLList "member")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "NextToken")
+            Prelude.<*> ( x Prelude..@? "PlatformBranchSummaryList"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListPlatformBranches
+instance Prelude.Hashable ListPlatformBranches
 
-instance NFData ListPlatformBranches
+instance Prelude.NFData ListPlatformBranches
 
-instance ToHeaders ListPlatformBranches where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListPlatformBranches where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListPlatformBranches where
-  toPath = const "/"
+instance Prelude.ToPath ListPlatformBranches where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListPlatformBranches where
+instance Prelude.ToQuery ListPlatformBranches where
   toQuery ListPlatformBranches' {..} =
-    mconcat
-      [ "Action" =: ("ListPlatformBranches" :: ByteString),
-        "Version" =: ("2010-12-01" :: ByteString),
-        "NextToken" =: _lpbNextToken,
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("ListPlatformBranches" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-12-01" :: Prelude.ByteString),
+        "NextToken" Prelude.=: nextToken,
         "Filters"
-          =: toQuery (toQueryList "member" <$> _lpbFilters),
-        "MaxRecords" =: _lpbMaxRecords
+          Prelude.=: Prelude.toQuery
+            (Prelude.toQueryList "member" Prelude.<$> filters),
+        "MaxRecords" Prelude.=: maxRecords
       ]
 
--- | /See:/ 'listPlatformBranchesResponse' smart constructor.
+-- | /See:/ 'newListPlatformBranchesResponse' smart constructor.
 data ListPlatformBranchesResponse = ListPlatformBranchesResponse'
-  { _lpbrrsNextToken ::
-      !(Maybe Text),
-    _lpbrrsPlatformBranchSummaryList ::
-      !( Maybe
-           [PlatformBranchSummary]
-       ),
-    _lpbrrsResponseStatus ::
-      !Int
+  { -- | In a paginated request, if this value isn\'t @null@, it\'s the token
+    -- that you can pass in a subsequent request to get the next response page.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Summary information about the platform branches.
+    platformBranchSummaryList :: Prelude.Maybe [PlatformBranchSummary],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListPlatformBranchesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListPlatformBranchesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lpbrrsNextToken' - In a paginated request, if this value isn't @null@ , it's the token that you can pass in a subsequent request to get the next response page.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lpbrrsPlatformBranchSummaryList' - Summary information about the platform branches.
+-- 'nextToken', 'listPlatformBranchesResponse_nextToken' - In a paginated request, if this value isn\'t @null@, it\'s the token
+-- that you can pass in a subsequent request to get the next response page.
 --
--- * 'lpbrrsResponseStatus' - -- | The response status code.
-listPlatformBranchesResponse ::
-  -- | 'lpbrrsResponseStatus'
-  Int ->
+-- 'platformBranchSummaryList', 'listPlatformBranchesResponse_platformBranchSummaryList' - Summary information about the platform branches.
+--
+-- 'httpStatus', 'listPlatformBranchesResponse_httpStatus' - The response's http status code.
+newListPlatformBranchesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListPlatformBranchesResponse
-listPlatformBranchesResponse pResponseStatus_ =
+newListPlatformBranchesResponse pHttpStatus_ =
   ListPlatformBranchesResponse'
-    { _lpbrrsNextToken =
-        Nothing,
-      _lpbrrsPlatformBranchSummaryList = Nothing,
-      _lpbrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      platformBranchSummaryList = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | In a paginated request, if this value isn't @null@ , it's the token that you can pass in a subsequent request to get the next response page.
-lpbrrsNextToken :: Lens' ListPlatformBranchesResponse (Maybe Text)
-lpbrrsNextToken = lens _lpbrrsNextToken (\s a -> s {_lpbrrsNextToken = a})
+-- | In a paginated request, if this value isn\'t @null@, it\'s the token
+-- that you can pass in a subsequent request to get the next response page.
+listPlatformBranchesResponse_nextToken :: Lens.Lens' ListPlatformBranchesResponse (Prelude.Maybe Prelude.Text)
+listPlatformBranchesResponse_nextToken = Lens.lens (\ListPlatformBranchesResponse' {nextToken} -> nextToken) (\s@ListPlatformBranchesResponse' {} a -> s {nextToken = a} :: ListPlatformBranchesResponse)
 
 -- | Summary information about the platform branches.
-lpbrrsPlatformBranchSummaryList :: Lens' ListPlatformBranchesResponse [PlatformBranchSummary]
-lpbrrsPlatformBranchSummaryList = lens _lpbrrsPlatformBranchSummaryList (\s a -> s {_lpbrrsPlatformBranchSummaryList = a}) . _Default . _Coerce
+listPlatformBranchesResponse_platformBranchSummaryList :: Lens.Lens' ListPlatformBranchesResponse (Prelude.Maybe [PlatformBranchSummary])
+listPlatformBranchesResponse_platformBranchSummaryList = Lens.lens (\ListPlatformBranchesResponse' {platformBranchSummaryList} -> platformBranchSummaryList) (\s@ListPlatformBranchesResponse' {} a -> s {platformBranchSummaryList = a} :: ListPlatformBranchesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lpbrrsResponseStatus :: Lens' ListPlatformBranchesResponse Int
-lpbrrsResponseStatus = lens _lpbrrsResponseStatus (\s a -> s {_lpbrrsResponseStatus = a})
+-- | The response's http status code.
+listPlatformBranchesResponse_httpStatus :: Lens.Lens' ListPlatformBranchesResponse Prelude.Int
+listPlatformBranchesResponse_httpStatus = Lens.lens (\ListPlatformBranchesResponse' {httpStatus} -> httpStatus) (\s@ListPlatformBranchesResponse' {} a -> s {httpStatus = a} :: ListPlatformBranchesResponse)
 
-instance NFData ListPlatformBranchesResponse
+instance Prelude.NFData ListPlatformBranchesResponse

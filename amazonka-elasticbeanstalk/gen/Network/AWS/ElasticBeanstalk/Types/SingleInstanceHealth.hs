@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,131 +22,151 @@ module Network.AWS.ElasticBeanstalk.Types.SingleInstanceHealth where
 import Network.AWS.ElasticBeanstalk.Types.ApplicationMetrics
 import Network.AWS.ElasticBeanstalk.Types.Deployment
 import Network.AWS.ElasticBeanstalk.Types.SystemStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Detailed health information about an Amazon EC2 instance in your Elastic Beanstalk environment.
+-- | Detailed health information about an Amazon EC2 instance in your Elastic
+-- Beanstalk environment.
 --
---
---
--- /See:/ 'singleInstanceHealth' smart constructor.
+-- /See:/ 'newSingleInstanceHealth' smart constructor.
 data SingleInstanceHealth = SingleInstanceHealth'
-  { _sihInstanceId ::
-      !(Maybe Text),
-    _sihInstanceType ::
-      !(Maybe Text),
-    _sihColor :: !(Maybe Text),
-    _sihCauses :: !(Maybe [Text]),
-    _sihAvailabilityZone ::
-      !(Maybe Text),
-    _sihDeployment ::
-      !(Maybe Deployment),
-    _sihLaunchedAt ::
-      !(Maybe ISO8601),
-    _sihHealthStatus ::
-      !(Maybe Text),
-    _sihSystem ::
-      !(Maybe SystemStatus),
-    _sihApplicationMetrics ::
-      !(Maybe ApplicationMetrics)
+  { -- | The ID of the Amazon EC2 instance.
+    instanceId :: Prelude.Maybe Prelude.Text,
+    -- | The instance\'s type.
+    instanceType :: Prelude.Maybe Prelude.Text,
+    -- | Represents the color indicator that gives you information about the
+    -- health of the EC2 instance. For more information, see
+    -- <https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced-status.html Health Colors and Statuses>.
+    color :: Prelude.Maybe Prelude.Text,
+    -- | Represents the causes, which provide more information about the current
+    -- health status.
+    causes :: Prelude.Maybe [Prelude.Text],
+    -- | The availability zone in which the instance runs.
+    availabilityZone :: Prelude.Maybe Prelude.Text,
+    -- | Information about the most recent deployment to an instance.
+    deployment :: Prelude.Maybe Deployment,
+    -- | The time at which the EC2 instance was launched.
+    launchedAt :: Prelude.Maybe Prelude.ISO8601,
+    -- | Returns the health status of the specified instance. For more
+    -- information, see
+    -- <https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced-status.html Health Colors and Statuses>.
+    healthStatus :: Prelude.Maybe Prelude.Text,
+    -- | Operating system metrics from the instance.
+    system :: Prelude.Maybe SystemStatus,
+    -- | Request metrics from your application.
+    applicationMetrics :: Prelude.Maybe ApplicationMetrics
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SingleInstanceHealth' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SingleInstanceHealth' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sihInstanceId' - The ID of the Amazon EC2 instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sihInstanceType' - The instance's type.
+-- 'instanceId', 'singleInstanceHealth_instanceId' - The ID of the Amazon EC2 instance.
 --
--- * 'sihColor' - Represents the color indicator that gives you information about the health of the EC2 instance. For more information, see <https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced-status.html Health Colors and Statuses> .
+-- 'instanceType', 'singleInstanceHealth_instanceType' - The instance\'s type.
 --
--- * 'sihCauses' - Represents the causes, which provide more information about the current health status.
+-- 'color', 'singleInstanceHealth_color' - Represents the color indicator that gives you information about the
+-- health of the EC2 instance. For more information, see
+-- <https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced-status.html Health Colors and Statuses>.
 --
--- * 'sihAvailabilityZone' - The availability zone in which the instance runs.
+-- 'causes', 'singleInstanceHealth_causes' - Represents the causes, which provide more information about the current
+-- health status.
 --
--- * 'sihDeployment' - Information about the most recent deployment to an instance.
+-- 'availabilityZone', 'singleInstanceHealth_availabilityZone' - The availability zone in which the instance runs.
 --
--- * 'sihLaunchedAt' - The time at which the EC2 instance was launched.
+-- 'deployment', 'singleInstanceHealth_deployment' - Information about the most recent deployment to an instance.
 --
--- * 'sihHealthStatus' - Returns the health status of the specified instance. For more information, see <https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced-status.html Health Colors and Statuses> .
+-- 'launchedAt', 'singleInstanceHealth_launchedAt' - The time at which the EC2 instance was launched.
 --
--- * 'sihSystem' - Operating system metrics from the instance.
+-- 'healthStatus', 'singleInstanceHealth_healthStatus' - Returns the health status of the specified instance. For more
+-- information, see
+-- <https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced-status.html Health Colors and Statuses>.
 --
--- * 'sihApplicationMetrics' - Request metrics from your application.
-singleInstanceHealth ::
+-- 'system', 'singleInstanceHealth_system' - Operating system metrics from the instance.
+--
+-- 'applicationMetrics', 'singleInstanceHealth_applicationMetrics' - Request metrics from your application.
+newSingleInstanceHealth ::
   SingleInstanceHealth
-singleInstanceHealth =
+newSingleInstanceHealth =
   SingleInstanceHealth'
-    { _sihInstanceId = Nothing,
-      _sihInstanceType = Nothing,
-      _sihColor = Nothing,
-      _sihCauses = Nothing,
-      _sihAvailabilityZone = Nothing,
-      _sihDeployment = Nothing,
-      _sihLaunchedAt = Nothing,
-      _sihHealthStatus = Nothing,
-      _sihSystem = Nothing,
-      _sihApplicationMetrics = Nothing
+    { instanceId = Prelude.Nothing,
+      instanceType = Prelude.Nothing,
+      color = Prelude.Nothing,
+      causes = Prelude.Nothing,
+      availabilityZone = Prelude.Nothing,
+      deployment = Prelude.Nothing,
+      launchedAt = Prelude.Nothing,
+      healthStatus = Prelude.Nothing,
+      system = Prelude.Nothing,
+      applicationMetrics = Prelude.Nothing
     }
 
 -- | The ID of the Amazon EC2 instance.
-sihInstanceId :: Lens' SingleInstanceHealth (Maybe Text)
-sihInstanceId = lens _sihInstanceId (\s a -> s {_sihInstanceId = a})
+singleInstanceHealth_instanceId :: Lens.Lens' SingleInstanceHealth (Prelude.Maybe Prelude.Text)
+singleInstanceHealth_instanceId = Lens.lens (\SingleInstanceHealth' {instanceId} -> instanceId) (\s@SingleInstanceHealth' {} a -> s {instanceId = a} :: SingleInstanceHealth)
 
--- | The instance's type.
-sihInstanceType :: Lens' SingleInstanceHealth (Maybe Text)
-sihInstanceType = lens _sihInstanceType (\s a -> s {_sihInstanceType = a})
+-- | The instance\'s type.
+singleInstanceHealth_instanceType :: Lens.Lens' SingleInstanceHealth (Prelude.Maybe Prelude.Text)
+singleInstanceHealth_instanceType = Lens.lens (\SingleInstanceHealth' {instanceType} -> instanceType) (\s@SingleInstanceHealth' {} a -> s {instanceType = a} :: SingleInstanceHealth)
 
--- | Represents the color indicator that gives you information about the health of the EC2 instance. For more information, see <https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced-status.html Health Colors and Statuses> .
-sihColor :: Lens' SingleInstanceHealth (Maybe Text)
-sihColor = lens _sihColor (\s a -> s {_sihColor = a})
+-- | Represents the color indicator that gives you information about the
+-- health of the EC2 instance. For more information, see
+-- <https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced-status.html Health Colors and Statuses>.
+singleInstanceHealth_color :: Lens.Lens' SingleInstanceHealth (Prelude.Maybe Prelude.Text)
+singleInstanceHealth_color = Lens.lens (\SingleInstanceHealth' {color} -> color) (\s@SingleInstanceHealth' {} a -> s {color = a} :: SingleInstanceHealth)
 
--- | Represents the causes, which provide more information about the current health status.
-sihCauses :: Lens' SingleInstanceHealth [Text]
-sihCauses = lens _sihCauses (\s a -> s {_sihCauses = a}) . _Default . _Coerce
+-- | Represents the causes, which provide more information about the current
+-- health status.
+singleInstanceHealth_causes :: Lens.Lens' SingleInstanceHealth (Prelude.Maybe [Prelude.Text])
+singleInstanceHealth_causes = Lens.lens (\SingleInstanceHealth' {causes} -> causes) (\s@SingleInstanceHealth' {} a -> s {causes = a} :: SingleInstanceHealth) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The availability zone in which the instance runs.
-sihAvailabilityZone :: Lens' SingleInstanceHealth (Maybe Text)
-sihAvailabilityZone = lens _sihAvailabilityZone (\s a -> s {_sihAvailabilityZone = a})
+singleInstanceHealth_availabilityZone :: Lens.Lens' SingleInstanceHealth (Prelude.Maybe Prelude.Text)
+singleInstanceHealth_availabilityZone = Lens.lens (\SingleInstanceHealth' {availabilityZone} -> availabilityZone) (\s@SingleInstanceHealth' {} a -> s {availabilityZone = a} :: SingleInstanceHealth)
 
 -- | Information about the most recent deployment to an instance.
-sihDeployment :: Lens' SingleInstanceHealth (Maybe Deployment)
-sihDeployment = lens _sihDeployment (\s a -> s {_sihDeployment = a})
+singleInstanceHealth_deployment :: Lens.Lens' SingleInstanceHealth (Prelude.Maybe Deployment)
+singleInstanceHealth_deployment = Lens.lens (\SingleInstanceHealth' {deployment} -> deployment) (\s@SingleInstanceHealth' {} a -> s {deployment = a} :: SingleInstanceHealth)
 
 -- | The time at which the EC2 instance was launched.
-sihLaunchedAt :: Lens' SingleInstanceHealth (Maybe UTCTime)
-sihLaunchedAt = lens _sihLaunchedAt (\s a -> s {_sihLaunchedAt = a}) . mapping _Time
+singleInstanceHealth_launchedAt :: Lens.Lens' SingleInstanceHealth (Prelude.Maybe Prelude.UTCTime)
+singleInstanceHealth_launchedAt = Lens.lens (\SingleInstanceHealth' {launchedAt} -> launchedAt) (\s@SingleInstanceHealth' {} a -> s {launchedAt = a} :: SingleInstanceHealth) Prelude.. Lens.mapping Prelude._Time
 
--- | Returns the health status of the specified instance. For more information, see <https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced-status.html Health Colors and Statuses> .
-sihHealthStatus :: Lens' SingleInstanceHealth (Maybe Text)
-sihHealthStatus = lens _sihHealthStatus (\s a -> s {_sihHealthStatus = a})
+-- | Returns the health status of the specified instance. For more
+-- information, see
+-- <https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced-status.html Health Colors and Statuses>.
+singleInstanceHealth_healthStatus :: Lens.Lens' SingleInstanceHealth (Prelude.Maybe Prelude.Text)
+singleInstanceHealth_healthStatus = Lens.lens (\SingleInstanceHealth' {healthStatus} -> healthStatus) (\s@SingleInstanceHealth' {} a -> s {healthStatus = a} :: SingleInstanceHealth)
 
 -- | Operating system metrics from the instance.
-sihSystem :: Lens' SingleInstanceHealth (Maybe SystemStatus)
-sihSystem = lens _sihSystem (\s a -> s {_sihSystem = a})
+singleInstanceHealth_system :: Lens.Lens' SingleInstanceHealth (Prelude.Maybe SystemStatus)
+singleInstanceHealth_system = Lens.lens (\SingleInstanceHealth' {system} -> system) (\s@SingleInstanceHealth' {} a -> s {system = a} :: SingleInstanceHealth)
 
 -- | Request metrics from your application.
-sihApplicationMetrics :: Lens' SingleInstanceHealth (Maybe ApplicationMetrics)
-sihApplicationMetrics = lens _sihApplicationMetrics (\s a -> s {_sihApplicationMetrics = a})
+singleInstanceHealth_applicationMetrics :: Lens.Lens' SingleInstanceHealth (Prelude.Maybe ApplicationMetrics)
+singleInstanceHealth_applicationMetrics = Lens.lens (\SingleInstanceHealth' {applicationMetrics} -> applicationMetrics) (\s@SingleInstanceHealth' {} a -> s {applicationMetrics = a} :: SingleInstanceHealth)
 
-instance FromXML SingleInstanceHealth where
+instance Prelude.FromXML SingleInstanceHealth where
   parseXML x =
     SingleInstanceHealth'
-      <$> (x .@? "InstanceId")
-      <*> (x .@? "InstanceType")
-      <*> (x .@? "Color")
-      <*> ( x .@? "Causes" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> (x .@? "AvailabilityZone")
-      <*> (x .@? "Deployment")
-      <*> (x .@? "LaunchedAt")
-      <*> (x .@? "HealthStatus")
-      <*> (x .@? "System")
-      <*> (x .@? "ApplicationMetrics")
+      Prelude.<$> (x Prelude..@? "InstanceId")
+      Prelude.<*> (x Prelude..@? "InstanceType")
+      Prelude.<*> (x Prelude..@? "Color")
+      Prelude.<*> ( x Prelude..@? "Causes" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> (x Prelude..@? "AvailabilityZone")
+      Prelude.<*> (x Prelude..@? "Deployment")
+      Prelude.<*> (x Prelude..@? "LaunchedAt")
+      Prelude.<*> (x Prelude..@? "HealthStatus")
+      Prelude.<*> (x Prelude..@? "System")
+      Prelude.<*> (x Prelude..@? "ApplicationMetrics")
 
-instance Hashable SingleInstanceHealth
+instance Prelude.Hashable SingleInstanceHealth
 
-instance NFData SingleInstanceHealth
+instance Prelude.NFData SingleInstanceHealth

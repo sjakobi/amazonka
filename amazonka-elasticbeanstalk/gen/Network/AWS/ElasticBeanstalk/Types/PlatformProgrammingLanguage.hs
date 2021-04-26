@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,57 +19,54 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ElasticBeanstalk.Types.PlatformProgrammingLanguage where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A programming language supported by the platform.
 --
---
---
--- /See:/ 'platformProgrammingLanguage' smart constructor.
+-- /See:/ 'newPlatformProgrammingLanguage' smart constructor.
 data PlatformProgrammingLanguage = PlatformProgrammingLanguage'
-  { _pplVersion ::
-      !(Maybe Text),
-    _pplName ::
-      !(Maybe Text)
+  { -- | The version of the programming language.
+    version :: Prelude.Maybe Prelude.Text,
+    -- | The name of the programming language.
+    name :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PlatformProgrammingLanguage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PlatformProgrammingLanguage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pplVersion' - The version of the programming language.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pplName' - The name of the programming language.
-platformProgrammingLanguage ::
+-- 'version', 'platformProgrammingLanguage_version' - The version of the programming language.
+--
+-- 'name', 'platformProgrammingLanguage_name' - The name of the programming language.
+newPlatformProgrammingLanguage ::
   PlatformProgrammingLanguage
-platformProgrammingLanguage =
+newPlatformProgrammingLanguage =
   PlatformProgrammingLanguage'
-    { _pplVersion = Nothing,
-      _pplName = Nothing
+    { version =
+        Prelude.Nothing,
+      name = Prelude.Nothing
     }
 
 -- | The version of the programming language.
-pplVersion :: Lens' PlatformProgrammingLanguage (Maybe Text)
-pplVersion = lens _pplVersion (\s a -> s {_pplVersion = a})
+platformProgrammingLanguage_version :: Lens.Lens' PlatformProgrammingLanguage (Prelude.Maybe Prelude.Text)
+platformProgrammingLanguage_version = Lens.lens (\PlatformProgrammingLanguage' {version} -> version) (\s@PlatformProgrammingLanguage' {} a -> s {version = a} :: PlatformProgrammingLanguage)
 
 -- | The name of the programming language.
-pplName :: Lens' PlatformProgrammingLanguage (Maybe Text)
-pplName = lens _pplName (\s a -> s {_pplName = a})
+platformProgrammingLanguage_name :: Lens.Lens' PlatformProgrammingLanguage (Prelude.Maybe Prelude.Text)
+platformProgrammingLanguage_name = Lens.lens (\PlatformProgrammingLanguage' {name} -> name) (\s@PlatformProgrammingLanguage' {} a -> s {name = a} :: PlatformProgrammingLanguage)
 
-instance FromXML PlatformProgrammingLanguage where
+instance Prelude.FromXML PlatformProgrammingLanguage where
   parseXML x =
     PlatformProgrammingLanguage'
-      <$> (x .@? "Version") <*> (x .@? "Name")
+      Prelude.<$> (x Prelude..@? "Version")
+      Prelude.<*> (x Prelude..@? "Name")
 
-instance Hashable PlatformProgrammingLanguage
+instance Prelude.Hashable PlatformProgrammingLanguage
 
-instance NFData PlatformProgrammingLanguage
+instance Prelude.NFData PlatformProgrammingLanguage

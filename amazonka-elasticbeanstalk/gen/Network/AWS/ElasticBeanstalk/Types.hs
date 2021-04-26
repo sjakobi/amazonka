@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ElasticBeanstalk.Types
   ( -- * Service Configuration
-    elasticBeanstalk,
+    defaultService,
 
     -- * Errors
     _TooManyPlatformsException,
@@ -93,496 +96,235 @@ module Network.AWS.ElasticBeanstalk.Types
 
     -- * ApplicationDescription
     ApplicationDescription (..),
-    applicationDescription,
-    adApplicationARN,
-    adDateCreated,
-    adVersions,
-    adDateUpdated,
-    adResourceLifecycleConfig,
-    adDescription,
-    adConfigurationTemplates,
-    adApplicationName,
+    newApplicationDescription,
 
     -- * ApplicationDescriptionMessage
     ApplicationDescriptionMessage (..),
-    applicationDescriptionMessage,
-    admApplication,
+    newApplicationDescriptionMessage,
 
     -- * ApplicationMetrics
     ApplicationMetrics (..),
-    applicationMetrics,
-    amDuration,
-    amStatusCodes,
-    amRequestCount,
-    amLatency,
+    newApplicationMetrics,
 
     -- * ApplicationResourceLifecycleConfig
     ApplicationResourceLifecycleConfig (..),
-    applicationResourceLifecycleConfig,
-    arlcServiceRole,
-    arlcVersionLifecycleConfig,
+    newApplicationResourceLifecycleConfig,
 
     -- * ApplicationVersionDescription
     ApplicationVersionDescription (..),
-    applicationVersionDescription,
-    avdStatus,
-    avdDateCreated,
-    avdSourceBundle,
-    avdSourceBuildInformation,
-    avdVersionLabel,
-    avdDateUpdated,
-    avdDescription,
-    avdBuildARN,
-    avdApplicationVersionARN,
-    avdApplicationName,
+    newApplicationVersionDescription,
 
     -- * ApplicationVersionDescriptionMessage
     ApplicationVersionDescriptionMessage (..),
-    applicationVersionDescriptionMessage,
-    avdmApplicationVersion,
+    newApplicationVersionDescriptionMessage,
 
     -- * ApplicationVersionLifecycleConfig
     ApplicationVersionLifecycleConfig (..),
-    applicationVersionLifecycleConfig,
-    avlcMaxAgeRule,
-    avlcMaxCountRule,
+    newApplicationVersionLifecycleConfig,
 
     -- * AutoScalingGroup
     AutoScalingGroup (..),
-    autoScalingGroup,
-    asgName,
+    newAutoScalingGroup,
 
     -- * BuildConfiguration
     BuildConfiguration (..),
-    buildConfiguration,
-    bcArtifactName,
-    bcTimeoutInMinutes,
-    bcComputeType,
-    bcCodeBuildServiceRole,
-    bcImage,
+    newBuildConfiguration,
 
     -- * Builder
     Builder (..),
-    builder,
-    bARN,
+    newBuilder,
 
     -- * CPUUtilization
     CPUUtilization (..),
-    cpuUtilization,
-    cuIdle,
-    cuUser,
-    cuPrivileged,
-    cuIOWait,
-    cuSoftIRQ,
-    cuNice,
-    cuSystem,
-    cuIRQ,
+    newCPUUtilization,
 
     -- * ConfigurationOptionDescription
     ConfigurationOptionDescription (..),
-    configurationOptionDescription,
-    codMaxValue,
-    codValueOptions,
-    codValueType,
-    codChangeSeverity,
-    codRegex,
-    codName,
-    codMinValue,
-    codNamespace,
-    codUserDefined,
-    codMaxLength,
-    codDefaultValue,
+    newConfigurationOptionDescription,
 
     -- * ConfigurationOptionSetting
     ConfigurationOptionSetting (..),
-    configurationOptionSetting,
-    cosOptionName,
-    cosValue,
-    cosNamespace,
-    cosResourceName,
+    newConfigurationOptionSetting,
 
     -- * ConfigurationSettingsDescription
     ConfigurationSettingsDescription (..),
-    configurationSettingsDescription,
-    csdTemplateName,
-    csdDateCreated,
-    csdSolutionStackName,
-    csdDeploymentStatus,
-    csdEnvironmentName,
-    csdPlatformARN,
-    csdDateUpdated,
-    csdOptionSettings,
-    csdDescription,
-    csdApplicationName,
+    newConfigurationSettingsDescription,
 
-    -- * CustomAMI
-    CustomAMI (..),
-    customAMI,
-    caVirtualizationType,
-    caImageId,
+    -- * CustomAmi
+    CustomAmi (..),
+    newCustomAmi,
 
     -- * Deployment
     Deployment (..),
-    deployment,
-    dStatus,
-    dDeploymentId,
-    dVersionLabel,
-    dDeploymentTime,
+    newDeployment,
 
     -- * EnvironmentDescription
     EnvironmentDescription (..),
-    environmentDescription,
-    eAbortableOperationInProgress,
-    eTemplateName,
-    eStatus,
-    eDateCreated,
-    eEnvironmentLinks,
-    eSolutionStackName,
-    eEnvironmentId,
-    eEnvironmentName,
-    ePlatformARN,
-    eVersionLabel,
-    eHealth,
-    eCNAME,
-    eResources,
-    eDateUpdated,
-    eDescription,
-    eHealthStatus,
-    eEnvironmentARN,
-    eEndpointURL,
-    eApplicationName,
-    eTier,
-    eOperationsRole,
+    newEnvironmentDescription,
 
     -- * EnvironmentDescriptionsMessage
     EnvironmentDescriptionsMessage (..),
-    environmentDescriptionsMessage,
-    edmNextToken,
-    edmEnvironments,
+    newEnvironmentDescriptionsMessage,
 
     -- * EnvironmentInfoDescription
     EnvironmentInfoDescription (..),
-    environmentInfoDescription,
-    eidMessage,
-    eidInfoType,
-    eidEC2InstanceId,
-    eidSampleTimestamp,
+    newEnvironmentInfoDescription,
 
     -- * EnvironmentLink
     EnvironmentLink (..),
-    environmentLink,
-    elEnvironmentName,
-    elLinkName,
+    newEnvironmentLink,
 
     -- * EnvironmentResourceDescription
     EnvironmentResourceDescription (..),
-    environmentResourceDescription,
-    erdLaunchConfigurations,
-    erdLaunchTemplates,
-    erdTriggers,
-    erdInstances,
-    erdEnvironmentName,
-    erdQueues,
-    erdLoadBalancers,
-    erdAutoScalingGroups,
+    newEnvironmentResourceDescription,
 
     -- * EnvironmentResourcesDescription
     EnvironmentResourcesDescription (..),
-    environmentResourcesDescription,
-    erdLoadBalancer,
+    newEnvironmentResourcesDescription,
 
     -- * EnvironmentTier
     EnvironmentTier (..),
-    environmentTier,
-    etVersion,
-    etName,
-    etType,
+    newEnvironmentTier,
 
     -- * EventDescription
     EventDescription (..),
-    eventDescription,
-    edTemplateName,
-    edSeverity,
-    edMessage,
-    edEventDate,
-    edEnvironmentName,
-    edPlatformARN,
-    edVersionLabel,
-    edRequestId,
-    edApplicationName,
+    newEventDescription,
 
     -- * Instance
     Instance (..),
-    instance',
-    iId,
+    newInstance,
 
     -- * InstanceHealthSummary
     InstanceHealthSummary (..),
-    instanceHealthSummary,
-    ihsOK,
-    ihsNoData,
-    ihsInfo,
-    ihsSevere,
-    ihsWarning,
-    ihsPending,
-    ihsDegraded,
-    ihsUnknown,
+    newInstanceHealthSummary,
 
     -- * Latency
     Latency (..),
-    latency,
-    lP95,
-    lP10,
-    lP999,
-    lP99,
-    lP85,
-    lP50,
-    lP90,
-    lP75,
+    newLatency,
 
     -- * LaunchConfiguration
     LaunchConfiguration (..),
-    launchConfiguration,
-    lcName,
+    newLaunchConfiguration,
 
     -- * LaunchTemplate
     LaunchTemplate (..),
-    launchTemplate,
-    ltId,
+    newLaunchTemplate,
 
     -- * Listener
     Listener (..),
-    listener,
-    lPort,
-    lProtocol,
+    newListener,
 
     -- * LoadBalancer
     LoadBalancer (..),
-    loadBalancer,
-    lbName,
+    newLoadBalancer,
 
     -- * LoadBalancerDescription
     LoadBalancerDescription (..),
-    loadBalancerDescription,
-    lbdDomain,
-    lbdListeners,
-    lbdLoadBalancerName,
+    newLoadBalancerDescription,
 
     -- * ManagedAction
     ManagedAction (..),
-    managedAction,
-    maStatus,
-    maActionType,
-    maActionId,
-    maActionDescription,
-    maWindowStartTime,
+    newManagedAction,
 
     -- * ManagedActionHistoryItem
     ManagedActionHistoryItem (..),
-    managedActionHistoryItem,
-    mahiStatus,
-    mahiActionType,
-    mahiExecutedTime,
-    mahiActionId,
-    mahiActionDescription,
-    mahiFinishedTime,
-    mahiFailureDescription,
-    mahiFailureType,
+    newManagedActionHistoryItem,
 
     -- * MaxAgeRule
     MaxAgeRule (..),
-    maxAgeRule,
-    marDeleteSourceFromS3,
-    marMaxAgeInDays,
-    marEnabled,
+    newMaxAgeRule,
 
     -- * MaxCountRule
     MaxCountRule (..),
-    maxCountRule,
-    mcrMaxCount,
-    mcrDeleteSourceFromS3,
-    mcrEnabled,
+    newMaxCountRule,
 
     -- * OptionRestrictionRegex
     OptionRestrictionRegex (..),
-    optionRestrictionRegex,
-    orrLabel,
-    orrPattern,
+    newOptionRestrictionRegex,
 
     -- * OptionSpecification
     OptionSpecification (..),
-    optionSpecification,
-    osOptionName,
-    osNamespace,
-    osResourceName,
+    newOptionSpecification,
 
     -- * PlatformBranchSummary
     PlatformBranchSummary (..),
-    platformBranchSummary,
-    pbsBranchName,
-    pbsBranchOrder,
-    pbsLifecycleState,
-    pbsSupportedTierList,
-    pbsPlatformName,
+    newPlatformBranchSummary,
 
     -- * PlatformDescription
     PlatformDescription (..),
-    platformDescription,
-    pdPlatformCategory,
-    pdOperatingSystemName,
-    pdPlatformBranchName,
-    pdSupportedAddonList,
-    pdDateCreated,
-    pdCustomAMIList,
-    pdPlatformOwner,
-    pdPlatformStatus,
-    pdSolutionStackName,
-    pdPlatformVersion,
-    pdPlatformBranchLifecycleState,
-    pdPlatformARN,
-    pdFrameworks,
-    pdDateUpdated,
-    pdSupportedTierList,
-    pdPlatformLifecycleState,
-    pdMaintainer,
-    pdDescription,
-    pdPlatformName,
-    pdProgrammingLanguages,
-    pdOperatingSystemVersion,
+    newPlatformDescription,
 
     -- * PlatformFilter
     PlatformFilter (..),
-    platformFilter,
-    pfValues,
-    pfOperator,
-    pfType,
+    newPlatformFilter,
 
     -- * PlatformFramework
     PlatformFramework (..),
-    platformFramework,
-    pfVersion,
-    pfName,
+    newPlatformFramework,
 
     -- * PlatformProgrammingLanguage
     PlatformProgrammingLanguage (..),
-    platformProgrammingLanguage,
-    pplVersion,
-    pplName,
+    newPlatformProgrammingLanguage,
 
     -- * PlatformSummary
     PlatformSummary (..),
-    platformSummary,
-    psPlatformCategory,
-    psOperatingSystemName,
-    psPlatformBranchName,
-    psSupportedAddonList,
-    psPlatformOwner,
-    psPlatformStatus,
-    psPlatformVersion,
-    psPlatformBranchLifecycleState,
-    psPlatformARN,
-    psSupportedTierList,
-    psPlatformLifecycleState,
-    psOperatingSystemVersion,
+    newPlatformSummary,
 
     -- * Queue
     Queue (..),
-    queue,
-    qName,
-    qURL,
+    newQueue,
 
     -- * ResourceQuota
     ResourceQuota (..),
-    resourceQuota,
-    rqMaximum,
+    newResourceQuota,
 
     -- * ResourceQuotas
     ResourceQuotas (..),
-    resourceQuotas,
-    rqApplicationQuota,
-    rqConfigurationTemplateQuota,
-    rqApplicationVersionQuota,
-    rqEnvironmentQuota,
-    rqCustomPlatformQuota,
+    newResourceQuotas,
 
     -- * S3Location
     S3Location (..),
-    s3Location,
-    slS3Bucket,
-    slS3Key,
+    newS3Location,
 
     -- * SearchFilter
     SearchFilter (..),
-    searchFilter,
-    sfValues,
-    sfOperator,
-    sfAttribute,
+    newSearchFilter,
 
     -- * SingleInstanceHealth
     SingleInstanceHealth (..),
-    singleInstanceHealth,
-    sihInstanceId,
-    sihInstanceType,
-    sihColor,
-    sihCauses,
-    sihAvailabilityZone,
-    sihDeployment,
-    sihLaunchedAt,
-    sihHealthStatus,
-    sihSystem,
-    sihApplicationMetrics,
+    newSingleInstanceHealth,
 
     -- * SolutionStackDescription
     SolutionStackDescription (..),
-    solutionStackDescription,
-    ssdPermittedFileTypes,
-    ssdSolutionStackName,
+    newSolutionStackDescription,
 
     -- * SourceBuildInformation
     SourceBuildInformation (..),
-    sourceBuildInformation,
-    sbiSourceType,
-    sbiSourceRepository,
-    sbiSourceLocation,
+    newSourceBuildInformation,
 
     -- * SourceConfiguration
     SourceConfiguration (..),
-    sourceConfiguration,
-    scTemplateName,
-    scApplicationName,
+    newSourceConfiguration,
 
     -- * StatusCodes
     StatusCodes (..),
-    statusCodes,
-    scStatus3xx,
-    scStatus5xx,
-    scStatus2xx,
-    scStatus4xx,
+    newStatusCodes,
 
     -- * SystemStatus
     SystemStatus (..),
-    systemStatus,
-    ssCPUUtilization,
-    ssLoadAverage,
+    newSystemStatus,
 
     -- * Tag
     Tag (..),
-    tag,
-    tagKey,
-    tagValue,
+    newTag,
 
     -- * Trigger
     Trigger (..),
-    trigger,
-    tName,
+    newTrigger,
 
     -- * ValidationMessage
     ValidationMessage (..),
-    validationMessage,
-    vmOptionName,
-    vmSeverity,
-    vmMessage,
-    vmNamespace,
+    newValidationMessage,
   )
 where
 
@@ -607,7 +349,7 @@ import Network.AWS.ElasticBeanstalk.Types.ConfigurationOptionDescription
 import Network.AWS.ElasticBeanstalk.Types.ConfigurationOptionSetting
 import Network.AWS.ElasticBeanstalk.Types.ConfigurationOptionValueType
 import Network.AWS.ElasticBeanstalk.Types.ConfigurationSettingsDescription
-import Network.AWS.ElasticBeanstalk.Types.CustomAMI
+import Network.AWS.ElasticBeanstalk.Types.CustomAmi
 import Network.AWS.ElasticBeanstalk.Types.Deployment
 import Network.AWS.ElasticBeanstalk.Types.EnvironmentDescription
 import Network.AWS.ElasticBeanstalk.Types.EnvironmentDescriptionsMessage
@@ -663,217 +405,246 @@ import Network.AWS.ElasticBeanstalk.Types.Tag
 import Network.AWS.ElasticBeanstalk.Types.Trigger
 import Network.AWS.ElasticBeanstalk.Types.ValidationMessage
 import Network.AWS.ElasticBeanstalk.Types.ValidationSeverity
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Sign.V4
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Sign.V4 as Sign
 
 -- | API version @2010-12-01@ of the Amazon Elastic Beanstalk SDK configuration.
-elasticBeanstalk :: Service
-elasticBeanstalk =
-  Service
-    { _svcAbbrev = "ElasticBeanstalk",
-      _svcSigner = v4,
-      _svcPrefix = "elasticbeanstalk",
-      _svcVersion = "2010-12-01",
-      _svcEndpoint = defaultEndpoint elasticBeanstalk,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseXMLError "ElasticBeanstalk",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev =
+        "ElasticBeanstalk",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "elasticbeanstalk",
+      Prelude._svcVersion = "2010-12-01",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError =
+        Prelude.parseXMLError "ElasticBeanstalk",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
--- | You have exceeded the maximum number of allowed platforms associated with the account.
-_TooManyPlatformsException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | You have exceeded the maximum number of allowed platforms associated
+-- with the account.
+_TooManyPlatformsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TooManyPlatformsException =
-  _MatchServiceError
-    elasticBeanstalk
+  Prelude._MatchServiceError
+    defaultService
     "TooManyPlatformsException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | The number of tags in the resource would exceed the number of tags that each resource can have.
+-- | The number of tags in the resource would exceed the number of tags that
+-- each resource can have.
 --
---
--- To calculate this, the operation considers both the number of tags the resource already has and the tags this operation would add if it succeeded.
-_TooManyTagsException :: AsError a => Getting (First ServiceError) a ServiceError
+-- To calculate this, the operation considers both the number of tags the
+-- resource already has and the tags this operation would add if it
+-- succeeded.
+_TooManyTagsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TooManyTagsException =
-  _MatchServiceError
-    elasticBeanstalk
+  Prelude._MatchServiceError
+    defaultService
     "TooManyTagsException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
 -- | The specified account has reached its limit of applications.
-_TooManyApplicationsException :: AsError a => Getting (First ServiceError) a ServiceError
+_TooManyApplicationsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TooManyApplicationsException =
-  _MatchServiceError
-    elasticBeanstalk
+  Prelude._MatchServiceError
+    defaultService
     "TooManyApplicationsException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | The type of the specified Amazon Resource Name (ARN) isn't supported for this operation.
-_ResourceTypeNotSupportedException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The type of the specified Amazon Resource Name (ARN) isn\'t supported
+-- for this operation.
+_ResourceTypeNotSupportedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceTypeNotSupportedException =
-  _MatchServiceError
-    elasticBeanstalk
+  Prelude._MatchServiceError
+    defaultService
     "ResourceTypeNotSupportedException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
 -- | The specified account has reached its limit of environments.
-_TooManyEnvironmentsException :: AsError a => Getting (First ServiceError) a ServiceError
+_TooManyEnvironmentsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TooManyEnvironmentsException =
-  _MatchServiceError
-    elasticBeanstalk
+  Prelude._MatchServiceError
+    defaultService
     "TooManyEnvironmentsException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | The specified account does not have sufficient privileges for one or more AWS services.
-_InsufficientPrivilegesException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified account does not have sufficient privileges for one or
+-- more AWS services.
+_InsufficientPrivilegesException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InsufficientPrivilegesException =
-  _MatchServiceError
-    elasticBeanstalk
+  Prelude._MatchServiceError
+    defaultService
     "InsufficientPrivilegesException"
-    . hasStatus 403
+    Prelude.. Prelude.hasStatus 403
 
 -- | The specified account has reached its limit of configuration templates.
-_TooManyConfigurationTemplatesException :: AsError a => Getting (First ServiceError) a ServiceError
+_TooManyConfigurationTemplatesException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TooManyConfigurationTemplatesException =
-  _MatchServiceError
-    elasticBeanstalk
+  Prelude._MatchServiceError
+    defaultService
     "TooManyConfigurationTemplatesException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | Unable to perform the specified operation because another operation that effects an element in this activity is already in progress.
-_OperationInProgressException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Unable to perform the specified operation because another operation that
+-- effects an element in this activity is already in progress.
+_OperationInProgressException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _OperationInProgressException =
-  _MatchServiceError
-    elasticBeanstalk
+  Prelude._MatchServiceError
+    defaultService
     "OperationInProgressFailure"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
 -- | The specified account has reached its limit of Amazon S3 buckets.
-_TooManyBucketsException :: AsError a => Getting (First ServiceError) a ServiceError
+_TooManyBucketsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TooManyBucketsException =
-  _MatchServiceError
-    elasticBeanstalk
+  Prelude._MatchServiceError
+    defaultService
     "TooManyBucketsException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
 -- | The specified account does not have a subscription to Amazon S3.
-_S3SubscriptionRequiredException :: AsError a => Getting (First ServiceError) a ServiceError
+_S3SubscriptionRequiredException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _S3SubscriptionRequiredException =
-  _MatchServiceError
-    elasticBeanstalk
+  Prelude._MatchServiceError
+    defaultService
     "S3SubscriptionRequiredException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | Unable to delete the Amazon S3 source bundle associated with the application version. The application version was deleted successfully.
-_SourceBundleDeletionException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Unable to delete the Amazon S3 source bundle associated with the
+-- application version. The application version was deleted successfully.
+_SourceBundleDeletionException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _SourceBundleDeletionException =
-  _MatchServiceError
-    elasticBeanstalk
+  Prelude._MatchServiceError
+    defaultService
     "SourceBundleDeletionFailure"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | One or more input parameters is not valid. Please correct the input parameters and try the operation again.
-_InvalidRequestException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | One or more input parameters is not valid. Please correct the input
+-- parameters and try the operation again.
+_InvalidRequestException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidRequestException =
-  _MatchServiceError
-    elasticBeanstalk
+  Prelude._MatchServiceError
+    defaultService
     "InvalidRequestException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
 -- | A generic service exception has occurred.
-_ElasticBeanstalkServiceException :: AsError a => Getting (First ServiceError) a ServiceError
+_ElasticBeanstalkServiceException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ElasticBeanstalkServiceException =
-  _MatchServiceError
-    elasticBeanstalk
+  Prelude._MatchServiceError
+    defaultService
     "ElasticBeanstalkServiceException"
 
--- | A resource doesn't exist for the specified Amazon Resource Name (ARN).
-_ResourceNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | A resource doesn\'t exist for the specified Amazon Resource Name (ARN).
+_ResourceNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceNotFoundException =
-  _MatchServiceError
-    elasticBeanstalk
+  Prelude._MatchServiceError
+    defaultService
     "ResourceNotFoundException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
 -- | AWS CodeBuild is not available in the specified region.
-_CodeBuildNotInServiceRegionException :: AsError a => Getting (First ServiceError) a ServiceError
+_CodeBuildNotInServiceRegionException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _CodeBuildNotInServiceRegionException =
-  _MatchServiceError
-    elasticBeanstalk
+  Prelude._MatchServiceError
+    defaultService
     "CodeBuildNotInServiceRegionException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | You cannot delete the platform version because there are still environments running on it.
-_PlatformVersionStillReferencedException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | You cannot delete the platform version because there are still
+-- environments running on it.
+_PlatformVersionStillReferencedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _PlatformVersionStillReferencedException =
-  _MatchServiceError
-    elasticBeanstalk
+  Prelude._MatchServiceError
+    defaultService
     "PlatformVersionStillReferencedException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
 -- | The specified account has reached its limit of application versions.
-_TooManyApplicationVersionsException :: AsError a => Getting (First ServiceError) a ServiceError
+_TooManyApplicationVersionsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TooManyApplicationVersionsException =
-  _MatchServiceError
-    elasticBeanstalk
+  Prelude._MatchServiceError
+    defaultService
     "TooManyApplicationVersionsException"
 
--- | The specified S3 bucket does not belong to the S3 region in which the service is running. The following regions are supported:
+-- | The specified S3 bucket does not belong to the S3 region in which the
+-- service is running. The following regions are supported:
 --
+-- -   IAD\/us-east-1
 --
---     * IAD/us-east-1
+-- -   PDX\/us-west-2
 --
---     * PDX/us-west-2
---
---     * DUB/eu-west-1
-_S3LocationNotInServiceRegionException :: AsError a => Getting (First ServiceError) a ServiceError
+-- -   DUB\/eu-west-1
+_S3LocationNotInServiceRegionException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _S3LocationNotInServiceRegionException =
-  _MatchServiceError
-    elasticBeanstalk
+  Prelude._MatchServiceError
+    defaultService
     "S3LocationNotInServiceRegionException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
 -- | Cannot modify the managed action in its current state.
-_ManagedActionInvalidStateException :: AsError a => Getting (First ServiceError) a ServiceError
+_ManagedActionInvalidStateException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ManagedActionInvalidStateException =
-  _MatchServiceError
-    elasticBeanstalk
+  Prelude._MatchServiceError
+    defaultService
     "ManagedActionInvalidStateException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400

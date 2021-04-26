@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,123 +21,130 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Disassociate the operations role from an environment. After this call is made, Elastic Beanstalk uses the caller's permissions for permissions to downstream services during subsequent calls acting on this environment. For more information, see <https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/iam-operationsrole.html Operations roles> in the /AWS Elastic Beanstalk Developer Guide/ .
+-- Disassociate the operations role from an environment. After this call is
+-- made, Elastic Beanstalk uses the caller\'s permissions for permissions
+-- to downstream services during subsequent calls acting on this
+-- environment. For more information, see
+-- <https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/iam-operationsrole.html Operations roles>
+-- in the /AWS Elastic Beanstalk Developer Guide/.
 module Network.AWS.ElasticBeanstalk.DisassociateEnvironmentOperationsRole
   ( -- * Creating a Request
-    disassociateEnvironmentOperationsRole,
-    DisassociateEnvironmentOperationsRole,
+    DisassociateEnvironmentOperationsRole (..),
+    newDisassociateEnvironmentOperationsRole,
 
     -- * Request Lenses
-    deorEnvironmentName,
+    disassociateEnvironmentOperationsRole_environmentName,
 
     -- * Destructuring the Response
-    disassociateEnvironmentOperationsRoleResponse,
-    DisassociateEnvironmentOperationsRoleResponse,
+    DisassociateEnvironmentOperationsRoleResponse (..),
+    newDisassociateEnvironmentOperationsRoleResponse,
   )
 where
 
 import Network.AWS.ElasticBeanstalk.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Request to disassociate the operations role from an environment.
 --
---
---
--- /See:/ 'disassociateEnvironmentOperationsRole' smart constructor.
-newtype DisassociateEnvironmentOperationsRole = DisassociateEnvironmentOperationsRole'
-  { _deorEnvironmentName ::
-      Text
+-- /See:/ 'newDisassociateEnvironmentOperationsRole' smart constructor.
+data DisassociateEnvironmentOperationsRole = DisassociateEnvironmentOperationsRole'
+  { -- | The name of the environment from which to disassociate the operations
+    -- role.
+    environmentName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DisassociateEnvironmentOperationsRole' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DisassociateEnvironmentOperationsRole' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'deorEnvironmentName' - The name of the environment from which to disassociate the operations role.
-disassociateEnvironmentOperationsRole ::
-  -- | 'deorEnvironmentName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'environmentName', 'disassociateEnvironmentOperationsRole_environmentName' - The name of the environment from which to disassociate the operations
+-- role.
+newDisassociateEnvironmentOperationsRole ::
+  -- | 'environmentName'
+  Prelude.Text ->
   DisassociateEnvironmentOperationsRole
-disassociateEnvironmentOperationsRole
+newDisassociateEnvironmentOperationsRole
   pEnvironmentName_ =
     DisassociateEnvironmentOperationsRole'
-      { _deorEnvironmentName =
+      { environmentName =
           pEnvironmentName_
       }
 
--- | The name of the environment from which to disassociate the operations role.
-deorEnvironmentName :: Lens' DisassociateEnvironmentOperationsRole Text
-deorEnvironmentName = lens _deorEnvironmentName (\s a -> s {_deorEnvironmentName = a})
+-- | The name of the environment from which to disassociate the operations
+-- role.
+disassociateEnvironmentOperationsRole_environmentName :: Lens.Lens' DisassociateEnvironmentOperationsRole Prelude.Text
+disassociateEnvironmentOperationsRole_environmentName = Lens.lens (\DisassociateEnvironmentOperationsRole' {environmentName} -> environmentName) (\s@DisassociateEnvironmentOperationsRole' {} a -> s {environmentName = a} :: DisassociateEnvironmentOperationsRole)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     DisassociateEnvironmentOperationsRole
   where
   type
     Rs DisassociateEnvironmentOperationsRole =
       DisassociateEnvironmentOperationsRoleResponse
-  request = postQuery elasticBeanstalk
+  request = Request.postQuery defaultService
   response =
-    receiveNull
+    Response.receiveNull
       DisassociateEnvironmentOperationsRoleResponse'
 
 instance
-  Hashable
+  Prelude.Hashable
     DisassociateEnvironmentOperationsRole
 
-instance NFData DisassociateEnvironmentOperationsRole
+instance
+  Prelude.NFData
+    DisassociateEnvironmentOperationsRole
 
 instance
-  ToHeaders
+  Prelude.ToHeaders
     DisassociateEnvironmentOperationsRole
   where
-  toHeaders = const mempty
-
-instance ToPath DisassociateEnvironmentOperationsRole where
-  toPath = const "/"
+  toHeaders = Prelude.const Prelude.mempty
 
 instance
-  ToQuery
+  Prelude.ToPath
+    DisassociateEnvironmentOperationsRole
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
     DisassociateEnvironmentOperationsRole
   where
   toQuery DisassociateEnvironmentOperationsRole' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ( "DisassociateEnvironmentOperationsRole" ::
-                 ByteString
-             ),
-        "Version" =: ("2010-12-01" :: ByteString),
-        "EnvironmentName" =: _deorEnvironmentName
+          Prelude.=: ( "DisassociateEnvironmentOperationsRole" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2010-12-01" :: Prelude.ByteString),
+        "EnvironmentName" Prelude.=: environmentName
       ]
 
--- | /See:/ 'disassociateEnvironmentOperationsRoleResponse' smart constructor.
+-- | /See:/ 'newDisassociateEnvironmentOperationsRoleResponse' smart constructor.
 data DisassociateEnvironmentOperationsRoleResponse = DisassociateEnvironmentOperationsRoleResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DisassociateEnvironmentOperationsRoleResponse' with the minimum fields required to make a request.
-disassociateEnvironmentOperationsRoleResponse ::
+-- |
+-- Create a value of 'DisassociateEnvironmentOperationsRoleResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDisassociateEnvironmentOperationsRoleResponse ::
   DisassociateEnvironmentOperationsRoleResponse
-disassociateEnvironmentOperationsRoleResponse =
+newDisassociateEnvironmentOperationsRoleResponse =
   DisassociateEnvironmentOperationsRoleResponse'
 
 instance
-  NFData
+  Prelude.NFData
     DisassociateEnvironmentOperationsRoleResponse

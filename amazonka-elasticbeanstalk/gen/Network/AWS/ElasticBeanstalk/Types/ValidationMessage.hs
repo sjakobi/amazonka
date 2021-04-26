@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,69 +20,91 @@
 module Network.AWS.ElasticBeanstalk.Types.ValidationMessage where
 
 import Network.AWS.ElasticBeanstalk.Types.ValidationSeverity
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | An error or warning for a desired configuration option value.
 --
---
---
--- /See:/ 'validationMessage' smart constructor.
+-- /See:/ 'newValidationMessage' smart constructor.
 data ValidationMessage = ValidationMessage'
-  { _vmOptionName ::
-      !(Maybe Text),
-    _vmSeverity ::
-      !(Maybe ValidationSeverity),
-    _vmMessage :: !(Maybe Text),
-    _vmNamespace :: !(Maybe Text)
+  { -- | The name of the option.
+    optionName :: Prelude.Maybe Prelude.Text,
+    -- | An indication of the severity of this message:
+    --
+    -- -   @error@: This message indicates that this is not a valid setting for
+    --     an option.
+    --
+    -- -   @warning@: This message is providing information you should take
+    --     into account.
+    severity :: Prelude.Maybe ValidationSeverity,
+    -- | A message describing the error or warning.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The namespace to which the option belongs.
+    namespace :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ValidationMessage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ValidationMessage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'vmOptionName' - The name of the option.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'vmSeverity' - An indication of the severity of this message:     * @error@ : This message indicates that this is not a valid setting for an option.     * @warning@ : This message is providing information you should take into account.
+-- 'optionName', 'validationMessage_optionName' - The name of the option.
 --
--- * 'vmMessage' - A message describing the error or warning.
+-- 'severity', 'validationMessage_severity' - An indication of the severity of this message:
 --
--- * 'vmNamespace' - The namespace to which the option belongs.
-validationMessage ::
+-- -   @error@: This message indicates that this is not a valid setting for
+--     an option.
+--
+-- -   @warning@: This message is providing information you should take
+--     into account.
+--
+-- 'message', 'validationMessage_message' - A message describing the error or warning.
+--
+-- 'namespace', 'validationMessage_namespace' - The namespace to which the option belongs.
+newValidationMessage ::
   ValidationMessage
-validationMessage =
+newValidationMessage =
   ValidationMessage'
-    { _vmOptionName = Nothing,
-      _vmSeverity = Nothing,
-      _vmMessage = Nothing,
-      _vmNamespace = Nothing
+    { optionName = Prelude.Nothing,
+      severity = Prelude.Nothing,
+      message = Prelude.Nothing,
+      namespace = Prelude.Nothing
     }
 
 -- | The name of the option.
-vmOptionName :: Lens' ValidationMessage (Maybe Text)
-vmOptionName = lens _vmOptionName (\s a -> s {_vmOptionName = a})
+validationMessage_optionName :: Lens.Lens' ValidationMessage (Prelude.Maybe Prelude.Text)
+validationMessage_optionName = Lens.lens (\ValidationMessage' {optionName} -> optionName) (\s@ValidationMessage' {} a -> s {optionName = a} :: ValidationMessage)
 
--- | An indication of the severity of this message:     * @error@ : This message indicates that this is not a valid setting for an option.     * @warning@ : This message is providing information you should take into account.
-vmSeverity :: Lens' ValidationMessage (Maybe ValidationSeverity)
-vmSeverity = lens _vmSeverity (\s a -> s {_vmSeverity = a})
+-- | An indication of the severity of this message:
+--
+-- -   @error@: This message indicates that this is not a valid setting for
+--     an option.
+--
+-- -   @warning@: This message is providing information you should take
+--     into account.
+validationMessage_severity :: Lens.Lens' ValidationMessage (Prelude.Maybe ValidationSeverity)
+validationMessage_severity = Lens.lens (\ValidationMessage' {severity} -> severity) (\s@ValidationMessage' {} a -> s {severity = a} :: ValidationMessage)
 
 -- | A message describing the error or warning.
-vmMessage :: Lens' ValidationMessage (Maybe Text)
-vmMessage = lens _vmMessage (\s a -> s {_vmMessage = a})
+validationMessage_message :: Lens.Lens' ValidationMessage (Prelude.Maybe Prelude.Text)
+validationMessage_message = Lens.lens (\ValidationMessage' {message} -> message) (\s@ValidationMessage' {} a -> s {message = a} :: ValidationMessage)
 
 -- | The namespace to which the option belongs.
-vmNamespace :: Lens' ValidationMessage (Maybe Text)
-vmNamespace = lens _vmNamespace (\s a -> s {_vmNamespace = a})
+validationMessage_namespace :: Lens.Lens' ValidationMessage (Prelude.Maybe Prelude.Text)
+validationMessage_namespace = Lens.lens (\ValidationMessage' {namespace} -> namespace) (\s@ValidationMessage' {} a -> s {namespace = a} :: ValidationMessage)
 
-instance FromXML ValidationMessage where
+instance Prelude.FromXML ValidationMessage where
   parseXML x =
     ValidationMessage'
-      <$> (x .@? "OptionName")
-      <*> (x .@? "Severity")
-      <*> (x .@? "Message")
-      <*> (x .@? "Namespace")
+      Prelude.<$> (x Prelude..@? "OptionName")
+      Prelude.<*> (x Prelude..@? "Severity")
+      Prelude.<*> (x Prelude..@? "Message")
+      Prelude.<*> (x Prelude..@? "Namespace")
 
-instance Hashable ValidationMessage
+instance Prelude.Hashable ValidationMessage
 
-instance NFData ValidationMessage
+instance Prelude.NFData ValidationMessage

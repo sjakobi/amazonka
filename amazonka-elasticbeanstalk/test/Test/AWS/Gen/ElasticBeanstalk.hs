@@ -28,289 +28,289 @@ import Test.Tasty
 -- fixtures =
 --     [ testGroup "request"
 --         [ requestSwapEnvironmentCNAMEs $
---             swapEnvironmentCNAMEs
+--             newSwapEnvironmentCNAMEs
 --
 --         , requestListPlatformBranches $
---             listPlatformBranches
+--             newListPlatformBranches
 --
 --         , requestListAvailableSolutionStacks $
---             listAvailableSolutionStacks
+--             newListAvailableSolutionStacks
 --
 --         , requestDescribeEnvironmentHealth $
---             describeEnvironmentHealth
+--             newDescribeEnvironmentHealth
 --
 --         , requestCreateConfigurationTemplate $
---             createConfigurationTemplate
+--             newCreateConfigurationTemplate
 --
 --         , requestDescribeApplications $
---             describeApplications
+--             newDescribeApplications
 --
 --         , requestListPlatformVersions $
---             listPlatformVersions
+--             newListPlatformVersions
 --
 --         , requestCreateApplicationVersion $
---             createApplicationVersion
+--             newCreateApplicationVersion
 --
 --         , requestTerminateEnvironment $
---             terminateEnvironment
+--             newTerminateEnvironment
 --
 --         , requestDescribeEnvironmentResources $
---             describeEnvironmentResources
+--             newDescribeEnvironmentResources
 --
 --         , requestUpdateApplicationVersion $
---             updateApplicationVersion
+--             newUpdateApplicationVersion
 --
 --         , requestCreatePlatformVersion $
---             createPlatformVersion
+--             newCreatePlatformVersion
 --
 --         , requestDeleteApplicationVersion $
---             deleteApplicationVersion
+--             newDeleteApplicationVersion
 --
 --         , requestCreateEnvironment $
---             createEnvironment
+--             newCreateEnvironment
 --
 --         , requestCreateApplication $
---             createApplication
+--             newCreateApplication
 --
 --         , requestComposeEnvironments $
---             composeEnvironments
+--             newComposeEnvironments
 --
 --         , requestCheckDNSAvailability $
---             checkDNSAvailability
+--             newCheckDNSAvailability
 --
 --         , requestDescribeAccountAttributes $
---             describeAccountAttributes
+--             newDescribeAccountAttributes
 --
 --         , requestValidateConfigurationSettings $
---             validateConfigurationSettings
+--             newValidateConfigurationSettings
 --
 --         , requestCreateStorageLocation $
---             createStorageLocation
+--             newCreateStorageLocation
 --
 --         , requestDescribeEnvironmentManagedActions $
---             describeEnvironmentManagedActions
+--             newDescribeEnvironmentManagedActions
 --
 --         , requestDescribeConfigurationSettings $
---             describeConfigurationSettings
+--             newDescribeConfigurationSettings
 --
 --         , requestDescribeConfigurationOptions $
---             describeConfigurationOptions
+--             newDescribeConfigurationOptions
 --
 --         , requestRetrieveEnvironmentInfo $
---             retrieveEnvironmentInfo
+--             newRetrieveEnvironmentInfo
 --
 --         , requestRequestEnvironmentInfo $
---             requestEnvironmentInfo
+--             newRequestEnvironmentInfo
 --
 --         , requestDescribeEvents $
---             describeEvents
+--             newDescribeEvents
 --
 --         , requestApplyEnvironmentManagedAction $
---             applyEnvironmentManagedAction
+--             newApplyEnvironmentManagedAction
 --
 --         , requestUpdateApplicationResourceLifecycle $
---             updateApplicationResourceLifecycle
+--             newUpdateApplicationResourceLifecycle
 --
 --         , requestRebuildEnvironment $
---             rebuildEnvironment
+--             newRebuildEnvironment
 --
 --         , requestUpdateEnvironment $
---             updateEnvironment
+--             newUpdateEnvironment
 --
 --         , requestDeletePlatformVersion $
---             deletePlatformVersion
+--             newDeletePlatformVersion
 --
 --         , requestDeleteEnvironmentConfiguration $
---             deleteEnvironmentConfiguration
+--             newDeleteEnvironmentConfiguration
 --
 --         , requestDescribeEnvironmentManagedActionHistory $
---             describeEnvironmentManagedActionHistory
+--             newDescribeEnvironmentManagedActionHistory
 --
 --         , requestUpdateConfigurationTemplate $
---             updateConfigurationTemplate
+--             newUpdateConfigurationTemplate
 --
 --         , requestDeleteConfigurationTemplate $
---             deleteConfigurationTemplate
+--             newDeleteConfigurationTemplate
 --
 --         , requestUpdateTagsForResource $
---             updateTagsForResource
+--             newUpdateTagsForResource
 --
 --         , requestDescribeApplicationVersions $
---             describeApplicationVersions
+--             newDescribeApplicationVersions
 --
 --         , requestAbortEnvironmentUpdate $
---             abortEnvironmentUpdate
+--             newAbortEnvironmentUpdate
 --
 --         , requestDescribeEnvironments $
---             describeEnvironments
+--             newDescribeEnvironments
 --
 --         , requestRestartAppServer $
---             restartAppServer
+--             newRestartAppServer
 --
 --         , requestAssociateEnvironmentOperationsRole $
---             associateEnvironmentOperationsRole
+--             newAssociateEnvironmentOperationsRole
 --
 --         , requestDeleteApplication $
---             deleteApplication
+--             newDeleteApplication
 --
 --         , requestDescribeInstancesHealth $
---             describeInstancesHealth
+--             newDescribeInstancesHealth
 --
 --         , requestUpdateApplication $
---             updateApplication
+--             newUpdateApplication
 --
 --         , requestDescribePlatformVersion $
---             describePlatformVersion
+--             newDescribePlatformVersion
 --
 --         , requestDisassociateEnvironmentOperationsRole $
---             disassociateEnvironmentOperationsRole
+--             newDisassociateEnvironmentOperationsRole
 --
 --         , requestListTagsForResource $
---             listTagsForResource
+--             newListTagsForResource
 --
 --           ]
 
 --     , testGroup "response"
 --         [ responseSwapEnvironmentCNAMEs $
---             swapEnvironmentCNAMEsResponse
+--             newSwapEnvironmentCNAMEsResponse
 --
 --         , responseListPlatformBranches $
---             listPlatformBranchesResponse
+--             newListPlatformBranchesResponse
 --
 --         , responseListAvailableSolutionStacks $
---             listAvailableSolutionStacksResponse
+--             newListAvailableSolutionStacksResponse
 --
 --         , responseDescribeEnvironmentHealth $
---             describeEnvironmentHealthResponse
+--             newDescribeEnvironmentHealthResponse
 --
 --         , responseCreateConfigurationTemplate $
---             configurationSettingsDescription
+--             newConfigurationSettingsDescription
 --
 --         , responseDescribeApplications $
---             describeApplicationsResponse
+--             newDescribeApplicationsResponse
 --
 --         , responseListPlatformVersions $
---             listPlatformVersionsResponse
+--             newListPlatformVersionsResponse
 --
 --         , responseCreateApplicationVersion $
---             applicationVersionDescriptionMessage
+--             newApplicationVersionDescriptionMessage
 --
 --         , responseTerminateEnvironment $
---             environmentDescription
+--             newEnvironmentDescription
 --
 --         , responseDescribeEnvironmentResources $
---             describeEnvironmentResourcesResponse
+--             newDescribeEnvironmentResourcesResponse
 --
 --         , responseUpdateApplicationVersion $
---             applicationVersionDescriptionMessage
+--             newApplicationVersionDescriptionMessage
 --
 --         , responseCreatePlatformVersion $
---             createPlatformVersionResponse
+--             newCreatePlatformVersionResponse
 --
 --         , responseDeleteApplicationVersion $
---             deleteApplicationVersionResponse
+--             newDeleteApplicationVersionResponse
 --
 --         , responseCreateEnvironment $
---             environmentDescription
+--             newEnvironmentDescription
 --
 --         , responseCreateApplication $
---             applicationDescriptionMessage
+--             newApplicationDescriptionMessage
 --
 --         , responseComposeEnvironments $
---             environmentDescriptionsMessage
+--             newEnvironmentDescriptionsMessage
 --
 --         , responseCheckDNSAvailability $
---             checkDNSAvailabilityResponse
+--             newCheckDNSAvailabilityResponse
 --
 --         , responseDescribeAccountAttributes $
---             describeAccountAttributesResponse
+--             newDescribeAccountAttributesResponse
 --
 --         , responseValidateConfigurationSettings $
---             validateConfigurationSettingsResponse
+--             newValidateConfigurationSettingsResponse
 --
 --         , responseCreateStorageLocation $
---             createStorageLocationResponse
+--             newCreateStorageLocationResponse
 --
 --         , responseDescribeEnvironmentManagedActions $
---             describeEnvironmentManagedActionsResponse
+--             newDescribeEnvironmentManagedActionsResponse
 --
 --         , responseDescribeConfigurationSettings $
---             describeConfigurationSettingsResponse
+--             newDescribeConfigurationSettingsResponse
 --
 --         , responseDescribeConfigurationOptions $
---             describeConfigurationOptionsResponse
+--             newDescribeConfigurationOptionsResponse
 --
 --         , responseRetrieveEnvironmentInfo $
---             retrieveEnvironmentInfoResponse
+--             newRetrieveEnvironmentInfoResponse
 --
 --         , responseRequestEnvironmentInfo $
---             requestEnvironmentInfoResponse
+--             newRequestEnvironmentInfoResponse
 --
 --         , responseDescribeEvents $
---             describeEventsResponse
+--             newDescribeEventsResponse
 --
 --         , responseApplyEnvironmentManagedAction $
---             applyEnvironmentManagedActionResponse
+--             newApplyEnvironmentManagedActionResponse
 --
 --         , responseUpdateApplicationResourceLifecycle $
---             updateApplicationResourceLifecycleResponse
+--             newUpdateApplicationResourceLifecycleResponse
 --
 --         , responseRebuildEnvironment $
---             rebuildEnvironmentResponse
+--             newRebuildEnvironmentResponse
 --
 --         , responseUpdateEnvironment $
---             environmentDescription
+--             newEnvironmentDescription
 --
 --         , responseDeletePlatformVersion $
---             deletePlatformVersionResponse
+--             newDeletePlatformVersionResponse
 --
 --         , responseDeleteEnvironmentConfiguration $
---             deleteEnvironmentConfigurationResponse
+--             newDeleteEnvironmentConfigurationResponse
 --
 --         , responseDescribeEnvironmentManagedActionHistory $
---             describeEnvironmentManagedActionHistoryResponse
+--             newDescribeEnvironmentManagedActionHistoryResponse
 --
 --         , responseUpdateConfigurationTemplate $
---             configurationSettingsDescription
+--             newConfigurationSettingsDescription
 --
 --         , responseDeleteConfigurationTemplate $
---             deleteConfigurationTemplateResponse
+--             newDeleteConfigurationTemplateResponse
 --
 --         , responseUpdateTagsForResource $
---             updateTagsForResourceResponse
+--             newUpdateTagsForResourceResponse
 --
 --         , responseDescribeApplicationVersions $
---             describeApplicationVersionsResponse
+--             newDescribeApplicationVersionsResponse
 --
 --         , responseAbortEnvironmentUpdate $
---             abortEnvironmentUpdateResponse
+--             newAbortEnvironmentUpdateResponse
 --
 --         , responseDescribeEnvironments $
---             environmentDescriptionsMessage
+--             newEnvironmentDescriptionsMessage
 --
 --         , responseRestartAppServer $
---             restartAppServerResponse
+--             newRestartAppServerResponse
 --
 --         , responseAssociateEnvironmentOperationsRole $
---             associateEnvironmentOperationsRoleResponse
+--             newAssociateEnvironmentOperationsRoleResponse
 --
 --         , responseDeleteApplication $
---             deleteApplicationResponse
+--             newDeleteApplicationResponse
 --
 --         , responseDescribeInstancesHealth $
---             describeInstancesHealthResponse
+--             newDescribeInstancesHealthResponse
 --
 --         , responseUpdateApplication $
---             applicationDescriptionMessage
+--             newApplicationDescriptionMessage
 --
 --         , responseDescribePlatformVersion $
---             describePlatformVersionResponse
+--             newDescribePlatformVersionResponse
 --
 --         , responseDisassociateEnvironmentOperationsRole $
---             disassociateEnvironmentOperationsRoleResponse
+--             newDisassociateEnvironmentOperationsRoleResponse
 --
 --         , responseListTagsForResource $
---             listTagsForResourceResponse
+--             newListTagsForResourceResponse
 --
 --           ]
 --     ]
@@ -606,7 +606,7 @@ responseSwapEnvironmentCNAMEs =
   res
     "SwapEnvironmentCNAMEsResponse"
     "fixture/SwapEnvironmentCNAMEsResponse.proto"
-    elasticBeanstalk
+    defaultService
     (Proxy :: Proxy SwapEnvironmentCNAMEs)
 
 responseListPlatformBranches :: ListPlatformBranchesResponse -> TestTree
@@ -614,7 +614,7 @@ responseListPlatformBranches =
   res
     "ListPlatformBranchesResponse"
     "fixture/ListPlatformBranchesResponse.proto"
-    elasticBeanstalk
+    defaultService
     (Proxy :: Proxy ListPlatformBranches)
 
 responseListAvailableSolutionStacks :: ListAvailableSolutionStacksResponse -> TestTree
@@ -622,7 +622,7 @@ responseListAvailableSolutionStacks =
   res
     "ListAvailableSolutionStacksResponse"
     "fixture/ListAvailableSolutionStacksResponse.proto"
-    elasticBeanstalk
+    defaultService
     (Proxy :: Proxy ListAvailableSolutionStacks)
 
 responseDescribeEnvironmentHealth :: DescribeEnvironmentHealthResponse -> TestTree
@@ -630,7 +630,7 @@ responseDescribeEnvironmentHealth =
   res
     "DescribeEnvironmentHealthResponse"
     "fixture/DescribeEnvironmentHealthResponse.proto"
-    elasticBeanstalk
+    defaultService
     (Proxy :: Proxy DescribeEnvironmentHealth)
 
 responseCreateConfigurationTemplate :: ConfigurationSettingsDescription -> TestTree
@@ -638,7 +638,7 @@ responseCreateConfigurationTemplate =
   res
     "CreateConfigurationTemplateResponse"
     "fixture/CreateConfigurationTemplateResponse.proto"
-    elasticBeanstalk
+    defaultService
     (Proxy :: Proxy CreateConfigurationTemplate)
 
 responseDescribeApplications :: DescribeApplicationsResponse -> TestTree
@@ -646,7 +646,7 @@ responseDescribeApplications =
   res
     "DescribeApplicationsResponse"
     "fixture/DescribeApplicationsResponse.proto"
-    elasticBeanstalk
+    defaultService
     (Proxy :: Proxy DescribeApplications)
 
 responseListPlatformVersions :: ListPlatformVersionsResponse -> TestTree
@@ -654,7 +654,7 @@ responseListPlatformVersions =
   res
     "ListPlatformVersionsResponse"
     "fixture/ListPlatformVersionsResponse.proto"
-    elasticBeanstalk
+    defaultService
     (Proxy :: Proxy ListPlatformVersions)
 
 responseCreateApplicationVersion :: ApplicationVersionDescriptionMessage -> TestTree
@@ -662,7 +662,7 @@ responseCreateApplicationVersion =
   res
     "CreateApplicationVersionResponse"
     "fixture/CreateApplicationVersionResponse.proto"
-    elasticBeanstalk
+    defaultService
     (Proxy :: Proxy CreateApplicationVersion)
 
 responseTerminateEnvironment :: EnvironmentDescription -> TestTree
@@ -670,7 +670,7 @@ responseTerminateEnvironment =
   res
     "TerminateEnvironmentResponse"
     "fixture/TerminateEnvironmentResponse.proto"
-    elasticBeanstalk
+    defaultService
     (Proxy :: Proxy TerminateEnvironment)
 
 responseDescribeEnvironmentResources :: DescribeEnvironmentResourcesResponse -> TestTree
@@ -678,7 +678,7 @@ responseDescribeEnvironmentResources =
   res
     "DescribeEnvironmentResourcesResponse"
     "fixture/DescribeEnvironmentResourcesResponse.proto"
-    elasticBeanstalk
+    defaultService
     (Proxy :: Proxy DescribeEnvironmentResources)
 
 responseUpdateApplicationVersion :: ApplicationVersionDescriptionMessage -> TestTree
@@ -686,7 +686,7 @@ responseUpdateApplicationVersion =
   res
     "UpdateApplicationVersionResponse"
     "fixture/UpdateApplicationVersionResponse.proto"
-    elasticBeanstalk
+    defaultService
     (Proxy :: Proxy UpdateApplicationVersion)
 
 responseCreatePlatformVersion :: CreatePlatformVersionResponse -> TestTree
@@ -694,7 +694,7 @@ responseCreatePlatformVersion =
   res
     "CreatePlatformVersionResponse"
     "fixture/CreatePlatformVersionResponse.proto"
-    elasticBeanstalk
+    defaultService
     (Proxy :: Proxy CreatePlatformVersion)
 
 responseDeleteApplicationVersion :: DeleteApplicationVersionResponse -> TestTree
@@ -702,7 +702,7 @@ responseDeleteApplicationVersion =
   res
     "DeleteApplicationVersionResponse"
     "fixture/DeleteApplicationVersionResponse.proto"
-    elasticBeanstalk
+    defaultService
     (Proxy :: Proxy DeleteApplicationVersion)
 
 responseCreateEnvironment :: EnvironmentDescription -> TestTree
@@ -710,7 +710,7 @@ responseCreateEnvironment =
   res
     "CreateEnvironmentResponse"
     "fixture/CreateEnvironmentResponse.proto"
-    elasticBeanstalk
+    defaultService
     (Proxy :: Proxy CreateEnvironment)
 
 responseCreateApplication :: ApplicationDescriptionMessage -> TestTree
@@ -718,7 +718,7 @@ responseCreateApplication =
   res
     "CreateApplicationResponse"
     "fixture/CreateApplicationResponse.proto"
-    elasticBeanstalk
+    defaultService
     (Proxy :: Proxy CreateApplication)
 
 responseComposeEnvironments :: EnvironmentDescriptionsMessage -> TestTree
@@ -726,7 +726,7 @@ responseComposeEnvironments =
   res
     "ComposeEnvironmentsResponse"
     "fixture/ComposeEnvironmentsResponse.proto"
-    elasticBeanstalk
+    defaultService
     (Proxy :: Proxy ComposeEnvironments)
 
 responseCheckDNSAvailability :: CheckDNSAvailabilityResponse -> TestTree
@@ -734,7 +734,7 @@ responseCheckDNSAvailability =
   res
     "CheckDNSAvailabilityResponse"
     "fixture/CheckDNSAvailabilityResponse.proto"
-    elasticBeanstalk
+    defaultService
     (Proxy :: Proxy CheckDNSAvailability)
 
 responseDescribeAccountAttributes :: DescribeAccountAttributesResponse -> TestTree
@@ -742,7 +742,7 @@ responseDescribeAccountAttributes =
   res
     "DescribeAccountAttributesResponse"
     "fixture/DescribeAccountAttributesResponse.proto"
-    elasticBeanstalk
+    defaultService
     (Proxy :: Proxy DescribeAccountAttributes)
 
 responseValidateConfigurationSettings :: ValidateConfigurationSettingsResponse -> TestTree
@@ -750,7 +750,7 @@ responseValidateConfigurationSettings =
   res
     "ValidateConfigurationSettingsResponse"
     "fixture/ValidateConfigurationSettingsResponse.proto"
-    elasticBeanstalk
+    defaultService
     (Proxy :: Proxy ValidateConfigurationSettings)
 
 responseCreateStorageLocation :: CreateStorageLocationResponse -> TestTree
@@ -758,7 +758,7 @@ responseCreateStorageLocation =
   res
     "CreateStorageLocationResponse"
     "fixture/CreateStorageLocationResponse.proto"
-    elasticBeanstalk
+    defaultService
     (Proxy :: Proxy CreateStorageLocation)
 
 responseDescribeEnvironmentManagedActions :: DescribeEnvironmentManagedActionsResponse -> TestTree
@@ -766,7 +766,7 @@ responseDescribeEnvironmentManagedActions =
   res
     "DescribeEnvironmentManagedActionsResponse"
     "fixture/DescribeEnvironmentManagedActionsResponse.proto"
-    elasticBeanstalk
+    defaultService
     (Proxy :: Proxy DescribeEnvironmentManagedActions)
 
 responseDescribeConfigurationSettings :: DescribeConfigurationSettingsResponse -> TestTree
@@ -774,7 +774,7 @@ responseDescribeConfigurationSettings =
   res
     "DescribeConfigurationSettingsResponse"
     "fixture/DescribeConfigurationSettingsResponse.proto"
-    elasticBeanstalk
+    defaultService
     (Proxy :: Proxy DescribeConfigurationSettings)
 
 responseDescribeConfigurationOptions :: DescribeConfigurationOptionsResponse -> TestTree
@@ -782,7 +782,7 @@ responseDescribeConfigurationOptions =
   res
     "DescribeConfigurationOptionsResponse"
     "fixture/DescribeConfigurationOptionsResponse.proto"
-    elasticBeanstalk
+    defaultService
     (Proxy :: Proxy DescribeConfigurationOptions)
 
 responseRetrieveEnvironmentInfo :: RetrieveEnvironmentInfoResponse -> TestTree
@@ -790,7 +790,7 @@ responseRetrieveEnvironmentInfo =
   res
     "RetrieveEnvironmentInfoResponse"
     "fixture/RetrieveEnvironmentInfoResponse.proto"
-    elasticBeanstalk
+    defaultService
     (Proxy :: Proxy RetrieveEnvironmentInfo)
 
 responseRequestEnvironmentInfo :: RequestEnvironmentInfoResponse -> TestTree
@@ -798,7 +798,7 @@ responseRequestEnvironmentInfo =
   res
     "RequestEnvironmentInfoResponse"
     "fixture/RequestEnvironmentInfoResponse.proto"
-    elasticBeanstalk
+    defaultService
     (Proxy :: Proxy RequestEnvironmentInfo)
 
 responseDescribeEvents :: DescribeEventsResponse -> TestTree
@@ -806,7 +806,7 @@ responseDescribeEvents =
   res
     "DescribeEventsResponse"
     "fixture/DescribeEventsResponse.proto"
-    elasticBeanstalk
+    defaultService
     (Proxy :: Proxy DescribeEvents)
 
 responseApplyEnvironmentManagedAction :: ApplyEnvironmentManagedActionResponse -> TestTree
@@ -814,7 +814,7 @@ responseApplyEnvironmentManagedAction =
   res
     "ApplyEnvironmentManagedActionResponse"
     "fixture/ApplyEnvironmentManagedActionResponse.proto"
-    elasticBeanstalk
+    defaultService
     (Proxy :: Proxy ApplyEnvironmentManagedAction)
 
 responseUpdateApplicationResourceLifecycle :: UpdateApplicationResourceLifecycleResponse -> TestTree
@@ -822,7 +822,7 @@ responseUpdateApplicationResourceLifecycle =
   res
     "UpdateApplicationResourceLifecycleResponse"
     "fixture/UpdateApplicationResourceLifecycleResponse.proto"
-    elasticBeanstalk
+    defaultService
     (Proxy :: Proxy UpdateApplicationResourceLifecycle)
 
 responseRebuildEnvironment :: RebuildEnvironmentResponse -> TestTree
@@ -830,7 +830,7 @@ responseRebuildEnvironment =
   res
     "RebuildEnvironmentResponse"
     "fixture/RebuildEnvironmentResponse.proto"
-    elasticBeanstalk
+    defaultService
     (Proxy :: Proxy RebuildEnvironment)
 
 responseUpdateEnvironment :: EnvironmentDescription -> TestTree
@@ -838,7 +838,7 @@ responseUpdateEnvironment =
   res
     "UpdateEnvironmentResponse"
     "fixture/UpdateEnvironmentResponse.proto"
-    elasticBeanstalk
+    defaultService
     (Proxy :: Proxy UpdateEnvironment)
 
 responseDeletePlatformVersion :: DeletePlatformVersionResponse -> TestTree
@@ -846,7 +846,7 @@ responseDeletePlatformVersion =
   res
     "DeletePlatformVersionResponse"
     "fixture/DeletePlatformVersionResponse.proto"
-    elasticBeanstalk
+    defaultService
     (Proxy :: Proxy DeletePlatformVersion)
 
 responseDeleteEnvironmentConfiguration :: DeleteEnvironmentConfigurationResponse -> TestTree
@@ -854,7 +854,7 @@ responseDeleteEnvironmentConfiguration =
   res
     "DeleteEnvironmentConfigurationResponse"
     "fixture/DeleteEnvironmentConfigurationResponse.proto"
-    elasticBeanstalk
+    defaultService
     (Proxy :: Proxy DeleteEnvironmentConfiguration)
 
 responseDescribeEnvironmentManagedActionHistory :: DescribeEnvironmentManagedActionHistoryResponse -> TestTree
@@ -862,7 +862,7 @@ responseDescribeEnvironmentManagedActionHistory =
   res
     "DescribeEnvironmentManagedActionHistoryResponse"
     "fixture/DescribeEnvironmentManagedActionHistoryResponse.proto"
-    elasticBeanstalk
+    defaultService
     (Proxy :: Proxy DescribeEnvironmentManagedActionHistory)
 
 responseUpdateConfigurationTemplate :: ConfigurationSettingsDescription -> TestTree
@@ -870,7 +870,7 @@ responseUpdateConfigurationTemplate =
   res
     "UpdateConfigurationTemplateResponse"
     "fixture/UpdateConfigurationTemplateResponse.proto"
-    elasticBeanstalk
+    defaultService
     (Proxy :: Proxy UpdateConfigurationTemplate)
 
 responseDeleteConfigurationTemplate :: DeleteConfigurationTemplateResponse -> TestTree
@@ -878,7 +878,7 @@ responseDeleteConfigurationTemplate =
   res
     "DeleteConfigurationTemplateResponse"
     "fixture/DeleteConfigurationTemplateResponse.proto"
-    elasticBeanstalk
+    defaultService
     (Proxy :: Proxy DeleteConfigurationTemplate)
 
 responseUpdateTagsForResource :: UpdateTagsForResourceResponse -> TestTree
@@ -886,7 +886,7 @@ responseUpdateTagsForResource =
   res
     "UpdateTagsForResourceResponse"
     "fixture/UpdateTagsForResourceResponse.proto"
-    elasticBeanstalk
+    defaultService
     (Proxy :: Proxy UpdateTagsForResource)
 
 responseDescribeApplicationVersions :: DescribeApplicationVersionsResponse -> TestTree
@@ -894,7 +894,7 @@ responseDescribeApplicationVersions =
   res
     "DescribeApplicationVersionsResponse"
     "fixture/DescribeApplicationVersionsResponse.proto"
-    elasticBeanstalk
+    defaultService
     (Proxy :: Proxy DescribeApplicationVersions)
 
 responseAbortEnvironmentUpdate :: AbortEnvironmentUpdateResponse -> TestTree
@@ -902,7 +902,7 @@ responseAbortEnvironmentUpdate =
   res
     "AbortEnvironmentUpdateResponse"
     "fixture/AbortEnvironmentUpdateResponse.proto"
-    elasticBeanstalk
+    defaultService
     (Proxy :: Proxy AbortEnvironmentUpdate)
 
 responseDescribeEnvironments :: EnvironmentDescriptionsMessage -> TestTree
@@ -910,7 +910,7 @@ responseDescribeEnvironments =
   res
     "DescribeEnvironmentsResponse"
     "fixture/DescribeEnvironmentsResponse.proto"
-    elasticBeanstalk
+    defaultService
     (Proxy :: Proxy DescribeEnvironments)
 
 responseRestartAppServer :: RestartAppServerResponse -> TestTree
@@ -918,7 +918,7 @@ responseRestartAppServer =
   res
     "RestartAppServerResponse"
     "fixture/RestartAppServerResponse.proto"
-    elasticBeanstalk
+    defaultService
     (Proxy :: Proxy RestartAppServer)
 
 responseAssociateEnvironmentOperationsRole :: AssociateEnvironmentOperationsRoleResponse -> TestTree
@@ -926,7 +926,7 @@ responseAssociateEnvironmentOperationsRole =
   res
     "AssociateEnvironmentOperationsRoleResponse"
     "fixture/AssociateEnvironmentOperationsRoleResponse.proto"
-    elasticBeanstalk
+    defaultService
     (Proxy :: Proxy AssociateEnvironmentOperationsRole)
 
 responseDeleteApplication :: DeleteApplicationResponse -> TestTree
@@ -934,7 +934,7 @@ responseDeleteApplication =
   res
     "DeleteApplicationResponse"
     "fixture/DeleteApplicationResponse.proto"
-    elasticBeanstalk
+    defaultService
     (Proxy :: Proxy DeleteApplication)
 
 responseDescribeInstancesHealth :: DescribeInstancesHealthResponse -> TestTree
@@ -942,7 +942,7 @@ responseDescribeInstancesHealth =
   res
     "DescribeInstancesHealthResponse"
     "fixture/DescribeInstancesHealthResponse.proto"
-    elasticBeanstalk
+    defaultService
     (Proxy :: Proxy DescribeInstancesHealth)
 
 responseUpdateApplication :: ApplicationDescriptionMessage -> TestTree
@@ -950,7 +950,7 @@ responseUpdateApplication =
   res
     "UpdateApplicationResponse"
     "fixture/UpdateApplicationResponse.proto"
-    elasticBeanstalk
+    defaultService
     (Proxy :: Proxy UpdateApplication)
 
 responseDescribePlatformVersion :: DescribePlatformVersionResponse -> TestTree
@@ -958,7 +958,7 @@ responseDescribePlatformVersion =
   res
     "DescribePlatformVersionResponse"
     "fixture/DescribePlatformVersionResponse.proto"
-    elasticBeanstalk
+    defaultService
     (Proxy :: Proxy DescribePlatformVersion)
 
 responseDisassociateEnvironmentOperationsRole :: DisassociateEnvironmentOperationsRoleResponse -> TestTree
@@ -966,7 +966,7 @@ responseDisassociateEnvironmentOperationsRole =
   res
     "DisassociateEnvironmentOperationsRoleResponse"
     "fixture/DisassociateEnvironmentOperationsRoleResponse.proto"
-    elasticBeanstalk
+    defaultService
     (Proxy :: Proxy DisassociateEnvironmentOperationsRole)
 
 responseListTagsForResource :: ListTagsForResourceResponse -> TestTree
@@ -974,5 +974,5 @@ responseListTagsForResource =
   res
     "ListTagsForResourceResponse"
     "fixture/ListTagsForResourceResponse.proto"
-    elasticBeanstalk
+    defaultService
     (Proxy :: Proxy ListTagsForResource)

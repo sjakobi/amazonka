@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,52 +20,62 @@
 module Network.AWS.ElasticBeanstalk.Types.SystemStatus where
 
 import Network.AWS.ElasticBeanstalk.Types.CPUUtilization
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | CPU utilization and load average metrics for an Amazon EC2 instance.
 --
---
---
--- /See:/ 'systemStatus' smart constructor.
+-- /See:/ 'newSystemStatus' smart constructor.
 data SystemStatus = SystemStatus'
-  { _ssCPUUtilization ::
-      !(Maybe CPUUtilization),
-    _ssLoadAverage :: !(Maybe [Double])
+  { -- | CPU utilization metrics for the instance.
+    cPUUtilization :: Prelude.Maybe CPUUtilization,
+    -- | Load average in the last 1-minute, 5-minute, and 15-minute periods. For
+    -- more information, see
+    -- <https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced-metrics.html#health-enhanced-metrics-os Operating System Metrics>.
+    loadAverage :: Prelude.Maybe [Prelude.Double]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SystemStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SystemStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ssCPUUtilization' - CPU utilization metrics for the instance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ssLoadAverage' - Load average in the last 1-minute, 5-minute, and 15-minute periods. For more information, see <https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced-metrics.html#health-enhanced-metrics-os Operating System Metrics> .
-systemStatus ::
+-- 'cPUUtilization', 'systemStatus_cPUUtilization' - CPU utilization metrics for the instance.
+--
+-- 'loadAverage', 'systemStatus_loadAverage' - Load average in the last 1-minute, 5-minute, and 15-minute periods. For
+-- more information, see
+-- <https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced-metrics.html#health-enhanced-metrics-os Operating System Metrics>.
+newSystemStatus ::
   SystemStatus
-systemStatus =
+newSystemStatus =
   SystemStatus'
-    { _ssCPUUtilization = Nothing,
-      _ssLoadAverage = Nothing
+    { cPUUtilization = Prelude.Nothing,
+      loadAverage = Prelude.Nothing
     }
 
 -- | CPU utilization metrics for the instance.
-ssCPUUtilization :: Lens' SystemStatus (Maybe CPUUtilization)
-ssCPUUtilization = lens _ssCPUUtilization (\s a -> s {_ssCPUUtilization = a})
+systemStatus_cPUUtilization :: Lens.Lens' SystemStatus (Prelude.Maybe CPUUtilization)
+systemStatus_cPUUtilization = Lens.lens (\SystemStatus' {cPUUtilization} -> cPUUtilization) (\s@SystemStatus' {} a -> s {cPUUtilization = a} :: SystemStatus)
 
--- | Load average in the last 1-minute, 5-minute, and 15-minute periods. For more information, see <https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced-metrics.html#health-enhanced-metrics-os Operating System Metrics> .
-ssLoadAverage :: Lens' SystemStatus [Double]
-ssLoadAverage = lens _ssLoadAverage (\s a -> s {_ssLoadAverage = a}) . _Default . _Coerce
+-- | Load average in the last 1-minute, 5-minute, and 15-minute periods. For
+-- more information, see
+-- <https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced-metrics.html#health-enhanced-metrics-os Operating System Metrics>.
+systemStatus_loadAverage :: Lens.Lens' SystemStatus (Prelude.Maybe [Prelude.Double])
+systemStatus_loadAverage = Lens.lens (\SystemStatus' {loadAverage} -> loadAverage) (\s@SystemStatus' {} a -> s {loadAverage = a} :: SystemStatus) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromXML SystemStatus where
+instance Prelude.FromXML SystemStatus where
   parseXML x =
     SystemStatus'
-      <$> (x .@? "CPUUtilization")
-      <*> ( x .@? "LoadAverage" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
+      Prelude.<$> (x Prelude..@? "CPUUtilization")
+      Prelude.<*> ( x Prelude..@? "LoadAverage"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
 
-instance Hashable SystemStatus
+instance Prelude.Hashable SystemStatus
 
-instance NFData SystemStatus
+instance Prelude.NFData SystemStatus

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,80 +20,86 @@
 module Network.AWS.ElasticBeanstalk.Types.EnvironmentInfoDescription where
 
 import Network.AWS.ElasticBeanstalk.Types.EnvironmentInfoType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The information retrieved from the Amazon EC2 instances.
 --
---
---
--- /See:/ 'environmentInfoDescription' smart constructor.
+-- /See:/ 'newEnvironmentInfoDescription' smart constructor.
 data EnvironmentInfoDescription = EnvironmentInfoDescription'
-  { _eidMessage ::
-      !(Maybe Text),
-    _eidInfoType ::
-      !( Maybe
-           EnvironmentInfoType
-       ),
-    _eidEC2InstanceId ::
-      !(Maybe Text),
-    _eidSampleTimestamp ::
-      !(Maybe ISO8601)
+  { -- | The retrieved information. Currently contains a presigned Amazon S3 URL.
+    -- The files are deleted after 15 minutes.
+    --
+    -- Anyone in possession of this URL can access the files before they are
+    -- deleted. Make the URL available only to trusted parties.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The type of information retrieved.
+    infoType :: Prelude.Maybe EnvironmentInfoType,
+    -- | The Amazon EC2 Instance ID for this information.
+    ec2InstanceId :: Prelude.Maybe Prelude.Text,
+    -- | The time stamp when this information was retrieved.
+    sampleTimestamp :: Prelude.Maybe Prelude.ISO8601
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EnvironmentInfoDescription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EnvironmentInfoDescription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eidMessage' - The retrieved information. Currently contains a presigned Amazon S3 URL. The files are deleted after 15 minutes. Anyone in possession of this URL can access the files before they are deleted. Make the URL available only to trusted parties.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'eidInfoType' - The type of information retrieved.
+-- 'message', 'environmentInfoDescription_message' - The retrieved information. Currently contains a presigned Amazon S3 URL.
+-- The files are deleted after 15 minutes.
 --
--- * 'eidEC2InstanceId' - The Amazon EC2 Instance ID for this information.
+-- Anyone in possession of this URL can access the files before they are
+-- deleted. Make the URL available only to trusted parties.
 --
--- * 'eidSampleTimestamp' - The time stamp when this information was retrieved.
-environmentInfoDescription ::
+-- 'infoType', 'environmentInfoDescription_infoType' - The type of information retrieved.
+--
+-- 'ec2InstanceId', 'environmentInfoDescription_ec2InstanceId' - The Amazon EC2 Instance ID for this information.
+--
+-- 'sampleTimestamp', 'environmentInfoDescription_sampleTimestamp' - The time stamp when this information was retrieved.
+newEnvironmentInfoDescription ::
   EnvironmentInfoDescription
-environmentInfoDescription =
+newEnvironmentInfoDescription =
   EnvironmentInfoDescription'
-    { _eidMessage = Nothing,
-      _eidInfoType = Nothing,
-      _eidEC2InstanceId = Nothing,
-      _eidSampleTimestamp = Nothing
+    { message =
+        Prelude.Nothing,
+      infoType = Prelude.Nothing,
+      ec2InstanceId = Prelude.Nothing,
+      sampleTimestamp = Prelude.Nothing
     }
 
--- | The retrieved information. Currently contains a presigned Amazon S3 URL. The files are deleted after 15 minutes. Anyone in possession of this URL can access the files before they are deleted. Make the URL available only to trusted parties.
-eidMessage :: Lens' EnvironmentInfoDescription (Maybe Text)
-eidMessage = lens _eidMessage (\s a -> s {_eidMessage = a})
+-- | The retrieved information. Currently contains a presigned Amazon S3 URL.
+-- The files are deleted after 15 minutes.
+--
+-- Anyone in possession of this URL can access the files before they are
+-- deleted. Make the URL available only to trusted parties.
+environmentInfoDescription_message :: Lens.Lens' EnvironmentInfoDescription (Prelude.Maybe Prelude.Text)
+environmentInfoDescription_message = Lens.lens (\EnvironmentInfoDescription' {message} -> message) (\s@EnvironmentInfoDescription' {} a -> s {message = a} :: EnvironmentInfoDescription)
 
 -- | The type of information retrieved.
-eidInfoType :: Lens' EnvironmentInfoDescription (Maybe EnvironmentInfoType)
-eidInfoType = lens _eidInfoType (\s a -> s {_eidInfoType = a})
+environmentInfoDescription_infoType :: Lens.Lens' EnvironmentInfoDescription (Prelude.Maybe EnvironmentInfoType)
+environmentInfoDescription_infoType = Lens.lens (\EnvironmentInfoDescription' {infoType} -> infoType) (\s@EnvironmentInfoDescription' {} a -> s {infoType = a} :: EnvironmentInfoDescription)
 
 -- | The Amazon EC2 Instance ID for this information.
-eidEC2InstanceId :: Lens' EnvironmentInfoDescription (Maybe Text)
-eidEC2InstanceId = lens _eidEC2InstanceId (\s a -> s {_eidEC2InstanceId = a})
+environmentInfoDescription_ec2InstanceId :: Lens.Lens' EnvironmentInfoDescription (Prelude.Maybe Prelude.Text)
+environmentInfoDescription_ec2InstanceId = Lens.lens (\EnvironmentInfoDescription' {ec2InstanceId} -> ec2InstanceId) (\s@EnvironmentInfoDescription' {} a -> s {ec2InstanceId = a} :: EnvironmentInfoDescription)
 
 -- | The time stamp when this information was retrieved.
-eidSampleTimestamp :: Lens' EnvironmentInfoDescription (Maybe UTCTime)
-eidSampleTimestamp = lens _eidSampleTimestamp (\s a -> s {_eidSampleTimestamp = a}) . mapping _Time
+environmentInfoDescription_sampleTimestamp :: Lens.Lens' EnvironmentInfoDescription (Prelude.Maybe Prelude.UTCTime)
+environmentInfoDescription_sampleTimestamp = Lens.lens (\EnvironmentInfoDescription' {sampleTimestamp} -> sampleTimestamp) (\s@EnvironmentInfoDescription' {} a -> s {sampleTimestamp = a} :: EnvironmentInfoDescription) Prelude.. Lens.mapping Prelude._Time
 
-instance FromXML EnvironmentInfoDescription where
+instance Prelude.FromXML EnvironmentInfoDescription where
   parseXML x =
     EnvironmentInfoDescription'
-      <$> (x .@? "Message")
-      <*> (x .@? "InfoType")
-      <*> (x .@? "Ec2InstanceId")
-      <*> (x .@? "SampleTimestamp")
+      Prelude.<$> (x Prelude..@? "Message")
+      Prelude.<*> (x Prelude..@? "InfoType")
+      Prelude.<*> (x Prelude..@? "Ec2InstanceId")
+      Prelude.<*> (x Prelude..@? "SampleTimestamp")
 
-instance Hashable EnvironmentInfoDescription
+instance Prelude.Hashable EnvironmentInfoDescription
 
-instance NFData EnvironmentInfoDescription
+instance Prelude.NFData EnvironmentInfoDescription

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,181 +21,182 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists an environment's upcoming and in-progress managed actions.
+-- Lists an environment\'s upcoming and in-progress managed actions.
 module Network.AWS.ElasticBeanstalk.DescribeEnvironmentManagedActions
   ( -- * Creating a Request
-    describeEnvironmentManagedActions,
-    DescribeEnvironmentManagedActions,
+    DescribeEnvironmentManagedActions (..),
+    newDescribeEnvironmentManagedActions,
 
     -- * Request Lenses
-    demaStatus,
-    demaEnvironmentId,
-    demaEnvironmentName,
+    describeEnvironmentManagedActions_status,
+    describeEnvironmentManagedActions_environmentId,
+    describeEnvironmentManagedActions_environmentName,
 
     -- * Destructuring the Response
-    describeEnvironmentManagedActionsResponse,
-    DescribeEnvironmentManagedActionsResponse,
+    DescribeEnvironmentManagedActionsResponse (..),
+    newDescribeEnvironmentManagedActionsResponse,
 
     -- * Response Lenses
-    demarrsManagedActions,
-    demarrsResponseStatus,
+    describeEnvironmentManagedActionsResponse_managedActions,
+    describeEnvironmentManagedActionsResponse_httpStatus,
   )
 where
 
 import Network.AWS.ElasticBeanstalk.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ElasticBeanstalk.Types.ManagedAction
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Request to list an environment's upcoming and in-progress managed actions.
+-- | Request to list an environment\'s upcoming and in-progress managed
+-- actions.
 --
---
---
--- /See:/ 'describeEnvironmentManagedActions' smart constructor.
+-- /See:/ 'newDescribeEnvironmentManagedActions' smart constructor.
 data DescribeEnvironmentManagedActions = DescribeEnvironmentManagedActions'
-  { _demaStatus ::
-      !( Maybe
-           ActionStatus
-       ),
-    _demaEnvironmentId ::
-      !( Maybe
-           Text
-       ),
-    _demaEnvironmentName ::
-      !( Maybe
-           Text
-       )
+  { -- | To show only actions with a particular status, specify a status.
+    status :: Prelude.Maybe ActionStatus,
+    -- | The environment ID of the target environment.
+    environmentId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the target environment.
+    environmentName :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeEnvironmentManagedActions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeEnvironmentManagedActions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'demaStatus' - To show only actions with a particular status, specify a status.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'demaEnvironmentId' - The environment ID of the target environment.
+-- 'status', 'describeEnvironmentManagedActions_status' - To show only actions with a particular status, specify a status.
 --
--- * 'demaEnvironmentName' - The name of the target environment.
-describeEnvironmentManagedActions ::
+-- 'environmentId', 'describeEnvironmentManagedActions_environmentId' - The environment ID of the target environment.
+--
+-- 'environmentName', 'describeEnvironmentManagedActions_environmentName' - The name of the target environment.
+newDescribeEnvironmentManagedActions ::
   DescribeEnvironmentManagedActions
-describeEnvironmentManagedActions =
+newDescribeEnvironmentManagedActions =
   DescribeEnvironmentManagedActions'
-    { _demaStatus =
-        Nothing,
-      _demaEnvironmentId = Nothing,
-      _demaEnvironmentName = Nothing
+    { status =
+        Prelude.Nothing,
+      environmentId = Prelude.Nothing,
+      environmentName = Prelude.Nothing
     }
 
 -- | To show only actions with a particular status, specify a status.
-demaStatus :: Lens' DescribeEnvironmentManagedActions (Maybe ActionStatus)
-demaStatus = lens _demaStatus (\s a -> s {_demaStatus = a})
+describeEnvironmentManagedActions_status :: Lens.Lens' DescribeEnvironmentManagedActions (Prelude.Maybe ActionStatus)
+describeEnvironmentManagedActions_status = Lens.lens (\DescribeEnvironmentManagedActions' {status} -> status) (\s@DescribeEnvironmentManagedActions' {} a -> s {status = a} :: DescribeEnvironmentManagedActions)
 
 -- | The environment ID of the target environment.
-demaEnvironmentId :: Lens' DescribeEnvironmentManagedActions (Maybe Text)
-demaEnvironmentId = lens _demaEnvironmentId (\s a -> s {_demaEnvironmentId = a})
+describeEnvironmentManagedActions_environmentId :: Lens.Lens' DescribeEnvironmentManagedActions (Prelude.Maybe Prelude.Text)
+describeEnvironmentManagedActions_environmentId = Lens.lens (\DescribeEnvironmentManagedActions' {environmentId} -> environmentId) (\s@DescribeEnvironmentManagedActions' {} a -> s {environmentId = a} :: DescribeEnvironmentManagedActions)
 
 -- | The name of the target environment.
-demaEnvironmentName :: Lens' DescribeEnvironmentManagedActions (Maybe Text)
-demaEnvironmentName = lens _demaEnvironmentName (\s a -> s {_demaEnvironmentName = a})
+describeEnvironmentManagedActions_environmentName :: Lens.Lens' DescribeEnvironmentManagedActions (Prelude.Maybe Prelude.Text)
+describeEnvironmentManagedActions_environmentName = Lens.lens (\DescribeEnvironmentManagedActions' {environmentName} -> environmentName) (\s@DescribeEnvironmentManagedActions' {} a -> s {environmentName = a} :: DescribeEnvironmentManagedActions)
 
-instance AWSRequest DescribeEnvironmentManagedActions where
+instance
+  Prelude.AWSRequest
+    DescribeEnvironmentManagedActions
+  where
   type
     Rs DescribeEnvironmentManagedActions =
       DescribeEnvironmentManagedActionsResponse
-  request = postQuery elasticBeanstalk
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DescribeEnvironmentManagedActionsResult"
       ( \s h x ->
           DescribeEnvironmentManagedActionsResponse'
-            <$> ( x .@? "ManagedActions" .!@ mempty
-                    >>= may (parseXMLList1 "member")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "ManagedActions"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList1 "member")
+                        )
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeEnvironmentManagedActions
+instance
+  Prelude.Hashable
+    DescribeEnvironmentManagedActions
 
-instance NFData DescribeEnvironmentManagedActions
+instance
+  Prelude.NFData
+    DescribeEnvironmentManagedActions
 
-instance ToHeaders DescribeEnvironmentManagedActions where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    DescribeEnvironmentManagedActions
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeEnvironmentManagedActions where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    DescribeEnvironmentManagedActions
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeEnvironmentManagedActions where
+instance
+  Prelude.ToQuery
+    DescribeEnvironmentManagedActions
+  where
   toQuery DescribeEnvironmentManagedActions' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DescribeEnvironmentManagedActions" :: ByteString),
-        "Version" =: ("2010-12-01" :: ByteString),
-        "Status" =: _demaStatus,
-        "EnvironmentId" =: _demaEnvironmentId,
-        "EnvironmentName" =: _demaEnvironmentName
+          Prelude.=: ( "DescribeEnvironmentManagedActions" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2010-12-01" :: Prelude.ByteString),
+        "Status" Prelude.=: status,
+        "EnvironmentId" Prelude.=: environmentId,
+        "EnvironmentName" Prelude.=: environmentName
       ]
 
 -- | The result message containing a list of managed actions.
 --
---
---
--- /See:/ 'describeEnvironmentManagedActionsResponse' smart constructor.
+-- /See:/ 'newDescribeEnvironmentManagedActionsResponse' smart constructor.
 data DescribeEnvironmentManagedActionsResponse = DescribeEnvironmentManagedActionsResponse'
-  { _demarrsManagedActions ::
-      !( Maybe
-           ( List1
-               ManagedAction
-           )
-       ),
-    _demarrsResponseStatus ::
-      !Int
+  { -- | A list of upcoming and in-progress managed actions.
+    managedActions :: Prelude.Maybe (Prelude.List1 ManagedAction),
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeEnvironmentManagedActionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeEnvironmentManagedActionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'demarrsManagedActions' - A list of upcoming and in-progress managed actions.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'demarrsResponseStatus' - -- | The response status code.
-describeEnvironmentManagedActionsResponse ::
-  -- | 'demarrsResponseStatus'
-  Int ->
+-- 'managedActions', 'describeEnvironmentManagedActionsResponse_managedActions' - A list of upcoming and in-progress managed actions.
+--
+-- 'httpStatus', 'describeEnvironmentManagedActionsResponse_httpStatus' - The response's http status code.
+newDescribeEnvironmentManagedActionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeEnvironmentManagedActionsResponse
-describeEnvironmentManagedActionsResponse
-  pResponseStatus_ =
+newDescribeEnvironmentManagedActionsResponse
+  pHttpStatus_ =
     DescribeEnvironmentManagedActionsResponse'
-      { _demarrsManagedActions =
-          Nothing,
-        _demarrsResponseStatus =
-          pResponseStatus_
+      { managedActions =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | A list of upcoming and in-progress managed actions.
-demarrsManagedActions :: Lens' DescribeEnvironmentManagedActionsResponse (Maybe (NonEmpty ManagedAction))
-demarrsManagedActions = lens _demarrsManagedActions (\s a -> s {_demarrsManagedActions = a}) . mapping _List1
+describeEnvironmentManagedActionsResponse_managedActions :: Lens.Lens' DescribeEnvironmentManagedActionsResponse (Prelude.Maybe (Prelude.NonEmpty ManagedAction))
+describeEnvironmentManagedActionsResponse_managedActions = Lens.lens (\DescribeEnvironmentManagedActionsResponse' {managedActions} -> managedActions) (\s@DescribeEnvironmentManagedActionsResponse' {} a -> s {managedActions = a} :: DescribeEnvironmentManagedActionsResponse) Prelude.. Lens.mapping Prelude._List1
 
--- | -- | The response status code.
-demarrsResponseStatus :: Lens' DescribeEnvironmentManagedActionsResponse Int
-demarrsResponseStatus = lens _demarrsResponseStatus (\s a -> s {_demarrsResponseStatus = a})
+-- | The response's http status code.
+describeEnvironmentManagedActionsResponse_httpStatus :: Lens.Lens' DescribeEnvironmentManagedActionsResponse Prelude.Int
+describeEnvironmentManagedActionsResponse_httpStatus = Lens.lens (\DescribeEnvironmentManagedActionsResponse' {httpStatus} -> httpStatus) (\s@DescribeEnvironmentManagedActionsResponse' {} a -> s {httpStatus = a} :: DescribeEnvironmentManagedActionsResponse)
 
 instance
-  NFData
+  Prelude.NFData
     DescribeEnvironmentManagedActionsResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,63 +19,65 @@
 module Network.AWS.ElasticBeanstalk.Types.EnvironmentHealth
   ( EnvironmentHealth
       ( ..,
-        Green,
-        Grey,
-        Red,
-        Yellow
+        EnvironmentHealthGreen,
+        EnvironmentHealthGrey,
+        EnvironmentHealthRed,
+        EnvironmentHealthYellow
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data EnvironmentHealth = EnvironmentHealth' (CI Text)
+newtype EnvironmentHealth = EnvironmentHealth'
+  { fromEnvironmentHealth ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Green :: EnvironmentHealth
-pattern Green = EnvironmentHealth' "Green"
+pattern EnvironmentHealthGreen :: EnvironmentHealth
+pattern EnvironmentHealthGreen = EnvironmentHealth' "Green"
 
-pattern Grey :: EnvironmentHealth
-pattern Grey = EnvironmentHealth' "Grey"
+pattern EnvironmentHealthGrey :: EnvironmentHealth
+pattern EnvironmentHealthGrey = EnvironmentHealth' "Grey"
 
-pattern Red :: EnvironmentHealth
-pattern Red = EnvironmentHealth' "Red"
+pattern EnvironmentHealthRed :: EnvironmentHealth
+pattern EnvironmentHealthRed = EnvironmentHealth' "Red"
 
-pattern Yellow :: EnvironmentHealth
-pattern Yellow = EnvironmentHealth' "Yellow"
+pattern EnvironmentHealthYellow :: EnvironmentHealth
+pattern EnvironmentHealthYellow = EnvironmentHealth' "Yellow"
 
 {-# COMPLETE
-  Green,
-  Grey,
-  Red,
-  Yellow,
+  EnvironmentHealthGreen,
+  EnvironmentHealthGrey,
+  EnvironmentHealthRed,
+  EnvironmentHealthYellow,
   EnvironmentHealth'
   #-}
 
-instance FromText EnvironmentHealth where
-  parser = (EnvironmentHealth' . mk) <$> takeText
+instance Prelude.FromText EnvironmentHealth where
+  parser = EnvironmentHealth' Prelude.<$> Prelude.takeText
 
-instance ToText EnvironmentHealth where
-  toText (EnvironmentHealth' ci) = original ci
+instance Prelude.ToText EnvironmentHealth where
+  toText (EnvironmentHealth' x) = x
 
-instance Hashable EnvironmentHealth
+instance Prelude.Hashable EnvironmentHealth
 
-instance NFData EnvironmentHealth
+instance Prelude.NFData EnvironmentHealth
 
-instance ToByteString EnvironmentHealth
+instance Prelude.ToByteString EnvironmentHealth
 
-instance ToQuery EnvironmentHealth
+instance Prelude.ToQuery EnvironmentHealth
 
-instance ToHeader EnvironmentHealth
+instance Prelude.ToHeader EnvironmentHealth
 
-instance FromXML EnvironmentHealth where
-  parseXML = parseXMLText "EnvironmentHealth"
+instance Prelude.FromXML EnvironmentHealth where
+  parseXML = Prelude.parseXMLText "EnvironmentHealth"

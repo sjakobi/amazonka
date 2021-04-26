@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,72 +19,70 @@
 module Network.AWS.ElasticBeanstalk.Types.ApplicationVersionStatus
   ( ApplicationVersionStatus
       ( ..,
-        AVSBuilding,
-        AVSFailed,
-        AVSProcessed,
-        AVSProcessing,
-        AVSUnprocessed
+        ApplicationVersionStatusBuilding,
+        ApplicationVersionStatusFailed,
+        ApplicationVersionStatusProcessed,
+        ApplicationVersionStatusProcessing,
+        ApplicationVersionStatusUnprocessed
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ApplicationVersionStatus
-  = ApplicationVersionStatus'
-      ( CI
-          Text
-      )
+newtype ApplicationVersionStatus = ApplicationVersionStatus'
+  { fromApplicationVersionStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AVSBuilding :: ApplicationVersionStatus
-pattern AVSBuilding = ApplicationVersionStatus' "Building"
+pattern ApplicationVersionStatusBuilding :: ApplicationVersionStatus
+pattern ApplicationVersionStatusBuilding = ApplicationVersionStatus' "Building"
 
-pattern AVSFailed :: ApplicationVersionStatus
-pattern AVSFailed = ApplicationVersionStatus' "Failed"
+pattern ApplicationVersionStatusFailed :: ApplicationVersionStatus
+pattern ApplicationVersionStatusFailed = ApplicationVersionStatus' "Failed"
 
-pattern AVSProcessed :: ApplicationVersionStatus
-pattern AVSProcessed = ApplicationVersionStatus' "Processed"
+pattern ApplicationVersionStatusProcessed :: ApplicationVersionStatus
+pattern ApplicationVersionStatusProcessed = ApplicationVersionStatus' "Processed"
 
-pattern AVSProcessing :: ApplicationVersionStatus
-pattern AVSProcessing = ApplicationVersionStatus' "Processing"
+pattern ApplicationVersionStatusProcessing :: ApplicationVersionStatus
+pattern ApplicationVersionStatusProcessing = ApplicationVersionStatus' "Processing"
 
-pattern AVSUnprocessed :: ApplicationVersionStatus
-pattern AVSUnprocessed = ApplicationVersionStatus' "Unprocessed"
+pattern ApplicationVersionStatusUnprocessed :: ApplicationVersionStatus
+pattern ApplicationVersionStatusUnprocessed = ApplicationVersionStatus' "Unprocessed"
 
 {-# COMPLETE
-  AVSBuilding,
-  AVSFailed,
-  AVSProcessed,
-  AVSProcessing,
-  AVSUnprocessed,
+  ApplicationVersionStatusBuilding,
+  ApplicationVersionStatusFailed,
+  ApplicationVersionStatusProcessed,
+  ApplicationVersionStatusProcessing,
+  ApplicationVersionStatusUnprocessed,
   ApplicationVersionStatus'
   #-}
 
-instance FromText ApplicationVersionStatus where
-  parser = (ApplicationVersionStatus' . mk) <$> takeText
+instance Prelude.FromText ApplicationVersionStatus where
+  parser = ApplicationVersionStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ApplicationVersionStatus where
-  toText (ApplicationVersionStatus' ci) = original ci
+instance Prelude.ToText ApplicationVersionStatus where
+  toText (ApplicationVersionStatus' x) = x
 
-instance Hashable ApplicationVersionStatus
+instance Prelude.Hashable ApplicationVersionStatus
 
-instance NFData ApplicationVersionStatus
+instance Prelude.NFData ApplicationVersionStatus
 
-instance ToByteString ApplicationVersionStatus
+instance Prelude.ToByteString ApplicationVersionStatus
 
-instance ToQuery ApplicationVersionStatus
+instance Prelude.ToQuery ApplicationVersionStatus
 
-instance ToHeader ApplicationVersionStatus
+instance Prelude.ToHeader ApplicationVersionStatus
 
-instance FromXML ApplicationVersionStatus where
-  parseXML = parseXMLText "ApplicationVersionStatus"
+instance Prelude.FromXML ApplicationVersionStatus where
+  parseXML = Prelude.parseXMLText "ApplicationVersionStatus"

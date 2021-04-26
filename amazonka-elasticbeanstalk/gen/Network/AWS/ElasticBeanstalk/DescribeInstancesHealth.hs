@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,209 +21,220 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves detailed information about the health of instances in your AWS Elastic Beanstalk. This operation requires <https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced.html enhanced health reporting> .
+-- Retrieves detailed information about the health of instances in your AWS
+-- Elastic Beanstalk. This operation requires
+-- <https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced.html enhanced health reporting>.
 module Network.AWS.ElasticBeanstalk.DescribeInstancesHealth
   ( -- * Creating a Request
-    describeInstancesHealth,
-    DescribeInstancesHealth,
+    DescribeInstancesHealth (..),
+    newDescribeInstancesHealth,
 
     -- * Request Lenses
-    dihNextToken,
-    dihEnvironmentId,
-    dihEnvironmentName,
-    dihAttributeNames,
+    describeInstancesHealth_nextToken,
+    describeInstancesHealth_environmentId,
+    describeInstancesHealth_environmentName,
+    describeInstancesHealth_attributeNames,
 
     -- * Destructuring the Response
-    describeInstancesHealthResponse,
-    DescribeInstancesHealthResponse,
+    DescribeInstancesHealthResponse (..),
+    newDescribeInstancesHealthResponse,
 
     -- * Response Lenses
-    dihrrsInstanceHealthList,
-    dihrrsNextToken,
-    dihrrsRefreshedAt,
-    dihrrsResponseStatus,
+    describeInstancesHealthResponse_instanceHealthList,
+    describeInstancesHealthResponse_nextToken,
+    describeInstancesHealthResponse_refreshedAt,
+    describeInstancesHealthResponse_httpStatus,
   )
 where
 
 import Network.AWS.ElasticBeanstalk.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ElasticBeanstalk.Types.SingleInstanceHealth
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Parameters for a call to @DescribeInstancesHealth@ .
+-- | Parameters for a call to @DescribeInstancesHealth@.
 --
---
---
--- /See:/ 'describeInstancesHealth' smart constructor.
+-- /See:/ 'newDescribeInstancesHealth' smart constructor.
 data DescribeInstancesHealth = DescribeInstancesHealth'
-  { _dihNextToken ::
-      !(Maybe Text),
-    _dihEnvironmentId ::
-      !(Maybe Text),
-    _dihEnvironmentName ::
-      !(Maybe Text),
-    _dihAttributeNames ::
-      !( Maybe
-           [InstancesHealthAttribute]
-       )
+  { -- | Specify the pagination token returned by a previous call.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Specify the AWS Elastic Beanstalk environment by ID.
+    environmentId :: Prelude.Maybe Prelude.Text,
+    -- | Specify the AWS Elastic Beanstalk environment by name.
+    environmentName :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the response elements you wish to receive. To retrieve all
+    -- attributes, set to @All@. If no attribute names are specified, returns a
+    -- list of instances.
+    attributeNames :: Prelude.Maybe [InstancesHealthAttribute]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeInstancesHealth' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeInstancesHealth' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dihNextToken' - Specify the pagination token returned by a previous call.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dihEnvironmentId' - Specify the AWS Elastic Beanstalk environment by ID.
+-- 'nextToken', 'describeInstancesHealth_nextToken' - Specify the pagination token returned by a previous call.
 --
--- * 'dihEnvironmentName' - Specify the AWS Elastic Beanstalk environment by name.
+-- 'environmentId', 'describeInstancesHealth_environmentId' - Specify the AWS Elastic Beanstalk environment by ID.
 --
--- * 'dihAttributeNames' - Specifies the response elements you wish to receive. To retrieve all attributes, set to @All@ . If no attribute names are specified, returns a list of instances.
-describeInstancesHealth ::
+-- 'environmentName', 'describeInstancesHealth_environmentName' - Specify the AWS Elastic Beanstalk environment by name.
+--
+-- 'attributeNames', 'describeInstancesHealth_attributeNames' - Specifies the response elements you wish to receive. To retrieve all
+-- attributes, set to @All@. If no attribute names are specified, returns a
+-- list of instances.
+newDescribeInstancesHealth ::
   DescribeInstancesHealth
-describeInstancesHealth =
+newDescribeInstancesHealth =
   DescribeInstancesHealth'
-    { _dihNextToken = Nothing,
-      _dihEnvironmentId = Nothing,
-      _dihEnvironmentName = Nothing,
-      _dihAttributeNames = Nothing
+    { nextToken =
+        Prelude.Nothing,
+      environmentId = Prelude.Nothing,
+      environmentName = Prelude.Nothing,
+      attributeNames = Prelude.Nothing
     }
 
 -- | Specify the pagination token returned by a previous call.
-dihNextToken :: Lens' DescribeInstancesHealth (Maybe Text)
-dihNextToken = lens _dihNextToken (\s a -> s {_dihNextToken = a})
+describeInstancesHealth_nextToken :: Lens.Lens' DescribeInstancesHealth (Prelude.Maybe Prelude.Text)
+describeInstancesHealth_nextToken = Lens.lens (\DescribeInstancesHealth' {nextToken} -> nextToken) (\s@DescribeInstancesHealth' {} a -> s {nextToken = a} :: DescribeInstancesHealth)
 
 -- | Specify the AWS Elastic Beanstalk environment by ID.
-dihEnvironmentId :: Lens' DescribeInstancesHealth (Maybe Text)
-dihEnvironmentId = lens _dihEnvironmentId (\s a -> s {_dihEnvironmentId = a})
+describeInstancesHealth_environmentId :: Lens.Lens' DescribeInstancesHealth (Prelude.Maybe Prelude.Text)
+describeInstancesHealth_environmentId = Lens.lens (\DescribeInstancesHealth' {environmentId} -> environmentId) (\s@DescribeInstancesHealth' {} a -> s {environmentId = a} :: DescribeInstancesHealth)
 
 -- | Specify the AWS Elastic Beanstalk environment by name.
-dihEnvironmentName :: Lens' DescribeInstancesHealth (Maybe Text)
-dihEnvironmentName = lens _dihEnvironmentName (\s a -> s {_dihEnvironmentName = a})
+describeInstancesHealth_environmentName :: Lens.Lens' DescribeInstancesHealth (Prelude.Maybe Prelude.Text)
+describeInstancesHealth_environmentName = Lens.lens (\DescribeInstancesHealth' {environmentName} -> environmentName) (\s@DescribeInstancesHealth' {} a -> s {environmentName = a} :: DescribeInstancesHealth)
 
--- | Specifies the response elements you wish to receive. To retrieve all attributes, set to @All@ . If no attribute names are specified, returns a list of instances.
-dihAttributeNames :: Lens' DescribeInstancesHealth [InstancesHealthAttribute]
-dihAttributeNames = lens _dihAttributeNames (\s a -> s {_dihAttributeNames = a}) . _Default . _Coerce
+-- | Specifies the response elements you wish to receive. To retrieve all
+-- attributes, set to @All@. If no attribute names are specified, returns a
+-- list of instances.
+describeInstancesHealth_attributeNames :: Lens.Lens' DescribeInstancesHealth (Prelude.Maybe [InstancesHealthAttribute])
+describeInstancesHealth_attributeNames = Lens.lens (\DescribeInstancesHealth' {attributeNames} -> attributeNames) (\s@DescribeInstancesHealth' {} a -> s {attributeNames = a} :: DescribeInstancesHealth) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSRequest DescribeInstancesHealth where
+instance Prelude.AWSRequest DescribeInstancesHealth where
   type
     Rs DescribeInstancesHealth =
       DescribeInstancesHealthResponse
-  request = postQuery elasticBeanstalk
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DescribeInstancesHealthResult"
       ( \s h x ->
           DescribeInstancesHealthResponse'
-            <$> ( x .@? "InstanceHealthList" .!@ mempty
-                    >>= may (parseXMLList "member")
-                )
-            <*> (x .@? "NextToken")
-            <*> (x .@? "RefreshedAt")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "InstanceHealthList"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                        )
+            Prelude.<*> (x Prelude..@? "NextToken")
+            Prelude.<*> (x Prelude..@? "RefreshedAt")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeInstancesHealth
+instance Prelude.Hashable DescribeInstancesHealth
 
-instance NFData DescribeInstancesHealth
+instance Prelude.NFData DescribeInstancesHealth
 
-instance ToHeaders DescribeInstancesHealth where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeInstancesHealth where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeInstancesHealth where
-  toPath = const "/"
+instance Prelude.ToPath DescribeInstancesHealth where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeInstancesHealth where
+instance Prelude.ToQuery DescribeInstancesHealth where
   toQuery DescribeInstancesHealth' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DescribeInstancesHealth" :: ByteString),
-        "Version" =: ("2010-12-01" :: ByteString),
-        "NextToken" =: _dihNextToken,
-        "EnvironmentId" =: _dihEnvironmentId,
-        "EnvironmentName" =: _dihEnvironmentName,
+          Prelude.=: ("DescribeInstancesHealth" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-12-01" :: Prelude.ByteString),
+        "NextToken" Prelude.=: nextToken,
+        "EnvironmentId" Prelude.=: environmentId,
+        "EnvironmentName" Prelude.=: environmentName,
         "AttributeNames"
-          =: toQuery
-            (toQueryList "member" <$> _dihAttributeNames)
+          Prelude.=: Prelude.toQuery
+            ( Prelude.toQueryList "member"
+                Prelude.<$> attributeNames
+            )
       ]
 
--- | Detailed health information about the Amazon EC2 instances in an AWS Elastic Beanstalk environment.
+-- | Detailed health information about the Amazon EC2 instances in an AWS
+-- Elastic Beanstalk environment.
 --
---
---
--- /See:/ 'describeInstancesHealthResponse' smart constructor.
+-- /See:/ 'newDescribeInstancesHealthResponse' smart constructor.
 data DescribeInstancesHealthResponse = DescribeInstancesHealthResponse'
-  { _dihrrsInstanceHealthList ::
-      !( Maybe
-           [SingleInstanceHealth]
-       ),
-    _dihrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dihrrsRefreshedAt ::
-      !( Maybe
-           ISO8601
-       ),
-    _dihrrsResponseStatus ::
-      !Int
+  { -- | Detailed health information about each instance.
+    --
+    -- The output differs slightly between Linux and Windows environments.
+    -- There is a difference in the members that are supported under the
+    -- @\<CPUUtilization>@ type.
+    instanceHealthList :: Prelude.Maybe [SingleInstanceHealth],
+    -- | Pagination token for the next page of results, if available.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The date and time that the health information was retrieved.
+    refreshedAt :: Prelude.Maybe Prelude.ISO8601,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeInstancesHealthResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeInstancesHealthResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dihrrsInstanceHealthList' - Detailed health information about each instance. The output differs slightly between Linux and Windows environments. There is a difference in the members that are supported under the @<CPUUtilization>@ type.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dihrrsNextToken' - Pagination token for the next page of results, if available.
+-- 'instanceHealthList', 'describeInstancesHealthResponse_instanceHealthList' - Detailed health information about each instance.
 --
--- * 'dihrrsRefreshedAt' - The date and time that the health information was retrieved.
+-- The output differs slightly between Linux and Windows environments.
+-- There is a difference in the members that are supported under the
+-- @\<CPUUtilization>@ type.
 --
--- * 'dihrrsResponseStatus' - -- | The response status code.
-describeInstancesHealthResponse ::
-  -- | 'dihrrsResponseStatus'
-  Int ->
+-- 'nextToken', 'describeInstancesHealthResponse_nextToken' - Pagination token for the next page of results, if available.
+--
+-- 'refreshedAt', 'describeInstancesHealthResponse_refreshedAt' - The date and time that the health information was retrieved.
+--
+-- 'httpStatus', 'describeInstancesHealthResponse_httpStatus' - The response's http status code.
+newDescribeInstancesHealthResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeInstancesHealthResponse
-describeInstancesHealthResponse pResponseStatus_ =
+newDescribeInstancesHealthResponse pHttpStatus_ =
   DescribeInstancesHealthResponse'
-    { _dihrrsInstanceHealthList =
-        Nothing,
-      _dihrrsNextToken = Nothing,
-      _dihrrsRefreshedAt = Nothing,
-      _dihrrsResponseStatus = pResponseStatus_
+    { instanceHealthList =
+        Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      refreshedAt = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Detailed health information about each instance. The output differs slightly between Linux and Windows environments. There is a difference in the members that are supported under the @<CPUUtilization>@ type.
-dihrrsInstanceHealthList :: Lens' DescribeInstancesHealthResponse [SingleInstanceHealth]
-dihrrsInstanceHealthList = lens _dihrrsInstanceHealthList (\s a -> s {_dihrrsInstanceHealthList = a}) . _Default . _Coerce
+-- | Detailed health information about each instance.
+--
+-- The output differs slightly between Linux and Windows environments.
+-- There is a difference in the members that are supported under the
+-- @\<CPUUtilization>@ type.
+describeInstancesHealthResponse_instanceHealthList :: Lens.Lens' DescribeInstancesHealthResponse (Prelude.Maybe [SingleInstanceHealth])
+describeInstancesHealthResponse_instanceHealthList = Lens.lens (\DescribeInstancesHealthResponse' {instanceHealthList} -> instanceHealthList) (\s@DescribeInstancesHealthResponse' {} a -> s {instanceHealthList = a} :: DescribeInstancesHealthResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Pagination token for the next page of results, if available.
-dihrrsNextToken :: Lens' DescribeInstancesHealthResponse (Maybe Text)
-dihrrsNextToken = lens _dihrrsNextToken (\s a -> s {_dihrrsNextToken = a})
+describeInstancesHealthResponse_nextToken :: Lens.Lens' DescribeInstancesHealthResponse (Prelude.Maybe Prelude.Text)
+describeInstancesHealthResponse_nextToken = Lens.lens (\DescribeInstancesHealthResponse' {nextToken} -> nextToken) (\s@DescribeInstancesHealthResponse' {} a -> s {nextToken = a} :: DescribeInstancesHealthResponse)
 
 -- | The date and time that the health information was retrieved.
-dihrrsRefreshedAt :: Lens' DescribeInstancesHealthResponse (Maybe UTCTime)
-dihrrsRefreshedAt = lens _dihrrsRefreshedAt (\s a -> s {_dihrrsRefreshedAt = a}) . mapping _Time
+describeInstancesHealthResponse_refreshedAt :: Lens.Lens' DescribeInstancesHealthResponse (Prelude.Maybe Prelude.UTCTime)
+describeInstancesHealthResponse_refreshedAt = Lens.lens (\DescribeInstancesHealthResponse' {refreshedAt} -> refreshedAt) (\s@DescribeInstancesHealthResponse' {} a -> s {refreshedAt = a} :: DescribeInstancesHealthResponse) Prelude.. Lens.mapping Prelude._Time
 
--- | -- | The response status code.
-dihrrsResponseStatus :: Lens' DescribeInstancesHealthResponse Int
-dihrrsResponseStatus = lens _dihrrsResponseStatus (\s a -> s {_dihrrsResponseStatus = a})
+-- | The response's http status code.
+describeInstancesHealthResponse_httpStatus :: Lens.Lens' DescribeInstancesHealthResponse Prelude.Int
+describeInstancesHealthResponse_httpStatus = Lens.lens (\DescribeInstancesHealthResponse' {httpStatus} -> httpStatus) (\s@DescribeInstancesHealthResponse' {} a -> s {httpStatus = a} :: DescribeInstancesHealthResponse)
 
-instance NFData DescribeInstancesHealthResponse
+instance
+  Prelude.NFData
+    DescribeInstancesHealthResponse

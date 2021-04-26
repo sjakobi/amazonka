@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,254 +19,287 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ElasticBeanstalk.Types.PlatformDescription where
 
-import Network.AWS.ElasticBeanstalk.Types.CustomAMI
+import Network.AWS.ElasticBeanstalk.Types.CustomAmi
 import Network.AWS.ElasticBeanstalk.Types.PlatformFramework
 import Network.AWS.ElasticBeanstalk.Types.PlatformProgrammingLanguage
 import Network.AWS.ElasticBeanstalk.Types.PlatformStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Detailed information about a platform version.
 --
---
---
--- /See:/ 'platformDescription' smart constructor.
+-- /See:/ 'newPlatformDescription' smart constructor.
 data PlatformDescription = PlatformDescription'
-  { _pdPlatformCategory ::
-      !(Maybe Text),
-    _pdOperatingSystemName ::
-      !(Maybe Text),
-    _pdPlatformBranchName ::
-      !(Maybe Text),
-    _pdSupportedAddonList ::
-      !(Maybe [Text]),
-    _pdDateCreated ::
-      !(Maybe ISO8601),
-    _pdCustomAMIList ::
-      !(Maybe [CustomAMI]),
-    _pdPlatformOwner ::
-      !(Maybe Text),
-    _pdPlatformStatus ::
-      !(Maybe PlatformStatus),
-    _pdSolutionStackName ::
-      !(Maybe Text),
-    _pdPlatformVersion ::
-      !(Maybe Text),
-    _pdPlatformBranchLifecycleState ::
-      !(Maybe Text),
-    _pdPlatformARN :: !(Maybe Text),
-    _pdFrameworks ::
-      !(Maybe [PlatformFramework]),
-    _pdDateUpdated ::
-      !(Maybe ISO8601),
-    _pdSupportedTierList ::
-      !(Maybe [Text]),
-    _pdPlatformLifecycleState ::
-      !(Maybe Text),
-    _pdMaintainer :: !(Maybe Text),
-    _pdDescription :: !(Maybe Text),
-    _pdPlatformName ::
-      !(Maybe Text),
-    _pdProgrammingLanguages ::
-      !( Maybe
-           [PlatformProgrammingLanguage]
-       ),
-    _pdOperatingSystemVersion ::
-      !(Maybe Text)
+  { -- | The category of the platform version.
+    platformCategory :: Prelude.Maybe Prelude.Text,
+    -- | The operating system used by the platform version.
+    operatingSystemName :: Prelude.Maybe Prelude.Text,
+    -- | The platform branch to which the platform version belongs.
+    platformBranchName :: Prelude.Maybe Prelude.Text,
+    -- | The additions supported by the platform version.
+    supportedAddonList :: Prelude.Maybe [Prelude.Text],
+    -- | The date when the platform version was created.
+    dateCreated :: Prelude.Maybe Prelude.ISO8601,
+    -- | The custom AMIs supported by the platform version.
+    customAmiList :: Prelude.Maybe [CustomAmi],
+    -- | The AWS account ID of the person who created the platform version.
+    platformOwner :: Prelude.Maybe Prelude.Text,
+    -- | The status of the platform version.
+    platformStatus :: Prelude.Maybe PlatformStatus,
+    -- | The name of the solution stack used by the platform version.
+    solutionStackName :: Prelude.Maybe Prelude.Text,
+    -- | The version of the platform version.
+    platformVersion :: Prelude.Maybe Prelude.Text,
+    -- | The state of the platform version\'s branch in its lifecycle.
+    --
+    -- Possible values: @Beta@ | @Supported@ | @Deprecated@ | @Retired@
+    platformBranchLifecycleState :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the platform version.
+    platformArn :: Prelude.Maybe Prelude.Text,
+    -- | The frameworks supported by the platform version.
+    frameworks :: Prelude.Maybe [PlatformFramework],
+    -- | The date when the platform version was last updated.
+    dateUpdated :: Prelude.Maybe Prelude.ISO8601,
+    -- | The tiers supported by the platform version.
+    supportedTierList :: Prelude.Maybe [Prelude.Text],
+    -- | The state of the platform version in its lifecycle.
+    --
+    -- Possible values: @Recommended@ | @null@
+    --
+    -- If a null value is returned, the platform version isn\'t the recommended
+    -- one for its branch. Each platform branch has a single recommended
+    -- platform version, typically the most recent one.
+    platformLifecycleState :: Prelude.Maybe Prelude.Text,
+    -- | Information about the maintainer of the platform version.
+    maintainer :: Prelude.Maybe Prelude.Text,
+    -- | The description of the platform version.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The name of the platform version.
+    platformName :: Prelude.Maybe Prelude.Text,
+    -- | The programming languages supported by the platform version.
+    programmingLanguages :: Prelude.Maybe [PlatformProgrammingLanguage],
+    -- | The version of the operating system used by the platform version.
+    operatingSystemVersion :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PlatformDescription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PlatformDescription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pdPlatformCategory' - The category of the platform version.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pdOperatingSystemName' - The operating system used by the platform version.
+-- 'platformCategory', 'platformDescription_platformCategory' - The category of the platform version.
 --
--- * 'pdPlatformBranchName' - The platform branch to which the platform version belongs.
+-- 'operatingSystemName', 'platformDescription_operatingSystemName' - The operating system used by the platform version.
 --
--- * 'pdSupportedAddonList' - The additions supported by the platform version.
+-- 'platformBranchName', 'platformDescription_platformBranchName' - The platform branch to which the platform version belongs.
 --
--- * 'pdDateCreated' - The date when the platform version was created.
+-- 'supportedAddonList', 'platformDescription_supportedAddonList' - The additions supported by the platform version.
 --
--- * 'pdCustomAMIList' - The custom AMIs supported by the platform version.
+-- 'dateCreated', 'platformDescription_dateCreated' - The date when the platform version was created.
 --
--- * 'pdPlatformOwner' - The AWS account ID of the person who created the platform version.
+-- 'customAmiList', 'platformDescription_customAmiList' - The custom AMIs supported by the platform version.
 --
--- * 'pdPlatformStatus' - The status of the platform version.
+-- 'platformOwner', 'platformDescription_platformOwner' - The AWS account ID of the person who created the platform version.
 --
--- * 'pdSolutionStackName' - The name of the solution stack used by the platform version.
+-- 'platformStatus', 'platformDescription_platformStatus' - The status of the platform version.
 --
--- * 'pdPlatformVersion' - The version of the platform version.
+-- 'solutionStackName', 'platformDescription_solutionStackName' - The name of the solution stack used by the platform version.
 --
--- * 'pdPlatformBranchLifecycleState' - The state of the platform version's branch in its lifecycle. Possible values: @Beta@ | @Supported@ | @Deprecated@ | @Retired@
+-- 'platformVersion', 'platformDescription_platformVersion' - The version of the platform version.
 --
--- * 'pdPlatformARN' - The ARN of the platform version.
+-- 'platformBranchLifecycleState', 'platformDescription_platformBranchLifecycleState' - The state of the platform version\'s branch in its lifecycle.
 --
--- * 'pdFrameworks' - The frameworks supported by the platform version.
+-- Possible values: @Beta@ | @Supported@ | @Deprecated@ | @Retired@
 --
--- * 'pdDateUpdated' - The date when the platform version was last updated.
+-- 'platformArn', 'platformDescription_platformArn' - The ARN of the platform version.
 --
--- * 'pdSupportedTierList' - The tiers supported by the platform version.
+-- 'frameworks', 'platformDescription_frameworks' - The frameworks supported by the platform version.
 --
--- * 'pdPlatformLifecycleState' - The state of the platform version in its lifecycle. Possible values: @Recommended@ | @null@  If a null value is returned, the platform version isn't the recommended one for its branch. Each platform branch has a single recommended platform version, typically the most recent one.
+-- 'dateUpdated', 'platformDescription_dateUpdated' - The date when the platform version was last updated.
 --
--- * 'pdMaintainer' - Information about the maintainer of the platform version.
+-- 'supportedTierList', 'platformDescription_supportedTierList' - The tiers supported by the platform version.
 --
--- * 'pdDescription' - The description of the platform version.
+-- 'platformLifecycleState', 'platformDescription_platformLifecycleState' - The state of the platform version in its lifecycle.
 --
--- * 'pdPlatformName' - The name of the platform version.
+-- Possible values: @Recommended@ | @null@
 --
--- * 'pdProgrammingLanguages' - The programming languages supported by the platform version.
+-- If a null value is returned, the platform version isn\'t the recommended
+-- one for its branch. Each platform branch has a single recommended
+-- platform version, typically the most recent one.
 --
--- * 'pdOperatingSystemVersion' - The version of the operating system used by the platform version.
-platformDescription ::
+-- 'maintainer', 'platformDescription_maintainer' - Information about the maintainer of the platform version.
+--
+-- 'description', 'platformDescription_description' - The description of the platform version.
+--
+-- 'platformName', 'platformDescription_platformName' - The name of the platform version.
+--
+-- 'programmingLanguages', 'platformDescription_programmingLanguages' - The programming languages supported by the platform version.
+--
+-- 'operatingSystemVersion', 'platformDescription_operatingSystemVersion' - The version of the operating system used by the platform version.
+newPlatformDescription ::
   PlatformDescription
-platformDescription =
+newPlatformDescription =
   PlatformDescription'
-    { _pdPlatformCategory = Nothing,
-      _pdOperatingSystemName = Nothing,
-      _pdPlatformBranchName = Nothing,
-      _pdSupportedAddonList = Nothing,
-      _pdDateCreated = Nothing,
-      _pdCustomAMIList = Nothing,
-      _pdPlatformOwner = Nothing,
-      _pdPlatformStatus = Nothing,
-      _pdSolutionStackName = Nothing,
-      _pdPlatformVersion = Nothing,
-      _pdPlatformBranchLifecycleState = Nothing,
-      _pdPlatformARN = Nothing,
-      _pdFrameworks = Nothing,
-      _pdDateUpdated = Nothing,
-      _pdSupportedTierList = Nothing,
-      _pdPlatformLifecycleState = Nothing,
-      _pdMaintainer = Nothing,
-      _pdDescription = Nothing,
-      _pdPlatformName = Nothing,
-      _pdProgrammingLanguages = Nothing,
-      _pdOperatingSystemVersion = Nothing
+    { platformCategory =
+        Prelude.Nothing,
+      operatingSystemName = Prelude.Nothing,
+      platformBranchName = Prelude.Nothing,
+      supportedAddonList = Prelude.Nothing,
+      dateCreated = Prelude.Nothing,
+      customAmiList = Prelude.Nothing,
+      platformOwner = Prelude.Nothing,
+      platformStatus = Prelude.Nothing,
+      solutionStackName = Prelude.Nothing,
+      platformVersion = Prelude.Nothing,
+      platformBranchLifecycleState = Prelude.Nothing,
+      platformArn = Prelude.Nothing,
+      frameworks = Prelude.Nothing,
+      dateUpdated = Prelude.Nothing,
+      supportedTierList = Prelude.Nothing,
+      platformLifecycleState = Prelude.Nothing,
+      maintainer = Prelude.Nothing,
+      description = Prelude.Nothing,
+      platformName = Prelude.Nothing,
+      programmingLanguages = Prelude.Nothing,
+      operatingSystemVersion = Prelude.Nothing
     }
 
 -- | The category of the platform version.
-pdPlatformCategory :: Lens' PlatformDescription (Maybe Text)
-pdPlatformCategory = lens _pdPlatformCategory (\s a -> s {_pdPlatformCategory = a})
+platformDescription_platformCategory :: Lens.Lens' PlatformDescription (Prelude.Maybe Prelude.Text)
+platformDescription_platformCategory = Lens.lens (\PlatformDescription' {platformCategory} -> platformCategory) (\s@PlatformDescription' {} a -> s {platformCategory = a} :: PlatformDescription)
 
 -- | The operating system used by the platform version.
-pdOperatingSystemName :: Lens' PlatformDescription (Maybe Text)
-pdOperatingSystemName = lens _pdOperatingSystemName (\s a -> s {_pdOperatingSystemName = a})
+platformDescription_operatingSystemName :: Lens.Lens' PlatformDescription (Prelude.Maybe Prelude.Text)
+platformDescription_operatingSystemName = Lens.lens (\PlatformDescription' {operatingSystemName} -> operatingSystemName) (\s@PlatformDescription' {} a -> s {operatingSystemName = a} :: PlatformDescription)
 
 -- | The platform branch to which the platform version belongs.
-pdPlatformBranchName :: Lens' PlatformDescription (Maybe Text)
-pdPlatformBranchName = lens _pdPlatformBranchName (\s a -> s {_pdPlatformBranchName = a})
+platformDescription_platformBranchName :: Lens.Lens' PlatformDescription (Prelude.Maybe Prelude.Text)
+platformDescription_platformBranchName = Lens.lens (\PlatformDescription' {platformBranchName} -> platformBranchName) (\s@PlatformDescription' {} a -> s {platformBranchName = a} :: PlatformDescription)
 
 -- | The additions supported by the platform version.
-pdSupportedAddonList :: Lens' PlatformDescription [Text]
-pdSupportedAddonList = lens _pdSupportedAddonList (\s a -> s {_pdSupportedAddonList = a}) . _Default . _Coerce
+platformDescription_supportedAddonList :: Lens.Lens' PlatformDescription (Prelude.Maybe [Prelude.Text])
+platformDescription_supportedAddonList = Lens.lens (\PlatformDescription' {supportedAddonList} -> supportedAddonList) (\s@PlatformDescription' {} a -> s {supportedAddonList = a} :: PlatformDescription) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The date when the platform version was created.
-pdDateCreated :: Lens' PlatformDescription (Maybe UTCTime)
-pdDateCreated = lens _pdDateCreated (\s a -> s {_pdDateCreated = a}) . mapping _Time
+platformDescription_dateCreated :: Lens.Lens' PlatformDescription (Prelude.Maybe Prelude.UTCTime)
+platformDescription_dateCreated = Lens.lens (\PlatformDescription' {dateCreated} -> dateCreated) (\s@PlatformDescription' {} a -> s {dateCreated = a} :: PlatformDescription) Prelude.. Lens.mapping Prelude._Time
 
 -- | The custom AMIs supported by the platform version.
-pdCustomAMIList :: Lens' PlatformDescription [CustomAMI]
-pdCustomAMIList = lens _pdCustomAMIList (\s a -> s {_pdCustomAMIList = a}) . _Default . _Coerce
+platformDescription_customAmiList :: Lens.Lens' PlatformDescription (Prelude.Maybe [CustomAmi])
+platformDescription_customAmiList = Lens.lens (\PlatformDescription' {customAmiList} -> customAmiList) (\s@PlatformDescription' {} a -> s {customAmiList = a} :: PlatformDescription) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The AWS account ID of the person who created the platform version.
-pdPlatformOwner :: Lens' PlatformDescription (Maybe Text)
-pdPlatformOwner = lens _pdPlatformOwner (\s a -> s {_pdPlatformOwner = a})
+platformDescription_platformOwner :: Lens.Lens' PlatformDescription (Prelude.Maybe Prelude.Text)
+platformDescription_platformOwner = Lens.lens (\PlatformDescription' {platformOwner} -> platformOwner) (\s@PlatformDescription' {} a -> s {platformOwner = a} :: PlatformDescription)
 
 -- | The status of the platform version.
-pdPlatformStatus :: Lens' PlatformDescription (Maybe PlatformStatus)
-pdPlatformStatus = lens _pdPlatformStatus (\s a -> s {_pdPlatformStatus = a})
+platformDescription_platformStatus :: Lens.Lens' PlatformDescription (Prelude.Maybe PlatformStatus)
+platformDescription_platformStatus = Lens.lens (\PlatformDescription' {platformStatus} -> platformStatus) (\s@PlatformDescription' {} a -> s {platformStatus = a} :: PlatformDescription)
 
 -- | The name of the solution stack used by the platform version.
-pdSolutionStackName :: Lens' PlatformDescription (Maybe Text)
-pdSolutionStackName = lens _pdSolutionStackName (\s a -> s {_pdSolutionStackName = a})
+platformDescription_solutionStackName :: Lens.Lens' PlatformDescription (Prelude.Maybe Prelude.Text)
+platformDescription_solutionStackName = Lens.lens (\PlatformDescription' {solutionStackName} -> solutionStackName) (\s@PlatformDescription' {} a -> s {solutionStackName = a} :: PlatformDescription)
 
 -- | The version of the platform version.
-pdPlatformVersion :: Lens' PlatformDescription (Maybe Text)
-pdPlatformVersion = lens _pdPlatformVersion (\s a -> s {_pdPlatformVersion = a})
+platformDescription_platformVersion :: Lens.Lens' PlatformDescription (Prelude.Maybe Prelude.Text)
+platformDescription_platformVersion = Lens.lens (\PlatformDescription' {platformVersion} -> platformVersion) (\s@PlatformDescription' {} a -> s {platformVersion = a} :: PlatformDescription)
 
--- | The state of the platform version's branch in its lifecycle. Possible values: @Beta@ | @Supported@ | @Deprecated@ | @Retired@
-pdPlatformBranchLifecycleState :: Lens' PlatformDescription (Maybe Text)
-pdPlatformBranchLifecycleState = lens _pdPlatformBranchLifecycleState (\s a -> s {_pdPlatformBranchLifecycleState = a})
+-- | The state of the platform version\'s branch in its lifecycle.
+--
+-- Possible values: @Beta@ | @Supported@ | @Deprecated@ | @Retired@
+platformDescription_platformBranchLifecycleState :: Lens.Lens' PlatformDescription (Prelude.Maybe Prelude.Text)
+platformDescription_platformBranchLifecycleState = Lens.lens (\PlatformDescription' {platformBranchLifecycleState} -> platformBranchLifecycleState) (\s@PlatformDescription' {} a -> s {platformBranchLifecycleState = a} :: PlatformDescription)
 
 -- | The ARN of the platform version.
-pdPlatformARN :: Lens' PlatformDescription (Maybe Text)
-pdPlatformARN = lens _pdPlatformARN (\s a -> s {_pdPlatformARN = a})
+platformDescription_platformArn :: Lens.Lens' PlatformDescription (Prelude.Maybe Prelude.Text)
+platformDescription_platformArn = Lens.lens (\PlatformDescription' {platformArn} -> platformArn) (\s@PlatformDescription' {} a -> s {platformArn = a} :: PlatformDescription)
 
 -- | The frameworks supported by the platform version.
-pdFrameworks :: Lens' PlatformDescription [PlatformFramework]
-pdFrameworks = lens _pdFrameworks (\s a -> s {_pdFrameworks = a}) . _Default . _Coerce
+platformDescription_frameworks :: Lens.Lens' PlatformDescription (Prelude.Maybe [PlatformFramework])
+platformDescription_frameworks = Lens.lens (\PlatformDescription' {frameworks} -> frameworks) (\s@PlatformDescription' {} a -> s {frameworks = a} :: PlatformDescription) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The date when the platform version was last updated.
-pdDateUpdated :: Lens' PlatformDescription (Maybe UTCTime)
-pdDateUpdated = lens _pdDateUpdated (\s a -> s {_pdDateUpdated = a}) . mapping _Time
+platformDescription_dateUpdated :: Lens.Lens' PlatformDescription (Prelude.Maybe Prelude.UTCTime)
+platformDescription_dateUpdated = Lens.lens (\PlatformDescription' {dateUpdated} -> dateUpdated) (\s@PlatformDescription' {} a -> s {dateUpdated = a} :: PlatformDescription) Prelude.. Lens.mapping Prelude._Time
 
 -- | The tiers supported by the platform version.
-pdSupportedTierList :: Lens' PlatformDescription [Text]
-pdSupportedTierList = lens _pdSupportedTierList (\s a -> s {_pdSupportedTierList = a}) . _Default . _Coerce
+platformDescription_supportedTierList :: Lens.Lens' PlatformDescription (Prelude.Maybe [Prelude.Text])
+platformDescription_supportedTierList = Lens.lens (\PlatformDescription' {supportedTierList} -> supportedTierList) (\s@PlatformDescription' {} a -> s {supportedTierList = a} :: PlatformDescription) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The state of the platform version in its lifecycle. Possible values: @Recommended@ | @null@  If a null value is returned, the platform version isn't the recommended one for its branch. Each platform branch has a single recommended platform version, typically the most recent one.
-pdPlatformLifecycleState :: Lens' PlatformDescription (Maybe Text)
-pdPlatformLifecycleState = lens _pdPlatformLifecycleState (\s a -> s {_pdPlatformLifecycleState = a})
+-- | The state of the platform version in its lifecycle.
+--
+-- Possible values: @Recommended@ | @null@
+--
+-- If a null value is returned, the platform version isn\'t the recommended
+-- one for its branch. Each platform branch has a single recommended
+-- platform version, typically the most recent one.
+platformDescription_platformLifecycleState :: Lens.Lens' PlatformDescription (Prelude.Maybe Prelude.Text)
+platformDescription_platformLifecycleState = Lens.lens (\PlatformDescription' {platformLifecycleState} -> platformLifecycleState) (\s@PlatformDescription' {} a -> s {platformLifecycleState = a} :: PlatformDescription)
 
 -- | Information about the maintainer of the platform version.
-pdMaintainer :: Lens' PlatformDescription (Maybe Text)
-pdMaintainer = lens _pdMaintainer (\s a -> s {_pdMaintainer = a})
+platformDescription_maintainer :: Lens.Lens' PlatformDescription (Prelude.Maybe Prelude.Text)
+platformDescription_maintainer = Lens.lens (\PlatformDescription' {maintainer} -> maintainer) (\s@PlatformDescription' {} a -> s {maintainer = a} :: PlatformDescription)
 
 -- | The description of the platform version.
-pdDescription :: Lens' PlatformDescription (Maybe Text)
-pdDescription = lens _pdDescription (\s a -> s {_pdDescription = a})
+platformDescription_description :: Lens.Lens' PlatformDescription (Prelude.Maybe Prelude.Text)
+platformDescription_description = Lens.lens (\PlatformDescription' {description} -> description) (\s@PlatformDescription' {} a -> s {description = a} :: PlatformDescription)
 
 -- | The name of the platform version.
-pdPlatformName :: Lens' PlatformDescription (Maybe Text)
-pdPlatformName = lens _pdPlatformName (\s a -> s {_pdPlatformName = a})
+platformDescription_platformName :: Lens.Lens' PlatformDescription (Prelude.Maybe Prelude.Text)
+platformDescription_platformName = Lens.lens (\PlatformDescription' {platformName} -> platformName) (\s@PlatformDescription' {} a -> s {platformName = a} :: PlatformDescription)
 
 -- | The programming languages supported by the platform version.
-pdProgrammingLanguages :: Lens' PlatformDescription [PlatformProgrammingLanguage]
-pdProgrammingLanguages = lens _pdProgrammingLanguages (\s a -> s {_pdProgrammingLanguages = a}) . _Default . _Coerce
+platformDescription_programmingLanguages :: Lens.Lens' PlatformDescription (Prelude.Maybe [PlatformProgrammingLanguage])
+platformDescription_programmingLanguages = Lens.lens (\PlatformDescription' {programmingLanguages} -> programmingLanguages) (\s@PlatformDescription' {} a -> s {programmingLanguages = a} :: PlatformDescription) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The version of the operating system used by the platform version.
-pdOperatingSystemVersion :: Lens' PlatformDescription (Maybe Text)
-pdOperatingSystemVersion = lens _pdOperatingSystemVersion (\s a -> s {_pdOperatingSystemVersion = a})
+platformDescription_operatingSystemVersion :: Lens.Lens' PlatformDescription (Prelude.Maybe Prelude.Text)
+platformDescription_operatingSystemVersion = Lens.lens (\PlatformDescription' {operatingSystemVersion} -> operatingSystemVersion) (\s@PlatformDescription' {} a -> s {operatingSystemVersion = a} :: PlatformDescription)
 
-instance FromXML PlatformDescription where
+instance Prelude.FromXML PlatformDescription where
   parseXML x =
     PlatformDescription'
-      <$> (x .@? "PlatformCategory")
-      <*> (x .@? "OperatingSystemName")
-      <*> (x .@? "PlatformBranchName")
-      <*> ( x .@? "SupportedAddonList" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> (x .@? "DateCreated")
-      <*> ( x .@? "CustomAmiList" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> (x .@? "PlatformOwner")
-      <*> (x .@? "PlatformStatus")
-      <*> (x .@? "SolutionStackName")
-      <*> (x .@? "PlatformVersion")
-      <*> (x .@? "PlatformBranchLifecycleState")
-      <*> (x .@? "PlatformArn")
-      <*> ( x .@? "Frameworks" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> (x .@? "DateUpdated")
-      <*> ( x .@? "SupportedTierList" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> (x .@? "PlatformLifecycleState")
-      <*> (x .@? "Maintainer")
-      <*> (x .@? "Description")
-      <*> (x .@? "PlatformName")
-      <*> ( x .@? "ProgrammingLanguages" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> (x .@? "OperatingSystemVersion")
+      Prelude.<$> (x Prelude..@? "PlatformCategory")
+      Prelude.<*> (x Prelude..@? "OperatingSystemName")
+      Prelude.<*> (x Prelude..@? "PlatformBranchName")
+      Prelude.<*> ( x Prelude..@? "SupportedAddonList"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> (x Prelude..@? "DateCreated")
+      Prelude.<*> ( x Prelude..@? "CustomAmiList"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> (x Prelude..@? "PlatformOwner")
+      Prelude.<*> (x Prelude..@? "PlatformStatus")
+      Prelude.<*> (x Prelude..@? "SolutionStackName")
+      Prelude.<*> (x Prelude..@? "PlatformVersion")
+      Prelude.<*> (x Prelude..@? "PlatformBranchLifecycleState")
+      Prelude.<*> (x Prelude..@? "PlatformArn")
+      Prelude.<*> ( x Prelude..@? "Frameworks"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> (x Prelude..@? "DateUpdated")
+      Prelude.<*> ( x Prelude..@? "SupportedTierList"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> (x Prelude..@? "PlatformLifecycleState")
+      Prelude.<*> (x Prelude..@? "Maintainer")
+      Prelude.<*> (x Prelude..@? "Description")
+      Prelude.<*> (x Prelude..@? "PlatformName")
+      Prelude.<*> ( x Prelude..@? "ProgrammingLanguages"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> (x Prelude..@? "OperatingSystemVersion")
 
-instance Hashable PlatformDescription
+instance Prelude.Hashable PlatformDescription
 
-instance NFData PlatformDescription
+instance Prelude.NFData PlatformDescription

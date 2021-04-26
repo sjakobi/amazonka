@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,127 +21,144 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Add or change the operations role used by an environment. After this call is made, Elastic Beanstalk uses the associated operations role for permissions to downstream services during subsequent calls acting on this environment. For more information, see <https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/iam-operationsrole.html Operations roles> in the /AWS Elastic Beanstalk Developer Guide/ .
+-- Add or change the operations role used by an environment. After this
+-- call is made, Elastic Beanstalk uses the associated operations role for
+-- permissions to downstream services during subsequent calls acting on
+-- this environment. For more information, see
+-- <https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/iam-operationsrole.html Operations roles>
+-- in the /AWS Elastic Beanstalk Developer Guide/.
 module Network.AWS.ElasticBeanstalk.AssociateEnvironmentOperationsRole
   ( -- * Creating a Request
-    associateEnvironmentOperationsRole,
-    AssociateEnvironmentOperationsRole,
+    AssociateEnvironmentOperationsRole (..),
+    newAssociateEnvironmentOperationsRole,
 
     -- * Request Lenses
-    aeorEnvironmentName,
-    aeorOperationsRole,
+    associateEnvironmentOperationsRole_environmentName,
+    associateEnvironmentOperationsRole_operationsRole,
 
     -- * Destructuring the Response
-    associateEnvironmentOperationsRoleResponse,
-    AssociateEnvironmentOperationsRoleResponse,
+    AssociateEnvironmentOperationsRoleResponse (..),
+    newAssociateEnvironmentOperationsRoleResponse,
   )
 where
 
 import Network.AWS.ElasticBeanstalk.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Request to add or change the operations role used by an environment.
 --
---
---
--- /See:/ 'associateEnvironmentOperationsRole' smart constructor.
+-- /See:/ 'newAssociateEnvironmentOperationsRole' smart constructor.
 data AssociateEnvironmentOperationsRole = AssociateEnvironmentOperationsRole'
-  { _aeorEnvironmentName ::
-      !Text,
-    _aeorOperationsRole ::
-      !Text
+  { -- | The name of the environment to which to set the operations role.
+    environmentName :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of an existing IAM role to be used as the
+    -- environment\'s operations role.
+    operationsRole :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssociateEnvironmentOperationsRole' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AssociateEnvironmentOperationsRole' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aeorEnvironmentName' - The name of the environment to which to set the operations role.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aeorOperationsRole' - The Amazon Resource Name (ARN) of an existing IAM role to be used as the environment's operations role.
-associateEnvironmentOperationsRole ::
-  -- | 'aeorEnvironmentName'
-  Text ->
-  -- | 'aeorOperationsRole'
-  Text ->
+-- 'environmentName', 'associateEnvironmentOperationsRole_environmentName' - The name of the environment to which to set the operations role.
+--
+-- 'operationsRole', 'associateEnvironmentOperationsRole_operationsRole' - The Amazon Resource Name (ARN) of an existing IAM role to be used as the
+-- environment\'s operations role.
+newAssociateEnvironmentOperationsRole ::
+  -- | 'environmentName'
+  Prelude.Text ->
+  -- | 'operationsRole'
+  Prelude.Text ->
   AssociateEnvironmentOperationsRole
-associateEnvironmentOperationsRole
+newAssociateEnvironmentOperationsRole
   pEnvironmentName_
   pOperationsRole_ =
     AssociateEnvironmentOperationsRole'
-      { _aeorEnvironmentName =
+      { environmentName =
           pEnvironmentName_,
-        _aeorOperationsRole = pOperationsRole_
+        operationsRole = pOperationsRole_
       }
 
 -- | The name of the environment to which to set the operations role.
-aeorEnvironmentName :: Lens' AssociateEnvironmentOperationsRole Text
-aeorEnvironmentName = lens _aeorEnvironmentName (\s a -> s {_aeorEnvironmentName = a})
+associateEnvironmentOperationsRole_environmentName :: Lens.Lens' AssociateEnvironmentOperationsRole Prelude.Text
+associateEnvironmentOperationsRole_environmentName = Lens.lens (\AssociateEnvironmentOperationsRole' {environmentName} -> environmentName) (\s@AssociateEnvironmentOperationsRole' {} a -> s {environmentName = a} :: AssociateEnvironmentOperationsRole)
 
--- | The Amazon Resource Name (ARN) of an existing IAM role to be used as the environment's operations role.
-aeorOperationsRole :: Lens' AssociateEnvironmentOperationsRole Text
-aeorOperationsRole = lens _aeorOperationsRole (\s a -> s {_aeorOperationsRole = a})
+-- | The Amazon Resource Name (ARN) of an existing IAM role to be used as the
+-- environment\'s operations role.
+associateEnvironmentOperationsRole_operationsRole :: Lens.Lens' AssociateEnvironmentOperationsRole Prelude.Text
+associateEnvironmentOperationsRole_operationsRole = Lens.lens (\AssociateEnvironmentOperationsRole' {operationsRole} -> operationsRole) (\s@AssociateEnvironmentOperationsRole' {} a -> s {operationsRole = a} :: AssociateEnvironmentOperationsRole)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     AssociateEnvironmentOperationsRole
   where
   type
     Rs AssociateEnvironmentOperationsRole =
       AssociateEnvironmentOperationsRoleResponse
-  request = postQuery elasticBeanstalk
+  request = Request.postQuery defaultService
   response =
-    receiveNull
+    Response.receiveNull
       AssociateEnvironmentOperationsRoleResponse'
 
-instance Hashable AssociateEnvironmentOperationsRole
+instance
+  Prelude.Hashable
+    AssociateEnvironmentOperationsRole
 
-instance NFData AssociateEnvironmentOperationsRole
+instance
+  Prelude.NFData
+    AssociateEnvironmentOperationsRole
 
-instance ToHeaders AssociateEnvironmentOperationsRole where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    AssociateEnvironmentOperationsRole
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath AssociateEnvironmentOperationsRole where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    AssociateEnvironmentOperationsRole
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery AssociateEnvironmentOperationsRole where
+instance
+  Prelude.ToQuery
+    AssociateEnvironmentOperationsRole
+  where
   toQuery AssociateEnvironmentOperationsRole' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("AssociateEnvironmentOperationsRole" :: ByteString),
-        "Version" =: ("2010-12-01" :: ByteString),
-        "EnvironmentName" =: _aeorEnvironmentName,
-        "OperationsRole" =: _aeorOperationsRole
+          Prelude.=: ( "AssociateEnvironmentOperationsRole" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2010-12-01" :: Prelude.ByteString),
+        "EnvironmentName" Prelude.=: environmentName,
+        "OperationsRole" Prelude.=: operationsRole
       ]
 
--- | /See:/ 'associateEnvironmentOperationsRoleResponse' smart constructor.
+-- | /See:/ 'newAssociateEnvironmentOperationsRoleResponse' smart constructor.
 data AssociateEnvironmentOperationsRoleResponse = AssociateEnvironmentOperationsRoleResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssociateEnvironmentOperationsRoleResponse' with the minimum fields required to make a request.
-associateEnvironmentOperationsRoleResponse ::
+-- |
+-- Create a value of 'AssociateEnvironmentOperationsRoleResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newAssociateEnvironmentOperationsRoleResponse ::
   AssociateEnvironmentOperationsRoleResponse
-associateEnvironmentOperationsRoleResponse =
+newAssociateEnvironmentOperationsRoleResponse =
   AssociateEnvironmentOperationsRoleResponse'
 
 instance
-  NFData
+  Prelude.NFData
     AssociateEnvironmentOperationsRoleResponse

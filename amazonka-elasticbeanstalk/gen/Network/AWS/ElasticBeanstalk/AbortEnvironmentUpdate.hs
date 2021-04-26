@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,115 +21,119 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Cancels in-progress environment configuration update or application version deployment.
+-- Cancels in-progress environment configuration update or application
+-- version deployment.
 module Network.AWS.ElasticBeanstalk.AbortEnvironmentUpdate
   ( -- * Creating a Request
-    abortEnvironmentUpdate,
-    AbortEnvironmentUpdate,
+    AbortEnvironmentUpdate (..),
+    newAbortEnvironmentUpdate,
 
     -- * Request Lenses
-    aeuEnvironmentId,
-    aeuEnvironmentName,
+    abortEnvironmentUpdate_environmentId,
+    abortEnvironmentUpdate_environmentName,
 
     -- * Destructuring the Response
-    abortEnvironmentUpdateResponse,
-    AbortEnvironmentUpdateResponse,
+    AbortEnvironmentUpdateResponse (..),
+    newAbortEnvironmentUpdateResponse,
   )
 where
 
 import Network.AWS.ElasticBeanstalk.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- |
 --
---
---
--- /See:/ 'abortEnvironmentUpdate' smart constructor.
+-- /See:/ 'newAbortEnvironmentUpdate' smart constructor.
 data AbortEnvironmentUpdate = AbortEnvironmentUpdate'
-  { _aeuEnvironmentId ::
-      !(Maybe Text),
-    _aeuEnvironmentName ::
-      !(Maybe Text)
+  { -- | This specifies the ID of the environment with the in-progress update
+    -- that you want to cancel.
+    environmentId :: Prelude.Maybe Prelude.Text,
+    -- | This specifies the name of the environment with the in-progress update
+    -- that you want to cancel.
+    environmentName :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AbortEnvironmentUpdate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AbortEnvironmentUpdate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aeuEnvironmentId' - This specifies the ID of the environment with the in-progress update that you want to cancel.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aeuEnvironmentName' - This specifies the name of the environment with the in-progress update that you want to cancel.
-abortEnvironmentUpdate ::
+-- 'environmentId', 'abortEnvironmentUpdate_environmentId' - This specifies the ID of the environment with the in-progress update
+-- that you want to cancel.
+--
+-- 'environmentName', 'abortEnvironmentUpdate_environmentName' - This specifies the name of the environment with the in-progress update
+-- that you want to cancel.
+newAbortEnvironmentUpdate ::
   AbortEnvironmentUpdate
-abortEnvironmentUpdate =
+newAbortEnvironmentUpdate =
   AbortEnvironmentUpdate'
-    { _aeuEnvironmentId =
-        Nothing,
-      _aeuEnvironmentName = Nothing
+    { environmentId =
+        Prelude.Nothing,
+      environmentName = Prelude.Nothing
     }
 
--- | This specifies the ID of the environment with the in-progress update that you want to cancel.
-aeuEnvironmentId :: Lens' AbortEnvironmentUpdate (Maybe Text)
-aeuEnvironmentId = lens _aeuEnvironmentId (\s a -> s {_aeuEnvironmentId = a})
+-- | This specifies the ID of the environment with the in-progress update
+-- that you want to cancel.
+abortEnvironmentUpdate_environmentId :: Lens.Lens' AbortEnvironmentUpdate (Prelude.Maybe Prelude.Text)
+abortEnvironmentUpdate_environmentId = Lens.lens (\AbortEnvironmentUpdate' {environmentId} -> environmentId) (\s@AbortEnvironmentUpdate' {} a -> s {environmentId = a} :: AbortEnvironmentUpdate)
 
--- | This specifies the name of the environment with the in-progress update that you want to cancel.
-aeuEnvironmentName :: Lens' AbortEnvironmentUpdate (Maybe Text)
-aeuEnvironmentName = lens _aeuEnvironmentName (\s a -> s {_aeuEnvironmentName = a})
+-- | This specifies the name of the environment with the in-progress update
+-- that you want to cancel.
+abortEnvironmentUpdate_environmentName :: Lens.Lens' AbortEnvironmentUpdate (Prelude.Maybe Prelude.Text)
+abortEnvironmentUpdate_environmentName = Lens.lens (\AbortEnvironmentUpdate' {environmentName} -> environmentName) (\s@AbortEnvironmentUpdate' {} a -> s {environmentName = a} :: AbortEnvironmentUpdate)
 
-instance AWSRequest AbortEnvironmentUpdate where
+instance Prelude.AWSRequest AbortEnvironmentUpdate where
   type
     Rs AbortEnvironmentUpdate =
       AbortEnvironmentUpdateResponse
-  request = postQuery elasticBeanstalk
+  request = Request.postQuery defaultService
   response =
-    receiveNull AbortEnvironmentUpdateResponse'
+    Response.receiveNull
+      AbortEnvironmentUpdateResponse'
 
-instance Hashable AbortEnvironmentUpdate
+instance Prelude.Hashable AbortEnvironmentUpdate
 
-instance NFData AbortEnvironmentUpdate
+instance Prelude.NFData AbortEnvironmentUpdate
 
-instance ToHeaders AbortEnvironmentUpdate where
-  toHeaders = const mempty
+instance Prelude.ToHeaders AbortEnvironmentUpdate where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath AbortEnvironmentUpdate where
-  toPath = const "/"
+instance Prelude.ToPath AbortEnvironmentUpdate where
+  toPath = Prelude.const "/"
 
-instance ToQuery AbortEnvironmentUpdate where
+instance Prelude.ToQuery AbortEnvironmentUpdate where
   toQuery AbortEnvironmentUpdate' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("AbortEnvironmentUpdate" :: ByteString),
-        "Version" =: ("2010-12-01" :: ByteString),
-        "EnvironmentId" =: _aeuEnvironmentId,
-        "EnvironmentName" =: _aeuEnvironmentName
+          Prelude.=: ("AbortEnvironmentUpdate" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-12-01" :: Prelude.ByteString),
+        "EnvironmentId" Prelude.=: environmentId,
+        "EnvironmentName" Prelude.=: environmentName
       ]
 
--- | /See:/ 'abortEnvironmentUpdateResponse' smart constructor.
+-- | /See:/ 'newAbortEnvironmentUpdateResponse' smart constructor.
 data AbortEnvironmentUpdateResponse = AbortEnvironmentUpdateResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AbortEnvironmentUpdateResponse' with the minimum fields required to make a request.
-abortEnvironmentUpdateResponse ::
+-- |
+-- Create a value of 'AbortEnvironmentUpdateResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newAbortEnvironmentUpdateResponse ::
   AbortEnvironmentUpdateResponse
-abortEnvironmentUpdateResponse =
+newAbortEnvironmentUpdateResponse =
   AbortEnvironmentUpdateResponse'
 
-instance NFData AbortEnvironmentUpdateResponse
+instance
+  Prelude.NFData
+    AbortEnvironmentUpdateResponse

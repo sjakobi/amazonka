@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.ElasticBeanstalk.Types.ActionType
   ( ActionType
       ( ..,
-        InstanceRefresh,
-        PlatformUpdate,
-        Unknown
+        ActionTypeInstanceRefresh,
+        ActionTypePlatformUpdate,
+        ActionTypeUnknown
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ActionType = ActionType' (CI Text)
+newtype ActionType = ActionType'
+  { fromActionType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern InstanceRefresh :: ActionType
-pattern InstanceRefresh = ActionType' "InstanceRefresh"
+pattern ActionTypeInstanceRefresh :: ActionType
+pattern ActionTypeInstanceRefresh = ActionType' "InstanceRefresh"
 
-pattern PlatformUpdate :: ActionType
-pattern PlatformUpdate = ActionType' "PlatformUpdate"
+pattern ActionTypePlatformUpdate :: ActionType
+pattern ActionTypePlatformUpdate = ActionType' "PlatformUpdate"
 
-pattern Unknown :: ActionType
-pattern Unknown = ActionType' "Unknown"
+pattern ActionTypeUnknown :: ActionType
+pattern ActionTypeUnknown = ActionType' "Unknown"
 
 {-# COMPLETE
-  InstanceRefresh,
-  PlatformUpdate,
-  Unknown,
+  ActionTypeInstanceRefresh,
+  ActionTypePlatformUpdate,
+  ActionTypeUnknown,
   ActionType'
   #-}
 
-instance FromText ActionType where
-  parser = (ActionType' . mk) <$> takeText
+instance Prelude.FromText ActionType where
+  parser = ActionType' Prelude.<$> Prelude.takeText
 
-instance ToText ActionType where
-  toText (ActionType' ci) = original ci
+instance Prelude.ToText ActionType where
+  toText (ActionType' x) = x
 
-instance Hashable ActionType
+instance Prelude.Hashable ActionType
 
-instance NFData ActionType
+instance Prelude.NFData ActionType
 
-instance ToByteString ActionType
+instance Prelude.ToByteString ActionType
 
-instance ToQuery ActionType
+instance Prelude.ToQuery ActionType
 
-instance ToHeader ActionType
+instance Prelude.ToHeader ActionType
 
-instance FromXML ActionType where
-  parseXML = parseXMLText "ActionType"
+instance Prelude.FromXML ActionType where
+  parseXML = Prelude.parseXMLText "ActionType"

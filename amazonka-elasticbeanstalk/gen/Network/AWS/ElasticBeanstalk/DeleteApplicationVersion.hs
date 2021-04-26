@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -18,131 +22,137 @@
 -- Portability : non-portable (GHC extensions)
 --
 -- Deletes the specified version from the specified application.
+--
+-- You cannot delete an application version that is associated with a
+-- running environment.
 module Network.AWS.ElasticBeanstalk.DeleteApplicationVersion
   ( -- * Creating a Request
-    deleteApplicationVersion,
-    DeleteApplicationVersion,
+    DeleteApplicationVersion (..),
+    newDeleteApplicationVersion,
 
     -- * Request Lenses
-    davDeleteSourceBundle,
-    davApplicationName,
-    davVersionLabel,
+    deleteApplicationVersion_deleteSourceBundle,
+    deleteApplicationVersion_applicationName,
+    deleteApplicationVersion_versionLabel,
 
     -- * Destructuring the Response
-    deleteApplicationVersionResponse,
-    DeleteApplicationVersionResponse,
+    DeleteApplicationVersionResponse (..),
+    newDeleteApplicationVersionResponse,
   )
 where
 
 import Network.AWS.ElasticBeanstalk.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Request to delete an application version.
 --
---
---
--- /See:/ 'deleteApplicationVersion' smart constructor.
+-- /See:/ 'newDeleteApplicationVersion' smart constructor.
 data DeleteApplicationVersion = DeleteApplicationVersion'
-  { _davDeleteSourceBundle ::
-      !(Maybe Bool),
-    _davApplicationName ::
-      !Text,
-    _davVersionLabel ::
-      !Text
+  { -- | Set to @true@ to delete the source bundle from your storage bucket.
+    -- Otherwise, the application version is deleted only from Elastic
+    -- Beanstalk and the source bundle remains in Amazon S3.
+    deleteSourceBundle :: Prelude.Maybe Prelude.Bool,
+    -- | The name of the application to which the version belongs.
+    applicationName :: Prelude.Text,
+    -- | The label of the version to delete.
+    versionLabel :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteApplicationVersion' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteApplicationVersion' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'davDeleteSourceBundle' - Set to @true@ to delete the source bundle from your storage bucket. Otherwise, the application version is deleted only from Elastic Beanstalk and the source bundle remains in Amazon S3.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'davApplicationName' - The name of the application to which the version belongs.
+-- 'deleteSourceBundle', 'deleteApplicationVersion_deleteSourceBundle' - Set to @true@ to delete the source bundle from your storage bucket.
+-- Otherwise, the application version is deleted only from Elastic
+-- Beanstalk and the source bundle remains in Amazon S3.
 --
--- * 'davVersionLabel' - The label of the version to delete.
-deleteApplicationVersion ::
-  -- | 'davApplicationName'
-  Text ->
-  -- | 'davVersionLabel'
-  Text ->
+-- 'applicationName', 'deleteApplicationVersion_applicationName' - The name of the application to which the version belongs.
+--
+-- 'versionLabel', 'deleteApplicationVersion_versionLabel' - The label of the version to delete.
+newDeleteApplicationVersion ::
+  -- | 'applicationName'
+  Prelude.Text ->
+  -- | 'versionLabel'
+  Prelude.Text ->
   DeleteApplicationVersion
-deleteApplicationVersion
+newDeleteApplicationVersion
   pApplicationName_
   pVersionLabel_ =
     DeleteApplicationVersion'
-      { _davDeleteSourceBundle =
-          Nothing,
-        _davApplicationName = pApplicationName_,
-        _davVersionLabel = pVersionLabel_
+      { deleteSourceBundle =
+          Prelude.Nothing,
+        applicationName = pApplicationName_,
+        versionLabel = pVersionLabel_
       }
 
--- | Set to @true@ to delete the source bundle from your storage bucket. Otherwise, the application version is deleted only from Elastic Beanstalk and the source bundle remains in Amazon S3.
-davDeleteSourceBundle :: Lens' DeleteApplicationVersion (Maybe Bool)
-davDeleteSourceBundle = lens _davDeleteSourceBundle (\s a -> s {_davDeleteSourceBundle = a})
+-- | Set to @true@ to delete the source bundle from your storage bucket.
+-- Otherwise, the application version is deleted only from Elastic
+-- Beanstalk and the source bundle remains in Amazon S3.
+deleteApplicationVersion_deleteSourceBundle :: Lens.Lens' DeleteApplicationVersion (Prelude.Maybe Prelude.Bool)
+deleteApplicationVersion_deleteSourceBundle = Lens.lens (\DeleteApplicationVersion' {deleteSourceBundle} -> deleteSourceBundle) (\s@DeleteApplicationVersion' {} a -> s {deleteSourceBundle = a} :: DeleteApplicationVersion)
 
 -- | The name of the application to which the version belongs.
-davApplicationName :: Lens' DeleteApplicationVersion Text
-davApplicationName = lens _davApplicationName (\s a -> s {_davApplicationName = a})
+deleteApplicationVersion_applicationName :: Lens.Lens' DeleteApplicationVersion Prelude.Text
+deleteApplicationVersion_applicationName = Lens.lens (\DeleteApplicationVersion' {applicationName} -> applicationName) (\s@DeleteApplicationVersion' {} a -> s {applicationName = a} :: DeleteApplicationVersion)
 
 -- | The label of the version to delete.
-davVersionLabel :: Lens' DeleteApplicationVersion Text
-davVersionLabel = lens _davVersionLabel (\s a -> s {_davVersionLabel = a})
+deleteApplicationVersion_versionLabel :: Lens.Lens' DeleteApplicationVersion Prelude.Text
+deleteApplicationVersion_versionLabel = Lens.lens (\DeleteApplicationVersion' {versionLabel} -> versionLabel) (\s@DeleteApplicationVersion' {} a -> s {versionLabel = a} :: DeleteApplicationVersion)
 
-instance AWSRequest DeleteApplicationVersion where
+instance Prelude.AWSRequest DeleteApplicationVersion where
   type
     Rs DeleteApplicationVersion =
       DeleteApplicationVersionResponse
-  request = postQuery elasticBeanstalk
+  request = Request.postQuery defaultService
   response =
-    receiveNull DeleteApplicationVersionResponse'
+    Response.receiveNull
+      DeleteApplicationVersionResponse'
 
-instance Hashable DeleteApplicationVersion
+instance Prelude.Hashable DeleteApplicationVersion
 
-instance NFData DeleteApplicationVersion
+instance Prelude.NFData DeleteApplicationVersion
 
-instance ToHeaders DeleteApplicationVersion where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteApplicationVersion where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteApplicationVersion where
-  toPath = const "/"
+instance Prelude.ToPath DeleteApplicationVersion where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteApplicationVersion where
+instance Prelude.ToQuery DeleteApplicationVersion where
   toQuery DeleteApplicationVersion' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DeleteApplicationVersion" :: ByteString),
-        "Version" =: ("2010-12-01" :: ByteString),
-        "DeleteSourceBundle" =: _davDeleteSourceBundle,
-        "ApplicationName" =: _davApplicationName,
-        "VersionLabel" =: _davVersionLabel
+          Prelude.=: ("DeleteApplicationVersion" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-12-01" :: Prelude.ByteString),
+        "DeleteSourceBundle" Prelude.=: deleteSourceBundle,
+        "ApplicationName" Prelude.=: applicationName,
+        "VersionLabel" Prelude.=: versionLabel
       ]
 
--- | /See:/ 'deleteApplicationVersionResponse' smart constructor.
+-- | /See:/ 'newDeleteApplicationVersionResponse' smart constructor.
 data DeleteApplicationVersionResponse = DeleteApplicationVersionResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteApplicationVersionResponse' with the minimum fields required to make a request.
-deleteApplicationVersionResponse ::
+-- |
+-- Create a value of 'DeleteApplicationVersionResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteApplicationVersionResponse ::
   DeleteApplicationVersionResponse
-deleteApplicationVersionResponse =
+newDeleteApplicationVersionResponse =
   DeleteApplicationVersionResponse'
 
-instance NFData DeleteApplicationVersionResponse
+instance
+  Prelude.NFData
+    DeleteApplicationVersionResponse

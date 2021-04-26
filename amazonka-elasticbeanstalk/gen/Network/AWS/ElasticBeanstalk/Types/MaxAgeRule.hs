@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,69 +19,77 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ElasticBeanstalk.Types.MaxAgeRule where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A lifecycle rule that deletes application versions after the specified number of days.
+-- | A lifecycle rule that deletes application versions after the specified
+-- number of days.
 --
---
---
--- /See:/ 'maxAgeRule' smart constructor.
+-- /See:/ 'newMaxAgeRule' smart constructor.
 data MaxAgeRule = MaxAgeRule'
-  { _marDeleteSourceFromS3 ::
-      !(Maybe Bool),
-    _marMaxAgeInDays :: !(Maybe Int),
-    _marEnabled :: !Bool
+  { -- | Set to @true@ to delete a version\'s source bundle from Amazon S3 when
+    -- Elastic Beanstalk deletes the application version.
+    deleteSourceFromS3 :: Prelude.Maybe Prelude.Bool,
+    -- | Specify the number of days to retain an application versions.
+    maxAgeInDays :: Prelude.Maybe Prelude.Int,
+    -- | Specify @true@ to apply the rule, or @false@ to disable it.
+    enabled :: Prelude.Bool
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MaxAgeRule' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MaxAgeRule' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'marDeleteSourceFromS3' - Set to @true@ to delete a version's source bundle from Amazon S3 when Elastic Beanstalk deletes the application version.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'marMaxAgeInDays' - Specify the number of days to retain an application versions.
+-- 'deleteSourceFromS3', 'maxAgeRule_deleteSourceFromS3' - Set to @true@ to delete a version\'s source bundle from Amazon S3 when
+-- Elastic Beanstalk deletes the application version.
 --
--- * 'marEnabled' - Specify @true@ to apply the rule, or @false@ to disable it.
-maxAgeRule ::
-  -- | 'marEnabled'
-  Bool ->
+-- 'maxAgeInDays', 'maxAgeRule_maxAgeInDays' - Specify the number of days to retain an application versions.
+--
+-- 'enabled', 'maxAgeRule_enabled' - Specify @true@ to apply the rule, or @false@ to disable it.
+newMaxAgeRule ::
+  -- | 'enabled'
+  Prelude.Bool ->
   MaxAgeRule
-maxAgeRule pEnabled_ =
+newMaxAgeRule pEnabled_ =
   MaxAgeRule'
-    { _marDeleteSourceFromS3 = Nothing,
-      _marMaxAgeInDays = Nothing,
-      _marEnabled = pEnabled_
+    { deleteSourceFromS3 = Prelude.Nothing,
+      maxAgeInDays = Prelude.Nothing,
+      enabled = pEnabled_
     }
 
--- | Set to @true@ to delete a version's source bundle from Amazon S3 when Elastic Beanstalk deletes the application version.
-marDeleteSourceFromS3 :: Lens' MaxAgeRule (Maybe Bool)
-marDeleteSourceFromS3 = lens _marDeleteSourceFromS3 (\s a -> s {_marDeleteSourceFromS3 = a})
+-- | Set to @true@ to delete a version\'s source bundle from Amazon S3 when
+-- Elastic Beanstalk deletes the application version.
+maxAgeRule_deleteSourceFromS3 :: Lens.Lens' MaxAgeRule (Prelude.Maybe Prelude.Bool)
+maxAgeRule_deleteSourceFromS3 = Lens.lens (\MaxAgeRule' {deleteSourceFromS3} -> deleteSourceFromS3) (\s@MaxAgeRule' {} a -> s {deleteSourceFromS3 = a} :: MaxAgeRule)
 
 -- | Specify the number of days to retain an application versions.
-marMaxAgeInDays :: Lens' MaxAgeRule (Maybe Int)
-marMaxAgeInDays = lens _marMaxAgeInDays (\s a -> s {_marMaxAgeInDays = a})
+maxAgeRule_maxAgeInDays :: Lens.Lens' MaxAgeRule (Prelude.Maybe Prelude.Int)
+maxAgeRule_maxAgeInDays = Lens.lens (\MaxAgeRule' {maxAgeInDays} -> maxAgeInDays) (\s@MaxAgeRule' {} a -> s {maxAgeInDays = a} :: MaxAgeRule)
 
 -- | Specify @true@ to apply the rule, or @false@ to disable it.
-marEnabled :: Lens' MaxAgeRule Bool
-marEnabled = lens _marEnabled (\s a -> s {_marEnabled = a})
+maxAgeRule_enabled :: Lens.Lens' MaxAgeRule Prelude.Bool
+maxAgeRule_enabled = Lens.lens (\MaxAgeRule' {enabled} -> enabled) (\s@MaxAgeRule' {} a -> s {enabled = a} :: MaxAgeRule)
 
-instance FromXML MaxAgeRule where
+instance Prelude.FromXML MaxAgeRule where
   parseXML x =
     MaxAgeRule'
-      <$> (x .@? "DeleteSourceFromS3")
-      <*> (x .@? "MaxAgeInDays")
-      <*> (x .@ "Enabled")
+      Prelude.<$> (x Prelude..@? "DeleteSourceFromS3")
+      Prelude.<*> (x Prelude..@? "MaxAgeInDays")
+      Prelude.<*> (x Prelude..@ "Enabled")
 
-instance Hashable MaxAgeRule
+instance Prelude.Hashable MaxAgeRule
 
-instance NFData MaxAgeRule
+instance Prelude.NFData MaxAgeRule
 
-instance ToQuery MaxAgeRule where
+instance Prelude.ToQuery MaxAgeRule where
   toQuery MaxAgeRule' {..} =
-    mconcat
-      [ "DeleteSourceFromS3" =: _marDeleteSourceFromS3,
-        "MaxAgeInDays" =: _marMaxAgeInDays,
-        "Enabled" =: _marEnabled
+    Prelude.mconcat
+      [ "DeleteSourceFromS3" Prelude.=: deleteSourceFromS3,
+        "MaxAgeInDays" Prelude.=: maxAgeInDays,
+        "Enabled" Prelude.=: enabled
       ]

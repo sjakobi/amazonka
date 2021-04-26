@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.ElasticBeanstalk.Types.ConfigurationOptionValueType
   ( ConfigurationOptionValueType
       ( ..,
-        List,
-        Scalar
+        ConfigurationOptionValueTypeList,
+        ConfigurationOptionValueTypeScalar
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ConfigurationOptionValueType
-  = ConfigurationOptionValueType'
-      ( CI
-          Text
-      )
+newtype ConfigurationOptionValueType = ConfigurationOptionValueType'
+  { fromConfigurationOptionValueType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern List :: ConfigurationOptionValueType
-pattern List = ConfigurationOptionValueType' "List"
+pattern ConfigurationOptionValueTypeList :: ConfigurationOptionValueType
+pattern ConfigurationOptionValueTypeList = ConfigurationOptionValueType' "List"
 
-pattern Scalar :: ConfigurationOptionValueType
-pattern Scalar = ConfigurationOptionValueType' "Scalar"
+pattern ConfigurationOptionValueTypeScalar :: ConfigurationOptionValueType
+pattern ConfigurationOptionValueTypeScalar = ConfigurationOptionValueType' "Scalar"
 
 {-# COMPLETE
-  List,
-  Scalar,
+  ConfigurationOptionValueTypeList,
+  ConfigurationOptionValueTypeScalar,
   ConfigurationOptionValueType'
   #-}
 
-instance FromText ConfigurationOptionValueType where
-  parser = (ConfigurationOptionValueType' . mk) <$> takeText
+instance Prelude.FromText ConfigurationOptionValueType where
+  parser = ConfigurationOptionValueType' Prelude.<$> Prelude.takeText
 
-instance ToText ConfigurationOptionValueType where
-  toText (ConfigurationOptionValueType' ci) = original ci
+instance Prelude.ToText ConfigurationOptionValueType where
+  toText (ConfigurationOptionValueType' x) = x
 
-instance Hashable ConfigurationOptionValueType
+instance Prelude.Hashable ConfigurationOptionValueType
 
-instance NFData ConfigurationOptionValueType
+instance Prelude.NFData ConfigurationOptionValueType
 
-instance ToByteString ConfigurationOptionValueType
+instance Prelude.ToByteString ConfigurationOptionValueType
 
-instance ToQuery ConfigurationOptionValueType
+instance Prelude.ToQuery ConfigurationOptionValueType
 
-instance ToHeader ConfigurationOptionValueType
+instance Prelude.ToHeader ConfigurationOptionValueType
 
-instance FromXML ConfigurationOptionValueType where
-  parseXML = parseXMLText "ConfigurationOptionValueType"
+instance Prelude.FromXML ConfigurationOptionValueType where
+  parseXML = Prelude.parseXMLText "ConfigurationOptionValueType"

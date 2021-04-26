@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,161 +21,192 @@ module Network.AWS.ElasticBeanstalk.Types.ConfigurationSettingsDescription where
 
 import Network.AWS.ElasticBeanstalk.Types.ConfigurationDeploymentStatus
 import Network.AWS.ElasticBeanstalk.Types.ConfigurationOptionSetting
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the settings for a configuration set.
 --
---
---
--- /See:/ 'configurationSettingsDescription' smart constructor.
+-- /See:/ 'newConfigurationSettingsDescription' smart constructor.
 data ConfigurationSettingsDescription = ConfigurationSettingsDescription'
-  { _csdTemplateName ::
-      !( Maybe
-           Text
-       ),
-    _csdDateCreated ::
-      !( Maybe
-           ISO8601
-       ),
-    _csdSolutionStackName ::
-      !( Maybe
-           Text
-       ),
-    _csdDeploymentStatus ::
-      !( Maybe
-           ConfigurationDeploymentStatus
-       ),
-    _csdEnvironmentName ::
-      !( Maybe
-           Text
-       ),
-    _csdPlatformARN ::
-      !( Maybe
-           Text
-       ),
-    _csdDateUpdated ::
-      !( Maybe
-           ISO8601
-       ),
-    _csdOptionSettings ::
-      !( Maybe
-           [ConfigurationOptionSetting]
-       ),
-    _csdDescription ::
-      !( Maybe
-           Text
-       ),
-    _csdApplicationName ::
-      !( Maybe
-           Text
-       )
+  { -- | If not @null@, the name of the configuration template for this
+    -- configuration set.
+    templateName :: Prelude.Maybe Prelude.Text,
+    -- | The date (in UTC time) when this configuration set was created.
+    dateCreated :: Prelude.Maybe Prelude.ISO8601,
+    -- | The name of the solution stack this configuration set uses.
+    solutionStackName :: Prelude.Maybe Prelude.Text,
+    -- | If this configuration set is associated with an environment, the
+    -- @DeploymentStatus@ parameter indicates the deployment status of this
+    -- configuration set:
+    --
+    -- -   @null@: This configuration is not associated with a running
+    --     environment.
+    --
+    -- -   @pending@: This is a draft configuration that is not deployed to the
+    --     associated environment but is in the process of deploying.
+    --
+    -- -   @deployed@: This is the configuration that is currently deployed to
+    --     the associated running environment.
+    --
+    -- -   @failed@: This is a draft configuration that failed to successfully
+    --     deploy.
+    deploymentStatus :: Prelude.Maybe ConfigurationDeploymentStatus,
+    -- | If not @null@, the name of the environment for this configuration set.
+    environmentName :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the platform version.
+    platformArn :: Prelude.Maybe Prelude.Text,
+    -- | The date (in UTC time) when this configuration set was last modified.
+    dateUpdated :: Prelude.Maybe Prelude.ISO8601,
+    -- | A list of the configuration options and their values in this
+    -- configuration set.
+    optionSettings :: Prelude.Maybe [ConfigurationOptionSetting],
+    -- | Describes this configuration set.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The name of the application associated with this configuration set.
+    applicationName :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ConfigurationSettingsDescription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ConfigurationSettingsDescription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csdTemplateName' - If not @null@ , the name of the configuration template for this configuration set.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csdDateCreated' - The date (in UTC time) when this configuration set was created.
+-- 'templateName', 'configurationSettingsDescription_templateName' - If not @null@, the name of the configuration template for this
+-- configuration set.
 --
--- * 'csdSolutionStackName' - The name of the solution stack this configuration set uses.
+-- 'dateCreated', 'configurationSettingsDescription_dateCreated' - The date (in UTC time) when this configuration set was created.
 --
--- * 'csdDeploymentStatus' - If this configuration set is associated with an environment, the @DeploymentStatus@ parameter indicates the deployment status of this configuration set:      * @null@ : This configuration is not associated with a running environment.     * @pending@ : This is a draft configuration that is not deployed to the associated environment but is in the process of deploying.     * @deployed@ : This is the configuration that is currently deployed to the associated running environment.     * @failed@ : This is a draft configuration that failed to successfully deploy.
+-- 'solutionStackName', 'configurationSettingsDescription_solutionStackName' - The name of the solution stack this configuration set uses.
 --
--- * 'csdEnvironmentName' - If not @null@ , the name of the environment for this configuration set.
+-- 'deploymentStatus', 'configurationSettingsDescription_deploymentStatus' - If this configuration set is associated with an environment, the
+-- @DeploymentStatus@ parameter indicates the deployment status of this
+-- configuration set:
 --
--- * 'csdPlatformARN' - The ARN of the platform version.
+-- -   @null@: This configuration is not associated with a running
+--     environment.
 --
--- * 'csdDateUpdated' - The date (in UTC time) when this configuration set was last modified.
+-- -   @pending@: This is a draft configuration that is not deployed to the
+--     associated environment but is in the process of deploying.
 --
--- * 'csdOptionSettings' - A list of the configuration options and their values in this configuration set.
+-- -   @deployed@: This is the configuration that is currently deployed to
+--     the associated running environment.
 --
--- * 'csdDescription' - Describes this configuration set.
+-- -   @failed@: This is a draft configuration that failed to successfully
+--     deploy.
 --
--- * 'csdApplicationName' - The name of the application associated with this configuration set.
-configurationSettingsDescription ::
+-- 'environmentName', 'configurationSettingsDescription_environmentName' - If not @null@, the name of the environment for this configuration set.
+--
+-- 'platformArn', 'configurationSettingsDescription_platformArn' - The ARN of the platform version.
+--
+-- 'dateUpdated', 'configurationSettingsDescription_dateUpdated' - The date (in UTC time) when this configuration set was last modified.
+--
+-- 'optionSettings', 'configurationSettingsDescription_optionSettings' - A list of the configuration options and their values in this
+-- configuration set.
+--
+-- 'description', 'configurationSettingsDescription_description' - Describes this configuration set.
+--
+-- 'applicationName', 'configurationSettingsDescription_applicationName' - The name of the application associated with this configuration set.
+newConfigurationSettingsDescription ::
   ConfigurationSettingsDescription
-configurationSettingsDescription =
+newConfigurationSettingsDescription =
   ConfigurationSettingsDescription'
-    { _csdTemplateName =
-        Nothing,
-      _csdDateCreated = Nothing,
-      _csdSolutionStackName = Nothing,
-      _csdDeploymentStatus = Nothing,
-      _csdEnvironmentName = Nothing,
-      _csdPlatformARN = Nothing,
-      _csdDateUpdated = Nothing,
-      _csdOptionSettings = Nothing,
-      _csdDescription = Nothing,
-      _csdApplicationName = Nothing
+    { templateName =
+        Prelude.Nothing,
+      dateCreated = Prelude.Nothing,
+      solutionStackName = Prelude.Nothing,
+      deploymentStatus = Prelude.Nothing,
+      environmentName = Prelude.Nothing,
+      platformArn = Prelude.Nothing,
+      dateUpdated = Prelude.Nothing,
+      optionSettings = Prelude.Nothing,
+      description = Prelude.Nothing,
+      applicationName = Prelude.Nothing
     }
 
--- | If not @null@ , the name of the configuration template for this configuration set.
-csdTemplateName :: Lens' ConfigurationSettingsDescription (Maybe Text)
-csdTemplateName = lens _csdTemplateName (\s a -> s {_csdTemplateName = a})
+-- | If not @null@, the name of the configuration template for this
+-- configuration set.
+configurationSettingsDescription_templateName :: Lens.Lens' ConfigurationSettingsDescription (Prelude.Maybe Prelude.Text)
+configurationSettingsDescription_templateName = Lens.lens (\ConfigurationSettingsDescription' {templateName} -> templateName) (\s@ConfigurationSettingsDescription' {} a -> s {templateName = a} :: ConfigurationSettingsDescription)
 
 -- | The date (in UTC time) when this configuration set was created.
-csdDateCreated :: Lens' ConfigurationSettingsDescription (Maybe UTCTime)
-csdDateCreated = lens _csdDateCreated (\s a -> s {_csdDateCreated = a}) . mapping _Time
+configurationSettingsDescription_dateCreated :: Lens.Lens' ConfigurationSettingsDescription (Prelude.Maybe Prelude.UTCTime)
+configurationSettingsDescription_dateCreated = Lens.lens (\ConfigurationSettingsDescription' {dateCreated} -> dateCreated) (\s@ConfigurationSettingsDescription' {} a -> s {dateCreated = a} :: ConfigurationSettingsDescription) Prelude.. Lens.mapping Prelude._Time
 
 -- | The name of the solution stack this configuration set uses.
-csdSolutionStackName :: Lens' ConfigurationSettingsDescription (Maybe Text)
-csdSolutionStackName = lens _csdSolutionStackName (\s a -> s {_csdSolutionStackName = a})
+configurationSettingsDescription_solutionStackName :: Lens.Lens' ConfigurationSettingsDescription (Prelude.Maybe Prelude.Text)
+configurationSettingsDescription_solutionStackName = Lens.lens (\ConfigurationSettingsDescription' {solutionStackName} -> solutionStackName) (\s@ConfigurationSettingsDescription' {} a -> s {solutionStackName = a} :: ConfigurationSettingsDescription)
 
--- | If this configuration set is associated with an environment, the @DeploymentStatus@ parameter indicates the deployment status of this configuration set:      * @null@ : This configuration is not associated with a running environment.     * @pending@ : This is a draft configuration that is not deployed to the associated environment but is in the process of deploying.     * @deployed@ : This is the configuration that is currently deployed to the associated running environment.     * @failed@ : This is a draft configuration that failed to successfully deploy.
-csdDeploymentStatus :: Lens' ConfigurationSettingsDescription (Maybe ConfigurationDeploymentStatus)
-csdDeploymentStatus = lens _csdDeploymentStatus (\s a -> s {_csdDeploymentStatus = a})
+-- | If this configuration set is associated with an environment, the
+-- @DeploymentStatus@ parameter indicates the deployment status of this
+-- configuration set:
+--
+-- -   @null@: This configuration is not associated with a running
+--     environment.
+--
+-- -   @pending@: This is a draft configuration that is not deployed to the
+--     associated environment but is in the process of deploying.
+--
+-- -   @deployed@: This is the configuration that is currently deployed to
+--     the associated running environment.
+--
+-- -   @failed@: This is a draft configuration that failed to successfully
+--     deploy.
+configurationSettingsDescription_deploymentStatus :: Lens.Lens' ConfigurationSettingsDescription (Prelude.Maybe ConfigurationDeploymentStatus)
+configurationSettingsDescription_deploymentStatus = Lens.lens (\ConfigurationSettingsDescription' {deploymentStatus} -> deploymentStatus) (\s@ConfigurationSettingsDescription' {} a -> s {deploymentStatus = a} :: ConfigurationSettingsDescription)
 
--- | If not @null@ , the name of the environment for this configuration set.
-csdEnvironmentName :: Lens' ConfigurationSettingsDescription (Maybe Text)
-csdEnvironmentName = lens _csdEnvironmentName (\s a -> s {_csdEnvironmentName = a})
+-- | If not @null@, the name of the environment for this configuration set.
+configurationSettingsDescription_environmentName :: Lens.Lens' ConfigurationSettingsDescription (Prelude.Maybe Prelude.Text)
+configurationSettingsDescription_environmentName = Lens.lens (\ConfigurationSettingsDescription' {environmentName} -> environmentName) (\s@ConfigurationSettingsDescription' {} a -> s {environmentName = a} :: ConfigurationSettingsDescription)
 
 -- | The ARN of the platform version.
-csdPlatformARN :: Lens' ConfigurationSettingsDescription (Maybe Text)
-csdPlatformARN = lens _csdPlatformARN (\s a -> s {_csdPlatformARN = a})
+configurationSettingsDescription_platformArn :: Lens.Lens' ConfigurationSettingsDescription (Prelude.Maybe Prelude.Text)
+configurationSettingsDescription_platformArn = Lens.lens (\ConfigurationSettingsDescription' {platformArn} -> platformArn) (\s@ConfigurationSettingsDescription' {} a -> s {platformArn = a} :: ConfigurationSettingsDescription)
 
 -- | The date (in UTC time) when this configuration set was last modified.
-csdDateUpdated :: Lens' ConfigurationSettingsDescription (Maybe UTCTime)
-csdDateUpdated = lens _csdDateUpdated (\s a -> s {_csdDateUpdated = a}) . mapping _Time
+configurationSettingsDescription_dateUpdated :: Lens.Lens' ConfigurationSettingsDescription (Prelude.Maybe Prelude.UTCTime)
+configurationSettingsDescription_dateUpdated = Lens.lens (\ConfigurationSettingsDescription' {dateUpdated} -> dateUpdated) (\s@ConfigurationSettingsDescription' {} a -> s {dateUpdated = a} :: ConfigurationSettingsDescription) Prelude.. Lens.mapping Prelude._Time
 
--- | A list of the configuration options and their values in this configuration set.
-csdOptionSettings :: Lens' ConfigurationSettingsDescription [ConfigurationOptionSetting]
-csdOptionSettings = lens _csdOptionSettings (\s a -> s {_csdOptionSettings = a}) . _Default . _Coerce
+-- | A list of the configuration options and their values in this
+-- configuration set.
+configurationSettingsDescription_optionSettings :: Lens.Lens' ConfigurationSettingsDescription (Prelude.Maybe [ConfigurationOptionSetting])
+configurationSettingsDescription_optionSettings = Lens.lens (\ConfigurationSettingsDescription' {optionSettings} -> optionSettings) (\s@ConfigurationSettingsDescription' {} a -> s {optionSettings = a} :: ConfigurationSettingsDescription) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Describes this configuration set.
-csdDescription :: Lens' ConfigurationSettingsDescription (Maybe Text)
-csdDescription = lens _csdDescription (\s a -> s {_csdDescription = a})
+configurationSettingsDescription_description :: Lens.Lens' ConfigurationSettingsDescription (Prelude.Maybe Prelude.Text)
+configurationSettingsDescription_description = Lens.lens (\ConfigurationSettingsDescription' {description} -> description) (\s@ConfigurationSettingsDescription' {} a -> s {description = a} :: ConfigurationSettingsDescription)
 
 -- | The name of the application associated with this configuration set.
-csdApplicationName :: Lens' ConfigurationSettingsDescription (Maybe Text)
-csdApplicationName = lens _csdApplicationName (\s a -> s {_csdApplicationName = a})
+configurationSettingsDescription_applicationName :: Lens.Lens' ConfigurationSettingsDescription (Prelude.Maybe Prelude.Text)
+configurationSettingsDescription_applicationName = Lens.lens (\ConfigurationSettingsDescription' {applicationName} -> applicationName) (\s@ConfigurationSettingsDescription' {} a -> s {applicationName = a} :: ConfigurationSettingsDescription)
 
-instance FromXML ConfigurationSettingsDescription where
+instance
+  Prelude.FromXML
+    ConfigurationSettingsDescription
+  where
   parseXML x =
     ConfigurationSettingsDescription'
-      <$> (x .@? "TemplateName")
-      <*> (x .@? "DateCreated")
-      <*> (x .@? "SolutionStackName")
-      <*> (x .@? "DeploymentStatus")
-      <*> (x .@? "EnvironmentName")
-      <*> (x .@? "PlatformArn")
-      <*> (x .@? "DateUpdated")
-      <*> ( x .@? "OptionSettings" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> (x .@? "Description")
-      <*> (x .@? "ApplicationName")
+      Prelude.<$> (x Prelude..@? "TemplateName")
+      Prelude.<*> (x Prelude..@? "DateCreated")
+      Prelude.<*> (x Prelude..@? "SolutionStackName")
+      Prelude.<*> (x Prelude..@? "DeploymentStatus")
+      Prelude.<*> (x Prelude..@? "EnvironmentName")
+      Prelude.<*> (x Prelude..@? "PlatformArn")
+      Prelude.<*> (x Prelude..@? "DateUpdated")
+      Prelude.<*> ( x Prelude..@? "OptionSettings"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> (x Prelude..@? "Description")
+      Prelude.<*> (x Prelude..@? "ApplicationName")
 
-instance Hashable ConfigurationSettingsDescription
+instance
+  Prelude.Hashable
+    ConfigurationSettingsDescription
 
-instance NFData ConfigurationSettingsDescription
+instance
+  Prelude.NFData
+    ConfigurationSettingsDescription

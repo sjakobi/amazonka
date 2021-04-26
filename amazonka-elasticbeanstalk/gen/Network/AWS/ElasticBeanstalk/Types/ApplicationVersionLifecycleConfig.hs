@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,71 +21,83 @@ module Network.AWS.ElasticBeanstalk.Types.ApplicationVersionLifecycleConfig wher
 
 import Network.AWS.ElasticBeanstalk.Types.MaxAgeRule
 import Network.AWS.ElasticBeanstalk.Types.MaxCountRule
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The application version lifecycle settings for an application. Defines the rules that Elastic Beanstalk applies to an application's versions in order to avoid hitting the per-region limit for application versions.
+-- | The application version lifecycle settings for an application. Defines
+-- the rules that Elastic Beanstalk applies to an application\'s versions
+-- in order to avoid hitting the per-region limit for application versions.
 --
+-- When Elastic Beanstalk deletes an application version from its database,
+-- you can no longer deploy that version to an environment. The source
+-- bundle remains in S3 unless you configure the rule to delete it.
 --
--- When Elastic Beanstalk deletes an application version from its database, you can no longer deploy that version to an environment. The source bundle remains in S3 unless you configure the rule to delete it.
---
---
--- /See:/ 'applicationVersionLifecycleConfig' smart constructor.
+-- /See:/ 'newApplicationVersionLifecycleConfig' smart constructor.
 data ApplicationVersionLifecycleConfig = ApplicationVersionLifecycleConfig'
-  { _avlcMaxAgeRule ::
-      !( Maybe
-           MaxAgeRule
-       ),
-    _avlcMaxCountRule ::
-      !( Maybe
-           MaxCountRule
-       )
+  { -- | Specify a max age rule to restrict the length of time that application
+    -- versions are retained for an application.
+    maxAgeRule :: Prelude.Maybe MaxAgeRule,
+    -- | Specify a max count rule to restrict the number of application versions
+    -- that are retained for an application.
+    maxCountRule :: Prelude.Maybe MaxCountRule
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ApplicationVersionLifecycleConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ApplicationVersionLifecycleConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'avlcMaxAgeRule' - Specify a max age rule to restrict the length of time that application versions are retained for an application.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'avlcMaxCountRule' - Specify a max count rule to restrict the number of application versions that are retained for an application.
-applicationVersionLifecycleConfig ::
+-- 'maxAgeRule', 'applicationVersionLifecycleConfig_maxAgeRule' - Specify a max age rule to restrict the length of time that application
+-- versions are retained for an application.
+--
+-- 'maxCountRule', 'applicationVersionLifecycleConfig_maxCountRule' - Specify a max count rule to restrict the number of application versions
+-- that are retained for an application.
+newApplicationVersionLifecycleConfig ::
   ApplicationVersionLifecycleConfig
-applicationVersionLifecycleConfig =
+newApplicationVersionLifecycleConfig =
   ApplicationVersionLifecycleConfig'
-    { _avlcMaxAgeRule =
-        Nothing,
-      _avlcMaxCountRule = Nothing
+    { maxAgeRule =
+        Prelude.Nothing,
+      maxCountRule = Prelude.Nothing
     }
 
--- | Specify a max age rule to restrict the length of time that application versions are retained for an application.
-avlcMaxAgeRule :: Lens' ApplicationVersionLifecycleConfig (Maybe MaxAgeRule)
-avlcMaxAgeRule = lens _avlcMaxAgeRule (\s a -> s {_avlcMaxAgeRule = a})
+-- | Specify a max age rule to restrict the length of time that application
+-- versions are retained for an application.
+applicationVersionLifecycleConfig_maxAgeRule :: Lens.Lens' ApplicationVersionLifecycleConfig (Prelude.Maybe MaxAgeRule)
+applicationVersionLifecycleConfig_maxAgeRule = Lens.lens (\ApplicationVersionLifecycleConfig' {maxAgeRule} -> maxAgeRule) (\s@ApplicationVersionLifecycleConfig' {} a -> s {maxAgeRule = a} :: ApplicationVersionLifecycleConfig)
 
--- | Specify a max count rule to restrict the number of application versions that are retained for an application.
-avlcMaxCountRule :: Lens' ApplicationVersionLifecycleConfig (Maybe MaxCountRule)
-avlcMaxCountRule = lens _avlcMaxCountRule (\s a -> s {_avlcMaxCountRule = a})
+-- | Specify a max count rule to restrict the number of application versions
+-- that are retained for an application.
+applicationVersionLifecycleConfig_maxCountRule :: Lens.Lens' ApplicationVersionLifecycleConfig (Prelude.Maybe MaxCountRule)
+applicationVersionLifecycleConfig_maxCountRule = Lens.lens (\ApplicationVersionLifecycleConfig' {maxCountRule} -> maxCountRule) (\s@ApplicationVersionLifecycleConfig' {} a -> s {maxCountRule = a} :: ApplicationVersionLifecycleConfig)
 
-instance FromXML ApplicationVersionLifecycleConfig where
+instance
+  Prelude.FromXML
+    ApplicationVersionLifecycleConfig
+  where
   parseXML x =
     ApplicationVersionLifecycleConfig'
-      <$> (x .@? "MaxAgeRule") <*> (x .@? "MaxCountRule")
+      Prelude.<$> (x Prelude..@? "MaxAgeRule")
+      Prelude.<*> (x Prelude..@? "MaxCountRule")
 
-instance Hashable ApplicationVersionLifecycleConfig
+instance
+  Prelude.Hashable
+    ApplicationVersionLifecycleConfig
 
-instance NFData ApplicationVersionLifecycleConfig
+instance
+  Prelude.NFData
+    ApplicationVersionLifecycleConfig
 
-instance ToQuery ApplicationVersionLifecycleConfig where
+instance
+  Prelude.ToQuery
+    ApplicationVersionLifecycleConfig
+  where
   toQuery ApplicationVersionLifecycleConfig' {..} =
-    mconcat
-      [ "MaxAgeRule" =: _avlcMaxAgeRule,
-        "MaxCountRule" =: _avlcMaxCountRule
+    Prelude.mconcat
+      [ "MaxAgeRule" Prelude.=: maxAgeRule,
+        "MaxCountRule" Prelude.=: maxCountRule
       ]

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,211 +21,347 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates an AWS Elastic Beanstalk configuration template, associated with a specific Elastic Beanstalk application. You define application configuration settings in a configuration template. You can then use the configuration template to deploy different versions of the application with the same configuration settings.
+-- Creates an AWS Elastic Beanstalk configuration template, associated with
+-- a specific Elastic Beanstalk application. You define application
+-- configuration settings in a configuration template. You can then use the
+-- configuration template to deploy different versions of the application
+-- with the same configuration settings.
 --
---
--- Templates aren't associated with any environment. The @EnvironmentName@ response element is always @null@ .
+-- Templates aren\'t associated with any environment. The @EnvironmentName@
+-- response element is always @null@.
 --
 -- Related Topics
 --
---     * 'DescribeConfigurationOptions'
+-- -   DescribeConfigurationOptions
 --
---     * 'DescribeConfigurationSettings'
+-- -   DescribeConfigurationSettings
 --
---     * 'ListAvailableSolutionStacks'
+-- -   ListAvailableSolutionStacks
 module Network.AWS.ElasticBeanstalk.CreateConfigurationTemplate
   ( -- * Creating a Request
-    createConfigurationTemplate,
-    CreateConfigurationTemplate,
+    CreateConfigurationTemplate (..),
+    newCreateConfigurationTemplate,
 
     -- * Request Lenses
-    cctSolutionStackName,
-    cctEnvironmentId,
-    cctPlatformARN,
-    cctTags,
-    cctOptionSettings,
-    cctDescription,
-    cctSourceConfiguration,
-    cctApplicationName,
-    cctTemplateName,
+    createConfigurationTemplate_solutionStackName,
+    createConfigurationTemplate_environmentId,
+    createConfigurationTemplate_platformArn,
+    createConfigurationTemplate_tags,
+    createConfigurationTemplate_optionSettings,
+    createConfigurationTemplate_description,
+    createConfigurationTemplate_sourceConfiguration,
+    createConfigurationTemplate_applicationName,
+    createConfigurationTemplate_templateName,
 
     -- * Destructuring the Response
-    configurationSettingsDescription,
-    ConfigurationSettingsDescription,
+    ConfigurationSettingsDescription (..),
+    newConfigurationSettingsDescription,
 
     -- * Response Lenses
-    csdTemplateName,
-    csdDateCreated,
-    csdSolutionStackName,
-    csdDeploymentStatus,
-    csdEnvironmentName,
-    csdPlatformARN,
-    csdDateUpdated,
-    csdOptionSettings,
-    csdDescription,
-    csdApplicationName,
+    configurationSettingsDescription_templateName,
+    configurationSettingsDescription_dateCreated,
+    configurationSettingsDescription_solutionStackName,
+    configurationSettingsDescription_deploymentStatus,
+    configurationSettingsDescription_environmentName,
+    configurationSettingsDescription_platformArn,
+    configurationSettingsDescription_dateUpdated,
+    configurationSettingsDescription_optionSettings,
+    configurationSettingsDescription_description,
+    configurationSettingsDescription_applicationName,
   )
 where
 
 import Network.AWS.ElasticBeanstalk.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ElasticBeanstalk.Types.ConfigurationDeploymentStatus
+import Network.AWS.ElasticBeanstalk.Types.ConfigurationOptionSetting
+import Network.AWS.ElasticBeanstalk.Types.ConfigurationSettingsDescription
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Request to create a configuration template.
 --
---
---
--- /See:/ 'createConfigurationTemplate' smart constructor.
+-- /See:/ 'newCreateConfigurationTemplate' smart constructor.
 data CreateConfigurationTemplate = CreateConfigurationTemplate'
-  { _cctSolutionStackName ::
-      !(Maybe Text),
-    _cctEnvironmentId ::
-      !(Maybe Text),
-    _cctPlatformARN ::
-      !(Maybe Text),
-    _cctTags ::
-      !(Maybe [Tag]),
-    _cctOptionSettings ::
-      !( Maybe
-           [ConfigurationOptionSetting]
-       ),
-    _cctDescription ::
-      !(Maybe Text),
-    _cctSourceConfiguration ::
-      !( Maybe
-           SourceConfiguration
-       ),
-    _cctApplicationName ::
-      !Text,
-    _cctTemplateName ::
-      !Text
+  { -- | The name of an Elastic Beanstalk solution stack (platform version) that
+    -- this configuration uses. For example,
+    -- @64bit Amazon Linux 2013.09 running Tomcat 7 Java 7@. A solution stack
+    -- specifies the operating system, runtime, and application server for a
+    -- configuration template. It also determines the set of configuration
+    -- options as well as the possible and default values. For more
+    -- information, see
+    -- <https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/concepts.platforms.html Supported Platforms>
+    -- in the /AWS Elastic Beanstalk Developer Guide/.
+    --
+    -- You must specify @SolutionStackName@ if you don\'t specify
+    -- @PlatformArn@, @EnvironmentId@, or @SourceConfiguration@.
+    --
+    -- Use the
+    -- <https://docs.aws.amazon.com/elasticbeanstalk/latest/api/API_ListAvailableSolutionStacks.html ListAvailableSolutionStacks>
+    -- API to obtain a list of available solution stacks.
+    solutionStackName :: Prelude.Maybe Prelude.Text,
+    -- | The ID of an environment whose settings you want to use to create the
+    -- configuration template. You must specify @EnvironmentId@ if you don\'t
+    -- specify @PlatformArn@, @SolutionStackName@, or @SourceConfiguration@.
+    environmentId :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the custom platform. For more
+    -- information, see
+    -- <https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/custom-platforms.html Custom Platforms>
+    -- in the /AWS Elastic Beanstalk Developer Guide/.
+    --
+    -- If you specify @PlatformArn@, then don\'t specify @SolutionStackName@.
+    platformArn :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the tags applied to the configuration template.
+    tags :: Prelude.Maybe [Tag],
+    -- | Option values for the Elastic Beanstalk configuration, such as the
+    -- instance type. If specified, these values override the values obtained
+    -- from the solution stack or the source configuration template. For a
+    -- complete list of Elastic Beanstalk configuration options, see
+    -- <https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/command-options.html Option Values>
+    -- in the /AWS Elastic Beanstalk Developer Guide/.
+    optionSettings :: Prelude.Maybe [ConfigurationOptionSetting],
+    -- | An optional description for this configuration.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | An Elastic Beanstalk configuration template to base this one on. If
+    -- specified, Elastic Beanstalk uses the configuration values from the
+    -- specified configuration template to create a new configuration.
+    --
+    -- Values specified in @OptionSettings@ override any values obtained from
+    -- the @SourceConfiguration@.
+    --
+    -- You must specify @SourceConfiguration@ if you don\'t specify
+    -- @PlatformArn@, @EnvironmentId@, or @SolutionStackName@.
+    --
+    -- Constraint: If both solution stack name and source configuration are
+    -- specified, the solution stack of the source configuration template must
+    -- match the specified solution stack name.
+    sourceConfiguration :: Prelude.Maybe SourceConfiguration,
+    -- | The name of the Elastic Beanstalk application to associate with this
+    -- configuration template.
+    applicationName :: Prelude.Text,
+    -- | The name of the configuration template.
+    --
+    -- Constraint: This name must be unique per application.
+    templateName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateConfigurationTemplate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateConfigurationTemplate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cctSolutionStackName' - The name of an Elastic Beanstalk solution stack (platform version) that this configuration uses. For example, @64bit Amazon Linux 2013.09 running Tomcat 7 Java 7@ . A solution stack specifies the operating system, runtime, and application server for a configuration template. It also determines the set of configuration options as well as the possible and default values. For more information, see <https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/concepts.platforms.html Supported Platforms> in the /AWS Elastic Beanstalk Developer Guide/ . You must specify @SolutionStackName@ if you don't specify @PlatformArn@ , @EnvironmentId@ , or @SourceConfiguration@ . Use the <https://docs.aws.amazon.com/elasticbeanstalk/latest/api/API_ListAvailableSolutionStacks.html @ListAvailableSolutionStacks@ > API to obtain a list of available solution stacks.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cctEnvironmentId' - The ID of an environment whose settings you want to use to create the configuration template. You must specify @EnvironmentId@ if you don't specify @PlatformArn@ , @SolutionStackName@ , or @SourceConfiguration@ .
+-- 'solutionStackName', 'createConfigurationTemplate_solutionStackName' - The name of an Elastic Beanstalk solution stack (platform version) that
+-- this configuration uses. For example,
+-- @64bit Amazon Linux 2013.09 running Tomcat 7 Java 7@. A solution stack
+-- specifies the operating system, runtime, and application server for a
+-- configuration template. It also determines the set of configuration
+-- options as well as the possible and default values. For more
+-- information, see
+-- <https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/concepts.platforms.html Supported Platforms>
+-- in the /AWS Elastic Beanstalk Developer Guide/.
 --
--- * 'cctPlatformARN' - The Amazon Resource Name (ARN) of the custom platform. For more information, see <https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/custom-platforms.html Custom Platforms> in the /AWS Elastic Beanstalk Developer Guide/ .
+-- You must specify @SolutionStackName@ if you don\'t specify
+-- @PlatformArn@, @EnvironmentId@, or @SourceConfiguration@.
 --
--- * 'cctTags' - Specifies the tags applied to the configuration template.
+-- Use the
+-- <https://docs.aws.amazon.com/elasticbeanstalk/latest/api/API_ListAvailableSolutionStacks.html ListAvailableSolutionStacks>
+-- API to obtain a list of available solution stacks.
 --
--- * 'cctOptionSettings' - Option values for the Elastic Beanstalk configuration, such as the instance type. If specified, these values override the values obtained from the solution stack or the source configuration template. For a complete list of Elastic Beanstalk configuration options, see <https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/command-options.html Option Values> in the /AWS Elastic Beanstalk Developer Guide/ .
+-- 'environmentId', 'createConfigurationTemplate_environmentId' - The ID of an environment whose settings you want to use to create the
+-- configuration template. You must specify @EnvironmentId@ if you don\'t
+-- specify @PlatformArn@, @SolutionStackName@, or @SourceConfiguration@.
 --
--- * 'cctDescription' - An optional description for this configuration.
+-- 'platformArn', 'createConfigurationTemplate_platformArn' - The Amazon Resource Name (ARN) of the custom platform. For more
+-- information, see
+-- <https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/custom-platforms.html Custom Platforms>
+-- in the /AWS Elastic Beanstalk Developer Guide/.
 --
--- * 'cctSourceConfiguration' - An Elastic Beanstalk configuration template to base this one on. If specified, Elastic Beanstalk uses the configuration values from the specified configuration template to create a new configuration. Values specified in @OptionSettings@ override any values obtained from the @SourceConfiguration@ . You must specify @SourceConfiguration@ if you don't specify @PlatformArn@ , @EnvironmentId@ , or @SolutionStackName@ . Constraint: If both solution stack name and source configuration are specified, the solution stack of the source configuration template must match the specified solution stack name.
+-- If you specify @PlatformArn@, then don\'t specify @SolutionStackName@.
 --
--- * 'cctApplicationName' - The name of the Elastic Beanstalk application to associate with this configuration template.
+-- 'tags', 'createConfigurationTemplate_tags' - Specifies the tags applied to the configuration template.
 --
--- * 'cctTemplateName' - The name of the configuration template. Constraint: This name must be unique per application.
-createConfigurationTemplate ::
-  -- | 'cctApplicationName'
-  Text ->
-  -- | 'cctTemplateName'
-  Text ->
+-- 'optionSettings', 'createConfigurationTemplate_optionSettings' - Option values for the Elastic Beanstalk configuration, such as the
+-- instance type. If specified, these values override the values obtained
+-- from the solution stack or the source configuration template. For a
+-- complete list of Elastic Beanstalk configuration options, see
+-- <https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/command-options.html Option Values>
+-- in the /AWS Elastic Beanstalk Developer Guide/.
+--
+-- 'description', 'createConfigurationTemplate_description' - An optional description for this configuration.
+--
+-- 'sourceConfiguration', 'createConfigurationTemplate_sourceConfiguration' - An Elastic Beanstalk configuration template to base this one on. If
+-- specified, Elastic Beanstalk uses the configuration values from the
+-- specified configuration template to create a new configuration.
+--
+-- Values specified in @OptionSettings@ override any values obtained from
+-- the @SourceConfiguration@.
+--
+-- You must specify @SourceConfiguration@ if you don\'t specify
+-- @PlatformArn@, @EnvironmentId@, or @SolutionStackName@.
+--
+-- Constraint: If both solution stack name and source configuration are
+-- specified, the solution stack of the source configuration template must
+-- match the specified solution stack name.
+--
+-- 'applicationName', 'createConfigurationTemplate_applicationName' - The name of the Elastic Beanstalk application to associate with this
+-- configuration template.
+--
+-- 'templateName', 'createConfigurationTemplate_templateName' - The name of the configuration template.
+--
+-- Constraint: This name must be unique per application.
+newCreateConfigurationTemplate ::
+  -- | 'applicationName'
+  Prelude.Text ->
+  -- | 'templateName'
+  Prelude.Text ->
   CreateConfigurationTemplate
-createConfigurationTemplate
+newCreateConfigurationTemplate
   pApplicationName_
   pTemplateName_ =
     CreateConfigurationTemplate'
-      { _cctSolutionStackName =
-          Nothing,
-        _cctEnvironmentId = Nothing,
-        _cctPlatformARN = Nothing,
-        _cctTags = Nothing,
-        _cctOptionSettings = Nothing,
-        _cctDescription = Nothing,
-        _cctSourceConfiguration = Nothing,
-        _cctApplicationName = pApplicationName_,
-        _cctTemplateName = pTemplateName_
+      { solutionStackName =
+          Prelude.Nothing,
+        environmentId = Prelude.Nothing,
+        platformArn = Prelude.Nothing,
+        tags = Prelude.Nothing,
+        optionSettings = Prelude.Nothing,
+        description = Prelude.Nothing,
+        sourceConfiguration = Prelude.Nothing,
+        applicationName = pApplicationName_,
+        templateName = pTemplateName_
       }
 
--- | The name of an Elastic Beanstalk solution stack (platform version) that this configuration uses. For example, @64bit Amazon Linux 2013.09 running Tomcat 7 Java 7@ . A solution stack specifies the operating system, runtime, and application server for a configuration template. It also determines the set of configuration options as well as the possible and default values. For more information, see <https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/concepts.platforms.html Supported Platforms> in the /AWS Elastic Beanstalk Developer Guide/ . You must specify @SolutionStackName@ if you don't specify @PlatformArn@ , @EnvironmentId@ , or @SourceConfiguration@ . Use the <https://docs.aws.amazon.com/elasticbeanstalk/latest/api/API_ListAvailableSolutionStacks.html @ListAvailableSolutionStacks@ > API to obtain a list of available solution stacks.
-cctSolutionStackName :: Lens' CreateConfigurationTemplate (Maybe Text)
-cctSolutionStackName = lens _cctSolutionStackName (\s a -> s {_cctSolutionStackName = a})
+-- | The name of an Elastic Beanstalk solution stack (platform version) that
+-- this configuration uses. For example,
+-- @64bit Amazon Linux 2013.09 running Tomcat 7 Java 7@. A solution stack
+-- specifies the operating system, runtime, and application server for a
+-- configuration template. It also determines the set of configuration
+-- options as well as the possible and default values. For more
+-- information, see
+-- <https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/concepts.platforms.html Supported Platforms>
+-- in the /AWS Elastic Beanstalk Developer Guide/.
+--
+-- You must specify @SolutionStackName@ if you don\'t specify
+-- @PlatformArn@, @EnvironmentId@, or @SourceConfiguration@.
+--
+-- Use the
+-- <https://docs.aws.amazon.com/elasticbeanstalk/latest/api/API_ListAvailableSolutionStacks.html ListAvailableSolutionStacks>
+-- API to obtain a list of available solution stacks.
+createConfigurationTemplate_solutionStackName :: Lens.Lens' CreateConfigurationTemplate (Prelude.Maybe Prelude.Text)
+createConfigurationTemplate_solutionStackName = Lens.lens (\CreateConfigurationTemplate' {solutionStackName} -> solutionStackName) (\s@CreateConfigurationTemplate' {} a -> s {solutionStackName = a} :: CreateConfigurationTemplate)
 
--- | The ID of an environment whose settings you want to use to create the configuration template. You must specify @EnvironmentId@ if you don't specify @PlatformArn@ , @SolutionStackName@ , or @SourceConfiguration@ .
-cctEnvironmentId :: Lens' CreateConfigurationTemplate (Maybe Text)
-cctEnvironmentId = lens _cctEnvironmentId (\s a -> s {_cctEnvironmentId = a})
+-- | The ID of an environment whose settings you want to use to create the
+-- configuration template. You must specify @EnvironmentId@ if you don\'t
+-- specify @PlatformArn@, @SolutionStackName@, or @SourceConfiguration@.
+createConfigurationTemplate_environmentId :: Lens.Lens' CreateConfigurationTemplate (Prelude.Maybe Prelude.Text)
+createConfigurationTemplate_environmentId = Lens.lens (\CreateConfigurationTemplate' {environmentId} -> environmentId) (\s@CreateConfigurationTemplate' {} a -> s {environmentId = a} :: CreateConfigurationTemplate)
 
--- | The Amazon Resource Name (ARN) of the custom platform. For more information, see <https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/custom-platforms.html Custom Platforms> in the /AWS Elastic Beanstalk Developer Guide/ .
-cctPlatformARN :: Lens' CreateConfigurationTemplate (Maybe Text)
-cctPlatformARN = lens _cctPlatformARN (\s a -> s {_cctPlatformARN = a})
+-- | The Amazon Resource Name (ARN) of the custom platform. For more
+-- information, see
+-- <https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/custom-platforms.html Custom Platforms>
+-- in the /AWS Elastic Beanstalk Developer Guide/.
+--
+-- If you specify @PlatformArn@, then don\'t specify @SolutionStackName@.
+createConfigurationTemplate_platformArn :: Lens.Lens' CreateConfigurationTemplate (Prelude.Maybe Prelude.Text)
+createConfigurationTemplate_platformArn = Lens.lens (\CreateConfigurationTemplate' {platformArn} -> platformArn) (\s@CreateConfigurationTemplate' {} a -> s {platformArn = a} :: CreateConfigurationTemplate)
 
 -- | Specifies the tags applied to the configuration template.
-cctTags :: Lens' CreateConfigurationTemplate [Tag]
-cctTags = lens _cctTags (\s a -> s {_cctTags = a}) . _Default . _Coerce
+createConfigurationTemplate_tags :: Lens.Lens' CreateConfigurationTemplate (Prelude.Maybe [Tag])
+createConfigurationTemplate_tags = Lens.lens (\CreateConfigurationTemplate' {tags} -> tags) (\s@CreateConfigurationTemplate' {} a -> s {tags = a} :: CreateConfigurationTemplate) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Option values for the Elastic Beanstalk configuration, such as the instance type. If specified, these values override the values obtained from the solution stack or the source configuration template. For a complete list of Elastic Beanstalk configuration options, see <https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/command-options.html Option Values> in the /AWS Elastic Beanstalk Developer Guide/ .
-cctOptionSettings :: Lens' CreateConfigurationTemplate [ConfigurationOptionSetting]
-cctOptionSettings = lens _cctOptionSettings (\s a -> s {_cctOptionSettings = a}) . _Default . _Coerce
+-- | Option values for the Elastic Beanstalk configuration, such as the
+-- instance type. If specified, these values override the values obtained
+-- from the solution stack or the source configuration template. For a
+-- complete list of Elastic Beanstalk configuration options, see
+-- <https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/command-options.html Option Values>
+-- in the /AWS Elastic Beanstalk Developer Guide/.
+createConfigurationTemplate_optionSettings :: Lens.Lens' CreateConfigurationTemplate (Prelude.Maybe [ConfigurationOptionSetting])
+createConfigurationTemplate_optionSettings = Lens.lens (\CreateConfigurationTemplate' {optionSettings} -> optionSettings) (\s@CreateConfigurationTemplate' {} a -> s {optionSettings = a} :: CreateConfigurationTemplate) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | An optional description for this configuration.
-cctDescription :: Lens' CreateConfigurationTemplate (Maybe Text)
-cctDescription = lens _cctDescription (\s a -> s {_cctDescription = a})
+createConfigurationTemplate_description :: Lens.Lens' CreateConfigurationTemplate (Prelude.Maybe Prelude.Text)
+createConfigurationTemplate_description = Lens.lens (\CreateConfigurationTemplate' {description} -> description) (\s@CreateConfigurationTemplate' {} a -> s {description = a} :: CreateConfigurationTemplate)
 
--- | An Elastic Beanstalk configuration template to base this one on. If specified, Elastic Beanstalk uses the configuration values from the specified configuration template to create a new configuration. Values specified in @OptionSettings@ override any values obtained from the @SourceConfiguration@ . You must specify @SourceConfiguration@ if you don't specify @PlatformArn@ , @EnvironmentId@ , or @SolutionStackName@ . Constraint: If both solution stack name and source configuration are specified, the solution stack of the source configuration template must match the specified solution stack name.
-cctSourceConfiguration :: Lens' CreateConfigurationTemplate (Maybe SourceConfiguration)
-cctSourceConfiguration = lens _cctSourceConfiguration (\s a -> s {_cctSourceConfiguration = a})
+-- | An Elastic Beanstalk configuration template to base this one on. If
+-- specified, Elastic Beanstalk uses the configuration values from the
+-- specified configuration template to create a new configuration.
+--
+-- Values specified in @OptionSettings@ override any values obtained from
+-- the @SourceConfiguration@.
+--
+-- You must specify @SourceConfiguration@ if you don\'t specify
+-- @PlatformArn@, @EnvironmentId@, or @SolutionStackName@.
+--
+-- Constraint: If both solution stack name and source configuration are
+-- specified, the solution stack of the source configuration template must
+-- match the specified solution stack name.
+createConfigurationTemplate_sourceConfiguration :: Lens.Lens' CreateConfigurationTemplate (Prelude.Maybe SourceConfiguration)
+createConfigurationTemplate_sourceConfiguration = Lens.lens (\CreateConfigurationTemplate' {sourceConfiguration} -> sourceConfiguration) (\s@CreateConfigurationTemplate' {} a -> s {sourceConfiguration = a} :: CreateConfigurationTemplate)
 
--- | The name of the Elastic Beanstalk application to associate with this configuration template.
-cctApplicationName :: Lens' CreateConfigurationTemplate Text
-cctApplicationName = lens _cctApplicationName (\s a -> s {_cctApplicationName = a})
+-- | The name of the Elastic Beanstalk application to associate with this
+-- configuration template.
+createConfigurationTemplate_applicationName :: Lens.Lens' CreateConfigurationTemplate Prelude.Text
+createConfigurationTemplate_applicationName = Lens.lens (\CreateConfigurationTemplate' {applicationName} -> applicationName) (\s@CreateConfigurationTemplate' {} a -> s {applicationName = a} :: CreateConfigurationTemplate)
 
--- | The name of the configuration template. Constraint: This name must be unique per application.
-cctTemplateName :: Lens' CreateConfigurationTemplate Text
-cctTemplateName = lens _cctTemplateName (\s a -> s {_cctTemplateName = a})
+-- | The name of the configuration template.
+--
+-- Constraint: This name must be unique per application.
+createConfigurationTemplate_templateName :: Lens.Lens' CreateConfigurationTemplate Prelude.Text
+createConfigurationTemplate_templateName = Lens.lens (\CreateConfigurationTemplate' {templateName} -> templateName) (\s@CreateConfigurationTemplate' {} a -> s {templateName = a} :: CreateConfigurationTemplate)
 
-instance AWSRequest CreateConfigurationTemplate where
+instance
+  Prelude.AWSRequest
+    CreateConfigurationTemplate
+  where
   type
     Rs CreateConfigurationTemplate =
       ConfigurationSettingsDescription
-  request = postQuery elasticBeanstalk
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "CreateConfigurationTemplateResult"
-      (\s h x -> parseXML x)
+      (\s h x -> Prelude.parseXML x)
 
-instance Hashable CreateConfigurationTemplate
+instance Prelude.Hashable CreateConfigurationTemplate
 
-instance NFData CreateConfigurationTemplate
+instance Prelude.NFData CreateConfigurationTemplate
 
-instance ToHeaders CreateConfigurationTemplate where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    CreateConfigurationTemplate
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CreateConfigurationTemplate where
-  toPath = const "/"
+instance Prelude.ToPath CreateConfigurationTemplate where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateConfigurationTemplate where
+instance Prelude.ToQuery CreateConfigurationTemplate where
   toQuery CreateConfigurationTemplate' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("CreateConfigurationTemplate" :: ByteString),
-        "Version" =: ("2010-12-01" :: ByteString),
-        "SolutionStackName" =: _cctSolutionStackName,
-        "EnvironmentId" =: _cctEnvironmentId,
-        "PlatformArn" =: _cctPlatformARN,
+          Prelude.=: ( "CreateConfigurationTemplate" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2010-12-01" :: Prelude.ByteString),
+        "SolutionStackName" Prelude.=: solutionStackName,
+        "EnvironmentId" Prelude.=: environmentId,
+        "PlatformArn" Prelude.=: platformArn,
         "Tags"
-          =: toQuery (toQueryList "member" <$> _cctTags),
+          Prelude.=: Prelude.toQuery
+            (Prelude.toQueryList "member" Prelude.<$> tags),
         "OptionSettings"
-          =: toQuery
-            (toQueryList "member" <$> _cctOptionSettings),
-        "Description" =: _cctDescription,
-        "SourceConfiguration" =: _cctSourceConfiguration,
-        "ApplicationName" =: _cctApplicationName,
-        "TemplateName" =: _cctTemplateName
+          Prelude.=: Prelude.toQuery
+            ( Prelude.toQueryList "member"
+                Prelude.<$> optionSettings
+            ),
+        "Description" Prelude.=: description,
+        "SourceConfiguration" Prelude.=: sourceConfiguration,
+        "ApplicationName" Prelude.=: applicationName,
+        "TemplateName" Prelude.=: templateName
       ]

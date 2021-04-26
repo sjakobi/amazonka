@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,123 +21,124 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns attributes related to AWS Elastic Beanstalk that are associated with the calling AWS account.
---
+-- Returns attributes related to AWS Elastic Beanstalk that are associated
+-- with the calling AWS account.
 --
 -- The result currently has one set of attributes—resource quotas.
 module Network.AWS.ElasticBeanstalk.DescribeAccountAttributes
   ( -- * Creating a Request
-    describeAccountAttributes,
-    DescribeAccountAttributes,
+    DescribeAccountAttributes (..),
+    newDescribeAccountAttributes,
 
     -- * Destructuring the Response
-    describeAccountAttributesResponse,
-    DescribeAccountAttributesResponse,
+    DescribeAccountAttributesResponse (..),
+    newDescribeAccountAttributesResponse,
 
     -- * Response Lenses
-    daarrsResourceQuotas,
-    daarrsResponseStatus,
+    describeAccountAttributesResponse_resourceQuotas,
+    describeAccountAttributesResponse_httpStatus,
   )
 where
 
 import Network.AWS.ElasticBeanstalk.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ElasticBeanstalk.Types.ResourceQuotas
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeAccountAttributes' smart constructor.
+-- | /See:/ 'newDescribeAccountAttributes' smart constructor.
 data DescribeAccountAttributes = DescribeAccountAttributes'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeAccountAttributes' with the minimum fields required to make a request.
-describeAccountAttributes ::
+-- |
+-- Create a value of 'DescribeAccountAttributes' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDescribeAccountAttributes ::
   DescribeAccountAttributes
-describeAccountAttributes =
+newDescribeAccountAttributes =
   DescribeAccountAttributes'
 
-instance AWSRequest DescribeAccountAttributes where
+instance Prelude.AWSRequest DescribeAccountAttributes where
   type
     Rs DescribeAccountAttributes =
       DescribeAccountAttributesResponse
-  request = postQuery elasticBeanstalk
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DescribeAccountAttributesResult"
       ( \s h x ->
           DescribeAccountAttributesResponse'
-            <$> (x .@? "ResourceQuotas") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "ResourceQuotas")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeAccountAttributes
+instance Prelude.Hashable DescribeAccountAttributes
 
-instance NFData DescribeAccountAttributes
+instance Prelude.NFData DescribeAccountAttributes
 
-instance ToHeaders DescribeAccountAttributes where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeAccountAttributes where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeAccountAttributes where
-  toPath = const "/"
+instance Prelude.ToPath DescribeAccountAttributes where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeAccountAttributes where
+instance Prelude.ToQuery DescribeAccountAttributes where
   toQuery =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Action"
-              =: ("DescribeAccountAttributes" :: ByteString),
-            "Version" =: ("2010-12-01" :: ByteString)
+              Prelude.=: ("DescribeAccountAttributes" :: Prelude.ByteString),
+            "Version"
+              Prelude.=: ("2010-12-01" :: Prelude.ByteString)
           ]
       )
 
--- | /See:/ 'describeAccountAttributesResponse' smart constructor.
+-- | /See:/ 'newDescribeAccountAttributesResponse' smart constructor.
 data DescribeAccountAttributesResponse = DescribeAccountAttributesResponse'
-  { _daarrsResourceQuotas ::
-      !( Maybe
-           ResourceQuotas
-       ),
-    _daarrsResponseStatus ::
-      !Int
+  { -- | The Elastic Beanstalk resource quotas associated with the calling AWS
+    -- account.
+    resourceQuotas :: Prelude.Maybe ResourceQuotas,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeAccountAttributesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeAccountAttributesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'daarrsResourceQuotas' - The Elastic Beanstalk resource quotas associated with the calling AWS account.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'daarrsResponseStatus' - -- | The response status code.
-describeAccountAttributesResponse ::
-  -- | 'daarrsResponseStatus'
-  Int ->
+-- 'resourceQuotas', 'describeAccountAttributesResponse_resourceQuotas' - The Elastic Beanstalk resource quotas associated with the calling AWS
+-- account.
+--
+-- 'httpStatus', 'describeAccountAttributesResponse_httpStatus' - The response's http status code.
+newDescribeAccountAttributesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeAccountAttributesResponse
-describeAccountAttributesResponse pResponseStatus_ =
+newDescribeAccountAttributesResponse pHttpStatus_ =
   DescribeAccountAttributesResponse'
-    { _daarrsResourceQuotas =
-        Nothing,
-      _daarrsResponseStatus = pResponseStatus_
+    { resourceQuotas =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The Elastic Beanstalk resource quotas associated with the calling AWS account.
-daarrsResourceQuotas :: Lens' DescribeAccountAttributesResponse (Maybe ResourceQuotas)
-daarrsResourceQuotas = lens _daarrsResourceQuotas (\s a -> s {_daarrsResourceQuotas = a})
+-- | The Elastic Beanstalk resource quotas associated with the calling AWS
+-- account.
+describeAccountAttributesResponse_resourceQuotas :: Lens.Lens' DescribeAccountAttributesResponse (Prelude.Maybe ResourceQuotas)
+describeAccountAttributesResponse_resourceQuotas = Lens.lens (\DescribeAccountAttributesResponse' {resourceQuotas} -> resourceQuotas) (\s@DescribeAccountAttributesResponse' {} a -> s {resourceQuotas = a} :: DescribeAccountAttributesResponse)
 
--- | -- | The response status code.
-daarrsResponseStatus :: Lens' DescribeAccountAttributesResponse Int
-daarrsResponseStatus = lens _daarrsResponseStatus (\s a -> s {_daarrsResponseStatus = a})
+-- | The response's http status code.
+describeAccountAttributesResponse_httpStatus :: Lens.Lens' DescribeAccountAttributesResponse Prelude.Int
+describeAccountAttributesResponse_httpStatus = Lens.lens (\DescribeAccountAttributesResponse' {httpStatus} -> httpStatus) (\s@DescribeAccountAttributesResponse' {} a -> s {httpStatus = a} :: DescribeAccountAttributesResponse)
 
-instance NFData DescribeAccountAttributesResponse
+instance
+  Prelude.NFData
+    DescribeAccountAttributesResponse

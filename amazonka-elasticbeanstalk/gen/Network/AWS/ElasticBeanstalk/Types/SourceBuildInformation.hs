@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,86 +21,131 @@ module Network.AWS.ElasticBeanstalk.Types.SourceBuildInformation where
 
 import Network.AWS.ElasticBeanstalk.Types.SourceRepository
 import Network.AWS.ElasticBeanstalk.Types.SourceType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Location of the source code for an application version.
 --
---
---
--- /See:/ 'sourceBuildInformation' smart constructor.
+-- /See:/ 'newSourceBuildInformation' smart constructor.
 data SourceBuildInformation = SourceBuildInformation'
-  { _sbiSourceType ::
-      !SourceType,
-    _sbiSourceRepository ::
-      !SourceRepository,
-    _sbiSourceLocation ::
-      !Text
+  { -- | The type of repository.
+    --
+    -- -   @Git@
+    --
+    -- -   @Zip@
+    sourceType :: SourceType,
+    -- | Location where the repository is stored.
+    --
+    -- -   @CodeCommit@
+    --
+    -- -   @S3@
+    sourceRepository :: SourceRepository,
+    -- | The location of the source code, as a formatted string, depending on the
+    -- value of @SourceRepository@
+    --
+    -- -   For @CodeCommit@, the format is the repository name and commit ID,
+    --     separated by a forward slash. For example,
+    --     @my-git-repo\/265cfa0cf6af46153527f55d6503ec030551f57a@.
+    --
+    -- -   For @S3@, the format is the S3 bucket name and object key, separated
+    --     by a forward slash. For example,
+    --     @my-s3-bucket\/Folders\/my-source-file@.
+    sourceLocation :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SourceBuildInformation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SourceBuildInformation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sbiSourceType' - The type of repository.     * @Git@      * @Zip@
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sbiSourceRepository' - Location where the repository is stored.     * @CodeCommit@      * @S3@
+-- 'sourceType', 'sourceBuildInformation_sourceType' - The type of repository.
 --
--- * 'sbiSourceLocation' - The location of the source code, as a formatted string, depending on the value of @SourceRepository@      * For @CodeCommit@ , the format is the repository name and commit ID, separated by a forward slash. For example, @my-git-repo/265cfa0cf6af46153527f55d6503ec030551f57a@ .     * For @S3@ , the format is the S3 bucket name and object key, separated by a forward slash. For example, @my-s3-bucket/Folders/my-source-file@ .
-sourceBuildInformation ::
-  -- | 'sbiSourceType'
+-- -   @Git@
+--
+-- -   @Zip@
+--
+-- 'sourceRepository', 'sourceBuildInformation_sourceRepository' - Location where the repository is stored.
+--
+-- -   @CodeCommit@
+--
+-- -   @S3@
+--
+-- 'sourceLocation', 'sourceBuildInformation_sourceLocation' - The location of the source code, as a formatted string, depending on the
+-- value of @SourceRepository@
+--
+-- -   For @CodeCommit@, the format is the repository name and commit ID,
+--     separated by a forward slash. For example,
+--     @my-git-repo\/265cfa0cf6af46153527f55d6503ec030551f57a@.
+--
+-- -   For @S3@, the format is the S3 bucket name and object key, separated
+--     by a forward slash. For example,
+--     @my-s3-bucket\/Folders\/my-source-file@.
+newSourceBuildInformation ::
+  -- | 'sourceType'
   SourceType ->
-  -- | 'sbiSourceRepository'
+  -- | 'sourceRepository'
   SourceRepository ->
-  -- | 'sbiSourceLocation'
-  Text ->
+  -- | 'sourceLocation'
+  Prelude.Text ->
   SourceBuildInformation
-sourceBuildInformation
+newSourceBuildInformation
   pSourceType_
   pSourceRepository_
   pSourceLocation_ =
     SourceBuildInformation'
-      { _sbiSourceType =
-          pSourceType_,
-        _sbiSourceRepository = pSourceRepository_,
-        _sbiSourceLocation = pSourceLocation_
+      { sourceType = pSourceType_,
+        sourceRepository = pSourceRepository_,
+        sourceLocation = pSourceLocation_
       }
 
--- | The type of repository.     * @Git@      * @Zip@
-sbiSourceType :: Lens' SourceBuildInformation SourceType
-sbiSourceType = lens _sbiSourceType (\s a -> s {_sbiSourceType = a})
+-- | The type of repository.
+--
+-- -   @Git@
+--
+-- -   @Zip@
+sourceBuildInformation_sourceType :: Lens.Lens' SourceBuildInformation SourceType
+sourceBuildInformation_sourceType = Lens.lens (\SourceBuildInformation' {sourceType} -> sourceType) (\s@SourceBuildInformation' {} a -> s {sourceType = a} :: SourceBuildInformation)
 
--- | Location where the repository is stored.     * @CodeCommit@      * @S3@
-sbiSourceRepository :: Lens' SourceBuildInformation SourceRepository
-sbiSourceRepository = lens _sbiSourceRepository (\s a -> s {_sbiSourceRepository = a})
+-- | Location where the repository is stored.
+--
+-- -   @CodeCommit@
+--
+-- -   @S3@
+sourceBuildInformation_sourceRepository :: Lens.Lens' SourceBuildInformation SourceRepository
+sourceBuildInformation_sourceRepository = Lens.lens (\SourceBuildInformation' {sourceRepository} -> sourceRepository) (\s@SourceBuildInformation' {} a -> s {sourceRepository = a} :: SourceBuildInformation)
 
--- | The location of the source code, as a formatted string, depending on the value of @SourceRepository@      * For @CodeCommit@ , the format is the repository name and commit ID, separated by a forward slash. For example, @my-git-repo/265cfa0cf6af46153527f55d6503ec030551f57a@ .     * For @S3@ , the format is the S3 bucket name and object key, separated by a forward slash. For example, @my-s3-bucket/Folders/my-source-file@ .
-sbiSourceLocation :: Lens' SourceBuildInformation Text
-sbiSourceLocation = lens _sbiSourceLocation (\s a -> s {_sbiSourceLocation = a})
+-- | The location of the source code, as a formatted string, depending on the
+-- value of @SourceRepository@
+--
+-- -   For @CodeCommit@, the format is the repository name and commit ID,
+--     separated by a forward slash. For example,
+--     @my-git-repo\/265cfa0cf6af46153527f55d6503ec030551f57a@.
+--
+-- -   For @S3@, the format is the S3 bucket name and object key, separated
+--     by a forward slash. For example,
+--     @my-s3-bucket\/Folders\/my-source-file@.
+sourceBuildInformation_sourceLocation :: Lens.Lens' SourceBuildInformation Prelude.Text
+sourceBuildInformation_sourceLocation = Lens.lens (\SourceBuildInformation' {sourceLocation} -> sourceLocation) (\s@SourceBuildInformation' {} a -> s {sourceLocation = a} :: SourceBuildInformation)
 
-instance FromXML SourceBuildInformation where
+instance Prelude.FromXML SourceBuildInformation where
   parseXML x =
     SourceBuildInformation'
-      <$> (x .@ "SourceType")
-      <*> (x .@ "SourceRepository")
-      <*> (x .@ "SourceLocation")
+      Prelude.<$> (x Prelude..@ "SourceType")
+      Prelude.<*> (x Prelude..@ "SourceRepository")
+      Prelude.<*> (x Prelude..@ "SourceLocation")
 
-instance Hashable SourceBuildInformation
+instance Prelude.Hashable SourceBuildInformation
 
-instance NFData SourceBuildInformation
+instance Prelude.NFData SourceBuildInformation
 
-instance ToQuery SourceBuildInformation where
+instance Prelude.ToQuery SourceBuildInformation where
   toQuery SourceBuildInformation' {..} =
-    mconcat
-      [ "SourceType" =: _sbiSourceType,
-        "SourceRepository" =: _sbiSourceRepository,
-        "SourceLocation" =: _sbiSourceLocation
+    Prelude.mconcat
+      [ "SourceType" Prelude.=: sourceType,
+        "SourceRepository" Prelude.=: sourceRepository,
+        "SourceLocation" Prelude.=: sourceLocation
       ]

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -18,92 +22,114 @@
 -- Portability : non-portable (GHC extensions)
 --
 -- Updates the specified application to have the specified properties.
+--
+-- If a property (for example, @description@) is not provided, the value
+-- remains unchanged. To clear these properties, specify an empty string.
 module Network.AWS.ElasticBeanstalk.UpdateApplication
   ( -- * Creating a Request
-    updateApplication,
-    UpdateApplication,
+    UpdateApplication (..),
+    newUpdateApplication,
 
     -- * Request Lenses
-    uaDescription,
-    uaApplicationName,
+    updateApplication_description,
+    updateApplication_applicationName,
 
     -- * Destructuring the Response
-    applicationDescriptionMessage,
-    ApplicationDescriptionMessage,
+    ApplicationDescriptionMessage (..),
+    newApplicationDescriptionMessage,
 
     -- * Response Lenses
-    admApplication,
+    applicationDescriptionMessage_application,
   )
 where
 
 import Network.AWS.ElasticBeanstalk.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ElasticBeanstalk.Types.ApplicationDescription
+import Network.AWS.ElasticBeanstalk.Types.ApplicationDescriptionMessage
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Request to update an application.
 --
---
---
--- /See:/ 'updateApplication' smart constructor.
+-- /See:/ 'newUpdateApplication' smart constructor.
 data UpdateApplication = UpdateApplication'
-  { _uaDescription ::
-      !(Maybe Text),
-    _uaApplicationName :: !Text
+  { -- | A new description for the application.
+    --
+    -- Default: If not specified, AWS Elastic Beanstalk does not update the
+    -- description.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The name of the application to update. If no such application is found,
+    -- @UpdateApplication@ returns an @InvalidParameterValue@ error.
+    applicationName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateApplication' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateApplication' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uaDescription' - A new description for the application. Default: If not specified, AWS Elastic Beanstalk does not update the description.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uaApplicationName' - The name of the application to update. If no such application is found, @UpdateApplication@ returns an @InvalidParameterValue@ error.
-updateApplication ::
-  -- | 'uaApplicationName'
-  Text ->
+-- 'description', 'updateApplication_description' - A new description for the application.
+--
+-- Default: If not specified, AWS Elastic Beanstalk does not update the
+-- description.
+--
+-- 'applicationName', 'updateApplication_applicationName' - The name of the application to update. If no such application is found,
+-- @UpdateApplication@ returns an @InvalidParameterValue@ error.
+newUpdateApplication ::
+  -- | 'applicationName'
+  Prelude.Text ->
   UpdateApplication
-updateApplication pApplicationName_ =
+newUpdateApplication pApplicationName_ =
   UpdateApplication'
-    { _uaDescription = Nothing,
-      _uaApplicationName = pApplicationName_
+    { description = Prelude.Nothing,
+      applicationName = pApplicationName_
     }
 
--- | A new description for the application. Default: If not specified, AWS Elastic Beanstalk does not update the description.
-uaDescription :: Lens' UpdateApplication (Maybe Text)
-uaDescription = lens _uaDescription (\s a -> s {_uaDescription = a})
+-- | A new description for the application.
+--
+-- Default: If not specified, AWS Elastic Beanstalk does not update the
+-- description.
+updateApplication_description :: Lens.Lens' UpdateApplication (Prelude.Maybe Prelude.Text)
+updateApplication_description = Lens.lens (\UpdateApplication' {description} -> description) (\s@UpdateApplication' {} a -> s {description = a} :: UpdateApplication)
 
--- | The name of the application to update. If no such application is found, @UpdateApplication@ returns an @InvalidParameterValue@ error.
-uaApplicationName :: Lens' UpdateApplication Text
-uaApplicationName = lens _uaApplicationName (\s a -> s {_uaApplicationName = a})
+-- | The name of the application to update. If no such application is found,
+-- @UpdateApplication@ returns an @InvalidParameterValue@ error.
+updateApplication_applicationName :: Lens.Lens' UpdateApplication Prelude.Text
+updateApplication_applicationName = Lens.lens (\UpdateApplication' {applicationName} -> applicationName) (\s@UpdateApplication' {} a -> s {applicationName = a} :: UpdateApplication)
 
-instance AWSRequest UpdateApplication where
+instance Prelude.AWSRequest UpdateApplication where
   type
     Rs UpdateApplication =
       ApplicationDescriptionMessage
-  request = postQuery elasticBeanstalk
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "UpdateApplicationResult"
-      (\s h x -> parseXML x)
+      (\s h x -> Prelude.parseXML x)
 
-instance Hashable UpdateApplication
+instance Prelude.Hashable UpdateApplication
 
-instance NFData UpdateApplication
+instance Prelude.NFData UpdateApplication
 
-instance ToHeaders UpdateApplication where
-  toHeaders = const mempty
+instance Prelude.ToHeaders UpdateApplication where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath UpdateApplication where
-  toPath = const "/"
+instance Prelude.ToPath UpdateApplication where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateApplication where
+instance Prelude.ToQuery UpdateApplication where
   toQuery UpdateApplication' {..} =
-    mconcat
-      [ "Action" =: ("UpdateApplication" :: ByteString),
-        "Version" =: ("2010-12-01" :: ByteString),
-        "Description" =: _uaDescription,
-        "ApplicationName" =: _uaApplicationName
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("UpdateApplication" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-12-01" :: Prelude.ByteString),
+        "Description" Prelude.=: description,
+        "ApplicationName" Prelude.=: applicationName
       ]

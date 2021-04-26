@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,122 +21,121 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a bucket in Amazon S3 to store application versions, logs, and other files used by Elastic Beanstalk environments. The Elastic Beanstalk console and EB CLI call this API the first time you create an environment in a region. If the storage location already exists, @CreateStorageLocation@ still returns the bucket name but does not create a new bucket.
+-- Creates a bucket in Amazon S3 to store application versions, logs, and
+-- other files used by Elastic Beanstalk environments. The Elastic
+-- Beanstalk console and EB CLI call this API the first time you create an
+-- environment in a region. If the storage location already exists,
+-- @CreateStorageLocation@ still returns the bucket name but does not
+-- create a new bucket.
 module Network.AWS.ElasticBeanstalk.CreateStorageLocation
   ( -- * Creating a Request
-    createStorageLocation,
-    CreateStorageLocation,
+    CreateStorageLocation (..),
+    newCreateStorageLocation,
 
     -- * Destructuring the Response
-    createStorageLocationResponse,
-    CreateStorageLocationResponse,
+    CreateStorageLocationResponse (..),
+    newCreateStorageLocationResponse,
 
     -- * Response Lenses
-    cslrrsS3Bucket,
-    cslrrsResponseStatus,
+    createStorageLocationResponse_s3Bucket,
+    createStorageLocationResponse_httpStatus,
   )
 where
 
 import Network.AWS.ElasticBeanstalk.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createStorageLocation' smart constructor.
+-- | /See:/ 'newCreateStorageLocation' smart constructor.
 data CreateStorageLocation = CreateStorageLocation'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateStorageLocation' with the minimum fields required to make a request.
-createStorageLocation ::
+-- |
+-- Create a value of 'CreateStorageLocation' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newCreateStorageLocation ::
   CreateStorageLocation
-createStorageLocation = CreateStorageLocation'
+newCreateStorageLocation = CreateStorageLocation'
 
-instance AWSRequest CreateStorageLocation where
+instance Prelude.AWSRequest CreateStorageLocation where
   type
     Rs CreateStorageLocation =
       CreateStorageLocationResponse
-  request = postQuery elasticBeanstalk
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "CreateStorageLocationResult"
       ( \s h x ->
           CreateStorageLocationResponse'
-            <$> (x .@? "S3Bucket") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "S3Bucket")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateStorageLocation
+instance Prelude.Hashable CreateStorageLocation
 
-instance NFData CreateStorageLocation
+instance Prelude.NFData CreateStorageLocation
 
-instance ToHeaders CreateStorageLocation where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateStorageLocation where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CreateStorageLocation where
-  toPath = const "/"
+instance Prelude.ToPath CreateStorageLocation where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateStorageLocation where
+instance Prelude.ToQuery CreateStorageLocation where
   toQuery =
-    const
-      ( mconcat
-          [ "Action" =: ("CreateStorageLocation" :: ByteString),
-            "Version" =: ("2010-12-01" :: ByteString)
+    Prelude.const
+      ( Prelude.mconcat
+          [ "Action"
+              Prelude.=: ("CreateStorageLocation" :: Prelude.ByteString),
+            "Version"
+              Prelude.=: ("2010-12-01" :: Prelude.ByteString)
           ]
       )
 
--- | Results of a 'CreateStorageLocationResult' call.
+-- | Results of a CreateStorageLocationResult call.
 --
---
---
--- /See:/ 'createStorageLocationResponse' smart constructor.
+-- /See:/ 'newCreateStorageLocationResponse' smart constructor.
 data CreateStorageLocationResponse = CreateStorageLocationResponse'
-  { _cslrrsS3Bucket ::
-      !( Maybe
-           Text
-       ),
-    _cslrrsResponseStatus ::
-      !Int
+  { -- | The name of the Amazon S3 bucket created.
+    s3Bucket :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateStorageLocationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateStorageLocationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cslrrsS3Bucket' - The name of the Amazon S3 bucket created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cslrrsResponseStatus' - -- | The response status code.
-createStorageLocationResponse ::
-  -- | 'cslrrsResponseStatus'
-  Int ->
+-- 's3Bucket', 'createStorageLocationResponse_s3Bucket' - The name of the Amazon S3 bucket created.
+--
+-- 'httpStatus', 'createStorageLocationResponse_httpStatus' - The response's http status code.
+newCreateStorageLocationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateStorageLocationResponse
-createStorageLocationResponse pResponseStatus_ =
+newCreateStorageLocationResponse pHttpStatus_ =
   CreateStorageLocationResponse'
-    { _cslrrsS3Bucket =
-        Nothing,
-      _cslrrsResponseStatus = pResponseStatus_
+    { s3Bucket =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The name of the Amazon S3 bucket created.
-cslrrsS3Bucket :: Lens' CreateStorageLocationResponse (Maybe Text)
-cslrrsS3Bucket = lens _cslrrsS3Bucket (\s a -> s {_cslrrsS3Bucket = a})
+createStorageLocationResponse_s3Bucket :: Lens.Lens' CreateStorageLocationResponse (Prelude.Maybe Prelude.Text)
+createStorageLocationResponse_s3Bucket = Lens.lens (\CreateStorageLocationResponse' {s3Bucket} -> s3Bucket) (\s@CreateStorageLocationResponse' {} a -> s {s3Bucket = a} :: CreateStorageLocationResponse)
 
--- | -- | The response status code.
-cslrrsResponseStatus :: Lens' CreateStorageLocationResponse Int
-cslrrsResponseStatus = lens _cslrrsResponseStatus (\s a -> s {_cslrrsResponseStatus = a})
+-- | The response's http status code.
+createStorageLocationResponse_httpStatus :: Lens.Lens' CreateStorageLocationResponse Prelude.Int
+createStorageLocationResponse_httpStatus = Lens.lens (\CreateStorageLocationResponse' {httpStatus} -> httpStatus) (\s@CreateStorageLocationResponse' {} a -> s {httpStatus = a} :: CreateStorageLocationResponse)
 
-instance NFData CreateStorageLocationResponse
+instance Prelude.NFData CreateStorageLocationResponse

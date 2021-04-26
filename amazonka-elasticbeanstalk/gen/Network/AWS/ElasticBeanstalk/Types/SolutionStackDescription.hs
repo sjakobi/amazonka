@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,61 +19,57 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ElasticBeanstalk.Types.SolutionStackDescription where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the solution stack.
 --
---
---
--- /See:/ 'solutionStackDescription' smart constructor.
+-- /See:/ 'newSolutionStackDescription' smart constructor.
 data SolutionStackDescription = SolutionStackDescription'
-  { _ssdPermittedFileTypes ::
-      !(Maybe [Text]),
-    _ssdSolutionStackName ::
-      !(Maybe Text)
+  { -- | The permitted file types allowed for a solution stack.
+    permittedFileTypes :: Prelude.Maybe [Prelude.Text],
+    -- | The name of the solution stack.
+    solutionStackName :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SolutionStackDescription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SolutionStackDescription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ssdPermittedFileTypes' - The permitted file types allowed for a solution stack.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ssdSolutionStackName' - The name of the solution stack.
-solutionStackDescription ::
+-- 'permittedFileTypes', 'solutionStackDescription_permittedFileTypes' - The permitted file types allowed for a solution stack.
+--
+-- 'solutionStackName', 'solutionStackDescription_solutionStackName' - The name of the solution stack.
+newSolutionStackDescription ::
   SolutionStackDescription
-solutionStackDescription =
+newSolutionStackDescription =
   SolutionStackDescription'
-    { _ssdPermittedFileTypes =
-        Nothing,
-      _ssdSolutionStackName = Nothing
+    { permittedFileTypes =
+        Prelude.Nothing,
+      solutionStackName = Prelude.Nothing
     }
 
 -- | The permitted file types allowed for a solution stack.
-ssdPermittedFileTypes :: Lens' SolutionStackDescription [Text]
-ssdPermittedFileTypes = lens _ssdPermittedFileTypes (\s a -> s {_ssdPermittedFileTypes = a}) . _Default . _Coerce
+solutionStackDescription_permittedFileTypes :: Lens.Lens' SolutionStackDescription (Prelude.Maybe [Prelude.Text])
+solutionStackDescription_permittedFileTypes = Lens.lens (\SolutionStackDescription' {permittedFileTypes} -> permittedFileTypes) (\s@SolutionStackDescription' {} a -> s {permittedFileTypes = a} :: SolutionStackDescription) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The name of the solution stack.
-ssdSolutionStackName :: Lens' SolutionStackDescription (Maybe Text)
-ssdSolutionStackName = lens _ssdSolutionStackName (\s a -> s {_ssdSolutionStackName = a})
+solutionStackDescription_solutionStackName :: Lens.Lens' SolutionStackDescription (Prelude.Maybe Prelude.Text)
+solutionStackDescription_solutionStackName = Lens.lens (\SolutionStackDescription' {solutionStackName} -> solutionStackName) (\s@SolutionStackDescription' {} a -> s {solutionStackName = a} :: SolutionStackDescription)
 
-instance FromXML SolutionStackDescription where
+instance Prelude.FromXML SolutionStackDescription where
   parseXML x =
     SolutionStackDescription'
-      <$> ( x .@? "PermittedFileTypes" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> (x .@? "SolutionStackName")
+      Prelude.<$> ( x Prelude..@? "PermittedFileTypes"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> (x Prelude..@? "SolutionStackName")
 
-instance Hashable SolutionStackDescription
+instance Prelude.Hashable SolutionStackDescription
 
-instance NFData SolutionStackDescription
+instance Prelude.NFData SolutionStackDescription

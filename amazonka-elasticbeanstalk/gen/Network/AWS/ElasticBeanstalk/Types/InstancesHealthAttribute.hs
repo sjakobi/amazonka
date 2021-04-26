@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,99 +19,97 @@
 module Network.AWS.ElasticBeanstalk.Types.InstancesHealthAttribute
   ( InstancesHealthAttribute
       ( ..,
-        IHAAll,
-        IHAApplicationMetrics,
-        IHAAvailabilityZone,
-        IHACauses,
-        IHAColor,
-        IHADeployment,
-        IHAHealthStatus,
-        IHAInstanceType,
-        IHALaunchedAt,
-        IHARefreshedAt,
-        IHASystem
+        InstancesHealthAttributeAll,
+        InstancesHealthAttributeApplicationMetrics,
+        InstancesHealthAttributeAvailabilityZone,
+        InstancesHealthAttributeCauses,
+        InstancesHealthAttributeColor,
+        InstancesHealthAttributeDeployment,
+        InstancesHealthAttributeHealthStatus,
+        InstancesHealthAttributeInstanceType,
+        InstancesHealthAttributeLaunchedAt,
+        InstancesHealthAttributeRefreshedAt,
+        InstancesHealthAttributeSystem
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data InstancesHealthAttribute
-  = InstancesHealthAttribute'
-      ( CI
-          Text
-      )
+newtype InstancesHealthAttribute = InstancesHealthAttribute'
+  { fromInstancesHealthAttribute ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern IHAAll :: InstancesHealthAttribute
-pattern IHAAll = InstancesHealthAttribute' "All"
+pattern InstancesHealthAttributeAll :: InstancesHealthAttribute
+pattern InstancesHealthAttributeAll = InstancesHealthAttribute' "All"
 
-pattern IHAApplicationMetrics :: InstancesHealthAttribute
-pattern IHAApplicationMetrics = InstancesHealthAttribute' "ApplicationMetrics"
+pattern InstancesHealthAttributeApplicationMetrics :: InstancesHealthAttribute
+pattern InstancesHealthAttributeApplicationMetrics = InstancesHealthAttribute' "ApplicationMetrics"
 
-pattern IHAAvailabilityZone :: InstancesHealthAttribute
-pattern IHAAvailabilityZone = InstancesHealthAttribute' "AvailabilityZone"
+pattern InstancesHealthAttributeAvailabilityZone :: InstancesHealthAttribute
+pattern InstancesHealthAttributeAvailabilityZone = InstancesHealthAttribute' "AvailabilityZone"
 
-pattern IHACauses :: InstancesHealthAttribute
-pattern IHACauses = InstancesHealthAttribute' "Causes"
+pattern InstancesHealthAttributeCauses :: InstancesHealthAttribute
+pattern InstancesHealthAttributeCauses = InstancesHealthAttribute' "Causes"
 
-pattern IHAColor :: InstancesHealthAttribute
-pattern IHAColor = InstancesHealthAttribute' "Color"
+pattern InstancesHealthAttributeColor :: InstancesHealthAttribute
+pattern InstancesHealthAttributeColor = InstancesHealthAttribute' "Color"
 
-pattern IHADeployment :: InstancesHealthAttribute
-pattern IHADeployment = InstancesHealthAttribute' "Deployment"
+pattern InstancesHealthAttributeDeployment :: InstancesHealthAttribute
+pattern InstancesHealthAttributeDeployment = InstancesHealthAttribute' "Deployment"
 
-pattern IHAHealthStatus :: InstancesHealthAttribute
-pattern IHAHealthStatus = InstancesHealthAttribute' "HealthStatus"
+pattern InstancesHealthAttributeHealthStatus :: InstancesHealthAttribute
+pattern InstancesHealthAttributeHealthStatus = InstancesHealthAttribute' "HealthStatus"
 
-pattern IHAInstanceType :: InstancesHealthAttribute
-pattern IHAInstanceType = InstancesHealthAttribute' "InstanceType"
+pattern InstancesHealthAttributeInstanceType :: InstancesHealthAttribute
+pattern InstancesHealthAttributeInstanceType = InstancesHealthAttribute' "InstanceType"
 
-pattern IHALaunchedAt :: InstancesHealthAttribute
-pattern IHALaunchedAt = InstancesHealthAttribute' "LaunchedAt"
+pattern InstancesHealthAttributeLaunchedAt :: InstancesHealthAttribute
+pattern InstancesHealthAttributeLaunchedAt = InstancesHealthAttribute' "LaunchedAt"
 
-pattern IHARefreshedAt :: InstancesHealthAttribute
-pattern IHARefreshedAt = InstancesHealthAttribute' "RefreshedAt"
+pattern InstancesHealthAttributeRefreshedAt :: InstancesHealthAttribute
+pattern InstancesHealthAttributeRefreshedAt = InstancesHealthAttribute' "RefreshedAt"
 
-pattern IHASystem :: InstancesHealthAttribute
-pattern IHASystem = InstancesHealthAttribute' "System"
+pattern InstancesHealthAttributeSystem :: InstancesHealthAttribute
+pattern InstancesHealthAttributeSystem = InstancesHealthAttribute' "System"
 
 {-# COMPLETE
-  IHAAll,
-  IHAApplicationMetrics,
-  IHAAvailabilityZone,
-  IHACauses,
-  IHAColor,
-  IHADeployment,
-  IHAHealthStatus,
-  IHAInstanceType,
-  IHALaunchedAt,
-  IHARefreshedAt,
-  IHASystem,
+  InstancesHealthAttributeAll,
+  InstancesHealthAttributeApplicationMetrics,
+  InstancesHealthAttributeAvailabilityZone,
+  InstancesHealthAttributeCauses,
+  InstancesHealthAttributeColor,
+  InstancesHealthAttributeDeployment,
+  InstancesHealthAttributeHealthStatus,
+  InstancesHealthAttributeInstanceType,
+  InstancesHealthAttributeLaunchedAt,
+  InstancesHealthAttributeRefreshedAt,
+  InstancesHealthAttributeSystem,
   InstancesHealthAttribute'
   #-}
 
-instance FromText InstancesHealthAttribute where
-  parser = (InstancesHealthAttribute' . mk) <$> takeText
+instance Prelude.FromText InstancesHealthAttribute where
+  parser = InstancesHealthAttribute' Prelude.<$> Prelude.takeText
 
-instance ToText InstancesHealthAttribute where
-  toText (InstancesHealthAttribute' ci) = original ci
+instance Prelude.ToText InstancesHealthAttribute where
+  toText (InstancesHealthAttribute' x) = x
 
-instance Hashable InstancesHealthAttribute
+instance Prelude.Hashable InstancesHealthAttribute
 
-instance NFData InstancesHealthAttribute
+instance Prelude.NFData InstancesHealthAttribute
 
-instance ToByteString InstancesHealthAttribute
+instance Prelude.ToByteString InstancesHealthAttribute
 
-instance ToQuery InstancesHealthAttribute
+instance Prelude.ToQuery InstancesHealthAttribute
 
-instance ToHeader InstancesHealthAttribute
+instance Prelude.ToHeader InstancesHealthAttribute

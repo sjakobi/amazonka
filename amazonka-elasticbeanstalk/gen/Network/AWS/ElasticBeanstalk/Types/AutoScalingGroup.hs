@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,37 +19,41 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ElasticBeanstalk.Types.AutoScalingGroup where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes an Auto Scaling launch configuration.
 --
---
---
--- /See:/ 'autoScalingGroup' smart constructor.
-newtype AutoScalingGroup = AutoScalingGroup'
-  { _asgName ::
-      Maybe Text
+-- /See:/ 'newAutoScalingGroup' smart constructor.
+data AutoScalingGroup = AutoScalingGroup'
+  { -- | The name of the @AutoScalingGroup@ .
+    name :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AutoScalingGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AutoScalingGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'asgName' - The name of the @AutoScalingGroup@ .
-autoScalingGroup ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'name', 'autoScalingGroup_name' - The name of the @AutoScalingGroup@ .
+newAutoScalingGroup ::
   AutoScalingGroup
-autoScalingGroup =
-  AutoScalingGroup' {_asgName = Nothing}
+newAutoScalingGroup =
+  AutoScalingGroup' {name = Prelude.Nothing}
 
 -- | The name of the @AutoScalingGroup@ .
-asgName :: Lens' AutoScalingGroup (Maybe Text)
-asgName = lens _asgName (\s a -> s {_asgName = a})
+autoScalingGroup_name :: Lens.Lens' AutoScalingGroup (Prelude.Maybe Prelude.Text)
+autoScalingGroup_name = Lens.lens (\AutoScalingGroup' {name} -> name) (\s@AutoScalingGroup' {} a -> s {name = a} :: AutoScalingGroup)
 
-instance FromXML AutoScalingGroup where
-  parseXML x = AutoScalingGroup' <$> (x .@? "Name")
+instance Prelude.FromXML AutoScalingGroup where
+  parseXML x =
+    AutoScalingGroup'
+      Prelude.<$> (x Prelude..@? "Name")
 
-instance Hashable AutoScalingGroup
+instance Prelude.Hashable AutoScalingGroup
 
-instance NFData AutoScalingGroup
+instance Prelude.NFData AutoScalingGroup

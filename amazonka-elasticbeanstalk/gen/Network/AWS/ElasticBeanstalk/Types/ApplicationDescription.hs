@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,125 +20,122 @@
 module Network.AWS.ElasticBeanstalk.Types.ApplicationDescription where
 
 import Network.AWS.ElasticBeanstalk.Types.ApplicationResourceLifecycleConfig
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the properties of an application.
 --
---
---
--- /See:/ 'applicationDescription' smart constructor.
+-- /See:/ 'newApplicationDescription' smart constructor.
 data ApplicationDescription = ApplicationDescription'
-  { _adApplicationARN ::
-      !(Maybe Text),
-    _adDateCreated ::
-      !(Maybe ISO8601),
-    _adVersions ::
-      !(Maybe [Text]),
-    _adDateUpdated ::
-      !(Maybe ISO8601),
-    _adResourceLifecycleConfig ::
-      !( Maybe
-           ApplicationResourceLifecycleConfig
-       ),
-    _adDescription ::
-      !(Maybe Text),
-    _adConfigurationTemplates ::
-      !(Maybe [Text]),
-    _adApplicationName ::
-      !(Maybe Text)
+  { -- | The Amazon Resource Name (ARN) of the application.
+    applicationArn :: Prelude.Maybe Prelude.Text,
+    -- | The date when the application was created.
+    dateCreated :: Prelude.Maybe Prelude.ISO8601,
+    -- | The names of the versions for this application.
+    versions :: Prelude.Maybe [Prelude.Text],
+    -- | The date when the application was last modified.
+    dateUpdated :: Prelude.Maybe Prelude.ISO8601,
+    -- | The lifecycle settings for the application.
+    resourceLifecycleConfig :: Prelude.Maybe ApplicationResourceLifecycleConfig,
+    -- | User-defined description of the application.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The names of the configuration templates associated with this
+    -- application.
+    configurationTemplates :: Prelude.Maybe [Prelude.Text],
+    -- | The name of the application.
+    applicationName :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ApplicationDescription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ApplicationDescription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'adApplicationARN' - The Amazon Resource Name (ARN) of the application.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'adDateCreated' - The date when the application was created.
+-- 'applicationArn', 'applicationDescription_applicationArn' - The Amazon Resource Name (ARN) of the application.
 --
--- * 'adVersions' - The names of the versions for this application.
+-- 'dateCreated', 'applicationDescription_dateCreated' - The date when the application was created.
 --
--- * 'adDateUpdated' - The date when the application was last modified.
+-- 'versions', 'applicationDescription_versions' - The names of the versions for this application.
 --
--- * 'adResourceLifecycleConfig' - The lifecycle settings for the application.
+-- 'dateUpdated', 'applicationDescription_dateUpdated' - The date when the application was last modified.
 --
--- * 'adDescription' - User-defined description of the application.
+-- 'resourceLifecycleConfig', 'applicationDescription_resourceLifecycleConfig' - The lifecycle settings for the application.
 --
--- * 'adConfigurationTemplates' - The names of the configuration templates associated with this application.
+-- 'description', 'applicationDescription_description' - User-defined description of the application.
 --
--- * 'adApplicationName' - The name of the application.
-applicationDescription ::
+-- 'configurationTemplates', 'applicationDescription_configurationTemplates' - The names of the configuration templates associated with this
+-- application.
+--
+-- 'applicationName', 'applicationDescription_applicationName' - The name of the application.
+newApplicationDescription ::
   ApplicationDescription
-applicationDescription =
+newApplicationDescription =
   ApplicationDescription'
-    { _adApplicationARN =
-        Nothing,
-      _adDateCreated = Nothing,
-      _adVersions = Nothing,
-      _adDateUpdated = Nothing,
-      _adResourceLifecycleConfig = Nothing,
-      _adDescription = Nothing,
-      _adConfigurationTemplates = Nothing,
-      _adApplicationName = Nothing
+    { applicationArn =
+        Prelude.Nothing,
+      dateCreated = Prelude.Nothing,
+      versions = Prelude.Nothing,
+      dateUpdated = Prelude.Nothing,
+      resourceLifecycleConfig = Prelude.Nothing,
+      description = Prelude.Nothing,
+      configurationTemplates = Prelude.Nothing,
+      applicationName = Prelude.Nothing
     }
 
 -- | The Amazon Resource Name (ARN) of the application.
-adApplicationARN :: Lens' ApplicationDescription (Maybe Text)
-adApplicationARN = lens _adApplicationARN (\s a -> s {_adApplicationARN = a})
+applicationDescription_applicationArn :: Lens.Lens' ApplicationDescription (Prelude.Maybe Prelude.Text)
+applicationDescription_applicationArn = Lens.lens (\ApplicationDescription' {applicationArn} -> applicationArn) (\s@ApplicationDescription' {} a -> s {applicationArn = a} :: ApplicationDescription)
 
 -- | The date when the application was created.
-adDateCreated :: Lens' ApplicationDescription (Maybe UTCTime)
-adDateCreated = lens _adDateCreated (\s a -> s {_adDateCreated = a}) . mapping _Time
+applicationDescription_dateCreated :: Lens.Lens' ApplicationDescription (Prelude.Maybe Prelude.UTCTime)
+applicationDescription_dateCreated = Lens.lens (\ApplicationDescription' {dateCreated} -> dateCreated) (\s@ApplicationDescription' {} a -> s {dateCreated = a} :: ApplicationDescription) Prelude.. Lens.mapping Prelude._Time
 
 -- | The names of the versions for this application.
-adVersions :: Lens' ApplicationDescription [Text]
-adVersions = lens _adVersions (\s a -> s {_adVersions = a}) . _Default . _Coerce
+applicationDescription_versions :: Lens.Lens' ApplicationDescription (Prelude.Maybe [Prelude.Text])
+applicationDescription_versions = Lens.lens (\ApplicationDescription' {versions} -> versions) (\s@ApplicationDescription' {} a -> s {versions = a} :: ApplicationDescription) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The date when the application was last modified.
-adDateUpdated :: Lens' ApplicationDescription (Maybe UTCTime)
-adDateUpdated = lens _adDateUpdated (\s a -> s {_adDateUpdated = a}) . mapping _Time
+applicationDescription_dateUpdated :: Lens.Lens' ApplicationDescription (Prelude.Maybe Prelude.UTCTime)
+applicationDescription_dateUpdated = Lens.lens (\ApplicationDescription' {dateUpdated} -> dateUpdated) (\s@ApplicationDescription' {} a -> s {dateUpdated = a} :: ApplicationDescription) Prelude.. Lens.mapping Prelude._Time
 
 -- | The lifecycle settings for the application.
-adResourceLifecycleConfig :: Lens' ApplicationDescription (Maybe ApplicationResourceLifecycleConfig)
-adResourceLifecycleConfig = lens _adResourceLifecycleConfig (\s a -> s {_adResourceLifecycleConfig = a})
+applicationDescription_resourceLifecycleConfig :: Lens.Lens' ApplicationDescription (Prelude.Maybe ApplicationResourceLifecycleConfig)
+applicationDescription_resourceLifecycleConfig = Lens.lens (\ApplicationDescription' {resourceLifecycleConfig} -> resourceLifecycleConfig) (\s@ApplicationDescription' {} a -> s {resourceLifecycleConfig = a} :: ApplicationDescription)
 
 -- | User-defined description of the application.
-adDescription :: Lens' ApplicationDescription (Maybe Text)
-adDescription = lens _adDescription (\s a -> s {_adDescription = a})
+applicationDescription_description :: Lens.Lens' ApplicationDescription (Prelude.Maybe Prelude.Text)
+applicationDescription_description = Lens.lens (\ApplicationDescription' {description} -> description) (\s@ApplicationDescription' {} a -> s {description = a} :: ApplicationDescription)
 
--- | The names of the configuration templates associated with this application.
-adConfigurationTemplates :: Lens' ApplicationDescription [Text]
-adConfigurationTemplates = lens _adConfigurationTemplates (\s a -> s {_adConfigurationTemplates = a}) . _Default . _Coerce
+-- | The names of the configuration templates associated with this
+-- application.
+applicationDescription_configurationTemplates :: Lens.Lens' ApplicationDescription (Prelude.Maybe [Prelude.Text])
+applicationDescription_configurationTemplates = Lens.lens (\ApplicationDescription' {configurationTemplates} -> configurationTemplates) (\s@ApplicationDescription' {} a -> s {configurationTemplates = a} :: ApplicationDescription) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The name of the application.
-adApplicationName :: Lens' ApplicationDescription (Maybe Text)
-adApplicationName = lens _adApplicationName (\s a -> s {_adApplicationName = a})
+applicationDescription_applicationName :: Lens.Lens' ApplicationDescription (Prelude.Maybe Prelude.Text)
+applicationDescription_applicationName = Lens.lens (\ApplicationDescription' {applicationName} -> applicationName) (\s@ApplicationDescription' {} a -> s {applicationName = a} :: ApplicationDescription)
 
-instance FromXML ApplicationDescription where
+instance Prelude.FromXML ApplicationDescription where
   parseXML x =
     ApplicationDescription'
-      <$> (x .@? "ApplicationArn")
-      <*> (x .@? "DateCreated")
-      <*> ( x .@? "Versions" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> (x .@? "DateUpdated")
-      <*> (x .@? "ResourceLifecycleConfig")
-      <*> (x .@? "Description")
-      <*> ( x .@? "ConfigurationTemplates" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> (x .@? "ApplicationName")
+      Prelude.<$> (x Prelude..@? "ApplicationArn")
+      Prelude.<*> (x Prelude..@? "DateCreated")
+      Prelude.<*> ( x Prelude..@? "Versions" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> (x Prelude..@? "DateUpdated")
+      Prelude.<*> (x Prelude..@? "ResourceLifecycleConfig")
+      Prelude.<*> (x Prelude..@? "Description")
+      Prelude.<*> ( x Prelude..@? "ConfigurationTemplates"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> (x Prelude..@? "ApplicationName")
 
-instance Hashable ApplicationDescription
+instance Prelude.Hashable ApplicationDescription
 
-instance NFData ApplicationDescription
+instance Prelude.NFData ApplicationDescription

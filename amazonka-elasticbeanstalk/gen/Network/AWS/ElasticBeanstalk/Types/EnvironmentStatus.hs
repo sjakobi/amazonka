@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,83 +19,85 @@
 module Network.AWS.ElasticBeanstalk.Types.EnvironmentStatus
   ( EnvironmentStatus
       ( ..,
-        ESAborting,
-        ESLaunching,
-        ESLinkingFrom,
-        ESLinkingTo,
-        ESReady,
-        ESTerminated,
-        ESTerminating,
-        ESUpdating
+        EnvironmentStatusAborting,
+        EnvironmentStatusLaunching,
+        EnvironmentStatusLinkingFrom,
+        EnvironmentStatusLinkingTo,
+        EnvironmentStatusReady,
+        EnvironmentStatusTerminated,
+        EnvironmentStatusTerminating,
+        EnvironmentStatusUpdating
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data EnvironmentStatus = EnvironmentStatus' (CI Text)
+newtype EnvironmentStatus = EnvironmentStatus'
+  { fromEnvironmentStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ESAborting :: EnvironmentStatus
-pattern ESAborting = EnvironmentStatus' "Aborting"
+pattern EnvironmentStatusAborting :: EnvironmentStatus
+pattern EnvironmentStatusAborting = EnvironmentStatus' "Aborting"
 
-pattern ESLaunching :: EnvironmentStatus
-pattern ESLaunching = EnvironmentStatus' "Launching"
+pattern EnvironmentStatusLaunching :: EnvironmentStatus
+pattern EnvironmentStatusLaunching = EnvironmentStatus' "Launching"
 
-pattern ESLinkingFrom :: EnvironmentStatus
-pattern ESLinkingFrom = EnvironmentStatus' "LinkingFrom"
+pattern EnvironmentStatusLinkingFrom :: EnvironmentStatus
+pattern EnvironmentStatusLinkingFrom = EnvironmentStatus' "LinkingFrom"
 
-pattern ESLinkingTo :: EnvironmentStatus
-pattern ESLinkingTo = EnvironmentStatus' "LinkingTo"
+pattern EnvironmentStatusLinkingTo :: EnvironmentStatus
+pattern EnvironmentStatusLinkingTo = EnvironmentStatus' "LinkingTo"
 
-pattern ESReady :: EnvironmentStatus
-pattern ESReady = EnvironmentStatus' "Ready"
+pattern EnvironmentStatusReady :: EnvironmentStatus
+pattern EnvironmentStatusReady = EnvironmentStatus' "Ready"
 
-pattern ESTerminated :: EnvironmentStatus
-pattern ESTerminated = EnvironmentStatus' "Terminated"
+pattern EnvironmentStatusTerminated :: EnvironmentStatus
+pattern EnvironmentStatusTerminated = EnvironmentStatus' "Terminated"
 
-pattern ESTerminating :: EnvironmentStatus
-pattern ESTerminating = EnvironmentStatus' "Terminating"
+pattern EnvironmentStatusTerminating :: EnvironmentStatus
+pattern EnvironmentStatusTerminating = EnvironmentStatus' "Terminating"
 
-pattern ESUpdating :: EnvironmentStatus
-pattern ESUpdating = EnvironmentStatus' "Updating"
+pattern EnvironmentStatusUpdating :: EnvironmentStatus
+pattern EnvironmentStatusUpdating = EnvironmentStatus' "Updating"
 
 {-# COMPLETE
-  ESAborting,
-  ESLaunching,
-  ESLinkingFrom,
-  ESLinkingTo,
-  ESReady,
-  ESTerminated,
-  ESTerminating,
-  ESUpdating,
+  EnvironmentStatusAborting,
+  EnvironmentStatusLaunching,
+  EnvironmentStatusLinkingFrom,
+  EnvironmentStatusLinkingTo,
+  EnvironmentStatusReady,
+  EnvironmentStatusTerminated,
+  EnvironmentStatusTerminating,
+  EnvironmentStatusUpdating,
   EnvironmentStatus'
   #-}
 
-instance FromText EnvironmentStatus where
-  parser = (EnvironmentStatus' . mk) <$> takeText
+instance Prelude.FromText EnvironmentStatus where
+  parser = EnvironmentStatus' Prelude.<$> Prelude.takeText
 
-instance ToText EnvironmentStatus where
-  toText (EnvironmentStatus' ci) = original ci
+instance Prelude.ToText EnvironmentStatus where
+  toText (EnvironmentStatus' x) = x
 
-instance Hashable EnvironmentStatus
+instance Prelude.Hashable EnvironmentStatus
 
-instance NFData EnvironmentStatus
+instance Prelude.NFData EnvironmentStatus
 
-instance ToByteString EnvironmentStatus
+instance Prelude.ToByteString EnvironmentStatus
 
-instance ToQuery EnvironmentStatus
+instance Prelude.ToQuery EnvironmentStatus
 
-instance ToHeader EnvironmentStatus
+instance Prelude.ToHeader EnvironmentStatus
 
-instance FromXML EnvironmentStatus where
-  parseXML = parseXMLText "EnvironmentStatus"
+instance Prelude.FromXML EnvironmentStatus where
+  parseXML = Prelude.parseXMLText "EnvironmentStatus"

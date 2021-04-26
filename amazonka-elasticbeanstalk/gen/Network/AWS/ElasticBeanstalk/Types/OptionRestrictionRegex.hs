@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,57 +19,57 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ElasticBeanstalk.Types.OptionRestrictionRegex where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A regular expression representing a restriction on a string configuration option value.
+-- | A regular expression representing a restriction on a string
+-- configuration option value.
 --
---
---
--- /See:/ 'optionRestrictionRegex' smart constructor.
+-- /See:/ 'newOptionRestrictionRegex' smart constructor.
 data OptionRestrictionRegex = OptionRestrictionRegex'
-  { _orrLabel ::
-      !(Maybe Text),
-    _orrPattern ::
-      !(Maybe Text)
+  { -- | A unique name representing this regular expression.
+    label :: Prelude.Maybe Prelude.Text,
+    -- | The regular expression pattern that a string configuration option value
+    -- with this restriction must match.
+    pattern' :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OptionRestrictionRegex' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OptionRestrictionRegex' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'orrLabel' - A unique name representing this regular expression.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'orrPattern' - The regular expression pattern that a string configuration option value with this restriction must match.
-optionRestrictionRegex ::
+-- 'label', 'optionRestrictionRegex_label' - A unique name representing this regular expression.
+--
+-- 'pattern'', 'optionRestrictionRegex_pattern' - The regular expression pattern that a string configuration option value
+-- with this restriction must match.
+newOptionRestrictionRegex ::
   OptionRestrictionRegex
-optionRestrictionRegex =
+newOptionRestrictionRegex =
   OptionRestrictionRegex'
-    { _orrLabel = Nothing,
-      _orrPattern = Nothing
+    { label = Prelude.Nothing,
+      pattern' = Prelude.Nothing
     }
 
 -- | A unique name representing this regular expression.
-orrLabel :: Lens' OptionRestrictionRegex (Maybe Text)
-orrLabel = lens _orrLabel (\s a -> s {_orrLabel = a})
+optionRestrictionRegex_label :: Lens.Lens' OptionRestrictionRegex (Prelude.Maybe Prelude.Text)
+optionRestrictionRegex_label = Lens.lens (\OptionRestrictionRegex' {label} -> label) (\s@OptionRestrictionRegex' {} a -> s {label = a} :: OptionRestrictionRegex)
 
--- | The regular expression pattern that a string configuration option value with this restriction must match.
-orrPattern :: Lens' OptionRestrictionRegex (Maybe Text)
-orrPattern = lens _orrPattern (\s a -> s {_orrPattern = a})
+-- | The regular expression pattern that a string configuration option value
+-- with this restriction must match.
+optionRestrictionRegex_pattern :: Lens.Lens' OptionRestrictionRegex (Prelude.Maybe Prelude.Text)
+optionRestrictionRegex_pattern = Lens.lens (\OptionRestrictionRegex' {pattern'} -> pattern') (\s@OptionRestrictionRegex' {} a -> s {pattern' = a} :: OptionRestrictionRegex)
 
-instance FromXML OptionRestrictionRegex where
+instance Prelude.FromXML OptionRestrictionRegex where
   parseXML x =
     OptionRestrictionRegex'
-      <$> (x .@? "Label") <*> (x .@? "Pattern")
+      Prelude.<$> (x Prelude..@? "Label")
+      Prelude.<*> (x Prelude..@? "Pattern")
 
-instance Hashable OptionRestrictionRegex
+instance Prelude.Hashable OptionRestrictionRegex
 
-instance NFData OptionRestrictionRegex
+instance Prelude.NFData OptionRestrictionRegex

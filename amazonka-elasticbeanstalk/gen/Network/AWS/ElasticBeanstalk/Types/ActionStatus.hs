@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,63 +19,65 @@
 module Network.AWS.ElasticBeanstalk.Types.ActionStatus
   ( ActionStatus
       ( ..,
-        ASPending,
-        ASRunning,
-        ASScheduled,
-        ASUnknown
+        ActionStatusPending,
+        ActionStatusRunning,
+        ActionStatusScheduled,
+        ActionStatusUnknown
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ActionStatus = ActionStatus' (CI Text)
+newtype ActionStatus = ActionStatus'
+  { fromActionStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ASPending :: ActionStatus
-pattern ASPending = ActionStatus' "Pending"
+pattern ActionStatusPending :: ActionStatus
+pattern ActionStatusPending = ActionStatus' "Pending"
 
-pattern ASRunning :: ActionStatus
-pattern ASRunning = ActionStatus' "Running"
+pattern ActionStatusRunning :: ActionStatus
+pattern ActionStatusRunning = ActionStatus' "Running"
 
-pattern ASScheduled :: ActionStatus
-pattern ASScheduled = ActionStatus' "Scheduled"
+pattern ActionStatusScheduled :: ActionStatus
+pattern ActionStatusScheduled = ActionStatus' "Scheduled"
 
-pattern ASUnknown :: ActionStatus
-pattern ASUnknown = ActionStatus' "Unknown"
+pattern ActionStatusUnknown :: ActionStatus
+pattern ActionStatusUnknown = ActionStatus' "Unknown"
 
 {-# COMPLETE
-  ASPending,
-  ASRunning,
-  ASScheduled,
-  ASUnknown,
+  ActionStatusPending,
+  ActionStatusRunning,
+  ActionStatusScheduled,
+  ActionStatusUnknown,
   ActionStatus'
   #-}
 
-instance FromText ActionStatus where
-  parser = (ActionStatus' . mk) <$> takeText
+instance Prelude.FromText ActionStatus where
+  parser = ActionStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ActionStatus where
-  toText (ActionStatus' ci) = original ci
+instance Prelude.ToText ActionStatus where
+  toText (ActionStatus' x) = x
 
-instance Hashable ActionStatus
+instance Prelude.Hashable ActionStatus
 
-instance NFData ActionStatus
+instance Prelude.NFData ActionStatus
 
-instance ToByteString ActionStatus
+instance Prelude.ToByteString ActionStatus
 
-instance ToQuery ActionStatus
+instance Prelude.ToQuery ActionStatus
 
-instance ToHeader ActionStatus
+instance Prelude.ToHeader ActionStatus
 
-instance FromXML ActionStatus where
-  parseXML = parseXMLText "ActionStatus"
+instance Prelude.FromXML ActionStatus where
+  parseXML = Prelude.parseXMLText "ActionStatus"

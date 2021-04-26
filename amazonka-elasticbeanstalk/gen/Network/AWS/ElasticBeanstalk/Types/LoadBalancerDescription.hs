@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,70 +20,65 @@
 module Network.AWS.ElasticBeanstalk.Types.LoadBalancerDescription where
 
 import Network.AWS.ElasticBeanstalk.Types.Listener
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the details of a LoadBalancer.
 --
---
---
--- /See:/ 'loadBalancerDescription' smart constructor.
+-- /See:/ 'newLoadBalancerDescription' smart constructor.
 data LoadBalancerDescription = LoadBalancerDescription'
-  { _lbdDomain ::
-      !(Maybe Text),
-    _lbdListeners ::
-      !(Maybe [Listener]),
-    _lbdLoadBalancerName ::
-      !(Maybe Text)
+  { -- | The domain name of the LoadBalancer.
+    domain :: Prelude.Maybe Prelude.Text,
+    -- | A list of Listeners used by the LoadBalancer.
+    listeners :: Prelude.Maybe [Listener],
+    -- | The name of the LoadBalancer.
+    loadBalancerName :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LoadBalancerDescription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LoadBalancerDescription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lbdDomain' - The domain name of the LoadBalancer.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lbdListeners' - A list of Listeners used by the LoadBalancer.
+-- 'domain', 'loadBalancerDescription_domain' - The domain name of the LoadBalancer.
 --
--- * 'lbdLoadBalancerName' - The name of the LoadBalancer.
-loadBalancerDescription ::
+-- 'listeners', 'loadBalancerDescription_listeners' - A list of Listeners used by the LoadBalancer.
+--
+-- 'loadBalancerName', 'loadBalancerDescription_loadBalancerName' - The name of the LoadBalancer.
+newLoadBalancerDescription ::
   LoadBalancerDescription
-loadBalancerDescription =
+newLoadBalancerDescription =
   LoadBalancerDescription'
-    { _lbdDomain = Nothing,
-      _lbdListeners = Nothing,
-      _lbdLoadBalancerName = Nothing
+    { domain = Prelude.Nothing,
+      listeners = Prelude.Nothing,
+      loadBalancerName = Prelude.Nothing
     }
 
 -- | The domain name of the LoadBalancer.
-lbdDomain :: Lens' LoadBalancerDescription (Maybe Text)
-lbdDomain = lens _lbdDomain (\s a -> s {_lbdDomain = a})
+loadBalancerDescription_domain :: Lens.Lens' LoadBalancerDescription (Prelude.Maybe Prelude.Text)
+loadBalancerDescription_domain = Lens.lens (\LoadBalancerDescription' {domain} -> domain) (\s@LoadBalancerDescription' {} a -> s {domain = a} :: LoadBalancerDescription)
 
 -- | A list of Listeners used by the LoadBalancer.
-lbdListeners :: Lens' LoadBalancerDescription [Listener]
-lbdListeners = lens _lbdListeners (\s a -> s {_lbdListeners = a}) . _Default . _Coerce
+loadBalancerDescription_listeners :: Lens.Lens' LoadBalancerDescription (Prelude.Maybe [Listener])
+loadBalancerDescription_listeners = Lens.lens (\LoadBalancerDescription' {listeners} -> listeners) (\s@LoadBalancerDescription' {} a -> s {listeners = a} :: LoadBalancerDescription) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The name of the LoadBalancer.
-lbdLoadBalancerName :: Lens' LoadBalancerDescription (Maybe Text)
-lbdLoadBalancerName = lens _lbdLoadBalancerName (\s a -> s {_lbdLoadBalancerName = a})
+loadBalancerDescription_loadBalancerName :: Lens.Lens' LoadBalancerDescription (Prelude.Maybe Prelude.Text)
+loadBalancerDescription_loadBalancerName = Lens.lens (\LoadBalancerDescription' {loadBalancerName} -> loadBalancerName) (\s@LoadBalancerDescription' {} a -> s {loadBalancerName = a} :: LoadBalancerDescription)
 
-instance FromXML LoadBalancerDescription where
+instance Prelude.FromXML LoadBalancerDescription where
   parseXML x =
     LoadBalancerDescription'
-      <$> (x .@? "Domain")
-      <*> ( x .@? "Listeners" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> (x .@? "LoadBalancerName")
+      Prelude.<$> (x Prelude..@? "Domain")
+      Prelude.<*> ( x Prelude..@? "Listeners" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> (x Prelude..@? "LoadBalancerName")
 
-instance Hashable LoadBalancerDescription
+instance Prelude.Hashable LoadBalancerDescription
 
-instance NFData LoadBalancerDescription
+instance Prelude.NFData LoadBalancerDescription

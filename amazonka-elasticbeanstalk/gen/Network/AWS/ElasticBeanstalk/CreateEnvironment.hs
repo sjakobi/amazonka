@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,239 +21,416 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Launches an AWS Elastic Beanstalk environment for the specified application using the specified configuration.
+-- Launches an AWS Elastic Beanstalk environment for the specified
+-- application using the specified configuration.
 module Network.AWS.ElasticBeanstalk.CreateEnvironment
   ( -- * Creating a Request
-    createEnvironment,
-    CreateEnvironment,
+    CreateEnvironment (..),
+    newCreateEnvironment,
 
     -- * Request Lenses
-    ceTemplateName,
-    ceGroupName,
-    ceSolutionStackName,
-    ceOptionsToRemove,
-    ceEnvironmentName,
-    cePlatformARN,
-    ceVersionLabel,
-    ceCNAMEPrefix,
-    ceTags,
-    ceOptionSettings,
-    ceDescription,
-    ceTier,
-    ceOperationsRole,
-    ceApplicationName,
+    createEnvironment_templateName,
+    createEnvironment_groupName,
+    createEnvironment_solutionStackName,
+    createEnvironment_optionsToRemove,
+    createEnvironment_environmentName,
+    createEnvironment_platformArn,
+    createEnvironment_versionLabel,
+    createEnvironment_cNAMEPrefix,
+    createEnvironment_tags,
+    createEnvironment_optionSettings,
+    createEnvironment_description,
+    createEnvironment_tier,
+    createEnvironment_operationsRole,
+    createEnvironment_applicationName,
 
     -- * Destructuring the Response
-    environmentDescription,
-    EnvironmentDescription,
+    EnvironmentDescription (..),
+    newEnvironmentDescription,
 
     -- * Response Lenses
-    eAbortableOperationInProgress,
-    eTemplateName,
-    eStatus,
-    eDateCreated,
-    eEnvironmentLinks,
-    eSolutionStackName,
-    eEnvironmentId,
-    eEnvironmentName,
-    ePlatformARN,
-    eVersionLabel,
-    eHealth,
-    eCNAME,
-    eResources,
-    eDateUpdated,
-    eDescription,
-    eHealthStatus,
-    eEnvironmentARN,
-    eEndpointURL,
-    eApplicationName,
-    eTier,
-    eOperationsRole,
+    environmentDescription_abortableOperationInProgress,
+    environmentDescription_templateName,
+    environmentDescription_status,
+    environmentDescription_dateCreated,
+    environmentDescription_environmentLinks,
+    environmentDescription_solutionStackName,
+    environmentDescription_environmentId,
+    environmentDescription_environmentName,
+    environmentDescription_platformArn,
+    environmentDescription_versionLabel,
+    environmentDescription_health,
+    environmentDescription_cNAME,
+    environmentDescription_resources,
+    environmentDescription_dateUpdated,
+    environmentDescription_description,
+    environmentDescription_healthStatus,
+    environmentDescription_environmentArn,
+    environmentDescription_endpointURL,
+    environmentDescription_applicationName,
+    environmentDescription_tier,
+    environmentDescription_operationsRole,
   )
 where
 
 import Network.AWS.ElasticBeanstalk.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ElasticBeanstalk.Types.EnvironmentDescription
+import Network.AWS.ElasticBeanstalk.Types.EnvironmentHealth
+import Network.AWS.ElasticBeanstalk.Types.EnvironmentHealthStatus
+import Network.AWS.ElasticBeanstalk.Types.EnvironmentLink
+import Network.AWS.ElasticBeanstalk.Types.EnvironmentResourcesDescription
+import Network.AWS.ElasticBeanstalk.Types.EnvironmentStatus
+import Network.AWS.ElasticBeanstalk.Types.EnvironmentTier
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- |
 --
---
---
--- /See:/ 'createEnvironment' smart constructor.
+-- /See:/ 'newCreateEnvironment' smart constructor.
 data CreateEnvironment = CreateEnvironment'
-  { _ceTemplateName ::
-      !(Maybe Text),
-    _ceGroupName :: !(Maybe Text),
-    _ceSolutionStackName ::
-      !(Maybe Text),
-    _ceOptionsToRemove ::
-      !(Maybe [OptionSpecification]),
-    _ceEnvironmentName :: !(Maybe Text),
-    _cePlatformARN :: !(Maybe Text),
-    _ceVersionLabel :: !(Maybe Text),
-    _ceCNAMEPrefix :: !(Maybe Text),
-    _ceTags :: !(Maybe [Tag]),
-    _ceOptionSettings ::
-      !( Maybe
-           [ConfigurationOptionSetting]
-       ),
-    _ceDescription :: !(Maybe Text),
-    _ceTier :: !(Maybe EnvironmentTier),
-    _ceOperationsRole :: !(Maybe Text),
-    _ceApplicationName :: !Text
+  { -- | The name of the Elastic Beanstalk configuration template to use with the
+    -- environment.
+    --
+    -- If you specify @TemplateName@, then don\'t specify @SolutionStackName@.
+    templateName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the group to which the target environment belongs. Specify a
+    -- group name only if the environment\'s name is specified in an
+    -- environment manifest and not with the environment name parameter. See
+    -- <https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environment-cfg-manifest.html Environment Manifest (env.yaml)>
+    -- for details.
+    groupName :: Prelude.Maybe Prelude.Text,
+    -- | The name of an Elastic Beanstalk solution stack (platform version) to
+    -- use with the environment. If specified, Elastic Beanstalk sets the
+    -- configuration values to the default values associated with the specified
+    -- solution stack. For a list of current solution stacks, see
+    -- <https://docs.aws.amazon.com/elasticbeanstalk/latest/platforms/platforms-supported.html Elastic Beanstalk Supported Platforms>
+    -- in the /AWS Elastic Beanstalk Platforms/ guide.
+    --
+    -- If you specify @SolutionStackName@, don\'t specify @PlatformArn@ or
+    -- @TemplateName@.
+    solutionStackName :: Prelude.Maybe Prelude.Text,
+    -- | A list of custom user-defined configuration options to remove from the
+    -- configuration set for this new environment.
+    optionsToRemove :: Prelude.Maybe [OptionSpecification],
+    -- | A unique name for the environment.
+    --
+    -- Constraint: Must be from 4 to 40 characters in length. The name can
+    -- contain only letters, numbers, and hyphens. It can\'t start or end with
+    -- a hyphen. This name must be unique within a region in your account. If
+    -- the specified name already exists in the region, Elastic Beanstalk
+    -- returns an @InvalidParameterValue@ error.
+    --
+    -- If you don\'t specify the @CNAMEPrefix@ parameter, the environment name
+    -- becomes part of the CNAME, and therefore part of the visible URL for
+    -- your application.
+    environmentName :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the custom platform to use with the
+    -- environment. For more information, see
+    -- <https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/custom-platforms.html Custom Platforms>
+    -- in the /AWS Elastic Beanstalk Developer Guide/.
+    --
+    -- If you specify @PlatformArn@, don\'t specify @SolutionStackName@.
+    platformArn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the application version to deploy.
+    --
+    -- Default: If not specified, Elastic Beanstalk attempts to deploy the
+    -- sample application.
+    versionLabel :: Prelude.Maybe Prelude.Text,
+    -- | If specified, the environment attempts to use this value as the prefix
+    -- for the CNAME in your Elastic Beanstalk environment URL. If not
+    -- specified, the CNAME is generated automatically by appending a random
+    -- alphanumeric string to the environment name.
+    cNAMEPrefix :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the tags applied to resources in the environment.
+    tags :: Prelude.Maybe [Tag],
+    -- | If specified, AWS Elastic Beanstalk sets the specified configuration
+    -- options to the requested value in the configuration set for the new
+    -- environment. These override the values obtained from the solution stack
+    -- or the configuration template.
+    optionSettings :: Prelude.Maybe [ConfigurationOptionSetting],
+    -- | Your description for this environment.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the tier to use in creating this environment. The environment
+    -- tier that you choose determines whether Elastic Beanstalk provisions
+    -- resources to support a web application that handles HTTP(S) requests or
+    -- a web application that handles background-processing tasks.
+    tier :: Prelude.Maybe EnvironmentTier,
+    -- | The Amazon Resource Name (ARN) of an existing IAM role to be used as the
+    -- environment\'s operations role. If specified, Elastic Beanstalk uses the
+    -- operations role for permissions to downstream services during this call
+    -- and during subsequent calls acting on this environment. To specify an
+    -- operations role, you must have the @iam:PassRole@ permission for the
+    -- role. For more information, see
+    -- <https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/iam-operationsrole.html Operations roles>
+    -- in the /AWS Elastic Beanstalk Developer Guide/.
+    operationsRole :: Prelude.Maybe Prelude.Text,
+    -- | The name of the application that is associated with this environment.
+    applicationName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateEnvironment' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateEnvironment' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ceTemplateName' - The name of the Elastic Beanstalk configuration template to use with the environment.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ceGroupName' - The name of the group to which the target environment belongs. Specify a group name only if the environment's name is specified in an environment manifest and not with the environment name parameter. See <https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environment-cfg-manifest.html Environment Manifest (env.yaml)> for details.
+-- 'templateName', 'createEnvironment_templateName' - The name of the Elastic Beanstalk configuration template to use with the
+-- environment.
 --
--- * 'ceSolutionStackName' - The name of an Elastic Beanstalk solution stack (platform version) to use with the environment. If specified, Elastic Beanstalk sets the configuration values to the default values associated with the specified solution stack. For a list of current solution stacks, see <https://docs.aws.amazon.com/elasticbeanstalk/latest/platforms/platforms-supported.html Elastic Beanstalk Supported Platforms> in the /AWS Elastic Beanstalk Platforms/ guide.
+-- If you specify @TemplateName@, then don\'t specify @SolutionStackName@.
 --
--- * 'ceOptionsToRemove' - A list of custom user-defined configuration options to remove from the configuration set for this new environment.
+-- 'groupName', 'createEnvironment_groupName' - The name of the group to which the target environment belongs. Specify a
+-- group name only if the environment\'s name is specified in an
+-- environment manifest and not with the environment name parameter. See
+-- <https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environment-cfg-manifest.html Environment Manifest (env.yaml)>
+-- for details.
 --
--- * 'ceEnvironmentName' - A unique name for the environment. Constraint: Must be from 4 to 40 characters in length. The name can contain only letters, numbers, and hyphens. It can't start or end with a hyphen. This name must be unique within a region in your account. If the specified name already exists in the region, Elastic Beanstalk returns an @InvalidParameterValue@ error.  If you don't specify the @CNAMEPrefix@ parameter, the environment name becomes part of the CNAME, and therefore part of the visible URL for your application.
+-- 'solutionStackName', 'createEnvironment_solutionStackName' - The name of an Elastic Beanstalk solution stack (platform version) to
+-- use with the environment. If specified, Elastic Beanstalk sets the
+-- configuration values to the default values associated with the specified
+-- solution stack. For a list of current solution stacks, see
+-- <https://docs.aws.amazon.com/elasticbeanstalk/latest/platforms/platforms-supported.html Elastic Beanstalk Supported Platforms>
+-- in the /AWS Elastic Beanstalk Platforms/ guide.
 --
--- * 'cePlatformARN' - The Amazon Resource Name (ARN) of the custom platform to use with the environment. For more information, see <https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/custom-platforms.html Custom Platforms> in the /AWS Elastic Beanstalk Developer Guide/ .
+-- If you specify @SolutionStackName@, don\'t specify @PlatformArn@ or
+-- @TemplateName@.
 --
--- * 'ceVersionLabel' - The name of the application version to deploy. Default: If not specified, Elastic Beanstalk attempts to deploy the sample application.
+-- 'optionsToRemove', 'createEnvironment_optionsToRemove' - A list of custom user-defined configuration options to remove from the
+-- configuration set for this new environment.
 --
--- * 'ceCNAMEPrefix' - If specified, the environment attempts to use this value as the prefix for the CNAME in your Elastic Beanstalk environment URL. If not specified, the CNAME is generated automatically by appending a random alphanumeric string to the environment name.
+-- 'environmentName', 'createEnvironment_environmentName' - A unique name for the environment.
 --
--- * 'ceTags' - Specifies the tags applied to resources in the environment.
+-- Constraint: Must be from 4 to 40 characters in length. The name can
+-- contain only letters, numbers, and hyphens. It can\'t start or end with
+-- a hyphen. This name must be unique within a region in your account. If
+-- the specified name already exists in the region, Elastic Beanstalk
+-- returns an @InvalidParameterValue@ error.
 --
--- * 'ceOptionSettings' - If specified, AWS Elastic Beanstalk sets the specified configuration options to the requested value in the configuration set for the new environment. These override the values obtained from the solution stack or the configuration template.
+-- If you don\'t specify the @CNAMEPrefix@ parameter, the environment name
+-- becomes part of the CNAME, and therefore part of the visible URL for
+-- your application.
 --
--- * 'ceDescription' - Your description for this environment.
+-- 'platformArn', 'createEnvironment_platformArn' - The Amazon Resource Name (ARN) of the custom platform to use with the
+-- environment. For more information, see
+-- <https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/custom-platforms.html Custom Platforms>
+-- in the /AWS Elastic Beanstalk Developer Guide/.
 --
--- * 'ceTier' - Specifies the tier to use in creating this environment. The environment tier that you choose determines whether Elastic Beanstalk provisions resources to support a web application that handles HTTP(S) requests or a web application that handles background-processing tasks.
+-- If you specify @PlatformArn@, don\'t specify @SolutionStackName@.
 --
--- * 'ceOperationsRole' - The Amazon Resource Name (ARN) of an existing IAM role to be used as the environment's operations role. If specified, Elastic Beanstalk uses the operations role for permissions to downstream services during this call and during subsequent calls acting on this environment. To specify an operations role, you must have the @iam:PassRole@ permission for the role. For more information, see <https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/iam-operationsrole.html Operations roles> in the /AWS Elastic Beanstalk Developer Guide/ .
+-- 'versionLabel', 'createEnvironment_versionLabel' - The name of the application version to deploy.
 --
--- * 'ceApplicationName' - The name of the application that is associated with this environment.
-createEnvironment ::
-  -- | 'ceApplicationName'
-  Text ->
+-- Default: If not specified, Elastic Beanstalk attempts to deploy the
+-- sample application.
+--
+-- 'cNAMEPrefix', 'createEnvironment_cNAMEPrefix' - If specified, the environment attempts to use this value as the prefix
+-- for the CNAME in your Elastic Beanstalk environment URL. If not
+-- specified, the CNAME is generated automatically by appending a random
+-- alphanumeric string to the environment name.
+--
+-- 'tags', 'createEnvironment_tags' - Specifies the tags applied to resources in the environment.
+--
+-- 'optionSettings', 'createEnvironment_optionSettings' - If specified, AWS Elastic Beanstalk sets the specified configuration
+-- options to the requested value in the configuration set for the new
+-- environment. These override the values obtained from the solution stack
+-- or the configuration template.
+--
+-- 'description', 'createEnvironment_description' - Your description for this environment.
+--
+-- 'tier', 'createEnvironment_tier' - Specifies the tier to use in creating this environment. The environment
+-- tier that you choose determines whether Elastic Beanstalk provisions
+-- resources to support a web application that handles HTTP(S) requests or
+-- a web application that handles background-processing tasks.
+--
+-- 'operationsRole', 'createEnvironment_operationsRole' - The Amazon Resource Name (ARN) of an existing IAM role to be used as the
+-- environment\'s operations role. If specified, Elastic Beanstalk uses the
+-- operations role for permissions to downstream services during this call
+-- and during subsequent calls acting on this environment. To specify an
+-- operations role, you must have the @iam:PassRole@ permission for the
+-- role. For more information, see
+-- <https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/iam-operationsrole.html Operations roles>
+-- in the /AWS Elastic Beanstalk Developer Guide/.
+--
+-- 'applicationName', 'createEnvironment_applicationName' - The name of the application that is associated with this environment.
+newCreateEnvironment ::
+  -- | 'applicationName'
+  Prelude.Text ->
   CreateEnvironment
-createEnvironment pApplicationName_ =
+newCreateEnvironment pApplicationName_ =
   CreateEnvironment'
-    { _ceTemplateName = Nothing,
-      _ceGroupName = Nothing,
-      _ceSolutionStackName = Nothing,
-      _ceOptionsToRemove = Nothing,
-      _ceEnvironmentName = Nothing,
-      _cePlatformARN = Nothing,
-      _ceVersionLabel = Nothing,
-      _ceCNAMEPrefix = Nothing,
-      _ceTags = Nothing,
-      _ceOptionSettings = Nothing,
-      _ceDescription = Nothing,
-      _ceTier = Nothing,
-      _ceOperationsRole = Nothing,
-      _ceApplicationName = pApplicationName_
+    { templateName = Prelude.Nothing,
+      groupName = Prelude.Nothing,
+      solutionStackName = Prelude.Nothing,
+      optionsToRemove = Prelude.Nothing,
+      environmentName = Prelude.Nothing,
+      platformArn = Prelude.Nothing,
+      versionLabel = Prelude.Nothing,
+      cNAMEPrefix = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      optionSettings = Prelude.Nothing,
+      description = Prelude.Nothing,
+      tier = Prelude.Nothing,
+      operationsRole = Prelude.Nothing,
+      applicationName = pApplicationName_
     }
 
--- | The name of the Elastic Beanstalk configuration template to use with the environment.
-ceTemplateName :: Lens' CreateEnvironment (Maybe Text)
-ceTemplateName = lens _ceTemplateName (\s a -> s {_ceTemplateName = a})
+-- | The name of the Elastic Beanstalk configuration template to use with the
+-- environment.
+--
+-- If you specify @TemplateName@, then don\'t specify @SolutionStackName@.
+createEnvironment_templateName :: Lens.Lens' CreateEnvironment (Prelude.Maybe Prelude.Text)
+createEnvironment_templateName = Lens.lens (\CreateEnvironment' {templateName} -> templateName) (\s@CreateEnvironment' {} a -> s {templateName = a} :: CreateEnvironment)
 
--- | The name of the group to which the target environment belongs. Specify a group name only if the environment's name is specified in an environment manifest and not with the environment name parameter. See <https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environment-cfg-manifest.html Environment Manifest (env.yaml)> for details.
-ceGroupName :: Lens' CreateEnvironment (Maybe Text)
-ceGroupName = lens _ceGroupName (\s a -> s {_ceGroupName = a})
+-- | The name of the group to which the target environment belongs. Specify a
+-- group name only if the environment\'s name is specified in an
+-- environment manifest and not with the environment name parameter. See
+-- <https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environment-cfg-manifest.html Environment Manifest (env.yaml)>
+-- for details.
+createEnvironment_groupName :: Lens.Lens' CreateEnvironment (Prelude.Maybe Prelude.Text)
+createEnvironment_groupName = Lens.lens (\CreateEnvironment' {groupName} -> groupName) (\s@CreateEnvironment' {} a -> s {groupName = a} :: CreateEnvironment)
 
--- | The name of an Elastic Beanstalk solution stack (platform version) to use with the environment. If specified, Elastic Beanstalk sets the configuration values to the default values associated with the specified solution stack. For a list of current solution stacks, see <https://docs.aws.amazon.com/elasticbeanstalk/latest/platforms/platforms-supported.html Elastic Beanstalk Supported Platforms> in the /AWS Elastic Beanstalk Platforms/ guide.
-ceSolutionStackName :: Lens' CreateEnvironment (Maybe Text)
-ceSolutionStackName = lens _ceSolutionStackName (\s a -> s {_ceSolutionStackName = a})
+-- | The name of an Elastic Beanstalk solution stack (platform version) to
+-- use with the environment. If specified, Elastic Beanstalk sets the
+-- configuration values to the default values associated with the specified
+-- solution stack. For a list of current solution stacks, see
+-- <https://docs.aws.amazon.com/elasticbeanstalk/latest/platforms/platforms-supported.html Elastic Beanstalk Supported Platforms>
+-- in the /AWS Elastic Beanstalk Platforms/ guide.
+--
+-- If you specify @SolutionStackName@, don\'t specify @PlatformArn@ or
+-- @TemplateName@.
+createEnvironment_solutionStackName :: Lens.Lens' CreateEnvironment (Prelude.Maybe Prelude.Text)
+createEnvironment_solutionStackName = Lens.lens (\CreateEnvironment' {solutionStackName} -> solutionStackName) (\s@CreateEnvironment' {} a -> s {solutionStackName = a} :: CreateEnvironment)
 
--- | A list of custom user-defined configuration options to remove from the configuration set for this new environment.
-ceOptionsToRemove :: Lens' CreateEnvironment [OptionSpecification]
-ceOptionsToRemove = lens _ceOptionsToRemove (\s a -> s {_ceOptionsToRemove = a}) . _Default . _Coerce
+-- | A list of custom user-defined configuration options to remove from the
+-- configuration set for this new environment.
+createEnvironment_optionsToRemove :: Lens.Lens' CreateEnvironment (Prelude.Maybe [OptionSpecification])
+createEnvironment_optionsToRemove = Lens.lens (\CreateEnvironment' {optionsToRemove} -> optionsToRemove) (\s@CreateEnvironment' {} a -> s {optionsToRemove = a} :: CreateEnvironment) Prelude.. Lens.mapping Prelude._Coerce
 
--- | A unique name for the environment. Constraint: Must be from 4 to 40 characters in length. The name can contain only letters, numbers, and hyphens. It can't start or end with a hyphen. This name must be unique within a region in your account. If the specified name already exists in the region, Elastic Beanstalk returns an @InvalidParameterValue@ error.  If you don't specify the @CNAMEPrefix@ parameter, the environment name becomes part of the CNAME, and therefore part of the visible URL for your application.
-ceEnvironmentName :: Lens' CreateEnvironment (Maybe Text)
-ceEnvironmentName = lens _ceEnvironmentName (\s a -> s {_ceEnvironmentName = a})
+-- | A unique name for the environment.
+--
+-- Constraint: Must be from 4 to 40 characters in length. The name can
+-- contain only letters, numbers, and hyphens. It can\'t start or end with
+-- a hyphen. This name must be unique within a region in your account. If
+-- the specified name already exists in the region, Elastic Beanstalk
+-- returns an @InvalidParameterValue@ error.
+--
+-- If you don\'t specify the @CNAMEPrefix@ parameter, the environment name
+-- becomes part of the CNAME, and therefore part of the visible URL for
+-- your application.
+createEnvironment_environmentName :: Lens.Lens' CreateEnvironment (Prelude.Maybe Prelude.Text)
+createEnvironment_environmentName = Lens.lens (\CreateEnvironment' {environmentName} -> environmentName) (\s@CreateEnvironment' {} a -> s {environmentName = a} :: CreateEnvironment)
 
--- | The Amazon Resource Name (ARN) of the custom platform to use with the environment. For more information, see <https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/custom-platforms.html Custom Platforms> in the /AWS Elastic Beanstalk Developer Guide/ .
-cePlatformARN :: Lens' CreateEnvironment (Maybe Text)
-cePlatformARN = lens _cePlatformARN (\s a -> s {_cePlatformARN = a})
+-- | The Amazon Resource Name (ARN) of the custom platform to use with the
+-- environment. For more information, see
+-- <https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/custom-platforms.html Custom Platforms>
+-- in the /AWS Elastic Beanstalk Developer Guide/.
+--
+-- If you specify @PlatformArn@, don\'t specify @SolutionStackName@.
+createEnvironment_platformArn :: Lens.Lens' CreateEnvironment (Prelude.Maybe Prelude.Text)
+createEnvironment_platformArn = Lens.lens (\CreateEnvironment' {platformArn} -> platformArn) (\s@CreateEnvironment' {} a -> s {platformArn = a} :: CreateEnvironment)
 
--- | The name of the application version to deploy. Default: If not specified, Elastic Beanstalk attempts to deploy the sample application.
-ceVersionLabel :: Lens' CreateEnvironment (Maybe Text)
-ceVersionLabel = lens _ceVersionLabel (\s a -> s {_ceVersionLabel = a})
+-- | The name of the application version to deploy.
+--
+-- Default: If not specified, Elastic Beanstalk attempts to deploy the
+-- sample application.
+createEnvironment_versionLabel :: Lens.Lens' CreateEnvironment (Prelude.Maybe Prelude.Text)
+createEnvironment_versionLabel = Lens.lens (\CreateEnvironment' {versionLabel} -> versionLabel) (\s@CreateEnvironment' {} a -> s {versionLabel = a} :: CreateEnvironment)
 
--- | If specified, the environment attempts to use this value as the prefix for the CNAME in your Elastic Beanstalk environment URL. If not specified, the CNAME is generated automatically by appending a random alphanumeric string to the environment name.
-ceCNAMEPrefix :: Lens' CreateEnvironment (Maybe Text)
-ceCNAMEPrefix = lens _ceCNAMEPrefix (\s a -> s {_ceCNAMEPrefix = a})
+-- | If specified, the environment attempts to use this value as the prefix
+-- for the CNAME in your Elastic Beanstalk environment URL. If not
+-- specified, the CNAME is generated automatically by appending a random
+-- alphanumeric string to the environment name.
+createEnvironment_cNAMEPrefix :: Lens.Lens' CreateEnvironment (Prelude.Maybe Prelude.Text)
+createEnvironment_cNAMEPrefix = Lens.lens (\CreateEnvironment' {cNAMEPrefix} -> cNAMEPrefix) (\s@CreateEnvironment' {} a -> s {cNAMEPrefix = a} :: CreateEnvironment)
 
 -- | Specifies the tags applied to resources in the environment.
-ceTags :: Lens' CreateEnvironment [Tag]
-ceTags = lens _ceTags (\s a -> s {_ceTags = a}) . _Default . _Coerce
+createEnvironment_tags :: Lens.Lens' CreateEnvironment (Prelude.Maybe [Tag])
+createEnvironment_tags = Lens.lens (\CreateEnvironment' {tags} -> tags) (\s@CreateEnvironment' {} a -> s {tags = a} :: CreateEnvironment) Prelude.. Lens.mapping Prelude._Coerce
 
--- | If specified, AWS Elastic Beanstalk sets the specified configuration options to the requested value in the configuration set for the new environment. These override the values obtained from the solution stack or the configuration template.
-ceOptionSettings :: Lens' CreateEnvironment [ConfigurationOptionSetting]
-ceOptionSettings = lens _ceOptionSettings (\s a -> s {_ceOptionSettings = a}) . _Default . _Coerce
+-- | If specified, AWS Elastic Beanstalk sets the specified configuration
+-- options to the requested value in the configuration set for the new
+-- environment. These override the values obtained from the solution stack
+-- or the configuration template.
+createEnvironment_optionSettings :: Lens.Lens' CreateEnvironment (Prelude.Maybe [ConfigurationOptionSetting])
+createEnvironment_optionSettings = Lens.lens (\CreateEnvironment' {optionSettings} -> optionSettings) (\s@CreateEnvironment' {} a -> s {optionSettings = a} :: CreateEnvironment) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Your description for this environment.
-ceDescription :: Lens' CreateEnvironment (Maybe Text)
-ceDescription = lens _ceDescription (\s a -> s {_ceDescription = a})
+createEnvironment_description :: Lens.Lens' CreateEnvironment (Prelude.Maybe Prelude.Text)
+createEnvironment_description = Lens.lens (\CreateEnvironment' {description} -> description) (\s@CreateEnvironment' {} a -> s {description = a} :: CreateEnvironment)
 
--- | Specifies the tier to use in creating this environment. The environment tier that you choose determines whether Elastic Beanstalk provisions resources to support a web application that handles HTTP(S) requests or a web application that handles background-processing tasks.
-ceTier :: Lens' CreateEnvironment (Maybe EnvironmentTier)
-ceTier = lens _ceTier (\s a -> s {_ceTier = a})
+-- | Specifies the tier to use in creating this environment. The environment
+-- tier that you choose determines whether Elastic Beanstalk provisions
+-- resources to support a web application that handles HTTP(S) requests or
+-- a web application that handles background-processing tasks.
+createEnvironment_tier :: Lens.Lens' CreateEnvironment (Prelude.Maybe EnvironmentTier)
+createEnvironment_tier = Lens.lens (\CreateEnvironment' {tier} -> tier) (\s@CreateEnvironment' {} a -> s {tier = a} :: CreateEnvironment)
 
--- | The Amazon Resource Name (ARN) of an existing IAM role to be used as the environment's operations role. If specified, Elastic Beanstalk uses the operations role for permissions to downstream services during this call and during subsequent calls acting on this environment. To specify an operations role, you must have the @iam:PassRole@ permission for the role. For more information, see <https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/iam-operationsrole.html Operations roles> in the /AWS Elastic Beanstalk Developer Guide/ .
-ceOperationsRole :: Lens' CreateEnvironment (Maybe Text)
-ceOperationsRole = lens _ceOperationsRole (\s a -> s {_ceOperationsRole = a})
+-- | The Amazon Resource Name (ARN) of an existing IAM role to be used as the
+-- environment\'s operations role. If specified, Elastic Beanstalk uses the
+-- operations role for permissions to downstream services during this call
+-- and during subsequent calls acting on this environment. To specify an
+-- operations role, you must have the @iam:PassRole@ permission for the
+-- role. For more information, see
+-- <https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/iam-operationsrole.html Operations roles>
+-- in the /AWS Elastic Beanstalk Developer Guide/.
+createEnvironment_operationsRole :: Lens.Lens' CreateEnvironment (Prelude.Maybe Prelude.Text)
+createEnvironment_operationsRole = Lens.lens (\CreateEnvironment' {operationsRole} -> operationsRole) (\s@CreateEnvironment' {} a -> s {operationsRole = a} :: CreateEnvironment)
 
 -- | The name of the application that is associated with this environment.
-ceApplicationName :: Lens' CreateEnvironment Text
-ceApplicationName = lens _ceApplicationName (\s a -> s {_ceApplicationName = a})
+createEnvironment_applicationName :: Lens.Lens' CreateEnvironment Prelude.Text
+createEnvironment_applicationName = Lens.lens (\CreateEnvironment' {applicationName} -> applicationName) (\s@CreateEnvironment' {} a -> s {applicationName = a} :: CreateEnvironment)
 
-instance AWSRequest CreateEnvironment where
+instance Prelude.AWSRequest CreateEnvironment where
   type Rs CreateEnvironment = EnvironmentDescription
-  request = postQuery elasticBeanstalk
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "CreateEnvironmentResult"
-      (\s h x -> parseXML x)
+      (\s h x -> Prelude.parseXML x)
 
-instance Hashable CreateEnvironment
+instance Prelude.Hashable CreateEnvironment
 
-instance NFData CreateEnvironment
+instance Prelude.NFData CreateEnvironment
 
-instance ToHeaders CreateEnvironment where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateEnvironment where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CreateEnvironment where
-  toPath = const "/"
+instance Prelude.ToPath CreateEnvironment where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateEnvironment where
+instance Prelude.ToQuery CreateEnvironment where
   toQuery CreateEnvironment' {..} =
-    mconcat
-      [ "Action" =: ("CreateEnvironment" :: ByteString),
-        "Version" =: ("2010-12-01" :: ByteString),
-        "TemplateName" =: _ceTemplateName,
-        "GroupName" =: _ceGroupName,
-        "SolutionStackName" =: _ceSolutionStackName,
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("CreateEnvironment" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-12-01" :: Prelude.ByteString),
+        "TemplateName" Prelude.=: templateName,
+        "GroupName" Prelude.=: groupName,
+        "SolutionStackName" Prelude.=: solutionStackName,
         "OptionsToRemove"
-          =: toQuery
-            (toQueryList "member" <$> _ceOptionsToRemove),
-        "EnvironmentName" =: _ceEnvironmentName,
-        "PlatformArn" =: _cePlatformARN,
-        "VersionLabel" =: _ceVersionLabel,
-        "CNAMEPrefix" =: _ceCNAMEPrefix,
-        "Tags" =: toQuery (toQueryList "member" <$> _ceTags),
+          Prelude.=: Prelude.toQuery
+            ( Prelude.toQueryList "member"
+                Prelude.<$> optionsToRemove
+            ),
+        "EnvironmentName" Prelude.=: environmentName,
+        "PlatformArn" Prelude.=: platformArn,
+        "VersionLabel" Prelude.=: versionLabel,
+        "CNAMEPrefix" Prelude.=: cNAMEPrefix,
+        "Tags"
+          Prelude.=: Prelude.toQuery
+            (Prelude.toQueryList "member" Prelude.<$> tags),
         "OptionSettings"
-          =: toQuery (toQueryList "member" <$> _ceOptionSettings),
-        "Description" =: _ceDescription,
-        "Tier" =: _ceTier,
-        "OperationsRole" =: _ceOperationsRole,
-        "ApplicationName" =: _ceApplicationName
+          Prelude.=: Prelude.toQuery
+            ( Prelude.toQueryList "member"
+                Prelude.<$> optionSettings
+            ),
+        "Description" Prelude.=: description,
+        "Tier" Prelude.=: tier,
+        "OperationsRole" Prelude.=: operationsRole,
+        "ApplicationName" Prelude.=: applicationName
       ]

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,113 +20,126 @@
 module Network.AWS.ElasticBeanstalk.Types.EventDescription where
 
 import Network.AWS.ElasticBeanstalk.Types.EventSeverity
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes an event.
 --
---
---
--- /See:/ 'eventDescription' smart constructor.
+-- /See:/ 'newEventDescription' smart constructor.
 data EventDescription = EventDescription'
-  { _edTemplateName ::
-      !(Maybe Text),
-    _edSeverity :: !(Maybe EventSeverity),
-    _edMessage :: !(Maybe Text),
-    _edEventDate :: !(Maybe ISO8601),
-    _edEnvironmentName :: !(Maybe Text),
-    _edPlatformARN :: !(Maybe Text),
-    _edVersionLabel :: !(Maybe Text),
-    _edRequestId :: !(Maybe Text),
-    _edApplicationName :: !(Maybe Text)
+  { -- | The name of the configuration associated with this event.
+    templateName :: Prelude.Maybe Prelude.Text,
+    -- | The severity level of this event.
+    severity :: Prelude.Maybe EventSeverity,
+    -- | The event message.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The date when the event occurred.
+    eventDate :: Prelude.Maybe Prelude.ISO8601,
+    -- | The name of the environment associated with this event.
+    environmentName :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the platform version.
+    platformArn :: Prelude.Maybe Prelude.Text,
+    -- | The release label for the application version associated with this
+    -- event.
+    versionLabel :: Prelude.Maybe Prelude.Text,
+    -- | The web service request ID for the activity of this event.
+    requestId :: Prelude.Maybe Prelude.Text,
+    -- | The application associated with the event.
+    applicationName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EventDescription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EventDescription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'edTemplateName' - The name of the configuration associated with this event.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'edSeverity' - The severity level of this event.
+-- 'templateName', 'eventDescription_templateName' - The name of the configuration associated with this event.
 --
--- * 'edMessage' - The event message.
+-- 'severity', 'eventDescription_severity' - The severity level of this event.
 --
--- * 'edEventDate' - The date when the event occurred.
+-- 'message', 'eventDescription_message' - The event message.
 --
--- * 'edEnvironmentName' - The name of the environment associated with this event.
+-- 'eventDate', 'eventDescription_eventDate' - The date when the event occurred.
 --
--- * 'edPlatformARN' - The ARN of the platform version.
+-- 'environmentName', 'eventDescription_environmentName' - The name of the environment associated with this event.
 --
--- * 'edVersionLabel' - The release label for the application version associated with this event.
+-- 'platformArn', 'eventDescription_platformArn' - The ARN of the platform version.
 --
--- * 'edRequestId' - The web service request ID for the activity of this event.
+-- 'versionLabel', 'eventDescription_versionLabel' - The release label for the application version associated with this
+-- event.
 --
--- * 'edApplicationName' - The application associated with the event.
-eventDescription ::
+-- 'requestId', 'eventDescription_requestId' - The web service request ID for the activity of this event.
+--
+-- 'applicationName', 'eventDescription_applicationName' - The application associated with the event.
+newEventDescription ::
   EventDescription
-eventDescription =
+newEventDescription =
   EventDescription'
-    { _edTemplateName = Nothing,
-      _edSeverity = Nothing,
-      _edMessage = Nothing,
-      _edEventDate = Nothing,
-      _edEnvironmentName = Nothing,
-      _edPlatformARN = Nothing,
-      _edVersionLabel = Nothing,
-      _edRequestId = Nothing,
-      _edApplicationName = Nothing
+    { templateName = Prelude.Nothing,
+      severity = Prelude.Nothing,
+      message = Prelude.Nothing,
+      eventDate = Prelude.Nothing,
+      environmentName = Prelude.Nothing,
+      platformArn = Prelude.Nothing,
+      versionLabel = Prelude.Nothing,
+      requestId = Prelude.Nothing,
+      applicationName = Prelude.Nothing
     }
 
 -- | The name of the configuration associated with this event.
-edTemplateName :: Lens' EventDescription (Maybe Text)
-edTemplateName = lens _edTemplateName (\s a -> s {_edTemplateName = a})
+eventDescription_templateName :: Lens.Lens' EventDescription (Prelude.Maybe Prelude.Text)
+eventDescription_templateName = Lens.lens (\EventDescription' {templateName} -> templateName) (\s@EventDescription' {} a -> s {templateName = a} :: EventDescription)
 
 -- | The severity level of this event.
-edSeverity :: Lens' EventDescription (Maybe EventSeverity)
-edSeverity = lens _edSeverity (\s a -> s {_edSeverity = a})
+eventDescription_severity :: Lens.Lens' EventDescription (Prelude.Maybe EventSeverity)
+eventDescription_severity = Lens.lens (\EventDescription' {severity} -> severity) (\s@EventDescription' {} a -> s {severity = a} :: EventDescription)
 
 -- | The event message.
-edMessage :: Lens' EventDescription (Maybe Text)
-edMessage = lens _edMessage (\s a -> s {_edMessage = a})
+eventDescription_message :: Lens.Lens' EventDescription (Prelude.Maybe Prelude.Text)
+eventDescription_message = Lens.lens (\EventDescription' {message} -> message) (\s@EventDescription' {} a -> s {message = a} :: EventDescription)
 
 -- | The date when the event occurred.
-edEventDate :: Lens' EventDescription (Maybe UTCTime)
-edEventDate = lens _edEventDate (\s a -> s {_edEventDate = a}) . mapping _Time
+eventDescription_eventDate :: Lens.Lens' EventDescription (Prelude.Maybe Prelude.UTCTime)
+eventDescription_eventDate = Lens.lens (\EventDescription' {eventDate} -> eventDate) (\s@EventDescription' {} a -> s {eventDate = a} :: EventDescription) Prelude.. Lens.mapping Prelude._Time
 
 -- | The name of the environment associated with this event.
-edEnvironmentName :: Lens' EventDescription (Maybe Text)
-edEnvironmentName = lens _edEnvironmentName (\s a -> s {_edEnvironmentName = a})
+eventDescription_environmentName :: Lens.Lens' EventDescription (Prelude.Maybe Prelude.Text)
+eventDescription_environmentName = Lens.lens (\EventDescription' {environmentName} -> environmentName) (\s@EventDescription' {} a -> s {environmentName = a} :: EventDescription)
 
 -- | The ARN of the platform version.
-edPlatformARN :: Lens' EventDescription (Maybe Text)
-edPlatformARN = lens _edPlatformARN (\s a -> s {_edPlatformARN = a})
+eventDescription_platformArn :: Lens.Lens' EventDescription (Prelude.Maybe Prelude.Text)
+eventDescription_platformArn = Lens.lens (\EventDescription' {platformArn} -> platformArn) (\s@EventDescription' {} a -> s {platformArn = a} :: EventDescription)
 
--- | The release label for the application version associated with this event.
-edVersionLabel :: Lens' EventDescription (Maybe Text)
-edVersionLabel = lens _edVersionLabel (\s a -> s {_edVersionLabel = a})
+-- | The release label for the application version associated with this
+-- event.
+eventDescription_versionLabel :: Lens.Lens' EventDescription (Prelude.Maybe Prelude.Text)
+eventDescription_versionLabel = Lens.lens (\EventDescription' {versionLabel} -> versionLabel) (\s@EventDescription' {} a -> s {versionLabel = a} :: EventDescription)
 
 -- | The web service request ID for the activity of this event.
-edRequestId :: Lens' EventDescription (Maybe Text)
-edRequestId = lens _edRequestId (\s a -> s {_edRequestId = a})
+eventDescription_requestId :: Lens.Lens' EventDescription (Prelude.Maybe Prelude.Text)
+eventDescription_requestId = Lens.lens (\EventDescription' {requestId} -> requestId) (\s@EventDescription' {} a -> s {requestId = a} :: EventDescription)
 
 -- | The application associated with the event.
-edApplicationName :: Lens' EventDescription (Maybe Text)
-edApplicationName = lens _edApplicationName (\s a -> s {_edApplicationName = a})
+eventDescription_applicationName :: Lens.Lens' EventDescription (Prelude.Maybe Prelude.Text)
+eventDescription_applicationName = Lens.lens (\EventDescription' {applicationName} -> applicationName) (\s@EventDescription' {} a -> s {applicationName = a} :: EventDescription)
 
-instance FromXML EventDescription where
+instance Prelude.FromXML EventDescription where
   parseXML x =
     EventDescription'
-      <$> (x .@? "TemplateName")
-      <*> (x .@? "Severity")
-      <*> (x .@? "Message")
-      <*> (x .@? "EventDate")
-      <*> (x .@? "EnvironmentName")
-      <*> (x .@? "PlatformArn")
-      <*> (x .@? "VersionLabel")
-      <*> (x .@? "RequestId")
-      <*> (x .@? "ApplicationName")
+      Prelude.<$> (x Prelude..@? "TemplateName")
+      Prelude.<*> (x Prelude..@? "Severity")
+      Prelude.<*> (x Prelude..@? "Message")
+      Prelude.<*> (x Prelude..@? "EventDate")
+      Prelude.<*> (x Prelude..@? "EnvironmentName")
+      Prelude.<*> (x Prelude..@? "PlatformArn")
+      Prelude.<*> (x Prelude..@? "VersionLabel")
+      Prelude.<*> (x Prelude..@? "RequestId")
+      Prelude.<*> (x Prelude..@? "ApplicationName")
 
-instance Hashable EventDescription
+instance Prelude.Hashable EventDescription
 
-instance NFData EventDescription
+instance Prelude.NFData EventDescription

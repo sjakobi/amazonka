@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,178 +21,221 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists the platform versions available for your account in an AWS Region. Provides summary information about each platform version. Compare to 'DescribePlatformVersion' , which provides full details about a single platform version.
+-- Lists the platform versions available for your account in an AWS Region.
+-- Provides summary information about each platform version. Compare to
+-- DescribePlatformVersion, which provides full details about a single
+-- platform version.
 --
---
--- For definitions of platform version and other platform-related terms, see <https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/platforms-glossary.html AWS Elastic Beanstalk Platforms Glossary> .
---
+-- For definitions of platform version and other platform-related terms,
+-- see
+-- <https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/platforms-glossary.html AWS Elastic Beanstalk Platforms Glossary>.
 --
 -- This operation returns paginated results.
 module Network.AWS.ElasticBeanstalk.ListPlatformVersions
   ( -- * Creating a Request
-    listPlatformVersions,
-    ListPlatformVersions,
+    ListPlatformVersions (..),
+    newListPlatformVersions,
 
     -- * Request Lenses
-    lpvNextToken,
-    lpvFilters,
-    lpvMaxRecords,
+    listPlatformVersions_nextToken,
+    listPlatformVersions_filters,
+    listPlatformVersions_maxRecords,
 
     -- * Destructuring the Response
-    listPlatformVersionsResponse,
-    ListPlatformVersionsResponse,
+    ListPlatformVersionsResponse (..),
+    newListPlatformVersionsResponse,
 
     -- * Response Lenses
-    lpvrrsNextToken,
-    lpvrrsPlatformSummaryList,
-    lpvrrsResponseStatus,
+    listPlatformVersionsResponse_nextToken,
+    listPlatformVersionsResponse_platformSummaryList,
+    listPlatformVersionsResponse_httpStatus,
   )
 where
 
 import Network.AWS.ElasticBeanstalk.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.ElasticBeanstalk.Types.PlatformSummary
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listPlatformVersions' smart constructor.
+-- | /See:/ 'newListPlatformVersions' smart constructor.
 data ListPlatformVersions = ListPlatformVersions'
-  { _lpvNextToken ::
-      !(Maybe Text),
-    _lpvFilters ::
-      !(Maybe [PlatformFilter]),
-    _lpvMaxRecords ::
-      !(Maybe Nat)
+  { -- | For a paginated request. Specify a token from a previous response page
+    -- to retrieve the next response page. All other parameter values must be
+    -- identical to the ones specified in the initial request.
+    --
+    -- If no @NextToken@ is specified, the first page is retrieved.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Criteria for restricting the resulting list of platform versions. The
+    -- filter is interpreted as a logical conjunction (AND) of the separate
+    -- @PlatformFilter@ terms.
+    filters :: Prelude.Maybe [PlatformFilter],
+    -- | The maximum number of platform version values returned in one call.
+    maxRecords :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListPlatformVersions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListPlatformVersions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lpvNextToken' - For a paginated request. Specify a token from a previous response page to retrieve the next response page. All other parameter values must be identical to the ones specified in the initial request. If no @NextToken@ is specified, the first page is retrieved.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lpvFilters' - Criteria for restricting the resulting list of platform versions. The filter is interpreted as a logical conjunction (AND) of the separate @PlatformFilter@ terms.
+-- 'nextToken', 'listPlatformVersions_nextToken' - For a paginated request. Specify a token from a previous response page
+-- to retrieve the next response page. All other parameter values must be
+-- identical to the ones specified in the initial request.
 --
--- * 'lpvMaxRecords' - The maximum number of platform version values returned in one call.
-listPlatformVersions ::
+-- If no @NextToken@ is specified, the first page is retrieved.
+--
+-- 'filters', 'listPlatformVersions_filters' - Criteria for restricting the resulting list of platform versions. The
+-- filter is interpreted as a logical conjunction (AND) of the separate
+-- @PlatformFilter@ terms.
+--
+-- 'maxRecords', 'listPlatformVersions_maxRecords' - The maximum number of platform version values returned in one call.
+newListPlatformVersions ::
   ListPlatformVersions
-listPlatformVersions =
+newListPlatformVersions =
   ListPlatformVersions'
-    { _lpvNextToken = Nothing,
-      _lpvFilters = Nothing,
-      _lpvMaxRecords = Nothing
+    { nextToken = Prelude.Nothing,
+      filters = Prelude.Nothing,
+      maxRecords = Prelude.Nothing
     }
 
--- | For a paginated request. Specify a token from a previous response page to retrieve the next response page. All other parameter values must be identical to the ones specified in the initial request. If no @NextToken@ is specified, the first page is retrieved.
-lpvNextToken :: Lens' ListPlatformVersions (Maybe Text)
-lpvNextToken = lens _lpvNextToken (\s a -> s {_lpvNextToken = a})
+-- | For a paginated request. Specify a token from a previous response page
+-- to retrieve the next response page. All other parameter values must be
+-- identical to the ones specified in the initial request.
+--
+-- If no @NextToken@ is specified, the first page is retrieved.
+listPlatformVersions_nextToken :: Lens.Lens' ListPlatformVersions (Prelude.Maybe Prelude.Text)
+listPlatformVersions_nextToken = Lens.lens (\ListPlatformVersions' {nextToken} -> nextToken) (\s@ListPlatformVersions' {} a -> s {nextToken = a} :: ListPlatformVersions)
 
--- | Criteria for restricting the resulting list of platform versions. The filter is interpreted as a logical conjunction (AND) of the separate @PlatformFilter@ terms.
-lpvFilters :: Lens' ListPlatformVersions [PlatformFilter]
-lpvFilters = lens _lpvFilters (\s a -> s {_lpvFilters = a}) . _Default . _Coerce
+-- | Criteria for restricting the resulting list of platform versions. The
+-- filter is interpreted as a logical conjunction (AND) of the separate
+-- @PlatformFilter@ terms.
+listPlatformVersions_filters :: Lens.Lens' ListPlatformVersions (Prelude.Maybe [PlatformFilter])
+listPlatformVersions_filters = Lens.lens (\ListPlatformVersions' {filters} -> filters) (\s@ListPlatformVersions' {} a -> s {filters = a} :: ListPlatformVersions) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The maximum number of platform version values returned in one call.
-lpvMaxRecords :: Lens' ListPlatformVersions (Maybe Natural)
-lpvMaxRecords = lens _lpvMaxRecords (\s a -> s {_lpvMaxRecords = a}) . mapping _Nat
+listPlatformVersions_maxRecords :: Lens.Lens' ListPlatformVersions (Prelude.Maybe Prelude.Natural)
+listPlatformVersions_maxRecords = Lens.lens (\ListPlatformVersions' {maxRecords} -> maxRecords) (\s@ListPlatformVersions' {} a -> s {maxRecords = a} :: ListPlatformVersions) Prelude.. Lens.mapping Prelude._Nat
 
-instance AWSPager ListPlatformVersions where
+instance Pager.AWSPager ListPlatformVersions where
   page rq rs
-    | stop (rs ^. lpvrrsNextToken) = Nothing
-    | stop (rs ^. lpvrrsPlatformSummaryList) = Nothing
-    | otherwise =
-      Just $ rq & lpvNextToken .~ rs ^. lpvrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listPlatformVersionsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listPlatformVersionsResponse_platformSummaryList
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listPlatformVersions_nextToken
+          Lens..~ rs
+          Lens.^? listPlatformVersionsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListPlatformVersions where
+instance Prelude.AWSRequest ListPlatformVersions where
   type
     Rs ListPlatformVersions =
       ListPlatformVersionsResponse
-  request = postQuery elasticBeanstalk
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "ListPlatformVersionsResult"
       ( \s h x ->
           ListPlatformVersionsResponse'
-            <$> (x .@? "NextToken")
-            <*> ( x .@? "PlatformSummaryList" .!@ mempty
-                    >>= may (parseXMLList "member")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "NextToken")
+            Prelude.<*> ( x Prelude..@? "PlatformSummaryList"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListPlatformVersions
+instance Prelude.Hashable ListPlatformVersions
 
-instance NFData ListPlatformVersions
+instance Prelude.NFData ListPlatformVersions
 
-instance ToHeaders ListPlatformVersions where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListPlatformVersions where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListPlatformVersions where
-  toPath = const "/"
+instance Prelude.ToPath ListPlatformVersions where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListPlatformVersions where
+instance Prelude.ToQuery ListPlatformVersions where
   toQuery ListPlatformVersions' {..} =
-    mconcat
-      [ "Action" =: ("ListPlatformVersions" :: ByteString),
-        "Version" =: ("2010-12-01" :: ByteString),
-        "NextToken" =: _lpvNextToken,
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("ListPlatformVersions" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-12-01" :: Prelude.ByteString),
+        "NextToken" Prelude.=: nextToken,
         "Filters"
-          =: toQuery (toQueryList "member" <$> _lpvFilters),
-        "MaxRecords" =: _lpvMaxRecords
+          Prelude.=: Prelude.toQuery
+            (Prelude.toQueryList "member" Prelude.<$> filters),
+        "MaxRecords" Prelude.=: maxRecords
       ]
 
--- | /See:/ 'listPlatformVersionsResponse' smart constructor.
+-- | /See:/ 'newListPlatformVersionsResponse' smart constructor.
 data ListPlatformVersionsResponse = ListPlatformVersionsResponse'
-  { _lpvrrsNextToken ::
-      !(Maybe Text),
-    _lpvrrsPlatformSummaryList ::
-      !( Maybe
-           [PlatformSummary]
-       ),
-    _lpvrrsResponseStatus ::
-      !Int
+  { -- | In a paginated request, if this value isn\'t @null@, it\'s the token
+    -- that you can pass in a subsequent request to get the next response page.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Summary information about the platform versions.
+    platformSummaryList :: Prelude.Maybe [PlatformSummary],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListPlatformVersionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListPlatformVersionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lpvrrsNextToken' - In a paginated request, if this value isn't @null@ , it's the token that you can pass in a subsequent request to get the next response page.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lpvrrsPlatformSummaryList' - Summary information about the platform versions.
+-- 'nextToken', 'listPlatformVersionsResponse_nextToken' - In a paginated request, if this value isn\'t @null@, it\'s the token
+-- that you can pass in a subsequent request to get the next response page.
 --
--- * 'lpvrrsResponseStatus' - -- | The response status code.
-listPlatformVersionsResponse ::
-  -- | 'lpvrrsResponseStatus'
-  Int ->
+-- 'platformSummaryList', 'listPlatformVersionsResponse_platformSummaryList' - Summary information about the platform versions.
+--
+-- 'httpStatus', 'listPlatformVersionsResponse_httpStatus' - The response's http status code.
+newListPlatformVersionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListPlatformVersionsResponse
-listPlatformVersionsResponse pResponseStatus_ =
+newListPlatformVersionsResponse pHttpStatus_ =
   ListPlatformVersionsResponse'
-    { _lpvrrsNextToken =
-        Nothing,
-      _lpvrrsPlatformSummaryList = Nothing,
-      _lpvrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      platformSummaryList = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | In a paginated request, if this value isn't @null@ , it's the token that you can pass in a subsequent request to get the next response page.
-lpvrrsNextToken :: Lens' ListPlatformVersionsResponse (Maybe Text)
-lpvrrsNextToken = lens _lpvrrsNextToken (\s a -> s {_lpvrrsNextToken = a})
+-- | In a paginated request, if this value isn\'t @null@, it\'s the token
+-- that you can pass in a subsequent request to get the next response page.
+listPlatformVersionsResponse_nextToken :: Lens.Lens' ListPlatformVersionsResponse (Prelude.Maybe Prelude.Text)
+listPlatformVersionsResponse_nextToken = Lens.lens (\ListPlatformVersionsResponse' {nextToken} -> nextToken) (\s@ListPlatformVersionsResponse' {} a -> s {nextToken = a} :: ListPlatformVersionsResponse)
 
 -- | Summary information about the platform versions.
-lpvrrsPlatformSummaryList :: Lens' ListPlatformVersionsResponse [PlatformSummary]
-lpvrrsPlatformSummaryList = lens _lpvrrsPlatformSummaryList (\s a -> s {_lpvrrsPlatformSummaryList = a}) . _Default . _Coerce
+listPlatformVersionsResponse_platformSummaryList :: Lens.Lens' ListPlatformVersionsResponse (Prelude.Maybe [PlatformSummary])
+listPlatformVersionsResponse_platformSummaryList = Lens.lens (\ListPlatformVersionsResponse' {platformSummaryList} -> platformSummaryList) (\s@ListPlatformVersionsResponse' {} a -> s {platformSummaryList = a} :: ListPlatformVersionsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lpvrrsResponseStatus :: Lens' ListPlatformVersionsResponse Int
-lpvrrsResponseStatus = lens _lpvrrsResponseStatus (\s a -> s {_lpvrrsResponseStatus = a})
+-- | The response's http status code.
+listPlatformVersionsResponse_httpStatus :: Lens.Lens' ListPlatformVersionsResponse Prelude.Int
+listPlatformVersionsResponse_httpStatus = Lens.lens (\ListPlatformVersionsResponse' {httpStatus} -> httpStatus) (\s@ListPlatformVersionsResponse' {} a -> s {httpStatus = a} :: ListPlatformVersionsResponse)
 
-instance NFData ListPlatformVersionsResponse
+instance Prelude.NFData ListPlatformVersionsResponse

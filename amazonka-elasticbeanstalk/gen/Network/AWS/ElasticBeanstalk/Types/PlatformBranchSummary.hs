@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,90 +19,117 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ElasticBeanstalk.Types.PlatformBranchSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Summary information about a platform branch.
 --
---
---
--- /See:/ 'platformBranchSummary' smart constructor.
+-- /See:/ 'newPlatformBranchSummary' smart constructor.
 data PlatformBranchSummary = PlatformBranchSummary'
-  { _pbsBranchName ::
-      !(Maybe Text),
-    _pbsBranchOrder ::
-      !(Maybe Int),
-    _pbsLifecycleState ::
-      !(Maybe Text),
-    _pbsSupportedTierList ::
-      !(Maybe [Text]),
-    _pbsPlatformName ::
-      !(Maybe Text)
+  { -- | The name of the platform branch.
+    branchName :: Prelude.Maybe Prelude.Text,
+    -- | An ordinal number that designates the order in which platform branches
+    -- have been added to a platform. This can be helpful, for example, if your
+    -- code calls the @ListPlatformBranches@ action and then displays a list of
+    -- platform branches.
+    --
+    -- A larger @BranchOrder@ value designates a newer platform branch within
+    -- the platform.
+    branchOrder :: Prelude.Maybe Prelude.Int,
+    -- | The support life cycle state of the platform branch.
+    --
+    -- Possible values: @beta@ | @supported@ | @deprecated@ | @retired@
+    lifecycleState :: Prelude.Maybe Prelude.Text,
+    -- | The environment tiers that platform versions in this branch support.
+    --
+    -- Possible values: @WebServer\/Standard@ | @Worker\/SQS\/HTTP@
+    supportedTierList :: Prelude.Maybe [Prelude.Text],
+    -- | The name of the platform to which this platform branch belongs.
+    platformName :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PlatformBranchSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PlatformBranchSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pbsBranchName' - The name of the platform branch.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pbsBranchOrder' - An ordinal number that designates the order in which platform branches have been added to a platform. This can be helpful, for example, if your code calls the @ListPlatformBranches@ action and then displays a list of platform branches. A larger @BranchOrder@ value designates a newer platform branch within the platform.
+-- 'branchName', 'platformBranchSummary_branchName' - The name of the platform branch.
 --
--- * 'pbsLifecycleState' - The support life cycle state of the platform branch. Possible values: @beta@ | @supported@ | @deprecated@ | @retired@
+-- 'branchOrder', 'platformBranchSummary_branchOrder' - An ordinal number that designates the order in which platform branches
+-- have been added to a platform. This can be helpful, for example, if your
+-- code calls the @ListPlatformBranches@ action and then displays a list of
+-- platform branches.
 --
--- * 'pbsSupportedTierList' - The environment tiers that platform versions in this branch support. Possible values: @WebServer/Standard@ | @Worker/SQS/HTTP@
+-- A larger @BranchOrder@ value designates a newer platform branch within
+-- the platform.
 --
--- * 'pbsPlatformName' - The name of the platform to which this platform branch belongs.
-platformBranchSummary ::
+-- 'lifecycleState', 'platformBranchSummary_lifecycleState' - The support life cycle state of the platform branch.
+--
+-- Possible values: @beta@ | @supported@ | @deprecated@ | @retired@
+--
+-- 'supportedTierList', 'platformBranchSummary_supportedTierList' - The environment tiers that platform versions in this branch support.
+--
+-- Possible values: @WebServer\/Standard@ | @Worker\/SQS\/HTTP@
+--
+-- 'platformName', 'platformBranchSummary_platformName' - The name of the platform to which this platform branch belongs.
+newPlatformBranchSummary ::
   PlatformBranchSummary
-platformBranchSummary =
+newPlatformBranchSummary =
   PlatformBranchSummary'
-    { _pbsBranchName = Nothing,
-      _pbsBranchOrder = Nothing,
-      _pbsLifecycleState = Nothing,
-      _pbsSupportedTierList = Nothing,
-      _pbsPlatformName = Nothing
+    { branchName =
+        Prelude.Nothing,
+      branchOrder = Prelude.Nothing,
+      lifecycleState = Prelude.Nothing,
+      supportedTierList = Prelude.Nothing,
+      platformName = Prelude.Nothing
     }
 
 -- | The name of the platform branch.
-pbsBranchName :: Lens' PlatformBranchSummary (Maybe Text)
-pbsBranchName = lens _pbsBranchName (\s a -> s {_pbsBranchName = a})
+platformBranchSummary_branchName :: Lens.Lens' PlatformBranchSummary (Prelude.Maybe Prelude.Text)
+platformBranchSummary_branchName = Lens.lens (\PlatformBranchSummary' {branchName} -> branchName) (\s@PlatformBranchSummary' {} a -> s {branchName = a} :: PlatformBranchSummary)
 
--- | An ordinal number that designates the order in which platform branches have been added to a platform. This can be helpful, for example, if your code calls the @ListPlatformBranches@ action and then displays a list of platform branches. A larger @BranchOrder@ value designates a newer platform branch within the platform.
-pbsBranchOrder :: Lens' PlatformBranchSummary (Maybe Int)
-pbsBranchOrder = lens _pbsBranchOrder (\s a -> s {_pbsBranchOrder = a})
+-- | An ordinal number that designates the order in which platform branches
+-- have been added to a platform. This can be helpful, for example, if your
+-- code calls the @ListPlatformBranches@ action and then displays a list of
+-- platform branches.
+--
+-- A larger @BranchOrder@ value designates a newer platform branch within
+-- the platform.
+platformBranchSummary_branchOrder :: Lens.Lens' PlatformBranchSummary (Prelude.Maybe Prelude.Int)
+platformBranchSummary_branchOrder = Lens.lens (\PlatformBranchSummary' {branchOrder} -> branchOrder) (\s@PlatformBranchSummary' {} a -> s {branchOrder = a} :: PlatformBranchSummary)
 
--- | The support life cycle state of the platform branch. Possible values: @beta@ | @supported@ | @deprecated@ | @retired@
-pbsLifecycleState :: Lens' PlatformBranchSummary (Maybe Text)
-pbsLifecycleState = lens _pbsLifecycleState (\s a -> s {_pbsLifecycleState = a})
+-- | The support life cycle state of the platform branch.
+--
+-- Possible values: @beta@ | @supported@ | @deprecated@ | @retired@
+platformBranchSummary_lifecycleState :: Lens.Lens' PlatformBranchSummary (Prelude.Maybe Prelude.Text)
+platformBranchSummary_lifecycleState = Lens.lens (\PlatformBranchSummary' {lifecycleState} -> lifecycleState) (\s@PlatformBranchSummary' {} a -> s {lifecycleState = a} :: PlatformBranchSummary)
 
--- | The environment tiers that platform versions in this branch support. Possible values: @WebServer/Standard@ | @Worker/SQS/HTTP@
-pbsSupportedTierList :: Lens' PlatformBranchSummary [Text]
-pbsSupportedTierList = lens _pbsSupportedTierList (\s a -> s {_pbsSupportedTierList = a}) . _Default . _Coerce
+-- | The environment tiers that platform versions in this branch support.
+--
+-- Possible values: @WebServer\/Standard@ | @Worker\/SQS\/HTTP@
+platformBranchSummary_supportedTierList :: Lens.Lens' PlatformBranchSummary (Prelude.Maybe [Prelude.Text])
+platformBranchSummary_supportedTierList = Lens.lens (\PlatformBranchSummary' {supportedTierList} -> supportedTierList) (\s@PlatformBranchSummary' {} a -> s {supportedTierList = a} :: PlatformBranchSummary) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The name of the platform to which this platform branch belongs.
-pbsPlatformName :: Lens' PlatformBranchSummary (Maybe Text)
-pbsPlatformName = lens _pbsPlatformName (\s a -> s {_pbsPlatformName = a})
+platformBranchSummary_platformName :: Lens.Lens' PlatformBranchSummary (Prelude.Maybe Prelude.Text)
+platformBranchSummary_platformName = Lens.lens (\PlatformBranchSummary' {platformName} -> platformName) (\s@PlatformBranchSummary' {} a -> s {platformName = a} :: PlatformBranchSummary)
 
-instance FromXML PlatformBranchSummary where
+instance Prelude.FromXML PlatformBranchSummary where
   parseXML x =
     PlatformBranchSummary'
-      <$> (x .@? "BranchName")
-      <*> (x .@? "BranchOrder")
-      <*> (x .@? "LifecycleState")
-      <*> ( x .@? "SupportedTierList" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> (x .@? "PlatformName")
+      Prelude.<$> (x Prelude..@? "BranchName")
+      Prelude.<*> (x Prelude..@? "BranchOrder")
+      Prelude.<*> (x Prelude..@? "LifecycleState")
+      Prelude.<*> ( x Prelude..@? "SupportedTierList"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> (x Prelude..@? "PlatformName")
 
-instance Hashable PlatformBranchSummary
+instance Prelude.Hashable PlatformBranchSummary
 
-instance NFData PlatformBranchSummary
+instance Prelude.NFData PlatformBranchSummary

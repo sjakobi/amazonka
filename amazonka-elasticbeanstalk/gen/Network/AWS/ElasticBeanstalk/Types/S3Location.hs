@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,54 +19,60 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ElasticBeanstalk.Types.S3Location where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The bucket and key of an item stored in Amazon S3.
 --
---
---
--- /See:/ 's3Location' smart constructor.
+-- /See:/ 'newS3Location' smart constructor.
 data S3Location = S3Location'
-  { _slS3Bucket ::
-      !(Maybe Text),
-    _slS3Key :: !(Maybe Text)
+  { -- | The Amazon S3 bucket where the data is located.
+    s3Bucket :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon S3 key where the data is located.
+    s3Key :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'S3Location' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'S3Location' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'slS3Bucket' - The Amazon S3 bucket where the data is located.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'slS3Key' - The Amazon S3 key where the data is located.
-s3Location ::
+-- 's3Bucket', 's3Location_s3Bucket' - The Amazon S3 bucket where the data is located.
+--
+-- 's3Key', 's3Location_s3Key' - The Amazon S3 key where the data is located.
+newS3Location ::
   S3Location
-s3Location =
+newS3Location =
   S3Location'
-    { _slS3Bucket = Nothing,
-      _slS3Key = Nothing
+    { s3Bucket = Prelude.Nothing,
+      s3Key = Prelude.Nothing
     }
 
 -- | The Amazon S3 bucket where the data is located.
-slS3Bucket :: Lens' S3Location (Maybe Text)
-slS3Bucket = lens _slS3Bucket (\s a -> s {_slS3Bucket = a})
+s3Location_s3Bucket :: Lens.Lens' S3Location (Prelude.Maybe Prelude.Text)
+s3Location_s3Bucket = Lens.lens (\S3Location' {s3Bucket} -> s3Bucket) (\s@S3Location' {} a -> s {s3Bucket = a} :: S3Location)
 
 -- | The Amazon S3 key where the data is located.
-slS3Key :: Lens' S3Location (Maybe Text)
-slS3Key = lens _slS3Key (\s a -> s {_slS3Key = a})
+s3Location_s3Key :: Lens.Lens' S3Location (Prelude.Maybe Prelude.Text)
+s3Location_s3Key = Lens.lens (\S3Location' {s3Key} -> s3Key) (\s@S3Location' {} a -> s {s3Key = a} :: S3Location)
 
-instance FromXML S3Location where
+instance Prelude.FromXML S3Location where
   parseXML x =
     S3Location'
-      <$> (x .@? "S3Bucket") <*> (x .@? "S3Key")
+      Prelude.<$> (x Prelude..@? "S3Bucket")
+      Prelude.<*> (x Prelude..@? "S3Key")
 
-instance Hashable S3Location
+instance Prelude.Hashable S3Location
 
-instance NFData S3Location
+instance Prelude.NFData S3Location
 
-instance ToQuery S3Location where
+instance Prelude.ToQuery S3Location where
   toQuery S3Location' {..} =
-    mconcat
-      ["S3Bucket" =: _slS3Bucket, "S3Key" =: _slS3Key]
+    Prelude.mconcat
+      [ "S3Bucket" Prelude.=: s3Bucket,
+        "S3Key" Prelude.=: s3Key
+      ]

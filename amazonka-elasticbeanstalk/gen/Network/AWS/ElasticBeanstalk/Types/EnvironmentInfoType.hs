@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.ElasticBeanstalk.Types.EnvironmentInfoType
   ( EnvironmentInfoType
       ( ..,
-        Bundle,
-        Tail
+        EnvironmentInfoTypeBundle,
+        EnvironmentInfoTypeTail
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data EnvironmentInfoType
-  = EnvironmentInfoType'
-      ( CI
-          Text
-      )
+newtype EnvironmentInfoType = EnvironmentInfoType'
+  { fromEnvironmentInfoType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Bundle :: EnvironmentInfoType
-pattern Bundle = EnvironmentInfoType' "bundle"
+pattern EnvironmentInfoTypeBundle :: EnvironmentInfoType
+pattern EnvironmentInfoTypeBundle = EnvironmentInfoType' "bundle"
 
-pattern Tail :: EnvironmentInfoType
-pattern Tail = EnvironmentInfoType' "tail"
+pattern EnvironmentInfoTypeTail :: EnvironmentInfoType
+pattern EnvironmentInfoTypeTail = EnvironmentInfoType' "tail"
 
 {-# COMPLETE
-  Bundle,
-  Tail,
+  EnvironmentInfoTypeBundle,
+  EnvironmentInfoTypeTail,
   EnvironmentInfoType'
   #-}
 
-instance FromText EnvironmentInfoType where
-  parser = (EnvironmentInfoType' . mk) <$> takeText
+instance Prelude.FromText EnvironmentInfoType where
+  parser = EnvironmentInfoType' Prelude.<$> Prelude.takeText
 
-instance ToText EnvironmentInfoType where
-  toText (EnvironmentInfoType' ci) = original ci
+instance Prelude.ToText EnvironmentInfoType where
+  toText (EnvironmentInfoType' x) = x
 
-instance Hashable EnvironmentInfoType
+instance Prelude.Hashable EnvironmentInfoType
 
-instance NFData EnvironmentInfoType
+instance Prelude.NFData EnvironmentInfoType
 
-instance ToByteString EnvironmentInfoType
+instance Prelude.ToByteString EnvironmentInfoType
 
-instance ToQuery EnvironmentInfoType
+instance Prelude.ToQuery EnvironmentInfoType
 
-instance ToHeader EnvironmentInfoType
+instance Prelude.ToHeader EnvironmentInfoType
 
-instance FromXML EnvironmentInfoType where
-  parseXML = parseXMLText "EnvironmentInfoType"
+instance Prelude.FromXML EnvironmentInfoType where
+  parseXML = Prelude.parseXMLText "EnvironmentInfoType"

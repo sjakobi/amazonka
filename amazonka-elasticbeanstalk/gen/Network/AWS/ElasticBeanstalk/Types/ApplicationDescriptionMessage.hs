@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,50 +20,49 @@
 module Network.AWS.ElasticBeanstalk.Types.ApplicationDescriptionMessage where
 
 import Network.AWS.ElasticBeanstalk.Types.ApplicationDescription
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Result message containing a single description of an application.
 --
---
---
--- /See:/ 'applicationDescriptionMessage' smart constructor.
-newtype ApplicationDescriptionMessage = ApplicationDescriptionMessage'
-  { _admApplication ::
-      Maybe
-        ApplicationDescription
+-- /See:/ 'newApplicationDescriptionMessage' smart constructor.
+data ApplicationDescriptionMessage = ApplicationDescriptionMessage'
+  { -- | The ApplicationDescription of the application.
+    application :: Prelude.Maybe ApplicationDescription
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ApplicationDescriptionMessage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ApplicationDescriptionMessage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'admApplication' - The 'ApplicationDescription' of the application.
-applicationDescriptionMessage ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'application', 'applicationDescriptionMessage_application' - The ApplicationDescription of the application.
+newApplicationDescriptionMessage ::
   ApplicationDescriptionMessage
-applicationDescriptionMessage =
+newApplicationDescriptionMessage =
   ApplicationDescriptionMessage'
-    { _admApplication =
-        Nothing
+    { application =
+        Prelude.Nothing
     }
 
--- | The 'ApplicationDescription' of the application.
-admApplication :: Lens' ApplicationDescriptionMessage (Maybe ApplicationDescription)
-admApplication = lens _admApplication (\s a -> s {_admApplication = a})
+-- | The ApplicationDescription of the application.
+applicationDescriptionMessage_application :: Lens.Lens' ApplicationDescriptionMessage (Prelude.Maybe ApplicationDescription)
+applicationDescriptionMessage_application = Lens.lens (\ApplicationDescriptionMessage' {application} -> application) (\s@ApplicationDescriptionMessage' {} a -> s {application = a} :: ApplicationDescriptionMessage)
 
-instance FromXML ApplicationDescriptionMessage where
+instance
+  Prelude.FromXML
+    ApplicationDescriptionMessage
+  where
   parseXML x =
     ApplicationDescriptionMessage'
-      <$> (x .@? "Application")
+      Prelude.<$> (x Prelude..@? "Application")
 
-instance Hashable ApplicationDescriptionMessage
+instance
+  Prelude.Hashable
+    ApplicationDescriptionMessage
 
-instance NFData ApplicationDescriptionMessage
+instance Prelude.NFData ApplicationDescriptionMessage

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.ElasticBeanstalk.Types.ValidationSeverity
   ( ValidationSeverity
       ( ..,
-        Error',
-        Warning
+        ValidationSeverityError,
+        ValidationSeverityWarning
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ValidationSeverity
-  = ValidationSeverity'
-      ( CI
-          Text
-      )
+newtype ValidationSeverity = ValidationSeverity'
+  { fromValidationSeverity ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Error' :: ValidationSeverity
-pattern Error' = ValidationSeverity' "error"
+pattern ValidationSeverityError :: ValidationSeverity
+pattern ValidationSeverityError = ValidationSeverity' "error"
 
-pattern Warning :: ValidationSeverity
-pattern Warning = ValidationSeverity' "warning"
+pattern ValidationSeverityWarning :: ValidationSeverity
+pattern ValidationSeverityWarning = ValidationSeverity' "warning"
 
 {-# COMPLETE
-  Error',
-  Warning,
+  ValidationSeverityError,
+  ValidationSeverityWarning,
   ValidationSeverity'
   #-}
 
-instance FromText ValidationSeverity where
-  parser = (ValidationSeverity' . mk) <$> takeText
+instance Prelude.FromText ValidationSeverity where
+  parser = ValidationSeverity' Prelude.<$> Prelude.takeText
 
-instance ToText ValidationSeverity where
-  toText (ValidationSeverity' ci) = original ci
+instance Prelude.ToText ValidationSeverity where
+  toText (ValidationSeverity' x) = x
 
-instance Hashable ValidationSeverity
+instance Prelude.Hashable ValidationSeverity
 
-instance NFData ValidationSeverity
+instance Prelude.NFData ValidationSeverity
 
-instance ToByteString ValidationSeverity
+instance Prelude.ToByteString ValidationSeverity
 
-instance ToQuery ValidationSeverity
+instance Prelude.ToQuery ValidationSeverity
 
-instance ToHeader ValidationSeverity
+instance Prelude.ToHeader ValidationSeverity
 
-instance FromXML ValidationSeverity where
-  parseXML = parseXMLText "ValidationSeverity"
+instance Prelude.FromXML ValidationSeverity where
+  parseXML = Prelude.parseXMLText "ValidationSeverity"

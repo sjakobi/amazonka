@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,70 @@
 module Network.AWS.ElasticBeanstalk.Types.PlatformStatus
   ( PlatformStatus
       ( ..,
-        Creating,
-        Deleted,
-        Deleting,
-        Failed,
-        Ready
+        PlatformStatusCreating,
+        PlatformStatusDeleted,
+        PlatformStatusDeleting,
+        PlatformStatusFailed,
+        PlatformStatusReady
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PlatformStatus = PlatformStatus' (CI Text)
+newtype PlatformStatus = PlatformStatus'
+  { fromPlatformStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Creating :: PlatformStatus
-pattern Creating = PlatformStatus' "Creating"
+pattern PlatformStatusCreating :: PlatformStatus
+pattern PlatformStatusCreating = PlatformStatus' "Creating"
 
-pattern Deleted :: PlatformStatus
-pattern Deleted = PlatformStatus' "Deleted"
+pattern PlatformStatusDeleted :: PlatformStatus
+pattern PlatformStatusDeleted = PlatformStatus' "Deleted"
 
-pattern Deleting :: PlatformStatus
-pattern Deleting = PlatformStatus' "Deleting"
+pattern PlatformStatusDeleting :: PlatformStatus
+pattern PlatformStatusDeleting = PlatformStatus' "Deleting"
 
-pattern Failed :: PlatformStatus
-pattern Failed = PlatformStatus' "Failed"
+pattern PlatformStatusFailed :: PlatformStatus
+pattern PlatformStatusFailed = PlatformStatus' "Failed"
 
-pattern Ready :: PlatformStatus
-pattern Ready = PlatformStatus' "Ready"
+pattern PlatformStatusReady :: PlatformStatus
+pattern PlatformStatusReady = PlatformStatus' "Ready"
 
 {-# COMPLETE
-  Creating,
-  Deleted,
-  Deleting,
-  Failed,
-  Ready,
+  PlatformStatusCreating,
+  PlatformStatusDeleted,
+  PlatformStatusDeleting,
+  PlatformStatusFailed,
+  PlatformStatusReady,
   PlatformStatus'
   #-}
 
-instance FromText PlatformStatus where
-  parser = (PlatformStatus' . mk) <$> takeText
+instance Prelude.FromText PlatformStatus where
+  parser = PlatformStatus' Prelude.<$> Prelude.takeText
 
-instance ToText PlatformStatus where
-  toText (PlatformStatus' ci) = original ci
+instance Prelude.ToText PlatformStatus where
+  toText (PlatformStatus' x) = x
 
-instance Hashable PlatformStatus
+instance Prelude.Hashable PlatformStatus
 
-instance NFData PlatformStatus
+instance Prelude.NFData PlatformStatus
 
-instance ToByteString PlatformStatus
+instance Prelude.ToByteString PlatformStatus
 
-instance ToQuery PlatformStatus
+instance Prelude.ToQuery PlatformStatus
 
-instance ToHeader PlatformStatus
+instance Prelude.ToHeader PlatformStatus
 
-instance FromXML PlatformStatus where
-  parseXML = parseXMLText "PlatformStatus"
+instance Prelude.FromXML PlatformStatus where
+  parseXML = Prelude.parseXMLText "PlatformStatus"

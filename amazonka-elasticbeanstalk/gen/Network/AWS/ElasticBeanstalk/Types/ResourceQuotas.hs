@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,81 +20,85 @@
 module Network.AWS.ElasticBeanstalk.Types.ResourceQuotas where
 
 import Network.AWS.ElasticBeanstalk.Types.ResourceQuota
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A set of per-resource AWS Elastic Beanstalk quotas associated with an AWS account. They reflect Elastic Beanstalk resource limits for this account.
+-- | A set of per-resource AWS Elastic Beanstalk quotas associated with an
+-- AWS account. They reflect Elastic Beanstalk resource limits for this
+-- account.
 --
---
---
--- /See:/ 'resourceQuotas' smart constructor.
+-- /See:/ 'newResourceQuotas' smart constructor.
 data ResourceQuotas = ResourceQuotas'
-  { _rqApplicationQuota ::
-      !(Maybe ResourceQuota),
-    _rqConfigurationTemplateQuota ::
-      !(Maybe ResourceQuota),
-    _rqApplicationVersionQuota ::
-      !(Maybe ResourceQuota),
-    _rqEnvironmentQuota ::
-      !(Maybe ResourceQuota),
-    _rqCustomPlatformQuota ::
-      !(Maybe ResourceQuota)
+  { -- | The quota for applications in the AWS account.
+    applicationQuota :: Prelude.Maybe ResourceQuota,
+    -- | The quota for configuration templates in the AWS account.
+    configurationTemplateQuota :: Prelude.Maybe ResourceQuota,
+    -- | The quota for application versions in the AWS account.
+    applicationVersionQuota :: Prelude.Maybe ResourceQuota,
+    -- | The quota for environments in the AWS account.
+    environmentQuota :: Prelude.Maybe ResourceQuota,
+    -- | The quota for custom platforms in the AWS account.
+    customPlatformQuota :: Prelude.Maybe ResourceQuota
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResourceQuotas' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResourceQuotas' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rqApplicationQuota' - The quota for applications in the AWS account.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rqConfigurationTemplateQuota' - The quota for configuration templates in the AWS account.
+-- 'applicationQuota', 'resourceQuotas_applicationQuota' - The quota for applications in the AWS account.
 --
--- * 'rqApplicationVersionQuota' - The quota for application versions in the AWS account.
+-- 'configurationTemplateQuota', 'resourceQuotas_configurationTemplateQuota' - The quota for configuration templates in the AWS account.
 --
--- * 'rqEnvironmentQuota' - The quota for environments in the AWS account.
+-- 'applicationVersionQuota', 'resourceQuotas_applicationVersionQuota' - The quota for application versions in the AWS account.
 --
--- * 'rqCustomPlatformQuota' - The quota for custom platforms in the AWS account.
-resourceQuotas ::
+-- 'environmentQuota', 'resourceQuotas_environmentQuota' - The quota for environments in the AWS account.
+--
+-- 'customPlatformQuota', 'resourceQuotas_customPlatformQuota' - The quota for custom platforms in the AWS account.
+newResourceQuotas ::
   ResourceQuotas
-resourceQuotas =
+newResourceQuotas =
   ResourceQuotas'
-    { _rqApplicationQuota = Nothing,
-      _rqConfigurationTemplateQuota = Nothing,
-      _rqApplicationVersionQuota = Nothing,
-      _rqEnvironmentQuota = Nothing,
-      _rqCustomPlatformQuota = Nothing
+    { applicationQuota = Prelude.Nothing,
+      configurationTemplateQuota = Prelude.Nothing,
+      applicationVersionQuota = Prelude.Nothing,
+      environmentQuota = Prelude.Nothing,
+      customPlatformQuota = Prelude.Nothing
     }
 
 -- | The quota for applications in the AWS account.
-rqApplicationQuota :: Lens' ResourceQuotas (Maybe ResourceQuota)
-rqApplicationQuota = lens _rqApplicationQuota (\s a -> s {_rqApplicationQuota = a})
+resourceQuotas_applicationQuota :: Lens.Lens' ResourceQuotas (Prelude.Maybe ResourceQuota)
+resourceQuotas_applicationQuota = Lens.lens (\ResourceQuotas' {applicationQuota} -> applicationQuota) (\s@ResourceQuotas' {} a -> s {applicationQuota = a} :: ResourceQuotas)
 
 -- | The quota for configuration templates in the AWS account.
-rqConfigurationTemplateQuota :: Lens' ResourceQuotas (Maybe ResourceQuota)
-rqConfigurationTemplateQuota = lens _rqConfigurationTemplateQuota (\s a -> s {_rqConfigurationTemplateQuota = a})
+resourceQuotas_configurationTemplateQuota :: Lens.Lens' ResourceQuotas (Prelude.Maybe ResourceQuota)
+resourceQuotas_configurationTemplateQuota = Lens.lens (\ResourceQuotas' {configurationTemplateQuota} -> configurationTemplateQuota) (\s@ResourceQuotas' {} a -> s {configurationTemplateQuota = a} :: ResourceQuotas)
 
 -- | The quota for application versions in the AWS account.
-rqApplicationVersionQuota :: Lens' ResourceQuotas (Maybe ResourceQuota)
-rqApplicationVersionQuota = lens _rqApplicationVersionQuota (\s a -> s {_rqApplicationVersionQuota = a})
+resourceQuotas_applicationVersionQuota :: Lens.Lens' ResourceQuotas (Prelude.Maybe ResourceQuota)
+resourceQuotas_applicationVersionQuota = Lens.lens (\ResourceQuotas' {applicationVersionQuota} -> applicationVersionQuota) (\s@ResourceQuotas' {} a -> s {applicationVersionQuota = a} :: ResourceQuotas)
 
 -- | The quota for environments in the AWS account.
-rqEnvironmentQuota :: Lens' ResourceQuotas (Maybe ResourceQuota)
-rqEnvironmentQuota = lens _rqEnvironmentQuota (\s a -> s {_rqEnvironmentQuota = a})
+resourceQuotas_environmentQuota :: Lens.Lens' ResourceQuotas (Prelude.Maybe ResourceQuota)
+resourceQuotas_environmentQuota = Lens.lens (\ResourceQuotas' {environmentQuota} -> environmentQuota) (\s@ResourceQuotas' {} a -> s {environmentQuota = a} :: ResourceQuotas)
 
 -- | The quota for custom platforms in the AWS account.
-rqCustomPlatformQuota :: Lens' ResourceQuotas (Maybe ResourceQuota)
-rqCustomPlatformQuota = lens _rqCustomPlatformQuota (\s a -> s {_rqCustomPlatformQuota = a})
+resourceQuotas_customPlatformQuota :: Lens.Lens' ResourceQuotas (Prelude.Maybe ResourceQuota)
+resourceQuotas_customPlatformQuota = Lens.lens (\ResourceQuotas' {customPlatformQuota} -> customPlatformQuota) (\s@ResourceQuotas' {} a -> s {customPlatformQuota = a} :: ResourceQuotas)
 
-instance FromXML ResourceQuotas where
+instance Prelude.FromXML ResourceQuotas where
   parseXML x =
     ResourceQuotas'
-      <$> (x .@? "ApplicationQuota")
-      <*> (x .@? "ConfigurationTemplateQuota")
-      <*> (x .@? "ApplicationVersionQuota")
-      <*> (x .@? "EnvironmentQuota")
-      <*> (x .@? "CustomPlatformQuota")
+      Prelude.<$> (x Prelude..@? "ApplicationQuota")
+      Prelude.<*> (x Prelude..@? "ConfigurationTemplateQuota")
+      Prelude.<*> (x Prelude..@? "ApplicationVersionQuota")
+      Prelude.<*> (x Prelude..@? "EnvironmentQuota")
+      Prelude.<*> (x Prelude..@? "CustomPlatformQuota")
 
-instance Hashable ResourceQuotas
+instance Prelude.Hashable ResourceQuotas
 
-instance NFData ResourceQuotas
+instance Prelude.NFData ResourceQuotas

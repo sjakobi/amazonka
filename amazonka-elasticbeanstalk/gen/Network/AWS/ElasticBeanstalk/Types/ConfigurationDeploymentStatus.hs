@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.ElasticBeanstalk.Types.ConfigurationDeploymentStatus
   ( ConfigurationDeploymentStatus
       ( ..,
-        CDSDeployed,
-        CDSFailed,
-        CDSPending
+        ConfigurationDeploymentStatusDeployed,
+        ConfigurationDeploymentStatusFailed,
+        ConfigurationDeploymentStatusPending
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ConfigurationDeploymentStatus
-  = ConfigurationDeploymentStatus'
-      ( CI
-          Text
-      )
+newtype ConfigurationDeploymentStatus = ConfigurationDeploymentStatus'
+  { fromConfigurationDeploymentStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CDSDeployed :: ConfigurationDeploymentStatus
-pattern CDSDeployed = ConfigurationDeploymentStatus' "deployed"
+pattern ConfigurationDeploymentStatusDeployed :: ConfigurationDeploymentStatus
+pattern ConfigurationDeploymentStatusDeployed = ConfigurationDeploymentStatus' "deployed"
 
-pattern CDSFailed :: ConfigurationDeploymentStatus
-pattern CDSFailed = ConfigurationDeploymentStatus' "failed"
+pattern ConfigurationDeploymentStatusFailed :: ConfigurationDeploymentStatus
+pattern ConfigurationDeploymentStatusFailed = ConfigurationDeploymentStatus' "failed"
 
-pattern CDSPending :: ConfigurationDeploymentStatus
-pattern CDSPending = ConfigurationDeploymentStatus' "pending"
+pattern ConfigurationDeploymentStatusPending :: ConfigurationDeploymentStatus
+pattern ConfigurationDeploymentStatusPending = ConfigurationDeploymentStatus' "pending"
 
 {-# COMPLETE
-  CDSDeployed,
-  CDSFailed,
-  CDSPending,
+  ConfigurationDeploymentStatusDeployed,
+  ConfigurationDeploymentStatusFailed,
+  ConfigurationDeploymentStatusPending,
   ConfigurationDeploymentStatus'
   #-}
 
-instance FromText ConfigurationDeploymentStatus where
-  parser = (ConfigurationDeploymentStatus' . mk) <$> takeText
+instance Prelude.FromText ConfigurationDeploymentStatus where
+  parser = ConfigurationDeploymentStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ConfigurationDeploymentStatus where
-  toText (ConfigurationDeploymentStatus' ci) = original ci
+instance Prelude.ToText ConfigurationDeploymentStatus where
+  toText (ConfigurationDeploymentStatus' x) = x
 
-instance Hashable ConfigurationDeploymentStatus
+instance Prelude.Hashable ConfigurationDeploymentStatus
 
-instance NFData ConfigurationDeploymentStatus
+instance Prelude.NFData ConfigurationDeploymentStatus
 
-instance ToByteString ConfigurationDeploymentStatus
+instance Prelude.ToByteString ConfigurationDeploymentStatus
 
-instance ToQuery ConfigurationDeploymentStatus
+instance Prelude.ToQuery ConfigurationDeploymentStatus
 
-instance ToHeader ConfigurationDeploymentStatus
+instance Prelude.ToHeader ConfigurationDeploymentStatus
 
-instance FromXML ConfigurationDeploymentStatus where
-  parseXML = parseXMLText "ConfigurationDeploymentStatus"
+instance Prelude.FromXML ConfigurationDeploymentStatus where
+  parseXML = Prelude.parseXMLText "ConfigurationDeploymentStatus"

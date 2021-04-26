@@ -11,18 +11,30 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- __AWS Elastic Beanstalk__
+-- AWS Elastic Beanstalk
 --
--- AWS Elastic Beanstalk makes it easy for you to create, deploy, and manage scalable, fault-tolerant applications running on the Amazon Web Services cloud.
+-- AWS Elastic Beanstalk makes it easy for you to create, deploy, and
+-- manage scalable, fault-tolerant applications running on the Amazon Web
+-- Services cloud.
 --
--- For more information about this product, go to the <http://aws.amazon.com/elasticbeanstalk/ AWS Elastic Beanstalk> details page. The location of the latest AWS Elastic Beanstalk WSDL is <https://elasticbeanstalk.s3.amazonaws.com/doc/2010-12-01/AWSElasticBeanstalk.wsdl https://elasticbeanstalk.s3.amazonaws.com/doc/2010-12-01/AWSElasticBeanstalk.wsdl> . To install the Software Development Kits (SDKs), Integrated Development Environment (IDE) Toolkits, and command line tools that enable you to access the API, go to <http://aws.amazon.com/tools/ Tools for Amazon Web Services> .
+-- For more information about this product, go to the
+-- <http://aws.amazon.com/elasticbeanstalk/ AWS Elastic Beanstalk> details
+-- page. The location of the latest AWS Elastic Beanstalk WSDL is
+-- <https://elasticbeanstalk.s3.amazonaws.com/doc/2010-12-01/AWSElasticBeanstalk.wsdl>.
+-- To install the Software Development Kits (SDKs), Integrated Development
+-- Environment (IDE) Toolkits, and command line tools that enable you to
+-- access the API, go to
+-- <http://aws.amazon.com/tools/ Tools for Amazon Web Services>.
 --
 -- __Endpoints__
 --
--- For a list of region-specific endpoints that AWS Elastic Beanstalk supports, go to <https://docs.aws.amazon.com/general/latest/gr/rande.html#elasticbeanstalk_region Regions and Endpoints> in the /Amazon Web Services Glossary/ .
+-- For a list of region-specific endpoints that AWS Elastic Beanstalk
+-- supports, go to
+-- <https://docs.aws.amazon.com/general/latest/gr/rande.html#elasticbeanstalk_region Regions and Endpoints>
+-- in the /Amazon Web Services Glossary/.
 module Network.AWS.ElasticBeanstalk
   ( -- * Service Configuration
-    elasticBeanstalk,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -88,157 +100,298 @@ module Network.AWS.ElasticBeanstalk
     -- $waiters
 
     -- ** EnvironmentTerminated
-    environmentTerminated,
+    newEnvironmentTerminated,
 
     -- ** EnvironmentUpdated
-    environmentUpdated,
+    newEnvironmentUpdated,
 
     -- ** EnvironmentExists
-    environmentExists,
+    newEnvironmentExists,
 
     -- * Operations
     -- $operations
 
     -- ** SwapEnvironmentCNAMEs
-    module Network.AWS.ElasticBeanstalk.SwapEnvironmentCNAMEs,
+    SwapEnvironmentCNAMEs (SwapEnvironmentCNAMEs'),
+    newSwapEnvironmentCNAMEs,
+    SwapEnvironmentCNAMEsResponse (SwapEnvironmentCNAMEsResponse'),
+    newSwapEnvironmentCNAMEsResponse,
 
     -- ** ListPlatformBranches
-    module Network.AWS.ElasticBeanstalk.ListPlatformBranches,
+    ListPlatformBranches (ListPlatformBranches'),
+    newListPlatformBranches,
+    ListPlatformBranchesResponse (ListPlatformBranchesResponse'),
+    newListPlatformBranchesResponse,
 
     -- ** ListAvailableSolutionStacks
-    module Network.AWS.ElasticBeanstalk.ListAvailableSolutionStacks,
+    ListAvailableSolutionStacks (ListAvailableSolutionStacks'),
+    newListAvailableSolutionStacks,
+    ListAvailableSolutionStacksResponse (ListAvailableSolutionStacksResponse'),
+    newListAvailableSolutionStacksResponse,
 
     -- ** DescribeEnvironmentHealth
-    module Network.AWS.ElasticBeanstalk.DescribeEnvironmentHealth,
+    DescribeEnvironmentHealth (DescribeEnvironmentHealth'),
+    newDescribeEnvironmentHealth,
+    DescribeEnvironmentHealthResponse (DescribeEnvironmentHealthResponse'),
+    newDescribeEnvironmentHealthResponse,
 
     -- ** CreateConfigurationTemplate
-    module Network.AWS.ElasticBeanstalk.CreateConfigurationTemplate,
+    CreateConfigurationTemplate (CreateConfigurationTemplate'),
+    newCreateConfigurationTemplate,
+    ConfigurationSettingsDescription (ConfigurationSettingsDescription'),
+    newConfigurationSettingsDescription,
 
     -- ** DescribeApplications
-    module Network.AWS.ElasticBeanstalk.DescribeApplications,
+    DescribeApplications (DescribeApplications'),
+    newDescribeApplications,
+    DescribeApplicationsResponse (DescribeApplicationsResponse'),
+    newDescribeApplicationsResponse,
 
     -- ** ListPlatformVersions (Paginated)
-    module Network.AWS.ElasticBeanstalk.ListPlatformVersions,
+    ListPlatformVersions (ListPlatformVersions'),
+    newListPlatformVersions,
+    ListPlatformVersionsResponse (ListPlatformVersionsResponse'),
+    newListPlatformVersionsResponse,
 
     -- ** CreateApplicationVersion
-    module Network.AWS.ElasticBeanstalk.CreateApplicationVersion,
+    CreateApplicationVersion (CreateApplicationVersion'),
+    newCreateApplicationVersion,
+    ApplicationVersionDescriptionMessage (ApplicationVersionDescriptionMessage'),
+    newApplicationVersionDescriptionMessage,
 
     -- ** TerminateEnvironment
-    module Network.AWS.ElasticBeanstalk.TerminateEnvironment,
+    TerminateEnvironment (TerminateEnvironment'),
+    newTerminateEnvironment,
+    EnvironmentDescription (EnvironmentDescription'),
+    newEnvironmentDescription,
 
     -- ** DescribeEnvironmentResources
-    module Network.AWS.ElasticBeanstalk.DescribeEnvironmentResources,
+    DescribeEnvironmentResources (DescribeEnvironmentResources'),
+    newDescribeEnvironmentResources,
+    DescribeEnvironmentResourcesResponse (DescribeEnvironmentResourcesResponse'),
+    newDescribeEnvironmentResourcesResponse,
 
     -- ** UpdateApplicationVersion
-    module Network.AWS.ElasticBeanstalk.UpdateApplicationVersion,
+    UpdateApplicationVersion (UpdateApplicationVersion'),
+    newUpdateApplicationVersion,
+    ApplicationVersionDescriptionMessage (ApplicationVersionDescriptionMessage'),
+    newApplicationVersionDescriptionMessage,
 
     -- ** CreatePlatformVersion
-    module Network.AWS.ElasticBeanstalk.CreatePlatformVersion,
+    CreatePlatformVersion (CreatePlatformVersion'),
+    newCreatePlatformVersion,
+    CreatePlatformVersionResponse (CreatePlatformVersionResponse'),
+    newCreatePlatformVersionResponse,
 
     -- ** DeleteApplicationVersion
-    module Network.AWS.ElasticBeanstalk.DeleteApplicationVersion,
+    DeleteApplicationVersion (DeleteApplicationVersion'),
+    newDeleteApplicationVersion,
+    DeleteApplicationVersionResponse (DeleteApplicationVersionResponse'),
+    newDeleteApplicationVersionResponse,
 
     -- ** CreateEnvironment
-    module Network.AWS.ElasticBeanstalk.CreateEnvironment,
+    CreateEnvironment (CreateEnvironment'),
+    newCreateEnvironment,
+    EnvironmentDescription (EnvironmentDescription'),
+    newEnvironmentDescription,
 
     -- ** CreateApplication
-    module Network.AWS.ElasticBeanstalk.CreateApplication,
+    CreateApplication (CreateApplication'),
+    newCreateApplication,
+    ApplicationDescriptionMessage (ApplicationDescriptionMessage'),
+    newApplicationDescriptionMessage,
 
     -- ** ComposeEnvironments
-    module Network.AWS.ElasticBeanstalk.ComposeEnvironments,
+    ComposeEnvironments (ComposeEnvironments'),
+    newComposeEnvironments,
+    EnvironmentDescriptionsMessage (EnvironmentDescriptionsMessage'),
+    newEnvironmentDescriptionsMessage,
 
     -- ** CheckDNSAvailability
-    module Network.AWS.ElasticBeanstalk.CheckDNSAvailability,
+    CheckDNSAvailability (CheckDNSAvailability'),
+    newCheckDNSAvailability,
+    CheckDNSAvailabilityResponse (CheckDNSAvailabilityResponse'),
+    newCheckDNSAvailabilityResponse,
 
     -- ** DescribeAccountAttributes
-    module Network.AWS.ElasticBeanstalk.DescribeAccountAttributes,
+    DescribeAccountAttributes (DescribeAccountAttributes'),
+    newDescribeAccountAttributes,
+    DescribeAccountAttributesResponse (DescribeAccountAttributesResponse'),
+    newDescribeAccountAttributesResponse,
 
     -- ** ValidateConfigurationSettings
-    module Network.AWS.ElasticBeanstalk.ValidateConfigurationSettings,
+    ValidateConfigurationSettings (ValidateConfigurationSettings'),
+    newValidateConfigurationSettings,
+    ValidateConfigurationSettingsResponse (ValidateConfigurationSettingsResponse'),
+    newValidateConfigurationSettingsResponse,
 
     -- ** CreateStorageLocation
-    module Network.AWS.ElasticBeanstalk.CreateStorageLocation,
+    CreateStorageLocation (CreateStorageLocation'),
+    newCreateStorageLocation,
+    CreateStorageLocationResponse (CreateStorageLocationResponse'),
+    newCreateStorageLocationResponse,
 
     -- ** DescribeEnvironmentManagedActions
-    module Network.AWS.ElasticBeanstalk.DescribeEnvironmentManagedActions,
+    DescribeEnvironmentManagedActions (DescribeEnvironmentManagedActions'),
+    newDescribeEnvironmentManagedActions,
+    DescribeEnvironmentManagedActionsResponse (DescribeEnvironmentManagedActionsResponse'),
+    newDescribeEnvironmentManagedActionsResponse,
 
     -- ** DescribeConfigurationSettings
-    module Network.AWS.ElasticBeanstalk.DescribeConfigurationSettings,
+    DescribeConfigurationSettings (DescribeConfigurationSettings'),
+    newDescribeConfigurationSettings,
+    DescribeConfigurationSettingsResponse (DescribeConfigurationSettingsResponse'),
+    newDescribeConfigurationSettingsResponse,
 
     -- ** DescribeConfigurationOptions
-    module Network.AWS.ElasticBeanstalk.DescribeConfigurationOptions,
+    DescribeConfigurationOptions (DescribeConfigurationOptions'),
+    newDescribeConfigurationOptions,
+    DescribeConfigurationOptionsResponse (DescribeConfigurationOptionsResponse'),
+    newDescribeConfigurationOptionsResponse,
 
     -- ** RetrieveEnvironmentInfo
-    module Network.AWS.ElasticBeanstalk.RetrieveEnvironmentInfo,
+    RetrieveEnvironmentInfo (RetrieveEnvironmentInfo'),
+    newRetrieveEnvironmentInfo,
+    RetrieveEnvironmentInfoResponse (RetrieveEnvironmentInfoResponse'),
+    newRetrieveEnvironmentInfoResponse,
 
     -- ** RequestEnvironmentInfo
-    module Network.AWS.ElasticBeanstalk.RequestEnvironmentInfo,
+    RequestEnvironmentInfo (RequestEnvironmentInfo'),
+    newRequestEnvironmentInfo,
+    RequestEnvironmentInfoResponse (RequestEnvironmentInfoResponse'),
+    newRequestEnvironmentInfoResponse,
 
     -- ** DescribeEvents (Paginated)
-    module Network.AWS.ElasticBeanstalk.DescribeEvents,
+    DescribeEvents (DescribeEvents'),
+    newDescribeEvents,
+    DescribeEventsResponse (DescribeEventsResponse'),
+    newDescribeEventsResponse,
 
     -- ** ApplyEnvironmentManagedAction
-    module Network.AWS.ElasticBeanstalk.ApplyEnvironmentManagedAction,
+    ApplyEnvironmentManagedAction (ApplyEnvironmentManagedAction'),
+    newApplyEnvironmentManagedAction,
+    ApplyEnvironmentManagedActionResponse (ApplyEnvironmentManagedActionResponse'),
+    newApplyEnvironmentManagedActionResponse,
 
     -- ** UpdateApplicationResourceLifecycle
-    module Network.AWS.ElasticBeanstalk.UpdateApplicationResourceLifecycle,
+    UpdateApplicationResourceLifecycle (UpdateApplicationResourceLifecycle'),
+    newUpdateApplicationResourceLifecycle,
+    UpdateApplicationResourceLifecycleResponse (UpdateApplicationResourceLifecycleResponse'),
+    newUpdateApplicationResourceLifecycleResponse,
 
     -- ** RebuildEnvironment
-    module Network.AWS.ElasticBeanstalk.RebuildEnvironment,
+    RebuildEnvironment (RebuildEnvironment'),
+    newRebuildEnvironment,
+    RebuildEnvironmentResponse (RebuildEnvironmentResponse'),
+    newRebuildEnvironmentResponse,
 
     -- ** UpdateEnvironment
-    module Network.AWS.ElasticBeanstalk.UpdateEnvironment,
+    UpdateEnvironment (UpdateEnvironment'),
+    newUpdateEnvironment,
+    EnvironmentDescription (EnvironmentDescription'),
+    newEnvironmentDescription,
 
     -- ** DeletePlatformVersion
-    module Network.AWS.ElasticBeanstalk.DeletePlatformVersion,
+    DeletePlatformVersion (DeletePlatformVersion'),
+    newDeletePlatformVersion,
+    DeletePlatformVersionResponse (DeletePlatformVersionResponse'),
+    newDeletePlatformVersionResponse,
 
     -- ** DeleteEnvironmentConfiguration
-    module Network.AWS.ElasticBeanstalk.DeleteEnvironmentConfiguration,
+    DeleteEnvironmentConfiguration (DeleteEnvironmentConfiguration'),
+    newDeleteEnvironmentConfiguration,
+    DeleteEnvironmentConfigurationResponse (DeleteEnvironmentConfigurationResponse'),
+    newDeleteEnvironmentConfigurationResponse,
 
     -- ** DescribeEnvironmentManagedActionHistory (Paginated)
-    module Network.AWS.ElasticBeanstalk.DescribeEnvironmentManagedActionHistory,
+    DescribeEnvironmentManagedActionHistory (DescribeEnvironmentManagedActionHistory'),
+    newDescribeEnvironmentManagedActionHistory,
+    DescribeEnvironmentManagedActionHistoryResponse (DescribeEnvironmentManagedActionHistoryResponse'),
+    newDescribeEnvironmentManagedActionHistoryResponse,
 
     -- ** UpdateConfigurationTemplate
-    module Network.AWS.ElasticBeanstalk.UpdateConfigurationTemplate,
+    UpdateConfigurationTemplate (UpdateConfigurationTemplate'),
+    newUpdateConfigurationTemplate,
+    ConfigurationSettingsDescription (ConfigurationSettingsDescription'),
+    newConfigurationSettingsDescription,
 
     -- ** DeleteConfigurationTemplate
-    module Network.AWS.ElasticBeanstalk.DeleteConfigurationTemplate,
+    DeleteConfigurationTemplate (DeleteConfigurationTemplate'),
+    newDeleteConfigurationTemplate,
+    DeleteConfigurationTemplateResponse (DeleteConfigurationTemplateResponse'),
+    newDeleteConfigurationTemplateResponse,
 
     -- ** UpdateTagsForResource
-    module Network.AWS.ElasticBeanstalk.UpdateTagsForResource,
+    UpdateTagsForResource (UpdateTagsForResource'),
+    newUpdateTagsForResource,
+    UpdateTagsForResourceResponse (UpdateTagsForResourceResponse'),
+    newUpdateTagsForResourceResponse,
 
     -- ** DescribeApplicationVersions (Paginated)
-    module Network.AWS.ElasticBeanstalk.DescribeApplicationVersions,
+    DescribeApplicationVersions (DescribeApplicationVersions'),
+    newDescribeApplicationVersions,
+    DescribeApplicationVersionsResponse (DescribeApplicationVersionsResponse'),
+    newDescribeApplicationVersionsResponse,
 
     -- ** AbortEnvironmentUpdate
-    module Network.AWS.ElasticBeanstalk.AbortEnvironmentUpdate,
+    AbortEnvironmentUpdate (AbortEnvironmentUpdate'),
+    newAbortEnvironmentUpdate,
+    AbortEnvironmentUpdateResponse (AbortEnvironmentUpdateResponse'),
+    newAbortEnvironmentUpdateResponse,
 
     -- ** DescribeEnvironments (Paginated)
-    module Network.AWS.ElasticBeanstalk.DescribeEnvironments,
+    DescribeEnvironments (DescribeEnvironments'),
+    newDescribeEnvironments,
+    EnvironmentDescriptionsMessage (EnvironmentDescriptionsMessage'),
+    newEnvironmentDescriptionsMessage,
 
     -- ** RestartAppServer
-    module Network.AWS.ElasticBeanstalk.RestartAppServer,
+    RestartAppServer (RestartAppServer'),
+    newRestartAppServer,
+    RestartAppServerResponse (RestartAppServerResponse'),
+    newRestartAppServerResponse,
 
     -- ** AssociateEnvironmentOperationsRole
-    module Network.AWS.ElasticBeanstalk.AssociateEnvironmentOperationsRole,
+    AssociateEnvironmentOperationsRole (AssociateEnvironmentOperationsRole'),
+    newAssociateEnvironmentOperationsRole,
+    AssociateEnvironmentOperationsRoleResponse (AssociateEnvironmentOperationsRoleResponse'),
+    newAssociateEnvironmentOperationsRoleResponse,
 
     -- ** DeleteApplication
-    module Network.AWS.ElasticBeanstalk.DeleteApplication,
+    DeleteApplication (DeleteApplication'),
+    newDeleteApplication,
+    DeleteApplicationResponse (DeleteApplicationResponse'),
+    newDeleteApplicationResponse,
 
     -- ** DescribeInstancesHealth
-    module Network.AWS.ElasticBeanstalk.DescribeInstancesHealth,
+    DescribeInstancesHealth (DescribeInstancesHealth'),
+    newDescribeInstancesHealth,
+    DescribeInstancesHealthResponse (DescribeInstancesHealthResponse'),
+    newDescribeInstancesHealthResponse,
 
     -- ** UpdateApplication
-    module Network.AWS.ElasticBeanstalk.UpdateApplication,
+    UpdateApplication (UpdateApplication'),
+    newUpdateApplication,
+    ApplicationDescriptionMessage (ApplicationDescriptionMessage'),
+    newApplicationDescriptionMessage,
 
     -- ** DescribePlatformVersion
-    module Network.AWS.ElasticBeanstalk.DescribePlatformVersion,
+    DescribePlatformVersion (DescribePlatformVersion'),
+    newDescribePlatformVersion,
+    DescribePlatformVersionResponse (DescribePlatformVersionResponse'),
+    newDescribePlatformVersionResponse,
 
     -- ** DisassociateEnvironmentOperationsRole
-    module Network.AWS.ElasticBeanstalk.DisassociateEnvironmentOperationsRole,
+    DisassociateEnvironmentOperationsRole (DisassociateEnvironmentOperationsRole'),
+    newDisassociateEnvironmentOperationsRole,
+    DisassociateEnvironmentOperationsRoleResponse (DisassociateEnvironmentOperationsRoleResponse'),
+    newDisassociateEnvironmentOperationsRoleResponse,
 
     -- ** ListTagsForResource
-    module Network.AWS.ElasticBeanstalk.ListTagsForResource,
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
 
     -- * Types
 
@@ -300,497 +453,236 @@ module Network.AWS.ElasticBeanstalk
     ValidationSeverity (..),
 
     -- ** ApplicationDescription
-    ApplicationDescription,
-    applicationDescription,
-    adApplicationARN,
-    adDateCreated,
-    adVersions,
-    adDateUpdated,
-    adResourceLifecycleConfig,
-    adDescription,
-    adConfigurationTemplates,
-    adApplicationName,
+    ApplicationDescription (ApplicationDescription'),
+    newApplicationDescription,
 
     -- ** ApplicationDescriptionMessage
-    ApplicationDescriptionMessage,
-    applicationDescriptionMessage,
-    admApplication,
+    ApplicationDescriptionMessage (ApplicationDescriptionMessage'),
+    newApplicationDescriptionMessage,
 
     -- ** ApplicationMetrics
-    ApplicationMetrics,
-    applicationMetrics,
-    amDuration,
-    amStatusCodes,
-    amRequestCount,
-    amLatency,
+    ApplicationMetrics (ApplicationMetrics'),
+    newApplicationMetrics,
 
     -- ** ApplicationResourceLifecycleConfig
-    ApplicationResourceLifecycleConfig,
-    applicationResourceLifecycleConfig,
-    arlcServiceRole,
-    arlcVersionLifecycleConfig,
+    ApplicationResourceLifecycleConfig (ApplicationResourceLifecycleConfig'),
+    newApplicationResourceLifecycleConfig,
 
     -- ** ApplicationVersionDescription
-    ApplicationVersionDescription,
-    applicationVersionDescription,
-    avdStatus,
-    avdDateCreated,
-    avdSourceBundle,
-    avdSourceBuildInformation,
-    avdVersionLabel,
-    avdDateUpdated,
-    avdDescription,
-    avdBuildARN,
-    avdApplicationVersionARN,
-    avdApplicationName,
+    ApplicationVersionDescription (ApplicationVersionDescription'),
+    newApplicationVersionDescription,
 
     -- ** ApplicationVersionDescriptionMessage
-    ApplicationVersionDescriptionMessage,
-    applicationVersionDescriptionMessage,
-    avdmApplicationVersion,
+    ApplicationVersionDescriptionMessage (ApplicationVersionDescriptionMessage'),
+    newApplicationVersionDescriptionMessage,
 
     -- ** ApplicationVersionLifecycleConfig
-    ApplicationVersionLifecycleConfig,
-    applicationVersionLifecycleConfig,
-    avlcMaxAgeRule,
-    avlcMaxCountRule,
+    ApplicationVersionLifecycleConfig (ApplicationVersionLifecycleConfig'),
+    newApplicationVersionLifecycleConfig,
 
     -- ** AutoScalingGroup
-    AutoScalingGroup,
-    autoScalingGroup,
-    asgName,
+    AutoScalingGroup (AutoScalingGroup'),
+    newAutoScalingGroup,
 
     -- ** BuildConfiguration
-    BuildConfiguration,
-    buildConfiguration,
-    bcArtifactName,
-    bcTimeoutInMinutes,
-    bcComputeType,
-    bcCodeBuildServiceRole,
-    bcImage,
+    BuildConfiguration (BuildConfiguration'),
+    newBuildConfiguration,
 
     -- ** Builder
-    Builder,
-    builder,
-    bARN,
+    Builder (Builder'),
+    newBuilder,
 
     -- ** CPUUtilization
-    CPUUtilization,
-    cpuUtilization,
-    cuIdle,
-    cuUser,
-    cuPrivileged,
-    cuIOWait,
-    cuSoftIRQ,
-    cuNice,
-    cuSystem,
-    cuIRQ,
+    CPUUtilization (CPUUtilization'),
+    newCPUUtilization,
 
     -- ** ConfigurationOptionDescription
-    ConfigurationOptionDescription,
-    configurationOptionDescription,
-    codMaxValue,
-    codValueOptions,
-    codValueType,
-    codChangeSeverity,
-    codRegex,
-    codName,
-    codMinValue,
-    codNamespace,
-    codUserDefined,
-    codMaxLength,
-    codDefaultValue,
+    ConfigurationOptionDescription (ConfigurationOptionDescription'),
+    newConfigurationOptionDescription,
 
     -- ** ConfigurationOptionSetting
-    ConfigurationOptionSetting,
-    configurationOptionSetting,
-    cosOptionName,
-    cosValue,
-    cosNamespace,
-    cosResourceName,
+    ConfigurationOptionSetting (ConfigurationOptionSetting'),
+    newConfigurationOptionSetting,
 
     -- ** ConfigurationSettingsDescription
-    ConfigurationSettingsDescription,
-    configurationSettingsDescription,
-    csdTemplateName,
-    csdDateCreated,
-    csdSolutionStackName,
-    csdDeploymentStatus,
-    csdEnvironmentName,
-    csdPlatformARN,
-    csdDateUpdated,
-    csdOptionSettings,
-    csdDescription,
-    csdApplicationName,
+    ConfigurationSettingsDescription (ConfigurationSettingsDescription'),
+    newConfigurationSettingsDescription,
 
-    -- ** CustomAMI
-    CustomAMI,
-    customAMI,
-    caVirtualizationType,
-    caImageId,
+    -- ** CustomAmi
+    CustomAmi (CustomAmi'),
+    newCustomAmi,
 
     -- ** Deployment
-    Deployment,
-    deployment,
-    dStatus,
-    dDeploymentId,
-    dVersionLabel,
-    dDeploymentTime,
+    Deployment (Deployment'),
+    newDeployment,
 
     -- ** EnvironmentDescription
-    EnvironmentDescription,
-    environmentDescription,
-    eAbortableOperationInProgress,
-    eTemplateName,
-    eStatus,
-    eDateCreated,
-    eEnvironmentLinks,
-    eSolutionStackName,
-    eEnvironmentId,
-    eEnvironmentName,
-    ePlatformARN,
-    eVersionLabel,
-    eHealth,
-    eCNAME,
-    eResources,
-    eDateUpdated,
-    eDescription,
-    eHealthStatus,
-    eEnvironmentARN,
-    eEndpointURL,
-    eApplicationName,
-    eTier,
-    eOperationsRole,
+    EnvironmentDescription (EnvironmentDescription'),
+    newEnvironmentDescription,
 
     -- ** EnvironmentDescriptionsMessage
-    EnvironmentDescriptionsMessage,
-    environmentDescriptionsMessage,
-    edmNextToken,
-    edmEnvironments,
+    EnvironmentDescriptionsMessage (EnvironmentDescriptionsMessage'),
+    newEnvironmentDescriptionsMessage,
 
     -- ** EnvironmentInfoDescription
-    EnvironmentInfoDescription,
-    environmentInfoDescription,
-    eidMessage,
-    eidInfoType,
-    eidEC2InstanceId,
-    eidSampleTimestamp,
+    EnvironmentInfoDescription (EnvironmentInfoDescription'),
+    newEnvironmentInfoDescription,
 
     -- ** EnvironmentLink
-    EnvironmentLink,
-    environmentLink,
-    elEnvironmentName,
-    elLinkName,
+    EnvironmentLink (EnvironmentLink'),
+    newEnvironmentLink,
 
     -- ** EnvironmentResourceDescription
-    EnvironmentResourceDescription,
-    environmentResourceDescription,
-    erdLaunchConfigurations,
-    erdLaunchTemplates,
-    erdTriggers,
-    erdInstances,
-    erdEnvironmentName,
-    erdQueues,
-    erdLoadBalancers,
-    erdAutoScalingGroups,
+    EnvironmentResourceDescription (EnvironmentResourceDescription'),
+    newEnvironmentResourceDescription,
 
     -- ** EnvironmentResourcesDescription
-    EnvironmentResourcesDescription,
-    environmentResourcesDescription,
-    erdLoadBalancer,
+    EnvironmentResourcesDescription (EnvironmentResourcesDescription'),
+    newEnvironmentResourcesDescription,
 
     -- ** EnvironmentTier
-    EnvironmentTier,
-    environmentTier,
-    etVersion,
-    etName,
-    etType,
+    EnvironmentTier (EnvironmentTier'),
+    newEnvironmentTier,
 
     -- ** EventDescription
-    EventDescription,
-    eventDescription,
-    edTemplateName,
-    edSeverity,
-    edMessage,
-    edEventDate,
-    edEnvironmentName,
-    edPlatformARN,
-    edVersionLabel,
-    edRequestId,
-    edApplicationName,
+    EventDescription (EventDescription'),
+    newEventDescription,
 
     -- ** Instance
-    Instance,
-    instance',
-    iId,
+    Instance (Instance'),
+    newInstance,
 
     -- ** InstanceHealthSummary
-    InstanceHealthSummary,
-    instanceHealthSummary,
-    ihsOK,
-    ihsNoData,
-    ihsInfo,
-    ihsSevere,
-    ihsWarning,
-    ihsPending,
-    ihsDegraded,
-    ihsUnknown,
+    InstanceHealthSummary (InstanceHealthSummary'),
+    newInstanceHealthSummary,
 
     -- ** Latency
-    Latency,
-    latency,
-    lP95,
-    lP10,
-    lP999,
-    lP99,
-    lP85,
-    lP50,
-    lP90,
-    lP75,
+    Latency (Latency'),
+    newLatency,
 
     -- ** LaunchConfiguration
-    LaunchConfiguration,
-    launchConfiguration,
-    lcName,
+    LaunchConfiguration (LaunchConfiguration'),
+    newLaunchConfiguration,
 
     -- ** LaunchTemplate
-    LaunchTemplate,
-    launchTemplate,
-    ltId,
+    LaunchTemplate (LaunchTemplate'),
+    newLaunchTemplate,
 
     -- ** Listener
-    Listener,
-    listener,
-    lPort,
-    lProtocol,
+    Listener (Listener'),
+    newListener,
 
     -- ** LoadBalancer
-    LoadBalancer,
-    loadBalancer,
-    lbName,
+    LoadBalancer (LoadBalancer'),
+    newLoadBalancer,
 
     -- ** LoadBalancerDescription
-    LoadBalancerDescription,
-    loadBalancerDescription,
-    lbdDomain,
-    lbdListeners,
-    lbdLoadBalancerName,
+    LoadBalancerDescription (LoadBalancerDescription'),
+    newLoadBalancerDescription,
 
     -- ** ManagedAction
-    ManagedAction,
-    managedAction,
-    maStatus,
-    maActionType,
-    maActionId,
-    maActionDescription,
-    maWindowStartTime,
+    ManagedAction (ManagedAction'),
+    newManagedAction,
 
     -- ** ManagedActionHistoryItem
-    ManagedActionHistoryItem,
-    managedActionHistoryItem,
-    mahiStatus,
-    mahiActionType,
-    mahiExecutedTime,
-    mahiActionId,
-    mahiActionDescription,
-    mahiFinishedTime,
-    mahiFailureDescription,
-    mahiFailureType,
+    ManagedActionHistoryItem (ManagedActionHistoryItem'),
+    newManagedActionHistoryItem,
 
     -- ** MaxAgeRule
-    MaxAgeRule,
-    maxAgeRule,
-    marDeleteSourceFromS3,
-    marMaxAgeInDays,
-    marEnabled,
+    MaxAgeRule (MaxAgeRule'),
+    newMaxAgeRule,
 
     -- ** MaxCountRule
-    MaxCountRule,
-    maxCountRule,
-    mcrMaxCount,
-    mcrDeleteSourceFromS3,
-    mcrEnabled,
+    MaxCountRule (MaxCountRule'),
+    newMaxCountRule,
 
     -- ** OptionRestrictionRegex
-    OptionRestrictionRegex,
-    optionRestrictionRegex,
-    orrLabel,
-    orrPattern,
+    OptionRestrictionRegex (OptionRestrictionRegex'),
+    newOptionRestrictionRegex,
 
     -- ** OptionSpecification
-    OptionSpecification,
-    optionSpecification,
-    osOptionName,
-    osNamespace,
-    osResourceName,
+    OptionSpecification (OptionSpecification'),
+    newOptionSpecification,
 
     -- ** PlatformBranchSummary
-    PlatformBranchSummary,
-    platformBranchSummary,
-    pbsBranchName,
-    pbsBranchOrder,
-    pbsLifecycleState,
-    pbsSupportedTierList,
-    pbsPlatformName,
+    PlatformBranchSummary (PlatformBranchSummary'),
+    newPlatformBranchSummary,
 
     -- ** PlatformDescription
-    PlatformDescription,
-    platformDescription,
-    pdPlatformCategory,
-    pdOperatingSystemName,
-    pdPlatformBranchName,
-    pdSupportedAddonList,
-    pdDateCreated,
-    pdCustomAMIList,
-    pdPlatformOwner,
-    pdPlatformStatus,
-    pdSolutionStackName,
-    pdPlatformVersion,
-    pdPlatformBranchLifecycleState,
-    pdPlatformARN,
-    pdFrameworks,
-    pdDateUpdated,
-    pdSupportedTierList,
-    pdPlatformLifecycleState,
-    pdMaintainer,
-    pdDescription,
-    pdPlatformName,
-    pdProgrammingLanguages,
-    pdOperatingSystemVersion,
+    PlatformDescription (PlatformDescription'),
+    newPlatformDescription,
 
     -- ** PlatformFilter
-    PlatformFilter,
-    platformFilter,
-    pfValues,
-    pfOperator,
-    pfType,
+    PlatformFilter (PlatformFilter'),
+    newPlatformFilter,
 
     -- ** PlatformFramework
-    PlatformFramework,
-    platformFramework,
-    pfVersion,
-    pfName,
+    PlatformFramework (PlatformFramework'),
+    newPlatformFramework,
 
     -- ** PlatformProgrammingLanguage
-    PlatformProgrammingLanguage,
-    platformProgrammingLanguage,
-    pplVersion,
-    pplName,
+    PlatformProgrammingLanguage (PlatformProgrammingLanguage'),
+    newPlatformProgrammingLanguage,
 
     -- ** PlatformSummary
-    PlatformSummary,
-    platformSummary,
-    psPlatformCategory,
-    psOperatingSystemName,
-    psPlatformBranchName,
-    psSupportedAddonList,
-    psPlatformOwner,
-    psPlatformStatus,
-    psPlatformVersion,
-    psPlatformBranchLifecycleState,
-    psPlatformARN,
-    psSupportedTierList,
-    psPlatformLifecycleState,
-    psOperatingSystemVersion,
+    PlatformSummary (PlatformSummary'),
+    newPlatformSummary,
 
     -- ** Queue
-    Queue,
-    queue,
-    qName,
-    qURL,
+    Queue (Queue'),
+    newQueue,
 
     -- ** ResourceQuota
-    ResourceQuota,
-    resourceQuota,
-    rqMaximum,
+    ResourceQuota (ResourceQuota'),
+    newResourceQuota,
 
     -- ** ResourceQuotas
-    ResourceQuotas,
-    resourceQuotas,
-    rqApplicationQuota,
-    rqConfigurationTemplateQuota,
-    rqApplicationVersionQuota,
-    rqEnvironmentQuota,
-    rqCustomPlatformQuota,
+    ResourceQuotas (ResourceQuotas'),
+    newResourceQuotas,
 
     -- ** S3Location
-    S3Location,
-    s3Location,
-    slS3Bucket,
-    slS3Key,
+    S3Location (S3Location'),
+    newS3Location,
 
     -- ** SearchFilter
-    SearchFilter,
-    searchFilter,
-    sfValues,
-    sfOperator,
-    sfAttribute,
+    SearchFilter (SearchFilter'),
+    newSearchFilter,
 
     -- ** SingleInstanceHealth
-    SingleInstanceHealth,
-    singleInstanceHealth,
-    sihInstanceId,
-    sihInstanceType,
-    sihColor,
-    sihCauses,
-    sihAvailabilityZone,
-    sihDeployment,
-    sihLaunchedAt,
-    sihHealthStatus,
-    sihSystem,
-    sihApplicationMetrics,
+    SingleInstanceHealth (SingleInstanceHealth'),
+    newSingleInstanceHealth,
 
     -- ** SolutionStackDescription
-    SolutionStackDescription,
-    solutionStackDescription,
-    ssdPermittedFileTypes,
-    ssdSolutionStackName,
+    SolutionStackDescription (SolutionStackDescription'),
+    newSolutionStackDescription,
 
     -- ** SourceBuildInformation
-    SourceBuildInformation,
-    sourceBuildInformation,
-    sbiSourceType,
-    sbiSourceRepository,
-    sbiSourceLocation,
+    SourceBuildInformation (SourceBuildInformation'),
+    newSourceBuildInformation,
 
     -- ** SourceConfiguration
-    SourceConfiguration,
-    sourceConfiguration,
-    scTemplateName,
-    scApplicationName,
+    SourceConfiguration (SourceConfiguration'),
+    newSourceConfiguration,
 
     -- ** StatusCodes
-    StatusCodes,
-    statusCodes,
-    scStatus3xx,
-    scStatus5xx,
-    scStatus2xx,
-    scStatus4xx,
+    StatusCodes (StatusCodes'),
+    newStatusCodes,
 
     -- ** SystemStatus
-    SystemStatus,
-    systemStatus,
-    ssCPUUtilization,
-    ssLoadAverage,
+    SystemStatus (SystemStatus'),
+    newSystemStatus,
 
     -- ** Tag
-    Tag,
-    tag,
-    tagKey,
-    tagValue,
+    Tag (Tag'),
+    newTag,
 
     -- ** Trigger
-    Trigger,
-    trigger,
-    tName,
+    Trigger (Trigger'),
+    newTrigger,
 
     -- ** ValidationMessage
-    ValidationMessage,
-    validationMessage,
-    vmOptionName,
-    vmSeverity,
-    vmMessage,
-    vmNamespace,
+    ValidationMessage (ValidationMessage'),
+    newValidationMessage,
   )
 where
 
@@ -824,6 +716,7 @@ import Network.AWS.ElasticBeanstalk.DescribeEvents
 import Network.AWS.ElasticBeanstalk.DescribeInstancesHealth
 import Network.AWS.ElasticBeanstalk.DescribePlatformVersion
 import Network.AWS.ElasticBeanstalk.DisassociateEnvironmentOperationsRole
+import Network.AWS.ElasticBeanstalk.Lens
 import Network.AWS.ElasticBeanstalk.ListAvailableSolutionStacks
 import Network.AWS.ElasticBeanstalk.ListPlatformBranches
 import Network.AWS.ElasticBeanstalk.ListPlatformVersions

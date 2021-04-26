@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,68 +19,87 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ElasticBeanstalk.Types.StatusCodes where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents the percentage of requests over the last 10 seconds that resulted in each type of status code response. For more information, see <http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html Status Code Definitions> .
+-- | Represents the percentage of requests over the last 10 seconds that
+-- resulted in each type of status code response. For more information, see
+-- <http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html Status Code Definitions>.
 --
---
---
--- /See:/ 'statusCodes' smart constructor.
+-- /See:/ 'newStatusCodes' smart constructor.
 data StatusCodes = StatusCodes'
-  { _scStatus3xx ::
-      !(Maybe Int),
-    _scStatus5xx :: !(Maybe Int),
-    _scStatus2xx :: !(Maybe Int),
-    _scStatus4xx :: !(Maybe Int)
+  { -- | The percentage of requests over the last 10 seconds that resulted in a
+    -- 3xx (300, 301, etc.) status code.
+    status3xx :: Prelude.Maybe Prelude.Int,
+    -- | The percentage of requests over the last 10 seconds that resulted in a
+    -- 5xx (500, 501, etc.) status code.
+    status5xx :: Prelude.Maybe Prelude.Int,
+    -- | The percentage of requests over the last 10 seconds that resulted in a
+    -- 2xx (200, 201, etc.) status code.
+    status2xx :: Prelude.Maybe Prelude.Int,
+    -- | The percentage of requests over the last 10 seconds that resulted in a
+    -- 4xx (400, 401, etc.) status code.
+    status4xx :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StatusCodes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StatusCodes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'scStatus3xx' - The percentage of requests over the last 10 seconds that resulted in a 3xx (300, 301, etc.) status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'scStatus5xx' - The percentage of requests over the last 10 seconds that resulted in a 5xx (500, 501, etc.) status code.
+-- 'status3xx', 'statusCodes_status3xx' - The percentage of requests over the last 10 seconds that resulted in a
+-- 3xx (300, 301, etc.) status code.
 --
--- * 'scStatus2xx' - The percentage of requests over the last 10 seconds that resulted in a 2xx (200, 201, etc.) status code.
+-- 'status5xx', 'statusCodes_status5xx' - The percentage of requests over the last 10 seconds that resulted in a
+-- 5xx (500, 501, etc.) status code.
 --
--- * 'scStatus4xx' - The percentage of requests over the last 10 seconds that resulted in a 4xx (400, 401, etc.) status code.
-statusCodes ::
+-- 'status2xx', 'statusCodes_status2xx' - The percentage of requests over the last 10 seconds that resulted in a
+-- 2xx (200, 201, etc.) status code.
+--
+-- 'status4xx', 'statusCodes_status4xx' - The percentage of requests over the last 10 seconds that resulted in a
+-- 4xx (400, 401, etc.) status code.
+newStatusCodes ::
   StatusCodes
-statusCodes =
+newStatusCodes =
   StatusCodes'
-    { _scStatus3xx = Nothing,
-      _scStatus5xx = Nothing,
-      _scStatus2xx = Nothing,
-      _scStatus4xx = Nothing
+    { status3xx = Prelude.Nothing,
+      status5xx = Prelude.Nothing,
+      status2xx = Prelude.Nothing,
+      status4xx = Prelude.Nothing
     }
 
--- | The percentage of requests over the last 10 seconds that resulted in a 3xx (300, 301, etc.) status code.
-scStatus3xx :: Lens' StatusCodes (Maybe Int)
-scStatus3xx = lens _scStatus3xx (\s a -> s {_scStatus3xx = a})
+-- | The percentage of requests over the last 10 seconds that resulted in a
+-- 3xx (300, 301, etc.) status code.
+statusCodes_status3xx :: Lens.Lens' StatusCodes (Prelude.Maybe Prelude.Int)
+statusCodes_status3xx = Lens.lens (\StatusCodes' {status3xx} -> status3xx) (\s@StatusCodes' {} a -> s {status3xx = a} :: StatusCodes)
 
--- | The percentage of requests over the last 10 seconds that resulted in a 5xx (500, 501, etc.) status code.
-scStatus5xx :: Lens' StatusCodes (Maybe Int)
-scStatus5xx = lens _scStatus5xx (\s a -> s {_scStatus5xx = a})
+-- | The percentage of requests over the last 10 seconds that resulted in a
+-- 5xx (500, 501, etc.) status code.
+statusCodes_status5xx :: Lens.Lens' StatusCodes (Prelude.Maybe Prelude.Int)
+statusCodes_status5xx = Lens.lens (\StatusCodes' {status5xx} -> status5xx) (\s@StatusCodes' {} a -> s {status5xx = a} :: StatusCodes)
 
--- | The percentage of requests over the last 10 seconds that resulted in a 2xx (200, 201, etc.) status code.
-scStatus2xx :: Lens' StatusCodes (Maybe Int)
-scStatus2xx = lens _scStatus2xx (\s a -> s {_scStatus2xx = a})
+-- | The percentage of requests over the last 10 seconds that resulted in a
+-- 2xx (200, 201, etc.) status code.
+statusCodes_status2xx :: Lens.Lens' StatusCodes (Prelude.Maybe Prelude.Int)
+statusCodes_status2xx = Lens.lens (\StatusCodes' {status2xx} -> status2xx) (\s@StatusCodes' {} a -> s {status2xx = a} :: StatusCodes)
 
--- | The percentage of requests over the last 10 seconds that resulted in a 4xx (400, 401, etc.) status code.
-scStatus4xx :: Lens' StatusCodes (Maybe Int)
-scStatus4xx = lens _scStatus4xx (\s a -> s {_scStatus4xx = a})
+-- | The percentage of requests over the last 10 seconds that resulted in a
+-- 4xx (400, 401, etc.) status code.
+statusCodes_status4xx :: Lens.Lens' StatusCodes (Prelude.Maybe Prelude.Int)
+statusCodes_status4xx = Lens.lens (\StatusCodes' {status4xx} -> status4xx) (\s@StatusCodes' {} a -> s {status4xx = a} :: StatusCodes)
 
-instance FromXML StatusCodes where
+instance Prelude.FromXML StatusCodes where
   parseXML x =
     StatusCodes'
-      <$> (x .@? "Status3xx")
-      <*> (x .@? "Status5xx")
-      <*> (x .@? "Status2xx")
-      <*> (x .@? "Status4xx")
+      Prelude.<$> (x Prelude..@? "Status3xx")
+      Prelude.<*> (x Prelude..@? "Status5xx")
+      Prelude.<*> (x Prelude..@? "Status2xx")
+      Prelude.<*> (x Prelude..@? "Status4xx")
 
-instance Hashable StatusCodes
+instance Prelude.Hashable StatusCodes
 
-instance NFData StatusCodes
+instance Prelude.NFData StatusCodes

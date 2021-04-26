@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,50 +20,52 @@
 module Network.AWS.ElasticBeanstalk.Types.EnvironmentResourcesDescription where
 
 import Network.AWS.ElasticBeanstalk.Types.LoadBalancerDescription
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes the AWS resources in use by this environment. This data is not live data.
+-- | Describes the AWS resources in use by this environment. This data is not
+-- live data.
 --
---
---
--- /See:/ 'environmentResourcesDescription' smart constructor.
-newtype EnvironmentResourcesDescription = EnvironmentResourcesDescription'
-  { _erdLoadBalancer ::
-      Maybe
-        LoadBalancerDescription
+-- /See:/ 'newEnvironmentResourcesDescription' smart constructor.
+data EnvironmentResourcesDescription = EnvironmentResourcesDescription'
+  { -- | Describes the LoadBalancer.
+    loadBalancer :: Prelude.Maybe LoadBalancerDescription
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EnvironmentResourcesDescription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EnvironmentResourcesDescription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'erdLoadBalancer' - Describes the LoadBalancer.
-environmentResourcesDescription ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'loadBalancer', 'environmentResourcesDescription_loadBalancer' - Describes the LoadBalancer.
+newEnvironmentResourcesDescription ::
   EnvironmentResourcesDescription
-environmentResourcesDescription =
+newEnvironmentResourcesDescription =
   EnvironmentResourcesDescription'
-    { _erdLoadBalancer =
-        Nothing
+    { loadBalancer =
+        Prelude.Nothing
     }
 
 -- | Describes the LoadBalancer.
-erdLoadBalancer :: Lens' EnvironmentResourcesDescription (Maybe LoadBalancerDescription)
-erdLoadBalancer = lens _erdLoadBalancer (\s a -> s {_erdLoadBalancer = a})
+environmentResourcesDescription_loadBalancer :: Lens.Lens' EnvironmentResourcesDescription (Prelude.Maybe LoadBalancerDescription)
+environmentResourcesDescription_loadBalancer = Lens.lens (\EnvironmentResourcesDescription' {loadBalancer} -> loadBalancer) (\s@EnvironmentResourcesDescription' {} a -> s {loadBalancer = a} :: EnvironmentResourcesDescription)
 
-instance FromXML EnvironmentResourcesDescription where
+instance
+  Prelude.FromXML
+    EnvironmentResourcesDescription
+  where
   parseXML x =
     EnvironmentResourcesDescription'
-      <$> (x .@? "LoadBalancer")
+      Prelude.<$> (x Prelude..@? "LoadBalancer")
 
-instance Hashable EnvironmentResourcesDescription
+instance
+  Prelude.Hashable
+    EnvironmentResourcesDescription
 
-instance NFData EnvironmentResourcesDescription
+instance
+  Prelude.NFData
+    EnvironmentResourcesDescription
