@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,140 +24,139 @@
 -- Creates a new report using the description that you provide.
 module Network.AWS.CostAndUsageReport.PutReportDefinition
   ( -- * Creating a Request
-    putReportDefinition,
-    PutReportDefinition,
+    PutReportDefinition (..),
+    newPutReportDefinition,
 
     -- * Request Lenses
-    prdReportDefinition,
+    putReportDefinition_reportDefinition,
 
     -- * Destructuring the Response
-    putReportDefinitionResponse,
-    PutReportDefinitionResponse,
+    PutReportDefinitionResponse (..),
+    newPutReportDefinitionResponse,
 
     -- * Response Lenses
-    prdrrsResponseStatus,
+    putReportDefinitionResponse_httpStatus,
   )
 where
 
 import Network.AWS.CostAndUsageReport.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Creates a Cost and Usage Report.
 --
---
---
--- /See:/ 'putReportDefinition' smart constructor.
-newtype PutReportDefinition = PutReportDefinition'
-  { _prdReportDefinition ::
-      ReportDefinition
+-- /See:/ 'newPutReportDefinition' smart constructor.
+data PutReportDefinition = PutReportDefinition'
+  { -- | Represents the output of the PutReportDefinition operation. The content
+    -- consists of the detailed metadata and data file information.
+    reportDefinition :: ReportDefinition
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutReportDefinition' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutReportDefinition' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'prdReportDefinition' - Represents the output of the PutReportDefinition operation. The content consists of the detailed metadata and data file information.
-putReportDefinition ::
-  -- | 'prdReportDefinition'
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'reportDefinition', 'putReportDefinition_reportDefinition' - Represents the output of the PutReportDefinition operation. The content
+-- consists of the detailed metadata and data file information.
+newPutReportDefinition ::
+  -- | 'reportDefinition'
   ReportDefinition ->
   PutReportDefinition
-putReportDefinition pReportDefinition_ =
+newPutReportDefinition pReportDefinition_ =
   PutReportDefinition'
-    { _prdReportDefinition =
+    { reportDefinition =
         pReportDefinition_
     }
 
--- | Represents the output of the PutReportDefinition operation. The content consists of the detailed metadata and data file information.
-prdReportDefinition :: Lens' PutReportDefinition ReportDefinition
-prdReportDefinition = lens _prdReportDefinition (\s a -> s {_prdReportDefinition = a})
+-- | Represents the output of the PutReportDefinition operation. The content
+-- consists of the detailed metadata and data file information.
+putReportDefinition_reportDefinition :: Lens.Lens' PutReportDefinition ReportDefinition
+putReportDefinition_reportDefinition = Lens.lens (\PutReportDefinition' {reportDefinition} -> reportDefinition) (\s@PutReportDefinition' {} a -> s {reportDefinition = a} :: PutReportDefinition)
 
-instance AWSRequest PutReportDefinition where
+instance Prelude.AWSRequest PutReportDefinition where
   type
     Rs PutReportDefinition =
       PutReportDefinitionResponse
-  request = postJSON costAndUsageReport
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          PutReportDefinitionResponse' <$> (pure (fromEnum s))
+          PutReportDefinitionResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable PutReportDefinition
+instance Prelude.Hashable PutReportDefinition
 
-instance NFData PutReportDefinition
+instance Prelude.NFData PutReportDefinition
 
-instance ToHeaders PutReportDefinition where
+instance Prelude.ToHeaders PutReportDefinition where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSOrigamiServiceGatewayService.PutReportDefinition" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSOrigamiServiceGatewayService.PutReportDefinition" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON PutReportDefinition where
+instance Prelude.ToJSON PutReportDefinition where
   toJSON PutReportDefinition' {..} =
-    object
-      ( catMaybes
-          [Just ("ReportDefinition" .= _prdReportDefinition)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("ReportDefinition" Prelude..= reportDefinition)
+          ]
       )
 
-instance ToPath PutReportDefinition where
-  toPath = const "/"
+instance Prelude.ToPath PutReportDefinition where
+  toPath = Prelude.const "/"
 
-instance ToQuery PutReportDefinition where
-  toQuery = const mempty
+instance Prelude.ToQuery PutReportDefinition where
+  toQuery = Prelude.const Prelude.mempty
 
--- | If the action is successful, the service sends back an HTTP 200 response with an empty HTTP body.
+-- | If the action is successful, the service sends back an HTTP 200 response
+-- with an empty HTTP body.
 --
---
---
--- /See:/ 'putReportDefinitionResponse' smart constructor.
-newtype PutReportDefinitionResponse = PutReportDefinitionResponse'
-  { _prdrrsResponseStatus ::
-      Int
+-- /See:/ 'newPutReportDefinitionResponse' smart constructor.
+data PutReportDefinitionResponse = PutReportDefinitionResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutReportDefinitionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutReportDefinitionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'prdrrsResponseStatus' - -- | The response status code.
-putReportDefinitionResponse ::
-  -- | 'prdrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'putReportDefinitionResponse_httpStatus' - The response's http status code.
+newPutReportDefinitionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   PutReportDefinitionResponse
-putReportDefinitionResponse pResponseStatus_ =
+newPutReportDefinitionResponse pHttpStatus_ =
   PutReportDefinitionResponse'
-    { _prdrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-prdrrsResponseStatus :: Lens' PutReportDefinitionResponse Int
-prdrrsResponseStatus = lens _prdrrsResponseStatus (\s a -> s {_prdrrsResponseStatus = a})
+-- | The response's http status code.
+putReportDefinitionResponse_httpStatus :: Lens.Lens' PutReportDefinitionResponse Prelude.Int
+putReportDefinitionResponse_httpStatus = Lens.lens (\PutReportDefinitionResponse' {httpStatus} -> httpStatus) (\s@PutReportDefinitionResponse' {} a -> s {httpStatus = a} :: PutReportDefinitionResponse)
 
-instance NFData PutReportDefinitionResponse
+instance Prelude.NFData PutReportDefinitionResponse

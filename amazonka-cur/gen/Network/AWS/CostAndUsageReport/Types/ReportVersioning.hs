@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.CostAndUsageReport.Types.ReportVersioning
   ( ReportVersioning
       ( ..,
-        CreateNewReport,
-        OverwriteReport
+        ReportVersioningCREATENEWREPORT,
+        ReportVersioningOVERWRITEREPORT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ReportVersioning = ReportVersioning' (CI Text)
+newtype ReportVersioning = ReportVersioning'
+  { fromReportVersioning ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CreateNewReport :: ReportVersioning
-pattern CreateNewReport = ReportVersioning' "CREATE_NEW_REPORT"
+pattern ReportVersioningCREATENEWREPORT :: ReportVersioning
+pattern ReportVersioningCREATENEWREPORT = ReportVersioning' "CREATE_NEW_REPORT"
 
-pattern OverwriteReport :: ReportVersioning
-pattern OverwriteReport = ReportVersioning' "OVERWRITE_REPORT"
+pattern ReportVersioningOVERWRITEREPORT :: ReportVersioning
+pattern ReportVersioningOVERWRITEREPORT = ReportVersioning' "OVERWRITE_REPORT"
 
 {-# COMPLETE
-  CreateNewReport,
-  OverwriteReport,
+  ReportVersioningCREATENEWREPORT,
+  ReportVersioningOVERWRITEREPORT,
   ReportVersioning'
   #-}
 
-instance FromText ReportVersioning where
-  parser = (ReportVersioning' . mk) <$> takeText
+instance Prelude.FromText ReportVersioning where
+  parser = ReportVersioning' Prelude.<$> Prelude.takeText
 
-instance ToText ReportVersioning where
-  toText (ReportVersioning' ci) = original ci
+instance Prelude.ToText ReportVersioning where
+  toText (ReportVersioning' x) = x
 
-instance Hashable ReportVersioning
+instance Prelude.Hashable ReportVersioning
 
-instance NFData ReportVersioning
+instance Prelude.NFData ReportVersioning
 
-instance ToByteString ReportVersioning
+instance Prelude.ToByteString ReportVersioning
 
-instance ToQuery ReportVersioning
+instance Prelude.ToQuery ReportVersioning
 
-instance ToHeader ReportVersioning
+instance Prelude.ToHeader ReportVersioning
 
-instance ToJSON ReportVersioning where
-  toJSON = toJSONText
+instance Prelude.ToJSON ReportVersioning where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ReportVersioning where
-  parseJSON = parseJSONText "ReportVersioning"
+instance Prelude.FromJSON ReportVersioning where
+  parseJSON = Prelude.parseJSONText "ReportVersioning"

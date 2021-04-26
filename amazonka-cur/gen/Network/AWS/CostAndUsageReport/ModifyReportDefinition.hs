@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,149 +24,145 @@
 -- Allows you to programatically update your report preferences.
 module Network.AWS.CostAndUsageReport.ModifyReportDefinition
   ( -- * Creating a Request
-    modifyReportDefinition,
-    ModifyReportDefinition,
+    ModifyReportDefinition (..),
+    newModifyReportDefinition,
 
     -- * Request Lenses
-    mrdReportName,
-    mrdReportDefinition,
+    modifyReportDefinition_reportName,
+    modifyReportDefinition_reportDefinition,
 
     -- * Destructuring the Response
-    modifyReportDefinitionResponse,
-    ModifyReportDefinitionResponse,
+    ModifyReportDefinitionResponse (..),
+    newModifyReportDefinitionResponse,
 
     -- * Response Lenses
-    mrdrrsResponseStatus,
+    modifyReportDefinitionResponse_httpStatus,
   )
 where
 
 import Network.AWS.CostAndUsageReport.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'modifyReportDefinition' smart constructor.
+-- | /See:/ 'newModifyReportDefinition' smart constructor.
 data ModifyReportDefinition = ModifyReportDefinition'
-  { _mrdReportName ::
-      !Text,
-    _mrdReportDefinition ::
-      !ReportDefinition
+  { reportName :: Prelude.Text,
+    reportDefinition :: ReportDefinition
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModifyReportDefinition' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModifyReportDefinition' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mrdReportName' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mrdReportDefinition' - Undocumented member.
-modifyReportDefinition ::
-  -- | 'mrdReportName'
-  Text ->
-  -- | 'mrdReportDefinition'
+-- 'reportName', 'modifyReportDefinition_reportName' - Undocumented member.
+--
+-- 'reportDefinition', 'modifyReportDefinition_reportDefinition' - Undocumented member.
+newModifyReportDefinition ::
+  -- | 'reportName'
+  Prelude.Text ->
+  -- | 'reportDefinition'
   ReportDefinition ->
   ModifyReportDefinition
-modifyReportDefinition
+newModifyReportDefinition
   pReportName_
   pReportDefinition_ =
     ModifyReportDefinition'
-      { _mrdReportName =
-          pReportName_,
-        _mrdReportDefinition = pReportDefinition_
+      { reportName = pReportName_,
+        reportDefinition = pReportDefinition_
       }
 
 -- | Undocumented member.
-mrdReportName :: Lens' ModifyReportDefinition Text
-mrdReportName = lens _mrdReportName (\s a -> s {_mrdReportName = a})
+modifyReportDefinition_reportName :: Lens.Lens' ModifyReportDefinition Prelude.Text
+modifyReportDefinition_reportName = Lens.lens (\ModifyReportDefinition' {reportName} -> reportName) (\s@ModifyReportDefinition' {} a -> s {reportName = a} :: ModifyReportDefinition)
 
 -- | Undocumented member.
-mrdReportDefinition :: Lens' ModifyReportDefinition ReportDefinition
-mrdReportDefinition = lens _mrdReportDefinition (\s a -> s {_mrdReportDefinition = a})
+modifyReportDefinition_reportDefinition :: Lens.Lens' ModifyReportDefinition ReportDefinition
+modifyReportDefinition_reportDefinition = Lens.lens (\ModifyReportDefinition' {reportDefinition} -> reportDefinition) (\s@ModifyReportDefinition' {} a -> s {reportDefinition = a} :: ModifyReportDefinition)
 
-instance AWSRequest ModifyReportDefinition where
+instance Prelude.AWSRequest ModifyReportDefinition where
   type
     Rs ModifyReportDefinition =
       ModifyReportDefinitionResponse
-  request = postJSON costAndUsageReport
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           ModifyReportDefinitionResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ModifyReportDefinition
+instance Prelude.Hashable ModifyReportDefinition
 
-instance NFData ModifyReportDefinition
+instance Prelude.NFData ModifyReportDefinition
 
-instance ToHeaders ModifyReportDefinition where
+instance Prelude.ToHeaders ModifyReportDefinition where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSOrigamiServiceGatewayService.ModifyReportDefinition" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSOrigamiServiceGatewayService.ModifyReportDefinition" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ModifyReportDefinition where
+instance Prelude.ToJSON ModifyReportDefinition where
   toJSON ModifyReportDefinition' {..} =
-    object
-      ( catMaybes
-          [ Just ("ReportName" .= _mrdReportName),
-            Just ("ReportDefinition" .= _mrdReportDefinition)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("ReportName" Prelude..= reportName),
+            Prelude.Just
+              ("ReportDefinition" Prelude..= reportDefinition)
           ]
       )
 
-instance ToPath ModifyReportDefinition where
-  toPath = const "/"
+instance Prelude.ToPath ModifyReportDefinition where
+  toPath = Prelude.const "/"
 
-instance ToQuery ModifyReportDefinition where
-  toQuery = const mempty
+instance Prelude.ToQuery ModifyReportDefinition where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'modifyReportDefinitionResponse' smart constructor.
-newtype ModifyReportDefinitionResponse = ModifyReportDefinitionResponse'
-  { _mrdrrsResponseStatus ::
-      Int
+-- | /See:/ 'newModifyReportDefinitionResponse' smart constructor.
+data ModifyReportDefinitionResponse = ModifyReportDefinitionResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ModifyReportDefinitionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ModifyReportDefinitionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mrdrrsResponseStatus' - -- | The response status code.
-modifyReportDefinitionResponse ::
-  -- | 'mrdrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'modifyReportDefinitionResponse_httpStatus' - The response's http status code.
+newModifyReportDefinitionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ModifyReportDefinitionResponse
-modifyReportDefinitionResponse pResponseStatus_ =
+newModifyReportDefinitionResponse pHttpStatus_ =
   ModifyReportDefinitionResponse'
-    { _mrdrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-mrdrrsResponseStatus :: Lens' ModifyReportDefinitionResponse Int
-mrdrrsResponseStatus = lens _mrdrrsResponseStatus (\s a -> s {_mrdrrsResponseStatus = a})
+-- | The response's http status code.
+modifyReportDefinitionResponse_httpStatus :: Lens.Lens' ModifyReportDefinitionResponse Prelude.Int
+modifyReportDefinitionResponse_httpStatus = Lens.lens (\ModifyReportDefinitionResponse' {httpStatus} -> httpStatus) (\s@ModifyReportDefinitionResponse' {} a -> s {httpStatus = a} :: ModifyReportDefinitionResponse)
 
-instance NFData ModifyReportDefinitionResponse
+instance
+  Prelude.NFData
+    ModifyReportDefinitionResponse

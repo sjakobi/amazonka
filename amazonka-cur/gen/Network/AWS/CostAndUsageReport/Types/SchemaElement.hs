@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,52 +19,54 @@
 module Network.AWS.CostAndUsageReport.Types.SchemaElement
   ( SchemaElement
       ( ..,
-        Resources
+        SchemaElementRESOURCES
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Whether or not AWS includes resource IDs in the report.
-data SchemaElement = SchemaElement' (CI Text)
+newtype SchemaElement = SchemaElement'
+  { fromSchemaElement ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Resources :: SchemaElement
-pattern Resources = SchemaElement' "RESOURCES"
+pattern SchemaElementRESOURCES :: SchemaElement
+pattern SchemaElementRESOURCES = SchemaElement' "RESOURCES"
 
 {-# COMPLETE
-  Resources,
+  SchemaElementRESOURCES,
   SchemaElement'
   #-}
 
-instance FromText SchemaElement where
-  parser = (SchemaElement' . mk) <$> takeText
+instance Prelude.FromText SchemaElement where
+  parser = SchemaElement' Prelude.<$> Prelude.takeText
 
-instance ToText SchemaElement where
-  toText (SchemaElement' ci) = original ci
+instance Prelude.ToText SchemaElement where
+  toText (SchemaElement' x) = x
 
-instance Hashable SchemaElement
+instance Prelude.Hashable SchemaElement
 
-instance NFData SchemaElement
+instance Prelude.NFData SchemaElement
 
-instance ToByteString SchemaElement
+instance Prelude.ToByteString SchemaElement
 
-instance ToQuery SchemaElement
+instance Prelude.ToQuery SchemaElement
 
-instance ToHeader SchemaElement
+instance Prelude.ToHeader SchemaElement
 
-instance ToJSON SchemaElement where
-  toJSON = toJSONText
+instance Prelude.ToJSON SchemaElement where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON SchemaElement where
-  parseJSON = parseJSONText "SchemaElement"
+instance Prelude.FromJSON SchemaElement where
+  parseJSON = Prelude.parseJSONText "SchemaElement"

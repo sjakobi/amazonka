@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,59 @@
 module Network.AWS.CostAndUsageReport.Types.ReportFormat
   ( ReportFormat
       ( ..,
-        RFParquet,
-        RFTextORcsv
+        ReportFormatParquet,
+        ReportFormatTextORcsv
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The format that AWS saves the report in.
-data ReportFormat = ReportFormat' (CI Text)
+newtype ReportFormat = ReportFormat'
+  { fromReportFormat ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern RFParquet :: ReportFormat
-pattern RFParquet = ReportFormat' "Parquet"
+pattern ReportFormatParquet :: ReportFormat
+pattern ReportFormatParquet = ReportFormat' "Parquet"
 
-pattern RFTextORcsv :: ReportFormat
-pattern RFTextORcsv = ReportFormat' "textORcsv"
+pattern ReportFormatTextORcsv :: ReportFormat
+pattern ReportFormatTextORcsv = ReportFormat' "textORcsv"
 
 {-# COMPLETE
-  RFParquet,
-  RFTextORcsv,
+  ReportFormatParquet,
+  ReportFormatTextORcsv,
   ReportFormat'
   #-}
 
-instance FromText ReportFormat where
-  parser = (ReportFormat' . mk) <$> takeText
+instance Prelude.FromText ReportFormat where
+  parser = ReportFormat' Prelude.<$> Prelude.takeText
 
-instance ToText ReportFormat where
-  toText (ReportFormat' ci) = original ci
+instance Prelude.ToText ReportFormat where
+  toText (ReportFormat' x) = x
 
-instance Hashable ReportFormat
+instance Prelude.Hashable ReportFormat
 
-instance NFData ReportFormat
+instance Prelude.NFData ReportFormat
 
-instance ToByteString ReportFormat
+instance Prelude.ToByteString ReportFormat
 
-instance ToQuery ReportFormat
+instance Prelude.ToQuery ReportFormat
 
-instance ToHeader ReportFormat
+instance Prelude.ToHeader ReportFormat
 
-instance ToJSON ReportFormat where
-  toJSON = toJSONText
+instance Prelude.ToJSON ReportFormat where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ReportFormat where
-  parseJSON = parseJSONText "ReportFormat"
+instance Prelude.FromJSON ReportFormat where
+  parseJSON = Prelude.parseJSONText "ReportFormat"

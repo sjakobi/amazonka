@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,64 @@
 module Network.AWS.CostAndUsageReport.Types.AdditionalArtifact
   ( AdditionalArtifact
       ( ..,
-        Athena,
-        Quicksight,
-        Redshift
+        AdditionalArtifactATHENA,
+        AdditionalArtifactQUICKSIGHT,
+        AdditionalArtifactREDSHIFT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The types of manifest that you want AWS to create for this report.
-data AdditionalArtifact
-  = AdditionalArtifact'
-      ( CI
-          Text
-      )
+newtype AdditionalArtifact = AdditionalArtifact'
+  { fromAdditionalArtifact ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Athena :: AdditionalArtifact
-pattern Athena = AdditionalArtifact' "ATHENA"
+pattern AdditionalArtifactATHENA :: AdditionalArtifact
+pattern AdditionalArtifactATHENA = AdditionalArtifact' "ATHENA"
 
-pattern Quicksight :: AdditionalArtifact
-pattern Quicksight = AdditionalArtifact' "QUICKSIGHT"
+pattern AdditionalArtifactQUICKSIGHT :: AdditionalArtifact
+pattern AdditionalArtifactQUICKSIGHT = AdditionalArtifact' "QUICKSIGHT"
 
-pattern Redshift :: AdditionalArtifact
-pattern Redshift = AdditionalArtifact' "REDSHIFT"
+pattern AdditionalArtifactREDSHIFT :: AdditionalArtifact
+pattern AdditionalArtifactREDSHIFT = AdditionalArtifact' "REDSHIFT"
 
 {-# COMPLETE
-  Athena,
-  Quicksight,
-  Redshift,
+  AdditionalArtifactATHENA,
+  AdditionalArtifactQUICKSIGHT,
+  AdditionalArtifactREDSHIFT,
   AdditionalArtifact'
   #-}
 
-instance FromText AdditionalArtifact where
-  parser = (AdditionalArtifact' . mk) <$> takeText
+instance Prelude.FromText AdditionalArtifact where
+  parser = AdditionalArtifact' Prelude.<$> Prelude.takeText
 
-instance ToText AdditionalArtifact where
-  toText (AdditionalArtifact' ci) = original ci
+instance Prelude.ToText AdditionalArtifact where
+  toText (AdditionalArtifact' x) = x
 
-instance Hashable AdditionalArtifact
+instance Prelude.Hashable AdditionalArtifact
 
-instance NFData AdditionalArtifact
+instance Prelude.NFData AdditionalArtifact
 
-instance ToByteString AdditionalArtifact
+instance Prelude.ToByteString AdditionalArtifact
 
-instance ToQuery AdditionalArtifact
+instance Prelude.ToQuery AdditionalArtifact
 
-instance ToHeader AdditionalArtifact
+instance Prelude.ToHeader AdditionalArtifact
 
-instance ToJSON AdditionalArtifact where
-  toJSON = toJSONText
+instance Prelude.ToJSON AdditionalArtifact where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AdditionalArtifact where
-  parseJSON = parseJSONText "AdditionalArtifact"
+instance Prelude.FromJSON AdditionalArtifact where
+  parseJSON = Prelude.parseJSONText "AdditionalArtifact"
