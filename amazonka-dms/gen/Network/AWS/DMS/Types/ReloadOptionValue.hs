@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.DMS.Types.ReloadOptionValue
   ( ReloadOptionValue
       ( ..,
-        DataReload,
-        ValidateOnly
+        ReloadOptionValueDataReload,
+        ReloadOptionValueValidateOnly
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ReloadOptionValue = ReloadOptionValue' (CI Text)
+newtype ReloadOptionValue = ReloadOptionValue'
+  { fromReloadOptionValue ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DataReload :: ReloadOptionValue
-pattern DataReload = ReloadOptionValue' "data-reload"
+pattern ReloadOptionValueDataReload :: ReloadOptionValue
+pattern ReloadOptionValueDataReload = ReloadOptionValue' "data-reload"
 
-pattern ValidateOnly :: ReloadOptionValue
-pattern ValidateOnly = ReloadOptionValue' "validate-only"
+pattern ReloadOptionValueValidateOnly :: ReloadOptionValue
+pattern ReloadOptionValueValidateOnly = ReloadOptionValue' "validate-only"
 
 {-# COMPLETE
-  DataReload,
-  ValidateOnly,
+  ReloadOptionValueDataReload,
+  ReloadOptionValueValidateOnly,
   ReloadOptionValue'
   #-}
 
-instance FromText ReloadOptionValue where
-  parser = (ReloadOptionValue' . mk) <$> takeText
+instance Prelude.FromText ReloadOptionValue where
+  parser = ReloadOptionValue' Prelude.<$> Prelude.takeText
 
-instance ToText ReloadOptionValue where
-  toText (ReloadOptionValue' ci) = original ci
+instance Prelude.ToText ReloadOptionValue where
+  toText (ReloadOptionValue' x) = x
 
-instance Hashable ReloadOptionValue
+instance Prelude.Hashable ReloadOptionValue
 
-instance NFData ReloadOptionValue
+instance Prelude.NFData ReloadOptionValue
 
-instance ToByteString ReloadOptionValue
+instance Prelude.ToByteString ReloadOptionValue
 
-instance ToQuery ReloadOptionValue
+instance Prelude.ToQuery ReloadOptionValue
 
-instance ToHeader ReloadOptionValue
+instance Prelude.ToHeader ReloadOptionValue
 
-instance ToJSON ReloadOptionValue where
-  toJSON = toJSONText
+instance Prelude.ToJSON ReloadOptionValue where
+  toJSON = Prelude.toJSONText

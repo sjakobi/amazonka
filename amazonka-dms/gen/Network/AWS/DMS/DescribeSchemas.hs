@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,186 +23,233 @@
 --
 -- Returns information about the schema for the specified endpoint.
 --
---
---
---
---
 -- This operation returns paginated results.
 module Network.AWS.DMS.DescribeSchemas
   ( -- * Creating a Request
-    describeSchemas,
-    DescribeSchemas,
+    DescribeSchemas (..),
+    newDescribeSchemas,
 
     -- * Request Lenses
-    dsMarker,
-    dsMaxRecords,
-    dsEndpointARN,
+    describeSchemas_marker,
+    describeSchemas_maxRecords,
+    describeSchemas_endpointArn,
 
     -- * Destructuring the Response
-    describeSchemasResponse,
-    DescribeSchemasResponse,
+    DescribeSchemasResponse (..),
+    newDescribeSchemasResponse,
 
     -- * Response Lenses
-    dsrrsSchemas,
-    dsrrsMarker,
-    dsrrsResponseStatus,
+    describeSchemasResponse_schemas,
+    describeSchemasResponse_marker,
+    describeSchemasResponse_httpStatus,
   )
 where
 
 import Network.AWS.DMS.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- |
 --
---
---
--- /See:/ 'describeSchemas' smart constructor.
+-- /See:/ 'newDescribeSchemas' smart constructor.
 data DescribeSchemas = DescribeSchemas'
-  { _dsMarker ::
-      !(Maybe Text),
-    _dsMaxRecords :: !(Maybe Int),
-    _dsEndpointARN :: !Text
+  { -- | An optional pagination token provided by a previous request. If this
+    -- parameter is specified, the response includes only records beyond the
+    -- marker, up to the value specified by @MaxRecords@.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of records to include in the response. If more
+    -- records exist than the specified @MaxRecords@ value, a pagination token
+    -- called a marker is included in the response so that the remaining
+    -- results can be retrieved.
+    --
+    -- Default: 100
+    --
+    -- Constraints: Minimum 20, maximum 100.
+    maxRecords :: Prelude.Maybe Prelude.Int,
+    -- | The Amazon Resource Name (ARN) string that uniquely identifies the
+    -- endpoint.
+    endpointArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeSchemas' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeSchemas' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsMarker' - An optional pagination token provided by a previous request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by @MaxRecords@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsMaxRecords' - The maximum number of records to include in the response. If more records exist than the specified @MaxRecords@ value, a pagination token called a marker is included in the response so that the remaining results can be retrieved.  Default: 100 Constraints: Minimum 20, maximum 100.
+-- 'marker', 'describeSchemas_marker' - An optional pagination token provided by a previous request. If this
+-- parameter is specified, the response includes only records beyond the
+-- marker, up to the value specified by @MaxRecords@.
 --
--- * 'dsEndpointARN' - The Amazon Resource Name (ARN) string that uniquely identifies the endpoint.
-describeSchemas ::
-  -- | 'dsEndpointARN'
-  Text ->
+-- 'maxRecords', 'describeSchemas_maxRecords' - The maximum number of records to include in the response. If more
+-- records exist than the specified @MaxRecords@ value, a pagination token
+-- called a marker is included in the response so that the remaining
+-- results can be retrieved.
+--
+-- Default: 100
+--
+-- Constraints: Minimum 20, maximum 100.
+--
+-- 'endpointArn', 'describeSchemas_endpointArn' - The Amazon Resource Name (ARN) string that uniquely identifies the
+-- endpoint.
+newDescribeSchemas ::
+  -- | 'endpointArn'
+  Prelude.Text ->
   DescribeSchemas
-describeSchemas pEndpointARN_ =
+newDescribeSchemas pEndpointArn_ =
   DescribeSchemas'
-    { _dsMarker = Nothing,
-      _dsMaxRecords = Nothing,
-      _dsEndpointARN = pEndpointARN_
+    { marker = Prelude.Nothing,
+      maxRecords = Prelude.Nothing,
+      endpointArn = pEndpointArn_
     }
 
--- | An optional pagination token provided by a previous request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by @MaxRecords@ .
-dsMarker :: Lens' DescribeSchemas (Maybe Text)
-dsMarker = lens _dsMarker (\s a -> s {_dsMarker = a})
+-- | An optional pagination token provided by a previous request. If this
+-- parameter is specified, the response includes only records beyond the
+-- marker, up to the value specified by @MaxRecords@.
+describeSchemas_marker :: Lens.Lens' DescribeSchemas (Prelude.Maybe Prelude.Text)
+describeSchemas_marker = Lens.lens (\DescribeSchemas' {marker} -> marker) (\s@DescribeSchemas' {} a -> s {marker = a} :: DescribeSchemas)
 
--- | The maximum number of records to include in the response. If more records exist than the specified @MaxRecords@ value, a pagination token called a marker is included in the response so that the remaining results can be retrieved.  Default: 100 Constraints: Minimum 20, maximum 100.
-dsMaxRecords :: Lens' DescribeSchemas (Maybe Int)
-dsMaxRecords = lens _dsMaxRecords (\s a -> s {_dsMaxRecords = a})
+-- | The maximum number of records to include in the response. If more
+-- records exist than the specified @MaxRecords@ value, a pagination token
+-- called a marker is included in the response so that the remaining
+-- results can be retrieved.
+--
+-- Default: 100
+--
+-- Constraints: Minimum 20, maximum 100.
+describeSchemas_maxRecords :: Lens.Lens' DescribeSchemas (Prelude.Maybe Prelude.Int)
+describeSchemas_maxRecords = Lens.lens (\DescribeSchemas' {maxRecords} -> maxRecords) (\s@DescribeSchemas' {} a -> s {maxRecords = a} :: DescribeSchemas)
 
--- | The Amazon Resource Name (ARN) string that uniquely identifies the endpoint.
-dsEndpointARN :: Lens' DescribeSchemas Text
-dsEndpointARN = lens _dsEndpointARN (\s a -> s {_dsEndpointARN = a})
+-- | The Amazon Resource Name (ARN) string that uniquely identifies the
+-- endpoint.
+describeSchemas_endpointArn :: Lens.Lens' DescribeSchemas Prelude.Text
+describeSchemas_endpointArn = Lens.lens (\DescribeSchemas' {endpointArn} -> endpointArn) (\s@DescribeSchemas' {} a -> s {endpointArn = a} :: DescribeSchemas)
 
-instance AWSPager DescribeSchemas where
+instance Pager.AWSPager DescribeSchemas where
   page rq rs
-    | stop (rs ^. dsrrsMarker) = Nothing
-    | stop (rs ^. dsrrsSchemas) = Nothing
-    | otherwise =
-      Just $ rq & dsMarker .~ rs ^. dsrrsMarker
+    | Pager.stop
+        ( rs
+            Lens.^? describeSchemasResponse_marker Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeSchemasResponse_schemas Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeSchemas_marker
+          Lens..~ rs
+          Lens.^? describeSchemasResponse_marker Prelude.. Lens._Just
 
-instance AWSRequest DescribeSchemas where
+instance Prelude.AWSRequest DescribeSchemas where
   type Rs DescribeSchemas = DescribeSchemasResponse
-  request = postJSON dms
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeSchemasResponse'
-            <$> (x .?> "Schemas" .!@ mempty)
-            <*> (x .?> "Marker")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Schemas" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (x Prelude..?> "Marker")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeSchemas
+instance Prelude.Hashable DescribeSchemas
 
-instance NFData DescribeSchemas
+instance Prelude.NFData DescribeSchemas
 
-instance ToHeaders DescribeSchemas where
+instance Prelude.ToHeaders DescribeSchemas where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AmazonDMSv20160101.DescribeSchemas" :: ByteString),
+              Prelude.=# ( "AmazonDMSv20160101.DescribeSchemas" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeSchemas where
+instance Prelude.ToJSON DescribeSchemas where
   toJSON DescribeSchemas' {..} =
-    object
-      ( catMaybes
-          [ ("Marker" .=) <$> _dsMarker,
-            ("MaxRecords" .=) <$> _dsMaxRecords,
-            Just ("EndpointArn" .= _dsEndpointARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Marker" Prelude..=) Prelude.<$> marker,
+            ("MaxRecords" Prelude..=) Prelude.<$> maxRecords,
+            Prelude.Just ("EndpointArn" Prelude..= endpointArn)
           ]
       )
 
-instance ToPath DescribeSchemas where
-  toPath = const "/"
+instance Prelude.ToPath DescribeSchemas where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeSchemas where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeSchemas where
+  toQuery = Prelude.const Prelude.mempty
 
 -- |
 --
---
---
--- /See:/ 'describeSchemasResponse' smart constructor.
+-- /See:/ 'newDescribeSchemasResponse' smart constructor.
 data DescribeSchemasResponse = DescribeSchemasResponse'
-  { _dsrrsSchemas ::
-      !(Maybe [Text]),
-    _dsrrsMarker ::
-      !(Maybe Text),
-    _dsrrsResponseStatus ::
-      !Int
+  { -- | The described schema.
+    schemas :: Prelude.Maybe [Prelude.Text],
+    -- | An optional pagination token provided by a previous request. If this
+    -- parameter is specified, the response includes only records beyond the
+    -- marker, up to the value specified by @MaxRecords@.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeSchemasResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeSchemasResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsrrsSchemas' - The described schema.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsrrsMarker' - An optional pagination token provided by a previous request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by @MaxRecords@ .
+-- 'schemas', 'describeSchemasResponse_schemas' - The described schema.
 --
--- * 'dsrrsResponseStatus' - -- | The response status code.
-describeSchemasResponse ::
-  -- | 'dsrrsResponseStatus'
-  Int ->
+-- 'marker', 'describeSchemasResponse_marker' - An optional pagination token provided by a previous request. If this
+-- parameter is specified, the response includes only records beyond the
+-- marker, up to the value specified by @MaxRecords@.
+--
+-- 'httpStatus', 'describeSchemasResponse_httpStatus' - The response's http status code.
+newDescribeSchemasResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeSchemasResponse
-describeSchemasResponse pResponseStatus_ =
+newDescribeSchemasResponse pHttpStatus_ =
   DescribeSchemasResponse'
-    { _dsrrsSchemas = Nothing,
-      _dsrrsMarker = Nothing,
-      _dsrrsResponseStatus = pResponseStatus_
+    { schemas = Prelude.Nothing,
+      marker = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The described schema.
-dsrrsSchemas :: Lens' DescribeSchemasResponse [Text]
-dsrrsSchemas = lens _dsrrsSchemas (\s a -> s {_dsrrsSchemas = a}) . _Default . _Coerce
+describeSchemasResponse_schemas :: Lens.Lens' DescribeSchemasResponse (Prelude.Maybe [Prelude.Text])
+describeSchemasResponse_schemas = Lens.lens (\DescribeSchemasResponse' {schemas} -> schemas) (\s@DescribeSchemasResponse' {} a -> s {schemas = a} :: DescribeSchemasResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | An optional pagination token provided by a previous request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by @MaxRecords@ .
-dsrrsMarker :: Lens' DescribeSchemasResponse (Maybe Text)
-dsrrsMarker = lens _dsrrsMarker (\s a -> s {_dsrrsMarker = a})
+-- | An optional pagination token provided by a previous request. If this
+-- parameter is specified, the response includes only records beyond the
+-- marker, up to the value specified by @MaxRecords@.
+describeSchemasResponse_marker :: Lens.Lens' DescribeSchemasResponse (Prelude.Maybe Prelude.Text)
+describeSchemasResponse_marker = Lens.lens (\DescribeSchemasResponse' {marker} -> marker) (\s@DescribeSchemasResponse' {} a -> s {marker = a} :: DescribeSchemasResponse)
 
--- | -- | The response status code.
-dsrrsResponseStatus :: Lens' DescribeSchemasResponse Int
-dsrrsResponseStatus = lens _dsrrsResponseStatus (\s a -> s {_dsrrsResponseStatus = a})
+-- | The response's http status code.
+describeSchemasResponse_httpStatus :: Lens.Lens' DescribeSchemasResponse Prelude.Int
+describeSchemasResponse_httpStatus = Lens.lens (\DescribeSchemasResponse' {httpStatus} -> httpStatus) (\s@DescribeSchemasResponse' {} a -> s {httpStatus = a} :: DescribeSchemasResponse)
 
-instance NFData DescribeSchemasResponse
+instance Prelude.NFData DescribeSchemasResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,165 +21,170 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Reboots a replication instance. Rebooting results in a momentary outage, until the replication instance becomes available again.
+-- Reboots a replication instance. Rebooting results in a momentary outage,
+-- until the replication instance becomes available again.
 module Network.AWS.DMS.RebootReplicationInstance
   ( -- * Creating a Request
-    rebootReplicationInstance,
-    RebootReplicationInstance,
+    RebootReplicationInstance (..),
+    newRebootReplicationInstance,
 
     -- * Request Lenses
-    rriForceFailover,
-    rriReplicationInstanceARN,
+    rebootReplicationInstance_forceFailover,
+    rebootReplicationInstance_replicationInstanceArn,
 
     -- * Destructuring the Response
-    rebootReplicationInstanceResponse,
-    RebootReplicationInstanceResponse,
+    RebootReplicationInstanceResponse (..),
+    newRebootReplicationInstanceResponse,
 
     -- * Response Lenses
-    rrirrsReplicationInstance,
-    rrirrsResponseStatus,
+    rebootReplicationInstanceResponse_replicationInstance,
+    rebootReplicationInstanceResponse_httpStatus,
   )
 where
 
 import Network.AWS.DMS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DMS.Types.ReplicationInstance
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'rebootReplicationInstance' smart constructor.
+-- | /See:/ 'newRebootReplicationInstance' smart constructor.
 data RebootReplicationInstance = RebootReplicationInstance'
-  { _rriForceFailover ::
-      !(Maybe Bool),
-    _rriReplicationInstanceARN ::
-      !Text
+  { -- | If this parameter is @true@, the reboot is conducted through a Multi-AZ
+    -- failover. (If the instance isn\'t configured for Multi-AZ, then you
+    -- can\'t specify @true@.)
+    forceFailover :: Prelude.Maybe Prelude.Bool,
+    -- | The Amazon Resource Name (ARN) of the replication instance.
+    replicationInstanceArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RebootReplicationInstance' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RebootReplicationInstance' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rriForceFailover' - If this parameter is @true@ , the reboot is conducted through a Multi-AZ failover. (If the instance isn't configured for Multi-AZ, then you can't specify @true@ .)
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rriReplicationInstanceARN' - The Amazon Resource Name (ARN) of the replication instance.
-rebootReplicationInstance ::
-  -- | 'rriReplicationInstanceARN'
-  Text ->
+-- 'forceFailover', 'rebootReplicationInstance_forceFailover' - If this parameter is @true@, the reboot is conducted through a Multi-AZ
+-- failover. (If the instance isn\'t configured for Multi-AZ, then you
+-- can\'t specify @true@.)
+--
+-- 'replicationInstanceArn', 'rebootReplicationInstance_replicationInstanceArn' - The Amazon Resource Name (ARN) of the replication instance.
+newRebootReplicationInstance ::
+  -- | 'replicationInstanceArn'
+  Prelude.Text ->
   RebootReplicationInstance
-rebootReplicationInstance pReplicationInstanceARN_ =
+newRebootReplicationInstance pReplicationInstanceArn_ =
   RebootReplicationInstance'
-    { _rriForceFailover =
-        Nothing,
-      _rriReplicationInstanceARN =
-        pReplicationInstanceARN_
+    { forceFailover =
+        Prelude.Nothing,
+      replicationInstanceArn =
+        pReplicationInstanceArn_
     }
 
--- | If this parameter is @true@ , the reboot is conducted through a Multi-AZ failover. (If the instance isn't configured for Multi-AZ, then you can't specify @true@ .)
-rriForceFailover :: Lens' RebootReplicationInstance (Maybe Bool)
-rriForceFailover = lens _rriForceFailover (\s a -> s {_rriForceFailover = a})
+-- | If this parameter is @true@, the reboot is conducted through a Multi-AZ
+-- failover. (If the instance isn\'t configured for Multi-AZ, then you
+-- can\'t specify @true@.)
+rebootReplicationInstance_forceFailover :: Lens.Lens' RebootReplicationInstance (Prelude.Maybe Prelude.Bool)
+rebootReplicationInstance_forceFailover = Lens.lens (\RebootReplicationInstance' {forceFailover} -> forceFailover) (\s@RebootReplicationInstance' {} a -> s {forceFailover = a} :: RebootReplicationInstance)
 
 -- | The Amazon Resource Name (ARN) of the replication instance.
-rriReplicationInstanceARN :: Lens' RebootReplicationInstance Text
-rriReplicationInstanceARN = lens _rriReplicationInstanceARN (\s a -> s {_rriReplicationInstanceARN = a})
+rebootReplicationInstance_replicationInstanceArn :: Lens.Lens' RebootReplicationInstance Prelude.Text
+rebootReplicationInstance_replicationInstanceArn = Lens.lens (\RebootReplicationInstance' {replicationInstanceArn} -> replicationInstanceArn) (\s@RebootReplicationInstance' {} a -> s {replicationInstanceArn = a} :: RebootReplicationInstance)
 
-instance AWSRequest RebootReplicationInstance where
+instance Prelude.AWSRequest RebootReplicationInstance where
   type
     Rs RebootReplicationInstance =
       RebootReplicationInstanceResponse
-  request = postJSON dms
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           RebootReplicationInstanceResponse'
-            <$> (x .?> "ReplicationInstance")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ReplicationInstance")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable RebootReplicationInstance
+instance Prelude.Hashable RebootReplicationInstance
 
-instance NFData RebootReplicationInstance
+instance Prelude.NFData RebootReplicationInstance
 
-instance ToHeaders RebootReplicationInstance where
+instance Prelude.ToHeaders RebootReplicationInstance where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AmazonDMSv20160101.RebootReplicationInstance" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AmazonDMSv20160101.RebootReplicationInstance" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON RebootReplicationInstance where
+instance Prelude.ToJSON RebootReplicationInstance where
   toJSON RebootReplicationInstance' {..} =
-    object
-      ( catMaybes
-          [ ("ForceFailover" .=) <$> _rriForceFailover,
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ForceFailover" Prelude..=)
+              Prelude.<$> forceFailover,
+            Prelude.Just
               ( "ReplicationInstanceArn"
-                  .= _rriReplicationInstanceARN
+                  Prelude..= replicationInstanceArn
               )
           ]
       )
 
-instance ToPath RebootReplicationInstance where
-  toPath = const "/"
+instance Prelude.ToPath RebootReplicationInstance where
+  toPath = Prelude.const "/"
 
-instance ToQuery RebootReplicationInstance where
-  toQuery = const mempty
+instance Prelude.ToQuery RebootReplicationInstance where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'rebootReplicationInstanceResponse' smart constructor.
+-- | /See:/ 'newRebootReplicationInstanceResponse' smart constructor.
 data RebootReplicationInstanceResponse = RebootReplicationInstanceResponse'
-  { _rrirrsReplicationInstance ::
-      !( Maybe
-           ReplicationInstance
-       ),
-    _rrirrsResponseStatus ::
-      !Int
+  { -- | The replication instance that is being rebooted.
+    replicationInstance :: Prelude.Maybe ReplicationInstance,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RebootReplicationInstanceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RebootReplicationInstanceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rrirrsReplicationInstance' - The replication instance that is being rebooted.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rrirrsResponseStatus' - -- | The response status code.
-rebootReplicationInstanceResponse ::
-  -- | 'rrirrsResponseStatus'
-  Int ->
+-- 'replicationInstance', 'rebootReplicationInstanceResponse_replicationInstance' - The replication instance that is being rebooted.
+--
+-- 'httpStatus', 'rebootReplicationInstanceResponse_httpStatus' - The response's http status code.
+newRebootReplicationInstanceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   RebootReplicationInstanceResponse
-rebootReplicationInstanceResponse pResponseStatus_ =
+newRebootReplicationInstanceResponse pHttpStatus_ =
   RebootReplicationInstanceResponse'
-    { _rrirrsReplicationInstance =
-        Nothing,
-      _rrirrsResponseStatus = pResponseStatus_
+    { replicationInstance =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The replication instance that is being rebooted.
-rrirrsReplicationInstance :: Lens' RebootReplicationInstanceResponse (Maybe ReplicationInstance)
-rrirrsReplicationInstance = lens _rrirrsReplicationInstance (\s a -> s {_rrirrsReplicationInstance = a})
+rebootReplicationInstanceResponse_replicationInstance :: Lens.Lens' RebootReplicationInstanceResponse (Prelude.Maybe ReplicationInstance)
+rebootReplicationInstanceResponse_replicationInstance = Lens.lens (\RebootReplicationInstanceResponse' {replicationInstance} -> replicationInstance) (\s@RebootReplicationInstanceResponse' {} a -> s {replicationInstance = a} :: RebootReplicationInstanceResponse)
 
--- | -- | The response status code.
-rrirrsResponseStatus :: Lens' RebootReplicationInstanceResponse Int
-rrirrsResponseStatus = lens _rrirrsResponseStatus (\s a -> s {_rrirrsResponseStatus = a})
+-- | The response's http status code.
+rebootReplicationInstanceResponse_httpStatus :: Lens.Lens' RebootReplicationInstanceResponse Prelude.Int
+rebootReplicationInstanceResponse_httpStatus = Lens.lens (\RebootReplicationInstanceResponse' {httpStatus} -> httpStatus) (\s@RebootReplicationInstanceResponse' {} a -> s {httpStatus = a} :: RebootReplicationInstanceResponse)
 
-instance NFData RebootReplicationInstanceResponse
+instance
+  Prelude.NFData
+    RebootReplicationInstanceResponse

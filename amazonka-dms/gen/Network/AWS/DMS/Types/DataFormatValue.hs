@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.DMS.Types.DataFormatValue
   ( DataFormatValue
       ( ..,
-        CSV,
-        Parquet
+        DataFormatValueCsv,
+        DataFormatValueParquet
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DataFormatValue = DataFormatValue' (CI Text)
+newtype DataFormatValue = DataFormatValue'
+  { fromDataFormatValue ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CSV :: DataFormatValue
-pattern CSV = DataFormatValue' "csv"
+pattern DataFormatValueCsv :: DataFormatValue
+pattern DataFormatValueCsv = DataFormatValue' "csv"
 
-pattern Parquet :: DataFormatValue
-pattern Parquet = DataFormatValue' "parquet"
+pattern DataFormatValueParquet :: DataFormatValue
+pattern DataFormatValueParquet = DataFormatValue' "parquet"
 
 {-# COMPLETE
-  CSV,
-  Parquet,
+  DataFormatValueCsv,
+  DataFormatValueParquet,
   DataFormatValue'
   #-}
 
-instance FromText DataFormatValue where
-  parser = (DataFormatValue' . mk) <$> takeText
+instance Prelude.FromText DataFormatValue where
+  parser = DataFormatValue' Prelude.<$> Prelude.takeText
 
-instance ToText DataFormatValue where
-  toText (DataFormatValue' ci) = original ci
+instance Prelude.ToText DataFormatValue where
+  toText (DataFormatValue' x) = x
 
-instance Hashable DataFormatValue
+instance Prelude.Hashable DataFormatValue
 
-instance NFData DataFormatValue
+instance Prelude.NFData DataFormatValue
 
-instance ToByteString DataFormatValue
+instance Prelude.ToByteString DataFormatValue
 
-instance ToQuery DataFormatValue
+instance Prelude.ToQuery DataFormatValue
 
-instance ToHeader DataFormatValue
+instance Prelude.ToHeader DataFormatValue
 
-instance ToJSON DataFormatValue where
-  toJSON = toJSONText
+instance Prelude.ToJSON DataFormatValue where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DataFormatValue where
-  parseJSON = parseJSONText "DataFormatValue"
+instance Prelude.FromJSON DataFormatValue where
+  parseJSON = Prelude.parseJSONText "DataFormatValue"

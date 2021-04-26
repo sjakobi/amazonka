@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,70 +19,68 @@
 module Network.AWS.DMS.Types.DatePartitionDelimiterValue
   ( DatePartitionDelimiterValue
       ( ..,
-        DPDVDash,
-        DPDVNone,
-        DPDVSlash,
-        DPDVUnderscore
+        DatePartitionDelimiterValueDASH,
+        DatePartitionDelimiterValueNONE,
+        DatePartitionDelimiterValueSLASH,
+        DatePartitionDelimiterValueUNDERSCORE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DatePartitionDelimiterValue
-  = DatePartitionDelimiterValue'
-      ( CI
-          Text
-      )
+newtype DatePartitionDelimiterValue = DatePartitionDelimiterValue'
+  { fromDatePartitionDelimiterValue ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DPDVDash :: DatePartitionDelimiterValue
-pattern DPDVDash = DatePartitionDelimiterValue' "DASH"
+pattern DatePartitionDelimiterValueDASH :: DatePartitionDelimiterValue
+pattern DatePartitionDelimiterValueDASH = DatePartitionDelimiterValue' "DASH"
 
-pattern DPDVNone :: DatePartitionDelimiterValue
-pattern DPDVNone = DatePartitionDelimiterValue' "NONE"
+pattern DatePartitionDelimiterValueNONE :: DatePartitionDelimiterValue
+pattern DatePartitionDelimiterValueNONE = DatePartitionDelimiterValue' "NONE"
 
-pattern DPDVSlash :: DatePartitionDelimiterValue
-pattern DPDVSlash = DatePartitionDelimiterValue' "SLASH"
+pattern DatePartitionDelimiterValueSLASH :: DatePartitionDelimiterValue
+pattern DatePartitionDelimiterValueSLASH = DatePartitionDelimiterValue' "SLASH"
 
-pattern DPDVUnderscore :: DatePartitionDelimiterValue
-pattern DPDVUnderscore = DatePartitionDelimiterValue' "UNDERSCORE"
+pattern DatePartitionDelimiterValueUNDERSCORE :: DatePartitionDelimiterValue
+pattern DatePartitionDelimiterValueUNDERSCORE = DatePartitionDelimiterValue' "UNDERSCORE"
 
 {-# COMPLETE
-  DPDVDash,
-  DPDVNone,
-  DPDVSlash,
-  DPDVUnderscore,
+  DatePartitionDelimiterValueDASH,
+  DatePartitionDelimiterValueNONE,
+  DatePartitionDelimiterValueSLASH,
+  DatePartitionDelimiterValueUNDERSCORE,
   DatePartitionDelimiterValue'
   #-}
 
-instance FromText DatePartitionDelimiterValue where
-  parser = (DatePartitionDelimiterValue' . mk) <$> takeText
+instance Prelude.FromText DatePartitionDelimiterValue where
+  parser = DatePartitionDelimiterValue' Prelude.<$> Prelude.takeText
 
-instance ToText DatePartitionDelimiterValue where
-  toText (DatePartitionDelimiterValue' ci) = original ci
+instance Prelude.ToText DatePartitionDelimiterValue where
+  toText (DatePartitionDelimiterValue' x) = x
 
-instance Hashable DatePartitionDelimiterValue
+instance Prelude.Hashable DatePartitionDelimiterValue
 
-instance NFData DatePartitionDelimiterValue
+instance Prelude.NFData DatePartitionDelimiterValue
 
-instance ToByteString DatePartitionDelimiterValue
+instance Prelude.ToByteString DatePartitionDelimiterValue
 
-instance ToQuery DatePartitionDelimiterValue
+instance Prelude.ToQuery DatePartitionDelimiterValue
 
-instance ToHeader DatePartitionDelimiterValue
+instance Prelude.ToHeader DatePartitionDelimiterValue
 
-instance ToJSON DatePartitionDelimiterValue where
-  toJSON = toJSONText
+instance Prelude.ToJSON DatePartitionDelimiterValue where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DatePartitionDelimiterValue where
-  parseJSON = parseJSONText "DatePartitionDelimiterValue"
+instance Prelude.FromJSON DatePartitionDelimiterValue where
+  parseJSON = Prelude.parseJSONText "DatePartitionDelimiterValue"

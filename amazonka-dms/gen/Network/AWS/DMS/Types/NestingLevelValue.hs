@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.DMS.Types.NestingLevelValue
   ( NestingLevelValue
       ( ..,
-        NLVNone,
-        NLVOne
+        NestingLevelValueNone,
+        NestingLevelValueOne
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data NestingLevelValue = NestingLevelValue' (CI Text)
+newtype NestingLevelValue = NestingLevelValue'
+  { fromNestingLevelValue ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern NLVNone :: NestingLevelValue
-pattern NLVNone = NestingLevelValue' "none"
+pattern NestingLevelValueNone :: NestingLevelValue
+pattern NestingLevelValueNone = NestingLevelValue' "none"
 
-pattern NLVOne :: NestingLevelValue
-pattern NLVOne = NestingLevelValue' "one"
+pattern NestingLevelValueOne :: NestingLevelValue
+pattern NestingLevelValueOne = NestingLevelValue' "one"
 
 {-# COMPLETE
-  NLVNone,
-  NLVOne,
+  NestingLevelValueNone,
+  NestingLevelValueOne,
   NestingLevelValue'
   #-}
 
-instance FromText NestingLevelValue where
-  parser = (NestingLevelValue' . mk) <$> takeText
+instance Prelude.FromText NestingLevelValue where
+  parser = NestingLevelValue' Prelude.<$> Prelude.takeText
 
-instance ToText NestingLevelValue where
-  toText (NestingLevelValue' ci) = original ci
+instance Prelude.ToText NestingLevelValue where
+  toText (NestingLevelValue' x) = x
 
-instance Hashable NestingLevelValue
+instance Prelude.Hashable NestingLevelValue
 
-instance NFData NestingLevelValue
+instance Prelude.NFData NestingLevelValue
 
-instance ToByteString NestingLevelValue
+instance Prelude.ToByteString NestingLevelValue
 
-instance ToQuery NestingLevelValue
+instance Prelude.ToQuery NestingLevelValue
 
-instance ToHeader NestingLevelValue
+instance Prelude.ToHeader NestingLevelValue
 
-instance ToJSON NestingLevelValue where
-  toJSON = toJSONText
+instance Prelude.ToJSON NestingLevelValue where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON NestingLevelValue where
-  parseJSON = parseJSONText "NestingLevelValue"
+instance Prelude.FromJSON NestingLevelValue where
+  parseJSON = Prelude.parseJSONText "NestingLevelValue"

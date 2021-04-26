@@ -28,331 +28,331 @@ import Test.Tasty
 -- fixtures =
 --     [ testGroup "request"
 --         [ requestDeleteReplicationTaskAssessmentRun $
---             deleteReplicationTaskAssessmentRun
+--             newDeleteReplicationTaskAssessmentRun
 --
 --         , requestDescribeEventCategories $
---             describeEventCategories
+--             newDescribeEventCategories
 --
 --         , requestStartReplicationTaskAssessment $
---             startReplicationTaskAssessment
+--             newStartReplicationTaskAssessment
 --
 --         , requestDeleteConnection $
---             deleteConnection
+--             newDeleteConnection
 --
 --         , requestCreateEndpoint $
---             createEndpoint
+--             newCreateEndpoint
 --
 --         , requestDescribeOrderableReplicationInstances $
---             describeOrderableReplicationInstances
+--             newDescribeOrderableReplicationInstances
 --
 --         , requestDeleteCertificate $
---             deleteCertificate
+--             newDeleteCertificate
 --
 --         , requestDescribeApplicableIndividualAssessments $
---             describeApplicableIndividualAssessments
+--             newDescribeApplicableIndividualAssessments
 --
 --         , requestReloadTables $
---             reloadTables
+--             newReloadTables
 --
 --         , requestStartReplicationTask $
---             startReplicationTask
+--             newStartReplicationTask
 --
 --         , requestDescribeEventSubscriptions $
---             describeEventSubscriptions
+--             newDescribeEventSubscriptions
 --
 --         , requestModifyReplicationTask $
---             modifyReplicationTask
+--             newModifyReplicationTask
 --
 --         , requestStopReplicationTask $
---             stopReplicationTask
+--             newStopReplicationTask
 --
 --         , requestCreateReplicationInstance $
---             createReplicationInstance
+--             newCreateReplicationInstance
 --
 --         , requestDescribeReplicationSubnetGroups $
---             describeReplicationSubnetGroups
+--             newDescribeReplicationSubnetGroups
 --
 --         , requestDeleteEventSubscription $
---             deleteEventSubscription
+--             newDeleteEventSubscription
 --
 --         , requestDescribeTableStatistics $
---             describeTableStatistics
+--             newDescribeTableStatistics
 --
 --         , requestStartReplicationTaskAssessmentRun $
---             startReplicationTaskAssessmentRun
+--             newStartReplicationTaskAssessmentRun
 --
 --         , requestDescribeRefreshSchemasStatus $
---             describeRefreshSchemasStatus
+--             newDescribeRefreshSchemasStatus
 --
 --         , requestDescribeAccountAttributes $
---             describeAccountAttributes
+--             newDescribeAccountAttributes
 --
 --         , requestRemoveTagsFromResource $
---             removeTagsFromResource
+--             newRemoveTagsFromResource
 --
 --         , requestDescribeCertificates $
---             describeCertificates
+--             newDescribeCertificates
 --
 --         , requestModifyEndpoint $
---             modifyEndpoint
+--             newModifyEndpoint
 --
 --         , requestTestConnection $
---             testConnection
+--             newTestConnection
 --
 --         , requestDescribeReplicationTaskAssessmentResults $
---             describeReplicationTaskAssessmentResults
+--             newDescribeReplicationTaskAssessmentResults
 --
 --         , requestApplyPendingMaintenanceAction $
---             applyPendingMaintenanceAction
+--             newApplyPendingMaintenanceAction
 --
 --         , requestImportCertificate $
---             importCertificate
+--             newImportCertificate
 --
 --         , requestDescribeEndpointTypes $
---             describeEndpointTypes
+--             newDescribeEndpointTypes
 --
 --         , requestDescribePendingMaintenanceActions $
---             describePendingMaintenanceActions
+--             newDescribePendingMaintenanceActions
 --
 --         , requestDeleteEndpoint $
---             deleteEndpoint
+--             newDeleteEndpoint
 --
 --         , requestDescribeEvents $
---             describeEvents
+--             newDescribeEvents
 --
 --         , requestDescribeSchemas $
---             describeSchemas
+--             newDescribeSchemas
 --
 --         , requestModifyEventSubscription $
---             modifyEventSubscription
+--             newModifyEventSubscription
 --
 --         , requestDescribeReplicationTasks $
---             describeReplicationTasks
+--             newDescribeReplicationTasks
 --
 --         , requestRefreshSchemas $
---             refreshSchemas
+--             newRefreshSchemas
 --
 --         , requestCreateReplicationSubnetGroup $
---             createReplicationSubnetGroup
+--             newCreateReplicationSubnetGroup
 --
 --         , requestRebootReplicationInstance $
---             rebootReplicationInstance
+--             newRebootReplicationInstance
 --
 --         , requestDeleteReplicationInstance $
---             deleteReplicationInstance
+--             newDeleteReplicationInstance
 --
 --         , requestDeleteReplicationSubnetGroup $
---             deleteReplicationSubnetGroup
+--             newDeleteReplicationSubnetGroup
 --
 --         , requestAddTagsToResource $
---             addTagsToResource
+--             newAddTagsToResource
 --
 --         , requestCreateEventSubscription $
---             createEventSubscription
+--             newCreateEventSubscription
 --
 --         , requestDescribeReplicationInstances $
---             describeReplicationInstances
+--             newDescribeReplicationInstances
 --
 --         , requestDescribeReplicationTaskAssessmentRuns $
---             describeReplicationTaskAssessmentRuns
+--             newDescribeReplicationTaskAssessmentRuns
 --
 --         , requestCancelReplicationTaskAssessmentRun $
---             cancelReplicationTaskAssessmentRun
+--             newCancelReplicationTaskAssessmentRun
 --
 --         , requestDescribeConnections $
---             describeConnections
+--             newDescribeConnections
 --
 --         , requestModifyReplicationSubnetGroup $
---             modifyReplicationSubnetGroup
+--             newModifyReplicationSubnetGroup
 --
 --         , requestDeleteReplicationTask $
---             deleteReplicationTask
+--             newDeleteReplicationTask
 --
 --         , requestMoveReplicationTask $
---             moveReplicationTask
+--             newMoveReplicationTask
 --
 --         , requestDescribeReplicationTaskIndividualAssessments $
---             describeReplicationTaskIndividualAssessments
+--             newDescribeReplicationTaskIndividualAssessments
 --
 --         , requestModifyReplicationInstance $
---             modifyReplicationInstance
+--             newModifyReplicationInstance
 --
 --         , requestDescribeEndpoints $
---             describeEndpoints
+--             newDescribeEndpoints
 --
 --         , requestCreateReplicationTask $
---             createReplicationTask
+--             newCreateReplicationTask
 --
 --         , requestListTagsForResource $
---             listTagsForResource
+--             newListTagsForResource
 --
 --         , requestDescribeReplicationInstanceTaskLogs $
---             describeReplicationInstanceTaskLogs
+--             newDescribeReplicationInstanceTaskLogs
 --
 --           ]
 
 --     , testGroup "response"
 --         [ responseDeleteReplicationTaskAssessmentRun $
---             deleteReplicationTaskAssessmentRunResponse
+--             newDeleteReplicationTaskAssessmentRunResponse
 --
 --         , responseDescribeEventCategories $
---             describeEventCategoriesResponse
+--             newDescribeEventCategoriesResponse
 --
 --         , responseStartReplicationTaskAssessment $
---             startReplicationTaskAssessmentResponse
+--             newStartReplicationTaskAssessmentResponse
 --
 --         , responseDeleteConnection $
---             deleteConnectionResponse
+--             newDeleteConnectionResponse
 --
 --         , responseCreateEndpoint $
---             createEndpointResponse
+--             newCreateEndpointResponse
 --
 --         , responseDescribeOrderableReplicationInstances $
---             describeOrderableReplicationInstancesResponse
+--             newDescribeOrderableReplicationInstancesResponse
 --
 --         , responseDeleteCertificate $
---             deleteCertificateResponse
+--             newDeleteCertificateResponse
 --
 --         , responseDescribeApplicableIndividualAssessments $
---             describeApplicableIndividualAssessmentsResponse
+--             newDescribeApplicableIndividualAssessmentsResponse
 --
 --         , responseReloadTables $
---             reloadTablesResponse
+--             newReloadTablesResponse
 --
 --         , responseStartReplicationTask $
---             startReplicationTaskResponse
+--             newStartReplicationTaskResponse
 --
 --         , responseDescribeEventSubscriptions $
---             describeEventSubscriptionsResponse
+--             newDescribeEventSubscriptionsResponse
 --
 --         , responseModifyReplicationTask $
---             modifyReplicationTaskResponse
+--             newModifyReplicationTaskResponse
 --
 --         , responseStopReplicationTask $
---             stopReplicationTaskResponse
+--             newStopReplicationTaskResponse
 --
 --         , responseCreateReplicationInstance $
---             createReplicationInstanceResponse
+--             newCreateReplicationInstanceResponse
 --
 --         , responseDescribeReplicationSubnetGroups $
---             describeReplicationSubnetGroupsResponse
+--             newDescribeReplicationSubnetGroupsResponse
 --
 --         , responseDeleteEventSubscription $
---             deleteEventSubscriptionResponse
+--             newDeleteEventSubscriptionResponse
 --
 --         , responseDescribeTableStatistics $
---             describeTableStatisticsResponse
+--             newDescribeTableStatisticsResponse
 --
 --         , responseStartReplicationTaskAssessmentRun $
---             startReplicationTaskAssessmentRunResponse
+--             newStartReplicationTaskAssessmentRunResponse
 --
 --         , responseDescribeRefreshSchemasStatus $
---             describeRefreshSchemasStatusResponse
+--             newDescribeRefreshSchemasStatusResponse
 --
 --         , responseDescribeAccountAttributes $
---             describeAccountAttributesResponse
+--             newDescribeAccountAttributesResponse
 --
 --         , responseRemoveTagsFromResource $
---             removeTagsFromResourceResponse
+--             newRemoveTagsFromResourceResponse
 --
 --         , responseDescribeCertificates $
---             describeCertificatesResponse
+--             newDescribeCertificatesResponse
 --
 --         , responseModifyEndpoint $
---             modifyEndpointResponse
+--             newModifyEndpointResponse
 --
 --         , responseTestConnection $
---             testConnectionResponse
+--             newTestConnectionResponse
 --
 --         , responseDescribeReplicationTaskAssessmentResults $
---             describeReplicationTaskAssessmentResultsResponse
+--             newDescribeReplicationTaskAssessmentResultsResponse
 --
 --         , responseApplyPendingMaintenanceAction $
---             applyPendingMaintenanceActionResponse
+--             newApplyPendingMaintenanceActionResponse
 --
 --         , responseImportCertificate $
---             importCertificateResponse
+--             newImportCertificateResponse
 --
 --         , responseDescribeEndpointTypes $
---             describeEndpointTypesResponse
+--             newDescribeEndpointTypesResponse
 --
 --         , responseDescribePendingMaintenanceActions $
---             describePendingMaintenanceActionsResponse
+--             newDescribePendingMaintenanceActionsResponse
 --
 --         , responseDeleteEndpoint $
---             deleteEndpointResponse
+--             newDeleteEndpointResponse
 --
 --         , responseDescribeEvents $
---             describeEventsResponse
+--             newDescribeEventsResponse
 --
 --         , responseDescribeSchemas $
---             describeSchemasResponse
+--             newDescribeSchemasResponse
 --
 --         , responseModifyEventSubscription $
---             modifyEventSubscriptionResponse
+--             newModifyEventSubscriptionResponse
 --
 --         , responseDescribeReplicationTasks $
---             describeReplicationTasksResponse
+--             newDescribeReplicationTasksResponse
 --
 --         , responseRefreshSchemas $
---             refreshSchemasResponse
+--             newRefreshSchemasResponse
 --
 --         , responseCreateReplicationSubnetGroup $
---             createReplicationSubnetGroupResponse
+--             newCreateReplicationSubnetGroupResponse
 --
 --         , responseRebootReplicationInstance $
---             rebootReplicationInstanceResponse
+--             newRebootReplicationInstanceResponse
 --
 --         , responseDeleteReplicationInstance $
---             deleteReplicationInstanceResponse
+--             newDeleteReplicationInstanceResponse
 --
 --         , responseDeleteReplicationSubnetGroup $
---             deleteReplicationSubnetGroupResponse
+--             newDeleteReplicationSubnetGroupResponse
 --
 --         , responseAddTagsToResource $
---             addTagsToResourceResponse
+--             newAddTagsToResourceResponse
 --
 --         , responseCreateEventSubscription $
---             createEventSubscriptionResponse
+--             newCreateEventSubscriptionResponse
 --
 --         , responseDescribeReplicationInstances $
---             describeReplicationInstancesResponse
+--             newDescribeReplicationInstancesResponse
 --
 --         , responseDescribeReplicationTaskAssessmentRuns $
---             describeReplicationTaskAssessmentRunsResponse
+--             newDescribeReplicationTaskAssessmentRunsResponse
 --
 --         , responseCancelReplicationTaskAssessmentRun $
---             cancelReplicationTaskAssessmentRunResponse
+--             newCancelReplicationTaskAssessmentRunResponse
 --
 --         , responseDescribeConnections $
---             describeConnectionsResponse
+--             newDescribeConnectionsResponse
 --
 --         , responseModifyReplicationSubnetGroup $
---             modifyReplicationSubnetGroupResponse
+--             newModifyReplicationSubnetGroupResponse
 --
 --         , responseDeleteReplicationTask $
---             deleteReplicationTaskResponse
+--             newDeleteReplicationTaskResponse
 --
 --         , responseMoveReplicationTask $
---             moveReplicationTaskResponse
+--             newMoveReplicationTaskResponse
 --
 --         , responseDescribeReplicationTaskIndividualAssessments $
---             describeReplicationTaskIndividualAssessmentsResponse
+--             newDescribeReplicationTaskIndividualAssessmentsResponse
 --
 --         , responseModifyReplicationInstance $
---             modifyReplicationInstanceResponse
+--             newModifyReplicationInstanceResponse
 --
 --         , responseDescribeEndpoints $
---             describeEndpointsResponse
+--             newDescribeEndpointsResponse
 --
 --         , responseCreateReplicationTask $
---             createReplicationTaskResponse
+--             newCreateReplicationTaskResponse
 --
 --         , responseListTagsForResource $
---             listTagsForResourceResponse
+--             newListTagsForResourceResponse
 --
 --         , responseDescribeReplicationInstanceTaskLogs $
---             describeReplicationInstanceTaskLogsResponse
+--             newDescribeReplicationInstanceTaskLogsResponse
 --
 --           ]
 --     ]
@@ -690,7 +690,7 @@ responseDeleteReplicationTaskAssessmentRun =
   res
     "DeleteReplicationTaskAssessmentRunResponse"
     "fixture/DeleteReplicationTaskAssessmentRunResponse.proto"
-    dms
+    defaultService
     (Proxy :: Proxy DeleteReplicationTaskAssessmentRun)
 
 responseDescribeEventCategories :: DescribeEventCategoriesResponse -> TestTree
@@ -698,7 +698,7 @@ responseDescribeEventCategories =
   res
     "DescribeEventCategoriesResponse"
     "fixture/DescribeEventCategoriesResponse.proto"
-    dms
+    defaultService
     (Proxy :: Proxy DescribeEventCategories)
 
 responseStartReplicationTaskAssessment :: StartReplicationTaskAssessmentResponse -> TestTree
@@ -706,7 +706,7 @@ responseStartReplicationTaskAssessment =
   res
     "StartReplicationTaskAssessmentResponse"
     "fixture/StartReplicationTaskAssessmentResponse.proto"
-    dms
+    defaultService
     (Proxy :: Proxy StartReplicationTaskAssessment)
 
 responseDeleteConnection :: DeleteConnectionResponse -> TestTree
@@ -714,7 +714,7 @@ responseDeleteConnection =
   res
     "DeleteConnectionResponse"
     "fixture/DeleteConnectionResponse.proto"
-    dms
+    defaultService
     (Proxy :: Proxy DeleteConnection)
 
 responseCreateEndpoint :: CreateEndpointResponse -> TestTree
@@ -722,7 +722,7 @@ responseCreateEndpoint =
   res
     "CreateEndpointResponse"
     "fixture/CreateEndpointResponse.proto"
-    dms
+    defaultService
     (Proxy :: Proxy CreateEndpoint)
 
 responseDescribeOrderableReplicationInstances :: DescribeOrderableReplicationInstancesResponse -> TestTree
@@ -730,7 +730,7 @@ responseDescribeOrderableReplicationInstances =
   res
     "DescribeOrderableReplicationInstancesResponse"
     "fixture/DescribeOrderableReplicationInstancesResponse.proto"
-    dms
+    defaultService
     (Proxy :: Proxy DescribeOrderableReplicationInstances)
 
 responseDeleteCertificate :: DeleteCertificateResponse -> TestTree
@@ -738,7 +738,7 @@ responseDeleteCertificate =
   res
     "DeleteCertificateResponse"
     "fixture/DeleteCertificateResponse.proto"
-    dms
+    defaultService
     (Proxy :: Proxy DeleteCertificate)
 
 responseDescribeApplicableIndividualAssessments :: DescribeApplicableIndividualAssessmentsResponse -> TestTree
@@ -746,7 +746,7 @@ responseDescribeApplicableIndividualAssessments =
   res
     "DescribeApplicableIndividualAssessmentsResponse"
     "fixture/DescribeApplicableIndividualAssessmentsResponse.proto"
-    dms
+    defaultService
     (Proxy :: Proxy DescribeApplicableIndividualAssessments)
 
 responseReloadTables :: ReloadTablesResponse -> TestTree
@@ -754,7 +754,7 @@ responseReloadTables =
   res
     "ReloadTablesResponse"
     "fixture/ReloadTablesResponse.proto"
-    dms
+    defaultService
     (Proxy :: Proxy ReloadTables)
 
 responseStartReplicationTask :: StartReplicationTaskResponse -> TestTree
@@ -762,7 +762,7 @@ responseStartReplicationTask =
   res
     "StartReplicationTaskResponse"
     "fixture/StartReplicationTaskResponse.proto"
-    dms
+    defaultService
     (Proxy :: Proxy StartReplicationTask)
 
 responseDescribeEventSubscriptions :: DescribeEventSubscriptionsResponse -> TestTree
@@ -770,7 +770,7 @@ responseDescribeEventSubscriptions =
   res
     "DescribeEventSubscriptionsResponse"
     "fixture/DescribeEventSubscriptionsResponse.proto"
-    dms
+    defaultService
     (Proxy :: Proxy DescribeEventSubscriptions)
 
 responseModifyReplicationTask :: ModifyReplicationTaskResponse -> TestTree
@@ -778,7 +778,7 @@ responseModifyReplicationTask =
   res
     "ModifyReplicationTaskResponse"
     "fixture/ModifyReplicationTaskResponse.proto"
-    dms
+    defaultService
     (Proxy :: Proxy ModifyReplicationTask)
 
 responseStopReplicationTask :: StopReplicationTaskResponse -> TestTree
@@ -786,7 +786,7 @@ responseStopReplicationTask =
   res
     "StopReplicationTaskResponse"
     "fixture/StopReplicationTaskResponse.proto"
-    dms
+    defaultService
     (Proxy :: Proxy StopReplicationTask)
 
 responseCreateReplicationInstance :: CreateReplicationInstanceResponse -> TestTree
@@ -794,7 +794,7 @@ responseCreateReplicationInstance =
   res
     "CreateReplicationInstanceResponse"
     "fixture/CreateReplicationInstanceResponse.proto"
-    dms
+    defaultService
     (Proxy :: Proxy CreateReplicationInstance)
 
 responseDescribeReplicationSubnetGroups :: DescribeReplicationSubnetGroupsResponse -> TestTree
@@ -802,7 +802,7 @@ responseDescribeReplicationSubnetGroups =
   res
     "DescribeReplicationSubnetGroupsResponse"
     "fixture/DescribeReplicationSubnetGroupsResponse.proto"
-    dms
+    defaultService
     (Proxy :: Proxy DescribeReplicationSubnetGroups)
 
 responseDeleteEventSubscription :: DeleteEventSubscriptionResponse -> TestTree
@@ -810,7 +810,7 @@ responseDeleteEventSubscription =
   res
     "DeleteEventSubscriptionResponse"
     "fixture/DeleteEventSubscriptionResponse.proto"
-    dms
+    defaultService
     (Proxy :: Proxy DeleteEventSubscription)
 
 responseDescribeTableStatistics :: DescribeTableStatisticsResponse -> TestTree
@@ -818,7 +818,7 @@ responseDescribeTableStatistics =
   res
     "DescribeTableStatisticsResponse"
     "fixture/DescribeTableStatisticsResponse.proto"
-    dms
+    defaultService
     (Proxy :: Proxy DescribeTableStatistics)
 
 responseStartReplicationTaskAssessmentRun :: StartReplicationTaskAssessmentRunResponse -> TestTree
@@ -826,7 +826,7 @@ responseStartReplicationTaskAssessmentRun =
   res
     "StartReplicationTaskAssessmentRunResponse"
     "fixture/StartReplicationTaskAssessmentRunResponse.proto"
-    dms
+    defaultService
     (Proxy :: Proxy StartReplicationTaskAssessmentRun)
 
 responseDescribeRefreshSchemasStatus :: DescribeRefreshSchemasStatusResponse -> TestTree
@@ -834,7 +834,7 @@ responseDescribeRefreshSchemasStatus =
   res
     "DescribeRefreshSchemasStatusResponse"
     "fixture/DescribeRefreshSchemasStatusResponse.proto"
-    dms
+    defaultService
     (Proxy :: Proxy DescribeRefreshSchemasStatus)
 
 responseDescribeAccountAttributes :: DescribeAccountAttributesResponse -> TestTree
@@ -842,7 +842,7 @@ responseDescribeAccountAttributes =
   res
     "DescribeAccountAttributesResponse"
     "fixture/DescribeAccountAttributesResponse.proto"
-    dms
+    defaultService
     (Proxy :: Proxy DescribeAccountAttributes)
 
 responseRemoveTagsFromResource :: RemoveTagsFromResourceResponse -> TestTree
@@ -850,7 +850,7 @@ responseRemoveTagsFromResource =
   res
     "RemoveTagsFromResourceResponse"
     "fixture/RemoveTagsFromResourceResponse.proto"
-    dms
+    defaultService
     (Proxy :: Proxy RemoveTagsFromResource)
 
 responseDescribeCertificates :: DescribeCertificatesResponse -> TestTree
@@ -858,7 +858,7 @@ responseDescribeCertificates =
   res
     "DescribeCertificatesResponse"
     "fixture/DescribeCertificatesResponse.proto"
-    dms
+    defaultService
     (Proxy :: Proxy DescribeCertificates)
 
 responseModifyEndpoint :: ModifyEndpointResponse -> TestTree
@@ -866,7 +866,7 @@ responseModifyEndpoint =
   res
     "ModifyEndpointResponse"
     "fixture/ModifyEndpointResponse.proto"
-    dms
+    defaultService
     (Proxy :: Proxy ModifyEndpoint)
 
 responseTestConnection :: TestConnectionResponse -> TestTree
@@ -874,7 +874,7 @@ responseTestConnection =
   res
     "TestConnectionResponse"
     "fixture/TestConnectionResponse.proto"
-    dms
+    defaultService
     (Proxy :: Proxy TestConnection)
 
 responseDescribeReplicationTaskAssessmentResults :: DescribeReplicationTaskAssessmentResultsResponse -> TestTree
@@ -882,7 +882,7 @@ responseDescribeReplicationTaskAssessmentResults =
   res
     "DescribeReplicationTaskAssessmentResultsResponse"
     "fixture/DescribeReplicationTaskAssessmentResultsResponse.proto"
-    dms
+    defaultService
     (Proxy :: Proxy DescribeReplicationTaskAssessmentResults)
 
 responseApplyPendingMaintenanceAction :: ApplyPendingMaintenanceActionResponse -> TestTree
@@ -890,7 +890,7 @@ responseApplyPendingMaintenanceAction =
   res
     "ApplyPendingMaintenanceActionResponse"
     "fixture/ApplyPendingMaintenanceActionResponse.proto"
-    dms
+    defaultService
     (Proxy :: Proxy ApplyPendingMaintenanceAction)
 
 responseImportCertificate :: ImportCertificateResponse -> TestTree
@@ -898,7 +898,7 @@ responseImportCertificate =
   res
     "ImportCertificateResponse"
     "fixture/ImportCertificateResponse.proto"
-    dms
+    defaultService
     (Proxy :: Proxy ImportCertificate)
 
 responseDescribeEndpointTypes :: DescribeEndpointTypesResponse -> TestTree
@@ -906,7 +906,7 @@ responseDescribeEndpointTypes =
   res
     "DescribeEndpointTypesResponse"
     "fixture/DescribeEndpointTypesResponse.proto"
-    dms
+    defaultService
     (Proxy :: Proxy DescribeEndpointTypes)
 
 responseDescribePendingMaintenanceActions :: DescribePendingMaintenanceActionsResponse -> TestTree
@@ -914,7 +914,7 @@ responseDescribePendingMaintenanceActions =
   res
     "DescribePendingMaintenanceActionsResponse"
     "fixture/DescribePendingMaintenanceActionsResponse.proto"
-    dms
+    defaultService
     (Proxy :: Proxy DescribePendingMaintenanceActions)
 
 responseDeleteEndpoint :: DeleteEndpointResponse -> TestTree
@@ -922,7 +922,7 @@ responseDeleteEndpoint =
   res
     "DeleteEndpointResponse"
     "fixture/DeleteEndpointResponse.proto"
-    dms
+    defaultService
     (Proxy :: Proxy DeleteEndpoint)
 
 responseDescribeEvents :: DescribeEventsResponse -> TestTree
@@ -930,7 +930,7 @@ responseDescribeEvents =
   res
     "DescribeEventsResponse"
     "fixture/DescribeEventsResponse.proto"
-    dms
+    defaultService
     (Proxy :: Proxy DescribeEvents)
 
 responseDescribeSchemas :: DescribeSchemasResponse -> TestTree
@@ -938,7 +938,7 @@ responseDescribeSchemas =
   res
     "DescribeSchemasResponse"
     "fixture/DescribeSchemasResponse.proto"
-    dms
+    defaultService
     (Proxy :: Proxy DescribeSchemas)
 
 responseModifyEventSubscription :: ModifyEventSubscriptionResponse -> TestTree
@@ -946,7 +946,7 @@ responseModifyEventSubscription =
   res
     "ModifyEventSubscriptionResponse"
     "fixture/ModifyEventSubscriptionResponse.proto"
-    dms
+    defaultService
     (Proxy :: Proxy ModifyEventSubscription)
 
 responseDescribeReplicationTasks :: DescribeReplicationTasksResponse -> TestTree
@@ -954,7 +954,7 @@ responseDescribeReplicationTasks =
   res
     "DescribeReplicationTasksResponse"
     "fixture/DescribeReplicationTasksResponse.proto"
-    dms
+    defaultService
     (Proxy :: Proxy DescribeReplicationTasks)
 
 responseRefreshSchemas :: RefreshSchemasResponse -> TestTree
@@ -962,7 +962,7 @@ responseRefreshSchemas =
   res
     "RefreshSchemasResponse"
     "fixture/RefreshSchemasResponse.proto"
-    dms
+    defaultService
     (Proxy :: Proxy RefreshSchemas)
 
 responseCreateReplicationSubnetGroup :: CreateReplicationSubnetGroupResponse -> TestTree
@@ -970,7 +970,7 @@ responseCreateReplicationSubnetGroup =
   res
     "CreateReplicationSubnetGroupResponse"
     "fixture/CreateReplicationSubnetGroupResponse.proto"
-    dms
+    defaultService
     (Proxy :: Proxy CreateReplicationSubnetGroup)
 
 responseRebootReplicationInstance :: RebootReplicationInstanceResponse -> TestTree
@@ -978,7 +978,7 @@ responseRebootReplicationInstance =
   res
     "RebootReplicationInstanceResponse"
     "fixture/RebootReplicationInstanceResponse.proto"
-    dms
+    defaultService
     (Proxy :: Proxy RebootReplicationInstance)
 
 responseDeleteReplicationInstance :: DeleteReplicationInstanceResponse -> TestTree
@@ -986,7 +986,7 @@ responseDeleteReplicationInstance =
   res
     "DeleteReplicationInstanceResponse"
     "fixture/DeleteReplicationInstanceResponse.proto"
-    dms
+    defaultService
     (Proxy :: Proxy DeleteReplicationInstance)
 
 responseDeleteReplicationSubnetGroup :: DeleteReplicationSubnetGroupResponse -> TestTree
@@ -994,7 +994,7 @@ responseDeleteReplicationSubnetGroup =
   res
     "DeleteReplicationSubnetGroupResponse"
     "fixture/DeleteReplicationSubnetGroupResponse.proto"
-    dms
+    defaultService
     (Proxy :: Proxy DeleteReplicationSubnetGroup)
 
 responseAddTagsToResource :: AddTagsToResourceResponse -> TestTree
@@ -1002,7 +1002,7 @@ responseAddTagsToResource =
   res
     "AddTagsToResourceResponse"
     "fixture/AddTagsToResourceResponse.proto"
-    dms
+    defaultService
     (Proxy :: Proxy AddTagsToResource)
 
 responseCreateEventSubscription :: CreateEventSubscriptionResponse -> TestTree
@@ -1010,7 +1010,7 @@ responseCreateEventSubscription =
   res
     "CreateEventSubscriptionResponse"
     "fixture/CreateEventSubscriptionResponse.proto"
-    dms
+    defaultService
     (Proxy :: Proxy CreateEventSubscription)
 
 responseDescribeReplicationInstances :: DescribeReplicationInstancesResponse -> TestTree
@@ -1018,7 +1018,7 @@ responseDescribeReplicationInstances =
   res
     "DescribeReplicationInstancesResponse"
     "fixture/DescribeReplicationInstancesResponse.proto"
-    dms
+    defaultService
     (Proxy :: Proxy DescribeReplicationInstances)
 
 responseDescribeReplicationTaskAssessmentRuns :: DescribeReplicationTaskAssessmentRunsResponse -> TestTree
@@ -1026,7 +1026,7 @@ responseDescribeReplicationTaskAssessmentRuns =
   res
     "DescribeReplicationTaskAssessmentRunsResponse"
     "fixture/DescribeReplicationTaskAssessmentRunsResponse.proto"
-    dms
+    defaultService
     (Proxy :: Proxy DescribeReplicationTaskAssessmentRuns)
 
 responseCancelReplicationTaskAssessmentRun :: CancelReplicationTaskAssessmentRunResponse -> TestTree
@@ -1034,7 +1034,7 @@ responseCancelReplicationTaskAssessmentRun =
   res
     "CancelReplicationTaskAssessmentRunResponse"
     "fixture/CancelReplicationTaskAssessmentRunResponse.proto"
-    dms
+    defaultService
     (Proxy :: Proxy CancelReplicationTaskAssessmentRun)
 
 responseDescribeConnections :: DescribeConnectionsResponse -> TestTree
@@ -1042,7 +1042,7 @@ responseDescribeConnections =
   res
     "DescribeConnectionsResponse"
     "fixture/DescribeConnectionsResponse.proto"
-    dms
+    defaultService
     (Proxy :: Proxy DescribeConnections)
 
 responseModifyReplicationSubnetGroup :: ModifyReplicationSubnetGroupResponse -> TestTree
@@ -1050,7 +1050,7 @@ responseModifyReplicationSubnetGroup =
   res
     "ModifyReplicationSubnetGroupResponse"
     "fixture/ModifyReplicationSubnetGroupResponse.proto"
-    dms
+    defaultService
     (Proxy :: Proxy ModifyReplicationSubnetGroup)
 
 responseDeleteReplicationTask :: DeleteReplicationTaskResponse -> TestTree
@@ -1058,7 +1058,7 @@ responseDeleteReplicationTask =
   res
     "DeleteReplicationTaskResponse"
     "fixture/DeleteReplicationTaskResponse.proto"
-    dms
+    defaultService
     (Proxy :: Proxy DeleteReplicationTask)
 
 responseMoveReplicationTask :: MoveReplicationTaskResponse -> TestTree
@@ -1066,7 +1066,7 @@ responseMoveReplicationTask =
   res
     "MoveReplicationTaskResponse"
     "fixture/MoveReplicationTaskResponse.proto"
-    dms
+    defaultService
     (Proxy :: Proxy MoveReplicationTask)
 
 responseDescribeReplicationTaskIndividualAssessments :: DescribeReplicationTaskIndividualAssessmentsResponse -> TestTree
@@ -1074,7 +1074,7 @@ responseDescribeReplicationTaskIndividualAssessments =
   res
     "DescribeReplicationTaskIndividualAssessmentsResponse"
     "fixture/DescribeReplicationTaskIndividualAssessmentsResponse.proto"
-    dms
+    defaultService
     (Proxy :: Proxy DescribeReplicationTaskIndividualAssessments)
 
 responseModifyReplicationInstance :: ModifyReplicationInstanceResponse -> TestTree
@@ -1082,7 +1082,7 @@ responseModifyReplicationInstance =
   res
     "ModifyReplicationInstanceResponse"
     "fixture/ModifyReplicationInstanceResponse.proto"
-    dms
+    defaultService
     (Proxy :: Proxy ModifyReplicationInstance)
 
 responseDescribeEndpoints :: DescribeEndpointsResponse -> TestTree
@@ -1090,7 +1090,7 @@ responseDescribeEndpoints =
   res
     "DescribeEndpointsResponse"
     "fixture/DescribeEndpointsResponse.proto"
-    dms
+    defaultService
     (Proxy :: Proxy DescribeEndpoints)
 
 responseCreateReplicationTask :: CreateReplicationTaskResponse -> TestTree
@@ -1098,7 +1098,7 @@ responseCreateReplicationTask =
   res
     "CreateReplicationTaskResponse"
     "fixture/CreateReplicationTaskResponse.proto"
-    dms
+    defaultService
     (Proxy :: Proxy CreateReplicationTask)
 
 responseListTagsForResource :: ListTagsForResourceResponse -> TestTree
@@ -1106,7 +1106,7 @@ responseListTagsForResource =
   res
     "ListTagsForResourceResponse"
     "fixture/ListTagsForResourceResponse.proto"
-    dms
+    defaultService
     (Proxy :: Proxy ListTagsForResource)
 
 responseDescribeReplicationInstanceTaskLogs :: DescribeReplicationInstanceTaskLogsResponse -> TestTree
@@ -1114,5 +1114,5 @@ responseDescribeReplicationInstanceTaskLogs =
   res
     "DescribeReplicationInstanceTaskLogsResponse"
     "fixture/DescribeReplicationInstanceTaskLogsResponse.proto"
-    dms
+    defaultService
     (Proxy :: Proxy DescribeReplicationInstanceTaskLogs)

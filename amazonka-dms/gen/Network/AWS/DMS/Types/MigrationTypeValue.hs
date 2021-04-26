@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.DMS.Types.MigrationTypeValue
   ( MigrationTypeValue
       ( ..,
-        Cdc,
-        FullLoad,
-        FullLoadAndCdc
+        MigrationTypeValueCdc,
+        MigrationTypeValueFullLoad,
+        MigrationTypeValueFullLoadAndCdc
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data MigrationTypeValue
-  = MigrationTypeValue'
-      ( CI
-          Text
-      )
+newtype MigrationTypeValue = MigrationTypeValue'
+  { fromMigrationTypeValue ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Cdc :: MigrationTypeValue
-pattern Cdc = MigrationTypeValue' "cdc"
+pattern MigrationTypeValueCdc :: MigrationTypeValue
+pattern MigrationTypeValueCdc = MigrationTypeValue' "cdc"
 
-pattern FullLoad :: MigrationTypeValue
-pattern FullLoad = MigrationTypeValue' "full-load"
+pattern MigrationTypeValueFullLoad :: MigrationTypeValue
+pattern MigrationTypeValueFullLoad = MigrationTypeValue' "full-load"
 
-pattern FullLoadAndCdc :: MigrationTypeValue
-pattern FullLoadAndCdc = MigrationTypeValue' "full-load-and-cdc"
+pattern MigrationTypeValueFullLoadAndCdc :: MigrationTypeValue
+pattern MigrationTypeValueFullLoadAndCdc = MigrationTypeValue' "full-load-and-cdc"
 
 {-# COMPLETE
-  Cdc,
-  FullLoad,
-  FullLoadAndCdc,
+  MigrationTypeValueCdc,
+  MigrationTypeValueFullLoad,
+  MigrationTypeValueFullLoadAndCdc,
   MigrationTypeValue'
   #-}
 
-instance FromText MigrationTypeValue where
-  parser = (MigrationTypeValue' . mk) <$> takeText
+instance Prelude.FromText MigrationTypeValue where
+  parser = MigrationTypeValue' Prelude.<$> Prelude.takeText
 
-instance ToText MigrationTypeValue where
-  toText (MigrationTypeValue' ci) = original ci
+instance Prelude.ToText MigrationTypeValue where
+  toText (MigrationTypeValue' x) = x
 
-instance Hashable MigrationTypeValue
+instance Prelude.Hashable MigrationTypeValue
 
-instance NFData MigrationTypeValue
+instance Prelude.NFData MigrationTypeValue
 
-instance ToByteString MigrationTypeValue
+instance Prelude.ToByteString MigrationTypeValue
 
-instance ToQuery MigrationTypeValue
+instance Prelude.ToQuery MigrationTypeValue
 
-instance ToHeader MigrationTypeValue
+instance Prelude.ToHeader MigrationTypeValue
 
-instance ToJSON MigrationTypeValue where
-  toJSON = toJSONText
+instance Prelude.ToJSON MigrationTypeValue where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON MigrationTypeValue where
-  parseJSON = parseJSONText "MigrationTypeValue"
+instance Prelude.FromJSON MigrationTypeValue where
+  parseJSON = Prelude.parseJSONText "MigrationTypeValue"

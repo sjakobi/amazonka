@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.DMS.Types.CharLengthSemantics
   ( CharLengthSemantics
       ( ..,
-        CLSByte,
-        CLSChar,
-        CLSDefault
+        CharLengthSemanticsByte,
+        CharLengthSemanticsChar,
+        CharLengthSemanticsDefault
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CharLengthSemantics
-  = CharLengthSemantics'
-      ( CI
-          Text
-      )
+newtype CharLengthSemantics = CharLengthSemantics'
+  { fromCharLengthSemantics ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CLSByte :: CharLengthSemantics
-pattern CLSByte = CharLengthSemantics' "byte"
+pattern CharLengthSemanticsByte :: CharLengthSemantics
+pattern CharLengthSemanticsByte = CharLengthSemantics' "byte"
 
-pattern CLSChar :: CharLengthSemantics
-pattern CLSChar = CharLengthSemantics' "char"
+pattern CharLengthSemanticsChar :: CharLengthSemantics
+pattern CharLengthSemanticsChar = CharLengthSemantics' "char"
 
-pattern CLSDefault :: CharLengthSemantics
-pattern CLSDefault = CharLengthSemantics' "default"
+pattern CharLengthSemanticsDefault :: CharLengthSemantics
+pattern CharLengthSemanticsDefault = CharLengthSemantics' "default"
 
 {-# COMPLETE
-  CLSByte,
-  CLSChar,
-  CLSDefault,
+  CharLengthSemanticsByte,
+  CharLengthSemanticsChar,
+  CharLengthSemanticsDefault,
   CharLengthSemantics'
   #-}
 
-instance FromText CharLengthSemantics where
-  parser = (CharLengthSemantics' . mk) <$> takeText
+instance Prelude.FromText CharLengthSemantics where
+  parser = CharLengthSemantics' Prelude.<$> Prelude.takeText
 
-instance ToText CharLengthSemantics where
-  toText (CharLengthSemantics' ci) = original ci
+instance Prelude.ToText CharLengthSemantics where
+  toText (CharLengthSemantics' x) = x
 
-instance Hashable CharLengthSemantics
+instance Prelude.Hashable CharLengthSemantics
 
-instance NFData CharLengthSemantics
+instance Prelude.NFData CharLengthSemantics
 
-instance ToByteString CharLengthSemantics
+instance Prelude.ToByteString CharLengthSemantics
 
-instance ToQuery CharLengthSemantics
+instance Prelude.ToQuery CharLengthSemantics
 
-instance ToHeader CharLengthSemantics
+instance Prelude.ToHeader CharLengthSemantics
 
-instance ToJSON CharLengthSemantics where
-  toJSON = toJSONText
+instance Prelude.ToJSON CharLengthSemantics where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CharLengthSemantics where
-  parseJSON = parseJSONText "CharLengthSemantics"
+instance Prelude.FromJSON CharLengthSemantics where
+  parseJSON = Prelude.parseJSONText "CharLengthSemantics"

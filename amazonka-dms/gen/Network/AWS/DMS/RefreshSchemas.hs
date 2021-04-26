@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,161 +21,169 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Populates the schema for the specified endpoint. This is an asynchronous operation and can take several minutes. You can check the status of this operation by calling the DescribeRefreshSchemasStatus operation.
+-- Populates the schema for the specified endpoint. This is an asynchronous
+-- operation and can take several minutes. You can check the status of this
+-- operation by calling the DescribeRefreshSchemasStatus operation.
 module Network.AWS.DMS.RefreshSchemas
   ( -- * Creating a Request
-    refreshSchemas,
-    RefreshSchemas,
+    RefreshSchemas (..),
+    newRefreshSchemas,
 
     -- * Request Lenses
-    rsEndpointARN,
-    rsReplicationInstanceARN,
+    refreshSchemas_endpointArn,
+    refreshSchemas_replicationInstanceArn,
 
     -- * Destructuring the Response
-    refreshSchemasResponse,
-    RefreshSchemasResponse,
+    RefreshSchemasResponse (..),
+    newRefreshSchemasResponse,
 
     -- * Response Lenses
-    rsrrsRefreshSchemasStatus,
-    rsrrsResponseStatus,
+    refreshSchemasResponse_refreshSchemasStatus,
+    refreshSchemasResponse_httpStatus,
   )
 where
 
 import Network.AWS.DMS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DMS.Types.RefreshSchemasStatus
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- |
 --
---
---
--- /See:/ 'refreshSchemas' smart constructor.
+-- /See:/ 'newRefreshSchemas' smart constructor.
 data RefreshSchemas = RefreshSchemas'
-  { _rsEndpointARN ::
-      !Text,
-    _rsReplicationInstanceARN :: !Text
+  { -- | The Amazon Resource Name (ARN) string that uniquely identifies the
+    -- endpoint.
+    endpointArn :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the replication instance.
+    replicationInstanceArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RefreshSchemas' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RefreshSchemas' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rsEndpointARN' - The Amazon Resource Name (ARN) string that uniquely identifies the endpoint.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rsReplicationInstanceARN' - The Amazon Resource Name (ARN) of the replication instance.
-refreshSchemas ::
-  -- | 'rsEndpointARN'
-  Text ->
-  -- | 'rsReplicationInstanceARN'
-  Text ->
+-- 'endpointArn', 'refreshSchemas_endpointArn' - The Amazon Resource Name (ARN) string that uniquely identifies the
+-- endpoint.
+--
+-- 'replicationInstanceArn', 'refreshSchemas_replicationInstanceArn' - The Amazon Resource Name (ARN) of the replication instance.
+newRefreshSchemas ::
+  -- | 'endpointArn'
+  Prelude.Text ->
+  -- | 'replicationInstanceArn'
+  Prelude.Text ->
   RefreshSchemas
-refreshSchemas pEndpointARN_ pReplicationInstanceARN_ =
-  RefreshSchemas'
-    { _rsEndpointARN = pEndpointARN_,
-      _rsReplicationInstanceARN = pReplicationInstanceARN_
-    }
+newRefreshSchemas
+  pEndpointArn_
+  pReplicationInstanceArn_ =
+    RefreshSchemas'
+      { endpointArn = pEndpointArn_,
+        replicationInstanceArn = pReplicationInstanceArn_
+      }
 
--- | The Amazon Resource Name (ARN) string that uniquely identifies the endpoint.
-rsEndpointARN :: Lens' RefreshSchemas Text
-rsEndpointARN = lens _rsEndpointARN (\s a -> s {_rsEndpointARN = a})
+-- | The Amazon Resource Name (ARN) string that uniquely identifies the
+-- endpoint.
+refreshSchemas_endpointArn :: Lens.Lens' RefreshSchemas Prelude.Text
+refreshSchemas_endpointArn = Lens.lens (\RefreshSchemas' {endpointArn} -> endpointArn) (\s@RefreshSchemas' {} a -> s {endpointArn = a} :: RefreshSchemas)
 
 -- | The Amazon Resource Name (ARN) of the replication instance.
-rsReplicationInstanceARN :: Lens' RefreshSchemas Text
-rsReplicationInstanceARN = lens _rsReplicationInstanceARN (\s a -> s {_rsReplicationInstanceARN = a})
+refreshSchemas_replicationInstanceArn :: Lens.Lens' RefreshSchemas Prelude.Text
+refreshSchemas_replicationInstanceArn = Lens.lens (\RefreshSchemas' {replicationInstanceArn} -> replicationInstanceArn) (\s@RefreshSchemas' {} a -> s {replicationInstanceArn = a} :: RefreshSchemas)
 
-instance AWSRequest RefreshSchemas where
+instance Prelude.AWSRequest RefreshSchemas where
   type Rs RefreshSchemas = RefreshSchemasResponse
-  request = postJSON dms
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           RefreshSchemasResponse'
-            <$> (x .?> "RefreshSchemasStatus")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "RefreshSchemasStatus")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable RefreshSchemas
+instance Prelude.Hashable RefreshSchemas
 
-instance NFData RefreshSchemas
+instance Prelude.NFData RefreshSchemas
 
-instance ToHeaders RefreshSchemas where
+instance Prelude.ToHeaders RefreshSchemas where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AmazonDMSv20160101.RefreshSchemas" :: ByteString),
+              Prelude.=# ( "AmazonDMSv20160101.RefreshSchemas" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON RefreshSchemas where
+instance Prelude.ToJSON RefreshSchemas where
   toJSON RefreshSchemas' {..} =
-    object
-      ( catMaybes
-          [ Just ("EndpointArn" .= _rsEndpointARN),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("EndpointArn" Prelude..= endpointArn),
+            Prelude.Just
               ( "ReplicationInstanceArn"
-                  .= _rsReplicationInstanceARN
+                  Prelude..= replicationInstanceArn
               )
           ]
       )
 
-instance ToPath RefreshSchemas where
-  toPath = const "/"
+instance Prelude.ToPath RefreshSchemas where
+  toPath = Prelude.const "/"
 
-instance ToQuery RefreshSchemas where
-  toQuery = const mempty
+instance Prelude.ToQuery RefreshSchemas where
+  toQuery = Prelude.const Prelude.mempty
 
 -- |
 --
---
---
--- /See:/ 'refreshSchemasResponse' smart constructor.
+-- /See:/ 'newRefreshSchemasResponse' smart constructor.
 data RefreshSchemasResponse = RefreshSchemasResponse'
-  { _rsrrsRefreshSchemasStatus ::
-      !( Maybe
-           RefreshSchemasStatus
-       ),
-    _rsrrsResponseStatus ::
-      !Int
+  { -- | The status of the refreshed schema.
+    refreshSchemasStatus :: Prelude.Maybe RefreshSchemasStatus,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RefreshSchemasResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RefreshSchemasResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rsrrsRefreshSchemasStatus' - The status of the refreshed schema.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rsrrsResponseStatus' - -- | The response status code.
-refreshSchemasResponse ::
-  -- | 'rsrrsResponseStatus'
-  Int ->
+-- 'refreshSchemasStatus', 'refreshSchemasResponse_refreshSchemasStatus' - The status of the refreshed schema.
+--
+-- 'httpStatus', 'refreshSchemasResponse_httpStatus' - The response's http status code.
+newRefreshSchemasResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   RefreshSchemasResponse
-refreshSchemasResponse pResponseStatus_ =
+newRefreshSchemasResponse pHttpStatus_ =
   RefreshSchemasResponse'
-    { _rsrrsRefreshSchemasStatus =
-        Nothing,
-      _rsrrsResponseStatus = pResponseStatus_
+    { refreshSchemasStatus =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The status of the refreshed schema.
-rsrrsRefreshSchemasStatus :: Lens' RefreshSchemasResponse (Maybe RefreshSchemasStatus)
-rsrrsRefreshSchemasStatus = lens _rsrrsRefreshSchemasStatus (\s a -> s {_rsrrsRefreshSchemasStatus = a})
+refreshSchemasResponse_refreshSchemasStatus :: Lens.Lens' RefreshSchemasResponse (Prelude.Maybe RefreshSchemasStatus)
+refreshSchemasResponse_refreshSchemasStatus = Lens.lens (\RefreshSchemasResponse' {refreshSchemasStatus} -> refreshSchemasStatus) (\s@RefreshSchemasResponse' {} a -> s {refreshSchemasStatus = a} :: RefreshSchemasResponse)
 
--- | -- | The response status code.
-rsrrsResponseStatus :: Lens' RefreshSchemasResponse Int
-rsrrsResponseStatus = lens _rsrrsResponseStatus (\s a -> s {_rsrrsResponseStatus = a})
+-- | The response's http status code.
+refreshSchemasResponse_httpStatus :: Lens.Lens' RefreshSchemasResponse Prelude.Int
+refreshSchemasResponse_httpStatus = Lens.lens (\RefreshSchemasResponse' {httpStatus} -> httpStatus) (\s@RefreshSchemasResponse' {} a -> s {httpStatus = a} :: RefreshSchemasResponse)
 
-instance NFData RefreshSchemasResponse
+instance Prelude.NFData RefreshSchemasResponse

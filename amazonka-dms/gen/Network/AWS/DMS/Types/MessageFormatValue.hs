@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.DMS.Types.MessageFormatValue
   ( MessageFormatValue
       ( ..,
-        JSON,
-        JSONUnformatted
+        MessageFormatValueJson,
+        MessageFormatValueJsonUnformatted
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data MessageFormatValue
-  = MessageFormatValue'
-      ( CI
-          Text
-      )
+newtype MessageFormatValue = MessageFormatValue'
+  { fromMessageFormatValue ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern JSON :: MessageFormatValue
-pattern JSON = MessageFormatValue' "json"
+pattern MessageFormatValueJson :: MessageFormatValue
+pattern MessageFormatValueJson = MessageFormatValue' "json"
 
-pattern JSONUnformatted :: MessageFormatValue
-pattern JSONUnformatted = MessageFormatValue' "json-unformatted"
+pattern MessageFormatValueJsonUnformatted :: MessageFormatValue
+pattern MessageFormatValueJsonUnformatted = MessageFormatValue' "json-unformatted"
 
 {-# COMPLETE
-  JSON,
-  JSONUnformatted,
+  MessageFormatValueJson,
+  MessageFormatValueJsonUnformatted,
   MessageFormatValue'
   #-}
 
-instance FromText MessageFormatValue where
-  parser = (MessageFormatValue' . mk) <$> takeText
+instance Prelude.FromText MessageFormatValue where
+  parser = MessageFormatValue' Prelude.<$> Prelude.takeText
 
-instance ToText MessageFormatValue where
-  toText (MessageFormatValue' ci) = original ci
+instance Prelude.ToText MessageFormatValue where
+  toText (MessageFormatValue' x) = x
 
-instance Hashable MessageFormatValue
+instance Prelude.Hashable MessageFormatValue
 
-instance NFData MessageFormatValue
+instance Prelude.NFData MessageFormatValue
 
-instance ToByteString MessageFormatValue
+instance Prelude.ToByteString MessageFormatValue
 
-instance ToQuery MessageFormatValue
+instance Prelude.ToQuery MessageFormatValue
 
-instance ToHeader MessageFormatValue
+instance Prelude.ToHeader MessageFormatValue
 
-instance ToJSON MessageFormatValue where
-  toJSON = toJSONText
+instance Prelude.ToJSON MessageFormatValue where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON MessageFormatValue where
-  parseJSON = parseJSONText "MessageFormatValue"
+instance Prelude.FromJSON MessageFormatValue where
+  parseJSON = Prelude.parseJSONText "MessageFormatValue"

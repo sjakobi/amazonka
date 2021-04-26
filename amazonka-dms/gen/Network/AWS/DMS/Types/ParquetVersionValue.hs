@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.DMS.Types.ParquetVersionValue
   ( ParquetVersionValue
       ( ..,
-        Parquet10,
-        Parquet20
+        ParquetVersionValueParquet10,
+        ParquetVersionValueParquet20
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ParquetVersionValue
-  = ParquetVersionValue'
-      ( CI
-          Text
-      )
+newtype ParquetVersionValue = ParquetVersionValue'
+  { fromParquetVersionValue ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Parquet10 :: ParquetVersionValue
-pattern Parquet10 = ParquetVersionValue' "parquet-1-0"
+pattern ParquetVersionValueParquet10 :: ParquetVersionValue
+pattern ParquetVersionValueParquet10 = ParquetVersionValue' "parquet-1-0"
 
-pattern Parquet20 :: ParquetVersionValue
-pattern Parquet20 = ParquetVersionValue' "parquet-2-0"
+pattern ParquetVersionValueParquet20 :: ParquetVersionValue
+pattern ParquetVersionValueParquet20 = ParquetVersionValue' "parquet-2-0"
 
 {-# COMPLETE
-  Parquet10,
-  Parquet20,
+  ParquetVersionValueParquet10,
+  ParquetVersionValueParquet20,
   ParquetVersionValue'
   #-}
 
-instance FromText ParquetVersionValue where
-  parser = (ParquetVersionValue' . mk) <$> takeText
+instance Prelude.FromText ParquetVersionValue where
+  parser = ParquetVersionValue' Prelude.<$> Prelude.takeText
 
-instance ToText ParquetVersionValue where
-  toText (ParquetVersionValue' ci) = original ci
+instance Prelude.ToText ParquetVersionValue where
+  toText (ParquetVersionValue' x) = x
 
-instance Hashable ParquetVersionValue
+instance Prelude.Hashable ParquetVersionValue
 
-instance NFData ParquetVersionValue
+instance Prelude.NFData ParquetVersionValue
 
-instance ToByteString ParquetVersionValue
+instance Prelude.ToByteString ParquetVersionValue
 
-instance ToQuery ParquetVersionValue
+instance Prelude.ToQuery ParquetVersionValue
 
-instance ToHeader ParquetVersionValue
+instance Prelude.ToHeader ParquetVersionValue
 
-instance ToJSON ParquetVersionValue where
-  toJSON = toJSONText
+instance Prelude.ToJSON ParquetVersionValue where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ParquetVersionValue where
-  parseJSON = parseJSONText "ParquetVersionValue"
+instance Prelude.FromJSON ParquetVersionValue where
+  parseJSON = Prelude.parseJSONText "ParquetVersionValue"

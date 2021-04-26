@@ -11,14 +11,22 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- __AWS Database Migration Service__
+-- AWS Database Migration Service
 --
--- AWS Database Migration Service (AWS DMS) can migrate your data to and from the most widely used commercial and open-source databases such as Oracle, PostgreSQL, Microsoft SQL Server, Amazon Redshift, MariaDB, Amazon Aurora, MySQL, and SAP Adaptive Server Enterprise (ASE). The service supports homogeneous migrations such as Oracle to Oracle, as well as heterogeneous migrations between different database platforms, such as Oracle to MySQL or SQL Server to PostgreSQL.
+-- AWS Database Migration Service (AWS DMS) can migrate your data to and
+-- from the most widely used commercial and open-source databases such as
+-- Oracle, PostgreSQL, Microsoft SQL Server, Amazon Redshift, MariaDB,
+-- Amazon Aurora, MySQL, and SAP Adaptive Server Enterprise (ASE). The
+-- service supports homogeneous migrations such as Oracle to Oracle, as
+-- well as heterogeneous migrations between different database platforms,
+-- such as Oracle to MySQL or SQL Server to PostgreSQL.
 --
--- For more information about AWS DMS, see <https://docs.aws.amazon.com/dms/latest/userguide/Welcome.html What Is AWS Database Migration Service?> in the /AWS Database Migration User Guide./
+-- For more information about AWS DMS, see
+-- <https://docs.aws.amazon.com/dms/latest/userguide/Welcome.html What Is AWS Database Migration Service?>
+-- in the /AWS Database Migration User Guide./
 module Network.AWS.DMS
   ( -- * Service Configuration
-    dms,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -96,193 +104,355 @@ module Network.AWS.DMS
     -- $waiters
 
     -- ** ReplicationInstanceAvailable
-    replicationInstanceAvailable,
+    newReplicationInstanceAvailable,
 
     -- ** ReplicationTaskDeleted
-    replicationTaskDeleted,
+    newReplicationTaskDeleted,
 
     -- ** EndpointDeleted
-    endpointDeleted,
+    newEndpointDeleted,
 
     -- ** ReplicationTaskRunning
-    replicationTaskRunning,
+    newReplicationTaskRunning,
 
     -- ** ReplicationInstanceDeleted
-    replicationInstanceDeleted,
+    newReplicationInstanceDeleted,
 
     -- ** ReplicationTaskReady
-    replicationTaskReady,
+    newReplicationTaskReady,
 
     -- ** TestConnectionSucceeds
-    testConnectionSucceeds,
+    newTestConnectionSucceeds,
 
     -- ** ReplicationTaskStopped
-    replicationTaskStopped,
+    newReplicationTaskStopped,
 
     -- * Operations
     -- $operations
 
     -- ** DeleteReplicationTaskAssessmentRun
-    module Network.AWS.DMS.DeleteReplicationTaskAssessmentRun,
+    DeleteReplicationTaskAssessmentRun (DeleteReplicationTaskAssessmentRun'),
+    newDeleteReplicationTaskAssessmentRun,
+    DeleteReplicationTaskAssessmentRunResponse (DeleteReplicationTaskAssessmentRunResponse'),
+    newDeleteReplicationTaskAssessmentRunResponse,
 
     -- ** DescribeEventCategories
-    module Network.AWS.DMS.DescribeEventCategories,
+    DescribeEventCategories (DescribeEventCategories'),
+    newDescribeEventCategories,
+    DescribeEventCategoriesResponse (DescribeEventCategoriesResponse'),
+    newDescribeEventCategoriesResponse,
 
     -- ** StartReplicationTaskAssessment
-    module Network.AWS.DMS.StartReplicationTaskAssessment,
+    StartReplicationTaskAssessment (StartReplicationTaskAssessment'),
+    newStartReplicationTaskAssessment,
+    StartReplicationTaskAssessmentResponse (StartReplicationTaskAssessmentResponse'),
+    newStartReplicationTaskAssessmentResponse,
 
     -- ** DeleteConnection
-    module Network.AWS.DMS.DeleteConnection,
+    DeleteConnection (DeleteConnection'),
+    newDeleteConnection,
+    DeleteConnectionResponse (DeleteConnectionResponse'),
+    newDeleteConnectionResponse,
 
     -- ** CreateEndpoint
-    module Network.AWS.DMS.CreateEndpoint,
+    CreateEndpoint (CreateEndpoint'),
+    newCreateEndpoint,
+    CreateEndpointResponse (CreateEndpointResponse'),
+    newCreateEndpointResponse,
 
     -- ** DescribeOrderableReplicationInstances (Paginated)
-    module Network.AWS.DMS.DescribeOrderableReplicationInstances,
+    DescribeOrderableReplicationInstances (DescribeOrderableReplicationInstances'),
+    newDescribeOrderableReplicationInstances,
+    DescribeOrderableReplicationInstancesResponse (DescribeOrderableReplicationInstancesResponse'),
+    newDescribeOrderableReplicationInstancesResponse,
 
     -- ** DeleteCertificate
-    module Network.AWS.DMS.DeleteCertificate,
+    DeleteCertificate (DeleteCertificate'),
+    newDeleteCertificate,
+    DeleteCertificateResponse (DeleteCertificateResponse'),
+    newDeleteCertificateResponse,
 
     -- ** DescribeApplicableIndividualAssessments
-    module Network.AWS.DMS.DescribeApplicableIndividualAssessments,
+    DescribeApplicableIndividualAssessments (DescribeApplicableIndividualAssessments'),
+    newDescribeApplicableIndividualAssessments,
+    DescribeApplicableIndividualAssessmentsResponse (DescribeApplicableIndividualAssessmentsResponse'),
+    newDescribeApplicableIndividualAssessmentsResponse,
 
     -- ** ReloadTables
-    module Network.AWS.DMS.ReloadTables,
+    ReloadTables (ReloadTables'),
+    newReloadTables,
+    ReloadTablesResponse (ReloadTablesResponse'),
+    newReloadTablesResponse,
 
     -- ** StartReplicationTask
-    module Network.AWS.DMS.StartReplicationTask,
+    StartReplicationTask (StartReplicationTask'),
+    newStartReplicationTask,
+    StartReplicationTaskResponse (StartReplicationTaskResponse'),
+    newStartReplicationTaskResponse,
 
     -- ** DescribeEventSubscriptions (Paginated)
-    module Network.AWS.DMS.DescribeEventSubscriptions,
+    DescribeEventSubscriptions (DescribeEventSubscriptions'),
+    newDescribeEventSubscriptions,
+    DescribeEventSubscriptionsResponse (DescribeEventSubscriptionsResponse'),
+    newDescribeEventSubscriptionsResponse,
 
     -- ** ModifyReplicationTask
-    module Network.AWS.DMS.ModifyReplicationTask,
+    ModifyReplicationTask (ModifyReplicationTask'),
+    newModifyReplicationTask,
+    ModifyReplicationTaskResponse (ModifyReplicationTaskResponse'),
+    newModifyReplicationTaskResponse,
 
     -- ** StopReplicationTask
-    module Network.AWS.DMS.StopReplicationTask,
+    StopReplicationTask (StopReplicationTask'),
+    newStopReplicationTask,
+    StopReplicationTaskResponse (StopReplicationTaskResponse'),
+    newStopReplicationTaskResponse,
 
     -- ** CreateReplicationInstance
-    module Network.AWS.DMS.CreateReplicationInstance,
+    CreateReplicationInstance (CreateReplicationInstance'),
+    newCreateReplicationInstance,
+    CreateReplicationInstanceResponse (CreateReplicationInstanceResponse'),
+    newCreateReplicationInstanceResponse,
 
     -- ** DescribeReplicationSubnetGroups (Paginated)
-    module Network.AWS.DMS.DescribeReplicationSubnetGroups,
+    DescribeReplicationSubnetGroups (DescribeReplicationSubnetGroups'),
+    newDescribeReplicationSubnetGroups,
+    DescribeReplicationSubnetGroupsResponse (DescribeReplicationSubnetGroupsResponse'),
+    newDescribeReplicationSubnetGroupsResponse,
 
     -- ** DeleteEventSubscription
-    module Network.AWS.DMS.DeleteEventSubscription,
+    DeleteEventSubscription (DeleteEventSubscription'),
+    newDeleteEventSubscription,
+    DeleteEventSubscriptionResponse (DeleteEventSubscriptionResponse'),
+    newDeleteEventSubscriptionResponse,
 
     -- ** DescribeTableStatistics (Paginated)
-    module Network.AWS.DMS.DescribeTableStatistics,
+    DescribeTableStatistics (DescribeTableStatistics'),
+    newDescribeTableStatistics,
+    DescribeTableStatisticsResponse (DescribeTableStatisticsResponse'),
+    newDescribeTableStatisticsResponse,
 
     -- ** StartReplicationTaskAssessmentRun
-    module Network.AWS.DMS.StartReplicationTaskAssessmentRun,
+    StartReplicationTaskAssessmentRun (StartReplicationTaskAssessmentRun'),
+    newStartReplicationTaskAssessmentRun,
+    StartReplicationTaskAssessmentRunResponse (StartReplicationTaskAssessmentRunResponse'),
+    newStartReplicationTaskAssessmentRunResponse,
 
     -- ** DescribeRefreshSchemasStatus
-    module Network.AWS.DMS.DescribeRefreshSchemasStatus,
+    DescribeRefreshSchemasStatus (DescribeRefreshSchemasStatus'),
+    newDescribeRefreshSchemasStatus,
+    DescribeRefreshSchemasStatusResponse (DescribeRefreshSchemasStatusResponse'),
+    newDescribeRefreshSchemasStatusResponse,
 
     -- ** DescribeAccountAttributes
-    module Network.AWS.DMS.DescribeAccountAttributes,
+    DescribeAccountAttributes (DescribeAccountAttributes'),
+    newDescribeAccountAttributes,
+    DescribeAccountAttributesResponse (DescribeAccountAttributesResponse'),
+    newDescribeAccountAttributesResponse,
 
     -- ** RemoveTagsFromResource
-    module Network.AWS.DMS.RemoveTagsFromResource,
+    RemoveTagsFromResource (RemoveTagsFromResource'),
+    newRemoveTagsFromResource,
+    RemoveTagsFromResourceResponse (RemoveTagsFromResourceResponse'),
+    newRemoveTagsFromResourceResponse,
 
     -- ** DescribeCertificates (Paginated)
-    module Network.AWS.DMS.DescribeCertificates,
+    DescribeCertificates (DescribeCertificates'),
+    newDescribeCertificates,
+    DescribeCertificatesResponse (DescribeCertificatesResponse'),
+    newDescribeCertificatesResponse,
 
     -- ** ModifyEndpoint
-    module Network.AWS.DMS.ModifyEndpoint,
+    ModifyEndpoint (ModifyEndpoint'),
+    newModifyEndpoint,
+    ModifyEndpointResponse (ModifyEndpointResponse'),
+    newModifyEndpointResponse,
 
     -- ** TestConnection
-    module Network.AWS.DMS.TestConnection,
+    TestConnection (TestConnection'),
+    newTestConnection,
+    TestConnectionResponse (TestConnectionResponse'),
+    newTestConnectionResponse,
 
     -- ** DescribeReplicationTaskAssessmentResults (Paginated)
-    module Network.AWS.DMS.DescribeReplicationTaskAssessmentResults,
+    DescribeReplicationTaskAssessmentResults (DescribeReplicationTaskAssessmentResults'),
+    newDescribeReplicationTaskAssessmentResults,
+    DescribeReplicationTaskAssessmentResultsResponse (DescribeReplicationTaskAssessmentResultsResponse'),
+    newDescribeReplicationTaskAssessmentResultsResponse,
 
     -- ** ApplyPendingMaintenanceAction
-    module Network.AWS.DMS.ApplyPendingMaintenanceAction,
+    ApplyPendingMaintenanceAction (ApplyPendingMaintenanceAction'),
+    newApplyPendingMaintenanceAction,
+    ApplyPendingMaintenanceActionResponse (ApplyPendingMaintenanceActionResponse'),
+    newApplyPendingMaintenanceActionResponse,
 
     -- ** ImportCertificate
-    module Network.AWS.DMS.ImportCertificate,
+    ImportCertificate (ImportCertificate'),
+    newImportCertificate,
+    ImportCertificateResponse (ImportCertificateResponse'),
+    newImportCertificateResponse,
 
     -- ** DescribeEndpointTypes (Paginated)
-    module Network.AWS.DMS.DescribeEndpointTypes,
+    DescribeEndpointTypes (DescribeEndpointTypes'),
+    newDescribeEndpointTypes,
+    DescribeEndpointTypesResponse (DescribeEndpointTypesResponse'),
+    newDescribeEndpointTypesResponse,
 
     -- ** DescribePendingMaintenanceActions
-    module Network.AWS.DMS.DescribePendingMaintenanceActions,
+    DescribePendingMaintenanceActions (DescribePendingMaintenanceActions'),
+    newDescribePendingMaintenanceActions,
+    DescribePendingMaintenanceActionsResponse (DescribePendingMaintenanceActionsResponse'),
+    newDescribePendingMaintenanceActionsResponse,
 
     -- ** DeleteEndpoint
-    module Network.AWS.DMS.DeleteEndpoint,
+    DeleteEndpoint (DeleteEndpoint'),
+    newDeleteEndpoint,
+    DeleteEndpointResponse (DeleteEndpointResponse'),
+    newDeleteEndpointResponse,
 
     -- ** DescribeEvents (Paginated)
-    module Network.AWS.DMS.DescribeEvents,
+    DescribeEvents (DescribeEvents'),
+    newDescribeEvents,
+    DescribeEventsResponse (DescribeEventsResponse'),
+    newDescribeEventsResponse,
 
     -- ** DescribeSchemas (Paginated)
-    module Network.AWS.DMS.DescribeSchemas,
+    DescribeSchemas (DescribeSchemas'),
+    newDescribeSchemas,
+    DescribeSchemasResponse (DescribeSchemasResponse'),
+    newDescribeSchemasResponse,
 
     -- ** ModifyEventSubscription
-    module Network.AWS.DMS.ModifyEventSubscription,
+    ModifyEventSubscription (ModifyEventSubscription'),
+    newModifyEventSubscription,
+    ModifyEventSubscriptionResponse (ModifyEventSubscriptionResponse'),
+    newModifyEventSubscriptionResponse,
 
     -- ** DescribeReplicationTasks (Paginated)
-    module Network.AWS.DMS.DescribeReplicationTasks,
+    DescribeReplicationTasks (DescribeReplicationTasks'),
+    newDescribeReplicationTasks,
+    DescribeReplicationTasksResponse (DescribeReplicationTasksResponse'),
+    newDescribeReplicationTasksResponse,
 
     -- ** RefreshSchemas
-    module Network.AWS.DMS.RefreshSchemas,
+    RefreshSchemas (RefreshSchemas'),
+    newRefreshSchemas,
+    RefreshSchemasResponse (RefreshSchemasResponse'),
+    newRefreshSchemasResponse,
 
     -- ** CreateReplicationSubnetGroup
-    module Network.AWS.DMS.CreateReplicationSubnetGroup,
+    CreateReplicationSubnetGroup (CreateReplicationSubnetGroup'),
+    newCreateReplicationSubnetGroup,
+    CreateReplicationSubnetGroupResponse (CreateReplicationSubnetGroupResponse'),
+    newCreateReplicationSubnetGroupResponse,
 
     -- ** RebootReplicationInstance
-    module Network.AWS.DMS.RebootReplicationInstance,
+    RebootReplicationInstance (RebootReplicationInstance'),
+    newRebootReplicationInstance,
+    RebootReplicationInstanceResponse (RebootReplicationInstanceResponse'),
+    newRebootReplicationInstanceResponse,
 
     -- ** DeleteReplicationInstance
-    module Network.AWS.DMS.DeleteReplicationInstance,
+    DeleteReplicationInstance (DeleteReplicationInstance'),
+    newDeleteReplicationInstance,
+    DeleteReplicationInstanceResponse (DeleteReplicationInstanceResponse'),
+    newDeleteReplicationInstanceResponse,
 
     -- ** DeleteReplicationSubnetGroup
-    module Network.AWS.DMS.DeleteReplicationSubnetGroup,
+    DeleteReplicationSubnetGroup (DeleteReplicationSubnetGroup'),
+    newDeleteReplicationSubnetGroup,
+    DeleteReplicationSubnetGroupResponse (DeleteReplicationSubnetGroupResponse'),
+    newDeleteReplicationSubnetGroupResponse,
 
     -- ** AddTagsToResource
-    module Network.AWS.DMS.AddTagsToResource,
+    AddTagsToResource (AddTagsToResource'),
+    newAddTagsToResource,
+    AddTagsToResourceResponse (AddTagsToResourceResponse'),
+    newAddTagsToResourceResponse,
 
     -- ** CreateEventSubscription
-    module Network.AWS.DMS.CreateEventSubscription,
+    CreateEventSubscription (CreateEventSubscription'),
+    newCreateEventSubscription,
+    CreateEventSubscriptionResponse (CreateEventSubscriptionResponse'),
+    newCreateEventSubscriptionResponse,
 
     -- ** DescribeReplicationInstances (Paginated)
-    module Network.AWS.DMS.DescribeReplicationInstances,
+    DescribeReplicationInstances (DescribeReplicationInstances'),
+    newDescribeReplicationInstances,
+    DescribeReplicationInstancesResponse (DescribeReplicationInstancesResponse'),
+    newDescribeReplicationInstancesResponse,
 
     -- ** DescribeReplicationTaskAssessmentRuns
-    module Network.AWS.DMS.DescribeReplicationTaskAssessmentRuns,
+    DescribeReplicationTaskAssessmentRuns (DescribeReplicationTaskAssessmentRuns'),
+    newDescribeReplicationTaskAssessmentRuns,
+    DescribeReplicationTaskAssessmentRunsResponse (DescribeReplicationTaskAssessmentRunsResponse'),
+    newDescribeReplicationTaskAssessmentRunsResponse,
 
     -- ** CancelReplicationTaskAssessmentRun
-    module Network.AWS.DMS.CancelReplicationTaskAssessmentRun,
+    CancelReplicationTaskAssessmentRun (CancelReplicationTaskAssessmentRun'),
+    newCancelReplicationTaskAssessmentRun,
+    CancelReplicationTaskAssessmentRunResponse (CancelReplicationTaskAssessmentRunResponse'),
+    newCancelReplicationTaskAssessmentRunResponse,
 
     -- ** DescribeConnections (Paginated)
-    module Network.AWS.DMS.DescribeConnections,
+    DescribeConnections (DescribeConnections'),
+    newDescribeConnections,
+    DescribeConnectionsResponse (DescribeConnectionsResponse'),
+    newDescribeConnectionsResponse,
 
     -- ** ModifyReplicationSubnetGroup
-    module Network.AWS.DMS.ModifyReplicationSubnetGroup,
+    ModifyReplicationSubnetGroup (ModifyReplicationSubnetGroup'),
+    newModifyReplicationSubnetGroup,
+    ModifyReplicationSubnetGroupResponse (ModifyReplicationSubnetGroupResponse'),
+    newModifyReplicationSubnetGroupResponse,
 
     -- ** DeleteReplicationTask
-    module Network.AWS.DMS.DeleteReplicationTask,
+    DeleteReplicationTask (DeleteReplicationTask'),
+    newDeleteReplicationTask,
+    DeleteReplicationTaskResponse (DeleteReplicationTaskResponse'),
+    newDeleteReplicationTaskResponse,
 
     -- ** MoveReplicationTask
-    module Network.AWS.DMS.MoveReplicationTask,
+    MoveReplicationTask (MoveReplicationTask'),
+    newMoveReplicationTask,
+    MoveReplicationTaskResponse (MoveReplicationTaskResponse'),
+    newMoveReplicationTaskResponse,
 
     -- ** DescribeReplicationTaskIndividualAssessments
-    module Network.AWS.DMS.DescribeReplicationTaskIndividualAssessments,
+    DescribeReplicationTaskIndividualAssessments (DescribeReplicationTaskIndividualAssessments'),
+    newDescribeReplicationTaskIndividualAssessments,
+    DescribeReplicationTaskIndividualAssessmentsResponse (DescribeReplicationTaskIndividualAssessmentsResponse'),
+    newDescribeReplicationTaskIndividualAssessmentsResponse,
 
     -- ** ModifyReplicationInstance
-    module Network.AWS.DMS.ModifyReplicationInstance,
+    ModifyReplicationInstance (ModifyReplicationInstance'),
+    newModifyReplicationInstance,
+    ModifyReplicationInstanceResponse (ModifyReplicationInstanceResponse'),
+    newModifyReplicationInstanceResponse,
 
     -- ** DescribeEndpoints (Paginated)
-    module Network.AWS.DMS.DescribeEndpoints,
+    DescribeEndpoints (DescribeEndpoints'),
+    newDescribeEndpoints,
+    DescribeEndpointsResponse (DescribeEndpointsResponse'),
+    newDescribeEndpointsResponse,
 
     -- ** CreateReplicationTask
-    module Network.AWS.DMS.CreateReplicationTask,
+    CreateReplicationTask (CreateReplicationTask'),
+    newCreateReplicationTask,
+    CreateReplicationTaskResponse (CreateReplicationTaskResponse'),
+    newCreateReplicationTaskResponse,
 
     -- ** ListTagsForResource
-    module Network.AWS.DMS.ListTagsForResource,
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
 
     -- ** DescribeReplicationInstanceTaskLogs
-    module Network.AWS.DMS.DescribeReplicationInstanceTaskLogs,
+    DescribeReplicationInstanceTaskLogs (DescribeReplicationInstanceTaskLogs'),
+    newDescribeReplicationInstanceTaskLogs,
+    DescribeReplicationInstanceTaskLogsResponse (DescribeReplicationInstanceTaskLogsResponse'),
+    newDescribeReplicationInstanceTaskLogsResponse,
 
     -- * Types
 
@@ -307,8 +477,8 @@ module Network.AWS.DMS
     -- ** DatePartitionSequenceValue
     DatePartitionSequenceValue (..),
 
-    -- ** DmsSSLModeValue
-    DmsSSLModeValue (..),
+    -- ** DmsSslModeValue
+    DmsSslModeValue (..),
 
     -- ** EncodingTypeValue
     EncodingTypeValue (..),
@@ -349,611 +519,188 @@ module Network.AWS.DMS
     -- ** StartReplicationTaskTypeValue
     StartReplicationTaskTypeValue (..),
 
-    -- ** TargetDBType
-    TargetDBType (..),
+    -- ** TargetDbType
+    TargetDbType (..),
 
     -- ** AccountQuota
-    AccountQuota,
-    accountQuota,
-    aqUsed,
-    aqAccountQuotaName,
-    aqMax,
+    AccountQuota (AccountQuota'),
+    newAccountQuota,
 
     -- ** AvailabilityZone
-    AvailabilityZone,
-    availabilityZone,
-    azName,
+    AvailabilityZone (AvailabilityZone'),
+    newAvailabilityZone,
 
     -- ** Certificate
-    Certificate,
-    certificate,
-    cCertificateOwner,
-    cSigningAlgorithm,
-    cValidToDate,
-    cCertificateIdentifier,
-    cKeyLength,
-    cCertificateARN,
-    cCertificateWallet,
-    cValidFromDate,
-    cCertificateCreationDate,
-    cCertificatePem,
+    Certificate (Certificate'),
+    newCertificate,
 
     -- ** Connection
-    Connection,
-    connection,
-    cStatus,
-    cLastFailureMessage,
-    cEndpointARN,
-    cReplicationInstanceIdentifier,
-    cReplicationInstanceARN,
-    cEndpointIdentifier,
+    Connection (Connection'),
+    newConnection,
 
     -- ** DmsTransferSettings
-    DmsTransferSettings,
-    dmsTransferSettings,
-    dtsBucketName,
-    dtsServiceAccessRoleARN,
+    DmsTransferSettings (DmsTransferSettings'),
+    newDmsTransferSettings,
 
-    -- ** DocDBSettings
-    DocDBSettings,
-    docDBSettings,
-    ddsSecretsManagerSecretId,
-    ddsServerName,
-    ddsKMSKeyId,
-    ddsPassword,
-    ddsPort,
-    ddsUsername,
-    ddsSecretsManagerAccessRoleARN,
-    ddsExtractDocId,
-    ddsDocsToInvestigate,
-    ddsNestingLevel,
-    ddsDatabaseName,
+    -- ** DocDbSettings
+    DocDbSettings (DocDbSettings'),
+    newDocDbSettings,
 
-    -- ** DynamoDBSettings
-    DynamoDBSettings,
-    dynamoDBSettings,
-    ddsServiceAccessRoleARN,
+    -- ** DynamoDbSettings
+    DynamoDbSettings (DynamoDbSettings'),
+    newDynamoDbSettings,
 
     -- ** ElasticsearchSettings
-    ElasticsearchSettings,
-    elasticsearchSettings,
-    esErrorRetryDuration,
-    esFullLoadErrorPercentage,
-    esServiceAccessRoleARN,
-    esEndpointURI,
+    ElasticsearchSettings (ElasticsearchSettings'),
+    newElasticsearchSettings,
 
     -- ** Endpoint
-    Endpoint,
-    endpoint,
-    eSSLMode,
-    eMongoDBSettings,
-    eStatus,
-    eNeptuneSettings,
-    eEngineName,
-    eElasticsearchSettings,
-    eExternalTableDefinition,
-    eEndpointType,
-    eOracleSettings,
-    ePostgreSQLSettings,
-    eServiceAccessRoleARN,
-    eCertificateARN,
-    eS3Settings,
-    eServerName,
-    eMicrosoftSQLServerSettings,
-    eKMSKeyId,
-    eIBMDB2Settings,
-    eMySQLSettings,
-    eDmsTransferSettings,
-    ePort,
-    eEndpointARN,
-    eRedshiftSettings,
-    eUsername,
-    eEngineDisplayName,
-    eKafkaSettings,
-    eDocDBSettings,
-    eDynamoDBSettings,
-    eExtraConnectionAttributes,
-    eExternalId,
-    eEndpointIdentifier,
-    eKinesisSettings,
-    eSybaseSettings,
-    eDatabaseName,
+    Endpoint (Endpoint'),
+    newEndpoint,
 
     -- ** Event
-    Event,
-    event,
-    eMessage,
-    eEventCategories,
-    eDate,
-    eSourceIdentifier,
-    eSourceType,
+    Event (Event'),
+    newEvent,
 
     -- ** EventCategoryGroup
-    EventCategoryGroup,
-    eventCategoryGroup,
-    ecgEventCategories,
-    ecgSourceType,
+    EventCategoryGroup (EventCategoryGroup'),
+    newEventCategoryGroup,
 
     -- ** EventSubscription
-    EventSubscription,
-    eventSubscription,
-    esCustSubscriptionId,
-    esStatus,
-    esSourceIdsList,
-    esEventCategoriesList,
-    esEnabled,
-    esSubscriptionCreationTime,
-    esCustomerAWSId,
-    esSourceType,
-    esSNSTopicARN,
+    EventSubscription (EventSubscription'),
+    newEventSubscription,
 
     -- ** Filter
-    Filter,
-    filter',
-    fName,
-    fValues,
+    Filter (Filter'),
+    newFilter,
 
-    -- ** IBMDB2Settings
-    IBMDB2Settings,
-    iBMDB2Settings,
-    ibmdsCurrentLsn,
-    ibmdsSecretsManagerSecretId,
-    ibmdsServerName,
-    ibmdsPassword,
-    ibmdsPort,
-    ibmdsUsername,
-    ibmdsSecretsManagerAccessRoleARN,
-    ibmdsSetDataCaptureChanges,
-    ibmdsMaxKBytesPerRead,
-    ibmdsDatabaseName,
+    -- ** IBMDb2Settings
+    IBMDb2Settings (IBMDb2Settings'),
+    newIBMDb2Settings,
 
     -- ** KafkaSettings
-    KafkaSettings,
-    kafkaSettings,
-    ksIncludeNullAndEmpty,
-    ksMessageFormat,
-    ksPartitionIncludeSchemaTable,
-    ksIncludeControlDetails,
-    ksTopic,
-    ksMessageMaxBytes,
-    ksBroker,
-    ksIncludePartitionValue,
-    ksIncludeTransactionDetails,
-    ksIncludeTableAlterOperations,
+    KafkaSettings (KafkaSettings'),
+    newKafkaSettings,
 
     -- ** KinesisSettings
-    KinesisSettings,
-    kinesisSettings,
-    kIncludeNullAndEmpty,
-    kMessageFormat,
-    kServiceAccessRoleARN,
-    kStreamARN,
-    kPartitionIncludeSchemaTable,
-    kIncludeControlDetails,
-    kIncludePartitionValue,
-    kIncludeTransactionDetails,
-    kIncludeTableAlterOperations,
+    KinesisSettings (KinesisSettings'),
+    newKinesisSettings,
 
     -- ** MicrosoftSQLServerSettings
-    MicrosoftSQLServerSettings,
-    microsoftSQLServerSettings,
-    msqlssUseBcpFullLoad,
-    msqlssSafeguardPolicy,
-    msqlssSecretsManagerSecretId,
-    msqlssServerName,
-    msqlssPassword,
-    msqlssBcpPacketSize,
-    msqlssPort,
-    msqlssUsername,
-    msqlssSecretsManagerAccessRoleARN,
-    msqlssControlTablesFileGroup,
-    msqlssReadBackupOnly,
-    msqlssDatabaseName,
+    MicrosoftSQLServerSettings (MicrosoftSQLServerSettings'),
+    newMicrosoftSQLServerSettings,
 
-    -- ** MongoDBSettings
-    MongoDBSettings,
-    mongoDBSettings,
-    mdsSecretsManagerSecretId,
-    mdsAuthSource,
-    mdsServerName,
-    mdsKMSKeyId,
-    mdsPassword,
-    mdsPort,
-    mdsUsername,
-    mdsSecretsManagerAccessRoleARN,
-    mdsAuthMechanism,
-    mdsExtractDocId,
-    mdsAuthType,
-    mdsDocsToInvestigate,
-    mdsNestingLevel,
-    mdsDatabaseName,
+    -- ** MongoDbSettings
+    MongoDbSettings (MongoDbSettings'),
+    newMongoDbSettings,
 
     -- ** MySQLSettings
-    MySQLSettings,
-    mySQLSettings,
-    msqlsTargetDBType,
-    msqlsServerTimezone,
-    msqlsSecretsManagerSecretId,
-    msqlsAfterConnectScript,
-    msqlsServerName,
-    msqlsMaxFileSize,
-    msqlsPassword,
-    msqlsEventsPollInterval,
-    msqlsPort,
-    msqlsUsername,
-    msqlsSecretsManagerAccessRoleARN,
-    msqlsParallelLoadThreads,
-    msqlsDatabaseName,
+    MySQLSettings (MySQLSettings'),
+    newMySQLSettings,
 
     -- ** NeptuneSettings
-    NeptuneSettings,
-    neptuneSettings,
-    nsErrorRetryDuration,
-    nsServiceAccessRoleARN,
-    nsMaxFileSize,
-    nsMaxRetryCount,
-    nsIAMAuthEnabled,
-    nsS3BucketName,
-    nsS3BucketFolder,
+    NeptuneSettings (NeptuneSettings'),
+    newNeptuneSettings,
 
     -- ** OracleSettings
-    OracleSettings,
-    oracleSettings,
-    osFailTasksOnLobTruncation,
-    osRetryInterval,
-    osSecretsManagerOracleAsmSecretId,
-    osAccessAlternateDirectly,
-    osUseAlternateFolderForOnline,
-    osNumberDatatypeScale,
-    osOraclePathPrefix,
-    osSecurityDBEncryptionName,
-    osAdditionalArchivedLogDestId,
-    osAsmPassword,
-    osSecretsManagerSecretId,
-    osArchivedLogsOnly,
-    osDirectPathParallelLoad,
-    osDirectPathNoLog,
-    osServerName,
-    osAsmServer,
-    osSecurityDBEncryption,
-    osReadTableSpaceName,
-    osPassword,
-    osAllowSelectNestedTables,
-    osArchivedLogDestId,
-    osReplacePathPrefix,
-    osPort,
-    osReadAheadBlocks,
-    osUsePathPrefix,
-    osAsmUser,
-    osUsername,
-    osEnableHomogenousTablespace,
-    osSecretsManagerAccessRoleARN,
-    osParallelAsmReadThreads,
-    osCharLengthSemantics,
-    osAddSupplementalLogging,
-    osSecretsManagerOracleAsmAccessRoleARN,
-    osDatabaseName,
+    OracleSettings (OracleSettings'),
+    newOracleSettings,
 
     -- ** OrderableReplicationInstance
-    OrderableReplicationInstance,
-    orderableReplicationInstance,
-    oriAvailabilityZones,
-    oriMaxAllocatedStorage,
-    oriStorageType,
-    oriDefaultAllocatedStorage,
-    oriIncludedAllocatedStorage,
-    oriReleaseStatus,
-    oriEngineVersion,
-    oriReplicationInstanceClass,
-    oriMinAllocatedStorage,
+    OrderableReplicationInstance (OrderableReplicationInstance'),
+    newOrderableReplicationInstance,
 
     -- ** PendingMaintenanceAction
-    PendingMaintenanceAction,
-    pendingMaintenanceAction,
-    pmaForcedApplyDate,
-    pmaOptInStatus,
-    pmaAutoAppliedAfterDate,
-    pmaCurrentApplyDate,
-    pmaAction,
-    pmaDescription,
+    PendingMaintenanceAction (PendingMaintenanceAction'),
+    newPendingMaintenanceAction,
 
     -- ** PostgreSQLSettings
-    PostgreSQLSettings,
-    postgreSQLSettings,
-    psqlsFailTasksOnLobTruncation,
-    psqlsExecuteTimeout,
-    psqlsSlotName,
-    psqlsCaptureDdls,
-    psqlsDdlArtifactsSchema,
-    psqlsSecretsManagerSecretId,
-    psqlsAfterConnectScript,
-    psqlsServerName,
-    psqlsMaxFileSize,
-    psqlsPassword,
-    psqlsPort,
-    psqlsUsername,
-    psqlsSecretsManagerAccessRoleARN,
-    psqlsDatabaseName,
+    PostgreSQLSettings (PostgreSQLSettings'),
+    newPostgreSQLSettings,
 
     -- ** RedshiftSettings
-    RedshiftSettings,
-    redshiftSettings,
-    rsReplaceChars,
-    rsCaseSensitiveNames,
-    rsBucketName,
-    rsFileTransferUploadStreams,
-    rsReplaceInvalidChars,
-    rsServerSideEncryptionKMSKeyId,
-    rsTimeFormat,
-    rsWriteBufferSize,
-    rsServiceAccessRoleARN,
-    rsBucketFolder,
-    rsConnectionTimeout,
-    rsSecretsManagerSecretId,
-    rsLoadTimeout,
-    rsAfterConnectScript,
-    rsServerName,
-    rsAcceptAnyDate,
-    rsMaxFileSize,
-    rsRemoveQuotes,
-    rsPassword,
-    rsDateFormat,
-    rsEncryptionMode,
-    rsEmptyAsNull,
-    rsPort,
-    rsUsername,
-    rsSecretsManagerAccessRoleARN,
-    rsTrimBlanks,
-    rsTruncateColumns,
-    rsCompUpdate,
-    rsExplicitIds,
-    rsDatabaseName,
+    RedshiftSettings (RedshiftSettings'),
+    newRedshiftSettings,
 
     -- ** RefreshSchemasStatus
-    RefreshSchemasStatus,
-    refreshSchemasStatus,
-    rssStatus,
-    rssLastFailureMessage,
-    rssEndpointARN,
-    rssLastRefreshDate,
-    rssReplicationInstanceARN,
+    RefreshSchemasStatus (RefreshSchemasStatus'),
+    newRefreshSchemasStatus,
 
     -- ** ReplicationInstance
-    ReplicationInstance,
-    replicationInstance,
-    riReplicationInstancePrivateIPAddress,
-    riVPCSecurityGroups,
-    riFreeUntil,
-    riReplicationSubnetGroup,
-    riInstanceCreateTime,
-    riMultiAZ,
-    riPubliclyAccessible,
-    riKMSKeyId,
-    riAvailabilityZone,
-    riEngineVersion,
-    riPreferredMaintenanceWindow,
-    riReplicationInstancePrivateIPAddresses,
-    riReplicationInstanceStatus,
-    riReplicationInstanceIdentifier,
-    riPendingModifiedValues,
-    riReplicationInstancePublicIPAddress,
-    riReplicationInstanceClass,
-    riReplicationInstanceARN,
-    riDNSNameServers,
-    riAllocatedStorage,
-    riReplicationInstancePublicIPAddresses,
-    riSecondaryAvailabilityZone,
-    riAutoMinorVersionUpgrade,
+    ReplicationInstance (ReplicationInstance'),
+    newReplicationInstance,
 
     -- ** ReplicationInstanceTaskLog
-    ReplicationInstanceTaskLog,
-    replicationInstanceTaskLog,
-    ritlReplicationTaskName,
-    ritlReplicationTaskARN,
-    ritlReplicationInstanceTaskLogSize,
+    ReplicationInstanceTaskLog (ReplicationInstanceTaskLog'),
+    newReplicationInstanceTaskLog,
 
     -- ** ReplicationPendingModifiedValues
-    ReplicationPendingModifiedValues,
-    replicationPendingModifiedValues,
-    rpmvMultiAZ,
-    rpmvEngineVersion,
-    rpmvReplicationInstanceClass,
-    rpmvAllocatedStorage,
+    ReplicationPendingModifiedValues (ReplicationPendingModifiedValues'),
+    newReplicationPendingModifiedValues,
 
     -- ** ReplicationSubnetGroup
-    ReplicationSubnetGroup,
-    replicationSubnetGroup,
-    rsgReplicationSubnetGroupIdentifier,
-    rsgSubnetGroupStatus,
-    rsgReplicationSubnetGroupDescription,
-    rsgSubnets,
-    rsgVPCId,
+    ReplicationSubnetGroup (ReplicationSubnetGroup'),
+    newReplicationSubnetGroup,
 
     -- ** ReplicationTask
-    ReplicationTask,
-    replicationTask,
-    rtStatus,
-    rtMigrationType,
-    rtReplicationTaskCreationDate,
-    rtStopReason,
-    rtRecoveryCheckpoint,
-    rtTargetReplicationInstanceARN,
-    rtTaskData,
-    rtTargetEndpointARN,
-    rtReplicationTaskARN,
-    rtReplicationTaskSettings,
-    rtLastFailureMessage,
-    rtTableMappings,
-    rtSourceEndpointARN,
-    rtReplicationInstanceARN,
-    rtReplicationTaskStats,
-    rtReplicationTaskStartDate,
-    rtCdcStopPosition,
-    rtCdcStartPosition,
-    rtReplicationTaskIdentifier,
+    ReplicationTask (ReplicationTask'),
+    newReplicationTask,
 
     -- ** ReplicationTaskAssessmentResult
-    ReplicationTaskAssessmentResult,
-    replicationTaskAssessmentResult,
-    repS3ObjectURL,
-    repAssessmentStatus,
-    repReplicationTaskARN,
-    repAssessmentResults,
-    repReplicationTaskLastAssessmentDate,
-    repAssessmentResultsFile,
-    repReplicationTaskIdentifier,
+    ReplicationTaskAssessmentResult (ReplicationTaskAssessmentResult'),
+    newReplicationTaskAssessmentResult,
 
     -- ** ReplicationTaskAssessmentRun
-    ReplicationTaskAssessmentRun,
-    replicationTaskAssessmentRun,
-    rtarStatus,
-    rtarResultKMSKeyARN,
-    rtarAssessmentProgress,
-    rtarReplicationTaskAssessmentRunARN,
-    rtarReplicationTaskAssessmentRunCreationDate,
-    rtarAssessmentRunName,
-    rtarServiceAccessRoleARN,
-    rtarResultEncryptionMode,
-    rtarReplicationTaskARN,
-    rtarLastFailureMessage,
-    rtarResultLocationFolder,
-    rtarResultLocationBucket,
+    ReplicationTaskAssessmentRun (ReplicationTaskAssessmentRun'),
+    newReplicationTaskAssessmentRun,
 
     -- ** ReplicationTaskAssessmentRunProgress
-    ReplicationTaskAssessmentRunProgress,
-    replicationTaskAssessmentRunProgress,
-    rtarpIndividualAssessmentCount,
-    rtarpIndividualAssessmentCompletedCount,
+    ReplicationTaskAssessmentRunProgress (ReplicationTaskAssessmentRunProgress'),
+    newReplicationTaskAssessmentRunProgress,
 
     -- ** ReplicationTaskIndividualAssessment
-    ReplicationTaskIndividualAssessment,
-    replicationTaskIndividualAssessment,
-    rtiaStatus,
-    rtiaReplicationTaskAssessmentRunARN,
-    rtiaIndividualAssessmentName,
-    rtiaReplicationTaskIndividualAssessmentStartDate,
-    rtiaReplicationTaskIndividualAssessmentARN,
+    ReplicationTaskIndividualAssessment (ReplicationTaskIndividualAssessment'),
+    newReplicationTaskIndividualAssessment,
 
     -- ** ReplicationTaskStats
-    ReplicationTaskStats,
-    replicationTaskStats,
-    rtsStopDate,
-    rtsTablesErrored,
-    rtsStartDate,
-    rtsFreshStartDate,
-    rtsTablesLoading,
-    rtsFullLoadStartDate,
-    rtsElapsedTimeMillis,
-    rtsFullLoadProgressPercent,
-    rtsTablesQueued,
-    rtsFullLoadFinishDate,
-    rtsTablesLoaded,
+    ReplicationTaskStats (ReplicationTaskStats'),
+    newReplicationTaskStats,
 
     -- ** ResourcePendingMaintenanceActions
-    ResourcePendingMaintenanceActions,
-    resourcePendingMaintenanceActions,
-    rpmaPendingMaintenanceActionDetails,
-    rpmaResourceIdentifier,
+    ResourcePendingMaintenanceActions (ResourcePendingMaintenanceActions'),
+    newResourcePendingMaintenanceActions,
 
     -- ** S3Settings
-    S3Settings,
-    s3Settings,
-    ssTimestampColumnName,
-    ssPreserveTransactions,
-    ssCSVRowDelimiter,
-    ssParquetVersion,
-    ssDatePartitionSequence,
-    ssBucketName,
-    ssCdcPath,
-    ssExternalTableDefinition,
-    ssServerSideEncryptionKMSKeyId,
-    ssDataPageSize,
-    ssEncodingType,
-    ssDatePartitionEnabled,
-    ssDataFormat,
-    ssServiceAccessRoleARN,
-    ssBucketFolder,
-    ssDatePartitionDelimiter,
-    ssEnableStatistics,
-    ssEncryptionMode,
-    ssCdcInsertsOnly,
-    ssCdcInsertsAndUpdates,
-    ssUseCSVNoSupValue,
-    ssDictPageSizeLimit,
-    ssRowGroupLength,
-    ssCompressionType,
-    ssIncludeOpForFullLoad,
-    ssCSVDelimiter,
-    ssParquetTimestampInMillisecond,
-    ssCSVNoSupValue,
+    S3Settings (S3Settings'),
+    newS3Settings,
 
     -- ** Subnet
-    Subnet,
-    subnet,
-    sSubnetStatus,
-    sSubnetIdentifier,
-    sSubnetAvailabilityZone,
+    Subnet (Subnet'),
+    newSubnet,
 
     -- ** SupportedEndpointType
-    SupportedEndpointType,
-    supportedEndpointType,
-    setReplicationInstanceEngineMinimumVersion,
-    setEngineName,
-    setEndpointType,
-    setSupportsCDC,
-    setEngineDisplayName,
+    SupportedEndpointType (SupportedEndpointType'),
+    newSupportedEndpointType,
 
     -- ** SybaseSettings
-    SybaseSettings,
-    sybaseSettings,
-    ssSecretsManagerSecretId,
-    ssServerName,
-    ssPassword,
-    ssPort,
-    ssUsername,
-    ssSecretsManagerAccessRoleARN,
-    ssDatabaseName,
+    SybaseSettings (SybaseSettings'),
+    newSybaseSettings,
 
     -- ** TableStatistics
-    TableStatistics,
-    tableStatistics,
-    tsFullLoadCondtnlChkFailedRows,
-    tsFullLoadRows,
-    tsFullLoadErrorRows,
-    tsTableName,
-    tsTableState,
-    tsLastUpdateTime,
-    tsValidationFailedRecords,
-    tsFullLoadStartTime,
-    tsUpdates,
-    tsDeletes,
-    tsDdls,
-    tsFullLoadEndTime,
-    tsValidationState,
-    tsInserts,
-    tsValidationSuspendedRecords,
-    tsSchemaName,
-    tsValidationStateDetails,
-    tsFullLoadReloaded,
-    tsValidationPendingRecords,
+    TableStatistics (TableStatistics'),
+    newTableStatistics,
 
     -- ** TableToReload
-    TableToReload,
-    tableToReload,
-    ttrSchemaName,
-    ttrTableName,
+    TableToReload (TableToReload'),
+    newTableToReload,
 
     -- ** Tag
-    Tag,
-    tag,
-    tagKey,
-    tagValue,
+    Tag (Tag'),
+    newTag,
 
-    -- ** VPCSecurityGroupMembership
-    VPCSecurityGroupMembership,
-    vpcSecurityGroupMembership,
-    vsgmStatus,
-    vsgmVPCSecurityGroupId,
+    -- ** VpcSecurityGroupMembership
+    VpcSecurityGroupMembership (VpcSecurityGroupMembership'),
+    newVpcSecurityGroupMembership,
   )
 where
 
@@ -995,6 +742,7 @@ import Network.AWS.DMS.DescribeReplicationTasks
 import Network.AWS.DMS.DescribeSchemas
 import Network.AWS.DMS.DescribeTableStatistics
 import Network.AWS.DMS.ImportCertificate
+import Network.AWS.DMS.Lens
 import Network.AWS.DMS.ListTagsForResource
 import Network.AWS.DMS.ModifyEndpoint
 import Network.AWS.DMS.ModifyEventSubscription

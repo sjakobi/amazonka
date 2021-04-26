@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,103 +19,136 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.DMS.Types.PendingMaintenanceAction where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes a maintenance action pending for an AWS DMS resource, including when and how it will be applied. This data type is a response element to the @DescribePendingMaintenanceActions@ operation.
+-- | Describes a maintenance action pending for an AWS DMS resource,
+-- including when and how it will be applied. This data type is a response
+-- element to the @DescribePendingMaintenanceActions@ operation.
 --
---
---
--- /See:/ 'pendingMaintenanceAction' smart constructor.
+-- /See:/ 'newPendingMaintenanceAction' smart constructor.
 data PendingMaintenanceAction = PendingMaintenanceAction'
-  { _pmaForcedApplyDate ::
-      !(Maybe POSIX),
-    _pmaOptInStatus ::
-      !(Maybe Text),
-    _pmaAutoAppliedAfterDate ::
-      !(Maybe POSIX),
-    _pmaCurrentApplyDate ::
-      !(Maybe POSIX),
-    _pmaAction ::
-      !(Maybe Text),
-    _pmaDescription ::
-      !(Maybe Text)
+  { -- | The date when the maintenance action will be automatically applied. The
+    -- maintenance action is applied to the resource on this date regardless of
+    -- the maintenance window for the resource. If this date is specified, any
+    -- @immediate@ opt-in requests are ignored.
+    forcedApplyDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The type of opt-in request that has been received for the resource.
+    optInStatus :: Prelude.Maybe Prelude.Text,
+    -- | The date of the maintenance window when the action is to be applied. The
+    -- maintenance action is applied to the resource during its first
+    -- maintenance window after this date. If this date is specified, any
+    -- @next-maintenance@ opt-in requests are ignored.
+    autoAppliedAfterDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The effective date when the pending maintenance action will be applied
+    -- to the resource. This date takes into account opt-in requests received
+    -- from the @ApplyPendingMaintenanceAction@ API operation, and also the
+    -- @AutoAppliedAfterDate@ and @ForcedApplyDate@ parameter values. This
+    -- value is blank if an opt-in request has not been received and nothing
+    -- has been specified for @AutoAppliedAfterDate@ or @ForcedApplyDate@.
+    currentApplyDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The type of pending maintenance action that is available for the
+    -- resource.
+    action :: Prelude.Maybe Prelude.Text,
+    -- | A description providing more detail about the maintenance action.
+    description :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PendingMaintenanceAction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PendingMaintenanceAction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pmaForcedApplyDate' - The date when the maintenance action will be automatically applied. The maintenance action is applied to the resource on this date regardless of the maintenance window for the resource. If this date is specified, any @immediate@ opt-in requests are ignored.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pmaOptInStatus' - The type of opt-in request that has been received for the resource.
+-- 'forcedApplyDate', 'pendingMaintenanceAction_forcedApplyDate' - The date when the maintenance action will be automatically applied. The
+-- maintenance action is applied to the resource on this date regardless of
+-- the maintenance window for the resource. If this date is specified, any
+-- @immediate@ opt-in requests are ignored.
 --
--- * 'pmaAutoAppliedAfterDate' - The date of the maintenance window when the action is to be applied. The maintenance action is applied to the resource during its first maintenance window after this date. If this date is specified, any @next-maintenance@ opt-in requests are ignored.
+-- 'optInStatus', 'pendingMaintenanceAction_optInStatus' - The type of opt-in request that has been received for the resource.
 --
--- * 'pmaCurrentApplyDate' - The effective date when the pending maintenance action will be applied to the resource. This date takes into account opt-in requests received from the @ApplyPendingMaintenanceAction@ API operation, and also the @AutoAppliedAfterDate@ and @ForcedApplyDate@ parameter values. This value is blank if an opt-in request has not been received and nothing has been specified for @AutoAppliedAfterDate@ or @ForcedApplyDate@ .
+-- 'autoAppliedAfterDate', 'pendingMaintenanceAction_autoAppliedAfterDate' - The date of the maintenance window when the action is to be applied. The
+-- maintenance action is applied to the resource during its first
+-- maintenance window after this date. If this date is specified, any
+-- @next-maintenance@ opt-in requests are ignored.
 --
--- * 'pmaAction' - The type of pending maintenance action that is available for the resource.
+-- 'currentApplyDate', 'pendingMaintenanceAction_currentApplyDate' - The effective date when the pending maintenance action will be applied
+-- to the resource. This date takes into account opt-in requests received
+-- from the @ApplyPendingMaintenanceAction@ API operation, and also the
+-- @AutoAppliedAfterDate@ and @ForcedApplyDate@ parameter values. This
+-- value is blank if an opt-in request has not been received and nothing
+-- has been specified for @AutoAppliedAfterDate@ or @ForcedApplyDate@.
 --
--- * 'pmaDescription' - A description providing more detail about the maintenance action.
-pendingMaintenanceAction ::
+-- 'action', 'pendingMaintenanceAction_action' - The type of pending maintenance action that is available for the
+-- resource.
+--
+-- 'description', 'pendingMaintenanceAction_description' - A description providing more detail about the maintenance action.
+newPendingMaintenanceAction ::
   PendingMaintenanceAction
-pendingMaintenanceAction =
+newPendingMaintenanceAction =
   PendingMaintenanceAction'
-    { _pmaForcedApplyDate =
-        Nothing,
-      _pmaOptInStatus = Nothing,
-      _pmaAutoAppliedAfterDate = Nothing,
-      _pmaCurrentApplyDate = Nothing,
-      _pmaAction = Nothing,
-      _pmaDescription = Nothing
+    { forcedApplyDate =
+        Prelude.Nothing,
+      optInStatus = Prelude.Nothing,
+      autoAppliedAfterDate = Prelude.Nothing,
+      currentApplyDate = Prelude.Nothing,
+      action = Prelude.Nothing,
+      description = Prelude.Nothing
     }
 
--- | The date when the maintenance action will be automatically applied. The maintenance action is applied to the resource on this date regardless of the maintenance window for the resource. If this date is specified, any @immediate@ opt-in requests are ignored.
-pmaForcedApplyDate :: Lens' PendingMaintenanceAction (Maybe UTCTime)
-pmaForcedApplyDate = lens _pmaForcedApplyDate (\s a -> s {_pmaForcedApplyDate = a}) . mapping _Time
+-- | The date when the maintenance action will be automatically applied. The
+-- maintenance action is applied to the resource on this date regardless of
+-- the maintenance window for the resource. If this date is specified, any
+-- @immediate@ opt-in requests are ignored.
+pendingMaintenanceAction_forcedApplyDate :: Lens.Lens' PendingMaintenanceAction (Prelude.Maybe Prelude.UTCTime)
+pendingMaintenanceAction_forcedApplyDate = Lens.lens (\PendingMaintenanceAction' {forcedApplyDate} -> forcedApplyDate) (\s@PendingMaintenanceAction' {} a -> s {forcedApplyDate = a} :: PendingMaintenanceAction) Prelude.. Lens.mapping Prelude._Time
 
 -- | The type of opt-in request that has been received for the resource.
-pmaOptInStatus :: Lens' PendingMaintenanceAction (Maybe Text)
-pmaOptInStatus = lens _pmaOptInStatus (\s a -> s {_pmaOptInStatus = a})
+pendingMaintenanceAction_optInStatus :: Lens.Lens' PendingMaintenanceAction (Prelude.Maybe Prelude.Text)
+pendingMaintenanceAction_optInStatus = Lens.lens (\PendingMaintenanceAction' {optInStatus} -> optInStatus) (\s@PendingMaintenanceAction' {} a -> s {optInStatus = a} :: PendingMaintenanceAction)
 
--- | The date of the maintenance window when the action is to be applied. The maintenance action is applied to the resource during its first maintenance window after this date. If this date is specified, any @next-maintenance@ opt-in requests are ignored.
-pmaAutoAppliedAfterDate :: Lens' PendingMaintenanceAction (Maybe UTCTime)
-pmaAutoAppliedAfterDate = lens _pmaAutoAppliedAfterDate (\s a -> s {_pmaAutoAppliedAfterDate = a}) . mapping _Time
+-- | The date of the maintenance window when the action is to be applied. The
+-- maintenance action is applied to the resource during its first
+-- maintenance window after this date. If this date is specified, any
+-- @next-maintenance@ opt-in requests are ignored.
+pendingMaintenanceAction_autoAppliedAfterDate :: Lens.Lens' PendingMaintenanceAction (Prelude.Maybe Prelude.UTCTime)
+pendingMaintenanceAction_autoAppliedAfterDate = Lens.lens (\PendingMaintenanceAction' {autoAppliedAfterDate} -> autoAppliedAfterDate) (\s@PendingMaintenanceAction' {} a -> s {autoAppliedAfterDate = a} :: PendingMaintenanceAction) Prelude.. Lens.mapping Prelude._Time
 
--- | The effective date when the pending maintenance action will be applied to the resource. This date takes into account opt-in requests received from the @ApplyPendingMaintenanceAction@ API operation, and also the @AutoAppliedAfterDate@ and @ForcedApplyDate@ parameter values. This value is blank if an opt-in request has not been received and nothing has been specified for @AutoAppliedAfterDate@ or @ForcedApplyDate@ .
-pmaCurrentApplyDate :: Lens' PendingMaintenanceAction (Maybe UTCTime)
-pmaCurrentApplyDate = lens _pmaCurrentApplyDate (\s a -> s {_pmaCurrentApplyDate = a}) . mapping _Time
+-- | The effective date when the pending maintenance action will be applied
+-- to the resource. This date takes into account opt-in requests received
+-- from the @ApplyPendingMaintenanceAction@ API operation, and also the
+-- @AutoAppliedAfterDate@ and @ForcedApplyDate@ parameter values. This
+-- value is blank if an opt-in request has not been received and nothing
+-- has been specified for @AutoAppliedAfterDate@ or @ForcedApplyDate@.
+pendingMaintenanceAction_currentApplyDate :: Lens.Lens' PendingMaintenanceAction (Prelude.Maybe Prelude.UTCTime)
+pendingMaintenanceAction_currentApplyDate = Lens.lens (\PendingMaintenanceAction' {currentApplyDate} -> currentApplyDate) (\s@PendingMaintenanceAction' {} a -> s {currentApplyDate = a} :: PendingMaintenanceAction) Prelude.. Lens.mapping Prelude._Time
 
--- | The type of pending maintenance action that is available for the resource.
-pmaAction :: Lens' PendingMaintenanceAction (Maybe Text)
-pmaAction = lens _pmaAction (\s a -> s {_pmaAction = a})
+-- | The type of pending maintenance action that is available for the
+-- resource.
+pendingMaintenanceAction_action :: Lens.Lens' PendingMaintenanceAction (Prelude.Maybe Prelude.Text)
+pendingMaintenanceAction_action = Lens.lens (\PendingMaintenanceAction' {action} -> action) (\s@PendingMaintenanceAction' {} a -> s {action = a} :: PendingMaintenanceAction)
 
 -- | A description providing more detail about the maintenance action.
-pmaDescription :: Lens' PendingMaintenanceAction (Maybe Text)
-pmaDescription = lens _pmaDescription (\s a -> s {_pmaDescription = a})
+pendingMaintenanceAction_description :: Lens.Lens' PendingMaintenanceAction (Prelude.Maybe Prelude.Text)
+pendingMaintenanceAction_description = Lens.lens (\PendingMaintenanceAction' {description} -> description) (\s@PendingMaintenanceAction' {} a -> s {description = a} :: PendingMaintenanceAction)
 
-instance FromJSON PendingMaintenanceAction where
+instance Prelude.FromJSON PendingMaintenanceAction where
   parseJSON =
-    withObject
+    Prelude.withObject
       "PendingMaintenanceAction"
       ( \x ->
           PendingMaintenanceAction'
-            <$> (x .:? "ForcedApplyDate")
-            <*> (x .:? "OptInStatus")
-            <*> (x .:? "AutoAppliedAfterDate")
-            <*> (x .:? "CurrentApplyDate")
-            <*> (x .:? "Action")
-            <*> (x .:? "Description")
+            Prelude.<$> (x Prelude..:? "ForcedApplyDate")
+            Prelude.<*> (x Prelude..:? "OptInStatus")
+            Prelude.<*> (x Prelude..:? "AutoAppliedAfterDate")
+            Prelude.<*> (x Prelude..:? "CurrentApplyDate")
+            Prelude.<*> (x Prelude..:? "Action")
+            Prelude.<*> (x Prelude..:? "Description")
       )
 
-instance Hashable PendingMaintenanceAction
+instance Prelude.Hashable PendingMaintenanceAction
 
-instance NFData PendingMaintenanceAction
+instance Prelude.NFData PendingMaintenanceAction

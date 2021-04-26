@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.DMS.Types.SafeguardPolicy
   ( SafeguardPolicy
       ( ..,
-        ExclusiveAutomaticTruncation,
-        RelyOnSqlServerReplicationAgent,
-        SharedAutomaticTruncation
+        SafeguardPolicyExclusiveAutomaticTruncation,
+        SafeguardPolicyRelyOnSqlServerReplicationAgent,
+        SafeguardPolicySharedAutomaticTruncation
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SafeguardPolicy = SafeguardPolicy' (CI Text)
+newtype SafeguardPolicy = SafeguardPolicy'
+  { fromSafeguardPolicy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ExclusiveAutomaticTruncation :: SafeguardPolicy
-pattern ExclusiveAutomaticTruncation = SafeguardPolicy' "exclusive-automatic-truncation"
+pattern SafeguardPolicyExclusiveAutomaticTruncation :: SafeguardPolicy
+pattern SafeguardPolicyExclusiveAutomaticTruncation = SafeguardPolicy' "exclusive-automatic-truncation"
 
-pattern RelyOnSqlServerReplicationAgent :: SafeguardPolicy
-pattern RelyOnSqlServerReplicationAgent = SafeguardPolicy' "rely-on-sql-server-replication-agent"
+pattern SafeguardPolicyRelyOnSqlServerReplicationAgent :: SafeguardPolicy
+pattern SafeguardPolicyRelyOnSqlServerReplicationAgent = SafeguardPolicy' "rely-on-sql-server-replication-agent"
 
-pattern SharedAutomaticTruncation :: SafeguardPolicy
-pattern SharedAutomaticTruncation = SafeguardPolicy' "shared-automatic-truncation"
+pattern SafeguardPolicySharedAutomaticTruncation :: SafeguardPolicy
+pattern SafeguardPolicySharedAutomaticTruncation = SafeguardPolicy' "shared-automatic-truncation"
 
 {-# COMPLETE
-  ExclusiveAutomaticTruncation,
-  RelyOnSqlServerReplicationAgent,
-  SharedAutomaticTruncation,
+  SafeguardPolicyExclusiveAutomaticTruncation,
+  SafeguardPolicyRelyOnSqlServerReplicationAgent,
+  SafeguardPolicySharedAutomaticTruncation,
   SafeguardPolicy'
   #-}
 
-instance FromText SafeguardPolicy where
-  parser = (SafeguardPolicy' . mk) <$> takeText
+instance Prelude.FromText SafeguardPolicy where
+  parser = SafeguardPolicy' Prelude.<$> Prelude.takeText
 
-instance ToText SafeguardPolicy where
-  toText (SafeguardPolicy' ci) = original ci
+instance Prelude.ToText SafeguardPolicy where
+  toText (SafeguardPolicy' x) = x
 
-instance Hashable SafeguardPolicy
+instance Prelude.Hashable SafeguardPolicy
 
-instance NFData SafeguardPolicy
+instance Prelude.NFData SafeguardPolicy
 
-instance ToByteString SafeguardPolicy
+instance Prelude.ToByteString SafeguardPolicy
 
-instance ToQuery SafeguardPolicy
+instance Prelude.ToQuery SafeguardPolicy
 
-instance ToHeader SafeguardPolicy
+instance Prelude.ToHeader SafeguardPolicy
 
-instance ToJSON SafeguardPolicy where
-  toJSON = toJSONText
+instance Prelude.ToJSON SafeguardPolicy where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON SafeguardPolicy where
-  parseJSON = parseJSONText "SafeguardPolicy"
+instance Prelude.FromJSON SafeguardPolicy where
+  parseJSON = Prelude.parseJSONText "SafeguardPolicy"

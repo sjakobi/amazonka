@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.DMS.Types.AuthTypeValue
   ( AuthTypeValue
       ( ..,
-        NO,
-        Password
+        AuthTypeValueNO,
+        AuthTypeValuePassword
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AuthTypeValue = AuthTypeValue' (CI Text)
+newtype AuthTypeValue = AuthTypeValue'
+  { fromAuthTypeValue ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern NO :: AuthTypeValue
-pattern NO = AuthTypeValue' "no"
+pattern AuthTypeValueNO :: AuthTypeValue
+pattern AuthTypeValueNO = AuthTypeValue' "no"
 
-pattern Password :: AuthTypeValue
-pattern Password = AuthTypeValue' "password"
+pattern AuthTypeValuePassword :: AuthTypeValue
+pattern AuthTypeValuePassword = AuthTypeValue' "password"
 
 {-# COMPLETE
-  NO,
-  Password,
+  AuthTypeValueNO,
+  AuthTypeValuePassword,
   AuthTypeValue'
   #-}
 
-instance FromText AuthTypeValue where
-  parser = (AuthTypeValue' . mk) <$> takeText
+instance Prelude.FromText AuthTypeValue where
+  parser = AuthTypeValue' Prelude.<$> Prelude.takeText
 
-instance ToText AuthTypeValue where
-  toText (AuthTypeValue' ci) = original ci
+instance Prelude.ToText AuthTypeValue where
+  toText (AuthTypeValue' x) = x
 
-instance Hashable AuthTypeValue
+instance Prelude.Hashable AuthTypeValue
 
-instance NFData AuthTypeValue
+instance Prelude.NFData AuthTypeValue
 
-instance ToByteString AuthTypeValue
+instance Prelude.ToByteString AuthTypeValue
 
-instance ToQuery AuthTypeValue
+instance Prelude.ToQuery AuthTypeValue
 
-instance ToHeader AuthTypeValue
+instance Prelude.ToHeader AuthTypeValue
 
-instance ToJSON AuthTypeValue where
-  toJSON = toJSONText
+instance Prelude.ToJSON AuthTypeValue where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AuthTypeValue where
-  parseJSON = parseJSONText "AuthTypeValue"
+instance Prelude.FromJSON AuthTypeValue where
+  parseJSON = Prelude.parseJSONText "AuthTypeValue"

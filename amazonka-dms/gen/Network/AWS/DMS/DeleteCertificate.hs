@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,136 +24,141 @@
 -- Deletes the specified certificate.
 module Network.AWS.DMS.DeleteCertificate
   ( -- * Creating a Request
-    deleteCertificate,
-    DeleteCertificate,
+    DeleteCertificate (..),
+    newDeleteCertificate,
 
     -- * Request Lenses
-    dcCertificateARN,
+    deleteCertificate_certificateArn,
 
     -- * Destructuring the Response
-    deleteCertificateResponse,
-    DeleteCertificateResponse,
+    DeleteCertificateResponse (..),
+    newDeleteCertificateResponse,
 
     -- * Response Lenses
-    dcrrsCertificate,
-    dcrrsResponseStatus,
+    deleteCertificateResponse_certificate,
+    deleteCertificateResponse_httpStatus,
   )
 where
 
 import Network.AWS.DMS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DMS.Types.Certificate
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteCertificate' smart constructor.
-newtype DeleteCertificate = DeleteCertificate'
-  { _dcCertificateARN ::
-      Text
+-- | /See:/ 'newDeleteCertificate' smart constructor.
+data DeleteCertificate = DeleteCertificate'
+  { -- | The Amazon Resource Name (ARN) of the deleted certificate.
+    certificateArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteCertificate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteCertificate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcCertificateARN' - The Amazon Resource Name (ARN) of the deleted certificate.
-deleteCertificate ::
-  -- | 'dcCertificateARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'certificateArn', 'deleteCertificate_certificateArn' - The Amazon Resource Name (ARN) of the deleted certificate.
+newDeleteCertificate ::
+  -- | 'certificateArn'
+  Prelude.Text ->
   DeleteCertificate
-deleteCertificate pCertificateARN_ =
+newDeleteCertificate pCertificateArn_ =
   DeleteCertificate'
-    { _dcCertificateARN =
-        pCertificateARN_
+    { certificateArn =
+        pCertificateArn_
     }
 
 -- | The Amazon Resource Name (ARN) of the deleted certificate.
-dcCertificateARN :: Lens' DeleteCertificate Text
-dcCertificateARN = lens _dcCertificateARN (\s a -> s {_dcCertificateARN = a})
+deleteCertificate_certificateArn :: Lens.Lens' DeleteCertificate Prelude.Text
+deleteCertificate_certificateArn = Lens.lens (\DeleteCertificate' {certificateArn} -> certificateArn) (\s@DeleteCertificate' {} a -> s {certificateArn = a} :: DeleteCertificate)
 
-instance AWSRequest DeleteCertificate where
+instance Prelude.AWSRequest DeleteCertificate where
   type Rs DeleteCertificate = DeleteCertificateResponse
-  request = postJSON dms
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteCertificateResponse'
-            <$> (x .?> "Certificate") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Certificate")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteCertificate
+instance Prelude.Hashable DeleteCertificate
 
-instance NFData DeleteCertificate
+instance Prelude.NFData DeleteCertificate
 
-instance ToHeaders DeleteCertificate where
+instance Prelude.ToHeaders DeleteCertificate where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AmazonDMSv20160101.DeleteCertificate" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AmazonDMSv20160101.DeleteCertificate" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteCertificate where
+instance Prelude.ToJSON DeleteCertificate where
   toJSON DeleteCertificate' {..} =
-    object
-      ( catMaybes
-          [Just ("CertificateArn" .= _dcCertificateARN)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("CertificateArn" Prelude..= certificateArn)
+          ]
       )
 
-instance ToPath DeleteCertificate where
-  toPath = const "/"
+instance Prelude.ToPath DeleteCertificate where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteCertificate where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteCertificate where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteCertificateResponse' smart constructor.
+-- | /See:/ 'newDeleteCertificateResponse' smart constructor.
 data DeleteCertificateResponse = DeleteCertificateResponse'
-  { _dcrrsCertificate ::
-      !( Maybe
-           Certificate
-       ),
-    _dcrrsResponseStatus ::
-      !Int
+  { -- | The Secure Sockets Layer (SSL) certificate.
+    certificate :: Prelude.Maybe Certificate,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteCertificateResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteCertificateResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcrrsCertificate' - The Secure Sockets Layer (SSL) certificate.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcrrsResponseStatus' - -- | The response status code.
-deleteCertificateResponse ::
-  -- | 'dcrrsResponseStatus'
-  Int ->
+-- 'certificate', 'deleteCertificateResponse_certificate' - The Secure Sockets Layer (SSL) certificate.
+--
+-- 'httpStatus', 'deleteCertificateResponse_httpStatus' - The response's http status code.
+newDeleteCertificateResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteCertificateResponse
-deleteCertificateResponse pResponseStatus_ =
+newDeleteCertificateResponse pHttpStatus_ =
   DeleteCertificateResponse'
-    { _dcrrsCertificate =
-        Nothing,
-      _dcrrsResponseStatus = pResponseStatus_
+    { certificate =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The Secure Sockets Layer (SSL) certificate.
-dcrrsCertificate :: Lens' DeleteCertificateResponse (Maybe Certificate)
-dcrrsCertificate = lens _dcrrsCertificate (\s a -> s {_dcrrsCertificate = a})
+deleteCertificateResponse_certificate :: Lens.Lens' DeleteCertificateResponse (Prelude.Maybe Certificate)
+deleteCertificateResponse_certificate = Lens.lens (\DeleteCertificateResponse' {certificate} -> certificate) (\s@DeleteCertificateResponse' {} a -> s {certificate = a} :: DeleteCertificateResponse)
 
--- | -- | The response status code.
-dcrrsResponseStatus :: Lens' DeleteCertificateResponse Int
-dcrrsResponseStatus = lens _dcrrsResponseStatus (\s a -> s {_dcrrsResponseStatus = a})
+-- | The response's http status code.
+deleteCertificateResponse_httpStatus :: Lens.Lens' DeleteCertificateResponse Prelude.Int
+deleteCertificateResponse_httpStatus = Lens.lens (\DeleteCertificateResponse' {httpStatus} -> httpStatus) (\s@DeleteCertificateResponse' {} a -> s {httpStatus = a} :: DeleteCertificateResponse)
 
-instance NFData DeleteCertificateResponse
+instance Prelude.NFData DeleteCertificateResponse

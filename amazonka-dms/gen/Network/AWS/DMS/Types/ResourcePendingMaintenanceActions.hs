@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,67 +20,79 @@
 module Network.AWS.DMS.Types.ResourcePendingMaintenanceActions where
 
 import Network.AWS.DMS.Types.PendingMaintenanceAction
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Identifies an AWS DMS resource and any pending actions for it.
 --
---
---
--- /See:/ 'resourcePendingMaintenanceActions' smart constructor.
+-- /See:/ 'newResourcePendingMaintenanceActions' smart constructor.
 data ResourcePendingMaintenanceActions = ResourcePendingMaintenanceActions'
-  { _rpmaPendingMaintenanceActionDetails ::
-      !( Maybe
-           [PendingMaintenanceAction]
-       ),
-    _rpmaResourceIdentifier ::
-      !( Maybe
-           Text
-       )
+  { -- | Detailed information about the pending maintenance action.
+    pendingMaintenanceActionDetails :: Prelude.Maybe [PendingMaintenanceAction],
+    -- | The Amazon Resource Name (ARN) of the DMS resource that the pending
+    -- maintenance action applies to. For information about creating an ARN,
+    -- see
+    -- <https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Introduction.AWS.ARN.html Constructing an Amazon Resource Name (ARN) for AWS DMS>
+    -- in the DMS documentation.
+    resourceIdentifier :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResourcePendingMaintenanceActions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResourcePendingMaintenanceActions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rpmaPendingMaintenanceActionDetails' - Detailed information about the pending maintenance action.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rpmaResourceIdentifier' - The Amazon Resource Name (ARN) of the DMS resource that the pending maintenance action applies to. For information about creating an ARN, see <https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Introduction.AWS.ARN.html Constructing an Amazon Resource Name (ARN) for AWS DMS> in the DMS documentation.
-resourcePendingMaintenanceActions ::
+-- 'pendingMaintenanceActionDetails', 'resourcePendingMaintenanceActions_pendingMaintenanceActionDetails' - Detailed information about the pending maintenance action.
+--
+-- 'resourceIdentifier', 'resourcePendingMaintenanceActions_resourceIdentifier' - The Amazon Resource Name (ARN) of the DMS resource that the pending
+-- maintenance action applies to. For information about creating an ARN,
+-- see
+-- <https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Introduction.AWS.ARN.html Constructing an Amazon Resource Name (ARN) for AWS DMS>
+-- in the DMS documentation.
+newResourcePendingMaintenanceActions ::
   ResourcePendingMaintenanceActions
-resourcePendingMaintenanceActions =
+newResourcePendingMaintenanceActions =
   ResourcePendingMaintenanceActions'
-    { _rpmaPendingMaintenanceActionDetails =
-        Nothing,
-      _rpmaResourceIdentifier = Nothing
+    { pendingMaintenanceActionDetails =
+        Prelude.Nothing,
+      resourceIdentifier = Prelude.Nothing
     }
 
 -- | Detailed information about the pending maintenance action.
-rpmaPendingMaintenanceActionDetails :: Lens' ResourcePendingMaintenanceActions [PendingMaintenanceAction]
-rpmaPendingMaintenanceActionDetails = lens _rpmaPendingMaintenanceActionDetails (\s a -> s {_rpmaPendingMaintenanceActionDetails = a}) . _Default . _Coerce
+resourcePendingMaintenanceActions_pendingMaintenanceActionDetails :: Lens.Lens' ResourcePendingMaintenanceActions (Prelude.Maybe [PendingMaintenanceAction])
+resourcePendingMaintenanceActions_pendingMaintenanceActionDetails = Lens.lens (\ResourcePendingMaintenanceActions' {pendingMaintenanceActionDetails} -> pendingMaintenanceActionDetails) (\s@ResourcePendingMaintenanceActions' {} a -> s {pendingMaintenanceActionDetails = a} :: ResourcePendingMaintenanceActions) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The Amazon Resource Name (ARN) of the DMS resource that the pending maintenance action applies to. For information about creating an ARN, see <https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Introduction.AWS.ARN.html Constructing an Amazon Resource Name (ARN) for AWS DMS> in the DMS documentation.
-rpmaResourceIdentifier :: Lens' ResourcePendingMaintenanceActions (Maybe Text)
-rpmaResourceIdentifier = lens _rpmaResourceIdentifier (\s a -> s {_rpmaResourceIdentifier = a})
+-- | The Amazon Resource Name (ARN) of the DMS resource that the pending
+-- maintenance action applies to. For information about creating an ARN,
+-- see
+-- <https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Introduction.AWS.ARN.html Constructing an Amazon Resource Name (ARN) for AWS DMS>
+-- in the DMS documentation.
+resourcePendingMaintenanceActions_resourceIdentifier :: Lens.Lens' ResourcePendingMaintenanceActions (Prelude.Maybe Prelude.Text)
+resourcePendingMaintenanceActions_resourceIdentifier = Lens.lens (\ResourcePendingMaintenanceActions' {resourceIdentifier} -> resourceIdentifier) (\s@ResourcePendingMaintenanceActions' {} a -> s {resourceIdentifier = a} :: ResourcePendingMaintenanceActions)
 
-instance FromJSON ResourcePendingMaintenanceActions where
+instance
+  Prelude.FromJSON
+    ResourcePendingMaintenanceActions
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ResourcePendingMaintenanceActions"
       ( \x ->
           ResourcePendingMaintenanceActions'
-            <$> (x .:? "PendingMaintenanceActionDetails" .!= mempty)
-            <*> (x .:? "ResourceIdentifier")
+            Prelude.<$> ( x Prelude..:? "PendingMaintenanceActionDetails"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "ResourceIdentifier")
       )
 
-instance Hashable ResourcePendingMaintenanceActions
+instance
+  Prelude.Hashable
+    ResourcePendingMaintenanceActions
 
-instance NFData ResourcePendingMaintenanceActions
+instance
+  Prelude.NFData
+    ResourcePendingMaintenanceActions

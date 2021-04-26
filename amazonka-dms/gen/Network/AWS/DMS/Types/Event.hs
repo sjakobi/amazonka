@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,80 +20,98 @@
 module Network.AWS.DMS.Types.Event where
 
 import Network.AWS.DMS.Types.SourceType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes an identifiable significant activity that affects a replication instance or task. This object can provide the message, the available event categories, the date and source of the event, and the AWS DMS resource type.
+-- | Describes an identifiable significant activity that affects a
+-- replication instance or task. This object can provide the message, the
+-- available event categories, the date and source of the event, and the
+-- AWS DMS resource type.
 --
---
---
--- /See:/ 'event' smart constructor.
+-- /See:/ 'newEvent' smart constructor.
 data Event = Event'
-  { _eMessage :: !(Maybe Text),
-    _eEventCategories :: !(Maybe [Text]),
-    _eDate :: !(Maybe POSIX),
-    _eSourceIdentifier :: !(Maybe Text),
-    _eSourceType :: !(Maybe SourceType)
+  { -- | The event message.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The event categories available for the specified source type.
+    eventCategories :: Prelude.Maybe [Prelude.Text],
+    -- | The date of the event.
+    date :: Prelude.Maybe Prelude.POSIX,
+    -- | The identifier of an event source.
+    sourceIdentifier :: Prelude.Maybe Prelude.Text,
+    -- | The type of AWS DMS resource that generates events.
+    --
+    -- Valid values: replication-instance | endpoint | replication-task
+    sourceType :: Prelude.Maybe SourceType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Event' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Event' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eMessage' - The event message.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'eEventCategories' - The event categories available for the specified source type.
+-- 'message', 'event_message' - The event message.
 --
--- * 'eDate' - The date of the event.
+-- 'eventCategories', 'event_eventCategories' - The event categories available for the specified source type.
 --
--- * 'eSourceIdentifier' - The identifier of an event source.
+-- 'date', 'event_date' - The date of the event.
 --
--- * 'eSourceType' - The type of AWS DMS resource that generates events.  Valid values: replication-instance | endpoint | replication-task
-event ::
+-- 'sourceIdentifier', 'event_sourceIdentifier' - The identifier of an event source.
+--
+-- 'sourceType', 'event_sourceType' - The type of AWS DMS resource that generates events.
+--
+-- Valid values: replication-instance | endpoint | replication-task
+newEvent ::
   Event
-event =
+newEvent =
   Event'
-    { _eMessage = Nothing,
-      _eEventCategories = Nothing,
-      _eDate = Nothing,
-      _eSourceIdentifier = Nothing,
-      _eSourceType = Nothing
+    { message = Prelude.Nothing,
+      eventCategories = Prelude.Nothing,
+      date = Prelude.Nothing,
+      sourceIdentifier = Prelude.Nothing,
+      sourceType = Prelude.Nothing
     }
 
 -- | The event message.
-eMessage :: Lens' Event (Maybe Text)
-eMessage = lens _eMessage (\s a -> s {_eMessage = a})
+event_message :: Lens.Lens' Event (Prelude.Maybe Prelude.Text)
+event_message = Lens.lens (\Event' {message} -> message) (\s@Event' {} a -> s {message = a} :: Event)
 
 -- | The event categories available for the specified source type.
-eEventCategories :: Lens' Event [Text]
-eEventCategories = lens _eEventCategories (\s a -> s {_eEventCategories = a}) . _Default . _Coerce
+event_eventCategories :: Lens.Lens' Event (Prelude.Maybe [Prelude.Text])
+event_eventCategories = Lens.lens (\Event' {eventCategories} -> eventCategories) (\s@Event' {} a -> s {eventCategories = a} :: Event) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The date of the event.
-eDate :: Lens' Event (Maybe UTCTime)
-eDate = lens _eDate (\s a -> s {_eDate = a}) . mapping _Time
+event_date :: Lens.Lens' Event (Prelude.Maybe Prelude.UTCTime)
+event_date = Lens.lens (\Event' {date} -> date) (\s@Event' {} a -> s {date = a} :: Event) Prelude.. Lens.mapping Prelude._Time
 
 -- | The identifier of an event source.
-eSourceIdentifier :: Lens' Event (Maybe Text)
-eSourceIdentifier = lens _eSourceIdentifier (\s a -> s {_eSourceIdentifier = a})
+event_sourceIdentifier :: Lens.Lens' Event (Prelude.Maybe Prelude.Text)
+event_sourceIdentifier = Lens.lens (\Event' {sourceIdentifier} -> sourceIdentifier) (\s@Event' {} a -> s {sourceIdentifier = a} :: Event)
 
--- | The type of AWS DMS resource that generates events.  Valid values: replication-instance | endpoint | replication-task
-eSourceType :: Lens' Event (Maybe SourceType)
-eSourceType = lens _eSourceType (\s a -> s {_eSourceType = a})
+-- | The type of AWS DMS resource that generates events.
+--
+-- Valid values: replication-instance | endpoint | replication-task
+event_sourceType :: Lens.Lens' Event (Prelude.Maybe SourceType)
+event_sourceType = Lens.lens (\Event' {sourceType} -> sourceType) (\s@Event' {} a -> s {sourceType = a} :: Event)
 
-instance FromJSON Event where
+instance Prelude.FromJSON Event where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Event"
       ( \x ->
           Event'
-            <$> (x .:? "Message")
-            <*> (x .:? "EventCategories" .!= mempty)
-            <*> (x .:? "Date")
-            <*> (x .:? "SourceIdentifier")
-            <*> (x .:? "SourceType")
+            Prelude.<$> (x Prelude..:? "Message")
+            Prelude.<*> ( x Prelude..:? "EventCategories"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "Date")
+            Prelude.<*> (x Prelude..:? "SourceIdentifier")
+            Prelude.<*> (x Prelude..:? "SourceType")
       )
 
-instance Hashable Event
+instance Prelude.Hashable Event
 
-instance NFData Event
+instance Prelude.NFData Event

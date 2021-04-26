@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,73 +19,69 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.DMS.Types.ReplicationInstanceTaskLog where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains metadata for a replication instance task log.
 --
---
---
--- /See:/ 'replicationInstanceTaskLog' smart constructor.
+-- /See:/ 'newReplicationInstanceTaskLog' smart constructor.
 data ReplicationInstanceTaskLog = ReplicationInstanceTaskLog'
-  { _ritlReplicationTaskName ::
-      !(Maybe Text),
-    _ritlReplicationTaskARN ::
-      !(Maybe Text),
-    _ritlReplicationInstanceTaskLogSize ::
-      !(Maybe Integer)
+  { -- | The name of the replication task.
+    replicationTaskName :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the replication task.
+    replicationTaskArn :: Prelude.Maybe Prelude.Text,
+    -- | The size, in bytes, of the replication task log.
+    replicationInstanceTaskLogSize :: Prelude.Maybe Prelude.Integer
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReplicationInstanceTaskLog' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReplicationInstanceTaskLog' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ritlReplicationTaskName' - The name of the replication task.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ritlReplicationTaskARN' - The Amazon Resource Name (ARN) of the replication task.
+-- 'replicationTaskName', 'replicationInstanceTaskLog_replicationTaskName' - The name of the replication task.
 --
--- * 'ritlReplicationInstanceTaskLogSize' - The size, in bytes, of the replication task log.
-replicationInstanceTaskLog ::
+-- 'replicationTaskArn', 'replicationInstanceTaskLog_replicationTaskArn' - The Amazon Resource Name (ARN) of the replication task.
+--
+-- 'replicationInstanceTaskLogSize', 'replicationInstanceTaskLog_replicationInstanceTaskLogSize' - The size, in bytes, of the replication task log.
+newReplicationInstanceTaskLog ::
   ReplicationInstanceTaskLog
-replicationInstanceTaskLog =
+newReplicationInstanceTaskLog =
   ReplicationInstanceTaskLog'
-    { _ritlReplicationTaskName =
-        Nothing,
-      _ritlReplicationTaskARN = Nothing,
-      _ritlReplicationInstanceTaskLogSize = Nothing
+    { replicationTaskName =
+        Prelude.Nothing,
+      replicationTaskArn = Prelude.Nothing,
+      replicationInstanceTaskLogSize =
+        Prelude.Nothing
     }
 
 -- | The name of the replication task.
-ritlReplicationTaskName :: Lens' ReplicationInstanceTaskLog (Maybe Text)
-ritlReplicationTaskName = lens _ritlReplicationTaskName (\s a -> s {_ritlReplicationTaskName = a})
+replicationInstanceTaskLog_replicationTaskName :: Lens.Lens' ReplicationInstanceTaskLog (Prelude.Maybe Prelude.Text)
+replicationInstanceTaskLog_replicationTaskName = Lens.lens (\ReplicationInstanceTaskLog' {replicationTaskName} -> replicationTaskName) (\s@ReplicationInstanceTaskLog' {} a -> s {replicationTaskName = a} :: ReplicationInstanceTaskLog)
 
 -- | The Amazon Resource Name (ARN) of the replication task.
-ritlReplicationTaskARN :: Lens' ReplicationInstanceTaskLog (Maybe Text)
-ritlReplicationTaskARN = lens _ritlReplicationTaskARN (\s a -> s {_ritlReplicationTaskARN = a})
+replicationInstanceTaskLog_replicationTaskArn :: Lens.Lens' ReplicationInstanceTaskLog (Prelude.Maybe Prelude.Text)
+replicationInstanceTaskLog_replicationTaskArn = Lens.lens (\ReplicationInstanceTaskLog' {replicationTaskArn} -> replicationTaskArn) (\s@ReplicationInstanceTaskLog' {} a -> s {replicationTaskArn = a} :: ReplicationInstanceTaskLog)
 
 -- | The size, in bytes, of the replication task log.
-ritlReplicationInstanceTaskLogSize :: Lens' ReplicationInstanceTaskLog (Maybe Integer)
-ritlReplicationInstanceTaskLogSize = lens _ritlReplicationInstanceTaskLogSize (\s a -> s {_ritlReplicationInstanceTaskLogSize = a})
+replicationInstanceTaskLog_replicationInstanceTaskLogSize :: Lens.Lens' ReplicationInstanceTaskLog (Prelude.Maybe Prelude.Integer)
+replicationInstanceTaskLog_replicationInstanceTaskLogSize = Lens.lens (\ReplicationInstanceTaskLog' {replicationInstanceTaskLogSize} -> replicationInstanceTaskLogSize) (\s@ReplicationInstanceTaskLog' {} a -> s {replicationInstanceTaskLogSize = a} :: ReplicationInstanceTaskLog)
 
-instance FromJSON ReplicationInstanceTaskLog where
+instance Prelude.FromJSON ReplicationInstanceTaskLog where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ReplicationInstanceTaskLog"
       ( \x ->
           ReplicationInstanceTaskLog'
-            <$> (x .:? "ReplicationTaskName")
-            <*> (x .:? "ReplicationTaskArn")
-            <*> (x .:? "ReplicationInstanceTaskLogSize")
+            Prelude.<$> (x Prelude..:? "ReplicationTaskName")
+            Prelude.<*> (x Prelude..:? "ReplicationTaskArn")
+            Prelude.<*> (x Prelude..:? "ReplicationInstanceTaskLogSize")
       )
 
-instance Hashable ReplicationInstanceTaskLog
+instance Prelude.Hashable ReplicationInstanceTaskLog
 
-instance NFData ReplicationInstanceTaskLog
+instance Prelude.NFData ReplicationInstanceTaskLog

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,212 +24,245 @@
 -- For internal use only
 module Network.AWS.DMS.DescribePendingMaintenanceActions
   ( -- * Creating a Request
-    describePendingMaintenanceActions,
-    DescribePendingMaintenanceActions,
+    DescribePendingMaintenanceActions (..),
+    newDescribePendingMaintenanceActions,
 
     -- * Request Lenses
-    dpmaFilters,
-    dpmaReplicationInstanceARN,
-    dpmaMarker,
-    dpmaMaxRecords,
+    describePendingMaintenanceActions_filters,
+    describePendingMaintenanceActions_replicationInstanceArn,
+    describePendingMaintenanceActions_marker,
+    describePendingMaintenanceActions_maxRecords,
 
     -- * Destructuring the Response
-    describePendingMaintenanceActionsResponse,
-    DescribePendingMaintenanceActionsResponse,
+    DescribePendingMaintenanceActionsResponse (..),
+    newDescribePendingMaintenanceActionsResponse,
 
     -- * Response Lenses
-    dpmarrsPendingMaintenanceActions,
-    dpmarrsMarker,
-    dpmarrsResponseStatus,
+    describePendingMaintenanceActionsResponse_pendingMaintenanceActions,
+    describePendingMaintenanceActionsResponse_marker,
+    describePendingMaintenanceActionsResponse_httpStatus,
   )
 where
 
 import Network.AWS.DMS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DMS.Types.ResourcePendingMaintenanceActions
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- |
 --
---
---
--- /See:/ 'describePendingMaintenanceActions' smart constructor.
+-- /See:/ 'newDescribePendingMaintenanceActions' smart constructor.
 data DescribePendingMaintenanceActions = DescribePendingMaintenanceActions'
-  { _dpmaFilters ::
-      !( Maybe
-           [Filter]
-       ),
-    _dpmaReplicationInstanceARN ::
-      !( Maybe
-           Text
-       ),
-    _dpmaMarker ::
-      !( Maybe
-           Text
-       ),
-    _dpmaMaxRecords ::
-      !( Maybe
-           Int
-       )
+  { filters :: Prelude.Maybe [Filter],
+    -- | The Amazon Resource Name (ARN) of the replication instance.
+    replicationInstanceArn :: Prelude.Maybe Prelude.Text,
+    -- | An optional pagination token provided by a previous request. If this
+    -- parameter is specified, the response includes only records beyond the
+    -- marker, up to the value specified by @MaxRecords@.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of records to include in the response. If more
+    -- records exist than the specified @MaxRecords@ value, a pagination token
+    -- called a marker is included in the response so that the remaining
+    -- results can be retrieved.
+    --
+    -- Default: 100
+    --
+    -- Constraints: Minimum 20, maximum 100.
+    maxRecords :: Prelude.Maybe Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribePendingMaintenanceActions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribePendingMaintenanceActions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dpmaFilters' -
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dpmaReplicationInstanceARN' - The Amazon Resource Name (ARN) of the replication instance.
+-- 'filters', 'describePendingMaintenanceActions_filters' -
 --
--- * 'dpmaMarker' - An optional pagination token provided by a previous request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by @MaxRecords@ .
+-- 'replicationInstanceArn', 'describePendingMaintenanceActions_replicationInstanceArn' - The Amazon Resource Name (ARN) of the replication instance.
 --
--- * 'dpmaMaxRecords' - The maximum number of records to include in the response. If more records exist than the specified @MaxRecords@ value, a pagination token called a marker is included in the response so that the remaining results can be retrieved.  Default: 100 Constraints: Minimum 20, maximum 100.
-describePendingMaintenanceActions ::
+-- 'marker', 'describePendingMaintenanceActions_marker' - An optional pagination token provided by a previous request. If this
+-- parameter is specified, the response includes only records beyond the
+-- marker, up to the value specified by @MaxRecords@.
+--
+-- 'maxRecords', 'describePendingMaintenanceActions_maxRecords' - The maximum number of records to include in the response. If more
+-- records exist than the specified @MaxRecords@ value, a pagination token
+-- called a marker is included in the response so that the remaining
+-- results can be retrieved.
+--
+-- Default: 100
+--
+-- Constraints: Minimum 20, maximum 100.
+newDescribePendingMaintenanceActions ::
   DescribePendingMaintenanceActions
-describePendingMaintenanceActions =
+newDescribePendingMaintenanceActions =
   DescribePendingMaintenanceActions'
-    { _dpmaFilters =
-        Nothing,
-      _dpmaReplicationInstanceARN = Nothing,
-      _dpmaMarker = Nothing,
-      _dpmaMaxRecords = Nothing
+    { filters =
+        Prelude.Nothing,
+      replicationInstanceArn = Prelude.Nothing,
+      marker = Prelude.Nothing,
+      maxRecords = Prelude.Nothing
     }
 
 -- |
-dpmaFilters :: Lens' DescribePendingMaintenanceActions [Filter]
-dpmaFilters = lens _dpmaFilters (\s a -> s {_dpmaFilters = a}) . _Default . _Coerce
+describePendingMaintenanceActions_filters :: Lens.Lens' DescribePendingMaintenanceActions (Prelude.Maybe [Filter])
+describePendingMaintenanceActions_filters = Lens.lens (\DescribePendingMaintenanceActions' {filters} -> filters) (\s@DescribePendingMaintenanceActions' {} a -> s {filters = a} :: DescribePendingMaintenanceActions) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The Amazon Resource Name (ARN) of the replication instance.
-dpmaReplicationInstanceARN :: Lens' DescribePendingMaintenanceActions (Maybe Text)
-dpmaReplicationInstanceARN = lens _dpmaReplicationInstanceARN (\s a -> s {_dpmaReplicationInstanceARN = a})
+describePendingMaintenanceActions_replicationInstanceArn :: Lens.Lens' DescribePendingMaintenanceActions (Prelude.Maybe Prelude.Text)
+describePendingMaintenanceActions_replicationInstanceArn = Lens.lens (\DescribePendingMaintenanceActions' {replicationInstanceArn} -> replicationInstanceArn) (\s@DescribePendingMaintenanceActions' {} a -> s {replicationInstanceArn = a} :: DescribePendingMaintenanceActions)
 
--- | An optional pagination token provided by a previous request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by @MaxRecords@ .
-dpmaMarker :: Lens' DescribePendingMaintenanceActions (Maybe Text)
-dpmaMarker = lens _dpmaMarker (\s a -> s {_dpmaMarker = a})
+-- | An optional pagination token provided by a previous request. If this
+-- parameter is specified, the response includes only records beyond the
+-- marker, up to the value specified by @MaxRecords@.
+describePendingMaintenanceActions_marker :: Lens.Lens' DescribePendingMaintenanceActions (Prelude.Maybe Prelude.Text)
+describePendingMaintenanceActions_marker = Lens.lens (\DescribePendingMaintenanceActions' {marker} -> marker) (\s@DescribePendingMaintenanceActions' {} a -> s {marker = a} :: DescribePendingMaintenanceActions)
 
--- | The maximum number of records to include in the response. If more records exist than the specified @MaxRecords@ value, a pagination token called a marker is included in the response so that the remaining results can be retrieved.  Default: 100 Constraints: Minimum 20, maximum 100.
-dpmaMaxRecords :: Lens' DescribePendingMaintenanceActions (Maybe Int)
-dpmaMaxRecords = lens _dpmaMaxRecords (\s a -> s {_dpmaMaxRecords = a})
+-- | The maximum number of records to include in the response. If more
+-- records exist than the specified @MaxRecords@ value, a pagination token
+-- called a marker is included in the response so that the remaining
+-- results can be retrieved.
+--
+-- Default: 100
+--
+-- Constraints: Minimum 20, maximum 100.
+describePendingMaintenanceActions_maxRecords :: Lens.Lens' DescribePendingMaintenanceActions (Prelude.Maybe Prelude.Int)
+describePendingMaintenanceActions_maxRecords = Lens.lens (\DescribePendingMaintenanceActions' {maxRecords} -> maxRecords) (\s@DescribePendingMaintenanceActions' {} a -> s {maxRecords = a} :: DescribePendingMaintenanceActions)
 
-instance AWSRequest DescribePendingMaintenanceActions where
+instance
+  Prelude.AWSRequest
+    DescribePendingMaintenanceActions
+  where
   type
     Rs DescribePendingMaintenanceActions =
       DescribePendingMaintenanceActionsResponse
-  request = postJSON dms
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribePendingMaintenanceActionsResponse'
-            <$> (x .?> "PendingMaintenanceActions" .!@ mempty)
-            <*> (x .?> "Marker")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "PendingMaintenanceActions"
+                            Prelude..!@ Prelude.mempty
+                        )
+              Prelude.<*> (x Prelude..?> "Marker")
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribePendingMaintenanceActions
+instance
+  Prelude.Hashable
+    DescribePendingMaintenanceActions
 
-instance NFData DescribePendingMaintenanceActions
+instance
+  Prelude.NFData
+    DescribePendingMaintenanceActions
 
-instance ToHeaders DescribePendingMaintenanceActions where
+instance
+  Prelude.ToHeaders
+    DescribePendingMaintenanceActions
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AmazonDMSv20160101.DescribePendingMaintenanceActions" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AmazonDMSv20160101.DescribePendingMaintenanceActions" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribePendingMaintenanceActions where
+instance
+  Prelude.ToJSON
+    DescribePendingMaintenanceActions
+  where
   toJSON DescribePendingMaintenanceActions' {..} =
-    object
-      ( catMaybes
-          [ ("Filters" .=) <$> _dpmaFilters,
-            ("ReplicationInstanceArn" .=)
-              <$> _dpmaReplicationInstanceARN,
-            ("Marker" .=) <$> _dpmaMarker,
-            ("MaxRecords" .=) <$> _dpmaMaxRecords
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Filters" Prelude..=) Prelude.<$> filters,
+            ("ReplicationInstanceArn" Prelude..=)
+              Prelude.<$> replicationInstanceArn,
+            ("Marker" Prelude..=) Prelude.<$> marker,
+            ("MaxRecords" Prelude..=) Prelude.<$> maxRecords
           ]
       )
 
-instance ToPath DescribePendingMaintenanceActions where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    DescribePendingMaintenanceActions
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribePendingMaintenanceActions where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    DescribePendingMaintenanceActions
+  where
+  toQuery = Prelude.const Prelude.mempty
 
 -- |
 --
---
---
--- /See:/ 'describePendingMaintenanceActionsResponse' smart constructor.
+-- /See:/ 'newDescribePendingMaintenanceActionsResponse' smart constructor.
 data DescribePendingMaintenanceActionsResponse = DescribePendingMaintenanceActionsResponse'
-  { _dpmarrsPendingMaintenanceActions ::
-      !( Maybe
-           [ResourcePendingMaintenanceActions]
-       ),
-    _dpmarrsMarker ::
-      !( Maybe
-           Text
-       ),
-    _dpmarrsResponseStatus ::
-      !Int
+  { -- | The pending maintenance action.
+    pendingMaintenanceActions :: Prelude.Maybe [ResourcePendingMaintenanceActions],
+    -- | An optional pagination token provided by a previous request. If this
+    -- parameter is specified, the response includes only records beyond the
+    -- marker, up to the value specified by @MaxRecords@.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribePendingMaintenanceActionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribePendingMaintenanceActionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dpmarrsPendingMaintenanceActions' - The pending maintenance action.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dpmarrsMarker' - An optional pagination token provided by a previous request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by @MaxRecords@ .
+-- 'pendingMaintenanceActions', 'describePendingMaintenanceActionsResponse_pendingMaintenanceActions' - The pending maintenance action.
 --
--- * 'dpmarrsResponseStatus' - -- | The response status code.
-describePendingMaintenanceActionsResponse ::
-  -- | 'dpmarrsResponseStatus'
-  Int ->
+-- 'marker', 'describePendingMaintenanceActionsResponse_marker' - An optional pagination token provided by a previous request. If this
+-- parameter is specified, the response includes only records beyond the
+-- marker, up to the value specified by @MaxRecords@.
+--
+-- 'httpStatus', 'describePendingMaintenanceActionsResponse_httpStatus' - The response's http status code.
+newDescribePendingMaintenanceActionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribePendingMaintenanceActionsResponse
-describePendingMaintenanceActionsResponse
-  pResponseStatus_ =
+newDescribePendingMaintenanceActionsResponse
+  pHttpStatus_ =
     DescribePendingMaintenanceActionsResponse'
-      { _dpmarrsPendingMaintenanceActions =
-          Nothing,
-        _dpmarrsMarker = Nothing,
-        _dpmarrsResponseStatus =
-          pResponseStatus_
+      { pendingMaintenanceActions =
+          Prelude.Nothing,
+        marker = Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | The pending maintenance action.
-dpmarrsPendingMaintenanceActions :: Lens' DescribePendingMaintenanceActionsResponse [ResourcePendingMaintenanceActions]
-dpmarrsPendingMaintenanceActions = lens _dpmarrsPendingMaintenanceActions (\s a -> s {_dpmarrsPendingMaintenanceActions = a}) . _Default . _Coerce
+describePendingMaintenanceActionsResponse_pendingMaintenanceActions :: Lens.Lens' DescribePendingMaintenanceActionsResponse (Prelude.Maybe [ResourcePendingMaintenanceActions])
+describePendingMaintenanceActionsResponse_pendingMaintenanceActions = Lens.lens (\DescribePendingMaintenanceActionsResponse' {pendingMaintenanceActions} -> pendingMaintenanceActions) (\s@DescribePendingMaintenanceActionsResponse' {} a -> s {pendingMaintenanceActions = a} :: DescribePendingMaintenanceActionsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | An optional pagination token provided by a previous request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by @MaxRecords@ .
-dpmarrsMarker :: Lens' DescribePendingMaintenanceActionsResponse (Maybe Text)
-dpmarrsMarker = lens _dpmarrsMarker (\s a -> s {_dpmarrsMarker = a})
+-- | An optional pagination token provided by a previous request. If this
+-- parameter is specified, the response includes only records beyond the
+-- marker, up to the value specified by @MaxRecords@.
+describePendingMaintenanceActionsResponse_marker :: Lens.Lens' DescribePendingMaintenanceActionsResponse (Prelude.Maybe Prelude.Text)
+describePendingMaintenanceActionsResponse_marker = Lens.lens (\DescribePendingMaintenanceActionsResponse' {marker} -> marker) (\s@DescribePendingMaintenanceActionsResponse' {} a -> s {marker = a} :: DescribePendingMaintenanceActionsResponse)
 
--- | -- | The response status code.
-dpmarrsResponseStatus :: Lens' DescribePendingMaintenanceActionsResponse Int
-dpmarrsResponseStatus = lens _dpmarrsResponseStatus (\s a -> s {_dpmarrsResponseStatus = a})
+-- | The response's http status code.
+describePendingMaintenanceActionsResponse_httpStatus :: Lens.Lens' DescribePendingMaintenanceActionsResponse Prelude.Int
+describePendingMaintenanceActionsResponse_httpStatus = Lens.lens (\DescribePendingMaintenanceActionsResponse' {httpStatus} -> httpStatus) (\s@DescribePendingMaintenanceActionsResponse' {} a -> s {httpStatus = a} :: DescribePendingMaintenanceActionsResponse)
 
 instance
-  NFData
+  Prelude.NFData
     DescribePendingMaintenanceActionsResponse

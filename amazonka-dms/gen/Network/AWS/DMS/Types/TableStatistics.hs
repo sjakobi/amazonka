@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,213 +19,355 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.DMS.Types.TableStatistics where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Provides a collection of table statistics in response to a request by the @DescribeTableStatistics@ operation.
+-- | Provides a collection of table statistics in response to a request by
+-- the @DescribeTableStatistics@ operation.
 --
---
---
--- /See:/ 'tableStatistics' smart constructor.
+-- /See:/ 'newTableStatistics' smart constructor.
 data TableStatistics = TableStatistics'
-  { _tsFullLoadCondtnlChkFailedRows ::
-      !(Maybe Integer),
-    _tsFullLoadRows :: !(Maybe Integer),
-    _tsFullLoadErrorRows ::
-      !(Maybe Integer),
-    _tsTableName :: !(Maybe Text),
-    _tsTableState :: !(Maybe Text),
-    _tsLastUpdateTime :: !(Maybe POSIX),
-    _tsValidationFailedRecords ::
-      !(Maybe Integer),
-    _tsFullLoadStartTime :: !(Maybe POSIX),
-    _tsUpdates :: !(Maybe Integer),
-    _tsDeletes :: !(Maybe Integer),
-    _tsDdls :: !(Maybe Integer),
-    _tsFullLoadEndTime :: !(Maybe POSIX),
-    _tsValidationState :: !(Maybe Text),
-    _tsInserts :: !(Maybe Integer),
-    _tsValidationSuspendedRecords ::
-      !(Maybe Integer),
-    _tsSchemaName :: !(Maybe Text),
-    _tsValidationStateDetails ::
-      !(Maybe Text),
-    _tsFullLoadReloaded :: !(Maybe Bool),
-    _tsValidationPendingRecords ::
-      !(Maybe Integer)
+  { -- | The number of rows that failed conditional checks during the full load
+    -- operation (valid only for migrations where DynamoDB is the target).
+    fullLoadCondtnlChkFailedRows :: Prelude.Maybe Prelude.Integer,
+    -- | The number of rows added during the full load operation.
+    fullLoadRows :: Prelude.Maybe Prelude.Integer,
+    -- | The number of rows that failed to load during the full load operation
+    -- (valid only for migrations where DynamoDB is the target).
+    fullLoadErrorRows :: Prelude.Maybe Prelude.Integer,
+    -- | The name of the table.
+    tableName :: Prelude.Maybe Prelude.Text,
+    -- | The state of the tables described.
+    --
+    -- Valid states: Table does not exist | Before load | Full load | Table
+    -- completed | Table cancelled | Table error | Table all | Table updates |
+    -- Table is being reloaded
+    tableState :: Prelude.Maybe Prelude.Text,
+    -- | The last time a table was updated.
+    lastUpdateTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The number of records that failed validation.
+    validationFailedRecords :: Prelude.Maybe Prelude.Integer,
+    -- | The time when the full load operation started.
+    fullLoadStartTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The number of update actions performed on a table.
+    updates :: Prelude.Maybe Prelude.Integer,
+    -- | The number of delete actions performed on a table.
+    deletes :: Prelude.Maybe Prelude.Integer,
+    -- | The data definition language (DDL) used to build and modify the
+    -- structure of your tables.
+    ddls :: Prelude.Maybe Prelude.Integer,
+    -- | The time when the full load operation completed.
+    fullLoadEndTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The validation state of the table.
+    --
+    -- This parameter can have the following values:
+    --
+    -- -   Not enabled – Validation isn\'t enabled for the table in the
+    --     migration task.
+    --
+    -- -   Pending records – Some records in the table are waiting for
+    --     validation.
+    --
+    -- -   Mismatched records – Some records in the table don\'t match between
+    --     the source and target.
+    --
+    -- -   Suspended records – Some records in the table couldn\'t be
+    --     validated.
+    --
+    -- -   No primary key –The table couldn\'t be validated because it has no
+    --     primary key.
+    --
+    -- -   Table error – The table wasn\'t validated because it\'s in an error
+    --     state and some data wasn\'t migrated.
+    --
+    -- -   Validated – All rows in the table are validated. If the table is
+    --     updated, the status can change from Validated.
+    --
+    -- -   Error – The table couldn\'t be validated because of an unexpected
+    --     error.
+    --
+    -- -   Pending validation – The table is waiting validation.
+    --
+    -- -   Preparing table – Preparing the table enabled in the migration task
+    --     for validation.
+    --
+    -- -   Pending revalidation – All rows in the table are pending validation
+    --     after the table was updated.
+    validationState :: Prelude.Maybe Prelude.Text,
+    -- | The number of insert actions performed on a table.
+    inserts :: Prelude.Maybe Prelude.Integer,
+    -- | The number of records that couldn\'t be validated.
+    validationSuspendedRecords :: Prelude.Maybe Prelude.Integer,
+    -- | The schema name.
+    schemaName :: Prelude.Maybe Prelude.Text,
+    -- | Additional details about the state of validation.
+    validationStateDetails :: Prelude.Maybe Prelude.Text,
+    -- | A value that indicates if the table was reloaded (@true@) or loaded as
+    -- part of a new full load operation (@false@).
+    fullLoadReloaded :: Prelude.Maybe Prelude.Bool,
+    -- | The number of records that have yet to be validated.
+    validationPendingRecords :: Prelude.Maybe Prelude.Integer
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TableStatistics' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TableStatistics' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tsFullLoadCondtnlChkFailedRows' - The number of rows that failed conditional checks during the full load operation (valid only for migrations where DynamoDB is the target).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tsFullLoadRows' - The number of rows added during the full load operation.
+-- 'fullLoadCondtnlChkFailedRows', 'tableStatistics_fullLoadCondtnlChkFailedRows' - The number of rows that failed conditional checks during the full load
+-- operation (valid only for migrations where DynamoDB is the target).
 --
--- * 'tsFullLoadErrorRows' - The number of rows that failed to load during the full load operation (valid only for migrations where DynamoDB is the target).
+-- 'fullLoadRows', 'tableStatistics_fullLoadRows' - The number of rows added during the full load operation.
 --
--- * 'tsTableName' - The name of the table.
+-- 'fullLoadErrorRows', 'tableStatistics_fullLoadErrorRows' - The number of rows that failed to load during the full load operation
+-- (valid only for migrations where DynamoDB is the target).
 --
--- * 'tsTableState' - The state of the tables described. Valid states: Table does not exist | Before load | Full load | Table completed | Table cancelled | Table error | Table all | Table updates | Table is being reloaded
+-- 'tableName', 'tableStatistics_tableName' - The name of the table.
 --
--- * 'tsLastUpdateTime' - The last time a table was updated.
+-- 'tableState', 'tableStatistics_tableState' - The state of the tables described.
 --
--- * 'tsValidationFailedRecords' - The number of records that failed validation.
+-- Valid states: Table does not exist | Before load | Full load | Table
+-- completed | Table cancelled | Table error | Table all | Table updates |
+-- Table is being reloaded
 --
--- * 'tsFullLoadStartTime' - The time when the full load operation started.
+-- 'lastUpdateTime', 'tableStatistics_lastUpdateTime' - The last time a table was updated.
 --
--- * 'tsUpdates' - The number of update actions performed on a table.
+-- 'validationFailedRecords', 'tableStatistics_validationFailedRecords' - The number of records that failed validation.
 --
--- * 'tsDeletes' - The number of delete actions performed on a table.
+-- 'fullLoadStartTime', 'tableStatistics_fullLoadStartTime' - The time when the full load operation started.
 --
--- * 'tsDdls' - The data definition language (DDL) used to build and modify the structure of your tables.
+-- 'updates', 'tableStatistics_updates' - The number of update actions performed on a table.
 --
--- * 'tsFullLoadEndTime' - The time when the full load operation completed.
+-- 'deletes', 'tableStatistics_deletes' - The number of delete actions performed on a table.
 --
--- * 'tsValidationState' - The validation state of the table. This parameter can have the following values:     * Not enabled – Validation isn't enabled for the table in the migration task.     * Pending records – Some records in the table are waiting for validation.     * Mismatched records – Some records in the table don't match between the source and target.     * Suspended records – Some records in the table couldn't be validated.     * No primary key –The table couldn't be validated because it has no primary key.     * Table error – The table wasn't validated because it's in an error state and some data wasn't migrated.     * Validated – All rows in the table are validated. If the table is updated, the status can change from Validated.     * Error – The table couldn't be validated because of an unexpected error.     * Pending validation – The table is waiting validation.     * Preparing table – Preparing the table enabled in the migration task for validation.     * Pending revalidation – All rows in the table are pending validation after the table was updated.
+-- 'ddls', 'tableStatistics_ddls' - The data definition language (DDL) used to build and modify the
+-- structure of your tables.
 --
--- * 'tsInserts' - The number of insert actions performed on a table.
+-- 'fullLoadEndTime', 'tableStatistics_fullLoadEndTime' - The time when the full load operation completed.
 --
--- * 'tsValidationSuspendedRecords' - The number of records that couldn't be validated.
+-- 'validationState', 'tableStatistics_validationState' - The validation state of the table.
 --
--- * 'tsSchemaName' - The schema name.
+-- This parameter can have the following values:
 --
--- * 'tsValidationStateDetails' - Additional details about the state of validation.
+-- -   Not enabled – Validation isn\'t enabled for the table in the
+--     migration task.
 --
--- * 'tsFullLoadReloaded' - A value that indicates if the table was reloaded (@true@ ) or loaded as part of a new full load operation (@false@ ).
+-- -   Pending records – Some records in the table are waiting for
+--     validation.
 --
--- * 'tsValidationPendingRecords' - The number of records that have yet to be validated.
-tableStatistics ::
+-- -   Mismatched records – Some records in the table don\'t match between
+--     the source and target.
+--
+-- -   Suspended records – Some records in the table couldn\'t be
+--     validated.
+--
+-- -   No primary key –The table couldn\'t be validated because it has no
+--     primary key.
+--
+-- -   Table error – The table wasn\'t validated because it\'s in an error
+--     state and some data wasn\'t migrated.
+--
+-- -   Validated – All rows in the table are validated. If the table is
+--     updated, the status can change from Validated.
+--
+-- -   Error – The table couldn\'t be validated because of an unexpected
+--     error.
+--
+-- -   Pending validation – The table is waiting validation.
+--
+-- -   Preparing table – Preparing the table enabled in the migration task
+--     for validation.
+--
+-- -   Pending revalidation – All rows in the table are pending validation
+--     after the table was updated.
+--
+-- 'inserts', 'tableStatistics_inserts' - The number of insert actions performed on a table.
+--
+-- 'validationSuspendedRecords', 'tableStatistics_validationSuspendedRecords' - The number of records that couldn\'t be validated.
+--
+-- 'schemaName', 'tableStatistics_schemaName' - The schema name.
+--
+-- 'validationStateDetails', 'tableStatistics_validationStateDetails' - Additional details about the state of validation.
+--
+-- 'fullLoadReloaded', 'tableStatistics_fullLoadReloaded' - A value that indicates if the table was reloaded (@true@) or loaded as
+-- part of a new full load operation (@false@).
+--
+-- 'validationPendingRecords', 'tableStatistics_validationPendingRecords' - The number of records that have yet to be validated.
+newTableStatistics ::
   TableStatistics
-tableStatistics =
+newTableStatistics =
   TableStatistics'
-    { _tsFullLoadCondtnlChkFailedRows =
-        Nothing,
-      _tsFullLoadRows = Nothing,
-      _tsFullLoadErrorRows = Nothing,
-      _tsTableName = Nothing,
-      _tsTableState = Nothing,
-      _tsLastUpdateTime = Nothing,
-      _tsValidationFailedRecords = Nothing,
-      _tsFullLoadStartTime = Nothing,
-      _tsUpdates = Nothing,
-      _tsDeletes = Nothing,
-      _tsDdls = Nothing,
-      _tsFullLoadEndTime = Nothing,
-      _tsValidationState = Nothing,
-      _tsInserts = Nothing,
-      _tsValidationSuspendedRecords = Nothing,
-      _tsSchemaName = Nothing,
-      _tsValidationStateDetails = Nothing,
-      _tsFullLoadReloaded = Nothing,
-      _tsValidationPendingRecords = Nothing
+    { fullLoadCondtnlChkFailedRows =
+        Prelude.Nothing,
+      fullLoadRows = Prelude.Nothing,
+      fullLoadErrorRows = Prelude.Nothing,
+      tableName = Prelude.Nothing,
+      tableState = Prelude.Nothing,
+      lastUpdateTime = Prelude.Nothing,
+      validationFailedRecords = Prelude.Nothing,
+      fullLoadStartTime = Prelude.Nothing,
+      updates = Prelude.Nothing,
+      deletes = Prelude.Nothing,
+      ddls = Prelude.Nothing,
+      fullLoadEndTime = Prelude.Nothing,
+      validationState = Prelude.Nothing,
+      inserts = Prelude.Nothing,
+      validationSuspendedRecords = Prelude.Nothing,
+      schemaName = Prelude.Nothing,
+      validationStateDetails = Prelude.Nothing,
+      fullLoadReloaded = Prelude.Nothing,
+      validationPendingRecords = Prelude.Nothing
     }
 
--- | The number of rows that failed conditional checks during the full load operation (valid only for migrations where DynamoDB is the target).
-tsFullLoadCondtnlChkFailedRows :: Lens' TableStatistics (Maybe Integer)
-tsFullLoadCondtnlChkFailedRows = lens _tsFullLoadCondtnlChkFailedRows (\s a -> s {_tsFullLoadCondtnlChkFailedRows = a})
+-- | The number of rows that failed conditional checks during the full load
+-- operation (valid only for migrations where DynamoDB is the target).
+tableStatistics_fullLoadCondtnlChkFailedRows :: Lens.Lens' TableStatistics (Prelude.Maybe Prelude.Integer)
+tableStatistics_fullLoadCondtnlChkFailedRows = Lens.lens (\TableStatistics' {fullLoadCondtnlChkFailedRows} -> fullLoadCondtnlChkFailedRows) (\s@TableStatistics' {} a -> s {fullLoadCondtnlChkFailedRows = a} :: TableStatistics)
 
 -- | The number of rows added during the full load operation.
-tsFullLoadRows :: Lens' TableStatistics (Maybe Integer)
-tsFullLoadRows = lens _tsFullLoadRows (\s a -> s {_tsFullLoadRows = a})
+tableStatistics_fullLoadRows :: Lens.Lens' TableStatistics (Prelude.Maybe Prelude.Integer)
+tableStatistics_fullLoadRows = Lens.lens (\TableStatistics' {fullLoadRows} -> fullLoadRows) (\s@TableStatistics' {} a -> s {fullLoadRows = a} :: TableStatistics)
 
--- | The number of rows that failed to load during the full load operation (valid only for migrations where DynamoDB is the target).
-tsFullLoadErrorRows :: Lens' TableStatistics (Maybe Integer)
-tsFullLoadErrorRows = lens _tsFullLoadErrorRows (\s a -> s {_tsFullLoadErrorRows = a})
+-- | The number of rows that failed to load during the full load operation
+-- (valid only for migrations where DynamoDB is the target).
+tableStatistics_fullLoadErrorRows :: Lens.Lens' TableStatistics (Prelude.Maybe Prelude.Integer)
+tableStatistics_fullLoadErrorRows = Lens.lens (\TableStatistics' {fullLoadErrorRows} -> fullLoadErrorRows) (\s@TableStatistics' {} a -> s {fullLoadErrorRows = a} :: TableStatistics)
 
 -- | The name of the table.
-tsTableName :: Lens' TableStatistics (Maybe Text)
-tsTableName = lens _tsTableName (\s a -> s {_tsTableName = a})
+tableStatistics_tableName :: Lens.Lens' TableStatistics (Prelude.Maybe Prelude.Text)
+tableStatistics_tableName = Lens.lens (\TableStatistics' {tableName} -> tableName) (\s@TableStatistics' {} a -> s {tableName = a} :: TableStatistics)
 
--- | The state of the tables described. Valid states: Table does not exist | Before load | Full load | Table completed | Table cancelled | Table error | Table all | Table updates | Table is being reloaded
-tsTableState :: Lens' TableStatistics (Maybe Text)
-tsTableState = lens _tsTableState (\s a -> s {_tsTableState = a})
+-- | The state of the tables described.
+--
+-- Valid states: Table does not exist | Before load | Full load | Table
+-- completed | Table cancelled | Table error | Table all | Table updates |
+-- Table is being reloaded
+tableStatistics_tableState :: Lens.Lens' TableStatistics (Prelude.Maybe Prelude.Text)
+tableStatistics_tableState = Lens.lens (\TableStatistics' {tableState} -> tableState) (\s@TableStatistics' {} a -> s {tableState = a} :: TableStatistics)
 
 -- | The last time a table was updated.
-tsLastUpdateTime :: Lens' TableStatistics (Maybe UTCTime)
-tsLastUpdateTime = lens _tsLastUpdateTime (\s a -> s {_tsLastUpdateTime = a}) . mapping _Time
+tableStatistics_lastUpdateTime :: Lens.Lens' TableStatistics (Prelude.Maybe Prelude.UTCTime)
+tableStatistics_lastUpdateTime = Lens.lens (\TableStatistics' {lastUpdateTime} -> lastUpdateTime) (\s@TableStatistics' {} a -> s {lastUpdateTime = a} :: TableStatistics) Prelude.. Lens.mapping Prelude._Time
 
 -- | The number of records that failed validation.
-tsValidationFailedRecords :: Lens' TableStatistics (Maybe Integer)
-tsValidationFailedRecords = lens _tsValidationFailedRecords (\s a -> s {_tsValidationFailedRecords = a})
+tableStatistics_validationFailedRecords :: Lens.Lens' TableStatistics (Prelude.Maybe Prelude.Integer)
+tableStatistics_validationFailedRecords = Lens.lens (\TableStatistics' {validationFailedRecords} -> validationFailedRecords) (\s@TableStatistics' {} a -> s {validationFailedRecords = a} :: TableStatistics)
 
 -- | The time when the full load operation started.
-tsFullLoadStartTime :: Lens' TableStatistics (Maybe UTCTime)
-tsFullLoadStartTime = lens _tsFullLoadStartTime (\s a -> s {_tsFullLoadStartTime = a}) . mapping _Time
+tableStatistics_fullLoadStartTime :: Lens.Lens' TableStatistics (Prelude.Maybe Prelude.UTCTime)
+tableStatistics_fullLoadStartTime = Lens.lens (\TableStatistics' {fullLoadStartTime} -> fullLoadStartTime) (\s@TableStatistics' {} a -> s {fullLoadStartTime = a} :: TableStatistics) Prelude.. Lens.mapping Prelude._Time
 
 -- | The number of update actions performed on a table.
-tsUpdates :: Lens' TableStatistics (Maybe Integer)
-tsUpdates = lens _tsUpdates (\s a -> s {_tsUpdates = a})
+tableStatistics_updates :: Lens.Lens' TableStatistics (Prelude.Maybe Prelude.Integer)
+tableStatistics_updates = Lens.lens (\TableStatistics' {updates} -> updates) (\s@TableStatistics' {} a -> s {updates = a} :: TableStatistics)
 
 -- | The number of delete actions performed on a table.
-tsDeletes :: Lens' TableStatistics (Maybe Integer)
-tsDeletes = lens _tsDeletes (\s a -> s {_tsDeletes = a})
+tableStatistics_deletes :: Lens.Lens' TableStatistics (Prelude.Maybe Prelude.Integer)
+tableStatistics_deletes = Lens.lens (\TableStatistics' {deletes} -> deletes) (\s@TableStatistics' {} a -> s {deletes = a} :: TableStatistics)
 
--- | The data definition language (DDL) used to build and modify the structure of your tables.
-tsDdls :: Lens' TableStatistics (Maybe Integer)
-tsDdls = lens _tsDdls (\s a -> s {_tsDdls = a})
+-- | The data definition language (DDL) used to build and modify the
+-- structure of your tables.
+tableStatistics_ddls :: Lens.Lens' TableStatistics (Prelude.Maybe Prelude.Integer)
+tableStatistics_ddls = Lens.lens (\TableStatistics' {ddls} -> ddls) (\s@TableStatistics' {} a -> s {ddls = a} :: TableStatistics)
 
 -- | The time when the full load operation completed.
-tsFullLoadEndTime :: Lens' TableStatistics (Maybe UTCTime)
-tsFullLoadEndTime = lens _tsFullLoadEndTime (\s a -> s {_tsFullLoadEndTime = a}) . mapping _Time
+tableStatistics_fullLoadEndTime :: Lens.Lens' TableStatistics (Prelude.Maybe Prelude.UTCTime)
+tableStatistics_fullLoadEndTime = Lens.lens (\TableStatistics' {fullLoadEndTime} -> fullLoadEndTime) (\s@TableStatistics' {} a -> s {fullLoadEndTime = a} :: TableStatistics) Prelude.. Lens.mapping Prelude._Time
 
--- | The validation state of the table. This parameter can have the following values:     * Not enabled – Validation isn't enabled for the table in the migration task.     * Pending records – Some records in the table are waiting for validation.     * Mismatched records – Some records in the table don't match between the source and target.     * Suspended records – Some records in the table couldn't be validated.     * No primary key –The table couldn't be validated because it has no primary key.     * Table error – The table wasn't validated because it's in an error state and some data wasn't migrated.     * Validated – All rows in the table are validated. If the table is updated, the status can change from Validated.     * Error – The table couldn't be validated because of an unexpected error.     * Pending validation – The table is waiting validation.     * Preparing table – Preparing the table enabled in the migration task for validation.     * Pending revalidation – All rows in the table are pending validation after the table was updated.
-tsValidationState :: Lens' TableStatistics (Maybe Text)
-tsValidationState = lens _tsValidationState (\s a -> s {_tsValidationState = a})
+-- | The validation state of the table.
+--
+-- This parameter can have the following values:
+--
+-- -   Not enabled – Validation isn\'t enabled for the table in the
+--     migration task.
+--
+-- -   Pending records – Some records in the table are waiting for
+--     validation.
+--
+-- -   Mismatched records – Some records in the table don\'t match between
+--     the source and target.
+--
+-- -   Suspended records – Some records in the table couldn\'t be
+--     validated.
+--
+-- -   No primary key –The table couldn\'t be validated because it has no
+--     primary key.
+--
+-- -   Table error – The table wasn\'t validated because it\'s in an error
+--     state and some data wasn\'t migrated.
+--
+-- -   Validated – All rows in the table are validated. If the table is
+--     updated, the status can change from Validated.
+--
+-- -   Error – The table couldn\'t be validated because of an unexpected
+--     error.
+--
+-- -   Pending validation – The table is waiting validation.
+--
+-- -   Preparing table – Preparing the table enabled in the migration task
+--     for validation.
+--
+-- -   Pending revalidation – All rows in the table are pending validation
+--     after the table was updated.
+tableStatistics_validationState :: Lens.Lens' TableStatistics (Prelude.Maybe Prelude.Text)
+tableStatistics_validationState = Lens.lens (\TableStatistics' {validationState} -> validationState) (\s@TableStatistics' {} a -> s {validationState = a} :: TableStatistics)
 
 -- | The number of insert actions performed on a table.
-tsInserts :: Lens' TableStatistics (Maybe Integer)
-tsInserts = lens _tsInserts (\s a -> s {_tsInserts = a})
+tableStatistics_inserts :: Lens.Lens' TableStatistics (Prelude.Maybe Prelude.Integer)
+tableStatistics_inserts = Lens.lens (\TableStatistics' {inserts} -> inserts) (\s@TableStatistics' {} a -> s {inserts = a} :: TableStatistics)
 
--- | The number of records that couldn't be validated.
-tsValidationSuspendedRecords :: Lens' TableStatistics (Maybe Integer)
-tsValidationSuspendedRecords = lens _tsValidationSuspendedRecords (\s a -> s {_tsValidationSuspendedRecords = a})
+-- | The number of records that couldn\'t be validated.
+tableStatistics_validationSuspendedRecords :: Lens.Lens' TableStatistics (Prelude.Maybe Prelude.Integer)
+tableStatistics_validationSuspendedRecords = Lens.lens (\TableStatistics' {validationSuspendedRecords} -> validationSuspendedRecords) (\s@TableStatistics' {} a -> s {validationSuspendedRecords = a} :: TableStatistics)
 
 -- | The schema name.
-tsSchemaName :: Lens' TableStatistics (Maybe Text)
-tsSchemaName = lens _tsSchemaName (\s a -> s {_tsSchemaName = a})
+tableStatistics_schemaName :: Lens.Lens' TableStatistics (Prelude.Maybe Prelude.Text)
+tableStatistics_schemaName = Lens.lens (\TableStatistics' {schemaName} -> schemaName) (\s@TableStatistics' {} a -> s {schemaName = a} :: TableStatistics)
 
 -- | Additional details about the state of validation.
-tsValidationStateDetails :: Lens' TableStatistics (Maybe Text)
-tsValidationStateDetails = lens _tsValidationStateDetails (\s a -> s {_tsValidationStateDetails = a})
+tableStatistics_validationStateDetails :: Lens.Lens' TableStatistics (Prelude.Maybe Prelude.Text)
+tableStatistics_validationStateDetails = Lens.lens (\TableStatistics' {validationStateDetails} -> validationStateDetails) (\s@TableStatistics' {} a -> s {validationStateDetails = a} :: TableStatistics)
 
--- | A value that indicates if the table was reloaded (@true@ ) or loaded as part of a new full load operation (@false@ ).
-tsFullLoadReloaded :: Lens' TableStatistics (Maybe Bool)
-tsFullLoadReloaded = lens _tsFullLoadReloaded (\s a -> s {_tsFullLoadReloaded = a})
+-- | A value that indicates if the table was reloaded (@true@) or loaded as
+-- part of a new full load operation (@false@).
+tableStatistics_fullLoadReloaded :: Lens.Lens' TableStatistics (Prelude.Maybe Prelude.Bool)
+tableStatistics_fullLoadReloaded = Lens.lens (\TableStatistics' {fullLoadReloaded} -> fullLoadReloaded) (\s@TableStatistics' {} a -> s {fullLoadReloaded = a} :: TableStatistics)
 
 -- | The number of records that have yet to be validated.
-tsValidationPendingRecords :: Lens' TableStatistics (Maybe Integer)
-tsValidationPendingRecords = lens _tsValidationPendingRecords (\s a -> s {_tsValidationPendingRecords = a})
+tableStatistics_validationPendingRecords :: Lens.Lens' TableStatistics (Prelude.Maybe Prelude.Integer)
+tableStatistics_validationPendingRecords = Lens.lens (\TableStatistics' {validationPendingRecords} -> validationPendingRecords) (\s@TableStatistics' {} a -> s {validationPendingRecords = a} :: TableStatistics)
 
-instance FromJSON TableStatistics where
+instance Prelude.FromJSON TableStatistics where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TableStatistics"
       ( \x ->
           TableStatistics'
-            <$> (x .:? "FullLoadCondtnlChkFailedRows")
-            <*> (x .:? "FullLoadRows")
-            <*> (x .:? "FullLoadErrorRows")
-            <*> (x .:? "TableName")
-            <*> (x .:? "TableState")
-            <*> (x .:? "LastUpdateTime")
-            <*> (x .:? "ValidationFailedRecords")
-            <*> (x .:? "FullLoadStartTime")
-            <*> (x .:? "Updates")
-            <*> (x .:? "Deletes")
-            <*> (x .:? "Ddls")
-            <*> (x .:? "FullLoadEndTime")
-            <*> (x .:? "ValidationState")
-            <*> (x .:? "Inserts")
-            <*> (x .:? "ValidationSuspendedRecords")
-            <*> (x .:? "SchemaName")
-            <*> (x .:? "ValidationStateDetails")
-            <*> (x .:? "FullLoadReloaded")
-            <*> (x .:? "ValidationPendingRecords")
+            Prelude.<$> (x Prelude..:? "FullLoadCondtnlChkFailedRows")
+            Prelude.<*> (x Prelude..:? "FullLoadRows")
+            Prelude.<*> (x Prelude..:? "FullLoadErrorRows")
+            Prelude.<*> (x Prelude..:? "TableName")
+            Prelude.<*> (x Prelude..:? "TableState")
+            Prelude.<*> (x Prelude..:? "LastUpdateTime")
+            Prelude.<*> (x Prelude..:? "ValidationFailedRecords")
+            Prelude.<*> (x Prelude..:? "FullLoadStartTime")
+            Prelude.<*> (x Prelude..:? "Updates")
+            Prelude.<*> (x Prelude..:? "Deletes")
+            Prelude.<*> (x Prelude..:? "Ddls")
+            Prelude.<*> (x Prelude..:? "FullLoadEndTime")
+            Prelude.<*> (x Prelude..:? "ValidationState")
+            Prelude.<*> (x Prelude..:? "Inserts")
+            Prelude.<*> (x Prelude..:? "ValidationSuspendedRecords")
+            Prelude.<*> (x Prelude..:? "SchemaName")
+            Prelude.<*> (x Prelude..:? "ValidationStateDetails")
+            Prelude.<*> (x Prelude..:? "FullLoadReloaded")
+            Prelude.<*> (x Prelude..:? "ValidationPendingRecords")
       )
 
-instance Hashable TableStatistics
+instance Prelude.Hashable TableStatistics
 
-instance NFData TableStatistics
+instance Prelude.NFData TableStatistics

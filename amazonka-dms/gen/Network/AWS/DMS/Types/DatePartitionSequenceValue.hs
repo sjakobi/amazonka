@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,75 +19,73 @@
 module Network.AWS.DMS.Types.DatePartitionSequenceValue
   ( DatePartitionSequenceValue
       ( ..,
-        Ddmmyyyy,
-        Mmyyyydd,
-        Yyyymm,
-        Yyyymmdd,
-        Yyyymmddhh
+        DatePartitionSequenceValueDDMMYYYY,
+        DatePartitionSequenceValueMMYYYYDD,
+        DatePartitionSequenceValueYYYYMM,
+        DatePartitionSequenceValueYYYYMMDD,
+        DatePartitionSequenceValueYYYYMMDDHH
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DatePartitionSequenceValue
-  = DatePartitionSequenceValue'
-      ( CI
-          Text
-      )
+newtype DatePartitionSequenceValue = DatePartitionSequenceValue'
+  { fromDatePartitionSequenceValue ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Ddmmyyyy :: DatePartitionSequenceValue
-pattern Ddmmyyyy = DatePartitionSequenceValue' "DDMMYYYY"
+pattern DatePartitionSequenceValueDDMMYYYY :: DatePartitionSequenceValue
+pattern DatePartitionSequenceValueDDMMYYYY = DatePartitionSequenceValue' "DDMMYYYY"
 
-pattern Mmyyyydd :: DatePartitionSequenceValue
-pattern Mmyyyydd = DatePartitionSequenceValue' "MMYYYYDD"
+pattern DatePartitionSequenceValueMMYYYYDD :: DatePartitionSequenceValue
+pattern DatePartitionSequenceValueMMYYYYDD = DatePartitionSequenceValue' "MMYYYYDD"
 
-pattern Yyyymm :: DatePartitionSequenceValue
-pattern Yyyymm = DatePartitionSequenceValue' "YYYYMM"
+pattern DatePartitionSequenceValueYYYYMM :: DatePartitionSequenceValue
+pattern DatePartitionSequenceValueYYYYMM = DatePartitionSequenceValue' "YYYYMM"
 
-pattern Yyyymmdd :: DatePartitionSequenceValue
-pattern Yyyymmdd = DatePartitionSequenceValue' "YYYYMMDD"
+pattern DatePartitionSequenceValueYYYYMMDD :: DatePartitionSequenceValue
+pattern DatePartitionSequenceValueYYYYMMDD = DatePartitionSequenceValue' "YYYYMMDD"
 
-pattern Yyyymmddhh :: DatePartitionSequenceValue
-pattern Yyyymmddhh = DatePartitionSequenceValue' "YYYYMMDDHH"
+pattern DatePartitionSequenceValueYYYYMMDDHH :: DatePartitionSequenceValue
+pattern DatePartitionSequenceValueYYYYMMDDHH = DatePartitionSequenceValue' "YYYYMMDDHH"
 
 {-# COMPLETE
-  Ddmmyyyy,
-  Mmyyyydd,
-  Yyyymm,
-  Yyyymmdd,
-  Yyyymmddhh,
+  DatePartitionSequenceValueDDMMYYYY,
+  DatePartitionSequenceValueMMYYYYDD,
+  DatePartitionSequenceValueYYYYMM,
+  DatePartitionSequenceValueYYYYMMDD,
+  DatePartitionSequenceValueYYYYMMDDHH,
   DatePartitionSequenceValue'
   #-}
 
-instance FromText DatePartitionSequenceValue where
-  parser = (DatePartitionSequenceValue' . mk) <$> takeText
+instance Prelude.FromText DatePartitionSequenceValue where
+  parser = DatePartitionSequenceValue' Prelude.<$> Prelude.takeText
 
-instance ToText DatePartitionSequenceValue where
-  toText (DatePartitionSequenceValue' ci) = original ci
+instance Prelude.ToText DatePartitionSequenceValue where
+  toText (DatePartitionSequenceValue' x) = x
 
-instance Hashable DatePartitionSequenceValue
+instance Prelude.Hashable DatePartitionSequenceValue
 
-instance NFData DatePartitionSequenceValue
+instance Prelude.NFData DatePartitionSequenceValue
 
-instance ToByteString DatePartitionSequenceValue
+instance Prelude.ToByteString DatePartitionSequenceValue
 
-instance ToQuery DatePartitionSequenceValue
+instance Prelude.ToQuery DatePartitionSequenceValue
 
-instance ToHeader DatePartitionSequenceValue
+instance Prelude.ToHeader DatePartitionSequenceValue
 
-instance ToJSON DatePartitionSequenceValue where
-  toJSON = toJSONText
+instance Prelude.ToJSON DatePartitionSequenceValue where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DatePartitionSequenceValue where
-  parseJSON = parseJSONText "DatePartitionSequenceValue"
+instance Prelude.FromJSON DatePartitionSequenceValue where
+  parseJSON = Prelude.parseJSONText "DatePartitionSequenceValue"

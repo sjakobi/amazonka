@@ -1,5 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,430 +19,658 @@ import Network.AWS.DMS.DescribeConnections
 import Network.AWS.DMS.DescribeEndpoints
 import Network.AWS.DMS.DescribeReplicationInstances
 import Network.AWS.DMS.DescribeReplicationTasks
+import Network.AWS.DMS.Lens
 import Network.AWS.DMS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Waiter
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Waiter as Waiter
 
 -- | Polls 'Network.AWS.DMS.DescribeReplicationInstances' every 60 seconds until a successful state is reached. An error is returned after 60 failed checks.
-replicationInstanceAvailable :: Wait DescribeReplicationInstances
-replicationInstanceAvailable =
-  Wait
-    { _waitName = "ReplicationInstanceAvailable",
-      _waitAttempts = 60,
-      _waitDelay = 60,
-      _waitAcceptors =
-        [ matchAll
+newReplicationInstanceAvailable :: Waiter.Wait DescribeReplicationInstances
+newReplicationInstanceAvailable =
+  Waiter.Wait
+    { Waiter._waitName =
+        "ReplicationInstanceAvailable",
+      Waiter._waitAttempts = 60,
+      Waiter._waitDelay = 60,
+      Waiter._waitAcceptors =
+        [ Waiter.matchAll
             "available"
-            AcceptSuccess
-            ( folding (concatOf drirrrsReplicationInstances)
-                . riReplicationInstanceStatus
-                . _Just
-                . to toTextCI
+            Waiter.AcceptSuccess
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeReplicationInstancesResponse_replicationInstances
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. replicationInstance_replicationInstanceStatus
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "deleting"
-            AcceptFailure
-            ( folding (concatOf drirrrsReplicationInstances)
-                . riReplicationInstanceStatus
-                . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeReplicationInstancesResponse_replicationInstances
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. replicationInstance_replicationInstanceStatus
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "incompatible-credentials"
-            AcceptFailure
-            ( folding (concatOf drirrrsReplicationInstances)
-                . riReplicationInstanceStatus
-                . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeReplicationInstancesResponse_replicationInstances
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. replicationInstance_replicationInstanceStatus
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "incompatible-network"
-            AcceptFailure
-            ( folding (concatOf drirrrsReplicationInstances)
-                . riReplicationInstanceStatus
-                . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeReplicationInstancesResponse_replicationInstances
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. replicationInstance_replicationInstanceStatus
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "inaccessible-encryption-credentials"
-            AcceptFailure
-            ( folding (concatOf drirrrsReplicationInstances)
-                . riReplicationInstanceStatus
-                . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeReplicationInstancesResponse_replicationInstances
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. replicationInstance_replicationInstanceStatus
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             )
         ]
     }
 
 -- | Polls 'Network.AWS.DMS.DescribeReplicationTasks' every 15 seconds until a successful state is reached. An error is returned after 60 failed checks.
-replicationTaskDeleted :: Wait DescribeReplicationTasks
-replicationTaskDeleted =
-  Wait
-    { _waitName = "ReplicationTaskDeleted",
-      _waitAttempts = 60,
-      _waitDelay = 15,
-      _waitAcceptors =
-        [ matchAny
+newReplicationTaskDeleted :: Waiter.Wait DescribeReplicationTasks
+newReplicationTaskDeleted =
+  Waiter.Wait
+    { Waiter._waitName =
+        "ReplicationTaskDeleted",
+      Waiter._waitAttempts = 60,
+      Waiter._waitDelay = 15,
+      Waiter._waitAcceptors =
+        [ Waiter.matchAny
             "ready"
-            AcceptFailure
-            ( folding (concatOf drtrrsReplicationTasks)
-                . rtStatus
-                . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeReplicationTasksResponse_replicationTasks
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. replicationTask_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "creating"
-            AcceptFailure
-            ( folding (concatOf drtrrsReplicationTasks)
-                . rtStatus
-                . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeReplicationTasksResponse_replicationTasks
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. replicationTask_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "stopped"
-            AcceptFailure
-            ( folding (concatOf drtrrsReplicationTasks)
-                . rtStatus
-                . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeReplicationTasksResponse_replicationTasks
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. replicationTask_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "running"
-            AcceptFailure
-            ( folding (concatOf drtrrsReplicationTasks)
-                . rtStatus
-                . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeReplicationTasksResponse_replicationTasks
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. replicationTask_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "failed"
-            AcceptFailure
-            ( folding (concatOf drtrrsReplicationTasks)
-                . rtStatus
-                . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeReplicationTasksResponse_replicationTasks
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. replicationTask_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchError "ResourceNotFoundFault" AcceptSuccess
+          Waiter.matchError
+            "ResourceNotFoundFault"
+            Waiter.AcceptSuccess
         ]
     }
 
 -- | Polls 'Network.AWS.DMS.DescribeEndpoints' every 5 seconds until a successful state is reached. An error is returned after 60 failed checks.
-endpointDeleted :: Wait DescribeEndpoints
-endpointDeleted =
-  Wait
-    { _waitName = "EndpointDeleted",
-      _waitAttempts = 60,
-      _waitDelay = 5,
-      _waitAcceptors =
-        [ matchError "ResourceNotFoundFault" AcceptSuccess,
-          matchAny
+newEndpointDeleted :: Waiter.Wait DescribeEndpoints
+newEndpointDeleted =
+  Waiter.Wait
+    { Waiter._waitName = "EndpointDeleted",
+      Waiter._waitAttempts = 60,
+      Waiter._waitDelay = 5,
+      Waiter._waitAcceptors =
+        [ Waiter.matchError
+            "ResourceNotFoundFault"
+            Waiter.AcceptSuccess,
+          Waiter.matchAny
             "active"
-            AcceptFailure
-            ( folding (concatOf derersEndpoints) . eStatus . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeEndpointsResponse_endpoints
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. endpoint_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "creating"
-            AcceptFailure
-            ( folding (concatOf derersEndpoints) . eStatus . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeEndpointsResponse_endpoints
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. endpoint_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             )
         ]
     }
 
 -- | Polls 'Network.AWS.DMS.DescribeReplicationTasks' every 15 seconds until a successful state is reached. An error is returned after 60 failed checks.
-replicationTaskRunning :: Wait DescribeReplicationTasks
-replicationTaskRunning =
-  Wait
-    { _waitName = "ReplicationTaskRunning",
-      _waitAttempts = 60,
-      _waitDelay = 15,
-      _waitAcceptors =
-        [ matchAll
+newReplicationTaskRunning :: Waiter.Wait DescribeReplicationTasks
+newReplicationTaskRunning =
+  Waiter.Wait
+    { Waiter._waitName =
+        "ReplicationTaskRunning",
+      Waiter._waitAttempts = 60,
+      Waiter._waitDelay = 15,
+      Waiter._waitAcceptors =
+        [ Waiter.matchAll
             "running"
-            AcceptSuccess
-            ( folding (concatOf drtrrsReplicationTasks)
-                . rtStatus
-                . _Just
-                . to toTextCI
+            Waiter.AcceptSuccess
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeReplicationTasksResponse_replicationTasks
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. replicationTask_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "ready"
-            AcceptFailure
-            ( folding (concatOf drtrrsReplicationTasks)
-                . rtStatus
-                . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeReplicationTasksResponse_replicationTasks
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. replicationTask_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "creating"
-            AcceptFailure
-            ( folding (concatOf drtrrsReplicationTasks)
-                . rtStatus
-                . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeReplicationTasksResponse_replicationTasks
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. replicationTask_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "stopping"
-            AcceptFailure
-            ( folding (concatOf drtrrsReplicationTasks)
-                . rtStatus
-                . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeReplicationTasksResponse_replicationTasks
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. replicationTask_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "stopped"
-            AcceptFailure
-            ( folding (concatOf drtrrsReplicationTasks)
-                . rtStatus
-                . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeReplicationTasksResponse_replicationTasks
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. replicationTask_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "failed"
-            AcceptFailure
-            ( folding (concatOf drtrrsReplicationTasks)
-                . rtStatus
-                . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeReplicationTasksResponse_replicationTasks
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. replicationTask_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "modifying"
-            AcceptFailure
-            ( folding (concatOf drtrrsReplicationTasks)
-                . rtStatus
-                . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeReplicationTasksResponse_replicationTasks
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. replicationTask_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "testing"
-            AcceptFailure
-            ( folding (concatOf drtrrsReplicationTasks)
-                . rtStatus
-                . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeReplicationTasksResponse_replicationTasks
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. replicationTask_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "deleting"
-            AcceptFailure
-            ( folding (concatOf drtrrsReplicationTasks)
-                . rtStatus
-                . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeReplicationTasksResponse_replicationTasks
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. replicationTask_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             )
         ]
     }
 
 -- | Polls 'Network.AWS.DMS.DescribeReplicationInstances' every 15 seconds until a successful state is reached. An error is returned after 60 failed checks.
-replicationInstanceDeleted :: Wait DescribeReplicationInstances
-replicationInstanceDeleted =
-  Wait
-    { _waitName = "ReplicationInstanceDeleted",
-      _waitAttempts = 60,
-      _waitDelay = 15,
-      _waitAcceptors =
-        [ matchAny
+newReplicationInstanceDeleted :: Waiter.Wait DescribeReplicationInstances
+newReplicationInstanceDeleted =
+  Waiter.Wait
+    { Waiter._waitName =
+        "ReplicationInstanceDeleted",
+      Waiter._waitAttempts = 60,
+      Waiter._waitDelay = 15,
+      Waiter._waitAcceptors =
+        [ Waiter.matchAny
             "available"
-            AcceptFailure
-            ( folding (concatOf drirrrsReplicationInstances)
-                . riReplicationInstanceStatus
-                . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeReplicationInstancesResponse_replicationInstances
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. replicationInstance_replicationInstanceStatus
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchError "ResourceNotFoundFault" AcceptSuccess
+          Waiter.matchError
+            "ResourceNotFoundFault"
+            Waiter.AcceptSuccess
         ]
     }
 
 -- | Polls 'Network.AWS.DMS.DescribeReplicationTasks' every 15 seconds until a successful state is reached. An error is returned after 60 failed checks.
-replicationTaskReady :: Wait DescribeReplicationTasks
-replicationTaskReady =
-  Wait
-    { _waitName = "ReplicationTaskReady",
-      _waitAttempts = 60,
-      _waitDelay = 15,
-      _waitAcceptors =
-        [ matchAll
+newReplicationTaskReady :: Waiter.Wait DescribeReplicationTasks
+newReplicationTaskReady =
+  Waiter.Wait
+    { Waiter._waitName =
+        "ReplicationTaskReady",
+      Waiter._waitAttempts = 60,
+      Waiter._waitDelay = 15,
+      Waiter._waitAcceptors =
+        [ Waiter.matchAll
             "ready"
-            AcceptSuccess
-            ( folding (concatOf drtrrsReplicationTasks)
-                . rtStatus
-                . _Just
-                . to toTextCI
+            Waiter.AcceptSuccess
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeReplicationTasksResponse_replicationTasks
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. replicationTask_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "starting"
-            AcceptFailure
-            ( folding (concatOf drtrrsReplicationTasks)
-                . rtStatus
-                . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeReplicationTasksResponse_replicationTasks
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. replicationTask_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "running"
-            AcceptFailure
-            ( folding (concatOf drtrrsReplicationTasks)
-                . rtStatus
-                . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeReplicationTasksResponse_replicationTasks
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. replicationTask_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "stopping"
-            AcceptFailure
-            ( folding (concatOf drtrrsReplicationTasks)
-                . rtStatus
-                . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeReplicationTasksResponse_replicationTasks
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. replicationTask_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "stopped"
-            AcceptFailure
-            ( folding (concatOf drtrrsReplicationTasks)
-                . rtStatus
-                . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeReplicationTasksResponse_replicationTasks
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. replicationTask_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "failed"
-            AcceptFailure
-            ( folding (concatOf drtrrsReplicationTasks)
-                . rtStatus
-                . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeReplicationTasksResponse_replicationTasks
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. replicationTask_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "modifying"
-            AcceptFailure
-            ( folding (concatOf drtrrsReplicationTasks)
-                . rtStatus
-                . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeReplicationTasksResponse_replicationTasks
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. replicationTask_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "testing"
-            AcceptFailure
-            ( folding (concatOf drtrrsReplicationTasks)
-                . rtStatus
-                . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeReplicationTasksResponse_replicationTasks
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. replicationTask_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "deleting"
-            AcceptFailure
-            ( folding (concatOf drtrrsReplicationTasks)
-                . rtStatus
-                . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeReplicationTasksResponse_replicationTasks
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. replicationTask_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             )
         ]
     }
 
 -- | Polls 'Network.AWS.DMS.DescribeConnections' every 5 seconds until a successful state is reached. An error is returned after 60 failed checks.
-testConnectionSucceeds :: Wait DescribeConnections
-testConnectionSucceeds =
-  Wait
-    { _waitName = "TestConnectionSucceeds",
-      _waitAttempts = 60,
-      _waitDelay = 5,
-      _waitAcceptors =
-        [ matchAll
+newTestConnectionSucceeds :: Waiter.Wait DescribeConnections
+newTestConnectionSucceeds =
+  Waiter.Wait
+    { Waiter._waitName =
+        "TestConnectionSucceeds",
+      Waiter._waitAttempts = 60,
+      Waiter._waitDelay = 5,
+      Waiter._waitAcceptors =
+        [ Waiter.matchAll
             "successful"
-            AcceptSuccess
-            ( folding (concatOf desersConnections)
-                . cStatus
-                . _Just
-                . to toTextCI
+            Waiter.AcceptSuccess
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeConnectionsResponse_connections
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. connection_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "failed"
-            AcceptFailure
-            ( folding (concatOf desersConnections)
-                . cStatus
-                . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeConnectionsResponse_connections
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. connection_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             )
         ]
     }
 
 -- | Polls 'Network.AWS.DMS.DescribeReplicationTasks' every 15 seconds until a successful state is reached. An error is returned after 60 failed checks.
-replicationTaskStopped :: Wait DescribeReplicationTasks
-replicationTaskStopped =
-  Wait
-    { _waitName = "ReplicationTaskStopped",
-      _waitAttempts = 60,
-      _waitDelay = 15,
-      _waitAcceptors =
-        [ matchAll
+newReplicationTaskStopped :: Waiter.Wait DescribeReplicationTasks
+newReplicationTaskStopped =
+  Waiter.Wait
+    { Waiter._waitName =
+        "ReplicationTaskStopped",
+      Waiter._waitAttempts = 60,
+      Waiter._waitDelay = 15,
+      Waiter._waitAcceptors =
+        [ Waiter.matchAll
             "stopped"
-            AcceptSuccess
-            ( folding (concatOf drtrrsReplicationTasks)
-                . rtStatus
-                . _Just
-                . to toTextCI
+            Waiter.AcceptSuccess
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeReplicationTasksResponse_replicationTasks
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. replicationTask_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "ready"
-            AcceptFailure
-            ( folding (concatOf drtrrsReplicationTasks)
-                . rtStatus
-                . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeReplicationTasksResponse_replicationTasks
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. replicationTask_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "creating"
-            AcceptFailure
-            ( folding (concatOf drtrrsReplicationTasks)
-                . rtStatus
-                . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeReplicationTasksResponse_replicationTasks
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. replicationTask_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "starting"
-            AcceptFailure
-            ( folding (concatOf drtrrsReplicationTasks)
-                . rtStatus
-                . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeReplicationTasksResponse_replicationTasks
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. replicationTask_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "running"
-            AcceptFailure
-            ( folding (concatOf drtrrsReplicationTasks)
-                . rtStatus
-                . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeReplicationTasksResponse_replicationTasks
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. replicationTask_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "failed"
-            AcceptFailure
-            ( folding (concatOf drtrrsReplicationTasks)
-                . rtStatus
-                . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeReplicationTasksResponse_replicationTasks
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. replicationTask_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "modifying"
-            AcceptFailure
-            ( folding (concatOf drtrrsReplicationTasks)
-                . rtStatus
-                . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeReplicationTasksResponse_replicationTasks
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. replicationTask_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "testing"
-            AcceptFailure
-            ( folding (concatOf drtrrsReplicationTasks)
-                . rtStatus
-                . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeReplicationTasksResponse_replicationTasks
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. replicationTask_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             ),
-          matchAny
+          Waiter.matchAny
             "deleting"
-            AcceptFailure
-            ( folding (concatOf drtrrsReplicationTasks)
-                . rtStatus
-                . _Just
-                . to toTextCI
+            Waiter.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeReplicationTasksResponse_replicationTasks
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. replicationTask_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
             )
         ]
     }

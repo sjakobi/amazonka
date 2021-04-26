@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,145 +21,163 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Adds metadata tags to an AWS DMS resource, including replication instance, endpoint, security group, and migration task. These tags can also be used with cost allocation reporting to track cost associated with DMS resources, or used in a Condition statement in an IAM policy for DMS. For more information, see <https://docs.aws.amazon.com/dms/latest/APIReference/API_Tag.html @Tag@ > data type description.
+-- Adds metadata tags to an AWS DMS resource, including replication
+-- instance, endpoint, security group, and migration task. These tags can
+-- also be used with cost allocation reporting to track cost associated
+-- with DMS resources, or used in a Condition statement in an IAM policy
+-- for DMS. For more information, see
+-- <https://docs.aws.amazon.com/dms/latest/APIReference/API_Tag.html Tag>
+-- data type description.
 module Network.AWS.DMS.AddTagsToResource
   ( -- * Creating a Request
-    addTagsToResource,
-    AddTagsToResource,
+    AddTagsToResource (..),
+    newAddTagsToResource,
 
     -- * Request Lenses
-    attrResourceARN,
-    attrTags,
+    addTagsToResource_resourceArn,
+    addTagsToResource_tags,
 
     -- * Destructuring the Response
-    addTagsToResourceResponse,
-    AddTagsToResourceResponse,
+    AddTagsToResourceResponse (..),
+    newAddTagsToResourceResponse,
 
     -- * Response Lenses
-    attrrrsResponseStatus,
+    addTagsToResourceResponse_httpStatus,
   )
 where
 
 import Network.AWS.DMS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Associates a set of tags with an AWS DMS resource.
 --
---
---
--- /See:/ 'addTagsToResource' smart constructor.
+-- /See:/ 'newAddTagsToResource' smart constructor.
 data AddTagsToResource = AddTagsToResource'
-  { _attrResourceARN ::
-      !Text,
-    _attrTags :: ![Tag]
+  { -- | Identifies the AWS DMS resource to which tags should be added. The value
+    -- for this parameter is an Amazon Resource Name (ARN).
+    --
+    -- For AWS DMS, you can tag a replication instance, an endpoint, or a
+    -- replication task.
+    resourceArn :: Prelude.Text,
+    -- | One or more tags to be assigned to the resource.
+    tags :: [Tag]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AddTagsToResource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AddTagsToResource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'attrResourceARN' - Identifies the AWS DMS resource to which tags should be added. The value for this parameter is an Amazon Resource Name (ARN). For AWS DMS, you can tag a replication instance, an endpoint, or a replication task.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'attrTags' - One or more tags to be assigned to the resource.
-addTagsToResource ::
-  -- | 'attrResourceARN'
-  Text ->
+-- 'resourceArn', 'addTagsToResource_resourceArn' - Identifies the AWS DMS resource to which tags should be added. The value
+-- for this parameter is an Amazon Resource Name (ARN).
+--
+-- For AWS DMS, you can tag a replication instance, an endpoint, or a
+-- replication task.
+--
+-- 'tags', 'addTagsToResource_tags' - One or more tags to be assigned to the resource.
+newAddTagsToResource ::
+  -- | 'resourceArn'
+  Prelude.Text ->
   AddTagsToResource
-addTagsToResource pResourceARN_ =
+newAddTagsToResource pResourceArn_ =
   AddTagsToResource'
-    { _attrResourceARN =
-        pResourceARN_,
-      _attrTags = mempty
+    { resourceArn = pResourceArn_,
+      tags = Prelude.mempty
     }
 
--- | Identifies the AWS DMS resource to which tags should be added. The value for this parameter is an Amazon Resource Name (ARN). For AWS DMS, you can tag a replication instance, an endpoint, or a replication task.
-attrResourceARN :: Lens' AddTagsToResource Text
-attrResourceARN = lens _attrResourceARN (\s a -> s {_attrResourceARN = a})
+-- | Identifies the AWS DMS resource to which tags should be added. The value
+-- for this parameter is an Amazon Resource Name (ARN).
+--
+-- For AWS DMS, you can tag a replication instance, an endpoint, or a
+-- replication task.
+addTagsToResource_resourceArn :: Lens.Lens' AddTagsToResource Prelude.Text
+addTagsToResource_resourceArn = Lens.lens (\AddTagsToResource' {resourceArn} -> resourceArn) (\s@AddTagsToResource' {} a -> s {resourceArn = a} :: AddTagsToResource)
 
 -- | One or more tags to be assigned to the resource.
-attrTags :: Lens' AddTagsToResource [Tag]
-attrTags = lens _attrTags (\s a -> s {_attrTags = a}) . _Coerce
+addTagsToResource_tags :: Lens.Lens' AddTagsToResource [Tag]
+addTagsToResource_tags = Lens.lens (\AddTagsToResource' {tags} -> tags) (\s@AddTagsToResource' {} a -> s {tags = a} :: AddTagsToResource) Prelude.. Prelude._Coerce
 
-instance AWSRequest AddTagsToResource where
+instance Prelude.AWSRequest AddTagsToResource where
   type Rs AddTagsToResource = AddTagsToResourceResponse
-  request = postJSON dms
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          AddTagsToResourceResponse' <$> (pure (fromEnum s))
+          AddTagsToResourceResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable AddTagsToResource
+instance Prelude.Hashable AddTagsToResource
 
-instance NFData AddTagsToResource
+instance Prelude.NFData AddTagsToResource
 
-instance ToHeaders AddTagsToResource where
+instance Prelude.ToHeaders AddTagsToResource where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AmazonDMSv20160101.AddTagsToResource" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AmazonDMSv20160101.AddTagsToResource" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON AddTagsToResource where
+instance Prelude.ToJSON AddTagsToResource where
   toJSON AddTagsToResource' {..} =
-    object
-      ( catMaybes
-          [ Just ("ResourceArn" .= _attrResourceARN),
-            Just ("Tags" .= _attrTags)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("ResourceArn" Prelude..= resourceArn),
+            Prelude.Just ("Tags" Prelude..= tags)
           ]
       )
 
-instance ToPath AddTagsToResource where
-  toPath = const "/"
+instance Prelude.ToPath AddTagsToResource where
+  toPath = Prelude.const "/"
 
-instance ToQuery AddTagsToResource where
-  toQuery = const mempty
+instance Prelude.ToQuery AddTagsToResource where
+  toQuery = Prelude.const Prelude.mempty
 
 -- |
 --
---
---
--- /See:/ 'addTagsToResourceResponse' smart constructor.
-newtype AddTagsToResourceResponse = AddTagsToResourceResponse'
-  { _attrrrsResponseStatus ::
-      Int
+-- /See:/ 'newAddTagsToResourceResponse' smart constructor.
+data AddTagsToResourceResponse = AddTagsToResourceResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AddTagsToResourceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AddTagsToResourceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'attrrrsResponseStatus' - -- | The response status code.
-addTagsToResourceResponse ::
-  -- | 'attrrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'addTagsToResourceResponse_httpStatus' - The response's http status code.
+newAddTagsToResourceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   AddTagsToResourceResponse
-addTagsToResourceResponse pResponseStatus_ =
+newAddTagsToResourceResponse pHttpStatus_ =
   AddTagsToResourceResponse'
-    { _attrrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-attrrrsResponseStatus :: Lens' AddTagsToResourceResponse Int
-attrrrsResponseStatus = lens _attrrrsResponseStatus (\s a -> s {_attrrrsResponseStatus = a})
+-- | The response's http status code.
+addTagsToResourceResponse_httpStatus :: Lens.Lens' AddTagsToResourceResponse Prelude.Int
+addTagsToResourceResponse_httpStatus = Lens.lens (\AddTagsToResourceResponse' {httpStatus} -> httpStatus) (\s@AddTagsToResourceResponse' {} a -> s {httpStatus = a} :: AddTagsToResourceResponse)
 
-instance NFData AddTagsToResourceResponse
+instance Prelude.NFData AddTagsToResourceResponse

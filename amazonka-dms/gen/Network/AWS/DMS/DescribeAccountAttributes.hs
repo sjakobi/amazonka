@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,150 +21,182 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists all of the AWS DMS attributes for a customer account. These attributes include AWS DMS quotas for the account and a unique account identifier in a particular DMS region. DMS quotas include a list of resource quotas supported by the account, such as the number of replication instances allowed. The description for each resource quota, includes the quota name, current usage toward that quota, and the quota's maximum value. DMS uses the unique account identifier to name each artifact used by DMS in the given region.
---
+-- Lists all of the AWS DMS attributes for a customer account. These
+-- attributes include AWS DMS quotas for the account and a unique account
+-- identifier in a particular DMS region. DMS quotas include a list of
+-- resource quotas supported by the account, such as the number of
+-- replication instances allowed. The description for each resource quota,
+-- includes the quota name, current usage toward that quota, and the
+-- quota\'s maximum value. DMS uses the unique account identifier to name
+-- each artifact used by DMS in the given region.
 --
 -- This command does not take any parameters.
 module Network.AWS.DMS.DescribeAccountAttributes
   ( -- * Creating a Request
-    describeAccountAttributes,
-    DescribeAccountAttributes,
+    DescribeAccountAttributes (..),
+    newDescribeAccountAttributes,
 
     -- * Destructuring the Response
-    describeAccountAttributesResponse,
-    DescribeAccountAttributesResponse,
+    DescribeAccountAttributesResponse (..),
+    newDescribeAccountAttributesResponse,
 
     -- * Response Lenses
-    daarrsAccountQuotas,
-    daarrsUniqueAccountIdentifier,
-    daarrsResponseStatus,
+    describeAccountAttributesResponse_accountQuotas,
+    describeAccountAttributesResponse_uniqueAccountIdentifier,
+    describeAccountAttributesResponse_httpStatus,
   )
 where
 
 import Network.AWS.DMS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DMS.Types.AccountQuota
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- |
 --
---
---
--- /See:/ 'describeAccountAttributes' smart constructor.
+-- /See:/ 'newDescribeAccountAttributes' smart constructor.
 data DescribeAccountAttributes = DescribeAccountAttributes'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeAccountAttributes' with the minimum fields required to make a request.
-describeAccountAttributes ::
+-- |
+-- Create a value of 'DescribeAccountAttributes' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDescribeAccountAttributes ::
   DescribeAccountAttributes
-describeAccountAttributes =
+newDescribeAccountAttributes =
   DescribeAccountAttributes'
 
-instance AWSRequest DescribeAccountAttributes where
+instance Prelude.AWSRequest DescribeAccountAttributes where
   type
     Rs DescribeAccountAttributes =
       DescribeAccountAttributesResponse
-  request = postJSON dms
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeAccountAttributesResponse'
-            <$> (x .?> "AccountQuotas" .!@ mempty)
-            <*> (x .?> "UniqueAccountIdentifier")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "AccountQuotas"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "UniqueAccountIdentifier")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeAccountAttributes
+instance Prelude.Hashable DescribeAccountAttributes
 
-instance NFData DescribeAccountAttributes
+instance Prelude.NFData DescribeAccountAttributes
 
-instance ToHeaders DescribeAccountAttributes where
+instance Prelude.ToHeaders DescribeAccountAttributes where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AmazonDMSv20160101.DescribeAccountAttributes" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AmazonDMSv20160101.DescribeAccountAttributes" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeAccountAttributes where
-  toJSON = const (Object mempty)
+instance Prelude.ToJSON DescribeAccountAttributes where
+  toJSON =
+    Prelude.const (Prelude.Object Prelude.mempty)
 
-instance ToPath DescribeAccountAttributes where
-  toPath = const "/"
+instance Prelude.ToPath DescribeAccountAttributes where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeAccountAttributes where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeAccountAttributes where
+  toQuery = Prelude.const Prelude.mempty
 
 -- |
 --
---
---
--- /See:/ 'describeAccountAttributesResponse' smart constructor.
+-- /See:/ 'newDescribeAccountAttributesResponse' smart constructor.
 data DescribeAccountAttributesResponse = DescribeAccountAttributesResponse'
-  { _daarrsAccountQuotas ::
-      !( Maybe
-           [AccountQuota]
-       ),
-    _daarrsUniqueAccountIdentifier ::
-      !( Maybe
-           Text
-       ),
-    _daarrsResponseStatus ::
-      !Int
+  { -- | Account quota information.
+    accountQuotas :: Prelude.Maybe [AccountQuota],
+    -- | A unique AWS DMS identifier for an account in a particular AWS Region.
+    -- The value of this identifier has the following format: @c99999999999@.
+    -- DMS uses this identifier to name artifacts. For example, DMS uses this
+    -- identifier to name the default Amazon S3 bucket for storing task
+    -- assessment reports in a given AWS Region. The format of this S3 bucket
+    -- name is the following: @dms-AccountNumber-UniqueAccountIdentifier.@ Here
+    -- is an example name for this default S3 bucket:
+    -- @dms-111122223333-c44445555666@.
+    --
+    -- AWS DMS supports the @UniqueAccountIdentifier@ parameter in versions
+    -- 3.1.4 and later.
+    uniqueAccountIdentifier :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeAccountAttributesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeAccountAttributesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'daarrsAccountQuotas' - Account quota information.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'daarrsUniqueAccountIdentifier' - A unique AWS DMS identifier for an account in a particular AWS Region. The value of this identifier has the following format: @c99999999999@ . DMS uses this identifier to name artifacts. For example, DMS uses this identifier to name the default Amazon S3 bucket for storing task assessment reports in a given AWS Region. The format of this S3 bucket name is the following: @dms-/AccountNumber/ -/UniqueAccountIdentifier/ .@ Here is an example name for this default S3 bucket: @dms-111122223333-c44445555666@ .
+-- 'accountQuotas', 'describeAccountAttributesResponse_accountQuotas' - Account quota information.
 --
--- * 'daarrsResponseStatus' - -- | The response status code.
-describeAccountAttributesResponse ::
-  -- | 'daarrsResponseStatus'
-  Int ->
+-- 'uniqueAccountIdentifier', 'describeAccountAttributesResponse_uniqueAccountIdentifier' - A unique AWS DMS identifier for an account in a particular AWS Region.
+-- The value of this identifier has the following format: @c99999999999@.
+-- DMS uses this identifier to name artifacts. For example, DMS uses this
+-- identifier to name the default Amazon S3 bucket for storing task
+-- assessment reports in a given AWS Region. The format of this S3 bucket
+-- name is the following: @dms-AccountNumber-UniqueAccountIdentifier.@ Here
+-- is an example name for this default S3 bucket:
+-- @dms-111122223333-c44445555666@.
+--
+-- AWS DMS supports the @UniqueAccountIdentifier@ parameter in versions
+-- 3.1.4 and later.
+--
+-- 'httpStatus', 'describeAccountAttributesResponse_httpStatus' - The response's http status code.
+newDescribeAccountAttributesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeAccountAttributesResponse
-describeAccountAttributesResponse pResponseStatus_ =
+newDescribeAccountAttributesResponse pHttpStatus_ =
   DescribeAccountAttributesResponse'
-    { _daarrsAccountQuotas =
-        Nothing,
-      _daarrsUniqueAccountIdentifier = Nothing,
-      _daarrsResponseStatus = pResponseStatus_
+    { accountQuotas =
+        Prelude.Nothing,
+      uniqueAccountIdentifier =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Account quota information.
-daarrsAccountQuotas :: Lens' DescribeAccountAttributesResponse [AccountQuota]
-daarrsAccountQuotas = lens _daarrsAccountQuotas (\s a -> s {_daarrsAccountQuotas = a}) . _Default . _Coerce
+describeAccountAttributesResponse_accountQuotas :: Lens.Lens' DescribeAccountAttributesResponse (Prelude.Maybe [AccountQuota])
+describeAccountAttributesResponse_accountQuotas = Lens.lens (\DescribeAccountAttributesResponse' {accountQuotas} -> accountQuotas) (\s@DescribeAccountAttributesResponse' {} a -> s {accountQuotas = a} :: DescribeAccountAttributesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | A unique AWS DMS identifier for an account in a particular AWS Region. The value of this identifier has the following format: @c99999999999@ . DMS uses this identifier to name artifacts. For example, DMS uses this identifier to name the default Amazon S3 bucket for storing task assessment reports in a given AWS Region. The format of this S3 bucket name is the following: @dms-/AccountNumber/ -/UniqueAccountIdentifier/ .@ Here is an example name for this default S3 bucket: @dms-111122223333-c44445555666@ .
-daarrsUniqueAccountIdentifier :: Lens' DescribeAccountAttributesResponse (Maybe Text)
-daarrsUniqueAccountIdentifier = lens _daarrsUniqueAccountIdentifier (\s a -> s {_daarrsUniqueAccountIdentifier = a})
+-- | A unique AWS DMS identifier for an account in a particular AWS Region.
+-- The value of this identifier has the following format: @c99999999999@.
+-- DMS uses this identifier to name artifacts. For example, DMS uses this
+-- identifier to name the default Amazon S3 bucket for storing task
+-- assessment reports in a given AWS Region. The format of this S3 bucket
+-- name is the following: @dms-AccountNumber-UniqueAccountIdentifier.@ Here
+-- is an example name for this default S3 bucket:
+-- @dms-111122223333-c44445555666@.
+--
+-- AWS DMS supports the @UniqueAccountIdentifier@ parameter in versions
+-- 3.1.4 and later.
+describeAccountAttributesResponse_uniqueAccountIdentifier :: Lens.Lens' DescribeAccountAttributesResponse (Prelude.Maybe Prelude.Text)
+describeAccountAttributesResponse_uniqueAccountIdentifier = Lens.lens (\DescribeAccountAttributesResponse' {uniqueAccountIdentifier} -> uniqueAccountIdentifier) (\s@DescribeAccountAttributesResponse' {} a -> s {uniqueAccountIdentifier = a} :: DescribeAccountAttributesResponse)
 
--- | -- | The response status code.
-daarrsResponseStatus :: Lens' DescribeAccountAttributesResponse Int
-daarrsResponseStatus = lens _daarrsResponseStatus (\s a -> s {_daarrsResponseStatus = a})
+-- | The response's http status code.
+describeAccountAttributesResponse_httpStatus :: Lens.Lens' DescribeAccountAttributesResponse Prelude.Int
+describeAccountAttributesResponse_httpStatus = Lens.lens (\DescribeAccountAttributesResponse' {httpStatus} -> httpStatus) (\s@DescribeAccountAttributesResponse' {} a -> s {httpStatus = a} :: DescribeAccountAttributesResponse)
 
-instance NFData DescribeAccountAttributesResponse
+instance
+  Prelude.NFData
+    DescribeAccountAttributesResponse

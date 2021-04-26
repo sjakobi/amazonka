@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.DMS.Types.ReplicationEndpointTypeValue
   ( ReplicationEndpointTypeValue
       ( ..,
-        Source,
-        Target
+        ReplicationEndpointTypeValueSource,
+        ReplicationEndpointTypeValueTarget
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ReplicationEndpointTypeValue
-  = ReplicationEndpointTypeValue'
-      ( CI
-          Text
-      )
+newtype ReplicationEndpointTypeValue = ReplicationEndpointTypeValue'
+  { fromReplicationEndpointTypeValue ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Source :: ReplicationEndpointTypeValue
-pattern Source = ReplicationEndpointTypeValue' "source"
+pattern ReplicationEndpointTypeValueSource :: ReplicationEndpointTypeValue
+pattern ReplicationEndpointTypeValueSource = ReplicationEndpointTypeValue' "source"
 
-pattern Target :: ReplicationEndpointTypeValue
-pattern Target = ReplicationEndpointTypeValue' "target"
+pattern ReplicationEndpointTypeValueTarget :: ReplicationEndpointTypeValue
+pattern ReplicationEndpointTypeValueTarget = ReplicationEndpointTypeValue' "target"
 
 {-# COMPLETE
-  Source,
-  Target,
+  ReplicationEndpointTypeValueSource,
+  ReplicationEndpointTypeValueTarget,
   ReplicationEndpointTypeValue'
   #-}
 
-instance FromText ReplicationEndpointTypeValue where
-  parser = (ReplicationEndpointTypeValue' . mk) <$> takeText
+instance Prelude.FromText ReplicationEndpointTypeValue where
+  parser = ReplicationEndpointTypeValue' Prelude.<$> Prelude.takeText
 
-instance ToText ReplicationEndpointTypeValue where
-  toText (ReplicationEndpointTypeValue' ci) = original ci
+instance Prelude.ToText ReplicationEndpointTypeValue where
+  toText (ReplicationEndpointTypeValue' x) = x
 
-instance Hashable ReplicationEndpointTypeValue
+instance Prelude.Hashable ReplicationEndpointTypeValue
 
-instance NFData ReplicationEndpointTypeValue
+instance Prelude.NFData ReplicationEndpointTypeValue
 
-instance ToByteString ReplicationEndpointTypeValue
+instance Prelude.ToByteString ReplicationEndpointTypeValue
 
-instance ToQuery ReplicationEndpointTypeValue
+instance Prelude.ToQuery ReplicationEndpointTypeValue
 
-instance ToHeader ReplicationEndpointTypeValue
+instance Prelude.ToHeader ReplicationEndpointTypeValue
 
-instance ToJSON ReplicationEndpointTypeValue where
-  toJSON = toJSONText
+instance Prelude.ToJSON ReplicationEndpointTypeValue where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ReplicationEndpointTypeValue where
-  parseJSON = parseJSONText "ReplicationEndpointTypeValue"
+instance Prelude.FromJSON ReplicationEndpointTypeValue where
+  parseJSON = Prelude.parseJSONText "ReplicationEndpointTypeValue"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,52 +19,50 @@
 module Network.AWS.DMS.Types.ReleaseStatusValues
   ( ReleaseStatusValues
       ( ..,
-        Beta
+        ReleaseStatusValuesBeta
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ReleaseStatusValues
-  = ReleaseStatusValues'
-      ( CI
-          Text
-      )
+newtype ReleaseStatusValues = ReleaseStatusValues'
+  { fromReleaseStatusValues ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Beta :: ReleaseStatusValues
-pattern Beta = ReleaseStatusValues' "beta"
+pattern ReleaseStatusValuesBeta :: ReleaseStatusValues
+pattern ReleaseStatusValuesBeta = ReleaseStatusValues' "beta"
 
 {-# COMPLETE
-  Beta,
+  ReleaseStatusValuesBeta,
   ReleaseStatusValues'
   #-}
 
-instance FromText ReleaseStatusValues where
-  parser = (ReleaseStatusValues' . mk) <$> takeText
+instance Prelude.FromText ReleaseStatusValues where
+  parser = ReleaseStatusValues' Prelude.<$> Prelude.takeText
 
-instance ToText ReleaseStatusValues where
-  toText (ReleaseStatusValues' ci) = original ci
+instance Prelude.ToText ReleaseStatusValues where
+  toText (ReleaseStatusValues' x) = x
 
-instance Hashable ReleaseStatusValues
+instance Prelude.Hashable ReleaseStatusValues
 
-instance NFData ReleaseStatusValues
+instance Prelude.NFData ReleaseStatusValues
 
-instance ToByteString ReleaseStatusValues
+instance Prelude.ToByteString ReleaseStatusValues
 
-instance ToQuery ReleaseStatusValues
+instance Prelude.ToQuery ReleaseStatusValues
 
-instance ToHeader ReleaseStatusValues
+instance Prelude.ToHeader ReleaseStatusValues
 
-instance FromJSON ReleaseStatusValues where
-  parseJSON = parseJSONText "ReleaseStatusValues"
+instance Prelude.FromJSON ReleaseStatusValues where
+  parseJSON = Prelude.parseJSONText "ReleaseStatusValues"

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,170 +23,183 @@
 --
 -- Cancels a single premigration assessment run.
 --
---
--- This operation prevents any individual assessments from running if they haven't started running. It also attempts to cancel any individual assessments that are currently running.
+-- This operation prevents any individual assessments from running if they
+-- haven\'t started running. It also attempts to cancel any individual
+-- assessments that are currently running.
 module Network.AWS.DMS.CancelReplicationTaskAssessmentRun
   ( -- * Creating a Request
-    cancelReplicationTaskAssessmentRun,
-    CancelReplicationTaskAssessmentRun,
+    CancelReplicationTaskAssessmentRun (..),
+    newCancelReplicationTaskAssessmentRun,
 
     -- * Request Lenses
-    crtarReplicationTaskAssessmentRunARN,
+    cancelReplicationTaskAssessmentRun_replicationTaskAssessmentRunArn,
 
     -- * Destructuring the Response
-    cancelReplicationTaskAssessmentRunResponse,
-    CancelReplicationTaskAssessmentRunResponse,
+    CancelReplicationTaskAssessmentRunResponse (..),
+    newCancelReplicationTaskAssessmentRunResponse,
 
     -- * Response Lenses
-    crtarrrsReplicationTaskAssessmentRun,
-    crtarrrsResponseStatus,
+    cancelReplicationTaskAssessmentRunResponse_replicationTaskAssessmentRun,
+    cancelReplicationTaskAssessmentRunResponse_httpStatus,
   )
 where
 
 import Network.AWS.DMS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DMS.Types.ReplicationTaskAssessmentRun
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- |
 --
---
---
--- /See:/ 'cancelReplicationTaskAssessmentRun' smart constructor.
-newtype CancelReplicationTaskAssessmentRun = CancelReplicationTaskAssessmentRun'
-  { _crtarReplicationTaskAssessmentRunARN ::
-      Text
+-- /See:/ 'newCancelReplicationTaskAssessmentRun' smart constructor.
+data CancelReplicationTaskAssessmentRun = CancelReplicationTaskAssessmentRun'
+  { -- | Amazon Resource Name (ARN) of the premigration assessment run to be
+    -- canceled.
+    replicationTaskAssessmentRunArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CancelReplicationTaskAssessmentRun' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CancelReplicationTaskAssessmentRun' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'crtarReplicationTaskAssessmentRunARN' - Amazon Resource Name (ARN) of the premigration assessment run to be canceled.
-cancelReplicationTaskAssessmentRun ::
-  -- | 'crtarReplicationTaskAssessmentRunARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'replicationTaskAssessmentRunArn', 'cancelReplicationTaskAssessmentRun_replicationTaskAssessmentRunArn' - Amazon Resource Name (ARN) of the premigration assessment run to be
+-- canceled.
+newCancelReplicationTaskAssessmentRun ::
+  -- | 'replicationTaskAssessmentRunArn'
+  Prelude.Text ->
   CancelReplicationTaskAssessmentRun
-cancelReplicationTaskAssessmentRun
-  pReplicationTaskAssessmentRunARN_ =
+newCancelReplicationTaskAssessmentRun
+  pReplicationTaskAssessmentRunArn_ =
     CancelReplicationTaskAssessmentRun'
-      { _crtarReplicationTaskAssessmentRunARN =
-          pReplicationTaskAssessmentRunARN_
+      { replicationTaskAssessmentRunArn =
+          pReplicationTaskAssessmentRunArn_
       }
 
--- | Amazon Resource Name (ARN) of the premigration assessment run to be canceled.
-crtarReplicationTaskAssessmentRunARN :: Lens' CancelReplicationTaskAssessmentRun Text
-crtarReplicationTaskAssessmentRunARN = lens _crtarReplicationTaskAssessmentRunARN (\s a -> s {_crtarReplicationTaskAssessmentRunARN = a})
+-- | Amazon Resource Name (ARN) of the premigration assessment run to be
+-- canceled.
+cancelReplicationTaskAssessmentRun_replicationTaskAssessmentRunArn :: Lens.Lens' CancelReplicationTaskAssessmentRun Prelude.Text
+cancelReplicationTaskAssessmentRun_replicationTaskAssessmentRunArn = Lens.lens (\CancelReplicationTaskAssessmentRun' {replicationTaskAssessmentRunArn} -> replicationTaskAssessmentRunArn) (\s@CancelReplicationTaskAssessmentRun' {} a -> s {replicationTaskAssessmentRunArn = a} :: CancelReplicationTaskAssessmentRun)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     CancelReplicationTaskAssessmentRun
   where
   type
     Rs CancelReplicationTaskAssessmentRun =
       CancelReplicationTaskAssessmentRunResponse
-  request = postJSON dms
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CancelReplicationTaskAssessmentRunResponse'
-            <$> (x .?> "ReplicationTaskAssessmentRun")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ReplicationTaskAssessmentRun")
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CancelReplicationTaskAssessmentRun
+instance
+  Prelude.Hashable
+    CancelReplicationTaskAssessmentRun
 
-instance NFData CancelReplicationTaskAssessmentRun
+instance
+  Prelude.NFData
+    CancelReplicationTaskAssessmentRun
 
-instance ToHeaders CancelReplicationTaskAssessmentRun where
+instance
+  Prelude.ToHeaders
+    CancelReplicationTaskAssessmentRun
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AmazonDMSv20160101.CancelReplicationTaskAssessmentRun" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AmazonDMSv20160101.CancelReplicationTaskAssessmentRun" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CancelReplicationTaskAssessmentRun where
+instance
+  Prelude.ToJSON
+    CancelReplicationTaskAssessmentRun
+  where
   toJSON CancelReplicationTaskAssessmentRun' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "ReplicationTaskAssessmentRunArn"
-                  .= _crtarReplicationTaskAssessmentRunARN
+                  Prelude..= replicationTaskAssessmentRunArn
               )
           ]
       )
 
-instance ToPath CancelReplicationTaskAssessmentRun where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    CancelReplicationTaskAssessmentRun
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery CancelReplicationTaskAssessmentRun where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    CancelReplicationTaskAssessmentRun
+  where
+  toQuery = Prelude.const Prelude.mempty
 
 -- |
 --
---
---
--- /See:/ 'cancelReplicationTaskAssessmentRunResponse' smart constructor.
+-- /See:/ 'newCancelReplicationTaskAssessmentRunResponse' smart constructor.
 data CancelReplicationTaskAssessmentRunResponse = CancelReplicationTaskAssessmentRunResponse'
-  { _crtarrrsReplicationTaskAssessmentRun ::
-      !( Maybe
-           ReplicationTaskAssessmentRun
-       ),
-    _crtarrrsResponseStatus ::
-      !Int
+  { -- | The @ReplicationTaskAssessmentRun@ object for the canceled assessment
+    -- run.
+    replicationTaskAssessmentRun :: Prelude.Maybe ReplicationTaskAssessmentRun,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CancelReplicationTaskAssessmentRunResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CancelReplicationTaskAssessmentRunResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'crtarrrsReplicationTaskAssessmentRun' - The @ReplicationTaskAssessmentRun@ object for the canceled assessment run.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'crtarrrsResponseStatus' - -- | The response status code.
-cancelReplicationTaskAssessmentRunResponse ::
-  -- | 'crtarrrsResponseStatus'
-  Int ->
+-- 'replicationTaskAssessmentRun', 'cancelReplicationTaskAssessmentRunResponse_replicationTaskAssessmentRun' - The @ReplicationTaskAssessmentRun@ object for the canceled assessment
+-- run.
+--
+-- 'httpStatus', 'cancelReplicationTaskAssessmentRunResponse_httpStatus' - The response's http status code.
+newCancelReplicationTaskAssessmentRunResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CancelReplicationTaskAssessmentRunResponse
-cancelReplicationTaskAssessmentRunResponse
-  pResponseStatus_ =
+newCancelReplicationTaskAssessmentRunResponse
+  pHttpStatus_ =
     CancelReplicationTaskAssessmentRunResponse'
-      { _crtarrrsReplicationTaskAssessmentRun =
-          Nothing,
-        _crtarrrsResponseStatus =
-          pResponseStatus_
+      { replicationTaskAssessmentRun =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
--- | The @ReplicationTaskAssessmentRun@ object for the canceled assessment run.
-crtarrrsReplicationTaskAssessmentRun :: Lens' CancelReplicationTaskAssessmentRunResponse (Maybe ReplicationTaskAssessmentRun)
-crtarrrsReplicationTaskAssessmentRun = lens _crtarrrsReplicationTaskAssessmentRun (\s a -> s {_crtarrrsReplicationTaskAssessmentRun = a})
+-- | The @ReplicationTaskAssessmentRun@ object for the canceled assessment
+-- run.
+cancelReplicationTaskAssessmentRunResponse_replicationTaskAssessmentRun :: Lens.Lens' CancelReplicationTaskAssessmentRunResponse (Prelude.Maybe ReplicationTaskAssessmentRun)
+cancelReplicationTaskAssessmentRunResponse_replicationTaskAssessmentRun = Lens.lens (\CancelReplicationTaskAssessmentRunResponse' {replicationTaskAssessmentRun} -> replicationTaskAssessmentRun) (\s@CancelReplicationTaskAssessmentRunResponse' {} a -> s {replicationTaskAssessmentRun = a} :: CancelReplicationTaskAssessmentRunResponse)
 
--- | -- | The response status code.
-crtarrrsResponseStatus :: Lens' CancelReplicationTaskAssessmentRunResponse Int
-crtarrrsResponseStatus = lens _crtarrrsResponseStatus (\s a -> s {_crtarrrsResponseStatus = a})
+-- | The response's http status code.
+cancelReplicationTaskAssessmentRunResponse_httpStatus :: Lens.Lens' CancelReplicationTaskAssessmentRunResponse Prelude.Int
+cancelReplicationTaskAssessmentRunResponse_httpStatus = Lens.lens (\CancelReplicationTaskAssessmentRunResponse' {httpStatus} -> httpStatus) (\s@CancelReplicationTaskAssessmentRunResponse' {} a -> s {httpStatus = a} :: CancelReplicationTaskAssessmentRunResponse)
 
 instance
-  NFData
+  Prelude.NFData
     CancelReplicationTaskAssessmentRunResponse

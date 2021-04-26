@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.DMS.Types.EncryptionModeValue
   ( EncryptionModeValue
       ( ..,
-        SseKMS,
-        SseS3
+        EncryptionModeValueSseKms,
+        EncryptionModeValueSseS3
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data EncryptionModeValue
-  = EncryptionModeValue'
-      ( CI
-          Text
-      )
+newtype EncryptionModeValue = EncryptionModeValue'
+  { fromEncryptionModeValue ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SseKMS :: EncryptionModeValue
-pattern SseKMS = EncryptionModeValue' "sse-kms"
+pattern EncryptionModeValueSseKms :: EncryptionModeValue
+pattern EncryptionModeValueSseKms = EncryptionModeValue' "sse-kms"
 
-pattern SseS3 :: EncryptionModeValue
-pattern SseS3 = EncryptionModeValue' "sse-s3"
+pattern EncryptionModeValueSseS3 :: EncryptionModeValue
+pattern EncryptionModeValueSseS3 = EncryptionModeValue' "sse-s3"
 
 {-# COMPLETE
-  SseKMS,
-  SseS3,
+  EncryptionModeValueSseKms,
+  EncryptionModeValueSseS3,
   EncryptionModeValue'
   #-}
 
-instance FromText EncryptionModeValue where
-  parser = (EncryptionModeValue' . mk) <$> takeText
+instance Prelude.FromText EncryptionModeValue where
+  parser = EncryptionModeValue' Prelude.<$> Prelude.takeText
 
-instance ToText EncryptionModeValue where
-  toText (EncryptionModeValue' ci) = original ci
+instance Prelude.ToText EncryptionModeValue where
+  toText (EncryptionModeValue' x) = x
 
-instance Hashable EncryptionModeValue
+instance Prelude.Hashable EncryptionModeValue
 
-instance NFData EncryptionModeValue
+instance Prelude.NFData EncryptionModeValue
 
-instance ToByteString EncryptionModeValue
+instance Prelude.ToByteString EncryptionModeValue
 
-instance ToQuery EncryptionModeValue
+instance Prelude.ToQuery EncryptionModeValue
 
-instance ToHeader EncryptionModeValue
+instance Prelude.ToHeader EncryptionModeValue
 
-instance ToJSON EncryptionModeValue where
-  toJSON = toJSONText
+instance Prelude.ToJSON EncryptionModeValue where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON EncryptionModeValue where
-  parseJSON = parseJSONText "EncryptionModeValue"
+instance Prelude.FromJSON EncryptionModeValue where
+  parseJSON = Prelude.parseJSONText "EncryptionModeValue"

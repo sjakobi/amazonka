@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,144 +24,184 @@
 -- Reloads the target database table with the source data.
 module Network.AWS.DMS.ReloadTables
   ( -- * Creating a Request
-    reloadTables,
-    ReloadTables,
+    ReloadTables (..),
+    newReloadTables,
 
     -- * Request Lenses
-    rReloadOption,
-    rReplicationTaskARN,
-    rTablesToReload,
+    reloadTables_reloadOption,
+    reloadTables_replicationTaskArn,
+    reloadTables_tablesToReload,
 
     -- * Destructuring the Response
-    reloadTablesResponse,
-    ReloadTablesResponse,
+    ReloadTablesResponse (..),
+    newReloadTablesResponse,
 
     -- * Response Lenses
-    rtrrsReplicationTaskARN,
-    rtrrsResponseStatus,
+    reloadTablesResponse_replicationTaskArn,
+    reloadTablesResponse_httpStatus,
   )
 where
 
 import Network.AWS.DMS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'reloadTables' smart constructor.
+-- | /See:/ 'newReloadTables' smart constructor.
 data ReloadTables = ReloadTables'
-  { _rReloadOption ::
-      !(Maybe ReloadOptionValue),
-    _rReplicationTaskARN :: !Text,
-    _rTablesToReload :: ![TableToReload]
+  { -- | Options for reload. Specify @data-reload@ to reload the data and
+    -- re-validate it if validation is enabled. Specify @validate-only@ to
+    -- re-validate the table. This option applies only when validation is
+    -- enabled for the task.
+    --
+    -- Valid values: data-reload, validate-only
+    --
+    -- Default value is data-reload.
+    reloadOption :: Prelude.Maybe ReloadOptionValue,
+    -- | The Amazon Resource Name (ARN) of the replication task.
+    replicationTaskArn :: Prelude.Text,
+    -- | The name and schema of the table to be reloaded.
+    tablesToReload :: [TableToReload]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReloadTables' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReloadTables' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rReloadOption' - Options for reload. Specify @data-reload@ to reload the data and re-validate it if validation is enabled. Specify @validate-only@ to re-validate the table. This option applies only when validation is enabled for the task.  Valid values: data-reload, validate-only Default value is data-reload.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rReplicationTaskARN' - The Amazon Resource Name (ARN) of the replication task.
+-- 'reloadOption', 'reloadTables_reloadOption' - Options for reload. Specify @data-reload@ to reload the data and
+-- re-validate it if validation is enabled. Specify @validate-only@ to
+-- re-validate the table. This option applies only when validation is
+-- enabled for the task.
 --
--- * 'rTablesToReload' - The name and schema of the table to be reloaded.
-reloadTables ::
-  -- | 'rReplicationTaskARN'
-  Text ->
+-- Valid values: data-reload, validate-only
+--
+-- Default value is data-reload.
+--
+-- 'replicationTaskArn', 'reloadTables_replicationTaskArn' - The Amazon Resource Name (ARN) of the replication task.
+--
+-- 'tablesToReload', 'reloadTables_tablesToReload' - The name and schema of the table to be reloaded.
+newReloadTables ::
+  -- | 'replicationTaskArn'
+  Prelude.Text ->
   ReloadTables
-reloadTables pReplicationTaskARN_ =
+newReloadTables pReplicationTaskArn_ =
   ReloadTables'
-    { _rReloadOption = Nothing,
-      _rReplicationTaskARN = pReplicationTaskARN_,
-      _rTablesToReload = mempty
+    { reloadOption = Prelude.Nothing,
+      replicationTaskArn = pReplicationTaskArn_,
+      tablesToReload = Prelude.mempty
     }
 
--- | Options for reload. Specify @data-reload@ to reload the data and re-validate it if validation is enabled. Specify @validate-only@ to re-validate the table. This option applies only when validation is enabled for the task.  Valid values: data-reload, validate-only Default value is data-reload.
-rReloadOption :: Lens' ReloadTables (Maybe ReloadOptionValue)
-rReloadOption = lens _rReloadOption (\s a -> s {_rReloadOption = a})
+-- | Options for reload. Specify @data-reload@ to reload the data and
+-- re-validate it if validation is enabled. Specify @validate-only@ to
+-- re-validate the table. This option applies only when validation is
+-- enabled for the task.
+--
+-- Valid values: data-reload, validate-only
+--
+-- Default value is data-reload.
+reloadTables_reloadOption :: Lens.Lens' ReloadTables (Prelude.Maybe ReloadOptionValue)
+reloadTables_reloadOption = Lens.lens (\ReloadTables' {reloadOption} -> reloadOption) (\s@ReloadTables' {} a -> s {reloadOption = a} :: ReloadTables)
 
 -- | The Amazon Resource Name (ARN) of the replication task.
-rReplicationTaskARN :: Lens' ReloadTables Text
-rReplicationTaskARN = lens _rReplicationTaskARN (\s a -> s {_rReplicationTaskARN = a})
+reloadTables_replicationTaskArn :: Lens.Lens' ReloadTables Prelude.Text
+reloadTables_replicationTaskArn = Lens.lens (\ReloadTables' {replicationTaskArn} -> replicationTaskArn) (\s@ReloadTables' {} a -> s {replicationTaskArn = a} :: ReloadTables)
 
 -- | The name and schema of the table to be reloaded.
-rTablesToReload :: Lens' ReloadTables [TableToReload]
-rTablesToReload = lens _rTablesToReload (\s a -> s {_rTablesToReload = a}) . _Coerce
+reloadTables_tablesToReload :: Lens.Lens' ReloadTables [TableToReload]
+reloadTables_tablesToReload = Lens.lens (\ReloadTables' {tablesToReload} -> tablesToReload) (\s@ReloadTables' {} a -> s {tablesToReload = a} :: ReloadTables) Prelude.. Prelude._Coerce
 
-instance AWSRequest ReloadTables where
+instance Prelude.AWSRequest ReloadTables where
   type Rs ReloadTables = ReloadTablesResponse
-  request = postJSON dms
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ReloadTablesResponse'
-            <$> (x .?> "ReplicationTaskArn") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ReplicationTaskArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ReloadTables
+instance Prelude.Hashable ReloadTables
 
-instance NFData ReloadTables
+instance Prelude.NFData ReloadTables
 
-instance ToHeaders ReloadTables where
+instance Prelude.ToHeaders ReloadTables where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AmazonDMSv20160101.ReloadTables" :: ByteString),
+              Prelude.=# ( "AmazonDMSv20160101.ReloadTables" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ReloadTables where
+instance Prelude.ToJSON ReloadTables where
   toJSON ReloadTables' {..} =
-    object
-      ( catMaybes
-          [ ("ReloadOption" .=) <$> _rReloadOption,
-            Just ("ReplicationTaskArn" .= _rReplicationTaskARN),
-            Just ("TablesToReload" .= _rTablesToReload)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ReloadOption" Prelude..=)
+              Prelude.<$> reloadOption,
+            Prelude.Just
+              ("ReplicationTaskArn" Prelude..= replicationTaskArn),
+            Prelude.Just
+              ("TablesToReload" Prelude..= tablesToReload)
           ]
       )
 
-instance ToPath ReloadTables where
-  toPath = const "/"
+instance Prelude.ToPath ReloadTables where
+  toPath = Prelude.const "/"
 
-instance ToQuery ReloadTables where
-  toQuery = const mempty
+instance Prelude.ToQuery ReloadTables where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'reloadTablesResponse' smart constructor.
+-- | /See:/ 'newReloadTablesResponse' smart constructor.
 data ReloadTablesResponse = ReloadTablesResponse'
-  { _rtrrsReplicationTaskARN ::
-      !(Maybe Text),
-    _rtrrsResponseStatus :: !Int
+  { -- | The Amazon Resource Name (ARN) of the replication task.
+    replicationTaskArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReloadTablesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReloadTablesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rtrrsReplicationTaskARN' - The Amazon Resource Name (ARN) of the replication task.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rtrrsResponseStatus' - -- | The response status code.
-reloadTablesResponse ::
-  -- | 'rtrrsResponseStatus'
-  Int ->
+-- 'replicationTaskArn', 'reloadTablesResponse_replicationTaskArn' - The Amazon Resource Name (ARN) of the replication task.
+--
+-- 'httpStatus', 'reloadTablesResponse_httpStatus' - The response's http status code.
+newReloadTablesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ReloadTablesResponse
-reloadTablesResponse pResponseStatus_ =
+newReloadTablesResponse pHttpStatus_ =
   ReloadTablesResponse'
-    { _rtrrsReplicationTaskARN =
-        Nothing,
-      _rtrrsResponseStatus = pResponseStatus_
+    { replicationTaskArn =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The Amazon Resource Name (ARN) of the replication task.
-rtrrsReplicationTaskARN :: Lens' ReloadTablesResponse (Maybe Text)
-rtrrsReplicationTaskARN = lens _rtrrsReplicationTaskARN (\s a -> s {_rtrrsReplicationTaskARN = a})
+reloadTablesResponse_replicationTaskArn :: Lens.Lens' ReloadTablesResponse (Prelude.Maybe Prelude.Text)
+reloadTablesResponse_replicationTaskArn = Lens.lens (\ReloadTablesResponse' {replicationTaskArn} -> replicationTaskArn) (\s@ReloadTablesResponse' {} a -> s {replicationTaskArn = a} :: ReloadTablesResponse)
 
--- | -- | The response status code.
-rtrrsResponseStatus :: Lens' ReloadTablesResponse Int
-rtrrsResponseStatus = lens _rtrrsResponseStatus (\s a -> s {_rtrrsResponseStatus = a})
+-- | The response's http status code.
+reloadTablesResponse_httpStatus :: Lens.Lens' ReloadTablesResponse Prelude.Int
+reloadTablesResponse_httpStatus = Lens.lens (\ReloadTablesResponse' {httpStatus} -> httpStatus) (\s@ReloadTablesResponse' {} a -> s {httpStatus = a} :: ReloadTablesResponse)
 
-instance NFData ReloadTablesResponse
+instance Prelude.NFData ReloadTablesResponse

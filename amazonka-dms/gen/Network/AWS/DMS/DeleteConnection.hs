@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,158 +24,164 @@
 -- Deletes the connection between a replication instance and an endpoint.
 module Network.AWS.DMS.DeleteConnection
   ( -- * Creating a Request
-    deleteConnection,
-    DeleteConnection,
+    DeleteConnection (..),
+    newDeleteConnection,
 
     -- * Request Lenses
-    dcEndpointARN,
-    dcReplicationInstanceARN,
+    deleteConnection_endpointArn,
+    deleteConnection_replicationInstanceArn,
 
     -- * Destructuring the Response
-    deleteConnectionResponse,
-    DeleteConnectionResponse,
+    DeleteConnectionResponse (..),
+    newDeleteConnectionResponse,
 
     -- * Response Lenses
-    drsConnection,
-    drsResponseStatus,
+    deleteConnectionResponse_connection,
+    deleteConnectionResponse_httpStatus,
   )
 where
 
 import Network.AWS.DMS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DMS.Types.Connection
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- |
 --
---
---
--- /See:/ 'deleteConnection' smart constructor.
+-- /See:/ 'newDeleteConnection' smart constructor.
 data DeleteConnection = DeleteConnection'
-  { _dcEndpointARN ::
-      !Text,
-    _dcReplicationInstanceARN :: !Text
+  { -- | The Amazon Resource Name (ARN) string that uniquely identifies the
+    -- endpoint.
+    endpointArn :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the replication instance.
+    replicationInstanceArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteConnection' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteConnection' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcEndpointARN' - The Amazon Resource Name (ARN) string that uniquely identifies the endpoint.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcReplicationInstanceARN' - The Amazon Resource Name (ARN) of the replication instance.
-deleteConnection ::
-  -- | 'dcEndpointARN'
-  Text ->
-  -- | 'dcReplicationInstanceARN'
-  Text ->
+-- 'endpointArn', 'deleteConnection_endpointArn' - The Amazon Resource Name (ARN) string that uniquely identifies the
+-- endpoint.
+--
+-- 'replicationInstanceArn', 'deleteConnection_replicationInstanceArn' - The Amazon Resource Name (ARN) of the replication instance.
+newDeleteConnection ::
+  -- | 'endpointArn'
+  Prelude.Text ->
+  -- | 'replicationInstanceArn'
+  Prelude.Text ->
   DeleteConnection
-deleteConnection
-  pEndpointARN_
-  pReplicationInstanceARN_ =
+newDeleteConnection
+  pEndpointArn_
+  pReplicationInstanceArn_ =
     DeleteConnection'
-      { _dcEndpointARN = pEndpointARN_,
-        _dcReplicationInstanceARN = pReplicationInstanceARN_
+      { endpointArn = pEndpointArn_,
+        replicationInstanceArn = pReplicationInstanceArn_
       }
 
--- | The Amazon Resource Name (ARN) string that uniquely identifies the endpoint.
-dcEndpointARN :: Lens' DeleteConnection Text
-dcEndpointARN = lens _dcEndpointARN (\s a -> s {_dcEndpointARN = a})
+-- | The Amazon Resource Name (ARN) string that uniquely identifies the
+-- endpoint.
+deleteConnection_endpointArn :: Lens.Lens' DeleteConnection Prelude.Text
+deleteConnection_endpointArn = Lens.lens (\DeleteConnection' {endpointArn} -> endpointArn) (\s@DeleteConnection' {} a -> s {endpointArn = a} :: DeleteConnection)
 
 -- | The Amazon Resource Name (ARN) of the replication instance.
-dcReplicationInstanceARN :: Lens' DeleteConnection Text
-dcReplicationInstanceARN = lens _dcReplicationInstanceARN (\s a -> s {_dcReplicationInstanceARN = a})
+deleteConnection_replicationInstanceArn :: Lens.Lens' DeleteConnection Prelude.Text
+deleteConnection_replicationInstanceArn = Lens.lens (\DeleteConnection' {replicationInstanceArn} -> replicationInstanceArn) (\s@DeleteConnection' {} a -> s {replicationInstanceArn = a} :: DeleteConnection)
 
-instance AWSRequest DeleteConnection where
+instance Prelude.AWSRequest DeleteConnection where
   type Rs DeleteConnection = DeleteConnectionResponse
-  request = postJSON dms
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteConnectionResponse'
-            <$> (x .?> "Connection") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Connection")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteConnection
+instance Prelude.Hashable DeleteConnection
 
-instance NFData DeleteConnection
+instance Prelude.NFData DeleteConnection
 
-instance ToHeaders DeleteConnection where
+instance Prelude.ToHeaders DeleteConnection where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AmazonDMSv20160101.DeleteConnection" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AmazonDMSv20160101.DeleteConnection" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteConnection where
+instance Prelude.ToJSON DeleteConnection where
   toJSON DeleteConnection' {..} =
-    object
-      ( catMaybes
-          [ Just ("EndpointArn" .= _dcEndpointARN),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("EndpointArn" Prelude..= endpointArn),
+            Prelude.Just
               ( "ReplicationInstanceArn"
-                  .= _dcReplicationInstanceARN
+                  Prelude..= replicationInstanceArn
               )
           ]
       )
 
-instance ToPath DeleteConnection where
-  toPath = const "/"
+instance Prelude.ToPath DeleteConnection where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteConnection where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteConnection where
+  toQuery = Prelude.const Prelude.mempty
 
 -- |
 --
---
---
--- /See:/ 'deleteConnectionResponse' smart constructor.
+-- /See:/ 'newDeleteConnectionResponse' smart constructor.
 data DeleteConnectionResponse = DeleteConnectionResponse'
-  { _drsConnection ::
-      !(Maybe Connection),
-    _drsResponseStatus ::
-      !Int
+  { -- | The connection that is being deleted.
+    connection :: Prelude.Maybe Connection,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteConnectionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteConnectionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drsConnection' - The connection that is being deleted.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drsResponseStatus' - -- | The response status code.
-deleteConnectionResponse ::
-  -- | 'drsResponseStatus'
-  Int ->
+-- 'connection', 'deleteConnectionResponse_connection' - The connection that is being deleted.
+--
+-- 'httpStatus', 'deleteConnectionResponse_httpStatus' - The response's http status code.
+newDeleteConnectionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteConnectionResponse
-deleteConnectionResponse pResponseStatus_ =
+newDeleteConnectionResponse pHttpStatus_ =
   DeleteConnectionResponse'
-    { _drsConnection = Nothing,
-      _drsResponseStatus = pResponseStatus_
+    { connection =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The connection that is being deleted.
-drsConnection :: Lens' DeleteConnectionResponse (Maybe Connection)
-drsConnection = lens _drsConnection (\s a -> s {_drsConnection = a})
+deleteConnectionResponse_connection :: Lens.Lens' DeleteConnectionResponse (Prelude.Maybe Connection)
+deleteConnectionResponse_connection = Lens.lens (\DeleteConnectionResponse' {connection} -> connection) (\s@DeleteConnectionResponse' {} a -> s {connection = a} :: DeleteConnectionResponse)
 
--- | -- | The response status code.
-drsResponseStatus :: Lens' DeleteConnectionResponse Int
-drsResponseStatus = lens _drsResponseStatus (\s a -> s {_drsResponseStatus = a})
+-- | The response's http status code.
+deleteConnectionResponse_httpStatus :: Lens.Lens' DeleteConnectionResponse Prelude.Int
+deleteConnectionResponse_httpStatus = Lens.lens (\DeleteConnectionResponse' {httpStatus} -> httpStatus) (\s@DeleteConnectionResponse' {} a -> s {httpStatus = a} :: DeleteConnectionResponse)
 
-instance NFData DeleteConnectionResponse
+instance Prelude.NFData DeleteConnectionResponse

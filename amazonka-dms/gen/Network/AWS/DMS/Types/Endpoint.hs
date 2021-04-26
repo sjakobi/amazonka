@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,16 +19,16 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.DMS.Types.Endpoint where
 
-import Network.AWS.DMS.Types.DmsSSLModeValue
+import Network.AWS.DMS.Types.DmsSslModeValue
 import Network.AWS.DMS.Types.DmsTransferSettings
-import Network.AWS.DMS.Types.DocDBSettings
-import Network.AWS.DMS.Types.DynamoDBSettings
+import Network.AWS.DMS.Types.DocDbSettings
+import Network.AWS.DMS.Types.DynamoDbSettings
 import Network.AWS.DMS.Types.ElasticsearchSettings
-import Network.AWS.DMS.Types.IBMDB2Settings
+import Network.AWS.DMS.Types.IBMDb2Settings
 import Network.AWS.DMS.Types.KafkaSettings
 import Network.AWS.DMS.Types.KinesisSettings
 import Network.AWS.DMS.Types.MicrosoftSQLServerSettings
-import Network.AWS.DMS.Types.MongoDBSettings
+import Network.AWS.DMS.Types.MongoDbSettings
 import Network.AWS.DMS.Types.MySQLSettings
 import Network.AWS.DMS.Types.NeptuneSettings
 import Network.AWS.DMS.Types.OracleSettings
@@ -33,347 +37,525 @@ import Network.AWS.DMS.Types.RedshiftSettings
 import Network.AWS.DMS.Types.ReplicationEndpointTypeValue
 import Network.AWS.DMS.Types.S3Settings
 import Network.AWS.DMS.Types.SybaseSettings
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes an endpoint of a database instance in response to operations such as the following:
+-- | Describes an endpoint of a database instance in response to operations
+-- such as the following:
 --
+-- -   @CreateEndpoint@
 --
---     * @CreateEndpoint@
+-- -   @DescribeEndpoint@
 --
---     * @DescribeEndpoint@
+-- -   @DescribeEndpointTypes@
 --
---     * @DescribeEndpointTypes@
+-- -   @ModifyEndpoint@
 --
---     * @ModifyEndpoint@
---
---
---
---
--- /See:/ 'endpoint' smart constructor.
+-- /See:/ 'newEndpoint' smart constructor.
 data Endpoint = Endpoint'
-  { _eSSLMode ::
-      !(Maybe DmsSSLModeValue),
-    _eMongoDBSettings :: !(Maybe MongoDBSettings),
-    _eStatus :: !(Maybe Text),
-    _eNeptuneSettings :: !(Maybe NeptuneSettings),
-    _eEngineName :: !(Maybe Text),
-    _eElasticsearchSettings ::
-      !(Maybe ElasticsearchSettings),
-    _eExternalTableDefinition :: !(Maybe Text),
-    _eEndpointType ::
-      !(Maybe ReplicationEndpointTypeValue),
-    _eOracleSettings :: !(Maybe OracleSettings),
-    _ePostgreSQLSettings :: !(Maybe PostgreSQLSettings),
-    _eServiceAccessRoleARN :: !(Maybe Text),
-    _eCertificateARN :: !(Maybe Text),
-    _eS3Settings :: !(Maybe S3Settings),
-    _eServerName :: !(Maybe Text),
-    _eMicrosoftSQLServerSettings ::
-      !(Maybe MicrosoftSQLServerSettings),
-    _eKMSKeyId :: !(Maybe Text),
-    _eIBMDB2Settings :: !(Maybe IBMDB2Settings),
-    _eMySQLSettings :: !(Maybe MySQLSettings),
-    _eDmsTransferSettings ::
-      !(Maybe DmsTransferSettings),
-    _ePort :: !(Maybe Int),
-    _eEndpointARN :: !(Maybe Text),
-    _eRedshiftSettings :: !(Maybe RedshiftSettings),
-    _eUsername :: !(Maybe Text),
-    _eEngineDisplayName :: !(Maybe Text),
-    _eKafkaSettings :: !(Maybe KafkaSettings),
-    _eDocDBSettings :: !(Maybe DocDBSettings),
-    _eDynamoDBSettings :: !(Maybe DynamoDBSettings),
-    _eExtraConnectionAttributes :: !(Maybe Text),
-    _eExternalId :: !(Maybe Text),
-    _eEndpointIdentifier :: !(Maybe Text),
-    _eKinesisSettings :: !(Maybe KinesisSettings),
-    _eSybaseSettings :: !(Maybe SybaseSettings),
-    _eDatabaseName :: !(Maybe Text)
+  { -- | The SSL mode used to connect to the endpoint. The default value is
+    -- @none@.
+    sslMode :: Prelude.Maybe DmsSslModeValue,
+    -- | The settings for the MongoDB source endpoint. For more information, see
+    -- the @MongoDbSettings@ structure.
+    mongoDbSettings :: Prelude.Maybe MongoDbSettings,
+    -- | The status of the endpoint.
+    status :: Prelude.Maybe Prelude.Text,
+    -- | The settings for the Amazon Neptune target endpoint. For more
+    -- information, see the @NeptuneSettings@ structure.
+    neptuneSettings :: Prelude.Maybe NeptuneSettings,
+    -- | The database engine name. Valid values, depending on the EndpointType,
+    -- include @\"mysql\"@, @\"oracle\"@, @\"postgres\"@, @\"mariadb\"@,
+    -- @\"aurora\"@, @\"aurora-postgresql\"@, @\"redshift\"@, @\"s3\"@,
+    -- @\"db2\"@, @\"azuredb\"@, @\"sybase\"@, @\"dynamodb\"@, @\"mongodb\"@,
+    -- @\"kinesis\"@, @\"kafka\"@, @\"elasticsearch\"@, @\"documentdb\"@,
+    -- @\"sqlserver\"@, and @\"neptune\"@.
+    engineName :: Prelude.Maybe Prelude.Text,
+    -- | The settings for the Elasticsearch source endpoint. For more
+    -- information, see the @ElasticsearchSettings@ structure.
+    elasticsearchSettings :: Prelude.Maybe ElasticsearchSettings,
+    -- | The external table definition.
+    externalTableDefinition :: Prelude.Maybe Prelude.Text,
+    -- | The type of endpoint. Valid values are @source@ and @target@.
+    endpointType :: Prelude.Maybe ReplicationEndpointTypeValue,
+    -- | The settings for the Oracle source and target endpoint. For more
+    -- information, see the @OracleSettings@ structure.
+    oracleSettings :: Prelude.Maybe OracleSettings,
+    -- | The settings for the PostgreSQL source and target endpoint. For more
+    -- information, see the @PostgreSQLSettings@ structure.
+    postgreSQLSettings :: Prelude.Maybe PostgreSQLSettings,
+    -- | The Amazon Resource Name (ARN) used by the service access IAM role.
+    serviceAccessRoleArn :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) used for SSL connection to the endpoint.
+    certificateArn :: Prelude.Maybe Prelude.Text,
+    -- | The settings for the S3 target endpoint. For more information, see the
+    -- @S3Settings@ structure.
+    s3Settings :: Prelude.Maybe S3Settings,
+    -- | The name of the server at the endpoint.
+    serverName :: Prelude.Maybe Prelude.Text,
+    -- | The settings for the Microsoft SQL Server source and target endpoint.
+    -- For more information, see the @MicrosoftSQLServerSettings@ structure.
+    microsoftSQLServerSettings :: Prelude.Maybe MicrosoftSQLServerSettings,
+    -- | An AWS KMS key identifier that is used to encrypt the connection
+    -- parameters for the endpoint.
+    --
+    -- If you don\'t specify a value for the @KmsKeyId@ parameter, then AWS DMS
+    -- uses your default encryption key.
+    --
+    -- AWS KMS creates the default encryption key for your AWS account. Your
+    -- AWS account has a different default encryption key for each AWS Region.
+    kmsKeyId :: Prelude.Maybe Prelude.Text,
+    -- | The settings for the IBM Db2 LUW source endpoint. For more information,
+    -- see the @IBMDb2Settings@ structure.
+    iBMDb2Settings :: Prelude.Maybe IBMDb2Settings,
+    -- | The settings for the MySQL source and target endpoint. For more
+    -- information, see the @MySQLSettings@ structure.
+    mySQLSettings :: Prelude.Maybe MySQLSettings,
+    -- | The settings in JSON format for the DMS transfer type of source
+    -- endpoint.
+    --
+    -- Possible settings include the following:
+    --
+    -- -   @ServiceAccessRoleArn@ - The IAM role that has permission to access
+    --     the Amazon S3 bucket.
+    --
+    -- -   @BucketName@ - The name of the S3 bucket to use.
+    --
+    -- -   @CompressionType@ - An optional parameter to use GZIP to compress
+    --     the target files. To use GZIP, set this value to @NONE@ (the
+    --     default). To keep the files uncompressed, don\'t use this value.
+    --
+    -- Shorthand syntax for these settings is as follows:
+    -- @ServiceAccessRoleArn=string,BucketName=string,CompressionType=string@
+    --
+    -- JSON syntax for these settings is as follows:
+    -- @{ \"ServiceAccessRoleArn\": \"string\", \"BucketName\": \"string\", \"CompressionType\": \"none\"|\"gzip\" } @
+    dmsTransferSettings :: Prelude.Maybe DmsTransferSettings,
+    -- | The port value used to access the endpoint.
+    port :: Prelude.Maybe Prelude.Int,
+    -- | The Amazon Resource Name (ARN) string that uniquely identifies the
+    -- endpoint.
+    endpointArn :: Prelude.Maybe Prelude.Text,
+    -- | Settings for the Amazon Redshift endpoint.
+    redshiftSettings :: Prelude.Maybe RedshiftSettings,
+    -- | The user name used to connect to the endpoint.
+    username :: Prelude.Maybe Prelude.Text,
+    -- | The expanded name for the engine name. For example, if the @EngineName@
+    -- parameter is \"aurora,\" this value would be \"Amazon Aurora MySQL.\"
+    engineDisplayName :: Prelude.Maybe Prelude.Text,
+    -- | The settings for the Apache Kafka target endpoint. For more information,
+    -- see the @KafkaSettings@ structure.
+    kafkaSettings :: Prelude.Maybe KafkaSettings,
+    docDbSettings :: Prelude.Maybe DocDbSettings,
+    -- | The settings for the DynamoDB target endpoint. For more information, see
+    -- the @DynamoDBSettings@ structure.
+    dynamoDbSettings :: Prelude.Maybe DynamoDbSettings,
+    -- | Additional connection attributes used to connect to the endpoint.
+    extraConnectionAttributes :: Prelude.Maybe Prelude.Text,
+    -- | Value returned by a call to CreateEndpoint that can be used for
+    -- cross-account validation. Use it on a subsequent call to CreateEndpoint
+    -- to create the endpoint with a cross-account.
+    externalId :: Prelude.Maybe Prelude.Text,
+    -- | The database endpoint identifier. Identifiers must begin with a letter
+    -- and must contain only ASCII letters, digits, and hyphens. They can\'t
+    -- end with a hyphen or contain two consecutive hyphens.
+    endpointIdentifier :: Prelude.Maybe Prelude.Text,
+    -- | The settings for the Amazon Kinesis target endpoint. For more
+    -- information, see the @KinesisSettings@ structure.
+    kinesisSettings :: Prelude.Maybe KinesisSettings,
+    -- | The settings for the SAP ASE source and target endpoint. For more
+    -- information, see the @SybaseSettings@ structure.
+    sybaseSettings :: Prelude.Maybe SybaseSettings,
+    -- | The name of the database at the endpoint.
+    databaseName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Endpoint' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Endpoint' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eSSLMode' - The SSL mode used to connect to the endpoint. The default value is @none@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'eMongoDBSettings' - The settings for the MongoDB source endpoint. For more information, see the @MongoDbSettings@ structure.
+-- 'sslMode', 'endpoint_sslMode' - The SSL mode used to connect to the endpoint. The default value is
+-- @none@.
 --
--- * 'eStatus' - The status of the endpoint.
+-- 'mongoDbSettings', 'endpoint_mongoDbSettings' - The settings for the MongoDB source endpoint. For more information, see
+-- the @MongoDbSettings@ structure.
 --
--- * 'eNeptuneSettings' - The settings for the Amazon Neptune target endpoint. For more information, see the @NeptuneSettings@ structure.
+-- 'status', 'endpoint_status' - The status of the endpoint.
 --
--- * 'eEngineName' - The database engine name. Valid values, depending on the EndpointType, include @"mysql"@ , @"oracle"@ , @"postgres"@ , @"mariadb"@ , @"aurora"@ , @"aurora-postgresql"@ , @"redshift"@ , @"s3"@ , @"db2"@ , @"azuredb"@ , @"sybase"@ , @"dynamodb"@ , @"mongodb"@ , @"kinesis"@ , @"kafka"@ , @"elasticsearch"@ , @"documentdb"@ , @"sqlserver"@ , and @"neptune"@ .
+-- 'neptuneSettings', 'endpoint_neptuneSettings' - The settings for the Amazon Neptune target endpoint. For more
+-- information, see the @NeptuneSettings@ structure.
 --
--- * 'eElasticsearchSettings' - The settings for the Elasticsearch source endpoint. For more information, see the @ElasticsearchSettings@ structure.
+-- 'engineName', 'endpoint_engineName' - The database engine name. Valid values, depending on the EndpointType,
+-- include @\"mysql\"@, @\"oracle\"@, @\"postgres\"@, @\"mariadb\"@,
+-- @\"aurora\"@, @\"aurora-postgresql\"@, @\"redshift\"@, @\"s3\"@,
+-- @\"db2\"@, @\"azuredb\"@, @\"sybase\"@, @\"dynamodb\"@, @\"mongodb\"@,
+-- @\"kinesis\"@, @\"kafka\"@, @\"elasticsearch\"@, @\"documentdb\"@,
+-- @\"sqlserver\"@, and @\"neptune\"@.
 --
--- * 'eExternalTableDefinition' - The external table definition.
+-- 'elasticsearchSettings', 'endpoint_elasticsearchSettings' - The settings for the Elasticsearch source endpoint. For more
+-- information, see the @ElasticsearchSettings@ structure.
 --
--- * 'eEndpointType' - The type of endpoint. Valid values are @source@ and @target@ .
+-- 'externalTableDefinition', 'endpoint_externalTableDefinition' - The external table definition.
 --
--- * 'eOracleSettings' - The settings for the Oracle source and target endpoint. For more information, see the @OracleSettings@ structure.
+-- 'endpointType', 'endpoint_endpointType' - The type of endpoint. Valid values are @source@ and @target@.
 --
--- * 'ePostgreSQLSettings' - The settings for the PostgreSQL source and target endpoint. For more information, see the @PostgreSQLSettings@ structure.
+-- 'oracleSettings', 'endpoint_oracleSettings' - The settings for the Oracle source and target endpoint. For more
+-- information, see the @OracleSettings@ structure.
 --
--- * 'eServiceAccessRoleARN' - The Amazon Resource Name (ARN) used by the service access IAM role.
+-- 'postgreSQLSettings', 'endpoint_postgreSQLSettings' - The settings for the PostgreSQL source and target endpoint. For more
+-- information, see the @PostgreSQLSettings@ structure.
 --
--- * 'eCertificateARN' - The Amazon Resource Name (ARN) used for SSL connection to the endpoint.
+-- 'serviceAccessRoleArn', 'endpoint_serviceAccessRoleArn' - The Amazon Resource Name (ARN) used by the service access IAM role.
 --
--- * 'eS3Settings' - The settings for the S3 target endpoint. For more information, see the @S3Settings@ structure.
+-- 'certificateArn', 'endpoint_certificateArn' - The Amazon Resource Name (ARN) used for SSL connection to the endpoint.
 --
--- * 'eServerName' - The name of the server at the endpoint.
+-- 's3Settings', 'endpoint_s3Settings' - The settings for the S3 target endpoint. For more information, see the
+-- @S3Settings@ structure.
 --
--- * 'eMicrosoftSQLServerSettings' - The settings for the Microsoft SQL Server source and target endpoint. For more information, see the @MicrosoftSQLServerSettings@ structure.
+-- 'serverName', 'endpoint_serverName' - The name of the server at the endpoint.
 --
--- * 'eKMSKeyId' - An AWS KMS key identifier that is used to encrypt the connection parameters for the endpoint. If you don't specify a value for the @KmsKeyId@ parameter, then AWS DMS uses your default encryption key. AWS KMS creates the default encryption key for your AWS account. Your AWS account has a different default encryption key for each AWS Region.
+-- 'microsoftSQLServerSettings', 'endpoint_microsoftSQLServerSettings' - The settings for the Microsoft SQL Server source and target endpoint.
+-- For more information, see the @MicrosoftSQLServerSettings@ structure.
 --
--- * 'eIBMDB2Settings' - The settings for the IBM Db2 LUW source endpoint. For more information, see the @IBMDb2Settings@ structure.
+-- 'kmsKeyId', 'endpoint_kmsKeyId' - An AWS KMS key identifier that is used to encrypt the connection
+-- parameters for the endpoint.
 --
--- * 'eMySQLSettings' - The settings for the MySQL source and target endpoint. For more information, see the @MySQLSettings@ structure.
+-- If you don\'t specify a value for the @KmsKeyId@ parameter, then AWS DMS
+-- uses your default encryption key.
 --
--- * 'eDmsTransferSettings' - The settings in JSON format for the DMS transfer type of source endpoint.  Possible settings include the following:     * @ServiceAccessRoleArn@ - The IAM role that has permission to access the Amazon S3 bucket.     * @BucketName@ - The name of the S3 bucket to use.     * @CompressionType@ - An optional parameter to use GZIP to compress the target files. To use GZIP, set this value to @NONE@ (the default). To keep the files uncompressed, don't use this value. Shorthand syntax for these settings is as follows: @ServiceAccessRoleArn=string,BucketName=string,CompressionType=string@  JSON syntax for these settings is as follows: @{ "ServiceAccessRoleArn": "string", "BucketName": "string", "CompressionType": "none"|"gzip" } @
+-- AWS KMS creates the default encryption key for your AWS account. Your
+-- AWS account has a different default encryption key for each AWS Region.
 --
--- * 'ePort' - The port value used to access the endpoint.
+-- 'iBMDb2Settings', 'endpoint_iBMDb2Settings' - The settings for the IBM Db2 LUW source endpoint. For more information,
+-- see the @IBMDb2Settings@ structure.
 --
--- * 'eEndpointARN' - The Amazon Resource Name (ARN) string that uniquely identifies the endpoint.
+-- 'mySQLSettings', 'endpoint_mySQLSettings' - The settings for the MySQL source and target endpoint. For more
+-- information, see the @MySQLSettings@ structure.
 --
--- * 'eRedshiftSettings' - Settings for the Amazon Redshift endpoint.
+-- 'dmsTransferSettings', 'endpoint_dmsTransferSettings' - The settings in JSON format for the DMS transfer type of source
+-- endpoint.
 --
--- * 'eUsername' - The user name used to connect to the endpoint.
+-- Possible settings include the following:
 --
--- * 'eEngineDisplayName' - The expanded name for the engine name. For example, if the @EngineName@ parameter is "aurora," this value would be "Amazon Aurora MySQL."
+-- -   @ServiceAccessRoleArn@ - The IAM role that has permission to access
+--     the Amazon S3 bucket.
 --
--- * 'eKafkaSettings' - The settings for the Apache Kafka target endpoint. For more information, see the @KafkaSettings@ structure.
+-- -   @BucketName@ - The name of the S3 bucket to use.
 --
--- * 'eDocDBSettings' - Undocumented member.
+-- -   @CompressionType@ - An optional parameter to use GZIP to compress
+--     the target files. To use GZIP, set this value to @NONE@ (the
+--     default). To keep the files uncompressed, don\'t use this value.
 --
--- * 'eDynamoDBSettings' - The settings for the DynamoDB target endpoint. For more information, see the @DynamoDBSettings@ structure.
+-- Shorthand syntax for these settings is as follows:
+-- @ServiceAccessRoleArn=string,BucketName=string,CompressionType=string@
 --
--- * 'eExtraConnectionAttributes' - Additional connection attributes used to connect to the endpoint.
+-- JSON syntax for these settings is as follows:
+-- @{ \"ServiceAccessRoleArn\": \"string\", \"BucketName\": \"string\", \"CompressionType\": \"none\"|\"gzip\" } @
 --
--- * 'eExternalId' - Value returned by a call to CreateEndpoint that can be used for cross-account validation. Use it on a subsequent call to CreateEndpoint to create the endpoint with a cross-account.
+-- 'port', 'endpoint_port' - The port value used to access the endpoint.
 --
--- * 'eEndpointIdentifier' - The database endpoint identifier. Identifiers must begin with a letter and must contain only ASCII letters, digits, and hyphens. They can't end with a hyphen or contain two consecutive hyphens.
+-- 'endpointArn', 'endpoint_endpointArn' - The Amazon Resource Name (ARN) string that uniquely identifies the
+-- endpoint.
 --
--- * 'eKinesisSettings' - The settings for the Amazon Kinesis target endpoint. For more information, see the @KinesisSettings@ structure.
+-- 'redshiftSettings', 'endpoint_redshiftSettings' - Settings for the Amazon Redshift endpoint.
 --
--- * 'eSybaseSettings' - The settings for the SAP ASE source and target endpoint. For more information, see the @SybaseSettings@ structure.
+-- 'username', 'endpoint_username' - The user name used to connect to the endpoint.
 --
--- * 'eDatabaseName' - The name of the database at the endpoint.
-endpoint ::
+-- 'engineDisplayName', 'endpoint_engineDisplayName' - The expanded name for the engine name. For example, if the @EngineName@
+-- parameter is \"aurora,\" this value would be \"Amazon Aurora MySQL.\"
+--
+-- 'kafkaSettings', 'endpoint_kafkaSettings' - The settings for the Apache Kafka target endpoint. For more information,
+-- see the @KafkaSettings@ structure.
+--
+-- 'docDbSettings', 'endpoint_docDbSettings' - Undocumented member.
+--
+-- 'dynamoDbSettings', 'endpoint_dynamoDbSettings' - The settings for the DynamoDB target endpoint. For more information, see
+-- the @DynamoDBSettings@ structure.
+--
+-- 'extraConnectionAttributes', 'endpoint_extraConnectionAttributes' - Additional connection attributes used to connect to the endpoint.
+--
+-- 'externalId', 'endpoint_externalId' - Value returned by a call to CreateEndpoint that can be used for
+-- cross-account validation. Use it on a subsequent call to CreateEndpoint
+-- to create the endpoint with a cross-account.
+--
+-- 'endpointIdentifier', 'endpoint_endpointIdentifier' - The database endpoint identifier. Identifiers must begin with a letter
+-- and must contain only ASCII letters, digits, and hyphens. They can\'t
+-- end with a hyphen or contain two consecutive hyphens.
+--
+-- 'kinesisSettings', 'endpoint_kinesisSettings' - The settings for the Amazon Kinesis target endpoint. For more
+-- information, see the @KinesisSettings@ structure.
+--
+-- 'sybaseSettings', 'endpoint_sybaseSettings' - The settings for the SAP ASE source and target endpoint. For more
+-- information, see the @SybaseSettings@ structure.
+--
+-- 'databaseName', 'endpoint_databaseName' - The name of the database at the endpoint.
+newEndpoint ::
   Endpoint
-endpoint =
+newEndpoint =
   Endpoint'
-    { _eSSLMode = Nothing,
-      _eMongoDBSettings = Nothing,
-      _eStatus = Nothing,
-      _eNeptuneSettings = Nothing,
-      _eEngineName = Nothing,
-      _eElasticsearchSettings = Nothing,
-      _eExternalTableDefinition = Nothing,
-      _eEndpointType = Nothing,
-      _eOracleSettings = Nothing,
-      _ePostgreSQLSettings = Nothing,
-      _eServiceAccessRoleARN = Nothing,
-      _eCertificateARN = Nothing,
-      _eS3Settings = Nothing,
-      _eServerName = Nothing,
-      _eMicrosoftSQLServerSettings = Nothing,
-      _eKMSKeyId = Nothing,
-      _eIBMDB2Settings = Nothing,
-      _eMySQLSettings = Nothing,
-      _eDmsTransferSettings = Nothing,
-      _ePort = Nothing,
-      _eEndpointARN = Nothing,
-      _eRedshiftSettings = Nothing,
-      _eUsername = Nothing,
-      _eEngineDisplayName = Nothing,
-      _eKafkaSettings = Nothing,
-      _eDocDBSettings = Nothing,
-      _eDynamoDBSettings = Nothing,
-      _eExtraConnectionAttributes = Nothing,
-      _eExternalId = Nothing,
-      _eEndpointIdentifier = Nothing,
-      _eKinesisSettings = Nothing,
-      _eSybaseSettings = Nothing,
-      _eDatabaseName = Nothing
+    { sslMode = Prelude.Nothing,
+      mongoDbSettings = Prelude.Nothing,
+      status = Prelude.Nothing,
+      neptuneSettings = Prelude.Nothing,
+      engineName = Prelude.Nothing,
+      elasticsearchSettings = Prelude.Nothing,
+      externalTableDefinition = Prelude.Nothing,
+      endpointType = Prelude.Nothing,
+      oracleSettings = Prelude.Nothing,
+      postgreSQLSettings = Prelude.Nothing,
+      serviceAccessRoleArn = Prelude.Nothing,
+      certificateArn = Prelude.Nothing,
+      s3Settings = Prelude.Nothing,
+      serverName = Prelude.Nothing,
+      microsoftSQLServerSettings = Prelude.Nothing,
+      kmsKeyId = Prelude.Nothing,
+      iBMDb2Settings = Prelude.Nothing,
+      mySQLSettings = Prelude.Nothing,
+      dmsTransferSettings = Prelude.Nothing,
+      port = Prelude.Nothing,
+      endpointArn = Prelude.Nothing,
+      redshiftSettings = Prelude.Nothing,
+      username = Prelude.Nothing,
+      engineDisplayName = Prelude.Nothing,
+      kafkaSettings = Prelude.Nothing,
+      docDbSettings = Prelude.Nothing,
+      dynamoDbSettings = Prelude.Nothing,
+      extraConnectionAttributes = Prelude.Nothing,
+      externalId = Prelude.Nothing,
+      endpointIdentifier = Prelude.Nothing,
+      kinesisSettings = Prelude.Nothing,
+      sybaseSettings = Prelude.Nothing,
+      databaseName = Prelude.Nothing
     }
 
--- | The SSL mode used to connect to the endpoint. The default value is @none@ .
-eSSLMode :: Lens' Endpoint (Maybe DmsSSLModeValue)
-eSSLMode = lens _eSSLMode (\s a -> s {_eSSLMode = a})
+-- | The SSL mode used to connect to the endpoint. The default value is
+-- @none@.
+endpoint_sslMode :: Lens.Lens' Endpoint (Prelude.Maybe DmsSslModeValue)
+endpoint_sslMode = Lens.lens (\Endpoint' {sslMode} -> sslMode) (\s@Endpoint' {} a -> s {sslMode = a} :: Endpoint)
 
--- | The settings for the MongoDB source endpoint. For more information, see the @MongoDbSettings@ structure.
-eMongoDBSettings :: Lens' Endpoint (Maybe MongoDBSettings)
-eMongoDBSettings = lens _eMongoDBSettings (\s a -> s {_eMongoDBSettings = a})
+-- | The settings for the MongoDB source endpoint. For more information, see
+-- the @MongoDbSettings@ structure.
+endpoint_mongoDbSettings :: Lens.Lens' Endpoint (Prelude.Maybe MongoDbSettings)
+endpoint_mongoDbSettings = Lens.lens (\Endpoint' {mongoDbSettings} -> mongoDbSettings) (\s@Endpoint' {} a -> s {mongoDbSettings = a} :: Endpoint)
 
 -- | The status of the endpoint.
-eStatus :: Lens' Endpoint (Maybe Text)
-eStatus = lens _eStatus (\s a -> s {_eStatus = a})
+endpoint_status :: Lens.Lens' Endpoint (Prelude.Maybe Prelude.Text)
+endpoint_status = Lens.lens (\Endpoint' {status} -> status) (\s@Endpoint' {} a -> s {status = a} :: Endpoint)
 
--- | The settings for the Amazon Neptune target endpoint. For more information, see the @NeptuneSettings@ structure.
-eNeptuneSettings :: Lens' Endpoint (Maybe NeptuneSettings)
-eNeptuneSettings = lens _eNeptuneSettings (\s a -> s {_eNeptuneSettings = a})
+-- | The settings for the Amazon Neptune target endpoint. For more
+-- information, see the @NeptuneSettings@ structure.
+endpoint_neptuneSettings :: Lens.Lens' Endpoint (Prelude.Maybe NeptuneSettings)
+endpoint_neptuneSettings = Lens.lens (\Endpoint' {neptuneSettings} -> neptuneSettings) (\s@Endpoint' {} a -> s {neptuneSettings = a} :: Endpoint)
 
--- | The database engine name. Valid values, depending on the EndpointType, include @"mysql"@ , @"oracle"@ , @"postgres"@ , @"mariadb"@ , @"aurora"@ , @"aurora-postgresql"@ , @"redshift"@ , @"s3"@ , @"db2"@ , @"azuredb"@ , @"sybase"@ , @"dynamodb"@ , @"mongodb"@ , @"kinesis"@ , @"kafka"@ , @"elasticsearch"@ , @"documentdb"@ , @"sqlserver"@ , and @"neptune"@ .
-eEngineName :: Lens' Endpoint (Maybe Text)
-eEngineName = lens _eEngineName (\s a -> s {_eEngineName = a})
+-- | The database engine name. Valid values, depending on the EndpointType,
+-- include @\"mysql\"@, @\"oracle\"@, @\"postgres\"@, @\"mariadb\"@,
+-- @\"aurora\"@, @\"aurora-postgresql\"@, @\"redshift\"@, @\"s3\"@,
+-- @\"db2\"@, @\"azuredb\"@, @\"sybase\"@, @\"dynamodb\"@, @\"mongodb\"@,
+-- @\"kinesis\"@, @\"kafka\"@, @\"elasticsearch\"@, @\"documentdb\"@,
+-- @\"sqlserver\"@, and @\"neptune\"@.
+endpoint_engineName :: Lens.Lens' Endpoint (Prelude.Maybe Prelude.Text)
+endpoint_engineName = Lens.lens (\Endpoint' {engineName} -> engineName) (\s@Endpoint' {} a -> s {engineName = a} :: Endpoint)
 
--- | The settings for the Elasticsearch source endpoint. For more information, see the @ElasticsearchSettings@ structure.
-eElasticsearchSettings :: Lens' Endpoint (Maybe ElasticsearchSettings)
-eElasticsearchSettings = lens _eElasticsearchSettings (\s a -> s {_eElasticsearchSettings = a})
+-- | The settings for the Elasticsearch source endpoint. For more
+-- information, see the @ElasticsearchSettings@ structure.
+endpoint_elasticsearchSettings :: Lens.Lens' Endpoint (Prelude.Maybe ElasticsearchSettings)
+endpoint_elasticsearchSettings = Lens.lens (\Endpoint' {elasticsearchSettings} -> elasticsearchSettings) (\s@Endpoint' {} a -> s {elasticsearchSettings = a} :: Endpoint)
 
 -- | The external table definition.
-eExternalTableDefinition :: Lens' Endpoint (Maybe Text)
-eExternalTableDefinition = lens _eExternalTableDefinition (\s a -> s {_eExternalTableDefinition = a})
+endpoint_externalTableDefinition :: Lens.Lens' Endpoint (Prelude.Maybe Prelude.Text)
+endpoint_externalTableDefinition = Lens.lens (\Endpoint' {externalTableDefinition} -> externalTableDefinition) (\s@Endpoint' {} a -> s {externalTableDefinition = a} :: Endpoint)
 
--- | The type of endpoint. Valid values are @source@ and @target@ .
-eEndpointType :: Lens' Endpoint (Maybe ReplicationEndpointTypeValue)
-eEndpointType = lens _eEndpointType (\s a -> s {_eEndpointType = a})
+-- | The type of endpoint. Valid values are @source@ and @target@.
+endpoint_endpointType :: Lens.Lens' Endpoint (Prelude.Maybe ReplicationEndpointTypeValue)
+endpoint_endpointType = Lens.lens (\Endpoint' {endpointType} -> endpointType) (\s@Endpoint' {} a -> s {endpointType = a} :: Endpoint)
 
--- | The settings for the Oracle source and target endpoint. For more information, see the @OracleSettings@ structure.
-eOracleSettings :: Lens' Endpoint (Maybe OracleSettings)
-eOracleSettings = lens _eOracleSettings (\s a -> s {_eOracleSettings = a})
+-- | The settings for the Oracle source and target endpoint. For more
+-- information, see the @OracleSettings@ structure.
+endpoint_oracleSettings :: Lens.Lens' Endpoint (Prelude.Maybe OracleSettings)
+endpoint_oracleSettings = Lens.lens (\Endpoint' {oracleSettings} -> oracleSettings) (\s@Endpoint' {} a -> s {oracleSettings = a} :: Endpoint)
 
--- | The settings for the PostgreSQL source and target endpoint. For more information, see the @PostgreSQLSettings@ structure.
-ePostgreSQLSettings :: Lens' Endpoint (Maybe PostgreSQLSettings)
-ePostgreSQLSettings = lens _ePostgreSQLSettings (\s a -> s {_ePostgreSQLSettings = a})
+-- | The settings for the PostgreSQL source and target endpoint. For more
+-- information, see the @PostgreSQLSettings@ structure.
+endpoint_postgreSQLSettings :: Lens.Lens' Endpoint (Prelude.Maybe PostgreSQLSettings)
+endpoint_postgreSQLSettings = Lens.lens (\Endpoint' {postgreSQLSettings} -> postgreSQLSettings) (\s@Endpoint' {} a -> s {postgreSQLSettings = a} :: Endpoint)
 
 -- | The Amazon Resource Name (ARN) used by the service access IAM role.
-eServiceAccessRoleARN :: Lens' Endpoint (Maybe Text)
-eServiceAccessRoleARN = lens _eServiceAccessRoleARN (\s a -> s {_eServiceAccessRoleARN = a})
+endpoint_serviceAccessRoleArn :: Lens.Lens' Endpoint (Prelude.Maybe Prelude.Text)
+endpoint_serviceAccessRoleArn = Lens.lens (\Endpoint' {serviceAccessRoleArn} -> serviceAccessRoleArn) (\s@Endpoint' {} a -> s {serviceAccessRoleArn = a} :: Endpoint)
 
 -- | The Amazon Resource Name (ARN) used for SSL connection to the endpoint.
-eCertificateARN :: Lens' Endpoint (Maybe Text)
-eCertificateARN = lens _eCertificateARN (\s a -> s {_eCertificateARN = a})
+endpoint_certificateArn :: Lens.Lens' Endpoint (Prelude.Maybe Prelude.Text)
+endpoint_certificateArn = Lens.lens (\Endpoint' {certificateArn} -> certificateArn) (\s@Endpoint' {} a -> s {certificateArn = a} :: Endpoint)
 
--- | The settings for the S3 target endpoint. For more information, see the @S3Settings@ structure.
-eS3Settings :: Lens' Endpoint (Maybe S3Settings)
-eS3Settings = lens _eS3Settings (\s a -> s {_eS3Settings = a})
+-- | The settings for the S3 target endpoint. For more information, see the
+-- @S3Settings@ structure.
+endpoint_s3Settings :: Lens.Lens' Endpoint (Prelude.Maybe S3Settings)
+endpoint_s3Settings = Lens.lens (\Endpoint' {s3Settings} -> s3Settings) (\s@Endpoint' {} a -> s {s3Settings = a} :: Endpoint)
 
 -- | The name of the server at the endpoint.
-eServerName :: Lens' Endpoint (Maybe Text)
-eServerName = lens _eServerName (\s a -> s {_eServerName = a})
+endpoint_serverName :: Lens.Lens' Endpoint (Prelude.Maybe Prelude.Text)
+endpoint_serverName = Lens.lens (\Endpoint' {serverName} -> serverName) (\s@Endpoint' {} a -> s {serverName = a} :: Endpoint)
 
--- | The settings for the Microsoft SQL Server source and target endpoint. For more information, see the @MicrosoftSQLServerSettings@ structure.
-eMicrosoftSQLServerSettings :: Lens' Endpoint (Maybe MicrosoftSQLServerSettings)
-eMicrosoftSQLServerSettings = lens _eMicrosoftSQLServerSettings (\s a -> s {_eMicrosoftSQLServerSettings = a})
+-- | The settings for the Microsoft SQL Server source and target endpoint.
+-- For more information, see the @MicrosoftSQLServerSettings@ structure.
+endpoint_microsoftSQLServerSettings :: Lens.Lens' Endpoint (Prelude.Maybe MicrosoftSQLServerSettings)
+endpoint_microsoftSQLServerSettings = Lens.lens (\Endpoint' {microsoftSQLServerSettings} -> microsoftSQLServerSettings) (\s@Endpoint' {} a -> s {microsoftSQLServerSettings = a} :: Endpoint)
 
--- | An AWS KMS key identifier that is used to encrypt the connection parameters for the endpoint. If you don't specify a value for the @KmsKeyId@ parameter, then AWS DMS uses your default encryption key. AWS KMS creates the default encryption key for your AWS account. Your AWS account has a different default encryption key for each AWS Region.
-eKMSKeyId :: Lens' Endpoint (Maybe Text)
-eKMSKeyId = lens _eKMSKeyId (\s a -> s {_eKMSKeyId = a})
+-- | An AWS KMS key identifier that is used to encrypt the connection
+-- parameters for the endpoint.
+--
+-- If you don\'t specify a value for the @KmsKeyId@ parameter, then AWS DMS
+-- uses your default encryption key.
+--
+-- AWS KMS creates the default encryption key for your AWS account. Your
+-- AWS account has a different default encryption key for each AWS Region.
+endpoint_kmsKeyId :: Lens.Lens' Endpoint (Prelude.Maybe Prelude.Text)
+endpoint_kmsKeyId = Lens.lens (\Endpoint' {kmsKeyId} -> kmsKeyId) (\s@Endpoint' {} a -> s {kmsKeyId = a} :: Endpoint)
 
--- | The settings for the IBM Db2 LUW source endpoint. For more information, see the @IBMDb2Settings@ structure.
-eIBMDB2Settings :: Lens' Endpoint (Maybe IBMDB2Settings)
-eIBMDB2Settings = lens _eIBMDB2Settings (\s a -> s {_eIBMDB2Settings = a})
+-- | The settings for the IBM Db2 LUW source endpoint. For more information,
+-- see the @IBMDb2Settings@ structure.
+endpoint_iBMDb2Settings :: Lens.Lens' Endpoint (Prelude.Maybe IBMDb2Settings)
+endpoint_iBMDb2Settings = Lens.lens (\Endpoint' {iBMDb2Settings} -> iBMDb2Settings) (\s@Endpoint' {} a -> s {iBMDb2Settings = a} :: Endpoint)
 
--- | The settings for the MySQL source and target endpoint. For more information, see the @MySQLSettings@ structure.
-eMySQLSettings :: Lens' Endpoint (Maybe MySQLSettings)
-eMySQLSettings = lens _eMySQLSettings (\s a -> s {_eMySQLSettings = a})
+-- | The settings for the MySQL source and target endpoint. For more
+-- information, see the @MySQLSettings@ structure.
+endpoint_mySQLSettings :: Lens.Lens' Endpoint (Prelude.Maybe MySQLSettings)
+endpoint_mySQLSettings = Lens.lens (\Endpoint' {mySQLSettings} -> mySQLSettings) (\s@Endpoint' {} a -> s {mySQLSettings = a} :: Endpoint)
 
--- | The settings in JSON format for the DMS transfer type of source endpoint.  Possible settings include the following:     * @ServiceAccessRoleArn@ - The IAM role that has permission to access the Amazon S3 bucket.     * @BucketName@ - The name of the S3 bucket to use.     * @CompressionType@ - An optional parameter to use GZIP to compress the target files. To use GZIP, set this value to @NONE@ (the default). To keep the files uncompressed, don't use this value. Shorthand syntax for these settings is as follows: @ServiceAccessRoleArn=string,BucketName=string,CompressionType=string@  JSON syntax for these settings is as follows: @{ "ServiceAccessRoleArn": "string", "BucketName": "string", "CompressionType": "none"|"gzip" } @
-eDmsTransferSettings :: Lens' Endpoint (Maybe DmsTransferSettings)
-eDmsTransferSettings = lens _eDmsTransferSettings (\s a -> s {_eDmsTransferSettings = a})
+-- | The settings in JSON format for the DMS transfer type of source
+-- endpoint.
+--
+-- Possible settings include the following:
+--
+-- -   @ServiceAccessRoleArn@ - The IAM role that has permission to access
+--     the Amazon S3 bucket.
+--
+-- -   @BucketName@ - The name of the S3 bucket to use.
+--
+-- -   @CompressionType@ - An optional parameter to use GZIP to compress
+--     the target files. To use GZIP, set this value to @NONE@ (the
+--     default). To keep the files uncompressed, don\'t use this value.
+--
+-- Shorthand syntax for these settings is as follows:
+-- @ServiceAccessRoleArn=string,BucketName=string,CompressionType=string@
+--
+-- JSON syntax for these settings is as follows:
+-- @{ \"ServiceAccessRoleArn\": \"string\", \"BucketName\": \"string\", \"CompressionType\": \"none\"|\"gzip\" } @
+endpoint_dmsTransferSettings :: Lens.Lens' Endpoint (Prelude.Maybe DmsTransferSettings)
+endpoint_dmsTransferSettings = Lens.lens (\Endpoint' {dmsTransferSettings} -> dmsTransferSettings) (\s@Endpoint' {} a -> s {dmsTransferSettings = a} :: Endpoint)
 
 -- | The port value used to access the endpoint.
-ePort :: Lens' Endpoint (Maybe Int)
-ePort = lens _ePort (\s a -> s {_ePort = a})
+endpoint_port :: Lens.Lens' Endpoint (Prelude.Maybe Prelude.Int)
+endpoint_port = Lens.lens (\Endpoint' {port} -> port) (\s@Endpoint' {} a -> s {port = a} :: Endpoint)
 
--- | The Amazon Resource Name (ARN) string that uniquely identifies the endpoint.
-eEndpointARN :: Lens' Endpoint (Maybe Text)
-eEndpointARN = lens _eEndpointARN (\s a -> s {_eEndpointARN = a})
+-- | The Amazon Resource Name (ARN) string that uniquely identifies the
+-- endpoint.
+endpoint_endpointArn :: Lens.Lens' Endpoint (Prelude.Maybe Prelude.Text)
+endpoint_endpointArn = Lens.lens (\Endpoint' {endpointArn} -> endpointArn) (\s@Endpoint' {} a -> s {endpointArn = a} :: Endpoint)
 
 -- | Settings for the Amazon Redshift endpoint.
-eRedshiftSettings :: Lens' Endpoint (Maybe RedshiftSettings)
-eRedshiftSettings = lens _eRedshiftSettings (\s a -> s {_eRedshiftSettings = a})
+endpoint_redshiftSettings :: Lens.Lens' Endpoint (Prelude.Maybe RedshiftSettings)
+endpoint_redshiftSettings = Lens.lens (\Endpoint' {redshiftSettings} -> redshiftSettings) (\s@Endpoint' {} a -> s {redshiftSettings = a} :: Endpoint)
 
 -- | The user name used to connect to the endpoint.
-eUsername :: Lens' Endpoint (Maybe Text)
-eUsername = lens _eUsername (\s a -> s {_eUsername = a})
+endpoint_username :: Lens.Lens' Endpoint (Prelude.Maybe Prelude.Text)
+endpoint_username = Lens.lens (\Endpoint' {username} -> username) (\s@Endpoint' {} a -> s {username = a} :: Endpoint)
 
--- | The expanded name for the engine name. For example, if the @EngineName@ parameter is "aurora," this value would be "Amazon Aurora MySQL."
-eEngineDisplayName :: Lens' Endpoint (Maybe Text)
-eEngineDisplayName = lens _eEngineDisplayName (\s a -> s {_eEngineDisplayName = a})
+-- | The expanded name for the engine name. For example, if the @EngineName@
+-- parameter is \"aurora,\" this value would be \"Amazon Aurora MySQL.\"
+endpoint_engineDisplayName :: Lens.Lens' Endpoint (Prelude.Maybe Prelude.Text)
+endpoint_engineDisplayName = Lens.lens (\Endpoint' {engineDisplayName} -> engineDisplayName) (\s@Endpoint' {} a -> s {engineDisplayName = a} :: Endpoint)
 
--- | The settings for the Apache Kafka target endpoint. For more information, see the @KafkaSettings@ structure.
-eKafkaSettings :: Lens' Endpoint (Maybe KafkaSettings)
-eKafkaSettings = lens _eKafkaSettings (\s a -> s {_eKafkaSettings = a})
+-- | The settings for the Apache Kafka target endpoint. For more information,
+-- see the @KafkaSettings@ structure.
+endpoint_kafkaSettings :: Lens.Lens' Endpoint (Prelude.Maybe KafkaSettings)
+endpoint_kafkaSettings = Lens.lens (\Endpoint' {kafkaSettings} -> kafkaSettings) (\s@Endpoint' {} a -> s {kafkaSettings = a} :: Endpoint)
 
 -- | Undocumented member.
-eDocDBSettings :: Lens' Endpoint (Maybe DocDBSettings)
-eDocDBSettings = lens _eDocDBSettings (\s a -> s {_eDocDBSettings = a})
+endpoint_docDbSettings :: Lens.Lens' Endpoint (Prelude.Maybe DocDbSettings)
+endpoint_docDbSettings = Lens.lens (\Endpoint' {docDbSettings} -> docDbSettings) (\s@Endpoint' {} a -> s {docDbSettings = a} :: Endpoint)
 
--- | The settings for the DynamoDB target endpoint. For more information, see the @DynamoDBSettings@ structure.
-eDynamoDBSettings :: Lens' Endpoint (Maybe DynamoDBSettings)
-eDynamoDBSettings = lens _eDynamoDBSettings (\s a -> s {_eDynamoDBSettings = a})
+-- | The settings for the DynamoDB target endpoint. For more information, see
+-- the @DynamoDBSettings@ structure.
+endpoint_dynamoDbSettings :: Lens.Lens' Endpoint (Prelude.Maybe DynamoDbSettings)
+endpoint_dynamoDbSettings = Lens.lens (\Endpoint' {dynamoDbSettings} -> dynamoDbSettings) (\s@Endpoint' {} a -> s {dynamoDbSettings = a} :: Endpoint)
 
 -- | Additional connection attributes used to connect to the endpoint.
-eExtraConnectionAttributes :: Lens' Endpoint (Maybe Text)
-eExtraConnectionAttributes = lens _eExtraConnectionAttributes (\s a -> s {_eExtraConnectionAttributes = a})
+endpoint_extraConnectionAttributes :: Lens.Lens' Endpoint (Prelude.Maybe Prelude.Text)
+endpoint_extraConnectionAttributes = Lens.lens (\Endpoint' {extraConnectionAttributes} -> extraConnectionAttributes) (\s@Endpoint' {} a -> s {extraConnectionAttributes = a} :: Endpoint)
 
--- | Value returned by a call to CreateEndpoint that can be used for cross-account validation. Use it on a subsequent call to CreateEndpoint to create the endpoint with a cross-account.
-eExternalId :: Lens' Endpoint (Maybe Text)
-eExternalId = lens _eExternalId (\s a -> s {_eExternalId = a})
+-- | Value returned by a call to CreateEndpoint that can be used for
+-- cross-account validation. Use it on a subsequent call to CreateEndpoint
+-- to create the endpoint with a cross-account.
+endpoint_externalId :: Lens.Lens' Endpoint (Prelude.Maybe Prelude.Text)
+endpoint_externalId = Lens.lens (\Endpoint' {externalId} -> externalId) (\s@Endpoint' {} a -> s {externalId = a} :: Endpoint)
 
--- | The database endpoint identifier. Identifiers must begin with a letter and must contain only ASCII letters, digits, and hyphens. They can't end with a hyphen or contain two consecutive hyphens.
-eEndpointIdentifier :: Lens' Endpoint (Maybe Text)
-eEndpointIdentifier = lens _eEndpointIdentifier (\s a -> s {_eEndpointIdentifier = a})
+-- | The database endpoint identifier. Identifiers must begin with a letter
+-- and must contain only ASCII letters, digits, and hyphens. They can\'t
+-- end with a hyphen or contain two consecutive hyphens.
+endpoint_endpointIdentifier :: Lens.Lens' Endpoint (Prelude.Maybe Prelude.Text)
+endpoint_endpointIdentifier = Lens.lens (\Endpoint' {endpointIdentifier} -> endpointIdentifier) (\s@Endpoint' {} a -> s {endpointIdentifier = a} :: Endpoint)
 
--- | The settings for the Amazon Kinesis target endpoint. For more information, see the @KinesisSettings@ structure.
-eKinesisSettings :: Lens' Endpoint (Maybe KinesisSettings)
-eKinesisSettings = lens _eKinesisSettings (\s a -> s {_eKinesisSettings = a})
+-- | The settings for the Amazon Kinesis target endpoint. For more
+-- information, see the @KinesisSettings@ structure.
+endpoint_kinesisSettings :: Lens.Lens' Endpoint (Prelude.Maybe KinesisSettings)
+endpoint_kinesisSettings = Lens.lens (\Endpoint' {kinesisSettings} -> kinesisSettings) (\s@Endpoint' {} a -> s {kinesisSettings = a} :: Endpoint)
 
--- | The settings for the SAP ASE source and target endpoint. For more information, see the @SybaseSettings@ structure.
-eSybaseSettings :: Lens' Endpoint (Maybe SybaseSettings)
-eSybaseSettings = lens _eSybaseSettings (\s a -> s {_eSybaseSettings = a})
+-- | The settings for the SAP ASE source and target endpoint. For more
+-- information, see the @SybaseSettings@ structure.
+endpoint_sybaseSettings :: Lens.Lens' Endpoint (Prelude.Maybe SybaseSettings)
+endpoint_sybaseSettings = Lens.lens (\Endpoint' {sybaseSettings} -> sybaseSettings) (\s@Endpoint' {} a -> s {sybaseSettings = a} :: Endpoint)
 
 -- | The name of the database at the endpoint.
-eDatabaseName :: Lens' Endpoint (Maybe Text)
-eDatabaseName = lens _eDatabaseName (\s a -> s {_eDatabaseName = a})
+endpoint_databaseName :: Lens.Lens' Endpoint (Prelude.Maybe Prelude.Text)
+endpoint_databaseName = Lens.lens (\Endpoint' {databaseName} -> databaseName) (\s@Endpoint' {} a -> s {databaseName = a} :: Endpoint)
 
-instance FromJSON Endpoint where
+instance Prelude.FromJSON Endpoint where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Endpoint"
       ( \x ->
           Endpoint'
-            <$> (x .:? "SslMode")
-            <*> (x .:? "MongoDbSettings")
-            <*> (x .:? "Status")
-            <*> (x .:? "NeptuneSettings")
-            <*> (x .:? "EngineName")
-            <*> (x .:? "ElasticsearchSettings")
-            <*> (x .:? "ExternalTableDefinition")
-            <*> (x .:? "EndpointType")
-            <*> (x .:? "OracleSettings")
-            <*> (x .:? "PostgreSQLSettings")
-            <*> (x .:? "ServiceAccessRoleArn")
-            <*> (x .:? "CertificateArn")
-            <*> (x .:? "S3Settings")
-            <*> (x .:? "ServerName")
-            <*> (x .:? "MicrosoftSQLServerSettings")
-            <*> (x .:? "KmsKeyId")
-            <*> (x .:? "IBMDb2Settings")
-            <*> (x .:? "MySQLSettings")
-            <*> (x .:? "DmsTransferSettings")
-            <*> (x .:? "Port")
-            <*> (x .:? "EndpointArn")
-            <*> (x .:? "RedshiftSettings")
-            <*> (x .:? "Username")
-            <*> (x .:? "EngineDisplayName")
-            <*> (x .:? "KafkaSettings")
-            <*> (x .:? "DocDbSettings")
-            <*> (x .:? "DynamoDbSettings")
-            <*> (x .:? "ExtraConnectionAttributes")
-            <*> (x .:? "ExternalId")
-            <*> (x .:? "EndpointIdentifier")
-            <*> (x .:? "KinesisSettings")
-            <*> (x .:? "SybaseSettings")
-            <*> (x .:? "DatabaseName")
+            Prelude.<$> (x Prelude..:? "SslMode")
+            Prelude.<*> (x Prelude..:? "MongoDbSettings")
+            Prelude.<*> (x Prelude..:? "Status")
+            Prelude.<*> (x Prelude..:? "NeptuneSettings")
+            Prelude.<*> (x Prelude..:? "EngineName")
+            Prelude.<*> (x Prelude..:? "ElasticsearchSettings")
+            Prelude.<*> (x Prelude..:? "ExternalTableDefinition")
+            Prelude.<*> (x Prelude..:? "EndpointType")
+            Prelude.<*> (x Prelude..:? "OracleSettings")
+            Prelude.<*> (x Prelude..:? "PostgreSQLSettings")
+            Prelude.<*> (x Prelude..:? "ServiceAccessRoleArn")
+            Prelude.<*> (x Prelude..:? "CertificateArn")
+            Prelude.<*> (x Prelude..:? "S3Settings")
+            Prelude.<*> (x Prelude..:? "ServerName")
+            Prelude.<*> (x Prelude..:? "MicrosoftSQLServerSettings")
+            Prelude.<*> (x Prelude..:? "KmsKeyId")
+            Prelude.<*> (x Prelude..:? "IBMDb2Settings")
+            Prelude.<*> (x Prelude..:? "MySQLSettings")
+            Prelude.<*> (x Prelude..:? "DmsTransferSettings")
+            Prelude.<*> (x Prelude..:? "Port")
+            Prelude.<*> (x Prelude..:? "EndpointArn")
+            Prelude.<*> (x Prelude..:? "RedshiftSettings")
+            Prelude.<*> (x Prelude..:? "Username")
+            Prelude.<*> (x Prelude..:? "EngineDisplayName")
+            Prelude.<*> (x Prelude..:? "KafkaSettings")
+            Prelude.<*> (x Prelude..:? "DocDbSettings")
+            Prelude.<*> (x Prelude..:? "DynamoDbSettings")
+            Prelude.<*> (x Prelude..:? "ExtraConnectionAttributes")
+            Prelude.<*> (x Prelude..:? "ExternalId")
+            Prelude.<*> (x Prelude..:? "EndpointIdentifier")
+            Prelude.<*> (x Prelude..:? "KinesisSettings")
+            Prelude.<*> (x Prelude..:? "SybaseSettings")
+            Prelude.<*> (x Prelude..:? "DatabaseName")
       )
 
-instance Hashable Endpoint
+instance Prelude.Hashable Endpoint
 
-instance NFData Endpoint
+instance Prelude.NFData Endpoint

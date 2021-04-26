@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,169 +21,172 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Moves a replication task from its current replication instance to a different target replication instance using the specified parameters. The target replication instance must be created with the same or later AWS DMS version as the current replication instance.
+-- Moves a replication task from its current replication instance to a
+-- different target replication instance using the specified parameters.
+-- The target replication instance must be created with the same or later
+-- AWS DMS version as the current replication instance.
 module Network.AWS.DMS.MoveReplicationTask
   ( -- * Creating a Request
-    moveReplicationTask,
-    MoveReplicationTask,
+    MoveReplicationTask (..),
+    newMoveReplicationTask,
 
     -- * Request Lenses
-    mReplicationTaskARN,
-    mTargetReplicationInstanceARN,
+    moveReplicationTask_replicationTaskArn,
+    moveReplicationTask_targetReplicationInstanceArn,
 
     -- * Destructuring the Response
-    moveReplicationTaskResponse,
-    MoveReplicationTaskResponse,
+    MoveReplicationTaskResponse (..),
+    newMoveReplicationTaskResponse,
 
     -- * Response Lenses
-    mrsReplicationTask,
-    mrsResponseStatus,
+    moveReplicationTaskResponse_replicationTask,
+    moveReplicationTaskResponse_httpStatus,
   )
 where
 
 import Network.AWS.DMS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DMS.Types.ReplicationTask
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- |
 --
---
---
--- /See:/ 'moveReplicationTask' smart constructor.
+-- /See:/ 'newMoveReplicationTask' smart constructor.
 data MoveReplicationTask = MoveReplicationTask'
-  { _mReplicationTaskARN ::
-      !Text,
-    _mTargetReplicationInstanceARN ::
-      !Text
+  { -- | The Amazon Resource Name (ARN) of the task that you want to move.
+    replicationTaskArn :: Prelude.Text,
+    -- | The ARN of the replication instance where you want to move the task to.
+    targetReplicationInstanceArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MoveReplicationTask' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MoveReplicationTask' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mReplicationTaskARN' - The Amazon Resource Name (ARN) of the task that you want to move.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mTargetReplicationInstanceARN' - The ARN of the replication instance where you want to move the task to.
-moveReplicationTask ::
-  -- | 'mReplicationTaskARN'
-  Text ->
-  -- | 'mTargetReplicationInstanceARN'
-  Text ->
+-- 'replicationTaskArn', 'moveReplicationTask_replicationTaskArn' - The Amazon Resource Name (ARN) of the task that you want to move.
+--
+-- 'targetReplicationInstanceArn', 'moveReplicationTask_targetReplicationInstanceArn' - The ARN of the replication instance where you want to move the task to.
+newMoveReplicationTask ::
+  -- | 'replicationTaskArn'
+  Prelude.Text ->
+  -- | 'targetReplicationInstanceArn'
+  Prelude.Text ->
   MoveReplicationTask
-moveReplicationTask
-  pReplicationTaskARN_
-  pTargetReplicationInstanceARN_ =
+newMoveReplicationTask
+  pReplicationTaskArn_
+  pTargetReplicationInstanceArn_ =
     MoveReplicationTask'
-      { _mReplicationTaskARN =
-          pReplicationTaskARN_,
-        _mTargetReplicationInstanceARN =
-          pTargetReplicationInstanceARN_
+      { replicationTaskArn =
+          pReplicationTaskArn_,
+        targetReplicationInstanceArn =
+          pTargetReplicationInstanceArn_
       }
 
 -- | The Amazon Resource Name (ARN) of the task that you want to move.
-mReplicationTaskARN :: Lens' MoveReplicationTask Text
-mReplicationTaskARN = lens _mReplicationTaskARN (\s a -> s {_mReplicationTaskARN = a})
+moveReplicationTask_replicationTaskArn :: Lens.Lens' MoveReplicationTask Prelude.Text
+moveReplicationTask_replicationTaskArn = Lens.lens (\MoveReplicationTask' {replicationTaskArn} -> replicationTaskArn) (\s@MoveReplicationTask' {} a -> s {replicationTaskArn = a} :: MoveReplicationTask)
 
 -- | The ARN of the replication instance where you want to move the task to.
-mTargetReplicationInstanceARN :: Lens' MoveReplicationTask Text
-mTargetReplicationInstanceARN = lens _mTargetReplicationInstanceARN (\s a -> s {_mTargetReplicationInstanceARN = a})
+moveReplicationTask_targetReplicationInstanceArn :: Lens.Lens' MoveReplicationTask Prelude.Text
+moveReplicationTask_targetReplicationInstanceArn = Lens.lens (\MoveReplicationTask' {targetReplicationInstanceArn} -> targetReplicationInstanceArn) (\s@MoveReplicationTask' {} a -> s {targetReplicationInstanceArn = a} :: MoveReplicationTask)
 
-instance AWSRequest MoveReplicationTask where
+instance Prelude.AWSRequest MoveReplicationTask where
   type
     Rs MoveReplicationTask =
       MoveReplicationTaskResponse
-  request = postJSON dms
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           MoveReplicationTaskResponse'
-            <$> (x .?> "ReplicationTask") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ReplicationTask")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable MoveReplicationTask
+instance Prelude.Hashable MoveReplicationTask
 
-instance NFData MoveReplicationTask
+instance Prelude.NFData MoveReplicationTask
 
-instance ToHeaders MoveReplicationTask where
+instance Prelude.ToHeaders MoveReplicationTask where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AmazonDMSv20160101.MoveReplicationTask" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AmazonDMSv20160101.MoveReplicationTask" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON MoveReplicationTask where
+instance Prelude.ToJSON MoveReplicationTask where
   toJSON MoveReplicationTask' {..} =
-    object
-      ( catMaybes
-          [ Just ("ReplicationTaskArn" .= _mReplicationTaskARN),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("ReplicationTaskArn" Prelude..= replicationTaskArn),
+            Prelude.Just
               ( "TargetReplicationInstanceArn"
-                  .= _mTargetReplicationInstanceARN
+                  Prelude..= targetReplicationInstanceArn
               )
           ]
       )
 
-instance ToPath MoveReplicationTask where
-  toPath = const "/"
+instance Prelude.ToPath MoveReplicationTask where
+  toPath = Prelude.const "/"
 
-instance ToQuery MoveReplicationTask where
-  toQuery = const mempty
+instance Prelude.ToQuery MoveReplicationTask where
+  toQuery = Prelude.const Prelude.mempty
 
 -- |
 --
---
---
--- /See:/ 'moveReplicationTaskResponse' smart constructor.
+-- /See:/ 'newMoveReplicationTaskResponse' smart constructor.
 data MoveReplicationTaskResponse = MoveReplicationTaskResponse'
-  { _mrsReplicationTask ::
-      !( Maybe
-           ReplicationTask
-       ),
-    _mrsResponseStatus ::
-      !Int
+  { -- | The replication task that was moved.
+    replicationTask :: Prelude.Maybe ReplicationTask,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MoveReplicationTaskResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MoveReplicationTaskResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mrsReplicationTask' - The replication task that was moved.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mrsResponseStatus' - -- | The response status code.
-moveReplicationTaskResponse ::
-  -- | 'mrsResponseStatus'
-  Int ->
+-- 'replicationTask', 'moveReplicationTaskResponse_replicationTask' - The replication task that was moved.
+--
+-- 'httpStatus', 'moveReplicationTaskResponse_httpStatus' - The response's http status code.
+newMoveReplicationTaskResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   MoveReplicationTaskResponse
-moveReplicationTaskResponse pResponseStatus_ =
+newMoveReplicationTaskResponse pHttpStatus_ =
   MoveReplicationTaskResponse'
-    { _mrsReplicationTask =
-        Nothing,
-      _mrsResponseStatus = pResponseStatus_
+    { replicationTask =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The replication task that was moved.
-mrsReplicationTask :: Lens' MoveReplicationTaskResponse (Maybe ReplicationTask)
-mrsReplicationTask = lens _mrsReplicationTask (\s a -> s {_mrsReplicationTask = a})
+moveReplicationTaskResponse_replicationTask :: Lens.Lens' MoveReplicationTaskResponse (Prelude.Maybe ReplicationTask)
+moveReplicationTaskResponse_replicationTask = Lens.lens (\MoveReplicationTaskResponse' {replicationTask} -> replicationTask) (\s@MoveReplicationTaskResponse' {} a -> s {replicationTask = a} :: MoveReplicationTaskResponse)
 
--- | -- | The response status code.
-mrsResponseStatus :: Lens' MoveReplicationTaskResponse Int
-mrsResponseStatus = lens _mrsResponseStatus (\s a -> s {_mrsResponseStatus = a})
+-- | The response's http status code.
+moveReplicationTaskResponse_httpStatus :: Lens.Lens' MoveReplicationTaskResponse Prelude.Int
+moveReplicationTaskResponse_httpStatus = Lens.lens (\MoveReplicationTaskResponse' {httpStatus} -> httpStatus) (\s@MoveReplicationTaskResponse' {} a -> s {httpStatus = a} :: MoveReplicationTaskResponse)
 
-instance NFData MoveReplicationTaskResponse
+instance Prelude.NFData MoveReplicationTaskResponse

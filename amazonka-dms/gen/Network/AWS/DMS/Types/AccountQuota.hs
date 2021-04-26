@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,63 +19,68 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.DMS.Types.AccountQuota where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes a quota for an AWS account, for example, the number of replication instances allowed.
+-- | Describes a quota for an AWS account, for example, the number of
+-- replication instances allowed.
 --
---
---
--- /See:/ 'accountQuota' smart constructor.
+-- /See:/ 'newAccountQuota' smart constructor.
 data AccountQuota = AccountQuota'
-  { _aqUsed ::
-      !(Maybe Integer),
-    _aqAccountQuotaName :: !(Maybe Text),
-    _aqMax :: !(Maybe Integer)
+  { -- | The amount currently used toward the quota maximum.
+    used :: Prelude.Maybe Prelude.Integer,
+    -- | The name of the AWS DMS quota for this AWS account.
+    accountQuotaName :: Prelude.Maybe Prelude.Text,
+    -- | The maximum allowed value for the quota.
+    max :: Prelude.Maybe Prelude.Integer
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AccountQuota' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AccountQuota' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aqUsed' - The amount currently used toward the quota maximum.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aqAccountQuotaName' - The name of the AWS DMS quota for this AWS account.
+-- 'used', 'accountQuota_used' - The amount currently used toward the quota maximum.
 --
--- * 'aqMax' - The maximum allowed value for the quota.
-accountQuota ::
+-- 'accountQuotaName', 'accountQuota_accountQuotaName' - The name of the AWS DMS quota for this AWS account.
+--
+-- 'max', 'accountQuota_max' - The maximum allowed value for the quota.
+newAccountQuota ::
   AccountQuota
-accountQuota =
+newAccountQuota =
   AccountQuota'
-    { _aqUsed = Nothing,
-      _aqAccountQuotaName = Nothing,
-      _aqMax = Nothing
+    { used = Prelude.Nothing,
+      accountQuotaName = Prelude.Nothing,
+      max = Prelude.Nothing
     }
 
 -- | The amount currently used toward the quota maximum.
-aqUsed :: Lens' AccountQuota (Maybe Integer)
-aqUsed = lens _aqUsed (\s a -> s {_aqUsed = a})
+accountQuota_used :: Lens.Lens' AccountQuota (Prelude.Maybe Prelude.Integer)
+accountQuota_used = Lens.lens (\AccountQuota' {used} -> used) (\s@AccountQuota' {} a -> s {used = a} :: AccountQuota)
 
 -- | The name of the AWS DMS quota for this AWS account.
-aqAccountQuotaName :: Lens' AccountQuota (Maybe Text)
-aqAccountQuotaName = lens _aqAccountQuotaName (\s a -> s {_aqAccountQuotaName = a})
+accountQuota_accountQuotaName :: Lens.Lens' AccountQuota (Prelude.Maybe Prelude.Text)
+accountQuota_accountQuotaName = Lens.lens (\AccountQuota' {accountQuotaName} -> accountQuotaName) (\s@AccountQuota' {} a -> s {accountQuotaName = a} :: AccountQuota)
 
 -- | The maximum allowed value for the quota.
-aqMax :: Lens' AccountQuota (Maybe Integer)
-aqMax = lens _aqMax (\s a -> s {_aqMax = a})
+accountQuota_max :: Lens.Lens' AccountQuota (Prelude.Maybe Prelude.Integer)
+accountQuota_max = Lens.lens (\AccountQuota' {max} -> max) (\s@AccountQuota' {} a -> s {max = a} :: AccountQuota)
 
-instance FromJSON AccountQuota where
+instance Prelude.FromJSON AccountQuota where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AccountQuota"
       ( \x ->
           AccountQuota'
-            <$> (x .:? "Used")
-            <*> (x .:? "AccountQuotaName")
-            <*> (x .:? "Max")
+            Prelude.<$> (x Prelude..:? "Used")
+            Prelude.<*> (x Prelude..:? "AccountQuotaName")
+            Prelude.<*> (x Prelude..:? "Max")
       )
 
-instance Hashable AccountQuota
+instance Prelude.Hashable AccountQuota
 
-instance NFData AccountQuota
+instance Prelude.NFData AccountQuota

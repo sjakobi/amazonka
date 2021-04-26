@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,146 +20,215 @@
 module Network.AWS.DMS.Types.KinesisSettings where
 
 import Network.AWS.DMS.Types.MessageFormatValue
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Provides information that describes an Amazon Kinesis Data Stream endpoint. This information includes the output format of records applied to the endpoint and details of transaction and control table data information.
+-- | Provides information that describes an Amazon Kinesis Data Stream
+-- endpoint. This information includes the output format of records applied
+-- to the endpoint and details of transaction and control table data
+-- information.
 --
---
---
--- /See:/ 'kinesisSettings' smart constructor.
+-- /See:/ 'newKinesisSettings' smart constructor.
 data KinesisSettings = KinesisSettings'
-  { _kIncludeNullAndEmpty ::
-      !(Maybe Bool),
-    _kMessageFormat ::
-      !(Maybe MessageFormatValue),
-    _kServiceAccessRoleARN :: !(Maybe Text),
-    _kStreamARN :: !(Maybe Text),
-    _kPartitionIncludeSchemaTable ::
-      !(Maybe Bool),
-    _kIncludeControlDetails ::
-      !(Maybe Bool),
-    _kIncludePartitionValue ::
-      !(Maybe Bool),
-    _kIncludeTransactionDetails ::
-      !(Maybe Bool),
-    _kIncludeTableAlterOperations ::
-      !(Maybe Bool)
+  { -- | Include NULL and empty columns for records migrated to the endpoint. The
+    -- default is @false@.
+    includeNullAndEmpty :: Prelude.Maybe Prelude.Bool,
+    -- | The output format for the records created on the endpoint. The message
+    -- format is @JSON@ (default) or @JSON_UNFORMATTED@ (a single line with no
+    -- tab).
+    messageFormat :: Prelude.Maybe MessageFormatValue,
+    -- | The Amazon Resource Name (ARN) for the AWS Identity and Access
+    -- Management (IAM) role that AWS DMS uses to write to the Kinesis data
+    -- stream.
+    serviceAccessRoleArn :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) for the Amazon Kinesis Data Streams
+    -- endpoint.
+    streamArn :: Prelude.Maybe Prelude.Text,
+    -- | Prefixes schema and table names to partition values, when the partition
+    -- type is @primary-key-type@. Doing this increases data distribution among
+    -- Kinesis shards. For example, suppose that a SysBench schema has
+    -- thousands of tables and each table has only limited range for a primary
+    -- key. In this case, the same primary key is sent from thousands of tables
+    -- to the same shard, which causes throttling. The default is @false@.
+    partitionIncludeSchemaTable :: Prelude.Maybe Prelude.Bool,
+    -- | Shows detailed control information for table definition, column
+    -- definition, and table and column changes in the Kinesis message output.
+    -- The default is @false@.
+    includeControlDetails :: Prelude.Maybe Prelude.Bool,
+    -- | Shows the partition value within the Kinesis message output, unless the
+    -- partition type is @schema-table-type@. The default is @false@.
+    includePartitionValue :: Prelude.Maybe Prelude.Bool,
+    -- | Provides detailed transaction information from the source database. This
+    -- information includes a commit timestamp, a log position, and values for
+    -- @transaction_id@, previous @transaction_id@, and @transaction_record_id@
+    -- (the record offset within a transaction). The default is @false@.
+    includeTransactionDetails :: Prelude.Maybe Prelude.Bool,
+    -- | Includes any data definition language (DDL) operations that change the
+    -- table in the control data, such as @rename-table@, @drop-table@,
+    -- @add-column@, @drop-column@, and @rename-column@. The default is
+    -- @false@.
+    includeTableAlterOperations :: Prelude.Maybe Prelude.Bool
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'KinesisSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'KinesisSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'kIncludeNullAndEmpty' - Include NULL and empty columns for records migrated to the endpoint. The default is @false@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'kMessageFormat' - The output format for the records created on the endpoint. The message format is @JSON@ (default) or @JSON_UNFORMATTED@ (a single line with no tab).
+-- 'includeNullAndEmpty', 'kinesisSettings_includeNullAndEmpty' - Include NULL and empty columns for records migrated to the endpoint. The
+-- default is @false@.
 --
--- * 'kServiceAccessRoleARN' - The Amazon Resource Name (ARN) for the AWS Identity and Access Management (IAM) role that AWS DMS uses to write to the Kinesis data stream.
+-- 'messageFormat', 'kinesisSettings_messageFormat' - The output format for the records created on the endpoint. The message
+-- format is @JSON@ (default) or @JSON_UNFORMATTED@ (a single line with no
+-- tab).
 --
--- * 'kStreamARN' - The Amazon Resource Name (ARN) for the Amazon Kinesis Data Streams endpoint.
+-- 'serviceAccessRoleArn', 'kinesisSettings_serviceAccessRoleArn' - The Amazon Resource Name (ARN) for the AWS Identity and Access
+-- Management (IAM) role that AWS DMS uses to write to the Kinesis data
+-- stream.
 --
--- * 'kPartitionIncludeSchemaTable' - Prefixes schema and table names to partition values, when the partition type is @primary-key-type@ . Doing this increases data distribution among Kinesis shards. For example, suppose that a SysBench schema has thousands of tables and each table has only limited range for a primary key. In this case, the same primary key is sent from thousands of tables to the same shard, which causes throttling. The default is @false@ .
+-- 'streamArn', 'kinesisSettings_streamArn' - The Amazon Resource Name (ARN) for the Amazon Kinesis Data Streams
+-- endpoint.
 --
--- * 'kIncludeControlDetails' - Shows detailed control information for table definition, column definition, and table and column changes in the Kinesis message output. The default is @false@ .
+-- 'partitionIncludeSchemaTable', 'kinesisSettings_partitionIncludeSchemaTable' - Prefixes schema and table names to partition values, when the partition
+-- type is @primary-key-type@. Doing this increases data distribution among
+-- Kinesis shards. For example, suppose that a SysBench schema has
+-- thousands of tables and each table has only limited range for a primary
+-- key. In this case, the same primary key is sent from thousands of tables
+-- to the same shard, which causes throttling. The default is @false@.
 --
--- * 'kIncludePartitionValue' - Shows the partition value within the Kinesis message output, unless the partition type is @schema-table-type@ . The default is @false@ .
+-- 'includeControlDetails', 'kinesisSettings_includeControlDetails' - Shows detailed control information for table definition, column
+-- definition, and table and column changes in the Kinesis message output.
+-- The default is @false@.
 --
--- * 'kIncludeTransactionDetails' - Provides detailed transaction information from the source database. This information includes a commit timestamp, a log position, and values for @transaction_id@ , previous @transaction_id@ , and @transaction_record_id@ (the record offset within a transaction). The default is @false@ .
+-- 'includePartitionValue', 'kinesisSettings_includePartitionValue' - Shows the partition value within the Kinesis message output, unless the
+-- partition type is @schema-table-type@. The default is @false@.
 --
--- * 'kIncludeTableAlterOperations' - Includes any data definition language (DDL) operations that change the table in the control data, such as @rename-table@ , @drop-table@ , @add-column@ , @drop-column@ , and @rename-column@ . The default is @false@ .
-kinesisSettings ::
+-- 'includeTransactionDetails', 'kinesisSettings_includeTransactionDetails' - Provides detailed transaction information from the source database. This
+-- information includes a commit timestamp, a log position, and values for
+-- @transaction_id@, previous @transaction_id@, and @transaction_record_id@
+-- (the record offset within a transaction). The default is @false@.
+--
+-- 'includeTableAlterOperations', 'kinesisSettings_includeTableAlterOperations' - Includes any data definition language (DDL) operations that change the
+-- table in the control data, such as @rename-table@, @drop-table@,
+-- @add-column@, @drop-column@, and @rename-column@. The default is
+-- @false@.
+newKinesisSettings ::
   KinesisSettings
-kinesisSettings =
+newKinesisSettings =
   KinesisSettings'
-    { _kIncludeNullAndEmpty = Nothing,
-      _kMessageFormat = Nothing,
-      _kServiceAccessRoleARN = Nothing,
-      _kStreamARN = Nothing,
-      _kPartitionIncludeSchemaTable = Nothing,
-      _kIncludeControlDetails = Nothing,
-      _kIncludePartitionValue = Nothing,
-      _kIncludeTransactionDetails = Nothing,
-      _kIncludeTableAlterOperations = Nothing
+    { includeNullAndEmpty =
+        Prelude.Nothing,
+      messageFormat = Prelude.Nothing,
+      serviceAccessRoleArn = Prelude.Nothing,
+      streamArn = Prelude.Nothing,
+      partitionIncludeSchemaTable = Prelude.Nothing,
+      includeControlDetails = Prelude.Nothing,
+      includePartitionValue = Prelude.Nothing,
+      includeTransactionDetails = Prelude.Nothing,
+      includeTableAlterOperations = Prelude.Nothing
     }
 
--- | Include NULL and empty columns for records migrated to the endpoint. The default is @false@ .
-kIncludeNullAndEmpty :: Lens' KinesisSettings (Maybe Bool)
-kIncludeNullAndEmpty = lens _kIncludeNullAndEmpty (\s a -> s {_kIncludeNullAndEmpty = a})
+-- | Include NULL and empty columns for records migrated to the endpoint. The
+-- default is @false@.
+kinesisSettings_includeNullAndEmpty :: Lens.Lens' KinesisSettings (Prelude.Maybe Prelude.Bool)
+kinesisSettings_includeNullAndEmpty = Lens.lens (\KinesisSettings' {includeNullAndEmpty} -> includeNullAndEmpty) (\s@KinesisSettings' {} a -> s {includeNullAndEmpty = a} :: KinesisSettings)
 
--- | The output format for the records created on the endpoint. The message format is @JSON@ (default) or @JSON_UNFORMATTED@ (a single line with no tab).
-kMessageFormat :: Lens' KinesisSettings (Maybe MessageFormatValue)
-kMessageFormat = lens _kMessageFormat (\s a -> s {_kMessageFormat = a})
+-- | The output format for the records created on the endpoint. The message
+-- format is @JSON@ (default) or @JSON_UNFORMATTED@ (a single line with no
+-- tab).
+kinesisSettings_messageFormat :: Lens.Lens' KinesisSettings (Prelude.Maybe MessageFormatValue)
+kinesisSettings_messageFormat = Lens.lens (\KinesisSettings' {messageFormat} -> messageFormat) (\s@KinesisSettings' {} a -> s {messageFormat = a} :: KinesisSettings)
 
--- | The Amazon Resource Name (ARN) for the AWS Identity and Access Management (IAM) role that AWS DMS uses to write to the Kinesis data stream.
-kServiceAccessRoleARN :: Lens' KinesisSettings (Maybe Text)
-kServiceAccessRoleARN = lens _kServiceAccessRoleARN (\s a -> s {_kServiceAccessRoleARN = a})
+-- | The Amazon Resource Name (ARN) for the AWS Identity and Access
+-- Management (IAM) role that AWS DMS uses to write to the Kinesis data
+-- stream.
+kinesisSettings_serviceAccessRoleArn :: Lens.Lens' KinesisSettings (Prelude.Maybe Prelude.Text)
+kinesisSettings_serviceAccessRoleArn = Lens.lens (\KinesisSettings' {serviceAccessRoleArn} -> serviceAccessRoleArn) (\s@KinesisSettings' {} a -> s {serviceAccessRoleArn = a} :: KinesisSettings)
 
--- | The Amazon Resource Name (ARN) for the Amazon Kinesis Data Streams endpoint.
-kStreamARN :: Lens' KinesisSettings (Maybe Text)
-kStreamARN = lens _kStreamARN (\s a -> s {_kStreamARN = a})
+-- | The Amazon Resource Name (ARN) for the Amazon Kinesis Data Streams
+-- endpoint.
+kinesisSettings_streamArn :: Lens.Lens' KinesisSettings (Prelude.Maybe Prelude.Text)
+kinesisSettings_streamArn = Lens.lens (\KinesisSettings' {streamArn} -> streamArn) (\s@KinesisSettings' {} a -> s {streamArn = a} :: KinesisSettings)
 
--- | Prefixes schema and table names to partition values, when the partition type is @primary-key-type@ . Doing this increases data distribution among Kinesis shards. For example, suppose that a SysBench schema has thousands of tables and each table has only limited range for a primary key. In this case, the same primary key is sent from thousands of tables to the same shard, which causes throttling. The default is @false@ .
-kPartitionIncludeSchemaTable :: Lens' KinesisSettings (Maybe Bool)
-kPartitionIncludeSchemaTable = lens _kPartitionIncludeSchemaTable (\s a -> s {_kPartitionIncludeSchemaTable = a})
+-- | Prefixes schema and table names to partition values, when the partition
+-- type is @primary-key-type@. Doing this increases data distribution among
+-- Kinesis shards. For example, suppose that a SysBench schema has
+-- thousands of tables and each table has only limited range for a primary
+-- key. In this case, the same primary key is sent from thousands of tables
+-- to the same shard, which causes throttling. The default is @false@.
+kinesisSettings_partitionIncludeSchemaTable :: Lens.Lens' KinesisSettings (Prelude.Maybe Prelude.Bool)
+kinesisSettings_partitionIncludeSchemaTable = Lens.lens (\KinesisSettings' {partitionIncludeSchemaTable} -> partitionIncludeSchemaTable) (\s@KinesisSettings' {} a -> s {partitionIncludeSchemaTable = a} :: KinesisSettings)
 
--- | Shows detailed control information for table definition, column definition, and table and column changes in the Kinesis message output. The default is @false@ .
-kIncludeControlDetails :: Lens' KinesisSettings (Maybe Bool)
-kIncludeControlDetails = lens _kIncludeControlDetails (\s a -> s {_kIncludeControlDetails = a})
+-- | Shows detailed control information for table definition, column
+-- definition, and table and column changes in the Kinesis message output.
+-- The default is @false@.
+kinesisSettings_includeControlDetails :: Lens.Lens' KinesisSettings (Prelude.Maybe Prelude.Bool)
+kinesisSettings_includeControlDetails = Lens.lens (\KinesisSettings' {includeControlDetails} -> includeControlDetails) (\s@KinesisSettings' {} a -> s {includeControlDetails = a} :: KinesisSettings)
 
--- | Shows the partition value within the Kinesis message output, unless the partition type is @schema-table-type@ . The default is @false@ .
-kIncludePartitionValue :: Lens' KinesisSettings (Maybe Bool)
-kIncludePartitionValue = lens _kIncludePartitionValue (\s a -> s {_kIncludePartitionValue = a})
+-- | Shows the partition value within the Kinesis message output, unless the
+-- partition type is @schema-table-type@. The default is @false@.
+kinesisSettings_includePartitionValue :: Lens.Lens' KinesisSettings (Prelude.Maybe Prelude.Bool)
+kinesisSettings_includePartitionValue = Lens.lens (\KinesisSettings' {includePartitionValue} -> includePartitionValue) (\s@KinesisSettings' {} a -> s {includePartitionValue = a} :: KinesisSettings)
 
--- | Provides detailed transaction information from the source database. This information includes a commit timestamp, a log position, and values for @transaction_id@ , previous @transaction_id@ , and @transaction_record_id@ (the record offset within a transaction). The default is @false@ .
-kIncludeTransactionDetails :: Lens' KinesisSettings (Maybe Bool)
-kIncludeTransactionDetails = lens _kIncludeTransactionDetails (\s a -> s {_kIncludeTransactionDetails = a})
+-- | Provides detailed transaction information from the source database. This
+-- information includes a commit timestamp, a log position, and values for
+-- @transaction_id@, previous @transaction_id@, and @transaction_record_id@
+-- (the record offset within a transaction). The default is @false@.
+kinesisSettings_includeTransactionDetails :: Lens.Lens' KinesisSettings (Prelude.Maybe Prelude.Bool)
+kinesisSettings_includeTransactionDetails = Lens.lens (\KinesisSettings' {includeTransactionDetails} -> includeTransactionDetails) (\s@KinesisSettings' {} a -> s {includeTransactionDetails = a} :: KinesisSettings)
 
--- | Includes any data definition language (DDL) operations that change the table in the control data, such as @rename-table@ , @drop-table@ , @add-column@ , @drop-column@ , and @rename-column@ . The default is @false@ .
-kIncludeTableAlterOperations :: Lens' KinesisSettings (Maybe Bool)
-kIncludeTableAlterOperations = lens _kIncludeTableAlterOperations (\s a -> s {_kIncludeTableAlterOperations = a})
+-- | Includes any data definition language (DDL) operations that change the
+-- table in the control data, such as @rename-table@, @drop-table@,
+-- @add-column@, @drop-column@, and @rename-column@. The default is
+-- @false@.
+kinesisSettings_includeTableAlterOperations :: Lens.Lens' KinesisSettings (Prelude.Maybe Prelude.Bool)
+kinesisSettings_includeTableAlterOperations = Lens.lens (\KinesisSettings' {includeTableAlterOperations} -> includeTableAlterOperations) (\s@KinesisSettings' {} a -> s {includeTableAlterOperations = a} :: KinesisSettings)
 
-instance FromJSON KinesisSettings where
+instance Prelude.FromJSON KinesisSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "KinesisSettings"
       ( \x ->
           KinesisSettings'
-            <$> (x .:? "IncludeNullAndEmpty")
-            <*> (x .:? "MessageFormat")
-            <*> (x .:? "ServiceAccessRoleArn")
-            <*> (x .:? "StreamArn")
-            <*> (x .:? "PartitionIncludeSchemaTable")
-            <*> (x .:? "IncludeControlDetails")
-            <*> (x .:? "IncludePartitionValue")
-            <*> (x .:? "IncludeTransactionDetails")
-            <*> (x .:? "IncludeTableAlterOperations")
+            Prelude.<$> (x Prelude..:? "IncludeNullAndEmpty")
+            Prelude.<*> (x Prelude..:? "MessageFormat")
+            Prelude.<*> (x Prelude..:? "ServiceAccessRoleArn")
+            Prelude.<*> (x Prelude..:? "StreamArn")
+            Prelude.<*> (x Prelude..:? "PartitionIncludeSchemaTable")
+            Prelude.<*> (x Prelude..:? "IncludeControlDetails")
+            Prelude.<*> (x Prelude..:? "IncludePartitionValue")
+            Prelude.<*> (x Prelude..:? "IncludeTransactionDetails")
+            Prelude.<*> (x Prelude..:? "IncludeTableAlterOperations")
       )
 
-instance Hashable KinesisSettings
+instance Prelude.Hashable KinesisSettings
 
-instance NFData KinesisSettings
+instance Prelude.NFData KinesisSettings
 
-instance ToJSON KinesisSettings where
+instance Prelude.ToJSON KinesisSettings where
   toJSON KinesisSettings' {..} =
-    object
-      ( catMaybes
-          [ ("IncludeNullAndEmpty" .=)
-              <$> _kIncludeNullAndEmpty,
-            ("MessageFormat" .=) <$> _kMessageFormat,
-            ("ServiceAccessRoleArn" .=)
-              <$> _kServiceAccessRoleARN,
-            ("StreamArn" .=) <$> _kStreamARN,
-            ("PartitionIncludeSchemaTable" .=)
-              <$> _kPartitionIncludeSchemaTable,
-            ("IncludeControlDetails" .=)
-              <$> _kIncludeControlDetails,
-            ("IncludePartitionValue" .=)
-              <$> _kIncludePartitionValue,
-            ("IncludeTransactionDetails" .=)
-              <$> _kIncludeTransactionDetails,
-            ("IncludeTableAlterOperations" .=)
-              <$> _kIncludeTableAlterOperations
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("IncludeNullAndEmpty" Prelude..=)
+              Prelude.<$> includeNullAndEmpty,
+            ("MessageFormat" Prelude..=)
+              Prelude.<$> messageFormat,
+            ("ServiceAccessRoleArn" Prelude..=)
+              Prelude.<$> serviceAccessRoleArn,
+            ("StreamArn" Prelude..=) Prelude.<$> streamArn,
+            ("PartitionIncludeSchemaTable" Prelude..=)
+              Prelude.<$> partitionIncludeSchemaTable,
+            ("IncludeControlDetails" Prelude..=)
+              Prelude.<$> includeControlDetails,
+            ("IncludePartitionValue" Prelude..=)
+              Prelude.<$> includePartitionValue,
+            ("IncludeTransactionDetails" Prelude..=)
+              Prelude.<$> includeTransactionDetails,
+            ("IncludeTableAlterOperations" Prelude..=)
+              Prelude.<$> includeTableAlterOperations
           ]
       )

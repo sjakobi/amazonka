@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,153 +24,149 @@
 -- Deletes an AWS DMS event subscription.
 module Network.AWS.DMS.DeleteEventSubscription
   ( -- * Creating a Request
-    deleteEventSubscription,
-    DeleteEventSubscription,
+    DeleteEventSubscription (..),
+    newDeleteEventSubscription,
 
     -- * Request Lenses
-    dSubscriptionName,
+    deleteEventSubscription_subscriptionName,
 
     -- * Destructuring the Response
-    deleteEventSubscriptionResponse,
-    DeleteEventSubscriptionResponse,
+    DeleteEventSubscriptionResponse (..),
+    newDeleteEventSubscriptionResponse,
 
     -- * Response Lenses
-    desrersEventSubscription,
-    desrersResponseStatus,
+    deleteEventSubscriptionResponse_eventSubscription,
+    deleteEventSubscriptionResponse_httpStatus,
   )
 where
 
 import Network.AWS.DMS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DMS.Types.EventSubscription
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- |
 --
---
---
--- /See:/ 'deleteEventSubscription' smart constructor.
-newtype DeleteEventSubscription = DeleteEventSubscription'
-  { _dSubscriptionName ::
-      Text
+-- /See:/ 'newDeleteEventSubscription' smart constructor.
+data DeleteEventSubscription = DeleteEventSubscription'
+  { -- | The name of the DMS event notification subscription to be deleted.
+    subscriptionName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteEventSubscription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteEventSubscription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dSubscriptionName' - The name of the DMS event notification subscription to be deleted.
-deleteEventSubscription ::
-  -- | 'dSubscriptionName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'subscriptionName', 'deleteEventSubscription_subscriptionName' - The name of the DMS event notification subscription to be deleted.
+newDeleteEventSubscription ::
+  -- | 'subscriptionName'
+  Prelude.Text ->
   DeleteEventSubscription
-deleteEventSubscription pSubscriptionName_ =
+newDeleteEventSubscription pSubscriptionName_ =
   DeleteEventSubscription'
-    { _dSubscriptionName =
+    { subscriptionName =
         pSubscriptionName_
     }
 
 -- | The name of the DMS event notification subscription to be deleted.
-dSubscriptionName :: Lens' DeleteEventSubscription Text
-dSubscriptionName = lens _dSubscriptionName (\s a -> s {_dSubscriptionName = a})
+deleteEventSubscription_subscriptionName :: Lens.Lens' DeleteEventSubscription Prelude.Text
+deleteEventSubscription_subscriptionName = Lens.lens (\DeleteEventSubscription' {subscriptionName} -> subscriptionName) (\s@DeleteEventSubscription' {} a -> s {subscriptionName = a} :: DeleteEventSubscription)
 
-instance AWSRequest DeleteEventSubscription where
+instance Prelude.AWSRequest DeleteEventSubscription where
   type
     Rs DeleteEventSubscription =
       DeleteEventSubscriptionResponse
-  request = postJSON dms
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteEventSubscriptionResponse'
-            <$> (x .?> "EventSubscription") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "EventSubscription")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteEventSubscription
+instance Prelude.Hashable DeleteEventSubscription
 
-instance NFData DeleteEventSubscription
+instance Prelude.NFData DeleteEventSubscription
 
-instance ToHeaders DeleteEventSubscription where
+instance Prelude.ToHeaders DeleteEventSubscription where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AmazonDMSv20160101.DeleteEventSubscription" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AmazonDMSv20160101.DeleteEventSubscription" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteEventSubscription where
+instance Prelude.ToJSON DeleteEventSubscription where
   toJSON DeleteEventSubscription' {..} =
-    object
-      ( catMaybes
-          [Just ("SubscriptionName" .= _dSubscriptionName)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("SubscriptionName" Prelude..= subscriptionName)
+          ]
       )
 
-instance ToPath DeleteEventSubscription where
-  toPath = const "/"
+instance Prelude.ToPath DeleteEventSubscription where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteEventSubscription where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteEventSubscription where
+  toQuery = Prelude.const Prelude.mempty
 
 -- |
 --
---
---
--- /See:/ 'deleteEventSubscriptionResponse' smart constructor.
+-- /See:/ 'newDeleteEventSubscriptionResponse' smart constructor.
 data DeleteEventSubscriptionResponse = DeleteEventSubscriptionResponse'
-  { _desrersEventSubscription ::
-      !( Maybe
-           EventSubscription
-       ),
-    _desrersResponseStatus ::
-      !Int
+  { -- | The event subscription that was deleted.
+    eventSubscription :: Prelude.Maybe EventSubscription,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteEventSubscriptionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteEventSubscriptionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'desrersEventSubscription' - The event subscription that was deleted.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'desrersResponseStatus' - -- | The response status code.
-deleteEventSubscriptionResponse ::
-  -- | 'desrersResponseStatus'
-  Int ->
+-- 'eventSubscription', 'deleteEventSubscriptionResponse_eventSubscription' - The event subscription that was deleted.
+--
+-- 'httpStatus', 'deleteEventSubscriptionResponse_httpStatus' - The response's http status code.
+newDeleteEventSubscriptionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteEventSubscriptionResponse
-deleteEventSubscriptionResponse pResponseStatus_ =
+newDeleteEventSubscriptionResponse pHttpStatus_ =
   DeleteEventSubscriptionResponse'
-    { _desrersEventSubscription =
-        Nothing,
-      _desrersResponseStatus = pResponseStatus_
+    { eventSubscription =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The event subscription that was deleted.
-desrersEventSubscription :: Lens' DeleteEventSubscriptionResponse (Maybe EventSubscription)
-desrersEventSubscription = lens _desrersEventSubscription (\s a -> s {_desrersEventSubscription = a})
+deleteEventSubscriptionResponse_eventSubscription :: Lens.Lens' DeleteEventSubscriptionResponse (Prelude.Maybe EventSubscription)
+deleteEventSubscriptionResponse_eventSubscription = Lens.lens (\DeleteEventSubscriptionResponse' {eventSubscription} -> eventSubscription) (\s@DeleteEventSubscriptionResponse' {} a -> s {eventSubscription = a} :: DeleteEventSubscriptionResponse)
 
--- | -- | The response status code.
-desrersResponseStatus :: Lens' DeleteEventSubscriptionResponse Int
-desrersResponseStatus = lens _desrersResponseStatus (\s a -> s {_desrersResponseStatus = a})
+-- | The response's http status code.
+deleteEventSubscriptionResponse_httpStatus :: Lens.Lens' DeleteEventSubscriptionResponse Prelude.Int
+deleteEventSubscriptionResponse_httpStatus = Lens.lens (\DeleteEventSubscriptionResponse' {httpStatus} -> httpStatus) (\s@DeleteEventSubscriptionResponse' {} a -> s {httpStatus = a} :: DeleteEventSubscriptionResponse)
 
-instance NFData DeleteEventSubscriptionResponse
+instance
+  Prelude.NFData
+    DeleteEventSubscriptionResponse

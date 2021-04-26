@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.DMS.Types.RefreshSchemasStatusTypeValue
   ( RefreshSchemasStatusTypeValue
       ( ..,
-        Failed,
-        Refreshing,
-        Successful
+        RefreshSchemasStatusTypeValueFailed,
+        RefreshSchemasStatusTypeValueRefreshing,
+        RefreshSchemasStatusTypeValueSuccessful
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RefreshSchemasStatusTypeValue
-  = RefreshSchemasStatusTypeValue'
-      ( CI
-          Text
-      )
+newtype RefreshSchemasStatusTypeValue = RefreshSchemasStatusTypeValue'
+  { fromRefreshSchemasStatusTypeValue ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Failed :: RefreshSchemasStatusTypeValue
-pattern Failed = RefreshSchemasStatusTypeValue' "failed"
+pattern RefreshSchemasStatusTypeValueFailed :: RefreshSchemasStatusTypeValue
+pattern RefreshSchemasStatusTypeValueFailed = RefreshSchemasStatusTypeValue' "failed"
 
-pattern Refreshing :: RefreshSchemasStatusTypeValue
-pattern Refreshing = RefreshSchemasStatusTypeValue' "refreshing"
+pattern RefreshSchemasStatusTypeValueRefreshing :: RefreshSchemasStatusTypeValue
+pattern RefreshSchemasStatusTypeValueRefreshing = RefreshSchemasStatusTypeValue' "refreshing"
 
-pattern Successful :: RefreshSchemasStatusTypeValue
-pattern Successful = RefreshSchemasStatusTypeValue' "successful"
+pattern RefreshSchemasStatusTypeValueSuccessful :: RefreshSchemasStatusTypeValue
+pattern RefreshSchemasStatusTypeValueSuccessful = RefreshSchemasStatusTypeValue' "successful"
 
 {-# COMPLETE
-  Failed,
-  Refreshing,
-  Successful,
+  RefreshSchemasStatusTypeValueFailed,
+  RefreshSchemasStatusTypeValueRefreshing,
+  RefreshSchemasStatusTypeValueSuccessful,
   RefreshSchemasStatusTypeValue'
   #-}
 
-instance FromText RefreshSchemasStatusTypeValue where
-  parser = (RefreshSchemasStatusTypeValue' . mk) <$> takeText
+instance Prelude.FromText RefreshSchemasStatusTypeValue where
+  parser = RefreshSchemasStatusTypeValue' Prelude.<$> Prelude.takeText
 
-instance ToText RefreshSchemasStatusTypeValue where
-  toText (RefreshSchemasStatusTypeValue' ci) = original ci
+instance Prelude.ToText RefreshSchemasStatusTypeValue where
+  toText (RefreshSchemasStatusTypeValue' x) = x
 
-instance Hashable RefreshSchemasStatusTypeValue
+instance Prelude.Hashable RefreshSchemasStatusTypeValue
 
-instance NFData RefreshSchemasStatusTypeValue
+instance Prelude.NFData RefreshSchemasStatusTypeValue
 
-instance ToByteString RefreshSchemasStatusTypeValue
+instance Prelude.ToByteString RefreshSchemasStatusTypeValue
 
-instance ToQuery RefreshSchemasStatusTypeValue
+instance Prelude.ToQuery RefreshSchemasStatusTypeValue
 
-instance ToHeader RefreshSchemasStatusTypeValue
+instance Prelude.ToHeader RefreshSchemasStatusTypeValue
 
-instance FromJSON RefreshSchemasStatusTypeValue where
-  parseJSON = parseJSONText "RefreshSchemasStatusTypeValue"
+instance Prelude.FromJSON RefreshSchemasStatusTypeValue where
+  parseJSON = Prelude.parseJSONText "RefreshSchemasStatusTypeValue"

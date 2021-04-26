@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.DMS.Types.AuthMechanismValue
   ( AuthMechanismValue
       ( ..,
-        Default,
-        MongodbCr,
-        ScramSha1
+        AuthMechanismValueDefault,
+        AuthMechanismValueMongodbCr,
+        AuthMechanismValueScramSha1
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AuthMechanismValue
-  = AuthMechanismValue'
-      ( CI
-          Text
-      )
+newtype AuthMechanismValue = AuthMechanismValue'
+  { fromAuthMechanismValue ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Default :: AuthMechanismValue
-pattern Default = AuthMechanismValue' "default"
+pattern AuthMechanismValueDefault :: AuthMechanismValue
+pattern AuthMechanismValueDefault = AuthMechanismValue' "default"
 
-pattern MongodbCr :: AuthMechanismValue
-pattern MongodbCr = AuthMechanismValue' "mongodb_cr"
+pattern AuthMechanismValueMongodbCr :: AuthMechanismValue
+pattern AuthMechanismValueMongodbCr = AuthMechanismValue' "mongodb_cr"
 
-pattern ScramSha1 :: AuthMechanismValue
-pattern ScramSha1 = AuthMechanismValue' "scram_sha_1"
+pattern AuthMechanismValueScramSha1 :: AuthMechanismValue
+pattern AuthMechanismValueScramSha1 = AuthMechanismValue' "scram_sha_1"
 
 {-# COMPLETE
-  Default,
-  MongodbCr,
-  ScramSha1,
+  AuthMechanismValueDefault,
+  AuthMechanismValueMongodbCr,
+  AuthMechanismValueScramSha1,
   AuthMechanismValue'
   #-}
 
-instance FromText AuthMechanismValue where
-  parser = (AuthMechanismValue' . mk) <$> takeText
+instance Prelude.FromText AuthMechanismValue where
+  parser = AuthMechanismValue' Prelude.<$> Prelude.takeText
 
-instance ToText AuthMechanismValue where
-  toText (AuthMechanismValue' ci) = original ci
+instance Prelude.ToText AuthMechanismValue where
+  toText (AuthMechanismValue' x) = x
 
-instance Hashable AuthMechanismValue
+instance Prelude.Hashable AuthMechanismValue
 
-instance NFData AuthMechanismValue
+instance Prelude.NFData AuthMechanismValue
 
-instance ToByteString AuthMechanismValue
+instance Prelude.ToByteString AuthMechanismValue
 
-instance ToQuery AuthMechanismValue
+instance Prelude.ToQuery AuthMechanismValue
 
-instance ToHeader AuthMechanismValue
+instance Prelude.ToHeader AuthMechanismValue
 
-instance ToJSON AuthMechanismValue where
-  toJSON = toJSONText
+instance Prelude.ToJSON AuthMechanismValue where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AuthMechanismValue where
-  parseJSON = parseJSONText "AuthMechanismValue"
+instance Prelude.FromJSON AuthMechanismValue where
+  parseJSON = Prelude.parseJSONText "AuthMechanismValue"

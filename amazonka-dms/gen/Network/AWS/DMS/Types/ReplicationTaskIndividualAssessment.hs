@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,109 +19,152 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.DMS.Types.ReplicationTaskIndividualAssessment where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Provides information that describes an individual assessment from a premigration assessment run.
+-- | Provides information that describes an individual assessment from a
+-- premigration assessment run.
 --
---
---
--- /See:/ 'replicationTaskIndividualAssessment' smart constructor.
+-- /See:/ 'newReplicationTaskIndividualAssessment' smart constructor.
 data ReplicationTaskIndividualAssessment = ReplicationTaskIndividualAssessment'
-  { _rtiaStatus ::
-      !( Maybe
-           Text
-       ),
-    _rtiaReplicationTaskAssessmentRunARN ::
-      !( Maybe
-           Text
-       ),
-    _rtiaIndividualAssessmentName ::
-      !( Maybe
-           Text
-       ),
-    _rtiaReplicationTaskIndividualAssessmentStartDate ::
-      !( Maybe
-           POSIX
-       ),
-    _rtiaReplicationTaskIndividualAssessmentARN ::
-      !( Maybe
-           Text
-       )
+  { -- | Individual assessment status.
+    --
+    -- This status can have one of the following values:
+    --
+    -- -   @\"cancelled\"@
+    --
+    -- -   @\"error\"@
+    --
+    -- -   @\"failed\"@
+    --
+    -- -   @\"passed\"@
+    --
+    -- -   @\"pending\"@
+    --
+    -- -   @\"running\"@
+    status :: Prelude.Maybe Prelude.Text,
+    -- | ARN of the premigration assessment run that is created to run this
+    -- individual assessment.
+    replicationTaskAssessmentRunArn :: Prelude.Maybe Prelude.Text,
+    -- | Name of this individual assessment.
+    individualAssessmentName :: Prelude.Maybe Prelude.Text,
+    -- | Date when this individual assessment was started as part of running the
+    -- @StartReplicationTaskAssessmentRun@ operation.
+    replicationTaskIndividualAssessmentStartDate :: Prelude.Maybe Prelude.POSIX,
+    -- | Amazon Resource Name (ARN) of this individual assessment.
+    replicationTaskIndividualAssessmentArn :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReplicationTaskIndividualAssessment' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReplicationTaskIndividualAssessment' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rtiaStatus' - Individual assessment status. This status can have one of the following values:     * @"cancelled"@      * @"error"@      * @"failed"@      * @"passed"@      * @"pending"@      * @"running"@
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rtiaReplicationTaskAssessmentRunARN' - ARN of the premigration assessment run that is created to run this individual assessment.
+-- 'status', 'replicationTaskIndividualAssessment_status' - Individual assessment status.
 --
--- * 'rtiaIndividualAssessmentName' - Name of this individual assessment.
+-- This status can have one of the following values:
 --
--- * 'rtiaReplicationTaskIndividualAssessmentStartDate' - Date when this individual assessment was started as part of running the @StartReplicationTaskAssessmentRun@ operation.
+-- -   @\"cancelled\"@
 --
--- * 'rtiaReplicationTaskIndividualAssessmentARN' - Amazon Resource Name (ARN) of this individual assessment.
-replicationTaskIndividualAssessment ::
+-- -   @\"error\"@
+--
+-- -   @\"failed\"@
+--
+-- -   @\"passed\"@
+--
+-- -   @\"pending\"@
+--
+-- -   @\"running\"@
+--
+-- 'replicationTaskAssessmentRunArn', 'replicationTaskIndividualAssessment_replicationTaskAssessmentRunArn' - ARN of the premigration assessment run that is created to run this
+-- individual assessment.
+--
+-- 'individualAssessmentName', 'replicationTaskIndividualAssessment_individualAssessmentName' - Name of this individual assessment.
+--
+-- 'replicationTaskIndividualAssessmentStartDate', 'replicationTaskIndividualAssessment_replicationTaskIndividualAssessmentStartDate' - Date when this individual assessment was started as part of running the
+-- @StartReplicationTaskAssessmentRun@ operation.
+--
+-- 'replicationTaskIndividualAssessmentArn', 'replicationTaskIndividualAssessment_replicationTaskIndividualAssessmentArn' - Amazon Resource Name (ARN) of this individual assessment.
+newReplicationTaskIndividualAssessment ::
   ReplicationTaskIndividualAssessment
-replicationTaskIndividualAssessment =
+newReplicationTaskIndividualAssessment =
   ReplicationTaskIndividualAssessment'
-    { _rtiaStatus =
-        Nothing,
-      _rtiaReplicationTaskAssessmentRunARN =
-        Nothing,
-      _rtiaIndividualAssessmentName =
-        Nothing,
-      _rtiaReplicationTaskIndividualAssessmentStartDate =
-        Nothing,
-      _rtiaReplicationTaskIndividualAssessmentARN =
-        Nothing
+    { status =
+        Prelude.Nothing,
+      replicationTaskAssessmentRunArn =
+        Prelude.Nothing,
+      individualAssessmentName =
+        Prelude.Nothing,
+      replicationTaskIndividualAssessmentStartDate =
+        Prelude.Nothing,
+      replicationTaskIndividualAssessmentArn =
+        Prelude.Nothing
     }
 
--- | Individual assessment status. This status can have one of the following values:     * @"cancelled"@      * @"error"@      * @"failed"@      * @"passed"@      * @"pending"@      * @"running"@
-rtiaStatus :: Lens' ReplicationTaskIndividualAssessment (Maybe Text)
-rtiaStatus = lens _rtiaStatus (\s a -> s {_rtiaStatus = a})
+-- | Individual assessment status.
+--
+-- This status can have one of the following values:
+--
+-- -   @\"cancelled\"@
+--
+-- -   @\"error\"@
+--
+-- -   @\"failed\"@
+--
+-- -   @\"passed\"@
+--
+-- -   @\"pending\"@
+--
+-- -   @\"running\"@
+replicationTaskIndividualAssessment_status :: Lens.Lens' ReplicationTaskIndividualAssessment (Prelude.Maybe Prelude.Text)
+replicationTaskIndividualAssessment_status = Lens.lens (\ReplicationTaskIndividualAssessment' {status} -> status) (\s@ReplicationTaskIndividualAssessment' {} a -> s {status = a} :: ReplicationTaskIndividualAssessment)
 
--- | ARN of the premigration assessment run that is created to run this individual assessment.
-rtiaReplicationTaskAssessmentRunARN :: Lens' ReplicationTaskIndividualAssessment (Maybe Text)
-rtiaReplicationTaskAssessmentRunARN = lens _rtiaReplicationTaskAssessmentRunARN (\s a -> s {_rtiaReplicationTaskAssessmentRunARN = a})
+-- | ARN of the premigration assessment run that is created to run this
+-- individual assessment.
+replicationTaskIndividualAssessment_replicationTaskAssessmentRunArn :: Lens.Lens' ReplicationTaskIndividualAssessment (Prelude.Maybe Prelude.Text)
+replicationTaskIndividualAssessment_replicationTaskAssessmentRunArn = Lens.lens (\ReplicationTaskIndividualAssessment' {replicationTaskAssessmentRunArn} -> replicationTaskAssessmentRunArn) (\s@ReplicationTaskIndividualAssessment' {} a -> s {replicationTaskAssessmentRunArn = a} :: ReplicationTaskIndividualAssessment)
 
 -- | Name of this individual assessment.
-rtiaIndividualAssessmentName :: Lens' ReplicationTaskIndividualAssessment (Maybe Text)
-rtiaIndividualAssessmentName = lens _rtiaIndividualAssessmentName (\s a -> s {_rtiaIndividualAssessmentName = a})
+replicationTaskIndividualAssessment_individualAssessmentName :: Lens.Lens' ReplicationTaskIndividualAssessment (Prelude.Maybe Prelude.Text)
+replicationTaskIndividualAssessment_individualAssessmentName = Lens.lens (\ReplicationTaskIndividualAssessment' {individualAssessmentName} -> individualAssessmentName) (\s@ReplicationTaskIndividualAssessment' {} a -> s {individualAssessmentName = a} :: ReplicationTaskIndividualAssessment)
 
--- | Date when this individual assessment was started as part of running the @StartReplicationTaskAssessmentRun@ operation.
-rtiaReplicationTaskIndividualAssessmentStartDate :: Lens' ReplicationTaskIndividualAssessment (Maybe UTCTime)
-rtiaReplicationTaskIndividualAssessmentStartDate = lens _rtiaReplicationTaskIndividualAssessmentStartDate (\s a -> s {_rtiaReplicationTaskIndividualAssessmentStartDate = a}) . mapping _Time
+-- | Date when this individual assessment was started as part of running the
+-- @StartReplicationTaskAssessmentRun@ operation.
+replicationTaskIndividualAssessment_replicationTaskIndividualAssessmentStartDate :: Lens.Lens' ReplicationTaskIndividualAssessment (Prelude.Maybe Prelude.UTCTime)
+replicationTaskIndividualAssessment_replicationTaskIndividualAssessmentStartDate = Lens.lens (\ReplicationTaskIndividualAssessment' {replicationTaskIndividualAssessmentStartDate} -> replicationTaskIndividualAssessmentStartDate) (\s@ReplicationTaskIndividualAssessment' {} a -> s {replicationTaskIndividualAssessmentStartDate = a} :: ReplicationTaskIndividualAssessment) Prelude.. Lens.mapping Prelude._Time
 
 -- | Amazon Resource Name (ARN) of this individual assessment.
-rtiaReplicationTaskIndividualAssessmentARN :: Lens' ReplicationTaskIndividualAssessment (Maybe Text)
-rtiaReplicationTaskIndividualAssessmentARN = lens _rtiaReplicationTaskIndividualAssessmentARN (\s a -> s {_rtiaReplicationTaskIndividualAssessmentARN = a})
+replicationTaskIndividualAssessment_replicationTaskIndividualAssessmentArn :: Lens.Lens' ReplicationTaskIndividualAssessment (Prelude.Maybe Prelude.Text)
+replicationTaskIndividualAssessment_replicationTaskIndividualAssessmentArn = Lens.lens (\ReplicationTaskIndividualAssessment' {replicationTaskIndividualAssessmentArn} -> replicationTaskIndividualAssessmentArn) (\s@ReplicationTaskIndividualAssessment' {} a -> s {replicationTaskIndividualAssessmentArn = a} :: ReplicationTaskIndividualAssessment)
 
-instance FromJSON ReplicationTaskIndividualAssessment where
+instance
+  Prelude.FromJSON
+    ReplicationTaskIndividualAssessment
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ReplicationTaskIndividualAssessment"
       ( \x ->
           ReplicationTaskIndividualAssessment'
-            <$> (x .:? "Status")
-            <*> (x .:? "ReplicationTaskAssessmentRunArn")
-            <*> (x .:? "IndividualAssessmentName")
-            <*> ( x
-                    .:? "ReplicationTaskIndividualAssessmentStartDate"
-                )
-            <*> (x .:? "ReplicationTaskIndividualAssessmentArn")
+            Prelude.<$> (x Prelude..:? "Status")
+            Prelude.<*> (x Prelude..:? "ReplicationTaskAssessmentRunArn")
+            Prelude.<*> (x Prelude..:? "IndividualAssessmentName")
+            Prelude.<*> ( x
+                            Prelude..:? "ReplicationTaskIndividualAssessmentStartDate"
+                        )
+            Prelude.<*> ( x
+                            Prelude..:? "ReplicationTaskIndividualAssessmentArn"
+                        )
       )
 
-instance Hashable ReplicationTaskIndividualAssessment
+instance
+  Prelude.Hashable
+    ReplicationTaskIndividualAssessment
 
-instance NFData ReplicationTaskIndividualAssessment
+instance
+  Prelude.NFData
+    ReplicationTaskIndividualAssessment

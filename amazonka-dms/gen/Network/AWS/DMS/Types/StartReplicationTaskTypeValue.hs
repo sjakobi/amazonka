@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.DMS.Types.StartReplicationTaskTypeValue
   ( StartReplicationTaskTypeValue
       ( ..,
-        ReloadTarget,
-        ResumeProcessing,
-        StartReplication
+        StartReplicationTaskTypeValueReloadTarget,
+        StartReplicationTaskTypeValueResumeProcessing,
+        StartReplicationTaskTypeValueStartReplication
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data StartReplicationTaskTypeValue
-  = StartReplicationTaskTypeValue'
-      ( CI
-          Text
-      )
+newtype StartReplicationTaskTypeValue = StartReplicationTaskTypeValue'
+  { fromStartReplicationTaskTypeValue ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ReloadTarget :: StartReplicationTaskTypeValue
-pattern ReloadTarget = StartReplicationTaskTypeValue' "reload-target"
+pattern StartReplicationTaskTypeValueReloadTarget :: StartReplicationTaskTypeValue
+pattern StartReplicationTaskTypeValueReloadTarget = StartReplicationTaskTypeValue' "reload-target"
 
-pattern ResumeProcessing :: StartReplicationTaskTypeValue
-pattern ResumeProcessing = StartReplicationTaskTypeValue' "resume-processing"
+pattern StartReplicationTaskTypeValueResumeProcessing :: StartReplicationTaskTypeValue
+pattern StartReplicationTaskTypeValueResumeProcessing = StartReplicationTaskTypeValue' "resume-processing"
 
-pattern StartReplication :: StartReplicationTaskTypeValue
-pattern StartReplication = StartReplicationTaskTypeValue' "start-replication"
+pattern StartReplicationTaskTypeValueStartReplication :: StartReplicationTaskTypeValue
+pattern StartReplicationTaskTypeValueStartReplication = StartReplicationTaskTypeValue' "start-replication"
 
 {-# COMPLETE
-  ReloadTarget,
-  ResumeProcessing,
-  StartReplication,
+  StartReplicationTaskTypeValueReloadTarget,
+  StartReplicationTaskTypeValueResumeProcessing,
+  StartReplicationTaskTypeValueStartReplication,
   StartReplicationTaskTypeValue'
   #-}
 
-instance FromText StartReplicationTaskTypeValue where
-  parser = (StartReplicationTaskTypeValue' . mk) <$> takeText
+instance Prelude.FromText StartReplicationTaskTypeValue where
+  parser = StartReplicationTaskTypeValue' Prelude.<$> Prelude.takeText
 
-instance ToText StartReplicationTaskTypeValue where
-  toText (StartReplicationTaskTypeValue' ci) = original ci
+instance Prelude.ToText StartReplicationTaskTypeValue where
+  toText (StartReplicationTaskTypeValue' x) = x
 
-instance Hashable StartReplicationTaskTypeValue
+instance Prelude.Hashable StartReplicationTaskTypeValue
 
-instance NFData StartReplicationTaskTypeValue
+instance Prelude.NFData StartReplicationTaskTypeValue
 
-instance ToByteString StartReplicationTaskTypeValue
+instance Prelude.ToByteString StartReplicationTaskTypeValue
 
-instance ToQuery StartReplicationTaskTypeValue
+instance Prelude.ToQuery StartReplicationTaskTypeValue
 
-instance ToHeader StartReplicationTaskTypeValue
+instance Prelude.ToHeader StartReplicationTaskTypeValue
 
-instance ToJSON StartReplicationTaskTypeValue where
-  toJSON = toJSONText
+instance Prelude.ToJSON StartReplicationTaskTypeValue where
+  toJSON = Prelude.toJSONText

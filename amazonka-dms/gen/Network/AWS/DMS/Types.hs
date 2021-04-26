@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.DMS.Types
   ( -- * Service Configuration
-    dms,
+    defaultService,
 
     -- * Errors
     _KMSDisabledFault,
@@ -59,8 +62,8 @@ module Network.AWS.DMS.Types
     -- * DatePartitionSequenceValue
     DatePartitionSequenceValue (..),
 
-    -- * DmsSSLModeValue
-    DmsSSLModeValue (..),
+    -- * DmsSslModeValue
+    DmsSslModeValue (..),
 
     -- * EncodingTypeValue
     EncodingTypeValue (..),
@@ -101,611 +104,188 @@ module Network.AWS.DMS.Types
     -- * StartReplicationTaskTypeValue
     StartReplicationTaskTypeValue (..),
 
-    -- * TargetDBType
-    TargetDBType (..),
+    -- * TargetDbType
+    TargetDbType (..),
 
     -- * AccountQuota
     AccountQuota (..),
-    accountQuota,
-    aqUsed,
-    aqAccountQuotaName,
-    aqMax,
+    newAccountQuota,
 
     -- * AvailabilityZone
     AvailabilityZone (..),
-    availabilityZone,
-    azName,
+    newAvailabilityZone,
 
     -- * Certificate
     Certificate (..),
-    certificate,
-    cCertificateOwner,
-    cSigningAlgorithm,
-    cValidToDate,
-    cCertificateIdentifier,
-    cKeyLength,
-    cCertificateARN,
-    cCertificateWallet,
-    cValidFromDate,
-    cCertificateCreationDate,
-    cCertificatePem,
+    newCertificate,
 
     -- * Connection
     Connection (..),
-    connection,
-    cStatus,
-    cLastFailureMessage,
-    cEndpointARN,
-    cReplicationInstanceIdentifier,
-    cReplicationInstanceARN,
-    cEndpointIdentifier,
+    newConnection,
 
     -- * DmsTransferSettings
     DmsTransferSettings (..),
-    dmsTransferSettings,
-    dtsBucketName,
-    dtsServiceAccessRoleARN,
+    newDmsTransferSettings,
 
-    -- * DocDBSettings
-    DocDBSettings (..),
-    docDBSettings,
-    ddsSecretsManagerSecretId,
-    ddsServerName,
-    ddsKMSKeyId,
-    ddsPassword,
-    ddsPort,
-    ddsUsername,
-    ddsSecretsManagerAccessRoleARN,
-    ddsExtractDocId,
-    ddsDocsToInvestigate,
-    ddsNestingLevel,
-    ddsDatabaseName,
+    -- * DocDbSettings
+    DocDbSettings (..),
+    newDocDbSettings,
 
-    -- * DynamoDBSettings
-    DynamoDBSettings (..),
-    dynamoDBSettings,
-    ddsServiceAccessRoleARN,
+    -- * DynamoDbSettings
+    DynamoDbSettings (..),
+    newDynamoDbSettings,
 
     -- * ElasticsearchSettings
     ElasticsearchSettings (..),
-    elasticsearchSettings,
-    esErrorRetryDuration,
-    esFullLoadErrorPercentage,
-    esServiceAccessRoleARN,
-    esEndpointURI,
+    newElasticsearchSettings,
 
     -- * Endpoint
     Endpoint (..),
-    endpoint,
-    eSSLMode,
-    eMongoDBSettings,
-    eStatus,
-    eNeptuneSettings,
-    eEngineName,
-    eElasticsearchSettings,
-    eExternalTableDefinition,
-    eEndpointType,
-    eOracleSettings,
-    ePostgreSQLSettings,
-    eServiceAccessRoleARN,
-    eCertificateARN,
-    eS3Settings,
-    eServerName,
-    eMicrosoftSQLServerSettings,
-    eKMSKeyId,
-    eIBMDB2Settings,
-    eMySQLSettings,
-    eDmsTransferSettings,
-    ePort,
-    eEndpointARN,
-    eRedshiftSettings,
-    eUsername,
-    eEngineDisplayName,
-    eKafkaSettings,
-    eDocDBSettings,
-    eDynamoDBSettings,
-    eExtraConnectionAttributes,
-    eExternalId,
-    eEndpointIdentifier,
-    eKinesisSettings,
-    eSybaseSettings,
-    eDatabaseName,
+    newEndpoint,
 
     -- * Event
     Event (..),
-    event,
-    eMessage,
-    eEventCategories,
-    eDate,
-    eSourceIdentifier,
-    eSourceType,
+    newEvent,
 
     -- * EventCategoryGroup
     EventCategoryGroup (..),
-    eventCategoryGroup,
-    ecgEventCategories,
-    ecgSourceType,
+    newEventCategoryGroup,
 
     -- * EventSubscription
     EventSubscription (..),
-    eventSubscription,
-    esCustSubscriptionId,
-    esStatus,
-    esSourceIdsList,
-    esEventCategoriesList,
-    esEnabled,
-    esSubscriptionCreationTime,
-    esCustomerAWSId,
-    esSourceType,
-    esSNSTopicARN,
+    newEventSubscription,
 
     -- * Filter
     Filter (..),
-    filter',
-    fName,
-    fValues,
+    newFilter,
 
-    -- * IBMDB2Settings
-    IBMDB2Settings (..),
-    iBMDB2Settings,
-    ibmdsCurrentLsn,
-    ibmdsSecretsManagerSecretId,
-    ibmdsServerName,
-    ibmdsPassword,
-    ibmdsPort,
-    ibmdsUsername,
-    ibmdsSecretsManagerAccessRoleARN,
-    ibmdsSetDataCaptureChanges,
-    ibmdsMaxKBytesPerRead,
-    ibmdsDatabaseName,
+    -- * IBMDb2Settings
+    IBMDb2Settings (..),
+    newIBMDb2Settings,
 
     -- * KafkaSettings
     KafkaSettings (..),
-    kafkaSettings,
-    ksIncludeNullAndEmpty,
-    ksMessageFormat,
-    ksPartitionIncludeSchemaTable,
-    ksIncludeControlDetails,
-    ksTopic,
-    ksMessageMaxBytes,
-    ksBroker,
-    ksIncludePartitionValue,
-    ksIncludeTransactionDetails,
-    ksIncludeTableAlterOperations,
+    newKafkaSettings,
 
     -- * KinesisSettings
     KinesisSettings (..),
-    kinesisSettings,
-    kIncludeNullAndEmpty,
-    kMessageFormat,
-    kServiceAccessRoleARN,
-    kStreamARN,
-    kPartitionIncludeSchemaTable,
-    kIncludeControlDetails,
-    kIncludePartitionValue,
-    kIncludeTransactionDetails,
-    kIncludeTableAlterOperations,
+    newKinesisSettings,
 
     -- * MicrosoftSQLServerSettings
     MicrosoftSQLServerSettings (..),
-    microsoftSQLServerSettings,
-    msqlssUseBcpFullLoad,
-    msqlssSafeguardPolicy,
-    msqlssSecretsManagerSecretId,
-    msqlssServerName,
-    msqlssPassword,
-    msqlssBcpPacketSize,
-    msqlssPort,
-    msqlssUsername,
-    msqlssSecretsManagerAccessRoleARN,
-    msqlssControlTablesFileGroup,
-    msqlssReadBackupOnly,
-    msqlssDatabaseName,
+    newMicrosoftSQLServerSettings,
 
-    -- * MongoDBSettings
-    MongoDBSettings (..),
-    mongoDBSettings,
-    mdsSecretsManagerSecretId,
-    mdsAuthSource,
-    mdsServerName,
-    mdsKMSKeyId,
-    mdsPassword,
-    mdsPort,
-    mdsUsername,
-    mdsSecretsManagerAccessRoleARN,
-    mdsAuthMechanism,
-    mdsExtractDocId,
-    mdsAuthType,
-    mdsDocsToInvestigate,
-    mdsNestingLevel,
-    mdsDatabaseName,
+    -- * MongoDbSettings
+    MongoDbSettings (..),
+    newMongoDbSettings,
 
     -- * MySQLSettings
     MySQLSettings (..),
-    mySQLSettings,
-    msqlsTargetDBType,
-    msqlsServerTimezone,
-    msqlsSecretsManagerSecretId,
-    msqlsAfterConnectScript,
-    msqlsServerName,
-    msqlsMaxFileSize,
-    msqlsPassword,
-    msqlsEventsPollInterval,
-    msqlsPort,
-    msqlsUsername,
-    msqlsSecretsManagerAccessRoleARN,
-    msqlsParallelLoadThreads,
-    msqlsDatabaseName,
+    newMySQLSettings,
 
     -- * NeptuneSettings
     NeptuneSettings (..),
-    neptuneSettings,
-    nsErrorRetryDuration,
-    nsServiceAccessRoleARN,
-    nsMaxFileSize,
-    nsMaxRetryCount,
-    nsIAMAuthEnabled,
-    nsS3BucketName,
-    nsS3BucketFolder,
+    newNeptuneSettings,
 
     -- * OracleSettings
     OracleSettings (..),
-    oracleSettings,
-    osFailTasksOnLobTruncation,
-    osRetryInterval,
-    osSecretsManagerOracleAsmSecretId,
-    osAccessAlternateDirectly,
-    osUseAlternateFolderForOnline,
-    osNumberDatatypeScale,
-    osOraclePathPrefix,
-    osSecurityDBEncryptionName,
-    osAdditionalArchivedLogDestId,
-    osAsmPassword,
-    osSecretsManagerSecretId,
-    osArchivedLogsOnly,
-    osDirectPathParallelLoad,
-    osDirectPathNoLog,
-    osServerName,
-    osAsmServer,
-    osSecurityDBEncryption,
-    osReadTableSpaceName,
-    osPassword,
-    osAllowSelectNestedTables,
-    osArchivedLogDestId,
-    osReplacePathPrefix,
-    osPort,
-    osReadAheadBlocks,
-    osUsePathPrefix,
-    osAsmUser,
-    osUsername,
-    osEnableHomogenousTablespace,
-    osSecretsManagerAccessRoleARN,
-    osParallelAsmReadThreads,
-    osCharLengthSemantics,
-    osAddSupplementalLogging,
-    osSecretsManagerOracleAsmAccessRoleARN,
-    osDatabaseName,
+    newOracleSettings,
 
     -- * OrderableReplicationInstance
     OrderableReplicationInstance (..),
-    orderableReplicationInstance,
-    oriAvailabilityZones,
-    oriMaxAllocatedStorage,
-    oriStorageType,
-    oriDefaultAllocatedStorage,
-    oriIncludedAllocatedStorage,
-    oriReleaseStatus,
-    oriEngineVersion,
-    oriReplicationInstanceClass,
-    oriMinAllocatedStorage,
+    newOrderableReplicationInstance,
 
     -- * PendingMaintenanceAction
     PendingMaintenanceAction (..),
-    pendingMaintenanceAction,
-    pmaForcedApplyDate,
-    pmaOptInStatus,
-    pmaAutoAppliedAfterDate,
-    pmaCurrentApplyDate,
-    pmaAction,
-    pmaDescription,
+    newPendingMaintenanceAction,
 
     -- * PostgreSQLSettings
     PostgreSQLSettings (..),
-    postgreSQLSettings,
-    psqlsFailTasksOnLobTruncation,
-    psqlsExecuteTimeout,
-    psqlsSlotName,
-    psqlsCaptureDdls,
-    psqlsDdlArtifactsSchema,
-    psqlsSecretsManagerSecretId,
-    psqlsAfterConnectScript,
-    psqlsServerName,
-    psqlsMaxFileSize,
-    psqlsPassword,
-    psqlsPort,
-    psqlsUsername,
-    psqlsSecretsManagerAccessRoleARN,
-    psqlsDatabaseName,
+    newPostgreSQLSettings,
 
     -- * RedshiftSettings
     RedshiftSettings (..),
-    redshiftSettings,
-    rsReplaceChars,
-    rsCaseSensitiveNames,
-    rsBucketName,
-    rsFileTransferUploadStreams,
-    rsReplaceInvalidChars,
-    rsServerSideEncryptionKMSKeyId,
-    rsTimeFormat,
-    rsWriteBufferSize,
-    rsServiceAccessRoleARN,
-    rsBucketFolder,
-    rsConnectionTimeout,
-    rsSecretsManagerSecretId,
-    rsLoadTimeout,
-    rsAfterConnectScript,
-    rsServerName,
-    rsAcceptAnyDate,
-    rsMaxFileSize,
-    rsRemoveQuotes,
-    rsPassword,
-    rsDateFormat,
-    rsEncryptionMode,
-    rsEmptyAsNull,
-    rsPort,
-    rsUsername,
-    rsSecretsManagerAccessRoleARN,
-    rsTrimBlanks,
-    rsTruncateColumns,
-    rsCompUpdate,
-    rsExplicitIds,
-    rsDatabaseName,
+    newRedshiftSettings,
 
     -- * RefreshSchemasStatus
     RefreshSchemasStatus (..),
-    refreshSchemasStatus,
-    rssStatus,
-    rssLastFailureMessage,
-    rssEndpointARN,
-    rssLastRefreshDate,
-    rssReplicationInstanceARN,
+    newRefreshSchemasStatus,
 
     -- * ReplicationInstance
     ReplicationInstance (..),
-    replicationInstance,
-    riReplicationInstancePrivateIPAddress,
-    riVPCSecurityGroups,
-    riFreeUntil,
-    riReplicationSubnetGroup,
-    riInstanceCreateTime,
-    riMultiAZ,
-    riPubliclyAccessible,
-    riKMSKeyId,
-    riAvailabilityZone,
-    riEngineVersion,
-    riPreferredMaintenanceWindow,
-    riReplicationInstancePrivateIPAddresses,
-    riReplicationInstanceStatus,
-    riReplicationInstanceIdentifier,
-    riPendingModifiedValues,
-    riReplicationInstancePublicIPAddress,
-    riReplicationInstanceClass,
-    riReplicationInstanceARN,
-    riDNSNameServers,
-    riAllocatedStorage,
-    riReplicationInstancePublicIPAddresses,
-    riSecondaryAvailabilityZone,
-    riAutoMinorVersionUpgrade,
+    newReplicationInstance,
 
     -- * ReplicationInstanceTaskLog
     ReplicationInstanceTaskLog (..),
-    replicationInstanceTaskLog,
-    ritlReplicationTaskName,
-    ritlReplicationTaskARN,
-    ritlReplicationInstanceTaskLogSize,
+    newReplicationInstanceTaskLog,
 
     -- * ReplicationPendingModifiedValues
     ReplicationPendingModifiedValues (..),
-    replicationPendingModifiedValues,
-    rpmvMultiAZ,
-    rpmvEngineVersion,
-    rpmvReplicationInstanceClass,
-    rpmvAllocatedStorage,
+    newReplicationPendingModifiedValues,
 
     -- * ReplicationSubnetGroup
     ReplicationSubnetGroup (..),
-    replicationSubnetGroup,
-    rsgReplicationSubnetGroupIdentifier,
-    rsgSubnetGroupStatus,
-    rsgReplicationSubnetGroupDescription,
-    rsgSubnets,
-    rsgVPCId,
+    newReplicationSubnetGroup,
 
     -- * ReplicationTask
     ReplicationTask (..),
-    replicationTask,
-    rtStatus,
-    rtMigrationType,
-    rtReplicationTaskCreationDate,
-    rtStopReason,
-    rtRecoveryCheckpoint,
-    rtTargetReplicationInstanceARN,
-    rtTaskData,
-    rtTargetEndpointARN,
-    rtReplicationTaskARN,
-    rtReplicationTaskSettings,
-    rtLastFailureMessage,
-    rtTableMappings,
-    rtSourceEndpointARN,
-    rtReplicationInstanceARN,
-    rtReplicationTaskStats,
-    rtReplicationTaskStartDate,
-    rtCdcStopPosition,
-    rtCdcStartPosition,
-    rtReplicationTaskIdentifier,
+    newReplicationTask,
 
     -- * ReplicationTaskAssessmentResult
     ReplicationTaskAssessmentResult (..),
-    replicationTaskAssessmentResult,
-    repS3ObjectURL,
-    repAssessmentStatus,
-    repReplicationTaskARN,
-    repAssessmentResults,
-    repReplicationTaskLastAssessmentDate,
-    repAssessmentResultsFile,
-    repReplicationTaskIdentifier,
+    newReplicationTaskAssessmentResult,
 
     -- * ReplicationTaskAssessmentRun
     ReplicationTaskAssessmentRun (..),
-    replicationTaskAssessmentRun,
-    rtarStatus,
-    rtarResultKMSKeyARN,
-    rtarAssessmentProgress,
-    rtarReplicationTaskAssessmentRunARN,
-    rtarReplicationTaskAssessmentRunCreationDate,
-    rtarAssessmentRunName,
-    rtarServiceAccessRoleARN,
-    rtarResultEncryptionMode,
-    rtarReplicationTaskARN,
-    rtarLastFailureMessage,
-    rtarResultLocationFolder,
-    rtarResultLocationBucket,
+    newReplicationTaskAssessmentRun,
 
     -- * ReplicationTaskAssessmentRunProgress
     ReplicationTaskAssessmentRunProgress (..),
-    replicationTaskAssessmentRunProgress,
-    rtarpIndividualAssessmentCount,
-    rtarpIndividualAssessmentCompletedCount,
+    newReplicationTaskAssessmentRunProgress,
 
     -- * ReplicationTaskIndividualAssessment
     ReplicationTaskIndividualAssessment (..),
-    replicationTaskIndividualAssessment,
-    rtiaStatus,
-    rtiaReplicationTaskAssessmentRunARN,
-    rtiaIndividualAssessmentName,
-    rtiaReplicationTaskIndividualAssessmentStartDate,
-    rtiaReplicationTaskIndividualAssessmentARN,
+    newReplicationTaskIndividualAssessment,
 
     -- * ReplicationTaskStats
     ReplicationTaskStats (..),
-    replicationTaskStats,
-    rtsStopDate,
-    rtsTablesErrored,
-    rtsStartDate,
-    rtsFreshStartDate,
-    rtsTablesLoading,
-    rtsFullLoadStartDate,
-    rtsElapsedTimeMillis,
-    rtsFullLoadProgressPercent,
-    rtsTablesQueued,
-    rtsFullLoadFinishDate,
-    rtsTablesLoaded,
+    newReplicationTaskStats,
 
     -- * ResourcePendingMaintenanceActions
     ResourcePendingMaintenanceActions (..),
-    resourcePendingMaintenanceActions,
-    rpmaPendingMaintenanceActionDetails,
-    rpmaResourceIdentifier,
+    newResourcePendingMaintenanceActions,
 
     -- * S3Settings
     S3Settings (..),
-    s3Settings,
-    ssTimestampColumnName,
-    ssPreserveTransactions,
-    ssCSVRowDelimiter,
-    ssParquetVersion,
-    ssDatePartitionSequence,
-    ssBucketName,
-    ssCdcPath,
-    ssExternalTableDefinition,
-    ssServerSideEncryptionKMSKeyId,
-    ssDataPageSize,
-    ssEncodingType,
-    ssDatePartitionEnabled,
-    ssDataFormat,
-    ssServiceAccessRoleARN,
-    ssBucketFolder,
-    ssDatePartitionDelimiter,
-    ssEnableStatistics,
-    ssEncryptionMode,
-    ssCdcInsertsOnly,
-    ssCdcInsertsAndUpdates,
-    ssUseCSVNoSupValue,
-    ssDictPageSizeLimit,
-    ssRowGroupLength,
-    ssCompressionType,
-    ssIncludeOpForFullLoad,
-    ssCSVDelimiter,
-    ssParquetTimestampInMillisecond,
-    ssCSVNoSupValue,
+    newS3Settings,
 
     -- * Subnet
     Subnet (..),
-    subnet,
-    sSubnetStatus,
-    sSubnetIdentifier,
-    sSubnetAvailabilityZone,
+    newSubnet,
 
     -- * SupportedEndpointType
     SupportedEndpointType (..),
-    supportedEndpointType,
-    setReplicationInstanceEngineMinimumVersion,
-    setEngineName,
-    setEndpointType,
-    setSupportsCDC,
-    setEngineDisplayName,
+    newSupportedEndpointType,
 
     -- * SybaseSettings
     SybaseSettings (..),
-    sybaseSettings,
-    ssSecretsManagerSecretId,
-    ssServerName,
-    ssPassword,
-    ssPort,
-    ssUsername,
-    ssSecretsManagerAccessRoleARN,
-    ssDatabaseName,
+    newSybaseSettings,
 
     -- * TableStatistics
     TableStatistics (..),
-    tableStatistics,
-    tsFullLoadCondtnlChkFailedRows,
-    tsFullLoadRows,
-    tsFullLoadErrorRows,
-    tsTableName,
-    tsTableState,
-    tsLastUpdateTime,
-    tsValidationFailedRecords,
-    tsFullLoadStartTime,
-    tsUpdates,
-    tsDeletes,
-    tsDdls,
-    tsFullLoadEndTime,
-    tsValidationState,
-    tsInserts,
-    tsValidationSuspendedRecords,
-    tsSchemaName,
-    tsValidationStateDetails,
-    tsFullLoadReloaded,
-    tsValidationPendingRecords,
+    newTableStatistics,
 
     -- * TableToReload
     TableToReload (..),
-    tableToReload,
-    ttrSchemaName,
-    ttrTableName,
+    newTableToReload,
 
     -- * Tag
     Tag (..),
-    tag,
-    tagKey,
-    tagValue,
+    newTag,
 
-    -- * VPCSecurityGroupMembership
-    VPCSecurityGroupMembership (..),
-    vpcSecurityGroupMembership,
-    vsgmStatus,
-    vsgmVPCSecurityGroupId,
+    -- * VpcSecurityGroupMembership
+    VpcSecurityGroupMembership (..),
+    newVpcSecurityGroupMembership,
   )
 where
 
@@ -720,10 +300,10 @@ import Network.AWS.DMS.Types.Connection
 import Network.AWS.DMS.Types.DataFormatValue
 import Network.AWS.DMS.Types.DatePartitionDelimiterValue
 import Network.AWS.DMS.Types.DatePartitionSequenceValue
-import Network.AWS.DMS.Types.DmsSSLModeValue
+import Network.AWS.DMS.Types.DmsSslModeValue
 import Network.AWS.DMS.Types.DmsTransferSettings
-import Network.AWS.DMS.Types.DocDBSettings
-import Network.AWS.DMS.Types.DynamoDBSettings
+import Network.AWS.DMS.Types.DocDbSettings
+import Network.AWS.DMS.Types.DynamoDbSettings
 import Network.AWS.DMS.Types.ElasticsearchSettings
 import Network.AWS.DMS.Types.EncodingTypeValue
 import Network.AWS.DMS.Types.EncryptionModeValue
@@ -732,13 +312,13 @@ import Network.AWS.DMS.Types.Event
 import Network.AWS.DMS.Types.EventCategoryGroup
 import Network.AWS.DMS.Types.EventSubscription
 import Network.AWS.DMS.Types.Filter
-import Network.AWS.DMS.Types.IBMDB2Settings
+import Network.AWS.DMS.Types.IBMDb2Settings
 import Network.AWS.DMS.Types.KafkaSettings
 import Network.AWS.DMS.Types.KinesisSettings
 import Network.AWS.DMS.Types.MessageFormatValue
 import Network.AWS.DMS.Types.MicrosoftSQLServerSettings
 import Network.AWS.DMS.Types.MigrationTypeValue
-import Network.AWS.DMS.Types.MongoDBSettings
+import Network.AWS.DMS.Types.MongoDbSettings
 import Network.AWS.DMS.Types.MySQLSettings
 import Network.AWS.DMS.Types.NeptuneSettings
 import Network.AWS.DMS.Types.NestingLevelValue
@@ -774,179 +354,245 @@ import Network.AWS.DMS.Types.SybaseSettings
 import Network.AWS.DMS.Types.TableStatistics
 import Network.AWS.DMS.Types.TableToReload
 import Network.AWS.DMS.Types.Tag
-import Network.AWS.DMS.Types.TargetDBType
-import Network.AWS.DMS.Types.VPCSecurityGroupMembership
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Sign.V4
+import Network.AWS.DMS.Types.TargetDbType
+import Network.AWS.DMS.Types.VpcSecurityGroupMembership
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Sign.V4 as Sign
 
 -- | API version @2016-01-01@ of the Amazon Database Migration Service SDK configuration.
-dms :: Service
-dms =
-  Service
-    { _svcAbbrev = "DMS",
-      _svcSigner = v4,
-      _svcPrefix = "dms",
-      _svcVersion = "2016-01-01",
-      _svcEndpoint = defaultEndpoint dms,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseJSONError "DMS",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev = "DMS",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "dms",
+      Prelude._svcVersion = "2016-01-01",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError = Prelude.parseJSONError "DMS",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
--- | The specified master key (CMK) isn't enabled.
-_KMSDisabledFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified master key (CMK) isn\'t enabled.
+_KMSDisabledFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _KMSDisabledFault =
-  _MatchServiceError dms "KMSDisabledFault"
+  Prelude._MatchServiceError
+    defaultService
+    "KMSDisabledFault"
 
--- | An AWS Key Management Service (AWS KMS) error is preventing access to AWS KMS.
-_KMSFault :: AsError a => Getting (First ServiceError) a ServiceError
-_KMSFault = _MatchServiceError dms "KMSFault"
+-- | An AWS Key Management Service (AWS KMS) error is preventing access to
+-- AWS KMS.
+_KMSFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
+_KMSFault =
+  Prelude._MatchServiceError
+    defaultService
+    "KMSFault"
 
--- | The ciphertext references a key that doesn't exist or that the DMS account doesn't have access to.
-_KMSAccessDeniedFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The ciphertext references a key that doesn\'t exist or that the DMS
+-- account doesn\'t have access to.
+_KMSAccessDeniedFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _KMSAccessDeniedFault =
-  _MatchServiceError dms "KMSAccessDeniedFault"
+  Prelude._MatchServiceError
+    defaultService
+    "KMSAccessDeniedFault"
 
--- | AWS DMS was denied access to the endpoint. Check that the role is correctly configured.
-_AccessDeniedFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | AWS DMS was denied access to the endpoint. Check that the role is
+-- correctly configured.
+_AccessDeniedFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _AccessDeniedFault =
-  _MatchServiceError dms "AccessDeniedFault"
+  Prelude._MatchServiceError
+    defaultService
+    "AccessDeniedFault"
 
 -- | The certificate was not valid.
-_InvalidCertificateFault :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidCertificateFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidCertificateFault =
-  _MatchServiceError dms "InvalidCertificateFault"
+  Prelude._MatchServiceError
+    defaultService
+    "InvalidCertificateFault"
 
 -- | You are not authorized for the SNS subscription.
-_SNSNoAuthorizationFault :: AsError a => Getting (First ServiceError) a ServiceError
+_SNSNoAuthorizationFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _SNSNoAuthorizationFault =
-  _MatchServiceError dms "SNSNoAuthorizationFault"
+  Prelude._MatchServiceError
+    defaultService
+    "SNSNoAuthorizationFault"
 
--- | The resource is in a state that prevents it from being used for database migration.
-_InvalidResourceStateFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The resource is in a state that prevents it from being used for database
+-- migration.
+_InvalidResourceStateFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidResourceStateFault =
-  _MatchServiceError dms "InvalidResourceStateFault"
+  Prelude._MatchServiceError
+    defaultService
+    "InvalidResourceStateFault"
 
 -- | The resource could not be found.
-_ResourceNotFoundFault :: AsError a => Getting (First ServiceError) a ServiceError
+_ResourceNotFoundFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceNotFoundFault =
-  _MatchServiceError dms "ResourceNotFoundFault"
+  Prelude._MatchServiceError
+    defaultService
+    "ResourceNotFoundFault"
 
 -- | AWS DMS cannot access the AWS KMS key.
-_KMSKeyNotAccessibleFault :: AsError a => Getting (First ServiceError) a ServiceError
+_KMSKeyNotAccessibleFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _KMSKeyNotAccessibleFault =
-  _MatchServiceError dms "KMSKeyNotAccessibleFault"
+  Prelude._MatchServiceError
+    defaultService
+    "KMSKeyNotAccessibleFault"
 
 -- | The quota for this resource quota has been exceeded.
-_ResourceQuotaExceededFault :: AsError a => Getting (First ServiceError) a ServiceError
+_ResourceQuotaExceededFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceQuotaExceededFault =
-  _MatchServiceError dms "ResourceQuotaExceededFault"
+  Prelude._MatchServiceError
+    defaultService
+    "ResourceQuotaExceededFault"
 
 -- | The SNS topic is invalid.
-_SNSInvalidTopicFault :: AsError a => Getting (First ServiceError) a ServiceError
+_SNSInvalidTopicFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _SNSInvalidTopicFault =
-  _MatchServiceError dms "SNSInvalidTopicFault"
+  Prelude._MatchServiceError
+    defaultService
+    "SNSInvalidTopicFault"
 
--- | The specified AWS KMS entity or resource can't be found.
-_KMSNotFoundFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The specified AWS KMS entity or resource can\'t be found.
+_KMSNotFoundFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _KMSNotFoundFault =
-  _MatchServiceError dms "KMSNotFoundFault"
+  Prelude._MatchServiceError
+    defaultService
+    "KMSNotFoundFault"
 
--- | The state of the specified AWS KMS resource isn't valid for this request.
-_KMSInvalidStateFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The state of the specified AWS KMS resource isn\'t valid for this
+-- request.
+_KMSInvalidStateFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _KMSInvalidStateFault =
-  _MatchServiceError dms "KMSInvalidStateFault"
+  Prelude._MatchServiceError
+    defaultService
+    "KMSInvalidStateFault"
 
 -- | The specified subnet is already in use.
-_SubnetAlreadyInUse :: AsError a => Getting (First ServiceError) a ServiceError
+_SubnetAlreadyInUse :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _SubnetAlreadyInUse =
-  _MatchServiceError dms "SubnetAlreadyInUse"
+  Prelude._MatchServiceError
+    defaultService
+    "SubnetAlreadyInUse"
 
 -- | There are not enough resources allocated to the database migration.
-_InsufficientResourceCapacityFault :: AsError a => Getting (First ServiceError) a ServiceError
+_InsufficientResourceCapacityFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InsufficientResourceCapacityFault =
-  _MatchServiceError
-    dms
+  Prelude._MatchServiceError
+    defaultService
     "InsufficientResourceCapacityFault"
 
 -- | Insufficient privileges are preventing access to an Amazon S3 object.
-_S3AccessDeniedFault :: AsError a => Getting (First ServiceError) a ServiceError
+_S3AccessDeniedFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _S3AccessDeniedFault =
-  _MatchServiceError dms "S3AccessDeniedFault"
+  Prelude._MatchServiceError
+    defaultService
+    "S3AccessDeniedFault"
 
 -- | The storage quota has been exceeded.
-_StorageQuotaExceededFault :: AsError a => Getting (First ServiceError) a ServiceError
+_StorageQuotaExceededFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _StorageQuotaExceededFault =
-  _MatchServiceError dms "StorageQuotaExceededFault"
+  Prelude._MatchServiceError
+    defaultService
+    "StorageQuotaExceededFault"
 
 -- | The resource you are attempting to create already exists.
-_ResourceAlreadyExistsFault :: AsError a => Getting (First ServiceError) a ServiceError
+_ResourceAlreadyExistsFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceAlreadyExistsFault =
-  _MatchServiceError dms "ResourceAlreadyExistsFault"
+  Prelude._MatchServiceError
+    defaultService
+    "ResourceAlreadyExistsFault"
 
--- | The replication subnet group does not cover enough Availability Zones (AZs). Edit the replication subnet group and add more AZs.
-_ReplicationSubnetGroupDoesNotCoverEnoughAZs :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The replication subnet group does not cover enough Availability Zones
+-- (AZs). Edit the replication subnet group and add more AZs.
+_ReplicationSubnetGroupDoesNotCoverEnoughAZs :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ReplicationSubnetGroupDoesNotCoverEnoughAZs =
-  _MatchServiceError
-    dms
+  Prelude._MatchServiceError
+    defaultService
     "ReplicationSubnetGroupDoesNotCoverEnoughAZs"
 
--- | A specified Amazon S3 bucket, bucket folder, or other object can't be found.
-_S3ResourceNotFoundFault :: AsError a => Getting (First ServiceError) a ServiceError
+-- | A specified Amazon S3 bucket, bucket folder, or other object can\'t be
+-- found.
+_S3ResourceNotFoundFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _S3ResourceNotFoundFault =
-  _MatchServiceError dms "S3ResourceNotFoundFault"
+  Prelude._MatchServiceError
+    defaultService
+    "S3ResourceNotFoundFault"
 
 -- | An upgrade dependency is preventing the database migration.
-_UpgradeDependencyFailureFault :: AsError a => Getting (First ServiceError) a ServiceError
+_UpgradeDependencyFailureFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _UpgradeDependencyFailureFault =
-  _MatchServiceError
-    dms
+  Prelude._MatchServiceError
+    defaultService
     "UpgradeDependencyFailureFault"
 
 -- | This request triggered AWS KMS request throttling.
-_KMSThrottlingFault :: AsError a => Getting (First ServiceError) a ServiceError
+_KMSThrottlingFault :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _KMSThrottlingFault =
-  _MatchServiceError dms "KMSThrottlingFault"
+  Prelude._MatchServiceError
+    defaultService
+    "KMSThrottlingFault"
 
 -- | The subnet provided is invalid.
-_InvalidSubnet :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidSubnet :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidSubnet =
-  _MatchServiceError dms "InvalidSubnet"
+  Prelude._MatchServiceError
+    defaultService
+    "InvalidSubnet"

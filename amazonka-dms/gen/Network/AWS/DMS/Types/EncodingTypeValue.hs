@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.DMS.Types.EncodingTypeValue
   ( EncodingTypeValue
       ( ..,
-        Plain,
-        PlainDictionary,
-        RleDictionary
+        EncodingTypeValuePlain,
+        EncodingTypeValuePlainDictionary,
+        EncodingTypeValueRleDictionary
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data EncodingTypeValue = EncodingTypeValue' (CI Text)
+newtype EncodingTypeValue = EncodingTypeValue'
+  { fromEncodingTypeValue ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Plain :: EncodingTypeValue
-pattern Plain = EncodingTypeValue' "plain"
+pattern EncodingTypeValuePlain :: EncodingTypeValue
+pattern EncodingTypeValuePlain = EncodingTypeValue' "plain"
 
-pattern PlainDictionary :: EncodingTypeValue
-pattern PlainDictionary = EncodingTypeValue' "plain-dictionary"
+pattern EncodingTypeValuePlainDictionary :: EncodingTypeValue
+pattern EncodingTypeValuePlainDictionary = EncodingTypeValue' "plain-dictionary"
 
-pattern RleDictionary :: EncodingTypeValue
-pattern RleDictionary = EncodingTypeValue' "rle-dictionary"
+pattern EncodingTypeValueRleDictionary :: EncodingTypeValue
+pattern EncodingTypeValueRleDictionary = EncodingTypeValue' "rle-dictionary"
 
 {-# COMPLETE
-  Plain,
-  PlainDictionary,
-  RleDictionary,
+  EncodingTypeValuePlain,
+  EncodingTypeValuePlainDictionary,
+  EncodingTypeValueRleDictionary,
   EncodingTypeValue'
   #-}
 
-instance FromText EncodingTypeValue where
-  parser = (EncodingTypeValue' . mk) <$> takeText
+instance Prelude.FromText EncodingTypeValue where
+  parser = EncodingTypeValue' Prelude.<$> Prelude.takeText
 
-instance ToText EncodingTypeValue where
-  toText (EncodingTypeValue' ci) = original ci
+instance Prelude.ToText EncodingTypeValue where
+  toText (EncodingTypeValue' x) = x
 
-instance Hashable EncodingTypeValue
+instance Prelude.Hashable EncodingTypeValue
 
-instance NFData EncodingTypeValue
+instance Prelude.NFData EncodingTypeValue
 
-instance ToByteString EncodingTypeValue
+instance Prelude.ToByteString EncodingTypeValue
 
-instance ToQuery EncodingTypeValue
+instance Prelude.ToQuery EncodingTypeValue
 
-instance ToHeader EncodingTypeValue
+instance Prelude.ToHeader EncodingTypeValue
 
-instance ToJSON EncodingTypeValue where
-  toJSON = toJSONText
+instance Prelude.ToJSON EncodingTypeValue where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON EncodingTypeValue where
-  parseJSON = parseJSONText "EncodingTypeValue"
+instance Prelude.FromJSON EncodingTypeValue where
+  parseJSON = Prelude.parseJSONText "EncodingTypeValue"

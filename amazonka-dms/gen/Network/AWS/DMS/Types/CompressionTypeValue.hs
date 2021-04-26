@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.DMS.Types.CompressionTypeValue
   ( CompressionTypeValue
       ( ..,
-        CTVGzip,
-        CTVNone
+        CompressionTypeValueGzip,
+        CompressionTypeValueNone
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CompressionTypeValue
-  = CompressionTypeValue'
-      ( CI
-          Text
-      )
+newtype CompressionTypeValue = CompressionTypeValue'
+  { fromCompressionTypeValue ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CTVGzip :: CompressionTypeValue
-pattern CTVGzip = CompressionTypeValue' "gzip"
+pattern CompressionTypeValueGzip :: CompressionTypeValue
+pattern CompressionTypeValueGzip = CompressionTypeValue' "gzip"
 
-pattern CTVNone :: CompressionTypeValue
-pattern CTVNone = CompressionTypeValue' "none"
+pattern CompressionTypeValueNone :: CompressionTypeValue
+pattern CompressionTypeValueNone = CompressionTypeValue' "none"
 
 {-# COMPLETE
-  CTVGzip,
-  CTVNone,
+  CompressionTypeValueGzip,
+  CompressionTypeValueNone,
   CompressionTypeValue'
   #-}
 
-instance FromText CompressionTypeValue where
-  parser = (CompressionTypeValue' . mk) <$> takeText
+instance Prelude.FromText CompressionTypeValue where
+  parser = CompressionTypeValue' Prelude.<$> Prelude.takeText
 
-instance ToText CompressionTypeValue where
-  toText (CompressionTypeValue' ci) = original ci
+instance Prelude.ToText CompressionTypeValue where
+  toText (CompressionTypeValue' x) = x
 
-instance Hashable CompressionTypeValue
+instance Prelude.Hashable CompressionTypeValue
 
-instance NFData CompressionTypeValue
+instance Prelude.NFData CompressionTypeValue
 
-instance ToByteString CompressionTypeValue
+instance Prelude.ToByteString CompressionTypeValue
 
-instance ToQuery CompressionTypeValue
+instance Prelude.ToQuery CompressionTypeValue
 
-instance ToHeader CompressionTypeValue
+instance Prelude.ToHeader CompressionTypeValue
 
-instance ToJSON CompressionTypeValue where
-  toJSON = toJSONText
+instance Prelude.ToJSON CompressionTypeValue where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CompressionTypeValue where
-  parseJSON = parseJSONText "CompressionTypeValue"
+instance Prelude.FromJSON CompressionTypeValue where
+  parseJSON = Prelude.parseJSONText "CompressionTypeValue"

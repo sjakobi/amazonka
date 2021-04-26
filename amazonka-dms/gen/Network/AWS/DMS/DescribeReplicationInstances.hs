@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,206 +21,260 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns information about replication instances for your account in the current region.
---
---
+-- Returns information about replication instances for your account in the
+-- current region.
 --
 -- This operation returns paginated results.
 module Network.AWS.DMS.DescribeReplicationInstances
   ( -- * Creating a Request
-    describeReplicationInstances,
-    DescribeReplicationInstances,
+    DescribeReplicationInstances (..),
+    newDescribeReplicationInstances,
 
     -- * Request Lenses
-    driFilters,
-    driMarker,
-    driMaxRecords,
+    describeReplicationInstances_filters,
+    describeReplicationInstances_marker,
+    describeReplicationInstances_maxRecords,
 
     -- * Destructuring the Response
-    describeReplicationInstancesResponse,
-    DescribeReplicationInstancesResponse,
+    DescribeReplicationInstancesResponse (..),
+    newDescribeReplicationInstancesResponse,
 
     -- * Response Lenses
-    drirrrsReplicationInstances,
-    drirrrsMarker,
-    drirrrsResponseStatus,
+    describeReplicationInstancesResponse_replicationInstances,
+    describeReplicationInstancesResponse_marker,
+    describeReplicationInstancesResponse_httpStatus,
   )
 where
 
 import Network.AWS.DMS.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.DMS.Types.ReplicationInstance
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- |
 --
---
---
--- /See:/ 'describeReplicationInstances' smart constructor.
+-- /See:/ 'newDescribeReplicationInstances' smart constructor.
 data DescribeReplicationInstances = DescribeReplicationInstances'
-  { _driFilters ::
-      !( Maybe
-           [Filter]
-       ),
-    _driMarker ::
-      !(Maybe Text),
-    _driMaxRecords ::
-      !(Maybe Int)
+  { -- | Filters applied to replication instances.
+    --
+    -- Valid filter names: replication-instance-arn | replication-instance-id |
+    -- replication-instance-class | engine-version
+    filters :: Prelude.Maybe [Filter],
+    -- | An optional pagination token provided by a previous request. If this
+    -- parameter is specified, the response includes only records beyond the
+    -- marker, up to the value specified by @MaxRecords@.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of records to include in the response. If more
+    -- records exist than the specified @MaxRecords@ value, a pagination token
+    -- called a marker is included in the response so that the remaining
+    -- results can be retrieved.
+    --
+    -- Default: 100
+    --
+    -- Constraints: Minimum 20, maximum 100.
+    maxRecords :: Prelude.Maybe Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeReplicationInstances' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeReplicationInstances' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'driFilters' - Filters applied to replication instances. Valid filter names: replication-instance-arn | replication-instance-id | replication-instance-class | engine-version
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'driMarker' - An optional pagination token provided by a previous request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by @MaxRecords@ .
+-- 'filters', 'describeReplicationInstances_filters' - Filters applied to replication instances.
 --
--- * 'driMaxRecords' - The maximum number of records to include in the response. If more records exist than the specified @MaxRecords@ value, a pagination token called a marker is included in the response so that the remaining results can be retrieved.  Default: 100 Constraints: Minimum 20, maximum 100.
-describeReplicationInstances ::
+-- Valid filter names: replication-instance-arn | replication-instance-id |
+-- replication-instance-class | engine-version
+--
+-- 'marker', 'describeReplicationInstances_marker' - An optional pagination token provided by a previous request. If this
+-- parameter is specified, the response includes only records beyond the
+-- marker, up to the value specified by @MaxRecords@.
+--
+-- 'maxRecords', 'describeReplicationInstances_maxRecords' - The maximum number of records to include in the response. If more
+-- records exist than the specified @MaxRecords@ value, a pagination token
+-- called a marker is included in the response so that the remaining
+-- results can be retrieved.
+--
+-- Default: 100
+--
+-- Constraints: Minimum 20, maximum 100.
+newDescribeReplicationInstances ::
   DescribeReplicationInstances
-describeReplicationInstances =
+newDescribeReplicationInstances =
   DescribeReplicationInstances'
-    { _driFilters =
-        Nothing,
-      _driMarker = Nothing,
-      _driMaxRecords = Nothing
+    { filters =
+        Prelude.Nothing,
+      marker = Prelude.Nothing,
+      maxRecords = Prelude.Nothing
     }
 
--- | Filters applied to replication instances. Valid filter names: replication-instance-arn | replication-instance-id | replication-instance-class | engine-version
-driFilters :: Lens' DescribeReplicationInstances [Filter]
-driFilters = lens _driFilters (\s a -> s {_driFilters = a}) . _Default . _Coerce
+-- | Filters applied to replication instances.
+--
+-- Valid filter names: replication-instance-arn | replication-instance-id |
+-- replication-instance-class | engine-version
+describeReplicationInstances_filters :: Lens.Lens' DescribeReplicationInstances (Prelude.Maybe [Filter])
+describeReplicationInstances_filters = Lens.lens (\DescribeReplicationInstances' {filters} -> filters) (\s@DescribeReplicationInstances' {} a -> s {filters = a} :: DescribeReplicationInstances) Prelude.. Lens.mapping Prelude._Coerce
 
--- | An optional pagination token provided by a previous request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by @MaxRecords@ .
-driMarker :: Lens' DescribeReplicationInstances (Maybe Text)
-driMarker = lens _driMarker (\s a -> s {_driMarker = a})
+-- | An optional pagination token provided by a previous request. If this
+-- parameter is specified, the response includes only records beyond the
+-- marker, up to the value specified by @MaxRecords@.
+describeReplicationInstances_marker :: Lens.Lens' DescribeReplicationInstances (Prelude.Maybe Prelude.Text)
+describeReplicationInstances_marker = Lens.lens (\DescribeReplicationInstances' {marker} -> marker) (\s@DescribeReplicationInstances' {} a -> s {marker = a} :: DescribeReplicationInstances)
 
--- | The maximum number of records to include in the response. If more records exist than the specified @MaxRecords@ value, a pagination token called a marker is included in the response so that the remaining results can be retrieved.  Default: 100 Constraints: Minimum 20, maximum 100.
-driMaxRecords :: Lens' DescribeReplicationInstances (Maybe Int)
-driMaxRecords = lens _driMaxRecords (\s a -> s {_driMaxRecords = a})
+-- | The maximum number of records to include in the response. If more
+-- records exist than the specified @MaxRecords@ value, a pagination token
+-- called a marker is included in the response so that the remaining
+-- results can be retrieved.
+--
+-- Default: 100
+--
+-- Constraints: Minimum 20, maximum 100.
+describeReplicationInstances_maxRecords :: Lens.Lens' DescribeReplicationInstances (Prelude.Maybe Prelude.Int)
+describeReplicationInstances_maxRecords = Lens.lens (\DescribeReplicationInstances' {maxRecords} -> maxRecords) (\s@DescribeReplicationInstances' {} a -> s {maxRecords = a} :: DescribeReplicationInstances)
 
-instance AWSPager DescribeReplicationInstances where
+instance Pager.AWSPager DescribeReplicationInstances where
   page rq rs
-    | stop (rs ^. drirrrsMarker) = Nothing
-    | stop (rs ^. drirrrsReplicationInstances) = Nothing
-    | otherwise =
-      Just $ rq & driMarker .~ rs ^. drirrrsMarker
+    | Pager.stop
+        ( rs
+            Lens.^? describeReplicationInstancesResponse_marker
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeReplicationInstancesResponse_replicationInstances
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeReplicationInstances_marker
+          Lens..~ rs
+          Lens.^? describeReplicationInstancesResponse_marker
+            Prelude.. Lens._Just
 
-instance AWSRequest DescribeReplicationInstances where
+instance
+  Prelude.AWSRequest
+    DescribeReplicationInstances
+  where
   type
     Rs DescribeReplicationInstances =
       DescribeReplicationInstancesResponse
-  request = postJSON dms
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeReplicationInstancesResponse'
-            <$> (x .?> "ReplicationInstances" .!@ mempty)
-            <*> (x .?> "Marker")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "ReplicationInstances"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "Marker")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeReplicationInstances
+instance
+  Prelude.Hashable
+    DescribeReplicationInstances
 
-instance NFData DescribeReplicationInstances
+instance Prelude.NFData DescribeReplicationInstances
 
-instance ToHeaders DescribeReplicationInstances where
+instance
+  Prelude.ToHeaders
+    DescribeReplicationInstances
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AmazonDMSv20160101.DescribeReplicationInstances" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AmazonDMSv20160101.DescribeReplicationInstances" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeReplicationInstances where
+instance Prelude.ToJSON DescribeReplicationInstances where
   toJSON DescribeReplicationInstances' {..} =
-    object
-      ( catMaybes
-          [ ("Filters" .=) <$> _driFilters,
-            ("Marker" .=) <$> _driMarker,
-            ("MaxRecords" .=) <$> _driMaxRecords
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Filters" Prelude..=) Prelude.<$> filters,
+            ("Marker" Prelude..=) Prelude.<$> marker,
+            ("MaxRecords" Prelude..=) Prelude.<$> maxRecords
           ]
       )
 
-instance ToPath DescribeReplicationInstances where
-  toPath = const "/"
+instance Prelude.ToPath DescribeReplicationInstances where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeReplicationInstances where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeReplicationInstances where
+  toQuery = Prelude.const Prelude.mempty
 
 -- |
 --
---
---
--- /See:/ 'describeReplicationInstancesResponse' smart constructor.
+-- /See:/ 'newDescribeReplicationInstancesResponse' smart constructor.
 data DescribeReplicationInstancesResponse = DescribeReplicationInstancesResponse'
-  { _drirrrsReplicationInstances ::
-      !( Maybe
-           [ReplicationInstance]
-       ),
-    _drirrrsMarker ::
-      !( Maybe
-           Text
-       ),
-    _drirrrsResponseStatus ::
-      !Int
+  { -- | The replication instances described.
+    replicationInstances :: Prelude.Maybe [ReplicationInstance],
+    -- | An optional pagination token provided by a previous request. If this
+    -- parameter is specified, the response includes only records beyond the
+    -- marker, up to the value specified by @MaxRecords@.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeReplicationInstancesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeReplicationInstancesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drirrrsReplicationInstances' - The replication instances described.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drirrrsMarker' - An optional pagination token provided by a previous request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by @MaxRecords@ .
+-- 'replicationInstances', 'describeReplicationInstancesResponse_replicationInstances' - The replication instances described.
 --
--- * 'drirrrsResponseStatus' - -- | The response status code.
-describeReplicationInstancesResponse ::
-  -- | 'drirrrsResponseStatus'
-  Int ->
+-- 'marker', 'describeReplicationInstancesResponse_marker' - An optional pagination token provided by a previous request. If this
+-- parameter is specified, the response includes only records beyond the
+-- marker, up to the value specified by @MaxRecords@.
+--
+-- 'httpStatus', 'describeReplicationInstancesResponse_httpStatus' - The response's http status code.
+newDescribeReplicationInstancesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeReplicationInstancesResponse
-describeReplicationInstancesResponse pResponseStatus_ =
+newDescribeReplicationInstancesResponse pHttpStatus_ =
   DescribeReplicationInstancesResponse'
-    { _drirrrsReplicationInstances =
-        Nothing,
-      _drirrrsMarker = Nothing,
-      _drirrrsResponseStatus =
-        pResponseStatus_
+    { replicationInstances =
+        Prelude.Nothing,
+      marker = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The replication instances described.
-drirrrsReplicationInstances :: Lens' DescribeReplicationInstancesResponse [ReplicationInstance]
-drirrrsReplicationInstances = lens _drirrrsReplicationInstances (\s a -> s {_drirrrsReplicationInstances = a}) . _Default . _Coerce
+describeReplicationInstancesResponse_replicationInstances :: Lens.Lens' DescribeReplicationInstancesResponse (Prelude.Maybe [ReplicationInstance])
+describeReplicationInstancesResponse_replicationInstances = Lens.lens (\DescribeReplicationInstancesResponse' {replicationInstances} -> replicationInstances) (\s@DescribeReplicationInstancesResponse' {} a -> s {replicationInstances = a} :: DescribeReplicationInstancesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | An optional pagination token provided by a previous request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by @MaxRecords@ .
-drirrrsMarker :: Lens' DescribeReplicationInstancesResponse (Maybe Text)
-drirrrsMarker = lens _drirrrsMarker (\s a -> s {_drirrrsMarker = a})
+-- | An optional pagination token provided by a previous request. If this
+-- parameter is specified, the response includes only records beyond the
+-- marker, up to the value specified by @MaxRecords@.
+describeReplicationInstancesResponse_marker :: Lens.Lens' DescribeReplicationInstancesResponse (Prelude.Maybe Prelude.Text)
+describeReplicationInstancesResponse_marker = Lens.lens (\DescribeReplicationInstancesResponse' {marker} -> marker) (\s@DescribeReplicationInstancesResponse' {} a -> s {marker = a} :: DescribeReplicationInstancesResponse)
 
--- | -- | The response status code.
-drirrrsResponseStatus :: Lens' DescribeReplicationInstancesResponse Int
-drirrrsResponseStatus = lens _drirrrsResponseStatus (\s a -> s {_drirrrsResponseStatus = a})
+-- | The response's http status code.
+describeReplicationInstancesResponse_httpStatus :: Lens.Lens' DescribeReplicationInstancesResponse Prelude.Int
+describeReplicationInstancesResponse_httpStatus = Lens.lens (\DescribeReplicationInstancesResponse' {httpStatus} -> httpStatus) (\s@DescribeReplicationInstancesResponse' {} a -> s {httpStatus = a} :: DescribeReplicationInstancesResponse)
 
-instance NFData DescribeReplicationInstancesResponse
+instance
+  Prelude.NFData
+    DescribeReplicationInstancesResponse
