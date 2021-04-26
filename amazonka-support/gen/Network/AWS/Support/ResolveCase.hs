@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,134 +21,165 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Resolves a support case. This operation takes a @caseId@ and returns the initial and final state of the case.
+-- Resolves a support case. This operation takes a @caseId@ and returns the
+-- initial and final state of the case.
+--
+-- -   You must have a Business or Enterprise support plan to use the AWS
+--     Support API.
+--
+-- -   If you call the AWS Support API from an account that does not have a
+--     Business or Enterprise support plan, the
+--     @SubscriptionRequiredException@ error message appears. For
+--     information about changing your support plan, see
+--     <http://aws.amazon.com/premiumsupport/ AWS Support>.
 module Network.AWS.Support.ResolveCase
   ( -- * Creating a Request
-    resolveCase,
-    ResolveCase,
+    ResolveCase (..),
+    newResolveCase,
 
     -- * Request Lenses
-    rcCaseId,
+    resolveCase_caseId,
 
     -- * Destructuring the Response
-    resolveCaseResponse,
-    ResolveCaseResponse,
+    ResolveCaseResponse (..),
+    newResolveCaseResponse,
 
     -- * Response Lenses
-    rcrrsFinalCaseStatus,
-    rcrrsInitialCaseStatus,
-    rcrrsResponseStatus,
+    resolveCaseResponse_finalCaseStatus,
+    resolveCaseResponse_initialCaseStatus,
+    resolveCaseResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Support.Types
 
--- | /See:/ 'resolveCase' smart constructor.
-newtype ResolveCase = ResolveCase'
-  { _rcCaseId ::
-      Maybe Text
+-- | /See:/ 'newResolveCase' smart constructor.
+data ResolveCase = ResolveCase'
+  { -- | The AWS Support case ID requested or returned in the call. The case ID
+    -- is an alphanumeric string formatted as shown in this example:
+    -- case-/12345678910-2013-c4c1d2bf33c5cf47/
+    caseId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResolveCase' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResolveCase' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rcCaseId' - The AWS Support case ID requested or returned in the call. The case ID is an alphanumeric string formatted as shown in this example: case-/12345678910-2013-c4c1d2bf33c5cf47/
-resolveCase ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'caseId', 'resolveCase_caseId' - The AWS Support case ID requested or returned in the call. The case ID
+-- is an alphanumeric string formatted as shown in this example:
+-- case-/12345678910-2013-c4c1d2bf33c5cf47/
+newResolveCase ::
   ResolveCase
-resolveCase = ResolveCase' {_rcCaseId = Nothing}
+newResolveCase =
+  ResolveCase' {caseId = Prelude.Nothing}
 
--- | The AWS Support case ID requested or returned in the call. The case ID is an alphanumeric string formatted as shown in this example: case-/12345678910-2013-c4c1d2bf33c5cf47/
-rcCaseId :: Lens' ResolveCase (Maybe Text)
-rcCaseId = lens _rcCaseId (\s a -> s {_rcCaseId = a})
+-- | The AWS Support case ID requested or returned in the call. The case ID
+-- is an alphanumeric string formatted as shown in this example:
+-- case-/12345678910-2013-c4c1d2bf33c5cf47/
+resolveCase_caseId :: Lens.Lens' ResolveCase (Prelude.Maybe Prelude.Text)
+resolveCase_caseId = Lens.lens (\ResolveCase' {caseId} -> caseId) (\s@ResolveCase' {} a -> s {caseId = a} :: ResolveCase)
 
-instance AWSRequest ResolveCase where
+instance Prelude.AWSRequest ResolveCase where
   type Rs ResolveCase = ResolveCaseResponse
-  request = postJSON support
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ResolveCaseResponse'
-            <$> (x .?> "finalCaseStatus")
-            <*> (x .?> "initialCaseStatus")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "finalCaseStatus")
+            Prelude.<*> (x Prelude..?> "initialCaseStatus")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ResolveCase
+instance Prelude.Hashable ResolveCase
 
-instance NFData ResolveCase
+instance Prelude.NFData ResolveCase
 
-instance ToHeaders ResolveCase where
+instance Prelude.ToHeaders ResolveCase where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSSupport_20130415.ResolveCase" :: ByteString),
+              Prelude.=# ( "AWSSupport_20130415.ResolveCase" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ResolveCase where
+instance Prelude.ToJSON ResolveCase where
   toJSON ResolveCase' {..} =
-    object (catMaybes [("caseId" .=) <$> _rcCaseId])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("caseId" Prelude..=) Prelude.<$> caseId]
+      )
 
-instance ToPath ResolveCase where
-  toPath = const "/"
+instance Prelude.ToPath ResolveCase where
+  toPath = Prelude.const "/"
 
-instance ToQuery ResolveCase where
-  toQuery = const mempty
+instance Prelude.ToQuery ResolveCase where
+  toQuery = Prelude.const Prelude.mempty
 
--- | The status of the case returned by the 'ResolveCase' operation.
+-- | The status of the case returned by the ResolveCase operation.
 --
---
---
--- /See:/ 'resolveCaseResponse' smart constructor.
+-- /See:/ 'newResolveCaseResponse' smart constructor.
 data ResolveCaseResponse = ResolveCaseResponse'
-  { _rcrrsFinalCaseStatus ::
-      !(Maybe Text),
-    _rcrrsInitialCaseStatus ::
-      !(Maybe Text),
-    _rcrrsResponseStatus :: !Int
+  { -- | The status of the case after the ResolveCase request was processed.
+    finalCaseStatus :: Prelude.Maybe Prelude.Text,
+    -- | The status of the case when the ResolveCase request was sent.
+    initialCaseStatus :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResolveCaseResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResolveCaseResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rcrrsFinalCaseStatus' - The status of the case after the 'ResolveCase' request was processed.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rcrrsInitialCaseStatus' - The status of the case when the 'ResolveCase' request was sent.
+-- 'finalCaseStatus', 'resolveCaseResponse_finalCaseStatus' - The status of the case after the ResolveCase request was processed.
 --
--- * 'rcrrsResponseStatus' - -- | The response status code.
-resolveCaseResponse ::
-  -- | 'rcrrsResponseStatus'
-  Int ->
+-- 'initialCaseStatus', 'resolveCaseResponse_initialCaseStatus' - The status of the case when the ResolveCase request was sent.
+--
+-- 'httpStatus', 'resolveCaseResponse_httpStatus' - The response's http status code.
+newResolveCaseResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ResolveCaseResponse
-resolveCaseResponse pResponseStatus_ =
+newResolveCaseResponse pHttpStatus_ =
   ResolveCaseResponse'
-    { _rcrrsFinalCaseStatus =
-        Nothing,
-      _rcrrsInitialCaseStatus = Nothing,
-      _rcrrsResponseStatus = pResponseStatus_
+    { finalCaseStatus =
+        Prelude.Nothing,
+      initialCaseStatus = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The status of the case after the 'ResolveCase' request was processed.
-rcrrsFinalCaseStatus :: Lens' ResolveCaseResponse (Maybe Text)
-rcrrsFinalCaseStatus = lens _rcrrsFinalCaseStatus (\s a -> s {_rcrrsFinalCaseStatus = a})
+-- | The status of the case after the ResolveCase request was processed.
+resolveCaseResponse_finalCaseStatus :: Lens.Lens' ResolveCaseResponse (Prelude.Maybe Prelude.Text)
+resolveCaseResponse_finalCaseStatus = Lens.lens (\ResolveCaseResponse' {finalCaseStatus} -> finalCaseStatus) (\s@ResolveCaseResponse' {} a -> s {finalCaseStatus = a} :: ResolveCaseResponse)
 
--- | The status of the case when the 'ResolveCase' request was sent.
-rcrrsInitialCaseStatus :: Lens' ResolveCaseResponse (Maybe Text)
-rcrrsInitialCaseStatus = lens _rcrrsInitialCaseStatus (\s a -> s {_rcrrsInitialCaseStatus = a})
+-- | The status of the case when the ResolveCase request was sent.
+resolveCaseResponse_initialCaseStatus :: Lens.Lens' ResolveCaseResponse (Prelude.Maybe Prelude.Text)
+resolveCaseResponse_initialCaseStatus = Lens.lens (\ResolveCaseResponse' {initialCaseStatus} -> initialCaseStatus) (\s@ResolveCaseResponse' {} a -> s {initialCaseStatus = a} :: ResolveCaseResponse)
 
--- | -- | The response status code.
-rcrrsResponseStatus :: Lens' ResolveCaseResponse Int
-rcrrsResponseStatus = lens _rcrrsResponseStatus (\s a -> s {_rcrrsResponseStatus = a})
+-- | The response's http status code.
+resolveCaseResponse_httpStatus :: Lens.Lens' ResolveCaseResponse Prelude.Int
+resolveCaseResponse_httpStatus = Lens.lens (\ResolveCaseResponse' {httpStatus} -> httpStatus) (\s@ResolveCaseResponse' {} a -> s {httpStatus = a} :: ResolveCaseResponse)
 
-instance NFData ResolveCaseResponse
+instance Prelude.NFData ResolveCaseResponse

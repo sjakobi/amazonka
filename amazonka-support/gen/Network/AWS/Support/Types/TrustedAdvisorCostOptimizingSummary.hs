@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,70 +19,79 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Support.Types.TrustedAdvisorCostOptimizingSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The estimated cost savings that might be realized if the recommended operations are taken.
+-- | The estimated cost savings that might be realized if the recommended
+-- operations are taken.
 --
---
---
--- /See:/ 'trustedAdvisorCostOptimizingSummary' smart constructor.
+-- /See:/ 'newTrustedAdvisorCostOptimizingSummary' smart constructor.
 data TrustedAdvisorCostOptimizingSummary = TrustedAdvisorCostOptimizingSummary'
-  { _tacosEstimatedMonthlySavings ::
-      !Double,
-    _tacosEstimatedPercentMonthlySavings ::
-      !Double
+  { -- | The estimated monthly savings that might be realized if the recommended
+    -- operations are taken.
+    estimatedMonthlySavings :: Prelude.Double,
+    -- | The estimated percentage of savings that might be realized if the
+    -- recommended operations are taken.
+    estimatedPercentMonthlySavings :: Prelude.Double
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TrustedAdvisorCostOptimizingSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TrustedAdvisorCostOptimizingSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tacosEstimatedMonthlySavings' - The estimated monthly savings that might be realized if the recommended operations are taken.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tacosEstimatedPercentMonthlySavings' - The estimated percentage of savings that might be realized if the recommended operations are taken.
-trustedAdvisorCostOptimizingSummary ::
-  -- | 'tacosEstimatedMonthlySavings'
-  Double ->
-  -- | 'tacosEstimatedPercentMonthlySavings'
-  Double ->
+-- 'estimatedMonthlySavings', 'trustedAdvisorCostOptimizingSummary_estimatedMonthlySavings' - The estimated monthly savings that might be realized if the recommended
+-- operations are taken.
+--
+-- 'estimatedPercentMonthlySavings', 'trustedAdvisorCostOptimizingSummary_estimatedPercentMonthlySavings' - The estimated percentage of savings that might be realized if the
+-- recommended operations are taken.
+newTrustedAdvisorCostOptimizingSummary ::
+  -- | 'estimatedMonthlySavings'
+  Prelude.Double ->
+  -- | 'estimatedPercentMonthlySavings'
+  Prelude.Double ->
   TrustedAdvisorCostOptimizingSummary
-trustedAdvisorCostOptimizingSummary
+newTrustedAdvisorCostOptimizingSummary
   pEstimatedMonthlySavings_
   pEstimatedPercentMonthlySavings_ =
     TrustedAdvisorCostOptimizingSummary'
-      { _tacosEstimatedMonthlySavings =
+      { estimatedMonthlySavings =
           pEstimatedMonthlySavings_,
-        _tacosEstimatedPercentMonthlySavings =
+        estimatedPercentMonthlySavings =
           pEstimatedPercentMonthlySavings_
       }
 
--- | The estimated monthly savings that might be realized if the recommended operations are taken.
-tacosEstimatedMonthlySavings :: Lens' TrustedAdvisorCostOptimizingSummary Double
-tacosEstimatedMonthlySavings = lens _tacosEstimatedMonthlySavings (\s a -> s {_tacosEstimatedMonthlySavings = a})
+-- | The estimated monthly savings that might be realized if the recommended
+-- operations are taken.
+trustedAdvisorCostOptimizingSummary_estimatedMonthlySavings :: Lens.Lens' TrustedAdvisorCostOptimizingSummary Prelude.Double
+trustedAdvisorCostOptimizingSummary_estimatedMonthlySavings = Lens.lens (\TrustedAdvisorCostOptimizingSummary' {estimatedMonthlySavings} -> estimatedMonthlySavings) (\s@TrustedAdvisorCostOptimizingSummary' {} a -> s {estimatedMonthlySavings = a} :: TrustedAdvisorCostOptimizingSummary)
 
--- | The estimated percentage of savings that might be realized if the recommended operations are taken.
-tacosEstimatedPercentMonthlySavings :: Lens' TrustedAdvisorCostOptimizingSummary Double
-tacosEstimatedPercentMonthlySavings = lens _tacosEstimatedPercentMonthlySavings (\s a -> s {_tacosEstimatedPercentMonthlySavings = a})
+-- | The estimated percentage of savings that might be realized if the
+-- recommended operations are taken.
+trustedAdvisorCostOptimizingSummary_estimatedPercentMonthlySavings :: Lens.Lens' TrustedAdvisorCostOptimizingSummary Prelude.Double
+trustedAdvisorCostOptimizingSummary_estimatedPercentMonthlySavings = Lens.lens (\TrustedAdvisorCostOptimizingSummary' {estimatedPercentMonthlySavings} -> estimatedPercentMonthlySavings) (\s@TrustedAdvisorCostOptimizingSummary' {} a -> s {estimatedPercentMonthlySavings = a} :: TrustedAdvisorCostOptimizingSummary)
 
-instance FromJSON TrustedAdvisorCostOptimizingSummary where
+instance
+  Prelude.FromJSON
+    TrustedAdvisorCostOptimizingSummary
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TrustedAdvisorCostOptimizingSummary"
       ( \x ->
           TrustedAdvisorCostOptimizingSummary'
-            <$> (x .: "estimatedMonthlySavings")
-            <*> (x .: "estimatedPercentMonthlySavings")
+            Prelude.<$> (x Prelude..: "estimatedMonthlySavings")
+            Prelude.<*> (x Prelude..: "estimatedPercentMonthlySavings")
       )
 
-instance Hashable TrustedAdvisorCostOptimizingSummary
+instance
+  Prelude.Hashable
+    TrustedAdvisorCostOptimizingSummary
 
-instance NFData TrustedAdvisorCostOptimizingSummary
+instance
+  Prelude.NFData
+    TrustedAdvisorCostOptimizingSummary

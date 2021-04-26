@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,193 +21,221 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the results of the AWS Trusted Advisor check that has the specified check ID. You can get the check IDs by calling the 'DescribeTrustedAdvisorChecks' operation.
+-- Returns the results of the AWS Trusted Advisor check that has the
+-- specified check ID. You can get the check IDs by calling the
+-- DescribeTrustedAdvisorChecks operation.
 --
+-- The response contains a TrustedAdvisorCheckResult object, which contains
+-- these three objects:
 --
--- The response contains a 'TrustedAdvisorCheckResult' object, which contains these three objects:
+-- -   TrustedAdvisorCategorySpecificSummary
 --
---     * 'TrustedAdvisorCategorySpecificSummary'
+-- -   TrustedAdvisorResourceDetail
 --
---     * 'TrustedAdvisorResourceDetail'
---
---     * 'TrustedAdvisorResourcesSummary'
---
---
+-- -   TrustedAdvisorResourcesSummary
 --
 -- In addition, the response contains these fields:
 --
---     * __status__ - The alert status of the check: "ok" (green), "warning" (yellow), "error" (red), or "not_available".
+-- -   __status__ - The alert status of the check: \"ok\" (green),
+--     \"warning\" (yellow), \"error\" (red), or \"not_available\".
 --
---     * __timestamp__ - The time of the last refresh of the check.
+-- -   __timestamp__ - The time of the last refresh of the check.
 --
---     * __checkId__ - The unique identifier for the check.
+-- -   __checkId__ - The unique identifier for the check.
+--
+-- -   You must have a Business or Enterprise support plan to use the AWS
+--     Support API.
+--
+-- -   If you call the AWS Support API from an account that does not have a
+--     Business or Enterprise support plan, the
+--     @SubscriptionRequiredException@ error message appears. For
+--     information about changing your support plan, see
+--     <http://aws.amazon.com/premiumsupport/ AWS Support>.
 module Network.AWS.Support.DescribeTrustedAdvisorCheckResult
   ( -- * Creating a Request
-    describeTrustedAdvisorCheckResult,
-    DescribeTrustedAdvisorCheckResult,
+    DescribeTrustedAdvisorCheckResult (..),
+    newDescribeTrustedAdvisorCheckResult,
 
     -- * Request Lenses
-    dtacrLanguage,
-    dtacrCheckId,
+    describeTrustedAdvisorCheckResult_language,
+    describeTrustedAdvisorCheckResult_checkId,
 
     -- * Destructuring the Response
-    describeTrustedAdvisorCheckResultResponse,
-    DescribeTrustedAdvisorCheckResultResponse,
+    DescribeTrustedAdvisorCheckResultResponse (..),
+    newDescribeTrustedAdvisorCheckResultResponse,
 
     -- * Response Lenses
-    dtacrrrsResult,
-    dtacrrrsResponseStatus,
+    describeTrustedAdvisorCheckResultResponse_result,
+    describeTrustedAdvisorCheckResultResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Support.Types
+import Network.AWS.Support.Types.TrustedAdvisorCheckResult
 
 -- |
 --
---
---
--- /See:/ 'describeTrustedAdvisorCheckResult' smart constructor.
+-- /See:/ 'newDescribeTrustedAdvisorCheckResult' smart constructor.
 data DescribeTrustedAdvisorCheckResult = DescribeTrustedAdvisorCheckResult'
-  { _dtacrLanguage ::
-      !( Maybe
-           Text
-       ),
-    _dtacrCheckId ::
-      !Text
+  { -- | The ISO 639-1 code for the language in which AWS provides support. AWS
+    -- Support currently supports English (\"en\") and Japanese (\"ja\").
+    -- Language parameters must be passed explicitly for operations that take
+    -- them.
+    language :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier for the Trusted Advisor check.
+    checkId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeTrustedAdvisorCheckResult' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeTrustedAdvisorCheckResult' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtacrLanguage' - The ISO 639-1 code for the language in which AWS provides support. AWS Support currently supports English ("en") and Japanese ("ja"). Language parameters must be passed explicitly for operations that take them.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtacrCheckId' - The unique identifier for the Trusted Advisor check.
-describeTrustedAdvisorCheckResult ::
-  -- | 'dtacrCheckId'
-  Text ->
+-- 'language', 'describeTrustedAdvisorCheckResult_language' - The ISO 639-1 code for the language in which AWS provides support. AWS
+-- Support currently supports English (\"en\") and Japanese (\"ja\").
+-- Language parameters must be passed explicitly for operations that take
+-- them.
+--
+-- 'checkId', 'describeTrustedAdvisorCheckResult_checkId' - The unique identifier for the Trusted Advisor check.
+newDescribeTrustedAdvisorCheckResult ::
+  -- | 'checkId'
+  Prelude.Text ->
   DescribeTrustedAdvisorCheckResult
-describeTrustedAdvisorCheckResult pCheckId_ =
+newDescribeTrustedAdvisorCheckResult pCheckId_ =
   DescribeTrustedAdvisorCheckResult'
-    { _dtacrLanguage =
-        Nothing,
-      _dtacrCheckId = pCheckId_
+    { language =
+        Prelude.Nothing,
+      checkId = pCheckId_
     }
 
--- | The ISO 639-1 code for the language in which AWS provides support. AWS Support currently supports English ("en") and Japanese ("ja"). Language parameters must be passed explicitly for operations that take them.
-dtacrLanguage :: Lens' DescribeTrustedAdvisorCheckResult (Maybe Text)
-dtacrLanguage = lens _dtacrLanguage (\s a -> s {_dtacrLanguage = a})
+-- | The ISO 639-1 code for the language in which AWS provides support. AWS
+-- Support currently supports English (\"en\") and Japanese (\"ja\").
+-- Language parameters must be passed explicitly for operations that take
+-- them.
+describeTrustedAdvisorCheckResult_language :: Lens.Lens' DescribeTrustedAdvisorCheckResult (Prelude.Maybe Prelude.Text)
+describeTrustedAdvisorCheckResult_language = Lens.lens (\DescribeTrustedAdvisorCheckResult' {language} -> language) (\s@DescribeTrustedAdvisorCheckResult' {} a -> s {language = a} :: DescribeTrustedAdvisorCheckResult)
 
 -- | The unique identifier for the Trusted Advisor check.
-dtacrCheckId :: Lens' DescribeTrustedAdvisorCheckResult Text
-dtacrCheckId = lens _dtacrCheckId (\s a -> s {_dtacrCheckId = a})
+describeTrustedAdvisorCheckResult_checkId :: Lens.Lens' DescribeTrustedAdvisorCheckResult Prelude.Text
+describeTrustedAdvisorCheckResult_checkId = Lens.lens (\DescribeTrustedAdvisorCheckResult' {checkId} -> checkId) (\s@DescribeTrustedAdvisorCheckResult' {} a -> s {checkId = a} :: DescribeTrustedAdvisorCheckResult)
 
-instance AWSRequest DescribeTrustedAdvisorCheckResult where
+instance
+  Prelude.AWSRequest
+    DescribeTrustedAdvisorCheckResult
+  where
   type
     Rs DescribeTrustedAdvisorCheckResult =
       DescribeTrustedAdvisorCheckResultResponse
-  request = postJSON support
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeTrustedAdvisorCheckResultResponse'
-            <$> (x .?> "result") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "result")
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeTrustedAdvisorCheckResult
+instance
+  Prelude.Hashable
+    DescribeTrustedAdvisorCheckResult
 
-instance NFData DescribeTrustedAdvisorCheckResult
+instance
+  Prelude.NFData
+    DescribeTrustedAdvisorCheckResult
 
-instance ToHeaders DescribeTrustedAdvisorCheckResult where
+instance
+  Prelude.ToHeaders
+    DescribeTrustedAdvisorCheckResult
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSSupport_20130415.DescribeTrustedAdvisorCheckResult" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSSupport_20130415.DescribeTrustedAdvisorCheckResult" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeTrustedAdvisorCheckResult where
+instance
+  Prelude.ToJSON
+    DescribeTrustedAdvisorCheckResult
+  where
   toJSON DescribeTrustedAdvisorCheckResult' {..} =
-    object
-      ( catMaybes
-          [ ("language" .=) <$> _dtacrLanguage,
-            Just ("checkId" .= _dtacrCheckId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("language" Prelude..=) Prelude.<$> language,
+            Prelude.Just ("checkId" Prelude..= checkId)
           ]
       )
 
-instance ToPath DescribeTrustedAdvisorCheckResult where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    DescribeTrustedAdvisorCheckResult
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeTrustedAdvisorCheckResult where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    DescribeTrustedAdvisorCheckResult
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | The result of the Trusted Advisor check returned by the 'DescribeTrustedAdvisorCheckResult' operation.
+-- | The result of the Trusted Advisor check returned by the
+-- DescribeTrustedAdvisorCheckResult operation.
 --
---
---
--- /See:/ 'describeTrustedAdvisorCheckResultResponse' smart constructor.
+-- /See:/ 'newDescribeTrustedAdvisorCheckResultResponse' smart constructor.
 data DescribeTrustedAdvisorCheckResultResponse = DescribeTrustedAdvisorCheckResultResponse'
-  { _dtacrrrsResult ::
-      !( Maybe
-           TrustedAdvisorCheckResult
-       ),
-    _dtacrrrsResponseStatus ::
-      !Int
+  { -- | The detailed results of the Trusted Advisor check.
+    result :: Prelude.Maybe TrustedAdvisorCheckResult,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeTrustedAdvisorCheckResultResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeTrustedAdvisorCheckResultResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtacrrrsResult' - The detailed results of the Trusted Advisor check.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtacrrrsResponseStatus' - -- | The response status code.
-describeTrustedAdvisorCheckResultResponse ::
-  -- | 'dtacrrrsResponseStatus'
-  Int ->
+-- 'result', 'describeTrustedAdvisorCheckResultResponse_result' - The detailed results of the Trusted Advisor check.
+--
+-- 'httpStatus', 'describeTrustedAdvisorCheckResultResponse_httpStatus' - The response's http status code.
+newDescribeTrustedAdvisorCheckResultResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeTrustedAdvisorCheckResultResponse
-describeTrustedAdvisorCheckResultResponse
-  pResponseStatus_ =
+newDescribeTrustedAdvisorCheckResultResponse
+  pHttpStatus_ =
     DescribeTrustedAdvisorCheckResultResponse'
-      { _dtacrrrsResult =
-          Nothing,
-        _dtacrrrsResponseStatus =
-          pResponseStatus_
+      { result =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | The detailed results of the Trusted Advisor check.
-dtacrrrsResult :: Lens' DescribeTrustedAdvisorCheckResultResponse (Maybe TrustedAdvisorCheckResult)
-dtacrrrsResult = lens _dtacrrrsResult (\s a -> s {_dtacrrrsResult = a})
+describeTrustedAdvisorCheckResultResponse_result :: Lens.Lens' DescribeTrustedAdvisorCheckResultResponse (Prelude.Maybe TrustedAdvisorCheckResult)
+describeTrustedAdvisorCheckResultResponse_result = Lens.lens (\DescribeTrustedAdvisorCheckResultResponse' {result} -> result) (\s@DescribeTrustedAdvisorCheckResultResponse' {} a -> s {result = a} :: DescribeTrustedAdvisorCheckResultResponse)
 
--- | -- | The response status code.
-dtacrrrsResponseStatus :: Lens' DescribeTrustedAdvisorCheckResultResponse Int
-dtacrrrsResponseStatus = lens _dtacrrrsResponseStatus (\s a -> s {_dtacrrrsResponseStatus = a})
+-- | The response's http status code.
+describeTrustedAdvisorCheckResultResponse_httpStatus :: Lens.Lens' DescribeTrustedAdvisorCheckResultResponse Prelude.Int
+describeTrustedAdvisorCheckResultResponse_httpStatus = Lens.lens (\DescribeTrustedAdvisorCheckResultResponse' {httpStatus} -> httpStatus) (\s@DescribeTrustedAdvisorCheckResultResponse' {} a -> s {httpStatus = a} :: DescribeTrustedAdvisorCheckResultResponse)
 
 instance
-  NFData
+  Prelude.NFData
     DescribeTrustedAdvisorCheckResultResponse

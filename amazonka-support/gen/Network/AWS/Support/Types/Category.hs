@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,48 +19,59 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Support.Types.Category where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A JSON-formatted name/value pair that represents the category name and category code of the problem, selected from the 'DescribeServices' response for each AWS service.
+-- | A JSON-formatted name\/value pair that represents the category name and
+-- category code of the problem, selected from the DescribeServices
+-- response for each AWS service.
 --
---
---
--- /See:/ 'category' smart constructor.
+-- /See:/ 'newCategory' smart constructor.
 data Category = Category'
-  { _cCode :: !(Maybe Text),
-    _cName :: !(Maybe Text)
+  { -- | The category code for the support case.
+    code :: Prelude.Maybe Prelude.Text,
+    -- | The category name for the support case.
+    name :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Category' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Category' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cCode' - The category code for the support case.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cName' - The category name for the support case.
-category ::
+-- 'code', 'category_code' - The category code for the support case.
+--
+-- 'name', 'category_name' - The category name for the support case.
+newCategory ::
   Category
-category =
-  Category' {_cCode = Nothing, _cName = Nothing}
+newCategory =
+  Category'
+    { code = Prelude.Nothing,
+      name = Prelude.Nothing
+    }
 
 -- | The category code for the support case.
-cCode :: Lens' Category (Maybe Text)
-cCode = lens _cCode (\s a -> s {_cCode = a})
+category_code :: Lens.Lens' Category (Prelude.Maybe Prelude.Text)
+category_code = Lens.lens (\Category' {code} -> code) (\s@Category' {} a -> s {code = a} :: Category)
 
 -- | The category name for the support case.
-cName :: Lens' Category (Maybe Text)
-cName = lens _cName (\s a -> s {_cName = a})
+category_name :: Lens.Lens' Category (Prelude.Maybe Prelude.Text)
+category_name = Lens.lens (\Category' {name} -> name) (\s@Category' {} a -> s {name = a} :: Category)
 
-instance FromJSON Category where
+instance Prelude.FromJSON Category where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Category"
       ( \x ->
-          Category' <$> (x .:? "code") <*> (x .:? "name")
+          Category'
+            Prelude.<$> (x Prelude..:? "code")
+            Prelude.<*> (x Prelude..:? "name")
       )
 
-instance Hashable Category
+instance Prelude.Hashable Category
 
-instance NFData Category
+instance Prelude.NFData Category

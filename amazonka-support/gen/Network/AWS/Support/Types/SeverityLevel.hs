@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,52 +19,127 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Support.Types.SeverityLevel where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A code and name pair that represents the severity level of a support case. The available values depend on the support plan for the account. For more information, see <https://docs.aws.amazon.com/awssupport/latest/user/case-management.html#choosing-severity Choosing a severity> in the /AWS Support User Guide/ .
+-- | A code and name pair that represents the severity level of a support
+-- case. The available values depend on the support plan for the account.
+-- For more information, see
+-- <https://docs.aws.amazon.com/awssupport/latest/user/case-management.html#choosing-severity Choosing a severity>
+-- in the /AWS Support User Guide/.
 --
---
---
--- /See:/ 'severityLevel' smart constructor.
+-- /See:/ 'newSeverityLevel' smart constructor.
 data SeverityLevel = SeverityLevel'
-  { _slCode ::
-      !(Maybe Text),
-    _slName :: !(Maybe Text)
+  { -- | The code for case severity level.
+    --
+    -- Valid values: @low@ | @normal@ | @high@ | @urgent@ | @critical@
+    code :: Prelude.Maybe Prelude.Text,
+    -- | The name of the severity level that corresponds to the severity level
+    -- code.
+    --
+    -- The values returned by the API differ from the values that are displayed
+    -- in the AWS Support Center. For example, for the code \"low\", the API
+    -- name is \"Low\", but the name in the Support Center is \"General
+    -- guidance\". These are the Support Center code\/name mappings:
+    --
+    -- -   @low@: General guidance
+    --
+    -- -   @normal@: System impaired
+    --
+    -- -   @high@: Production system impaired
+    --
+    -- -   @urgent@: Production system down
+    --
+    -- -   @critical@: Business-critical system down
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/awssupport/latest/user/case-management.html#choosing-severity Choosing a severity>
+    -- in the /AWS Support User Guide/.
+    name :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SeverityLevel' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SeverityLevel' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'slCode' - The code for case severity level. Valid values: @low@ | @normal@ | @high@ | @urgent@ | @critical@
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'slName' - The name of the severity level that corresponds to the severity level code. For more information, see <https://docs.aws.amazon.com/awssupport/latest/user/case-management.html#choosing-severity Choosing a severity> in the /AWS Support User Guide/ .
-severityLevel ::
+-- 'code', 'severityLevel_code' - The code for case severity level.
+--
+-- Valid values: @low@ | @normal@ | @high@ | @urgent@ | @critical@
+--
+-- 'name', 'severityLevel_name' - The name of the severity level that corresponds to the severity level
+-- code.
+--
+-- The values returned by the API differ from the values that are displayed
+-- in the AWS Support Center. For example, for the code \"low\", the API
+-- name is \"Low\", but the name in the Support Center is \"General
+-- guidance\". These are the Support Center code\/name mappings:
+--
+-- -   @low@: General guidance
+--
+-- -   @normal@: System impaired
+--
+-- -   @high@: Production system impaired
+--
+-- -   @urgent@: Production system down
+--
+-- -   @critical@: Business-critical system down
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/awssupport/latest/user/case-management.html#choosing-severity Choosing a severity>
+-- in the /AWS Support User Guide/.
+newSeverityLevel ::
   SeverityLevel
-severityLevel =
+newSeverityLevel =
   SeverityLevel'
-    { _slCode = Nothing,
-      _slName = Nothing
+    { code = Prelude.Nothing,
+      name = Prelude.Nothing
     }
 
--- | The code for case severity level. Valid values: @low@ | @normal@ | @high@ | @urgent@ | @critical@
-slCode :: Lens' SeverityLevel (Maybe Text)
-slCode = lens _slCode (\s a -> s {_slCode = a})
+-- | The code for case severity level.
+--
+-- Valid values: @low@ | @normal@ | @high@ | @urgent@ | @critical@
+severityLevel_code :: Lens.Lens' SeverityLevel (Prelude.Maybe Prelude.Text)
+severityLevel_code = Lens.lens (\SeverityLevel' {code} -> code) (\s@SeverityLevel' {} a -> s {code = a} :: SeverityLevel)
 
--- | The name of the severity level that corresponds to the severity level code. For more information, see <https://docs.aws.amazon.com/awssupport/latest/user/case-management.html#choosing-severity Choosing a severity> in the /AWS Support User Guide/ .
-slName :: Lens' SeverityLevel (Maybe Text)
-slName = lens _slName (\s a -> s {_slName = a})
+-- | The name of the severity level that corresponds to the severity level
+-- code.
+--
+-- The values returned by the API differ from the values that are displayed
+-- in the AWS Support Center. For example, for the code \"low\", the API
+-- name is \"Low\", but the name in the Support Center is \"General
+-- guidance\". These are the Support Center code\/name mappings:
+--
+-- -   @low@: General guidance
+--
+-- -   @normal@: System impaired
+--
+-- -   @high@: Production system impaired
+--
+-- -   @urgent@: Production system down
+--
+-- -   @critical@: Business-critical system down
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/awssupport/latest/user/case-management.html#choosing-severity Choosing a severity>
+-- in the /AWS Support User Guide/.
+severityLevel_name :: Lens.Lens' SeverityLevel (Prelude.Maybe Prelude.Text)
+severityLevel_name = Lens.lens (\SeverityLevel' {name} -> name) (\s@SeverityLevel' {} a -> s {name = a} :: SeverityLevel)
 
-instance FromJSON SeverityLevel where
+instance Prelude.FromJSON SeverityLevel where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SeverityLevel"
       ( \x ->
-          SeverityLevel' <$> (x .:? "code") <*> (x .:? "name")
+          SeverityLevel'
+            Prelude.<$> (x Prelude..:? "code")
+            Prelude.<*> (x Prelude..:? "name")
       )
 
-instance Hashable SeverityLevel
+instance Prelude.Hashable SeverityLevel
 
-instance NFData SeverityLevel
+instance Prelude.NFData SeverityLevel

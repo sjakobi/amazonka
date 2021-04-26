@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,96 +19,110 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Support.Types.TrustedAdvisorResourcesSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Details about AWS resources that were analyzed in a call to Trusted Advisor 'DescribeTrustedAdvisorCheckSummaries' .
+-- | Details about AWS resources that were analyzed in a call to Trusted
+-- Advisor DescribeTrustedAdvisorCheckSummaries.
 --
---
---
--- /See:/ 'trustedAdvisorResourcesSummary' smart constructor.
+-- /See:/ 'newTrustedAdvisorResourcesSummary' smart constructor.
 data TrustedAdvisorResourcesSummary = TrustedAdvisorResourcesSummary'
-  { _tarsResourcesProcessed ::
-      !Integer,
-    _tarsResourcesFlagged ::
-      !Integer,
-    _tarsResourcesIgnored ::
-      !Integer,
-    _tarsResourcesSuppressed ::
-      !Integer
+  { -- | The number of AWS resources that were analyzed by the Trusted Advisor
+    -- check.
+    resourcesProcessed :: Prelude.Integer,
+    -- | The number of AWS resources that were flagged (listed) by the Trusted
+    -- Advisor check.
+    resourcesFlagged :: Prelude.Integer,
+    -- | The number of AWS resources ignored by Trusted Advisor because
+    -- information was unavailable.
+    resourcesIgnored :: Prelude.Integer,
+    -- | The number of AWS resources ignored by Trusted Advisor because they were
+    -- marked as suppressed by the user.
+    resourcesSuppressed :: Prelude.Integer
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TrustedAdvisorResourcesSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TrustedAdvisorResourcesSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tarsResourcesProcessed' - The number of AWS resources that were analyzed by the Trusted Advisor check.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tarsResourcesFlagged' - The number of AWS resources that were flagged (listed) by the Trusted Advisor check.
+-- 'resourcesProcessed', 'trustedAdvisorResourcesSummary_resourcesProcessed' - The number of AWS resources that were analyzed by the Trusted Advisor
+-- check.
 --
--- * 'tarsResourcesIgnored' - The number of AWS resources ignored by Trusted Advisor because information was unavailable.
+-- 'resourcesFlagged', 'trustedAdvisorResourcesSummary_resourcesFlagged' - The number of AWS resources that were flagged (listed) by the Trusted
+-- Advisor check.
 --
--- * 'tarsResourcesSuppressed' - The number of AWS resources ignored by Trusted Advisor because they were marked as suppressed by the user.
-trustedAdvisorResourcesSummary ::
-  -- | 'tarsResourcesProcessed'
-  Integer ->
-  -- | 'tarsResourcesFlagged'
-  Integer ->
-  -- | 'tarsResourcesIgnored'
-  Integer ->
-  -- | 'tarsResourcesSuppressed'
-  Integer ->
+-- 'resourcesIgnored', 'trustedAdvisorResourcesSummary_resourcesIgnored' - The number of AWS resources ignored by Trusted Advisor because
+-- information was unavailable.
+--
+-- 'resourcesSuppressed', 'trustedAdvisorResourcesSummary_resourcesSuppressed' - The number of AWS resources ignored by Trusted Advisor because they were
+-- marked as suppressed by the user.
+newTrustedAdvisorResourcesSummary ::
+  -- | 'resourcesProcessed'
+  Prelude.Integer ->
+  -- | 'resourcesFlagged'
+  Prelude.Integer ->
+  -- | 'resourcesIgnored'
+  Prelude.Integer ->
+  -- | 'resourcesSuppressed'
+  Prelude.Integer ->
   TrustedAdvisorResourcesSummary
-trustedAdvisorResourcesSummary
+newTrustedAdvisorResourcesSummary
   pResourcesProcessed_
   pResourcesFlagged_
   pResourcesIgnored_
   pResourcesSuppressed_ =
     TrustedAdvisorResourcesSummary'
-      { _tarsResourcesProcessed =
+      { resourcesProcessed =
           pResourcesProcessed_,
-        _tarsResourcesFlagged = pResourcesFlagged_,
-        _tarsResourcesIgnored = pResourcesIgnored_,
-        _tarsResourcesSuppressed =
-          pResourcesSuppressed_
+        resourcesFlagged = pResourcesFlagged_,
+        resourcesIgnored = pResourcesIgnored_,
+        resourcesSuppressed = pResourcesSuppressed_
       }
 
--- | The number of AWS resources that were analyzed by the Trusted Advisor check.
-tarsResourcesProcessed :: Lens' TrustedAdvisorResourcesSummary Integer
-tarsResourcesProcessed = lens _tarsResourcesProcessed (\s a -> s {_tarsResourcesProcessed = a})
+-- | The number of AWS resources that were analyzed by the Trusted Advisor
+-- check.
+trustedAdvisorResourcesSummary_resourcesProcessed :: Lens.Lens' TrustedAdvisorResourcesSummary Prelude.Integer
+trustedAdvisorResourcesSummary_resourcesProcessed = Lens.lens (\TrustedAdvisorResourcesSummary' {resourcesProcessed} -> resourcesProcessed) (\s@TrustedAdvisorResourcesSummary' {} a -> s {resourcesProcessed = a} :: TrustedAdvisorResourcesSummary)
 
--- | The number of AWS resources that were flagged (listed) by the Trusted Advisor check.
-tarsResourcesFlagged :: Lens' TrustedAdvisorResourcesSummary Integer
-tarsResourcesFlagged = lens _tarsResourcesFlagged (\s a -> s {_tarsResourcesFlagged = a})
+-- | The number of AWS resources that were flagged (listed) by the Trusted
+-- Advisor check.
+trustedAdvisorResourcesSummary_resourcesFlagged :: Lens.Lens' TrustedAdvisorResourcesSummary Prelude.Integer
+trustedAdvisorResourcesSummary_resourcesFlagged = Lens.lens (\TrustedAdvisorResourcesSummary' {resourcesFlagged} -> resourcesFlagged) (\s@TrustedAdvisorResourcesSummary' {} a -> s {resourcesFlagged = a} :: TrustedAdvisorResourcesSummary)
 
--- | The number of AWS resources ignored by Trusted Advisor because information was unavailable.
-tarsResourcesIgnored :: Lens' TrustedAdvisorResourcesSummary Integer
-tarsResourcesIgnored = lens _tarsResourcesIgnored (\s a -> s {_tarsResourcesIgnored = a})
+-- | The number of AWS resources ignored by Trusted Advisor because
+-- information was unavailable.
+trustedAdvisorResourcesSummary_resourcesIgnored :: Lens.Lens' TrustedAdvisorResourcesSummary Prelude.Integer
+trustedAdvisorResourcesSummary_resourcesIgnored = Lens.lens (\TrustedAdvisorResourcesSummary' {resourcesIgnored} -> resourcesIgnored) (\s@TrustedAdvisorResourcesSummary' {} a -> s {resourcesIgnored = a} :: TrustedAdvisorResourcesSummary)
 
--- | The number of AWS resources ignored by Trusted Advisor because they were marked as suppressed by the user.
-tarsResourcesSuppressed :: Lens' TrustedAdvisorResourcesSummary Integer
-tarsResourcesSuppressed = lens _tarsResourcesSuppressed (\s a -> s {_tarsResourcesSuppressed = a})
+-- | The number of AWS resources ignored by Trusted Advisor because they were
+-- marked as suppressed by the user.
+trustedAdvisorResourcesSummary_resourcesSuppressed :: Lens.Lens' TrustedAdvisorResourcesSummary Prelude.Integer
+trustedAdvisorResourcesSummary_resourcesSuppressed = Lens.lens (\TrustedAdvisorResourcesSummary' {resourcesSuppressed} -> resourcesSuppressed) (\s@TrustedAdvisorResourcesSummary' {} a -> s {resourcesSuppressed = a} :: TrustedAdvisorResourcesSummary)
 
-instance FromJSON TrustedAdvisorResourcesSummary where
+instance
+  Prelude.FromJSON
+    TrustedAdvisorResourcesSummary
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TrustedAdvisorResourcesSummary"
       ( \x ->
           TrustedAdvisorResourcesSummary'
-            <$> (x .: "resourcesProcessed")
-            <*> (x .: "resourcesFlagged")
-            <*> (x .: "resourcesIgnored")
-            <*> (x .: "resourcesSuppressed")
+            Prelude.<$> (x Prelude..: "resourcesProcessed")
+            Prelude.<*> (x Prelude..: "resourcesFlagged")
+            Prelude.<*> (x Prelude..: "resourcesIgnored")
+            Prelude.<*> (x Prelude..: "resourcesSuppressed")
       )
 
-instance Hashable TrustedAdvisorResourcesSummary
+instance
+  Prelude.Hashable
+    TrustedAdvisorResourcesSummary
 
-instance NFData TrustedAdvisorResourcesSummary
+instance
+  Prelude.NFData
+    TrustedAdvisorResourcesSummary

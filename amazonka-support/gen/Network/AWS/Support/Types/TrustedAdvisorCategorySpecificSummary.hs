@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,60 +19,60 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Support.Types.TrustedAdvisorCategorySpecificSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Support.Types.TrustedAdvisorCostOptimizingSummary
 
--- | The container for summary information that relates to the category of the Trusted Advisor check.
+-- | The container for summary information that relates to the category of
+-- the Trusted Advisor check.
 --
---
---
--- /See:/ 'trustedAdvisorCategorySpecificSummary' smart constructor.
-newtype TrustedAdvisorCategorySpecificSummary = TrustedAdvisorCategorySpecificSummary'
-  { _tacssCostOptimizing ::
-      Maybe
-        TrustedAdvisorCostOptimizingSummary
+-- /See:/ 'newTrustedAdvisorCategorySpecificSummary' smart constructor.
+data TrustedAdvisorCategorySpecificSummary = TrustedAdvisorCategorySpecificSummary'
+  { -- | The summary information about cost savings for a Trusted Advisor check
+    -- that is in the Cost Optimizing category.
+    costOptimizing :: Prelude.Maybe TrustedAdvisorCostOptimizingSummary
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TrustedAdvisorCategorySpecificSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TrustedAdvisorCategorySpecificSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tacssCostOptimizing' - The summary information about cost savings for a Trusted Advisor check that is in the Cost Optimizing category.
-trustedAdvisorCategorySpecificSummary ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'costOptimizing', 'trustedAdvisorCategorySpecificSummary_costOptimizing' - The summary information about cost savings for a Trusted Advisor check
+-- that is in the Cost Optimizing category.
+newTrustedAdvisorCategorySpecificSummary ::
   TrustedAdvisorCategorySpecificSummary
-trustedAdvisorCategorySpecificSummary =
+newTrustedAdvisorCategorySpecificSummary =
   TrustedAdvisorCategorySpecificSummary'
-    { _tacssCostOptimizing =
-        Nothing
+    { costOptimizing =
+        Prelude.Nothing
     }
 
--- | The summary information about cost savings for a Trusted Advisor check that is in the Cost Optimizing category.
-tacssCostOptimizing :: Lens' TrustedAdvisorCategorySpecificSummary (Maybe TrustedAdvisorCostOptimizingSummary)
-tacssCostOptimizing = lens _tacssCostOptimizing (\s a -> s {_tacssCostOptimizing = a})
+-- | The summary information about cost savings for a Trusted Advisor check
+-- that is in the Cost Optimizing category.
+trustedAdvisorCategorySpecificSummary_costOptimizing :: Lens.Lens' TrustedAdvisorCategorySpecificSummary (Prelude.Maybe TrustedAdvisorCostOptimizingSummary)
+trustedAdvisorCategorySpecificSummary_costOptimizing = Lens.lens (\TrustedAdvisorCategorySpecificSummary' {costOptimizing} -> costOptimizing) (\s@TrustedAdvisorCategorySpecificSummary' {} a -> s {costOptimizing = a} :: TrustedAdvisorCategorySpecificSummary)
 
 instance
-  FromJSON
+  Prelude.FromJSON
     TrustedAdvisorCategorySpecificSummary
   where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TrustedAdvisorCategorySpecificSummary"
       ( \x ->
           TrustedAdvisorCategorySpecificSummary'
-            <$> (x .:? "costOptimizing")
+            Prelude.<$> (x Prelude..:? "costOptimizing")
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     TrustedAdvisorCategorySpecificSummary
 
-instance NFData TrustedAdvisorCategorySpecificSummary
+instance
+  Prelude.NFData
+    TrustedAdvisorCategorySpecificSummary

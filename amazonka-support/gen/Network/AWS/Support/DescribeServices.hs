@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,154 +21,186 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the current list of AWS services and a list of service categories for each service. You then use service names and categories in your 'CreateCase' requests. Each AWS service has its own set of categories.
+-- Returns the current list of AWS services and a list of service
+-- categories for each service. You then use service names and categories
+-- in your CreateCase requests. Each AWS service has its own set of
+-- categories.
 --
+-- The service codes and category codes correspond to the values that
+-- appear in the __Service__ and __Category__ lists on the AWS Support
+-- Center
+-- <https://console.aws.amazon.com/support/home#/case/create Create Case>
+-- page. The values in those fields don\'t necessarily match the service
+-- codes and categories returned by the @DescribeServices@ operation.
+-- Always use the service codes and categories that the @DescribeServices@
+-- operation returns, so that you have the most recent set of service and
+-- category codes.
 --
--- The service codes and category codes correspond to the values that appear in the __Service__ and __Category__ lists on the AWS Support Center <https://console.aws.amazon.com/support/home#/case/create Create Case> page. The values in those fields don't necessarily match the service codes and categories returned by the @DescribeServices@ operation. Always use the service codes and categories that the @DescribeServices@ operation returns, so that you have the most recent set of service and category codes.
+-- -   You must have a Business or Enterprise support plan to use the AWS
+--     Support API.
+--
+-- -   If you call the AWS Support API from an account that does not have a
+--     Business or Enterprise support plan, the
+--     @SubscriptionRequiredException@ error message appears. For
+--     information about changing your support plan, see
+--     <http://aws.amazon.com/premiumsupport/ AWS Support>.
 module Network.AWS.Support.DescribeServices
   ( -- * Creating a Request
-    describeServices,
-    DescribeServices,
+    DescribeServices (..),
+    newDescribeServices,
 
     -- * Request Lenses
-    dsServiceCodeList,
-    dsLanguage,
+    describeServices_serviceCodeList,
+    describeServices_language,
 
     -- * Destructuring the Response
-    describeServicesResponse,
-    DescribeServicesResponse,
+    DescribeServicesResponse (..),
+    newDescribeServicesResponse,
 
     -- * Response Lenses
-    dsrrsServices,
-    dsrrsResponseStatus,
+    describeServicesResponse_services,
+    describeServicesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Support.Types
+import Network.AWS.Support.Types.SupportService
 
--- | /See:/ 'describeServices' smart constructor.
+-- | /See:/ 'newDescribeServices' smart constructor.
 data DescribeServices = DescribeServices'
-  { _dsServiceCodeList ::
-      !(Maybe [Text]),
-    _dsLanguage :: !(Maybe Text)
+  { -- | A JSON-formatted list of service codes available for AWS services.
+    serviceCodeList :: Prelude.Maybe [Prelude.Text],
+    -- | The ISO 639-1 code for the language in which AWS provides support. AWS
+    -- Support currently supports English (\"en\") and Japanese (\"ja\").
+    -- Language parameters must be passed explicitly for operations that take
+    -- them.
+    language :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeServices' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeServices' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsServiceCodeList' - A JSON-formatted list of service codes available for AWS services.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsLanguage' - The ISO 639-1 code for the language in which AWS provides support. AWS Support currently supports English ("en") and Japanese ("ja"). Language parameters must be passed explicitly for operations that take them.
-describeServices ::
+-- 'serviceCodeList', 'describeServices_serviceCodeList' - A JSON-formatted list of service codes available for AWS services.
+--
+-- 'language', 'describeServices_language' - The ISO 639-1 code for the language in which AWS provides support. AWS
+-- Support currently supports English (\"en\") and Japanese (\"ja\").
+-- Language parameters must be passed explicitly for operations that take
+-- them.
+newDescribeServices ::
   DescribeServices
-describeServices =
+newDescribeServices =
   DescribeServices'
-    { _dsServiceCodeList = Nothing,
-      _dsLanguage = Nothing
+    { serviceCodeList =
+        Prelude.Nothing,
+      language = Prelude.Nothing
     }
 
 -- | A JSON-formatted list of service codes available for AWS services.
-dsServiceCodeList :: Lens' DescribeServices [Text]
-dsServiceCodeList = lens _dsServiceCodeList (\s a -> s {_dsServiceCodeList = a}) . _Default . _Coerce
+describeServices_serviceCodeList :: Lens.Lens' DescribeServices (Prelude.Maybe [Prelude.Text])
+describeServices_serviceCodeList = Lens.lens (\DescribeServices' {serviceCodeList} -> serviceCodeList) (\s@DescribeServices' {} a -> s {serviceCodeList = a} :: DescribeServices) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The ISO 639-1 code for the language in which AWS provides support. AWS Support currently supports English ("en") and Japanese ("ja"). Language parameters must be passed explicitly for operations that take them.
-dsLanguage :: Lens' DescribeServices (Maybe Text)
-dsLanguage = lens _dsLanguage (\s a -> s {_dsLanguage = a})
+-- | The ISO 639-1 code for the language in which AWS provides support. AWS
+-- Support currently supports English (\"en\") and Japanese (\"ja\").
+-- Language parameters must be passed explicitly for operations that take
+-- them.
+describeServices_language :: Lens.Lens' DescribeServices (Prelude.Maybe Prelude.Text)
+describeServices_language = Lens.lens (\DescribeServices' {language} -> language) (\s@DescribeServices' {} a -> s {language = a} :: DescribeServices)
 
-instance AWSRequest DescribeServices where
+instance Prelude.AWSRequest DescribeServices where
   type Rs DescribeServices = DescribeServicesResponse
-  request = postJSON support
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeServicesResponse'
-            <$> (x .?> "services" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "services" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeServices
+instance Prelude.Hashable DescribeServices
 
-instance NFData DescribeServices
+instance Prelude.NFData DescribeServices
 
-instance ToHeaders DescribeServices where
+instance Prelude.ToHeaders DescribeServices where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSSupport_20130415.DescribeServices" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSSupport_20130415.DescribeServices" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeServices where
+instance Prelude.ToJSON DescribeServices where
   toJSON DescribeServices' {..} =
-    object
-      ( catMaybes
-          [ ("serviceCodeList" .=) <$> _dsServiceCodeList,
-            ("language" .=) <$> _dsLanguage
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("serviceCodeList" Prelude..=)
+              Prelude.<$> serviceCodeList,
+            ("language" Prelude..=) Prelude.<$> language
           ]
       )
 
-instance ToPath DescribeServices where
-  toPath = const "/"
+instance Prelude.ToPath DescribeServices where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeServices where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeServices where
+  toQuery = Prelude.const Prelude.mempty
 
--- | The list of AWS services returned by the 'DescribeServices' operation.
+-- | The list of AWS services returned by the DescribeServices operation.
 --
---
---
--- /See:/ 'describeServicesResponse' smart constructor.
+-- /See:/ 'newDescribeServicesResponse' smart constructor.
 data DescribeServicesResponse = DescribeServicesResponse'
-  { _dsrrsServices ::
-      !( Maybe
-           [SupportService]
-       ),
-    _dsrrsResponseStatus ::
-      !Int
+  { -- | A JSON-formatted list of AWS services.
+    services :: Prelude.Maybe [SupportService],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeServicesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeServicesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsrrsServices' - A JSON-formatted list of AWS services.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsrrsResponseStatus' - -- | The response status code.
-describeServicesResponse ::
-  -- | 'dsrrsResponseStatus'
-  Int ->
+-- 'services', 'describeServicesResponse_services' - A JSON-formatted list of AWS services.
+--
+-- 'httpStatus', 'describeServicesResponse_httpStatus' - The response's http status code.
+newDescribeServicesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeServicesResponse
-describeServicesResponse pResponseStatus_ =
+newDescribeServicesResponse pHttpStatus_ =
   DescribeServicesResponse'
-    { _dsrrsServices = Nothing,
-      _dsrrsResponseStatus = pResponseStatus_
+    { services =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A JSON-formatted list of AWS services.
-dsrrsServices :: Lens' DescribeServicesResponse [SupportService]
-dsrrsServices = lens _dsrrsServices (\s a -> s {_dsrrsServices = a}) . _Default . _Coerce
+describeServicesResponse_services :: Lens.Lens' DescribeServicesResponse (Prelude.Maybe [SupportService])
+describeServicesResponse_services = Lens.lens (\DescribeServicesResponse' {services} -> services) (\s@DescribeServicesResponse' {} a -> s {services = a} :: DescribeServicesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dsrrsResponseStatus :: Lens' DescribeServicesResponse Int
-dsrrsResponseStatus = lens _dsrrsResponseStatus (\s a -> s {_dsrrsResponseStatus = a})
+-- | The response's http status code.
+describeServicesResponse_httpStatus :: Lens.Lens' DescribeServicesResponse Prelude.Int
+describeServicesResponse_httpStatus = Lens.lens (\DescribeServicesResponse' {httpStatus} -> httpStatus) (\s@DescribeServicesResponse' {} a -> s {httpStatus = a} :: DescribeServicesResponse)
 
-instance NFData DescribeServicesResponse
+instance Prelude.NFData DescribeServicesResponse

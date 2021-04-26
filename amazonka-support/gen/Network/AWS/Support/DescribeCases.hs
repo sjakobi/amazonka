@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,252 +21,319 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns a list of cases that you specify by passing one or more case IDs. You can use the @afterTime@ and @beforeTime@ parameters to filter the cases by date. You can set values for the @includeResolvedCases@ and @includeCommunications@ parameters to specify how much information to return.
---
+-- Returns a list of cases that you specify by passing one or more case
+-- IDs. You can use the @afterTime@ and @beforeTime@ parameters to filter
+-- the cases by date. You can set values for the @includeResolvedCases@ and
+-- @includeCommunications@ parameters to specify how much information to
+-- return.
 --
 -- The response returns the following in JSON format:
 --
---     * One or more <https://docs.aws.amazon.com/awssupport/latest/APIReference/API_CaseDetails.html CaseDetails> data types.
+-- -   One or more
+--     <https://docs.aws.amazon.com/awssupport/latest/APIReference/API_CaseDetails.html CaseDetails>
+--     data types.
 --
---     * One or more @nextToken@ values, which specify where to paginate the returned records represented by the @CaseDetails@ objects.
+-- -   One or more @nextToken@ values, which specify where to paginate the
+--     returned records represented by the @CaseDetails@ objects.
 --
+-- Case data is available for 12 months after creation. If a case was
+-- created more than 12 months ago, a request might return an error.
 --
+-- -   You must have a Business or Enterprise support plan to use the AWS
+--     Support API.
 --
--- Case data is available for 12 months after creation. If a case was created more than 12 months ago, a request might return an error.
---
+-- -   If you call the AWS Support API from an account that does not have a
+--     Business or Enterprise support plan, the
+--     @SubscriptionRequiredException@ error message appears. For
+--     information about changing your support plan, see
+--     <http://aws.amazon.com/premiumsupport/ AWS Support>.
 --
 -- This operation returns paginated results.
 module Network.AWS.Support.DescribeCases
   ( -- * Creating a Request
-    describeCases,
-    DescribeCases,
+    DescribeCases (..),
+    newDescribeCases,
 
     -- * Request Lenses
-    dDisplayId,
-    dIncludeCommunications,
-    dNextToken,
-    dMaxResults,
-    dCaseIdList,
-    dIncludeResolvedCases,
-    dBeforeTime,
-    dAfterTime,
-    dLanguage,
+    describeCases_displayId,
+    describeCases_includeCommunications,
+    describeCases_nextToken,
+    describeCases_maxResults,
+    describeCases_caseIdList,
+    describeCases_includeResolvedCases,
+    describeCases_beforeTime,
+    describeCases_afterTime,
+    describeCases_language,
 
     -- * Destructuring the Response
-    describeCasesResponse,
-    DescribeCasesResponse,
+    DescribeCasesResponse (..),
+    newDescribeCasesResponse,
 
     -- * Response Lenses
-    dcrrsNextToken,
-    dcrrsCases,
-    dcrrsResponseStatus,
+    describeCasesResponse_nextToken,
+    describeCasesResponse_cases,
+    describeCasesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Support.Types
+import Network.AWS.Support.Types.CaseDetails
 
--- | /See:/ 'describeCases' smart constructor.
+-- | /See:/ 'newDescribeCases' smart constructor.
 data DescribeCases = DescribeCases'
-  { _dDisplayId ::
-      !(Maybe Text),
-    _dIncludeCommunications :: !(Maybe Bool),
-    _dNextToken :: !(Maybe Text),
-    _dMaxResults :: !(Maybe Nat),
-    _dCaseIdList :: !(Maybe [Text]),
-    _dIncludeResolvedCases :: !(Maybe Bool),
-    _dBeforeTime :: !(Maybe Text),
-    _dAfterTime :: !(Maybe Text),
-    _dLanguage :: !(Maybe Text)
+  { -- | The ID displayed for a case in the AWS Support Center user interface.
+    displayId :: Prelude.Maybe Prelude.Text,
+    -- | Specifies whether to include communications in the @DescribeCases@
+    -- response. By default, communications are incuded.
+    includeCommunications :: Prelude.Maybe Prelude.Bool,
+    -- | A resumption point for pagination.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return before paginating.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | A list of ID numbers of the support cases you want returned. The maximum
+    -- number of cases is 100.
+    caseIdList :: Prelude.Maybe [Prelude.Text],
+    -- | Specifies whether to include resolved support cases in the
+    -- @DescribeCases@ response. By default, resolved cases aren\'t included.
+    includeResolvedCases :: Prelude.Maybe Prelude.Bool,
+    -- | The end date for a filtered date search on support case communications.
+    -- Case communications are available for 12 months after creation.
+    beforeTime :: Prelude.Maybe Prelude.Text,
+    -- | The start date for a filtered date search on support case
+    -- communications. Case communications are available for 12 months after
+    -- creation.
+    afterTime :: Prelude.Maybe Prelude.Text,
+    -- | The ISO 639-1 code for the language in which AWS provides support. AWS
+    -- Support currently supports English (\"en\") and Japanese (\"ja\").
+    -- Language parameters must be passed explicitly for operations that take
+    -- them.
+    language :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeCases' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeCases' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dDisplayId' - The ID displayed for a case in the AWS Support Center user interface.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dIncludeCommunications' - Specifies whether to include communications in the @DescribeCases@ response. By default, communications are incuded.
+-- 'displayId', 'describeCases_displayId' - The ID displayed for a case in the AWS Support Center user interface.
 --
--- * 'dNextToken' - A resumption point for pagination.
+-- 'includeCommunications', 'describeCases_includeCommunications' - Specifies whether to include communications in the @DescribeCases@
+-- response. By default, communications are incuded.
 --
--- * 'dMaxResults' - The maximum number of results to return before paginating.
+-- 'nextToken', 'describeCases_nextToken' - A resumption point for pagination.
 --
--- * 'dCaseIdList' - A list of ID numbers of the support cases you want returned. The maximum number of cases is 100.
+-- 'maxResults', 'describeCases_maxResults' - The maximum number of results to return before paginating.
 --
--- * 'dIncludeResolvedCases' - Specifies whether to include resolved support cases in the @DescribeCases@ response. By default, resolved cases aren't included.
+-- 'caseIdList', 'describeCases_caseIdList' - A list of ID numbers of the support cases you want returned. The maximum
+-- number of cases is 100.
 --
--- * 'dBeforeTime' - The end date for a filtered date search on support case communications. Case communications are available for 12 months after creation.
+-- 'includeResolvedCases', 'describeCases_includeResolvedCases' - Specifies whether to include resolved support cases in the
+-- @DescribeCases@ response. By default, resolved cases aren\'t included.
 --
--- * 'dAfterTime' - The start date for a filtered date search on support case communications. Case communications are available for 12 months after creation.
+-- 'beforeTime', 'describeCases_beforeTime' - The end date for a filtered date search on support case communications.
+-- Case communications are available for 12 months after creation.
 --
--- * 'dLanguage' - The ISO 639-1 code for the language in which AWS provides support. AWS Support currently supports English ("en") and Japanese ("ja"). Language parameters must be passed explicitly for operations that take them.
-describeCases ::
+-- 'afterTime', 'describeCases_afterTime' - The start date for a filtered date search on support case
+-- communications. Case communications are available for 12 months after
+-- creation.
+--
+-- 'language', 'describeCases_language' - The ISO 639-1 code for the language in which AWS provides support. AWS
+-- Support currently supports English (\"en\") and Japanese (\"ja\").
+-- Language parameters must be passed explicitly for operations that take
+-- them.
+newDescribeCases ::
   DescribeCases
-describeCases =
+newDescribeCases =
   DescribeCases'
-    { _dDisplayId = Nothing,
-      _dIncludeCommunications = Nothing,
-      _dNextToken = Nothing,
-      _dMaxResults = Nothing,
-      _dCaseIdList = Nothing,
-      _dIncludeResolvedCases = Nothing,
-      _dBeforeTime = Nothing,
-      _dAfterTime = Nothing,
-      _dLanguage = Nothing
+    { displayId = Prelude.Nothing,
+      includeCommunications = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      caseIdList = Prelude.Nothing,
+      includeResolvedCases = Prelude.Nothing,
+      beforeTime = Prelude.Nothing,
+      afterTime = Prelude.Nothing,
+      language = Prelude.Nothing
     }
 
 -- | The ID displayed for a case in the AWS Support Center user interface.
-dDisplayId :: Lens' DescribeCases (Maybe Text)
-dDisplayId = lens _dDisplayId (\s a -> s {_dDisplayId = a})
+describeCases_displayId :: Lens.Lens' DescribeCases (Prelude.Maybe Prelude.Text)
+describeCases_displayId = Lens.lens (\DescribeCases' {displayId} -> displayId) (\s@DescribeCases' {} a -> s {displayId = a} :: DescribeCases)
 
--- | Specifies whether to include communications in the @DescribeCases@ response. By default, communications are incuded.
-dIncludeCommunications :: Lens' DescribeCases (Maybe Bool)
-dIncludeCommunications = lens _dIncludeCommunications (\s a -> s {_dIncludeCommunications = a})
+-- | Specifies whether to include communications in the @DescribeCases@
+-- response. By default, communications are incuded.
+describeCases_includeCommunications :: Lens.Lens' DescribeCases (Prelude.Maybe Prelude.Bool)
+describeCases_includeCommunications = Lens.lens (\DescribeCases' {includeCommunications} -> includeCommunications) (\s@DescribeCases' {} a -> s {includeCommunications = a} :: DescribeCases)
 
 -- | A resumption point for pagination.
-dNextToken :: Lens' DescribeCases (Maybe Text)
-dNextToken = lens _dNextToken (\s a -> s {_dNextToken = a})
+describeCases_nextToken :: Lens.Lens' DescribeCases (Prelude.Maybe Prelude.Text)
+describeCases_nextToken = Lens.lens (\DescribeCases' {nextToken} -> nextToken) (\s@DescribeCases' {} a -> s {nextToken = a} :: DescribeCases)
 
 -- | The maximum number of results to return before paginating.
-dMaxResults :: Lens' DescribeCases (Maybe Natural)
-dMaxResults = lens _dMaxResults (\s a -> s {_dMaxResults = a}) . mapping _Nat
+describeCases_maxResults :: Lens.Lens' DescribeCases (Prelude.Maybe Prelude.Natural)
+describeCases_maxResults = Lens.lens (\DescribeCases' {maxResults} -> maxResults) (\s@DescribeCases' {} a -> s {maxResults = a} :: DescribeCases) Prelude.. Lens.mapping Prelude._Nat
 
--- | A list of ID numbers of the support cases you want returned. The maximum number of cases is 100.
-dCaseIdList :: Lens' DescribeCases [Text]
-dCaseIdList = lens _dCaseIdList (\s a -> s {_dCaseIdList = a}) . _Default . _Coerce
+-- | A list of ID numbers of the support cases you want returned. The maximum
+-- number of cases is 100.
+describeCases_caseIdList :: Lens.Lens' DescribeCases (Prelude.Maybe [Prelude.Text])
+describeCases_caseIdList = Lens.lens (\DescribeCases' {caseIdList} -> caseIdList) (\s@DescribeCases' {} a -> s {caseIdList = a} :: DescribeCases) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Specifies whether to include resolved support cases in the @DescribeCases@ response. By default, resolved cases aren't included.
-dIncludeResolvedCases :: Lens' DescribeCases (Maybe Bool)
-dIncludeResolvedCases = lens _dIncludeResolvedCases (\s a -> s {_dIncludeResolvedCases = a})
+-- | Specifies whether to include resolved support cases in the
+-- @DescribeCases@ response. By default, resolved cases aren\'t included.
+describeCases_includeResolvedCases :: Lens.Lens' DescribeCases (Prelude.Maybe Prelude.Bool)
+describeCases_includeResolvedCases = Lens.lens (\DescribeCases' {includeResolvedCases} -> includeResolvedCases) (\s@DescribeCases' {} a -> s {includeResolvedCases = a} :: DescribeCases)
 
--- | The end date for a filtered date search on support case communications. Case communications are available for 12 months after creation.
-dBeforeTime :: Lens' DescribeCases (Maybe Text)
-dBeforeTime = lens _dBeforeTime (\s a -> s {_dBeforeTime = a})
+-- | The end date for a filtered date search on support case communications.
+-- Case communications are available for 12 months after creation.
+describeCases_beforeTime :: Lens.Lens' DescribeCases (Prelude.Maybe Prelude.Text)
+describeCases_beforeTime = Lens.lens (\DescribeCases' {beforeTime} -> beforeTime) (\s@DescribeCases' {} a -> s {beforeTime = a} :: DescribeCases)
 
--- | The start date for a filtered date search on support case communications. Case communications are available for 12 months after creation.
-dAfterTime :: Lens' DescribeCases (Maybe Text)
-dAfterTime = lens _dAfterTime (\s a -> s {_dAfterTime = a})
+-- | The start date for a filtered date search on support case
+-- communications. Case communications are available for 12 months after
+-- creation.
+describeCases_afterTime :: Lens.Lens' DescribeCases (Prelude.Maybe Prelude.Text)
+describeCases_afterTime = Lens.lens (\DescribeCases' {afterTime} -> afterTime) (\s@DescribeCases' {} a -> s {afterTime = a} :: DescribeCases)
 
--- | The ISO 639-1 code for the language in which AWS provides support. AWS Support currently supports English ("en") and Japanese ("ja"). Language parameters must be passed explicitly for operations that take them.
-dLanguage :: Lens' DescribeCases (Maybe Text)
-dLanguage = lens _dLanguage (\s a -> s {_dLanguage = a})
+-- | The ISO 639-1 code for the language in which AWS provides support. AWS
+-- Support currently supports English (\"en\") and Japanese (\"ja\").
+-- Language parameters must be passed explicitly for operations that take
+-- them.
+describeCases_language :: Lens.Lens' DescribeCases (Prelude.Maybe Prelude.Text)
+describeCases_language = Lens.lens (\DescribeCases' {language} -> language) (\s@DescribeCases' {} a -> s {language = a} :: DescribeCases)
 
-instance AWSPager DescribeCases where
+instance Pager.AWSPager DescribeCases where
   page rq rs
-    | stop (rs ^. dcrrsNextToken) = Nothing
-    | stop (rs ^. dcrrsCases) = Nothing
-    | otherwise =
-      Just $ rq & dNextToken .~ rs ^. dcrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? describeCasesResponse_nextToken Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? describeCasesResponse_cases Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& describeCases_nextToken
+          Lens..~ rs
+          Lens.^? describeCasesResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest DescribeCases where
+instance Prelude.AWSRequest DescribeCases where
   type Rs DescribeCases = DescribeCasesResponse
-  request = postJSON support
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeCasesResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "cases" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> (x Prelude..?> "cases" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeCases
+instance Prelude.Hashable DescribeCases
 
-instance NFData DescribeCases
+instance Prelude.NFData DescribeCases
 
-instance ToHeaders DescribeCases where
+instance Prelude.ToHeaders DescribeCases where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSSupport_20130415.DescribeCases" :: ByteString),
+              Prelude.=# ( "AWSSupport_20130415.DescribeCases" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeCases where
+instance Prelude.ToJSON DescribeCases where
   toJSON DescribeCases' {..} =
-    object
-      ( catMaybes
-          [ ("displayId" .=) <$> _dDisplayId,
-            ("includeCommunications" .=)
-              <$> _dIncludeCommunications,
-            ("nextToken" .=) <$> _dNextToken,
-            ("maxResults" .=) <$> _dMaxResults,
-            ("caseIdList" .=) <$> _dCaseIdList,
-            ("includeResolvedCases" .=)
-              <$> _dIncludeResolvedCases,
-            ("beforeTime" .=) <$> _dBeforeTime,
-            ("afterTime" .=) <$> _dAfterTime,
-            ("language" .=) <$> _dLanguage
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("displayId" Prelude..=) Prelude.<$> displayId,
+            ("includeCommunications" Prelude..=)
+              Prelude.<$> includeCommunications,
+            ("nextToken" Prelude..=) Prelude.<$> nextToken,
+            ("maxResults" Prelude..=) Prelude.<$> maxResults,
+            ("caseIdList" Prelude..=) Prelude.<$> caseIdList,
+            ("includeResolvedCases" Prelude..=)
+              Prelude.<$> includeResolvedCases,
+            ("beforeTime" Prelude..=) Prelude.<$> beforeTime,
+            ("afterTime" Prelude..=) Prelude.<$> afterTime,
+            ("language" Prelude..=) Prelude.<$> language
           ]
       )
 
-instance ToPath DescribeCases where
-  toPath = const "/"
+instance Prelude.ToPath DescribeCases where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeCases where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeCases where
+  toQuery = Prelude.const Prelude.mempty
 
--- | Returns an array of <https://docs.aws.amazon.com/awssupport/latest/APIReference/API_CaseDetails.html CaseDetails> objects and a @nextToken@ that defines a point for pagination in the result set.
+-- | Returns an array of
+-- <https://docs.aws.amazon.com/awssupport/latest/APIReference/API_CaseDetails.html CaseDetails>
+-- objects and a @nextToken@ that defines a point for pagination in the
+-- result set.
 --
---
---
--- /See:/ 'describeCasesResponse' smart constructor.
+-- /See:/ 'newDescribeCasesResponse' smart constructor.
 data DescribeCasesResponse = DescribeCasesResponse'
-  { _dcrrsNextToken ::
-      !(Maybe Text),
-    _dcrrsCases ::
-      !(Maybe [CaseDetails]),
-    _dcrrsResponseStatus ::
-      !Int
+  { -- | A resumption point for pagination.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The details for the cases that match the request.
+    cases :: Prelude.Maybe [CaseDetails],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeCasesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeCasesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcrrsNextToken' - A resumption point for pagination.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcrrsCases' - The details for the cases that match the request.
+-- 'nextToken', 'describeCasesResponse_nextToken' - A resumption point for pagination.
 --
--- * 'dcrrsResponseStatus' - -- | The response status code.
-describeCasesResponse ::
-  -- | 'dcrrsResponseStatus'
-  Int ->
+-- 'cases', 'describeCasesResponse_cases' - The details for the cases that match the request.
+--
+-- 'httpStatus', 'describeCasesResponse_httpStatus' - The response's http status code.
+newDescribeCasesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeCasesResponse
-describeCasesResponse pResponseStatus_ =
+newDescribeCasesResponse pHttpStatus_ =
   DescribeCasesResponse'
-    { _dcrrsNextToken = Nothing,
-      _dcrrsCases = Nothing,
-      _dcrrsResponseStatus = pResponseStatus_
+    { nextToken = Prelude.Nothing,
+      cases = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A resumption point for pagination.
-dcrrsNextToken :: Lens' DescribeCasesResponse (Maybe Text)
-dcrrsNextToken = lens _dcrrsNextToken (\s a -> s {_dcrrsNextToken = a})
+describeCasesResponse_nextToken :: Lens.Lens' DescribeCasesResponse (Prelude.Maybe Prelude.Text)
+describeCasesResponse_nextToken = Lens.lens (\DescribeCasesResponse' {nextToken} -> nextToken) (\s@DescribeCasesResponse' {} a -> s {nextToken = a} :: DescribeCasesResponse)
 
 -- | The details for the cases that match the request.
-dcrrsCases :: Lens' DescribeCasesResponse [CaseDetails]
-dcrrsCases = lens _dcrrsCases (\s a -> s {_dcrrsCases = a}) . _Default . _Coerce
+describeCasesResponse_cases :: Lens.Lens' DescribeCasesResponse (Prelude.Maybe [CaseDetails])
+describeCasesResponse_cases = Lens.lens (\DescribeCasesResponse' {cases} -> cases) (\s@DescribeCasesResponse' {} a -> s {cases = a} :: DescribeCasesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dcrrsResponseStatus :: Lens' DescribeCasesResponse Int
-dcrrsResponseStatus = lens _dcrrsResponseStatus (\s a -> s {_dcrrsResponseStatus = a})
+-- | The response's http status code.
+describeCasesResponse_httpStatus :: Lens.Lens' DescribeCasesResponse Prelude.Int
+describeCasesResponse_httpStatus = Lens.lens (\DescribeCasesResponse' {httpStatus} -> httpStatus) (\s@DescribeCasesResponse' {} a -> s {httpStatus = a} :: DescribeCasesResponse)
 
-instance NFData DescribeCasesResponse
+instance Prelude.NFData DescribeCasesResponse

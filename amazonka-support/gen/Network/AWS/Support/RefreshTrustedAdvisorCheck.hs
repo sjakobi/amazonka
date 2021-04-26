@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,159 +21,180 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Refreshes the AWS Trusted Advisor check that you specify using the check ID. You can get the check IDs by calling the 'DescribeTrustedAdvisorChecks' operation.
+-- Refreshes the AWS Trusted Advisor check that you specify using the check
+-- ID. You can get the check IDs by calling the
+-- DescribeTrustedAdvisorChecks operation.
 --
+-- Some checks are refreshed automatically. If you call the
+-- @RefreshTrustedAdvisorCheck@ operation to refresh them, you might see
+-- the @InvalidParameterValue@ error.
 --
--- The response contains a 'TrustedAdvisorCheckRefreshStatus' object.
+-- The response contains a TrustedAdvisorCheckRefreshStatus object.
+--
+-- -   You must have a Business or Enterprise support plan to use the AWS
+--     Support API.
+--
+-- -   If you call the AWS Support API from an account that does not have a
+--     Business or Enterprise support plan, the
+--     @SubscriptionRequiredException@ error message appears. For
+--     information about changing your support plan, see
+--     <http://aws.amazon.com/premiumsupport/ AWS Support>.
 module Network.AWS.Support.RefreshTrustedAdvisorCheck
   ( -- * Creating a Request
-    refreshTrustedAdvisorCheck,
-    RefreshTrustedAdvisorCheck,
+    RefreshTrustedAdvisorCheck (..),
+    newRefreshTrustedAdvisorCheck,
 
     -- * Request Lenses
-    rtacCheckId,
+    refreshTrustedAdvisorCheck_checkId,
 
     -- * Destructuring the Response
-    refreshTrustedAdvisorCheckResponse,
-    RefreshTrustedAdvisorCheckResponse,
+    RefreshTrustedAdvisorCheckResponse (..),
+    newRefreshTrustedAdvisorCheckResponse,
 
     -- * Response Lenses
-    rtacrrsResponseStatus,
-    rtacrrsStatus,
+    refreshTrustedAdvisorCheckResponse_httpStatus,
+    refreshTrustedAdvisorCheckResponse_status,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Support.Types
+import Network.AWS.Support.Types.TrustedAdvisorCheckRefreshStatus
 
 -- |
 --
---
---
--- /See:/ 'refreshTrustedAdvisorCheck' smart constructor.
-newtype RefreshTrustedAdvisorCheck = RefreshTrustedAdvisorCheck'
-  { _rtacCheckId ::
-      Text
+-- /See:/ 'newRefreshTrustedAdvisorCheck' smart constructor.
+data RefreshTrustedAdvisorCheck = RefreshTrustedAdvisorCheck'
+  { -- | The unique identifier for the Trusted Advisor check to refresh.
+    -- __Note:__ Specifying the check ID of a check that is automatically
+    -- refreshed causes an @InvalidParameterValue@ error.
+    checkId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RefreshTrustedAdvisorCheck' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RefreshTrustedAdvisorCheck' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rtacCheckId' - The unique identifier for the Trusted Advisor check to refresh. __Note:__ Specifying the check ID of a check that is automatically refreshed causes an @InvalidParameterValue@ error.
-refreshTrustedAdvisorCheck ::
-  -- | 'rtacCheckId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'checkId', 'refreshTrustedAdvisorCheck_checkId' - The unique identifier for the Trusted Advisor check to refresh.
+-- __Note:__ Specifying the check ID of a check that is automatically
+-- refreshed causes an @InvalidParameterValue@ error.
+newRefreshTrustedAdvisorCheck ::
+  -- | 'checkId'
+  Prelude.Text ->
   RefreshTrustedAdvisorCheck
-refreshTrustedAdvisorCheck pCheckId_ =
-  RefreshTrustedAdvisorCheck'
-    { _rtacCheckId =
-        pCheckId_
-    }
+newRefreshTrustedAdvisorCheck pCheckId_ =
+  RefreshTrustedAdvisorCheck' {checkId = pCheckId_}
 
--- | The unique identifier for the Trusted Advisor check to refresh. __Note:__ Specifying the check ID of a check that is automatically refreshed causes an @InvalidParameterValue@ error.
-rtacCheckId :: Lens' RefreshTrustedAdvisorCheck Text
-rtacCheckId = lens _rtacCheckId (\s a -> s {_rtacCheckId = a})
+-- | The unique identifier for the Trusted Advisor check to refresh.
+-- __Note:__ Specifying the check ID of a check that is automatically
+-- refreshed causes an @InvalidParameterValue@ error.
+refreshTrustedAdvisorCheck_checkId :: Lens.Lens' RefreshTrustedAdvisorCheck Prelude.Text
+refreshTrustedAdvisorCheck_checkId = Lens.lens (\RefreshTrustedAdvisorCheck' {checkId} -> checkId) (\s@RefreshTrustedAdvisorCheck' {} a -> s {checkId = a} :: RefreshTrustedAdvisorCheck)
 
-instance AWSRequest RefreshTrustedAdvisorCheck where
+instance
+  Prelude.AWSRequest
+    RefreshTrustedAdvisorCheck
+  where
   type
     Rs RefreshTrustedAdvisorCheck =
       RefreshTrustedAdvisorCheckResponse
-  request = postJSON support
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           RefreshTrustedAdvisorCheckResponse'
-            <$> (pure (fromEnum s)) <*> (x .:> "status")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "status")
       )
 
-instance Hashable RefreshTrustedAdvisorCheck
+instance Prelude.Hashable RefreshTrustedAdvisorCheck
 
-instance NFData RefreshTrustedAdvisorCheck
+instance Prelude.NFData RefreshTrustedAdvisorCheck
 
-instance ToHeaders RefreshTrustedAdvisorCheck where
+instance Prelude.ToHeaders RefreshTrustedAdvisorCheck where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSSupport_20130415.RefreshTrustedAdvisorCheck" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSSupport_20130415.RefreshTrustedAdvisorCheck" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON RefreshTrustedAdvisorCheck where
+instance Prelude.ToJSON RefreshTrustedAdvisorCheck where
   toJSON RefreshTrustedAdvisorCheck' {..} =
-    object
-      (catMaybes [Just ("checkId" .= _rtacCheckId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("checkId" Prelude..= checkId)]
+      )
 
-instance ToPath RefreshTrustedAdvisorCheck where
-  toPath = const "/"
+instance Prelude.ToPath RefreshTrustedAdvisorCheck where
+  toPath = Prelude.const "/"
 
-instance ToQuery RefreshTrustedAdvisorCheck where
-  toQuery = const mempty
+instance Prelude.ToQuery RefreshTrustedAdvisorCheck where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | The current refresh status of a Trusted Advisor check.
 --
---
---
--- /See:/ 'refreshTrustedAdvisorCheckResponse' smart constructor.
+-- /See:/ 'newRefreshTrustedAdvisorCheckResponse' smart constructor.
 data RefreshTrustedAdvisorCheckResponse = RefreshTrustedAdvisorCheckResponse'
-  { _rtacrrsResponseStatus ::
-      !Int,
-    _rtacrrsStatus ::
-      !TrustedAdvisorCheckRefreshStatus
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The current refresh status for a check, including the amount of time
+    -- until the check is eligible for refresh.
+    status :: TrustedAdvisorCheckRefreshStatus
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RefreshTrustedAdvisorCheckResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RefreshTrustedAdvisorCheckResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rtacrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rtacrrsStatus' - The current refresh status for a check, including the amount of time until the check is eligible for refresh.
-refreshTrustedAdvisorCheckResponse ::
-  -- | 'rtacrrsResponseStatus'
-  Int ->
-  -- | 'rtacrrsStatus'
+-- 'httpStatus', 'refreshTrustedAdvisorCheckResponse_httpStatus' - The response's http status code.
+--
+-- 'status', 'refreshTrustedAdvisorCheckResponse_status' - The current refresh status for a check, including the amount of time
+-- until the check is eligible for refresh.
+newRefreshTrustedAdvisorCheckResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'status'
   TrustedAdvisorCheckRefreshStatus ->
   RefreshTrustedAdvisorCheckResponse
-refreshTrustedAdvisorCheckResponse
-  pResponseStatus_
+newRefreshTrustedAdvisorCheckResponse
+  pHttpStatus_
   pStatus_ =
     RefreshTrustedAdvisorCheckResponse'
-      { _rtacrrsResponseStatus =
-          pResponseStatus_,
-        _rtacrrsStatus = pStatus_
+      { httpStatus =
+          pHttpStatus_,
+        status = pStatus_
       }
 
--- | -- | The response status code.
-rtacrrsResponseStatus :: Lens' RefreshTrustedAdvisorCheckResponse Int
-rtacrrsResponseStatus = lens _rtacrrsResponseStatus (\s a -> s {_rtacrrsResponseStatus = a})
+-- | The response's http status code.
+refreshTrustedAdvisorCheckResponse_httpStatus :: Lens.Lens' RefreshTrustedAdvisorCheckResponse Prelude.Int
+refreshTrustedAdvisorCheckResponse_httpStatus = Lens.lens (\RefreshTrustedAdvisorCheckResponse' {httpStatus} -> httpStatus) (\s@RefreshTrustedAdvisorCheckResponse' {} a -> s {httpStatus = a} :: RefreshTrustedAdvisorCheckResponse)
 
--- | The current refresh status for a check, including the amount of time until the check is eligible for refresh.
-rtacrrsStatus :: Lens' RefreshTrustedAdvisorCheckResponse TrustedAdvisorCheckRefreshStatus
-rtacrrsStatus = lens _rtacrrsStatus (\s a -> s {_rtacrrsStatus = a})
+-- | The current refresh status for a check, including the amount of time
+-- until the check is eligible for refresh.
+refreshTrustedAdvisorCheckResponse_status :: Lens.Lens' RefreshTrustedAdvisorCheckResponse TrustedAdvisorCheckRefreshStatus
+refreshTrustedAdvisorCheckResponse_status = Lens.lens (\RefreshTrustedAdvisorCheckResponse' {status} -> status) (\s@RefreshTrustedAdvisorCheckResponse' {} a -> s {status = a} :: RefreshTrustedAdvisorCheckResponse)
 
-instance NFData RefreshTrustedAdvisorCheckResponse
+instance
+  Prelude.NFData
+    RefreshTrustedAdvisorCheckResponse

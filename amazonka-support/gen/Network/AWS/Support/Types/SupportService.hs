@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,64 +19,86 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Support.Types.SupportService where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Support.Types.Category
 
--- | Information about an AWS service returned by the 'DescribeServices' operation.
+-- | Information about an AWS service returned by the DescribeServices
+-- operation.
 --
---
---
--- /See:/ 'supportService' smart constructor.
+-- /See:/ 'newSupportService' smart constructor.
 data SupportService = SupportService'
-  { _ssCode ::
-      !(Maybe Text),
-    _ssName :: !(Maybe Text),
-    _ssCategories :: !(Maybe [Category])
+  { -- | The code for an AWS service returned by the DescribeServices response.
+    -- The @name@ element contains the corresponding friendly name.
+    code :: Prelude.Maybe Prelude.Text,
+    -- | The friendly name for an AWS service. The @code@ element contains the
+    -- corresponding code.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | A list of categories that describe the type of support issue a case
+    -- describes. Categories consist of a category name and a category code.
+    -- Category names and codes are passed to AWS Support when you call
+    -- CreateCase.
+    categories :: Prelude.Maybe [Category]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SupportService' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SupportService' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ssCode' - The code for an AWS service returned by the 'DescribeServices' response. The @name@ element contains the corresponding friendly name.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ssName' - The friendly name for an AWS service. The @code@ element contains the corresponding code.
+-- 'code', 'supportService_code' - The code for an AWS service returned by the DescribeServices response.
+-- The @name@ element contains the corresponding friendly name.
 --
--- * 'ssCategories' - A list of categories that describe the type of support issue a case describes. Categories consist of a category name and a category code. Category names and codes are passed to AWS Support when you call 'CreateCase' .
-supportService ::
+-- 'name', 'supportService_name' - The friendly name for an AWS service. The @code@ element contains the
+-- corresponding code.
+--
+-- 'categories', 'supportService_categories' - A list of categories that describe the type of support issue a case
+-- describes. Categories consist of a category name and a category code.
+-- Category names and codes are passed to AWS Support when you call
+-- CreateCase.
+newSupportService ::
   SupportService
-supportService =
+newSupportService =
   SupportService'
-    { _ssCode = Nothing,
-      _ssName = Nothing,
-      _ssCategories = Nothing
+    { code = Prelude.Nothing,
+      name = Prelude.Nothing,
+      categories = Prelude.Nothing
     }
 
--- | The code for an AWS service returned by the 'DescribeServices' response. The @name@ element contains the corresponding friendly name.
-ssCode :: Lens' SupportService (Maybe Text)
-ssCode = lens _ssCode (\s a -> s {_ssCode = a})
+-- | The code for an AWS service returned by the DescribeServices response.
+-- The @name@ element contains the corresponding friendly name.
+supportService_code :: Lens.Lens' SupportService (Prelude.Maybe Prelude.Text)
+supportService_code = Lens.lens (\SupportService' {code} -> code) (\s@SupportService' {} a -> s {code = a} :: SupportService)
 
--- | The friendly name for an AWS service. The @code@ element contains the corresponding code.
-ssName :: Lens' SupportService (Maybe Text)
-ssName = lens _ssName (\s a -> s {_ssName = a})
+-- | The friendly name for an AWS service. The @code@ element contains the
+-- corresponding code.
+supportService_name :: Lens.Lens' SupportService (Prelude.Maybe Prelude.Text)
+supportService_name = Lens.lens (\SupportService' {name} -> name) (\s@SupportService' {} a -> s {name = a} :: SupportService)
 
--- | A list of categories that describe the type of support issue a case describes. Categories consist of a category name and a category code. Category names and codes are passed to AWS Support when you call 'CreateCase' .
-ssCategories :: Lens' SupportService [Category]
-ssCategories = lens _ssCategories (\s a -> s {_ssCategories = a}) . _Default . _Coerce
+-- | A list of categories that describe the type of support issue a case
+-- describes. Categories consist of a category name and a category code.
+-- Category names and codes are passed to AWS Support when you call
+-- CreateCase.
+supportService_categories :: Lens.Lens' SupportService (Prelude.Maybe [Category])
+supportService_categories = Lens.lens (\SupportService' {categories} -> categories) (\s@SupportService' {} a -> s {categories = a} :: SupportService) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON SupportService where
+instance Prelude.FromJSON SupportService where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SupportService"
       ( \x ->
           SupportService'
-            <$> (x .:? "code")
-            <*> (x .:? "name")
-            <*> (x .:? "categories" .!= mempty)
+            Prelude.<$> (x Prelude..:? "code")
+            Prelude.<*> (x Prelude..:? "name")
+            Prelude.<*> ( x Prelude..:? "categories"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable SupportService
+instance Prelude.Hashable SupportService
 
-instance NFData SupportService
+instance Prelude.NFData SupportService

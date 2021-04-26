@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,161 +21,182 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the results for the AWS Trusted Advisor check summaries for the check IDs that you specified. You can get the check IDs by calling the 'DescribeTrustedAdvisorChecks' operation.
+-- Returns the results for the AWS Trusted Advisor check summaries for the
+-- check IDs that you specified. You can get the check IDs by calling the
+-- DescribeTrustedAdvisorChecks operation.
 --
+-- The response contains an array of TrustedAdvisorCheckSummary objects.
 --
--- The response contains an array of 'TrustedAdvisorCheckSummary' objects.
+-- -   You must have a Business or Enterprise support plan to use the AWS
+--     Support API.
+--
+-- -   If you call the AWS Support API from an account that does not have a
+--     Business or Enterprise support plan, the
+--     @SubscriptionRequiredException@ error message appears. For
+--     information about changing your support plan, see
+--     <http://aws.amazon.com/premiumsupport/ AWS Support>.
 module Network.AWS.Support.DescribeTrustedAdvisorCheckSummaries
   ( -- * Creating a Request
-    describeTrustedAdvisorCheckSummaries,
-    DescribeTrustedAdvisorCheckSummaries,
+    DescribeTrustedAdvisorCheckSummaries (..),
+    newDescribeTrustedAdvisorCheckSummaries,
 
     -- * Request Lenses
-    dtacsCheckIds,
+    describeTrustedAdvisorCheckSummaries_checkIds,
 
     -- * Destructuring the Response
-    describeTrustedAdvisorCheckSummariesResponse,
-    DescribeTrustedAdvisorCheckSummariesResponse,
+    DescribeTrustedAdvisorCheckSummariesResponse (..),
+    newDescribeTrustedAdvisorCheckSummariesResponse,
 
     -- * Response Lenses
-    dtacsrrsResponseStatus,
-    dtacsrrsSummaries,
+    describeTrustedAdvisorCheckSummariesResponse_httpStatus,
+    describeTrustedAdvisorCheckSummariesResponse_summaries,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.Support.Types
+import Network.AWS.Support.Types.TrustedAdvisorCheckSummary
 
--- | /See:/ 'describeTrustedAdvisorCheckSummaries' smart constructor.
-newtype DescribeTrustedAdvisorCheckSummaries = DescribeTrustedAdvisorCheckSummaries'
-  { _dtacsCheckIds ::
-      [Text]
+-- | /See:/ 'newDescribeTrustedAdvisorCheckSummaries' smart constructor.
+data DescribeTrustedAdvisorCheckSummaries = DescribeTrustedAdvisorCheckSummaries'
+  { -- | The IDs of the Trusted Advisor checks.
+    checkIds :: [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeTrustedAdvisorCheckSummaries' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeTrustedAdvisorCheckSummaries' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtacsCheckIds' - The IDs of the Trusted Advisor checks.
-describeTrustedAdvisorCheckSummaries ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'checkIds', 'describeTrustedAdvisorCheckSummaries_checkIds' - The IDs of the Trusted Advisor checks.
+newDescribeTrustedAdvisorCheckSummaries ::
   DescribeTrustedAdvisorCheckSummaries
-describeTrustedAdvisorCheckSummaries =
+newDescribeTrustedAdvisorCheckSummaries =
   DescribeTrustedAdvisorCheckSummaries'
-    { _dtacsCheckIds =
-        mempty
+    { checkIds =
+        Prelude.mempty
     }
 
 -- | The IDs of the Trusted Advisor checks.
-dtacsCheckIds :: Lens' DescribeTrustedAdvisorCheckSummaries [Text]
-dtacsCheckIds = lens _dtacsCheckIds (\s a -> s {_dtacsCheckIds = a}) . _Coerce
+describeTrustedAdvisorCheckSummaries_checkIds :: Lens.Lens' DescribeTrustedAdvisorCheckSummaries [Prelude.Text]
+describeTrustedAdvisorCheckSummaries_checkIds = Lens.lens (\DescribeTrustedAdvisorCheckSummaries' {checkIds} -> checkIds) (\s@DescribeTrustedAdvisorCheckSummaries' {} a -> s {checkIds = a} :: DescribeTrustedAdvisorCheckSummaries) Prelude.. Prelude._Coerce
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     DescribeTrustedAdvisorCheckSummaries
   where
   type
     Rs DescribeTrustedAdvisorCheckSummaries =
       DescribeTrustedAdvisorCheckSummariesResponse
-  request = postJSON support
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeTrustedAdvisorCheckSummariesResponse'
-            <$> (pure (fromEnum s))
-            <*> (x .?> "summaries" .!@ mempty)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+              Prelude.<*> ( x Prelude..?> "summaries"
+                              Prelude..!@ Prelude.mempty
+                          )
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     DescribeTrustedAdvisorCheckSummaries
 
-instance NFData DescribeTrustedAdvisorCheckSummaries
+instance
+  Prelude.NFData
+    DescribeTrustedAdvisorCheckSummaries
 
 instance
-  ToHeaders
+  Prelude.ToHeaders
     DescribeTrustedAdvisorCheckSummaries
   where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSSupport_20130415.DescribeTrustedAdvisorCheckSummaries" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSSupport_20130415.DescribeTrustedAdvisorCheckSummaries" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeTrustedAdvisorCheckSummaries where
+instance
+  Prelude.ToJSON
+    DescribeTrustedAdvisorCheckSummaries
+  where
   toJSON DescribeTrustedAdvisorCheckSummaries' {..} =
-    object
-      (catMaybes [Just ("checkIds" .= _dtacsCheckIds)])
-
-instance ToPath DescribeTrustedAdvisorCheckSummaries where
-  toPath = const "/"
-
-instance ToQuery DescribeTrustedAdvisorCheckSummaries where
-  toQuery = const mempty
-
--- | The summaries of the Trusted Advisor checks returned by the 'DescribeTrustedAdvisorCheckSummaries' operation.
---
---
---
--- /See:/ 'describeTrustedAdvisorCheckSummariesResponse' smart constructor.
-data DescribeTrustedAdvisorCheckSummariesResponse = DescribeTrustedAdvisorCheckSummariesResponse'
-  { _dtacsrrsResponseStatus ::
-      !Int,
-    _dtacsrrsSummaries ::
-      ![TrustedAdvisorCheckSummary]
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'DescribeTrustedAdvisorCheckSummariesResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'dtacsrrsResponseStatus' - -- | The response status code.
---
--- * 'dtacsrrsSummaries' - The summary information for the requested Trusted Advisor checks.
-describeTrustedAdvisorCheckSummariesResponse ::
-  -- | 'dtacsrrsResponseStatus'
-  Int ->
-  DescribeTrustedAdvisorCheckSummariesResponse
-describeTrustedAdvisorCheckSummariesResponse
-  pResponseStatus_ =
-    DescribeTrustedAdvisorCheckSummariesResponse'
-      { _dtacsrrsResponseStatus =
-          pResponseStatus_,
-        _dtacsrrsSummaries = mempty
-      }
-
--- | -- | The response status code.
-dtacsrrsResponseStatus :: Lens' DescribeTrustedAdvisorCheckSummariesResponse Int
-dtacsrrsResponseStatus = lens _dtacsrrsResponseStatus (\s a -> s {_dtacsrrsResponseStatus = a})
-
--- | The summary information for the requested Trusted Advisor checks.
-dtacsrrsSummaries :: Lens' DescribeTrustedAdvisorCheckSummariesResponse [TrustedAdvisorCheckSummary]
-dtacsrrsSummaries = lens _dtacsrrsSummaries (\s a -> s {_dtacsrrsSummaries = a}) . _Coerce
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("checkIds" Prelude..= checkIds)]
+      )
 
 instance
-  NFData
+  Prelude.ToPath
+    DescribeTrustedAdvisorCheckSummaries
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
+    DescribeTrustedAdvisorCheckSummaries
+  where
+  toQuery = Prelude.const Prelude.mempty
+
+-- | The summaries of the Trusted Advisor checks returned by the
+-- DescribeTrustedAdvisorCheckSummaries operation.
+--
+-- /See:/ 'newDescribeTrustedAdvisorCheckSummariesResponse' smart constructor.
+data DescribeTrustedAdvisorCheckSummariesResponse = DescribeTrustedAdvisorCheckSummariesResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The summary information for the requested Trusted Advisor checks.
+    summaries :: [TrustedAdvisorCheckSummary]
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'DescribeTrustedAdvisorCheckSummariesResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'describeTrustedAdvisorCheckSummariesResponse_httpStatus' - The response's http status code.
+--
+-- 'summaries', 'describeTrustedAdvisorCheckSummariesResponse_summaries' - The summary information for the requested Trusted Advisor checks.
+newDescribeTrustedAdvisorCheckSummariesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  DescribeTrustedAdvisorCheckSummariesResponse
+newDescribeTrustedAdvisorCheckSummariesResponse
+  pHttpStatus_ =
+    DescribeTrustedAdvisorCheckSummariesResponse'
+      { httpStatus =
+          pHttpStatus_,
+        summaries = Prelude.mempty
+      }
+
+-- | The response's http status code.
+describeTrustedAdvisorCheckSummariesResponse_httpStatus :: Lens.Lens' DescribeTrustedAdvisorCheckSummariesResponse Prelude.Int
+describeTrustedAdvisorCheckSummariesResponse_httpStatus = Lens.lens (\DescribeTrustedAdvisorCheckSummariesResponse' {httpStatus} -> httpStatus) (\s@DescribeTrustedAdvisorCheckSummariesResponse' {} a -> s {httpStatus = a} :: DescribeTrustedAdvisorCheckSummariesResponse)
+
+-- | The summary information for the requested Trusted Advisor checks.
+describeTrustedAdvisorCheckSummariesResponse_summaries :: Lens.Lens' DescribeTrustedAdvisorCheckSummariesResponse [TrustedAdvisorCheckSummary]
+describeTrustedAdvisorCheckSummariesResponse_summaries = Lens.lens (\DescribeTrustedAdvisorCheckSummariesResponse' {summaries} -> summaries) (\s@DescribeTrustedAdvisorCheckSummariesResponse' {} a -> s {summaries = a} :: DescribeTrustedAdvisorCheckSummariesResponse) Prelude.. Prelude._Coerce
+
+instance
+  Prelude.NFData
     DescribeTrustedAdvisorCheckSummariesResponse

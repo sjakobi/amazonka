@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,65 +19,61 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Support.Types.RecentCaseCommunications where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Support.Types.Communication
 
 -- | The five most recent communications associated with the case.
 --
---
---
--- /See:/ 'recentCaseCommunications' smart constructor.
+-- /See:/ 'newRecentCaseCommunications' smart constructor.
 data RecentCaseCommunications = RecentCaseCommunications'
-  { _rccNextToken ::
-      !(Maybe Text),
-    _rccCommunications ::
-      !( Maybe
-           [Communication]
-       )
+  { -- | A resumption point for pagination.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The five most recent communications associated with the case.
+    communications :: Prelude.Maybe [Communication]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RecentCaseCommunications' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RecentCaseCommunications' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rccNextToken' - A resumption point for pagination.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rccCommunications' - The five most recent communications associated with the case.
-recentCaseCommunications ::
+-- 'nextToken', 'recentCaseCommunications_nextToken' - A resumption point for pagination.
+--
+-- 'communications', 'recentCaseCommunications_communications' - The five most recent communications associated with the case.
+newRecentCaseCommunications ::
   RecentCaseCommunications
-recentCaseCommunications =
+newRecentCaseCommunications =
   RecentCaseCommunications'
-    { _rccNextToken = Nothing,
-      _rccCommunications = Nothing
+    { nextToken =
+        Prelude.Nothing,
+      communications = Prelude.Nothing
     }
 
 -- | A resumption point for pagination.
-rccNextToken :: Lens' RecentCaseCommunications (Maybe Text)
-rccNextToken = lens _rccNextToken (\s a -> s {_rccNextToken = a})
+recentCaseCommunications_nextToken :: Lens.Lens' RecentCaseCommunications (Prelude.Maybe Prelude.Text)
+recentCaseCommunications_nextToken = Lens.lens (\RecentCaseCommunications' {nextToken} -> nextToken) (\s@RecentCaseCommunications' {} a -> s {nextToken = a} :: RecentCaseCommunications)
 
 -- | The five most recent communications associated with the case.
-rccCommunications :: Lens' RecentCaseCommunications [Communication]
-rccCommunications = lens _rccCommunications (\s a -> s {_rccCommunications = a}) . _Default . _Coerce
+recentCaseCommunications_communications :: Lens.Lens' RecentCaseCommunications (Prelude.Maybe [Communication])
+recentCaseCommunications_communications = Lens.lens (\RecentCaseCommunications' {communications} -> communications) (\s@RecentCaseCommunications' {} a -> s {communications = a} :: RecentCaseCommunications) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON RecentCaseCommunications where
+instance Prelude.FromJSON RecentCaseCommunications where
   parseJSON =
-    withObject
+    Prelude.withObject
       "RecentCaseCommunications"
       ( \x ->
           RecentCaseCommunications'
-            <$> (x .:? "nextToken")
-            <*> (x .:? "communications" .!= mempty)
+            Prelude.<$> (x Prelude..:? "nextToken")
+            Prelude.<*> ( x Prelude..:? "communications"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable RecentCaseCommunications
+instance Prelude.Hashable RecentCaseCommunications
 
-instance NFData RecentCaseCommunications
+instance Prelude.NFData RecentCaseCommunications

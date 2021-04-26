@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,186 +19,289 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Support.Types.CaseDetails where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Support.Types.RecentCaseCommunications
 
--- | A JSON-formatted object that contains the metadata for a support case. It is contained in the response from a 'DescribeCases' request. __CaseDetails__ contains the following fields:
+-- | A JSON-formatted object that contains the metadata for a support case.
+-- It is contained in the response from a DescribeCases request.
+-- __CaseDetails__ contains the following fields:
 --
+-- -   __caseId.__ The AWS Support case ID requested or returned in the
+--     call. The case ID is an alphanumeric string formatted as shown in
+--     this example: case-/12345678910-2013-c4c1d2bf33c5cf47/.
 --
---     * __caseId.__ The AWS Support case ID requested or returned in the call. The case ID is an alphanumeric string formatted as shown in this example: case-/12345678910-2013-c4c1d2bf33c5cf47/ .
+-- -   __categoryCode.__ The category of problem for the AWS Support case.
+--     Corresponds to the CategoryCode values returned by a call to
+--     DescribeServices.
 --
---     * __categoryCode.__ The category of problem for the AWS Support case. Corresponds to the CategoryCode values returned by a call to 'DescribeServices' .
+-- -   __displayId.__ The identifier for the case on pages in the AWS
+--     Support Center.
 --
---     * __displayId.__ The identifier for the case on pages in the AWS Support Center.
+-- -   __language.__ The ISO 639-1 code for the language in which AWS
+--     provides support. AWS Support currently supports English (\"en\")
+--     and Japanese (\"ja\"). Language parameters must be passed explicitly
+--     for operations that take them.
 --
---     * __language.__ The ISO 639-1 code for the language in which AWS provides support. AWS Support currently supports English ("en") and Japanese ("ja"). Language parameters must be passed explicitly for operations that take them.
+-- -   __nextToken.__ A resumption point for pagination.
 --
---     * __nextToken.__ A resumption point for pagination.
+-- -   __recentCommunications.__ One or more Communication objects. Fields
+--     of these objects are @attachments@, @body@, @caseId@, @submittedBy@,
+--     and @timeCreated@.
 --
---     * __recentCommunications.__ One or more 'Communication' objects. Fields of these objects are @attachments@ , @body@ , @caseId@ , @submittedBy@ , and @timeCreated@ .
+-- -   __serviceCode.__ The identifier for the AWS service that corresponds
+--     to the service code defined in the call to DescribeServices.
 --
---     * __serviceCode.__ The identifier for the AWS service that corresponds to the service code defined in the call to 'DescribeServices' .
+-- -   __severityCode.__ The severity code assigned to the case. Contains
+--     one of the values returned by the call to DescribeSeverityLevels.
+--     The possible values are: @low@, @normal@, @high@, @urgent@, and
+--     @critical@.
 --
---     * __severityCode.__ The severity code assigned to the case. Contains one of the values returned by the call to 'DescribeSeverityLevels' . The possible values are: @low@ , @normal@ , @high@ , @urgent@ , and @critical@ .
+-- -   __status.__ The status of the case in the AWS Support Center. Valid
+--     values:
 --
---     * __status.__ The status of the case in the AWS Support Center. Valid values:
+--     -   @opened@
 --
---     * @opened@
+--     -   @pending-customer-action@
 --
---     * @pending-customer-action@
+--     -   @reopened@
 --
---     * @reopened@
+--     -   @resolved@
 --
---     * @resolved@
+--     -   @unassigned@
 --
---     * @unassigned@
+--     -   @work-in-progress@
 --
---     * @work-in-progress@
+-- -   __subject.__ The subject line of the case.
 --
+-- -   __submittedBy.__ The email address of the account that submitted the
+--     case.
 --
+-- -   __timeCreated.__ The time the case was created, in ISO-8601 format.
 --
---     * __subject.__ The subject line of the case.
---
---     * __submittedBy.__ The email address of the account that submitted the case.
---
---     * __timeCreated.__ The time the case was created, in ISO-8601 format.
---
---
---
---
--- /See:/ 'caseDetails' smart constructor.
+-- /See:/ 'newCaseDetails' smart constructor.
 data CaseDetails = CaseDetails'
-  { _cdDisplayId ::
-      !(Maybe Text),
-    _cdStatus :: !(Maybe Text),
-    _cdCaseId :: !(Maybe Text),
-    _cdRecentCommunications ::
-      !(Maybe RecentCaseCommunications),
-    _cdServiceCode :: !(Maybe Text),
-    _cdCategoryCode :: !(Maybe Text),
-    _cdSubmittedBy :: !(Maybe Text),
-    _cdSubject :: !(Maybe Text),
-    _cdCcEmailAddresses :: !(Maybe [Text]),
-    _cdSeverityCode :: !(Maybe Text),
-    _cdTimeCreated :: !(Maybe Text),
-    _cdLanguage :: !(Maybe Text)
+  { -- | The ID displayed for the case in the AWS Support Center. This is a
+    -- numeric string.
+    displayId :: Prelude.Maybe Prelude.Text,
+    -- | The status of the case.
+    --
+    -- Valid values:
+    --
+    -- -   @opened@
+    --
+    -- -   @pending-customer-action@
+    --
+    -- -   @reopened@
+    --
+    -- -   @resolved@
+    --
+    -- -   @unassigned@
+    --
+    -- -   @work-in-progress@
+    status :: Prelude.Maybe Prelude.Text,
+    -- | The AWS Support case ID requested or returned in the call. The case ID
+    -- is an alphanumeric string formatted as shown in this example:
+    -- case-/12345678910-2013-c4c1d2bf33c5cf47/
+    caseId :: Prelude.Maybe Prelude.Text,
+    -- | The five most recent communications between you and AWS Support Center,
+    -- including the IDs of any attachments to the communications. Also
+    -- includes a @nextToken@ that you can use to retrieve earlier
+    -- communications.
+    recentCommunications :: Prelude.Maybe RecentCaseCommunications,
+    -- | The code for the AWS service. You can get a list of codes and the
+    -- corresponding service names by calling DescribeServices.
+    serviceCode :: Prelude.Maybe Prelude.Text,
+    -- | The category of problem for the AWS Support case.
+    categoryCode :: Prelude.Maybe Prelude.Text,
+    -- | The email address of the account that submitted the case.
+    submittedBy :: Prelude.Maybe Prelude.Text,
+    -- | The subject line for the case in the AWS Support Center.
+    subject :: Prelude.Maybe Prelude.Text,
+    -- | The email addresses that receive copies of communication about the case.
+    ccEmailAddresses :: Prelude.Maybe [Prelude.Text],
+    -- | The code for the severity level returned by the call to
+    -- DescribeSeverityLevels.
+    severityCode :: Prelude.Maybe Prelude.Text,
+    -- | The time that the case was created in the AWS Support Center.
+    timeCreated :: Prelude.Maybe Prelude.Text,
+    -- | The ISO 639-1 code for the language in which AWS provides support. AWS
+    -- Support currently supports English (\"en\") and Japanese (\"ja\").
+    -- Language parameters must be passed explicitly for operations that take
+    -- them.
+    language :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CaseDetails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CaseDetails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cdDisplayId' - The ID displayed for the case in the AWS Support Center. This is a numeric string.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cdStatus' - The status of the case. Valid values:     * @opened@      * @pending-customer-action@      * @reopened@      * @resolved@      * @unassigned@      * @work-in-progress@
+-- 'displayId', 'caseDetails_displayId' - The ID displayed for the case in the AWS Support Center. This is a
+-- numeric string.
 --
--- * 'cdCaseId' - The AWS Support case ID requested or returned in the call. The case ID is an alphanumeric string formatted as shown in this example: case-/12345678910-2013-c4c1d2bf33c5cf47/
+-- 'status', 'caseDetails_status' - The status of the case.
 --
--- * 'cdRecentCommunications' - The five most recent communications between you and AWS Support Center, including the IDs of any attachments to the communications. Also includes a @nextToken@ that you can use to retrieve earlier communications.
+-- Valid values:
 --
--- * 'cdServiceCode' - The code for the AWS service. You can get a list of codes and the corresponding service names by calling 'DescribeServices' .
+-- -   @opened@
 --
--- * 'cdCategoryCode' - The category of problem for the AWS Support case.
+-- -   @pending-customer-action@
 --
--- * 'cdSubmittedBy' - The email address of the account that submitted the case.
+-- -   @reopened@
 --
--- * 'cdSubject' - The subject line for the case in the AWS Support Center.
+-- -   @resolved@
 --
--- * 'cdCcEmailAddresses' - The email addresses that receive copies of communication about the case.
+-- -   @unassigned@
 --
--- * 'cdSeverityCode' - The code for the severity level returned by the call to 'DescribeSeverityLevels' .
+-- -   @work-in-progress@
 --
--- * 'cdTimeCreated' - The time that the case was created in the AWS Support Center.
+-- 'caseId', 'caseDetails_caseId' - The AWS Support case ID requested or returned in the call. The case ID
+-- is an alphanumeric string formatted as shown in this example:
+-- case-/12345678910-2013-c4c1d2bf33c5cf47/
 --
--- * 'cdLanguage' - The ISO 639-1 code for the language in which AWS provides support. AWS Support currently supports English ("en") and Japanese ("ja"). Language parameters must be passed explicitly for operations that take them.
-caseDetails ::
+-- 'recentCommunications', 'caseDetails_recentCommunications' - The five most recent communications between you and AWS Support Center,
+-- including the IDs of any attachments to the communications. Also
+-- includes a @nextToken@ that you can use to retrieve earlier
+-- communications.
+--
+-- 'serviceCode', 'caseDetails_serviceCode' - The code for the AWS service. You can get a list of codes and the
+-- corresponding service names by calling DescribeServices.
+--
+-- 'categoryCode', 'caseDetails_categoryCode' - The category of problem for the AWS Support case.
+--
+-- 'submittedBy', 'caseDetails_submittedBy' - The email address of the account that submitted the case.
+--
+-- 'subject', 'caseDetails_subject' - The subject line for the case in the AWS Support Center.
+--
+-- 'ccEmailAddresses', 'caseDetails_ccEmailAddresses' - The email addresses that receive copies of communication about the case.
+--
+-- 'severityCode', 'caseDetails_severityCode' - The code for the severity level returned by the call to
+-- DescribeSeverityLevels.
+--
+-- 'timeCreated', 'caseDetails_timeCreated' - The time that the case was created in the AWS Support Center.
+--
+-- 'language', 'caseDetails_language' - The ISO 639-1 code for the language in which AWS provides support. AWS
+-- Support currently supports English (\"en\") and Japanese (\"ja\").
+-- Language parameters must be passed explicitly for operations that take
+-- them.
+newCaseDetails ::
   CaseDetails
-caseDetails =
+newCaseDetails =
   CaseDetails'
-    { _cdDisplayId = Nothing,
-      _cdStatus = Nothing,
-      _cdCaseId = Nothing,
-      _cdRecentCommunications = Nothing,
-      _cdServiceCode = Nothing,
-      _cdCategoryCode = Nothing,
-      _cdSubmittedBy = Nothing,
-      _cdSubject = Nothing,
-      _cdCcEmailAddresses = Nothing,
-      _cdSeverityCode = Nothing,
-      _cdTimeCreated = Nothing,
-      _cdLanguage = Nothing
+    { displayId = Prelude.Nothing,
+      status = Prelude.Nothing,
+      caseId = Prelude.Nothing,
+      recentCommunications = Prelude.Nothing,
+      serviceCode = Prelude.Nothing,
+      categoryCode = Prelude.Nothing,
+      submittedBy = Prelude.Nothing,
+      subject = Prelude.Nothing,
+      ccEmailAddresses = Prelude.Nothing,
+      severityCode = Prelude.Nothing,
+      timeCreated = Prelude.Nothing,
+      language = Prelude.Nothing
     }
 
--- | The ID displayed for the case in the AWS Support Center. This is a numeric string.
-cdDisplayId :: Lens' CaseDetails (Maybe Text)
-cdDisplayId = lens _cdDisplayId (\s a -> s {_cdDisplayId = a})
+-- | The ID displayed for the case in the AWS Support Center. This is a
+-- numeric string.
+caseDetails_displayId :: Lens.Lens' CaseDetails (Prelude.Maybe Prelude.Text)
+caseDetails_displayId = Lens.lens (\CaseDetails' {displayId} -> displayId) (\s@CaseDetails' {} a -> s {displayId = a} :: CaseDetails)
 
--- | The status of the case. Valid values:     * @opened@      * @pending-customer-action@      * @reopened@      * @resolved@      * @unassigned@      * @work-in-progress@
-cdStatus :: Lens' CaseDetails (Maybe Text)
-cdStatus = lens _cdStatus (\s a -> s {_cdStatus = a})
+-- | The status of the case.
+--
+-- Valid values:
+--
+-- -   @opened@
+--
+-- -   @pending-customer-action@
+--
+-- -   @reopened@
+--
+-- -   @resolved@
+--
+-- -   @unassigned@
+--
+-- -   @work-in-progress@
+caseDetails_status :: Lens.Lens' CaseDetails (Prelude.Maybe Prelude.Text)
+caseDetails_status = Lens.lens (\CaseDetails' {status} -> status) (\s@CaseDetails' {} a -> s {status = a} :: CaseDetails)
 
--- | The AWS Support case ID requested or returned in the call. The case ID is an alphanumeric string formatted as shown in this example: case-/12345678910-2013-c4c1d2bf33c5cf47/
-cdCaseId :: Lens' CaseDetails (Maybe Text)
-cdCaseId = lens _cdCaseId (\s a -> s {_cdCaseId = a})
+-- | The AWS Support case ID requested or returned in the call. The case ID
+-- is an alphanumeric string formatted as shown in this example:
+-- case-/12345678910-2013-c4c1d2bf33c5cf47/
+caseDetails_caseId :: Lens.Lens' CaseDetails (Prelude.Maybe Prelude.Text)
+caseDetails_caseId = Lens.lens (\CaseDetails' {caseId} -> caseId) (\s@CaseDetails' {} a -> s {caseId = a} :: CaseDetails)
 
--- | The five most recent communications between you and AWS Support Center, including the IDs of any attachments to the communications. Also includes a @nextToken@ that you can use to retrieve earlier communications.
-cdRecentCommunications :: Lens' CaseDetails (Maybe RecentCaseCommunications)
-cdRecentCommunications = lens _cdRecentCommunications (\s a -> s {_cdRecentCommunications = a})
+-- | The five most recent communications between you and AWS Support Center,
+-- including the IDs of any attachments to the communications. Also
+-- includes a @nextToken@ that you can use to retrieve earlier
+-- communications.
+caseDetails_recentCommunications :: Lens.Lens' CaseDetails (Prelude.Maybe RecentCaseCommunications)
+caseDetails_recentCommunications = Lens.lens (\CaseDetails' {recentCommunications} -> recentCommunications) (\s@CaseDetails' {} a -> s {recentCommunications = a} :: CaseDetails)
 
--- | The code for the AWS service. You can get a list of codes and the corresponding service names by calling 'DescribeServices' .
-cdServiceCode :: Lens' CaseDetails (Maybe Text)
-cdServiceCode = lens _cdServiceCode (\s a -> s {_cdServiceCode = a})
+-- | The code for the AWS service. You can get a list of codes and the
+-- corresponding service names by calling DescribeServices.
+caseDetails_serviceCode :: Lens.Lens' CaseDetails (Prelude.Maybe Prelude.Text)
+caseDetails_serviceCode = Lens.lens (\CaseDetails' {serviceCode} -> serviceCode) (\s@CaseDetails' {} a -> s {serviceCode = a} :: CaseDetails)
 
 -- | The category of problem for the AWS Support case.
-cdCategoryCode :: Lens' CaseDetails (Maybe Text)
-cdCategoryCode = lens _cdCategoryCode (\s a -> s {_cdCategoryCode = a})
+caseDetails_categoryCode :: Lens.Lens' CaseDetails (Prelude.Maybe Prelude.Text)
+caseDetails_categoryCode = Lens.lens (\CaseDetails' {categoryCode} -> categoryCode) (\s@CaseDetails' {} a -> s {categoryCode = a} :: CaseDetails)
 
 -- | The email address of the account that submitted the case.
-cdSubmittedBy :: Lens' CaseDetails (Maybe Text)
-cdSubmittedBy = lens _cdSubmittedBy (\s a -> s {_cdSubmittedBy = a})
+caseDetails_submittedBy :: Lens.Lens' CaseDetails (Prelude.Maybe Prelude.Text)
+caseDetails_submittedBy = Lens.lens (\CaseDetails' {submittedBy} -> submittedBy) (\s@CaseDetails' {} a -> s {submittedBy = a} :: CaseDetails)
 
 -- | The subject line for the case in the AWS Support Center.
-cdSubject :: Lens' CaseDetails (Maybe Text)
-cdSubject = lens _cdSubject (\s a -> s {_cdSubject = a})
+caseDetails_subject :: Lens.Lens' CaseDetails (Prelude.Maybe Prelude.Text)
+caseDetails_subject = Lens.lens (\CaseDetails' {subject} -> subject) (\s@CaseDetails' {} a -> s {subject = a} :: CaseDetails)
 
 -- | The email addresses that receive copies of communication about the case.
-cdCcEmailAddresses :: Lens' CaseDetails [Text]
-cdCcEmailAddresses = lens _cdCcEmailAddresses (\s a -> s {_cdCcEmailAddresses = a}) . _Default . _Coerce
+caseDetails_ccEmailAddresses :: Lens.Lens' CaseDetails (Prelude.Maybe [Prelude.Text])
+caseDetails_ccEmailAddresses = Lens.lens (\CaseDetails' {ccEmailAddresses} -> ccEmailAddresses) (\s@CaseDetails' {} a -> s {ccEmailAddresses = a} :: CaseDetails) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The code for the severity level returned by the call to 'DescribeSeverityLevels' .
-cdSeverityCode :: Lens' CaseDetails (Maybe Text)
-cdSeverityCode = lens _cdSeverityCode (\s a -> s {_cdSeverityCode = a})
+-- | The code for the severity level returned by the call to
+-- DescribeSeverityLevels.
+caseDetails_severityCode :: Lens.Lens' CaseDetails (Prelude.Maybe Prelude.Text)
+caseDetails_severityCode = Lens.lens (\CaseDetails' {severityCode} -> severityCode) (\s@CaseDetails' {} a -> s {severityCode = a} :: CaseDetails)
 
 -- | The time that the case was created in the AWS Support Center.
-cdTimeCreated :: Lens' CaseDetails (Maybe Text)
-cdTimeCreated = lens _cdTimeCreated (\s a -> s {_cdTimeCreated = a})
+caseDetails_timeCreated :: Lens.Lens' CaseDetails (Prelude.Maybe Prelude.Text)
+caseDetails_timeCreated = Lens.lens (\CaseDetails' {timeCreated} -> timeCreated) (\s@CaseDetails' {} a -> s {timeCreated = a} :: CaseDetails)
 
--- | The ISO 639-1 code for the language in which AWS provides support. AWS Support currently supports English ("en") and Japanese ("ja"). Language parameters must be passed explicitly for operations that take them.
-cdLanguage :: Lens' CaseDetails (Maybe Text)
-cdLanguage = lens _cdLanguage (\s a -> s {_cdLanguage = a})
+-- | The ISO 639-1 code for the language in which AWS provides support. AWS
+-- Support currently supports English (\"en\") and Japanese (\"ja\").
+-- Language parameters must be passed explicitly for operations that take
+-- them.
+caseDetails_language :: Lens.Lens' CaseDetails (Prelude.Maybe Prelude.Text)
+caseDetails_language = Lens.lens (\CaseDetails' {language} -> language) (\s@CaseDetails' {} a -> s {language = a} :: CaseDetails)
 
-instance FromJSON CaseDetails where
+instance Prelude.FromJSON CaseDetails where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CaseDetails"
       ( \x ->
           CaseDetails'
-            <$> (x .:? "displayId")
-            <*> (x .:? "status")
-            <*> (x .:? "caseId")
-            <*> (x .:? "recentCommunications")
-            <*> (x .:? "serviceCode")
-            <*> (x .:? "categoryCode")
-            <*> (x .:? "submittedBy")
-            <*> (x .:? "subject")
-            <*> (x .:? "ccEmailAddresses" .!= mempty)
-            <*> (x .:? "severityCode")
-            <*> (x .:? "timeCreated")
-            <*> (x .:? "language")
+            Prelude.<$> (x Prelude..:? "displayId")
+            Prelude.<*> (x Prelude..:? "status")
+            Prelude.<*> (x Prelude..:? "caseId")
+            Prelude.<*> (x Prelude..:? "recentCommunications")
+            Prelude.<*> (x Prelude..:? "serviceCode")
+            Prelude.<*> (x Prelude..:? "categoryCode")
+            Prelude.<*> (x Prelude..:? "submittedBy")
+            Prelude.<*> (x Prelude..:? "subject")
+            Prelude.<*> ( x Prelude..:? "ccEmailAddresses"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "severityCode")
+            Prelude.<*> (x Prelude..:? "timeCreated")
+            Prelude.<*> (x Prelude..:? "language")
       )
 
-instance Hashable CaseDetails
+instance Prelude.Hashable CaseDetails
 
-instance NFData CaseDetails
+instance Prelude.NFData CaseDetails

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,122 +19,124 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Support.Types.TrustedAdvisorCheckResult where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.Support.Types.TrustedAdvisorCategorySpecificSummary
 import Network.AWS.Support.Types.TrustedAdvisorResourceDetail
 import Network.AWS.Support.Types.TrustedAdvisorResourcesSummary
 
--- | The results of a Trusted Advisor check returned by 'DescribeTrustedAdvisorCheckResult' .
+-- | The results of a Trusted Advisor check returned by
+-- DescribeTrustedAdvisorCheckResult.
 --
---
---
--- /See:/ 'trustedAdvisorCheckResult' smart constructor.
+-- /See:/ 'newTrustedAdvisorCheckResult' smart constructor.
 data TrustedAdvisorCheckResult = TrustedAdvisorCheckResult'
-  { _tacrCheckId ::
-      !Text,
-    _tacrTimestamp ::
-      !Text,
-    _tacrStatus ::
-      !Text,
-    _tacrResourcesSummary ::
-      !TrustedAdvisorResourcesSummary,
-    _tacrCategorySpecificSummary ::
-      !TrustedAdvisorCategorySpecificSummary,
-    _tacrFlaggedResources ::
-      ![TrustedAdvisorResourceDetail]
+  { -- | The unique identifier for the Trusted Advisor check.
+    checkId :: Prelude.Text,
+    -- | The time of the last refresh of the check.
+    timestamp :: Prelude.Text,
+    -- | The alert status of the check: \"ok\" (green), \"warning\" (yellow),
+    -- \"error\" (red), or \"not_available\".
+    status :: Prelude.Text,
+    resourcesSummary :: TrustedAdvisorResourcesSummary,
+    -- | Summary information that relates to the category of the check. Cost
+    -- Optimizing is the only category that is currently supported.
+    categorySpecificSummary :: TrustedAdvisorCategorySpecificSummary,
+    -- | The details about each resource listed in the check result.
+    flaggedResources :: [TrustedAdvisorResourceDetail]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TrustedAdvisorCheckResult' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TrustedAdvisorCheckResult' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tacrCheckId' - The unique identifier for the Trusted Advisor check.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tacrTimestamp' - The time of the last refresh of the check.
+-- 'checkId', 'trustedAdvisorCheckResult_checkId' - The unique identifier for the Trusted Advisor check.
 --
--- * 'tacrStatus' - The alert status of the check: "ok" (green), "warning" (yellow), "error" (red), or "not_available".
+-- 'timestamp', 'trustedAdvisorCheckResult_timestamp' - The time of the last refresh of the check.
 --
--- * 'tacrResourcesSummary' - Undocumented member.
+-- 'status', 'trustedAdvisorCheckResult_status' - The alert status of the check: \"ok\" (green), \"warning\" (yellow),
+-- \"error\" (red), or \"not_available\".
 --
--- * 'tacrCategorySpecificSummary' - Summary information that relates to the category of the check. Cost Optimizing is the only category that is currently supported.
+-- 'resourcesSummary', 'trustedAdvisorCheckResult_resourcesSummary' - Undocumented member.
 --
--- * 'tacrFlaggedResources' - The details about each resource listed in the check result.
-trustedAdvisorCheckResult ::
-  -- | 'tacrCheckId'
-  Text ->
-  -- | 'tacrTimestamp'
-  Text ->
-  -- | 'tacrStatus'
-  Text ->
-  -- | 'tacrResourcesSummary'
+-- 'categorySpecificSummary', 'trustedAdvisorCheckResult_categorySpecificSummary' - Summary information that relates to the category of the check. Cost
+-- Optimizing is the only category that is currently supported.
+--
+-- 'flaggedResources', 'trustedAdvisorCheckResult_flaggedResources' - The details about each resource listed in the check result.
+newTrustedAdvisorCheckResult ::
+  -- | 'checkId'
+  Prelude.Text ->
+  -- | 'timestamp'
+  Prelude.Text ->
+  -- | 'status'
+  Prelude.Text ->
+  -- | 'resourcesSummary'
   TrustedAdvisorResourcesSummary ->
-  -- | 'tacrCategorySpecificSummary'
+  -- | 'categorySpecificSummary'
   TrustedAdvisorCategorySpecificSummary ->
   TrustedAdvisorCheckResult
-trustedAdvisorCheckResult
+newTrustedAdvisorCheckResult
   pCheckId_
   pTimestamp_
   pStatus_
   pResourcesSummary_
   pCategorySpecificSummary_ =
     TrustedAdvisorCheckResult'
-      { _tacrCheckId =
-          pCheckId_,
-        _tacrTimestamp = pTimestamp_,
-        _tacrStatus = pStatus_,
-        _tacrResourcesSummary = pResourcesSummary_,
-        _tacrCategorySpecificSummary =
+      { checkId = pCheckId_,
+        timestamp = pTimestamp_,
+        status = pStatus_,
+        resourcesSummary = pResourcesSummary_,
+        categorySpecificSummary =
           pCategorySpecificSummary_,
-        _tacrFlaggedResources = mempty
+        flaggedResources = Prelude.mempty
       }
 
 -- | The unique identifier for the Trusted Advisor check.
-tacrCheckId :: Lens' TrustedAdvisorCheckResult Text
-tacrCheckId = lens _tacrCheckId (\s a -> s {_tacrCheckId = a})
+trustedAdvisorCheckResult_checkId :: Lens.Lens' TrustedAdvisorCheckResult Prelude.Text
+trustedAdvisorCheckResult_checkId = Lens.lens (\TrustedAdvisorCheckResult' {checkId} -> checkId) (\s@TrustedAdvisorCheckResult' {} a -> s {checkId = a} :: TrustedAdvisorCheckResult)
 
 -- | The time of the last refresh of the check.
-tacrTimestamp :: Lens' TrustedAdvisorCheckResult Text
-tacrTimestamp = lens _tacrTimestamp (\s a -> s {_tacrTimestamp = a})
+trustedAdvisorCheckResult_timestamp :: Lens.Lens' TrustedAdvisorCheckResult Prelude.Text
+trustedAdvisorCheckResult_timestamp = Lens.lens (\TrustedAdvisorCheckResult' {timestamp} -> timestamp) (\s@TrustedAdvisorCheckResult' {} a -> s {timestamp = a} :: TrustedAdvisorCheckResult)
 
--- | The alert status of the check: "ok" (green), "warning" (yellow), "error" (red), or "not_available".
-tacrStatus :: Lens' TrustedAdvisorCheckResult Text
-tacrStatus = lens _tacrStatus (\s a -> s {_tacrStatus = a})
+-- | The alert status of the check: \"ok\" (green), \"warning\" (yellow),
+-- \"error\" (red), or \"not_available\".
+trustedAdvisorCheckResult_status :: Lens.Lens' TrustedAdvisorCheckResult Prelude.Text
+trustedAdvisorCheckResult_status = Lens.lens (\TrustedAdvisorCheckResult' {status} -> status) (\s@TrustedAdvisorCheckResult' {} a -> s {status = a} :: TrustedAdvisorCheckResult)
 
 -- | Undocumented member.
-tacrResourcesSummary :: Lens' TrustedAdvisorCheckResult TrustedAdvisorResourcesSummary
-tacrResourcesSummary = lens _tacrResourcesSummary (\s a -> s {_tacrResourcesSummary = a})
+trustedAdvisorCheckResult_resourcesSummary :: Lens.Lens' TrustedAdvisorCheckResult TrustedAdvisorResourcesSummary
+trustedAdvisorCheckResult_resourcesSummary = Lens.lens (\TrustedAdvisorCheckResult' {resourcesSummary} -> resourcesSummary) (\s@TrustedAdvisorCheckResult' {} a -> s {resourcesSummary = a} :: TrustedAdvisorCheckResult)
 
--- | Summary information that relates to the category of the check. Cost Optimizing is the only category that is currently supported.
-tacrCategorySpecificSummary :: Lens' TrustedAdvisorCheckResult TrustedAdvisorCategorySpecificSummary
-tacrCategorySpecificSummary = lens _tacrCategorySpecificSummary (\s a -> s {_tacrCategorySpecificSummary = a})
+-- | Summary information that relates to the category of the check. Cost
+-- Optimizing is the only category that is currently supported.
+trustedAdvisorCheckResult_categorySpecificSummary :: Lens.Lens' TrustedAdvisorCheckResult TrustedAdvisorCategorySpecificSummary
+trustedAdvisorCheckResult_categorySpecificSummary = Lens.lens (\TrustedAdvisorCheckResult' {categorySpecificSummary} -> categorySpecificSummary) (\s@TrustedAdvisorCheckResult' {} a -> s {categorySpecificSummary = a} :: TrustedAdvisorCheckResult)
 
 -- | The details about each resource listed in the check result.
-tacrFlaggedResources :: Lens' TrustedAdvisorCheckResult [TrustedAdvisorResourceDetail]
-tacrFlaggedResources = lens _tacrFlaggedResources (\s a -> s {_tacrFlaggedResources = a}) . _Coerce
+trustedAdvisorCheckResult_flaggedResources :: Lens.Lens' TrustedAdvisorCheckResult [TrustedAdvisorResourceDetail]
+trustedAdvisorCheckResult_flaggedResources = Lens.lens (\TrustedAdvisorCheckResult' {flaggedResources} -> flaggedResources) (\s@TrustedAdvisorCheckResult' {} a -> s {flaggedResources = a} :: TrustedAdvisorCheckResult) Prelude.. Prelude._Coerce
 
-instance FromJSON TrustedAdvisorCheckResult where
+instance Prelude.FromJSON TrustedAdvisorCheckResult where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TrustedAdvisorCheckResult"
       ( \x ->
           TrustedAdvisorCheckResult'
-            <$> (x .: "checkId")
-            <*> (x .: "timestamp")
-            <*> (x .: "status")
-            <*> (x .: "resourcesSummary")
-            <*> (x .: "categorySpecificSummary")
-            <*> (x .:? "flaggedResources" .!= mempty)
+            Prelude.<$> (x Prelude..: "checkId")
+            Prelude.<*> (x Prelude..: "timestamp")
+            Prelude.<*> (x Prelude..: "status")
+            Prelude.<*> (x Prelude..: "resourcesSummary")
+            Prelude.<*> (x Prelude..: "categorySpecificSummary")
+            Prelude.<*> ( x Prelude..:? "flaggedResources"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable TrustedAdvisorCheckResult
+instance Prelude.Hashable TrustedAdvisorCheckResult
 
-instance NFData TrustedAdvisorCheckResult
+instance Prelude.NFData TrustedAdvisorCheckResult

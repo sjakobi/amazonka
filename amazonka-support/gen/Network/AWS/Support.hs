@@ -11,42 +11,77 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- __AWS Support__
+-- AWS Support
 --
--- The AWS Support API reference is intended for programmers who need detailed information about the AWS Support operations and data types. This service enables you to manage your AWS Support cases programmatically. It uses HTTP methods that return results in JSON format.
+-- The AWS Support API reference is intended for programmers who need
+-- detailed information about the AWS Support operations and data types.
+-- This service enables you to manage your AWS Support cases
+-- programmatically. It uses HTTP methods that return results in JSON
+-- format.
 --
--- The AWS Support service also exposes a set of <http://aws.amazon.com/premiumsupport/trustedadvisor/ AWS Trusted Advisor> features. You can retrieve a list of checks and their descriptions, get check results, specify checks to refresh, and get the refresh status of checks.
+-- -   You must have a Business or Enterprise support plan to use the AWS
+--     Support API.
+--
+-- -   If you call the AWS Support API from an account that does not have a
+--     Business or Enterprise support plan, the
+--     @SubscriptionRequiredException@ error message appears. For
+--     information about changing your support plan, see
+--     <http://aws.amazon.com/premiumsupport/ AWS Support>.
+--
+-- The AWS Support service also exposes a set of
+-- <http://aws.amazon.com/premiumsupport/trustedadvisor/ AWS Trusted Advisor>
+-- features. You can retrieve a list of checks and their descriptions, get
+-- check results, specify checks to refresh, and get the refresh status of
+-- checks.
 --
 -- The following list describes the AWS Support case management operations:
 --
---     * __Service names, issue categories, and available severity levels. __ The 'DescribeServices' and 'DescribeSeverityLevels' operations return AWS service names, service codes, service categories, and problem severity levels. You use these values when you call the 'CreateCase' operation.
+-- -   __Service names, issue categories, and available severity levels.__
+--     The DescribeServices and DescribeSeverityLevels operations return
+--     AWS service names, service codes, service categories, and problem
+--     severity levels. You use these values when you call the CreateCase
+--     operation.
 --
---     * __Case creation, case details, and case resolution.__ The 'CreateCase' , 'DescribeCases' , 'DescribeAttachment' , and 'ResolveCase' operations create AWS Support cases, retrieve information about cases, and resolve cases.
+-- -   __Case creation, case details, and case resolution.__ The
+--     CreateCase, DescribeCases, DescribeAttachment, and ResolveCase
+--     operations create AWS Support cases, retrieve information about
+--     cases, and resolve cases.
 --
---     * __Case communication.__ The 'DescribeCommunications' , 'AddCommunicationToCase' , and 'AddAttachmentsToSet' operations retrieve and add communications and attachments to AWS Support cases.
+-- -   __Case communication.__ The DescribeCommunications,
+--     AddCommunicationToCase, and AddAttachmentsToSet operations retrieve
+--     and add communications and attachments to AWS Support cases.
 --
+-- The following list describes the operations available from the AWS
+-- Support service for Trusted Advisor:
 --
+-- -   DescribeTrustedAdvisorChecks returns the list of checks that run
+--     against your AWS resources.
 --
--- The following list describes the operations available from the AWS Support service for Trusted Advisor:
+-- -   Using the @checkId@ for a specific check returned by
+--     DescribeTrustedAdvisorChecks, you can call
+--     DescribeTrustedAdvisorCheckResult to obtain the results for the
+--     check that you specified.
 --
---     * 'DescribeTrustedAdvisorChecks' returns the list of checks that run against your AWS resources.
+-- -   DescribeTrustedAdvisorCheckSummaries returns summarized results for
+--     one or more Trusted Advisor checks.
 --
---     * Using the @checkId@ for a specific check returned by 'DescribeTrustedAdvisorChecks' , you can call 'DescribeTrustedAdvisorCheckResult' to obtain the results for the check that you specified.
+-- -   RefreshTrustedAdvisorCheck requests that Trusted Advisor rerun a
+--     specified check.
 --
---     * 'DescribeTrustedAdvisorCheckSummaries' returns summarized results for one or more Trusted Advisor checks.
+-- -   DescribeTrustedAdvisorCheckRefreshStatuses reports the refresh
+--     status of one or more checks.
 --
---     * 'RefreshTrustedAdvisorCheck' requests that Trusted Advisor rerun a specified check.
+-- For authentication of requests, AWS Support uses
+-- <https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html Signature Version 4 Signing Process>.
 --
---     * 'DescribeTrustedAdvisorCheckRefreshStatuses' reports the refresh status of one or more checks.
---
---
---
--- For authentication of requests, AWS Support uses <https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html Signature Version 4 Signing Process> .
---
--- See <https://docs.aws.amazon.com/awssupport/latest/user/Welcome.html About the AWS Support API> in the /AWS Support User Guide/ for information about how to use this service to create and manage your support cases, and how to call Trusted Advisor for results of checks on your resources.
+-- See
+-- <https://docs.aws.amazon.com/awssupport/latest/user/Welcome.html About the AWS Support API>
+-- in the /AWS Support User Guide/ for information about how to use this
+-- service to create and manage your support cases, and how to call Trusted
+-- Advisor for results of checks on your resources.
 module Network.AWS.Support
   ( -- * Service Configuration
-    support,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -85,174 +120,154 @@ module Network.AWS.Support
     -- $operations
 
     -- ** DescribeTrustedAdvisorChecks
-    module Network.AWS.Support.DescribeTrustedAdvisorChecks,
+    DescribeTrustedAdvisorChecks (DescribeTrustedAdvisorChecks'),
+    newDescribeTrustedAdvisorChecks,
+    DescribeTrustedAdvisorChecksResponse (DescribeTrustedAdvisorChecksResponse'),
+    newDescribeTrustedAdvisorChecksResponse,
 
     -- ** AddCommunicationToCase
-    module Network.AWS.Support.AddCommunicationToCase,
+    AddCommunicationToCase (AddCommunicationToCase'),
+    newAddCommunicationToCase,
+    AddCommunicationToCaseResponse (AddCommunicationToCaseResponse'),
+    newAddCommunicationToCaseResponse,
 
     -- ** DescribeCommunications (Paginated)
-    module Network.AWS.Support.DescribeCommunications,
+    DescribeCommunications (DescribeCommunications'),
+    newDescribeCommunications,
+    DescribeCommunicationsResponse (DescribeCommunicationsResponse'),
+    newDescribeCommunicationsResponse,
 
     -- ** DescribeTrustedAdvisorCheckResult
-    module Network.AWS.Support.DescribeTrustedAdvisorCheckResult,
+    DescribeTrustedAdvisorCheckResult (DescribeTrustedAdvisorCheckResult'),
+    newDescribeTrustedAdvisorCheckResult,
+    DescribeTrustedAdvisorCheckResultResponse (DescribeTrustedAdvisorCheckResultResponse'),
+    newDescribeTrustedAdvisorCheckResultResponse,
 
     -- ** DescribeSeverityLevels
-    module Network.AWS.Support.DescribeSeverityLevels,
+    DescribeSeverityLevels (DescribeSeverityLevels'),
+    newDescribeSeverityLevels,
+    DescribeSeverityLevelsResponse (DescribeSeverityLevelsResponse'),
+    newDescribeSeverityLevelsResponse,
 
     -- ** CreateCase
-    module Network.AWS.Support.CreateCase,
+    CreateCase (CreateCase'),
+    newCreateCase,
+    CreateCaseResponse (CreateCaseResponse'),
+    newCreateCaseResponse,
 
     -- ** DescribeTrustedAdvisorCheckSummaries
-    module Network.AWS.Support.DescribeTrustedAdvisorCheckSummaries,
+    DescribeTrustedAdvisorCheckSummaries (DescribeTrustedAdvisorCheckSummaries'),
+    newDescribeTrustedAdvisorCheckSummaries,
+    DescribeTrustedAdvisorCheckSummariesResponse (DescribeTrustedAdvisorCheckSummariesResponse'),
+    newDescribeTrustedAdvisorCheckSummariesResponse,
 
     -- ** RefreshTrustedAdvisorCheck
-    module Network.AWS.Support.RefreshTrustedAdvisorCheck,
+    RefreshTrustedAdvisorCheck (RefreshTrustedAdvisorCheck'),
+    newRefreshTrustedAdvisorCheck,
+    RefreshTrustedAdvisorCheckResponse (RefreshTrustedAdvisorCheckResponse'),
+    newRefreshTrustedAdvisorCheckResponse,
 
     -- ** AddAttachmentsToSet
-    module Network.AWS.Support.AddAttachmentsToSet,
+    AddAttachmentsToSet (AddAttachmentsToSet'),
+    newAddAttachmentsToSet,
+    AddAttachmentsToSetResponse (AddAttachmentsToSetResponse'),
+    newAddAttachmentsToSetResponse,
 
     -- ** DescribeAttachment
-    module Network.AWS.Support.DescribeAttachment,
+    DescribeAttachment (DescribeAttachment'),
+    newDescribeAttachment,
+    DescribeAttachmentResponse (DescribeAttachmentResponse'),
+    newDescribeAttachmentResponse,
 
     -- ** DescribeServices
-    module Network.AWS.Support.DescribeServices,
+    DescribeServices (DescribeServices'),
+    newDescribeServices,
+    DescribeServicesResponse (DescribeServicesResponse'),
+    newDescribeServicesResponse,
 
     -- ** ResolveCase
-    module Network.AWS.Support.ResolveCase,
+    ResolveCase (ResolveCase'),
+    newResolveCase,
+    ResolveCaseResponse (ResolveCaseResponse'),
+    newResolveCaseResponse,
 
     -- ** DescribeTrustedAdvisorCheckRefreshStatuses
-    module Network.AWS.Support.DescribeTrustedAdvisorCheckRefreshStatuses,
+    DescribeTrustedAdvisorCheckRefreshStatuses (DescribeTrustedAdvisorCheckRefreshStatuses'),
+    newDescribeTrustedAdvisorCheckRefreshStatuses,
+    DescribeTrustedAdvisorCheckRefreshStatusesResponse (DescribeTrustedAdvisorCheckRefreshStatusesResponse'),
+    newDescribeTrustedAdvisorCheckRefreshStatusesResponse,
 
     -- ** DescribeCases (Paginated)
-    module Network.AWS.Support.DescribeCases,
+    DescribeCases (DescribeCases'),
+    newDescribeCases,
+    DescribeCasesResponse (DescribeCasesResponse'),
+    newDescribeCasesResponse,
 
     -- * Types
 
     -- ** Attachment
-    Attachment,
-    attachment,
-    aData,
-    aFileName,
+    Attachment (Attachment'),
+    newAttachment,
 
     -- ** AttachmentDetails
-    AttachmentDetails,
-    attachmentDetails,
-    adAttachmentId,
-    adFileName,
+    AttachmentDetails (AttachmentDetails'),
+    newAttachmentDetails,
 
     -- ** CaseDetails
-    CaseDetails,
-    caseDetails,
-    cdDisplayId,
-    cdStatus,
-    cdCaseId,
-    cdRecentCommunications,
-    cdServiceCode,
-    cdCategoryCode,
-    cdSubmittedBy,
-    cdSubject,
-    cdCcEmailAddresses,
-    cdSeverityCode,
-    cdTimeCreated,
-    cdLanguage,
+    CaseDetails (CaseDetails'),
+    newCaseDetails,
 
     -- ** Category
-    Category,
-    category,
-    cCode,
-    cName,
+    Category (Category'),
+    newCategory,
 
     -- ** Communication
-    Communication,
-    communication,
-    cCaseId,
-    cAttachmentSet,
-    cBody,
-    cSubmittedBy,
-    cTimeCreated,
+    Communication (Communication'),
+    newCommunication,
 
     -- ** RecentCaseCommunications
-    RecentCaseCommunications,
-    recentCaseCommunications,
-    rccNextToken,
-    rccCommunications,
+    RecentCaseCommunications (RecentCaseCommunications'),
+    newRecentCaseCommunications,
 
     -- ** SeverityLevel
-    SeverityLevel,
-    severityLevel,
-    slCode,
-    slName,
+    SeverityLevel (SeverityLevel'),
+    newSeverityLevel,
 
     -- ** SupportService
-    SupportService,
-    supportService,
-    ssCode,
-    ssName,
-    ssCategories,
+    SupportService (SupportService'),
+    newSupportService,
 
     -- ** TrustedAdvisorCategorySpecificSummary
-    TrustedAdvisorCategorySpecificSummary,
-    trustedAdvisorCategorySpecificSummary,
-    tacssCostOptimizing,
+    TrustedAdvisorCategorySpecificSummary (TrustedAdvisorCategorySpecificSummary'),
+    newTrustedAdvisorCategorySpecificSummary,
 
     -- ** TrustedAdvisorCheckDescription
-    TrustedAdvisorCheckDescription,
-    trustedAdvisorCheckDescription,
-    tacdId,
-    tacdName,
-    tacdDescription,
-    tacdCategory,
-    tacdMetadata,
+    TrustedAdvisorCheckDescription (TrustedAdvisorCheckDescription'),
+    newTrustedAdvisorCheckDescription,
 
     -- ** TrustedAdvisorCheckRefreshStatus
-    TrustedAdvisorCheckRefreshStatus,
-    trustedAdvisorCheckRefreshStatus,
-    tacrsCheckId,
-    tacrsStatus,
-    tacrsMillisUntilNextRefreshable,
+    TrustedAdvisorCheckRefreshStatus (TrustedAdvisorCheckRefreshStatus'),
+    newTrustedAdvisorCheckRefreshStatus,
 
     -- ** TrustedAdvisorCheckResult
-    TrustedAdvisorCheckResult,
-    trustedAdvisorCheckResult,
-    tacrCheckId,
-    tacrTimestamp,
-    tacrStatus,
-    tacrResourcesSummary,
-    tacrCategorySpecificSummary,
-    tacrFlaggedResources,
+    TrustedAdvisorCheckResult (TrustedAdvisorCheckResult'),
+    newTrustedAdvisorCheckResult,
 
     -- ** TrustedAdvisorCheckSummary
-    TrustedAdvisorCheckSummary,
-    trustedAdvisorCheckSummary,
-    tacsHasFlaggedResources,
-    tacsCheckId,
-    tacsTimestamp,
-    tacsStatus,
-    tacsResourcesSummary,
-    tacsCategorySpecificSummary,
+    TrustedAdvisorCheckSummary (TrustedAdvisorCheckSummary'),
+    newTrustedAdvisorCheckSummary,
 
     -- ** TrustedAdvisorCostOptimizingSummary
-    TrustedAdvisorCostOptimizingSummary,
-    trustedAdvisorCostOptimizingSummary,
-    tacosEstimatedMonthlySavings,
-    tacosEstimatedPercentMonthlySavings,
+    TrustedAdvisorCostOptimizingSummary (TrustedAdvisorCostOptimizingSummary'),
+    newTrustedAdvisorCostOptimizingSummary,
 
     -- ** TrustedAdvisorResourceDetail
-    TrustedAdvisorResourceDetail,
-    trustedAdvisorResourceDetail,
-    tardIsSuppressed,
-    tardRegion,
-    tardStatus,
-    tardResourceId,
-    tardMetadata,
+    TrustedAdvisorResourceDetail (TrustedAdvisorResourceDetail'),
+    newTrustedAdvisorResourceDetail,
 
     -- ** TrustedAdvisorResourcesSummary
-    TrustedAdvisorResourcesSummary,
-    trustedAdvisorResourcesSummary,
-    tarsResourcesProcessed,
-    tarsResourcesFlagged,
-    tarsResourcesIgnored,
-    tarsResourcesSuppressed,
+    TrustedAdvisorResourcesSummary (TrustedAdvisorResourcesSummary'),
+    newTrustedAdvisorResourcesSummary,
   )
 where
 
@@ -268,6 +283,7 @@ import Network.AWS.Support.DescribeTrustedAdvisorCheckRefreshStatuses
 import Network.AWS.Support.DescribeTrustedAdvisorCheckResult
 import Network.AWS.Support.DescribeTrustedAdvisorCheckSummaries
 import Network.AWS.Support.DescribeTrustedAdvisorChecks
+import Network.AWS.Support.Lens
 import Network.AWS.Support.RefreshTrustedAdvisorCheck
 import Network.AWS.Support.ResolveCase
 import Network.AWS.Support.Types

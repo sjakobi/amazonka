@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,104 +19,123 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Support.Types.TrustedAdvisorCheckDescription where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The description and metadata for a Trusted Advisor check.
 --
---
---
--- /See:/ 'trustedAdvisorCheckDescription' smart constructor.
+-- /See:/ 'newTrustedAdvisorCheckDescription' smart constructor.
 data TrustedAdvisorCheckDescription = TrustedAdvisorCheckDescription'
-  { _tacdId ::
-      !Text,
-    _tacdName ::
-      !Text,
-    _tacdDescription ::
-      !Text,
-    _tacdCategory ::
-      !Text,
-    _tacdMetadata ::
-      ![Text]
+  { -- | The unique identifier for the Trusted Advisor check.
+    id :: Prelude.Text,
+    -- | The display name for the Trusted Advisor check.
+    name :: Prelude.Text,
+    -- | The description of the Trusted Advisor check, which includes the alert
+    -- criteria and recommended operations (contains HTML markup).
+    description :: Prelude.Text,
+    -- | The category of the Trusted Advisor check.
+    category :: Prelude.Text,
+    -- | The column headings for the data returned by the Trusted Advisor check.
+    -- The order of the headings corresponds to the order of the data in the
+    -- __Metadata__ element of the TrustedAdvisorResourceDetail for the check.
+    -- __Metadata__ contains all the data that is shown in the Excel download,
+    -- even in those cases where the UI shows just summary data.
+    metadata :: [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TrustedAdvisorCheckDescription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TrustedAdvisorCheckDescription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tacdId' - The unique identifier for the Trusted Advisor check.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tacdName' - The display name for the Trusted Advisor check.
+-- 'id', 'trustedAdvisorCheckDescription_id' - The unique identifier for the Trusted Advisor check.
 --
--- * 'tacdDescription' - The description of the Trusted Advisor check, which includes the alert criteria and recommended operations (contains HTML markup).
+-- 'name', 'trustedAdvisorCheckDescription_name' - The display name for the Trusted Advisor check.
 --
--- * 'tacdCategory' - The category of the Trusted Advisor check.
+-- 'description', 'trustedAdvisorCheckDescription_description' - The description of the Trusted Advisor check, which includes the alert
+-- criteria and recommended operations (contains HTML markup).
 --
--- * 'tacdMetadata' - The column headings for the data returned by the Trusted Advisor check. The order of the headings corresponds to the order of the data in the __Metadata__ element of the 'TrustedAdvisorResourceDetail' for the check. __Metadata__ contains all the data that is shown in the Excel download, even in those cases where the UI shows just summary data.
-trustedAdvisorCheckDescription ::
-  -- | 'tacdId'
-  Text ->
-  -- | 'tacdName'
-  Text ->
-  -- | 'tacdDescription'
-  Text ->
-  -- | 'tacdCategory'
-  Text ->
+-- 'category', 'trustedAdvisorCheckDescription_category' - The category of the Trusted Advisor check.
+--
+-- 'metadata', 'trustedAdvisorCheckDescription_metadata' - The column headings for the data returned by the Trusted Advisor check.
+-- The order of the headings corresponds to the order of the data in the
+-- __Metadata__ element of the TrustedAdvisorResourceDetail for the check.
+-- __Metadata__ contains all the data that is shown in the Excel download,
+-- even in those cases where the UI shows just summary data.
+newTrustedAdvisorCheckDescription ::
+  -- | 'id'
+  Prelude.Text ->
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'description'
+  Prelude.Text ->
+  -- | 'category'
+  Prelude.Text ->
   TrustedAdvisorCheckDescription
-trustedAdvisorCheckDescription
+newTrustedAdvisorCheckDescription
   pId_
   pName_
   pDescription_
   pCategory_ =
     TrustedAdvisorCheckDescription'
-      { _tacdId = pId_,
-        _tacdName = pName_,
-        _tacdDescription = pDescription_,
-        _tacdCategory = pCategory_,
-        _tacdMetadata = mempty
+      { id = pId_,
+        name = pName_,
+        description = pDescription_,
+        category = pCategory_,
+        metadata = Prelude.mempty
       }
 
 -- | The unique identifier for the Trusted Advisor check.
-tacdId :: Lens' TrustedAdvisorCheckDescription Text
-tacdId = lens _tacdId (\s a -> s {_tacdId = a})
+trustedAdvisorCheckDescription_id :: Lens.Lens' TrustedAdvisorCheckDescription Prelude.Text
+trustedAdvisorCheckDescription_id = Lens.lens (\TrustedAdvisorCheckDescription' {id} -> id) (\s@TrustedAdvisorCheckDescription' {} a -> s {id = a} :: TrustedAdvisorCheckDescription)
 
 -- | The display name for the Trusted Advisor check.
-tacdName :: Lens' TrustedAdvisorCheckDescription Text
-tacdName = lens _tacdName (\s a -> s {_tacdName = a})
+trustedAdvisorCheckDescription_name :: Lens.Lens' TrustedAdvisorCheckDescription Prelude.Text
+trustedAdvisorCheckDescription_name = Lens.lens (\TrustedAdvisorCheckDescription' {name} -> name) (\s@TrustedAdvisorCheckDescription' {} a -> s {name = a} :: TrustedAdvisorCheckDescription)
 
--- | The description of the Trusted Advisor check, which includes the alert criteria and recommended operations (contains HTML markup).
-tacdDescription :: Lens' TrustedAdvisorCheckDescription Text
-tacdDescription = lens _tacdDescription (\s a -> s {_tacdDescription = a})
+-- | The description of the Trusted Advisor check, which includes the alert
+-- criteria and recommended operations (contains HTML markup).
+trustedAdvisorCheckDescription_description :: Lens.Lens' TrustedAdvisorCheckDescription Prelude.Text
+trustedAdvisorCheckDescription_description = Lens.lens (\TrustedAdvisorCheckDescription' {description} -> description) (\s@TrustedAdvisorCheckDescription' {} a -> s {description = a} :: TrustedAdvisorCheckDescription)
 
 -- | The category of the Trusted Advisor check.
-tacdCategory :: Lens' TrustedAdvisorCheckDescription Text
-tacdCategory = lens _tacdCategory (\s a -> s {_tacdCategory = a})
+trustedAdvisorCheckDescription_category :: Lens.Lens' TrustedAdvisorCheckDescription Prelude.Text
+trustedAdvisorCheckDescription_category = Lens.lens (\TrustedAdvisorCheckDescription' {category} -> category) (\s@TrustedAdvisorCheckDescription' {} a -> s {category = a} :: TrustedAdvisorCheckDescription)
 
--- | The column headings for the data returned by the Trusted Advisor check. The order of the headings corresponds to the order of the data in the __Metadata__ element of the 'TrustedAdvisorResourceDetail' for the check. __Metadata__ contains all the data that is shown in the Excel download, even in those cases where the UI shows just summary data.
-tacdMetadata :: Lens' TrustedAdvisorCheckDescription [Text]
-tacdMetadata = lens _tacdMetadata (\s a -> s {_tacdMetadata = a}) . _Coerce
+-- | The column headings for the data returned by the Trusted Advisor check.
+-- The order of the headings corresponds to the order of the data in the
+-- __Metadata__ element of the TrustedAdvisorResourceDetail for the check.
+-- __Metadata__ contains all the data that is shown in the Excel download,
+-- even in those cases where the UI shows just summary data.
+trustedAdvisorCheckDescription_metadata :: Lens.Lens' TrustedAdvisorCheckDescription [Prelude.Text]
+trustedAdvisorCheckDescription_metadata = Lens.lens (\TrustedAdvisorCheckDescription' {metadata} -> metadata) (\s@TrustedAdvisorCheckDescription' {} a -> s {metadata = a} :: TrustedAdvisorCheckDescription) Prelude.. Prelude._Coerce
 
-instance FromJSON TrustedAdvisorCheckDescription where
+instance
+  Prelude.FromJSON
+    TrustedAdvisorCheckDescription
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TrustedAdvisorCheckDescription"
       ( \x ->
           TrustedAdvisorCheckDescription'
-            <$> (x .: "id")
-            <*> (x .: "name")
-            <*> (x .: "description")
-            <*> (x .: "category")
-            <*> (x .:? "metadata" .!= mempty)
+            Prelude.<$> (x Prelude..: "id")
+            Prelude.<*> (x Prelude..: "name")
+            Prelude.<*> (x Prelude..: "description")
+            Prelude.<*> (x Prelude..: "category")
+            Prelude.<*> ( x Prelude..:? "metadata"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable TrustedAdvisorCheckDescription
+instance
+  Prelude.Hashable
+    TrustedAdvisorCheckDescription
 
-instance NFData TrustedAdvisorCheckDescription
+instance
+  Prelude.NFData
+    TrustedAdvisorCheckDescription
