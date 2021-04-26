@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,241 +21,330 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Looks up <https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-concepts.html#cloudtrail-concepts-management-events management events> or <https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-concepts.html#cloudtrail-concepts-insights-events CloudTrail Insights events> that are captured by CloudTrail. You can look up events that occurred in a region within the last 90 days. Lookup supports the following attributes for management events:
+-- Looks up
+-- <https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-concepts.html#cloudtrail-concepts-management-events management events>
+-- or
+-- <https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-concepts.html#cloudtrail-concepts-insights-events CloudTrail Insights events>
+-- that are captured by CloudTrail. You can look up events that occurred in
+-- a region within the last 90 days. Lookup supports the following
+-- attributes for management events:
 --
+-- -   AWS access key
 --
---     * AWS access key
+-- -   Event ID
 --
---     * Event ID
+-- -   Event name
 --
---     * Event name
+-- -   Event source
 --
---     * Event source
+-- -   Read only
 --
---     * Read only
+-- -   Resource name
 --
---     * Resource name
+-- -   Resource type
 --
---     * Resource type
---
---     * User name
---
---
+-- -   User name
 --
 -- Lookup supports the following attributes for Insights events:
 --
---     * Event ID
+-- -   Event ID
 --
---     * Event name
+-- -   Event name
 --
---     * Event source
+-- -   Event source
 --
+-- All attributes are optional. The default number of results returned is
+-- 50, with a maximum of 50 possible. The response includes a token that
+-- you can use to get the next page of results.
 --
---
--- All attributes are optional. The default number of results returned is 50, with a maximum of 50 possible. The response includes a token that you can use to get the next page of results.
---
--- /Important:/ The rate of lookup requests is limited to two per second, per account, per region. If this limit is exceeded, a throttling error occurs.
---
+-- The rate of lookup requests is limited to two per second, per account,
+-- per region. If this limit is exceeded, a throttling error occurs.
 --
 -- This operation returns paginated results.
 module Network.AWS.CloudTrail.LookupEvents
   ( -- * Creating a Request
-    lookupEvents,
-    LookupEvents,
+    LookupEvents (..),
+    newLookupEvents,
 
     -- * Request Lenses
-    leNextToken,
-    leMaxResults,
-    leStartTime,
-    leEndTime,
-    leEventCategory,
-    leLookupAttributes,
+    lookupEvents_nextToken,
+    lookupEvents_maxResults,
+    lookupEvents_startTime,
+    lookupEvents_endTime,
+    lookupEvents_eventCategory,
+    lookupEvents_lookupAttributes,
 
     -- * Destructuring the Response
-    lookupEventsResponse,
-    LookupEventsResponse,
+    LookupEventsResponse (..),
+    newLookupEventsResponse,
 
     -- * Response Lenses
-    lerrsNextToken,
-    lerrsEvents,
-    lerrsResponseStatus,
+    lookupEventsResponse_nextToken,
+    lookupEventsResponse_events,
+    lookupEventsResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudTrail.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudTrail.Types.Event
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Contains a request for LookupEvents.
 --
---
---
--- /See:/ 'lookupEvents' smart constructor.
+-- /See:/ 'newLookupEvents' smart constructor.
 data LookupEvents = LookupEvents'
-  { _leNextToken ::
-      !(Maybe Text),
-    _leMaxResults :: !(Maybe Nat),
-    _leStartTime :: !(Maybe POSIX),
-    _leEndTime :: !(Maybe POSIX),
-    _leEventCategory :: !(Maybe EventCategory),
-    _leLookupAttributes ::
-      !(Maybe [LookupAttribute])
+  { -- | The token to use to get the next page of results after a previous API
+    -- call. This token must be passed in with the same parameters that were
+    -- specified in the the original call. For example, if the original call
+    -- specified an AttributeKey of \'Username\' with a value of \'root\', the
+    -- call with NextToken should include those same parameters.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The number of events to return. Possible values are 1 through 50. The
+    -- default is 50.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | Specifies that only events that occur after or at the specified time are
+    -- returned. If the specified start time is after the specified end time,
+    -- an error is returned.
+    startTime :: Prelude.Maybe Prelude.POSIX,
+    -- | Specifies that only events that occur before or at the specified time
+    -- are returned. If the specified end time is before the specified start
+    -- time, an error is returned.
+    endTime :: Prelude.Maybe Prelude.POSIX,
+    -- | Specifies the event category. If you do not specify an event category,
+    -- events of the category are not returned in the response. For example, if
+    -- you do not specify @insight@ as the value of @EventCategory@, no
+    -- Insights events are returned.
+    eventCategory :: Prelude.Maybe EventCategory,
+    -- | Contains a list of lookup attributes. Currently the list can contain
+    -- only one item.
+    lookupAttributes :: Prelude.Maybe [LookupAttribute]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LookupEvents' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LookupEvents' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'leNextToken' - The token to use to get the next page of results after a previous API call. This token must be passed in with the same parameters that were specified in the the original call. For example, if the original call specified an AttributeKey of 'Username' with a value of 'root', the call with NextToken should include those same parameters.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'leMaxResults' - The number of events to return. Possible values are 1 through 50. The default is 50.
+-- 'nextToken', 'lookupEvents_nextToken' - The token to use to get the next page of results after a previous API
+-- call. This token must be passed in with the same parameters that were
+-- specified in the the original call. For example, if the original call
+-- specified an AttributeKey of \'Username\' with a value of \'root\', the
+-- call with NextToken should include those same parameters.
 --
--- * 'leStartTime' - Specifies that only events that occur after or at the specified time are returned. If the specified start time is after the specified end time, an error is returned.
+-- 'maxResults', 'lookupEvents_maxResults' - The number of events to return. Possible values are 1 through 50. The
+-- default is 50.
 --
--- * 'leEndTime' - Specifies that only events that occur before or at the specified time are returned. If the specified end time is before the specified start time, an error is returned.
+-- 'startTime', 'lookupEvents_startTime' - Specifies that only events that occur after or at the specified time are
+-- returned. If the specified start time is after the specified end time,
+-- an error is returned.
 --
--- * 'leEventCategory' - Specifies the event category. If you do not specify an event category, events of the category are not returned in the response. For example, if you do not specify @insight@ as the value of @EventCategory@ , no Insights events are returned.
+-- 'endTime', 'lookupEvents_endTime' - Specifies that only events that occur before or at the specified time
+-- are returned. If the specified end time is before the specified start
+-- time, an error is returned.
 --
--- * 'leLookupAttributes' - Contains a list of lookup attributes. Currently the list can contain only one item.
-lookupEvents ::
+-- 'eventCategory', 'lookupEvents_eventCategory' - Specifies the event category. If you do not specify an event category,
+-- events of the category are not returned in the response. For example, if
+-- you do not specify @insight@ as the value of @EventCategory@, no
+-- Insights events are returned.
+--
+-- 'lookupAttributes', 'lookupEvents_lookupAttributes' - Contains a list of lookup attributes. Currently the list can contain
+-- only one item.
+newLookupEvents ::
   LookupEvents
-lookupEvents =
+newLookupEvents =
   LookupEvents'
-    { _leNextToken = Nothing,
-      _leMaxResults = Nothing,
-      _leStartTime = Nothing,
-      _leEndTime = Nothing,
-      _leEventCategory = Nothing,
-      _leLookupAttributes = Nothing
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      startTime = Prelude.Nothing,
+      endTime = Prelude.Nothing,
+      eventCategory = Prelude.Nothing,
+      lookupAttributes = Prelude.Nothing
     }
 
--- | The token to use to get the next page of results after a previous API call. This token must be passed in with the same parameters that were specified in the the original call. For example, if the original call specified an AttributeKey of 'Username' with a value of 'root', the call with NextToken should include those same parameters.
-leNextToken :: Lens' LookupEvents (Maybe Text)
-leNextToken = lens _leNextToken (\s a -> s {_leNextToken = a})
+-- | The token to use to get the next page of results after a previous API
+-- call. This token must be passed in with the same parameters that were
+-- specified in the the original call. For example, if the original call
+-- specified an AttributeKey of \'Username\' with a value of \'root\', the
+-- call with NextToken should include those same parameters.
+lookupEvents_nextToken :: Lens.Lens' LookupEvents (Prelude.Maybe Prelude.Text)
+lookupEvents_nextToken = Lens.lens (\LookupEvents' {nextToken} -> nextToken) (\s@LookupEvents' {} a -> s {nextToken = a} :: LookupEvents)
 
--- | The number of events to return. Possible values are 1 through 50. The default is 50.
-leMaxResults :: Lens' LookupEvents (Maybe Natural)
-leMaxResults = lens _leMaxResults (\s a -> s {_leMaxResults = a}) . mapping _Nat
+-- | The number of events to return. Possible values are 1 through 50. The
+-- default is 50.
+lookupEvents_maxResults :: Lens.Lens' LookupEvents (Prelude.Maybe Prelude.Natural)
+lookupEvents_maxResults = Lens.lens (\LookupEvents' {maxResults} -> maxResults) (\s@LookupEvents' {} a -> s {maxResults = a} :: LookupEvents) Prelude.. Lens.mapping Prelude._Nat
 
--- | Specifies that only events that occur after or at the specified time are returned. If the specified start time is after the specified end time, an error is returned.
-leStartTime :: Lens' LookupEvents (Maybe UTCTime)
-leStartTime = lens _leStartTime (\s a -> s {_leStartTime = a}) . mapping _Time
+-- | Specifies that only events that occur after or at the specified time are
+-- returned. If the specified start time is after the specified end time,
+-- an error is returned.
+lookupEvents_startTime :: Lens.Lens' LookupEvents (Prelude.Maybe Prelude.UTCTime)
+lookupEvents_startTime = Lens.lens (\LookupEvents' {startTime} -> startTime) (\s@LookupEvents' {} a -> s {startTime = a} :: LookupEvents) Prelude.. Lens.mapping Prelude._Time
 
--- | Specifies that only events that occur before or at the specified time are returned. If the specified end time is before the specified start time, an error is returned.
-leEndTime :: Lens' LookupEvents (Maybe UTCTime)
-leEndTime = lens _leEndTime (\s a -> s {_leEndTime = a}) . mapping _Time
+-- | Specifies that only events that occur before or at the specified time
+-- are returned. If the specified end time is before the specified start
+-- time, an error is returned.
+lookupEvents_endTime :: Lens.Lens' LookupEvents (Prelude.Maybe Prelude.UTCTime)
+lookupEvents_endTime = Lens.lens (\LookupEvents' {endTime} -> endTime) (\s@LookupEvents' {} a -> s {endTime = a} :: LookupEvents) Prelude.. Lens.mapping Prelude._Time
 
--- | Specifies the event category. If you do not specify an event category, events of the category are not returned in the response. For example, if you do not specify @insight@ as the value of @EventCategory@ , no Insights events are returned.
-leEventCategory :: Lens' LookupEvents (Maybe EventCategory)
-leEventCategory = lens _leEventCategory (\s a -> s {_leEventCategory = a})
+-- | Specifies the event category. If you do not specify an event category,
+-- events of the category are not returned in the response. For example, if
+-- you do not specify @insight@ as the value of @EventCategory@, no
+-- Insights events are returned.
+lookupEvents_eventCategory :: Lens.Lens' LookupEvents (Prelude.Maybe EventCategory)
+lookupEvents_eventCategory = Lens.lens (\LookupEvents' {eventCategory} -> eventCategory) (\s@LookupEvents' {} a -> s {eventCategory = a} :: LookupEvents)
 
--- | Contains a list of lookup attributes. Currently the list can contain only one item.
-leLookupAttributes :: Lens' LookupEvents [LookupAttribute]
-leLookupAttributes = lens _leLookupAttributes (\s a -> s {_leLookupAttributes = a}) . _Default . _Coerce
+-- | Contains a list of lookup attributes. Currently the list can contain
+-- only one item.
+lookupEvents_lookupAttributes :: Lens.Lens' LookupEvents (Prelude.Maybe [LookupAttribute])
+lookupEvents_lookupAttributes = Lens.lens (\LookupEvents' {lookupAttributes} -> lookupAttributes) (\s@LookupEvents' {} a -> s {lookupAttributes = a} :: LookupEvents) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSPager LookupEvents where
+instance Pager.AWSPager LookupEvents where
   page rq rs
-    | stop (rs ^. lerrsNextToken) = Nothing
-    | stop (rs ^. lerrsEvents) = Nothing
-    | otherwise =
-      Just $ rq & leNextToken .~ rs ^. lerrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? lookupEventsResponse_nextToken Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? lookupEventsResponse_events Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& lookupEvents_nextToken
+          Lens..~ rs
+          Lens.^? lookupEventsResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest LookupEvents where
+instance Prelude.AWSRequest LookupEvents where
   type Rs LookupEvents = LookupEventsResponse
-  request = postJSON cloudTrail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           LookupEventsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "Events" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (x Prelude..?> "Events" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable LookupEvents
+instance Prelude.Hashable LookupEvents
 
-instance NFData LookupEvents
+instance Prelude.NFData LookupEvents
 
-instance ToHeaders LookupEvents where
+instance Prelude.ToHeaders LookupEvents where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "com.amazonaws.cloudtrail.v20131101.CloudTrail_20131101.LookupEvents" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "com.amazonaws.cloudtrail.v20131101.CloudTrail_20131101.LookupEvents" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON LookupEvents where
+instance Prelude.ToJSON LookupEvents where
   toJSON LookupEvents' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _leNextToken,
-            ("MaxResults" .=) <$> _leMaxResults,
-            ("StartTime" .=) <$> _leStartTime,
-            ("EndTime" .=) <$> _leEndTime,
-            ("EventCategory" .=) <$> _leEventCategory,
-            ("LookupAttributes" .=) <$> _leLookupAttributes
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("StartTime" Prelude..=) Prelude.<$> startTime,
+            ("EndTime" Prelude..=) Prelude.<$> endTime,
+            ("EventCategory" Prelude..=)
+              Prelude.<$> eventCategory,
+            ("LookupAttributes" Prelude..=)
+              Prelude.<$> lookupAttributes
           ]
       )
 
-instance ToPath LookupEvents where
-  toPath = const "/"
+instance Prelude.ToPath LookupEvents where
+  toPath = Prelude.const "/"
 
-instance ToQuery LookupEvents where
-  toQuery = const mempty
+instance Prelude.ToQuery LookupEvents where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Contains a response to a LookupEvents action.
 --
---
---
--- /See:/ 'lookupEventsResponse' smart constructor.
+-- /See:/ 'newLookupEventsResponse' smart constructor.
 data LookupEventsResponse = LookupEventsResponse'
-  { _lerrsNextToken ::
-      !(Maybe Text),
-    _lerrsEvents ::
-      !(Maybe [Event]),
-    _lerrsResponseStatus :: !Int
+  { -- | The token to use to get the next page of results after a previous API
+    -- call. If the token does not appear, there are no more results to return.
+    -- The token must be passed in with the same parameters as the previous
+    -- call. For example, if the original call specified an AttributeKey of
+    -- \'Username\' with a value of \'root\', the call with NextToken should
+    -- include those same parameters.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of events returned based on the lookup attributes specified and
+    -- the CloudTrail event. The events list is sorted by time. The most recent
+    -- event is listed first.
+    events :: Prelude.Maybe [Event],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LookupEventsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LookupEventsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lerrsNextToken' - The token to use to get the next page of results after a previous API call. If the token does not appear, there are no more results to return. The token must be passed in with the same parameters as the previous call. For example, if the original call specified an AttributeKey of 'Username' with a value of 'root', the call with NextToken should include those same parameters.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lerrsEvents' - A list of events returned based on the lookup attributes specified and the CloudTrail event. The events list is sorted by time. The most recent event is listed first.
+-- 'nextToken', 'lookupEventsResponse_nextToken' - The token to use to get the next page of results after a previous API
+-- call. If the token does not appear, there are no more results to return.
+-- The token must be passed in with the same parameters as the previous
+-- call. For example, if the original call specified an AttributeKey of
+-- \'Username\' with a value of \'root\', the call with NextToken should
+-- include those same parameters.
 --
--- * 'lerrsResponseStatus' - -- | The response status code.
-lookupEventsResponse ::
-  -- | 'lerrsResponseStatus'
-  Int ->
+-- 'events', 'lookupEventsResponse_events' - A list of events returned based on the lookup attributes specified and
+-- the CloudTrail event. The events list is sorted by time. The most recent
+-- event is listed first.
+--
+-- 'httpStatus', 'lookupEventsResponse_httpStatus' - The response's http status code.
+newLookupEventsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   LookupEventsResponse
-lookupEventsResponse pResponseStatus_ =
+newLookupEventsResponse pHttpStatus_ =
   LookupEventsResponse'
-    { _lerrsNextToken = Nothing,
-      _lerrsEvents = Nothing,
-      _lerrsResponseStatus = pResponseStatus_
+    { nextToken = Prelude.Nothing,
+      events = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The token to use to get the next page of results after a previous API call. If the token does not appear, there are no more results to return. The token must be passed in with the same parameters as the previous call. For example, if the original call specified an AttributeKey of 'Username' with a value of 'root', the call with NextToken should include those same parameters.
-lerrsNextToken :: Lens' LookupEventsResponse (Maybe Text)
-lerrsNextToken = lens _lerrsNextToken (\s a -> s {_lerrsNextToken = a})
+-- | The token to use to get the next page of results after a previous API
+-- call. If the token does not appear, there are no more results to return.
+-- The token must be passed in with the same parameters as the previous
+-- call. For example, if the original call specified an AttributeKey of
+-- \'Username\' with a value of \'root\', the call with NextToken should
+-- include those same parameters.
+lookupEventsResponse_nextToken :: Lens.Lens' LookupEventsResponse (Prelude.Maybe Prelude.Text)
+lookupEventsResponse_nextToken = Lens.lens (\LookupEventsResponse' {nextToken} -> nextToken) (\s@LookupEventsResponse' {} a -> s {nextToken = a} :: LookupEventsResponse)
 
--- | A list of events returned based on the lookup attributes specified and the CloudTrail event. The events list is sorted by time. The most recent event is listed first.
-lerrsEvents :: Lens' LookupEventsResponse [Event]
-lerrsEvents = lens _lerrsEvents (\s a -> s {_lerrsEvents = a}) . _Default . _Coerce
+-- | A list of events returned based on the lookup attributes specified and
+-- the CloudTrail event. The events list is sorted by time. The most recent
+-- event is listed first.
+lookupEventsResponse_events :: Lens.Lens' LookupEventsResponse (Prelude.Maybe [Event])
+lookupEventsResponse_events = Lens.lens (\LookupEventsResponse' {events} -> events) (\s@LookupEventsResponse' {} a -> s {events = a} :: LookupEventsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lerrsResponseStatus :: Lens' LookupEventsResponse Int
-lerrsResponseStatus = lens _lerrsResponseStatus (\s a -> s {_lerrsResponseStatus = a})
+-- | The response's http status code.
+lookupEventsResponse_httpStatus :: Lens.Lens' LookupEventsResponse Prelude.Int
+lookupEventsResponse_httpStatus = Lens.lens (\LookupEventsResponse' {httpStatus} -> httpStatus) (\s@LookupEventsResponse' {} a -> s {httpStatus = a} :: LookupEventsResponse)
 
-instance NFData LookupEventsResponse
+instance Prelude.NFData LookupEventsResponse

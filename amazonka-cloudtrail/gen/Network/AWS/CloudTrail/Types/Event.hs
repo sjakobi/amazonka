@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,117 +20,139 @@
 module Network.AWS.CloudTrail.Types.Event where
 
 import Network.AWS.CloudTrail.Types.Resource
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains information about an event that was returned by a lookup request. The result includes a representation of a CloudTrail event.
+-- | Contains information about an event that was returned by a lookup
+-- request. The result includes a representation of a CloudTrail event.
 --
---
---
--- /See:/ 'event' smart constructor.
+-- /See:/ 'newEvent' smart constructor.
 data Event = Event'
-  { _eCloudTrailEvent ::
-      !(Maybe Text),
-    _eEventId :: !(Maybe Text),
-    _eEventSource :: !(Maybe Text),
-    _eReadOnly :: !(Maybe Text),
-    _eEventName :: !(Maybe Text),
-    _eResources :: !(Maybe [Resource]),
-    _eEventTime :: !(Maybe POSIX),
-    _eAccessKeyId :: !(Maybe Text),
-    _eUsername :: !(Maybe Text)
+  { -- | A JSON string that contains a representation of the event returned.
+    cloudTrailEvent :: Prelude.Maybe Prelude.Text,
+    -- | The CloudTrail ID of the event returned.
+    eventId :: Prelude.Maybe Prelude.Text,
+    -- | The AWS service that the request was made to.
+    eventSource :: Prelude.Maybe Prelude.Text,
+    -- | Information about whether the event is a write event or a read event.
+    readOnly :: Prelude.Maybe Prelude.Text,
+    -- | The name of the event returned.
+    eventName :: Prelude.Maybe Prelude.Text,
+    -- | A list of resources referenced by the event returned.
+    resources :: Prelude.Maybe [Resource],
+    -- | The date and time of the event returned.
+    eventTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The AWS access key ID that was used to sign the request. If the request
+    -- was made with temporary security credentials, this is the access key ID
+    -- of the temporary credentials.
+    accessKeyId :: Prelude.Maybe Prelude.Text,
+    -- | A user name or role name of the requester that called the API in the
+    -- event returned.
+    username :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Event' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Event' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eCloudTrailEvent' - A JSON string that contains a representation of the event returned.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'eEventId' - The CloudTrail ID of the event returned.
+-- 'cloudTrailEvent', 'event_cloudTrailEvent' - A JSON string that contains a representation of the event returned.
 --
--- * 'eEventSource' - The AWS service that the request was made to.
+-- 'eventId', 'event_eventId' - The CloudTrail ID of the event returned.
 --
--- * 'eReadOnly' - Information about whether the event is a write event or a read event.
+-- 'eventSource', 'event_eventSource' - The AWS service that the request was made to.
 --
--- * 'eEventName' - The name of the event returned.
+-- 'readOnly', 'event_readOnly' - Information about whether the event is a write event or a read event.
 --
--- * 'eResources' - A list of resources referenced by the event returned.
+-- 'eventName', 'event_eventName' - The name of the event returned.
 --
--- * 'eEventTime' - The date and time of the event returned.
+-- 'resources', 'event_resources' - A list of resources referenced by the event returned.
 --
--- * 'eAccessKeyId' - The AWS access key ID that was used to sign the request. If the request was made with temporary security credentials, this is the access key ID of the temporary credentials.
+-- 'eventTime', 'event_eventTime' - The date and time of the event returned.
 --
--- * 'eUsername' - A user name or role name of the requester that called the API in the event returned.
-event ::
+-- 'accessKeyId', 'event_accessKeyId' - The AWS access key ID that was used to sign the request. If the request
+-- was made with temporary security credentials, this is the access key ID
+-- of the temporary credentials.
+--
+-- 'username', 'event_username' - A user name or role name of the requester that called the API in the
+-- event returned.
+newEvent ::
   Event
-event =
+newEvent =
   Event'
-    { _eCloudTrailEvent = Nothing,
-      _eEventId = Nothing,
-      _eEventSource = Nothing,
-      _eReadOnly = Nothing,
-      _eEventName = Nothing,
-      _eResources = Nothing,
-      _eEventTime = Nothing,
-      _eAccessKeyId = Nothing,
-      _eUsername = Nothing
+    { cloudTrailEvent = Prelude.Nothing,
+      eventId = Prelude.Nothing,
+      eventSource = Prelude.Nothing,
+      readOnly = Prelude.Nothing,
+      eventName = Prelude.Nothing,
+      resources = Prelude.Nothing,
+      eventTime = Prelude.Nothing,
+      accessKeyId = Prelude.Nothing,
+      username = Prelude.Nothing
     }
 
 -- | A JSON string that contains a representation of the event returned.
-eCloudTrailEvent :: Lens' Event (Maybe Text)
-eCloudTrailEvent = lens _eCloudTrailEvent (\s a -> s {_eCloudTrailEvent = a})
+event_cloudTrailEvent :: Lens.Lens' Event (Prelude.Maybe Prelude.Text)
+event_cloudTrailEvent = Lens.lens (\Event' {cloudTrailEvent} -> cloudTrailEvent) (\s@Event' {} a -> s {cloudTrailEvent = a} :: Event)
 
 -- | The CloudTrail ID of the event returned.
-eEventId :: Lens' Event (Maybe Text)
-eEventId = lens _eEventId (\s a -> s {_eEventId = a})
+event_eventId :: Lens.Lens' Event (Prelude.Maybe Prelude.Text)
+event_eventId = Lens.lens (\Event' {eventId} -> eventId) (\s@Event' {} a -> s {eventId = a} :: Event)
 
 -- | The AWS service that the request was made to.
-eEventSource :: Lens' Event (Maybe Text)
-eEventSource = lens _eEventSource (\s a -> s {_eEventSource = a})
+event_eventSource :: Lens.Lens' Event (Prelude.Maybe Prelude.Text)
+event_eventSource = Lens.lens (\Event' {eventSource} -> eventSource) (\s@Event' {} a -> s {eventSource = a} :: Event)
 
 -- | Information about whether the event is a write event or a read event.
-eReadOnly :: Lens' Event (Maybe Text)
-eReadOnly = lens _eReadOnly (\s a -> s {_eReadOnly = a})
+event_readOnly :: Lens.Lens' Event (Prelude.Maybe Prelude.Text)
+event_readOnly = Lens.lens (\Event' {readOnly} -> readOnly) (\s@Event' {} a -> s {readOnly = a} :: Event)
 
 -- | The name of the event returned.
-eEventName :: Lens' Event (Maybe Text)
-eEventName = lens _eEventName (\s a -> s {_eEventName = a})
+event_eventName :: Lens.Lens' Event (Prelude.Maybe Prelude.Text)
+event_eventName = Lens.lens (\Event' {eventName} -> eventName) (\s@Event' {} a -> s {eventName = a} :: Event)
 
 -- | A list of resources referenced by the event returned.
-eResources :: Lens' Event [Resource]
-eResources = lens _eResources (\s a -> s {_eResources = a}) . _Default . _Coerce
+event_resources :: Lens.Lens' Event (Prelude.Maybe [Resource])
+event_resources = Lens.lens (\Event' {resources} -> resources) (\s@Event' {} a -> s {resources = a} :: Event) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The date and time of the event returned.
-eEventTime :: Lens' Event (Maybe UTCTime)
-eEventTime = lens _eEventTime (\s a -> s {_eEventTime = a}) . mapping _Time
+event_eventTime :: Lens.Lens' Event (Prelude.Maybe Prelude.UTCTime)
+event_eventTime = Lens.lens (\Event' {eventTime} -> eventTime) (\s@Event' {} a -> s {eventTime = a} :: Event) Prelude.. Lens.mapping Prelude._Time
 
--- | The AWS access key ID that was used to sign the request. If the request was made with temporary security credentials, this is the access key ID of the temporary credentials.
-eAccessKeyId :: Lens' Event (Maybe Text)
-eAccessKeyId = lens _eAccessKeyId (\s a -> s {_eAccessKeyId = a})
+-- | The AWS access key ID that was used to sign the request. If the request
+-- was made with temporary security credentials, this is the access key ID
+-- of the temporary credentials.
+event_accessKeyId :: Lens.Lens' Event (Prelude.Maybe Prelude.Text)
+event_accessKeyId = Lens.lens (\Event' {accessKeyId} -> accessKeyId) (\s@Event' {} a -> s {accessKeyId = a} :: Event)
 
--- | A user name or role name of the requester that called the API in the event returned.
-eUsername :: Lens' Event (Maybe Text)
-eUsername = lens _eUsername (\s a -> s {_eUsername = a})
+-- | A user name or role name of the requester that called the API in the
+-- event returned.
+event_username :: Lens.Lens' Event (Prelude.Maybe Prelude.Text)
+event_username = Lens.lens (\Event' {username} -> username) (\s@Event' {} a -> s {username = a} :: Event)
 
-instance FromJSON Event where
+instance Prelude.FromJSON Event where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Event"
       ( \x ->
           Event'
-            <$> (x .:? "CloudTrailEvent")
-            <*> (x .:? "EventId")
-            <*> (x .:? "EventSource")
-            <*> (x .:? "ReadOnly")
-            <*> (x .:? "EventName")
-            <*> (x .:? "Resources" .!= mempty)
-            <*> (x .:? "EventTime")
-            <*> (x .:? "AccessKeyId")
-            <*> (x .:? "Username")
+            Prelude.<$> (x Prelude..:? "CloudTrailEvent")
+            Prelude.<*> (x Prelude..:? "EventId")
+            Prelude.<*> (x Prelude..:? "EventSource")
+            Prelude.<*> (x Prelude..:? "ReadOnly")
+            Prelude.<*> (x Prelude..:? "EventName")
+            Prelude.<*> ( x Prelude..:? "Resources"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "EventTime")
+            Prelude.<*> (x Prelude..:? "AccessKeyId")
+            Prelude.<*> (x Prelude..:? "Username")
       )
 
-instance Hashable Event
+instance Prelude.Hashable Event
 
-instance NFData Event
+instance Prelude.NFData Event

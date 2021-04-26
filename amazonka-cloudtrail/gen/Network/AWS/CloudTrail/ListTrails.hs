@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,142 +23,194 @@
 --
 -- Lists trails that are in the current account.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.CloudTrail.ListTrails
   ( -- * Creating a Request
-    listTrails,
-    ListTrails,
+    ListTrails (..),
+    newListTrails,
 
     -- * Request Lenses
-    lNextToken,
+    listTrails_nextToken,
 
     -- * Destructuring the Response
-    listTrailsResponse,
-    ListTrailsResponse,
+    ListTrailsResponse (..),
+    newListTrailsResponse,
 
     -- * Response Lenses
-    lrsNextToken,
-    lrsTrails,
-    lrsResponseStatus,
+    listTrailsResponse_nextToken,
+    listTrailsResponse_trails,
+    listTrailsResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudTrail.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudTrail.Types.TrailInfo
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listTrails' smart constructor.
-newtype ListTrails = ListTrails'
-  { _lNextToken ::
-      Maybe Text
+-- | /See:/ 'newListTrails' smart constructor.
+data ListTrails = ListTrails'
+  { -- | The token to use to get the next page of results after a previous API
+    -- call. This token must be passed in with the same parameters that were
+    -- specified in the the original call. For example, if the original call
+    -- specified an AttributeKey of \'Username\' with a value of \'root\', the
+    -- call with NextToken should include those same parameters.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListTrails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListTrails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lNextToken' - The token to use to get the next page of results after a previous API call. This token must be passed in with the same parameters that were specified in the the original call. For example, if the original call specified an AttributeKey of 'Username' with a value of 'root', the call with NextToken should include those same parameters.
-listTrails ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'nextToken', 'listTrails_nextToken' - The token to use to get the next page of results after a previous API
+-- call. This token must be passed in with the same parameters that were
+-- specified in the the original call. For example, if the original call
+-- specified an AttributeKey of \'Username\' with a value of \'root\', the
+-- call with NextToken should include those same parameters.
+newListTrails ::
   ListTrails
-listTrails = ListTrails' {_lNextToken = Nothing}
+newListTrails =
+  ListTrails' {nextToken = Prelude.Nothing}
 
--- | The token to use to get the next page of results after a previous API call. This token must be passed in with the same parameters that were specified in the the original call. For example, if the original call specified an AttributeKey of 'Username' with a value of 'root', the call with NextToken should include those same parameters.
-lNextToken :: Lens' ListTrails (Maybe Text)
-lNextToken = lens _lNextToken (\s a -> s {_lNextToken = a})
+-- | The token to use to get the next page of results after a previous API
+-- call. This token must be passed in with the same parameters that were
+-- specified in the the original call. For example, if the original call
+-- specified an AttributeKey of \'Username\' with a value of \'root\', the
+-- call with NextToken should include those same parameters.
+listTrails_nextToken :: Lens.Lens' ListTrails (Prelude.Maybe Prelude.Text)
+listTrails_nextToken = Lens.lens (\ListTrails' {nextToken} -> nextToken) (\s@ListTrails' {} a -> s {nextToken = a} :: ListTrails)
 
-instance AWSPager ListTrails where
+instance Pager.AWSPager ListTrails where
   page rq rs
-    | stop (rs ^. lrsNextToken) = Nothing
-    | stop (rs ^. lrsTrails) = Nothing
-    | otherwise =
-      Just $ rq & lNextToken .~ rs ^. lrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listTrailsResponse_nextToken Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listTrailsResponse_trails Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listTrails_nextToken
+          Lens..~ rs
+          Lens.^? listTrailsResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest ListTrails where
+instance Prelude.AWSRequest ListTrails where
   type Rs ListTrails = ListTrailsResponse
-  request = postJSON cloudTrail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListTrailsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "Trails" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (x Prelude..?> "Trails" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListTrails
+instance Prelude.Hashable ListTrails
 
-instance NFData ListTrails
+instance Prelude.NFData ListTrails
 
-instance ToHeaders ListTrails where
+instance Prelude.ToHeaders ListTrails where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "com.amazonaws.cloudtrail.v20131101.CloudTrail_20131101.ListTrails" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "com.amazonaws.cloudtrail.v20131101.CloudTrail_20131101.ListTrails" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListTrails where
+instance Prelude.ToJSON ListTrails where
   toJSON ListTrails' {..} =
-    object
-      (catMaybes [("NextToken" .=) <$> _lNextToken])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("NextToken" Prelude..=) Prelude.<$> nextToken]
+      )
 
-instance ToPath ListTrails where
-  toPath = const "/"
+instance Prelude.ToPath ListTrails where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListTrails where
-  toQuery = const mempty
+instance Prelude.ToQuery ListTrails where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listTrailsResponse' smart constructor.
+-- | /See:/ 'newListTrailsResponse' smart constructor.
 data ListTrailsResponse = ListTrailsResponse'
-  { _lrsNextToken ::
-      !(Maybe Text),
-    _lrsTrails ::
-      !(Maybe [TrailInfo]),
-    _lrsResponseStatus :: !Int
+  { -- | The token to use to get the next page of results after a previous API
+    -- call. If the token does not appear, there are no more results to return.
+    -- The token must be passed in with the same parameters as the previous
+    -- call. For example, if the original call specified an AttributeKey of
+    -- \'Username\' with a value of \'root\', the call with NextToken should
+    -- include those same parameters.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Returns the name, ARN, and home region of trails in the current account.
+    trails :: Prelude.Maybe [TrailInfo],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListTrailsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListTrailsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lrsNextToken' - The token to use to get the next page of results after a previous API call. If the token does not appear, there are no more results to return. The token must be passed in with the same parameters as the previous call. For example, if the original call specified an AttributeKey of 'Username' with a value of 'root', the call with NextToken should include those same parameters.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lrsTrails' - Returns the name, ARN, and home region of trails in the current account.
+-- 'nextToken', 'listTrailsResponse_nextToken' - The token to use to get the next page of results after a previous API
+-- call. If the token does not appear, there are no more results to return.
+-- The token must be passed in with the same parameters as the previous
+-- call. For example, if the original call specified an AttributeKey of
+-- \'Username\' with a value of \'root\', the call with NextToken should
+-- include those same parameters.
 --
--- * 'lrsResponseStatus' - -- | The response status code.
-listTrailsResponse ::
-  -- | 'lrsResponseStatus'
-  Int ->
+-- 'trails', 'listTrailsResponse_trails' - Returns the name, ARN, and home region of trails in the current account.
+--
+-- 'httpStatus', 'listTrailsResponse_httpStatus' - The response's http status code.
+newListTrailsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListTrailsResponse
-listTrailsResponse pResponseStatus_ =
+newListTrailsResponse pHttpStatus_ =
   ListTrailsResponse'
-    { _lrsNextToken = Nothing,
-      _lrsTrails = Nothing,
-      _lrsResponseStatus = pResponseStatus_
+    { nextToken = Prelude.Nothing,
+      trails = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The token to use to get the next page of results after a previous API call. If the token does not appear, there are no more results to return. The token must be passed in with the same parameters as the previous call. For example, if the original call specified an AttributeKey of 'Username' with a value of 'root', the call with NextToken should include those same parameters.
-lrsNextToken :: Lens' ListTrailsResponse (Maybe Text)
-lrsNextToken = lens _lrsNextToken (\s a -> s {_lrsNextToken = a})
+-- | The token to use to get the next page of results after a previous API
+-- call. If the token does not appear, there are no more results to return.
+-- The token must be passed in with the same parameters as the previous
+-- call. For example, if the original call specified an AttributeKey of
+-- \'Username\' with a value of \'root\', the call with NextToken should
+-- include those same parameters.
+listTrailsResponse_nextToken :: Lens.Lens' ListTrailsResponse (Prelude.Maybe Prelude.Text)
+listTrailsResponse_nextToken = Lens.lens (\ListTrailsResponse' {nextToken} -> nextToken) (\s@ListTrailsResponse' {} a -> s {nextToken = a} :: ListTrailsResponse)
 
 -- | Returns the name, ARN, and home region of trails in the current account.
-lrsTrails :: Lens' ListTrailsResponse [TrailInfo]
-lrsTrails = lens _lrsTrails (\s a -> s {_lrsTrails = a}) . _Default . _Coerce
+listTrailsResponse_trails :: Lens.Lens' ListTrailsResponse (Prelude.Maybe [TrailInfo])
+listTrailsResponse_trails = Lens.lens (\ListTrailsResponse' {trails} -> trails) (\s@ListTrailsResponse' {} a -> s {trails = a} :: ListTrailsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lrsResponseStatus :: Lens' ListTrailsResponse Int
-lrsResponseStatus = lens _lrsResponseStatus (\s a -> s {_lrsResponseStatus = a})
+-- | The response's http status code.
+listTrailsResponse_httpStatus :: Lens.Lens' ListTrailsResponse Prelude.Int
+listTrailsResponse_httpStatus = Lens.lens (\ListTrailsResponse' {httpStatus} -> httpStatus) (\s@ListTrailsResponse' {} a -> s {httpStatus = a} :: ListTrailsResponse)
 
-instance NFData ListTrailsResponse
+instance Prelude.NFData ListTrailsResponse

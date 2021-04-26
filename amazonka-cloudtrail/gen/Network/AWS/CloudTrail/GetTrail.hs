@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,115 +24,136 @@
 -- Returns settings information for a specified trail.
 module Network.AWS.CloudTrail.GetTrail
   ( -- * Creating a Request
-    getTrail,
-    GetTrail,
+    GetTrail (..),
+    newGetTrail,
 
     -- * Request Lenses
-    gtName,
+    getTrail_name,
 
     -- * Destructuring the Response
-    getTrailResponse,
-    GetTrailResponse,
+    GetTrailResponse (..),
+    newGetTrailResponse,
 
     -- * Response Lenses
-    gtrrsTrail,
-    gtrrsResponseStatus,
+    getTrailResponse_trail,
+    getTrailResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudTrail.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudTrail.Types.Trail
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getTrail' smart constructor.
-newtype GetTrail = GetTrail' {_gtName :: Text}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- | /See:/ 'newGetTrail' smart constructor.
+data GetTrail = GetTrail'
+  { -- | The name or the Amazon Resource Name (ARN) of the trail for which you
+    -- want to retrieve settings information.
+    name :: Prelude.Text
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetTrail' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetTrail' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gtName' - The name or the Amazon Resource Name (ARN) of the trail for which you want to retrieve settings information.
-getTrail ::
-  -- | 'gtName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'name', 'getTrail_name' - The name or the Amazon Resource Name (ARN) of the trail for which you
+-- want to retrieve settings information.
+newGetTrail ::
+  -- | 'name'
+  Prelude.Text ->
   GetTrail
-getTrail pName_ = GetTrail' {_gtName = pName_}
+newGetTrail pName_ = GetTrail' {name = pName_}
 
--- | The name or the Amazon Resource Name (ARN) of the trail for which you want to retrieve settings information.
-gtName :: Lens' GetTrail Text
-gtName = lens _gtName (\s a -> s {_gtName = a})
+-- | The name or the Amazon Resource Name (ARN) of the trail for which you
+-- want to retrieve settings information.
+getTrail_name :: Lens.Lens' GetTrail Prelude.Text
+getTrail_name = Lens.lens (\GetTrail' {name} -> name) (\s@GetTrail' {} a -> s {name = a} :: GetTrail)
 
-instance AWSRequest GetTrail where
+instance Prelude.AWSRequest GetTrail where
   type Rs GetTrail = GetTrailResponse
-  request = postJSON cloudTrail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetTrailResponse'
-            <$> (x .?> "Trail") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Trail")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetTrail
+instance Prelude.Hashable GetTrail
 
-instance NFData GetTrail
+instance Prelude.NFData GetTrail
 
-instance ToHeaders GetTrail where
+instance Prelude.ToHeaders GetTrail where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "com.amazonaws.cloudtrail.v20131101.CloudTrail_20131101.GetTrail" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "com.amazonaws.cloudtrail.v20131101.CloudTrail_20131101.GetTrail" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetTrail where
+instance Prelude.ToJSON GetTrail where
   toJSON GetTrail' {..} =
-    object (catMaybes [Just ("Name" .= _gtName)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("Name" Prelude..= name)]
+      )
 
-instance ToPath GetTrail where
-  toPath = const "/"
+instance Prelude.ToPath GetTrail where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetTrail where
-  toQuery = const mempty
+instance Prelude.ToQuery GetTrail where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getTrailResponse' smart constructor.
+-- | /See:/ 'newGetTrailResponse' smart constructor.
 data GetTrailResponse = GetTrailResponse'
-  { _gtrrsTrail ::
-      !(Maybe Trail),
-    _gtrrsResponseStatus :: !Int
+  { trail :: Prelude.Maybe Trail,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetTrailResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetTrailResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gtrrsTrail' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gtrrsResponseStatus' - -- | The response status code.
-getTrailResponse ::
-  -- | 'gtrrsResponseStatus'
-  Int ->
+-- 'trail', 'getTrailResponse_trail' - Undocumented member.
+--
+-- 'httpStatus', 'getTrailResponse_httpStatus' - The response's http status code.
+newGetTrailResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetTrailResponse
-getTrailResponse pResponseStatus_ =
+newGetTrailResponse pHttpStatus_ =
   GetTrailResponse'
-    { _gtrrsTrail = Nothing,
-      _gtrrsResponseStatus = pResponseStatus_
+    { trail = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-gtrrsTrail :: Lens' GetTrailResponse (Maybe Trail)
-gtrrsTrail = lens _gtrrsTrail (\s a -> s {_gtrrsTrail = a})
+getTrailResponse_trail :: Lens.Lens' GetTrailResponse (Prelude.Maybe Trail)
+getTrailResponse_trail = Lens.lens (\GetTrailResponse' {trail} -> trail) (\s@GetTrailResponse' {} a -> s {trail = a} :: GetTrailResponse)
 
--- | -- | The response status code.
-gtrrsResponseStatus :: Lens' GetTrailResponse Int
-gtrrsResponseStatus = lens _gtrrsResponseStatus (\s a -> s {_gtrrsResponseStatus = a})
+-- | The response's http status code.
+getTrailResponse_httpStatus :: Lens.Lens' GetTrailResponse Prelude.Int
+getTrailResponse_httpStatus = Lens.lens (\GetTrailResponse' {httpStatus} -> httpStatus) (\s@GetTrailResponse' {} a -> s {httpStatus = a} :: GetTrailResponse)
 
-instance NFData GetTrailResponse
+instance Prelude.NFData GetTrailResponse

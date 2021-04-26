@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,209 +21,336 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Configures an event selector or advanced event selectors for your trail. Use event selectors or advanced event selectors to specify management and data event settings for your trail. By default, trails created without specific event selectors are configured to log all read and write management events, and no data events.
+-- Configures an event selector or advanced event selectors for your trail.
+-- Use event selectors or advanced event selectors to specify management
+-- and data event settings for your trail. By default, trails created
+-- without specific event selectors are configured to log all read and
+-- write management events, and no data events.
 --
---
--- When an event occurs in your account, CloudTrail evaluates the event selectors or advanced event selectors in all trails. For each trail, if the event matches any event selector, the trail processes and logs the event. If the event doesn't match any event selector, the trail doesn't log the event.
+-- When an event occurs in your account, CloudTrail evaluates the event
+-- selectors or advanced event selectors in all trails. For each trail, if
+-- the event matches any event selector, the trail processes and logs the
+-- event. If the event doesn\'t match any event selector, the trail
+-- doesn\'t log the event.
 --
 -- Example
 --
---     * You create an event selector for a trail and specify that you want write-only events.
+-- 1.  You create an event selector for a trail and specify that you want
+--     write-only events.
 --
---     * The EC2 @GetConsoleOutput@ and @RunInstances@ API operations occur in your account.
+-- 2.  The EC2 @GetConsoleOutput@ and @RunInstances@ API operations occur
+--     in your account.
 --
---     * CloudTrail evaluates whether the events match your event selectors.
+-- 3.  CloudTrail evaluates whether the events match your event selectors.
 --
---     * The @RunInstances@ is a write-only event and it matches your event selector. The trail logs the event.
+-- 4.  The @RunInstances@ is a write-only event and it matches your event
+--     selector. The trail logs the event.
 --
---     * The @GetConsoleOutput@ is a read-only event that doesn't match your event selector. The trail doesn't log the event.
+-- 5.  The @GetConsoleOutput@ is a read-only event that doesn\'t match your
+--     event selector. The trail doesn\'t log the event.
 --
+-- The @PutEventSelectors@ operation must be called from the region in
+-- which the trail was created; otherwise, an @InvalidHomeRegionException@
+-- exception is thrown.
 --
+-- You can configure up to five event selectors for each trail. For more
+-- information, see
+-- <https://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-management-and-data-events-with-cloudtrail.html Logging data and management events for trails>
+-- and
+-- <https://docs.aws.amazon.com/awscloudtrail/latest/userguide/WhatIsCloudTrail-Limits.html Quotas in AWS CloudTrail>
+-- in the /AWS CloudTrail User Guide/.
 --
--- The @PutEventSelectors@ operation must be called from the region in which the trail was created; otherwise, an @InvalidHomeRegionException@ exception is thrown.
---
--- You can configure up to five event selectors for each trail. For more information, see <https://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-management-and-data-events-with-cloudtrail.html Logging data and management events for trails > and <https://docs.aws.amazon.com/awscloudtrail/latest/userguide/WhatIsCloudTrail-Limits.html Quotas in AWS CloudTrail> in the /AWS CloudTrail User Guide/ .
---
--- You can add advanced event selectors, and conditions for your advanced event selectors, up to a maximum of 500 values for all conditions and selectors on a trail. You can use either @AdvancedEventSelectors@ or @EventSelectors@ , but not both. If you apply @AdvancedEventSelectors@ to a trail, any existing @EventSelectors@ are overwritten. For more information about advanced event selectors, see <https://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-data-events-with-cloudtrail.html Logging data events for trails> in the /AWS CloudTrail User Guide/ .
+-- You can add advanced event selectors, and conditions for your advanced
+-- event selectors, up to a maximum of 500 values for all conditions and
+-- selectors on a trail. You can use either @AdvancedEventSelectors@ or
+-- @EventSelectors@, but not both. If you apply @AdvancedEventSelectors@ to
+-- a trail, any existing @EventSelectors@ are overwritten. For more
+-- information about advanced event selectors, see
+-- <https://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-data-events-with-cloudtrail.html Logging data events for trails>
+-- in the /AWS CloudTrail User Guide/.
 module Network.AWS.CloudTrail.PutEventSelectors
   ( -- * Creating a Request
-    putEventSelectors,
-    PutEventSelectors,
+    PutEventSelectors (..),
+    newPutEventSelectors,
 
     -- * Request Lenses
-    pesEventSelectors,
-    pesAdvancedEventSelectors,
-    pesTrailName,
+    putEventSelectors_eventSelectors,
+    putEventSelectors_advancedEventSelectors,
+    putEventSelectors_trailName,
 
     -- * Destructuring the Response
-    putEventSelectorsResponse,
-    PutEventSelectorsResponse,
+    PutEventSelectorsResponse (..),
+    newPutEventSelectorsResponse,
 
     -- * Response Lenses
-    pesrrsTrailARN,
-    pesrrsEventSelectors,
-    pesrrsAdvancedEventSelectors,
-    pesrrsResponseStatus,
+    putEventSelectorsResponse_trailARN,
+    putEventSelectorsResponse_eventSelectors,
+    putEventSelectorsResponse_advancedEventSelectors,
+    putEventSelectorsResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudTrail.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudTrail.Types.AdvancedEventSelector
+import Network.AWS.CloudTrail.Types.EventSelector
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'putEventSelectors' smart constructor.
+-- | /See:/ 'newPutEventSelectors' smart constructor.
 data PutEventSelectors = PutEventSelectors'
-  { _pesEventSelectors ::
-      !(Maybe [EventSelector]),
-    _pesAdvancedEventSelectors ::
-      !(Maybe [AdvancedEventSelector]),
-    _pesTrailName :: !Text
+  { -- | Specifies the settings for your event selectors. You can configure up to
+    -- five event selectors for a trail. You can use either @EventSelectors@ or
+    -- @AdvancedEventSelectors@ in a @PutEventSelectors@ request, but not both.
+    -- If you apply @EventSelectors@ to a trail, any existing
+    -- @AdvancedEventSelectors@ are overwritten.
+    eventSelectors :: Prelude.Maybe [EventSelector],
+    -- | Specifies the settings for advanced event selectors. You can add
+    -- advanced event selectors, and conditions for your advanced event
+    -- selectors, up to a maximum of 500 values for all conditions and
+    -- selectors on a trail. You can use either @AdvancedEventSelectors@ or
+    -- @EventSelectors@, but not both. If you apply @AdvancedEventSelectors@ to
+    -- a trail, any existing @EventSelectors@ are overwritten. For more
+    -- information about advanced event selectors, see
+    -- <https://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-data-events-with-cloudtrail.html Logging data events for trails>
+    -- in the /AWS CloudTrail User Guide/.
+    advancedEventSelectors :: Prelude.Maybe [AdvancedEventSelector],
+    -- | Specifies the name of the trail or trail ARN. If you specify a trail
+    -- name, the string must meet the following requirements:
+    --
+    -- -   Contain only ASCII letters (a-z, A-Z), numbers (0-9), periods (.),
+    --     underscores (_), or dashes (-)
+    --
+    -- -   Start with a letter or number, and end with a letter or number
+    --
+    -- -   Be between 3 and 128 characters
+    --
+    -- -   Have no adjacent periods, underscores or dashes. Names like
+    --     @my-_namespace@ and @my--namespace@ are invalid.
+    --
+    -- -   Not be in IP address format (for example, 192.168.5.4)
+    --
+    -- If you specify a trail ARN, it must be in the format:
+    --
+    -- @arn:aws:cloudtrail:us-east-2:123456789012:trail\/MyTrail@
+    trailName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutEventSelectors' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutEventSelectors' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pesEventSelectors' - Specifies the settings for your event selectors. You can configure up to five event selectors for a trail. You can use either @EventSelectors@ or @AdvancedEventSelectors@ in a @PutEventSelectors@ request, but not both. If you apply @EventSelectors@ to a trail, any existing @AdvancedEventSelectors@ are overwritten.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pesAdvancedEventSelectors' - Specifies the settings for advanced event selectors. You can add advanced event selectors, and conditions for your advanced event selectors, up to a maximum of 500 values for all conditions and selectors on a trail. You can use either @AdvancedEventSelectors@ or @EventSelectors@ , but not both. If you apply @AdvancedEventSelectors@ to a trail, any existing @EventSelectors@ are overwritten. For more information about advanced event selectors, see <https://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-data-events-with-cloudtrail.html Logging data events for trails> in the /AWS CloudTrail User Guide/ .
+-- 'eventSelectors', 'putEventSelectors_eventSelectors' - Specifies the settings for your event selectors. You can configure up to
+-- five event selectors for a trail. You can use either @EventSelectors@ or
+-- @AdvancedEventSelectors@ in a @PutEventSelectors@ request, but not both.
+-- If you apply @EventSelectors@ to a trail, any existing
+-- @AdvancedEventSelectors@ are overwritten.
 --
--- * 'pesTrailName' - Specifies the name of the trail or trail ARN. If you specify a trail name, the string must meet the following requirements:     * Contain only ASCII letters (a-z, A-Z), numbers (0-9), periods (.), underscores (_), or dashes (-)     * Start with a letter or number, and end with a letter or number     * Be between 3 and 128 characters     * Have no adjacent periods, underscores or dashes. Names like @my-_namespace@ and @my--namespace@ are invalid.     * Not be in IP address format (for example, 192.168.5.4) If you specify a trail ARN, it must be in the format: @arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail@
-putEventSelectors ::
-  -- | 'pesTrailName'
-  Text ->
+-- 'advancedEventSelectors', 'putEventSelectors_advancedEventSelectors' - Specifies the settings for advanced event selectors. You can add
+-- advanced event selectors, and conditions for your advanced event
+-- selectors, up to a maximum of 500 values for all conditions and
+-- selectors on a trail. You can use either @AdvancedEventSelectors@ or
+-- @EventSelectors@, but not both. If you apply @AdvancedEventSelectors@ to
+-- a trail, any existing @EventSelectors@ are overwritten. For more
+-- information about advanced event selectors, see
+-- <https://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-data-events-with-cloudtrail.html Logging data events for trails>
+-- in the /AWS CloudTrail User Guide/.
+--
+-- 'trailName', 'putEventSelectors_trailName' - Specifies the name of the trail or trail ARN. If you specify a trail
+-- name, the string must meet the following requirements:
+--
+-- -   Contain only ASCII letters (a-z, A-Z), numbers (0-9), periods (.),
+--     underscores (_), or dashes (-)
+--
+-- -   Start with a letter or number, and end with a letter or number
+--
+-- -   Be between 3 and 128 characters
+--
+-- -   Have no adjacent periods, underscores or dashes. Names like
+--     @my-_namespace@ and @my--namespace@ are invalid.
+--
+-- -   Not be in IP address format (for example, 192.168.5.4)
+--
+-- If you specify a trail ARN, it must be in the format:
+--
+-- @arn:aws:cloudtrail:us-east-2:123456789012:trail\/MyTrail@
+newPutEventSelectors ::
+  -- | 'trailName'
+  Prelude.Text ->
   PutEventSelectors
-putEventSelectors pTrailName_ =
+newPutEventSelectors pTrailName_ =
   PutEventSelectors'
-    { _pesEventSelectors = Nothing,
-      _pesAdvancedEventSelectors = Nothing,
-      _pesTrailName = pTrailName_
+    { eventSelectors =
+        Prelude.Nothing,
+      advancedEventSelectors = Prelude.Nothing,
+      trailName = pTrailName_
     }
 
--- | Specifies the settings for your event selectors. You can configure up to five event selectors for a trail. You can use either @EventSelectors@ or @AdvancedEventSelectors@ in a @PutEventSelectors@ request, but not both. If you apply @EventSelectors@ to a trail, any existing @AdvancedEventSelectors@ are overwritten.
-pesEventSelectors :: Lens' PutEventSelectors [EventSelector]
-pesEventSelectors = lens _pesEventSelectors (\s a -> s {_pesEventSelectors = a}) . _Default . _Coerce
+-- | Specifies the settings for your event selectors. You can configure up to
+-- five event selectors for a trail. You can use either @EventSelectors@ or
+-- @AdvancedEventSelectors@ in a @PutEventSelectors@ request, but not both.
+-- If you apply @EventSelectors@ to a trail, any existing
+-- @AdvancedEventSelectors@ are overwritten.
+putEventSelectors_eventSelectors :: Lens.Lens' PutEventSelectors (Prelude.Maybe [EventSelector])
+putEventSelectors_eventSelectors = Lens.lens (\PutEventSelectors' {eventSelectors} -> eventSelectors) (\s@PutEventSelectors' {} a -> s {eventSelectors = a} :: PutEventSelectors) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Specifies the settings for advanced event selectors. You can add advanced event selectors, and conditions for your advanced event selectors, up to a maximum of 500 values for all conditions and selectors on a trail. You can use either @AdvancedEventSelectors@ or @EventSelectors@ , but not both. If you apply @AdvancedEventSelectors@ to a trail, any existing @EventSelectors@ are overwritten. For more information about advanced event selectors, see <https://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-data-events-with-cloudtrail.html Logging data events for trails> in the /AWS CloudTrail User Guide/ .
-pesAdvancedEventSelectors :: Lens' PutEventSelectors [AdvancedEventSelector]
-pesAdvancedEventSelectors = lens _pesAdvancedEventSelectors (\s a -> s {_pesAdvancedEventSelectors = a}) . _Default . _Coerce
+-- | Specifies the settings for advanced event selectors. You can add
+-- advanced event selectors, and conditions for your advanced event
+-- selectors, up to a maximum of 500 values for all conditions and
+-- selectors on a trail. You can use either @AdvancedEventSelectors@ or
+-- @EventSelectors@, but not both. If you apply @AdvancedEventSelectors@ to
+-- a trail, any existing @EventSelectors@ are overwritten. For more
+-- information about advanced event selectors, see
+-- <https://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-data-events-with-cloudtrail.html Logging data events for trails>
+-- in the /AWS CloudTrail User Guide/.
+putEventSelectors_advancedEventSelectors :: Lens.Lens' PutEventSelectors (Prelude.Maybe [AdvancedEventSelector])
+putEventSelectors_advancedEventSelectors = Lens.lens (\PutEventSelectors' {advancedEventSelectors} -> advancedEventSelectors) (\s@PutEventSelectors' {} a -> s {advancedEventSelectors = a} :: PutEventSelectors) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Specifies the name of the trail or trail ARN. If you specify a trail name, the string must meet the following requirements:     * Contain only ASCII letters (a-z, A-Z), numbers (0-9), periods (.), underscores (_), or dashes (-)     * Start with a letter or number, and end with a letter or number     * Be between 3 and 128 characters     * Have no adjacent periods, underscores or dashes. Names like @my-_namespace@ and @my--namespace@ are invalid.     * Not be in IP address format (for example, 192.168.5.4) If you specify a trail ARN, it must be in the format: @arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail@
-pesTrailName :: Lens' PutEventSelectors Text
-pesTrailName = lens _pesTrailName (\s a -> s {_pesTrailName = a})
+-- | Specifies the name of the trail or trail ARN. If you specify a trail
+-- name, the string must meet the following requirements:
+--
+-- -   Contain only ASCII letters (a-z, A-Z), numbers (0-9), periods (.),
+--     underscores (_), or dashes (-)
+--
+-- -   Start with a letter or number, and end with a letter or number
+--
+-- -   Be between 3 and 128 characters
+--
+-- -   Have no adjacent periods, underscores or dashes. Names like
+--     @my-_namespace@ and @my--namespace@ are invalid.
+--
+-- -   Not be in IP address format (for example, 192.168.5.4)
+--
+-- If you specify a trail ARN, it must be in the format:
+--
+-- @arn:aws:cloudtrail:us-east-2:123456789012:trail\/MyTrail@
+putEventSelectors_trailName :: Lens.Lens' PutEventSelectors Prelude.Text
+putEventSelectors_trailName = Lens.lens (\PutEventSelectors' {trailName} -> trailName) (\s@PutEventSelectors' {} a -> s {trailName = a} :: PutEventSelectors)
 
-instance AWSRequest PutEventSelectors where
+instance Prelude.AWSRequest PutEventSelectors where
   type Rs PutEventSelectors = PutEventSelectorsResponse
-  request = postJSON cloudTrail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           PutEventSelectorsResponse'
-            <$> (x .?> "TrailARN")
-            <*> (x .?> "EventSelectors" .!@ mempty)
-            <*> (x .?> "AdvancedEventSelectors" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "TrailARN")
+            Prelude.<*> ( x Prelude..?> "EventSelectors"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..?> "AdvancedEventSelectors"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable PutEventSelectors
+instance Prelude.Hashable PutEventSelectors
 
-instance NFData PutEventSelectors
+instance Prelude.NFData PutEventSelectors
 
-instance ToHeaders PutEventSelectors where
+instance Prelude.ToHeaders PutEventSelectors where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "com.amazonaws.cloudtrail.v20131101.CloudTrail_20131101.PutEventSelectors" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "com.amazonaws.cloudtrail.v20131101.CloudTrail_20131101.PutEventSelectors" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON PutEventSelectors where
+instance Prelude.ToJSON PutEventSelectors where
   toJSON PutEventSelectors' {..} =
-    object
-      ( catMaybes
-          [ ("EventSelectors" .=) <$> _pesEventSelectors,
-            ("AdvancedEventSelectors" .=)
-              <$> _pesAdvancedEventSelectors,
-            Just ("TrailName" .= _pesTrailName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("EventSelectors" Prelude..=)
+              Prelude.<$> eventSelectors,
+            ("AdvancedEventSelectors" Prelude..=)
+              Prelude.<$> advancedEventSelectors,
+            Prelude.Just ("TrailName" Prelude..= trailName)
           ]
       )
 
-instance ToPath PutEventSelectors where
-  toPath = const "/"
+instance Prelude.ToPath PutEventSelectors where
+  toPath = Prelude.const "/"
 
-instance ToQuery PutEventSelectors where
-  toQuery = const mempty
+instance Prelude.ToQuery PutEventSelectors where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'putEventSelectorsResponse' smart constructor.
+-- | /See:/ 'newPutEventSelectorsResponse' smart constructor.
 data PutEventSelectorsResponse = PutEventSelectorsResponse'
-  { _pesrrsTrailARN ::
-      !(Maybe Text),
-    _pesrrsEventSelectors ::
-      !( Maybe
-           [EventSelector]
-       ),
-    _pesrrsAdvancedEventSelectors ::
-      !( Maybe
-           [AdvancedEventSelector]
-       ),
-    _pesrrsResponseStatus ::
-      !Int
+  { -- | Specifies the ARN of the trail that was updated with event selectors.
+    -- The format of a trail ARN is:
+    --
+    -- @arn:aws:cloudtrail:us-east-2:123456789012:trail\/MyTrail@
+    trailARN :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the event selectors configured for your trail.
+    eventSelectors :: Prelude.Maybe [EventSelector],
+    -- | Specifies the advanced event selectors configured for your trail.
+    advancedEventSelectors :: Prelude.Maybe [AdvancedEventSelector],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutEventSelectorsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutEventSelectorsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pesrrsTrailARN' - Specifies the ARN of the trail that was updated with event selectors. The format of a trail ARN is: @arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail@
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pesrrsEventSelectors' - Specifies the event selectors configured for your trail.
+-- 'trailARN', 'putEventSelectorsResponse_trailARN' - Specifies the ARN of the trail that was updated with event selectors.
+-- The format of a trail ARN is:
 --
--- * 'pesrrsAdvancedEventSelectors' - Specifies the advanced event selectors configured for your trail.
+-- @arn:aws:cloudtrail:us-east-2:123456789012:trail\/MyTrail@
 --
--- * 'pesrrsResponseStatus' - -- | The response status code.
-putEventSelectorsResponse ::
-  -- | 'pesrrsResponseStatus'
-  Int ->
+-- 'eventSelectors', 'putEventSelectorsResponse_eventSelectors' - Specifies the event selectors configured for your trail.
+--
+-- 'advancedEventSelectors', 'putEventSelectorsResponse_advancedEventSelectors' - Specifies the advanced event selectors configured for your trail.
+--
+-- 'httpStatus', 'putEventSelectorsResponse_httpStatus' - The response's http status code.
+newPutEventSelectorsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   PutEventSelectorsResponse
-putEventSelectorsResponse pResponseStatus_ =
+newPutEventSelectorsResponse pHttpStatus_ =
   PutEventSelectorsResponse'
-    { _pesrrsTrailARN =
-        Nothing,
-      _pesrrsEventSelectors = Nothing,
-      _pesrrsAdvancedEventSelectors = Nothing,
-      _pesrrsResponseStatus = pResponseStatus_
+    { trailARN =
+        Prelude.Nothing,
+      eventSelectors = Prelude.Nothing,
+      advancedEventSelectors = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Specifies the ARN of the trail that was updated with event selectors. The format of a trail ARN is: @arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail@
-pesrrsTrailARN :: Lens' PutEventSelectorsResponse (Maybe Text)
-pesrrsTrailARN = lens _pesrrsTrailARN (\s a -> s {_pesrrsTrailARN = a})
+-- | Specifies the ARN of the trail that was updated with event selectors.
+-- The format of a trail ARN is:
+--
+-- @arn:aws:cloudtrail:us-east-2:123456789012:trail\/MyTrail@
+putEventSelectorsResponse_trailARN :: Lens.Lens' PutEventSelectorsResponse (Prelude.Maybe Prelude.Text)
+putEventSelectorsResponse_trailARN = Lens.lens (\PutEventSelectorsResponse' {trailARN} -> trailARN) (\s@PutEventSelectorsResponse' {} a -> s {trailARN = a} :: PutEventSelectorsResponse)
 
 -- | Specifies the event selectors configured for your trail.
-pesrrsEventSelectors :: Lens' PutEventSelectorsResponse [EventSelector]
-pesrrsEventSelectors = lens _pesrrsEventSelectors (\s a -> s {_pesrrsEventSelectors = a}) . _Default . _Coerce
+putEventSelectorsResponse_eventSelectors :: Lens.Lens' PutEventSelectorsResponse (Prelude.Maybe [EventSelector])
+putEventSelectorsResponse_eventSelectors = Lens.lens (\PutEventSelectorsResponse' {eventSelectors} -> eventSelectors) (\s@PutEventSelectorsResponse' {} a -> s {eventSelectors = a} :: PutEventSelectorsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Specifies the advanced event selectors configured for your trail.
-pesrrsAdvancedEventSelectors :: Lens' PutEventSelectorsResponse [AdvancedEventSelector]
-pesrrsAdvancedEventSelectors = lens _pesrrsAdvancedEventSelectors (\s a -> s {_pesrrsAdvancedEventSelectors = a}) . _Default . _Coerce
+putEventSelectorsResponse_advancedEventSelectors :: Lens.Lens' PutEventSelectorsResponse (Prelude.Maybe [AdvancedEventSelector])
+putEventSelectorsResponse_advancedEventSelectors = Lens.lens (\PutEventSelectorsResponse' {advancedEventSelectors} -> advancedEventSelectors) (\s@PutEventSelectorsResponse' {} a -> s {advancedEventSelectors = a} :: PutEventSelectorsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-pesrrsResponseStatus :: Lens' PutEventSelectorsResponse Int
-pesrrsResponseStatus = lens _pesrrsResponseStatus (\s a -> s {_pesrrsResponseStatus = a})
+-- | The response's http status code.
+putEventSelectorsResponse_httpStatus :: Lens.Lens' PutEventSelectorsResponse Prelude.Int
+putEventSelectorsResponse_httpStatus = Lens.lens (\PutEventSelectorsResponse' {httpStatus} -> httpStatus) (\s@PutEventSelectorsResponse' {} a -> s {httpStatus = a} :: PutEventSelectorsResponse)
 
-instance NFData PutEventSelectorsResponse
+instance Prelude.NFData PutEventSelectorsResponse

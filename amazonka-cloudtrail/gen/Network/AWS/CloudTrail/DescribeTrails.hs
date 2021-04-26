@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,154 +21,245 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves settings for one or more trails associated with the current region for your account.
+-- Retrieves settings for one or more trails associated with the current
+-- region for your account.
 module Network.AWS.CloudTrail.DescribeTrails
   ( -- * Creating a Request
-    describeTrails,
-    DescribeTrails,
+    DescribeTrails (..),
+    newDescribeTrails,
 
     -- * Request Lenses
-    dtTrailNameList,
-    dtIncludeShadowTrails,
+    describeTrails_trailNameList,
+    describeTrails_includeShadowTrails,
 
     -- * Destructuring the Response
-    describeTrailsResponse,
-    DescribeTrailsResponse,
+    DescribeTrailsResponse (..),
+    newDescribeTrailsResponse,
 
     -- * Response Lenses
-    dtrrsTrailList,
-    dtrrsResponseStatus,
+    describeTrailsResponse_trailList,
+    describeTrailsResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudTrail.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudTrail.Types.Trail
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Returns information about the trail.
 --
---
---
--- /See:/ 'describeTrails' smart constructor.
+-- /See:/ 'newDescribeTrails' smart constructor.
 data DescribeTrails = DescribeTrails'
-  { _dtTrailNameList ::
-      !(Maybe [Text]),
-    _dtIncludeShadowTrails :: !(Maybe Bool)
+  { -- | Specifies a list of trail names, trail ARNs, or both, of the trails to
+    -- describe. The format of a trail ARN is:
+    --
+    -- @arn:aws:cloudtrail:us-east-2:123456789012:trail\/MyTrail@
+    --
+    -- If an empty list is specified, information for the trail in the current
+    -- region is returned.
+    --
+    -- -   If an empty list is specified and @IncludeShadowTrails@ is false,
+    --     then information for all trails in the current region is returned.
+    --
+    -- -   If an empty list is specified and IncludeShadowTrails is null or
+    --     true, then information for all trails in the current region and any
+    --     associated shadow trails in other regions is returned.
+    --
+    -- If one or more trail names are specified, information is returned only
+    -- if the names match the names of trails belonging only to the current
+    -- region. To return information about a trail in another region, you must
+    -- specify its trail ARN.
+    trailNameList :: Prelude.Maybe [Prelude.Text],
+    -- | Specifies whether to include shadow trails in the response. A shadow
+    -- trail is the replication in a region of a trail that was created in a
+    -- different region, or in the case of an organization trail, the
+    -- replication of an organization trail in member accounts. If you do not
+    -- include shadow trails, organization trails in a member account and
+    -- region replication trails will not be returned. The default is true.
+    includeShadowTrails :: Prelude.Maybe Prelude.Bool
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeTrails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeTrails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtTrailNameList' - Specifies a list of trail names, trail ARNs, or both, of the trails to describe. The format of a trail ARN is: @arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail@  If an empty list is specified, information for the trail in the current region is returned.     * If an empty list is specified and @IncludeShadowTrails@ is false, then information for all trails in the current region is returned.     * If an empty list is specified and IncludeShadowTrails is null or true, then information for all trails in the current region and any associated shadow trails in other regions is returned.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtIncludeShadowTrails' - Specifies whether to include shadow trails in the response. A shadow trail is the replication in a region of a trail that was created in a different region, or in the case of an organization trail, the replication of an organization trail in member accounts. If you do not include shadow trails, organization trails in a member account and region replication trails will not be returned. The default is true.
-describeTrails ::
+-- 'trailNameList', 'describeTrails_trailNameList' - Specifies a list of trail names, trail ARNs, or both, of the trails to
+-- describe. The format of a trail ARN is:
+--
+-- @arn:aws:cloudtrail:us-east-2:123456789012:trail\/MyTrail@
+--
+-- If an empty list is specified, information for the trail in the current
+-- region is returned.
+--
+-- -   If an empty list is specified and @IncludeShadowTrails@ is false,
+--     then information for all trails in the current region is returned.
+--
+-- -   If an empty list is specified and IncludeShadowTrails is null or
+--     true, then information for all trails in the current region and any
+--     associated shadow trails in other regions is returned.
+--
+-- If one or more trail names are specified, information is returned only
+-- if the names match the names of trails belonging only to the current
+-- region. To return information about a trail in another region, you must
+-- specify its trail ARN.
+--
+-- 'includeShadowTrails', 'describeTrails_includeShadowTrails' - Specifies whether to include shadow trails in the response. A shadow
+-- trail is the replication in a region of a trail that was created in a
+-- different region, or in the case of an organization trail, the
+-- replication of an organization trail in member accounts. If you do not
+-- include shadow trails, organization trails in a member account and
+-- region replication trails will not be returned. The default is true.
+newDescribeTrails ::
   DescribeTrails
-describeTrails =
+newDescribeTrails =
   DescribeTrails'
-    { _dtTrailNameList = Nothing,
-      _dtIncludeShadowTrails = Nothing
+    { trailNameList = Prelude.Nothing,
+      includeShadowTrails = Prelude.Nothing
     }
 
--- | Specifies a list of trail names, trail ARNs, or both, of the trails to describe. The format of a trail ARN is: @arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail@  If an empty list is specified, information for the trail in the current region is returned.     * If an empty list is specified and @IncludeShadowTrails@ is false, then information for all trails in the current region is returned.     * If an empty list is specified and IncludeShadowTrails is null or true, then information for all trails in the current region and any associated shadow trails in other regions is returned.
-dtTrailNameList :: Lens' DescribeTrails [Text]
-dtTrailNameList = lens _dtTrailNameList (\s a -> s {_dtTrailNameList = a}) . _Default . _Coerce
+-- | Specifies a list of trail names, trail ARNs, or both, of the trails to
+-- describe. The format of a trail ARN is:
+--
+-- @arn:aws:cloudtrail:us-east-2:123456789012:trail\/MyTrail@
+--
+-- If an empty list is specified, information for the trail in the current
+-- region is returned.
+--
+-- -   If an empty list is specified and @IncludeShadowTrails@ is false,
+--     then information for all trails in the current region is returned.
+--
+-- -   If an empty list is specified and IncludeShadowTrails is null or
+--     true, then information for all trails in the current region and any
+--     associated shadow trails in other regions is returned.
+--
+-- If one or more trail names are specified, information is returned only
+-- if the names match the names of trails belonging only to the current
+-- region. To return information about a trail in another region, you must
+-- specify its trail ARN.
+describeTrails_trailNameList :: Lens.Lens' DescribeTrails (Prelude.Maybe [Prelude.Text])
+describeTrails_trailNameList = Lens.lens (\DescribeTrails' {trailNameList} -> trailNameList) (\s@DescribeTrails' {} a -> s {trailNameList = a} :: DescribeTrails) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Specifies whether to include shadow trails in the response. A shadow trail is the replication in a region of a trail that was created in a different region, or in the case of an organization trail, the replication of an organization trail in member accounts. If you do not include shadow trails, organization trails in a member account and region replication trails will not be returned. The default is true.
-dtIncludeShadowTrails :: Lens' DescribeTrails (Maybe Bool)
-dtIncludeShadowTrails = lens _dtIncludeShadowTrails (\s a -> s {_dtIncludeShadowTrails = a})
+-- | Specifies whether to include shadow trails in the response. A shadow
+-- trail is the replication in a region of a trail that was created in a
+-- different region, or in the case of an organization trail, the
+-- replication of an organization trail in member accounts. If you do not
+-- include shadow trails, organization trails in a member account and
+-- region replication trails will not be returned. The default is true.
+describeTrails_includeShadowTrails :: Lens.Lens' DescribeTrails (Prelude.Maybe Prelude.Bool)
+describeTrails_includeShadowTrails = Lens.lens (\DescribeTrails' {includeShadowTrails} -> includeShadowTrails) (\s@DescribeTrails' {} a -> s {includeShadowTrails = a} :: DescribeTrails)
 
-instance AWSRequest DescribeTrails where
+instance Prelude.AWSRequest DescribeTrails where
   type Rs DescribeTrails = DescribeTrailsResponse
-  request = postJSON cloudTrail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeTrailsResponse'
-            <$> (x .?> "trailList" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "trailList"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeTrails
+instance Prelude.Hashable DescribeTrails
 
-instance NFData DescribeTrails
+instance Prelude.NFData DescribeTrails
 
-instance ToHeaders DescribeTrails where
+instance Prelude.ToHeaders DescribeTrails where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "com.amazonaws.cloudtrail.v20131101.CloudTrail_20131101.DescribeTrails" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "com.amazonaws.cloudtrail.v20131101.CloudTrail_20131101.DescribeTrails" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeTrails where
+instance Prelude.ToJSON DescribeTrails where
   toJSON DescribeTrails' {..} =
-    object
-      ( catMaybes
-          [ ("trailNameList" .=) <$> _dtTrailNameList,
-            ("includeShadowTrails" .=)
-              <$> _dtIncludeShadowTrails
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("trailNameList" Prelude..=)
+              Prelude.<$> trailNameList,
+            ("includeShadowTrails" Prelude..=)
+              Prelude.<$> includeShadowTrails
           ]
       )
 
-instance ToPath DescribeTrails where
-  toPath = const "/"
+instance Prelude.ToPath DescribeTrails where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeTrails where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeTrails where
+  toQuery = Prelude.const Prelude.mempty
 
--- | Returns the objects or data listed below if successful. Otherwise, returns an error.
+-- | Returns the objects or data listed below if successful. Otherwise,
+-- returns an error.
 --
---
---
--- /See:/ 'describeTrailsResponse' smart constructor.
+-- /See:/ 'newDescribeTrailsResponse' smart constructor.
 data DescribeTrailsResponse = DescribeTrailsResponse'
-  { _dtrrsTrailList ::
-      !(Maybe [Trail]),
-    _dtrrsResponseStatus ::
-      !Int
+  { -- | The list of trail objects. Trail objects with string values are only
+    -- returned if values for the objects exist in a trail\'s configuration.
+    -- For example, @SNSTopicName@ and @SNSTopicARN@ are only returned in
+    -- results if a trail is configured to send SNS notifications. Similarly,
+    -- @KMSKeyId@ only appears in results if a trail\'s log files are encrypted
+    -- with AWS KMS-managed keys.
+    trailList :: Prelude.Maybe [Trail],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeTrailsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeTrailsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtrrsTrailList' - The list of trail objects. Trail objects with string values are only returned if values for the objects exist in a trail's configuration. For example, @SNSTopicName@ and @SNSTopicARN@ are only returned in results if a trail is configured to send SNS notifications. Similarly, @KMSKeyId@ only appears in results if a trail's log files are encrypted with AWS KMS-managed keys.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtrrsResponseStatus' - -- | The response status code.
-describeTrailsResponse ::
-  -- | 'dtrrsResponseStatus'
-  Int ->
+-- 'trailList', 'describeTrailsResponse_trailList' - The list of trail objects. Trail objects with string values are only
+-- returned if values for the objects exist in a trail\'s configuration.
+-- For example, @SNSTopicName@ and @SNSTopicARN@ are only returned in
+-- results if a trail is configured to send SNS notifications. Similarly,
+-- @KMSKeyId@ only appears in results if a trail\'s log files are encrypted
+-- with AWS KMS-managed keys.
+--
+-- 'httpStatus', 'describeTrailsResponse_httpStatus' - The response's http status code.
+newDescribeTrailsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeTrailsResponse
-describeTrailsResponse pResponseStatus_ =
+newDescribeTrailsResponse pHttpStatus_ =
   DescribeTrailsResponse'
-    { _dtrrsTrailList = Nothing,
-      _dtrrsResponseStatus = pResponseStatus_
+    { trailList =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The list of trail objects. Trail objects with string values are only returned if values for the objects exist in a trail's configuration. For example, @SNSTopicName@ and @SNSTopicARN@ are only returned in results if a trail is configured to send SNS notifications. Similarly, @KMSKeyId@ only appears in results if a trail's log files are encrypted with AWS KMS-managed keys.
-dtrrsTrailList :: Lens' DescribeTrailsResponse [Trail]
-dtrrsTrailList = lens _dtrrsTrailList (\s a -> s {_dtrrsTrailList = a}) . _Default . _Coerce
+-- | The list of trail objects. Trail objects with string values are only
+-- returned if values for the objects exist in a trail\'s configuration.
+-- For example, @SNSTopicName@ and @SNSTopicARN@ are only returned in
+-- results if a trail is configured to send SNS notifications. Similarly,
+-- @KMSKeyId@ only appears in results if a trail\'s log files are encrypted
+-- with AWS KMS-managed keys.
+describeTrailsResponse_trailList :: Lens.Lens' DescribeTrailsResponse (Prelude.Maybe [Trail])
+describeTrailsResponse_trailList = Lens.lens (\DescribeTrailsResponse' {trailList} -> trailList) (\s@DescribeTrailsResponse' {} a -> s {trailList = a} :: DescribeTrailsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dtrrsResponseStatus :: Lens' DescribeTrailsResponse Int
-dtrrsResponseStatus = lens _dtrrsResponseStatus (\s a -> s {_dtrrsResponseStatus = a})
+-- | The response's http status code.
+describeTrailsResponse_httpStatus :: Lens.Lens' DescribeTrailsResponse Prelude.Int
+describeTrailsResponse_httpStatus = Lens.lens (\DescribeTrailsResponse' {httpStatus} -> httpStatus) (\s@DescribeTrailsResponse' {} a -> s {httpStatus = a} :: DescribeTrailsResponse)
 
-instance NFData DescribeTrailsResponse
+instance Prelude.NFData DescribeTrailsResponse

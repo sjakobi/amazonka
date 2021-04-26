@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,179 +19,260 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudTrail.Types.Trail where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The settings for a trail.
 --
---
---
--- /See:/ 'trail' smart constructor.
+-- /See:/ 'newTrail' smart constructor.
 data Trail = Trail'
-  { _tTrailARN :: !(Maybe Text),
-    _tLogFileValidationEnabled :: !(Maybe Bool),
-    _tIsOrganizationTrail :: !(Maybe Bool),
-    _tHasCustomEventSelectors :: !(Maybe Bool),
-    _tSNSTopicName :: !(Maybe Text),
-    _tIncludeGlobalServiceEvents :: !(Maybe Bool),
-    _tHomeRegion :: !(Maybe Text),
-    _tKMSKeyId :: !(Maybe Text),
-    _tS3KeyPrefix :: !(Maybe Text),
-    _tName :: !(Maybe Text),
-    _tCloudWatchLogsLogGroupARN :: !(Maybe Text),
-    _tIsMultiRegionTrail :: !(Maybe Bool),
-    _tS3BucketName :: !(Maybe Text),
-    _tCloudWatchLogsRoleARN :: !(Maybe Text),
-    _tSNSTopicARN :: !(Maybe Text),
-    _tHasInsightSelectors :: !(Maybe Bool)
+  { -- | Specifies the ARN of the trail. The format of a trail ARN is:
+    --
+    -- @arn:aws:cloudtrail:us-east-2:123456789012:trail\/MyTrail@
+    trailARN :: Prelude.Maybe Prelude.Text,
+    -- | Specifies whether log file validation is enabled.
+    logFileValidationEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | Specifies whether the trail is an organization trail.
+    isOrganizationTrail :: Prelude.Maybe Prelude.Bool,
+    -- | Specifies if the trail has custom event selectors.
+    hasCustomEventSelectors :: Prelude.Maybe Prelude.Bool,
+    -- | This field is no longer in use. Use SnsTopicARN.
+    snsTopicName :: Prelude.Maybe Prelude.Text,
+    -- | Set to __True__ to include AWS API calls from AWS global services such
+    -- as IAM. Otherwise, __False__.
+    includeGlobalServiceEvents :: Prelude.Maybe Prelude.Bool,
+    -- | The region in which the trail was created.
+    homeRegion :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the KMS key ID that encrypts the logs delivered by CloudTrail.
+    -- The value is a fully specified ARN to a KMS key in the format:
+    --
+    -- @arn:aws:kms:us-east-2:123456789012:key\/12345678-1234-1234-1234-123456789012@
+    kmsKeyId :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the Amazon S3 key prefix that comes after the name of the
+    -- bucket you have designated for log file delivery. For more information,
+    -- see
+    -- <https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-find-log-files.html Finding Your CloudTrail Log Files>.The
+    -- maximum length is 200 characters.
+    s3KeyPrefix :: Prelude.Maybe Prelude.Text,
+    -- | Name of the trail set by calling CreateTrail. The maximum length is 128
+    -- characters.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | Specifies an Amazon Resource Name (ARN), a unique identifier that
+    -- represents the log group to which CloudTrail logs will be delivered.
+    cloudWatchLogsLogGroupArn :: Prelude.Maybe Prelude.Text,
+    -- | Specifies whether the trail exists only in one region or exists in all
+    -- regions.
+    isMultiRegionTrail :: Prelude.Maybe Prelude.Bool,
+    -- | Name of the Amazon S3 bucket into which CloudTrail delivers your trail
+    -- files. See
+    -- <https://docs.aws.amazon.com/awscloudtrail/latest/userguide/create_trail_naming_policy.html Amazon S3 Bucket Naming Requirements>.
+    s3BucketName :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the role for the CloudWatch Logs endpoint to assume to write
+    -- to a user\'s log group.
+    cloudWatchLogsRoleArn :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the ARN of the Amazon SNS topic that CloudTrail uses to send
+    -- notifications when log files are delivered. The format of a topic ARN
+    -- is:
+    --
+    -- @arn:aws:sns:us-east-2:123456789012:MyTopic@
+    snsTopicARN :: Prelude.Maybe Prelude.Text,
+    -- | Specifies whether a trail has insight types specified in an
+    -- @InsightSelector@ list.
+    hasInsightSelectors :: Prelude.Maybe Prelude.Bool
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Trail' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Trail' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tTrailARN' - Specifies the ARN of the trail. The format of a trail ARN is: @arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail@
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tLogFileValidationEnabled' - Specifies whether log file validation is enabled.
+-- 'trailARN', 'trail_trailARN' - Specifies the ARN of the trail. The format of a trail ARN is:
 --
--- * 'tIsOrganizationTrail' - Specifies whether the trail is an organization trail.
+-- @arn:aws:cloudtrail:us-east-2:123456789012:trail\/MyTrail@
 --
--- * 'tHasCustomEventSelectors' - Specifies if the trail has custom event selectors.
+-- 'logFileValidationEnabled', 'trail_logFileValidationEnabled' - Specifies whether log file validation is enabled.
 --
--- * 'tSNSTopicName' - This field is no longer in use. Use SnsTopicARN.
+-- 'isOrganizationTrail', 'trail_isOrganizationTrail' - Specifies whether the trail is an organization trail.
 --
--- * 'tIncludeGlobalServiceEvents' - Set to __True__ to include AWS API calls from AWS global services such as IAM. Otherwise, __False__ .
+-- 'hasCustomEventSelectors', 'trail_hasCustomEventSelectors' - Specifies if the trail has custom event selectors.
 --
--- * 'tHomeRegion' - The region in which the trail was created.
+-- 'snsTopicName', 'trail_snsTopicName' - This field is no longer in use. Use SnsTopicARN.
 --
--- * 'tKMSKeyId' - Specifies the KMS key ID that encrypts the logs delivered by CloudTrail. The value is a fully specified ARN to a KMS key in the format: @arn:aws:kms:us-east-2:123456789012:key/12345678-1234-1234-1234-123456789012@
+-- 'includeGlobalServiceEvents', 'trail_includeGlobalServiceEvents' - Set to __True__ to include AWS API calls from AWS global services such
+-- as IAM. Otherwise, __False__.
 --
--- * 'tS3KeyPrefix' - Specifies the Amazon S3 key prefix that comes after the name of the bucket you have designated for log file delivery. For more information, see <https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-find-log-files.html Finding Your CloudTrail Log Files> .The maximum length is 200 characters.
+-- 'homeRegion', 'trail_homeRegion' - The region in which the trail was created.
 --
--- * 'tName' - Name of the trail set by calling 'CreateTrail' . The maximum length is 128 characters.
+-- 'kmsKeyId', 'trail_kmsKeyId' - Specifies the KMS key ID that encrypts the logs delivered by CloudTrail.
+-- The value is a fully specified ARN to a KMS key in the format:
 --
--- * 'tCloudWatchLogsLogGroupARN' - Specifies an Amazon Resource Name (ARN), a unique identifier that represents the log group to which CloudTrail logs will be delivered.
+-- @arn:aws:kms:us-east-2:123456789012:key\/12345678-1234-1234-1234-123456789012@
 --
--- * 'tIsMultiRegionTrail' - Specifies whether the trail exists only in one region or exists in all regions.
+-- 's3KeyPrefix', 'trail_s3KeyPrefix' - Specifies the Amazon S3 key prefix that comes after the name of the
+-- bucket you have designated for log file delivery. For more information,
+-- see
+-- <https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-find-log-files.html Finding Your CloudTrail Log Files>.The
+-- maximum length is 200 characters.
 --
--- * 'tS3BucketName' - Name of the Amazon S3 bucket into which CloudTrail delivers your trail files. See <https://docs.aws.amazon.com/awscloudtrail/latest/userguide/create_trail_naming_policy.html Amazon S3 Bucket Naming Requirements> .
+-- 'name', 'trail_name' - Name of the trail set by calling CreateTrail. The maximum length is 128
+-- characters.
 --
--- * 'tCloudWatchLogsRoleARN' - Specifies the role for the CloudWatch Logs endpoint to assume to write to a user's log group.
+-- 'cloudWatchLogsLogGroupArn', 'trail_cloudWatchLogsLogGroupArn' - Specifies an Amazon Resource Name (ARN), a unique identifier that
+-- represents the log group to which CloudTrail logs will be delivered.
 --
--- * 'tSNSTopicARN' - Specifies the ARN of the Amazon SNS topic that CloudTrail uses to send notifications when log files are delivered. The format of a topic ARN is: @arn:aws:sns:us-east-2:123456789012:MyTopic@
+-- 'isMultiRegionTrail', 'trail_isMultiRegionTrail' - Specifies whether the trail exists only in one region or exists in all
+-- regions.
 --
--- * 'tHasInsightSelectors' - Specifies whether a trail has insight types specified in an @InsightSelector@ list.
-trail ::
+-- 's3BucketName', 'trail_s3BucketName' - Name of the Amazon S3 bucket into which CloudTrail delivers your trail
+-- files. See
+-- <https://docs.aws.amazon.com/awscloudtrail/latest/userguide/create_trail_naming_policy.html Amazon S3 Bucket Naming Requirements>.
+--
+-- 'cloudWatchLogsRoleArn', 'trail_cloudWatchLogsRoleArn' - Specifies the role for the CloudWatch Logs endpoint to assume to write
+-- to a user\'s log group.
+--
+-- 'snsTopicARN', 'trail_snsTopicARN' - Specifies the ARN of the Amazon SNS topic that CloudTrail uses to send
+-- notifications when log files are delivered. The format of a topic ARN
+-- is:
+--
+-- @arn:aws:sns:us-east-2:123456789012:MyTopic@
+--
+-- 'hasInsightSelectors', 'trail_hasInsightSelectors' - Specifies whether a trail has insight types specified in an
+-- @InsightSelector@ list.
+newTrail ::
   Trail
-trail =
+newTrail =
   Trail'
-    { _tTrailARN = Nothing,
-      _tLogFileValidationEnabled = Nothing,
-      _tIsOrganizationTrail = Nothing,
-      _tHasCustomEventSelectors = Nothing,
-      _tSNSTopicName = Nothing,
-      _tIncludeGlobalServiceEvents = Nothing,
-      _tHomeRegion = Nothing,
-      _tKMSKeyId = Nothing,
-      _tS3KeyPrefix = Nothing,
-      _tName = Nothing,
-      _tCloudWatchLogsLogGroupARN = Nothing,
-      _tIsMultiRegionTrail = Nothing,
-      _tS3BucketName = Nothing,
-      _tCloudWatchLogsRoleARN = Nothing,
-      _tSNSTopicARN = Nothing,
-      _tHasInsightSelectors = Nothing
+    { trailARN = Prelude.Nothing,
+      logFileValidationEnabled = Prelude.Nothing,
+      isOrganizationTrail = Prelude.Nothing,
+      hasCustomEventSelectors = Prelude.Nothing,
+      snsTopicName = Prelude.Nothing,
+      includeGlobalServiceEvents = Prelude.Nothing,
+      homeRegion = Prelude.Nothing,
+      kmsKeyId = Prelude.Nothing,
+      s3KeyPrefix = Prelude.Nothing,
+      name = Prelude.Nothing,
+      cloudWatchLogsLogGroupArn = Prelude.Nothing,
+      isMultiRegionTrail = Prelude.Nothing,
+      s3BucketName = Prelude.Nothing,
+      cloudWatchLogsRoleArn = Prelude.Nothing,
+      snsTopicARN = Prelude.Nothing,
+      hasInsightSelectors = Prelude.Nothing
     }
 
--- | Specifies the ARN of the trail. The format of a trail ARN is: @arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail@
-tTrailARN :: Lens' Trail (Maybe Text)
-tTrailARN = lens _tTrailARN (\s a -> s {_tTrailARN = a})
+-- | Specifies the ARN of the trail. The format of a trail ARN is:
+--
+-- @arn:aws:cloudtrail:us-east-2:123456789012:trail\/MyTrail@
+trail_trailARN :: Lens.Lens' Trail (Prelude.Maybe Prelude.Text)
+trail_trailARN = Lens.lens (\Trail' {trailARN} -> trailARN) (\s@Trail' {} a -> s {trailARN = a} :: Trail)
 
 -- | Specifies whether log file validation is enabled.
-tLogFileValidationEnabled :: Lens' Trail (Maybe Bool)
-tLogFileValidationEnabled = lens _tLogFileValidationEnabled (\s a -> s {_tLogFileValidationEnabled = a})
+trail_logFileValidationEnabled :: Lens.Lens' Trail (Prelude.Maybe Prelude.Bool)
+trail_logFileValidationEnabled = Lens.lens (\Trail' {logFileValidationEnabled} -> logFileValidationEnabled) (\s@Trail' {} a -> s {logFileValidationEnabled = a} :: Trail)
 
 -- | Specifies whether the trail is an organization trail.
-tIsOrganizationTrail :: Lens' Trail (Maybe Bool)
-tIsOrganizationTrail = lens _tIsOrganizationTrail (\s a -> s {_tIsOrganizationTrail = a})
+trail_isOrganizationTrail :: Lens.Lens' Trail (Prelude.Maybe Prelude.Bool)
+trail_isOrganizationTrail = Lens.lens (\Trail' {isOrganizationTrail} -> isOrganizationTrail) (\s@Trail' {} a -> s {isOrganizationTrail = a} :: Trail)
 
 -- | Specifies if the trail has custom event selectors.
-tHasCustomEventSelectors :: Lens' Trail (Maybe Bool)
-tHasCustomEventSelectors = lens _tHasCustomEventSelectors (\s a -> s {_tHasCustomEventSelectors = a})
+trail_hasCustomEventSelectors :: Lens.Lens' Trail (Prelude.Maybe Prelude.Bool)
+trail_hasCustomEventSelectors = Lens.lens (\Trail' {hasCustomEventSelectors} -> hasCustomEventSelectors) (\s@Trail' {} a -> s {hasCustomEventSelectors = a} :: Trail)
 
 -- | This field is no longer in use. Use SnsTopicARN.
-tSNSTopicName :: Lens' Trail (Maybe Text)
-tSNSTopicName = lens _tSNSTopicName (\s a -> s {_tSNSTopicName = a})
+trail_snsTopicName :: Lens.Lens' Trail (Prelude.Maybe Prelude.Text)
+trail_snsTopicName = Lens.lens (\Trail' {snsTopicName} -> snsTopicName) (\s@Trail' {} a -> s {snsTopicName = a} :: Trail)
 
--- | Set to __True__ to include AWS API calls from AWS global services such as IAM. Otherwise, __False__ .
-tIncludeGlobalServiceEvents :: Lens' Trail (Maybe Bool)
-tIncludeGlobalServiceEvents = lens _tIncludeGlobalServiceEvents (\s a -> s {_tIncludeGlobalServiceEvents = a})
+-- | Set to __True__ to include AWS API calls from AWS global services such
+-- as IAM. Otherwise, __False__.
+trail_includeGlobalServiceEvents :: Lens.Lens' Trail (Prelude.Maybe Prelude.Bool)
+trail_includeGlobalServiceEvents = Lens.lens (\Trail' {includeGlobalServiceEvents} -> includeGlobalServiceEvents) (\s@Trail' {} a -> s {includeGlobalServiceEvents = a} :: Trail)
 
 -- | The region in which the trail was created.
-tHomeRegion :: Lens' Trail (Maybe Text)
-tHomeRegion = lens _tHomeRegion (\s a -> s {_tHomeRegion = a})
+trail_homeRegion :: Lens.Lens' Trail (Prelude.Maybe Prelude.Text)
+trail_homeRegion = Lens.lens (\Trail' {homeRegion} -> homeRegion) (\s@Trail' {} a -> s {homeRegion = a} :: Trail)
 
--- | Specifies the KMS key ID that encrypts the logs delivered by CloudTrail. The value is a fully specified ARN to a KMS key in the format: @arn:aws:kms:us-east-2:123456789012:key/12345678-1234-1234-1234-123456789012@
-tKMSKeyId :: Lens' Trail (Maybe Text)
-tKMSKeyId = lens _tKMSKeyId (\s a -> s {_tKMSKeyId = a})
+-- | Specifies the KMS key ID that encrypts the logs delivered by CloudTrail.
+-- The value is a fully specified ARN to a KMS key in the format:
+--
+-- @arn:aws:kms:us-east-2:123456789012:key\/12345678-1234-1234-1234-123456789012@
+trail_kmsKeyId :: Lens.Lens' Trail (Prelude.Maybe Prelude.Text)
+trail_kmsKeyId = Lens.lens (\Trail' {kmsKeyId} -> kmsKeyId) (\s@Trail' {} a -> s {kmsKeyId = a} :: Trail)
 
--- | Specifies the Amazon S3 key prefix that comes after the name of the bucket you have designated for log file delivery. For more information, see <https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-find-log-files.html Finding Your CloudTrail Log Files> .The maximum length is 200 characters.
-tS3KeyPrefix :: Lens' Trail (Maybe Text)
-tS3KeyPrefix = lens _tS3KeyPrefix (\s a -> s {_tS3KeyPrefix = a})
+-- | Specifies the Amazon S3 key prefix that comes after the name of the
+-- bucket you have designated for log file delivery. For more information,
+-- see
+-- <https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-find-log-files.html Finding Your CloudTrail Log Files>.The
+-- maximum length is 200 characters.
+trail_s3KeyPrefix :: Lens.Lens' Trail (Prelude.Maybe Prelude.Text)
+trail_s3KeyPrefix = Lens.lens (\Trail' {s3KeyPrefix} -> s3KeyPrefix) (\s@Trail' {} a -> s {s3KeyPrefix = a} :: Trail)
 
--- | Name of the trail set by calling 'CreateTrail' . The maximum length is 128 characters.
-tName :: Lens' Trail (Maybe Text)
-tName = lens _tName (\s a -> s {_tName = a})
+-- | Name of the trail set by calling CreateTrail. The maximum length is 128
+-- characters.
+trail_name :: Lens.Lens' Trail (Prelude.Maybe Prelude.Text)
+trail_name = Lens.lens (\Trail' {name} -> name) (\s@Trail' {} a -> s {name = a} :: Trail)
 
--- | Specifies an Amazon Resource Name (ARN), a unique identifier that represents the log group to which CloudTrail logs will be delivered.
-tCloudWatchLogsLogGroupARN :: Lens' Trail (Maybe Text)
-tCloudWatchLogsLogGroupARN = lens _tCloudWatchLogsLogGroupARN (\s a -> s {_tCloudWatchLogsLogGroupARN = a})
+-- | Specifies an Amazon Resource Name (ARN), a unique identifier that
+-- represents the log group to which CloudTrail logs will be delivered.
+trail_cloudWatchLogsLogGroupArn :: Lens.Lens' Trail (Prelude.Maybe Prelude.Text)
+trail_cloudWatchLogsLogGroupArn = Lens.lens (\Trail' {cloudWatchLogsLogGroupArn} -> cloudWatchLogsLogGroupArn) (\s@Trail' {} a -> s {cloudWatchLogsLogGroupArn = a} :: Trail)
 
--- | Specifies whether the trail exists only in one region or exists in all regions.
-tIsMultiRegionTrail :: Lens' Trail (Maybe Bool)
-tIsMultiRegionTrail = lens _tIsMultiRegionTrail (\s a -> s {_tIsMultiRegionTrail = a})
+-- | Specifies whether the trail exists only in one region or exists in all
+-- regions.
+trail_isMultiRegionTrail :: Lens.Lens' Trail (Prelude.Maybe Prelude.Bool)
+trail_isMultiRegionTrail = Lens.lens (\Trail' {isMultiRegionTrail} -> isMultiRegionTrail) (\s@Trail' {} a -> s {isMultiRegionTrail = a} :: Trail)
 
--- | Name of the Amazon S3 bucket into which CloudTrail delivers your trail files. See <https://docs.aws.amazon.com/awscloudtrail/latest/userguide/create_trail_naming_policy.html Amazon S3 Bucket Naming Requirements> .
-tS3BucketName :: Lens' Trail (Maybe Text)
-tS3BucketName = lens _tS3BucketName (\s a -> s {_tS3BucketName = a})
+-- | Name of the Amazon S3 bucket into which CloudTrail delivers your trail
+-- files. See
+-- <https://docs.aws.amazon.com/awscloudtrail/latest/userguide/create_trail_naming_policy.html Amazon S3 Bucket Naming Requirements>.
+trail_s3BucketName :: Lens.Lens' Trail (Prelude.Maybe Prelude.Text)
+trail_s3BucketName = Lens.lens (\Trail' {s3BucketName} -> s3BucketName) (\s@Trail' {} a -> s {s3BucketName = a} :: Trail)
 
--- | Specifies the role for the CloudWatch Logs endpoint to assume to write to a user's log group.
-tCloudWatchLogsRoleARN :: Lens' Trail (Maybe Text)
-tCloudWatchLogsRoleARN = lens _tCloudWatchLogsRoleARN (\s a -> s {_tCloudWatchLogsRoleARN = a})
+-- | Specifies the role for the CloudWatch Logs endpoint to assume to write
+-- to a user\'s log group.
+trail_cloudWatchLogsRoleArn :: Lens.Lens' Trail (Prelude.Maybe Prelude.Text)
+trail_cloudWatchLogsRoleArn = Lens.lens (\Trail' {cloudWatchLogsRoleArn} -> cloudWatchLogsRoleArn) (\s@Trail' {} a -> s {cloudWatchLogsRoleArn = a} :: Trail)
 
--- | Specifies the ARN of the Amazon SNS topic that CloudTrail uses to send notifications when log files are delivered. The format of a topic ARN is: @arn:aws:sns:us-east-2:123456789012:MyTopic@
-tSNSTopicARN :: Lens' Trail (Maybe Text)
-tSNSTopicARN = lens _tSNSTopicARN (\s a -> s {_tSNSTopicARN = a})
+-- | Specifies the ARN of the Amazon SNS topic that CloudTrail uses to send
+-- notifications when log files are delivered. The format of a topic ARN
+-- is:
+--
+-- @arn:aws:sns:us-east-2:123456789012:MyTopic@
+trail_snsTopicARN :: Lens.Lens' Trail (Prelude.Maybe Prelude.Text)
+trail_snsTopicARN = Lens.lens (\Trail' {snsTopicARN} -> snsTopicARN) (\s@Trail' {} a -> s {snsTopicARN = a} :: Trail)
 
--- | Specifies whether a trail has insight types specified in an @InsightSelector@ list.
-tHasInsightSelectors :: Lens' Trail (Maybe Bool)
-tHasInsightSelectors = lens _tHasInsightSelectors (\s a -> s {_tHasInsightSelectors = a})
+-- | Specifies whether a trail has insight types specified in an
+-- @InsightSelector@ list.
+trail_hasInsightSelectors :: Lens.Lens' Trail (Prelude.Maybe Prelude.Bool)
+trail_hasInsightSelectors = Lens.lens (\Trail' {hasInsightSelectors} -> hasInsightSelectors) (\s@Trail' {} a -> s {hasInsightSelectors = a} :: Trail)
 
-instance FromJSON Trail where
+instance Prelude.FromJSON Trail where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Trail"
       ( \x ->
           Trail'
-            <$> (x .:? "TrailARN")
-            <*> (x .:? "LogFileValidationEnabled")
-            <*> (x .:? "IsOrganizationTrail")
-            <*> (x .:? "HasCustomEventSelectors")
-            <*> (x .:? "SnsTopicName")
-            <*> (x .:? "IncludeGlobalServiceEvents")
-            <*> (x .:? "HomeRegion")
-            <*> (x .:? "KmsKeyId")
-            <*> (x .:? "S3KeyPrefix")
-            <*> (x .:? "Name")
-            <*> (x .:? "CloudWatchLogsLogGroupArn")
-            <*> (x .:? "IsMultiRegionTrail")
-            <*> (x .:? "S3BucketName")
-            <*> (x .:? "CloudWatchLogsRoleArn")
-            <*> (x .:? "SnsTopicARN")
-            <*> (x .:? "HasInsightSelectors")
+            Prelude.<$> (x Prelude..:? "TrailARN")
+            Prelude.<*> (x Prelude..:? "LogFileValidationEnabled")
+            Prelude.<*> (x Prelude..:? "IsOrganizationTrail")
+            Prelude.<*> (x Prelude..:? "HasCustomEventSelectors")
+            Prelude.<*> (x Prelude..:? "SnsTopicName")
+            Prelude.<*> (x Prelude..:? "IncludeGlobalServiceEvents")
+            Prelude.<*> (x Prelude..:? "HomeRegion")
+            Prelude.<*> (x Prelude..:? "KmsKeyId")
+            Prelude.<*> (x Prelude..:? "S3KeyPrefix")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "CloudWatchLogsLogGroupArn")
+            Prelude.<*> (x Prelude..:? "IsMultiRegionTrail")
+            Prelude.<*> (x Prelude..:? "S3BucketName")
+            Prelude.<*> (x Prelude..:? "CloudWatchLogsRoleArn")
+            Prelude.<*> (x Prelude..:? "SnsTopicARN")
+            Prelude.<*> (x Prelude..:? "HasInsightSelectors")
       )
 
-instance Hashable Trail
+instance Prelude.Hashable Trail
 
-instance NFData Trail
+instance Prelude.NFData Trail

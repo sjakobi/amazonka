@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,54 +20,59 @@
 module Network.AWS.CloudTrail.Types.ResourceTag where
 
 import Network.AWS.CloudTrail.Types.Tag
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A resource tag.
 --
---
---
--- /See:/ 'resourceTag' smart constructor.
+-- /See:/ 'newResourceTag' smart constructor.
 data ResourceTag = ResourceTag'
-  { _rResourceId ::
-      !(Maybe Text),
-    _rTagsList :: !(Maybe [Tag])
+  { -- | Specifies the ARN of the resource.
+    resourceId :: Prelude.Maybe Prelude.Text,
+    -- | A list of tags.
+    tagsList :: Prelude.Maybe [Tag]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResourceTag' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResourceTag' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rResourceId' - Specifies the ARN of the resource.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rTagsList' - A list of tags.
-resourceTag ::
+-- 'resourceId', 'resourceTag_resourceId' - Specifies the ARN of the resource.
+--
+-- 'tagsList', 'resourceTag_tagsList' - A list of tags.
+newResourceTag ::
   ResourceTag
-resourceTag =
+newResourceTag =
   ResourceTag'
-    { _rResourceId = Nothing,
-      _rTagsList = Nothing
+    { resourceId = Prelude.Nothing,
+      tagsList = Prelude.Nothing
     }
 
 -- | Specifies the ARN of the resource.
-rResourceId :: Lens' ResourceTag (Maybe Text)
-rResourceId = lens _rResourceId (\s a -> s {_rResourceId = a})
+resourceTag_resourceId :: Lens.Lens' ResourceTag (Prelude.Maybe Prelude.Text)
+resourceTag_resourceId = Lens.lens (\ResourceTag' {resourceId} -> resourceId) (\s@ResourceTag' {} a -> s {resourceId = a} :: ResourceTag)
 
 -- | A list of tags.
-rTagsList :: Lens' ResourceTag [Tag]
-rTagsList = lens _rTagsList (\s a -> s {_rTagsList = a}) . _Default . _Coerce
+resourceTag_tagsList :: Lens.Lens' ResourceTag (Prelude.Maybe [Tag])
+resourceTag_tagsList = Lens.lens (\ResourceTag' {tagsList} -> tagsList) (\s@ResourceTag' {} a -> s {tagsList = a} :: ResourceTag) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON ResourceTag where
+instance Prelude.FromJSON ResourceTag where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ResourceTag"
       ( \x ->
           ResourceTag'
-            <$> (x .:? "ResourceId")
-            <*> (x .:? "TagsList" .!= mempty)
+            Prelude.<$> (x Prelude..:? "ResourceId")
+            Prelude.<*> ( x Prelude..:? "TagsList"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable ResourceTag
+instance Prelude.Hashable ResourceTag
 
-instance NFData ResourceTag
+instance Prelude.NFData ResourceTag

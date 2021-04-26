@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,87 +19,85 @@
 module Network.AWS.CloudTrail.Types.LookupAttributeKey
   ( LookupAttributeKey
       ( ..,
-        LAKAccessKeyId,
-        LAKEventId,
-        LAKEventName,
-        LAKEventSource,
-        LAKReadOnly,
-        LAKResourceName,
-        LAKResourceType,
-        LAKUsername
+        LookupAttributeKeyAccessKeyId,
+        LookupAttributeKeyEventId,
+        LookupAttributeKeyEventName,
+        LookupAttributeKeyEventSource,
+        LookupAttributeKeyReadOnly,
+        LookupAttributeKeyResourceName,
+        LookupAttributeKeyResourceType,
+        LookupAttributeKeyUsername
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data LookupAttributeKey
-  = LookupAttributeKey'
-      ( CI
-          Text
-      )
+newtype LookupAttributeKey = LookupAttributeKey'
+  { fromLookupAttributeKey ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern LAKAccessKeyId :: LookupAttributeKey
-pattern LAKAccessKeyId = LookupAttributeKey' "AccessKeyId"
+pattern LookupAttributeKeyAccessKeyId :: LookupAttributeKey
+pattern LookupAttributeKeyAccessKeyId = LookupAttributeKey' "AccessKeyId"
 
-pattern LAKEventId :: LookupAttributeKey
-pattern LAKEventId = LookupAttributeKey' "EventId"
+pattern LookupAttributeKeyEventId :: LookupAttributeKey
+pattern LookupAttributeKeyEventId = LookupAttributeKey' "EventId"
 
-pattern LAKEventName :: LookupAttributeKey
-pattern LAKEventName = LookupAttributeKey' "EventName"
+pattern LookupAttributeKeyEventName :: LookupAttributeKey
+pattern LookupAttributeKeyEventName = LookupAttributeKey' "EventName"
 
-pattern LAKEventSource :: LookupAttributeKey
-pattern LAKEventSource = LookupAttributeKey' "EventSource"
+pattern LookupAttributeKeyEventSource :: LookupAttributeKey
+pattern LookupAttributeKeyEventSource = LookupAttributeKey' "EventSource"
 
-pattern LAKReadOnly :: LookupAttributeKey
-pattern LAKReadOnly = LookupAttributeKey' "ReadOnly"
+pattern LookupAttributeKeyReadOnly :: LookupAttributeKey
+pattern LookupAttributeKeyReadOnly = LookupAttributeKey' "ReadOnly"
 
-pattern LAKResourceName :: LookupAttributeKey
-pattern LAKResourceName = LookupAttributeKey' "ResourceName"
+pattern LookupAttributeKeyResourceName :: LookupAttributeKey
+pattern LookupAttributeKeyResourceName = LookupAttributeKey' "ResourceName"
 
-pattern LAKResourceType :: LookupAttributeKey
-pattern LAKResourceType = LookupAttributeKey' "ResourceType"
+pattern LookupAttributeKeyResourceType :: LookupAttributeKey
+pattern LookupAttributeKeyResourceType = LookupAttributeKey' "ResourceType"
 
-pattern LAKUsername :: LookupAttributeKey
-pattern LAKUsername = LookupAttributeKey' "Username"
+pattern LookupAttributeKeyUsername :: LookupAttributeKey
+pattern LookupAttributeKeyUsername = LookupAttributeKey' "Username"
 
 {-# COMPLETE
-  LAKAccessKeyId,
-  LAKEventId,
-  LAKEventName,
-  LAKEventSource,
-  LAKReadOnly,
-  LAKResourceName,
-  LAKResourceType,
-  LAKUsername,
+  LookupAttributeKeyAccessKeyId,
+  LookupAttributeKeyEventId,
+  LookupAttributeKeyEventName,
+  LookupAttributeKeyEventSource,
+  LookupAttributeKeyReadOnly,
+  LookupAttributeKeyResourceName,
+  LookupAttributeKeyResourceType,
+  LookupAttributeKeyUsername,
   LookupAttributeKey'
   #-}
 
-instance FromText LookupAttributeKey where
-  parser = (LookupAttributeKey' . mk) <$> takeText
+instance Prelude.FromText LookupAttributeKey where
+  parser = LookupAttributeKey' Prelude.<$> Prelude.takeText
 
-instance ToText LookupAttributeKey where
-  toText (LookupAttributeKey' ci) = original ci
+instance Prelude.ToText LookupAttributeKey where
+  toText (LookupAttributeKey' x) = x
 
-instance Hashable LookupAttributeKey
+instance Prelude.Hashable LookupAttributeKey
 
-instance NFData LookupAttributeKey
+instance Prelude.NFData LookupAttributeKey
 
-instance ToByteString LookupAttributeKey
+instance Prelude.ToByteString LookupAttributeKey
 
-instance ToQuery LookupAttributeKey
+instance Prelude.ToQuery LookupAttributeKey
 
-instance ToHeader LookupAttributeKey
+instance Prelude.ToHeader LookupAttributeKey
 
-instance ToJSON LookupAttributeKey where
-  toJSON = toJSONText
+instance Prelude.ToJSON LookupAttributeKey where
+  toJSON = Prelude.toJSONText

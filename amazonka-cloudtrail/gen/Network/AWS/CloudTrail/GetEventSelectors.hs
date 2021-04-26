@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,170 +21,232 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes the settings for the event selectors that you configured for your trail. The information returned for your event selectors includes the following:
+-- Describes the settings for the event selectors that you configured for
+-- your trail. The information returned for your event selectors includes
+-- the following:
 --
+-- -   If your event selector includes read-only events, write-only events,
+--     or all events. This applies to both management events and data
+--     events.
 --
---     * If your event selector includes read-only events, write-only events, or all events. This applies to both management events and data events.
+-- -   If your event selector includes management events.
 --
---     * If your event selector includes management events.
+-- -   If your event selector includes data events, the Amazon S3 objects
+--     or AWS Lambda functions that you are logging for data events.
 --
---     * If your event selector includes data events, the Amazon S3 objects or AWS Lambda functions that you are logging for data events.
---
---
---
--- For more information, see <https://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-management-and-data-events-with-cloudtrail.html Logging Data and Management Events for Trails > in the /AWS CloudTrail User Guide/ .
+-- For more information, see
+-- <https://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-management-and-data-events-with-cloudtrail.html Logging Data and Management Events for Trails>
+-- in the /AWS CloudTrail User Guide/.
 module Network.AWS.CloudTrail.GetEventSelectors
   ( -- * Creating a Request
-    getEventSelectors,
-    GetEventSelectors,
+    GetEventSelectors (..),
+    newGetEventSelectors,
 
     -- * Request Lenses
-    gesTrailName,
+    getEventSelectors_trailName,
 
     -- * Destructuring the Response
-    getEventSelectorsResponse,
-    GetEventSelectorsResponse,
+    GetEventSelectorsResponse (..),
+    newGetEventSelectorsResponse,
 
     -- * Response Lenses
-    gesrrsTrailARN,
-    gesrrsEventSelectors,
-    gesrrsAdvancedEventSelectors,
-    gesrrsResponseStatus,
+    getEventSelectorsResponse_trailARN,
+    getEventSelectorsResponse_eventSelectors,
+    getEventSelectorsResponse_advancedEventSelectors,
+    getEventSelectorsResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudTrail.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudTrail.Types.AdvancedEventSelector
+import Network.AWS.CloudTrail.Types.EventSelector
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getEventSelectors' smart constructor.
-newtype GetEventSelectors = GetEventSelectors'
-  { _gesTrailName ::
-      Text
+-- | /See:/ 'newGetEventSelectors' smart constructor.
+data GetEventSelectors = GetEventSelectors'
+  { -- | Specifies the name of the trail or trail ARN. If you specify a trail
+    -- name, the string must meet the following requirements:
+    --
+    -- -   Contain only ASCII letters (a-z, A-Z), numbers (0-9), periods (.),
+    --     underscores (_), or dashes (-)
+    --
+    -- -   Start with a letter or number, and end with a letter or number
+    --
+    -- -   Be between 3 and 128 characters
+    --
+    -- -   Have no adjacent periods, underscores or dashes. Names like
+    --     @my-_namespace@ and @my--namespace@ are not valid.
+    --
+    -- -   Not be in IP address format (for example, 192.168.5.4)
+    --
+    -- If you specify a trail ARN, it must be in the format:
+    --
+    -- @arn:aws:cloudtrail:us-east-2:123456789012:trail\/MyTrail@
+    trailName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetEventSelectors' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetEventSelectors' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gesTrailName' - Specifies the name of the trail or trail ARN. If you specify a trail name, the string must meet the following requirements:     * Contain only ASCII letters (a-z, A-Z), numbers (0-9), periods (.), underscores (_), or dashes (-)     * Start with a letter or number, and end with a letter or number     * Be between 3 and 128 characters     * Have no adjacent periods, underscores or dashes. Names like @my-_namespace@ and @my--namespace@ are not valid.     * Not be in IP address format (for example, 192.168.5.4) If you specify a trail ARN, it must be in the format: @arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail@
-getEventSelectors ::
-  -- | 'gesTrailName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'trailName', 'getEventSelectors_trailName' - Specifies the name of the trail or trail ARN. If you specify a trail
+-- name, the string must meet the following requirements:
+--
+-- -   Contain only ASCII letters (a-z, A-Z), numbers (0-9), periods (.),
+--     underscores (_), or dashes (-)
+--
+-- -   Start with a letter or number, and end with a letter or number
+--
+-- -   Be between 3 and 128 characters
+--
+-- -   Have no adjacent periods, underscores or dashes. Names like
+--     @my-_namespace@ and @my--namespace@ are not valid.
+--
+-- -   Not be in IP address format (for example, 192.168.5.4)
+--
+-- If you specify a trail ARN, it must be in the format:
+--
+-- @arn:aws:cloudtrail:us-east-2:123456789012:trail\/MyTrail@
+newGetEventSelectors ::
+  -- | 'trailName'
+  Prelude.Text ->
   GetEventSelectors
-getEventSelectors pTrailName_ =
-  GetEventSelectors' {_gesTrailName = pTrailName_}
+newGetEventSelectors pTrailName_ =
+  GetEventSelectors' {trailName = pTrailName_}
 
--- | Specifies the name of the trail or trail ARN. If you specify a trail name, the string must meet the following requirements:     * Contain only ASCII letters (a-z, A-Z), numbers (0-9), periods (.), underscores (_), or dashes (-)     * Start with a letter or number, and end with a letter or number     * Be between 3 and 128 characters     * Have no adjacent periods, underscores or dashes. Names like @my-_namespace@ and @my--namespace@ are not valid.     * Not be in IP address format (for example, 192.168.5.4) If you specify a trail ARN, it must be in the format: @arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail@
-gesTrailName :: Lens' GetEventSelectors Text
-gesTrailName = lens _gesTrailName (\s a -> s {_gesTrailName = a})
+-- | Specifies the name of the trail or trail ARN. If you specify a trail
+-- name, the string must meet the following requirements:
+--
+-- -   Contain only ASCII letters (a-z, A-Z), numbers (0-9), periods (.),
+--     underscores (_), or dashes (-)
+--
+-- -   Start with a letter or number, and end with a letter or number
+--
+-- -   Be between 3 and 128 characters
+--
+-- -   Have no adjacent periods, underscores or dashes. Names like
+--     @my-_namespace@ and @my--namespace@ are not valid.
+--
+-- -   Not be in IP address format (for example, 192.168.5.4)
+--
+-- If you specify a trail ARN, it must be in the format:
+--
+-- @arn:aws:cloudtrail:us-east-2:123456789012:trail\/MyTrail@
+getEventSelectors_trailName :: Lens.Lens' GetEventSelectors Prelude.Text
+getEventSelectors_trailName = Lens.lens (\GetEventSelectors' {trailName} -> trailName) (\s@GetEventSelectors' {} a -> s {trailName = a} :: GetEventSelectors)
 
-instance AWSRequest GetEventSelectors where
+instance Prelude.AWSRequest GetEventSelectors where
   type Rs GetEventSelectors = GetEventSelectorsResponse
-  request = postJSON cloudTrail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetEventSelectorsResponse'
-            <$> (x .?> "TrailARN")
-            <*> (x .?> "EventSelectors" .!@ mempty)
-            <*> (x .?> "AdvancedEventSelectors" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "TrailARN")
+            Prelude.<*> ( x Prelude..?> "EventSelectors"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..?> "AdvancedEventSelectors"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetEventSelectors
+instance Prelude.Hashable GetEventSelectors
 
-instance NFData GetEventSelectors
+instance Prelude.NFData GetEventSelectors
 
-instance ToHeaders GetEventSelectors where
+instance Prelude.ToHeaders GetEventSelectors where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "com.amazonaws.cloudtrail.v20131101.CloudTrail_20131101.GetEventSelectors" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "com.amazonaws.cloudtrail.v20131101.CloudTrail_20131101.GetEventSelectors" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetEventSelectors where
+instance Prelude.ToJSON GetEventSelectors where
   toJSON GetEventSelectors' {..} =
-    object
-      (catMaybes [Just ("TrailName" .= _gesTrailName)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("TrailName" Prelude..= trailName)]
+      )
 
-instance ToPath GetEventSelectors where
-  toPath = const "/"
+instance Prelude.ToPath GetEventSelectors where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetEventSelectors where
-  toQuery = const mempty
+instance Prelude.ToQuery GetEventSelectors where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getEventSelectorsResponse' smart constructor.
+-- | /See:/ 'newGetEventSelectorsResponse' smart constructor.
 data GetEventSelectorsResponse = GetEventSelectorsResponse'
-  { _gesrrsTrailARN ::
-      !(Maybe Text),
-    _gesrrsEventSelectors ::
-      !( Maybe
-           [EventSelector]
-       ),
-    _gesrrsAdvancedEventSelectors ::
-      !( Maybe
-           [AdvancedEventSelector]
-       ),
-    _gesrrsResponseStatus ::
-      !Int
+  { -- | The specified trail ARN that has the event selectors.
+    trailARN :: Prelude.Maybe Prelude.Text,
+    -- | The event selectors that are configured for the trail.
+    eventSelectors :: Prelude.Maybe [EventSelector],
+    -- | The advanced event selectors that are configured for the trail.
+    advancedEventSelectors :: Prelude.Maybe [AdvancedEventSelector],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetEventSelectorsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetEventSelectorsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gesrrsTrailARN' - The specified trail ARN that has the event selectors.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gesrrsEventSelectors' - The event selectors that are configured for the trail.
+-- 'trailARN', 'getEventSelectorsResponse_trailARN' - The specified trail ARN that has the event selectors.
 --
--- * 'gesrrsAdvancedEventSelectors' - The advanced event selectors that are configured for the trail.
+-- 'eventSelectors', 'getEventSelectorsResponse_eventSelectors' - The event selectors that are configured for the trail.
 --
--- * 'gesrrsResponseStatus' - -- | The response status code.
-getEventSelectorsResponse ::
-  -- | 'gesrrsResponseStatus'
-  Int ->
+-- 'advancedEventSelectors', 'getEventSelectorsResponse_advancedEventSelectors' - The advanced event selectors that are configured for the trail.
+--
+-- 'httpStatus', 'getEventSelectorsResponse_httpStatus' - The response's http status code.
+newGetEventSelectorsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetEventSelectorsResponse
-getEventSelectorsResponse pResponseStatus_ =
+newGetEventSelectorsResponse pHttpStatus_ =
   GetEventSelectorsResponse'
-    { _gesrrsTrailARN =
-        Nothing,
-      _gesrrsEventSelectors = Nothing,
-      _gesrrsAdvancedEventSelectors = Nothing,
-      _gesrrsResponseStatus = pResponseStatus_
+    { trailARN =
+        Prelude.Nothing,
+      eventSelectors = Prelude.Nothing,
+      advancedEventSelectors = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The specified trail ARN that has the event selectors.
-gesrrsTrailARN :: Lens' GetEventSelectorsResponse (Maybe Text)
-gesrrsTrailARN = lens _gesrrsTrailARN (\s a -> s {_gesrrsTrailARN = a})
+getEventSelectorsResponse_trailARN :: Lens.Lens' GetEventSelectorsResponse (Prelude.Maybe Prelude.Text)
+getEventSelectorsResponse_trailARN = Lens.lens (\GetEventSelectorsResponse' {trailARN} -> trailARN) (\s@GetEventSelectorsResponse' {} a -> s {trailARN = a} :: GetEventSelectorsResponse)
 
 -- | The event selectors that are configured for the trail.
-gesrrsEventSelectors :: Lens' GetEventSelectorsResponse [EventSelector]
-gesrrsEventSelectors = lens _gesrrsEventSelectors (\s a -> s {_gesrrsEventSelectors = a}) . _Default . _Coerce
+getEventSelectorsResponse_eventSelectors :: Lens.Lens' GetEventSelectorsResponse (Prelude.Maybe [EventSelector])
+getEventSelectorsResponse_eventSelectors = Lens.lens (\GetEventSelectorsResponse' {eventSelectors} -> eventSelectors) (\s@GetEventSelectorsResponse' {} a -> s {eventSelectors = a} :: GetEventSelectorsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The advanced event selectors that are configured for the trail.
-gesrrsAdvancedEventSelectors :: Lens' GetEventSelectorsResponse [AdvancedEventSelector]
-gesrrsAdvancedEventSelectors = lens _gesrrsAdvancedEventSelectors (\s a -> s {_gesrrsAdvancedEventSelectors = a}) . _Default . _Coerce
+getEventSelectorsResponse_advancedEventSelectors :: Lens.Lens' GetEventSelectorsResponse (Prelude.Maybe [AdvancedEventSelector])
+getEventSelectorsResponse_advancedEventSelectors = Lens.lens (\GetEventSelectorsResponse' {advancedEventSelectors} -> advancedEventSelectors) (\s@GetEventSelectorsResponse' {} a -> s {advancedEventSelectors = a} :: GetEventSelectorsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-gesrrsResponseStatus :: Lens' GetEventSelectorsResponse Int
-gesrrsResponseStatus = lens _gesrrsResponseStatus (\s a -> s {_gesrrsResponseStatus = a})
+-- | The response's http status code.
+getEventSelectorsResponse_httpStatus :: Lens.Lens' GetEventSelectorsResponse Prelude.Int
+getEventSelectorsResponse_httpStatus = Lens.lens (\GetEventSelectorsResponse' {httpStatus} -> httpStatus) (\s@GetEventSelectorsResponse' {} a -> s {httpStatus = a} :: GetEventSelectorsResponse)
 
-instance NFData GetEventSelectorsResponse
+instance Prelude.NFData GetEventSelectorsResponse

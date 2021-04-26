@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,135 +21,158 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Adds one or more tags to a trail, up to a limit of 50. Overwrites an existing tag's value when a new value is specified for an existing tag key. Tag key names must be unique for a trail; you cannot have two keys with the same name but different values. If you specify a key without a value, the tag will be created with the specified key and a value of null. You can tag a trail that applies to all AWS Regions only from the Region in which the trail was created (also known as its home region).
+-- Adds one or more tags to a trail, up to a limit of 50. Overwrites an
+-- existing tag\'s value when a new value is specified for an existing tag
+-- key. Tag key names must be unique for a trail; you cannot have two keys
+-- with the same name but different values. If you specify a key without a
+-- value, the tag will be created with the specified key and a value of
+-- null. You can tag a trail that applies to all AWS Regions only from the
+-- Region in which the trail was created (also known as its home region).
 module Network.AWS.CloudTrail.AddTags
   ( -- * Creating a Request
-    addTags,
-    AddTags,
+    AddTags (..),
+    newAddTags,
 
     -- * Request Lenses
-    atTagsList,
-    atResourceId,
+    addTags_tagsList,
+    addTags_resourceId,
 
     -- * Destructuring the Response
-    addTagsResponse,
-    AddTagsResponse,
+    AddTagsResponse (..),
+    newAddTagsResponse,
 
     -- * Response Lenses
-    atrrsResponseStatus,
+    addTagsResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudTrail.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Specifies the tags to add to a trail.
 --
---
---
--- /See:/ 'addTags' smart constructor.
+-- /See:/ 'newAddTags' smart constructor.
 data AddTags = AddTags'
-  { _atTagsList ::
-      !(Maybe [Tag]),
-    _atResourceId :: !Text
+  { -- | Contains a list of CloudTrail tags, up to a limit of 50
+    tagsList :: Prelude.Maybe [Tag],
+    -- | Specifies the ARN of the trail to which one or more tags will be added.
+    -- The format of a trail ARN is:
+    --
+    -- @arn:aws:cloudtrail:us-east-2:123456789012:trail\/MyTrail@
+    resourceId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AddTags' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AddTags' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'atTagsList' - Contains a list of CloudTrail tags, up to a limit of 50
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'atResourceId' - Specifies the ARN of the trail to which one or more tags will be added. The format of a trail ARN is: @arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail@
-addTags ::
-  -- | 'atResourceId'
-  Text ->
+-- 'tagsList', 'addTags_tagsList' - Contains a list of CloudTrail tags, up to a limit of 50
+--
+-- 'resourceId', 'addTags_resourceId' - Specifies the ARN of the trail to which one or more tags will be added.
+-- The format of a trail ARN is:
+--
+-- @arn:aws:cloudtrail:us-east-2:123456789012:trail\/MyTrail@
+newAddTags ::
+  -- | 'resourceId'
+  Prelude.Text ->
   AddTags
-addTags pResourceId_ =
+newAddTags pResourceId_ =
   AddTags'
-    { _atTagsList = Nothing,
-      _atResourceId = pResourceId_
+    { tagsList = Prelude.Nothing,
+      resourceId = pResourceId_
     }
 
 -- | Contains a list of CloudTrail tags, up to a limit of 50
-atTagsList :: Lens' AddTags [Tag]
-atTagsList = lens _atTagsList (\s a -> s {_atTagsList = a}) . _Default . _Coerce
+addTags_tagsList :: Lens.Lens' AddTags (Prelude.Maybe [Tag])
+addTags_tagsList = Lens.lens (\AddTags' {tagsList} -> tagsList) (\s@AddTags' {} a -> s {tagsList = a} :: AddTags) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Specifies the ARN of the trail to which one or more tags will be added. The format of a trail ARN is: @arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail@
-atResourceId :: Lens' AddTags Text
-atResourceId = lens _atResourceId (\s a -> s {_atResourceId = a})
+-- | Specifies the ARN of the trail to which one or more tags will be added.
+-- The format of a trail ARN is:
+--
+-- @arn:aws:cloudtrail:us-east-2:123456789012:trail\/MyTrail@
+addTags_resourceId :: Lens.Lens' AddTags Prelude.Text
+addTags_resourceId = Lens.lens (\AddTags' {resourceId} -> resourceId) (\s@AddTags' {} a -> s {resourceId = a} :: AddTags)
 
-instance AWSRequest AddTags where
+instance Prelude.AWSRequest AddTags where
   type Rs AddTags = AddTagsResponse
-  request = postJSON cloudTrail
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
-      (\s h x -> AddTagsResponse' <$> (pure (fromEnum s)))
+    Response.receiveEmpty
+      ( \s h x ->
+          AddTagsResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+      )
 
-instance Hashable AddTags
+instance Prelude.Hashable AddTags
 
-instance NFData AddTags
+instance Prelude.NFData AddTags
 
-instance ToHeaders AddTags where
+instance Prelude.ToHeaders AddTags where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "com.amazonaws.cloudtrail.v20131101.CloudTrail_20131101.AddTags" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "com.amazonaws.cloudtrail.v20131101.CloudTrail_20131101.AddTags" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON AddTags where
+instance Prelude.ToJSON AddTags where
   toJSON AddTags' {..} =
-    object
-      ( catMaybes
-          [ ("TagsList" .=) <$> _atTagsList,
-            Just ("ResourceId" .= _atResourceId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("TagsList" Prelude..=) Prelude.<$> tagsList,
+            Prelude.Just ("ResourceId" Prelude..= resourceId)
           ]
       )
 
-instance ToPath AddTags where
-  toPath = const "/"
+instance Prelude.ToPath AddTags where
+  toPath = Prelude.const "/"
 
-instance ToQuery AddTags where
-  toQuery = const mempty
+instance Prelude.ToQuery AddTags where
+  toQuery = Prelude.const Prelude.mempty
 
--- | Returns the objects or data listed below if successful. Otherwise, returns an error.
+-- | Returns the objects or data listed below if successful. Otherwise,
+-- returns an error.
 --
---
---
--- /See:/ 'addTagsResponse' smart constructor.
-newtype AddTagsResponse = AddTagsResponse'
-  { _atrrsResponseStatus ::
-      Int
+-- /See:/ 'newAddTagsResponse' smart constructor.
+data AddTagsResponse = AddTagsResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AddTagsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AddTagsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'atrrsResponseStatus' - -- | The response status code.
-addTagsResponse ::
-  -- | 'atrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'addTagsResponse_httpStatus' - The response's http status code.
+newAddTagsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   AddTagsResponse
-addTagsResponse pResponseStatus_ =
-  AddTagsResponse'
-    { _atrrsResponseStatus =
-        pResponseStatus_
-    }
+newAddTagsResponse pHttpStatus_ =
+  AddTagsResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-atrrsResponseStatus :: Lens' AddTagsResponse Int
-atrrsResponseStatus = lens _atrrsResponseStatus (\s a -> s {_atrrsResponseStatus = a})
+-- | The response's http status code.
+addTagsResponse_httpStatus :: Lens.Lens' AddTagsResponse Prelude.Int
+addTagsResponse_httpStatus = Lens.lens (\AddTagsResponse' {httpStatus} -> httpStatus) (\s@AddTagsResponse' {} a -> s {httpStatus = a} :: AddTagsResponse)
 
-instance NFData AddTagsResponse
+instance Prelude.NFData AddTagsResponse

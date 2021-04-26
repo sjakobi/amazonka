@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,166 +23,199 @@
 --
 -- Lists the tags for the trail in the current region.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.CloudTrail.ListTags
   ( -- * Creating a Request
-    listTags,
-    ListTags,
+    ListTags (..),
+    newListTags,
 
     -- * Request Lenses
-    ltNextToken,
-    ltResourceIdList,
+    listTags_nextToken,
+    listTags_resourceIdList,
 
     -- * Destructuring the Response
-    listTagsResponse,
-    ListTagsResponse,
+    ListTagsResponse (..),
+    newListTagsResponse,
 
     -- * Response Lenses
-    ltrrsNextToken,
-    ltrrsResourceTagList,
-    ltrrsResponseStatus,
+    listTagsResponse_nextToken,
+    listTagsResponse_resourceTagList,
+    listTagsResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudTrail.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudTrail.Types.ResourceTag
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Specifies a list of trail tags to return.
 --
---
---
--- /See:/ 'listTags' smart constructor.
+-- /See:/ 'newListTags' smart constructor.
 data ListTags = ListTags'
-  { _ltNextToken ::
-      !(Maybe Text),
-    _ltResourceIdList :: ![Text]
+  { -- | Reserved for future use.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Specifies a list of trail ARNs whose tags will be listed. The list has a
+    -- limit of 20 ARNs. The format of a trail ARN is:
+    --
+    -- @arn:aws:cloudtrail:us-east-2:123456789012:trail\/MyTrail@
+    resourceIdList :: [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListTags' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListTags' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltNextToken' - Reserved for future use.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltResourceIdList' - Specifies a list of trail ARNs whose tags will be listed. The list has a limit of 20 ARNs. The format of a trail ARN is: @arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail@
-listTags ::
+-- 'nextToken', 'listTags_nextToken' - Reserved for future use.
+--
+-- 'resourceIdList', 'listTags_resourceIdList' - Specifies a list of trail ARNs whose tags will be listed. The list has a
+-- limit of 20 ARNs. The format of a trail ARN is:
+--
+-- @arn:aws:cloudtrail:us-east-2:123456789012:trail\/MyTrail@
+newListTags ::
   ListTags
-listTags =
+newListTags =
   ListTags'
-    { _ltNextToken = Nothing,
-      _ltResourceIdList = mempty
+    { nextToken = Prelude.Nothing,
+      resourceIdList = Prelude.mempty
     }
 
 -- | Reserved for future use.
-ltNextToken :: Lens' ListTags (Maybe Text)
-ltNextToken = lens _ltNextToken (\s a -> s {_ltNextToken = a})
+listTags_nextToken :: Lens.Lens' ListTags (Prelude.Maybe Prelude.Text)
+listTags_nextToken = Lens.lens (\ListTags' {nextToken} -> nextToken) (\s@ListTags' {} a -> s {nextToken = a} :: ListTags)
 
--- | Specifies a list of trail ARNs whose tags will be listed. The list has a limit of 20 ARNs. The format of a trail ARN is: @arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail@
-ltResourceIdList :: Lens' ListTags [Text]
-ltResourceIdList = lens _ltResourceIdList (\s a -> s {_ltResourceIdList = a}) . _Coerce
+-- | Specifies a list of trail ARNs whose tags will be listed. The list has a
+-- limit of 20 ARNs. The format of a trail ARN is:
+--
+-- @arn:aws:cloudtrail:us-east-2:123456789012:trail\/MyTrail@
+listTags_resourceIdList :: Lens.Lens' ListTags [Prelude.Text]
+listTags_resourceIdList = Lens.lens (\ListTags' {resourceIdList} -> resourceIdList) (\s@ListTags' {} a -> s {resourceIdList = a} :: ListTags) Prelude.. Prelude._Coerce
 
-instance AWSPager ListTags where
+instance Pager.AWSPager ListTags where
   page rq rs
-    | stop (rs ^. ltrrsNextToken) = Nothing
-    | stop (rs ^. ltrrsResourceTagList) = Nothing
-    | otherwise =
-      Just $ rq & ltNextToken .~ rs ^. ltrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listTagsResponse_nextToken Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listTagsResponse_resourceTagList
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listTags_nextToken
+          Lens..~ rs
+          Lens.^? listTagsResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest ListTags where
+instance Prelude.AWSRequest ListTags where
   type Rs ListTags = ListTagsResponse
-  request = postJSON cloudTrail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListTagsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "ResourceTagList" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "ResourceTagList"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListTags
+instance Prelude.Hashable ListTags
 
-instance NFData ListTags
+instance Prelude.NFData ListTags
 
-instance ToHeaders ListTags where
+instance Prelude.ToHeaders ListTags where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "com.amazonaws.cloudtrail.v20131101.CloudTrail_20131101.ListTags" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "com.amazonaws.cloudtrail.v20131101.CloudTrail_20131101.ListTags" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListTags where
+instance Prelude.ToJSON ListTags where
   toJSON ListTags' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _ltNextToken,
-            Just ("ResourceIdList" .= _ltResourceIdList)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            Prelude.Just
+              ("ResourceIdList" Prelude..= resourceIdList)
           ]
       )
 
-instance ToPath ListTags where
-  toPath = const "/"
+instance Prelude.ToPath ListTags where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListTags where
-  toQuery = const mempty
+instance Prelude.ToQuery ListTags where
+  toQuery = Prelude.const Prelude.mempty
 
--- | Returns the objects or data listed below if successful. Otherwise, returns an error.
+-- | Returns the objects or data listed below if successful. Otherwise,
+-- returns an error.
 --
---
---
--- /See:/ 'listTagsResponse' smart constructor.
+-- /See:/ 'newListTagsResponse' smart constructor.
 data ListTagsResponse = ListTagsResponse'
-  { _ltrrsNextToken ::
-      !(Maybe Text),
-    _ltrrsResourceTagList ::
-      !(Maybe [ResourceTag]),
-    _ltrrsResponseStatus :: !Int
+  { -- | Reserved for future use.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of resource tags.
+    resourceTagList :: Prelude.Maybe [ResourceTag],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListTagsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListTagsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltrrsNextToken' - Reserved for future use.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltrrsResourceTagList' - A list of resource tags.
+-- 'nextToken', 'listTagsResponse_nextToken' - Reserved for future use.
 --
--- * 'ltrrsResponseStatus' - -- | The response status code.
-listTagsResponse ::
-  -- | 'ltrrsResponseStatus'
-  Int ->
+-- 'resourceTagList', 'listTagsResponse_resourceTagList' - A list of resource tags.
+--
+-- 'httpStatus', 'listTagsResponse_httpStatus' - The response's http status code.
+newListTagsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListTagsResponse
-listTagsResponse pResponseStatus_ =
+newListTagsResponse pHttpStatus_ =
   ListTagsResponse'
-    { _ltrrsNextToken = Nothing,
-      _ltrrsResourceTagList = Nothing,
-      _ltrrsResponseStatus = pResponseStatus_
+    { nextToken = Prelude.Nothing,
+      resourceTagList = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Reserved for future use.
-ltrrsNextToken :: Lens' ListTagsResponse (Maybe Text)
-ltrrsNextToken = lens _ltrrsNextToken (\s a -> s {_ltrrsNextToken = a})
+listTagsResponse_nextToken :: Lens.Lens' ListTagsResponse (Prelude.Maybe Prelude.Text)
+listTagsResponse_nextToken = Lens.lens (\ListTagsResponse' {nextToken} -> nextToken) (\s@ListTagsResponse' {} a -> s {nextToken = a} :: ListTagsResponse)
 
 -- | A list of resource tags.
-ltrrsResourceTagList :: Lens' ListTagsResponse [ResourceTag]
-ltrrsResourceTagList = lens _ltrrsResourceTagList (\s a -> s {_ltrrsResourceTagList = a}) . _Default . _Coerce
+listTagsResponse_resourceTagList :: Lens.Lens' ListTagsResponse (Prelude.Maybe [ResourceTag])
+listTagsResponse_resourceTagList = Lens.lens (\ListTagsResponse' {resourceTagList} -> resourceTagList) (\s@ListTagsResponse' {} a -> s {resourceTagList = a} :: ListTagsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-ltrrsResponseStatus :: Lens' ListTagsResponse Int
-ltrrsResponseStatus = lens _ltrrsResponseStatus (\s a -> s {_ltrrsResponseStatus = a})
+-- | The response's http status code.
+listTagsResponse_httpStatus :: Lens.Lens' ListTagsResponse Prelude.Int
+listTagsResponse_httpStatus = Lens.lens (\ListTagsResponse' {httpStatus} -> httpStatus) (\s@ListTagsResponse' {} a -> s {httpStatus = a} :: ListTagsResponse)
 
-instance NFData ListTagsResponse
+instance Prelude.NFData ListTagsResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,51 +19,53 @@
 module Network.AWS.CloudTrail.Types.InsightType
   ( InsightType
       ( ..,
-        APICallRateInsight
+        InsightTypeApiCallRateInsight
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data InsightType = InsightType' (CI Text)
+newtype InsightType = InsightType'
+  { fromInsightType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern APICallRateInsight :: InsightType
-pattern APICallRateInsight = InsightType' "ApiCallRateInsight"
+pattern InsightTypeApiCallRateInsight :: InsightType
+pattern InsightTypeApiCallRateInsight = InsightType' "ApiCallRateInsight"
 
 {-# COMPLETE
-  APICallRateInsight,
+  InsightTypeApiCallRateInsight,
   InsightType'
   #-}
 
-instance FromText InsightType where
-  parser = (InsightType' . mk) <$> takeText
+instance Prelude.FromText InsightType where
+  parser = InsightType' Prelude.<$> Prelude.takeText
 
-instance ToText InsightType where
-  toText (InsightType' ci) = original ci
+instance Prelude.ToText InsightType where
+  toText (InsightType' x) = x
 
-instance Hashable InsightType
+instance Prelude.Hashable InsightType
 
-instance NFData InsightType
+instance Prelude.NFData InsightType
 
-instance ToByteString InsightType
+instance Prelude.ToByteString InsightType
 
-instance ToQuery InsightType
+instance Prelude.ToQuery InsightType
 
-instance ToHeader InsightType
+instance Prelude.ToHeader InsightType
 
-instance ToJSON InsightType where
-  toJSON = toJSONText
+instance Prelude.ToJSON InsightType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON InsightType where
-  parseJSON = parseJSONText "InsightType"
+instance Prelude.FromJSON InsightType where
+  parseJSON = Prelude.parseJSONText "InsightType"

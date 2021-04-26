@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,124 +21,141 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Starts the recording of AWS API calls and log file delivery for a trail. For a trail that is enabled in all regions, this operation must be called from the region in which the trail was created. This operation cannot be called on the shadow trails (replicated trails in other regions) of a trail that is enabled in all regions.
+-- Starts the recording of AWS API calls and log file delivery for a trail.
+-- For a trail that is enabled in all regions, this operation must be
+-- called from the region in which the trail was created. This operation
+-- cannot be called on the shadow trails (replicated trails in other
+-- regions) of a trail that is enabled in all regions.
 module Network.AWS.CloudTrail.StartLogging
   ( -- * Creating a Request
-    startLogging,
-    StartLogging,
+    StartLogging (..),
+    newStartLogging,
 
     -- * Request Lenses
-    sName,
+    startLogging_name,
 
     -- * Destructuring the Response
-    startLoggingResponse,
-    StartLoggingResponse,
+    StartLoggingResponse (..),
+    newStartLoggingResponse,
 
     -- * Response Lenses
-    slrrsResponseStatus,
+    startLoggingResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudTrail.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | The request to CloudTrail to start logging AWS API calls for an account.
 --
---
---
--- /See:/ 'startLogging' smart constructor.
-newtype StartLogging = StartLogging' {_sName :: Text}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- /See:/ 'newStartLogging' smart constructor.
+data StartLogging = StartLogging'
+  { -- | Specifies the name or the CloudTrail ARN of the trail for which
+    -- CloudTrail logs AWS API calls. The format of a trail ARN is:
+    --
+    -- @arn:aws:cloudtrail:us-east-2:123456789012:trail\/MyTrail@
+    name :: Prelude.Text
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartLogging' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartLogging' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sName' - Specifies the name or the CloudTrail ARN of the trail for which CloudTrail logs AWS API calls. The format of a trail ARN is: @arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail@
-startLogging ::
-  -- | 'sName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'name', 'startLogging_name' - Specifies the name or the CloudTrail ARN of the trail for which
+-- CloudTrail logs AWS API calls. The format of a trail ARN is:
+--
+-- @arn:aws:cloudtrail:us-east-2:123456789012:trail\/MyTrail@
+newStartLogging ::
+  -- | 'name'
+  Prelude.Text ->
   StartLogging
-startLogging pName_ = StartLogging' {_sName = pName_}
+newStartLogging pName_ = StartLogging' {name = pName_}
 
--- | Specifies the name or the CloudTrail ARN of the trail for which CloudTrail logs AWS API calls. The format of a trail ARN is: @arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail@
-sName :: Lens' StartLogging Text
-sName = lens _sName (\s a -> s {_sName = a})
+-- | Specifies the name or the CloudTrail ARN of the trail for which
+-- CloudTrail logs AWS API calls. The format of a trail ARN is:
+--
+-- @arn:aws:cloudtrail:us-east-2:123456789012:trail\/MyTrail@
+startLogging_name :: Lens.Lens' StartLogging Prelude.Text
+startLogging_name = Lens.lens (\StartLogging' {name} -> name) (\s@StartLogging' {} a -> s {name = a} :: StartLogging)
 
-instance AWSRequest StartLogging where
+instance Prelude.AWSRequest StartLogging where
   type Rs StartLogging = StartLoggingResponse
-  request = postJSON cloudTrail
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          StartLoggingResponse' <$> (pure (fromEnum s))
+          StartLoggingResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StartLogging
+instance Prelude.Hashable StartLogging
 
-instance NFData StartLogging
+instance Prelude.NFData StartLogging
 
-instance ToHeaders StartLogging where
+instance Prelude.ToHeaders StartLogging where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "com.amazonaws.cloudtrail.v20131101.CloudTrail_20131101.StartLogging" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "com.amazonaws.cloudtrail.v20131101.CloudTrail_20131101.StartLogging" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StartLogging where
+instance Prelude.ToJSON StartLogging where
   toJSON StartLogging' {..} =
-    object (catMaybes [Just ("Name" .= _sName)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("Name" Prelude..= name)]
+      )
 
-instance ToPath StartLogging where
-  toPath = const "/"
+instance Prelude.ToPath StartLogging where
+  toPath = Prelude.const "/"
 
-instance ToQuery StartLogging where
-  toQuery = const mempty
+instance Prelude.ToQuery StartLogging where
+  toQuery = Prelude.const Prelude.mempty
 
--- | Returns the objects or data listed below if successful. Otherwise, returns an error.
+-- | Returns the objects or data listed below if successful. Otherwise,
+-- returns an error.
 --
---
---
--- /See:/ 'startLoggingResponse' smart constructor.
-newtype StartLoggingResponse = StartLoggingResponse'
-  { _slrrsResponseStatus ::
-      Int
+-- /See:/ 'newStartLoggingResponse' smart constructor.
+data StartLoggingResponse = StartLoggingResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartLoggingResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartLoggingResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'slrrsResponseStatus' - -- | The response status code.
-startLoggingResponse ::
-  -- | 'slrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'startLoggingResponse_httpStatus' - The response's http status code.
+newStartLoggingResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StartLoggingResponse
-startLoggingResponse pResponseStatus_ =
-  StartLoggingResponse'
-    { _slrrsResponseStatus =
-        pResponseStatus_
-    }
+newStartLoggingResponse pHttpStatus_ =
+  StartLoggingResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-slrrsResponseStatus :: Lens' StartLoggingResponse Int
-slrrsResponseStatus = lens _slrrsResponseStatus (\s a -> s {_slrrsResponseStatus = a})
+-- | The response's http status code.
+startLoggingResponse_httpStatus :: Lens.Lens' StartLoggingResponse Prelude.Int
+startLoggingResponse_httpStatus = Lens.lens (\StartLoggingResponse' {httpStatus} -> httpStatus) (\s@StartLoggingResponse' {} a -> s {httpStatus = a} :: StartLoggingResponse)
 
-instance NFData StartLoggingResponse
+instance Prelude.NFData StartLoggingResponse

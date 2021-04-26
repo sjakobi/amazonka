@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.CloudTrail.Types.ReadWriteType
   ( ReadWriteType
       ( ..,
-        All,
-        ReadOnly,
-        WriteOnly
+        ReadWriteTypeAll,
+        ReadWriteTypeReadOnly,
+        ReadWriteTypeWriteOnly
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ReadWriteType = ReadWriteType' (CI Text)
+newtype ReadWriteType = ReadWriteType'
+  { fromReadWriteType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern All :: ReadWriteType
-pattern All = ReadWriteType' "All"
+pattern ReadWriteTypeAll :: ReadWriteType
+pattern ReadWriteTypeAll = ReadWriteType' "All"
 
-pattern ReadOnly :: ReadWriteType
-pattern ReadOnly = ReadWriteType' "ReadOnly"
+pattern ReadWriteTypeReadOnly :: ReadWriteType
+pattern ReadWriteTypeReadOnly = ReadWriteType' "ReadOnly"
 
-pattern WriteOnly :: ReadWriteType
-pattern WriteOnly = ReadWriteType' "WriteOnly"
+pattern ReadWriteTypeWriteOnly :: ReadWriteType
+pattern ReadWriteTypeWriteOnly = ReadWriteType' "WriteOnly"
 
 {-# COMPLETE
-  All,
-  ReadOnly,
-  WriteOnly,
+  ReadWriteTypeAll,
+  ReadWriteTypeReadOnly,
+  ReadWriteTypeWriteOnly,
   ReadWriteType'
   #-}
 
-instance FromText ReadWriteType where
-  parser = (ReadWriteType' . mk) <$> takeText
+instance Prelude.FromText ReadWriteType where
+  parser = ReadWriteType' Prelude.<$> Prelude.takeText
 
-instance ToText ReadWriteType where
-  toText (ReadWriteType' ci) = original ci
+instance Prelude.ToText ReadWriteType where
+  toText (ReadWriteType' x) = x
 
-instance Hashable ReadWriteType
+instance Prelude.Hashable ReadWriteType
 
-instance NFData ReadWriteType
+instance Prelude.NFData ReadWriteType
 
-instance ToByteString ReadWriteType
+instance Prelude.ToByteString ReadWriteType
 
-instance ToQuery ReadWriteType
+instance Prelude.ToQuery ReadWriteType
 
-instance ToHeader ReadWriteType
+instance Prelude.ToHeader ReadWriteType
 
-instance ToJSON ReadWriteType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ReadWriteType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ReadWriteType where
-  parseJSON = parseJSONText "ReadWriteType"
+instance Prelude.FromJSON ReadWriteType where
+  parseJSON = Prelude.parseJSONText "ReadWriteType"

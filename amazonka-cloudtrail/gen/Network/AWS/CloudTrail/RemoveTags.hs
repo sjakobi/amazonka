@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,141 +24,149 @@
 -- Removes the specified tags from a trail.
 module Network.AWS.CloudTrail.RemoveTags
   ( -- * Creating a Request
-    removeTags,
-    RemoveTags,
+    RemoveTags (..),
+    newRemoveTags,
 
     -- * Request Lenses
-    rtTagsList,
-    rtResourceId,
+    removeTags_tagsList,
+    removeTags_resourceId,
 
     -- * Destructuring the Response
-    removeTagsResponse,
-    RemoveTagsResponse,
+    RemoveTagsResponse (..),
+    newRemoveTagsResponse,
 
     -- * Response Lenses
-    rtrrsResponseStatus,
+    removeTagsResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudTrail.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Specifies the tags to remove from a trail.
 --
---
---
--- /See:/ 'removeTags' smart constructor.
+-- /See:/ 'newRemoveTags' smart constructor.
 data RemoveTags = RemoveTags'
-  { _rtTagsList ::
-      !(Maybe [Tag]),
-    _rtResourceId :: !Text
+  { -- | Specifies a list of tags to be removed.
+    tagsList :: Prelude.Maybe [Tag],
+    -- | Specifies the ARN of the trail from which tags should be removed. The
+    -- format of a trail ARN is:
+    --
+    -- @arn:aws:cloudtrail:us-east-2:123456789012:trail\/MyTrail@
+    resourceId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RemoveTags' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RemoveTags' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rtTagsList' - Specifies a list of tags to be removed.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rtResourceId' - Specifies the ARN of the trail from which tags should be removed. The format of a trail ARN is: @arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail@
-removeTags ::
-  -- | 'rtResourceId'
-  Text ->
+-- 'tagsList', 'removeTags_tagsList' - Specifies a list of tags to be removed.
+--
+-- 'resourceId', 'removeTags_resourceId' - Specifies the ARN of the trail from which tags should be removed. The
+-- format of a trail ARN is:
+--
+-- @arn:aws:cloudtrail:us-east-2:123456789012:trail\/MyTrail@
+newRemoveTags ::
+  -- | 'resourceId'
+  Prelude.Text ->
   RemoveTags
-removeTags pResourceId_ =
+newRemoveTags pResourceId_ =
   RemoveTags'
-    { _rtTagsList = Nothing,
-      _rtResourceId = pResourceId_
+    { tagsList = Prelude.Nothing,
+      resourceId = pResourceId_
     }
 
 -- | Specifies a list of tags to be removed.
-rtTagsList :: Lens' RemoveTags [Tag]
-rtTagsList = lens _rtTagsList (\s a -> s {_rtTagsList = a}) . _Default . _Coerce
+removeTags_tagsList :: Lens.Lens' RemoveTags (Prelude.Maybe [Tag])
+removeTags_tagsList = Lens.lens (\RemoveTags' {tagsList} -> tagsList) (\s@RemoveTags' {} a -> s {tagsList = a} :: RemoveTags) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Specifies the ARN of the trail from which tags should be removed. The format of a trail ARN is: @arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail@
-rtResourceId :: Lens' RemoveTags Text
-rtResourceId = lens _rtResourceId (\s a -> s {_rtResourceId = a})
+-- | Specifies the ARN of the trail from which tags should be removed. The
+-- format of a trail ARN is:
+--
+-- @arn:aws:cloudtrail:us-east-2:123456789012:trail\/MyTrail@
+removeTags_resourceId :: Lens.Lens' RemoveTags Prelude.Text
+removeTags_resourceId = Lens.lens (\RemoveTags' {resourceId} -> resourceId) (\s@RemoveTags' {} a -> s {resourceId = a} :: RemoveTags)
 
-instance AWSRequest RemoveTags where
+instance Prelude.AWSRequest RemoveTags where
   type Rs RemoveTags = RemoveTagsResponse
-  request = postJSON cloudTrail
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          RemoveTagsResponse' <$> (pure (fromEnum s))
+          RemoveTagsResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable RemoveTags
+instance Prelude.Hashable RemoveTags
 
-instance NFData RemoveTags
+instance Prelude.NFData RemoveTags
 
-instance ToHeaders RemoveTags where
+instance Prelude.ToHeaders RemoveTags where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "com.amazonaws.cloudtrail.v20131101.CloudTrail_20131101.RemoveTags" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "com.amazonaws.cloudtrail.v20131101.CloudTrail_20131101.RemoveTags" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON RemoveTags where
+instance Prelude.ToJSON RemoveTags where
   toJSON RemoveTags' {..} =
-    object
-      ( catMaybes
-          [ ("TagsList" .=) <$> _rtTagsList,
-            Just ("ResourceId" .= _rtResourceId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("TagsList" Prelude..=) Prelude.<$> tagsList,
+            Prelude.Just ("ResourceId" Prelude..= resourceId)
           ]
       )
 
-instance ToPath RemoveTags where
-  toPath = const "/"
+instance Prelude.ToPath RemoveTags where
+  toPath = Prelude.const "/"
 
-instance ToQuery RemoveTags where
-  toQuery = const mempty
+instance Prelude.ToQuery RemoveTags where
+  toQuery = Prelude.const Prelude.mempty
 
--- | Returns the objects or data listed below if successful. Otherwise, returns an error.
+-- | Returns the objects or data listed below if successful. Otherwise,
+-- returns an error.
 --
---
---
--- /See:/ 'removeTagsResponse' smart constructor.
-newtype RemoveTagsResponse = RemoveTagsResponse'
-  { _rtrrsResponseStatus ::
-      Int
+-- /See:/ 'newRemoveTagsResponse' smart constructor.
+data RemoveTagsResponse = RemoveTagsResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RemoveTagsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RemoveTagsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rtrrsResponseStatus' - -- | The response status code.
-removeTagsResponse ::
-  -- | 'rtrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'removeTagsResponse_httpStatus' - The response's http status code.
+newRemoveTagsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   RemoveTagsResponse
-removeTagsResponse pResponseStatus_ =
-  RemoveTagsResponse'
-    { _rtrrsResponseStatus =
-        pResponseStatus_
-    }
+newRemoveTagsResponse pHttpStatus_ =
+  RemoveTagsResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-rtrrsResponseStatus :: Lens' RemoveTagsResponse Int
-rtrrsResponseStatus = lens _rtrrsResponseStatus (\s a -> s {_rtrrsResponseStatus = a})
+-- | The response's http status code.
+removeTagsResponse_httpStatus :: Lens.Lens' RemoveTagsResponse Prelude.Int
+removeTagsResponse_httpStatus = Lens.lens (\RemoveTagsResponse' {httpStatus} -> httpStatus) (\s@RemoveTagsResponse' {} a -> s {httpStatus = a} :: RemoveTagsResponse)
 
-instance NFData RemoveTagsResponse
+instance Prelude.NFData RemoveTagsResponse

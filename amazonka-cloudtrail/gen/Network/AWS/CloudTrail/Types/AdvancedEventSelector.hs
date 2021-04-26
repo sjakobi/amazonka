@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,90 +20,93 @@
 module Network.AWS.CloudTrail.Types.AdvancedEventSelector where
 
 import Network.AWS.CloudTrail.Types.AdvancedFieldSelector
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Advanced event selectors let you create fine-grained selectors for the following AWS CloudTrail event record ﬁelds. They help you control costs by logging only those events that are important to you. For more information about advanced event selectors, see <https://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-data-events-with-cloudtrail.html Logging data events for trails> in the /AWS CloudTrail User Guide/ .
+-- | Advanced event selectors let you create fine-grained selectors for the
+-- following AWS CloudTrail event record ﬁelds. They help you control costs
+-- by logging only those events that are important to you. For more
+-- information about advanced event selectors, see
+-- <https://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-data-events-with-cloudtrail.html Logging data events for trails>
+-- in the /AWS CloudTrail User Guide/.
 --
+-- -   @readOnly@
 --
---     * @readOnly@
+-- -   @eventSource@
 --
---     * @eventSource@
+-- -   @eventName@
 --
---     * @eventName@
+-- -   @eventCategory@
 --
---     * @eventCategory@
+-- -   @resources.type@
 --
---     * @resources.type@
+-- -   @resources.ARN@
 --
---     * @resources.ARN@
+-- You cannot apply both event selectors and advanced event selectors to a
+-- trail.
 --
---
---
--- You cannot apply both event selectors and advanced event selectors to a trail.
---
---
--- /See:/ 'advancedEventSelector' smart constructor.
+-- /See:/ 'newAdvancedEventSelector' smart constructor.
 data AdvancedEventSelector = AdvancedEventSelector'
-  { _aesName ::
-      !(Maybe Text),
-    _aesFieldSelectors ::
-      !( List1
-           AdvancedFieldSelector
-       )
+  { -- | An optional, descriptive name for an advanced event selector, such as
+    -- \"Log data events for only two S3 buckets\".
+    name :: Prelude.Maybe Prelude.Text,
+    -- | Contains all selector statements in an advanced event selector.
+    fieldSelectors :: Prelude.List1 AdvancedFieldSelector
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AdvancedEventSelector' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AdvancedEventSelector' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aesName' - An optional, descriptive name for an advanced event selector, such as "Log data events for only two S3 buckets".
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aesFieldSelectors' - Contains all selector statements in an advanced event selector.
-advancedEventSelector ::
-  -- | 'aesFieldSelectors'
-  NonEmpty AdvancedFieldSelector ->
+-- 'name', 'advancedEventSelector_name' - An optional, descriptive name for an advanced event selector, such as
+-- \"Log data events for only two S3 buckets\".
+--
+-- 'fieldSelectors', 'advancedEventSelector_fieldSelectors' - Contains all selector statements in an advanced event selector.
+newAdvancedEventSelector ::
+  -- | 'fieldSelectors'
+  Prelude.NonEmpty AdvancedFieldSelector ->
   AdvancedEventSelector
-advancedEventSelector pFieldSelectors_ =
+newAdvancedEventSelector pFieldSelectors_ =
   AdvancedEventSelector'
-    { _aesName = Nothing,
-      _aesFieldSelectors = _List1 # pFieldSelectors_
+    { name = Prelude.Nothing,
+      fieldSelectors =
+        Prelude._List1 Lens.# pFieldSelectors_
     }
 
--- | An optional, descriptive name for an advanced event selector, such as "Log data events for only two S3 buckets".
-aesName :: Lens' AdvancedEventSelector (Maybe Text)
-aesName = lens _aesName (\s a -> s {_aesName = a})
+-- | An optional, descriptive name for an advanced event selector, such as
+-- \"Log data events for only two S3 buckets\".
+advancedEventSelector_name :: Lens.Lens' AdvancedEventSelector (Prelude.Maybe Prelude.Text)
+advancedEventSelector_name = Lens.lens (\AdvancedEventSelector' {name} -> name) (\s@AdvancedEventSelector' {} a -> s {name = a} :: AdvancedEventSelector)
 
 -- | Contains all selector statements in an advanced event selector.
-aesFieldSelectors :: Lens' AdvancedEventSelector (NonEmpty AdvancedFieldSelector)
-aesFieldSelectors = lens _aesFieldSelectors (\s a -> s {_aesFieldSelectors = a}) . _List1
+advancedEventSelector_fieldSelectors :: Lens.Lens' AdvancedEventSelector (Prelude.NonEmpty AdvancedFieldSelector)
+advancedEventSelector_fieldSelectors = Lens.lens (\AdvancedEventSelector' {fieldSelectors} -> fieldSelectors) (\s@AdvancedEventSelector' {} a -> s {fieldSelectors = a} :: AdvancedEventSelector) Prelude.. Prelude._List1
 
-instance FromJSON AdvancedEventSelector where
+instance Prelude.FromJSON AdvancedEventSelector where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AdvancedEventSelector"
       ( \x ->
           AdvancedEventSelector'
-            <$> (x .:? "Name") <*> (x .: "FieldSelectors")
+            Prelude.<$> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..: "FieldSelectors")
       )
 
-instance Hashable AdvancedEventSelector
+instance Prelude.Hashable AdvancedEventSelector
 
-instance NFData AdvancedEventSelector
+instance Prelude.NFData AdvancedEventSelector
 
-instance ToJSON AdvancedEventSelector where
+instance Prelude.ToJSON AdvancedEventSelector where
   toJSON AdvancedEventSelector' {..} =
-    object
-      ( catMaybes
-          [ ("Name" .=) <$> _aesName,
-            Just ("FieldSelectors" .= _aesFieldSelectors)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Name" Prelude..=) Prelude.<$> name,
+            Prelude.Just
+              ("FieldSelectors" Prelude..= fieldSelectors)
           ]
       )

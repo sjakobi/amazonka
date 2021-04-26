@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,57 +20,62 @@
 module Network.AWS.CloudTrail.Types.LookupAttribute where
 
 import Network.AWS.CloudTrail.Types.LookupAttributeKey
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Specifies an attribute and value that filter the events returned.
 --
---
---
--- /See:/ 'lookupAttribute' smart constructor.
+-- /See:/ 'newLookupAttribute' smart constructor.
 data LookupAttribute = LookupAttribute'
-  { _laAttributeKey ::
-      !LookupAttributeKey,
-    _laAttributeValue :: !Text
+  { -- | Specifies an attribute on which to filter the events returned.
+    attributeKey :: LookupAttributeKey,
+    -- | Specifies a value for the specified AttributeKey.
+    attributeValue :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LookupAttribute' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LookupAttribute' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'laAttributeKey' - Specifies an attribute on which to filter the events returned.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'laAttributeValue' - Specifies a value for the specified AttributeKey.
-lookupAttribute ::
-  -- | 'laAttributeKey'
+-- 'attributeKey', 'lookupAttribute_attributeKey' - Specifies an attribute on which to filter the events returned.
+--
+-- 'attributeValue', 'lookupAttribute_attributeValue' - Specifies a value for the specified AttributeKey.
+newLookupAttribute ::
+  -- | 'attributeKey'
   LookupAttributeKey ->
-  -- | 'laAttributeValue'
-  Text ->
+  -- | 'attributeValue'
+  Prelude.Text ->
   LookupAttribute
-lookupAttribute pAttributeKey_ pAttributeValue_ =
+newLookupAttribute pAttributeKey_ pAttributeValue_ =
   LookupAttribute'
-    { _laAttributeKey = pAttributeKey_,
-      _laAttributeValue = pAttributeValue_
+    { attributeKey = pAttributeKey_,
+      attributeValue = pAttributeValue_
     }
 
 -- | Specifies an attribute on which to filter the events returned.
-laAttributeKey :: Lens' LookupAttribute LookupAttributeKey
-laAttributeKey = lens _laAttributeKey (\s a -> s {_laAttributeKey = a})
+lookupAttribute_attributeKey :: Lens.Lens' LookupAttribute LookupAttributeKey
+lookupAttribute_attributeKey = Lens.lens (\LookupAttribute' {attributeKey} -> attributeKey) (\s@LookupAttribute' {} a -> s {attributeKey = a} :: LookupAttribute)
 
 -- | Specifies a value for the specified AttributeKey.
-laAttributeValue :: Lens' LookupAttribute Text
-laAttributeValue = lens _laAttributeValue (\s a -> s {_laAttributeValue = a})
+lookupAttribute_attributeValue :: Lens.Lens' LookupAttribute Prelude.Text
+lookupAttribute_attributeValue = Lens.lens (\LookupAttribute' {attributeValue} -> attributeValue) (\s@LookupAttribute' {} a -> s {attributeValue = a} :: LookupAttribute)
 
-instance Hashable LookupAttribute
+instance Prelude.Hashable LookupAttribute
 
-instance NFData LookupAttribute
+instance Prelude.NFData LookupAttribute
 
-instance ToJSON LookupAttribute where
+instance Prelude.ToJSON LookupAttribute where
   toJSON LookupAttribute' {..} =
-    object
-      ( catMaybes
-          [ Just ("AttributeKey" .= _laAttributeKey),
-            Just ("AttributeValue" .= _laAttributeValue)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("AttributeKey" Prelude..= attributeKey),
+            Prelude.Just
+              ("AttributeValue" Prelude..= attributeValue)
           ]
       )

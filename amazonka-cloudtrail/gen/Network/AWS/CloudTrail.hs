@@ -11,16 +11,34 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- __AWS CloudTrail__
+-- AWS CloudTrail
 --
--- This is the CloudTrail API Reference. It provides descriptions of actions, data types, common parameters, and common errors for CloudTrail.
+-- This is the CloudTrail API Reference. It provides descriptions of
+-- actions, data types, common parameters, and common errors for
+-- CloudTrail.
 --
--- CloudTrail is a web service that records AWS API calls for your AWS account and delivers log files to an Amazon S3 bucket. The recorded information includes the identity of the user, the start time of the AWS API call, the source IP address, the request parameters, and the response elements returned by the service.
+-- CloudTrail is a web service that records AWS API calls for your AWS
+-- account and delivers log files to an Amazon S3 bucket. The recorded
+-- information includes the identity of the user, the start time of the AWS
+-- API call, the source IP address, the request parameters, and the
+-- response elements returned by the service.
 --
--- See the <https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html AWS CloudTrail User Guide> for information about the data that is included with each AWS API call listed in the log files.
+-- As an alternative to the API, you can use one of the AWS SDKs, which
+-- consist of libraries and sample code for various programming languages
+-- and platforms (Java, Ruby, .NET, iOS, Android, etc.). The SDKs provide a
+-- convenient way to create programmatic access to AWSCloudTrail. For
+-- example, the SDKs take care of cryptographically signing requests,
+-- managing errors, and retrying requests automatically. For information
+-- about the AWS SDKs, including how to download and install them, see the
+-- <http://aws.amazon.com/tools/ Tools for Amazon Web Services page>.
+--
+-- See the
+-- <https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html AWS CloudTrail User Guide>
+-- for information about the data that is included with each AWS API call
+-- listed in the log files.
 module Network.AWS.CloudTrail
   ( -- * Service Configuration
-    cloudTrail,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -28,8 +46,8 @@ module Network.AWS.CloudTrail
     -- ** InsufficientDependencyServiceAccessPermissionException
     _InsufficientDependencyServiceAccessPermissionException,
 
-    -- ** InvalidCloudWatchLogsLogGroupARNException
-    _InvalidCloudWatchLogsLogGroupARNException,
+    -- ** InvalidCloudWatchLogsLogGroupArnException
+    _InvalidCloudWatchLogsLogGroupArnException,
 
     -- ** TrailNotProvidedException
     _TrailNotProvidedException,
@@ -43,8 +61,8 @@ module Network.AWS.CloudTrail
     -- ** InsightNotEnabledException
     _InsightNotEnabledException,
 
-    -- ** KMSKeyNotFoundException
-    _KMSKeyNotFoundException,
+    -- ** KmsKeyNotFoundException
+    _KmsKeyNotFoundException,
 
     -- ** ResourceTypeNotSupportedException
     _ResourceTypeNotSupportedException,
@@ -70,8 +88,8 @@ module Network.AWS.CloudTrail
     -- ** TagsLimitExceededException
     _TagsLimitExceededException,
 
-    -- ** KMSKeyDisabledException
-    _KMSKeyDisabledException,
+    -- ** KmsKeyDisabledException
+    _KmsKeyDisabledException,
 
     -- ** OperationNotPermittedException
     _OperationNotPermittedException,
@@ -82,8 +100,8 @@ module Network.AWS.CloudTrail
     -- ** InsufficientEncryptionPolicyException
     _InsufficientEncryptionPolicyException,
 
-    -- ** InsufficientSNSTopicPolicyException
-    _InsufficientSNSTopicPolicyException,
+    -- ** InsufficientSnsTopicPolicyException
+    _InsufficientSnsTopicPolicyException,
 
     -- ** S3BucketDoesNotExistException
     _S3BucketDoesNotExistException,
@@ -112,8 +130,8 @@ module Network.AWS.CloudTrail
     -- ** ConflictException
     _ConflictException,
 
-    -- ** InvalidKMSKeyIdException
-    _InvalidKMSKeyIdException,
+    -- ** InvalidKmsKeyIdException
+    _InvalidKmsKeyIdException,
 
     -- ** InvalidHomeRegionException
     _InvalidHomeRegionException,
@@ -127,8 +145,8 @@ module Network.AWS.CloudTrail
     -- ** OrganizationsNotInUseException
     _OrganizationsNotInUseException,
 
-    -- ** InvalidSNSTopicNameException
-    _InvalidSNSTopicNameException,
+    -- ** InvalidSnsTopicNameException
+    _InvalidSnsTopicNameException,
 
     -- ** ResourceNotFoundException
     _ResourceNotFoundException,
@@ -142,8 +160,8 @@ module Network.AWS.CloudTrail
     -- ** CloudTrailAccessNotEnabledException
     _CloudTrailAccessNotEnabledException,
 
-    -- ** InvalidCloudWatchLogsRoleARNException
-    _InvalidCloudWatchLogsRoleARNException,
+    -- ** InvalidCloudWatchLogsRoleArnException
+    _InvalidCloudWatchLogsRoleArnException,
 
     -- ** CloudTrailARNInvalidException
     _CloudTrailARNInvalidException,
@@ -154,8 +172,8 @@ module Network.AWS.CloudTrail
     -- ** InvalidEventCategoryException
     _InvalidEventCategoryException,
 
-    -- ** KMSException
-    _KMSException,
+    -- ** KmsException
+    _KmsException,
 
     -- * Waiters
     -- $waiters
@@ -164,58 +182,112 @@ module Network.AWS.CloudTrail
     -- $operations
 
     -- ** RemoveTags
-    module Network.AWS.CloudTrail.RemoveTags,
+    RemoveTags (RemoveTags'),
+    newRemoveTags,
+    RemoveTagsResponse (RemoveTagsResponse'),
+    newRemoveTagsResponse,
 
     -- ** ListPublicKeys (Paginated)
-    module Network.AWS.CloudTrail.ListPublicKeys,
+    ListPublicKeys (ListPublicKeys'),
+    newListPublicKeys,
+    ListPublicKeysResponse (ListPublicKeysResponse'),
+    newListPublicKeysResponse,
 
     -- ** GetEventSelectors
-    module Network.AWS.CloudTrail.GetEventSelectors,
+    GetEventSelectors (GetEventSelectors'),
+    newGetEventSelectors,
+    GetEventSelectorsResponse (GetEventSelectorsResponse'),
+    newGetEventSelectorsResponse,
 
     -- ** DescribeTrails
-    module Network.AWS.CloudTrail.DescribeTrails,
+    DescribeTrails (DescribeTrails'),
+    newDescribeTrails,
+    DescribeTrailsResponse (DescribeTrailsResponse'),
+    newDescribeTrailsResponse,
 
     -- ** CreateTrail
-    module Network.AWS.CloudTrail.CreateTrail,
+    CreateTrail (CreateTrail'),
+    newCreateTrail,
+    CreateTrailResponse (CreateTrailResponse'),
+    newCreateTrailResponse,
 
     -- ** PutEventSelectors
-    module Network.AWS.CloudTrail.PutEventSelectors,
+    PutEventSelectors (PutEventSelectors'),
+    newPutEventSelectors,
+    PutEventSelectorsResponse (PutEventSelectorsResponse'),
+    newPutEventSelectorsResponse,
 
     -- ** AddTags
-    module Network.AWS.CloudTrail.AddTags,
+    AddTags (AddTags'),
+    newAddTags,
+    AddTagsResponse (AddTagsResponse'),
+    newAddTagsResponse,
 
     -- ** GetTrail
-    module Network.AWS.CloudTrail.GetTrail,
+    GetTrail (GetTrail'),
+    newGetTrail,
+    GetTrailResponse (GetTrailResponse'),
+    newGetTrailResponse,
 
     -- ** PutInsightSelectors
-    module Network.AWS.CloudTrail.PutInsightSelectors,
+    PutInsightSelectors (PutInsightSelectors'),
+    newPutInsightSelectors,
+    PutInsightSelectorsResponse (PutInsightSelectorsResponse'),
+    newPutInsightSelectorsResponse,
 
     -- ** GetInsightSelectors
-    module Network.AWS.CloudTrail.GetInsightSelectors,
+    GetInsightSelectors (GetInsightSelectors'),
+    newGetInsightSelectors,
+    GetInsightSelectorsResponse (GetInsightSelectorsResponse'),
+    newGetInsightSelectorsResponse,
 
     -- ** StopLogging
-    module Network.AWS.CloudTrail.StopLogging,
+    StopLogging (StopLogging'),
+    newStopLogging,
+    StopLoggingResponse (StopLoggingResponse'),
+    newStopLoggingResponse,
 
     -- ** DeleteTrail
-    module Network.AWS.CloudTrail.DeleteTrail,
+    DeleteTrail (DeleteTrail'),
+    newDeleteTrail,
+    DeleteTrailResponse (DeleteTrailResponse'),
+    newDeleteTrailResponse,
 
     -- ** StartLogging
-    module Network.AWS.CloudTrail.StartLogging,
+    StartLogging (StartLogging'),
+    newStartLogging,
+    StartLoggingResponse (StartLoggingResponse'),
+    newStartLoggingResponse,
 
     -- ** UpdateTrail
-    module Network.AWS.CloudTrail.UpdateTrail,
+    UpdateTrail (UpdateTrail'),
+    newUpdateTrail,
+    UpdateTrailResponse (UpdateTrailResponse'),
+    newUpdateTrailResponse,
 
     -- ** ListTags (Paginated)
-    module Network.AWS.CloudTrail.ListTags,
+    ListTags (ListTags'),
+    newListTags,
+    ListTagsResponse (ListTagsResponse'),
+    newListTagsResponse,
 
     -- ** ListTrails (Paginated)
-    module Network.AWS.CloudTrail.ListTrails,
+    ListTrails (ListTrails'),
+    newListTrails,
+    ListTrailsResponse (ListTrailsResponse'),
+    newListTrailsResponse,
 
     -- ** GetTrailStatus
-    module Network.AWS.CloudTrail.GetTrailStatus,
+    GetTrailStatus (GetTrailStatus'),
+    newGetTrailStatus,
+    GetTrailStatusResponse (GetTrailStatusResponse'),
+    newGetTrailStatusResponse,
 
     -- ** LookupEvents (Paginated)
-    module Network.AWS.CloudTrail.LookupEvents,
+    LookupEvents (LookupEvents'),
+    newLookupEvents,
+    LookupEventsResponse (LookupEventsResponse'),
+    newLookupEventsResponse,
 
     -- * Types
 
@@ -232,112 +304,56 @@ module Network.AWS.CloudTrail
     ReadWriteType (..),
 
     -- ** AdvancedEventSelector
-    AdvancedEventSelector,
-    advancedEventSelector,
-    aesName,
-    aesFieldSelectors,
+    AdvancedEventSelector (AdvancedEventSelector'),
+    newAdvancedEventSelector,
 
     -- ** AdvancedFieldSelector
-    AdvancedFieldSelector,
-    advancedFieldSelector,
-    afsNotStartsWith,
-    afsNotEndsWith,
-    afsNotEquals,
-    afsEquals,
-    afsStartsWith,
-    afsEndsWith,
-    afsField,
+    AdvancedFieldSelector (AdvancedFieldSelector'),
+    newAdvancedFieldSelector,
 
     -- ** DataResource
-    DataResource,
-    dataResource,
-    drValues,
-    drType,
+    DataResource (DataResource'),
+    newDataResource,
 
     -- ** Event
-    Event,
-    event,
-    eCloudTrailEvent,
-    eEventId,
-    eEventSource,
-    eReadOnly,
-    eEventName,
-    eResources,
-    eEventTime,
-    eAccessKeyId,
-    eUsername,
+    Event (Event'),
+    newEvent,
 
     -- ** EventSelector
-    EventSelector,
-    eventSelector,
-    esReadWriteType,
-    esExcludeManagementEventSources,
-    esIncludeManagementEvents,
-    esDataResources,
+    EventSelector (EventSelector'),
+    newEventSelector,
 
     -- ** InsightSelector
-    InsightSelector,
-    insightSelector,
-    isInsightType,
+    InsightSelector (InsightSelector'),
+    newInsightSelector,
 
     -- ** LookupAttribute
-    LookupAttribute,
-    lookupAttribute,
-    laAttributeKey,
-    laAttributeValue,
+    LookupAttribute (LookupAttribute'),
+    newLookupAttribute,
 
     -- ** PublicKey
-    PublicKey,
-    publicKey,
-    pkValidityStartTime,
-    pkValue,
-    pkValidityEndTime,
-    pkFingerprint,
+    PublicKey (PublicKey'),
+    newPublicKey,
 
     -- ** Resource
-    Resource,
-    resource,
-    rResourceType,
-    rResourceName,
+    Resource (Resource'),
+    newResource,
 
     -- ** ResourceTag
-    ResourceTag,
-    resourceTag,
-    rResourceId,
-    rTagsList,
+    ResourceTag (ResourceTag'),
+    newResourceTag,
 
     -- ** Tag
-    Tag,
-    tag,
-    tagValue,
-    tagKey,
+    Tag (Tag'),
+    newTag,
 
     -- ** Trail
-    Trail,
-    trail,
-    tTrailARN,
-    tLogFileValidationEnabled,
-    tIsOrganizationTrail,
-    tHasCustomEventSelectors,
-    tSNSTopicName,
-    tIncludeGlobalServiceEvents,
-    tHomeRegion,
-    tKMSKeyId,
-    tS3KeyPrefix,
-    tName,
-    tCloudWatchLogsLogGroupARN,
-    tIsMultiRegionTrail,
-    tS3BucketName,
-    tCloudWatchLogsRoleARN,
-    tSNSTopicARN,
-    tHasInsightSelectors,
+    Trail (Trail'),
+    newTrail,
 
     -- ** TrailInfo
-    TrailInfo,
-    trailInfo,
-    tiTrailARN,
-    tiHomeRegion,
-    tiName,
+    TrailInfo (TrailInfo'),
+    newTrailInfo,
   )
 where
 
@@ -349,6 +365,7 @@ import Network.AWS.CloudTrail.GetEventSelectors
 import Network.AWS.CloudTrail.GetInsightSelectors
 import Network.AWS.CloudTrail.GetTrail
 import Network.AWS.CloudTrail.GetTrailStatus
+import Network.AWS.CloudTrail.Lens
 import Network.AWS.CloudTrail.ListPublicKeys
 import Network.AWS.CloudTrail.ListTags
 import Network.AWS.CloudTrail.ListTrails

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,63 +19,68 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CloudTrail.Types.TrailInfo where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Information about a CloudTrail trail, including the trail's name, home region, and Amazon Resource Name (ARN).
+-- | Information about a CloudTrail trail, including the trail\'s name, home
+-- region, and Amazon Resource Name (ARN).
 --
---
---
--- /See:/ 'trailInfo' smart constructor.
+-- /See:/ 'newTrailInfo' smart constructor.
 data TrailInfo = TrailInfo'
-  { _tiTrailARN ::
-      !(Maybe Text),
-    _tiHomeRegion :: !(Maybe Text),
-    _tiName :: !(Maybe Text)
+  { -- | The ARN of a trail.
+    trailARN :: Prelude.Maybe Prelude.Text,
+    -- | The AWS region in which a trail was created.
+    homeRegion :: Prelude.Maybe Prelude.Text,
+    -- | The name of a trail.
+    name :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TrailInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TrailInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tiTrailARN' - The ARN of a trail.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tiHomeRegion' - The AWS region in which a trail was created.
+-- 'trailARN', 'trailInfo_trailARN' - The ARN of a trail.
 --
--- * 'tiName' - The name of a trail.
-trailInfo ::
+-- 'homeRegion', 'trailInfo_homeRegion' - The AWS region in which a trail was created.
+--
+-- 'name', 'trailInfo_name' - The name of a trail.
+newTrailInfo ::
   TrailInfo
-trailInfo =
+newTrailInfo =
   TrailInfo'
-    { _tiTrailARN = Nothing,
-      _tiHomeRegion = Nothing,
-      _tiName = Nothing
+    { trailARN = Prelude.Nothing,
+      homeRegion = Prelude.Nothing,
+      name = Prelude.Nothing
     }
 
 -- | The ARN of a trail.
-tiTrailARN :: Lens' TrailInfo (Maybe Text)
-tiTrailARN = lens _tiTrailARN (\s a -> s {_tiTrailARN = a})
+trailInfo_trailARN :: Lens.Lens' TrailInfo (Prelude.Maybe Prelude.Text)
+trailInfo_trailARN = Lens.lens (\TrailInfo' {trailARN} -> trailARN) (\s@TrailInfo' {} a -> s {trailARN = a} :: TrailInfo)
 
 -- | The AWS region in which a trail was created.
-tiHomeRegion :: Lens' TrailInfo (Maybe Text)
-tiHomeRegion = lens _tiHomeRegion (\s a -> s {_tiHomeRegion = a})
+trailInfo_homeRegion :: Lens.Lens' TrailInfo (Prelude.Maybe Prelude.Text)
+trailInfo_homeRegion = Lens.lens (\TrailInfo' {homeRegion} -> homeRegion) (\s@TrailInfo' {} a -> s {homeRegion = a} :: TrailInfo)
 
 -- | The name of a trail.
-tiName :: Lens' TrailInfo (Maybe Text)
-tiName = lens _tiName (\s a -> s {_tiName = a})
+trailInfo_name :: Lens.Lens' TrailInfo (Prelude.Maybe Prelude.Text)
+trailInfo_name = Lens.lens (\TrailInfo' {name} -> name) (\s@TrailInfo' {} a -> s {name = a} :: TrailInfo)
 
-instance FromJSON TrailInfo where
+instance Prelude.FromJSON TrailInfo where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TrailInfo"
       ( \x ->
           TrailInfo'
-            <$> (x .:? "TrailARN")
-            <*> (x .:? "HomeRegion")
-            <*> (x .:? "Name")
+            Prelude.<$> (x Prelude..:? "TrailARN")
+            Prelude.<*> (x Prelude..:? "HomeRegion")
+            Prelude.<*> (x Prelude..:? "Name")
       )
 
-instance Hashable TrailInfo
+instance Prelude.Hashable TrailInfo
 
-instance NFData TrailInfo
+instance Prelude.NFData TrailInfo

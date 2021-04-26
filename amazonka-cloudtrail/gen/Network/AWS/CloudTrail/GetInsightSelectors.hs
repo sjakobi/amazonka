@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,158 +21,223 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes the settings for the Insights event selectors that you configured for your trail. @GetInsightSelectors@ shows if CloudTrail Insights event logging is enabled on the trail, and if it is, which insight types are enabled. If you run @GetInsightSelectors@ on a trail that does not have Insights events enabled, the operation throws the exception @InsightNotEnabledException@
+-- Describes the settings for the Insights event selectors that you
+-- configured for your trail. @GetInsightSelectors@ shows if CloudTrail
+-- Insights event logging is enabled on the trail, and if it is, which
+-- insight types are enabled. If you run @GetInsightSelectors@ on a trail
+-- that does not have Insights events enabled, the operation throws the
+-- exception @InsightNotEnabledException@
 --
---
--- For more information, see <https://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-insights-events-with-cloudtrail.html Logging CloudTrail Insights Events for Trails > in the /AWS CloudTrail User Guide/ .
+-- For more information, see
+-- <https://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-insights-events-with-cloudtrail.html Logging CloudTrail Insights Events for Trails>
+-- in the /AWS CloudTrail User Guide/.
 module Network.AWS.CloudTrail.GetInsightSelectors
   ( -- * Creating a Request
-    getInsightSelectors,
-    GetInsightSelectors,
+    GetInsightSelectors (..),
+    newGetInsightSelectors,
 
     -- * Request Lenses
-    gisTrailName,
+    getInsightSelectors_trailName,
 
     -- * Destructuring the Response
-    getInsightSelectorsResponse,
-    GetInsightSelectorsResponse,
+    GetInsightSelectorsResponse (..),
+    newGetInsightSelectorsResponse,
 
     -- * Response Lenses
-    gisrrsTrailARN,
-    gisrrsInsightSelectors,
-    gisrrsResponseStatus,
+    getInsightSelectorsResponse_trailARN,
+    getInsightSelectorsResponse_insightSelectors,
+    getInsightSelectorsResponse_httpStatus,
   )
 where
 
 import Network.AWS.CloudTrail.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CloudTrail.Types.InsightSelector
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getInsightSelectors' smart constructor.
-newtype GetInsightSelectors = GetInsightSelectors'
-  { _gisTrailName ::
-      Text
+-- | /See:/ 'newGetInsightSelectors' smart constructor.
+data GetInsightSelectors = GetInsightSelectors'
+  { -- | Specifies the name of the trail or trail ARN. If you specify a trail
+    -- name, the string must meet the following requirements:
+    --
+    -- -   Contain only ASCII letters (a-z, A-Z), numbers (0-9), periods (.),
+    --     underscores (_), or dashes (-)
+    --
+    -- -   Start with a letter or number, and end with a letter or number
+    --
+    -- -   Be between 3 and 128 characters
+    --
+    -- -   Have no adjacent periods, underscores or dashes. Names like
+    --     @my-_namespace@ and @my--namespace@ are not valid.
+    --
+    -- -   Not be in IP address format (for example, 192.168.5.4)
+    --
+    -- If you specify a trail ARN, it must be in the format:
+    --
+    -- @arn:aws:cloudtrail:us-east-2:123456789012:trail\/MyTrail@
+    trailName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetInsightSelectors' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetInsightSelectors' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gisTrailName' - Specifies the name of the trail or trail ARN. If you specify a trail name, the string must meet the following requirements:     * Contain only ASCII letters (a-z, A-Z), numbers (0-9), periods (.), underscores (_), or dashes (-)     * Start with a letter or number, and end with a letter or number     * Be between 3 and 128 characters     * Have no adjacent periods, underscores or dashes. Names like @my-_namespace@ and @my--namespace@ are not valid.     * Not be in IP address format (for example, 192.168.5.4) If you specify a trail ARN, it must be in the format: @arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail@
-getInsightSelectors ::
-  -- | 'gisTrailName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'trailName', 'getInsightSelectors_trailName' - Specifies the name of the trail or trail ARN. If you specify a trail
+-- name, the string must meet the following requirements:
+--
+-- -   Contain only ASCII letters (a-z, A-Z), numbers (0-9), periods (.),
+--     underscores (_), or dashes (-)
+--
+-- -   Start with a letter or number, and end with a letter or number
+--
+-- -   Be between 3 and 128 characters
+--
+-- -   Have no adjacent periods, underscores or dashes. Names like
+--     @my-_namespace@ and @my--namespace@ are not valid.
+--
+-- -   Not be in IP address format (for example, 192.168.5.4)
+--
+-- If you specify a trail ARN, it must be in the format:
+--
+-- @arn:aws:cloudtrail:us-east-2:123456789012:trail\/MyTrail@
+newGetInsightSelectors ::
+  -- | 'trailName'
+  Prelude.Text ->
   GetInsightSelectors
-getInsightSelectors pTrailName_ =
-  GetInsightSelectors' {_gisTrailName = pTrailName_}
+newGetInsightSelectors pTrailName_ =
+  GetInsightSelectors' {trailName = pTrailName_}
 
--- | Specifies the name of the trail or trail ARN. If you specify a trail name, the string must meet the following requirements:     * Contain only ASCII letters (a-z, A-Z), numbers (0-9), periods (.), underscores (_), or dashes (-)     * Start with a letter or number, and end with a letter or number     * Be between 3 and 128 characters     * Have no adjacent periods, underscores or dashes. Names like @my-_namespace@ and @my--namespace@ are not valid.     * Not be in IP address format (for example, 192.168.5.4) If you specify a trail ARN, it must be in the format: @arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail@
-gisTrailName :: Lens' GetInsightSelectors Text
-gisTrailName = lens _gisTrailName (\s a -> s {_gisTrailName = a})
+-- | Specifies the name of the trail or trail ARN. If you specify a trail
+-- name, the string must meet the following requirements:
+--
+-- -   Contain only ASCII letters (a-z, A-Z), numbers (0-9), periods (.),
+--     underscores (_), or dashes (-)
+--
+-- -   Start with a letter or number, and end with a letter or number
+--
+-- -   Be between 3 and 128 characters
+--
+-- -   Have no adjacent periods, underscores or dashes. Names like
+--     @my-_namespace@ and @my--namespace@ are not valid.
+--
+-- -   Not be in IP address format (for example, 192.168.5.4)
+--
+-- If you specify a trail ARN, it must be in the format:
+--
+-- @arn:aws:cloudtrail:us-east-2:123456789012:trail\/MyTrail@
+getInsightSelectors_trailName :: Lens.Lens' GetInsightSelectors Prelude.Text
+getInsightSelectors_trailName = Lens.lens (\GetInsightSelectors' {trailName} -> trailName) (\s@GetInsightSelectors' {} a -> s {trailName = a} :: GetInsightSelectors)
 
-instance AWSRequest GetInsightSelectors where
+instance Prelude.AWSRequest GetInsightSelectors where
   type
     Rs GetInsightSelectors =
       GetInsightSelectorsResponse
-  request = postJSON cloudTrail
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetInsightSelectorsResponse'
-            <$> (x .?> "TrailARN")
-            <*> (x .?> "InsightSelectors" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "TrailARN")
+            Prelude.<*> ( x Prelude..?> "InsightSelectors"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetInsightSelectors
+instance Prelude.Hashable GetInsightSelectors
 
-instance NFData GetInsightSelectors
+instance Prelude.NFData GetInsightSelectors
 
-instance ToHeaders GetInsightSelectors where
+instance Prelude.ToHeaders GetInsightSelectors where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "com.amazonaws.cloudtrail.v20131101.CloudTrail_20131101.GetInsightSelectors" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "com.amazonaws.cloudtrail.v20131101.CloudTrail_20131101.GetInsightSelectors" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetInsightSelectors where
+instance Prelude.ToJSON GetInsightSelectors where
   toJSON GetInsightSelectors' {..} =
-    object
-      (catMaybes [Just ("TrailName" .= _gisTrailName)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("TrailName" Prelude..= trailName)]
+      )
 
-instance ToPath GetInsightSelectors where
-  toPath = const "/"
+instance Prelude.ToPath GetInsightSelectors where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetInsightSelectors where
-  toQuery = const mempty
+instance Prelude.ToQuery GetInsightSelectors where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getInsightSelectorsResponse' smart constructor.
+-- | /See:/ 'newGetInsightSelectorsResponse' smart constructor.
 data GetInsightSelectorsResponse = GetInsightSelectorsResponse'
-  { _gisrrsTrailARN ::
-      !(Maybe Text),
-    _gisrrsInsightSelectors ::
-      !( Maybe
-           [InsightSelector]
-       ),
-    _gisrrsResponseStatus ::
-      !Int
+  { -- | The Amazon Resource Name (ARN) of a trail for which you want to get
+    -- Insights selectors.
+    trailARN :: Prelude.Maybe Prelude.Text,
+    -- | A JSON string that contains the insight types you want to log on a
+    -- trail. In this release, only @ApiCallRateInsight@ is supported as an
+    -- insight type.
+    insightSelectors :: Prelude.Maybe [InsightSelector],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetInsightSelectorsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetInsightSelectorsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gisrrsTrailARN' - The Amazon Resource Name (ARN) of a trail for which you want to get Insights selectors.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gisrrsInsightSelectors' - A JSON string that contains the insight types you want to log on a trail. In this release, only @ApiCallRateInsight@ is supported as an insight type.
+-- 'trailARN', 'getInsightSelectorsResponse_trailARN' - The Amazon Resource Name (ARN) of a trail for which you want to get
+-- Insights selectors.
 --
--- * 'gisrrsResponseStatus' - -- | The response status code.
-getInsightSelectorsResponse ::
-  -- | 'gisrrsResponseStatus'
-  Int ->
+-- 'insightSelectors', 'getInsightSelectorsResponse_insightSelectors' - A JSON string that contains the insight types you want to log on a
+-- trail. In this release, only @ApiCallRateInsight@ is supported as an
+-- insight type.
+--
+-- 'httpStatus', 'getInsightSelectorsResponse_httpStatus' - The response's http status code.
+newGetInsightSelectorsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetInsightSelectorsResponse
-getInsightSelectorsResponse pResponseStatus_ =
+newGetInsightSelectorsResponse pHttpStatus_ =
   GetInsightSelectorsResponse'
-    { _gisrrsTrailARN =
-        Nothing,
-      _gisrrsInsightSelectors = Nothing,
-      _gisrrsResponseStatus = pResponseStatus_
+    { trailARN =
+        Prelude.Nothing,
+      insightSelectors = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The Amazon Resource Name (ARN) of a trail for which you want to get Insights selectors.
-gisrrsTrailARN :: Lens' GetInsightSelectorsResponse (Maybe Text)
-gisrrsTrailARN = lens _gisrrsTrailARN (\s a -> s {_gisrrsTrailARN = a})
+-- | The Amazon Resource Name (ARN) of a trail for which you want to get
+-- Insights selectors.
+getInsightSelectorsResponse_trailARN :: Lens.Lens' GetInsightSelectorsResponse (Prelude.Maybe Prelude.Text)
+getInsightSelectorsResponse_trailARN = Lens.lens (\GetInsightSelectorsResponse' {trailARN} -> trailARN) (\s@GetInsightSelectorsResponse' {} a -> s {trailARN = a} :: GetInsightSelectorsResponse)
 
--- | A JSON string that contains the insight types you want to log on a trail. In this release, only @ApiCallRateInsight@ is supported as an insight type.
-gisrrsInsightSelectors :: Lens' GetInsightSelectorsResponse [InsightSelector]
-gisrrsInsightSelectors = lens _gisrrsInsightSelectors (\s a -> s {_gisrrsInsightSelectors = a}) . _Default . _Coerce
+-- | A JSON string that contains the insight types you want to log on a
+-- trail. In this release, only @ApiCallRateInsight@ is supported as an
+-- insight type.
+getInsightSelectorsResponse_insightSelectors :: Lens.Lens' GetInsightSelectorsResponse (Prelude.Maybe [InsightSelector])
+getInsightSelectorsResponse_insightSelectors = Lens.lens (\GetInsightSelectorsResponse' {insightSelectors} -> insightSelectors) (\s@GetInsightSelectorsResponse' {} a -> s {insightSelectors = a} :: GetInsightSelectorsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-gisrrsResponseStatus :: Lens' GetInsightSelectorsResponse Int
-gisrrsResponseStatus = lens _gisrrsResponseStatus (\s a -> s {_gisrrsResponseStatus = a})
+-- | The response's http status code.
+getInsightSelectorsResponse_httpStatus :: Lens.Lens' GetInsightSelectorsResponse Prelude.Int
+getInsightSelectorsResponse_httpStatus = Lens.lens (\GetInsightSelectorsResponse' {httpStatus} -> httpStatus) (\s@GetInsightSelectorsResponse' {} a -> s {httpStatus = a} :: GetInsightSelectorsResponse)
 
-instance NFData GetInsightSelectorsResponse
+instance Prelude.NFData GetInsightSelectorsResponse
